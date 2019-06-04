@@ -39,7 +39,7 @@ const getActions = (isRSS, res, newsItem) => !isRSS
 	&& createActions(newsItem, '/news/');
 
 const getDeleteHandler = service => (req, res, next) => {
-	api(req).delete(`/${service}/${req.params.id}`).then((_) => {
+	api(req).delete(`/${service}/${req.params.id}`).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		next(err);
@@ -64,7 +64,7 @@ router.post('/', (req, res, next) => {
 	api(req).post('/news/', {
 		// TODO: sanitize
 		json: body,
-	}).then((data) => {
+	}).then(() => {
 		if (body.context) {
 			res.redirect(`/${body.context}/${body.contextId}`);
 		} else {
