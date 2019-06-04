@@ -4,9 +4,6 @@
 
 const express = require('express');
 const moment = require('moment');
-const marked = require('marked');
-const handlebars = require('handlebars');
-const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
@@ -15,38 +12,38 @@ moment.locale('de');
 
 router.use(authHelper.authChecker);
 
-const getActions = (item, path) => {
-	return [
-		{
-			link: path + item._id + "/edit",
-			class: 'btn-edit',
-			icon: 'edit',
-			method: 'GET',
-			alt: 'bearbeiten'
-		},
-		{
-			link: path + item._id,
-			class: 'btn-delete',
-			icon: 'trash-o',
-			method: 'DELETE',
-			alt: 'löschen'
-		}
-	];
+const createActions = (item, path) => [
+	{
+		link: `${path + item._id}/edit`,
+		class: 'btn-edit',
+		icon: 'edit',
+		method: 'GET',
+		alt: 'bearbeiten',
+	},
+	{
+		link: path + item._id,
+		class: 'btn-delete',
+		icon: 'trash-o',
+		method: 'DELETE',
+		alt: 'löschen',
+	},
+];
+
+const getActions = (isRSS, res, newsItem) => !isRSS
+	&& res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')
+	&& createActions(newsItem, '/news/');
+
+const getDeleteHandler = service => (req, res, next) => {
+	api(req).delete(`/${service}/${req.params.id}`).then((_) => {
+		res.sendStatus(200);
+	}).catch((err) => {
+		next(err);
+	});
 };
 
-const getDeleteHandler = (service) => {
-	return (req, res, next) => {
-		api(req).delete('/' + service + '/' + req.params.id).then(_ => {
-			res.sendStatus(200);
-		}).catch(err => {
-			next(err);
-		});
-	};
-};
-
-router.post('/', function (req, res, next) {
-	let { body } = req;
-	if (body.displayAt && body.displayAt != "__.__.____ __:__") { // rewrite german format to ISO
+router.post('/', (req, res, next) => {
+	const { body } = req;
+	if (body.displayAt && body.displayAt !== '__.__.____ __:__') { // rewrite german format to ISO
 		body.displayAt = moment(body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
 	} else {
 		body.displayAt = undefined;
@@ -61,14 +58,14 @@ router.post('/', function (req, res, next) {
 
 	api(req).post('/news/', {
 		// TODO: sanitize
-		json: body
-	}).then(data => {
+		json: body,
+	}).then((data) => {
 		if (body.context) {
-			res.redirect(`/${body.context}/` + body.contextId);
+			res.redirect(`/${body.context}/${body.contextId}`);
 		} else {
 			res.redirect('/news');
 		}
-	}).catch(err => {
+	}).catch((err) => {
 		next(err);
 	});
 });
@@ -77,11 +74,11 @@ router.patch('/:newsId', (req, res, next) => {
 	req.body.updatedAt = moment().toISOString();
 	req.body.updaterId = res.locals.currentUser._id;
 
-	api(req).patch('/news/' + req.params.newsId, {
-		json: req.body
+	api(req).patch(`/news/${req.params.newsId}`, {
+		json: req.body,
 	}).then(() => {
 		res.redirect('/news');
-	}).catch(err => {
+	}).catch((err) => {
 		next(err);
 	});
 });
@@ -94,19 +91,21 @@ router.all('/', async (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 
 
-	let queryObject = {
+	const queryObject = {
 		$limit: itemsPerPage,
-		displayAt: (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) ? {} : { $lte: new Date().getTime() },
+		displayAt: (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT'))
+			? {}
+			: { $lte: new Date().getTime() },
 		$skip: (itemsPerPage * (currentPage - 1)),
 		$sort: '-displayAt',
 		title: { $regex: query, $options: 'i' },
-		$populate: ['target']
+		$populate: ['target'],
 	};
 
 	if (!query) delete queryObject.title;
 
 	try {
-		const news = await api(req).get('/news/', { qs: queryObject })
+		const news = await api(req).get('/news/', { qs: queryObject });
 		const totalNews = news.total;
 		const mappedNews = news.data.map((newsItem) => {
 			const isRSS = newsItem.source === 'rss';
@@ -115,7 +114,7 @@ router.all('/', async (req, res, next) => {
 				isRSS,
 				url: `/news/${newsItem._id}`,
 				secondaryTitle: moment(newsItem.displayAt).fromNow(),
-				actions: !isRSS && res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT') && getActions(newsItem, '/news/'),
+				actions: getActions(isRSS, res, newsItem),
 			};
 		});
 
@@ -128,10 +127,8 @@ router.all('/', async (req, res, next) => {
 
 		let title = 'Neuigkeiten aus meiner Schule';
 		// ToDo: Hier kommen noch News für Kurse und Klassen rein.
-		switch (context) {
-			case 'teams': {
-				title = 'Neuigkeiten aus meinem Team';
-			}
+		if (context === 'teams') {
+			title = 'Neuigkeiten aus meinem Team';
 		}
 
 		res.render('news/overview', {
@@ -151,7 +148,7 @@ router.get('/new', (req, res, next) => {
 	const context = req.query.context || '';
 	const contextId = req.query.contextId || '';
 	res.render('news/edit', {
-		title: "News erstellen",
+		title: 'News erstellen',
 		submitLabel: 'Hinzufügen',
 		closeLabel: 'Abbrechen',
 		method: 'post',
@@ -168,25 +165,25 @@ router.get('/:newsId', (req, res, next) => {
 			$populate: ['creatorId', 'updaterId'],
 		},
 	}).then((news) => {
-		news.url = '/news/' + news._id;
+		news.url = `/news/${news._id}`;
 		res.render('news/article', { title: news.title, news, isRSS: news.source === 'rss' });
-	}).catch(err => {
+	}).catch((err) => {
 		next(err);
 	});
 });
 
-router.get('/:newsId/edit', function (req, res, next) {
-	api(req).get('/news/' + req.params.newsId, {}).then(news => {
+router.get('/:newsId/edit', (req, res, next) => {
+	api(req).get(`/news/${req.params.newsId}`, {}).then((news) => {
 		news.displayAt = moment(news.displayAt).format('DD.MM.YYYY HH:mm');
 		res.render('news/edit', {
-			title: "News bearbeiten",
+			title: 'News bearbeiten',
 			submitLabel: 'Speichern',
 			closeLabel: 'Abbrechen',
 			method: 'patch',
-			action: '/news/' + req.params.newsId,
-			news
+			action: `/news/${req.params.newsId}`,
+			news,
 		});
-	}).catch(err => {
+	}).catch((err) => {
 		next(err);
 	});
 });
