@@ -21,7 +21,7 @@ const createToolHandler = (req, res, next) => {
                     }
                 }
 			}).then((course) => {
-				res.redirect(`/${context}/${course._id}/tools/`);
+				res.redirect(`/${context}/${course._id}/?activeTab=tools`);
 			});
         }
     });
@@ -138,7 +138,7 @@ router.use(authHelper.authChecker);
 
 router.get('/', (req, res, next) => {
     const context = req.originalUrl.split('/')[1];
-    res.redirect(`/${context}/` + req.params.courseId + '/tools/');
+    res.redirect(`/${context}/` + req.params.courseId + '/?activeTab=tools');
 });
 
 router.get('/add', addToolHandler);

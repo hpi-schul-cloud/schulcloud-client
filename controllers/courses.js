@@ -416,7 +416,7 @@ router.get('/:courseId/usersJson', function (req, res, next) {
 
 // EDITOR
 
-router.get('/:courseId/:tabName?', function (req, res, next) {
+router.get('/:courseId/', function (req, res, next) {
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
             qs: {
@@ -469,7 +469,7 @@ router.get('/:courseId/:tabName?', function (req, res, next) {
 			
         res.render('courses/course', Object.assign({}, course, {
 			title: course.name,
-			activeTab: req.params.tabName,
+			activeTab: req.query.activeTab,
             lessons,
             homeworks: homeworks.filter(function (task) { return !task.private; }),
             myhomeworks: homeworks.filter(function (task) { return task.private; }),

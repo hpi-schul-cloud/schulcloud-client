@@ -78,6 +78,17 @@ const app = {
 			oldSection.classList.remove('active');
 			this.classList.add('active');
 			newSection.classList.add('active');
+
+			const params = new URLSearchParams(window.location.search);
+			const baseUrl = window.location.href.split('?')[0];
+			const lastChar = baseUrl[baseUrl.length - 1];
+			params.delete('activeTab');
+			params.set('activeTab', newTabSelector.replace('js-', ''));
+			if (lastChar === '/') {
+				window.history.replaceState('', '', `?${params.toString()}`);
+			} else {
+				window.history.replaceState('', '', `${baseUrl}/?${params.toString()}`);
+			}
 		},
 		// eslint-disable-next-line no-unused-vars
 		contain(container) {

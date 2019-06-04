@@ -432,7 +432,7 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
-router.get('/:teamId/:tabName?', async (req, res, next) => {
+router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
 		const permission = permissions.find(p => p.roleName === role);
@@ -580,7 +580,7 @@ router.get('/:teamId/:tabName?', async (req, res, next) => {
 			'teams/team',
 			Object.assign({}, course, {
 				title: course.name,
-				activeTab: req.params.tabName,
+				activeTab: req.query.activeTab,
 				breadcrumb: [
 					{
 						title: 'Meine Teams',
