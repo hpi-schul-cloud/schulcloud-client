@@ -2416,14 +2416,16 @@ router.all("/teams", function(req, res, next) {
             },
             {
               link: path + item._id,
-              class: `${item.ownerExist ? "disabled" : "btn-set-teamowner"}`,
+              class: item.ownerExist
+                      && item.createdAtMySchool 
+                      ? "disabled" : "btn-set-teamowner",
               icon: "user-plus",
               title: "Eigentümer festelegen"
             },
             {
               link: path + item._id,
               class: `${
-                item.hasMembersOfOtherSchools
+                item.createdAtMySchool
                   ? "btn-remove-members"
                   : "disabled"
               }`,
@@ -2436,7 +2438,7 @@ router.all("/teams", function(req, res, next) {
             {
               link: path + item._id,
               class: `${
-                item.hasMembersOfOtherSchools ? "disabled" : "btn-delete-team"
+                item.createdAtMySchool ? "disabled" : "btn-delete-team"
               }`,
               icon: "trash-o",
               data: {
