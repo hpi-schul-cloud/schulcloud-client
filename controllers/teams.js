@@ -534,7 +534,7 @@ router.get('/:teamId', async (req, res, next) => {
 			qs: {
 				target: req.params.teamId,
 				$limit: 4,
-				$sort: { createdAt: -1 },
+				$sort: '-displayAt',
 			},
 		})).data;
 
