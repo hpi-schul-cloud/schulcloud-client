@@ -186,7 +186,7 @@
                             <a href="/teams/{{../_id}}/news" class="">
                                 Alle Neuigkeiten anzeigen...
                             </a>
-                            {{#inArray "CREATE_NEWS" permissions}}
+                            {{#inArray "NEWS_CREATE" permissions}}
                                 <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary pull-right">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Neuigkeit anlegen
                                 </a>
@@ -200,7 +200,7 @@
                                 {{/each}}
                             </div>
                             <div style="margin-top: .5rem">
-                                {{#inArray "CREATE_NEWS" permissions}}
+                                {{#inArray "NEWS_CREATE" permissions}}
                                     <button class="btn btn-add btn-primary btn-create-event pull-right">
                                         Termin anlegen
                                     </button>
