@@ -20,7 +20,7 @@
 
 
     {{#content "page"}}
-        <section class="section-course">
+        <section class="section-course" id="section-course">
           <div class="wizard-header">
             <div class="header-icon">
               <img src="/images/empty-states/shuttle.svg" alt="Space Shuttle Start" class="hidden-xs-down"/>
@@ -59,21 +59,21 @@
                 <div class="form-group col-md-6">
                     <label>Name des Kurses</label>
                     <input class="form-control js-course-name-input" name="name" type="text" placeholder="z.B. Mathe 10a" value="{{course.name}}" autocomplete="off"
-                           required autofocus/>
+                           required autofocus data-testid="coursename"/>
                 </div>
 
                 <div class="form-group col-md-6">
                   <label>Farbe des Kurses:</label>
-                  <div class="color-picker">
+                  <div class="color-picker" data-testid="color-picker">
                     {{#if course.color}}
-                      <div class="color-picker__item">
+                      <div class="color-picker__item" data-testid="item">
                         <input id="input0" type="radio" class="color-picker__input" name="color" value="{{course.color}}" checked="checked"/>
                         <label for="input0" class="color-picker__color" style="background: {{course.color}}"></label>
                       </div>
                     {{/if}}
                     {{#each colors}}
                       {{#ifneq this ../course.color}}
-                        <div class="color-picker__item">
+                        <div class="color-picker__item" data-testid="anyItem">
                           <input id="input{{../this}}" type="radio" class="color-picker__input" name="color" value="{{../this}}" {{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked"{{/unless}}{{/ifeq}}/>
                           <label for="input{{../this}}" class="color-picker__color" style="background: {{../this}}"></label>
                         </div>
@@ -87,9 +87,9 @@
                 <div class="form-group col-md-6">
                     <label>Unterrichtender Lehrer</label>
 
-                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen" autocomplete="off">
+                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen" data-testid="teachersearch" autocomplete="off">
                         {{#each teachers}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                            <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
                                     {{this.displayName}}
                                 {{else}}
@@ -102,7 +102,7 @@
 
                 <div class="form-group col-md-6">
                     <label>Vertretungslehrer - Optional</label>
-                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen" autocomplete="off">
+                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen" autocomplete="off" data-testid="substituent">
                         {{#each substitutions}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{this.firstName}} {{this.lastName}}
@@ -124,12 +124,13 @@
                             type="text"
                             class="form-control"
                             value="{{datePickerTodayMinus 0 0 0 'DD.MM.YYYY'}}"
+                            data-testid = "startingDate"
                             title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
                       </div>
 
                       <div class="form-group col-md-6">
                           <label>Bis - Optional</label>
-                          <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
+                          <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" data-testid="untilDate" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
                       </div>
                   </div>
 
@@ -186,7 +187,7 @@
               <div class="form-group">
                   <label>Klasse(n) (Alle Schüler der Klasse werden automatisch hinzugefügt!) - Optional</label>
 
-                  <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
+                  <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen" data-testid="classes">
                       {{#each classes}}
                           <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                               {{log this.year}}
@@ -209,7 +210,7 @@
               <div class="form-group">
                   <label>Schüler / Teilnehmer - Optional</label>
 
-                  <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
+                  <select name="userIds[]" multiple data-placeholder="Schüler auswählen" data-testid="pupils">
                       {{#each students}}
                           <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                               {{#if this.displayName}}
@@ -246,7 +247,7 @@
 
               <div class="pull-right">
                 <a class="btn btn-secondary" href="/courses/add">Einen weiteren Kurs anlegen</a>
-                <a class="btn btn-primary" href="/courses/">Zur Kursübersicht</a>
+                <a class="btn btn-primary" data-testid="preshowButton" id= "preshow" href="/courses/">Zur Kursübersicht</a>
               </div>
             </section>
 

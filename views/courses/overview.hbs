@@ -8,7 +8,7 @@
     {{/content}}
 
     {{#content "page"}}
-        <section class="section-courses">
+        <section class="section-courses" id="section-courses">
                 {{#if courses}}
                     {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen" additionalInfoName="memberCount"}}
                 {{else}}
@@ -41,7 +41,7 @@
                         <div class="col-sm-12">
                             <div class="pull-right">
                               <a class="btn btn-secondary btn-import-course">Importiere einen Kurs</a>
-                              <a href="/courses/add" class="btn btn-primary btn-add">Erstelle einen neuen Kurs</a>
+                              <a href="/courses/add" class="btn btn-primary btn-add" id= "courseAddButton" data-testid="courseAddButton">Erstelle einen neuen Kurs</a>
                            </div>
                         </div>
                     </div>
