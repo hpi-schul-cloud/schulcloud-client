@@ -88,6 +88,7 @@
     padding: 0px 15px 0px;
     line-height: 1.75rem;
     border-top:1px solid #c8c8c8;
+    overflow: hidden;
 
     .lesson-cards {
         margin-top:40px;
@@ -102,7 +103,7 @@
             position: absolute;
 
             .card-block {
-                padding: 0.5rem;
+                padding: 0.5rem 0;
             }
 
             .card {
@@ -117,20 +118,30 @@
                     background:#ddd;
                 }
 
+                .card-bg-layer {
+                    color: $colorWhite;
+                    background: $colorSemiTransparent;
+                    margin-top: 1px;
+                    border-top-right-radius: 4px;
+                    border-top-left-radius: 4px;
+                    padding: 0 0.5rem 0.5rem 0.5rem;
 
-                .card-title {
-                    font-size:1.063rem;
-                    font-weight: 600;
+                    .card-title {
+                        font-size:1.063rem;
+                        font-weight: 600;
+                        margin-bottom: 0;
+                    }
+
+                    .lesson-time {
+                        margin-bottom: 0px;
+                        margin-top: -15px;
+                        font-size: 0.75rem;
+                        display: block;
+                    }
                 }
 
                 .card-text{
                     line-height: 130%;
-                }
-                .lesson-time {
-                    margin-bottom: 0px;
-                    margin-top: -15px;
-                    font-size: 0.75rem;
-                    display: block;
                 }
 
                 &.disabled {

@@ -956,9 +956,9 @@ router.post('/fileModel/:id/rename', (req, res) => {
 
 	api(req).post('/fileStorage/rename', {
 		json: {
-			_id: req.params.id,
-			newName: req.body.name
-		}
+			id: req.params.id,
+			newName: req.body.name,
+		},
 	})
 		.then(_ => {
 			req.session.notification = {
@@ -983,7 +983,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
 router.post('/directoryModel/:id/rename', function (req, res, next) {
 	api(req).post('/fileStorage/directories/rename', {
 		json: {
-			_id: req.params.id,
+			id: req.params.id,
 			newName: req.body.name
 		}
 	})
