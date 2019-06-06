@@ -2426,8 +2426,8 @@ router.all("/teams", function(req, res, next) {
               link: path + item._id,
               class: `${
                 item.createdAtMySchool
-                  ? "btn-remove-members"
-                  : "disabled"
+                  ? "disabled"
+                  : "btn-remove-members"
               }`,
               icon: "user-times",
               data: {
@@ -2438,7 +2438,7 @@ router.all("/teams", function(req, res, next) {
             {
               link: path + item._id,
               class: `${
-                item.createdAtMySchool ? "disabled" : "btn-delete-team"
+                item.createdAtMySchool ? "btn-delete-team" : "disabled"
               }`,
               icon: "trash-o",
               data: {
