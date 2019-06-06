@@ -1,7 +1,6 @@
 const _ = require('lodash');
 const express = require('express');
-
-const router = express.Router();
+const winston = require('winston');
 const marked = require('marked');
 const moment = require('moment');
 const shortId = require('shortid');
@@ -9,6 +8,19 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
+
+const router = express.Router();
+
+const logger = winston.createLogger({
+	transports: [
+		new winston.transports.Console({
+			format: winston.format.combine(
+				winston.format.colorize(),
+				winston.format.simple(),
+			),
+		}),
+	],
+});
 
 const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
 	qs: query,
@@ -45,7 +57,15 @@ const createEventsForCourse = (req, res, course) => {
 				courseId: course._id,
 				courseTimeId: time._id,
 			},
-		})));
+		}))).then((error) => {
+			logger.warn('failed creating events for the course, the calendar service might be unavailible', error);
+			req.session.notification = {
+				type: 'danger',
+				message: 'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
+				+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
+			};
+			return Promise.resolve();
+		});
 	}
 
 	return Promise.resolve(true);
@@ -62,7 +82,15 @@ const deleteEventsForCourse = (req, res, courseId) => {
 				return api(req).delete(`calendar/${t.eventId}`);
 			}
 			return Promise.resolve();
-		})));
+		})).catch((error) => {
+			logger.warn('failed creating events for the course, the calendar service might be unavailible', error);
+			req.session.notification = {
+				type: 'danger',
+				message: 'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
+				+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
+			};
+			return Promise.resolve();
+		}));
 	}
 	return Promise.resolve(true);
 };
@@ -110,7 +138,7 @@ const editCourseHandler = (req, res, next) => {
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
 			const duration = moment.duration(time.startTime);
-			time.startTime = `${(`00${  duration.hours()}`).slice(-2)}:${(`00${  duration.minutes()}`).slice(-2)}`;
+			time.startTime = `${(`00${duration.hours()}`).slice(-2)}:${(`00${duration.minutes()}`).slice(-2)}`;
 			time.count = count;
 		});
 
@@ -197,7 +225,7 @@ const copyCourseHandler = (req, res, next) => {
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
 			const duration = moment.duration(time.startTime);
-			time.startTime = `${(`00${  duration.hours()}`).slice(-2)}:${(`00${  duration.minutes()}`).slice(-2)}`;
+			time.startTime = `${(`00${ duration.hours()}`).slice(-2)}:${(`00${ duration.minutes()}`).slice(-2)}`;
 			time.count = count;
 		});
 
@@ -267,7 +295,7 @@ router.get('/', (req, res, next) => {
 			(course.times || []).forEach((time) => {
 				time.startTime = moment(time.startTime, 'x').format('HH:mm');
 				time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-				course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${ time.room}`) : ''}</div>`;
+				course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${time.room}`) : ''}</div>`;
 			});
 			return course;
 		});
@@ -282,7 +310,7 @@ router.get('/', (req, res, next) => {
 			(course.times || []).forEach((time) => {
 				time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 				time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-				course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${ time.room}`) : ''}</div>`;
+				course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${time.room}`) : ''}</div>`;
 			});
 
 			return course;
@@ -430,7 +458,7 @@ router.get('/:courseId', (req, res, next) => {
 	]).then(([course, lessons, homeworks, courseGroups]) => {
 		const ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
 		lessons = (lessons.data || []).map(lesson => Object.assign(lesson, {
-			url: `/courses/${  req.params.courseId  }/topics/${  lesson._id  }/`,
+			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
 		}));
 
 		homeworks = (homeworks.data || []).map((assignment) => {
@@ -452,8 +480,8 @@ router.get('/:courseId', (req, res, next) => {
 		res.render('courses/course', Object.assign({}, course, {
 			title: course.name,
 			lessons,
-			homeworks: homeworks.filter((task) => !task.private),
-			myhomeworks: homeworks.filter((task) => task.private),
+			homeworks: homeworks.filter(task => !task.private),
+			myhomeworks: homeworks.filter(task => task.private),
 			ltiToolIds,
 			courseGroups,
 			breadcrumb: [{
@@ -537,7 +565,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 			type: 'danger',
 			message: "Sie sind kein Nutzer der Rolle 'Schüler'.",
 		};
-		res.redirect(`/courses/${ req.params.courseId}`);
+		res.redirect(`/courses/${req.params.courseId}`);
 		return;
 	}
 
@@ -548,7 +576,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 				type: 'danger',
 				message: `Sie sind bereits Teilnehmer des Kurses/Fachs ${course.name}.`,
 			};
-			res.redirect(`/courses/${ req.params.courseId}`);
+			res.redirect(`/courses/${req.params.courseId}`);
 			return;
 		}
 
@@ -594,13 +622,13 @@ router.get('/:courseId/edit', editCourseHandler);
 router.get('/:courseId/copy', copyCourseHandler);
 
 // return shareToken
-router.get('/:id/share', (req, res, next) => api(req).get(`/courses/share/${  req.params.id}`)
-	.then((course) => res.json(course)));
+router.get('/:id/share', (req, res, next) => api(req).get(`/courses/share/${req.params.id}`)
+	.then(course => res.json(course)));
 
 // return course Name for given shareToken
 router.get('/share/:id', (req, res, next) => api(req).get('/courses/share', { qs: { shareToken: req.params.id } })
-	.then((name) => res.json({ msg: name, status: 'success' }))
-	.catch((err) => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
+	.then(name => res.json({ msg: name, status: 'success' }))
+	.catch(err => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
 router.post('/import', (req, res, next) => {
 	const shareToken = req.body.shareToken;
