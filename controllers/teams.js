@@ -937,7 +937,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
 					class: 'btn-delete-member disabled',
-					title: 'Das Verlassen des Teams erforder einen anderen Eigentümer',
+					title: 'Das Verlassen des Teams erfordert einen anderen Eigentümer',
 					icon: 'trash',
 				});
 			}
