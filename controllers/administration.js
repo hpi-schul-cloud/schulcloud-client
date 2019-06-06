@@ -2416,9 +2416,8 @@ router.all("/teams", function(req, res, next) {
             },
             {
               link: path + item._id,
-              class: item.ownerExist
-                      && item.createdAtMySchool 
-                      ? "disabled" : "btn-set-teamowner",
+              class: item.createdAtMySchool 
+                      ? "btn-set-teamowner" : "disabled",
               icon: "user-plus",
               title: "Eigentümer festelegen"
             },
@@ -2433,7 +2432,9 @@ router.all("/teams", function(req, res, next) {
               data: {
                 name: item.name
               },
-              title: "Mitglieder eigener Schule aus Team entfernen"
+              title: item.createdAtMySchool
+              ? "Teams der eigenen Schule können nur gelöscht werden"
+              : "Mitglieder eigener Schule aus Team entfernen"
             },
             {
               link: path + item._id,
@@ -2445,7 +2446,7 @@ router.all("/teams", function(req, res, next) {
                 name: item.name
               },
               //lmethod: `${item.hasMembersOfOtherSchools ? '' : 'delete'}`,
-              title: "Team löschen"
+              title: item.createdAtMySchool ? "Team löschen" : "Löschen des Teams nur bei Teams der eigenen Schule möglich"
             }
           ];
 
