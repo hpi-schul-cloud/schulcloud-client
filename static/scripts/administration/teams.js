@@ -1,149 +1,150 @@
+/* eslint-disable no-undef */
 // eslint-disable-next-line func-names
 $(window).ready(() => {
-  function getPayload(tableRow) {
-    var json = tableRow.find("td[data-payload]").data("payload");
-    return json;
-  }
+	function getPayload(tableRow) {
+		const json = tableRow.find('td[data-payload]').data('payload');
+		return json;
+	}
 
-  function displayModalTeamMembers(headline, content) {
-    var $memberModal = $(".member-modal");
+	function displayModalTeamMembers(headline, content) {
+		const $memberModal = $('.member-modal');
 
-    populateModal($memberModal, ".modal-title", headline);
-    populateModal($memberModal, "#member-modal-body", content);
+		populateModal($memberModal, '.modal-title', headline);
+		populateModal($memberModal, '#member-modal-body', content);
 
-    $memberModal.appendTo("body").modal("show");
-  }
+		$memberModal.appendTo('body').modal('show');
+	}
 
-  $(".btn-show-members").on("click", function showMemebers(e) {
-    e.preventDefault();
-    var test = $(this)[0];
-    var parent = $(this).closest("tr");
-    var members = getPayload(parent).members;
+	$('.btn-show-members').on('click', function showMemebers(e) {
+		e.preventDefault();
 
-    var teamMembers = "Keine Teilnehmer";
-    if ((members || []).length != 0) {
-      teamMembers = "<ol>";
-      members.forEach(member => {
-        const user = member.user; // userId was populated
-        if (user.displayName) {
-          teamMembers =
-            teamMembers +
-            "<li>" +
-            user.displayName +
-            " (" +
-            member.role +
-            ")</li>";
-        } else {
-          teamMembers =
-            teamMembers +
-            "<li>" +
-            user.firstName +
-            " " +
-            user.lastName +
-            " (" +
-            member.role +
-            ")</li>";
-        }
-      });
-      teamMembers = teamMembers + "</ol>";
-    }
+		const parent = $(this).closest('tr');
+		const { members } = getPayload(parent);
 
-    displayModalTeamMembers("Mitglieder an eigener Schule", teamMembers);
-  });
+		let teamMembers = 'Keine Teilnehmer';
+		if ((members || []).length !== 0) {
+			teamMembers = '<ol>';
+			members.forEach((member) => {
+				const { user } = member; // userId was populated
+				if (user.displayName) {
+					teamMembers = `${teamMembers
+					}<li>${
+						user.displayName
+					} (${
+						member.role
+					})</li>`;
+				} else {
+					teamMembers = `${teamMembers
+					}<li>${
+						user.firstName
+					} ${
+						user.lastName
+					} (${
+						member.role
+					})</li>`;
+				}
+			});
+			teamMembers += '</ol>';
+		}
 
-  $(".btn-show-schools").on("click", function showMemebers(e) {
-    e.preventDefault();
-    var test = $(this)[0];
-    var parent = $(this).closest("tr");
-    var schools = getPayload(parent).schools;
+		displayModalTeamMembers('Mitglieder an eigener Schule', teamMembers);
+	});
 
-    var teamSchools = "Keine Schulen";
-    if ((schools || []).length != 0) {
-      teamSchools = "<ol>";
-      schools.forEach(member => {
-        teamSchools += "<li>" + member.name + "</li>";
-      });
-      teamSchools = teamSchools + "</ol>";
-    }
+	$('.btn-show-schools').on('click', function showMemebers(e) {
+		e.preventDefault();
+		const parent = $(this).closest('tr');
+		const { schools } = getPayload(parent);
 
-    displayModalTeamMembers("Schulen", teamSchools);
-  });
+		let teamSchools = 'Keine Schulen';
+		if ((schools || []).length !== 0) {
+			teamSchools = '<ol>';
+			schools.forEach((member) => {
+				teamSchools += `<li>${member.name}</li>`;
+			});
+			teamSchools += '</ol>';
+		}
 
-  $(".btn-write-owner").on("click", function writeOwner(e) {
-    e.preventDefault();
-    // e.stopPropagation();
+		displayModalTeamMembers('Schulen', teamSchools);
+	});
 
-    var $messageModal = $(".message-owner-modal");
+	$('.btn-write-owner').on('click', function writeOwner(e) {
+		e.preventDefault();
+		// e.stopPropagation();
 
-    var entry = $(this).attr("href");
+		const $messageModal = $('.message-owner-modal');
 
-    populateModalForm($messageModal, {
-      action: entry,
-      title: "Nachricht schreiben",
-      closeLabel: "Abbrechen",
-      submitLabel: "Absenden"
-    });
+		const entry = $(this).attr('href');
 
-    $messageModal.appendTo("body").modal("show");
-  });
+		// eslint-disable-next-line no-undef
+		populateModalForm($messageModal, {
+			action: entry,
+			title: 'Nachricht schreiben',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Absenden',
+		});
 
-  $(".btn-delete-team").on("click", function deleteTeam(e) {
-    e.preventDefault();
+		$messageModal.appendTo('body').modal('show');
+	});
 
-    var $deleteModal = $(".delete-team-modal");
+	$('.btn-delete-team').on('click', function deleteTeam(e) {
+		e.preventDefault();
 
-    var entry = $(this).attr("href");
-    var name = $(this).attr("data-name");
+		const $deleteModal = $('.delete-team-modal');
 
-    populateModalForm($deleteModal, {
-      action: entry,
-      title: "Löschen",
-      closeLabel: "Abbrechen",
-      submitLabel: "Löschen",
-      fields: {
-        name
-      }
-    });
+		const entry = $(this).attr('href');
+		const name = $(this).attr('data-name');
 
-    $deleteModal.appendTo("body").modal("show");
-  });
+		// eslint-disable-next-line no-undef
+		populateModalForm($deleteModal, {
+			action: entry,
+			title: 'Löschen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Löschen',
+			fields: {
+				name,
+			},
+		});
 
-  $(".btn-remove-members").on("click", function removeMembers(e) {
-    e.preventDefault();
+		$deleteModal.appendTo('body').modal('show');
+	});
 
-    var $removeModal = $(".remove-members-modal");
+	$('.btn-remove-members').on('click', function removeMembers(e) {
+		e.preventDefault();
 
-    var entry = $(this).attr("href");
-    var name = $(this).attr("data-name");
+		const $removeModal = $('.remove-members-modal');
 
-    populateModalForm($removeModal, {
-      action: entry,
-      title: "Schule aus Team entfernen",
-      closeLabel: "Abbrechen",
-      submitLabel: "Enternen",
-      fields: {
-        name
-      }
-    });
+		const entry = $(this).attr('href');
+		const name = $(this).attr('data-name');
 
-    $removeModal.appendTo("body").modal("show");
-  });
+		// eslint-disable-next-line no-undef
+		populateModalForm($removeModal, {
+			action: entry,
+			title: 'Schule aus Team entfernen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Enternen',
+			fields: {
+				name,
+			},
+		});
 
-  $(".btn-set-teamowner").on("click", function removeMembers(e) {
-    e.preventDefault();
+		$removeModal.appendTo('body').modal('show');
+	});
 
-    var $removeModal = $(".select-owner-modal");
+	$('.btn-set-teamowner').on('click', function removeMembers(e) {
+		e.preventDefault();
 
-    var entry = $(this).attr("href");
-    var name = $(this).attr("data-name");
+		const $removeModal = $('.select-owner-modal');
 
-    populateModalForm($removeModal, {
-      action: entry,
-      title: "Person als Eigentümer festlegen",
-      closeLabel: "Abbrechen",
-      submitLabel: "Ernennen"
-    });
+		const entry = $(this).attr('href');
 
-    $removeModal.appendTo("body").modal("show");
-  });
+		// eslint-disable-next-line no-undef
+		populateModalForm($removeModal, {
+			action: entry,
+			title: 'Person als Eigentümer festlegen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Ernennen',
+		});
+
+		$removeModal.appendTo('body').modal('show');
+	});
 });
