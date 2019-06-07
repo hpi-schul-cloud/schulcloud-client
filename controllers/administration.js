@@ -22,6 +22,7 @@ const decoder = new StringDecoder('utf8');
 
 moment.locale('de');
 
+// eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
 	.get(`/${service}`, {
 		qs: query,
