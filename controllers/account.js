@@ -1,13 +1,14 @@
 const express = require('express');
 
-const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+
+const router = express.Router();
 
 // secure routes
 router.use(authHelper.authChecker);
 
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
 	const {
 		firstName,
 		lastName,
