@@ -16,13 +16,19 @@
                     Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.
                 </h3>
             </div>
-            {{#userHasPermission "TEAM_EDIT"}}
+            {{#if allowedCreateTeam}}
             <div class="row">
                 <div class="center buttons">
                     <a href="/teams/add" class="btn btn-lg btn-add btn-primary">Gründe ein Team</a>
                 </div>
             </div>
-            {{/userHasPermission}}
+            {{else}}
+            <div class="text-wrapper mx-auto d-block">
+                <h3 class="h5 text-muted text-center">
+                    Der Administrator erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator.
+                </h3>
+            </div>
+            {{/if}}
         </section>
     {{/content}}
 {{/extend}}
