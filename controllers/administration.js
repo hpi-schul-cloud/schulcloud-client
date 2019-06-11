@@ -2289,7 +2289,9 @@ const getTeamFlags = (team) => {
 	const hasMembersOfOtherSchools = '<i class="fa fa-bus team-flags" data-toggle="tooltip" '
     + 'data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
 	const hasOwner = '<i class="fa fa-briefcase team-flags" data-toggle="tooltip" '
-    + 'data-placement="top" title="Team hat Eigentümer"></i>';
+	+ 'data-placement="top" title="Team hat Eigentümer"></i>';
+	const hasRocketChat = '<i class="fa fa-comments team-flags" data-toggle="tooltip" '
+	+ 'data-placement="top" title="Team hat Eigentümer"></i>';
 
 	let combined = '';
 
@@ -2303,6 +2305,10 @@ const getTeamFlags = (team) => {
 
 	if (team.ownerExist) {
 		combined += hasOwner;
+	}
+
+	if (team.hasRocketChat) {
+		combined += hasRocketChat;
 	}
 
 	return combined;
