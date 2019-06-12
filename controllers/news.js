@@ -129,11 +129,11 @@ router.all('/', async (req, res, next) => {
 		const mappedNews = news.data.map(newsItem => decorateNews(newsItem));
 
 		const unpublishedNews = await api(req).get('/news/', {
-
-			$sort: '-displayAt',
-			unpublished: true,
-			paginate: false,
-
+			qs: {
+				$sort: '-displayAt',
+				unpublished: true,
+				limit: 0,
+			},
 		});
 		const unpublishedMappedNews = {
 			...unpublishedNews,
