@@ -27,21 +27,13 @@ $(window).ready(() => {
 			members.forEach((member) => {
 				const { user } = member; // userId was populated
 				if (user.displayName) {
-					teamMembers = `${teamMembers
-					}<li>${
-						user.displayName
-					} (${
+					teamMembers = `${teamMembers}<li>${user.displayName} (${
 						member.role
 					})</li>`;
 				} else {
-					teamMembers = `${teamMembers
-					}<li>${
-						user.firstName
-					} ${
+					teamMembers = `${teamMembers}<li>${user.firstName} ${
 						user.lastName
-					} (${
-						member.role
-					})</li>`;
+					} (${member.role})</li>`;
 				}
 			});
 			teamMembers += '</ol>';
@@ -78,8 +70,8 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($messageModal, {
 			action: entry,
-			title: 'Nachricht schreiben',
-			closeLabel: 'Abbrechen',
+			title: 'Neue Nachricht an den/die Team-Eigentümer senden',
+			closeLabel: 'Verwerfen',
 			submitLabel: 'Absenden',
 		});
 
@@ -121,7 +113,7 @@ $(window).ready(() => {
 			action: entry,
 			title: 'Schule aus Team entfernen',
 			closeLabel: 'Abbrechen',
-			submitLabel: 'Enternen',
+			submitLabel: 'Alle Mitglieder entfernen',
 			fields: {
 				name,
 			},
@@ -140,7 +132,7 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($removeModal, {
 			action: entry,
-			title: 'Person als Eigentümer festlegen',
+			title: 'Einen zusätzlichen Team-Eigentümer ernennen',
 			closeLabel: 'Abbrechen',
 			submitLabel: 'Ernennen',
 		});

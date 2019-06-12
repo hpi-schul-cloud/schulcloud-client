@@ -265,7 +265,9 @@ router.get('/', async (req, res, next) => {
 				.utc()
 				.format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''}</div>`;
+			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
+				time.room ? `| ${time.room}` : ''
+			}</div>`;
 		});
 
 		return team;
@@ -461,7 +463,11 @@ router.get('/:teamId', async (req, res, next) => {
 		).includes('rocketChat');
 
 		let rocketChatCompleteURL;
-		if (instanceUsesRocketChat && courseUsesRocketChat && schoolUsesRocketChat) {
+		if (
+			instanceUsesRocketChat
+      && courseUsesRocketChat
+      && schoolUsesRocketChat
+		) {
 			try {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
@@ -780,10 +786,10 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 	const roleTranslations = {
 		teammember: 'Teilnehmer',
-		teamexpert: 'externer Experte',
+		teamexpert: 'Externer&nbsp;Experte',
 		teamleader: 'Leiter',
-		teamadministrator: 'Team-Admin',
-		teamowner: 'Team-Admin (Eigentümer)',
+		teamadministrator: 'Administrator',
+		teamowner: 'Eigentümer',
 	};
 
 	const head = ['Vorname', 'Nachname', 'Rolle', 'Schule', 'Aktionen'];
@@ -955,17 +961,18 @@ router.get('/:teamId/members', async (req, res, next) => {
 			return actions;
 		};
 
-
 		if (team.user.role.name === 'teamowner') {
 			couldLeave = false;
 			for (const user of team.userIds) {
-				if (user.userId._id !== team.user.userId._id && user.role._id === team.user.role._id) {
+				if (
+					user.userId._id !== team.user.userId._id
+          && user.role._id === team.user.role._id
+				) {
 					couldLeave = true;
 					break;
 				}
 			}
 		}
-
 
 		const body = team.userIds.map((user) => {
 			let actions = [];
@@ -1234,8 +1241,11 @@ router.get('/:teamId/topics', async (req, res, next) => {
 			const courseGroupsData = permissionHelper.userHasPermission(
 				res.locals.currentUser,
 				'COURSE_EDIT',
-			) ? courseGroups.data || [] : (courseGroups.data || [])
-					.filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+			)
+				? courseGroups.data || []
+				: (courseGroups.data || []).filter(
+					cg => cg.userIds.some(user => user._id === res.locals.currentUser._id),
+				);
 
 			res.render(
 				'teams/topics',

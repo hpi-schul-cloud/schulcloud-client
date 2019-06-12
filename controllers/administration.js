@@ -249,7 +249,7 @@ const deleteEventsForData = service => (req, res, next) => {
 				// eslint-disable-next-line consistent-return
 				return Promise.all(
 					// eslint-disable-next-line
-					(course.times || []).map((t) => {
+          (course.times || []).map(t => {
 						if (t.eventId) {
 							return api(req).delete(`calendar/${t.eventId}`, {
 								qs: { userId: course.teacherIds[0] },
@@ -282,7 +282,9 @@ const generateRegistrationLink = (params, internalReturn) => function registrati
 	if (!options.patchUser) options.patchUser = req.body.patchUser || '';
 	if (!options.host) options.host = req.headers.origin || req.body.host || '';
 	if (!options.schoolId) options.schoolId = req.body.schoolId || '';
-	if (!options.toHash) { options.toHash = req.body.email || req.body.toHash || ''; }
+	if (!options.toHash) {
+		options.toHash = req.body.email || req.body.toHash || '';
+	}
 
 	if (internalReturn) {
 		return api(req).post('/registrationlink/', {
@@ -301,8 +303,8 @@ const generateRegistrationLink = (params, internalReturn) => function registrati
 		.catch((err) => {
 			req.session.notification = {
 				type: 'danger',
-				message: `Fehler beim Erstellen des Registrierungslinks. 
-          Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. 
+				message: `Fehler beim Erstellen des Registrierungslinks.
+          Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.
           ${(err.error || {}).message || err.message || err || ''}`,
 			};
 			res.redirect(req.header('Referer'));
@@ -360,8 +362,8 @@ ${res.locals.theme.short_title}-Team`,
 				if (internalReturn) return false;
 				req.session.notification = {
 					type: 'danger',
-					message: `Nutzer erstellt. Fehler beim Versenden der E-Mail. 
-            Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. 
+					message: `Nutzer erstellt. Fehler beim Versenden der E-Mail.
+            Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.
             ${(err.error || {}).message || err.message || err || ''}`,
 				};
 				return res.redirect(req.header('Referer'));
@@ -879,8 +881,12 @@ const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, r
 			teacherIds: req.params.id,
 		},
 	})).data.map(c => c._id);
-	const addedClasses = (req.body.classes || []).filter(i => !usersClasses.includes(i));
-	const removedClasses = usersClasses.filter(i => !(req.body.classes || []).includes(i));
+	const addedClasses = (req.body.classes || []).filter(
+		i => !usersClasses.includes(i),
+	);
+	const removedClasses = usersClasses.filter(
+		i => !(req.body.classes || []).includes(i),
+	);
 	addedClasses.forEach((addClass) => {
 		promises.push(
 			api(req).patch(`/classes/${addClass}`, {
@@ -1376,7 +1382,7 @@ router.get(
 Leider fehlt uns von dir noch die Einverständniserklärung.
 Ohne diese kannst du die Schul-Cloud leider nicht nutzen.
 
-Melde dich bitte mit deinen Daten an, 
+Melde dich bitte mit deinen Daten an,
 um die Einverständiserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
 
 Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${
@@ -1504,7 +1510,9 @@ const renderClassEdit = (req, res, next, edit) => {
 
 			Promise.all(promises).then(
 				([teachers, schoolyears, gradeLevels, currentClass]) => {
-					gradeLevels.sort((a, b) => parseInt(a.name, 10) - parseInt(b.name, 10));
+					gradeLevels.sort(
+						(a, b) => parseInt(a.name, 10) - parseInt(b.name, 10),
+					);
 
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
@@ -1617,7 +1625,7 @@ router.get(
 			.then((classes) => {
 				const students = classes.data
 					.map(c => c.userIds)
-					// eslint-disable-next-line no-shadow
+				// eslint-disable-next-line no-shadow
 					.reduce((flat, next) => flat.concat(next), []);
 				res.json(students);
 			});
@@ -1718,13 +1726,13 @@ router.get(
 						notes: [
 							{
 								title: 'Deine Schüler sind unter 16 Jahre alt?',
-								content: `Gib den Registrierungslink zunächst an die Eltern weiter. 
-                Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. 
-                Der Schüler ist dann in der ${res.locals.theme.short_title} 
-                registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse 
-                und dem individuellen Initial-Passwort einloggen. 
-                Nach dem ersten Login muss jeder Schüler sein Passwort ändern. 
-                Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, 
+								content: `Gib den Registrierungslink zunächst an die Eltern weiter.
+                Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis.
+                Der Schüler ist dann in der ${res.locals.theme.short_title}
+                registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse
+                und dem individuellen Initial-Passwort einloggen.
+                Nach dem ersten Login muss jeder Schüler sein Passwort ändern.
+                Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären,
                 damit er die ${res.locals.theme.short_title} nutzen kann.`,
 							},
 							{
@@ -1931,7 +1939,6 @@ const classFilterSettings = years => [
 	},
 ];
 
-
 router.all(
 	'/classes',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
@@ -1999,7 +2006,10 @@ router.all(
 					baseUrl: `/administration/classes/?p={{page}}${filterQueryString}`,
 				};
 
-				const years = (await api(req).get('/years')).data.map(year => [year._id, year.name]);
+				const years = (await api(req).get('/years')).data.map(year => [
+					year._id,
+					year.name,
+				]);
 
 				res.render('administration/classes', {
 					title: 'Administration: Klassen',
@@ -2120,8 +2130,7 @@ router.all(
 				const pagination = {
 					currentPage,
 					numPages: Math.ceil(data.total / itemsPerPage),
-					baseUrl:
-            `/administration/helpdesk/?p={{page}}${sortQuery}${limitQuery}`,
+					baseUrl: `/administration/helpdesk/?p={{page}}${sortQuery}${limitQuery}`,
 				};
 
 				res.render('administration/helpdesk', {
@@ -2244,7 +2253,9 @@ router.all('/courses', (req, res, next) => {
 					(item.classIds || []).map(item => item.displayName).join(', '),
 					// eslint-disable-next-line no-shadow
 					(item.teacherIds || []).map(item => item.lastName).join(', '),
-					getTableActions(item, '/administration/courses/').map(action => action),
+					getTableActions(item, '/administration/courses/').map(
+						action => action,
+					),
 				]);
 
 				let sortQuery = '';
@@ -2260,8 +2271,7 @@ router.all('/courses', (req, res, next) => {
 				const pagination = {
 					currentPage,
 					numPages: Math.ceil(data.total / itemsPerPage),
-					baseUrl:
-            `/administration/courses/?p={{page}}${sortQuery}${limitQuery}`,
+					baseUrl: `/administration/courses/?p={{page}}${sortQuery}${limitQuery}`,
 				};
 
 				res.render('administration/courses', {
@@ -2284,14 +2294,14 @@ router.all('/courses', (req, res, next) => {
  */
 
 const getTeamFlags = (team) => {
-	const createdAtOwnSchool = '<i class="fa fa-building-o team-flags" data-toggle="tooltip" '
+	const createdAtOwnSchool = '<i class="fa fa-home team-flags" data-toggle="tooltip" '
     + 'data-placement="top" title="An eigener Schule gegründetes Team"></i>';
 	const hasMembersOfOtherSchools = '<i class="fa fa-bus team-flags" data-toggle="tooltip" '
     + 'data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
 	const hasOwner = '<i class="fa fa-briefcase team-flags" data-toggle="tooltip" '
-	+ 'data-placement="top" title="Team hat Eigentümer"></i>';
+    + 'data-placement="top" title="Team hat Eigentümer"></i>';
 	const hasRocketChat = '<i class="fa fa-comments team-flags" data-toggle="tooltip" '
-	+ 'data-placement="top" title="Team hat Eigentümer"></i>';
+    + 'data-placement="top" title="Team hat Eigentümer"></i>';
 
 	let combined = '';
 
@@ -2343,7 +2353,14 @@ router.all('/teams', (req, res, next) => {
 			},
 		})
 		.then((data) => {
-			const head = ['Name', 'Mitglieder', 'Schule(n)', 'Erstellt am', '', ''];
+			const head = [
+				'Name',
+				'Mitglieder',
+				'Schule(n)',
+				'Erstellt am',
+				'Status*',
+				'Aktionen',
+			];
 
 			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 			const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
@@ -2352,8 +2369,8 @@ router.all('/teams', (req, res, next) => {
 				teammember: 'Teilnehmer',
 				teamexpert: 'Externer&nbsp;Experte', // Externer Experte
 				teamleader: 'Leiter',
-				teamadministrator: 'Team-Admin',
-				teamowner: 'Team-Eigentümer',
+				teamadministrator: 'Administrator',
+				teamowner: 'Eigentümer',
 			};
 
 			Promise.all([classesPromise, usersPromise]).then(([classes, users]) => {
@@ -2363,28 +2380,40 @@ router.all('/teams', (req, res, next) => {
 							link: path + item._id,
 							class: 'btn-write-owner',
 							icon: 'envelope-o',
-							title: 'Nachricht an Eigentümer',
+							title: 'Nachricht an Eigentümer senden',
+							data: {
+								'original-title': 'Nachricht an Eigentümer senden',
+								placement: 'top',
+								toggle: 'tooltip',
+							},
 						},
 						{
 							link: path + item._id,
-							class: item.createdAtMySchool
-								? 'btn-set-teamowner' : 'disabled',
+							class: item.createdAtMySchool ? 'btn-set-teamowner' : 'disabled',
 							icon: 'user-plus',
-							title: 'Eigentümer festelegen',
+							title: 'Weiteren Eigentümer hinzufügen',
+							data: {
+								'original-title': 'Weiteren Eigentümer hinzufügen',
+								placement: 'top',
+								toggle: 'tooltip',
+							},
 						},
 						{
 							link: path + item._id,
 							class: `${
-								item.createdAtMySchool
-									? 'disabled'
-									: 'btn-remove-members'
+								item.createdAtMySchool ? 'disabled' : 'btn-remove-members'
 							}`,
 							icon: 'user-times',
 							data: {
 								name: item.name,
+								'original-title': item.createdAtMySchool
+									? 'Es können nur alle Mitglieder der eigenen Schule aus dem Team entfernt werden'
+									: 'Mitglieder eigener Schule aus Team entfernen',
+								placement: 'top',
+								toggle: 'tooltip',
 							},
 							title: item.createdAtMySchool
-								? 'Teams der eigenen Schule können nur gelöscht werden'
+								? 'Es können nur Mitglieder der eigenen Schule aus dem Team entfernt werden'
 								: 'Mitglieder eigener Schule aus Team entfernen',
 						},
 						{
@@ -2395,6 +2424,11 @@ router.all('/teams', (req, res, next) => {
 							icon: 'trash-o',
 							data: {
 								name: item.name,
+								'original-title': item.createdAtMySchool
+									? 'Team löschen'
+									: 'Löschen des Teams nur bei Teams der eigenen Schule möglich',
+								placement: 'top',
+								toggle: 'tooltip',
 							},
 							// lmethod: `${item.hasMembersOfOtherSchools ? '' : 'delete'}`,
 							title: item.createdAtMySchool
@@ -2737,7 +2771,7 @@ router.post(
 
 			api(req)
 				.post('/systems/', { json: ldapTemplate })
-				// eslint-disable-next-line no-shadow
+			// eslint-disable-next-line no-shadow
 				.then((system) => {
 					api(req)
 						.patch(`/schools/${res.locals.currentSchool}`, {
@@ -2769,8 +2803,10 @@ router.get(
 				},
 			}),
 		);
-		// eslint-disable-next-line no-shadow
-		const system = school.systems.filter(system => system._id === req.params.id);
+		const system = school.systems.filter(
+			// eslint-disable-next-line no-shadow
+			system => system._id === req.params.id,
+		);
 
 		if (system.length === 1) {
 			res.render('administration/ldap-edit', {
@@ -2797,8 +2833,10 @@ router.post(
 				},
 			}),
 		);
-		// eslint-disable-next-line no-shadow
-		const system = school.systems.filter(system => system._id === req.params.id);
+		const system = school.systems.filter(
+			// eslint-disable-next-line no-shadow
+			system => system._id === req.params.id,
+		);
 
 		// Classes acitve
 		let classesPath = req.body.classpath;
@@ -2881,8 +2919,10 @@ router.post(
 				},
 			}),
 		);
-		// eslint-disable-next-line no-shadow
-		const system = school.systems.filter(system => system._id === req.params.id);
+		const system = school.systems.filter(
+			// eslint-disable-next-line no-shadow
+			system => system._id === req.params.id,
+		);
 
 		api(req)
 			.patch(`/systems/${system[0]._id}`, {
