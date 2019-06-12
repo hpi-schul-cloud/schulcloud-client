@@ -13,8 +13,9 @@ moment.locale('de');
 router.use(authHelper.authChecker);
 
 const createActions = (item, path) => {
-	if (!item.permissions || (item.permissions && item.permissions.includes('edit'))) {
-		return [
+	const actions = [];
+	if (item.permissions && item.permissions.includes('NEWS_EDIT')) {
+		actions.push(
 			{
 				link: `${path + item._id}/edit`,
 				class: 'btn-edit',
@@ -22,20 +23,22 @@ const createActions = (item, path) => {
 				method: 'GET',
 				alt: 'bearbeiten',
 			},
-			{
-				link: path + item._id,
-				class: 'btn-delete',
-				icon: 'trash-o',
-				method: 'DELETE',
-				alt: 'löschen',
-			},
-		];
+		);
 	}
-	return [];
+	if (item.permissions && item.permissions.includes('NEWS_EDIT')) {
+		// todo change to NEWS_REMOVE
+		actions.push({
+			link: path + item._id,
+			class: 'btn-delete',
+			icon: 'trash-o',
+			method: 'DELETE',
+			alt: 'löschen',
+		});
+	}
+	return actions;
 };
 
 const getActions = (isRSS, res, newsItem) => !isRSS
-	&& res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')
 	&& createActions(newsItem, '/news/');
 
 const getDeleteHandler = service => (req, res, next) => {
