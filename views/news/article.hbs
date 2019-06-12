@@ -4,7 +4,22 @@
     <small class="text-muted">{{timeFromNow news.displayAt}}</small>
     {{#unless isRSS}}
     <small class="text-muted">
-        von {{news.creatorId.firstName}} {{news.creatorId.lastName}} erstellt
+        von {{news.creator.firstName}} {{news.creator.lastName}} erstellt
+        {{#if news.target.name}}
+        {{#ifCond news.targetModel '===' 'teams'}}
+        im Team
+        {{/ifCond}}
+        {{#ifCond news.targetModel '===' 'courses'}}
+        im Kurs
+        {{/ifCond}}
+        {{#ifCond news.targetModel '===' 'class'}}
+        im Kurs
+        {{/ifCond}}
+        <a href="/{{news.targetModel}}/{{news.target._id}}">{{news.target.name}}</a>
+        {{else}}
+        in der Schule {{news.school.name}}
+        {{/if}}
+
     </small>
     {{/unless}}
     {{#if isRSS}}
