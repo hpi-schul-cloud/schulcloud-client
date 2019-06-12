@@ -1892,7 +1892,31 @@ getTeamFlags = (team) => {
 	return combined;
 }
 
+const disableStudentUpdateHandler = async function (req, res, next) {
+	const isdisableStudentCreation = (res.locals.currentSchoolData.features || []).includes("disableStudentTeamCreation");
+	if (!isdisableStudentCreation && req.body.disablestudentteamcreation === "true") {
+		// add disableStudentTeamCreation feature
+		await api(req).patch('/schools/' + req.params.id, {
+			json: {
+				$push: {
+					features: "disableStudentTeamCreation"
+				}
+			}
+		});
+	} else if (isdisableStudentCreation && req.body.disablestudentteamcreation !== "true") {
+		// remove disableStudentTeamCreation feature
+		await api(req).patch('/schools/' + req.params.id, {
+			json: {
+				$pull: {
+					features: "disableStudentTeamCreation"
+				}
+			}
+		});
+	}
+	return res.redirect(cutEditOffUrl(req.header('Referer')));
+}
 
+router.patch('/teams/disablestudents/:id', disableStudentUpdateHandler);
 router.all('/teams', function (req, res, next) {
 
 	const itemsPerPage = (req.query.limit || 10);
@@ -1962,6 +1986,7 @@ router.all('/teams', function (req, res, next) {
 				classes,
 				users,
 				pagination,
+				school: res.locals.currentSchoolData,
 				limit: true
 			});
 		});
