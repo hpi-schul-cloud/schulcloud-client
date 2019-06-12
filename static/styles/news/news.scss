@@ -1,4 +1,4 @@
-@import "../lib/colors";
+@import '../lib/colors';
 
 .section-news {
   .container-fluid {
@@ -18,8 +18,8 @@
     white-space: nowrap;
 
     a {
-      padding-right: .5rem;
-      padding-left: .5rem;
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
       vertical-align: middle;
     }
   }
@@ -28,8 +28,5 @@
     display: inline-block;
     width: 100%;
     text-align: center;
-  }
-
-  .sc-card-wrapper[data-rss="true"] > .sc-card {
   }
 }
