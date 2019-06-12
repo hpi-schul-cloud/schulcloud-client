@@ -95,7 +95,6 @@ router.patch('/:newsId', (req, res, next) => {
 router.delete('/:id', getDeleteHandler('news'));
 
 router.all('/', async (req, res, next) => {
-	const query = req.query.q;
 	const itemsPerPage = 9;
 	const currentPage = parseInt(req.query.p, 10) || 1;
 	const context = req.originalUrl.split('/')[1];
@@ -105,16 +104,13 @@ router.all('/', async (req, res, next) => {
 		$limit: itemsPerPage,
 		$skip: (itemsPerPage * (currentPage - 1)),
 		$sort: '-displayAt',
-		title: { $regex: query, $options: 'i' }, // fixme todo
-
+		q: req.query.q,
 	};
 
 	if (context === 'teams') {
 		queryObject.targetModel = 'teams';
 		queryObject.target = (req.originalUrl.split('/')[2] || {});
 	}
-
-	if (!query) delete queryObject.title;
 
 	try {
 		const news = await api(req).get('/news/', { qs: queryObject });
