@@ -5,6 +5,9 @@
     {{#unless isRSS}}
     <small class="text-muted">
         von {{news.creator.firstName}} {{news.creator.lastName}} erstellt
+        {{#if news.updater}}
+        (zuletzt von {{news.updater.firstName}} {{news.updater.lastName}} bearbeitet)
+        {{/if}}
         {{#if news.target.name}}
         {{#ifCond news.targetModel '===' 'teams'}}
         im Team
@@ -13,13 +16,13 @@
         im Kurs
         {{/ifCond}}
         {{#ifCond news.targetModel '===' 'class'}}
-        im Kurs
+        in der Klasse
         {{/ifCond}}
         <a href="/{{news.targetModel}}/{{news.target._id}}">{{news.target.name}}</a>
-        {{else}}
-        in der Schule {{news.school.name}}
         {{/if}}
-
+        {{#ifCond @root.currentUser.schoolId '===' news.schoolId}} an deiner Schule {{else}}
+        an der Schule {{news.school.name}}
+        {{/ifCond}}
     </small>
     {{/unless}}
     {{#if isRSS}}
