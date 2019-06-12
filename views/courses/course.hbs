@@ -53,18 +53,18 @@
     </div>
     <section class="section-course">
       <div class="course-card">
-        <div class="tabContainer">
+        <div class="tabContainer" active-tab={{activeTab}}>
           <div class="tabs" data-max-width="1024">
-            <button class="tab" data-tab="a">
+            <button class="tab" data-tab="js-topics">
               <span class="text count-badge" data-badge="{{lessons.length}}">Themen</span>
             </button>
-            <button class="tab" data-tab="b">
+            <button class="tab" data-tab="js-homeworks">
               <span class="text count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}">Aufgaben</span>
             </button>
-            <button class="tab" data-tab="c">
+            <button class="tab" data-tab="js-tools">
               <span class="text count-badge" data-badge="{{ltiToolIds.length}}">Tools</span>
             </button>
-            <button class="tab" data-tab="d">
+            <button class="tab" data-tab="js-groups">
               <span class="text count-badge" data-badge="{{courseGroups.length}}">Gruppen</span>
             </button>
           </div>
@@ -72,19 +72,19 @@
         <div class="sectionsContainer">
           <div class="sections">
             <!-- Themen -->
-            <div class="section" data-section="a">
+            <div class="section" data-section="js-topics">
               {{> "courses/components/topics"}}
             </div>
             <!--- Aufgaben -->
-            <div class="section" data-section="b">
+            <div class="section" data-section="js-homeworks">
               {{> "courses/components/tasks"}}
             </div>
             <!-- Tools -->
-            <div class="section" data-section="c">
+            <div name="js-tools-section" name="js-tools" class="section" data-section="js-tools">
               {{> "courses/components/tools"}}
             </div>
             <!-- Gruppen -->
-            <div class="section" data-section="d">
+            <div class="section" data-section="js-groups">
               {{> "courses/components/groups" id=../_id}}
             </div>
           </div>

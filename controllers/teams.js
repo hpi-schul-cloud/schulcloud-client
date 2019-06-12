@@ -580,6 +580,7 @@ router.get('/:teamId', async (req, res, next) => {
 			'teams/team',
 			Object.assign({}, course, {
 				title: course.name,
+				activeTab: req.query.activeTab,
 				breadcrumb: [
 					{
 						title: 'Meine Teams',
@@ -734,7 +735,7 @@ router.post('/:teamId/events/', (req, res, next) => {
 	api(req)
 		.post('/calendar/', { json: req.body })
 		.then(() => {
-			res.redirect(`/teams/${req.params.teamId}`);
+			res.redirect(`/teams/${req.params.teamId}/?activeTab=events`);
 		});
 });
 
