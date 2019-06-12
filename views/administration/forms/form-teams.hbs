@@ -4,7 +4,7 @@
     <label>Wähle hier einen zusätzlichen Eigentümer für das Team aus:</label>
     {{{course.name}}}
     <select class="form-control form-control-lg" type="text" name="userId">
-        <option value="">Neuen Eigentümer hinzufügen</option>
+        <option value="">Weiteren Eigentümer hinzufügen</option>
         {{#each users}}
             <option value="{{{this._id}}}">{{{this.firstName}}} {{{this.lastName}}}</option>
         {{/each}}
