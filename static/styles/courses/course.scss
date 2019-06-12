@@ -1,5 +1,5 @@
-@import "../lib/colors";
-@import "../lib/bootstrap/scss/bootstrap-flex";
+@import '../lib/colors';
+@import '../lib/bootstrap/scss/bootstrap-flex';
 
 .move-handle {
   cursor: move;
@@ -52,8 +52,8 @@
   }
 
   .count-badge {
-    position: relative;
     bottom: 2px;
+    position: relative;
   }
 
   .count-badge[data-badge]:after {
@@ -61,7 +61,7 @@
     background: $colorLightGrey;
     color: $fontColor;
     display: inline-block;
-    padding: 0.25em 0.4em;
+    padding: .25em .4em;
     font-size: 75%;
     font-weight: 700;
     line-height: 1;
