@@ -77,6 +77,7 @@ router.post('/', (req, res, next) => {
 		next(err);
 	});
 });
+
 router.patch('/:newsId', (req, res, next) => {
 	req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
 	req.body.updatedAt = moment().toISOString();
@@ -90,6 +91,7 @@ router.patch('/:newsId', (req, res, next) => {
 		next(err);
 	});
 });
+
 router.delete('/:id', getDeleteHandler('news'));
 
 router.all('/', async (req, res, next) => {
@@ -101,14 +103,16 @@ router.all('/', async (req, res, next) => {
 
 	const queryObject = {
 		$limit: itemsPerPage,
-		displayAt: (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT'))
-			? {}
-			: { $lte: new Date().getTime() },
 		$skip: (itemsPerPage * (currentPage - 1)),
 		$sort: '-displayAt',
-		title: { $regex: query, $options: 'i' },
-		$populate: ['target'],
+		title: { $regex: query, $options: 'i' }, // fixme todo
+
 	};
+
+	if (context === 'teams') {
+		queryObject.targetModel = 'teams';
+		queryObject.target = (req.originalUrl.split('/')[2] || {});
+	}
 
 	if (!query) delete queryObject.title;
 
@@ -169,9 +173,7 @@ router.get('/new', (req, res, next) => {
 
 router.get('/:newsId', (req, res, next) => {
 	api(req).get(`/news/${req.params.newsId}`, {
-		qs: {
-			$populate: ['creatorId', 'updaterId'],
-		},
+		qs: {},
 	}).then((news) => {
 		news.url = `/news/${news._id}`;
 		res.render('news/article', { title: news.title, news, isRSS: news.source === 'rss' });
