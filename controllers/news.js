@@ -112,20 +112,33 @@ router.all('/', async (req, res, next) => {
 		queryObject.target = (req.originalUrl.split('/')[2] || {});
 	}
 
+	const decorateNews = (newsItem) => {
+		const isRSS = newsItem.source === 'rss';
+		return {
+			...newsItem,
+			isRSS,
+			url: `/news/${newsItem._id}`,
+			secondaryTitle: moment(newsItem.displayAt).fromNow(),
+			actions: getActions(isRSS, res, newsItem),
+		};
+	};
+
 	try {
 		const news = await api(req).get('/news/', { qs: queryObject });
 		const totalNews = news.total;
-		const mappedNews = news.data.map((newsItem) => {
-			const isRSS = newsItem.source === 'rss';
-			return {
-				...newsItem,
-				isRSS,
-				url: `/news/${newsItem._id}`,
-				secondaryTitle: moment(newsItem.displayAt).fromNow(),
-				actions: getActions(isRSS, res, newsItem),
-			};
-		});
+		const mappedNews = news.data.map(newsItem => decorateNews(newsItem));
 
+		const unpublishedNews = await api(req).get('/news/', {
+
+			$sort: '-displayAt',
+			unpublished: true,
+			paginate: false,
+
+		});
+		const unpublishedMappedNews = {
+			...unpublishedNews,
+			data: unpublishedNews.data.map(item => decorateNews(item)),
+		};
 
 		const pagination = {
 			currentPage,
@@ -133,14 +146,15 @@ router.all('/', async (req, res, next) => {
 			baseUrl: '/news/?p={{page}}',
 		};
 
-		let title = 'Neuigkeiten aus meiner Schule';
+		let title = 'Neuigkeiten';
 		// ToDo: Hier kommen noch News für Kurse und Klassen rein.
 		if (context === 'teams') {
-			title = 'Neuigkeiten aus meinem Team';
+			title = 'Neuigkeiten aus dem Team';
 		}
 
 		res.render('news/overview', {
 			title,
+			unpublishedNews: unpublishedMappedNews,
 			news: mappedNews,
 			pagination,
 			searchLabel: 'Suche nach Neuigkeiten',
