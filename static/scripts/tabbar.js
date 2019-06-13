@@ -99,7 +99,7 @@ const app = {
 
 document.addEventListener('DOMContentLoaded', () => {
 	if (document.querySelectorAll('.tabContainer').length && document.querySelectorAll('.sectionsContainer').length) {
-		let activeTabName = document.querySelector('.tabContainer').getAttribute('active-tab');
+		let activeTabName = document.querySelector('.tabContainer').getAttribute('data-active-tab');
 		let activeTab;
 		let activeSection;
 		if (activeTabName) {
