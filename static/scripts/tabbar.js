@@ -78,6 +78,17 @@ const app = {
 			oldSection.classList.remove('active');
 			this.classList.add('active');
 			newSection.classList.add('active');
+
+			const params = new URLSearchParams(window.location.search);
+			const baseUrl = window.location.href.split('?')[0];
+			const lastChar = baseUrl[baseUrl.length - 1];
+			params.delete('activeTab');
+			params.set('activeTab', newTabSelector.replace('js-', ''));
+			if (lastChar === '/') {
+				window.history.replaceState('', '', `?${params.toString()}`);
+			} else {
+				window.history.replaceState('', '', `${baseUrl}/?${params.toString()}`);
+			}
 		},
 		// eslint-disable-next-line no-unused-vars
 		contain(container) {
@@ -88,9 +99,19 @@ const app = {
 
 document.addEventListener('DOMContentLoaded', () => {
 	if (document.querySelectorAll('.tabContainer').length && document.querySelectorAll('.sectionsContainer').length) {
-		const activeTab = document.querySelector('.tabContainer').querySelector('.tabs .tab:first-child');
-		const activeSection = document
-			.querySelector('.sectionsContainer').querySelector('.sections .section:first-child');
+		let activeTabName = document.querySelector('.tabContainer').getAttribute('data-active-tab');
+		let activeTab;
+		let activeSection;
+		if (activeTabName) {
+			activeTabName = `js-${activeTabName}`;
+			activeTab = document.querySelector(`.tabContainer .tabs .tab[data-tab=${activeTabName}]`);
+			activeSection = document
+				.querySelector(`.sectionsContainer .sections .section[data-section=${activeTabName}]`);
+		} else {
+			activeTab = document.querySelector('.tabContainer').querySelector('.tabs .tab:first-child');
+			activeSection = document.querySelector('.sectionsContainer')
+				.querySelector('.sections .section:first-child');
+		}
 		activeTab.classList.add('active');
 		activeSection.classList.add('active');
 	}
