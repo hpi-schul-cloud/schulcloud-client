@@ -539,6 +539,7 @@ router.get('/:teamId', async (req, res, next) => {
 		let news = (await api(req).get('/news/', {
 			qs: {
 				target: req.params.teamId,
+				targetModel: 'teams',
 				$limit: 4,
 				$sort: '-displayAt',
 			},

@@ -4,7 +4,25 @@
     <small class="text-muted">{{timeFromNow news.displayAt}}</small>
     {{#unless isRSS}}
     <small class="text-muted">
-        von {{news.creatorId.firstName}} {{news.creatorId.lastName}} erstellt
+        von {{news.creator.firstName}} {{news.creator.lastName}} erstellt
+        {{#if news.updater}}
+        (zuletzt von {{news.updater.firstName}} {{news.updater.lastName}} bearbeitet)
+        {{/if}}
+        {{#if news.target.name}}
+        {{#ifCond news.targetModel '===' 'teams'}}
+        im Team
+        {{/ifCond}}
+        {{#ifCond news.targetModel '===' 'courses'}}
+        im Kurs
+        {{/ifCond}}
+        {{#ifCond news.targetModel '===' 'class'}}
+        in der Klasse
+        {{/ifCond}}
+        <a href="/{{news.targetModel}}/{{news.target._id}}">{{news.target.name}}</a>
+        {{/if}}
+        {{#ifCond @root.currentUser.schoolId '===' news.schoolId}} an deiner Schule {{else}}
+        an der Schule {{news.school.name}}
+        {{/ifCond}}
     </small>
     {{/unless}}
     {{#if isRSS}}
@@ -24,12 +42,12 @@
 </div>
 {{#unless isRSS}}
 <div class="mt-1">
-    {{#inArray 'edit' ../news.permissions}}
+    {{#inArray 'NEWS_EDIT' ../news.permissions}}
     <a class="btn btn-primary btn-edit" href="/news/{{../news._id}}/edit" alt="Artikel '{{../news.title}}' bearbeiten.">
         Bearbeiten
     </a>
     {{/inArray}}
-    {{#inArray 'edit' ../news.permissions}}
+    {{#inArray 'NEWS_EDIT' ../news.permissions}}
     <a class="btn btn-secondary btn-delete" href="/news/{{../news._id}}" target="_blank" data-method="DELETE"
         data-name="{{../news.title}}" alt="Artikel '{{../news.title}}' löschen" redirect="/news/">
         Löschen
