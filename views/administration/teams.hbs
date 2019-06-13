@@ -6,6 +6,7 @@
     {{#content "scripts" mode="append"}}
         <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
         <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
+        <script src="/scripts/administration/teams.js" type="text/javascript" defer></script>
     {{/content}}
     {{#content "page"}}
         <div class="route-administration">
@@ -13,12 +14,26 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            {{> "lib/components/table" head=head body=body}}
+                            {{> "lib/components/table" head=head body=body limit=false}}
                         </div>
                     </div>
                     <div class="row">
-                        {{> "lib/components/pagination" settings=pagination }}
+                        <div class="col-sm-12 no-padding">
+                            <center>
+                                <b>*Legende:</b>
+                                <i class="fa fa-home team-flags"></i>
+                                An eigener Schule gegründetes Team &emsp;
+                                <i class="fa fa-bus team-flags"></i>
+                                Beinhaltet Schul-externe Mitglieder &emsp;
+                                <i class="fa fa-briefcase team-flags"></i>
+                                Team hat Eigentümer
+                            </center>
+                        </div>
                     </div>
+                    {{!-- TODO --}}
+                    {{!-- <div class="row">
+                        {{> "lib/components/pagination" settings=pagination }}
+                    </div> --}}
                     {{!-- <div class="row">
                         <div class="col-sm-12 no-padding">
                             <button type="submit" class="btn btn-primary btn-add-modal">
@@ -28,23 +43,42 @@
                     </div> --}}
                 </div>
 
-                {{#embed "lib/components/modal-form" method="patch" class="edit-modal" collapseId=1}}
+                {{#embed "lib/components/modal" class="member-modal"}}
+                    {{#content "body"}}
+                        <div class="modal-body">
+                            <div id="member-modal-body">
+                            </div>
+                            {{#userHasPermission "COURSE_EDIT"}}
+                                <div id='course-edit'></div>
+                            {{/userHasPermission}}
+                        </div>
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" method="create" class="message-owner-modal" collapseId=1}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-message-owner"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" method="patch" class="select-owner-modal" collapseId=1}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-teams"}}
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" action="/administration/teams/" method="post" class="add-modal" collapseId=2}}
+                {{#embed "lib/components/modal-form" method="patch" class="remove-members-modal" collapseId=1}}
                     {{#content "fields"}}
-                        {{> "administration/forms/form-teams"}}
+                        {{> "administration/forms/form-remove-members"}}
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" body=body method="delete" class="delete-modal"}}
+                {{#embed "lib/components/modal-form" action="/administration/teams/" method="delete" class="delete-team-modal" collapseId=2}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-delete-name"}}
                     {{/content}}
                 {{/embed}}
+
 
             </section>
         </div>

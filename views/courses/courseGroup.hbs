@@ -128,11 +128,14 @@
 
 {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
 
-{{#content "body"}}
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary btn-close">
-        Abbrechen
-    </button>
+        <!-- Actions -->
+        <div class="row padding-top">
+            <div class="col-sm-12 col-md-12">
+                <a href="/courses/{{courseId}}/groups/{{_id}}/edit" class="btn btn-add btn-primary">Schülergruppe bearbeiten</a>
+                <a href="/courses/{{courseId}}/groups/{{_id}}" class="btn btn-delete-course btn-secondary" target="_blank" data-method="DELETE"
+                    data-name="{{../name}}" redirect="/courses/{{courseId}}/?activeTab=groups">Schülergruppe löschen</a>
+            </div>
+        </div>
 
     <button type="submit" class="btn btn-primary btn-submit">
         Löschen

@@ -8,7 +8,7 @@
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
-          
+
             Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
                 document.getElementById('news-form').submit();
                 return false;
@@ -44,10 +44,11 @@
                 <textarea type="text" class="form-control customckeditor" name="content" placeholder="Inhalt der Nachricht..." required>{{news.content}}</textarea>
             </div>
 
-            <div class="form-group">
+            {{!-- to be enabled again, functionallity currently broken --}}
+            {{!-- <div class="form-group">
                 <label>automatische Veröffentlichung vorplanen (optional)</label>
                 <input class="form-control" data-datetime data-min-date="0" name="displayAt" type="text" value="{{news.displayAt}}"/>
-            </div>
+            </div> --}}
 
             <div class="modal-footer">
                 <button class="btn btn-add btn-secondary btn-cancel">

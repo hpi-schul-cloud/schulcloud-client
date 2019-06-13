@@ -58,18 +58,18 @@
         {{/userHasPermission}}
         {{/inArray}}
         {{#if courseId._id}}
-        <a href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
-            <i class="fa fa-folder-open"></i>
-            Zu den Kursdateien
-        </a>
-        <a class="btn btn-secondary" href="/courses/{{courseId._id}}" alt="Zum Kurs der Aufgabe">
-            <i class="fa fa-graduation-cap"></i>
-            Zum Kurs
-        </a>
-        {{#if lessonId}}
-        <a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
-            alt="Zum Thema der Aufgabe">Zum Thema</a>
-        {{/if}}
+            <a href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
+              <i class="fa fa-folder-open"></i>
+              Zu den Kursdateien
+            </a>
+            <a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="Zum Kurs der Aufgabe">
+              <i class="fa fa-graduation-cap"></i>
+              Zum Kurs
+            </a>
+            {{#if lessonId}}
+                <a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
+                   alt="Zum Thema der Aufgabe">Zum Thema</a>
+            {{/if}}
         {{/if}}
     </div>
     {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}

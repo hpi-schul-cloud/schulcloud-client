@@ -47,7 +47,7 @@
                     <p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
                     {{#userHasPermission "COURSE_EDIT"}}
                       <div class="right-btn-group">
-                        <a class="delete-topic btn btn-secondary btn-secondary btn-sm btn-icon-card" href="/courses/{{../courseId}}/topics/{{../_id}}" target="_blank" data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{../courseId}}"
+                        <a class="delete-topic btn btn-secondary btn-secondary btn-sm btn-icon-card" href="/courses/{{../courseId}}/topics/{{../_id}}" target="_blank" data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{../courseId}}/?activeTab=topics"
                           title="Thema löschen">
                           <i class="fa fa-trash-o"></i>
                         </a>

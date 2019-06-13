@@ -13,7 +13,7 @@
               <span>{{this.name}}</span>
 
               {{#userHasPermission "TOOL_CREATE" }}
-                <a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank" data-method="DELETE" data-name="{{../name}}">
+                <a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank" data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{../../_id}}/?activeTab=tools">
                   <i class="fa fa-trash-o"></i>
                 </a>
               {{/userHasPermission}}
