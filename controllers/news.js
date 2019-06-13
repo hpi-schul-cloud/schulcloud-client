@@ -69,7 +69,7 @@ router.post('/', (req, res, next) => {
 		json: body,
 	}).then(() => {
 		if (body.context) {
-			res.redirect(`/${body.context}/${body.contextId}`);
+			res.redirect(`/${body.context}/${body.contextId}/?activeTab=news`);
 		} else {
 			res.redirect('/news');
 		}

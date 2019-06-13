@@ -85,7 +85,7 @@ router.post('/', function(req, res, next) {
     api(req).post('/courseGroups/', {
         json: req.body // TODO: sanitize
     }).then(courseGroup => {
-        res.redirect('/courses/' + req.params.courseId);
+        res.redirect('/courses/' + req.params.courseId + '/?activeTab=groups');
     }).catch(err => {
         res.sendStatus(500);
     });
