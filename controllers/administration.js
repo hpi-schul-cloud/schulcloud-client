@@ -55,7 +55,7 @@ const getTableActions = (
 	return [
 		{
 			link:
-        item.type === 'ldap' ? `${path}ldap/edit/${item._id}` : path + item._id,
+				item.type === 'ldap' ? `${path}ldap/edit/${item._id}` : path + item._id,
 			class: `${editButtonClass} ${isTeacher ? 'disabled' : ''}`,
 			icon: 'edit',
 			title: 'Eintrag bearbeiten',
@@ -63,7 +63,7 @@ const getTableActions = (
 		{
 			link: path + item._id,
 			class: `${isAdmin ? 'btn-delete' : 'disabled'} ${category === 'systems'
-        && 'btn-delete--systems'}`,
+				&& 'btn-delete--systems'}`,
 			icon: 'trash-o',
 			method: `${isAdmin ? 'delete' : ''}`,
 			title: 'Eintrag löschen',
@@ -203,9 +203,9 @@ const createEventsForData = (data, service, req, res) => {
 	// can just run if a calendar service is running on the environment and the course have a teacher
 	if (
 		process.env.CALENDAR_SERVICE_ENABLED
-    && service === 'courses'
-    && data.teacherIds[0]
-    && data.times.length > 0
+		&& service === 'courses'
+		&& data.teacherIds[0]
+		&& data.times.length > 0
 	) {
 		return Promise.all(
 			data.times.map(time => api(req).post('/calendar', {
@@ -249,7 +249,7 @@ const deleteEventsForData = service => (req, res, next) => {
 				// eslint-disable-next-line consistent-return
 				return Promise.all(
 					// eslint-disable-next-line
-          (course.times || []).map(t => {
+					(course.times || []).map(t => {
 						if (t.eventId) {
 							return api(req).delete(`calendar/${t.eventId}`, {
 								qs: { userId: course.teacherIds[0] },
@@ -327,9 +327,9 @@ router.post(
 const sendMailHandler = (user, req, res, internalReturn) => {
 	if (
 		user
-    && user.email
-    && user.schoolId
-    && (user.shortLink || res.locals.linkData.shortLink)
+		&& user.email
+		&& user.schoolId
+		&& (user.shortLink || res.locals.linkData.shortLink)
 	) {
 		return api(req)
 			.post('/mails/', {
@@ -343,7 +343,7 @@ Hallo ${user.firstName} ${user.lastName}!
 \nDu wurdest eingeladen, der ${
 	res.locals.theme.title
 } beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${user.shortLink
-              || res.locals.linkData.shortLink}
+							|| res.locals.linkData.shortLink}
 \nViel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`,
 					},
@@ -354,7 +354,7 @@ ${res.locals.theme.short_title}-Team`,
 				req.session.notification = {
 					type: 'success',
 					message:
-            'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.',
+						'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.',
 				};
 				return res.redirect(req.header('Referer'));
 			})
@@ -435,7 +435,7 @@ const getUserCreateHandler = internalReturn => function userCreate(req, res, nex
 			req.session.notification = {
 				type: 'danger',
 				message: `Fehler beim Erstellen des Nutzers. ${err.error.message
-            || ''}`,
+					|| ''}`,
 			};
 			return res.redirect(req.header('Referer'));
 		});
@@ -492,8 +492,8 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		const numberOfUsers = stats.users.successful + stats.users.failed;
 		return (
 			`${stats.users.successful} von ${numberOfUsers} `
-        + `Nutzer${numberOfUsers > 1 ? 'n' : ''} erfolgreich importiert `
-        + `(${stats.users.created} erstellt, ${stats.users.updated} aktualisiert).`
+			+ `Nutzer${numberOfUsers > 1 ? 'n' : ''} erfolgreich importiert `
+			+ `(${stats.users.created} erstellt, ${stats.users.updated} aktualisiert).`
 		);
 	};
 	const buildErrorMessage = (stats) => {
@@ -536,7 +536,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		req.session.notification = {
 			type: 'danger',
 			message:
-          'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
+				'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
 		};
 		res.redirect(req.header('Referer'));
 	}
@@ -818,7 +818,7 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 	const check = '<i class="fa fa-check consent-status"></i>';
 	const times = '<i class="fa fa-times consent-status"></i>'; // is red x
 	const doubleCheck = '<i class="fa fa-check consent-status double-check"></i>'
-    + '<i class="fa fa-check consent-status double-check"></i>';
+		+ '<i class="fa fa-check consent-status double-check"></i>';
 
 	switch (consentStatus) {
 		case 'missing':
@@ -1523,7 +1523,7 @@ const renderClassEdit = (req, res, next, edit) => {
 						teachers.forEach((t) => {
 							if (
 								JSON.stringify(t._id)
-                === JSON.stringify(res.locals.currentUser._id)
+								=== JSON.stringify(res.locals.currentUser._id)
 							) {
 								t.selected = true;
 							}
@@ -1625,7 +1625,7 @@ router.get(
 			.then((classes) => {
 				const students = classes.data
 					.map(c => c.userIds)
-				// eslint-disable-next-line no-shadow
+					// eslint-disable-next-line no-shadow
 					.reduce((flat, next) => flat.concat(next), []);
 				res.json(students);
 			});
@@ -1695,7 +1695,7 @@ router.get(
 						teachers.forEach((t) => {
 							if (
 								JSON.stringify(t._id)
-                === JSON.stringify(res.locals.currentUser._id)
+								=== JSON.stringify(res.locals.currentUser._id)
 							) {
 								t.selected = true;
 							}
@@ -1738,8 +1738,8 @@ router.get(
 							{
 								title: 'Deine Schüler sind mindestens 16 Jahre alt?',
 								content:
-                  'Gib den Registrierungslink direkt an den Schüler weiter.'
-                  + 'Die Schritte für die Eltern entfallen automatisch.',
+									'Gib den Registrierungslink direkt an den Schüler weiter.'
+									+ 'Die Schritte für die Eltern entfallen automatisch.',
 							},
 							/* { // TODO - Feature not implemented
                             "title":"Deine Schüler sind in der Schülerliste rot?",
@@ -1759,8 +1759,8 @@ router.get(
 							{
 								title: 'Passwort ändern',
 								content:
-                  // eslint-disable-next-line max-len
-                  'Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben.',
+									// eslint-disable-next-line max-len
+									'Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben.',
 							},
 						],
 						referrer: '/administration/classes/',
@@ -2295,13 +2295,13 @@ router.all('/courses', (req, res, next) => {
 
 const getTeamFlags = (team) => {
 	const createdAtOwnSchool = '<i class="fa fa-home team-flags" data-toggle="tooltip" '
-    + 'data-placement="top" title="An eigener Schule gegründetes Team"></i>';
+		+ 'data-placement="top" title="An eigener Schule gegründetes Team"></i>';
 	const hasMembersOfOtherSchools = '<i class="fa fa-bus team-flags" data-toggle="tooltip" '
-    + 'data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
+		+ 'data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
 	const hasOwner = '<i class="fa fa-briefcase team-flags" data-toggle="tooltip" '
-    + 'data-placement="top" title="Team hat Eigentümer"></i>';
+		+ 'data-placement="top" title="Team hat Eigentümer"></i>';
 	const hasRocketChat = '<i class="fa fa-comments team-flags" data-toggle="tooltip" '
-    + 'data-placement="top" title="Team hat Eigentümer"></i>';
+		+ 'data-placement="top" title="Team hat Eigentümer"></i>';
 
 	let combined = '';
 
@@ -2575,7 +2575,7 @@ router.post('/rss/', async (req, res) => {
 
 	if (
 		school.rssFeeds
-    && school.rssFeeds.find(el => el.url === req.body.rssURL)
+		&& school.rssFeeds.find(el => el.url === req.body.rssURL)
 	) {
 		return res.redirect('/administration/school');
 	}
@@ -2771,7 +2771,7 @@ router.post(
 
 			api(req)
 				.post('/systems/', { json: ldapTemplate })
-			// eslint-disable-next-line no-shadow
+				// eslint-disable-next-line no-shadow
 				.then((system) => {
 					api(req)
 						.patch(`/schools/${res.locals.currentSchool}`, {

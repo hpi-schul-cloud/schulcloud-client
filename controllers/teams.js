@@ -107,6 +107,19 @@ const checkIfUserCouldLeaveTeam = (current, others) => {
 	return false;
 };
 
+const checkIfUserCanCreateTeam = (res) => {
+	const roleNames = res.locals.currentUser.roles.map(role => role.name);
+	let allowedCreateTeam = false;
+	if (roleNames.includes('administrator') || roleNames.includes('teacher') || roleNames.includes('student')) {
+		allowedCreateTeam = true;
+		if (roleNames.includes('student')
+		&& res.locals.currentSchoolData.features.includes('disableStudentTeamCreation')) {
+			allowedCreateTeam = false;
+		}
+	}
+	return allowedCreateTeam;
+};
+
 const markSelected = (options, values = []) => options.map((option) => {
 	option.selected = values.includes(option._id);
 	return option;
@@ -253,6 +266,8 @@ router.get('/', async (req, res, next) => {
 		},
 	});
 
+	const allowedCreateTeam = checkIfUserCanCreateTeam(res);
+
 	teams = teams.data.map((team) => {
 		team.url = `/teams/${team._id}`;
 		team.title = team.name;
@@ -293,13 +308,16 @@ router.get('/', async (req, res, next) => {
 			title: 'Meine Teams',
 			teams,
 			teamInvitations,
+			allowedCreateTeam,
 			searchLabel: 'Suche nach Teams',
 			searchAction: '/teams',
 			showSearch: true,
 			liveSearch: true,
 		});
 	} else {
-		res.render('teams/overview-empty');
+		res.render('teams/overview-empty', {
+			allowedCreateTeam,
+		});
 	}
 });
 

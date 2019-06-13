@@ -17,7 +17,7 @@
                 {{> 'dashboard/components/card_section' section-id="teamInvitations" title="" content=teamInvitations link-text="Akzeptieren"}}
             {{/if}}
 
-            {{#userHasPermission "TEAM_EDIT"}}
+            {{#if allowedCreateTeam}}
             <div class="col-xs-12">
                 <div class="row padding-top">
                     <div class="col-sm-12">
@@ -25,7 +25,18 @@
                     </div>
                 </div>
             </div>
-            {{/userHasPermission}}
+            {{else}}
+                <div class="col-xs-12">
+                <div class="row padding-top">
+                    <div class="col-sm-12">
+                        <p>
+                            Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht.
+                            Wende dich bitte an einen Lehrer oder Administrator wenn du ein Team anlegen möchtest.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
 
             {{#embed "lib/components/modal" class="member-modal"}}
                 {{#content "body"}}
