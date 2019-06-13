@@ -14,27 +14,28 @@ router.use(authHelper.authChecker);
 
 const createActions = (item, path) => {
 	const actions = [];
-	if (item.permissions && item.permissions.includes('NEWS_EDIT')) {
-		actions.push(
-			{
-				link: `${path + item._id}/edit`,
-				class: 'btn-edit',
-				icon: 'pencil',
-				method: 'GET',
-				alt: 'bearbeiten',
-			},
-		);
-	}
-	if (item.permissions && item.permissions.includes('NEWS_EDIT')) {
-		// todo change to NEWS_REMOVE
-		actions.push({
-			link: path + item._id,
-			class: 'btn-delete',
-			icon: 'trash-o',
-			method: 'DELETE',
-			alt: 'löschen',
-		});
-	}
+	// temporarily removed actions on cards...
+	// if (item.permissions && item.permissions.includes('NEWS_EDIT')) {
+	// 	actions.push(
+	// 		{
+	// 			link: `${path + item._id}/edit`,
+	// 			class: 'btn-edit',
+	// 			icon: 'pencil',
+	// 			method: 'GET',
+	// 			alt: 'bearbeiten',
+	// 		},
+	// 	);
+	// }
+	// if (item.permissions && item.permissions.includes('NEWS_EDIT')) {
+	// 	// todo change to NEWS_REMOVE
+	// 	actions.push({
+	// 		link: path + item._id,
+	// 		class: 'btn-delete',
+	// 		icon: 'trash-o',
+	// 		method: 'DELETE',
+	// 		alt: 'löschen',
+	// 	});
+	// }
 	return actions;
 };
 
