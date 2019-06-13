@@ -19,7 +19,7 @@ const createActions = (item, path) => {
 			{
 				link: `${path + item._id}/edit`,
 				class: 'btn-edit',
-				icon: 'edit',
+				icon: 'pencil',
 				method: 'GET',
 				alt: 'bearbeiten',
 			},
