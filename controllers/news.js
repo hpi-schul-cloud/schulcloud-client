@@ -73,40 +73,14 @@ router.post('/', function (req, res, next) {
 	});
 });
 router.patch('/:newsId', (req, res, next) => {
-	api(req).get('/news/' + req.params.newsId, {}).then(orgNews => {
-		req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+	req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+	req.body.updatedAt = moment().toISOString();
+	req.body.updaterId = res.locals.currentUser._id;
 
-		const historyEntry = {
-			"title": orgNews.title,
-			"content": orgNews.content,
-			"displayAt": orgNews.displayAt,
-
-			"creatorId": (orgNews.updaterId) ? (orgNews.updaterId) : (orgNews.creatorId),
-			"parentId": req.params.newsId
-		};
-
-		api(req).post('/newshistory/', {
-			// TODO: sanitize
-			json: historyEntry
-		}).then(data => {
-			req.body.updaterId = res.locals.currentUser._id;
-			req.body.updatedAt = moment().toISOString();
-			orgNews.history.push(data._id);
-			req.body.history = orgNews.history;
-
-			api(req).patch('/news/' + req.params.newsId, {
-				// TODO: sanitize
-				json: req.body
-			}).then(data => {
-				res.redirect('/news');
-			}).catch(err => {
-				next(err);
-			});
-
-
-		}).catch(err => {
-			next(err);
-		});
+	api(req).patch('/news/' + req.params.newsId, {
+		json: req.body
+	}).then(() => {
+		res.redirect('/news');
 	}).catch(err => {
 		next(err);
 	});
@@ -134,7 +108,6 @@ router.all('/', async (req, res, next) => {
 	try {
 		const news = await api(req).get('/news/', { qs: queryObject })
 		const totalNews = news.total;
-		const colors = ["#F44336", "#E91E63", "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4", "#009688", "4CAF50", "CDDC39", "FFC107", "FF9800", "FF5722"];
 		const mappedNews = news.data.map((newsItem) => {
 			const isRSS = newsItem.source === 'rss';
 			return {
@@ -142,7 +115,6 @@ router.all('/', async (req, res, next) => {
 				isRSS,
 				url: `/news/${newsItem._id}`,
 				secondaryTitle: moment(newsItem.displayAt).fromNow(),
-				background: colors[_.random(0, colors.length - 1)],
 				actions: !isRSS && res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT') && getActions(newsItem, '/news/'),
 			};
 		});

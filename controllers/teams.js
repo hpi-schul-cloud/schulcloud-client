@@ -286,19 +286,19 @@ router.get('/', async (req, res, next) => {
 
 	if (req.query.json) {
 		res.json(teams);
-	} else {
+	} else if (teams.length !== 0 || teamInvitations.length !== 0) {
 		res.render('teams/overview', {
 			title: 'Meine Teams',
 			teams,
 			teamInvitations,
-			// substitutionCourses,
 			searchLabel: 'Suche nach Teams',
 			searchAction: '/teams',
 			showSearch: true,
 			liveSearch: true,
 		});
+	} else {
+		res.render('teams/overview-empty');
 	}
-	// });
 });
 
 router.post('/', async (req, res, next) => {
@@ -534,6 +534,7 @@ router.get('/:teamId', async (req, res, next) => {
 			qs: {
 				target: req.params.teamId,
 				$limit: 4,
+				$sort: '-displayAt',
 			},
 		})).data;
 
@@ -563,7 +564,7 @@ router.get('/:teamId', async (req, res, next) => {
 					.split('.')
 					.join('');
 				event.dayOfTheWeek = start.format('dddd');
-				event.fromTo = `${start.format('hh:mm')} - ${end.format('hh:mm')}`;
+				event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
 				return event;
 			});
 		} catch (e) {
@@ -1171,7 +1172,7 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		})
 		.catch((err) => {
 			logger.warn(
-				`Fehler beim Annehmen einer Einladung, 
+				`Fehler beim Annehmen einer Einladung,
         der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. `,
 				err,
 			);
