@@ -65,43 +65,44 @@ router.all('/', (req, res, next) => {
 		if (isAuthenticated) {
 			return res.redirect('/login/success/');
 		}
-		return feedr.readFeed('https://blog.schul-cloud.org/rss', {
-			requestOptions: { timeout: 2000 }
-		}, (err, data, headers) => {
-			let blogFeed = [];
-			try {
-				blogFeed = data.rss.channel[0].item.slice(0, 3).map((e) => {
-					const date = new Date(e.pubDate);
-					const locale = 'en-us';
-					const month = date.toLocaleString(locale, { month: 'long' });
-					e.pubDate = `${date.getDate()}. ${month}`;
-					e.description = e.description.join(' ');
-					e.url = e.link[0];
-					e.img = {
-						src: e['media:content'][0].$.url,
-						alt: e.title,
-					};
-					return e;
-				});
-			} catch (e) {
-				// just catching the blog-error
-			}
-			const schoolsPromise = getSelectOptions(
-				req, 'schools',
-				{
-					purpose: { $ne: 'expert' },
-					$limit: false,
-					$sort: 'name',
-				},
-			);
-			Promise.all([
-				schoolsPromise,
-			]).then(([schools]) => res.render('authentication/home', {
-				schools,
-				blogFeed,
-				inline: true,
-				systems: [],
-			}));
+		return new Promise((resolve) => {
+			feedr.readFeed('https://blog.schul-cloud.org/rss', {
+				requestOptions: { timeout: 2000 },
+			}, (err, data /* , headers */) => {
+				let blogFeed;
+				try {
+					blogFeed = data.rss.channel[0].item.slice(0, 3).map((e) => {
+						const date = new Date(e.pubDate);
+						const locale = 'en-us';
+						const month = date.toLocaleString(locale, { month: 'long' });
+						e.pubDate = `${date.getDate()}. ${month}`;
+						e.description = e.description.join(' ');
+						e.url = e.link[0];
+						e.img = {
+							src: e['media:content'][0].$.url,
+							alt: e.title,
+						};
+						return e;
+					});
+				} catch (e) {
+					// just catching the blog-error
+					blogFeed = [];
+				}
+				const schoolsPromise = getSelectOptions(
+					req, 'schools',
+					{
+						purpose: { $ne: 'expert' },
+						$limit: false,
+						$sort: 'name',
+					},
+				);
+				resolve(schoolsPromise).then(schools => res.render('authentication/home', {
+					schools,
+					blogFeed,
+					inline: true,
+					systems: [],
+				}));
+			});
 		});
 	});
 });
