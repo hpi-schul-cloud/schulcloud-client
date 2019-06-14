@@ -1,0 +1,81 @@
+@import '../lib/bootstrap/scss/bootstrap';
+
+// CSS FOR STRIPED SECTIONS
+.section{
+	--color-headline: var(--color-primary);
+	--color-text: var(--color-black);
+
+	color: var(--color-text);
+	padding: var(--space-xxl) var(--space-lg);
+	position: relative;
+	z-index: var(--layer-page);
+	&::before{
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		transform: skewY(-3deg);
+		z-index: var(--layer-behind);
+	}
+	&.primary{
+		--color-headline: var(--color-white);
+		--color-text: var(--color-white);
+		&::before{
+			background-color: var(--color-primary)
+		}
+	}
+	&.accent{
+		--color-headline: var(--color-white);
+		--color-text: var(--color-white);
+
+		a{
+			color: var(--color-text);
+			text-decoration: underline;
+		}
+
+		&::before{
+			background-color: var(--color-accent)
+		}
+	}
+
+	.section-title{
+		color: var(--color-headline);
+		&.center{
+			text-align: center;
+		}
+	}
+}
+
+// SECTION LAYOUTS
+.container-content{
+	&.content-width-max{
+		max-width: var(--size-content-width-max);
+	}
+
+	&.rows-2{
+		display: grid;
+		grid-gap: var(--space-xxl);
+		grid-template-rows: 1fr;
+		grid-template-columns: 1fr 1fr;
+		@include media-breakpoint-down(md) {
+			grid-gap: var(--space-md);
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr 1fr;
+		}
+	}
+
+	&.grix-2x2{
+		display: grid;
+		grid-gap: var(--space-md);
+		grid-template-rows: 1fr 1fr;
+		grid-template-columns: 1fr 1fr;
+		grid-template-areas: "b c" "a d";
+		@include media-breakpoint-down(md) {
+			grid-template-areas: "a" "b" "c" "d";
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr 1fr 1fr 1fr;
+		}
+	}
+}

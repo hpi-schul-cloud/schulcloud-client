@@ -1,0 +1,71 @@
+:root{
+	--radius-round: 100vmax;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --border-width: 1px;
+
+	--layer-behind: -1;
+	--layer-page: 1;
+    --layer-dropdown: 2;
+    --layer-modal: 3;
+    --layer-popover: 4;
+	--layer-tooltip: 5;
+
+	--color-primary: #b1063a;
+    --color-primary-light: rgb(189, 43, 88);
+    --color-primary-dark: rgb(133, 5, 44);
+    --color-accent: #e98404;
+    --color-accent-light: rgb(236, 150, 42);
+    --color-accent-dark: rgb(175, 99, 3);
+    --color-black: #1d1d21;
+    --color-gray-light: #ddd;
+    --color-gray: #aaa;
+    --color-gray-dark: #444;
+    --color-white: #fff;
+    --color-overlay: rgba(0, 0, 0, 0.5);
+
+	--shadow-md: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+
+    --space-xxxxs: 0.125rem;
+    --space-xxxs: 0.25rem;
+    --space-xxs: 0.375rem;
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 3.25rem;
+    --space-xxl: 5.25rem;
+	--space-xxxl: 8.5rem;
+
+	--size-content-width-min: 40ch;
+    --size-content-width-max: 80ch;
+}
+
+body{
+	margin-top: 6rem;
+}
+
+.btn.btn-newsletter{
+	display: inline-block;
+	border: 1px solid var(--color-white);
+}
+
+#loginarea{
+	.btn{
+		word-wrap: break-word;
+		white-space: normal;
+	}
+	input {
+		margin-bottom: 10px;
+		font-size: 1rem;
+		padding: .5rem;
+	}
+	.login-providers {
+		display:none;
+	}
+}
+
+@import "./header";
+@import "./sections";
+@import "./blog-card";

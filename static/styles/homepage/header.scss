@@ -1,0 +1,35 @@
+.header{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: var(--color-white);
+	box-shadow: var(--shadow-md);
+	z-index: 3;
+	.container{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: nowrap;
+		&:after{
+			/* remove bootstrap after attribute from dom - breaks flex alignment*/
+			display: none;
+		}
+	}
+	.logo{
+		height: 3rem;
+	}
+	.nav{
+		display: flex;
+		align-items: center;
+		.nav-link{
+			color: inherit;
+			border-radius: var(--radius-sm);
+			padding: var(--space-xs);
+			margin-left: var(--space-xxs);
+			&:hover, &:focus{
+				background-color: var(--color-gray-light)
+			}
+		}
+	}
+}

@@ -1,7 +1,7 @@
 {{#extend "lib/default"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/authentication/home.css"/>
+        <link rel="stylesheet" href="/styles/homepage/styles.css"/>
         <link rel="stylesheet" href="/vendor/introjs/introjs.min.css" />
     {{/content}}
 
@@ -16,7 +16,165 @@
 
     {{#content "body"}}
         {{#embed "lib/header"}}{{/embed}}
-        <div class="container">
+
+		{{#embed "authentication/section" class="rows-2"}}
+			{{#content "body"}}
+				<div>
+					<h1 class="section-title">Herzlich willkommen bei der HPI Schul-Cloud !</h1>
+					<p>Das  <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
+				</div>
+
+				{{> "authentication/forms/login"}}
+			{{!--
+				{{> "authentication/forms/login"}}
+				{{> "authentication/forms/demo-login"}}
+			--}}
+			{{/content}}
+		{{/embed}}
+
+		{{#embed "authentication/section" class="primary content-width-max"}}
+			{{#content "body"}}
+				<video-player
+					configuration='{
+						"streams" : [
+							{
+							"hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hd/video.mp4",
+							"sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/sd/video.mp4",
+							"poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg",
+							"hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hls/video.m3u8"
+							}
+						],
+						"language": "de",
+						"theme" : "dark-red",
+						"initialState": {
+							"volume": 0.75,
+							"quality" : "hls",
+							"playbackRate" : 1.0
+						},
+						"videoPreload": false,
+						"userPreferences" : {
+						},
+						"slides": []
+					}'>
+				</video-player>
+				{{!--
+				<video-player
+					configuration='{
+						"streams" : [
+							{
+							"hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hd/video.mp4",
+							"sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/sd/video.mp4",
+							"poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/explainer-poster.jpg",
+							"hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hls/video.m3u8"
+							}
+						],
+						"language": "de",
+						"theme" : "dark-red",
+						"initialState": {
+							"volume": 0.75,
+							"quality" : "hls",
+							"playbackRate" : 1.0
+						},
+						"videoPreload": false,
+						"userPreferences" : {
+						},
+						"slides": []
+					}'>
+				</video-player>
+				--}}
+			{{/content}}
+		{{/embed}}
+
+		{{#embed "authentication/section" class="grix-2x2"}}
+			{{#content "body"}}
+					<img alt="" width="100%" height="100%" style="grid-area: a;  object-fit: contain" src="/images/login-left.png"/>
+					<div style="grid-area: b;">
+						<h2 class="section-title">Niedrigschwelliger Zugang zu digitalen Unterrichtsinhalten</h2>
+						<p>Eine moderne Lehr- und Lerninfrastruktur ist unabdingbar, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalen Gesellschaft vorzubereiten.</p>
+					</div>
+					<img alt="" width="100%" height="100%" style="grid-area: c; object-fit: contain" src="/images/login-right.png"/>
+					<div style="grid-area: d; text-align: right;">
+						<h2 class="section-title">Ansatzpunkte der HPI Schul-Cloud</h2>
+						<p>Die Nutzung digitaler Medien und Lernmethoden stellt viele Schulen noch vor große Herausforderungen: veraltete Hard- sowie Software im abgeschlossenen Computerraum, fächverbindender Einsatz kaum möglich uvm.</p>
+					</div>
+			{{/content}}
+		{{/embed}}
+
+		{{#embed "authentication/section" class="accent content-width-max"}}
+			{{#content "body"}}
+				<h2 class="section-title center">Die Grundidee der HPI Schul-Cloud</h2>
+				<p>Webbasierte Anwendungen sowie Rechenressourcen und Speichermöglichkeiten per Cloud Computing ermöglichen einen effizienten Zugriff auf zeitgemäße IT-Dienste für einen großen Kreis an Nutzer/innen.</p>
+				<p>Der spontane, bedarfsgerechte Einsatz in jedem beliebigen Unterrichtsfach wird dadurch erleichtert. Die aufwendige Installation von Software auf einzelnen Endgeräten der Nutzer/innen entfällt.</p>
+				<p>Sämtliche Programme und das Benutzerprofil werden via Internet zur Verfügung gestellt. Um Zugang zu den digitalen Inhalten zu erlangen, braucht es lediglich einen Internetzugang, webfähige Anzeige- und Eingabegeräte, einen modernen Webbrowser sowie entsprechende Berechtigungen.</p>
+				<p>Die Bereitstellung der HPI Schul-Cloud ist ein entscheidender Schritt, um die Nutzung digitaler Medien in der Schule flächendeckend voranzubringen.</p>
+				<ul>
+					<li>Mehr Informationen: <a href="/other/pdf/Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.pdf" title="Initiates file download" target="_blank">Technischer Bericht: "Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland" (.pdf)</a></li>
+				</ul>
+			{{/content}}
+		{{/embed}}
+
+		{{#embed "authentication/section" class="content-width-max"}}
+			{{#content "body"}}
+				<h2 class="section-title center">Was bietet die HPI Schul-Cloud für:</h2>
+				<p>TODO embed tabs</p>
+			{{/content}}
+		{{/embed}}
+
+		{{#embed "authentication/section" class="primary content-width-max"}}
+			{{#content "body"}}
+				<h2 class="section-title center">Vorteile der HPI Schul-Cloud</h2>
+				<ul>
+					<li>Zeit- und ortsunabhängiger Zugang zu einem großen Angebot an digitalen Lerninhalten</li>
+					<li>Digitale Bildung jenseits separater Computerräume</li>
+					<li>Professionelle Wartung</li>
+					<li>Ständige Verfügbarkeit neuester Software für Lehrer/innen und Schüler/innen</li>
+					<li>IT-Anwendungen entsprechen aktuellsten Sicherheitsstandards</li>
+					<li>Anlaufstelle für neue digitale Lernangebote</li>
+					<li>Direktes Feedback durch die Nutzer/innen</li>
+					<li>Anregung zu selbstbestimmtem Lernen</li>
+					<li>Bereitstellung eigens entworfener Lernangebote</li><li>Erweiterung der Unterrichtsmethoden</li><li>Vernetzung unterschiedlicher Lernorte</li>
+				</ul>
+			{{/content}}
+		{{/embed}}
+
+		{{#embed "authentication/section" class=""}}
+			{{#content "body"}}
+				<h2 class="section-title center">HPI Schul-Cloud Blog</h2>
+					<div class="blog-cards">
+						{{#each blogFeed}}
+                        	{{> "authentication/blog-card" article=this}}
+						{{else}}
+							<p>Der Blog ist derzeit deaktiviert! Das HPI Schul-Cloud Team kümmert sich darum.</p>
+						{{/each}}
+					</div>
+				<a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">weitere Artikel anzeigen</a>
+			{{/content}}
+		{{/embed}}
+
+		{{#embed "authentication/section" class="accent content-width-max"}}
+			{{#content "body"}}
+			<div style="text-align: center;">
+				<h2 class="section-title center" style="max-width: 20ch; margin: 0 auto;">
+					Alle Neuigkeiten rund um die HPI Schul-Cloud bequem in Ihrem Postfach:
+				</h2>
+				<a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank" class="btn btn-outline btn-newsletter mt-2">
+					Newsletter abonnieren
+				</a>
+			</div>
+			{{/content}}
+		{{/embed}}
+
+
+		<section id="newsletter" class="card">
+                        <div class="card-block">
+
+                        </div>
+                    </section>
+
+		{{!--
+		<hr />
+
+		<div class="container">
             <div class="row">
                 <main class="col-md-8">
                     <div class="hidden-md-up">
@@ -75,29 +233,7 @@
                             </ul>
                             <br />
                             <!-- TODO: use a red theme as soon as available -->
-                            <video-player
-                                configuration='{
-                                    "streams" : [
-                                      {
-                                        "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hd/video.mp4",
-                                        "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/sd/video.mp4",
-                                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/explainer-poster.jpg",
-                                        "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hls/video.m3u8"
-                                      }
-                                    ],
-                                    "language": "de",
-                                    "theme" : "dark-red",
-                                    "initialState": {
-                                      "volume": 0.75,
-                                      "quality" : "hls",
-                                      "playbackRate" : 1.0
-                                    },
-                                    "videoPreload": false,
-                                    "userPreferences" : {
-                                    },
-                                    "slides": []
-                                }'>
-                            </video-player>
+
 
                             <h4>Vorteile der HPI Schul-Cloud</h4>
                             <ul>
@@ -178,6 +314,7 @@
                 </aside>
             </div>
         </div>
+		--}}
         {{#embed "lib/extended_footer"}}{{/embed}}
         {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
             {{#content "fields"}}

@@ -1,0 +1,14 @@
+<article class="blog-card">
+		<img class="thumbnail" alt="{{article.img.title}}" src="{{article.img.src}}">
+	<h2 class="title">
+		{{article.title}}
+		<br/>
+		<small class="pub-date">{{article.pubDate}}</small>
+	</h2>
+	{{log article}}
+	<p class="description">{{truncatePure (stripHTMLTags article.description) 200}}</p>
+	<p>{{article.author}}</p>
+	<a href="{{article.url}}" class="btn-read" target="_blank">
+		lesen
+	</a>
+</article>

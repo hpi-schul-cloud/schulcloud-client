@@ -61,25 +61,26 @@ router.post('/login/', (req, res, next) => {
 
 
 router.all('/', (req, res, next) => {
-	// eslint-disable-next-line consistent-return
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
 			return res.redirect('/login/success/');
 		}
-		feedr.readFeed('https://blog.schul-cloud.org/rss', {
-			requestOptions: { timeout: 2000 },
-		}, (err, data) => {
+		return feedr.readFeed('https://blog.schul-cloud.org/rss', {
+			requestOptions: { timeout: 2000 }
+		}, (err, data, headers) => {
 			let blogFeed = [];
 			try {
-				blogFeed = data.rss.channel[0].item.slice(0, 5).map((e) => {
+				blogFeed = data.rss.channel[0].item.slice(0, 3).map((e) => {
 					const date = new Date(e.pubDate);
-
-
 					const locale = 'en-us';
-
-
 					const month = date.toLocaleString(locale, { month: 'long' });
 					e.pubDate = `${date.getDate()}. ${month}`;
+					e.description = e.description.join(' ');
+					e.url = e.link[0];
+					e.img = {
+						src: e['media:content'][0].$.url,
+						alt: e.title,
+					};
 					return e;
 				});
 			} catch (e) {
