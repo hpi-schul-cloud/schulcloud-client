@@ -1,5 +1,6 @@
 // generic styles for homepage
 @import "./blog-card";
+@import "./login";
 
 .section a.btn.btn-newsletter{
 	display: inline-block;
@@ -23,20 +24,4 @@
 	height: 100%;
 	padding: var(--space-md);
 	object-fit: contain;
-}
-
-// legacy css for login form
-#loginarea{
-	.btn{
-		word-wrap: break-word;
-		white-space: normal;
-	}
-	input {
-		margin-bottom: 10px;
-		font-size: 1rem;
-		padding: .5rem;
-	}
-	.login-providers {
-		display:none;
-	}
 }
