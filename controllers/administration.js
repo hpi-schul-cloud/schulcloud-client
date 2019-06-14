@@ -2301,7 +2301,7 @@ const getTeamFlags = (team) => {
 	const hasOwner = '<i class="fa fa-briefcase team-flags" data-toggle="tooltip" '
 		+ 'data-placement="top" title="Team hat Eigentümer"></i>';
 	const hasRocketChat = '<i class="fa fa-comments team-flags" data-toggle="tooltip" '
-		+ 'data-placement="top" title="Team hat Eigentümer"></i>';
+		+ 'data-placement="top" title="Chat ist aktiviert"></i>';
 
 	let combined = '';
 
