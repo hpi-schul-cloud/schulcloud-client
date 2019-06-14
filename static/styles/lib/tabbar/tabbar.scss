@@ -1,4 +1,5 @@
 .tabContainer {
+  overflow: hidden;
   .tabs {
     position: relative;
     display: flex;
@@ -7,7 +8,7 @@
 
     .tab {
       display: block;
-      padding: 20px;
+      padding: 1em;
       width: 100%;
       text-align: center;
       white-space: nowrap;
@@ -19,7 +20,12 @@
         vertical-align: middle;
         cursor: pointer;
         font-weight: 500;
-        font-size: 20px;
+        font-size: 1.25em;
+        @include media-breakpoint-down(xs) {
+          display: flex;
+          flex-direction: column-reverse;
+          font-size: 1.15em;
+        }
       }
       &.active .text,
       &:hover {
