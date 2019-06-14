@@ -1,7 +1,7 @@
 @import '../lib/bootstrap/scss/bootstrap';
 
 .content-width-max{
-	max-width: var(--size-content-width-max);
+	max-width: var(--size-content-width-max) !important;
 }
 
 .rows-2{

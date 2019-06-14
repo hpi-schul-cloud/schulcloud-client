@@ -36,11 +36,33 @@
 			background-color: var(--color-accent)
 		}
 	}
+	&.dark{
+		--color-headline: var(--color-gray-dark);
+		--color-text: var(--color-white);
+
+		a{
+			color: var(--color-text);
+			text-decoration: underline;
+		}
+
+		&::before{
+			background-color: var(--color-gray-dark)
+		}
+	}
 
 	.section-title{
 		color: var(--color-headline);
 		&.center{
 			text-align: center;
 		}
+	}
+}
+
+.dark.footer{
+	background-color: var(--color-gray-dark);
+	margin-top: var(--space-xl);
+	padding-top: var(--space-xl);
+	&:before{
+		transform-origin: bottom left;
 	}
 }
