@@ -1,4 +1,8 @@
-@import '../lib/colors';
+@import "../lib/colors";
+
+.btn.disabled {
+  pointer-events: auto !important;
+}
 
 .times {
   padding: 16px;
