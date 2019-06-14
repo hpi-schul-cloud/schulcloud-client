@@ -1,0 +1,34 @@
+{{#extend "lib/loggedin"}}
+
+    {{#content "scripts" mode="append"}}
+        <script type="text/javascript" defer src="/scripts/teamOverview.js"></script>
+    {{/content}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/courses/empty-state.css"/>
+    {{/content}}
+
+    {{#content "page"}}
+        <section class="empty-state">
+            <img src="/images/empty-states/teams.svg" alt="Team von Lehrern" class="image mx-auto d-block"/>
+            <div class="text-wrapper mx-auto d-block">
+                <h2 class="text-center">Teams vernetzen Schule</h2>
+                <h3 class="h5 text-muted text-center">
+                    Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.
+                </h3>
+            </div>
+            {{#if allowedCreateTeam}}
+            <div class="row">
+                <div class="center buttons">
+                    <a href="/teams/add" class="btn btn-lg btn-add btn-primary">Gründe ein Team</a>
+                </div>
+            </div>
+            {{else}}
+            <div class="text-wrapper mx-auto d-block">
+                <h3 class="h5 text-muted text-center">
+                    Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator.
+                </h3>
+            </div>
+            {{/if}}
+        </section>
+    {{/content}}
+{{/extend}}

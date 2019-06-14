@@ -360,7 +360,7 @@
 				"firstName": "Sigrid",
 				"lastName": "Stobbe",
 				"position": "Projektkoordination, MINT-EC",
-				"description": "Sigrid ist Bildungswissenschaftlerin (M.A., Freie Universität Berlin) und rechtzeitig zum Start der II. Pilotierungsphase seit Mai 2018 konzeptionelle Mitarbeiterin im Projekt HPI Schul-Cloud auf Seiten von MINT-EC. Vor ihrem Masterabschluss arbeitete Sigrid in der Qualitätsentwicklung & Evaluation in der Fort- und Weiterbildung von Erwachsenen und forschte in verschiedenen Bildungsbereichen zur Qualität in Lern- und Bildungsprozessen (offline und online). Im Projekt HPI Schul-Cloud wirkt sie insbesondere bei der Betreuung der Pilotschulen sowie der konzeptionellen Entwicklung der HPI Schul-Cloud mit. Außerhalb der Arbeitszeit verbringt sie viel Zeit in den Boulder- und Kletterhallen ihrer Heimatstadt Berlin und sucht sportlichen Ausgleich beim Yoga.",
+				"description": "Sigrid ist Bildungswissenschaftlerin (M.A., Freie Universität Berlin) und im Mai 2018 als konzeptionelle Mitarbeiterin im Projekt HPI Schul-Cloud auf Seiten von MINT-EC gestartet. Seit November 2018 übernimmt sie die operative Projektleitung des Roll-Outs an 316 MINT-EC-Schulen, koordiniert die Mitgestaltung der Lehrkräfte im Pilotprojekt und treibt die konzeptionelle Weiterentwicklung der HPI Schul-Cloud voran. Vor ihrem Masterabschluss arbeitete Sigrid in der Qualitätsentwicklung & Evaluation in der Fort- und Weiterbildung von Erwachsenen und forschte in verschiedenen Bildungsbereichen zur Qualität in Lern- und Bildungsprozessen (offline und online). Außerhalb der Arbeitszeit verbringt sie viel Zeit in den Boulder- und Kletterhallen ihrer Heimatstadt Berlin und sucht sportlichen Ausgleich beim Yoga.",
 				"pictureUrl": "/images/team/Sigrid_Stobbe.jpg",
 				"priority": 0,
 				"social": {
@@ -547,11 +547,11 @@
 		"team": [
 			{
 				"title": "",
-				"firstName": "Dominik",
-				"lastName": "Glandorf",
+				"firstName": "Josafat-Mattias",
+				"lastName": "Burmeister",
 				"position": "Studentische Hilfskraft",
-				"description": "Dominik ist Studentische Hilfskraft und war Teil des Bachelorprojekts 2017/18. Er studiert IT-Systems Engineering am HPI und kümmert sich in der HPI Schul-Cloud um Tools zur Content-Erstellung & -Integration. Privat tanzt er gerne Hip Hop und beschäftigt sich mit Philosophie und Politik.",
-				"pictureUrl": "/images/team/Dominik_Glandorf.jpg",
+				"description": "Josafat-Mattias studiert derzeit im Bachelorstudiengang IT-Systems Engineering am Hasso-Plattner-Institut. Zuvor hat er bereits einen Bachelorabschluss in Biologie erworben. Seit April 2019 unterstützt er das Team der HPI Schul-Cloud als Fullstack-Entwickler. In seiner Freizeit beschäftigt er sich mit Fotografie und spielt gern Fussball.",
+				"pictureUrl": "/images/team/josafat-mattias_burmeister.jpeg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -562,11 +562,26 @@
 			},
 			{
 				"title": "",
-				"firstName": "Tatiana",
-				"lastName": "Gurova",
+				"firstName": "Marcel",
+				"lastName": "Garus",
 				"position": "Studentische Hilfskraft",
-				"description": "Tatiana studiert aktuell Jura in Potsdam und unterstützt seit März 2019 das Projekt HPI Schul-Cloud bei der Büroorganisation und bei Themen bezüglich der Politik und des Datenschutzes. Ihre Freizeit verbringt sie gerne mit der Teilnahme an verschiedenen Workshops, Kongressen und Seminaren und dem Standard/Lateintanz.",
-				"pictureUrl": "/images/team/tatiana.jpg",
+				"description": "Marcel Garus studiert Bachelor IT-Systems Engineering am HPI und entwickelt seit Mitte 2019 die Flutter-Version der Schul-Cloud-App. Privat entwickelt er gerne OpenSource-Projekte, spielt Klavier und schaut mit anderen zusammen Serien auf Netflix.",
+				"pictureUrl": "/images/team/marcel_garus.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Dominik",
+				"lastName": "Glandorf",
+				"position": "Studentische Hilfskraft",
+				"description": "Dominik ist Studentische Hilfskraft und war Teil des Bachelorprojekts 2017/18. Er studiert IT-Systems Engineering am HPI und kümmert sich in der HPI Schul-Cloud um Tools zur Content-Erstellung & -Integration. Privat tanzt er gerne Hip Hop und beschäftigt sich mit Philosophie und Politik.",
+				"pictureUrl": "/images/team/Dominik_Glandorf.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -652,21 +667,6 @@
 			},
 			{
 				"title": "",
-				"firstName": "Maxim",
-				"lastName": "Renz",
-				"position": "Studentische Hilfskraft",
-				"description": "Maxim studiert Angewandte Informatik im Bachelor an der Universität Duisburg-Essen. 2018 arbeitete er am HPI im Projekt der OpenWHO-Plattform. Im Team HPI Schul-Cloud arbeitet er seit Januar 2019 an der Entwicklung des automatisierten Cross-Browser-Testings. In seiner Freizeit kocht & isst er gerne, beschäftigt sich mit KFZ-Design & Technologie und fährt gelegentlich Rennrad.",
-				"pictureUrl": "/images/team/Maxim_Renz.JPG",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
 				"firstName": "Sebastian",
 				"lastName": "Serth",
 				"position": "Student",
@@ -717,6 +717,21 @@
 		"style": "small",
 		"team": [
 			{
+        "title": "",
+        "firstName": "Patricia",
+        "lastName": "Rau",
+        "position": "Praktikantin",
+        "description": "Patricia hat BWL-Digitale Wirtschaft an der Beuth Hochschule für Technik in Berlin studiert. Seit Mai 2019 unterstützt sie das HPI Schul-Cloud Projekt bei kommunikativen und organisatorischen Aufgaben. Ihre Freizeit verbringt sie gerne mit Freunden in Cafes oder draußen im Grünen. Außerdem reist und fotografiert sie gerne.",
+        "pictureUrl": "/images/team/patricia_rau.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+	  {
         "title": "",
         "firstName": "Michael",
         "lastName": "Schmid",

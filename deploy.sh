@@ -18,6 +18,9 @@ function buildandpush {
   docker build -t schulcloud/schulcloud-client-n21:$DOCKERTAG -t schulcloud/schulcloud-client-n21:$GIT_SHA -f Dockerfile.n21 .
   # build container open theme
   docker build -t schulcloud/schulcloud-client-open:$DOCKERTAG -t schulcloud/schulcloud-client-open:$GIT_SHA -f Dockerfile.open .
+  # build container brb theme
+  docker build -t schulcloud/schulcloud-client-brb:$DOCKERTAG -t schulcloud/schulcloud-client-brb:$GIT_SHA -f Dockerfile.brb .
+  
 
   # Log in to the docker CLI
   echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
@@ -29,32 +32,58 @@ function buildandpush {
   docker push schulcloud/schulcloud-client-n21:$GIT_SHA
   docker push schulcloud/schulcloud-client-open:$DOCKERTAG
   docker push schulcloud/schulcloud-client-open:$GIT_SHA
+  docker push schulcloud/schulcloud-client-brb:$DOCKERTAG
+  docker push schulcloud/schulcloud-client-brb:$GIT_SHA
 }
 
 function deploytotest {
   # build container default theme
-  docker build -t schulcloud/schulcloud-client:$DOCKERTAG -t schulcloud/schulcloud-client:$GIT_SHA .
+ # docker build -t schulcloud/schulcloud-client:$DOCKERTAG -t schulcloud/schulcloud-client:$GIT_SHA .
 
   # take those images and push them up to docker hub
-  docker push schulcloud/schulcloud-client:$DOCKERTAG
-  docker push schulcloud/schulcloud-client:$GIT_SHA
+ # docker push schulcloud/schulcloud-client:$DOCKERTAG
+ # docker push schulcloud/schulcloud-client:$GIT_SHA
 
   # screw together config file for docker swarm 
-  eval "echo \"$( cat compose-client-test.dummy )\"" > docker-compose-client.yml
+ # eval "echo \"$( cat compose-client-test.dummy )\"" > docker-compose-client.yml
 
   # copy config-file to server and execute mit travis_rsa
   chmod 600 travis_rsa
-  scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa docker-compose-client.yml linux@test.schul-cloud.org:~
-  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@test.schul-cloud.org /usr/bin/docker stack deploy -c /home/linux/docker-compose-client.yml test-schul-cloud
-  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@test.schul-cloud.org /usr/bin/docker service update --force test-schul-cloud_client
+#  scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa docker-compose-client.yml linux@test.schul-cloud.org:~
+#  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@test.schul-cloud.org /usr/bin/docker stack deploy -c /home/linux/docker-compose-client.yml test-schul-cloud
+  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@test.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client:develop test-schul-cloud_client
 }
+
+function deploytoprods {
+  chmod 600 travis_rsa
+  # open
+  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@open.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client-open:latest open_client
+  # brabu
+  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@open.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client-brb:latest brabu_client
+  # demo
+  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@demo.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client:latest demo_client
+}
+
+function deploytostaging {
+  # copy config-file to server and execute mit travis_rsa
+  chmod 600 travis_rsa
+  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@staging.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client:$DOCKERTAG  staging_client
+}
+
+
 
 if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
 then
   buildandpush
-elif [ "$TESTDEPLOY" = "true" ]
+  deploytoprods
+elif [ "$TRAVIS_BRANCH" = "develop" ]
 then
+  buildandpush
   deploytotest
+elif [[ $TRAVIS_BRANCH == release* ]]
+then
+  buildandpush
+  deploytostaging
 else
   echo "Nix wird deployt"
 fi

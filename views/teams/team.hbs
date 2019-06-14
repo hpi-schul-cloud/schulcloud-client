@@ -75,15 +75,15 @@
 
 
             <div class="course-card">
-                <div class="tabContainer">
+                <div class="tabContainer" data-active-tab={{activeTab}}>
                     <div class="tabs" data-max-width="1024">
-                        <button class="tab" data-tab="a">
+                        <button class="tab" data-tab="js-files">
                             <span class="text">Dateien</span>
                         </button>
-                        <button class="tab" data-tab="b">
+                        <button class="tab" data-tab="js-news">
                             <span class="text">Neuigkeiten</span>
                         </button>
-                        <button class="tab" data-tab="c">
+                        <button class="tab" data-tab="js-events">
                             <span class="text">Termine</span>
                         </button>
                     </div>
@@ -91,7 +91,7 @@
                 <div class="sectionsContainer">
                     <div class="sections">
                         <!-- Dateien -->
-                        <div class="section" data-section="a">
+                        <div class="section" data-section="js-files">
                             {{#if canUploadFile}}
                                     {{#embed "files/file-upload"}}{{/embed}}
                                 {{/if}}
@@ -162,9 +162,11 @@
                                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
                                         <i class="fa fa-folder-open"></i> Zu den Team-Dateien
                                     </a>
-                                    <button class="btn btn-add btn-secondary btn-file-permissions">
-                                        <i class="fa fa-share-alt"></i> Freigabe-Einstellungen ändern
-                                    </button>
+                                    {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
+                                        <button class="btn btn-add btn-secondary btn-file-permissions">
+                                            <i class="fa fa-share-alt"></i> Freigabe-Einstellungen ändern
+                                        </button>
+                                    {{/inArray}}
                                     {{#if ../canCreateDir}}
                                         <span class="btn btn-primary create-directory">
                                             <i class="fa fa-folder" aria-hidden="true"></i> Ordner erstellen
@@ -179,26 +181,26 @@
 
                         </div>
                         <!--- Neuigkeiten -->
-                        <div class="section" data-section="b">
+                        <div class="section" data-section="js-news">
                             {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
                             <a href="/teams/{{../_id}}/news" class="">
                                 Alle Neuigkeiten anzeigen...
                             </a>
-                            {{#inArray "CREATE_NEWS" permissions}}
+                            {{#inArray "NEWS_CREATE" permissions}}
                                 <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary pull-right">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Neuigkeit anlegen
                                 </a>
                             {{/inArray}}
                         </div>
                         <!-- Termine -->
-                        <div class="section" data-section="c">
+                        <div class="section" data-section="js-events">
                             <div class="row">
                                 {{#each ../events}}
                                     {{> 'calendar/card' event=this}}
                                 {{/each}}
                             </div>
                             <div style="margin-top: .5rem">
-                                {{#inArray "CREATE_NEWS" permissions}}
+                                {{#inArray "NEWS_CREATE" permissions}}
                                     <button class="btn btn-add btn-primary btn-create-event pull-right">
                                         Termin anlegen
                                     </button>
