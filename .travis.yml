@@ -1,7 +1,7 @@
 language: node_js
 node_js: '8'
 sudo: required
-#if: branch = master OR type = pull_request
+
 services:
 - docker
 env:
@@ -45,7 +45,7 @@ script:
 cache:
   directories:
   - node_modules
-after_success:
+#after_success:
 #- bash ./deploy.sh
 
 deploy:
