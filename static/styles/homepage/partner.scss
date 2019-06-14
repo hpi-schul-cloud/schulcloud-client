@@ -1,0 +1,14 @@
+.partners{
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 1fr;
+	grid-gap: var(--space-md);
+}
+.partner{
+	border-radius: var(--radius-md);
+	border: var(--border-width) solid var(--color-gray);
+	width: 100%;
+	height: 100%;
+	padding: var(--space-md);
+	object-fit: contain;
+}

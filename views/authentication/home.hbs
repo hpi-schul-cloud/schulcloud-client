@@ -25,6 +25,8 @@
 				</div>
 
 				{{> "authentication/forms/login"}}
+				{{> "authentication/forms/demo-login"}}
+
 			{{!--
 				{{> "authentication/forms/login"}}
 				{{> "authentication/forms/demo-login"}}
@@ -32,7 +34,7 @@
 			{{/content}}
 		{{/embed}}
 
-		{{#embed "authentication/section" class="primary content-width-max"}}
+		{{#embed "authentication/section" style="primary" class="content-width-max"}}
 			{{#content "body"}}
 				<video-player
 					configuration='{
@@ -100,7 +102,7 @@
 			{{/content}}
 		{{/embed}}
 
-		{{#embed "authentication/section" class="accent content-width-max"}}
+		{{#embed "authentication/section" style="accent" class="content-width-max"}}
 			{{#content "body"}}
 				<h2 class="section-title center">Die Grundidee der HPI Schul-Cloud</h2>
 				<p>Webbasierte Anwendungen sowie Rechenressourcen und Speichermöglichkeiten per Cloud Computing ermöglichen einen effizienten Zugriff auf zeitgemäße IT-Dienste für einen großen Kreis an Nutzer/innen.</p>
@@ -120,7 +122,7 @@
 			{{/content}}
 		{{/embed}}
 
-		{{#embed "authentication/section" class="primary content-width-max"}}
+		{{#embed "authentication/section" style="primary" class="content-width-max"}}
 			{{#content "body"}}
 				<h2 class="section-title center">Vorteile der HPI Schul-Cloud</h2>
 				<ul>
@@ -151,7 +153,7 @@
 			{{/content}}
 		{{/embed}}
 
-		{{#embed "authentication/section" class="accent content-width-max"}}
+		{{#embed "authentication/section" style="accent" class="content-width-max"}}
 			{{#content "body"}}
 			<div style="text-align: center;">
 				<h2 class="section-title center" style="max-width: 20ch; margin: 0 auto;">
@@ -165,13 +167,28 @@
 		{{/embed}}
 
 
-		<section id="newsletter" class="card">
-                        <div class="card-block">
+		{{#embed "authentication/section" class=""}}
+			{{#content "body"}}
+			<div style="text-align: center;">
+				<h2 class="section-title center">
+					Projektdurchführung
+				</h2>
+				<div class="partners">
+					<a href="https://hpi.de/open-campus/hpi-initiativen/schul-cloud.html" target="_blank" rel="noopener">
+						<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/hpi-logo.jpg" alt="Logo HPI" class="partner">
+					</a>
+					<a href="https://www.mint-ec.de/" target="_blank" rel="noopener">
+						<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/mintec-logo.jpg" alt="Logo MINT-EC" class="partner">
+					</a>
+					<a href="https://www.bmbf.de/" target="_blank" rel="noopener">
+						<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/bmbf-logo.jpg" alt="Logo BMBF" class="partner">
+					</a>
+				</div>
+			</div>
+			{{/content}}
+		{{/embed}}
 
-                        </div>
-                    </section>
 
-		{{!--
 		<hr />
 
 		<div class="container">
@@ -314,7 +331,7 @@
                 </aside>
             </div>
         </div>
-		--}}
+
         {{#embed "lib/extended_footer"}}{{/embed}}
         {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
             {{#content "fields"}}

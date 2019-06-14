@@ -96,12 +96,12 @@ router.all('/', (req, res, next) => {
 						$sort: 'name',
 					},
 				);
-				resolve(schoolsPromise).then(schools => res.render('authentication/home', {
+				resolve(schoolsPromise.then(schools => res.render('authentication/home', {
 					schools,
 					blogFeed,
 					inline: true,
 					systems: [],
-				}));
+				})));
 			});
 		});
 	});
