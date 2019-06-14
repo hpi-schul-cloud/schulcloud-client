@@ -1,27 +1,13 @@
-{{#extend "lib/default"}}
+{{#extend "lib/loggedout"}}
 
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/authentication/home.css"/>
-        <style>
-            header a[href='/community']{
-                background-color: #f8a41b;
-            }
-        </style>
-    {{/content}}
+	{{#content "styles" mode="append"}}
+	{{/content}}
 
-    {{#content "scripts" mode="append"}}
-    {{/content}}
+	{{#content "scripts" mode="append"}}
+	{{/content}}
 
-    {{#content "body"}}
-        {{#embed "lib/header"}}{{/embed}}
-        <div class="container">
-            <div class="card">
-                <div class="card-block">
-                    <div class="section-title"><h3>{{title}}</h3></div>
-                    {{#embed "community/community"}}{{/embed}}
-                </div>
-            </div>
-        </div>
-        {{#embed "lib/extended_footer"}}{{/embed}}
-    {{/content}}
+	{{#content "page"}}
+		{{#embed "community/community"}}{{/embed}}
+	{{/content}}
+
 {{/extend}}

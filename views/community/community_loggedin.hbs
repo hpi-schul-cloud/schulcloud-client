@@ -3,10 +3,11 @@
     {{#content "styles" mode="append"}}
     {{/content}}
 
-    {{#content "page"}}
+    {{#content "scripts" mode="append"}}
+    {{/content}}
+
+	{{#content "page"}}
         {{#embed "community/community" loggedin="true"}}{{/embed}}
     {{/content}}
 
-    {{#content "scripts" mode="append"}}
-    {{/content}}
 {{/extend}}

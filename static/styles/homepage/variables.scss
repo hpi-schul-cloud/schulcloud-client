@@ -1,3 +1,4 @@
+// variables from new vue client
 :root{
 	--radius-round: 100vmax;
     --radius-sm: 0.25rem;
@@ -41,33 +42,3 @@
 	--size-content-width-min: 40ch;
     --size-content-width-max: 80ch;
 }
-
-body{
-	margin-top: 6rem;
-}
-
-.btn.btn-newsletter{
-	display: inline-block;
-	border: 1px solid var(--color-white);
-}
-
-#loginarea{
-	.btn{
-		word-wrap: break-word;
-		white-space: normal;
-	}
-	input {
-		margin-bottom: 10px;
-		font-size: 1rem;
-		padding: .5rem;
-	}
-	.login-providers {
-		display:none;
-	}
-}
-
-@import "./layouts";
-@import "./header";
-@import "./sections";
-@import "./blog-card";
-@import "./partner";

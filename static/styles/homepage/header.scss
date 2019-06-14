@@ -4,6 +4,7 @@
 	left: 0;
 	width: 100%;
 	background-color: var(--color-white);
+	color: var(--color-black);
 	box-shadow: var(--shadow-md);
 	z-index: 3;
 	.container{
@@ -28,7 +29,11 @@
 			padding: var(--space-xs);
 			margin-left: var(--space-xxs);
 			&:hover, &:focus{
-				background-color: var(--color-gray-light)
+				background-color: var(--color-gray-light);
+			}
+			&.active{
+				font-weight: bold;
+				text-decoration: underline;
 			}
 		}
 	}

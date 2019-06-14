@@ -1,0 +1,42 @@
+// generic styles for homepage
+@import "./blog-card";
+
+.section a.btn.btn-newsletter{
+	display: inline-block;
+	border: 1px solid var(--color-white);
+	text-decoration: none;
+	&:hover{
+		text-decoration: underline;
+	}
+}
+
+.partners{
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 1fr;
+	grid-gap: var(--space-md);
+}
+.partner{
+	border-radius: var(--radius-md);
+	border: var(--border-width) solid var(--color-gray);
+	width: 100%;
+	height: 100%;
+	padding: var(--space-md);
+	object-fit: contain;
+}
+
+// legacy css for login form
+#loginarea{
+	.btn{
+		word-wrap: break-word;
+		white-space: normal;
+	}
+	input {
+		margin-bottom: 10px;
+		font-size: 1rem;
+		padding: .5rem;
+	}
+	.login-providers {
+		display:none;
+	}
+}

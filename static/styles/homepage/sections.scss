@@ -1,4 +1,4 @@
-.section{
+.section.section-tilt{
 	--color-headline: var(--color-primary);
 	--color-text: var(--color-black);
 
@@ -19,6 +19,7 @@
 	&.primary{
 		--color-headline: var(--color-white);
 		--color-text: var(--color-white);
+
 		&::before{
 			background-color: var(--color-primary)
 		}
@@ -26,11 +27,6 @@
 	&.accent{
 		--color-headline: var(--color-white);
 		--color-text: var(--color-white);
-
-		a{
-			color: var(--color-text);
-			text-decoration: underline;
-		}
 
 		&::before{
 			background-color: var(--color-accent)
@@ -40,16 +36,22 @@
 		--color-headline: var(--color-gray-dark);
 		--color-text: var(--color-white);
 
-		a{
-			color: var(--color-text);
-			text-decoration: underline;
-		}
-
 		&::before{
 			background-color: var(--color-gray-dark)
 		}
 	}
 
+	&.primary, &.accent, &.dark{
+		a, button{
+			color: var(--color-text);
+			text-decoration: underline;
+		}
+
+	}
+
+	> .container{
+		margin: 0 auto;
+	}
 	.section-title{
 		color: var(--color-headline);
 		&.center{
@@ -60,8 +62,8 @@
 
 .dark.footer{
 	background-color: var(--color-gray-dark);
-	margin-top: var(--space-xl);
-	padding-top: var(--space-xl);
+	margin-top: var(--space-xxl);
+	padding-top: calc(var(--space-xxl) / 2);
 	&:before{
 		transform-origin: bottom left;
 	}
