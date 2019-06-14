@@ -107,6 +107,19 @@ const checkIfUserCouldLeaveTeam = (current, others) => {
 	return false;
 };
 
+const checkIfUserCanCreateTeam = (res) => {
+	const roleNames = res.locals.currentUser.roles.map(role => role.name);
+	let allowedCreateTeam = false;
+	if (roleNames.includes('administrator') || roleNames.includes('teacher') || roleNames.includes('student')) {
+		allowedCreateTeam = true;
+		if (roleNames.includes('student')
+		&& res.locals.currentSchoolData.features.includes('disableStudentTeamCreation')) {
+			allowedCreateTeam = false;
+		}
+	}
+	return allowedCreateTeam;
+};
+
 const markSelected = (options, values = []) => options.map((option) => {
 	option.selected = values.includes(option._id);
 	return option;
@@ -253,6 +266,8 @@ router.get('/', async (req, res, next) => {
 		},
 	});
 
+	const allowedCreateTeam = checkIfUserCanCreateTeam(res);
+
 	teams = teams.data.map((team) => {
 		team.url = `/teams/${team._id}`;
 		team.title = team.name;
@@ -265,7 +280,9 @@ router.get('/', async (req, res, next) => {
 				.utc()
 				.format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''}</div>`;
+			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
+				time.room ? `| ${time.room}` : ''
+			}</div>`;
 		});
 
 		return team;
@@ -291,13 +308,16 @@ router.get('/', async (req, res, next) => {
 			title: 'Meine Teams',
 			teams,
 			teamInvitations,
+			allowedCreateTeam,
 			searchLabel: 'Suche nach Teams',
 			searchAction: '/teams',
 			showSearch: true,
 			liveSearch: true,
 		});
 	} else {
-		res.render('teams/overview-empty');
+		res.render('teams/overview-empty', {
+			allowedCreateTeam,
+		});
 	}
 });
 
@@ -461,7 +481,11 @@ router.get('/:teamId', async (req, res, next) => {
 		).includes('rocketChat');
 
 		let rocketChatCompleteURL;
-		if (instanceUsesRocketChat && courseUsesRocketChat && schoolUsesRocketChat) {
+		if (
+			instanceUsesRocketChat
+      && courseUsesRocketChat
+      && schoolUsesRocketChat
+		) {
 			try {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
@@ -533,6 +557,7 @@ router.get('/:teamId', async (req, res, next) => {
 		let news = (await api(req).get('/news/', {
 			qs: {
 				target: req.params.teamId,
+				targetModel: 'teams',
 				$limit: 4,
 				$sort: '-displayAt',
 			},
@@ -580,6 +605,7 @@ router.get('/:teamId', async (req, res, next) => {
 			'teams/team',
 			Object.assign({}, course, {
 				title: course.name,
+				activeTab: req.query.activeTab,
 				breadcrumb: [
 					{
 						title: 'Meine Teams',
@@ -734,7 +760,7 @@ router.post('/:teamId/events/', (req, res, next) => {
 	api(req)
 		.post('/calendar/', { json: req.body })
 		.then(() => {
-			res.redirect(`/teams/${req.params.teamId}`);
+			res.redirect(`/teams/${req.params.teamId}/?activeTab=events`);
 		});
 });
 
@@ -780,10 +806,10 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 	const roleTranslations = {
 		teammember: 'Teilnehmer',
-		teamexpert: 'externer Experte',
+		teamexpert: 'Externer&nbsp;Experte',
 		teamleader: 'Leiter',
-		teamadministrator: 'Team-Admin',
-		teamowner: 'Team-Admin (Eigentümer)',
+		teamadministrator: 'Administrator',
+		teamowner: 'Eigentümer',
 	};
 
 	const head = ['Vorname', 'Nachname', 'Rolle', 'Schule', 'Aktionen'];
@@ -937,7 +963,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
 					class: 'btn-delete-member disabled',
-					title: 'Das Verlassen des Teams erforder einen anderen Eigentümer',
+					title: 'Das Verlassen des Teams erfordert einen anderen Eigentümer',
 					icon: 'trash',
 				});
 			}
@@ -955,17 +981,18 @@ router.get('/:teamId/members', async (req, res, next) => {
 			return actions;
 		};
 
-
 		if (team.user.role.name === 'teamowner') {
 			couldLeave = false;
 			for (const user of team.userIds) {
-				if (user.userId._id !== team.user.userId._id && user.role._id === team.user.role._id) {
+				if (
+					user.userId._id !== team.user.userId._id
+          && user.role._id === team.user.role._id
+				) {
 					couldLeave = true;
 					break;
 				}
 			}
 		}
-
 
 		const body = team.userIds.map((user) => {
 			let actions = [];
@@ -1234,8 +1261,11 @@ router.get('/:teamId/topics', async (req, res, next) => {
 			const courseGroupsData = permissionHelper.userHasPermission(
 				res.locals.currentUser,
 				'COURSE_EDIT',
-			) ? courseGroups.data || [] : (courseGroups.data || [])
-					.filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+			)
+				? courseGroups.data || []
+				: (courseGroups.data || []).filter(
+					cg => cg.userIds.some(user => user._id === res.locals.currentUser._id),
+				);
 
 			res.render(
 				'teams/topics',
