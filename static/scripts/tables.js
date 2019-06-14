@@ -30,6 +30,9 @@ $(document).ready(function () {
     'Typ': 'type',
     'Url': 'url',
     'Alias': 'alias',
+    'Mitglieder': 'members',
+    'Schule(n)': 'schoolIds',
+    'Erstellt am': 'createdAt',
 
     'subject': 'Titel',
     'firstName': 'Vorname',
@@ -54,7 +57,10 @@ $(document).ready(function () {
     'teacherIds': 'Lehrer',
     'classIds': 'Klasse(n)',
     'displayName': 'Klasse',
-    'email': 'E-Mail-Adresse'
+    'email': 'E-Mail-Adresse',
+    'createdAt': 'Erstellt am',
+    'schoolIds': 'Schule(n)',
+    'members': 'Mitglieder',
 };
 
 $('tr th').each(function(i,j) {
