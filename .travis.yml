@@ -1,7 +1,7 @@
 language: node_js
 node_js: '8'
 sudo: required
-if: branch = master OR type = pull_request
+
 services:
 - docker
 env:
@@ -44,11 +44,11 @@ cache:
   directories:
   - node_modules
 after_success:
-- bash ./deploy.sh
+#- bash ./deploy.sh
 
-#deploy:
-#  provider: script
-#  script: bash ./deploy.sh
-#  on:
+deploy:
+  provider: script
+  script: bash ./deploy.sh
+  on:
 #    all_branches: true
 #    condition: "$TRAVIS_BRANCH =~ ^master|N21/merge$"

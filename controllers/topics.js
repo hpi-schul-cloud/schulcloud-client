@@ -24,16 +24,16 @@ const editTopicHandler = (req, res, next) => {
     let lessonPromise, action, method;
     if (req.params.topicId) {
         action = `/${context}/`
-                + (context === 'courses' ? req.params.courseId : req.params.teamId)
-                + '/topics/' + req.params.topicId
-                + (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
+            + (context === 'courses' ? req.params.courseId : req.params.teamId)
+            + '/topics/' + req.params.topicId
+            + (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
         method = 'patch';
         lessonPromise = api(req).get('/lessons/' + req.params.topicId);
     } else {
         action = `/${context}/`
-                + (context === 'courses' ? req.params.courseId : req.params.teamId)
-                + '/topics'
-                + (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
+            + (context === 'courses' ? req.params.courseId : req.params.teamId)
+            + '/topics'
+            + (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
         method = 'post';
         lessonPromise = Promise.resolve({});
     }
@@ -53,6 +53,7 @@ const editTopicHandler = (req, res, next) => {
             closeLabel: 'Abbrechen',
             lesson,
             courseId: req.params.courseId,
+            topicId: req.params.topicId,
             teamId: req.params.teamId,
             courseGroupId: req.query.courseGroup,
             etherpadBaseUrl: etherpadBaseUrl
@@ -84,7 +85,7 @@ router.get('/', (req, res, next) => {
 router.get('/add', editTopicHandler);
 
 
-router.post('/', async function(req, res, next) {
+router.post('/', async function (req, res, next) {
     const context = req.originalUrl.split('/')[1];
     const data = req.body;
 
@@ -106,16 +107,16 @@ router.post('/', async function(req, res, next) {
     }).then(_ => {
         res.redirect(
             context === 'courses'
-            ? `/courses/` + req.params.courseId +
-                (req.query.courseGroup ? '/groups/' + req.query.courseGroup : '')
-            : `/teams/` + req.params.teamId + '/topics'
+                ? `/courses/` + req.params.courseId +
+                (req.query.courseGroup ? '/groups/' + req.query.courseGroup : '/?activeTab=topics')
+                : `/teams/` + req.params.teamId + '/?activeTab=topics'
         );
     }).catch(_ => {
         res.sendStatus(500);
     });
 });
 
-router.post('/:id/share', function(req, res, next) {
+router.post('/:id/share', function (req, res, next) {
     // if lesson already has shareToken, do not generate a new one
     api(req).get('/lessons/' + req.params.id).then(topic => {
         topic.shareToken = topic.shareToken || shortId.generate();
@@ -125,8 +126,18 @@ router.post('/:id/share', function(req, res, next) {
     });
 });
 
+router.get('/:topicId', function (req, res, next) {
+    if (req.query.edtr || req.query.edtr_hash) {
+        return res.render('topic/topic-edtr', {
+            edtrSource: req.query.edtr_hash
+                ? `https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@${req.query.edtr_hash}/dist/index.js`
+                : req.query.version === 'B'
+                    ? process.env.EDTR_SOURCE_B
+                    : process.env.EDTR_SOURCE || "https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@4d16b968e217359d958d828155a91acb4295d94c/dist/index.js",
+            backendUrl: process.env.PUBLIC_BACKEND_URL || "http://localhost:3030",
+        })
+    }
 
-router.get('/:topicId', function(req, res, next) {
     const context = req.originalUrl.split('/')[1];
     Promise.all([
         api(req).get(`/${context}/` + req.params.courseId),
@@ -144,8 +155,8 @@ router.get('/:topicId', function(req, res, next) {
             }
         }),
         req.query.courseGroup ?
-        api(req).get('/courseGroups/' + req.query.courseGroup) :
-        Promise.resolve({})
+            api(req).get('/courseGroups/' + req.query.courseGroup) :
+            Promise.resolve({})
     ]).then(([course, lesson, homeworks, courseGroup]) => {
         // decorate contents
         lesson.contents = (lesson.contents || []).map(block => {
@@ -166,26 +177,26 @@ router.get('/:topicId', function(req, res, next) {
         res.render('topic/topic', Object.assign({}, lesson, {
             title: lesson.name,
             context,
-            homeworks: homeworks.filter(function(task) { return !task.private; }),
-            myhomeworks: homeworks.filter(function(task) { return task.private; }),
+            homeworks: homeworks.filter(function (task) { return !task.private; }),
+            myhomeworks: homeworks.filter(function (task) { return task.private; }),
             courseId: req.params.courseId,
             isCourseGroupTopic: courseGroup._id !== undefined,
             breadcrumb: [{
-                    title: 'Meine Kurse',
-                    url: `/${context}`
-                },
-                {
-                    title: course.name + ' ' + '> Themen',
-                    url: `/${context}/` + course._id 
-                },
-                {
-                    title: lesson.name,
-                    url: `/${context}/` + course._id + '/topics/' + lesson._id
-                },
-                courseGroup._id ? {
-                    title: courseGroup.name,
-                    url: `/${context}/` + course._id + '/groups/' + courseGroup._id
-                } : {}
+                title: 'Meine Kurse',
+                url: `/${context}`
+            },
+            {
+                title: course.name + ' ' + '> Themen',
+                url: `/${context}/` + course._id
+            },
+            {
+                title: lesson.name,
+                url: `/${context}/` + course._id + '/topics/' + lesson._id
+            },
+            courseGroup._id ? {
+                title: courseGroup.name,
+                url: `/${context}/` + course._id + '/groups/' + courseGroup._id
+            } : {}
             ]
         }), (error, html) => {
             if (error) {
@@ -198,7 +209,7 @@ router.get('/:topicId', function(req, res, next) {
     });
 });
 
-router.patch('/:topicId', async function(req, res, next) {
+router.patch('/:topicId', async function (req, res, next) {
     const context = req.originalUrl.split('/')[1];
     const data = req.body;
     data.time = moment(data.time || 0, 'HH:mm').toString();
@@ -240,7 +251,7 @@ router.patch('/:topicId', async function(req, res, next) {
     });
 });
 
-router.delete('/:topicId', function(req, res, next) {
+router.delete('/:topicId', function (req, res, next) {
     api(req).delete('/lessons/' + req.params.topicId).then(_ => {
         res.sendStatus(200);
     }).catch(err => {
@@ -248,7 +259,7 @@ router.delete('/:topicId', function(req, res, next) {
     });
 });
 
-router.delete('/:topicId/materials/:materialId', function(req, res, next) {
+router.delete('/:topicId/materials/:materialId', function (req, res, next) {
     api(req).patch('/lessons/' + req.params.topicId, {
         json: {
             courseId: req.params.courseId,
@@ -269,18 +280,18 @@ async function createNewNexBoards(req, res, contents = []) {
     return await Promise.all(contents.map(async content => {
         if (content.component === "neXboard" && content.content.board === '0') {
             try {
-            const board = await getNexBoardAPI().createBoard(
-                content.content.title,
-                content.content.description,
-                await getNexBoardProjectFromUser(req, res.locals.currentUser),
-                'schulcloud');
+                const board = await getNexBoardAPI().createBoard(
+                    content.content.title,
+                    content.content.description,
+                    await getNexBoardProjectFromUser(req, res.locals.currentUser),
+                    'schulcloud');
 
-            content.content.title = board.title;
-            content.content.board = board.id;
-            content.content.url = board.publicLink;
-            content.content.description = board.description;
+                content.content.title = board.title;
+                content.content.board = board.id;
+                content.content.url = board.publicLink;
+                content.content.description = board.description;
 
-            return content;
+                return content;
 
             } catch (err) {
                 logger.error(err);
@@ -311,11 +322,11 @@ const getNexBoardProjectFromUser = async (req, user) => {
 
 const getNexBoards = (req, res, next) => {
     api(req).get('/lessons/contents/neXboard', {
-            qs: {
-                type: 'neXboard',
-                user: res.locals.currentUser._id
-            }
-        })
+        qs: {
+            type: 'neXboard',
+            user: res.locals.currentUser._id
+        }
+    })
         .then(boards => {
             res.json(boards);
         });

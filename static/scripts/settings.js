@@ -3,7 +3,7 @@ import { getCookiesMap, pushManager } from './notificationService/index';
 $(document).ready(function() {
     var $deleteModal = $('.delete-modal');
 
-    var password = document.getElementById("password_new")
+    var password = document.getElementById("passwordNew")
         , confirm_password = document.getElementById("password_control");
 
     function validatePassword(){
