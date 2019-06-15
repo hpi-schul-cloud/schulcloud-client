@@ -66,7 +66,7 @@
 .dark.footer{
     background-color: var(--color-gray-dark);
     margin-top: var(--space-xxl);
-    padding-top: calc(var(--space-xxl) / 2);
+    padding-top: calc(var(--space-xxl) / 2) !important;
     &:before{
         transform-origin: bottom left;
     }
