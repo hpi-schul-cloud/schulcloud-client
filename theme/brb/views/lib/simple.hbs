@@ -1,7 +1,7 @@
 {{#extend "lib/default"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/homepage/homepage.css"/>
+        <link rel="stylesheet" href="/styles/authentication/home.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
@@ -15,10 +15,14 @@
         <main class="container content-wrapper">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="col-xs-12">
-                        {{> "lib/components/notification"}}
-                    </div>
-                    {{#block "page"}}{{/block}}
+                    <section class="card">
+                        <div class="card-block">
+                            <div class="col-xs-12">
+                                {{> "lib/components/notification"}}
+                            </div>
+                            {{#block "page"}}{{/block}}
+                        </div>
+                    </section>
                 </div>
             </div>
         </main>
