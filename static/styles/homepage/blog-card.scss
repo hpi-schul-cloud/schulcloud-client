@@ -20,13 +20,13 @@
 .blog-card{
 	border: var(--border-width) solid var(--color-gray);
 	border-radius: var(--radius-md);
-	padding: var(--space-sm);
 	text-align: center;
 	width: 50ch;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
 	position: relative;
+	overflow: hidden;
 	&:not(:last-of-type){
 		margin-right: var(--space-lg);
 	}
@@ -42,7 +42,9 @@
 		height: 200px;
 		object-fit: cover;
 		margin-bottom: var(--space-sm);
-		border-radius: var(--radius-sm);
+	}
+	.body{
+		padding: var(--space-sm);
 	}
 	.title{
 		font-size: 1.5rem;
@@ -57,13 +59,8 @@
 	a.btn-read{
 		display: inline-block;
 		color: var(--color-primary);
-		border: var(--border-width) solid var(--color-primary);
-		padding: var(--space-xs) var(--space-sm);
-		border-radius: var(--radius-md);
 		transition: all .3s ease-in-out;
 		&:hover, &:focus{
-			background: var(--color-primary);
-			color: var(--color-white)
 		}
 	}
 }
