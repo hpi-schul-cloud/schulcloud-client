@@ -6,6 +6,9 @@
     padding: var(--space-xxl) var(--space-lg);
     position: relative;
     z-index: var(--layer-page);
+    &:first-of-type{
+        padding-top: 0;
+    }
     &::before{
         content: "";
         position: absolute;

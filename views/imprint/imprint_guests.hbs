@@ -4,12 +4,11 @@
         <link rel="stylesheet" href="/styles/imprint/imprint.css"/>
     {{/content}}
 
-    {{#content "body"}}
-        {{#embed "lib/header"}}{{/embed}}
-			{{#embed "imprint/imprint"}}{{/embed}}
-        {{#embed "lib/extended_footer"}}{{/embed}}
-    {{/content}}
-
     {{#content "scripts" mode="append"}}
     {{/content}}
+
+    {{#content "page"}}
+		{{#embed "imprint/imprint"}}{{/embed}}
+    {{/content}}
+
 {{/extend}}

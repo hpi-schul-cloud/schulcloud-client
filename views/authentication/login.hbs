@@ -10,24 +10,24 @@
     {{/content}}
 
     {{#content "page"}}
-		{{#embed "authentication/section"}}
-			{{#content "body"}}
-				<main class="container">
-					<div class="row">
-						<div class="col-md-6 offset-md-3">
+        {{#embed "authentication/section"}}
+            {{#content "body"}}
+                <main class="container">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
 
-							{{> "authentication/forms/login"}}
+                            {{> "authentication/forms/login"}}
 
-						</div>
-					</div>
-				</main>
+                        </div>
+                    </div>
+                </main>
 
-				{{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
-					{{#content "fields"}}
-						{{> "authentication/forms/pwrecovery"}}
-					{{/content}}
-				{{/embed}}
-			{{/content}}
-		{{/embed}}
+                {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
+                    {{#content "fields"}}
+                        {{> "authentication/forms/pwrecovery"}}
+                    {{/content}}
+                {{/embed}}
+            {{/content}}
+        {{/embed}}
     {{/content}}
 {{/extend}}
