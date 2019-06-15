@@ -1,70 +1,70 @@
 .section.section-tilt{
-	--color-headline: var(--color-primary);
-	--color-text: var(--color-black);
+    --color-headline: var(--color-primary);
+    --color-text: var(--color-black);
 
-	color: var(--color-text);
-	padding: var(--space-xxl) var(--space-lg);
-	position: relative;
-	z-index: var(--layer-page);
-	&::before{
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		transform: skewY(-3deg);
-		z-index: var(--layer-behind);
-	}
-	&.primary{
-		--color-headline: var(--color-white);
-		--color-text: var(--color-white);
+    color: var(--color-text);
+    padding: var(--space-xxl) var(--space-lg);
+    position: relative;
+    z-index: var(--layer-page);
+    &::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: skewY(-3deg);
+        z-index: var(--layer-behind);
+    }
+    &.primary{
+        --color-headline: var(--color-white);
+        --color-text: var(--color-white);
 
-		&::before{
-			background-color: var(--color-primary)
-		}
-	}
-	&.accent{
-		--color-headline: var(--color-white);
-		--color-text: var(--color-white);
+        &::before{
+            background-color: var(--color-primary)
+        }
+    }
+    &.accent{
+        --color-headline: var(--color-white);
+        --color-text: var(--color-white);
 
-		&::before{
-			background-color: var(--color-accent)
-		}
-	}
-	&.dark{
-		--color-headline: var(--color-gray-dark);
-		--color-text: var(--color-white);
+        &::before{
+            background-color: var(--color-accent)
+        }
+    }
+    &.dark{
+        --color-headline: var(--color-gray-dark);
+        --color-text: var(--color-white);
 
-		&::before{
-			background-color: var(--color-gray-dark)
-		}
-	}
+        &::before{
+            background-color: var(--color-gray-dark)
+        }
+    }
 
-	&.primary, &.accent, &.dark{
-		a, button{
-			color: var(--color-text);
-			text-decoration: underline;
-		}
+    &.primary, &.accent, &.dark{
+        a, button{
+            color: var(--color-text);
+            text-decoration: underline;
+        }
 
-	}
+    }
 
-	> .container{
-		margin: 0 auto;
-	}
-	.section-title{
-		color: var(--color-headline);
-		&.center{
-			text-align: center;
-		}
-	}
+    > .container{
+        margin: 0 auto;
+    }
+    .section-title{
+        color: var(--color-headline);
+        &.center{
+            text-align: center;
+        }
+    }
 }
 
 .dark.footer{
-	background-color: var(--color-gray-dark);
-	margin-top: var(--space-xxl);
-	padding-top: calc(var(--space-xxl) / 2);
-	&:before{
-		transform-origin: bottom left;
-	}
+    background-color: var(--color-gray-dark);
+    margin-top: var(--space-xxl);
+    padding-top: calc(var(--space-xxl) / 2);
+    &:before{
+        transform-origin: bottom left;
+    }
 }

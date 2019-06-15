@@ -1,19 +1,20 @@
 // variables from new vue client
+// https://vuepress.test.schul-cloud.org/2-Styles/0-Variables.html
 :root{
-	--radius-round: 100vmax;
+    --radius-round: 100vmax;
     --radius-sm: 0.25rem;
     --radius-md: 0.5rem;
     --radius-lg: 1rem;
     --border-width: 1px;
 
-	--layer-behind: -1;
-	--layer-page: 1;
+    --layer-behind: -1;
+    --layer-page: 1;
     --layer-dropdown: 2;
     --layer-modal: 3;
     --layer-popover: 4;
-	--layer-tooltip: 5;
+    --layer-tooltip: 5;
 
-	--color-primary: #b1063a;
+    --color-primary: #b1063a;
     --color-primary-light: rgb(189, 43, 88);
     --color-primary-dark: rgb(133, 5, 44);
     --color-accent: #e98404;
@@ -26,7 +27,7 @@
     --color-white: #fff;
     --color-overlay: rgba(0, 0, 0, 0.5);
 
-	--shadow-md: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 
     --space-xxxxs: 0.125rem;
     --space-xxxs: 0.25rem;
@@ -37,8 +38,8 @@
     --space-lg: 1.5rem;
     --space-xl: 3.25rem;
     --space-xxl: 5.25rem;
-	--space-xxxl: 8.5rem;
+    --space-xxxl: 8.5rem;
 
-	--size-content-width-min: 40ch;
+    --size-content-width-min: 40ch;
     --size-content-width-max: 80ch;
 }

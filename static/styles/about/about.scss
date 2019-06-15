@@ -30,16 +30,16 @@
     margin: 0 15px 15px;
     padding: 3px 6px 3px 6px;
     border: 1px solid #d3d3d3;
-	box-shadow: 2px 2px 5px rgba(0,0,0,.1);
-	background-color: #fff;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.1);
+    background-color: #fff;
     &.opened {
       border: 1px solid #b10438;
     }
     a {
-		.single-pdf-title{
-			color: initial;
-			text-decoration: none;
-		}
+        .single-pdf-title{
+            color: initial;
+            text-decoration: none;
+        }
 
       .single-pdf-wrapper {
         padding: 10px;
