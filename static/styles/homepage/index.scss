@@ -1,4 +1,4 @@
-// generic styles for homepage
+@import '../lib/bootstrap/scss/bootstrap';
 @import "./blog-card";
 @import "./login";
 
@@ -31,6 +31,10 @@
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: 1fr;
 	grid-gap: var(--space-md);
+	@include media-breakpoint-down(md) {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+	}
 }
 .partner{
 	border-radius: var(--radius-md);
