@@ -16,17 +16,19 @@
 
     {{#content "page"}}
 
-		{{#embed "authentication/section" class="rows-2"}}
+		{{#embed "authentication/section"}}
 			{{#content "body"}}
-				<div>
-					<h1 class="section-title">Herzlich willkommen bei der HPI Schul-Cloud !</h1>
-					<p>Das  <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
-				</div>
+				<div class="rows-2">
+					<div>
+						<h1 class="section-title">Herzlich willkommen bei der HPI Schul-Cloud !</h1>
+						<p>Das  <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
+					</div>
 
-				<div>
-					{{> "authentication/forms/login"}}
-					{{> "authentication/forms/demo-login"}}
+					<div>
+						{{> "authentication/forms/login"}}
+					</div>
 				</div>
+				{{> "authentication/forms/demo-login"}}
 
 				{{!--
 					{{> "authentication/forms/login"}}
