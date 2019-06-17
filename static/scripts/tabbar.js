@@ -46,7 +46,7 @@ const app = {
 			// eslint-disable-next-line max-len
 			indicator.style.right = `${(containerRect.left + containerRect.width) - (curTabRect.left + curTabRect.width)}px`;
 		},
-		setActiveTab() {
+		setActiveTab(setHistory = true) {
 			const indicator = this.parentElement.querySelector('.indicator');
 			let parent = this;
 			const newTab = this;
@@ -79,16 +79,27 @@ const app = {
 			this.classList.add('active');
 			newSection.classList.add('active');
 
-			const params = new URLSearchParams(window.location.search);
-			const baseUrl = window.location.href.split('?')[0];
-			const lastChar = baseUrl[baseUrl.length - 1];
-			params.delete('activeTab');
-			params.set('activeTab', newTabSelector.replace('js-', ''));
-			if (lastChar === '/') {
-				window.history.replaceState('', '', `?${params.toString()}`);
-			} else {
-				window.history.replaceState('', '', `${baseUrl}/?${params.toString()}`);
+			if (setHistory) {
+				const params = new URLSearchParams(window.location.search);
+				const baseUrl = window.location.href.split('?')[0];
+				const lastChar = baseUrl[baseUrl.length - 1];
+				params.delete('activeTab');
+				params.set('activeTab', newTabSelector.replace('js-', ''));
+				if (lastChar === '/') {
+					window.history.pushState('', '', `?${params.toString()}`);
+				} else {
+					window.history.pushState('', '', `${baseUrl}/?${params.toString()}`);
+				}
 			}
+		},
+		setActiveTabByName(activeTabName) {
+			let activeTab;
+			if (activeTabName) {
+				activeTab = document.querySelector(`.tabContainer .tabs .tab[data-tab=js-${activeTabName}]`);
+			} else {
+				activeTab = document.querySelector('.tabContainer').querySelector('.tabs .tab:first-child');
+			}
+			app.tabs.setActiveTab.call(activeTab, false);
 		},
 		// eslint-disable-next-line no-unused-vars
 		contain(container) {
@@ -99,7 +110,7 @@ const app = {
 
 document.addEventListener('DOMContentLoaded', () => {
 	if (document.querySelectorAll('.tabContainer').length && document.querySelectorAll('.sectionsContainer').length) {
-		let activeTabName = document.querySelector('.tabContainer').getAttribute('active-tab');
+		let activeTabName = document.querySelector('.tabContainer').getAttribute('data-active-tab');
 		let activeTab;
 		let activeSection;
 		if (activeTabName) {
@@ -117,4 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	app.tabs.initialize();
+}, false);
+
+// detect when history buttons are pressed
+window.addEventListener('popstate', () => {
+	const params = new URLSearchParams(window.location.search);
+	app.tabs.setActiveTabByName(params.get('activeTab'));
 }, false);
