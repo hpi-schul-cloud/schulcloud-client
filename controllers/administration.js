@@ -2413,7 +2413,9 @@ router.all('/teams', (req, res, next) => {
 								toggle: 'tooltip',
 							},
 							title: item.createdAtMySchool
-								? 'Es können nur Mitglieder der eigenen Schule aus dem Team entfernt werden'
+								? 'Schüler der eigenen Schule aus dem Team entfernen. Nur möglich, wenn das Team an '
+								+ 'einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst '
+								+ 'oder jemand anderem Admin-Rechte für das Team zuzuweisen.'
 								: 'Mitglieder eigener Schule aus Team entfernen',
 						},
 						{
