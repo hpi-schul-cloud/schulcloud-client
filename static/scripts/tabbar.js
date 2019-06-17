@@ -108,6 +108,12 @@ const app = {
 	},
 };
 
+// detect when history buttons are pressed
+window.addEventListener('popstate', () => {
+	const params = new URLSearchParams(window.location.search);
+	app.tabs.setActiveTabByName(params.get('activeTab'));
+}, false);
+
 document.addEventListener('DOMContentLoaded', () => {
 	if (document.querySelectorAll('.tabContainer').length && document.querySelectorAll('.sectionsContainer').length) {
 		let activeTabName = document.querySelector('.tabContainer').getAttribute('data-active-tab');
@@ -128,10 +134,4 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	app.tabs.initialize();
-}, false);
-
-// detect when history buttons are pressed
-window.addEventListener('popstate', () => {
-	const params = new URLSearchParams(window.location.search);
-	app.tabs.setActiveTabByName(params.get('activeTab'));
 }, false);
