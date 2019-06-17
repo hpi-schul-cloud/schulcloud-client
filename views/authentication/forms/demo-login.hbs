@@ -1,4 +1,4 @@
-<section class="demo-login mt-2" id="loginarea" data-step="2" data-intro="Sie möchten die {{theme.title}} entdecken? Mit Hilfe unserer Demo Funktion können Sie die {{theme.short_title}} sowohl aus Lehrer*in und Schüler*in Perspektive entdecken. (Fokus Demo Login)">
+<section class="demo-login mt-2" id="loginarea" data-step="1" data-intro="Sie möchten die {{theme.title}} entdecken? Mit Hilfe unserer Demo Funktion können Sie die {{theme.short_title}} sowohl aus Lehrer*in und Schüler*in Perspektive entdecken. (Fokus Demo Login)">
     <h3 class="card-title">Jetzt ausprobieren</h3>
     <div class="logins">
         <form method="post" action="/login/" class="form-demo-login">
@@ -14,7 +14,7 @@
             <input type="password" name="password" value="schulcloud" hidden>
             <input type="text" name="type" value="teacher" hidden>
 
-            <input type="submit" class="btn btn-outline btn-primary" value="als Lehrer*In einloggen" />
+            <input type="submit" id="demologin" class="btn btn-outline btn-primary" value="als Lehrer*In einloggen" />
         </form>
     </div>
     <span class="hint">
