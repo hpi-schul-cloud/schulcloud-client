@@ -13,7 +13,7 @@ function transformTeamEvent(modal, event) {
 	const teamId = event['x-sc-teamId'];
 	$.getJSON(`/teams/${teamId}/json`, (team) => {
 		const $title = modal.find('.modal-title');
-		$title.html(`${$title.html()} , Team: ${team.team.name}`);
+		$title.html(`${$title.html()}, Team: ${team.team.name}`);
 		// set fix team on editing
 		modal.find("input[name='scopeId']").attr('value', event['x-sc-teamId']);
 		modal.find('.modal-form').append(`<input name='teamId' value='${teamId}' type='hidden'>`);

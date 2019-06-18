@@ -34,7 +34,7 @@ $(document).ready(function () {
             var courseId = event["x-sc-courseId"];
             $.getJSON("/courses/" + courseId + "/json", function (course) {
                 var $title = modal.find(".modal-title");
-                $title.html($title.html() + " , Kurs: " + course.course.name);
+                $title.html($title.html() + ", Kurs: " + course.course.name);
 
                 // if not teacher, not allow editing course events
                 if($('.create-course-event').length <= 0) {
@@ -51,7 +51,7 @@ $(document).ready(function () {
             var teamId = event["x-sc-teamId"];
             $.getJSON("/teams/" + teamId + "/json", function (team) {
                 var $title = modal.find(".modal-title");
-                $title.html($title.html() + " , Team: " + team.team.name);
+                $title.html($title.html() + ", Team: " + team.team.name);
 
                 // if not teacher, not allow editing team events
                 if($('.create-team-event').length <= 0) {
