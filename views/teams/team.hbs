@@ -196,7 +196,7 @@
                         <div class="section" data-section="js-events">
                             <div class="row">
                                 {{#each ../events}}
-                                    {{> 'calendar/card' event=this}}
+                                    {{> 'calendar/card' event=this canEdit=../canEditEvents}}
                                 {{/each}}
                             </div>
                             <div style="margin-top: .5rem">

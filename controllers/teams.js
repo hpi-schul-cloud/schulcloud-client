@@ -626,6 +626,7 @@ router.get('/:teamId', async (req, res, next) => {
 				canCreateDir: true,
 				canCreateFile: true,
 				canEditPermissions: permissions.includes('EDIT_ALL_FILES'),
+				canEditEvents: permissions.includes('NEWS_EDIT'),
 				createEventAction: `/teams/${req.params.teamId}/events/`,
 				leaveTeamAction,
 				couldLeave,
