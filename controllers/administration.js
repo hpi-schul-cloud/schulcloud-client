@@ -2324,6 +2324,34 @@ const getTeamFlags = (team) => {
 	return combined;
 };
 
+const disableStudentUpdateHandler = async function disableStudentUpdate(req, res, next) {
+	// pay attention logic of checkbox is inverse to database/server naming
+	const isdisableStudentCreation = (res.locals.currentSchoolData.features
+		|| []).includes('disableStudentTeamCreation');
+	if (!isdisableStudentCreation && req.body.enablestudentteamcreation !== 'true') {
+		// add disableStudentTeamCreation feature
+		await api(req).patch(`/schools/${req.params.id}`, {
+			json: {
+				$push: {
+					features: 'disableStudentTeamCreation',
+				},
+			},
+		});
+	} else if (isdisableStudentCreation && req.body.enablestudentteamcreation === 'true') {
+		// remove disableStudentTeamCreation feature
+		await api(req).patch(`/schools/${req.params.id}`, {
+			json: {
+				$pull: {
+					features: 'disableStudentTeamCreation',
+				},
+			},
+		});
+	}
+	return res.redirect(cutEditOffUrl(req.header('Referer')));
+};
+
+router.patch('/teams/disablestudents/:id', disableStudentUpdateHandler);
+
 const getTeamMembersButton = counter => `
   <div class="btn-show-members" role="button">${counter}<i class="fa fa-user team-flags"></i></div>`;
 
@@ -2488,6 +2516,7 @@ router.all('/teams', (req, res, next) => {
 					classes,
 					users,
 					pagination,
+					school: res.locals.currentSchoolData,
 					limit: true,
 				});
 			});
