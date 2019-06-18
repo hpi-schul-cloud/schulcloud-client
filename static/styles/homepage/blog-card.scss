@@ -27,6 +27,7 @@
     flex-wrap: nowrap;
     position: relative;
     overflow: hidden;
+    padding-bottom: 10px;
     &:not(:last-of-type){
         margin-right: var(--space-lg);
     }
@@ -56,11 +57,9 @@
     .description{
         flex: 1;
     }
-    a.btn-read{
-        display: inline-block;
+    a.btn-primary.btn-outline{
+        border: 1px solid var(--color-primary);
         color: var(--color-primary);
-        transition: all .3s ease-in-out;
-        &:hover, &:focus{
-        }
+        background: transparent;
     }
 }
