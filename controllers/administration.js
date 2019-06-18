@@ -2301,7 +2301,7 @@ const getTeamFlags = (team) => {
 	const hasOwner = '<i class="fa fa-briefcase team-flags" data-toggle="tooltip" '
 		+ 'data-placement="top" title="Team hat Eigentümer"></i>';
 	const hasRocketChat = '<i class="fa fa-comments team-flags" data-toggle="tooltip" '
-		+ 'data-placement="top" title="Team hat Eigentümer"></i>';
+		+ 'data-placement="top" title="Chat ist aktiviert"></i>';
 
 	let combined = '';
 
@@ -2441,7 +2441,9 @@ router.all('/teams', (req, res, next) => {
 								toggle: 'tooltip',
 							},
 							title: item.createdAtMySchool
-								? 'Es können nur Mitglieder der eigenen Schule aus dem Team entfernt werden'
+								? 'Schüler der eigenen Schule aus dem Team entfernen. Nur möglich, wenn das Team an '
+								+ 'einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst '
+								+ 'oder jemand anderem Admin-Rechte für das Team zuzuweisen.'
 								: 'Mitglieder eigener Schule aus Team entfernen',
 						},
 						{
