@@ -570,7 +570,6 @@ router.get('/:teamId', async (req, res, next) => {
 		});
 
 		let events = [];
-
 		try {
 			events = await api(req).get('/calendar/', {
 				qs: {
@@ -578,7 +577,6 @@ router.get('/:teamId', async (req, res, next) => {
 					all: true,
 				},
 			});
-
 			events = events.map((event) => {
 				const start = moment(event.start);
 				const end = moment(event.end);
@@ -592,6 +590,7 @@ router.get('/:teamId', async (req, res, next) => {
 				event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
 				return event;
 			});
+			events = events.sort((a, b) => a.start - b.start);
 		} catch (e) {
 			events = [];
 		}
