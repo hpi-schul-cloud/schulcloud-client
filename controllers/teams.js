@@ -1053,6 +1053,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				deleteInvitationAction: `${uri}/invitation`,
 				resendInvitationAction: `${uri}/invitation`,
 				permissions: team.user.permissions,
+				rolePermissions: res.locals.currentUser.permissions,
 				method,
 				head,
 				body,
