@@ -1,5 +1,4 @@
- $(document).ready(function () {
-
+$(document).ready(() => {
     var $modals = $('.modal');
     var $editModal = $('.edit-modal');
     var customFieldCount = 0;
@@ -58,24 +57,24 @@
      * @param modal {Modal} - the modal which has the post-action and the courseId
      * @param tool {object} - the tool which will be created
      */
-    var createLocalTool = function (modal, tool) {
-        var $modalForm = modal.find('.modal-form');
-        var href = $modalForm.attr('action');
-        var courseId = $modalForm.find("input[name='courseId']").val();
-        // cleaning
-        tool.isTemplate = false;
-        tool.courseId = courseId;
-        delete tool._id;
+	const createLocalTool = (modal, tool) => {
+		const $modalForm = modal.find('.modal-form');
+		const href = $modalForm.attr('action');
+		const courseId = $modalForm.find("input[name='courseId']").val();
+		// cleaning
+		tool.isTemplate = false;
+		tool.courseId = courseId;
+		delete tool._id;
 
-        $.ajax({
-            action: href,
-            data: tool,
-            method: 'POST',
-            success: function(result) {
-                window.location.href = "/courses/" + courseId;
-            }
-        });
-    };
+		$.ajax({
+			action: href,
+			data: tool,
+			method: 'POST',
+			success: (result) => {
+				window.location.href = `/courses/${courseId}/?activeTab=tools`;
+			},
+		});
+	};
 
     /**var populateCourseSelection = function (modal, courses) {
         var $selection = modal.find('.course-selection');

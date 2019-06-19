@@ -85,3 +85,6 @@ selenium-debug.log
 
 # Webpack Rebuild Changed Plugin Cache
 .webpack-changed-plugin-cache
+
+# editor bundling
+.cache/
