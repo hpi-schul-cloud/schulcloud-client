@@ -3,7 +3,7 @@
         <link rel="stylesheet" href="/styles/lib/filter/filter.css"/>
         <link rel="stylesheet" href="/styles/administration/users.css"/>
     {{/content}}
-    {{#content "page"}}
+    {{#content "page" mode="prepend"}}
         <div class="route-administration">
             <section class="section-students section-default">
                 <div><feathers-filter id="filter"
@@ -54,7 +54,7 @@
                             </h4>
                             {{#if schoolUsesLdap}}
                                 <strong>Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein</strong>
-                                
+
                                 <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
                             {{else}}
                                 <strong>Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben</strong>

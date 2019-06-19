@@ -9,7 +9,7 @@
         <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
         <script src="/scripts/administration/teams.js" type="text/javascript" defer></script>
     {{/content}}
-    {{#content "page"}}
+    {{#content "page" mode="prepend"}}
         <form action="/administration/teams/disablestudents/{{school._id}}" method="post" class="edit-form-school">
             <input type="hidden" name="_method" value="patch" />
             <div class="form-group" id="enableStudentsTeamsCreate">
