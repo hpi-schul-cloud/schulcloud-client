@@ -196,11 +196,11 @@
                         <div class="section" data-section="js-events">
                             <div class="row">
                                 {{#each ../events}}
-                                    {{> 'calendar/card' event=this}}
+                                    {{> 'calendar/card' event=this canEdit=../canEditEvents}}
                                 {{/each}}
                             </div>
                             <div style="margin-top: .5rem">
-                                {{#inArray "NEWS_CREATE" permissions}}
+                                {{#inArray "CALENDAR_CREATE" permissions}}
                                     <button class="btn btn-add btn-primary btn-create-event pull-right">
                                         Termin anlegen
                                     </button>
