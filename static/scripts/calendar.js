@@ -34,7 +34,7 @@ $(document).ready(function () {
             var courseId = event["x-sc-courseId"];
             $.getJSON("/courses/" + courseId + "/json", function (course) {
                 var $title = modal.find(".modal-title");
-                $title.html($title.html() + " , Kurs: " + course.course.name);
+                $title.html($title.html() + ", Kurs: " + course.course.name);
 
                 // if not teacher, not allow editing course events
                 if($('.create-course-event').length <= 0) {
@@ -51,7 +51,7 @@ $(document).ready(function () {
             var teamId = event["x-sc-teamId"];
             $.getJSON("/teams/" + teamId + "/json", function (team) {
                 var $title = modal.find(".modal-title");
-                $title.html($title.html() + " , Team: " + team.team.name);
+                $title.html($title.html() + ", Team: " + team.team.name);
 
                 // if not teacher, not allow editing team events
                 if($('.create-team-event').length <= 0) {
@@ -111,19 +111,26 @@ $(document).ready(function () {
                     action: '/calendar/events/' + event.attributes.uid
                 });
 
-                transformCourseOrTeamEvent($editEventModal, event);
-
-                $editEventModal.find('.btn-delete').click(e => {
-                    $.ajax({
-                        url: '/calendar/events/' + event.attributes.uid,
-                        type: 'DELETE',
-                        error: showAJAXError,
-                        success: function(result) {
-                            reloadCalendar();
-                        },
+                if (event["x-sc-courseId"]) { // course event
+                    transformCourseOrTeamEvent($editEventModal, event);
+                    $editEventModal.find('.btn-delete').click(e => {
+                        $.ajax({
+                            url: '/calendar/events/' + event.attributes.uid,
+                            type: 'DELETE',
+                            error: showAJAXError,
+                            success: function(result) {
+                                reloadCalendar();
+                            },
+                        });
                     });
-                });
-                $editEventModal.appendTo('body').modal('show');
+                    $editEventModal.appendTo('body').modal('show');
+                }
+
+                if (event["x-sc-teamId"]) { // team event
+                    const teamId = event["x-sc-teamId"];
+                    window.location.assign(`/teams/${teamId}?activeTab=events`);
+                }
+
             }
         },
         dayClick: function(date, jsEvent, view) {

@@ -5,46 +5,21 @@ import moment from 'moment';
 import 'jquery-datetimepicker';
 
 /**
- * transform a event modal-form for course events
+ * transform a event modal-form for team events
  * @param modal {DOM-Element} - the given modal which will be transformed
- * @param event {object} - a event, maybe a course-event
+ * @param event {object} - a team event
  */
-function transformCourseOrTeamEvent(modal, event) {
-	if (event['x-sc-courseId']) {
-		const courseId = event['x-sc-courseId'];
-		$.getJSON(`/courses/${courseId}/json`, (course) => {
-			const $title = modal.find('.modal-title');
-			$title.html(`${$title.html()} , Kurs: ${course.course.name}`);
-
-			// if not teacher, not allow editing course events
-			if ($('.create-course-event').length <= 0) {
-				modal.find('.modal-form :input').attr('disabled', true);
-			}
-
-			// set fix course on editing
-			modal.find("input[name='scopeId']").attr('value', event['x-sc-courseId']);
-			modal.find('.modal-form').append(`<input name='courseId' value='${courseId}' type='hidden'>`);
-			modal.find('.create-course-event').remove();
-			modal.find('.create-team-event').remove();
-		});
-	} else if (event['x-sc-teamId']) {
-		const teamId = event['x-sc-teamId'];
-		$.getJSON(`/teams/${teamId}/json`, (team) => {
-			const $title = modal.find('.modal-title');
-			$title.html(`${$title.html()} , Team: ${team.team.name}`);
-
-			// if not teacher, not allow editing team events
-			if ($('.create-team-event').length <= 0) {
-				modal.find('.modal-form :input').attr('disabled', true);
-			}
-
-			// set fix team on editing
-			modal.find("input[name='scopeId']").attr('value', event['x-sc-teamId']);
-			modal.find('.modal-form').append(`<input name='teamId' value='${teamId}' type='hidden'>`);
-			modal.find('.create-team-event').remove();
-			modal.find('.create-course-event').remove();
-		});
-	}
+function transformTeamEvent(modal, event) {
+	const teamId = event['x-sc-teamId'];
+	$.getJSON(`/teams/${teamId}/json`, (team) => {
+		const $title = modal.find('.modal-title');
+		$title.html(`${$title.html()}, Team: ${team.team.name}`);
+		// set fix team on editing
+		modal.find("input[name='scopeId']").attr('value', event['x-sc-teamId']);
+		modal.find('.modal-form').append(`<input name='teamId' value='${teamId}' type='hidden'>`);
+		modal.find('.create-team-event').remove();
+		modal.find('.create-course-event').remove();
+	});
 }
 
 $(document).ready(() => {
@@ -72,9 +47,27 @@ $(document).ready(() => {
 		const endDate = moment().add(1, 'hour').format('DD.MM.YYYY HH:mm');
 
 		$.datetimepicker.setLocale('de');
-		$('input[data-datetime]').datetimepicker({
+		$('#startDate').datetimepicker({
 			format: 'd.m.Y H:i',
 			mask: '39.19.9999 29:59',
+			onShow() {
+				this.setOptions({
+					minDate: 0,
+				});
+			},
+			onChangeDateTime(dp, $input) {
+				$input.closest('.modal').find('#endDate').val($input.val());
+			},
+		});
+
+		$('#endDate').datetimepicker({
+			format: 'd.m.Y H:i',
+			mask: '39.19.9999 29:59',
+			onShow() {
+				this.setOptions({
+					minDate: 0,
+				});
+			},
 		});
 
 		populateModalForm($createEventModal, {
@@ -108,7 +101,6 @@ $(document).ready(() => {
 			window.location.href = event.url;
 			return false;
 		}
-		// personal event
 		event.startDate = event.start.format('DD.MM.YYYY HH:mm');
 		event.endDate = (event.end || event.start).format('DD.MM.YYYY HH:mm');
 		populateModalForm($editEventModal, {
@@ -119,7 +111,7 @@ $(document).ready(() => {
 			action: `/teams/calendar/events/${event.attributes.uid}`,
 		});
 
-		transformCourseOrTeamEvent($editEventModal, event);
+		transformTeamEvent($editEventModal, event);
 
 		$editEventModal.find('.btn-delete').click(() => {
 			$.ajax({
