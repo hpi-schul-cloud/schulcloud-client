@@ -139,4 +139,8 @@ $(window).ready(() => {
 
 		$removeModal.appendTo('body').modal('show');
 	});
+
+	$('.btn.disabled').click((event) => {
+		event.preventDefault();
+	});
 });
