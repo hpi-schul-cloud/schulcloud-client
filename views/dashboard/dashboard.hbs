@@ -25,8 +25,10 @@
                                style="width: {{style.width}}%; left: {{style.left}}%;">
                                 <div class="card card-block" style="{{#if color}}background-color: {{color}};
                                         border-color: {{color}};{{/if}}">
-                                    <time class="lesson-time">{{comment}}</time>
-                                    <h3 class="card-title">{{title}}</h3>
+                                    <div class="card-bg-layer">
+                                        <time class="lesson-time">{{comment}}</time>
+                                        <div class="h3 card-title">{{title}}</div>
+                                    </div>
                                     <p class="card-text">{{location}}</p>
                                 </div>
                             </a>
