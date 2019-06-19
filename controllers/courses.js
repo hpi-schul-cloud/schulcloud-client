@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const express = require('express');
-const router = express.Router();
+const winston = require('winston');
 const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -8,6 +8,19 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 const shortId = require('shortid');
+
+const router = express.Router();
+
+const logger = winston.createLogger({
+	transports: [
+		new winston.transports.Console({
+			format: winston.format.combine(
+				winston.format.colorize(),
+				winston.format.simple(),
+			),
+		}),
+	],
+});
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -34,28 +47,34 @@ const markSelected = (options, values = []) => {
  * @param course
  */
 const createEventsForCourse = (req, res, course) => {
-    // can just run if a calendar service is running on the environment
-    if (process.env.CALENDAR_SERVICE_ENABLED) {
-        return Promise.all(course.times.map(time => {
-            return api(req).post("/calendar", {
-                json: {
-                    summary: course.name,
-                    location: time.room,
-                    description: course.description,
-                    startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toLocalISOString(),
-                    duration: time.duration,
-                    repeat_until: course.untilDate,
-                    frequency: "WEEKLY",
-                    weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
-                    scopeId: course._id,
-                    courseId: course._id,
-                    courseTimeId: time._id
-                }
-            });
-        }));
-    }
+	// can just run if a calendar service is running on the environment
+	if (process.env.CALENDAR_SERVICE_ENABLED) {
+		return Promise.all(course.times.map(time => api(req).post('/calendar', {
+			json: {
+				summary: course.name,
+				location: time.room,
+				description: course.description,
+				startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toLocalISOString(),
+				duration: time.duration,
+				repeat_until: course.untilDate,
+				frequency: 'WEEKLY',
+				weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
+				scopeId: course._id,
+				courseId: course._id,
+				courseTimeId: time._id,
+			},
+		}))).catch((error) => {
+			logger.warn('failed creating events for the course, the calendar service might be unavailible', error);
+			req.session.notification = {
+				type: 'danger',
+				message: 'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
+				+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
+			};
+			return Promise.resolve();
+		});
+	}
 
-    return Promise.resolve(true);
+	return Promise.resolve(true);
 };
 
 /**
@@ -63,16 +82,23 @@ const createEventsForCourse = (req, res, course) => {
  * @param courseId {string} - the id of the course the events will be deleted
  */
 const deleteEventsForCourse = (req, res, courseId) => {
-    if (process.env.CALENDAR_SERVICE_ENABLED) {
-        return api(req).get('courses/' + courseId).then(course => {
-            return Promise.all((course.times || []).map(t => {
-                if (t.eventId) {
-                    return api(req).delete('calendar/' + t.eventId);
-                }
-            }));
-        });
-    }
-    return Promise.resolve(true);
+	if (process.env.CALENDAR_SERVICE_ENABLED) {
+		return api(req).get(`courses/${courseId}`).then(course => Promise.all((course.times || []).map((t) => {
+			if (t.eventId) {
+				return api(req).delete(`calendar/${t.eventId}`);
+			}
+			return Promise.resolve();
+		})).catch((error) => {
+			logger.warn('failed creating events for the course, the calendar service might be unavailible', error);
+			req.session.notification = {
+				type: 'danger',
+				message: 'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
+				+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
+			};
+			return Promise.resolve();
+		}));
+	}
+	return Promise.resolve(true);
 };
 
 const editCourseHandler = (req, res, next) => {
