@@ -570,7 +570,6 @@ router.get('/:teamId', async (req, res, next) => {
 		});
 
 		let events = [];
-
 		try {
 			events = await api(req).get('/calendar/', {
 				qs: {
@@ -578,7 +577,6 @@ router.get('/:teamId', async (req, res, next) => {
 					all: true,
 				},
 			});
-
 			events = events.map((event) => {
 				const start = moment(event.start);
 				const end = moment(event.end);
@@ -592,6 +590,7 @@ router.get('/:teamId', async (req, res, next) => {
 				event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
 				return event;
 			});
+			events = events.sort((a, b) => a.start - b.start);
 		} catch (e) {
 			events = [];
 		}
@@ -600,6 +599,8 @@ router.get('/:teamId', async (req, res, next) => {
 		const leaveTeamAction = `/teams/${teamId}/members`;
 		// teamowner could not leave if there is no other teamowner
 		const couldLeave = checkIfUserCouldLeaveTeam(course.user, course.userIds);
+
+		const permissions = await api(req).get(`/teams/${teamId}/userPermissions/${course.user.userId}`);
 
 		res.render(
 			'teams/team',
@@ -613,7 +614,7 @@ router.get('/:teamId', async (req, res, next) => {
 					},
 					{},
 				],
-				permissions: course.user.permissions,
+				permissions,
 				course,
 				events,
 				directories,
@@ -623,7 +624,8 @@ router.get('/:teamId', async (req, res, next) => {
 				canUploadFile: true,
 				canCreateDir: true,
 				canCreateFile: true,
-				canEditPermissions: course.user.permissions.includes('EDIT_ALL_FILES'),
+				canEditPermissions: permissions.includes('EDIT_ALL_FILES'),
+				canEditEvents: permissions.includes('CALENDAR_EDIT'),
 				createEventAction: `/teams/${req.params.teamId}/events/`,
 				leaveTeamAction,
 				couldLeave,
