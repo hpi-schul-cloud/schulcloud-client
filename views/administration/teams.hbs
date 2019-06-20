@@ -9,7 +9,7 @@
         <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
         <script src="/scripts/administration/teams.js" type="text/javascript" defer></script>
     {{/content}}
-    {{#content "page"}}
+    {{#content "page" mode="prepend"}}
         <form action="/administration/teams/disablestudents/{{school._id}}" method="post" class="edit-form-school">
             <input type="hidden" name="_method" value="patch" />
             <div class="form-group" id="enableStudentsTeamsCreate">
@@ -20,8 +20,9 @@
                     checked
                     {{/inArray}}>
                     Schülern ist erlaubt Teams anzulegen
-                    <p class="text-muted">Durch das Aktivieren dieser Option bestätigen Sie, dass Sie weisungsberechtigter Schul-Administrator sind und befugt sind,
-                    das Anlegen von Teams durch Schüler an Ihrer Schule zu (de)aktiveren. Ihr Klick gilt insofern als Weisung der Schule gegenüber dem HPI.</p>
+                    <p class="text-muted">Ist diese Funktion aktiviert, können Schüler selbstständig die Teams-Funktion 
+                    nutzen und Teams gründen, ohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter 
+                    Administrator kannst du diese Funktion zentral für die gesamte Schule deaktivieren/aktiveren.</p>
                 </label>
             </div>
             <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
@@ -43,7 +44,9 @@
                                 <i class="fa fa-bus team-flags"></i>
                                 Beinhaltet Schul-externe Mitglieder &emsp;
                                 <i class="fa fa-briefcase team-flags"></i>
-                                Team hat Eigentümer
+                                Team hat Eigentümer &emsp;
+                                <i class="fa fa-comments team-flags"></i>
+                                Chat ist aktiviert
                             </center>
                         </div>
                     </div>
