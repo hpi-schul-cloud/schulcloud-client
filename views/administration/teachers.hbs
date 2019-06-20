@@ -1,34 +1,38 @@
 {{#extend "administration/administration"}}
-{{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/lib/filter/filter.css" />
-<link rel="stylesheet" href="/styles/administration/users.css" />
-{{/content}}
-{{#content "page"}}
-<div class="route-administration">
-    <section class="section-teachers section-default">
-        <div>
-            <feathers-filter id="filter" filter='{{filterSettings}}' add-label='Filter hinzufügen'
-                apply-label='Übernehmen' cancle-label='Abbrechen' handle-url='true' save-state='true' />
-        </div>
-        <div class="container-fluid ajaxcontent">
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    {{> "lib/components/table" head=head body=body}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    <center>
-                        <i class="fa fa-times consent-status"></i>
-                        Keine Einverständniserklärung vorhanden &emsp;
-                        <i class="fa fa-check consent-status"></i>
-                        Alle Zustimmungen vorhanden
-                    </center>
-                </div>
-            </div>
-            <div class="row">
-                {{> "lib/components/pagination" settings=pagination }}
-            </div>
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/lib/filter/filter.css"/>
+        <link rel="stylesheet" href="/styles/administration/users.css"/>
+    {{/content}}
+    {{#content "page" mode="prepend"}}
+        <div class="route-administration">
+            <section class="section-teachers section-default">
+                <div><feathers-filter id="filter"
+                                      filter='{{filterSettings}}'
+                                      add-label='Filter hinzufügen'
+                                      apply-label='Übernehmen'
+                                      cancle-label='Abbrechen'
+                                      handle-url='true'
+                                      save-state='true'
+                /></div>
+                <div class="container-fluid ajaxcontent">
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/table" head=head body=body}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            <center>
+                                <i class="fa fa-times consent-status"></i>
+                                Keine Einverständniserklärung vorhanden &emsp;
+                                <i class="fa fa-check consent-status"></i>
+                                Alle Zustimmungen vorhanden
+                            </center>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{> "lib/components/pagination" settings=pagination }}
+                    </div>
 
             <div class="row mb-2">
                 <div class="col-sm-12 no-padding">

@@ -1,34 +1,40 @@
 {{#extend "administration/administration"}}
-{{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/lib/filter/filter.css" />
-<link rel="stylesheet" href="/styles/administration/users.css" />
-{{/content}}
-{{#content "page"}}
-<div class="route-administration">
-    <section class="section-students section-default">
-        <div>
-            <feathers-filter id="filter" filter='{{filterSettings}}' add-label='Filter hinzufügen'
-                apply-label='Übernehmen' cancle-label='Abbrechen' handle-url='true' save-state='true' />
-        </div>
-        <div class="container-fluid ajaxcontent">
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    {{> "lib/components/table" head=head body=body}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    <center>
-                        <i class="fa fa-times consent-status"></i>
-                        Keine Einverständniserklärung vorhanden &emsp;
-                        <i class="fa fa-check consent-status"></i>
-                        Eltern haben zugestimmt &emsp;
-                        <div>
-                            <span>
-                                <i class="fa fa-check double-check consent-status"></i>
-                                <i class="fa fa-check double-check consent-status"></i>
-                            </span>
-                            <span>Alle Zustimmungen vorhanden</span>
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/lib/filter/filter.css"/>
+        <link rel="stylesheet" href="/styles/administration/users.css"/>
+    {{/content}}
+    {{#content "page" mode="prepend"}}
+        <div class="route-administration">
+            <section class="section-students section-default">
+                <div><feathers-filter id="filter"
+                                      filter='{{filterSettings}}'
+                                      add-label='Filter hinzufügen'
+                                      apply-label='Übernehmen'
+                                      cancle-label='Abbrechen'
+                                      handle-url='true'
+                                      save-state='true'
+                /></div>
+                <div class="container-fluid ajaxcontent">
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/table" head=head body=body}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            <center>
+                                <i class="fa fa-times consent-status"></i>
+                                Keine Einverständniserklärung vorhanden &emsp;
+                                <i class="fa fa-check consent-status"></i>
+                                Eltern haben zugestimmt &emsp;
+                                <div>
+                                    <span>
+                                        <i class="fa fa-check double-check consent-status"></i>
+                                        <i class="fa fa-check double-check consent-status"></i>
+                                    </span>
+                                    <span>Alle Zustimmungen vorhanden</span>    
+                                </div>
+                            </center>
                         </div>
                     </center>
                 </div>
@@ -45,13 +51,35 @@
                 </p>
             </div>
 
-            <div class="row mb-2">
-                <div class="col-sm-12 no-padding">
-                    <h2 class="h4">
-                        Einverständniserklärung einholen
-                    </h2>
-                    {{#if schoolUsesLdap}}
-                    <strong>Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein</strong>
+                    <div class="row mb-2">
+                        <div class="col-sm-12 no-padding">
+                            <h4>
+                                Einverständniserklärung einholen
+                            </h4>
+                            {{#if schoolUsesLdap}}
+                                <strong>Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein</strong>
+
+                                <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
+                            {{else}}
+                                <strong>Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben</strong>
+                                <p>
+                                    Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.
+                                </p>
+                                <p>Für alle Schüler ohne vollständige Einverständniserklärung:</p>
+                                <p>
+                                    <button data-role="student" class="btn btn-secondary btn-send-links-emails">
+                                        Links an Schüler E-Mail Adressen senden
+                                    </button>
+                                    <button data-role="student" class="btn btn-secondary btn-print-links">
+                                        Link-Druckbogen erstellen
+                                    </button>
+                                </p>
+                                <p>
+                                    Oder wähle Schüler in der Tabelle aus.
+                                </p>
+                            {{/if}}
+                        </div>
+                    </div>
 
                     <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der
                         {{theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines
