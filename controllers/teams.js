@@ -810,7 +810,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 	const roleTranslations = {
 		teammember: 'Teilnehmer',
-		teamexpert: 'Externer&nbsp;Experte',
+		teamexpert: 'Externer Experte',
 		teamleader: 'Leiter',
 		teamadministrator: 'Administrator',
 		teamowner: 'Eigentümer',
