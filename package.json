@@ -104,6 +104,7 @@
     "nightwatch": "^1.0.6",
     "node-sass": "^4.12.0",
     "nodemon": "^1.18.3",
+    "postcss-css-variables": "^0.13.0",
     "pump": "^1.0.2",
     "rebuild-changed-entrypoints-webpack-plugin": "^1.0.1",
     "sass-lint": "^1.13.1",

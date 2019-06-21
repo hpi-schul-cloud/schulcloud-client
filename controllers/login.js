@@ -71,19 +71,22 @@ router.all('/', (req, res, next) => {
 			}, (err, data /* , headers */) => {
 				let blogFeed;
 				try {
-					blogFeed = data.rss.channel[0].item.slice(0, 3).map((e) => {
-						const date = new Date(e.pubDate);
-						const locale = 'en-us';
-						const month = date.toLocaleString(locale, { month: 'long' });
-						e.pubDate = `${date.getDate()}. ${month}`;
-						e.description = e.description.join(' ');
-						e.url = e.link[0];
-						e.img = {
-							src: e['media:content'][0].$.url,
-							alt: e.title,
-						};
-						return e;
-					});
+					blogFeed = data.rss.channel[0].item
+						.filter(item => (item['media:content'] || []).length && (item.link || []).length)
+						.slice(0, 3)
+						.map((e) => {
+							const date = new Date(e.pubDate);
+							const locale = 'en-us';
+							const month = date.toLocaleString(locale, { month: 'long' });
+							e.pubDate = `${date.getDate()}. ${month}`;
+							e.description = e.description.join(' ');
+							e.url = e.link[0];
+							e.img = {
+								src: e['media:content'][0].$.url,
+								alt: e.title,
+							};
+							return e;
+						});
 				} catch (e) {
 					// just catching the blog-error
 					blogFeed = [];

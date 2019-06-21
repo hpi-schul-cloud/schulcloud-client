@@ -1,3 +1,5 @@
+@import "./variables";
+
 .header{
     position: fixed;
     top: 0;
@@ -5,7 +7,7 @@
     width: 100%;
     background-color: var(--color-white);
     color: var(--color-black);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
     z-index: 3;
     .container{
         display: flex;
