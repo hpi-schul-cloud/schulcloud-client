@@ -918,6 +918,9 @@ router.get('/:assignmentId', function (req, res, next) {
                     //submission>single=student=upload || submissionS>multi=teacher=overview
                     addClearNameForFileIds(assignment.submission || assignment.submissions);
                     assignment.submissions = assignment.submissions.map(s => { return { submission: s }; });
+                    var test = handlebars.compile('homework/assignment');
+                    console.log(handlebars.compile('homework/assignment'));
+
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                         breadcrumb: [{
