@@ -28,6 +28,7 @@
 	position: relative;
 	overflow: hidden;
 	padding-bottom: 10px;
+	box-shadow: var(--shadow-sm);
 	&:not(:last-of-type){
 		margin-right: var(--space-lg);
 	}
