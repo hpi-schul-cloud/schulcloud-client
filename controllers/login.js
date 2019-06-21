@@ -125,7 +125,6 @@ router.all('/login/', (req, res, next) => {
 			schoolsPromise,
 		]).then(([schools]) => res.render('authentication/login', {
 			schools,
-			inline: true,
 			systems: [],
 		}));
 	});
