@@ -1,14 +1,16 @@
 <article class="blog-card">
-    <img class="thumbnail" alt="{{article.img.title}}" src="{{article.img.src}}">
-    <div class="body">
-    <h2 class="title">
-        {{article.title}}
-        <br/>
-        <small class="pub-date">{{article.pubDate}}</small>
-    </h2>
-    <p class="description">{{truncatePure (stripHTMLTags article.description) 200}}</p>
-    <a href="{{article.url}}" class="btn btn-primary btn-outline" target="_blank">
-        Artikel öffnen <i class="fa  fa-angle-double-right" aria-hidden="true"></i>
-    </a>
-    </div>
+	<img class="thumbnail" alt="{{article.img.title}}" src="{{article.img.src}}">
+	<div class="body">
+		<h2 class="title">
+			{{article.title}}
+			<br/>
+			<small class="pub-date">{{article.pubDate}}</small>
+		</h2>
+		<p class="description">{{truncatePure (stripHTMLTags article.description) 200}}</p>
+	</div>
+	<div>
+		<a href="{{article.url}}" class="btn btn-primary btn-outline" target="_blank">
+			Artikel öffnen <i class="fa  fa-angle-double-right" aria-hidden="true"></i>
+		</a>
+	</div>
 </article>
