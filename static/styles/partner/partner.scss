@@ -35,7 +35,7 @@ hgroup {
         padding-bottom: 15px;
     }
     .partner-box {
-        border-radius: var(--radius-sm);
+        box-shadow: 2px 2px 5px rgba(0,0,0,.1);
         background: #fff;
         border: 1px solid lightgray;
         height: 150px;

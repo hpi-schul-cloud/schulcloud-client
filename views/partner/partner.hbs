@@ -1,12 +1,10 @@
 <section class="section-partner">
-	{{#embed "authentication/section"}}
+	{{#embed "authentication/section" class="content-width-max"}}
 		{{#content "body"}}
 			{{#unless loggedin}}
-				<div class="section-title">
-					<h2>Partner</h2>
-				</div>
+				<h2 class="section-title center">Partner</h2>
 			{{/unless}}
-			<h3>Projektdurchführung</h3>
+			<h3 class="section-title center">Projektdurchführung</h3>
 			<div class="container">
 				<div class="row">
 					{{#each partners.project_partners}}
@@ -23,9 +21,9 @@
 			</div>
 		{{/content}}
 	{{/embed}}
-	{{#embed "authentication/section" style="primary"}}
+	{{#embed "authentication/section" style="primary" class="content-width-max"}}
 		{{#content "body"}}
-			<h3>Fachbeirat</h3>
+			<h3 class="section-title center">Fachbeirat</h3>
 			<div class="container">
 				<div class="row">
 					<div class="intro-box col-sm-12">
@@ -36,8 +34,21 @@
 						</p>
 					</div>
 				</div>
-				<div class="row">
-						{{#each partners.advisers}}
+			</div>
+			<div class="row">
+				{{#each partners.advisers}}
+					<div class="partner-box-wrapper col-xs-6 col-md-3">
+						<div class="partner-box">
+							{{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
+								<img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+									{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+							{{#if url}}</a>{{/if}}
+						</div>
+					</div>
+				{{/each}}
+				<div class="col-xs-12">
+					<div id="hiddenAdvisers" class="collapse row">
+						{{#each hiddenAdvisers}}
 							<div class="partner-box-wrapper col-xs-6 col-md-3">
 								<div class="partner-box">
 									{{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
@@ -46,31 +57,18 @@
 									{{#if url}}</a>{{/if}}
 								</div>
 							</div>
-						{{/each}}
-						<div class="col-xs-12">
-							<div id="hiddenAdvisers" class="collapse row">
-								{{#each hiddenAdvisers}}
-									<div class="partner-box-wrapper col-xs-6 col-md-3">
-										<div class="partner-box">
-											{{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
-												<img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-													{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-											{{#if url}}</a>{{/if}}
-										</div>
-									</div>
-							{{/each}}
-							</div>
-						</div>
-						<div class="buttonWrapper">
-							<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
-						</div>
+					{{/each}}
+					</div>
+				</div>
+				<div class="buttonWrapper">
+					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
 				</div>
 			</div>
 		{{/content}}
 	{{/embed}}
-	{{#embed "authentication/section"}}
+	{{#embed "authentication/section" class="content-width-max"}}
 		{{#content "body"}}
-			<h3>Pilotpartner für Lerninhalte</h3>
+			<h3 class="section-title center">Pilotpartner für Lerninhalte</h3>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -109,9 +107,9 @@
 			</div>
 		{{/content}}
 	{{/embed}}
-	{{#embed "authentication/section" style="accent"}}
+	{{#embed "authentication/section" style="accent" class="content-width-max"}}
 		{{#content "body"}}
-			<h3>Unterstützer für Schulinfrastruktur</h3>
+			<h3 class="section-title center">Unterstützer für Schulinfrastruktur</h3>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">

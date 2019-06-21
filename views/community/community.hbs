@@ -1,15 +1,13 @@
 
 
 <section class="section-community">
-    {{#embed "authentication/section"}}
+    {{#embed "authentication/section" class="content-width-max"}}
         {{#content "body"}}
 
             {{#unless loggedin}}
-                    <div class="section-title">
-                        <h2>{{title}}</h2>
-                    </div>
+				<h2 class="section-title center">{{title}}</h2>
             {{/unless}}
-            <h3>Schulen</h3>
+            <h3 class="section-title center">Schulen</h3>
             <h4>Wie bewerben sich MINT-EC Schulen?</h4>
             <p>
                 <ul>
@@ -48,11 +46,11 @@
             </p>
             <p>Gerne können Sie außerdem <a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/flyer/Schul-Cloud_Technische_Vorbereitungen.pdf" target="_blank">hier</a> einsehen, welche Hinweise bei der Vorbereitung auf eine mögliche HPI Schul-Cloud Nutzung helfen können.</p>
             <br />
-                {{/content}}
-            {{/embed}}
-            {{#embed "authentication/section" style="primary"}}
-                {{#content "body"}}
-                <h3>Landesinitiativen</h3>
+		{{/content}}
+	{{/embed}}
+	{{#embed "authentication/section" style="primary" class="content-width-max"}}
+		{{#content "body"}}
+			<h3 class="section-title center">Landesinitiativen</h3>
             <h4>Niedersächsische Bildungscloud</h4>
             <p>Seit Februar 2018 kooperiert das Projekt HPI Schul-Cloud mit der niedersächsischen Bildungscloud der <a target='_blank' rel='noopener' href='http://www.n-21.de'>Landesinitiative n-21</a>.
             Die Projektschulen der Niedersächsischen Bildungscloud werden an die HPI Schul-Cloud angebunden und können diese
@@ -69,11 +67,11 @@
                 Wenn Sie als Landesinitiative Interesse daran haben, mit der HPI Schul-Cloud zu kooperieren, wenden Sie sich gerne
                 an <a href="mailto:schul-cloud@hpi.de">schul-cloud@hpi.de</a>.
             </p>
-                {{/content}}
-            {{/embed}}
-            {{#embed "authentication/section"}}
-                {{#content "body"}}
-                <h3>Inhalteanbieter</h3>
+		{{/content}}
+	{{/embed}}
+	{{#embed "authentication/section" class="content-width-max"}}
+		{{#content "body"}}
+			<h3 class="section-title center">Inhalteanbieter</h3>
             <p>Wir freuen uns über Ihre Anfragen unter  <a href="mailto:inhalte@schul-cloud.org">inhalte@schul-cloud.org</a>.</p>
 
             <h4>Entwickler, Informatik AGs, ...</h4>

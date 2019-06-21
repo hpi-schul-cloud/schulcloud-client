@@ -8,7 +8,6 @@
     color: var(--color-text);
     padding: var(--space-xxl) var(--space-lg);
     position: relative;
-    z-index: var(--layer-page);
     &:first-of-type{
         padding-top: 0;
     }
@@ -86,9 +85,10 @@
         margin: 0 auto;
     }
     .section-title{
-        color: var(--color-headline);
+		color: var(--color-headline);
+		margin-bottom: var(--space-md);
         &.center{
-            text-align: center;
+			text-align: center;
         }
     }
 }
