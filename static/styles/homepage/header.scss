@@ -8,7 +8,7 @@
     background-color: var(--color-white);
     color: var(--color-black);
     box-shadow: var(--shadow-sm);
-    z-index: 3;
+    z-index: var(--layer-header);
     .container{
         display: flex;
         align-items: center;

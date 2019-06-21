@@ -9,10 +9,11 @@
 
     --layer-behind: -1;
     --layer-page: 1;
-    --layer-dropdown: 2;
-    --layer-modal: 3;
-    --layer-popover: 4;
-    --layer-tooltip: 5;
+    --layer-header: 10; // video player defines internally some z-indexes we need to match
+    --layer-dropdown: 11;
+    --layer-modal: 12;
+    --layer-popover: 13;
+    --layer-tooltip: 14;
 
     --color-primary: #b1063a;
     --color-primary-light: rgb(189, 43, 88);
