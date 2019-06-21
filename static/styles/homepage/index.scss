@@ -40,12 +40,12 @@
 }
 
 .partner{
-    border: var(--border-width) solid var(--color-gray);
+    border: var(--border-width) solid var(--color-gray-light);
     width: 100%;
     height: 100%;
     padding: var(--space-md);
 	object-fit: contain;
-	box-shadow: var(--shadow-sm);
+	box-shadow: var(--shadow-md);
 }
 
 video-player{

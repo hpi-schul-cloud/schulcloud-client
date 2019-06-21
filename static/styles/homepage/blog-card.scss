@@ -19,7 +19,7 @@
 }
 
 .blog-card{
-	border: var(--border-width) solid var(--color-gray);
+	border: var(--border-width) solid var(--color-gray-light);
 	text-align: center;
 	width: 50ch;
 	display: flex;
@@ -28,7 +28,7 @@
 	position: relative;
 	overflow: hidden;
 	padding-bottom: 10px;
-	box-shadow: var(--shadow-sm);
+	box-shadow: var(--shadow-md);
 	&:not(:last-of-type){
 		margin-right: var(--space-lg);
 	}

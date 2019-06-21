@@ -35,7 +35,8 @@
             }
             &.active{
                 font-weight: bold;
-                text-decoration: underline;
+				color: var(--color-white);
+				background-color: var(--color-accent)
             }
         }
     }
