@@ -4,9 +4,12 @@
 @import "./sections";
 
 body {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
     min-height: 100vh;
 }
 main{
     margin-top: 6rem;
-    flex: 1;
+    flex-grow: 1;
 }
