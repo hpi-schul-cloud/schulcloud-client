@@ -1,6 +1,6 @@
 #! /bin/bash
 
-export TESTDEPLOY=$( cat testdeploy )
+#export TESTDEPLOY=$( cat testdeploy )
 
 if [ "$TRAVIS_BRANCH" = "master" ]
 then
@@ -60,6 +60,8 @@ function deploytoprods {
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@open.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client-open:latest open_client
   # brabu
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@open.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client-brb:latest brabu_client
+  # thueringen
+  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@schulcloud-thueringen.de /usr/bin/docker service update --force --image schulcloud/schulcloud-client:latest thueringen_client
   # demo
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@demo.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client:latest demo_client
 }
