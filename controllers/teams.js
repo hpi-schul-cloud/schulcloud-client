@@ -112,8 +112,10 @@ const checkIfUserCanCreateTeam = (res) => {
 	let allowedCreateTeam = false;
 	if (roleNames.includes('administrator') || roleNames.includes('teacher') || roleNames.includes('student')) {
 		allowedCreateTeam = true;
-		if (roleNames.includes('student')
-		&& res.locals.currentSchoolData.features.includes('disableStudentTeamCreation')) {
+		const currentSchool = res.locals.currentSchoolData;
+		const isSchoolFeatureSet = currentSchool.features instanceof Array
+			&& currentSchool.features.includes('disableStudentTeamCreation');
+		if (roleNames.includes('student') && isSchoolFeatureSet) {
 			allowedCreateTeam = false;
 		}
 	}

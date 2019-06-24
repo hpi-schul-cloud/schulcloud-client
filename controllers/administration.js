@@ -977,7 +977,8 @@ router.all(
 			.get('users/admin/teachers', {
 				qs: query,
 			})
-			.then((users) => {
+			.then((data) => {
+				const users = data.data;
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
@@ -1023,7 +1024,7 @@ router.all(
 
 				const pagination = {
 					currentPage,
-					numPages: Math.ceil(users.total / itemsPerPage),
+					numPages: Math.ceil(data.total / itemsPerPage),
 					baseUrl: `/administration/teachers/?p={{page}}${filterQueryString}`,
 				};
 
@@ -1193,17 +1194,33 @@ router.all(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	async (req, res, next) => {
 		const tempOrgQuery = (req.query || {}).filterQuery;
+		const filterQueryString = tempOrgQuery
+			? `&filterQuery=${decodeURI(tempOrgQuery)}`
+			: '';
 
+		let itemsPerPage = 25;
 		let filterQuery = {};
 		if (tempOrgQuery) {
 			filterQuery = JSON.parse(decodeURI(req.query.filterQuery));
+			if (filterQuery.$limit) {
+				itemsPerPage = filterQuery.$limit;
+			}
 		}
 
+		const currentPage = parseInt(req.query.p, 10) || 1;
+		//const title = returnAdminPrefix(res.locals.currentUser.roles);
+
+		let query = {
+			$limit: itemsPerPage,
+			$skip: itemsPerPage * (currentPage - 1),
+		};
+		query = Object.assign(query, filterQuery);
 		api(req)
 			.get('/users/admin/students', {
-				qs: filterQuery,
+				qs: query,
 			})
-			.then(async (users) => {
+			.then(async (data) => {
+				const users = data.data;
 				const title = `${returnAdminPrefix(
 					res.locals.currentUser.roles,
 				)}Schüler`;
@@ -1243,35 +1260,19 @@ router.all(
 						],
 					];
 				});
-				/*  for pagination....
 
-	const tempOrgQuery = (req.query || {}).filterQuery;
-	const filterQueryString = (tempOrgQuery) ? (`&filterQuery=${escape(tempOrgQuery)}`) : '';
+				const pagination = {
+					currentPage,
+					numPages: Math.ceil(data.total / itemsPerPage),
+					baseUrl: `/administration/students/?p={{page}}${filterQueryString}`,
+				};
 
-	let itemsPerPage = allStudentsCount;
-	let filterQuery = {};
-	if (tempOrgQuery) {
-		filterQuery = JSON.parse(unescape(req.query.filterQuery));
-		if (filterQuery.$limit) {
-			itemsPerPage = filterQuery.$limit;
-		}
-	}
-
-	const currentPage = parseInt(req.query.p, 10) || 1;
-
-	const pagination = {
-		currentPage,
-		numPages: Math.ceil(allStudentsCount / itemsPerPage),
-		baseUrl: `/administration/students/?p={{page}}${filterQueryString}`,
-	};
-	*/
-				// const studentsWithoutConsent = 0; // await getUsersWithoutConsent(req, 'student');
 				try {
 					res.render('administration/students', {
 						title,
 						head,
 						body,
-						// pagination,
+						pagination,
 						filterSettings: JSON.stringify(userFilterSettings()),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						studentsWithoutConsentCount,
