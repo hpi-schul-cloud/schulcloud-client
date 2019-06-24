@@ -86,9 +86,9 @@ app.use(async (req, res, next) => {
 		documents: Object.assign({}, {
 			baseDir: defaultBaseDir(req, res),
 			privacy: process.env.PRIVACY_DOCUMENT
-				|| 'Datenschutz/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
+				|| 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
 			termsOfUse: process.env.TERMS_OF_USE_DOCUMENT
-				|| 'Datenschutz/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
+				|| 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
 		}, defaultDocuments),
 		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
 	};
