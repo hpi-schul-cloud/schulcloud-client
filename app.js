@@ -54,7 +54,7 @@ app.use(session({
 }));
 
 const defaultBaseDir = (req, res) => {
-	let dir = process.env.DOCUMENT_BASE_DIR || 'https://schul-cloud-hpi.s3.hidrive.strato.com/Willkommenordner/';
+	let dir = process.env.DOCUMENT_BASE_DIR || 'https://s3.hidrive.strato.com/schul-cloud-hpi/';
 	dir += `${themeName}/`;
 	if (themeName === 'open' && res.locals && res.locals.currentUser && res.locals.currentUser.schoolId) {
 		// fixme currentUser missing here (after login)
