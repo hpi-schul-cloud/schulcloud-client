@@ -21,6 +21,8 @@ before_install:
 - sh -e /etc/init.d/xvfb start
 - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
   --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+- sudo docker pull mongo:4.0
+- sudo docker run -d -p 27017:27017 mongo:4.0
 install:
 - npm install
 before_script:
@@ -43,12 +45,13 @@ script:
 cache:
   directories:
   - node_modules
-after_success:
+#after_success:
 #- bash ./deploy.sh
 
 deploy:
   provider: script
   script: bash ./deploy.sh
   on:
-#    all_branches: true
+    all_branches: true
 #    condition: "$TRAVIS_BRANCH =~ ^master|N21/merge$"
+#
