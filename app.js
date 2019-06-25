@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 
 const session = require('express-session');
+const csurf = require('csurf')
+const tokenInjector = require('./helpers/csrf')
 
 // template stuff
 const handlebars = require('handlebars');
@@ -52,6 +54,10 @@ app.use(session({
 	resave: 'true',
 	secret: 'secret',
 }));
+
+//const csrfProtection = csurf({})
+app.use(csurf())
+app.use(tokenInjector)
 
 const defaultBaseDir = (req, res) => {
 	let dir = process.env.DOCUMENT_BASE_DIR || 'https://s3.hidrive.strato.com/schul-cloud-hpi/';

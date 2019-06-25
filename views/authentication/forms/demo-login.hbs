@@ -10,6 +10,7 @@
                 <input type="text" name="type" value="student" hidden>
 
                 <div class="form-group">
+                    {{> "lib/components/csrfInput"}}
                     <input type="submit" class="btn btn-block btn-primary btn-login" value="als Schüler*In einloggen" />
                 </div>
             </form>
@@ -20,6 +21,7 @@
                 <input type="text" name="type" value="teacher" hidden>
 
                 <div class="form-group">
+                    {{> "lib/components/csrfInput"}}
                     <input type="submit" class="btn btn-block btn-primary btn-login" value="als Lehrer*In einloggen" />
                 </div>
             </form>
