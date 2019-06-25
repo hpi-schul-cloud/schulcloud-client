@@ -54,7 +54,7 @@ app.use(session({
 }));
 
 const defaultBaseDir = (req, res) => {
-	let dir = process.env.DOCUMENT_BASE_DIR || 'https://schul-cloud-hpi.s3.hidrive.strato.com/Willkommenordner/';
+	let dir = process.env.DOCUMENT_BASE_DIR || 'https://s3.hidrive.strato.com/schul-cloud-hpi/';
 	dir += `${themeName}/`;
 	if (themeName === 'open' && res.locals && res.locals.currentUser && res.locals.currentUser.schoolId) {
 		// fixme currentUser missing here (after login)
@@ -86,9 +86,9 @@ app.use(async (req, res, next) => {
 		documents: Object.assign({}, {
 			baseDir: defaultBaseDir(req, res),
 			privacy: process.env.PRIVACY_DOCUMENT
-				|| 'Datenschutz/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
+				|| 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
 			termsOfUse: process.env.TERMS_OF_USE_DOCUMENT
-				|| 'Datenschutz/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
+				|| 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
 		}, defaultDocuments),
 		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
 	};
