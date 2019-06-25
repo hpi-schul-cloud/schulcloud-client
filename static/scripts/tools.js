@@ -56,10 +56,10 @@ $(document).ready(() => {
 	};
 
 	/**
-     * posts a (non-lti) local tool to the server
-     * @param modal {Modal} - the modal which has the post-action and the courseId
-     * @param tool {object} - the tool which will be created
-     */
+		* posts a (non-lti) local tool to the server
+		* @param modal {Modal} - the modal which has the post-action and the courseId
+ 		* @param tool {object} - the tool which will be created
+	*/
 	const createLocalTool = function createLocalTool(modal, tool) {
 		const $modalForm = modal.find('.modal-form');
 		const href = $modalForm.attr('action');
@@ -82,15 +82,16 @@ $(document).ready(() => {
 	};
 
 	/** var populateCourseSelection = function (modal, courses) {
-        var $selection = modal.find('.course-selection');
-        courses.forEach(function (course) {
-            var option = document.createElement("option");
-            option.text = course.name;
-            option.value = course._id;
-            $selection.append(option);
-        });
-        $selection.chosen().trigger("chosen:updated");
-    };* */
+			var $selection = modal.find('.course-selection');
+			courses.forEach(function (course) {
+				var option = document.createElement("option");
+				option.text = course.name;
+				option.value = course._id;
+				$selection.append(option);
+			});
+			$selection.chosen().trigger("chosen:updated");
+    	};*
+	*/
 
 	$('.template_tool').on('click', function addTool(e) {
 		e.preventDefault();
@@ -109,7 +110,7 @@ $(document).ready(() => {
 				$editModal.appendTo('body').modal('show');
 			}
 		});
-	});
+	);
 
 	$modals.find('.close, .btn-close').on('click', () => {
 		$modals.modal('hide');
