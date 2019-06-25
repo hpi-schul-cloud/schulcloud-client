@@ -5,23 +5,23 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
 
-const createToolHandler = (req, res) => {
-	const context = req.originalUrl.split('/')[1];
-	api(req).post('/ltiTools/', {
-		json: req.body,
-	}).then((tool) => {
-		if (tool._id) {
-			api(req).patch(`/${context}/${req.body.courseId}`, {
-				json: {
-					$push: {
-						ltiToolIds: tool._id,
-					},
-				},
+const createToolHandler = (req, res, next) => {
+    const context = req.originalUrl.split('/')[1];
+    api(req).post('/ltiTools/', {
+        json: req.body
+    }).then((tool) => {
+        if (tool._id) {
+            api(req).patch(`/${context}/` + req.body.courseId, {
+                json: {
+                    $push: {
+                        ltiToolIds: tool._id
+                    }
+                }
 			}).then((course) => {
-				res.redirect(`/${context}/${course._id}`);
+				res.redirect(`/${context}/${course._id}/?activeTab=tools`);
 			});
-		}
-	});
+        }
+    });
 };
 
 const addToolHandler = (req, res, next) => {
@@ -131,7 +131,7 @@ router.use(authHelper.authChecker);
 
 router.get('/', (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
-	res.redirect(`/${context}/${req.params.courseId}`);
+	res.redirect(`/${context}/${req.params.courseId}/?activeTab=tools`);
 });
 
 router.get('/add', addToolHandler);

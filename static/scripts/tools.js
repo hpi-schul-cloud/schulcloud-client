@@ -56,11 +56,11 @@ $(document).ready(() => {
 	};
 
 	/**
-		* posts a (non-lti) local tool to the server
-		* @param modal {Modal} - the modal which has the post-action and the courseId
- 		* @param tool {object} - the tool which will be created
-	*/
-	const createLocalTool = function createLocalTool(modal, tool) {
+     * posts a (non-lti) local tool to the server
+     * @param modal {Modal} - the modal which has the post-action and the courseId
+     * @param tool {object} - the tool which will be created
+     */
+	  const createLocalTool = function createLocalTool(modal, tool) {
 		const $modalForm = modal.find('.modal-form');
 		const href = $modalForm.attr('action');
 		const courseId = $modalForm.find("input[name='courseId']").val();
