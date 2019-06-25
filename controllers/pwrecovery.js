@@ -23,7 +23,7 @@ const sendMailHandler = (req, res, next) => {
             }).then(_ => {
                 res.redirect('response');
             }).catch(err => {
-                res.redirect('response'); 
+                res.redirect('response');
             });
         });
 };
