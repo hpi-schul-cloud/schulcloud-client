@@ -21,13 +21,9 @@ const sendMailHandler = (req, res, next) => {
                     content: content
                 }
             }).then(_ => {
-                req.session.notification = {
-                    'type': 'success',
-                    'message': `Es wurde eine Wiederherstellungsmail an die im Account hinterlegte E-Mail-Adresse versendet.`
-                };
-                res.redirect('/login/');
+                res.redirect('response');
             }).catch(err => {
-                res.status((err.statusCode || 500)).send(err);
+                res.redirect('response'); 
             });
         });
 };
@@ -52,8 +48,8 @@ const obscure_email = (email) => {
     return result;
 };
 
-router.get('/error', function (req, res, next) {
-    res.render('pwRecovery/pwRecoveryError');
+router.get('/response', function (req, res, next) {
+    res.render('pwRecovery/pwRecoveryResponse');
 });
 
 router.get('/:pwId', function (req, res, next) {
@@ -86,7 +82,7 @@ router.post('/', function (req, res, next) {
         res.locals.result = result;
         next();
     }).catch(err => {
-        res.redirect('error');
+        res.redirect('response');
         next(err);
     });
 }, sendMailHandler);
