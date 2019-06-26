@@ -23,8 +23,8 @@ const obscure_email = (email) => {
     return result;
 };
 
-router.get('/error', function (req, res, next) {
-    res.render('pwRecovery/pwRecoveryError');
+router.get('/response', function (req, res, next) {
+    res.render('pwRecovery/pwRecoveryResponse');
 });
 
 router.get('/:pwId', function (req, res, next) {
@@ -55,10 +55,10 @@ router.post('/', (req, res, next) => {
 	const username = req.body.username.toLowerCase();
 	api(req).post('/passwordRecovery', { json: { username } }).then((result) => {
 		res.locals.result = result;
+		res.redirect('response');
 		next();
-	}).catch((err) => {
-		res.redirect('error');
-		next(err);
+	}).catch(() => {
+		res.redirect('response');
 	});
 });
 
