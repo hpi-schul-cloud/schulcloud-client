@@ -3,35 +3,6 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 
-const sendMailHandler = (req, res, next) => {
-    api(req).get('/accounts/' + res.locals.result.account, { qs: { $populate: ['userId']}})
-        .then((account) => {
-            let content = {
-                "text": "Sehr geehrte/r " + account.userId.firstName + " " + account.userId.lastName + "\n\n" +
-                "Bitte setzen Sie Ihr Passwort unter folgendem Link zurück:\n" +
-                (req.headers.origin || process.env.HOST) + "/pwrecovery/" + res.locals.result._id + "\n\n" +
-                "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
-            };
-            req.body.content = content;
-            api(req).post('/mails', {
-                json: {
-                    headers: {},
-                    email: account.userId.email,
-                    subject: `Passwort zurücksetzen für die ${res.locals.theme.short_title}`,
-                    content: content
-                }
-            }).then(_ => {
-                req.session.notification = {
-                    'type': 'success',
-                    'message': `Es wurde eine Wiederherstellungsmail an die im Account hinterlegte E-Mail-Adresse versendet.`
-                };
-                res.redirect('/login/');
-            }).catch(err => {
-                res.status((err.statusCode || 500)).send(err);
-            });
-        });
-};
-
 const obscure_email = (email) => {
     let parts = email.split("@");
     let name = parts[0];
@@ -89,7 +60,7 @@ router.post('/', function (req, res, next) {
         res.redirect('error');
         next(err);
     });
-}, sendMailHandler);
+});
 
 router.post('/reset', function (req, res, next) {
     api(req).post('/passwordRecovery/reset', {json: req.body}).then(_ => {
