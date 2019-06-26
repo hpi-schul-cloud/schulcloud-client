@@ -8,20 +8,22 @@ const login = app => {
 	let agent = chai.request.agent(app); // create agent for storing cookies
 
 	return new Promise((resolve, reject) => {
-		getCsrfToken(agent).then(csrf => {
-			
+		getCsrfToken(agent).then(({csrf}) => {
+            
 			agent
 				.post("/login/")
+				.redirects(2)
 				.send({
 					username: "schueler@schul-cloud.org",
-                    password: process.env.SC_DEMO_USER_PASSWORD, 
-                    _csrf: csrf
+					password: process.env.SC_DEMO_USER_PASSWORD,
+					_csrf: csrf
 				})
 				.end((err, res) => {
+                    //chai.expect(res).to.have.cookie('connect.sid');
 					if (err) {
 						reject(err);
-					}
-
+                    }
+                    
 					// return agent for making further request in loggedIn state
 					resolve({
 						agent,
@@ -52,7 +54,7 @@ const extractCsrf = string => {
 	if (!string) return undefined;
 	let result = string.split('<meta name="csrfToken" content="', 2)[1];
 	result = result.split('">', 2)[0];
-	console.log(result);
+	
 	return result;
 };
 
@@ -61,9 +63,9 @@ const getCsrfToken = agent => {
 		getLoginPage(agent).then(({ res }) => {
 			let csrf = extractCsrf(res.text);
 			if (csrf) {
-				resolve(csrf);
+				resolve({csrf});
 			} else {
-				reject(csrf);
+				reject({csrf});
 			}
 		});
 	});
