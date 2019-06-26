@@ -51,15 +51,15 @@ router.get('/:pwId', function (req, res, next) {
     });
 });
 
-router.post('/', function (req, res, next) {
-    let username = req.body.username.toLowerCase();
-    api(req).post('/passwordRecovery', {json: {username: username}}).then((result) => {
-        res.locals.result = result;
-        next();
-    }).catch(err => {
-        res.redirect('error');
-        next(err);
-    });
+router.post('/', (req, res, next) => {
+	const username = req.body.username.toLowerCase();
+	api(req).post('/passwordRecovery', { json: { username } }).then((result) => {
+		res.locals.result = result;
+		next();
+	}).catch((err) => {
+		res.redirect('error');
+		next(err);
+	});
 });
 
 router.post('/reset', function (req, res, next) {
