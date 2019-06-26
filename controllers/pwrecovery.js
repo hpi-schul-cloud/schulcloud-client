@@ -23,8 +23,8 @@ const obscure_email = (email) => {
     return result;
 };
 
-router.get('/response', function (req, res, next) {
-    res.render('pwRecovery/pwRecoveryResponse');
+router.get('/response', (req, res, next) => {
+	res.render('pwRecovery/pwRecoveryResponse');
 });
 
 router.get('/:pwId', function (req, res, next) {
