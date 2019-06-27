@@ -977,7 +977,8 @@ router.all(
 			.get('users/admin/teachers', {
 				qs: query,
 			})
-			.then((users) => {
+			.then((data) => {
+				const users = data.data;
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
@@ -1023,7 +1024,7 @@ router.all(
 
 				const pagination = {
 					currentPage,
-					numPages: Math.ceil(users.total / itemsPerPage),
+					numPages: Math.ceil(data.total / itemsPerPage),
 					baseUrl: `/administration/teachers/?p={{page}}${filterQueryString}`,
 				};
 
@@ -1193,17 +1194,33 @@ router.all(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	async (req, res, next) => {
 		const tempOrgQuery = (req.query || {}).filterQuery;
+		const filterQueryString = tempOrgQuery
+			? `&filterQuery=${decodeURI(tempOrgQuery)}`
+			: '';
 
+		let itemsPerPage = 25;
 		let filterQuery = {};
 		if (tempOrgQuery) {
 			filterQuery = JSON.parse(decodeURI(req.query.filterQuery));
+			if (filterQuery.$limit) {
+				itemsPerPage = filterQuery.$limit;
+			}
 		}
 
+		const currentPage = parseInt(req.query.p, 10) || 1;
+		//const title = returnAdminPrefix(res.locals.currentUser.roles);
+
+		let query = {
+			$limit: itemsPerPage,
+			$skip: itemsPerPage * (currentPage - 1),
+		};
+		query = Object.assign(query, filterQuery);
 		api(req)
 			.get('/users/admin/students', {
-				qs: filterQuery,
+				qs: query,
 			})
-			.then(async (users) => {
+			.then(async (data) => {
+				const users = data.data;
 				const title = `${returnAdminPrefix(
 					res.locals.currentUser.roles,
 				)}Schüler`;
@@ -1243,35 +1260,19 @@ router.all(
 						],
 					];
 				});
-				/*  for pagination....
 
-	const tempOrgQuery = (req.query || {}).filterQuery;
-	const filterQueryString = (tempOrgQuery) ? (`&filterQuery=${escape(tempOrgQuery)}`) : '';
+				const pagination = {
+					currentPage,
+					numPages: Math.ceil(data.total / itemsPerPage),
+					baseUrl: `/administration/students/?p={{page}}${filterQueryString}`,
+				};
 
-	let itemsPerPage = allStudentsCount;
-	let filterQuery = {};
-	if (tempOrgQuery) {
-		filterQuery = JSON.parse(unescape(req.query.filterQuery));
-		if (filterQuery.$limit) {
-			itemsPerPage = filterQuery.$limit;
-		}
-	}
-
-	const currentPage = parseInt(req.query.p, 10) || 1;
-
-	const pagination = {
-		currentPage,
-		numPages: Math.ceil(allStudentsCount / itemsPerPage),
-		baseUrl: `/administration/students/?p={{page}}${filterQueryString}`,
-	};
-	*/
-				// const studentsWithoutConsent = 0; // await getUsersWithoutConsent(req, 'student');
 				try {
 					res.render('administration/students', {
 						title,
 						head,
 						body,
-						// pagination,
+						pagination,
 						filterSettings: JSON.stringify(userFilterSettings()),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						studentsWithoutConsentCount,
@@ -2301,7 +2302,7 @@ const getTeamFlags = (team) => {
 	const hasOwner = '<i class="fa fa-briefcase team-flags" data-toggle="tooltip" '
 		+ 'data-placement="top" title="Team hat Eigentümer"></i>';
 	const hasRocketChat = '<i class="fa fa-comments team-flags" data-toggle="tooltip" '
-		+ 'data-placement="top" title="Team hat Eigentümer"></i>';
+		+ 'data-placement="top" title="Chat ist aktiviert"></i>';
 
 	let combined = '';
 
@@ -2323,6 +2324,34 @@ const getTeamFlags = (team) => {
 
 	return combined;
 };
+
+const disableStudentUpdateHandler = async function disableStudentUpdate(req, res, next) {
+	// pay attention logic of checkbox is inverse to database/server naming
+	const isdisableStudentCreation = (res.locals.currentSchoolData.features
+		|| []).includes('disableStudentTeamCreation');
+	if (!isdisableStudentCreation && req.body.enablestudentteamcreation !== 'true') {
+		// add disableStudentTeamCreation feature
+		await api(req).patch(`/schools/${req.params.id}`, {
+			json: {
+				$push: {
+					features: 'disableStudentTeamCreation',
+				},
+			},
+		});
+	} else if (isdisableStudentCreation && req.body.enablestudentteamcreation === 'true') {
+		// remove disableStudentTeamCreation feature
+		await api(req).patch(`/schools/${req.params.id}`, {
+			json: {
+				$pull: {
+					features: 'disableStudentTeamCreation',
+				},
+			},
+		});
+	}
+	return res.redirect(cutEditOffUrl(req.header('Referer')));
+};
+
+router.patch('/teams/disablestudents/:id', disableStudentUpdateHandler);
 
 const getTeamMembersButton = counter => `
   <div class="btn-show-members" role="button">${counter}<i class="fa fa-user team-flags"></i></div>`;
@@ -2367,7 +2396,7 @@ router.all('/teams', (req, res, next) => {
 
 			const roleTranslations = {
 				teammember: 'Teilnehmer',
-				teamexpert: 'Externer&nbsp;Experte', // Externer Experte
+				teamexpert: 'Externer Experte',
 				teamleader: 'Leiter',
 				teamadministrator: 'Administrator',
 				teamowner: 'Eigentümer',
@@ -2413,7 +2442,9 @@ router.all('/teams', (req, res, next) => {
 								toggle: 'tooltip',
 							},
 							title: item.createdAtMySchool
-								? 'Es können nur Mitglieder der eigenen Schule aus dem Team entfernt werden'
+								? 'Schüler der eigenen Schule aus dem Team entfernen. Nur möglich, wenn das Team an '
+								+ 'einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst '
+								+ 'oder jemand anderem Admin-Rechte für das Team zuzuweisen.'
 								: 'Mitglieder eigener Schule aus Team entfernen',
 						},
 						{
@@ -2488,6 +2519,7 @@ router.all('/teams', (req, res, next) => {
 					classes,
 					users,
 					pagination,
+					school: res.locals.currentSchoolData,
 					limit: true,
 				});
 			});

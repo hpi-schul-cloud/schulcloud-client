@@ -65,8 +65,7 @@
             </section>
 
             {{#if rocketChatURL}}
-            <section class="section-chat" style="margin-top: 2rem">
-                <h3 class="h4">Chat</h3>
+            <section class="section-chat">
                 <div class="rocketchat">
                     <iframe src="{{rocketChatURL}}?layout=embedded" frameborder="0"></iframe>
                 </div>
@@ -196,11 +195,11 @@
                         <div class="section" data-section="js-events">
                             <div class="row">
                                 {{#each ../events}}
-                                    {{> 'calendar/card' event=this}}
+                                    {{> 'calendar/card' event=this canEdit=../canEditEvents}}
                                 {{/each}}
                             </div>
                             <div style="margin-top: .5rem">
-                                {{#inArray "NEWS_CREATE" permissions}}
+                                {{#inArray "CALENDAR_CREATE" permissions}}
                                     <button class="btn btn-add btn-primary btn-create-event pull-right">
                                         Termin anlegen
                                     </button>
