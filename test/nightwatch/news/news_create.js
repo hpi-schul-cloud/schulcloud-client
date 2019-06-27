@@ -45,6 +45,8 @@ module.exports = {
         browser.useXpath().expect.element("//*[contains(text(), 'Lorem Ipsum')]").text.to.contain('Lorem Ipsum').before(10000);
     },
     'Delete News': function (browser) {
+        //temporatily added because Ticket SC-1384
+        browser.useXpath().click("//*[contains(text(), 'Test News')]");
         browser.useCss()
             .click('.btn-delete')
             .waitForElementVisible('.delete-modal')
