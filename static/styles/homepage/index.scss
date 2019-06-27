@@ -15,6 +15,11 @@
 		}
     }
     .btn-primary.btn-outline{
+		&:hover {
+			background-color: var(--color-primary);
+			border-color: var(--color-primary);
+			color: var(--color-white);
+		}
         border: 1px solid var(--color-primary);
         color: var(--color-primary);
         background: transparent;
@@ -26,7 +31,8 @@
     border: 1px solid var(--color-white);
     text-decoration: none;
     &:hover{
-        text-decoration: underline;
+		background-color: var(--color-white);
+		color: var(--color-accent);
     }
 }
 
@@ -45,7 +51,10 @@
     height: 100%;
     padding: var(--space-md);
 	object-fit: contain;
-	box-shadow: var(--shadow-md);
+	&:hover {
+		box-shadow: var(--shadow-sm);
+      	transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
+	}
 }
 
 video-player{

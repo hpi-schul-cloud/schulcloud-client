@@ -15,7 +15,7 @@
 	display: block;
 	margin: 0 auto;
 	text-align: center;
-	padding: var(--space-md);
+	padding: var(--space-lg);
 }
 
 .blog-card{
@@ -27,10 +27,16 @@
 	flex-wrap: nowrap;
 	position: relative;
 	overflow: hidden;
-	padding-bottom: 10px;
-	box-shadow: var(--shadow-md);
 	&:not(:last-of-type){
 		margin-right: var(--space-lg);
+	}
+	&:hover {
+		cursor: pointer;
+		box-shadow: var(--shadow-sm);
+      	transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
+		.title {
+			color: #b1063a;
+		}
 	}
 	@include media-breakpoint-down(md) {
 		width: 100%;
@@ -49,7 +55,7 @@
 		padding: var(--space-sm);
 		flex-grow: 1;
 	}
-	.title{
+	.heading{
 		font-size: 1.5rem;
 		font-weight: bold;
 	}

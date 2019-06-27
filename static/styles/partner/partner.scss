@@ -35,11 +35,14 @@ hgroup {
         padding-bottom: 15px;
     }
     .partner-box {
-        box-shadow: 2px 2px 5px rgba(0,0,0,.1);
         background: #fff;
         border: 1px solid lightgray;
         height: 150px;
-        text-align: center;
+		text-align: center;
+		&:hover {
+			box-shadow: var(--shadow-sm);
+			transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
+		}
     }
     .partner-box img {
         max-height: 100%;

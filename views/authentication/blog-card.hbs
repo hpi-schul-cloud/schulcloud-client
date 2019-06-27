@@ -1,16 +1,17 @@
-<article class="blog-card">
+<article class="blog-card" onclick="window.open('{{article.url}}','_blank')">
 	<img class="thumbnail" alt="{{article.img.title}}" src="{{article.img.src}}">
 	<div class="body">
-		<h2 class="title">
-			{{article.title}}
-			<br/>
+		<h2 class="heading">
+			<div class="title">
+				{{article.title}}
+			</div>
 			<small class="pub-date">{{article.pubDate}}</small>
 		</h2>
 		<p class="description">{{truncatePure (stripHTMLTags article.description) 200}}</p>
 	</div>
 	<div>
-		<a href="{{article.url}}" class="btn btn-primary btn-outline" target="_blank">
-			Artikel öffnen <i class="fa  fa-angle-double-right" aria-hidden="true"></i>
-		</a>
+		<!--<a class="btn btn-primary btn-outline article-more" target="_blank">
+			Artikel öffnen
+		</a>-->
 	</div>
 </article>

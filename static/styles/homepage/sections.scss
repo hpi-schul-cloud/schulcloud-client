@@ -77,13 +77,12 @@
         }
     }
 
-    &.primary, &.accent, &.dark{
+    &.primary, &.accent {
         a, button{
             color: var(--color-text);
             text-decoration: underline;
         }
-
-    }
+	}
 
     > .container{
         margin: 0 auto;
@@ -103,5 +102,14 @@
     padding-top: calc(var(--space-xxl) / 2) !important;
     &:before{
         transform-origin: bottom left;
-    }
+	}
+	
+	ul {
+		margin-top: 24px;
+		padding-left: 0;
+		li {
+			list-style-type: none;
+			margin-bottom: 12px;
+		}
+	}
 }

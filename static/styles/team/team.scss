@@ -31,8 +31,8 @@
     max-width: 150px;
     max-height: 150px;
     border-radius: 150px;
-    margin-bottom: 20px;
-    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-top: 32px;
   }
   body, html {
     min-height: 100%;
@@ -153,8 +153,7 @@
     overflow-wrap: break-word;
     &:hover {
       z-index: 1;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-      transform: scale(1.03);
+      box-shadow: var(--shadow-sm);
       transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
     }
   }
