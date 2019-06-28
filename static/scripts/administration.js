@@ -42,7 +42,7 @@ $('#ImportForm').submit(function (e) {
               document.write(data.responseText)
           }
     })
-})
+});
 
 function printInvitations(users) {
     event.preventDefault();
