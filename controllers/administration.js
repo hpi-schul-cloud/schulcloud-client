@@ -2396,7 +2396,7 @@ router.all('/teams', (req, res, next) => {
 
 			const roleTranslations = {
 				teammember: 'Teilnehmer',
-				teamexpert: 'Externer Experte', // Externer Experte
+				teamexpert: 'Externer Experte',
 				teamleader: 'Leiter',
 				teamadministrator: 'Administrator',
 				teamowner: 'Eigentümer',
