@@ -42,6 +42,7 @@ script:
 - "./diff.sh"
 - if [ "$SKIP_NIGHTWATCH" == "true" ]; then echo "skipping nightwatch tests"; else
   sh ./frontend_test.sh; fi
+- npm run coverage-codecov
 cache:
   directories:
   - node_modules
