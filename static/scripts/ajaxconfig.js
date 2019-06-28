@@ -1,4 +1,4 @@
-$(document).ready(() => {
+
 	const csrftoken = document
 		.querySelector('meta[name="csrfToken"]')
 		.getAttribute('content');
@@ -8,4 +8,4 @@ $(document).ready(() => {
 			xhr.setRequestHeader('Csrf-Token', csrftoken);
 		},
 	});
-});
+
