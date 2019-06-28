@@ -1,0 +1,17 @@
+<a target="_blank" rel="noopener" href="{{article.url}}" class="blog-card-wrapper">
+	<article class="blog-card">
+		<img class="thumbnail" alt="{{article.img.title}}" src="{{article.img.src}}">
+		<div class="body">
+			<h2 class="heading">
+				<div class="title">
+					{{article.title}}
+				</div>
+				<small class="pub-date text-muted">{{article.pubDate}}</small>
+			</h2>
+			<p class="description text-dark">{{truncatePure (stripHTMLTags article.description) 200}}</p>
+		</div>
+		<div class="mb-1">
+			<span class="open-link">Artikel öffnen</span>
+		</div>
+	</article>
+</a>

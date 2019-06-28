@@ -1,29 +1,23 @@
-<section id="loginarea" class="card">
-    <div class="card-block" data-step="2" data-intro="Sie möchten die {{theme.title}} entdecken? Mit Hilfe unserer Demo Funktion können Sie die {{theme.short_title}} sowohl aus Lehrer*in und Schüler*in Perspektive entdecken. (Fokus Demo Login)">
-        <h4 class="card-title">Demo</h4>
-        <div class="card-text form-wrapper">
-            {{> "lib/components/notification"}}
+<section class="demo-login mt-2" id="loginarea" data-step="1" data-intro="Sie möchten die {{theme.title}} entdecken? Mit Hilfe unserer Demo Funktion können Sie die {{theme.short_title}} sowohl aus Lehrer*in und Schüler*in Perspektive entdecken. (Fokus Demo Login)">
+    <h3 class="card-title">Jetzt ausprobieren</h3>
+    <div class="logins">
+        <form method="post" action="/login/" class="form-demo-login">
+            <input type="text" name="username" value="demo-schueler@schul-cloud.org" hidden>
+            <input type="password" name="password" value="schulcloud" hidden>
+            <input type="text" name="type" value="student" hidden>
 
-            <form method="post" action="/login/" class="login-form">
-                <input type="text" name="username" value="demo-schueler@schul-cloud.org" hidden>
-                <input type="password" name="password" value="schulcloud" hidden>
-                <input type="text" name="type" value="student" hidden>
+            <input type="submit" class="btn btn-outline btn-primary" value="als Schüler*In einloggen" />
+        </form>
 
-                <div class="form-group">
-                    <input type="submit" class="btn btn-block btn-primary btn-login" value="als Schüler*In einloggen" />
-                </div>
-            </form>
+        <form method="post" action="/login/" class="form-demo-login">
+            <input type="text" name="username" value="demo-lehrer@schul-cloud.org" hidden>
+            <input type="password" name="password" value="schulcloud" hidden>
+            <input type="text" name="type" value="teacher" hidden>
 
-            <form method="post" action="/login/" class="login-form">
-                <input type="text" name="username" value="demo-lehrer@schul-cloud.org" hidden>
-                <input type="password" name="password" value="schulcloud" hidden>
-                <input type="text" name="type" value="teacher" hidden>
-
-                <div class="form-group">
-                    <input type="submit" class="btn btn-block btn-primary btn-login" value="als Lehrer*In einloggen" />
-                </div>
-            </form>
-            Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari.
-        </div>
+            <input type="submit" id="demologin" class="btn btn-outline btn-primary" value="als Lehrer*In einloggen" />
+        </form>
     </div>
+    <span class="hint text-muted">
+        Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari.
+    </span>
 </section>

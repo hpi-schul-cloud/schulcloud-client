@@ -61,46 +61,51 @@ router.post('/login/', (req, res, next) => {
 
 
 router.all('/', (req, res, next) => {
-	// eslint-disable-next-line consistent-return
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
 			return res.redirect('/login/success/');
 		}
-		feedr.readFeed('https://blog.schul-cloud.org/rss', {
-			requestOptions: { timeout: 2000 },
-		}, (err, data) => {
-			let blogFeed = [];
-			try {
-				blogFeed = data.rss.channel[0].item.slice(0, 5).map((e) => {
-					const date = new Date(e.pubDate);
-
-
-					const locale = 'en-us';
-
-
-					const month = date.toLocaleString(locale, { month: 'long' });
-					e.pubDate = `${date.getDate()}. ${month}`;
-					return e;
-				});
-			} catch (e) {
-				// just catching the blog-error
-			}
-			const schoolsPromise = getSelectOptions(
-				req, 'schools',
-				{
-					purpose: { $ne: 'expert' },
-					$limit: false,
-					$sort: 'name',
-				},
-			);
-			Promise.all([
-				schoolsPromise,
-			]).then(([schools]) => res.render('authentication/home', {
-				schools,
-				blogFeed,
-				inline: true,
-				systems: [],
-			}));
+		return new Promise((resolve) => {
+			feedr.readFeed('https://blog.schul-cloud.org/rss', {
+				requestOptions: { timeout: 2000 },
+			}, (err, data /* , headers */) => {
+				let blogFeed;
+				try {
+					blogFeed = data.rss.channel[0].item
+						.filter(item => (item['media:content'] || []).length && (item.link || []).length)
+						.slice(0, 3)
+						.map((e) => {
+							const date = new Date(e.pubDate);
+							const locale = 'en-us';
+							const month = date.toLocaleString(locale, { month: 'long' });
+							e.pubDate = `${date.getDate()}. ${month}`;
+							e.description = e.description.join(' ');
+							e.url = e.link[0];
+							e.img = {
+								src: e['media:content'][0].$.url,
+								alt: e.title,
+							};
+							return e;
+						});
+				} catch (e) {
+					// just catching the blog-error
+					blogFeed = [];
+				}
+				const schoolsPromise = getSelectOptions(
+					req, 'schools',
+					{
+						purpose: { $ne: 'expert' },
+						$limit: false,
+						$sort: 'name',
+					},
+				);
+				resolve(schoolsPromise.then(schools => res.render('authentication/home', {
+					schools,
+					blogFeed,
+					inline: true,
+					systems: [],
+				})));
+			});
 		});
 	});
 });
@@ -120,7 +125,6 @@ router.all('/login/', (req, res, next) => {
 			schoolsPromise,
 		]).then(([schools]) => res.render('authentication/login', {
 			schools,
-			inline: true,
 			systems: [],
 		}));
 	});
