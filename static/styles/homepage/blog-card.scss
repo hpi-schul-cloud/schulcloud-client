@@ -18,7 +18,7 @@
 	padding: var(--space-lg);
 }
 
-.blog-card-wrapper{
+a.blog-card-wrapper{
 	display: block;
 	text-align: center;
 	width: 50ch;
@@ -31,7 +31,7 @@
 			transition: box-shadow .2s ease;
 		}
 		.open-link{
-			text-decoration: none;
+			border-bottom: 1px solid;
 		}
 	}
 	&:not(:last-of-type){
@@ -44,7 +44,6 @@
 			margin-bottom: var(--space-lg);
 		}
 	}
-
 }
 
 .blog-card{
