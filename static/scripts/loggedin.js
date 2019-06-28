@@ -65,6 +65,9 @@ function sendFeedback(modal, e) {
             currentState: fmodal.find('#hasHappened').val(),
             targetState: fmodal.find('#supposedToHappen').val()
         },
+        beforeSend(xhr) {
+			xhr.setRequestHeader('Csrf-Token', csrftoken);
+		},
         success: function (result) {
             showAJAXSuccess("Feedback erfolgreich versendet!", fmodal);
         },
