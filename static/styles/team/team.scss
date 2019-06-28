@@ -31,8 +31,8 @@
     max-width: 150px;
     max-height: 150px;
     border-radius: 150px;
-    margin-bottom: 20px;
-    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-top: 32px;
   }
   body, html {
     min-height: 100%;
@@ -108,9 +108,8 @@
   .content {
     min-height: 100%;
     height: 100%;
-    background: #fff;
     position: relative;
-    z-index: 0;
+	z-index: 0;
     h1 {
       padding: 75px 0 30px 0;
       text-align: center;
@@ -130,7 +129,7 @@
         background: red;
         font-size: 18px;
         background-color: #efefef;
-        border-radius: 3px;
+        border-radius: 0;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         cursor: pointer;
         &:hover {
@@ -148,13 +147,13 @@
     border: 1px solid #d3d3d3;
     height: 150px;
     text-align: center;
-    transition: all .5s;
+	transition: all .5s;
+	border-radius: 0;
     cursor: pointer;
     overflow-wrap: break-word;
     &:hover {
       z-index: 1;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-      transform: scale(1.05);
+      box-shadow: var(--shadow-sm);
       transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
     }
   }
@@ -163,7 +162,7 @@
     font-size: 2em;
   }
   .person-title[data-lastname="Schaarschmidt"] {
-	letter-spacing: -1px;
+    letter-spacing: -1px;
   }
   .person-desc {
     color: rgba(0, 0, 0, 0.4);
@@ -181,15 +180,29 @@
     width: 98%;
     height: 92%;
     padding: 0;
-    max-width: 1080px !important;
+	max-width: 1080px !important;
+	.close {
+		position: absolute;
+		top: 10px;
+		right: 13px;
+		z-index: 100;
+	}
+	p {
+		padding-right: var(--space-sm);
+	}
   }
   .modal-content {
-    height: 99%;
+	height: 99%;
+	border-radius: 0;
   }
   .modal-body {
     max-height: calc(100vh - 210px);
     overflow-y: auto;
-    overflow-x: hidden;
+	overflow-x: hidden;
+	color: initial;
+	.close{
+		color: initial !important;
+	}
   }
   .container {
     margin-left: 0;
@@ -197,7 +210,7 @@
   .image {
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: .25rem;
   }
 }
 .section-title h4 {
@@ -207,6 +220,13 @@
   font-weight: 700;
 }
 
+.section.section-tilt{
+	&.primary, &.accent, &.dark{
+		.person {
+			border-color: #fff;
+		}
+	}
+}
 
 @keyframes fadeIn {
   0% {
@@ -269,12 +289,6 @@
 
   100% {
     transform: scale(1);
-  }
-}
-
-@media screen and (min-width: 767px) {
-  .section-team .modal-content {
-    padding: 0px 50px 20px 50px;
   }
 }
 
