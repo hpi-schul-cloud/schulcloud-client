@@ -18,10 +18,14 @@
 .embed-pdf {
   padding-left: 0;
 
+  .row.embed-pdf-row a {
+	  text-decoration: none;
+  }
+
   .viewer {
-    width: 97%;
+    width: 100%;
     height: 700px;
-    margin: 0 0 0 15px;
+    margin: 5px 0 0 7px;
   }
   div.row {
     margin-bottom: 10px;
@@ -29,8 +33,8 @@
   .single-pdf {
     padding: 3px 6px 3px 6px;
 
-    &.opened {
-      border: 1px solid #b10438;
+    &.opened .single-pdf-wrapper {
+      background-color: var(--color-gray-light);
     }
 	.single-pdf-title{
 		color: initial;
@@ -56,7 +60,7 @@
 	.single-award {
 		padding: 3px 6px 3px 6px;
 		&.opened {
-		border: 1px solid #b10438;
+			background-color: var(--color-gray-light);
 		}
 		.single-award-wrapper {
 			padding: 10px;
