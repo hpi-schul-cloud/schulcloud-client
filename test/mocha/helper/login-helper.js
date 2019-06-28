@@ -1,5 +1,8 @@
 'use strict';
 
+const student_name = process.env.STUDENT_NAME || 'schueler@schul-cloud.org';
+const password = process.env.PASSWORD || "Schulcloud1!";
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
@@ -9,7 +12,7 @@ const login = (app) => {
     return new Promise((resolve, reject) => {
         agent
             .post('/login/')
-            .send({'username': 'schueler@schul-cloud.org', 'password': process.env.SC_DEMO_USER_PASSWORD})
+            .send({'username': student_name, 'password': password})
             .end((err, res) => {
                 if (err) {
                     reject(err);
