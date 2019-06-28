@@ -12,8 +12,8 @@
     "startd": "echo 'Do you mean 'npm run watch'?'",
     "test": "npm run coverage",
     "mocha": "mocha test/mocha/ --recursive",
-    "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha --report lcovonly -- -- test/**/*.test.js",
-    "coverage-codecov": "cross-env NODE_ENV=test istanbul report --reporter=text-lcov | codecov --pipe",
+    "coverage": "istanbul cover --report lcovonly node_modules/.bin/_mocha $(find test -name '*.test.js')",
+    "coverage-codecov": "istanbul report --reporter=text-lcov | codecov --pipe",
     "frontendTests": "./node_modules/.bin/nightwatch --config nightwatch.conf.js --env chrome,firefox"
   },
   "sasslintConfig": "./.sass-lint.yml",
