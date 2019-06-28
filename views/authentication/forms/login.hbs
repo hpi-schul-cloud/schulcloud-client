@@ -5,6 +5,8 @@
             {{> "lib/components/notification"}}
 
             <form method="post" action="/login/" class="login-form">
+                <input type="hidden" name="challenge" value={{challenge}} />
+
                 <div class="form-group">
                     <input type="text" name="username" class="form-control form-control-lg" placeholder="E-Mail / Nutzername" data-testid="username" required>
                     <input type="password" name="password" class="form-control form-control-lg" placeholder="Passwort" data-testid="password" required>

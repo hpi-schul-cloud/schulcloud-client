@@ -47,38 +47,35 @@ router.post('/', (req, res) => {
 router.get('/', (req, res, next) => {
 	const isSSO = Boolean(res.locals.currentPayload.systemId);
 	const isDiscoverable = res.locals.currentUser.discoverable;
-	if (process.env.NOTIFICATION_SERVICE_ENABLED) {
-		api(req).get('/notification/devices')
-			.then((device) => {
-				device.map((d) => {
-					if (d.token === req.cookies.deviceToken) {
-						Object.assign(d, { selected: true });
-					}
-					return d;
-				});
-				res.render('account/settings', {
-					title: 'Dein Account',
-					device,
-					userId: res.locals.currentUser._id,
-					sso: isSSO,
-					isDiscoverable,
-				});
-			}).catch((err) => {
-				res.render('account/settings', {
-					title: 'Dein Account',
-					userId: res.locals.currentUser._id,
-					sso: isSSO,
-					isDiscoverable,
-				});
+	Promise.all([
+		api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`),
+		(process.env.NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null),
+	]).then(([session, device]) => {
+		if (device) {
+			device.map((d) => {
+				if (d.token === req.cookies.deviceToken) {
+					Object.assign(d, { selected: true });
+				}
+				return d;
 			});
-	} else {
+		}
+
+		res.render('account/settings', {
+			title: 'Dein Account',
+			device,
+			session,
+			userId: res.locals.currentUser._id,
+			sso: isSSO,
+			isDiscoverable,
+		});
+	}).catch(() => {
 		res.render('account/settings', {
 			title: 'Dein Account',
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
 			isDiscoverable,
 		});
-	}
+	});
 });
 
 // delete file
@@ -92,21 +89,28 @@ router.delete('/settings/device', (req, res, next) => {
 	});
 });
 
-router.get('/user', function (req, res, next) {
+// revoke oauth2 session
+router.get('/oauth2/revoke/:client', (req, res, next) => {
+	api(req).delete(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}?client=${req.params.client}`)
+		.then(() => {
+			res.redirect('/account');
+		}).catch((err) => {
+			res.send(err);
+		});
+});
+
+router.get('/user', (req, res, next) => {
 	res.locals.currentUser.schoolName = res.locals.currentSchoolData.name;
 	res.json(res.locals.currentUser);
 });
 
 router.post('/preferences', (req, res, next) => {
-	const {attribute} = req.body;
+	const { attribute } = req.body;
 
-	return api(req).patch('/users/' + res.locals.currentUser._id, {
-		json: {["preferences." + attribute.key] : attribute.value}
-	}).then(() => {
-		return "Präferenzen wurden aktualisiert!";
-	}).catch((err) => {
-		return "Es ist ein Fehler bei den Präferenzen aufgetreten!";
-	});
+	return api(req).patch(`/users/${res.locals.currentUser._id}`, {
+		json: { [`preferences.${attribute.key}`]: attribute.value },
+	}).then(() => 'Präferenzen wurden aktualisiert!')
+		.catch(() => 'Es ist ein Fehler bei den Präferenzen aufgetreten!');
 });
 
 module.exports = router;

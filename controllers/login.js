@@ -155,10 +155,13 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 						});
 				}
 				const consent = consents.data[0];
+				const redirectUrl = (req.session.login_challenge
+					? '/oauth2/login/success'
+					: '/dashboard');
 				// check consent versions
 				return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
 					if (consent.access && !consentUpdates.haveBeenUpdated) {
-						return res.redirect('/dashboard');
+						return res.redirect(redirectUrl);
 					}
 					// make sure fistLogin flag is not set
 					return res.redirect('/firstLogin');
@@ -170,7 +173,10 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 
 		ssoSchoolData(req, accountId).then((school) => {
 			if (school === undefined) {
-				res.redirect('/dashboard/');
+				const redirectUrl = (req.session.login_challenge
+					? '/oauth2/login/success'
+					: '/dashboard/');
+				res.redirect(redirectUrl);
 			} else {
 				res.redirect(`/registration/${school._id}/sso/${accountId}`);
 			}
