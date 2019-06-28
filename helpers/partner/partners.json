@@ -91,12 +91,6 @@
       "url": "https://www.wikipedia.de/",
       "logo": "wikipedia-logo.png",
       "padding": "20px"
-    },
-    {
-      "name": "YouTube",
-      "url": "https://www.youtube.com",
-      "logo": "youtube-logo.png",
-      "padding": ""
     }
   ],
   "sponsors": [

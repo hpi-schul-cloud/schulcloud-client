@@ -8,18 +8,19 @@
         {{/content}}
     {{/extend}}
 {{else}}
-    {{#extend "lib/default"}}
+    {{#extend "lib/loggedout"}}
         {{#content "styles" mode="append"}}
-            <link rel="stylesheet" href="/styles/authentication/home.css"/>
             <link rel="stylesheet" href="/styles/lib/error.css"/>
         {{/content}}
 
-        {{#content "body"}}
-            {{#embed "lib/header"}}{{/embed}}
-            <main class="container pt-3">
-                {{#embed "lib/error_content"}}{{/embed}}
-            </main>
-            {{#embed "lib/extended_footer"}}{{/embed}}
+        {{#content "page"}}
+			{{#embed "authentication/section"}}
+				{{#content "body"}}
+					<main class="container pt-3 mt-5">
+						{{#embed "lib/error_content"}}{{/embed}}
+					</main>
+				{{/content}}
+			{{/embed}}
         {{/content}}
     {{/extend}}
 {{/if}}

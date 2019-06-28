@@ -1,7 +1,7 @@
-{{#extend "lib/default"}}
+{{#extend "lib/simple"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/authentication/home.css"/>
+        <link rel="stylesheet" href="/styles/homepage/login.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
@@ -9,25 +9,13 @@
         <script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
     {{/content}}
 
-    {{#content "body"}}
-        {{#embed "lib/header"}}{{/embed}}
-        <main class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-
-                    {{> "authentication/forms/login"}}
-                    
-                </div>
-            </div>
-        </main>
+    {{#content "page"}}
+		{{> "authentication/forms/login"}}
 
         {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
             {{#content "fields"}}
                 {{> "authentication/forms/pwrecovery"}}
             {{/content}}
         {{/embed}}
-
-        {{#embed "lib/extended_footer"}}{{/embed}}
-
     {{/content}}
 {{/extend}}
