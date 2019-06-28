@@ -1,21 +1,17 @@
-<a target="_blank" rel="noopener" href="{{article.url}}" class="blog-card">
-	<article >
+<a target="_blank" rel="noopener" href="{{article.url}}" class="blog-card-wrapper">
+	<article class="blog-card">
 		<img class="thumbnail" alt="{{article.img.title}}" src="{{article.img.src}}">
 		<div class="body">
 			<h2 class="heading">
 				<div class="title">
 					{{article.title}}
 				</div>
-				<small class="pub-date">{{article.pubDate}}</small>
+				<small class="pub-date text-muted">{{article.pubDate}}</small>
 			</h2>
-			<p class="description">{{truncatePure (stripHTMLTags article.description) 200}}</p>
+			<p class="description text-dark">{{truncatePure (stripHTMLTags article.description) 200}}</p>
 		</div>
-		<!--
-		<div>
-			<a class="btn btn-primary btn-outline article-more" target="_blank">
-				Artikel öffnen
-			</a>
+		<div class="mb-1 open-link">
+			Artikel öffnen
 		</div>
-		-->
 	</article>
 </a>

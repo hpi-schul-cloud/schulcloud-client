@@ -1,3 +1,4 @@
+@import '../lib/bootstrap/scss/bootstrap';
 @import "./variables";
 
 .header{
@@ -37,6 +38,24 @@
                 font-weight: bold;
 				color: var(--color-white);
 				background-color: var(--color-accent)
+            }
+        }
+    }
+    @include media-breakpoint-down(md) {
+        .container{
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav{
+            text-align: center;
+            display: block;
+            white-space: nowrap;
+            overflow-x: auto;
+            > li{
+                display: inline-block;
+            }
+            .nav-link{
+                margin: 0;
             }
         }
     }
