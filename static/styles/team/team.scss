@@ -180,7 +180,16 @@
     width: 98%;
     height: 92%;
     padding: 0;
-    max-width: 1080px !important;
+	max-width: 1080px !important;
+	.close {
+		position: absolute;
+		top: 10px;
+		right: 13px;
+		z-index: 100;
+	}
+	p {
+		padding-right: var(--space-sm);
+	}
   }
   .modal-content {
 	height: 99%;

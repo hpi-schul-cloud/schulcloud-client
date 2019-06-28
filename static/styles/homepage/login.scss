@@ -9,7 +9,8 @@
 	}
     .btn{
         word-wrap: break-word;
-        white-space: normal;
+		white-space: normal;
+		min-width: 22ch;
     }
     input {
         margin-bottom: 10px;
