@@ -1,6 +1,6 @@
 {{#extend "lib/components/modal"}}
     {{#content "body"}}
-        <form class="modal-form" method="post" action="{{action}}" {{#if enctype}}enctype="{{enctype}}"{{/if}}>
+        <form class="modal-form" method="post" action="{{action}}" {{#if enctype}}enctype="{{enctype}}"{{/if}} {{#if id}}id="{{id}}"{{/if}}>
             {{> "lib/components/csrfInput"}}
             {{#if method}}
                 <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />

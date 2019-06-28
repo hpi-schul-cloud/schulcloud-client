@@ -1,5 +1,5 @@
-<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
-<input name="roles[]" type="hidden" data-force-value="true" value="{{roles}}" />
+<input id="schoolid" name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+<input id="roles" name="roles[]" type="hidden" data-force-value="true" value="{{roles}}" />
 
 <p>
     Importiere Nutzerdaten per .csv-Datei
@@ -15,11 +15,11 @@
 </p>
 <div class="form-group">
     <label>CSV-Datei auswählen</label>
-    <input class="form-control" name="csvFile" type="file" required />
+    <input class="form-control" id="csvFile" name="csvFile" type="file" required />
 </div>
 <div class="form-group">
     <label>
-        <input name="sendRegistration" type="checkbox" value="sendRegistration" />
+        <input id="sendRegistration" name="sendRegistration" type="checkbox" value="sendRegistration" />
         Registrierungslinks sofort nach Import an Nutzer senden
     </label>
     <p>

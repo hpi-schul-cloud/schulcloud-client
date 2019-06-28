@@ -110,7 +110,7 @@
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" action="/administration/students/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                {{#embed "lib/components/modal-form" id="ImportForm" action="" method="" class="import-modal" enctype="multipart/form-data" id="studentImportForm"}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-import" roles="student"}}
                     {{/content}}

@@ -16,6 +16,34 @@ window.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+$('#csvFile').change(function(e) {
+    window.ifile = e.target.files[0]; 
+})
+
+$('#ImportForm').submit(function (e) {
+    e.preventDefault(); 
+    var data = new FormData(); // das ist unser Daten-Objekt ...
+    data.append('csvFile', ifile); // ... an die wir unsere Datei anhängen
+    data.append('sendRegistration', $('#sendRegistration').is(':checked'));
+    data.append('schoolId', $('#schoolid').val());
+    data.append('roles[]', $('#roles').val());
+    // console.log(data.getAll())
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: '/administration/' + $('#roles').val() + 's/import/',
+        data: data,
+        contentType: false, 
+        processData: false,
+        beforeSend: function(request) {
+            request.setRequestHeader("Csrf-Token", csrftoken);
+          },
+          complete: function(data) {
+              document.write(data.responseText)
+          }
+    })
+})
+
 function printInvitations(users) {
     event.preventDefault();
     let w = window.open();
