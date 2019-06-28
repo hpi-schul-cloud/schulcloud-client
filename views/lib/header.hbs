@@ -1,14 +1,15 @@
 <header class="header">
 	<nav class="container">
 		<a id="title" href="/">
-			<img class="logo" alt="{{theme.title}}" src="/images/logo/HPI-Schul-Cloud_Wort-Bildmarke-Banner_transparent.svg" />
+			<img class="logo hidden-sm-up" alt="{{theme.title}}" src="/images/logo/HPI-Schul-Cloud-Bildmarke_transparent.svg" />
+			<img class="logo hidden-xs-down" alt="{{theme.title}}" src="/images/logo/HPI-Schul-Cloud_Wort-Bildmarke-Banner_transparent.svg" />
 		</a>
 		{{#unless hideMenu}}
 			<ul class="nav">
 				<li class="intro-trigger hidden-sm-down">
 					<a class="nav-link" href="#" onclick="startIntro()">Intro</a>
 				</li>
-				<li class="hidden-sm-down">
+				<li class="">
 					<a class="nav-link" href="/team">Team</a>
 				</li>
 				<li class="hidden-sm-down">
@@ -21,7 +22,7 @@
 					<a class="nav-link" href="https://blog.schul-cloud.org/" target="scblog">Blog</a>
 				</li>
 				<li>
-					<a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank">FAQ</a>
+					<a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank" rel="noopener">FAQ</a>
 				</li>
 			</ul>
 		{{/unless}}
