@@ -41,7 +41,7 @@ $('#ImportForm').submit(function (e) {
           complete: function(data) {
               document.write(data.responseText)
           }
-    })
+    });
 });
 
 function printInvitations(users) {
