@@ -46,10 +46,10 @@
 }
 
 .dashboard-title{
-	color: black;
+    color: black;
 }
 .dashboard-title:hover{
-	color: $primaryColor;
+    color: $primaryColor;
 }
 .dashboard-title:hover, .dashboard-title:visited, .dashboard-title:link, .dashboard-title:active
 {
@@ -141,8 +141,8 @@
                 }
 
                 .card-text{
-					line-height: 130%;
-					padding: 0 0.5rem 0.5rem;
+                    line-height: 130%;
+                    padding: 0.5rem 0.5rem 0;
                 }
 
                 &.disabled {
