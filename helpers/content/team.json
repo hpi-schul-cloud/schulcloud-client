@@ -1,7 +1,7 @@
 ﻿[
 	{
 		"name": "Gremium und Projektleitung",
-		"style": "standard",
+		"size": "standard",
 		"team": [
 			{
 				"title": "Prof. Dr.",
@@ -52,7 +52,8 @@
 	},
 	{
 		"name": "Projektkoordination und wissenschaftliche Mitarbeiter",
-		"style": "standard",
+		"style": "primary",
+		"size": "standard",
 		"team": [
 			{
 				"subheader_before": "Hasso-Plattner-Institut",
@@ -434,7 +435,7 @@
 	},
 	{
 		"name": "Bachelorprojekt 2018/2019",
-		"style": "small",
+		"size": "small",
 		"team": [
 			{
 				"title": "",
@@ -558,7 +559,8 @@
 	},
 	{
 		"name": "Studierende",
-		"style": "small",
+		"size": "small",
+		"style": "accent",
 		"team": [
 			{
 				"title": "",
@@ -729,7 +731,7 @@
 	},
 	{
 		"name": "Weitere Mitarbeiter",
-		"style": "small",
+		"size": "small",
 		"team": [
 			{
         "title": "",
@@ -810,7 +812,8 @@
 	},
 	{
 		"name": "Alumni",
-		"style": "small",
+		"size": "small",
+		"style": "primary",
 		"team": [
 			{
 				"title": "",

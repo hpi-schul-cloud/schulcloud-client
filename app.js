@@ -65,6 +65,15 @@ const defaultBaseDir = (req, res) => {
 
 const defaultDocuments = require('./helpers/content/documents.json');
 
+// set custom response header for ha proxy
+if (process.env.KEEP_ALIVE) {
+	app.use((req, res, next) => {
+		res.setHeader('Connection', 'Keep-Alive');
+		next();
+	});
+}
+
+
 // Custom flash middleware
 app.use(async (req, res, next) => {
 	if (!req.session.currentUser) {
