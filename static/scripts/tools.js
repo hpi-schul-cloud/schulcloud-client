@@ -110,7 +110,7 @@ $(document).ready(() => {
 				$editModal.appendTo('body').modal('show');
 			}
 		});
-	);
+	});
 
 	$modals.find('.close, .btn-close').on('click', () => {
 		$modals.modal('hide');

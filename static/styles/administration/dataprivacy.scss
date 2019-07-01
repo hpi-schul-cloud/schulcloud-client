@@ -6,15 +6,15 @@
     /* insert custom css for the forms here */
     .show-invalid{
         input:invalid:not([type="checkbox"]):not([type="radio"]){
-            box-shadow: 0 0 5px $primaryColor;
+            box-shadow: 0 0 5px 1px $colorDanger;
         }
         input[type="checkbox"]:invalid + span,
         input[type="radio"]:invalid + span{
-            color: $primaryColor;
+            color: $colorDanger;
             font-weight: bold;
             text-decoration: underline;
             a{
-                color: $secondaryColor;
+                color: $colorDanger;
             }
         }
     }
