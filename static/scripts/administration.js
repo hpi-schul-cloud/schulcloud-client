@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
 $('#csvFile').change(function(e) {
     window.ifile = e.target.files[0]; 
-})
+});
 
 $('#ImportForm').submit(function (e) {
     e.preventDefault(); 
