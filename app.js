@@ -55,7 +55,8 @@ app.use(session({
 	secret: 'secret',
 }));
 
-app.use(csurf());
+app.use(csurf((process.env.DISABLE_CSRF) ? { ignoreMethods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE'] } : undefined));
+
 app.use(tokenInjector);
 
 const defaultBaseDir = (req, res) => {

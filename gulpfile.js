@@ -367,7 +367,7 @@ gulp.task('nodemon', (cb) => {
 		ext: 'js hbs json',
 		script: './bin/www',
 		watch: ['views/', 'controllers/', 'helpers'],
-		exec: 'DISABLE_CSRF=true node --inspect=9310',
+		exec: 'node --inspect=9310',
 	}).on('start', () => {
 		if (!started) {
 			cb();
