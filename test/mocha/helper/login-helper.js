@@ -1,7 +1,7 @@
 
 
-const studentName = process.env.STUDENT_NAME || 'schueler@schul-cloud.org';
-const password = process.env.PASSWORD || 'Schulcloud1!';
+const studentName = 'schueler@schul-cloud.org';
+const password = process.env.SC_DEMO_USER_PASSWORD;
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
