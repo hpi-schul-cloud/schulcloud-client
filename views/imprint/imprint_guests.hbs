@@ -1,30 +1,14 @@
-{{#extend "lib/default"}}
+{{#extend "lib/loggedout"}}
 
-{{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/authentication/home.css" />
-<link rel="stylesheet" href="/styles/imprint/imprint.css" />
-<style>
-    body {
-        background: #e6e2e2;
-    }
-</style>
-{{/content}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/imprint/imprint.css"/>
+    {{/content}}
 
-{{#content "body"}}
-{{#embed "lib/header"}}{{/embed}}
-<div class="container">
-    <div class="card">
-        <div class="card-block">
-            <div class="section-title">
-                <h2 class="h4">Impressum</h2>
-            </div>
-            {{#embed "imprint/imprint"}}{{/embed}}
-        </div>
-    </div>
-</div>
-{{#embed "lib/extended_footer"}}{{/embed}}
-{{/content}}
+    {{#content "scripts" mode="append"}}
+    {{/content}}
 
-{{#content "scripts" mode="append"}}
-{{/content}}
+    {{#content "page"}}
+		{{#embed "imprint/imprint"}}{{/embed}}
+    {{/content}}
+
 {{/extend}}

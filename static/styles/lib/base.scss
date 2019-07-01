@@ -153,8 +153,7 @@ label,
 }
 
 footer {
-
-    font-size: $font-size-xs;
+	display: block;
 	.android-app {
 		margin-left:-11px;
 	}
@@ -178,7 +177,7 @@ footer {
 				.made-with-love {
 					margin-top: 8px;
 					.heart {
-						color: #b10438;
+						color: $primaryColor;
 					}
 				}
 			}

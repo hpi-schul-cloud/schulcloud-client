@@ -13,6 +13,7 @@ const imagemin = require('gulp-imagemin');
 const optimizejs = require('gulp-optimize-js');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
+const cssvariables = require('postcss-css-variables');
 const rimraf = require('gulp-rimraf');
 const sass = require('gulp-sass');
 const sassGrapher = require('gulp-sass-grapher');
@@ -98,6 +99,9 @@ gulp.task('styles', () => {
 			includePaths: ['node_modules'],
 		}).on('error', sass.logError))
 		.pipe(postcss([
+			cssvariables({
+				preserve: true,
+			}),
 			autoprefixer({
 				browsers: ['last 3 version'],
 			}),

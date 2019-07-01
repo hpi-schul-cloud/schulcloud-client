@@ -4,62 +4,57 @@ const teacherName = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
 const password = process.env.PASSWORD || 'Schulcloud1!';
 
 module.exports = {
-	'Schul-Cloud Reachable': function reachable(browser) {
-		browser.url(`${baseUrl}login/`).waitForElementVisible('body', 1000);
+	'Schul-Cloud Reachable': function (browser) {
+		browser
+			.url(`${base_url  }login/`)
+			.waitForElementVisible('body', 1000);
 	},
-	'Schul-Cloud Visibility': function visibility(browser) {
-		// eslint-disable-next-line no-unused-expressions
+	'Schul-Cloud Visibility': function (browser) {
 		browser.expect.element('input[name=username]').to.be.visible;
-		// eslint-disable-next-line no-unused-expressions
 		browser.expect.element('input[name=password]').to.be.visible;
 	},
-	'Schul-Cloud Login': function Login(browser) {
+	'Schul-Cloud Login': function (browser) {
 		browser
-			.setValue('input[name=username]', teacherName)
+			.setValue('input[name=username]', teacher_name)
 			.setValue('input[name=password]', password)
 			.waitForElementVisible('input[type=submit]', 1000)
 			.click('input[type=submit]')
 			.pause(1000);
 	},
-	'Schul-Cloud Checkups': function checkups(browser) {
+	'Schul-Cloud Checkups': function (browser) {
 		browser.setCookie({
 			name: 'releaseDate',
 			value: '9999-12-09T16:36:20.000Z',
 			path: '/',
 		});
 	},
-	'Create News': function createNews(browser) {
-		browser.url(`${baseUrl}news/`);
-		browser.expect
-			.element('h1')
-			.text.to.contain('Neuigkeiten')
-			.before(10000);
+	'Create News': function (browser) {
+		browser.url(`${base_url  }news/`);
+		browser.expect.element('h4').text.to.contain('Neuigkeiten').before(10000);
 		browser
 			.click('.create')
 			.pause(1000)
 			.setValue('input[name=title]', 'Test News')
-			.execute(() => {
-				CKEDITOR.instances.content.setData('Lorem Ipsum');
-			})
+			.execute(
+				() => {
+                    CKEDITOR.instances["content"].setData('Lorem Ipsum');
+                },
+			)
 			.moveToElement('.btn-submit', 10, 10)
 			.click('.btn-submit')
 			.pause(1000);
-		browser
-			.useXpath()
-			.expect.element("//*[contains(text(), 'Lorem Ipsum')]")
-			.text.to.contain('Lorem Ipsum')
-			.before(10000);
+		browser.useXpath().expect.element("//*[contains(text(), 'Lorem Ipsum')]").text.to.contain('Lorem Ipsum').before(10000);
 	},
-	'Delete News': function deleteNews(browser) {
-		browser
-			.useCss()
+	'Delete News': function (browser) {
+		browser.useXpath().click("//*[contains(text(), 'Test News')]");
+		browser.useCss()
 			.click('.btn-delete')
 			.waitForElementVisible('.delete-modal')
 			.waitForElementVisible('.delete-modal .btn-submit', 1000)
 			.click('.delete-modal .btn-submit')
 			.pause(1000);
 	},
-	'Schul-Cloud End': function end(browser) {
+	'Schul-Cloud End': function (browser) {
 		browser.end();
 	},
 };

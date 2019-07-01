@@ -1,6 +1,6 @@
 {
   "name": "schulcloud-client",
-  "version": "18.1.0",
+  "version": "18.1.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -21,6 +21,7 @@
     "browser-sync": "^2.26.7",
     "compression": "^1.6.2",
     "cookie-parser": "~1.4.3",
+    "csurf": "^1.9.0",
     "csv-parse": "^1.2.0",
     "debug": "~2.6.0",
     "device-detector-js": "^1.1.0",
@@ -104,6 +105,7 @@
     "nightwatch": "^1.0.6",
     "node-sass": "^4.12.0",
     "nodemon": "^1.18.3",
+    "postcss-css-variables": "^0.13.0",
     "pump": "^1.0.2",
     "rebuild-changed-entrypoints-webpack-plugin": "^1.0.1",
     "sass-lint": "^1.13.1",
