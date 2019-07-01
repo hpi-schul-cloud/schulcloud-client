@@ -814,6 +814,40 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 	},
 ];
 
+const skipRegistration = (req, res, next) => {
+	const userid = req.params.id;
+	const {
+		password,
+		// eslint-disable-next-line camelcase
+		parent_privacyConsent,
+		// eslint-disable-next-line camelcase
+		parent_termsOfUseConsent,
+		privacyConsent,
+		termsOfUseConsent,
+	} = req.body;
+	api(req).post(`/users/${userid}/skipregistration`, {
+		json:{
+			password,
+			parent_privacyConsent,
+			parent_termsOfUseConsent,
+			privacyConsent,
+			termsOfUseConsent,
+		},
+	}).then((data) => {
+		req.session.notification = {
+			type: 'success',
+			message: 'Einrichtung erfolgreich abgeschlossen.',
+		};
+		res.redirect(req.header('Referer'));
+	}).catch((e) => {
+		req.session.notification = {
+			type: 'danger',
+			message: 'Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ',
+		};
+		res.redirect(req.header('Referer'));
+	});
+};
+
 const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 	const check = '<i class="fa fa-check consent-status"></i>';
 	const times = '<i class="fa fa-times consent-status"></i>'; // is red x
@@ -1187,6 +1221,11 @@ router.delete(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	getDeleteAccountForUserHandler,
 	getDeleteHandler('users', '/administration/students'),
+);
+router.post(
+	'/students/:id/skipregistration/',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	skipRegistration,
 );
 
 router.all(
