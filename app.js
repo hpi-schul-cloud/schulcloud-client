@@ -55,10 +55,10 @@ app.use(session({
 	secret: 'secret',
 }));
 
-if (process.env.DISABLE_CSRF) {
-	app.use(csurf({ ignoreMethods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE'] }));
-} else {
+if (process.env.ENABLE_CSRF) {
 	app.use(csurf());
+} else {
+	app.use(csurf({ ignoreMethods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE'] }));
 }
 
 app.use(tokenInjector);
