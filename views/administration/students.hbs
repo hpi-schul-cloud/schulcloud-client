@@ -36,20 +36,16 @@
                                 </div>
                             </center>
                         </div>
-                    </center>
-                </div>
-            </div>
-            <div class="row">
-                {{> "lib/components/pagination" settings=pagination }}
-            </div>
-            <div class="row mt-3 mb-1">
-                <p>
-                    <strong>{{ studentsWithoutConsentCount }} von {{ allStudentsCount }}</strong> Schüler benötigen noch
-                    die Einverständniserklärung zur Nutzung der {{theme.short_title}}.
-                    Schüler unter 16 Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab
-                    14 müssen zusätzlich selbst ihr Einverständnis erklären.
-                </p>
-            </div>
+                    </div>
+                    <div class="row">
+                        {{> "lib/components/pagination" settings=pagination }}
+                    </div>
+                    <div class="row mt-3 mb-1">
+                        <p>
+                            <strong>{{ studentsWithoutConsentCount }} von {{ allStudentsCount }}</strong> Schüler benötigen noch die Einverständniserklärung zur Nutzung der {{theme.short_title}}.
+                            Schüler unter 16 Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären.                        
+                        </p>
+                    </div>
 
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
@@ -81,72 +77,45 @@
                         </div>
                     </div>
 
-                    <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der
-                        {{theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines
-                        Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die
-                        Registrierung abschließen kann.</p>
-                    {{else}}
-                    <strong>Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben</strong>
-                    <p>
-                        Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses
-                        digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den
-                        Schüler erstellt.
-                    </p>
-                    <p>Für alle Schüler ohne vollständige Einverständniserklärung:</p>
-                    <p>
-                        <button data-role="student" class="btn btn-secondary btn-send-links-emails">
-                            Links an Schüler E-Mail Adressen senden
-                        </button>
-                        <button data-role="student" class="btn btn-secondary btn-print-links">
-                            Link-Druckbogen erstellen
-                        </button>
-                    </p>
-                    <p>
-                        Oder wähle Schüler in der Tabelle aus.
-                    </p>
-                    {{/if}}
+                    <div class="row">
+                        {{#if schoolUsesLdap}}
+                            {{> "lib/ldap-info"}}
+                        {{else}}
+                            <div class="col-sm-12 no-padding">
+                                <button type="submit" class="btn btn-primary btn-add-modal">
+                                    Schüler hinzufügen
+                                </button>
+                                <button class="btn btn-secondary btn-invitation-link student">
+                                    Einladungslink generieren
+                                </button>
+                                {{#inArray "Administrator" roleNames}}
+                                    <button class="btn btn-secondary btn-import student">
+                                        Schüler importieren
+                                    </button>
+                                {{/inArray}}
+                            </div>
+                        {{/if}}
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                {{#if schoolUsesLdap}}
-                {{> "lib/ldap-info"}}
-                {{else}}
-                <div class="col-sm-12 no-padding">
-                    <button type="submit" class="btn btn-primary btn-add-modal">
-                        Schüler hinzufügen
-                    </button>
-                    <button class="btn btn-secondary btn-invitation-link student">
-                        Einladungslink generieren
-                    </button>
-                    {{#inArray "Administrator" roleNames}}
-                    <button class="btn btn-secondary btn-import student">
-                        Schüler importieren
-                    </button>
-                    {{/inArray}}
-                </div>
-                {{/if}}
-            </div>
+                {{#embed "lib/components/modal-form" action="/administration/students/" method="post" class="add-modal"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-students"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" class="invitation-modal"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-invitation-student"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" action="/administration/students/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-import" roles="student"}}
+                    {{/content}}
+                {{/embed}}
+            </section>
         </div>
-
-        {{#embed "lib/components/modal-form" action="/administration/students/" method="post" class="add-modal"}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-students"}}
-        {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal-form" class="invitation-modal"}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-invitation-student"}}
-        {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal-form" action="/administration/students/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-import" roles="student"}}
-        {{/content}}
-        {{/embed}}
-    </section>
-</div>
-{{/content}}
+    {{/content}}
 {{/extend}}
