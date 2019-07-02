@@ -50,14 +50,17 @@
                         </div>
 
                         {{#if ../school.fileStorageType}}
-                        <div class="form-group">
-                            <label>Cloud-Storage Anbieter</label>
-                            <select name="fileStorageType" type="text">
-                                {{#each ../provider}}
-                                <option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}}
-                                </option>
-                                {{/each}} </select> </div> {{/if}} <button type="submit"
-                            class="btn btn-primary btn-submit">Speichern</button>
+                            <div class="form-group">
+                                <label>Cloud-Storage Anbieter</label>
+                                <select name="fileStorageType" type="text">
+                                    {{#each ../provider}}
+                                    <option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        {{/if}}
+                        <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
                     </form>
 
                     {{#if ../school.fileStorageType}}
