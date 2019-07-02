@@ -31,25 +31,25 @@
 }
 @include media-breakpoint-down(md) {
     .sc-card-wrapper:nth-child(n+4) {
-        display: none;  
+        display: none;
     }
 }
 @include media-breakpoint-down(lg) {
     .sc-card-wrapper:nth-child(n+4) {
-        display: none;  
+        display: none;
     }
 }
 @include media-breakpoint-down(xl) {
     .sc-card-wrapper:nth-child(n+5) {
-        display: none;  
+        display: none;
     }
 }
 
 .dashboard-title{
-	color: black;
+    color: black;
 }
 .dashboard-title:hover{
-	color: $primaryColor;
+    color: $primaryColor;
 }
 .dashboard-title:hover, .dashboard-title:visited, .dashboard-title:link, .dashboard-title:active
 {
@@ -124,7 +124,7 @@
                     margin-top: 1px;
                     border-top-right-radius: 4px;
                     border-top-left-radius: 4px;
-                    padding: 0 0.5rem 0.5rem 0.5rem;
+                    padding: 0 0.5rem 0.5rem;
 
                     .card-title {
                         font-size:1.063rem;
@@ -142,6 +142,7 @@
 
                 .card-text{
                     line-height: 130%;
+                    padding: 0.5rem 0.5rem 0;
                 }
 
                 &.disabled {
