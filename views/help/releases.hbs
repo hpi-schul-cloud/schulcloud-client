@@ -1,53 +1,59 @@
 {{#extend "lib/loggedin"}}
 
-{{#content "scripts" mode="append"}}
-<script src="/scripts/helpers/lazyload.js" type="text/javascript" defer></script>
-{{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/helpers/lazyload.js" type="text/javascript" defer></script>
+    {{/content}}
 
-{{#content "page"}}
-<section class="changelog" id="changelog">
-    <h2 class="h4">Neueste Funktionen</h2>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div id="accordion" role="tablist" aria-multiselectable="true">
-                    {{#each release}}
-                    <div class="card">
-                        <div class="card-header" role="tab" id="heading-{{@index}}">
-                            <h3 class="mb-0 h5">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{@index}}"
-                                    {{#ifeq @index 0}} aria-expanded="true" {{else}} class="collapsed" {{/ifeq}}
-                                    aria-controls="collapse-{{@index}}">
-                                    <div>
-                                        {{this.name}}
-                                        <span class="text-muted pull-right">
-                                            {{this.publishedAt}}
-                                        </span>
+    {{#content "page"}}
+        <section class="changelog" id="changelog">
+            <h2 class="h4">Neueste Funktionen</h2>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                            {{#each release}}
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="heading-{{@index}}">
+                                        <h3 class="h5 mb-0">
+                                            <a data-toggle="collapse" data-parent="#accordion"
+                                                href="#collapse-{{@index}}"
+                                                {{#ifeq @index 0}}
+                                                    aria-expanded="true"
+                                                {{else}}
+                                                    class="collapsed"
+                                                {{/ifeq}}
+                                                aria-controls="collapse-{{@index}}">
+                                                <div>
+                                                    {{this.name}}
+                                                    <span class="text-muted pull-right">
+                                                        {{this.publishedAt}}
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </h3>
                                     </div>
-                                </a>
-                            </h3>
-                        </div>
-                        <div id="collapse-{{@index}}" class="collapse {{#ifeq @index 0}}in{{/ifeq}}" role="tabpanel"
-                            aria-labelledby="heading-{{@index}}" {{#ifeq @index 0}}aria-expanded="true" {{/ifeq}}>
-                            <div class="card-block">
-                                {{#ifneq @index 0}}<noscript class="lazyload">{{/ifneq}}
-                                    {{{this.body}}}
-                                    {{#ifneq @index 0}}</noscript>{{/ifneq}}
-                            </div>
-                            <div class="card-footer">
-                                <a href="{{this.url}}" target="_blank">Weiterlesen</a>
-                                <span class="pull-right">
-                                    <i class="fa fa-user"></i>
-                                    <a href="{{this.authorUrl}}" target="_blank">{{this.author}}</a>
-                                </span>
-                            </div>
+                                    <div id="collapse-{{@index}}" class="collapse {{#ifeq @index 0}}in{{/ifeq}}"
+                                            role="tabpanel" aria-labelledby="heading-{{@index}}"
+                                            {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
+                                        <div class="card-block">
+                                            {{#ifneq @index 0}}<noscript class="lazyload">{{/ifneq}}
+                                                {{{this.body}}}
+                                            {{#ifneq @index 0}}</noscript>{{/ifneq}}
+                                        </div>
+                                        <div class="card-footer">
+                                            <a href="{{this.url}}" target="_blank">Weiterlesen</a>
+                                            <span class="pull-right">
+                                                <i class="fa fa-user"></i>
+                                                <a href="{{this.authorUrl}}" target="_blank">{{this.author}}</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
                         </div>
                     </div>
-                    {{/each}}
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-{{/content}}
+        </section>
+    {{/content}}
 {{/extend}}
