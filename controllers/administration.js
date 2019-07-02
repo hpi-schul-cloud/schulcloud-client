@@ -850,8 +850,10 @@ const skipRegistration = (req, res, next) => {
 				{
 					email: req.body.email,
 					password: req.body.passwd,
+					fullname: `${req.body.firstName} ${req.body.lastName}`,
 				},
 			],
+			single: true,
 		});
 	}).catch(() => {
 		req.session.notification = {
