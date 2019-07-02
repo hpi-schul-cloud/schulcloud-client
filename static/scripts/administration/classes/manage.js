@@ -121,6 +121,14 @@ window.addEventListener('load', ()=>{
         $importModal.appendTo('body').modal('show');
     });
 
+    $('.btn-skip-consent').on('click', function (e) {
+        e.preventDefault();
+        var newForm = $('<form id="newForm" action="' + window.location.origin + '/administration/classes/' + $(this).data('class') + '/skipregistration" method="POST"></form>');
+        $('body').append(newForm);
+        newForm.submit();
+        
+    });
+
     $importModal.find('.btn-submit').on('click', async (event) => {
         event.preventDefault();
         const selections = $("#student_from_class_import").chosen().val();

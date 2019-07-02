@@ -814,6 +814,12 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 	},
 ];
 
+const parseDate = (input) => {
+	const parts = input.match(/(\d+)/g);
+	// note parts[1]-1
+	return new Date(parts[2], parts[1] - 1, parts[0]);
+};
+
 const skipRegistration = (req, res, next) => {
 	const userid = req.params.id;
 	const {
@@ -826,6 +832,7 @@ const skipRegistration = (req, res, next) => {
 		termsOfUseConsent,
 		birthday,
 	} = req.body;
+	const parsedDate = parseDate(birthday).toISOString();
 	api(req).post(`/users/${userid}/skipregistration`, {
 		json: {
 			password: passwd,
@@ -833,18 +840,20 @@ const skipRegistration = (req, res, next) => {
 			parent_termsOfUseConsent,
 			privacyConsent,
 			termsOfUseConsent,
-			birthday,
+			birthday: parsedDate,
 		},
-	}).then((data) => {
+	}).then(() => {
 		res.render('administration/users_registrationcomplete', {
 			title: 'Einwilligung erfolgreich erteilt',
 			submitLabel: 'Schließen',
-			email: req.body.email,
-			password: req.body.passwd,
-			successString: 'Bla',
+			users: [
+				{
+					email: req.body.email,
+					password: req.body.passwd,
+				},
+			],
 		});
-	}).catch((e) => {
-		console.log(e)
+	}).catch(() => {
 		req.session.notification = {
 			type: 'danger',
 			message: 'Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ',
@@ -1234,26 +1243,13 @@ router.post(
 );
 router.get(
 	'/students/:id/skipregistration',
-	permissionsHelper.permissionsChecker(['STUDENT_SKIP_REGISTRATION'], 'or'),
+	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
 	(req, res, next) => {
 		const userPromise = api(req).get(`/users/${req.params.id}`);
-		const consentPromise = getSelectOptions(req, 'consents', {
-			userId: req.params.id,
-		});
-		const accountPromise = api(req).get('/accounts/', {
-			qs: { userId: req.params.id },
-		});
 		const passwordPromise = api(req).get('/accounts/pwgen?readable=true', {});
 
-		Promise.all([userPromise, consentPromise, accountPromise, passwordPromise])
-			.then(([user, _consent, [account], password]) => {
-				const consent = _consent[0] || {};
-				if (consent) {
-					consent.parentConsent = (consent.parentConsents || []).length
-						? consent.parentConsents[0]
-						: {};
-				}
-				const hidePwChangeButton = !account;
+		Promise.all([userPromise, passwordPromise])
+			.then(([user, password]) => {
 				res.render('administration/users_skipregistration', {
 					title: 'Einwilligungen erteilen',
 					action: `/administration/students/${user._id}/skipregistration`,
@@ -1581,6 +1577,41 @@ router.get(
 /*
   CLASSES
 */
+const skipRegistrationClass = async (req, res, next) => {
+	let students = await getUsersWithoutConsent(req, 'student', req.params.classId);
+	students = students.filter((obj) => {
+		if (obj.birthday && obj.importHash) return true;
+		return false;
+	});
+	const passwordPromises = students.map(async () => api(req).get('/accounts/pwgen?readable=true', {}));
+	const passwords = await Promise.all(passwordPromises);
+	const changePromises = students.map(async (student, i) => {
+		api(req).post(`/users/${student._id}/skipregistration`, {
+			json: {
+				password: passwords[i],
+				parent_privacyConsent: true,
+				parent_termsOfUseConsent: true,
+				privacyConsent: true,
+				termsOfUseConsent: true,
+				birthday: student.birthday,
+			},
+		});
+	});
+	Promise.all(changePromises).then(() => {
+		const result = students.map((student, i) => ({
+			email: student.email,
+			password: passwords[i],
+			fullname: `${student.firstName} ${student.lastName}`,
+		}));
+		res.render('administration/users_registrationcomplete', {
+			title: 'Einwilligungen erfolgreich erteilt',
+			submitLabel: 'Schließen',
+			users: result,
+		});
+	}).catch((e) => {
+		res.json(e);
+	});
+};
 
 const renderClassEdit = (req, res, next, edit) => {
 	api(req)
@@ -1880,6 +1911,13 @@ router.post(
 				next(err);
 			});
 	},
+);
+
+
+router.post(
+	'/classes/:classId/skipregistration',
+	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
+	skipRegistrationClass,
 );
 
 router.post(
