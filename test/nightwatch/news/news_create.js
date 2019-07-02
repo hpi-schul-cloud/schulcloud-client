@@ -33,15 +33,15 @@ module.exports = {
 	// eslint-disable-next-line func-names
 	'Create News': function (browser) {
 		browser.url(`${baseUrl}news/`);
-		browser.expect.element('h4').text.to.contain('Neuigkeiten').before(10000);
+		browser.expect.element('h1').text.to.contain('Neuigkeiten').before(10000);
 		browser
 			.click('.create')
 			.pause(1000)
 			.setValue('input[name=title]', 'Test News')
 			.execute(
 				() => {
-					// eslint-disable-next-line no-undef
-					CKEDITOR.instances.content.setData('Lorem Ipsum');
+					// eslint-disable-next-line
+                    CKEDITOR.instances["content"].setData('Lorem Ipsum');
 				},
 			)
 			.moveToElement('.btn-submit', 10, 10)
