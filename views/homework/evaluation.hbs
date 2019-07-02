@@ -2,37 +2,45 @@
     <nav class="tab-links">
         <a id="submission-tab-link" class="tab-link active">Abgabe</a>
         {{#if @root.isTeacher}}
-        <a id="comment-tab-link" class="tab-link">Bewertung</a>
+            <a id="comment-tab-link" class="tab-link">Bewertung</a>
         {{/if}}
     </nav>
     <div class="tabs">
         <div id="submission" class="tab-content active">
             <div class="comment">
                 {{#if this.submission}}
-                {{#ifneq 0 (arrayLength this.submission.fileIds)}}
-                {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false submission=../submission}}{{/embed}}
-                <hr>
-                {{/ifneq}}
-                <div class="ckcontent print">
-                    <div class="btn btn-secondary btn-print mb-1" data-toggle="tooltip" title="Abgabe drucken">
-                        <i class='fa fa-print'></i> Drucken
+                    {{#ifneq 0 (arrayLength this.submission.fileIds)}}
+                        {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false submission=../submission}}{{/embed}}
+                        <hr>
+                    {{/ifneq}}
+                    <div class="ckcontent print">
+                        <div class="btn btn-secondary btn-print mb-1"
+                            data-toggle="tooltip" title="Abgabe drucken">
+                                <i class='fa fa-print'></i> Drucken
+                        </div>
+                        {{{this.submission.comment}}}
                     </div>
-                    {{{this.submission.comment}}}
-                </div>
                 {{else}}
-                Keine Abgabe.
+                    Keine Abgabe.
                 {{/if}}
             </div>
         </div>
         <div id="comment" class="tab-content">
             {{#if @root.isTeacher}}
-            {{#if this.submission}}
-            <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
-                <input type="hidden" name="_method" data-force-value="true" value="patch" />
-                <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
-                {{#if this.submission.courseGroupId}}
-                <input name="courseGroupId" type="hidden" value="{{this.submission.courseGroupId._id}}" />
-                <input name="teamSubmissionOptions" type="hidden" value="courseGroup" />
+                {{#if this.submission}}
+                    <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
+                        <input type="hidden" name="_method" data-force-value="true" value="patch" />
+                        <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
+                        {{#if this.submission.courseGroupId}}
+                            <input name="courseGroupId" type="hidden" value="{{this.submission.courseGroupId._id}}"/>
+                            <input name="teamSubmissionOptions" type="hidden" value="courseGroup"/>
+                        {{/if}}
+                {{else}}
+                    <form class="form" method="post" action="/homework/submit">
+                        <input type="hidden" name="_method" data-force-value="true" value="post" />
+                        <input name="schoolId" type="hidden" data-force-value="true" value="{{this.submission.studentId.schoolId}}" />
+                        <input name="studentId" type="hidden" data-force-value="true" value="{{this.submission.studentId._id}}" />
+                        <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
                 {{/if}}
                         <div class="comment form-group">
                             <div class="form-group">
@@ -50,12 +58,12 @@
                 <b class="grade">{{{this.submission.gradeText}}}</b>
                 <div class="comment">
                     {{#if this.submission.gradeComment}}
-                    {{{this.submission.gradeComment}}}
+                        {{{this.submission.gradeComment}}}
                     {{else}}
-                    <p>Kein Bewertungstext vorhanden.</p>
+                        <p>Kein Bewertungstext vorhanden.</p>
                     {{/if}}
                 </div>
-                {{/if}}
+            {{/if}}
         </div>
     </div>
 </section>
