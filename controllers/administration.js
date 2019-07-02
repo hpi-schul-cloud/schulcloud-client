@@ -817,29 +817,34 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 const skipRegistration = (req, res, next) => {
 	const userid = req.params.id;
 	const {
-		password,
+		passwd,
 		// eslint-disable-next-line camelcase
 		parent_privacyConsent,
 		// eslint-disable-next-line camelcase
 		parent_termsOfUseConsent,
 		privacyConsent,
 		termsOfUseConsent,
+		birthday,
 	} = req.body;
 	api(req).post(`/users/${userid}/skipregistration`, {
-		json:{
-			password,
+		json: {
+			password: passwd,
 			parent_privacyConsent,
 			parent_termsOfUseConsent,
 			privacyConsent,
 			termsOfUseConsent,
+			birthday,
 		},
 	}).then((data) => {
-		req.session.notification = {
-			type: 'success',
-			message: 'Einrichtung erfolgreich abgeschlossen.',
-		};
-		res.redirect(req.header('Referer'));
+		res.render('administration/users_registrationcomplete', {
+			title: 'Einwilligung erfolgreich erteilt',
+			submitLabel: 'Schließen',
+			email: req.body.email,
+			password: req.body.passwd,
+			successString: 'Bla',
+		});
 	}).catch((e) => {
+		console.log(e)
 		req.session.notification = {
 			type: 'danger',
 			message: 'Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ',
@@ -1227,6 +1232,43 @@ router.post(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	skipRegistration,
 );
+router.get(
+	'/students/:id/skipregistration',
+	permissionsHelper.permissionsChecker(['STUDENT_SKIP_REGISTRATION'], 'or'),
+	(req, res, next) => {
+		const userPromise = api(req).get(`/users/${req.params.id}`);
+		const consentPromise = getSelectOptions(req, 'consents', {
+			userId: req.params.id,
+		});
+		const accountPromise = api(req).get('/accounts/', {
+			qs: { userId: req.params.id },
+		});
+		const passwordPromise = api(req).get('/accounts/pwgen?readable=true', {});
+
+		Promise.all([userPromise, consentPromise, accountPromise, passwordPromise])
+			.then(([user, _consent, [account], password]) => {
+				const consent = _consent[0] || {};
+				if (consent) {
+					consent.parentConsent = (consent.parentConsents || []).length
+						? consent.parentConsents[0]
+						: {};
+				}
+				const hidePwChangeButton = !account;
+				res.render('administration/users_skipregistration', {
+					title: 'Einwilligungen erteilen',
+					action: `/administration/students/${user._id}/skipregistration`,
+					submitLabel: 'Einwilligung erteilen',
+					closeLabel: 'Abbrechen',
+					user,
+					password,
+					referrer: req.header('Referer'),
+				});
+			})
+			.catch((err) => {
+				next(err);
+			});
+	},
+);
 
 router.all(
 	'/students',
@@ -1247,7 +1289,7 @@ router.all(
 		}
 
 		const currentPage = parseInt(req.query.p, 10) || 1;
-		//const title = returnAdminPrefix(res.locals.currentUser.roles);
+		// const title = returnAdminPrefix(res.locals.currentUser.roles);
 
 		let query = {
 			$limit: itemsPerPage,
@@ -1276,6 +1318,20 @@ router.all(
 
 				const body = users.map((user) => {
 					const icon = getConsentStatusIcon(user.consent.consentStatus);
+					const userRow = [
+						{
+							link: `/administration/students/${user._id}/edit`,
+							title: 'Nutzer bearbeiten',
+							icon: 'edit',
+						},
+					];
+					if (user.consent.consentStatus !== 'ok') {
+						userRow.push({
+							link: `/administration/students/${user._id}/skipregistration`,
+							title: 'Einwilligung erteilen',
+							icon: 'step-forward',
+						});
+					}
 					if (icon === '<i class="fa fa-times consent-status"></i>') {
 						// bad but helper functions only return icons
 						studentsWithoutConsentCount += 1;
@@ -1290,13 +1346,7 @@ router.all(
 							content: `<p class="text-center m-0">${icon}</p>`,
 						},
 						moment(user.createdAt).format('DD.MM.YYYY'),
-						[
-							{
-								link: `/administration/students/${user._id}/edit`,
-								title: 'Nutzer bearbeiten',
-								icon: 'edit',
-							},
-						],
+						userRow,
 					];
 				});
 

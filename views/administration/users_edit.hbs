@@ -126,10 +126,6 @@
                             title="Der Nutzer ist bereits registriert" {{/ifeq}}>
                             Persönlichen Einladungslink generieren
                         </button>
-                        <button class="btn btn-secondary btn-skipreg" {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled
-                            title="Der Nutzer ist bereits registriert" {{/ifeq}}>Einrichtung
-                            abschließen</button>
-                        {{/unless}}
                     </div>
 
                     <button class="btn btn-secondary btn-cancel">
@@ -164,12 +160,6 @@
         {{#embed "lib/components/modal-form" class="invitation-modal"}}
         {{#content "fields"}}
         {{> "administration/forms/form-invitation-teacher"}}
-        {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal-form" method="post" class="skipreg-modal"}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-skip-registration"}}
         {{/content}}
         {{/embed}}
 

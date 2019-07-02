@@ -1,0 +1,29 @@
+{{#content "scripts" mode="append"}}
+<script src="/scripts/administration/users_edit.js" type="text/javascript" defer></script>
+{{/content}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/administration/users.css" />
+{{/content}}
+{{#extend "lib/loggedin"}}
+{{#content "page"}}
+<div class="row">
+    <div class="col-xl-6">
+        <p>Mit folgenden Daten kann sich {{name}} in der {{@root.theme.short_title}} anmelden. Bitte geben Sie die Daten
+            an das Kind weiter. </p>
+        <textarea disabled class="form-control" style="resize: none">
+        E-Mail: {{email}} 
+        Passwort: {{password}}</textarea>
+        <p>Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen
+            beim ersten Login die Einwilligungserklärung zusätzlich selbst bestätigen. </p>
+    </div>
+</div>
+<div class="row">
+    <div class="modal-footer w-50">
+        <a class="btn btn-primary btn-submit" href="/administration/students">
+            {{submitLabel}}
+        </a>
+    </div>
+</div>
+
+{{/content}}
+{{/extend}}
