@@ -6,16 +6,18 @@ const password = process.env.PASSWORD || 'Schulcloud1!';
 module.exports = {
 	'Schul-Cloud Reachable': function (browser) {
 		browser
-			.url(`${base_url  }login/`)
+			.url(`${baseUrl}login/`)
 			.waitForElementVisible('body', 1000);
 	},
 	'Schul-Cloud Visibility': function (browser) {
+		// eslint-disable-next-line no-unused-expressions
 		browser.expect.element('input[name=username]').to.be.visible;
+		// eslint-disable-next-line no-unused-expressions
 		browser.expect.element('input[name=password]').to.be.visible;
 	},
 	'Schul-Cloud Login': function (browser) {
 		browser
-			.setValue('input[name=username]', teacher_name)
+			.setValue('input[name=username]', teacherName)
 			.setValue('input[name=password]', password)
 			.waitForElementVisible('input[type=submit]', 1000)
 			.click('input[type=submit]')
@@ -28,8 +30,9 @@ module.exports = {
 			path: '/',
 		});
 	},
+	// eslint-disable-next-line func-names
 	'Create News': function (browser) {
-		browser.url(`${base_url  }news/`);
+		browser.url(`${baseUrl}news/`);
 		browser.expect.element('h4').text.to.contain('Neuigkeiten').before(10000);
 		browser
 			.click('.create')
@@ -37,13 +40,15 @@ module.exports = {
 			.setValue('input[name=title]', 'Test News')
 			.execute(
 				() => {
-                    CKEDITOR.instances["content"].setData('Lorem Ipsum');
-                },
+					// eslint-disable-next-line no-undef
+					CKEDITOR.instances.content.setData('Lorem Ipsum');
+				},
 			)
 			.moveToElement('.btn-submit', 10, 10)
 			.click('.btn-submit')
 			.pause(1000);
-		browser.useXpath().expect.element("//*[contains(text(), 'Lorem Ipsum')]").text.to.contain('Lorem Ipsum').before(10000);
+		browser.useXpath().expect.element("//*[contains(text(), 'Lorem Ipsum')]").text
+			.to.contain('Lorem Ipsum').before(10000);
 	},
 	'Delete News': function (browser) {
 		browser.useXpath().click("//*[contains(text(), 'Test News')]");
