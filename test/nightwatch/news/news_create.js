@@ -4,18 +4,18 @@ const teacherName = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
 const password = process.env.PASSWORD || 'Schulcloud1!';
 
 module.exports = {
-	'Schul-Cloud Reachable': function (browser) {
+	'Schul-Cloud Reachable': function reachable(browser) {
 		browser
 			.url(`${baseUrl}login/`)
 			.waitForElementVisible('body', 1000);
 	},
-	'Schul-Cloud Visibility': function (browser) {
+	'Schul-Cloud Visibility': function visible(browser) {
 		// eslint-disable-next-line no-unused-expressions
 		browser.expect.element('input[name=username]').to.be.visible;
 		// eslint-disable-next-line no-unused-expressions
 		browser.expect.element('input[name=password]').to.be.visible;
 	},
-	'Schul-Cloud Login': function (browser) {
+	'Schul-Cloud Login': function login(browser) {
 		browser
 			.setValue('input[name=username]', teacherName)
 			.setValue('input[name=password]', password)
@@ -23,7 +23,7 @@ module.exports = {
 			.click('input[type=submit]')
 			.pause(1000);
 	},
-	'Schul-Cloud Checkups': function (browser) {
+	'Schul-Cloud Checkups': function checkUp(browser) {
 		browser.setCookie({
 			name: 'releaseDate',
 			value: '9999-12-09T16:36:20.000Z',
@@ -50,7 +50,7 @@ module.exports = {
 		browser.useXpath().expect.element("//*[contains(text(), 'Lorem Ipsum')]").text
 			.to.contain('Lorem Ipsum').before(10000);
 	},
-	'Delete News': function (browser) {
+	'Delete News': function deleteNews(browser) {
 		browser.useXpath().click("//*[contains(text(), 'Test News')]");
 		browser.useCss()
 			.click('.btn-delete')
@@ -59,7 +59,7 @@ module.exports = {
 			.click('.delete-modal .btn-submit')
 			.pause(1000);
 	},
-	'Schul-Cloud End': function (browser) {
+	'Schul-Cloud End': function endTest(browser) {
 		browser.end();
 	},
 };
