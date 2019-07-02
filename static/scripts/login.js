@@ -107,7 +107,7 @@ window.startIntro = function startIntro() {
     .start()
     .oncomplete(function() {
         localStorage.setItem('Tutorial', true);
-        document.querySelector("#loginarea > div > div > form:nth-child(3) > div > input").click();
+        document.querySelector("#demologin").click();
     });
 };
 

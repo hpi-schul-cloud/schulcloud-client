@@ -1,77 +1,97 @@
-<!DOCTYPE html>
+
 
 <section class="section-community">
-    <h4>Schulen</h4>
-    <h5>Wie bewerben sich MINT-EC Schulen?</h5>
-    <p>
-        <ul>
-            Alle 316 Schulen aus dem MINT-EC-Schulnetzwerk können sich für die Teilnahme am Projekt „HPI Schul-Cloud“ anmelden. Um Pilotschule zu werden loggen Sie sich bitte mit Ihrem Profil auf der Website des MINT-EC ein und füllen Sie das Formular aus.
-            <a href="https://www.mint-ec.de/schulnetzwerk/hpi-schul-cloud/mitmachen/" target="_blank">Zur Anmeldung</a>
-            <li><b>Die nächsten Starttermine:</b></li>
-            <li>2. Schulhalbjahr 2018/2019</li>
-            <li>1. Schulhalbjahr 2019/2020</li>
-            <li>2. Schulhalbjahr 2019/2020</li>
-        </ul>
-    </p>
-    <p>
-        Auf der <a href="https://www.mint-ec.de/schulnetzwerk/hpi-schul-cloud/mitmachen/" target="_blank">MINT-EC-Website</a> finden Schulen weitere hilfreiche Informationen für den Einstieg in die HPI Schul-Cloud, wie etwa Rahmenbedingungen zur Teilnahme,
-        Unterstützung bei der Anmeldung und Nutzung sowie Möglichkeiten das Pilotprojekt aktiv mitzugestalten. Bei Fragen wenden Sie sich gerne an das Team „HPI Schul-Cloud“ von MINT-EC:
-        <ul>
-            <li>E-Mail: <a href="mailto:schul-cloud@mint-ec.de">schul-cloud@mint-ec.de</a></li>
-            <li>Telefon: 030 400 067 47</li>
-        </ul>
+    {{#embed "authentication/section" class="content-width-max"}}
+        {{#content "body"}}
 
-    </p>
+            {{#unless loggedin}}
+				<h2 class="section-title center">{{title}}</h2>
+            {{/unless}}
+            <h3 class="section-title center">Schulen</h3>
+            <h4>Wie bewerben sich MINT-EC Schulen?</h4>
+            <p>
+				Alle 316 Schulen aus dem MINT-EC-Schulnetzwerk können sich für die Teilnahme am Projekt „HPI Schul-Cloud“ anmelden. Um Pilotschule zu werden loggen Sie sich bitte mit Ihrem Profil auf der Website des MINT-EC ein und füllen Sie das Formular aus.
+				<br/><br/>
+				<a href="https://www.mint-ec.de/schulnetzwerk/hpi-schul-cloud/mitmachen/" target="_blank">Zur Anmeldung</a>
+				<br/><br/>
+				<b>Die nächsten Starttermine:</b>
+                <ul>
+                    <li>1. Schulhalbjahr 2019/2020</li>
+                    <li>2. Schulhalbjahr 2019/2020</li>
+                    <li>1. Schulhalbjahr 2020/2021</li>
+                </ul>
+            </p>
+            <p>
+                Auf der <a href="https://www.mint-ec.de/schulnetzwerk/hpi-schul-cloud/mitmachen/" target="_blank">MINT-EC-Website</a> finden Schulen weitere hilfreiche Informationen für den Einstieg in die HPI Schul-Cloud, wie etwa Rahmenbedingungen zur Teilnahme,
+                Unterstützung bei der Anmeldung und Nutzung sowie Möglichkeiten das Pilotprojekt aktiv mitzugestalten. Bei Fragen wenden Sie sich gerne an das Team „HPI Schul-Cloud“ von MINT-EC:
+                <ul>
+                    <li>E-Mail: <a href="mailto:schul-cloud@mint-ec.de">schul-cloud@mint-ec.de</a></li>
+                    <li>Telefon: +49 (0)30 400 067 47</li>
+                </ul>
 
-    <h5>Können auch nicht MINT-EC Schulen die HPI Schul-Cloud erproben?</h5>
-    <p>
-        In den Pilotphasen beschränkt sich die Nutzung der HPI Schul-Cloud auf Schulen des nationalen Excellence Schulnetzwerks MINT-EC.
-        Da uns bewusst ist, wie hoch die Nachfrage auch von anderen Schulen ist, sammeln wir momentan die Anfragen auf einer
-        Interessenliste und werden zu gegebener Zeit mit dem BMBF über eine weitere Öffnung sprechen. Falls Sie Interesse
-        an der Nutzung der HPI Schul-Cloud haben, senden Sie gerne folgende Informationen an
-        <a href="mailto:schul-cloud@hpi.de">schul-cloud@hpi.de</a>:
-        <ul>
-            <li>- Name der Schule und Schulform</li>
-            <li>- Geschwindigkeit des Internetanschlusses in Ihrer Schule</li>
-            <li>- Anzahl der W-LAN-Router mit Hinweis für welche Zielgruppen diese freigegeben sind (Lehrer, Schüler, beide)</li>
-            <li>- Informationen darüber, ob Ihre Schule komplett mit W-LAN ausgeleuchtet ist oder nur teilweise</li>
-            <li>- Anzahl der vorhandenen mobilen und webfähigen Endgeräte (Laptops, Tablets, etc.) oder ob der Bring-Your-Own-Device als Ansatz aktiv eingesetzt wird</li>
-        </ul>
-    </p>
-    <p>Gerne können Sie außerdem <a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/flyer/Schul-Cloud_Technische_Vorbereitungen.pdf" target="_blank">hier</a> einsehen, welche Hinweise bei der Vorbereitung auf eine mögliche HPI Schul-Cloud Nutzung helfen können.</p>
-    <br />
+            </p>
 
-    <h3>Landesinitiativen</h3>
-    <p>Seit Februar 2018 kooperiert das Projekt HPI Schul-Cloud mit der niedersächsischen Bildungscloud der
-    <a href="http://www.n-21.de" target="_blank">Landesinitiative n-21</a>. Die Projektschulen der Niedersächsischen Bildungscloud werden an die HPI Schul-Cloud angebunden und können diese
-        mit einer individualisierten Oberfläche nutzen. Die Kooperation ermöglicht einen engen Erfahrungsaustausch, von dem
-        beide Seiten profitieren werden. Zudem wird erprobt, wie die HPI Schul-Cloud länderspezifisch und schulformübergreifend
-        effizient eingesetzt werden kann. Weitere Informationen zu der Kooperation mit der niedersächsischen Bildungscloud
-        können Sie <a href="https://hpi.de/pressemitteilungen/2018/digitalisierung-niedersaechsische-bildungscloud-und-bundesweite-schul-cloud-starten-kooperation-auf-der-didacta.html" target="_blank">hier</a> einsehen.
-        Wenn Sie als Landesinitiative Interesse daran haben, mit der HPI Schul-Cloud zu kooperieren, wenden Sie sich gerne
-        an <a href="mailto:schul-cloud@hpi.de">schul-cloud@hpi.de</a>.
-    </p>
-    <br />
+            <h4>Können auch nicht MINT-EC Schulen die HPI Schul-Cloud erproben?</h4>
+            <p>
+                In den Pilotphasen beschränkt sich die Nutzung der HPI Schul-Cloud auf Schulen des nationalen Excellence Schulnetzwerks MINT-EC.
+                Da uns bewusst ist, wie hoch die Nachfrage auch von anderen Schulen ist, sammeln wir momentan die Anfragen auf einer
+                Interessenliste und werden zu gegebener Zeit mit dem BMBF über eine weitere Öffnung sprechen. Falls Sie Interesse
+                an der Nutzung der HPI Schul-Cloud haben, senden Sie gerne folgende Informationen an
+                <a href="mailto:schul-cloud@hpi.de">schul-cloud@hpi.de</a>:
+                <ul>
+                    <li>Name der Schule und Schulform</li>
+                    <li>Geschwindigkeit des Internetanschlusses in Ihrer Schule</li>
+                    <li>Anzahl der W-LAN-Router mit Hinweis für welche Zielgruppen diese freigegeben sind (Lehrer, Schüler, beide)</li>
+                    <li>Informationen darüber, ob Ihre Schule komplett mit W-LAN ausgeleuchtet ist oder nur teilweise</li>
+                    <li>Anzahl der vorhandenen mobilen und webfähigen Endgeräte (Laptops, Tablets, etc.) oder ob der Bring-Your-Own-Device als Ansatz aktiv eingesetzt wird</li>
+                </ul>
+            </p>
+            <p>Gerne können Sie außerdem <a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/flyer/Schul-Cloud_Technische_Vorbereitungen.pdf" target="_blank">hier</a> einsehen, welche Hinweise bei der Vorbereitung auf eine mögliche HPI Schul-Cloud Nutzung helfen können.</p>
+            <br />
+		{{/content}}
+	{{/embed}}
+	{{#embed "authentication/section" style="primary" class="content-width-max"}}
+		{{#content "body"}}
+			<h3 class="section-title center">Landesinitiativen</h3>
+            <h4>Niedersächsische Bildungscloud</h4>
+            <p>Seit Februar 2018 kooperiert das Projekt HPI Schul-Cloud mit der niedersächsischen Bildungscloud der <a target='_blank' rel='noopener' href='http://www.n-21.de'>Landesinitiative n-21</a>.
+            Die Projektschulen der Niedersächsischen Bildungscloud werden an die HPI Schul-Cloud angebunden und können diese
+                mit einer individualisierten Oberfläche nutzen. Die Kooperation ermöglicht einen engen Erfahrungsaustausch, von dem
+                beide Seiten profitieren werden. Zudem wird erprobt, wie die HPI Schul-Cloud länderspezifisch und schulformübergreifend
+                effizient eingesetzt werden kann. Weitere Informationen zu der Kooperation mit der niedersächsischen Bildungscloud
+                können Sie hier einsehen: <a target='_blank' rel='noopener' href='https://hpi.de/pressemitteilungen/2018/digitalisierung-niedersaechsische-bildungscloud-und-bundesweite-schul-cloud-starten-kooperation-auf-der-didacta.html'>Pressemitteilung vom Februar 2018</a>
+            </p>
+            <h4>Schul-Cloud Brandenburg</h4>
+            <p>
+            Seit dem Frühjahr 2019 kooperieren wir neben dem Land Niedersachsen auch mit Brandenburg. Vom 1. August 2019 bis zum 31. Juli 2021 läuft das Pilotprojekt, in dem 51 Schulen aus dem Programm "medienfit" die HPI Schul-Cloud nutzen und in ihren Schulalltag einbeziehen. Drei weitere brandenburgische Schulen, die gleichzeitig im Programm "medienfit" und im MINT-EC-Netzwerk sind, werden ebenfalls einbezogen. Für die Schul-Cloud Brandenburg wird wie in Niedersachsen eine individualisierte Oberfläche zur Verfügung gestellt. Die Steuerung des Vorhabens liegt beim MBJS, die Projektkoordinierung  bei der DigitalAgentur Brandenburg (DABB) unter dem Dach der ILB. Die technische Projektleitung übernimmt das HPI, die pädagogische Leitung das Landesinstitut für Schule und Medien (LISUM).
+            </p>
+            <p>
+                Wenn Sie als Landesinitiative Interesse daran haben, mit der HPI Schul-Cloud zu kooperieren, wenden Sie sich gerne
+                an <a href="mailto:schul-cloud@hpi.de">schul-cloud@hpi.de</a>.
+            </p>
+		{{/content}}
+	{{/embed}}
+	{{#embed "authentication/section" class="content-width-max"}}
+		{{#content "body"}}
+			<h3 class="section-title center">Inhalteanbieter</h3>
+            <p>Wir freuen uns über Ihre Anfragen unter  <a href="mailto:inhalte@schul-cloud.org">inhalte@schul-cloud.org</a>.</p>
 
-    <h3>Inhalteanbieter</h3>
-    <p>Wir freuen uns über Ihre Anfragen unter  <a href="mailto:inhalte@schul-cloud.org">inhalte@schul-cloud.org</a>.</p>
+            <h4>Entwickler, Informatik AGs, ...</h4>
+            <p>
+                Die {{theme.title}} ist ein Open-Source Projekt. Der Quellcode ist unter
+                <a href="https://github.com/schul-cloud" target="_blank">https://github.com/schul-cloud</a> zu finden.
+                Unser Ticketsystem liegt unter <a href="https://ticketsystem.schul-cloud.org" target="_blank">https://ticketsystem.schul-cloud.org</a>.
+                Bei Bedarf kann auch eine Aufnahme in unseren Team-Messenger erfolgen.
+                Wir freuen uns über Bugfixes und neue Funktionen. Mehr Infos gerne bei <a href="mailto:jan.renz@hpi.de">jan.renz@hpi.de</a> erfragen.
+            </p>
+            <a name="jobs"></a>
+            <h4>Stellenausschreibungen im Projekt Schul-Cloud</h4>
+            <p>
+                Du möchtest gerne Mitglied in unserem HPI Schul-Cloud Team werden? Wir suchen:
+                <br />
+                <a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/web-developer-im-projekt-schul-cloud.html" rel="noopener" target="_blank">Web Developer (m/w/d) im Projekt HPI Schul-Cloud</a>
 
-    <h4>Entwickler, Informatik AGs, ...</h4>
-    <p>
-        Die {{theme.title}} ist ein Open-Source Projekt. Der Quellcode ist unter
-        <a href="https://github.com/schul-cloud" target="_blank">https://github.com/schul-cloud</a> zu finden.
-        Unser Ticketsystem liegt unter <a href="https://ticketsystem.schul-cloud.org" target="_blank">https://ticketsystem.schul-cloud.org</a>.
-        Bei Bedarf kann auch eine Aufnahme in unseren Team-Messenger erfolgen.
-        Wir freuen uns über Bugfixes und neue Funktionen. Mehr Infos gerne bei <a href="mailto:jan.renz@hpi.de">jan.renz@hpi.de</a> erfragen.
-    </p>
-	<a name="jobs"></a>
-    <h4>Stellenausschreibungen im Projekt Schul-Cloud</h4>
-    <p>
-        Du möchtest gerne Mitglied in unserem HPI Schul-Cloud Team werden? Wir suchen:
-        <br />
-        <a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/frontend-web-developer-mwd-im-projekt-hpi-schul-cloud.html" rel="noopener" target="_blank">Frontend Web Developer (m/w/d) im Projekt HPI Schul-Cloud</a>
-        <br />
-        <a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/web-developer-im-projekt-schul-cloud.html" rel="noopener" target="_blank">Web Developer (m/w/d) im Projekt HPI Schul-Cloud</a>
-		
-    </p>
+            </p>
+        {{/content}}
+    {{/embed}}
 </section>

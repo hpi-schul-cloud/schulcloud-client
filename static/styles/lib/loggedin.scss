@@ -149,9 +149,10 @@ aside.nav-sidebar {
         }
     }
     @include media-breakpoint-down(xs) {
-        position: absolute;
+		position: absolute;
         width: 100%;
-        height: 100vh;
+		height: 100vh;
+		padding-top: 50px;
         overflow: auto;
         background: $colorWhite;
         box-shadow: 0 2px 5px rgba(0,0,0,.26);
@@ -280,9 +281,6 @@ aside.nav-sidebar {
         z-index: 9999;
         transition: transform .3s linear;
         transform: rotate(90deg);
-        .fa{
-            color: #fff;
-        }
     }
     @include media-breakpoint-down(xs) {
         display: block;
@@ -310,7 +308,7 @@ header {
 }
 
 .content-min-height {
-    flex:1;
+    flex-grow:1;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -324,14 +322,22 @@ header {
     }
 }
 
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	// IE 10+ Bugfix to prevent "floating footer" at the top
+	.content-min-height{
+		display: block !important;
+	}
+}
+
+
 .content-wrapper {
     vertical-align: top;
     width: 100%;
     padding: 0;
     padding-left: 240px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 
     @include media-breakpoint-down(md) {
         padding-left: 60px;
@@ -420,7 +426,7 @@ body.edtr {
     .btn-fullscreen {
         top: 83px;
     }
-    
+
     @media(max-width: 1250px) {
         .content-wrapper {
             padding-left: 60px;
@@ -431,7 +437,7 @@ body.edtr {
             overflow-x: hidden;
 
             .sc-title {
-    
+
                 display: none;
             }
 

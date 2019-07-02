@@ -46,7 +46,7 @@ describe('Dashboard tests', function () {
                     expect(res).to.redirect;
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Anmelden');
-                    expect(res.text).to.contain('Mit anderem System anmelden');
+                    expect(res.text).to.contain('Mehr Optionen');
                     resolve();
                 });
         });

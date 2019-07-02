@@ -11,6 +11,7 @@ const session = require('express-session');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
+const authHelper = require('./helpers/authentication');
 
 const app = express();
 app.use(compression());
@@ -43,7 +44,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
 
-const sessionStore = new session.MemoryStore;
+const sessionStore = new session.MemoryStore();
 app.use(session({
 	cookie: { maxAge: 60000 },
 	store: sessionStore,
@@ -52,14 +53,52 @@ app.use(session({
 	secret: 'secret',
 }));
 
+const defaultBaseDir = (req, res) => {
+	let dir = process.env.DOCUMENT_BASE_DIR || 'https://s3.hidrive.strato.com/schul-cloud-hpi/';
+	dir += `${themeName}/`;
+	if (themeName === 'open' && res.locals && res.locals.currentUser && res.locals.currentUser.schoolId) {
+		// fixme currentUser missing here (after login)
+		dir += `${res.locals.currentUser.schoolId}/`;
+	}
+	return dir;
+};
+
+const defaultDocuments = require('./helpers/content/documents.json');
+
+// set custom response header for ha proxy
+if (process.env.KEEP_ALIVE) {
+	app.use((req, res, next) => {
+		res.setHeader('Connection', 'Keep-Alive');
+		next();
+	});
+}
+
+
 // Custom flash middleware
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
+	if (!req.session.currentUser) {
+		await authHelper.populateCurrentUser(req, res).then(() => {
+			if (res.locals.currentUser) { // user is authenticated
+				req.session.currentUser = res.locals.currentUser;
+				req.session.save();
+			}
+		});
+	} else {
+		res.locals.currentUser = req.session.currentUser;
+	}
 	// if there's a flash message in the session request, make it available in the response, then delete it
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
 	res.locals.theme = {
 		title: process.env.SC_TITLE || 'HPI Schul-Cloud',
 		short_title: process.env.SC_SHORT_TITLE || 'Schul-Cloud',
+		documents: Object.assign({}, {
+			baseDir: defaultBaseDir(req, res),
+			privacy: process.env.PRIVACY_DOCUMENT
+				|| 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
+			termsOfUse: process.env.TERMS_OF_USE_DOCUMENT
+				|| 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
+		}, defaultDocuments),
 		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
 	};
 	res.locals.domain = process.env.SC_DOMAIN || false;
@@ -88,7 +127,7 @@ app.get('/', (req, res, next) => {
 });
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
 	const err = new Error('Not Found');
 	err.status = 404;
 	next(err);

@@ -1,7 +1,7 @@
 ﻿[
 	{
 		"name": "Gremium und Projektleitung",
-		"style": "standard",
+		"size": "standard",
 		"team": [
 			{
 				"title": "Prof. Dr.",
@@ -52,7 +52,8 @@
 	},
 	{
 		"name": "Projektkoordination und wissenschaftliche Mitarbeiter",
-		"style": "standard",
+		"style": "primary",
+		"size": "standard",
 		"team": [
 			{
 				"subheader_before": "Hasso-Plattner-Institut",
@@ -106,7 +107,7 @@
 				"lastName": "Benthin",
 				"position": "Wissenschaftlicher Mitarbeiter, HPI",
 				"description": "Falko hat an der HTW Berlin sein Bachelor- und Masterstudium absolviert und anschließend mehrere Jahre im Ops-Team eines namhaften Hosters zugebracht. Jetzt unterstützt er das HPI Schul-Cloud-Team als System-Engineer DevOps. In seiner Freizeit bespaßt er seine Kinder, liest und engagiert sich im HochDrei - Bilden und Begegnen in Brandenburg e.V.",
-				"pictureUrl": "/images/team/Falko_Benthin.png",
+				"pictureUrl": "/images/team/Falko_Benthin.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -191,6 +192,21 @@
 			},
 			{
 				"title": "",
+				"firstName": "David",
+				"lastName": "Jäger",
+				"position": "Wissenschaftlicher Mitarbeiter, HPI",
+				"description": "David hat an der HTW Berlin sowie der TU Berlin sein Bachelor- und Masterstudium in den Fächern IT/Vernetzte Systeme sowie Technische Informatik und anschließend mehrere Jahre im Ops-Team eines namhaften Hosters zugebracht. Jetzt unterstützt er das HPI Schul-Cloud Team als System-Engineer DevOps. In seiner Freizeit ist er gern mit Freunden unterwegs, liest und spielt gern Exit-Games und Gesellschaftsspiele.",
+				"pictureUrl": "/images/team/David_Jäger.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Catrina",
 				"lastName": "John",
 				"position": "Wissenschaftliche Mitarbeiterin, HPI",
@@ -240,7 +256,7 @@
 				"lastName": "Malchow",
 				"position": "Wissenschaftlicher Mitarbeiter, HPI",
 				"description": "Martin hat im Bachelor „Angewandte Informatik“ studiert und einen Masterabschluss in „Automotive Software Engineering“. Er unterrichtete während dieser Zeit bereits einige Jahre die Grundlagen von eingebetteten Systemen in der Automobilindustrie. Derzeit ist er Mitarbeiter am Lehrstuhl für Internet-Technologien und Systeme und zuständig für das tele-TASK Portal des Hasso-Plattner-Instituts. Außerdem unterrichtet er HPI-Studenten unter anderem in den Fächern „Internet- und WWW-Technologien“ sowie „Web-Programmierung und Web-Frameworks“. Nach Abgabe seiner Dissertation, in der sich alles um die Unterstützung und Motivation im E-Learning dreht, unterstützt er das HPI Schul-Cloud-Team im Bereich des Video-Streamings und der Webdienstanbindung. In der Freizeit findet man Martin meist im Leichtathletik-Stadion, bei einer Aktivität in/auf der Havel oder beim Bereisen der Welt.",
-				"pictureUrl": "/images/team/Martin_Malchow.jpeg",
+				"pictureUrl": "/images/team/Martin_Malchow.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -419,7 +435,7 @@
 	},
 	{
 		"name": "Bachelorprojekt 2018/2019",
-		"style": "small",
+		"size": "small",
 		"team": [
 			{
 				"title": "",
@@ -543,7 +559,8 @@
 	},
 	{
 		"name": "Studierende",
-		"style": "small",
+		"size": "small",
+		"style": "accent",
 		"team": [
 			{
 				"title": "",
@@ -552,6 +569,21 @@
 				"position": "Studentische Hilfskraft",
 				"description": "Josafat-Mattias studiert derzeit im Bachelorstudiengang IT-Systems Engineering am Hasso-Plattner-Institut. Zuvor hat er bereits einen Bachelorabschluss in Biologie erworben. Seit April 2019 unterstützt er das Team der HPI Schul-Cloud als Fullstack-Entwickler. In seiner Freizeit beschäftigt er sich mit Fotografie und spielt gern Fussball.",
 				"pictureUrl": "/images/team/josafat-mattias_burmeister.jpeg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Marcel",
+				"lastName": "Garus",
+				"position": "Studentische Hilfskraft",
+				"description": "Marcel Garus studiert Bachelor IT-Systems Engineering am HPI und entwickelt seit Mitte 2019 die Flutter-Version der Schul-Cloud-App. Privat entwickelt er gerne OpenSource-Projekte, spielt Klavier und schaut mit anderen zusammen Serien auf Netflix.",
+				"pictureUrl": "/images/team/marcel_garus.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -652,21 +684,6 @@
 			},
 			{
 				"title": "",
-				"firstName": "Maxim",
-				"lastName": "Renz",
-				"position": "Studentische Hilfskraft",
-				"description": "Maxim studiert Angewandte Informatik im Bachelor an der Universität Duisburg-Essen. 2018 arbeitete er am HPI im Projekt der OpenWHO-Plattform. Im Team HPI Schul-Cloud arbeitet er seit Januar 2019 an der Entwicklung des automatisierten Cross-Browser-Testings. In seiner Freizeit kocht & isst er gerne, beschäftigt sich mit KFZ-Design & Technologie und fährt gelegentlich Rennrad.",
-				"pictureUrl": "/images/team/Maxim_Renz.JPG",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
 				"firstName": "Sebastian",
 				"lastName": "Serth",
 				"position": "Student",
@@ -714,7 +731,7 @@
 	},
 	{
 		"name": "Weitere Mitarbeiter",
-		"style": "small",
+		"size": "small",
 		"team": [
 			{
         "title": "",
@@ -795,8 +812,24 @@
 	},
 	{
 		"name": "Alumni",
-		"style": "small",
+		"size": "small",
+		"style": "primary",
 		"team": [
+			{
+				"title": "",
+				"firstName": "Paul",
+				"lastName": "Arndt",
+				"position": "Ehem. Masterstudent",
+				"description": "Paul hat seine Masterarbeit im Projekt HPI Schul-Cloud geschrieben. In seinem Studium konzentrierte er sich neben der Webentwicklung auf Design Thinking und Machine Learning. Für seine Masterarbeit beschäftigte er sich hauptsächlich mit Chancengleichheit in der Schule durch Binnendifferenzierung und kooperatives Lernen. Technisch bedeutete dies die Schaffung eines neuen Editors mit eingebauter Unterstützung für Gruppenarbeit und die in der Praxis angewandten didaktischen Methoden. Neben dem Studium schreibt Paul gerne an eigenen Geschichten oder erklettert die Boulderwände Berlins und Potsdams.",
+				"pictureUrl": "/images/team/paul_arndt.png",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
 			{
 				"title": "",
 				"firstName": "Raoul",
