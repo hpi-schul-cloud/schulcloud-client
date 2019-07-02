@@ -8,7 +8,7 @@
     {{#content "page"}}
         <div class="row">
             <div class="col-xl-12">
-                <form id="user-form" method="post" action="{{action}}">
+                <form id="user-form" class="{{#unless editTeacher}}is-student{{/unless}}" method="post" action="{{action}}">
 
                     <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
                     <input name="displayName" type="hidden" value="{{user.displayName}}" disabled/>
