@@ -31,10 +31,7 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="form-group">
-                        <label>Username: <sup>*</sup></label>
-                        <input class="form-control" disabled="true" placeholder="Benutzername" name="displayName" type="text" value="{{user.displayName}}"/>
-                    </div>-->
+
 
             <div class="form-group">
                 <label>E-Mail-Adresse: <sup>*</sup></label>
@@ -49,18 +46,18 @@
                     name="birthday" type="text" required value="{{dateToPicker user.birthday}}" />
             </div>
             {{/unless}}
-            <label for="password">Passwort vergeben: <sup>*</sup></label>
-            <input id="passwd" type="text" name="passwd" value={{password}} class="form-control linked"
-                placeholder="***************" required>
-
+            <div class="form-group">
+                <label for="password">Passwort vergeben: <sup>*</sup></label>
+                <input id="passwd" type="text" name="passwd" value={{password}} class="form-control linked"
+                    placeholder="***************" required>
+            </div>
             <div class="form-group">
                 <b>Du erteilst folgende Einwilligungen im Namen des Nutzers: </b><br>
                 <div class="row" id="consents-overview">
 
                     {{#unless editTeacher}}
                     <div class="col-md-6">
-                        <b>Für Schüler unter 16 Jahren: </b>
-                        <b>Einverständnis der Eltern</b><br />
+                        Für Schüler unter 16 Jahren: Einverständnis der Eltern<br />
                         <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" readonly />
 
                         <label><input name="parent_form" value="analog" type="radio" readonly checked /> Analog</label>
@@ -72,16 +69,17 @@
                             Nutzung</label><br />
                     </div>
                     <div class="col-md-6">
-                        <b>Für Schüler ab 14 Jahren: </b>
-                        <b>Einverständnis des Schülers</b><br />
+                        Für Schüler ab 14 Jahren: Einverständnis des Schülers<br />
                         <input name="student_consentId" type="hidden" value="{{consent._id}}" readonly />
 
                         <label><input name="student_form" value="analog" type="radio" readonly checked /> Analog</label>
                         <label><input name="student_form" value="digital" type="radio" readonly /> Digital</label>
                         <br />
-                        <label><input name="privacyConsent" type="checkbox" value="true" data-force-value="true" readonly checked />
+                        <label><input name="privacyConsent" type="checkbox" value="true" data-force-value="true"
+                                readonly checked />
                             Datenschutz</label><br />
-                        <label><input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true" readonly checked />
+                        <label><input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true"
+                                readonly checked />
                             Nutzung</label><br />
                     </div>
                     {{else}}
@@ -93,35 +91,36 @@
                         <br />
                         <label><input name="privacyConsent" type="checkbox" data-force-value="true" readonly checked />
                             Datenschutz</label><br />
-                        <label><input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true" readonly checked />
+                        <label><input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true"
+                                readonly checked />
                             Nutzung</label><br />
                     </div>
                     {{/unless}}
                 </div>
-            </div>
-            <div class="row">
-                <div class="modal-footer w-100">
-
-
-                    <button class="btn btn-secondary btn-cancel">
-                        {{closeLabel}}
-                    </button>
-
-                    <button type="submit" class="btn btn-primary btn-submit">
-                        {{submitLabel}}
-                    </button>
-                </div>
-            </div>
-        </form>
-        {{#if schoolUsesLdap}}
-        {{> "lib/ldap-info"}}
-        {{/if}}
-
-
-        {{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}
-
-
     </div>
+    <div class="row">
+        <div class="modal-footer w-100">
+
+
+            <button class="btn btn-secondary btn-cancel">
+                {{closeLabel}}
+            </button>
+
+            <button type="submit" class="btn btn-primary btn-submit">
+                {{submitLabel}}
+            </button>
+        </div>
+    </div>
+    </form>
+    {{#if schoolUsesLdap}}
+    {{> "lib/ldap-info"}}
+    {{/if}}
+
+
+    {{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}
+
+
+</div>
 </div>
 
 {{/content}}

@@ -816,8 +816,14 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 
 const parseDate = (input) => {
 	const parts = input.match(/(\d+)/g);
-	// note parts[1]-1
 	return new Date(parts[2], parts[1] - 1, parts[0]);
+};
+
+const startPwGen = () => {
+	const words = ['auto', 'baum', 'bein', 'blumen', 'flocke', 'frosch', 'halsband', 'hand', 'haus', 'herr', 'horn',
+		'kind', 'kleid', 'kobra', 'komet', 'konzert', 'kopf', 'kugel', 'puppe', 'rauch', 'raupe', 'schuh', 'seele',
+		'spatz', 'taktisch', 'traum', 'trommel', 'wolke'];
+	return words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 98) + 1).toString();
 };
 
 const skipRegistration = (req, res, next) => {
@@ -1247,18 +1253,15 @@ router.get(
 	'/students/:id/skipregistration',
 	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
 	(req, res, next) => {
-		const userPromise = api(req).get(`/users/${req.params.id}`);
-		const passwordPromise = api(req).get('/accounts/pwgen?readable=true', {});
-
-		Promise.all([userPromise, passwordPromise])
-			.then(([user, password]) => {
+		api(req).get(`/users/${req.params.id}`)
+			.then((user) => {
 				res.render('administration/users_skipregistration', {
 					title: 'Einwilligungen erteilen',
 					action: `/administration/students/${user._id}/skipregistration`,
 					submitLabel: 'Einwilligung erteilen',
 					closeLabel: 'Abbrechen',
 					user,
-					password,
+					password: startPwGen(),
 					referrer: req.header('Referer'),
 				});
 			})
@@ -1580,38 +1583,58 @@ router.get(
   CLASSES
 */
 const skipRegistrationClass = async (req, res, next) => {
-	let students = await getUsersWithoutConsent(req, 'student', req.params.classId);
-	students = students.filter((obj) => {
-		if (obj.birthday && obj.importHash) return true;
-		return false;
-	});
-	const passwordPromises = students.map(async () => api(req).get('/accounts/pwgen?readable=true', {}));
-	const passwords = await Promise.all(passwordPromises);
-	const changePromises = students.map(async (student, i) => {
-		api(req).post(`/users/${student._id}/skipregistration`, {
+	const {
+		userids,
+		birthdays,
+		passwords,
+		emails,
+		fullnames,
+	} = req.body;
+	if (!(userids && birthdays && passwords && emails && fullnames)) {
+		req.session.notification = {
+			type: 'danger',
+			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
+		};
+		res.redirect(req.body.referrer);
+		return;
+	}
+	if (!((userids.length === birthdays.length) && (birthdays.length === passwords.length))) {
+		req.session.notification = {
+			type: 'danger',
+			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
+		};
+		res.redirect(req.body.referrer);
+		return;
+	}
+	const changePromises = userids.map(async (userid, i) => {
+		api(req).post(`/users/${userid}/skipregistration`, {
 			json: {
 				password: passwords[i],
 				parent_privacyConsent: true,
 				parent_termsOfUseConsent: true,
 				privacyConsent: true,
 				termsOfUseConsent: true,
-				birthday: student.birthday,
+				birthday: parseDate(birthdays[i]),
 			},
 		});
 	});
 	Promise.all(changePromises).then(() => {
-		const result = students.map((student, i) => ({
-			email: student.email,
+		const result = userids.map((student, i) => ({
+			email: emails[i],
 			password: passwords[i],
-			fullname: `${student.firstName} ${student.lastName}`,
+			fullname: fullnames[i],
 		}));
 		res.render('administration/users_registrationcomplete', {
 			title: 'Einwilligungen erfolgreich erteilt',
 			submitLabel: 'Schließen',
 			users: result,
 		});
-	}).catch((e) => {
-		res.json(e);
+	}).catch(() => {
+		req.session.notification = {
+			type: 'danger',
+			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
+		};
+		res.redirect(req.body.referrer);
 	});
 };
 
@@ -1920,6 +1943,30 @@ router.post(
 	'/classes/:classId/skipregistration',
 	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
 	skipRegistrationClass,
+);
+
+router.get(
+	'/classes/:classId/skipregistration',
+	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
+	async (req, res, next) => {
+		let students = await getUsersWithoutConsent(req, 'student', req.params.classId);
+		students = students.filter((obj) => {
+			if (obj.importHash) return true;
+			return false;
+		});
+		const passwords = students.map(() => (startPwGen()));
+		const renderUsers = students.map((student, i) => ({
+			fullname: `${student.firstName} ${student.lastName}`,
+			id: student._id,
+			email: student.email,
+			birthday: student.birthday,
+			password: passwords[i],
+		}));
+		res.render('administration/classes_skipregistration', {
+			title: 'Einverständis erklären',
+			students: renderUsers,
+		});
+	},
 );
 
 router.post(
