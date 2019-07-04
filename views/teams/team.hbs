@@ -26,7 +26,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu dropdown-menu-team">
                     <a href="/teams/{{_id}}/members" class="dropdown-item">
-                        <i class="fa fa-users" aria-hidden="true"></i> Teammitglieder verwalten
+                        <i class="fa fa-users" aria-hidden="true"></i> Teammitglieder {{#inArray "ADD_SCHOOL_MEMBERS" permissions}}verwalten{{/inArray}}
                     </a>
                     {{#userHasPermission "TEAM_EDIT"}}
                         {{#inArray "RENAME_TEAM"../ permissions}}
