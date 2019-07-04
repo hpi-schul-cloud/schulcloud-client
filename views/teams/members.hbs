@@ -97,13 +97,13 @@
                 {{#content "fields"}}
                     {{> "teams/forms/form-delete-invitation"}}
                 {{/content}}
-            {{/embed}}            
+            {{/embed}}
 
             {{#embed "lib/components/modal-form" action=resendInvitationAction class="resend-invitation-modal"}}
                 {{#content "fields"}}
                     {{> "teams/forms/form-resend-invitation"}}
                 {{/content}}
-            {{/embed}}            
+            {{/embed}}
 
             {{#inArray "TEAM_INVITE_EXTERNAL" rolePermissions }}
                 {{#embed "lib/components/modal-form" action=inviteExternalMemberAction class="invite-external-member-modal"}}
