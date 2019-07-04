@@ -86,9 +86,11 @@
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
-                                <li class="breadcrumb-item {{this.class}}">
-                                    <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
-                                </li>
+                                {{#if this.title}}
+                                    <li class="breadcrumb-item {{this.class}}">
+                                        <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
+                                    </li>
+                                {{/if}}
                             {{/each}}
                         </ol>
                     {{/if}}
