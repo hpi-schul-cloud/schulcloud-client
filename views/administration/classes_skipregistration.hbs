@@ -5,12 +5,18 @@
 
 {{#content "page"}}
 <p>
-    Du kannst auf dieser Seite im Namen deiner Schüler das Einverständnis zur <a href="{{@root.theme.documents.baseDir}}{{@root.theme.documents.privacy}}" target="_blank">Datenschutzerklärung</a> 
-    und zur <a href="{{@root.theme.documents.baseDir}}{{@root.theme.documents.termsOfUse}}" target="_blank">Nutzungsordnung</a> der {{@root.theme.short_title}} erklären. <br>
-    Durch den Klick auf <i>Einverständnis im Namen der Schüler erklären</i> bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast. <br>
-    Auf der nächsten Seite erhältst Du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für Deine Schüler auszudrucken. 
+    Du kannst auf dieser Seite im Namen deiner Schüler das Einverständnis zur <a
+        href="{{@root.theme.documents.baseDir}}{{@root.theme.documents.privacy}}"
+        target="_blank">Datenschutzerklärung</a>
+    und zur <a href="{{@root.theme.documents.baseDir}}{{@root.theme.documents.termsOfUse}}"
+        target="_blank">Nutzungsordnung</a> der {{@root.theme.short_title}} erklären. <br>
+    Durch den Klick auf <i>Einverständnis im Namen der Schüler erklären</i> bestätigst du, dass du das Einverständnis
+    der Schüler bzw. deren Eltern auf anderem Wege erhalten hast. <br>
+    Auf der nächsten Seite erhältst Du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit
+    einer Anleitung für Deine Schüler auszudrucken.
 </p>
 <form method="POST">
+    {{#if students}}
     <table class="table table-hover table-bordered">
         <tr>
             <th>Name</th>
@@ -21,31 +27,41 @@
         {{#each students}}
         <tr>
             <td>
-                <input name="fullnames" type="text" class="form-control linked" data-force-value="true" value="{{fullname}}" readonly required />
+                <input name="fullnames" type="text" class="form-control linked" data-force-value="true"
+                    value="{{fullname}}" readonly required />
             </td>
             <td>
-                <input name="emails" type="text" class="form-control linked" data-force-value="true" value="{{email}}" readonly required />
+                <input name="emails" type="text" class="form-control linked" data-force-value="true" value="{{email}}"
+                    readonly required />
                 <input name="userids" type="hidden" data-force-value="true" value="{{id}}" />
             </td>
             <td>
-                <input class="form-control linked" data-date
-                    data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}"
-                    name="birthdays" type="text" required {{#if birthday}}value="{{dateToPicker birthday}}"{{/if}} />
+                <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}"
+                    data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthdays" type="text" required
+                    {{#if birthday}}value="{{dateToPicker birthday}}" {{/if}} />
             </td>
             <td>
-                <input type="text" name="passwords" class="form-control linked" value={{password}} placeholder="***************"
-                    required>
+                <input type="text" name="passwords" class="form-control linked" value={{password}}
+                    placeholder="***************" required>
             </td>
         </tr>
         {{/each}}
     </table>
-    <button class="btn btn-secondary btn-cancel">
-                        Abbrechen
-                    </button>
-
-                    <button type="submit" class="btn btn-primary btn-submit">
-                        Einverständnis im Namen der Schüler erklären
-                    </button>
+    {{else}}
+    <b>In dieser Klasse gibt es keine fehlenden Einvserständniserklärungen. </b>
+    {{/if}}
+    <div class="modal-footer w-100">
+        <button class="btn btn-secondary btn-cancel">
+            Abbrechen
+        </button>
+        {{#if students}}
+        <button type="submit" class="btn btn-primary btn-submit">
+            Einverständnis im Namen der Schüler erklären
+        </button>
+        {{/if}}
+    </div>
 </form>
+
+{{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}
 {{/content}}
 {{/extend}}

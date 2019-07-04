@@ -1326,7 +1326,7 @@ router.all(
 							icon: 'edit',
 						},
 					];
-					if (user.consent.consentStatus !== 'ok') {
+					if (user.importHash) {
 						userRow.push({
 							link: `/administration/students/${user._id}/skipregistration`,
 							title: 'Einwilligung erteilen',
