@@ -8,6 +8,9 @@ iFrameListen();
 var $contactHPIModal;
 var $contactAdminModal;
 
+var $contactHPIModal;
+var $contactAdminModal;
+
 if (window.opener && window.opener !== window) {
     window.isInline = true;
 }
@@ -43,16 +46,17 @@ function sendFeedback(modal, e) {
     let fmodal = $(modal);
     e.preventDefault();
 
-    let type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
-
-    let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
+	const type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
+	const subject = (type === 'contactHPI') ? 'Feedback' : `Problem ${fmodal.find('#title').val()}`;
+	const title = fmodal.find('#wishTitle').val() || fmodal.find('#problemTitle').val();
 
     $.ajax({
         url: '/helpdesk',
         type: 'POST',
         data: {
-            type: type,
-            subject: subject,
+			type,
+			subject,
+			title,
             category: fmodal.find('#category').val(),
             role: fmodal.find('#role').val(),
             desire: fmodal.find('#desire').val(),
@@ -119,10 +123,9 @@ $(document).ready(function () {
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
-
         $($contactAdminModal).appendTo('body').modal('show');
     });
-
+    
     $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
 
     $modals.find('.close, .btn-close').on('click', function () {
@@ -237,7 +240,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 });
                 document.getElementById("acceptance_criteria").required = false;
             }
-        }
+        };
     }
 });
 
@@ -291,4 +294,16 @@ window.addEventListener("load", () => {
         }
     }
     document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
+});
+
+document.querySelectorAll('#main-content a').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (a.querySelector('img, .fa') == null && href) {
+        if (!(href.startsWith('https://schul-cloud.org') || href.startsWith('#') || href.startsWith('/') || href === '')) {
+            if (!a.getAttribute('target')) {
+                a.setAttribute('target', '_blank');
+            }
+            a.classList.add('externalLink');
+        }
+    }
 });

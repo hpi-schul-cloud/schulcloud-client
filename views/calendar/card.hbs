@@ -1,0 +1,101 @@
+<style>
+.events-card p {
+  margin-bottom: 0;
+}
+.events-card .date-info {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+}
+.badge-secondary {
+    color: #fff;
+    background-color: #6c757d;
+}
+.badge {
+    display: inline-block;
+    min-width: 4em;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+.list-inline-item {
+  font-size: small;
+}
+.m-0 {
+  margin: 0;
+}
+
+.valign-wrapper{
+  display: flex;
+  flex-direction: row;
+}
+
+.valign-wrapper .date-info {
+  display: flex;
+  align-items: center;
+  flex-flow: row;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.events-card {
+  padding: 0 16px;
+}
+
+.events-card .valign-wrapper {
+  min-height: 80px;
+}
+
+.events-card .event-title {
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  flex-flow: column;
+  padding-left: 16px;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+i.ml-auto {
+  color: rgba(0, 0, 0, 0.26);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+</style>
+
+<div data-event="{{json event}}" class="col-sm-12 events-card">
+  <div class="valign-wrapper">
+    <div class="date-info">
+      <div class="h4"><span class="badge badge-secondary">{{event.day}} {{event.month}}</span></div>
+    </div>
+    <div class="event-title">
+      <span class="event-title-text">{{event.title}}</span>
+      <span>
+        <ul class="list-inline m-0">
+          <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> {{event.dayOfTheWeek}}</li>
+          <li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i> {{event.fromTo}}</li>
+          {{#if event.location}}
+            <li class="list-inline-item"><i class="fa fa-location-arrow" aria-hidden="true"></i> {{event.location}}</li>
+          {{/if}}
+        </ul>
+      </span>
+      <span class="card-description">{{event.description}}</span>
+    </div>
+    {{#if canEdit}}
+    <i style="cursor: pointer; font-size: 18px" class="ml-auto btn-edit-event fa fa-edit"></i>
+    {{/if}}
+  </div>
+</div>

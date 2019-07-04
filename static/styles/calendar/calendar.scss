@@ -16,6 +16,8 @@
 
             .fc-content {
                 padding: 5px;
+                color: $colorWhite;
+                background: $colorSemiTransparent;
 
                 .fc-title {
                     font-weight: 600;
@@ -87,7 +89,7 @@
     }
 }
 
-.create-course-event {
+.create-course-event, .create-team-event {
     label {
         margin-right: 0.5rem;
     }

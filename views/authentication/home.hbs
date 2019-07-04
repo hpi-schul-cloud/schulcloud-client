@@ -1,7 +1,7 @@
-{{#extend "lib/default"}}
+{{#extend "lib/loggedout"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/authentication/home.css"/>
+        <link rel="stylesheet" href="/styles/homepage/index.css"/>
         <link rel="stylesheet" href="/vendor/introjs/introjs.min.css" />
     {{/content}}
 
@@ -14,173 +14,190 @@
         <script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
     {{/content}}
 
-    {{#content "body"}}
-        {{#embed "lib/header"}}{{/embed}}
-        <div class="container">
-            <div class="row">
-                <main class="col-md-8">
-                    <div class="hidden-md-up">
-                        {{> "authentication/forms/login"}}
-                        {{> "authentication/forms/demo-login"}}
+    {{#content "page"}}
+
+        {{#embed "authentication/section"}}
+            {{#content "body"}}
+                <div class="rows-2">
+                    <div>
+                        <h1 class="h2 section-title">
+                            Herzlich Willkommen bei der <span style="white-space: nowrap;">HPI Schul-Cloud!</span>
+                        </h1>
+                        <p>Das <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
                     </div>
 
-                    <section class="card">
-                        <div class="card-block">
-                            <div class="intro" data-step="1" data-intro="Hier kannst du einen Überblick über die Vorteile der Arbeit mit der HPI Schul-Cloud einsehen. Außerdem erhälst du hier allgemeine Informationen über unser Projekt.">
-
-                            <h4>Herzlich willkommen bei der HPI Schul-Cloud !</h4>
-                            <p>Das  <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
-                            <video-player
-                                configuration='{
-                                    "streams" : [
-                                      {
-                                        "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hd/video.mp4",
-                                        "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/sd/video.mp4",
-                                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg",
-                                        "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hls/video.m3u8"
-                                      }
-                                    ],
-                                    "language": "de",
-                                    "theme" : "dark-red",
-                                    "initialState": {
-                                      "volume": 0.75,
-                                      "quality" : "hls",
-                                      "playbackRate" : 1.0
-                                    },
-                                    "videoPreload": false,
-                                    "userPreferences" : {
-                                    },
-                                    "slides": []
-                                }'>
-                            </video-player>
-
-
-                            <ul>
-                                <li>Mehr Informationen: <a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/publikationen/projekte/schul-cloud_beschreibung_website.pdf" title="Initiates file download" target="_blank">Kurzbeschreibung "Die HPI Schul-Cloud" (.pdf)</a></li>
-                            </ul>
-
-                            <h4>Niedrigschwelliger Zugang zu digitalen Unterrichtsinhalten</h4>
-                            <p>Eine moderne Lehr- und Lerninfrastruktur ist unabdingbar, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalen Gesellschaft vorzubereiten.</p>
-
-                            <h4>Ansatzpunkte der HPI Schul-Cloud</h4>
-                            <p>Die Nutzung digitaler Medien und Lernmethoden stellt viele Schulen noch vor große Herausforderungen: veraltete Hard- sowie Software im abgeschlossenen Computerraum, fächverbindender Einsatz kaum möglich uvm.</p>
-
-                            <h4>Die Grundidee der HPI Schul-Cloud</h4>
-                            <p>Webbasierte Anwendungen sowie Rechenressourcen und Speichermöglichkeiten per Cloud Computing ermöglichen einen effizienten Zugriff auf zeitgemäße IT-Dienste für einen großen Kreis an Nutzer/innen.</p>
-                            <p>Der spontane, bedarfsgerechte Einsatz in jedem beliebigen Unterrichtsfach wird dadurch erleichtert. Die aufwendige Installation von Software auf einzelnen Endgeräten der Nutzer/innen entfällt.</p>
-                            <p>Sämtliche Programme und das Benutzerprofil werden via Internet zur Verfügung gestellt. Um Zugang zu den digitalen Inhalten zu erlangen, braucht es lediglich einen Internetzugang, webfähige Anzeige- und Eingabegeräte, einen modernen Webbrowser sowie entsprechende Berechtigungen.</p>
-                            <p>Die Bereitstellung der HPI Schul-Cloud ist ein entscheidender Schritt, um die Nutzung digitaler Medien in der Schule flächendeckend voranzubringen.</p>
-                            <ul>
-                                <li>Mehr Informationen: <a href="https://publishup.uni-potsdam.de/opus4-ubp/files/10385/tbhpi116.pdf" title="Initiates file download" target="_blank">Technischer Bericht "Die HPI Schul-Cloud" (.pdf)</a></li>
-                            </ul>
-                            <br />
-                            <!-- TODO: use a red theme as soon as available -->
-                            <video-player
-                                configuration='{
-                                    "streams" : [
-                                      {
-                                        "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hd/video.mp4",
-                                        "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/sd/video.mp4",
-                                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/explainer-poster.jpg",
-                                        "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hls/video.m3u8"
-                                      }
-                                    ],
-                                    "language": "de",
-                                    "theme" : "dark-red",
-                                    "initialState": {
-                                      "volume": 0.75,
-                                      "quality" : "hls",
-                                      "playbackRate" : 1.0
-                                    },
-                                    "videoPreload": false,
-                                    "userPreferences" : {
-                                    },
-                                    "slides": []
-                                }'>
-                            </video-player>
-
-                            <h4>Vorteile der HPI Schul-Cloud</h4>
-                            <ul>
-                                <li>Zeit- und ortsunabhängiger Zugang zu einem großen Angebot an digitalen Lerninhalten</li>
-                                <li>Digitale Bildung jenseits separater Computerräume</li>
-                                <li>Professionelle Wartung</li>
-                                <li>Ständige Verfügbarkeit neuester Software für Lehrer/innen und Schüler/innen</li>
-                                <li>IT-Anwendungen entsprechen aktuellsten Sicherheitsstandards</li>
-                                <li>Anlaufstelle für neue digitale Lernangebote</li>
-                                <li>Direktes Feedback durch die Nutzer/innen</li>
-                                <li>Anregung zu selbstbestimmtem Lernen</li>
-                                <li>Bereitstellung eigens entworfener Lernangebote</li><li>Erweiterung der Unterrichtsmethoden</li><li>Vernetzung unterschiedlicher Lernorte</li>
-                            </ul>
-                        <div>
-                    </section>
-                </main>
-                <aside class="col-md-4">
-                    <div class="hidden-sm-down">
-                        {{> "authentication/forms/demo-login"}}
+                    <div>
                         {{> "authentication/forms/login"}}
                     </div>
+                </div>
+                {{> "authentication/forms/demo-login"}}
 
-                     <section id="jobs" class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Stellenausschreibungen</h4>
-                            <div class="form-group">
-                                Du möchtest gerne Mitglied in unserem HPI Schul-Cloud Team werden? Wir suchen:
-                            </div>
-                            <a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/frontend-web-developer-mwd-im-projekt-hpi-schul-cloud.html" rel="noopener" target="_blank">Frontend Web Developer</a></br>
-                            <a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/web-developer-im-projekt-schul-cloud.html" rel="noopener" target="_blank">Web Developer</a></br>
-                            <a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/community-manager-mwd-im-projekt-hpi-schul-cloud.html" rel="noopener" target="_blank">Community Manager</a>
-                        </div>
-                    </section>
+                {{!--
+                    {{> "authentication/forms/login"}}
+                    {{> "authentication/forms/demo-login"}}
+                --}}
+            {{/content}}
+        {{/embed}}
 
-                    <section id="newsletter" class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Newsletter</h4>
-                            <div class="form-group">
-                                Alle Neuigkeiten rund um die HPI Schul-Cloud bequem in Ihrem Postfach:
-                            </div>
-                            <a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank" class="btn btn-block btn-primary">Newsletter abonnieren</a>
-                        </div>
-                    </section>
+        {{#embed "authentication/section" style="primary" class="content-width-max"}}
+            {{#content "body"}}
+                <video-player
+                    configuration='{
+                        "streams" : [
+                            {
+                            "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hd/video.mp4",
+                            "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/sd/video.mp4",
+                            "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg",
+                            "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hls/video.m3u8"
+                            }
+                        ],
+                        "language": "de",
+                        "theme" : "dark-red",
+                        "initialState": {
+                            "volume": 0.75,
+                            "quality" : "hls",
+                            "playbackRate" : 1.0
+                        },
+                        "videoPreload": false,
+                        "userPreferences" : {
+                        },
+                        "slides": []
+                    }'>
+                </video-player>
+            {{/content}}
+        {{/embed}}
 
-                    <section id="blogfeed" class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">HPI Schul-Cloud Blog</h4>
-                            <ul class="list-group list-group-flush">
-                                {{#each blogFeed}}
-                                    <li class="list-group-item">
-                                        <a href="{{this.link}}" target="scblog">
-                                            {{this.title}}
-                                        </a></br>
-                                        <small>von {{this.dc:creator}} am {{this.pubDate}}</small>
-                                    </li>
-                                {{else}}
-                                    <p>Der Blog ist derzeit deaktiviert! Das HPI Schul-Cloud Team kümmert sich darum.</p>
-                                {{/each}}
-                            </ul>
-                            <a href="https://blog.schul-cloud.org" target="scblog" class="card-link pull-right pt-1">weitere Artikel <i class="fa  fa-angle-double-right" aria-hidden="true"></i></a>
-                        </div>
-                    </section>
+        {{#embed "authentication/section" class="grix-2x2"}}
+            {{#content "body"}}
+                <img alt="" width="200px" style="grid-area: a; object-fit: contain; margin: 0 auto" src="/images/login-left.png"/>
+                <div style="grid-area: b; margin: 0 auto;" class="content-width-max">
+                    <h2 class="h3 section-title">Niedrigschwelliger Zugang zu digitalen Unterrichtsinhalten</h2>
+                    <p>Eine moderne Lehr- und Lerninfrastruktur ist unabdingbar, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalen Gesellschaft vorzubereiten.</p>
+                </div>
+                <img alt="" width="150px" style="grid-area: c; object-fit: contain; margin: 0 auto" src="/images/login-right.png"/>
+                <div style="grid-area: d; margin: 0 auto;" class="grid-align-right content-width-max">
+                    <h2 class="h3 section-title">Ansatzpunkte der <span style="white-space: nowrap;">HPI Schul-Cloud</span></h2>
+                    <p>Die Nutzung digitaler Medien und Lernmethoden stellt viele Schulen noch vor große Herausforderungen: veraltete Hard- sowie Software im abgeschlossenen Computerraum, fächverbindender Einsatz kaum möglich uvm.</p>
+                </div>
+            {{/content}}
+        {{/embed}}
 
-                    <section id="partner" class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Projektdurchführung</h4>
-                            <div class="card-text partner-img">
-                                <a href="https://hpi.de" target="_blank">
-                                    <img src="/images/partner/hpi-logo.jpg" alt="Logo HPI" class="img-fluid" style="padding: 20px;">
-                                </a>
-                                <a href="https://www.mint-ec.de/" target="_blank">
-                                    <img src="/images/partner/mintec-logo.jpg" alt="Logo MINT-EC" class="img-fluid">
-                                </a>
-                                <a href="https://www.bmbf.de/" target="_blank">
-                                    <img src="/images/partner/bmbf-logo.jpg" alt="Logo BMBF" class="img-fluid">
-                                </a>
-                            </div>
-                        </div>
-                    </section>
-                </aside>
+        {{#embed "authentication/section" style="accent" class="content-width-max"}}
+            {{#content "body"}}
+                <h2 class="h3 section-title center">Die Grundidee der <span style="white-space: nowrap;">HPI Schul-Cloud</span></h2>
+                <p>Webbasierte Anwendungen sowie Rechenressourcen und Speichermöglichkeiten per Cloud Computing ermöglichen einen effizienten Zugriff auf zeitgemäße IT-Dienste für einen großen Kreis an Nutzer/innen.</p>
+                <p>Der spontane, bedarfsgerechte Einsatz in jedem beliebigen Unterrichtsfach wird dadurch erleichtert. Die aufwendige Installation von Software auf einzelnen Endgeräten der Nutzer/innen entfällt.</p>
+                <p>Sämtliche Programme und das Benutzerprofil werden via Internet zur Verfügung gestellt. Um Zugang zu den digitalen Inhalten zu erlangen, braucht es lediglich einen Internetzugang, webfähige Anzeige- und Eingabegeräte, einen modernen Webbrowser sowie entsprechende Berechtigungen.</p>
+                <p>Die Bereitstellung der HPI Schul-Cloud ist ein entscheidender Schritt, um die Nutzung digitaler Medien in der Schule flächendeckend voranzubringen.</p>
+                <ul>
+                    <li>Mehr Informationen: <a href="/other/pdf/Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.pdf" title="Initiates file download" target="_blank">Technischer Bericht: "Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland" (.pdf)</a></li>
+                </ul>
+                <div class="text-center">
+                    <a href="/about"class="btn btn-outline btn-white-outlined mt-2">
+                        Über das Projekt
+                    </a>
+                </div>
+            {{/content}}
+        {{/embed}}
+
+        {{#embed "authentication/section" class="content-width-max"}}
+            {{#content "body"}}
+                {{!--
+                <h2 class="section-title center">Was bietet die HPI Schul-Cloud für:</h2>
+                <p>TODO embed tabs</p>
+                --}}
+                <video-player
+                    configuration='{
+                        "streams" : [
+                            {
+                            "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hd/video.mp4",
+                            "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/sd/video.mp4",
+                            "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/explainer-poster.jpg",
+                            "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hls/video.m3u8"
+                            }
+                        ],
+                        "language": "de",
+                        "theme" : "dark-red",
+                        "initialState": {
+                            "volume": 0.75,
+                            "quality" : "hls",
+                            "playbackRate" : 1.0
+                        },
+                        "videoPreload": false,
+                        "userPreferences" : {
+                        },
+                        "slides": []
+                    }'>
+                </video-player>
+            {{/content}}
+        {{/embed}}
+
+        {{#embed "authentication/section" style="primary" class="content-width-max"}}
+            {{#content "body"}}
+                <h2 class="h3 section-title center">Vorteile der <span style="white-space: nowrap;">HPI Schul-Cloud</span></h2>
+                <ul>
+                    <li>Zeit- und ortsunabhängiger Zugang zu einem großen Angebot an digitalen Lerninhalten</li>
+                    <li>Digitale Bildung jenseits separater Computerräume</li>
+                    <li>Professionelle Wartung</li>
+                    <li>Ständige Verfügbarkeit neuester Software für Lehrer/innen und Schüler/innen</li>
+                    <li>IT-Anwendungen entsprechen aktuellsten Sicherheitsstandards</li>
+                    <li>Anlaufstelle für neue digitale Lernangebote</li>
+                    <li>Direktes Feedback durch die Nutzer/innen</li>
+                    <li>Anregung zu selbstbestimmtem Lernen</li>
+                    <li>Bereitstellung eigens entworfener Lernangebote</li><li>Erweiterung der Unterrichtsmethoden</li><li>Vernetzung unterschiedlicher Lernorte</li>
+                </ul>
+            {{/content}}
+        {{/embed}}
+
+        {{#embed "authentication/section" class=""}}
+            {{#content "body"}}
+                <h2 class="h3 section-title center"><span style="white-space: nowrap;">HPI Schul-Cloud</span> Blog</h2>
+                    <div class="blog-cards">
+                        {{#each blogFeed}}
+                            {{> "authentication/blog-card" article=this}}
+                        {{else}}
+                            <p>Der Blog ist derzeit deaktiviert! Das HPI Schul-Cloud Team kümmert sich darum.</p>
+                        {{/each}}
+                    </div>
+                <a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">weitere Artikel anzeigen</a>
+            {{/content}}
+        {{/embed}}
+
+        {{#embed "authentication/section" style="accent" class="content-width-max"}}
+            {{#content "body"}}
+            <div style="text-align: center;">
+                <h2 class="h3 section-title center" style="max-width: 20ch; margin: 0 auto;">
+                    Alle Neuigkeiten rund um die <span style="white-space: nowrap;">HPI Schul-Cloud</span> bequem in Ihrem Postfach:
+                </h2>
+                <a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank" class="btn btn-outline btn-white-outlined mt-2">
+                    Newsletter abonnieren
+                </a>
             </div>
-        </div>
-        {{#embed "lib/extended_footer"}}{{/embed}}
+            {{/content}}
+        {{/embed}}
+
+
+        {{#embed "authentication/section" class=""}}
+            {{#content "body"}}
+            <div style="text-align: center;">
+                <h2 class="h3 section-title center">
+                    Projektdurchführung
+                </h2>
+                <div class="partners row">
+                    <a class="col-sm py-1" href="https://hpi.de/open-campus/hpi-initiativen/schul-cloud.html" target="_blank" rel="noopener">
+                        <img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/hpi-logo.jpg" alt="Logo HPI" class="partner">
+                    </a>
+                    <a class="col-sm py-1" href="https://www.mint-ec.de/" target="_blank" rel="noopener">
+                        <img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/mintec-logo.jpg" alt="Logo MINT-EC" class="partner">
+                    </a>
+                    <a class="col-sm py-1" href="https://www.bmbf.de/" target="_blank" rel="noopener">
+                        <img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/bmbf-logo.jpg" alt="Logo BMBF" class="partner">
+                    </a>
+                </div>
+            </div>
+            {{/content}}
+        {{/embed}}
+
         {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
             {{#content "fields"}}
                 {{> "authentication/forms/pwrecovery"}}

@@ -19,11 +19,11 @@
       <div class="dropdown dropdown-course minimal-button">
         <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
           <h4 id="page-title" class="course-headline">{{{stripOnlyScript ../name}}}</h4>
-          <i class="fa fa-cog"></i>
+          <i class="fa fa-cog i-cog"></i>
         </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-menu-course">
+        <div class="dropdown-menu dropdown-menu dropdown-menu-course">
           <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
-            <i class="fa fa-edit" aria-hidden="true"></i> Kurs bearbeiten
+            <i class="fa fa-edit" aria-hidden="true"></i> Kurs bearbeiten/löschen
           </a>
           <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
             <i class="fa fa-envelope" aria-hidden="true"></i> zum Kurs einladen
@@ -53,38 +53,38 @@
     </div>
     <section class="section-course">
       <div class="course-card">
-        <div class="tabContainer">
+        <div class="tabContainer" data-active-tab={{activeTab}}>
           <div class="tabs" data-max-width="1024">
-            <span class="tab" data-tab="a">
-              <span class="text count-badge" data-badge="{{lessons.length}}">Themen</span>
-            </span>
-            <span class="tab" data-tab="b">
-              <span class="text count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}">Aufgaben</span>
-            </span>
-            <span class="tab" data-tab="c">
-              <span class="text count-badge" data-badge="{{ltiToolIds.length}}">Tools</span>
-            </span>
-            <span class="tab" data-tab="d">
-              <span class="text count-badge" data-badge="{{courseGroups.length}}">Gruppen</span>
-            </span>
+            <button class="tab" data-tab="js-topics">
+              <span class="text">Themen <span class="count-badge" data-badge="{{lessons.length}}"/></span>
+            </button>
+            <button class="tab" data-tab="js-homeworks">
+              <span class="text">Aufgaben <span class="count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}"/></span>
+            </button>
+            <button class="tab" data-tab="js-tools">
+              <span class="text">Tools <span class="count-badge" data-badge="{{ltiToolIds.length}}"/></span>
+            </button>
+            <button class="tab" data-tab="js-groups">
+              <span class="text">Gruppen <span class="count-badge" data-badge="{{courseGroups.length}}"/></span>
+            </button>
           </div>
         </div>
         <div class="sectionsContainer">
           <div class="sections">
             <!-- Themen -->
-            <div class="section" data-section="a">
+            <div class="section" data-section="js-topics">
               {{> "courses/components/topics"}}
             </div>
             <!--- Aufgaben -->
-            <div class="section" data-section="b">
+            <div class="section" data-section="js-homeworks">
               {{> "courses/components/tasks"}}
             </div>
             <!-- Tools -->
-            <div class="section" data-section="c">
+            <div name="js-tools-section" name="js-tools" class="section" data-section="js-tools">
               {{> "courses/components/tools"}}
             </div>
             <!-- Gruppen -->
-            <div class="section" data-section="d">
+            <div class="section" data-section="js-groups">
               {{> "courses/components/groups" id=../_id}}
             </div>
           </div>

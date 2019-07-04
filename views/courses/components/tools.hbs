@@ -13,7 +13,7 @@
               <span>{{this.name}}</span>
 
               {{#userHasPermission "TOOL_CREATE" }}
-                <a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank" data-method="DELETE" data-name="{{../name}}">
+                <a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank" data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{../../_id}}/?activeTab=tools">
                   <i class="fa fa-trash-o"></i>
                 </a>
               {{/userHasPermission}}
@@ -21,16 +21,24 @@
           </div>
         {{/each}}
       {{else}}
-        <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-          <span>Noch keine Tools</span>
-        </p>
+        <div class="empty-state">
+          <img src="/images/empty-states/tools.svg" alt="Keine hinzufügten Tools" class="image"/>
+          {{#userHasPermission "TOOL_CREATE" }}
+            <h2 class="h4">Füge dem Kurs Tools hinzu</h2>
+            <p class="text-muted">
+              Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.
+            </p>
+          {{else}}
+            <h2 class="h4 text-muted">Es gibt noch keine Tools in diesem Kurs.</h2>
+          {{/userHasPermission}}
+        </div>
       {{/if}}
     </div>
   </div>
-  <div class="col-sm-12">
+  <div class="col-sm-12 add-button">
     {{#userHasPermission "TOOL_CREATE" }}
-      <a href="/courses/{{../_id}}/tools/add" class="btn btn-primary w-100 pull-right" title="Neues Tool hinzufügen">
-        <i class="fa fa-plus" aria-hidden="true"></i><span> Neues Tool hinzufügen</span></a>
+      <a href="/courses/{{../_id}}/tools/add" class="btn btn-primary {{#if ../ltiToolIds}}w-100{{else}}btn-empty{{/if}}" title="Neues Tool hinzufügen">
+        <span>Füge ein neues Tool hinzu</span></a>
     {{/userHasPermission}}
   </div>
 </div>

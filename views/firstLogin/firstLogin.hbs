@@ -1,0 +1,12 @@
+{{#extend "lib/simple"}}
+{{> "firstLogin/partials/imports"}}
+{{#content "page"}}
+{{#embed "lib/forms/paginatedForm" sections=(arrayLength @root.sections) action="/firstLogin/submit" method="post" submit-label=@root.submitLabel}}
+{{#content "panels"}}
+{{#each @root.sections}}
+{{> (lookup @root.sections @index) section-nr=(add @index 1) submit-page=(isCond (add @index 1) "==" @root.submitPageIndex)}}
+{{/each}}
+{{/content}}
+{{/embed}}
+{{/content}}
+{{/extend}}
