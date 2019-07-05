@@ -863,7 +863,6 @@ const skipRegistration = (req, res, next) => {
 			linktarget: '/administration/students',
 		});
 	}).catch((e) => {
-		console.log(e);
 		req.session.notification = {
 			type: 'danger',
 			message: 'Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ',
@@ -1602,7 +1601,7 @@ const skipRegistrationClass = async (req, res, next) => {
 		res.redirect(req.body.referrer);
 		return;
 	}
-	//fallback if only one user is supposed to be edited
+	// fallback if only one user is supposed to be edited
 	if (typeof (birthdays) === 'string') {
 		userids = [userids];
 		birthdays = [birthdays];
