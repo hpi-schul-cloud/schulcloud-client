@@ -1,6 +1,5 @@
-{{#extend "lib/default"}}
+{{#extend "lib/simple"}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/authentication/home.css"/>
         <link rel="stylesheet" href="/styles/authentication/login.css"/>
     {{/content}}
 
@@ -8,8 +7,7 @@
         <script src="/scripts/pwrecovery.js" type="text/javascript" defer></script>
     {{/content}}
 
-    {{#content "body"}}
-        {{#embed "lib/header"}}{{/embed}}
+    {{#content "page"}}
         <main class="container">
             <div class="row">
                 <div class="col-md-6 offset-md-3">
@@ -50,6 +48,5 @@
                 </div>
             </div>
         </main>
-        {{#embed "lib/extended_footer"}}{{/embed}}
     {{/content}}
 {{/extend}}

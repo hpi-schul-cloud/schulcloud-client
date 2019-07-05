@@ -27,28 +27,36 @@ router.get('/response', (req, res, next) => {
 	res.render('pwRecovery/pwRecoveryResponse');
 });
 
-router.get('/:pwId', function (req, res, next) {
-    api(req).get('/passwordRecovery/' + req.params.pwId, { qs: { $populate: ['account']}}).then(result => {
-        if(result.changed) {
-            let error = new Error('Ihr Passwort wurde bereits über diese URL geändert.');
-            error.status = 400;
-            return next(error);
-        }
-        if((Date.now() - Date.parse(result.createdAt)) >= 86400000) {
-            let error = new Error('Zeit abgelaufen für Passwort Recovery.');
-            error.status = 400;
-            return next(error);
-        }
-        res.render('pwRecovery/pwrecovery', {
-            title: 'Passwort Recovery',
-            subtitle: obscure_email(result.account.username),
-            accountId: result.account._id,
-            resetId: req.params.pwId,
-            action: '/pwrecovery/reset/',
-            buttonLabel: 'Neues Passwort anlegen',
-            inline: true
-        });
-    });
+router.get('/:pwId', (req, res, next) => {
+	api(req)
+		.get(`/passwordRecovery/${req.params.pwId}`, {
+			qs: { $populate: ['account'] },
+		})
+		.then((result) => {
+			if (result.changed) {
+				const error = new Error(
+					'Ihr Passwort wurde bereits über diese URL geändert.'
+				);
+				error.status = 400;
+				throw error;
+			}
+			if (Date.now() - Date.parse(result.createdAt) >= 86400000) {
+				const error = new Error('Zeit abgelaufen für Passwort Recovery.');
+				error.status = 400;
+				throw error;
+			}
+			return res.render('pwRecovery/pwrecovery', {
+				title: 'Passwort Recovery',
+				subtitle: obscure_email(result.account.username),
+				accountId: result.account._id,
+				resetId: req.params.pwId,
+				action: '/pwrecovery/reset/',
+				buttonLabel: 'Neues Passwort anlegen',
+				inline: true,
+				hideMenu: true,
+			});
+		})
+		.catch(next);
 });
 
 router.post('/', (req, res, next) => {
