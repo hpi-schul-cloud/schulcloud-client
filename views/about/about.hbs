@@ -5,7 +5,7 @@
 				<h2 class="section-title center">{{title}}</h2>
             {{/unless}}
             <h3 class="section-title center">Über die HPI Schul-Cloud</h3>
-            <p>Das  <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
+            <p>Das <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
             <ul>
                 <li>Mehr Informationen:
                     <a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/publikationen/projekte/schul-cloud_beschreibung_website.pdf"
@@ -13,43 +13,39 @@
                 </li>
             </ul>
             <br/>
-            <p>Das Projekt HPI Schul-Cloud ist im September 2016 in die 5-monatige Konzeptphase gestartet. Ab Mai 2017 startete die
-                Pilotphase, in der zunächst 27 MINT-EC-Schulen die HPI Schul-Cloud testen und nutzen konnten. Im Mai 2018 begann die Roll-Out-Phase,
-                in der die Nutzung der HPI Schul-Cloud stufenweise auf alle über 300 Schulen aus dem nationalen
-                Excellence-Schulnetzwerks MINT-EC ausgeweitet wird. Derzeit können 100 MINT-EC Pilotschulen die HPI Schul-Cloud testen (Stand Mai 2019). <br/> Auch unser <a
-                        href="https://schul-cloud.org/team">Team</a> wächst stetig!</p>
-        {{/content}}
+            <p>Das Projekt HPI Schul-Cloud ist im September 2016 in die 5-monatige Konzeptphase gestartet. Ab Mai 2017 startete die Pilotphase, in der zunächst 27 MINT-EC-Schulen die HPI Schul-Cloud testen und nutzen konnten. Im Mai 2018 begann die Roll-Out-Phase, in der die Nutzung der HPI Schul-Cloud stufenweise auf alle über 300 Schulen aus dem nationalen Excellence-Schulnetzwerks MINT-EC ausgeweitet wird. Derzeit können 100 MINT-EC Pilotschulen die HPI Schul-Cloud testen (Stand Mai 2019). <br/>
+			Auch unser <a href="https://schul-cloud.org/team">Team</a> wächst stetig!
+			</p>
+			<video-player
+				configuration='{
+					"streams" : [
+						{
+						"hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hd/video.mp4",
+						"sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/sd/video.mp4",
+						"poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg",
+						"hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hls/video.m3u8"
+						}
+					],
+					"language": "de",
+					"theme" : "dark-red",
+					"initialState": {
+						"volume": 0.75,
+						"quality" : "hls",
+						"playbackRate" : 1.0
+					},
+					"videoPreload": false,
+					"userPreferences" : {
+					},
+					"slides": []
+				}'>
+			</video-player>
+		{{/content}}
     {{/embed}}
     {{#embed "authentication/section" style="primary" class="content-width-max"}}
         {{#content "body"}}
             <div class="section-partner">
                 <h3 class="section-title center">Pilotschulen</h3>
                 <p>Best Practice: Auf dem Digitalgipfel 2019 in Nürnberg konnten alle Beteiligten digitalgestützen Unterricht mit der HPI Schul-Cloud live miterleben.</p>
-                <video-player
-                    configuration='{
-                        "streams" : [
-                            {
-                            "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hd/video.mp4",
-                            "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/sd/video.mp4",
-                            "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/thumbnails/video-00-34-40.png",
-                            "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hls/video.m3u8"
-                            }
-                        ],
-                        "language": "de",
-                        "theme" : "dark-red",
-                        "loadFontAwesome" : false,
-                        "videoAlignment" : "height",
-                        "initialState": {
-                            "volume": 0.75,
-                            "quality" : "hls",
-                            "playbackRate" : 1.0
-                        },
-                        "videoPreload": false,
-                        "userPreferences" : {
-                        },
-                        "slides": []
-                    }'>
-                </video-player>
                 <h4>Best Practice Schulen</h4>
 				<div class="row">
 					{{#each schools.bp}}
@@ -178,6 +174,32 @@
                 unterstützt: AG IT, Schulleitung, Unterricht und regionale Netzwerke. <a href="https://www.mint-ec.de/fileadmin/content/schulcloud/Info_Kit.pdf" target="_blank">Hier</a> finden Sie die Ergebnisse aus den verschiedenen Arbeitsgruppen der Pilotphase, die in Form eines Info Kits zusammengefasst sind.</p><br/>
             <p>Wir möchten uns ganz herzlich für die tolle Zusammenarbeit und das große Engagement unserer Pilotschullehrkräfte
                 bedanken!</p>
+
+			<video-player
+				configuration='{
+					"streams" : [
+						{
+						"hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hd/video.mp4",
+						"sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/sd/video.mp4",
+						"poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/thumbnails/video-00-34-40.png",
+						"hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hls/video.m3u8"
+						}
+					],
+					"language": "de",
+					"theme" : "dark-red",
+					"loadFontAwesome" : false,
+					"videoAlignment" : "height",
+					"initialState": {
+						"volume": 0.75,
+						"quality" : "hls",
+						"playbackRate" : 1.0
+					},
+					"videoPreload": false,
+					"userPreferences" : {
+					},
+					"slides": []
+				}'>
+			</video-player>
             {{/content}}
     {{/embed}}
     {{#embed "authentication/section" class="content-width-max"}}

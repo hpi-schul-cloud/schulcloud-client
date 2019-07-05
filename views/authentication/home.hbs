@@ -41,14 +41,14 @@
 
         {{#embed "authentication/section" style="primary" class="content-width-max"}}
             {{#content "body"}}
-                <video-player
+				<video-player
                     configuration='{
                         "streams" : [
                             {
-                            "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hd/video.mp4",
-                            "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/sd/video.mp4",
-                            "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg",
-                            "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hls/video.m3u8"
+                            "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hd/video.mp4",
+                            "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/sd/video.mp4",
+                            "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/explainer-poster.jpg",
+                            "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hls/video.m3u8"
                             }
                         ],
                         "language": "de",
@@ -102,38 +102,6 @@
 
         {{#embed "authentication/section" class="content-width-max"}}
             {{#content "body"}}
-                {{!--
-                <h2 class="section-title center">Was bietet die HPI Schul-Cloud für:</h2>
-                <p>TODO embed tabs</p>
-                --}}
-                <video-player
-                    configuration='{
-                        "streams" : [
-                            {
-                            "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hd/video.mp4",
-                            "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/sd/video.mp4",
-                            "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/explainer-poster.jpg",
-                            "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hls/video.m3u8"
-                            }
-                        ],
-                        "language": "de",
-                        "theme" : "dark-red",
-                        "initialState": {
-                            "volume": 0.75,
-                            "quality" : "hls",
-                            "playbackRate" : 1.0
-                        },
-                        "videoPreload": false,
-                        "userPreferences" : {
-                        },
-                        "slides": []
-                    }'>
-                </video-player>
-            {{/content}}
-        {{/embed}}
-
-        {{#embed "authentication/section" style="primary" class="content-width-max"}}
-            {{#content "body"}}
                 <h2 class="h3 section-title center">Vorteile der <span style="white-space: nowrap;">HPI Schul-Cloud</span></h2>
                 <ul>
                     <li>Zeit- und ortsunabhängiger Zugang zu einem großen Angebot an digitalen Lerninhalten</li>
@@ -149,7 +117,7 @@
             {{/content}}
         {{/embed}}
 
-        {{#embed "authentication/section" class=""}}
+        {{#embed "authentication/section" style="primary" class=""}}
             {{#content "body"}}
                 <h2 class="h3 section-title center"><span style="white-space: nowrap;">HPI Schul-Cloud</span> Blog</h2>
                     <div class="blog-cards">
@@ -163,7 +131,7 @@
             {{/content}}
         {{/embed}}
 
-        {{#embed "authentication/section" style="accent" class="content-width-max"}}
+        {{#embed "authentication/section" class="content-width-max"}}
             {{#content "body"}}
             <div style="text-align: center;">
                 <h2 class="h3 section-title center" style="max-width: 20ch; margin: 0 auto;">
@@ -177,7 +145,7 @@
         {{/embed}}
 
 
-        {{#embed "authentication/section" class=""}}
+        {{#embed "authentication/section" style="accent" class=""}}
             {{#content "body"}}
             <div style="text-align: center;">
                 <h2 class="h3 section-title center">
