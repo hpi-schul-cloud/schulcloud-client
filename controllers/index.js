@@ -43,6 +43,7 @@ router.use('/team', require('./team'));
 router.use('/my-material', require('./my-material'));
 router.use('/logs', require('./logs'));
 router.use('/firstLogin', require('./firstLogin'));
+router.use('/oauth2', require('./oauth2'));
 router.use('/welcome', require('./welcome'));
 router.use('/schools/', require('./schools'));
 router.use('/users/', require('./users'));

@@ -1,0 +1,37 @@
+@import '../../../theme/default/style';
+
+$primary-color: #b10438;
+$color-white: #fff;
+$logo-background-tablet: url('../../images/logo/cloud-transparent-mono-48-48.svg') no-repeat center;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.depseudo {
+  background-color: $primary-color;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  color: $color-white;
+  font-family: 'PT Sans','Helvetica Neue',Helvetica,Arial,'sans-serif';
+  font-size: 1rem;
+  height: 20px;
+  line-height: 1.25;
+  padding: .125rem .25rem;
+  text-align: center;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 170px;
+}
+
+.cloud-logo {
+  background: $logo-background-tablet;
+  background-size: 28px 28px;
+  display: inline-block;
+  height: 20px;
+  margin-bottom: -6px;
+  margin-right: .25rem;
+  width: 24px;
+}

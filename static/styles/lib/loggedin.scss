@@ -188,7 +188,7 @@ aside.nav-sidebar {
                 line-height: 60px;
                 color: $fontColor;
                 padding: 0px 20px;
-                font-size: 14px;
+                font-size: 16px;
                 text-decoration: none;
                 overflow-x: visible;
                 white-space: nowrap;
@@ -308,7 +308,7 @@ header {
 }
 
 .content-min-height {
-    flex:1;
+    flex-grow:1;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -322,14 +322,22 @@ header {
     }
 }
 
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	// IE 10+ Bugfix to prevent "floating footer" at the top
+	.content-min-height{
+		display: block !important;
+	}
+}
+
+
 .content-wrapper {
     vertical-align: top;
     width: 100%;
     padding: 0;
     padding-left: 240px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 
     @include media-breakpoint-down(md) {
         padding-left: 60px;
@@ -418,7 +426,7 @@ body.edtr {
     .btn-fullscreen {
         top: 83px;
     }
-    
+
     @media(max-width: 1250px) {
         .content-wrapper {
             padding-left: 60px;
@@ -429,7 +437,7 @@ body.edtr {
             overflow-x: hidden;
 
             .sc-title {
-    
+
                 display: none;
             }
 
@@ -475,7 +483,6 @@ footer {
         float: left;
         margin-bottom: 0px;
         margin-right: 20px;
-        font-weight: bold;
     }
 
     .location-info {

@@ -1,10 +1,12 @@
 <section id="loginarea" class="card">
-    <div class="card-block" data-step="3" data-intro="Wenn Ihre Schule bereits über {{theme.title}}-Accounts verfügt, dann können Sie sich hier mit Ihren persönlichen Anmeldedaten einloggen. (Fokus “normaler” Login)">
-        <h4 class="card-title">Login</h4>
+    <div class="card-block" data-step="2" data-intro="Wenn Ihre Schule bereits über {{theme.title}}-Accounts verfügt, dann können Sie sich hier mit Ihren persönlichen Anmeldedaten einloggen. (Fokus “normaler” Login)">
+        <h4 class="card-title">Anmelden</h4>
         <div class="card-text form-wrapper">
             {{> "lib/components/notification"}}
 
             <form method="post" action="/login/" class="login-form">
+                <input type="hidden" name="challenge" value={{challenge}} />
+
                 <div class="form-group">
                     <input type="text" name="username" class="form-control form-control-lg" placeholder="E-Mail / Nutzername" data-testid="username" required>
                     <input type="password" name="password" class="form-control form-control-lg" placeholder="Passwort" data-testid="password" required>
@@ -12,7 +14,7 @@
 
                 <div class="form-group toggle-providers">
                     <a class="btn btn-block btn-secondary btn-toggle-providers">
-                        Mit anderem System anmelden
+                        <i class="fa fa-chevron-down"></i> Mehr Optionen
                     </a>
                 </div>
 
@@ -35,7 +37,7 @@
                     </div>
 
                     <div class="form-group ">
-                        <a class="btn btn-block btn-secondary btn-hide-providers">Mit {{theme.title}} Account anmelden</a>
+                        <a class="btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-up"></i> Weniger</a>
                     </div>
                 </div>
 
