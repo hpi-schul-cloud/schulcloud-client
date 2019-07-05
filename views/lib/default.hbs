@@ -55,8 +55,9 @@
 
 <body class="{{#if inline}}window-inline{{/if}}">
     {{#block "body"}}{{/block}}
-
-    {{#embed "lib/piwik"}}{{/embed}}
+    {{#if production }}
+      {{#embed "lib/piwik"}}{{/embed}}
+    {{/if}}
 
 </body>
 
