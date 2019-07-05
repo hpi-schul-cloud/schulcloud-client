@@ -862,7 +862,7 @@ const skipRegistration = (req, res, next) => {
 			single: true,
 			linktarget: '/administration/students',
 		});
-	}).catch((e) => {
+	}).catch(() => {
 		req.session.notification = {
 			type: 'danger',
 			message: 'Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ',
