@@ -230,14 +230,14 @@ gulp.task('vendor-assets', () => beginPipeLink([
 
 // copy vendor-optimized files
 gulp.task('vendor-optimized-assets', () => beginPipeLink(['./static/vendor-optimized/**/*.*'])
-	.pipe(gulp.symlink(`./build/${themeName()}/vendor-optimized`)));
+	.pipe(vfs.symlink(`./build/${themeName()}/vendor-optimized`)));
 
 // copy node modules
 const nodeModules = ['mathjax', 'font-awesome'];
-gulp.task('node-modules', () => Promise.all(nodeModules
-	.map(module => vfs.src(`./node_modules/${module}/*`, { followSymlinks: false }).pipe(
-		vfs.symlink(`./build/${themeName()}/vendor-optimized/${module}`),
-	))));
+gulp.task('node-modules', () => Promise.all(nodeModules.map(module =>
+	vfs.src(`./node_modules/${module}/*`, { followSymlinks: false })
+	.pipe(vfs.symlink(`./build/${themeName()}/vendor-optimized/${module}`))
+)));
 
 // copy fonts
 gulp.task('fonts', () => beginPipeLink('./static/fonts/**/*.*').pipe(vfs.symlink(`./build/${themeName()}/fonts`)));
