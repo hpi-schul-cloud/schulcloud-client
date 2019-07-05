@@ -32,7 +32,6 @@ const workbox = require('workbox-build');
 const webpackConfig = require('./webpack.config');
 
 
-
 // =========================
 // Helper methods
 // =========================
@@ -85,7 +84,6 @@ const beginPipeLink = src => vfs
 	.src(withTheme(src))
 	.pipe(plumber())
 	.pipe(filelog());
-
 
 
 // =========================
@@ -216,7 +214,6 @@ gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
 	.pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
 
-
 // =========================
 // COPY (Symlink) Files
 // =========================
@@ -234,10 +231,8 @@ gulp.task('vendor-optimized-assets', () => beginPipeLink(['./static/vendor-optim
 
 // copy node modules
 const nodeModules = ['mathjax', 'font-awesome'];
-gulp.task('node-modules', () => Promise.all(nodeModules.map(module =>
-	vfs.src(`./node_modules/${module}/*`, { followSymlinks: false })
-	.pipe(vfs.symlink(`./build/${themeName()}/vendor-optimized/${module}`))
-)));
+gulp.task('node-modules', () => Promise.all(nodeModules.map(module => vfs.src(`./node_modules/${module}/*`, { followSymlinks: false })
+		.pipe(vfs.symlink(`./build/${themeName()}/vendor-optimized/${module}`)),)));
 
 // copy fonts
 gulp.task('fonts', () => beginPipeLink('./static/fonts/**/*.*').pipe(vfs.symlink(`./build/${themeName()}/fonts`)));
@@ -245,7 +240,6 @@ gulp.task('fonts', () => beginPipeLink('./static/fonts/**/*.*').pipe(vfs.symlink
 // copy (android) verification files
 gulp.task('verifications', () => beginPipeLink('./static/.well-known/*')
 	.pipe(vfs.dest(`./build/${themeName()}/.well-known`)));
-
 
 
 // =========================
@@ -317,7 +311,6 @@ gulp.task(
 			console.warn('Service worker generation failed:', error); // eslint-disable-line no-console
 		}),
 );
-
 
 
 // =========================
