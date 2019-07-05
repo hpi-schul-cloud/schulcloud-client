@@ -851,7 +851,7 @@ const skipRegistration = (req, res, next) => {
 	}).then(() => {
 		res.render('administration/users_registrationcomplete', {
 			title: 'Einwilligung erfolgreich erteilt',
-			submitLabel: 'Schließen',
+			submitLabel: 'Zurück',
 			users: [
 				{
 					email: req.body.email,
@@ -860,8 +860,10 @@ const skipRegistration = (req, res, next) => {
 				},
 			],
 			single: true,
+			linktarget: '/administration/students',
 		});
-	}).catch(() => {
+	}).catch((e) => {
+		console.log(e);
 		req.session.notification = {
 			type: 'danger',
 			message: 'Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ',
@@ -1041,8 +1043,8 @@ router.all(
 						.map(role => role.name)
 						.includes('administrator')
 				) {
-					head.push('Einwilligung');
 					head.push('Erstellt am');
+					head.push('Einwilligung');
 					head.push('');
 				}
 				const body = users.map((user) => {
@@ -1062,11 +1064,11 @@ router.all(
 							.map(role => role.name)
 							.includes('administrator')
 					) {
+						row.push(moment(user.createdAt).format('DD.MM.YYYY'));
 						row.push({
 							useHTML: true,
 							content: icon,
 						});
-						row.push(moment(user.createdAt).format('DD.MM.YYYY'));
 						row.push([
 							{
 								link: `/administration/teachers/${user._id}/edit`,
@@ -1292,6 +1294,8 @@ router.all(
 		const currentPage = parseInt(req.query.p, 10) || 1;
 		// const title = returnAdminPrefix(res.locals.currentUser.roles);
 
+		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
+
 		let query = {
 			$limit: itemsPerPage,
 			$skip: itemsPerPage * (currentPage - 1),
@@ -1312,8 +1316,8 @@ router.all(
 					'Nachname',
 					'E-Mail-Adresse',
 					'Klasse(n)',
-					'Einwilligung',
 					'Erstellt am',
+					'Einwilligung',
 					'',
 				];
 
@@ -1326,7 +1330,7 @@ router.all(
 							icon: 'edit',
 						},
 					];
-					if (user.importHash) {
+					if (user.importHash && canSkip) {
 						userRow.push({
 							link: `/administration/students/${user._id}/skipregistration`,
 							title: 'Einwilligung erteilen',
@@ -1342,11 +1346,11 @@ router.all(
 						user.lastName || '',
 						user.email || '',
 						user.classes.join(', ') || '',
+						moment(user.createdAt).format('DD.MM.YYYY'),
 						{
 							useHTML: true,
 							content: `<p class="text-center m-0">${icon}</p>`,
 						},
-						moment(user.createdAt).format('DD.MM.YYYY'),
 						userRow,
 					];
 				});
@@ -1474,7 +1478,7 @@ Leider fehlt uns von dir noch die Einverständniserklärung.
 Ohne diese kannst du die Schul-Cloud leider nicht nutzen.
 
 Melde dich bitte mit deinen Daten an,
-um die Einverständiserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
+um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
 
 Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${
 	user.registrationLink.shortLink
@@ -1583,7 +1587,7 @@ router.get(
   CLASSES
 */
 const skipRegistrationClass = async (req, res, next) => {
-	const {
+	let {
 		userids,
 		birthdays,
 		passwords,
@@ -1597,6 +1601,14 @@ const skipRegistrationClass = async (req, res, next) => {
 		};
 		res.redirect(req.body.referrer);
 		return;
+	}
+	//fallback if only one user is supposed to be edited
+	if (typeof (birthdays) === 'string') {
+		userids = [userids];
+		birthdays = [birthdays];
+		passwords = [passwords];
+		emails = [emails];
+		fullnames = [fullnames];
 	}
 	if (!((userids.length === birthdays.length) && (birthdays.length === passwords.length))) {
 		req.session.notification = {
@@ -1626,8 +1638,9 @@ const skipRegistrationClass = async (req, res, next) => {
 		}));
 		res.render('administration/users_registrationcomplete', {
 			title: 'Einwilligungen erfolgreich erteilt',
-			submitLabel: 'Schließen',
+			submitLabel: 'Zurück',
 			users: result,
+			linktarget: '/administration/classes',
 		});
 	}).catch(() => {
 		req.session.notification = {
@@ -1963,7 +1976,7 @@ router.get(
 			password: passwords[i],
 		}));
 		res.render('administration/classes_skipregistration', {
-			title: 'Einverständis erklären',
+			title: 'Einverständnis erklären',
 			students: renderUsers,
 		});
 	},

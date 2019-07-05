@@ -10,10 +10,10 @@
         target="_blank">Datenschutzerklärung</a>
     und zur <a href="{{@root.theme.documents.baseDir}}{{@root.theme.documents.termsOfUse}}"
         target="_blank">Nutzungsordnung</a> der {{@root.theme.short_title}} erklären. <br>
-    Durch den Klick auf <i>Einverständnis im Namen der Schüler erklären</i> bestätigst du, dass du das Einverständnis
+    Durch den Klick auf <i>"Einverständnis im Namen der Schüler erklären"</i> bestätigst du, dass du das Einverständnis
     der Schüler bzw. deren Eltern auf anderem Wege erhalten hast. <br>
-    Auf der nächsten Seite erhältst Du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit
-    einer Anleitung für Deine Schüler auszudrucken.
+    Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit
+    einer Anleitung für deine Schüler auszudrucken.
 </p>
 <form method="POST">
     {{#if students}}
@@ -21,8 +21,8 @@
         <tr>
             <th>Name</th>
             <th>E-Mail</th>
-            <th>Geburtsdatum</th>
-            <th>Passwort vergeben</th>
+            <th>Geburtsdatum <sup>*</sup></th>
+            <th>Passwort vergeben <sup>*</sup></th>
         </tr>
         {{#each students}}
         <tr>
@@ -47,8 +47,9 @@
         </tr>
         {{/each}}
     </table>
+    <sup>*</sup> erforderlich
     {{else}}
-    <b>In dieser Klasse gibt es keine fehlenden Einvserständniserklärungen. </b>
+    <b>In dieser Klasse gibt es keine fehlenden Einverständniserklärungen. </b>
     {{/if}}
     <div class="modal-footer w-100">
         <button class="btn btn-secondary btn-cancel">

@@ -12,7 +12,8 @@
     @media print {
 
         aside,
-        footer, .mobile-nav-toggle {
+        footer,
+        .mobile-nav-toggle {
             display: none !important;
         }
 
@@ -36,16 +37,24 @@
 <div class="row">
     <div class="col-xl-6">
         <p class="noprint">
-            Mit den folgenden Daten kann sich nun an der {{@root.theme.short_title}} angemeldet werden. <br>
+            Die Schüler können sich mit folgenden Daten an der {{@root.theme.short_title}} anmelden<br>
         </p>
         <p class="noprint">
-            <b>Achtung: </b>Du kannst diese Seite nicht erneut aufrufen. Drucke dir also die angezeigten Zugangsdaten unbedingt aus oder speichere sie anderweitig. 
-            Sollte ein Schüler sein Passwort vergessen, kannst du es nur in der Benutzerverwaltung ändern. 
+            <b>Achtung: </b>Du kannst diese Seite nicht erneut aufrufen. Drucke dir also die angezeigten Zugangsdaten
+            unbedingt aus oder speichere sie anderweitig.
+            Sollte ein Schüler sein Passwort vergessen, kannst du es nur in der Benutzerverwaltung ändern.
         </p>
+        <center class="form-group">
+            <button onclick="window.print()" class="btn btn-primary noprint" href="/administration/students">
+                <i class="fa fa-print"></i> Schüleranleitungen und Liste drucken
+            </button>
+        </center>
         {{#unless single}}
         <div class="printonly">
-            <p>Auf dieser Seite findest du eine Übersicht über alle erfolgten Einwilligungen und generierten Zugangsdaten. <br>
-            Die folgenden Seiten dieses Dokuments beinhalten jeweils die Zugangsdaten eines Kindes und eine Anleitung zur ersten Anmeldung. </p>
+            <p>Auf dieser Seite findest du eine Übersicht über alle erfolgten Einwilligungen und generierten
+                Zugangsdaten. <br>
+                Die folgenden Seiten dieses Dokuments beinhalten jeweils die Zugangsdaten eines Kindes und eine
+                Anleitung zur ersten Anmeldung. </p>
             <table class="table">
                 <tr>
                     <th>Name</th>
@@ -59,8 +68,6 @@
                     <td>{{password}}</td>
                 </tr>
                 {{/each}}
-
-
             </table>
         </div>
         {{/unless}}
@@ -72,7 +79,8 @@
         <div class="printonly">
             <h1>{{fullname}}</h1>
             <p>Du kannst dich nun in der {{@root.theme.short_title}} mit deinem Startpasswort einloggen.
-                Gehe dazu auf <a href="https://schul-cloud.org"><script>document.write(window.location.origin)</script></a>
+                Gehe dazu auf <a href="https://schul-cloud.org">
+                    <script>document.write(window.location.origin)</script></a>
                 und logge dich dort mit den folgenden Zugansdaten ein:</p>
         </div>
         <textarea disabled class="printable form-control" style="resize: none; height: 80px">
@@ -80,17 +88,15 @@
         E-Mail: {{email}} 
         Passwort: {{password}}</textarea>
         {{/each}}
-        <p class="noprint" style="margin-top: 1em">Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre
+        <p class="noprint" style="margin-top: 1em">Beim ersten Login muss ein neues Passwort gewählt werden. Schüler,
+            die mindestens 14 Jahre
             alt sind, müssen
             beim ersten Login die Einwilligungserklärung zusätzlich selbst bestätigen. </p>
     </div>
 </div>
 <div class="row noprint">
     <div class="modal-footer w-50">
-        <button onclick="window.print()" class="btn btn-secondary" href="/administration/students">
-            Schüleranleitungen und Liste drucken
-        </button>
-        <a class="btn btn-primary" href="/administration/students">
+        <a class="btn btn-secondary" href={{linktarget}}>
             {{submitLabel}}
         </a>
     </div>

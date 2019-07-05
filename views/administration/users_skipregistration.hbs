@@ -97,21 +97,26 @@
                     </div>
                     {{/unless}}
                 </div>
+            </div>
+            <div class="row">
+                <div class="modal-footer w-100">
+                    <div class="pull-left">
+                        <button class="btn btn-secondary btn-cancel">
+                            {{closeLabel}}
+                        </button>
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        {{submitLabel}}
+                    </button>
+                </div>
+
+            </div>
+        </form>
     </div>
-    <div class="row">
-        <div class="modal-footer w-100"></div>
 
-
-            <button class="btn btn-secondary btn-cancel">
-                {{closeLabel}}
-            </button>
-
-            <button type="submit" class="btn btn-primary btn-submit">
-                {{submitLabel}}
-            </button>
-        </div>
-    </div>
-    </form>
     {{#if schoolUsesLdap}}
     {{> "lib/ldap-info"}}
     {{/if}}
@@ -121,7 +126,7 @@
 
 
 </div>
-</div>
+
 
 {{/content}}
 {{/extend}}
