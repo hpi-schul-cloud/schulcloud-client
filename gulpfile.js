@@ -223,11 +223,11 @@ gulp.task('vendor-assets', () => beginPipeLink([
 	'./static/vendor/**/*.*',
 	'!./static/vendor/**/*.js',
 	'!./static/vendor/**/*.{css,sass,scss}',
-]).pipe(vfs.symlink(`./build/${themeName()}/vendor`)));
+]).pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
 // copy vendor-optimized files
 gulp.task('vendor-optimized-assets', () => beginPipeLink(['./static/vendor-optimized/**/*.*'])
-	.pipe(vfs.symlink(`./build/${themeName()}/vendor-optimized`)));
+	.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`)));
 
 // copy node modules
 const nodeModules = ['mathjax', 'font-awesome'];
