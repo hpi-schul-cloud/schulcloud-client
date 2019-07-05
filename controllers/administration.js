@@ -549,6 +549,7 @@ const dictionary = {
 	dashboard: 'Übersicht',
 	courses: 'Kurse',
 	classes: 'Klassen',
+	teams: 'Teams',
 	homework: 'Aufgaben',
 	files: 'Dateien',
 	content: 'Materialien',
