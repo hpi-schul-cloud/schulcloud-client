@@ -1,32 +1,41 @@
+// npm packages
 const autoprefixer = require('autoprefixer');
-const fs = require('fs');
-const gulp = require('gulp');
 const babel = require('gulp-babel');
+const browserSync = require('browser-sync');
 const changed = require('gulp-changed-smart');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
-const gulpCount = require('gulp-count');
+const cssvariables = require('postcss-css-variables');
 const filelog = require('gulp-filelog');
-const header = require('gulp-header');
+const fs = require('fs');
+const gulp = require('gulp');
+const gulpCount = require('gulp-count');
 const gulpif = require('gulp-if');
+const header = require('gulp-header');
 const imagemin = require('gulp-imagemin');
+const named = require('vinyl-named');
+const nodemon = require('gulp-nodemon');
 const optimizejs = require('gulp-optimize-js');
+const path = require('path');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
-const cssvariables = require('postcss-css-variables');
 const rimraf = require('gulp-rimraf');
 const sass = require('gulp-sass');
 const sassGrapher = require('gulp-sass-grapher');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
-const path = require('path');
-const named = require('vinyl-named');
+const vfs = require('vinyl-fs');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
-const nodemon = require('gulp-nodemon');
-const browserSync = require('browser-sync');
 const workbox = require('workbox-build');
+// custom packages & configs
 const webpackConfig = require('./webpack.config');
+
+
+
+// =========================
+// Helper methods
+// =========================
 
 const baseScripts = [
 	'./static/scripts/jquery/jquery.min.js',
@@ -71,6 +80,17 @@ const beginPipeAll = src => gulp
 	.src(withTheme(src))
 	.pipe(plumber())
 	.pipe(filelog());
+
+const beginPipeLink = src => vfs
+	.src(withTheme(src))
+	.pipe(plumber())
+	.pipe(filelog());
+
+
+
+// =========================
+// Assets to compile
+// =========================
 
 // minify images
 gulp.task('images', () => beginPipe('./static/images/**/*.*')
@@ -117,13 +137,6 @@ gulp.task('styles', () => {
 gulp.task('styles-done', ['styles'], () => {
 	firstRun = false;
 });
-
-// copy fonts
-gulp.task('fonts', () => beginPipe('./static/fonts/**/*.*').pipe(gulp.dest(`./build/${themeName()}/fonts`)));
-
-// copy static assets
-gulp.task('verifications', () => beginPipe('./static/.well-known/*')
-	.pipe(gulp.dest(`./build/${themeName()}/.well-known`)));
 
 // compile/transpile JSX and ES6 to ES5 and minify scripts
 gulp.task('scripts', () => beginPipeAll(nonBaseScripts)
@@ -202,22 +215,42 @@ gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
 	.pipe(uglify())
 	.pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
+
+
+// =========================
+// COPY (Symlink) Files
+// =========================
+
 // copy other vendor files
-gulp.task('vendor-assets', () => beginPipe([
+gulp.task('vendor-assets', () => beginPipeLink([
 	'./static/vendor/**/*.*',
 	'!./static/vendor/**/*.js',
 	'!./static/vendor/**/*.{css,sass,scss}',
-]).pipe(gulp.dest(`./build/${themeName()}/vendor`)));
+]).pipe(vfs.symlink(`./build/${themeName()}/vendor`)));
 
 // copy vendor-optimized files
-gulp.task('vendor-optimized-assets', () => beginPipe(['./static/vendor-optimized/**/*.*'])
-	.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`)));
+gulp.task('vendor-optimized-assets', () => beginPipeLink(['./static/vendor-optimized/**/*.*'])
+	.pipe(gulp.symlink(`./build/${themeName()}/vendor-optimized`)));
 
 // copy node modules
 const nodeModules = ['mathjax', 'font-awesome'];
 gulp.task('node-modules', () => Promise.all(nodeModules
-	.map(module => beginPipe([`./node_modules/${module}/**/*.*`])
-		.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)))));
+	.map(module => vfs.src(`./node_modules/${module}/*`, { followSymlinks: false }).pipe(
+		vfs.symlink(`./build/${themeName()}/vendor-optimized/${module}`),
+	))));
+
+// copy fonts
+gulp.task('fonts', () => beginPipeLink('./static/fonts/**/*.*').pipe(vfs.symlink(`./build/${themeName()}/fonts`)));
+
+// copy (android) verification files
+gulp.task('verifications', () => beginPipeLink('./static/.well-known/*')
+	.pipe(vfs.dest(`./build/${themeName()}/.well-known`)));
+
+
+
+// =========================
+// Service-Worker
+// =========================
 
 gulp.task('sw-workbox', () => beginPipe(['./static/scripts/sw/workbox/*.js'])
 	.pipe(gulp.dest(`./build/${themeName()}/scripts/sw/workbox`)));
@@ -285,6 +318,12 @@ gulp.task(
 		}),
 );
 
+
+
+// =========================
+// Build Commands
+// =========================
+
 // clear build folder + smart cache
 gulp.task('clear', () => gulp
 	.src(
@@ -318,6 +357,7 @@ gulp.task('build-all', [
 	'verifications',
 ]);
 
+// can be run after build-all to update theme files
 gulp.task('build-theme-files', ['styles', 'styles-done', 'images', 'verifications']);
 
 // watch and run corresponding task on change, process changed files only
