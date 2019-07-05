@@ -122,7 +122,8 @@ gulp.task('styles-done', ['styles'], () => {
 gulp.task('fonts', () => beginPipe('./static/fonts/**/*.*').pipe(gulp.dest(`./build/${themeName()}/fonts`)));
 
 // copy static assets
-gulp.task('static', () => beginPipe('./static/*').pipe(gulp.dest(`./build/${themeName()}/`)));
+gulp.task('verifications', () => beginPipe('./static/.well-known/*')
+	.pipe(gulp.dest(`./build/${themeName()}/.well-known`)));
 
 // compile/transpile JSX and ES6 to ES5 and minify scripts
 gulp.task('scripts', () => beginPipeAll(nonBaseScripts)
@@ -314,10 +315,10 @@ gulp.task('build-all', [
 	'generate-service-worker',
 	'sw-workbox',
 	'node-modules',
-	'static',
+	'verifications',
 ]);
 
-gulp.task('build-theme-files', ['styles', 'styles-done', 'images', 'static']);
+gulp.task('build-theme-files', ['styles', 'styles-done', 'images', 'verifications']);
 
 // watch and run corresponding task on change, process changed files only
 gulp.task('watch', ['build-all'], () => {
@@ -341,11 +342,28 @@ gulp.task('watch', ['build-all'], () => {
 	gulp.watch(withTheme('./static/sw.js'), watchOptions, [
 		'generate-service-worker',
 	]);
-	gulp.watch(withTheme('./static/*.*'), watchOptions, ['static']);
+	gulp.watch(withTheme('./static/*.*'), watchOptions, ['verifications']);
 	gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), watchOptions, [
 		'sw-workbox',
 	]);
 });
+
+gulp.task('ci', [
+	// 'images', // we don't have visual testings, nobody will ever see them
+	// 'other', // Those are only PDF files
+	'styles',
+	// 'fonts', // who cares
+	'scripts',
+	'base-scripts',
+	'vendor-styles',
+	'vendor-scripts',
+	'vendor-assets',
+	'vendor-optimized-assets',
+	// 'generate-service-worker', // tests run only once, he will never get initialized
+	// 'sw-workbox', // same
+	'node-modules',
+	'verifications',
+]);
 
 gulp.task('watch-reload', ['watch', 'browser-sync']);
 

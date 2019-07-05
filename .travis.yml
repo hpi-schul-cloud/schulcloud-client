@@ -31,7 +31,7 @@ install:
 - npm install
 before_script:
 - npm install -g gulp-cli
-- gulp
+- gulp ci
 - pm2 start bin/www
 - sleep 5
 - chmod +x diff.sh
