@@ -102,6 +102,7 @@ app.use(async (req, res, next) => {
 		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
 	};
 	res.locals.domain = process.env.SC_DOMAIN || false;
+	res.locals.production = req.app.get('env') === 'production';
 	delete req.session.notification;
 	next();
 });
