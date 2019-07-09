@@ -1,5 +1,5 @@
 <li class="card assignment">
-    <a href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'">   
+    <a href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'">
         <div class="dates">
             {{#if availableDate}}
               Veröffentlicht {{timeFromNow availableDate}}<br />
@@ -10,7 +10,7 @@
             {{/if}}
             &nbsp;<i class="fa fa-info" title="{{timeToString availableDate}} bis {{timeToString dueDate}}"></i>
         </div>
-        <h5 class="title">{{{stripOnlyScript this.name}}}</h5>
+        <h2 class="h5 title">{{{stripOnlyScript this.name}}}</h2>
         <div class="description">
             {{#if this.description}}
                 {{{ truncateHTML (conflictFreeHtml this.description) 140 false }}}
