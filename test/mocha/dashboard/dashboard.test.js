@@ -9,7 +9,6 @@ const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
 
 describe('Dashboard tests', function () {
-    this.timeout(10000);
     before(function (done) {
         this.server = app.listen(3031);
         this.server.once('listening', () => {
