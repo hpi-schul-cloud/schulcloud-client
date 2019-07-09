@@ -31,15 +31,15 @@
             <div class="ajaxcontent">
                 {{#if query}}
                     {{#if searchResults}}
-                        <h5 class="mb-1">{{ searchResults.total }} Suchergebnisse für "{{ query }}"</h5>
+                        <h2 class="h5 mb-1">{{ searchResults.total }} Suchergebnisse für "{{ query }}"</h2>
                     {{else}}
-                        <h5 class="mb-1">Es wurden keine Suchergebnisse für "{{ query }}" gefunden</h5>
+                        <h2 class="h5 mb-1">Es wurden keine Suchergebnisse für "{{ query }}" gefunden</h5>
                     {{/if}}
                     <hr class="mt-0">
                 {{/if}}
                 {{#unless query }}
                     {{#with featuredContent}}
-                    <h3>Aktuelle Inhalte</h3>
+                    <h2 class="h3">Aktuelle Inhalte</h2>
                     <div class="row equal-height">
                         {{#each this}}
                             <div class="col-md-6 col-lg-4">
@@ -50,7 +50,7 @@
                     {{/with}}
 
                     {{#with trendingContent}}
-                    <h3>Beliebte Inhalte</h3>
+                    <h2 class="h3">Beliebte Inhalte</h2>
                     <div class="row equal-height">
                         {{#each this}}
                             <div class="col-md-6 col-lg-4">
