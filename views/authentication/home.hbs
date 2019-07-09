@@ -1,48 +1,53 @@
 {{#extend "lib/loggedout"}}
 
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/homepage/index.css"/>
-        <link rel="stylesheet" href="/vendor/introjs/introjs.min.css" />
-    {{/content}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/homepage/index.css" />
+<link rel="stylesheet" href="/vendor/introjs/introjs.min.css" />
+{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script src="/vendor/introjs/intro.min.js" type="text/javascript" defer></script>
-        <script src="/scripts/login.js" type="text/javascript" defer></script>
+{{#content "scripts" mode="append"}}
+<script src="/vendor/introjs/intro.min.js" type="text/javascript" defer></script>
+<script src="/scripts/login.js" type="text/javascript" defer></script>
 
-        <script src="/scripts/video-player/load-video-player.js" type="text/javascript" defer></script>
+<script src="/scripts/video-player/load-video-player.js" type="text/javascript" defer></script>
 
-        <script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
-    {{/content}}
+<script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false"
+    defer></script>
+{{/content}}
 
-    {{#content "page"}}
+{{#content "page"}}
 
-        {{#embed "authentication/section"}}
-            {{#content "body"}}
-                <div class="rows-2">
-                    <div>
-                        <h1 class="h2 section-title">
-                            Herzlich Willkommen bei der <span style="white-space: nowrap;">HPI Schul-Cloud!</span>
-                        </h1>
-                        <p>Das <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
-                    </div>
+{{#embed "authentication/section"}}
+{{#content "body"}}
+<div class="rows-2">
+    <div>
+        <h1 class="section-title">
+            Herzlich Willkommen bei der <span style="white-space: nowrap;">HPI Schul-Cloud!</span>
+        </h1>
+        <p>Das <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt
+            unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/"
+                target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und
+            unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische
+            Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und
+            Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
+    </div>
 
-                    <div>
-                        {{> "authentication/forms/login"}}
-                    </div>
-                </div>
-                {{> "authentication/forms/demo-login"}}
+    <div>
+        {{> "authentication/forms/login"}}
+    </div>
+</div>
+{{> "authentication/forms/demo-login"}}
 
-                {{!--
+{{!--
                     {{> "authentication/forms/login"}}
                     {{> "authentication/forms/demo-login"}}
                 --}}
-            {{/content}}
-        {{/embed}}
+{{/content}}
+{{/embed}}
 
-        {{#embed "authentication/section" style="primary" class="content-width-max"}}
-            {{#content "body"}}
-                <video-player
-                    configuration='{
+{{#embed "authentication/section" style="primary" class="content-width-max"}}
+{{#content "body"}}
+<video-player configuration='{
                         "streams" : [
                             {
                             "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hd/video.mp4",
