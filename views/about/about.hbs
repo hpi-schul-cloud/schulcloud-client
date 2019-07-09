@@ -1,320 +1,376 @@
 <section class="section-about">
-    {{#embed "authentication/section" class="content-width-max"}}
-        {{#content "body"}}
-            {{#unless loggedin}}
-				<h2 class="section-title center">{{title}}</h2>
-            {{/unless}}
-            <h3 class="section-title center">Über die HPI Schul-Cloud</h3>
-            <p>Das  <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
-            <ul>
-                <li>Mehr Informationen:
-                    <a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/publikationen/projekte/schul-cloud_beschreibung_website.pdf"
-                    title="Initiates file download" target="_blank">Kurzbeschreibung "Die HPI Schul-Cloud" (.pdf)</a>
-                </li>
-            </ul>
-            <br/>
-            <p>Das Projekt HPI Schul-Cloud ist im September 2016 in die 5-monatige Konzeptphase gestartet. Ab Mai 2017 startete die
-                Pilotphase, in der zunächst 27 MINT-EC-Schulen die HPI Schul-Cloud testen und nutzen konnten. Im Mai 2018 begann die Roll-Out-Phase,
-                in der die Nutzung der HPI Schul-Cloud stufenweise auf alle über 300 Schulen aus dem nationalen
-                Excellence-Schulnetzwerks MINT-EC ausgeweitet wird. Derzeit können 100 MINT-EC Pilotschulen die HPI Schul-Cloud testen (Stand Mai 2019). <br/> Auch unser <a
-                        href="https://schul-cloud.org/team">Team</a> wächst stetig!</p>
-        {{/content}}
-    {{/embed}}
-    {{#embed "authentication/section" style="primary" class="content-width-max"}}
-        {{#content "body"}}
-            <div class="section-partner">
-                <h3 class="section-title center">Pilotschulen</h3>
-                <p>Best Practice: Auf dem Digitalgipfel 2019 in Nürnberg konnten alle Beteiligten digitalgestützen Unterricht mit der HPI Schul-Cloud live miterleben.</p>
-                <video-player
-                    configuration='{
-                        "streams" : [
-                            {
-                            "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hd/video.mp4",
-                            "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/sd/video.mp4",
-                            "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/thumbnails/video-00-34-40.png",
-                            "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hls/video.m3u8"
-                            }
-                        ],
-                        "language": "de",
-                        "theme" : "dark-red",
-                        "loadFontAwesome" : false,
-                        "videoAlignment" : "height",
-                        "initialState": {
-                            "volume": 0.75,
-                            "quality" : "hls",
-                            "playbackRate" : 1.0
-                        },
-                        "videoPreload": false,
-                        "userPreferences" : {
-                        },
-                        "slides": []
-                    }'>
-                </video-player>
-                <h4>Best Practice Schulen</h4>
-				<div class="row">
-					{{#each schools.bp}}
-						<div class="partner-box-wrapper col-xs-6 col-md-3">
-							<div class="partner-box">
-								<a href="{{{url}}}" target="_blank">
-									<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-								</a>
-							</div>
-						</div>
-					{{/each}}
-					<div class="col-xs-12">
-						<div id="hiddenBPSchools" class="collapse row">
-							{{#each hiddenBPSchools}}
-								<div class="partner-box-wrapper col-xs-6 col-md-3">
-									<div class="partner-box">
-										<a href="{{{url}}}" target="_blank">
-											<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-												{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-										</a>
-									</div>
-								</div>
-							{{/each}}
-						</div>
-					</div>
-					<div class="buttonWrapper">
-						<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenBPSchools">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
-					</div>
+	{{#embed "authentication/section" class="content-width-max"}}
+	{{#content "body"}}
+	{{#unless loggedin}}
+	<h2 class="section-title center">{{title}}</h2>
+	{{/unless}}
+	<h3 class="section-title center">Über die HPI Schul-Cloud</h3>
+	<p>Das <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter
+		der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/"
+			target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und
+		unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische
+		Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und
+		Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
+	<ul>
+		<li>Mehr Informationen:
+			<a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/publikationen/projekte/schul-cloud_beschreibung_website.pdf"
+				title="Initiates file download" target="_blank">Kurzbeschreibung "Die HPI Schul-Cloud" (.pdf)</a>
+		</li>
+	</ul>
+	<br />
+	<p>Das Projekt HPI Schul-Cloud ist im September 2016 in die 5-monatige Konzeptphase gestartet. Ab Mai 2017 startete
+		die
+		Pilotphase, in der zunächst 27 MINT-EC-Schulen die HPI Schul-Cloud testen und nutzen konnten. Im Mai 2018 begann
+		die Roll-Out-Phase,
+		in der die Nutzung der HPI Schul-Cloud stufenweise auf alle über 300 Schulen aus dem nationalen
+		Excellence-Schulnetzwerks MINT-EC ausgeweitet wird. Derzeit können 100 MINT-EC Pilotschulen die HPI Schul-Cloud
+		testen (Stand Mai 2019). <br /> Auch unser <a href="https://schul-cloud.org/team">Team</a> wächst stetig!</p>
+	{{/content}}
+	{{/embed}}
+	{{#embed "authentication/section" style="primary" class="content-width-max"}}
+	{{#content "body"}}
+	<div class="section-partner">
+		<h3 class="section-title center">Pilotschulen</h3>
+		<p>Best Practice: Auf dem Digitalgipfel 2019 in Nürnberg konnten alle Beteiligten digitalgestützen Unterricht
+			mit der HPI Schul-Cloud live miterleben.</p>
+		<video-player configuration='{
+						"streams" : [
+							{
+							"hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hd/video.mp4",
+							"sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/sd/video.mp4",
+							"poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/thumbnails/video-00-34-40.png",
+							"hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hls/video.m3u8"
+							}
+						],
+						"language": "de",
+						"theme" : "dark-red",
+						"loadFontAwesome" : false,
+						"videoAlignment" : "height",
+						"initialState": {
+							"volume": 0.75,
+							"quality" : "hls",
+							"playbackRate" : 1.0
+						},
+						"videoPreload": false,
+						"userPreferences" : {
+						},
+						"slides": []
+					}'>
+		</video-player>
+		<h4>Best Practice Schulen</h4>
+		<div class="row">
+			{{#each schools.bp}}
+			<div class="partner-box-wrapper col-xs-6 col-md-3">
+				<div class="partner-box">
+					<a href="{{{url}}}" target="_blank">
+						<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+							style="padding: {{{padding}}};" {{/if}}>
+					</a>
 				</div>
-
-                <h4>Pilotschulen <span style="font-size: 12px;">(Start März 2017)</span></h4>
-                <div class="row">
-                    {{#each schools.march2017}}
-                        <div class="partner-box-wrapper col-xs-6 col-md-3">
-                            <div class="partner-box">
-                                <a href="{{{url}}}" target="_blank">
-                                    <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-                                        {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-                                </a>
-                            </div>
-                        </div>
-                    {{/each}}
-                    <div class="col-xs-12">
-                        <div id="hiddenSchoolsMarch2017" class="collapse row">
-                            {{#each hiddenSchoolsMarch2017}}
-                                <div class="partner-box-wrapper col-xs-6 col-md-3">
-                                    <div class="partner-box">
-                                        <a href="{{{url}}}" target="_blank">
-                                            <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-                                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-                                        </a>
-                                    </div>
-                                </div>
-                            {{/each}}
-                        </div>
-                    </div>
-                    <div class="buttonWrapper">
-                        <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenSchoolsMarch2017">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
-                    </div>
-                </div>
-
-                <h4>Pilotschulen <span style="font-size: 12px;">(Start Mai 2018)</span></h4>
-				<div class="row">
-					{{#each schools.mai2018}}
-						<div class="partner-box-wrapper col-xs-6 col-md-3">
-							<div class="partner-box">
-								<a href="{{{url}}}" target="_blank">
-									<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-								</a>
-							</div>
+			</div>
+			{{/each}}
+			<div class="col-xs-12">
+				<div id="hiddenBPSchools" class="collapse row">
+					{{#each hiddenBPSchools}}
+					<div class="partner-box-wrapper col-xs-6 col-md-3">
+						<div class="partner-box">
+							<a href="{{{url}}}" target="_blank">
+								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+									style="padding: {{{padding}}};" {{/if}}>
+							</a>
 						</div>
+					</div>
 					{{/each}}
-					<div class="col-xs-12">
-						<div id="hiddenSchoolsMai2018" class="collapse row">
-							{{#each hiddenSchoolsMai2018}}
-								<div class="partner-box-wrapper col-xs-6 col-md-3">
-									<div class="partner-box">
-										<a href="{{{url}}}" target="_blank">
-											<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-												{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-										</a>
-									</div>
-								</div>
-							{{/each}}
-						</div>
-					</div>
-					<div class="buttonWrapper">
-						<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenSchoolsMai2018">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
-					</div>
 				</div>
+			</div>
+			<div class="buttonWrapper">
+				<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
+					data-target="#hiddenBPSchools">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
 
-				<h4>Pilotschulen <span style="font-size: 12px;">(Start Februar 2019)</span></h4>
-				<div class="row">
-					{{#each schools.feb2019}}
-						<div class="partner-box-wrapper col-xs-6 col-md-3">
-							<div class="partner-box">
-								<a href="{{{url}}}" target="_blank">
-									<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-								</a>
-							</div>
+		<h4>Pilotschulen <span style="font-size: 12px;">(Start März 2017)</span></h4>
+		<div class="row">
+			{{#each schools.march2017}}
+			<div class="partner-box-wrapper col-xs-6 col-md-3">
+				<div class="partner-box">
+					<a href="{{{url}}}" target="_blank">
+						<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+							style="padding: {{{padding}}};" {{/if}}>
+					</a>
+				</div>
+			</div>
+			{{/each}}
+			<div class="col-xs-12">
+				<div id="hiddenSchoolsMarch2017" class="collapse row">
+					{{#each hiddenSchoolsMarch2017}}
+					<div class="partner-box-wrapper col-xs-6 col-md-3">
+						<div class="partner-box">
+							<a href="{{{url}}}" target="_blank">
+								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+									style="padding: {{{padding}}};" {{/if}}>
+							</a>
 						</div>
+					</div>
 					{{/each}}
-					<div class="col-xs-12">
-						<div id="hiddenSchoolsFeb2019" class="collapse row">
-							{{#each hiddenSchoolsFeb2019}}
-								<div class="partner-box-wrapper col-xs-6 col-md-3">
-									<div class="partner-box">
-										<a href="{{{url}}}" target="_blank">
-											<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-												{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-										</a>
-									</div>
-								</div>
-							{{/each}}
+				</div>
+			</div>
+			<div class="buttonWrapper">
+				<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
+					data-target="#hiddenSchoolsMarch2017">mehr anzeigen<i class="fa fa-angle-down"
+						aria-hidden="true"></i></div>
+			</div>
+		</div>
+
+		<h4>Pilotschulen <span style="font-size: 12px;">(Start Mai 2018)</span></h4>
+		<div class="row">
+			{{#each schools.mai2018}}
+			<div class="partner-box-wrapper col-xs-6 col-md-3">
+				<div class="partner-box">
+					<a href="{{{url}}}" target="_blank">
+						<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+							style="padding: {{{padding}}};" {{/if}}>
+					</a>
+				</div>
+			</div>
+			{{/each}}
+			<div class="col-xs-12">
+				<div id="hiddenSchoolsMai2018" class="collapse row">
+					{{#each hiddenSchoolsMai2018}}
+					<div class="partner-box-wrapper col-xs-6 col-md-3">
+						<div class="partner-box">
+							<a href="{{{url}}}" target="_blank">
+								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+									style="padding: {{{padding}}};" {{/if}}>
+							</a>
 						</div>
 					</div>
-					<div class="buttonWrapper">
-						<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenSchoolsFeb2019">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
-					</div>
-				</div> <!-- .row -->
-            <br/>
-            <p>Im Rahmen des Projekts wird die HPI Schul-Cloud durch vier Arbeitsgruppen des MINT-EC-Themenclusters HPI Schul-Cloud
-                unterstützt: AG IT, Schulleitung, Unterricht und regionale Netzwerke. <a href="https://www.mint-ec.de/fileadmin/content/schulcloud/Info_Kit.pdf" target="_blank">Hier</a> finden Sie die Ergebnisse aus den verschiedenen Arbeitsgruppen der Pilotphase, die in Form eines Info Kits zusammengefasst sind.</p><br/>
-            <p>Wir möchten uns ganz herzlich für die tolle Zusammenarbeit und das große Engagement unserer Pilotschullehrkräfte
-                bedanken!</p>
-            {{/content}}
-    {{/embed}}
-    {{#embed "authentication/section" class="content-width-max"}}
-        {{#content "body"}}
+					{{/each}}
+				</div>
+			</div>
+			<div class="buttonWrapper">
+				<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
+					data-target="#hiddenSchoolsMai2018">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
 
-            <h3 class="section-title center">Bildungswissenschaftliche Begleitung</h3>
-            <p>Zur pädagogisch-didaktischen Unterstützung des Projekts im Sinne der Entwicklung von Beispielen für die
+		<h4>Pilotschulen <span style="font-size: 12px;">(Start Februar 2019)</span></h4>
+		<div class="row">
+			{{#each schools.feb2019}}
+			<div class="partner-box-wrapper col-xs-6 col-md-3">
+				<div class="partner-box">
+					<a href="{{{url}}}" target="_blank">
+						<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+							style="padding: {{{padding}}};" {{/if}}>
+					</a>
+				</div>
+			</div>
+			{{/each}}
+			<div class="col-xs-12">
+				<div id="hiddenSchoolsFeb2019" class="collapse row">
+					{{#each hiddenSchoolsFeb2019}}
+					<div class="partner-box-wrapper col-xs-6 col-md-3">
+						<div class="partner-box">
+							<a href="{{{url}}}" target="_blank">
+								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+									style="padding: {{{padding}}};" {{/if}}>
+							</a>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+			<div class="buttonWrapper">
+				<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
+					data-target="#hiddenSchoolsFeb2019">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div> <!-- .row -->
+		<br />
+		<p>Im Rahmen des Projekts wird die HPI Schul-Cloud durch vier Arbeitsgruppen des MINT-EC-Themenclusters HPI
+			Schul-Cloud
+			unterstützt: AG IT, Schulleitung, Unterricht und regionale Netzwerke. <a
+				href="https://www.mint-ec.de/fileadmin/content/schulcloud/Info_Kit.pdf" target="_blank">Hier</a> finden
+			Sie die Ergebnisse aus den verschiedenen Arbeitsgruppen der Pilotphase, die in Form eines Info Kits
+			zusammengefasst sind.</p><br />
+		<p>Wir möchten uns ganz herzlich für die tolle Zusammenarbeit und das große Engagement unserer
+			Pilotschullehrkräfte
+			bedanken!</p>
+		{{/content}}
+		{{/embed}}
+		{{#embed "authentication/section" class="content-width-max"}}
+		{{#content "body"}}
+
+		<h3 class="section-title center">Bildungswissenschaftliche Begleitung</h3>
+		<p>Zur pädagogisch-didaktischen Unterstützung des Projekts im Sinne der Entwicklung von Beispielen für die
 			Unterrichtsgestaltung
 			mit verfügbarem digitalen Lernmaterial aus der HPI Schul-Cloud und dem Erkenntnisgewinn über die digitale
 			Unterrichtsgestaltung
-			mit der HPI Schul-Cloud ist eine externe bildungswissenschaftliche Begleitung beauftragt. Zum einen führt die
-			<a href="https://osf.io/bzu4t/?view_only=14ad7519b5a24af7a83cf40b43377142" target="_blank">Universität Tübingen</a> eine wissenschaftliche
+			mit der HPI Schul-Cloud ist eine externe bildungswissenschaftliche Begleitung beauftragt. Zum einen führt
+			die
+			<a href="https://osf.io/bzu4t/?view_only=14ad7519b5a24af7a83cf40b43377142" target="_blank">Universität
+				Tübingen</a> eine wissenschaftliche
 			Befragung der Pilotschulen zu Potenzialen der HPI Schul-Cloud durch. Zum anderen gestaltet das
-            <a href="http://www.gei.de/abteilungen/schulbuch-als-medium/schools-in-the-cloud-wissenschaftliche-begleitforschung-der-schul-cloud-einfuehrung.html" target="_blank">Georg-Eckert-Institut</a>
-            aufbauend auf den Ergebnissen von Unterrichtsbeobachtungen und Workshops mit den Pilotschulen ein
-            Nutzungskonzept für die pädagogisch-didaktisch sinnvolle Anwendung der HPI Schul-Cloud. Außerdem hat das HPI zusammen mit der <a href="https://www.presse.uni-augsburg.de/unipressedienst/2018/jan-maerz/2018_003/" target="_blank">Universität Augsburg</a>
-            einen MOOC zu dem Thema <a href="https://mooc.house/courses/lernen40-2018" target="_blank">Lernen 4.0 - Möglichkeiten und Grenzen einer Digitalisierung im Bildungsbereich</a> durchgeführt.</p>
-            <br/>
-            <div class="embed-pdf">
-                <div class="row embed-pdf-row">
-                    <div class="single-pdf col-xs-12 col-md-4" data-pdf="https://schul-cloud-hpi.s3.hidrive.strato.com/Willkommenordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien-und-Methoden.pdf">
-                        <a href="#">
-                            <div class="single-pdf-wrapper">
-                                <b class="single-pdf-title">Die HPI Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien
-                                    und Methoden</b>
-                                <br/>
-                                <img class="single-pdf-thumbnail" src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien.jpg" />
-                            </div>
-                        </a>
-                    </div>
-                    <div class="single-pdf col-xs-12 col-md-4" data-pdf="https://schul-cloud-hpi.s3.hidrive.strato.com/Willkommenordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-und-Schulalltag-Mehrwert-und-Voraussetzungen.pdf">
-                        <a href="#">
-                            <div class="single-pdf-wrapper">
-                                <b class="single-pdf-title">Die HPI Schul-Cloud in Unterricht und Schulalltag - Mehrwert und Voraussetzungen</b>
-                                <br/>
-                                <img class="single-pdf-thumbnail" src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schul-Cloud-in-Unterricht-und-Schulalltag.jpg" />
-                            </div>
-                        </a>
-                    </div>
-                    <div class="single-pdf col-xs-12 col-md-4" data-pdf="https://s3.hidrive.strato.com/schul-cloud-hpi/Willkommenordner/Begleitmaterial/Broschuere_HPI-Schul-Cloud-und-Lernen-4.0.pdf">
-                        <a href="#">
-                            <div class="single-pdf-wrapper">
-                                <b class="single-pdf-title">HPI Schul-Cloud und Lernen 4.0 - Best-Practice-Unterrichtsbeispiele für die Sekundarstufe</b>
-                                <br/>
-                                <img class="single-pdf-thumbnail" src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-HPI-Schul-Cloud-und-Lernen-4.0.jpg" />
-                            </div>
-                        </a>
-                    </div>
-                </div> <!-- .row.embed-pdf-row -->
-            </div> <!-- .container.embed-pdf -->
+			<a href="http://www.gei.de/abteilungen/schulbuch-als-medium/schools-in-the-cloud-wissenschaftliche-begleitforschung-der-schul-cloud-einfuehrung.html"
+				target="_blank">Georg-Eckert-Institut</a>
+			aufbauend auf den Ergebnissen von Unterrichtsbeobachtungen und Workshops mit den Pilotschulen ein
+			Nutzungskonzept für die pädagogisch-didaktisch sinnvolle Anwendung der HPI Schul-Cloud. Außerdem hat das HPI
+			zusammen mit der <a href="https://www.presse.uni-augsburg.de/unipressedienst/2018/jan-maerz/2018_003/"
+				target="_blank">Universität Augsburg</a>
+			einen MOOC zu dem Thema <a href="https://mooc.house/courses/lernen40-2018" target="_blank">Lernen 4.0 -
+				Möglichkeiten und Grenzen einer Digitalisierung im Bildungsbereich</a> durchgeführt.</p>
+		<br />
+		<div class="embed-pdf">
+			<div class="row embed-pdf-row">
+				<div class="single-pdf col-xs-12 col-md-4"
+					data-pdf="https://schul-cloud-hpi.s3.hidrive.strato.com/Willkommenordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien-und-Methoden.pdf">
+					<a href="#">
+						<div class="single-pdf-wrapper">
+							<b class="single-pdf-title">Die HPI Schul-Cloud im Unterricht - Fachübergreifende
+								Unterrichtsszenarien
+								und Methoden</b>
+							<br />
+							<img class="single-pdf-thumbnail"
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien.jpg" />
+						</div>
+					</a>
+				</div>
+				<div class="single-pdf col-xs-12 col-md-4"
+					data-pdf="https://schul-cloud-hpi.s3.hidrive.strato.com/Willkommenordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-und-Schulalltag-Mehrwert-und-Voraussetzungen.pdf">
+					<a href="#">
+						<div class="single-pdf-wrapper">
+							<b class="single-pdf-title">Die HPI Schul-Cloud in Unterricht und Schulalltag - Mehrwert und
+								Voraussetzungen</b>
+							<br />
+							<img class="single-pdf-thumbnail"
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schul-Cloud-in-Unterricht-und-Schulalltag.jpg" />
+						</div>
+					</a>
+				</div>
+				<div class="single-pdf col-xs-12 col-md-4"
+					data-pdf="https://s3.hidrive.strato.com/schul-cloud-hpi/Willkommenordner/Begleitmaterial/Broschuere_HPI-Schul-Cloud-und-Lernen-4.0.pdf">
+					<a href="#">
+						<div class="single-pdf-wrapper">
+							<b class="single-pdf-title">HPI Schul-Cloud und Lernen 4.0 -
+								Best-Practice-Unterrichtsbeispiele für die Sekundarstufe</b>
+							<br />
+							<img class="single-pdf-thumbnail"
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-HPI-Schul-Cloud-und-Lernen-4.0.jpg" />
+						</div>
+					</a>
+				</div>
+			</div> <!-- .row.embed-pdf-row -->
+		</div> <!-- .container.embed-pdf -->
 
-        {{/content}}
-    {{/embed}}
-    {{#embed "authentication/section" style="accent" class="content-width-max"}}
-        {{#content "body"}}
-            <h3 class="section-title center">Veröffentlichungen</h3>
-            <div class="embed-pdf">
-                <div class="row embed-pdf-row">
-                    <div class="single-pdf col-xs-12 col-md-4" data-pdf="https://schul-cloud-hpi.s3.hidrive.strato.com/Dokumente/Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.pdf">
-                            <div class="single-pdf-wrapper">
-                        <a href="#">
-                                <b class="single-pdf-title">Technischer Bericht: Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland</b>
-                                <br/>
-                                <img class="single-pdf-thumbnail" src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.jpg" />
-                        </a>
-                            </div>
-                    </div>
-                    <div class="single-pdf col-xs-12 col-md-4" data-pdf="https://schul-cloud-hpi.s3.hidrive.strato.com/Dokumente/Schulrechner-wandern-in-die-Cloud-2017.pdf">
-                            <div class="single-pdf-wrapper">
-                        <a href="#">
-                                <b class="single-pdf-title">Schulrechner wandern in die Cloud – Was bedeutet das für die unterschiedlichen Stakeholder?</b>
-                                <br/>
-                                <img class="single-pdf-thumbnail" src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schulrechner-wandern-in-die-Cloud.jpg" />
-                        </a>
-                            </div>
-                    </div>
-                    <div class="single-pdf col-xs-12 col-md-4" data-pdf="https://schul-cloud-hpi.s3.hidrive.strato.com/Dokumente/Konzept-und-Pilotierung-der-Schul-Cloud-2017.pdf">
-                            <div class="single-pdf-wrapper">
-                        <a href="#">
-                                <b class="single-pdf-title">Die Cloud für Schulen in Deutschland: Konzept und Pilotierung der HPI Schul-Cloud</b>
-                                <br/>
-                                <img class="single-pdf-thumbnail" src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Konzept-und-Pilotierung-der-Schul-Cloud-2017.jpg" />
-                        </a>
-                            </div>
-                    </div>
-                </div> <!-- .row.embed-pdf-row -->
-            </div> <!-- .container.embed-pdf -->
-			<div class="content-width-max">
+		{{/content}}
+		{{/embed}}
+		{{#embed "authentication/section" style="accent" class="content-width-max"}}
+		{{#content "body"}}
+		<h3 class="section-title center">Veröffentlichungen</h3>
+		<div class="embed-pdf">
+			<div class="row embed-pdf-row">
+				<div class="single-pdf col-xs-12 col-md-4"
+					data-pdf="https://schul-cloud-hpi.s3.hidrive.strato.com/Dokumente/Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.pdf">
+					<div class="single-pdf-wrapper">
+						<a href="#">
+							<b class="single-pdf-title"
+								data-pdf="https://s3.hidrive.strato.com/schul-cloud-hpi/Dokumente/Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-f%C3%BCr-Schulen-in-Deutschland.pdf">Technischer
+								Bericht: Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in
+								Deutschland</b>
+							<br />
+							<img class="single-pdf-thumbnail"
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.jpg" />
+						</a>
+					</div>
+				</div>
+				<div class="single-pdf col-xs-12 col-md-4"
+					data-pdf="https://schul-cloud-hpi.s3.hidrive.strato.com/Dokumente/Schulrechner-wandern-in-die-Cloud-2017.pdf">
+					<div class="single-pdf-wrapper">
+						<a href="#">
+							<b class="single-pdf-title">Schulrechner wandern in die Cloud – Was bedeutet das für die
+								unterschiedlichen Stakeholder?</b>
+							<br />
+							<img class="single-pdf-thumbnail"
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schulrechner-wandern-in-die-Cloud.jpg" />
+						</a>
+					</div>
+				</div>
+				<div class="single-pdf col-xs-12 col-md-4"
+					data-pdf="https://schul-cloud-hpi.s3.hidrive.strato.com/Dokumente/Konzept-und-Pilotierung-der-Schul-Cloud-2017.pdf">
+					<div class="single-pdf-wrapper">
+						<a href="#">
+							<b class="single-pdf-title">Die Cloud für Schulen in Deutschland: Konzept und Pilotierung
+								der HPI Schul-Cloud</b>
+							<br />
+							<img class="single-pdf-thumbnail"
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Konzept-und-Pilotierung-der-Schul-Cloud-2017.jpg" />
+						</a>
+					</div>
+				</div>
+			</div> <!-- .row.embed-pdf-row -->
+		</div> <!-- .container.embed-pdf -->
+		<div class="content-width-max">
 
-            <h4>Weitere Veröffentlichungen</h4>
-            <ul>
-                <br/>
-                <li>Malyska, V., Renz, J. & Meinel, C. (2018). Eine Innovation für Deutschlands Bildungslandschaft – Projekt
-                    Schul-Cloud . In Scheiter, K. & Riecke-Baulecke, T. (Hrsg.), Schulmanagement-Handbuch 165: Schule 4.0 (Vol.
-                    37, S. 75–83). München: Oldenbourg.
-                </li>
-                <br/>
-                <li>Malyska, V. & Meinel, C. (2018). Lernen in Wolken. didacta DIGITAL, 1/18, S. 16–17</li>
-            </ul>
-            <br/>
-            <h4>Aufzeichnungen von Vorträgen</h4>
-            <ul>
-                <li><a href="https://www.tele-task.de/series/1149/" target="_blank">Vorträge des 1. HPI Schul-Cloud-Forums (April
-                    2017)</a></li>
-                <li><a href="https://www.tele-task.de/series/1196/" target="_blank">Vorträge des 2. HPI Schul-Cloud-Forums (März
-                    2018)</a></li>
-            </ul>
+			<h4>Weitere Veröffentlichungen</h4>
+			<ul>
+				<br />
+				<li>Malyska, V., Renz, J. & Meinel, C. (2018). Eine Innovation für Deutschlands Bildungslandschaft –
+					Projekt
+					Schul-Cloud . In Scheiter, K. & Riecke-Baulecke, T. (Hrsg.), Schulmanagement-Handbuch 165: Schule
+					4.0 (Vol.
+					37, S. 75–83). München: Oldenbourg.
+				</li>
+				<br />
+				<li>Malyska, V. & Meinel, C. (2018). Lernen in Wolken. didacta DIGITAL, 1/18, S. 16–17</li>
+			</ul>
+			<br />
+			<h4>Aufzeichnungen von Vorträgen</h4>
+			<ul>
+				<li><a href="https://www.tele-task.de/series/1149/" target="_blank">Vorträge des 1. HPI
+						Schul-Cloud-Forums (April
+						2017)</a></li>
+				<li><a href="https://www.tele-task.de/series/1196/" target="_blank">Vorträge des 2. HPI
+						Schul-Cloud-Forums (März
+						2018)</a></li>
+			</ul>
+		</div>
+		{{/content}}
+		{{/embed}}
+		{{#embed "authentication/section" class="content-width-max"}}
+		{{#content "body"}}
+		<h3 class="section-title center">Unsere Auszeichnungen</h3>
+		<div class="embed-award">
+			<div class="row">
+				<div class="single-award col-xs-12 col-md-6">
+					<div class="single-award-wrapper">
+						<a href="https://www.innovationspreis.de/preisträger-und-finalisten/preisträger/2018/"
+							target="_blank">
+							<div class="row">
+								<div class="col-md-6"><b class="single-award-title">Preisträger im "Innovationspreis
+										Berlin Brandenburg 2018"</b></div>
+								<div class="col-md-6"><img class="single-award-thumbnail"
+										src="/images/awards/Innovationspreisträger-180208.jpg" /></div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="single-award col-xs-12 col-md-6">
+					<div class="single-award-wrapper">
+						<a href="https://hpi.de/pressemitteilungen/2017/schul-cloud-als-ausgezeichneter-ort-2017-praemiert.html"
+							target="_blank">
+							<div class="row">
+								<div class="col-md-6"><b class="single-award-title">Ernennung zum „Ausgezeichneten Ort“
+										im bundesweiten Wettbewerb „Land der Ideen“</b></div>
+								<div class="col-md-6"><img class="single-award-thumbnail"
+										src="/images/awards/Land-der-Ideen-2017.jpg" /></div>
+							</div>
+						</a>
+					</div>
+				</div>
 			</div>
-            {{/content}}
-    {{/embed}}
-    {{#embed "authentication/section" class="content-width-max"}}
-        {{#content "body"}}
-            <h3 class="section-title center">Unsere Auszeichnungen</h3>
-            <div class="embed-award">
-                <div class="row">
-                    <div class="single-award col-xs-12 col-md-6">
-                        <div class="single-award-wrapper">
-                            <a href="https://www.innovationspreis.de/preisträger-und-finalisten/preisträger/2018/" target="_blank">
-								<div class="row">
-									<b class="single-award-title col-md-6">Preisträger im "Innovationspreis Berlin Brandenburg 2018"</b>
-									<img class="single-award-thumbnail col-md-6" src="/images/awards/Innovationspreisträger-180208.jpg" />
-								</div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="single-award col-xs-12 col-md-6">
-                        <div class="single-award-wrapper">
-                            <a href="https://hpi.de/pressemitteilungen/2017/schul-cloud-als-ausgezeichneter-ort-2017-praemiert.html" target="_blank">
-								<div class="row">
-									<b class="single-award-title col-md-6">Ernennung zum „Ausgezeichneten Ort“ im bundesweiten Wettbewerb „Land der Ideen“</b>
-									<img class="single-award-thumbnail col-md-6" src="/images/awards/Land-der-Ideen-2017.jpg" />
-								</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {{/content}}
-    {{/embed}}
+		</div>
+		{{/content}}
+		{{/embed}}
 </section>
