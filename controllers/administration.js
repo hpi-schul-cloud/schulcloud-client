@@ -850,7 +850,7 @@ const skipRegistration = (req, res, next) => {
 		},
 	}).then(() => {
 		res.render('administration/users_registrationcomplete', {
-			title: 'Einwilligung erfolgreich erteilt',
+			title: 'Einverständnis erfolgreich erklärt',
 			submitLabel: 'Zurück',
 			users: [
 				{
@@ -1257,9 +1257,9 @@ router.get(
 		api(req).get(`/users/${req.params.id}`)
 			.then((user) => {
 				res.render('administration/users_skipregistration', {
-					title: 'Einwilligungen erteilen',
+					title: 'Einverständnis erklären',
 					action: `/administration/students/${user._id}/skipregistration`,
-					submitLabel: 'Einwilligung erteilen',
+					submitLabel: 'Einverständnis erklären',
 					closeLabel: 'Abbrechen',
 					user,
 					password: startPwGen(),
@@ -1316,7 +1316,7 @@ router.all(
 					'E-Mail-Adresse',
 					'Klasse(n)',
 					'Erstellt am',
-					'Einwilligung',
+					'Einverständnis',
 					'',
 				];
 
