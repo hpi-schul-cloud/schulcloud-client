@@ -88,6 +88,27 @@
     </section>
     {{/unless}}
     <section class="section-school section-default">
+        <h2 class="h4">Schuljahreswechsel</h2>
+        <p>Aktuelles Schuljahr: {{school.currentYear.name}}</p>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 no-padding">
+                    <button type="submit" class="btn btn-primary btn-terminate-school-year">
+                        Schuljahr beenden
+                    </button>
+                </div>
+            </div>
+        </div>
+        <p>Hier kommt weiterer Erklärungstext. Bitte mit Max abstimmen.</p>
+
+        {{#embed "lib/components/modal-form" body=systemsBody method="post" class="terminate-school-year-modal"}}
+        {{#content "fields"}}
+        {{> "administration/forms/form-terminate-school-year"}}
+        {{/content}}
+        {{/embed}}
+    </section>
+
+    <section class="section-school section-default">
         <h2 class="h4">Authentifizierung</h2>
         <div class="container-fluid">
             <div class="row">

@@ -53,6 +53,7 @@ let handlerRegistered = false;
 
 $(document).ready(function () {
     var $modals = $('.modal');
+    var $terminateSchoolYearModal = $('.terminate-school-year-modal');
     var $addSystemsModal = $('.add-modal');
     var $addRSSModal = $('.add-modal--rss');
     var $editModal = $('.edit-modal');
@@ -60,6 +61,16 @@ $(document).ready(function () {
     var $importModal = $('.import-modal');
     var $deleteSystemsModal = $('.delete-modal');
     var $deleteRSSModal = $('.delete-modal--rss');
+
+    $('.btn-terminate-school-year').on('click', function (e) {
+        e.preventDefault();
+        populateModalForm($terminateSchoolYearModal, {
+            title: 'Das Schuljahr wirklich beenden?',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Ja'
+        });
+        $terminateSchoolYearModal.appendTo('body').modal('show');
+    });
 
     $('.btn-add-modal').on('click', function (e) {
         e.preventDefault();

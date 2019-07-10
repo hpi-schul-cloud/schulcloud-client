@@ -2641,7 +2641,7 @@ router.use(
 		const [school, totalStorage] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
-					$populate: ['systems'],
+					$populate: ['systems', 'currentYear'],
 					$sort: req.query.sort,
 				},
 			}),
