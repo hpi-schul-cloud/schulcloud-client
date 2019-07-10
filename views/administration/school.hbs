@@ -93,9 +93,21 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 no-padding">
+                    {{#ifeq schoolMaintananceMode "standby"}}
                     <button type="submit" class="btn btn-primary btn-terminate-school-year">
                         Schuljahr beenden
                     </button>
+                    {{/ifeq}}
+                    {{#ifeq schoolMaintananceMode "active"}}
+                    <button type="submit" class="btn btn-primary btn-start-school-year">
+                        Schuljahr starten
+                    </button>
+                    {{/ifeq}}
+                    {{#ifeq schoolMaintananceMode "idle"}}
+                    <button type="submit" class="btn btn-primary disabled">
+                        Schuljahr beenden
+                    </button>
+                    {{/ifeq}}
                 </div>
             </div>
         </div>

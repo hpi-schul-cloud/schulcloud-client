@@ -2638,7 +2638,7 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
 					$populate: ['systems', 'currentYear'],
@@ -2646,7 +2646,22 @@ router.use(
 				},
 			}),
 			api(req).get('/fileStorage/total'),
+			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
 		]);
+
+		// Maintanance - Show Menu depending on the state
+		const currentTime = new Date();
+		const maintananceModeStarts = new Date(schoolMaintanance.maintenance.starts);
+		// Terminate school year 14 days before maintance start possible
+		const twoWeeksFromStart = new Date(maintananceModeStarts.valueOf());
+		twoWeeksFromStart.setDate(twoWeeksFromStart.getDate() - 14);
+
+		let schoolMaintananceMode = 'idle';
+		if (schoolMaintanance.maintenance.active || maintananceModeStarts < currentTime) {
+			schoolMaintananceMode = 'active';
+		} else if (maintananceModeStarts > currentTime && twoWeeksFromStart < currentTime) {
+			schoolMaintananceMode = 'standby';
+		}
 
 		// SYSTEMS
 		const systemsHead = ['Alias', 'Typ', ''];
@@ -2722,6 +2737,8 @@ router.use(
 		res.render('administration/school', {
 			title: `${title}Schule`,
 			school,
+			schoolMaintanance,
+			schoolMaintananceMode,
 			systems,
 			ldapAddable,
 			provider,

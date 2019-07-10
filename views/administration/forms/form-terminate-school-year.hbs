@@ -1,1 +1,6 @@
-<p>Das Schuljahr {{school.currentYear.name}} wird beendet. Dieser Schritt kann nicht rückgängig gemacht werden. Weiteren Text mit Max abstimmen.</p>
+ {{#if schoolMaintanance.schoolUsesLdap}}
+ <p>Das Schuljahr {{school.currentYear.name}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.</strong> Lehrer können in dieser Zeit keine neuen Kurse und Klassen anlegen.</p>
+<p>Die Synchronisierung von LDAP-Stammdaten wird während der Transferphase unterbrochen. Somit werden Nutzerdaten und Klassen (sofern verwendet) nicht mehr über LDAP aktualisiert. Der Login mit bereits synchronisierten Login-Daten ist weiterhin möglich.</p>
+{{else}}
+<p>Das Schuljahr {{school.currentYear.name}} wird beendet und das neue Schuljahr xxxx/xx wird eingeläutet. Dadurch können keine weiteren Kurse und Klassen im alten Schuljahr {{school.currentYear.name}} mehr erstellt werden, sondern nur im neuen Schjahr xxxx/xx. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.</strong></p>
+{{/if}}
