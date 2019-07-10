@@ -73,6 +73,9 @@ function deploytostaging {
 }
 
 
+openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
+
+echo "$GIT_SHA $DOCKERTAG" > ./static/commitsha.txt
 
 if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
 then
@@ -82,7 +85,7 @@ elif [ "$TRAVIS_BRANCH" = "develop" ]
 then
   buildandpush
   deploytotest
-elif [[ $TRAVIS_BRANCH == release* ]]
+elif [[ $TRAVIS_BRANCH = release* || $TRAVIS_BRANCH = hotfix* ]]
 then
   buildandpush
   deploytostaging

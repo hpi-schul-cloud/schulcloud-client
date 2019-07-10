@@ -15,6 +15,7 @@
         align-items: center;
         justify-content: space-between;
         flex-wrap: nowrap;
+        padding: 0 5px;
         &:after{
             /* remove bootstrap after attribute from dom - breaks flex alignment*/
             display: none;
