@@ -60,40 +60,49 @@
                         Für Schüler unter 16 Jahren: Einverständnis der Eltern<br />
                         <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" readonly />
 
-                        <label><input name="parent_form" value="analog" type="radio" readonly checked /> Analog</label>
-                        <label><input name="parent_form" value="digital" type="radio" readonly /> Digital</label>
+                        <label><input name="parent_form" value="analog" type="radio" checked /> Analog</label>
+                        <label><input name="parent_form" value="digital" type="radio" /> Digital</label>
                         <br />
-                        <label><input name="parent_privacyConsent" type="checkbox" value="true" readonly checked />
-                            Datenschutz</label><br />
-                        <label><input name="parent_termsOfUseConsent" type="checkbox" value="true" readonly checked />
-                            Nutzung</label><br />
+                        <label>
+							<input name="parent_privacyConsent" type="checkbox" value="true" checked />
+                            Datenschutz
+						</label><br />
+                        <label>
+							<input name="parent_termsOfUseConsent" type="checkbox" value="true" checked />
+                            Nutzung
+						</label><br />
                     </div>
                     <div class="col-md-6">
                         Für Schüler ab 14 Jahren: Einverständnis des Schülers<br />
                         <input name="student_consentId" type="hidden" value="{{consent._id}}" readonly />
 
-                        <label><input name="student_form" value="analog" type="radio" readonly checked /> Analog</label>
-                        <label><input name="student_form" value="digital" type="radio" readonly /> Digital</label>
+                        <label><input name="student_form" value="analog" type="radio" checked /> Analog</label>
+                        <label><input name="student_form" value="digital" type="radio" /> Digital</label>
                         <br />
-                        <label><input name="privacyConsent" type="checkbox" value="true" data-force-value="true"
-                                readonly checked />
-                            Datenschutz</label><br />
-                        <label><input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true"
-                                readonly checked />
-                            Nutzung</label><br />
+                        <label>
+							<input name="privacyConsent" type="checkbox" value="true" data-force-value="true" checked />
+                            Datenschutz
+						</label><br />
+                        <label>
+							<input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true" checked />
+                            Nutzung
+						</label><br />
                     </div>
                     {{else}}
                     <div class="col-md-6">
                         <input name="consentId" type="hidden" value="{{consent._id}}" readonly />
 
-                        <label><input name="form" value="analog" type="radio" readonly checked /> Analog</label>
-                        <label><input name="form" value="digital" type="radio" readonly /> Digital</label>
+                        <label><input name="form" value="analog" type="radio" checked /> Analog</label>
+                        <label><input name="form" value="digital" type="radio" /> Digital</label>
                         <br />
-                        <label><input name="privacyConsent" type="checkbox" data-force-value="true" readonly checked />
-                            Datenschutz</label><br />
-                        <label><input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true"
-                                readonly checked />
-                            Nutzung</label><br />
+                        <label>
+							<input name="privacyConsent" type="checkbox" data-force-value="true" checked />
+                            Datenschutz
+						</label><br />
+                        <label>
+							<input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true" checked />
+                            Nutzung
+						</label><br />
                     </div>
                     {{/unless}}
                 </div>

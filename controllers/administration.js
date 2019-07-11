@@ -821,8 +821,8 @@ const parseDate = (input) => {
 
 const generatePassword = () => {
 	const words = ['auto', 'baum', 'bein', 'blumen', 'flocke', 'frosch', 'halsband', 'hand', 'haus', 'herr', 'horn',
-		'kind', 'kleid', 'kobra', 'komet', 'konzert', 'kopf', 'kugel', 'puppe', 'rauch', 'raupe', 'regenbogen', 'schuh', 'seele',
-		'spatz', 'taktisch', 'traum', 'trommel', 'wolke'];
+		'kind', 'kleid', 'kobra', 'komet', 'konzert', 'kopf', 'kugel', 'puppe', 'rauch', 'raupe', 'regenbogen', 'schuh',
+		'seele', 'spatz', 'taktisch', 'traum', 'trommel', 'wolke'];
 	return words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 98) + 1).toString();
 };
 
@@ -1332,11 +1332,11 @@ router.all(
 						userRow.push({
 							link: `/administration/students/${user._id}/skipregistration`,
 							title: 'Einverständnis erklären',
-							icon: 'step-forward',
+							icon: 'check-square-o',
 						});
 					}
-					if (user.consent.consentStatus == 'missing' ||
-						user.consent.consentStatus == 'default') {
+					if (user.consent.consentStatus === 'missing'
+						|| user.consent.consentStatus === 'default') {
 						studentsWithoutConsentCount += 1;
 					}
 					return [
@@ -1844,7 +1844,7 @@ router.get(
 					teachersPromise,
 					studentsPromise,
 					yearsPromise,
-					usersWithConsentsPromise
+					usersWithConsentsPromise,
 				]).then(([classes, teachers, students, schoolyears, usersWithoutConsent]) => {
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
@@ -1876,7 +1876,7 @@ router.get(
 						}
 					});
 
-					//importHash exists --> not signed up
+					// importHash exists --> not signed up
 					usersWithoutConsent = usersWithoutConsent.filter((obj) => {
 						if (obj.importHash) return true;
 						return false;
