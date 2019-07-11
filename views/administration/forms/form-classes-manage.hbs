@@ -89,20 +89,22 @@
         {{/if}}
     </div>
 
-    <div class="mb-3">
-        <h2 class="h4">
-            Einverständnis manuell erklären
-        </h2>
-        <p>
-           Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.
-        </p>
+    {{#if consentsMissing}}
+        <div class="mb-3">
+            <h2 class="h4">
+                Einverständnis manuell erklären
+            </h2>
+            <p>
+            Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.
+            </p>
 
-            <a href="skipregistration" class="btn btn-primary btn-skip-consent">
-                    <i class="fa fa-exclamation-triangle"></i> Einverständnis manuell für alle Schüler erklären
-            </a>
+                <a href="skipregistration" class="btn btn-primary btn-skip-consent">
+                        <i class="fa fa-exclamation-triangle"></i> Einverständnis manuell für alle Schüler erklären
+                </a>
 
 
-    </div>
+        </div>
+    {{/if}}
 
     <div class="mb-3">
         <h2 class="h4">Einladungslink</h2>

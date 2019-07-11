@@ -819,9 +819,9 @@ const parseDate = (input) => {
 	return new Date(parts[2], parts[1] - 1, parts[0]);
 };
 
-const startPwGen = () => {
+const generatePassword = () => {
 	const words = ['auto', 'baum', 'bein', 'blumen', 'flocke', 'frosch', 'halsband', 'hand', 'haus', 'herr', 'horn',
-		'kind', 'kleid', 'kobra', 'komet', 'konzert', 'kopf', 'kugel', 'puppe', 'rauch', 'raupe', 'schuh', 'seele',
+		'kind', 'kleid', 'kobra', 'komet', 'konzert', 'kopf', 'kugel', 'puppe', 'rauch', 'raupe', 'regenbogen', 'schuh', 'seele',
 		'spatz', 'taktisch', 'traum', 'trommel', 'wolke'];
 	return words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 98) + 1).toString();
 };
@@ -1043,7 +1043,7 @@ router.all(
 						.includes('administrator')
 				) {
 					head.push('Erstellt am');
-					head.push('Einwilligung');
+					head.push('Einverständnis');
 					head.push('');
 				}
 				const body = users.map((user) => {
@@ -1262,7 +1262,7 @@ router.get(
 					submitLabel: 'Einverständnis erklären',
 					closeLabel: 'Abbrechen',
 					user,
-					password: startPwGen(),
+					password: generatePassword(),
 					referrer: req.header('Referer'),
 				});
 			})
@@ -1291,7 +1291,6 @@ router.all(
 		}
 
 		const currentPage = parseInt(req.query.p, 10) || 1;
-		// const title = returnAdminPrefix(res.locals.currentUser.roles);
 
 		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
@@ -1332,12 +1331,12 @@ router.all(
 					if (user.importHash && canSkip) {
 						userRow.push({
 							link: `/administration/students/${user._id}/skipregistration`,
-							title: 'Einwilligung erteilen',
+							title: 'Einverständnis erklären',
 							icon: 'step-forward',
 						});
 					}
-					if (icon === '<i class="fa fa-times consent-status"></i>') {
-						// bad but helper functions only return icons
+					if (user.consent.consentStatus == 'missing' ||
+						user.consent.consentStatus == 'default') {
 						studentsWithoutConsentCount += 1;
 					}
 					return [
@@ -1838,12 +1837,15 @@ router.get(
 				});
 				const yearsPromise = getSelectOptions(req, 'years', { $limit: false });
 
+				const usersWithConsentsPromise = getUsersWithoutConsent(req, 'student', currentClass._id);
+
 				Promise.all([
 					classesPromise,
 					teachersPromise,
 					studentsPromise,
 					yearsPromise,
-				]).then(([classes, teachers, students, schoolyears]) => {
+					usersWithConsentsPromise
+				]).then(([classes, teachers, students, schoolyears, usersWithoutConsent]) => {
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
 					);
@@ -1873,6 +1875,13 @@ router.get(
 							s.selected = true;
 						}
 					});
+
+					//importHash exists --> not signed up
+					usersWithoutConsent = usersWithoutConsent.filter((obj) => {
+						if (obj.importHash) return true;
+						return false;
+					});
+
 					res.render('administration/classes-manage', {
 						title: `Klasse '${currentClass.displayName}' verwalten `,
 						class: currentClass,
@@ -1922,6 +1931,7 @@ router.get(
 							},
 						],
 						referrer: '/administration/classes/',
+						consentsMissing: usersWithoutConsent.length !== 0,
 					});
 				});
 			});
@@ -1966,7 +1976,7 @@ router.get(
 			if (obj.importHash) return true;
 			return false;
 		});
-		const passwords = students.map(() => (startPwGen()));
+		const passwords = students.map(() => (generatePassword()));
 		const renderUsers = students.map((student, i) => ({
 			fullname: `${student.firstName} ${student.lastName}`,
 			id: student._id,
