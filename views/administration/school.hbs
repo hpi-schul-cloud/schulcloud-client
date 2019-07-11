@@ -94,28 +94,44 @@
             <div class="row">
                 <div class="col-sm-12 no-padding">
                     {{#ifeq schoolMaintananceMode "standby"}}
-                    <button type="submit" class="btn btn-primary btn-terminate-school-year">
-                        Schuljahr beenden
-                    </button>
+                        <button type="submit" class="btn btn-primary btn-terminate-school-year">
+                            Schuljahr beenden
+                        </button>
+                        {{#if ../schoolMaintanance.schoolUsesLdap}}
+                        <p>Das Schuljahr {{school.currentYear.name}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
+                        {{else}}
+                        <p>Das Schuljahr {{school.currentYear.name}} wird beendet und das neue Schuljahr xxxx/xx wird eingeläutet. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
+                        {{/if}}
                     {{/ifeq}}
                     {{#ifeq schoolMaintananceMode "active"}}
-                    <button type="submit" class="btn btn-primary btn-start-school-year">
-                        Schuljahr starten
-                    </button>
+                        <button type="submit" class="btn btn-primary {{#if ../schoolMaintanance.schoolUsesLdap}}btn-start-ldap-school-year{{else}}btn-start-school-year{{/if}}">
+                            Schuljahr einläuten
+                        </button>
+                        {{#if ../schoolMaintanance.schoolUsesLdap}}
+                        <p>Das neue Schuljahr xxxx/xx wird eingeläutet. Nach dem Klick auf "Schuljahr einläuten" erhalten Sie eine Vorschau der LDAP-Synchronisation.</p>
+                        {{else}}
+                        <p>Das neue Schuljahr xxxx/xx wird eingeläutet. Dadurch können wieder Kurse und Klassen im neuen Schuljahr xxxx/xx erstellt werden.</p>
+                        {{/if}}
                     {{/ifeq}}
                     {{#ifeq schoolMaintananceMode "idle"}}
-                    <button type="submit" class="btn btn-primary disabled">
-                        Schuljahr beenden
-                    </button>
+                        <button type="submit" class="btn btn-primary disabled">
+                            Schuljahr beenden
+                        </button>
+                        <p>Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.</p>
                     {{/ifeq}}
                 </div>
             </div>
         </div>
-        <p>Hier kommt weiterer Erklärungstext. Bitte mit Max abstimmen.</p>
 
-        {{#embed "lib/components/modal-form" body=systemsBody method="post" class="terminate-school-year-modal"}}
+        {{#embed "lib/components/modal-form" action="/administration/terminateschoolyear" method="post" class="terminate-school-year-modal"}}
         {{#content "fields"}}
         {{> "administration/forms/form-terminate-school-year"}}
+        {{/content}}
+        {{/embed}}
+
+        {{#embed "lib/components/modal-form" action="/administration/startschoolyear" method="post" class="start-school-year-modal"}}
+        {{#content "fields"}}
+        {{> "administration/forms/form-start-school-year"}}
         {{/content}}
         {{/embed}}
     </section>

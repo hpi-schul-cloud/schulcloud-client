@@ -53,7 +53,8 @@ let handlerRegistered = false;
 
 $(document).ready(function () {
     var $modals = $('.modal');
-    var $terminateSchoolYearModal = $('.terminate-school-year-modal');
+	var $terminateSchoolYearModal = $('.terminate-school-year-modal');
+	var $startSchoolYearModal = $('.start-school-year-modal');
     var $addSystemsModal = $('.add-modal');
     var $addRSSModal = $('.add-modal--rss');
     var $editModal = $('.edit-modal');
@@ -70,6 +71,21 @@ $(document).ready(function () {
             submitLabel: 'Ja'
         });
         $terminateSchoolYearModal.appendTo('body').modal('show');
+	});
+	
+	$('.btn-start-school-year').on('click', function (e) {
+        e.preventDefault();
+        populateModalForm($startSchoolYearModal, {
+            title: 'Das neue Schuljahr einläuten?',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Ja'
+        });
+        $startSchoolYearModal.appendTo('body').modal('show');
+	});
+	
+	$('.btn-start-ldap-school-year').on('click', function (e) {
+        e.preventDefault();
+        window.location.assign('/administration/startldapschoolyear');
     });
 
     $('.btn-add-modal').on('click', function (e) {

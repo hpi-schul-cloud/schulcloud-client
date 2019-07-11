@@ -2657,7 +2657,7 @@ router.use(
 		twoWeeksFromStart.setDate(twoWeeksFromStart.getDate() - 14);
 
 		let schoolMaintananceMode = 'idle';
-		if (schoolMaintanance.maintenance.active || maintananceModeStarts < currentTime) {
+		if (schoolMaintanance.maintenance.active) {
 			schoolMaintananceMode = 'active';
 		} else if (maintananceModeStarts > currentTime && twoWeeksFromStart < currentTime) {
 			schoolMaintananceMode = 'standby';
@@ -2754,6 +2754,33 @@ router.use(
 		});
 	},
 );
+
+/*
+
+	Change School Year
+
+*/
+
+// Terminate
+router.post('/terminateschoolyear', async (req, res) => {
+	const test = await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`);
+
+	console.log(test);
+
+	res.redirect('/administration/school');
+});
+
+// Start
+router.post('/startschoolyear', async (req, res) => {
+	const test = await api(req).put(`/schools/${res.locals.currentSchool}/maintenance`);
+
+	console.log(test);
+
+	res.redirect('/administration/school');
+});
+
+// Start preview LDAP
+
 
 /*
     LDAP SYSTEMS
