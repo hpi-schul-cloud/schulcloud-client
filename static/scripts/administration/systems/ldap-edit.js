@@ -176,6 +176,12 @@ window.addEventListener('DOMContentLoaded', () => {
 		activateLDAP(clicked);
 	});
 
+	// Checkbox Schoolyear
+	document.querySelector('#startldapschoolyear').addEventListener('changed', (status) => {
+		document.querySelector('#buttonstartldapschoolyear').removeClass('disabled');
+	});
+
+
 	// User overview tables
 	document.querySelector('#usertoggle').addEventListener('click', (clicked) => { toggleTableClass(clicked, '#userTable'); });
 	document.querySelector('#classtoggle').addEventListener('click', (clicked) => { toggleTableClass(clicked, '#classTable'); });

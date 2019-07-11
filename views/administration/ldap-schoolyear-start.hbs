@@ -1,0 +1,34 @@
+{{#extend "administration/administration"}}
+    {{#content "scripts" mode="append"}}
+    <script src="/scripts/administration/systems/ldap-edit.js" type="text/javascript" defer></script>
+    {{/content}}
+    {{#content "page" mode="prepend"}}
+        <div class="route-administration">
+            <p>Bitte prüfen Sie, ob die Klassen (sofern verwendet) im LDAP für das neue Schuljahr aktualisiert worden sind und ob die Nutzer Ihren Erwartungen entsprechen bevor Sie auf "Schuljahr einläuten" klicken.</p>
+            <section class="section-school section-default">
+                <div class="container-fluid ajaxcontent">
+                    <h5>LDAP-Klassen</h5>
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/table" head=headClasses body=bodyClasses limit=false}}
+                        </div>
+                    </div>
+                    <h5>LDAP-Nutzer</h5>
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/table" head=headUser body=bodyUsers limit=false}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            <p><input type="checkbox" id="startldapschoolyear" /> Klassen für das neue Schuljahr xx/xxxx sind korrekt eingepflegt</p>
+                            <a href="/administration/startschoolyear" id="buttonstartldapschoolyear" class="btn btn-primary btn-add disabled">
+                                Schuljahr einläuten
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    {{/content}}
+{{/extend}}

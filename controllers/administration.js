@@ -2765,21 +2765,67 @@ router.use(
 router.post('/terminateschoolyear', async (req, res) => {
 	const test = await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`);
 
-	console.log(test);
-
 	res.redirect('/administration/school');
 });
 
 // Start
-router.post('/startschoolyear', async (req, res) => {
+router.use('/startschoolyear', async (req, res) => {
 	const test = await api(req).put(`/schools/${res.locals.currentSchool}/maintenance`);
-
-	console.log(test);
 
 	res.redirect('/administration/school');
 });
 
 // Start preview LDAP
+router.get('/startldapschoolyear', async (req, res) => {
+
+	// Find LDAP-System
+	const school = await Promise.resolve(
+		api(req).get(`/schools/${res.locals.currentSchool}`, {
+			qs: {
+				$populate: ['systems'],
+			},
+		}),
+	);
+	const system = school.systems.filter(
+		// eslint-disable-next-line no-shadow
+		system => system.type === 'ldap',
+	);
+
+	const ldapData = await Promise.resolve(api(req).get(`/ldap/${system[0]._id}`));
+
+	const bodyClasses = [];
+	ldapData.classes.forEach((singleClass) => {
+		bodyClasses.push([
+			singleClass.className,
+			singleClass.ldapDn,
+			singleClass.uniqueMembers,
+		]);
+	});
+
+	const bodyUsers = [];
+	ldapData.users.forEach((user) => {
+		bodyUsers.push([
+			user.firstName,
+			user.lastName,
+			user.email,
+			user.ldapUID,
+			user.roles.join(),
+			user.ldapDn,
+			user.ldapUUID,
+		]);
+	});
+
+	const headUser = ['Vorname', 'Nachname', 'E-Mail', 'uid', 'Rolle(n)', 'Domainname', 'uuid'];
+	const headClasses = ['Name', 'Domain', 'Nutzer der Klasse'];
+
+	res.render('administration/ldap-schoolyear-start', {
+		title: 'Prüfung der LDAP-Daten für Schuljahreswechsel',
+		headUser,
+		bodyUsers,
+		headClasses,
+		bodyClasses,
+	});
+});
 
 
 /*
