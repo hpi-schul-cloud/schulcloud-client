@@ -2763,14 +2763,22 @@ router.use(
 
 // Terminate
 router.post('/terminateschoolyear', async (req, res) => {
-	const test = await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`);
+	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
+		json: {
+			maintenance: true,
+		},
+	});
 
 	res.redirect('/administration/school');
 });
 
 // Start
 router.use('/startschoolyear', async (req, res) => {
-	const test = await api(req).put(`/schools/${res.locals.currentSchool}/maintenance`);
+	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
+		json: {
+			maintenance: false,
+		},
+	});
 
 	res.redirect('/administration/school');
 });
