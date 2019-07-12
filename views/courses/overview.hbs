@@ -22,7 +22,7 @@
 
                 {{#userHasPermission "COURSE_EDIT"}}
                     <section>
-                        <div class="section-title mb-2"><h4>Meine Vertretungen</h4></div>
+                        <div class="section-title mb-2"><h2 class="h4">Meine Vertretungen</h2></div>
                         {{#if ../substitutionCourses}}
                             {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen" additionalInfoName="memberCount"}}
                         {{else}}
