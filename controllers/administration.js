@@ -2659,7 +2659,7 @@ router.use(
 		let schoolMaintananceMode = 'idle';
 		if (schoolMaintanance.maintenance.active) {
 			schoolMaintananceMode = 'active';
-		} else if (maintananceModeStarts > currentTime && twoWeeksFromStart < currentTime) {
+		} else if (maintananceModeStarts && twoWeeksFromStart < currentTime) {
 			schoolMaintananceMode = 'standby';
 		}
 
