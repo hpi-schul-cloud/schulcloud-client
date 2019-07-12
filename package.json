@@ -32,6 +32,7 @@
     "feedr": "^2.13.5",
     "font-awesome": "^4.7.0",
     "fullcalendar": "^3.9.0",
+    "git-repo-info": "^2.1.0",
     "gulp-nodemon": "^2.2.1",
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",

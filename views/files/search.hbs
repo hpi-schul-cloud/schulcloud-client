@@ -30,19 +30,19 @@
 			{{#if query }}
 				{{#if files}}
 					<hr>
-					<h5>Suchergebnisse für "{{ query }}"</h5>
+					<h2 class="h5">Suchergebnisse für "{{ query }}"</h2>
 				{{/if}}
 			{{else}}
 				{{#if files}}
 					<hr>
-					<h5>Suchergebnisse</h5>
+					<h2 class="h5">Suchergebnisse</h2>
 				{{/if}}
 			{{/if}}
 			{{#unless files}}{{#unless suppressNoResultsMessage}}
 				<hr>
-				<h5 class="text-muted text-center">
+				<h2 class="h5" class="text-muted text-center">
 					<span>Keine Suchergebnisse</span>
-				</h5>
+				</h2>
 			{{/unless}}{{/unless}}
 
             {{#embed "files/file-viewer"}}{{/embed}}
