@@ -17,6 +17,7 @@
   },
   "sasslintConfig": "./.sass-lint.yml",
   "dependencies": {
+    "@sentry/browser": "^5.5.0",
     "body-parser": "^1.19.0",
     "browser-sync": "^2.26.7",
     "compression": "^1.6.2",
@@ -34,6 +35,7 @@
     "fullcalendar": "^3.9.0",
     "git-repo-info": "^2.1.0",
     "gulp-nodemon": "^2.2.1",
+    "handlebars": "^4.1.2",
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",
     "hbs": "^4.0.4",

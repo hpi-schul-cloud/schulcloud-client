@@ -1,6 +1,12 @@
-{{#if @root.locals.SENTRY}}
-<script src="https://browser.sentry-cdn.com/5.4.0/bundle.min.js" crossorigin="anonymous"></script>
-<script>
-	Sentry.init({ dsn: 'https://56dd0571258844de9c366c812da1407e@sentry.io/1483841' });
-</script>
-{{/if}}
+{{#ifEnv "SENTRY" true}}
+	<script src="/vendor-optimized/sentry/5.5.0/bundle.min.js"></script>
+	<script>
+	Sentry.init({ dsn: 'https://https://sentry.schul-cloud.dev/sc-client' });
+	Sentry.configureScope((scope) => {
+		scope.setUser({"id": "{{ @root.locals.currentUser._id }}"});
+		scope.setTag({"domain":"{{@root.locals.domain}}"});
+		scope.setTag({"production":"{{@root.locals.production}}"});
+		// todo add commit hash
+	});
+	</script>
+{{/ifEnv}}
