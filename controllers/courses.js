@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const _ = require('lodash');
 const express = require('express');
 const winston = require('winston');
@@ -299,7 +300,7 @@ router.use(authHelper.authChecker);
  */
 
 
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
 	Promise.all([
 		api(req).get('/courses/', {
 			qs: {
@@ -317,40 +318,42 @@ router.get('/', function (req, res, next) {
 			},
 		}),
 	]).then(([substitutionCourses, courses]) => {
-		substitutionCourses = substitutionCourses.data.map(course => {
+		substitutionCourses = substitutionCourses.data.map((course) => {
 			course.url = `/courses/${course._id}`;
 			course.title = course.name;
 			course.content = (course.description || '').substr(0, 140);
 			course.secondaryTitle = '';
 			course.background = course.color;
 			course.memberAmount = course.userIds.length;
-			(course.times || []).forEach(time => {
+			(course.times || []).forEach((time) => {
+				const timeRoom = time.room ? `| ${time.room}` : '';
+				const addTitle = `<div>${time.weekday} ${time.startTime} ${timeRoom}</div>`;
 				time.startTime = moment(time.startTime, 'x').format('HH:mm');
 				time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-				course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${time.room}`) : ''}</div>`;
+				course.secondaryTitle += addTitle;
 			});
 			return course;
 		});
 
-		courses = courses.data.map(course => {
+		courses = courses.data.map((course) => {
 			course.url = `/courses/${course._id}`;
 			course.title = course.name;
 			course.content = (course.description || '').substr(0, 140);
 			course.secondaryTitle = '';
 			course.background = course.color;
 			course.memberAmount = course.userIds.length;
-			(course.times || []).forEach(time => {
+			(course.times || []).forEach((time) => {
+				const timeRoom = time.room ? `| ${time.room}` : '';
+				const addTitle = `<div>${time.weekday} ${time.startTime} ${timeRoom}</div>`;
 				time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 				time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-				course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${time.room}`) : ''}</div>`;
+				course.secondaryTitle += addTitle;
 			});
 
 			return course;
 		});
 
-		const isStudent = res.locals.currentUser.roles.every((role) => {
-			return role.name === 'student';
-		});
+		const isStudent = res.locals.currentUser.roles.every(role => role.name === 'student');
 
 		if (req.query.json) {
 			res.json(courses);
@@ -365,20 +368,20 @@ router.get('/', function (req, res, next) {
 					showSearch: true,
 					liveSearch: true,
 				});
-			} else{
-				res.render('courses/overview-empty', {
-					isStudent,
-				});
 			}
+
+			res.render('courses/overview-empty', {
+				isStudent,
+			});
 		}
-	}).catch(err => {
+	}).catch((err) => {
 		next(err);
 	});
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', (req, res, next) => {
 	// map course times to fit model
-	(req.body.times || []).forEach(time => {
+	(req.body.times || []).forEach((time) => {
 		time.startTime = moment.duration(time.startTime, 'HH:mm').asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
@@ -386,18 +389,20 @@ router.post('/', function (req, res, next) {
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-		{ delete req.body.startDate; }
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-		{ delete req.body.untilDate; }
+	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) {
+		delete req.body.startDate;
+	}
+	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) {
+		delete req.body.untilDate;
+	}
 
 	api(req).post('/courses/', {
 		json: req.body, // TODO: sanitize
-	}).then(course => {
-		createEventsForCourse(req, res, course).then(_ => {
+	}).then((course) => {
+		createEventsForCourse(req, res, course).then(() => {
 			res.redirect('/courses');
 		});
-	}).catch(err => {
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
@@ -440,7 +445,7 @@ router.get('/add/', editCourseHandler);
  * Single Course
  */
 
-router.get('/:courseId/json', function (req, res, next) {
+router.get('/:courseId/json', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/courses/${req.params.courseId}`, {
 			qs: {
@@ -453,12 +458,12 @@ router.get('/:courseId/json', function (req, res, next) {
 			},
 		}),
 	]).then(([course, lessons]) => res.json({ course, lessons }))
-		.catch(err => {
+		.catch((err) => {
 			next(err);
 		});
 });
 
-router.get('/:courseId/usersJson', function (req, res, next) {
+router.get('/:courseId/usersJson', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/courses/${req.params.courseId}`, {
 			qs: {
@@ -466,14 +471,14 @@ router.get('/:courseId/usersJson', function (req, res, next) {
 			},
 		}),
 	]).then(([course]) => res.json({ course }))
-		.catch(err => {
+		.catch((err) => {
 			next(err);
 		});
 });
 
 // EDITOR
 
-router.get('/:courseId/', function (req, res, next) {
+router.get('/:courseId/', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/courses/${req.params.courseId}`, {
 			qs: {
@@ -500,14 +505,12 @@ router.get('/:courseId/', function (req, res, next) {
 			},
 		}),
 	]).then(([course, lessons, homeworks, courseGroups]) => {
-		let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
-		lessons = (lessons.data || []).map(lesson => {
-			return Object.assign(lesson, {
-				url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
-			});
-		});
+		const ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
+		lessons = (lessons.data || []).map(lesson => Object.assign(lesson, {
+			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
+		}));
 
-		homeworks = (homeworks.data || []).map(assignment => {
+		homeworks = (homeworks.data || []).map((assignment) => {
 			assignment.url = `/homework/${assignment._id}`;
 			return assignment;
 		});
@@ -515,21 +518,20 @@ router.get('/:courseId/', function (req, res, next) {
 		homeworks.sort((a, b) => {
 			if (a.dueDate > b.dueDate) {
 				return 1;
-			} else {
-				return -1;
 			}
+			return -1;
 		});
 
-		courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
-			courseGroups.data || [] :
-			(courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+		courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
+			? courseGroups.data || []
+			: (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
 
 		res.render('courses/course', Object.assign({}, course, {
 			title: course.name,
 			activeTab: req.query.activeTab,
 			lessons,
-			homeworks: homeworks.filter(function (task) { return !task.private; }),
-			myhomeworks: homeworks.filter(function (task) { return task.private; }),
+			homeworks: homeworks.filter(task => !task.private),
+			myhomeworks: homeworks.filter(task => task.private),
 			ltiToolIds,
 			courseGroups,
 			breadcrumb: [{
@@ -544,16 +546,16 @@ router.get('/:courseId/', function (req, res, next) {
 			filesUrl: `/files/courses/${req.params.courseId}`,
 			nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
 		}));
-	}).catch(err => {
+	}).catch((err) => {
 		next(err);
 	});
 });
 
 
-router.patch('/:courseId', function (req, res, next) {
+router.patch('/:courseId', (req, res, next) => {
 	// map course times to fit model
 	req.body.times = req.body.times || [];
-	req.body.times.forEach(time => {
+	req.body.times.forEach((time) => {
 		time.startTime = moment.duration(time.startTime).asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
@@ -561,34 +563,29 @@ router.patch('/:courseId', function (req, res, next) {
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!req.body.classIds)
-		{ req.body.classIds = []; }
-	if (!req.body.userIds)
-		{ req.body.userIds = []; }
-	if (!req.body.substitutionIds)
-		{ req.body.substitutionIds = []; }
+	if (!req.body.classIds) { req.body.classIds = []; }
+	if (!req.body.userIds) { req.body.userIds = []; }
+	if (!req.body.substitutionIds) { req.body.substitutionIds = []; }
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-		{ delete req.body.startDate; }
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-		{ delete req.body.untilDate; }
+	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) { delete req.body.startDate; }
+	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) { delete req.body.untilDate; }
 
 	// first delete all old events for the course
-	deleteEventsForCourse(req, res, req.params.courseId).then(_ => {
+	deleteEventsForCourse(req, res, req.params.courseId).then((_) => {
 		api(req).patch(`/courses/${req.params.courseId}`, {
 			json: req.body, // TODO: sanitize
-		}).then(course => {
-			createEventsForCourse(req, res, course).then(_ => {
+		}).then((course) => {
+			createEventsForCourse(req, res, course).then((_) => {
 				res.redirect(`/courses/${req.params.courseId}`);
 			});
 		});
-	}).catch(error => {
+	}).catch((error) => {
 		res.sendStatus(500);
 	});
 });
 
-router.patch('/:courseId/positions', function (req, res, next) {
-	for (var elem in req.body) {
+router.patch('/:courseId/positions', (req, res, next) => {
+	for (let elem in req.body) {
 		api(req).patch(`/lessons/${elem}`, {
 			json: {
 				position: parseInt(req.body[elem]),
@@ -600,18 +597,18 @@ router.patch('/:courseId/positions', function (req, res, next) {
 });
 
 
-router.delete('/:courseId', function (req, res, next) {
-	deleteEventsForCourse(req, res, req.params.courseId).then(_ => {
-		api(req).delete(`/courses/${req.params.courseId}`).then(_ => {
+router.delete('/:courseId', (req, res, next) => {
+	deleteEventsForCourse(req, res, req.params.courseId).then((_) => {
+		api(req).delete(`/courses/${req.params.courseId}`).then((_) => {
 			res.sendStatus(200);
 		});
-	}).catch(_ => {
+	}).catch((_) => {
 		res.sendStatus(500);
 	});
 });
 
-router.get('/:courseId/addStudent', function (req, res, next) {
-	let currentUser = res.locals.currentUser;
+router.get('/:courseId/addStudent', (req, res, next) => {
+	const currentUser = res.locals.currentUser;
 	// if currentUser isn't a student don't add to course-students
 	if (currentUser.roles.filter(r => r.name === 'student').length <= 0) {
 		req.session.notification = {
@@ -623,7 +620,7 @@ router.get('/:courseId/addStudent', function (req, res, next) {
 	}
 
 	// check if student is already in course
-	api(req).get(`/courses/${req.params.courseId}?link=${req.query.link}`).then(course => {
+	api(req).get(`/courses/${req.params.courseId}?link=${req.query.link}`).then((course) => {
 		if (_.includes(course.userIds, currentUser._id)) {
 			req.session.notification = {
 				type: 'danger',
@@ -635,24 +632,25 @@ router.get('/:courseId/addStudent', function (req, res, next) {
 
 		// add Student to course
 		course.userIds.push(currentUser._id);
+		// eslint-disable-next-line consistent-return
 		return api(req).patch(`/courses/${course._id}?link=${req.query.link}`, {
 			json: course,
-		}).then(_ => {
+		}).then(() => {
 			req.session.notification = {
 				type: 'success',
 				message: `Sie wurden erfolgreich beim Kurs/Fach ${course.name} hinzugefügt`,
 			};
 			res.redirect(`/courses/${req.params.courseId}`);
 		});
-	}).catch(err => {
+	}).catch((err) => {
 		next(err);
 	});
 });
 
-router.post('/:courseId/importTopic', function (req, res, next) {
-	let shareToken = req.body.shareToken;
+router.post('/:courseId/importTopic', (req, res, next) => {
+	const { shareToken } = req.body;
 	// try to find topic for given shareToken
-	api(req).get('/lessons/', { qs: { shareToken: shareToken, $populate: ['courseId'] } }).then(lessons => {
+	api(req).get('/lessons/', { qs: { shareToken, $populate: ['courseId'] } }).then((lessons) => {
 		if ((lessons.data || []).length <= 0) {
 			req.session.notification = {
 				type: 'danger',
@@ -662,11 +660,16 @@ router.post('/:courseId/importTopic', function (req, res, next) {
 			res.redirect(req.header('Referer'));
 		}
 
-		api(req).post('/lessons/copy', { json: { lessonId: lessons.data[0]._id, newCourseId: req.params.courseId, shareToken } })
-			.then(_ => {
+		api(req).post('/lessons/copy', {
+			json: {
+				lessonId: lessons.data[0]._id,
+				newCourseId: req.params.courseId,
+				shareToken,
+			},
+		})
+			.then(() => {
 				res.redirect(req.header('Referer'));
 			});
-
 	}).catch(err => res.status((err.statusCode || 500)).send(err));
 });
 
@@ -676,33 +679,23 @@ router.get('/:courseId/edit', editCourseHandler);
 router.get('/:courseId/copy', copyCourseHandler);
 
 // return shareToken
-router.get('/:id/share', function (req, res, next) {
-	return api(req).get(`/courses/share/${req.params.id}`)
-		.then(course => {
-			return res.json(course);
-		});
-});
+router.get('/:id/share', (req, res, next) => api(req).get(`/courses/share/${req.params.id}`)
+	.then(course => res.json(course)));
 
 // return course Name for given shareToken
-router.get('/share/:id', function (req, res, next) {
-	return api(req).get('/courses/share', { qs: { shareToken: req.params.id } })
-		.then(name => {
-			return res.json({ msg: name, status: 'success' });
-		})
-		.catch(err => {
-			return res.json({ msg: 'ShareToken is not in use.', status: 'error' });
-		});
-});
+router.get('/share/:id', (req, res, next) => api(req).get('/courses/share', { qs: { shareToken: req.params.id } })
+	.then(name => res.json({ msg: name, status: 'success' }))
+	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
-router.post('/import', function (req, res, next) {
-	let shareToken = req.body.shareToken;
-	let courseName = req.body.name;
+router.post('/import', (req, res, next) => {
+	const shareToken = req.body.shareToken;
+	const courseName = req.body.name;
 
 	api(req).post('/courses/share', { json: { shareToken, courseName } })
-		.then(course => {
+		.then((course) => {
 			res.redirect(`/courses/${course._id}/edit/`);
 		})
-		.catch(err => {
+		.catch((err) => {
 			res.status((err.statusCode || 500)).send(err);
 		});
 });
