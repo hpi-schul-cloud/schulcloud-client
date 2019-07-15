@@ -2651,7 +2651,7 @@ router.use(
 
 		// Maintanance - Show Menu depending on the state
 		const currentTime = new Date();
-		const maintananceModeStarts = new Date(schoolMaintanance.maintenance.starts);
+		const maintananceModeStarts = new Date(schoolMaintanance.maintenance.startDate);
 		// Terminate school year 14 days before maintance start possible
 		const twoWeeksFromStart = new Date(maintananceModeStarts.valueOf());
 		twoWeeksFromStart.setDate(twoWeeksFromStart.getDate() - 14);
