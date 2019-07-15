@@ -72,6 +72,9 @@ function deploytostaging {
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@staging.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client:$DOCKERTAG  staging_client
 }
 
+function inform {
+  curl -X POST -H 'Content-Type: application/json' --data '{"text":":rocket: Die Produktivsysteme können aktualisiert werden: Schul-Cloud Client!"}' $WEBHOOK_URL_CHAT
+}
 
 openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
 
@@ -80,7 +83,7 @@ echo "$GIT_SHA $DOCKERTAG" > ./static/commitsha.txt
 if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
 then
   buildandpush
-  deploytoprods
+  inform
 elif [ "$TRAVIS_BRANCH" = "develop" ]
 then
   buildandpush
