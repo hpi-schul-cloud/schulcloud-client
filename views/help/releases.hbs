@@ -6,7 +6,7 @@
 
     {{#content "page"}}
         <section class="changelog" id="changelog">
-            <h4>Neueste Funktionen</h4>
+            <h2 class="h4">Neueste Funktionen</h2>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
@@ -14,7 +14,7 @@
                             {{#each release}}
                                 <div class="card">
                                     <div class="card-header" role="tab" id="heading-{{@index}}">
-                                        <h5 class="mb-0">
+                                        <h3 class="h5 mb-0">
                                             <a data-toggle="collapse" data-parent="#accordion"
                                                 href="#collapse-{{@index}}"
                                                 {{#ifeq @index 0}}
@@ -30,7 +30,7 @@
                                                     </span>
                                                 </div>
                                             </a>
-                                        </h5>
+                                        </h3>
                                     </div>
                                     <div id="collapse-{{@index}}" class="collapse {{#ifeq @index 0}}in{{/ifeq}}"
                                             role="tabpanel" aria-labelledby="heading-{{@index}}"
