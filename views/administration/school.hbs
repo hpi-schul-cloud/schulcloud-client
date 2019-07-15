@@ -100,7 +100,7 @@
                         {{#if ../schoolMaintanance.schoolUsesLdap}}
                         <p>Das Schuljahr {{school.currentYear.name}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
                         {{else}}
-                        <p>Das Schuljahr {{school.currentYear.name}} wird beendet und das neue Schuljahr xxxx/xx wird eingeläutet. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
+                        <p>Das Schuljahr {{school.currentYear.name}} wird beendet und das neue Schuljahr {{schoolMaintanance.nextYear.name}} wird eingeläutet. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
                         {{/if}}
                     {{/ifeq}}
                     {{#ifeq schoolMaintananceMode "active"}}
@@ -108,9 +108,9 @@
                             Schuljahr einläuten
                         </button>
                         {{#if ../schoolMaintanance.schoolUsesLdap}}
-                        <p>Das neue Schuljahr xxxx/xx wird eingeläutet. Nach dem Klick auf "Schuljahr einläuten" erhalten Sie eine Vorschau der LDAP-Synchronisation.</p>
+                        <p>Das neue Schuljahr {{../schoolMaintanance.nextYear.name}} wird eingeläutet. Nach dem Klick auf "Schuljahr einläuten" erhalten Sie eine Vorschau der LDAP-Synchronisation.</p>
                         {{else}}
-                        <p>Das neue Schuljahr xxxx/xx wird eingeläutet. Dadurch können wieder Kurse und Klassen im neuen Schuljahr xxxx/xx erstellt werden.</p>
+                        <p>Das neue Schuljahr {{../schoolMaintanance.nextYear.name}} wird eingeläutet. Dadurch können wieder Kurse und Klassen im neuen Schuljahr {{../schoolMaintanance.nextYear.name}} erstellt werden.</p>
                         {{/if}}
                     {{/ifeq}}
                     {{#ifeq schoolMaintananceMode "idle"}}
