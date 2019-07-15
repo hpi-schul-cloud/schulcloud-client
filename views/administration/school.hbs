@@ -15,7 +15,7 @@
                 <div class="col-sm-12 no-padding">
                     <!-- Admin View -->
                     {{#userHasPermission 'ADMIN_VIEW'}}
-                    <h4>Schule</h4>
+                    <h2 class="h4">Schule</h2>
 
                     <form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
                         <input type="hidden" name="_method" value="patch" />
@@ -88,7 +88,7 @@
     </section>
     {{/unless}}
     <section class="section-school section-default">
-        <h4>Authentifizierung</h4>
+        <h2 class="h4">Authentifizierung</h2>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 no-padding">
@@ -132,7 +132,7 @@
     </section>
 
     <section class="section-school section-default">
-        <h4>RSS-Feeds</h4>
+        <h2 class="h4">RSS-Feeds</h2>
         <div class="container-fluid">
             <div class="row">
                 {{#if hasRSS}}

@@ -111,7 +111,7 @@ $(document).ready(function () {
                     action: '/calendar/events/' + event.attributes.uid
                 });
 
-                if (event["x-sc-courseId"]) { // course event
+                if (!event["x-sc-teamId"]) { // course or non-course event
                     transformCourseOrTeamEvent($editEventModal, event);
                     $editEventModal.find('.btn-delete').click(e => {
                         $.ajax({
