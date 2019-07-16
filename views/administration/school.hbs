@@ -98,9 +98,9 @@
                             Schuljahr beenden
                         </button>
                         {{#if ../schoolMaintanance.schoolUsesLdap}}
-                        <p>Das Schuljahr {{school.currentYear.name}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
+                        <p>Das Schuljahr {{../school.currentYear.name}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
                         {{else}}
-                        <p>Das Schuljahr {{school.currentYear.name}} wird beendet und das neue Schuljahr {{schoolMaintanance.nextYear.name}} wird eingeläutet. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
+                        <p>Das Schuljahr {{../school.currentYear.name}} wird beendet und das neue Schuljahr {{../schoolMaintanance.nextYear.name}} wird eingeläutet. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
                         {{/if}}
                     {{/ifeq}}
                     {{#ifeq schoolMaintananceMode "active"}}
