@@ -89,7 +89,13 @@
     {{/unless}}
     <section class="section-school section-default">
         <h2 class="h4">Schuljahreswechsel</h2>
-        <p>Aktuelles Schuljahr: {{school.currentYear.name}}</p>
+        <p>
+        {{#ifeq schoolMaintananceMode "active"}}
+            Transferphase
+        {{else}}
+            Aktuelles Schuljahr: {{../school.currentYear.name}}
+        {{/ifeq}}
+        </p>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 no-padding">
