@@ -384,7 +384,7 @@
 					"linkedin": ""
 				},
 				"longDesc": false
-			}
+			},
 			{
 				"title": "",
 				"firstName": "Tobias",
@@ -741,7 +741,7 @@
 					"linkedin": ""
 				},
 				"longDesc": false
-			}
+			},
 			{
 				"title": "",
 				"firstName": "Christian",
@@ -764,20 +764,20 @@
 		"size": "small",
 		"team": [
 			{
-        "title": "",
-        "firstName": "Patricia",
-        "lastName": "Rau",
-        "position": "Praktikantin",
-        "description": "Patricia hat BWL-Digitale Wirtschaft an der Beuth Hochschule für Technik in Berlin studiert. Seit Mai 2019 unterstützt sie das HPI Schul-Cloud Projekt bei kommunikativen und organisatorischen Aufgaben. Ihre Freizeit verbringt sie gerne mit Freunden in Cafes oder draußen im Grünen. Außerdem reist und fotografiert sie gerne.",
-        "pictureUrl": "/images/team/patricia_rau.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      }
+				"title": "",
+				"firstName": "Patricia",
+				"lastName": "Rau",
+				"position": "Praktikantin",
+				"description": "Patricia hat BWL-Digitale Wirtschaft an der Beuth Hochschule für Technik in Berlin studiert. Seit Mai 2019 unterstützt sie das HPI Schul-Cloud Projekt bei kommunikativen und organisatorischen Aufgaben. Ihre Freizeit verbringt sie gerne mit Freunden in Cafes oder draußen im Grünen. Außerdem reist und fotografiert sie gerne.",
+				"pictureUrl": "/images/team/patricia_rau.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			}
 		]
 	},
 	{
