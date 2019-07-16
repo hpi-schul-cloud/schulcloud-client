@@ -317,8 +317,8 @@ router.get('/', (req, res, next) => {
 				$limit: 75,
 			},
 		}),
-	]).then(([substitutionCourses, courses]) => {
-		substitutionCourses = substitutionCourses.data.map((course) => {
+	]).then(([_substitutionCourses, _courses]) => {
+		const substitutionCourses = _substitutionCourses.data.map((course) => {
 			course.url = `/courses/${course._id}`;
 			course.title = course.name;
 			course.content = (course.description || '').substr(0, 140);
@@ -335,7 +335,7 @@ router.get('/', (req, res, next) => {
 			return course;
 		});
 
-		courses = courses.data.map((course) => {
+		const courses = _courses.data.map((course) => {
 			course.url = `/courses/${course._id}`;
 			course.title = course.name;
 			course.content = (course.description || '').substr(0, 140);
@@ -504,13 +504,13 @@ router.get('/:courseId/', (req, res, next) => {
 				$populate: ['courseId', 'userIds'],
 			},
 		}),
-	]).then(([course, lessons, homeworks, courseGroups]) => {
+	]).then(([course, _lessons, _homeworks, _courseGroups]) => {
 		const ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
-		lessons = (lessons.data || []).map(lesson => Object.assign(lesson, {
+		const lessons = (_lessons.data || []).map(lesson => Object.assign(lesson, {
 			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
 		}));
 
-		homeworks = (homeworks.data || []).map((assignment) => {
+		const homeworks = (_homeworks.data || []).map((assignment) => {
 			assignment.url = `/homework/${assignment._id}`;
 			return assignment;
 		});
@@ -522,9 +522,9 @@ router.get('/:courseId/', (req, res, next) => {
 			return -1;
 		});
 
-		courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
-			? courseGroups.data || []
-			: (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+		const courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
+			? _courseGroups.data || []
+			: (_courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
 
 		res.render('courses/course', Object.assign({}, course, {
 			title: course.name,
@@ -571,44 +571,44 @@ router.patch('/:courseId', (req, res, next) => {
 	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) { delete req.body.untilDate; }
 
 	// first delete all old events for the course
-	deleteEventsForCourse(req, res, req.params.courseId).then((_) => {
+	deleteEventsForCourse(req, res, req.params.courseId).then(() => {
 		api(req).patch(`/courses/${req.params.courseId}`, {
 			json: req.body, // TODO: sanitize
 		}).then((course) => {
-			createEventsForCourse(req, res, course).then((_) => {
+			createEventsForCourse(req, res, course).then(() => {
 				res.redirect(`/courses/${req.params.courseId}`);
 			});
 		});
-	}).catch((error) => {
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
 
 router.patch('/:courseId/positions', (req, res, next) => {
-	for (let elem in req.body) {
-		api(req).patch(`/lessons/${elem}`, {
+	Object.keys(req.body).forEach((key) => {
+		api(req).patch(`/lessons/${key}`, {
 			json: {
-				position: parseInt(req.body[elem]),
+				position: parseInt(req.body[key], 10),
 				courseId: req.params.courseId,
 			},
 		});
-	}
+	});
 	res.sendStatus(200);
 });
 
 
 router.delete('/:courseId', (req, res, next) => {
-	deleteEventsForCourse(req, res, req.params.courseId).then((_) => {
-		api(req).delete(`/courses/${req.params.courseId}`).then((_) => {
+	deleteEventsForCourse(req, res, req.params.courseId).then(() => {
+		api(req).delete(`/courses/${req.params.courseId}`).then(() => {
 			res.sendStatus(200);
 		});
-	}).catch((_) => {
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
 
 router.get('/:courseId/addStudent', (req, res, next) => {
-	const currentUser = res.locals.currentUser;
+	const { currentUser } = res.locals;
 	// if currentUser isn't a student don't add to course-students
 	if (currentUser.roles.filter(r => r.name === 'student').length <= 0) {
 		req.session.notification = {
@@ -688,7 +688,7 @@ router.get('/share/:id', (req, res, next) => api(req).get('/courses/share', { qs
 	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
 router.post('/import', (req, res, next) => {
-	const shareToken = req.body.shareToken;
+	const { shareToken } = req.body;
 	const courseName = req.body.name;
 
 	api(req).post('/courses/share', { json: { shareToken, courseName } })
