@@ -21,10 +21,10 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            <p><input type="checkbox" id="startldapschoolyear" /> Klassen für das neue Schuljahr xx/xxxx sind korrekt eingepflegt</p>
-                            <a href="/administration/startschoolyear" id="buttonstartldapschoolyear" class="btn btn-primary btn-add disabled">
-                                Schuljahr einläuten
-                            </a>
+                            <form action="/administration/startschoolyear" type="post">
+                                <p><input required type="checkbox" id="startldapschoolyear" /> Klassen für das neue Schuljahr sind korrekt eingepflegt</p>
+                                <input type="submit" id="buttonstartldapschoolyear" class="btn btn-primary btn-add disabled" value="Schuljahr einläuten">
+                            </form>
                         </div>
                     </div>
                 </div>
