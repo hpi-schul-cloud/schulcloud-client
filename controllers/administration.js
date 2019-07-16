@@ -2806,7 +2806,7 @@ router.get('/startldapschoolyear', async (req, res) => {
 		bodyClasses.push([
 			singleClass.className,
 			singleClass.ldapDn,
-			singleClass.uniqueMembers,
+			(singleClass.uniqueMembers || []).join(', '),
 		]);
 	});
 
