@@ -1,5 +1,7 @@
-<div class="section-imprint">
-	<h1>Impressum</h1>
+<div class="section-imprint {{#unless loggedin}}loggedout{{/unless}}">
+	{{#unless loggedin}}
+		<h4>Impressum</h4>
+	{{/unless}}
 	<h5>
 		<strong>HPI Schul-Cloud &ndash; Hasso-Plattner-Institut f&uuml;r Digital Engineering gGmbH</strong>
 	</h5>
