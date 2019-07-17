@@ -18,6 +18,14 @@
     <input class="form-control" name="csvFile" type="file" required />
 </div>
 <div class="form-group">
+    <label>Schuljahr</label>
+    <select class="form-control" name="schoolYear" data-placeholder="Schuljahr auswählen" data-force-value="true">
+        {{#each years}}
+            <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+</div>
+<div class="form-group">
     <label>
         <input name="sendRegistration" type="checkbox" value="sendRegistration" />
         Registrierungslinks sofort nach Import an Nutzer senden
