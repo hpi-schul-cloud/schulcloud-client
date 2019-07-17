@@ -298,8 +298,13 @@ router.use(authHelper.authChecker);
 /*
  * Courses
  */
-
-
+const setTimeAndRoomOverview = (course, time) => {
+	const startTime = moment(time.startTime, 'x').utc().format('HH:mm');
+	const weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+	const room = time.room ? `| ${time.room}` : '';
+	const addTitle = `<div>${weekday} ${startTime} ${room}</div>`;
+	course.secondaryTitle += addTitle;
+};
 router.get('/', (req, res, next) => {
 	Promise.all([
 		api(req).get('/courses/', {
@@ -326,11 +331,7 @@ router.get('/', (req, res, next) => {
 			course.background = course.color;
 			course.memberAmount = course.userIds.length;
 			(course.times || []).forEach((time) => {
-				const timeRoom = time.room ? `| ${time.room}` : '';
-				const addTitle = `<div>${time.weekday} ${time.startTime} ${timeRoom}</div>`;
-				time.startTime = moment(time.startTime, 'x').format('HH:mm');
-				time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-				course.secondaryTitle += addTitle;
+				setTimeAndRoomOverview(course, time);
 			});
 			return course;
 		});
@@ -343,11 +344,7 @@ router.get('/', (req, res, next) => {
 			course.background = course.color;
 			course.memberAmount = course.userIds.length;
 			(course.times || []).forEach((time) => {
-				const timeRoom = time.room ? `| ${time.room}` : '';
-				const addTitle = `<div>${time.weekday} ${time.startTime} ${timeRoom}</div>`;
-				time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
-				time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-				course.secondaryTitle += addTitle;
+				setTimeAndRoomOverview(course, time);
 			});
 
 			return course;
@@ -357,19 +354,17 @@ router.get('/', (req, res, next) => {
 
 		if (req.query.json) {
 			res.json(courses);
+		} else if (courses.length > 0 || substitutionCourses.length > 0) {
+			res.render('courses/overview', {
+				title: 'Meine Kurse',
+				courses,
+				substitutionCourses,
+				searchLabel: 'Suche nach Kursen',
+				searchAction: '/courses',
+				showSearch: true,
+				liveSearch: true,
+			});
 		} else {
-			if (courses.length > 0 || substitutionCourses.length > 0) {
-				res.render('courses/overview', {
-					title: 'Meine Kurse',
-					courses,
-					substitutionCourses,
-					searchLabel: 'Suche nach Kursen',
-					searchAction: '/courses',
-					showSearch: true,
-					liveSearch: true,
-				});
-			}
-
 			res.render('courses/overview-empty', {
 				isStudent,
 			});
