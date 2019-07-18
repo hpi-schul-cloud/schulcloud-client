@@ -515,6 +515,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 				school: req.body.schoolId,
 				role: req.body.roles[0],
 				sendEmails: Boolean(req.body.sendRegistration),
+				schoolYear: req.body.schoolYear,
 			},
 			json: {
 				data: csvData,
@@ -549,6 +550,7 @@ const dictionary = {
 	dashboard: 'Übersicht',
 	courses: 'Kurse',
 	classes: 'Klassen',
+	teams: 'Teams',
 	homework: 'Aufgaben',
 	files: 'Dateien',
 	content: 'Materialien',
@@ -1199,6 +1201,7 @@ router.all(
 			: '';
 
 		let itemsPerPage = 25;
+		const amountOfYears = 5;
 		let filterQuery = {};
 		if (tempOrgQuery) {
 			filterQuery = JSON.parse(decodeURI(req.query.filterQuery));
@@ -1208,19 +1211,28 @@ router.all(
 		}
 
 		const currentPage = parseInt(req.query.p, 10) || 1;
-		//const title = returnAdminPrefix(res.locals.currentUser.roles);
+		// const title = returnAdminPrefix(res.locals.currentUser.roles);
 
 		let query = {
 			$limit: itemsPerPage,
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-		api(req)
+		const studentsRequest = api(req)
 			.get('/users/admin/students', {
 				qs: query,
-			})
-			.then(async (data) => {
-				const users = data.data;
+			});
+		const yearsRequest = api(req)
+			.get('/years', {
+				qs: {
+					$limit: amountOfYears,
+					$sort: { name: -1 },
+				},
+			});
+		Promise.all([studentsRequest, yearsRequest])
+			.then(async ([studentsResponse, yearsResponse]) => {
+				const users = studentsResponse.data;
+				const years = yearsResponse.data;
 				const title = `${returnAdminPrefix(
 					res.locals.currentUser.roles,
 				)}Schüler`;
@@ -1263,7 +1275,7 @@ router.all(
 
 				const pagination = {
 					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
+					numPages: Math.ceil(studentsResponse.total / itemsPerPage),
 					baseUrl: `/administration/students/?p={{page}}${filterQueryString}`,
 				};
 
@@ -1277,6 +1289,7 @@ router.all(
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						studentsWithoutConsentCount,
 						allStudentsCount: users.length,
+						years,
 					});
 				} catch (err) {
 					logger.warn(
