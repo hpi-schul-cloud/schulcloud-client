@@ -1,10 +1,22 @@
 {{#extend "administration/administration"}}
 {{#content "styles" mode="append"}}
 <link rel="stylesheet" href="/styles/administration/school.css" />
+<link rel="stylesheet" href="/styles/courses/course.css"/>
+<link rel="stylesheet" href="/styles/courses/course-edit.css"/>
+<link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
+<link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
+<link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
 {{/content}}
 
 {{#content "scripts" mode="append"}}
 <script src="/scripts/administration/school.js" type="text/javascript" defer></script>
+<script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" defer></script>
+<script src="/scripts/moment/moment.js" type="text/javascript" defer></script>
+<script src="/scripts/courses.js" type="text/javascript" defer></script>
+<script src="/scripts/coursesTimes.js" type="text/javascript" defer></script>
+<script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
+<script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
+<script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
 {{/content}}
 
 {{#content "page" mode="prepend"}}
@@ -99,25 +111,125 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 no-padding">
+                    {{#if schoolMaintanance.schoolUsesLdap}}
+                    <p>Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen.
+                        Übernimm abschließend alle Änderungen mit einem Mal in die Schul-Cloud.</p>
+                    <p><a href="#">Mehr Infos ></a></p>
+                    <div>
+                        <p>Eingeklapter Text</p>
+                        <p>Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen
+                            (z.B. Klassenfahrtfotos) zugreifen kann, speichert die Schul-Cloud ab, in welchem Schuljahr
+                            ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten
+                            Klassen funktioniert, stellt die Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:
+                        </p>
+                        <p class="font-weight-bold">Während des Schuljahres</p>
+                        <ul>
+                            <li>neue dazugekommen Nutzer, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden beständig synchronisiert</li>
+                        </ul>
+                        <p class="font-weight-bold">Start der Transferphase</p>
+                        <ul>
+                            <li>ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten</li>
+                            <li>ist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch</li>
+                        </ul>
+                        <p class="font-weight-bold">Während der Transferphase</p>
+                        <ul>
+                            <li>neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus dem LDAP synchronisiert</li>
+                            <li class="font-weight-bold">du kannst die notwendigen Änderungen für das neue Schuljahr im LDAP vornehmen (neue Nutzer, Update der Klassen)</li>
+                            <li>der Login via LDAP ist für bestehende Nutzer weiterhin möglich</li>
+                            <li>Passwortänderungen werden weiterhin synchronisiert</li>
+                            <li>Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)</li>
+                        </ul>
+                        <p class="font-weight-bold">Beenden der Transferphase</p>
+                        <ul>
+                            <li>beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind</li>
+                            <li>bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag synchronisiert</li>
+                            <li>gleichzeitig läutest Du damit das neue Schuljahr in der Schul-Cloud ein</li>
+                            <li>die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert</li>
+                        </ul>
+                        <p class="font-weight-bold">Nach Beenden der Transferphase</p>
+                        <ul>
+                            <li>die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden</li>
+                            <li>alle Daten aus dem LDAP werden wie gewohnt synchronisiert, neue Nutzer und Klassen können jederzeit dort angelegt werden</li>
+                        </ul>
+                    </div>
+                    {{#ifeq schoolMaintananceMode "idle"}}
+                        <button type="submit" class="btn btn-primary disabled">
+                            Schuljahr beenden
+                        </button>
+                        <p>Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.</p>
+                    {{else}}
+                    <p class="font-weight-bold">Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:</p>
+                    <section class="section-course">
+                        <div class="wizard-card">
+                            <div class="row">
+                                <div class="col-xs-4 text-center">
+                                    Altes Schuljahr
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    Rund um die Sommerferien
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    Neues Schuljahr
+                                </div>
+                            </div>
+                            <input style="display:none;" id="section-1" type="radio" name="stage" checked="checked">
+                            <input style="display:none;" id="section-2" type="radio" name="stage">
+                            <input style="display:none;" id="section-3" type="radio" name="stage">
+
+                            <div class="row stages">
+                                <div class="col-xs-4 text-center">
+                                    <label for="section-1">1</label>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <label for="section-2">2</label>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <label for="section-3">3</label>
+                                </div>
+                            </div>
+
+                            <span class="progressbar"></span>
+                            <div class="row">
+                                <div class="col-xs-4 text-center">
+                                    <p class="font-weight-bold">Beachte vor der Transferphase:</p>
+                                    <p><i class="fa fa-arrow-right"></i> Du kannst nicht mehr zurück</p>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <div class="d-flex justify-content-center">
+                                        <p class="font-weight-bold">Beachte verfügbare Funktionen <br> in der Transferphase:</p>
+                                        <p><i class="fa fa-times red"></i> Klassen anlegen oder ändern</p>
+                                        <p><i class="fa fa-times red"></i> Nutzer anlegen oder ändern</p>
+                                        <p><i class="fa fa-check green"></i> Login über LDAP</p>
+                                        <p><i class="fa fa-check green"></i> Kennwortänderungen</p>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 text-center">
+                                    <button class="btn btn-primary btn-terminate-school-year disabled">Transferphase starten</button>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <p><a href="#" class="btn btn-primary disabled">LDAP-Daten überprüfen</a></p>
+                                    <label>                           
+                                        <input type="checkbox">                   
+                                        Nutzer- und Klassendaten im LDAP <br> für das neue Schuljahr sind bearbeitet.
+                                    </label>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <button class="btn btn-primary btn-start-school-year disabled">Transferphase beenden</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    {{/ifeq}}
+                    {{else}}
                     {{#ifeq schoolMaintananceMode "standby"}}
                         <button type="submit" class="btn btn-primary btn-terminate-school-year">
                             Schuljahr beenden
                         </button>
-                        {{#if ../schoolMaintanance.schoolUsesLdap}}
-                        <p>Das Schuljahr {{../school.currentYear.name}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
-                        {{else}}
                         <p>Das Schuljahr {{../school.currentYear.name}} wird beendet und das neue Schuljahr {{../schoolMaintanance.nextYear.name}} wird eingeläutet. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
-                        {{/if}}
-                    {{/ifeq}}
-                    {{#ifeq schoolMaintananceMode "active"}}
-                        <button type="submit" class="btn btn-primary {{#if ../schoolMaintanance.schoolUsesLdap}}btn-start-ldap-school-year{{else}}btn-start-school-year{{/if}}">
-                            Schuljahr einläuten
-                        </button>
-                        {{#if ../schoolMaintanance.schoolUsesLdap}}
-                        <p>Das neue Schuljahr {{../schoolMaintanance.nextYear.name}} wird eingeläutet. Nach dem Klick auf "Schuljahr einläuten" erhalten Sie eine Vorschau der LDAP-Synchronisation.</p>
-                        {{else}}
-                        <p>Das neue Schuljahr {{../schoolMaintanance.nextYear.name}} wird eingeläutet. Dadurch können wieder Kurse und Klassen im neuen Schuljahr {{../schoolMaintanance.nextYear.name}} erstellt werden.</p>
-                        {{/if}}
                     {{/ifeq}}
                     {{#ifeq schoolMaintananceMode "idle"}}
                         <button type="submit" class="btn btn-primary disabled">
@@ -125,6 +237,7 @@
                         </button>
                         <p>Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.</p>
                     {{/ifeq}}
+                    {{/if}}
                 </div>
             </div>
         </div>
