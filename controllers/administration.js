@@ -2785,7 +2785,6 @@ router.use('/startschoolyear', async (req, res) => {
 
 // Start preview LDAP
 router.get('/startldapschoolyear', async (req, res) => {
-
 	// Find LDAP-System
 	const school = await Promise.resolve(
 		api(req).get(`/schools/${res.locals.currentSchool}`, {
