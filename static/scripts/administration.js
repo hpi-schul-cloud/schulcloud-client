@@ -61,7 +61,12 @@ $(document).ready(function () {
     var $invitationModal = $('.invitation-modal');
     var $importModal = $('.import-modal');
     var $deleteSystemsModal = $('.delete-modal');
-    var $deleteRSSModal = $('.delete-modal--rss');
+	var $deleteRSSModal = $('.delete-modal--rss');
+	
+	$('.ldapschoolyearadditionalinfotoggle').on('click', function (e) {
+        e.preventDefault();
+        $('#ldapschoolyearadditionalinfo').toggle();
+	});
 
     $('.btn-terminate-school-year').on('click', function (e) {
         e.preventDefault();
@@ -82,11 +87,30 @@ $(document).ready(function () {
         });
         $startSchoolYearModal.appendTo('body').modal('show');
 	});
+
+	$('#checkldapdata').on('click', function (e) {
+		e.preventDefault();
+		document.querySelector('#startldapschoolyear').disabled = false;
+        window.open("/administration/startldapschoolyear"); 
+	});
 	
-	$('.btn-start-ldap-school-year').on('click', function (e) {
-        e.preventDefault();
-        window.location.assign('/administration/startldapschoolyear');
-    });
+	document.querySelector('#startldapschoolyear').addEventListener('change', (status) => {
+		if (status.currentTarget.checked) {
+			document.querySelector('#buttonstartldapschoolyear').disabled = false;
+			document.querySelector('#checkldapdata').classList.add('disabled');
+			document.querySelector('#section-2').classList.remove('current');
+			document.querySelector('#section-2').classList.add('done');
+			document.querySelector('#section-2').innerHTML = '&#x2713;';
+			document.querySelector('#section-3').classList.add('current');
+		} else {
+			document.querySelector('#buttonstartldapschoolyear').disabled = true;
+			document.querySelector('#checkldapdata').classList.remove('disabled');
+			document.querySelector('#section-2').classList.remove('done');
+			document.querySelector('#section-2').classList.add('current');
+			document.querySelector('#section-2').innerHTML = '2';
+			document.querySelector('#section-3').classList.remove('current');
+		}
+	});
 
     $('.btn-add-modal').on('click', function (e) {
         e.preventDefault();

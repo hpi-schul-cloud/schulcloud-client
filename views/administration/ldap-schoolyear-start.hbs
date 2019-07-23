@@ -1,10 +1,8 @@
-{{#extend "administration/administration"}}
-    {{#content "scripts" mode="append"}}
-    <script src="/scripts/administration/systems/ldap-preview.js" type="text/javascript" defer></script>
-    {{/content}}
+{{#extend "lib/simple"}}
     {{#content "page" mode="prepend"}}
+        <h1 class="h4" id="page-title">Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr</h1>
         <div class="route-administration">
-            <p>Bitte prüfen Sie, ob die Klassen (sofern verwendet) im LDAP für das neue Schuljahr aktualisiert worden sind und ob die Nutzer Ihren Erwartungen entsprechen bevor Sie auf "Schuljahr einläuten" klicken.</p>
+            <p>Auf dieser Seite findest du die Daten aller Klassen und Nutzer, so wie sie die Cloud aus deinem LDAP übernehmen wird. Bitte überprüfe vor Übernahme der Daten durch Beenden der Transferphase diese Daten stichprobenartig auf ihre Richtigkeit.</p>
             <section class="section-school section-default">
                 <div class="container-fluid ajaxcontent">
                     <h5>LDAP-Klassen</h5>
@@ -21,10 +19,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            <form action="/administration/startschoolyear" type="post">
-                                <p><input required type="checkbox" id="startldapschoolyear" /> Klassen für das neue Schuljahr sind korrekt eingepflegt</p>
-                                <input type="submit" id="buttonstartldapschoolyear" class="btn btn-primary btn-add disabled" value="Schuljahr einläuten">
-                            </form>
+                            <button class="btn btn-primary btn-add" onclick="self.close()">Fenster schließen</button>
                         </div>
                     </div>
                 </div>
