@@ -200,6 +200,19 @@ $(document).ready(function () {
 
         return !(e.key === "Unidentified");
     });
+
+	// check for LDAP Transfer Mode
+	if ($('#schuljahrtransfer').length) {
+		if ($('#schuljahrtransfer').val() === 'Lehrer') {
+			$.showNotification(`Die Schule befindet sich in der Transferphase zum neuen Schuljahr. 
+			Es können keine Klassen und Nutzer angelegt werden.
+			Bitte kontaktiere den Schul-Administrator!`, 'warning');
+		} else if ($('#schuljahrtransfer').val() === 'Administrator') {
+			$.showNotification(`Die Schule befindet sich in der Transferphase zum neuen Schuljahr.
+			Es können keine Klassen und Nutzer angelegt werden.
+			Bitte läute <a href="/administration/school/"> hier das neue Schuljahr ein!</a>`, 'warning');
+		}
+	}
 });
 
 function showAJAXError(req, textStatus, errorThrown) {
