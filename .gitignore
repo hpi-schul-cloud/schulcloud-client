@@ -88,3 +88,6 @@ selenium-debug.log
 
 # editor bundling
 .cache/
+
+#version info
+version
