@@ -19,7 +19,7 @@
       {{#if user.userId}}<input type="hidden" name="userId" value="{{user.userId}}"/>{{/if}}
 
       <section data-panel="section-1" class="noback">
-        <h4>Willkommen zur Anmeldung in der {{theme.title}}</h4>
+        <h2 class="h4">Willkommen zur Anmeldung in der {{theme.title}}</h2>
         <p>Wir freuen uns, dass du die {{theme.title}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, nicht profitorientiert und datenschutzkonform.</p>
         <p>Bitte registriere dich zunächst in der {{theme.title}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.</p>
 
@@ -29,7 +29,7 @@
 
 
       <section data-panel="section-2">
-        <h4>Deine Daten</h4>
+        <h2 class="h4">Deine Daten</h2>
         <p>Die {{theme.short_title}} bewahrt Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.</p>
 
         <p>Für die Nutzung der {{theme.short_title}} benötigen wir folgende Angaben:</p>
@@ -86,7 +86,7 @@
 
 
       <section data-panel="section-3">
-        <h4>Einwilligungserklärung</h4>
+        <h2 class="h4">Einwilligungserklärung</h2>
         <p>Bitte bestätige folgende Einwilligungserklärungen, damit du die Vorteile der {{theme.title}} nutzen kannst.</p>
         <p>Ich, <b data-from="firstName"></b> <b data-from="lastName"></b>, erkläre folgendes:</p>
           {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
@@ -95,7 +95,7 @@
 
 
       <section data-panel="section-4" class="submit-page" data-feature="pin">
-        <h4>Fast geschafft!</h4>
+        <h2 class="h4">Fast geschafft!</h2>
         <p>Wir haben soeben eine E-Mail an deine angegebene Adresse gesendet. Bitte gib den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Du hast keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button></p>
         <div id="pinverification">
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
@@ -105,7 +105,7 @@
 
 
       <section data-panel="section-5">
-        <h4>Vielen Dank für die Registrierung in der {{theme.short_title}}</h4>
+        <h2 class="h4">Vielen Dank für die Registrierung in der {{theme.short_title}}</h2>
         <p>Du kannst dich jetzt in der {{theme.title}} anmelden.</p>
 
         <a class="btn btn-primary" href="/logout">Login öffnen</a>

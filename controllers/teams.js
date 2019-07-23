@@ -1046,7 +1046,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		res.render(
 			'teams/members',
 			Object.assign({}, team, {
-				title: 'Deine Team-Teilnehmer',
+				title: 'Team-Teilnehmer',
 				action,
 				classes,
 				addMemberAction: `${uri}/members`,

@@ -6,7 +6,7 @@
 @import "./sections";
 
 body {
-	display: flex;
+    display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     min-height: 100vh;
@@ -18,8 +18,8 @@ main{
 }
 
 ul{
-	list-style-type: square;
-	padding-left: 1.2em;
+    list-style-type: square;
+    padding-left: 1.2em;
 }
 
 h1.section-title{

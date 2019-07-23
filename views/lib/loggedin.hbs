@@ -86,9 +86,11 @@
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
-                                <li class="breadcrumb-item {{this.class}}">
-                                    <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
-                                </li>
+                                {{#if this.title}}
+                                    <li class="breadcrumb-item {{this.class}}">
+                                        <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
+                                    </li>
+                                {{/if}}
                             {{/each}}
                         </ol>
                     {{/if}}
@@ -184,7 +186,7 @@
                             <div class="col-sm-9">
                                 {{#unless notitle}}
                                   <div>
-                                      <h4 id="page-title">{{{stripOnlyScript title}}}</h4>
+                                      <h1 class="h4" id="page-title">{{{stripOnlyScript title}}}</h1>
                                   </div>
                                 {{/unless}}
                                 <div>
