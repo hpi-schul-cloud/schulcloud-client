@@ -2815,11 +2815,13 @@ router.get('/startldapschoolyear', async (req, res) => {
 
 	const bodyClasses = [];
 	ldapData.classes.forEach((singleClass) => {
-		bodyClasses.push([
-			singleClass.className,
-			singleClass.ldapDn,
-			(singleClass.uniqueMembers || []).join(', '),
-		]);
+		if (singleClass.uniqueMembers && singleClass.uniqueMembers.length) {
+			bodyClasses.push([
+				singleClass.className,
+				singleClass.ldapDn,
+				(singleClass.uniqueMembers || []).join('; '),
+			]);
+		}
 	});
 
 	const bodyUsers = [];
