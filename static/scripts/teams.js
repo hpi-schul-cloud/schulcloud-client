@@ -87,8 +87,8 @@ $(document).ready(() => {
 	$('.btn-edit-event').click(function editClickEvent(e) {
 		e.preventDefault();
 		const event = $(this).parents('.events-card').data('event');
-		event.start = moment(event.start);
-		event.end = moment(event.end);
+		event.start = moment(event.start).utc();
+		event.end = moment(event.end).utc();
 		state.event = event;
 
 		$.datetimepicker.setLocale('de');

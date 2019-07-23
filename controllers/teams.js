@@ -580,8 +580,8 @@ router.get('/:teamId', async (req, res, next) => {
 				},
 			});
 			events = events.map((event) => {
-				const start = moment(event.start);
-				const end = moment(event.end);
+				const start = moment(event.start).utc();
+				const end = moment(event.end).utc();
 				event.day = start.format('D');
 				event.month = start
 					.format('MMM')
