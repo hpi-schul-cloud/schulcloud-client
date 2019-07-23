@@ -678,7 +678,7 @@ const getSSOTypes = () => [
 	{ label: 'Moodle', value: 'moodle' },
 	{ label: 'itslearning', value: 'itslearning' },
 	{ label: 'IServ', value: 'iserv' },
-	{ label: 'LDAP', value: 'ldap' },
+	{ label: 'LDAP', value: 'ldap', hidden: true },
 ];
 
 const createBucket = (req, res, next) => {
@@ -2680,10 +2680,12 @@ router.use(
 		const systemsHead = ['Alias', 'Typ', ''];
 		let systemsBody;
 		let systems;
-		if (school.systems) {
+		let ldapAddable = true;
+		if (Array.isArray(school.systems)) {
 			school.systems = _.orderBy(school.systems, req.query.sort, 'desc');
 			// eslint-disable-next-line eqeqeq
 			systems = school.systems.filter(system => system.type != 'local');
+			ldapAddable = !systems.some(e => e.type === 'ldap');
 
 			systemsBody = systems.map((item) => {
 				const name = getSSOTypes().filter(type => item.type === type.value);
@@ -2703,7 +2705,6 @@ router.use(
 				];
 			});
 		}
-		const ldapAddable = !systems.some(e => e.type === 'ldap');
 
 		// RSS
 		const rssHead = ['URL', 'Kurzbeschreibung', 'Status', ''];
