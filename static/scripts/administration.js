@@ -77,16 +77,6 @@ $(document).ready(function () {
         });
         $terminateSchoolYearModal.appendTo('body').modal('show');
 	});
-	
-	$('.btn-start-school-year').on('click', function (e) {
-        e.preventDefault();
-        populateModalForm($startSchoolYearModal, {
-            title: 'Das neue Schuljahr einläuten?',
-            closeLabel: 'Abbrechen',
-            submitLabel: 'Ja'
-        });
-        $startSchoolYearModal.appendTo('body').modal('show');
-	});
 
 	$('#checkldapdata').on('click', function (e) {
 		e.preventDefault();

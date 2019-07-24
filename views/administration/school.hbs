@@ -11,13 +11,24 @@
 {{#content "page" mode="prepend"}}
 <div class="route-administration">
     <section class="section-school section-default">
-        <h2 class="h4">Schuljahreswechsel</h2>
+        <h2 class="h4">
+            {{#if schoolMaintanance.schoolUsesLdap}}
+            Schuljahreswechsel
+            {{else}}
+            Schuljahr: {{../school.currentYear.name}}
+            {{/if}}
+        </h2>
         <p>
+        {{#if schoolMaintanance.schoolUsesLdap}}
         {{#ifeq schoolMaintananceMode "active"}}
             Transferphase
         {{else}}
             Aktuelles Schuljahr: {{../school.currentYear.name}}
         {{/ifeq}}
+        {{else}}
+            Das neue Schuljahr beginnt in der {{theme.title}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien.
+            Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.
+        {{/if}}
         </p>
         <div class="container-fluid">
             <div class="row">
@@ -136,19 +147,6 @@
                         </div>
                     </section>
                     {{/ifeq}}
-                    {{else}}
-                    {{#ifeq schoolMaintananceMode "standby"}}
-                        <button type="submit" class="btn btn-primary btn-terminate-school-year">
-                            Schuljahr beenden
-                        </button>
-                        <p>Das Schuljahr {{../school.currentYear.name}} wird beendet und das neue Schuljahr {{../schoolMaintanance.nextYear.name}} wird eingeläutet. Weitere Details erhalten Sie nach dem Klick auf "Schuljahr beenden".</p>
-                    {{/ifeq}}
-                    {{#ifeq schoolMaintananceMode "idle"}}
-                        <button type="submit" class="btn btn-primary disabled">
-                            Schuljahr beenden
-                        </button>
-                        <p>Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.</p>
-                    {{/ifeq}}
                     {{/if}}
                 </div>
             </div>
@@ -157,12 +155,6 @@
         {{#embed "lib/components/modal-form" action="/administration/terminateschoolyear" method="post" class="terminate-school-year-modal"}}
         {{#content "fields"}}
         {{> "administration/forms/form-terminate-school-year"}}
-        {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal-form" action="/administration/startschoolyear" method="post" class="start-school-year-modal"}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-start-school-year"}}
         {{/content}}
         {{/embed}}
     </section>
