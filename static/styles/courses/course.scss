@@ -1,9 +1,29 @@
-@import '../lib/colors';
-@import '../lib/bootstrap/scss/bootstrap-flex';
+@import "../lib/colors";
+@import "../lib/bootstrap/scss/bootstrap-flex";
 
 .move-handle {
   cursor: move;
   white-space: nowrap;
+}
+
+.count-badge {
+  bottom: 2px;
+  position: relative;
+}
+
+.count-badge[data-badge]:after {
+  content: attr(data-badge);
+  background: $colorLightGrey;
+  color: $fontColor;
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
 }
 
 .dropdown-course {
@@ -49,26 +69,6 @@
     .sectionsContainer {
       padding: 10px 15px 0;
     }
-  }
-
-  .count-badge {
-    bottom: 2px;
-    position: relative;
-  }
-
-  .count-badge[data-badge]:after {
-    content: attr(data-badge);
-    background: $colorLightGrey;
-    color: $fontColor;
-    display: inline-block;
-    padding: .25em .4em;
-    font-size: 75%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: 0.25rem;
   }
 
   .files {
@@ -213,7 +213,7 @@
         margin-top: 15px;
       }
       .sub-text {
-          font-size: $font-size-xs;
+        font-size: $font-size-xs;
       }
     }
     .course-submit-page {
