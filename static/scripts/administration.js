@@ -54,7 +54,6 @@ let handlerRegistered = false;
 $(document).ready(function () {
     var $modals = $('.modal');
 	var $terminateSchoolYearModal = $('.terminate-school-year-modal');
-	var $startSchoolYearModal = $('.start-school-year-modal');
     var $addSystemsModal = $('.add-modal');
     var $addRSSModal = $('.add-modal--rss');
     var $editModal = $('.edit-modal');
@@ -84,23 +83,26 @@ $(document).ready(function () {
         window.open("/administration/startldapschoolyear"); 
 	});
 	
-	document.querySelector('#startldapschoolyear').addEventListener('change', (status) => {
-		if (status.currentTarget.checked) {
-			document.querySelector('#buttonstartldapschoolyear').disabled = false;
-			document.querySelector('#checkldapdata').classList.add('disabled');
-			document.querySelector('#section-2').classList.remove('current');
-			document.querySelector('#section-2').classList.add('done');
-			document.querySelector('#section-2').innerHTML = '&#x2713;';
-			document.querySelector('#section-3').classList.add('current');
-		} else {
-			document.querySelector('#buttonstartldapschoolyear').disabled = true;
-			document.querySelector('#checkldapdata').classList.remove('disabled');
-			document.querySelector('#section-2').classList.remove('done');
-			document.querySelector('#section-2').classList.add('current');
-			document.querySelector('#section-2').innerHTML = '2';
-			document.querySelector('#section-3').classList.remove('current');
-		}
-	});
+    const startschoolyearbutton = document.querySelector('#startldapschoolyear')
+	if(startschoolyearbutton) {
+		startschoolyearbutton.addEventListener('change', (status) => {
+			if (status.currentTarget.checked) {
+				document.querySelector('#buttonstartldapschoolyear').disabled = false;
+				document.querySelector('#checkldapdata').classList.add('disabled');
+				document.querySelector('#section-2').classList.remove('current');
+				document.querySelector('#section-2').classList.add('done');
+				document.querySelector('#section-2').innerHTML = '&#x2713;';
+				document.querySelector('#section-3').classList.add('current');
+			} else {
+				document.querySelector('#buttonstartldapschoolyear').disabled = true;
+				document.querySelector('#checkldapdata').classList.remove('disabled');
+				document.querySelector('#section-2').classList.remove('done');
+				document.querySelector('#section-2').classList.add('current');
+				document.querySelector('#section-2').innerHTML = '2';
+				document.querySelector('#section-3').classList.remove('current');
+			}
+		});
+	}
 
     $('.btn-add-modal').on('click', function (e) {
         e.preventDefault();
