@@ -339,6 +339,7 @@ router.get('/', (req, res, next) => {
 			// res.json(courses);
 		} else if (active.total !== 0 || archived.total !== 0) {
 			res.render('courses/overview', {
+				activeTab: req.query.activeTab,
 				activeCourses,
 				activeSubstitutions,
 				archivedCourses,
