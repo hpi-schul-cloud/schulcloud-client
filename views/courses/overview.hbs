@@ -25,7 +25,7 @@
                 <div class="sectionsContainer">
                     <div class="sections">
                         <!-- Aktuelle Kurse -->
-                        <div class="section" data-section="js-active">
+                        <div class="section section-course" data-section="js-active">
                             {{#if total.active}}
                                 {{> 'dashboard/components/card_section' section-id="activeCourses" title="" content=activeCourses link-text="Öffnen" additionalInfoName="memberCount"}}
                             {{else}}
@@ -44,7 +44,7 @@
                                 <div class="col-xs-12">
                                     <p class="text-muted">
                                         <i class="fa fa-frown-o"></i>
-                                        <span>Kurse, deren Enddatum erreicht ist, findest du  <a href="?activeTab=archived">im Archive</a>. Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.</span>
+                                        <span>Kurse, deren Enddatum erreicht ist, findest du  <a href="?activeTab=archived">im Archiv</a>. Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.</span>
                                     </p>
                                 </div>
                             {{/if}}
@@ -71,18 +71,18 @@
 
                         </div>
                         <!--- Archivierte Kurse -->
-                        <div class="section" data-section="js-archived">
+                        <div class="section section-course" data-section="js-archived">
                             {{#if total.archived}}
                                 {{> 'dashboard/components/card_section' section-id="archievedCourses" title="" content=archivedCourses link-text="Öffnen" additionalInfoName="memberCount"}}
                             {{else}}
                                 <div class="empty-state">
                                     <img src="/images/empty-states/books_empty.svg" alt="Keine archivierten Kurse" class="image"/>
-                                    
+
                                     <h2 class="h4">Du hast noch keine archivierten Kurse</h2>
                                     <p class="text-muted">
-                                    Kurse werden archiviert, nach dem sie enden.
+                                      Kurse, deren Enddatum erreicht ist, findest du im Archiv. Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.
                                     </p>
-                                 
+
                                 </div>
                                 <div class="col-xs-12">
                                     <p class="text-muted">
