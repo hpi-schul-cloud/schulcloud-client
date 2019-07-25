@@ -29,6 +29,18 @@
                             {{#if total.active}}
                                 {{> 'dashboard/components/card_section' section-id="activeCourses" title="" content=activeCourses link-text="Öffnen" additionalInfoName="memberCount"}}
                             {{else}}
+                                <div class="empty-state">
+                                    <img src="/images/empty-states/books.svg" alt="Keine hinzufügten Kurse" class="image"/>
+                                    {{#userHasPermission "COURSE_CREATE" }}
+                                        <h2 class="h4">Erstelle, duplizieren oder importiere einen Kurs</h2>
+                                        <p class="text-muted">
+                                        Kurse, deren Enddatum erreicht ist, findest du  <a href="?activeTab=archived">im Archive</a>. Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.
+                                        </p>
+                                    {{else}}
+                                        <h2 class="h4 text-muted">Es gibt aktuell keine Kurse</h2>
+                                    {{/userHasPermission}}
+                                </div>
+
                                 <div class="col-xs-12">
                                     <p class="text-muted">
                                         <i class="fa fa-frown-o"></i>
@@ -36,20 +48,25 @@
                                     </p>
                                 </div>
                             {{/if}}
-
-                            {{#userHasPermission "COURSE_EDIT"}}
-                                <section>
-                                    <div class="section-title mb-2"><h2 class="h4">Meine Vertretungen</h2></div>
-                                    {{#if ../activeSubstitutions}}
+                            {{#if activeSubstitutions}}
+                                {{#userHasPermission "COURSE_EDIT"}}
+                                    <section>
+                                        <div class="section-title mb-2"><h2 class="h4">Meine Vertretungen</h2></div>
                                         {{> 'dashboard/components/card_section' section-id="activeSubstitutions" title="" content=../activeSubstitutions link-text="Öffnen" additionalInfoName="memberCount"}}
-                                    {{else}}
-                                        <div class="col-xs-12">
-                                            <p class="text-muted">
-                                                <span>Keine Vertretungen</span>
-                                            </p>
+                                    </section>
+                                {{/userHasPermission}}
+                            {{/if}}
+                             {{#userHasPermission "COURSE_EDIT"}}
+                                <div class="col-xs-12">
+                                    <div class="row padding-top">
+                                        <div class="col-sm-12">
+                                            <div class="pull-right">
+                                            <a class="btn btn-secondary btn-import-course">Importiere einen Kurs</a>
+                                            <a href="/courses/add" class="btn btn-primary btn-add">Erstelle einen neuen Kurs</a>
                                         </div>
-                                    {{/if}}
-                                </section>
+                                        </div>
+                                    </div>
+                                </div>
                             {{/userHasPermission}}
 
                         </div>
@@ -58,6 +75,15 @@
                             {{#if total.archived}}
                                 {{> 'dashboard/components/card_section' section-id="archievedCourses" title="" content=archivedCourses link-text="Öffnen" additionalInfoName="memberCount"}}
                             {{else}}
+                                <div class="empty-state">
+                                    <img src="/images/empty-states/books_empty.svg" alt="Keine archivierten Kurse" class="image"/>
+                                    
+                                    <h2 class="h4">Du hast noch keine archivierten Kurse</h2>
+                                    <p class="text-muted">
+                                    Kurse werden archiviert, nach dem sie enden.
+                                    </p>
+                                 
+                                </div>
                                 <div class="col-xs-12">
                                     <p class="text-muted">
                                         <i class="fa fa-frown-o"></i>
@@ -65,40 +91,19 @@
                                     </p>
                                 </div>
                             {{/if}}
-
-                            {{#userHasPermission "COURSE_EDIT"}}
-                                <section>
-                                    <div class="section-title mb-2"><h2 class="h4">Meine Vertretungen</h2></div>
-                                    {{#if ../archivedSubstitutions}}
+                            {{#if archivedSubstitutions}}
+                                {{#userHasPermission "COURSE_EDIT"}}
+                                    <section>
+                                        <div class="section-title mb-2"><h2 class="h4">Meine Vertretungen</h2></div>
                                         {{> 'dashboard/components/card_section' section-id="archivedSubstitutions" title="" content=../archivedSubstitutions link-text="Öffnen" additionalInfoName="memberCount"}}
-                                    {{else}}
-                                        <div class="col-xs-12">
-                                            <p class="text-muted">
-                                                <span>Keine Vertretungen</span>
-                                            </p>
-                                        </div>
-                                    {{/if}}
-                                </section>
-                            {{/userHasPermission}}
+                                    </section>
+                                {{/userHasPermission}}
+                            {{/if}}
                         </div>
                     </div>
                 </div>
             </div>
 
-                
-
-                {{#userHasPermission "COURSE_EDIT"}}
-                <div class="col-xs-12">
-                    <div class="row padding-top">
-                        <div class="col-sm-12">
-                            <div class="pull-right">
-                              <a class="btn btn-secondary btn-import-course">Importiere einen Kurs</a>
-                              <a href="/courses/add" class="btn btn-primary btn-add">Erstelle einen neuen Kurs</a>
-                           </div>
-                        </div>
-                    </div>
-                </div>
-                {{/userHasPermission}}
 
             {{#embed "lib/components/modal" class="member-modal"}}
                 {{#content "body"}}
