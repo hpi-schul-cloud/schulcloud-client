@@ -77,6 +77,19 @@ const getTableActions = (
 	];
 };
 
+// load school years
+const getAvailableSchoolYears = (req) => {
+	const amountOfYears = 5;
+	const yearsRequest = api(req)
+		.get('/years', {
+			qs: {
+				$limit: amountOfYears,
+				$sort: { name: -1 },
+			},
+		});
+	return yearsRequest;
+};
+
 const getTableActionsSend = (item, path, state) => {
 	const actions = [];
 	if (state === 'submitted' || state === 'closed') {
@@ -1037,6 +1050,7 @@ router.all(
 					pagination,
 					filterSettings: JSON.stringify(userFilterSettings('lastName', true)),
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+					schoolCurrentYear: res.locals.currentSchoolData.currentYear,
 				});
 			});
 	},
@@ -1201,7 +1215,6 @@ router.all(
 			: '';
 
 		let itemsPerPage = 25;
-		const amountOfYears = 5;
 		let filterQuery = {};
 		if (tempOrgQuery) {
 			filterQuery = JSON.parse(decodeURI(req.query.filterQuery));
@@ -1222,13 +1235,7 @@ router.all(
 			.get('/users/admin/students', {
 				qs: query,
 			});
-		const yearsRequest = api(req)
-			.get('/years', {
-				qs: {
-					$limit: amountOfYears,
-					$sort: { name: -1 },
-				},
-			});
+		const yearsRequest = getAvailableSchoolYears(req);
 		Promise.all([studentsRequest, yearsRequest])
 			.then(async ([studentsResponse, yearsResponse]) => {
 				const users = studentsResponse.data;
@@ -1287,6 +1294,7 @@ router.all(
 						pagination,
 						filterSettings: JSON.stringify(userFilterSettings()),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+						schoolCurrentYear: res.locals.currentSchoolData.currentYear,
 						studentsWithoutConsentCount,
 						allStudentsCount: users.length,
 						years,
