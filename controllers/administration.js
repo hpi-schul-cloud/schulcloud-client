@@ -1044,13 +1044,16 @@ router.all(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-
-		api(req)
+		const teachersRequest = api(req)
 			.get('users/admin/teachers', {
 				qs: query,
-			})
-			.then((data) => {
-				const users = data.data;
+			});
+
+		const yearsRequest = getAvailableSchoolYears(req);
+		Promise.all([teachersRequest, yearsRequest])
+			.then(async ([teachersResponse, yearsResponse]) => {
+				const users = teachersResponse.data;
+				const years = yearsResponse.data;
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
@@ -1096,7 +1099,7 @@ router.all(
 
 				const pagination = {
 					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
+					numPages: Math.ceil(teachersResponse.total / itemsPerPage),
 					baseUrl: `/administration/teachers/?p={{page}}${filterQueryString}`,
 				};
 
@@ -1108,6 +1111,7 @@ router.all(
 					filterSettings: JSON.stringify(userFilterSettings('lastName', true)),
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+					years,
 				});
 			});
 	},
