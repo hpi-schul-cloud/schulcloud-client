@@ -77,9 +77,8 @@ const getTableActions = (
 	];
 };
 
-// load school years
 const getAvailableSchoolYears = (req) => {
-	const amountOfYears = 5;
+	const amountOfYears = 3;
 	const yearsRequest = api(req)
 		.get('/years', {
 			qs: {
