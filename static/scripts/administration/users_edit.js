@@ -35,6 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
 $(document).ready(function () {
     let $pwModal = $('.pw-modal');
     let $deleteModal = $('.delete-modal');
+    let $skipregModal = $('.skipreg-modal');
 
     $('.btn-pw').on('click', function (e) {
         e.preventDefault();
@@ -60,6 +61,18 @@ $(document).ready(function () {
             }
         });
         $deleteModal.appendTo('body').modal('show');
+    });
+
+    $('.btn-skipreg').on('click', function (e) {
+        e.preventDefault();
+        populateModalForm($skipregModal, {
+            action: "skipregistration",
+            title: 'Nutzerregistrierung abschließen',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Speichern',
+            fields: undefined
+        });
+        $skipregModal.appendTo('body').modal('show');
     });
     
     $('.btn-invitation-link-with-hash').on('click', function (e) {
