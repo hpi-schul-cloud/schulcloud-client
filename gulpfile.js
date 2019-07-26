@@ -230,13 +230,14 @@ gulp.task('vendor-optimized-assets', () => beginPipeLink(['./static/vendor-optim
 	.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`)));
 
 // copy node modules
-const nodeModules = ['mathjax', 'font-awesome'];
+const nodeModules = [
+	['mathjax', 'mathjax/MathJax.js'],
+	['font-awesome/fonts/', 'font-awesome/fonts/**/*'],
+];
 gulp.task('node-modules', () => {
 	const a = nodeModules.map(
-		module => vfs.src(
-			`./node_modules/${module}/*`,
-			{ followSymlinks: false },
-		).pipe(vfs.symlink(`./build/${themeName()}/vendor-optimized/${module}`)),
+		([name, regex]) => beginPipeAll(`./node_modules/${regex}`)
+			.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${name}`)),
 	);
 	return Promise.all(a);
 });
