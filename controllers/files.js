@@ -2,20 +2,20 @@
  * One Controller per layout view
  */
 
-const fs = require('fs');
-const pathUtils = require('path').posix;
 const url = require('url');
-const mime = require('mime');
-const api = require('../api');
 const rp = require('request-promise');
 const express = require('express');
-const router = express.Router();
-const authHelper = require('../helpers/authentication');
 const multer = require('multer');
 const shortid = require('shortid');
-const upload = multer({ storage: multer.memoryStorage() });
 const _ = require('lodash');
 const winston = require('winston');
+
+const upload = multer({ storage: multer.memoryStorage() });
+
+const api = require('../api');
+const authHelper = require('../helpers/authentication');
+
+const router = express.Router();
 
 const filterOptions = [
 	{ key: 'pics', label: 'Bilder' },
@@ -44,33 +44,33 @@ const filterQueries = {
 
 const addThumbnails = (file) => {
 	const thumbs = {
-		default: "/images/thumbs/default.png",
-		psd: "/images/thumbs/psds.png",
-		txt: "/images/thumbs/txts.png",
-		doc: "/images/thumbs/docs.png",
-		png: "/images/thumbs/pngs.png",
-		mp4: "/images/thumbs/mp4s.png",
-		mp3: "/images/thumbs/mp3s.png",
-		aac: "/images/thumbs/aacs.png",
-		avi: "/images/thumbs/avis.png",
-		gif: "/images/thumbs/gifs.png",
-		html: "/images/thumbs/htmls.png",
-		js: "/images/thumbs/jss.png",
-		mov: "/images/thumbs/movs.png",
-		xls: "/images/thumbs/xlss.png",
-		xlsx: "/images/thumbs/xlss.png",
-		pdf: "/images/thumbs/pdfs.png",
-		flac: "/images/thumbs/flacs.png",
-		jpg: "/images/thumbs/jpgs.png",
-		jpeg: "/images/thumbs/jpgs.png",
-		docx: "/images/thumbs/docs.png",
-		ai: "/images/thumbs/ais.png",
-		tiff: "/images/thumbs/tiffs.png",
+		default: '/images/thumbs/default.png',
+		psd: '/images/thumbs/psds.png',
+		txt: '/images/thumbs/txts.png',
+		doc: '/images/thumbs/docs.png',
+		png: '/images/thumbs/pngs.png',
+		mp4: '/images/thumbs/mp4s.png',
+		mp3: '/images/thumbs/mp3s.png',
+		aac: '/images/thumbs/aacs.png',
+		avi: '/images/thumbs/avis.png',
+		gif: '/images/thumbs/gifs.png',
+		html: '/images/thumbs/htmls.png',
+		js: '/images/thumbs/jss.png',
+		mov: '/images/thumbs/movs.png',
+		xls: '/images/thumbs/xlss.png',
+		xlsx: '/images/thumbs/xlss.png',
+		pdf: '/images/thumbs/pdfs.png',
+		flac: '/images/thumbs/flacs.png',
+		jpg: '/images/thumbs/jpgs.png',
+		jpeg: '/images/thumbs/jpgs.png',
+		docx: '/images/thumbs/docs.png',
+		ai: '/images/thumbs/ais.png',
+		tiff: '/images/thumbs/tiffs.png',
 	};
 
 	if (!file.isDirectoy) {
 		const ending = file.name.split('.').pop();
-		file.thumbnail = thumbs[ending.toLowerCase()] || thumbs['default'];
+		file.thumbnail = thumbs[ending.toLowerCase()] || thumbs.default;
 	}
 	return file;
 };
@@ -80,17 +80,13 @@ const addThumbnails = (file) => {
  * sends a signedUrl request to the server
  * @param {*} data, contains the path for the requested file
  */
-const requestSignedUrl = (req, data) => {
-	return api(req).post('/fileStorage/signedUrl', {
-		json: data,
-	});
-};
+const requestSignedUrl = (req, data) => api(req).post('/fileStorage/signedUrl', {
+	json: data,
+});
 
-const retrieveSignedUrl = (req, data) => {
-	return api(req).get('/fileStorage/signedUrl', {
-		qs: data,
-	});
-};
+const retrieveSignedUrl = (req, data) => api(req).get('/fileStorage/signedUrl', {
+	qs: data,
+});
 
 /**
  * handles query params for file requests
@@ -113,31 +109,27 @@ const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
 /**
  * generates the displayed breadcrumbs on the actual file page
  */
-const getBreadcrumbs = (req, dirId, breadcrumbs = [] ) => {
-
-	return api(req).get(`/files/${dirId}`)
-		.then((directory) => {
-			if (directory.parent) {
-				return getBreadcrumbs(req, directory.parent, breadcrumbs)
-					.then((breadcrumbs) => {
-
-						breadcrumbs.push({
-							label: directory.name,
-							id: directory._id,
-						});
-
-						return Promise.resolve(breadcrumbs);
+const getBreadcrumbs = (req, dirId, breadcrumbs = []) => api(req).get(`/files/${dirId}`)
+	.then((directory) => {
+		if (directory.parent) {
+			return getBreadcrumbs(req, directory.parent, breadcrumbs)
+				.then((deepBreadcrumbs) => {
+					deepBreadcrumbs.push({
+						label: directory.name,
+						id: directory._id,
 					});
-			}
 
-			breadcrumbs.push({
-				label: directory.name,
-				id: directory._id,
-			});
+					return Promise.resolve(deepBreadcrumbs);
+				});
+		}
 
-			return Promise.resolve(breadcrumbs);
+		breadcrumbs.push({
+			label: directory.name,
+			id: directory._id,
 		});
-};
+
+		return Promise.resolve(breadcrumbs);
+	});
 
 
 /**
@@ -149,15 +141,15 @@ const checkIfOfficeFiles = (files) => {
 		return files;
 	}
 	const officeFileTypes = [
-		'application/vnd.openxmlformats-officedocument.wordprocessingml.document',     //.docx
-		'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',           //.xlsx
-		'application/vnd.openxmlformats-officedocument.presentationml.presentation',   //.pptx
-		'application/vnd.ms-powerpoint',                                               //.ppt
-		'application/vnd.ms-excel',                                                    //.xlx
-		'application/vnd.ms-word',                                                     //.doc
-		'application/vnd.oasis.opendocument.text',                                     //.odt
-		'text/plain',                                                                  //.txt
-		'application/msword',                                                          //.doc
+		'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+		'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+		'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+		'application/vnd.ms-powerpoint', // .ppt
+		'application/vnd.ms-excel', // .xlx
+		'application/vnd.ms-word', // .doc
+		'application/vnd.oasis.opendocument.text', // .odt
+		'text/plain', // .txt
+		'application/msword', // .doc
 	];
 
 	return files.map(f => ({
@@ -201,7 +193,7 @@ const FileGetter = (req, res, next) => {
 			}
 
 			const files = result.filter(f => f).map((file) => {
-				const studentPerm = file.permissions.find(perm => perm.refId.toString() === studentRoleId);
+				const studentPerm = file.permissions.find(perm => (perm.refId || '').toString() === studentRoleId);
 				if (studentPerm) {
 					Object.assign(file, {
 						studentCanEdit: studentPerm.write,
@@ -243,13 +235,9 @@ const getScopeDirs = (req, res, scope) => {
 			},
 		};
 	}
-	return api(req).get('/' + scope + '/', { qs }).then((records) => {
-		return records.data.map((record) => {
-			return Object.assign(record, {
-				url: '/files/' + scope + '/' + record._id,
-			});
-		});
-	});
+	return api(req).get(`/${scope}/`, { qs }).then(records => records.data.map(record => Object.assign(record, {
+		url: `/files/${scope}/${record._id}`,
+	})));
 };
 
 /**
@@ -272,32 +260,29 @@ const getDirectoryTree = (set, directory) => {
  * @param fileId {String} - the file for which a new permission should be created
  * @param shareToken {String} - a token for verify enabled sharing
  */
-const registerSharedPermission = (userId, fileId, shareToken, req) => {
-
+const registerSharedPermission = (userId, fileId, shareToken, req) => api(req)
 	// check whether sharing is enabled for given file
-	return api(req).get(`/files/${fileId}`, { qs: { shareToken } }).then((file) => {
-
+	.get(`/files/${fileId}`, { qs: { shareToken } }).then((file) => {
 		if (!file) {
 			// owner permits sharing of given file
-			return Promise.reject("Zu dieser Datei haben Sie keinen Zugriff!");
-		} else {
+			return Promise.reject(new Error('Zu dieser Datei haben Sie keinen Zugriff!'));
+		}
 		const permission = file.permissions.find(perm => perm.refId.toString() === userId);
 
-			if (!permission) {
-				file.permissions.push({
-					refId: userId,
-					refPermModel: 'user',
-					read: true,
-					write: false,
-					delete: false,
-					create: false,
-				});
+		if (!permission) {
+			file.permissions.push({
+				refId: userId,
+				refPermModel: 'user',
+				read: true,
+				write: false,
+				delete: false,
+				create: false,
+			});
 
-				return api(req).patch(`/files/${fileId}`, { json: file });
-			}
+			return api(req).patch(`/files/${fileId}`, { json: file });
 		}
+		return Promise.resolve(file);
 	});
-};
 
 /**
  * generates the correct LibreOffice url for (only) opening office-files
@@ -308,14 +293,14 @@ const registerSharedPermission = (userId, fileId, shareToken, req) => {
 const getLibreOfficeUrl = (fileId, accessToken) => {
 	if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
 		logger.error('LibreOffice env is currently not defined.');
-		return;
+		return '';
 	}
 
 	// in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980
 	const libreOfficeBaseUrl = process.env.LIBRE_OFFICE_CLIENT_URL;
 	const wopiRestUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
-
-	return `${libreOfficeBaseUrl}/loleaflet/dist/loleaflet.html?WOPISrc=${wopiRestUrl}/wopi/files/${fileId}?access_token=${accessToken}`;
+	const wopiSrc = `${wopiRestUrl}/wopi/files/${fileId}?access_token=${accessToken}`;
+	return `${libreOfficeBaseUrl}/loleaflet/dist/loleaflet.html?WOPISrc=${wopiSrc}`;
 };
 
 
@@ -323,7 +308,12 @@ const getLibreOfficeUrl = (fileId, accessToken) => {
 router.use(authHelper.authChecker);
 
 const getSignedUrl = (req, res) => {
-	const { type, parent, action = 'putObject', filename } = req.body;
+	const {
+		type,
+		parent,
+		action = 'putObject',
+		filename,
+	} = req.body;
 
 	const data = {
 		parent,
@@ -333,11 +323,15 @@ const getSignedUrl = (req, res) => {
 	};
 
 	return requestSignedUrl(req, data).then((signedUrl) => {
-		if (res) res.json({ signedUrl });
-		else return Promise.resolve({ signedUrl });
+		if (res) {
+			res.json({ signedUrl });
+		}
+		return Promise.resolve({ signedUrl });
 	}).catch((err) => {
-		if (res) res.status((err.statusCode || 500)).send(err);
-		else return Promise.reject(err);
+		if (res) {
+			res.status((err.statusCode || 500)).send(err);
+		}
+		return Promise.reject(err);
 	});
 };
 
@@ -345,26 +339,21 @@ const getSignedUrl = (req, res) => {
 router.post('/file', getSignedUrl);
 
 // upload file directly
-router.post('/upload', upload.single('upload'), (req, res, next) => {
-	let _path;
-	return getSignedUrl(req, null, next).then(({ signedUrl, path }) => {
-		_path = path;
-		return rp.put({
-			url: signedUrl.url,
-			headers: Object.assign({}, signedUrl.header, {
-				'content-type': req.file.mimetype,
-			}),
-			body: req.file.buffer,
-		});
-	}).then((_) => {
+router.post('/upload', upload.single('upload'), (req, res, next) => getSignedUrl(req, null, next)
+	.then(({ signedUrl }) => rp.put({
+		url: signedUrl.url,
+		headers: Object.assign({}, signedUrl.header, {
+			'content-type': req.file.mimetype,
+		}),
+		body: req.file.buffer,
+	})).then(() => {
 		res.json({
-			"uploaded": 1,
-			"fileName": req.file.originalname,
+			uploaded: 1,
+			fileName: req.file.originalname,
 		});
 	}).catch((err) => {
 		res.status((err.statusCode || 500)).send(err);
-	});
-});
+	}));
 
 
 // delete file
@@ -384,17 +373,23 @@ router.delete('/file', (req, res) => {
 
 // get file
 router.get('/file', (req, res) => {
-
-	const { file, download, name, share, lool } = req.query;
+	const {
+		file,
+		download,
+		name,
+		share,
+		lool,
+	} = req.query;
 	const data = {
 		file,
 		name,
 		download: download || false,
 	};
-	const sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.file, share, req) : Promise.resolve();
+	const sharedPromise = share && share !== 'undefined'
+		? registerSharedPermission(res.locals.currentUser._id, data.file, share, req)
+		: Promise.resolve();
 
 	sharedPromise.then(() => {
-
 		if (lool) {
 			return res.redirect(307, `/files/file/${file}/lool`);
 		}
@@ -402,7 +397,6 @@ router.get('/file', (req, res) => {
 		return retrieveSignedUrl(req, data).then((signedUrl) => {
 			res.redirect(307, signedUrl.url);
 		});
-
 	}).catch((err) => {
 		res.status((err.statusCode || 500)).send(err);
 	});
@@ -415,7 +409,7 @@ router.get('/file/:id/lool', (req, res, next) => {
 
 	// workaround for faulty sanitze hook (& => &amp;)
 	if (share) {
-		api(req).get('/files/' + req.params.id).then((file) => {
+		api(req).get(`/files/${req.params.id}`).then(() => {
 			res.redirect(`/files/file?file=${req.params.id}&share=${share}&lool=true`);
 		});
 	} else {
@@ -428,11 +422,11 @@ router.get('/file/:id/lool', (req, res, next) => {
 
 // move file
 router.post('/file/:id/move', (req, res) => {
-	api(req).patch('/fileStorage/' + req.params.id, {
+	api(req).patch(`/fileStorage/${req.params.id}`, {
 		json: {
 			parent: req.body.parent,
 		},
-	}).then((_) => {
+	}).then(() => {
 		req.session.notification = {
 			type: 'success',
 			message: 'Verschieben der Datei war erfolgreich!',
@@ -441,7 +435,7 @@ router.post('/file/:id/move', (req, res) => {
 	}).catch((e) => {
 		req.session.notification = {
 			type: 'danger',
-			message: e.error.message.indexOf("E11000 duplicate key error") >= 0
+			message: e.error.message.indexOf('E11000 duplicate key error') >= 0
 				? 'Es existiert bereits eine Datei mit diesem Namen im Zielordner!'
 				: e.error.message,
 		};
@@ -451,7 +445,13 @@ router.post('/file/:id/move', (req, res) => {
 
 // create newFile
 router.post('/newFile', (req, res, next) => {
-	const { name, type, owner, parent, studentEdit } = req.body;
+	const {
+		name,
+		type,
+		owner,
+		parent,
+		studentEdit,
+	} = req.body;
 
 	const fileName = name || 'Neue Datei';
 
@@ -478,7 +478,7 @@ router.post('/directory', (req, res, next) => {
 		parent,
 	};
 
-	api(req).post('/fileStorage/directories', { json }).then((_) => {
+	api(req).post('/fileStorage/directories', { json }).then(() => {
 		res.json(_);
 	}).catch((err) => {
 		res.status((err.statusCode || 500)).send(err);
@@ -493,7 +493,7 @@ router.delete('/directory', (req, res) => {
 
 	api(req).delete('/fileStorage/directories/', {
 		qs: data,
-	}).then((_) => {
+	}).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		res.status((err.statusCode || 500)).send(err);
@@ -506,7 +506,7 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 	const parentId = req.params.subFolderId || req.params.folderId;
 
 	res.locals.files.files = res.locals.files.files
-		.filter(_ => Boolean(_))
+		.filter(f => Boolean(f))
 		.filter(file => file.owner === userId)
 		.map(addThumbnails);
 
@@ -546,15 +546,13 @@ router.get('/shared/', (req, res) => {
 		.then(async (result) => {
 			let { data } = result;
 			data = data
-				.filter(_ => Boolean(_))
+				.filter(f => Boolean(f))
 				.filter((file) => {
 					if (file.owner === userId) {
 						return false;
 					}
-					else {
-						const permission = file.permissions.find(perm => perm.refId === userId);
-						return permission ? !permission.write : false;
-					}
+					const permission = file.permissions.find(perm => perm.refId === userId);
+					return permission ? !permission.write : false;
 				})
 				.map(addThumbnails);
 
@@ -580,36 +578,10 @@ router.get('/shared/', (req, res) => {
 });
 
 router.get('/', (req, res, next) => {
-
-	// get count of personal and course files/directories
-    /*let myFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^users"}}});
-    let courseFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^courses"}}});
-
-    Promise.all([myFilesPromise, courseFilesPromise]).then(([myFiles, courseFiles]) => {
-        // filter shared files
-        let sharedFiles = [];
-        myFiles = myFiles.data.filter(f => {
-            if (f.context !== 'geteilte Datei') {
-                return true;
-            } else {
-                sharedFiles.push(f);
-            }
-        });
-        courseFiles = courseFiles.data.filter(f => {
-            if (f.context !== 'geteilte Datei') {
-                return true;
-            } else {
-                sharedFiles.push(f);
-            }
-        });
-    */
 	res.render('files/files-overview', Object.assign({
 		title: 'Meine Dateien',
 		showSearch: true,
-		//counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
 	}));
-
-	//});
 });
 
 router.get('/courses/', (req, res, next) => {
@@ -634,7 +606,7 @@ router.get('/courses/', (req, res, next) => {
 
 router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) => {
 	const basePath = '/files/courses/';
-	const record = await api(req).get('/courses/' + req.params.courseId);
+	const record = await api(req).get(`/courses/${req.params.courseId}`);
 	res.locals.files.files = res.locals.files.files.map(addThumbnails);
 	let canCreateFile = true;
 
@@ -654,8 +626,9 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
 	}
 
-	if (['Schüler', 'Demo'].includes(res.locals.currentRole))
+	if (['Schüler', 'Demo'].includes(res.locals.currentRole)) {
 		canCreateFile = false;
+	}
 
 	res.render('files/files', Object.assign({
 		title: 'Dateien',
@@ -699,7 +672,7 @@ router.get('/teams/', (req, res, next) => {
 
 router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 	const basePath = '/files/teams/';
-	const team = await api(req).get('/teams/' + req.params.teamId);
+	const team = await api(req).get(`/teams/${req.params.teamId}`);
 
 	res.locals.files.files = res.locals.files.files.map(addThumbnails);
 
@@ -762,7 +735,7 @@ router.get('/classes/', (req, res, next) => {
 
 router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 	const basePath = '/files/classes/';
-	api(req).get('/classes/' + req.params.classId).then(async (record) => {
+	api(req).get(`/classes/${req.params.classId}`).then(async (record) => {
 		const files = res.locals.files.map(addThumbnails);
 
 		let breadcrumbs = [{
@@ -792,12 +765,10 @@ router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 			CKEditor: req.query.CKEditor,
 			parentId: req.params.folderId,
 		}, files));
-
 	});
 });
 
 router.post('/permissions/', (req, res) => {
-
 	Promise.all([
 		api(req).get('/roles', {
 			qs: {
@@ -806,9 +777,8 @@ router.post('/permissions/', (req, res) => {
 				},
 			},
 		}),
-		api(req).get('/files/' + req.body.id),
+		api(req).get(`/files/${req.body.id}`),
 	]).then(([result, file]) => {
-
 		if (!file) {
 			res.json({});
 			return;
@@ -817,36 +787,32 @@ router.post('/permissions/', (req, res) => {
 		const { data: roles } = result;
 
 		file.shareToken = file.shareToken || shortid.generate();
-		api(req).patch("/files/" + file._id, { json: file }).then((file) => {
-
-			file.permissions = file.permissions.map((permission) => {
-				const role = roles.find(role => role._id === permission.refId);
+		api(req).patch(`/files/${file._id}`, { json: file }).then((patchedFile) => {
+			patchedFile.permissions = patchedFile.permissions.map((permission) => {
+				const role = roles.find(_role => _role._id === permission.refId);
 				permission.roleName = role ? role.name : '';
 				return permission;
 			});
 
-			res.json(file);
+			res.json(patchedFile);
 		});
 	});
 });
 
-router.get('/share/', (req, res) => {
-	const { file } = req.query;
-	return api(req).get(`/files/${file}`)
-		.then((file) => {
-			let { shareToken } = file;
+router.get('/share/', (req, res) => api(req).get(`/files/${req.query.file}`)
+	.then((file) => {
+		let { shareToken } = file;
 
-			if (!shareToken) {
-				shareToken = shortid.generate();
-				return api(req).patch("/files/" + file._id, { json: file })
-					.then(() => Promise.resolve(shareToken));
-			}
+		if (!shareToken) {
+			shareToken = shortid.generate();
+			return api(req).patch(`/files/${file._id}`, { json: file })
+				.then(() => Promise.resolve(shareToken));
+		}
 
-			return Promise.resolve(shareToken);
-		})
-		.then(shareToken => res.json({ shareToken }))
-		.catch(() => res.sendStatus(500));
-})
+		return Promise.resolve(shareToken);
+	})
+	.then(shareToken => res.json({ shareToken }))
+	.catch(() => res.sendStatus(500)));
 
 router.get('/permissions/', (req, res) => {
 	const { file } = req.query;
@@ -854,40 +820,40 @@ router.get('/permissions/', (req, res) => {
 	return api(req).get('/fileStorage/permission/', {
 		qs: { file },
 	})
-	.then(json => res.json(json))
-	.catch(() => res.sendStatus(500));
+		.then(json => res.json(json))
+		.catch(() => res.sendStatus(500));
 });
 
 router.patch('/permissions/', (req, res) => {
-    const { permissions, fileId } = req.body;
+	const { permissions, fileId } = req.body;
 
 	return api(req).patch(`/fileStorage/permission/${fileId}`, { json: { permissions } })
-        .then(() => res.sendStatus(200))
-        .catch(() => res.sendStatus(500));
+		.then(() => res.sendStatus(200))
+		.catch(() => res.sendStatus(500));
 });
 
 router.get('/search/', (req, res, next) => {
 	const { q, filter } = req.query;
 
-	const filterQuery = filter ?
-		{ type: filterQueries[filter] } :
-		{ name: { $regex: _.escapeRegExp(q), $options: 'i' } };
+	const filterQuery = filter
+		? { type: filterQueries[filter] }
+		: { name: { $regex: _.escapeRegExp(q), $options: 'i' } };
 
 	api(req).get('/files/', {
 		qs: filterQuery,
 	}).then((result) => {
-		let files = result.data.map(addThumbnails);
-		let filterOption = filterOptions.filter(f => f.key === filter)[0];
+		const files = result.data.map(addThumbnails);
+		const filterOption = filterOptions.filter(f => f.key === filter)[0];
 
 		res.render('files/search', {
 			title: 'Dateisuche',
 			query: filterOption ? filterOption.label : q,
-			files: files,
+			files,
 		});
 	});
 });
 
-/** fetch all personal folders and all course folders in a directory-tree **/
+/** fetch all personal folders and all course folders in a directory-tree * */
 router.get('/permittedDirectories/', async (req, res) => {
 	const extractor = ({ _id, name }) => ({ _id, name, children: [] });
 
@@ -905,7 +871,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 		children: (await getScopeDirs(req, res, 'courses')).map(extractor),
 	}];
 
-	if(process.env.FEATURE_TEAMS_ENABLED === 'true') {
+	if (process.env.FEATURE_TEAMS_ENABLED === 'true') {
 		directoryTree.push({
 			name: 'Meine Team-Dateien',
 			model: 'teams',
@@ -918,15 +884,14 @@ router.get('/permittedDirectories/', async (req, res) => {
 			if (directories.code === 404) {
 				return Promise.resolve([]);
 			}
-			return directories.filter(dir => !dir.parent).map(dir => getDirectoryTree(directories, dir))
+			return directories.filter(dir => !dir.parent).map(dir => getDirectoryTree(directories, dir));
 		})
 		.then((directories) => {
-
 			directoryTree.forEach((tree) => {
 				tree.children.forEach((child) => {
-					child.children = directories.filter((dir) => {
-						return dir.owner === child._id && dir.refOwnerModel === tree.model;
-					});
+					child.children = directories.filter(
+						dir => dir.owner === child._id && dir.refOwnerModel === tree.model,
+					);
 				});
 			});
 
@@ -934,7 +899,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 		});
 });
 
-/**** File and Directory proxy models ****/
+/** File and Directory proxy models */
 router.post('/fileModel', (req, res, next) => {
 	// req.body.schoolId = res.locals.currentSchool;
 	api(req).post('/fileStorage/', { json: req.body }).then(file => res.json(file)).catch(err => next(err));
@@ -945,21 +910,20 @@ router.get('/fileModel/:id/proxy', (req, res, next) => {
 	const fileId = req.params.id;
 	const { download, share } = req.query;
 
-	api(req).get('/files/' + fileId).then((file) => {
+	api(req).get(`/files/${fileId}`).then(() => {
 		// redirects to real file getter
 		res.redirect(`/files/file?file=${fileId}&download=${download}&share=${share}`);
 	});
 });
 
 router.post('/fileModel/:id/rename', (req, res) => {
-
 	api(req).post('/fileStorage/rename', {
 		json: {
 			id: req.params.id,
 			newName: req.body.name,
 		},
 	})
-		.then((_) => {
+		.then(() => {
 			req.session.notification = {
 				type: 'success',
 				message: 'Umbenennen der Datei war erfolgreich!',
@@ -970,7 +934,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
 		.catch((e) => {
 			req.session.notification = {
 				type: 'danger',
-				message: e.error.message.indexOf("E11000 duplicate key error") >= 0
+				message: e.error.message.indexOf('E11000 duplicate key error') >= 0
 					? 'Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!'
 					: e.error.message,
 			};
@@ -986,7 +950,7 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 			newName: req.body.name,
 		},
 	})
-		.then((_) => {
+		.then(() => {
 			req.session.notification = {
 				type: 'success',
 				message: 'Umbenennen des Ordners war erfolgreich!',
@@ -997,7 +961,7 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 		.catch((e) => {
 			req.session.notification = {
 				type: 'danger',
-				message: e.error.message.indexOf("E11000 duplicate key error") >= 0
+				message: e.error.message.indexOf('E11000 duplicate key error') >= 0
 					? 'Es existiert bereits ein Ordner mit diesem Namen im gleichen Ordner!'
 					: e.error.message,
 			};
