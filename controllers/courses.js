@@ -155,7 +155,17 @@ const editCourseHandler = (req, res, next) => {
 		}
 
 		// populate course colors - to be replaced system scope
-		const colors = ['#ACACAC', '#D4AF37', '#00E5FF', '#1DE9B6', '#546E7A', '#FFC400', '#BCAAA4', '#FF4081', '#FFEE58'];
+		const colors = [
+			'#ACACAC',
+			'#D4AF37',
+			'#00E5FF',
+			'#1DE9B6',
+			'#546E7A',
+			'#FFC400',
+			'#BCAAA4',
+			'#FF4081',
+			'#FFEE58',
+		];
 
 		if (req.params.courseId) {
 			res.render('courses/edit-course', {
@@ -339,6 +349,7 @@ router.get('/', (req, res, next) => {
 			// res.json(courses);
 		} else if (active.total !== 0 || archived.total !== 0) {
 			res.render('courses/overview', {
+				title: 'Meine Kurse',
 				activeTab: req.query.activeTab,
 				activeCourses,
 				activeSubstitutions,
