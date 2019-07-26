@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const _ = require('lodash');
 const express = require('express');
 const winston = require('winston');
@@ -282,6 +283,22 @@ router.use(authHelper.authChecker);
  * @returns [substitutions, others]
  */
 
+const enrichCourse = (course) => {
+	course.url = `/courses/${course._id}`;
+	course.title = course.name;
+	course.content = (course.description || '').substr(0, 140);
+	course.secondaryTitle = '';
+	course.background = course.color;
+	course.memberAmount = course.userIds.length;
+	(course.times || []).forEach((time) => {
+		time.startTime = moment(time.startTime, 'x').format('HH:mm');
+		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+		course.secondaryTitle
+			+= `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${time.room}`) : ''}</div>`;
+	});
+	return course;
+};
+
 const filterSubstitutionCourses = (courses, userId) => {
 	const substitutions = [];
 	const others = [];
@@ -297,22 +314,6 @@ const filterSubstitutionCourses = (courses, userId) => {
 	});
 
 	return [substitutions, others];
-};
-
-const enrichCourse = (course) => {
-	course.url = `/courses/${course._id}`;
-	course.title = course.name;
-	course.content = (course.description || '').substr(0, 140);
-	course.secondaryTitle = '';
-	course.background = course.color;
-	course.memberAmount = course.userIds.length;
-	(course.times || []).forEach((time) => {
-		time.startTime = moment(time.startTime, 'x').format('HH:mm');
-		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-		course.secondaryTitle
-			+= `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${time.room}`) : ''}</div>`;
-	});
-	return course;
 };
 
 router.get('/', (req, res, next) => {
@@ -344,9 +345,7 @@ router.get('/', (req, res, next) => {
 		const isStudent = res.locals.currentUser.roles.every(role => role.name === 'student');
 
 		if (req.query.json) { // !? for what is this? Should be direct request to api!?
-			console.log('Scream you did this json request');
 			res.json(active);
-			// res.json(courses);
 		} else if (active.total !== 0 || archived.total !== 0) {
 			res.render('courses/overview', {
 				title: 'Meine Kurse',
@@ -394,6 +393,7 @@ router.post('/', (req, res, next) => {
 			res.redirect('/courses');
 		});
 	}).catch((err) => {
+		logger.error(err);
 		res.sendStatus(500);
 	});
 });
