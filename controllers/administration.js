@@ -29,6 +29,18 @@ const getSelectOptions = (req, service, query, values = []) => api(req)
 	})
 	.then(data => data.data);
 
+const getSelectableYears = (school) => {
+	let years = [];
+	if (school && school.years) {
+		years = years.concat([
+			school.years.activeYear,
+			school.years.nextYear,
+			school.years.lastYear,
+		].filter(y => !!y));
+	}
+	return years;
+}
+
 const cutEditOffUrl = (url) => {
 	// nicht optimal, aber req.header('Referer')
 	// gibt auf einer edit Seite die edit Seite, deshalb diese URL Manipulation
@@ -1038,11 +1050,7 @@ router.all(
 			})
 			.then(async (teachersResponse) => {
 				const users = teachersResponse.data;
-				const years = [
-					res.locals.currentSchoolData.years.activeYear,
-					res.locals.currentSchoolData.years.nextYear,
-					res.locals.currentSchoolData.years.lastYear,
-				].filter(y => !!y);
+				const years = getSelectableYears(res.locals.currentSchoolData);
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
@@ -1315,11 +1323,7 @@ router.all(
 			})
 			.then(async (studentsResponse) => {
 				const users = studentsResponse.data;
-				const years = [
-					res.locals.currentSchoolData.years.activeYear,
-					res.locals.currentSchoolData.years.nextYear,
-					res.locals.currentSchoolData.years.lastYear,
-				].filter(y => !!y);
+				const years = getSelectableYears(res.locals.currentSchoolData);
 				const title = `${returnAdminPrefix(
 					res.locals.currentUser.roles,
 				)}Schüler`;
@@ -1675,7 +1679,6 @@ const renderClassEdit = (req, res, next, edit) => {
 					roles: ['teacher', 'demoTeacher'],
 					$limit: false,
 				}), // teachers
-				getSelectOptions(req, 'years', { $sort: { name: -1 } }),
 				getSelectOptions(req, 'gradeLevels'),
 			];
 			if (edit) {
@@ -1683,7 +1686,8 @@ const renderClassEdit = (req, res, next, edit) => {
 			}
 
 			Promise.all(promises).then(
-				([teachers, schoolyears, gradeLevels, currentClass]) => {
+				([teachers, gradeLevels, currentClass]) => {
+					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
 					gradeLevels.sort(
 						(a, b) => parseInt(a.name, 10) - parseInt(b.name, 10),
 					);
@@ -1716,9 +1720,9 @@ const renderClassEdit = (req, res, next, edit) => {
 							if ((currentClass.gradeLevel || {})._id == g._id) {
 								g.selected = true;
 							}
-						});
+						});;
 						schoolyears.forEach((schoolyear) => {
-							if ((currentClass.year || {})._id === schoolyear._id) {
+							if (currentClass.year === schoolyear._id) {
 								schoolyear.selected = true;
 							}
 						});
