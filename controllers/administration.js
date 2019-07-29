@@ -77,18 +77,6 @@ const getTableActions = (
 	];
 };
 
-const getAvailableSchoolYears = (req) => {
-	const amountOfYears = 3;
-	const yearsRequest = api(req)
-		.get('/years', {
-			qs: {
-				$limit: amountOfYears,
-				$sort: { name: -1 },
-			},
-		});
-	return yearsRequest;
-};
-
 const getTableActionsSend = (item, path, state) => {
 	const actions = [];
 	if (state === 'submitted' || state === 'closed') {
@@ -1043,16 +1031,17 @@ router.all(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-		const teachersRequest = api(req)
+		return api(req)
 			.get('users/admin/teachers', {
 				qs: query,
-			});
-
-		const yearsRequest = getAvailableSchoolYears(req);
-		Promise.all([teachersRequest, yearsRequest])
-			.then(async ([teachersResponse, yearsResponse]) => {
+			})
+			.then(async (teachersResponse) => {
 				const users = teachersResponse.data;
-				const years = yearsResponse.data;
+				const years = [
+					res.locals.currentSchoolData.years.activeYear,
+					res.locals.currentSchoolData.years.nextYear,
+					res.locals.currentSchoolData.years.lastYear,
+				].filter(y => y !== undefined);
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
@@ -1319,15 +1308,17 @@ router.all(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-		const studentsRequest = api(req)
+		api(req)
 			.get('/users/admin/students', {
 				qs: query,
-			});
-		const yearsRequest = getAvailableSchoolYears(req);
-		Promise.all([studentsRequest, yearsRequest])
-			.then(async ([studentsResponse, yearsResponse]) => {
+			})
+			.then(async (studentsResponse) => {
 				const users = studentsResponse.data;
-				const years = yearsResponse.data;
+				const years = [
+					res.locals.currentSchoolData.years.activeYear,
+					res.locals.currentSchoolData.years.nextYear,
+					res.locals.currentSchoolData.years.lastYear,
+				].filter(y => y !== undefined);
 				const title = `${returnAdminPrefix(
 					res.locals.currentUser.roles,
 				)}Schüler`;
