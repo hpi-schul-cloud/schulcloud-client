@@ -1042,7 +1042,7 @@ router.all(
 					res.locals.currentSchoolData.years.activeYear,
 					res.locals.currentSchoolData.years.nextYear,
 					res.locals.currentSchoolData.years.lastYear,
-				].filter(y => y !== undefined);
+				].filter(y => !!y);
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
@@ -1319,7 +1319,7 @@ router.all(
 					res.locals.currentSchoolData.years.activeYear,
 					res.locals.currentSchoolData.years.nextYear,
 					res.locals.currentSchoolData.years.lastYear,
-				].filter(y => y !== undefined);
+				].filter(y => !!y);
 				const title = `${returnAdminPrefix(
 					res.locals.currentUser.roles,
 				)}Schüler`;
