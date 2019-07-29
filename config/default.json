@@ -1,0 +1,5 @@
+{
+	"cors": {
+		"^/rocketChat/authGet": "scchat.schul-cloud.org"
+	}
+}
