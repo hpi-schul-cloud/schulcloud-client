@@ -29,6 +29,18 @@ const getSelectOptions = (req, service, query, values = []) => api(req)
 	})
 	.then(data => data.data);
 
+const getSelectableYears = (school) => {
+	let years = [];
+	if (school && school.years) {
+		years = years.concat([
+			school.years.activeYear,
+			school.years.nextYear,
+			school.years.lastYear,
+		].filter(y => !!y));
+	}
+	return years;
+};
+
 const cutEditOffUrl = (url) => {
 	// nicht optimal, aber req.header('Referer')
 	// gibt auf einer edit Seite die edit Seite, deshalb diese URL Manipulation
@@ -1036,8 +1048,9 @@ router.all(
 			.get('users/admin/teachers', {
 				qs: query,
 			})
-			.then((data) => {
-				const users = data.data;
+			.then(async (teachersResponse) => {
+				const users = teachersResponse.data;
+				const years = getSelectableYears(res.locals.currentSchoolData);
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
@@ -1083,7 +1096,7 @@ router.all(
 
 				const pagination = {
 					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
+					numPages: Math.ceil(teachersResponse.total / itemsPerPage),
 					baseUrl: `/administration/teachers/?p={{page}}${filterQueryString}`,
 				};
 
@@ -1094,6 +1107,8 @@ router.all(
 					pagination,
 					filterSettings: JSON.stringify(userFilterSettings('lastName', true)),
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+					schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+					years,
 				});
 			});
 	},
@@ -1284,7 +1299,6 @@ router.all(
 			: '';
 
 		let itemsPerPage = 25;
-		const amountOfYears = 5;
 		let filterQuery = {};
 		if (tempOrgQuery) {
 			filterQuery = JSON.parse(decodeURI(req.query.filterQuery));
@@ -1303,21 +1317,13 @@ router.all(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-		const studentsRequest = api(req)
+		api(req)
 			.get('/users/admin/students', {
 				qs: query,
-			});
-		const yearsRequest = api(req)
-			.get('/years', {
-				qs: {
-					$limit: amountOfYears,
-					$sort: { name: -1 },
-				},
-			});
-		Promise.all([studentsRequest, yearsRequest])
-			.then(async ([studentsResponse, yearsResponse]) => {
+			})
+			.then(async (studentsResponse) => {
 				const users = studentsResponse.data;
-				const years = yearsResponse.data;
+				const years = getSelectableYears(res.locals.currentSchoolData);
 				const title = `${returnAdminPrefix(
 					res.locals.currentUser.roles,
 				)}Schüler`;
@@ -1380,6 +1386,7 @@ router.all(
 						pagination,
 						filterSettings: JSON.stringify(userFilterSettings()),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+						schoolCurrentYear: res.locals.currentSchoolData.currentYear,
 						studentsWithoutConsentCount,
 						allStudentsCount: users.length,
 						years,
@@ -1672,7 +1679,6 @@ const renderClassEdit = (req, res, next, edit) => {
 					roles: ['teacher', 'demoTeacher'],
 					$limit: false,
 				}), // teachers
-				getSelectOptions(req, 'years', { $sort: { name: -1 } }),
 				getSelectOptions(req, 'gradeLevels'),
 			];
 			if (edit) {
@@ -1680,7 +1686,8 @@ const renderClassEdit = (req, res, next, edit) => {
 			}
 
 			Promise.all(promises).then(
-				([teachers, schoolyears, gradeLevels, currentClass]) => {
+				([teachers, gradeLevels, currentClass]) => {
+					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
 					gradeLevels.sort(
 						(a, b) => parseInt(a.name, 10) - parseInt(b.name, 10),
 					);
@@ -1715,7 +1722,7 @@ const renderClassEdit = (req, res, next, edit) => {
 							}
 						});
 						schoolyears.forEach((schoolyear) => {
-							if ((currentClass.year || {})._id === schoolyear._id) {
+							if (currentClass.year === schoolyear._id) {
 								schoolyear.selected = true;
 							}
 						});
