@@ -81,7 +81,7 @@ function inform {
 
 openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
 
-echo "$GIT_SHA $DOCKERTAG" > ./static/commitsha.txt
+echo "$TRAVIS_COMMIT\n$TRAVIS_BRANCH\n$TRAVIS_COMMIT_MESSAGE" > ./version
 
 if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
 then
