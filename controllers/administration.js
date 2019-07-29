@@ -1031,7 +1031,8 @@ router.all(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-		return api(req)
+		
+		api(req)
 			.get('users/admin/teachers', {
 				qs: query,
 			})
