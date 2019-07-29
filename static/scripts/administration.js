@@ -53,13 +53,56 @@ let handlerRegistered = false;
 
 $(document).ready(function () {
     var $modals = $('.modal');
+	var $terminateSchoolYearModal = $('.terminate-school-year-modal');
     var $addSystemsModal = $('.add-modal');
     var $addRSSModal = $('.add-modal--rss');
     var $editModal = $('.edit-modal');
     var $invitationModal = $('.invitation-modal');
     var $importModal = $('.import-modal');
     var $deleteSystemsModal = $('.delete-modal');
-    var $deleteRSSModal = $('.delete-modal--rss');
+	var $deleteRSSModal = $('.delete-modal--rss');
+	
+	$('.ldapschoolyearadditionalinfotoggle').on('click', function (e) {
+        e.preventDefault();
+        $('#ldapschoolyearadditionalinfo').toggle();
+	});
+
+    $('.btn-terminate-school-year').on('click', function (e) {
+        e.preventDefault();
+        populateModalForm($terminateSchoolYearModal, {
+            title: 'Das Schuljahr wirklich beenden?',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Ja'
+        });
+        $terminateSchoolYearModal.appendTo('body').modal('show');
+	});
+
+	$('#checkldapdata').on('click', function (e) {
+		e.preventDefault();
+		document.querySelector('#startldapschoolyear').disabled = false;
+        window.open("/administration/startldapschoolyear"); 
+	});
+	
+    const startschoolyearbutton = document.querySelector('#startldapschoolyear')
+	if(startschoolyearbutton) {
+		startschoolyearbutton.addEventListener('change', (status) => {
+			if (status.currentTarget.checked) {
+				document.querySelector('#buttonstartldapschoolyear').disabled = false;
+				document.querySelector('#checkldapdata').classList.add('disabled');
+				document.querySelector('#section-2').classList.remove('current');
+				document.querySelector('#section-2').classList.add('done');
+				document.querySelector('#section-2').innerHTML = '&#x2713;';
+				document.querySelector('#section-3').classList.add('current');
+			} else {
+				document.querySelector('#buttonstartldapschoolyear').disabled = true;
+				document.querySelector('#checkldapdata').classList.remove('disabled');
+				document.querySelector('#section-2').classList.remove('done');
+				document.querySelector('#section-2').classList.add('current');
+				document.querySelector('#section-2').innerHTML = '2';
+				document.querySelector('#section-3').classList.remove('current');
+			}
+		});
+	}
 
     $('.btn-add-modal').on('click', function (e) {
         e.preventDefault();
