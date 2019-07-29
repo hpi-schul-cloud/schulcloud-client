@@ -39,7 +39,7 @@ const getSelectableYears = (school) => {
 		].filter(y => !!y));
 	}
 	return years;
-}
+};
 
 const cutEditOffUrl = (url) => {
 	// nicht optimal, aber req.header('Referer')
@@ -1043,7 +1043,7 @@ router.all(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-		
+
 		api(req)
 			.get('users/admin/teachers', {
 				qs: query,
@@ -1720,7 +1720,7 @@ const renderClassEdit = (req, res, next, edit) => {
 							if ((currentClass.gradeLevel || {})._id == g._id) {
 								g.selected = true;
 							}
-						});;
+						});
 						schoolyears.forEach((schoolyear) => {
 							if (currentClass.year === schoolyear._id) {
 								schoolyear.selected = true;
