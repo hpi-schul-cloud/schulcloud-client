@@ -351,7 +351,7 @@ router.get('/', (req, res, next) => {
 		api(req).get(`/users/${userId}/courses/`, {
 			qs: {
 				filter: 'archived',
-				$limit: 75,
+				$limit: 750,
 			},
 		}),
 	]).then(([active, archived]) => {
