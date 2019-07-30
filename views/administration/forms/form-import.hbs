@@ -21,7 +21,7 @@
     <label>Schuljahr</label>
     <select class="form-control" name="schoolYear" data-placeholder="Schuljahr auswählen" data-force-value="true">
         {{#each years}}
-            <option value="{{this._id}}">{{this.name}}</option>
+            <option {{#ifeq this._id ../schoolCurrentYear}}selected="selected"{{/ifeq}} value="{{this._id}}">{{this.name}}</option>
         {{/each}}
     </select>
 </div>

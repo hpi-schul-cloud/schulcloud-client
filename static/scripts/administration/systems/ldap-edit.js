@@ -138,16 +138,18 @@ function verifyLDAPData(event) {
 
 			// Add user data to Verify table
 			response.classes.forEach(singleClass => {
-				const row = classTable.insertRow(classTable.rows.length);
+				if (singleClass.uniqueMembers && singleClass.uniqueMembers.length) {
+					const row = classTable.insertRow(classTable.rows.length);
 
-				let currentCell = row.insertCell(0);
-				currentCell.innerHTML = singleClass.className;
+					let currentCell = row.insertCell(0);
+					currentCell.innerHTML = singleClass.className;
 
-				currentCell = row.insertCell(1);
-				currentCell.innerHTML = singleClass.ldapDn;
+					currentCell = row.insertCell(1);
+					currentCell.innerHTML = singleClass.ldapDn;
 
-				currentCell = row.insertCell(2);
-				currentCell.innerHTML = singleClass.uniqueMembers;
+					currentCell = row.insertCell(2);
+					currentCell.innerHTML = singleClass.uniqueMembers;
+				}
 			});
 
 			// Make tables visible
