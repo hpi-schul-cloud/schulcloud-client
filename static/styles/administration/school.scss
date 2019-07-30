@@ -41,6 +41,15 @@ label {
     padding-left: 12px;
     padding-right: 12px;
   }
+  .row.head {
+    p {
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+  .row.body {
+    text-align: center;
+  }
   i.fa-check.green {
     color: green;
   }
