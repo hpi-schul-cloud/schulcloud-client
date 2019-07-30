@@ -52,5 +52,7 @@ router.use('/rocketChat/', require('./rocketChat'));
 
 router.use('/administration/', require('./administration'));
 
+router.use('/version', require('./version'));
+
 
 module.exports = router;

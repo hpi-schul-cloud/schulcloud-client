@@ -44,10 +44,13 @@
 	.single-pdf-wrapper {
 		padding: 10px;
 		height: 100%;
-		box-shadow: 2px 2px 5px rgba(0,0,0,.1);
 		background-color: #fff;
-		border-radius: .25rem;
-		border: 1px solid rgba(0,0,0,.125)
+		border: 1px solid rgba(0,0,0,.125);
+		&:hover {
+			z-index: 1;
+			box-shadow: var(--shadow-sm);
+			transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
+		}
 	}
 	.single-pdf-thumbnail {
 		margin-top: 10px;

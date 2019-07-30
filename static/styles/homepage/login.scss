@@ -16,7 +16,12 @@
         margin-bottom: 10px;
         font-size: 1rem;
         padding: .5rem;
-    }
+	}
+	select{
+		width: 100%;
+		padding: .25rem .5rem;
+		border-radius: 4px;
+	}
     .login-providers {
         display:none;
     }
