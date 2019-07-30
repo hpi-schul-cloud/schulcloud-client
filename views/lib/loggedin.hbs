@@ -23,6 +23,9 @@
     {{/content}}
 
     {{#content "body"}}
+        {{#if currentSchoolData.inMaintenance}}
+        <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
+        {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav>

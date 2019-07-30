@@ -1,14 +1,14 @@
-/* eslint-disable no-param-reassign */
+
+/* eslint-disable no-underscore-dangle */
 const _ = require('lodash');
 const express = require('express');
 const winston = require('winston');
-const marked = require('marked');
 const moment = require('moment');
-const shortId = require('shortid');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
+
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ const logger = winston.createLogger({
 	],
 });
 
-const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
+const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then(data => data.data);
 
@@ -97,8 +97,10 @@ const deleteEventsForCourse = (req, res, courseId) => {
 };
 
 const editCourseHandler = (req, res, next) => {
-	let coursePromise; let action; let
-		method;
+
+	let coursePromise;
+	let action;
+	let method;
 	if (req.params.courseId) {
 		action = `/courses/${req.params.courseId}`;
 		method = 'patch';
@@ -139,7 +141,9 @@ const editCourseHandler = (req, res, next) => {
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
 			const duration = moment.duration(time.startTime);
-			time.startTime = `${(`00${duration.hours()}`).slice(-2)}:${(`00${duration.minutes()}`).slice(-2)}`;
+			const hoursString = (`00${duration.hours()}`).slice(-2);
+			const minutsString = (`00${duration.minutes()}`).slice(-2);
+			time.startTime = `${hoursString}:${minutsString}`;
 			time.count = count;
 		});
 
@@ -200,9 +204,13 @@ const editCourseHandler = (req, res, next) => {
 	});
 };
 
+const sameId = (id1, id2) => id1.toString() === id2.toString();
+
 const copyCourseHandler = (req, res, next) => {
-	let coursePromise; let action; let
-		method;
+
+	let coursePromise;
+	let action;
+	let method;
 	if (req.params.courseId) {
 		action = `/courses/copy/${req.params.courseId}`;
 		method = 'post';
@@ -226,17 +234,19 @@ const copyCourseHandler = (req, res, next) => {
 		classesPromise,
 		teachersPromise,
 		studentsPromise,
-	]).then(([course, classes, teachers, students]) => {
-		classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
-		teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
-		students = students.filter(s => s.schoolId == res.locals.currentSchool);
+	]).then(([course, _classes, _teachers, _students]) => {
+		const classes = _classes.filter(c => sameId(c.schoolId, res.locals.currentSchool));
+		const teachers = _teachers.filter(t => sameId(t.schoolId, res.locals.currentSchool));
+		const students = _students.filter(s => sameId(s.schoolId, res.locals.currentSchool));
 		const substitutions = _.cloneDeep(teachers);
 
 		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
 			const duration = moment.duration(time.startTime);
-			time.startTime = `${(`00${duration.hours()}`).slice(-2)}:${(`00${duration.minutes()}`).slice(-2)}`;
+			const hoursString = (`00${duration.hours()}`).slice(-2);
+			const minutsString = (`00${duration.minutes()}`).slice(-2);
+			time.startTime = `${hoursString}:${minutsString}`;
 			time.count = count;
 		});
 
@@ -252,16 +262,31 @@ const copyCourseHandler = (req, res, next) => {
 			course.teacherIds.push(res.locals.currentUser);
 		}
 
-		course.name += ' - Kopie';
+		// populate course colors - to be replaced system scope
+		const colors = [
+			'#ACACAC',
+			'#D4AF37',
+			'#00E5FF',
+			'#1DE9B6',
+			'#546E7A',
+			'#FFC400',
+			'#BCAAA4',
+			'#FF4081',
+			'#FFEE58',
+		];
+
+		course.name = `${course.name} - Kopie`;
+
 
 		res.render('courses/edit-course', {
 			action,
 			method,
-			title: 'Kurs duplizieren',
-			submitLabel: 'Kurs duplizieren',
+			title: 'Kurs klonen',
+			submitLabel: 'Kurs klonen',
 			closeLabel: 'Abbrechen',
 			course,
 			classes,
+			colors,
 			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
 			substitutions,
 			students,
@@ -272,10 +297,6 @@ const copyCourseHandler = (req, res, next) => {
 // secure routes
 router.use(authHelper.authChecker);
 
-
-/*
- * Courses
- */
 
 /**
  *
@@ -383,17 +404,21 @@ router.post('/', (req, res, next) => {
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) { delete req.body.startDate; }
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) { delete req.body.untilDate; }
+
+	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) {
+		delete req.body.startDate;
+	}
+	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) {
+		delete req.body.untilDate;
+	}
 
 	api(req).post('/courses/', {
 		json: req.body, // TODO: sanitize
 	}).then((course) => {
-		createEventsForCourse(req, res, course).then((_) => {
+		createEventsForCourse(req, res, course).then(() => {
 			res.redirect('/courses');
 		});
-	}).catch((err) => {
-		logger.error(err);
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
@@ -408,16 +433,21 @@ router.post('/copy/:courseId', (req, res, next) => {
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) { delete req.body.startDate; }
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) { delete req.body.untilDate; }
+	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) {
+		delete req.body.startDate;
+	}
+	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) {
+		delete req.body.untilDate;
+	}
 
 	req.body._id = req.params.courseId;
+	// req.body.courseId = req.params.courseId;
+	req.body.copyCourseId = req.params.courseId;
 
 	api(req).post('/courses/copy/', {
 		json: req.body, // TODO: sanitize
 	}).then((course) => {
 		res.redirect(`/courses/${course._id}`);
-	}).catch((err) => {
 		res.sendStatus(500);
 	});
 });
@@ -489,13 +519,13 @@ router.get('/:courseId/', (req, res, next) => {
 				$populate: ['courseId', 'userIds'],
 			},
 		}),
-	]).then(([course, lessons, homeworks, courseGroups]) => {
+	]).then(([course, _lessons, _homeworks, _courseGroups]) => {
 		const ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
-		lessons = (lessons.data || []).map(lesson => Object.assign(lesson, {
+		const lessons = (_lessons.data || []).map(lesson => Object.assign(lesson, {
 			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
 		}));
 
-		homeworks = (homeworks.data || []).map((assignment) => {
+		const homeworks = (_homeworks.data || []).map((assignment) => {
 			assignment.url = `/homework/${assignment._id}`;
 			return assignment;
 		});
@@ -507,9 +537,9 @@ router.get('/:courseId/', (req, res, next) => {
 			return -1;
 		});
 
-		courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
-			? courseGroups.data || []
-			: (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+		const courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
+			? _courseGroups.data || []
+			: (_courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
 
 		res.render('courses/course', Object.assign({}, course, {
 			title: course.name,
@@ -556,38 +586,38 @@ router.patch('/:courseId', (req, res, next) => {
 	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) { delete req.body.untilDate; }
 
 	// first delete all old events for the course
-	deleteEventsForCourse(req, res, req.params.courseId).then((_) => {
+	deleteEventsForCourse(req, res, req.params.courseId).then(() => {
 		api(req).patch(`/courses/${req.params.courseId}`, {
 			json: req.body, // TODO: sanitize
 		}).then((course) => {
-			createEventsForCourse(req, res, course).then((_) => {
-				res.redirect(`/courses/${req.params.courseId}`);
+			createEventsForCourse(req, res, course).then(() => {
+				res.redirect(303, `/courses/${req.params.courseId}`);
 			});
 		});
-	}).catch((error) => {
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
 
 router.patch('/:courseId/positions', (req, res, next) => {
-	for (const elem in req.body) {
-		api(req).patch(`/lessons/${elem}`, {
+	Object.keys(req.body).forEach((key) => {
+		api(req).patch(`/lessons/${key}`, {
 			json: {
-				position: parseInt(req.body[elem]),
+				position: parseInt(req.body[key], 10),
 				courseId: req.params.courseId,
 			},
 		});
-	}
+	});
 	res.sendStatus(200);
 });
 
 
 router.delete('/:courseId', (req, res, next) => {
-	deleteEventsForCourse(req, res, req.params.courseId).then((_) => {
-		api(req).delete(`/courses/${req.params.courseId}`).then((_) => {
+	deleteEventsForCourse(req, res, req.params.courseId).then(() => {
+		api(req).delete(`/courses/${req.params.courseId}`).then(() => {
 			res.sendStatus(200);
 		});
-	}).catch((_) => {
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
@@ -617,9 +647,10 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 
 		// add Student to course
 		course.userIds.push(currentUser._id);
+		// eslint-disable-next-line consistent-return
 		return api(req).patch(`/courses/${course._id}?link=${req.query.link}`, {
 			json: course,
-		}).then((_) => {
+		}).then(() => {
 			req.session.notification = {
 				type: 'success',
 				message: `Sie wurden erfolgreich beim Kurs/Fach ${course.name} hinzugefügt`,
@@ -644,8 +675,14 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 			res.redirect(req.header('Referer'));
 		}
 
-		api(req).post('/lessons/copy', { json: { lessonId: lessons.data[0]._id, newCourseId: req.params.courseId, shareToken } })
-			.then((_) => {
+		api(req).post('/lessons/copy', {
+			json: {
+				lessonId: lessons.data[0]._id,
+				newCourseId: req.params.courseId,
+				shareToken,
+			},
+		})
+			.then(() => {
 				res.redirect(req.header('Referer'));
 			});
 	}).catch(err => res.status((err.statusCode || 500)).send(err));
@@ -663,7 +700,7 @@ router.get('/:id/share', (req, res, next) => api(req).get(`/courses/share/${req.
 // return course Name for given shareToken
 router.get('/share/:id', (req, res, next) => api(req).get('/courses/share', { qs: { shareToken: req.params.id } })
 	.then(name => res.json({ msg: name, status: 'success' }))
-	.catch(err => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
+	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
 router.post('/import', (req, res, next) => {
 	const { shareToken } = req.body;
