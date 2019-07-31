@@ -29,6 +29,18 @@ const getSelectOptions = (req, service, query, values = []) => api(req)
 	})
 	.then(data => data.data);
 
+const getSelectableYears = (school) => {
+	let years = [];
+	if (school && school.years) {
+		years = years.concat([
+			school.years.activeYear,
+			school.years.nextYear,
+			school.years.lastYear,
+		].filter(y => !!y));
+	}
+	return years;
+};
+
 const cutEditOffUrl = (url) => {
 	// nicht optimal, aber req.header('Referer')
 	// gibt auf einer edit Seite die edit Seite, deshalb diese URL Manipulation
@@ -1036,8 +1048,9 @@ router.all(
 			.get('users/admin/teachers', {
 				qs: query,
 			})
-			.then((data) => {
-				const users = data.data;
+			.then(async (teachersResponse) => {
+				const users = teachersResponse.data;
+				const years = getSelectableYears(res.locals.currentSchoolData);
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
@@ -1083,7 +1096,7 @@ router.all(
 
 				const pagination = {
 					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
+					numPages: Math.ceil(teachersResponse.total / itemsPerPage),
 					baseUrl: `/administration/teachers/?p={{page}}${filterQueryString}`,
 				};
 
@@ -1094,6 +1107,8 @@ router.all(
 					pagination,
 					filterSettings: JSON.stringify(userFilterSettings('lastName', true)),
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+					schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+					years,
 				});
 			});
 	},
@@ -1284,7 +1299,6 @@ router.all(
 			: '';
 
 		let itemsPerPage = 25;
-		const amountOfYears = 5;
 		let filterQuery = {};
 		if (tempOrgQuery) {
 			filterQuery = JSON.parse(decodeURI(req.query.filterQuery));
@@ -1303,21 +1317,13 @@ router.all(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-		const studentsRequest = api(req)
+		api(req)
 			.get('/users/admin/students', {
 				qs: query,
-			});
-		const yearsRequest = api(req)
-			.get('/years', {
-				qs: {
-					$limit: amountOfYears,
-					$sort: { name: -1 },
-				},
-			});
-		Promise.all([studentsRequest, yearsRequest])
-			.then(async ([studentsResponse, yearsResponse]) => {
+			})
+			.then(async (studentsResponse) => {
 				const users = studentsResponse.data;
-				const years = yearsResponse.data;
+				const years = getSelectableYears(res.locals.currentSchoolData);
 				const title = `${returnAdminPrefix(
 					res.locals.currentUser.roles,
 				)}Schüler`;
@@ -1380,6 +1386,7 @@ router.all(
 						pagination,
 						filterSettings: JSON.stringify(userFilterSettings()),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+						schoolCurrentYear: res.locals.currentSchoolData.currentYear,
 						studentsWithoutConsentCount,
 						allStudentsCount: users.length,
 						years,
@@ -1675,7 +1682,6 @@ const renderClassEdit = (req, res, next, edit) => {
 					roles: ['teacher', 'demoTeacher'],
 					$limit: false,
 				}), // teachers
-				getSelectOptions(req, 'years', { $sort: { name: -1 } }),
 				getSelectOptions(req, 'gradeLevels'),
 			];
 			if (edit) {
@@ -1683,7 +1689,8 @@ const renderClassEdit = (req, res, next, edit) => {
 			}
 
 			Promise.all(promises).then(
-				([teachers, schoolyears, gradeLevels, currentClass]) => {
+				([teachers, gradeLevels, currentClass]) => {
+					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
 					gradeLevels.sort(
 						(a, b) => parseInt(a.name, 10) - parseInt(b.name, 10),
 					);
@@ -1718,7 +1725,7 @@ const renderClassEdit = (req, res, next, edit) => {
 							}
 						});
 						schoolyears.forEach((schoolyear) => {
-							if ((currentClass.year || {})._id === schoolyear._id) {
+							if (currentClass.year === schoolyear._id) {
 								schoolyear.selected = true;
 							}
 						});
@@ -2853,15 +2860,30 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
-					$populate: ['systems'],
+					$populate: ['systems', 'currentYear'],
 					$sort: req.query.sort,
 				},
 			}),
 			api(req).get('/fileStorage/total'),
+			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
 		]);
+
+		// Maintanance - Show Menu depending on the state
+		const currentTime = new Date();
+		const maintananceModeStarts = new Date(schoolMaintanance.currentYear.endDate);
+		// Terminate school year 14 days before maintance start possible
+		const twoWeeksFromStart = new Date(maintananceModeStarts.valueOf());
+		twoWeeksFromStart.setDate(twoWeeksFromStart.getDate() - 14);
+
+		let schoolMaintananceMode = 'idle';
+		if (schoolMaintanance.maintenance.active) {
+			schoolMaintananceMode = 'active';
+		} else if (maintananceModeStarts && twoWeeksFromStart < currentTime) {
+			schoolMaintananceMode = 'standby';
+		}
 
 		// SYSTEMS
 		const systemsHead = ['Alias', 'Typ', ''];
@@ -2938,6 +2960,8 @@ router.use(
 		res.render('administration/school', {
 			title: `${title}Schule`,
 			school,
+			schoolMaintanance,
+			schoolMaintananceMode,
 			systems,
 			ldapAddable,
 			provider,
@@ -2953,6 +2977,88 @@ router.use(
 		});
 	},
 );
+
+/*
+
+	Change School Year
+
+*/
+
+// Terminate
+router.post('/terminateschoolyear', async (req, res) => {
+	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
+		json: {
+			maintenance: true,
+		},
+	});
+
+	res.redirect('/administration/school');
+});
+
+// Start
+router.use('/startschoolyear', async (req, res) => {
+	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
+		json: {
+			maintenance: false,
+		},
+	});
+
+	res.redirect('/administration/school');
+});
+
+// Start preview LDAP
+router.get('/startldapschoolyear', async (req, res) => {
+	// Find LDAP-System
+	const school = await Promise.resolve(
+		api(req).get(`/schools/${res.locals.currentSchool}`, {
+			qs: {
+				$populate: ['systems'],
+			},
+		}),
+	);
+	const system = school.systems.filter(
+		// eslint-disable-next-line no-shadow
+		system => system.type === 'ldap',
+	);
+
+	const ldapData = await Promise.resolve(api(req).get(`/ldap/${system[0]._id}`));
+
+	const bodyClasses = [];
+	ldapData.classes.forEach((singleClass) => {
+		if (singleClass.uniqueMembers && singleClass.uniqueMembers.length) {
+			bodyClasses.push([
+				singleClass.className,
+				singleClass.ldapDn,
+				(singleClass.uniqueMembers || []).join('; '),
+			]);
+		}
+	});
+
+	const bodyUsers = [];
+	ldapData.users.forEach((user) => {
+		bodyUsers.push([
+			user.firstName,
+			user.lastName,
+			user.email,
+			user.ldapUID,
+			user.roles.join(),
+			user.ldapDn,
+			user.ldapUUID,
+		]);
+	});
+
+	const headUser = ['Vorname', 'Nachname', 'E-Mail', 'uid', 'Rolle(n)', 'Domainname', 'uuid'];
+	const headClasses = ['Name', 'Domain', 'Nutzer der Klasse'];
+
+	res.render('administration/ldap-schoolyear-start', {
+		title: 'Prüfung der LDAP-Daten für Schuljahreswechsel',
+		headUser,
+		bodyUsers,
+		headClasses,
+		bodyClasses,
+	});
+});
+
 
 /*
     LDAP SYSTEMS
