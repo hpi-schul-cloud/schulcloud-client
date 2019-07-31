@@ -6,6 +6,12 @@
 		"icon": "fa-graduation-cap",
 		"categories": [
 			{
+				"id": "102204183",
+				"title": "Allgemeine Funktionen",
+				"type": "category",
+				"articles": []
+			},
+			{
 				"id": "44072994",
 				"title": "Kurserstellung",
 				"type": "category",
