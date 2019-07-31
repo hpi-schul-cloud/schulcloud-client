@@ -1,3 +1,4 @@
+
 /* eslint-disable no-underscore-dangle */
 const _ = require('lodash');
 const express = require('express');
@@ -31,7 +32,6 @@ const markSelected = (options, values = []) => options.map((option) => {
 	option.selected = values.includes(option._id);
 	return option;
 });
-
 
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
@@ -97,6 +97,7 @@ const deleteEventsForCourse = (req, res, courseId) => {
 };
 
 const editCourseHandler = (req, res, next) => {
+
 	let coursePromise;
 	let action;
 	let method;
@@ -206,6 +207,7 @@ const editCourseHandler = (req, res, next) => {
 const sameId = (id1, id2) => id1.toString() === id2.toString();
 
 const copyCourseHandler = (req, res, next) => {
+
 	let coursePromise;
 	let action;
 	let method;
@@ -275,6 +277,7 @@ const copyCourseHandler = (req, res, next) => {
 
 		course.name = `${course.name} - Kopie`;
 
+
 		res.render('courses/edit-course', {
 			action,
 			method,
@@ -295,70 +298,87 @@ const copyCourseHandler = (req, res, next) => {
 router.use(authHelper.authChecker);
 
 
-/*
- * Courses
+/**
+ *
+ * @param {*} courses, string userId
+ * @returns [substitutions, others]
  */
-const setTimeAndRoomOverview = (course, time) => {
-	const startTime = moment(time.startTime, 'x').utc().format('HH:mm');
-	const weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-	const room = time.room ? `| ${time.room}` : '';
-	const addTitle = `<div>${weekday} ${startTime} ${room}</div>`;
-	course.secondaryTitle += addTitle;
+
+const enrichCourse = (course) => {
+	course.url = `/courses/${course._id}`;
+	course.title = course.name;
+	course.content = (course.description || '').substr(0, 140);
+	course.secondaryTitle = '';
+	course.background = course.color;
+	course.memberAmount = course.userIds.length;
+	(course.times || []).forEach((time) => {
+		time.startTime = moment(time.startTime, 'x').format('HH:mm');
+		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+		course.secondaryTitle
+			+= `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${time.room}`) : ''}</div>`;
+	});
+	return course;
 };
+
+const filterSubstitutionCourses = (courses, userId) => {
+	const substitutions = [];
+	const others = [];
+
+	courses.data.forEach((course) => {
+		enrichCourse(course);
+
+		if ((course.substitutionIds || []).includes(userId)) {
+			substitutions.push(course);
+		} else {
+			others.push(course);
+		}
+	});
+
+	return [substitutions, others];
+};
+
 router.get('/', (req, res, next) => {
+	const { currentUser } = res.locals;
+	const userId = currentUser._id.toString();
+
 	Promise.all([
-		api(req).get('/courses/', {
+		api(req).get(`/users/${userId}/courses/`, {
 			qs: {
-				substitutionIds: res.locals.currentUser._id,
+				filter: 'active',
 				$limit: 75,
 			},
 		}),
-		api(req).get('/courses/', {
+		api(req).get(`/users/${userId}/courses/`, {
 			qs: {
-				$or: [
-					{ userIds: res.locals.currentUser._id },
-					{ teacherIds: res.locals.currentUser._id },
-				],
-				$limit: 75,
+				filter: 'archived',
+				$limit: 750,
 			},
 		}),
-	]).then(([_substitutionCourses, _courses]) => {
-		const substitutionCourses = _substitutionCourses.data.map((course) => {
-			course.url = `/courses/${course._id}`;
-			course.title = course.name;
-			course.content = (course.description || '').substr(0, 140);
-			course.secondaryTitle = '';
-			course.background = course.color;
-			course.memberAmount = course.userIds.length;
-			(course.times || []).forEach((time) => {
-				setTimeAndRoomOverview(course, time);
-			});
-			return course;
-		});
+	]).then(([active, archived]) => {
+		let activeSubstitutions = [];
+		let activeCourses = [];
+		let archivedSubstitutions = [];
+		let archivedCourses = [];
 
-		const courses = _courses.data.map((course) => {
-			course.url = `/courses/${course._id}`;
-			course.title = course.name;
-			course.content = (course.description || '').substr(0, 140);
-			course.secondaryTitle = '';
-			course.background = course.color;
-			course.memberAmount = course.userIds.length;
-			(course.times || []).forEach((time) => {
-				setTimeAndRoomOverview(course, time);
-			});
-
-			return course;
-		});
+		[activeSubstitutions, activeCourses] = filterSubstitutionCourses(active, userId);
+		[archivedSubstitutions, archivedCourses] = filterSubstitutionCourses(archived, userId);
 
 		const isStudent = res.locals.currentUser.roles.every(role => role.name === 'student');
 
-		if (req.query.json) {
-			res.json(courses);
-		} else if (courses.length > 0 || substitutionCourses.length > 0) {
+		if (req.query.json) { // !? for what is this? Should be direct request to api!?
+			res.json(active);
+		} else if (active.total !== 0 || archived.total !== 0) {
 			res.render('courses/overview', {
 				title: 'Meine Kurse',
-				courses,
-				substitutionCourses,
+				activeTab: req.query.activeTab,
+				activeCourses,
+				activeSubstitutions,
+				archivedCourses,
+				archivedSubstitutions,
+				total: {
+					active: active.total,
+					archived: archived.total,
+				},
 				searchLabel: 'Suche nach Kursen',
 				searchAction: '/courses',
 				showSearch: true,
@@ -383,6 +403,7 @@ router.post('/', (req, res, next) => {
 
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+
 
 	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) {
 		delete req.body.startDate;
@@ -427,7 +448,6 @@ router.post('/copy/:courseId', (req, res, next) => {
 		json: req.body, // TODO: sanitize
 	}).then((course) => {
 		res.redirect(`/courses/${course._id}`);
-	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
