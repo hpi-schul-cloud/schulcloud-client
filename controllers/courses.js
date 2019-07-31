@@ -327,7 +327,7 @@ const filterSubstitutionCourses = (courses, userId) => {
 	courses.data.forEach((course) => {
 		enrichCourse(course);
 
-		if (course.substitutionIds.includes(userId)) {
+		if ((course.substitutionIds || []).includes(userId)) {
 			substitutions.push(course);
 		} else {
 			others.push(course);
