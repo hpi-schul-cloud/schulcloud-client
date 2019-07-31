@@ -236,8 +236,8 @@ const copyCourseHandler = (req, res, next) => {
 		res.render('teams/edit-course', {
 			action,
 			method,
-			title: 'Kurs klonen',
-			submitLabel: 'Kurs klonen',
+			title: 'Team duplizieren',
+			submitLabel: 'Team duplizieren',
 			closeLabel: 'Abbrechen',
 			course,
 			classes: classesOfCurrentSchool,
