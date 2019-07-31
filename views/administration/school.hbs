@@ -110,36 +110,46 @@
                             </div>
 
                             <span class="progressbar"></span>
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <p class="font-weight-bold">Beachte vor der Transferphase:</p>
+                            <div class="row head">
+                                <div class="col-xs-4">
+                                    <p>Beachte vor der Transferphase:</p>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p>Beachte verfügbare Funktionen <br> in der Transferphase:</p>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p>Nach Beendung der Transferphase <br> kann deine Schule ins neue Schuljahr starten.</p>
+                                </div>
+                            </div>
+                            <div class="row body">
+                                <div class="col-xs-4">                                
                                     <p><i class="fa fa-arrow-right"></i> Du kannst nicht mehr zurück</p>
                                 </div>
-                                <div class="col-xs-4 text-center">
+                                <div class="col-xs-4">
                                     <div class="d-flex justify-content-center">
-                                        <p class="font-weight-bold">Beachte verfügbare Funktionen <br> in der Transferphase:</p>
-                                        <p><i class="fa fa-times red"></i> Klassen anlegen oder ändern</p>
-                                        <p><i class="fa fa-times red"></i> Nutzer anlegen oder ändern</p>
-                                        <p><i class="fa fa-check green"></i> Login über LDAP</p>
-                                        <p><i class="fa fa-check green"></i> Kennwortänderungen</p>
+                                        <p><i class="fa fa-check green"></i> Logins bestehender Nutzer</p>
+                                        <p><i class="fa fa-check green"></i> Kennwortänderungen im LDAP</p>
+                                        <p><i class="fa fa-times red"></i> Änderung von Klassen/neue Klassen</p>
+                                        <p><i class="fa fa-times red"></i> Änderung von Nutzerdaten/neue Nutzer</p>
                                     </div>
                                 </div>
-                                <div class="col-xs-4 text-center">
+                                <div class="col-xs-4">
+                                    <p><i class="fa fa-smile-o"></i> Alles erledigt!</p>
                                 </div>
                             </div>
                             <form action="/administration/startschoolyear" type="post">
                             <div class="row">
-                                <div class="col-xs-4 text-center">
+                                <div class="col-xs-12 col-md-4 text-center">
                                     <button {{#ifeq ../schoolMaintananceMode "standby"}}{{else}}disabled{{/ifeq}} class="btn btn-primary btn-terminate-school-year">Transferphase starten</button>
                                 </div>
-                                <div class="col-xs-4 text-center">
+                                <div class="col-xs-12 col-md-4 text-center">
                                     <p><a href="#" id="checkldapdata" class="btn btn-primary {{#ifeq ../schoolMaintananceMode "active"}}{{else}}disabled{{/ifeq}}">LDAP-Daten überprüfen</a></p>
                                     <label>                           
                                         <input required disabled type="checkbox" id="startldapschoolyear">                   
                                         Nutzer- und Klassendaten im LDAP <br> für das neue Schuljahr sind bearbeitet.
                                     </label>
                                 </div>
-                                <div class="col-xs-4 text-center">
+                                <div class="col-xs-12 col-md-4 text-center">
                                     <button disabled id="buttonstartldapschoolyear" class="btn btn-primary">Transferphase beenden</button>
                                 </div>
                             </div>
