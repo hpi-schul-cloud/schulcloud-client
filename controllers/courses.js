@@ -571,7 +571,7 @@ router.patch('/:courseId', (req, res, next) => {
 			json: req.body, // TODO: sanitize
 		}).then((course) => {
 			createEventsForCourse(req, res, course).then(() => {
-				res.redirect(`/courses/${req.params.courseId}`);
+				res.redirect(303, `/courses/${req.params.courseId}`);
 			});
 		});
 	}).catch(() => {

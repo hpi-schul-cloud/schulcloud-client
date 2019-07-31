@@ -41,24 +41,19 @@ label {
     padding-left: 12px;
     padding-right: 12px;
   }
-  .btn-delete-course {
-    margin-right: 10px;
+  .row.head {
+    p {
+      font-weight: bold;
+      text-align: center;
+    }
   }
-  .final-step {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-    .image-wrapper {
-      padding: 30px;
-      opacity: 0.8;
-    }
-    .image {
-      width: 250px;
-    }
-    .course-features {
-      margin-top: 15px;
-    }
+  .row.body {
+    text-align: center;
+  }
+  i.fa-check.green {
+    color: green;
+  }
+  i.fa-times.red {
+    color: red;
   }
 }
