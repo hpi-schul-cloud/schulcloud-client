@@ -89,6 +89,9 @@ p.small {
 label {
 	font-weight: bold;
 }
+video, audio {
+	max-width:100%;
+}
 
 .pagination-wrapper {
 	text-align: center;
