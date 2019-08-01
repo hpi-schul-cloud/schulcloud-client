@@ -1693,9 +1693,6 @@ const renderClassEdit = (req, res, next, edit) => {
 			Promise.all(promises).then(
 				([teachers, gradeLevels, currentClass]) => {
 					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
-					gradeLevels.sort(
-						(a, b) => parseInt(a.name, 10) - parseInt(b.name, 10),
-					);
 
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
