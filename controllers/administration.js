@@ -1421,7 +1421,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	let consents = [];
 	const batchSize = 50;
 	let slice = 0;
-	while (slice * batchSize <= users.length) {
+	while (users.length !== 0 && slice * batchSize <= users.length) {
 		consents = consents.concat(
 			(await api(req).get('/consents', {
 				qs: {
