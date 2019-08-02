@@ -27,13 +27,7 @@ before_install:
   --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 - sudo docker pull mongo:4.0
 - sudo docker run -d -p 27017:27017 mongo:4.0
-- if [[ $TRAVIS_BRANCH = release* || $TRAVIS_BRANCH = hotfix* ]] ; then
-    export BACKEND_URL=https://api.staging.schul-cloud.org
-    export PUBLIC_BACKEND_URL=https://api.staging.schul-cloud.org
-  elif [ "$TRAVIS_BRANCH" = "develop" ] ; then
-    export BACKEND_URL=https://api.test.schul-cloud.org
-    export PUBLIC_BACKEND_URL=https://api.test.schul-cloud.org
-  fi
+- if [[ $TRAVIS_BRANCH = release* || $TRAVIS_BRANCH = hotfix* ]] ; then export BACKEND_URL=https://api.staging.schul-cloud.org ; export PUBLIC_BACKEND_URL=https://api.staging.schul-cloud.org ; elif [ "$TRAVIS_BRANCH" = "develop" ] ; then export BACKEND_URL=https://api.test.schul-cloud.org ; export PUBLIC_BACKEND_URL=https://api.test.schul-cloud.org ; fi
 install:
 - npm install
 before_script:
