@@ -105,10 +105,11 @@ $(document).ready(() => {
 					fields: { invitation: linkData.shortLink },
 				});
 				$invitationModal.find('.btn-submit').remove();
-				// eslint-ignore func-names
-				$invitationModal.find("input[name='invitation']").click(function () {
+
+				function selectThis() {
 					$(this).select();
-				});
+				}
+				$invitationModal.find("input[name='invitation']").click(selectThis);
 
 				$invitationModal.appendTo('body').modal('show');
 			},
