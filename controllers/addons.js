@@ -9,7 +9,7 @@ router.use(authHelper.authChecker);
 
 router.get("/", function(req, res, next) {
   res.render("addons/addons", {
-    title: "Erweiterungen"
+    title: "Add-ons"
   });
 });
 

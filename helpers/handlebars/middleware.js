@@ -116,7 +116,7 @@ module.exports = (req, res, next) => {
     const extensionsEnabled = process.env.SC_THEME === "n21";
     if (extensionsEnabled) {
       res.locals.sidebarItems.push({
-        name: "Erweiterungen",
+        name: "Add-ons",
         icon: "puzzle-piece",
         link: "/addons"
       });
