@@ -44,8 +44,8 @@
             <select class="linked" name="grade" data-linktext data-placeholder="Jahrgangsstufe wählen" required  {{#if isCustom}}disabled{{/if}}>
                 <option disabled value>keine Auswahl</option>
                 {{#each gradeLevels}}
-                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                        {{this.name}}
+                    <option value="{{this.grade}}" {{#if this.selected}}selected{{/if}}>
+                        {{this.grade}}
                     </option>
                 {{/each}}
             </select>

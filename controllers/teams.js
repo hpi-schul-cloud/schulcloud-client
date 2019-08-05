@@ -236,8 +236,8 @@ const copyCourseHandler = (req, res, next) => {
 		res.render('teams/edit-course', {
 			action,
 			method,
-			title: 'Kurs klonen',
-			submitLabel: 'Kurs klonen',
+			title: 'Team duplizieren',
+			submitLabel: 'Team duplizieren',
 			closeLabel: 'Abbrechen',
 			course,
 			classes: classesOfCurrentSchool,
@@ -580,8 +580,8 @@ router.get('/:teamId', async (req, res, next) => {
 				},
 			});
 			events = events.map((event) => {
-				const start = moment(event.start);
-				const end = moment(event.end);
+				const start = moment(event.start).utc();
+				const end = moment(event.end).utc();
 				event.day = start.format('D');
 				event.month = start
 					.format('MMM')
@@ -925,7 +925,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		const teamUserIds = team.userIds.map(user => user.userId._id);
 		users = users.filter(user => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter(s => s._id === schoolId)[0];
-		const currentFederalStateId = currentSchool.federalState;
+		const currentFederalStateId = (currentSchool || {}).federalState;
 		let couldLeave = true; // will be set to false if current user is the only teamowner
 
 		const rolesExternal = [

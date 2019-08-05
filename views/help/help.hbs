@@ -47,9 +47,9 @@
                                                 aria-expanded="false" aria-controls="collapsable-{{this.id}}" type="button" tabindex="0">
                                                 <i class="fa fa-fw fa-chevron-right" aria-hidden="true" data-expand></i>
                                                 <i class="fa fa-fw fa-chevron-down" aria-hidden="true" data-collapse></i>
-                                                <h2 class="h5">
+                                                <h3 class="h5 collapsable-headline">
                                                     {{this.title}}
-                                                </h2>
+                                                </h3>
                                             </button>
                                             <ul id="collapsable-{{this.id}}" class="collapse collapse__content">
                                                 {{#each this.articles}}
@@ -64,9 +64,9 @@
                                             <div class="collapse__title single">
                                                 <i class="fa fa-fw" aria-hidden="true"></i>
                                                 <a href="/help/confluence/{{this.id}}">
-                                                    <h2 class="h5">
+                                                    <h3 class="h5 collapsable-headline">
                                                         {{this.title}}
-                                                    </h2>
+                                                    </h3>
                                                 </a>
                                             </div>
                                         </div>
