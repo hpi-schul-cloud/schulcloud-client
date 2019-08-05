@@ -1573,6 +1573,7 @@ router.get(
 		const accountPromise = api(req).get('/accounts/', {
 			qs: { userId: req.params.id },
 		});
+		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
 		Promise.all([userPromise, consentPromise, accountPromise])
 			.then(([user, _consent, [account]]) => {
@@ -1591,6 +1592,8 @@ router.get(
 					user,
 					consentStatusIcon: getConsentStatusIcon(consent.consentStatus),
 					consent,
+					canSkipConsent: canSkip,
+					hasImportHash: user.importHash,
 					hidePwChangeButton,
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
