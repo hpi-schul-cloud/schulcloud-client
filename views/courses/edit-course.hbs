@@ -21,20 +21,20 @@
         <section class="section-course">
             <form action="{{action}}" method="post">
                 {{#if method}}
-                    <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
+                    <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
                 {{/if}}
 
                 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
 
                 <div class="form-group">
                     <label>Name des Kurses</label>
-                    <input class="form-control" name="name" type="text" placeholder="Mathe 10a" value="{{course.name}}"
+                    <input class="form-control" name="name" type="text" placeholder="Mathe 10a" value="{{course.name}}" {{#if course.isArchived}}disabled{{/if}}
                            required autofocus/>
                 </div>
 
                 <div class="form-group">
                     <label>Beschreibung des Kurses</label>
-                    <textarea class="form-control" name="description">{{{stripOnlyScript course.description}}}</textarea>
+                    <textarea class="form-control" name="description" {{#if course.isArchived}}disabled{{/if}}>{{{stripOnlyScript course.description}}}</textarea>
                 </div>
 
                 <div class="form-group">
@@ -49,7 +49,7 @@
                     {{#each colors}}
                       {{#ifneq this ../course.color}}
                         <div class="color-picker__item">
-                          <input id="input{{../this}}" type="radio" class="color-picker__input" name="color" value="{{../this}}" {{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked"{{/unless}}{{/ifeq}}/>
+                          <input id="input{{../this}}" type="radio" class="color-picker__input" name="color" value="{{../this}}" {{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked"{{/unless}}{{/ifeq}} {{#if @root.course.isArchived}}disabled{{/if}}/>
                           <label for="input{{../this}}" class="color-picker__color" style="background: {{../this}}"></label>
                         </div>
                       {{/ifneq}}
@@ -60,7 +60,7 @@
                 <div class="form-group">
                     <label>Unterrichtender Lehrer</label>
 
-                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen">
+                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen" {{#if course.isArchived}}disabled{{/if}}>
                         {{#each teachers}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
@@ -75,7 +75,7 @@
 
                 <div class="form-group">
                     <label>Vertretungslehrer</label>
-                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
+                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen" {{#if course.isArchived}}disabled{{/if}}>
                         {{#each substitutions}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{this.firstName}} {{this.lastName}}
@@ -88,7 +88,7 @@
                 <div class="form-group">
                     <label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)</small></label>
 
-                    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
+                    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen" {{#if course.isArchived}}disabled{{/if}}>
                         {{#each classes}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{log this.year}}
@@ -109,7 +109,7 @@
                 <div class="form-group">
                     <label>Schüler / Teilnehmer</label>
 
-                    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
+                    <select name="userIds[]" multiple data-placeholder="Schüler auswählen" {{#if course.isArchived}}disabled{{/if}}>
                         {{#each students}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
@@ -129,12 +129,12 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label>Von</label>
-                            <input name="startDate" id="startDate" data-date type="text" class="form-control" value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
+                            <input name="startDate" id="startDate" data-date type="text" class="form-control" value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben" {{#if @root.course.isArchived}}disabled{{/if}}/>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label>Bis</label>
-                            <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
+                            <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben" {{#if @root.course.isArchived}}data-min-date="{{datePickerTodayMinus 0 0 0}}"{{/if}}/>
                         </div>
                     </div>
 
@@ -149,9 +149,12 @@
                         <tbody class="add-course-times">
                             {{#each course.times}}
                                 <tr id="{{this._id}}" class="course-time">
-                                    <td><i class="fa fa-trash-o course-time-delete" href={{this._id}}></i></td>
                                     <td>
-                                        <select class="form-control" name="times[{{this.count}}][weekday]" type="text">
+										<button class="btn-link course-time-delete" {{#if @root.course.isArchived}}disabled{{/if}}>
+											<i class="fa fa-trash-o" href={{this._id}}></i>
+										</button></td>
+                                    <td>
+                                        <select class="form-control" name="times[{{this.count}}][weekday]" type="text" {{#if @root.course.isArchived}}disabled{{/if}}>
                                             <option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>Montag</option>
                                             <option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>Dienstag</option>
                                             <option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>Mittwoch</option>
@@ -162,24 +165,24 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input class="form-control" name="times[{{this.count}}][startTime]"  value="{{this.startTime}}" data-time type="text"/>
+                                        <input class="form-control" name="times[{{this.count}}][startTime]" value="{{this.startTime}}" data-time type="text" {{#if @root.course.isArchived}}disabled{{/if}}/>
                                     </td>
                                     <td>
                                         <input class="form-control" name="times[{{this.count}}][duration]" type="number"
-                                               value="{{this.duration}}" placeholder="in Minuten"/>
+                                               value="{{this.duration}}" placeholder="in Minuten" {{#if @root.course.isArchived}}disabled{{/if}}/>
                                     </td>
                                     <td>
                                         <input class="form-control" type="text"
-                                               name="times[{{this.count}}][room]" value="{{this.room}}" placeholder="z.B. R-1.21"/>
+                                               name="times[{{this.count}}][room]" value="{{this.room}}" placeholder="z.B. R-1.21" {{#if @root.course.isArchived}}disabled{{/if}}/>
                                     </td>
                                 </tr>
                             {{/each}}
                             {{#embed "courses/components/template-new-course-time"}}{{/embed}}
                         </tbody>
                     </table>
-                    <span class="new-course-time-add" data-timesref="#timesContainer">
+                    <button class="new-course-time-add btn-link" data-timesref="#timesContainer" {{#if @root.course.isArchived}}disabled{{/if}}>
                         <i class="fa fa-plus-circle fa-6"></i> Neuen Stundentermin hinzufügen
-                    </span>
+                    </button>
                 </div>
 
 

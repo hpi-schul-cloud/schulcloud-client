@@ -18,19 +18,23 @@
     {{#userHasPermission "COURSE_EDIT"}}
       <div class="dropdown dropdown-course minimal-button">
         <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
-          <h1 class="h4" id="page-title" class="course-headline">{{{stripOnlyScript ../name}}}
+          <h1 class="h4" id="page-title" class="course-headline">
+			  {{{stripOnlyScript ../name}}}
+			  {{#if ../isArchived}}(archiviert){{/if}}
           <i class="fa fa-cog i-cog"></i></h1>
         </a>
         <div class="dropdown-menu dropdown-menu dropdown-menu-course">
           <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
             <i class="fa fa-edit" aria-hidden="true"></i> Kurs bearbeiten/löschen
           </a>
+		  {{#unless ../isArchived}}
           <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
             <i class="fa fa-envelope" aria-hidden="true"></i> zum Kurs einladen
           </a>
           <a class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
             <i class="fa fa-share" aria-hidden="true"></i> Kurs teilen
           </a>
+		  {{/unless}}
           <a href="/courses/{{../_id}}/copy" class="dropdown-item">
             <i class="fa fa-clone" aria-hidden="true"></i> Kurs duplizieren
           </a>
@@ -42,9 +46,9 @@
         {{#if description}}
         <p class="lead">Kursbeschreibung: {{{stripOnlyScript description}}}</p>
         {{/if}}
-        {{#if nextEvent}}
+		{{#unless ../isArchived}}{{#if nextEvent}}
           <p class="text-muted">Nächste Unterrichtsstunde: {{nextEvent}}</p>
-        {{/if}}
+        {{/if}}{{/unless}}
         <a href="{{filesUrl}}" class="btn btn-add btn-secondary pull-right">
           <i class="fa fa-folder-open"></i>
           Zu den Kursdateien
