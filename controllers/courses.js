@@ -694,10 +694,10 @@ router.patch('/:courseId', (req, res, next) => {
 		delete req.body.untilDate;
 	}
 
-	if(req.body.unarchive === "true"){
-		req.body = { untilDate: req.body.untilDate }
+	if (req.body.unarchive === 'true') {
+		req.body = { untilDate: req.body.untilDate };
 	}
-	console.log(req.body)
+
 	// first delete all old events for the course
 	deleteEventsForCourse(req, res, req.params.courseId)
 		.then(() => api(req)
