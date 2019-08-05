@@ -1,0 +1,12 @@
+{{#extend "lib/loggedin"}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/addons/addons.css"/>
+    {{/content}}
+    {{#content "page"}}
+      <div class="card card-block card-tool" onclick="location.href='#'">
+        <h2 class="h5">Portfolio</h2>
+        <img src="/images/cloud.png" class="float-left" style="width:auto; height:75px;" />
+        <span>Beschreibung</span>
+      </div>
+    {{/content}}
+{{/extend}}

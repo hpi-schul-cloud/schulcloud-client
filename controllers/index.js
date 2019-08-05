@@ -48,6 +48,7 @@ router.use('/welcome', require('./welcome'));
 router.use('/schools/', require('./schools'));
 router.use('/users/', require('./users'));
 router.use('/rocketChat/', require('./rocketChat'));
+router.use("/addons", require("./addons"));
 
 
 router.use('/administration/', require('./administration'));

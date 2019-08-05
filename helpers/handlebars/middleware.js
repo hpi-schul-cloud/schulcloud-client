@@ -112,6 +112,16 @@ module.exports = (req, res, next) => {
         introText: "Hier gelangst du zur Materialsuche, bei der du in der Datenbank der Schul-Cloud nach Materialien für deine Unterrichtsstunde suchen kannst."
     }];
 
+    // Extensions Feature Toggle
+    const extensionsEnabled = process.env.SC_THEME === "n21";
+    if (extensionsEnabled) {
+      res.locals.sidebarItems.push({
+        name: "Erweiterungen",
+        icon: "puzzle-piece",
+        link: "/addons"
+      });
+    }
+
     // teacher views
     res.locals.sidebarItems.push({
         name: 'Verwaltung',
