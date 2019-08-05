@@ -713,10 +713,7 @@ router.post('/import', (req, res, next) => {
 			}
 			res.redirect(`/courses/${course._id}/edit/`);
 		})
-		.catch((err) => {
-			next(err);
-			// res.status((err.statusCode || 500)).send(err);
-		});
+		.catch(next);
 });
 
 module.exports = router;
