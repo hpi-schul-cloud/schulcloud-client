@@ -111,18 +111,24 @@ const getDetailHandler = (req, res, next) => {
 const showToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 
-	Promise.all([
-		api(req).get(`/ltiTools/${req.params.ltiToolId}`),
-		api(req).get(`/${context}/${req.params.courseId}`),
-	])
-		.then(([tool, course]) => {
-			const renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
-			res.render(renderPath, {
-				course,
-				title: `${tool.name}, Kurs/Fach: ${course.name}`,
-				tool,
-			});
+	Promise.all((req.params.courseId
+		? [
+			api(req).get(`/ltiTools/${req.params.ltiToolId}`),
+			api(req).get(`/${context}/${req.params.courseId}`),
+		]
+		: [
+			api(req).get('/ltiTools/', { qs: { urlName: req.params.ltiToolId } }),
+			Promise.resolve({ name: '' }),
+		]
+	)).then(([tool, course]) => {
+		tool = (req.params.courseId ? tool : tool.data[0]);
+		const renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
+		res.render(renderPath, {
+			course,
+			title: `${tool.name}${(course.name ? `, Kurs/Fach: ${course.name}` : '')}`,
+			tool,
 		});
+	});
 };
 
 

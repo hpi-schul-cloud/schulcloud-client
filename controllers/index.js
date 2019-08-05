@@ -21,6 +21,7 @@ router.use('/content/', require('./content'));
 router.use('/courses/', require('./courses'));
 router.use('/courses/:courseId/topics/', require('./topics'));
 router.use('/courses/:courseId/tools/', require('./tools'));
+router.use('/tools/', require('./tools'));
 router.use('/courses/:courseId/groups/', require('./coursegroups'));
 router.use('/teams/', require('./teams'));
 router.use('/teams/:targetId/news', require('./news'));
