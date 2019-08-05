@@ -20,8 +20,9 @@
         <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
           <h1 class="h4" id="page-title" class="course-headline">
 			  {{{stripOnlyScript ../name}}}
-			  {{#if ../isArchived}}(archiviert){{/if}}
-          <i class="fa fa-cog i-cog"></i></h1>
+          <i class="fa fa-cog i-cog"></i>
+		  	{{#if ../isArchived}}<small class="count-badge" data-badge="Archiv"/></small>{{/if}}
+		  </h1>
         </a>
         <div class="dropdown-menu dropdown-menu dropdown-menu-course">
           <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">

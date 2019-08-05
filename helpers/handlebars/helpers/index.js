@@ -91,34 +91,9 @@ module.exports = {
 		text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g, '$2');
 		return text;
 	},
-	ifCond: (v1, operator, v2, options) => {
-		switch (operator) {
-			case '==':
-				return (v1 == v2) ? options.fn(this) : options.inverse(this);
-			case '===':
-				return (v1 === v2) ? options.fn(this) : options.inverse(this);
-			case '!=':
-				return (v1 != v2) ? options.fn(this) : options.inverse(this);
-			case '!==':
-				return (v1 !== v2) ? options.fn(this) : options.inverse(this);
-			case '<':
-				return (v1 < v2) ? options.fn(this) : options.inverse(this);
-			case '<=':
-				return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-			case '>':
-				return (v1 > v2) ? options.fn(this) : options.inverse(this);
-			case '>=':
-				return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-			case '&&':
-				return (v1 && v2) ? options.fn(this) : options.inverse(this);
-			case '||':
-				return (v1 || v2) ? options.fn(this) : options.inverse(this);
-			case '|| !':
-				return (v1 || !v2) ? options.fn(this) : options.inverse(this);
-			default:
-				return options.inverse(this);
-		}
-	},
+	ifCond: (v1, operator, v2, options) => ifCondBool(v1, operator, v2)
+		? options.fn(this)
+		: options.inverse(this),
 	isCond: (v1, operator, v2, options) => ifCondBool(v1, operator, v2),
 	ifeq: (a, b, opts) => {
 		if (a == b) {

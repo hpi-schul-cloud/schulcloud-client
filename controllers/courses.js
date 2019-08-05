@@ -347,6 +347,8 @@ const copyCourseHandler = (req, res, next) => {
 
 		course.name = `${course.name} - Kopie`;
 
+		course.isArchived = false;
+
 		res.render('courses/edit-course', {
 			action,
 			method,
