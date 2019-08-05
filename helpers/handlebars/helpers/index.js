@@ -6,33 +6,35 @@ const permissionsHelper = require('../../permissions');
 
 moment.locale('de');
 
-function ifCondBool (v1, operator, v2) {
-    switch (operator) {
-        case '==':
-            return (v1 == v2);
-        case '===':
-            return (v1 === v2);
-        case '!=':
-            return (v1 != v2);
-        case '!==':
-            return (v1 !== v2);
-        case '<':
-            return (v1 < v2);
-        case '<=':
-            return (v1 <= v2);
-        case '>':
-            return (v1 > v2);
-        case '>=':
-            return (v1 >= v2);
-        case '&&':
-            return (v1 && v2);
-        case '||':
-            return (v1 || v2);
-        case '|| !':
-            return (v1 || !v2);
-        default:
-            return false;
-    }
+function ifCondBool(v1, operator, v2) {
+	switch (operator) {
+		case '==':
+			return (v1 == v2);
+		case '===':
+			return (v1 === v2);
+		case '!=':
+			return (v1 != v2);
+		case '!==':
+			return (v1 !== v2);
+		case '<':
+			return (v1 < v2);
+		case '<=':
+			return (v1 <= v2);
+		case '>':
+			return (v1 > v2);
+		case '>=':
+			return (v1 >= v2);
+		case '&&':
+			return (v1 && v2);
+		case '&& !':
+			return (v1 && !v2);
+		case '||':
+			return (v1 || v2);
+		case '|| !':
+			return (v1 || !v2);
+		default:
+			return false;
+	}
 }
 
 module.exports = {
@@ -91,9 +93,9 @@ module.exports = {
 		text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g, '$2');
 		return text;
 	},
-	ifCond: (v1, operator, v2, options) => ifCondBool(v1, operator, v2)
+	ifCond: (v1, operator, v2, options) => (ifCondBool(v1, operator, v2)
 		? options.fn(this)
-		: options.inverse(this),
+		: options.inverse(this)),
 	isCond: (v1, operator, v2, options) => ifCondBool(v1, operator, v2),
 	ifeq: (a, b, opts) => {
 		if (a == b) {

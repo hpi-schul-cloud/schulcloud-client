@@ -67,10 +67,10 @@
               <span class="text">Aufgaben <span class="count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}"/></span>
             </button>
             <button class="tab" data-tab="js-tools">
-              <span class="text">Tools <span class="count-badge" data-badge="{{ltiToolIds.length}}"/></span>
+              <span class="text">Tools <span class="count-badge" data-badge="{{../ltiToolIds.length}}"/></span>
             </button>
             <button class="tab" data-tab="js-groups">
-              <span class="text">Gruppen <span class="count-badge" data-badge="{{courseGroups.length}}"/></span>
+              <span class="text">Gruppen <span class="count-badge" data-badge="{{../courseGroups.length}}"/></span>
             </button>
           </div>
         </div>
@@ -78,19 +78,19 @@
           <div class="sections">
             <!-- Themen -->
             <div class="section" data-section="js-topics">
-              {{> "courses/components/topics"}}
+              {{> "courses/components/topics" archived=@root.isArchived}}
             </div>
             <!--- Aufgaben -->
             <div class="section" data-section="js-homeworks">
-              {{> "courses/components/tasks"}}
+              {{> "courses/components/tasks" archived=@root.isArchived}}
             </div>
             <!-- Tools -->
             <div name="js-tools-section" name="js-tools" class="section" data-section="js-tools">
-              {{> "courses/components/tools"}}
+              {{> "courses/components/tools" archived=@root.isArchived}}
             </div>
             <!-- Gruppen -->
             <div class="section" data-section="js-groups">
-              {{> "courses/components/groups" id=../_id}}
+              {{> "courses/components/groups" id=../_id archived=@root.isArchived}}
             </div>
           </div>
         </div>
