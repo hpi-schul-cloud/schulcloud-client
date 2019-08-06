@@ -34,16 +34,16 @@
     </a>
     {{/if}}
     <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">
-        <h5 class="title">
+        <h2 class="h5 title">
             {{#if this.courseId}}
             [<span>{{{stripOnlyScript this.courseId.name}}}</span>{{#if this.isSubstitution}}
             <sub>Vertretung</sub>{{/if}}] -
             {{/if}}
             {{{ stripOnlyScript this.name }}}
-        </h5>
+        </h2>
         <div class="ckcontent">
             {{#if this.description}}
-            {{truncateHTML (conflictFreeHtml this.description)}}
+            {{{ truncateHTML (conflictFreeHtml this.description) 140 false }}}
             {{else}}
             keine Beschreibung vorhanden
             {{/if}}

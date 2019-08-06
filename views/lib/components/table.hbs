@@ -38,7 +38,15 @@
                                                 </button>
                                             </form>
                                         {{else}}
-                                            <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" title="{{this.title}}">
+                                            <a class="btn btn-secondary btn-sm {{this.class}}" 
+                                                {{#if this.link}} href="{{this.link}}" {{/if}}
+                                                {{#if this.data}} 
+                                                    {{#each this.data}}
+                                                        data-{{@key}}="{{this}}"
+                                                    {{/each}}
+                                                {{/if}}
+                                                title="{{this.title}}"
+                                            >
                                                 <i class="fa fa-{{this.icon}}"></i> {{this.label}}
                                             </a>
                                         {{/if}}

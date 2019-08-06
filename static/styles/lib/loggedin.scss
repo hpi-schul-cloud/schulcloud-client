@@ -69,6 +69,7 @@ body > * {
         display:none;
     }
 }
+
 aside.nav-sidebar {
     position: fixed;
     top: 0;
@@ -110,6 +111,7 @@ aside.nav-sidebar {
         background: $primaryColor;
         color: whitesmoke;
         text-decoration: none;
+        margin-bottom: 1px;
         @include media-breakpoint-down(md) {
             padding: 10px;
         }
@@ -147,9 +149,10 @@ aside.nav-sidebar {
         }
     }
     @include media-breakpoint-down(xs) {
-        position: absolute;
+		position: absolute;
         width: 100%;
-        height: 100vh;
+		height: 100vh;
+		padding-top: 50px;
         overflow: auto;
         background: $colorWhite;
         box-shadow: 0 2px 5px rgba(0,0,0,.26);
@@ -185,7 +188,7 @@ aside.nav-sidebar {
                 line-height: 60px;
                 color: $fontColor;
                 padding: 0px 20px;
-                font-size: 14px;
+                font-size: 16px;
                 text-decoration: none;
                 overflow-x: visible;
                 white-space: nowrap;
@@ -278,9 +281,6 @@ aside.nav-sidebar {
         z-index: 9999;
         transition: transform .3s linear;
         transform: rotate(90deg);
-        .fa{
-            color: #fff;
-        }
     }
     @include media-breakpoint-down(xs) {
         display: block;
@@ -308,7 +308,7 @@ header {
 }
 
 .content-min-height {
-    flex:1;
+    flex-grow:1;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -322,14 +322,22 @@ header {
     }
 }
 
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	// IE 10+ Bugfix to prevent "floating footer" at the top
+	.content-min-height{
+		display: block !important;
+	}
+}
+
+
 .content-wrapper {
     vertical-align: top;
     width: 100%;
     padding: 0;
     padding-left: 240px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 
     @include media-breakpoint-down(md) {
         padding-left: 60px;
@@ -379,7 +387,6 @@ header {
     }
 }
 
-
 body.fullscreen{
     .nav-sidebar, footer, .search-wrapper, .mobile-nav-toggle{
         display: none;
@@ -408,6 +415,36 @@ body.fullscreen{
         transition: all .3s ease-in-out;
         &:hover{
             opacity: 1;
+        }
+    }
+}
+
+
+body.edtr {
+    padding-top: 75px;
+
+    .btn-fullscreen {
+        top: 83px;
+    }
+
+    @media(max-width: 1250px) {
+        .content-wrapper {
+            padding-left: 60px;
+        }
+
+        aside.nav-sidebar {
+            width: 60px;
+            overflow-x: hidden;
+
+            .sc-title {
+
+                display: none;
+            }
+
+            .cloud-logo {
+                width: 100%;
+                margin-right: 0;
+            }
         }
     }
 }
@@ -441,12 +478,11 @@ footer {
     padding: 10px 0px 20px;
     line-height: 1.75rem;
 
-    h4 {
+    h1 {
         color: $primaryColor;
         float: left;
         margin-bottom: 0px;
         margin-right: 20px;
-        font-weight: bold;
     }
 
     .location-info {

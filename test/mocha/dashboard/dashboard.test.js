@@ -9,7 +9,6 @@ const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
 
 describe('Dashboard tests', function () {
-    this.timeout(10000);
     before(function (done) {
         this.server = app.listen(3031);
         this.server.once('listening', () => {
@@ -46,7 +45,7 @@ describe('Dashboard tests', function () {
                     expect(res).to.redirect;
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Anmelden');
-                    expect(res.text).to.contain('Mit anderem System anmelden');
+                    expect(res.text).to.contain('Mehr Optionen');
                     resolve();
                 });
         });

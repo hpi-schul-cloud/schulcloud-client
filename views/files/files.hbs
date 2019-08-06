@@ -19,12 +19,12 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            <h5>
+                            <h2 class="h5">
                                 {{#each breadcrumbs}}
                                     <a class="{{#if @last}}active{{/if}}"
                                        href="{{this.url}}">{{{stripOnlyScript this.label}}}</a><span> / </span>
                                 {{/each}}
-                            </h5>
+                            </h2>
                             {{#if courseUrl}}
                                 <a href="{{courseUrl}}" class="btn btn-secondary pull-right">
                                     <i class="fa fa-graduation-cap"></i>
@@ -36,7 +36,7 @@
                 </div>
             </section>
             {{#if directories}}
-            <h6 style="padding: 1rem 0 1.5rem">Ordner</h6>
+            <h3 class="h6" style="padding: 1rem 0 1.5rem">Ordner</h3>
             <section class="directories">
                 <div class="row">
                     {{#each directories}}
@@ -63,17 +63,6 @@
             								   data-directory-name="{{../this.name}}">
             									<i class="fa fa-edit directory-icon pull-right"></i>
             								</a>
-                            {{#if ../../canEditPermissions}}
-                                <a href="/directoryModel/{{../this._id}}/share"
-                                target="_blank"
-                                class="btn-file-share"
-                                data-method="dir-share"
-                                title="Ordner-Freigabe"
-                                data-file-id="{{../this._id}}"
-                                data-file-name="{{../this.name}}">
-                                  <i class="fa fa-share-alt directory-icon pull-right"></i>
-                                </a>
-                            {{/if}}
                             {{/userHasPermission}}
             							</div>
             						</div>
@@ -81,9 +70,9 @@
                 </div>
             </section>
             {{/if}}
-            <h6 style="display: block; clear: both; padding: 1.5rem 0 1.5rem">Dateien</h6>
+            <h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">Dateien</h3>
             {{#embed "files/file-viewer"}}{{/embed}}
-            {{#embed "files/files-grid" canEditPermissions=canEditPermissions teamFiles=teamFiles}}{{/embed}}
+            {{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
 
             {{#userHasPermission "FOLDER_CREATE"}}
             <section class="new-directory">
@@ -92,16 +81,14 @@
                         <div class="col-sm-12"></div>
                         <div class="col-sm-10 col-xs-16 col-md-8">
                             <div data-toggle="modal">
-                                <div>
-                                    <span class="btn btn-secondary create-directory">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                                <span class="btn btn-primary create-directory">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                                </span>
+                                {{#if ../canCreateFile}}
+                                    <span class="btn btn-primary new-file" data-file-path="{{this.path}}">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
                                     </span>
-                                    {{#if ../canCreateFile}}
-                                        <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
-                                            <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
-                                        </span>
-                                    {{/if}}
-                                </div>
+                                {{/if}}
                             </div>
                         </div>
                     {{/if}}

@@ -153,6 +153,7 @@ label,
 }
 
 footer {
+	display: block;
 	.android-app {
 		margin-left:-11px;
 	}
@@ -176,7 +177,7 @@ footer {
 				.made-with-love {
 					margin-top: 8px;
 					.heart {
-						color: #b10438;
+						color: $primaryColor;
 					}
 				}
 			}
@@ -304,7 +305,7 @@ form.inline {
 	h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
 	p  {font-size: 1rem;margin-bottom:.25rem;}
 	img, video{max-width: 100%;}
-	table{display: block; max-width:100%; overflow: auto;}
+	table{display: table; max-width:100%; overflow: auto;}
 	blockquote{
 	  color: grey;
 	  margin-left: 1rem;

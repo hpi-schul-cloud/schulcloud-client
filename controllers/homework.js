@@ -589,7 +589,7 @@ router.get('/new', function (req, res, next) {
         let lessons = []
         if (req.query.course) {
             lessonsPromise = getSelectOptions(req, 'lessons', {
-                courseId: req.query.course
+				courseId: req.query.course
             });
             try {
                 lessons = await lessonsPromise;
@@ -627,7 +627,7 @@ router.get('/new', function (req, res, next) {
                 closeLabel: 'Abbrechen',
                 method: 'post',
                 action: '/homework/',
-                referrer: req.header('Referer'),
+                referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : req.header('Referer'),
                 assignment,
                 courses,
                 lessons: lessons.length ? lessons : false,
@@ -918,6 +918,8 @@ router.get('/:assignmentId', function (req, res, next) {
                     //submission>single=student=upload || submissionS>multi=teacher=overview
                     addClearNameForFileIds(assignment.submission || assignment.submissions);
                     assignment.submissions = assignment.submissions.map(s => { return { submission: s }; });
+                    var test = handlebars.compile('homework/assignment');
+
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                         breadcrumb: [{

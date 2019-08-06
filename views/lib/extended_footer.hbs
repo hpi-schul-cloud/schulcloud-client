@@ -1,34 +1,48 @@
+{{#embed "authentication/section" style="dark footer" class=""}}
+{{#content "body"}}
 <footer>
-    <div class="container">
-        <div class="row">  
-            <div  class="col-md-4">        
-                <h4>Kontakt</h4>
-                <ul>
-                    <li>Allgemeine Anfragen: <a href="mailto:info@schul-cloud.org" target="_blank">info@schul-cloud.org</a></li>
-                    <li>Inhalteanbieter: <a href="mailto:inhalte@schul-cloud.org" target="_blank">inhalte@schul-cloud.org</a></li>
-                    <li>Datenschutz: <a href="mailto:datenschutz@schul-cloud.org" target="_blank">datenschutz@schul-cloud.org</a></li>
-                    <li><a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank">Newsletter abonnieren</a></li>
-                </ul>
-            </div>
-            <div  class="col-md-4">        
-                <h4>Links</h4>
-                <ul>
-                    <li><a href="/impressum" target="blank">Impressum</a></li>
-                    <li><a href="/impressum#data_security" target="blank">Datenschutzerklärung</a></li>
-                    <li><a href="/team" target="blank">Team</a></li>
-                    <li><a href="/partner" target="blank">Partner</a></li>
-                    <li><a href="/about" target="blank">Über das Projekt</a></li>
-                    <li><a href="https://github.com/schul-cloud/" target="_blank">GitHub</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h4>Mobile App</h4>
-                <div class="android-app">
-                    <a href='https://play.google.com/store/apps/details?id=org.schulcloud.mobile&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-                        <img alt='Jetzt bei Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/de_badge_web_generic.png' height="70"/>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<h2 class="h4">Kontakt</h2>
+				<ul>
+					<li>Allgemeine Anfragen: <span style="white-space: nowrap;"><a href="mailto:info@schul-cloud.org" target="_blank" rel="noopener">info@schul-cloud.org</a></span></li>
+					<li>Inhalteanbieter: <span style="white-space: nowrap;"><a href="mailto:inhalte@schul-cloud.org" target="_blank" rel="noopener">inhalte@schul-cloud.org</a></span></li>
+					<li>Datenschutz: <span style="white-space: nowrap;"><a href="mailto:datenschutz@schul-cloud.org" target="_blank" rel="noopener">datenschutz@schul-cloud.org</a></span></li>
+					<li><a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank" rel="noopener">Newsletter
+							abonnieren</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<h2 class="h4">Links</h2>
+				<ul>
+					<li><a href="/impressum">Impressum</a></li>
+					<li>Datenschutzerklärung: <a href="/impressum#data_security">HPI</a> / <a
+							href="{{@root.theme.documents.baseDir}}{{@root.theme.documents.privacy}}" target="_blank">Muster
+							Schulen</a></li>
+					<li><a href="/team">Team</a></li>
+					<li><a href="/partner">Partner</a></li>
+					<li><a href="https://github.com/schul-cloud/" target="_blank" rel="noopener">GitHub</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<h2 class="h4">Mobile App</h2>
+				<div class="android-app">
+					<a href='https://play.google.com/store/apps/details?id=org.schulcloud.mobile&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank" rel="noopener">
+						<img alt='Jetzt bei Google Play'
+							src='https://play.google.com/intl/en_us/badges/images/generic/de_badge_web_generic.png' height="70" />
+					</a>
+				</div>
+				<h2 class="h4 card-title">Stellenausschreibungen</h2>
+				<div class="form-group">
+					Du möchtest gerne Mitglied in unserem <span style="white-space: nowrap;">HPI Schul-Cloud</span> Team werden?
+					Wir suchen:
+				</div>
+				<a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/web-developer-im-projekt-schul-cloud.html"
+					rel="noopener" target="_blank">Web Developer</a>
+			</div>
+		</div>
+	</div>
 </footer>
+{{/content}}
+{{/embed}}

@@ -58,6 +58,7 @@
 	"env": {
 		"node": true,
 		"mocha": true,
-		"browser": true
+    "browser": true,
+    "jquery": true
 	}
 }

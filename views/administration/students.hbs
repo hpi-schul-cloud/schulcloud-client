@@ -3,7 +3,7 @@
         <link rel="stylesheet" href="/styles/lib/filter/filter.css"/>
         <link rel="stylesheet" href="/styles/administration/users.css"/>
     {{/content}}
-    {{#content "page"}}
+    {{#content "page" mode="prepend"}}
         <div class="route-administration">
             <section class="section-students section-default">
                 <div><feathers-filter id="filter"
@@ -32,8 +32,11 @@
                                         <i class="fa fa-check double-check consent-status"></i>
                                         <i class="fa fa-check double-check consent-status"></i>
                                     </span>
-                                    <span>Alle Zustimmungen vorhanden</span>    
+                                    <span>Alle Zustimmungen vorhanden</span>
                                 </div>
+                                <i class="fa fa-check-square-o"></i>
+                                Einverständnis manuell erklären
+                                <div>
                             </center>
                         </div>
                     </div>
@@ -43,18 +46,18 @@
                     <div class="row mt-3 mb-1">
                         <p>
                             <strong>{{ studentsWithoutConsentCount }} von {{ allStudentsCount }}</strong> Schüler benötigen noch die Einverständniserklärung zur Nutzung der {{theme.short_title}}.
-                            Schüler unter 16 Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären.                        
+                            Schüler unter 16 Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären.
                         </p>
                     </div>
 
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
-                            <h4>
+                            <h2 class="h4">
                                 Einverständniserklärung einholen
-                            </h4>
+                            </h2>
                             {{#if schoolUsesLdap}}
                                 <strong>Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein</strong>
-                                
+
                                 <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
                             {{else}}
                                 <strong>Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben</strong>

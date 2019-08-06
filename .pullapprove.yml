@@ -33,3 +33,14 @@ groups:
       required: 1  # number of approvals required from this group
       request: 1  # number of review requests sent at a time
       request_order: shuffle
+
+  ux-core:
+    conditions:
+    - "'**/*.hbs' in files or 'static/styles/**/*.scss' in files or '.pullapprove.yml' in files"
+    # only review if "**/*.hbs", "static/styles/**/*.scss" files or ".pullapprove.yml" have been touched
+    reviewers:
+      teams:
+      - ux-core
+    reviews:
+      required: 1  # number of approvals required from this group
+      request: -1  # request from all members a review

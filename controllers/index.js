@@ -1,12 +1,15 @@
 const express = require('express');
+
 const router = express.Router();
 
 // only execute middleware on this router
 const handlebarsHelper = require('../helpers/handlebars');
+
 router.use(handlebarsHelper.middleware);
 
 // Track page views in Google Analytics
 const googleAnalyticsHelper = require('../helpers/googleAnalytics');
+
 router.use(googleAnalyticsHelper.middleware());
 
 router.use(require('./login'));
@@ -40,6 +43,7 @@ router.use('/team', require('./team'));
 router.use('/my-material', require('./my-material'));
 router.use('/logs', require('./logs'));
 router.use('/firstLogin', require('./firstLogin'));
+router.use('/oauth2', require('./oauth2'));
 router.use('/welcome', require('./welcome'));
 router.use('/schools/', require('./schools'));
 router.use('/users/', require('./users'));
@@ -47,6 +51,8 @@ router.use('/rocketChat/', require('./rocketChat'));
 
 
 router.use('/administration/', require('./administration'));
+
+router.use('/version', require('./version'));
 
 
 module.exports = router;

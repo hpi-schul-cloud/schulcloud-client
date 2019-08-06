@@ -1,8 +1,9 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/teams/teams.css"/>
         <link rel="stylesheet" href="/styles/homework/homework.css"/>
+        <link rel="stylesheet" href="/styles/teams/team.css"/>
         <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
     {{/content}}
 
@@ -19,7 +20,7 @@
 
         <div id="roles" data-roles="{{roles}}"></div>
 
-        <section class="section-course">
+        <section class="section-course section-team-members">
             <div class="container-fluid">
                 <div class="row">
                     {{#inArray "ADD_SCHOOL_MEMBERS" permissions}}
@@ -32,18 +33,20 @@
                     {{/inArray}}
 
                     {{#inArray "INVITE_EXPERTS" permissions}}
-                        <div class="col-sm-6">
-                            <p>Lade Lehrer anderer Schulen und Experten per E-Mail ein.</p>
-                            <button class="btn btn-primary btn-invite-external-member">
-                                Externe Teilnehmer einladen
-                            </button>
-                        </div>
+                        {{#inArray "TEAM_INVITE_EXTERNAL" ../rolePermissions}}
+                            <div class="col-sm-6">
+                                <p>Lade Lehrer anderer Schulen und Experten per E-Mail ein.</p>
+                                <button class="btn btn-primary btn-invite-external-member">
+                                    Externe Teilnehmer einladen
+                                </button>
+                            </div>
+                        {{/inArray}}
                     {{/inArray}}
                 </div>
             </div>
 
             {{#ifCond (arrayLength bodyInvitations) '>' 0}}
-                <h4 style="margin-top: 2rem" class="padding-top">Ausstehende Einladungen</h4>
+                <h2 class="h4" style="margin-top: 2rem" class="padding-top">Ausstehende Einladungen</h2>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
@@ -53,9 +56,9 @@
                 </div>
             {{/ifCond}}
 
-            <h4 class="padding-top">
+            <h2 class="h4 padding-top">
                 {{arrayLength body}} Teilnehmer
-            </h4>
+            </h2>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12 no-padding">
@@ -65,10 +68,10 @@
             </div>
 
             {{#if bodyClasses}}
-                <h4 class="padding-top">{{arrayLength bodyClasses}}
+                <h2 class="h4 padding-top">{{arrayLength bodyClasses}}
                     {{#ifCond (arrayLength bodyClasses) '==' 1}} Klasse {{/ifCond}}
                     {{#ifCond (arrayLength bodyClasses) '>' 1}} Klassen {{/ifCond}}
-                </h4>
+                </h2>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
@@ -94,19 +97,21 @@
                 {{#content "fields"}}
                     {{> "teams/forms/form-delete-invitation"}}
                 {{/content}}
-            {{/embed}}            
+            {{/embed}}
 
             {{#embed "lib/components/modal-form" action=resendInvitationAction class="resend-invitation-modal"}}
                 {{#content "fields"}}
                     {{> "teams/forms/form-resend-invitation"}}
                 {{/content}}
-            {{/embed}}            
-
-            {{#embed "lib/components/modal-form" action=inviteExternalMemberAction class="invite-external-member-modal"}}
-                {{#content "fields"}}
-                    {{> "teams/forms/form-invite-external-member" teamId=../_id roles=rolesExternal}}
-                {{/content}}
             {{/embed}}
+
+            {{#inArray "TEAM_INVITE_EXTERNAL" rolePermissions }}
+                {{#embed "lib/components/modal-form" action=inviteExternalMemberAction class="invite-external-member-modal"}}
+                    {{#content "fields"}}
+                        {{> "teams/forms/form-invite-external-member" teamId=../../_id roles=rolesExternal federalStates=../../federalStates}}
+                    {{/content}}
+                {{/embed}}
+            {{/inArray}}
 
             {{#embed "lib/components/modal-form" action=deleteMemberAction class="delete-member-modal"}}
                 {{#content "fields"}}

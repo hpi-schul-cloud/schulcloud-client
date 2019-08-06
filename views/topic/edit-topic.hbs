@@ -8,10 +8,20 @@
     {{/content}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/courses/course.css" />
+        <link rel="stylesheet" href="/styles/topics/topics.css" />
     {{/content}}
 
     {{#content "page"}}
+        {{#if topicId}}
+            <div class="edtr-link-wrapper">
+                <a href="/courses/{{courseId}}/topics/{{topicId}}?edtr=true" target="_blank" class="edtr-link">
+                    <button class="btn btn-primary edtr-btn">
+                        Neuen Editor ausprobieren
+                    </button>
+                </a>
+            </div>
+        {{/if}}
         <section class="section-course-edit">
             <form action="{{action}}" method="post">
                 {{#if method}}
@@ -34,14 +44,16 @@
 
                 <div class="form-group">
                     <label>Titel des Themas</label>
-                    <input class="form-control" name="name" type="text" placeholder="z.B. Rechnen mit Primzahlen" value="{{{lesson.name}}}" required />                
+                    <input class="form-control" name="name" type="text" placeholder="z.B. Rechnen mit Primzahlen"
+                        value="{{{lesson.name}}}" required />
                 </div>
 
                 <div class="form-group">
                     <label>Inhalte</label>
 
                     <!-- React Magic -->
-                    <div id="content-blocks" data-value="{{lesson.contents}}" data-etherpadbaseurl="{{etherpadBaseUrl}}" data-iscoursegroup="{{courseGroupId}}"></div>
+                    <div id="content-blocks" data-value="{{lesson.contents}}" data-etherpadbaseurl="{{etherpadBaseUrl}}"
+                        data-iscoursegroup="{{courseGroupId}}"></div>
                 </div>
 
                 <div class="modal-footer">

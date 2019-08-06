@@ -6,75 +6,81 @@
 {{#content "scripts" mode="append"}}
 {{/content}}
 
-{{#content "page"}}
-<div class="route-administration">
-    <section class="section-school section-default">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    <!-- Teacher View -->
-                    {{#userHasPermission 'STUDENT_CREATE'}}
-                    <div class="row card-deck-row">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="card h-100 teacher-option" onclick="location.href='/administration/students'">
-                                <div class="card-block homework">
-                                    <div class="card-text">
-                                        <h4><i class="fa fa-odnoklassniki"></i> Schüler verwalten</h4>
+{{#content "page" mode="prepend"}}
+    <div class="route-administration">
+        <section class="section-school section-default">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        <!-- Teacher View -->
+                        {{#userHasPermission 'STUDENT_CREATE'}}
+                            <div class="row card-deck-row">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="card h-100 teacher-option" onclick="location.href='/administration/students'">
+                                        <div class="card-block homework">
+                                            <div class="card-text">
+                                                <h2 class="h4"><i class="fa fa-odnoklassniki"></i> Schüler verwalten</h2>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="card h-100 teacher-option" onclick="location.href='/administration/teachers/'">
-                                <div class="card-block homework">
-                                    <div class="card-text">
-                                        <h4><i class="fa fa-user"></i> Lehrer verwalten</h4>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="card h-100 teacher-option" onclick="location.href='/administration/teachers/'">
+                                        <div class="card-block homework">
+                                            <div class="card-text">
+                                                <h2 class="h4"><i class="fa fa-user"></i> Lehrer verwalten</h2>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        {{#userHasPermission 'ADMIN_VIEW'}}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="card h-100 teacher-option" onclick="location.href='/administration/courses/'">
-                                <div class="card-block homework">
-                                    <div class="card-text">
-                                        <h4><i class="fa fa-graduation-cap"></i> Kurse verwalten</h4>
+                                {{#userHasPermission 'ADMIN_VIEW'}}
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="card h-100 teacher-option" onclick="location.href='/administration/courses/'">
+                                            <div class="card-block homework">
+                                                <div class="card-text">
+                                                    <h2 class="h4"><i class="fa fa-graduation-cap"></i> Kurse verwalten</h2>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{/userHasPermission}}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="card h-100 teacher-option" onclick="location.href='/administration/classes/'">
-                                <div class="card-block homework">
-                                    <div class="card-text">
-                                        <h4><i class="fa fa-users"></i> Klassen verwalten</h4>
+                                {{/userHasPermission}}
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="card h-100 teacher-option" onclick="location.href='/administration/classes/'">
+                                            <div class="card-block homework">
+                                                <div class="card-text">
+                                                    <h2 class="h4"><i class="fa fa-users"></i> Klassen verwalten</h2>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{#userHasPermission 'ADMIN_VIEW'}}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="card h-100 teacher-option" onclick="location.href='/administration/school/'">
-                                <div class="card-block homework">
-                                    <div class="card-text">
-                                        <h4><i class="fa fa-building"></i> Schule verwalten</h4>
+                                {{#userHasPermission 'ADMIN_VIEW'}}
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="card h-100 teacher-option" onclick="location.href='/administration/teams/'">
+                                            <div class="card-block homework">
+                                                <div class="card-text">
+                                                    <h2 class="h4"><i class="fa fa-users"></i> Teams verwalten</h2>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="card h-100 teacher-option" onclick="location.href='/administration/school/'">
+                                            <div class="card-block homework">
+                                                <div class="card-text">
+                                                    <h2 class="h4"><i class="fa fa-building"></i> Schule verwalten</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/userHasPermission}}
                             </div>
-                        </div>
                         {{/userHasPermission}}
                     </div>
                 </div>
-                {{/userHasPermission}}
-
-
             </div>
-        </div>
-</div>
-</section>
-</div>
+        </section>
+    </div>
 {{/content}}
 {{/extend}}
