@@ -594,9 +594,7 @@ const getDetailHandler = service => function detailHandler(req, res, next) {
 		.then((data) => {
 			res.json(mapEventProps(data, service));
 		})
-		.catch((err) => {
-			next(err);
-		});
+		.catch(next);
 };
 
 const getDeleteHandler = (service, redirectUrl) => function deleteHandler(req, res, next) {
@@ -2073,8 +2071,7 @@ router.post(
 				changedClass.year = req.body.schoolyear;
 			}
 		} else {
-			req.body.classsuffix = req.body.classsuffix || '';
-			changedClass.name = req.body.classsuffix;
+			changedClass.name = req.body.classsuffix || '';
 			changedClass.gradeLevel = req.body.grade;
 			changedClass.year = req.body.schoolyear;
 		}
