@@ -2028,8 +2028,8 @@ router.post(
 			if (req.body.keepyear) {
 				newClass.year = req.body.schoolyear;
 			}
-		} else if (req.body.classsuffix) {
-			newClass.name = req.body.classsuffix;
+		} else {
+			newClass.name = req.body.classsuffix || '';
 			newClass.gradeLevel = req.body.grade;
 			newClass.year = req.body.schoolyear;
 		}

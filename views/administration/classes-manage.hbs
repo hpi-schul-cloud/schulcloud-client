@@ -10,6 +10,7 @@
 
     {{#content "page"}}
         <section class="section-classes-manage">
+			<input type="hidden" name="class-name" value="{{class.displayName}}"/>
             <form class="manage-form" method="post" action="">
                 {{> "administration/forms/form-classes-manage"}}
             </form>
