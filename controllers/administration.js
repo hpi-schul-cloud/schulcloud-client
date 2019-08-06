@@ -1453,7 +1453,8 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	const usersWithoutConsent = users.filter(consentMissing);
 	const usersWithIncompleteConsent = consents
 		.filter(consentIncomplete)
-		.map(c => c.userId);
+		// get full user object from users list
+		.map(c => users.find(user => user._id.toString() === c.userId._id.toString()));
 	return usersWithoutConsent.concat(usersWithIncompleteConsent);
 };
 
