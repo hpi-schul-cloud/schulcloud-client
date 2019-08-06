@@ -7,6 +7,8 @@ import {
 } from './helpers/queryStringParameter';
 import printQRs from './helpers/printQRs';
 
+/* global populateModalForm */
+
 window.addEventListener('DOMContentLoaded', () => {
 	/* FEATHERS FILTER MODULE */
 	const filterModule = document.getElementById('filter');
@@ -26,8 +28,8 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 window.addEventListener('softNavigate', (event) => {
-	const { target_url } = event.detail;
-	const param = getQueryParameterByName('p', target_url);
+	const { target_url: targetUrl } = event.detail;
+	const param = getQueryParameterByName('p', targetUrl);
 	updateQueryStringParameter('p', param);
 });
 
@@ -120,7 +122,7 @@ $(document).ready(() => {
 		$addRSSModal.appendTo('body').modal('show');
 	});
 
-	$('.btn-edit').on('click', function (e) {
+	function handleEditClick(e) {
 		e.preventDefault();
 		const entry = $(this).attr('href');
 		$.getJSON(entry, (result) => {
@@ -147,9 +149,10 @@ $(document).ready(() => {
 			populateCourseTimes($editModal, result.times || []);
 			$editModal.appendTo('body').modal('show');
 		});
-	});
+	}
+	$('.btn-edit').on('click', handleEditClick);
 
-	$('.btn-invitation-link').on('click', function (e) {
+	function invitationLinkHandler(e) {
 		e.preventDefault();
 		const schoolId = $invitationModal.find("input[name='schoolId']").val();
 		let role = 'student';
@@ -173,6 +176,7 @@ $(document).ready(() => {
 				$invitationModal.find('.btn-submit').remove();
 				$invitationModal
 					.find("input[name='invitation']")
+					// eslint-disable-next-line func-names
 					.click(function () {
 						$(this).select();
 					});
@@ -180,7 +184,8 @@ $(document).ready(() => {
 				$invitationModal.appendTo('body').modal('show');
 			},
 		});
-	});
+	}
+	$('.btn-invitation-link').on('click', invitationLinkHandler);
 
 	$('.btn-import').on('click', (e) => {
 		e.preventDefault();
@@ -195,35 +200,36 @@ $(document).ready(() => {
 		$importModal.appendTo('body').modal('show');
 	});
 
-	$('.sso-type-selection').on('change', function (e) {
+	function ssoSelectHandler(e) {
 		e.preventDefault();
-		// show oauth properties for iserv only (todo: later we need a extra field, if we have some more oauth providers)
+		// show oauth properties for iserv only
+		// TODO: later we need a extra field, if we have some more oauth providers
 		const selectedType = $(this)
 			.find('option:selected')
 			.val();
-		selectedType === 'iserv'
-			? $('.collapsePanel').css('display', 'block')
-			: $('.collapsePanel').css('display', 'none');
-	});
+		$('.collapsePanel').css('display', selectedType === 'iserv' ? 'block' : 'none');
+	}
+	$('.sso-type-selection').on('change', ssoSelectHandler);
 
-	$('.edit-modal').on('shown.bs.modal', function () {
+	function handleBsModal() {
 		// when edit modal is opened, show oauth properties for iserv
 		const selectedType = $(this)
 			.find('.sso-type-selection')
 			.find('option:selected')
 			.val();
-		selectedType === 'iserv'
-			? $(this)
+		if (selectedType === 'iserv') {
+			$(this)
 				.find('.collapsePanel')
-				.css('display', 'block')
-			: '';
-	});
+				.css('display', 'block');
+		}
+	}
+	$('.edit-modal').on('shown.bs.modal', handleBsModal);
 
 	$modals.find('.close, .btn-close').on('click', () => {
 		$modals.modal('hide');
 	});
 
-	$('.btn-delete').on('click', function (e) {
+	function handleBtnClick(e) {
 		e.preventDefault();
 		const entry = $(this)
 			.parent()
@@ -239,16 +245,14 @@ $(document).ready(() => {
 
 			$deleteSystemsModal.appendTo('body').modal('show');
 		});
-	});
+	}
+	$('.btn-delete').on('click', handleBtnClick);
 
-	$('.btn-delete--rss').on('click', function (e) {
+	function handleDeleteRss(e) {
 		e.preventDefault();
 		const action = $(this)
 			.parent()
 			.attr('action');
-		const url = $(this)
-			.parent()
-			.attr('data-url');
 		$.getJSON(action, (result) => {
 			populateModalForm($deleteRSSModal, {
 				action,
@@ -260,97 +264,100 @@ $(document).ready(() => {
 
 			$deleteRSSModal.modal('show');
 		});
-	});
+	}
+	$('.btn-delete--rss').on('click', handleDeleteRss);
 
+	function handleSendLinkEmailsClick(e) {
+		e.preventDefault();
+		const $this = $(this);
+		const text = $this.html();
+		const role = $this.data('role');
+
+		$this.html('E-Mails werden gesendet...');
+		$this.attr('disabled', 'disabled');
+
+		$.ajax({
+			type: 'GET',
+			url:
+				`${window.location.origin
+				}/administration/users-without-consent/send-email`,
+			data: {
+				role,
+			},
+		})
+			.done(() => {
+				$.showNotification(
+					'Erinnerungs-E-Mails erfolgreich versendet',
+					'success',
+					true,
+				);
+				$this.attr('disabled', false);
+				$this.html(text);
+			})
+			.fail(() => {
+				$.showNotification(
+					'Fehler beim senden der Erinnerungs-E-Mails',
+					'danger',
+					true,
+				);
+				$this.attr('disabled', false);
+				$this.html(text);
+			});
+	}
+
+	function handlePrintLinksClick(e) {
+		e.preventDefault();
+		const $this = $(this);
+		const text = $this.html();
+		const role = $this.data('role');
+
+		$this.html('Druckbogen wird generiert...');
+		$this.attr('disabled', 'disabled');
+
+		$.ajax({
+			type: 'GET',
+			url:
+				`${window.location.origin
+				}/administration/users-without-consent/get-json`,
+			data: {
+				role,
+			},
+		})
+			.done((users) => {
+				printQRs(
+					users.map(user => ({
+						href: user.registrationLink.shortLink,
+						title:
+							user.fullName
+							|| `${user.firstName} ${user.lastName}`,
+						description: user.registrationLink.shortLink,
+					})),
+				);
+				$.showNotification(
+					'Druckbogen erfolgreich generiert',
+					'success',
+					true,
+				);
+				$this.attr('disabled', false);
+				$this.html(text);
+			})
+			.fail(() => {
+				$.showNotification(
+					'Problem beim Erstellen des Druckbogens',
+					'danger',
+					true,
+				);
+				$this.attr('disabled', false);
+				$this.html(text);
+			});
+	}
 	if (!handlerRegistered) {
 		// softNavigate triggers documentReady again duplicating click handlers
 		handlerRegistered = true;
 
-		$('.btn-send-links-emails').on('click', function (e) {
-			e.preventDefault();
-			const $this = $(this);
-			const text = $this.html();
-			const role = $this.data('role');
+		$('.btn-send-links-emails').on('click', handleSendLinkEmailsClick);
 
-			$this.html('E-Mails werden gesendet...');
-			$this.attr('disabled', 'disabled');
-
-			$.ajax({
-				type: 'GET',
-				url:
-					`${window.location.origin
-					}/administration/users-without-consent/send-email`,
-				data: {
-					role,
-				},
-			})
-				.done((data) => {
-					$.showNotification(
-						'Erinnerungs-E-Mails erfolgreich versendet',
-						'success',
-						true,
-					);
-					$this.attr('disabled', false);
-					$this.html(text);
-				})
-				.fail((data) => {
-					$.showNotification(
-						'Fehler beim senden der Erinnerungs-E-Mails',
-						'danger',
-						true,
-					);
-					$this.attr('disabled', false);
-					$this.html(text);
-				});
-		});
-
-		$('.btn-print-links').on('click', function (e) {
-			e.preventDefault();
-			const $this = $(this);
-			const text = $this.html();
-			const role = $this.data('role');
-
-			$this.html('Druckbogen wird generiert...');
-			$this.attr('disabled', 'disabled');
-
-			$.ajax({
-				type: 'GET',
-				url:
-					`${window.location.origin
-					}/administration/users-without-consent/get-json`,
-				data: {
-					role,
-				},
-			})
-				.done((users) => {
-					console.log('users', users);
-					printQRs(
-						users.map(user => ({
-							href: user.registrationLink.shortLink,
-							title:
-								user.fullName
-								|| `${user.firstName} ${user.lastName}`,
-							description: user.registrationLink.shortLink,
-						})),
-					);
-					$.showNotification(
-						'Druckbogen erfolgreich generiert',
-						'success',
-						true,
-					);
-					$this.attr('disabled', false);
-					$this.html(text);
-				})
-				.fail((data) => {
-					$.showNotification(
-						'Problem beim Erstellen des Druckbogens',
-						'danger',
-						true,
-					);
-					$this.attr('disabled', false);
-					$this.html(text);
-				});
-		});
+		$('.btn-print-links').on('click', handlePrintLinksClick);
 
 		$('#csv-import-example').on('click', (e) => {
 			e.preventDefault();
@@ -360,7 +367,7 @@ $(document).ready(() => {
 				'Fritz,Schmidt,fritz.schmidt@schul-cloud.org,1a',
 				'Paula,Meyer,paula.meyer@schul-cloud.org,12/2+12/3',
 			];
-			const csvContent =				`data:text/csv;charset=utf-8,${lines.join('\n')}`;
+			const csvContent = `data:text/csv;charset=utf-8,${lines.join('\n')}`;
 			const link = document.createElement('a');
 			link.setAttribute('href', encodeURI(csvContent));
 			link.setAttribute('download', 'beispiel.csv');

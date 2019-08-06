@@ -1,5 +1,35 @@
 import printQRs from '../../helpers/printQRs';
 
+/* globals populateModalForm */
+
+function sortOptions(selector, sortFunction) {
+	const input = document.querySelector(selector);
+	const options = Array.from(input.querySelectorAll('option'));
+
+	options.sort(sortFunction);
+	options.forEach((option) => {
+		input.appendChild(option);
+	});
+}
+
+function sortStudents() {
+	const sortFunction = (a, b) => {
+		const aValue = a.dataset.lastName;
+		const bValue = b.dataset.lastName;
+		if (aValue < bValue) {
+			return -1;
+		}
+		if (aValue > bValue) {
+			return 1;
+		}
+		return 0;
+	};
+
+	const studentInputSelector = 'select[name=userIds]';
+	sortOptions(studentInputSelector, sortFunction);
+	$(studentInputSelector).trigger('chosen:updated');
+}
+
 function copy(event) {
 	event.preventDefault();
 	const { copySelector } = event.target.dataset;
@@ -91,7 +121,6 @@ window.addEventListener('load', () => {
 				option.selected = false;
 			});
 		$('select[name="classes"]').trigger('chosen:updated');
-		// eslint-ignore-next-line no-undef
 		populateModalForm($importModal, {
 			title: 'Klasse importieren',
 			closeLabel: 'Abbrechen',
@@ -122,7 +151,7 @@ window.addEventListener('load', () => {
 		$('select[name=userIds]').trigger('chosen:updated');
 	});
 
-	function handleSendEMails(e){
+	function btnSendLinksEmailsHandler(e) {
 		e.preventDefault();
 		const $this = $(this);
 		const text = $this.html();
@@ -140,7 +169,7 @@ window.addEventListener('load', () => {
 				classId,
 			},
 		})
-			.done((data) => {
+			.done(() => {
 				$.showNotification(
 					'Erinnerungs-E-Mails erfolgreich versendet',
 					'success',
@@ -149,7 +178,7 @@ window.addEventListener('load', () => {
 				$this.attr('disabled', false);
 				$this.html(text);
 			})
-			.fail((data) => {
+			.fail(() => {
 				$.showNotification(
 					'Fehler beim senden der Erinnerungs-E-Mails',
 					'danger',
@@ -159,9 +188,9 @@ window.addEventListener('load', () => {
 				$this.html(text);
 			});
 	}
-	$('.btn-send-links-emails').on('click', handleSendEMails);
+	$('.btn-send-links-emails').on('click', btnSendLinksEmailsHandler);
 
-	$('.btn-print-links').on('click', function (e) {
+	function btnPrintLinksHandler(e) {
 		e.preventDefault();
 		const $this = $(this);
 		const text = $this.html();
@@ -195,7 +224,7 @@ window.addEventListener('load', () => {
 				$this.attr('disabled', false);
 				$this.html(text);
 			})
-			.fail((data) => {
+			.fail(() => {
 				$.showNotification(
 					'Problem beim Erstellen des Druckbogens',
 					'danger',
@@ -204,34 +233,8 @@ window.addEventListener('load', () => {
 				$this.attr('disabled', false);
 				$this.html(text);
 			});
-	});
+	}
+	$('.btn-print-links').on('click', btnPrintLinksHandler);
 });
 
-function sortOptions(selector, sortFunction) {
-	const input = document.querySelector(selector);
-	const options = Array.from(input.querySelectorAll('option'));
-
-	options.sort(sortFunction);
-	options.forEach((option) => {
-		input.appendChild(option);
-	});
-}
-
-function sortStudents() {
-	const sortFunction = (a, b) => {
-		const a_value = a.dataset.lastName;
-		const b_value = b.dataset.lastName;
-		if (a_value < b_value) {
-			return -1;
-		}
-		if (a_value > b_value) {
-			return 1;
-		}
-		return 0;
-	};
-
-	const studentInputSelector = 'select[name=userIds]';
-	sortOptions(studentInputSelector, sortFunction);
-	$(studentInputSelector).trigger('chosen:updated');
-}
 window.addEventListener('load', sortStudents);
