@@ -57,7 +57,7 @@ function printInvitation(event) {
 		title: `Klasse: ${className}`,
 		description: invitationLink,
 	};
-	const invitations = Array(5).fill(invitation);
+	const invitations = Array(25).fill(invitation);
 	printQRs(invitations);
 }
 
