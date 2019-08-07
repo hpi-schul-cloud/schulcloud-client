@@ -117,7 +117,7 @@ const showToolHandler = (req, res, next) => {
 			api(req).get(`/${context}/${req.params.courseId}`),
 		]
 		: [
-			api(req).get('/ltiTools/', { qs: { urlName: req.params.ltiToolId } }),
+			api(req).get('/ltiTools/', { qs: { friendlyUrl: req.params.ltiToolId } }),
 			Promise.resolve({ name: '' }),
 		]
 	)).then(([tool, course]) => {

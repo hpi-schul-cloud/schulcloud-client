@@ -113,7 +113,7 @@ module.exports = (req, res, next) => {
     }];
 
     // Extensions Feature Toggle
-    const extensionsEnabled = process.env.SC_THEME === "n21";
+    const extensionsEnabled = process.env.FEATURE_EXTENSIONS_ENABLED === 'true';
     if (extensionsEnabled) {
       res.locals.sidebarItems.push({
         name: "Add-ons",
