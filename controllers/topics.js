@@ -186,17 +186,17 @@ router.get('/:topicId', function (req, res, next) {
                 url: `/${context}`
             },
             {
-                title: course.name + ' ' + '> Themen',
+                title: course.name + ' ' + (!courseGroup._id ? '> Themen' : ''),
                 url: `/${context}/` + course._id
             },
+            courseGroup._id ? {
+                title: courseGroup.name + ' ' + '> Themen',
+                url: `/${context}/` + course._id + '/groups/' + courseGroup._id
+            } : {},
             {
                 title: lesson.name,
                 url: `/${context}/` + course._id + '/topics/' + lesson._id
             },
-            courseGroup._id ? {
-                title: courseGroup.name,
-                url: `/${context}/` + course._id + '/groups/' + courseGroup._id
-            } : {}
             ]
         }), (error, html) => {
             if (error) {

@@ -20,7 +20,7 @@
             </div>
         </div>
         {{#ifvalue teacherId value=currentUser._id}}
-        {{#userHasPermission "HOMEWORK_CREATE"}}
+        {{#userHasPermission "HOMEWORK_EDIT"}}
             <a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit" alt="Aufgabe '{{../title}}' bearbeiten.">Bearbeiten</a>
             <a class="btn btn-secondary btn-delete"
                href="/homework/{{../_id}}"
@@ -34,7 +34,7 @@
         {{/userHasPermission}}
         {{else}}
             {{#inArray currentUser._id courseId.substitutionIds}}
-            {{#userHasPermission "HOMEWORK_CREATE"}}
+            {{#userHasPermission "HOMEWORK_EDIT"}}
                 <a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit" alt="Aufgabe '{{../title}}' bearbeiten.">Bearbeiten</a>
                 <a class="btn btn-secondary btn-delete"
                    href="/homework/{{../_id}}"
@@ -61,7 +61,7 @@
             </a>
             {{/userHasPermission}}
         {{else}}
-            {{#userHasPermission "HOMEWORK_CREATE"}}
+            {{#userHasPermission "HOMEWORK_EDIT"}}
                 <a class="btn btn-secondary btn-archive"
                 href="{{this.url}}"
                 target="_blank"

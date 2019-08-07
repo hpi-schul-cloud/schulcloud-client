@@ -18,8 +18,8 @@
     {{#userHasPermission "COURSE_EDIT"}}
       <div class="dropdown dropdown-course minimal-button">
         <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
-          <h4 id="page-title" class="course-headline">{{{stripOnlyScript ../name}}}</h4>
-          <i class="fa fa-cog i-cog"></i>
+          <h1 class="h4" id="page-title" class="course-headline">{{{stripOnlyScript ../name}}}
+          <i class="fa fa-cog i-cog"></i></h1>
         </a>
         <div class="dropdown-menu dropdown-menu dropdown-menu-course">
           <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
@@ -32,7 +32,7 @@
             <i class="fa fa-share" aria-hidden="true"></i> Kurs teilen
           </a>
           <a href="/courses/{{../_id}}/copy" class="dropdown-item">
-            <i class="fa fa-clone" aria-hidden="true"></i> Kurs klonen
+            <i class="fa fa-clone" aria-hidden="true"></i> Kurs duplizieren
           </a>
         </div>
       </div>

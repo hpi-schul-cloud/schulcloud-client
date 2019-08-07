@@ -15,7 +15,7 @@
                         {{#each faq}}
                             <div class="card">
                                 <div class="card-header" role="tab" id="heading-{{@index}}">
-                                    <h5 class="mb-0">
+                                    <h2 class="h5 mb-0">
                                         <a data-toggle="collapse" data-parent="#accordion"
                                            href="#collapse-{{@index}}"
                                            {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}
@@ -24,7 +24,7 @@
                                                 {{this.title}}
                                             </div>
                                         </a>
-                                    </h5>
+                                    </h2>
                                 </div>
                                 <div id="collapse-{{@index}}" class="collapse {{#ifeq @index 0}}show in{{/ifeq}}"
                                      role="tabpanel" aria-labelledby="heading-{{@index}}" {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
