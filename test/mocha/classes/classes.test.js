@@ -10,7 +10,6 @@ chai.use(chaiHttp);
 
 /* functionallity currently disabled
 describe('Classes tests', function () {
-    this.timeout(10000);
     before(function (done) {
         this.server = app.listen(3031);
         this.server.once('listening', () => {

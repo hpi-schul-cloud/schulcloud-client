@@ -1,7 +1,11 @@
 language: node_js
 node_js: '8'
 sudo: required
-
+branches:
+  only:
+    - develop
+    - master
+    - /^([rR]elease|[hH]otfix)\/[0-9]+\.[0-9]+\.[0-9]+$/
 services:
 - docker
 env:
@@ -23,6 +27,7 @@ before_install:
   --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 - sudo docker pull mongo:4.0
 - sudo docker run -d -p 27017:27017 mongo:4.0
+- if [[ $TRAVIS_BRANCH = release* || $TRAVIS_BRANCH = hotfix* ]] ; then export BACKEND_URL=https://api.staging.schul-cloud.org ; export PUBLIC_BACKEND_URL=https://api.staging.schul-cloud.org ; export SC_DEMO_USER_PASSWORD=$SC_DEMO_USER_PASSWORD_STAGING ; elif [ "$TRAVIS_BRANCH" = "develop" ] ; then export BACKEND_URL=https://api.test.schul-cloud.org ; export PUBLIC_BACKEND_URL=https://api.test.schul-cloud.org ; export SC_DEMO_USER_PASSWORD=$SC_DEMO_USER_PASSWORD_STAGING ; fi
 install:
 - npm install
 before_script:

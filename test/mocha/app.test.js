@@ -8,7 +8,6 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 describe('Application tests', function () {
-    this.timeout(10000);
     before(function (done) {
         this.server = app.listen(3031);
         this.server.once('listening', () => done());
