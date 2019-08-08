@@ -122,12 +122,19 @@ const showToolHandler = (req, res, next) => {
 		]
 	)).then(([tool, course]) => {
 		tool = (req.params.courseId ? tool : tool.data[0]);
-		const renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
-		res.render(renderPath, {
-			course,
-			title: `${tool.name}${(course.name ? `, Kurs/Fach: ${course.name}` : '')}`,
-			tool,
-		});
+		if (!tool) {
+			res.render('lib/error', {
+				loggedin: res.locals.loggedin,
+				message: 'Das Tool konnte nicht gefunden werden.',
+			});
+		} else {
+			const renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
+			res.render(renderPath, {
+				course,
+				title: `${tool.name}${(course.name ? `, Kurs/Fach: ${course.name}` : '')}`,
+				tool,
+			});
+		}
 	});
 };
 
