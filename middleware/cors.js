@@ -18,21 +18,37 @@ if (!process.env.CORS) 	{
 }
 
 
-const corsHeadersForRoute = (path, regexs) => {
+const corsHeadersForRoute = (path, regexs, corsDefault) => {
+	let { defaultSrc, scriptSrc, objectSrc } = corsDefault;
+
 	const matchingKeys = Object.keys(regexs)
 		.filter(key => path.match(key));
 	const corsHeaders = matchingKeys.map(key => regexs[key]);
-	logger.debug(`cors headers for route ${path}`, corsHeaders);
-	return corsHeaders;
+	corsHeaders.forEach((matchingHeader) => {
+		if (matchingHeader.defaultSrc) {
+			defaultSrc = `${defaultSrc} ${matchingHeader.defaultSrc}`;
+		}
+		if (matchingHeader.scriptSrc) {
+			scriptSrc = `${scriptSrc} ${matchingHeader.scriptSrc}`;
+		}
+		if (matchingHeader.objectSrc) {
+			objectSrc = `${objectSrc} ${matchingHeader.objectSrc}`;
+		}
+	});
+	const finalCors = { defaultSrc, scriptSrc, objectSrc };
+	logger.debug(`cors headers for route ${path}`, finalCors);
+	return finalCors;
 };
 
 const cors = (req, res, next) => {
 	if (process.env.CORS) {
 		try {
-			const corsConfig = config.get('cors');
-			const corsAllowOrigins = corsHeadersForRoute(req.path, corsConfig);
-			if (corsAllowOrigins.length !== 0) {
-				res.setHeader('Access-Control-Allow-Origin', corsAllowOrigins.join(' | '));
+			const corsDefault = config.get('cors_default');
+			const corsConfig = config.get('cors_site_specific');
+			const corsAllowContentOrigins = corsHeadersForRoute(req.path, corsConfig, corsDefault);
+			if (corsAllowContentOrigins) {
+				// eslint-disable-next-line max-len
+				res.setHeader('Content-Security-Policy', `default-src ${corsAllowContentOrigins.defaultSrc}; script-src ${corsAllowContentOrigins.scriptSrc}; object-src ${corsAllowContentOrigins.objectSrc};`);
 			} else {
 				logger.debug('do not set cors header, because config does not contain valid content');
 			}

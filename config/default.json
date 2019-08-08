@@ -1,5 +1,33 @@
 {
-	"cors": {
-		"^/rocketChat/authGet": "scchat.schul-cloud.org"
+	"cors_default" : {
+		"defaultSrc": "default-src 'self' 'unsafe-inline' blob: data:",
+		"scriptSrc" : "data: blob: 'self' 'unsafe-inline'",
+		"objectSrc" : ""
+	},
+	"cors_site_specific": {
+		"^/$": {
+			"defaultSrc": "https://www10-fms.hpi.uni-potsdam.de https://blog.schul-cloud.org https://play.google.com https://s3.hidrive.strato.com https://schul-cloud-hpi.s3.hidrive.strato.com",
+			"scriptSrc" : "'unsafe-eval'"
+		},
+		"^/about": {
+			"defaultSrc": "https://www10-fms.hpi.uni-potsdam.de https://schul-cloud-hpi.s3.hidrive.strato.com https://play.google.com",
+			"scriptSrc" : "'unsafe-eval'"
+		},
+		"^/community": {
+			"defaultSrc": "https://play.google.com"
+		},
+		"^/homework": {
+			"defaultSrc": "https://fonts.gstatic.com",
+			"scriptSrc" : "'unsafe-eval'"
+		},
+		"^/files": {
+			"defaultSrc": "https://vjs.zencdn.net"
+		},
+		"^/calendar": {
+			"scriptSrc" : "'unsafe-eval'"
+		},
+		"^/rocketChat/authGet": {
+			"defaultSrc" : "https://scchat.schul-cloud.org"
+		}
 	}
 }
