@@ -1,21 +1,12 @@
 const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
-const router = express.Router({ mergeParams: true });
-const Nexboard = require("nexboard-api-js");
+const Nexboard = require('nexboard-api-js');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
-const winston = require('winston');
-const logger = winston.createLogger({
-    transports: [
-        new winston.transports.Console({
-            format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.simple()
-            )
-        })
-    ]
-});
+const logger = require('../helpers/logger');
+
+const router = express.Router({ mergeParams: true });
 
 const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/etherpad/p/';
 

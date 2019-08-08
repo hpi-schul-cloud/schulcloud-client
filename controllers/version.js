@@ -1,22 +1,11 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const winston = require('winston');
+const logger = require('../helpers/logger');
 
 const { version } = require('../package.json');
 
 const router = express.Router();
-
-const logger = winston.createLogger({
-	transports: [
-		new winston.transports.Console({
-			format: winston.format.combine(
-				winston.format.colorize(),
-				winston.format.simple(),
-			),
-		}),
-	],
-});
 
 const getLine = (stringArr, i) => {
 	if (stringArr && stringArr.length > i && i >= 0) {
