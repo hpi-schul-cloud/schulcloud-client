@@ -16,6 +16,10 @@ const config = {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://schul-cloud-hpi.s3.hidrive.strato.com https://play.google.com',
 				scriptSrc: "'unsafe-eval'",
 			},
+			'^/administration': {
+				defaultSrc: 'https://fonts.gstatic.com',
+				scriptSrc: "'unsafe-eval'",
+			},
 			'^/calendar': {
 				scriptSrc: "'unsafe-eval'",
 			},
