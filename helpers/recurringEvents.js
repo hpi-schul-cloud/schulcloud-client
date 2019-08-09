@@ -118,7 +118,7 @@ const mapEventProps = (event, req) => {
 			console.log("event['x-sc-courseId']", err);
 			event.url = '';
 			event.color = '#ff0000';
-			return event.color;
+			return event;
 		});
 	}
 
@@ -132,7 +132,7 @@ const mapEventProps = (event, req) => {
 			console.log("event['x-sc-teamId']", err);
 			event.url = '';
 			event.color = '#ff0000';
-			return event.color;
+			return event;
 		});
 	}
 
