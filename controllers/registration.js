@@ -7,6 +7,8 @@ const { cookieDomain } = require('../helpers/authentication');
 
 const deviceDetectorObj = new DeviceDetector();
 
+const CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS = parseInt(process.env.CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS || 16, 10);
+
 const detectIE = (req) => {
 	const device = deviceDetectorObj.parse(req.headers['user-agent']);
 	const isIE = (((device || {}).client || {}).name || '').includes('Internet Explorer');
@@ -60,7 +62,7 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 				if (req.body.roles.includes('student')) {
 					passwordText = `Startpasswort: ${req.body.password_1}`;
 					studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen.
-Wenn du zwischen 14 und 16 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung,
+Wenn du zwischen 14 und ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung,
 damit du die ${res.locals.theme.short_title} nutzen kannst.`;
 				}
 				return api(req).post('/mails/', {
