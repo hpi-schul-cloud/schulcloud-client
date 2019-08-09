@@ -1,12 +1,19 @@
 /* eslint-disable max-len */
 
 const config = {
+	// Settings for HTTP Content-Security-Policy Header
 	contentSecurityPolicy: {
+		// Default Content-Security-Policy Header for every site
 		corsDefault: {
 			defaultSrc: "default-src 'self' 'unsafe-inline' blob: data:",
 			scriptSrc: "data: blob: 'self' 'unsafe-inline'",
 			objectSrc: '',
 		},
+		/*
+			Content-Security-Policy Header (added to default header) depending on the site
+			site is matched with called website URL and regex key within corsSiteSpecific
+			use * as value for defaultSrc, scriptSrc, objectSrc to ignore corsDefault and allow any external content
+		*/
 		corsSiteSpecific: {
 			'^/$': {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://blog.schul-cloud.org https://play.google.com https://s3.hidrive.strato.com https://schul-cloud-hpi.s3.hidrive.strato.com',
@@ -43,9 +50,17 @@ const config = {
 			},
 		},
 	},
+	/*
+		Access-Control-Allow-Origin header depending on the site
+		site is matched with called website URL and regex key within accessControlAllowOrigin
+		several allowed origins per route can be added by seperation with |
+		if several regex match the URL routes will be joined
+		if no regex is given for URLs the Access-Control-Allow-Origin will not be set
+	*/
 	accessControlAllowOrigin: {
 		'^/rocketChat/authGet': 'https://scchat.schul-cloud.org',
 	},
+	// Additional default Security header can be set - key reprensents the HTTP header and the value the value of the header
 	additionalSecurityHeader: {
 		'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
 		'X-Frame-Options': 'sameorigin',
