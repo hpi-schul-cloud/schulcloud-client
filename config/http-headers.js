@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
 
 const config = {
-	content_security_policy: {
-		cors_default: {
+	contentSecurityPolicy: {
+		corsDefault: {
 			defaultSrc: "default-src 'self' 'unsafe-inline' blob: data:",
 			scriptSrc: "data: blob: 'self' 'unsafe-inline'",
 			objectSrc: '',
 		},
-		cors_site_specific: {
+		corsSiteSpecific: {
 			'^/$': {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://blog.schul-cloud.org https://play.google.com https://s3.hidrive.strato.com https://schul-cloud-hpi.s3.hidrive.strato.com',
 				scriptSrc: "'unsafe-eval'",
@@ -43,10 +43,10 @@ const config = {
 			},
 		},
 	},
-	access_control_allow_origin: {
+	accessControlAllowOrigin: {
 		'^/rocketChat/authGet': 'https://scchat.schul-cloud.org',
 	},
-	additional_security_header: {
+	additionalSecurityHeader: {
 		'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
 		'X-Frame-Options': 'sameorigin',
 		'X-Content-Type-Options': 'nosniff',

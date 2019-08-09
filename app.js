@@ -15,10 +15,6 @@ const app = express();
 // template stuff
 const authHelper = require('./helpers/authentication');
 
-// mung middleware
-const securityHeaders = require('./middleware/security_headers');
-const cors = require('./middleware/cors');
-
 // set custom response header for ha proxy
 if (process.env.KEEP_ALIVE) {
 	app.use((req, res, next) => {
@@ -28,9 +24,13 @@ if (process.env.KEEP_ALIVE) {
 }
 
 // set security headers
+const securityHeaders = require('./middleware/security_headers');
+
 app.use(securityHeaders);
 
 // set cors headers
+const cors = require('./middleware/cors');
+
 app.use(cors);
 
 app.use(compression());

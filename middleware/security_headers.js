@@ -1,4 +1,4 @@
-const securityHeaderConfig = require('../config/http-headers').additional_security_header;
+const { additionalSecurityHeader } = require('../config/http-headers');
 const logger = require('../helpers/logger');
 
 if (!process.env.SECURITY_HEADERS) 	{
@@ -8,8 +8,8 @@ if (!process.env.SECURITY_HEADERS) 	{
 
 const cors = (req, res, next) => {
 	if (process.env.SECURITY_HEADERS) {
-		Object.keys(securityHeaderConfig).forEach((header) => {
-			res.setHeader(header, securityHeaderConfig[header]);
+		Object.keys(additionalSecurityHeader).forEach((header) => {
+			res.setHeader(header, additionalSecurityHeader[header]);
 		});
 	}
 	return next();

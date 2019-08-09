@@ -1,5 +1,4 @@
-const cspConfig = require('../config/http-headers').content_security_policy;
-const accessControlConfig = require('../config/http-headers').access_control_allow_origin;
+const { contentSecurityPolicy, accessControlAllowOrigin } = require('../config/http-headers');
 const logger = require('../helpers/logger');
 
 if (!process.env.CORS) 	{
@@ -48,9 +47,8 @@ const cors = (req, res, next) => {
 	if (process.env.CORS) {
 		try {
 			// Content-Security-Policy
-			const corsDefault = cspConfig.cors_default;
-			const corsConfig = cspConfig.cors_site_specific;
-			const corsAllowContentOrigins = cspHeadersForRoute(req.path, corsConfig, corsDefault);
+			const { corsDefault, corsSiteSpecific } = contentSecurityPolicy;
+			const corsAllowContentOrigins = cspHeadersForRoute(req.path, corsSiteSpecific, corsDefault);
 			if (corsAllowContentOrigins) {
 				// eslint-disable-next-line max-len
 				res.setHeader('Content-Security-Policy', `default-src ${corsAllowContentOrigins.defaultSrc}; script-src ${corsAllowContentOrigins.scriptSrc}; object-src ${corsAllowContentOrigins.objectSrc};`);
@@ -59,7 +57,7 @@ const cors = (req, res, next) => {
 			}
 
 			// Access-Control-Allow-Origin
-			const corsAllowOrigins = accessControlHeadersForRoute(req.path, accessControlConfig);
+			const corsAllowOrigins = accessControlHeadersForRoute(req.path, accessControlAllowOrigin);
 			if (corsAllowOrigins.length !== 0) {
 				res.setHeader('Access-Control-Allow-Origin', corsAllowOrigins.join(' | '));
 			} else {
