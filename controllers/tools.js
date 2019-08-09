@@ -121,6 +121,7 @@ const showToolHandler = (req, res, next) => {
 			Promise.resolve({ name: '' }),
 		]
 	)).then(([tool, course]) => {
+		// eslint-disable-next-line no-param-reassign
 		tool = (req.params.courseId ? tool : tool.data[0]);
 		if (!tool) {
 			res.render('lib/error', {
