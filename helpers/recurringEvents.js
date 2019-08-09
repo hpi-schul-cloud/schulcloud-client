@@ -105,6 +105,7 @@ const mapRecurringEvent = (event) => {
 
 /**
  * maps properties of a event to fit calendar, e.g. url and color
+ * If any error is accoured then return course or team with default color.
  * @param event
  */
 const mapEventProps = (event, req) => {
