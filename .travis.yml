@@ -16,11 +16,6 @@ addons:
   chrome: stable
   firefox: latest
 before_install:
-  - openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
-    --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
   # clone integration tests into `tests` directory
   - git clone https://github.com/schul-cloud/schulcloud-client.git schulcloud-client
   - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
@@ -36,7 +31,6 @@ before_install:
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
-  - cd integration-tests
-  - node index.js -d -t @teacherLogin
+  - cd integration-tests && node index.js -d -t @teacherLogin
 after_success:
   - bash ./deploy.sh
