@@ -6,7 +6,7 @@ const userConsentVersions = require('../helpers/consentVersions');
 
 const converter = new showdown.Converter();
 
-const CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS = parseInt(process.env.CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS || 16, 10);
+const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
 
 const router = express.Router();
 

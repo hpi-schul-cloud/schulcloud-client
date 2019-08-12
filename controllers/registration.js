@@ -7,7 +7,7 @@ const { cookieDomain } = require('../helpers/authentication');
 
 const deviceDetectorObj = new DeviceDetector();
 
-const CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS = parseInt(process.env.CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS || 16, 10);
+const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
 
 const detectIE = (req) => {
 	const device = deviceDetectorObj.parse(req.headers['user-agent']);
