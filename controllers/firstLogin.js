@@ -154,6 +154,7 @@ router.get('/', async (req, res, next) => {
 		submitPageIndex,
 		userConsent,
 		updatedConsents,
+		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	};
 
 	if (consentVersions.haveBeenUpdated) {
