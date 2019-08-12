@@ -22,24 +22,15 @@ before_install:
 - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
   --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 install:
-- npm install
+- npm ci
 before_script:
 - npm install -g gulp-cli
 - gulp
 - pm2 start bin/www
 - sleep 5
-- chmod +x diff.sh
-- chmod +x frontend_test.sh
 script:
 - echo $TRAVIS_BRANCH
 - echo $TRAVIS_TAG
-- npm test
-- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
-  else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
-- git fetch
-- "./diff.sh"
-- if [ "$SKIP_NIGHTWATCH" == "true" ]; then echo "skipping nightwatch tests"; else
-  sh ./frontend_test.sh; fi
 cache:
   directories:
   - node_modules
