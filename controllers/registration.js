@@ -128,6 +128,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			hideMenu: true,
 			user,
 			isIE,
+			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 		});
 	});
 
@@ -157,6 +158,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			hideMenu: true,
 			user,
 			isIE,
+			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 		});
 	});
 
@@ -212,6 +214,7 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
 		sso: req.params.sso === 'sso',
 		account: req.params.accountId || '',
 		isIE,
+		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	});
 });
 
