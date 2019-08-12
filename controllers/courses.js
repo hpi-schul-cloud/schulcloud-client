@@ -708,11 +708,12 @@ router.post('/import', (req, res, next) => {
 
 	api(req).post('/courses/share', { json: { shareToken, courseName } })
 		.then((course) => {
+			if (course.errors && course.message && course.code) {
+				throw course;
+			}
 			res.redirect(`/courses/${course._id}/edit/`);
 		})
-		.catch((err) => {
-			res.status((err.statusCode || 500)).send(err);
-		});
+		.catch(next);
 });
 
 module.exports = router;
