@@ -37,7 +37,7 @@
         <div class="form-group">
           <label>Geburtsdatum des Schülers: <sup>*</sup></label>
           <input class="form-control linked" name="birthDate" type="text"
-            data-date data-min-date="{{datePickerTodayMinus 16 0 -1}}" data-max-date="{{datePickerTodayMinus 4 0 0}}"
+            data-date data-min-date="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 -1}}" data-max-date="{{datePickerTodayMinus 4 0 0}}"
             value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{/if}}" autocomplete="off" required {{#if user.birthday}}readonly{{/if}}/>
         </div>
 
@@ -55,7 +55,7 @@
 
       <section data-panel="section-2">
         <h2 class="h4">Ihre Daten</h2>
-        <p>Für Schüler unter 16 Jahren muss ein Erziehungsberechtigter in die Nutzung der {{theme.short_title}} einwilligen.</p>
+        <p>Für Schüler unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahren muss ein Erziehungsberechtigter in die Nutzung der {{theme.short_title}} einwilligen.</p>
         <p>Dazu benötigen wir folgende Angaben von Ihnen:</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
