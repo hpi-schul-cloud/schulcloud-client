@@ -1,4 +1,4 @@
-@import '../lib/bootstrap/scss/bootstrap';
+@import "../lib/bootstrap/scss/bootstrap";
 
 @import "./variables";
 @import "./layouts";
@@ -6,24 +6,28 @@
 @import "./sections";
 
 body {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    min-height: 100vh;
-    min-width: 300px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	min-height: 100vh;
+	min-width: 300px;
 }
-main{
-    margin-top: 6rem;
-    flex-grow: 1;
-}
-
-ul{
-    list-style-type: square;
-    padding-left: 1.2em;
+main {
+	margin-top: 6rem;
+	flex-grow: 1;
 }
 
-h1.section-title{
-    @include media-breakpoint-down(md) {
-        font-size: 36px;
-    }
+ul {
+	list-style-type: square;
+	padding-left: 1.2em;
+}
+
+h1.section-title {
+	@include media-breakpoint-down(md) {
+		font-size: 36px;
+	}
+}
+
+video {
+	border: 1px solid var(--color-white);
 }
