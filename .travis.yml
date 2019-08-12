@@ -1,9 +1,15 @@
 language: node_js
 node_js: '8'
 sudo: required
-if: branch = master OR type = pull_request
+branches:
+  only:
+    - master
+    - develop
+    - /^greenkeeper/.*$/
 services:
 - docker
+git:
+  clone: false
 env:
   global:
   - GIT_SHA=$( git rev-parse HEAD )
@@ -15,31 +21,27 @@ addons:
   chrome: stable
   firefox: latest
 before_install:
-- openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
-- npm install pm2 -g
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
-  --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
-install:
-- npm ci
-before_script:
-- npm install -g gulp-cli
-- gulp
-- pm2 start bin/www
-- sleep 5
+  - openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
+    --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+  # clone integration tests into `tests` directory
+  - git clone https://github.com/schul-cloud/schulcloud-client.git schulcloud-client
+  - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
+  - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
+  - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
+  - git clone https://github.com/schul-cloud/integration-tests.git integration-tests
+  - cd integration-tests
+  - npm ci
+  - npm install selenium-standalone@latest -g
+  - selenium-standalone install
+  - selenium-standalone start &
+  - sleep 5
 script:
-- echo $TRAVIS_BRANCH
-- echo $TRAVIS_TAG
-cache:
-  directories:
-  - node_modules
+  - echo $TRAVIS_BRANCH
+  - echo $TRAVIS_TAG
+  - cd integration-tests
+  - node index.js -d -t @teacherLogin
 after_success:
-- bash ./deploy.sh
-
-#deploy:
-#  provider: script
-#  script: bash ./deploy.sh
-#  on:
-#    all_branches: true
-#    condition: "$TRAVIS_BRANCH =~ ^master|N21/merge$"
+  - bash ./deploy.sh
