@@ -31,10 +31,8 @@ module.exports = {
 	},
 	'Create Homework': function createHomework(browser) {
 		browser.url(`${baseUrl}homework/new/`);
-		browser.expect
-			.element('h1')
-			.text.to.contain('Aufgabe hinzufügen')
-			.before(10000);
+		browser.useCss().waitForElementPresent('#titlebar h1', 30000);
+		browser.assert.containsText('#titlebar h1', 'Aufgabe hinzufügen');
 		browser
 			.setValue('input[name=name]', 'Test Aufgabe')
 			.useXpath()
