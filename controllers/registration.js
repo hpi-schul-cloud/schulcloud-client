@@ -62,8 +62,8 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 				if (req.body.roles.includes('student')) {
 					passwordText = `Startpasswort: ${req.body.password_1}`;
 					studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen.
-Wenn du zwischen 14 und ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung,
-damit du die ${res.locals.theme.short_title} nutzen kannst.`;
+Wenn du zwischen 14 und ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt bist, bestätige bitte zusätzlich die
+Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.`;
 				}
 				return api(req).post('/mails/', {
 					json: {
