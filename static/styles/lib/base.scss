@@ -90,7 +90,9 @@ label {
 	font-weight: bold;
 }
 video, audio {
-	width:100%;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
 }
 
 .pagination-wrapper {
