@@ -31,7 +31,7 @@ module.exports = {
 	},
 	'Create Homework': function createHomework(browser) {
 		browser.url(`${baseUrl}homework/new/`);
-		browser.useCss().waitForElementPresent('#titlebar h1', 30000);
+		browser.useCss().waitForElementPresent('#titlebar h1', 10000);
 		browser.assert.containsText('#titlebar h1', 'Aufgabe hinzufügen');
 		browser
 			.setValue('input[name=name]', 'Test Aufgabe')
