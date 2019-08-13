@@ -727,38 +727,6 @@ const returnAdminPrefix = (roles) => {
 	return prefix;
 };
 
-// needed??
-// eslint-disable-next-line no-unused-vars
-const getClasses = (user, classes, teacher) => {
-	let userClasses = '';
-
-	if (teacher) {
-		// eslint-disable-next-line array-callback-return
-		classes.data.map((uClass) => {
-			if (uClass.teacherIds.includes(user._id)) {
-				if (userClasses !== '') {
-					userClasses = `${userClasses} , ${uClass.displayName}` || '';
-				} else {
-					userClasses = uClass.displayName || '';
-				}
-			}
-		});
-	} else {
-		// eslint-disable-next-line array-callback-return
-		classes.data.map((uClass) => {
-			if (uClass.userIds.includes(user._id)) {
-				if (userClasses !== '') {
-					userClasses = `${userClasses} , ${uClass.displayName}` || '';
-				} else {
-					userClasses = uClass.displayName || '';
-				}
-			}
-		});
-	}
-
-	return userClasses;
-};
-
 // with userId to accountId
 const userIdtoAccountIdUpdate = service => function useIdtoAccountId(req, res, next) {
 	api(req)
@@ -2183,6 +2151,10 @@ router.all(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
+
+		if (res.locals.currentUser.roles.some(r => r.name === 'teacher')) {
+			query.teacherIds = res.locals.currentUser._id.toString();
+		}
 
 		api(req)
 			.get('/classes', {
