@@ -24,6 +24,9 @@ before_install:
   - npm ci
   - cd ..
   - sleep 5
+  - cd schulcloud-server
+  - npm run seed
+  - cd ..
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
