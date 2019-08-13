@@ -10,6 +10,7 @@ env:
   - BACKEND_URL=https://api.schul-cloud.org
   - PUBLIC_BACKEND_URL=https://api.schul-cloud.org
   - FEATURE_TEAMS_ENABLED=true
+  - IT_CLIENT_HOST=client
 addons:
   chrome: stable
   firefox: latest
@@ -30,6 +31,6 @@ before_install:
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
-  - cd integration-tests && node index.js -d -t @teacherLogin
+  - cd integration-tests && npm run all
 after_success:
   - bash ./deploy.sh
