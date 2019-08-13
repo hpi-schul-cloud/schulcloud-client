@@ -19,18 +19,16 @@ before_install:
   - mv !(schulcloud-client) schulcloud-client
   - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
   - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
-  - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
   - git clone https://github.com/schul-cloud/integration-tests.git integration-tests
+install:
+  - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
+  - cd integration-tests && npm ci && cd ..
+  - cd schulcloud-server && npm run setup && cd ..
+before_script:
   - cd integration-tests
-  - npm ci
-  - cd ..
-  - sleep 5
-  - cd schulcloud-server
-  - npm run setup
-  - cd ..
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
-  - cd integration-tests && npm run all
+  - npm run all
 after_success:
   - bash ./deploy.sh
