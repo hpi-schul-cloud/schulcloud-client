@@ -16,29 +16,14 @@
             <p>Das Projekt HPI Schul-Cloud ist im September 2016 in die 5-monatige Konzeptphase gestartet. Ab Mai 2017 startete die Pilotphase, in der zunächst 27 MINT-EC-Schulen die HPI Schul-Cloud testen und nutzen konnten. Im Mai 2018 begann die Roll-Out-Phase, in der die Nutzung der HPI Schul-Cloud stufenweise auf alle über 300 Schulen aus dem nationalen Excellence-Schulnetzwerks MINT-EC ausgeweitet wird. Derzeit können 100 MINT-EC Pilotschulen die HPI Schul-Cloud testen (Stand Mai 2019). <br/>
             Auch unser <a href="/team">Team</a> wächst stetig!
             </p>
-            <video-player
-                configuration='{
-                    "streams" : [
-                        {
-                        "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hd/video.mp4",
-                        "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/sd/video.mp4",
-                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg",
-                        "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hls/video.m3u8"
-                        }
-                    ],
-                    "language": "de",
-                    "theme" : "dark-red",
-                    "initialState": {
-                        "volume": 0.75,
-                        "quality" : "hls",
-                        "playbackRate" : 1.0
-                    },
-                    "videoPreload": false,
-                    "userPreferences" : {
-                    },
-                    "slides": []
-                }'>
-            </video-player>
+            <video 
+                controls 
+                preload="metadata"
+                poster="https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg"
+            >
+                <source src="https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hd/video.mp4" type="video/mp4">
+                Your browser does not support this (HTML5) videoplayer.
+            </video>
         {{/content}}
     {{/embed}}
     {{#embed "authentication/section" style="primary" class="content-width-max"}}
@@ -175,31 +160,14 @@
             <p>Wir möchten uns ganz herzlich für die tolle Zusammenarbeit und das große Engagement unserer Pilotschullehrkräfte
                 bedanken!</p>
 
-            <video-player
-                configuration='{
-                    "streams" : [
-                        {
-                        "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hd/video.mp4",
-                        "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/sd/video.mp4",
-                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/thumbnails/video-00-34-40.png",
-                        "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hls/video.m3u8"
-                        }
-                    ],
-                    "language": "de",
-                    "theme" : "dark-red",
-                    "loadFontAwesome" : false,
-                    "videoAlignment" : "height",
-                    "initialState": {
-                        "volume": 0.75,
-                        "quality" : "hls",
-                        "playbackRate" : 1.0
-                    },
-                    "videoPreload": false,
-                    "userPreferences" : {
-                    },
-                    "slides": []
-                }'>
-            </video-player>
+            <video
+                controls 
+                preload="metadata"
+                poster="https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/thumbnails/video-00-34-40.png"
+            >
+                <source src="https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hd/video.mp4" type="video/mp4">
+                Your browser does not support this (HTML5) videoplayer.
+            </video>
             {{/content}}
     {{/embed}}
     {{#embed "authentication/section" class="content-width-max"}}

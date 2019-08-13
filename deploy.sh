@@ -73,12 +73,26 @@ function deploytostaging {
 }
 
 function inform {
-  curl -X POST -H 'Content-Type: application/json' --data '{"text":":rocket: Die Produktivsysteme können aktualisiert werden: Schul-Cloud Server!"}' $WEBHOOK_URL_CHAT
+  if [[ "$TRAVIS_EVENT_TYPE" != "cron" ]]
+  then
+  curl -X POST -H 'Content-Type: application/json' --data '{"text":":rocket: Die Produktivsysteme können aktualisiert werden: Schul-Cloud Client!"}' $WEBHOOK_URL_CHAT
+  fi
 }
+
+
+function inform_staging {
+  if [[ "$TRAVIS_EVENT_TYPE" != "cron" ]]
+  then
+    curl -X POST -H 'Content-Type: application/json' --data '{"text":":boom: Das Staging-System wurde aktualisiert: Schul-Cloud Client! https://staging.schul-cloud.org/version"}' $WEBHOOK_URL_CHAT
+  fi
+}
+
+# write version file
+printf "%s\n%s\n%s" $TRAVIS_COMMIT $TRAVIS_BRANCH $TRAVIS_COMMIT_MESSAGE > ./version
+
 
 openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
 
-echo "$GIT_SHA $DOCKERTAG" > ./static/commitsha.txt
 
 if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
 then
@@ -92,6 +106,7 @@ elif [[ $TRAVIS_BRANCH = release* || $TRAVIS_BRANCH = hotfix* ]]
 then
   buildandpush
   deploytostaging
+  inform_staging
 else
   echo "Nix wird deployt"
 fi

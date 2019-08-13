@@ -714,7 +714,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                     });
                 } else {
                     res.render('homework/edit', {
-                        title: 'Aufgabe hinzufügen',
+                        title: 'Aufgabe bearbeiten',
                         submitLabel: 'Speichern',
                         closeLabel: 'Abbrechen',
                         method: 'patch',
@@ -919,7 +919,6 @@ router.get('/:assignmentId', function (req, res, next) {
                     addClearNameForFileIds(assignment.submission || assignment.submissions);
                     assignment.submissions = assignment.submissions.map(s => { return { submission: s }; });
                     var test = handlebars.compile('homework/assignment');
-                    console.log(handlebars.compile('homework/assignment'));
 
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),

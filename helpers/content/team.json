@@ -225,7 +225,7 @@
 				"firstName": "Konstantin",
 				"lastName": "Kaiser",
 				"position": "Wissenschaftlicher Mitarbeiter, HPI",
-				"description": "Konstantin hat Lehramt mit den Fächern Musik und Deutsch an der Universität Potsdam studiert. Beim Axel Springer Verlag arbeitete er sieben Jahre als Produktentwickler an der Schnittstelle zwischen Redaktion und Technik. Die wissenschaftliche Mitarbeit an der HPI Schul-Cloud führt ihn wieder zurück in die Welt der Lehrer*innen und Schüler*innen, wo er als PO zwischen den Usern und der technischen Umsetzung vermittelt und übersetzt. Dabei motiviert es ihn, seiner als Lehrerin arbeitenden Frau und künftig auch seinen Kindern den Schulalltag zu erleichtern. In seiner Freizeit ist er stets auf der Suche nach guter Musik, entspannt aktiv auf dem Rennrad und bei der Gartenarbeit. Alltagsdinge regelt er gerne online, um mehr Zeit offline mit Familie und Freunden zu verbringen.",
+				"description": "Konstantin hat Lehramt mit den Fächern Musik und Deutsch an der Universität Potsdam studiert. Beim Axel Springer Verlag arbeitete er sieben Jahre als Produktentwickler an der Schnittstelle zwischen Redaktion und Technik. Die wissenschaftliche Mitarbeit an der HPI Schul-Cloud führt ihn wieder zurück in die Welt der Lehrer*innen und Schüler*innen, wo er als PO (Product Owner) zwischen den Usern und der technischen Umsetzung vermittelt und übersetzt. Dabei motiviert es ihn, seiner als Lehrerin arbeitenden Frau und künftig auch seinen Kindern den Schulalltag zu erleichtern. In seiner Freizeit ist er stets auf der Suche nach guter Musik, entspannt aktiv auf dem Rennrad und bei der Gartenarbeit. Alltagsdinge regelt er gerne online, um mehr Zeit offline mit Familie und Freunden zu verbringen.",
 				"pictureUrl": "/images/team/Konstantin_Kaiser.jpg",
 				"priority": 0,
 				"social": {
@@ -312,6 +312,21 @@
 			},
 			{
 				"title": "",
+				"firstName": "Sarah",
+				"lastName": "Schäfer",
+				"position": "Wissenschaftliche Mitarbeiterin, HPI",
+				"description": "Als ökosoziale Designerin (Masterabschluss an der Freien Universität Bozen) und Design-Thinkerin (Zusatzstudium am HPI) möchte Sarah ihre Fähigkeiten nutzen, um zu einem gesellschaftlichen Wandel, der Mensch und Umwelt dienlich ist, beizutragen. Deshalb ist Ihre Vision für die HPI Schul-Cloud, jungen Menschen, selbstbestimmtes Lernen zu ermöglichen. Im Team arbeitet sie als User Experience - und User Interface Designerin und sorgt für die Verbesserung der Nutzerfreundlichkeit und des Lernerlebnisses. Ihre Freizeit widmet Sarah der Kreativität, welche Ausdruck im Kochen, Designen oder Malen findet.",
+				"pictureUrl": "/images/team/sarah_schaefer.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Hannes",
 				"lastName": "Schurig",
 				"position": "Wissenschaftlicher Mitarbeiter, HPI",
@@ -347,6 +362,21 @@
 				"position": "Wissenschaftliche Mitarbeiterin, HPI",
 				"description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, die Organisation von Veranstaltungen und der Betreuung der Pilotschulen zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
 				"pictureUrl": "/images/team/Jacqueline_Thorns.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Ramona",
+				"lastName": "Weitzenberg",
+				"position": "Wissenschaftliche Mitarbeiterin",
+				"description": "Mona gestaltet. Mit Menschen. Für Menschen. Durch ihre 15-jährige Praxis als freiberufliche Designerin, konnte sich Mona neben einem immensen Erfahrungsschatz und kreativer Routine ein multidisziplinäres Gestaltungsportfolio erarbeiten, dass sowohl die klassischen als auch die neuen Medien umfasst. Eine Gestaltung einer Broschüre erfährt die gleiche Hingabe wie die Entwicklung einer komplexen Applikation. Seit November 2018 unterstützt sie das Team der HPI Schul-Cloud in allen Gestaltungsfragen als Art Direktorin. Dabei liegt der Kern ihrer Arbeit im Interfacedesign (UI/UX) und in der Erarbeitung einer durchgehenden Corporate Identity. Familie, Hund und Haus sind für Mona nötiger Ruhepol, Erdung, Inspiration und kreative Neuerfindung zugleich.",
+				"pictureUrl": "/images/team/Mona.png",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -684,11 +714,11 @@
 			},
 			{
 				"title": "",
-				"firstName": "Sebastian",
-				"lastName": "Serth",
-				"position": "Student",
-				"description": "Sebastian schreibt derzeit seine Masterarbeit im Kontext der HPI Schul-Cloud. Als Grundlage dazu dienen ihm Erkenntnisse von openHPI, der Online-Lernplattform des HPI, in dessen Rahmen er bereits seine Bachelorarbeit angefertigt hat. In seiner aktuellen Arbeit untersucht er, wie Lehrer individuelle Arbeitsblätter mit interaktiven Programmieraufgaben erstellen und im Unterricht einsetzen können: die Schüler arbeiten dazu wie bei Online-Kursen in der webbasierten Programmierumgebung CodeOcean, in der sie ihre Programme entwickeln, ausführen und mit Hilfe automatisierter Tests ihrer Lehrer sogar eigenständig überprüfen können. Die Lehrer erhalten einen besseren Überblick über den Lernfortschritt der Klasse und können so bei auftretenen Problemen zeitnah und zielorientiert Unterstützung leisten. In seiner Freizeit springt Sebastian leidenschaftlich gern auf dem Großtrampolin, reist mit Vergnügen durch fremde Länder und hält dabei seine Eindrücke fotografisch fest.",
-				"pictureUrl": "/images/team/Sebastian_Serth.jpg",
+				"firstName": "Yulia",
+				"lastName": "Shikhareva",
+				"position": "Studentische Hilfskraft",
+				"description": "Yulia studiert zurzeit im Bachelorprogramm Informatik/Computational Science am Institut für Informatik der Universität Potsdam. Zuvor erlangte sie in Moskau Bachelorgrad in Ökonomie. Seit April 2019 engagiert sie sich im Projekt HPI Schul-Cloud als Software-Testerin. In ihrer Freizeit genießt Yulia die Schönheiten der Natur und Städte Europas.",
+				"pictureUrl": "/images/team/Yulia.jpeg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -699,11 +729,11 @@
 			},
 			{
 				"title": "",
-				"firstName": "Yulia",
-				"lastName": "Shikhareva",
-				"position": "Studentische Hilfskraft",
-				"description": "Yulia studiert zurzeit im Bachelorprogramm Informatik/Computational Science am Institut für Informatik der Universität Potsdam. Zuvor erlangte sie in Moskau Bachelorgrad in Ökonomie. Seit April 2019 engagiert sie sich im Projekt HPI Schul-Cloud als Software-Testerin. In ihrer Freizeit genießt Yulia die Schönheiten der Natur und Städte Europas.",
-				"pictureUrl": "/images/team/Yulia.jpeg",
+				"firstName": "Jonas",
+				"lastName": "Wanke",
+				"position": "Studentischer Mitarbeiter",
+				"description": "Jonas studiert Bachelor IT-Systems Engineering am HPI und ist bereits seit seinem Schüler-Praktikum im Sommer 2017 unter anderem an der Entwicklung der HPI Schul-Cloud Android-App beteiligt. Im Oktober 2017 nahm er mit der Nationalmannschaft bei den WorldSkills (Berufsweltmeisterschaften) in Abu Dhabi im Skill 9: IT Software Solutions for Business teil und holte eine Bronzemedaille für Deutschland. Privat klettert und schwimmt er gerne.",
+				"pictureUrl": "/images/team/Jonas_Wanke.png",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -734,72 +764,12 @@
 		"size": "small",
 		"team": [
 			{
-        "title": "",
-        "firstName": "Patricia",
-        "lastName": "Rau",
-        "position": "Praktikantin",
-        "description": "Patricia hat BWL-Digitale Wirtschaft an der Beuth Hochschule für Technik in Berlin studiert. Seit Mai 2019 unterstützt sie das HPI Schul-Cloud Projekt bei kommunikativen und organisatorischen Aufgaben. Ihre Freizeit verbringt sie gerne mit Freunden in Cafes oder draußen im Grünen. Außerdem reist und fotografiert sie gerne.",
-        "pictureUrl": "/images/team/patricia_rau.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-	  {
-        "title": "",
-        "firstName": "Michael",
-        "lastName": "Schmid",
-        "position": "Freier Mitarbeiter",
-        "description": "Michael hat Medieninformatik an der Hochschule Aalen studiert und ist im Team HPI Schul-Cloud seit Oktober 2018 vor allem für das UX Design zuständig. Privat spielt er gerne Gitarre und betreibt Yoga.",
-        "pictureUrl": "/images/team/Michael_Schmid.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-			{
 				"title": "",
-				"firstName": "Jonas",
-				"lastName": "Wanke",
-				"position": "Freier Mitarbeiter",
-				"description": "Jonas studiert Bachelor IT-Systems Engineering am HPI und ist bereits seit seinem Schüler-Praktikum im Sommer 2017 unter anderem an der Entwicklung der Schul-Cloud Android-App beteiligt. Im Oktober 2017 nahm er mit der Nationalmannschaft bei den WorldSkills (Berufsweltmeisterschaften) in Abu Dhabi im Skill 9: IT Software Solutions for Business teil und holte eine Bronzemedaille für Deutschland. Privat klettert und schwimmt er gerne.",
-				"pictureUrl": "/images/team/Jonas_Wanke.png",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
-				"firstName": "Robert",
-				"lastName": "Weber",
-				"position": "Freier Mitarbeiter",
-				"description": "Robert ist ein freier Frontend-Entwickler bei der HPI Schul-Cloud. Obwohl er kein Studienabschluss hat ist er seit 2002 damit beschäftigt die Webtechnologien HTML, CSS und Javascript für unterschiedliche Kunden und Projekte in die Welt zu tragen. Wenn er nicht gerade damit zu tun hat Marder von seinem Grundstück zu vertreiben, achtet er noch auf Performance und Barrierefreiheit. Die spärlich vorhandene Freizeit nutzt er für Kinder, Haus und Garten.",
-				"pictureUrl": "/images/team/Robert_Weber.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
-				"firstName": "Mona",
-				"lastName": "Weitzenberg",
-				"position": "Freie Mitarbeiterin",
-				"description": "Mona gestaltet. Mit Menschen. Für Menschen. Durch Ihre 15 jährige Praxis als freiberufliche Designerin, konnte sich Mona neben einem immensen Erfahrungsschatz und kreativer Routine ein multidisziplinäres Gestaltungsportfolio erarbeiten, dass sowohl die klassischen als auch die neuen Medien umfasst. Eine Gestaltung einer Broschüre erfährt die gleiche Hingabe wie die Entwicklung einer komplexen Applikation. Seit November 2018 unterstützt sie das Team der HPI Schul-Cloud in allen Gestaltungsfragen als Art Direktorin. Dabei liegt der Kern ihrer Arbeit im Interfacedesign (UI/UX) und in der Erarbeitung einer durchgehenden Corporate Identity. Familie, Hund und Haus sind für Mona nötiger Ruhepol, Erdung, Inspiration und kreative Neuerfindung zugleich.",
-				"pictureUrl": "/images/team/Mona.png",
+				"firstName": "Patricia",
+				"lastName": "Rau",
+				"position": "Praktikantin",
+				"description": "Patricia hat BWL-Digitale Wirtschaft an der Beuth Hochschule für Technik in Berlin studiert. Seit Mai 2019 unterstützt sie das HPI Schul-Cloud Projekt bei kommunikativen und organisatorischen Aufgaben. Ihre Freizeit verbringt sie gerne mit Freunden in Cafes oder draußen im Grünen. Außerdem reist und fotografiert sie gerne.",
+				"pictureUrl": "/images/team/patricia_rau.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -821,7 +791,7 @@
 				"lastName": "Arndt",
 				"position": "Ehem. Masterstudent",
 				"description": "Paul hat seine Masterarbeit im Projekt HPI Schul-Cloud geschrieben. In seinem Studium konzentrierte er sich neben der Webentwicklung auf Design Thinking und Machine Learning. Für seine Masterarbeit beschäftigte er sich hauptsächlich mit Chancengleichheit in der Schule durch Binnendifferenzierung und kooperatives Lernen. Technisch bedeutete dies die Schaffung eines neuen Editors mit eingebauter Unterstützung für Gruppenarbeit und die in der Praxis angewandten didaktischen Methoden. Neben dem Studium schreibt Paul gerne an eigenen Geschichten oder erklettert die Boulderwände Berlins und Potsdams.",
-				"pictureUrl": "/images/team/paul_arndt.png",
+				"pictureUrl": "/images/team/paul_arndt.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -1002,6 +972,21 @@
 				"position": "Ehem. Bachelorstudent",
 				"description": "Lars hat IT-Systems-Engineering am Hasso-Plattner-Institut im Bachelor studiert und hat vor Beendigung seines Studiums einen Richtungswechsel in die allgemeine Informatik an der Freien Universität Berlin gemacht. Im Projekt war er unter anderem mitverantwortlich für das Frontend, Backend, die Android App und alles rund um die Server Architektur. In seiner Freizeit geht er gerne schwimmen oder fährt gelegentlich Rennrad.",
 				"pictureUrl": "/images/team/Lars_Lange.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Sebastian",
+				"lastName": "Serth",
+				"position": "Ehem. Masterstudent",
+				"description": "Sebastian hat seine Masterarbeit im Kontext der HPI Schul-Cloud geschrieben. Als Grundlage dazu dienten ihm Erkenntnisse von openHPI, der Online-Lernplattform des HPI, in dessen Rahmen er bereits seine Bachelorarbeit angefertigt hat. In seiner Masterarbeit untersuchte er, wie Lehrer individuelle Arbeitsblätter mit interaktiven Programmieraufgaben erstellen und im Unterricht einsetzen können: die Schüler arbeiten dazu wie bei Online-Kursen in der webbasierten Programmierumgebung CodeOcean, in der sie ihre Programme entwickeln, ausführen und mit Hilfe automatisierter Tests ihrer Lehrer sogar eigenständig überprüfen können. Die Lehrer erhalten einen besseren Überblick über den Lernfortschritt der Klasse und können so bei auftretenden Problemen zeitnah und zielorientiert Unterstützung leisten. In seiner Freizeit springt Sebastian leidenschaftlich gern auf dem Großtrampolin, reist mit Vergnügen durch fremde Länder und hält dabei seine Eindrücke fotografisch fest.",
+				"pictureUrl": "/images/team/Sebastian_Serth.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
