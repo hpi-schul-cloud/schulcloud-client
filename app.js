@@ -4,6 +4,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const methodOverride = require('method-override');
 
 const session = require('express-session');
 const Sentry = require('@sentry/node');
@@ -22,18 +23,19 @@ const app = express();
 if (process.env.SENTRY_DSN) {
 	Sentry.init({
 		dsn: process.env.SENTRY_DSN,
-		environment: process.env.SC_DOMAIN || 'local',
+		environment: app.get('env'),
 		release: `schulcloud-client@${version}`,
 	});
 	Sentry.configureScope((scope) => {
 		scope.setLevel('info');
-		scope.setTag('env', app.get('env'));
+		scope.setTag('domain', process.env.SC_DOMAIN || 'local');
 		scope.setTag('sha', sha);
 		scope.setTag('version', version);
 	});
+	app.use(Sentry.Handlers.requestHandler());
+	app.use(Sentry.Handlers.errorHandler());
 }
 
-app.use(Sentry.Handlers.requestHandler());
 app.use(compression());
 app.set('trust proxy', true);
 const themeName = process.env.SC_THEME || 'default';
@@ -106,7 +108,7 @@ app.use(async (req, res, next) => {
 	} else {
 		res.locals.currentUser = req.session.currentUser;
 	}
-	if (res.locals.currentUser) {
+	if (res.locals.currentUser && process.env.SENTRY_DSN) {
 		Sentry.configureScope((scope) => {
 			scope.setUser({ id: res.locals.currentUser._id });
 		});
@@ -120,9 +122,9 @@ app.use(async (req, res, next) => {
 		documents: Object.assign({}, {
 			baseDir: defaultBaseDir(req, res),
 			privacy: process.env.PRIVACY_DOCUMENT
-				|| 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
+			|| 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
 			termsOfUse: process.env.TERMS_OF_USE_DOCUMENT
-				|| 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
+			|| 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
 		}, defaultDocuments),
 		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
 	};
@@ -136,7 +138,6 @@ app.use(async (req, res, next) => {
 	next();
 });
 
-const methodOverride = require('method-override');
 
 app.use(methodOverride('_method')); // for GET requests
 app.use(methodOverride((req, res, next) => { // for POST requests
@@ -164,7 +165,6 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use(Sentry.Handlers.errorHandler());
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
