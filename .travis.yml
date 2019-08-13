@@ -1,5 +1,5 @@
 language: node_js
-node_js: '8'
+node_js: '10'
 sudo: required
 branches:
   only:
@@ -15,34 +15,38 @@ env:
   - BACKEND_URL=https://api.schul-cloud.org
   - PUBLIC_BACKEND_URL=https://api.schul-cloud.org
   - FEATURE_TEAMS_ENABLED=true
+  - IT_CLIENT_HOST=client
 addons:
   chrome: stable
   firefox: latest
 before_install:
-- openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
-- npm install pm2 -g
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
-  --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
-- sudo docker pull mongo:4.0
-- sudo docker run -d -p 27017:27017 mongo:4.0
-- if [[ $TRAVIS_BRANCH = release* || $TRAVIS_BRANCH = hotfix* ]] ; then export BACKEND_URL=https://api.staging.schul-cloud.org ; export PUBLIC_BACKEND_URL=https://api.staging.schul-cloud.org ; export SC_DEMO_USER_PASSWORD=$SC_DEMO_USER_PASSWORD_STAGING ; elif [ "$TRAVIS_BRANCH" = "develop" ] ; then export BACKEND_URL=https://api.test.schul-cloud.org ; export PUBLIC_BACKEND_URL=https://api.test.schul-cloud.org ; export SC_DEMO_USER_PASSWORD=$SC_DEMO_USER_PASSWORD_STAGING ; fi
+	- openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
+	# TODO ask @falko what is this doing and for what?
+	# - export DISPLAY=:99.0
+	# - sh -e /etc/init.d/xvfb start
+	# - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
+	--background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+	- mkdir schulcloud-client
+	- mv !(schulcloud-client) schulcloud-client
+	- git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
+	- git clone https://github.com/schul-cloud/docker-compose.git docker-compose
+	- git clone https://github.com/schul-cloud/integration-tests.git integration-tests
 install:
-- npm install
+  - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
+  - cd integration-tests && npm ci && cd ..
+  - cd schulcloud-server && npm run setup && cd ..
 before_script:
-- npm install -g gulp-cli
-- gulp
-- pm2 start bin/www
-- sleep 5
-- chmod +x diff.sh
-- chmod +x frontend_test.sh
+  - cd integration-tests
 script:
 - echo $TRAVIS_BRANCH
 - echo $TRAVIS_TAG
-- npm test
-- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
+- npm run mocha
+# early report status
+# I don't think we need it, the tests are fast, the setup is slow
+# - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+# run integration tests
+- cd integration-tests && npm run all
 cache:
   directories:
   - node_modules
