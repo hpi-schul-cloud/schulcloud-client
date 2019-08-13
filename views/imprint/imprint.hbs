@@ -1,14 +1,17 @@
 <div class="section-imprint {{#unless loggedin}}loggedout{{/unless}}">
-	{{#unless loggedin}}
-		<div class="section-title">
-			<h2>Impressum</h2>
-		</div>
-	{{/unless}}
+	{{#embed "authentication/section"}}
+		{{#content "body"}}
+			{{#unless loggedin}}
+				<div class="section-title">
+					<h2>Impressum</h2>
+				</div>
+			{{/unless}}
 
-	{{#embed "imprint/imprint_rights"}}{{/embed}}
+			{{#embed "imprint/imprint_rights"}}{{/embed}}
 
-	{{#embed "imprint/imprint_platform-intro"}}{{/embed}}
+			{{#embed "imprint/imprint_platform-intro"}}{{/embed}}
 
-	{{#embed "imprint/imprint_infotext-below"}}{{/embed}}
-
+			{{#embed "imprint/imprint_infotext-below"}}{{/embed}}
+		{{/content}}
+	{{/embed}}
 </div>
