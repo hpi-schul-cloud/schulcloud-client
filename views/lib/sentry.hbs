@@ -4,7 +4,7 @@
 	Sentry.init({ 
 		dsn: "{{@root.SENTRY_DSN}}",
 		environment:  "{{@root.domain}}",
-		release: "schulcloud-client@{{@root.version}}",
+		release: "schulcloud-client-browser@{{@root.version}}",
 	});
 	Sentry.configureScope((scope)=>{
 		scope.setLevel('info');

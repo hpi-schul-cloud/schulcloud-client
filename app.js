@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 
 const session = require('express-session');
+const Sentry = require('@sentry/node');
+
 
 // template stuff
 const handlebars = require('handlebars');
@@ -15,7 +17,22 @@ const authHelper = require('./helpers/authentication');
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 
+if (process.env.SENTRY_DSN) {
+	Sentry.init({
+		dsn: process.env.SENTRY_DSN,
+		environment: process.env.SC_DOMAIN || 'local',
+		release: `schulcloud-client@${version}`,
+	});
+	Sentry.configureScope((scope) => {
+		scope.setLevel('info');
+		scope.setTag('env', process.NODE_ENV);
+		scope.setTag('sha', sha);
+		scope.setTag('version', version);
+	});
+}
+
 const app = express();
+app.use(Sentry.Handlers.requestHandler());
 app.use(compression());
 app.set('trust proxy', true);
 const themeName = process.env.SC_THEME || 'default';
@@ -88,6 +105,11 @@ app.use(async (req, res, next) => {
 	} else {
 		res.locals.currentUser = req.session.currentUser;
 	}
+	if (res.locals.currentUser) {
+		Sentry.configureScope((scope) => {
+			scope.setUser({ id: res.locals.currentUser._id });
+		});
+	}
 	// if there's a flash message in the session request, make it available in the response, then delete it
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
@@ -141,6 +163,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
+app.use(Sentry.Handlers.errorHandler());
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
