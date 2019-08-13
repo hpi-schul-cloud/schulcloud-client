@@ -184,8 +184,11 @@
     background: none repeat scroll 0 0;
     margin: 30px 0;
 
-    i {
-      cursor: pointer;
+    .course-time-delete{
+      color: inherit;
+      &[disabled]{
+        color: $colorGrey;
+      }
     }
 
     .new-course-time-add {
@@ -194,6 +197,9 @@
       padding-left: 5px;
       cursor: pointer;
       color: $primaryColor;
+      &[disabled]{
+        color: $colorGrey;
+      }
     }
 
     .course-times-table {

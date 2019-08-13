@@ -699,7 +699,14 @@ footer {
                 border-color: transparent transparent rgba(0,0,0,.15) transparent;
                 border-width: 11px;
                 margin-top: -12px;
-            }
+			}
+
+			@include media-breakpoint-down(sm) {
+				left: -216px;
+				&::after, &::before {
+					left: 210px;
+				}
+			}
         }
     }
 }
