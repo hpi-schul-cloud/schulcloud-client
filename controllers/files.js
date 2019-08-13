@@ -265,7 +265,7 @@ const registerSharedPermission = (userId, fileId, shareToken, req) => api(req)
 	.get(`/files/${fileId}`, { qs: { shareToken } }).then((file) => {
 		if (!file) {
 			// owner permits sharing of given file
-			return Promise.reject(new Error('Zu dieser Datei haben Sie keinen Zugriff!'));
+			throw new Error('Zu dieser Datei haben Sie keinen Zugriff!');
 		}
 		const permission = file.permissions.find(perm => perm.refId.toString() === userId);
 
@@ -470,7 +470,7 @@ router.post('/newFile', (req, res, next) => {
 });
 
 // create directory
-router.post('/directory', (req, res, next) => {
+router.post('/directory', (req, res) => {
 	const { name, owner, parent } = req.body;
 	const json = {
 		name: name || 'Neuer Ordner',
@@ -478,8 +478,8 @@ router.post('/directory', (req, res, next) => {
 		parent,
 	};
 
-	api(req).post('/fileStorage/directories', { json }).then(() => {
-		res.json(_);
+	api(req).post('/fileStorage/directories', { json }).then((dir) => {
+		res.json(dir);
 	}).catch((err) => {
 		res.status((err.statusCode || 500)).send(err);
 	});

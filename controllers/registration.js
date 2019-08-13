@@ -203,7 +203,7 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
 	}
 
 	return res.render('registration/registration', {
-		title: 'Herzlich Willkommen bei der Registrierung',
+		title: 'Herzlich willkommen bei der Registrierung',
 		hideMenu: true,
 		importHash: req.query.importHash || req.query.id, // req.query.id is deprecated
 		classOrSchoolId: req.params.classOrSchoolId,

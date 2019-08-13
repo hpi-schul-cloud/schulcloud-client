@@ -142,6 +142,7 @@ window.addEventListener('load', ()=>{
         const $this = $(this);
         const text = $this.html();
         const classId = $this.data('class');
+        const role = $this.data('role');
 
         $this.html('E-Mails werden gesendet...');
         $this.attr("disabled", "disabled");
@@ -150,7 +151,8 @@ window.addEventListener('load', ()=>{
             type: "GET",
             url: window.location.origin+"/administration/users-without-consent/send-email",
             data: {
-                classId
+                classId,
+                role
             }
         }).done(function(data) {
             $.showNotification('Erinnerungs-E-Mails erfolgreich versendet', "success", true);
@@ -168,6 +170,7 @@ window.addEventListener('load', ()=>{
         const $this = $(this);
         const text  = $this.html();
         const classId = $this.data('class');
+        const role = $this.data('role');
 
         $this.html('Druckbogen wird generiert...');
         $this.attr("disabled", "disabled");
@@ -176,7 +179,8 @@ window.addEventListener('load', ()=>{
             type: "GET",
             url: window.location.origin+"/administration/users-without-consent/get-json",
             data: {
-                classId
+                classId,
+                role
             }
         }).done(function(users) {
             printInvitations(users);
@@ -188,7 +192,7 @@ window.addEventListener('load', ()=>{
             $this.attr("disabled", false);
             $this.html(text);
         });
-    });    
+    });
 });
 
 function sortOptions(selector, sortFunction){
