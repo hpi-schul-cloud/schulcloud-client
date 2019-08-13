@@ -24,9 +24,6 @@ before_install:
   - git clone https://github.com/schul-cloud/integration-tests.git integration-tests
   - cd integration-tests
   - npm ci
-  - npm install selenium-standalone@latest -g
-  - selenium-standalone install
-  - selenium-standalone start &
   - cd ..
   - sleep 5
 script:
