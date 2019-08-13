@@ -11,11 +11,11 @@ router.get('/', (req, res, next) => {
 				.then(() => authHelper.restrictSidebar(req, res))
 				.then(() => Promise.resolve(template));
 		}
-		return Promise.resolve(template);
-	}).then((template) => {
+		return Promise.resolve(template, isAuthenticated);
+	}).then((template, isAuthenticated) => {
 		res.render(template, {
 			title: 'Impressum',
-			inline: !!template.includes('guest'),
+			inline: isAuthenticated,
 		});
 	});
 });
