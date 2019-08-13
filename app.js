@@ -103,7 +103,7 @@ app.use(async (req, res, next) => {
 		}, defaultDocuments),
 		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
 	};
-	res.locals.domain = process.env.SC_DOMAIN || false;
+	res.locals.domain = process.env.SC_DOMAIN || 'local';
 	res.locals.production = req.app.get('env') === 'production';
 	res.locals.env = req.app.get('env') || false;
 	res.locals.SENTRY_DSN = process.env.SENTRY_DSN || false;

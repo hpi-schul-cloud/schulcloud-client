@@ -3,17 +3,18 @@
 <script>
 	Sentry.init({ 
 		dsn: "{{@root.SENTRY_DSN}}",
-		environment:  "{{@root.env}}",
-		release: "schulcloud-client@{{@root.sha}}",
-		domaqin: "foo"
+		environment:  "{{@root.domain}}",
+		release: "schulcloud-client@{{@root.version}}",
 	});
-	Sentry.configureScope(function(scope){
+	Sentry.configureScope((scope)=>{
 		scope.setLevel('info');
 		{{#if @root.currentUser}}
 		scope.setUser({ "id": "{{@root.currentUser._id}}" });
 		{{/if}}
-		scope.setTag({ "domain": "{{@root.domain}}" });
-		scope.setTag({ "version": "{{@root.version}}" });
+		scope.setTag("env","{{@root.env}}");
+		scope.setTag("sha","{{@root.sha}}");
+		scope.setTag("version","{{@root.version}}");
 	});
+	dewdewdew();
 </script>
 {{/ifneq}}
