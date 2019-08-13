@@ -1334,7 +1334,7 @@ router.all(
 					'Vorname',
 					'Nachname',
 					'E-Mail-Adresse',
-					'Klasse(n)',
+					'Klasse',
 					'Erstellt am',
 					'Einverständnis',
 					'',
@@ -1430,7 +1430,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	let consents = [];
 	const batchSize = 50;
 	let slice = 0;
-	while (slice * batchSize <= users.length) {
+	while (users.length !== 0 && slice * batchSize <= users.length) {
 		consents = consents.concat(
 			(await api(req).get('/consents', {
 				qs: {
@@ -1575,6 +1575,7 @@ router.get(
 		const accountPromise = api(req).get('/accounts/', {
 			qs: { userId: req.params.id },
 		});
+		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
 		Promise.all([userPromise, consentPromise, accountPromise])
 			.then(([user, _consent, [account]]) => {
@@ -1593,6 +1594,8 @@ router.get(
 					user,
 					consentStatusIcon: getConsentStatusIcon(consent.consentStatus),
 					consent,
+					canSkipConsent: canSkip,
+					hasImportHash: user.importHash,
 					hidePwChangeButton,
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
@@ -1681,7 +1684,9 @@ const renderClassEdit = (req, res, next, edit) => {
 					roles: ['teacher', 'demoTeacher'],
 					$limit: false,
 				}), // teachers
-				getSelectOptions(req, 'gradeLevels'),
+				Array.from(Array(13).keys()).map(e => ({
+					grade: e + 1,
+				})),
 			];
 			if (edit) {
 				promises.push(api(req).get(`/classes/${req.params.classId}`));
@@ -1690,9 +1695,6 @@ const renderClassEdit = (req, res, next, edit) => {
 			Promise.all(promises).then(
 				([teachers, gradeLevels, currentClass]) => {
 					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
-					gradeLevels.sort(
-						(a, b) => parseInt(a.name, 10) - parseInt(b.name, 10),
-					);
 
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
@@ -1719,7 +1721,7 @@ const renderClassEdit = (req, res, next, edit) => {
 						});
 						gradeLevels.forEach((g) => {
 							// eslint-disable-next-line eqeqeq
-							if ((currentClass.gradeLevel || {})._id == g._id) {
+							if (currentClass.gradeLevel == g.grade) {
 								g.selected = true;
 							}
 						});
@@ -1728,14 +1730,14 @@ const renderClassEdit = (req, res, next, edit) => {
 								schoolyear.selected = true;
 							}
 						});
-						if (currentClass.nameFormat === 'static') {
+						if (currentClass.gradeLevel) {
+							currentClass.classsuffix = currentClass.name;
+						} else {
 							isCustom = true;
 							currentClass.customName = currentClass.name;
 							if (currentClass.year) {
 								currentClass.keepYear = true;
 							}
-						} else if (currentClass.nameFormat === 'gradeLevel+name') {
-							currentClass.classsuffix = currentClass.name;
 						}
 					}
 
@@ -2024,16 +2026,15 @@ router.post(
 		const newClass = {
 			schoolId: req.body.schoolId,
 		};
+
 		if (req.body.classcustom) {
 			newClass.name = req.body.classcustom;
-			newClass.nameFormat = 'static';
 			if (req.body.keepyear) {
 				newClass.year = req.body.schoolyear;
 			}
 		} else if (req.body.classsuffix) {
 			newClass.name = req.body.classsuffix;
 			newClass.gradeLevel = req.body.grade;
-			newClass.nameFormat = 'gradeLevel+name';
 			newClass.year = req.body.schoolyear;
 		}
 		if (req.body.teacherIds) {
@@ -2070,7 +2071,6 @@ router.post(
 		};
 		if (req.body.classcustom) {
 			changedClass.name = req.body.classcustom;
-			changedClass.nameFormat = 'static';
 			if (req.body.keepyear) {
 				changedClass.year = req.body.schoolyear;
 			}
@@ -2078,7 +2078,6 @@ router.post(
 			req.body.classsuffix = req.body.classsuffix || '';
 			changedClass.name = req.body.classsuffix;
 			changedClass.gradeLevel = req.body.grade;
-			changedClass.nameFormat = 'gradeLevel+name';
 			changedClass.year = req.body.schoolyear;
 		}
 		if (req.body.teacherIds) {

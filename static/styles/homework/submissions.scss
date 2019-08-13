@@ -71,8 +71,13 @@
       display: table-row;
       cursor: initial;
     }
+    &:not(.active)
     .evaluation {
-      display: none;
+      position: absolute;
+      left: 200vmax;
+    }
+
+    .evaluation {
       background: transparent;
     }
   }
