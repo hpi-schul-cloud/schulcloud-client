@@ -17,6 +17,8 @@ const authHelper = require('./helpers/authentication');
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 
+const app = express();
+
 if (process.env.SENTRY_DSN) {
 	Sentry.init({
 		dsn: process.env.SENTRY_DSN,
@@ -25,13 +27,12 @@ if (process.env.SENTRY_DSN) {
 	});
 	Sentry.configureScope((scope) => {
 		scope.setLevel('info');
-		scope.setTag('env', process.NODE_ENV);
+		scope.setTag('env', app.get('env'));
 		scope.setTag('sha', sha);
 		scope.setTag('version', version);
 	});
 }
 
-const app = express();
 app.use(Sentry.Handlers.requestHandler());
 app.use(compression());
 app.set('trust proxy', true);
