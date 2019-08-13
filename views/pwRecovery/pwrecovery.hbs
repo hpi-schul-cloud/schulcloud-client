@@ -8,45 +8,31 @@
 	{{/content}}
 
 	{{#content "page"}}
-		<main class="container">
-			<div class="row">
-				<div class="col-md-6 offset-md-3">
-					<section class="card">
-						<div class="card-block">
-							<div class="col-xs-12">
-								{{> "lib/components/notification"}}
-							</div>
-							<div class="text-center">
-								<h2 class="h3">{{title}}</h2>
-								<h3 class="h4">{{subtitle}}</h3>
-							</div>
-
-							<div class="form-wrapper">
-								<form method="post" class="registration-form" action="{{action}}">
-
-									<input type="hidden" name="accountId" value="{{accountId}}" />
-									<input type="hidden" name="resetId" value="{{resetId}}" />
-
-									<div class="form-group">
-										<label>Neues Passwort</label>
-										<input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="***************" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-											   title="{{> "lib/forms/password-hint" plaintext=true}}" required>
-									</div>
-
-									<div class="form-group">
-										<label>Neues Passwort wiederholen</label>
-										<input type="password" name="password_control" id="password_control" class="form-control form-control-lg" placeholder="***************" title="{{> "lib/forms/password-hint" plaintext=true}}" required>
-									</div>
-
-
-									<input type="submit" class="btn btn-primary btn-block" value="{{buttonLabel}}" />
-								</form>
-							</div>
-
-						</div>
-					</div>
-				</div>
+		<div class="col-lg-6 offset-lg-3">
+			<div class="col-xs-12">
+				{{> "lib/components/notification"}}
 			</div>
-		</main>
+			<div class="text-center">
+				<h1 class="h4">{{title}}</h2>
+				<h2 class="h5">{{subtitle}}</h3>
+			</div>
+
+			<div class="form-wrapper">
+				<form method="post" class="registration-form" action="{{action}}">
+					<input type="hidden" name="accountId" value="{{accountId}}" />
+					<input type="hidden" name="resetId" value="{{resetId}}" />
+					<div class="form-group">
+						<label>Neues Passwort</label>
+						<input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="***************" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+								title="{{> "lib/forms/password-hint" plaintext=true}}" required>
+					</div>
+					<div class="form-group">
+						<label>Neues Passwort wiederholen</label>
+						<input type="password" name="password_control" id="password_control" class="form-control form-control-lg" placeholder="***************" title="{{> "lib/forms/password-hint" plaintext=true}}" required>
+					</div>
+					<input type="submit" class="btn btn-primary btn-block" value="{{buttonLabel}}" />
+				</form>
+			</div>
+		</div>
 	{{/content}}
 {{/extend}}
