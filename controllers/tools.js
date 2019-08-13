@@ -111,18 +111,32 @@ const getDetailHandler = (req, res, next) => {
 const showToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 
-	Promise.all([
-		api(req).get(`/ltiTools/${req.params.ltiToolId}`),
-		api(req).get(`/${context}/${req.params.courseId}`),
-	])
-		.then(([tool, course]) => {
+	Promise.all((req.params.courseId
+		? [
+			api(req).get(`/ltiTools/${req.params.ltiToolId}`),
+			api(req).get(`/${context}/${req.params.courseId}`),
+		]
+		: [
+			api(req).get('/ltiTools/', { qs: { friendlyUrl: req.params.ltiToolId } }),
+			Promise.resolve({ name: '' }),
+		]
+	)).then(([tool, course]) => {
+		// eslint-disable-next-line no-param-reassign
+		tool = (req.params.courseId ? tool : tool.data[0]);
+		if (!tool) {
+			res.render('lib/error', {
+				loggedin: res.locals.loggedin,
+				message: 'Das Tool konnte nicht gefunden werden.',
+			});
+		} else {
 			const renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
 			res.render(renderPath, {
 				course,
-				title: `${tool.name}, Kurs/Fach: ${course.name}`,
+				title: `${tool.name}${(course.name ? `, Kurs/Fach: ${course.name}` : '')}`,
 				tool,
 			});
-		});
+		}
+	});
 };
 
 

@@ -714,7 +714,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                     });
                 } else {
                     res.render('homework/edit', {
-                        title: 'Aufgabe hinzufügen',
+                        title: 'Aufgabe bearbeiten',
                         submitLabel: 'Speichern',
                         closeLabel: 'Abbrechen',
                         method: 'patch',
