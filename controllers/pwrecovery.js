@@ -47,7 +47,7 @@ router.get('/:pwId', (req, res, next) => {
 				throw error;
 			}
 			return res.render('pwRecovery/pwrecovery', {
-				title: 'Passwort Recovery',
+				title: 'Passwort-Wiederherstellung',
 				subtitle: obscureEmail(result.account.username),
 				accountId: result.account._id,
 				resetId: req.params.pwId,

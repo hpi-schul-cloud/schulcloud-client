@@ -20,6 +20,8 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 const decoder = new StringDecoder('utf8');
 
+const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+
 moment.locale('de');
 
 // eslint-disable-next-line no-unused-vars
@@ -821,7 +823,7 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 				['missing', 'Keine Einverständniserklärung vorhanden'],
 				[
 					'parentsAgreed',
-					'Eltern haben zugestimmt (oder Schüler ist über 16)',
+					`Eltern haben zugestimmt (oder Schüler ist über ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS})`,
 				],
 				['ok', 'Alle Zustimmungen vorhanden'],
 			],
@@ -1453,7 +1455,8 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	const usersWithoutConsent = users.filter(consentMissing);
 	const usersWithIncompleteConsent = consents
 		.filter(consentIncomplete)
-		.map(c => c.userId);
+		// get full user object from users list
+		.map(c => users.find(user => user._id.toString() === c.userId._id.toString()));
 	return usersWithoutConsent.concat(usersWithIncompleteConsent);
 };
 
@@ -1915,7 +1918,7 @@ router.get(
 						schoolyears,
 						notes: [
 							{
-								title: 'Deine Schüler sind unter 16 Jahre alt?',
+								title: `Deine Schüler sind unter ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt?`,
 								content: `Gib den Registrierungslink zunächst an die Eltern weiter.
                 Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis.
                 Der Schüler ist dann in der ${res.locals.theme.short_title}
@@ -1926,9 +1929,10 @@ router.get(
                 damit er die ${res.locals.theme.short_title} nutzen kann.`,
 							},
 							{
-								title: 'Deine Schüler sind mindestens 16 Jahre alt?',
+								title: `Deine Schüler sind mindestens ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}`
+									+ ' Jahre alt?',
 								content:
-									'Gib den Registrierungslink direkt an den Schüler weiter.'
+									'Gib den Registrierungslink direkt an den Schüler weiter. '
 									+ 'Die Schritte für die Eltern entfallen automatisch.',
 							},
 							/* { // TODO - Feature not implemented
