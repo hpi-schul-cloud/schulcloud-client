@@ -1332,7 +1332,7 @@ router.all(
 					'Vorname',
 					'Nachname',
 					'E-Mail-Adresse',
-					'Klasse(n)',
+					'Klasse',
 					'Erstellt am',
 					'Einverständnis',
 					'',
