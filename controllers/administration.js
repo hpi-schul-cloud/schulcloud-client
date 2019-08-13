@@ -2152,7 +2152,7 @@ router.all(
 		};
 		query = Object.assign(query, filterQuery);
 
-		if (res.locals.currentUser.roles.some(r => r.name === 'teacher')) {
+		if (!res.locals.currentUser.permissions.includes('USERGROUP_FULL_ADMIN')) {
 			query.teacherIds = res.locals.currentUser._id.toString();
 		}
 
