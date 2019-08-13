@@ -4,7 +4,7 @@
   <div class="row">
     <div class="form-group col-md-6 col-sm-12">
       <label>Geburtsdatum: *</label>
-      <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 16 0 0}}" value="{{datePickerTodayMinus 17 0 0 "DD.MM.YYYY"}}" name="studentBirthdate" type="text" required autocomplete="off" />
+      <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 0}}" value="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 12 0 "DD.MM.YYYY"}}" name="studentBirthdate" type="text" required autocomplete="off" />
     </div>
   </div>
 </section>
