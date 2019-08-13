@@ -1928,8 +1928,8 @@ router.get(
                 damit er die ${res.locals.theme.short_title} nutzen kann.`,
 							},
 							{
-								title: 
-									`Deine Schüler sind mindestens ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt?`,
+								title: `Deine Schüler sind mindestens ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}`
+									+ ' Jahre alt?',
 								content:
 									'Gib den Registrierungslink direkt an den Schüler weiter. '
 									+ 'Die Schritte für die Eltern entfallen automatisch.',
