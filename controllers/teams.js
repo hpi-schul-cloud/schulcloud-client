@@ -926,7 +926,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		const teamUserIds = team.userIds.map(user => user.userId._id);
 		users = users.filter(user => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter(s => s._id === schoolId)[0];
-		const currentFederalStateId = currentSchool.federalState;
+		const currentFederalStateId = (currentSchool || {}).federalState;
 		let couldLeave = true; // will be set to false if current user is the only teamowner
 
 		const rolesExternal = [
