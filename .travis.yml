@@ -3,8 +3,6 @@ node_js: '10'
 sudo: required
 services:
 - docker
-git:
-  clone: false
 env:
   global:
   - GIT_SHA=$( git rev-parse HEAD )
@@ -16,8 +14,7 @@ addons:
   chrome: stable
   firefox: latest
 before_install:
-  # clone integration tests into `tests` directory
-  - git clone https://github.com/schul-cloud/schulcloud-client.git schulcloud-client
+  - mv !(schulcloud-client) schulcloud-client
   - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
   - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
   - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
