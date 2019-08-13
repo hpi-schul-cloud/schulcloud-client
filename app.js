@@ -12,6 +12,8 @@ const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const authHelper = require('./helpers/authentication');
+const { version } = require('./package.json');
+const { sha } = require('./helpers/version');
 
 const app = express();
 app.use(compression());
@@ -103,6 +105,10 @@ app.use(async (req, res, next) => {
 	};
 	res.locals.domain = process.env.SC_DOMAIN || false;
 	res.locals.production = req.app.get('env') === 'production';
+	res.locals.env = req.app.get('env') || false;
+	res.locals.SENTRY_DSN = process.env.SENTRY_DSN || false;
+	res.locals.version = version;
+	res.locals.sha = sha;
 	delete req.session.notification;
 	next();
 });

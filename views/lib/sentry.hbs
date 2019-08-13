@@ -1,12 +1,20 @@
-{{#ifEnv "SENTRY" true}}
-	<script src="/vendor-optimized/sentry/5.5.0/bundle.min.js"></script>
-	<script>
-	Sentry.init({ dsn: 'https://https://sentry.schul-cloud.dev/sc-client' });
+{{#ifneq @root.SENTRY_DSN false}}
+<script src="/vendor-optimized/sentry/5.5.0/bundle.min.js"></script>
+<script>
+	Sentry.init({ dsn: '{{@root.SENTRY_DSN}}' });
 	Sentry.configureScope((scope) => {
-		scope.setUser({"id": "{{ @root.locals.currentUser._id }}"});
-		scope.setTag({"domain":"{{@root.locals.domain}}"});
-		scope.setTag({"production":"{{@root.locals.production}}"});
-		// todo add commit hash
+		{{#if @root.currentUser}}
+		scope.setUser({ "id": "{{@root.currentUser._id}}" });
+		{{/if}}
+		scope.setTag({ "domain": "{{@root.env}}" });
+		scope.setTag({ "env": "{{@root.env}}" });
+		scope.setTag({ "release": "{{@root.version}}" });
+		scope.setTag({ "sha": "{{@root.sha}}" });
+		scope.setLevel('info');
 	});
-	</script>
-{{/ifEnv}}
+	window.onerror = function report(msg, url, lineNo, columnNo, error) {
+		Sentry.captureException(error);
+		return false;
+	}
+</script>
+{{/ifneq}}
