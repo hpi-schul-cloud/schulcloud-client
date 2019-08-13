@@ -20,6 +20,8 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 const decoder = new StringDecoder('utf8');
 
+const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+
 moment.locale('de');
 
 // eslint-disable-next-line no-unused-vars
@@ -821,7 +823,7 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 				['missing', 'Keine Einverständniserklärung vorhanden'],
 				[
 					'parentsAgreed',
-					'Eltern haben zugestimmt (oder Schüler ist über 16)',
+					`Eltern haben zugestimmt (oder Schüler ist über ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS})`,
 				],
 				['ok', 'Alle Zustimmungen vorhanden'],
 			],
@@ -1332,7 +1334,7 @@ router.all(
 					'Vorname',
 					'Nachname',
 					'E-Mail-Adresse',
-					'Klasse(n)',
+					'Klasse',
 					'Erstellt am',
 					'Einverständnis',
 					'',
@@ -1428,7 +1430,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	let consents = [];
 	const batchSize = 50;
 	let slice = 0;
-	while (slice * batchSize <= users.length) {
+	while (users.length !== 0 && slice * batchSize <= users.length) {
 		consents = consents.concat(
 			(await api(req).get('/consents', {
 				qs: {
@@ -1682,7 +1684,9 @@ const renderClassEdit = (req, res, next, edit) => {
 					roles: ['teacher', 'demoTeacher'],
 					$limit: false,
 				}), // teachers
-				getSelectOptions(req, 'gradeLevels'),
+				Array.from(Array(13).keys()).map(e => ({
+					grade: e + 1,
+				})),
 			];
 			if (edit) {
 				promises.push(api(req).get(`/classes/${req.params.classId}`));
@@ -1691,9 +1695,6 @@ const renderClassEdit = (req, res, next, edit) => {
 			Promise.all(promises).then(
 				([teachers, gradeLevels, currentClass]) => {
 					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
-					gradeLevels.sort(
-						(a, b) => parseInt(a.name, 10) - parseInt(b.name, 10),
-					);
 
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
@@ -1720,7 +1721,7 @@ const renderClassEdit = (req, res, next, edit) => {
 						});
 						gradeLevels.forEach((g) => {
 							// eslint-disable-next-line eqeqeq
-							if ((currentClass.gradeLevel || {})._id == g._id) {
+							if (currentClass.gradeLevel == g.grade) {
 								g.selected = true;
 							}
 						});
@@ -1729,14 +1730,14 @@ const renderClassEdit = (req, res, next, edit) => {
 								schoolyear.selected = true;
 							}
 						});
-						if (currentClass.nameFormat === 'static') {
+						if (currentClass.gradeLevel) {
+							currentClass.classsuffix = currentClass.name;
+						} else {
 							isCustom = true;
 							currentClass.customName = currentClass.name;
 							if (currentClass.year) {
 								currentClass.keepYear = true;
 							}
-						} else if (currentClass.nameFormat === 'gradeLevel+name') {
-							currentClass.classsuffix = currentClass.name;
 						}
 					}
 
@@ -1916,7 +1917,7 @@ router.get(
 						schoolyears,
 						notes: [
 							{
-								title: 'Deine Schüler sind unter 16 Jahre alt?',
+								title: `Deine Schüler sind unter ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt?`,
 								content: `Gib den Registrierungslink zunächst an die Eltern weiter.
                 Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis.
                 Der Schüler ist dann in der ${res.locals.theme.short_title}
@@ -1927,9 +1928,10 @@ router.get(
                 damit er die ${res.locals.theme.short_title} nutzen kann.`,
 							},
 							{
-								title: 'Deine Schüler sind mindestens 16 Jahre alt?',
+								title: `Deine Schüler sind mindestens ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}`
+									+ ' Jahre alt?',
 								content:
-									'Gib den Registrierungslink direkt an den Schüler weiter.'
+									'Gib den Registrierungslink direkt an den Schüler weiter. '
 									+ 'Die Schritte für die Eltern entfallen automatisch.',
 							},
 							/* { // TODO - Feature not implemented
@@ -2025,16 +2027,15 @@ router.post(
 		const newClass = {
 			schoolId: req.body.schoolId,
 		};
+
 		if (req.body.classcustom) {
 			newClass.name = req.body.classcustom;
-			newClass.nameFormat = 'static';
 			if (req.body.keepyear) {
 				newClass.year = req.body.schoolyear;
 			}
 		} else if (req.body.classsuffix) {
 			newClass.name = req.body.classsuffix;
 			newClass.gradeLevel = req.body.grade;
-			newClass.nameFormat = 'gradeLevel+name';
 			newClass.year = req.body.schoolyear;
 		}
 		if (req.body.teacherIds) {
@@ -2071,7 +2072,6 @@ router.post(
 		};
 		if (req.body.classcustom) {
 			changedClass.name = req.body.classcustom;
-			changedClass.nameFormat = 'static';
 			if (req.body.keepyear) {
 				changedClass.year = req.body.schoolyear;
 			}
@@ -2079,7 +2079,6 @@ router.post(
 			req.body.classsuffix = req.body.classsuffix || '';
 			changedClass.name = req.body.classsuffix;
 			changedClass.gradeLevel = req.body.grade;
-			changedClass.nameFormat = 'gradeLevel+name';
 			changedClass.year = req.body.schoolyear;
 		}
 		if (req.body.teacherIds) {
