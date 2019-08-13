@@ -6,11 +6,11 @@
 	"watch": [
 		"build",
 		"views",
-		"themes",
+		"theme",
 		"controllers",
 		"helpers"
 	],
 	"exec": "node ./bin/www",
 	"ext": "js, hbs, json",
-	"delay": "1500"
+	"delay": "2000"
 }
