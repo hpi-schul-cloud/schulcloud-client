@@ -156,17 +156,17 @@ window.addEventListener('load', () => {
 		const $this = $(this);
 		const text = $this.html();
 		const classId = $this.data('class');
+		const role = $this.data('role');
 
 		$this.html('E-Mails werden gesendet...');
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
 			type: 'GET',
-			url: `${
-				window.location.origin
-			}/administration/users-without-consent/send-email`,
+			url: `${window.location.origin}/administration/users-without-consent/send-email`,
 			data: {
 				classId,
+				role,
 			},
 		})
 			.done(() => {
@@ -195,17 +195,17 @@ window.addEventListener('load', () => {
 		const $this = $(this);
 		const text = $this.html();
 		const classId = $this.data('class');
+		const role = $this.data('role');
 
 		$this.html('Druckbogen wird generiert...');
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
 			type: 'GET',
-			url: `${
-				window.location.origin
-			}/administration/users-without-consent/get-json`,
+			url: `${window.location.origin}/administration/users-without-consent/get-json`,
 			data: {
 				classId,
+				role,
 			},
 		})
 			.done((users) => {
