@@ -14,11 +14,15 @@ fi
 function buildandpush {
   # build container default theme
   docker build -t schulcloud/schulcloud-client:$DOCKERTAG -t schulcloud/schulcloud-client:$GIT_SHA .
+
+  # Log in to the docker CLI
+  echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
   # take those images and push them up to docker hub
   docker push schulcloud/schulcloud-client:$DOCKERTAG
   docker push schulcloud/schulcloud-client:$GIT_SHA
 
-  if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]] 
+  if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
   then
   # build container n21 theme
   docker build -t schulcloud/schulcloud-client-n21:$DOCKERTAG -t schulcloud/schulcloud-client-n21:$GIT_SHA -f Dockerfile.n21 .
@@ -29,15 +33,12 @@ function buildandpush {
   docker build -t schulcloud/schulcloud-client-open:$DOCKERTAG -t schulcloud/schulcloud-client-open:$GIT_SHA -f Dockerfile.open .
   docker push schulcloud/schulcloud-client-open:$DOCKERTAG
   docker push schulcloud/schulcloud-client-open:$GIT_SHA
-  
+
   # build container brb theme
   docker build -t schulcloud/schulcloud-client-brb:$DOCKERTAG -t schulcloud/schulcloud-client-brb:$GIT_SHA -f Dockerfile.brb .
   docker push schulcloud/schulcloud-client-brb:$DOCKERTAG
   docker push schulcloud/schulcloud-client-brb:$GIT_SHA
   fi
-
-  # Log in to the docker CLI
-  echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 }
 
 function deploytotest {
@@ -48,7 +49,7 @@ function deploytotest {
  # docker push schulcloud/schulcloud-client:$DOCKERTAG
  # docker push schulcloud/schulcloud-client:$GIT_SHA
 
-  # screw together config file for docker swarm 
+  # screw together config file for docker swarm
  # eval "echo \"$( cat compose-client-test.dummy )\"" > docker-compose-client.yml
 
   # copy config-file to server and execute mit travis_rsa
