@@ -186,6 +186,12 @@ const editCourseHandler = (req, res, next) => {
 			time.count = count;
 		});
 
+		// if new course -> add default start and end dates
+		if (!req.params.courseId) {
+			course.startDate = res.locals.currentSchoolData.years.defaultYear.startDate;
+			course.untilDate = res.locals.currentSchoolData.years.defaultYear.endDate;
+		}
+
 		// format course start end until date
 		if (course.startDate) {
 			course.startDate = moment(
