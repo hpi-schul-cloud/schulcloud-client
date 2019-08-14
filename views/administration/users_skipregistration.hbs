@@ -57,7 +57,7 @@
 
                     {{#unless editTeacher}}
                     <div class="col-md-6">
-                        Für Schüler unter 16 Jahren: Einverständnis der Eltern<br />
+                        Für Schüler unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahren: Einverständnis der Eltern<br />
                         <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" readonly />
 
                         <label><input name="parent_form" value="analog" type="radio" checked /> Analog</label>
