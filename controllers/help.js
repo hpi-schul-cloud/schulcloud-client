@@ -1,9 +1,9 @@
 const express = require('express');
+const showdown = require('showdown');
+const moment = require('moment');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
-const showdown = require('showdown');
-const moment = require('moment');
 const faq = require('../helpers/content/faq.json');
 
 const router = express.Router();
@@ -90,6 +90,8 @@ router.get('/', (req, res, next) => {
 		quickHelpItems: quickhelp,
 		firstStepsItems,
 		demo: isDemo,
+		adminFormIsActive: req.query.activeForm === 'admin',
+		teamFormIsActive: req.query.activeForm === 'team',
 	});
 });
 
