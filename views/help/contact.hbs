@@ -2,19 +2,19 @@
   <p>Wen möchtest du kontaktieren?</p>
   <fieldset class="switch_wrapper" id="message_target">
     <div class="switch">
-      <input type="radio" id="admin" name="message_target" value="admin">
+      <input type="radio" id="admin" name="message_target" value="admin" {{#if adminFormIsActive}}checked{{/if}}>
       <label for="admin" tabindex="0" role="button">Admin</label>
-      <input type="radio" id="team" name="message_target" value="team">
+      <input type="radio" id="team" name="message_target" value="team" {{#if teamFormIsActive}}checked{{/if}}>
       <label for="team" tabindex="0" role="button"> {{theme.short_title}}-Team</label>
     </div>
   </fieldset>
 
-  <form class="admin_form hidden" action="/helpdesk" method="post">
+  <form class="admin_form {{#unless adminFormIsActive}}hidden{{/unless}}" action="/helpdesk" method="post">
     {{> "help/forms/form_admin"}}
     <button type="submit">Absenden</button>
   </form>
 
-  <div class="team_form hidden">
+  <div class="team_form {{#unless teamFormIsActive}}hidden{{/unless}}">
     <p>Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{theme_short_title}} gesendet. Bitte achte darauf, keine passwörter und andere sensible Daten mitzusenden.</p>
     <p>Welche Art von Feedback möchtest du uns senden?</p>
     <fieldset class="switch_wrapper" id="message_type">
