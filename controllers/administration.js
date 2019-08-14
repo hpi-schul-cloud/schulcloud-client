@@ -1601,6 +1601,7 @@ router.get(
 					hidePwChangeButton,
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
+					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 				});
 			})
 			.catch((err) => {
