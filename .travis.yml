@@ -35,8 +35,6 @@ before_script:
 - gulp
 - pm2 start bin/www
 - sleep 5
-- chmod +x diff.sh
-- chmod +x frontend_test.sh
 script:
 - echo $TRAVIS_BRANCH
 - echo $TRAVIS_TAG
@@ -46,9 +44,6 @@ script:
 cache:
   directories:
   - node_modules
-#after_success:
-#- bash ./deploy.sh
-
 deploy:
   provider: script
   script: bash ./deploy.sh
