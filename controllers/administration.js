@@ -1392,6 +1392,7 @@ router.all(
 						studentsWithoutConsentCount,
 						allStudentsCount: users.length,
 						years,
+						CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					});
 				} catch (err) {
 					logger.warn(
@@ -1600,6 +1601,7 @@ router.get(
 					hidePwChangeButton,
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
+					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 				});
 			})
 			.catch((err) => {

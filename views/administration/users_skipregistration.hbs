@@ -43,7 +43,7 @@
                 <label>Geburtsdatum: <sup>*</sup></label>
                 <input class="form-control linked" id="birthday" data-date
                     data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}"
-                    name="birthday" type="text" required value="{{dateToPicker user.birthday}}" />
+                    name="birthday" type="text" required value="{{dateToPicker user.birthday "DD.MM.YYYY"}}" />
             </div>
             {{/unless}}
             <div class="form-group">
@@ -57,7 +57,7 @@
 
                     {{#unless editTeacher}}
                     <div class="col-md-6">
-                        Für Schüler unter 16 Jahren: Einverständnis der Eltern<br />
+                        Für Schüler unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahren: Einverständnis der Eltern<br />
                         <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" readonly />
 
                         <label><input name="parent_form" value="analog" type="radio" checked /> Analog</label>
