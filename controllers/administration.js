@@ -596,9 +596,7 @@ const getDetailHandler = service => function detailHandler(req, res, next) {
 		.then((data) => {
 			res.json(mapEventProps(data, service));
 		})
-		.catch((err) => {
-			next(err);
-		});
+		.catch(next);
 };
 
 const getDeleteHandler = (service, redirectUrl) => function deleteHandler(req, res, next) {
@@ -763,6 +761,8 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 			['firstName', 'Vorname'],
 			['lastName', 'Nachname'],
 			['email', 'E-Mail-Adresse'],
+			['class', 'Klasse(n)'],
+			['consent', 'Einwilligung'],
 			['createdAt', 'Erstelldatum'],
 		],
 		defaultSelection: defaultOrder || 'firstName',
@@ -1360,6 +1360,7 @@ router.all(
 						studentsWithoutConsentCount,
 						allStudentsCount: users.length,
 						years,
+						CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					});
 				} catch (err) {
 					logger.warn(
@@ -1423,7 +1424,8 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	const usersWithoutConsent = users.filter(consentMissing);
 	const usersWithIncompleteConsent = consents
 		.filter(consentIncomplete)
-		.map(c => c.userId);
+		// get full user object from users list
+		.map(c => users.find(user => user._id.toString() === c.userId._id.toString()));
 	return usersWithoutConsent.concat(usersWithIncompleteConsent);
 };
 
@@ -1567,6 +1569,7 @@ router.get(
 					hidePwChangeButton,
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
+					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 				});
 			})
 			.catch((err) => {
@@ -2001,8 +2004,8 @@ router.post(
 			if (req.body.keepyear) {
 				newClass.year = req.body.schoolyear;
 			}
-		} else if (req.body.classsuffix) {
-			newClass.name = req.body.classsuffix;
+		} else {
+			newClass.name = req.body.classsuffix || '';
 			newClass.gradeLevel = req.body.grade;
 			newClass.year = req.body.schoolyear;
 		}
@@ -2044,8 +2047,7 @@ router.post(
 				changedClass.year = req.body.schoolyear;
 			}
 		} else {
-			req.body.classsuffix = req.body.classsuffix || '';
-			changedClass.name = req.body.classsuffix;
+			changedClass.name = req.body.classsuffix || '';
 			changedClass.gradeLevel = req.body.grade;
 			changedClass.year = req.body.schoolyear;
 		}
