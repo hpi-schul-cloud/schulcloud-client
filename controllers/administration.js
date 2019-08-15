@@ -793,6 +793,8 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 			['firstName', 'Vorname'],
 			['lastName', 'Nachname'],
 			['email', 'E-Mail-Adresse'],
+			['class', 'Klasse(n)'],
+			['consent', 'Einwilligung'],
 			['createdAt', 'Erstelldatum'],
 		],
 		defaultSelection: defaultOrder || 'firstName',
@@ -1332,7 +1334,7 @@ router.all(
 					'Vorname',
 					'Nachname',
 					'E-Mail-Adresse',
-					'Klasse(n)',
+					'Klasse',
 					'Erstellt am',
 					'Einverständnis',
 					'',
@@ -1390,6 +1392,7 @@ router.all(
 						studentsWithoutConsentCount,
 						allStudentsCount: users.length,
 						years,
+						CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					});
 				} catch (err) {
 					logger.warn(
@@ -1453,7 +1456,8 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	const usersWithoutConsent = users.filter(consentMissing);
 	const usersWithIncompleteConsent = consents
 		.filter(consentIncomplete)
-		.map(c => c.userId);
+		// get full user object from users list
+		.map(c => users.find(user => user._id.toString() === c.userId._id.toString()));
 	return usersWithoutConsent.concat(usersWithIncompleteConsent);
 };
 
@@ -1597,6 +1601,7 @@ router.get(
 					hidePwChangeButton,
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
+					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 				});
 			})
 			.catch((err) => {

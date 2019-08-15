@@ -481,12 +481,13 @@ router.get('/:teamId', async (req, res, next) => {
 		const schoolUsesRocketChat = (
 			res.locals.currentSchoolData.features || []
 		).includes('rocketChat');
+		const schoolIsExpertSchool = res.locals.currentSchoolData.purpose === 'expert';
 
 		let rocketChatCompleteURL;
 		if (
 			instanceUsesRocketChat
-      && courseUsesRocketChat
-      && schoolUsesRocketChat
+			&& courseUsesRocketChat
+			&& (schoolUsesRocketChat || schoolIsExpertSchool)
 		) {
 			try {
 				const rocketChatChannel = await api(req).get(
