@@ -53,7 +53,7 @@ app.use(session({
 	secret: 'secret',
 }));
 
-const defaultDocuments = require('./config/documents.js');
+const setTheme = require('./helpers/theme');
 
 // set custom response header for ha proxy
 if (process.env.KEEP_ALIVE) {
@@ -79,17 +79,7 @@ app.use(async (req, res, next) => {
 	// if there's a flash message in the session request, make it available in the response, then delete it
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
-	const baseDir = (res.locals.currentSchoolData || {}).documentBaseDir || defaultDocuments.documentBaseDir;
-	res.locals.theme = {
-		title: process.env.SC_TITLE || 'HPI Schul-Cloud',
-		short_title: process.env.SC_SHORT_TITLE || 'Schul-Cloud',
-		documents: Object.assign({}, {
-			baseDir,
-			baseFiles: defaultDocuments.baseFiles(baseDir),
-			otherFiles: defaultDocuments.otherFiles,
-		}),
-		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
-	};
+	setTheme(res, res.locals.currentSchoolData);
 	res.locals.domain = process.env.SC_DOMAIN || false;
 	res.locals.production = req.app.get('env') === 'production';
 	delete req.session.notification;
