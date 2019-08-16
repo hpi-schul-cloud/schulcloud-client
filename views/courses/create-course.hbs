@@ -123,7 +123,7 @@
                             data-date
                             type="text"
                             class="form-control"
-                            value="{{datePickerTodayMinus 0 0 0 'DD.MM.YYYY'}}"
+                            value="{{course.startDate}}"
                             title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
                       </div>
 
@@ -267,6 +267,7 @@
 
         {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
             {{#content "body"}}
+                <p>Dies löscht den Kurs auch bei allen Schüler:innen.</p>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-close">
                         Abbrechen
