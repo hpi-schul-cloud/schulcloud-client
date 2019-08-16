@@ -37,7 +37,7 @@ const quickHelpItems = [{
 }, {
 	title: 'Webinare',
 	icon: 'fa-desktop',
-	src: '/help/faq/webinar',
+	src: 'https://docs.schul-cloud.org/display/SCDOK/Webinare',
 }, {
 	title: 'Schnellstart-PDF',
 	icon: 'fa-file-pdf-o',
