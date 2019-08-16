@@ -33,11 +33,11 @@ const firstStepsItems = [{
 const quickHelpItems = [{
 	title: 'Online-Videokurse',
 	icon: 'fa-video-camera',
-	src: 'https://mooc.house/courses/schulcloud2018',
+	src: 'https://mooc.house/courses/schulcloud2019',
 }, {
-	title: 'MINT-EC Webinare',
+	title: 'Webinare',
 	icon: 'fa-desktop',
-	src: 'https://blog.schul-cloud.org/webinare/',
+	src: '/help/faq/webinar',
 }, {
 	title: 'Schnellstart-PDF',
 	icon: 'fa-file-pdf-o',
