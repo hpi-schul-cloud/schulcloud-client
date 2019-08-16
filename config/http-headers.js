@@ -5,7 +5,7 @@ const config = {
 	contentSecurityPolicy: {
 		// Default Content-Security-Policy Header for every site
 		corsDefault: {
-			defaultSrc: "default-src 'self' 'unsafe-inline' blob: data:",
+			defaultSrc: "data: blob: 'self' 'unsafe-inline' https://scchat.schul-cloud.org https://storage.schul-cloud.org https://libreoffice.schul-cloud.org https://docs.schul-cloud.org https://etherpad.schul-cloud.org https://blog.schul-cloud.org https://sc-content-resources.schul-cloud.org",
 			scriptSrc: "data: blob: 'self' 'unsafe-inline'",
 			objectSrc: '',
 		},
@@ -44,9 +44,6 @@ const config = {
 			'^/homework': {
 				defaultSrc: 'https://fonts.gstatic.com',
 				scriptSrc: "'unsafe-eval'",
-			},
-			'^/rocketChat': {
-				defaultSrc: 'https://scchat.schul-cloud.org',
 			},
 		},
 	},
