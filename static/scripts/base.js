@@ -263,7 +263,7 @@ $(document).ready(function () {
         //TODO: perhaps check if file exists and status==200
         if(pdf&&pdf.endsWith(".pdf")) {
             if (isMobileDevice()) {
-                window.open(window.location.origin+pdf, '_blank', 'fullscreen=yes');
+                window.open(pdf, '_blank', 'fullscreen=yes');
                 return false;
             } else {
                 //TODO: for better reusability, create hbs and render instead of inline
