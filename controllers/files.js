@@ -8,12 +8,12 @@ const express = require('express');
 const multer = require('multer');
 const shortid = require('shortid');
 const _ = require('lodash');
-const winston = require('winston');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const logger = require('../helpers/logger');
 
 const router = express.Router();
 
@@ -23,17 +23,6 @@ const filterOptions = [
 	{ key: 'pdfs', label: 'PDF Dokumente' },
 	{ key: 'msoffice', label: 'Word/Excel/PowerPoint' },
 ];
-
-const logger = winston.createLogger({
-	transports: [
-		new winston.transports.Console({
-			format: winston.format.combine(
-				winston.format.colorize(),
-				winston.format.simple(),
-			),
-		}),
-	],
-});
 
 const filterQueries = {
 	pics: { $regex: 'image' },
