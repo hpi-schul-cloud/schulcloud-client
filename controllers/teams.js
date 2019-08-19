@@ -3,26 +3,15 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-const winston = require('winston');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
+const logger = require('../helpers/logger');
 
 const router = express.Router();
 moment.locale('de');
-
-const logger = winston.createLogger({
-	transports: [
-		new winston.transports.Console({
-			format: winston.format.combine(
-				winston.format.colorize(),
-				winston.format.simple(),
-			),
-		}),
-	],
-});
 
 const addThumbnails = (file) => {
 	const thumbs = {
