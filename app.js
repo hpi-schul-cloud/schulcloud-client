@@ -69,17 +69,25 @@ app.use(async (req, res, next) => {
 	if (!req.session.currentUser) {
 		await authHelper.populateCurrentUser(req, res).then(() => {
 			if (res.locals.currentUser) { // user is authenticated
+				req.session.currentRole = res.locals.currentRole;
+				req.session.roleNames = res.locals.roleNames;
 				req.session.currentUser = res.locals.currentUser;
+				req.session.currentSchool = res.locals.currentSchool;
+				req.session.currentSchoolData = res.locals.currentSchoolData;
 				req.session.save();
 			}
 		});
 	} else {
+		res.locals.currentRole = req.session.currentRole;
+		res.locals.roleNames = req.session.roleNames;
 		res.locals.currentUser = req.session.currentUser;
+		res.locals.currentSchool = req.session.currentSchool;
+		res.locals.currentSchoolData = req.session.currentSchoolData;
 	}
 	// if there's a flash message in the session request, make it available in the response, then delete it
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
-	setTheme(res, res.locals.currentSchoolData);
+	setTheme(res);
 	res.locals.domain = process.env.SC_DOMAIN || false;
 	res.locals.production = req.app.get('env') === 'production';
 	delete req.session.notification;
