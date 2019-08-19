@@ -139,7 +139,7 @@ router.get('/faq/people', (req, res, next) => {
 		ffaq.content = converter.makeHtml(ffaq.content);
 	});
 
-	res.render('help/accordion-faq', {
+	res.render('help/accordion-sections', {
 		title: 'Ansprechpartner und Kontaktdaten',
 		breadcrumb: [
 			{
@@ -147,35 +147,41 @@ router.get('/faq/people', (req, res, next) => {
 				url: '/help',
 			},
 		],
-		faq: faq.people,
+		sections: faq.people,
 	});
 });
 
-router.get('/faq/documents', (req, res, next) => {
-	// check a random permission that demo users dont have to detect demo accounts
-	const access = permissionHelper.userHasPermission(res.locals.currentUser, 'FEDERALSTATE_VIEW');
+router.get('/faq/documents', async (req, res, next) => {
+	const userRoles = res.locals.currentUser.roles.map(r => r.name);
+	const isDemoUser = userRoles.some(r => r.startsWith('demo'));
 
-	if (access) {
-		const { documents } = faq;
-		documents[0].content = converter.makeHtml(documents[0].content);
-
-		res.render('help/accordion-faq', {
-			title: 'Willkommens-Dokumente zum Download',
-			breadcrumb: [
-				{
-					title: 'Hilfebereich',
-					url: '/help',
-				},
-			],
-			faq: documents,
-		});
-	} else {
+	if (isDemoUser) {
 		req.session.notification = {
 			type: 'danger',
 			message: 'Sie haben im Demo-Account keinen Zugriff auf diese Dokumente.',
 		};
-		res.redirect('/help');
+		return res.redirect('/help');
 	}
+
+	const getDocuments = (queryObject) => {
+		return api(req).get('/help/documents/', { qs: queryObject });
+	}
+
+	const documents = (await Promise.all([
+		getDocuments({ schoolId: res.locals.currentUser.schoolId }),
+		getDocuments({ themeName: process.env.SC_THEME || 'default' }),
+	])).filter(d => !!d)[0];
+
+	return res.render('help/accordion-sections', {
+		title: 'Willkommens-Dokumente zum Download',
+		breadcrumb: [
+			{
+				title: 'Hilfebereich',
+				url: '/help',
+			},
+		],
+		sections: documents,
+	});
 });
 
 
