@@ -29,12 +29,10 @@ before_install:
   - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
   - git clone https://github.com/schul-cloud/integration-tests.git integration-tests
 install:
-- npm install
-before_script:
-- npm install -g gulp-cli
-- gulp
-- pm2 start bin/www
-- sleep 5
+  - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
+  - cd schulcloud-client && npm ci && cd .. # client packages are needed for mocha
+  - cd integration-tests && npm ci && cd ..
+  - cd schulcloud-server && npm run setup && cd ..
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
