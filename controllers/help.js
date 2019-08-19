@@ -155,14 +155,7 @@ router.get('/faq/documents', async (req, res, next) => {
 		return res.redirect('/help');
 	}
 
-	const getDocuments = (queryObject) => {
-		return api(req).get('/help/documents/', { qs: queryObject });
-	}
-
-	const documents = (await Promise.all([
-		getDocuments({ schoolId: res.locals.currentUser.schoolId }),
-		getDocuments({ themeName: process.env.SC_THEME || 'default' }),
-	])).filter(d => !!d)[0];
+	const documents = await api(req).get('/help/documents/', { qs: { theme: res.locals.theme.name } });
 
 	return res.render('help/accordion-sections', {
 		title: 'Willkommens-Dokumente zum Download',

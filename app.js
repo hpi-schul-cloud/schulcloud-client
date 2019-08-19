@@ -101,6 +101,7 @@ app.use(async (req, res, next) => {
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
 	res.locals.theme = {
+		name: themeName,
 		title: process.env.SC_TITLE || 'HPI Schul-Cloud',
 		short_title: process.env.SC_SHORT_TITLE || 'Schul-Cloud',
 		documents: Object.assign({}, {
