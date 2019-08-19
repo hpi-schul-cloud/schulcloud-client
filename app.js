@@ -4,16 +4,35 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-
 const session = require('express-session');
-
-// template stuff
+const methodOverride = require('method-override');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
-const authHelper = require('./helpers/authentication');
 
 const app = express();
+
+// template stuff
+const authHelper = require('./helpers/authentication');
+
+// set custom response header for ha proxy
+if (process.env.KEEP_ALIVE) {
+	app.use((req, res, next) => {
+		res.setHeader('Connection', 'Keep-Alive');
+		next();
+	});
+}
+
+// set security headers
+const securityHeaders = require('./middleware/security_headers');
+
+app.use(securityHeaders);
+
+// set cors headers
+const cors = require('./middleware/cors');
+
+app.use(cors);
+
 app.use(compression());
 app.set('trust proxy', true);
 const themeName = process.env.SC_THEME || 'default';
@@ -55,14 +74,6 @@ app.use(session({
 
 const setTheme = require('./helpers/theme');
 
-// set custom response header for ha proxy
-if (process.env.KEEP_ALIVE) {
-	app.use((req, res, next) => {
-		res.setHeader('Connection', 'Keep-Alive');
-		next();
-	});
-}
-
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
@@ -94,7 +105,6 @@ app.use(async (req, res, next) => {
 	next();
 });
 
-const methodOverride = require('method-override');
 
 app.use(methodOverride('_method')); // for GET requests
 app.use(methodOverride((req, res, next) => { // for POST requests

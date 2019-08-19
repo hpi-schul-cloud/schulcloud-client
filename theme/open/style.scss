@@ -14,29 +14,34 @@ $colorWhite: #fff;
 $logoBackground: url("../../images/logo/cloud-transparent-mono.svg") no-repeat center;
 $logoBackgroundTablet: url("../../images/logo/cloud-transparent-mono-48-48.svg") no-repeat center;
 
-aside.nav-sidebar{
-    .sc-branding{
-        padding: 0 5px;
-        .cloud-logo{
-            width: 100%;
-            margin: 0;
-            padding: 30px;
-        }
-        .sc-title {
-            display: none;
-        }
-    }
+.section-imprint.loggedout ul {
+	list-style-type: none!important;
+	margin: 0!important;
+}
 
-    @media (max-width: 991px) {
-        .sc-branding{
-            padding: 0;
-            .cloud-logo{
-                background: $logoBackgroundTablet;
-            }
-        }
-    }
+aside.nav-sidebar{
+	.sc-branding{
+		padding: 0 5px;
+		.cloud-logo{
+			width: 100%;
+			margin: 0;
+			padding: 30px;
+		}
+		.sc-title {
+			display: none;
+		}
+	}
+
+	@media (max-width: 991px) {
+		.sc-branding{
+			padding: 0;
+			.cloud-logo{
+				background: $logoBackgroundTablet;
+			}
+		}
+	}
 }
 
 body header #title .cloud-logo{
-    width: 199px !important;
+	width: 199px !important;
 }
