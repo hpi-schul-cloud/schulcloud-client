@@ -1,13 +1,10 @@
 const express = require('express');
-const showdown = require('showdown');
 const moment = require('moment');
 const authHelper = require('../helpers/authentication');
-const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
 const faq = require('../helpers/content/faq.json');
 
 const router = express.Router();
-const converter = new showdown.Converter();
 
 // read here for updateding the tutorials.json: https://docs.schul-cloud.org/display/Intern/Hilfe-Artikel+aktualisieren
 const tutorials = require('../helpers/content/tutorials.json');
@@ -134,11 +131,6 @@ router.get('/confluence/:id', (req, res, next) => {
 });
 
 router.get('/faq/people', (req, res, next) => {
-	// eslint-disable-next-line array-callback-return
-	faq.people.map((ffaq) => {
-		ffaq.content = converter.makeHtml(ffaq.content);
-	});
-
 	res.render('help/accordion-sections', {
 		title: 'Ansprechpartner und Kontaktdaten',
 		breadcrumb: [
