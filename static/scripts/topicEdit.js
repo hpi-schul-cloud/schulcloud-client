@@ -967,6 +967,7 @@ class TopicNexboard extends TopicBlock {
                             data-placeholder="neXboard auswählen"
                             id={(this.state.id)}
                             value={(this.props.content || {}).board}>
+                        {(this.props.content || {}).board ? <option value={this.props.content.board}>NexBoard beibehalten</option> : ''}
                         <option value={this.state.newBoard} >Neues neXboard anlegen</option>
                     </select>
 				</div>
