@@ -6,7 +6,8 @@ function initForm(formContainer){
 
     // handle form change when target changes
     formContainer.querySelector("#message_target").addEventListener("change", (event) => {
-        if(event.target.value == "admin"){
+		const value = event.target.value || event.target.querySelector('[name=message_target]:checked').value
+        if(value == "admin"){
             adminForm.classList.remove("hidden");
             teamForm.classList.add("hidden");
         }else{
@@ -17,7 +18,8 @@ function initForm(formContainer){
 
     // handle form change when type changes
     formContainer.querySelector("#message_type").addEventListener("change", (event) => {
-        if(event.target.value == "wish"){
+		const value = event.target.value || event.target.querySelector('[name=message_type]:checked').value
+        if(value == "wish"){
             wishForm.classList.remove("hidden");
             bugForm.classList.add("hidden");
         }else{
