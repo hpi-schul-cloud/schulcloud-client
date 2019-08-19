@@ -975,17 +975,6 @@ class TopicNexboard extends TopicBlock {
             </div>
         );
 	}
-	/** removed from nexboard plugin: select an existing nexboard from a dropdown containing all nexboards (ISC-66, SC-1789)
-	 * 
-		<optgroup label="Vorhandene Boards">
-			{this.state.boards.map(board =>
-				<option value={board.content.board}>{board.content.title}</option>
-			)}
-		</optgroup>
-		<optgroup label="Neues Board"> 
-			<option value={this.state.newBoard} >Neues neXboard anlegen</option>
-		</optgroup>
-	*/
 }
 
 /**
