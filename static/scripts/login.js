@@ -3,11 +3,11 @@ $(document).ready(function() {
 
 	try {
 		console.log(`
-	__  __  ____    ______      _____           __               ___            _____   ___                       __     
-   /\\ \\/\\ \\/\\  _\`\\ /\\__  _\\    /\\  __\`\\        /\\ \\             /\\_ \\          /\\  __\`\\/\\_ \\                     /\\ \\    
-   \\ \\ \\_\\ \\ \\ \\_\\ \\/_/\\ \\/    \\ \\,\\_\\_\\    ___\\ \\ \\___   __  __\\//\\ \\         \\ \\ \\/\\_\\//\\ \\     ___   __  __   \\_\\ \\   
-	\\ \\  _  \\ \\ ,__/  \\ \\ \\     \\/_\\___ \\  /'___\\ \\  _ \`\\/\\ \\/\\ \\ \\ \\ \\   ______\\ \\ \\/_/_\\ \\ \\   / __\`\\/\\ \\/\\ \\  /'_\` \\  
-	 \\ \\ \\ \\ \\ \\ \\/    \\_\\ \\__    /\\ \\_\\ \\/\\ \\__/\\ \\ \\ \\ \\ \\ \\_\\ \\ \\_\\ \\_/\\_____\\\\ \\ \\_\\ \\\\_\\ \\_/\\ \\_\\ \\ \\ \\_\\ \\/\\ \\_\\ \\ 
+	__  __  ____    ______      _____           __               ___            _____   ___                       __
+   /\\ \\/\\ \\/\\  _\`\\ /\\__  _\\    /\\  __\`\\        /\\ \\             /\\_ \\          /\\  __\`\\/\\_ \\                     /\\ \\
+   \\ \\ \\_\\ \\ \\ \\_\\ \\/_/\\ \\/    \\ \\,\\_\\_\\    ___\\ \\ \\___   __  __\\//\\ \\         \\ \\ \\/\\_\\//\\ \\     ___   __  __   \\_\\ \\
+	\\ \\  _  \\ \\ ,__/  \\ \\ \\     \\/_\\___ \\  /'___\\ \\  _ \`\\/\\ \\/\\ \\ \\ \\ \\   ______\\ \\ \\/_/_\\ \\ \\   / __\`\\/\\ \\/\\ \\  /'_\` \\
+	 \\ \\ \\ \\ \\ \\ \\/    \\_\\ \\__    /\\ \\_\\ \\/\\ \\__/\\ \\ \\ \\ \\ \\ \\_\\ \\ \\_\\ \\_/\\_____\\\\ \\ \\_\\ \\\\_\\ \\_/\\ \\_\\ \\ \\ \\_\\ \\/\\ \\_\\ \\
 	  \\ \\_\\ \\_\\ \\_\\    /\\_____\\   \\ \`\\____\\ \\____\\\\ \\_\\ \\_\\ \\____/ /\\____\\/_____/ \\ \\____//\\____\\ \\____/\\ \\____/\\ \\___,_\\
 	   \\/_/\\/_/\\/_/    \\/_____/    \\/_____/\\/____/ \\/_/\\/_/\\/___/  \\/____/         \\/___/ \\/____/\\/___/  \\/___/  \\/__,_ /
 	`);
@@ -15,7 +15,7 @@ $(document).ready(function() {
 	} catch(e) {
 		// no log
 	}
-	
+
     var $btnToggleProviers = $('.btn-toggle-providers');
     var $btnHideProviers = $('.btn-hide-providers');
     var $btnLogin = $('.btn-login');
@@ -59,8 +59,14 @@ $(document).ready(function() {
     });
 
     $btnLogin.on('click', function(e) {
-        localStorage.setItem('loginSchool', $school.val());
-        localStorage.setItem('loginSystem', $systems.val());
+		const school = $school.val();
+		const system = $systems.val();
+		if(school){
+			localStorage.setItem('loginSchool', school);
+		}
+		if(system){
+			localStorage.setItem('loginSystem', system);
+		}
     });
 
     $school.on('change', function() {
@@ -119,7 +125,7 @@ if ('serviceWorker' in navigator){
                 caches.keys().then(function(cacheNames) {
                     return Promise.all(
                       cacheNames.filter(function(cacheName) {
-                        return cacheName.startsWith('workbox') | cacheName.startsWith('images') 
+                        return cacheName.startsWith('workbox') | cacheName.startsWith('images')
                         | cacheName.startsWith('pages') | cacheName.startsWith('vendors');
                       }).map(function(cacheName) {
                         return caches.delete(cacheName);
@@ -127,6 +133,6 @@ if ('serviceWorker' in navigator){
                     );
                 });
             }
-        } 
+        }
     });
 }

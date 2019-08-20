@@ -21,6 +21,7 @@
                 <div class="login-providers">
                     <div class="form-group ">
                         <select name="schoolId" class="school search-enabled" data-placeholder="Schule">
+							<option selected disabled></option>
                             {{#each schools}}
                                 <option value="{{this._id}}">{{this.name}}</option>
 							{{else}}
