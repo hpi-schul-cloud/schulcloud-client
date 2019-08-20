@@ -25,6 +25,9 @@
                     <label>Nachname:</label>
                     <input type="text" class="form-control" name="lastName" value="{{ ../currentUser.lastName }}">
                 </div>
+				{{else}}
+					<input type="hidden" disabled name="firstName" value="{{ ../currentUser.firstName }}">
+					<input type="hidden" disabled name="lastName" value="{{ ../currentUser.lastName }}">
                 {{/ifneq}}
 
                 <div class="form-group">
