@@ -163,12 +163,10 @@ window.addEventListener('load', () => {
 
 		$.ajax({
 			type: 'GET',
-			url: `${
-				window.location.origin
-			}/administration/users-without-consent/send-email`,
+			url: `${window.location.origin}/administration/users-without-consent/send-email`,
 			data: {
 				classId,
-				role
+				role,
 			},
 		})
 			.done(() => {
@@ -204,12 +202,10 @@ window.addEventListener('load', () => {
 
 		$.ajax({
 			type: 'GET',
-			url: `${
-				window.location.origin
-			}/administration/users-without-consent/get-json`,
+			url: `${window.location.origin}/administration/users-without-consent/get-json`,
 			data: {
 				classId,
-				role
+				role,
 			},
 		})
 			.done((users) => {
