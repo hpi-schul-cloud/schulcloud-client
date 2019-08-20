@@ -1,20 +1,19 @@
 {
   "name": "schulcloud-client",
-  "version": "19.1.1",
+  "version": "19.3.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "watch": "nodemon --watch ./ --watch views --watch controllers --watch build --watch helpers --ext js,hbs,json ./bin/www",
-    "debug": "nodemon --inspect=9310 --watch controllers --watch helpers --watch views --watch helpers --ext js,hbs,json ./bin/www",
-    "debug:container": "nodemon --inspect=0.0.0.0:9310 --watch controllers --watch helpers --watch views --watch helpers --ext js,hbs,json ./bin/www",
+    "watch": "nodemon --config nodemon.json",
+    "debug": "nodemon --inspect=9310 --config nodemon.json",
+    "debug:container": "nodemon --inspect=0.0.0.0:9310 --config nodemon.json",
     "lint": "eslint ./bin ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
     "sasslint": "sass-lint -q -v",
     "sasslint:fix": "sass-lint-auto-fix -s -c ./.sass-lint-auto-fix.yml && sass-lint -q -v",
     "startd": "echo 'Do you mean 'npm run watch'?'",
     "test": "npm run mocha",
     "mocha": "mocha test/mocha/ --recursive --opts ./test/mocha/mocha.opts",
-    "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js --opts ./test/mocha/mocha.opts",
-    "frontendTests": "./node_modules/.bin/nightwatch --config nightwatch.conf.js --env chrome,firefox"
+    "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js --opts ./test/mocha/mocha.opts"
   },
   "sasslintConfig": "./.sass-lint.yml",
   "dependencies": {
@@ -35,6 +34,7 @@
     "fullcalendar": "^3.9.0",
     "git-repo-info": "^2.1.0",
     "gulp-nodemon": "^2.2.1",
+    "handlebars": "^4.1.2",
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",
     "hbs": "^4.0.4",
@@ -104,7 +104,6 @@
     "gulp-uglify": "^2.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
-    "nightwatch": "^1.0.6",
     "node-sass": "^4.12.0",
     "nodemon": "^1.18.3",
     "postcss-css-variables": "^0.13.0",

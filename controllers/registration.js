@@ -8,11 +8,24 @@ const { cookieDomain } = require('../helpers/authentication');
 const deviceDetectorObj = new DeviceDetector();
 
 const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+const setTheme = require('../helpers/theme');
 
 const detectIE = (req) => {
 	const device = deviceDetectorObj.parse(req.headers['user-agent']);
 	const isIE = (((device || {}).client || {}).name || '').includes('Internet Explorer');
 	return isIE;
+};
+
+const resetThemeForPrivacyDocuments = async (req, res) => {
+	let schoolId;
+	try {
+		const Klass = await api(req).get(`classes/${req.params.classOrSchoolId}`);
+		({ schoolId } = Klass);
+	} catch (err) {
+		schoolId = req.params.classOrSchoolId;
+	}
+	const school = await api(req).get(`schools/${schoolId}`);
+	setTheme(res, school);
 };
 
 /*
@@ -62,7 +75,7 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 				if (req.body.roles.includes('student')) {
 					passwordText = `Startpasswort: ${req.body.password_1}`;
 					studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen.
-						Wenn du zwischen 14 und ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt bist, 
+						Wenn du zwischen 14 und ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt bist,
 						bestätige bitte zusätzlich die Einverständniserklärung,
 						damit du die ${res.locals.theme.short_title} nutzen kannst.`;
 				}
@@ -120,6 +133,8 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 		user.sso = req.params.sso === 'sso';
 		user.account = req.params.accountId || '';
 
+		await resetThemeForPrivacyDocuments(req, res);
+
 		if (user.importHash) {
 			const existingUser = await api(req).get(`/users/linkImport/${user.importHash}`);
 			Object.assign(user, existingUser);
@@ -149,6 +164,8 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 		user.sso = req.params.sso === 'sso';
 		user.account = req.params.accountId || '';
 
+		await resetThemeForPrivacyDocuments(req, res);
+
 		if (user.importHash) {
 			const existingUser = await api(req).get(`/users/linkImport/${user.importHash}`);
 			Object.assign(user, existingUser);
@@ -176,6 +193,8 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 	user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
 	user.classOrSchoolId = req.params.classOrSchoolId;
 
+	await resetThemeForPrivacyDocuments(req, res);
+
 	if (user.importHash) {
 		const existingUser = await api(req).get(`/users/linkImport/${user.importHash}`);
 		Object.assign(user, existingUser);
@@ -198,25 +217,30 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 	});
 });
 
-router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'], (req, res, next) => {
-	const isIE = detectIE(req);
+router.get(
+	['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'],
+	async (req, res, next) => {
+		const isIE = detectIE(req);
 
-	if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
-		if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
-			return res.sendStatus(400);
+		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
+			if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
+				return res.sendStatus(400);
+			}
 		}
-	}
 
-	return res.render('registration/registration', {
-		title: 'Herzlich willkommen bei der Registrierung',
-		hideMenu: true,
-		importHash: req.query.importHash || req.query.id, // req.query.id is deprecated
-		classOrSchoolId: req.params.classOrSchoolId,
-		sso: req.params.sso === 'sso',
-		account: req.params.accountId || '',
-		isIE,
-		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
-	});
-});
+		await resetThemeForPrivacyDocuments(req, res);
+
+		return res.render('registration/registration', {
+			title: 'Herzlich willkommen bei der Registrierung',
+			hideMenu: true,
+			importHash: req.query.importHash || req.query.id, // req.query.id is deprecated
+			classOrSchoolId: req.params.classOrSchoolId,
+			sso: req.params.sso === 'sso',
+			account: req.params.accountId || '',
+			isIE,
+			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+		});
+	},
+);
 
 module.exports = router;
