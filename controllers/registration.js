@@ -24,8 +24,8 @@ const resetThemeForPrivacyDocuments = async (req, res) => {
 	} catch (err) {
 		schoolId = req.params.classOrSchoolId;
 	}
-	const school = await api(req).get(`schools/${schoolId}`);
-	setTheme(res, school);
+	res.locals.currentSchoolData = await api(req).get(`schools/${schoolId}`);
+	setTheme(res);
 };
 
 /*
