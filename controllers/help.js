@@ -66,7 +66,7 @@ router.get('/confluence/:id', (req, res, next) => {
 });
 
 router.get('/faq/people', (req, res, next) => {
-	res.render('help/accordion-sections', {
+	res.render('help/people', {
 		title: 'Ansprechpartner und Kontaktdaten',
 		breadcrumb: [
 			{
@@ -74,7 +74,6 @@ router.get('/faq/people', (req, res, next) => {
 				url: '/help',
 			},
 		],
-		sections: faq.people,
 	});
 });
 
