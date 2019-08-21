@@ -388,7 +388,7 @@ const enrichCourse = (course) => {
 	course.background = course.color;
 	course.memberAmount = course.userIds.length;
 	(course.times || []).forEach((time) => {
-		time.startTime = moment(time.startTime, 'x').format('HH:mm');
+		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
 		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 			time.room ? `| ${time.room}` : ''
