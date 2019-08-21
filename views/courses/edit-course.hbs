@@ -224,11 +224,11 @@
 						</thead>
 						<tbody class="add-course-times">
 							{{#each course.times}}
-								<tr id="{{this._id}}" class="course-time">
+								<tr class="course-time" id="{{this._id}}">
 									<td>
-										<button class="btn-link course-time-delete"
+										<button class="btn-link course-time-delete" type="button"  data-id="{{this._id}}"
 											{{#if @root.course.isArchived}}disabled{{/if}}>
-											<i class="fa fa-trash-o" href={{this._id}}></i>
+											<i class="fa fa-trash-o"></i>
 										</button></td>
 									<td>
 										<select class="form-control" name="times[{{this.count}}][weekday]" type="text"
@@ -269,7 +269,7 @@
 							{{#embed "courses/components/template-new-course-time"}}{{/embed}}
 						</tbody>
 					</table>
-					<button class="new-course-time-add btn-link" data-timesref="#timesContainer"
+					<button class="new-course-time-add btn-link" data-timesref="#timesContainer" type="button"
 						{{#if @root.course.isArchived}}disabled{{/if}}>
 						<i class="fa fa-plus-circle fa-6"></i> Neuen Stundentermin hinzufügen
 					</button>
