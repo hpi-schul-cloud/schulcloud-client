@@ -41,7 +41,11 @@
                 {{#unless editTeacher}}
                     <div class="form-group">
                         <label>Geburtsdatum: <sup>*</sup></label>
-                        <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required value="{{dateToPicker user.birthday}}"/>
+                        <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required
+                        {{#if user.birthday }}
+                        value="{{dateToPicker user.birthday}}"
+                        {{/if}}
+                        />
                     </div>
                 {{else}}
                     <div class="form-group mb-2">
