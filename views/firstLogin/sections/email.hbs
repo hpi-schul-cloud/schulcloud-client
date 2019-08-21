@@ -4,7 +4,7 @@
   <div class="row">
     <div class="form-group col-md-6 col-sm-12">
         <label>E-Mail:</label>
-        <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" value="{{@root.currentUser.email}}" readonly required>
+        <input class="form-control linked" data-testid="e-mail-ueberpruefen" type="email" name="student-email" placeholder="schueler@schul-cloud.org" value="{{@root.currentUser.email}}" readonly required>
     </div>
   </div>
   <p>Sollte die E-Mail-Adresse nicht die richtige sein, wende dich bitte an deinen {{@root.theme.short_title}}-Administrator.</p>
