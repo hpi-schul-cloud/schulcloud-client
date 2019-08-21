@@ -173,7 +173,7 @@
                                 </a>
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-name">{{ currentUser.displayName }} ({{ currentRole }})</div>
+                                    <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{ currentRole }})</div>
                                     <a class="dropdown-item" href="/account/">Einstellungen</a>
                                     <a class="dropdown-item" href="/logout/">Abmelden</a>
                                 </div>
