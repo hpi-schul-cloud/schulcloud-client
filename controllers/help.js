@@ -134,12 +134,7 @@ router.get('/confluence/:id', (req, res, next) => {
 });
 
 router.get('/faq/people', (req, res, next) => {
-	// eslint-disable-next-line array-callback-return
-	faq.people.map((ffaq) => {
-		ffaq.content = converter.makeHtml(ffaq.content);
-	});
-
-	res.render('help/accordion-faq', {
+	res.render('help/people', {
 		title: 'Ansprechpartner und Kontaktdaten',
 		breadcrumb: [
 			{
@@ -147,7 +142,6 @@ router.get('/faq/people', (req, res, next) => {
 				url: '/help',
 			},
 		],
-		faq: faq.people,
 	});
 });
 

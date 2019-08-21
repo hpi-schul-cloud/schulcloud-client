@@ -1,0 +1,43 @@
+{{#extend "lib/loggedin"}}
+
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/help/help.css"/>
+	{{/content}}
+
+	{{#content "scripts" mode="append"}}
+	{{/content}}
+
+	{{#content "page"}}
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="card">
+						<div class="card-header" role="tab" id="heading-{{@index}}">
+							<h2 class="h5 mb-0">
+								LISUM
+							</h2>
+						</div>
+						<div class="collapse show in">
+							<div class="card-block">
+								Das Landesinstitut für Schule und Medien Berlin-Brandenburg (LISUM) steht für alle nicht-technischen Fragen rund um die Schul-Cloud Brandenburg bereit und ist unter folgender E-Mail-Adresse erreichbar:<br><a href="mailto:schul-cloud@bildungsserver.berlin-brandenburg.de" target="blank" rel="noopener" class="externalLink">schul-cloud@bildungsserver.berlin-brandenburg.de</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header" role="tab" id="heading-{{@index}}">
+							<h2 class="h5 mb-0">
+								HPI
+							</h2>
+						</div>
+						<div id="collapse-{{@index}}" class="collapse show in">
+							<div class="card-block">
+								Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung dient folgende E-Mail-Adresse als erster Anlaufpunkt:<br><a href="mailto:feedback@schul-cloud.org" target="blank" rel="noopener" class="externalLink">feedback@schul-cloud.org</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{{/content}}
+{{/extend}}
