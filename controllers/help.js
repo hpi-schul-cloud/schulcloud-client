@@ -2,7 +2,6 @@ const express = require('express');
 const moment = require('moment');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
-const faq = require('../helpers/content/faq.json');
 
 const router = express.Router();
 
