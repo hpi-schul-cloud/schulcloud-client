@@ -12,7 +12,6 @@ const setTheme = (res) => {
 			specificFiles: documents.specificFiles(baseDir),
 			globalFiles: documents.globalFiles(),
 		},
-		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
 	};
 };
 
