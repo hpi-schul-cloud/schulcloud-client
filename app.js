@@ -20,13 +20,13 @@ if (process.env.SENTRY_DSN) {
 	Sentry.init({
 		dsn: process.env.SENTRY_DSN,
 		environment: app.get('env'),
-		release: `schulcloud-client@${version}`,
+		release: version,
 	});
 	Sentry.configureScope((scope) => {
+		scope.setTag('frontend', false);
 		scope.setLevel('warning');
 		scope.setTag('domain', process.env.SC_DOMAIN || 'localhost');
 		scope.setTag('sha', sha);
-		scope.setTag('version', version);
 	});
 	app.use(Sentry.Handlers.requestHandler());
 	app.use(Sentry.Handlers.errorHandler());

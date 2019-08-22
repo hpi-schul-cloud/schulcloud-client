@@ -4,18 +4,17 @@
 	Sentry.init({ 
 		dsn: "{{@root.SENTRY_DSN}}",
 		environment:  "{{@root.env}}",
-		release: "schulcloud-client-browser@{{@root.version}}",
+		release: "{{@root.version}}",
 	});
 	Sentry.configureScope((scope)=>{
 		scope.setLevel('warning');
 		{{#if @root.currentUser}}
 		scope.setUser({ "id": "{{@root.currentUser._id}}" });
 		{{/if}}
-		scope.setTag("frontend",true);
+		scope.setTag("frontend", true);
 		scope.setTag("domain","{{@root.domain}}");
 		scope.setTag("theme","{{@root.theme.short_title}}");
 		scope.setTag("sha","{{@root.sha}}");
-		scope.setTag("version","{{@root.version}}");
 	});
 </script>
 {{/ifneq}}
