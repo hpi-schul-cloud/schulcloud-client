@@ -3,12 +3,12 @@
   <h2 class="h4">Wichtige Information{{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}}</h2>
   <a style="margin-bottom: 20px;">Für ein noch besseres Lernerlebnis wird die {{@root.theme.title}} stetig
     weiterentwickelt. Im Zuge dessen hat sich
-    {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}die <a href="{{@root.theme.documents.baseFiles.termsOfUseExemplary}}" target="_blank">Nutzungsordnung</a>{{/ifCond}}
+    {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}die <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}" target="_blank">Nutzungsordnung</a>{{/ifCond}}
     {{#ifCond @root.updatedConsents.privacy.total '>' 0}}
     {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}
     und
     {{/ifCond}}
-    die <a href="{{@root.theme.documents.baseFiles.privacyExemplary}}" target="_blank">Datenschutzerklärung</a>
+    die <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank">Datenschutzerklärung</a>
     {{/ifCond}}
     erweitert.
   </p>

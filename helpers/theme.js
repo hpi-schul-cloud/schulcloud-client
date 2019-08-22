@@ -9,8 +9,8 @@ const setTheme = (res) => {
 		short_title: process.env.SC_SHORT_TITLE || 'Schul-Cloud',
 		documents: {
 			baseDir,
-			baseFiles: documents.baseFiles(baseDir),
-			otherFiles: documents.otherFiles,
+			specificFiles: documents.specificFiles(baseDir),
+			globalFiles: documents.globalFiles(),
 		},
 		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
 	};
