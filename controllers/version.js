@@ -7,7 +7,6 @@ const {
 
 const router = express.Router();
 
-
 router.get('/', (req, res, next) => {
 	if (!process.env.SHOW_VERSION) {
 		return res.sendStatus(403);

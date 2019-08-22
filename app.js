@@ -4,17 +4,13 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const methodOverride = require('method-override');
-
 const session = require('express-session');
-const Sentry = require('@sentry/node');
-
-
-// template stuff
+const methodOverride = require('method-override');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
-const authHelper = require('./helpers/authentication');
+const Sentry = require('@sentry/node');
+
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 
@@ -35,6 +31,27 @@ if (process.env.SENTRY_DSN) {
 	app.use(Sentry.Handlers.requestHandler());
 	app.use(Sentry.Handlers.errorHandler());
 }
+
+// template stuff
+const authHelper = require('./helpers/authentication');
+
+// set custom response header for ha proxy
+if (process.env.KEEP_ALIVE) {
+	app.use((req, res, next) => {
+		res.setHeader('Connection', 'Keep-Alive');
+		next();
+	});
+}
+
+// set security headers
+const securityHeaders = require('./middleware/security_headers');
+
+app.use(securityHeaders);
+
+// set cors headers
+const cors = require('./middleware/cors');
+
+app.use(cors);
 
 app.use(compression());
 app.set('trust proxy', true);
@@ -86,14 +103,6 @@ const defaultBaseDir = (req, res) => {
 };
 
 const defaultDocuments = require('./helpers/content/documents.json');
-
-// set custom response header for ha proxy
-if (process.env.KEEP_ALIVE) {
-	app.use((req, res, next) => {
-		res.setHeader('Connection', 'Keep-Alive');
-		next();
-	});
-}
 
 
 // Custom flash middleware

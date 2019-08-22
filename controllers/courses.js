@@ -1,31 +1,19 @@
 /* eslint-disable no-underscore-dangle */
 const _ = require('lodash');
 const express = require('express');
-const winston = require('winston');
 const moment = require('moment');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
+const logger = require('../helpers/logger');
 
 const router = express.Router();
 
-const logger = winston.createLogger({
-	transports: [
-		new winston.transports.Console({
-			format: winston.format.combine(
-				winston.format.colorize(),
-				winston.format.simple(),
-			),
-		}),
-	],
-});
+const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
+	qs: query,
+}).then(data => data.data);
 
-const getSelectOptions = (req, service, query) => api(req)
-	.get(`/${service}`, {
-		qs: query,
-	})
-	.then(data => data.data);
 
 const markSelected = (options, values = []) => options.map((option) => {
 	option.selected = values.includes(option._id);
@@ -185,6 +173,12 @@ const editCourseHandler = (req, res, next) => {
 			time.startTime = `${hoursString}:${minutsString}`;
 			time.count = count;
 		});
+
+		// if new course -> add default start and end dates
+		if (!req.params.courseId) {
+			course.startDate = res.locals.currentSchoolData.years.defaultYear.startDate;
+			course.untilDate = res.locals.currentSchoolData.years.defaultYear.endDate;
+		}
 
 		// format course start end until date
 		if (course.startDate) {
@@ -382,7 +376,7 @@ const enrichCourse = (course) => {
 	course.background = course.color;
 	course.memberAmount = course.userIds.length;
 	(course.times || []).forEach((time) => {
-		time.startTime = moment(time.startTime, 'x').format('HH:mm');
+		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
 		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 			time.room ? `| ${time.room}` : ''

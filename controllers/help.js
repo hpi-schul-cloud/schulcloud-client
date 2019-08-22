@@ -1,9 +1,9 @@
 const express = require('express');
+const showdown = require('showdown');
+const moment = require('moment');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
-const showdown = require('showdown');
-const moment = require('moment');
 const faq = require('../helpers/content/faq.json');
 
 const router = express.Router();
@@ -33,11 +33,11 @@ const firstStepsItems = [{
 const quickHelpItems = [{
 	title: 'Online-Videokurse',
 	icon: 'fa-video-camera',
-	src: 'https://mooc.house/courses/schulcloud2018',
+	src: 'https://mooc.house/courses/schulcloud2019',
 }, {
-	title: 'MINT-EC Webinare',
+	title: 'Webinare',
 	icon: 'fa-desktop',
-	src: 'https://blog.schul-cloud.org/webinare/',
+	src: 'https://docs.schul-cloud.org/display/SCDOK/Webinare',
 }, {
 	title: 'Schnellstart-PDF',
 	icon: 'fa-file-pdf-o',
@@ -90,6 +90,8 @@ router.get('/', (req, res, next) => {
 		quickHelpItems: quickhelp,
 		firstStepsItems,
 		demo: isDemo,
+		adminFormIsActive: req.query.activeForm === 'admin',
+		teamFormIsActive: req.query.activeForm === 'team',
 	});
 });
 
@@ -132,12 +134,7 @@ router.get('/confluence/:id', (req, res, next) => {
 });
 
 router.get('/faq/people', (req, res, next) => {
-	// eslint-disable-next-line array-callback-return
-	faq.people.map((ffaq) => {
-		ffaq.content = converter.makeHtml(ffaq.content);
-	});
-
-	res.render('help/accordion-faq', {
+	res.render('help/people', {
 		title: 'Ansprechpartner und Kontaktdaten',
 		breadcrumb: [
 			{
@@ -145,7 +142,6 @@ router.get('/faq/people', (req, res, next) => {
 				url: '/help',
 			},
 		],
-		faq: faq.people,
 	});
 });
 
