@@ -27,8 +27,8 @@ if (process.env.SENTRY_DSN) {
 		release: `schulcloud-client@${version}`,
 	});
 	Sentry.configureScope((scope) => {
-		scope.setLevel('info');
-		scope.setTag('domain', process.env.SC_DOMAIN || 'local');
+		scope.setLevel('warning');
+		scope.setTag('domain', process.env.SC_DOMAIN || 'localhost');
 		scope.setTag('sha', sha);
 		scope.setTag('version', version);
 	});
@@ -122,9 +122,9 @@ app.use(async (req, res, next) => {
 		documents: Object.assign({}, {
 			baseDir: defaultBaseDir(req, res),
 			privacy: process.env.PRIVACY_DOCUMENT
-			|| 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
+				|| 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
 			termsOfUse: process.env.TERMS_OF_USE_DOCUMENT
-			|| 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
+				|| 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
 		}, defaultDocuments),
 		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
 	};

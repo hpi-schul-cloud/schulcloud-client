@@ -7,12 +7,13 @@
 		release: "schulcloud-client-browser@{{@root.version}}",
 	});
 	Sentry.configureScope((scope)=>{
-		scope.setLevel('info');
+		scope.setLevel('warning');
 		{{#if @root.currentUser}}
 		scope.setUser({ "id": "{{@root.currentUser._id}}" });
 		{{/if}}
+		scope.setTag("frontend",true);
 		scope.setTag("domain","{{@root.domain}}");
-		scope.setTag("theme","{{@root.theme.short_title}}")
+		scope.setTag("theme","{{@root.theme.short_title}}");
 		scope.setTag("sha","{{@root.sha}}");
 		scope.setTag("version","{{@root.version}}");
 	});
