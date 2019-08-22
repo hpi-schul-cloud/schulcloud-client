@@ -46,7 +46,7 @@
 
             <div class="form-group">
                 <label>automatische Veröffentlichung vorplanen (optional)</label>
-                <input class="form-control" data-datetime data-min-date="0" name="displayAt" type="text" value="{{news.displayAt}}"/>
+                <input class="form-control" data-datetime data-min-date="0" data-testid="dateToBeDisplayed" name="displayAt" type="text" value="{{news.displayAt}}"/>
             </div>
 
             <div class="modal-footer">
@@ -54,7 +54,7 @@
                     {{closeLabel}}
                 </button>
 
-                <button type="submit" class="btn btn-primary btn-submit">
+                <button type="submit" data-testid="submitNews-Btn" class="btn btn-primary btn-submit">
                     {{submitLabel}}
                 </button>
             </div>
