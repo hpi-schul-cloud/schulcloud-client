@@ -1,6 +1,6 @@
 <section id="loginarea" class="card">
     <div class="card-block" data-step="2" data-intro="Wenn Ihre Schule bereits über {{theme.title}}-Accounts verfügt, dann können Sie sich hier mit Ihren persönlichen Anmeldedaten einloggen. (Fokus “normaler” Login)">
-        <h2 class="h4 card-title">Anmelden</h2>
+        <h2 class="h4 card-title">Anmeldung für registrierte Nutzer</h2>
         <div class="card-text form-wrapper">
             {{> "lib/components/notification"}}
 
@@ -21,6 +21,7 @@
                 <div class="login-providers">
                     <div class="form-group ">
                         <select name="schoolId" class="school search-enabled" data-placeholder="Schule">
+							<option selected disabled></option>
                             {{#each schools}}
                                 <option value="{{this._id}}">{{this.name}}</option>
 							{{else}}
