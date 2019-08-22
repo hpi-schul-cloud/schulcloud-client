@@ -17,14 +17,7 @@ const detectIE = (req) => {
 };
 
 const resetThemeForPrivacyDocuments = async (req, res) => {
-	let schoolId;
-	try {
-		const Klass = await api(req).get(`classes/${req.params.classOrSchoolId}`);
-		({ schoolId } = Klass);
-	} catch (err) {
-		schoolId = req.params.classOrSchoolId;
-	}
-	res.locals.currentSchoolData = await api(req).get(`schools/${schoolId}`);
+	res.locals.currentSchoolData = await api(req).get(`registrationSchool/${req.params.classOrSchoolId}`);
 	setTheme(res);
 };
 
