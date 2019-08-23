@@ -88,7 +88,15 @@ router.get('/faq/documents', async (req, res, next) => {
 		return res.redirect('/help');
 	}
 
-	const documents = await api(req).get('/help/documents/', { qs: { theme: res.locals.theme.name } });
+	const documents = await api(req)
+		.get('/help/documents/', { qs: { theme: res.locals.theme.name } })
+		.catch(() => {
+			req.session.notification = {
+				type: 'danger',
+				message: 'Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support.',
+			};
+			return res.redirect('/help');
+		});
 
 	return res.render('help/accordion-sections', {
 		title: 'Willkommens-Dokumente zum Download',
