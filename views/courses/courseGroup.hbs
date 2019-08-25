@@ -34,7 +34,7 @@
 			<div class="col-sm-12 col-md-12">
 				{{#unless course.isArchived}}
 					<a href="/courses/{{courseId}}/topics/add?courseGroup={{_id}}"
-						class="btn btn-secondary btn-sm pull-right ml-1" title="Thema hinzufügen">
+						class="btn btn-primary btn-sm pull-right ml-1" title="Thema hinzufügen">
 						<i class="fa fa-plus" aria-hidden="true"></i>
 						<span class="hidden-lg-down">Thema hinzufügen</span>
 					</a>
@@ -124,11 +124,11 @@
 		{{#unless course.isArchived}}
 			<div class="row padding-top">
 				<div class="col-sm-12 col-md-12">
-					<a href="/courses/{{courseId}}/groups/{{_id}}/edit" class="btn btn-add btn-primary">Schülergruppe
+					<a href="/courses/{{courseId}}/groups/{{_id}}/edit" class="btn btn-add btn-primary"><i class="fa fa-edit"></i> Schülergruppe
 						bearbeiten</a>
 					<a href="/courses/{{courseId}}/groups/{{_id}}" class="btn btn-delete-course btn-secondary"
 						target="_blank" data-method="DELETE" data-name="{{../name}}"
-						redirect="/courses/{{courseId}}/?activeTab=groups">Schülergruppe löschen</a>
+						redirect="/courses/{{courseId}}/?activeTab=groups"><i class="fa fa-trash-o"></i> Schülergruppe löschen</a>
 				</div>
 			</div>
 		{{/unless}}
