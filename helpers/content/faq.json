@@ -1,14 +1,4 @@
 {
-  "people": [
-    {
-      "title": "LISUM",
-      "content": "Das Landesinstitut für Schule und Medien Berlin-Brandenburg (LISUM) steht für alle nicht-technischen Fragen rund um die Schul-Cloud Brandenburg bereit und ist unter folgender E-Mail-Adresse erreichbar:<br><a href='mailto:schul-cloud@bildungsserver.berlin-brandenburg.de' target='blank' rel='noopener'>schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
-    },
-    {
-      "title": "HPI",
-	  "content": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung dient folgende E-Mail-Adresse als erster Anlaufpunkt:<br><a href='mailto:feedback@schul-cloud.org' target='blank' rel='noopener'>feedback@schul-cloud.org</a>"
-    }
-  ],
   "documents": [
     {
       "title": "Allgemeines",
