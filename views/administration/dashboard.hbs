@@ -16,7 +16,7 @@
                         {{#userHasPermission 'STUDENT_CREATE'}}
                             <div class="row card-deck-row">
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="card h-100 teacher-option" onclick="location.href='/administration/students'">
+                                    <div class="card h-100 teacher-option" data-testid="administrateStudents" onclick="location.href='/administration/students'">
                                         <div class="card-block homework">
                                             <div class="card-text">
                                                 <h2 class="h4"><i class="fa fa-odnoklassniki"></i> Schüler verwalten</h2>
@@ -26,7 +26,7 @@
                                 </div>
 
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="card h-100 teacher-option" onclick="location.href='/administration/teachers/'">
+                                    <div class="card h-100 teacher-option" data-testid="administrateTeachers" onclick="location.href='/administration/teachers/'">
                                         <div class="card-block homework">
                                             <div class="card-text">
                                                 <h2 class="h4"><i class="fa fa-user"></i> Lehrer verwalten</h2>
@@ -37,7 +37,7 @@
 
                                 {{#userHasPermission 'ADMIN_VIEW'}}
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="card h-100 teacher-option" onclick="location.href='/administration/courses/'">
+                                        <div class="card h-100 teacher-option" data-testid="administrateCourses" onclick="location.href='/administration/courses/'">
                                             <div class="card-block homework">
                                                 <div class="card-text">
                                                     <h2 class="h4"><i class="fa fa-graduation-cap"></i> Kurse verwalten</h2>
@@ -47,7 +47,7 @@
                                     </div>
                                 {{/userHasPermission}}
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="card h-100 teacher-option" onclick="location.href='/administration/classes/'">
+                                        <div class="card h-100 teacher-option" data-testid="administrateClasses" onclick="location.href='/administration/classes/'">
                                             <div class="card-block homework">
                                                 <div class="card-text">
                                                     <h2 class="h4"><i class="fa fa-users"></i> Klassen verwalten</h2>
