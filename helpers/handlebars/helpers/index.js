@@ -221,6 +221,7 @@ module.exports = {
 		return (`${fileSize} ${unit}`);
 	},
 	json: data => JSON.stringify(data),
+	jsonParse: data => JSON.parse(data),
 	times: (n, block) => {
 		let accum = '';
 		for (let i = 0; i < n; ++i) {
