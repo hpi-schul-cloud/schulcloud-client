@@ -1,20 +1,35 @@
 {{#ifneq @root.SENTRY_DSN false}}
 <script src="/vendor-optimized/@sentry/browser/build/bundle.min.js"></script>
+<script src="/vendor-optimized/@sentry/integrations/build/captureconsole.js"></script>
 <script>
-	Sentry.init({ 
+	function removeIds(url) {
+		var checkForHexRegExp = /^[a-f\d]{24}$/ig
+		return url.replace(checkForHexRegExp, 'ID');
+	}
+	Sentry.init({
 		dsn: "{{@root.SENTRY_DSN}}",
-		environment:  "{{@root.env}}",
+		environment: "{{@root.domain}}",
 		release: "{{@root.version}}",
+		integrations: [
+			new Sentry.Integrations.CaptureConsole()
+		],
+		beforeSend(event) {
+			if (event.request && event.request.url) {
+				event.request.url = removeIds(event.request.url);
+			}
+		},
 	});
-	Sentry.configureScope((scope)=>{
-		scope.setLevel('warning');
-		{{#if @root.currentUser}}
-		scope.setUser({ "id": "{{@root.currentUser._id}}" });
-		{{/if}}
-		scope.setTag("frontend", true);
-		scope.setTag("domain","{{@root.domain}}");
-		scope.setTag("theme","{{@root.theme.short_title}}");
-		scope.setTag("sha","{{@root.sha}}");
-	});
+	Sentry.configureScope((scope) => {
+		scope.setLevel('warn');
+		{ { #if @root.currentUser } }
+		scope.setTag({ "schoolId": "{{@root.currentUser.schoolId}}" });
+		{
+			{
+				/if}}
+				scope.setTag("frontend", true);
+				scope.setTag("theme", "{{@root.theme.short_title}}");
+				scope.setTag("sha", "{{@root.sha}}");
+				scope.setTag("env", "{{@root.env}}");
+			});
 </script>
 {{/ifneq}}

@@ -21,6 +21,11 @@ if (process.env.SENTRY_DSN) {
 		dsn: process.env.SENTRY_DSN,
 		environment: app.get('env'),
 		release: version,
+		integrations: [
+			new Sentry.Integrations.Console({
+				loglevel: ['warning'],
+			}),
+		],
 	});
 	Sentry.configureScope((scope) => {
 		scope.setTag('frontend', false);
@@ -29,7 +34,6 @@ if (process.env.SENTRY_DSN) {
 		scope.setTag('sha', sha);
 	});
 	app.use(Sentry.Handlers.requestHandler());
-	app.use(Sentry.Handlers.errorHandler());
 }
 
 // template stuff
@@ -104,6 +108,10 @@ const defaultBaseDir = (req, res) => {
 
 const defaultDocuments = require('./helpers/content/documents.json');
 
+function removeIds(url) {
+	const checkForHexRegExp = /^[a-f\d]{24}$/ig;
+	return url.replace(checkForHexRegExp, 'ID');
+}
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
@@ -117,9 +125,13 @@ app.use(async (req, res, next) => {
 	} else {
 		res.locals.currentUser = req.session.currentUser;
 	}
-	if (res.locals.currentUser && process.env.SENTRY_DSN) {
+	if (process.env.SENTRY_DSN) {
 		Sentry.configureScope((scope) => {
-			scope.setUser({ id: res.locals.currentUser._id });
+			if (res.locals.currentUser) {
+				scope.setTag({ schoolId: res.locals.currentUser.schoolId });
+			}
+			const { url, header } = req;
+			scope.request = { url: removeIds(url), header };
 		});
 	}
 	// if there's a flash message in the session request, make it available in the response, then delete it
@@ -165,6 +177,9 @@ app.use(require('./controllers/'));
 app.get('/', (req, res, next) => {
 	res.redirect('/login/');
 });
+
+// sentry error handler
+app.use(Sentry.Handlers.errorHandler());
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

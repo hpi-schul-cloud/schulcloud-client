@@ -8,7 +8,9 @@
 		"views",
 		"theme",
 		"controllers",
-		"helpers"
+		"helpers",
+		"config",
+		"app.js"
 	],
 	"exec": "node ./bin/www",
 	"ext": "js, hbs, json",
