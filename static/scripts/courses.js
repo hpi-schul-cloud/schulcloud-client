@@ -10,9 +10,10 @@ $(document).ready(function () {
         var $hiddenToggleBtn = $(this);
         var $hiddenToggleIcon = $(this).find('.fa');
         var $card = $(this).closest('.card');
+        const href = $(this).attr('href');
         $.ajax({
             method: 'PATCH',
-            url: window.location.href + '/topics/' + $(this).attr('href') + '?json=true',
+            url: `${href}?json=true`,
             data: {hidden: !$hiddenToggleIcon.hasClass('fa-eye-slash')},
             success: function(result) {
                 if (result.hidden) {
