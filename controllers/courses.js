@@ -559,18 +559,6 @@ router.get('/:courseId/json', (req, res, next) => {
 		.catch(next);
 });
 
-router.get('/:courseId/usersJson', (req, res, next) => {
-	Promise.all([
-		api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: ['userIds'],
-			},
-		}),
-	])
-		.then(([course]) => res.json({ course }))
-		.catch(next);
-});
-
 // EDITOR
 
 router.get('/:courseId/', (req, res, next) => {
