@@ -109,17 +109,7 @@ const editCourseHandler = (req, res, next) => {
 	if (req.params.courseId) {
 		action = `/courses/${req.params.courseId}`;
 		method = 'patch';
-		coursePromise = api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: [
-					'ltiToolIds',
-					'classIds',
-					'teacherIds',
-					'userIds',
-					'substitutionIds',
-				],
-			},
-		});
+		coursePromise = api(req).get(`/courses/${req.params.courseId}`);
 	} else {
 		action = '/courses/';
 		method = 'post';
@@ -262,17 +252,7 @@ const copyCourseHandler = (req, res, next) => {
 	if (req.params.courseId) {
 		action = `/courses/copy/${req.params.courseId}`;
 		method = 'post';
-		coursePromise = api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: [
-					'ltiToolIds',
-					'classIds',
-					'teacherIds',
-					'userIds',
-					'substitutionIds',
-				],
-			},
-		});
+		coursePromise = api(req).get(`/courses/${req.params.courseId}`);
 	} else {
 		action = '/courses/copy';
 		method = 'post';
@@ -544,11 +524,7 @@ router.get('/add/', editCourseHandler);
 
 router.get('/:courseId/json', (req, res, next) => {
 	Promise.all([
-		api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: ['ltiToolIds'],
-			},
-		}),
+		api(req).get(`/courses/${req.params.courseId}`),
 		api(req).get('/lessons/', {
 			qs: {
 				courseId: req.params.courseId,
@@ -563,11 +539,7 @@ router.get('/:courseId/json', (req, res, next) => {
 
 router.get('/:courseId/', (req, res, next) => {
 	Promise.all([
-		api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: ['ltiToolIds'],
-			},
-		}),
+		api(req).get(`/courses/${req.params.courseId}`),
 		api(req).get('/lessons/', {
 			qs: {
 				courseId: req.params.courseId,
