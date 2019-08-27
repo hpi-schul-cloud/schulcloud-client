@@ -155,8 +155,7 @@
 
 
 				<div class="form-group">
-					<label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch
-							hinzugefügt!)</small></label>
+					<label>Klasse(n) <br><small>Schüler der Klasse(n) erhalten automatisch Zugriff auf den Kurs.</small></label>
 
 					<select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen"
 						{{#if course.isArchived}}disabled{{/if}}>
@@ -178,8 +177,9 @@
 				</div>
 
 				<div class="form-group">
-					<label>Schüler / Teilnehmer</label>
-
+					<label>Weitere Schüler / Teilnehmer <br>
+					<small>Hier können Teilnehmer unabhängig von Klassen hinzugefügt werden. </small>
+					</label>
 					<select name="userIds[]" multiple data-placeholder="Schüler auswählen"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each students}}
