@@ -138,6 +138,11 @@ const editCourseHandler = (req, res, next) => {
 		coursePromise = Promise.resolve({});
 	}
 
+	if (req.query.redirectUrl) {
+		action += `?redirectUrl=${req.query.redirectUrl}`;
+	}
+
+
 	const classesPromise = api(req)
 		.get('/classes', {
 			qs: {
@@ -260,6 +265,7 @@ const editCourseHandler = (req, res, next) => {
 					_.map(course.substitutionIds, '_id'),
 				),
 				students: markSelected(students, _.map(course.userIds, '_id')),
+				redirectUrl: req.query.redirectUrl || '/courses',
 			});
 		}
 	});
@@ -673,6 +679,8 @@ router.get('/:courseId/', (req, res, next) => {
 });
 
 router.patch('/:courseId', (req, res, next) => {
+	const redirectUrl = req.query.redirectUrl || `/courses/${req.params.courseId}`;
+
 	// map course times to fit model
 	req.body.times = req.body.times || [];
 	req.body.times.forEach((time) => {
@@ -712,7 +720,7 @@ router.patch('/:courseId', (req, res, next) => {
 			})
 			.then((course) => {
 				createEventsForCourse(req, res, course).then(() => {
-					res.redirect(303, `/courses/${req.params.courseId}`);
+					res.redirect(303, redirectUrl);
 				});
 			}))
 		.catch(next);
