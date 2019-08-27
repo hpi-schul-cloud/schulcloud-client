@@ -91,9 +91,10 @@ $(document).ready(function () {
                 $( "#topic-list .card-topic" ).each(function(i) {
                     positions[($( this ).attr("data-topicId"))] = i;
                 });
+                const courseId = $( this ).attr("data-courseId");
                 $.ajax({
                     type: "PATCH",
-                    url: window.location.href + "/positions",
+                    url: `/courses/${courseId}/positions`,
                     data: positions
                 });
             },
