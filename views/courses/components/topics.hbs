@@ -32,7 +32,7 @@
 	<div class="col-sm-12">
 		<div class="list-group">
 			{{#if lessons}}
-				<div id="topic-list">
+				<div id="topic-list" data-courseId="{{@root._id}}">
 					{{#each lessons}}
 						{{#unless this.hidden}}
 							<!-- TOPIC IS NOT HIDDEN, teacher and student has access -->
