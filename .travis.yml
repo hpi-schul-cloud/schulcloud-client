@@ -23,11 +23,16 @@ before_install:
   # - sh -e /etc/init.d/xvfb start
   # - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
   # --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+  - export BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
+  - echo "client-branch $BRANCH_NAME"
   - mkdir -p schulcloud-client
   - mv !(schulcloud-client) schulcloud-client
   - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
+  - cd schulcloud-server && git checkout $BRANCH_NAME && echo "server-branch:" && git branch | grep \* | cut -d ' ' -f2 && cd ..
   - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
+  - cd docker-compose && git checkout $BRANCH_NAME && echo "compose-branch:" && git branch | grep \* | cut -d ' ' -f2 && cd ..
   - git clone https://github.com/schul-cloud/integration-tests.git integration-tests
+  - cd integration-tests && git checkout $BRANCH_NAME && echo "integration-branch:" && git branch | grep \* | cut -d ' ' -f2 && cd ..
 install:
   - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
   - cd schulcloud-client && npm ci && cd .. # client packages are needed for mocha
