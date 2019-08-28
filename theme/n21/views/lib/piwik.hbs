@@ -1,15 +1,18 @@
 <!-- Matomo for niedersachsen.cloud -->
 <script type="text/javascript">
-  var _paq = window._paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="https://open.hpi.de/piwik/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '19']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
+	var _paq = window._paq || [];
+	{{#if currentUser}}
+		_paq.push(['setCustomDimension', customDimensionId = 1, customDimensionValue = '{{currentSchoolData.name}}']);
+		_paq.push(['setCustomDimension', customDimensionId = 4, customDimensionValue = '{{currentUser.roles.0.name}}']);
+	{{/if}}
+	_paq.push(['trackPageView']);
+	_paq.push(['enableLinkTracking']);
+	(function() {
+		var u="https://open.hpi.de/piwik/";
+		_paq.push(['setTrackerUrl', u+'piwik.php']);
+		_paq.push(['setSiteId', '19']);
+		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+	})();
 </script>
 <!-- End Matomo Code -->
