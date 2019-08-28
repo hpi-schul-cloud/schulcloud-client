@@ -44,7 +44,7 @@ const accessControlHeadersForRoute = (path, regexs) => {
 };
 
 const cors = (req, res, next) => {
-	if (process.env.CORS === 'true') {
+	if (process.env.CORS) {
 		try {
 			// Content-Security-Policy
 			const { corsDefault, corsSiteSpecific } = contentSecurityPolicy;
