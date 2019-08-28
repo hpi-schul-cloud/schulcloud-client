@@ -23,7 +23,7 @@ if (!window.datetimepicker) {
 				onChangeDateTime: triggerInputEvent,
 				scrollMonth: true, 
 				scrollTime: false, 
-				scrollInput: false
+				scrollInput: false,
 			};
 		}
 
