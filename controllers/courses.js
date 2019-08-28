@@ -360,7 +360,7 @@ const enrichCourse = (course) => {
 	course.content = (course.description || '').substr(0, 140);
 	course.secondaryTitle = '';
 	course.background = course.color;
-	course.memberAmount = course.userIds.length;
+	course.memberAmount = course.memberIds.length;
 	(course.times || []).forEach((time) => {
 		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
