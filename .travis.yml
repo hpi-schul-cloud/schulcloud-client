@@ -16,7 +16,8 @@ env:
     - PUBLIC_BACKEND_URL=https://api.schul-cloud.org
     - FEATURE_TEAMS_ENABLED=true
     - IT_CLIENT_HOST=client
-	- BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
+	#- BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
+	- BRANCH_NAME=master
 before_install:
   - openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
   - echo $BRANCH_NAME
