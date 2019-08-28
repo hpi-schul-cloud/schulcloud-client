@@ -1,0 +1,36 @@
+{{#extend "lib/default"}} {{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/authentication/home.css" /> {{/content}} {{#content "scripts" mode="append"}}
+<script src="/scripts/login.js" type="text/javascript" defer></script>
+{{/content}} {{#content "body"}} {{#embed "lib/header" hideMenu=true}}{{/embed}}
+<div class="container">
+    <div class="row">
+        <main class="col-md-8">
+            <div class="hidden-md-up">
+                {{> "authentication/forms/login"}} {{> "authentication/forms/demo-login"}}
+            </div>
+
+            <section class="card">
+                <div class="card-block">
+                    <h4>Herzlich willkommen bei der Thüringer Schul-Cloud!</h4>
+                </div>
+            </section>
+        </main>
+
+		<aside class="col-md-4">
+            {{> "authentication/forms/login"}}
+
+			<section id="partner" class="card">
+				<div class="card-block">
+					<h4 class="card-title">Projektdurchführung</h4>
+					<div class="card-text partner-img">
+						<a href="https://hpi.de/open-campus/hpi-initiativen/schul-cloud.html" target="_blank" rel="noopener">
+							<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/hpi-logo.jpg" alt="Logo HPI" class="img-fluid">
+						</a>
+					</div>
+				</div>
+			</section>
+        </aside>
+    </div>
+</div>
+{{#embed "lib/extended_footer"}}{{/embed}} {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
+{{#content "fields"}} {{> "authentication/forms/pwrecovery"}} {{/content}} {{/embed}} {{/content}} {{/extend}}
