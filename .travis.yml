@@ -1,11 +1,11 @@
 language: node_js
 node_js: '10'
 sudo: required
-# branches:
-#   only:
-#     - develop
-#     - master
-#     - /^(?i:release|hotfix).*$/
+branches:
+  only:
+    - develop
+    - master
+    - /^(?i:release|hotfix).*$/
 services:
   - docker
 env:
