@@ -32,18 +32,13 @@ const editCourseGroupHandler = (req, res, next) => {
         courseGroupPromise = Promise.resolve({});
     }
 
-    const coursePromise = api(req).get('/courses/' + courseId, {
-        qs: {
-            $populate: ['userIds']
-        }
-    });
+    const coursePromise = api(req).get('/courses/' + courseId);
 
     Promise.all([
         courseGroupPromise,
         coursePromise
     ]).then(([courseGroup, course]) => {
-        let students = course.userIds.filter(s => s.schoolId === res.locals.currentSchool);
-        _.each(students, s => s.displayName = `${s.firstName} ${s.lastName}`);
+        let students = course.members;
 
         // if not a teacher, automatically add student to group, just when adding courseGroups
         if (!permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') && !courseGroupId) {

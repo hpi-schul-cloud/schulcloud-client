@@ -34,11 +34,7 @@
                     <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
                         {{#each students}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                {{#if this.displayName}}
-                                    {{this.displayName}}
-                                {{else}}
-                                    {{this.firstName}} {{this.lastName}}
-                                {{/if}}
+                                {{this.fullName}}
                             </option>
                         {{/each}}
                     </select>
