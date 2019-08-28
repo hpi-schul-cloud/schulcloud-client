@@ -20,19 +20,23 @@ env:
 before_install:
   - openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
   - echo $BRANCH_NAME
+  # move client into subdirectory
   - mkdir -p schulcloud-client
   - mv !(schulcloud-client) schulcloud-client
+  # clone other required repositories and try to switch to branch with same name as current one
   - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
-  - cd schulcloud-server && git checkout $BRANCH_NAME || true && echo "server-branch:" && git branch | grep \* | cut -d ' ' -f2 && cd ..
+  - sh ./test/switch_branch.sh "schulcloud-server" $BRANCH_NAME
   - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
-  - cd docker-compose && git checkout $BRANCH_NAME || true && echo "compose-branch:" && git branch | grep \* | cut -d ' ' -f2 && cd ..
+  - sh ./test/switch_branch.sh "docker-compose" $BRANCH_NAME
   - git clone https://github.com/schul-cloud/integration-tests.git integration-tests
-  - cd integration-tests && git checkout $BRANCH_NAME || true && echo "integration-branch:" && git branch | grep \* | cut -d ' ' -f2 && cd ..
+  - sh ./test/switch_branch.sh "integration-tests" $BRANCH_NAME
 install:
-  - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
-  - cd schulcloud-client && npm ci && cd .. # client packages are needed for mocha
+  # client packages are needed for mocha
+  - cd schulcloud-client && npm ci && cd ..
+  # dependencies for integration tests
+  - docker-compose -f docker-compose/docker-compose.integration-test.yml up -d
   - cd integration-tests && npm ci && cd ..
-  - cd schulcloud-server && npm run setup && cd ..
+  - cd schulcloud-server && npm run setup && cd .. # initially seed database
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
