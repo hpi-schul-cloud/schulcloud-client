@@ -45,9 +45,8 @@ script:
 cache:
   directories:
     - "$HOME/.npm" # cache all packages installed with "npm ci"
-# deploy:
-#   provider: script
-#   script: bash ./deploy.sh
-#   on:
-#     all_branches: true
-#     # condition: "$TRAVIS_BRANCH =~ ^master|N21/merge$"
+deploy:
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    all_branches: true
