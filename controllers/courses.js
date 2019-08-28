@@ -246,7 +246,7 @@ const editCourseHandler = (req, res, next) => {
 				redirectUrl: req.query.redirectUrl || '/courses',
 			});
 		}
-	});
+	}).catch(next);
 };
 
 const sameId = (id1, id2) => id1.toString() === id2.toString();
