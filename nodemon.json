@@ -8,7 +8,8 @@
 		"views",
 		"theme",
 		"controllers",
-		"helpers"
+		"helpers",
+		"config"
 	],
 	"exec": "node ./bin/www",
 	"ext": "js, hbs, json",

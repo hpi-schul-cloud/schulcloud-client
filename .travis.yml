@@ -16,40 +16,42 @@ env:
     - PUBLIC_BACKEND_URL=https://api.schul-cloud.org
     - FEATURE_TEAMS_ENABLED=true
     - IT_CLIENT_HOST=client
+    - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 before_install:
   - openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
-  # TODO ask @falko what is this doing and for what?
-  # - export DISPLAY=:99.0
-  # - sh -e /etc/init.d/xvfb start
-  # - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
-  # --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+  - echo $BRANCH_NAME
+  # move client into subdirectory
   - mkdir -p schulcloud-client
   - mv !(schulcloud-client) schulcloud-client
+  # clone other required repositories and try to switch to branch with same name as current one
   - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
+  - sh ./schulcloud-client/test/switch_branch.sh "schulcloud-server" $BRANCH_NAME
   - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
-  - git clone https://github.com/schul-cloud/integration-tests.git integration-tests
+  - sh ./schulcloud-client/test/switch_branch.sh "docker-compose" $BRANCH_NAME
+  # TODO remove branch (-b hotfix-travis) from next line
+  - git clone -b hotfix-travis https://github.com/schul-cloud/integration-tests.git integration-tests
+  - sh ./schulcloud-client/test/switch_branch.sh "integration-tests" $BRANCH_NAME
 install:
-  - cd docker-compose && docker-compose -f docker-compose.integration-test.yml up -d && cd ..
-  - cd schulcloud-client && npm ci && cd .. # client packages are needed for mocha
+  # boot servers for integration tests
+  - cd docker-compose
+  - docker-compose -f docker-compose.integration-test-Build.yml build
+  - docker-compose -f docker-compose.integration-test-Build.yml up -d
+  - cd ..
+  # client packages are needed for mocha
+  - cd schulcloud-client && npm ci && cd ..
+  # dependencies for integration tests
   - cd integration-tests && npm ci && cd ..
-  - cd schulcloud-server && npm run setup && cd ..
+  - cd schulcloud-server && npm run setup && cd .. # initially seed database
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
   - cd schulcloud-client && npm run mocha && cd ..
-  # early report status
-  # I don't think we need it, the tests are fast, the setup is slow
-  # - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
-  # else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
-  # run integration tests
   - cd integration-tests && npm run all && cd ..
 cache:
   directories:
-    - schulcloud-client/node_modules
-    - integration-tests/node_modules
+    - "$HOME/.npm" # cache all packages installed with "npm ci"
 deploy:
   provider: script
   script: bash ./deploy.sh
   on:
     all_branches: true
-    # condition: "$TRAVIS_BRANCH =~ ^master|N21/merge$"

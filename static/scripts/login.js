@@ -1,6 +1,15 @@
 /* global introJs */
 $(document).ready(function() {
 
+	// reset localStorage when new version is Published
+	const newVersion = 1;
+	const currentVersion = parseInt(localStorage.getItem('homepageVersion') || '0', 10);
+
+	if(currentVersion < newVersion){
+		localStorage.clear();
+		localStorage.setItem('homepageVersion', newVersion.toString());
+	}
+
 	try {
 		console.log(`
 	__  __  ____    ______      _____           __               ___            _____   ___                       __
@@ -11,7 +20,7 @@ $(document).ready(function() {
 	  \\ \\_\\ \\_\\ \\_\\    /\\_____\\   \\ \`\\____\\ \\____\\\\ \\_\\ \\_\\ \\____/ /\\____\\/_____/ \\ \\____//\\____\\ \\____/\\ \\____/\\ \\___,_\\
 	   \\/_/\\/_/\\/_/    \\/_____/    \\/_____/\\/____/ \\/_/\\/_/\\/___/  \\/____/         \\/___/ \\/____/\\/___/  \\/___/  \\/__,_ /
 	`);
-		console.log("   Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs");
+		console.log("Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs");
 	} catch(e) {
 		// no log
 	}
