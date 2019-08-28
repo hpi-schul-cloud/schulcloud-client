@@ -133,9 +133,9 @@
                       </div>
                   </div>
 
-                  <span class="new-course-time-add" data-timesref="#timesContainer">
+                  <button class="new-course-time-add btn-link" data-timesref="#timesContainer" type="button">
                       <i class="fa fa-plus-circle fa-6"></i> Schulstundentermin im Stundenplan anlegen (optional)
-                  </span>
+                  </button>
                   <table width="100%" cellpadding="5px" class="course-times-table">
                       <thead>
                         <th></th>
@@ -146,9 +146,14 @@
                       </thead>
                       <tbody class="add-course-times">
                           {{#each course.times}}
-                              <tr id="{{this._id}}" class="course-time">
-                                  <td><i class="fa fa-trash-o course-time-delete" href={{this._id}}></i></td>
-                                  <td>
+                              <tr class="course-time" id="{{this._id}}">
+								<td>
+									<button class="btn-link course-time-delete" type="button" data-id="{{this._id}}"
+										{{#if @root.course.isArchived}}disabled{{/if}}>
+										<i class="fa fa-trash-o"></i>
+									</button>
+								</td>
+								<td>
                                       <select class="form-control" name="times[{{this.count}}][weekday]" type="text">
                                           <option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>Montag</option>
                                           <option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>Dienstag</option>
@@ -246,7 +251,7 @@
 
               <div class="pull-right">
                 <a class="btn btn-secondary" href="/courses/add">Einen weiteren Kurs anlegen</a>
-                <a class="btn btn-primary" data-testid="preshowButton" id= "preshow" href="/courses/">Zur Kursübersicht</a>
+                <a class="btn btn-primary" data-testid="preshowButton" href="{{redirectUrl}}">Zur Kursübersicht</a>
               </div>
             </section>
 

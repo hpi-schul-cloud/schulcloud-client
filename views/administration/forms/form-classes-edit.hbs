@@ -99,8 +99,8 @@
 	<a class="btn btn-secondary btn-cancel">Abbrechen</a>
 	{{#unless edit}}
 		<button class="btn btn-primary" type="submit" disabled>Klasse hinzufügen</button>
-		{{#userHasPermission 'ADMIN_VIEW'}}
 	{{else}}
+		{{#userHasPermission 'ADMIN_VIEW'}}
 		<p>Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.</p>
 		{{/userHasPermission}}
 	{{else}}
