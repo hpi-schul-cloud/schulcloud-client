@@ -31,10 +31,11 @@ before_install:
   - git clone https://github.com/schul-cloud/integration-tests.git integration-tests
   - sh ./schulcloud-client/test/switch_branch.sh "integration-tests" $BRANCH_NAME
 install:
+  # boot servers for integration tests
+  - docker-compose -f docker-compose/docker-compose.integration-test-Build.yml up -d
   # client packages are needed for mocha
   - cd schulcloud-client && npm ci && cd ..
   # dependencies for integration tests
-  - docker-compose -f docker-compose/docker-compose.integration-test-Build.yml up -d
   - cd integration-tests && npm ci && cd ..
   - cd schulcloud-server && npm run setup && cd .. # initially seed database
 script:
