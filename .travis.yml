@@ -42,10 +42,9 @@ script:
   - echo $TRAVIS_TAG
   - cd schulcloud-client && npm run mocha && cd ..
   - cd integration-tests && npm run all && cd ..
-# cache:
-#   directories:
-#     - schulcloud-client/node_modules
-#     - integration-tests/node_modules
+cache:
+  directories:
+    - "$HOME/.npm" # cache all packages installed with "npm ci"
 # deploy:
 #   provider: script
 #   script: bash ./deploy.sh
