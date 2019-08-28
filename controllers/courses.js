@@ -250,7 +250,7 @@ const editCourseHandler = (req, res, next) => {
 				students: markSelected(students, _.map(course.userIds, '_id')),
 			});
 		}
-	});
+	}).catch(next);
 };
 
 const sameId = (id1, id2) => id1.toString() === id2.toString();
