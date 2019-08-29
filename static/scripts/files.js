@@ -145,6 +145,7 @@ $(document).ready(() => {
 				});
 			},
 			createImageThumbnails: false,
+			maxFilesize: 1024,
 			method: 'put',
 			init() {
 				// this is called on per-file basis
