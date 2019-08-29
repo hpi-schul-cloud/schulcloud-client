@@ -169,14 +169,15 @@ router.get('/', async (req, res, next) => {
 	return res.render('firstLogin/firstLogin', renderObject);
 });
 
-// submit & error handling
 router.get('/existing', (req, res, next) => {
 	res.render('firstLogin/firstLoginExistingUser', {
 		title: 'Willkommen - Erster Login für bestehende Nutzer',
 		hideMenu: true,
+		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	});
 });
 
+// submit & error handling
 router.get('/consentError', (req, res, next) => {
 	res.render('firstLogin/consentError');
 });
