@@ -1,4 +1,5 @@
 $primaryColor: #185888;
+$primaryColorTransparent: rgba(24,88,136,.15);
 $primaryColorLight: #5284b8;
 $primaryColorDark: #002f5b;
 $secondaryColor: #f56b00;
@@ -23,5 +24,23 @@ aside.nav-sidebar{
 
     ul li a:not(.sc-branding).active {
         color: $primaryColorDark;
+        background: $primaryColorTransparent;
     }
+}
+
+.timetable {
+    .timeline {
+        .current-time {
+            &:before {
+                background: $secondaryColor !important;
+            }
+            span {
+                color: $secondaryColor !important;
+            }
+        }
+    }
+}
+
+.navbar-nav .btn-avatar .dropdown-toggle .avatar-circle {
+    background-color: $primaryColor;
 }

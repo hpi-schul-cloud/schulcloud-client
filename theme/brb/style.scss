@@ -81,11 +81,13 @@ body {
 
 .timetable {
     .timeline {
-        &:before {
-            background: $secondaryColor;
-        }
-        span {
-            background: $secondaryColor;
+        .current-time {
+            &:before {
+                background: $secondaryColor;
+            }
+            span {
+                color: $secondaryColor;
+            }
         }
     }
 }
