@@ -21,8 +21,8 @@ if (!window.datetimepicker) {
 				maxDate: (input.dataset.maxDate), // default: unlimited maximum date
 				inline: (input.dataset.inline == 'true'),
 				onChangeDateTime: triggerInputEvent,
-				scrollMonth: true, 
-				scrollTime: false, 
+				scrollMonth: false,
+				scrollTime: false,
 				scrollInput: false,
 			};
 		}
