@@ -21,7 +21,6 @@ if (!window.datetimepicker) {
 				maxDate: (input.dataset.maxDate), // default: unlimited maximum date
 				inline: (input.dataset.inline == 'true'),
 				onChangeDateTime: triggerInputEvent,
-				
 			};
 		}
 
@@ -33,7 +32,7 @@ if (!window.datetimepicker) {
 				scrollMonth: false,
 				scrollTime: false,
 				scrollInput: false,
-			})
+			});
 			input.setAttribute('autocomplete', 'off');
 			if (input.hasAttribute('required')) {
 				const dateRegex = '(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.((?:19|20)\\d{2})';
