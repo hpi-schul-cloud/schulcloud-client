@@ -9,16 +9,22 @@ export default function printQRs(items) {
 		font-size: 10px; color: #555; min-height: 26px; margin: 8px 0 0; text-align: center; word-break: break-all;
 	}
 	</style>`);
-	items.forEach((item, index) => {
-		// eslint-disable-next-line no-undef
-		const image = kjua({ text: item.href, render: 'image' });
-		w.document.write(`<div class="part">
-							<div class="image-wrapper" id="item-${index}"></div>
-							${item.title ? `<h4 class="title">${item.title}</h4>` : ''}
-							${item.description ? `<p class="description">${item.description}</p>` : ''}
-						</div>`);
-		w.document.querySelector(`#item-${index}`).appendChild(image.cloneNode(true));
-	});
+	if (items.length === 0) {
+		w.document.write('Keine Einträge zu drucken.');
+	} else {
+		items.forEach((item, index) => {
+			// eslint-disable-next-line no-undef
+			const image = kjua({ text: item.href, render: 'image' });
+			w.document.write(`<div class="part">
+			<div class="image-wrapper" id="item-${index}"></div>
+			${item.title ? `<h4 class="title">${item.title}</h4>` : ''}
+			${item.description ? `<p class="description">${item.description}</p>` : ''}
+			</div>`);
+			w.document
+				.querySelector(`#item-${index}`)
+				.appendChild(image.cloneNode(true));
+		});
+	}
 
 	w.document.close();
 	/* eventListener is needed to give the browser some rendering time for the image */
