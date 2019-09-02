@@ -1,0 +1,17 @@
+{
+	"ignore": [
+		".git",
+		"node_modules/**/node_modules"
+	],
+	"watch": [
+		"build",
+		"views",
+		"theme",
+		"controllers",
+		"helpers",
+		"config"
+	],
+	"exec": "node ./bin/www",
+	"ext": "js, hbs, json",
+	"delay": "2000"
+}

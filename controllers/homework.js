@@ -4,26 +4,16 @@
  */
 
 const express = require('express');
-const router = express.Router();
 const marked = require('marked');
+const handlebars = require('handlebars');
+const moment = require('moment');
+const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
-const handlebars = require("handlebars");
-const moment = require("moment");
-const _ = require("lodash");
-const winston = require('winston');
+const logger = require('../helpers/logger');
 
-const logger = winston.createLogger({
-    transports: [
-        new winston.transports.Console({
-            format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.simple()
-            )
-        })
-    ]
-});
+const router = express.Router();
 
 handlebars.registerHelper('ifvalue', function (conditional, options) {
     if (options.hash.value === conditional) {

@@ -727,38 +727,6 @@ const returnAdminPrefix = (roles) => {
 	return prefix;
 };
 
-// needed??
-// eslint-disable-next-line no-unused-vars
-const getClasses = (user, classes, teacher) => {
-	let userClasses = '';
-
-	if (teacher) {
-		// eslint-disable-next-line array-callback-return
-		classes.data.map((uClass) => {
-			if (uClass.teacherIds.includes(user._id)) {
-				if (userClasses !== '') {
-					userClasses = `${userClasses} , ${uClass.displayName}` || '';
-				} else {
-					userClasses = uClass.displayName || '';
-				}
-			}
-		});
-	} else {
-		// eslint-disable-next-line array-callback-return
-		classes.data.map((uClass) => {
-			if (uClass.userIds.includes(user._id)) {
-				if (userClasses !== '') {
-					userClasses = `${userClasses} , ${uClass.displayName}` || '';
-				} else {
-					userClasses = uClass.displayName || '';
-				}
-			}
-		});
-	}
-
-	return userClasses;
-};
-
 // with userId to accountId
 const userIdtoAccountIdUpdate = service => function useIdtoAccountId(req, res, next) {
 	api(req)
@@ -793,6 +761,8 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 			['firstName', 'Vorname'],
 			['lastName', 'Nachname'],
 			['email', 'E-Mail-Adresse'],
+			['class', 'Klasse(n)'],
+			['consent', 'Einwilligung'],
 			['createdAt', 'Erstelldatum'],
 		],
 		defaultSelection: defaultOrder || 'firstName',
@@ -1390,6 +1360,7 @@ router.all(
 						studentsWithoutConsentCount,
 						allStudentsCount: users.length,
 						years,
+						CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					});
 				} catch (err) {
 					logger.warn(
@@ -1453,7 +1424,8 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	const usersWithoutConsent = users.filter(consentMissing);
 	const usersWithIncompleteConsent = consents
 		.filter(consentIncomplete)
-		.map(c => c.userId);
+		// get full user object from users list
+		.map(c => users.find(user => user._id.toString() === c.userId._id.toString()));
 	return usersWithoutConsent.concat(usersWithIncompleteConsent);
 };
 
@@ -1597,6 +1569,7 @@ router.get(
 					hidePwChangeButton,
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
+					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 				});
 			})
 			.catch((err) => {
@@ -2184,6 +2157,10 @@ router.all(
 		};
 		query = Object.assign(query, filterQuery);
 
+		if (!res.locals.currentUser.permissions.includes('USERGROUP_FULL_ADMIN')) {
+			query.teacherIds = res.locals.currentUser._id.toString();
+		}
+
 		api(req)
 			.get('/classes', {
 				qs: query,
@@ -2472,9 +2449,20 @@ router.all('/courses', (req, res, next) => {
 					(item.classIds || []).map(item => item.displayName).join(', '),
 					// eslint-disable-next-line no-shadow
 					(item.teacherIds || []).map(item => item.lastName).join(', '),
-					getTableActions(item, '/administration/courses/').map(
-						action => action,
-					),
+					[
+						{
+							link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
+							icon: 'edit',
+							title: 'Eintrag bearbeiten',
+						},
+						{
+							link: `/administration/courses/${item._id}`,
+							class: 'btn-delete',
+							icon: 'trash-o',
+							method: 'delete',
+							title: 'Eintrag löschen',
+						},
+					],
 				]);
 
 				let sortQuery = '';

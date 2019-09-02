@@ -4,16 +4,35 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-
 const session = require('express-session');
-
-// template stuff
+const methodOverride = require('method-override');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
-const authHelper = require('./helpers/authentication');
 
 const app = express();
+
+// template stuff
+const authHelper = require('./helpers/authentication');
+
+// set custom response header for ha proxy
+if (process.env.KEEP_ALIVE) {
+	app.use((req, res, next) => {
+		res.setHeader('Connection', 'Keep-Alive');
+		next();
+	});
+}
+
+// set security headers
+const securityHeaders = require('./middleware/security_headers');
+
+app.use(securityHeaders);
+
+// set cors headers
+const cors = require('./middleware/cors');
+
+app.use(cors);
+
 app.use(compression());
 app.set('trust proxy', true);
 const themeName = process.env.SC_THEME || 'default';
@@ -53,25 +72,7 @@ app.use(session({
 	secret: 'secret',
 }));
 
-const defaultBaseDir = (req, res) => {
-	let dir = process.env.DOCUMENT_BASE_DIR || 'https://s3.hidrive.strato.com/schul-cloud-hpi/';
-	dir += `${themeName}/`;
-	if (themeName === 'open' && res.locals && res.locals.currentUser && res.locals.currentUser.schoolId) {
-		// fixme currentUser missing here (after login)
-		dir += `${res.locals.currentUser.schoolId}/`;
-	}
-	return dir;
-};
-
-const defaultDocuments = require('./helpers/content/documents.json');
-
-// set custom response header for ha proxy
-if (process.env.KEEP_ALIVE) {
-	app.use((req, res, next) => {
-		res.setHeader('Connection', 'Keep-Alive');
-		next();
-	});
-}
+const setTheme = require('./helpers/theme');
 
 
 // Custom flash middleware
@@ -79,35 +80,31 @@ app.use(async (req, res, next) => {
 	if (!req.session.currentUser) {
 		await authHelper.populateCurrentUser(req, res).then(() => {
 			if (res.locals.currentUser) { // user is authenticated
+				req.session.currentRole = res.locals.currentRole;
+				req.session.roleNames = res.locals.roleNames;
 				req.session.currentUser = res.locals.currentUser;
+				req.session.currentSchool = res.locals.currentSchool;
+				req.session.currentSchoolData = res.locals.currentSchoolData;
 				req.session.save();
 			}
 		});
 	} else {
+		res.locals.currentRole = req.session.currentRole;
+		res.locals.roleNames = req.session.roleNames;
 		res.locals.currentUser = req.session.currentUser;
+		res.locals.currentSchool = req.session.currentSchool;
+		res.locals.currentSchoolData = req.session.currentSchoolData;
 	}
 	// if there's a flash message in the session request, make it available in the response, then delete it
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
-	res.locals.theme = {
-		title: process.env.SC_TITLE || 'HPI Schul-Cloud',
-		short_title: process.env.SC_SHORT_TITLE || 'Schul-Cloud',
-		documents: Object.assign({}, {
-			baseDir: defaultBaseDir(req, res),
-			privacy: process.env.PRIVACY_DOCUMENT
-				|| 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
-			termsOfUse: process.env.TERMS_OF_USE_DOCUMENT
-				|| 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
-		}, defaultDocuments),
-		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
-	};
+	setTheme(res);
 	res.locals.domain = process.env.SC_DOMAIN || false;
 	res.locals.production = req.app.get('env') === 'production';
 	delete req.session.notification;
 	next();
 });
 
-const methodOverride = require('method-override');
 
 app.use(methodOverride('_method')); // for GET requests
 app.use(methodOverride((req, res, next) => { // for POST requests

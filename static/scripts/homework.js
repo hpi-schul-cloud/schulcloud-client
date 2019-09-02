@@ -265,7 +265,8 @@ $(document).ready(function() {
             })
             .fail(showAJAXError);
         },
-        createImageThumbnails: false,
+		createImageThumbnails: false,
+		maxFilesize: 1024,
         method: 'put',
         init: function () {
             // this is called on per-file basis
