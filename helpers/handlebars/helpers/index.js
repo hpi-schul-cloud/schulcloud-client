@@ -133,6 +133,9 @@ module.exports = {
 		}
 		return opts.inverse(this);
 	},
+	userHasRole: (role, opts) => {
+		return !!opts.data.local.currentUser.roles.find((r) => r.name === role);
+	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
 		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW') || !isNonOerContent) {
