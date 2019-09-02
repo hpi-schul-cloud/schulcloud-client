@@ -441,10 +441,6 @@ router.get('/', (req, res, next) => {
 				archivedCourses,
 			] = filterSubstitutionCourses(archived, userId);
 
-			const isStudent = res.locals.currentUser.roles.every(
-				role => role.name === 'student',
-			);
-
 			if (req.query.json) {
 				// !? for what is this? Should be direct request to api!?
 				res.json(active);
@@ -466,9 +462,7 @@ router.get('/', (req, res, next) => {
 					liveSearch: true,
 				});
 			} else {
-				res.render('courses/overview-empty', {
-					isStudent,
-				});
+				res.render('courses/overview-empty', {});
 			}
 		})
 		.catch((err) => {
