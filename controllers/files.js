@@ -172,8 +172,6 @@ const FileGetter = (req, res, next) => {
 
 	return Promise.all(promises)
 		.then(([role, result]) => {
-			const { data: [{ _id: studentRoleId }] } = role;
-
 			if (!Array.isArray(result) && result.code === 403) {
 				res.locals.files = { files: [], directories: [] };
 				logger.warn(result);
@@ -182,13 +180,6 @@ const FileGetter = (req, res, next) => {
 			}
 
 			const files = result.filter(f => f).map((file) => {
-				const studentPerm = file.permissions.find(perm => (perm.refId || '').toString() === studentRoleId);
-				if (studentPerm) {
-					Object.assign(file, {
-						studentCanEdit: studentPerm.write,
-					});
-				}
-
 				if (file.permissions[0].refId === userId) {
 					Object.assign(file, {
 						userIsOwner: true,
@@ -439,7 +430,6 @@ router.post('/newFile', (req, res, next) => {
 		type,
 		owner,
 		parent,
-		studentEdit,
 	} = req.body;
 
 	const fileName = name || 'Neue Datei';
@@ -447,7 +437,6 @@ router.post('/newFile', (req, res, next) => {
 	api(req).post('fileStorage/files/new', {
 		json: {
 			name: `${fileName}.${type}`,
-			studentCanEdit: studentEdit,
 			owner,
 			parent,
 		},
@@ -958,16 +947,5 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 			res.redirect(req.header('Referer'));
 		});
 });
-
-router.post('/studentCanEdit', (req, res, next) => {
-	api(req).patch(`/fileStorage/permission/${req.body.id}`, {
-		json: {
-			role: 'student',
-			write: req.body.bool,
-		},
-	})
-		.then(() => res.json({ success: true }));
-});
-
 
 module.exports = router;
