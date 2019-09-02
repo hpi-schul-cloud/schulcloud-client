@@ -1,0 +1,26 @@
+<div class="form-group">
+	<label>Schulname in WebUntis <sup>*</sup></label>
+	<input class="form-control" name="schoolname" type="text" placeholder="TODO" required />
+</div>
+
+<div class="form-group">
+	<label>WebUntis Nutzeraccount<sup>*</sup></label>
+	<input class="form-control" name="username" type="text" placeholder="TODO" required />
+</div>
+
+<div class="form-group">
+	<label>Passwort für Nutzeraccount <sup>*</sup></label>
+	<input class="form-control" name="password" type="text" placeholder="TODO" required />
+</div>
+
+<div class="form-group">
+	<label>Endpoint</label>
+	<input class="form-control" name="endpoint" type="text" placeholder="default: erato.webuntis.com" />
+</div>
+
+<div class="modal-footer mt-1">
+	<button class="btn btn-secondary btn-cancel">Abbrechen</button>
+	<button class="btn btn-primary" type="submit">Speichern</button>
+</div>
+
+{{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}

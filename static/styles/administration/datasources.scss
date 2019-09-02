@@ -1,0 +1,9 @@
+.card.card-tool{
+	&, &:hover{
+		text-decoration: none;
+	}
+	p{
+		color: initial;
+		margin: 0;
+	}
+}

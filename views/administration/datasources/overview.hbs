@@ -1,13 +1,17 @@
-{{#extend "administration/administration"}}
+{{#extend "lib/loggedin"}}
 	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/administration/datasources.css"/>
 	{{/content}}
 
 	{{#content "scripts" mode="append"}}
 	{{/content}}
 
 	{{#content "page"}}
-		<div class="route-administration">
-
-		</div>
+		<a href="/administration/datasources/webuntis" class="card card-block card-tool">
+			<h2 class="h5">WebUntis</h2>
+			<p>
+				TODO: Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+			</p>
+		</a>
 	{{/content}}
 {{/extend}}
