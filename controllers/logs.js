@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 
 const url = require('url');
 const crypto = require('crypto');
@@ -8,19 +7,11 @@ const ipaddr = require('ipaddr.js');
 const api = require('../api');
 const helper = require('../helpers/googleAnalytics');
 
-const winston = require('winston');
-const logger = winston.createLogger({
-    transports: [
-        new winston.transports.Console({
-            format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.simple()
-            )
-        })
-    ]
-});
+const logger = require('../helpers/logger');
 
 logger.info('Google Analytics Tracking ID: ' + process.env.SW_GOOGLE_ANALYTICS_TRACKING_ID);
+
+const router = express.Router();
 
 router.use(require('../helpers/authentication').authChecker);
 

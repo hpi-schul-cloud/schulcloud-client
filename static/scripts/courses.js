@@ -10,9 +10,10 @@ $(document).ready(function () {
         var $hiddenToggleBtn = $(this);
         var $hiddenToggleIcon = $(this).find('.fa');
         var $card = $(this).closest('.card');
+        const href = $(this).attr('href');
         $.ajax({
             method: 'PATCH',
-            url: window.location.href + '/topics/' + $(this).attr('href') + '?json=true',
+            url: `${href}?json=true`,
             data: {hidden: !$hiddenToggleIcon.hasClass('fa-eye-slash')},
             success: function(result) {
                 if (result.hidden) {
@@ -90,9 +91,10 @@ $(document).ready(function () {
                 $( "#topic-list .card-topic" ).each(function(i) {
                     positions[($( this ).attr("data-topicId"))] = i;
                 });
+                const courseId = $( this ).attr("data-courseId");
                 $.ajax({
                     type: "PATCH",
-                    url: window.location.href + "/positions",
+                    url: `/courses/${courseId}/positions`,
                     data: positions
                 });
             },

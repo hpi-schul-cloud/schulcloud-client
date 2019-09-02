@@ -967,6 +967,7 @@ class TopicNexboard extends TopicBlock {
                             data-placeholder="neXboard auswählen"
                             id={(this.state.id)}
                             value={(this.props.content || {}).board}>
+                        {(this.props.content || {}).board ? <option value={this.props.content.board}>NexBoard beibehalten</option> : ''}
                         <option value={this.state.newBoard} >Neues neXboard anlegen</option>
                     </select>
 				</div>
@@ -975,17 +976,6 @@ class TopicNexboard extends TopicBlock {
             </div>
         );
 	}
-	/** removed from nexboard plugin: select an existing nexboard from a dropdown containing all nexboards (ISC-66, SC-1789)
-	 * 
-		<optgroup label="Vorhandene Boards">
-			{this.state.boards.map(board =>
-				<option value={board.content.board}>{board.content.title}</option>
-			)}
-		</optgroup>
-		<optgroup label="Neues Board"> 
-			<option value={this.state.newBoard} >Neues neXboard anlegen</option>
-		</optgroup>
-	*/
 }
 
 /**
