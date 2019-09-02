@@ -2104,34 +2104,40 @@ router.delete(
 	},
 );
 
-const classFilterSettings = years => [
-	{
-		type: 'sort',
-		title: 'Sortierung',
-		displayTemplate: 'Sortieren nach: %1',
-		options: [['displayName', 'Klasse']],
-		defaultSelection: 'displayName',
-		defaultOrder: 'DESC',
-	},
-	{
-		type: 'limit',
-		title: 'Einträge pro Seite',
-		displayTemplate: 'Einträge pro Seite: %1',
-		options: [25, 50, 100],
-		defaultSelection: 25,
-	},
-	{
+const classFilterSettings = ({ years, currentYear }) => {
+	const yearFilter = {
 		type: 'select',
-		title: 'Jahrgang',
-		displayTemplate: 'Jahrgang: %1',
+		title: 'Schuljahr',
+		displayTemplate: 'Schuljahr: %1',
 		property: 'year',
 		multiple: true,
 		expanded: true,
 		options: years,
-	},
-];
+	};
+	if (currentYear) {
+		yearFilter.defaultSelection = currentYear;
+	}
+	return [
+		{
+			type: 'sort',
+			title: 'Sortierung',
+			displayTemplate: 'Sortieren nach: %1',
+			options: [['displayName', 'Klasse']],
+			defaultSelection: 'displayName',
+			defaultOrder: 'DESC',
+		},
+		yearFilter,
+		{
+			type: 'limit',
+			title: 'Einträge pro Seite',
+			displayTemplate: 'Einträge pro Seite: %1',
+			options: [25, 50, 100],
+			defaultSelection: 25,
+		},
+	];
+};
 
-router.all(
+router.get(
 	'/classes',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
 	(req, res, next) => {
@@ -2202,10 +2208,18 @@ router.all(
 					baseUrl: `/administration/classes/?p={{page}}${filterQueryString}`,
 				};
 
-				const years = (await api(req).get('/years')).data.map(year => [
+				const years = (await api(req).get('/years', {
+					qs: {
+						$sort: {
+							name: -1,
+						},
+					},
+				})).data.map(year => [
 					year._id,
 					year.name,
 				]);
+
+				const currentYear = res.locals.currentSchoolData.currentYear;
 
 				res.render('administration/classes', {
 					title: 'Administration: Klassen',
@@ -2213,7 +2227,7 @@ router.all(
 					body,
 					pagination,
 					limit: true,
-					filterSettings: JSON.stringify(classFilterSettings(years)),
+					filterSettings: JSON.stringify(classFilterSettings({ years, currentYear })),
 				});
 			});
 	},
