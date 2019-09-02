@@ -14,11 +14,7 @@
 	{{/content}}
 {{/embed}}
 
-{{#embed "help/icon-card" title="Erste Schritte" icon="fa-child" class="first-steps-card col-xs-12" id="erste_schritte"}}
-	{{#content "card-body"}}
-		{{> "help/icon-link-group" links=firstStepsItems link-class="col-sm-3"}}
-	{{/content}}
-{{/embed}}
+{{> "help/partials/help_first_steps"}}
 
 {{#each tutorials}}
 	{{#embed "help/icon-card" title=this.title icon=this.icon id=this.title class="col-md-6"}}

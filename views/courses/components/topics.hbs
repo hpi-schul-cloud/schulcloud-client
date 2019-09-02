@@ -32,7 +32,7 @@
 	<div class="col-sm-12">
 		<div class="list-group">
 			{{#if lessons}}
-				<div id="topic-list">
+				<div id="topic-list" data-courseId="{{@root._id}}">
 					{{#each lessons}}
 						{{#unless this.hidden}}
 							<!-- TOPIC IS NOT HIDDEN, teacher and student has access -->
@@ -46,7 +46,7 @@
 													<i class="fa fa-ellipsis-v"></i>
 													<i class="fa fa-ellipsis-v"></i>
 												</a>
-												<a class="btn-hidden-toggle" href="{{../_id}}" title="Thema verstecken">
+												<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}" title="Thema verstecken">
 													<i class="fa fa-eye"></i>
 												</a>
 											{{/unless}}
@@ -89,7 +89,7 @@
 												<i class="fa fa-ellipsis-v"></i>
 												<i class="fa fa-ellipsis-v"></i>
 											</a>
-											<a class="btn-hidden-toggle" href="{{../_id}}"
+											<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}"
 												title="Thema wieder anzeigen">
 												<i class="fa fa-eye-slash"></i>
 											</a>
