@@ -2883,9 +2883,9 @@ router.use(
 			systemsBody = systems.map((item) => {
 				const name = getSSOTypes().filter(type => item.type === type.value);
 				return [
-					item.type === 'ldap' && item.ldapConfig.active === false
+					(item.type === 'ldap' && item.ldapConfig.active === false
 						? `${item.alias} (inaktiv)`
-						: item.alias,
+						: item.alias) || '/',
 					name,
 					getTableActions(
 						item,
