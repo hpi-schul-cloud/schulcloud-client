@@ -192,6 +192,11 @@ module.exports = (req, res, next) => {
                 name: 'Schule',
                 icon: 'building',
                 link: '/administration/school/'
+			},
+			{
+                name: 'Datenquellen',
+                icon: 'database',
+                link: '/administration/datasources/'
             },
         ]
     });
