@@ -53,7 +53,7 @@ router.use('/rocketChat/', require('./rocketChat'));
 router.use('/addons', require('./addons'));
 
 
-router.use('/administration/', require('./administration'));
+router.use('/administration/', require('./administration/index'));
 
 router.use('/version', require('./version'));
 

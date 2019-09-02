@@ -7,10 +7,10 @@ const express = require('express');
 const logger = require('winston');
 const moment = require('moment');
 const multer = require('multer');
-const api = require('../api');
-const authHelper = require('../helpers/authentication');
-const permissionsHelper = require('../helpers/permissions');
-const recurringEventsHelper = require('../helpers/recurringEvents');
+const api = require('../../api');
+const authHelper = require('../../helpers/authentication');
+const permissionsHelper = require('../../helpers/permissions');
+const recurringEventsHelper = require('../../helpers/recurringEvents');
 // eslint-disable-next-line import/order
 const StringDecoder = require('string_decoder').StringDecoder;
 // eslint-disable-next-line import/order
@@ -20,7 +20,7 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 const decoder = new StringDecoder('utf8');
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../../config/consent');
 
 moment.locale('de');
 
@@ -2883,9 +2883,9 @@ router.use(
 			systemsBody = systems.map((item) => {
 				const name = getSSOTypes().filter(type => item.type === type.value);
 				return [
-					item.type === 'ldap' && item.ldapConfig.active === false
+					(item.type === 'ldap' && item.ldapConfig.active === false
 						? `${item.alias} (inaktiv)`
-						: item.alias,
+						: item.alias) || '/',
 					name,
 					getTableActions(
 						item,
