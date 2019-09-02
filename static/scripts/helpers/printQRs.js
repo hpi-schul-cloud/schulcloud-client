@@ -1,3 +1,4 @@
+/* global kjua */
 export default function printQRs(items) {
 	const w = window.open();
 	w.document.write(`<style>
@@ -13,7 +14,6 @@ export default function printQRs(items) {
 		w.document.write('Keine Einträge zu drucken.');
 	} else {
 		items.forEach((item, index) => {
-			// eslint-disable-next-line no-undef
 			const image = kjua({ text: item.href, render: 'image' });
 			w.document.write(`<div class="part">
 			<div class="image-wrapper" id="item-${index}"></div>
