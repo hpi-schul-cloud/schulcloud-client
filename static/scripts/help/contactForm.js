@@ -60,8 +60,8 @@ document.querySelectorAll('label').forEach((label) => {
 
 		// trigger change event
 		if (fieldset) {
-			const event = new CustomEvent('change', { target: fieldset });
-			fieldset.dispatchEvent(event);
+			const newEvent = new CustomEvent('change', { target: fieldset });
+			fieldset.dispatchEvent(newEvent);
 		}
 		return false;
 	}, false);
