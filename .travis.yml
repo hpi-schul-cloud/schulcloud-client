@@ -34,7 +34,8 @@ before_install:
 install:
   # boot servers for integration tests
   - cd docker-compose
-  - docker-compose -f docker-compose.integration-test-Build.yml build
+  - docker-compose -f docker-compose.integration-test-Build.yml build server
+  - docker-compose -f docker-compose.integration-test-Build.yml build client
   - docker-compose -f docker-compose.integration-test-Build.yml up -d
   - cd ..
   # client packages are needed for mocha
