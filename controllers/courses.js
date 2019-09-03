@@ -1,31 +1,19 @@
 /* eslint-disable no-underscore-dangle */
 const _ = require('lodash');
 const express = require('express');
-const winston = require('winston');
 const moment = require('moment');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
+const logger = require('../helpers/logger');
 
 const router = express.Router();
 
-const logger = winston.createLogger({
-	transports: [
-		new winston.transports.Console({
-			format: winston.format.combine(
-				winston.format.colorize(),
-				winston.format.simple(),
-			),
-		}),
-	],
-});
+const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
+	qs: query,
+}).then(data => data.data);
 
-const getSelectOptions = (req, service, query) => api(req)
-	.get(`/${service}`, {
-		qs: query,
-	})
-	.then(data => data.data);
 
 const markSelected = (options, values = []) => options.map((option) => {
 	option.selected = values.includes(option._id);
@@ -268,7 +256,7 @@ const editCourseHandler = (req, res, next) => {
 				redirectUrl: req.query.redirectUrl || '/courses',
 			});
 		}
-	});
+	}).catch(next);
 };
 
 const sameId = (id1, id2) => id1.toString() === id2.toString();
