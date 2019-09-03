@@ -12,7 +12,7 @@
 <div class="form-group">
 	<label>Schuljahr <sup>*</sup></label>
 	<select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen"
-		{{#ifCond edit '&&' isCustom}}{{#unless class.keepYear}}disabled="true" {{/unless}}{{/ifCond}}>
+		{{#ifCond edit '&&' isCustom}}{{#unless @root.class.keepYear}}disabled="true" {{/unless}}{{/ifCond}}>
 		{{#each schoolyears}}
 			<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
 				{{this.name}}
@@ -72,7 +72,7 @@
 		</div>
 		<label class="my-1">
 			<input name="keepyear" type="checkbox" value="true"
-				{{#ifCond edit '&&' isCustom}}{{#if class.keepYear}}checked{{/if}}{{else}}checked{{/ifCond}}
+				{{#ifCond edit '&&' isCustom}}{{#if @root.class.keepYear}}checked{{/if}}{{else}}checked{{/ifCond}}
 				{{#unless isCustom}}disabled{{/unless}} />
 			<span>Schuljahreszuordnung beibehalten</span>
 		</label>
@@ -89,7 +89,7 @@
 			<p>Klassenname:
 				<span data-from="classcustom"></span>
 			</p>
-			<p id="recap-keepyear" {{#ifCond edit '&&' isCustom}}class="{{#unless class.keepYear}}hidden{{/unless}}"
+			<p id="recap-keepyear" {{#ifCond edit '&&' isCustom}}class="{{#unless @root.class.keepYear}}hidden{{/unless}}"
 				{{/ifCond}}>Schuljahr: <span data-from="schoolyear" /></p>
 		</div>
 	</div>
