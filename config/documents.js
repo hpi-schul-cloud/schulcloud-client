@@ -12,11 +12,11 @@ const globalFiles = {
 	TechnischerBericht2019:
 	'Dokumente/Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.pdf',
 	BroschuereSCimUnterricht1:
-	'Willkommenordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien-und-Methoden.pdf',
+	'Willkommensordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien-und-Methoden.pdf',
 	BroschuereSCimUnterricht2:
-	'Willkommenordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-und-Schulalltag-Mehrwert-und-Voraussetzungen.pdf',
+	'Willkommensordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-und-Schulalltag-Mehrwert-und-Voraussetzungen.pdf',
 	BroschuereSCundLernen4:
-	'Willkommenordner/Begleitmaterial/Broschuere_HPI-Schul-Cloud-und-Lernen-4.0.pdf',
+	'Willkommensordner/Begleitmaterial/Broschuere_HPI-Schul-Cloud-und-Lernen-4.0.pdf',
 	SchulrechnerInDieSC2017: 'Dokumente/Schulrechner-wandern-in-die-Cloud-2017.pdf',
 	SCKonzeptPilotierung2017: 'Dokumente/Konzept-und-Pilotierung-der-Schul-Cloud-2017.pdf',
 };
