@@ -51,4 +51,6 @@ try {
 	logger.error('version file missing', error);
 }
 
-module.exports = { sha, branch, message, stat };
+module.exports = {
+	sha, branch, message, stat,
+};
