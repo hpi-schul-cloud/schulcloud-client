@@ -147,6 +147,7 @@ const editCourseHandler = (req, res, next) => {
 	const studentsPromise = getSelectOptions(req, 'users', {
 		roles: ['student', 'demoStudent'],
 		$limit: false,
+		$sort: 'lastName',
 	});
 
 	Promise.all([
@@ -441,10 +442,6 @@ router.get('/', (req, res, next) => {
 				archivedCourses,
 			] = filterSubstitutionCourses(archived, userId);
 
-			const isStudent = res.locals.currentUser.roles.every(
-				role => role.name === 'student',
-			);
-
 			if (req.query.json) {
 				// used for populating some modals (e.g. calendar event creation)
 				res.json(active.data);
@@ -466,9 +463,7 @@ router.get('/', (req, res, next) => {
 					liveSearch: true,
 				});
 			} else {
-				res.render('courses/overview-empty', {
-					isStudent,
-				});
+				res.render('courses/overview-empty', {});
 			}
 		})
 		.catch((err) => {
