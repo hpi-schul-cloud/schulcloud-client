@@ -470,12 +470,8 @@ const overview = (title = "") => {
                     return assignment;
                 });
 
-                const coursesPromise = getSelectOptions(req, 'courses', {
-                    $or: [
-                        { userIds: res.locals.currentUser._id },
-                        { teacherIds: res.locals.currentUser._id },
-                        { substitutionIds: res.locals.currentUser._id }
-                    ]
+                const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
+                    $limit: false,
                 });
                 Promise.resolve(coursesPromise).then(courses => {
                     const courseList = courses.map(course => {
@@ -567,12 +563,8 @@ router.get('/private', overview("Meine ToDos"));
 router.get('/archive', overview("Archivierte Aufgaben und ToDos"));
 
 router.get('/new', function (req, res, next) {
-    const coursesPromise = getSelectOptions(req, 'courses', {
-        $or: [
-            { userIds: res.locals.currentUser._id },
-            { teacherIds: res.locals.currentUser._id },
-            { substitutionIds: res.locals.currentUser._id }
-        ]
+    const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
+        $limit: false,
     });
     Promise.resolve(coursesPromise).then(async (courses) => {
         courses = courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
@@ -660,12 +652,8 @@ router.get('/:assignmentId/edit', function (req, res, next) {
         assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
         assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
 
-        const coursesPromise = getSelectOptions(req, 'courses', {
-            $or: [
-                { userIds: res.locals.currentUser._id },
-                { teacherIds: res.locals.currentUser._id },
-                { substitutionIds: res.locals.currentUser._id }
-            ]
+        const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
+            $limit: false,
         });
         Promise.resolve(coursesPromise).then(courses => {
             courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
