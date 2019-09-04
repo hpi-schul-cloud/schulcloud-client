@@ -1,40 +1,41 @@
+/* global CKEDITOR */
 /**
  * HELPER - addEventListener
  * 1. allow multiple events "clicked input" ...
  * 2. define addEventListener on NodeLists (document.querySelectorAll)
  */
-if (!NodeList.prototype.addEventListener) {
-	NodeList.prototype.addEventListener = function (
-		events,
-		callback,
-		useCapture,
-	) {
-		this.forEach((entry) => {
-			events.split(' ').forEach((event) => {
-				entry.addEventListener(event, callback, useCapture);
-			});
+function nodeListAddEventListener(events,
+	callback,
+	useCapture) {
+	this.forEach((entry) => {
+		events.split(' ').forEach((event) => {
+			entry.addEventListener(event, callback, useCapture);
 		});
-		return this;
-	};
+	});
+	return this;
+}
+
+if (!NodeList.prototype.addEventListener) {
+	NodeList.prototype.addEventListener = nodeListAddEventListener;
 }
 
 const nativeEventListener = EventTarget.prototype.addEventListener;
-EventTarget.prototype.addEventListener = function (
-	events,
+function customAddEventListener(events,
 	callback,
-	useCapture,
-) {
+	useCapture) {
 	this.nativeListener = nativeEventListener;
 	events.split(' ').forEach((event) => {
 		this.nativeListener(event, callback, useCapture);
 	});
 	return this;
-};
+}
+EventTarget.prototype.addEventListener = customAddEventListener;
 
 function populateModal(modal, identifier, data) {
 	const block = modal.find(identifier);
 	block.html(data);
 }
+window.populateModal = populateModal;
 
 function populateModalForm(modal, data) {
 	const $title = modal.find('.modal-title');
@@ -60,63 +61,68 @@ function populateModalForm(modal, data) {
 		$form.attr('data-payload', JSON.stringify(data.payload));
 	}
 
+	function populateFormFields() {
+		const value = (data.fields || {})[
+			$(this)
+				.prop('name')
+				.replace('[]', '')
+		] || '';
+
+		function setCheckboxValue() {
+			if (
+				$(this).attr('name') === $(this).prop('name')
+				&& value
+			) {
+				$(this).attr('checked', value);
+			} else {
+				$(this).removeAttr('checked');
+			}
+		}
+
+		switch ($(this).prop('type')) {
+			case 'radio':
+			case 'checkbox':
+				$(this).each(setCheckboxValue);
+				break;
+			case 'datetime-local':
+				$(this)
+					.val(value.slice(0, 16))
+					.trigger('chosen:updated');
+				break;
+			case 'date':
+				$(this)
+					.val(value.slice(0, 10))
+					.trigger('chosen:updated');
+				break;
+			case 'color':
+				$(this).attr('value', value);
+				$(this).attr('placeholder', value);
+				break;
+			default:
+				if (
+					$(this).prop('nodeName') === 'TEXTAREA'
+					&& $(this).hasClass('customckeditor')
+				) {
+					if (CKEDITOR.instances.description) {
+						CKEDITOR.instances.description.setData(value);
+					}
+				} else {
+					$(this)
+						.val(value)
+						.trigger('chosen:updated');
+				}
+		}
+	}
 	// fields
 	$('[name]', $form)
 		.not('[data-force-value]')
-		.each(function () {
-			const value =				(data.fields || {})[
-				$(this)
-					.prop('name')
-					.replace('[]', '')
-			] || '';
-			switch ($(this).prop('type')) {
-				case 'radio':
-				case 'checkbox':
-					$(this).each(function () {
-						if (
-							$(this).attr('name') == $(this).prop('name')
-							&& value
-						) {
-							$(this).attr('checked', value);
-						} else {
-							$(this).removeAttr('checked');
-						}
-					});
-					break;
-				case 'datetime-local':
-					$(this)
-						.val(value.slice(0, 16))
-						.trigger('chosen:updated');
-					break;
-				case 'date':
-					$(this)
-						.val(value.slice(0, 10))
-						.trigger('chosen:updated');
-					break;
-				case 'color':
-					$(this).attr('value', value);
-					$(this).attr('placeholder', value);
-					break;
-				default:
-					if (
-						$(this).prop('nodeName') == 'TEXTAREA'
-						&& $(this).hasClass('customckeditor')
-					) {
-						if (CKEDITOR.instances.description) {
-							CKEDITOR.instances.description.setData(value);
-						}
-					} else {
-						$(this)
-							.val(value)
-							.trigger('chosen:updated');
-					}
-			}
-		});
+		.each(populateFormFields);
 }
+window.populateModalForm = populateModalForm;
 
 function printPart() {
 	$(this).hide();
-	w = window.open();
+	const w = window.open();
 	w.document.write(
 		$(this)
 			.parent('.print')
@@ -127,7 +133,7 @@ function printPart() {
 	$(this).show();
 }
 
-const originalReady = jQuery.fn.ready;
+// const originalReady = jQuery.fn.ready;
 $.fn.extend({
 	ready(handler) {
 		$(document).on('pageload', handler);
@@ -144,7 +150,7 @@ $(document).ready(() => {
 	const $notification = $('.notification');
 	const $notificationContent = $notification.find('.notification-content');
 
-	window.$.showNotification = function (content, type, timeout) {
+	window.$.showNotification = (content, type, timeout) => {
 		$notificationContent.html(content);
 
 		// remove old classes in case type was set before
@@ -165,9 +171,7 @@ $(document).ready(() => {
 		}
 	};
 
-	window.$.hideNotification = function () {
-		$notification.fadeOut();
-	};
+	window.$.hideNotification = () => $notification.fadeOut();
 
 	$notification.find('.close').click(window.$.hideNotification);
 
@@ -181,25 +185,25 @@ $(document).ready(() => {
 	});
 
 	// Initialize bootstrap-select
+	function dispatchInputEvent() {
+		this.dispatchEvent(new Event('input'));
+	}
+
 	$('select:not(.no-bootstrap):not(.search-enabled)')
 		.chosen({
 			width: '100%',
 			disable_search: true,
 		})
-		.change(function () {
-			this.dispatchEvent(new Event('input'));
-		});
+		.change(dispatchInputEvent);
 	$('select.search-enabled:not(.no-bootstrap)')
 		.chosen({
 			width: '100%',
 			disable_search: false,
 		})
-		.change(function () {
-			this.dispatchEvent(new Event('input'));
-		});
+		.change(dispatchInputEvent);
 
 	// collapse toggle
-	$('.collapse-toggle').click(function (e) {
+	function toggleCollapse() {
 		const $collapseToggle = $(this);
 		const isCollapsed = $($collapseToggle.attr('href')).attr('aria-expanded');
 		if (!isCollapsed || isCollapsed === 'false') {
@@ -213,8 +217,10 @@ $(document).ready(() => {
 				.removeClass('fa-chevron-down');
 			$collapseToggle.find('.collapse-icon').addClass('fa-chevron-right');
 		}
-	});
+	}
+	$('.collapse-toggle').click(toggleCollapse);
 
+	// eslint-disable-next-line func-names
 	(function (a, b, c) {
 		if (c in b && b[c]) {
 			let d;
@@ -222,10 +228,13 @@ $(document).ready(() => {
 			const f = /^(a|html)$/i;
 			a.addEventListener(
 				'click',
+				// eslint-disable-next-line no-shadow
 				(a) => {
 					d = a.target;
 					while (!f.test(d.nodeName)) d = d.parentNode;
+					// eslint-disable-next-line no-unused-expressions
 					'href' in d
+						// eslint-disable-next-line no-bitwise
 						&& (d.href.indexOf('http') || ~d.href.indexOf(e.host))
 						&& (a.preventDefault(), (e.href = d.href));
 				},
@@ -238,7 +247,7 @@ $(document).ready(() => {
 	const $modals = $('.modal');
 	const $deleteModal = $('.delete-modal');
 
-	const nextPage = function (href) {
+	const nextPage = (href) => {
 		if (href) {
 			window.location.href = href;
 		} else {
@@ -265,7 +274,7 @@ $(document).ready(() => {
 		return decodedString;
 	}
 
-	$('a[data-method="DELETE"]').on('click', function (e) {
+	function linkDeleteHandler(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const $buttonContext = $(this);
@@ -291,7 +300,8 @@ $(document).ready(() => {
 					},
 				});
 			});
-	});
+	}
+	$('a[data-method="DELETE"]').on('click', linkDeleteHandler);
 
 	$modals.find('.close, .btn-close').on('click', () => {
 		$modals.modal('hide');
@@ -302,6 +312,7 @@ $(document).ready(() => {
 		btn.addEventListener('click', printPart);
 	});
 
+	// eslint-disable-next-line no-restricted-globals
 	if (document.querySelector('*[data-intro]') && screen.width > 1024) {
 		document.querySelectorAll('.intro-trigger').forEach((trigger) => {
 			trigger.classList.add('show');
@@ -373,6 +384,7 @@ $(document).ready(() => {
 					.removeClass('opened');
 			}
 		}
+		return false;
 	});
 
 	$('.chosen-container-multi').off('touchstart');
@@ -388,6 +400,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		.forEach((input) => {
 			input.setAttribute(
 				'pattern',
+				// eslint-disable-next-line max-len
 				"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
 			);
 		});
