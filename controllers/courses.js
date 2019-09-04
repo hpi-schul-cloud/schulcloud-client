@@ -147,6 +147,7 @@ const editCourseHandler = (req, res, next) => {
 	const studentsPromise = getSelectOptions(req, 'users', {
 		roles: ['student', 'demoStudent'],
 		$limit: false,
+		$sort: 'lastName',
 	});
 
 	Promise.all([
