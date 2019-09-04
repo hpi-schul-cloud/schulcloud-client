@@ -545,7 +545,6 @@ const overview = (title = "") => {
                         pagination,
                         homeworks,
                         courses,
-                        isStudent,
                         filterSettings: JSON.stringify(filterSettings),
                         addButton: (req._parsedUrl.pathname == "/"
                             || req._parsedUrl.pathname.includes("private")
@@ -589,41 +588,25 @@ router.get('/new', function (req, res, next) {
             }
             lessons = (lessons || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
         }
-        // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
-        const userPromise = getSelectOptions(req, 'users', {
-            _id: res.locals.currentUser._id,
-            $populate: ['roles']
-        });
-        Promise.resolve(userPromise).then(user => {
-            const roles = user[0].roles.map(role => {
-                return role.name;
-            });
-            let isStudent = true;
-            if (roles.indexOf('student') == -1) {
-                isStudent = false;
-            }
-
-            let assignment = { "private": (req.query.private == 'true') };
-            if (req.query.course) {
-                assignment["courseId"] = { "_id": req.query.course };
-            }
-            if (req.query.topic) {
-                assignment["lessonId"] = req.query.topic;
-            }
-            //Render overview
-            res.render('homework/edit', {
-                title: 'Aufgabe hinzufügen',
-                submitLabel: 'Hinzufügen',
-                closeLabel: 'Abbrechen',
-                method: 'post',
-                action: '/homework/',
-                referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : req.header('Referer'),
-                assignment,
-                courses,
-                lessons: lessons.length ? lessons : false,
-                isStudent
-            });
-        });
+		let assignment = { "private": (req.query.private == 'true') };
+		if (req.query.course) {
+			assignment["courseId"] = { "_id": req.query.course };
+		}
+		if (req.query.topic) {
+			assignment["lessonId"] = req.query.topic;
+		}
+		//Render overview
+		res.render('homework/edit', {
+			title: 'Aufgabe hinzufügen',
+			submitLabel: 'Hinzufügen',
+			closeLabel: 'Abbrechen',
+			method: 'post',
+			action: '/homework/',
+			referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : req.header('Referer'),
+			assignment,
+			courses,
+			lessons: lessons.length ? lessons : false,
+		});
     });
 });
 
@@ -678,10 +661,6 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                 const roles = user[0].roles.map(role => {
                     return role.name;
                 });
-                let isStudent = true;
-                if (roles.indexOf('student') == -1) {
-                    isStudent = false;
-                }
                 if (assignment.courseId && assignment.courseId._id) {
                     const lessonsPromise = getSelectOptions(req, 'lessons', {
                         courseId: assignment.courseId._id
@@ -698,7 +677,6 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                             assignment,
                             courses,
                             lessons,
-                            isStudent,
                             isSubstitution
                         });
                     });
@@ -713,7 +691,6 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         assignment,
                         courses,
                         lessons: false,
-                        isStudent,
                         isSubstitution
                     });
                 }
