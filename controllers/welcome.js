@@ -9,13 +9,7 @@ router.use(authHelper.authChecker);
 
 
 router.get('/', function (req, res, next) {
-    const isStudent = res.locals.currentUser.roles.every((role) => {
-        return role.name === "student";
-    });
-
-    res.render('firstLogin/welcome', {
-        isStudent
-    });
+    res.render('firstLogin/welcome', {});
 });
 
 module.exports = router;
