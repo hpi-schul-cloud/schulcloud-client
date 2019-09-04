@@ -34,7 +34,6 @@ router.get('/releases', (req, res, next) => {
 			});
 
 			res.render('help/releases', {
-				title: 'Releases',
 				breadcrumb: [
 					{
 						title: 'Hilfebereich',
