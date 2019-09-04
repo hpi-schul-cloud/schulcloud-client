@@ -136,7 +136,7 @@ app.use(async (req, res, next) => {
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
 	setTheme(res);
-	res.locals.domain = process.env.SC_DOMAIN || false;
+	res.locals.domain = process.env.SC_DOMAIN || 'localhost';
 	res.locals.production = req.app.get('env') === 'production';
 	res.locals.env = req.app.get('env') || false;
 	res.locals.SENTRY_DSN = process.env.SENTRY_DSN || false;
