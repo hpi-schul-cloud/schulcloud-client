@@ -257,7 +257,7 @@ const editCourseHandler = (req, res, next) => {
 				redirectUrl: req.query.redirectUrl || '/courses',
 			});
 		}
-	});
+	}).catch(next);
 };
 
 const sameId = (id1, id2) => id1.toString() === id2.toString();
@@ -447,8 +447,8 @@ router.get('/', (req, res, next) => {
 			);
 
 			if (req.query.json) {
-				// !? for what is this? Should be direct request to api!?
-				res.json(active);
+				// used for populating some modals (e.g. calendar event creation)
+				res.json(active.data);
 			} else if (active.total !== 0 || archived.total !== 0) {
 				res.render('courses/overview', {
 					title: 'Meine Kurse',

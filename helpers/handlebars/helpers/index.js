@@ -161,6 +161,9 @@ module.exports = {
 		}
 		return moment(date).fromNow();
 	},
+	currentYear() {
+		return new Date().getFullYear();
+	},
 	concat() {
 		const arg = Array.prototype.slice.call(arguments, 0);
 		arg.pop();
