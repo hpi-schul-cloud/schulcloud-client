@@ -1,4 +1,4 @@
-const { contentSecurityPolicy, accessControlAllowOrigin } = require('../config/http-headers');
+const { contentSecurityPolicy, accessControlAllowOrigin, enabled } = require('../config/http-headers');
 const logger = require('../helpers/logger');
 
 if (!process.env.CORS) 	{
@@ -44,7 +44,7 @@ const accessControlHeadersForRoute = (path, regexs) => {
 };
 
 const cors = (req, res, next) => {
-	if (process.env.CORS) {
+	if (enabled) {
 		try {
 			// Content-Security-Policy
 			const { corsDefault, corsSiteSpecific } = contentSecurityPolicy;
