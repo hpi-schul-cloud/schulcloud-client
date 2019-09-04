@@ -2449,9 +2449,20 @@ router.all('/courses', (req, res, next) => {
 					(item.classIds || []).map(item => item.displayName).join(', '),
 					// eslint-disable-next-line no-shadow
 					(item.teacherIds || []).map(item => item.lastName).join(', '),
-					getTableActions(item, '/administration/courses/').map(
-						action => action,
-					),
+					[
+						{
+							link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
+							icon: 'edit',
+							title: 'Eintrag bearbeiten',
+						},
+						{
+							link: `/administration/courses/${item._id}`,
+							class: 'btn-delete',
+							icon: 'trash-o',
+							method: 'delete',
+							title: 'Eintrag löschen',
+						},
+					],
 				]);
 
 				let sortQuery = '';

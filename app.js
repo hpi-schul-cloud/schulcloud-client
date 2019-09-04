@@ -96,17 +96,7 @@ app.use(session({
 	secret: 'secret',
 }));
 
-const defaultBaseDir = (req, res) => {
-	let dir = process.env.DOCUMENT_BASE_DIR || 'https://s3.hidrive.strato.com/schul-cloud-hpi/';
-	dir += `${themeName}/`;
-	if (themeName === 'open' && res.locals && res.locals.currentUser && res.locals.currentUser.schoolId) {
-		// fixme currentUser missing here (after login)
-		dir += `${res.locals.currentUser.schoolId}/`;
-	}
-	return dir;
-};
-
-const defaultDocuments = require('./helpers/content/documents.json');
+const setTheme = require('./helpers/theme');
 
 function removeIds(url) {
 	const checkForHexRegExp = /^[a-f\d]{24}$/ig;
@@ -118,12 +108,20 @@ app.use(async (req, res, next) => {
 	if (!req.session.currentUser) {
 		await authHelper.populateCurrentUser(req, res).then(() => {
 			if (res.locals.currentUser) { // user is authenticated
+				req.session.currentRole = res.locals.currentRole;
+				req.session.roleNames = res.locals.roleNames;
 				req.session.currentUser = res.locals.currentUser;
+				req.session.currentSchool = res.locals.currentSchool;
+				req.session.currentSchoolData = res.locals.currentSchoolData;
 				req.session.save();
 			}
 		});
 	} else {
+		res.locals.currentRole = req.session.currentRole;
+		res.locals.roleNames = req.session.roleNames;
 		res.locals.currentUser = req.session.currentUser;
+		res.locals.currentSchool = req.session.currentSchool;
+		res.locals.currentSchoolData = req.session.currentSchoolData;
 	}
 	if (process.env.SENTRY_DSN) {
 		Sentry.configureScope((scope) => {
@@ -137,19 +135,8 @@ app.use(async (req, res, next) => {
 	// if there's a flash message in the session request, make it available in the response, then delete it
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
-	res.locals.theme = {
-		title: process.env.SC_TITLE || 'HPI Schul-Cloud',
-		short_title: process.env.SC_SHORT_TITLE || 'Schul-Cloud',
-		documents: Object.assign({}, {
-			baseDir: defaultBaseDir(req, res),
-			privacy: process.env.PRIVACY_DOCUMENT
-				|| 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
-			termsOfUse: process.env.TERMS_OF_USE_DOCUMENT
-				|| 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
-		}, defaultDocuments),
-		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
-	};
-	res.locals.domain = process.env.SC_DOMAIN || 'local';
+	setTheme(res);
+	res.locals.domain = process.env.SC_DOMAIN || false;
 	res.locals.production = req.app.get('env') === 'production';
 	res.locals.env = req.app.get('env') || false;
 	res.locals.SENTRY_DSN = process.env.SENTRY_DSN || false;
