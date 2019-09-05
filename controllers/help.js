@@ -12,15 +12,9 @@ const tutorials = require('../helpers/content/tutorials.json');
 router.use(authHelper.authChecker);
 
 router.get('/', (req, res, next) => {
-	const isDemo = res.locals.currentUser.roles.every(role => role.name.includes('demo'));
-	const isStudent = res.locals.currentUser.roles.every(role => role.name === 'student');
-
 	res.render('help/help', {
 		title: 'Hilfebereich',
-		isDemo,
-		isStudent,
 		tutorials,
-		demo: isDemo,
 		adminFormIsActive: req.query.activeForm === 'admin',
 		teamFormIsActive: req.query.activeForm === 'team',
 	});
@@ -40,7 +34,6 @@ router.get('/releases', (req, res, next) => {
 			});
 
 			res.render('help/releases', {
-				title: 'Releases',
 				breadcrumb: [
 					{
 						title: 'Hilfebereich',
