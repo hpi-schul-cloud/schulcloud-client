@@ -501,7 +501,7 @@ router.post('/', (req, res, next) => {
 		})
 		.then((course) => {
 			createEventsForCourse(req, res, course).then(() => {
-				res.json({ceatedCourse: course});
+				res.json({ createdCourse: course });
 			});
 		})
 		.catch(() => {

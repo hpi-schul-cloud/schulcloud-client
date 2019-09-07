@@ -141,8 +141,8 @@ function submitForm(event){
                 $.showNotification(response.message, response.type, response.time);
             }
             if(response.createdCourse){ 
-                $('#addclass-create-topic').attr("href", "/courses/" + response.course._id + "/topics/add");
-                $('#addclass-create-homework').attr("href", "/homework/new?course=" + response.course._id);
+                $('#addclass-create-topic').attr("href", "/courses/" + response.createdCourse._id + "/topics/add");
+                $('#addclass-create-homework').attr("href", "/homework/new?course=" + response.createdCourse._id);
             }
             document.querySelector('.form').classList.add("form-submitted");
             formSubmitButton.disabled = false;
