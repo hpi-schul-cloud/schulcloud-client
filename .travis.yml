@@ -25,24 +25,20 @@ before_install:
   - mv !(schulcloud-client) schulcloud-client
   # clone other required repositories and try to switch to branch with same name as current one
   - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
-  - sh ./schulcloud-client/test/switch_branch.sh "schulcloud-server" $BRANCH_NAME
+  - sh ./schulcloud-client/test/switch_branch.sh "schulcloud-server" "$BRANCH_NAME"
   - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
-  - sh ./schulcloud-client/test/switch_branch.sh "docker-compose" $BRANCH_NAME
+  - sh ./schulcloud-client/test/switch_branch.sh "docker-compose" "$BRANCH_NAME"
   # TODO remove branch (-b hotfix-travis) from next line
   - git clone -b hotfix-travis https://github.com/schul-cloud/integration-tests.git integration-tests
-  - sh ./schulcloud-client/test/switch_branch.sh "integration-tests" $BRANCH_NAME
+  - sh ./schulcloud-client/test/switch_branch.sh "integration-tests" "$BRANCH_NAME"
 install:
   # boot servers for integration tests
   - cd docker-compose
-  - docker-compose -f docker-compose.integration-test-Build.yml build server
-  - docker-compose -f docker-compose.integration-test-Build.yml build client
+  - docker-compose -f docker-compose.integration-test-Build.yml build
   - docker-compose -f docker-compose.integration-test-Build.yml up -d
   - cd ..
   # client packages are needed for mocha
   - cd schulcloud-client && npm ci && cd ..
-  # dependencies for integration tests
-  - cd integration-tests && npm ci && cd ..
-  - cd schulcloud-server && npm run setup && cd .. # initially seed database
 script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
