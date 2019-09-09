@@ -117,7 +117,9 @@ window.startIntro = function startIntro() {
         nextLabel: "Weiter",
         prevLabel: "Zurück",
         doneLabel: "Nächste Seite",
-        skipLabel: "Überspringen"
+        skipLabel: "Überspringen",
+        hidePrev: true, //hide previous button in the first step
+        hideNext: true  //hide next button in the last step
     })
     .start()
     .oncomplete(function() {
