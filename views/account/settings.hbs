@@ -58,6 +58,7 @@
                 </div>
                 {{/userHasPermission}}
 
+				{{#unless (userHasRole "student")}}
 				<div class="form-group">
 					<label>
 						<input type="checkbox" name="discoverable" value="true" {{#if isDiscoverable}}checked{{/if}}>
@@ -66,6 +67,8 @@
 						</p>
 					</label>
 				</div>
+				{{/unless}}
+
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" id="submit_new_password_btn" data-testid="submitNewPassword"/>

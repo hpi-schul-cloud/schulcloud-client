@@ -15,7 +15,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 // secure routes
 router.use(authHelper.authChecker);
 
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
     // we display time from 7 a.m. to 5 p.m.
     const timeStart = 7;
     const timeEnd = 17;
@@ -26,10 +26,10 @@ router.get('/', function (req, res, next) {
     for(let j = 0; j <= numHours; j++) {
         hours.push(j + timeStart);
     }
-    const start = new Date();
-    start.setHours(timeStart,0,0,0);
-    const end = new Date();
-    end.setHours(timeEnd,0,0,0);
+	const start = new Date();
+	start.setUTCHours(timeStart, 0, 0, 0);
+	const end = new Date();
+	end.setUTCHours(timeEnd, 0, 0, 0);
 
     const currentTime = new Date();
     let currentTimePercentage = 100 * (((currentTime.getHours() - timeStart) * 60) + currentTime.getMinutes()) / numMinutes;
@@ -49,7 +49,7 @@ router.get('/', function (req, res, next) {
         // display only the correct ones.
         // I'm not happy with the solution but don't see any other less
         // crappy way for this without changing the
-        // calendar service in it's core.
+		// calendar service in it's core.
 
         return Promise.all(events.map(event => recurringEventsHelper.mapEventProps(event, req))).then(events => {
             events = [].concat.apply([], events.map(recurringEventsHelper.mapRecurringEvent)).filter(event => {
@@ -165,8 +165,8 @@ router.get('/', function (req, res, next) {
             api(req).patch('/users/' + user._id, {
                 json: {"preferences.releaseDate" : newestRelease.createdAt}
             }).catch((error) => {});
-        }
-
+		}
+		
         res.render('dashboard/dashboard', {
             title: 'Übersicht',
             events,
