@@ -2012,11 +2012,13 @@ router.post(
 		'or',
 	),
 	(req, res, next) => {
-		console.log(req.body.schoolId)
 		const newClass = {
 			schoolId: req.body.schoolId,
 		};
 
+		if (req.body.predecessor) {
+			newClass.predecessor = req.body.predecessor;
+		}
 		if (req.body.classcustom) {
 			newClass.name = req.body.classcustom;
 			if (req.body.keepyear) {
@@ -2030,7 +2032,6 @@ router.post(
 		if (req.body.teacherIds) {
 			newClass.teacherIds = req.body.teacherIds;
 		}
-		console.log(newClass);
 		api(req)
 			.post('/classes/', {
 				// TODO: sanitize
@@ -2209,14 +2210,13 @@ router.all(
 								title: 'Klasse löschen',
 							},
 						];
-						if (
-							!i.successor
-							&& lastDefinedSchoolYear !== i.year._id
+						if (lastDefinedSchoolYear !== i.year._id
 							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'USERGROUP_EDIT')
 						) {
 							baseActions.push({
 								link: `${basePath + i._id}/createSuccessor`,
 								icon: 'arrow-up',
+								class: i.successor ? 'disabled' : '',
 								title: 'Klasse in das nächste Schuljahr versetzen',
 							});
 						}
