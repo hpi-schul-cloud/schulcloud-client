@@ -1646,7 +1646,7 @@ const skipRegistrationClass = async (req, res, next) => {
 	});
 };
 
-const renderClassEdit = (req, res, next, edit) => {
+const renderClassEdit = (req, res, next) => {
 	api(req)
 		.get('/classes/')
 		.then(() => {
@@ -1658,11 +1658,9 @@ const renderClassEdit = (req, res, next, edit) => {
 				Array.from(Array(13).keys()).map(e => ({
 					grade: e + 1,
 				})),
+				req.locals.class,
 			];
-			if (edit) {
-				promises.push(api(req).get(`/classes/${req.params.classId}`));
-			}
-
+			const mode = req.locals.mode;
 			Promise.all(promises).then(
 				([teachers, gradeLevels, currentClass]) => {
 					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
@@ -1713,12 +1711,18 @@ const renderClassEdit = (req, res, next, edit) => {
 					}
 
 					res.render('administration/classes-edit', {
-						title: `${
-							edit
-								? `Klasse '${currentClass.displayName}' bearbeiten`
-								: 'Erstelle eine neue Klasse'
-						}`,
-						edit,
+						title: {
+							create: 'Erstelle eine neue Klasse',
+							edit: `Klasse '${(currentClass || {}).displayName}' bearbeiten`,
+							upgrade: `Klasse '${(currentClass || {}).displayName}' in neues Schuljahr bringen`,
+						}[mode],
+						action: {
+							create: '/administration/classes/create',
+							edit: '/administration/classes/edit',
+							upgrade: '/administration/classes/create',
+						}[mode],
+						edit: mode !== 'create',
+						mode,
 						schoolyears,
 						teachers,
 						class: currentClass,
@@ -1729,9 +1733,7 @@ const renderClassEdit = (req, res, next, edit) => {
 				},
 			);
 		})
-		.catch((err) => {
-			next(err);
-		});
+		.catch(next);
 };
 const getClassOverview = (req, res, next) => {
 	const query = {
@@ -1758,7 +1760,9 @@ router.get(
 		'or',
 	),
 	(req, res, next) => {
-		renderClassEdit(req, res, next, false);
+		req.locals = req.locals || {};
+		req.locals.mode = 'create';
+		return renderClassEdit(req, res, next);
 	},
 );
 router.get(
@@ -1793,7 +1797,20 @@ router.get(
 	'/classes/:classId/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
 	(req, res, next) => {
-		renderClassEdit(req, res, next, true);
+		req.locals = req.locals || {};
+		req.locals.mode = 'edit';
+		req.locals.class = api(req).get(`/classes/${req.params.classId}`);
+		return renderClassEdit(req, res, next);
+	},
+);
+router.get(
+	'/classes/:classId/createSuccessor',
+	permissionsHelper.permissionsChecker(['USERGROUP_EDIT'], 'or'),
+	(req, res, next) => {
+		req.locals = req.locals || {};
+		req.locals.mode = 'upgrade';
+		req.locals.class = api(req).get(`/classes/successor/${req.params.classId}`);
+		return renderClassEdit(req, res, next);
 	},
 );
 router.get('/classes/:id', getDetailHandler('classes'));
@@ -1841,7 +1858,7 @@ router.get(
 					studentsPromise,
 					yearsPromise,
 					usersWithConsentsPromise,
-				]).then(([classes, teachers, students, schoolyears, usersWithoutConsent]) => {
+				]).then(([classes, teachers, students, schoolyears, allUsersWithoutConsent]) => {
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
 					);
@@ -1873,7 +1890,7 @@ router.get(
 					});
 
 					// importHash exists --> not signed up
-					usersWithoutConsent = usersWithoutConsent.filter((obj) => {
+					const usersWithoutConsent = allUsersWithoutConsent.filter((obj) => {
 						if (obj.importHash) return true;
 						return false;
 					});
@@ -1995,6 +2012,7 @@ router.post(
 		'or',
 	),
 	(req, res, next) => {
+		console.log(req.body.schoolId)
 		const newClass = {
 			schoolId: req.body.schoolId,
 		};
@@ -2012,7 +2030,7 @@ router.post(
 		if (req.body.teacherIds) {
 			newClass.teacherIds = req.body.teacherIds;
 		}
-
+		console.log(newClass);
 		api(req)
 			.post('/classes/', {
 				// TODO: sanitize
@@ -2028,9 +2046,7 @@ router.post(
 					res.redirect(`/administration/classes/${data._id}/manage`);
 				}
 			})
-			.catch((err) => {
-				next(err);
-			});
+			.catch(next);
 	},
 );
 
@@ -2064,9 +2080,7 @@ router.post(
 			.then(() => {
 				res.redirect(req.body.referrer);
 			})
-			.catch((err) => {
-				next(err);
-			});
+			.catch(next);
 	},
 );
 
@@ -2083,9 +2097,7 @@ router.patch(
 			.then(() => {
 				res.redirect(req.header('Referer'));
 			})
-			.catch((err) => {
-				next(err);
-			});
+			.catch(next);
 	},
 );
 
@@ -2168,32 +2180,48 @@ router.all(
 			.then(async (data) => {
 				const head = ['Klasse', 'Lehrer', 'Schuljahr', 'Schüler', ''];
 
+				const schoolYears = res.locals.currentSchoolData.years.schoolYears
+					.sort((a, b) => b.startDate.localeCompare(a.startDate));
+				const lastDefinedSchoolYear = (schoolYears[0] || {})._id;
+
 				const body = data.data.map(item => [
 					item.displayName || '',
-					// eslint-disable-next-line no-shadow
-					(item.teacherIds || []).map(item => item.lastName).join(', '),
+					(item.teacherIds || []).map(i => i.lastName).join(', '),
 					(item.year || {}).name || '',
 					item.userIds.length || '0',
-					// eslint-disable-next-line no-shadow
-					((item, path) => [
-						{
-							link: `${path + item._id}/manage`,
-							icon: 'users',
-							title: 'Klasse verwalten',
-						},
-						{
-							link: `${path + item._id}/edit`,
-							icon: 'edit',
-							title: 'Klasse bearbeiten',
-						},
-						{
-							link: path + item._id,
-							class: 'btn-delete',
-							icon: 'trash-o',
-							method: 'delete',
-							title: 'Eintrag löschen',
-						},
-					])(item, '/administration/classes/'),
+					((i, basePath) => {
+						const baseActions = [
+							{
+								link: `${basePath + i._id}/manage`,
+								icon: 'users',
+								title: 'Klasse verwalten',
+							},
+							{
+								link: `${basePath + i._id}/edit`,
+								icon: 'edit',
+								title: 'Klasse bearbeiten',
+							},
+							{
+								link: basePath + i._id,
+								class: 'btn-delete',
+								icon: 'trash-o',
+								method: 'delete',
+								title: 'Klasse löschen',
+							},
+						];
+						if (
+							!i.successor
+							&& lastDefinedSchoolYear !== i.year._id
+							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'USERGROUP_EDIT')
+						) {
+							baseActions.push({
+								link: `${basePath + i._id}/createSuccessor`,
+								icon: 'arrow-up',
+								title: 'Klasse in das nächste Schuljahr versetzen',
+							});
+						}
+						return baseActions;
+					})(item, '/administration/classes/'),
 				]);
 
 				const pagination = {
