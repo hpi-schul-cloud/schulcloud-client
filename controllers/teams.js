@@ -174,6 +174,7 @@ const copyCourseHandler = (req, res, next) => {
 	});
 	const studentsPromise = getSelectOptions(req, 'users', {
 		roles: ['student', 'demoStudent'],
+		$sort: 'lastName',
 		$limit: 1000,
 	});
 

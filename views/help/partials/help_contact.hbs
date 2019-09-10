@@ -1,4 +1,4 @@
-{{#if demo}}
+{{#if (userHasRole "demoStudent" "demoTeacher")}}
 	{{#embed "help/icon-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card col-md-12" id="email"}}
 		{{#content "card-body"}}
 			{{> "help/mail-card"}}

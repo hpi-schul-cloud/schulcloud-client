@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 
 const config = {
+	enabled: process.env.CORS === '1',
+
 	// Settings for HTTP Content-Security-Policy Header
 	contentSecurityPolicy: {
 		// Default Content-Security-Policy Header for every site
