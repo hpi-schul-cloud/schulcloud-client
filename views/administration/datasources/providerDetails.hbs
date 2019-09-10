@@ -1,6 +1,6 @@
 {{#extend "lib/loggedin"}}
 	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="/styles/administration/datasources/detail.css"/>
+		<link rel="stylesheet" href="/styles/administration/datasources/detail.css" />
 	{{/content}}
 
 	{{#content "scripts" mode="append"}}
@@ -24,10 +24,11 @@
 				<div class="sections">
 					<section class="section active" data-section="js-runs">
 						<p>
-							<a href="/administration/datasources/run/{{datasourceProvider._id}}" class="btn btn-primary mb-1">
+							<a href="/administration/datasources/run/{{datasourceProvider._id}}"
+								class="btn btn-primary mb-1">
 								Import starten
 							</a>
-							<br/>
+							<br />
 							<b>Achtung:</b> Der Import kann bis zu einer Minute dauern.
 						</p>
 
@@ -39,14 +40,15 @@
 					</section>
 					<section class="section" data-section="js-settings">
 						{{! #userHasPermission "DATASOURCES_EDIT"}}
-							<form method="post" action="/administration/datasources/{{datasourceProvider._id}}">
-								{{> (lookup @root "formName") config=datasourceProvider.config}}
-								<div class="modal-footer mt-1">
-									<button class="btn btn-primary mb-1" type="submit">Import mit neuer Konfiguration starten</button>
-									<br/>
-									<b>Achtung:</b> Der Import kann bis zu einer Minute dauern.
-								</div>
-							</form>
+						<form method="post" action="/administration/datasources/{{datasourceProvider._id}}">
+							{{> (lookup @root "formName") config=datasourceProvider.config}}
+							<div class="modal-footer mt-1">
+								<button class="btn btn-primary mb-1" type="submit">Import mit neuer Konfiguration
+									starten</button>
+								<br />
+								<b>Achtung:</b> Der Import kann bis zu einer Minute dauern.
+							</div>
+						</form>
 						{{! /userHasPermission}}
 					</section>
 				</div>

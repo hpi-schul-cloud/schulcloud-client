@@ -1,6 +1,6 @@
 {{#extend "lib/loggedin"}}
 	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="/styles/administration/datasources/detail.css"/>
+		<link rel="stylesheet" href="/styles/administration/datasources/detail.css" />
 	{{/content}}
 
 	{{#content "scripts" mode="append"}}
@@ -10,7 +10,30 @@
 	{{#content "page"}}
 		I am a WebUntis Import run
 
-		TODO I need some mock data so actually build a UI here
+		<p>TODO I need some mock data so actually build a UI here</p>
+
+		<label style="display: block;">
+			<input type="checkbox" onclick='Array.from(document.querySelectorAll("input[type=checkbox]")).forEach(a => a.checked = this.checked)'>
+			Alle aus/abwählen
+		</label>
+		</input>
+		<form action="TODO">
+			<ul style="list-style: none">
+				{{#each data}}
+					<li>
+						<label>
+							<input type="checkbox" value="{{this._id}}" />
+							{{this.displayName}}
+						</label>
+					</li>
+				{{else}}
+					Keine zu importierenden Daten gefunden
+				{{/each}}
+			</ul>
+			{{! <button class="btn btn-primary">Daten importieren</button>}}
+		</form>
+
+		{{! TODO remove button}}
 		<a href="/administration/datasources" class="btn btn-primary">Daten importieren</a>
 	{{/content}}
 {{/extend}}

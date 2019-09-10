@@ -51,7 +51,7 @@ router.post('/:id', (req, res, next) => {
 	 * - start new import
 	 * - redirect to import user-input page (type specific)
 	 */
-	res.redirect('/administration/datasources/webuntis/run/runId');
+	res.redirect('/administration/datasources/webuntis/run/someRandomRunId');
 });
 
 router.get('/run/:id', (req, res, next) => {
@@ -59,7 +59,7 @@ router.get('/run/:id', (req, res, next) => {
 	 * - start new import with currently saved config
 	 * - redirect to import user-input page (type specific)
 	 */
-	res.redirect('/administration/datasources/webuntis/run/runId');
+	res.redirect('/administration/datasources/webuntis/run/someRandomRunId');
 });
 
 router.get('/:id', async (req, res, next) => {

@@ -1,27 +1,28 @@
-.card.card-tool{
+.card.card-tool {
 	display: flex;
 	align-items: center;
 	color: initial;
-	&, &:hover{
+	&,
+	&:hover {
 		text-decoration: none;
 	}
-	.main{
+	.main {
 		flex: 1;
 	}
-	.run-date{
-		font-size: .75em;
+	.run-date {
+		font-size: 0.75em;
 	}
-	.status{
+	.status {
 		text-align: center;
-		.status-color{
+		.status-color {
 			font-size: 2rem;
-			&-error{
+			&-error {
 				color: red;
 			}
-			&-warning{
+			&-warning {
 				color: orange;
 			}
-			&-success{
+			&-success {
 				color: #068f06;
 			}
 		}
