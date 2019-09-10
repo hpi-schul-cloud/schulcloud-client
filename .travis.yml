@@ -43,7 +43,7 @@ script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
   - cd schulcloud-client && npm run mocha && cd ..
-  - cd integration-tests && npm run all && cd ..
+  - cd integration-tests && npm run test && cd ..
 cache:
   directories:
     - "$HOME/.npm" # cache all packages installed with "npm ci"
