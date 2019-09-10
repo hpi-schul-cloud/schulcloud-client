@@ -169,6 +169,7 @@ module.exports = {
 	log: (data) => {
 		console.log(data);
 	},
+	toLowerCase: str => str.toLowerCase(),
 	castStatusCodeToString: (statusCode) => {
 		console.log(statusCode);
 		if (statusCode >= 500) {

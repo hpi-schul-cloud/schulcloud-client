@@ -1,21 +1,21 @@
 <div class="form-group">
 	<label>Schulname in WebUntis <sup>*</sup></label>
-	<input class="form-control" name="schoolname" type="text" placeholder="TODO" required />
+	<input class="form-control" name="schoolname" type="text" placeholder="TODO" value="{{config.schoolname}}" required />
 </div>
 
 <div class="form-group">
 	<label>WebUntis Nutzeraccount<sup>*</sup></label>
-	<input class="form-control" name="username" type="text" placeholder="TODO" required />
+	<input class="form-control" name="username" type="text" placeholder="TODO" value="{{config.username}}" required />
 </div>
 
 <div class="form-group">
 	<label>Passwort für Nutzeraccount <sup>*</sup></label>
-	<input class="form-control" name="password" type="text" placeholder="TODO" required />
+	<input class="form-control" name="password" type="text" placeholder="TODO" value="{{config.password}}" required />
 </div>
 
 <div class="form-group">
 	<label>Endpoint</label>
-	<input class="form-control" name="endpoint" type="text" placeholder="default: erato.webuntis.com" />
+	<input class="form-control" name="endpoint" type="url" placeholder="default: erato.webuntis.com" value="{{config.endpoint}}" />
 </div>
 
 <div class="modal-footer mt-1">

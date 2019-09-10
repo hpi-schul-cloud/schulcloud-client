@@ -1,17 +1,42 @@
 {{#extend "lib/loggedin"}}
 	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="/styles/administration/datasources.css"/>
+		<link rel="stylesheet" href="/styles/administration/datasources/overview.css"/>
 	{{/content}}
 
 	{{#content "scripts" mode="append"}}
 	{{/content}}
 
 	{{#content "page"}}
-		<a href="/administration/datasources/webuntis" class="card card-block card-tool">
-			<h2 class="h5">WebUntis</h2>
-			<p>
-				TODO: Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
-			</p>
-		</a>
+		{{#each datasources}}
+			<a href="/administration/datasources/{{this._id}}" class="card card-block card-tool">
+				<div class="main">
+					<h2 class="h5">{{this.config.type}}</h2>
+					<p>
+						<nobr>Zuletzt aktualisiert von:</nobr>
+						<nobr>{{this.updatedBy.displayName}}</nobr>
+						<nobr>({{timeFromNow this.updatedAt}})</nobr>
+					</p>
+				</div>
+				<div class="status">
+					Status:
+					<div class="status-color status-color-{{toLowerCase this.lastStatus}}">
+						{{#ifeq this.lastStatus "Error"}}
+							<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+						{{/ifeq}}
+						{{#ifeq this.lastStatus "Warning"}}
+							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+						{{/ifeq}}
+						{{#ifeq this.lastStatus "Success"}}
+							<i class="fa fa-check" aria-hidden="true"></i>
+						{{/ifeq}}
+					</div>
+					<span class="status-date">
+						{{timeFromNow this.lastRun}}
+					</span>
+				</div>
+			</a>
+		{{else}}
+			<button>Datenquelle hinzufügen</button>
+		{{/each}}
 	{{/content}}
 {{/extend}}

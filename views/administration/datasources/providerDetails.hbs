@@ -1,0 +1,43 @@
+{{#extend "lib/loggedin"}}
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/administration/datasources/detail.css"/>
+	{{/content}}
+
+	{{#content "scripts" mode="append"}}
+		<script src="/scripts/tabbar.js" type="text/javascript" defer></script>
+	{{/content}}
+
+	{{#content "page"}}
+		<div class="tabContainer" data-active-tab="runs">
+			<div class="tabs" data-max-width="1024">
+				<button class="tab active" data-tab="js-runs">
+					<span class="text">Durchläufe</span>
+				</button>
+				{{! #userHasPermission "DATASOURCES_EDIT"}}
+				<button class="tab" data-tab="js-settings">
+					<span class="text">Einstellungen</span>
+				</button>
+				{{! /userHasPermission}}
+				<div class="indicator"></div>
+			</div>
+			<div class="sectionsContainer">
+				<div class="sections">
+					<section class="section active" data-section="js-runs">
+						{{#each runs}}
+							{{> "administration/datasources/run-card" run=this}}
+						{{else}}
+							Noch keine Durchläufe
+						{{/each}}
+					</section>
+					<section class="section" data-section="js-settings">
+						{{! #userHasPermission "DATASOURCES_EDIT"}}
+							<form method="post" action="/administration/datasources/{{datasourceProvider._id}}">
+								{{> (lookup @root "formName") config=datasourceProvider.config}}
+							</form>
+						{{! /userHasPermission}}
+					</section>
+				</div>
+			</div>
+		</div>
+	{{/content}}
+{{/extend}}

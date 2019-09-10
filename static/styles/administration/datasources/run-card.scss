@@ -1,0 +1,29 @@
+.card.card-tool{
+	display: flex;
+	align-items: center;
+	color: initial;
+	&, &:hover{
+		text-decoration: none;
+	}
+	.main{
+		flex: 1;
+	}
+	.run-date{
+		font-size: .75em;
+	}
+	.status{
+		text-align: center;
+		.status-color{
+			font-size: 2rem;
+			&-error{
+				color: red;
+			}
+			&-warning{
+				color: orange;
+			}
+			&-success{
+				color: rgb(73, 245, 73);
+			}
+		}
+	}
+}
