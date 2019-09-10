@@ -3,12 +3,15 @@
  */
 
 const express = require('express');
-const api = require('../../api');
-const authHelper = require('../../helpers/authentication');
+const api = require('../../../api');
+const authHelper = require('../../../helpers/authentication');
 
 const router = express.Router();
 
 router.use(authHelper.authChecker);
+
+router.use('/webuntis/', require('./webuntis'));
+
 
 const getMockDatasource = async title => ({
 	_id: `provider${title}`,
@@ -24,7 +27,7 @@ const getMockDatasource = async title => ({
 		schoolname: 'schoolname',
 		username: 'username',
 		password: 'password',
-		endpoint: 'endpoint',
+		endpoint: 'https://endpoint.url',
 	},
 });
 
@@ -40,24 +43,23 @@ const getMockRun = async title => ({
 	config: (await getMockDatasource(title)).config,
 });
 
-router.get('/webuntis/edit', (req, res, next) => {
-	res.render('administration/datasources/webuntis-edit', {
-		title: 'WebUntis bearbeiten',
-		action: '/administration/datasources/webuntis/edit',
-	});
-});
-router.post('/webuntis/edit', (req, res, next) => {
-	if (!req.body.endpoint) {
-		req.body.endpoint = 'erato.webuntis.com';
-	}
-	console.log('BODY:', req.body);
-	res.redirect('/administration/datasources/webuntis');
-});
-
 
 router.post('/:id', (req, res, next) => {
-	console.log('BODY:', req.body);
-	res.redirect('/administration/datasources/:id');
+	console.log('NEW CONFIG:\n', req.body);
+	/* TODO
+	 * - save new config (from req.body)
+	 * - start new import
+	 * - redirect to import user-input page (type specific)
+	 */
+	res.redirect('/administration/datasources/webuntis/run/runId');
+});
+
+router.get('/run/:id', (req, res, next) => {
+	/* TODO
+	 * - start new import with currently saved config
+	 * - redirect to import user-input page (type specific)
+	 */
+	res.redirect('/administration/datasources/webuntis/run/runId');
 });
 
 router.get('/:id', async (req, res, next) => {
@@ -70,7 +72,7 @@ router.get('/:id', async (req, res, next) => {
 				url: '/administration/datasources',
 			},
 		],
-		formName: `administration/datasources/forms/form-${datasourceProvider.config.type}`,
+		formName: `administration/datasources/${datasourceProvider.config.type}/form-settings`,
 		datasourceProvider,
 		runs: [
 			await getMockRun(datasourceProvider.config.type),

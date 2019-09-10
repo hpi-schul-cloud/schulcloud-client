@@ -8,10 +8,10 @@
 	{{/content}}
 
 	{{#content "page"}}
-		<div class="tabContainer" data-active-tab="runs">
+		<div class="tabContainer" data-active-tab="{{#if (arrayLength runs)}}runs{{else}}settngs{{/if}}">
 			<div class="tabs" data-max-width="1024">
 				<button class="tab active" data-tab="js-runs">
-					<span class="text">Durchläufe</span>
+					<span class="text">Letzte Aktualisierungen</span>
 				</button>
 				{{! #userHasPermission "DATASOURCES_EDIT"}}
 				<button class="tab" data-tab="js-settings">
@@ -23,8 +23,16 @@
 			<div class="sectionsContainer">
 				<div class="sections">
 					<section class="section active" data-section="js-runs">
+						<p>
+							<a href="/administration/datasources/run/{{datasourceProvider._id}}" class="btn btn-primary mb-1">
+								Import starten
+							</a>
+							<br/>
+							<b>Achtung:</b> Der Import kann bis zu einer Minute dauern.
+						</p>
+
 						{{#each runs}}
-							{{> "administration/datasources/run-card" run=this}}
+							{{> "administration/datasources/components/run-card" run=this}}
 						{{else}}
 							Noch keine Durchläufe
 						{{/each}}
@@ -33,6 +41,11 @@
 						{{! #userHasPermission "DATASOURCES_EDIT"}}
 							<form method="post" action="/administration/datasources/{{datasourceProvider._id}}">
 								{{> (lookup @root "formName") config=datasourceProvider.config}}
+								<div class="modal-footer mt-1">
+									<button class="btn btn-primary mb-1" type="submit">Import mit neuer Konfiguration starten</button>
+									<br/>
+									<b>Achtung:</b> Der Import kann bis zu einer Minute dauern.
+								</div>
 							</form>
 						{{! /userHasPermission}}
 					</section>

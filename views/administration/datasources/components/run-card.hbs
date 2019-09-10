@@ -1,24 +1,15 @@
-<a href="/administration/datasources/{{run.logUrl}}" class="card card-block card-tool">
+<div href="/administration/datasources/{{run.logUrl}}" class="card card-block card-tool">
 	<div class="main">
 		<h2 class="h5">{{dateTimeToPicker run.createdAt}}</h2>
 		<p>
-			Trockenlauf:
-			{{#if run.dryRun}}
-				<i class="fa fa-check" aria-hidden="true"></i>
-			{{else}}
-				<i class="fa fa-times" aria-hidden="true"></i>
-			{{/if}}
-			<br/>
 			<nobr>Initialisiert von:</nobr>
 			<nobr>{{run.createdBy.displayName}}</nobr>
-			<nobr class="run-date"></nobr>
 		</p>
 	</div>
 	<div class="status">
-		Status:
 		<div class="status-color status-color-{{toLowerCase run.status}}">
 			{{#ifeq run.status "Error"}}
-				<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+				<i class="fa fa-ban" aria-hidden="true"></i>
 			{{/ifeq}}
 			{{#ifeq run.status "Warning"}}
 				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
@@ -27,5 +18,6 @@
 				<i class="fa fa-check" aria-hidden="true"></i>
 			{{/ifeq}}
 		</div>
+		<small>{{run.status}}</small>
 	</div>
-</a>
+</div>
