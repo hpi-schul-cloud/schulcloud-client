@@ -87,7 +87,7 @@
                         <a id="submission-tab-link" class="tab-link" href="#activetabid=submission"
                             alt="Deine Abgabe">Abgabe</a>
                     {{else}}
-                        {{#if isTeacher}}
+                        {{#if (userHasRole "teacher")}}
                             <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions"
                                 alt="alle Abgaben">Abgaben</a>
                         {{else}}
