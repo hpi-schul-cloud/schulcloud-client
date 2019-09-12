@@ -69,6 +69,10 @@ const populateCurrentUser = (req, res) => {
 				res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
 				return data2;
 			});
+		}).catch((e) => {
+			if (e.error.message === 'jwt expired') {
+				res.clearCookie('jwt');
+			}
 		});
 	}
 
