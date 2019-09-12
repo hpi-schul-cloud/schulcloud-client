@@ -6,7 +6,7 @@
 <div style="margin-bottom: 12rem" class="form-group form-users" data-tab="person">
     <label for="invitation">Füge Lehrer und Schüler deiner Schule zum Team hinzu</label>
 
-    <select name="userIds[]" multiple data-placeholder="Personen auswählen">
+    <select data-testid="select_team_members_add" name="userIds[]" multiple data-placeholder="Personen auswählen">
         {{#each users}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                     {{this.firstName}} {{this.lastName}}

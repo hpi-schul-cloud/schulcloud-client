@@ -20,12 +20,12 @@
      <div id="team-wrapper">
         <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
             <div class="dropdown dropdown-title minimal-button">
-                <a class="dropdown-toggle btn-title-dropdown" title="Weiteres" data-toggle="dropdown">
+                <a class="dropdown-toggle btn-title-dropdown"  id="team_settings" data-testid="team_settings" title="Weiteres" data-toggle="dropdown">
                     <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
                     <i class="fa fa-cog i-cog"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu dropdown-menu-team">
-                    <a href="/teams/{{_id}}/members" class="dropdown-item">
+                    <a id="administrate_team_members" data-testid="administrate_team_members" href="/teams/{{_id}}/members" class="dropdown-item">
                         <i class="fa fa-users" aria-hidden="true"></i> Teammitglieder {{#inArray "ADD_SCHOOL_MEMBERS" permissions}}verwalten{{else}}ansehen{{/inArray}}
                     </a>
                     {{#userHasPermission "TEAM_EDIT"}}
@@ -90,7 +90,7 @@
                 <div class="sectionsContainer">
                     <div class="sections">
                         <!-- Dateien -->
-                        <div class="section" data-section="js-files">
+                        <div class="section" data-testid="team_files" data-section="js-files">
                             {{#if canUploadFile}}
                                     {{#embed "files/file-upload"}}{{/embed}}
                                 {{/if}}
@@ -180,19 +180,19 @@
 
                         </div>
                         <!--- Neuigkeiten -->
-                        <div class="section" data-section="js-news">
+                        <div class="section" data-testid="teams_news" data-section="js-news">
                             {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
                             <a href="/teams/{{../_id}}/news" class="">
                                 Alle Neuigkeiten anzeigen...
                             </a>
                             {{#inArray "NEWS_CREATE" permissions}}
-                                <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary pull-right">
+                                <a href="/teams/{{../_id}}/news/new" data-testid="create_a_team" class="btn btn-add btn-primary pull-right">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Neuigkeit anlegen
                                 </a>
                             {{/inArray}}
                         </div>
                         <!-- Termine -->
-                        <div class="section" data-section="js-events">
+                        <div class="section" data-testid="team_events" data-section="js-events">
                             <div class="row">
                                 {{#each ../events}}
                                     {{> 'calendar/card' event=this canEdit=../canEditEvents}}
