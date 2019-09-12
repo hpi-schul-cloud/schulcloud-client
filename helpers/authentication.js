@@ -70,7 +70,7 @@ const populateCurrentUser = (req, res) => {
 				return data2;
 			});
 		}).catch((e) => {
-			if (e.error.message === 'jwt expired') {
+			if (e.error.message === 'jwt expired' || e.error.className === 'not-found') {
 				res.clearCookie('jwt');
 			}
 		});
