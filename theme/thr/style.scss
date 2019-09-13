@@ -9,14 +9,23 @@ $accentColor: #f56b00;
 
 $logoGradient: linear-gradient(45deg, $primaryColor 30%, $primaryColor);
 
-$logoBackground: url("../../images/logo/cloud-transparent-mono.svg") center / contain no-repeat;
+$logoBackground: url("../../images/logo/logo.svg") center / contain no-repeat;
 $logoBackgroundTablet: url("../../images/logo/cloud-transparent-mono-48-48.svg") center / contain no-repeat;
 $logoBackgroundLanding: url("../../images/logo/cloud-transparent-mono-long.svg") center / contain no-repeat;
 
-aside.nav-sidebar{
-    .sc-branding{
-        background-image: linear-gradient(to left, rgba(255, 255, 255, 0.25) ,rgba(255, 255, 255, 0));
-    }
+aside.nav-sidebar {
+    .sc-branding {
+		background-image: linear-gradient(to left, rgba(255, 255, 255, 0.25) ,rgba(255, 255, 255, 0));
+		padding: 0 5px;
+		.cloud-logo {
+			width: 100%;
+			margin: 0;
+			padding: 30px;
+		}
+		.sc-title {
+			display: none;
+		}
+	}
 
     ul li a:not(.sc-branding) {
         color: $primaryColor;
