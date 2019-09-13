@@ -39,6 +39,12 @@ function buildandpush {
   docker push schulcloud/schulcloud-client-brb:$DOCKERTAG
   docker push schulcloud/schulcloud-client-brb:$GIT_SHA
   fi
+  
+    # build container thr theme
+  docker build -t schulcloud/schulcloud-client-thr:$DOCKERTAG -t schulcloud/schulcloud-client-thr:$GIT_SHA -f Dockerfile.thr .
+  docker push schulcloud/schulcloud-client-thr:$DOCKERTAG
+  docker push schulcloud/schulcloud-client-thr:$GIT_SHA
+  fi
 }
 
 function deploytotest {
@@ -66,7 +72,7 @@ function deploytoprods {
   # brabu
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@open.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client-brb:latest brabu_client
   # thueringen
-  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@schulcloud-thueringen.de /usr/bin/docker service update --force --image schulcloud/schulcloud-client:latest thueringen_client
+  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@schulcloud-thueringen.de /usr/bin/docker service update --force --image schulcloud/schulcloud-client-thr:latest thueringen_client
   # demo
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@demo.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client:latest demo_client
 }
