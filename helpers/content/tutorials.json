@@ -11,6 +11,11 @@
 				"type": "category",
 				"articles": [
 					{
+						"id": "102205669",
+						"title": "Einführungsvideo (Kurse)",
+						"type": "article"
+					},
+					{
 						"id": "13828241",
 						"title": "Erstellen von Kursen",
 						"type": "article"
@@ -71,7 +76,7 @@
 				"articles": [
 					{
 						"id": "102203782",
-						"title": "Einführung (Video)",
+						"title": "Einführungsvideo (Aufgaben)",
 						"type": "article"
 					},
 					{
@@ -123,6 +128,11 @@
 				"title": "Dateiablage",
 				"type": "category",
 				"articles": [
+					{
+						"id": "102205672",
+						"title": "Einführungsvideo (Dateien)",
+						"type": "article"
+					},
 					{
 						"id": "13828549",
 						"title": "Dateiübersicht",
@@ -208,6 +218,97 @@
 				]
 			},
 			{
+				"id": "102204927",
+				"title": "Teams",
+				"type": "category",
+				"articles": [
+					{
+						"id": "102203773",
+						"title": "Einführungsvideo (Teams)",
+						"type": "article"
+					},
+					{
+						"id": "102205180",
+						"title": "Team anlegen",
+						"type": "article"
+					},
+					{
+						"id": "102205209",
+						"title": "Teammitglieder einladen",
+						"type": "article"
+					},
+					{
+						"id": "102205143",
+						"title": "Teams: Funktionsumfang",
+						"type": "article"
+					},
+					{
+						"id": "102205394",
+						"title": "Teams: Einstellungen",
+						"type": "article"
+					},
+					{
+						"id": "102205291",
+						"title": "Team bearbeiten",
+						"type": "article"
+					},
+					{
+						"id": "102205330",
+						"title": "Team löschen",
+						"type": "article"
+					}
+				]
+			},
+			{
+				"id": "44073009",
+				"title": "Hinweise für Administrator*innen",
+				"type": "category",
+				"articles": [
+					{
+						"id": "56655925",
+						"title": "Nutzer per .csv importieren",
+						"type": "article"
+					},
+					{
+						"id": "102203936",
+						"title": "weBBschule - Export/Import",
+						"type": "article"
+					},
+					{
+						"id": "13828868",
+						"title": "Authentifizierung",
+						"type": "article"
+					},
+					{
+						"id": "55902270",
+						"title": "LDAP-Information für Schulen",
+						"type": "article"
+					},
+					{
+						"id": "39649285",
+						"title": "Helpdesk",
+						"type": "article"
+					},
+					{
+						"id": "98598995",
+						"title": "Browser richtig konfigurieren",
+						"type": "article"
+					}
+				]
+			},
+			{
+				"id": "69664812",
+				"title": "Kolleg*innen schulen",
+				"type": "category",
+				"articles": [
+					{
+						"id": "39387143",
+						"title": "Testschüler für Schulungszwecke anlegen",
+						"type": "article"
+					}
+				]
+			},
+			{
 				"id": "17170476",
 				"title": "Sonstige Funktionen",
 				"type": "category",
@@ -250,63 +351,8 @@
 				]
 			},
 			{
-				"id": "44073009",
-				"title": "Hinweise für Administrator*innen",
-				"type": "category",
-				"articles": [
-					{
-						"id": "56655925",
-						"title": "Nutzer per .csv importieren",
-						"type": "article"
-					},
-					{
-						"id": "13828868",
-						"title": "Authentifizierung",
-						"type": "article"
-					},
-					{
-						"id": "39649285",
-						"title": "Helpdesk",
-						"type": "article"
-					},
-					{
-						"id": "98598995",
-						"title": "Browser richtig konfigurieren",
-						"type": "article"
-					},
-					{
-						"id": "55902270",
-						"title": "LDAP-Information für Schulen",
-						"type": "article"
-					},
-					{
-						"id": "102203936",
-						"title": "weBBschule - Export/Import",
-						"type": "article"
-					}
-				]
-			},
-			{
-				"id": "69664812",
-				"title": "Kolleg*innen schulen",
-				"type": "category",
-				"articles": [
-					{
-						"id": "39387143",
-						"title": "Testschüler für Schulungszwecke anlegen",
-						"type": "article"
-					}
-				]
-			},
-			{
 				"id": "73072659",
 				"title": "Presse- und Öffentlichkeitsarbeit für Schulen",
-				"type": "category",
-				"articles": []
-			},
-			{
-				"id": "102203773",
-				"title": "Teams ist da! (neu)",
 				"type": "category",
 				"articles": []
 			}

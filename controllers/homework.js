@@ -4,26 +4,16 @@
  */
 
 const express = require('express');
-const router = express.Router();
 const marked = require('marked');
+const handlebars = require('handlebars');
+const moment = require('moment');
+const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
-const handlebars = require("handlebars");
-const moment = require("moment");
-const _ = require("lodash");
-const winston = require('winston');
+const logger = require('../helpers/logger');
 
-const logger = winston.createLogger({
-    transports: [
-        new winston.transports.Console({
-            format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.simple()
-            )
-        })
-    ]
-});
+const router = express.Router();
 
 handlebars.registerHelper('ifvalue', function (conditional, options) {
     if (options.hash.value === conditional) {
@@ -480,12 +470,8 @@ const overview = (title = "") => {
                     return assignment;
                 });
 
-                const coursesPromise = getSelectOptions(req, 'courses', {
-                    $or: [
-                        { userIds: res.locals.currentUser._id },
-                        { teacherIds: res.locals.currentUser._id },
-                        { substitutionIds: res.locals.currentUser._id }
-                    ]
+                const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
+                    $limit: false,
                 });
                 Promise.resolve(coursesPromise).then(courses => {
                     const courseList = courses.map(course => {
@@ -555,7 +541,6 @@ const overview = (title = "") => {
                         pagination,
                         homeworks,
                         courses,
-                        isStudent,
                         filterSettings: JSON.stringify(filterSettings),
                         addButton: (req._parsedUrl.pathname == "/"
                             || req._parsedUrl.pathname.includes("private")
@@ -577,12 +562,8 @@ router.get('/private', overview("Meine ToDos"));
 router.get('/archive', overview("Archivierte Aufgaben und ToDos"));
 
 router.get('/new', function (req, res, next) {
-    const coursesPromise = getSelectOptions(req, 'courses', {
-        $or: [
-            { userIds: res.locals.currentUser._id },
-            { teacherIds: res.locals.currentUser._id },
-            { substitutionIds: res.locals.currentUser._id }
-        ]
+    const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
+        $limit: false,
     });
     Promise.resolve(coursesPromise).then(async (courses) => {
         courses = courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
@@ -599,41 +580,25 @@ router.get('/new', function (req, res, next) {
             }
             lessons = (lessons || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
         }
-        // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
-        const userPromise = getSelectOptions(req, 'users', {
-            _id: res.locals.currentUser._id,
-            $populate: ['roles']
-        });
-        Promise.resolve(userPromise).then(user => {
-            const roles = user[0].roles.map(role => {
-                return role.name;
-            });
-            let isStudent = true;
-            if (roles.indexOf('student') == -1) {
-                isStudent = false;
-            }
-
-            let assignment = { "private": (req.query.private == 'true') };
-            if (req.query.course) {
-                assignment["courseId"] = { "_id": req.query.course };
-            }
-            if (req.query.topic) {
-                assignment["lessonId"] = req.query.topic;
-            }
-            //Render overview
-            res.render('homework/edit', {
-                title: 'Aufgabe hinzufügen',
-                submitLabel: 'Hinzufügen',
-                closeLabel: 'Abbrechen',
-                method: 'post',
-                action: '/homework/',
-                referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : req.header('Referer'),
-                assignment,
-                courses,
-                lessons: lessons.length ? lessons : false,
-                isStudent
-            });
-        });
+		let assignment = { "private": (req.query.private == 'true') };
+		if (req.query.course) {
+			assignment["courseId"] = { "_id": req.query.course };
+		}
+		if (req.query.topic) {
+			assignment["lessonId"] = req.query.topic;
+		}
+		//Render overview
+		res.render('homework/edit', {
+			title: 'Aufgabe hinzufügen',
+			submitLabel: 'Hinzufügen',
+			closeLabel: 'Abbrechen',
+			method: 'post',
+			action: '/homework/',
+			referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : req.header('Referer'),
+			assignment,
+			courses,
+			lessons: lessons.length ? lessons : false,
+		});
     });
 });
 
@@ -670,12 +635,8 @@ router.get('/:assignmentId/edit', function (req, res, next) {
         assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
         assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
 
-        const coursesPromise = getSelectOptions(req, 'courses', {
-            $or: [
-                { userIds: res.locals.currentUser._id },
-                { teacherIds: res.locals.currentUser._id },
-                { substitutionIds: res.locals.currentUser._id }
-            ]
+        const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
+            $limit: false,
         });
         Promise.resolve(coursesPromise).then(courses => {
             courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
@@ -688,10 +649,6 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                 const roles = user[0].roles.map(role => {
                     return role.name;
                 });
-                let isStudent = true;
-                if (roles.indexOf('student') == -1) {
-                    isStudent = false;
-                }
                 if (assignment.courseId && assignment.courseId._id) {
                     const lessonsPromise = getSelectOptions(req, 'lessons', {
                         courseId: assignment.courseId._id
@@ -708,13 +665,12 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                             assignment,
                             courses,
                             lessons,
-                            isStudent,
                             isSubstitution
                         });
                     });
                 } else {
                     res.render('homework/edit', {
-                        title: 'Aufgabe hinzufügen',
+                        title: 'Aufgabe bearbeiten',
                         submitLabel: 'Speichern',
                         closeLabel: 'Abbrechen',
                         method: 'patch',
@@ -723,7 +679,6 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         assignment,
                         courses,
                         lessons: false,
-                        isStudent,
                         isSubstitution
                     });
                 }

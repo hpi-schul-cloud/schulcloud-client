@@ -1,21 +1,30 @@
 /* global introJs */
 $(document).ready(function() {
 
+	// reset localStorage when new version is Published
+	const newVersion = 1;
+	const currentVersion = parseInt(localStorage.getItem('homepageVersion') || '0', 10);
+
+	if(currentVersion < newVersion){
+		localStorage.clear();
+		localStorage.setItem('homepageVersion', newVersion.toString());
+	}
+
 	try {
 		console.log(`
-	__  __  ____    ______      _____           __               ___            _____   ___                       __     
-   /\\ \\/\\ \\/\\  _\`\\ /\\__  _\\    /\\  __\`\\        /\\ \\             /\\_ \\          /\\  __\`\\/\\_ \\                     /\\ \\    
-   \\ \\ \\_\\ \\ \\ \\_\\ \\/_/\\ \\/    \\ \\,\\_\\_\\    ___\\ \\ \\___   __  __\\//\\ \\         \\ \\ \\/\\_\\//\\ \\     ___   __  __   \\_\\ \\   
-	\\ \\  _  \\ \\ ,__/  \\ \\ \\     \\/_\\___ \\  /'___\\ \\  _ \`\\/\\ \\/\\ \\ \\ \\ \\   ______\\ \\ \\/_/_\\ \\ \\   / __\`\\/\\ \\/\\ \\  /'_\` \\  
-	 \\ \\ \\ \\ \\ \\ \\/    \\_\\ \\__    /\\ \\_\\ \\/\\ \\__/\\ \\ \\ \\ \\ \\ \\_\\ \\ \\_\\ \\_/\\_____\\\\ \\ \\_\\ \\\\_\\ \\_/\\ \\_\\ \\ \\ \\_\\ \\/\\ \\_\\ \\ 
+	__  __  ____    ______      _____           __               ___            _____   ___                       __
+   /\\ \\/\\ \\/\\  _\`\\ /\\__  _\\    /\\  __\`\\        /\\ \\             /\\_ \\          /\\  __\`\\/\\_ \\                     /\\ \\
+   \\ \\ \\_\\ \\ \\ \\_\\ \\/_/\\ \\/    \\ \\,\\_\\_\\    ___\\ \\ \\___   __  __\\//\\ \\         \\ \\ \\/\\_\\//\\ \\     ___   __  __   \\_\\ \\
+	\\ \\  _  \\ \\ ,__/  \\ \\ \\     \\/_\\___ \\  /'___\\ \\  _ \`\\/\\ \\/\\ \\ \\ \\ \\   ______\\ \\ \\/_/_\\ \\ \\   / __\`\\/\\ \\/\\ \\  /'_\` \\
+	 \\ \\ \\ \\ \\ \\ \\/    \\_\\ \\__    /\\ \\_\\ \\/\\ \\__/\\ \\ \\ \\ \\ \\ \\_\\ \\ \\_\\ \\_/\\_____\\\\ \\ \\_\\ \\\\_\\ \\_/\\ \\_\\ \\ \\ \\_\\ \\/\\ \\_\\ \\
 	  \\ \\_\\ \\_\\ \\_\\    /\\_____\\   \\ \`\\____\\ \\____\\\\ \\_\\ \\_\\ \\____/ /\\____\\/_____/ \\ \\____//\\____\\ \\____/\\ \\____/\\ \\___,_\\
 	   \\/_/\\/_/\\/_/    \\/_____/    \\/_____/\\/____/ \\/_/\\/_/\\/___/  \\/____/         \\/___/ \\/____/\\/___/  \\/___/  \\/__,_ /
 	`);
-		console.log("   Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs");
+		console.log("Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs");
 	} catch(e) {
 		// no log
 	}
-	
+
     var $btnToggleProviers = $('.btn-toggle-providers');
     var $btnHideProviers = $('.btn-hide-providers');
     var $btnLogin = $('.btn-login');
@@ -59,8 +68,14 @@ $(document).ready(function() {
     });
 
     $btnLogin.on('click', function(e) {
-        localStorage.setItem('loginSchool', $school.val());
-        localStorage.setItem('loginSystem', $systems.val());
+		const school = $school.val();
+		const system = $systems.val();
+		if(school){
+			localStorage.setItem('loginSchool', school);
+		}
+		if(system){
+			localStorage.setItem('loginSystem', system);
+		}
     });
 
     $school.on('change', function() {
@@ -102,7 +117,9 @@ window.startIntro = function startIntro() {
         nextLabel: "Weiter",
         prevLabel: "Zurück",
         doneLabel: "Nächste Seite",
-        skipLabel: "Überspringen"
+        skipLabel: "Überspringen",
+        hidePrev: true, //hide previous button in the first step
+        hideNext: true  //hide next button in the last step
     })
     .start()
     .oncomplete(function() {
@@ -119,7 +136,7 @@ if ('serviceWorker' in navigator){
                 caches.keys().then(function(cacheNames) {
                     return Promise.all(
                       cacheNames.filter(function(cacheName) {
-                        return cacheName.startsWith('workbox') | cacheName.startsWith('images') 
+                        return cacheName.startsWith('workbox') | cacheName.startsWith('images')
                         | cacheName.startsWith('pages') | cacheName.startsWith('vendors');
                       }).map(function(cacheName) {
                         return caches.delete(cacheName);
@@ -127,6 +144,6 @@ if ('serviceWorker' in navigator){
                     );
                 });
             }
-        } 
+        }
     });
 }

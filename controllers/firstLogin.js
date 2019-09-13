@@ -6,6 +6,8 @@ const userConsentVersions = require('../helpers/consentVersions');
 
 const converter = new showdown.Converter();
 
+const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+
 const router = express.Router();
 
 // secure routes
@@ -75,7 +77,8 @@ router.get('/', async (req, res, next) => {
 			if (res.locals.currentUser.age < 14) {
 				// U14
 				sections.push('welcome');
-			} else if (res.locals.currentUser.age < 16 && !(res.locals.currentUser.preferences || {}).firstLogin) {
+			} else if (res.locals.currentUser.age < CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS
+				&& !(res.locals.currentUser.preferences || {}).firstLogin) {
 				// 14-15
 				sections.push('welcome_14-15');
 			} else if (userConsent && (res.locals.currentUser.preferences || {}).firstLogin) {
@@ -151,6 +154,7 @@ router.get('/', async (req, res, next) => {
 		submitPageIndex,
 		userConsent,
 		updatedConsents,
+		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	};
 
 	if (consentVersions.haveBeenUpdated) {
@@ -165,14 +169,15 @@ router.get('/', async (req, res, next) => {
 	return res.render('firstLogin/firstLogin', renderObject);
 });
 
-// submit & error handling
 router.get('/existing', (req, res, next) => {
 	res.render('firstLogin/firstLoginExistingUser', {
 		title: 'Willkommen - Erster Login für bestehende Nutzer',
 		hideMenu: true,
+		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	});
 });
 
+// submit & error handling
 router.get('/consentError', (req, res, next) => {
 	res.render('firstLogin/consentError');
 });
@@ -184,7 +189,7 @@ router.post(['/submit', '/submit/sso'], async (req, res, next) => api(req).post(
 	.catch((err) => {
 		res.status(500).send(
 			(err.error || err).message
-				|| 'Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.',
+			|| 'Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.',
 		);
 	}));
 

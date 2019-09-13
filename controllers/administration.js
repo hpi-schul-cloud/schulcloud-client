@@ -20,6 +20,8 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 const decoder = new StringDecoder('utf8');
 
+const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+
 moment.locale('de');
 
 // eslint-disable-next-line no-unused-vars
@@ -28,6 +30,18 @@ const getSelectOptions = (req, service, query, values = []) => api(req)
 		qs: query,
 	})
 	.then(data => data.data);
+
+const getSelectableYears = (school) => {
+	let years = [];
+	if (school && school.years) {
+		years = years.concat([
+			school.years.activeYear,
+			school.years.nextYear,
+			school.years.lastYear,
+		].filter(y => !!y));
+	}
+	return years;
+};
 
 const cutEditOffUrl = (url) => {
 	// nicht optimal, aber req.header('Referer')
@@ -582,9 +596,7 @@ const getDetailHandler = service => function detailHandler(req, res, next) {
 		.then((data) => {
 			res.json(mapEventProps(data, service));
 		})
-		.catch((err) => {
-			next(err);
-		});
+		.catch(next);
 };
 
 const getDeleteHandler = (service, redirectUrl) => function deleteHandler(req, res, next) {
@@ -715,38 +727,6 @@ const returnAdminPrefix = (roles) => {
 	return prefix;
 };
 
-// needed??
-// eslint-disable-next-line no-unused-vars
-const getClasses = (user, classes, teacher) => {
-	let userClasses = '';
-
-	if (teacher) {
-		// eslint-disable-next-line array-callback-return
-		classes.data.map((uClass) => {
-			if (uClass.teacherIds.includes(user._id)) {
-				if (userClasses !== '') {
-					userClasses = `${userClasses} , ${uClass.displayName}` || '';
-				} else {
-					userClasses = uClass.displayName || '';
-				}
-			}
-		});
-	} else {
-		// eslint-disable-next-line array-callback-return
-		classes.data.map((uClass) => {
-			if (uClass.userIds.includes(user._id)) {
-				if (userClasses !== '') {
-					userClasses = `${userClasses} , ${uClass.displayName}` || '';
-				} else {
-					userClasses = uClass.displayName || '';
-				}
-			}
-		});
-	}
-
-	return userClasses;
-};
-
 // with userId to accountId
 const userIdtoAccountIdUpdate = service => function useIdtoAccountId(req, res, next) {
 	api(req)
@@ -781,6 +761,8 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 			['firstName', 'Vorname'],
 			['lastName', 'Nachname'],
 			['email', 'E-Mail-Adresse'],
+			['class', 'Klasse(n)'],
+			['consent', 'Einwilligung'],
 			['createdAt', 'Erstelldatum'],
 		],
 		defaultSelection: defaultOrder || 'firstName',
@@ -809,7 +791,7 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 				['missing', 'Keine Einverständniserklärung vorhanden'],
 				[
 					'parentsAgreed',
-					'Eltern haben zugestimmt (oder Schüler ist über 16)',
+					`Eltern haben zugestimmt (oder Schüler ist über ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS})`,
 				],
 				['ok', 'Alle Zustimmungen vorhanden'],
 			],
@@ -1036,8 +1018,9 @@ router.all(
 			.get('users/admin/teachers', {
 				qs: query,
 			})
-			.then((data) => {
-				const users = data.data;
+			.then(async (teachersResponse) => {
+				const users = teachersResponse.data;
+				const years = getSelectableYears(res.locals.currentSchoolData);
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
@@ -1083,7 +1066,7 @@ router.all(
 
 				const pagination = {
 					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
+					numPages: Math.ceil(teachersResponse.total / itemsPerPage),
 					baseUrl: `/administration/teachers/?p={{page}}${filterQueryString}`,
 				};
 
@@ -1094,6 +1077,8 @@ router.all(
 					pagination,
 					filterSettings: JSON.stringify(userFilterSettings('lastName', true)),
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+					schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+					years,
 				});
 			});
 	},
@@ -1284,7 +1269,6 @@ router.all(
 			: '';
 
 		let itemsPerPage = 25;
-		const amountOfYears = 5;
 		let filterQuery = {};
 		if (tempOrgQuery) {
 			filterQuery = JSON.parse(decodeURI(req.query.filterQuery));
@@ -1303,21 +1287,13 @@ router.all(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-		const studentsRequest = api(req)
+		api(req)
 			.get('/users/admin/students', {
 				qs: query,
-			});
-		const yearsRequest = api(req)
-			.get('/years', {
-				qs: {
-					$limit: amountOfYears,
-					$sort: { name: -1 },
-				},
-			});
-		Promise.all([studentsRequest, yearsRequest])
-			.then(async ([studentsResponse, yearsResponse]) => {
+			})
+			.then(async (studentsResponse) => {
 				const users = studentsResponse.data;
-				const years = yearsResponse.data;
+				const years = getSelectableYears(res.locals.currentSchoolData);
 				const title = `${returnAdminPrefix(
 					res.locals.currentUser.roles,
 				)}Schüler`;
@@ -1326,7 +1302,7 @@ router.all(
 					'Vorname',
 					'Nachname',
 					'E-Mail-Adresse',
-					'Klasse(n)',
+					'Klasse',
 					'Erstellt am',
 					'Einverständnis',
 					'',
@@ -1380,9 +1356,11 @@ router.all(
 						pagination,
 						filterSettings: JSON.stringify(userFilterSettings()),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+						schoolCurrentYear: res.locals.currentSchoolData.currentYear,
 						studentsWithoutConsentCount,
 						allStudentsCount: users.length,
 						years,
+						CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					});
 				} catch (err) {
 					logger.warn(
@@ -1421,7 +1399,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	let consents = [];
 	const batchSize = 50;
 	let slice = 0;
-	while (slice * batchSize <= users.length) {
+	while (users.length !== 0 && slice * batchSize <= users.length) {
 		consents = consents.concat(
 			(await api(req).get('/consents', {
 				qs: {
@@ -1446,7 +1424,8 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	const usersWithoutConsent = users.filter(consentMissing);
 	const usersWithIncompleteConsent = consents
 		.filter(consentIncomplete)
-		.map(c => c.userId);
+		// get full user object from users list
+		.map(c => users.find(user => user._id.toString() === c.userId._id.toString()));
 	return usersWithoutConsent.concat(usersWithIncompleteConsent);
 };
 
@@ -1566,6 +1545,7 @@ router.get(
 		const accountPromise = api(req).get('/accounts/', {
 			qs: { userId: req.params.id },
 		});
+		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
 		Promise.all([userPromise, consentPromise, accountPromise])
 			.then(([user, _consent, [account]]) => {
@@ -1584,9 +1564,12 @@ router.get(
 					user,
 					consentStatusIcon: getConsentStatusIcon(consent.consentStatus),
 					consent,
+					canSkipConsent: canSkip,
+					hasImportHash: user.importHash,
 					hidePwChangeButton,
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
+					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 				});
 			})
 			.catch((err) => {
@@ -1672,18 +1655,17 @@ const renderClassEdit = (req, res, next, edit) => {
 					roles: ['teacher', 'demoTeacher'],
 					$limit: false,
 				}), // teachers
-				getSelectOptions(req, 'years', { $sort: { name: -1 } }),
-				getSelectOptions(req, 'gradeLevels'),
+				Array.from(Array(13).keys()).map(e => ({
+					grade: e + 1,
+				})),
 			];
 			if (edit) {
 				promises.push(api(req).get(`/classes/${req.params.classId}`));
 			}
 
 			Promise.all(promises).then(
-				([teachers, schoolyears, gradeLevels, currentClass]) => {
-					gradeLevels.sort(
-						(a, b) => parseInt(a.name, 10) - parseInt(b.name, 10),
-					);
+				([teachers, gradeLevels, currentClass]) => {
+					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
 
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
@@ -1710,23 +1692,23 @@ const renderClassEdit = (req, res, next, edit) => {
 						});
 						gradeLevels.forEach((g) => {
 							// eslint-disable-next-line eqeqeq
-							if ((currentClass.gradeLevel || {})._id == g._id) {
+							if (currentClass.gradeLevel == g.grade) {
 								g.selected = true;
 							}
 						});
 						schoolyears.forEach((schoolyear) => {
-							if ((currentClass.year || {})._id === schoolyear._id) {
+							if (currentClass.year === schoolyear._id) {
 								schoolyear.selected = true;
 							}
 						});
-						if (currentClass.nameFormat === 'static') {
+						if (currentClass.gradeLevel) {
+							currentClass.classsuffix = currentClass.name;
+						} else {
 							isCustom = true;
 							currentClass.customName = currentClass.name;
 							if (currentClass.year) {
 								currentClass.keepYear = true;
 							}
-						} else if (currentClass.nameFormat === 'gradeLevel+name') {
-							currentClass.classsuffix = currentClass.name;
 						}
 					}
 
@@ -1906,7 +1888,7 @@ router.get(
 						schoolyears,
 						notes: [
 							{
-								title: 'Deine Schüler sind unter 16 Jahre alt?',
+								title: `Deine Schüler sind unter ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt?`,
 								content: `Gib den Registrierungslink zunächst an die Eltern weiter.
                 Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis.
                 Der Schüler ist dann in der ${res.locals.theme.short_title}
@@ -1917,9 +1899,10 @@ router.get(
                 damit er die ${res.locals.theme.short_title} nutzen kann.`,
 							},
 							{
-								title: 'Deine Schüler sind mindestens 16 Jahre alt?',
+								title: `Deine Schüler sind mindestens ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}`
+									+ ' Jahre alt?',
 								content:
-									'Gib den Registrierungslink direkt an den Schüler weiter.'
+									'Gib den Registrierungslink direkt an den Schüler weiter. '
 									+ 'Die Schritte für die Eltern entfallen automatisch.',
 							},
 							/* { // TODO - Feature not implemented
@@ -2015,16 +1998,15 @@ router.post(
 		const newClass = {
 			schoolId: req.body.schoolId,
 		};
+
 		if (req.body.classcustom) {
 			newClass.name = req.body.classcustom;
-			newClass.nameFormat = 'static';
 			if (req.body.keepyear) {
 				newClass.year = req.body.schoolyear;
 			}
-		} else if (req.body.classsuffix) {
-			newClass.name = req.body.classsuffix;
+		} else {
+			newClass.name = req.body.classsuffix || '';
 			newClass.gradeLevel = req.body.grade;
-			newClass.nameFormat = 'gradeLevel+name';
 			newClass.year = req.body.schoolyear;
 		}
 		if (req.body.teacherIds) {
@@ -2061,15 +2043,12 @@ router.post(
 		};
 		if (req.body.classcustom) {
 			changedClass.name = req.body.classcustom;
-			changedClass.nameFormat = 'static';
 			if (req.body.keepyear) {
 				changedClass.year = req.body.schoolyear;
 			}
 		} else {
-			req.body.classsuffix = req.body.classsuffix || '';
-			changedClass.name = req.body.classsuffix;
+			changedClass.name = req.body.classsuffix || '';
 			changedClass.gradeLevel = req.body.grade;
-			changedClass.nameFormat = 'gradeLevel+name';
 			changedClass.year = req.body.schoolyear;
 		}
 		if (req.body.teacherIds) {
@@ -2177,6 +2156,10 @@ router.all(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
+
+		if (!res.locals.currentUser.permissions.includes('USERGROUP_FULL_ADMIN')) {
+			query.teacherIds = res.locals.currentUser._id.toString();
+		}
 
 		api(req)
 			.get('/classes', {
@@ -2466,9 +2449,20 @@ router.all('/courses', (req, res, next) => {
 					(item.classIds || []).map(item => item.displayName).join(', '),
 					// eslint-disable-next-line no-shadow
 					(item.teacherIds || []).map(item => item.lastName).join(', '),
-					getTableActions(item, '/administration/courses/').map(
-						action => action,
-					),
+					[
+						{
+							link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
+							icon: 'edit',
+							title: 'Eintrag bearbeiten',
+						},
+						{
+							link: `/administration/courses/${item._id}`,
+							class: 'btn-delete',
+							icon: 'trash-o',
+							method: 'delete',
+							title: 'Eintrag löschen',
+						},
+					],
 				]);
 
 				let sortQuery = '';
@@ -2850,15 +2844,30 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
-					$populate: ['systems'],
+					$populate: ['systems', 'currentYear'],
 					$sort: req.query.sort,
 				},
 			}),
 			api(req).get('/fileStorage/total'),
+			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
 		]);
+
+		// Maintanance - Show Menu depending on the state
+		const currentTime = new Date();
+		const maintananceModeStarts = new Date(schoolMaintanance.currentYear.endDate);
+		// Terminate school year 14 days before maintance start possible
+		const twoWeeksFromStart = new Date(maintananceModeStarts.valueOf());
+		twoWeeksFromStart.setDate(twoWeeksFromStart.getDate() - 14);
+
+		let schoolMaintananceMode = 'idle';
+		if (schoolMaintanance.maintenance.active) {
+			schoolMaintananceMode = 'active';
+		} else if (maintananceModeStarts && twoWeeksFromStart < currentTime) {
+			schoolMaintananceMode = 'standby';
+		}
 
 		// SYSTEMS
 		const systemsHead = ['Alias', 'Typ', ''];
@@ -2935,6 +2944,8 @@ router.use(
 		res.render('administration/school', {
 			title: `${title}Schule`,
 			school,
+			schoolMaintanance,
+			schoolMaintananceMode,
 			systems,
 			ldapAddable,
 			provider,
@@ -2950,6 +2961,88 @@ router.use(
 		});
 	},
 );
+
+/*
+
+	Change School Year
+
+*/
+
+// Terminate
+router.post('/terminateschoolyear', async (req, res) => {
+	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
+		json: {
+			maintenance: true,
+		},
+	});
+
+	res.redirect('/administration/school');
+});
+
+// Start
+router.use('/startschoolyear', async (req, res) => {
+	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
+		json: {
+			maintenance: false,
+		},
+	});
+
+	res.redirect('/administration/school');
+});
+
+// Start preview LDAP
+router.get('/startldapschoolyear', async (req, res) => {
+	// Find LDAP-System
+	const school = await Promise.resolve(
+		api(req).get(`/schools/${res.locals.currentSchool}`, {
+			qs: {
+				$populate: ['systems'],
+			},
+		}),
+	);
+	const system = school.systems.filter(
+		// eslint-disable-next-line no-shadow
+		system => system.type === 'ldap',
+	);
+
+	const ldapData = await Promise.resolve(api(req).get(`/ldap/${system[0]._id}`));
+
+	const bodyClasses = [];
+	ldapData.classes.forEach((singleClass) => {
+		if (singleClass.uniqueMembers && singleClass.uniqueMembers.length) {
+			bodyClasses.push([
+				singleClass.className,
+				singleClass.ldapDn,
+				(singleClass.uniqueMembers || []).join('; '),
+			]);
+		}
+	});
+
+	const bodyUsers = [];
+	ldapData.users.forEach((user) => {
+		bodyUsers.push([
+			user.firstName,
+			user.lastName,
+			user.email,
+			user.ldapUID,
+			user.roles.join(),
+			user.ldapDn,
+			user.ldapUUID,
+		]);
+	});
+
+	const headUser = ['Vorname', 'Nachname', 'E-Mail', 'uid', 'Rolle(n)', 'Domainname', 'uuid'];
+	const headClasses = ['Name', 'Domain', 'Nutzer der Klasse'];
+
+	res.render('administration/ldap-schoolyear-start', {
+		title: 'Prüfung der LDAP-Daten für Schuljahreswechsel',
+		headUser,
+		bodyUsers,
+		headClasses,
+		bodyClasses,
+	});
+});
+
 
 /*
     LDAP SYSTEMS

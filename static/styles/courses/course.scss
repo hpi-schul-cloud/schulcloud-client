@@ -1,9 +1,29 @@
-@import '../lib/colors';
-@import '../lib/bootstrap/scss/bootstrap-flex';
+@import "../lib/colors";
+@import "../lib/bootstrap/scss/bootstrap-flex";
 
 .move-handle {
   cursor: move;
   white-space: nowrap;
+}
+
+.count-badge {
+  bottom: 2px;
+  position: relative;
+}
+
+.count-badge[data-badge]:after {
+  content: attr(data-badge);
+  background: $colorLightGrey;
+  color: $fontColor;
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
 }
 
 .dropdown-course {
@@ -13,6 +33,7 @@
     padding: 0;
     .i-cog {
       font-size: medium;
+      color: $secondaryColor;
     }
   }
 
@@ -36,6 +57,52 @@
   }
 }
 
+.section-courses .sections, .section-course {
+
+  .empty-state {
+    text-align: center;
+    max-width: 60%;
+    margin: 0 auto;
+    margin-top: 20px;
+    @include media-breakpoint-down(xs) {
+      max-width: 90%;
+    }
+    @include media-breakpoint-up(xs) {
+      max-width: 60%;
+    }
+    h6.sub-title {
+      color: $colorDarkerGrey;
+    }
+    .image {
+      width: auto;
+      height: auto;
+      margin-bottom: 30px;
+      @include media-breakpoint-down(xs) {
+        max-width: 80px;
+      }
+      @include media-breakpoint-up(xs) {
+        max-width: 100px;
+      }
+
+      transition: all 0.3s ease-in;
+      &:hover {
+        transform: rotate(-7deg);
+      }
+    }
+    .image.topic-image {
+      max-width: 80px;
+      @include media-breakpoint-down(xs) {
+        max-width: 60px;
+      }
+    }
+  }
+
+  .empty-state-courses {
+    margin-top: 0;
+  }
+
+}
+
 .section-course {
   margin-top: 15px;
 
@@ -49,26 +116,6 @@
     .sectionsContainer {
       padding: 10px 15px 0;
     }
-  }
-
-  .count-badge {
-    bottom: 2px;
-    position: relative;
-  }
-
-  .count-badge[data-badge]:after {
-    content: attr(data-badge);
-    background: $colorLightGrey;
-    color: $fontColor;
-    display: inline-block;
-    padding: .25em .4em;
-    font-size: 75%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: 0.25rem;
   }
 
   .files {
@@ -138,8 +185,11 @@
     background: none repeat scroll 0 0;
     margin: 30px 0;
 
-    i {
-      cursor: pointer;
+    .course-time-delete{
+      color: inherit;
+      &[disabled]{
+        color: $colorGrey;
+      }
     }
 
     .new-course-time-add {
@@ -148,6 +198,9 @@
       padding-left: 5px;
       cursor: pointer;
       color: $primaryColor;
+      &[disabled]{
+        color: $colorGrey;
+      }
     }
 
     .course-times-table {
@@ -213,7 +266,7 @@
         margin-top: 15px;
       }
       .sub-text {
-          font-size: $font-size-xs;
+        font-size: $font-size-xs;
       }
     }
     .course-submit-page {
@@ -230,48 +283,6 @@
       border-top: 0;
       padding: 0;
     }
-  }
-
-  .empty-state {
-    text-align: center;
-    max-width: 60%;
-    margin: 0 auto;
-    margin-top: 20px;
-    @include media-breakpoint-down(xs) {
-      max-width: 90%;
-    }
-    @include media-breakpoint-up(xs) {
-      max-width: 60%;
-    }
-    h6.sub-title {
-      color: $colorDarkerGrey;
-    }
-    .image {
-      width: auto;
-      height: auto;
-      margin-bottom: 30px;
-      @include media-breakpoint-down(xs) {
-        max-width: 80px;
-      }
-      @include media-breakpoint-up(xs) {
-        max-width: 100px;
-      }
-
-      transition: all 0.3s ease-in;
-      &:hover {
-        transform: rotate(-7deg);
-      }
-    }
-    .image.topic-image {
-      max-width: 80px;
-      @include media-breakpoint-down(xs) {
-        max-width: 60px;
-      }
-    }
-  }
-
-  .empty-state-courses {
-    margin-top: 0;
   }
 
   .add-button {
@@ -459,3 +470,8 @@
 .section-course-group {
   padding-top: 20px;
 }
+
+.alert-course-delete {
+  color: $colorDanger;
+}
+
