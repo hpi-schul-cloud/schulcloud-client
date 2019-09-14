@@ -360,6 +360,11 @@ $(document).ready(() => {
 	$newFileModal.find('.modal-form').on('submit', (e) => {
 		e.preventDefault();
 
+		if(!$('#file-ending').val()){
+			$.showNotification('Bitte gib einen Dateitypen an.', 'danger');	
+			return; 		
+		} 
+
 		let studentEdit = false;
 		if (document.getElementById('student-can-edit')) { studentEdit = document.getElementById('student-can-edit').checked; }
 		$.post(
