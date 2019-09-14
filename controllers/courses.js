@@ -412,6 +412,7 @@ const filterSubstitutionCourses = (courses, userId) => {
 router.get('/', (req, res, next) => {
 	const { currentUser } = res.locals;
 	const userId = currentUser._id.toString();
+	const importToken = req.query.import;
 
 	Promise.all([
 		api(req).get(`/users/${userId}/courses/`, {
@@ -449,6 +450,7 @@ router.get('/', (req, res, next) => {
 				res.render('courses/overview', {
 					title: 'Meine Kurse',
 					activeTab: req.query.activeTab,
+					importToken,
 					activeCourses,
 					activeSubstitutions,
 					archivedCourses,
@@ -463,7 +465,9 @@ router.get('/', (req, res, next) => {
 					liveSearch: true,
 				});
 			} else {
-				res.render('courses/overview-empty', {});
+				res.render('courses/overview-empty', {
+					importToken
+				});
 			}
 		})
 		.catch((err) => {
