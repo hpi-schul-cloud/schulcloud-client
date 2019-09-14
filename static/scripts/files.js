@@ -57,6 +57,8 @@ $(document).ready(() => {
 		$moveModal.modal('hide');
 		if (textStatus === 'timeout') {
 			$.showNotification('Zeitüberschreitung der Anfrage', 'warn');
+		} else if (req.responseJSON.error.message === 'No file service available.') {
+			$.showNotification('Kein File-Service konfiguriert.', 'danger');
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}

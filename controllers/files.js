@@ -454,6 +454,7 @@ router.post('/newFile', (req, res, next) => {
 	}).then((result) => {
 		res.send(result._id);
 	}).catch((err) => {
+		
 		res.status((err.statusCode || 500)).send(err);
 	});
 });
