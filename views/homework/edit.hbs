@@ -1,210 +1,225 @@
 {{#content "scripts" mode="append"}}
-    <script src="/vendor/ckeditor/ckeditor.js" defer></script>
-    <script src="/scripts/mousetrap/mousetrap.js" defer></script>
-    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
-    <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            CKEDITOR.replaceAll(function (textarea, config) {
-                if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
-            });
+<script src="/vendor/ckeditor/ckeditor.js" defer></script>
+<script src="/scripts/mousetrap/mousetrap.js" defer></script>
+<script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+<script>
+	window.addEventListener('DOMContentLoaded', function () {
+		CKEDITOR.replaceAll(function (textarea, config) {
+			if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
+		});
 
-            $.datetimepicker.setLocale('de');
-            $('input[data-datetime]').datetimepicker({
-                format:'d.m.Y H:i',
-                mask: '39.19.9999 29:59',
-                onShow:function(ct, input){
-                    if(input[0].id == "availableDate"){
-                        let due = $("#dueDate").val().split(" ");
-                        this.setOptions({
-                            minDate:0,
-                            maxDate:(due[0]!="__.__.____")?due[0]:false,
-                            formatDate:'d.m.Y',
-                        });
-                    }
-                    else if(input[0].id == "dueDate"){
-                        let available = $("#availableDate").val().split(" ");
-                        this.setOptions({
-                            minDate:(available[0]!="__.__.____")?available[0]:0,
-                            maxDate:false,
-                            formatDate:'d.m.Y'
-                        });
-                    }
-                }
-            });
+		$.datetimepicker.setLocale('de');
+		$('input[data-datetime]').datetimepicker({
+			format: 'd.m.Y H:i',
+			mask: '39.19.9999 29:59',
+			onShow: function (ct, input) {
+				if (input[0].id == "availableDate") {
+					let due = $("#dueDate").val().split(" ");
+					this.setOptions({
+						minDate: 0,
+						maxDate: (due[0] != "__.__.____") ? due[0] : false,
+						formatDate: 'd.m.Y',
+					});
+				}
+				else if (input[0].id == "dueDate") {
+					let available = $("#availableDate").val().split(" ");
+					this.setOptions({
+						minDate: (available[0] != "__.__.____") ? available[0] : 0,
+						maxDate: false,
+						formatDate: 'd.m.Y'
+					});
+				}
+			}
+		});
 
-            Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
-                document.getElementById('homework-form').submit();
-                return false;
-            });
+		Mousetrap.bind(['command+s', 'ctrl+s'], function (e) {
+			document.getElementById('homework-form').submit();
+			return false;
+		});
 
-            $("#coursePicker").change(function(e,s){
-                if(s.selected!=""){
-                    $('#lessonPicker').empty().append('<option value="">loading...</option>')
-                    $('#lessonPicker').prop('disabled', true).trigger('chosen:updated');
-                    $.ajax({
-                        url: "/courses/"+s.selected+"/json"
-                    }).done(function( r ) {
-                        let lessonPicker = $('#lessonPicker').empty();
-                        if(r.lessons.data.length > 0){
-                            (r.lessons.data||[]).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
-                            lessonPicker.append('<option value="">Keine Zuordnung</option>');
-                            for (var i = 0; i < r.lessons.data.length; i++){
-                                $('#lessonPicker').append('<option value="'+r.lessons.data[i]._id+'">'+r.lessons.data[i].name+'</option>');
-                            }
-                            $('#lessonPicker').prop('disabled', false);
-                        }else{
-                            lessonPicker.append('<option value="">Keine Themen in diesem Kurs</option>');
-                        }
-                        $('#lessonPicker').trigger('chosen:updated');
-                    });
-                }else{
-                    $('#lessonPicker').empty().append('<option value="">Keine Themen in diesem Kurs</option>').prop('disabled', true).trigger("chosen:updated");
-                }
-            });
+		$("#coursePicker").change(function (e, s) {
+			if (s.selected != "") {
+				$('#lessonPicker').empty().append('<option value="">loading...</option>')
+				$('#lessonPicker').prop('disabled', true).trigger('chosen:updated');
+				$.ajax({
+					url: "/courses/" + s.selected + "/json"
+				}).done(function (r) {
+					let lessonPicker = $('#lessonPicker').empty();
+					if (r.lessons.data.length > 0) {
+						(r.lessons.data || []).sort((a, b) => {return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1;});
+						lessonPicker.append('<option value="">Keine Zuordnung</option>');
+						for (var i = 0; i < r.lessons.data.length; i++) {
+							$('#lessonPicker').append('<option value="' + r.lessons.data[i]._id + '">' + r.lessons.data[i].name + '</option>');
+						}
+						$('#lessonPicker').prop('disabled', false);
+					} else {
+						lessonPicker.append('<option value="">Keine Themen in diesem Kurs</option>');
+					}
+					$('#lessonPicker').trigger('chosen:updated');
+				});
+			} else {
+				$('#lessonPicker').empty().append('<option value="">Keine Themen in diesem Kurs</option>').prop('disabled', true).trigger("chosen:updated");
+			}
+		});
 
-            $("#teamSubmissions").on("change",function(e,s){
-                if(document.getElementById("teamSubmissions").checked){
-                    $("#teamsize").removeClass("hidden-xl-down");
-                }else{
-                    $("#teamsize").addClass("hidden-xl-down");
-                }
-            });
-        });
-    </script>
+		$("#teamSubmissions").on("change", function (e, s) {
+			if (document.getElementById("teamSubmissions").checked) {
+				$("#teamsize").removeClass("hidden-xl-down");
+			} else {
+				$("#teamsize").addClass("hidden-xl-down");
+			}
+		});
+	});
+</script>
 {{/content}}
 {{#extend "homework/homework"}}
-    {{#content "page"}}
-        <div class="row">
-            <div class="col-xl-12">
-                <form class="modal-form" id="homework-form" method="post" action="{{action}}">
-                    {{#if method}}
-                        <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
-                    {{/if}}
+{{#content "page"}}
+<div class="row">
+	<div class="col-xl-12">
+		<form class="modal-form" id="homework-form" method="post" action="{{action}}">
+			{{#if method}}
+			<input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
+			{{/if}}
 
-                    {{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
+			{{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
 
-                    <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+			<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
-                    {{#unless isSubstitution}}
-                        <input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
-                    {{/unless}}
+			{{#unless isSubstitution}}
+			<input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
+			{{/unless}}
 
-                    <div class="form-group">
-                        <label>Titel</label>
-                        <input class="form-control" name="name" type="text" placeholder="Titel" required value="{{{assignment.name}}}"/>
-                    </div>
+			<div class="form-group">
+				<label>Titel</label>
+				<input class="form-control" name="name" type="text" placeholder="Titel" required
+					value="{{{assignment.name}}}" />
+			</div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Kurs</label>
-                                {{#unless isSubstitution}}
-                                    <select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
-                                        <option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
-                                        {{#each courses}}
-                                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>{{{stripOnlyScript this.name}}}</option>
-                                        {{/each}}
-                                    </select>
-                                {{else}}
-                                    <input name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" />
-                                    <div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">(Vertretungslehrer dürfen den Kurs nicht ändern)</small></div>
-                                {{/unless}}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Thema</label>
-                                <select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen" {{#unless lessons}}disabled="true"{{/unless}}>
-                                    {{#if assignment.courseId}}
-                                        <option value="" {{#unless assignment.lessonId}}selected{{/unless}}>Keine Zuordnung</option>
-                                        {{#each lessons}}
-                                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>{{this.name}}</option>
-                                        {{/each}}
-                                    {{else}}
-                                        <option value="" >Keine Themen in diesem Kurs</option>
-                                    {{/if}}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Kurs</label>
+						{{#unless isSubstitution}}
+						<select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
+							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
+							{{#each courses}}
+							<option value="{{this._id}}"
+								{{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>
+								{{{stripOnlyScript this.name}}}</option>
+							{{/each}}
+						</select>
+						{{else}}
+						<input name="courseId" type="hidden" data-force-value="true"
+							value="{{assignment.courseId._id}}" />
+						<div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">(Vertretungslehrer dürfen
+								den Kurs nicht ändern)</small></div>
+						{{/unless}}
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Thema</label>
+						<select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen"
+							{{#unless lessons}}disabled="true" {{/unless}}>
+							{{#if assignment.courseId}}
+							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>Keine Zuordnung</option>
+							{{#each lessons}}
+							<option value="{{this._id}}"
+								{{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>{{this.name}}
+							</option>
+							{{/each}}
+							{{else}}
+							<option value="">Keine Themen in diesem Kurs</option>
+							{{/if}}
+						</select>
+					</div>
+				</div>
+			</div>
 
-                    {{#unless (userHasRole "student")}}
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>
-                                        <input id="teamSubmissions" name="teamSubmissions" type="checkbox" value="true" {{#if assignment.teamSubmissions}}checked="checked"{{/if}}/>
-                                        Teamabgabe ermöglichen
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 {{#unless assignment.teamSubmissions}}hidden-xl-down{{/unless}}" id="teamsize">
-                                <div class="form-group">
-                                    <label>maximale Teamgröße:</label>
-                                    <input class="form-control" name="maxTeamMembers" id="maxTeamMembers" type="number" min="2" placeholder="5" value="{{assignment.maxTeamMembers}}"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{/unless}}
+			{{#unless (userHasRole "student")}}
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>
+								<input id="teamSubmissions" name="teamSubmissions" type="checkbox" value="true"
+									{{#if assignment.teamSubmissions}}checked="checked" {{/if}} />
+								Gruppenabgabe ermöglichen
+							</label>
+						</div>
+					</div>
+					<div class="col-md-6 {{#unless assignment.teamSubmissions}}hidden-xl-down{{/unless}}" id="teamsize">
+						<div class="form-group">
+							<label>maximale Teamgröße:</label>
+							<input class="form-control" name="maxTeamMembers" id="maxTeamMembers" type="number" min="2"
+								placeholder="5" value="{{assignment.maxTeamMembers}}" />
+						</div>
+					</div>
+				</div>
+			</div>
+			{{/unless}}
 
-                    <div class="form-group">
-                        <label>Aufgabenstellung</label>
-                        <textarea name="description" type="text" class="form-control customckeditor" placeholder="Aufgabenstellung">{{assignment.description}}</textarea>
-                    </div>
+			<div class="form-group">
+				<label>Aufgabenstellung</label>
+				<textarea name="description" type="text" class="form-control customckeditor"
+					placeholder="Aufgabenstellung">{{assignment.description}}</textarea>
+			</div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Für Schüler sichtbar und zu bearbeiten ab:</label>
-                                <input class="form-control" data-datetime name="availableDate" autocomplete="off" id="availableDate" type="text" value="{{assignment.availableDate}}"/>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Bearbeitungszeitraum endet am:</label>
-                                <input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate" type="text" value="{{assignment.dueDate}}"/>
-                            </div>
-                        </div>
-                    </div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Für Schüler sichtbar und zu bearbeiten ab:</label>
+						<input class="form-control" data-datetime name="availableDate" autocomplete="off"
+							id="availableDate" type="text" value="{{assignment.availableDate}}" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Bearbeitungszeitraum endet am:</label>
+						<input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate"
+							type="text" value="{{assignment.dueDate}}" />
+					</div>
+				</div>
+			</div>
 
-                    {{#unless (userHasRole "student")}}
-                    <div class="form-group">
-                        <label>
-                            <input name="private" type="checkbox" value="private" {{#if assignment.private}}checked="checked"{{/if}}/>
-                            Private Aufgabe (nur für mich sichtbar)
-                        </label></br>
-                        <label>
-                            <input name="publicSubmissions" type="checkbox" value="public" {{#if assignment.publicSubmissions}}checked="checked"{{/if}}/>
-                            Schülerabgaben untereinander sichtbar
-                        </label>
-                    </div>
-                    {{else}}
-                    <div class="form-group">
-                        <input name="private" type="hidden" data-force-value="true" value="private" />
-                    </div>
-                    {{/unless}}
+			{{#unless (userHasRole "student")}}
+			<div class="form-group">
+				<label>
+					<input name="private" type="checkbox" value="private" {{#if assignment.private}}checked="checked"
+						{{/if}} />
+					Private Aufgabe (nur für mich sichtbar)
+				</label></br>
+				<label>
+					<input name="publicSubmissions" type="checkbox" value="public"
+						{{#if assignment.publicSubmissions}}checked="checked" {{/if}} />
+					Schülerabgaben untereinander sichtbar
+				</label>
+			</div>
+			{{else}}
+			<div class="form-group">
+				<input name="private" type="hidden" data-force-value="true" value="private" />
+			</div>
+			{{/unless}}
 
 
 
 
-                    <div class="modal-footer">
-                        <button class="btn btn-add btn-secondary btn-cancel">
-                            {{closeLabel}}
-                        </button>
+			<div class="modal-footer">
+				<button class="btn btn-add btn-secondary btn-cancel">
+					{{closeLabel}}
+				</button>
 
-                        <button type="submit" class="btn btn-primary btn-submit">
-                            {{submitLabel}}
-                        </button>
-                    </div>
-                </form>
+				<button type="submit" class="btn btn-primary btn-submit">
+					{{submitLabel}}
+				</button>
+			</div>
+		</form>
 
-                {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
+		{{#embed "lib/components/modal-cancel" class="cancel-modal"}}
 
-                {{/embed}}
+		{{/embed}}
 
-            </div>
-        </div>
-    {{/content}}
+	</div>
+</div>
+{{/content}}
 {{/extend}}
