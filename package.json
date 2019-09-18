@@ -1,6 +1,6 @@
 {
   "name": "schulcloud-client",
-  "version": "19.5.1",
+  "version": "19.5.2",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -43,7 +43,7 @@
     "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.15",
     "marked": "^0.7.0",
-    "mathjax": "^2.7.5",
+    "mathjax": "2.7.0",
     "maxmind": "^2.3.0",
     "method-override": "^2.3.7",
     "moment": "^2.22.2",
