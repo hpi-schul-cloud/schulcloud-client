@@ -774,7 +774,7 @@ router.get('/:assignmentId', function (req, res, next) {
         Promise.all(promises).then(([submissions, course, courseGroups]) => {
 
             assignment.submission = (submissions || {}).data.map(submission => {
-                submission.teamMemberIds = submission.teamMembers.map(e => { return e._id; });
+                submission.teamMemberIds = (submission.teamMembers||[]).map(e => { return e._id; });
                 submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds;
                 submission.courseGroupMembers = (_.find((courseGroups || {}).data, cg => JSON.stringify(cg._id) === JSON.stringify((submission.courseGroupId || {})._id)) || {}).userIds; // need full user objects here, double populating not possible above
                 return submission;
