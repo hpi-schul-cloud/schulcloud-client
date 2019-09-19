@@ -130,17 +130,16 @@ router.all('/login/', (req, res, next) => {
 	});
 });
 
-const ssoSchoolData = (req, accountId) => api(req).get(`/accounts/${accountId}`)
-	.then(account => api(req).get('/schools/', {
-		qs: {
-			systems: account.systemId,
-		},
-	}).then((schools) => {
-		if (schools.data.length > 0) {
-			return schools.data[0];
-		}
-		return undefined;
-	}).catch(() => undefined)).catch(() => undefined); // fixme this is a very bad error catch
+const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
+	qs: {
+		systems: systemId,
+	},
+}).then((schools) => {
+	if (schools.data.length > 0) {
+		return schools.data[0];
+	}
+	return undefined;
+}).catch(() => undefined); // fixme this is a very bad error catch
 // so we can do proper redirecting and stuff :)
 router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 	if (res.locals.currentUser) {
@@ -169,9 +168,9 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 			});
 	} else {
 		// if this happens: SSO
-		const { accountId } = (res.locals.currentPayload || {});
+		const { accountId, systemId } = (res.locals.currentPayload || {});
 
-		ssoSchoolData(req, accountId).then((school) => {
+		ssoSchoolData(req, systemId).then((school) => {
 			if (school === undefined) {
 				const redirectUrl = (req.session.login_challenge
 					? '/oauth2/login/success'

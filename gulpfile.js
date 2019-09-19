@@ -260,6 +260,7 @@ gulp.task(
 		'vendor-styles',
 		'vendor-scripts',
 		'vendor-assets',
+		'node-modules',
 	],
 	() => workbox
 		.injectManifest({
@@ -311,9 +312,9 @@ gulp.task('build-all', [
 	'vendor-scripts',
 	'vendor-assets',
 	'vendor-optimized-assets',
-	'generate-service-worker',
-	'sw-workbox',
 	'node-modules',
+	'sw-workbox',
+	'generate-service-worker',
 	'static',
 ]);
 
