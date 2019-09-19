@@ -28,6 +28,8 @@ before_install:
 - sudo docker pull mongo:4.0
 - sudo docker run -d -p 27017:27017 mongo:4.0
 - if [[ $TRAVIS_BRANCH = release* || $TRAVIS_BRANCH = hotfix* ]] ; then export BACKEND_URL=https://api.staging.schul-cloud.org ; export PUBLIC_BACKEND_URL=https://api.staging.schul-cloud.org ; export SC_DEMO_USER_PASSWORD=$SC_DEMO_USER_PASSWORD_STAGING ; elif [ "$TRAVIS_BRANCH" = "develop" ] ; then export BACKEND_URL=https://api.test.schul-cloud.org ; export PUBLIC_BACKEND_URL=https://api.test.schul-cloud.org ; export SC_DEMO_USER_PASSWORD=$SC_DEMO_USER_PASSWORD_STAGING ; fi
+ - echo $BACKEND_URL
+ - echo $PUBLIC_BACKEND_URL
 install:
 - npm install
 before_script:
