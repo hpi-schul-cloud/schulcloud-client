@@ -275,6 +275,11 @@
     -moz-border-radius: 0.2em;
     border-radius: 0.2em;
   }
+
+  .introjs-donebutton {
+    margin-left: 0.3em; 
+    float: right;
+  }
   
   .introjs-disabled, .introjs-disabled:hover, .introjs-disabled:focus {
     color: #9a9a9a;
