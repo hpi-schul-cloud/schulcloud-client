@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
 router.get('/', (req, res, next) => {
 	const isSSO = Boolean(res.locals.currentPayload.systemId);
 	const isDiscoverable = res.locals.currentUser.discoverable;
-	const hideVisibilitySettings = (res.locals.currentRole === 'Schüler' || res.locals.theme.name === 'n21');
+	const hideVisibilitySettings = (res.locals.currentRole === 'Schüler' || process.env.IGNORE_DISCOVERABILITY);
 	Promise.all([
 		api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`),
 		(process.env.NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null),
