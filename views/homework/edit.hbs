@@ -46,7 +46,7 @@
 				}).done(function (r) {
 					let lessonPicker = $('#lessonPicker').empty();
 					if (r.lessons.data.length > 0) {
-						(r.lessons.data || []).sort((a, b) => {return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1;});
+						(r.lessons.data || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
 						lessonPicker.append('<option value="">Keine Zuordnung</option>');
 						for (var i = 0; i < r.lessons.data.length; i++) {
 							$('#lessonPicker').append('<option value="' + r.lessons.data[i]._id + '">' + r.lessons.data[i].name + '</option>');
@@ -150,7 +150,7 @@
 					</div>
 					<div class="col-md-6 {{#unless assignment.teamSubmissions}}hidden-xl-down{{/unless}}" id="teamsize">
 						<div class="form-group">
-							<label>maximale Teamgröße:</label>
+							<label>maximale Gruppengröße:</label>
 							<input class="form-control" name="maxTeamMembers" id="maxTeamMembers" type="number" min="2"
 								placeholder="5" value="{{assignment.maxTeamMembers}}" />
 						</div>
