@@ -1,5 +1,6 @@
 {{#ifneq @root.SENTRY_DSN false}}
-<script src="/scripts/sentry.js"></script>
+<script src="/vendor-optimized/@sentry/browser/build/bundle.min.js"></script>
+<script src="/vendor-optimized/@sentry/integrations/build/captureconsole.js"></script>
 <script>
 	function removeIds(url) {
 		var checkForHexRegExp = /^[a-f\d]{24}$/ig;
