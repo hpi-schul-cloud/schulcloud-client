@@ -134,7 +134,7 @@ router.get('/:id', function (req, res, next) {
         api(req).get('/courses/', {
             qs: {
                 teacherIds: res.locals.currentUser._id,
-                $limit: 500
+                $limit: -1
             }
         }),
         api(req).get('/content/resources/' + req.params.id, {
