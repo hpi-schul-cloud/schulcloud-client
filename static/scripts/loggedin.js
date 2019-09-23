@@ -287,7 +287,9 @@ function startIntro() {
         nextLabel: "Weiter",
         prevLabel: "Zurück",
         doneLabel: "Fertig",
-        skipLabel: "Überspringen"
+        skipLabel: "Überspringen",
+        hidePrev: true, //hide previous button in the first step
+        hideNext: true  //hide next button in the last step
     })
     .start()
     .oncomplete(changeNavBarPositionToFixed);
