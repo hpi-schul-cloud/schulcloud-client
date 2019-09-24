@@ -55,7 +55,7 @@
                 </div>
                 {{/userHasPermission}}
 
-				{{#unless (userHasRole "student")}}
+				{{#unless hideVisibilitySettings}}
 				<div class="form-group">
 					<label>
 						<input type="checkbox" name="discoverable" value="true" {{#if isDiscoverable}}checked{{/if}}>
