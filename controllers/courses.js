@@ -496,7 +496,7 @@ router.post('/', (req, res, next) => {
 		})
 		.then((course) => {
 			createEventsForCourse(req, res, course).then(() => {
-				res.redirect('/courses');
+				res.json({ createdCourse: course });
 			});
 		})
 		.catch(() => {
