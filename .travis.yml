@@ -46,11 +46,14 @@ before_script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
 script:
-  - cd schulcloud-client && npm run mocha && cd ..
-  - cd integration-tests && npm run test && cd ..
+  # all cd .. in seperate lines to go dir up on test fails
+  - cd schulcloud-client && npm run mocha
+  - cd ..
+  - cd integration-tests && npm run test
+  - cd ..
 after_script:
   - npm i -g @adrianjost/report-viewer
-  - rv-upload -F **/integration-tests/reports/**/*.html
+  - rv-upload -F **/reports/**/*.html
 cache:
   directories:
     - "$HOME/.npm" # cache all packages installed with "npm ci"
