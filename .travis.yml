@@ -40,9 +40,10 @@ install:
   # client packages are needed for mocha
   - cd schulcloud-client && npm ci && cd ..
   - cd integration-tests && npm ci && cd ..
-script:
+before_script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
+script:
   - cd schulcloud-client && npm run mocha && cd ..
   - cd integration-tests && npm run test && cd ..
 cache:

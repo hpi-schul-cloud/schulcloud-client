@@ -21,11 +21,12 @@ const globalFiles = {
 	SCKonzeptPilotierung2017: 'Dokumente/Konzept-und-Pilotierung-der-Schul-Cloud-2017.pdf',
 };
 
-const documentBaseDir = process.env.DOCUMENT_BASE_DIR || 'https://schul-cloud-hpi.s3.hidrive.strato.com/';
+const documentBaseDir = process.env.DOCUMENT_BASE_DIR || 'https://s3.hidrive.strato.com/schul-cloud-hpi/';
+const theme = process.env.SC_THEME || 'default';
 
 module.exports = {
 	defaultDocuments: () => ({
-		documentBaseDir,
+		documentBaseDir: String(new URL(`${theme}/`, documentBaseDir)),
 		specificFiles: baseDir => Object.entries(specificFiles).reduce((obj, [key, value]) => {
 			obj[key] = String(new URL(value, baseDir));
 			return obj;
