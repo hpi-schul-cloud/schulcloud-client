@@ -31,8 +31,7 @@ before_install:
   - sh switch_branch.sh "schulcloud-server" "$BRANCH_NAME"
   - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
   - sh switch_branch.sh "docker-compose" "$BRANCH_NAME"
-  # TODO remove branch (-b hotfix-travis) from next line
-  - git clone -b hotfix-travis https://github.com/schul-cloud/integration-tests.git integration-tests
+  - git clone https://github.com/schul-cloud/integration-tests.git integration-tests
   - sh switch_branch.sh "integration-tests" "$BRANCH_NAME"
 install:
   # boot servers for integration tests
