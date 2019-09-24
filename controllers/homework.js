@@ -130,11 +130,8 @@ const getCreateHandler = (service) => {
             let promise = service === "submissions" ?
                 addFilePermissionsForTeamMembers(req, data.teamMembers, data.courseGroupId, data.fileIds) :
                 Promise.resolve({});
-            const taskId = data._id // delete me
-            console.log(referrer, 'ref') // delete me
-                `${process.env.HOST}/homework/${taskId}` // wanted redirect DELETE ME!
             return promise.then(_ => {
-                res.redirect(referrer);
+                res.redirect(`${referrer}${data._id}`);
             });
         }).catch(err => {
             next(err);
