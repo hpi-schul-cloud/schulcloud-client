@@ -49,6 +49,9 @@ before_script:
 script:
   - cd schulcloud-client && npm run mocha && cd ..
   - cd integration-tests && npm run test && cd ..
+after_script:
+  - npm i -g @adrianjost/report-viewer
+  - rv-upload -F **/integration-tests/reports/**/*.html
 cache:
   directories:
     - "$HOME/.npm" # cache all packages installed with "npm ci"
