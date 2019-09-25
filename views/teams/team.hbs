@@ -20,12 +20,12 @@
      <div id="team-wrapper">
         <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
             <div class="dropdown dropdown-title minimal-button">
-                <a class="dropdown-toggle btn-title-dropdown"  id="team_settings" data-testid="team_settings" title="Weiteres" data-toggle="dropdown">
+                <a class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" title="Weiteres" data-toggle="dropdown">
                     <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
                     <i class="fa fa-cog i-cog"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu dropdown-menu-team">
-                    <a id="administrate_team_members" data-testid="administrate_team_members" href="/teams/{{_id}}/members" class="dropdown-item">
+                    <a data-testid="administrate_team_members" href="/teams/{{_id}}/members" class="dropdown-item">
                         <i class="fa fa-users" aria-hidden="true"></i> Teammitglieder {{#inArray "ADD_SCHOOL_MEMBERS" permissions}}verwalten{{else}}ansehen{{/inArray}}
                     </a>
                     {{#userHasPermission "TEAM_EDIT"}}
@@ -79,7 +79,7 @@
                         <button class="tab" data-tab="js-files">
                             <span class="text">Dateien</span>
                         </button>
-                        <button id="js-news" class="tab" data-tab="js-news">
+                        <button class="tab" data-tab="js-news">
                             <span class="text">Neuigkeiten</span>
                         </button>
                         <button class="tab" data-tab="js-events">
@@ -180,7 +180,7 @@
 
                         </div>
                         <!--- Neuigkeiten -->
-                        <div class="section" data-testid="teams_news" data-section="js-news">
+                        <div class="section" data-section="js-news">
                             {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
                             <a href="/teams/{{../_id}}/news" class="">
                                 Alle Neuigkeiten anzeigen...
