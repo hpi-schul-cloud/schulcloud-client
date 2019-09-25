@@ -11,9 +11,9 @@ services:
 env:
   global:
     - GIT_SHA=$( git rev-parse HEAD )
-    - SC_DEMO_USER_PASSWORD=schulcloud
-    - BACKEND_URL=https://api.schul-cloud.org
-    - PUBLIC_BACKEND_URL=https://api.schul-cloud.org
+    - SC_DEMO_USER_PASSWORD=Schulcloud1!
+    - BACKEND_URL=http://localhost:3030
+    - PUBLIC_BACKEND_URL=http://localhost:3030
     - FEATURE_TEAMS_ENABLED=true
     - IT_CLIENT_HOST=client
     - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
