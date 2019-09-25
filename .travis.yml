@@ -45,6 +45,8 @@ install:
 before_script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
+  # seed database
+  - cd schulcloud-server && npm run setup && npm run seed && cd ..
 script:
   # all cd .. in seperate lines to go dir up on test fails
   - cd schulcloud-client && npm run mocha
