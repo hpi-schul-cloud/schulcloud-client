@@ -49,7 +49,7 @@ const populateCurrentUser = (req, res) => {
 		}
 	}
 
-	if (payload.userId) {
+	if (payload && payload.userId) {
 		return api(req).get(`/users/${payload.userId}`, {
 			qs: {
 				$populate: ['roles'],
@@ -76,7 +76,7 @@ const populateCurrentUser = (req, res) => {
 		});
 	}
 
-	return Promise.resolve();
+	return Promise.reject(new Error('login invalid'));
 };
 
 const checkConsent = (req, res) => {
