@@ -2214,7 +2214,7 @@ router.all(
 								title: 'Klasse löschen',
 							},
 						];
-						if (lastDefinedSchoolYear !== i.year._id
+						if (lastDefinedSchoolYear !== (i.year || {})._id
 							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'USERGROUP_EDIT')
 						) {
 							baseActions.push({
