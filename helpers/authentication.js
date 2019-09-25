@@ -76,7 +76,7 @@ const populateCurrentUser = (req, res) => {
 		});
 	}
 
-	return Promise.reject(new Error('login invalid'));
+	return Promise.resolve();
 };
 
 const checkConsent = (req, res) => {
