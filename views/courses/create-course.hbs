@@ -73,7 +73,7 @@
                     {{/if}}
                     {{#each colors}}
                       {{#ifneq this ../course.color}}
-                        <div class="color-picker__item" data-testid="anyItem">
+                        <div class="color-picker__item">
                           <input id="input{{../this}}" type="radio" class="color-picker__input" name="color" value="{{../this}}" {{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked"{{/unless}}{{/ifeq}}/>
                           <label for="input{{../this}}" class="color-picker__color" style="background: {{../this}}"></label>
                         </div>
@@ -123,13 +123,13 @@
                             data-date
                             type="text"
                             class="form-control"
-                            value="{{course.startDate}}" data-testid="startingDate"
+                            value="{{course.startDate}}" data-testid="date_start"
                             title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
                       </div>
 
                       <div class="form-group col-md-6">
                           <label>Bis - Optional</label>
-                          <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" data-testid="untilDate" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
+                          <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
                       </div>
                   </div>
 
@@ -251,7 +251,7 @@
 
               <div class="pull-right">
                 <a class="btn btn-secondary" href="/courses/add">Einen weiteren Kurs anlegen</a>
-                <a class="btn btn-primary" data-testid="preshowButton" href="{{redirectUrl}}">Zur Kursübersicht</a>
+                <a class="btn btn-primary" href="{{redirectUrl}}">Zur Kursübersicht</a>
               </div>
             </section>
 
