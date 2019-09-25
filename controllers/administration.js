@@ -2032,6 +2032,10 @@ router.post(
 		if (req.body.teacherIds) {
 			newClass.teacherIds = req.body.teacherIds;
 		}
+		if (req.body.userIds) {
+			newClass.userIds = req.body.userIds;
+		}
+
 		api(req)
 			.post('/classes/', {
 				// TODO: sanitize
