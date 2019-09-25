@@ -26,37 +26,26 @@ router.post('/login/', (req, res, next) => {
 		schoolId,
 	} = req.body;
 
-	return api(req).get('/accounts/', { qs: { username } })
-		.then((account) => {
-			if (!(account[0] || {}).activated && (account[0] || {}).activated !== undefined) {
-				// undefined for currently existing users
-				res.locals.notification = {
-					type: 'danger',
-					message: 'Account noch nicht aktiviert.',
-				};
-				return next();
-			}
-			const login = d => api(req).post('/authentication', { json: d }).then((data) => {
-				res.cookie('jwt', data.accessToken,
-					Object.assign({},
-						{ expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) },
-						authHelper.cookieDomain(res)));
-				res.redirect('/login/success/');
-			}).catch(() => {
-				res.locals.notification = {
-					type: 'danger',
-					message: 'Login fehlgeschlagen.',
-				};
-				next();
-			});
+	const login = d => api(req).post('/authentication', { json: d }).then((data) => {
+		res.cookie('jwt', data.accessToken,
+			Object.assign({},
+				{ expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) },
+				authHelper.cookieDomain(res)));
+		res.redirect('/login/success/');
+	}).catch(() => {
+		res.locals.notification = {
+			type: 'danger',
+			message: 'Login fehlgeschlagen.',
+		};
+		next();
+	});
 
-			if (systemId) {
-				return api(req).get(`/systems/${req.body.systemId}`).then(system => login({
-					strategy: system.type, username, password, systemId, schoolId,
-				}));
-			}
-			return login({ strategy: 'local', username, password });
-		});
+	if (systemId) {
+		return api(req).get(`/systems/${req.body.systemId}`).then(system => login({
+			strategy: system.type, username, password, systemId, schoolId,
+		}));
+	}
+	return login({ strategy: 'local', username, password });
 });
 
 
