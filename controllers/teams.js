@@ -857,7 +857,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 	const getUsers = () => api(req)
 		.get('/users', {
-			qs: { schoolId, $limit },
+			qs: { schoolId, $limit, $sort: 'lastName' },
 		})
 		.then(users => users.data);
 
@@ -915,6 +915,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		team.userIds = team.userIds.filter(user => user.userId !== null); // fix if user do not exist
 		const teamUserIds = team.userIds.map(user => user.userId._id);
 		users = users.filter(user => !teamUserIds.includes(user._id));
+		console.log(users);
 		const currentSchool = team.schoolIds.filter(s => s._id === schoolId)[0];
 		const currentFederalStateId = (currentSchool || {}).federalState;
 		let couldLeave = true; // will be set to false if current user is the only teamowner
