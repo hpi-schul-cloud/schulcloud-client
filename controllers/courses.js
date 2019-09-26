@@ -466,7 +466,7 @@ router.get('/', (req, res, next) => {
 				});
 			} else {
 				res.render('courses/overview-empty', {
-					importToken
+					importToken,
 				});
 			}
 		})
