@@ -49,7 +49,7 @@ const populateCurrentUser = (req, res) => {
 		}
 	}
 
-	if (payload.userId) {
+	if (payload && payload.userId) {
 		return api(req).get(`/users/${payload.userId}`, {
 			qs: {
 				$populate: ['roles'],
@@ -69,6 +69,10 @@ const populateCurrentUser = (req, res) => {
 				res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
 				return data2;
 			});
+		}).catch((e) => {
+			if (e.error.message === 'jwt expired' || e.error.className === 'not-found') {
+				res.clearCookie('jwt');
+			}
 		});
 	}
 
