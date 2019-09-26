@@ -49,7 +49,7 @@ const populateCurrentUser = (req, res) => {
 		}
 	}
 
-	if (payload.userId) {
+	if (payload && payload.userId) {
 		return api(req).get(`/users/${payload.userId}`, {
 			qs: {
 				$populate: ['roles'],
