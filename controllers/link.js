@@ -19,6 +19,11 @@ router.post('/', function (req, res, next) {
     }).catch(err => next(err));
 });
 
+//handles expired registration links
+router.get('/expired', function (req, res, next) {
+    res.render('link/expired');
+});
+
 // handles redirecting from client
 router.get('/:id', function (req, res, next) {
     let baseUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';

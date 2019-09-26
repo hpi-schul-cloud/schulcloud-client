@@ -1,0 +1,22 @@
+{{#extend "lib/loggedout"}}
+
+	{{#content "styles" mode="append"}}
+	{{/content}}
+
+	{{#content "scripts" mode="append"}}
+	{{/content}}
+
+	{{#content "page"}}
+		<div class="container container-content">
+            <h1>Dieser Link ist abgelaufen. </h1>
+            <p><b>Aus Sicherheitsgründen sind Registrierungslinks nur 30 Tage lang gültig. </b><br>
+                Bitte wende dich an deinen Lehrer oder Administrator, um einen neuen Link zu erhalten. 
+            </p>
+            <a href="/" class="btn btn-secondary">Zurück zur Startseite</a>
+        </div>
+        
+			
+		
+	{{/content}}
+
+{{/extend}}
