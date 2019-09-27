@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 const logger = require('winston');
+const UAParser = require('ua-parser-js');
 
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
@@ -12,14 +13,20 @@ router.post('/', function (req, res, next) {
             // title? Y: Feedback N: Problem
             req.body.subject = req.body.type + ((req.body.title) ? `: ${req.body.title}` : '');
         }
-        req.body.type = `contact${req.body.target}`;
     }
+    req.body.type = `contact${req.body.target}`;
+
+    //read User-Agent
+    var parser = new UAParser();
+    parser.setUA(req.headers['user-agent']);
+    var result = parser.getResult();
+
 	api(req).post('/helpdesk', {
         json: {
             type: req.body.type,
 			subject: req.body.subject,
 			title: req.body.title,
-            category: req.body.category,
+            category: req.body.category ? req.body.category : "nothing selected",
             role: req.body.role,
             desire: req.body.desire,
             benefit: req.body.benefit,
@@ -27,10 +34,15 @@ router.post('/', function (req, res, next) {
             currentState: req.body.currentState,
             targetState: req.body.targetState,
             schoolName: res.locals.currentSchoolData.name,
+            schoolId: res.locals.currentSchoolData.schoolId,
             userId: res.locals.currentUser._id,
             email: req.body.email,
+            replyEmail: req.body.replyEmail,
             schoolId: res.locals.currentSchoolData._id,
             cloud: res.locals.theme.title,
+            browserName: result.browser.name,
+            browserVersion: result.browser.version,
+            os: (result.os.version != undefined) ? result.os.name + " " + result.os.version : result.os.name,
         }
     })
     .then(_ => {

@@ -1,5 +1,5 @@
 <input type="hidden" name="target" value="HPI">
-<input type="hidden" name="type" value="wish">
+<input type="hidden" name="type" value="problem">
 
 <label class="form-group">
 	<label class="control-label">Kurzbeschreibung des Problems</label>
@@ -16,6 +16,7 @@
 <label class="form-group">
 	<span class="control-label optional">Bereich wählen</span>
 	<select name="category" id="category" data-placeholder="Bereich wählen (optional)" class="chosen-select" tabindex="-1">
+		<option value="" selected disabled hidden></option>
 		<option value="login_registration">Anmeldung/Registrierung</option>
 		<option value="dashboard">Übersicht</option>
 		<option value="courses">Kurse</option>
@@ -28,4 +29,10 @@
 		<option value="administration">Verwaltung</option>
 		<option value="other">Sonstiges</option>
 	</select>
+</label>
+<label class="form-group">
+	<span class="control-label">
+		E-Mail-Adresse für eventuelle Rückfragen
+	</span>
+	<input class="form-control" type="email" name="replyEmail" placeholder="E-Mail-Adresse" value="{{ currentUser.email }}" required>
 </label>
