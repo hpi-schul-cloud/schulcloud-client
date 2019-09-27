@@ -17,9 +17,9 @@ router.post('/', function (req, res, next) {
     req.body.type = `contact${req.body.target}`;
 
 	// read User-Agent
-	let parser = new UAParser();
+	const parser = new UAParser();
 	parser.setUA(req.headers['user-agent']);
-	let result = parser.getResult();
+	const result = parser.getResult();
 
 	api(req).post('/helpdesk', {
         json: {
@@ -34,15 +34,14 @@ router.post('/', function (req, res, next) {
             currentState: req.body.currentState,
             targetState: req.body.targetState,
             schoolName: res.locals.currentSchoolData.name,
-			schoolId: res.locals.currentSchoolData.schoolId,
             userId: res.locals.currentUser._id,
             email: req.body.email,
 			replyEmail: req.body.replyEmail,
 			schoolId: res.locals.currentSchoolData._id,
             cloud: res.locals.theme.title,
 			browserName: result.browser.name,
-            browserVersion: result.browser.version,
-            os: (result.os.version != undefined) ? result.os.name + " " + result.os.version : result.os.name,
+			browserVersion: result.browser.version,
+			os: (result.os.version !== undefined) ? '${result.os.name} ${result.os.version}' : result.os.name,
         }
     })
     .then(_ => {
