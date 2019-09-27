@@ -41,7 +41,7 @@ router.post('/', function (req, res, next) {
             cloud: res.locals.theme.title,
 			browserName: result.browser.name,
 			browserVersion: result.browser.version,
-			os: (result.os.version != undefined) ? result.os.name + ' ' + result.os.version : result.os.name,
+			os: (result.os.version !== undefined) ? result.os.name + ' ' + result.os.version : result.os.name,
         }
     })
     .then(_ => {
