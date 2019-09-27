@@ -10,7 +10,8 @@
 		"controllers",
 		"helpers",
 		"config",
-		"app.js"
+		"app.js",
+		"api.js"
 	],
 	"exec": "node ./bin/www",
 	"ext": "js, hbs, json",

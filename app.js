@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const logger = require('morgan');
+const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
@@ -13,6 +13,7 @@ const Sentry = require('@sentry/node');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
+const logger = require('./helpers/logger');
 
 const app = express();
 
@@ -81,7 +82,7 @@ app.set('view cache', true);
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -105,7 +106,7 @@ function removeIds(url) {
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
-	if (!req.session.currentUser) {
+	try {
 		await authHelper.populateCurrentUser(req, res).then(() => {
 			if (res.locals.currentUser) { // user is authenticated
 				req.session.currentRole = res.locals.currentRole;
@@ -116,12 +117,8 @@ app.use(async (req, res, next) => {
 				req.session.save();
 			}
 		});
-	} else {
-		res.locals.currentRole = req.session.currentRole;
-		res.locals.roleNames = req.session.roleNames;
-		res.locals.currentUser = req.session.currentUser;
-		res.locals.currentSchool = req.session.currentSchool;
-		res.locals.currentSchoolData = req.session.currentSchoolData;
+	} catch (error) {
+		logger.error(error);
 	}
 	if (process.env.SENTRY_DSN) {
 		Sentry.configureScope((scope) => {
