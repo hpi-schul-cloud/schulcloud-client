@@ -56,8 +56,7 @@ router.post('/', (req, res, next) => {
 			req.session.notification = {
 				type: 'danger',
 				message:
-                `Fehler beim senden des Feedbacks.
-             ${(err.error || {}).message || err.message || err || ''}`,
+                'Fehler beim senden des Feedbacks.',
 			};
 			logger.warn(err);
 			res.status((err.statusCode || 500)).send(err);
