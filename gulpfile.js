@@ -10,6 +10,7 @@ const filelog = require('gulp-filelog');
 const header = require('gulp-header');
 const gulpif = require('gulp-if');
 const optimizejs = require('gulp-optimize-js');
+const imagemin = require('gulp-imagemin');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const cssvariables = require('postcss-css-variables');
@@ -73,6 +74,7 @@ const beginPipeAll = src => gulp
 
 // minify images
 gulp.task('images', () => beginPipe('./static/images/**/*.*')
+	.pipe(imagemin())
 	.pipe(gulp.dest(`./build/${themeName()}/images`)));
 
 // minify static/other
