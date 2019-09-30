@@ -131,7 +131,7 @@ const authChecker = (req, res, next) => {
 };
 
 const cookieDomain = (res) => {
-	if (res.locals.domain && process.env.NODE_ENV === 'production') {
+	if (res.locals.domain && res.locals.production) {
 		return { domain: res.locals.domain };
 	}
 	return {};
