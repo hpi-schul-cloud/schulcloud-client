@@ -35,7 +35,7 @@ function getPathFromUrl(url) {
 
 router.post('/', function (req, res, next) {
     const userRoles = res.locals.currentUser.roles.map(r => r.name);
-	const isDemoUser = userRoles.some(r => r.startsWith('demo'));
+    const isDemoUser = userRoles.some(r => r.startsWith('demo'));
     let data = req.body;
     let context = data.attributes.context;
     data.attributes.url = getPathFromUrl(idCleanup(data.attributes.url));
