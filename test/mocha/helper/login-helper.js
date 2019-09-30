@@ -16,11 +16,11 @@ const login = (app) => {
 			.send({ username: studentName, password })
 			.end((err, res) => {
 				if (err) {
-					reject(err);
+					return reject(err);
 				}
 
 				// return agent for making further request in loggedIn state
-				resolve({
+				return resolve({
 					agent,
 					res,
 				});
