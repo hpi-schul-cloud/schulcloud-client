@@ -82,8 +82,8 @@ const populateCurrentUser = (req, res) => {
 const checkConsent = (req, res) => {
 	if (
 		((res.locals.currentUser || {}).preferences || {}).firstLogin	// do not exist if 3. system login
-    || req.path.startsWith('/login/success')
-    || req.baseUrl.startsWith('/firstLogin')) {
+		|| req.path.startsWith('/login/success')
+		|| req.baseUrl.startsWith('/firstLogin')) {
 		return Promise.resolve();
 	}
 	// eslint-disable-next-line prefer-promise-reject-errors
