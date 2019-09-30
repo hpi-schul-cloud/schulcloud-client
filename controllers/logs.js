@@ -34,6 +34,8 @@ function getPathFromUrl(url) {
   }
 
 router.post('/', function (req, res, next) {
+    const userRoles = res.locals.currentUser.roles.map(r => r.name);
+	const isDemoUser = userRoles.some(r => r.startsWith('demo'));
     let data = req.body;
     let context = data.attributes.context;
     data.attributes.url = getPathFromUrl(idCleanup(data.attributes.url));
@@ -67,11 +69,15 @@ router.post('/', function (req, res, next) {
         cd5: res.locals.currentSchool,
         cd6: context['networkProtocol'], // http1.1 / http2 / unknown
     };
-    api(req).post('/analytics', { json: hit }).then(result => {
-        res.send(result);
-    }).catch(_ => {
-        res.send('error');
-    });
+    if (isDemoUser){
+        api(req).post('/analytics', { json: hit }).then(result => {
+            res.send(result);
+        }).catch(_ => {
+            res.send('error');
+        });
+    }else{
+        //no logging for demo users
+    }
 });
 
 module.exports = router;
