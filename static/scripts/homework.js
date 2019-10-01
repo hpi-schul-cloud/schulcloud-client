@@ -76,7 +76,9 @@ $(document).ready(() => {
 		const filesCount = fileList.children().length;
 		fileIsUploaded = !!filesCount;
 		const submitButton = fileList.closest('form').find('button[type="submit"]')[0];
-		submitButton.disabled = !editorContainsText && !fileIsUploaded;
+		if (submitButton) {
+			submitButton.disabled = !editorContainsText && !fileIsUploaded;
+		}
 	}
 
 	// enable submit button when at least one file was uploaded
@@ -90,7 +92,9 @@ $(document).ready(() => {
 		const submitButton = $(editor.element.$.closest('form')).find('button[type="submit"]')[0];
 		const content = editor.document.getBody().getText();
 		editorContainsText = !!content.trim();
-		submitButton.disabled = !editorContainsText && !fileIsUploaded;
+		if (submitButton) {
+			submitButton.disabled = !editorContainsText && !fileIsUploaded;
+		}
 	}
 
 	// enable submit button when editor contains text
