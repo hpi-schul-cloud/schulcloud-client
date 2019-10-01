@@ -29,7 +29,11 @@ router.post('/login/', (req, res, next) => {
 	const login = d => api(req).post('/authentication', { json: d }).then((data) => {
 		res.cookie('jwt', data.accessToken,
 			Object.assign({},
-				{ expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) },
+				{
+					expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+					httpOnly: true,
+					secure: process.env.NODE_ENV === 'production',
+				},
 				authHelper.cookieDomain(res)));
 		res.redirect('/login/success/');
 	}).catch(() => {
