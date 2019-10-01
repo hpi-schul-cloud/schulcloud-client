@@ -1,5 +1,3 @@
-
-
 const studentName = 'schueler@schul-cloud.org';
 const password = process.env.SC_DEMO_USER_PASSWORD || 'Schulcloud1!';
 
@@ -26,7 +24,7 @@ const login = (app) => {
 					});
 				}
 				// do firstLogin if needed
-				agent
+				return agent
 					.post('/firstLogin/submit')
 					.send({
 						'student-email': studentName,
