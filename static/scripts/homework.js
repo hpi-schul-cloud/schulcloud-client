@@ -68,20 +68,29 @@ window.addEventListener("DOMContentLoaded", function(){
 	document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
 });
 $(document).ready(() => {
-	function enableSubmitButton(editor) {
-		// find the closest submit button and disable it if no content is given and no file is uploaded
-		const submitButton = $(editor.element.$.closest('form')).find('button[type="submit"]')[0];
-		const filesCount = $('.list-group-files').children().length;
-		const content = editor.document.getBody().getText();
-		submitButton.disabled = !content.trim() && !filesCount;
+	let fileIsUploaded = false;
+	let editorContainsText = false;
+
+	function enableSubmissionWhenFileIsUploaded() {
+		const fileList = $('.list-group-files');
+		const filesCount = fileList.children().length;
+		fileIsUploaded = !!filesCount;
+		const submitButton = fileList.closest('form').find('button[type="submit"]')[0];
+		submitButton.disabled = !editorContainsText && !fileIsUploaded;
 	}
 
 	// enable submit button when at least one file was uploaded
-	const fileList = $('.list-group-files');
-	const filesCount = fileList.children().length;
-	const submitButton = fileList.closest('form').find('button[type="submit"]')[0];
-	if (filesCount) {
-		submitButton.disabled = false;
+	enableSubmissionWhenFileIsUploaded();
+	$('.list-group-files').bind('DOMSubtreeModified', () => {
+		enableSubmissionWhenFileIsUploaded();
+	});
+
+	function enableSubmissionWhenEditorContainsText(editor) {
+		// find the closest submit button and disable it if no content is given and no file is uploaded
+		const submitButton = $(editor.element.$.closest('form')).find('button[type="submit"]')[0];
+		const content = editor.document.getBody().getText();
+		editorContainsText = !!content.trim();
+		submitButton.disabled = !editorContainsText && !fileIsUploaded;
 	}
 
 	// enable submit button when editor contains text
@@ -90,8 +99,8 @@ $(document).ready(() => {
 		.filter(e => e.startsWith('evaluation'))
 		.forEach((name) => {
 			const editor = window.CKEDITOR.instances[name];
-			editor.on('instanceReady', () => { enableSubmitButton(editor); });
-			editor.on('change', () => { enableSubmitButton(editor); });
+			editor.on('instanceReady', () => { enableSubmissionWhenEditorContainsText(editor); });
+			editor.on('change', () => { enableSubmissionWhenEditorContainsText(editor); });
 		});
 
     function showAJAXError(req, textStatus, errorThrown) {
