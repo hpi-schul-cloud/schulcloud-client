@@ -6,13 +6,13 @@ RUN cd ..
 RUN rm -r fdupes
 
 # Install Gulp
-RUN npm install -g nodemon gulp-cli	
+RUN npm install -g nodemon gulp-cli
 
 # Copy current directory to container
 COPY . /home/node/app
 
-# Run npm install 
-RUN cd /home/node/app && npm install 
+# Run npm install
+RUN cd /home/node/app && npm ci
 
 
 WORKDIR /home/node/app

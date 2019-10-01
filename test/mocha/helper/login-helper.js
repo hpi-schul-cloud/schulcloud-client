@@ -1,7 +1,5 @@
-
-
 const studentName = 'schueler@schul-cloud.org';
-const password = process.env.SC_DEMO_USER_PASSWORD;
+const password = process.env.SC_DEMO_USER_PASSWORD || 'Schulcloud1!';
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -18,12 +16,31 @@ const login = (app) => {
 				if (err) {
 					return reject(err);
 				}
-
-				// return agent for making further request in loggedIn state
-				return resolve({
-					agent,
-					res,
-				});
+				if (!res.text.includes('/firstLogin/submit')) {
+					// return agent for making further request in loggedIn state
+					return resolve({
+						agent,
+						res,
+					});
+				}
+				// do firstLogin if needed
+				return agent
+					.post('/firstLogin/submit')
+					.send({
+						'student-email': studentName,
+						'password-1': password,
+						'password-2': password,
+					})
+					.end((err, resFirstLogin) => {
+						if (err) {
+							return reject(err);
+						}
+						// return agent for making further request in loggedIn state
+						return resolve({
+							agent,
+							res: resFirstLogin,
+						});
+					});
 			});
 	});
 };
