@@ -59,14 +59,14 @@
                 <div class="form-group col-md-6">
                     <label>Name des Kurses</label>
                     <input class="form-control js-course-name-input" name="name" type="text" placeholder="z.B. Mathe 10a" value="{{course.name}}" autocomplete="off"
-                           required autofocus/>
+                           required autofocus data-testid="coursename"/>
                 </div>
 
                 <div class="form-group col-md-6">
                   <label>Farbe des Kurses:</label>
-                  <div class="color-picker">
+                  <div class="color-picker" data-testid="color-picker">
                     {{#if course.color}}
-                      <div class="color-picker__item">
+                      <div class="color-picker__item" data-testid="item">
                         <input id="input0" type="radio" class="color-picker__input" name="color" value="{{course.color}}" checked="checked"/>
                         <label for="input0" class="color-picker__color" style="background: {{course.color}}"></label>
                       </div>
@@ -87,9 +87,9 @@
                 <div class="form-group col-md-6">
                     <label>Unterrichtender Lehrer</label>
 
-                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen" autocomplete="off">
+                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen" data-testid="teachersearch" autocomplete="off">
                         {{#each teachers}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                            <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
                                     {{this.displayName}}
                                 {{else}}
@@ -102,7 +102,7 @@
 
                 <div class="form-group col-md-6">
                     <label>Vertretungslehrer - Optional</label>
-                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen" autocomplete="off">
+                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen" autocomplete="off" data-testid="substituent">
                         {{#each substitutions}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{this.firstName}} {{this.lastName}}
@@ -123,7 +123,7 @@
                             data-date
                             type="text"
                             class="form-control"
-                            value="{{course.startDate}}"
+                            value="{{course.startDate}}" data-testid="date_start"
                             title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
                       </div>
 
@@ -191,7 +191,7 @@
               <div class="form-group">
                   <label>Klasse(n) (Alle Schüler der Klasse werden automatisch hinzugefügt!) - Optional</label>
 
-                  <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
+                  <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen" data-testid="classes">
                       {{#each classes}}
                           <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                               {{log this.year}}
@@ -214,7 +214,7 @@
               <div class="form-group">
                   <label>Schüler / Teilnehmer - Optional</label>
 
-                  <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
+                  <select name="userIds[]" multiple data-placeholder="Schüler auswählen" data-testid="pupils">
                       {{#each students}}
                           <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                               {{#if this.displayName}}
@@ -237,11 +237,12 @@
                   <h2 class="h4">Geschafft!</h2>
                   <h3 class="h5 text-muted">Was kannst du in einem Kurs machen?</h3>
                   <div class="course-features">
-                    <h4 class="h6">Themen anlegen</h4>
+                    <a class="h6" id="addclass-create-topic" href="#">Themen anlegen</a>
                     <p class="text-muted">
                       Lege die Inhalte deines Unterrichts an.
                     </p>
-                    <h4 class="h6">Aufgaben stellen</h4>
+
+                    <a class="h6" id="addclass-create-homework" href="#">Aufgaben stellen</a>
                     <p class="text-muted">
                       Stelle deinen Kursteilnehmern Aufgaben und sieh dir ihre Abgaben an.
                     </p>
