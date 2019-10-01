@@ -69,7 +69,7 @@ router.post('/', function (req, res, next) {
         cd5: res.locals.currentSchool,
         cd6: context['networkProtocol'], // http1.1 / http2 / unknown
     };
-    if (isDemoUser){
+    if (!isDemoUser){
         api(req).post('/analytics', { json: hit }).then(result => {
             res.send(result);
         }).catch(_ => {
