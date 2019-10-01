@@ -45,7 +45,7 @@
                         <div class="comment form-group">
                             <div class="form-group">
                                 <label>Bewertung <small>in Prozent</small></label>
-                                <input type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}" />
+                                <input data-testid="evaluation_procent" type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}" />
                             </div>
                             <h2 class="h6">Kommentar</h2>
                             <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
