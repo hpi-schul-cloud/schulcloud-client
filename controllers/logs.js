@@ -75,8 +75,6 @@ router.post('/', function (req, res, next) {
         }).catch(_ => {
             res.send('error');
         });
-    }else{
-        //no logging for demo users
     }
 });
 
