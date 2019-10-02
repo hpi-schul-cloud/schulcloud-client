@@ -99,7 +99,7 @@ app.use(session({
 	secret: 'secret',
 }));
 
-app.use(csurf());
+app.use(csurf({ cookie: true }));
 app.use(tokenInjector);
 
 const setTheme = require('./helpers/theme');
