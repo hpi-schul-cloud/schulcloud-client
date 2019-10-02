@@ -99,12 +99,7 @@ app.use(session({
 	secret: 'secret',
 }));
 
-if (process.env.ENABLE_CSRF) {
-	app.use(csurf());
-} else {
-	app.use(csurf({ ignoreMethods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE'] }));
-}
-
+app.use(csurf());
 app.use(tokenInjector);
 
 const setTheme = require('./helpers/theme');
