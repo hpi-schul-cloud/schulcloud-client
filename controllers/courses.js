@@ -139,7 +139,7 @@ const editCourseHandler = (req, res, next) => {
 				$limit: -1,
 			},
 		})
-		//.then(data => data.data); needed when pagination is not disabled
+		// .then(data => data.data); needed when pagination is not disabled
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher', 'demoTeacher'],
 		$limit: false,
