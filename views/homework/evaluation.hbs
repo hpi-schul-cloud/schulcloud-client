@@ -42,21 +42,18 @@
                         <input name="studentId" type="hidden" data-force-value="true" value="{{this.submission.studentId._id}}" />
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
                 {{/if}}
-                <div class="comment form-group">
-                    <div class="form-group">
-                        <label>Bewertung <small>in Prozent</small></label>
-                        <input type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}">
-                    </div>
-                    {{#if this.submission.comment}}
-                        <button class="importsubmission btn btn-secondary btn-sm float-xs-right" data="{{this.submission._id}}">Abgabe des Schülers importieren</button>
-                    {{/if}}
-                    <h6>Kommentar</h6>
-                    <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
-                </div>
-                {{#userHasPermission "HOMEWORK_CREATE"}}
-                    <button type="submit" class="btn btn-primary">Speichern</button>
-                {{/userHasPermission}}
-                </form>
+                        <div class="comment form-group">
+                            <div class="form-group">
+                                <label>Bewertung <small>in Prozent</small></label>
+                                <input data-testid="evaluation_procent" type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}" />
+                            </div>
+                            <h2 class="h6">Kommentar</h2>
+                            <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
+                        </div>
+                        {{#userHasPermission "HOMEWORK_CREATE"}}
+                            <button type="submit" class="btn btn-primary">Speichern</button>
+                        {{/userHasPermission}}
+                    </form>
             {{else}}
                 <b class="grade">{{{this.submission.gradeText}}}</b>
                 <div class="comment">

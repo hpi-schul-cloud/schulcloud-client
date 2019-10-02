@@ -1,4 +1,5 @@
 @import '../lib/colors';
+@import '../homepage/layouts';
 
 hgroup {
     text-align: center;
@@ -34,9 +35,14 @@ hgroup {
         padding-bottom: 15px;
     }
     .partner-box {
+        background: #fff;
         border: 1px solid lightgray;
         height: 150px;
-        text-align: center;
+		text-align: center;
+		&:hover {
+			box-shadow: var(--shadow-sm);
+			transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
+		}
     }
     .partner-box img {
         max-height: 100%;
@@ -49,10 +55,7 @@ hgroup {
         display: flex !important;
     }
     .toggle-partner {
-        background-color: white;
-        color: #b10438;
         position: relative;
-        font-weight: 500;
         i {
             display: block;
             pointer-events: none;
@@ -62,4 +65,10 @@ hgroup {
         width: 100%;
         text-align: center;
     }
+}
+
+.primary, .secondary{
+	.partner-box{
+		border: 1px solid #fff;
+	}
 }

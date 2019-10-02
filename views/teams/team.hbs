@@ -20,13 +20,13 @@
      <div id="team-wrapper">
         <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
             <div class="dropdown dropdown-title minimal-button">
-                <a class="dropdown-toggle btn-title-dropdown" title="Weiteres" data-toggle="dropdown">
+                <a class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" title="Weiteres" data-toggle="dropdown">
                     <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
                     <i class="fa fa-cog i-cog"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu dropdown-menu-team">
-                    <a href="/teams/{{_id}}/members" class="dropdown-item">
-                        <i class="fa fa-users" aria-hidden="true"></i> Teammitglieder verwalten
+                    <a data-testid="administrate_team_members" href="/teams/{{_id}}/members" class="dropdown-item">
+                        <i class="fa fa-users" aria-hidden="true"></i> Teammitglieder {{#inArray "ADD_SCHOOL_MEMBERS" permissions}}verwalten{{else}}ansehen{{/inArray}}
                     </a>
                     {{#userHasPermission "TEAM_EDIT"}}
                         {{#inArray "RENAME_TEAM"../ permissions}}
@@ -65,8 +65,7 @@
             </section>
 
             {{#if rocketChatURL}}
-            <section class="section-chat" style="margin-top: 2rem">
-                <h3 class="h4">Chat</h3>
+            <section class="section-chat">
                 <div class="rocketchat">
                     <iframe src="{{rocketChatURL}}?layout=embedded" frameborder="0"></iframe>
                 </div>
@@ -75,15 +74,15 @@
 
 
             <div class="course-card">
-                <div class="tabContainer">
+                <div class="tabContainer" data-active-tab={{activeTab}}>
                     <div class="tabs" data-max-width="1024">
-                        <button class="tab" data-tab="a">
+                        <button class="tab" data-tab="js-files">
                             <span class="text">Dateien</span>
                         </button>
-                        <button class="tab" data-tab="b">
+                        <button class="tab" data-tab="js-news">
                             <span class="text">Neuigkeiten</span>
                         </button>
-                        <button class="tab" data-tab="c">
+                        <button class="tab" data-tab="js-events">
                             <span class="text">Termine</span>
                         </button>
                     </div>
@@ -91,7 +90,7 @@
                 <div class="sectionsContainer">
                     <div class="sections">
                         <!-- Dateien -->
-                        <div class="section" data-section="a">
+                        <div class="section" data-testid="team_files" data-section="js-files">
                             {{#if canUploadFile}}
                                     {{#embed "files/file-upload"}}{{/embed}}
                                 {{/if}}
@@ -162,9 +161,11 @@
                                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
                                         <i class="fa fa-folder-open"></i> Zu den Team-Dateien
                                     </a>
-                                    <button class="btn btn-add btn-secondary btn-file-permissions">
-                                        <i class="fa fa-share-alt"></i> Freigabe-Einstellungen ändern
-                                    </button>
+                                    {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
+                                        <button class="btn btn-add btn-secondary btn-file-permissions">
+                                            <i class="fa fa-share-alt"></i> Freigabe-Einstellungen ändern
+                                        </button>
+                                    {{/inArray}}
                                     {{#if ../canCreateDir}}
                                         <span class="btn btn-primary create-directory">
                                             <i class="fa fa-folder" aria-hidden="true"></i> Ordner erstellen
@@ -179,26 +180,26 @@
 
                         </div>
                         <!--- Neuigkeiten -->
-                        <div class="section" data-section="b">
+                        <div class="section" data-section="js-news">
                             {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
                             <a href="/teams/{{../_id}}/news" class="">
                                 Alle Neuigkeiten anzeigen...
                             </a>
-                            {{#inArray "CREATE_NEWS" permissions}}
-                                <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary pull-right">
+                            {{#inArray "NEWS_CREATE" permissions}}
+                                <a href="/teams/{{../_id}}/news/new" data-testid="create_a_team" class="btn btn-add btn-primary pull-right">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Neuigkeit anlegen
                                 </a>
                             {{/inArray}}
                         </div>
                         <!-- Termine -->
-                        <div class="section" data-section="c">
+                        <div class="section" data-testid="team_events" data-section="js-events">
                             <div class="row">
                                 {{#each ../events}}
-                                    {{> 'calendar/card' event=this}}
+                                    {{> 'calendar/card' event=this canEdit=../canEditEvents}}
                                 {{/each}}
                             </div>
                             <div style="margin-top: .5rem">
-                                {{#inArray "CREATE_NEWS" permissions}}
+                                {{#inArray "CALENDAR_CREATE" permissions}}
                                     <button class="btn btn-add btn-primary btn-create-event pull-right">
                                         Termin anlegen
                                     </button>

@@ -3,26 +3,15 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-const winston = require('winston');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
+const logger = require('../helpers/logger');
 
 const router = express.Router();
 moment.locale('de');
-
-const logger = winston.createLogger({
-	transports: [
-		new winston.transports.Console({
-			format: winston.format.combine(
-				winston.format.colorize(),
-				winston.format.simple(),
-			),
-		}),
-	],
-});
 
 const addThumbnails = (file) => {
 	const thumbs = {
@@ -107,6 +96,21 @@ const checkIfUserCouldLeaveTeam = (current, others) => {
 	return false;
 };
 
+const checkIfUserCanCreateTeam = (res) => {
+	const roleNames = res.locals.currentUser.roles.map(role => role.name);
+	let allowedCreateTeam = false;
+	if (roleNames.includes('administrator') || roleNames.includes('teacher') || roleNames.includes('student')) {
+		allowedCreateTeam = true;
+		const currentSchool = res.locals.currentSchoolData;
+		const isSchoolFeatureSet = currentSchool.features instanceof Array
+			&& currentSchool.features.includes('disableStudentTeamCreation');
+		if (roleNames.includes('student') && isSchoolFeatureSet) {
+			allowedCreateTeam = false;
+		}
+	}
+	return allowedCreateTeam;
+};
+
 const markSelected = (options, values = []) => options.map((option) => {
 	option.selected = values.includes(option._id);
 	return option;
@@ -170,6 +174,7 @@ const copyCourseHandler = (req, res, next) => {
 	});
 	const studentsPromise = getSelectOptions(req, 'users', {
 		roles: ['student', 'demoStudent'],
+		$sort: 'lastName',
 		$limit: 1000,
 	});
 
@@ -221,8 +226,8 @@ const copyCourseHandler = (req, res, next) => {
 		res.render('teams/edit-course', {
 			action,
 			method,
-			title: 'Kurs klonen',
-			submitLabel: 'Kurs klonen',
+			title: 'Team duplizieren',
+			submitLabel: 'Team duplizieren',
 			closeLabel: 'Abbrechen',
 			course,
 			classes: classesOfCurrentSchool,
@@ -253,6 +258,8 @@ router.get('/', async (req, res, next) => {
 		},
 	});
 
+	const allowedCreateTeam = checkIfUserCanCreateTeam(res);
+
 	teams = teams.data.map((team) => {
 		team.url = `/teams/${team._id}`;
 		team.title = team.name;
@@ -265,7 +272,9 @@ router.get('/', async (req, res, next) => {
 				.utc()
 				.format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''}</div>`;
+			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
+				time.room ? `| ${time.room}` : ''
+			}</div>`;
 		});
 
 		return team;
@@ -286,19 +295,22 @@ router.get('/', async (req, res, next) => {
 
 	if (req.query.json) {
 		res.json(teams);
-	} else {
+	} else if (teams.length !== 0 || teamInvitations.length !== 0) {
 		res.render('teams/overview', {
 			title: 'Meine Teams',
 			teams,
 			teamInvitations,
-			// substitutionCourses,
+			allowedCreateTeam,
 			searchLabel: 'Suche nach Teams',
 			searchAction: '/teams',
 			showSearch: true,
 			liveSearch: true,
 		});
+	} else {
+		res.render('teams/overview-empty', {
+			allowedCreateTeam,
+		});
 	}
-	// });
 });
 
 router.post('/', async (req, res, next) => {
@@ -459,9 +471,14 @@ router.get('/:teamId', async (req, res, next) => {
 		const schoolUsesRocketChat = (
 			res.locals.currentSchoolData.features || []
 		).includes('rocketChat');
+		const schoolIsExpertSchool = res.locals.currentSchoolData.purpose === 'expert';
 
 		let rocketChatCompleteURL;
-		if (instanceUsesRocketChat && courseUsesRocketChat && schoolUsesRocketChat) {
+		if (
+			instanceUsesRocketChat
+			&& courseUsesRocketChat
+			&& (schoolUsesRocketChat || schoolIsExpertSchool)
+		) {
 			try {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
@@ -533,7 +550,9 @@ router.get('/:teamId', async (req, res, next) => {
 		let news = (await api(req).get('/news/', {
 			qs: {
 				target: req.params.teamId,
+				targetModel: 'teams',
 				$limit: 4,
+				$sort: '-displayAt',
 			},
 		})).data;
 
@@ -544,7 +563,6 @@ router.get('/:teamId', async (req, res, next) => {
 		});
 
 		let events = [];
-
 		try {
 			events = await api(req).get('/calendar/', {
 				qs: {
@@ -552,10 +570,9 @@ router.get('/:teamId', async (req, res, next) => {
 					all: true,
 				},
 			});
-
 			events = events.map((event) => {
-				const start = moment(event.start);
-				const end = moment(event.end);
+				const start = moment(event.start).utc();
+				const end = moment(event.end).utc();
 				event.day = start.format('D');
 				event.month = start
 					.format('MMM')
@@ -563,9 +580,10 @@ router.get('/:teamId', async (req, res, next) => {
 					.split('.')
 					.join('');
 				event.dayOfTheWeek = start.format('dddd');
-				event.fromTo = `${start.format('hh:mm')} - ${end.format('hh:mm')}`;
+				event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
 				return event;
 			});
+			events = events.sort((a, b) => a.start - b.start);
 		} catch (e) {
 			events = [];
 		}
@@ -575,10 +593,13 @@ router.get('/:teamId', async (req, res, next) => {
 		// teamowner could not leave if there is no other teamowner
 		const couldLeave = checkIfUserCouldLeaveTeam(course.user, course.userIds);
 
+		const permissions = await api(req).get(`/teams/${teamId}/userPermissions/${course.user.userId}`);
+
 		res.render(
 			'teams/team',
 			Object.assign({}, course, {
 				title: course.name,
+				activeTab: req.query.activeTab,
 				breadcrumb: [
 					{
 						title: 'Meine Teams',
@@ -586,7 +607,7 @@ router.get('/:teamId', async (req, res, next) => {
 					},
 					{},
 				],
-				permissions: course.user.permissions,
+				permissions,
 				course,
 				events,
 				directories,
@@ -596,7 +617,8 @@ router.get('/:teamId', async (req, res, next) => {
 				canUploadFile: true,
 				canCreateDir: true,
 				canCreateFile: true,
-				canEditPermissions: course.user.permissions.includes('EDIT_ALL_FILES'),
+				canEditPermissions: permissions.includes('EDIT_ALL_FILES'),
+				canEditEvents: permissions.includes('CALENDAR_EDIT'),
 				createEventAction: `/teams/${req.params.teamId}/events/`,
 				leaveTeamAction,
 				couldLeave,
@@ -733,7 +755,7 @@ router.post('/:teamId/events/', (req, res, next) => {
 	api(req)
 		.post('/calendar/', { json: req.body })
 		.then(() => {
-			res.redirect(`/teams/${req.params.teamId}`);
+			res.redirect(`/teams/${req.params.teamId}/?activeTab=events`);
 		});
 });
 
@@ -779,10 +801,10 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 	const roleTranslations = {
 		teammember: 'Teilnehmer',
-		teamexpert: 'externer Experte',
+		teamexpert: 'Externer Experte',
 		teamleader: 'Leiter',
-		teamadministrator: 'Team-Admin',
-		teamowner: 'Team-Admin (Eigentümer)',
+		teamadministrator: 'Administrator',
+		teamowner: 'Eigentümer',
 	};
 
 	const head = ['Vorname', 'Nachname', 'Rolle', 'Schule', 'Aktionen'];
@@ -894,7 +916,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		const teamUserIds = team.userIds.map(user => user.userId._id);
 		users = users.filter(user => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter(s => s._id === schoolId)[0];
-		const currentFederalStateId = currentSchool.federalState;
+		const currentFederalStateId = (currentSchool || {}).federalState;
 		let couldLeave = true; // will be set to false if current user is the only teamowner
 
 		const rolesExternal = [
@@ -936,7 +958,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
 					class: 'btn-delete-member disabled',
-					title: 'Das Verlassen des Teams erforder einen anderen Eigentümer',
+					title: 'Das Verlassen des Teams erfordert einen anderen Eigentümer',
 					icon: 'trash',
 				});
 			}
@@ -954,17 +976,18 @@ router.get('/:teamId/members', async (req, res, next) => {
 			return actions;
 		};
 
-
 		if (team.user.role.name === 'teamowner') {
 			couldLeave = false;
 			for (const user of team.userIds) {
-				if (user.userId._id !== team.user.userId._id && user.role._id === team.user.role._id) {
+				if (
+					user.userId._id !== team.user.userId._id
+          && user.role._id === team.user.role._id
+				) {
 					couldLeave = true;
 					break;
 				}
 			}
 		}
-
 
 		const body = team.userIds.map((user) => {
 			let actions = [];
@@ -1014,7 +1037,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		res.render(
 			'teams/members',
 			Object.assign({}, team, {
-				title: 'Deine Team-Teilnehmer',
+				title: 'Team-Teilnehmer',
 				action,
 				classes,
 				addMemberAction: `${uri}/members`,
@@ -1023,6 +1046,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				deleteInvitationAction: `${uri}/invitation`,
 				resendInvitationAction: `${uri}/invitation`,
 				permissions: team.user.permissions,
+				rolePermissions: res.locals.currentUser.permissions,
 				method,
 				head,
 				body,
@@ -1171,7 +1195,7 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		})
 		.catch((err) => {
 			logger.warn(
-				`Fehler beim Annehmen einer Einladung, 
+				`Fehler beim Annehmen einer Einladung,
         der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. `,
 				err,
 			);
@@ -1233,8 +1257,11 @@ router.get('/:teamId/topics', async (req, res, next) => {
 			const courseGroupsData = permissionHelper.userHasPermission(
 				res.locals.currentUser,
 				'COURSE_EDIT',
-			) ? courseGroups.data || [] : (courseGroups.data || [])
-					.filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+			)
+				? courseGroups.data || []
+				: (courseGroups.data || []).filter(
+					cg => cg.userIds.some(user => user._id === res.locals.currentUser._id),
+				);
 
 			res.render(
 				'teams/topics',

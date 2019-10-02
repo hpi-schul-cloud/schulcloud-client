@@ -18,21 +18,26 @@
     {{#userHasPermission "COURSE_EDIT"}}
       <div class="dropdown dropdown-course minimal-button">
         <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
-          <h4 id="page-title" class="course-headline">{{{stripOnlyScript ../name}}}</h4>
+          <h1 class="h4" id="page-title" class="course-headline">
+			  {{{stripOnlyScript ../name}}}
           <i class="fa fa-cog i-cog"></i>
+		  	{{#if ../isArchived}}<small class="count-badge" data-badge="Archiv"/></small>{{/if}}
+		  </h1>
         </a>
         <div class="dropdown-menu dropdown-menu dropdown-menu-course">
           <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
             <i class="fa fa-edit" aria-hidden="true"></i> Kurs bearbeiten/löschen
           </a>
+		  {{#unless ../isArchived}}
           <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
             <i class="fa fa-envelope" aria-hidden="true"></i> zum Kurs einladen
           </a>
           <a class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
             <i class="fa fa-share" aria-hidden="true"></i> Kurs teilen
           </a>
+		  {{/unless}}
           <a href="/courses/{{../_id}}/copy" class="dropdown-item">
-            <i class="fa fa-clone" aria-hidden="true"></i> Kurs klonen
+            <i class="fa fa-clone" aria-hidden="true"></i> Kurs duplizieren
           </a>
         </div>
       </div>
@@ -42,9 +47,9 @@
         {{#if description}}
         <p class="lead">Kursbeschreibung: {{{stripOnlyScript description}}}</p>
         {{/if}}
-        {{#if nextEvent}}
+		{{#unless ../isArchived}}{{#if nextEvent}}
           <p class="text-muted">Nächste Unterrichtsstunde: {{nextEvent}}</p>
-        {{/if}}
+        {{/if}}{{/unless}}
         <a href="{{filesUrl}}" class="btn btn-add btn-secondary pull-right">
           <i class="fa fa-folder-open"></i>
           Zu den Kursdateien
@@ -53,56 +58,56 @@
     </div>
     <section class="section-course">
       <div class="course-card">
-        <div class="tabContainer">
+        <div class="tabContainer" data-active-tab={{activeTab}}>
           <div class="tabs" data-max-width="1024">
-            <button class="tab" data-tab="a">
-              <span class="text count-badge" data-badge="{{lessons.length}}">Themen</span>
+            <button class="tab" data-testid="topics" data-tab="js-topics">
+              <span class="text">Themen <span class="count-badge" data-badge="{{lessons.length}}"/></span>
             </button>
-            <button class="tab" data-tab="b">
-              <span class="text count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}">Aufgaben</span>
+            <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
+              <span class="text">Aufgaben <span class="count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}"/></span>
             </button>
-            <button class="tab" data-tab="c">
-              <span class="text count-badge" data-badge="{{ltiToolIds.length}}">Tools</span>
+            <button class="tab" data-testid="tools" data-tab="js-tools">
+              <span class="text">Tools <span class="count-badge" data-badge="{{../ltiToolIds.length}}"/></span>
             </button>
-            <button class="tab" data-tab="d">
-              <span class="text count-badge" data-badge="{{courseGroups.length}}">Gruppen</span>
+            <button class="tab" data-testid="groups" data-tab="js-groups">
+              <span class="text">Gruppen <span class="count-badge" data-badge="{{../courseGroups.length}}"/></span>
             </button>
           </div>
         </div>
         <div class="sectionsContainer">
           <div class="sections">
             <!-- Themen -->
-            <div class="section" data-section="a">
-              {{> "courses/components/topics"}}
+            <div class="section" data-section="js-topics">
+              {{> "courses/components/topics" archived=@root.isArchived}}
             </div>
             <!--- Aufgaben -->
-            <div class="section" data-section="b">
-              {{> "courses/components/tasks"}}
+            <div class="section" data-section="js-homeworks">
+              {{> "courses/components/tasks" archived=@root.isArchived}}
             </div>
             <!-- Tools -->
-            <div class="section" data-section="c">
-              {{> "courses/components/tools"}}
+            <div name="js-tools-section" name="js-tools" class="section" data-section="js-tools">
+              {{> "courses/components/tools" archived=@root.isArchived}}
             </div>
             <!-- Gruppen -->
-            <div class="section" data-section="d">
-              {{> "courses/components/groups" id=../_id}}
+            <div class="section" data-section="js-groups">
+              {{> "courses/components/groups" id=../_id archived=@root.isArchived}}
             </div>
           </div>
         </div>
       </div>
 
       {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
-      {{#content "body"}}
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btn-close">
-            Abbrechen
-          </button>
+		{{#content "body"}}
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary btn-close">
+				Abbrechen
+			</button>
 
-          <button type="submit" class="btn btn-primary btn-submit">
-            Löschen
-          </button>
-        </div>
-      {{/content}}
+			<button type="submit" class="btn btn-primary btn-submit">
+				Löschen
+			</button>
+			</div>
+		{{/content}}
       {{/embed}}
 
       {{#embed "lib/components/modal-form" class="invitation-modal"}}

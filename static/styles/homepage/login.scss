@@ -1,0 +1,28 @@
+@import "./variables";
+
+// legacy css for login form
+#loginarea{
+	&:not(.demo-login){
+		border-radius: 0;
+		border: 1px solid var(--color-gray-light);
+		box-shadow: var(--shadow-sm);
+	}
+    .btn{
+        word-wrap: break-word;
+		white-space: normal;
+		min-width: 22ch;
+    }
+    input:not(.chosen-search-input) {
+        margin-bottom: 10px;
+        font-size: 1rem;
+        padding: .5rem;
+	}
+	select{
+		width: 100%;
+		padding: .25rem .5rem;
+		border-radius: 4px;
+	}
+    .login-providers {
+        display:none;
+    }
+}

@@ -317,7 +317,7 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>+ Interne Komponente</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>+ Aufgabe</button>
                     </div>
                 </div>
             </div>
@@ -744,15 +744,11 @@ class TopicGeoGebra extends TopicBlock {
 class TopicInternal extends TopicBlock {
 
     /**
-     * generates the url-pattern with following criteria
-     * a) has to be in the current system
-     * b) /edit, /new and /add pages
-     * c) no personal links (personal files, settings, admin-area)
-     * d) it's not the topic itself
+     * generates the url-pattern that accepts homework links
+     * Other types of content currently not supported or not useful.
      */
     generatePattern() {
-        //                  a)                           b)        c)                                d)
-        return `(${window.location.origin})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`;
+        return `${window.location.origin}\/homework.*`;
     }
 
     /**
@@ -812,7 +808,7 @@ class TopicInternal extends TopicBlock {
                             href="#"
                             data-toggle="tooltip"
                             data-placement="top"
-                            title={`Der Link muss mit '${this.state.baseUrl}' beginnen! Aus Sicherheitsgründen sind ebenfalls alle persönlichen Seiten, sowie Themenseiten und direkte Verlinkungen von Dateien nicht gestattet.`}><i className="fa fa-info-circle" /></a>
+                            title={`Der Link muss mit '${this.state.baseUrl}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Andere Inhalte werden momentan nicht unterstützt.`}><i className="fa fa-info-circle" /></a>
                     </span>
                     <input 
                         className="form-control" 
@@ -954,7 +950,7 @@ class TopicNexboard extends TopicBlock {
             <div>
                 <div type="hidden" className="form-group">
                     <label>Name des neXboards</label>
-                    <input className="form-control" name={`contents[${this.props.position}][content][title]`}
+                    <input required className="form-control" name={`contents[${this.props.position}][content][title]`}
                            type="text" placeholder="Brainstorming zum Thema XYZ" value={(this.props.content || {}).title}/>
                 </div>
                 <div className="form-group">
@@ -964,28 +960,22 @@ class TopicNexboard extends TopicBlock {
                         {(this.props.content || {}).description}
                     </textarea>
                 </div>
-                <div className="form-group">
+				<div className="form-group">
                     <label>neXboard auswählen</label>
                     <select name={`contents[${this.props.position}][content][board]`}
                             className="chosen-select"
                             data-placeholder="neXboard auswählen"
                             id={(this.state.id)}
                             value={(this.props.content || {}).board}>
-                        <optgroup label="Vorhandene Boards">
-                            {this.state.boards.map(board =>
-                                <option value={board.content.board}>{board.content.title}</option>
-                            )}
-                        </optgroup>
-                        <optgroup label="Neues Board">
-                            <option value={this.state.newBoard} >Neues neXboard anlegen</option>
-                        </optgroup>
+                        {(this.props.content || {}).board ? <option value={this.props.content.board}>NexBoard beibehalten</option> : ''}
+                        <option value={this.state.newBoard} >Neues neXboard anlegen</option>
                     </select>
-                </div>
+				</div>
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
                        value={(this.props.content || {}).url } />
             </div>
         );
-    }
+	}
 }
 
 /**

@@ -9,10 +9,11 @@ const gulpCount = require('gulp-count');
 const filelog = require('gulp-filelog');
 const header = require('gulp-header');
 const gulpif = require('gulp-if');
-const imagemin = require('gulp-imagemin');
 const optimizejs = require('gulp-optimize-js');
+const imagemin = require('gulp-imagemin');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
+const cssvariables = require('postcss-css-variables');
 const rimraf = require('gulp-rimraf');
 const sass = require('gulp-sass');
 const sassGrapher = require('gulp-sass-grapher');
@@ -98,6 +99,9 @@ gulp.task('styles', () => {
 			includePaths: ['node_modules'],
 		}).on('error', sass.logError))
 		.pipe(postcss([
+			cssvariables({
+				preserve: true,
+			}),
 			autoprefixer({
 				browsers: ['last 3 version'],
 			}),
@@ -256,6 +260,7 @@ gulp.task(
 		'vendor-styles',
 		'vendor-scripts',
 		'vendor-assets',
+		'node-modules',
 	],
 	() => workbox
 		.injectManifest({
@@ -307,9 +312,9 @@ gulp.task('build-all', [
 	'vendor-scripts',
 	'vendor-assets',
 	'vendor-optimized-assets',
-	'generate-service-worker',
-	'sw-workbox',
 	'node-modules',
+	'sw-workbox',
+	'generate-service-worker',
 	'static',
 ]);
 
@@ -318,6 +323,7 @@ gulp.task('build-theme-files', ['styles', 'styles-done', 'images', 'static']);
 // watch and run corresponding task on change, process changed files only
 gulp.task('watch', ['build-all'], () => {
 	const watchOptions = { interval: 1000 };
+	gulp.watch(baseScripts, watchOptions, ['base-scripts']);
 	gulp.watch(
 		withTheme('./static/styles/**/*.{css,sass,scss}'),
 		watchOptions,

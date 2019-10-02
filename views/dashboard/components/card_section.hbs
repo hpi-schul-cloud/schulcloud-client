@@ -3,11 +3,11 @@
         {{#if title}}
         <div class="row">
             <div class="col-sm-12">
-                <h5><a class="dashboard-title" href="{{href}}">{{title}}</a></h5>
+                <h2 class="h5"><a class="dashboard-title" href="{{href}}">{{title}}</a></h2>
             </div>
         </div>
         {{/if}}
-        <div class="row tasks card-deck-row">
+        <div class="row tasks card-deck-row" data-testid="courses">
             {{#each content}}
             <div class="sc-card-wrapper col-xl-3 col-lg-4 col-md-6 col-sm-12" data-rss="{{isRSS}}" data-id="{{id}}">
                 {{> 'lib/components/sc-card' link-text=../link-text additionalInfoName=../additionalInfoName}}

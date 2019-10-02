@@ -13,13 +13,15 @@
     {{/content}}
 
     {{#content "page"}}
-        <div class="edtr-link-wrapper">
-            <a href="?edtr=true" class="edtr-link">
-                <button class="btn btn-primary edtr-btn">
-                    Neuen Editor ausprobieren
-                </button>
-            </a>
-        </div>
+        {{#if topicId}}
+            <div class="edtr-link-wrapper">
+                <a href="/courses/{{courseId}}/topics/{{topicId}}?edtr=true" target="_blank" class="edtr-link">
+                    <button class="btn btn-primary edtr-btn">
+                        Neuen Editor ausprobieren
+                    </button>
+                </a>
+            </div>
+        {{/if}}
         <section class="section-course-edit">
             <form action="{{action}}" method="post">
                 {{#if method}}

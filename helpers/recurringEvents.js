@@ -105,26 +105,39 @@ const mapRecurringEvent = (event) => {
 
 /**
  * maps properties of a event to fit calendar, e.g. url and color
+ * If any error is accoured then return course or team with default color.
  * @param event
  */
 const mapEventProps = (event, req) => {
-    if (event["x-sc-courseId"]) {
-        return api(req).get('/courses/' + event["x-sc-courseId"]).then(course => {
-            event.url = event["x-sc-courseTimeId"] ? '/courses/' + course._id : '';
-            event.color = course.color;
-            return event;
-        });
-    }
+	if (event['x-sc-courseId']) {
+		return api(req).get(`/courses/${event['x-sc-courseId']}`).then((course) => {
+			event.url = event['x-sc-courseTimeId'] ? `/courses/${course._id}` : '';
+			event.color = course.color;
+			return event;
+		}).catch((err) => {
+			// eslint-disable-next-line no-console
+			console.log("event['x-sc-courseId']", err);
+			event.url = '';
+			event.color = '#ff0000';
+			return event;
+		});
+	}
 
-    if (event["x-sc-teamId"]) {
-        return api(req).get('/teams/' + event["x-sc-teamId"]).then(team => {
-            event.url = '';
-            event.color = team.color;
-            return event;
-        });
-    }
+	if (event['x-sc-teamId']) {
+		return api(req).get(`/teams/${event['x-sc-teamId']}`).then((team) => {
+			event.url = '';
+			event.color = team.color;
+			return event;
+		}).catch((err) => {
+			// eslint-disable-next-line no-console
+			console.log("event['x-sc-teamId']", err);
+			event.url = '';
+			event.color = '#ff0000';
+			return event;
+		});
+	}
 
-    return event;
+	return event;
 };
 
 /**

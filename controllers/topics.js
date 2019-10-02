@@ -1,21 +1,12 @@
 const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
-const router = express.Router({ mergeParams: true });
-const Nexboard = require("nexboard-api-js");
+const Nexboard = require('nexboard-api-js');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
-const winston = require('winston');
-const logger = winston.createLogger({
-    transports: [
-        new winston.transports.Console({
-            format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.simple()
-            )
-        })
-    ]
-});
+const logger = require('../helpers/logger');
+
+const router = express.Router({ mergeParams: true });
 
 const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/etherpad/p/';
 
@@ -53,6 +44,7 @@ const editTopicHandler = (req, res, next) => {
             closeLabel: 'Abbrechen',
             lesson,
             courseId: req.params.courseId,
+            topicId: req.params.topicId,
             teamId: req.params.teamId,
             courseGroupId: req.query.courseGroup,
             etherpadBaseUrl: etherpadBaseUrl
@@ -107,8 +99,8 @@ router.post('/', async function (req, res, next) {
         res.redirect(
             context === 'courses'
                 ? `/courses/` + req.params.courseId +
-                (req.query.courseGroup ? '/groups/' + req.query.courseGroup : '')
-                : `/teams/` + req.params.teamId + '/topics'
+                (req.query.courseGroup ? '/groups/' + req.query.courseGroup : '/?activeTab=topics')
+                : `/teams/` + req.params.teamId + '/?activeTab=topics'
         );
     }).catch(_ => {
         res.sendStatus(500);
@@ -185,17 +177,17 @@ router.get('/:topicId', function (req, res, next) {
                 url: `/${context}`
             },
             {
-                title: course.name + ' ' + '> Themen',
+                title: course.name + ' ' + (!courseGroup._id ? '> Themen' : ''),
                 url: `/${context}/` + course._id
             },
+            courseGroup._id ? {
+                title: courseGroup.name + ' ' + '> Themen',
+                url: `/${context}/` + course._id + '/groups/' + courseGroup._id
+            } : {},
             {
                 title: lesson.name,
                 url: `/${context}/` + course._id + '/topics/' + lesson._id
             },
-            courseGroup._id ? {
-                title: courseGroup.name,
-                url: `/${context}/` + course._id + '/groups/' + courseGroup._id
-            } : {}
             ]
         }), (error, html) => {
             if (error) {

@@ -8,7 +8,7 @@
     {{#content "page"}}
         <div class="row">
             <div class="col-xl-12">
-                <form id="user-form" method="post" action="{{action}}">
+                <form id="user-form" class="{{#unless editTeacher}}is-student{{/unless}}" method="post" action="{{action}}">
 
                     <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
                     <input name="displayName" type="hidden" value="{{user.displayName}}" disabled/>
@@ -41,7 +41,11 @@
                 {{#unless editTeacher}}
                     <div class="form-group">
                         <label>Geburtsdatum: <sup>*</sup></label>
-                        <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required value="{{dateToPicker user.birthday}}"/>
+                        <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required
+                        {{#if user.birthday }}
+                        value="{{dateToPicker user.birthday}}"
+                        {{/if}}
+                        />
                     </div>
                 {{else}}
                     <div class="form-group mb-2">
@@ -54,36 +58,50 @@
                     </div>
                 {{/unless}}
 
-                <button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">bearbeiten <i class="fa fa-edit"></i></button>
-                <h5>Einwilligungen: {{{consentStatusIcon}}}</h5>
+                {{#unless hasImportHash}}<button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">Bearbeiten <i class="fa fa-edit"></i></button>{{/unless}}
+                <h2 class="h5">Einwilligungen: {{{consentStatusIcon}}}</h2>
                 <div class="row" id="consents-overview">
                     {{#unless editTeacher}}
-                        <div class="col-md-6">
-                            <b>Eltern</b><br/>
-                            <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" disabled/>
+                        {{#unless hasImportHash}}
+                            <div class="col-md-6">
+                                <b>Eltern</b><br/>
+                                <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" disabled/>
 
-                            <label><input name="parent_form" value="analog" type="radio" disabled {{#ifeq consent.parentConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
-                            <label><input name="parent_form" value="digital" type="radio" disabled {{#ifeq consent.parentConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label> 
-                            <br/>
-                            <label><input name="parent_privacyConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
-                            <label><input name="parent_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
-                        </div>
-                        <div class="col-md-6">
-                            <b>Schüler</b><br/>
-                            <input name="student_consentId" type="hidden" value="{{consent._id}}" disabled/>
+                                <label><input name="parent_form" value="analog" type="radio" disabled {{#ifeq consent.parentConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                                <label><input name="parent_form" value="digital" type="radio" disabled {{#ifeq consent.parentConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
+                                <br/>
+                                <label><input name="parent_privacyConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
+                                <label><input name="parent_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
+                            </div>
+                            <div class="col-md-6">
+                                <b>Schüler</b><br/>
+                                <input name="student_consentId" type="hidden" value="{{consent._id}}" disabled/>
 
-                            <label><input name="student_form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
-                            <label><input name="student_form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label> 
-                            <br/>
-                            <label><input name="student_privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
-                            <label><input name="student_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
-                        </div>
+                                <label><input name="student_form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                                <label><input name="student_form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
+                                <br/>
+                                <label><input name="student_privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
+                                <label><input name="student_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
+                            </div>
+                        {{else}}
+                            <div class="col-md-6">
+                                <p>
+                                    Es liegt noch keine Einverständniserklärung für den Nutzer vor. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung und verteile ihn an den Nutzer oder seine Eltern. Während der Registrierung wird dann die Einverständniserklärung durch den Nutzer selbst erteilt. Wenn eine Einverständniserklärung in Papierform vorliegt, kann der Nutzer per Klick auf "Einverständnis auf Papier erhalten" aktiviert und ein Startpasswort vergeben werden. Damit ist der Login dann freigeschaltet.
+                                </p>
+                                <p>
+                                    <a class="btn btn-secondary" href="/administration/students/{{user._id}}/skipregistration">
+                                        <i class="fa fa-check-square-o"></i>
+                                        Einverständnis auf Papier erhalten
+                                    </a>
+                                </p>
+                            </div>
+                        {{/unless}}
                     {{else}}
                         <div class="col-md-6">
                             <input name="consentId" type="hidden" value="{{consent._id}}" disabled/>
 
                             <label><input name="form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
-                            <label><input name="form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label> 
+                            <label><input name="form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
                             <br/>
                             <label><input name="privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
                             <label><input name="termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
@@ -128,10 +146,10 @@
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" method="delete" class="delete-modal"}}	
+                {{#embed "lib/components/modal-form" method="delete" class="delete-modal"}}
                     {{#content "fields"}}
-                        {{> "administration/forms/form-delete-user"}}	
-                    {{/content}}	
+                        {{> "administration/forms/form-delete-user"}}
+                    {{/content}}
                 {{/embed}}
 
                 {{#embed "lib/components/modal-form" class="invitation-modal"}}

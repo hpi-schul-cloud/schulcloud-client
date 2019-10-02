@@ -11,6 +11,7 @@
     margin: 0;
     color: grey;
     text-align: right;
+    font-size: $font-size-xs;
     @include media-breakpoint-down(xs) {
       width:100%;
       padding: 0 0 10px;

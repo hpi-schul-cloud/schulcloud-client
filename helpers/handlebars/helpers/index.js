@@ -6,33 +6,35 @@ const permissionsHelper = require('../../permissions');
 
 moment.locale('de');
 
-function ifCondBool (v1, operator, v2) {
-    switch (operator) {
-        case '==':
-            return (v1 == v2);
-        case '===':
-            return (v1 === v2);
-        case '!=':
-            return (v1 != v2);
-        case '!==':
-            return (v1 !== v2);
-        case '<':
-            return (v1 < v2);
-        case '<=':
-            return (v1 <= v2);
-        case '>':
-            return (v1 > v2);
-        case '>=':
-            return (v1 >= v2);
-        case '&&':
-            return (v1 && v2);
-        case '||':
-            return (v1 || v2);
-        case '|| !':
-            return (v1 || !v2);
-        default:
-            return false;
-    }
+function ifCondBool(v1, operator, v2) {
+	switch (operator) {
+		case '==':
+			return (v1 == v2);
+		case '===':
+			return (v1 === v2);
+		case '!=':
+			return (v1 != v2);
+		case '!==':
+			return (v1 !== v2);
+		case '<':
+			return (v1 < v2);
+		case '<=':
+			return (v1 <= v2);
+		case '>':
+			return (v1 > v2);
+		case '>=':
+			return (v1 >= v2);
+		case '&&':
+			return (v1 && v2);
+		case '&& !':
+			return (v1 && !v2);
+		case '||':
+			return (v1 || v2);
+		case '|| !':
+			return (v1 || !v2);
+		default:
+			return false;
+	}
 }
 
 module.exports = {
@@ -64,10 +66,12 @@ module.exports = {
 		const subString = text.substr(0, length - 1);
 		return `${subString}...`;
 	},
-	truncateHTML: (text = '', length = 140) => truncatehtml(text, length, {
-		stripTags: true,
-		decodeEntities: true,
-	}),
+	truncateHTML: (text = '', _length, _stripTags) => {
+		// set default values
+		const length = typeof _length !== 'number' ? 140 : _length;
+		const stripTags = typeof _stripTags !== 'boolean' ? true : _stripTags;
+		return truncatehtml(text, length, { stripTags, decodeEntities: true });
+	},
 	truncateLength: (text = '', length = 140) => {
 		if (text.length <= length) {
 			return text;
@@ -89,34 +93,9 @@ module.exports = {
 		text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g, '$2');
 		return text;
 	},
-	ifCond: (v1, operator, v2, options) => {
-		switch (operator) {
-			case '==':
-				return (v1 == v2) ? options.fn(this) : options.inverse(this);
-			case '===':
-				return (v1 === v2) ? options.fn(this) : options.inverse(this);
-			case '!=':
-				return (v1 != v2) ? options.fn(this) : options.inverse(this);
-			case '!==':
-				return (v1 !== v2) ? options.fn(this) : options.inverse(this);
-			case '<':
-				return (v1 < v2) ? options.fn(this) : options.inverse(this);
-			case '<=':
-				return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-			case '>':
-				return (v1 > v2) ? options.fn(this) : options.inverse(this);
-			case '>=':
-				return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-			case '&&':
-				return (v1 && v2) ? options.fn(this) : options.inverse(this);
-			case '||':
-				return (v1 || v2) ? options.fn(this) : options.inverse(this);
-			case '|| !':
-				return (v1 || !v2) ? options.fn(this) : options.inverse(this);
-			default:
-				return options.inverse(this);
-		}
-	},
+	ifCond: (v1, operator, v2, options) => (ifCondBool(v1, operator, v2)
+		? options.fn(this)
+		: options.inverse(this)),
 	isCond: (v1, operator, v2, options) => ifCondBool(v1, operator, v2),
 	ifeq: (a, b, opts) => {
 		if (a == b) {
@@ -154,6 +133,11 @@ module.exports = {
 		}
 		return opts.inverse(this);
 	},
+	userHasRole: (...args) => {
+		const allowedRoles = Array.from(args);
+		const opts = allowedRoles.pop();
+		return opts.data.local.currentUser.roles.some(r => allowedRoles.includes(r.name));
+	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
 		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW') || !isNonOerContent) {
@@ -181,6 +165,9 @@ module.exports = {
 			return `${moment(date).format('DD.MM.YYYY')}(${moment(date).format('HH:mm')})`;
 		}
 		return moment(date).fromNow();
+	},
+	currentYear() {
+		return new Date().getFullYear();
 	},
 	concat() {
 		const arg = Array.prototype.slice.call(arguments, 0);
@@ -242,6 +229,7 @@ module.exports = {
 		return (`${fileSize} ${unit}`);
 	},
 	json: data => JSON.stringify(data),
+	jsonParse: data => JSON.parse(data),
 	times: (n, block) => {
 		let accum = '';
 		for (let i = 0; i < n; ++i) {
