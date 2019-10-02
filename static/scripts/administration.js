@@ -27,29 +27,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-$('#ImportForm').submit(function (e) {
-    e.preventDefault(); 
-    var data = new FormData();
-    data.append('csvFile', $('#csvFile').files[0]);
-    data.append('sendRegistration', $('#sendRegistration').is(':checked'));
-    data.append('schoolId', $('#schoolid').val());
-    data.append('roles[]', $('#roles').val());
-    $.ajax({
-        type: "POST",
-        enctype: 'multipart/form-data',
-        url: '/administration/' + $('#roles').val() + 's/import/',
-        data: data,
-        contentType: false, 
-        processData: false,
-        beforeSend: function(request) {
-            request.setRequestHeader("Csrf-Token", csrftoken);
-          },
-          complete: function(data) {
-              document.write(data.responseText)
-          }
-    });
-});
-
 window.addEventListener('softNavigate', (event) => {
 	const { target_url: targetUrl } = event.detail;
 	const param = getQueryParameterByName('p', targetUrl);
