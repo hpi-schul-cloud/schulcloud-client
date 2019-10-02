@@ -20,6 +20,8 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 const decoder = new StringDecoder('utf8');
 
+const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+
 moment.locale('de');
 
 // eslint-disable-next-line no-unused-vars
@@ -28,6 +30,18 @@ const getSelectOptions = (req, service, query, values = []) => api(req)
 		qs: query,
 	})
 	.then(data => data.data);
+
+const getSelectableYears = (school) => {
+	let years = [];
+	if (school && school.years) {
+		years = years.concat([
+			school.years.activeYear,
+			school.years.nextYear,
+			school.years.lastYear,
+		].filter(y => !!y));
+	}
+	return years;
+};
 
 const cutEditOffUrl = (url) => {
 	// nicht optimal, aber req.header('Referer')
@@ -515,6 +529,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 				school: req.body.schoolId,
 				role: req.body.roles[0],
 				sendEmails: Boolean(req.body.sendRegistration),
+				schoolYear: req.body.schoolYear,
 			},
 			json: {
 				data: csvData,
@@ -549,6 +564,7 @@ const dictionary = {
 	dashboard: 'Übersicht',
 	courses: 'Kurse',
 	classes: 'Klassen',
+	teams: 'Teams',
 	homework: 'Aufgaben',
 	files: 'Dateien',
 	content: 'Materialien',
@@ -580,9 +596,7 @@ const getDetailHandler = service => function detailHandler(req, res, next) {
 		.then((data) => {
 			res.json(mapEventProps(data, service));
 		})
-		.catch((err) => {
-			next(err);
-		});
+		.catch(next);
 };
 
 const getDeleteHandler = (service, redirectUrl) => function deleteHandler(req, res, next) {
@@ -676,7 +690,7 @@ const getSSOTypes = () => [
 	{ label: 'Moodle', value: 'moodle' },
 	{ label: 'itslearning', value: 'itslearning' },
 	{ label: 'IServ', value: 'iserv' },
-	{ label: 'LDAP', value: 'ldap' },
+	{ label: 'LDAP', value: 'ldap', hidden: true },
 ];
 
 const createBucket = (req, res, next) => {
@@ -713,38 +727,6 @@ const returnAdminPrefix = (roles) => {
 	return prefix;
 };
 
-// needed??
-// eslint-disable-next-line no-unused-vars
-const getClasses = (user, classes, teacher) => {
-	let userClasses = '';
-
-	if (teacher) {
-		// eslint-disable-next-line array-callback-return
-		classes.data.map((uClass) => {
-			if (uClass.teacherIds.includes(user._id)) {
-				if (userClasses !== '') {
-					userClasses = `${userClasses} , ${uClass.displayName}` || '';
-				} else {
-					userClasses = uClass.displayName || '';
-				}
-			}
-		});
-	} else {
-		// eslint-disable-next-line array-callback-return
-		classes.data.map((uClass) => {
-			if (uClass.userIds.includes(user._id)) {
-				if (userClasses !== '') {
-					userClasses = `${userClasses} , ${uClass.displayName}` || '';
-				} else {
-					userClasses = uClass.displayName || '';
-				}
-			}
-		});
-	}
-
-	return userClasses;
-};
-
 // with userId to accountId
 const userIdtoAccountIdUpdate = service => function useIdtoAccountId(req, res, next) {
 	api(req)
@@ -779,6 +761,8 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 			['firstName', 'Vorname'],
 			['lastName', 'Nachname'],
 			['email', 'E-Mail-Adresse'],
+			['class', 'Klasse(n)'],
+			['consent', 'Einwilligung'],
 			['createdAt', 'Erstelldatum'],
 		],
 		defaultSelection: defaultOrder || 'firstName',
@@ -807,12 +791,69 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 				['missing', 'Keine Einverständniserklärung vorhanden'],
 				[
 					'parentsAgreed',
-					'Eltern haben zugestimmt (oder Schüler ist über 16)',
+					`Eltern haben zugestimmt (oder Schüler ist über ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS})`,
 				],
 				['ok', 'Alle Zustimmungen vorhanden'],
 			],
 	},
 ];
+
+const parseDate = (input) => {
+	const parts = input.match(/(\d+)/g);
+	return new Date(parts[2], parts[1] - 1, parts[0]);
+};
+
+const generatePassword = () => {
+	const words = ['auto', 'baum', 'bein', 'blumen', 'flocke', 'frosch', 'halsband', 'hand', 'haus', 'herr', 'horn',
+		'kind', 'kleid', 'kobra', 'komet', 'konzert', 'kopf', 'kugel', 'puppe', 'rauch', 'raupe', 'regenbogen', 'schuh',
+		'seele', 'spatz', 'taktisch', 'traum', 'trommel', 'wolke'];
+	return words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 98) + 1).toString();
+};
+
+const skipRegistration = (req, res, next) => {
+	const userid = req.params.id;
+	const {
+		passwd,
+		// eslint-disable-next-line camelcase
+		parent_privacyConsent,
+		// eslint-disable-next-line camelcase
+		parent_termsOfUseConsent,
+		privacyConsent,
+		termsOfUseConsent,
+		birthday,
+	} = req.body;
+	const parsedDate = parseDate(birthday).toISOString();
+	api(req).post(`/users/${userid}/skipregistration`, {
+		json: {
+			password: passwd,
+			parent_privacyConsent,
+			parent_termsOfUseConsent,
+			privacyConsent,
+			termsOfUseConsent,
+			birthday: parsedDate,
+		},
+	}).then(() => {
+		res.render('administration/users_registrationcomplete', {
+			title: 'Einverständnis erfolgreich erklärt',
+			submitLabel: 'Zurück',
+			users: [
+				{
+					email: req.body.email,
+					password: req.body.passwd,
+					fullname: `${req.body.firstName} ${req.body.lastName}`,
+				},
+			],
+			single: true,
+			linktarget: '/administration/students',
+		});
+	}).catch(() => {
+		req.session.notification = {
+			type: 'danger',
+			message: 'Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ',
+		};
+		res.redirect(req.header('Referer'));
+	});
+};
 
 const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 	const check = '<i class="fa fa-check consent-status"></i>';
@@ -977,16 +1018,17 @@ router.all(
 			.get('users/admin/teachers', {
 				qs: query,
 			})
-			.then((data) => {
-				const users = data.data;
+			.then(async (teachersResponse) => {
+				const users = teachersResponse.data;
+				const years = getSelectableYears(res.locals.currentSchoolData);
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
 						.map(role => role.name)
 						.includes('administrator')
 				) {
-					head.push('Einwilligung');
 					head.push('Erstellt am');
+					head.push('Einverständnis');
 					head.push('');
 				}
 				const body = users.map((user) => {
@@ -1006,11 +1048,11 @@ router.all(
 							.map(role => role.name)
 							.includes('administrator')
 					) {
+						row.push(moment(user.createdAt).format('DD.MM.YYYY'));
 						row.push({
 							useHTML: true,
 							content: icon,
 						});
-						row.push(moment(user.createdAt).format('DD.MM.YYYY'));
 						row.push([
 							{
 								link: `/administration/teachers/${user._id}/edit`,
@@ -1024,7 +1066,7 @@ router.all(
 
 				const pagination = {
 					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
+					numPages: Math.ceil(teachersResponse.total / itemsPerPage),
 					baseUrl: `/administration/teachers/?p={{page}}${filterQueryString}`,
 				};
 
@@ -1035,6 +1077,8 @@ router.all(
 					pagination,
 					filterSettings: JSON.stringify(userFilterSettings('lastName', true)),
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+					schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+					years,
 				});
 			});
 	},
@@ -1188,6 +1232,32 @@ router.delete(
 	getDeleteAccountForUserHandler,
 	getDeleteHandler('users', '/administration/students'),
 );
+router.post(
+	'/students/:id/skipregistration/',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	skipRegistration,
+);
+router.get(
+	'/students/:id/skipregistration',
+	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
+	(req, res, next) => {
+		api(req).get(`/users/${req.params.id}`)
+			.then((user) => {
+				res.render('administration/users_skipregistration', {
+					title: 'Einverständnis erklären',
+					action: `/administration/students/${user._id}/skipregistration`,
+					submitLabel: 'Einverständnis erklären',
+					closeLabel: 'Abbrechen',
+					user,
+					password: generatePassword(),
+					referrer: req.header('Referer'),
+				});
+			})
+			.catch((err) => {
+				next(err);
+			});
+	},
+);
 
 router.all(
 	'/students',
@@ -1208,7 +1278,9 @@ router.all(
 		}
 
 		const currentPage = parseInt(req.query.p, 10) || 1;
-		//const title = returnAdminPrefix(res.locals.currentUser.roles);
+
+		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
+		// const title = returnAdminPrefix(res.locals.currentUser.roles);
 
 		let query = {
 			$limit: itemsPerPage,
@@ -1219,8 +1291,9 @@ router.all(
 			.get('/users/admin/students', {
 				qs: query,
 			})
-			.then(async (data) => {
-				const users = data.data;
+			.then(async (studentsResponse) => {
+				const users = studentsResponse.data;
+				const years = getSelectableYears(res.locals.currentSchoolData);
 				const title = `${returnAdminPrefix(
 					res.locals.currentUser.roles,
 				)}Schüler`;
@@ -1229,16 +1302,30 @@ router.all(
 					'Vorname',
 					'Nachname',
 					'E-Mail-Adresse',
-					'Klasse(n)',
-					'Einwilligung',
+					'Klasse',
 					'Erstellt am',
+					'Einverständnis',
 					'',
 				];
 
 				const body = users.map((user) => {
 					const icon = getConsentStatusIcon(user.consent.consentStatus);
-					if (icon === '<i class="fa fa-times consent-status"></i>') {
-						// bad but helper functions only return icons
+					const userRow = [
+						{
+							link: `/administration/students/${user._id}/edit`,
+							title: 'Nutzer bearbeiten',
+							icon: 'edit',
+						},
+					];
+					if (user.importHash && canSkip) {
+						userRow.push({
+							link: `/administration/students/${user._id}/skipregistration`,
+							title: 'Einverständnis erklären',
+							icon: 'check-square-o',
+						});
+					}
+					if (user.consent.consentStatus === 'missing'
+						|| user.consent.consentStatus === 'default') {
 						studentsWithoutConsentCount += 1;
 					}
 					return [
@@ -1246,24 +1333,18 @@ router.all(
 						user.lastName || '',
 						user.email || '',
 						user.classes.join(', ') || '',
+						moment(user.createdAt).format('DD.MM.YYYY'),
 						{
 							useHTML: true,
 							content: `<p class="text-center m-0">${icon}</p>`,
 						},
-						moment(user.createdAt).format('DD.MM.YYYY'),
-						[
-							{
-								link: `/administration/students/${user._id}/edit`,
-								title: 'Nutzer bearbeiten',
-								icon: 'edit',
-							},
-						],
+						userRow,
 					];
 				});
 
 				const pagination = {
 					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
+					numPages: Math.ceil(studentsResponse.total / itemsPerPage),
 					baseUrl: `/administration/students/?p={{page}}${filterQueryString}`,
 				};
 
@@ -1275,8 +1356,11 @@ router.all(
 						pagination,
 						filterSettings: JSON.stringify(userFilterSettings()),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+						schoolCurrentYear: res.locals.currentSchoolData.currentYear,
 						studentsWithoutConsentCount,
 						allStudentsCount: users.length,
+						years,
+						CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					});
 				} catch (err) {
 					logger.warn(
@@ -1315,7 +1399,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	let consents = [];
 	const batchSize = 50;
 	let slice = 0;
-	while (slice * batchSize <= users.length) {
+	while (users.length !== 0 && slice * batchSize <= users.length) {
 		consents = consents.concat(
 			(await api(req).get('/consents', {
 				qs: {
@@ -1340,7 +1424,8 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	const usersWithoutConsent = users.filter(consentMissing);
 	const usersWithIncompleteConsent = consents
 		.filter(consentIncomplete)
-		.map(c => c.userId);
+		// get full user object from users list
+		.map(c => users.find(user => user._id.toString() === c.userId._id.toString()));
 	return usersWithoutConsent.concat(usersWithIncompleteConsent);
 };
 
@@ -1384,7 +1469,7 @@ Leider fehlt uns von dir noch die Einverständniserklärung.
 Ohne diese kannst du die Schul-Cloud leider nicht nutzen.
 
 Melde dich bitte mit deinen Daten an,
-um die Einverständiserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
+um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
 
 Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${
 	user.registrationLink.shortLink
@@ -1460,6 +1545,7 @@ router.get(
 		const accountPromise = api(req).get('/accounts/', {
 			qs: { userId: req.params.id },
 		});
+		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
 		Promise.all([userPromise, consentPromise, accountPromise])
 			.then(([user, _consent, [account]]) => {
@@ -1478,9 +1564,12 @@ router.get(
 					user,
 					consentStatusIcon: getConsentStatusIcon(consent.consentStatus),
 					consent,
+					canSkipConsent: canSkip,
+					hasImportHash: user.importHash,
 					hidePwChangeButton,
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
+					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 				});
 			})
 			.catch((err) => {
@@ -1492,8 +1581,72 @@ router.get(
 /*
   CLASSES
 */
+const skipRegistrationClass = async (req, res, next) => {
+	let {
+		userids,
+		birthdays,
+		passwords,
+		emails,
+		fullnames,
+	} = req.body;
+	if (!(userids && birthdays && passwords && emails && fullnames)) {
+		req.session.notification = {
+			type: 'danger',
+			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
+		};
+		res.redirect(req.body.referrer);
+		return;
+	}
+	// fallback if only one user is supposed to be edited
+	if (typeof (birthdays) === 'string') {
+		userids = [userids];
+		birthdays = [birthdays];
+		passwords = [passwords];
+		emails = [emails];
+		fullnames = [fullnames];
+	}
+	if (!((userids.length === birthdays.length) && (birthdays.length === passwords.length))) {
+		req.session.notification = {
+			type: 'danger',
+			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
+		};
+		res.redirect(req.body.referrer);
+		return;
+	}
+	const changePromises = userids.map(async (userid, i) => {
+		api(req).post(`/users/${userid}/skipregistration`, {
+			json: {
+				password: passwords[i],
+				parent_privacyConsent: true,
+				parent_termsOfUseConsent: true,
+				privacyConsent: true,
+				termsOfUseConsent: true,
+				birthday: parseDate(birthdays[i]),
+			},
+		});
+	});
+	Promise.all(changePromises).then(() => {
+		const result = userids.map((student, i) => ({
+			email: emails[i],
+			password: passwords[i],
+			fullname: fullnames[i],
+		}));
+		res.render('administration/users_registrationcomplete', {
+			title: 'Einwilligungen erfolgreich erteilt',
+			submitLabel: 'Zurück',
+			users: result,
+			linktarget: '/administration/classes',
+		});
+	}).catch(() => {
+		req.session.notification = {
+			type: 'danger',
+			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
+		};
+		res.redirect(req.body.referrer);
+	});
+};
 
-const renderClassEdit = (req, res, next, edit) => {
+const renderClassEdit = (req, res, next) => {
 	api(req)
 		.get('/classes/')
 		.then(() => {
@@ -1502,18 +1655,15 @@ const renderClassEdit = (req, res, next, edit) => {
 					roles: ['teacher', 'demoTeacher'],
 					$limit: false,
 				}), // teachers
-				getSelectOptions(req, 'years', { $sort: { name: -1 } }),
-				getSelectOptions(req, 'gradeLevels'),
+				Array.from(Array(13).keys()).map(e => ({
+					grade: e + 1,
+				})),
+				req.locals.class,
 			];
-			if (edit) {
-				promises.push(api(req).get(`/classes/${req.params.classId}`));
-			}
-
+			const mode = req.locals.mode;
 			Promise.all(promises).then(
-				([teachers, schoolyears, gradeLevels, currentClass]) => {
-					gradeLevels.sort(
-						(a, b) => parseInt(a.name, 10) - parseInt(b.name, 10),
-					);
+				([teachers, gradeLevels, currentClass]) => {
+					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
 
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
@@ -1540,33 +1690,39 @@ const renderClassEdit = (req, res, next, edit) => {
 						});
 						gradeLevels.forEach((g) => {
 							// eslint-disable-next-line eqeqeq
-							if ((currentClass.gradeLevel || {})._id == g._id) {
+							if (currentClass.gradeLevel == g.grade) {
 								g.selected = true;
 							}
 						});
 						schoolyears.forEach((schoolyear) => {
-							if ((currentClass.year || {})._id === schoolyear._id) {
+							if (currentClass.year === schoolyear._id) {
 								schoolyear.selected = true;
 							}
 						});
-						if (currentClass.nameFormat === 'static') {
+						if (currentClass.gradeLevel) {
+							currentClass.classsuffix = currentClass.name;
+						} else {
 							isCustom = true;
 							currentClass.customName = currentClass.name;
 							if (currentClass.year) {
 								currentClass.keepYear = true;
 							}
-						} else if (currentClass.nameFormat === 'gradeLevel+name') {
-							currentClass.classsuffix = currentClass.name;
 						}
 					}
 
 					res.render('administration/classes-edit', {
-						title: `${
-							edit
-								? `Klasse '${currentClass.displayName}' bearbeiten`
-								: 'Erstelle eine neue Klasse'
-						}`,
-						edit,
+						title: {
+							create: 'Erstelle eine neue Klasse',
+							edit: `Klasse '${(currentClass || {}).displayName}' bearbeiten`,
+							upgrade: `Klasse '${(currentClass || {}).displayName}' in neues Schuljahr bringen`,
+						}[mode],
+						action: {
+							create: '/administration/classes/create',
+							edit: '/administration/classes/edit',
+							upgrade: '/administration/classes/create',
+						}[mode],
+						edit: mode !== 'create',
+						mode,
 						schoolyears,
 						teachers,
 						class: currentClass,
@@ -1577,9 +1733,7 @@ const renderClassEdit = (req, res, next, edit) => {
 				},
 			);
 		})
-		.catch((err) => {
-			next(err);
-		});
+		.catch(next);
 };
 const getClassOverview = (req, res, next) => {
 	const query = {
@@ -1606,7 +1760,9 @@ router.get(
 		'or',
 	),
 	(req, res, next) => {
-		renderClassEdit(req, res, next, false);
+		req.locals = req.locals || {};
+		req.locals.mode = 'create';
+		return renderClassEdit(req, res, next);
 	},
 );
 router.get(
@@ -1641,7 +1797,20 @@ router.get(
 	'/classes/:classId/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
 	(req, res, next) => {
-		renderClassEdit(req, res, next, true);
+		req.locals = req.locals || {};
+		req.locals.mode = 'edit';
+		req.locals.class = api(req).get(`/classes/${req.params.classId}`);
+		return renderClassEdit(req, res, next);
+	},
+);
+router.get(
+	'/classes/:classId/createSuccessor',
+	permissionsHelper.permissionsChecker(['USERGROUP_EDIT'], 'or'),
+	(req, res, next) => {
+		req.locals = req.locals || {};
+		req.locals.mode = 'upgrade';
+		req.locals.class = api(req).get(`/classes/successor/${req.params.classId}`);
+		return renderClassEdit(req, res, next);
 	},
 );
 router.get('/classes/:id', getDetailHandler('classes'));
@@ -1681,12 +1850,15 @@ router.get(
 				});
 				const yearsPromise = getSelectOptions(req, 'years', { $limit: false });
 
+				const usersWithConsentsPromise = getUsersWithoutConsent(req, 'student', currentClass._id);
+
 				Promise.all([
 					classesPromise,
 					teachersPromise,
 					studentsPromise,
 					yearsPromise,
-				]).then(([classes, teachers, students, schoolyears]) => {
+					usersWithConsentsPromise,
+				]).then(([classes, teachers, students, schoolyears, allUsersWithoutConsent]) => {
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
 					);
@@ -1716,6 +1888,13 @@ router.get(
 							s.selected = true;
 						}
 					});
+
+					// importHash exists --> not signed up
+					const usersWithoutConsent = allUsersWithoutConsent.filter((obj) => {
+						if (obj.importHash) return true;
+						return false;
+					});
+
 					res.render('administration/classes-manage', {
 						title: `Klasse '${currentClass.displayName}' verwalten `,
 						class: currentClass,
@@ -1726,7 +1905,7 @@ router.get(
 						schoolyears,
 						notes: [
 							{
-								title: 'Deine Schüler sind unter 16 Jahre alt?',
+								title: `Deine Schüler sind unter ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt?`,
 								content: `Gib den Registrierungslink zunächst an die Eltern weiter.
                 Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis.
                 Der Schüler ist dann in der ${res.locals.theme.short_title}
@@ -1737,9 +1916,10 @@ router.get(
                 damit er die ${res.locals.theme.short_title} nutzen kann.`,
 							},
 							{
-								title: 'Deine Schüler sind mindestens 16 Jahre alt?',
+								title: `Deine Schüler sind mindestens ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}`
+									+ ' Jahre alt?',
 								content:
-									'Gib den Registrierungslink direkt an den Schüler weiter.'
+									'Gib den Registrierungslink direkt an den Schüler weiter. '
 									+ 'Die Schritte für die Eltern entfallen automatisch.',
 							},
 							/* { // TODO - Feature not implemented
@@ -1765,6 +1945,7 @@ router.get(
 							},
 						],
 						referrer: '/administration/classes/',
+						consentsMissing: usersWithoutConsent.length !== 0,
 					});
 				});
 			});
@@ -1793,6 +1974,37 @@ router.post(
 	},
 );
 
+
+router.post(
+	'/classes/:classId/skipregistration',
+	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
+	skipRegistrationClass,
+);
+
+router.get(
+	'/classes/:classId/skipregistration',
+	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
+	async (req, res, next) => {
+		let students = await getUsersWithoutConsent(req, 'student', req.params.classId);
+		students = students.filter((obj) => {
+			if (obj.importHash) return true;
+			return false;
+		});
+		const passwords = students.map(() => (generatePassword()));
+		const renderUsers = students.map((student, i) => ({
+			fullname: `${student.firstName} ${student.lastName}`,
+			id: student._id,
+			email: student.email,
+			birthday: student.birthday,
+			password: passwords[i],
+		}));
+		res.render('administration/classes_skipregistration', {
+			title: 'Einverständnis erklären',
+			students: renderUsers,
+		});
+	},
+);
+
 router.post(
 	'/classes/create',
 	permissionsHelper.permissionsChecker(
@@ -1803,20 +2015,25 @@ router.post(
 		const newClass = {
 			schoolId: req.body.schoolId,
 		};
+
+		if (req.body.predecessor) {
+			newClass.predecessor = req.body.predecessor;
+		}
 		if (req.body.classcustom) {
 			newClass.name = req.body.classcustom;
-			newClass.nameFormat = 'static';
 			if (req.body.keepyear) {
 				newClass.year = req.body.schoolyear;
 			}
-		} else if (req.body.classsuffix) {
-			newClass.name = req.body.classsuffix;
+		} else {
+			newClass.name = req.body.classsuffix || '';
 			newClass.gradeLevel = req.body.grade;
-			newClass.nameFormat = 'gradeLevel+name';
 			newClass.year = req.body.schoolyear;
 		}
 		if (req.body.teacherIds) {
 			newClass.teacherIds = req.body.teacherIds;
+		}
+		if (req.body.userIds) {
+			newClass.userIds = req.body.userIds;
 		}
 
 		api(req)
@@ -1834,9 +2051,7 @@ router.post(
 					res.redirect(`/administration/classes/${data._id}/manage`);
 				}
 			})
-			.catch((err) => {
-				next(err);
-			});
+			.catch(next);
 	},
 );
 
@@ -1849,15 +2064,12 @@ router.post(
 		};
 		if (req.body.classcustom) {
 			changedClass.name = req.body.classcustom;
-			changedClass.nameFormat = 'static';
 			if (req.body.keepyear) {
 				changedClass.year = req.body.schoolyear;
 			}
 		} else {
-			req.body.classsuffix = req.body.classsuffix || '';
-			changedClass.name = req.body.classsuffix;
+			changedClass.name = req.body.classsuffix || '';
 			changedClass.gradeLevel = req.body.grade;
-			changedClass.nameFormat = 'gradeLevel+name';
 			changedClass.year = req.body.schoolyear;
 		}
 		if (req.body.teacherIds) {
@@ -1873,9 +2085,7 @@ router.post(
 			.then(() => {
 				res.redirect(req.body.referrer);
 			})
-			.catch((err) => {
-				next(err);
-			});
+			.catch(next);
 	},
 );
 
@@ -1892,9 +2102,7 @@ router.patch(
 			.then(() => {
 				res.redirect(req.header('Referer'));
 			})
-			.catch((err) => {
-				next(err);
-			});
+			.catch(next);
 	},
 );
 
@@ -1966,6 +2174,10 @@ router.all(
 		};
 		query = Object.assign(query, filterQuery);
 
+		if (!res.locals.currentUser.permissions.includes('USERGROUP_FULL_ADMIN')) {
+			query.teacherIds = res.locals.currentUser._id.toString();
+		}
+
 		api(req)
 			.get('/classes', {
 				qs: query,
@@ -1973,32 +2185,47 @@ router.all(
 			.then(async (data) => {
 				const head = ['Klasse', 'Lehrer', 'Schuljahr', 'Schüler', ''];
 
+				const schoolYears = res.locals.currentSchoolData.years.schoolYears
+					.sort((a, b) => b.startDate.localeCompare(a.startDate));
+				const lastDefinedSchoolYear = (schoolYears[0] || {})._id;
+
 				const body = data.data.map(item => [
 					item.displayName || '',
-					// eslint-disable-next-line no-shadow
-					(item.teacherIds || []).map(item => item.lastName).join(', '),
+					(item.teacherIds || []).map(i => i.lastName).join(', '),
 					(item.year || {}).name || '',
 					item.userIds.length || '0',
-					// eslint-disable-next-line no-shadow
-					((item, path) => [
-						{
-							link: `${path + item._id}/manage`,
-							icon: 'users',
-							title: 'Klasse verwalten',
-						},
-						{
-							link: `${path + item._id}/edit`,
-							icon: 'edit',
-							title: 'Klasse bearbeiten',
-						},
-						{
-							link: path + item._id,
-							class: 'btn-delete',
-							icon: 'trash-o',
-							method: 'delete',
-							title: 'Eintrag löschen',
-						},
-					])(item, '/administration/classes/'),
+					((i, basePath) => {
+						const baseActions = [
+							{
+								link: `${basePath + i._id}/manage`,
+								icon: 'users',
+								title: 'Klasse verwalten',
+							},
+							{
+								link: `${basePath + i._id}/edit`,
+								icon: 'edit',
+								title: 'Klasse bearbeiten',
+							},
+							{
+								link: basePath + i._id,
+								class: 'btn-delete',
+								icon: 'trash-o',
+								method: 'delete',
+								title: 'Klasse löschen',
+							},
+						];
+						if (lastDefinedSchoolYear !== (i.year || {})._id
+							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'USERGROUP_EDIT')
+						) {
+							baseActions.push({
+								link: `${basePath + i._id}/createSuccessor`,
+								icon: 'arrow-up',
+								class: i.successor ? 'disabled' : '',
+								title: 'Klasse in das nächste Schuljahr versetzen',
+							});
+						}
+						return baseActions;
+					})(item, '/administration/classes/'),
 				]);
 
 				const pagination = {
@@ -2254,9 +2481,20 @@ router.all('/courses', (req, res, next) => {
 					(item.classIds || []).map(item => item.displayName).join(', '),
 					// eslint-disable-next-line no-shadow
 					(item.teacherIds || []).map(item => item.lastName).join(', '),
-					getTableActions(item, '/administration/courses/').map(
-						action => action,
-					),
+					[
+						{
+							link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
+							icon: 'edit',
+							title: 'Eintrag bearbeiten',
+						},
+						{
+							link: `/administration/courses/${item._id}`,
+							class: 'btn-delete',
+							icon: 'trash-o',
+							method: 'delete',
+							title: 'Eintrag löschen',
+						},
+					],
 				]);
 
 				let sortQuery = '';
@@ -2638,24 +2876,41 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
-					$populate: ['systems'],
+					$populate: ['systems', 'currentYear'],
 					$sort: req.query.sort,
 				},
 			}),
 			api(req).get('/fileStorage/total'),
+			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
 		]);
+
+		// Maintanance - Show Menu depending on the state
+		const currentTime = new Date();
+		const maintananceModeStarts = new Date(schoolMaintanance.currentYear.endDate);
+		// Terminate school year 14 days before maintance start possible
+		const twoWeeksFromStart = new Date(maintananceModeStarts.valueOf());
+		twoWeeksFromStart.setDate(twoWeeksFromStart.getDate() - 14);
+
+		let schoolMaintananceMode = 'idle';
+		if (schoolMaintanance.maintenance.active) {
+			schoolMaintananceMode = 'active';
+		} else if (maintananceModeStarts && twoWeeksFromStart < currentTime) {
+			schoolMaintananceMode = 'standby';
+		}
 
 		// SYSTEMS
 		const systemsHead = ['Alias', 'Typ', ''];
 		let systemsBody;
 		let systems;
-		if (school.systems) {
+		let ldapAddable = true;
+		if (Array.isArray(school.systems)) {
 			school.systems = _.orderBy(school.systems, req.query.sort, 'desc');
 			// eslint-disable-next-line eqeqeq
 			systems = school.systems.filter(system => system.type != 'local');
+			ldapAddable = !systems.some(e => e.type === 'ldap');
 
 			systemsBody = systems.map((item) => {
 				const name = getSSOTypes().filter(type => item.type === type.value);
@@ -2675,7 +2930,6 @@ router.use(
 				];
 			});
 		}
-		const ldapAddable = !systems.some(e => e.type === 'ldap');
 
 		// RSS
 		const rssHead = ['URL', 'Kurzbeschreibung', 'Status', ''];
@@ -2722,6 +2976,8 @@ router.use(
 		res.render('administration/school', {
 			title: `${title}Schule`,
 			school,
+			schoolMaintanance,
+			schoolMaintananceMode,
 			systems,
 			ldapAddable,
 			provider,
@@ -2737,6 +2993,88 @@ router.use(
 		});
 	},
 );
+
+/*
+
+	Change School Year
+
+*/
+
+// Terminate
+router.post('/terminateschoolyear', async (req, res) => {
+	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
+		json: {
+			maintenance: true,
+		},
+	});
+
+	res.redirect('/administration/school');
+});
+
+// Start
+router.use('/startschoolyear', async (req, res) => {
+	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
+		json: {
+			maintenance: false,
+		},
+	});
+
+	res.redirect('/administration/school');
+});
+
+// Start preview LDAP
+router.get('/startldapschoolyear', async (req, res) => {
+	// Find LDAP-System
+	const school = await Promise.resolve(
+		api(req).get(`/schools/${res.locals.currentSchool}`, {
+			qs: {
+				$populate: ['systems'],
+			},
+		}),
+	);
+	const system = school.systems.filter(
+		// eslint-disable-next-line no-shadow
+		system => system.type === 'ldap',
+	);
+
+	const ldapData = await Promise.resolve(api(req).get(`/ldap/${system[0]._id}`));
+
+	const bodyClasses = [];
+	ldapData.classes.forEach((singleClass) => {
+		if (singleClass.uniqueMembers && singleClass.uniqueMembers.length) {
+			bodyClasses.push([
+				singleClass.className,
+				singleClass.ldapDn,
+				(singleClass.uniqueMembers || []).join('; '),
+			]);
+		}
+	});
+
+	const bodyUsers = [];
+	ldapData.users.forEach((user) => {
+		bodyUsers.push([
+			user.firstName,
+			user.lastName,
+			user.email,
+			user.ldapUID,
+			user.roles.join(),
+			user.ldapDn,
+			user.ldapUUID,
+		]);
+	});
+
+	const headUser = ['Vorname', 'Nachname', 'E-Mail', 'uid', 'Rolle(n)', 'Domainname', 'uuid'];
+	const headClasses = ['Name', 'Domain', 'Nutzer der Klasse'];
+
+	res.render('administration/ldap-schoolyear-start', {
+		title: 'Prüfung der LDAP-Daten für Schuljahreswechsel',
+		headUser,
+		bodyUsers,
+		headClasses,
+		bodyClasses,
+	});
+});
+
 
 /*
     LDAP SYSTEMS

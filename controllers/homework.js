@@ -4,26 +4,16 @@
  */
 
 const express = require('express');
-const router = express.Router();
 const marked = require('marked');
+const handlebars = require('handlebars');
+const moment = require('moment');
+const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
-const handlebars = require("handlebars");
-const moment = require("moment");
-const _ = require("lodash");
-const winston = require('winston');
+const logger = require('../helpers/logger');
 
-const logger = winston.createLogger({
-    transports: [
-        new winston.transports.Console({
-            format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.simple()
-            )
-        })
-    ]
-});
+const router = express.Router();
 
 handlebars.registerHelper('ifvalue', function (conditional, options) {
     if (options.hash.value === conditional) {
@@ -480,12 +470,8 @@ const overview = (title = "") => {
                     return assignment;
                 });
 
-                const coursesPromise = getSelectOptions(req, 'courses', {
-                    $or: [
-                        { userIds: res.locals.currentUser._id },
-                        { teacherIds: res.locals.currentUser._id },
-                        { substitutionIds: res.locals.currentUser._id }
-                    ]
+                const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
+                    $limit: false,
                 });
                 Promise.resolve(coursesPromise).then(courses => {
                     const courseList = courses.map(course => {
@@ -555,7 +541,6 @@ const overview = (title = "") => {
                         pagination,
                         homeworks,
                         courses,
-                        isStudent,
                         filterSettings: JSON.stringify(filterSettings),
                         addButton: (req._parsedUrl.pathname == "/"
                             || req._parsedUrl.pathname.includes("private")
@@ -577,12 +562,8 @@ router.get('/private', overview("Meine ToDos"));
 router.get('/archive', overview("Archivierte Aufgaben und ToDos"));
 
 router.get('/new', function (req, res, next) {
-    const coursesPromise = getSelectOptions(req, 'courses', {
-        $or: [
-            { userIds: res.locals.currentUser._id },
-            { teacherIds: res.locals.currentUser._id },
-            { substitutionIds: res.locals.currentUser._id }
-        ]
+    const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
+        $limit: false,
     });
     Promise.resolve(coursesPromise).then(async (courses) => {
         courses = courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
@@ -599,41 +580,25 @@ router.get('/new', function (req, res, next) {
             }
             lessons = (lessons || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
         }
-        // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
-        const userPromise = getSelectOptions(req, 'users', {
-            _id: res.locals.currentUser._id,
-            $populate: ['roles']
-        });
-        Promise.resolve(userPromise).then(user => {
-            const roles = user[0].roles.map(role => {
-                return role.name;
-            });
-            let isStudent = true;
-            if (roles.indexOf('student') == -1) {
-                isStudent = false;
-            }
-
-            let assignment = { "private": (req.query.private == 'true') };
-            if (req.query.course) {
-                assignment["courseId"] = { "_id": req.query.course };
-            }
-            if (req.query.topic) {
-                assignment["lessonId"] = req.query.topic;
-            }
-            //Render overview
-            res.render('homework/edit', {
-                title: 'Aufgabe hinzufügen',
-                submitLabel: 'Hinzufügen',
-                closeLabel: 'Abbrechen',
-                method: 'post',
-                action: '/homework/',
-                referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : req.header('Referer'),
-                assignment,
-                courses,
-                lessons: lessons.length ? lessons : false,
-                isStudent
-            });
-        });
+		let assignment = { "private": (req.query.private == 'true') };
+		if (req.query.course) {
+			assignment["courseId"] = { "_id": req.query.course };
+		}
+		if (req.query.topic) {
+			assignment["lessonId"] = req.query.topic;
+		}
+		//Render overview
+		res.render('homework/edit', {
+			title: 'Aufgabe hinzufügen',
+			submitLabel: 'Hinzufügen',
+			closeLabel: 'Abbrechen',
+			method: 'post',
+			action: '/homework/',
+			referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : req.header('Referer'),
+			assignment,
+			courses,
+			lessons: lessons.length ? lessons : false,
+		});
     });
 });
 
@@ -670,12 +635,8 @@ router.get('/:assignmentId/edit', function (req, res, next) {
         assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
         assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
 
-        const coursesPromise = getSelectOptions(req, 'courses', {
-            $or: [
-                { userIds: res.locals.currentUser._id },
-                { teacherIds: res.locals.currentUser._id },
-                { substitutionIds: res.locals.currentUser._id }
-            ]
+        const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
+            $limit: false,
         });
         Promise.resolve(coursesPromise).then(courses => {
             courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
@@ -688,10 +649,6 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                 const roles = user[0].roles.map(role => {
                     return role.name;
                 });
-                let isStudent = true;
-                if (roles.indexOf('student') == -1) {
-                    isStudent = false;
-                }
                 if (assignment.courseId && assignment.courseId._id) {
                     const lessonsPromise = getSelectOptions(req, 'lessons', {
                         courseId: assignment.courseId._id
@@ -708,13 +665,12 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                             assignment,
                             courses,
                             lessons,
-                            isStudent,
                             isSubstitution
                         });
                     });
                 } else {
                     res.render('homework/edit', {
-                        title: 'Aufgabe hinzufügen',
+                        title: 'Aufgabe bearbeiten',
                         submitLabel: 'Speichern',
                         closeLabel: 'Abbrechen',
                         method: 'patch',
@@ -723,7 +679,6 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         assignment,
                         courses,
                         lessons: false,
-                        isStudent,
                         isSubstitution
                     });
                 }
@@ -819,7 +774,7 @@ router.get('/:assignmentId', function (req, res, next) {
         Promise.all(promises).then(([submissions, course, courseGroups]) => {
 
             assignment.submission = (submissions || {}).data.map(submission => {
-                submission.teamMemberIds = submission.teamMembers.map(e => { return e._id; });
+                submission.teamMemberIds = (submission.teamMembers||[]).map(e => { return e._id; });
                 submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds;
                 submission.courseGroupMembers = (_.find((courseGroups || {}).data, cg => JSON.stringify(cg._id) === JSON.stringify((submission.courseGroupId || {})._id)) || {}).userIds; // need full user objects here, double populating not possible above
                 return submission;
@@ -847,12 +802,15 @@ router.get('/:assignmentId', function (req, res, next) {
                     || ((assignment.courseId || {}).substitutionIds || []).includes(res.locals.currentUser._id))
                     && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
-                assignment.submissions = submissions.data.filter(submission => { return submission.studentId; })
-                    .sort((a, b) => { return (a.studentId.lastName.toUpperCase() < b.studentId.lastName.toUpperCase()) ? -1 : 1; })
-                    .sort((a, b) => { return (a.studentId.firstName.toUpperCase() < b.studentId.firstName.toUpperCase()) ? -1 : 1; })
+                assignment.submissions = submissions.data.filter(submission => submission.studentId)
+                    .sort((a, b) => (a.studentId.lastName.toUpperCase() < b.studentId.lastName.toUpperCase()) ? -1 : 1)
+                    .sort((a, b) => (a.studentId.firstName.toUpperCase() < b.studentId.firstName.toUpperCase()) ? -1 : 1)
                     .map(sub => {
-                        sub.teamMembers.sort((a, b) => { return (a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1; })
-                            .sort((a, b) => { return (a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1; });
+                        if (Array.isArray(sub.teamMembers)) {
+                            sub.teamMembers = sub.teamMembers
+                                .sort((a, b) => (a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1)
+                                .sort((a, b) => (a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1);
+                        }
                         return sub;
                     });
                 let studentSubmissions = students.map(student => {
@@ -919,7 +877,6 @@ router.get('/:assignmentId', function (req, res, next) {
                     addClearNameForFileIds(assignment.submission || assignment.submissions);
                     assignment.submissions = assignment.submissions.map(s => { return { submission: s }; });
                     var test = handlebars.compile('homework/assignment');
-                    console.log(handlebars.compile('homework/assignment'));
 
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),

@@ -1,14 +1,14 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page" {{/if}}>
 
-  <h4>Wichtige Information{{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}}</h4>
+  <h2 class="h4">Wichtige Information{{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}}</h2>
   <a style="margin-bottom: 20px;">Für ein noch besseres Lernerlebnis wird die {{@root.theme.title}} stetig
     weiterentwickelt. Im Zuge dessen hat sich
-    {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}die <a href="{{@root.theme.documents.baseDir}}{{@root.theme.documents.termsOfUse}}" target="_blank">Nutzungsordnung</a>{{/ifCond}}
+    {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}die <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}" target="_blank">Nutzungsordnung</a>{{/ifCond}}
     {{#ifCond @root.updatedConsents.privacy.total '>' 0}}
     {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}
     und
     {{/ifCond}}
-    die <a href="{{@root.theme.documents.baseDir}}{{@root.theme.documents.privacy}}" target="_blank">Datenschutzerklärung</a>
+    die <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank">Datenschutzerklärung</a>
     {{/ifCond}}
     erweitert.
   </p>
@@ -16,13 +16,13 @@
     {{#if @root.updatedConsents.haveBeenUpdated}}
 
     {{#each @root.updatedConsents.all.data}}
-    <h5>Zusammenfassung der Erweiterung in der {{this.visualType}}</a> zum
-      {{dateToPicker this.publishedAt}}</h5>
+    <h2 class="h4">Zusammenfassung der Erweiterung in der {{this.visualType}}</a> zum
+      {{dateToPicker this.publishedAt}}</h2>
     <div class='privacyStatement card'>
       <div class="card-header">
-        <h5 style="margin:0;">
+        <h3 class="h5" style="margin:0;">
           {{this.title}}
-        </h5>
+        </h3>
       </div>
       <div class="content card-block">
         {{{this.consentHTML}}}

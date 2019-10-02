@@ -1,21 +1,12 @@
 const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
-const router = express.Router({ mergeParams: true });
-const Nexboard = require("nexboard-api-js");
+const Nexboard = require('nexboard-api-js');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
-const winston = require('winston');
-const logger = winston.createLogger({
-    transports: [
-        new winston.transports.Console({
-            format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.simple()
-            )
-        })
-    ]
-});
+const logger = require('../helpers/logger');
+
+const router = express.Router({ mergeParams: true });
 
 const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/etherpad/p/';
 
@@ -186,17 +177,17 @@ router.get('/:topicId', function (req, res, next) {
                 url: `/${context}`
             },
             {
-                title: course.name + ' ' + '> Themen',
+                title: course.name + ' ' + (!courseGroup._id ? '> Themen' : ''),
                 url: `/${context}/` + course._id
             },
+            courseGroup._id ? {
+                title: courseGroup.name + ' ' + '> Themen',
+                url: `/${context}/` + course._id + '/groups/' + courseGroup._id
+            } : {},
             {
                 title: lesson.name,
                 url: `/${context}/` + course._id + '/topics/' + lesson._id
             },
-            courseGroup._id ? {
-                title: courseGroup.name,
-                url: `/${context}/` + course._id + '/groups/' + courseGroup._id
-            } : {}
             ]
         }), (error, html) => {
             if (error) {

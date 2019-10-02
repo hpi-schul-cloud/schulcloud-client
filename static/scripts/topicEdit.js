@@ -950,7 +950,7 @@ class TopicNexboard extends TopicBlock {
             <div>
                 <div type="hidden" className="form-group">
                     <label>Name des neXboards</label>
-                    <input className="form-control" name={`contents[${this.props.position}][content][title]`}
+                    <input required className="form-control" name={`contents[${this.props.position}][content][title]`}
                            type="text" placeholder="Brainstorming zum Thema XYZ" value={(this.props.content || {}).title}/>
                 </div>
                 <div className="form-group">
@@ -960,28 +960,22 @@ class TopicNexboard extends TopicBlock {
                         {(this.props.content || {}).description}
                     </textarea>
                 </div>
-                <div className="form-group">
+				<div className="form-group">
                     <label>neXboard auswählen</label>
                     <select name={`contents[${this.props.position}][content][board]`}
                             className="chosen-select"
                             data-placeholder="neXboard auswählen"
                             id={(this.state.id)}
                             value={(this.props.content || {}).board}>
-                        <optgroup label="Vorhandene Boards">
-                            {this.state.boards.map(board =>
-                                <option value={board.content.board}>{board.content.title}</option>
-                            )}
-                        </optgroup>
-                        <optgroup label="Neues Board">
-                            <option value={this.state.newBoard} >Neues neXboard anlegen</option>
-                        </optgroup>
+                        {(this.props.content || {}).board ? <option value={this.props.content.board}>NexBoard beibehalten</option> : ''}
+                        <option value={this.state.newBoard} >Neues neXboard anlegen</option>
                     </select>
-                </div>
+				</div>
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
                        value={(this.props.content || {}).url } />
             </div>
         );
-    }
+	}
 }
 
 /**

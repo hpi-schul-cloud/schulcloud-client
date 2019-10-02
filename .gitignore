@@ -76,6 +76,9 @@ typings/
 \.idea/
 
 # Nightwatch
+# Note: nightwatch is not used anymore
+# you can safely remove these ignores in a few months
+# we don't remove it immediatly to prevent messup of the local dev setups
 screenshots/
 reports/
 selenium-debug.log
@@ -88,3 +91,7 @@ selenium-debug.log
 
 # editor bundling
 .cache/
+
+#version info
+version
+*.icloud

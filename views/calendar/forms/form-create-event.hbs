@@ -2,7 +2,7 @@
 
 <div class="form-group">
     <label class="control-label" for="title">Titel</label>
-    <input class="form-control" name="summary" required placeholder="z.B. Handball-Training">
+    <input data-testid="team_event_name" class="form-control" name="summary" required placeholder="z.B. Handball-Training">
 </div>
 <div class="form-group row">
     <div class="form-group col-md-6">
@@ -16,12 +16,12 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label" for="description">Beschreibung</label>
+    <label data-testid="description_team_event" class="control-label" for="description">Beschreibung</label>
     <textarea class="form-control" name="description" placeholder=""></textarea>
 </div>
 <div class="form-group">
     <label class="control-label" for="location">Ort</label>
-    <input class="form-control" name="location" placeholder="z.B. Turnhalle">
+    <input data-testid="team_event_location" class="form-control" name="location" placeholder="z.B. Turnhalle">
 </div>
 {{#if addCourse}}
     {{#userHasPermission "COURSE_EDIT"}}

@@ -81,14 +81,16 @@ let populateCourseTime = function($courseTimeRow, data) {
 
 };
 
-$('.new-course-time-add').click(function (e) {
-    // fallback if multiple time-containers are on one page, e.g. in administration
-    let $timesContainer = $($(this).attr('data-timesref'));
-    addNewCourseTime($timesContainer);
-});
+$(document).ready(function() {
+	$('.new-course-time-add').click(function (e) {
+		// fallback if multiple time-containers are on one page, e.g. in administration
+		let $timesContainer = $($(this).attr('data-timesref'));
+		addNewCourseTime($timesContainer);
+	});
 
-$('.course-time-delete').click(function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-    deleteCourseTime($(this).attr('href'));
-});
+	$('.course-time-delete').click(function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		deleteCourseTime($(this).data("id"));
+	});
+})

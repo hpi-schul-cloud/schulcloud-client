@@ -1,33 +1,39 @@
 import { softNavigate } from './helpers/navigation';
 import { populateCourseTimes } from './coursesTimes';
 import './jquery/datetimepicker-easy';
-import { updateQueryStringParameter, getQueryParameterByName } from './helpers/queryStringParameter';
+import {
+	updateQueryStringParameter,
+	getQueryParameterByName,
+} from './helpers/queryStringParameter';
+import printQRs from './helpers/printQRs';
 
-window.addEventListener("DOMContentLoaded", function () {
-    /* FEATHERS FILTER MODULE */
-    const filterModule = document.getElementById("filter");
-    if (filterModule) {
-        filterModule.addEventListener('newFilter', (e) => {
-            const filter = e.detail;
-            const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0])) + '&p=' + getQueryParameterByName('p');
-            softNavigate(newurl, ".ajaxcontent", ".pagination");
-        });
-        document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
-    }
-});
+/* global populateModalForm */
 
-$('#csvFile').change(function(e) {
-    window.ifile = e.target.files[0]; 
+window.addEventListener('DOMContentLoaded', () => {
+	/* FEATHERS FILTER MODULE */
+	const filterModule = document.getElementById('filter');
+	if (filterModule) {
+		filterModule.addEventListener('newFilter', (e) => {
+			const filter = e.detail;
+			const newurl = `?filterQuery=${
+				escape(JSON.stringify(filter[0]))
+			}&p=${
+				getQueryParameterByName('p')}`;
+			softNavigate(newurl, '.ajaxcontent', '.pagination');
+		});
+		document
+			.querySelector('.filter')
+			.dispatchEvent(new CustomEvent('getFilter'));
+	}
 });
 
 $('#ImportForm').submit(function (e) {
     e.preventDefault(); 
-    var data = new FormData(); // das ist unser Daten-Objekt ...
-    data.append('csvFile', ifile); // ... an die wir unsere Datei anhängen
+    var data = new FormData();
+    data.append('csvFile', $('#csvFile').files[0]);
     data.append('sendRegistration', $('#sendRegistration').is(':checked'));
     data.append('schoolId', $('#schoolid').val());
     data.append('roles[]', $('#roles').val());
-    // console.log(data.getAll())
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
@@ -44,268 +50,353 @@ $('#ImportForm').submit(function (e) {
     });
 });
 
-function printInvitations(users) {
-    event.preventDefault();
-    let w = window.open();
-    w.document.write(`<style>
-    @page {size: A4; margin: 16px;}
-    .part{ border: 1px solid #999; width: 110px; float: left; padding: 8px; margin: 4px;}
-    img{width: 100% !important; height: auto !important;}
-    p{font-size: 10px; color: #555; min-height: 26px; margin: 8px 0 0; text-align: center; word-break: break-all;}
-    </style>`);
-    for (let user of users) {
-        const image = kjua({ text: user.registrationLink.shortLink, render: 'image' });
-        w.document.write(`<div class="part">
-                            <div class="image-wrapper" id="user-${user._id}"></div>
-                            <h4 style="margin-bottom: 10px">${user.displayName}</h4>
-                            <p>${user.registrationLink.shortLink}</p>
-                        </div>`);
-        w.document.querySelector('#user-' + user._id).appendChild(image.cloneNode(true));
-    }
-
-    w.document.close();
-    /* eventListener is needed to give the browser some rendering time for the image */
-    w.addEventListener('load', () => {
-        w.focus();
-        w.print();
-        w.close();
-    });
-}
-window.addEventListener("softNavigate", (event) => {
-    let target_url = event.detail.target_url;
-    var param = getQueryParameterByName('p', target_url);
-    updateQueryStringParameter('p', param);
+window.addEventListener('softNavigate', (event) => {
+	const { target_url: targetUrl } = event.detail;
+	const param = getQueryParameterByName('p', targetUrl);
+	updateQueryStringParameter('p', param);
 });
 
 let handlerRegistered = false;
 
-$(document).ready(function () {
-    var $modals = $('.modal');
-    var $addSystemsModal = $('.add-modal');
-    var $addRSSModal = $('.add-modal--rss');
-    var $editModal = $('.edit-modal');
-    var $invitationModal = $('.invitation-modal');
-    var $importModal = $('.import-modal');
-    var $deleteSystemsModal = $('.delete-modal');
-    var $deleteRSSModal = $('.delete-modal--rss');
+$(document).ready(() => {
+	const $modals = $('.modal');
+	const $terminateSchoolYearModal = $('.terminate-school-year-modal');
+	const $addSystemsModal = $('.add-modal');
+	const $addRSSModal = $('.add-modal--rss');
+	const $editModal = $('.edit-modal');
+	const $invitationModal = $('.invitation-modal');
+	const $importModal = $('.import-modal');
+	const $deleteSystemsModal = $('.delete-modal');
+	const $deleteRSSModal = $('.delete-modal--rss');
 
-    $('.btn-add-modal').on('click', function (e) {
-        e.preventDefault();
-        populateModalForm($addSystemsModal, {
-            title: 'Hinzufügen',
-            closeLabel: 'Abbrechen',
-            submitLabel: 'Hinzufügen'
-        });
-        $addSystemsModal.appendTo('body').modal('show');
-    });
+	$('.ldapschoolyearadditionalinfotoggle').on('click', (e) => {
+		e.preventDefault();
+		$('#ldapschoolyearadditionalinfo').toggle();
+	});
 
-    $('.btn-add-modal--rss').on('click', function (e) {
-        e.preventDefault();
-        populateModalForm($addRSSModal, {
-            title: 'Hinzufügen',
-            closeLabel: 'Abbrechen',
-            submitLabel: 'Hinzufügen'
-        });
-        $addRSSModal.appendTo('body').modal('show');
-    });
+	$('.btn-terminate-school-year').on('click', (e) => {
+		e.preventDefault();
+		populateModalForm($terminateSchoolYearModal, {
+			title: 'Das Schuljahr wirklich beenden?',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Ja',
+		});
+		$terminateSchoolYearModal.appendTo('body').modal('show');
+	});
 
-    $('.btn-edit').on('click', function (e) {
-        e.preventDefault();
-        var entry = $(this).attr('href');
-        $.getJSON(entry, function (result) {
-            result.createdAt = new Date(result.createdAt).toLocaleString();
-            populateModalForm($editModal, {
-                action: entry,
-                title: 'Bearbeiten',
-                closeLabel: 'Abbrechen',
-                submitLabel: 'Speichern',
-                fields: result
-            });
-            // post-fill gradiation selection	
-            if ($editModal.find("input[name=gradeSystem]").length) {
-                var $gradeInputPoints = $editModal.find("#gradeSystem0");
-                var $gradeInputMarks = $editModal.find("#gradeSystem1");
-                if (result.gradeSystem) {
-                    $gradeInputMarks.attr("checked", true);
-                    $gradeInputPoints.removeAttr("checked");
-                } else {
-                    $gradeInputPoints.attr("checked", true);
-                    $gradeInputMarks.removeAttr("checked");
-                }
-            }
-            populateCourseTimes($editModal, result.times || []);
-            $editModal.appendTo('body').modal('show');
-        });
-    });
+	$('#checkldapdata').on('click', (e) => {
+		e.preventDefault();
+		document.querySelector('#startldapschoolyear').disabled = false;
+		window.open('/administration/startldapschoolyear');
+	});
 
-    $('.btn-invitation-link').on('click', function (e) {
-        e.preventDefault();
-        let schoolId = $invitationModal.find("input[name='schoolId']").val(),
-            role = "student";
-        if ($(this).hasClass("teacher")) role = "teacher";
-        $.ajax({
-            type: "POST",
-            url: window.location.origin + "/administration/registrationlink",
-            data: {
-                role,
-                save: true,
-                schoolId: schoolId,
-                host: window.location.origin
-            },
-            success: function (linkData) {
-                populateModalForm($invitationModal, {
-                    title: 'Einladungslink generiert!',
-                    closeLabel: 'Abbrechen',
-                    submitLabel: 'Speichern',
-                    fields: { invitation: linkData.shortLink }
-                });
-                $invitationModal.find('.btn-submit').remove();
-                $invitationModal.find("input[name='invitation']").click(function () {
-                    $(this).select();
-                });
+	const startschoolyearbutton = document.querySelector(
+		'#startldapschoolyear',
+	);
+	if (startschoolyearbutton) {
+		startschoolyearbutton.addEventListener('change', (status) => {
+			if (status.currentTarget.checked) {
+				document.querySelector(
+					'#buttonstartldapschoolyear',
+				).disabled = false;
+				document
+					.querySelector('#checkldapdata')
+					.classList.add('disabled');
+				document
+					.querySelector('#section-2')
+					.classList.remove('current');
+				document.querySelector('#section-2').classList.add('done');
+				document.querySelector('#section-2').innerHTML = '&#x2713;';
+				document.querySelector('#section-3').classList.add('current');
+			} else {
+				document.querySelector(
+					'#buttonstartldapschoolyear',
+				).disabled = true;
+				document
+					.querySelector('#checkldapdata')
+					.classList.remove('disabled');
+				document.querySelector('#section-2').classList.remove('done');
+				document.querySelector('#section-2').classList.add('current');
+				document.querySelector('#section-2').innerHTML = '2';
+				document
+					.querySelector('#section-3')
+					.classList.remove('current');
+			}
+		});
+	}
 
-                $invitationModal.appendTo('body').modal('show');
-            }
-        });
-    });
+	$('.btn-add-modal').on('click', (e) => {
+		e.preventDefault();
+		populateModalForm($addSystemsModal, {
+			title: 'Hinzufügen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Hinzufügen',
+		});
+		$addSystemsModal.appendTo('body').modal('show');
+	});
 
-    $('.btn-import').on('click', function (e) {
-        e.preventDefault();
-        populateModalForm($importModal, {
-            title: 'Nutzer Importieren',
-            closeLabel: 'Abbrechen',
-            submitLabel: 'Importieren',
-            fields: {
-                sendRegistration: 'true'
-            }
-        });
-        $importModal.appendTo('body').modal('show');
-    });
+	$('.btn-add-modal--rss').on('click', (e) => {
+		e.preventDefault();
+		populateModalForm($addRSSModal, {
+			title: 'Hinzufügen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Hinzufügen',
+		});
+		$addRSSModal.appendTo('body').modal('show');
+	});
 
-    $('.sso-type-selection').on('change', function (e) {
-        e.preventDefault();
-        // show oauth properties for iserv only (todo: later we need a extra field, if we have some more oauth providers)
-        let selectedType = $(this).find("option:selected").val();
-        selectedType === 'iserv'
-            ? $('.collapsePanel').css('display', 'block')
-            : $('.collapsePanel').css('display', 'none');
-    });
+	function handleEditClick(e) {
+		e.preventDefault();
+		const entry = $(this).attr('href');
+		$.getJSON(entry, (result) => {
+			result.createdAt = new Date(result.createdAt).toLocaleString();
+			populateModalForm($editModal, {
+				action: entry,
+				title: 'Bearbeiten',
+				closeLabel: 'Abbrechen',
+				submitLabel: 'Speichern',
+				fields: result,
+			});
+			// post-fill gradiation selection
+			if ($editModal.find('input[name=gradeSystem]').length) {
+				const $gradeInputPoints = $editModal.find('#gradeSystem0');
+				const $gradeInputMarks = $editModal.find('#gradeSystem1');
+				if (result.gradeSystem) {
+					$gradeInputMarks.attr('checked', true);
+					$gradeInputPoints.removeAttr('checked');
+				} else {
+					$gradeInputPoints.attr('checked', true);
+					$gradeInputMarks.removeAttr('checked');
+				}
+			}
+			populateCourseTimes($editModal, result.times || []);
+			$editModal.appendTo('body').modal('show');
+		});
+	}
+	$('.btn-edit').on('click', handleEditClick);
 
-    $(".edit-modal").on('shown.bs.modal', function () {
-        // when edit modal is opened, show oauth properties for iserv
-        let selectedType = $(this).find('.sso-type-selection').find("option:selected").val();
-        selectedType === 'iserv' ? $(this).find('.collapsePanel').css('display', 'block') : '';
-    });
+	function invitationLinkHandler(e) {
+		e.preventDefault();
+		const schoolId = $invitationModal.find("input[name='schoolId']").val();
+		let role = 'student';
+		if ($(this).hasClass('teacher')) role = 'teacher';
+		$.ajax({
+			type: 'POST',
+			url: `${window.location.origin}/administration/registrationlink`,
+			data: {
+				role,
+				save: true,
+				schoolId,
+				host: window.location.origin,
+			},
+			success(linkData) {
+				populateModalForm($invitationModal, {
+					title: 'Einladungslink generiert!',
+					closeLabel: 'Abbrechen',
+					submitLabel: 'Speichern',
+					fields: { invitation: linkData.shortLink },
+				});
+				$invitationModal.find('.btn-submit').remove();
+				$invitationModal
+					.find("input[name='invitation']")
+					// eslint-disable-next-line func-names
+					.click(function () {
+						$(this).select();
+					});
 
-    $modals.find('.close, .btn-close').on('click', function () {
-        $modals.modal('hide');
-    });
+				$invitationModal.appendTo('body').modal('show');
+			},
+		});
+	}
+	$('.btn-invitation-link').on('click', invitationLinkHandler);
 
-    $('.btn-delete').on('click', function (e) {
-        e.preventDefault();
-        var entry = $(this).parent().attr('action');
-        $.getJSON(entry, function (result) {
-            populateModalForm($deleteSystemsModal, {
-                action: entry,
-                title: 'Löschen',
-                closeLabel: 'Abbrechen',
-                submitLabel: 'Löschen',
-                fields: result
-            });
+	$('.btn-import').on('click', (e) => {
+		e.preventDefault();
+		populateModalForm($importModal, {
+			title: 'Nutzer Importieren',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Importieren',
+			fields: {
+				sendRegistration: 'true',
+			},
+		});
+		$importModal.appendTo('body').modal('show');
+	});
 
-            $deleteSystemsModal.appendTo('body').modal('show');
-        });
-    });
+	function ssoSelectHandler(e) {
+		e.preventDefault();
+		// show oauth properties for iserv only
+		// TODO: later we need a extra field, if we have some more oauth providers
+		const selectedType = $(this)
+			.find('option:selected')
+			.val();
+		$('.collapsePanel').css('display', selectedType === 'iserv' ? 'block' : 'none');
+	}
+	$('.sso-type-selection').on('change', ssoSelectHandler);
 
-    $('.btn-delete--rss').on('click', function (e) {
-        e.preventDefault();
-        const action = $(this).parent().attr('action');
-        const url = $(this).parent().attr('data-url');
-        $.getJSON(action, function (result) {
-            populateModalForm($deleteRSSModal, {
-                action,
-                fields: { url: result.url },
-                title: 'Löschen',
-                closeLabel: 'Abbrechen',
-                submitLabel: 'Löschen',
-            });
+	function handleBsModal() {
+		// when edit modal is opened, show oauth properties for iserv
+		const selectedType = $(this)
+			.find('.sso-type-selection')
+			.find('option:selected')
+			.val();
+		if (selectedType === 'iserv') {
+			$(this)
+				.find('.collapsePanel')
+				.css('display', 'block');
+		}
+	}
+	$('.edit-modal').on('shown.bs.modal', handleBsModal);
 
-            $deleteRSSModal.modal('show');
-        });
-    });
+	$modals.find('.close, .btn-close').on('click', () => {
+		$modals.modal('hide');
+	});
 
-    if (!handlerRegistered) {
-        // softNavigate triggers documentReady again duplicating click handlers
-        handlerRegistered = true;
+	function handleBtnClick(e) {
+		e.preventDefault();
+		const entry = $(this)
+			.parent()
+			.attr('action');
+		$.getJSON(entry, (result) => {
+			populateModalForm($deleteSystemsModal, {
+				action: entry,
+				title: 'Löschen',
+				closeLabel: 'Abbrechen',
+				submitLabel: 'Löschen',
+				fields: result,
+			});
 
-        $('.btn-send-links-emails').on('click', function (e) {
-            e.preventDefault();
-            const $this = $(this);
-            const text = $this.html();
-            const role = $this.data('role');
+			$deleteSystemsModal.appendTo('body').modal('show');
+		});
+	}
+	$('.btn-delete').on('click', handleBtnClick);
 
-            $this.html('E-Mails werden gesendet...');
-            $this.attr("disabled", "disabled");
+	function handleDeleteRss(e) {
+		e.preventDefault();
+		const action = $(this)
+			.parent()
+			.attr('action');
+		$.getJSON(action, (result) => {
+			populateModalForm($deleteRSSModal, {
+				action,
+				fields: { url: result.url },
+				title: 'Löschen',
+				closeLabel: 'Abbrechen',
+				submitLabel: 'Löschen',
+			});
 
-            $.ajax({
-                type: "GET",
-                url: window.location.origin + "/administration/users-without-consent/send-email",
-                data: {
-                    role
-                }
-            }).done(function (data) {
-                $.showNotification('Erinnerungs-E-Mails erfolgreich versendet', "success", true);
-                $this.attr("disabled", false);
-                $this.html(text);
-            }).fail(function (data) {
-                $.showNotification('Fehler beim senden der Erinnerungs-E-Mails', "danger", true);
-                $this.attr("disabled", false);
-                $this.html(text);
-            });
-        });
+			$deleteRSSModal.modal('show');
+		});
+	}
+	$('.btn-delete--rss').on('click', handleDeleteRss);
 
-        $('.btn-print-links').on('click', function (e) {
-            e.preventDefault();
-            const $this = $(this);
-            const text = $this.html();
-            const role = $this.data('role');
+	function handleSendLinkEmailsClick(e) {
+		e.preventDefault();
+		const $this = $(this);
+		const text = $this.html();
+		const role = $this.data('role');
 
-            $this.html('Druckbogen wird generiert...');
-            $this.attr("disabled", "disabled");
+		$this.html('E-Mails werden gesendet...');
+		$this.attr('disabled', 'disabled');
 
-            $.ajax({
-                type: "GET",
-                url: window.location.origin + "/administration/users-without-consent/get-json",
-                data: {
-                    role
-                }
-            }).done(function (users) {
-                printInvitations(users);
-                $.showNotification('Druckbogen erfolgreich generiert', "success", true);
-                $this.attr("disabled", false);
-                $this.html(text);
-            }).fail(function (data) {
-                $.showNotification('Problem beim Erstellen des Druckbogens', "danger", true);
-                $this.attr("disabled", false);
-                $this.html(text);
-            });
-        });
+		$.ajax({
+			type: 'GET',
+			url:
+				`${window.location.origin
+				}/administration/users-without-consent/send-email`,
+			data: {
+				role,
+			},
+		})
+			.done(() => {
+				$.showNotification(
+					'Erinnerungs-E-Mails erfolgreich versendet',
+					'success',
+					true,
+				);
+				$this.attr('disabled', false);
+				$this.html(text);
+			})
+			.fail(() => {
+				$.showNotification(
+					'Fehler beim senden der Erinnerungs-E-Mails',
+					'danger',
+					true,
+				);
+				$this.attr('disabled', false);
+				$this.html(text);
+			});
+	}
 
-        $('#csv-import-example').on('click', (e) => {
-            e.preventDefault();
-            const lines = [
-                'firstName,lastName,email,class',
-                'Max,Mustermann,max@mustermann.de,',
-                'Fritz,Schmidt,fritz.schmidt@schul-cloud.org,1a',
-                'Paula,Meyer,paula.meyer@schul-cloud.org,12/2+12/3',
-            ];
-            const csvContent = 'data:text/csv;charset=utf-8,' + lines.join("\n");
-            const link = document.createElement('a');
-            link.setAttribute('href', encodeURI(csvContent));
-            link.setAttribute('download', 'beispiel.csv');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
-    }
+	function handlePrintLinksClick(e) {
+		e.preventDefault();
+		const $this = $(this);
+		const text = $this.html();
+		const role = $this.data('role');
+
+		$this.html('Druckbogen wird generiert...');
+		$this.attr('disabled', 'disabled');
+
+		$.ajax({
+			type: 'GET',
+			url:
+				`${window.location.origin
+				}/administration/users-without-consent/get-json`,
+			data: {
+				role,
+			},
+		})
+			.done((users) => {
+				printQRs(
+					users.map(user => ({
+						href: user.registrationLink.shortLink,
+						title:
+							user.fullName
+							|| `${user.firstName} ${user.lastName}`,
+						description: user.registrationLink.shortLink,
+					})),
+				);
+				$.showNotification(
+					'Druckbogen erfolgreich generiert',
+					'success',
+					true,
+				);
+				$this.attr('disabled', false);
+				$this.html(text);
+			})
+			.fail(() => {
+				$.showNotification(
+					'Problem beim Erstellen des Druckbogens',
+					'danger',
+					true,
+				);
+				$this.attr('disabled', false);
+				$this.html(text);
+			});
+	}
+	if (!handlerRegistered) {
+		// softNavigate triggers documentReady again duplicating click handlers
+		handlerRegistered = true;
+
+		$('.btn-send-links-emails').on('click', handleSendLinkEmailsClick);
+
+		$('.btn-print-links').on('click', handlePrintLinksClick);
+
+		$('#csv-import-example').on('click', (e) => {
+			e.preventDefault();
+			const lines = [
+				'firstName,lastName,email,class',
+				'Max,Mustermann,max@mustermann.de,',
+				'Fritz,Schmidt,fritz.schmidt@schul-cloud.org,1a',
+				'Paula,Meyer,paula.meyer@schul-cloud.org,12/2+12/3',
+			];
+			const csvContent = `data:text/csv;charset=utf-8,${lines.join('\n')}`;
+			const link = document.createElement('a');
+			link.setAttribute('href', encodeURI(csvContent));
+			link.setAttribute('download', 'beispiel.csv');
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		});
+	}
 });

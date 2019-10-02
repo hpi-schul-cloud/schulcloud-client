@@ -18,7 +18,7 @@
       {{#if user.userId}}<input type="hidden" name="userId" value="{{user.userId}}"/>{{/if}}
 
       <section data-panel="section-1">
-        <h4>Persönliche Daten</h4>
+        <h2 class="h4">Persönliche Daten</h2>
         <p>Die {{theme.short_title}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.</p>
         <p>Für die Nutzung der {{theme.short_title}} benötigen wir folgende Angaben:</p>
         <div class="row">
@@ -36,9 +36,9 @@
 
         <div class="form-group">
             <label>Geburtsdatum: <sup>*</sup></label>
-            <input class="form-control linked" name="birthDate" type="text" 
-                data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 16 0 0}}" 
-                value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{else}}{{datePickerTodayMinus 17 0 0 "DD.MM.YYYY"}}{{/if}}"
+            <input class="form-control linked" name="birthDate" type="text"
+                data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 0}}"
+                value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{/if}}"
                 required {{#if user.birthday}}readonly{{/if}} autocomplete="off" />
 
         </div>
@@ -55,7 +55,7 @@
 
 
       <section data-panel="section-2">
-        <h4>Einwilligungserklärung</h4>
+        <h2 class="h4">Einwilligungserklärung</h2>
         <p>Bitte bestätige folgende Einwilligungserklärungen, damit du die {{theme.short_title}} nutzen kannst.</p>
         <p>Ich, <b data-from="firstName"></b> <b data-from="lastName"></b>, erkläre Folgendes:</p>
           {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
@@ -64,7 +64,7 @@
 
 
       <section data-panel="section-3" class="submit-page" data-feature="pin">
-          <h4>Fast geschafft!</h4>
+          <h2 class="h4">Fast geschafft!</h2>
           <p>Wir habe soeben eine E-Mail an deine angegebene Adresse gesendet. Bitte gib den darin enthaltenen Code hier ein, um die Registrierung abzuschließen.</p>
           <p>Keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button>.</p>
           <div id="pinverification">
@@ -76,7 +76,7 @@
 
 
       <section data-panel="section-4">
-        <h4>Vielen Dank für die Registrierung in der {{theme.short_title}}!</h4>
+        <h2 class="h4">Vielen Dank für die Registrierung in der {{theme.short_title}}!</h2>
 
         {{#if user.sso}}
             <p>Deine SSO-Accountdaten sind jetzt freigeschaltet.</p>

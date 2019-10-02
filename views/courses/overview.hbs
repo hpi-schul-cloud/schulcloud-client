@@ -2,6 +2,8 @@
 
     {{#content "scripts" mode="append"}}
         <script src="/scripts/coursesOverview.js" type="text/javascript" defer></script>
+        <script src="/scripts/tabbar.js" type="text/javascript" defer></script>
+        <script src="/scripts/topic.js" type="text/javascript" defer></script>
     {{/content}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
@@ -9,44 +11,91 @@
 
     {{#content "page"}}
         <section class="section-courses">
-                {{#if courses}}
-                    {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen" additionalInfoName="memberCount"}}
-                {{else}}
-                    <div class="col-xs-12">
-                        <p class="text-muted">
-                            <i class="fa fa-frown-o"></i>
-                            <span>Noch keine Kurse</span>
-                        </p>
-                    </div>
-                {{/if}}
+            <div class="course-card">
+                <div class="tabContainer" data-active-tab={{activeTab}}>
+                <div class="tabs" data-max-width="1024">
+                    <button class="tab" data-tab="js-active">
+                        <span class="text">Aktuelle Kurse <span class="count-badge" data-badge="{{ total.active }}"/></span>
+                    </button>
+                    <button class="tab" data-tab="js-archived">
+                        <span class="text">Archivierte Kurse <span class="count-badge" data-badge="{{ total.archived }}"/></span>
+                    </button>
+                </div>
+                </div>
+                <div class="sectionsContainer">
+                    <div class="sections">
+                        <!-- Aktuelle Kurse -->
+                        <div class="section section-course" data-section="js-active">
+                            {{#if total.active}}
+                                {{> 'dashboard/components/card_section' section-id="activeCourses" title="" content=activeCourses link-text="Öffnen" additionalInfoName="memberCount"}}
+                            {{else}}
+                                <div class="empty-state">
+                                    <img src="/images/empty-states/books.svg" alt="Keine Kurse vorhanden" class="image"/>
+                                    {{#userHasPermission "COURSE_EDIT"}}
+                                        <h2 class="h4">Erstelle, dupliziere oder importiere einen Kurs</h2>
+                                    {{else}}
+                                        <h2 class="h4 text-muted">Es gibt aktuell keine Kurse</h2>
+                                    {{/userHasPermission}}
+                                </div>
 
-                {{#userHasPermission "COURSE_EDIT"}}
-                    <section>
-                        <div class="section-title mb-2"><h4>Meine Vertretungen</h4></div>
-                        {{#if ../substitutionCourses}}
-                            {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen" additionalInfoName="memberCount"}}
-                        {{else}}
-                            <div class="col-xs-12">
-                                <p class="text-muted">
-                                    <span>Keine Vertretungen</span>
-                                </p>
-                            </div>
-                        {{/if}}
-                    </section>
-                {{/userHasPermission}}
+                                <div class="col-xs-12">
+                                    <p class="text-muted text-center">
+                                        <i class="fa fa-frown-o"></i>
+                                        <span>Kurse, deren Enddatum erreicht ist, findest du <a href="?activeTab=archived">im Archiv</a>.
+										<br/>Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.</span>
+                                    </p>
+                                </div>
+                            {{/if}}
+                            {{#if activeSubstitutions}}
+                                {{#userHasPermission "COURSE_EDIT"}}
+                                    <section>
+                                        <div class="section-title mb-2"><h2 class="h4">Meine Vertretungen</h2></div>
+                                        {{> 'dashboard/components/card_section' section-id="activeSubstitutions" title="" content=../activeSubstitutions link-text="Öffnen" additionalInfoName="memberCount"}}
+                                    </section>
+                                {{/userHasPermission}}
+                            {{/if}}
+                             {{#userHasPermission "COURSE_EDIT"}}
+                                <div class="col-xs-12">
+                                    <div class="row padding-top">
+                                        <div class="col-sm-12">
+                                            <div class="pull-right">
+                                            <a class="btn btn-secondary btn-import-course">Importiere einen Kurs</a>
+                                            <a href="/courses/add" class="btn btn-primary btn-add">Erstelle einen neuen Kurs</a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/userHasPermission}}
 
-                {{#userHasPermission "COURSE_EDIT"}}
-                <div class="col-xs-12">
-                    <div class="row padding-top">
-                        <div class="col-sm-12">
-                            <div class="pull-right">
-                              <a class="btn btn-secondary btn-import-course">Importiere einen Kurs</a>
-                              <a href="/courses/add" class="btn btn-primary btn-add">Erstelle einen neuen Kurs</a>
-                           </div>
+                        </div>
+                        <!--- Archivierte Kurse -->
+                        <div class="section section-course" data-section="js-archived">
+                            {{#if total.archived}}
+                                {{> 'dashboard/components/card_section' section-id="archievedCourses" title="" content=archivedCourses link-text="Öffnen" additionalInfoName="memberCount"}}
+                            {{else}}
+                                <div class="empty-state">
+                                    <img src="/images/empty-states/books_empty.svg" alt="Keine archivierten Kurse" class="image"/>
+
+                                    <h2 class="h4">Du hast noch keine archivierten Kurse</h2>
+                                    <p class="text-muted">
+                                      Kurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.
+                                    </p>
+
+                                </div>
+                            {{/if}}
+                            {{#if archivedSubstitutions}}
+                                {{#userHasPermission "COURSE_EDIT"}}
+                                    <section>
+                                        <div class="section-title mb-2"><h2 class="h4">Meine Vertretungen</h2></div>
+                                        {{> 'dashboard/components/card_section' section-id="archivedSubstitutions" title="" content=../archivedSubstitutions link-text="Öffnen" additionalInfoName="memberCount"}}
+                                    </section>
+                                {{/userHasPermission}}
+                            {{/if}}
                         </div>
                     </div>
                 </div>
-                {{/userHasPermission}}
+            </div>
+
 
             {{#embed "lib/components/modal" class="member-modal"}}
                 {{#content "body"}}

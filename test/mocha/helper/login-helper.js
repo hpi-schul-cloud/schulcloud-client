@@ -1,3 +1,5 @@
+const studentName = 'schueler@schul-cloud.org';
+const password = process.env.SC_DEMO_USER_PASSWORD || 'Schulcloud1!';
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -44,7 +46,7 @@ const login = (app) => {
 				.post('/login/')
 				.redirects(2)
 				.send({
-					username: 'schueler@schul-cloud.org',
+					username: studentName,
 					password: process.env.SC_DEMO_USER_PASSWORD,
 					_csrf: csrf,
 				})

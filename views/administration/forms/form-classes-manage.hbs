@@ -55,19 +55,19 @@
     <hr class="my-2"/>
 
     <div class="mb-3">
-        <h4>Deine Schüler sind noch nicht in der {{theme.short_title}}?</h4>
+        <h2 class="h4">Deine Schüler sind noch nicht in der {{theme.short_title}}?</h2>
         <p>
             Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.
         </p>
     </div>
 
     <div class="mb-3">
-        <h4>
+        <h2 class="h4">
             Einverständniserklärung einholen
-        </h4>
+        </h2>
         {{#if schoolUsesLdap}}
             <strong>Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein</strong>
-            
+
             <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
         {{else}}
             <strong>Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben</strong>
@@ -76,10 +76,10 @@
             </p>
             <p>Für alle Schüler</strong> ohne vollständige Einverständniserklärung:</p>
             <p>
-                <button data-class="{{class._id}}" class="btn btn-secondary btn-send-links-emails">
+                <button data-class="{{class._id}}" data-role="student" class="btn btn-secondary btn-send-links-emails">
                     Links an Schüler E-Mail Adressen senden
                 </button>
-                <button data-class="{{class._id}}" class="btn btn-secondary btn-print-links">
+                <button data-class="{{class._id}}" data-role="student" class="btn btn-secondary btn-print-links">
                     Link-Druckbogen erstellen
                 </button>
             </p>
@@ -89,8 +89,25 @@
         {{/if}}
     </div>
 
+    {{#if consentsMissing}}
+        <div class="mb-3">
+            <h2 class="h4">
+                Einverständnis manuell erklären
+            </h2>
+            <p>
+            Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.
+            </p>
+
+                <a href="skipregistration" class="btn btn-primary btn-skip-consent">
+                        <i class="fa fa-exclamation-triangle"></i> Einverständnis manuell für alle Schüler erklären
+                </a>
+
+
+        </div>
+    {{/if}}
+
     <div class="mb-3">
-        <h4>Einladungslink</h4>
+        <h2 class="h4">Einladungslink</h2>
         <input id="invitationLink" class="w-100" value="{{invitationLink}}" readonly/>
 
         <div class="clearfix">
@@ -100,7 +117,7 @@
     </div>
 
     <div>
-        <h4 class="mt-1">Bitte beachte:</h4>
+        <h2 class="h4 mt-1">Bitte beachte:</h2>
         <div class="row">
             <div class="col-sm-12">
                 <div id="accordion" role="tablist" aria-multiselectable="true">
@@ -133,7 +150,7 @@
 
 {{#embed "lib/components/modal-form" class="import-modal"}}
     {{#content "fields"}}
-    
+
         <div class="form-group">
             <label for="filter_schoolyear">Nach Schuljahr filtern</label>
             <select id="filter_schoolyear" name="classes" data-placeholder="Nach Schuljahr filtern">

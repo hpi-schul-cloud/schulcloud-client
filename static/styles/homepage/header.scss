@@ -1,0 +1,68 @@
+@import '../lib/bootstrap/scss/bootstrap';
+@import "./variables";
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    box-shadow: var(--shadow-sm);
+    z-index: var(--layer-header);
+    .container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        padding: 0 5px;
+        &:after{
+            /* remove bootstrap after attribute from dom - breaks flex alignment*/
+            display: none;
+        }
+    }
+    .logo{
+        height: 2.75rem;
+    }
+    .nav{
+        display: flex;
+        align-items: center;
+        .nav-link{
+            color: inherit;
+            border-radius: var(--radius-sm);
+            padding: var(--space-xs);
+            margin-left: var(--space-xxs);
+            &:hover, &:focus{
+                background-color: var(--color-gray-light);
+            }
+            &.active{
+                font-weight: bold;
+				color: var(--color-white);
+				background-color: var(--color-accent)
+            }
+        }
+    }
+    @include media-breakpoint-down(md) {
+        .container{
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .logo{
+            margin-top: .25em;
+            height: 2.25rem;
+        }
+        .nav{
+            text-align: center;
+            display: block;
+            white-space: nowrap;
+            overflow-x: auto;
+            > li{
+                display: inline-block;
+            }
+            .nav-link{
+                margin: 0;
+                margin-bottom: 4px;
+            }
+        }
+    }
+}

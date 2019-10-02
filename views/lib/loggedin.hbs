@@ -23,6 +23,9 @@
     {{/content}}
 
     {{#content "body"}}
+        {{#if currentSchoolData.inMaintenance}}
+        <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
+        {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav>
@@ -86,9 +89,11 @@
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
-                                <li class="breadcrumb-item {{this.class}}">
-                                    <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
-                                </li>
+                                {{#if this.title}}
+                                    <li class="breadcrumb-item {{this.class}}">
+                                        <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
+                                    </li>
+                                {{/if}}
                             {{/each}}
                         </ol>
                     {{/if}}
@@ -162,15 +167,15 @@
                               <div class="dropdown btn-avatar">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle"
                                    title='{{ currentUser.displayName }} ({{ currentRole }})' data-toggle="dropdown">
-                                  <div class="avatar-circle" >
-                                      <span class="initials" data-testid="initials">{{ currentUser.avatarInitials }}</span>
+                                  <div data-testid="initials" class="avatar-circle" >
+                                      <span class="initials">{{ currentUser.avatarInitials }}</span>
                                   </div>
                                 </a>
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-name">{{ currentUser.displayName }} ({{ currentRole }})</div>
-                                    <a class="dropdown-item" href="/account/">Einstellungen</a>
-                                    <a class="dropdown-item" href="/logout/">Abmelden</a>
+                                <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
+                                    <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{ currentRole }})</div>
+                                    <a class="dropdown-item" data-testid="settings" href="/account/">Einstellungen</a>
+                                    <a class="dropdown-item" data-testid="logout" href="/logout/">Abmelden</a>
                                 </div>
                               </div>
                             </div>
@@ -184,7 +189,7 @@
                             <div class="col-sm-9">
                                 {{#unless notitle}}
                                   <div>
-                                      <h4 id="page-title">{{{stripOnlyScript title}}}</h4>
+                                      <h1 class="h4" id="page-title">{{{stripOnlyScript title}}}</h1>
                                   </div>
                                 {{/unless}}
                                 <div>

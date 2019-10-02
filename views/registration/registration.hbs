@@ -7,13 +7,13 @@
 	{{/content}}
 	{{#content "page"}}
 	<div id="welcome-screen">
-		<h4>Willkommen zur Anmeldung in der {{theme.title}}!</h4>
-		<p>Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter 16 muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über 16 er selbst.</p>
+		<h2 class="h4">Willkommen zur Anmeldung in der {{theme.title}}!</h2>
+		<p>Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} sie selbst.</p>
 		<p>Bitte wähle das Alter des Schülers:</p>
 		<div class="form-group">
 			<fieldset>
-				<input type="radio" id="reg-u16" name="student-age" value="u16"> <label for="reg-u16">unter 16 Jahre alt</label><br>
-				<input type="radio" id="reg-16" name="student-age" value="16"> <label for="reg-16">mindestens 16 Jahre alt</label>
+				<input type="radio" id="reg-u16" name="student-age" value="u16"> <label for="reg-u16">unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahre alt</label><br>
+				<input type="radio" id="reg-16" name="student-age" value="16"> <label for="reg-16">ab {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahre alt</label>
 			</fieldset>
 		</div>
 		<p></p>
@@ -31,7 +31,7 @@
 		{{else}}
 			<button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>Weiter</button>
 		{{/if}}
-		
+
 		<p class="mt-2 explanation nomargin">* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{theme.short_title}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{theme.short_title}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. 🌈🎉🦄 </p>
 		{{#if importHash}}<input type="hidden" name="importHash" value="{{importHash}}" />{{/if}}
 		{{#if classOrSchoolId}}<input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />{{/if}}

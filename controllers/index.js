@@ -21,6 +21,7 @@ router.use('/content/', require('./content'));
 router.use('/courses/', require('./courses'));
 router.use('/courses/:courseId/topics/', require('./topics'));
 router.use('/courses/:courseId/tools/', require('./tools'));
+router.use('/tools/', require('./tools'));
 router.use('/courses/:courseId/groups/', require('./coursegroups'));
 router.use('/teams/', require('./teams'));
 router.use('/teams/:targetId/news', require('./news'));
@@ -39,17 +40,22 @@ router.use('/community/', require('./community'));
 router.use('/about/', require('./about'));
 router.use('/help/', require('./help'));
 router.use('/impressum/', require('./imprint'));
+router.use('/datenschutz/', require('./dataprivacy'));
 router.use('/team', require('./team'));
 router.use('/my-material', require('./my-material'));
 router.use('/logs', require('./logs'));
 router.use('/firstLogin', require('./firstLogin'));
+router.use('/oauth2', require('./oauth2'));
 router.use('/welcome', require('./welcome'));
 router.use('/schools/', require('./schools'));
 router.use('/users/', require('./users'));
 router.use('/rocketChat/', require('./rocketChat'));
+router.use('/addons', require('./addons'));
 
 
 router.use('/administration/', require('./administration'));
+
+router.use('/version', require('./version'));
 
 
 module.exports = router;

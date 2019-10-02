@@ -1,231 +1,322 @@
 {{#extend "lib/loggedin"}}
 
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
-        <link rel="stylesheet" href="/styles/courses/course-edit.css"/>
-        <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
-        <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
-    {{/content}}
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/courses/course.css" />
+		<link rel="stylesheet" href="/styles/courses/course-edit.css" />
+		<link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css" />
+		<link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css" />
+	{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" defer></script>
-        <script src="/scripts/moment/moment.js" type="text/javascript" defer></script>
-        <script src="/scripts/courses.js" type="text/javascript" defer></script>
-        <script src="/scripts/coursesTimes.js" type="text/javascript" defer></script>
-        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
-        <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
-    {{/content}}
-
-
-    {{#content "page"}}
-        <section class="section-course">
-            <form action="{{action}}" method="post">
-                {{#if method}}
-                    <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
-                {{/if}}
-
-                <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
-
-                <div class="form-group">
-                    <label>Name des Kurses</label>
-                    <input class="form-control" name="name" type="text" placeholder="Mathe 10a" value="{{course.name}}"
-                           required autofocus/>
-                </div>
-
-                <div class="form-group">
-                    <label>Beschreibung des Kurses</label>
-                    <textarea class="form-control" name="description">{{{stripOnlyScript course.description}}}</textarea>
-                </div>
-
-                <div class="form-group">
-                  <label>Farbe des Kurses:</label>
-                  <div class="color-picker">
-                    {{#if course.color}}
-                      <div class="color-picker__item">
-                        <input id="input0" type="radio" class="color-picker__input" name="color" value="{{course.color}}" checked="checked"/>
-                        <label for="input0" class="color-picker__color" style="background: {{course.color}}"></label>
-                      </div>
-                    {{/if}}
-                    {{#each colors}}
-                      {{#ifneq this ../course.color}}
-                        <div class="color-picker__item">
-                          <input id="input{{../this}}" type="radio" class="color-picker__input" name="color" value="{{../this}}" {{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked"{{/unless}}{{/ifeq}}/>
-                          <label for="input{{../this}}" class="color-picker__color" style="background: {{../this}}"></label>
-                        </div>
-                      {{/ifneq}}
-                    {{/each}}
-                  </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Unterrichtender Lehrer</label>
-
-                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen">
-                        {{#each teachers}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                {{#if this.displayName}}
-                                    {{this.displayName}}
-                                {{else}}
-                                    {{this.firstName}} {{this.lastName}}
-                                {{/if}}
-                            </option>
-                        {{/each}}
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Vertretungslehrer</label>
-                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
-                        {{#each substitutions}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                {{this.firstName}} {{this.lastName}}
-                            </option>
-                        {{/each}}
-                    </select>
-                </div>
+	{{#content "scripts" mode="append"}}
+		<script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" defer></script>
+		<script src="/scripts/moment/moment.js" type="text/javascript" defer></script>
+		<script src="/scripts/courses.js" type="text/javascript" defer></script>
+		<script src="/scripts/coursesTimes.js" type="text/javascript" defer></script>
+		<script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
+		<script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
+	{{/content}}
 
 
-                <div class="form-group">
-                    <label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)</small></label>
+	{{#content "page"}}
+		<section class="section-course">
+			{{#if course.isArchived}}
+				<div class="empty-state">
+					<img src="/images/empty-states/books_empty.svg" alt="Kurs ist archiviert" class="image" />
 
-                    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
-                        {{#each classes}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                {{log this.year}}
-                                {{#if this.name}}
-                                    {{this.displayName}}
-                                {{else}}
-                                    {{this.name}}
-                                {{/if}}
+					<h2 class="h4">Der Kurs "{{course.name}}" ist archivert.</h2>
+					<p class="text-muted text-center">
+						Um Daten des Kurses zu bearbeiten musst du zunächst das Enddatum anpassen.
+					</p>
+					<form action="{{action}}" method="post">
+						{{#if method}}
+							<input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
+						{{/if}}
+						<input type="hidden" name="unarchive" data-force-value="true" value="true" />
+						<div class="times" id="timesContainer">
+							<label>Zeitraum (z.B. Schuljahr)</label>
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label>Von</label>
+									<input name="startDate" id="startDate" data-date type="text" class="form-control"
+										value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+										{{#if @root.course.isArchived}}disabled{{/if}} />
+								</div>
 
-                                {{#if this.year}}
-                                    ({{this.year.name}})
-                                {{/if}}
-                            </option>
-                        {{/each}}
-                    </select>
-                </div>
+								<div class="form-group col-md-6">
+									<label>Bis</label>
+									<input name="untilDate" id="untilDate" data-date type="text" class="form-control"
+										value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+										{{#if @root.course.isArchived}}data-min-date="{{datePickerTodayMinus 0 0 0}}"
+										{{/if}} />
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<a href="/courses/{{course._id}}/" class="btn btn-delete-course btn-secondary pull-left"
+								target="_blank" data-method="DELETE" data-name="{{course.name}}" redirect="/courses/">
+								Kurs löschen
+							</a>
+							<button type="button" class="btn btn-secondary btn-cancel">
+								{{closeLabel}}
+							</button>
 
-                <div class="form-group">
-                    <label>Schüler / Teilnehmer</label>
+							<button type="submit" class="btn btn-primary btn-submit">
+								{{submitLabel}}
+							</button>
+						</div>
+					</form>
+				</div>
+				<a data-toggle="collapse" class="collapse-toggle text-center" href="#myhomeworks">
+					<div class="course-tasks-header">
+						<small title="Kursdetails anzeigen">
+							<i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i>
+						</small>
+						Kursdetails anzeigen
+					</div>
+				</a>
+				<div id="myhomeworks" class="container-fluid collapse">
+			{{/if}}
 
-                    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
-                        {{#each students}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                {{#if this.displayName}}
-                                    {{this.displayName}}
-                                {{else}}
-                                    {{this.firstName}} {{this.lastName}}
-                                {{/if}}
-                            </option>
-                        {{/each}}
-                    </select>
-                </div>
+			<form action="{{action}}" method="post">
+				{{#if method}}
+					<input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
+				{{/if}}
+
+				<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"
+					{{#if course.isArchived}}disabled{{/if}} />
+
+				<div class="form-group">
+					<label>Name des Kurses</label>
+					<input class="form-control" name="name" type="text" placeholder="Mathe 10a" value="{{course.name}}"
+						{{#if course.isArchived}}disabled{{/if}} required autofocus />
+				</div>
+
+				<div class="form-group">
+					<label>Beschreibung des Kurses</label>
+					<textarea class="form-control" name="description"
+						{{#if course.isArchived}}disabled{{/if}}>{{{stripOnlyScript course.description}}}</textarea>
+				</div>
+
+				<div class="form-group">
+					<label>Farbe des Kurses:</label>
+					<div class="color-picker">
+						{{#if course.color}}
+							<div class="color-picker__item">
+								<input id="input0" type="radio" class="color-picker__input" name="color"
+									value="{{course.color}}" checked="checked"
+									{{#if @root.course.isArchived}}disabled{{/if}} />
+								<label for="input0" class="color-picker__color"
+									style="background: {{course.color}}"></label>
+							</div>
+						{{/if}}
+						{{#each colors}}
+							{{#ifneq this ../course.color}}
+								<div class="color-picker__item">
+									<input id="input{{../this}}" type="radio" class="color-picker__input" name="color"
+										value="{{../this}}"
+										{{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked"
+										{{/unless}}{{/ifeq}} {{#if @root.course.isArchived}}disabled{{/if}} />
+									<label for="input{{../this}}" class="color-picker__color"
+										style="background: {{../this}}"></label>
+								</div>
+							{{/ifneq}}
+						{{/each}}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>Unterrichtender Lehrer</label>
+
+					<select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen"
+						{{#if course.isArchived}}disabled{{/if}}>
+						{{#each teachers}}
+							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+								{{#if this.displayName}}
+									{{this.displayName}}
+								{{else}}
+									{{this.firstName}} {{this.lastName}}
+								{{/if}}
+							</option>
+						{{/each}}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Vertretungslehrer</label>
+					<select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen"
+						{{#if course.isArchived}}disabled{{/if}}>
+						{{#each substitutions}}
+							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+								{{this.firstName}} {{this.lastName}}
+							</option>
+						{{/each}}
+					</select>
+				</div>
 
 
-                <label>Termine auswählen</label>
-                <div class="times" id="timesContainer">
-                    <label>Zeitraum (z.B. Schuljahr)</label>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label>Von</label>
-                            <input name="startDate" id="startDate" data-date type="text" class="form-control" value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
-                        </div>
+				<div class="form-group">
+					<label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch
+							hinzugefügt!)</small></label>
 
-                        <div class="form-group col-md-6">
-                            <label>Bis</label>
-                            <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
-                        </div>
-                    </div>
+					<select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen"
+						{{#if course.isArchived}}disabled{{/if}}>
+						{{#each classes}}
+							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+								{{log this.year}}
+								{{#if this.name}}
+									{{this.displayName}}
+								{{else}}
+									{{this.name}}
+								{{/if}}
 
-                    <table width="100%" cellpadding="5px">
-                        <thead>
-                        <th></th>
-                        <th><label>Wochentag</label></th>
-                        <th><label>Start der Schulstunde</label></th>
-                        <th><label>Dauer der Schulstunde</label></th>
-                        <th><label>Raum</label></th>
-                        </thead>
-                        <tbody class="add-course-times">
-                            {{#each course.times}}
-                                <tr id="{{this._id}}" class="course-time">
-                                    <td><i class="fa fa-trash-o course-time-delete" href={{this._id}}></i></td>
-                                    <td>
-                                        <select class="form-control" name="times[{{this.count}}][weekday]" type="text">
-                                            <option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>Montag</option>
-                                            <option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>Dienstag</option>
-                                            <option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>Mittwoch</option>
-                                            <option value="3" {{#ifeq this.weekday "3"}}selected{{/ifeq}}>Donnerstag</option>
-                                            <option value="4" {{#ifeq this.weekday "4"}}selected{{/ifeq}}>Freitag</option>
-                                            <option value="5" {{#ifeq this.weekday "5"}}selected{{/ifeq}}>Samstag</option>
-                                            <option value="6" {{#ifeq this.weekday "6"}}selected{{/ifeq}}>Sonntag</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" name="times[{{this.count}}][startTime]"  value="{{this.startTime}}" data-time type="text"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" name="times[{{this.count}}][duration]" type="number"
-                                               value="{{this.duration}}" placeholder="in Minuten"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="text"
-                                               name="times[{{this.count}}][room]" value="{{this.room}}" placeholder="z.B. R-1.21"/>
-                                    </td>
-                                </tr>
-                            {{/each}}
-                            {{#embed "courses/components/template-new-course-time"}}{{/embed}}
-                        </tbody>
-                    </table>
-                    <span class="new-course-time-add" data-timesref="#timesContainer">
-                        <i class="fa fa-plus-circle fa-6"></i> Neuen Stundentermin hinzufügen
-                    </span>
-                </div>
+								{{#if this.year}}
+									({{this.year.name}})
+								{{/if}}
+							</option>
+						{{/each}}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Schüler / Teilnehmer</label>
+
+					<select name="userIds[]" multiple data-placeholder="Schüler auswählen"
+						{{#if course.isArchived}}disabled{{/if}}>
+						{{#each students}}
+							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+								{{#if this.displayName}}
+									{{this.displayName}}
+								{{else}}
+									{{this.firstName}} {{this.lastName}}
+								{{/if}}
+							</option>
+						{{/each}}
+					</select>
+				</div>
 
 
+				<label>Termine auswählen</label>
+				<div class="times" id="timesContainer">
+					<label>Zeitraum (z.B. Schuljahr)</label>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label>Von</label>
+							<input name="startDate" id="startDate" data-date type="text" class="form-control"
+								value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+								{{#if @root.course.isArchived}}disabled{{/if}} />
+						</div>
 
-                <div class="modal-footer">
-                  {{#if course._id}}
-                    <a href="/courses/{{course._id}}/"
-                       class="btn btn-delete-course btn-secondary pull-left"
-                       target="_blank"
-                       data-method="DELETE"
-                       data-name="{{course.name}}"
-                       redirect="/courses/">Kurs löschen</a>
-                  {{/if}}
-                    <button type="button" class="btn btn-secondary btn-cancel">
-                        {{closeLabel}}
-                    </button>
+						<div class="form-group col-md-6">
+							<label>Bis</label>
+							<input name="untilDate" id="untilDate" data-date type="text" class="form-control"
+								value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+								{{#if @root.course.isArchived}}disabled{{/if}} />
+						</div>
+					</div>
+
+					<table width="100%" cellpadding="5px">
+						<thead>
+							<th></th>
+							<th><label>Wochentag</label></th>
+							<th><label>Start der Schulstunde</label></th>
+							<th><label>Dauer der Schulstunde</label></th>
+							<th><label>Raum</label></th>
+						</thead>
+						<tbody class="add-course-times">
+							{{#each course.times}}
+								<tr class="course-time" id="{{this._id}}">
+									<td>
+										<button class="btn-link course-time-delete" type="button"  data-id="{{this._id}}"
+											{{#if @root.course.isArchived}}disabled{{/if}}>
+											<i class="fa fa-trash-o"></i>
+										</button></td>
+									<td>
+										<select class="form-control" name="times[{{this.count}}][weekday]" type="text"
+											{{#if @root.course.isArchived}}disabled{{/if}}>
+											<option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>Montag
+											</option>
+											<option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>Dienstag
+											</option>
+											<option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>Mittwoch
+											</option>
+											<option value="3" {{#ifeq this.weekday "3"}}selected{{/ifeq}}>Donnerstag
+											</option>
+											<option value="4" {{#ifeq this.weekday "4"}}selected{{/ifeq}}>Freitag
+											</option>
+											<option value="5" {{#ifeq this.weekday "5"}}selected{{/ifeq}}>Samstag
+											</option>
+											<option value="6" {{#ifeq this.weekday "6"}}selected{{/ifeq}}>Sonntag
+											</option>
+										</select>
+									</td>
+									<td>
+										<input class="form-control" name="times[{{this.count}}][startTime]"
+											value="{{this.startTime}}" data-time type="text"
+											{{#if @root.course.isArchived}}disabled{{/if}} />
+									</td>
+									<td>
+										<input class="form-control" name="times[{{this.count}}][duration]" type="number"
+											value="{{this.duration}}" placeholder="in Minuten"
+											{{#if @root.course.isArchived}}disabled{{/if}} />
+									</td>
+									<td>
+										<input class="form-control" type="text" name="times[{{this.count}}][room]"
+											value="{{this.room}}" placeholder="z.B. R-1.21"
+											{{#if @root.course.isArchived}}disabled{{/if}} />
+									</td>
+								</tr>
+							{{/each}}
+							{{#embed "courses/components/template-new-course-time"}}{{/embed}}
+						</tbody>
+					</table>
+					<button class="new-course-time-add btn-link" data-timesref="#timesContainer" type="button"
+						{{#if @root.course.isArchived}}disabled{{/if}}>
+						<i class="fa fa-plus-circle fa-6"></i> Neuen Stundentermin hinzufügen
+					</button>
+				</div>
+
+
+				{{#unless @root.course.isArchived}}
+					<div class="modal-footer">
+						{{#if course._id}}
+							<a href="/courses/{{course._id}}/" class="btn btn-delete-course btn-secondary pull-left"
+								target="_blank" data-method="DELETE" data-name="{{course.name}}"
+								redirect="/courses/">Kurs löschen</a>
+						{{/if}}
+						<button type="button" class="btn btn-secondary btn-cancel">
+							{{closeLabel}}
+						</button>
+
+                        {{> "lib/components/csrfInput"}}
+						<button type="submit" class="btn btn-primary btn-submit">
+							{{submitLabel}}
+						</button>
+					</div>
+				{{/unless}}
+			</form>
+			{{#if @root.course.isArchived}}
+				</div>{{/if}}
+
+			{{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+			{{#content "body"}}
+				<p class="m-1">
+					<b class="alert-course-delete"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Achtung:</b> Dies löscht den Kurs auch für alle Schüler:innen. <br />
+					Alle Daten werden unwiederruflich gelöscht.
+				</p>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-close">
+						Abbrechen
+					</button>
 
                     {{> "lib/components/csrfInput"}}
+					<button type="submit" class="btn btn-primary btn-submit">
+						Löschen
+					</button>
+				</div>
+			{{/content}}
+			{{/embed}}
 
-                    <button type="submit" class="btn btn-primary btn-submit">
-                        {{submitLabel}}
-                    </button>
-                </div>
-
-            </form>
-
-
-            {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
-                {{#content "body"}}
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-close">
-                            Abbrechen
-                        </button>
-
-                        <button type="submit" class="btn btn-primary btn-submit">
-                            Löschen
-                        </button>
-                    </div>
-                {{/content}}
-            {{/embed}}
-
-            {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
-
-            {{/embed}}
-
-
-        </section>
-    {{/content}}
+			{{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}
+		</section>
+	{{/content}}
 {{/extend}}
