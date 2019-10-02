@@ -136,10 +136,10 @@ const editCourseHandler = (req, res, next) => {
 			qs: {
 				schoolId: res.locals.currentSchool,
 				$populate: ['year'],
-				$limit: 1000,
+				$limit: -1,
 			},
 		})
-		.then(data => data.data);
+		//.then(data => data.data); needed when pagination is not disabled
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher', 'demoTeacher'],
 		$limit: false,
