@@ -625,7 +625,7 @@ router.get('/:courseId/', (req, res, next) => {
 				return -1;
 			});
 
-			const baseUrl = (req.headers.origin || process.env.HOST || 'http://localhost:3100'); 
+			const baseUrl = (req.headers.origin || process.env.HOST || 'http://localhost:3100');
 			const courseGroups = permissionHelper.userHasPermission(
 				res.locals.currentUser,
 				'COURSE_EDIT',
