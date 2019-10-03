@@ -1,0 +1,22 @@
+{{#extend "lib/loggedout"}}
+
+	{{#content "styles" mode="append"}}
+	{{/content}}
+
+	{{#content "scripts" mode="append"}}
+	{{/content}}
+
+	{{#content "page"}}
+		<div class="container container-content">
+            <h1>Dieser Link existiert nicht. </h1>
+            <p><b>Leider konnten wir den von dir eingegebenen Link nicht finden. </b><br>
+                Bitte wende dich für einen neuen Link an den Ersteller. 
+            </p>
+            <a href="/" class="btn btn-secondary">Zurück zur Startseite</a>
+        </div>
+        
+			
+		
+	{{/content}}
+
+{{/extend}}

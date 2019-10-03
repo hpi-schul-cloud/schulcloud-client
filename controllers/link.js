@@ -25,6 +25,11 @@ router.get('/expired', (req, res, next) => {
 	res.render('link/expired');
 });
 
+// handles invalid or nonexistent links
+router.get('/invalid', (req, res, next) => {
+	res.render('link/invalid');
+});
+
 // handles redirecting from client
 router.get('/:id', (req, res, next) => {
 	const baseUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
