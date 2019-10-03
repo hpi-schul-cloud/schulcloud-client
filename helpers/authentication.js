@@ -82,8 +82,8 @@ const populateCurrentUser = (req, res) => {
 const checkConsent = (req, res) => {
 	if (
 		((res.locals.currentUser || {}).preferences || {}).firstLogin	// do not exist if 3. system login
-    || req.path.startsWith('/login/success')
-    || req.baseUrl.startsWith('/firstLogin')) {
+		|| req.path.startsWith('/login/success')
+		|| req.baseUrl.startsWith('/firstLogin')) {
 		return Promise.resolve();
 	}
 	// eslint-disable-next-line prefer-promise-reject-errors
@@ -131,7 +131,7 @@ const authChecker = (req, res, next) => {
 };
 
 const cookieDomain = (res) => {
-	if (res.locals.domain) {
+	if (res.locals.domain && process.env.NODE_ENV === 'production') {
 		return { domain: res.locals.domain };
 	}
 	return {};

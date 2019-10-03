@@ -9,9 +9,33 @@ const methodOverride = require('method-override');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
+const Sentry = require('@sentry/node');
+
+const { version } = require('./package.json');
+const { sha } = require('./helpers/version');
 const logger = require('./helpers/logger');
 
 const app = express();
+
+if (process.env.SENTRY_DSN) {
+	Sentry.init({
+		dsn: process.env.SENTRY_DSN,
+		environment: app.get('env'),
+		release: version,
+		integrations: [
+			new Sentry.Integrations.Console({
+				loglevel: ['warning'],
+			}),
+		],
+	});
+	Sentry.configureScope((scope) => {
+		scope.setTag('frontend', false);
+		scope.setLevel('warning');
+		scope.setTag('domain', process.env.SC_DOMAIN || 'localhost');
+		scope.setTag('sha', sha);
+	});
+	app.use(Sentry.Handlers.requestHandler());
+}
 
 // template stuff
 const authHelper = require('./helpers/authentication');
@@ -75,6 +99,10 @@ app.use(session({
 
 const setTheme = require('./helpers/theme');
 
+function removeIds(url) {
+	const checkForHexRegExp = /^[a-f\d]{24}$/ig;
+	return url.replace(checkForHexRegExp, 'ID');
+}
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
@@ -92,12 +120,25 @@ app.use(async (req, res, next) => {
 	} catch (error) {
 		logger.error(error);
 	}
+	if (process.env.SENTRY_DSN) {
+		Sentry.configureScope((scope) => {
+			if (res.locals.currentUser) {
+				scope.setTag({ schoolId: res.locals.currentUser.schoolId });
+			}
+			const { url, header } = req;
+			scope.request = { url: removeIds(url), header };
+		});
+	}
 	// if there's a flash message in the session request, make it available in the response, then delete it
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
 	setTheme(res);
-	res.locals.domain = process.env.SC_DOMAIN || false;
+	res.locals.domain = process.env.SC_DOMAIN || 'localhost';
 	res.locals.production = req.app.get('env') === 'production';
+	res.locals.env = req.app.get('env') || false;
+	res.locals.SENTRY_DSN = process.env.SENTRY_DSN || false;
+	res.locals.version = version;
+	res.locals.sha = sha;
 	delete req.session.notification;
 	next();
 });
@@ -120,6 +161,9 @@ app.use(require('./controllers/'));
 app.get('/', (req, res, next) => {
 	res.redirect('/login/');
 });
+
+// sentry error handler
+app.use(Sentry.Handlers.errorHandler());
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
