@@ -714,6 +714,21 @@
 			},
 			{
 				"title": "",
+				"firstName": "Clemens",
+				"lastName": "Tiedt",
+				"position": "Studentische Hilfskraft",
+				"description": "Clemens Tiedt studiert IT-Systems-Engineering im Bachelor und entwickelt die Flutter-App der HPI Schul-Cloud mit.In seiner Freizeit spielt er am liebsten Pen&Paper-Rollenspiele.",
+				"pictureUrl": "/images/team/clemens_tiedt.png",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Jonas",
 				"lastName": "Wanke",
 				"position": "Studentischer Mitarbeiter",
