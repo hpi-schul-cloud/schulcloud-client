@@ -357,6 +357,21 @@
 			},
 			{
 				"title": "",
+				"firstName": "Luisa",
+				"lastName": "Schrott",
+				"position": "Wissenschaftliche Mitarbeiterin, HPI",
+				"description": "Luisa hat bereits als Designerin für die Aachener Agentur Polarstern Education gearbeitet und dort digitale Bildungsformate konzipiert und umgesetzt. Umso mehr freut sie sich jetzt Teil des Frontend Development Teams der HPI Schul-Cloud zu sein, um digitales Lernen und Lehren an deutschen Schulen weiter vorantreiben zu können. Mit ihrer Begeisterung für UX / UI wuchs auch die Neugier am Programmieren, was der Grund für sie war am 9 wöchigen Web Development Bootcamp Ironhack in Berlin teilzunehmen. In der Freizeit trifft man Luisa auf ihrer Yogamatte, in fernen Ländern oder beim Kochen mit Freunden.",
+				"pictureUrl": "/images/team/luisa_schrott.png",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Hannes",
 				"lastName": "Schurig",
 				"position": "Wissenschaftlicher Mitarbeiter, HPI",
