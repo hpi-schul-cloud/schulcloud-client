@@ -10,11 +10,16 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const userConsentVersions = require('../helpers/consentVersions');
 
+const logger = require('../helpers/logger');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then(data => data.data);
 
+const cleanupUserSessionAndCookie = (req, res) => {
+	res.clearCookie('jwt', authHelper.cookieDomain(res));
+	req.session.destroy();
+};
 
 // Login
 
@@ -116,10 +121,17 @@ router.all('/login/', (req, res, next) => {
 			});
 		return Promise.all([
 			schoolsPromise,
-		]).then(([schools]) => res.render('authentication/login', {
-			schools,
-			systems: [],
-		}));
+		]).then(([schools]) => {
+			cleanupUserSessionAndCookie(req, res);
+			res.render('authentication/login', {
+				schools,
+				systems: [],
+			});
+		});
+	}).catch((error) => {
+		logger.error(error);
+		cleanupUserSessionAndCookie(req, res);
+		return res.redirect('/');
 	});
 });
 
@@ -191,8 +203,7 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
 		.then(() => {
-			res.clearCookie('jwt', authHelper.cookieDomain(res));
-			req.session.destroy();
+			cleanupUserSessionAndCookie(req, res);
 			return res.redirect('/');
 		}).catch(() => res.redirect('/'));
 });
