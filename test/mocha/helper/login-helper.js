@@ -8,8 +8,7 @@ chai.use(chaiHttp);
 
 
 const getLoginPage = agent => new Promise((resolve, reject) => {
-	// we must not fetch /login here, because it will clear the session
-	agent.get('/').end((err, res) => {
+	agent.get('/login/').end((err, res) => {
 		if (err) {
 			reject(err);
 		}
