@@ -47,19 +47,39 @@ const login = (app) => {
 				.redirects(2)
 				.send({
 					username: studentName,
-					password: process.env.SC_DEMO_USER_PASSWORD,
+					password,
 					_csrf: csrf,
 				})
 				.end((err, res) => {
 					if (err) {
 						reject(err);
 					}
-
-					// return agent for making further request in loggedIn state
-					resolve({
-						agent,
-						res,
-					});
+					if (!res.text.includes('/firstLogin/submit')) {
+						// return agent for making further request in loggedIn state
+						return resolve({
+							agent,
+							res,
+						});
+					}
+					// do firstLogin if needed
+					return agent
+						.post('/firstLogin/submit')
+						.send({
+							'student-email': studentName,
+							'password-1': password,
+							'password-2': password,
+							_csrf: csrf,
+						})
+						.end((err, resFirstLogin) => {
+							if (err) {
+								return reject(err);
+							}
+							// return agent for making further request in loggedIn state
+							return resolve({
+								agent,
+								res: resFirstLogin,
+							});
+						});
 				});
 		});
 	});
