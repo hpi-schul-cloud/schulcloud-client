@@ -48,7 +48,6 @@ function initializeCopy() {
 	});
 }
 
-	const invitations = Array(25).fill(invitation);
 function printInvitation(event) {
 	event.preventDefault();
 	const className = document.querySelector('input[name=class-name]').value;
@@ -67,7 +66,7 @@ function createInvitationLink() {
 	$.ajax({
 		type: 'POST',
 		url: '/link/',
-        beforeSend(xhr) {
+		beforeSend(xhr) {
 			xhr.setRequestHeader('Csrf-Token', csrftoken);
 		},
 		data: {
