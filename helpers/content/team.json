@@ -296,6 +296,21 @@
 				"longDesc": false
 			},
 			{
+				"title": "Dr.",
+				"firstName": "Martin",
+				"lastName": "Malchow",
+				"position": "Wissenschaftlicher Mitarbeiter, HPI",
+				"description": "Martin hat im Bachelor „Angewandte Informatik“ studiert und einen Masterabschluss in „Automotive Software Engineering“. Er unterrichtete während dieser Zeit bereits einige Jahre die Grundlagen von eingebetteten Systemen in der Automobilindustrie. Derzeit ist er Mitarbeiter am Lehrstuhl für Internet-Technologien und Systeme und zuständig für das tele-TASK Portal des Hasso-Plattner-Instituts. Außerdem unterrichtet er HPI-Studenten unter anderem in den Fächern „Internet- und WWW-Technologien“ sowie „Web-Programmierung und Web-Frameworks“. Nach Abschluss seiner Dissertation, in der sich alles um die Unterstützung und Motivation im E-Learning dreht, unterstützt er das HPI Schul-Cloud-Team als IT-Sicherheitsbeauftragter. Zusätzlich ist er im Bereich des Video-Streamings und der Webdienstanbindung tätig. In der Freizeit findet man Martin meist im Leichtathletik-Stadion, bei einer Aktivität in/auf der Havel oder beim Bereisen der Welt.",
+				"pictureUrl": "/images/team/Martin_Malchow.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
 				"title": "",
 				"firstName": "Florian",
 				"lastName": "Morel",
@@ -347,6 +362,21 @@
 				"position": "Wissenschaftliche Mitarbeiterin, HPI",
 				"description": "Als ökosoziale Designerin (Masterabschluss an der Freien Universität Bozen) und Design-Thinkerin (Zusatzstudium am HPI) möchte Sarah ihre Fähigkeiten nutzen, um zu einem gesellschaftlichen Wandel, der Mensch und Umwelt dienlich ist, beizutragen. Deshalb ist Ihre Vision für die HPI Schul-Cloud, jungen Menschen, selbstbestimmtes Lernen zu ermöglichen. Im Team arbeitet sie als User Experience - und User Interface Designerin und sorgt für die Verbesserung der Nutzerfreundlichkeit und des Lernerlebnisses. Ihre Freizeit widmet Sarah der Kreativität, welche Ausdruck im Kochen, Designen oder Malen findet.",
 				"pictureUrl": "/images/team/sarah_schaefer.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Luisa",
+				"lastName": "Schrott",
+				"position": "Wissenschaftliche Mitarbeiterin, HPI",
+				"description": "Luisa hat bereits als Designerin für die Aachener Agentur Polarstern Education gearbeitet und dort digitale Bildungsformate konzipiert und umgesetzt. Umso mehr freut sie sich jetzt Teil des Frontend Development Teams der HPI Schul-Cloud zu sein, um digitales Lernen und Lehren an deutschen Schulen weiter vorantreiben zu können. Mit ihrer Begeisterung für UX / UI wuchs auch die Neugier am Programmieren, was der Grund für sie war am 9 wöchigen Web Development Bootcamp Ironhack in Berlin teilzunehmen. In der Freizeit trifft man Luisa auf ihrer Yogamatte, in fernen Ländern oder beim Kochen mit Freunden.",
+				"pictureUrl": "/images/team/luisa_schrott.png",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -674,6 +704,21 @@
 				"position": "Studentische Hilfskraft",
 				"description": "Yulia studiert zurzeit im Bachelorprogramm Informatik/Computational Science am Institut für Informatik der Universität Potsdam. Zuvor erlangte sie in Moskau Bachelorgrad in Ökonomie. Seit April 2019 engagiert sie sich im Projekt HPI Schul-Cloud als Software-Testerin. In ihrer Freizeit genießt Yulia die Schönheiten der Natur und Städte Europas.",
 				"pictureUrl": "/images/team/Yulia.jpeg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Clemens",
+				"lastName": "Tiedt",
+				"position": "Studentische Hilfskraft",
+				"description": "Clemens Tiedt studiert IT-Systems-Engineering im Bachelor und entwickelt die Flutter-App der HPI Schul-Cloud mit. In seiner Freizeit spielt er am liebsten Pen&Paper-Rollenspiele.",
+				"pictureUrl": "/images/team/clemens_tiedt.png",
 				"priority": 0,
 				"social": {
 					"facebook": "",
