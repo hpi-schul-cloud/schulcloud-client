@@ -44,11 +44,12 @@ router.post('/registration/pincreation', (req, res, next) => {
 });
 
 router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (req, res, next) => {
+	/*
 	const isIE = detectIE(req);
-
 	if (isIE) {
 		return res.status(500).send('Absenden der Registrierung mit Internet Explorer nicht erlaubt.');
 	}
+	*/
 
 	// normalize form data
 	req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];

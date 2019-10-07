@@ -4,40 +4,16 @@
     <input class="digit" type="text" pattern="{{../pattern~}} {1}" maxlength="1" placeholder="·" {{#if ../required}}required{{/if}}>
   {{/times}}
 </div>
-<script>
-/* TODO - move code anywhere save, not inside an .hbs file */
-function buildPin(wrapper){
-  let pin = "";
-  wrapper.querySelectorAll('.digit').forEach((input) => {
-    pin += input.value;
-  });
-  return pin;
-}
-function handleInput(event){
-  this.checkValidity();
-  if(this.value.length === 1){
-    this.parentElement.querySelector("input.combined-pin").value = buildPin(this.parentElement);
-    if(this.nextElementSibling){
-      this.nextElementSibling.focus();
-    }
-  }
-}
-function initializePin(){
-  document.querySelectorAll(".pin-input").forEach((pinInput) => {
-    pinInput.querySelectorAll(".digit").forEach((digit) => {
-      digit.addEventListener("input", handleInput)
-    });
-  })
-}
-window.addEventListener("DOMContentLoaded", initializePin)
-</script>
+
+<script src="/scripts/dataprivacy/pin_input.js" type="text/javascript" defer></script>
+
 <style>
 .pin-input input.combined-pin{
   display: inline-block;
-  width: 0; 
-  height:0; 
-  border: none; 
-  outline: none; 
+  width: 0;
+  height:0;
+  border: none;
+  outline: none;
 }
 .pin-input .digit{
   display: inline-block;

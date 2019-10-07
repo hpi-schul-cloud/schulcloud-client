@@ -17,10 +17,6 @@
 
 	{{#block "buttons"}}{{/block}}
 	<button id="prevSection" class="btn btn-secondary" type="button" disabled="disabled">Zurück</button>
-	{{#if isIE}}
-		{{#embed "registration/noIeInfo"}}{{/embed}}
-	{{else}}
-		<button id="nextSection" class="btn btn-primary pull-right" type="submit" value="Submit"
-	data-next-label="Weiter" data-submit-label="{{#unless submit-label}}Absenden{{else}}{{submit-label}}{{/unless}}">Weiter</button>
-	{{/if}}
+	<button id="nextSection" class="btn btn-primary pull-right" type="submit" value="Submit"
+		data-next-label="Weiter" data-submit-label="{{#unless submit-label}}Absenden{{else}}{{submit-label}}{{/unless}}">Weiter</button>
 </form>

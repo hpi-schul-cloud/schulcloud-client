@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
     let radio1415 = document.getElementById("reg-1415");
     let radio16 = document.getElementById("reg-16");
 
-    
+
     if (birthdateInput && showLoginButton) {
         $('#showExistingLoginForm').on("click", ()=>{
             const baseUrl = '/firstLogin';

@@ -153,9 +153,10 @@ gulp.task('base-scripts', () => beginPipeAll(baseScripts)
 	.pipe(babel({
 		presets: [
 			[
-				'es2015',
+				'babel-preset-env',
 				{
 					modules: false,
+					targets: '> 1%, not dead'
 				},
 			],
 		],
@@ -189,9 +190,10 @@ gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
 		compact: false,
 		presets: [
 			[
-				'es2015',
+				'babel-preset-env',
 				{
 					modules: false,
+					targets: '> 1%, not dead'
 				},
 			],
 		],

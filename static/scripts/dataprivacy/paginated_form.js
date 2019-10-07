@@ -1,26 +1,38 @@
 // set this to false to disable validation between pages (for testing)
 const ValidationDisabled = false;
 
+
+(function () {
+
+	if ( typeof window.CustomEvent === "function" ) return false;
+
+	function CustomEvent ( event, params ) {
+	  params = params || { bubbles: false, cancelable: false, detail: null };
+	  var evt = document.createEvent( 'CustomEvent' );
+	  evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+	  return evt;
+	 }
+
+	window.CustomEvent = CustomEvent;
+  })();
+
+
 /* HELPER */
 
-function NodeListFilter(fct) {
-	return Array.from(this).filter(fct);
-}
-function NodeListindexOf(node) {
-	return Array.from(this).indexOf(node);
-}
-function NodeListSome(fct) {
-	return Array.from(this).some(fct);
-}
-
 if (!NodeList.prototype.indexOf) {
-	NodeList.prototype.indexOf = NodeListindexOf;
+	NodeList.prototype.indexOf = Array.prototype.indexOf;
 }
 if (!NodeList.prototype.filter) {
-	NodeList.prototype.filter = NodeListFilter;
+	NodeList.prototype.filter = Array.prototype.filter;
 }
 if (!NodeList.prototype.some) {
-	NodeList.prototype.some = NodeListSome;
+	NodeList.prototype.some = Array.prototype.some;
+}
+
+// Polyfill for IE
+if (!Element.prototype.scrollTo) {
+	// eslint-disable-next-line no-console
+	Element.prototype.scrollTo = () => { console.warn('your browser does not support .scrollTo()'); };
 }
 
 /* MULTIPAGE INPUT FORM */
@@ -37,10 +49,12 @@ function showInvalid(sectionNr) {
 	document.querySelector('.content-wrapper').scrollTo(0, 0);
 }
 function getSubmitPageIndex() {
-	return document.querySelectorAll('form .panels section').indexOf(document.querySelector('section.submit-page')) + 1;
+	const sections = document.querySelectorAll('form .panels section');
+	return sections.indexOf(document.querySelector('section.submit-page')) + 1;
 }
 function isSubmitted() {
-	return document.querySelector('.form').classList.contains('form-submitted');
+	const form = document.querySelector('.form');
+	return form ? form.classList.contains('form-submitted') : false;
 }
 
 function updateButton(selectedIndex) {
@@ -103,17 +117,22 @@ function setSelectionByIndex(index, event) {
 
 		updateButton(newIndex);
 
-		const showEvent = new CustomEvent('showSection', {
+		const eventData = {
 			detail: { sectionIndex: newIndex },
-		});
-		document.querySelector(`section[data-panel="section-${newIndex}"]`).dispatchEvent(showEvent);
+		};
+		const newSectionSelector = `section[data-panel="section-${newIndex}"]`;
+		// const showEvent = new CustomEvent('showSection', eventData);
+		// document.querySelector(newSectionSelector).dispatchEvent(showEvent);
+		$(newSectionSelector).trigger('showSection', [eventData]);
 	}
+
 	function findLatestInvalid(to) {
 		for (let i = 1; i <= to; i += 1) {
 			if (!isSectionValid(i)) { return i; }
 		}
 		return to;
 	}
+
 	const submitPageIndex = getSubmitPageIndex();
 	const submitted = isSubmitted();
 	if (submitted) {
@@ -200,11 +219,26 @@ window.addEventListener('DOMContentLoaded', () => {
 	// document.querySelectorAll('.form .stages label').addEventListener("click", goToSection);
 
 	$('.form .stages label').on('click', goToSection);
-	document.querySelector('.form #prevSection').addEventListener('click', prevSection);
-	document.querySelector('.form #nextSection').addEventListener('click', nextSection);
-	document.querySelector('.form').addEventListener('submit', submitForm);
+	const form = document.querySelector('.form');
+	if (!form) {
+		// eslint-disable-next-line no-console
+		console.warn('.form not found');
+		return;
+	}
+	form.addEventListener('submit', submitForm);
+
+	const prevButton = form.querySelector('.form #prevSection');
+	if (prevButton) {
+		prevButton.addEventListener('click', prevSection);
+	}
+	const nextButton = form.querySelector('.form #nextSection');
+	if (nextButton) {
+		nextButton.addEventListener('click', nextSection);
+	}
 });
 window.addEventListener('load', () => {
-	// open first page to toggle show event.
-	setSelectionByIndex(1);
+	if (document.querySelector('.form')) {
+		// open first page to toggle show event.
+		setSelectionByIndex(1);
+	}
 });

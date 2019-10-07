@@ -39,12 +39,13 @@ function updateLinkedElements(event){
         }
     });
 }
-if(!window.inputLinking){
-    window.inputLinking = ()=>{
-        document.querySelectorAll(".linked").addEventListener("change input keyup paste click", updateLinkedElements);
-        document.querySelectorAll(".linked").forEach((node) => {
-            node.dispatchEvent(new Event('input'));
-        });
-    }
-    window.addEventListener('DOMContentLoaded', window.inputLinking);
+if (!window.inputLinking) {
+	window.inputLinking = () => {
+		const links = document.querySelectorAll('.linked')
+		links.addEventListener('change input keyup paste click', updateLinkedElements);
+		links.forEach((node) => {
+			node.dispatchEvent(new CustomEvent('input'));
+		});
+	}
+	window.addEventListener('DOMContentLoaded', window.inputLinking);
 }
