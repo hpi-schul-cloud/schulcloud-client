@@ -103,7 +103,7 @@ gulp.task('styles', () => {
 				preserve: true,
 			}),
 			autoprefixer({
-				browsers: ['last 3 version'],
+				browsers: ['> 1%', 'not dead'],
 			}),
 		]))
 		.pipe(cleanCSS({
@@ -153,10 +153,10 @@ gulp.task('base-scripts', () => beginPipeAll(baseScripts)
 	.pipe(babel({
 		presets: [
 			[
-				'babel-preset-env',
+				'@babel/preset-env',
 				{
 					modules: false,
-					targets: '> 1%, not dead'
+					targets: '> 1%, not dead',
 				},
 			],
 		],
@@ -174,7 +174,7 @@ gulp.task('vendor-styles', () => beginPipe('./static/vendor/**/*.{css,sass,scss}
 	}))
 	.pipe(postcss([
 		autoprefixer({
-			browsers: ['last 3 version'],
+			browsers: ['> 1%', 'not dead'],
 		}),
 	]))
 	.pipe(cleanCSS({
@@ -190,14 +190,14 @@ gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
 		compact: false,
 		presets: [
 			[
-				'babel-preset-env',
+				'@babel/preset-env',
 				{
 					modules: false,
-					targets: '> 1%, not dead'
+					targets: '> 1%, not dead',
 				},
 			],
 		],
-		plugins: ['transform-react-jsx'],
+		plugins: ['@babel/plugin-transform-react-jsx'],
 	}))
 	.pipe(optimizejs())
 	.pipe(uglify())

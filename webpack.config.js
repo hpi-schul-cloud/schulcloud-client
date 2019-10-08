@@ -28,8 +28,8 @@ module.exports = {
 				exclude: /(node_modules)/,
 				loader: 'babel-loader',
 				query: {
-					presets: [['babel-preset-env']],
-					plugins: ['transform-react-jsx'],
+					presets: [['@babel/preset-env']],
+					plugins: ['@babel/plugin-transform-react-jsx'],
 				},
 			},
 			// moment needs to be globally exposed in order to work with fullcalendar
