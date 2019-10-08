@@ -43,6 +43,8 @@ router.post('/', (req, res, next) => {
 			browserName: result.browser.name,
 			browserVersion: result.browser.version,
 			os: (result.os.version !== undefined) ? `${result.os.name} ${result.os.version}` : result.os.name,
+			device: req.body.device ? req.body.device : '',
+			deviceUserAgent: result.device.model,
 		},
 	})
 		.then(() => {
