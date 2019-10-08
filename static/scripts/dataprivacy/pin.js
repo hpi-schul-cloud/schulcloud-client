@@ -24,23 +24,21 @@ function sendPin(sendConfirm) {
 	});
 }
 
-window.addEventListener('load', () => {
-	// if email for pin registration is changed, reset pin-sent status
-	$('form.registration-form.student input[name$="email"]:last').on('change', () => {
-		pinSent = false;
-	});
+// if email for pin registration is changed, reset pin-sent status
+$('form.registration-form.student input[name$="email"]:last').on('change', () => {
+	pinSent = false;
+});
 
-	$('.form section[data-feature="pin"]').on('showSection', () => {
-		if (pinSent) {
-			// send pin of value is something else than no
-		} else {
-			sendPin(true);
-		}
-	});
-
-	$('#resend-pin').on('click', (e) => {
-		e.preventDefault();
+$('.form section[data-feature="pin"]').on('showSection', () => {
+	if (pinSent) {
+		// send pin of value is something else than no
+	} else {
 		sendPin(true);
-		$('.pin-input .digit').val('');
-	});
+	}
+});
+
+$('#resend-pin').on('click', (e) => {
+	e.preventDefault();
+	sendPin(true);
+	$('.pin-input .digit').val('');
 });
