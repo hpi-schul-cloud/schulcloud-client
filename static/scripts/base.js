@@ -19,8 +19,10 @@ if (!NodeList.prototype.addEventListener) {
 	NodeList.prototype.addEventListener = nodeListAddEventListener;
 }
 
-if (window.EventTarget && EventTarget) {
+// if is needed for IE11
+if (window.EventTarget) {
 	const nativeEventListener = EventTarget.prototype.addEventListener;
+	// eslint-disable-next-line no-inner-declarations
 	function customAddEventListener(events, callback, useCapture) {
 		this.nativeListener = nativeEventListener;
 		events.split(' ').forEach((event) => {

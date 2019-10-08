@@ -2,19 +2,18 @@
 const ValidationDisabled = false;
 
 
-(function () {
-
-	if ( typeof window.CustomEvent === "function" ) return false;
-
-	function CustomEvent ( event, params ) {
-	  params = params || { bubbles: false, cancelable: false, detail: null };
-	  var evt = document.createEvent( 'CustomEvent' );
-	  evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-	  return evt;
-	 }
-
+function CustomEventPolyfill() {
+	if (typeof window.CustomEvent === 'function') return false;
+	function CustomEvent(event, orgParams) {
+		const params = orgParams || { bubbles: false, cancelable: false, detail: null };
+		const evt = document.createEvent('CustomEvent');
+		evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+		return evt;
+	}
 	window.CustomEvent = CustomEvent;
-  })();
+	return true;
+}
+CustomEventPolyfill();
 
 
 /* HELPER */

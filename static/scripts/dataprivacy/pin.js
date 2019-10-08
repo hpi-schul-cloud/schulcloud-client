@@ -6,7 +6,7 @@ function sendPin(sendConfirm) {
 	try {
 		role = window.location.pathname.split('/by')[1].split('/')[0].replace('/', '');
 	} catch (e) {
-		if (window.location.pathname == '/firstLogin') { role = 'parent'; }
+		if (window.location.pathname === '/firstLogin') { role = 'parent'; }
 	}
 	$.ajax({
 		url: '/registration/pincreation',
