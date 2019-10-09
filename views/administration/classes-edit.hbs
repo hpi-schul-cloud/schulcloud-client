@@ -14,6 +14,7 @@
         <section class="section-classes-create">
             <form class="create-form" method="post" action="{{action}}">
                 {{> "administration/forms/form-classes-edit"}}
+                {{> "lib/components/csrfInput"}}
             </form>
         </section>
     {{/content}}

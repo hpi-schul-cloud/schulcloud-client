@@ -204,6 +204,7 @@
                                         </a>
                                         <div class="input-group input-group-sm">
                                             <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}Suche nach...{{/if}}" name="q" />
+                                            {{> "lib/components/csrfInput"}}
                                             <span class="input-group-btn">
                                                 <button type="submit" class="btn btn-secondary">
                                                     <i class="fa fa-search"></i>
