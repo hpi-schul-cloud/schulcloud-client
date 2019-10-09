@@ -508,115 +508,7 @@
 			}
 		]
 	},
-	{
-		"name": "Bachelorprojekt 2018/2019",
-		"size": "small",
-		"team": [
-			{
-				"title": "",
-				"firstName": "Katharina",
-				"lastName": "Blaß",
-				"position": "Bachelorstudent & Studentische Hilfskraft",
-				"description": "Katharina studiert IT-Systems-Engineering am HPI und unterstützt seit August 2018 das HPI Schul-Cloud Team im Bereich Frontend. Zusätzlich ist sie Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Neben Studium und Arbeit verbringt sie ihre Zeit gern sportlich aktiv und hat eine Leidenschaft für das Backen von Torten.",
-				"pictureUrl": "/images/team/Katharina_Blass.jpg",
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
-				"firstName": "Carolin",
-				"lastName": "Goerke",
-				"position": "Bachelorstudent",
-				"description": "Carolin studiert aktuell am Hasso-Plattner-Insitut IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Privat arbeitet sie gerne mit Kindern und Jugendlichen zusammen. Außerdem tanzt sie gerne.",
-				"pictureUrl": "/images/team/Carolin_Goerke.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
-				"firstName": "Ivan",
-				"lastName": "Ilic",
-				"position": "Bachelorstudent",
-				"description": "Ivan studiert aktuell am Hasso-Plattner-Insitut IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Privat spielt er gerne Basketball und Tennis. Außerdem hört er liebend gerne Musik.",
-				"pictureUrl": "/images/team/Ivan_Ilic.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
-				"firstName": "Hannes",
-				"lastName": "Kohlsaat",
-				"position": "Bachelorstudent",
-				"description": "Hannes studiert IT-Systems-Engineering am HPI und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Privat geht er gerne laufen und interessiert sich sehr für Wirtschaftsthemen. Außerdem ist er seit Beginn seines Studiums Mitglied im Chor der Universität Potsdam.",
-				"pictureUrl": "/images/team/Hannes_Kohlsaat.jpg",
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
-				"firstName": "Elias",
-				"lastName": "Maass",
-				"position": "Bachelorstudent",
-				"description": "Elias studiert aktuell am Hasso-Plattner-Insitut IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. In seiner Freizeit hört er Musik verschiedenster Künstler und macht regelmäßig Sport.",
-				"pictureUrl": "/images/team/Elias_Maass.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
-				"firstName": "Marco",
-				"lastName": "Schaarschmidt",
-				"position": "Bachelorstudent",
-				"description": "Marco studiert aktuell am Hasso-Plattner-Insitut in Potsdam IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Neben dem Studium geht er schwimmen und verbringt er seine Freizeit sehr gerne damit zu reisen und neue, interessante Orte kennenzulernen.",
-				"pictureUrl": "/images/team/Marco_Schaarschmidt.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
-				"firstName": "Johannes",
-				"lastName": "Unruh",
-				"position": "Bachelorstudent",
-				"description": "Johannes studiert aktuell am Hasso-Plattner-Insitut in Potsdam IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Zuvor hat er einen Master in Wirtschaftsingenieurwesen an der TU Berlin erworben. Neben der Uni beschäftigt er sich mit Themen der Künstlichen Intelligenz und des Web Development.",
-				"pictureUrl": "/images/team/Johannes_Unruh.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			}
-		]
-	},
+	
 	{
 		"name": "Studierende",
 		"size": "small",
@@ -817,6 +709,35 @@
 			},
 			{
 				"title": "",
+				"firstName": "Katharina",
+				"lastName": "Blaß",
+				"position": "Ehem. Bachelorstudentin",
+				"description": "Katharina hat IT-Systems-Engineering im Bachelor am HPI studiert und unterstützte das HPI Schul-Cloud Team im Bereich Frontend. Zusätzlich war sie Teil des Bachelorprojektes 2018/19 bei der HPI Schul-Cloud. Neben Studium und Arbeit verbringt sie ihre Zeit gern sportlich aktiv und hat eine Leidenschaft für das Backen von Torten.",
+				"pictureUrl": "/images/team/Katharina_Blass.jpg",
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Carolin",
+				"lastName": "Goerke",
+				"position": "Ehem. Bachelorstudentin",
+				"description": "Carolin studierte am Hasso-Plattner-Institut IT-Systems Engineering im Bachelor und war Teil des Bachelorprojektes 2018/19 bei der HPI Schul-Cloud. Privat arbeitet sie gerne mit Kindern und Jugendlichen zusammen. Außerdem tanzt sie gerne.",
+				"pictureUrl": "/images/team/Carolin_Goerke.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Carl",
 				"lastName": "Gödecken",
 				"position": "Ehem. Bachelorstudent",
@@ -837,6 +758,21 @@
 				"position": "Ehem. Bachelorstudent",
 				"description": "Max war Teil des Bachelorprojekts 2017/2018 und beschäftigt sich mit Contenterstellung für Lehrkräfte. Nebenbei philosophiert er gerne über die Zukunft der Bildung inner- und außerhalb der Cloud. In seiner Freizeit macht er mit Freunden Musik, und ist auf der Suche nach Abenteuer, guten Büchern und Gott.",
 				"pictureUrl": "/images/team/Max_Haubold.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Ivan",
+				"lastName": "Ilic",
+				"position": "Ehem. Bachelorstudent",
+				"description": "studierte am Hasso-Plattner-Institut IT-Systems Engineering im Bachelor und war Teil des Bachelorprojektes 2018/19 bei der HPI Schul-Cloud. Privat spielt er gerne Basketball und Tennis. Außerdem hört er liebend gerne Musik.",
+				"pictureUrl": "/images/team/Ivan_Ilic.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -937,6 +873,20 @@
 			},
 			{
 				"title": "",
+				"firstName": "Hannes",
+				"lastName": "Kohlsaat",
+				"position": "Ehem. Bachelorstudent",
+				"description": "Hannes studierte am Hasso-Plattner-Institut IT-Systems Engineering im Bachelor und war Teil des Bachelorprojektes 2018/19 bei der HPI Schul-Cloud. Privat geht er gerne laufen und interessiert sich sehr für Wirtschaftsthemen. Außerdem ist er seit Beginn seines Studiums Mitglied im Chor der Universität Potsdam.",
+				"pictureUrl": "/images/team/Hannes_Kohlsaat.jpg",
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "David",
 				"lastName": "Kreidler",
 				"position": "Ehem. Bachelorstudent",
@@ -982,11 +932,56 @@
 			},
 			{
 				"title": "",
+				"firstName": "Elias",
+				"lastName": "Maass",
+				"position": "Ehem. Bachelorstudent",
+				"description": "Elias studierte am Hasso-Plattner-Institut IT-Systems Engineering im Bachelor und war Teil des Bachelorprojektes 2018/19 bei der HPI Schul-Cloud. In seiner Freizeit hört er Musik verschiedenster Künstler und macht regelmäßig Sport.",
+				"pictureUrl": "/images/team/Elias_Maass.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Marco",
+				"lastName": "Schaarschmidt",
+				"position": "Ehem. Bachelorstudent",
+				"description": "Marco studierte am Hasso-Plattner-Institut IT-Systems Engineering im Bachelor und war Teil des Bachelorprojektes 2018/19 bei der HPI Schul-Cloud. Neben dem Studium geht er schwimmen und verbringt er seine Freizeit sehr gerne damit zu reisen und neue, interessante Orte kennenzulernen.",
+				"pictureUrl": "/images/team/Marco_Schaarschmidt.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Sebastian",
 				"lastName": "Serth",
 				"position": "Ehem. Masterstudent",
 				"description": "Sebastian hat seine Masterarbeit im Kontext der HPI Schul-Cloud geschrieben. Als Grundlage dazu dienten ihm Erkenntnisse von openHPI, der Online-Lernplattform des HPI, in dessen Rahmen er bereits seine Bachelorarbeit angefertigt hat. In seiner Masterarbeit untersuchte er, wie Lehrer individuelle Arbeitsblätter mit interaktiven Programmieraufgaben erstellen und im Unterricht einsetzen können: die Schüler arbeiten dazu wie bei Online-Kursen in der webbasierten Programmierumgebung CodeOcean, in der sie ihre Programme entwickeln, ausführen und mit Hilfe automatisierter Tests ihrer Lehrer sogar eigenständig überprüfen können. Die Lehrer erhalten einen besseren Überblick über den Lernfortschritt der Klasse und können so bei auftretenden Problemen zeitnah und zielorientiert Unterstützung leisten. In seiner Freizeit springt Sebastian leidenschaftlich gern auf dem Großtrampolin, reist mit Vergnügen durch fremde Länder und hält dabei seine Eindrücke fotografisch fest.",
 				"pictureUrl": "/images/team/Sebastian_Serth.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Johannes",
+				"lastName": "Unruh",
+				"position": "Ehem. Bachelorstudent",
+				"description": "Johannes studierte am Hasso-Plattner-Institut IT-Systems Engineering im Bachelor und war Teil des Bachelorprojektes 2018/19 bei der HPI Schul-Cloud. Zuvor hat er einen Master in Wirtschaftsingenieurwesen an der TU Berlin erworben. Neben der Uni beschäftigt er sich mit Themen der Künstlichen Intelligenz und des Web Development.",
+				"pictureUrl": "/images/team/Johannes_Unruh.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
