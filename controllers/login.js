@@ -35,7 +35,8 @@ router.post('/login/', (req, res, next) => {
 			Object.assign({},
 				{
 					expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-					httpOnly: true,
+					httpOnly: false, //can be set to true with getting rid of legacy
+					hostOnly: true,
 					secure: process.env.NODE_ENV === 'production',
 				},
 				authHelper.cookieDomain(res)));
