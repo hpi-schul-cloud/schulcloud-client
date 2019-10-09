@@ -1242,8 +1242,8 @@
       }
       method = resolveOption(this.options.method, files);
       url = resolveOption(this.options.url, files);
-      xhr.setRequestHeader('Csrf-Token', csrftoken)
       xhr.open(method, url, true);
+      xhr.setRequestHeader('Csrf-Token', csrftoken);
       xhr.withCredentials = !!this.options.withCredentials;
       response = null;
       handleError = (function(_this) {
