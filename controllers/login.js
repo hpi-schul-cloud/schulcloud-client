@@ -40,11 +40,16 @@ router.post('/login/', (req, res, next) => {
 				},
 				authHelper.cookieDomain(res)));
 		res.redirect('/login/success/');
-	}).catch(() => {
+	}).catch((e) => {
 		res.locals.notification = {
 			type: 'danger',
 			message: 'Login fehlgeschlagen.',
+			statusCode: e.statusCode,
+			timeToWait: process.env.LOGIN_BLOCK_TIME || 15
 		};
+		if (e.statusCode == 429){
+			res.locals.notification.timeToWait = e.error.data.timeToWait;
+		}
 		next();
 	});
 
