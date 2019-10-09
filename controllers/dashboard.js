@@ -93,7 +93,6 @@ router.get('/', (req, res, next) => {
             archived : {$ne: res.locals.currentUser._id },
             'dueDate': {
                 $gte: new Date().getTime(),
-                $lte: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
             }
         }
     }).then(data => data.data.map(homeworks => {
