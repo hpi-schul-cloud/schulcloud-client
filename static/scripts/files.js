@@ -490,6 +490,13 @@ $(document).ready(() => {
 		fileShare(fileId, $shareModal);
 	});
 
+	$('.btn-file-danger').click(function ev(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const $dangerModal = $('.danger-modal');
+		$dangerModal.appendTo('body').modal('show');
+	});
+
 	$('.btn-file-settings').click(function (e) {
 		e.stopPropagation();
 		e.preventDefault();
