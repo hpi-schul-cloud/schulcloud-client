@@ -115,7 +115,7 @@
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" action="/administration/students/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                {{#embed "lib/components/modal-form" action=(concat "/administration/students/import?_csrf=" @root.csrfToken) method="post" class="import-modal" enctype="multipart/form-data"}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-import" roles="student"}}
                     {{/content}}

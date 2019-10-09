@@ -101,7 +101,7 @@
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" action="/administration/teachers/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                {{#embed "lib/components/modal-form" action=(concat "/administration/teachers/import?_csrf=" @root.csrfToken) method="post" class="import-modal" enctype="multipart/form-data"}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-import" roles="teacher"}}
                     {{/content}}
