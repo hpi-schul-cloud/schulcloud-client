@@ -633,6 +633,9 @@ $(document).ready(() => {
 				return $.ajax({
 					type: 'POST',
 					url: '/link/',
+					beforeSend(xhr) {
+						xhr.setRequestHeader('Csrf-Token', csrftoken);
+					},
 					data: { target },
 				});
 			})
