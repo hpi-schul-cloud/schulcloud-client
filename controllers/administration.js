@@ -2173,7 +2173,9 @@ router.all(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-
+		if (Object.values(query).length > 3) { // only reverse the order if the sorting key has been added to the object
+			query['$sort[displayName]'] == 1 ? query['$sort[displayName]'] = -1 : query['$sort[displayName]'] = 1
+		}
 		if (!res.locals.currentUser.permissions.includes('USERGROUP_FULL_ADMIN')) {
 			query.teacherIds = res.locals.currentUser._id.toString();
 		}
