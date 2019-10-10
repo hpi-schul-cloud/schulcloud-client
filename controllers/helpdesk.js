@@ -27,7 +27,6 @@ router.post('/', (req, res, next) => {
 			type: req.body.type,
 			subject: req.body.subject,
 			title: req.body.title,
-			category: req.body.category ? req.body.category : 'nothing selected',
 			role: req.body.role,
 			desire: req.body.desire,
 			benefit: req.body.benefit,
