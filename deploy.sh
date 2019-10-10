@@ -22,7 +22,7 @@ function buildandpush {
   docker push schulcloud/schulcloud-client:$DOCKERTAG
   docker push schulcloud/schulcloud-client:$GIT_SHA
 
-  if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
+  if [[ "$TRAVIS_BRANCH" = "master" || release* && "$TRAVIS_PULL_REQUEST" = "false" ]]
   then
   # build container n21 theme
   docker build -t schulcloud/schulcloud-client-n21:$DOCKERTAG -t schulcloud/schulcloud-client-n21:$GIT_SHA -f Dockerfile.n21 .

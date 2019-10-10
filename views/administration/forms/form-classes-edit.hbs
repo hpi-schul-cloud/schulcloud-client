@@ -11,6 +11,9 @@
 
 {{#ifeq mode "upgrade"}}
 	<input name="predecessor" type="hidden" data-force-value="true" value="{{../class.predecessor}}" />
+	{{#each ../class.userIds}}
+		<input name="userIds[]" type="hidden" data-force-value="true" value="{{this}}" />
+	{{/each}}
 {{/ifeq}}
 
 <div class="form-group">

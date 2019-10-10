@@ -12,6 +12,7 @@
                     {{#ifvalue @root.submission.teacherId value=@root.currentUser._id}}
                         <form action="/homework/comment/{{this._id}}" method="post" class="inline">
                             <input type="hidden" name="_method" value="delete"/>
+                            {{> "lib/components/csrfInput"}}
                             <button type="submit" class="btn btn-secondary btn-sm btn-delete">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
@@ -20,6 +21,7 @@
                     {{#ifvalue this.author._id value=@root.currentUser._id}}
                         <form action="/homework/comment/{{this._id}}" method="post" class="inline">
                             <input type="hidden" name="_method" value="delete"/>
+                            {{> "lib/components/csrfInput"}}
                             <button type="submit" class="btn btn-secondary btn-sm btn-delete">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
@@ -38,6 +40,7 @@
                 <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
                 <textarea name="comment" type="text" class="form-control" placeholder="Enter comment here..." cols="5"></textarea>
                 {{#userHasPermission "HOMEWORK_CREATE" }}
+                    {{> "lib/components/csrfInput"}}
                     <button type="submit" class="btn btn-primary">senden</button>
                 {{/userHasPermission}}
             </form>

@@ -9,8 +9,8 @@ const gulpCount = require('gulp-count');
 const filelog = require('gulp-filelog');
 const header = require('gulp-header');
 const gulpif = require('gulp-if');
-const imagemin = require('gulp-imagemin');
 const optimizejs = require('gulp-optimize-js');
+const imagemin = require('gulp-imagemin');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const cssvariables = require('postcss-css-variables');
@@ -38,6 +38,7 @@ const baseScripts = [
 	'./static/scripts/toggle/bootstrap-toggle.min.js',
 	'./static/scripts/mailchimp/mailchimp.js',
 	'./static/scripts/qrcode/kjua-0.1.1.min.js',
+	'./static/scripts/ajaxconfig.js',
 ];
 
 function themeName() {

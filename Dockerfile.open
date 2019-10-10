@@ -8,7 +8,8 @@ EXPOSE 3100
 WORKDIR /home/node/app
 
 COPY ./package.json .
-RUN npm install -g nodemon gulp-cli && npm install
+COPY ./package-lock.json .
+RUN npm install -g nodemon gulp-cli && npm ci
 
 COPY . .
 #COPY ./localtime /etc/localtime
