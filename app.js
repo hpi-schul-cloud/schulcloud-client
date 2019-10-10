@@ -107,7 +107,8 @@ if (redisUrl) {
 }
 
 app.use(session({
-	cookie: { maxAge: 60000 },
+	cookie: { maxAge: 1000 * 60 * 60 * 6 },
+	rolling: true, // refresh session with every request within maxAge
 	store: sessionStore,
 	saveUninitialized: true,
 	resave: false,
