@@ -471,7 +471,6 @@ const getSendHelper = service => function send(req, res, next) {
 					json: {
 						type: 'contactHPI',
 						subject: data.subject,
-						category: data.category,
 						role: '',
 						desire: '',
 						benefit: '',
@@ -484,6 +483,11 @@ const getSendHelper = service => function send(req, res, next) {
 						email: user.email ? user.email : '',
 						schoolId: res.locals.currentSchoolData._id,
 						cloud: res.locals.theme.title,
+						browserName: '',
+						browserVersion: '',
+						os: '',
+						device: '',
+						deviceUserAgent: '',
 					},
 				})
 				.then(() => {
