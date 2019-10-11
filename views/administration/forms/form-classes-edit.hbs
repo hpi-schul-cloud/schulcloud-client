@@ -1,5 +1,5 @@
-<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
-{{#if edit}}
+{{#ifeq mode "edit"}}
+	<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 	<input type="hidden" name="_id" value="{{class._id}}" />
 	<input type="hidden" name="referrer" value="{{referrer}}" />
 
@@ -7,12 +7,19 @@
 		title="Klasse '{{@root.class.name}}' verwalten.">
 		<i class="fa fa-users"></i> Klasse verwalten
 	</a>
-{{/if}}
+{{/ifeq}}
+
+{{#ifeq mode "upgrade"}}
+	<input name="predecessor" type="hidden" data-force-value="true" value="{{../class.predecessor}}" />
+	{{#each ../class.userIds}}
+		<input name="userIds[]" type="hidden" data-force-value="true" value="{{this}}" />
+	{{/each}}
+{{/ifeq}}
 
 <div class="form-group">
 	<label>Schuljahr <sup>*</sup></label>
 	<select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen"
-		{{#ifCond edit '&&' isCustom}}{{#unless class.keepYear}}disabled="true" {{/unless}}{{/ifCond}}>
+		{{#ifCond edit '&&' isCustom}}{{#unless @root.class.keepYear}}disabled="true" {{/unless}}{{/ifCond}}>
 		{{#each schoolyears}}
 			<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
 				{{this.name}}
@@ -72,7 +79,7 @@
 		</div>
 		<label class="my-1">
 			<input name="keepyear" type="checkbox" value="true"
-				{{#ifCond edit '&&' isCustom}}{{#if class.keepYear}}checked{{/if}}{{else}}checked{{/ifCond}}
+				{{#ifCond edit '&&' isCustom}}{{#if @root.class.keepYear}}checked{{/if}}{{else}}checked{{/ifCond}}
 				{{#unless isCustom}}disabled{{/unless}} />
 			<span>Schuljahreszuordnung beibehalten</span>
 		</label>
@@ -89,7 +96,7 @@
 			<p>Klassenname:
 				<span data-from="classcustom"></span>
 			</p>
-			<p id="recap-keepyear" {{#ifCond edit '&&' isCustom}}class="{{#unless class.keepYear}}hidden{{/unless}}"
+			<p id="recap-keepyear" {{#ifCond edit '&&' isCustom}}class="{{#unless @root.class.keepYear}}hidden{{/unless}}"
 				{{/ifCond}}>Schuljahr: <span data-from="schoolyear" /></p>
 		</div>
 	</div>
@@ -97,14 +104,18 @@
 
 <div class="modal-footer mt-1">
 	<a class="btn btn-secondary btn-cancel">Abbrechen</a>
-	{{#unless edit}}
+	{{#ifeq mode "create"}}
 		<button class="btn btn-primary" type="submit" disabled>Klasse hinzufügen</button>
 		{{#userHasPermission 'ADMIN_VIEW'}}
 			<p>Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.</p>
 		{{/userHasPermission}}
-	{{else}}
+	{{/ifeq}}
+	{{#ifeq mode "edit"}}
 		<button class="btn btn-primary" type="submit" disabled>Änderungen speichern</button>
-	{{/unless}}
+	{{/ifeq}}
+	{{#ifeq mode "upgrade"}}
+		<button class="btn btn-primary" type="submit">Klasse in Schuljahr <span data-from="schoolyear"></span> versetzen</button>
+	{{/ifeq}}
 </div>
 
 {{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}

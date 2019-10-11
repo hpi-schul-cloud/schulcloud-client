@@ -49,7 +49,7 @@ const populateCurrentUser = (req, res) => {
 		}
 	}
 
-	if (payload.userId) {
+	if (payload && payload.userId) {
 		return api(req).get(`/users/${payload.userId}`, {
 			qs: {
 				$populate: ['roles'],
@@ -69,6 +69,10 @@ const populateCurrentUser = (req, res) => {
 				res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
 				return data2;
 			});
+		}).catch((e) => {
+			if (e.error.message === 'jwt expired' || e.error.className === 'not-found') {
+				res.clearCookie('jwt');
+			}
 		});
 	}
 
@@ -78,8 +82,8 @@ const populateCurrentUser = (req, res) => {
 const checkConsent = (req, res) => {
 	if (
 		((res.locals.currentUser || {}).preferences || {}).firstLogin	// do not exist if 3. system login
-    || req.path.startsWith('/login/success')
-    || req.baseUrl.startsWith('/firstLogin')) {
+		|| req.path.startsWith('/login/success')
+		|| req.baseUrl.startsWith('/firstLogin')) {
 		return Promise.resolve();
 	}
 	// eslint-disable-next-line prefer-promise-reject-errors
@@ -127,7 +131,7 @@ const authChecker = (req, res, next) => {
 };
 
 const cookieDomain = (res) => {
-	if (res.locals.domain) {
+	if (res.locals.domain && process.env.NODE_ENV === 'production') {
 		return { domain: res.locals.domain };
 	}
 	return {};

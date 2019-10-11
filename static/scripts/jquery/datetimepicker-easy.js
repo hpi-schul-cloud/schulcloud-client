@@ -28,6 +28,11 @@ if (!window.datetimepicker) {
 		$.datetimepicker.setLocale('de');
 		document.querySelectorAll('input[data-date], input[data-datetime]').forEach((input) => {
 			$(input).datetimepicker(readPickerConfig(input));
+			$(input).datetimepicker('setOptions', {
+				scrollMonth: false,
+				scrollTime: false,
+				scrollInput: false,
+			});
 			input.setAttribute('autocomplete', 'off');
 			if (input.hasAttribute('required')) {
 				const dateRegex = '(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.((?:19|20)\\d{2})';

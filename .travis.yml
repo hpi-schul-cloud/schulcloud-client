@@ -1,5 +1,5 @@
 language: node_js
-node_js: '8'
+node_js: '10'
 sudo: required
 branches:
   only:
@@ -7,47 +7,60 @@ branches:
     - master
     - /^(?i:release|hotfix).*$/
 services:
-- docker
+  - docker
 env:
   global:
-  - GIT_SHA=$( git rev-parse HEAD )
-  - SC_DEMO_USER_PASSWORD=schulcloud
-  - BACKEND_URL=https://api.schul-cloud.org
-  - PUBLIC_BACKEND_URL=https://api.schul-cloud.org
-  - FEATURE_TEAMS_ENABLED=true
-addons:
-  chrome: stable
-  firefox: latest
+    - GIT_SHA=$( git rev-parse HEAD )
+    - SC_DEMO_USER_PASSWORD=Schulcloud1!
+    - BACKEND_URL=http://localhost:3030
+    - PUBLIC_BACKEND_URL=http://localhost:3030
+    - FEATURE_TEAMS_ENABLED=true
+    - IT_CLIENT_HOST=client
+    - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 before_install:
-- openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
-- npm install pm2 -g
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
-  --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
-- sudo docker pull mongo:4.0
-- sudo docker run -d -p 27017:27017 mongo:4.0
-- if [[ $TRAVIS_BRANCH = release* || $TRAVIS_BRANCH = hotfix* ]] ; then export BACKEND_URL=https://api.staging.schul-cloud.org ; export PUBLIC_BACKEND_URL=https://api.staging.schul-cloud.org ; export SC_DEMO_USER_PASSWORD=$SC_DEMO_USER_PASSWORD_STAGING ; elif [ "$TRAVIS_BRANCH" = "develop" ] ; then export BACKEND_URL=https://api.test.schul-cloud.org ; export PUBLIC_BACKEND_URL=https://api.test.schul-cloud.org ; export SC_DEMO_USER_PASSWORD=$SC_DEMO_USER_PASSWORD_STAGING ; fi
+  - openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
+  - echo $BRANCH_NAME
+  # move client into subdirectory
+  - mkdir -p schulcloud-client
+  - mv !(schulcloud-client) schulcloud-client
+  # fetch switch_branch script
+  - curl https://gist.githubusercontent.com/schul-cloud-bot/26e57e99fdae76f30927089c9dd99df7/raw/a590139da5f969a6d330f38ab2d85d3769c86f3f/switch_branch.sh > switch_branch.sh
+  - chmod 700 switch_branch.sh
+  # clone other required repositories and try to switch to branch with same name as current one
+  - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
+  - sh switch_branch.sh "schulcloud-server" "$BRANCH_NAME"
+  - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
+  - sh switch_branch.sh "docker-compose" "$BRANCH_NAME"
+  - git clone https://github.com/schul-cloud/integration-tests.git integration-tests
+  - sh switch_branch.sh "integration-tests" "$BRANCH_NAME"
 install:
-- npm install
+  # boot servers for integration tests
+  - cd docker-compose
+  - docker-compose -f docker-compose.integration-test-Build.yml build
+  - docker-compose -f docker-compose.integration-test-Build.yml up -d
+  - cd ..
+  # client packages are needed for mocha
+  - cd schulcloud-client && npm ci && cd ..
+  - cd integration-tests && npm ci && cd ..
 before_script:
-- npm install -g gulp-cli
-- gulp
-- pm2 start bin/www
-- sleep 5
+  - echo $TRAVIS_BRANCH
+  - echo $TRAVIS_TAG
+  # seed database
+  - cd schulcloud-server && npm run setup && npm run seed && cd ..
 script:
-- echo $TRAVIS_BRANCH
-- echo $TRAVIS_TAG
-- npm test
-- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
-  else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+  # all cd .. in seperate lines to go dir up on test fails
+  - cd schulcloud-client && npm run mocha
+  - cd ..
+  - cd integration-tests && npm run test
+  - cd ..
+after_script:
+  - npm i -g @adrianjost/report-viewer
+  - rv-upload -F **/reports/**/*.html
 cache:
   directories:
-  - node_modules
+    - "$HOME/.npm" # cache all packages installed with "npm ci"
 deploy:
   provider: script
   script: bash ./deploy.sh
   on:
     all_branches: true
-#    condition: "$TRAVIS_BRANCH =~ ^master|N21/merge$"
-#

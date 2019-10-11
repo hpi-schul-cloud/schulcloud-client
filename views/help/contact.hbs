@@ -11,11 +11,12 @@
 
   <form class="admin_form {{#unless adminFormIsActive}}hidden{{/unless}}" action="/helpdesk" method="post">
     {{> "help/forms/form_admin"}}
+    {{> "lib/components/csrfInput"}}
     <button type="submit">Absenden</button>
   </form>
 
   <div class="team_form {{#unless teamFormIsActive}}hidden{{/unless}}">
-    <p>Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{theme_short_title}} gesendet. Bitte achte darauf, keine passwörter und andere sensible Daten mitzusenden.</p>
+    <p>Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{theme.short_title}} gesendet. Bitte achte darauf, keine passwörter und andere sensible Daten mitzusenden.</p>
     <p>Welche Art von Feedback möchtest du uns senden?</p>
     <fieldset class="switch_wrapper" id="message_type">
       <div class="switch">
@@ -28,10 +29,12 @@
 
     <form class="wish_form" action="/helpdesk" method="post">
       {{> "help/forms/form_wish"}}
+      {{> "lib/components/csrfInput"}}
       <button type="submit">Absenden</button>
     </form>
     <form class="bug_form hidden" action="/helpdesk" method="post">
       {{> "help/forms/form_bug"}}
+      {{> "lib/components/csrfInput"}}
       <button type="submit">Absenden</button>
     </form>
   </div>
