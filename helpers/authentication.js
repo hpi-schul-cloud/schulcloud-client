@@ -17,6 +17,13 @@ const rolesDisplayName = {
 
 const isJWT = req => (req && req.cookies && req.cookies.jwt);
 
+const cookieDomain = (res) => {
+	if (res.locals.domain && process.env.NODE_ENV === 'production') {
+		return { domain: res.locals.domain };
+	}
+	return {};
+};
+
 const isAuthenticated = (req) => {
 	if (!isJWT(req)) {
 		return Promise.resolve(false);
@@ -70,8 +77,9 @@ const populateCurrentUser = (req, res) => {
 				return data2;
 			});
 		}).catch((e) => {
-			if (e.error.message === 'jwt expired' || e.error.className === 'not-found') {
-				res.clearCookie('jwt');
+			// 401 for invalid jwt, not-found for deleted user
+			if (e.statusCode === 401 || e.error.className === 'not-found') {
+				res.clearCookie('jwt', cookieDomain(res));
 			}
 		});
 	}
@@ -130,18 +138,11 @@ const authChecker = (req, res, next) => {
 		});
 };
 
-const cookieDomain = (res) => {
-	if (res.locals.domain && process.env.NODE_ENV === 'production') {
-		return { domain: res.locals.domain };
-	}
-	return {};
-};
-
 module.exports = {
 	isJWT,
+	cookieDomain,
 	authChecker,
 	isAuthenticated,
 	restrictSidebar,
 	populateCurrentUser,
-	cookieDomain,
 };
