@@ -1,6 +1,38 @@
 <section data-panel="section-{{section-nr}}">
-    <h2 class="h4">Danke!</h2>
-    <p>Du kannst jetzt mit der Benutzung der {{@root.theme.short_title}} fortfahren.<br>
-        <a class="btn btn-primary mt-2" data-testid='btn_schul-cloud_erkunden' href="/">{{@root.theme.short_title}} erkunden</a>
-    </p>
+    <div class="welcomeGreeting">
+        <img src="/images/firstLogin/welcome_banner.svg">
+        <div class="row mt-3">
+            <div class="col-xs-4 col-md-3">
+                <img src="/images/firstLogin/welcome_1_fobi.svg" alt="Online-Fortbildung">
+            </div>
+            <div class="col-xs-8 col-md-9">
+                <p>
+                    Wie funktioniert eigentlich die HPI Schul-Cloud?
+                    Und wie kann ich meinen Unterricht damit organisieren, gestalten und durchführen?
+                    Besuche unsere <b>Online-Fortbildung</b> und finde es heraus!
+                </p>
+                <div class="text-center">
+                    <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://mooc.house/courses/schulcloud2019">Hier gehts zur Fortbildung</a>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-xs-4 col-md-3">
+                <img src="/images/firstLogin/welcome_2_help.svg" alt="Help">
+            </div>
+            <div class="col-xs-8 col-md-9 mt-2">
+                <p>
+                    Über jede Seite in der Schul-Cloud kommst du mit Klick auf das <b>Fragezeichen</b> oben rechts in unseren <b>Hilfebereich</b>.
+                    Dort findest du zu beinahe jedem Thema ausführliche Anleitungen und Bilderstrecken.
+                </p>
+                <p>
+                    Schau einfach mal vorbei!
+                </p>
+            </div>
+        </div>
+        <div class="text-center mt-2">
+            <a class="btn btn-secondary mr-2" data-testid='btn_schul-cloud_erkunden' href="/">Sofort loslegen</a>
+            <a class="btn btn-primary" href="/help#erste_schritte">Erste Schritte anschauen</a>
+        </div>
+    </div>
 </section>
