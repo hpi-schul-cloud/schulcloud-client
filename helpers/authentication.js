@@ -79,7 +79,7 @@ const populateCurrentUser = (req, res) => {
 		}).catch((e) => {
 			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
 			if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
-				res.clearCookie('jwt', cookieDomain(res));
+				res.clearCookie('jwt');
 			}
 		});
 	}

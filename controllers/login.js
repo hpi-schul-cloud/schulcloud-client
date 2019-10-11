@@ -17,7 +17,7 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 }).then(data => data.data);
 
 const clearCookie = (req, res) => {
-	res.clearCookie('jwt', authHelper.cookieDomain(res));
+	res.clearCookie('jwt');
 };
 
 // Login
