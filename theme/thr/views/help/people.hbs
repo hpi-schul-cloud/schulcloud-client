@@ -1,0 +1,31 @@
+{{#extend "lib/loggedin"}}
+
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/help/help.css"/>
+	{{/content}}
+
+	{{#content "scripts" mode="append"}}
+	{{/content}}
+
+	{{#content "page"}}
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="card">
+						<div class="card-header" role="tab" id="heading-{{@index}}">
+							<h2 class="h5 mb-0">
+								ThILLM
+							</h2>
+						</div>
+						<div id="collapse-{{@index}}" class="collapse show in">
+							<div class="card-block">
+								Richte dich für pädagogische Fragen bitte an das Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien (ThILLM) unter folgender E-Mail-Adresse:<br>
+								<a href="mailto:info@thillm.de" target="blank" rel="noopener" class="externalLink">info@thillm.de</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{{/content}}
+{{/extend}}
