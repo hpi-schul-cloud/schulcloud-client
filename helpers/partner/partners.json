@@ -19,6 +19,20 @@
       "padding": ""
     }
   ],
+  "project_partners_thr": [
+    {
+      "name": "HPI",
+      "url": "https://hpi.de",
+      "logo": "hpi-logo.jpg",
+      "padding": "20px"
+    },
+    {
+      "name": "ThILLM",
+      "url": "https://www.schulportal-thueringen.de/thillm",
+      "logo": "thillm-logo.jpg",
+      "padding": ""
+    }
+  ],
   "content_partners": [
     {
       "name": "Bettermarks",
