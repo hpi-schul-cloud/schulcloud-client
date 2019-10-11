@@ -531,6 +531,21 @@
 			},
 			{
 				"title": "",
+				"firstName": "Josefine",
+				"lastName": "Fogain",
+				"position": "Studentische Hilfskraft",
+				"description": "Josefine studiert Volkswirtschaftslehre und Spanische Philologie im Bachelor an der Universität Potsdam. Seit August 2019 unterstützt Sie das HPI Schul-Cloud Projekt in organisatorischen Aufgaben und im User Support. Privat reist sie gern und ist in der Natur unterwegs.",
+				"pictureUrl": "/images/team/josefine_fogain.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Marcel",
 				"lastName": "Garus",
 				"position": "Studentische Hilfskraft",
@@ -591,6 +606,21 @@
 			},
 			{
 				"title": "",
+				"firstName": "Patricia",
+				"lastName": "Rau",
+				"position": "Studentische Hilfskraft",
+				"description": "Patricia hat BWL-Digitale Wirtschaft an der Beuth Hochschule für Technik in Berlin studiert. Seit Mai 2019 unterstützt sie das HPI Schul-Cloud Projekt bei kommunikativen und organisatorischen Aufgaben. Ihre Freizeit verbringt sie gerne mit Freunden in Cafes oder draußen im Grünen. Außerdem reist und fotografiert sie gerne.",
+				"pictureUrl": "/images/team/patricia_rau.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Yulia",
 				"lastName": "Shikhareva",
 				"position": "Studentische Hilfskraft",
@@ -640,21 +670,7 @@
 		"name": "Weitere Mitarbeiter",
 		"size": "small",
 		"team": [
-			{
-				"title": "",
-				"firstName": "Patricia",
-				"lastName": "Rau",
-				"position": "Praktikantin",
-				"description": "Patricia hat BWL-Digitale Wirtschaft an der Beuth Hochschule für Technik in Berlin studiert. Seit Mai 2019 unterstützt sie das HPI Schul-Cloud Projekt bei kommunikativen und organisatorischen Aufgaben. Ihre Freizeit verbringt sie gerne mit Freunden in Cafes oder draußen im Grünen. Außerdem reist und fotografiert sie gerne.",
-				"pictureUrl": "/images/team/patricia_rau.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			}
+			
 		]
 	},
 	{
