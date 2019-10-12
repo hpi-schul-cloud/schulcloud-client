@@ -1,0 +1,69 @@
+{{#extend "lib/loggedin"}}
+
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/help/help.css"/>
+	{{/content}}
+
+	{{#content "scripts" mode="append"}}
+	{{/content}}
+
+	{{#content "page"}}
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="card">
+						<div class="card-header" role="tab" id="heading-{{@index}}">
+							<h2 class="h5 mb-0">
+								LISUM
+							</h2>
+						</div>
+						<div class="collapse show in">
+							<div class="card-block">
+								Für pädagogische Fragen richte dich bitte an das Landesinstitut für Schule und Medien Berlin-Brandenburg (LISUM) unter folgender E-Mail-Adresse:<br><a href="mailto:schul-cloud@bildungsserver.berlin-brandenburg.de" target="blank" rel="noopener" class="externalLink">schul-cloud@bildungsserver.berlin-brandenburg.de</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header" role="tab" id="heading-{{@index}}">
+							<h2 class="h5 mb-0">
+								DAB
+							</h2>
+						</div>
+						<div class="collapse show in">
+							<div class="card-block">
+								Für organisatorische Fragen richte dich bitte an die DigitalAgentur Brandenburg (DAB) unter folgender E-Mail-Adresse:<br><a href="mailto:0001_schulcloud@digital-agentur.de" target="blank" rel="noopener" class="externalLink">0001_schulcloud@digital-agentur.de</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header" role="tab" id="heading-{{@index}}">
+							<h2 class="h5 mb-0">
+								HPI
+							</h2>
+						</div>
+						<div id="collapse-{{@index}}" class="collapse show in">
+							<div class="card-block">
+								Für technsiche Fragen richte dich bitte an das Hasso-Plattner-Institut unter folgender E-Mail-Adresse:<br><a href="mailto:brandenburg@schul-cloud.org" target="blank" rel="noopener" class="externalLink">brandenburg@schul-cloud.org</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header" role="tab" id="heading-{{@index}}">
+							<h2 class="h5 mb-0">
+								Feedback / Wünsche / Probleme bei der Nutzung
+							</h2>
+						</div>
+						<div id="collapse-{{@index}}" class="collapse show in">
+							<div class="card-block">
+								Für die Meldung von Problemen oder Wünschen hinsichtlich der Bedienung der Schul-Cloud verwende bitte das Kontaktformular oder sende eine E-Mail an <br><a href="mailto:feedback@schul-cloud.org" target="blank" rel="noopener" class="externalLink">feedback@schul-cloud.org</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{{/content}}
+{{/extend}}

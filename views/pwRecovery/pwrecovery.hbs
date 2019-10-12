@@ -1,55 +1,41 @@
-{{#extend "lib/default"}}
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/authentication/home.css"/>
-        <link rel="stylesheet" href="/styles/authentication/login.css"/>
-    {{/content}}
+{{#extend "lib/simple"}}
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/authentication/login.css"/>
+	{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/pwrecovery.js" type="text/javascript" defer></script>
-    {{/content}}
+	{{#content "scripts" mode="append"}}
+		<script src="/scripts/pwrecovery.js" type="text/javascript" defer></script>
+	{{/content}}
 
-    {{#content "body"}}
-        {{#embed "lib/header"}}{{/embed}}
-        <main class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <section class="card">
-                        <div class="card-block">
-                            <div class="col-xs-12">
-                                {{> "lib/components/notification"}}
-                            </div>
-                            <div class="text-center">
-                                <h3>{{title}}</h3>
-                                <h4>{{subtitle}}</h4>
-                            </div>
+	{{#content "page"}}
+		<div class="col-lg-6 offset-lg-3">
+			<div class="col-xs-12">
+				{{> "lib/components/notification"}}
+			</div>
+			<div class="text-center">
+				<h1 class="h4">{{title}}</h2>
+				<h2 class="h5">{{subtitle}}</h3>
+			</div>
 
-                            <div class="form-wrapper">
-                                <form method="post" class="registration-form" action="{{action}}">
+			<div class="form-wrapper">
+				<form method="post" class="registration-form" action="{{action}}">
+					<input type="hidden" name="accountId" value="{{accountId}}" />
+					<input type="hidden" name="resetId" value="{{resetId}}" />
+					<div class="form-group">
+						<label>Neues Passwort</label>
+						<input type="password" data-testid="password" name="password" id="password" class="form-control form-control-lg" placeholder="***************" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+								title="{{> "lib/forms/password-hint" plaintext=true}}" required>
+					</div>
+					<div class="form-group">
+						<label>Neues Passwort wiederholen</label>
+						<input type="password" name="password_control" id="password_control" class="form-control form-control-lg" placeholder="***************" title="{{> "lib/forms/password-hint" plaintext=true}}" required>
+					</div>
 
-                                    <input type="hidden" name="accountId" value="{{accountId}}" />
-                                    <input type="hidden" name="resetId" value="{{resetId}}" />
+                    {{> "lib/components/csrfInput"}}
 
-                                    <div class="form-group">
-                                        <label>Neues Passwort</label>
-                                        <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="***************" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-                                               title="{{> "lib/forms/password-hint" plaintext=true}}" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Neues Passwort wiederholen</label>
-                                        <input type="password" name="password_control" id="password_control" class="form-control form-control-lg" placeholder="***************" title="{{> "lib/forms/password-hint" plaintext=true}}" required>
-                                    </div>
-
-
-                                    <input type="submit" class="btn btn-primary btn-block" value="{{buttonLabel}}" />
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        {{#embed "lib/extended_footer"}}{{/embed}}
-    {{/content}}
+					<input type="submit" class="btn btn-primary btn-block" value="{{buttonLabel}}" />
+				</form>
+			</div>
+		</div>
+	{{/content}}
 {{/extend}}

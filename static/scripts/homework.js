@@ -1,9 +1,11 @@
-﻿import { softNavigate } from './helpers/navigation';
+/* global CKEDITOR */
+
+import { softNavigate } from './helpers/navigation';
 
 const getDataValue = function(attr) {
     return function() {
         const value = $('.section-upload').data(attr);
-        return value ? value : undefined;    
+		return (value || undefined);
     };
 };
 
@@ -66,6 +68,19 @@ window.addEventListener("DOMContentLoaded", function(){
     document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
 });
 $(document).ready(function() {
+	const editorInstanceNames = Object.keys((window.CKEDITOR || {}).instances || {});
+	editorInstanceNames
+		.filter(e => e.startsWith('evaluation'))
+		.forEach((name) => {
+			const editor = window.CKEDITOR.instances[name];
+			editor.on('change', () => {
+				// find the closest submit button and disable it if no content is given
+				const submitButton = $(editor.element.$.closest('form')).find('button[type="submit"]')[0];
+				const content = editor.document.getBody().getText();
+				submitButton.disabled = !content.trim();
+			});
+		});
+
     function showAJAXError(req, textStatus, errorThrown) {
         if (textStatus === "timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "danger");
@@ -89,14 +104,14 @@ $(document).ready(function() {
         const method  = element.attr("method");
         // update value of ckeditor instances
         let ckeditorInstance = element.find('textarea.customckeditor').attr("id");
-        if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement(); 
-        const content = element.serialize();
+		if (ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement();
+		const content = element.serialize();
         if(contentTest){
             if(contentTest(content) == false){
                 $.showNotification("Form validation failed", "danger", 15000);
                 return;
             }
-        }
+		}
         let request = $.ajax({
             type: method,
             url: url,
@@ -134,7 +149,7 @@ $(document).ready(function() {
             if(teamMembers != [] && $(".me").val() && !teamMembers.includes($(".me").val())){
                 location.reload();
             }
-        });
+		});
         return false;
     });
 
@@ -250,7 +265,8 @@ $(document).ready(function() {
             })
             .fail(showAJAXError);
         },
-        createImageThumbnails: false,
+		createImageThumbnails: false,
+		maxFilesize: 1024,
         method: 'put',
         init: function () {
             // this is called on per-file basis
@@ -315,7 +331,7 @@ $(document).ready(function() {
 
                 if( parentId ) {
                     params.parent = parentId;
-                }              
+				}
 
                 // post file meta to proxy file service for persisting data
                 $.post('/files/fileModel', params , (data) => {

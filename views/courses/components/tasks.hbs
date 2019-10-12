@@ -1,61 +1,87 @@
 <div class="row">
-  <div class="col-sm-12 container">
-    {{#ifneq 0 (arrayLength homeworks)}}
-      <div class="course-tasks-header">
-        <i class="fa fa-eye"></i>
-        Gestellte Aufgaben
-        <small>({{arrayLength ../homeworks}} Aufgabe{{#ifneq 1 (arrayLength ../homeworks)}}n{{/ifneq}})</small>
-      </div>
-    {{else}}
-      <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-        <span>Noch keine gestellten Aufgaben</span>
-      </p>
-    {{/ifneq}}
-    <div id="homeworks" class="container-fluid">
-      <ol class="homework">
-        <div class="row">
-          {{#each homeworks}}
-            {{> 'homework/components/course_overview_card_template'}}
-          {{/each}}
-        </div>
-      </ol>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    {{#userHasPermission "COURSE_EDIT" }}
-      <a href="/homework/new?course={{../_id}}" class="btn btn-primary w-100 pull-right" title="Aufgabe hinzufügen">
-        <i class="fa fa-plus" aria-hidden="true"></i><span> Aufgabe hinzufügen</span>
-      </a>
-    {{/userHasPermission}}
-  </div>
+	<div class="col-sm-12 container">
+		{{#ifneq 0 (arrayLength homeworks)}}
+			<div class="course-tasks-header">
+				<i class="fa fa-eye"></i>
+				Gestellte Aufgaben
+				<small>({{arrayLength ../homeworks}} Aufgabe{{#ifneq 1 (arrayLength ../homeworks)}}n{{/ifneq}})</small>
+			</div>
+			{{else}}
+				<div class="empty-state">
+					<img src="/images/empty-states/assignments.svg" alt="Keine gestellten Aufgaben" class="image" />
+					{{#unless @root.isArchived}}
+						{{#userHasPermission "COURSE_EDIT" }}
+							<h2 class="h4">Erstelle die erste Aufgabe in deinem Kurs</h2>
+							<p class="text-muted">
+								Kursteilnehmer*innen können spielend leicht Aufgaben bis zu einem gesetzten Termin
+								bearbeiten und Ergebnisse digital einreichen.
+								Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.
+							</p>
+					{{else}}
+						<h2 class="h4 text-muted">Es gibt noch keine gestellten Aufgaben in diesem Kurs.</h2>
+						{{/userHasPermission}}
+					{{else}}
+						<h2 class="h4 text-muted">Es gibt keine gestellten Aufgaben in diesem Kurs.</h2>
+					{{/unless}}
+				</div>
+		{{/ifneq}}
+		{{#if homeworks}}
+			<div id="homeworks" class="container-fluid">
+				<ol class="homework">
+					<div class="row">
+						{{#each homeworks}}
+							{{> 'homework/components/course_overview_card_template'}}
+						{{/each}}
+					</div>
+				</ol>
+			</div>
+		{{/if}}
+	</div>
+	<div class="col-sm-12 add-button">
+		{{#userHasPermission "COURSE_EDIT" }}
+			{{#unless @root.isArchived}}
+				<a href="/homework/new?course={{../_id}}"
+					class="btn btn-primary {{#if ../homeworks}}w-100{{else}}btn-empty{{/if}}"
+					title="Aufgabe hinzufügen">
+					<span>Erstelle eine Aufgabe</span>
+				</a>
+			{{/unless}}
+		{{/userHasPermission}}
+	</div>
 </div>
 <div class="section-my-tasks">
-  <div class="row">
-    <div class="col-sm-12">
-      {{#userHasPermission "HOMEWORK_CREATE" }}
-        <a href="/homework/new?course={{../_id}}&private=true" class="btn btn-secondary btn-sm pull-right ml-1" title="private Aufgabe hinzufügen">
-          <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private Aufgabe hinzufügen</span>
-        </a>
-      {{/userHasPermission}}
-      {{#ifneq 0 (arrayLength myhomeworks)}}
-        <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
-          <div class="course-tasks-header">
-            <small title="Private Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-            <i class="fa fa-eye-slash"></i>
-            Private Aufgaben
-            <small>({{arrayLength ../myhomeworks}} Aufgabe{{#ifneq 1 (arrayLength ../myhomeworks)}}n{{/ifneq}})</small>
-          </div>
-        </a>
-        <div id="myhomeworks" class="container-fluid collapse">
-          <ol class="homework">
-            <div class="row">
-              {{#each ../myhomeworks}}
-                {{> 'homework/components/course_overview_card_template'}}
-              {{/each}}
-            </div>
-          </ol>
-        </div>
-      {{/ifneq}}
-    </div>
-  </div>
+	<div class="row">
+		<div class="col-sm-12">
+			{{#userHasPermission "HOMEWORK_CREATE" }}
+				{{#unless @root.isArchived}}
+					<a href="/homework/new?course={{../_id}}&private=true"
+						class="btn btn-secondary btn-sm pull-right ml-1" title="private Aufgabe hinzufügen">
+						<i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private Aufgabe
+							hinzufügen</span>
+					</a>
+				{{/unless}}
+			{{/userHasPermission}}
+			{{#ifneq 0 (arrayLength myhomeworks)}}
+				<a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
+					<div class="course-tasks-header">
+						<small title="Private Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon"
+								aria-hidden="true"></i></small>
+						<i class="fa fa-eye-slash"></i>
+						Private Aufgaben
+						<small>({{arrayLength ../myhomeworks}}
+							Aufgabe{{#ifneq 1 (arrayLength ../myhomeworks)}}n{{/ifneq}})</small>
+					</div>
+				</a>
+				<div id="myhomeworks" class="container-fluid collapse">
+					<ol class="homework">
+						<div class="row">
+							{{#each ../myhomeworks}}
+								{{> 'homework/components/course_overview_card_template'}}
+							{{/each}}
+						</div>
+					</ol>
+				</div>
+			{{/ifneq}}
+		</div>
+	</div>
 </div>

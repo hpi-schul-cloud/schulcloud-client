@@ -1,7 +1,15 @@
 $primaryColor: #78aae5;
-$secondaryColor: #FF0000;
+$secondaryColor: #b10438;
 $accentColor: #b10438;
+$fontColor: #373a3c;
+
 $logoGradient: linear-gradient(45deg, $primaryColor 30%, $primaryColor);
+
+$colorBeige: #e6e2e2;
+$colorGrey: rgba(232, 232, 232, 0.5);
+$colorLightGrey: rgba(0,0,0,0.1);
+$colorDarkerGrey: #555555;
+$colorWhite: #fff;
 
 $logoBackground: url("../../images/logo/logo-wt.png") no-repeat center;
 
@@ -16,4 +24,8 @@ aside.nav-sidebar{
             max-width: calc(100% - 54px) !important;
         }
     }
+}
+
+body header #title .cloud-logo{
+    width: 4rem !important;
 }

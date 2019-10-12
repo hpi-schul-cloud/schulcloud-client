@@ -1,20 +1,16 @@
-const _ = require('lodash');
-const moment = require('moment');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const router = express.Router({ mergeParams: true });
-const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
-const request = require('request');
 
 const createToolHandler = (req, res, next) => {
     const context = req.originalUrl.split('/')[1];
     api(req).post('/ltiTools/', {
         json: req.body
-    }).then(tool => {
+    }).then((tool) => {
         if (tool._id) {
             api(req).patch(`/${context}/` + req.body.courseId, {
                 json: {
@@ -22,30 +18,30 @@ const createToolHandler = (req, res, next) => {
                         ltiToolIds: tool._id
                     }
                 }
-            }).then(course => {
-            res.redirect(`/${context}/` + course._id);
-            });
+			}).then((course) => {
+				res.redirect(`/${context}/${course._id}/?activeTab=tools`);
+			});
         }
     });
 };
 
 const addToolHandler = (req, res, next) => {
-    const context = req.originalUrl.split('/')[1];
-    let action = `/${context}/` + req.params.courseId + '/tools/add';
+	const context = req.originalUrl.split('/')[1];
+	const action = `/${context}/${req.params.courseId}/tools/add`;
 
-    api(req).get('/ltiTools', { qs: {isTemplate: true}})
-    .then(tools => {
-        api(req).get(`/${context}/` + req.params.courseId)
-            .then(course => {
-                res.render('courses/add-tool', {
-                    action,
-                    title: 'Tool anlegen für ' + course.name,
-                    submitLabel: 'Tool anlegen',
-                    ltiTools: tools.data,
-                    courseId: req.params.courseId
-                });
-            });
-    });
+	api(req).get('/ltiTools', { qs: { isTemplate: true } })
+		.then((tools) => {
+			api(req).get(`/${context}/${req.params.courseId}`)
+				.then((course) => {
+					res.render('courses/add-tool', {
+						action,
+						title: `Tool anlegen für ${course.name}`,
+						submitLabel: 'Tool anlegen',
+						ltiTools: tools.data,
+						courseId: req.params.courseId,
+					});
+				});
+		});
 };
 
 const generateNonce = (length) => {
@@ -149,37 +145,46 @@ const runToolHandler = (req, res, next) => {
 };
 
 const getDetailHandler = (req, res, next) => {
-    const context = req.originalUrl.split('/')[1];
-    Promise.all([
-        api(req).get(`/${context}/`, {
-        qs: {
-            teacherIds: res.locals.currentUser._id}
-        }),
-        api(req).get('/ltiTools/' + req.params.id)]).
-    then(([courses, tool]) => {
-        res.json({
-            tool: tool
-        });
-    }).catch(err => {
-        next(err);
-    });
+	Promise.all([
+		api(req).get(`/ltiTools/${req.params.id}`)])
+		.then((tool) => {
+			res.json({
+				tool,
+			});
+		}).catch((err) => {
+			next(err);
+		});
 };
 
 const showToolHandler = (req, res, next) => {
-    const context = req.originalUrl.split('/')[1];
+	const context = req.originalUrl.split('/')[1];
 
-    Promise.all([
-        api(req).get('/ltiTools/' + req.params.ltiToolId),
-        api(req).get(`/${context}/` + req.params.courseId)
-    ])
-    .then(([tool, course]) => {
-        let renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
-        res.render(renderPath, {
-            course: course,
-            title: `${tool.name}, Kurs/Fach: ${course.name}`,
-            tool: tool
-        });
-    });
+	Promise.all((req.params.courseId
+		? [
+			api(req).get(`/ltiTools/${req.params.ltiToolId}`),
+			api(req).get(`/${context}/${req.params.courseId}`),
+		]
+		: [
+			api(req).get('/ltiTools/', { qs: { friendlyUrl: req.params.ltiToolId } }),
+			Promise.resolve({ name: '' }),
+		]
+	)).then(([tool, course]) => {
+		// eslint-disable-next-line no-param-reassign
+		tool = (req.params.courseId ? tool : tool.data[0]);
+		if (!tool) {
+			res.render('lib/error', {
+				loggedin: res.locals.loggedin,
+				message: 'Das Tool konnte nicht gefunden werden.',
+			});
+		} else {
+			const renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
+			res.render(renderPath, {
+				course,
+				title: `${tool.name}${(course.name ? `, Kurs/Fach: ${course.name}` : '')}`,
+				tool,
+			});
+		}
+	});
 };
 
 const addLinkHandler = (req, res, next) => {
@@ -208,8 +213,8 @@ const addLinkHandler = (req, res, next) => {
 router.use(authHelper.authChecker);
 
 router.get('/', (req, res, next) => {
-    const context = req.originalUrl.split('/')[1];
-    res.redirect(`/${context}/` + req.params.courseId);
+	const context = req.originalUrl.split('/')[1];
+	res.redirect(`/${context}/${req.params.courseId}/?activeTab=tools`);
 });
 
 router.get('/add', addToolHandler);
@@ -221,19 +226,19 @@ router.post('/link/:ltiToolId', addLinkHandler);
 
 router.get('/:id', getDetailHandler);
 
-router.delete('/delete/:ltiToolId', function (req, res, next) {
-    const context = req.originalUrl.split('/')[1];
-    api(req).patch(`/${context}/` + req.params.courseId, {
-        json: {
-            $pull: {
-                ltiToolIds: req.params.ltiToolId
-            }
-        }
-    }).then(_ => {
-        api(req).delete('/ltiTools/' + req.params.ltiToolId).then(_ => {
-            res.sendStatus(200);
-        });
-    });
+router.delete('/delete/:ltiToolId', (req, res, next) => {
+	const context = req.originalUrl.split('/')[1];
+	api(req).patch(`/${context}/${req.params.courseId}`, {
+		json: {
+			$pull: {
+				ltiToolIds: req.params.ltiToolId,
+			},
+		},
+	}).then(() => {
+		api(req).delete(`/ltiTools/${req.params.ltiToolId}`).then(() => {
+			res.sendStatus(200);
+		});
+	});
 });
 
 module.exports = router;

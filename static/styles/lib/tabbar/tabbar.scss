@@ -1,4 +1,7 @@
+@import '../../lib/bootstrap/scss/bootstrap-flex';
+
 .tabContainer {
+  overflow: hidden;
   .tabs {
     position: relative;
     display: flex;
@@ -7,35 +10,34 @@
 
     .tab {
       display: block;
-      padding: 20px;
+      padding: 1em;
       width: 100%;
       text-align: center;
       white-space: nowrap;
       cursor: pointer;
-
+      border: 0;
+      background-color: $colorWhite;
       .text {
         display: inline-block;
         vertical-align: middle;
         cursor: pointer;
         font-weight: 500;
-
-        font-size: 20px;
-        opacity: 0.54;
+        font-size: 1.25em;
+        @include media-breakpoint-down(xs) {
+          display: flex;
+          flex-direction: column-reverse;
+          font-size: 1.15em;
+        }
       }
-
-      .text:hover {
-        color: $primaryColor;
-      }
-
-      &.active .text {
-        opacity: 1;
+      &.active .text,
+      &:hover {
         color: $primaryColor;
       }
     }
 
     .indicator {
       position: absolute;
-      bottom: 11px;
+      bottom: 5px;
       height: 3px;
       background: $primaryColor;
     }
@@ -45,19 +47,17 @@
 .sectionsContainer {
   padding: 10px 0 0;
 
-  .sections {
-    .section {
-      display: none;
+  .sections > .section {
+    display: none;
 
-      p {
-        font-size: 18px;
-        line-height: 1.2;
-        margin-bottom: 25px;
-      }
+    p {
+      font-size: 18px;
+      line-height: 1.2;
+      margin-bottom: 25px;
+    }
 
-      &.active {
-        display: block;
-      }
+    &.active {
+      display: block;
     }
   }
 }

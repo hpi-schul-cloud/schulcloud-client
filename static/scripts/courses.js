@@ -1,14 +1,19 @@
 $(document).ready(function () {
 
+    $('.js-course-name-input').change(function () {
+        $(this).val($(this).val().trim());
+    });
+
     $('.btn-hidden-toggle').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
         var $hiddenToggleBtn = $(this);
         var $hiddenToggleIcon = $(this).find('.fa');
         var $card = $(this).closest('.card');
+        const href = $(this).attr('href');
         $.ajax({
             method: 'PATCH',
-            url: window.location.href + '/topics/' + $(this).attr('href') + '?json=true',
+            url: `${href}?json=true`,
             data: {hidden: !$hiddenToggleIcon.hasClass('fa-eye-slash')},
             success: function(result) {
                 if (result.hidden) {
@@ -34,6 +39,9 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "/link/",
+            beforeSend(xhr) {
+                xhr.setRequestHeader('Csrf-Token', csrftoken);
+            },
             data: {
                 target: target
             },
@@ -86,9 +94,10 @@ $(document).ready(function () {
                 $( "#topic-list .card-topic" ).each(function(i) {
                     positions[($( this ).attr("data-topicId"))] = i;
                 });
+                const courseId = $( this ).attr("data-courseId");
                 $.ajax({
                     type: "PATCH",
-                    url: window.location.href + "/positions",
+                    url: `/courses/${courseId}/positions`,
                     data: positions
                 });
             },

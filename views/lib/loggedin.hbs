@@ -23,6 +23,9 @@
     {{/content}}
 
     {{#content "body"}}
+        {{#if currentSchoolData.inMaintenance}}
+        <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
+        {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav>
@@ -86,9 +89,11 @@
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
-                                <li class="breadcrumb-item {{this.class}}">
-                                    <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
-                                </li>
+                                {{#if this.title}}
+                                    <li class="breadcrumb-item {{this.class}}">
+                                        <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
+                                    </li>
+                                {{/if}}
                             {{/each}}
                         </ol>
                     {{/if}}
@@ -145,43 +150,8 @@
                             </div>
                         </li>
     	                {{/if}}
-                        <li class="nav-item help-drodown" data-step="5" data-intro="Dies ist der Hilfebereich für deine Fragen und Probleme.">
-                            <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
-                                    <i class="fa fa-question"></i>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <ul class="content list-group">
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                                <a href="/help" class="link">Hilfebereich</a>
-                                            </span>
-                                        </li>
-
-                                        <li id="intro-loggedin" class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-map-signs"aria-hidden="true"></i>
-                                                <a href="#" class="link">Intro</a>
-                                            </span>
-                                        </li>
-
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                <a href="#" class="link submit-contactHPI">Wunsch oder Problem senden</a>
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-comment" aria-hidden="true"></i>
-                                                <a href="#" class="link submit-contactAdmin">Admin deiner Schule kontaktieren</a>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
+                        
+                        {{#embed "lib/help_menu"}}{{/embed}}
 
                         {{#if currentSchoolData}}
                             {{#unless currentSchoolData.isExpertSchool}}
@@ -197,15 +167,15 @@
                               <div class="dropdown btn-avatar">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle"
                                    title='{{ currentUser.displayName }} ({{ currentRole }})' data-toggle="dropdown">
-                                  <div class="avatar-circle" >
+                                  <div data-testid="initials" class="avatar-circle" >
                                       <span class="initials">{{ currentUser.avatarInitials }}</span>
                                   </div>
                                 </a>
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-name">{{ currentUser.displayName }} ({{ currentRole }})</div>
-                                    <a class="dropdown-item" href="/account/">Einstellungen</a>
-                                    <a class="dropdown-item" href="/logout/">Abmelden</a>
+                                <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
+                                    <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{ currentRole }})</div>
+                                    <a class="dropdown-item" data-testid="settings" href="/account/">Einstellungen</a>
+                                    <a class="dropdown-item" data-testid="logout" href="/logout/">Abmelden</a>
                                 </div>
                               </div>
                             </div>
@@ -219,7 +189,7 @@
                             <div class="col-sm-9">
                                 {{#unless notitle}}
                                   <div>
-                                      <h4 id="page-title">{{{stripOnlyScript title}}}</h4>
+                                      <h1 class="h4" id="page-title">{{{stripOnlyScript title}}}</h1>
                                   </div>
                                 {{/unless}}
                                 <div>
@@ -234,6 +204,7 @@
                                         </a>
                                         <div class="input-group input-group-sm">
                                             <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}Suche nach...{{/if}}" name="q" />
+                                            {{> "lib/components/csrfInput"}}
                                             <span class="input-group-btn">
                                                 <button type="submit" class="btn btn-secondary">
                                                     <i class="fa fa-search"></i>

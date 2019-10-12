@@ -1,10 +1,45 @@
 .section-teams {
+    .dropdown-title {
+        display: flex;
+        margin-top: 5px;
+        .btn-title-dropdown{
+          padding:0;
+          cursor: pointer;
+          .i-cog{
+              font-size: medium;
+              color: $secondaryColor;
+          }
+        }
+        .title-headline {
+          display: inline-block;
+          margin-right: 10px;
+        }
+        .dropdown-toggle:hover {
+          color: $primaryColor !important;
+        }
+        .dropdown-toggle:after {
+            display: none;
+        }
+        .dropdown-menu-team {
+          .dropdown-item {
+            padding: 10px 1.5rem;
+            > i {
+                padding: 5px;
+            }
+          }
+        }
+    }
     .section-news .container-fluid {
         padding: 0;
-    }    
+    }
     > section {
         margin-top: 3rem
-    }    
+    }
+
+    .section-description{
+        margin-top: 1rem
+    }
+
     h4 {
         margin-bottom: 1rem;
     }
@@ -19,6 +54,14 @@
     }
     .btn {
         margin-bottom: 0.5rem;
+    }
+
+    .btn-member{
+        text-decoration: none;
+        color: $colorDarkerGrey;
+    }
+    .btn-member:hover{
+        color: $primaryColor;
     }
 }
 
@@ -49,3 +92,9 @@
         }
     }
 }
+
+.section-team-members {
+    a.btn.disabled{
+      pointer-events: auto;
+    }
+  }

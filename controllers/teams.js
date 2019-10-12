@@ -1,27 +1,17 @@
+// jshint esversion: 8
+
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-const winston = require('winston');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
+const logger = require('../helpers/logger');
 
 const router = express.Router();
 moment.locale('de');
-
-
-const logger = winston.createLogger({
-	transports: [
-		new winston.transports.Console({
-			format: winston.format.combine(
-				winston.format.colorize(),
-				winston.format.simple(),
-			),
-		}),
-	],
-});
 
 const addThumbnails = (file) => {
 	const thumbs = {
@@ -56,13 +46,11 @@ const addThumbnails = (file) => {
 	return file;
 };
 
-const getSelectOptions = (req, service, query, values = []) => {
-	return api(req).get(`/${service}`, {
+const getSelectOptions = (req, service, query) => api(req)
+	.get(`/${service}`, {
 		qs: query,
-	}).then((data) => {
-		return data.data;
-	});
-};
+	})
+	.then(data => data.data);
 
 /**
  * Deletes all events from the given course, clear function
@@ -70,13 +58,13 @@ const getSelectOptions = (req, service, query, values = []) => {
  */
 const deleteEventsForTeam = async (req, res, teamId) => {
 	if (process.env.CALENDAR_SERVICE_ENABLED) {
-		let events = await api(req).get('/calendar/', {
+		const events = await api(req).get('/calendar/', {
 			qs: {
 				'scope-id': teamId,
 			},
 		});
 
-		for (let event of events) {
+		for (const event of events) {
 			try {
 				await api(req).delete(`/calendar/${event._id}`);
 			} catch (e) {
@@ -86,15 +74,52 @@ const deleteEventsForTeam = async (req, res, teamId) => {
 	}
 };
 
-const markSelected = (options, values = []) => {
-	return options.map((option) => {
-		option.selected = values.includes(option._id);
-		return option;
-	});
+/**
+ * Check if current user is teamowner and if also
+ * other user is teamowner. Return false if only the
+ * current user is teamowner
+ *
+ * @param {name: String, userId, role} current
+ * @param {[{userId, role}]} others
+ */
+const checkIfUserCouldLeaveTeam = (current, others) => {
+	if (current.name !== 'teamowner') {
+		return true;
+	}
+
+	for (const user of others) {
+		if (user.userId !== current.userId && user.role === current.role) {
+			return true;
+		}
+	}
+
+	return false;
 };
 
+const checkIfUserCanCreateTeam = (res) => {
+	const roleNames = res.locals.currentUser.roles.map(role => role.name);
+	let allowedCreateTeam = false;
+	if (roleNames.includes('administrator') || roleNames.includes('teacher') || roleNames.includes('student')) {
+		allowedCreateTeam = true;
+		const currentSchool = res.locals.currentSchoolData;
+		const isSchoolFeatureSet = currentSchool.features instanceof Array
+			&& currentSchool.features.includes('disableStudentTeamCreation');
+		if (roleNames.includes('student') && isSchoolFeatureSet) {
+			allowedCreateTeam = false;
+		}
+	}
+	return allowedCreateTeam;
+};
+
+const markSelected = (options, values = []) => options.map((option) => {
+	option.selected = values.includes(option._id);
+	return option;
+});
+
 const editTeamHandler = (req, res, next) => {
-	let teamPromise; let action; let method;
+	let teamPromise;
+	let action;
+	let method;
 	if (req.params.teamId) {
 		action = `/teams/${req.params.teamId}`;
 		method = 'patch';
@@ -119,13 +144,21 @@ const editTeamHandler = (req, res, next) => {
 };
 
 const copyCourseHandler = (req, res, next) => {
-	let coursePromise; let action; let method;
+	let coursePromise;
+	let action;
+	let method;
 	if (req.params.teamId) {
 		action = `/teams/copy/${req.params.teamId}`;
 		method = 'post';
 		coursePromise = api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
-				$populate: ['ltiToolIds', 'classIds', 'teacherIds', 'userIds', 'substitutionIds'],
+				$populate: [
+					'ltiToolIds',
+					'classIds',
+					'teacherIds',
+					'userIds',
+					'substitutionIds',
+				],
 			},
 		});
 	} else {
@@ -135,8 +168,15 @@ const copyCourseHandler = (req, res, next) => {
 	}
 
 	const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-	const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
-	const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
+	const teachersPromise = getSelectOptions(req, 'users', {
+		roles: ['teacher', 'demoTeacher'],
+		$limit: 1000,
+	});
+	const studentsPromise = getSelectOptions(req, 'users', {
+		roles: ['student', 'demoStudent'],
+		$sort: 'lastName',
+		$limit: 1000,
+	});
 
 	Promise.all([
 		coursePromise,
@@ -144,23 +184,35 @@ const copyCourseHandler = (req, res, next) => {
 		teachersPromise,
 		studentsPromise,
 	]).then(([course, classes, teachers, students]) => {
-		classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
-		teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
-		students = students.filter(s => s.schoolId == res.locals.currentSchool);
-		let substitutions = _.cloneDeep(teachers);
+		const classesOfCurrentSchool = classes.filter(
+			c => c.schoolId === res.locals.currentSchool,
+		);
+		const teachersOfCurrentSchool = teachers.filter(
+			t => t.schoolId === res.locals.currentSchool,
+		);
+		const studentsOfCurrentSchool = students.filter(
+			s => s.schoolId === res.locals.currentSchool,
+		);
+		const substitutions = _.cloneDeep(teachersOfCurrentSchool);
 
 		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
 			const duration = moment.duration(time.startTime);
-			time.startTime = `${('00' + duration.hours()).slice(-2)}:${('00' + duration.minutes()).slice(-2)}`;
+			time.startTime = `${`00${duration.hours()}`.slice(
+				-2,
+			)}:${`00${duration.minutes()}`.slice(-2)}`;
 			time.count = count;
 		});
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = moment(new Date(course.startDate).getTime()).format('DD.MM.YYYY');
-			course.untilDate = moment(new Date(course.untilDate).getTime()).format('DD.MM.YYYY');
+			course.startDate = moment(new Date(course.startDate).getTime()).format(
+				'DD.MM.YYYY',
+			);
+			course.untilDate = moment(new Date(course.untilDate).getTime()).format(
+				'DD.MM.YYYY',
+			);
 		}
 
 		// preselect current teacher when creating new course
@@ -174,14 +226,17 @@ const copyCourseHandler = (req, res, next) => {
 		res.render('teams/edit-course', {
 			action,
 			method,
-			title: 'Kurs klonen',
-			submitLabel: 'Kurs klonen',
+			title: 'Team duplizieren',
+			submitLabel: 'Team duplizieren',
 			closeLabel: 'Abbrechen',
 			course,
-			classes,
-			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+			classes: classesOfCurrentSchool,
+			teachers: markSelected(
+				teachersOfCurrentSchool,
+				_.map(course.teacherIds, '_id'),
+			),
 			substitutions,
-			students,
+			students: studentsOfCurrentSchool,
 		});
 	});
 };
@@ -203,6 +258,8 @@ router.get('/', async (req, res, next) => {
 		},
 	});
 
+	const allowedCreateTeam = checkIfUserCanCreateTeam(res);
+
 	teams = teams.data.map((team) => {
 		team.url = `/teams/${team._id}`;
 		team.title = team.name;
@@ -211,9 +268,13 @@ router.get('/', async (req, res, next) => {
 		team.background = team.color;
 		team.memberAmount = team.userIds.length;
 		(team.times || []).forEach((time) => {
-			time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
+			time.startTime = moment(time.startTime, 'x')
+				.utc()
+				.format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${time.room}`) : ''}</div>`;
+			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
+				time.room ? `| ${time.room}` : ''
+			}</div>`;
 		});
 
 		return team;
@@ -222,7 +283,6 @@ router.get('/', async (req, res, next) => {
 	let teamInvitations = (await api(req).get('/teams/extern/get/')).data;
 
 	teamInvitations = teamInvitations.map((team) => {
-		team.url = `/teams/${team._id}`;
 		team.title = team.name;
 		team.content = (team.description || '').substr(0, 140);
 		team.secondaryTitle = '';
@@ -235,19 +295,22 @@ router.get('/', async (req, res, next) => {
 
 	if (req.query.json) {
 		res.json(teams);
-	} else {
+	} else if (teams.length !== 0 || teamInvitations.length !== 0) {
 		res.render('teams/overview', {
 			title: 'Meine Teams',
 			teams,
 			teamInvitations,
-			// substitutionCourses,
+			allowedCreateTeam,
 			searchLabel: 'Suche nach Teams',
 			searchAction: '/teams',
 			showSearch: true,
 			liveSearch: true,
 		});
+	} else {
+		res.render('teams/overview-empty', {
+			allowedCreateTeam,
+		});
 	}
-	// });
 });
 
 router.post('/', async (req, res, next) => {
@@ -257,27 +320,34 @@ router.post('/', async (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
+	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
+	}
+	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
+	}
 
 	if (req.body.rocketchat === 'true') {
 		req.body.features = ['rocketChat'];
 	}
 	delete req.body.rocketchat;
 
-	api(req).post('/teams/', {
-		json: req.body, // TODO: sanitize
-	}).then((course) => {
-		res.redirect(`/teams/${course._id}`);
-	}).catch((err) => {
-		logger.warn(err); // todo add req.body
-		res.sendStatus(500);
-	});
+	api(req)
+		.post('/teams/', {
+			json: req.body, // TODO: sanitize
+		})
+		.then((course) => {
+			res.redirect(`/teams/${course._id}`);
+		})
+		.catch((err) => {
+			logger.warn(err); // todo add req.body
+			res.sendStatus(500);
+		});
 });
 
 router.post('/copy/:teamId', (req, res, next) => {
@@ -287,27 +357,33 @@ router.post('/copy/:teamId', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
+	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
+	}
+	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
+	}
 
 	req.body._id = req.params.teamId;
 
-	api(req).post('/teams/copy/', {
-		json: req.body, // TODO: sanitize
-	}).then((course) => {
-		res.redirect(`/teams/${course._id}`);
-	}).catch((err) => {
-		res.sendStatus(500);
-	});
+	api(req)
+		.post('/teams/copy/', {
+			json: req.body, // TODO: sanitize
+		})
+		.then((course) => {
+			res.redirect(`/teams/${course._id}`);
+		})
+		.catch(() => {
+			res.sendStatus(500);
+		});
 });
 
 router.get('/add/', editTeamHandler);
-
 
 /*
  * Single Course
@@ -315,7 +391,7 @@ router.get('/add/', editTeamHandler);
 
 function mapPermissionRoles(permissions, roles) {
 	return permissions.map((permission) => {
-		const role = roles.find(role => role._id === permission.refId);
+		const role = roles.find(r => r._id === permission.refId);
 		permission.roleName = role ? role.name : '';
 		return permission;
 	});
@@ -340,34 +416,36 @@ router.get('/:teamId/json', (req, res, next) => {
 				teamId: req.params.teamId,
 			},
 		}),
-	]).then(([result, team, lessons]) => {
-		const { data: roles } = result;
+	])
+		.then(([result, team, lessons]) => {
+			const { data: roles } = result;
 
-		team.filePermission = team.filePermission.map((permission) => {
-			const role = roles.find(role => role._id === permission.refId);
-			permission.roleName = role ? role.name : '';
-			return permission;
+			team.filePermission = team.filePermission.map((permission) => {
+				const role = roles.find(r => r._id === permission.refId);
+				permission.roleName = role ? role.name : '';
+				return permission;
+			});
+
+			res.json({ team, lessons });
+		})
+		.catch((e) => {
+			logger.warn(e);
+			res.sendStatus(500);
 		});
-
-
-		res.json({ team, lessons });
-	}).catch((e) => {
-		logger.warn(e);
-		res.sendStatus(500);
-	});
 });
 
 router.get('/:teamId/usersJson', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
-				$populate: ['userIds'],
+				$populate: ['userIds.userId'],
 			},
 		}),
 	]).then(([course]) => res.json({ course }));
 });
 
 router.get('/:teamId', async (req, res, next) => {
+	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
 		const permission = permissions.find(p => p.roleName === role);
 		return Object.keys(permission).every(p => permission[p]);
@@ -384,24 +462,32 @@ router.get('/:teamId', async (req, res, next) => {
 
 		const course = await api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
-				$populate: [
-					'ltiToolIds',
-				],
+				$populate: ['ltiToolIds'],
 			},
 		});
 
 		const instanceUsesRocketChat = process.env.ROCKETCHAT_SERVICE_ENABLED;
 		const courseUsesRocketChat = course.features.includes('rocketChat');
-		const schoolUsesRocketChat = (res.locals.currentSchoolData.features || []).includes('rocketChat');
+		const schoolUsesRocketChat = (
+			res.locals.currentSchoolData.features || []
+		).includes('rocketChat');
+		const schoolIsExpertSchool = res.locals.currentSchoolData.purpose === 'expert';
 
 		let rocketChatCompleteURL;
-		if (instanceUsesRocketChat && courseUsesRocketChat && schoolUsesRocketChat) {
+		if (
+			instanceUsesRocketChat
+			&& courseUsesRocketChat
+			&& (schoolUsesRocketChat || schoolIsExpertSchool)
+		) {
 			try {
-				const rocketChatChannel = await api(req).get(`/rocketChat/channel/${req.params.teamId}`);
-				const rocketChatURL = process.env.ROCKET_CHAT_URI
-				rocketChatCompleteURL = `${rocketChatURL}/group/${rocketChatChannel.channelName}`;
-			}
-			catch (e) {
+				const rocketChatChannel = await api(req).get(
+					`/rocketChat/channel/${req.params.teamId}`,
+				);
+				const rocketChatURL = process.env.ROCKET_CHAT_URI;
+				rocketChatCompleteURL = `${rocketChatURL}/group/${
+					rocketChatChannel.channelName
+				}`;
+			} catch (e) {
 				logger.warn(e);
 				rocketChatCompleteURL = undefined;
 			}
@@ -412,13 +498,20 @@ router.get('/:teamId', async (req, res, next) => {
 		const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
 		const allowTeamMembers = isAllowed(course.filePermission, 'teammember');
 
+		let files;
 
-		let files; let directories;
 		files = await api(req).get('/fileStorage', {
 			qs: {
 				owner: course._id,
 			},
 		});
+		/* note: fileStorage can return arrays and error objects */
+		if (!Array.isArray(files)) {
+			if ((files || {}).code) {
+				logger.warn(files);
+			}
+			files = [];
+		}
 
 		files = files.filter(file => file);
 
@@ -426,52 +519,50 @@ router.get('/:teamId', async (req, res, next) => {
 			if (file && file.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
-			} else {
-				return undefined;
 			}
+			return undefined;
 		});
 
-		directories = files.filter(f => f.isDirectory);
+		const directories = files.filter(f => f.isDirectory);
 		files = files.filter(f => !f.isDirectory);
 
 		// Sort by most recent files and limit to 6 files
-		files.sort(function (a, b) {
-			if (b && b.updatedAt && a && a.updatedAt) {
-				return new Date(b.updatedAt) - new Date(a.updatedAt);
-			} else {
+		files
+			.sort((a, b) => {
+				if (b && b.updatedAt && a && a.updatedAt) {
+					return new Date(b.updatedAt) - new Date(a.updatedAt);
+				}
 				return 0;
-			}
-		})
+			})
 			.slice(0, 6);
 
 		files.map(addThumbnails);
 
-		directories.sort(function (a, b) {
-			if (b && b.updatedAt && a && a.updatedAt) {
-				return new Date(b.updatedAt) - new Date(a.updatedAt);
-			} else {
+		directories
+			.sort((a, b) => {
+				if (b && b.updatedAt && a && a.updatedAt) {
+					return new Date(b.updatedAt) - new Date(a.updatedAt);
+				}
 				return 0;
-			}
-		})
+			})
 			.slice(0, 6);
 
 		let news = (await api(req).get('/news/', {
 			qs: {
 				target: req.params.teamId,
-				$limit: 6,
+				targetModel: 'teams',
+				$limit: 4,
+				$sort: '-displayAt',
 			},
 		})).data;
 
-		const colors = ['F44336', 'E91E63', '3F51B5', '2196F3', '03A9F4', '00BCD4', '009688', '4CAF50', 'CDDC39', 'FFC107', 'FF9800', 'FF5722'];
-		news = news.map((news) => {
-			news.url = `/teams/${req.params.teamId}/news/${news._id}`;
-			news.secondaryTitle = moment(news.displayAt).fromNow();
-			news.background = `#${colors[(news.title || '').length % colors.length]}`;
-			return news;
+		news = news.map((n) => {
+			n.url = `/teams/${req.params.teamId}/news/${n._id}`;
+			n.secondaryTitle = moment(n.displayAt).fromNow();
+			return n;
 		});
 
 		let events = [];
-
 		try {
 			events = await api(req).get('/calendar/', {
 				qs: {
@@ -479,51 +570,70 @@ router.get('/:teamId', async (req, res, next) => {
 					all: true,
 				},
 			});
-
 			events = events.map((event) => {
-				let start = moment(event.start);
-				let end = moment(event.end);
+				const start = moment(event.start).utc();
+				const end = moment(event.end).utc();
 				event.day = start.format('D');
-				event.month = start.format('MMM').toUpperCase().split('.').join('');
+				event.month = start
+					.format('MMM')
+					.toUpperCase()
+					.split('.')
+					.join('');
 				event.dayOfTheWeek = start.format('dddd');
-				event.fromTo = `${start.format('hh:mm')} - ${end.format('hh:mm')}`;
+				event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
 				return event;
 			});
+			events = events.sort((a, b) => a.start - b.start);
 		} catch (e) {
 			events = [];
 		}
 
-		let test = course.user.permissions.includes('EDIT_ALL_FILES')
+		// leave team
+		const leaveTeamAction = `/teams/${teamId}/members`;
+		// teamowner could not leave if there is no other teamowner
+		const couldLeave = checkIfUserCouldLeaveTeam(course.user, course.userIds);
 
-		res.render('teams/team', Object.assign({}, course, {
-			title: course.name,
-			breadcrumb: [{
-				title: 'Meine Teams',
-				url: '/teams',
-			},
-			{},
-			],
-			permissions: course.user.permissions,
-			course,
-			events,
-			directories,
-			files,
-			filesUrl: `/files/teams/${req.params.teamId}`,
-			ownerId: req.params.teamId,
-			canUploadFile: true,
-			canCreateDir: true,
-			canCreateFile: true,
-			canEditPermissions: course.user.permissions.includes('EDIT_ALL_FILES'),
-			createEventAction: `/teams/${req.params.teamId}/events/`,
-			allowExternalExperts: allowExternalExperts ? 'checked' : '',
-			allowTeamMembers: allowTeamMembers ? 'checked' : '',
-			defaultFilePermissions: [],
-			news,
-			nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
-			userId: res.locals.currentUser._id,
-			teamId: req.params.teamId,
-			rocketChatURL: rocketChatCompleteURL,
-		}));
+		const permissions = await api(req).get(`/teams/${teamId}/userPermissions/${course.user.userId}`);
+
+		res.render(
+			'teams/team',
+			Object.assign({}, course, {
+				title: course.name,
+				activeTab: req.query.activeTab,
+				breadcrumb: [
+					{
+						title: 'Meine Teams',
+						url: '/teams',
+					},
+					{},
+				],
+				permissions,
+				course,
+				events,
+				directories,
+				files,
+				filesUrl: `/files/teams/${req.params.teamId}`,
+				ownerId: req.params.teamId,
+				canUploadFile: true,
+				canCreateDir: true,
+				canCreateFile: true,
+				canEditPermissions: permissions.includes('EDIT_ALL_FILES'),
+				canEditEvents: permissions.includes('CALENDAR_EDIT'),
+				createEventAction: `/teams/${req.params.teamId}/events/`,
+				leaveTeamAction,
+				couldLeave,
+				allowExternalExperts: allowExternalExperts ? 'checked' : '',
+				allowTeamMembers: allowTeamMembers ? 'checked' : '',
+				defaultFilePermissions: [],
+				news,
+				nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
+					course.times,
+				),
+				userId: res.locals.currentUser._id,
+				teamId: req.params.teamId,
+				rocketChatURL: rocketChatCompleteURL,
+			}),
+		);
 	} catch (e) {
 		next(e);
 	}
@@ -541,19 +651,25 @@ router.patch('/:teamId', async (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
+	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
+	}
+	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
+	}
 
 	// first delete all old events for the course
 	// deleteEventsForCourse(req, res, req.params.teamId).then(async _ => {
 
 	const currentTeamState = await api(req).get(`/teams/${req.params.teamId}`);
-	const isChatAllowed = (currentTeamState.features || []).includes('rocketChat');
+	const isChatAllowed = (currentTeamState.features || []).includes(
+		'rocketChat',
+	);
 	if (!isChatAllowed && req.body.rocketchat === 'true') {
 		// add rocketChat feature
 		await api(req).patch(`/teams/${req.params.teamId}`, {
@@ -589,9 +705,10 @@ router.patch('/:teamId', async (req, res, next) => {
 });
 
 router.patch('/:teamId/permissions', (req, res) => {
-	api(req).patch(`/teams/${req.params.teamId}`, {
-		json: req.body,
-	})
+	api(req)
+		.patch(`/teams/${req.params.teamId}`, {
+			json: req.body,
+		})
 		.then(() => res.sendStatus(200))
 		.catch((e) => {
 			logger.warn(e);
@@ -620,35 +737,59 @@ router.delete('/:teamId', async (req, res, next) => {
 });
 
 router.post('/:teamId/events/', (req, res, next) => {
-	req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
-	req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+	// eslint-disable-next-line no-underscore-dangle
+	req.body.startDate = moment(
+		req.body.startDate,
+		'DD.MM.YYYY HH:mm',
+	)._d.toLocalISOString();
+	// eslint-disable-next-line no-underscore-dangle
+	req.body.endDate = moment(
+		req.body.endDate,
+		'DD.MM.YYYY HH:mm',
+	)._d.toLocalISOString();
 
 	// filter params
 	req.body.scopeId = req.params.teamId;
 	req.body.teamId = req.params.teamId;
 
-	api(req).post('/calendar/', { json: req.body }).then((event) => {
-		res.redirect(`/teams/${req.params.teamId}`);
-	});
+	api(req)
+		.post('/calendar/', { json: req.body })
+		.then(() => {
+			res.redirect(`/teams/${req.params.teamId}/?activeTab=events`);
+		});
 });
 
 router.put('/events/:eventId', (req, res, next) => {
-	req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
-	req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+	// eslint-disable-next-line no-underscore-dangle
+	req.body.startDate = moment(
+		req.body.startDate,
+		'DD.MM.YYYY HH:mm',
+	)._d.toLocalISOString();
+	// eslint-disable-next-line no-underscore-dangle
+	req.body.endDate = moment(
+		req.body.endDate,
+		'DD.MM.YYYY HH:mm',
+	)._d.toLocalISOString();
 
-	api(req).put(`/calendar/${req.params.eventId}`, {
-		json: req.body,
-	}).then((_) => {
-		res.sendStatus(200);
-	}).catch((err) => {
-		next(err);
-	});
+	api(req)
+		.put(`/calendar/${req.params.eventId}`, {
+			json: req.body,
+		})
+		.then(() => {
+			res.sendStatus(200);
+		})
+		.catch((err) => {
+			next(err);
+		});
+});
+
+router.get('/:teamId/news/new', async (req, res, next) => {
+	res.redirect(`/news/new?context=teams&contextId=${req.params.teamId}`);
 });
 
 /*
  * Single Course Members
  */
-
 
 router.get('/:teamId/members', async (req, res, next) => {
 	const action = `/teams/${req.params.teamId}`;
@@ -660,113 +801,123 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 	const roleTranslations = {
 		teammember: 'Teilnehmer',
-		teamexpert: 'externer Experte',
+		teamexpert: 'Externer Experte',
 		teamleader: 'Leiter',
-		teamadministrator: 'Team-Admin',
-		teamowner: 'Team-Admin (Eigentümer)',
+		teamadministrator: 'Administrator',
+		teamowner: 'Eigentümer',
 	};
 
-	const head = [
-		'Vorname',
-		'Nachname',
-		'Rolle',
-		'Schule',
-		'Aktionen',
-	];
+	const head = ['Vorname', 'Nachname', 'Rolle', 'Schule', 'Aktionen'];
 
-	const headClasses = [
-		'Name',
-		'Schüler',
-		'Aktionen',
-	];
+	const headClasses = ['Name', 'Schüler', 'Aktionen'];
 
-	const headInvitations = [
-		'E-Mail',
-		'Eingeladen am',
-		'Rolle',
-		'Aktionen',
-	];
+	const headInvitations = ['E-Mail', 'Eingeladen am', 'Rolle', 'Aktionen'];
 
-	const invitationActions = [{
-		class: 'btn-resend-invitation',
-		title: 'Einladung erneut versenden',
-		icon: 'envelope',
-	}, {
-		class: 'btn-delete-invitation',
-		title: 'Einladung löschen',
-		icon: 'trash',
-	}];
-
-	const getTeam = () => api(req).get(uri, {
-		qs: {
-			$populate: [
-				{
-					path: 'schoolIds',
-				},
-				{
-					path: 'userIds.userId',
-					populate: ['schoolId'],
-				},
-				{ path: 'userIds.role' },
-				{ path: 'userIds.schoolId' },
-				{
-					path: 'classIds',
-					populate: ['year'],
-				},
-			],
-			$limit,
+	const invitationActions = [
+		{
+			class: 'btn-resend-invitation',
+			title: 'Einladung erneut versenden',
+			icon: 'envelope',
 		},
-	}).then((team) => {
-		if (team.classIds === undefined) {
-			team.classIds = [];
-		}
-		team.classes = team.classIds; // only for fix
-		return team;
-	});
+		{
+			class: 'btn-delete-invitation',
+			title: 'Einladung löschen',
+			icon: 'trash',
+		},
+	];
 
-	const getUsers = () => api(req).get('/users', {
-		qs: { schoolId, $limit },
-	}).then(users => users.data);
-
-	const getRoles = () => api(req).get('/roles', {
-		qs: {
-			name: {
-				$in: ['teammember', 'teamexpert', 'teamleader',
-					'teamadministrator', 'teamowner'],
+	const getTeam = () => api(req)
+		.get(uri, {
+			qs: {
+				$populate: [
+					{
+						path: 'schoolIds',
+					},
+					{
+						path: 'userIds.userId',
+						populate: ['schoolId'],
+					},
+					{ path: 'userIds.role' },
+					{ path: 'userIds.schoolId' },
+					{
+						path: 'classIds',
+						populate: ['year', 'gradeLevel'],
+					},
+				],
+				$limit,
 			},
-		},
-	}).then((roles) => {
-		roles = roles.data;
-		return roles.map((role) => {
+		})
+		.then((team) => {
+			if (team.classIds === undefined) {
+				team.classIds = [];
+			}
+			team.classes = team.classIds; // only for fix
+			return team;
+		});
+
+	const getUsers = () => api(req)
+		.get('/users', {
+			qs: { schoolId, $limit },
+		})
+		.then(users => users.data);
+
+	const getRoles = () => api(req)
+		.get('/roles', {
+			qs: {
+				name: {
+					$in: [
+						'teammember',
+						'teamexpert',
+						'teamleader',
+						'teamadministrator',
+						'teamowner',
+					],
+				},
+			},
+		})
+		.then(roles => roles.data.map((role) => {
 			role.label = roleTranslations[role.name];
 			return role;
-		});
-	});
+		}));
 
-	const getClasses = () => api(req).get('/classes', {
-		qs: { schoolId, $populate: ['year'], $limit },
-	}).then((classes => classes.data));
+	const getClasses = () => api(req)
+		.get('/classes', {
+			qs: { schoolId, $populate: ['year'], $limit },
+		})
+		.then(classes => classes.data);
 
-	const getFederalStates = () => api(req).get('/federalStates').then(federalStates => federalStates.data);
+	const getFederalStates = () => api(req)
+		.get('/federalStates')
+		.then(federalStates => federalStates.data);
 
 	try {
 		let [
+			// eslint-disable-next-line prefer-const
 			team,
 			users,
+			// eslint-disable-next-line prefer-const
 			roles,
+			// eslint-disable-next-line prefer-const
 			classes,
+			// eslint-disable-next-line prefer-const
 			federalStates,
 		] = await Promise.all([
-			getTeam(), getUsers(), getRoles(), getClasses(), getFederalStates(),
+			getTeam(),
+			getUsers(),
+			getRoles(),
+			getClasses(),
+			getFederalStates(),
 		]).catch((err) => {
 			throw new Error('Can not fetch the data', err);
 		});
 
 		const { permissions } = team.user || {};
+		team.userIds = team.userIds.filter(user => user.userId !== null); // fix if user do not exist
 		const teamUserIds = team.userIds.map(user => user.userId._id);
 		users = users.filter(user => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter(s => s._id === schoolId)[0];
-		const currentFederalStateId = currentSchool.federalState;
+		const currentFederalStateId = (currentSchool || {}).federalState;
+		let couldLeave = true; // will be set to false if current user is the only teamowner
 
 		const rolesExternal = [
 			{
@@ -803,6 +954,17 @@ router.get('/:teamId/members', async (req, res, next) => {
 			return actions;
 		};
 
+		const addDisabledButtonTrash = (actions = []) => {
+			if (permissions.includes('REMOVE_MEMBERS')) {
+				actions.push({
+					class: 'btn-delete-member disabled',
+					title: 'Das Verlassen des Teams erfordert einen anderen Eigentümer',
+					icon: 'trash',
+				});
+			}
+			return actions;
+		};
+
 		const addButtonTrashClass = (actions = []) => {
 			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
@@ -814,18 +976,40 @@ router.get('/:teamId/members', async (req, res, next) => {
 			return actions;
 		};
 
-		const body = team.userIds.map(user => [
-			user.userId.firstName || '',
-			user.userId.lastName || '',
-			roleTranslations[user.role.name],
-			user.userId.schoolId.name || '',
-			{
-				payload: {
-					userId: user.userId._id,
+		if (team.user.role.name === 'teamowner') {
+			couldLeave = false;
+			for (const user of team.userIds) {
+				if (
+					user.userId._id !== team.user.userId._id
+          && user.role._id === team.user.role._id
+				) {
+					couldLeave = true;
+					break;
+				}
+			}
+		}
+
+		const body = team.userIds.map((user) => {
+			let actions = [];
+			actions = addButtonEdit(actions);
+			if (!couldLeave && user.role.name === 'teamowner') {
+				actions = addDisabledButtonTrash(actions);
+			} else {
+				actions = addButtonTrash(actions);
+			}
+			return [
+				user.userId.firstName || '',
+				user.userId.lastName || '',
+				roleTranslations[user.role.name],
+				user.userId.schoolId.name || '',
+				{
+					payload: {
+						userId: user.userId._id,
+					},
 				},
-			},
-			addButtonTrash(addButtonEdit()),
-		]);
+				actions,
+			];
+		});
 
 		const bodyClasses = team.classes.map(c => [
 			`${c.displayName || c.name} (${c.year ? c.year.name : ''})`,
@@ -850,39 +1034,44 @@ router.get('/:teamId/members', async (req, res, next) => {
 			invitationActions,
 		]);
 
-		res.render('teams/members', Object.assign({}, team, {
-			title: 'Deine Team-Teilnehmer',
-			action,
-			classes,
-			addMemberAction: `${uri}/members`,
-			inviteExternalMemberAction: `${uri}/members/external`,
-			deleteMemberAction: `${uri}/members`,
-			deleteInvitationAction: `${uri}/invitation`,
-			resendInvitationAction: `${uri}/invitation`,
-			permissions: team.user.permissions,
-			method,
-			head,
-			body,
-			headClasses,
-			bodyClasses,
-			roles,
-			rolesExternal,
-			headInvitations,
-			bodyInvitations,
-			users,
-			federalStates,
-			currentFederalState: currentFederalStateId,
-			breadcrumb: [{
-				title: 'Meine Teams',
-				url: '/teams',
-			},
-			{
-				title: team.name,
-				url: uri,
-			},
-			{},
-			],
-		}));
+		res.render(
+			'teams/members',
+			Object.assign({}, team, {
+				title: 'Team-Teilnehmer',
+				action,
+				classes,
+				addMemberAction: `${uri}/members`,
+				inviteExternalMemberAction: `${uri}/members/external`,
+				deleteMemberAction: `${uri}/members`,
+				deleteInvitationAction: `${uri}/invitation`,
+				resendInvitationAction: `${uri}/invitation`,
+				permissions: team.user.permissions,
+				rolePermissions: res.locals.currentUser.permissions,
+				method,
+				head,
+				body,
+				headClasses,
+				bodyClasses,
+				roles,
+				rolesExternal,
+				headInvitations,
+				bodyInvitations,
+				users,
+				federalStates,
+				currentFederalState: currentFederalStateId,
+				breadcrumb: [
+					{
+						title: 'Meine Teams',
+						url: '/teams',
+					},
+					{
+						title: team.name,
+						url: uri,
+					},
+					{},
+				],
+			}),
+		);
 	} catch (err) {
 		logger.warn('Can not fetch, or render get teams/members', err);
 		next(err);
@@ -892,8 +1081,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 router.post('/:teamId/members', async (req, res, next) => {
 	try {
 		const courseOld = await api(req).get(`/teams/${req.params.teamId}`);
-		let userIds = courseOld.userIds.concat(req.body.userIds);
-		let classIds = req.body.classIds;
+		const userIds = courseOld.userIds.concat(req.body.userIds);
+		const { classIds } = req.body;
 
 		await api(req).patch(`/teams/${req.params.teamId}`, {
 			json: {
@@ -904,7 +1093,7 @@ router.post('/:teamId/members', async (req, res, next) => {
 
 		res.sendStatus(200);
 	} catch (e) {
-		console.log(e);
+		logger.error(e);
 	}
 });
 
@@ -926,7 +1115,7 @@ router.patch('/:teamId/members', async (req, res, next) => {
 
 		res.sendStatus(200);
 	} catch (e) {
-		console.log(e);
+		logger.error(e);
 	}
 });
 
@@ -937,19 +1126,26 @@ router.post('/external/invite', (req, res) => {
 		role: req.body.role,
 	};
 
-	return api(req).patch(`/teams/extern/add/${req.body.teamId}`, {
-		json,
-	}).then((result) => {
-		res.sendStatus(200);
-	}).catch((error) => {
-		res.sendStatus(500);
-	});
+	return api(req)
+		.patch(`/teams/extern/add/${req.body.teamId}`, {
+			json,
+		})
+		.then((result) => {
+			res.sendStatus(200);
+		})
+		.catch(() => {
+			res.sendStatus(500);
+		});
 });
 
 router.delete('/:teamId/members', async (req, res, next) => {
 	const courseOld = await api(req).get(`/teams/${req.params.teamId}`);
-	let userIds = courseOld.userIds.filter(user => user.userId !== req.body.userIdToRemove);
-	let classIds = courseOld.classIds.filter(_class => _class !== req.body.classIdToRemove);
+	const userIds = courseOld.userIds.filter(
+		user => user.userId !== req.body.userIdToRemove,
+	);
+	const classIds = courseOld.classIds.filter(
+		_class => _class !== req.body.classIdToRemove,
+	);
 
 	await api(req).patch(`/teams/${req.params.teamId}`, {
 		json: {
@@ -988,13 +1184,23 @@ router.delete('/:teamId/invitation', async (req, res, next) => {
 });
 
 router.get('/invitation/accept/:teamId', async (req, res, next) => {
-	await api(req).get(`/teams/extern/accept/${req.params.teamId}`).then(() => {
-		req.session.notification = { type: 'success', message: 'Teameinladung erfolgreich angenommen.' };
-		res.redirect(`/teams/${req.params.teamId}`);
-	}).catch((err) => {
-		logger.warn('Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. ', err);
-		res.redirect('/teams/');
-	});
+	await api(req)
+		.get(`/teams/extern/accept/${req.params.teamId}`)
+		.then(() => {
+			req.session.notification = {
+				type: 'success',
+				message: 'Teameinladung erfolgreich angenommen.',
+			};
+			res.redirect(`/teams/${req.params.teamId}`);
+		})
+		.catch((err) => {
+			logger.warn(
+				`Fehler beim Annehmen einer Einladung,
+        der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. `,
+				err,
+			);
+			res.redirect('/teams/');
+		});
 });
 
 /*
@@ -1027,118 +1233,136 @@ router.get('/:teamId/topics', async (req, res, next) => {
 				$populate: ['teamId', 'userIds'],
 			},
 		}),
-	]).then(([course, lessons, homeworks, courseGroups]) => {
-		let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
-		lessons = (lessons.data || []).map((lesson) => {
-			return Object.assign(lesson, {
+	])
+		.then(([course, lessons, homeworks, courseGroups]) => {
+			const ltiToolIds = (course.ltiToolIds || []).filter(
+				ltiTool => ltiTool.isTemplate !== 'true',
+			);
+			const lessonsData = (lessons.data || []).map(lesson => Object.assign(lesson, {
 				url: `/teams/${req.params.teamId}/topics/${lesson._id}/`,
+			}));
+
+			const homeworksData = (homeworks.data || []).map((assignment) => {
+				assignment.url = `/homework/${assignment._id}`;
+				return assignment;
 			});
-		});
 
-		homeworks = (homeworks.data || []).map((assignment) => {
-			assignment.url = `/homework/${assignment._id}`;
-			return assignment;
-		});
-
-		homeworks.sort((a, b) => {
-			if (a.dueDate > b.dueDate) {
-				return 1;
-			} else {
+			homeworks.sort((a, b) => {
+				if (a.dueDate > b.dueDate) {
+					return 1;
+				}
 				return -1;
-			}
+			});
+
+			const courseGroupsData = permissionHelper.userHasPermission(
+				res.locals.currentUser,
+				'COURSE_EDIT',
+			)
+				? courseGroups.data || []
+				: (courseGroups.data || []).filter(
+					cg => cg.userIds.some(user => user._id === res.locals.currentUser._id),
+				);
+
+			res.render(
+				'teams/topics',
+				Object.assign({}, course, {
+					title: course.name,
+					lessons: lessonsData,
+					homeworks: homeworksData.filter(task => !task.private),
+					myhomeworks: homeworksData.filter(task => task.private),
+					ltiToolIds,
+					courseGroups: courseGroupsData,
+					breadcrumb: [
+						{
+							title: 'Meine Teams',
+							url: '/teams',
+						},
+						{
+							title: course.name,
+							url: `/teams/${course._id}`,
+						},
+						{},
+					],
+					filesUrl: `/files/teams/${req.params.teamId}`,
+					nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
+						course.times,
+					),
+				}),
+			);
+		})
+		.catch((err) => {
+			next(err);
 		});
-
-		courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
-			courseGroups.data || [] :
-			(courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
-
-		res.render('teams/topics', Object.assign({}, course, {
-			title: course.name,
-			lessons,
-			homeworks: homeworks.filter(function (task) { return !task.private; }),
-			myhomeworks: homeworks.filter(function (task) { return task.private; }),
-			ltiToolIds,
-			courseGroups,
-			breadcrumb: [{
-				title: 'Meine Teams',
-				url: '/teams',
-			},
-			{
-				title: course.name,
-				url: `/teams/${course._id}`,
-			},
-			{},
-			],
-			filesUrl: `/files/teams/${req.params.teamId}`,
-			nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
-		}));
-	}).catch((err) => {
-		next(err);
-	});
 });
 
 router.patch('/:teamId/positions', (req, res, next) => {
-	for (var elem in req.body) {
-		api(req).patch(`/lessons/${elem}`, {
-			json: {
-				position: parseInt(req.body[elem]),
-				teamId: req.params.teamId,
-			},
-		});
+	for (const elem in req.body) {
+		if (Object.prototype.hasOwnProperty.call(req.body, elem)) {
+			api(req).patch(`/lessons/${elem}`, {
+				json: {
+					// eslint-disable-next-line radix
+					position: parseInt(req.body[elem]),
+					teamId: req.params.teamId,
+				},
+			});
+		}
 	}
 
 	res.sendStatus(200);
 });
 
 router.post('/:teamId/importTopic', (req, res, next) => {
-	let shareToken = req.body.shareToken;
+	const { shareToken } = req.body;
 	// try to find topic for given shareToken
-	api(req).get('/lessons/', { qs: { shareToken, $populate: ['teamId'] } }).then((lessons) => {
-		if ((lessons.data || []).length <= 0) {
-			req.session.notification = {
-				type: 'danger',
-				message: 'Es wurde kein Thema für diesen Code gefunden.',
-			};
+	api(req)
+		.get('/lessons/', { qs: { shareToken, $populate: ['teamId'] } })
+		.then((lessons) => {
+			if ((lessons.data || []).length <= 0) {
+				req.session.notification = {
+					type: 'danger',
+					message: 'Es wurde kein Thema für diesen Code gefunden.',
+				};
 
-			res.redirect(req.header('Referer'));
-		}
-
-		api(req).post('/lessons/copy', { json: { lessonId: lessons.data[0]._id, newTeamId: req.params.teamId, shareToken } })
-			.then((_) => {
 				res.redirect(req.header('Referer'));
-			});
-	}).catch(err => res.status((err.statusCode || 500)).send(err));
+			}
+
+			api(req)
+				.post('/lessons/copy', {
+					json: {
+						lessonId: lessons.data[0]._id,
+						newTeamId: req.params.teamId,
+						shareToken,
+					},
+				})
+				.then(() => {
+					res.redirect(req.header('Referer'));
+				});
+		})
+		.catch(err => res.status(err.statusCode || 500).send(err));
 });
 
 // return shareToken
-router.get('/:id/share', (req, res, next) => {
-	return api(req).get(`/teams/share/${req.params.id}`)
-		.then((course) => {
-			return res.json(course);
-		});
-});
+router.get('/:id/share', (req, res, next) => api(req)
+	.get(`/teams/share/${req.params.id}`)
+	.then(course => res.json(course)));
 
 // return course Name for given shareToken
-router.get('/share/:id', (req, res, next) => {
-	return api(req).get('/teams/share', { qs: { shareToken: req.params.id } })
-		.then((name) => {
-			return res.json({ msg: name, status: 'success' });
-		})
-		.catch((err) => {
-			return res.json({ msg: 'ShareToken is not in use.', status: 'error' });
-		});
-});
+router.get('/share/:id', (req, res, next) => api(req)
+	.get('/teams/share', { qs: { shareToken: req.params.id } })
+	.then(name => res.json({ msg: name, status: 'success' }))
+	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
 router.post('/import', (req, res, next) => {
-	let shareToken = req.body.shareToken;
-	let courseName = req.body.name;
+	const { shareToken } = req.body;
+	const courseName = req.body.name;
 
-	api(req).post('/teams/share', { json: { shareToken, courseName } })
+	api(req)
+		.post('/teams/share', { json: { shareToken, courseName } })
 		.then((course) => {
 			res.redirect(`/teams/${course._id}/edit/`);
 		})
 		.catch((err) => {
-			res.status((err.statusCode || 500)).send(err);
+			res.status(err.statusCode || 500).send(err);
 		});
 });
 

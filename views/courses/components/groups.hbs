@@ -1,36 +1,54 @@
 <div class="row">
-  <div class="col-sm-12">
-    {{#ifneq 0 (arrayLength courseGroups)}}
-      <div class="course-groups-header">
-        {{#userHasPermission "COURSE_EDIT" }}
-        Schülergruppen
-        {{else}}
-        Meine Schülergruppen
-        {{/userHasPermission}}
-      </div>
-      <div id="courseGroups">
-        <ol class="courseGroup">
-          <div class="row">
-            {{#each ../courseGroups}}
-            <div class="col-sm-6 col-xs-12">
-              {{> 'courses/components/courseGroup-card'}}
-            </div>
-            {{/each}}
-          </div>
-        </ol>
-      </div>
-    {{else}}
-    <div class="list-group">
-      <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-        <span>Noch keine Schülergruppen</span>
-      </p>
-    </div>
-    {{/ifneq}}
+	<div class="col-sm-12">
+		{{#ifneq 0 (arrayLength courseGroups)}}
+			<div class="course-groups-header">
+				{{#userHasPermission "COURSE_EDIT" }}
+					Schülergruppen
+					{{else}}
+						Meine Schülergruppen
+				{{/userHasPermission}}
+			</div>
+			<div id="courseGroups">
+				<ol class="courseGroup">
+					<div class="row">
+						{{#each ../courseGroups}}
+							<div class="col-sm-6 col-xs-12">
+								{{> 'courses/components/courseGroup-card'}}
+							</div>
+						{{/each}}
+					</div>
+				</ol>
+			</div>
+		{{else}}
+			<div class="empty-state">
+				<img src="/images/empty-states/groups.svg" alt="Keine erstellte Gruppe" class="image" />
+				{{#unless @root.isArchived}}
+					{{#userHasPermission "COURSEGROUP_CREATE"}}
+						<h2 class="h4">Erstelle eine Gruppe</h2>
+						<p class="text-muted">
+							In Gruppen können sich Teilnehmer*innen innerhalb eines Kurses in Teams aufteilen, z.B.
+							für
+							Gruppenarbeiten.
+						</p>
+				{{else}}
+					<h2 class="h4 text-muted">Es gibt noch keine Gruppen in diesem Kurs.</h2>
+					{{/userHasPermission}}
+				{{else}}
+					<h2 class="h4 text-muted">Es gibt keine Gruppen in diesem Kurs.</h2>
+				{{/unless}}
+			</div>
+		{{/ifneq}}
 
-    {{#userHasPermission "COURSEGROUP_CREATE"}}
-    <a href="/courses/{{../id}}/groups/add" class="btn btn-primary w-100 pull-right" title="Gruppe hinzufügen">
-      <i class="fa fa-plus" aria-hidden="true"></i><span> Schülergruppe hinzufügen</span>
-    </a>
-    {{/userHasPermission}}
-  </div>
+		{{#userHasPermission "COURSEGROUP_CREATE"}}
+			{{#unless @root.isArchived}}
+				<div class="add-button">
+					<a href="/courses/{{../id}}/groups/add"
+						class="btn btn-primary {{#ifneq 0 (arrayLength ../courseGroups)}}w-100{{else}}btn-empty{{/ifneq}}"
+						title="Gruppe hinzufügen">
+						<span>Erstelle eine neue Gruppe</span>
+					</a>
+				</div>
+			{{/unless}}
+		{{/userHasPermission}}
+	</div>
 </div>

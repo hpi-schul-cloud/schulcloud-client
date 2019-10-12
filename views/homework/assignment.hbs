@@ -3,7 +3,7 @@
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
     <script type="text/javascript">
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             $('.userinfo').click(function () {
                 $(this).parent('.usersubmission.active').addClass('clicked');
                 $('.usersubmission.active').removeClass('active');
@@ -41,7 +41,7 @@
         });
     </script>
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('DOMContentLoaded', function () {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
@@ -50,14 +50,25 @@
     <script src="/scripts/lessons.js" type="text/javascript" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/homework/homework.css"/>
-    <link rel="stylesheet" href="/styles/homework/assignment.css"/>
-    <link rel="stylesheet" href="/styles/homework/submissions.css"/>
-    <link rel="stylesheet" href="/styles/homework/discussions.css"/>
-    <link rel="stylesheet" href="/styles/homework/tabs.css"/>
-    <link rel="stylesheet" href="/styles/files/upload.css"/>
-    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
-    <style>.section-title h4::before{content:"● {{#if private}}🔒 {{/if}}";color:{{this.color}};</style>
+    <link rel="stylesheet" href="/styles/homework/homework.css" />
+    <link rel="stylesheet" href="/styles/homework/assignment.css" />
+    <link rel="stylesheet" href="/styles/homework/submissions.css" />
+    <link rel="stylesheet" href="/styles/homework/discussions.css" />
+    <link rel="stylesheet" href="/styles/homework/tabs.css" />
+    <link rel="stylesheet" href="/styles/files/upload.css" />
+    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css" />
+    <style>
+        .section-title h4::before {
+            content:"● {{#if private}}🔒 {{/if}}";
+
+            color: {
+                    {
+                    this.color
+                }
+            }
+
+            ;
+    </style>
 {{/content}}
 
 {{#extend "homework/homework"}}
@@ -65,48 +76,46 @@
 
         <section class="section-homework">
             <div class="dates">
-                {{availableDateF}} ({{availableTimeF}})<br/>
+                {{availableDateF}} ({{availableTimeF}})<br />
                 bis: {{dueDateF}} ({{dueTimeF}})
             </div>
             <div class="tab-view maintabs">
                 <nav class="nav tab-links">
-                    <a id="extended-tab-link" class="tab-link active" href="#activetabid=extended" alt="Details der Aufgabe">Details</a>
+                    <a id="extended-tab-link" class="tab-link active" href="#activetabid=extended"
+                        alt="Details der Aufgabe">Details</a>
                     {{#if private}}
-                        <a id="submission-tab-link" class="tab-link" href="#activetabid=submission" alt="Deine Abgabe">Abgabe</a>
+                        <a id="submission-tab-link" class="tab-link" href="#activetabid=submission"
+                            alt="Deine Abgabe">Abgabe</a>
                     {{else}}
-                        {{#ifvalue teacherId value=currentUser._id}}
-                            <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
+                        {{#if (userHasRole "teacher")}}
+                            <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions"
+                                alt="alle Abgaben">Abgaben</a>
                         {{else}}
-                            {{#inArray currentUser._id courseId.substitutionIds}}
-                                <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
-                            {{else}}
-                                <a id="submission-tab-link" class="tab-link" href="#activetabid=submission" alt="Deine Abgabe">Abgabe</a>
-                                <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback" alt="Bewertung deiner Abgabe durch den Lehrer">Feedback</a>
-                                {{#if ../publicSubmissions}}
-                                    <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
-                                {{/if}}
-                            {{/inArray}}
-                        {{/ifvalue}}
+                            <a id="submission-tab-link" class="tab-link" href="#activetabid=submission"
+                                alt="Deine Abgabe">Abgabe</a>
+                            <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback"
+                                alt="Bewertung deiner Abgabe durch den Lehrer">Feedback</a>
+                            {{#if ../publicSubmissions}}
+                                <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions"
+                                    alt="alle Abgaben">Abgaben</a>
+                            {{/if}}
+                        {{/if}}
                     {{/if}}
                 </nav>
                 <div class="tabs">
-{{> 'homework/extended'}}
+                    {{> 'homework/extended'}}
                     {{#if private}}
-{{> 'homework/submission'}}
+                        {{> 'homework/submission'}}
                     {{else}}
-                        {{#ifvalue teacherId value=currentUser._id}}
-{{> 'homework/submissions'}}
+                        {{#if isTeacher}}
+                            {{> 'homework/submissions'}}
                         {{else}}
-                            {{#inArray currentUser._id courseId.substitutionIds}}
-{{> 'homework/submissions'}}
-                            {{else}}
-{{> 'homework/feedback'}}
-{{> 'homework/submission'}}
-                                {{#if ../publicSubmissions}}
-{{> 'homework/submissions'}}
-                                {{/if}}
-                            {{/inArray}}
-                        {{/ifvalue}}
+                            {{> 'homework/feedback'}}
+                            {{> 'homework/submission'}}
+                            {{#if ../publicSubmissions}}
+                                {{> 'homework/submissions'}}
+                            {{/if}}
+                        {{/if}}
                     {{/if}}
                 </div>
             </div>

@@ -20,7 +20,10 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
 	hyphens: auto;
 }
 
-.section-team, .section-partner, .section-about, .section-community {
+.section-team,
+.section-partner,
+.section-about,
+.section-community {
 	h4 {
 		font-weight: 500;
 		margin: 30px 0px 20px 0px !important;
@@ -41,7 +44,7 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
 	margin-top: 10px;
 }
 
-body h4:not(:first-of-type){
+body h4:not(:first-of-type) {
 	margin-top: 1rem;
 }
 
@@ -55,16 +58,16 @@ a {
 a[data-toggle="collapse"],
 a[data-toggle="collapse"]:hover,
 a[data-toggle="collapse"]:active,
-a[data-toggle="collapse"]:focus{
+a[data-toggle="collapse"]:focus {
 	color: inherit;
-	text-decoration:none !important;
+	text-decoration: none !important;
 }
 
-img{
+img {
 	max-width: 100%;
 }
 
-.btn-link{
+.btn-link {
 	margin: 0;
 	padding: 0;
 }
@@ -79,15 +82,22 @@ p.small {
 }
 
 .pull-right {
-	float:right;
+	float: right;
 }
 
 .text-center {
-	text-align:center;
+	text-align: center;
 }
 
 label {
 	font-weight: bold;
+}
+
+video,
+audio {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
 }
 
 .pagination-wrapper {
@@ -96,7 +106,7 @@ label {
 }
 
 label,
-.noselect{
+.noselect {
 	user-select: none;
 }
 
@@ -104,23 +114,23 @@ label,
 	display: none;
 }
 
-.hidden{
+.hidden {
 	display: none;
 }
 
-.show{
+.show {
 	display: initial;
 }
 
-[data-toggle="collapse"]{
+[data-toggle="collapse"] {
 	&[aria-expanded="true"] {
-		[data-expand]{
+		[data-expand] {
 			display: none;
 		}
 	}
 
 	&[aria-expanded="false"] {
-		[data-collapse]{
+		[data-collapse] {
 			display: none;
 		}
 	}
@@ -141,23 +151,23 @@ label,
 	}
 }
 
-.table-wrapper{
+.table-wrapper {
 	max-width: 100%;
 	display: block;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 	margin-bottom: 1rem;
-	table{
+	table {
 		margin-bottom: 0;
 	}
 }
 
 footer {
+	display: block;
 	.android-app {
-		margin-left:-11px;
+		margin-left: -11px;
 	}
 	&.small-footer {
-
 		@include media-breakpoint-down(xs) {
 			background: $colorBeige;
 			margin-top: 50px;
@@ -176,7 +186,7 @@ footer {
 				.made-with-love {
 					margin-top: 8px;
 					.heart {
-						color: #b10438;
+						color: $primaryColor;
 					}
 				}
 			}
@@ -201,15 +211,14 @@ footer {
 	}
 }
 
-
 .notification.hidden {
-	display:none;
+	display: none;
 }
 
 form.inline {
 	display: inline;
 
-	button:not(.no-inline-styling){
+	button:not(.no-inline-styling) {
 		-webkit-appearance: none;
 		appearance: none;
 		background: transparent;
@@ -235,17 +244,17 @@ form.inline {
 	padding-left: 15px !important;
 	padding-right: 15px !important;
 }
-.btn.hidden{
-	display:none;
+.btn.hidden {
+	display: none;
 }
 
 .alert-fixed {
-  position:fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index:9999;
-  border-radius:0
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 9999;
+	border-radius: 0;
 }
 
 .dropdown-item {
@@ -253,7 +262,7 @@ form.inline {
 }
 
 .collapse-icon {
-	display:inline-block;
+	display: inline-block;
 	vertical-align: baseline;
 	text-align: center;
 	width: 1em;
@@ -264,7 +273,6 @@ form.inline {
 }
 
 .card-deck-row {
-
 	& > div {
 		margin-bottom: 1.5rem;
 	}
@@ -289,52 +297,72 @@ form.inline {
 	}
 }
 
-.print-only{display:none;}
+.print-only {
+	display: none;
+}
 @media print {
-	.print-only{display:initial;}
+	.print-only {
+		display: initial;
+	}
 }
 
 .ckcontent {
 	margin: 10px 0;
 	color: #373a3c;
-	text-decoration:none;
-	&:hover{text-decoration:none;}
-	h1 {font-size: 1.3rem;font-weight:bold}
-	h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
-	h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
-	p  {font-size: 1rem;margin-bottom:.25rem;}
-	img, video{max-width: 100%;}
-	table{display: block; max-width:100%; overflow: auto;}
-	blockquote{
-	  color: grey;
-	  margin-left: 1rem;
-	  border-left: 2px solid grey;
-	  padding-left: 5px;
+	text-decoration: none;
+	&:hover {
+		text-decoration: none;
+	}
+	h1 {
+		font-size: 1.3rem;
+		font-weight: bold;
+	}
+	h2 {
+		font-size: 1.2rem;
+		font-weight: bold;
+		font-style: italic;
+	}
+	h3 {
+		font-size: 1.1rem;
+		font-style: italic;
+		text-decoration: underline;
+	}
+	p {
+		font-size: 1rem;
+		margin-bottom: 0.25rem;
+	}
+	img,
+	video {
+		max-width: 100%;
+	}
+	table {
+		display: table;
+		max-width: 100%;
+		overflow: auto;
+	}
+	blockquote {
+		color: grey;
+		margin-left: 1rem;
+		border-left: 2px solid grey;
+		padding-left: 5px;
 	}
 }
 
-.container .jumbotron{
+.container .jumbotron {
 	padding: 2rem 2rem;
 	margin: 2rem 0rem;
 }
 
-.form-control{
+.form-control {
 	hyphens: none;
 }
 
-.position-absolute{
+.position-absolute {
 	position: absolute !important;
 }
 
-//the following adds fa-share-square-o for each external link except images
-.section-course .content-block{
-	a:not( [href*='https://schul-cloud.org'] ):not( [href^='#'] ):not( [href^='/'] ){
-		&:not( [href$='.jpg'] ):not( [href$='.png'] ):not( [href$='.jpeg'] ):not( [href$='.gif'] ):not( [href$='.bmp'] ){
-			&:after{
-				font-family: 'FontAwesome';
-				content: "  \f08e";
-				font-size: .7em;
-			}
-		}
-	}
+.externalLink:after {
+	font-family: "FontAwesome";
+	content: "  \f08e";
+	font-size: 0.7em;
 }

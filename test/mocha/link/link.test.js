@@ -8,7 +8,6 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 describe('Link tests', function () {
-    this.timeout(10000);
     before(function (done) {
         this.server = app.listen(3031);
         this.server.once('listening', () => {
@@ -26,8 +25,13 @@ describe('Link tests', function () {
             chai.request(app)
                 .get('/link/' + testId)
                 .end((err, res) => {
+
+                    // NOTE It is unclear why res.redirects is an array. However, to make the test agnostic, we loop through all
                     let baseUrl = process.env.BACKEND_URL || 'http://localhost:3030';
-                    expect(res.redirects).to.include(`${baseUrl}/link/${testId}`);
+
+                    expect(res.redirects.some(link => {
+                        return link.includes(`${baseUrl}/link/${testId}`)
+                    })).to.be.true;
                     resolve();
                 });
         });

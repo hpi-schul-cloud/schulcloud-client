@@ -3,7 +3,7 @@
         <link rel="stylesheet" href="/styles/lib/filter/filter.css"/>
         <link rel="stylesheet" href="/styles/administration/users.css"/>
     {{/content}}
-    {{#content "page"}}
+    {{#content "page" mode="prepend"}}
         <div class="route-administration">
             <section class="section-teachers section-default">
                 <div><feathers-filter id="filter"
@@ -36,9 +36,9 @@
 
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
-                            <h4>
+                            <h2 class="h4">
                                 Einverständniserklärung einholen
-                            </h4>
+                            </h2>
                             {{#if schoolUsesLdap}}
                                 <strong>Passwörter und Einverständniserklärung</strong>
 
@@ -76,11 +76,11 @@
                                 <button type="submit" class="btn btn-primary btn-add-modal">
                                     Lehrer hinzufügen
                                 </button>
-                                {{#ifeq currentRole "Administrator"}}
+                                {{#inArray "Administrator" roleNames}}
                                     <button class="btn btn-secondary btn-import teacher">
                                         Lehrer importieren
                                     </button>
-                                {{/ifeq}}
+                                {{/inArray}}
                             {{/if}}
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" action="/administration/teachers/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                {{#embed "lib/components/modal-form" action=(concat "/administration/teachers/import?_csrf=" @root.csrfToken) method="post" class="import-modal" enctype="multipart/form-data"}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-import" roles="teacher"}}
                     {{/content}}

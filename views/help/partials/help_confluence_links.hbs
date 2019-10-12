@@ -1,0 +1,58 @@
+{{#embed "help/icon-card" title="Inhaltsverzeichnis" icon="fa-list" class="table-of-contents-card hidden-sm-up col-xs-12" id="inhaltsverzeichnis"}}
+	{{#content "card-body"}}
+	<ul>
+		{{#if false}}<li><a href="#erste_schritte">Erste Schritte</a></li>{{/if}}
+		{{#each tutorials}}
+			<li><a href="#{{this.title}}">{{this.title}}</a></li>
+		{{/each}}
+		<li><a href="#nutzungshilfen">Nutzungshilfen</a></li>
+		<li><a href="#kontakt">Kontaktformular</a></li>
+		<li><a href="#email">Schreib uns eine E-Mail</a></li>
+		<li><a href="#ueber_das_projekt">Über das Projekt</a></li>
+		<li><a href="#sprachhinweis">Sprachlicher Hinweis</a></li>
+	</ul>
+	{{/content}}
+{{/embed}}
+
+{{> "help/partials/help_first_steps"}}
+
+{{#each tutorials}}
+	{{#embed "help/icon-card" title=this.title icon=this.icon id=this.title class="col-md-6"}}
+		{{#content "card-body"}}
+			<div class="collapse__section">
+				{{#each this.categories}}
+					{{#if this.articles}}
+						<div class="collapse__item">
+							<button class="collapse__title collapsed" data-toggle="collapse" data-target="#collapsable-{{this.id}}"
+								aria-expanded="false" aria-controls="collapsable-{{this.id}}" type="button" tabindex="0">
+								<i class="fa fa-fw fa-chevron-right" aria-hidden="true" data-expand></i>
+								<i class="fa fa-fw fa-chevron-down" aria-hidden="true" data-collapse></i>
+								<h3 class="h5 collapsable-headline">
+									{{this.title}}
+								</h3>
+							</button>
+							<ul id="collapsable-{{this.id}}" class="collapse collapse__content">
+								{{#each this.articles}}
+									<li><a href="/help/confluence/{{this.id}}">
+										{{this.title}}
+									</a></li>
+								{{/each}}
+							</ul>
+						</div>
+					{{else}}
+						<div class="collapse__item">
+							<div class="collapse__title single">
+								<i class="fa fa-fw" aria-hidden="true"></i>
+								<a href="/help/confluence/{{this.id}}">
+									<h3 class="h5 collapsable-headline">
+										{{this.title}}
+									</h3>
+								</a>
+							</div>
+						</div>
+					{{/if}}
+				{{/each}}
+			</div>
+		{{/content}}
+	{{/embed}}
+{{/each}}

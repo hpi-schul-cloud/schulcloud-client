@@ -18,61 +18,69 @@
 .embed-pdf {
   padding-left: 0;
 
+  .row.embed-pdf-row a {
+	  text-decoration: none;
+  }
+
   .viewer {
-    width: 97%;
+    width: 100%;
     height: 700px;
-    margin: 0 0 0 15px;
+    margin: 5px 0 0 7px;
   }
   div.row {
     margin-bottom: 10px;
   }
   .single-pdf {
-    margin: 0 15px 15px;
     padding: 3px 6px 3px 6px;
-    border: 1px solid #d3d3d3;
-    box-shadow: 2px 2px 5px rgba(0,0,0,.1);
-    &.opened {
-      border: 1px solid #b10438;
-    }
-    a {
-      text-decoration: none;
 
-      .single-pdf-wrapper {
-        padding: 10px;
-        height: 100%;
-      }
-      .single-pdf-thumbnail {
-        margin-top: 10px;
-        width: 100%;
-      }
+    &.opened .single-pdf-wrapper {
+      background-color: var(--color-gray-light);
     }
+	.single-pdf-title{
+		color: initial;
+		text-decoration: none;
+	}
+
+	.single-pdf-wrapper {
+		padding: 10px;
+		height: 100%;
+		background-color: #fff;
+		border: 1px solid rgba(0,0,0,.125);
+		&:hover {
+			z-index: 1;
+			box-shadow: var(--shadow-sm);
+			transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
+		}
+	}
+	.single-pdf-thumbnail {
+		margin-top: 10px;
+		width: 100%;
+	}
   }
 }
 
 .embed-award {
-  padding-left: 0;
-  div.row {
-    margin-bottom: 10px;
-    padding-left: 0;
-  }
-  .single-award {
-    margin: 0 15px 15px;
-    padding: 3px 6px 3px 6px;
-    border: 1px solid #d3d3d3;
-    box-shadow: 2px 2px 5px rgba(0,0,0,.1);
-    &.opened {
-      border: 1px solid #b10438;
-    }
-    .single-award-wrapper {
-      padding: 10px;
-      height: 100%;
-      a {
-        text-decoration: none; 
-        .single-award-thumbnail {
-          margin-top: 10px;
-          width: 100%;
-        }
-      }
-    }
-  }
+	.single-award {
+		padding: 3px 6px 3px 6px;
+		&.opened {
+			background-color: var(--color-gray-light);
+		}
+		.single-award-wrapper {
+			padding: 10px;
+			height: 100%;
+			border: 1px solid #d3d3d3;
+			box-shadow: 2px 2px 5px rgba(0,0,0,.1);
+
+			a {
+				text-decoration: none;
+				.single-award-thumbnail {
+					width: 100%;
+				}
+			}
+			.single-award-title{
+				display: flex;
+				align-items: center;
+			}
+		}
+	}
 }

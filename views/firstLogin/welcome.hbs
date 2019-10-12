@@ -1,0 +1,28 @@
+{{#extend "lib/loggedin"}}
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/courses/empty-state.css"/>
+	{{/content}}
+	{{#content "page"}}
+		<section class="empty-state">
+		  <img src="/images/empty-states/lehrer_klasse.svg" alt="Lehrer mit Klasse" class="image mx-auto d-block"/>
+		  <div class="text-wrapper mx-auto d-block">
+			<h2 class="text-center">Willkommen in der {{theme.title}}, {{currentUser.displayName}}</h2>
+			{{#unless (userHasRole "student")}}
+			  <h2 class="h5 text-muted text-center">
+				  Mit der {{theme.short_title}} Unterricht digital gestalten
+			  </h2>
+			{{/unless}}
+			</div>
+			<div class="row">
+				<div class="center buttons">
+					{{#if (userHasRole "student")}}
+						<a href="/courses/" class="btn btn-primary btn-lg btn-add">Zu deinen Kursen</a>
+					{{else}}
+						<a href="/courses/add" class="btn btn-primary btn-lg btn-add">Erstelle deinen ersten Kurs</a>
+					{{/if}}
+				</div>
+			</div>
+
+		</section>
+	{{/content}}
+{{/extend}}

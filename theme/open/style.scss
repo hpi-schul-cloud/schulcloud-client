@@ -1,0 +1,47 @@
+$primaryColor: #126dc4;
+$secondaryColor: #df0b40;
+$accentColor: #df0b40;
+$fontColor: #373a3c;
+
+$logoGradient: linear-gradient(45deg, $primaryColor 30%, $primaryColor);
+
+$colorBeige: #e6e2e2;
+$colorGrey: rgba(232, 232, 232, 0.5);
+$colorLightGrey: rgba(0,0,0,0.1);
+$colorDarkerGrey: #555555;
+$colorWhite: #fff;
+
+$logoBackground: url("../../images/logo/cloud-transparent-mono.svg") no-repeat center;
+$logoBackgroundTablet: url("../../images/logo/cloud-transparent-mono-48-48.svg") no-repeat center;
+
+.section-imprint.loggedout ul {
+	list-style-type: none!important;
+	margin: 0!important;
+}
+
+aside.nav-sidebar{
+	.sc-branding{
+		padding: 0 5px;
+		.cloud-logo{
+			width: 100%;
+			margin: 0;
+			padding: 30px;
+		}
+		.sc-title {
+			display: none;
+		}
+	}
+
+	@media (max-width: 991px) {
+		.sc-branding{
+			padding: 0;
+			.cloud-logo{
+				background: $logoBackgroundTablet;
+			}
+		}
+	}
+}
+
+body header #title .cloud-logo{
+	width: 199px !important;
+}

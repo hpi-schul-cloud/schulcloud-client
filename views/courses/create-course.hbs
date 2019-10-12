@@ -1,0 +1,296 @@
+{{#extend "lib/loggedin"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/courses/course-edit.css"/>
+        <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
+        <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
+        <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" defer></script>
+        <script src="/scripts/moment/moment.js" type="text/javascript" defer></script>
+        <script src="/scripts/courses.js" type="text/javascript" defer></script>
+        <script src="/scripts/coursesTimes.js" type="text/javascript" defer></script>
+        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
+        <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
+        <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
+    {{/content}}
+
+
+    {{#content "page"}}
+        <section class="section-course">
+          <div class="wizard-header">
+            <div class="header-icon">
+              <img src="/images/empty-states/shuttle.svg" alt="Space Shuttle Start" class="hidden-xs-down"/>
+            </div>
+            <div class="headlines">
+              <h2 class="h3">{{sectionTitle}}</h2>
+              <p class="text-muted subtitle">
+                In einem Kurs wird gemeinsam mit den Teilnehmern an Themen, Aufgaben und Dateien gearbeitet.
+              </p>
+            </div>
+          </div>
+
+          <div class="wizard-card">
+            <div class="step-label-wrapper">
+              <div class="text-muted step-label">
+                Kursdaten
+              </div>
+              <div class="text-muted step-label">
+                Teilnehmer
+              </div>
+              <div class="text-muted step-label">
+                Abschließen
+              </div>
+            </div>
+          {{#embed "lib/forms/paginatedForm" sections=3 action=action method=method submit-label=submitLabel}}
+            {{#content "panels"}}
+
+            <section data-panel="section-1">
+              {{#if method}}
+                  <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
+              {{/if}}
+
+              <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
+
+              <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Name des Kurses</label>
+                    <input class="form-control js-course-name-input" name="name" type="text" placeholder="z.B. Mathe 10a" value="{{course.name}}" autocomplete="off"
+                           required autofocus data-testid="coursename"/>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label>Farbe des Kurses:</label>
+                  <div class="color-picker" data-testid="color-picker">
+                    {{#if course.color}}
+                      <div class="color-picker__item" data-testid="item">
+                        <input id="input0" type="radio" class="color-picker__input" name="color" value="{{course.color}}" checked="checked"/>
+                        <label for="input0" class="color-picker__color" style="background: {{course.color}}"></label>
+                      </div>
+                    {{/if}}
+                    {{#each colors}}
+                      {{#ifneq this ../course.color}}
+                        <div class="color-picker__item">
+                          <input id="input{{../this}}" type="radio" class="color-picker__input" name="color" value="{{../this}}" {{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked"{{/unless}}{{/ifeq}}/>
+                          <label for="input{{../this}}" class="color-picker__color" style="background: {{../this}}"></label>
+                        </div>
+                      {{/ifneq}}
+                    {{/each}}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Unterrichtender Lehrer</label>
+
+                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen" data-testid="teachersearch" autocomplete="off">
+                        {{#each teachers}}
+                            <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                                {{#if this.displayName}}
+                                    {{this.displayName}}
+                                {{else}}
+                                    {{this.firstName}} {{this.lastName}}
+                                {{/if}}
+                            </option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Vertretungslehrer - Optional</label>
+                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen" autocomplete="off" data-testid="substituent">
+                        {{#each substitutions}}
+                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                                {{this.firstName}} {{this.lastName}}
+                            </option>
+                        {{/each}}
+                    </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+              <div class="times" id="timesContainer">
+                  <div class="row">
+                      <div class="form-group col-md-6">
+                          <label>Zeitraum (z.B. Schuljahr) von - Optional</label>
+                          <input
+                            name="startDate"
+                            id="startDate"
+                            data-date
+                            type="text"
+                            class="form-control"
+                            value="{{course.startDate}}" data-testid="date_start"
+                            title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
+                      </div>
+
+                      <div class="form-group col-md-6">
+                          <label>Bis - Optional</label>
+                          <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
+                      </div>
+                  </div>
+
+                  <button class="new-course-time-add btn-link" data-timesref="#timesContainer" type="button">
+                      <i class="fa fa-plus-circle fa-6"></i> Schulstundentermin im Stundenplan anlegen (optional)
+                  </button>
+                  <table width="100%" cellpadding="5px" class="course-times-table">
+                      <thead>
+                        <th></th>
+                        <th><label>Wochentag</label></th>
+                        <th><label>Start der Schulstunde</label></th>
+                        <th><label>Dauer der Schulstunde</label></th>
+                        <th><label>Raum</label></th>
+                      </thead>
+                      <tbody class="add-course-times">
+                          {{#each course.times}}
+                              <tr class="course-time" id="{{this._id}}">
+								<td>
+									<button class="btn-link course-time-delete" type="button" data-id="{{this._id}}"
+										{{#if @root.course.isArchived}}disabled{{/if}}>
+										<i class="fa fa-trash-o"></i>
+									</button>
+								</td>
+								<td>
+                                      <select class="form-control" name="times[{{this.count}}][weekday]" type="text">
+                                          <option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>Montag</option>
+                                          <option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>Dienstag</option>
+                                          <option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>Mittwoch</option>
+                                          <option value="3" {{#ifeq this.weekday "3"}}selected{{/ifeq}}>Donnerstag</option>
+                                          <option value="4" {{#ifeq this.weekday "4"}}selected{{/ifeq}}>Freitag</option>
+                                          <option value="5" {{#ifeq this.weekday "5"}}selected{{/ifeq}}>Samstag</option>
+                                          <option value="6" {{#ifeq this.weekday "6"}}selected{{/ifeq}}>Sonntag</option>
+                                      </select>
+                                  </td>
+                                  <td>
+                                      <input class="form-control" name="times[{{this.count}}][startTime]" data-time type="text"/>
+                                  </td>
+                                  <td>
+                                      <input class="form-control" name="times[{{this.count}}][duration]" type="number"
+                                             value="{{this.duration}}" placeholder="in Minuten"/>
+                                  </td>
+                                  <td>
+                                      <input class="form-control" type="text"
+                                             name="times[{{this.count}}][room]" value="{{this.room}}" placeholder="z.B. R-1.21"/>
+                                  </td>
+                              </tr>
+                          {{/each}}
+                          {{#embed "courses/components/template-new-course-time"}}{{/embed}}
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+
+            </section>
+
+            <section data-panel="section-2" class="submit-page course-submit-page">
+              <h2 class="h4">Du hast es fast geschafft...</h2>
+              <p class="text-muted">Füge Klassen oder einzelne Schüler deinem Kurs hinzu.<br>Dies kannst du jetzt oder später in den Kurseinstellungen machen.</p>
+              <div class="form-group">
+                  <label>Klasse(n) (Alle Schüler der Klasse werden automatisch hinzugefügt!) - Optional</label>
+
+                  <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen" data-testid="classes">
+                      {{#each classes}}
+                          <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                              {{log this.year}}
+                              {{#if this.name}}
+                                  {{this.displayName}}
+                              {{else}}
+                                  {{this.name}}
+                              {{/if}}
+
+                              {{#if this.year}}
+                                  ({{this.year.name}})
+                              {{/if}}
+                          </option>
+                      {{/each}}
+                  </select>
+              </div>
+
+
+
+              <div class="form-group">
+                  <label>Schüler / Teilnehmer - Optional</label>
+
+                  <select name="userIds[]" multiple data-placeholder="Schüler auswählen" data-testid="pupils">
+                      {{#each students}}
+                          <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                              {{#if this.displayName}}
+                                  {{this.displayName}}
+                              {{else}}
+                                  {{this.firstName}} {{this.lastName}}
+                              {{/if}}
+                          </option>
+                      {{/each}}
+                  </select>
+              </div>
+            </section>
+
+            <section data-panel="section-3">
+              <div class="final-step">
+                <div class="image-wrapper hidden-xs-down">
+                  <img class="image" src="/images/empty-states/add_people.svg"/>
+                </div>
+                <div>
+                  <h2 class="h4">Geschafft!</h2>
+                  <h3 class="h5 text-muted">Was kannst du in einem Kurs machen?</h3>
+                  <div class="course-features">
+                    <a class="h6" id="addclass-create-topic" href="#">Themen anlegen</a>
+                    <p class="text-muted">
+                      Lege die Inhalte deines Unterrichts an.
+                    </p>
+
+                    <a class="h6" id="addclass-create-homework" href="#">Aufgaben stellen</a>
+                    <p class="text-muted">
+                      Stelle deinen Kursteilnehmern Aufgaben und sieh dir ihre Abgaben an.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pull-right">
+                <a class="btn btn-secondary" href="/courses/add">Einen weiteren Kurs anlegen</a>
+                <a class="btn btn-primary" href="{{redirectUrl}}">Zur Kursübersicht</a>
+              </div>
+            </section>
+
+          {{/content}}
+
+          {{#content "buttons"}}
+            {{#if course._id}}
+              <a href="/courses/{{course._id}}/"
+                 class="btn btn-delete-course btn-secondary pull-left"
+                 target="_blank"
+                 data-method="DELETE"
+                 data-name="{{course.name}}"
+                 redirect="/courses/">Kurs löschen</a>
+            {{/if}}
+          {{/content}}
+        {{/embed}}
+        </div>
+
+        {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+            {{#content "body"}}
+                <p>Dies löscht den Kurs auch bei allen Schüler:innen.</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close">
+                        Abbrechen
+                    </button>
+
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        Löschen
+                    </button>
+                </div>
+            {{/content}}
+        {{/embed}}
+
+        {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
+
+        {{/embed}}
+
+
+        </section>
+    {{/content}}
+{{/extend}}

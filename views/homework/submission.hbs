@@ -80,20 +80,23 @@
   {{/if}}
 
     {{#if @root.submittable}}
-        {{#userHasPermission "HOMEWORK_CREATE"}}
-            <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+        {{> "lib/components/csrfInput"}}
+        {{#userHasPermission "SUBMISSIONS_CREATE"}}
+            <button type="submit" class="btn btn-primary btn-submit js-submit-btn" disabled="true">Speichern</button>
         {{/userHasPermission}}
 
         {{#if @root.submission}}
-            {{#ifeq @root.currentUser._id @root.submission.studentId._id}}
-                <a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission" 
-                    target="_blank"
-                    data-method="delete-submission"
-                    data-name="deine Abgabe"
-                    alt="Abgabe löschen"
-                ><i class="fa fa-trash-o"></i> Löschen</a>
-            {{/ifeq}}
-        {{/if}}
+			{{#userHasPermission "SUBMISSIONS_EDIT"}}
+				{{#ifeq @root.currentUser._id @root.submission.studentId._id}}
+					<a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission" 
+						target="_blank"
+						data-method="delete-submission"
+						data-name="deine Abgabe"
+						alt="Abgabe löschen"
+					><i class="fa fa-trash-o"></i> Löschen</a>
+				{{/ifeq}}
+			{{/userHasPermission}}
+		{{/if}}
     {{/if}}
     </form>
     </div>

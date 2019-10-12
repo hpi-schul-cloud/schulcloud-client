@@ -37,13 +37,25 @@ let addNewCourseTime = function addNewCourseTime(div) {
     let $newCourseTime = div.find('.new-course-time-template').clone();
     let _id = guidGenerator();
 
+    let logic = function( currentDateTime ){
+        // 'this' is jquery object datetimepicker
+        this.setOptions({
+            minTime:'06:00',
+            maxTime:'23:00'
+        });
+      };
+
     $newCourseTime.find('.new-course-time-template-weekday').attr('name', `times[${courseTimesCount}][weekday]`);
     fixChosen($newCourseTime.find('.new-course-time-template-weekday'));
 
     $newCourseTime.find('.new-course-time-template-startTime').attr('name', `times[${courseTimesCount}][startTime]`);
+    $newCourseTime.find('.new-course-time-template-startTime').attr('autocomplete', 'off');
     $newCourseTime.find('.new-course-time-template-startTime').datetimepicker({
         datepicker:false,
-        format:'H:i'
+        format:'H:i',
+        defaultTime:'08:00',
+        onChangeDateTime:logic,
+        onShow:logic
     });
 
     $newCourseTime.find('.new-course-time-template-duration').attr('name', `times[${courseTimesCount}][duration]`);
@@ -69,14 +81,16 @@ let populateCourseTime = function($courseTimeRow, data) {
 
 };
 
-$('.new-course-time-add').click(function (e) {
-    // fallback if multiple time-containers are on one page, e.g. in administration
-    let $timesContainer = $($(this).attr('data-timesref'));
-    addNewCourseTime($timesContainer);
-});
+$(document).ready(function() {
+	$('.new-course-time-add').click(function (e) {
+		// fallback if multiple time-containers are on one page, e.g. in administration
+		let $timesContainer = $($(this).attr('data-timesref'));
+		addNewCourseTime($timesContainer);
+	});
 
-$('.course-time-delete').click(function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-    deleteCourseTime($(this).attr('href'));
-});
+	$('.course-time-delete').click(function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		deleteCourseTime($(this).data("id"));
+	});
+})

@@ -112,6 +112,16 @@ module.exports = (req, res, next) => {
         introText: "Hier gelangst du zur Materialsuche, bei der du in der Datenbank der Schul-Cloud nach Materialien für deine Unterrichtsstunde suchen kannst."
     }];
 
+    // Extensions Feature Toggle
+    const extensionsEnabled = process.env.FEATURE_EXTENSIONS_ENABLED === 'true';
+    if (extensionsEnabled) {
+      res.locals.sidebarItems.push({
+        name: "Add-ons",
+        icon: "puzzle-piece",
+        link: "/addons"
+      });
+    }
+
     // teacher views
     res.locals.sidebarItems.push({
         name: 'Verwaltung',
@@ -172,6 +182,11 @@ module.exports = (req, res, next) => {
                 name: 'Klassen',
                 icon: 'users',
                 link: '/administration/classes/'
+			},
+			{
+                name: 'Teams',
+                icon: 'users',
+                link: '/administration/teams/'
             },
             {
                 name: 'Schule',
@@ -204,11 +219,13 @@ module.exports = (req, res, next) => {
             icon: 'folder-open-o',
             link: '/files/teams/',
         });
+        /*
         res.locals.sidebarItems.find(i => i.name === 'Administration').children.splice(4, 0, {
             name: 'Teams',
             icon: 'users',
             link: '/administration/teams/',
         });
+        */
     }
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
