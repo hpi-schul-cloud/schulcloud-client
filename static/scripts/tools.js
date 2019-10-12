@@ -69,7 +69,6 @@ $(document).ready(() => {
 		tool.courseId = courseId;
 		tool.originTool = tool._id;
 		delete tool.oAuthClientId;
-		delete tool.useIframePseudonym;
 		delete tool._id;
 		$.ajax({
 			action: href,
