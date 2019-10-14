@@ -17,7 +17,10 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 }).then(data => data.data);
 
 const clearCookie = (req, res) => {
-	res.clearCookie('jwt', authHelper.cookieDomain(res));
+	if (req.session && req.session.destroy) {
+		req.session.destroy();
+	}
+	res.clearCookie('jwt');
 };
 
 // Login
@@ -37,17 +40,16 @@ router.post('/login/', (req, res, next) => {
 					expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
 					httpOnly: true,
 					secure: process.env.NODE_ENV === 'production',
-				},
-				authHelper.cookieDomain(res)));
+				}));
 		res.redirect('/login/success/');
 	}).catch((e) => {
 		res.locals.notification = {
 			type: 'danger',
 			message: 'Login fehlgeschlagen.',
 			statusCode: e.statusCode,
-			timeToWait: process.env.LOGIN_BLOCK_TIME || 15
+			timeToWait: process.env.LOGIN_BLOCK_TIME || 15,
 		};
-		if (e.statusCode == 429){
+		if (e.statusCode === 429) {
 			res.locals.notification.timeToWait = e.error.data.timeToWait;
 		}
 		next();
@@ -133,7 +135,6 @@ router.all('/login/', (req, res, next) => {
 	}).catch((error) => {
 		logger.error(error);
 		clearCookie(req, res);
-		req.session.destroy();
 		return res.redirect('/');
 	});
 });
@@ -207,7 +208,6 @@ router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
 		.then(() => {
 			clearCookie(req, res);
-			req.session.destroy();
 			return res.redirect('/');
 		}).catch(() => res.redirect('/'));
 });

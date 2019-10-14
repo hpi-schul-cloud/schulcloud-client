@@ -130,18 +130,10 @@ const authChecker = (req, res, next) => {
 		});
 };
 
-const cookieDomain = (res) => {
-	if (res.locals.domain && res.locals.production) {
-		return { domain: res.locals.domain };
-	}
-	return {};
-};
-
 module.exports = {
 	isJWT,
 	authChecker,
 	isAuthenticated,
 	restrictSidebar,
 	populateCurrentUser,
-	cookieDomain,
 };
