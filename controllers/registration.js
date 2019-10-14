@@ -95,12 +95,12 @@ ${res.locals.theme.short_title}-Team`,
 				res.cookie(
 					'jwt',
 					req.cookies.jwt,
-					Object.assign({},
-						{
-							expires: new Date(Date.now() - 100000),
-							httpOnly: true,
-							secure: process.env.NODE_ENV === 'production',
-						}),
+					{
+						expires: new Date(Date.now() - 100000),
+						httpOnly: false,
+						hostOnly: true,
+						secure: process.env.NODE_ENV === 'production',
+					},
 				);
 			}
 		})
