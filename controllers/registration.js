@@ -97,7 +97,11 @@ ${res.locals.theme.short_title}-Team`,
 					'jwt',
 					req.cookies.jwt,
 					Object.assign({},
-						{ expires: new Date(Date.now() - 100000) },
+						{
+							expires: new Date(Date.now() - 100000),
+							httpOnly: true,
+							secure: process.env.NODE_ENV === 'production',
+						},
 						cookieDomain(res)),
 				);
 			}

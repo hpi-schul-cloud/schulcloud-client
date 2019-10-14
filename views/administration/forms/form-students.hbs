@@ -4,17 +4,17 @@
 
 <div class="form-group">
     <label for="create_firstname">Vorname:</label>
-    <input id="create_firstname" class="form-control" name="firstName" type="text" placeholder="Max" required />
+    <input id="create_firstname" data-testid="create_student_input_firstname" class="form-control" name="firstName" type="text" placeholder="Max" required />
 </div>
 
 <div class="form-group">
     <label for="create_lastname">Nachname:</label>
-    <input id="create_lastname" class="form-control" name="lastName" type="text" placeholder="Mustermann" required />
+    <input id="create_lastname" data-testid="create_student_input_lastname" class="form-control" name="lastName" type="text" placeholder="Mustermann" required />
 </div>
 
 <div class="form-group">
     <label for="create_email">E-Mail-Adresse:</label>
-    <input id="create_email" class="form-control" name="email" type="email" placeholder="test@test.org" required />
+    <input id="create_email" data-testid="create_student_input_email" class="form-control" name="email" type="email" placeholder="test@test.org" required />
 </div>
 
 <div class="form-group">
@@ -23,6 +23,6 @@
 </div>
 
 <label>
-    <input name="sendRegistration" type="checkbox" value="sendRegistration"/>
+    <input name="sendRegistration" data-testid="create_student_input_send_link" type="checkbox" value="sendRegistration"/>
     Registrierungslink an Schüler senden
 </label>
