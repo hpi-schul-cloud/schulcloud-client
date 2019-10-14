@@ -251,6 +251,8 @@ module.exports = [
 					facebook: '',
 					twitter: '',
 					linkedin: '',
+					github: 'https://github.com/adrianjost',
+					website: 'https:/adrianjost.dev',
 				},
 				longDesc: false,
 			},
