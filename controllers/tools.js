@@ -66,7 +66,6 @@ const runToolHandler = (req, res, next) => {
        if (tool.privacy_permission === 'pseudonymous') {
          user_id = pseudonym.data[0].pseudonym;
        } else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
-       	console.log(currentUser._id);
          user_id = currentUser._id;
        }
 
@@ -105,7 +104,7 @@ const runToolHandler = (req, res, next) => {
 			const iss = process.env.FRONTEND_URL || 'http://localhost:3100/';
 			const id_token = {
 				iss,
-				aud: tool.oAuthClientId,
+				aud: tool.key,
 				sub: user_id,
 				exp: current.getTime() + 3 * 60,
 				iat: current.getTime(),
