@@ -30,6 +30,9 @@
 						<label>Neues Passwort wiederholen</label>
 						<input type="password" name="password_control" id="password_control" class="form-control form-control-lg" placeholder="***************" title="{{> "lib/forms/password-hint" plaintext=true}}" required>
 					</div>
+
+                    {{> "lib/components/csrfInput"}}
+
 					<input type="submit" class="btn btn-primary btn-block" value="{{buttonLabel}}" />
 				</form>
 			</div>
