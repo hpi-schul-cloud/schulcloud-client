@@ -244,7 +244,7 @@ module.exports = [
 				firstName: 'Adrian',
 				lastName: 'Jost',
 				position: 'Wissenschaftlicher Mitarbeiter, HPI',
-				description: 'Adrian hat am Hasso-Plattner-Institut IT-Systems Engineering studiert und ist im Projekt HPI Schul-Cloud unter anderem für den Aufgabenbereich, die News aber auch das UI und die UX zuständig. Zudem war er Teil des Bachelorprojekts 2018/2019 der Schul-Cloud. Privat hat er seinen Ausgleich im Rennrad fahren und Mountainbiken gefunden.',
+				description: 'Adrian hat am Hasso-Plattner-Institut IT-Systems Engineering studiert und ist im Projekt HPI Schul-Cloud unter anderem für Architekturfragen aber auch für UI und die UX zuständig. Zudem war er Teil des Bachelorprojekts 2018/2019 der Schul-Cloud. Privat hat er seinen Ausgleich im Rennrad fahren und Mountainbiken gefunden.',
 				pictureUrl: '/images/team/Adrian_Jost.jpg',
 				priority: 0,
 				social: {
