@@ -138,6 +138,7 @@
                                 </div>
                             </div>
                             <form action="/administration/startschoolyear" type="post">
+                            {{> "lib/components/csrfInput"}}
                             <div class="row">
                                 <div class="col-xs-12 col-md-4 text-center">
                                     <button {{#ifeq ../schoolMaintananceMode "standby"}}{{else}}disabled{{/ifeq}} class="btn btn-primary btn-terminate-school-year">Transferphase starten</button>
