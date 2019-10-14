@@ -112,6 +112,10 @@
 	{{/ifeq}}
 	{{#ifeq mode "edit"}}
 		<button class="btn btn-primary" type="submit" disabled>Änderungen speichern</button>
+		{{#if ../isUpgradable}}
+			<a class="btn btn-outline-primary" href="/administration/classes/{{@root.class.id}}/createSuccessor">Klasse ins
+		nächste Schuljahr versetzen</a>
+		{{/if}}
 	{{/ifeq}}
 	{{#ifeq mode "upgrade"}}
 		<button class="btn btn-primary" type="submit">Klasse in Schuljahr <span data-from="schoolyear"></span> versetzen</button>
