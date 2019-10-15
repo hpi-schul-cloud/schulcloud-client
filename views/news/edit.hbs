@@ -36,7 +36,7 @@
 
             <div class="form-group">
                 <label>Titel</label>
-                <input class="form-control" name="title" type="text" placeholder="Titel" value="{{news.title}}" required />
+                <input data-testid="news_title" class="form-control" name="title" type="text" placeholder="Titel" value="{{news.title}}" required />
             </div>
 
             <div class="form-group">
@@ -46,15 +46,15 @@
 
             <div class="form-group">
                 <label>automatische Veröffentlichung vorplanen (optional)</label>
-                <input class="form-control" data-datetime data-min-date="0" name="displayAt" type="text" value="{{news.displayAt}}"/>
+                <input class="form-control" data-datetime data-min-date="0" data-testid="news_date_to_be_displayed" name="displayAt" type="text" value="{{news.displayAt}}"/>
             </div>
 
             <div class="modal-footer">
                 <button class="btn btn-add btn-secondary btn-cancel">
                     {{closeLabel}}
                 </button>
-
-                <button type="submit" class="btn btn-primary btn-submit">
+                {{> "lib/components/csrfInput"}}
+                <button type="submit" data-testid="btn_news_submit" class="btn btn-primary btn-submit">
                     {{submitLabel}}
                 </button>
             </div>

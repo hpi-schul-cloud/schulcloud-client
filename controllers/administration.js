@@ -2032,6 +2032,10 @@ router.post(
 		if (req.body.teacherIds) {
 			newClass.teacherIds = req.body.teacherIds;
 		}
+		if (req.body.userIds) {
+			newClass.userIds = req.body.userIds;
+		}
+
 		api(req)
 			.post('/classes/', {
 				// TODO: sanitize
@@ -2210,7 +2214,7 @@ router.all(
 								title: 'Klasse löschen',
 							},
 						];
-						if (lastDefinedSchoolYear !== i.year._id
+						if (lastDefinedSchoolYear !== (i.year || {})._id
 							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'USERGROUP_EDIT')
 						) {
 							baseActions.push({

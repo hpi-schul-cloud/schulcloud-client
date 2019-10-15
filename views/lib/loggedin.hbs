@@ -167,15 +167,15 @@
                               <div class="dropdown btn-avatar">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle"
                                    title='{{ currentUser.displayName }} ({{ currentRole }})' data-toggle="dropdown">
-                                  <div class="avatar-circle" >
-                                      <span class="initials" data-testid="initials">{{ currentUser.avatarInitials }}</span>
+                                  <div data-testid="initials" class="avatar-circle" >
+                                      <span class="initials">{{ currentUser.avatarInitials }}</span>
                                   </div>
                                 </a>
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-name">{{ currentUser.displayName }} ({{ currentRole }})</div>
-                                    <a class="dropdown-item" href="/account/">Einstellungen</a>
-                                    <a class="dropdown-item" href="/logout/">Abmelden</a>
+                                <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
+                                    <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{ currentRole }})</div>
+                                    <a class="dropdown-item" data-testid="settings" href="/account/">Einstellungen</a>
+                                    <a class="dropdown-item" data-testid="logout" href="/logout/">Abmelden</a>
                                 </div>
                               </div>
                             </div>
@@ -204,6 +204,7 @@
                                         </a>
                                         <div class="input-group input-group-sm">
                                             <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}Suche nach...{{/if}}" name="q" />
+                                            {{> "lib/components/csrfInput"}}
                                             <span class="input-group-btn">
                                                 <button type="submit" class="btn btn-secondary">
                                                     <i class="fa fa-search"></i>
