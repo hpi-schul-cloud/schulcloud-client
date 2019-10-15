@@ -16,9 +16,8 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then(data => data.data);
 
-const cleanupUserSessionAndCookie = (req, res) => {
-	res.clearCookie('jwt', authHelper.cookieDomain(res));
-	req.session.destroy();
+const clearCookie = (req, res) => {
+	res.clearCookie('jwt');
 };
 
 // Login
@@ -33,19 +32,23 @@ router.post('/login/', (req, res, next) => {
 
 	const login = d => api(req).post('/authentication', { json: d }).then((data) => {
 		res.cookie('jwt', data.accessToken,
-			Object.assign({},
-				{
-					expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-					httpOnly: true,
-					secure: process.env.NODE_ENV === 'production',
-				},
-				authHelper.cookieDomain(res)));
+			{
+				expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+				httpOnly: false, // can't be set to true with nuxt client
+				hostOnly: true,
+				secure: process.env.NODE_ENV === 'production',
+			});
 		res.redirect('/login/success/');
-	}).catch(() => {
+	}).catch((e) => {
 		res.locals.notification = {
 			type: 'danger',
 			message: 'Login fehlgeschlagen.',
+			statusCode: e.statusCode,
+			timeToWait: process.env.LOGIN_BLOCK_TIME || 15
 		};
+		if (e.statusCode == 429){
+			res.locals.notification.timeToWait = e.error.data.timeToWait;
+		}
 		next();
 	});
 
@@ -113,24 +116,23 @@ router.all('/login/', (req, res, next) => {
 		if (isAuthenticated) {
 			return res.redirect('/login/success/');
 		}
-		const schoolsPromise = getSelectOptions(req,
+		return getSelectOptions(req,
 			'schools', {
 				purpose: { $ne: 'expert' },
 				$limit: false,
 				$sort: 'name',
+			})
+			.then((schools) => {
+				clearCookie(req, res);
+				res.render('authentication/login', {
+					schools,
+					systems: [],
+				});
 			});
-		return Promise.all([
-			schoolsPromise,
-		]).then(([schools]) => {
-			cleanupUserSessionAndCookie(req, res);
-			res.render('authentication/login', {
-				schools,
-				systems: [],
-			});
-		});
 	}).catch((error) => {
 		logger.error(error);
-		cleanupUserSessionAndCookie(req, res);
+		clearCookie(req, res);
+		req.session.destroy();
 		return res.redirect('/');
 	});
 });
@@ -203,7 +205,8 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
 		.then(() => {
-			cleanupUserSessionAndCookie(req, res);
+			clearCookie(req, res);
+			req.session.destroy();
 			return res.redirect('/');
 		}).catch(() => res.redirect('/'));
 });

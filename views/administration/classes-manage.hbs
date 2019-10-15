@@ -13,6 +13,7 @@
 			<input type="hidden" name="class-name" value="{{class.displayName}}" />
 			<form class="manage-form" method="post" action="">
 				{{> "administration/forms/form-classes-manage"}}
+                {{> "lib/components/csrfInput"}}
 			</form>
 		</section>
 	{{/content}}

@@ -4,12 +4,16 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const redis = require('redis');
+const connectRedis = require('connect-redis');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
+const tokenInjector = require('./helpers/csrf');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
@@ -88,14 +92,31 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
 
-const sessionStore = new session.MemoryStore();
+let sessionStore;
+const redisUrl = process.env.REDIS_URI;
+if (redisUrl) {
+	logger.info(`Using Redis session store at '${redisUrl}'.`);
+	const RedisStore = connectRedis(session);
+	const client = redis.createClient({
+		url: redisUrl,
+	});
+	sessionStore = new RedisStore({ client });
+} else {
+	logger.info('Using in-memory session store.');
+	sessionStore = new session.MemoryStore();
+}
+
 app.use(session({
-	cookie: { maxAge: 60000 },
+	cookie: { maxAge: 1000 * 60 * 60 * 6 },
+	rolling: true, // refresh session with every request within maxAge
 	store: sessionStore,
 	saveUninitialized: true,
-	resave: 'true',
-	secret: 'secret',
+	resave: false,
+	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
 }));
+
+app.use(csurf());
+app.use(tokenInjector);
 
 const setTheme = require('./helpers/theme');
 
