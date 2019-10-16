@@ -661,7 +661,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                             closeLabel: 'Abbrechen',
                             method: 'patch',
                             action: '/homework/' + req.params.assignmentId,
-                            referrer: '/homework/', //+ req.params.assignmentId,
+                            referrer: '/homework/',
                             assignment,
                             courses,
                             lessons,
