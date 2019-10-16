@@ -133,6 +133,11 @@ module.exports = {
 		}
 		return opts.inverse(this);
 	},
+	userHasRole: (...args) => {
+		const allowedRoles = Array.from(args);
+		const opts = allowedRoles.pop();
+		return opts.data.local.currentUser.roles.some(r => allowedRoles.includes(r.name));
+	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
 		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW') || !isNonOerContent) {
@@ -160,6 +165,9 @@ module.exports = {
 			return `${moment(date).format('DD.MM.YYYY')}(${moment(date).format('HH:mm')})`;
 		}
 		return moment(date).fromNow();
+	},
+	currentYear() {
+		return new Date().getFullYear();
 	},
 	concat() {
 		const arg = Array.prototype.slice.call(arguments, 0);

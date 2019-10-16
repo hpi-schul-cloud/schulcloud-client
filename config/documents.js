@@ -12,20 +12,21 @@ const globalFiles = {
 	TechnischerBericht2019:
 	'Dokumente/Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.pdf',
 	BroschuereSCimUnterricht1:
-	'Willkommenordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien-und-Methoden.pdf',
+	'Willkommensordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien-und-Methoden.pdf',
 	BroschuereSCimUnterricht2:
-	'Willkommenordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-und-Schulalltag-Mehrwert-und-Voraussetzungen.pdf',
+	'Willkommensordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-und-Schulalltag-Mehrwert-und-Voraussetzungen.pdf',
 	BroschuereSCundLernen4:
-	'Willkommenordner/Begleitmaterial/Broschuere_HPI-Schul-Cloud-und-Lernen-4.0.pdf',
+	'Willkommensordner/Begleitmaterial/Broschuere_HPI-Schul-Cloud-und-Lernen-4.0.pdf',
 	SchulrechnerInDieSC2017: 'Dokumente/Schulrechner-wandern-in-die-Cloud-2017.pdf',
 	SCKonzeptPilotierung2017: 'Dokumente/Konzept-und-Pilotierung-der-Schul-Cloud-2017.pdf',
 };
 
-const documentBaseDir = process.env.DOCUMENT_BASE_DIR || 'https://schul-cloud-hpi.s3.hidrive.strato.com/';
+const documentBaseDir = process.env.DOCUMENT_BASE_DIR || 'https://s3.hidrive.strato.com/schul-cloud-hpi/';
+const theme = process.env.SC_THEME || 'default';
 
 module.exports = {
 	defaultDocuments: () => ({
-		documentBaseDir,
+		documentBaseDir: String(new URL(`${theme}/`, documentBaseDir)),
 		specificFiles: baseDir => Object.entries(specificFiles).reduce((obj, [key, value]) => {
 			obj[key] = String(new URL(value, baseDir));
 			return obj;

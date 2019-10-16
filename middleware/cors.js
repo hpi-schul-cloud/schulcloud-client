@@ -1,4 +1,4 @@
-const { contentSecurityPolicy, accessControlAllowOrigin } = require('../config/http-headers');
+const { contentSecurityPolicy, accessControlAllowOrigin, enabled } = require('../config/http-headers');
 const logger = require('../helpers/logger');
 
 if (!process.env.CORS) 	{
@@ -16,16 +16,34 @@ const cspHeadersForRoute = (path, regexs, corsDefault) => {
 	corsHeaders.forEach((matchingHeader) => {
 		if (matchingHeader.defaultSrc && matchingHeader.defaultSrc.includes('*')) {
 			defaultSrc = '*';
+			if (matchingHeader.defaultSrc.includes('unsafe-inline')) {
+				defaultSrc += " 'unsafe-inline'";
+			}
+			if (matchingHeader.defaultSrc.includes('unsafe-eval')) {
+				defaultSrc += " 'unsafe-eval'";
+			}
 		} else if (matchingHeader.defaultSrc) {
 			defaultSrc = `${defaultSrc} ${matchingHeader.defaultSrc}`;
 		}
 		if (matchingHeader.scriptSrc && matchingHeader.scriptSrc.includes('*')) {
 			scriptSrc = '*';
+			if (matchingHeader.scriptSrc.includes('unsafe-inline')) {
+				scriptSrc += " 'unsafe-inline'";
+			}
+			if (matchingHeader.scriptSrc.includes('unsafe-eval')) {
+				scriptSrc += " 'unsafe-eval'";
+			}
 		} else if (matchingHeader.scriptSrc) {
 			scriptSrc = `${scriptSrc} ${matchingHeader.scriptSrc}`;
 		}
 		if (matchingHeader.objectSrc && matchingHeader.objectSrc.includes('*')) {
 			objectSrc = '*';
+			if (matchingHeader.objectSrc.includes('unsafe-inline')) {
+				objectSrc += " 'unsafe-inline'";
+			}
+			if (matchingHeader.objectSrc.includes('unsafe-eval')) {
+				objectSrc += " 'unsafe-eval'";
+			}
 		} else if (matchingHeader.objectSrc) {
 			objectSrc = `${objectSrc} ${matchingHeader.objectSrc}`;
 		}
@@ -44,7 +62,7 @@ const accessControlHeadersForRoute = (path, regexs) => {
 };
 
 const cors = (req, res, next) => {
-	if (process.env.CORS) {
+	if (enabled) {
 		try {
 			// Content-Security-Policy
 			const { corsDefault, corsSiteSpecific } = contentSecurityPolicy;

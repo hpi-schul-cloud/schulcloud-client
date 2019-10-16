@@ -17,6 +17,13 @@ const rolesDisplayName = {
 
 const isJWT = req => (req && req.cookies && req.cookies.jwt);
 
+const cookieDomain = (res) => {
+	if (res.locals.domain && process.env.NODE_ENV === 'production') {
+		return { domain: res.locals.domain };
+	}
+	return {};
+};
+
 const isAuthenticated = (req) => {
 	if (!isJWT(req)) {
 		return Promise.resolve(false);
@@ -49,7 +56,7 @@ const populateCurrentUser = (req, res) => {
 		}
 	}
 
-	if (payload.userId) {
+	if (payload && payload.userId) {
 		return api(req).get(`/users/${payload.userId}`, {
 			qs: {
 				$populate: ['roles'],
@@ -69,6 +76,11 @@ const populateCurrentUser = (req, res) => {
 				res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
 				return data2;
 			});
+		}).catch((e) => {
+			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
+			if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
+				res.clearCookie('jwt');
+			}
 		});
 	}
 
@@ -78,8 +90,8 @@ const populateCurrentUser = (req, res) => {
 const checkConsent = (req, res) => {
 	if (
 		((res.locals.currentUser || {}).preferences || {}).firstLogin	// do not exist if 3. system login
-    || req.path.startsWith('/login/success')
-    || req.baseUrl.startsWith('/firstLogin')) {
+		|| req.path.startsWith('/login/success')
+		|| req.baseUrl.startsWith('/firstLogin')) {
 		return Promise.resolve();
 	}
 	// eslint-disable-next-line prefer-promise-reject-errors
@@ -126,18 +138,11 @@ const authChecker = (req, res, next) => {
 		});
 };
 
-const cookieDomain = (res) => {
-	if (res.locals.domain) {
-		return { domain: res.locals.domain };
-	}
-	return {};
-};
-
 module.exports = {
 	isJWT,
+	cookieDomain,
 	authChecker,
 	isAuthenticated,
 	restrictSidebar,
 	populateCurrentUser,
-	cookieDomain,
 };

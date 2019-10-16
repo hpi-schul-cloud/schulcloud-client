@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 
 const config = {
+	enabled: process.env.CORS === '1',
+
 	// Settings for HTTP Content-Security-Policy Header
 	contentSecurityPolicy: {
 		// Default Content-Security-Policy Header for every site
@@ -23,6 +25,9 @@ const config = {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://schul-cloud-hpi.s3.hidrive.strato.com https://play.google.com',
 				scriptSrc: "'unsafe-eval'",
 			},
+			'^/help/faq/documents': {
+				scriptSrc: "'unsafe-eval'",
+			},
 			'^/administration': {
 				defaultSrc: 'https://fonts.gstatic.com',
 				scriptSrc: "'unsafe-eval'",
@@ -31,8 +36,8 @@ const config = {
 				scriptSrc: "'unsafe-eval'",
 			},
 			'^/content': {
-				defaultSrc: '*',
-				scriptSrc: '*',
+				defaultSrc: "* 'unsafe-inline'",
+				scriptSrc: "* 'unsafe-eval' 'unsafe-inline'",
 				objectSrc: '*',
 			},
 			'^/community': {

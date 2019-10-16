@@ -11,7 +11,7 @@
         <section class="section-courses empty-state">
             <img src="/images/empty-states/lehrer_klasse.svg" alt="Lehrer mit Klasse" class="image mx-auto d-block"/>
             <div class="text-wrapper mx-auto d-block">
-              {{#if isStudent}}
+				{{#if (userHasRole "student")}}
                 <h2 class="text-center">Mit der {{theme.title}} wird der Unterricht digital</h2>
                 <h3 class="h5 text-muted text-center">
                   Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen.

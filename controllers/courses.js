@@ -136,10 +136,10 @@ const editCourseHandler = (req, res, next) => {
 			qs: {
 				schoolId: res.locals.currentSchool,
 				$populate: ['year'],
-				$limit: 1000,
+				$limit: -1,
 			},
 		})
-		.then(data => data.data);
+		// .then(data => data.data); needed when pagination is not disabled
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher', 'demoTeacher'],
 		$limit: false,
@@ -147,6 +147,7 @@ const editCourseHandler = (req, res, next) => {
 	const studentsPromise = getSelectOptions(req, 'users', {
 		roles: ['student', 'demoStudent'],
 		$limit: false,
+		$sort: 'lastName',
 	});
 
 	Promise.all([
@@ -256,7 +257,7 @@ const editCourseHandler = (req, res, next) => {
 				redirectUrl: req.query.redirectUrl || '/courses',
 			});
 		}
-	});
+	}).catch(next);
 };
 
 const sameId = (id1, id2) => id1.toString() === id2.toString();
@@ -441,13 +442,9 @@ router.get('/', (req, res, next) => {
 				archivedCourses,
 			] = filterSubstitutionCourses(archived, userId);
 
-			const isStudent = res.locals.currentUser.roles.every(
-				role => role.name === 'student',
-			);
-
 			if (req.query.json) {
-				// !? for what is this? Should be direct request to api!?
-				res.json(active);
+				// used for populating some modals (e.g. calendar event creation)
+				res.json(active.data);
 			} else if (active.total !== 0 || archived.total !== 0) {
 				res.render('courses/overview', {
 					title: 'Meine Kurse',
@@ -466,9 +463,7 @@ router.get('/', (req, res, next) => {
 					liveSearch: true,
 				});
 			} else {
-				res.render('courses/overview-empty', {
-					isStudent,
-				});
+				res.render('courses/overview-empty', {});
 			}
 		})
 		.catch((err) => {
@@ -501,7 +496,7 @@ router.post('/', (req, res, next) => {
 		})
 		.then((course) => {
 			createEventsForCourse(req, res, course).then(() => {
-				res.redirect('/courses');
+				res.json({ createdCourse: course });
 			});
 		})
 		.catch(() => {
