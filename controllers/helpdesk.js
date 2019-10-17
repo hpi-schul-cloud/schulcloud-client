@@ -19,8 +19,16 @@ router.post('/', (req, res, next) => {
 
 	// read User-Agent
 	const parser = new UAParser();
-	parser.setUA(req.headers['user-agent']);
+	const { consent } = req.body;
+	if (consent) {
+		parser.setUA(req.headers['user-agent']);
+	}
 	const result = parser.getResult();
+	if (!consent) {
+		result.browser.name = '';
+		result.browser.version = '';
+		result.os.name = '';
+	}
 
 	api(req).post('/helpdesk', {
 		json: {
@@ -57,7 +65,7 @@ router.post('/', (req, res, next) => {
 			req.session.notification = {
 				type: 'danger',
 				message:
-                'Fehler beim senden des Feedbacks.',
+                'Fehler beim Senden des Feedbacks.',
 			};
 			logger.warn(err);
 			res.status((err.statusCode || 500)).send(err);

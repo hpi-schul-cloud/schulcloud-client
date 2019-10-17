@@ -23,3 +23,21 @@
 	</span>
 	<input class="form-control" type="email" name="replyEmail" placeholder="E-Mail-Adresse" value="{{ currentUser.email }}" required>
 </label>
+<hr>
+<p>Weitere Informationen (optional):</p>
+<label>
+<div class="row">
+	<div class="col-xs-2">
+		<input type="checkbox" id="consent" name="consent" value="true">
+	</div>
+	<div class="col-xs-10">
+		<span class="control-label" for="consent">
+			Ich bin damit einverstanden,
+			dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen:
+			<li>Browser Name und Version (z.B: Firefox 69.0)</li>
+			<li>Betriebssystem und Version (z.B: Windows 10)</li>
+		</span>
+	</div>
+</div>
+</label>
+<hr>

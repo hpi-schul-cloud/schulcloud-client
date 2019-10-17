@@ -2,7 +2,7 @@
 <input type="hidden" name="type" value="wish">
 
 <label class="form-group">
-	<span class="control-label" for="title">Kurzbeschreibung</span>
+	<span class="control-label" for="title">Kurzbeschreibung des Wunsches</span>
 	<input type="text" name="title" id="wishTitle" placeholder="Kurzbeschreibung des Wunsches" class="form-control" required>
 </label>
 <label class="form-group">
@@ -31,3 +31,21 @@
 	</span>
 	<input type="email" name="replyEmail" placeholder="E-Mail-Adresse" value="{{ currentUser.email }}" class="form-control" required>
 </label>
+<hr>
+<p>Weitere Informationen (optional):</p>
+<label>
+<div class="row">
+	<div class="col-xs-2">
+		<input type="checkbox" id="consent" name="consent" value="true">
+	</div>
+	<div class="col-xs-10">
+		<span class="control-label" for="consent">
+			Ich bin damit einverstanden,
+			dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:
+			<li>Browser Name und Version (z.B: Firefox 69.0)</li>
+			<li>Betriebssystem und Version (z.B: Windows 10)</li>
+		</span>
+	</div>
+</div>
+</label>
+<hr>
