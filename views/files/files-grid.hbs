@@ -34,16 +34,17 @@
 									class="fa fa-edit file-name-edit">
 								</i>
 
-								{{#ifneq this.context 'geteilte Datei'}}
-								{{#userHasPermission "FILE_DELETE"}}
-								<a href="/files/file/"
-								   target="_blank"
-								   data-method="delete"
-								   title="Datei löschen"
-								   data-file-id="{{../this._id}}"
-									<i class="fa fa-trash-o"></i>
-								</a>
-								{{/userHasPermission}}
+                                {{#ifneq this.context 'geteilte Datei'}}
+                                {{#userHasPermission "FILE_DELETE"}}
+                                <a href="/files/file/"
+                                   target="_blank"
+                                   data-method="delete"
+                                   title="Datei löschen"
+                                   data-file-id="{{../this._id}}"
+                                   data-file-name="{{../this.name}}"
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                                {{/userHasPermission}}
 
 								<a href="#"
 								class="btn-file-share"

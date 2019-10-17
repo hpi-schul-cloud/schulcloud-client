@@ -359,19 +359,24 @@ $(document).ready(() => {
 
 		let studentEdit = false;
 		if (document.getElementById('student-can-edit')) { studentEdit = document.getElementById('student-can-edit').checked; }
-		$.post(
-			'/files/newFile',
-			{
-				name: $newFileModal.find('[name="new-file-name"]').val(),
-				type: $('#file-ending').val(),
-				owner: getOwnerId(),
-				parent: getCurrentParent(),
-				studentEdit,
-			},
-			(id) => {
-				window.location.href = `/files/file/${id}/lool`;
-			},
-		).fail(showAJAXError);
+		const fileType = $('#file-ending').val();
+		if (!fileType || fileType === 'Format auswählen') {
+			$.showNotification('Bitte wähle einen Dateityp aus.', 'danger', 30000);
+		} else {
+			$.post(
+				'/files/newFile',
+				{
+					name: $newFileModal.find('[name="new-file-name"]').val(),
+					type: fileType,
+					owner: getOwnerId(),
+					parent: getCurrentParent(),
+					studentEdit,
+				},
+				(id) => {
+					window.location.href = `/files/file/${id}/lool`;
+				},
+			).fail(showAJAXError);
+		}
 	});
 
 	$modals.find('.close, .btn-close').on('click', () => {
@@ -595,6 +600,9 @@ $(document).ready(() => {
 				return $.ajax({
 					type: 'POST',
 					url: '/link/',
+					beforeSend(xhr) {
+						xhr.setRequestHeader('Csrf-Token', csrftoken);
+					},
 					data: { target },
 				});
 			})

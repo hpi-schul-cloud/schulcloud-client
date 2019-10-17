@@ -1,12 +1,19 @@
-{{#extend "lib/loggedin"}}
-    {{#content "scripts" mode="append"}}
-    {{/content}}
+<!DOCTYPE html>
+<html lang="en">
 
-    {{#content "page"}}
-        <div id="editor"></div>
-        <script>
-            var BACKEND_URL = "{{ backendUrl }}";
-        </script>
-        <script type="text/javascript" src="{{edtrSource}}"></script>
-    {{/content}}
-{{/extend}}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Schul-Cloud Editor</title>
+</head>
+
+<body>
+    <div id="editor"></div>
+    <script>
+        var BACKEND_URL = "{{ backendUrl }}";
+    </script>
+    <script type="text/javascript" src="{{edtrSource}}"></script>
+</body>
+
+</html>

@@ -62,6 +62,7 @@ function sendResults(result) {
   var xhr = new XMLHttpRequest();
   xhr.open('POST', '/logs/', true);
   xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.setRequestHeader('Csrf-Token', csrftoken)
   let data = {
     attributes: {
       context: result,

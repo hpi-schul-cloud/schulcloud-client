@@ -87,7 +87,7 @@ $(document).ready(function () {
 				submitLabel: 'Senden',
 				fields: fields
 			});
-			populateCourseSelection($editModal, result.courses.data);
+			populateCourseSelection($editModal, result.courses);
 			$editModal.appendTo('body').modal('show');
 		});
 

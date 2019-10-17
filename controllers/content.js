@@ -133,7 +133,8 @@ router.get('/:id', function (req, res, next) {
     Promise.all([
         api(req).get('/courses/', {
             qs: {
-                teacherIds: res.locals.currentUser._id
+                teacherIds: res.locals.currentUser._id,
+                $limit: -1
             }
         }),
         api(req).get('/content/resources/' + req.params.id, {
