@@ -4,7 +4,7 @@
 {{#embed "lib/forms/paginatedForm" sections=(arrayLength @root.sections) action="/firstLogin/submit" method="post" submit-label=@root.submitLabel}}
 {{#content "panels"}}
 {{#each @root.sections}}
-{{> (lookup @root.sections @index) CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS=@root.CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS section-nr=(add @index 1) submit-page=(isCond (add @index 1) "==" @root.submitPageIndex)}}
+{{> (lookup @root.sections @index) CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS=@root.CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS roleName=@root.roleNames.[0] section-nr=(add @index 1) submit-page=(isCond (add @index 1) "==" @root.submitPageIndex)}}
 {{/each}}
 {{/content}}
 {{/embed}}
