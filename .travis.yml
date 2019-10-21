@@ -19,14 +19,36 @@ env:
 
 jobs:
   include:
-    - stage: test
+    - stage: Test
       name: Mocha
+      before_install:
+        # move client into subdirectory
+        - mkdir -p schulcloud-client
+        - mv !(schulcloud-client) schulcloud-client
+        # fetch switch_branch script
+        - curl https://gist.github.com/schul-cloud-bot/a849c38804174f99ca7818782bf03c00/raw/switch_branch.sh > switch_branch.sh
+        - chmod 700 switch_branch.sh
+        # clone other required repositories and try to switch to branch with same name as current one
+        - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
+        - sh switch_branch.sh "schulcloud-server" "$BRANCH_NAME"
+        - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
+        - sh switch_branch.sh "docker-compose" "$BRANCH_NAME"
+      install:
+        # boot server
+        - cd docker-compose
+        - docker-compose -f docker-compose.integration-test-Build.yml up -d server
+        - cd ..
+        # client packages are needed for mocha
+        - cd schulcloud-client && npm ci && cd ..
+      before_script:
+        # seed database
+        - cd schulcloud-server && npm run setup && npm run seed && cd ..
       script: npm run mocha
     - script:
         - curl https://gist.githubusercontent.com/schul-cloud-bot/a849c38804174f99ca7818782bf03c00/raw/index.sh > integration-test.sh
         - chmod 700 integration-test.sh
         - sh integration-test.sh
-      name: "Integration"
+      name: Integration
       env:
         - IT_CLIENT_HOST=nuxtclient
         - IT_CLIENT_PORT=3200
@@ -34,8 +56,8 @@ jobs:
         clone: false
       install:
         - echo "skipping install"
-    - stage: deploy
-      name: deploy
+    - stage: Deploy
+      name: All Instances
       before_install:
         - openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
       before_script:
