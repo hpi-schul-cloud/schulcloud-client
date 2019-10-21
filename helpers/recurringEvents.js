@@ -1,6 +1,7 @@
 const moment = require('moment');
-const api = require('../api');
 const _ = require('lodash');
+const api = require('../api');
+
 
 /**
  * Generates the iso-weekday abbreviation for a given number, e.g. for the Schul-Cloud Calendar-Service
@@ -8,7 +9,7 @@ const _ = require('lodash');
  * @returns {string} - abbreviation of weekday
  */
 const getIsoWeekdayForNumber = (weekdayNum) => {
-	let weekdayNames = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+	const weekdayNames = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 	return weekdayNames[weekdayNum];
 };
 
@@ -18,7 +19,7 @@ const getIsoWeekdayForNumber = (weekdayNum) => {
  * @returns {number} - number of weekday
  */
 const getNumberForFullCalendarWeekday = (weekday) => {
-	let weekdayNames = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+	const weekdayNames = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 	return weekdayNames.indexOf(weekday);
 };
 
@@ -28,7 +29,7 @@ const getNumberForFullCalendarWeekday = (weekday) => {
  * @returns {string} - abbreviation of weekday
  */
 const getWeekdayForNumber = (weekdayNum) => {
-	let weekdayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+	const weekdayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 	return weekdayNames[weekdayNum];
 };
 
@@ -38,7 +39,7 @@ const getWeekdayForNumber = (weekdayNum) => {
  * @returns {number} - number of weekday
  */
 const getNumberForWeekday = (weekday) => {
-	let weekdayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+	const weekdayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 	return weekdayNames.indexOf(weekday);
 };
 
@@ -48,20 +49,22 @@ const getNumberForWeekday = (weekday) => {
  * @return recurringEvents [] - new set of events
  */
 const createRecurringEvents = (recurringEvent) => {
-	let recurringEvents = [];
-	let start = recurringEvent.start;
-	let until = new Date(recurringEvent.included[0].attributes.until).getTime();
-	let end = recurringEvent.end;
-	let oneDayIndicator = 24 * 60 * 60 * 1000;
-	let oneWeekIndicator = 7 * oneDayIndicator;
+	const recurringEvents = [];
+	let { start } = recurringEvent;
+	const until = new Date(recurringEvent.included[0].attributes.until).getTime();
+	let { end } = recurringEvent;
+	const oneDayIndicator = 24 * 60 * 60 * 1000;
+	const oneWeekIndicator = 7 * oneDayIndicator;
 
 	// find first weekday, if the start-event is not a real weekly event itself, because it's just a period of time
-	for (var i = 0; start + i * oneDayIndicator <= end + oneWeekIndicator; i++) {
-		let newStartDate = start + i * oneDayIndicator;
-		let newEndDate = end + i * oneDayIndicator;
+	for (let i = 0; start + i * oneDayIndicator <= end + oneWeekIndicator; i += 1) {
+		const newStartDate = start + i * oneDayIndicator;
+		const newEndDate = end + i * oneDayIndicator;
 
 		// check if it is the given weekday, if so set first date of recurring events
-		if (moment(newStartDate).day() == getNumberForFullCalendarWeekday(recurringEvent.included[0].attributes.wkst)) {
+		if (
+			moment(newStartDate).day() === getNumberForFullCalendarWeekday(recurringEvent.included[0].attributes.wkst)
+		) {
 			start = newStartDate;
 			end = newEndDate;
 			break;
@@ -69,10 +72,9 @@ const createRecurringEvents = (recurringEvent) => {
 	}
 
 	// loop over all new weekdays from startDate to untilDate
-	for (i = 0; start + i * oneWeekIndicator <= until; i++) {
-
-		let newStartDate = start + i * oneWeekIndicator;
-		let newEndDate = end + i * oneWeekIndicator;
+	for (let i = 0; start + i * oneWeekIndicator <= until; i += 1) {
+		const newStartDate = start + i * oneWeekIndicator;
+		const newEndDate = end + i * oneWeekIndicator;
 
 		recurringEvents.push({
 			title: recurringEvent.summary,
@@ -82,9 +84,8 @@ const createRecurringEvents = (recurringEvent) => {
 			url: recurringEvent.url,
 			color: recurringEvent.color,
 			start: newStartDate,
-			end: newEndDate
+			end: newEndDate,
 		});
-
 	}
 
 	return recurringEvents;
@@ -96,7 +97,7 @@ const createRecurringEvents = (recurringEvent) => {
  * @returns events [] - new set of events
  */
 const mapRecurringEvent = (event) => {
-	if (event.included && event.included[0].attributes.freq == 'WEEKLY') {
+	if (event.included && event.included[0].attributes.freq === 'WEEKLY') {
 		return createRecurringEvents(event);
 	}
 
@@ -171,26 +172,23 @@ const getNextEventForCourseTimes = (courseTimes) => {
 };
 
 if (!Date.prototype.toLocalISOString) {
-	(function() {
-
+	(function assignDateFunction() {
 		function pad(number) {
 			if (number < 10) {
-				return '0' + number;
+				return `0${number}`;
 			}
 			return number;
 		}
 
-		Date.prototype.toLocalISOString = function() {
-			return this.getFullYear() +
-				'-' + pad(this.getMonth() + 1) +
-				'-' + pad(this.getDate()) +
-				'T' + pad(this.getHours()) +
-				':' + pad(this.getMinutes()) +
-				':' + pad(this.getSeconds()) +
-				'.' + (this.getMilliseconds() / 1000).toFixed(3).slice(2, 5) +
-				'Z';
-		};
-
+		// eslint-disable-next-line no-extend-native
+		Date.prototype.toLocalISOString = () => `${this.getFullYear()
+		}-${pad(this.getMonth() + 1)
+		}-${pad(this.getDate())
+		}T${pad(this.getHours())
+		}:${pad(this.getMinutes())
+		}:${pad(this.getSeconds())
+		}.${(this.getMilliseconds() / 1000).toFixed(3).slice(2, 5)
+		}Z`;
 	}());
 }
 
@@ -202,5 +200,5 @@ module.exports = {
 	createRecurringEvents,
 	mapRecurringEvent,
 	mapEventProps,
-	getNextEventForCourseTimes
+	getNextEventForCourseTimes,
 };
