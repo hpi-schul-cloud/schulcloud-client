@@ -172,8 +172,7 @@ $(document).ready(() => {
 				});
 
 				this.on('totaluploadprogress', (progress, total, uploaded) => {
-					const realProgress = (uploaded + finishedFilesSize)
-              / ((total + finishedFilesSize) / 100);
+					const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
 
 					$progress.stop().animate(
 						{ width: `${realProgress}%` },
@@ -435,38 +434,6 @@ $(document).ready(() => {
 			`/files/fileModel/${fileId}/rename`,
 			'Datei umbenennen',
 		);
-	});
-
-	if (!window.location.href.includes('/courses/')) { $('.btn-student-allow').hide(); }
-
-	$('.btn-student-allow').click(function (e) {
-		const $button = $(this);
-		e.stopPropagation();
-		e.preventDefault();
-		const fileId = $button.attr('data-file-id');
-		const bool = $button.data('file-can-edit');
-
-		$.ajax({
-			type: 'POST',
-			url: '/files/studentCanEdit/',
-			data: {
-				id: fileId,
-				bool: !bool,
-			},
-			success(data) {
-				if (data.success) {
-					$button.data('file-can-edit', !bool);
-					let id = e.target.id;
-					if (!id.includes('ban')) id = `ban-${id}`;
-
-					if ($(`#${id}`).is(':visible')) $(`#${id}`).hide();
-					else {
-						$(`#${id}`).removeAttr('hidden');
-						$(`#${id}`).show();
-					}
-				}
-			},
-		});
 	});
 
 	$('a[data-method="dir-rename"]').on('click', function (e) {
