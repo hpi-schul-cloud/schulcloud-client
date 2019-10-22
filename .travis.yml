@@ -32,9 +32,9 @@ jobs:
         - chmod 700 switch_branch.sh
         # clone other required repositories and try to switch to branch with same name as current one
         - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
-        - sh switch_branch.sh "schulcloud-server" "$BRANCH_NAME"
+        - bash switch_branch.sh "schulcloud-server" "$BRANCH_NAME"
         - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
-        - sh switch_branch.sh "docker-compose" "$BRANCH_NAME"
+        - bash switch_branch.sh "docker-compose" "$BRANCH_NAME"
       install:
         # boot server
         - cd docker-compose
@@ -50,7 +50,7 @@ jobs:
     - script:
         - curl https://gist.githubusercontent.com/schul-cloud-bot/a849c38804174f99ca7818782bf03c00/raw/index.sh > integration-test.sh
         - chmod 700 integration-test.sh
-        - sh integration-test.sh
+        - bash integration-test.sh
       name: Integration
       env:
         - IT_CLIENT_HOST=nuxtclient
