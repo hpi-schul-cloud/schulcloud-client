@@ -54,8 +54,6 @@ jobs:
       env:
         - IT_CLIENT_HOST=nuxtclient
         - IT_CLIENT_PORT=4000
-      git:
-        clone: false
       install:
         - echo "skipping install"
     - stage: Deploy
