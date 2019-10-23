@@ -23,7 +23,7 @@
 
 
         {{#if body}}
-            <tbody>
+            <tbody data-testid="students_names_container">
                 {{#each body}}
                     <tr>
                         {{#each this}}
@@ -33,14 +33,15 @@
                                         {{#if this.method}}
                                             <form action="{{this.link}}" method="post" class="inline">
                                                 <input type="hidden" name="_method" value="{{this.method}}"/>
+                                                {{> "lib/components/csrfInput"}}
                                                 <button type="submit" class="btn btn-secondary btn-sm no-inline-styling {{this.class}}" title="{{this.title}}">
                                                     <i class="fa fa-{{this.icon}}"></i> {{this.label}}
                                                 </button>
                                             </form>
                                         {{else}}
-                                            <a class="btn btn-secondary btn-sm {{this.class}}" 
+                                            <a class="btn btn-secondary btn-sm {{this.class}}"
                                                 {{#if this.link}} href="{{this.link}}" {{/if}}
-                                                {{#if this.data}} 
+                                                {{#if this.data}}
                                                     {{#each this.data}}
                                                         data-{{@key}}="{{this}}"
                                                     {{/each}}
