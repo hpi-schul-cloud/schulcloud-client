@@ -1,6 +1,6 @@
 {
   "name": "schulcloud-client",
-  "version": "19.7.0",
+  "version": "19.8.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -19,7 +19,7 @@
   "dependencies": {
     "@sentry/browser": "^5.6.1",
     "@sentry/integrations": "^5.6.1",
-    "@sentry/node": "^5.6.1",
+    "@sentry/node": "^5.7.1",
     "acorn": "^6.0.0",
     "body-parser": "^1.19.0",
     "browser-sync": "^2.26.7",
@@ -27,7 +27,7 @@
     "connect-redis": "^4.0.3",
     "cookie-parser": "~1.4.3",
     "csurf": "^1.10.0",
-    "csv-parse": "^1.2.0",
+    "csv-parse": "^4.6.5",
     "debug": "~2.6.0",
     "device-detector-js": "^1.1.1",
     "diff-dom": "^2.4.0",
@@ -39,10 +39,10 @@
     "fullcalendar": "^3.9.0",
     "git-repo-info": "^2.1.0",
     "gulp-nodemon": "^2.2.1",
-    "handlebars": "^4.1.2",
+    "handlebars": "^4.4.5",
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",
-    "hbs": "^4.0.4",
+    "hbs": "^4.0.6",
     "ipaddr.js": "^1.5.4",
     "jquery-datetimepicker": "^2.5.20",
     "jsonwebtoken": "^7.3.0",
