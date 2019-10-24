@@ -16,8 +16,8 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then(data => data.data);
 
-const clearCookie = (req, res) => {
-	if (req.session && req.session.destroy) {
+const clearCookie = (req, res, options = { destroySession: false }) => {
+	if (options.destroySession && req.session && req.session.destroy) {
 		req.session.destroy();
 	}
 	res.clearCookie('jwt');
@@ -137,7 +137,7 @@ router.all('/login/', (req, res, next) => {
 			});
 	}).catch((error) => {
 		logger.error(error);
-		clearCookie(req, res);
+		clearCookie(req, res, { destroySession: true });
 		return res.redirect('/');
 	});
 });
@@ -210,7 +210,7 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
 		.then(() => {
-			clearCookie(req, res);
+			clearCookie(req, res, { destroySession: true });
 			return res.redirect('/');
 		}).catch(() => res.redirect('/'));
 });
