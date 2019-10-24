@@ -2,7 +2,6 @@ const express = require('express');
 
 const router = express.Router();
 const api = require('../api');
-const { cookieDomain } = require('../helpers/authentication');
 
 const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
 const setTheme = require('../helpers/theme');
