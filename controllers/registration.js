@@ -3,7 +3,6 @@ const DeviceDetector = require('device-detector-js');
 
 const router = express.Router();
 const api = require('../api');
-const { cookieDomain } = require('../helpers/authentication');
 
 const deviceDetectorObj = new DeviceDetector();
 
@@ -96,13 +95,12 @@ ${res.locals.theme.short_title}-Team`,
 				res.cookie(
 					'jwt',
 					req.cookies.jwt,
-					Object.assign({},
-						{
-							expires: new Date(Date.now() - 100000),
-							httpOnly: true,
-							secure: process.env.NODE_ENV === 'production',
-						},
-						cookieDomain(res)),
+					{
+						expires: new Date(Date.now() - 100000),
+						httpOnly: false,
+						hostOnly: true,
+						secure: process.env.NODE_ENV === 'production',
+					},
 				);
 			}
 		})

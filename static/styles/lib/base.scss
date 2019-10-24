@@ -164,8 +164,17 @@ label,
 
 footer {
 	display: block;
-	.android-app {
-		margin-left: -11px;
+	.mobile-app {
+
+		img {
+			height: 70px;
+		}
+
+		.ios-app {
+			img {
+				padding: 11.5px;
+			}
+		}
 	}
 	&.small-footer {
 		@include media-breakpoint-down(xs) {
