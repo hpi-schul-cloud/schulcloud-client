@@ -3,7 +3,6 @@ const DeviceDetector = require('device-detector-js');
 
 const router = express.Router();
 const api = require('../api');
-const { cookieDomain } = require('../helpers/authentication');
 
 const deviceDetectorObj = new DeviceDetector();
 
