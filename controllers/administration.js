@@ -471,7 +471,6 @@ const getSendHelper = service => function send(req, res, next) {
 					json: {
 						type: 'contactHPI',
 						subject: data.subject,
-						category: data.category,
 						role: '',
 						desire: '',
 						benefit: '',
@@ -484,6 +483,11 @@ const getSendHelper = service => function send(req, res, next) {
 						email: user.email ? user.email : '',
 						schoolId: res.locals.currentSchoolData._id,
 						cloud: res.locals.theme.title,
+						browserName: '',
+						browserVersion: '',
+						os: '',
+						device: '',
+						deviceUserAgent: '',
 					},
 				})
 				.then(() => {
@@ -561,17 +565,6 @@ const dictionary = {
 	open: 'Offen',
 	closed: 'Geschlossen',
 	submitted: 'Gesendet',
-	dashboard: 'Übersicht',
-	courses: 'Kurse',
-	classes: 'Klassen',
-	teams: 'Teams',
-	homework: 'Aufgaben',
-	files: 'Dateien',
-	content: 'Materialien',
-	administration: 'Verwaltung',
-	login_registration: 'Anmeldung/Registrierung',
-	other: 'Sonstiges',
-	technical_problems: 'Techn. Probleme',
 };
 
 const getUpdateHandler = service => function updateHandler(req, res, next) {
@@ -2341,7 +2334,6 @@ router.all(
 					'Titel',
 					'Ist-Zustand',
 					'Soll-Zustand',
-					'Kategorie',
 					'Status',
 					'Erstellungsdatum',
 					'Anmerkungen',
@@ -2352,7 +2344,6 @@ router.all(
 					truncate(item.subject || ''),
 					truncate(item.currentState || ''),
 					truncate(item.targetState || ''),
-					item.category === '' ? '' : dictionary[item.category],
 					dictionary[item.state],
 					moment(item.createdAt).format('DD.MM.YYYY'),
 					truncate(item.notes || ''),
