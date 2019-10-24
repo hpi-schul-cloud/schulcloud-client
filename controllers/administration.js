@@ -1388,7 +1388,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	if (classId) {
 		const klass = await api(req).get(`/classes/${classId}`, {
 			qs: {
-				$populate: ['teacherIds', 'userIds'],
+				$populate: ['userIds'],
 			},
 		});
 		users = klass.userIds.concat(klass.teacherIds);
@@ -1718,7 +1718,7 @@ const renderClassEdit = (req, res, next) => {
 						}[mode],
 						action: {
 							create: '/administration/classes/create',
-							edit: '/administration/classes/edit',
+							edit: `/administration/classes/${(currentClass || {})._id}/edit`,
 							upgrade: '/administration/classes/create',
 						}[mode],
 						edit: mode !== 'create',
