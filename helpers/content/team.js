@@ -680,7 +680,7 @@ module.exports = [
 				firstName: 'Christian',
 				lastName: 'Sommer',
 				position: 'Praktikant',
-				description: 'Christian hat dieses Jahr die Schule abgeschlossen und wollte nicht, wie viele andere, direkt studieren sondern erst praktische Erfahrung und Orientierung sammeln. Daher entschied er sich, auch dank Jugend forscht, für ein Praktikum am HPI im Team der HPI Schul-Cloud. Seine Aufgabenbereiche erstrecken sich von Frontend über UX/UI bis hin zum Backend. Privat verfolgt er eigene kleine Softwareprojekte und beschäftigt sich mit Mikrocontrollern und der Automatisierung des eigenen Zuhauses und täglichen Arbeitsabläufen. Außerdem verreist und fotografiert er gerne.',
+				description: 'Christian hat dieses Jahr die Schule abgeschlossen und wollte nicht direkt studieren, wie viele andere, sondern erst praktische Erfahrung und Orientierung sammeln. Daher entschied er sich, auch dank Jugend forscht, für ein Praktikum am HPI im Team der HPI Schul-Cloud. Seine Aufgabenbereiche erstrecken sich von Frontend über UX/UI bis hin zum Backend. Privat verfolgt er eigene kleine Softwareprojekte und beschäftigt sich mit Mikrocontrollern und der Automatisierung des eigenen Zuhauses und täglichen Arbeitsabläufen. Außerdem verreist und fotografiert er gerne.',
 				pictureUrl: '/images/team/christian_sommer.jpg',
 				priority: 0,
 				social: {
