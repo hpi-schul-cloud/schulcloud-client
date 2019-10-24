@@ -18,6 +18,9 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 
 const clearCookie = (req, res) => {
 	res.clearCookie('jwt');
+	if (res.locals && res.locals.domain) {
+		res.clearCookie('jwt', { domain: res.locals.domain });
+	}
 };
 
 // Login
