@@ -58,6 +58,7 @@ const populateCurrentUser = (req, res) => {
 			res.locals.currentUser = data;
 			setTestGroup(res.locals.currentUser);
 			res.locals.currentRole = rolesDisplayName[data.roles[0].name];
+			res.locals.roles = data.roles.map(({ name }) => name);
 			res.locals.roleNames = data.roles.map(r => rolesDisplayName[r.name]);
 			return api(req).get(`/schools/${res.locals.currentUser.schoolId}`, {
 				qs: {
