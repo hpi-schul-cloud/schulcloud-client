@@ -1718,7 +1718,7 @@ const renderClassEdit = (req, res, next) => {
 						}[mode],
 						action: {
 							create: '/administration/classes/create',
-							edit: '/administration/classes/edit',
+							edit: `/administration/classes/${(currentClass || {})._id}/edit`,
 							upgrade: '/administration/classes/create',
 						}[mode],
 						edit: mode !== 'create',

@@ -2,10 +2,10 @@
 	<div class="row">
 		{{#each files}}
 			<div class="col-sm-12">
-				<div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
+				<div class="card file {{#ifeq this.securityCheck.status "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
 					<div class="openFile">
 						<div class="card-block"
-							 onclick="fileViewer('{{this.type}}', '{{this.name}}', '{{this._id}}');">
+							{{#ifneq this.securityCheck.status "blocked"}}onclick="fileViewer('{{../this.type}}', '{{../this.name}}', '{{../this._id}}');"{{/ifneq}}>
 							<div class="card-title">
 								<div class="file-preview-wrapper col-sm-1 no-padding hidden-xs-down">
 									<div class="file-preview"
@@ -20,12 +20,20 @@
 							</div>
 							<div class="card-text">
 							  <small class="file-location">{{#if this.context}}gefunden in: {{this.context}}{{/if}}</small><br>
-								<a href="/files/file?download&file={{this._id}}&name={{this.storageFileName}}"
-									target="_blank"
-									data-method="download"
-									title="Datei herunterladen">
-									<i class="fa fa-cloud-download"></i>
-								</a>
+								{{#ifeq this.securityCheck.status "blocked"}}
+									<a href="#"
+									class="btn-file-danger"
+									title="Schädlicher Code">
+										<i class="fa fa-exclamation-triangle"></i>
+									</a>
+								{{else}}
+									<a href="/files/file?download&file={{../this._id}}&name={{../this.storageFileName}}"
+										target="_blank"
+										data-method="download"
+										title="Datei herunterladen">
+										<i class="fa fa-cloud-download"></i>
+									</a>
+								{{/ifeq}}
 
 								<i  data-file-id="{{this._id}}"
 									data-file-name="{{this.name}}"
@@ -34,17 +42,17 @@
 									class="fa fa-edit file-name-edit">
 								</i>
 
-                                {{#ifneq this.context 'geteilte Datei'}}
-                                {{#userHasPermission "FILE_DELETE"}}
-                                <a href="/files/file/"
-                                   target="_blank"
-                                   data-method="delete"
-                                   title="Datei löschen"
-                                   data-file-id="{{../this._id}}"
-                                   data-file-name="{{../this.name}}"
-                                    <i class="fa fa-trash-o"></i>
-                                </a>
-                                {{/userHasPermission}}
+								{{#ifneq this.context 'geteilte Datei'}}
+								{{#userHasPermission "FILE_DELETE"}}
+								<a href="/files/file/"
+								   target="_blank"
+								   data-method="delete"
+								   title="Datei löschen"
+								   data-file-id="{{../this._id}}"
+								   data-file-name="{{../this.name}}"
+									<i class="fa fa-trash-o"></i>
+								</a>
+								{{/userHasPermission}}
 
 								<a href="#"
 								class="btn-file-share"
@@ -135,6 +143,13 @@
 {{#embed "lib/components/modal-form" class="rename-modal"}}
 	{{#content "fields"}}
 		{{> "files/forms/form-name-edit"}}
+	{{/content}}
+{{/embed}}
+
+
+{{#embed "lib/components/modal-information" class="danger-modal" title="Achtung"}}
+	{{#content "fields"}}
+		{{> "files/forms/form-virus-danger"}}
 	{{/content}}
 {{/embed}}
 

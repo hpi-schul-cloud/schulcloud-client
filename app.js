@@ -13,7 +13,7 @@ const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
-const tokenInjector = require('./helpers/csrf');
+const { tokenInjector, duplicateTokenHandler } = require('./helpers/csrf');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
@@ -27,9 +27,7 @@ if (process.env.SENTRY_DSN) {
 		environment: app.get('env'),
 		release: version,
 		integrations: [
-			new Sentry.Integrations.Console({
-				loglevel: ['warning'],
-			}),
+			new Sentry.Integrations.Console(),
 		],
 	});
 	Sentry.configureScope((scope) => {
@@ -115,6 +113,8 @@ app.use(session({
 	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
 }));
 
+// CSRF middlewares
+app.use(duplicateTokenHandler);
 app.use(csurf());
 app.use(tokenInjector);
 
