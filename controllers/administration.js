@@ -565,7 +565,6 @@ const dictionary = {
 	open: 'Offen',
 	closed: 'Geschlossen',
 	submitted: 'Gesendet',
-	technical_problems: 'Techn. Probleme',
 };
 
 const getUpdateHandler = service => function updateHandler(req, res, next) {
