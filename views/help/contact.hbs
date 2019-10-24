@@ -11,6 +11,7 @@
 
   <form class="admin_form {{#unless adminFormIsActive}}hidden{{/unless}}" action="/helpdesk" method="post">
     {{> "help/forms/form_admin"}}
+    {{> "lib/components/csrfInput"}}
     <button type="submit">Absenden</button>
   </form>
 
@@ -28,10 +29,12 @@
 
     <form class="wish_form hidden" action="/helpdesk" method="post">
       {{> "help/forms/form_wish"}}
+      {{> "lib/components/csrfInput"}}
       <button type="submit">Absenden</button>
     </form>
     <form class="bug_form" action="/helpdesk" method="post">
       {{> "help/forms/form_bug"}}
+      {{> "lib/components/csrfInput"}}
       <button type="submit">Absenden</button>
     </form>
   </div>

@@ -1,9 +1,11 @@
 const express = require('express');
 const moment = require('moment');
+const { Converter } = require('showdown');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 
 const router = express.Router();
+const converter = new Converter();
 
 // read here for updateding the tutorials.json: https://docs.schul-cloud.org/display/Intern/Hilfe-Artikel+aktualisieren
 const tutorials = require('../helpers/content/tutorials.json');

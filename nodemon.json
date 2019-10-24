@@ -9,7 +9,9 @@
 		"theme",
 		"controllers",
 		"helpers",
-		"config"
+		"config",
+		"app.js",
+		"api.js"
 	],
 	"exec": "node ./bin/www",
 	"ext": "js, hbs, json",

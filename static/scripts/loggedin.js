@@ -1,5 +1,5 @@
 /* global kjua jQuery introJs*/
-import { setupFirebasePush } from './notificationService/indexFirebase';
+// import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 
@@ -153,7 +153,7 @@ function showAJAXError(req, textStatus, errorThrown) {
 
 window.addEventListener('DOMContentLoaded', function() {
     if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
-        setupFirebasePush();
+        // setupFirebasePush();
     }
 
     let feedbackSelector = document.querySelector('#feedbackType');
