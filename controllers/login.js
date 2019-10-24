@@ -17,7 +17,7 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 }).then(data => data.data);
 
 const clearCookie = (req, res) => {
-	res.clearCookie('jwt', authHelper.cookieDomain(res));
+	res.clearCookie('jwt');
 };
 
 // Login
@@ -32,13 +32,12 @@ router.post('/login/', (req, res, next) => {
 
 	const login = d => api(req).post('/authentication', { json: d }).then((data) => {
 		res.cookie('jwt', data.accessToken,
-			Object.assign({},
-				{
-					expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-					httpOnly: true,
-					secure: process.env.NODE_ENV === 'production',
-				},
-				authHelper.cookieDomain(res)));
+			{
+				expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+				httpOnly: false, // can't be set to true with nuxt client
+				hostOnly: true,
+				secure: process.env.NODE_ENV === 'production',
+			});
 		res.redirect('/login/success/');
 	}).catch((e) => {
 		res.locals.notification = {
