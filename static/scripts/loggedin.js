@@ -298,20 +298,22 @@ function startIntro() {
     .oncomplete(changeNavBarPositionToFixed);
 }
 
-window.addEventListener("load", () => {
-    var continueTuorial=localStorage.getItem('Tutorial');
-    if(continueTuorial=='true') {
-        startIntro();
-        localStorage.setItem('Tutorial', false);
-    }
-    if ('serviceWorker' in navigator) {
-        // enable sw for half of users only
-        let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
-        if(testUserGroup == 1) {
-            navigator.serviceWorker.register('/sw.js');
-        }
-    }
-    document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
+window.addEventListener('load', () => {
+	const continueTuorial = localStorage.getItem('Tutorial');
+	if (continueTuorial == 'true') {
+		startIntro();
+		localStorage.setItem('Tutorial', false);
+	}
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.getRegistrations().then(
+			(registrations) => {
+				for (const registration of registrations) {
+					registration.unregister();
+				}
+			},
+		);
+	}
+	document.getElementById('intro-loggedin').addEventListener('click', startIntro, false);
 });
 
 document.querySelectorAll('#main-content a').forEach((a) => {
