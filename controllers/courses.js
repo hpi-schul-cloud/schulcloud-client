@@ -636,6 +636,7 @@ router.get('/:courseId/', (req, res, next) => {
 			const newLessons = (_newLessons.data || []).map(lesson => ({
 				...lesson,
 				url: `/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`,
+				hidden: !lesson.visible,
 			}));
 
 			const hasLessons = ((newLessons || []).length !== 0 || (lessons || []).length !== 0);

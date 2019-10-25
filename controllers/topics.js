@@ -336,5 +336,13 @@ router.get('/add/neweditor', async (req, res, next) => {
 	res.redirect(`/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`);
 });
 
+router.delete('/:topicId/neweditor', async (req, res, next) => {
+	api(req, { backend: 'editor' }).delete(`course/${req.params.courseId}/lessons/${req.params.topicId}`).then((_) => {
+		res.sendStatus(200);
+	}).catch((err) => {
+		next(err);
+	});
+});
+
 
 module.exports = router;

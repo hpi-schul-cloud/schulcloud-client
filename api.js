@@ -15,7 +15,7 @@ const api = (req, { useCallback = false, json = true, backend = 'server' } = {})
 	let baseUrl;
 	switch (backend) {
 		case 'editor':
-			baseUrl = process.env.EDITOR_URL || 'http://edtr-server:4001';
+			baseUrl = process.env.EDITOR_URL || 'http://localhost:4001';
 			break;
 		case 'server':
 		default:

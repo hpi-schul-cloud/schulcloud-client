@@ -387,7 +387,7 @@ gulp.task('nodemon', (cb) => {
 		ext: 'js hbs json',
 		script: './bin/www',
 		watch: ['views/', 'controllers/', 'helpers'],
-		exec: 'node --inspect=0.0.0.0:9310',
+		exec: 'node --inspect=9310',
 	}).on('start', () => {
 		if (!started) {
 			cb();

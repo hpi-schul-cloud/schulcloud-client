@@ -121,7 +121,7 @@
 						{{/unless}}
 					{{/each}}
 					<!-- ###################  start new Editors lesson ############################ -->
-					{{#each newLesson}}
+					{{#each newLessons}}
 					{{#unless this.hidden}}
 							<!-- TOPIC IS NOT HIDDEN, teacher and student has access -->
 							<div class="card card-topic" onclick="location.href='{{this.url}}'"
@@ -139,21 +139,16 @@
 												</a>
 											{{/unless}}
 										{{/userHasPermission}}
-										<p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
+										<p class="topic-label ml-1">{{{stripOnlyScript this.title}}}</p>
 										{{#userHasPermission "COURSE_EDIT"}}
 											<div class="right-btn-group">
 												{{#unless @root.isArchived}}
 													<a class="delete-topic btn btn-secondary btn-secondary btn-sm btn-icon-card"
-														href="/courses/{{../courseId}}/topics/{{../_id}}"
-														target="_blank" data-method="DELETE" data-name="{{../name}}"
+														href="/courses/{{../courseId}}/topics/{{../_id}}/neweditor"
+														target="_blank" data-method="DELETE" data-name="{{../title}}"
 														redirect="/courses/{{../courseId}}/?activeTab=topics"
 														title="Thema löschen">
 														<i class="fa fa-trash-o"></i>
-													</a>
-													<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
-														class="btn btn-secondary btn-sm btn-icon-card"
-														title="Thema bearbeiten">
-														<i class="fa fa-pencil"></i>
 													</a>
 												{{/unless}}
 											</div>
@@ -176,19 +171,14 @@
 												title="Thema wieder anzeigen">
 												<i class="fa fa-eye-slash"></i>
 											</a>
-											<p class="topic-label ml-1">{{{stripOnlyScript ../name}}}</p>
+											<p class="topic-label ml-1">{{{stripOnlyScript ../title}}}</p>
 											<div class="right-btn-group">
 												{{#unless @root.isArchived}}
 													<a class="delete-topic btn btn-secondary btn-sm btn-icon-card"
-														href="/courses/{{../courseId}}/topics/{{../_id}}"
-														target="_blank" data-method="DELETE" data-name="{{../name}}"
+														href="/courses/{{../courseId}}/topics/{{../_id}}/neweditor"
+														target="_blank" data-method="DELETE" data-name="{{../title}}"
 														redirect="/courses/{{../courseId}}" title="Thema löschen">
 														<i class="fa fa-trash-o"></i>
-													</a>
-													<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
-														class="btn btn-secondary btn-sm btn-icon-card"
-														title="Thema bearbeiten">
-														<i class="fa fa-pencil"></i>
 													</a>
 												{{/unless}}
 											</div>
