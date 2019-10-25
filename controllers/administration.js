@@ -471,7 +471,6 @@ const getSendHelper = service => function send(req, res, next) {
 					json: {
 						type: 'contactHPI',
 						subject: data.subject,
-						category: data.category,
 						role: '',
 						desire: '',
 						benefit: '',
@@ -484,6 +483,11 @@ const getSendHelper = service => function send(req, res, next) {
 						email: user.email ? user.email : '',
 						schoolId: res.locals.currentSchoolData._id,
 						cloud: res.locals.theme.title,
+						browserName: '',
+						browserVersion: '',
+						os: '',
+						device: '',
+						deviceUserAgent: '',
 					},
 				})
 				.then(() => {
@@ -561,17 +565,6 @@ const dictionary = {
 	open: 'Offen',
 	closed: 'Geschlossen',
 	submitted: 'Gesendet',
-	dashboard: 'Übersicht',
-	courses: 'Kurse',
-	classes: 'Klassen',
-	teams: 'Teams',
-	homework: 'Aufgaben',
-	files: 'Dateien',
-	content: 'Materialien',
-	administration: 'Verwaltung',
-	login_registration: 'Anmeldung/Registrierung',
-	other: 'Sonstiges',
-	technical_problems: 'Techn. Probleme',
 };
 
 const getUpdateHandler = service => function updateHandler(req, res, next) {
@@ -1391,7 +1384,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	if (classId) {
 		const klass = await api(req).get(`/classes/${classId}`, {
 			qs: {
-				$populate: ['teacherIds', 'userIds'],
+				$populate: ['userIds'],
 			},
 		});
 		users = klass.userIds.concat(klass.teacherIds);
@@ -1721,7 +1714,7 @@ const renderClassEdit = (req, res, next) => {
 						}[mode],
 						action: {
 							create: '/administration/classes/create',
-							edit: '/administration/classes/edit',
+							edit: `/administration/classes/${(currentClass || {})._id}/edit`,
 							upgrade: '/administration/classes/create',
 						}[mode],
 						edit: mode !== 'create',
@@ -2124,34 +2117,40 @@ router.delete(
 	},
 );
 
-const classFilterSettings = years => [
-	{
-		type: 'sort',
-		title: 'Sortierung',
-		displayTemplate: 'Sortieren nach: %1',
-		options: [['displayName', 'Klasse']],
-		defaultSelection: 'displayName',
-		defaultOrder: 'DESC',
-	},
-	{
-		type: 'limit',
-		title: 'Einträge pro Seite',
-		displayTemplate: 'Einträge pro Seite: %1',
-		options: [25, 50, 100],
-		defaultSelection: 25,
-	},
-	{
+const classFilterSettings = ({ years, currentYear }) => {
+	const yearFilter = {
 		type: 'select',
-		title: 'Jahrgang',
-		displayTemplate: 'Jahrgang: %1',
+		title: 'Schuljahr',
+		displayTemplate: 'Schuljahr: %1',
 		property: 'year',
 		multiple: true,
 		expanded: true,
 		options: years,
-	},
-];
+	};
+	if (currentYear) {
+		yearFilter.defaultSelection = currentYear;
+	}
+	return [
+		{
+			type: 'sort',
+			title: 'Sortierung',
+			displayTemplate: 'Sortieren nach: %1',
+			options: [['displayName', 'Klasse']],
+			defaultSelection: 'displayName',
+			defaultOrder: 'DESC',
+		},
+		yearFilter,
+		{
+			type: 'limit',
+			title: 'Einträge pro Seite',
+			displayTemplate: 'Einträge pro Seite: %1',
+			options: [25, 50, 100],
+			defaultSelection: 25,
+		},
+	];
+};
 
-router.all(
+router.get(
 	'/classes',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
 	(req, res, next) => {
@@ -2237,10 +2236,18 @@ router.all(
 					baseUrl: `/administration/classes/?p={{page}}${filterQueryString}`,
 				};
 
-				const years = (await api(req).get('/years')).data.map(year => [
+				const years = (await api(req).get('/years', {
+					qs: {
+						$sort: {
+							name: -1,
+						},
+					},
+				})).data.map(year => [
 					year._id,
 					year.name,
 				]);
+
+				const currentYear = res.locals.currentSchoolData.currentYear;
 
 				res.render('administration/classes', {
 					title: 'Administration: Klassen',
@@ -2248,7 +2255,7 @@ router.all(
 					body,
 					pagination,
 					limit: true,
-					filterSettings: JSON.stringify(classFilterSettings(years)),
+					filterSettings: JSON.stringify(classFilterSettings({ years, currentYear })),
 				});
 			});
 	},
@@ -2330,7 +2337,6 @@ router.all(
 					'Titel',
 					'Ist-Zustand',
 					'Soll-Zustand',
-					'Kategorie',
 					'Status',
 					'Erstellungsdatum',
 					'Anmerkungen',
@@ -2341,7 +2347,6 @@ router.all(
 					truncate(item.subject || ''),
 					truncate(item.currentState || ''),
 					truncate(item.targetState || ''),
-					item.category === '' ? '' : dictionary[item.category],
 					dictionary[item.state],
 					moment(item.createdAt).format('DD.MM.YYYY'),
 					truncate(item.notes || ''),

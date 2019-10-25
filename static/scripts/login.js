@@ -33,7 +33,28 @@ $(document).ready(function() {
     var $systems = $('.system');
     var $modals = $('.modal');
     var $pwRecoveryModal = $('.pwrecovery-modal');
-    var $modalForm = $('.modal-form');
+    var $submitButton = $('#submit-login');
+
+    var incTimer = function(){
+        setTimeout (function(){
+            if(countdownNum != 1){
+                countdownNum--;
+                $submitButton.val('Bitte ' + countdownNum + ' Sekunden warten');
+                incTimer();
+            } else {
+                $submitButton.val('Anmelden');
+            }
+        },1000);
+    };
+
+    if($submitButton.data('timeout')){
+        setTimeout (function(){
+            $submitButton.prop('disabled', false);
+        },$submitButton.data('timeout')*1000);
+
+        var countdownNum = $submitButton.data('timeout');
+        incTimer();
+    }
 
     var loadSystems = function(schoolId) {
         $systems.empty();

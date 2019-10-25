@@ -18,6 +18,7 @@
                             </div>
                             <div class="form-wrapper">
                                 <form method="post" class="registration-form" action={{action}}>
+									{{> "lib/components/csrfInput"}}
                                     <div class="form-group">
                                         <label>Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:</label>
                                         <ul>
@@ -27,6 +28,7 @@
                                             {{/each}}
                                         </ul>
                                     </div>
+                                    {{> "lib/components/csrfInput"}}
                                     <input type="submit" class="btn btn-primary btn-block" value="{{buttonLabel}}" />
                                 </form>
                             </div>
