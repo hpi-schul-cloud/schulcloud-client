@@ -138,7 +138,7 @@ const editCourseHandler = (req, res, next) => {
 				$populate: ['year'],
 				$limit: -1,
 			},
-		})
+		});
 		// .then(data => data.data); needed when pagination is not disabled
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher', 'demoTeacher'],
@@ -600,8 +600,10 @@ router.get('/:courseId/', (req, res, next) => {
 				$populate: ['courseId', 'userIds'],
 			},
 		}),
+		// ########################### requests to new Editor #########################
+		api(req, { backend: 'editor' }).get(`course/${req.params.courseId}/lessons`),
 	])
-		.then(([course, _lessons, _homeworks, _courseGroups]) => {
+		.then(([course, _lessons, _homeworks, _courseGroups, _newLessons]) => {
 			const ltiToolIds = (course.ltiToolIds || []).filter(
 				ltiTool => ltiTool.isTemplate !== 'true',
 			);
@@ -629,6 +631,16 @@ router.get('/:courseId/', (req, res, next) => {
 				: (_courseGroups.data || []).filter(cg => cg.userIds.some(
 					user => user._id === res.locals.currentUser._id,
 				));
+
+			// ###################### start of code for new Editor ################################
+			const newLessons = (_newLessons.data || []).map(lesson => ({
+				...lesson,
+				url: `/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`,
+			}));
+
+			const hasLessons = ((newLessons || []).length !== 0 || (lessons || []).length !== 0);
+
+			// ###################### end of code for new Editor ################################
 			res.render(
 				'courses/course',
 				Object.assign({}, course, {
@@ -655,6 +667,9 @@ router.get('/:courseId/', (req, res, next) => {
 					nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
 						course.times,
 					),
+					// #################### new Editor, till replacing old one ######################
+					hasLessons,
+					newLessons,
 				}),
 			);
 		})

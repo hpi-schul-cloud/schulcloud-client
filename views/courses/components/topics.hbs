@@ -31,7 +31,7 @@
 	{{/userHasPermission}}
 	<div class="col-sm-12">
 		<div class="list-group">
-			{{#if lessons}}
+			{{#if @root.hasLessons}}
 				<div id="topic-list" data-courseId="{{@root._id}}">
 					{{#each lessons}}
 						{{#unless this.hidden}}
@@ -120,6 +120,85 @@
 							{{/userHasPermission}}
 						{{/unless}}
 					{{/each}}
+					<!-- ###################  start new Editors lesson ############################ -->
+					{{#each newLesson}}
+					{{#unless this.hidden}}
+							<!-- TOPIC IS NOT HIDDEN, teacher and student has access -->
+							<div class="card card-topic" onclick="location.href='{{this.url}}'"
+								{{#userHasPermission "COURSE_EDIT"}} data-topicId="{{../_id}}" {{/userHasPermission}}>
+								<div class="card-header">
+									<div class="input-group">
+										{{#userHasPermission "COURSE_EDIT"}}
+											{{#unless @root.isArchived}}
+												<a class="move-handle hidden-xs-down" title="Thema verschieben">
+													<i class="fa fa-ellipsis-v"></i>
+													<i class="fa fa-ellipsis-v"></i>
+												</a>
+												<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}" title="Thema verstecken">
+													<i class="fa fa-eye"></i>
+												</a>
+											{{/unless}}
+										{{/userHasPermission}}
+										<p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
+										{{#userHasPermission "COURSE_EDIT"}}
+											<div class="right-btn-group">
+												{{#unless @root.isArchived}}
+													<a class="delete-topic btn btn-secondary btn-secondary btn-sm btn-icon-card"
+														href="/courses/{{../courseId}}/topics/{{../_id}}"
+														target="_blank" data-method="DELETE" data-name="{{../name}}"
+														redirect="/courses/{{../courseId}}/?activeTab=topics"
+														title="Thema löschen">
+														<i class="fa fa-trash-o"></i>
+													</a>
+													<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
+														class="btn btn-secondary btn-sm btn-icon-card"
+														title="Thema bearbeiten">
+														<i class="fa fa-pencil"></i>
+													</a>
+												{{/unless}}
+											</div>
+										{{/userHasPermission}}
+									</div>
+								</div>
+							</div>
+						{{else}}
+							<!-- TOPIC IS HIDDEN, just teacher has access -->
+							{{#userHasPermission "COURSE_EDIT"}}
+								<div class="card card-topic card-transparent" onclick="location.href='{{../url}}'"
+									data-topicId="{{../_id}}">
+									<div class="card-header">
+										<div class="input-group">
+											<a class="move-handle hidden-xs-down" title="Thema verschieben">
+												<i class="fa fa-ellipsis-v"></i>
+												<i class="fa fa-ellipsis-v"></i>
+											</a>
+											<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}"
+												title="Thema wieder anzeigen">
+												<i class="fa fa-eye-slash"></i>
+											</a>
+											<p class="topic-label ml-1">{{{stripOnlyScript ../name}}}</p>
+											<div class="right-btn-group">
+												{{#unless @root.isArchived}}
+													<a class="delete-topic btn btn-secondary btn-sm btn-icon-card"
+														href="/courses/{{../courseId}}/topics/{{../_id}}"
+														target="_blank" data-method="DELETE" data-name="{{../name}}"
+														redirect="/courses/{{../courseId}}" title="Thema löschen">
+														<i class="fa fa-trash-o"></i>
+													</a>
+													<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
+														class="btn btn-secondary btn-sm btn-icon-card"
+														title="Thema bearbeiten">
+														<i class="fa fa-pencil"></i>
+													</a>
+												{{/unless}}
+											</div>
+										</div>
+									</div>
+								</div>
+							{{/userHasPermission}}
+						{{/unless}}
+					{{/each}}
+					<!-- ###################  end new Editors lesson ############################## -->
 				</div>
 			{{else}}
 				<div class="empty-state empty-state-courses">
@@ -153,6 +232,20 @@
 						{{/if}}
 					</a>
 				</div>
+				<!-- ###################  start new Editors button ############################ -->
+				<div class="add-button">
+					<a href="/courses/{{../_id}}/topics/add/neweditor"
+						class="btn btn-add {{#if ../lessons}}btn-secondary w-100{{else}}btn-primary btn-empty{{/if}} center"
+						title="Thema mit neuem Editor hinzufügen (beta)">
+						{{#if ../newLessons}}
+							<span>Weiteres Thema im neuen Editor erstellen (beta)</span>
+							<i class="fa fa-plus-circle plus-icon pull-right"></i>
+						{{else}}
+							<span>Erstelle ein Thema im neuen Editor (beta)</span>
+						{{/if}}
+					</a>
+				</div>
+				<!-- ##################### end new Editors button ############################# -->
 			{{/unless}}{{/userHasPermission}}
 	</div>
 </div>
