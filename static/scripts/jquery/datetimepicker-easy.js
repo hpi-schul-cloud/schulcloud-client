@@ -4,7 +4,7 @@ if (!window.datetimepicker) {
 	window.datetimepicker = () => {
 		/* DATE(-TIME) PICKER */
 		function triggerInputEvent(currentDateTime) {
-			const event = new Event('input', {
+			const event = new CustomEvent('input', {
 				bubbles: true,
 				cancelable: true,
 			});
