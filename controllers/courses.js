@@ -575,7 +575,10 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 // EDITOR
 
 router.get('/:courseId/', (req, res, next) => {
-	Promise.all([
+	// ############################## check if new Editor options should show #################
+	const isNewEdtiroActivated = (req.query.edtr === 'true');
+
+	const promises = [
 		api(req).get(`/courses/${req.params.courseId}`, {
 			qs: {
 				$populate: ['ltiToolIds'],
@@ -600,9 +603,16 @@ router.get('/:courseId/', (req, res, next) => {
 				$populate: ['courseId', 'userIds'],
 			},
 		}),
-		// ########################### requests to new Editor #########################
-		api(req, { backend: 'editor' }).get(`course/${req.params.courseId}/lessons`),
-	])
+	];
+
+	// ########################### start requests to new Editor #########################
+	if (isNewEdtiroActivated) {
+		promises.push(api(req, { backend: 'editor' }).get(`course/${req.params.courseId}/lessons`));
+	}
+
+	// ############################ end requests to new Editor ##########################
+
+	Promise.all(promises)
 		.then(([course, _lessons, _homeworks, _courseGroups, _newLessons]) => {
 			const ltiToolIds = (course.ltiToolIds || []).filter(
 				ltiTool => ltiTool.isTemplate !== 'true',
@@ -633,11 +643,14 @@ router.get('/:courseId/', (req, res, next) => {
 				));
 
 			// ###################### start of code for new Editor ################################
-			const newLessons = (_newLessons.data || []).map(lesson => ({
-				...lesson,
-				url: `/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`,
-				hidden: !lesson.visible,
-			}));
+			let newLessons;
+			if (isNewEdtiroActivated) {
+				newLessons = (_newLessons.data || []).map(lesson => ({
+					...lesson,
+					url: `/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`,
+					hidden: !lesson.visible,
+				}));
+			}
 
 			const hasLessons = ((newLessons || []).length !== 0 || (lessons || []).length !== 0);
 
@@ -671,6 +684,7 @@ router.get('/:courseId/', (req, res, next) => {
 					// #################### new Editor, till replacing old one ######################
 					hasLessons,
 					newLessons,
+					isNewEdtiroActivated,
 				}),
 			);
 		})
