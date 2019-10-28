@@ -37,14 +37,14 @@
 
                 <div class="form-group">
                     <label>Aktuelles Passwort: <sup>*</sup></label>
-                    <input type="password" data-testid="settings_password_current" name="password" class="form-control"
+                    <input type="password" autocomplete="current-password" data-testid="settings_password_current" name="password" class="form-control"
                         placeholder="***************" required>
                 </div>
 
                 {{#userHasPermission "PASSWORD_EDIT"}}
                 <div class="form-group">
                     <label>Neues Passwort:</label>
-                    <input type="password" name="passwordNew" data-testid="settings_password_new" class="form-control"
+                    <input type="password" autocomplete="new-password" name="passwordNew" data-testid="settings_password_new" class="form-control"
                         placeholder="***************"
                         pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
                         title="{{> "lib/forms/password-hint" plaintext=true}}">
@@ -52,7 +52,7 @@
 
                 <div class="form-group">
                     <label>Neues Passwort wiederholen:</label>
-                    <input type="password" name="password_control" data-testid="settings_password_control"
+                    <input type="password" autocomplete="new-password" name="password_control" data-testid="settings_password_control"
                         class="form-control" placeholder="***************"
                         title="{{> "lib/forms/password-hint" plaintext=true}}">
                 </div>
