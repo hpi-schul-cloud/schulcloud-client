@@ -10,11 +10,15 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const userConsentVersions = require('../helpers/consentVersions');
 
+const logger = require('../helpers/logger');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then(data => data.data);
 
+const clearCookie = (req, res) => {
+	res.clearCookie('jwt');
+};
 
 // Login
 
@@ -26,37 +30,34 @@ router.post('/login/', (req, res, next) => {
 		schoolId,
 	} = req.body;
 
-	return api(req).get('/accounts/', { qs: { username } })
-		.then((account) => {
-			if (!(account[0] || {}).activated && (account[0] || {}).activated !== undefined) {
-				// undefined for currently existing users
-				res.locals.notification = {
-					type: 'danger',
-					message: 'Account noch nicht aktiviert.',
-				};
-				return next();
-			}
-			const login = d => api(req).post('/authentication', { json: d }).then((data) => {
-				res.cookie('jwt', data.accessToken,
-					Object.assign({},
-						{ expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) },
-						authHelper.cookieDomain(res)));
-				res.redirect('/login/success/');
-			}).catch(() => {
-				res.locals.notification = {
-					type: 'danger',
-					message: 'Login fehlgeschlagen.',
-				};
-				next();
+	const login = d => api(req).post('/authentication', { json: d }).then((data) => {
+		res.cookie('jwt', data.accessToken,
+			{
+				expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+				httpOnly: false, // can't be set to true with nuxt client
+				hostOnly: true,
+				secure: process.env.NODE_ENV === 'production',
 			});
+		res.redirect('/login/success/');
+	}).catch((e) => {
+		res.locals.notification = {
+			type: 'danger',
+			message: 'Login fehlgeschlagen.',
+			statusCode: e.statusCode,
+			timeToWait: process.env.LOGIN_BLOCK_TIME || 15
+		};
+		if (e.statusCode == 429){
+			res.locals.notification.timeToWait = e.error.data.timeToWait;
+		}
+		next();
+	});
 
-			if (systemId) {
-				return api(req).get(`/systems/${req.body.systemId}`).then(system => login({
-					strategy: system.type, username, password, systemId, schoolId,
-				}));
-			}
-			return login({ strategy: 'local', username, password });
-		});
+	if (systemId) {
+		return api(req).get(`/systems/${req.body.systemId}`).then(system => login({
+			strategy: system.type, username, password, systemId, schoolId,
+		}));
+	}
+	return login({ strategy: 'local', username, password });
 });
 
 
@@ -115,18 +116,24 @@ router.all('/login/', (req, res, next) => {
 		if (isAuthenticated) {
 			return res.redirect('/login/success/');
 		}
-		const schoolsPromise = getSelectOptions(req,
+		return getSelectOptions(req,
 			'schools', {
 				purpose: { $ne: 'expert' },
 				$limit: false,
 				$sort: 'name',
+			})
+			.then((schools) => {
+				clearCookie(req, res);
+				res.render('authentication/login', {
+					schools,
+					systems: [],
+				});
 			});
-		return Promise.all([
-			schoolsPromise,
-		]).then(([schools]) => res.render('authentication/login', {
-			schools,
-			systems: [],
-		}));
+	}).catch((error) => {
+		logger.error(error);
+		clearCookie(req, res);
+		req.session.destroy();
+		return res.redirect('/');
 	});
 });
 
@@ -198,7 +205,7 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
 		.then(() => {
-			res.clearCookie('jwt', authHelper.cookieDomain(res));
+			clearCookie(req, res);
 			req.session.destroy();
 			return res.redirect('/');
 		}).catch(() => res.redirect('/'));

@@ -1,6 +1,6 @@
 {{#extend "lib/components/modal"}}
     {{#content "body"}}
-        <form class="modal-form" method="post" action="{{action}}" {{#if enctype}}enctype="{{enctype}}"{{/if}}>
+        <form class="modal-form" method="post" action="{{action}}" {{#if enctype}}enctype="{{enctype}}"{{/if}} {{#if id}}id="{{id}}"{{/if}}>
             {{#if method}}
                 <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
             {{/if}}
@@ -14,6 +14,8 @@
                 </button>
 
                 {{#block "additional-actions"}}{{/block}}
+
+                {{> "lib/components/csrfInput"}}
 
                 <button type="submit" class="btn btn-primary btn-submit">
                     {{submitLabel}}

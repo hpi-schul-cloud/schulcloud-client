@@ -1388,7 +1388,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	if (classId) {
 		const klass = await api(req).get(`/classes/${classId}`, {
 			qs: {
-				$populate: ['teacherIds', 'userIds'],
+				$populate: ['userIds'],
 			},
 		});
 		users = klass.userIds.concat(klass.teacherIds);
@@ -1718,7 +1718,7 @@ const renderClassEdit = (req, res, next) => {
 						}[mode],
 						action: {
 							create: '/administration/classes/create',
-							edit: '/administration/classes/edit',
+							edit: `/administration/classes/${(currentClass || {})._id}/edit`,
 							upgrade: '/administration/classes/create',
 						}[mode],
 						edit: mode !== 'create',
@@ -2032,6 +2032,10 @@ router.post(
 		if (req.body.teacherIds) {
 			newClass.teacherIds = req.body.teacherIds;
 		}
+		if (req.body.userIds) {
+			newClass.userIds = req.body.userIds;
+		}
+
 		api(req)
 			.post('/classes/', {
 				// TODO: sanitize
@@ -2210,7 +2214,7 @@ router.all(
 								title: 'Klasse löschen',
 							},
 						];
-						if (lastDefinedSchoolYear !== i.year._id
+						if (lastDefinedSchoolYear !== (i.year || {})._id
 							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'USERGROUP_EDIT')
 						) {
 							baseActions.push({

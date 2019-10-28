@@ -1,16 +1,43 @@
 const express = require('express');
 const path = require('path');
-const logger = require('morgan');
+const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const redis = require('redis');
+const connectRedis = require('connect-redis');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
+const Sentry = require('@sentry/node');
+const { tokenInjector, duplicateTokenHandler } = require('./helpers/csrf');
+
+const { version } = require('./package.json');
+const { sha } = require('./helpers/version');
+const logger = require('./helpers/logger');
 
 const app = express();
+
+if (process.env.SENTRY_DSN) {
+	Sentry.init({
+		dsn: process.env.SENTRY_DSN,
+		environment: app.get('env'),
+		release: version,
+		integrations: [
+			new Sentry.Integrations.Console(),
+		],
+	});
+	Sentry.configureScope((scope) => {
+		scope.setTag('frontend', false);
+		scope.setLevel('warning');
+		scope.setTag('domain', process.env.SC_DOMAIN || 'localhost');
+		scope.setTag('sha', sha);
+	});
+	app.use(Sentry.Handlers.requestHandler());
+}
 
 // template stuff
 const authHelper = require('./helpers/authentication');
@@ -57,27 +84,50 @@ app.set('view cache', true);
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
 
-const sessionStore = new session.MemoryStore();
+let sessionStore;
+const redisUrl = process.env.REDIS_URI;
+if (redisUrl) {
+	logger.info(`Using Redis session store at '${redisUrl}'.`);
+	const RedisStore = connectRedis(session);
+	const client = redis.createClient({
+		url: redisUrl,
+	});
+	sessionStore = new RedisStore({ client });
+} else {
+	logger.info('Using in-memory session store.');
+	sessionStore = new session.MemoryStore();
+}
+
 app.use(session({
-	cookie: { maxAge: 60000 },
+	cookie: { maxAge: 1000 * 60 * 60 * 6 },
+	rolling: true, // refresh session with every request within maxAge
 	store: sessionStore,
 	saveUninitialized: true,
-	resave: 'true',
-	secret: 'secret',
+	resave: false,
+	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
 }));
+
+// CSRF middlewares
+app.use(duplicateTokenHandler);
+app.use(csurf());
+app.use(tokenInjector);
 
 const setTheme = require('./helpers/theme');
 
+function removeIds(url) {
+	const checkForHexRegExp = /^[a-f\d]{24}$/ig;
+	return url.replace(checkForHexRegExp, 'ID');
+}
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
-	if (!req.session.currentUser) {
+	try {
 		await authHelper.populateCurrentUser(req, res).then(() => {
 			if (res.locals.currentUser) { // user is authenticated
 				req.session.currentRole = res.locals.currentRole;
@@ -88,19 +138,28 @@ app.use(async (req, res, next) => {
 				req.session.save();
 			}
 		});
-	} else {
-		res.locals.currentRole = req.session.currentRole;
-		res.locals.roleNames = req.session.roleNames;
-		res.locals.currentUser = req.session.currentUser;
-		res.locals.currentSchool = req.session.currentSchool;
-		res.locals.currentSchoolData = req.session.currentSchoolData;
+	} catch (error) {
+		logger.error(error);
+	}
+	if (process.env.SENTRY_DSN) {
+		Sentry.configureScope((scope) => {
+			if (res.locals.currentUser) {
+				scope.setTag({ schoolId: res.locals.currentUser.schoolId });
+			}
+			const { url, header } = req;
+			scope.request = { url: removeIds(url), header };
+		});
 	}
 	// if there's a flash message in the session request, make it available in the response, then delete it
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
 	setTheme(res);
-	res.locals.domain = process.env.SC_DOMAIN || false;
+	res.locals.domain = process.env.SC_DOMAIN || 'localhost';
 	res.locals.production = req.app.get('env') === 'production';
+	res.locals.env = req.app.get('env') || false;
+	res.locals.SENTRY_DSN = process.env.SENTRY_DSN || false;
+	res.locals.version = version;
+	res.locals.sha = sha;
 	delete req.session.notification;
 	next();
 });
@@ -123,6 +182,9 @@ app.use(require('./controllers/'));
 app.get('/', (req, res, next) => {
 	res.redirect('/login/');
 });
+
+// sentry error handler
+app.use(Sentry.Handlers.errorHandler());
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

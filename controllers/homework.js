@@ -661,7 +661,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                             closeLabel: 'Abbrechen',
                             method: 'patch',
                             action: '/homework/' + req.params.assignmentId,
-                            referrer: '/homework/', //+ req.params.assignmentId,
+                            referrer: '/homework/',
                             assignment,
                             courses,
                             lessons,
@@ -675,7 +675,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         closeLabel: 'Abbrechen',
                         method: 'patch',
                         action: '/homework/' + req.params.assignmentId,
-                        referrer: '/homework/', //+ req.params.assignmentId,
+                        referrer: '/homework/',
                         assignment,
                         courses,
                         lessons: false,
@@ -802,12 +802,15 @@ router.get('/:assignmentId', function (req, res, next) {
                     || ((assignment.courseId || {}).substitutionIds || []).includes(res.locals.currentUser._id))
                     && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
-                assignment.submissions = submissions.data.filter(submission => { return submission.studentId; })
-                    .sort((a, b) => { return (a.studentId.lastName.toUpperCase() < b.studentId.lastName.toUpperCase()) ? -1 : 1; })
-                    .sort((a, b) => { return (a.studentId.firstName.toUpperCase() < b.studentId.firstName.toUpperCase()) ? -1 : 1; })
+                assignment.submissions = submissions.data.filter(submission => submission.studentId)
+                    .sort((a, b) => (a.studentId.lastName.toUpperCase() < b.studentId.lastName.toUpperCase()) ? -1 : 1)
+                    .sort((a, b) => (a.studentId.firstName.toUpperCase() < b.studentId.firstName.toUpperCase()) ? -1 : 1)
                     .map(sub => {
-                        sub.teamMembers.sort((a, b) => { return (a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1; })
-                            .sort((a, b) => { return (a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1; });
+                        if (Array.isArray(sub.teamMembers)) {
+                            sub.teamMembers = sub.teamMembers
+                                .sort((a, b) => (a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1)
+                                .sort((a, b) => (a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1);
+                        }
                         return sub;
                     });
                 let studentSubmissions = students.map(student => {
