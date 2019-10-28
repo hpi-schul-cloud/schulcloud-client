@@ -16,16 +16,34 @@ const cspHeadersForRoute = (path, regexs, corsDefault) => {
 	corsHeaders.forEach((matchingHeader) => {
 		if (matchingHeader.defaultSrc && matchingHeader.defaultSrc.includes('*')) {
 			defaultSrc = '*';
+			if (matchingHeader.defaultSrc.includes('unsafe-inline')) {
+				defaultSrc += " 'unsafe-inline'";
+			}
+			if (matchingHeader.defaultSrc.includes('unsafe-eval')) {
+				defaultSrc += " 'unsafe-eval'";
+			}
 		} else if (matchingHeader.defaultSrc) {
 			defaultSrc = `${defaultSrc} ${matchingHeader.defaultSrc}`;
 		}
 		if (matchingHeader.scriptSrc && matchingHeader.scriptSrc.includes('*')) {
 			scriptSrc = '*';
+			if (matchingHeader.scriptSrc.includes('unsafe-inline')) {
+				scriptSrc += " 'unsafe-inline'";
+			}
+			if (matchingHeader.scriptSrc.includes('unsafe-eval')) {
+				scriptSrc += " 'unsafe-eval'";
+			}
 		} else if (matchingHeader.scriptSrc) {
 			scriptSrc = `${scriptSrc} ${matchingHeader.scriptSrc}`;
 		}
 		if (matchingHeader.objectSrc && matchingHeader.objectSrc.includes('*')) {
 			objectSrc = '*';
+			if (matchingHeader.objectSrc.includes('unsafe-inline')) {
+				objectSrc += " 'unsafe-inline'";
+			}
+			if (matchingHeader.objectSrc.includes('unsafe-eval')) {
+				objectSrc += " 'unsafe-eval'";
+			}
 		} else if (matchingHeader.objectSrc) {
 			objectSrc = `${objectSrc} ${matchingHeader.objectSrc}`;
 		}

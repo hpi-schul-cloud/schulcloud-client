@@ -1,5 +1,5 @@
 <input type="hidden" name="target" value="HPI">
-<input type="hidden" name="type" value="wish">
+<input type="hidden" name="type" value="problem">
 
 <label class="form-group">
 	<label class="control-label">Kurzbeschreibung des Problems</label>
@@ -14,18 +14,30 @@
 	<textarea class="form-control" cols="50" name="targetState" rows="6" required></textarea>
 </label>
 <label class="form-group">
-	<span class="control-label optional">Bereich wählen</span>
-	<select name="category" id="category" data-placeholder="Bereich wählen (optional)" class="chosen-select" tabindex="-1">
-		<option value="login_registration">Anmeldung/Registrierung</option>
-		<option value="dashboard">Übersicht</option>
-		<option value="courses">Kurse</option>
-		<option value="classes">Klassen</option>
-		<option value="teams">Teams</option>
-		<option value="calendar">Termine</option>
-		<option value="homework">Aufgaben</option>
-		<option value="files">Meine Dateien</option>
-		<option value="content">Materialien</option>
-		<option value="administration">Verwaltung</option>
-		<option value="other">Sonstiges</option>
-	</select>
+	<span class="control-label optional">Das Problem tritt auf diesem Gerät auf</span>
+	<input type="text" name="device" placeholder="z.B. iPhone X, Samsung Galaxy S10" class="form-control">
 </label>
+<label class="form-group">
+	<span class="control-label">
+		E-Mail-Adresse für eventuelle Rückfragen
+	</span>
+	<input class="form-control" type="email" name="replyEmail" placeholder="E-Mail-Adresse" value="{{ currentUser.email }}" required>
+</label>
+<hr>
+<p>Weitere Informationen (optional):</p>
+<label>
+<div class="row">
+	<div class="col-xs-2">
+		<input type="checkbox" id="consent" name="consent" value="true">
+	</div>
+	<div class="col-xs-10">
+		<span class="control-label" for="consent">
+			Ich bin damit einverstanden,
+			dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen:
+			<li>Browser Name und Version (z.B: Firefox 69.0)</li>
+			<li>Betriebssystem und Version (z.B: Windows 10)</li>
+		</span>
+	</div>
+</div>
+</label>
+<hr>

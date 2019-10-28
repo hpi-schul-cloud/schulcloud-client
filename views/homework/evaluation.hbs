@@ -51,6 +51,7 @@
                             <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
                         </div>
                         {{#userHasPermission "HOMEWORK_CREATE"}}
+                            {{> "lib/components/csrfInput"}}
                             <button type="submit" class="btn btn-primary">Speichern</button>
                         {{/userHasPermission}}
                     </form>
