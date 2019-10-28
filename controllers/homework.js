@@ -594,7 +594,7 @@ router.get('/new', function (req, res, next) {
             closeLabel: 'Abbrechen',
             method: 'post',
             action: '/homework/',
-            referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : req.header('Referer'),
+            referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : '/homework/',
             assignment,
             courses,
             lessons: lessons.length ? lessons : false,
