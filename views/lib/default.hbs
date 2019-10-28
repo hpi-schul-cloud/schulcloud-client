@@ -17,6 +17,7 @@
 		Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs
 	-->
     {{#block "meta"}}
+        <meta name="csrfToken" content="{{csrfToken}}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="#b10438">
@@ -56,9 +57,6 @@
 
 <body class="{{#if inline}}window-inline{{/if}}">
     {{#block "body"}}{{/block}}
-    {{#if production }}
-      {{#embed "lib/piwik"}}{{/embed}}
-    {{/if}}
 
 </body>
 
