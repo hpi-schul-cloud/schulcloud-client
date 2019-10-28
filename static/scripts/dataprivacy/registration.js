@@ -45,12 +45,12 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
     const firstSection = document.querySelector('.form section[data-panel="section-1"]:not(.noback)');
     if(firstSection){
-        firstSection.addEventListener("showSection", (event) => {
+        firstSection.addEventListener("showSection", () => {
             const backButton = document.getElementById("prevSection");
             backButton.addEventListener("click", goBack);
             backButton.removeAttribute("disabled");
         });
-        firstSection.addEventListener("hideSection", (event) => {
+        firstSection.addEventListener("hideSection", () => {
             const backButton = document.getElementById("prevSection");
             backButton.removeEventListener("click", goBack);
         });

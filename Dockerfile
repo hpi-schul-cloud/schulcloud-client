@@ -1,5 +1,5 @@
 # if node version is changed, also adapt .nvmrc file
-FROM node:8.15-alpine
+FROM node:10.16-alpine
 
 RUN apk update && apk upgrade && apk add --no-cache autoconf automake build-base git libtool make nasm pkgconfig tzdata zlib-dev
 

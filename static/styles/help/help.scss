@@ -63,8 +63,8 @@ fieldset.switch_wrapper {
       display: none;
 
       &:checked+label {
-        background-color: $colorWhite;
-        color: $accentColor;
+        background-color: $primaryColor;
+        color: $colorWhite;
       }
     }
 
@@ -76,7 +76,7 @@ fieldset.switch_wrapper {
 
       transition: color .3s, background-color .3s;
       margin: 0;
-      border: 1px solid $colorWhite;
+      border: 1px solid $primaryColor;
       border-left: 0;
 
       cursor: pointer;
@@ -87,7 +87,7 @@ fieldset.switch_wrapper {
       font-weight: normal;
 
       &:first-of-type {
-        border-left: 1px solid $colorWhite;
+        border-left: 1px solid $primaryColor;
       }
     }
   }
@@ -140,7 +140,7 @@ fieldset.switch_wrapper {
 
         a {
           text-decoration: underline;
-          color: $colorWhite;
+          color: $primaryColor;
         }
       }
     }
@@ -198,12 +198,7 @@ fieldset.switch_wrapper {
 // contact cards
 .contact-card {
   .icon-card__content {
-    background-color: $primaryColor;
-    color: $colorWhite;
-
-    .icon-card__title:before {
-      border-bottom-color: $colorWhite;
-    }
+    background-color: $colorGrey;
 
     form {
       margin-top: 1rem;
@@ -224,13 +219,13 @@ fieldset.switch_wrapper {
       }
 
       button {
-        border-color: $colorWhite;
+        border-color: $primaryColor;
+        background-color: $primaryColor;
         color: $colorWhite;
 
         &:hover,
         &:focus {
-          background-color: $colorWhite;
-          color: $accentColor;
+          background-color: #7f0328;
         }
       }
     }
@@ -244,17 +239,12 @@ fieldset.switch_wrapper {
 
 .eMail-card {
   .icon-card__content {
-    background: $primaryColor;
-    color: $colorWhite;
-
-    .icon-card__title:before {
-      border-bottom-color: $colorWhite;
-    }
+    background: $colorGrey;
   }
 
   a {
     text-decoration: underline;
-    color: $colorWhite;
+    color: $primaryColor;
 
     &:hover {
       color: $accentColor;
