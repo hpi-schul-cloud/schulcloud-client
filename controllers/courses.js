@@ -555,8 +555,9 @@ router.get('/:courseId/json', (req, res, next) => {
 				courseId: req.params.courseId,
 			},
 		}),
+		api(req, { backend: 'editor' }).get(`course/${req.params.courseId}/lessons`),
 	])
-		.then(([course, lessons]) => res.json({ course, lessons }))
+		.then(([course, lessons, newLessons]) => res.json({ course, lessons, newLessons }))
 		.catch(next);
 });
 

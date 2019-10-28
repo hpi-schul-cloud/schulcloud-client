@@ -45,13 +45,21 @@
 					url: "/courses/" + s.selected + "/json"
 				}).done(function (r) {
 					let lessonPicker = $('#lessonPicker').empty();
-					if (r.lessons.data.length > 0) {
+					if (r.lessons.data.length + r.newLessons.data.length > 0) { //########### recognize new Edtior part
 						(r.lessons.data || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
 						lessonPicker.append('<option value="">Keine Zuordnung</option>');
 						for (var i = 0; i < r.lessons.data.length; i++) {
 							$('#lessonPicker').append('<option value="' + r.lessons.data[i]._id + '">' + r.lessons.data[i].name + '</option>');
 						}
 						$('#lessonPicker').prop('disabled', false);
+						// ######################## start new Edtiro ###############################
+						(r.newLessons.data || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
+						for (var i = 0; i < r.newLessons.data.length; i++) {
+							if(r.newLessons.data[i].title !=== ''){
+								$('#lessonPicker').append('<option value="' + r.newLessons.data[i]._id + ' disabled">' + r.newLessons.data[i].title + '</option>');
+							}
+						}
+						// ######################### end new Edtiro ################################
 					} else {
 						lessonPicker.append('<option value="">Keine Themen in diesem Kurs</option>');
 					}
