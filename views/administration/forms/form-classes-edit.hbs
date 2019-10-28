@@ -1,10 +1,10 @@
 {{#ifeq mode "edit"}}
-	<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
-	<input type="hidden" name="_id" value="{{class._id}}" />
-	<input type="hidden" name="referrer" value="{{referrer}}" />
+	<input name="schoolId" type="hidden" data-force-value="true" value="{{../currentSchool}}" />
+	<input type="hidden" name="_id" value="{{../class._id}}" />
+	<input type="hidden" name="referrer" value="{{../referrer}}" />
 
-	<a class="d-block mb-1" href="/administration/classes/{{@root.class/_id}}/manage"
-		title="Klasse '{{@root.class.name}}' verwalten.">
+	<a class="d-block mb-1" href="/administration/classes/{{../class/_id}}/manage"
+		title="Klasse '{{../class.name}}' verwalten.">
 		<i class="fa fa-users"></i> Klasse verwalten
 	</a>
 {{/ifeq}}
