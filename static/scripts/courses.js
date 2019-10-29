@@ -1,5 +1,5 @@
-$(document).ready(function () {
-
+$(document).ready(() => {
+    console.log('load courses js')
     $('.js-course-name-input').change(function () {
         $(this).val($(this).val().trim());
     });

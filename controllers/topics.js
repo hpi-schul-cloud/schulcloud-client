@@ -336,8 +336,26 @@ router.get('/add/neweditor', async (req, res, next) => {
 	res.redirect(`/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`);
 });
 
+router.patch('/:topicId/neweditor', async (req, res, next) => {
+	const [hidden, ...data] = req.body;
+
+	if(hidden !== undefined){
+		const visible = !hidden;
+		// TODO root have to be implement
+	}else{
+
+		api(req, { backend: 'editor' }).patch(`course/${req.params.courseId}/lessons/${req.params.topicId}`{
+			data
+		}).then(() => {
+			res.sendStatus(200);
+		}).catch((err) => {
+			next(err);
+		});
+	}
+});
+
 router.delete('/:topicId/neweditor', async (req, res, next) => {
-	api(req, { backend: 'editor' }).delete(`course/${req.params.courseId}/lessons/${req.params.topicId}`).then((_) => {
+	api(req, { backend: 'editor' }).delete(`course/${req.params.courseId}/lessons/${req.params.topicId}`).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		next(err);
