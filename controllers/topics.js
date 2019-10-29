@@ -339,13 +339,12 @@ router.get('/add/neweditor', async (req, res, next) => {
 router.patch('/:topicId/neweditor', async (req, res, next) => {
 	const [hidden, ...data] = req.body;
 
-	if(hidden !== undefined){
+	if (hidden !== undefined) {
 		const visible = !hidden;
 		// TODO root have to be implement
-	}else{
-
-		api(req, { backend: 'editor' }).patch(`course/${req.params.courseId}/lessons/${req.params.topicId}`{
-			data
+	} else {
+		api(req, { backend: 'editor' }).patch(`course/${req.params.courseId}/lessons/${req.params.topicId}`, {
+			data,
 		}).then(() => {
 			res.sendStatus(200);
 		}).catch((err) => {
