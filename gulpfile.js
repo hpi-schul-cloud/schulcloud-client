@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const autoprefixer = require('autoprefixer');
 const fs = require('fs');
 const gulp = require('gulp');
@@ -73,6 +75,16 @@ const beginPipeAll = src => gulp
 	.pipe(plumber())
 	.pipe(filelog());
 
+const handleError = (error) => {
+	console.error(error);
+	process.exit(1);
+};
+
+// handle errors with exit 1
+gulp.on('err', (err) => {
+	handleError(err);
+});
+
 // minify images
 gulp.task('images', () => beginPipe('./static/images/**/*.*')
 	.pipe(imagemin())
@@ -98,13 +110,13 @@ gulp.task('styles', () => {
 		.pipe(sass({
 			sourceMap: true,
 			includePaths: ['node_modules'],
-		}).on('error', sass.logError))
+		}).on('error', handleError))
 		.pipe(postcss([
 			cssvariables({
 				preserve: true,
 			}),
 			autoprefixer({
-				browsers: ['last 3 version'],
+				browsers: ['> 1%', 'not dead'],
 			}),
 		]))
 		.pipe(cleanCSS({
@@ -154,9 +166,10 @@ gulp.task('base-scripts', () => beginPipeAll(baseScripts)
 	.pipe(babel({
 		presets: [
 			[
-				'es2015',
+				'@babel/preset-env',
 				{
 					modules: false,
+					targets: '> 1%, not dead',
 				},
 			],
 		],
@@ -174,7 +187,7 @@ gulp.task('vendor-styles', () => beginPipe('./static/vendor/**/*.{css,sass,scss}
 	}))
 	.pipe(postcss([
 		autoprefixer({
-			browsers: ['last 3 version'],
+			browsers: ['> 1%', 'not dead'],
 		}),
 	]))
 	.pipe(cleanCSS({
@@ -190,13 +203,14 @@ gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
 		compact: false,
 		presets: [
 			[
-				'es2015',
+				'@babel/preset-env',
 				{
 					modules: false,
+					targets: '> 1%, not dead',
 				},
 			],
 		],
-		plugins: ['transform-react-jsx'],
+		plugins: ['@babel/plugin-transform-react-jsx'],
 	}))
 	.pipe(optimizejs())
 	.pipe(uglify())
@@ -278,11 +292,11 @@ gulp.task(
 		})
 		.then(({ count, size, warnings }) => {
 			// Optionally, log any warnings and details.
-			warnings.forEach(console.warn); // eslint-disable-line no-console
-			console.log(`${count} files will be precached, totaling ${size} bytes.`); // eslint-disable-line no-console
+			warnings.forEach(console.warn);
+			console.log(`${count} files will be precached, totaling ${size} bytes.`);
 		})
 		.catch((error) => {
-			console.warn('Service worker generation failed:', error); // eslint-disable-line no-console
+			handleError(error);
 		}),
 );
 
