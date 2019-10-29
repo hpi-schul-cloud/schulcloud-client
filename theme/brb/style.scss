@@ -1,15 +1,11 @@
 $primaryColor: #449494;
 $secondaryColor: #E4032E;
 $accentColor: #0b2bdf;
-$fontColor: #373a3c;
 
 $logoGradient: linear-gradient(45deg, $primaryColor 30%, $primaryColor);
 
 $colorBeige: #e6e2e2;
 $colorGrey: rgba(232, 232, 232, 0.5);
-$colorLightGrey: rgba(0,0,0,0.1);
-$colorDarkerGrey: #555555;
-$colorWhite: #fff;
 $logoBackground: url("../../images/logo/cloud-transparent-mono.svg") center / contain no-repeat;
 $logoBackgroundTablet: url("../../images/logo/cloud-transparent-mono-48-48.svg") center / contain no-repeat;
 $logoBackgroundLanding: url("../../images/logo/cloud-transparent-mono-long.svg") center / contain no-repeat;
@@ -85,11 +81,13 @@ body {
 
 .timetable {
     .timeline {
-        &:before {
-            background: $secondaryColor;
-        }
-        span {
-            background: $secondaryColor;
+        .current-time {
+            &:before {
+                background: $secondaryColor;
+            }
+            span {
+                color: $secondaryColor;
+            }
         }
     }
 }
