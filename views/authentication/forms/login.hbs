@@ -49,8 +49,7 @@
                 {{> "lib/components/csrfInput"}}
                 <div class="form-group">
                     {{#if notification.statusCode}}
-                        <input 
-						submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="Anmelden" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+                        <input type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="Anmelden" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
                     {{else}}
                         <input type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="Anmelden" data-testid="submit-login" />
                     {{/if}}
