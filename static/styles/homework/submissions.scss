@@ -162,6 +162,7 @@
     }
     .fa.disabled {
       color: $colorDarkerGrey;
+      cursor: default;
     }
     a {
       text-decoration: none;
