@@ -20,20 +20,23 @@ router.post('/', (req, res, next) => {
 	}).catch(err => next(err));
 });
 
-// handles expired registration links
-router.get('/expired', (req, res, next) => {
-	res.render('link/expired');
-});
-
-// handles invalid or nonexistent links
-router.get('/invalid', (req, res, next) => {
-	res.render('link/invalid');
-});
-
-// handles redirecting from client
+// handles redirect to link and error pages
 router.get('/:id', (req, res, next) => {
-	const baseUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
-	res.redirect(`${baseUrl}/link/${req.params.id}?includeShortId=true`);
+	api(req).get(`/link/${req.params.id}`).then((result) => {
+		// redirect to target provided by server
+		res.redirect(result.target);
+	}).catch((err) => {
+		switch (err.statusCode) {
+			// if link has expired
+			case 403:
+				res.render('link/expired');
+				break;
+			// if link doesn't exist
+			default:
+				res.render('link/invalid');
+				break;
+		}
+	});
 });
 
 module.exports = router;
