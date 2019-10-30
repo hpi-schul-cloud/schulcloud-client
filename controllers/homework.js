@@ -87,7 +87,7 @@ const getCreateHandler = (service) => {
                 }
             }
 
-            if (req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
+			if (req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
                 req.session.notification = {
                     type: 'danger',
                     message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
