@@ -15,8 +15,8 @@
                 <span class="fa-active">
                     {{#ifeq this.securityCheck.status "blocked"}}
                         <a href="#" class="btn-file-danger" title="Schädlicher Code">
-							<i class="fa fa-exclamation-triangle"></i>
-							<i class="fa fa-cloud-download disabled"></i>
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <i class="fa fa-cloud-download disabled"></i>
 						</a>
                     {{else}}
                         <a href="/files/file?download=true&file={{this._id}}" target="_blank">
