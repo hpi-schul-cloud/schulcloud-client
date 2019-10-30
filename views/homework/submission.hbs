@@ -113,4 +113,10 @@
             </div>
         {{/content}}
     {{/embed}}
+
+    {{#embed "lib/components/modal-information" class="danger-modal" title="Achtung"}}
+	    {{#content "fields"}}
+		    {{> "files/forms/form-virus-danger"}}
+	    {{/content}}
+    {{/embed}}
 </section>
