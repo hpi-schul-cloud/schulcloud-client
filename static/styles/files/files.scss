@@ -141,6 +141,11 @@
         color: $primaryColor;
       }
     }
+
+    .fa-exclamation-triangle{
+      color: $colorDanger;
+    }
+
     .card-block {
       padding: 10px;
       a:hover {

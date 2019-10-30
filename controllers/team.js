@@ -3,7 +3,7 @@ const router = express.Router();
 const authHelper = require('../helpers/authentication');
 
 // Team
-const team = require('../helpers/content/team.json');
+const team = require('../helpers/content/team.js');
 
 router.get('/', function (req, res, next) {
     let teamLength = team.reduce((accumulator, section) => {return accumulator + section.team.length;}, 0);
