@@ -153,6 +153,13 @@ $(document).ready(function() {
         return false;
     });
 
+    $('.btn-file-danger').on('click', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const $dangerModal = $('.danger-modal');
+		$dangerModal.appendTo('body').modal('show');
+    });
+
     // Abgabe löschen
     $('a[data-method="delete-submission"]').on('click', function(e) {
         e.stopPropagation();
