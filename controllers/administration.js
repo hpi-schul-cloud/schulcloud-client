@@ -1709,6 +1709,8 @@ const renderClassEdit = (req, res, next) => {
 
 						if (currentClass.year) {
 							isUpgradable = (lastDefinedSchoolYearId !== (currentClass.year || {}))
+							&& currentClass.gradeLevel
+							&& currentClass.gradeLevel !== 13
 							&& !currentClass.successor;
 						}
 					}
@@ -2228,10 +2230,12 @@ router.get(
 						if (lastDefinedSchoolYear !== (i.year || {})._id
 							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'USERGROUP_EDIT')
 						) {
+							// eslint-disable-next-line no-console
+							console.log(i.gradeLevel);
 							baseActions.push({
 								link: `${basePath + i._id}/createSuccessor`,
 								icon: 'arrow-up',
-								class: i.successor ? 'disabled' : '',
+								class: i.successor || i.gradeLevel === 13 ? 'disabled' : '',
 								title: 'Klasse in das nächste Schuljahr versetzen',
 							});
 						}
