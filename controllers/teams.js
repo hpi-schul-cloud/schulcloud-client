@@ -857,7 +857,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 	const getUsers = () => api(req)
 		.get('/users', {
-			qs: { schoolId, $limit, $sort: {lastName: 1, firstName: 1} },
+			qs: { schoolId, $limit, $sort: { lastName: 1, firstName: 1 } },
 		})
 		.then(users => users.data);
 
