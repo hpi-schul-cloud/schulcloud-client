@@ -1752,7 +1752,7 @@ const getClassOverview = (req, res, next) => {
 router.get(
 	'/classes/create',
 	permissionsHelper.permissionsChecker(
-		['ADMIN_VIEW', 'USERGROUP_CREATE'],
+		['ADMIN_VIEW', 'CLASS_CREATE'],
 		'or',
 	),
 	(req, res, next) => {
@@ -1763,7 +1763,7 @@ router.get(
 );
 router.get(
 	'/classes/students',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		const classIds = JSON.parse(req.query.classes);
 		api(req)
@@ -1786,12 +1786,12 @@ router.get(
 );
 router.get(
 	'/classes/json',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	getClassOverview,
 );
 router.get(
 	'/classes/:classId/edit',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		req.locals = req.locals || {};
 		req.locals.mode = 'edit';
@@ -1801,7 +1801,7 @@ router.get(
 );
 router.get(
 	'/classes/:classId/createSuccessor',
-	permissionsHelper.permissionsChecker(['USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['CLASS_CREATE'], 'or'),
 	(req, res, next) => {
 		req.locals = req.locals || {};
 		req.locals.mode = 'upgrade';
@@ -1812,19 +1812,19 @@ router.get(
 router.get('/classes/:id', getDetailHandler('classes'));
 router.patch(
 	'/classes/:id',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	mapEmptyClassProps,
 	getUpdateHandler('classes'),
 );
 router.delete(
 	'/classes/:id',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	getDeleteHandler('classes'),
 );
 
 router.get(
 	'/classes/:classId/manage',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		api(req)
 			.get(`/classes/${req.params.classId}`, {
@@ -1950,7 +1950,7 @@ router.get(
 
 router.post(
 	'/classes/:classId/manage',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		const changedClass = {
 			teacherIds: req.body.teacherIds || [],
@@ -2004,7 +2004,7 @@ router.get(
 router.post(
 	'/classes/create',
 	permissionsHelper.permissionsChecker(
-		['ADMIN_VIEW', 'USERGROUP_CREATE'],
+		['ADMIN_VIEW', 'CLASS_CREATE'],
 		'or',
 	),
 	(req, res, next) => {
@@ -2053,7 +2053,7 @@ router.post(
 
 router.post(
 	'/classes/:classId/edit',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		const changedClass = {
 			schoolId: req.body.schoolId,
@@ -2087,7 +2087,7 @@ router.post(
 
 router.patch(
 	'/:classId/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	mapEmptyClassProps,
 	(req, res, next) => {
 		api(req)
@@ -2104,7 +2104,7 @@ router.patch(
 
 router.delete(
 	'/:classId/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_REMOVE'], 'or'),
 	(req, res, next) => {
 		api(req)
 			.delete(`/classes/${req.params.classId}`)
@@ -2152,7 +2152,7 @@ const classFilterSettings = ({ years, currentYear }) => {
 
 router.get(
 	'/classes',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		const tempOrgQuery = (req.query || {}).filterQuery;
 		const filterQueryString = tempOrgQuery
@@ -2176,7 +2176,7 @@ router.get(
 		};
 		query = Object.assign(query, filterQuery);
 
-		if (!res.locals.currentUser.permissions.includes('USERGROUP_FULL_ADMIN')) {
+		if (!res.locals.currentUser.permissions.includes('CLASS_FULL_ADMIN')) {
 			query.teacherIds = res.locals.currentUser._id.toString();
 		}
 
@@ -2217,7 +2217,7 @@ router.get(
 							},
 						];
 						if (lastDefinedSchoolYear !== (i.year || {})._id
-							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'USERGROUP_EDIT')
+							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT')
 						) {
 							baseActions.push({
 								link: `${basePath + i._id}/createSuccessor`,
