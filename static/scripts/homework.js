@@ -65,20 +65,46 @@ window.addEventListener("DOMContentLoaded", function(){
         const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
         softNavigate(newurl, ".homework", ".pagination");
     });
-    document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
+	document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
 });
-$(document).ready(function() {
+$(document).ready(() => {
+	let fileIsUploaded = false;
+	let editorContainsText = false;
+
+	function enableSubmissionWhenFileIsUploaded() {
+		const fileList = $('.list-group-files');
+		const filesCount = fileList.children().length;
+		fileIsUploaded = !!filesCount;
+		const submitButton = fileList.closest('form').find('button[type="submit"]')[0];
+		if (submitButton) {
+			submitButton.disabled = !editorContainsText && !fileIsUploaded;
+		}
+	}
+
+	// enable submit button when at least one file was uploaded
+	enableSubmissionWhenFileIsUploaded();
+	$('.list-group-files').bind('DOMSubtreeModified', () => {
+		enableSubmissionWhenFileIsUploaded();
+	});
+
+	function enableSubmissionWhenEditorContainsText(editor) {
+		// find the closest submit button and disable it if no content is given and no file is uploaded
+		const submitButton = $(editor.element.$.closest('form')).find('button[type="submit"]')[0];
+		const content = editor.document.getBody().getText();
+		editorContainsText = !!content.trim();
+		if (submitButton) {
+			submitButton.disabled = !editorContainsText && !fileIsUploaded;
+		}
+	}
+
+	// enable submit button when editor contains text
 	const editorInstanceNames = Object.keys((window.CKEDITOR || {}).instances || {});
 	editorInstanceNames
 		.filter(e => e.startsWith('evaluation'))
 		.forEach((name) => {
 			const editor = window.CKEDITOR.instances[name];
-			editor.on('change', () => {
-				// find the closest submit button and disable it if no content is given
-				const submitButton = $(editor.element.$.closest('form')).find('button[type="submit"]')[0];
-				const content = editor.document.getBody().getText();
-				submitButton.disabled = !content.trim();
-			});
+			editor.on('instanceReady', () => { enableSubmissionWhenEditorContainsText(editor); });
+			editor.on('change', () => { enableSubmissionWhenEditorContainsText(editor); });
 		});
 
     function showAJAXError(req, textStatus, errorThrown) {
@@ -117,7 +143,7 @@ $(document).ready(function() {
             url: url,
             data: content,
             context: element
-        });
+		});
         request.done(function(r) {
             var saved = setInterval(_ => {
                 submitButton.innerHTML = submitButtonText;
@@ -145,7 +171,7 @@ $(document).ready(function() {
                 if(e.name == "teamMembers"){
                     teamMembers.push(e.value);
                 }
-            });
+			});
             if(teamMembers != [] && $(".me").val() && !teamMembers.includes($(".me").val())){
                 location.reload();
             }
@@ -254,7 +280,7 @@ $(document).ready(function() {
         let filesCount = section.children().length === 0 ? -1 : section.children().length;
         let $fileListItem = $(`<li class="list-group-item"><i class="fa fa-file" aria-hidden="true"></i>${file.name}</li>`)
             .append(`<input type="hidden" name="fileIds[${filesCount + 1}]" value="${file._id}" />`);
-        section.append($fileListItem);
+		section.append($fileListItem);
     }
 
     $uploadForm.dropzone ? $uploadForm.dropzone({
@@ -358,7 +384,7 @@ $(document).ready(function() {
 
                         // 'empty' submissionId is ok because the route takes the homeworkId first
                         $.post(`/homework/submit/0/files/${data._id}/permissions`, {homeworkId: homeworkId});
-                    }
+					}
                 }).fail(showAJAXError);
 
                 this.removeFile(file);
@@ -406,7 +432,7 @@ $(document).ready(function() {
                 success: function (_) {
                     // delete reference in submission
                     let submissionId = $("input[name='submissionId']").val();
-                    let teamMembers = $('#teamMembers').val();
+					let teamMembers = $('#teamMembers').val();
                     $.ajax({
                         url: `/homework/submit/${submissionId}/files`,
                         data: {fileId: fileId, teamMembers: teamMembers},
