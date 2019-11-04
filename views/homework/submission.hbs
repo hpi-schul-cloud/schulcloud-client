@@ -82,7 +82,7 @@
     {{#if @root.submittable}}
         {{> "lib/components/csrfInput"}}
         {{#userHasPermission "SUBMISSIONS_CREATE"}}
-            <button type="submit" class="btn btn-primary btn-submit js-submit-btn" disabled="true">Speichern</button>
+            <button type="submit" class="btn btn-primary btn-submit" disabled="true">Speichern</button>
         {{/userHasPermission}}
 
         {{#if @root.submission}}
@@ -112,5 +112,11 @@
                 </button>
             </div>
         {{/content}}
+    {{/embed}}
+
+    {{#embed "lib/components/modal-information" class="danger-modal" title="Achtung"}}
+	    {{#content "fields"}}
+		    {{> "files/forms/form-virus-danger"}}
+	    {{/content}}
     {{/embed}}
 </section>
