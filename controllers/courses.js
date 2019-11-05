@@ -136,10 +136,10 @@ const editCourseHandler = (req, res, next) => {
 			qs: {
 				schoolId: res.locals.currentSchool,
 				$populate: ['year'],
-				$limit: 1000,
+				$limit: -1,
 			},
 		})
-		.then(data => data.data);
+		// .then(data => data.data); needed when pagination is not disabled
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher', 'demoTeacher'],
 		$limit: false,
@@ -412,6 +412,7 @@ const filterSubstitutionCourses = (courses, userId) => {
 router.get('/', (req, res, next) => {
 	const { currentUser } = res.locals;
 	const userId = currentUser._id.toString();
+	const importToken = req.query.import;
 
 	Promise.all([
 		api(req).get(`/users/${userId}/courses/`, {
@@ -449,6 +450,7 @@ router.get('/', (req, res, next) => {
 				res.render('courses/overview', {
 					title: 'Meine Kurse',
 					activeTab: req.query.activeTab,
+					importToken,
 					activeCourses,
 					activeSubstitutions,
 					archivedCourses,
@@ -463,7 +465,9 @@ router.get('/', (req, res, next) => {
 					liveSearch: true,
 				});
 			} else {
-				res.render('courses/overview-empty', {});
+				res.render('courses/overview-empty', {
+					importToken,
+				});
 			}
 		})
 		.catch((err) => {
@@ -621,6 +625,7 @@ router.get('/:courseId/', (req, res, next) => {
 				return -1;
 			});
 
+			const baseUrl = (req.headers.origin || process.env.HOST || 'http://localhost:3100');
 			const courseGroups = permissionHelper.userHasPermission(
 				res.locals.currentUser,
 				'COURSE_EDIT',
@@ -641,6 +646,7 @@ router.get('/:courseId/', (req, res, next) => {
 					myhomeworks: homeworks.filter(task => task.private),
 					ltiToolIds,
 					courseGroups,
+					baseUrl,
 					breadcrumb: [
 						{
 							title: 'Meine Kurse',

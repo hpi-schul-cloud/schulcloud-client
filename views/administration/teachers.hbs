@@ -21,16 +21,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 no-padding">
-                            <center>
-                                <i class="fa fa-times consent-status"></i>
-                                Keine Einverständniserklärung vorhanden &emsp;
-                                <i class="fa fa-check consent-status"></i>
-                                Alle Zustimmungen vorhanden
-                            </center>
-                        </div>
-                    </div>
-                    <div class="row">
                         {{> "lib/components/pagination" settings=pagination }}
                     </div>
 
@@ -47,10 +37,10 @@
                                     Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der {{theme.short_title}} zu erklären .
                                 </p>
                             {{else}}
-                                <strong>Lade Lehrer per Link ein, die Einverständniserklärung abzugeben</strong>
+                                <strong>Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.</strong>
                                 <p>
-                                    Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses digital oder Lass den Lehrern individuelle Links zum Abschluss der Registrierung per Mail oder analog per QR-Code-Druckbogen zukommen. 
-                                    So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{theme.short_title}} erklären.analog zukommen. 
+                                    Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses per E-Mail zukommen oder nutze den QR-Code-Druckbogen, um die Links physisch zu verteilen.<br/> 
+                                    So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{theme.short_title}} erklären. 
                                 </p>
                                 <p>Für alle Lehrer ohne vollständige Einverständniserklärung:</p>
                                 <p>
@@ -62,7 +52,7 @@
                                     </button>
                                 </p>
                                 <p>
-                                    Oder wähle Lehrer in der Tabelle aus.
+                                    Alternativ kannst du auch im "Nutzer bearbeiten"-Dialog jedes Nutzers einzeln individuelle Registrierungslinks generieren.
                                 </p>
                             {{/if}}
                         </div>
@@ -99,7 +89,7 @@
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" action="/administration/teachers/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                {{#embed "lib/components/modal-form" action=(concat "/administration/teachers/import?_csrf=" @root.csrfToken) method="post" class="import-modal" enctype="multipart/form-data"}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-import" roles="teacher"}}
                     {{/content}}

@@ -21,13 +21,13 @@
 
                 <div class="form-group">
                     <label>Name des Teams</label>
-                    <input class="form-control" name="name" type="text" placeholder="A-Team" value="{{team.name}}"
+                    <input class="form-control" data-testid="team_name" name="name" type="text" placeholder="A-Team" value="{{team.name}}"
                            required/>
                 </div>
 
                 <div class="form-group">
                     <label>Beschreibung des Teams (optional)</label>
-                    <textarea class="form-control" name="description">{{team.description}}</textarea>
+                    <textarea class="form-control" data-testid="description_team" name="description">{{team.description}}</textarea>
                 </div>
 
                 {{#inArray "rocketChat" schoolData.features}}
@@ -49,8 +49,8 @@
                     <button type="button" class="btn btn-secondary btn-cancel">
                         {{closeLabel}}
                     </button>
-
-                    <button type="submit" class="btn btn-primary btn-submit">
+                    {{> "lib/components/csrfInput"}}
+                    <button type="submit" data-testid="create_team_btn" class="btn btn-primary btn-submit">
                         {{submitLabel}}
                     </button>
                 </div>

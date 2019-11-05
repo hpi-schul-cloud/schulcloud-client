@@ -12,6 +12,7 @@
 		<section class="section-classes-manage">
 			<input type="hidden" name="class-name" value="{{class.displayName}}" />
 			<form class="manage-form" method="post" action="">
+                {{> "lib/components/csrfInput"}}
 				{{> "administration/forms/form-classes-manage"}}
 			</form>
 		</section>
