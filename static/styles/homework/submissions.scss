@@ -160,6 +160,13 @@
       color: $primaryColor;
       cursor: pointer;
     }
+    .fa.disabled {
+      color: $colorDarkerGrey;
+      cursor: default;
+    }
+    a {
+      text-decoration: none;
+    }
   }
 }
 

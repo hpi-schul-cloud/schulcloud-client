@@ -172,8 +172,6 @@ const FileGetter = (req, res, next) => {
 
 	return Promise.all(promises)
 		.then(([role, result]) => {
-			const { data: [{ _id: studentRoleId }] } = role;
-
 			if (!Array.isArray(result) && result.code === 403) {
 				res.locals.files = { files: [], directories: [] };
 				logger.warn(result);
@@ -182,13 +180,6 @@ const FileGetter = (req, res, next) => {
 			}
 
 			const files = result.filter(f => f).map((file) => {
-				const studentPerm = file.permissions.find(perm => (perm.refId || '').toString() === studentRoleId);
-				if (studentPerm) {
-					Object.assign(file, {
-						studentCanEdit: studentPerm.write,
-					});
-				}
-
 				if (file.permissions[0].refId === userId) {
 					Object.assign(file, {
 						userIsOwner: true,
@@ -296,7 +287,7 @@ const getLibreOfficeUrl = (fileId, accessToken) => {
 // secure routes
 router.use(authHelper.authChecker);
 
-const getSignedUrl = (req, res) => {
+const getSignedUrl = (req, res, next) => {
 	const {
 		type,
 		parent,
@@ -318,7 +309,7 @@ const getSignedUrl = (req, res) => {
 		return Promise.resolve({ signedUrl });
 	}).catch((err) => {
 		if (res) {
-			res.status((err.statusCode || 500)).send(err);
+			next(err);
 		}
 		return Promise.reject(err);
 	});
@@ -340,13 +331,11 @@ router.post('/upload', upload.single('upload'), (req, res, next) => getSignedUrl
 			uploaded: 1,
 			fileName: req.file.originalname,
 		});
-	}).catch((err) => {
-		res.status((err.statusCode || 500)).send(err);
-	}));
+	}).catch(next));
 
 
 // delete file
-router.delete('/file', (req, res) => {
+router.delete('/file', (req, res, next) => {
 	const data = {
 		_id: req.body.id,
 	};
@@ -355,13 +344,11 @@ router.delete('/file', (req, res) => {
 		qs: data,
 	}).then(() => {
 		res.sendStatus(200);
-	}).catch((err) => {
-		res.status((err.statusCode || 500)).send(err);
-	});
+	}).catch(next);
 });
 
 // get file
-router.get('/file', (req, res) => {
+router.get('/file', (req, res, next) => {
 	const {
 		file,
 		download,
@@ -386,9 +373,7 @@ router.get('/file', (req, res) => {
 		return retrieveSignedUrl(req, data).then((signedUrl) => {
 			res.redirect(307, signedUrl.url);
 		});
-	}).catch((err) => {
-		res.status((err.statusCode || 500)).send(err);
-	});
+	}).catch(next);
 });
 
 
@@ -400,7 +385,7 @@ router.get('/file/:id/lool', (req, res, next) => {
 	if (share) {
 		api(req).get(`/files/${req.params.id}`).then(() => {
 			res.redirect(`/files/file?file=${req.params.id}&share=${share}&lool=true`);
-		});
+		}).catch(next);
 	} else {
 		res.render('files/lool', {
 			title: 'LibreOffice Online',
@@ -439,7 +424,6 @@ router.post('/newFile', (req, res, next) => {
 		type,
 		owner,
 		parent,
-		studentEdit,
 	} = req.body;
 
 	const fileName = name || 'Neue Datei';
@@ -447,19 +431,16 @@ router.post('/newFile', (req, res, next) => {
 	api(req).post('fileStorage/files/new', {
 		json: {
 			name: `${fileName}.${type}`,
-			studentCanEdit: studentEdit,
 			owner,
 			parent,
 		},
 	}).then((result) => {
 		res.send(result._id);
-	}).catch((err) => {
-		res.status((err.statusCode || 500)).send(err);
-	});
+	}).catch(next);
 });
 
 // create directory
-router.post('/directory', (req, res) => {
+router.post('/directory', (req, res, next) => {
 	const { name, owner, parent } = req.body;
 	const json = {
 		name: name || 'Neuer Ordner',
@@ -469,13 +450,11 @@ router.post('/directory', (req, res) => {
 
 	api(req).post('/fileStorage/directories', { json }).then((dir) => {
 		res.json(dir);
-	}).catch((err) => {
-		res.status((err.statusCode || 500)).send(err);
-	});
+	}).catch(next);
 });
 
 // delete directory
-router.delete('/directory', (req, res) => {
+router.delete('/directory', (req, res, next) => {
 	const data = {
 		_id: req.body.id,
 	};
@@ -484,9 +463,7 @@ router.delete('/directory', (req, res) => {
 		qs: data,
 	}).then(() => {
 		res.sendStatus(200);
-	}).catch((err) => {
-		res.status((err.statusCode || 500)).send(err);
-	});
+	}).catch(next);
 });
 
 router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) => {
@@ -958,16 +935,5 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 			res.redirect(req.header('Referer'));
 		});
 });
-
-router.post('/studentCanEdit', (req, res, next) => {
-	api(req).patch(`/fileStorage/permission/${req.body.id}`, {
-		json: {
-			role: 'student',
-			write: req.body.bool,
-		},
-	})
-		.then(() => res.json({ success: true }));
-});
-
 
 module.exports = router;

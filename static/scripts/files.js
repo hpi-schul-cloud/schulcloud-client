@@ -172,8 +172,7 @@ $(document).ready(() => {
 				});
 
 				this.on('totaluploadprogress', (progress, total, uploaded) => {
-					const realProgress = (uploaded + finishedFilesSize)
-              / ((total + finishedFilesSize) / 100);
+					const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
 
 					$progress.stop().animate(
 						{ width: `${realProgress}%` },
@@ -360,19 +359,24 @@ $(document).ready(() => {
 
 		let studentEdit = false;
 		if (document.getElementById('student-can-edit')) { studentEdit = document.getElementById('student-can-edit').checked; }
-		$.post(
-			'/files/newFile',
-			{
-				name: $newFileModal.find('[name="new-file-name"]').val(),
-				type: $('#file-ending').val(),
-				owner: getOwnerId(),
-				parent: getCurrentParent(),
-				studentEdit,
-			},
-			(id) => {
-				window.location.href = `/files/file/${id}/lool`;
-			},
-		).fail(showAJAXError);
+		const fileType = $('#file-ending').val();
+		if (!fileType || fileType === 'Format auswählen') {
+			$.showNotification('Bitte wähle einen Dateityp aus.', 'danger', 30000);
+		} else {
+			$.post(
+				'/files/newFile',
+				{
+					name: $newFileModal.find('[name="new-file-name"]').val(),
+					type: fileType,
+					owner: getOwnerId(),
+					parent: getCurrentParent(),
+					studentEdit,
+				},
+				(id) => {
+					window.location.href = `/files/file/${id}/lool`;
+				},
+			).fail(showAJAXError);
+		}
 	});
 
 	$modals.find('.close, .btn-close').on('click', () => {
@@ -432,38 +436,6 @@ $(document).ready(() => {
 		);
 	});
 
-	if (!window.location.href.includes('/courses/')) { $('.btn-student-allow').hide(); }
-
-	$('.btn-student-allow').click(function (e) {
-		const $button = $(this);
-		e.stopPropagation();
-		e.preventDefault();
-		const fileId = $button.attr('data-file-id');
-		const bool = $button.data('file-can-edit');
-
-		$.ajax({
-			type: 'POST',
-			url: '/files/studentCanEdit/',
-			data: {
-				id: fileId,
-				bool: !bool,
-			},
-			success(data) {
-				if (data.success) {
-					$button.data('file-can-edit', !bool);
-					let id = e.target.id;
-					if (!id.includes('ban')) id = `ban-${id}`;
-
-					if ($(`#${id}`).is(':visible')) $(`#${id}`).hide();
-					else {
-						$(`#${id}`).removeAttr('hidden');
-						$(`#${id}`).show();
-					}
-				}
-			},
-		});
-	});
-
 	$('a[data-method="dir-rename"]').on('click', function (e) {
 		e.stopPropagation();
 		e.preventDefault();
@@ -483,6 +455,13 @@ $(document).ready(() => {
 		const fileId = $(this).attr('data-file-id');
 		const $shareModal = $('.share-modal');
 		fileShare(fileId, $shareModal);
+	});
+
+	$('.btn-file-danger').click(function ev(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const $dangerModal = $('.danger-modal');
+		$dangerModal.appendTo('body').modal('show');
 	});
 
 	$('.btn-file-settings').click(function (e) {
@@ -628,6 +607,9 @@ $(document).ready(() => {
 				return $.ajax({
 					type: 'POST',
 					url: '/link/',
+					beforeSend(xhr) {
+						xhr.setRequestHeader('Csrf-Token', csrftoken);
+					},
 					data: { target },
 				});
 			})

@@ -3,19 +3,33 @@
     {
       "name": "HPI",
       "url": "https://hpi.de",
-      "logo": "hpi-logo.jpg",
+      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/hpi-logo.jpg",
       "padding": "20px"
     },
     {
       "name": "MINT-EC",
       "url": "https://www.mint-ec.de/",
-      "logo": "mintec-logo.jpg",
+      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/mintec-logo.jpg",
       "padding": ""
     },
     {
       "name": "BMBF",
       "url": "https://www.bmbf.de/",
-      "logo": "bmbf-logo.jpg",
+      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/bmbf-logo.jpg",
+      "padding": ""
+    }
+  ],
+  "project_partners_thr": [
+    {
+      "name": "HPI",
+      "url": "https://hpi.de",
+      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/hpi-logo.jpg",
+      "padding": "20px"
+    },
+    {
+      "name": "ThILLM",
+      "url": "https://www.schulportal-thueringen.de/thillm",
+      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/thillm-logo.jpg",
       "padding": ""
     }
   ],
