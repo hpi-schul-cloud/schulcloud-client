@@ -15,6 +15,7 @@
   {{/content}}
 
   {{#content "page"}}
+  <meta name="baseUrl" content={{baseUrl}}>
     {{#userHasPermission "COURSE_EDIT"}}
       <div class="dropdown dropdown-course minimal-button">
         <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
@@ -60,16 +61,16 @@
       <div class="course-card">
         <div class="tabContainer" data-active-tab={{activeTab}}>
           <div class="tabs" data-max-width="1024">
-            <button class="tab" data-tab="js-topics">
+            <button class="tab" data-testid="topics" data-tab="js-topics">
               <span class="text">Themen <span class="count-badge" data-badge="{{lessons.length}}"/></span>
             </button>
-            <button class="tab" data-tab="js-homeworks">
+            <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
               <span class="text">Aufgaben <span class="count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}"/></span>
             </button>
-            <button class="tab" data-tab="js-tools">
+            <button class="tab" data-testid="tools" data-tab="js-tools">
               <span class="text">Tools <span class="count-badge" data-badge="{{../ltiToolIds.length}}"/></span>
             </button>
-            <button class="tab" data-tab="js-groups">
+            <button class="tab" data-testid="groups" data-tab="js-groups">
               <span class="text">Gruppen <span class="count-badge" data-badge="{{../courseGroups.length}}"/></span>
             </button>
           </div>

@@ -22,7 +22,7 @@ function buildandpush {
   docker push schulcloud/schulcloud-client:$DOCKERTAG
   docker push schulcloud/schulcloud-client:$GIT_SHA
 
-  if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
+  if [[ "$TRAVIS_BRANCH" = "master" || release* && "$TRAVIS_PULL_REQUEST" = "false" ]]
   then
   # build container n21 theme
   docker build -t schulcloud/schulcloud-client-n21:$DOCKERTAG -t schulcloud/schulcloud-client-n21:$GIT_SHA -f Dockerfile.n21 .
@@ -38,6 +38,11 @@ function buildandpush {
   docker build -t schulcloud/schulcloud-client-brb:$DOCKERTAG -t schulcloud/schulcloud-client-brb:$GIT_SHA -f Dockerfile.brb .
   docker push schulcloud/schulcloud-client-brb:$DOCKERTAG
   docker push schulcloud/schulcloud-client-brb:$GIT_SHA
+
+    # build container thr theme
+  docker build -t schulcloud/schulcloud-client-thr:$DOCKERTAG -t schulcloud/schulcloud-client-thr:$GIT_SHA -f Dockerfile.thr .
+  docker push schulcloud/schulcloud-client-thr:$DOCKERTAG
+  docker push schulcloud/schulcloud-client-thr:$GIT_SHA
   fi
 }
 
@@ -66,7 +71,7 @@ function deploytoprods {
   # brabu
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@open.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client-brb:latest brabu_client
   # thueringen
-  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@schulcloud-thueringen.de /usr/bin/docker service update --force --image schulcloud/schulcloud-client:latest thueringen_client
+  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@schulcloud-thueringen.de /usr/bin/docker service update --force --image schulcloud/schulcloud-client-thr:latest thueringen_client
   # demo
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@demo.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client:latest demo_client
 }

@@ -155,6 +155,7 @@ router.get('/', async (req, res, next) => {
 		userConsent,
 		updatedConsents,
 		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+		roleNames: res.locals.roles,
 	};
 
 	if (consentVersions.haveBeenUpdated) {

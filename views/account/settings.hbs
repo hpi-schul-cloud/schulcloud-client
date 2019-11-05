@@ -25,6 +25,9 @@
                     <label>Nachname:</label>
                     <input type="text" class="form-control" name="lastName" value="{{ ../currentUser.lastName }}">
                 </div>
+				{{else}}
+					<input type="hidden" disabled name="firstName" value="{{ ../currentUser.firstName }}">
+					<input type="hidden" disabled name="lastName" value="{{ ../currentUser.lastName }}">
                 {{/ifneq}}
 
                 <div class="form-group">
@@ -34,24 +37,39 @@
 
                 <div class="form-group">
                     <label>Aktuelles Passwort: <sup>*</sup></label>
-                    <input type="password" name="password" class="form-control"
+                    <div class="input-group" id="show_hide_password">
+                        <input type="password" autocomplete="current-password" id="settings_current_password" data-testid="settings_password_current" name="password" class="form-control"
                         placeholder="***************" required>
+                        <div class="input-group-addon">
+                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
                 </div>
 
                 {{#userHasPermission "PASSWORD_EDIT"}}
                 <div class="form-group">
                     <label>Neues Passwort:</label>
-                    <input type="password" name="passwordNew" id="passwordNew" class="form-control"
-                        placeholder="***************"
-                        pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-                        title="{{> "lib/forms/password-hint" plaintext=true}}">
+                    <div class="input-group" id="show_hide_password">
+                        <input type="password" autocomplete="new-password" name="passwordNew" id="passwordNew" data-testid="settings_password_new" class="form-control"
+                            placeholder="***************"
+                            pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+                            title="{{> "lib/forms/password-hint" plaintext=true}}">
+                        <div class="input-group-addon">
+                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Neues Passwort wiederholen:</label>
-                    <input type="password" name="password_control" id="password_control"
+                    <div class="input-group" id="show_hide_password">
+                        <input type="password" autocomplete="new-password" name="password_control" id="password_control" data-testid="settings_password_control"
                         class="form-control" placeholder="***************"
                         title="{{> "lib/forms/password-hint" plaintext=true}}">
+                        <div class="input-group-addon">
+                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
                 </div>
                 {{/userHasPermission}}
 
@@ -67,8 +85,10 @@
 				{{/unless}}
 
 
+                {{> "lib/components/csrfInput"}}
+
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary"/>
+                    <input type="submit" class="btn btn-primary" data-testid="submit_new_password_btn"/>
                 </div>
             </form>
 
