@@ -1384,7 +1384,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 				$populate: ['userIds', 'teacherIds'],
 			},
 		});
-		users = klass.userIds.concat(klass.teacherIds);
+		users = klass.userIds;
 	} else {
 		users = (await api(req).get('/users', { qs, $limit: false })).data;
 	}
@@ -1410,7 +1410,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	}
 
 	const consentMissing = user => !consents.some(
-		consent => consent.userId._id.toString() === user._id.toString(),
+		consent => consent.userId._id.toString() === (user._id || user).toString(),
 	);
 	const consentIncomplete = consent => !consent.access;
 
