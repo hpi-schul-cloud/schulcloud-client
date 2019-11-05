@@ -1,19 +1,19 @@
 {{#ifeq mode "edit"}}
-<input name="schoolId" type="hidden" data-force-value="true" value="{{../currentSchool}}" />
-<input type="hidden" name="_id" value="{{../class._id}}" />
-<input type="hidden" name="referrer" value="{{../referrer}}" />
+	<input name="schoolId" type="hidden" data-force-value="true" value="{{../currentSchool}}" />
+	<input type="hidden" name="_id" value="{{../class._id}}" />
+	<input type="hidden" name="referrer" value="{{../referrer}}" />
 
-<a class="d-block mb-1" href="/administration/classes/{{../class/_id}}/manage"
-	title="Klasse '{{../class.name}}' verwalten.">
-	<i class="fa fa-users"></i> Klasse verwalten
-</a>
+	<a class="d-block mb-1" href="/administration/classes/{{../class/_id}}/manage"
+		title="Klasse '{{../class.name}}' verwalten.">
+		<i class="fa fa-users"></i> Klasse verwalten
+	</a>
 {{/ifeq}}
 
 {{#ifeq mode "upgrade"}}
-<input name="predecessor" type="hidden" data-force-value="true" value="{{../class.predecessor}}" />
-{{#each ../class.userIds}}
-<input name="userIds[]" type="hidden" data-force-value="true" value="{{this}}" />
-{{/each}}
+	<input name="predecessor" type="hidden" data-force-value="true" value="{{../class.predecessor}}" />
+	{{#each ../class.userIds}}
+		<input name="userIds[]" type="hidden" data-force-value="true" value="{{this}}" />
+	{{/each}}
 {{/ifeq}}
 
 <div class="form-group">
@@ -21,9 +21,9 @@
 	<select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen"
 		{{#ifCond edit '&&' isCustom}}{{#unless @root.class.keepYear}}disabled="true" {{/unless}}{{/ifCond}}>
 		{{#each schoolyears}}
-		<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-			{{this.name}}
-		</option>
+			<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+				{{this.name}}
+			</option>
 		{{/each}}
 	</select>
 </div>
@@ -33,13 +33,13 @@
 
 	<select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
 		{{#each teachers}}
-		<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
-			{{#if this.displayName}}
-			{{this.displayName}}
-			{{else}}
-			{{this.firstName}} {{this.lastName}}
-			{{/if}}
-		</option>
+			<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
+				{{#if this.displayName}}
+					{{this.displayName}}
+				{{else}}
+					{{this.firstName}} {{this.lastName}}
+				{{/if}}
+			</option>
 		{{/each}}
 	</select>
 </div>
@@ -52,9 +52,9 @@
 				{{#if isCustom}}disabled{{/if}}>
 				<option disabled value>keine Auswahl</option>
 				{{#each gradeLevels}}
-				<option value="{{this.grade}}" {{#if this.selected}}selected{{/if}}>
-					{{this.grade}}
-				</option>
+					<option value="{{this.grade}}" {{#if this.selected}}selected{{/if}}>
+						{{this.grade}}
+					</option>
 				{{/each}}
 			</select>
 		</div>
@@ -74,8 +74,8 @@
 			Administrator <i>"versetzt"</i> werden, sondern müssen manuell aktualisiert werden.</p>
 		<div class="form-group">
 			<label>Klassenbezeichnung</label>
-			<input class="form-control linked" name="classcustom" type="text" placeholder="z.B. Froschklasse 3-4" required
-				value="{{class.customName}}" {{#unless isCustom}}disabled{{/unless}} />
+			<input class="form-control linked" name="classcustom" type="text" placeholder="z.B. Froschklasse 3-4"
+				required value="{{class.customName}}" {{#unless isCustom}}disabled{{/unless}} />
 		</div>
 		<label class="my-1">
 			<input name="keepyear" type="checkbox" value="true"
@@ -96,8 +96,9 @@
 			<p>Klassenname:
 				<span data-from="classcustom"></span>
 			</p>
-			<p id="recap-keepyear" {{#ifCond edit '&&' isCustom}}class="{{#unless @root.class.keepYear}}hidden{{/unless}}"
-				{{/ifCond}}>Schuljahr: <span data-from="schoolyear" /></p>
+			<p id="recap-keepyear"
+				{{#ifCond edit '&&' isCustom}}class="{{#unless @root.class.keepYear}}hidden{{/unless}}" {{/ifCond}}>
+				Schuljahr: <span data-from="schoolyear" /></p>
 		</div>
 	</div>
 </section>
@@ -105,21 +106,22 @@
 <div class="modal-footer mt-1">
 	<a class="btn btn-secondary btn-cancel">Abbrechen</a>
 	{{#ifeq mode "create"}}
-	<button class="btn btn-primary" type="submit" disabled>Klasse hinzufügen</button>
-	{{#userHasPermission 'ADMIN_VIEW'}}
-	<p>Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.</p>
-	{{/userHasPermission}}
+		<button class="btn btn-primary" type="submit" disabled>Klasse hinzufügen</button>
+		{{#userHasPermission 'ADMIN_VIEW'}}
+			<p>Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.</p>
+		{{/userHasPermission}}
 	{{/ifeq}}
 	{{#ifeq mode "edit"}}
-	<button class="btn btn-primary" type="submit" disabled>Änderungen speichern</button>
-	{{#if ../isUpgradable}}
-	<a class="btn btn-outline-primary" href="/administration/classes/{{@root.class.id}}/createSuccessor">Klasse ins
-		nächste Schuljahr versetzen</a>
-	{{/if}}
+		<button class="btn btn-primary" type="submit" disabled>Änderungen speichern</button>
+		{{#if ../isUpgradable}}
+			<a class="btn btn-outline-primary" href="/administration/classes/{{@root.class.id}}/createSuccessor">Klasse
+				ins
+				nächste Schuljahr versetzen</a>
+		{{/if}}
 	{{/ifeq}}
 	{{#ifeq mode "upgrade"}}
-	<button class="btn btn-primary" type="submit">Klasse in Schuljahr <span data-from="schoolyear"></span>
-		versetzen</button>
+		<button class="btn btn-primary" type="submit">Klasse in Schuljahr <span data-from="schoolyear"></span>
+			versetzen</button>
 	{{/ifeq}}
 </div>
 

@@ -2230,8 +2230,6 @@ router.get(
 						if (lastDefinedSchoolYear !== (i.year || {})._id
 							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'USERGROUP_EDIT')
 						) {
-							// eslint-disable-next-line no-console
-							console.log(i.gradeLevel);
 							baseActions.push({
 								link: `${basePath + i._id}/createSuccessor`,
 								icon: 'arrow-up',
