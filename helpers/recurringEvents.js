@@ -180,15 +180,18 @@ if (!Date.prototype.toLocalISOString) {
 			return number;
 		}
 
-		// eslint-disable-next-line no-extend-native
-		Date.prototype.toLocalISOString = () => `${this.getFullYear()
-		}-${pad(this.getMonth() + 1)
-		}-${pad(this.getDate())
-		}T${pad(this.getHours())
-		}:${pad(this.getMinutes())
-		}:${pad(this.getSeconds())
-		}.${(this.getMilliseconds() / 1000).toFixed(3).slice(2, 5)
-		}Z`;
+		/* eslint-disable no-extend-native, func-names */
+		Date.prototype.toLocalISOString = function () {
+			return `${this.getFullYear()
+			}-${pad(this.getMonth() + 1)
+			}-${pad(this.getDate())
+			}T${pad(this.getHours())
+			}:${pad(this.getMinutes())
+			}:${pad(this.getSeconds())
+			}.${(this.getMilliseconds() / 1000).toFixed(3).slice(2, 5)
+			}Z`;
+		};
+		/* eslint-enable no-extend-native */
 	}());
 }
 
