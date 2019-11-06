@@ -1,6 +1,6 @@
 {
   "name": "schulcloud-client",
-  "version": "19.7.2",
+  "version": "19.8.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -20,9 +20,10 @@
   },
   "sasslintConfig": "./.sass-lint.yml",
   "dependencies": {
+    "@babel/runtime": "^7.6.3",
     "@sentry/browser": "^5.6.1",
     "@sentry/integrations": "^5.6.1",
-    "@sentry/node": "^5.6.1",
+    "@sentry/node": "^5.7.1",
     "acorn": "^6.0.0",
     "body-parser": "^1.19.0",
     "browser-sync": "^2.26.7",
@@ -30,7 +31,7 @@
     "connect-redis": "^4.0.3",
     "cookie-parser": "~1.4.3",
     "csurf": "^1.10.0",
-    "csv-parse": "^4.6.3",
+    "csv-parse": "^4.6.5",
     "debug": "~2.6.0",
     "device-detector-js": "^1.1.1",
     "diff-dom": "^2.4.0",
@@ -42,7 +43,7 @@
     "fullcalendar": "^3.9.0",
     "git-repo-info": "^2.1.0",
     "gulp-nodemon": "^2.2.1",
-    "handlebars": "^4.4.3",
+    "handlebars": "^4.4.5",
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",
     "hbs": "^4.0.6",
@@ -80,6 +81,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "autoprefixer": "^9.0.1",
     "babel-loader": "^8.0.6",
