@@ -15,17 +15,13 @@ const editTopicHandler = (req, res, next) => {
 	let lessonPromise; let action; let
 		method;
 	if (req.params.topicId) {
-		action = `/${context}/${
-			context === 'courses' ? req.params.courseId : req.params.teamId
-		}/topics/${req.params.topicId
-		}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
+		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
+		+ `/topics/${req.params.topicId}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
 		method = 'patch';
 		lessonPromise = api(req).get(`/lessons/${req.params.topicId}`);
 	} else {
-		action = `/${context}/${
-			context === 'courses' ? req.params.courseId : req.params.teamId
-		}/topics${
-			req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
+		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
+		+ `/topics${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
 		method = 'post';
 		lessonPromise = Promise.resolve({});
 	}
