@@ -6,7 +6,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: var(--color-white);
+    background-color: var(--color-white-transparent);
+    backdrop-filter: blur(5px);
     color: var(--color-black);
     box-shadow: var(--shadow-sm);
     z-index: var(--layer-header);

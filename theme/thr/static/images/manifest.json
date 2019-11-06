@@ -1,0 +1,9 @@
+{
+    "name": "Thüringer Schul-Cloud",
+    "short_name": "Schul-Cloud",
+    "start_url": "/?homescreen=1&theme=thr",
+    "scope": "/",
+    "theme_color": "#185888",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}

@@ -39,6 +39,9 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "/link/",
+            beforeSend(xhr) {
+                xhr.setRequestHeader('Csrf-Token', csrftoken);
+            },
             data: {
                 target: target
             },
@@ -125,6 +128,11 @@ $(document).ready(function () {
                 $shareModal.appendTo('body').modal('show');
 
                 $("label[for='shareToken']").text('Verteile folgenden Code an einen Lehrer-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.');
+                let image = kjua({text: $('meta[name=baseUrl]').attr("content") + '/courses?import=' + data.shareToken, render: 'image'});
+                let $shareqrbox = $('.course-qr');
+                $shareqrbox.empty();
+                $shareqrbox.append('<p>Alternativ kannst du deinen Lehrer-Kollegen auch folgenden QR-Code zeigen. </p>')
+                $shareqrbox.append(image);
             }
         });
     });
