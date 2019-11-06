@@ -56,13 +56,77 @@ const editTopicHandler = (req, res, next) => {
 };
 
 const checkInternalComponents = (data, baseUrl) => {
-	const pattern = new RegExp(`(${baseUrl})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`);
+	const pattern =	new RegExp(
+		`(${baseUrl})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`,
+	);
 	(data.contents || []).map((c) => {
 		if (c.component === 'internal' && !pattern.test((c.content || {}).url)) {
 			(c.content || {}).url = baseUrl;
 		}
 	});
+
+	return data;
 };
+
+const getNexBoardAPI = () => {
+	if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
+		logger.error('nexBoard env is currently not defined.');
+	}
+	return new Nexboard(process.env.NEXBOARD_API_KEY, process.env.NEXBOARD_USER_ID);
+};
+
+const getNexBoardProjectFromUser = async (req, user) => {
+	const preferences = user.preferences || {};
+	if (typeof preferences.nexBoardProjectID === 'undefined') {
+		const project = await getNexBoardAPI().createProject(user._id, user._id);
+		preferences.nexBoardProjectID = project.id;
+		api(req).patch(`/users/${user._id}`, { json: { preferences } });
+	}
+	return preferences.nexBoardProjectID;
+};
+
+const getNexBoards = (req, res, next) => {
+	api(req).get('/lessons/contents/neXboard', {
+		qs: {
+			type: 'neXboard',
+			user: res.locals.currentUser._id,
+		},
+	})
+		.then((boards) => {
+			res.json(boards);
+		});
+};
+
+async function createNewNexBoards(req, res, contents = []) {
+	// eslint-disable-next-line no-return-await
+	return await Promise.all(contents.map(async (content) => {
+		if (content.component === 'neXboard' && content.content.board === '0') {
+			try {
+				const board = await getNexBoardAPI().createBoard(
+					content.content.title,
+					content.content.description,
+					await getNexBoardProjectFromUser(req, res.locals.currentUser),
+					'schulcloud',
+				);
+
+				content.content.title = board.title;
+				content.content.board = board.id;
+				content.content.url = board.publicLink;
+				content.content.description = board.description;
+
+				return content;
+			} catch (err) {
+				logger.error(err);
+
+				return undefined;
+			}
+		} else { return content; }
+	}));
+}
+
+router.get('/:topicId/nexboard/boards', getNexBoards);
+
+router.get('/nexboard/boards', getNexBoards);
 
 
 // secure routes
@@ -215,11 +279,10 @@ router.patch('/:topicId', async (req, res, next) => {
 		data.contents = [];
 	}
 
-	req.query.courseGroup ? '' : delete data.courseGroupId;
+	if (!req.query.courseGroup) delete data.courseGroupId;
 
 	// create new Nexboard when necessary, if not simple hidden or position patch
-	data.contents ? data.contents = await createNewNexBoards(req, res, data.contents) : '';
-
+	if (data.content) data.contents = await createNewNexBoards(req, res, data.contents);
 
 	if (data.contents) { data.contents = data.contents.filter(c => c !== undefined); }
 
@@ -242,7 +305,7 @@ router.patch('/:topicId', async (req, res, next) => {
 });
 
 router.delete('/:topicId', (req, res, next) => {
-	api(req).delete(`/lessons/${req.params.topicId}`).then((_) => {
+	api(req).delete(`/lessons/${req.params.topicId}`).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		next(err);
@@ -257,74 +320,14 @@ router.delete('/:topicId/materials/:materialId', (req, res, next) => {
 				materialIds: req.params.materialId,
 			},
 		},
-	}).then((_) => {
-		api(req).delete(`/materials/${req.params.materialId}`).then((_) => {
+	}).then(() => {
+		api(req).delete(`/materials/${req.params.materialId}`).then(() => {
 			res.sendStatus(200);
 		});
 	});
 });
 
 router.get('/:topicId/edit', editTopicHandler);
-
-async function createNewNexBoards(req, res, contents = []) {
-	return await Promise.all(contents.map(async (content) => {
-		if (content.component === 'neXboard' && content.content.board === '0') {
-			try {
-				const board = await getNexBoardAPI().createBoard(
-					content.content.title,
-					content.content.description,
-					await getNexBoardProjectFromUser(req, res.locals.currentUser),
-					'schulcloud',
-				);
-
-				content.content.title = board.title;
-				content.content.board = board.id;
-				content.content.url = board.publicLink;
-				content.content.description = board.description;
-
-				return content;
-			} catch (err) {
-				logger.error(err);
-
-				return undefined;
-			}
-		} else { return content; }
-	}));
-}
-
-const getNexBoardAPI = () => {
-	if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
-		logger.error('nexBoard env is currently not defined.');
-	}
-	return new Nexboard(process.env.NEXBOARD_API_KEY, process.env.NEXBOARD_USER_ID);
-};
-
-const getNexBoardProjectFromUser = async (req, user) => {
-	const preferences = user.preferences || {};
-	if (typeof preferences.nexBoardProjectID === 'undefined') {
-		const project = await getNexBoardAPI().createProject(user._id, user._id);
-		preferences.nexBoardProjectID = project.id;
-		api(req).patch(`/users/${user._id}`, { json: { preferences } });
-	}
-	return preferences.nexBoardProjectID;
-};
-
-const getNexBoards = (req, res, next) => {
-	api(req).get('/lessons/contents/neXboard', {
-		qs: {
-			type: 'neXboard',
-			user: res.locals.currentUser._id,
-		},
-	})
-		.then((boards) => {
-			res.json(boards);
-		});
-};
-
-router.get('/:topicId/nexboard/boards', getNexBoards);
-
-router.get('/nexboard/boards', getNexBoards);
-
 
 // ########################################## new Edtiro ############################################
 
