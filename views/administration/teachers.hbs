@@ -63,16 +63,16 @@
                             {{#if schoolUsesLdap}}
                                 {{> "lib/ldap-info"}}
                             {{else}}
-								{{#userHasPermission "TEACHER_CREATE"}}
-									<button type="submit" class="btn btn-primary btn-add-modal">
-										Lehrer hinzufügen
-									</button>
-									{{#inArray "Administrator" roleNames}}
-										<button class="btn btn-secondary btn-import teacher">
-											Lehrer importieren
-										</button>
-									{{/inArray}}
-								{{/userHasPermission}}
+                                {{#userHasPermission "TEACHER_CREATE"}}
+                                    <button type="submit" class="btn btn-primary btn-add-modal">
+                                        Lehrer hinzufügen
+                                    </button>
+                                    {{#inArray "Administrator" roleNames}}
+                                        <button class="btn btn-secondary btn-import teacher">
+                                            Lehrer importieren
+                                        </button>
+                                    {{/inArray}}
+                                {{/userHasPermission}}
                             {{/if}}
                         </div>
                     </div>

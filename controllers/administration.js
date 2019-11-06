@@ -1832,7 +1832,7 @@ router.patch(
 );
 router.delete(
 	'/classes/:id',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_REMOVE'], 'or'),
 	getDeleteHandler('classes'),
 );
 
