@@ -657,8 +657,6 @@ router.get('/:courseId/', (req, res, next) => {
 				}));
 			}
 
-			const hasLessons = ((newLessons || []).length !== 0 || (lessons || []).length !== 0);
-
 			// ###################### end of code for new Editor ################################
 			res.render(
 				'courses/course',
@@ -688,7 +686,6 @@ router.get('/:courseId/', (req, res, next) => {
 						course.times,
 					),
 					// #################### new Editor, till replacing old one ######################
-					hasLessons,
 					newLessons,
 					isNewEdtiroActivated,
 				}),
