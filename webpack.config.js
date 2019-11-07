@@ -28,8 +28,11 @@ module.exports = {
 				exclude: /(node_modules)/,
 				loader: 'babel-loader',
 				query: {
-					presets: [['es2015']],
-					plugins: ['transform-react-jsx'],
+					presets: [['@babel/preset-env']],
+					plugins: [
+						'@babel/plugin-transform-react-jsx',
+						'@babel/plugin-transform-runtime',
+					],
 				},
 			},
 			// moment needs to be globally exposed in order to work with fullcalendar
@@ -41,7 +44,7 @@ module.exports = {
 			cacheGroups: {
 				// Bundle react & react-dom into separate vendor-react bundle
 				react: {
-					test: /[\\/]node_modules[\\/](react\-dom|react)[\\/]/,
+					test: /[\\/]node_modules[\\/](react-dom|react)[\\/]/,
 					name: 'vendor-react',
 					chunks: 'all',
 				},
