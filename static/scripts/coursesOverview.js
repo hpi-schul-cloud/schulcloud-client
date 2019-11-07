@@ -73,6 +73,7 @@ $(document).ready(function () {
             $.get('/courses/share/' + shareToken, function (data, status) {
                 if (status === 'success' && data.status === 'success') {
                     $('#courseName').val(data.msg);
+                    $('#shareToken').attr('name', 'shareToken');
                 } else {
                     $('.import-modal').modal('hide');
                     $.showNotification('Dieser shareToken scheint nicht in Verwendung zu sein!', 'danger', 10000);
@@ -87,4 +88,7 @@ $(document).ready(function () {
             $('<input type="submit">').hide().appendTo($('.import-modal').find(".modal-form")).click().remove();
         }
     })
+    if($(".qr-import-text").get(0)){
+        $('.btn-import-course')[0].click();
+    }
 });

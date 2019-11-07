@@ -1,4 +1,5 @@
 import { getCookiesMap, pushManager } from './notificationService/index';
+import './pwd.js';
 
 $(document).ready(function() {
     var $deleteModal = $('.delete-modal');
