@@ -72,7 +72,7 @@ $(document).ready(function () {
         populateModalForm($importModal, {
             title: 'Thema importieren',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Speichern',
+            submitLabel: 'Jetzt importieren',
             fields: {courseId: courseId}
         });
 
@@ -87,9 +87,9 @@ $(document).ready(function () {
 		let courseId = $(this).attr("data-courseId");
 		let $importModal = $('.import-modal-from-template');
 		populateModalForm($importModal, {
-			title: 'Thema aus Vorlage importieren',
+			title: 'Thema aus Vorlage erstellen',
 			closeLabel: 'Abbrechen',
-			submitLabel: 'Speichern',
+			submitLabel: 'Vorlage verwenden',
 			fields: {courseId: courseId}
 		});
 
