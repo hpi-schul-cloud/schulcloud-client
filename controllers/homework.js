@@ -81,18 +81,14 @@ const getCreateHandler = (service) => {
                 req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
             }
 
-            if (!req.body.availableDate || !req.body.dueDate) {
+            if (!req.body.availableDate) {
                 let now = new Date();
                 if (!req.body.availableDate) {
                     req.body.availableDate = now.toISOString();
                 }
-                if (!req.body.dueDate) {
-                    now.setFullYear(now.getFullYear() + 9);
-                    req.body.dueDate = now.toISOString();
-                }
             }
 
-            if (req.body.availableDate >= req.body.dueDate) {
+			if (req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
                 req.session.notification = {
                     type: 'danger',
                     message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
@@ -720,13 +716,15 @@ router.get('/:assignmentId', function (req, res, next) {
         const availableDateArray = splitDate(assignment.availableDate);
         assignment.availableDateF = availableDateArray["date"];
         assignment.availableTimeF = availableDateArray["time"];
-
+        
         const dueDateArray = splitDate(assignment.dueDate);
         assignment.dueDateF = dueDateArray["date"];
         assignment.dueTimeF = dueDateArray["time"];
 
         // Abgabe noch möglich?
-        assignment.submittable = (dueDateArray["timestamp"] >= Date.now());
+        assignment.submittable = (dueDateArray["timestamp"] >= Date.now() || !assignment.dueDate);
+
+        
 
         // file upload path, todo: maybe use subfolders
         let submissionUploadPath = `users/${res.locals.currentUser._id}/`;

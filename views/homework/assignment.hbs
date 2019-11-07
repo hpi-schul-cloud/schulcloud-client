@@ -77,7 +77,12 @@
         <section class="section-homework">
             <div class="dates">
                 {{availableDateF}} ({{availableTimeF}})<br />
-                bis: {{dueDateF}} ({{dueTimeF}})
+                {{#if dueDate}}
+                    bis: {{dueDateF}} ({{dueTimeF}})
+                {{else}}
+                    Kein Abgabedatum festgelegt
+                {{/if}}
+                
             </div>
             <div class="tab-view maintabs">
                 <nav class="nav tab-links">
