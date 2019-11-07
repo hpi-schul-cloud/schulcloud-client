@@ -137,29 +137,6 @@ const cookieDomain = (res) => {
 	return {};
 };
 
-const login = (payload, req, res, next) => api(req).post('/authentication', { json: payload }).then((data) => {
-	res.cookie('jwt', data.accessToken,
-		Object.assign({},
-			{
-				expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-				httpOnly: true,
-				secure: process.env.NODE_ENV === 'production',
-			},
-			cookieDomain(res)));
-	res.redirect('/login/success/');
-}).catch((e) => {
-	res.locals.notification = {
-		type: 'danger',
-		message: 'Login fehlgeschlagen.',
-		statusCode: e.statusCode,
-		timeToWait: process.env.LOGIN_BLOCK_TIME || 15
-	};
-	if (e.statusCode == 429){
-		res.locals.notification.timeToWait = e.error.data.timeToWait;
-	}
-	next();
-});
-
 module.exports = {
 	isJWT,
 	authChecker,
@@ -167,5 +144,4 @@ module.exports = {
 	restrictSidebar,
 	populateCurrentUser,
 	cookieDomain,
-	login
 };
