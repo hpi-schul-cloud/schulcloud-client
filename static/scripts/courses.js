@@ -81,6 +81,23 @@ $(document).ready(function () {
         $importModal.appendTo('body').modal('show');
     });
 
+	$('.btn-import-topic-from-template').click(function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		let courseId = $(this).attr("data-courseId");
+		let $importModal = $('.import-modal-from-template');
+		populateModalForm($importModal, {
+			title: 'Thema aus Vorlage importieren',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Speichern',
+			fields: {courseId: courseId}
+		});
+
+		let $modalForm = $importModal.find(".modal-form");
+		$modalForm.attr('action', `/courses/${courseId}/importTopic`);
+		$importModal.appendTo('body').modal('show');
+	});
+
     $(".move-handle").click(function(e) {
         e.stopPropagation();
     });

@@ -122,6 +122,12 @@
       {{/content}}
       {{/embed}}
 
+      {{#embed "lib/components/modal-form" class="import-modal-from-template"}}
+	  {{#content "fields"}}
+		{{> "courses/forms/form-import-topic-from-template"}}
+	  {{/content}}
+	  {{/embed}}
+
       {{#embed "lib/components/modal-form" class="share-modal"}}
       {{#content "fields"}}
         {{> "topic/forms/form-share"}}
