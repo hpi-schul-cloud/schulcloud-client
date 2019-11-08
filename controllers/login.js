@@ -16,8 +16,14 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then(data => data.data);
 
-const clearCookie = (req, res) => {
-	res.clearCookie('jwt', authHelper.cookieDomain(res));
+const clearCookie = (req, res, options = { destroySession: false }) => {
+	if (options.destroySession && req.session && req.session.destroy) {
+		req.session.destroy();
+	}
+	res.clearCookie('jwt');
+	if (res.locals && res.locals.domain) {
+		res.clearCookie('jwt', { domain: res.locals.domain });
+	}
 };
 
 // Login
@@ -32,22 +38,21 @@ router.post('/login/', (req, res, next) => {
 
 	const login = d => api(req).post('/authentication', { json: d }).then((data) => {
 		res.cookie('jwt', data.accessToken,
-			Object.assign({},
-				{
-					expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-					httpOnly: true,
-					secure: process.env.NODE_ENV === 'production',
-				},
-				authHelper.cookieDomain(res)));
+			{
+				expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+				httpOnly: false, // can't be set to true with nuxt client
+				hostOnly: true,
+				secure: process.env.NODE_ENV === 'production',
+			});
 		res.redirect('/login/success/');
 	}).catch((e) => {
 		res.locals.notification = {
 			type: 'danger',
 			message: 'Login fehlgeschlagen.',
 			statusCode: e.statusCode,
-			timeToWait: process.env.LOGIN_BLOCK_TIME || 15
+			timeToWait: process.env.LOGIN_BLOCK_TIME || 15,
 		};
-		if (e.statusCode == 429){
+		if (e.statusCode === 429) {
 			res.locals.notification.timeToWait = e.error.data.timeToWait;
 		}
 		next();
@@ -132,8 +137,7 @@ router.all('/login/', (req, res, next) => {
 			});
 	}).catch((error) => {
 		logger.error(error);
-		clearCookie(req, res);
-		req.session.destroy();
+		clearCookie(req, res, { destroySession: true });
 		return res.redirect('/');
 	});
 });
@@ -206,8 +210,7 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
 		.then(() => {
-			clearCookie(req, res);
-			req.session.destroy();
+			clearCookie(req, res, { destroySession: true });
 			return res.redirect('/');
 		}).catch(() => res.redirect('/'));
 });

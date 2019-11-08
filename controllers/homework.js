@@ -23,6 +23,7 @@ handlebars.registerHelper('ifvalue', function (conditional, options) {
     }
 });
 
+
 router.use(authHelper.authChecker);
 
 const getSelectOptions = (req, service, query, values = []) => {
@@ -80,18 +81,14 @@ const getCreateHandler = (service) => {
                 req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
             }
 
-            if (!req.body.availableDate || !req.body.dueDate) {
+            if (!req.body.availableDate) {
                 let now = new Date();
                 if (!req.body.availableDate) {
                     req.body.availableDate = now.toISOString();
                 }
-                if (!req.body.dueDate) {
-                    now.setFullYear(now.getFullYear() + 9);
-                    req.body.dueDate = now.toISOString();
-                }
             }
 
-            if (req.body.availableDate >= req.body.dueDate) {
+			if (req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
                 req.session.notification = {
                     type: 'danger',
                     message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
@@ -129,9 +126,8 @@ const getCreateHandler = (service) => {
             let promise = service === "submissions" ?
                 addFilePermissionsForTeamMembers(req, data.teamMembers, data.courseGroupId, data.fileIds) :
                 Promise.resolve({});
-
             return promise.then(_ => {
-                res.redirect(referrer);
+                res.redirect(`${referrer}${data._id}`);
             });
         }).catch(err => {
             next(err);
@@ -302,11 +298,11 @@ const getImportHandler = (service) => {
 
 
 const getDeleteHandler = (service, redirectToReferer) => {
-    return function(req, res, next) {
+    return function (req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
-            if(redirectToReferer){
+            if (redirectToReferer) {
                 res.redirect(req.header('Referer'));
-            }else{
+            } else {
                 res.sendStatus(200);
                 res.redirect('/' + service);
             }
@@ -570,7 +566,7 @@ router.get('/new', function (req, res, next) {
         let lessons = []
         if (req.query.course) {
             lessonsPromise = getSelectOptions(req, 'lessons', {
-				courseId: req.query.course
+                courseId: req.query.course
             });
             try {
                 lessons = await lessonsPromise;
@@ -580,25 +576,25 @@ router.get('/new', function (req, res, next) {
             }
             lessons = (lessons || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
         }
-		let assignment = { "private": (req.query.private == 'true') };
-		if (req.query.course) {
-			assignment["courseId"] = { "_id": req.query.course };
-		}
-		if (req.query.topic) {
-			assignment["lessonId"] = req.query.topic;
-		}
-		//Render overview
-		res.render('homework/edit', {
-			title: 'Aufgabe hinzufügen',
-			submitLabel: 'Hinzufügen',
-			closeLabel: 'Abbrechen',
-			method: 'post',
-			action: '/homework/',
-			referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : req.header('Referer'),
-			assignment,
-			courses,
-			lessons: lessons.length ? lessons : false,
-		});
+        let assignment = { "private": (req.query.private == 'true') };
+        if (req.query.course) {
+            assignment["courseId"] = { "_id": req.query.course };
+        }
+        if (req.query.topic) {
+            assignment["lessonId"] = req.query.topic;
+        }
+        //Render overview
+        res.render('homework/edit', {
+            title: 'Aufgabe hinzufügen',
+            submitLabel: 'Hinzufügen',
+            closeLabel: 'Abbrechen',
+            method: 'post',
+            action: '/homework/',
+            referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : '/homework/',
+            assignment,
+            courses,
+            lessons: lessons.length ? lessons : false,
+        });
     });
 });
 
@@ -661,7 +657,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                             closeLabel: 'Abbrechen',
                             method: 'patch',
                             action: '/homework/' + req.params.assignmentId,
-                            referrer: '/homework/' + req.params.assignmentId,
+                            referrer: '/homework/',
                             assignment,
                             courses,
                             lessons,
@@ -675,7 +671,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         closeLabel: 'Abbrechen',
                         method: 'patch',
                         action: '/homework/' + req.params.assignmentId,
-                        referrer: '/homework/' + req.params.assignmentId,
+                        referrer: '/homework/',
                         assignment,
                         courses,
                         lessons: false,
@@ -720,13 +716,15 @@ router.get('/:assignmentId', function (req, res, next) {
         const availableDateArray = splitDate(assignment.availableDate);
         assignment.availableDateF = availableDateArray["date"];
         assignment.availableTimeF = availableDateArray["time"];
-
+        
         const dueDateArray = splitDate(assignment.dueDate);
         assignment.dueDateF = dueDateArray["date"];
         assignment.dueTimeF = dueDateArray["time"];
 
         // Abgabe noch möglich?
-        assignment.submittable = (dueDateArray["timestamp"] >= Date.now());
+        assignment.submittable = (dueDateArray["timestamp"] >= Date.now() || !assignment.dueDate);
+
+        
 
         // file upload path, todo: maybe use subfolders
         let submissionUploadPath = `users/${res.locals.currentUser._id}/`;
@@ -774,7 +772,7 @@ router.get('/:assignmentId', function (req, res, next) {
         Promise.all(promises).then(([submissions, course, courseGroups]) => {
 
             assignment.submission = (submissions || {}).data.map(submission => {
-                submission.teamMemberIds = (submission.teamMembers||[]).map(e => { return e._id; });
+                submission.teamMemberIds = (submission.teamMembers || []).map(e => { return e._id; });
                 submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds;
                 submission.courseGroupMembers = (_.find((courseGroups || {}).data, cg => JSON.stringify(cg._id) === JSON.stringify((submission.courseGroupId || {})._id)) || {}).userIds; // need full user objects here, double populating not possible above
                 return submission;
