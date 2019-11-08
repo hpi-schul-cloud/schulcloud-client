@@ -53,9 +53,9 @@ const editTopicHandler = (req, res, next) => {
 
 const checkInternalComponents = (data, baseUrl) => {
 	const pattern =	new RegExp(
-		`(${baseUrl})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`,
+		`(${baseUrl})(?!.*/(edit|new|add|files/my|files/file|account|administration|topics)).*`,
 	);
-	(data.contents || []).map((c) => {
+	(data.contents || []).forEach((c) => {
 		if (c.component === 'internal' && !pattern.test((c.content || {}).url)) {
 			(c.content || {}).url = baseUrl;
 		}
@@ -79,18 +79,6 @@ const getNexBoardProjectFromUser = async (req, user) => {
 		api(req).patch(`/users/${user._id}`, { json: { preferences } });
 	}
 	return preferences.nexBoardProjectID;
-};
-
-const getNexBoards = (req, res, next) => {
-	api(req).get('/lessons/contents/neXboard', {
-		qs: {
-			type: 'neXboard',
-			user: res.locals.currentUser._id,
-		},
-	})
-		.then((boards) => {
-			res.json(boards);
-		});
 };
 
 async function createNewNexBoards(req, res, contents = []) {
@@ -119,6 +107,18 @@ async function createNewNexBoards(req, res, contents = []) {
 		} else { return content; }
 	}));
 }
+
+const getNexBoards = (req, res, next) => {
+	api(req).get('/lessons/contents/neXboard', {
+		qs: {
+			type: 'neXboard',
+			user: res.locals.currentUser._id,
+		},
+	})
+		.then((boards) => {
+			res.json(boards);
+		});
+};
 
 router.get('/:topicId/nexboard/boards', getNexBoards);
 
@@ -149,21 +149,24 @@ router.post('/', async (req, res, next) => {
 	data.time = moment(data.time || 0, 'HH:mm').toString();
 	data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
-	req.query.courseGroup ? '' : delete data.courseGroupId;
+	// what? req.query.courseGroup ? '' : delete data.courseGroupId;
+	if (!req.query.courseGroup) {
+		delete data.courseGroupId;
+	}
 
 	// recheck internal components by pattern
 	checkInternalComponents(data, req.headers.origin);
 
 	api(req).post('/lessons/', {
 		json: data, // TODO: sanitize
-	}).then((_) => {
+	}).then(() => {
 		res.redirect(
 			context === 'courses'
 				? `/courses/${req.params.courseId
 				}${req.query.courseGroup ? `/groups/${req.query.courseGroup}` : '/?activeTab=topics'}`
 				: `/teams/${req.params.teamId}/?activeTab=topics`,
 		);
-	}).catch((_) => {
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
@@ -180,12 +183,15 @@ router.post('/:id/share', (req, res, next) => {
 
 router.get('/:topicId', (req, res, next) => {
 	if (req.query.edtr || req.query.edtr_hash) {
-		return res.render('topic/topic-edtr', {
-			edtrSource: req.query.edtr_hash
-				? `https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@${req.query.edtr_hash}/dist/index.js`
-				: req.query.version === 'B'
-					? process.env.EDTR_SOURCE_B
-					: process.env.EDTR_SOURCE || 'https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@develop/dist/index.js',
+		let edtrSource = '';
+		if (req.query.edtr_hash) {
+			edtrSource = `https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@${req.query.edtr_hash}/dist/index.js`;
+		} else {
+			edtrSource = req.query.version === 'B' ? process.env.EDTR_SOURCE_B : process.env.EDTR_SOURCE;
+		}
+
+		res.render('topic/topic-edtr', {
+			edtrSource: edtrSource || 'https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@develop/dist/index.js',
 			backendUrl: process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030',
 		});
 	}
@@ -215,6 +221,7 @@ router.get('/:topicId', (req, res, next) => {
 			block.component = `topic/components/content-${block.component}`;
 			return block;
 		});
+		// eslint-disable-next-line no-param-reassign
 		homeworks = (homeworks.data || []).map((assignment) => {
 			assignment.url = `/homework/${assignment._id}`;
 			return assignment;
@@ -241,7 +248,7 @@ router.get('/:topicId', (req, res, next) => {
 				url: `/${context}/${course._id}`,
 			},
 			courseGroup._id ? {
-				title: `${courseGroup.name} ` + '> Themen',
+				title: `${courseGroup.name} > Themen`,
 				url: `/${context}/${course._id}/groups/${courseGroup._id}`,
 			} : {},
 			{
@@ -251,7 +258,7 @@ router.get('/:topicId', (req, res, next) => {
 			],
 		}), (error, html) => {
 			if (error) {
-				throw `error in GET /:topicId - res.render: ${error}`;
+				throw new Error('error in GET /:topicId - res.render', error);
 			}
 			res.send(html);
 		});
@@ -287,15 +294,15 @@ router.patch('/:topicId', async (req, res, next) => {
 
 	api(req).patch(`/lessons/${req.params.topicId}`, {
 		json: data, // TODO: sanitize
-	}).then((_) => {
+	}).then((lesson) => {
 		if (req.query.json) {
-			res.json(_);
+			res.json(lesson);
 		} else {
 			// sends a GET request, not a PATCH
 			res.redirect(`/${context}/${req.params.courseId}/topics/${req.params.topicId
 			}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`);
 		}
-	}).catch((_) => {
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
@@ -339,7 +346,7 @@ router.patch('/:topicId/neweditor', async (req, res, next) => {
 	const [hidden, ...data] = req.body;
 
 	if (hidden !== undefined) {
-		const visible = !hidden;
+		// const visible = !hidden;
 		// TODO root have to be implement
 	} else {
 		api(req, { backend: 'editor' }).patch(`course/${req.params.courseId}/lessons/${req.params.topicId}`, {
