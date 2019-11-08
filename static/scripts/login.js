@@ -1,3 +1,5 @@
+import './pwd.js';
+
 /* global introJs */
 $(document).ready(function() {
 
