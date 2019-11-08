@@ -10,6 +10,7 @@ const config = {
 			defaultSrc: "data: blob: 'self' 'unsafe-inline' https://scchat.schul-cloud.org https://storage.schul-cloud.org https://libreoffice.schul-cloud.org https://docs.schul-cloud.org https://etherpad.schul-cloud.org https://blog.schul-cloud.org https://sc-content-resources.schul-cloud.org",
 			scriptSrc: "data: blob: 'self' 'unsafe-inline'",
 			objectSrc: '',
+			contentSrc: 'https://edtior.schul-cloud.org https://api.schul-cloud.org',
 		},
 		/*
 			Content-Security-Policy Header (added to default header) depending on the site
