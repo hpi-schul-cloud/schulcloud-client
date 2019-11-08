@@ -86,10 +86,11 @@ async function createNewNexBoards(req, res, contents = []) {
 	return await Promise.all(contents.map(async (content) => {
 		if (content.component === 'neXboard' && content.content.board === '0') {
 			try {
+				const nextboardProject = await getNexBoardProjectFromUser(req, res.locals.currentUser);
 				const board = await getNexBoardAPI().createBoard(
 					content.content.title,
 					content.content.description,
-					await getNexBoardProjectFromUser(req, res.locals.currentUser),
+					nextboardProject,
 					'schulcloud',
 				);
 
