@@ -156,7 +156,11 @@
 
                 {{#embed "lib/components/modal-form" class="invitation-modal"}}
                     {{#content "fields"}}
-                        {{> "administration/forms/form-invitation-teacher"}}
+                        {{#unless editTeacher}}
+                            {{> "administration/forms/form-invitation-student"}}
+                        {{else}}
+                            {{> "administration/forms/form-invitation-teacher"}}
+                        {{/unless}}
                     {{/content}}
                 {{/embed}}
 
