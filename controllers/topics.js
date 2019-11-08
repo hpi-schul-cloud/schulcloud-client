@@ -76,7 +76,7 @@ const getNexBoardProjectFromUser = async (req, user) => {
 	if (typeof preferences.nexBoardProjectID === 'undefined') {
 		const project = await getNexBoardAPI().createProject(user._id, user._id);
 		preferences.nexBoardProjectID = project.id;
-		api(req).patch(`/users/${user._id}`, { json: { preferences } });
+		await api(req).patch(`/users/${user._id}`, { json: { preferences } });
 	}
 	return preferences.nexBoardProjectID;
 };
@@ -105,7 +105,9 @@ async function createNewNexBoards(req, res, contents = []) {
 
 				return undefined;
 			}
-		} else { return content; }
+		} else {
+			return content;
+		}
 	}));
 }
 
@@ -191,7 +193,8 @@ router.get('/:topicId', (req, res, next) => {
 			edtrSource = req.query.version === 'B' ? process.env.EDTR_SOURCE_B : process.env.EDTR_SOURCE;
 		}
 
-		res.render('topic/topic-edtr', {
+		// return to skip execution
+		return res.render('topic/topic-edtr', {
 			edtrSource: edtrSource || 'https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@develop/dist/index.js',
 			backendUrl: process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030',
 		});
@@ -233,7 +236,8 @@ router.get('/:topicId', (req, res, next) => {
 			}
 			return -1;
 		});
-		res.render('topic/topic', Object.assign({}, lesson, {
+		// return for consistent return
+		return res.render('topic/topic', Object.assign({}, lesson, {
 			title: lesson.name,
 			context,
 			homeworks: homeworks.filter(task => !task.private),
