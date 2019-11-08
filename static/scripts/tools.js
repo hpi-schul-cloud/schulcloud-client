@@ -19,9 +19,6 @@ $(document).ready(function () {
 	const populateCustomField = function populateCustomField($customFields, field) {
 		if (!field.key || field.key === '') return;
 
-    var populateCustomField = function ($customFields, field) {
-        if (!field.key || field.key == '') return;
-
         var _id = guidGenerator();
         var $field = $("<div id='" + _id + "'>Key: " + field.key + ", Value: " + field.value + "</div>")
             .append($("<input name='customs[" + customFieldCount + "][key]' value='" + field.key + "' type='hidden'></input>"))
@@ -90,6 +87,19 @@ $(document).ready(function () {
 			const tool = result.tool[0];
 			if (tool.isLocal) {
 				createLocalTool($editModal, tool);
+			} else if (tool.lti_message_type === 'LtiDeepLinkingRequest') {
+				tool.lti_message_type = 'LtiResourceLinkRequest';
+				populateModalForm($deepLinkingModal, {
+					title: 'Bitte im Tool den einzufügenden Inhalt auswählen:',
+					closeLabel: 'Abbrechen',
+					submitLabel: 'Speichern',
+					fields: tool,
+				});
+				const courseId = $editModal.find('.modal-form').find("input[name='courseId']").val();
+				$deepLinkingModal
+					.find('.modal-body')
+					.append(`<iframe src="/courses/${courseId}/tools/run/${tool._id}" />`);
+				$deepLinkingModal.appendTo('body').modal('show');
 			} else {
 				populateModalForm($editModal, {
 					closeLabel: 'Abbrechen',
