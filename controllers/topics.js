@@ -184,7 +184,9 @@ router.post('/:id/share', (req, res, next) => {
 	});
 });
 
+// eslint-disable-next-line consistent-return
 router.get('/:topicId', (req, res, next) => {
+	// ############################# start new Edtior ###################################
 	if (req.query.edtr || req.query.edtr_hash) {
 		let edtrSource = '';
 		if (req.query.edtr_hash) {
@@ -199,6 +201,7 @@ router.get('/:topicId', (req, res, next) => {
 			backendUrl: process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030',
 		});
 	}
+	// ############################## end new Edtior ######################################
 
 	const context = req.originalUrl.split('/')[1];
 	Promise.all([
