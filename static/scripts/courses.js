@@ -39,6 +39,7 @@ $(document).ready(() => {
 			type: 'POST',
 			url: '/link/',
 			beforeSend(xhr) {
+				// eslint-disable-next-line no-undef
 				xhr.setRequestHeader('Csrf-Token', csrftoken);
 			},
 			data: {
