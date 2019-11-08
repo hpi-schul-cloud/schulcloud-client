@@ -127,7 +127,7 @@ module.exports = (req, res, next) => {
         name: 'Verwaltung',
         icon: 'cogs',
         link: '/administration/',
-        permission: 'STUDENT_CREATE',
+        permission: 'STUDENT_LIST',
         excludedPermission: 'ADMIN_VIEW',
         children: [
             {
