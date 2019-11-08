@@ -1381,7 +1381,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	if (classId) {
 		const klass = await api(req).get(`/classes/${classId}`, {
 			qs: {
-				$populate: ['userIds', 'teacherIds'],
+				$populate: ['userIds'],
 			},
 		});
 		users = klass.userIds;
