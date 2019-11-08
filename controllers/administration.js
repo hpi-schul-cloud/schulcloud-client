@@ -338,6 +338,24 @@ router.post(
 	},
 );
 
+router.post(
+	'/registrationlinkMail/',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	generateRegistrationLink({}),
+	(req, res) => {
+		const email = req.body.email || req.body.toHash || '';
+		api(req).get('/users', { qs: { email }, $limit: 1 })
+			.then((users) => {
+				if (users.total === 1) {
+					sendMailHandler(users.data[0], req, res, true);
+					res.status(200).send();
+				} else {
+					res.status(500).send();
+				}
+			});
+	},
+);
+
 const sendMailHandler = (user, req, res, internalReturn) => {
 	if (
 		user

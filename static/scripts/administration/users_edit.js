@@ -78,6 +78,51 @@ $(document).ready(() => {
 		});
 		$skipregModal.appendTo('body').modal('show');
 	});
+	$('.btn-send-link-email').on('click', (e) => {
+		e.preventDefault();
+		const $this = $(this);
+		const text = $this.html();
+		const $invitationModal = $('.invitation-modal');
+		const schoolId = $invitationModal.find("input[name='schoolId']").val();
+		let role = 'student';
+		if ($(this).hasClass('teacher')) role = 'teacher';
+		const email = $('input[name="email"]').val();
+
+		$this.html('E-Mail wird gesendet...');
+		$this.attr('disabled', 'disabled');
+
+		$.ajax({
+			type: 'POST',
+			url:
+				`${window.location.origin}/administration/registrationlinkMail`,
+			data: {
+				role,
+				save: true,
+				schoolId,
+				host: window.location.origin,
+				toHash: email,
+				patchUser: true,
+			},
+		})
+			.done(() => {
+				$.showNotification(
+					'Einladungs-E-Mail erfolgreich versendet',
+					'success',
+					true,
+				);
+				$this.attr('disabled', false);
+				$this.html(text);
+			})
+			.fail(() => {
+				$.showNotification(
+					'Fehler beim senden der Einladungs-E-Mail',
+					'danger',
+					true,
+				);
+				$this.attr('disabled', false);
+				$this.html(text);
+			});
+	});
 
 	function createInvitationHashHandler(e) {
 		e.preventDefault();
