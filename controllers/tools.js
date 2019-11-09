@@ -1,28 +1,29 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+
 const router = express.Router({ mergeParams: true });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
 
 const createToolHandler = (req, res, next) => {
-    const context = req.originalUrl.split('/')[1];
-    api(req).post('/ltiTools/', {
-        json: req.body
-    }).then((tool) => {
-        if (tool._id) {
-            api(req).patch(`/${context}/` + req.body.courseId, {
-                json: {
-                    $push: {
-                        ltiToolIds: tool._id
-                    }
-                }
+	const context = req.originalUrl.split('/')[1];
+	api(req).post('/ltiTools/', {
+		json: req.body,
+	}).then((tool) => {
+		if (tool._id) {
+			api(req).patch(`/${context}/${req.body.courseId}`, {
+				json: {
+					$push: {
+						ltiToolIds: tool._id,
+					},
+				},
 			}).then((course) => {
 				res.redirect(`/${context}/${course._id}/?activeTab=tools`);
 			});
-        }
-    });
+		}
+	});
 };
 
 const addToolHandler = (req, res, next) => {
@@ -45,105 +46,104 @@ const addToolHandler = (req, res, next) => {
 };
 
 const generateNonce = (length) => {
-	let text = "";
-	const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	for(let i = 0; i < length; i++) {
+	let text = '';
+	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	for (let i = 0; i < length; i += 1) {
 		text += possible.charAt(Math.floor(Math.random() * possible.length));
 	}
 	return text;
-}
+};
 
 const runToolHandler = (req, res, next) => {
-    let currentUser = res.locals.currentUser;
-    Promise.all([
-    api(req).get('/ltiTools/' + req.params.ltiToolId),
-    api(req).get('/roles/' + currentUser.roles[0]._id),
-    api(req).get('/pseudonym?userId=' + currentUser._id + '&toolId=' + req.params.ltiToolId)
-    ]).then(([tool, role, pseudonym]) => {
-       let user_id = '';
-       let formData = '';
-       let name = null;
+	const currentUser = [res.locals];
+	Promise.all([
+		api(req).get(`/ltiTools/${req.params.ltiToolId}`),
+		api(req).get(`/roles/${currentUser.roles[0]._id}`),
+		api(req).get(`/pseudonym?userId=${currentUser._id}&toolId=${req.params.ltiToolId}`),
+	]).then(([tool, role, pseudonym]) => {
+		let userId = '';
+		let formData = '';
+		let name = null;
 
-       if (tool.privacy_permission === 'pseudonymous') {
-         user_id = pseudonym.data[0].pseudonym;
-         name = pseudonym.data[0].user.iframe;
-       } else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
-         user_id = currentUser._id;
-       }
+		if (tool.privacy_permission === 'pseudonymous') {
+			userId = pseudonym.data[0].pseudonym;
+			name = pseudonym.data[0].user.iframe;
+		} else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
+			userId = currentUser._id;
+		}
 
-       const customer = new ltiCustomer.LTICustomer();
-       if(tool.lti_version === 'LTI-1p0') {
-		   const consumer = customer.createConsumer(tool.key, tool.secret);
+		const customer = new ltiCustomer.LTICustomer();
+		if (tool.lti_version === 'LTI-1p0') {
+			const consumer = customer.createConsumer(tool.key, tool.secret);
 
-		   let payload = {
-			   lti_version: tool.lti_version,
-			   lti_message_type: tool.lti_message_type,
-			   resource_link_id: tool.resource_link_id || req.params.courseId,
-			   roles: customer.mapSchulcloudRoleToLTIRole(role.name),
-			   launch_presentation_document_target: 'window',
-			   launch_presentation_locale: 'en',
-			   lis_person_name_full: (tool.privacy_permission === 'name'
-				   ? currentUser.displayName || `${currentUser.firstName} ${currentUser.lastName}`
-				   : ''),
-			   lis_person_contact_email_primary: (tool.privacy_permission === 'e-mail'
-				   ? currentUser.email
-				   : ''),
-			   user_id
-		   };
-		   tool.customs.forEach((custom) => {
-			   payload[customer.customFieldToString(custom)] = custom.value;
-		   });
+			const payload = {
+				lti_version: tool.lti_version,
+				lti_message_type: tool.lti_message_type,
+				resource_link_id: tool.resource_link_id || req.params.courseId,
+				roles: customer.mapSchulcloudRoleToLTIRole(role.name),
+				launch_presentation_document_target: 'window',
+				launch_presentation_locale: 'en',
+				lis_person_name_full: (tool.privacy_permission === 'name'
+					? currentUser.displayName || `${currentUser.firstName} ${currentUser.lastName}`
+					: ''),
+				lis_person_contact_email_primary: (tool.privacy_permission === 'e-mail'
+					? currentUser.email
+					: ''),
+				user_id: userId,
+			};
+			tool.customs.forEach((custom) => {
+				payload[customer.customFieldToString(custom)] = custom.value;
+			});
 
-		   let request_data = {
-			   url: tool.url,
-			   method: 'POST',
-			   data: payload
-		   };
+			const requestData = {
+				url: tool.url,
+				method: 'POST',
+				data: payload,
+			};
 
-		   formData = consumer.authorize(request_data);
-	   } else if (tool.lti_version === '1.3.0') {
+			formData = consumer.authorize(requestData);
+		} else if (tool.lti_version === '1.3.0') {
 			const current = new Date();
 			const iss = process.env.FRONTEND_URL || 'http://localhost:3100/';
-			const id_token = {
+			const roleName = customer.mapSchulcloudRoleToLTIRole(role.name);
+			const idToken = {
 				iss,
 				aud: tool.oAuthClientId,
-				sub: user_id,
+				sub: userId,
 				name,
 				exp: current.getTime() + 3 * 60,
 				iat: current.getTime(),
 				nonce: generateNonce(16),
-				"https://purl.imsglobal.org/spec/lti/claim/message_type": tool.lti_message_type,
-				"https://purl.imsglobal.org/spec/lti/claim/roles": [
-					"http://purl.imsglobal.org/vocab/lis/v2/membership#" + customer.mapSchulcloudRoleToLTIRole(role.name),
+				'https://purl.imsglobal.org/spec/lti/claim/message_type': tool.lti_message_type,
+				'https://purl.imsglobal.org/spec/lti/claim/roles': [
+					`http://purl.imsglobal.org/vocab/lis/v2/membership#${roleName}`,
 				],
-				"https://purl.imsglobal.org/spec/lti/claim/resource_link": {
-					"id": tool._id
+				'https://purl.imsglobal.org/spec/lti/claim/resource_link': {
+					id: tool._id,
 				},
-				"https://purl.imsglobal.org/spec/lti/claim/version": tool.lti_version,
-				"https://purl.imsglobal.org/spec/lti/claim/deployment_id": tool._id,
-				"https://purl.imsglobal.org/spec/lti-dl/claim/deep_linking_settings":
+				'https://purl.imsglobal.org/spec/lti/claim/version': tool.lti_version,
+				'https://purl.imsglobal.org/spec/lti/claim/deployment_id': tool._id,
+				'https://purl.imsglobal.org/spec/lti-dl/claim/deep_linking_settings':
 					(tool.lti_message_type === 'LtiDeepLinkingRequest'
 						? {
-							"accept_types": ["ltiLink"],
-							"accept_media_types": "image/*,text/html",
-							"accept_presentation_document_targets": ["iframe", "window"],
-							"deep_link_return_url": `${iss}courses/x/tools/link/${tool._id}`,
+							accept_types: ['ltiLink'],
+							accept_media_types: 'image/*,text/html',
+							accept_presentation_document_targets: ['iframe', 'window'],
+							deep_link_return_url: `${iss}courses/x/tools/link/${tool._id}`,
 						}
 						: undefined),
-			}
+			};
 			formData = {
-				id_token: jwt.sign(id_token, fs.readFileSync('private_key.pem'), {algorithm: 'RS256'})
-			}
-	   }
+				id_token: jwt.sign(idToken, fs.readFileSync('private_key.pem'), { algorithm: 'RS256' }),
+			};
+		}
 
-        res.render('courses/components/run-lti-frame', {
-            url: tool.url,
-            method: 'POST',
-            formData: Object.keys(formData).map(key => {
-                return {name: key, value: formData[key]};
-            })
-        });
-    });
+		res.render('courses/components/run-lti-frame', {
+			url: tool.url,
+			method: 'POST',
+			formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
+		});
+	});
 };
 
 const getDetailHandler = (req, res, next) => {
@@ -191,14 +191,14 @@ const showToolHandler = (req, res, next) => {
 
 const addLinkHandler = (req, res, next) => {
 	// TODO: validate LTI response
-	api(req).get('/ltiTools/' + req.params.ltiToolId)
+	api(req).get(`/ltiTools/${req.params.ltiToolId}`)
 		.then((tool) => {
 			const idToken = jwt.verify(req.body.id_token, tool.key, { algorithm: 'RS256' });
 			if (idToken.iss !== tool.oAuthClientId) {
-				res.send('Issuer stimmt nicht überein.')
+				res.send('Issuer stimmt nicht überein.');
 			}
 			if (idToken.aud !== (process.env.FRONTEND_URL || 'http://localhost:3100/')) {
-				res.send('Audience stimmt nicht überein.')
+				res.send('Audience stimmt nicht überein.');
 			}
 
 			const content = idToken['https://purl.imsglobal.org/spec/lti-dl/claim/content_items'];
@@ -206,9 +206,8 @@ const addLinkHandler = (req, res, next) => {
 				url: content.url,
 				title: content.title,
 			});
-
 		});
-}
+};
 
 
 // secure routes
