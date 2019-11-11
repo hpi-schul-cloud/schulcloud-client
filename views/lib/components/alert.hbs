@@ -1,0 +1,21 @@
+{{#each alert.data}}
+<div class="alert alert-info" id="_alert" style="display: none;" data-timestamp="{{this.timestamp}}" data-origin-page="{{this.origin.page}}"  data-origin-id="{{this.origin.message_id}}">
+    <div class="alert-content">
+        <button type="button" class="close alert-close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="row">
+            <div class="col-xs-2 col-sm-1 text-center">
+                <i class="fa fa-info-circle" style="font-size: 25px;"></i>
+            </div>
+            <div class="col-xs-10 col-sm-11">
+                {{#if this.title}}<h6>{{this.title}}</h6>{{/if}}
+                {{{this.text}}} 
+                <div class="text-xs-right">
+                    <a target="_blank" rel="noopener noreferrer" href="http://status.schul-cloud.org">mehr erfahren...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}

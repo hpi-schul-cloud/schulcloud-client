@@ -139,6 +139,69 @@ function printPart() {
 	$(this).show();
 }
 
+/**
+ * Create or Override a cookie
+ * @param {string} name
+ * @param {string} value
+ * @param {number} exdays Days until Cookie expires
+ */
+function setCookie(name, value, exdays) {
+	const d = new Date();
+	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+	const expires = `expires=${d.toUTCString()}`;
+	document.cookie = `${name}=${value};${expires};path=/`;
+}
+
+/**
+ * Get Cookie by name
+ * @param {string} name
+ */
+function getCookie(name) {
+	const cname = `${name}=`;
+	const ca = document.cookie.split(';');
+	for (let i = 0; i < ca.length; i += 1) {
+		let c = ca[i];
+		while (c.charAt(0) === ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(cname) === 0) {
+			return c.substring(cname.length, c.length);
+		}
+	}
+	return '';
+}
+
+/**
+ * Check if String can be prased as Json
+ * @param {string} str
+ *
+ * @returns {boolean}
+ */
+function isJsonString(str) {
+	try {
+		JSON.parse(str);
+	} catch (e) {
+		return false;
+	}
+	return true;
+}
+
+/**
+ * Check if subset array is included in superset array
+ * @param {array} superset
+ * @param {array} subset
+ *
+ * @returns {boolean} true if subset is included in superset
+ */
+function arrayIsIncluded(superset, subset) {
+	for (const element of superset) {
+		if (JSON.stringify(element) === JSON.stringify(subset)) {
+			return true;
+		}
+	}
+	return false;
+}
+
 // const originalReady = jQuery.fn.ready;
 $.fn.extend({
 	ready(handler) {
@@ -151,6 +214,43 @@ $(window).on('load', () => {
 $(document).ready(() => {
 	// Bootstrap Tooltips
 	$('[data-toggle="tooltip"]').tooltip();
+
+	// EBS-System | Alert
+	// mark alert as read
+	$('.alert-close').on('click', (event) => {
+		// get data from parent
+		const parent = $(event.target).closest('#_alert');
+		// get data from alert cookie
+		const cookieData = getCookie('alert');
+		const data = (isJsonString(cookieData)) ? JSON.parse(getCookie('alert')) : [];
+
+		const d = {
+			timestamp: parent[0].dataset.timestamp,
+			origin: {
+				page: parent[0].dataset.originPage,
+				id: parent[0].dataset.originId,
+			},
+		};
+		// only add data if not already included
+		if (!arrayIsIncluded(data, d)) { data.push(d); }
+		setCookie('alert', JSON.stringify(data), 2);
+	});
+
+	const elementList = document.querySelectorAll('#_alert');
+	const cookieData = getCookie('alert');
+	const data = (isJsonString(cookieData)) ? JSON.parse(getCookie('alert')) : [];
+
+	// make all unread alerts visible
+	for (const element of elementList) {
+		const d = {
+			timestamp: element.dataset.timestamp,
+			origin: {
+				page: element.dataset.originPage,
+				id: element.dataset.originId,
+			},
+		};
+		if (!arrayIsIncluded(data, d)) { element.style.display = 'block'; }
+	}
 
 	// notification stuff
 	const $notification = $('.notification');
