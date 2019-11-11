@@ -1381,7 +1381,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	if (classId) {
 		const klass = await api(req).get(`/classes/${classId}`, {
 			qs: {
-				$populate: ['userIds', 'teacherIds'],
+				$populate: ['userIds'],
 			},
 		});
 		users = klass.userIds;
@@ -1392,7 +1392,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	let consents = [];
 	const batchSize = 50;
 	let slice = 0;
-	while (users.length !== 0 && slice * batchSize <= users.length) {
+	while (users.length !== 0 && slice * batchSize < users.length) {
 		consents = consents.concat(
 			(await api(req).get('/consents', {
 				qs: {
