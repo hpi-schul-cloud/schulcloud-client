@@ -98,6 +98,7 @@
     "gulp-clean-css": "^3.0.3",
     "gulp-concat": "^2.6.1",
     "gulp-count": "^0.3.0",
+    "gulp-error-handle": "^1.0.1",
     "gulp-filelog": "^0.4.1",
     "gulp-header": "^2.0.1",
     "gulp-if": "^2.0.2",
