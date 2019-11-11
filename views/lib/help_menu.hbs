@@ -19,6 +19,15 @@
                     </span>
                 </li>
 
+                {{#userHasPermission "ENTERTHECLOUD_START"}}
+                    <li class="list-group-item list-group-item-action enterthecloud-btn">
+                        <span>
+                            <i class="fa fa-gamepad"aria-hidden="true"></i>
+                            <button type="button" class="link btn-link enterthecloud-btn" style="line-height: initial">Enter The Cloud spielen</button>
+                        </span>
+                    </li>
+                {{/userHasPermission}}
+
                 <li class="list-group-item list-group-item-action">
                     <span>
                         <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -35,3 +44,15 @@
         </div>
     </div>
 </li>
+
+{{#userHasPermission "ENTERTHECLOUD_START"}}
+{{#embed "lib/components/modal" class="enterthecloud-modal" title="Enter The Cloud spielen"}}
+    {{#content "body"}}
+        <div class="modal-body">
+            <p>Benutzername: <code>...</code></p>
+            <p>Passwort: <code>...</code></p>
+            <a class="btn btn-primary" href="TODO">Spiel öffnen</a>
+        </div>
+    {{/content}}
+{{/embed}}
+{{/userHasPermission}}
