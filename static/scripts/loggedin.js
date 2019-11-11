@@ -41,6 +41,24 @@ function showAJAXSuccess(message, modal) {
     $.showNotification(message, "success", true);
 }
 
+function initEnterTheCloud() {
+	const buttons = document.querySelectorAll('.enterthecloud-btn');
+	const modal = document.querySelector('.enterthecloud-modal');
+	if (!buttons.length || !modal) {
+		return false;
+	}
+	buttons.forEach((btn) => {
+		$(btn).on('click', () => {
+			$(modal).appendTo('body').modal('show');
+		});
+	});
+	return true;
+}
+
+$(document).ready(() => {
+	initEnterTheCloud();
+});
+
 $(document).ready(function () {
     // Init mobile nav
     var mobileNavToggle = document.querySelector('.mobile-nav-toggle');
@@ -132,7 +150,7 @@ $(document).ready(function () {
 	// check for LDAP Transfer Mode
 	if ($('#schuljahrtransfer').length) {
 		if ($('#schuljahrtransfer').val() === 'Lehrer') {
-			$.showNotification(`Die Schule befindet sich in der Transferphase zum neuen Schuljahr. 
+			$.showNotification(`Die Schule befindet sich in der Transferphase zum neuen Schuljahr.
 			Es können keine Klassen und Nutzer angelegt werden.
 			Bitte kontaktiere den Schul-Administrator!`, 'warning');
 		} else if ($('#schuljahrtransfer').val() === 'Administrator') {
