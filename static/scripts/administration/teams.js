@@ -26,8 +26,8 @@ $(window).ready(() => {
 			teamMembers = '<ol>';
 			members.forEach((member) => {
 				const { user } = member; // userId was populated
-				if (user.displayName) {
-					teamMembers = `${teamMembers}<li>${user.displayName} (${
+				if (user.fullName) {
+					teamMembers = `${teamMembers}<li>${user.fullName} (${
 						member.role
 					})</li>`;
 				} else {
