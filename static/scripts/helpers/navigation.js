@@ -12,7 +12,7 @@ export function softNavigate(newurl, selector = 'html', listener, callback) {
         try {
             const newPagePart = newPage.querySelector(selector);
             const oldPagePart = document.querySelector(selector);
-            oldPagePart.parentNode.replaceChild(newPagePart, oldPagePart);
+            oldPagePart.innerHTML = newPagePart.innerHTML;
             document.querySelectorAll((listener || selector) + " a").forEach(link => {
                 const linkClone = link.cloneNode(true);
                 linkClone.addEventListener("click", function (e) {
