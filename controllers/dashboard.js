@@ -178,7 +178,7 @@ router.get('/', (req, res, next) => {
 
 		res.render('dashboard/dashboard', {
 			title: 'Übersicht',
-			events,
+			events: events.reverse(),
 			eventsDate: moment().format('dddd, DD. MMMM YYYY'),
 			homeworks: homeworks.filter(task => !task.private).slice(0, 4),
 			myhomeworks: homeworks.filter(task => task.private).slice(0, 4),
