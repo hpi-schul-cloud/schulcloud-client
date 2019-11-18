@@ -121,7 +121,7 @@ app.use(tokenInjector);
 const setTheme = require('./helpers/theme');
 
 function removeIds(url) {
-	const checkForHexRegExp = /^[a-f\d]{24}$/ig;
+	const checkForHexRegExp = /[a-f\d]{24}/ig;
 	return url.replace(checkForHexRegExp, 'ID');
 }
 
