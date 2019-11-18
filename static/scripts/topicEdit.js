@@ -439,6 +439,7 @@ class TopicText extends TopicBlock {
             filebrowserUploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserImageUploadUrl: '/files/upload/?path=' + storageContext,
             removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link;html5video:Upload;html5audio:Upload',
+			removeButtons = 'Maximize',
             DefaultLinkTarget: '_blank'
         });
 
