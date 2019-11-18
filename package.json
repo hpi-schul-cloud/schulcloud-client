@@ -1,6 +1,6 @@
 {
   "name": "schulcloud-client",
-  "version": "19.8.1",
+  "version": "20.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -11,8 +11,8 @@
     "sasslint": "sass-lint -q -v",
     "sasslint:fix": "sass-lint-auto-fix -s -c ./.sass-lint-auto-fix.yml && sass-lint -q -v",
     "startd": "echo 'Do you mean 'npm run watch'?'",
-    "test": "npm run mocha",
-    "mocha": "mocha test/mocha/ --recursive --opts ./test/mocha/mocha.opts",
+    "test": "npm run mocha --exit ",
+    "mocha": "mocha test/mocha/ --exit --recursive --opts ./test/mocha/mocha.opts",
     "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js --opts ./test/mocha/mocha.opts"
   },
   "engines": {
@@ -34,7 +34,6 @@
     "csv-parse": "^4.6.5",
     "debug": "~2.6.0",
     "device-detector-js": "^1.1.1",
-    "diff-dom": "^2.4.0",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "fast-csv": "^2.4.1",
@@ -111,7 +110,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^2.0.1",
     "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
+    "mocha": "^6.2.1",
     "node-sass": "^4.12.0",
     "nodemon": "^1.18.3",
     "postcss-css-variables": "^0.13.0",

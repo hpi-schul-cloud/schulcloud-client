@@ -1392,7 +1392,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	let consents = [];
 	const batchSize = 50;
 	let slice = 0;
-	while (users.length !== 0 && slice * batchSize <= users.length) {
+	while (users.length !== 0 && slice * batchSize < users.length) {
 		consents = consents.concat(
 			(await api(req).get('/consents', {
 				qs: {
@@ -1658,6 +1658,10 @@ const renderClassEdit = (req, res, next) => {
 				([teachers, gradeLevels, currentClass]) => {
 					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
 
+					const allSchoolYears = res.locals.currentSchoolData.years.schoolYears
+						.sort((a, b) => b.startDate.localeCompare(a.startDate));
+
+					const lastDefinedSchoolYearId = (allSchoolYears[0] || {})._id;
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
 					);
@@ -1674,6 +1678,7 @@ const renderClassEdit = (req, res, next) => {
 						});
 					}
 					let isCustom = false;
+					let isUpgradable = false;
 					if (currentClass) {
 						// preselect already selected teachers
 						teachers.forEach((t) => {
@@ -1701,7 +1706,15 @@ const renderClassEdit = (req, res, next) => {
 								currentClass.keepYear = true;
 							}
 						}
+
+						if (currentClass.year) {
+							isUpgradable = (lastDefinedSchoolYearId !== (currentClass.year || {}))
+							&& currentClass.gradeLevel
+							&& currentClass.gradeLevel !== 13
+							&& !currentClass.successor;
+						}
 					}
+
 
 					res.render('administration/classes-edit', {
 						title: {
@@ -1715,6 +1728,7 @@ const renderClassEdit = (req, res, next) => {
 							upgrade: '/administration/classes/create',
 						}[mode],
 						edit: mode !== 'create',
+						isUpgradable,
 						mode,
 						schoolyears,
 						teachers,
@@ -2219,7 +2233,7 @@ router.get(
 							baseActions.push({
 								link: `${basePath + i._id}/createSuccessor`,
 								icon: 'arrow-up',
-								class: i.successor ? 'disabled' : '',
+								class: i.successor || i.gradeLevel === 13 ? 'disabled' : '',
 								title: 'Klasse in das nächste Schuljahr versetzen',
 							});
 						}

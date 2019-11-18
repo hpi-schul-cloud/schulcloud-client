@@ -20,6 +20,9 @@
         <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" defer></script>
         <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
         <script type="text/javascript" src="/vendor/feathersjs/feathers.js" defer></script>
+        {{#if @root.currentUser.preferences.enterthecloud}}
+            <script type="text/javascript" src="/vendor/enterthecloud.min.js" defer></script>
+        {{/if}}
     {{/content}}
 
     {{#content "body"}}
@@ -149,8 +152,8 @@
                                 </div>
                             </div>
                         </li>
-    	                {{/if}}
-                        
+                        {{/if}}
+
                         {{#embed "lib/help_menu"}}{{/embed}}
 
                         {{#if currentSchoolData}}
