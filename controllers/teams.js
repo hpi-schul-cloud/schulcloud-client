@@ -1012,7 +1012,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		});
 
 		const bodyClasses = team.classes.map(c => [
-			`${c.displayName || c.name} (${c.year ? c.year.name : ''})`,
+			`${c.fullName || c.name} (${c.year ? c.year.name : ''})`,
 			c.userIds.length,
 			{
 				payload: {
