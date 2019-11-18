@@ -34,7 +34,7 @@ CKEDITOR.editorConfig = function (config) {
 
 	// add color picker
 	config.extraPlugins = 'mathjax,colorbutton,colordialog,print';
-	config.mathJaxLib = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML';
+	config.mathJaxLib = '/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML';
 
 	// Set the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
