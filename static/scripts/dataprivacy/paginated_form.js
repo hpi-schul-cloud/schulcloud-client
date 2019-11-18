@@ -70,6 +70,13 @@ function updateButton(selectedIndex) {
 		document.querySelector('.form #nextSection').removeAttribute('disabled');
 		document.querySelector('.form #nextSection').classList.remove('hidden');
 	}
+
+	if (selectedIndex === 1) {
+		document.querySelector('.form #firstSection').classList.remove('hidden');
+	} else {
+		document.querySelector('.form #firstSection').classList.add('hidden');
+	}
+
 	if (selectedIndex === 1 || selectedIndex === getSubmitPageIndex() + 1) {
 		document.querySelector('.form #prevSection').setAttribute('disabled', 'disabled');
 	} else {

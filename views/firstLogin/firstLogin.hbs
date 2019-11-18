@@ -7,6 +7,9 @@
 {{> (lookup @root.sections @index) CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS=@root.CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS roleNames=@root.roleNames section-nr=(add @index 1) submit-page=(isCond (add @index 1) "==" @root.submitPageIndex)}}
 {{/each}}
 {{/content}}
+{{#content "buttons" mode="append"}}
+    <a href="/logout/" class="btn btn-secondary" id="firstSection">Abbrechen und abmelden</a>
+{{/content}}
 {{/embed}}
 {{/content}}
 {{/extend}}
