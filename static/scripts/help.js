@@ -1,6 +1,6 @@
-import livesearch from './helpers/livesearch.js';
-import { resizeIframes } from './helpers/iFrameResize.js';
-import './help/contactForm.js';
+import livesearch from './helpers/livesearch';
+import { resizeIframes } from './helpers/iFrameResize';
+import './help/contactForm';
 
 
 $(document).ready(() => {
@@ -23,7 +23,8 @@ resizeIframes(undefined, () => {
 
 
 /* script for iFrame
-// this needs to be embedded on every page that should be displayed via iFrame and the message to the parent should be send, whenever the page resizes.
+// this needs to be embedded on every page that should be displayed via iFrame
+// and the message to the parent should be send, whenever the page resizes.
 // This script shouldn't be removed from here unless it's saved somewhere save where we can find it when needed.
 
 window.addEventListener("message", (event) => {
@@ -72,6 +73,7 @@ function parseData(result) {
 	};
 }
 const config = {
+	// eslint-disable-next-line
 	url: 'https://docs.schul-cloud.org/rest/searchv3/1.0/search?queryString=${inputValue}&where=SCDOK&type=page&pageSize=10&highlight=false',
 	extractResultArray: extractResults,
 	dataParser: parseData,
