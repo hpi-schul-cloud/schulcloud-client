@@ -3,7 +3,21 @@ import './dataprivacy';
 window.addEventListener('DOMContentLoaded', ()=>{
     // show steppers depending on age of student
     let radiou16 = document.getElementById("reg-u16");
-    let radio16 = document.getElementById("reg-16");
+	let radio16 = document.getElementById("reg-16");
+	
+	/*
+	// invalid registration detexted
+	*/
+	if ($("input[name='invalid']").val() === 'true') {
+		const $invalidRegistrationModal = $('.invalid-registration-modal');
+
+		populateModalForm($invalidRegistrationModal, {
+			title: 'Registrierung fehlerhaft',
+			closeLabel: 'Schließen',
+		});
+
+		$invalidRegistrationModal.appendTo('body').modal('show');
+	};
 
     if(document.querySelector('#showRegistrationForm')) {
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{

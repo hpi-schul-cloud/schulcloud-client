@@ -5,10 +5,21 @@ const api = require('../api');
 
 const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
 const setTheme = require('../helpers/theme');
+let invalid = false;
 
 const resetThemeForPrivacyDocuments = async (req, res) => {
 	res.locals.currentSchoolData = await api(req).get(`registrationSchool/${req.params.classOrSchoolId}`);
 	setTheme(res);
+};
+
+const checkValidRegistration = async (req) => {
+	if (req.query.importHash) {
+		const existingUser = await api(req).get(`/users/linkImport/${req.query.importHash}`);
+		if (!existingUser.userId) {
+			return true;
+		}
+	}
+	return false;
 };
 
 /*
@@ -199,6 +210,8 @@ router.get(
 			}
 		}
 
+		invalid = await checkValidRegistration(req);
+
 		await resetThemeForPrivacyDocuments(req, res);
 
 		return res.render('registration/registration', {
@@ -209,6 +222,7 @@ router.get(
 			sso: req.params.sso === 'sso',
 			account: req.params.accountId || '',
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+			invalid,
 		});
 	},
 );

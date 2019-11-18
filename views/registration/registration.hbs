@@ -34,6 +34,13 @@
 		{{#if classOrSchoolId}}<input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />{{/if}}
 		{{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}
 		{{#if account}}<input type="hidden" name="account" value="{{account}}" />{{/if}}
+		{{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
+
+		{{#embed "lib/components/modal-form" class="invalid-registration-modal"}}
+			{{#content "fields"}}
+				{{> "registration/forms/invalid-registration"}}
+			{{/content}}
+		{{/embed}}
 	</div>
 	{{/content}}
 {{/extend}}
