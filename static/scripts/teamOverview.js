@@ -32,8 +32,8 @@ $(document).ready(() => {
                 teamMembers = '<ol>';
                 res.course.userIds.forEach(member => {
                     const user = member.userId; // userId was populated
-                    if (user.displayName) {
-                        teamMembers = teamMembers + '<li>' + user.displayName + '</li>';
+                    if (user.fullName) {
+                        teamMembers = teamMembers + '<li>' + user.fullName + '</li>';
                     } else {
                         teamMembers = teamMembers + '<li>' + user.firstName + ' ' + user.lastName + '</li>';
                     }

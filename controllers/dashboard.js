@@ -91,13 +91,20 @@ router.get('/', (req, res, next) => {
             $populate: ['courseId'],
             $sort: 'dueDate',
             archived : {$ne: res.locals.currentUser._id },
-            'dueDate': {
-                $gte: new Date().getTime(),
-                $lte: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
-            }
+            $or: [
+                {
+                    'dueDate': null
+                },
+                {
+                    'dueDate': {
+                        $gte: new Date().getTime(),
+                        $lte: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+                    }
+                },
+                ]
         }
     }).then(data => data.data.map(homeworks => {
-        homeworks.secondaryTitle = moment(homeworks.dueDate).fromNow();
+        homeworks.secondaryTitle = (homeworks.dueDate) ? moment(homeworks.dueDate).fromNow() : 'Kein Abgabedatum festgelegt';
         if (homeworks.courseId != null) {
             homeworks.title = '['+homeworks.courseId.name+'] ' + homeworks.name;
             homeworks.background = homeworks.courseId.color;
@@ -147,9 +154,8 @@ router.get('/', (req, res, next) => {
         newsPromise,
         newestReleasePromise
     ]).then(([events, homeworks, news, newestReleases]) => {
-
         homeworks.sort((a,b) => {
-            if(a.dueDate > b.dueDate) {
+            if(a.dueDate > b.dueDate || !a.dueDate) {
                 return 1;
             } else {
                 return -1;

@@ -3,7 +3,11 @@
     <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">
         <div class="dates">
             {{#if this.availableDate}}{{timeToString availableDate}}<br />{{/if}}
-            bis {{timeToString dueDate}}
+            {{#if this.dueDate}}
+                bis {{timeToString dueDate}}
+            {{else}}
+                Kein Abgabedatum festgelegt
+            {{/if}}
         </div>
     </a>
     {{#if this.stats}}

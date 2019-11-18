@@ -1,0 +1,31 @@
+{{#embed "help/icon-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card col-xs-12" id="ueber_das_projekt"}}
+	{{#content "card-body"}}
+		{{> "help/icon-link-group" links=(jsonParse '[
+			{
+				"title": "Überblick",
+				"icon": "fa-info",
+				"src": "/about"
+			},
+			{
+				"title": "FAQ",
+				"icon": "fa-comments",
+				"src": "/help/confluence/110723396"
+			},
+			{
+				"title": "Ansprechpartner",
+				"icon": "fa-user",
+				"src": "/help/faq/people"
+			},
+			{
+				"title": "Release Notes",
+				"icon": "fa-clipboard",
+				"src": "/help/releases"
+			},
+			{
+				"title": "Website (Logout)",
+				"icon": "fa-globe",
+				"src": "/logout"
+			}
+		]') link-class="col-sm-4"}}
+	{{/content}}
+{{/embed}}

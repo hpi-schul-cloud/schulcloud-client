@@ -1,3 +1,5 @@
+import './pwd.js';
+
 /* global introJs */
 $(document).ready(function() {
 
@@ -59,6 +61,10 @@ $(document).ready(function() {
     var loadSystems = function(schoolId) {
         $systems.empty();
         $.getJSON('/login/systems/' + schoolId, function(systems) {
+            if (systems.length < 2){
+                $systems.parent().hide()
+                return;
+            }
             systems.forEach(function(system) {
                 var systemAlias = system.alias ? ' (' + system.alias + ')' : '';
                 let selected;
