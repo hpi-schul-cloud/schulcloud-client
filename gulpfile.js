@@ -48,8 +48,7 @@ function themeName() {
 	return process.env.SC_THEME || 'default';
 }
 
-const EXIT_ON_ERROR = process.env.GULP_EXIT_ON_ERROR === 'true'
-	|| (process.env.NODE_ENV === 'production' && process.env.GULP_EXIT_ON_ERROR !== 'false');
+const EXIT_ON_ERROR = process.env.GULP_EXIT_ON_ERROR === 'true' || process.env.NODE_ENV !== 'development';
 
 const nonBaseScripts = [
 	'./static/scripts/**/*.js',
