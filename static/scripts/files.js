@@ -883,10 +883,9 @@ function openInIframe(source) {
 function writeFileSizePretty(filesize) {
 	let unit;
 	let iterator = 0;
-	let size = filesize;
 
 	while (filesize > 1024) {
-		size = Math.round((size / 1024) * 100) / 100;
+		filesize = Math.round((filesize / 1024) * 100) / 100;
 		iterator += 1;
 	}
 	switch (iterator) {
