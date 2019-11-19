@@ -8,6 +8,7 @@ const changed = require('gulp-changed-smart');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const gulpCount = require('gulp-count');
+const gulpErrorHandler = require('gulp-error-handle');
 const filelog = require('gulp-filelog');
 const header = require('gulp-header');
 const gulpif = require('gulp-if');
@@ -46,6 +47,10 @@ function themeName() {
 	return process.env.SC_THEME || 'default';
 }
 
+const EXIT_ON_ERROR = process.env.GULP_EXIT_ON_ERROR
+	? process.env.GULP_EXIT_ON_ERROR === 'true'
+	: process.env.NODE_ENV !== 'development';
+
 const nonBaseScripts = [
 	'./static/scripts/**/*.js',
 ].concat(baseScripts.map(script => `!${script}`));
@@ -62,26 +67,21 @@ function withTheme(src) {
 		.map(e => `./theme/${themeName()}/${e.slice(2)}`));
 }
 
-const beginPipe = src => gulp
-	.src(withTheme(src))
-	.pipe(plumber())
-	.pipe(changed(gulp))
-	.pipe(filelog());
-
-const beginPipeAll = src => gulp
-	.src(withTheme(src))
-	.pipe(plumber())
-	.pipe(filelog());
-
 const handleError = (error) => {
 	console.error(error);
 	process.exit(1);
 };
 
-// handle errors with exit 1
-gulp.on('err', (err) => {
-	handleError(err);
-});
+const beginPipe = src => gulp
+	.src(withTheme(src))
+	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
+	.pipe(changed(gulp))
+	.pipe(filelog());
+
+const beginPipeAll = src => gulp
+	.src(withTheme(src))
+	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
+	.pipe(filelog());
 
 // minify images
 gulp.task('images', () => beginPipe('./static/images/**/*.*')

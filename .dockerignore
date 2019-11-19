@@ -1,6 +1,7 @@
 .DS_Store
 .gitignore
 .gulp-changed-smart.json
+.webpack-changed-plugin-cache
 .idea
 .travis.yml*
 Dockerfile*
