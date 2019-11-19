@@ -349,12 +349,12 @@ $(document).ready(() => {
 				$this.html(text);
 			});
 	}
-		
-	$('.btn-send-links-emails').on('click', handleSendLinkEmailsClick);
 
-	$('.btn-print-links').on('click', handlePrintLinksClick);
+	$('.btn-send-links-emails').off('click').on('click', handleSendLinkEmailsClick);
 
-	$('#csv-import-example').on('click', (e) => {
+	$('.btn-print-links').off('click').on('click', handlePrintLinksClick);
+
+	$('#csv-import-example').off('click').on('click', (e) => {
 		e.preventDefault();
 		const lines = [
 			'firstName,lastName,email,class',
