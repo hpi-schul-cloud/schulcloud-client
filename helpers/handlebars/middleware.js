@@ -22,7 +22,7 @@ const makeActive = (items, currentUrl) => {
 		if (item.children && item.childActive) {
 			item.children = makeActive(item.children, currentUrl);
 
-			if (item.children.filter(child => child.class == 'active').length == 0) {
+			if (item.children.filter(child => child.class === 'active').length === 0) {
 				item.class += ' active';
 			}
 		}
@@ -33,6 +33,7 @@ const makeActive = (items, currentUrl) => {
 
 module.exports = async (req, res, next) => {
 	res.locals.backendUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
+	/* eslint-disable max-len */
 	// standard views
 	res.locals.sidebarItems = [{
 		name: 'Übersicht',
@@ -122,31 +123,31 @@ module.exports = async (req, res, next) => {
 		});
 	}
 
-    // teacher views
-    res.locals.sidebarItems.push({
-        name: 'Verwaltung',
-        icon: 'cogs',
-        link: '/administration/',
-        permission: 'STUDENT_LIST',
-        excludedPermission: 'ADMIN_VIEW',
-        children: [
-            {
-                name: 'Schüler',
-                icon: 'odnoklassniki',
-                link: '/administration/students/',
-            },
-            {
-                name: 'Lehrer',
-                icon: 'user',
-                link: '/administration/teachers/',
-            },
-            {
-                name: 'Klassen',
-                icon: 'users',
-                link: '/administration/classes/',
-            }
-        ]
-    });
+	// teacher views
+	res.locals.sidebarItems.push({
+		name: 'Verwaltung',
+		icon: 'cogs',
+		link: '/administration/',
+		permission: 'STUDENT_LIST',
+		excludedPermission: 'ADMIN_VIEW',
+		children: [
+			{
+				name: 'Schüler',
+				icon: 'odnoklassniki',
+				link: '/administration/students/',
+			},
+			{
+				name: 'Lehrer',
+				icon: 'user',
+				link: '/administration/teachers/',
+			},
+			{
+				name: 'Klassen',
+				icon: 'users',
+				link: '/administration/classes/',
+			},
+		],
+	});
 
 	// helpdesk views
 	res.locals.sidebarItems.push({
@@ -233,7 +234,6 @@ module.exports = async (req, res, next) => {
 	const alert = {
 		data: await api(req).get('/alert').then(data => data),
 	};
-
 	res.locals.alert = alert;
 
 	let notificationsPromise = [];

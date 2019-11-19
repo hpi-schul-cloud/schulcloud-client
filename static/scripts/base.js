@@ -219,7 +219,7 @@ $(document).ready(() => {
 	// mark alert as read
 	$('.alert-close').on('click', (event) => {
 		// get data from parent
-		const parent = $(event.target).closest('#_alert');
+		const parent = $(event.target).closest('div.alert-card');
 		// get data from alert cookie
 		const cookieData = getCookie('alert');
 		const data = (isJsonString(cookieData)) ? JSON.parse(getCookie('alert')) : [];
@@ -236,7 +236,7 @@ $(document).ready(() => {
 		setCookie('alert', JSON.stringify(data), 2);
 	});
 
-	const elementList = document.querySelectorAll('#_alert');
+	const elementList = document.querySelectorAll('div.alert-card');
 	const cookieData = getCookie('alert');
 	const data = (isJsonString(cookieData)) ? JSON.parse(getCookie('alert')) : [];
 
