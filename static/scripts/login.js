@@ -1,4 +1,5 @@
 import './pwd.js';
+import './cleanup'; // see loggedin.js for loggedin users
 
 /* global introJs */
 $(document).ready(function() {

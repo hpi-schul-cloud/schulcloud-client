@@ -2,6 +2,7 @@
 // import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
+import './cleanup'; // see login.js for loggedout users
 
 iFrameListen();
 
@@ -244,15 +245,6 @@ window.addEventListener('load', () => {
 	if (continueTuorial == 'true') {
 		startIntro();
 		localStorage.setItem('Tutorial', false);
-	}
-	if ('serviceWorker' in navigator) {
-		navigator.serviceWorker.getRegistrations().then(
-			(registrations) => {
-				for (const registration of registrations) {
-					registration.unregister();
-				}
-			},
-		);
 	}
 	document.getElementById('intro-loggedin').addEventListener('click', startIntro, false);
 });
