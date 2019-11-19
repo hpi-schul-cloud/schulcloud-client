@@ -439,7 +439,7 @@ class TopicText extends TopicBlock {
             filebrowserUploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserImageUploadUrl: '/files/upload/?path=' + storageContext,
             removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link;html5video:Upload;html5audio:Upload',
-			removeButtons = 'Maximize',
+			removeButtons: 'Maximize',
             DefaultLinkTarget: '_blank'
         });
 
@@ -811,14 +811,14 @@ class TopicInternal extends TopicBlock {
                             data-placement="top"
                             title={`Der Link muss mit '${this.state.baseUrl}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Andere Inhalte werden momentan nicht unterstützt.`}><i className="fa fa-info-circle" /></a>
                     </span>
-                    <input 
-                        className="form-control" 
-                        name={`contents[${this.props.position}][content][url]`} 
-                        pattern={this.state.pattern} 
+                    <input
+                        className="form-control"
+                        name={`contents[${this.props.position}][content][url]`}
+                        pattern={this.state.pattern}
                         onChange={this.updateUrl.bind(this)}
-                        type="url" 
+                        type="url"
                         required
-                        placeholder={`${this.state.baseUrl}/homework/5aba1085b0efc43a64f1f5d2`} 
+                        placeholder={`${this.state.baseUrl}/homework/5aba1085b0efc43a64f1f5d2`}
                         value={(this.props.content || {}).url}
                     />
                 </div>
