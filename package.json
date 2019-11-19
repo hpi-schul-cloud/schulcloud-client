@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "watch": "nodemon --config nodemon.json",
     "debug": "nodemon --inspect=9310 --config nodemon.json",
-    "debug:container": "nodemon --inspect=0.0.0.0:9310 --config nodemon.json bin/www",
+    "debug:container": "nodemon --inspect=0.0.0.0:9310 --config nodemon.json",
     "lint": "eslint ./bin ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
     "sasslint": "sass-lint -q -v",
     "sasslint:fix": "sass-lint-auto-fix -s -c ./.sass-lint-auto-fix.yml && sass-lint -q -v",

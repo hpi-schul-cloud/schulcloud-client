@@ -8,24 +8,18 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - NODE_ENV=development
-      - BACKEND_URL=http://server:3030/
-      # Theme and Titles
-      - SC_THEME=default
-      - SC_TITLE=TSC
-      - SC_SHORT_TITLE=TSC
-      - SC_PRODUCTNAME=TSC
+      NODE_ENV: development
+      BACKEND_URL: https://schul-cloud.org:8080/
     ports:
       - 3100:3100
       - 9310:9310
-    networks:
-      - default
-      - schulcloud-server_client-net
+    external_links:
+      - schulcloud-server:server
     volumes:
       - .:/home/node/app
-      - /home/node/app/node_modules
-    command: npm run debug:container
+    command: npm run debug
 
-networks:
-  schulcloud-server_client-net:
-    external: true
+#networks:
+#  default:
+#    external:
+#      name: schulcloudserver_schulcloud-server-network
