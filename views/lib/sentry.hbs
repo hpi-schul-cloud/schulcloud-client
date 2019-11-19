@@ -2,7 +2,7 @@
 <script src="/scripts/sentry.js"></script>
 <script>
 	function removeIds(url) {
-		var checkForHexRegExp = /^[a-f\d]{24}$/ig;
+		var checkForHexRegExp = /[a-f\d]{24}/ig;
 		return url.replace(checkForHexRegExp, 'ID');
 	}
 	Sentry.init({
@@ -12,12 +12,13 @@
 		integrations: [
 			new SentryIntegrations.CaptureConsole()
 		],
-		{{!-- beforeSend(event) { // however this is not working
+		beforeSend: (event) => {
 			if (event.request && event.request.url) {
 				var cleanUrl = removeIds(event.request.url);
 				event.request.url = cleanUrl;
 			}
-		},  --}}
+			return event;
+		},
 	});
 	Sentry.configureScope((scope) => {
 		scope.setLevel('warn');

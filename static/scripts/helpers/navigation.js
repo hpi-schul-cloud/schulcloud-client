@@ -1,8 +1,5 @@
 /* global jQuery */
 
-import diffDom from 'diff-dom';
-const diffDOM = new diffDom();
-
 export function softNavigate(newurl, selector = 'html', listener, callback) {
     $.ajax({
         type: "GET",
@@ -15,8 +12,7 @@ export function softNavigate(newurl, selector = 'html', listener, callback) {
         try {
             const newPagePart = newPage.querySelector(selector);
             const oldPagePart = document.querySelector(selector);
-            const diff = diffDOM.diff(oldPagePart, newPagePart);
-            const result = diffDOM.apply(oldPagePart, diff);
+            oldPagePart.innerHTML = newPagePart.innerHTML;
             document.querySelectorAll((listener || selector) + " a").forEach(link => {
                 const linkClone = link.cloneNode(true);
                 linkClone.addEventListener("click", function (e) {

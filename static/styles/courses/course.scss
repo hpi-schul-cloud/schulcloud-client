@@ -311,6 +311,9 @@
     padding: 0.5rem 0.75rem;
     background-color: $primaryColor;
     color: $colorWhite;
+    &.new-edtior {
+      background-color: $secondaryColor
+    }
   }
 
   .btn-hidden-toggle {

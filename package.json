@@ -1,6 +1,6 @@
 {
   "name": "schulcloud-client",
-  "version": "19.8.0",
+  "version": "20.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -34,7 +34,6 @@
     "csv-parse": "^4.6.5",
     "debug": "~2.6.0",
     "device-detector-js": "^1.1.1",
-    "diff-dom": "^2.4.0",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "fast-csv": "^2.4.1",
@@ -98,6 +97,7 @@
     "gulp-clean-css": "^3.0.3",
     "gulp-concat": "^2.6.1",
     "gulp-count": "^0.3.0",
+    "gulp-error-handle": "^1.0.1",
     "gulp-filelog": "^0.4.1",
     "gulp-header": "^2.0.1",
     "gulp-if": "^2.0.2",
