@@ -80,7 +80,7 @@ $(document).ready(() => {
 		$importModal.appendTo('body').modal('show');
 	});
 
-	$(".move-handle").click(function(e) {
+	$('.move-handle').click((e) => {
 		e.stopPropagation();
 	});
 
