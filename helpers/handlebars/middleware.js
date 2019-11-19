@@ -122,31 +122,31 @@ module.exports = async (req, res, next) => {
 		});
 	}
 
-	// teacher views
-	res.locals.sidebarItems.push({
-		name: 'Verwaltung',
-		icon: 'cogs',
-		link: '/administration/',
-		permission: 'STUDENT_CREATE',
-		excludedPermission: 'ADMIN_VIEW',
-		children: [
-			{
-				name: 'Schüler',
-				icon: 'odnoklassniki',
-				link: '/administration/students/',
-			},
-			{
-				name: 'Lehrer',
-				icon: 'user',
-				link: '/administration/teachers/',
-			},
-			{
-				name: 'Klassen',
-				icon: 'users',
-				link: '/administration/classes/',
-			},
-		],
-	});
+    // teacher views
+    res.locals.sidebarItems.push({
+        name: 'Verwaltung',
+        icon: 'cogs',
+        link: '/administration/',
+        permission: 'STUDENT_LIST',
+        excludedPermission: 'ADMIN_VIEW',
+        children: [
+            {
+                name: 'Schüler',
+                icon: 'odnoklassniki',
+                link: '/administration/students/',
+            },
+            {
+                name: 'Lehrer',
+                icon: 'user',
+                link: '/administration/teachers/',
+            },
+            {
+                name: 'Klassen',
+                icon: 'users',
+                link: '/administration/classes/',
+            }
+        ]
+    });
 
 	// helpdesk views
 	res.locals.sidebarItems.push({
