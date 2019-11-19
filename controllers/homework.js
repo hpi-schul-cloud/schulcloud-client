@@ -127,7 +127,20 @@ const getCreateHandler = (service) => {
                 addFilePermissionsForTeamMembers(req, data.teamMembers, data.courseGroupId, data.fileIds) :
                 Promise.resolve({});
             return promise.then(_ => {
-                res.redirect(`${referrer}${data._id}`);
+				if (service === 'homework') {
+					if (req.body.courseId) {
+						// homework was created from inside a course with course reference
+						referrer = `/courses/${data.courseId}?activeTab=homeworks`;
+					} else if (!req.body.courseId && referrer.includes('/courses')) {
+						// homework is created inside a course but course reference was unset before create ("Kurs = Keine Zuordnung")
+						referrer = `${(req.headers.origin || process.env.HOST)}/homework/${data._id}`;
+					} else {
+						// homework was created from homeworks overview
+						referrer += data._id;
+					}
+				}
+				// includes submission was done
+                res.redirect(referrer);
             });
         }).catch(err => {
             next(err);
