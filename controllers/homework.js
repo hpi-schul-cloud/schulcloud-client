@@ -355,7 +355,7 @@ router.post('/submit/:id/files', function (req, res, next) {
 });
 
 /* adds shared permission for teacher in the corresponding homework */
-router.post('/submit/:id/files/:fileId/permissions', (req, res) => {
+router.post('/submit/:id/files/:fileId/permissions', async (req, res) => {
 	const { fileId, id: submissionId } = req.params;
 	const { homeworkId, teamMembers } = req.body;
 
@@ -366,27 +366,27 @@ router.post('/submit/:id/files/:fileId/permissions', (req, res) => {
 
 	const filePromise = api(req).get(`/files/${fileId}`);
 
-	Promise.all([homeworkPromise, filePromise])
-		.then(([homework, file]) => {
-			file.permissions.push({
-				refId: homeworkId ? homework.teacherId : homework.homeworkId.teacherId,
-				refPermModel: 'user',
-				write: false,
-				read: true,
-				create: false,
-				delete: false,
-			});
+	try {
+		const [homework, file] = await Promise.all([homeworkPromise, filePromise]);
 
-			return api(req).patch(`/files/${file._id}`, { json: file })
-				.then(result => res.json(result))
-			// if there is already an submission, it is more
-			// safe to add the permissions at this step (if the user
-			// forgets to click on save)
-				.then(() => teamMembers
-					? addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId])
-					: Promise.resolve({}));
-		})
-		.catch(err => res.send(err));
+		file.permissions.push({
+			refId: homeworkId ? homework.teacherId : homework.homeworkId.teacherId,
+			refPermModel: 'user',
+			write: false,
+			read: true,
+			create: false,
+			delete: false,
+		});
+
+		const result = await api(req).patch(`/files/${file._id}`, { json: file });
+		if (teamMembers) {
+			// wait for result now
+			await addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId])
+		}
+		res.json(result);
+	} catch (err) {
+		res.send(err);
+	}
 });
 
 router.delete('/submit/:id/files', function (req, res, next) {
