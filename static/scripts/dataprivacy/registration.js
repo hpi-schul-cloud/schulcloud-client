@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
 		});
 
 		$invalidRegistrationModal.appendTo('body').modal('show');
-	};
+	}
 
     if(document.querySelector('#showRegistrationForm')) {
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{
