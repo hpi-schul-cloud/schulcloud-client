@@ -178,10 +178,9 @@ function submitForm(event) {
 		})
 			.fail((response) => {
 				if ($('.combined-pin').length === 1) {
-					$('.combined-pin ~ .digit:nth-child(2)').val('');
-					$('.combined-pin ~ .digit:nth-child(3)').val('');
-					$('.combined-pin ~ .digit:nth-child(4)').val('');
-					$('.combined-pin ~ .digit:nth-child(5)').val('');
+					document.querySelectorAll('.combined-pin ~ .digit').forEach((element) => {
+						element.value = '';
+					});
 					$('.pin-invalidated').show();
 				}
 				if (response.responseText !== undefined) {
