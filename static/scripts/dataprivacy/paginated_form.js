@@ -1,7 +1,6 @@
 // set this to false to disable validation between pages (for testing)
 const ValidationDisabled = false;
 
-
 function CustomEventPolyfill() {
 	if (typeof window.CustomEvent === 'function') return false;
 	function CustomEvent(event, orgParams) {
@@ -28,12 +27,6 @@ if (!NodeList.prototype.some) {
 	NodeList.prototype.some = Array.prototype.some;
 }
 
-// Polyfill for IE
-if (!Element.prototype.scrollTo) {
-	// eslint-disable-next-line no-console
-	Element.prototype.scrollTo = () => { console.warn('your browser does not support .scrollTo()'); };
-}
-
 /* MULTIPAGE INPUT FORM */
 
 function getMaxSelectionIndex() {
@@ -45,7 +38,7 @@ function getSelectionIndex() {
 }
 function showInvalid(sectionNr) {
 	document.querySelector(`section[data-panel="section-${sectionNr}"]`).classList.add('show-invalid');
-	document.querySelector('.content-wrapper').scrollTo(0, 0);
+	window.scrollTo(0, 0);
 }
 function getSubmitPageIndex() {
 	const sections = document.querySelectorAll('form .panels section');
@@ -83,7 +76,7 @@ function updateButton(selectedIndex) {
 		document.querySelector('.form #prevSection').removeAttribute('disabled');
 	}
 
-	document.querySelector('.content-wrapper').scrollTo(0, 0);
+	window.scrollTo(0, 0);
 }
 
 function isSectionValid(sectionIndex) {
