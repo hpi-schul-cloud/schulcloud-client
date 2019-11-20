@@ -150,12 +150,19 @@ const editCourseHandler = (req, res, next) => {
 		$sort: 'lastName',
 	});
 
+	let scopePermissions;
+	if (req.params.courseId) {
+		scopePermissions = api(req)
+			.get(`/courses/${req.params.courseId}/userPermissions/${res.locals.currentUser._id}`);
+	}
+
 	Promise.all([
 		coursePromise,
 		classesPromise,
 		teachersPromise,
 		studentsPromise,
-	]).then(([course, _classes, _teachers, _students]) => {
+		scopePermissions,
+	]).then(([course, _classes, _teachers, _students, _scopePermissions]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		const classes = _classes.filter(
 			c => c.schoolId === res.locals.currentSchool,
@@ -167,10 +174,9 @@ const editCourseHandler = (req, res, next) => {
 			s => s.schoolId === res.locals.currentSchool,
 		);
 		const substitutions = _.cloneDeep(
-			teachers.filter(t => t._id !== res.locals.currentUser._id),
+			teachers,
 		);
 
-		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
 			const duration = moment.duration(time.startTime);
@@ -234,6 +240,7 @@ const editCourseHandler = (req, res, next) => {
 					_.map(course.substitutionIds, '_id'),
 				),
 				students: markSelected(students, _.map(course.userIds, '_id')),
+				scopePermissions: _scopePermissions,
 			});
 		} else {
 			res.render('courses/create-course', {
