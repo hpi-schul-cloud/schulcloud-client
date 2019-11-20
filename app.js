@@ -121,25 +121,17 @@ app.use(tokenInjector);
 const setTheme = require('./helpers/theme');
 
 function removeIds(url) {
-	const checkForHexRegExp = /^[a-f\d]{24}$/ig;
+	const checkForHexRegExp = /[a-f\d]{24}/ig;
 	return url.replace(checkForHexRegExp, 'ID');
 }
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
 	try {
-		await authHelper.populateCurrentUser(req, res).then(() => {
-			if (res.locals.currentUser) { // user is authenticated
-				req.session.currentRole = res.locals.currentRole;
-				req.session.roleNames = res.locals.roleNames;
-				req.session.currentUser = res.locals.currentUser;
-				req.session.currentSchool = res.locals.currentSchool;
-				req.session.currentSchoolData = res.locals.currentSchoolData;
-				req.session.save();
-			}
-		});
+		await authHelper.populateCurrentUser(req, res);
 	} catch (error) {
-		logger.error(error);
+		logger.error('could not populate current user', error);
+		return next(error);
 	}
 	if (process.env.SENTRY_DSN) {
 		Sentry.configureScope((scope) => {
