@@ -365,25 +365,17 @@ router.post('/submit/:id/files/:fileId/permissions', async (req, res) => {
 		: api(req).get(`/submissions/${submissionId}`, { qs: { $populate: ['homeworkId'] } });
 
 	const filePromise = api(req).get(`/files/${fileId}`);
+	const promises = teamMembers ? [filePromise, homeworkPromise] : [filePromise];
 
 	try {
-		const [homework, file] = await Promise.all([homeworkPromise, filePromise]);
+		const [file, homework] = await Promise.all(promises);
 
-		file.permissions.push({
-			refId: homeworkId ? homework.teacherId : homework.homeworkId.teacherId,
-			refPermModel: 'user',
-			write: false,
-			read: true,
-			create: false,
-			delete: false,
-		});
-
-		const result = await api(req).patch(`/files/${file._id}`, { json: file });
 		if (teamMembers) {
 			// wait for result now
-			await addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId])
+			// todo move logic to backend
+			await addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId]);
 		}
-		res.json(result);
+		res.json(file);
 	} catch (err) {
 		res.send(err);
 	}
