@@ -1,0 +1,28 @@
+<div class="error-header-wrapper pb-3">
+    <img class="error-header-image" src="/images/broken-pen.svg" alt="zerbrochener Stift" />
+    <h2 class="error-header-code">CSRF</h2>
+    <p class="error-header-text">
+        Aus Sicherheitsgründen haben wir diese Anfrage nicht bearbeitet.
+    </p>
+    <div class="noiframe">
+        <p class="">
+        Wir konnten nicht sicherstellen, dass Du diese Aktion wirklich ausführen möchtest. Bitte klicke zum Bestätigen
+        auf den Button unten.
+        <br>
+        Solltest du keine Aktion beabsichtigt haben, schließe bitte diesen Tab in deinem Browser.
+    </p>
+    <form method="POST">
+        {{> "lib/components/csrfInput"}}
+        {{#each values}}
+        <input type="hidden" name="{{this.name}}" value="{{this.value}}">
+        {{/each}}
+        <input type="submit" class="btn btn-primary" value="Erneut versuchen"></input>
+    </form>
+    </div>
+    <div class="hidden iframe">
+    <p>  
+        Die Schul-Cloud wurde in eine Webseite eingebettet. Bitte öffne sie in einem eigenen Tab, um die Nutzung fortzusetzen. 
+    </p>
+    <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" target="_blank">In neuem Tab öffnen</a>
+    </div>
+</div>
