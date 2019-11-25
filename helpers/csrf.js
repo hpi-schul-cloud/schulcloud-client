@@ -20,6 +20,7 @@ const errorHandler = (err, req, res, next) => {
 		title: 'Aus Sicherheitsgründen ist die Sitzung abgelaufen. Bitte lade die Seite neu, um die Sitzung wieder zu starten.',
 		reload: true,
 	});
+	return true;
 };
 
 module.exports = {
