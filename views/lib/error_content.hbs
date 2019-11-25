@@ -4,12 +4,17 @@
     <p class="error-header-text">
         {{#if error.statusCode}}
             {{castStatusCodeToString error.statusCode}}
+        {{else if title}}
+            {{title}}
         {{else}}
             Da ist wohl etwas schief gelaufen!
         {{/if}}
     </p>
-
-    <button class="btn btn-primary" onclick="window.history.back();"><i class="fa fa-arrow-left"></i> zurück</button>
+    {{#if reload}}
+        <button class="btn btn-primary" onclick="window.location.href=window.location.href">Neu laden</button>
+    {{else}}
+        <button class="btn btn-primary" onclick="window.history.back();"><i class="fa fa-arrow-left"></i> zurück</button>
+    {{/if}}
 </div>
 
 <div class="error-details-wrapper">

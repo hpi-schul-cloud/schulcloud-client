@@ -13,7 +13,7 @@ const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
-const { tokenInjector, duplicateTokenHandler } = require('./helpers/csrf');
+const { tokenInjector, duplicateTokenHandler, errorHandler } = require('./helpers/csrf');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
@@ -116,6 +116,7 @@ app.use(session({
 // CSRF middlewares
 app.use(duplicateTokenHandler);
 app.use(csurf());
+app.use(errorHandler);
 app.use(tokenInjector);
 
 const setTheme = require('./helpers/theme');

@@ -1,4 +1,4 @@
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-underscore-dangle, max-len */
 
 const tokenInjector = (req, res, next) => {
 	res.locals.csrfToken = req.csrfToken();
@@ -12,7 +12,18 @@ const duplicateTokenHandler = (req, res, next) => {
 	next();
 };
 
+const errorHandler = (err, req, res, next) => {
+	if (err.code !== 'EBADCSRFTOKEN') return next(err);
+	res.render('lib/error', {
+		loggedin: res.locals.loggedin,
+		message: 'Ungültiger CSRF-Token',
+		title: 'Aus Sicherheitsgründen ist die Sitzung abgelaufen. Bitte lade die Seite neu, um die Sitzung wieder zu starten.',
+		reload: true,
+	});
+};
+
 module.exports = {
 	tokenInjector,
 	duplicateTokenHandler,
+	errorHandler,
 };
