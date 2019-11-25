@@ -1,4 +1,4 @@
-<input name="schoolId" type="hidden" data-force-value="true" value="{{../currentSchool}}" />
+<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
 {{#ifeq mode "edit"}}
 	<input type="hidden" name="_id" value="{{../class._id}}" />
@@ -20,9 +20,9 @@
 <div class="form-group">
 	<label>Schuljahr <sup>*</sup></label>
 	<select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen"
-		{{#ifCond edit '&&' isCustom}}{{#unless @root.class.keepYear}}disabled="true" {{/unless}}{{/ifCond}}>
+		{{#ifCond edit '&&' isCustom}}{{#unless @root.class.keepYear}}disabled {{/unless}}{{/ifCond}}>
 		{{#each schoolyears}}
-			<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+			<option value="{{this._id}}" {{#if this.selected}}selected{{else}}{{#ifeq ../mode "upgrade"}}disabled{{/ifeq}}{{/if}}>
 				{{this.name}}
 			</option>
 		{{/each}}
