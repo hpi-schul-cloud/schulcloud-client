@@ -504,34 +504,124 @@
   ],
   "thuringia2019": [
 	{
-		"name": "Werner-von-Siemens-Gymnasium",
-		"logo": "/images/schools/feb2019/siemens-magdeburg.png",
-		"url": "https://siemens.md.st.schule.de"
+		"name": "Henfling-Gymnasium Meiningen, Staatliches Gymnasium",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Henfling-Gymnasium-Meiningen-Staatliches-Gymnasium.png",
+		"url": "https://www.henfling-gymnasium.de/"
 	},
 	{
-		"name": "Werner-von-Siemens-Gymnasium",
-		"logo": "/images/schools/feb2019/siemens-magdeburg.png",
-		"url": "https://siemens.md.st.schule.de"
+		"name": "Musikgymnasium Schloss Belvedere, Staatliches Spezialgymnasium",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Musikgymnasium-Schloss-Belvedere-Staatliches-Spezialgymnasium.gif",
+		"url": "http://www.musikgymnasium-belvedere.de/"
 	},
 	{
-		"name": "Werner-von-Siemens-Gymnasium",
-		"logo": "/images/schools/feb2019/siemens-magdeburg.png",
-		"url": "https://siemens.md.st.schule.de"
+		"name": "Nessetalschule Warza Staatliche Regelschule",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Nessetalschule-Warza-Staatliche-Regelschule.png",
+		"url": "https://www.nessetalschule.de/"
 	},
 	{
-		"name": "Werner-von-Siemens-Gymnasium",
-		"logo": "/images/schools/feb2019/siemens-magdeburg.png",
-		"url": "https://siemens.md.st.schule.de"
+		"name": "Salzmannschule Schnepfenthal, Staatliches Spezialgymnasium für Sprachen",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Salzmannschule-Schnepfenthal-Staatliches-Spezialgymansium-fuer-Sprachen.png",
+		"url": "http://www.salzmannschule.de/"
 	},
 	{
-		"name": "Werner-von-Siemens-Gymnasium",
-		"logo": "/images/schools/feb2019/siemens-magdeburg.png",
-		"url": "https://siemens.md.st.schule.de"
+		"name": "Staatl. Berufsbildende Schule",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Berufsbildende-Schule-Sonneberg.jpg",
+		"url": "https://sbbs-son.de/"
 	},
 	{
-		"name": "Werner-von-Siemens-Gymnasium",
-		"logo": "/images/schools/feb2019/siemens-magdeburg.png",
-		"url": "https://siemens.md.st.schule.de"
+		"name": "Staatl. Berufsschulzentrum Kyffhäuserkreis",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Berufsschulzentrum-Kyffhaeuserkreis.png",
+		"url": "http://www.sbz-kyffhaeuserkreis.de/joomla/"
+	},
+	{
+		"name": "Staatl. Gemeinschaftsschule 7 (Kerspleben)",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Gemeinschaftsschule-7-Kerspleben.png",
+		"url": "http://www.gs-kerspleben.de/"
+	},
+	{
+		"name": "Staatl. Gemeinschaftsschule Grabfeld",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Gemeinschaftsschule-Grabfeld.png",
+		"url": "https://www.schule-imgrabfeld.de/"
+	},
+	{
+		"name": "Staatl. GS Barfüßerschule",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-GS-Barfuesserschule.png",
+		"url": "https://www.barfuesserschule.de/"
+	},
+	{
+		"name": "Staatl. Gymnasium Ulf-Merbold-Gymnasium",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Gymnasium-Ulf-Merbold-Gymnasium.png",
+		"url": "https://www.ulf-merbold-gymnasium.de/"
+	},
+	{
+		"name": "Staatl. Gymnasium von-Bülow-Gymnasium",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Gymnasium-von-Buelow-Gymnasium.png",
+		"url": "http://www.von-buelow-gymnasium.de/"
+	},
+	{
+		"name": "Staatl. Regelschule G. E. Lessing",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Regelschule-G-E-Lessing.png",
+		"url": "http://www.rs-lessing.de/index.php"
+	},
+	{
+		"name": "Staatl. Regelschule 'Geschwister Scholl' in Meuselwitz",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Regelschule-Geschwister-Scholl-Meuselwitz.jpg",
+		"url": "http://rsm-scholl.de/web/"
+	},
+	{
+		"name": "Staatl. Regelschule 'Geschwister Scholl' in Ilmenau",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Regelschule-Geschwister-Scholl.jpg",
+		"url": "http://www.schollschule-ilmenau.de/"
+	},
+	{
+		"name": "Staatl. Regelschule 'Johann Wolfgang von Goethe'",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Regelschule-Johann-Wolfgang-von-Goethe.png",
+		"url": "http://www.rs-goethe.de/"
+	},
+	{
+		"name": "Staatl. Regelschule Königsee",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Regelschule-Koenigsee.jpg",
+		"url": "http://www.regelschulekoenigsee.de/"
+	},
+	{
+		"name": "Staatliche Regelschule 'Conrad Ekhof'",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatliche-Regelschule-Conrad-Ekhof.jpg",
+		"url": "https://rs.conrad-ekhof.gotha.de/"
+	},
+	{
+		"name": "Staatliches Gymnasium Neuhaus am Rennweg",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatliches-Gymnasium-Neuhaus-am-Rennweg.gif",
+		"url": "https://www.gymnasium-neuhaus.de/"
+	},
+	{
+		"name": "Staatliches Gymnasium Oberhof",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatliches-Gymnasium-Oberhof.jpg",
+		"url": "http://www.sportgymnasium-oberhof.info/"
+	},
+	{
+		"name": "Staatliches Sportgymnasium 'Joh. Chr. Fr. GutsMuths' Jena",
+		"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatliches-Sportgymnasium-Joh-Chr-Fr-GutsMuths-Jena.jpg",
+		"url": "https://sportgymnasium-jena.info/"
+	},
+	{
+		"name": "Staatl. Grundschule 'Martin Luther'",
+		"logo": "",
+		"url": "https://www.grundschule-martinluther.de/"
+	},
+	{
+		"name": "Staatliches Gymnasium 'Friedrich Schiller' Zeulenroda",
+		"logo": "",
+		"url": "http://www.fsgym.de/joomla/index.php"
+	},
+	{
+		"name": "Staatl. Gymnasium Heinrich-Böll-Gymnasium",
+		"logo": "",
+		"url": "https://www.boellgymnasium.de/"
+	},
+	{
+		"name": "Staatliches Pierre-de-Coubertin Gymnasium Erfurt",
+		"logo": "",
+		"url": "http://sportgymnasium-erfurt.de/"
 	}
   ]
 }
