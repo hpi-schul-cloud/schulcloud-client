@@ -8,7 +8,7 @@
 		<p>Die Thüringer Schulcloud soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
 		<p>Die Thüringer Schulcloud ist im Oktober 2019 in die Pilotphase gestartet, in der zunächst 20 Pilotschulen und 9 Studienseminare die Thüringer Schulcloud nutzen konnten.</p>
 		<br />
-		<h2 class="h3 section-title center">Pilotschulen des MINT-EC (Start Oktober 2019)</h2>
+		<h2 class="h3 section-title center">MINT-Pilotschulen</h2>
 		<div class="embed-pdf">
 			<div class="row embed-pdf-row">
 				<div class="single-pdf col-xs-12 col-md-6 text-center">
@@ -16,7 +16,7 @@
 						<div class="single-pdf-wrapper">
 							Albert-Schweitzer-Gymnasium Erfurt
 							<br />
-							<img src="https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/asg_logo.jpg" alt="Logo Albert-Schweitzer-Gymnasium Erfurt" />
+							<img src="https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/partner/asg_logo.jpg" alt="Logo Albert-Schweitzer-Gymnasium Erfurt" />
 						</div>
 					</a>
 				</div>
@@ -25,7 +25,7 @@
 						<a href="https://www.mint-ec.de/schulnetzwerk/mint-ec-schulen/microsite/carl-zeiss-gymnasium/">
 							Carl-Zeiss-Gymnasium
 							<br /><br />
-							<img src="https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/carl-zeiss-gymnasium-logo.jpg" alt="Logo Carl-Zeiss-Gymnasium" />
+							<img src="https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/partner/carl-zeiss-gymnasium-logo.jpg" alt="Logo Carl-Zeiss-Gymnasium" />
 						</a>
 					</div>
 				</div>
@@ -46,7 +46,7 @@
 						<a href="https://www.mint-ec.de/schulnetzwerk/mint-ec-schulen/microsite/goetheschule-ilmenau/">
 							Goetheschule Ilmenau
 							<br /><br />
-							<i class="fa fa-university schoollogo-placeholder" aria-hidden="true"></i>
+							<img src="https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/partner/goethe-ilmenau.png" alt="Goetheschule Ilmenau" />
 						</a>
 					</div>
 				</div>
@@ -90,9 +90,9 @@
 				</div>
 			</div>
 
-			<h3 class="h4">Pilotschulen <span style="font-size: 12px;">(Start März 2017)</span></h3>
+			<h3 class="h4">Pilotschulen ab 2019</h3>
 			<div class="row">
-				{{#each schools.march2017}}
+				{{#each schools.thuringia2019}}
 					<div class="partner-box-wrapper col-xs-6 col-md-3">
 						<div class="partner-box">
 							<a href="{{{url}}}" target="_blank">
@@ -103,8 +103,8 @@
 					</div>
 				{{/each}}
 				<div class="col-xs-12">
-					<div id="hiddenSchoolsMarch2017" class="collapse row">
-						{{#each hiddenSchoolsMarch2017}}
+					<div id="hiddenSchoolsThuringia2019" class="collapse row">
+						{{#each hiddenSchoolsThuringia2019}}
 							<div class="partner-box-wrapper col-xs-6 col-md-3">
 								<div class="partner-box">
 									<a href="{{{url}}}" target="_blank">
@@ -118,86 +118,11 @@
 				</div>
 				<div class="buttonWrapper">
 					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-						data-target="#hiddenSchoolsMarch2017">mehr anzeigen<i class="fa fa-angle-down"
-							aria-hidden="true"></i></div>
-				</div>
-			</div>
-
-			<h3 class="h4">Pilotschulen <span style="font-size: 12px;">(Start Mai 2018)</span></h3>
-			<div class="row">
-				{{#each schools.mai2018}}
-					<div class="partner-box-wrapper col-xs-6 col-md-3">
-						<div class="partner-box">
-							<a href="{{{url}}}" target="_blank">
-								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
-									style="padding: {{{padding}}};" {{/if}}>
-							</a>
-						</div>
-					</div>
-				{{/each}}
-				<div class="col-xs-12">
-					<div id="hiddenSchoolsMai2018" class="collapse row">
-						{{#each hiddenSchoolsMai2018}}
-							<div class="partner-box-wrapper col-xs-6 col-md-3">
-								<div class="partner-box">
-									<a href="{{{url}}}" target="_blank">
-										<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
-											style="padding: {{{padding}}};" {{/if}}>
-									</a>
-								</div>
-							</div>
-						{{/each}}
-					</div>
-				</div>
-				<div class="buttonWrapper">
-					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-						data-target="#hiddenSchoolsMai2018">mehr anzeigen<i class="fa fa-angle-down"
-							aria-hidden="true"></i></div>
-				</div>
-			</div>
-
-			<h3 class="h4">Pilotschulen <span style="font-size: 12px;">(Start Februar 2019)</span></h3>
-			<div class="row">
-				{{#each schools.feb2019}}
-					<div class="partner-box-wrapper col-xs-6 col-md-3">
-						<div class="partner-box">
-							<a href="{{{url}}}" target="_blank">
-								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
-									style="padding: {{{padding}}};" {{/if}}>
-							</a>
-						</div>
-					</div>
-				{{/each}}
-				<div class="col-xs-12">
-					<div id="hiddenSchoolsFeb2019" class="collapse row">
-						{{#each hiddenSchoolsFeb2019}}
-							<div class="partner-box-wrapper col-xs-6 col-md-3">
-								<div class="partner-box">
-									<a href="{{{url}}}" target="_blank">
-										<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
-											style="padding: {{{padding}}};" {{/if}}>
-									</a>
-								</div>
-							</div>
-						{{/each}}
-					</div>
-				</div>
-				<div class="buttonWrapper">
-					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-						data-target="#hiddenSchoolsFeb2019">mehr anzeigen<i class="fa fa-angle-down"
+						data-target="#hiddenSchoolsThuringia2019">mehr anzeigen<i class="fa fa-angle-down"
 							aria-hidden="true"></i></div>
 				</div>
 			</div> <!-- .row -->
 			<br />
-			<p>Im Rahmen des Projekts wird die HPI Schul-Cloud durch vier Arbeitsgruppen des MINT-EC-Themenclusters HPI
-				Schul-Cloud
-				unterstützt: AG IT, Schulleitung, Unterricht und regionale Netzwerke. <a
-					href="https://www.mint-ec.de/fileadmin/content/schulcloud/Info_Kit.pdf" target="_blank">Hier</a>
-				finden Sie die Ergebnisse aus den verschiedenen Arbeitsgruppen der Pilotphase, die in Form eines Info
-				Kits zusammengefasst sind.</p><br />
-			<p>Wir möchten uns ganz herzlich für die tolle Zusammenarbeit und das große Engagement unserer
-				Pilotschullehrkräfte
-				bedanken!</p>
 
 			<video controls preload="metadata"
 				poster="https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/thumbnails/video-00-34-40.png">
