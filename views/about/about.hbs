@@ -172,6 +172,39 @@
 						data-target="#hiddenSchoolsFeb2019">mehr anzeigen<i class="fa fa-angle-down"
 							aria-hidden="true"></i></div>
 				</div>
+				
+				<h3 class="h4">Pilotschulen <span style="font-size: 12px;">(Start August 2019)</span></h3>
+				<div class="row">
+					{{#each schools.august2019}}
+						<div class="partner-box-wrapper col-xs-6 col-md-3">
+							<div class="partner-box">
+								<a href="{{{url}}}" target="_blank">
+									<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+										style="padding: {{{padding}}};" {{/if}}>
+								</a>
+							</div>
+						</div>
+					{{/each}}
+					<div class="col-xs-12">
+						<div id="hiddenSchoolsAugust2019" class="collapse row">
+							{{#each hiddenSchoolsAugust2019}}
+								<div class="partner-box-wrapper col-xs-6 col-md-3">
+									<div class="partner-box">
+										<a href="{{{url}}}" target="_blank">
+											<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+												style="padding: {{{padding}}};" {{/if}}>
+										</a>
+									</div>
+								</div>
+							{{/each}}
+						</div>
+					</div>
+					<div class="buttonWrapper">
+						<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
+							data-target="#hiddenSchoolsAugust2019">mehr anzeigen<i class="fa fa-angle-down"
+								aria-hidden="true"></i></div>
+					</div>
+				</div>
 			</div> <!-- .row -->
 			<br />
 			<p>Im Rahmen des Projekts wird die HPI Schul-Cloud durch vier Arbeitsgruppen des MINT-EC-Themenclusters HPI
