@@ -501,5 +501,93 @@
       "logo": "/images/schools/feb2019/siemens-magdeburg.png",
       "url": "https://siemens.md.st.schule.de"
     }
-  ]
+  ],
+	"august2019": [
+    {
+      "name": "Albert-Einstein-Schule, Schwalbach",
+      "logo": "/images/schools/august2019/Albert-Einstein-Schule.jpg",
+      "url": "http://www.aesmtk.de/cms/"
+    },
+		{
+      "name": "Albert-Schweitzer-/Geschwister-Scholl- Gymnasium, Marl",
+      "logo": "/images/schools/august2019/Albert_Schweitzer__Geschwister_Scholl_Gymnasium_Marl_Logo.png",
+      "url": "https://www.asgsg-marl.de"
+    },
+		{
+      "name": "CJD Christophorusschule, Rostock",
+      "logo": "/images/schools/august2019/CJD-Christophorusschule.jpg",
+      "url": "https://www.cjd-christophorusschule-rostock.de"
+    },
+		{
+      "name": "Evangelisch Stiftisches Gymnasium, Gütersloh",
+      "logo": "/images/schools/august2019/evangelisch_stiftisches_gymnasium_LOGO.jpg",
+      "url": "https://esg-guetersloh.de"
+    },
+		{
+      "name": "Evangelisches Gymnasium, Nordhorn",
+      "logo": "/images/schools/august2019/Evangelisches-Gymnasium.png",
+      "url": "https://www.evangelisches-gymnasium-nordhorn.de"
+    },
+		{
+      "name": "Friedrich-Ebert-Gymnasium",
+      "logo": "/images/schools/august2019/Friedrich-Ebert-Gymnasium.png",
+      "url": "http://www.ebert-gymnasium.de"
+    },
+		{
+      "name": "Gymnasium der Stadt Lennestadt",
+      "logo": "/images/schools/august2019/Gymnasium-Lennestadt.jpg",
+      "url": "http://www.gymnasium-lennestadt.de"
+    },
+		{
+      "name": "Gymnasium Laurentianum, Warendorf",
+      "logo": "/images/schools/august2019/Laurentianum-logo.png",
+      "url": "http://laurentianum-warendorf.de"
+    },
+		{
+      "name": "Gymnasium Remigianum, Borken",
+      "logo": "/images/schools/august2019/Gymnasium-Remigianum.png",
+      "url": "https://www.gymnasium-remigianum.net"
+    },
+		{
+      "name": "Heisenberg-Gymnasium, Bruchsal",
+      "logo": "/images/schools/august2019/Heisenberg-Gymnasium.png",
+      "url": "https://www.heisenberg-gymnasium.de/"
+    },
+		{
+      "name": "Herzog-Johann-Gymnasium, Simmern",
+      "logo": "/images/schools/august2019/Herzog-Johann-Gymnasium.png",
+      "url": "https://www.hjg-sim.de"
+    },
+		{
+      "name": "Justus-von-Liebig-Gymnasium, Neusäß",
+      "logo": "/images/schools/august2019/Justus-von-Liebig-Gymnasium.jpg",
+      "url": "https://jvlgym.de"
+    },
+		{
+      "name": "Kaiser-Karls-Gymnasium, Aachen",
+      "logo": "/images/schools/august2019/KaiserKarlsGymnasiumAachenSchullogo.png",
+      "url": "https://kaiser-karls-gymnasium.de"
+    },
+		{
+      "name": "Landrat-Lucas-Gymnasium, Leverkusen",
+      "logo": "/images/schools/august2019/Landrat-Lucas-Gymnasium.png",
+      "url": "https://www.landrat-lucas.org/start.html"
+    },
+		{
+      "name": "Marienschule Gymnasium und Aufbaugymnasium, Lippstadt",
+      "logo": "/images/schools/august2019/logo-marienschule-lippstadt-gymnasium.png",
+      "url": "https://www.marienschule-lippstadt.de"
+    },
+		{
+      "name": "Nicolaus-Kistner-Gymnasium, Mosbach",
+      "logo": "/images/schools/august2019/Nicolaus-Kistner-Gym.jpg",
+      "url": "http://www.nkg-mosbach.de"
+    },
+		{
+      "name": "St.-Gotthard-Gymnasium, Niederalteich",
+      "logo": "/images/schools/august2019/St.-Gotthard-Gymnasium.jpg",
+      "url": "https://www.st-gotthard-gymnasium.de/"
+    }
+		
+	]	
 }
