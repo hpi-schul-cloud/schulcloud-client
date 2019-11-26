@@ -32,7 +32,7 @@
       {{> "lib/components/csrfInput"}}
       <button type="submit">Absenden</button>
     </form>
-    <form class="bug_form" action="/helpdesk" method="post">
+    <form class="bug_form" action="/helpdesk" method="post" enctype="multipart/form-data">
       {{> "help/forms/form_bug"}}
       {{> "lib/components/csrfInput"}}
       <button type="submit">Absenden</button>

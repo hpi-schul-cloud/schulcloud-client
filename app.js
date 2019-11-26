@@ -8,6 +8,7 @@ const redis = require('redis');
 const connectRedis = require('connect-redis');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const fileUpload = require('express-fileupload');
 const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
@@ -111,6 +112,10 @@ app.use(session({
 	saveUninitialized: true,
 	resave: false,
 	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
+}));
+
+app.use(fileUpload({
+	createParentPath: true,
 }));
 
 // CSRF middlewares

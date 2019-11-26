@@ -30,6 +30,30 @@ router.post('/', (req, res, next) => {
 		result.os.name = '';
 	}
 
+	const fileMaxSize = 10 * 1024 * 1024; // 10 MB
+	let fileSize = 0;
+	let files = [];
+	if (req.files) {
+		if (Array.isArray(req.files.file)) {
+			files = req.files.file;
+		} else {
+			files.push(req.files.file);
+		}
+	}
+	files.forEach((element) => {
+		if (!element.mimetype.includes('image/')) {
+			throw new Error(`"${element.name}" ist kein Bild!`);
+		}
+		fileSize += element.size;
+	});
+	if (fileSize > fileMaxSize) {
+		if (files.length > 1) {
+			throw new Error('Die angehängten Dateien überschreitet die maximal zulässige Gesamtgröße!');
+		} else {
+			throw new Error('Die angehängte Datei überschreitet die maximal zulässige Größe!');
+		}
+	}
+
 	api(req).post('/helpdesk', {
 		json: {
 			type: req.body.type,
@@ -52,6 +76,7 @@ router.post('/', (req, res, next) => {
 			os: (result.os.version !== undefined) ? `${result.os.name} ${result.os.version}` : result.os.name,
 			device: req.body.device ? req.body.device : '',
 			deviceUserAgent: result.device.model,
+			files,
 		},
 	})
 		.then(() => {

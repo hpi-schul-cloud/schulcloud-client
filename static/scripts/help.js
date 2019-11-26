@@ -2,12 +2,34 @@ import livesearch from './helpers/livesearch';
 import { resizeIframes } from './helpers/iFrameResize';
 import './help/contactForm';
 
+const fileMaxSize = 10 * 1024 * 1024; // 10 MB
 
 $(document).ready(() => {
 	$('.btn-poll').on('click', (e) => {
 		e.preventDefault();
 
 		document.cookie = 'pollClicked=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
+	});
+
+	$('.form-control-file').change(function x() {
+		let fileSize = 0;
+		if (this.files.length > 0) {
+			for (let i = 0; i <= this.files.length - 1; i += 1) {
+				fileSize += this.files.item(i).size;
+			}
+		}
+		if (fileSize > fileMaxSize) {
+			if (this.files.length > 1) {
+				document.getElementById('file-alert')
+					.innerHTML = 'Die angehängten Dateien überschreitet die maximal zulässige Gesamtgröße!';
+			} else {
+				document.getElementById('file-alert')
+					.innerHTML = 'Die angehängte Datei überschreitet die maximal zulässige Größe!';
+			}
+			// TODO: disable button for sending
+		} else {
+			document.getElementById('file-alert').innerHTML = '';
+		}
 	});
 });
 
