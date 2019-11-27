@@ -31,6 +31,6 @@ export default function printQRs(items) {
 	w.addEventListener('load', () => {
 		w.focus();
 		w.print();
-		w.close();
+		setTimeout(function () { w.close(); }, 500);
 	});
 }
