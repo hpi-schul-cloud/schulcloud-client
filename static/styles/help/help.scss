@@ -103,10 +103,16 @@ fieldset.switch_wrapper {
   color: #333;
   font-weight: bold;
 
-  &:hover {
+  &:hover:not([disabled]){
     outline: none;
     background-color: #333;
     color: $colorWhite;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: $colorGrey;
+    border-color: #8a8a8a;
   }
 }
 
@@ -223,8 +229,8 @@ fieldset.switch_wrapper {
         background-color: $primaryColor;
         color: $colorWhite;
 
-        &:hover,
-        &:focus {
+        &:hover:not([disabled]),
+        &:focus:not([disabled]) {
           background-color: #7f0328;
         }
       }

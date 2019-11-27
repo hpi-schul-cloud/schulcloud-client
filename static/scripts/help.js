@@ -31,9 +31,11 @@ Wenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hie
 			for (let i = 0; i <= this.files.length - 1; i += 1) {
 				if (this.files.item(i).type.includes('image/') || this.files.item(i).type.includes('video/')) {
 					document.getElementById('file-alert').innerHTML = '';
+					$('#submitBugForm').prop('disabled', false);
 				} else {
 					document.getElementById('file-alert')
-						.innerHTML = `"${this.files.item(i).name}" ist kein Bild oder Video!`;
+						.innerHTML = `<i class="fa fa-exclamation"></i> "${this.files.item(i).name}" ist kein Bild oder Video`;
+					$('#submitBugForm').prop('disabled', true);
 					return;
 				}
 				fileSize += this.files.item(i).size;
@@ -42,14 +44,15 @@ Wenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hie
 		if (fileSize > fileMaxSize) {
 			if (this.files.length > 1) {
 				document.getElementById('file-alert')
-					.innerHTML = 'Die angehängten Dateien überschreitet die maximal zulässige Gesamtgröße!';
+					.innerHTML = '<i class="fa fa-exclamation"></i> Die angehängten Dateien überschreitet die maximal zulässige Gesamtgröße!';
 			} else {
 				document.getElementById('file-alert')
-					.innerHTML = 'Die angehängte Datei überschreitet die maximal zulässige Größe!';
+					.innerHTML = '<i class="fa fa-exclamation"></i> Die angehängte Datei überschreitet die maximal zulässige Größe!';
 			}
-			// TODO: disable button for sending
+			$('#submitBugForm').prop('disabled', true);
 		} else {
 			document.getElementById('file-alert').innerHTML = '';
+			$('#submitBugForm').prop('disabled', false);
 		}
 	});
 });
