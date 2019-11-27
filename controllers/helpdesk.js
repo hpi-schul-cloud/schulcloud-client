@@ -41,7 +41,7 @@ router.post('/', (req, res, next) => {
 		}
 	}
 	files.forEach((element) => {
-		if (!element.mimetype.includes('image/')) {
+		if (!element.mimetype.includes('image/') && !element.mimetype.includes('video/')) {
 			throw new Error(`"${element.name}" ist kein Bild!`);
 		}
 		fileSize += element.size;
@@ -65,6 +65,7 @@ router.post('/', (req, res, next) => {
 			acceptanceCriteria: req.body.acceptanceCriteria,
 			currentState: req.body.currentState,
 			targetState: req.body.targetState,
+			problemDescription: req.body.problemDescription,
 			schoolName: res.locals.currentSchoolData.name,
 			userId: res.locals.currentUser._id,
 			email: req.body.email,

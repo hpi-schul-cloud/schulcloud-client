@@ -11,10 +11,31 @@ $(document).ready(() => {
 		document.cookie = 'pollClicked=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
 	});
 
+	if (!$('textarea[name= problemDescription]').val()) {
+		/* eslint-disable max-len */
+		$('textarea[name= problemDescription]').text(`Ich als [Nutzerrolle] 
+habe auf der Seite [???]
+die Funktion [???]
+aufgrund des Fehlers/der Fehlermeldung "[???]"
+nicht benutzen können.
+
+Mit welchen Elementen tritt das Problem auf?
+Tritt der Fehler bei weiteren Elementen desselben Bereichs (z.B. andere Kurse oder Nutzer) auf?
+Wenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hier bitte so kurz und klar wie möglich beschreiben.
+`);
+	}
+
 	$('.form-control-file').change(function x() {
 		let fileSize = 0;
 		if (this.files.length > 0) {
 			for (let i = 0; i <= this.files.length - 1; i += 1) {
+				if (this.files.item(i).type.includes('image/') || this.files.item(i).type.includes('video/')) {
+					document.getElementById('file-alert').innerHTML = '';
+				} else {
+					document.getElementById('file-alert')
+						.innerHTML = `"${this.files.item(i).name}" ist kein Bild oder Video!`;
+					return;
+				}
 				fileSize += this.files.item(i).size;
 			}
 		}
