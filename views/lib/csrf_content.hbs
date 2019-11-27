@@ -11,12 +11,12 @@
         <br>
         Solltest du keine Aktion beabsichtigt haben, schließe bitte diesen Tab in deinem Browser.
     </p>
-    <form method="POST">
+    <form id="retryform" method="POST">
         {{> "lib/components/csrfInput"}}
         {{#each values}}
         <input type="hidden" name="{{this.name}}" value="{{this.value}}">
         {{/each}}
-        <input type="submit" class="btn btn-primary" value="Erneut versuchen"></input>
+        <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" target="_blank" id="retrybtn">In neuem Tab öffnen</a>
     </form>
     </div>
     <div class="hidden iframe">

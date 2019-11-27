@@ -6,8 +6,13 @@ function inIframe() {
 	}
 }
 $('document').ready(() => {
+	const retrybtn = $('#retrybtn');
+	retrybtn.html('Erneut versuchen');
 	if (inIframe()) {
 		$('.iframe').removeClass('hidden');
 		$('.noiframe').addClass('hidden');
 	}
+	retrybtn.click(() => {
+		$('#retryform').submit();
+	});
 });
