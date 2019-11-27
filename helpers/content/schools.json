@@ -73,11 +73,6 @@
         "url": "https://www.jkg-lebach.de/jkg/"
       },
       {
-        "name": "Klaus-Gorth-Schule",
-        "logo": "/images/schools/march2017/Klaus-Gorth-Schule.JPG",
-        "url": "http://www.klaus-groth-schule.de/"
-      },
-      {
         "name": "Landesgymnasium für Hochbegabte Schwäbisch Gmünd",
         "logo": "/images/schools/march2017/Landesgymnasium für Hochbegabte Schwäbisch Gmünd.png",
         "url": "http://www.lgh-gmuend.de/"
@@ -132,18 +127,8 @@
         "logo": "/images/schools/march2017/Wilhelm-Gymnasium Braunschweig.jpg",
         "url": "https://www.wilhelm-gym.de/"
       },
-      {
-        "name": "Wilhelm-Ostwald-Schule Gymnasium",
-        "logo": "/images/schools/march2017/Wilhelm-Ostwald-Schule Gymnasium.png",
-        "url": "https://www.ostwaldgymnasium.de/index.php"
-      }
-    ],
+      ],
   "mai2018": [
-    {
-      "name": "Albert-Einstein-Gymnasium",
-      "logo": "/images/schools/mai2018/Albert-Einstein-Gymnasium_Neubrandenburg.jpg",
-      "url": "http://www.aeg-nb.de/"
-    },
     {
       "name": "Albert-Schweitzer-Schule",
       "logo": "/images/schools/mai2018/Albert-Schweitzer-Schule_Offenbach am Main.jpg",
@@ -244,12 +229,7 @@
       "logo": "/images/schools/mai2018/gymnasium Wolbeck Münster.jpg",
       "url": "http://www.muenster.org/gw2/GymWol/"
     },
-    {
-      "name": "Hermann-Tast-Schule",
-      "logo": "/images/schools/mai2018/Hermann-Tast-Schule_Husum.jpg",
-      "url": "https://hermann-tast-schule.lernnetz.de/"
-    },
-    {
+   {
       "name": "Johann-Michael-Fischer-Gymnasium",
       "logo": "/images/schools/mai2018/Johann-Michael-Fischer-Gymnasium.png",
       "url": "http://www.jmf-gym.org/"
