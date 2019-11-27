@@ -5,6 +5,7 @@ const api = require('../api');
 
 const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
 const setTheme = require('../helpers/theme');
+
 let invalid = false;
 
 const resetThemeForPrivacyDocuments = async (req, res) => {
@@ -122,6 +123,8 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 		user.sso = req.params.sso === 'sso';
 		user.account = req.params.accountId || '';
 
+		invalid = await checkValidRegistration(req);
+
 		await resetThemeForPrivacyDocuments(req, res);
 
 		if (user.importHash) {
@@ -133,6 +136,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			hideMenu: true,
 			user,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+			invalid,
 		});
 	});
 
@@ -150,6 +154,8 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 		user.sso = req.params.sso === 'sso';
 		user.account = req.params.accountId || '';
 
+		invalid = await checkValidRegistration(req);
+
 		await resetThemeForPrivacyDocuments(req, res);
 
 		if (user.importHash) {
@@ -162,11 +168,11 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			hideMenu: true,
 			user,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+			invalid,
 		});
 	});
 
 router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) => {
-
 	if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 		if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
 			return res.sendStatus(400);
@@ -176,6 +182,8 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 	const user = {};
 	user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
 	user.classOrSchoolId = req.params.classOrSchoolId;
+
+	invalid = await checkValidRegistration(req);
 
 	await resetThemeForPrivacyDocuments(req, res);
 
@@ -197,13 +205,13 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 		title: `Registrierung - ${roleText}`,
 		hideMenu: true,
 		user,
+		invalid,
 	});
 });
 
 router.get(
 	['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'],
 	async (req, res, next) => {
-
 		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 			if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
 				return res.sendStatus(400);
