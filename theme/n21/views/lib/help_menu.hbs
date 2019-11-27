@@ -19,6 +19,7 @@
                     </span>
                 </li>
 
+				{{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
                 {{#userHasPermission "ENTERTHECLOUD_START"}}
                     <li class="list-group-item list-group-item-action enterthecloud-btn">
                         <span>
@@ -27,6 +28,7 @@
                         </span>
                     </li>
                 {{/userHasPermission}}
+				{{/ifEnv}}
 
                 <li class="list-group-item list-group-item-action">
                     <span>
@@ -45,6 +47,7 @@
     </div>
 </li>
 
+{{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
 {{#userHasPermission "ENTERTHECLOUD_START"}}
 {{#embed "lib/components/modal" class="enterthecloud-modal" title="Enter The Cloud spielen"}}
     {{#content "body"}}
@@ -56,3 +59,4 @@
     {{/content}}
 {{/embed}}
 {{/userHasPermission}}
+{{/ifEnv}}
