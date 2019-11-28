@@ -91,9 +91,13 @@
   background: #c0c0c0;
   display: inline-block;
   height: 3px;
-  transform: translateY(-2.4em);
+  transform: translateY(-3em);
   transition: 0.3s;
   width: 0;
+}
+
+.registration-form .progressbar {
+  transform: translateY(-2.4em);
 }
 
 .panels > section {
