@@ -8,7 +8,7 @@ const logger = require('../helpers/logger');
 
 const router = express.Router({ mergeParams: true });
 
-const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/etherpad/p/';
+const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/p/';
 
 const editTopicHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
