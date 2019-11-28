@@ -146,21 +146,28 @@ const mapEventProps = (event, req) => {
  * @return {String} - a formatted date string
  */
 const getNextEventForCourseTimes = (courseTimes) => {
-    if ((courseTimes || []).length <= 0) return;
+	if ((courseTimes || []).length <= 0) return;
+	const nextDates = _.map(courseTimes, (ct) => {
+		let weekDayIdentifier = ct.weekday + 1; // moment starts on sunday
 
-    let nextWeekdays = _.map(courseTimes, (ct, i) => {
-        let weekDayIdentifier = ct.weekday + 1; // moment starts on sunday
+		// if current week's weekday is over, take the one next week
+		if (moment().day() > weekDayIdentifier) weekDayIdentifier += 7;
 
-        // if current week's weekday is over, take the one next week
-        if (moment().day() > weekDayIdentifier) weekDayIdentifier += 7;
+		// return nothing if date has already passed
+		const date = moment().day(weekDayIdentifier).hours(0).minutes(0)
+			.seconds(0)
+			.milliseconds(ct.startTime);
+		if (date.isBefore()) return;
 
-        // has to store index, because .indexOf with moment arrays does not work
-        return {date: moment().day(weekDayIdentifier), index: i};
-    });
+		// has to store index, because .indexOf with moment arrays does not work
+		// eslint-disable-next-line consistent-return
+		return date;
+	});
 
-    // find nearest day from now
-    let minDate = _.minBy(nextWeekdays, (w) => w.date);
-    return moment(minDate.date).format("DD.MM.YYYY") + " " + moment.utc(courseTimes[minDate.index].startTime, "x").format("HH:mm");
+	// find nearest day from now
+	const minDate = _.min(nextDates);
+	// eslint-disable-next-line consistent-return
+	return moment(minDate).format('DD.MM.YYYY HH:mm');
 };
 
 if (!Date.prototype.toLocalISOString) {
