@@ -1,5 +1,22 @@
 import './dataprivacy';
 
+function validateDifferent() {
+	const parentMailInput = document.querySelector('input[name="parent-email"]');
+	const studentMailInput = document.querySelector('input[name="student-email"]');
+	if (parentMailInput.value && studentMailInput.value && parentMailInput.value === studentMailInput.value) {
+		parentMailInput
+			.setCustomValidity('Für den Schüler muss eine andere Mailadresse als für die Eltern angegeben werden.');
+		$(parentMailInput).closest('section').addClass('show-invalid');
+	} else {
+		parentMailInput.setCustomValidity('');
+	}
+}
+function goBack(event) {
+	event.stopPropagation();
+	event.preventDefault();
+	window.history.back();
+}
+
 window.addEventListener('DOMContentLoaded', () => {
 	// show steppers depending on age of student
 	const radiou16 = document.getElementById('reg-u16');
@@ -36,7 +53,9 @@ Dieser kann weiterhelfen oder auch einen neuen Registrierungslink erstellen, fal
 			const classOrSchoolId = $('input[name=classOrSchoolId]').val();
 			let additional = '';
 			additional += $('input[name=sso]').val() === 'true' ? `sso/${$('input[name=account]').val()}` : '';
-			additional += $('input[name=importHash]').val() !== undefined ? `?importHash=${encodeURIComponent($('input[name=importHash]').val())}` : '';
+			additional += $('input[name=importHash]').val() !== undefined
+				? `?importHash=${encodeURIComponent($('input[name=importHash]').val())}`
+				: '';
 
 			if (radiou16.checked) {
 				window.location.href = `${baseUrl}/${classOrSchoolId}/byparent/${additional}`;
@@ -80,28 +99,16 @@ Dieser kann weiterhelfen oder auch einen neuen Registrierungslink erstellen, fal
 		});
 	}
 });
-function validateDifferent() {
-	const parentMailInput = document.querySelector('input[name="parent-email"]');
-	const studentMailInput = document.querySelector('input[name="student-email"]');
-	if (parentMailInput.value && studentMailInput.value && parentMailInput.value === studentMailInput.value) {
-		parentMailInput.setCustomValidity('Für den Schüler muss eine andere Mailadresse als für die Eltern angegeben werden.');
-		$(parentMailInput).closest('section').addClass('show-invalid');
-	} else {
-		parentMailInput.setCustomValidity('');
-	}
-}
-function goBack(event) {
-	event.stopPropagation();
-	event.preventDefault();
-	window.history.back();
-}
 
 
 // GENERATE START PASSWORD
 window.addEventListener('load', () => {
 	if (document.querySelector('.form .student-password')) {
 		// generate password if password field present
-		const words = ['auto', 'baum', 'bein', 'blumen', 'flocke', 'frosch', 'halsband', 'hand', 'haus', 'herr', 'horn', 'kind', 'kleid', 'kobra', 'komet', 'konzert', 'kopf', 'kugel', 'puppe', 'rauch', 'raupe', 'schuh', 'seele', 'spatz', 'taktisch', 'traum', 'trommel', 'wolke'];
+		const words = ['auto', 'baum', 'bein', 'blumen', 'flocke', 'frosch', 'halsband',
+			'hand', 'haus', 'herr', 'horn', 'kind', 'kleid', 'kobra', 'komet', 'konzert',
+			'kopf', 'kugel', 'puppe', 'rauch', 'raupe', 'schuh', 'seele', 'spatz',
+			'taktisch', 'traum', 'trommel', 'wolke'];
 		const pw = words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 98) + 1).toString();
 		$('.form .student-password').text(pw);
 		$('.form .student-password-input').val(pw).trigger('input');
