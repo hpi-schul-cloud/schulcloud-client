@@ -30,7 +30,6 @@ const clearCookie = (req, res, options = { destroySession: false }) => {
 
 router.get('/tsp-login/', (req, res, next) => {
 	const ticket = req.query.ticket;
-	//TODO: Validation here
 	return authHelper.login({ strategy: 'tsp', ticket }, req, res, next);
 });
 
