@@ -62,7 +62,7 @@ router.post('/', (req, res, next) => {
 				'response-end': context['response-end'],
 
 				connection: context.connection, // connection type http://wicg.github.io/netinfo/
-				localhost: data.attributes.url.includes('localhost') ? 'local' : 'default',
+				localhost: data.attributes.url.includes('localhost'),
 				networkProtocol: context.networkProtocol, // http1.1 / http2 / unknown
 			},
 		},
