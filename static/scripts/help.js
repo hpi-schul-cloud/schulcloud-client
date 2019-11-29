@@ -26,16 +26,16 @@ Wenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hie
 	}
 
 	$('.form-control-file').change(function x() {
+		const form = $(this).closest('form');
 		let fileSize = 0;
 		if (this.files.length > 0) {
 			for (let i = 0; i <= this.files.length - 1; i += 1) {
 				if (this.files.item(i).type.includes('image/') || this.files.item(i).type.includes('video/')) {
-					document.getElementById('file-alert').innerHTML = '';
-					$('#submitBugForm').prop('disabled', false);
+					form.find('.file-alert').html('');
+					form.find(':submit').prop('disabled', false);
 				} else {
-					document.getElementById('file-alert')
-						.innerHTML = `<i class="fa fa-exclamation"></i> "${this.files.item(i).name}" ist kein Bild oder Video`;
-					$('#submitBugForm').prop('disabled', true);
+					form.find('.file-alert').html(`<i class="fa fa-exclamation"></i> "${this.files.item(i).name}" ist kein Bild oder Video`);
+					form.find(':submit').prop('disabled', true);
 					return;
 				}
 				fileSize += this.files.item(i).size;
@@ -43,16 +43,14 @@ Wenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hie
 		}
 		if (fileSize > fileMaxSize) {
 			if (this.files.length > 1) {
-				document.getElementById('file-alert')
-					.innerHTML = '<i class="fa fa-exclamation"></i> Die angehängten Dateien überschreitet die maximal zulässige Gesamtgröße!';
+				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> Die angehängten Dateien überschreitet die maximal zulässige Gesamtgröße!');
 			} else {
-				document.getElementById('file-alert')
-					.innerHTML = '<i class="fa fa-exclamation"></i> Die angehängte Datei überschreitet die maximal zulässige Größe!';
+				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> Die angehängte Datei überschreitet die maximal zulässige Größe!');
 			}
-			$('#submitBugForm').prop('disabled', true);
+			form.find(':submit').prop('disabled', true);
 		} else {
-			document.getElementById('file-alert').innerHTML = '';
-			$('#submitBugForm').prop('disabled', false);
+			form.find('.file-alert').html('');
+			form.find(':submit').prop('disabled', false);
 		}
 	});
 });

@@ -27,7 +27,7 @@
       </div>
     </fieldset>
 
-    <form class="wish_form hidden" action="/helpdesk" method="post">
+    <form class="wish_form hidden" action="/helpdesk" method="post" enctype="multipart/form-data">
       {{> "help/forms/form_wish"}}
       {{> "lib/components/csrfInput"}}
       <button type="submit">Absenden</button>
