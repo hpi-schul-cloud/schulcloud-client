@@ -21,9 +21,8 @@ router.post('/', (req, res) => {
 		json: {
 			password_verification: password,
 			password: passwordNew !== '' ? passwordNew : undefined,
-		}
-	}).then(() => {
-		return api(req).patch(`/users/${res.locals.currentUser._id}`, {
+		},
+	}).then(() => api(req).patch(`/users/${res.locals.currentUser._id}`, {
 			json: {
 				firstName,
 				lastName,
@@ -32,8 +31,7 @@ router.post('/', (req, res) => {
 			},
 		}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
 			res.redirect('/account/');
-		});
-	}).catch((err) => {
+		})).catch((err) => {
 		res.render('account/settings', {
 			title: 'Dein Account',
 			notification: {
@@ -47,7 +45,6 @@ router.post('/', (req, res) => {
 router.get('/', (req, res, next) => {
 	const isSSO = Boolean(res.locals.currentPayload.systemId);
 	const isDiscoverable = res.locals.currentUser.discoverable;
-	const hideVisibilitySettings = (res.locals.currentRole === 'Schüler' || process.env.IGNORE_DISCOVERABILITY);
 	Promise.all([
 		api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`),
 		(process.env.NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null),
@@ -67,7 +64,7 @@ router.get('/', (req, res, next) => {
 			session,
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
-			hideVisibilitySettings,
+			// hideVisibilitySettings,
 			isDiscoverable,
 		});
 	}).catch(() => {
@@ -75,7 +72,7 @@ router.get('/', (req, res, next) => {
 			title: 'Dein Account',
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
-			hideVisibilitySettings,
+			// hideVisibilitySettings,
 			isDiscoverable,
 		});
 	});

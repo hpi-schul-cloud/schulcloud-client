@@ -13,13 +13,18 @@ const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
+const { Configuration } = require('@schul-cloud/commons');
+
 const { tokenInjector, duplicateTokenHandler } = require('./helpers/csrf');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 const logger = require('./helpers/logger');
 
+
 const app = express();
+const config = new Configuration({ schemaFileName: 'default.schema.json' });
+config.init(app);
 
 if (process.env.SENTRY_DSN) {
 	Sentry.init({
@@ -127,6 +132,8 @@ function removeIds(url) {
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
+	// write current configuration into locals
+	res.locals.config = config.toObject();
 	try {
 		await authHelper.populateCurrentUser(req, res);
 	} catch (error) {
@@ -153,7 +160,7 @@ app.use(async (req, res, next) => {
 	res.locals.version = version;
 	res.locals.sha = sha;
 	delete req.session.notification;
-	next();
+	return next();
 });
 
 

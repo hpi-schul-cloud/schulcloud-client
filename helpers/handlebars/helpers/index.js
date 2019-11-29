@@ -37,7 +37,7 @@ function ifCondBool(v1, operator, v2) {
 	}
 }
 
-module.exports = {
+const helpers = {
 	pagination: require('./pagination'),
 	ifArray: (item, options) => {
 		if (Array.isArray(item)) {
@@ -136,7 +136,10 @@ module.exports = {
 	userHasRole: (...args) => {
 		const allowedRoles = Array.from(args);
 		const opts = allowedRoles.pop();
-		return opts.data.local.currentUser.roles.some(r => allowedRoles.includes(r.name));
+		if (opts.data.local.currentUser.roles.some(r => allowedRoles.includes(r.name))) {
+			return opts.fn(this);
+		}
+		return opts.inverse(this);
 	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
@@ -252,3 +255,6 @@ module.exports = {
 		.replace(/"/g, '&quot;')
 		.replace(/'/g, '&#039;'),
 };
+
+
+module.exports = helpers;
