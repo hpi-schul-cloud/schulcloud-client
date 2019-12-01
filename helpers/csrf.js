@@ -24,7 +24,6 @@ const errorHandler = (err, req, res, next) => {
 			values,
 			baseUrl,
 		});
-		
 		return true;
 	}
 	return next(err);
