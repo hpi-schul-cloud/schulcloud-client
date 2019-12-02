@@ -136,47 +136,47 @@ $(document).ready(function() {
         $school.trigger('change');
     }
 
-        // EBS-System | Alert
-        function messageBuilder(message) {
-            let date = new Date(message.timestamp);
-            const d = date.getDate();
-            const m = date.getMonth();
-            const y = date.getFullYear();
-            date = `${(d < 10 ? '0' : '') + d + (m < 10 ? '.0' : '.') + m}.${y}`;
+    // EBS-System | Alert
+    function messageBuilder(message) {
+        let date = new Date(message.timestamp);
+        const d = date.getDate();
+        const m = date.getMonth();
+        const y = date.getFullYear();
+        date = `${(d < 10 ? '0' : '') + d + (m < 10 ? '.0' : '.') + m}.${y}`;
             
-            let icon = '';
-            switch(message.status) {
-                case 1:
-                  icon = '<i class="fa fa-exclamation-circle text-danger"></i>'
-                  break;
-                case 2:
-                  icon = '<i class="fa fa-check-circle text-success"></i>'
-                  break;
-                default:
-                  break;
-            }          
+        let icon = '';
+        switch(message.status) {
+            case 1:
+                icon = '<i class="fa fa-exclamation-circle text-danger"></i>'
+                break;
+            case 2:
+                icon = '<i class="fa fa-check-circle text-success"></i>'
+                break;
+            default:
+                break;
+        }          
 
-            const item = document.createElement('div');
-            item.className = 'alert alert-info alert-card';
-            item.innerHTML = `<div class="row">
-            <div class="col-xs-2 col-sm-1 text-center hidden-xs-down"> ${icon} </div>
-            <div class="col-xs-12 col-sm-11"> 
-            <h6>${message.title}</h6>
-            ${message.text}
-            <div class="text-xs-right text-muted">${date}</div></div></div>`;
-            $('.alert-section').append(item);
-        }
-    
-        $.ajax({
-            url: '/alerts',
-            contentType: 'application/json',
-            dataType: 'json',
-            success(result) {
-                result.forEach((message) => {
-                    messageBuilder(message);
-                });
-            },
-        });
+        const item = document.createElement('div');
+        item.className = 'alert alert-info alert-card';
+        item.innerHTML = `<div class="row">
+        <div class="col-xs-2 col-sm-1 text-center hidden-xs-down"> ${icon} </div>
+        <div class="col-xs-12 col-sm-11"> 
+        <h6>${message.title}</h6>
+        ${message.text}
+        <div class="text-xs-right text-muted">${date}</div></div></div>`;
+        $('.alert-section').append(item);
+    }
+
+    $.ajax({
+        url: '/alerts',
+        contentType: 'application/json',
+        dataType: 'json',
+        success(result) {
+            result.forEach((message) => {
+                messageBuilder(message);
+            });
+        },
+    });
 });
 
 window.startIntro = function startIntro() {

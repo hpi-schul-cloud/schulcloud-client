@@ -33,7 +33,7 @@ let fullscreen = false;
 function fullscreenBtnClicked() {
     togglePresentationMode();
     fullscreen = !fullscreen;
-    //TODO remove alert icon on fullscreen
+    fullscreen ? $('.alert-button').css('visibility', 'hidden') : $('.alert-button').css('visibility', 'visible');
     sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 
@@ -193,7 +193,7 @@ $(document).ready(function () {
 		contentType: 'application/json',
 		dataType: 'json',
 		success(result) {
-			if (result.length >= 1) {
+			if (result.length >= 1 && !$('body').hasClass('fullscreen')) {
 				$('.alert-button').css('visibility', 'visible');
 			}
 			result.forEach((message) => {
