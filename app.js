@@ -23,8 +23,8 @@ const logger = require('./helpers/logger');
 
 
 const app = express();
-const config = new Configuration({ schemaFileName: 'default.schema.json' });
-config.init(app);
+const Config = new Configuration();
+Config.init(app);
 
 if (process.env.SENTRY_DSN) {
 	Sentry.init({
@@ -74,7 +74,7 @@ const handlebarsHelper = require('./helpers/handlebars');
 const wax = handlebarsWax(handlebars)
 	.partials(path.join(__dirname, 'views/**/*.{hbs,js}'))
 	.helpers(layouts)
-	.helpers(handlebarsHelper.helpers);
+	.helpers(handlebarsHelper.helpers(app));
 
 wax.partials(path.join(__dirname, `theme/${themeName}/views/**/*.{hbs,js}`));
 
@@ -132,8 +132,6 @@ function removeIds(url) {
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
-	// write current configuration into locals
-	res.locals.config = config.toObject();
 	try {
 		await authHelper.populateCurrentUser(req, res);
 	} catch (error) {

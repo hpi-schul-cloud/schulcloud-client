@@ -6,39 +6,38 @@ const permissionsHelper = require('../../permissions');
 
 moment.locale('de');
 
-function ifCondBool(v1, operator, v2) {
-	switch (operator) {
-		case '==':
-			return (v1 == v2);
-		case '===':
-			return (v1 === v2);
-		case '!=':
-			return (v1 != v2);
-		case '!==':
-			return (v1 !== v2);
-		case '<':
-			return (v1 < v2);
-		case '<=':
-			return (v1 <= v2);
-		case '>':
-			return (v1 > v2);
-		case '>=':
-			return (v1 >= v2);
-		case '&&':
-			return (v1 && v2);
-		case '&& !':
-			return (v1 && !v2);
-		case '||':
-			return (v1 || v2);
-		case '|| !':
-			return (v1 || !v2);
-		default:
-			return false;
-	}
-}
-
-const helpers = {
+const helpers = app => ({
 	pagination: require('./pagination'),
+	ifCondBool: (v1, operator, v2) => {
+		switch (operator) {
+			case '==':
+				return (v1 == v2);
+			case '===':
+				return (v1 === v2);
+			case '!=':
+				return (v1 != v2);
+			case '!==':
+				return (v1 !== v2);
+			case '<':
+				return (v1 < v2);
+			case '<=':
+				return (v1 <= v2);
+			case '>':
+				return (v1 > v2);
+			case '>=':
+				return (v1 >= v2);
+			case '&&':
+				return (v1 && v2);
+			case '&& !':
+				return (v1 && !v2);
+			case '||':
+				return (v1 || v2);
+			case '|| !':
+				return (v1 || !v2);
+			default:
+				return false;
+		}
+	},
 	ifArray: (item, options) => {
 		if (Array.isArray(item)) {
 			return options.fn(item);
@@ -126,6 +125,13 @@ const helpers = {
 			return options.inverse(this);
 		}
 		return options.fn(this);
+	},
+	ifConfig: (key, value, options) => {
+		const exist = app.Config.has(key);
+		if (exist && app.Config.get(key) === value) {
+			return options.fn(this);
+		}
+		return options.inverse(this);
 	},
 	userHasPermission: (permission, opts) => {
 		if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
@@ -254,7 +260,7 @@ const helpers = {
 		.replace(/>/g, '&gt;')
 		.replace(/"/g, '&quot;')
 		.replace(/'/g, '&#039;'),
-};
+});
 
 
 module.exports = helpers;

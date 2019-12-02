@@ -70,7 +70,6 @@ router.get('/', (req, res, next) => {
 			session,
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
-			// hideVisibilitySettings,
 			isDiscoverable,
 		});
 	}).catch(() => {
@@ -78,7 +77,6 @@ router.get('/', (req, res, next) => {
 			title: 'Dein Account',
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
-			// hideVisibilitySettings,
 			isDiscoverable,
 		});
 	});
