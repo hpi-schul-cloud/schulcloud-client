@@ -8,6 +8,7 @@ const changed = require('gulp-changed-smart');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const gulpCount = require('gulp-count');
+const gulpErrorHandler = require('gulp-error-handle');
 const filelog = require('gulp-filelog');
 const header = require('gulp-header');
 const gulpif = require('gulp-if');
@@ -27,7 +28,6 @@ const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const nodemon = require('gulp-nodemon');
 const browserSync = require('browser-sync');
-const workbox = require('workbox-build');
 const webpackConfig = require('./webpack.config');
 
 const baseScripts = [
@@ -47,9 +47,12 @@ function themeName() {
 	return process.env.SC_THEME || 'default';
 }
 
+const EXIT_ON_ERROR = process.env.GULP_EXIT_ON_ERROR
+	? process.env.GULP_EXIT_ON_ERROR === 'true'
+	: process.env.NODE_ENV !== 'development';
+
 const nonBaseScripts = [
 	'./static/scripts/**/*.js',
-	'!./static/scripts/sw/workbox/*.*',
 ].concat(baseScripts.map(script => `!${script}`));
 // used by all gulp tasks instead of gulp.src(...)
 // plumber prevents pipes from stopping when errors occur
@@ -64,26 +67,21 @@ function withTheme(src) {
 		.map(e => `./theme/${themeName()}/${e.slice(2)}`));
 }
 
-const beginPipe = src => gulp
-	.src(withTheme(src))
-	.pipe(plumber())
-	.pipe(changed(gulp))
-	.pipe(filelog());
-
-const beginPipeAll = src => gulp
-	.src(withTheme(src))
-	.pipe(plumber())
-	.pipe(filelog());
-
 const handleError = (error) => {
 	console.error(error);
 	process.exit(1);
 };
 
-// handle errors with exit 1
-gulp.on('err', (err) => {
-	handleError(err);
-});
+const beginPipe = src => gulp
+	.src(withTheme(src))
+	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
+	.pipe(changed(gulp))
+	.pipe(filelog());
+
+const beginPipeAll = src => gulp
+	.src(withTheme(src))
+	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
+	.pipe(filelog());
 
 // minify images
 gulp.task('images', () => beginPipe('./static/images/**/*.*')
@@ -233,9 +231,6 @@ gulp.task('node-modules', () => Promise.all(nodeModules
 	.map(module => beginPipe([`./node_modules/${module}/**/*.*`])
 		.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)))));
 
-gulp.task('sw-workbox', () => beginPipe(['./static/scripts/sw/workbox/*.js'])
-	.pipe(gulp.dest(`./build/${themeName()}/scripts/sw/workbox`)));
-
 // service worker patterns used for precaching of files
 const globPatterns = [
 	'fonts/**/*.{woff,css}',
@@ -243,7 +238,6 @@ const globPatterns = [
 	'images/footer-logo.png',
 	'scripts/all.js',
 	'scripts/loggedin.js',
-	'scripts/sw/metrix.js',
 	'scripts/calendar.js',
 	'scripts/dashboard.js',
 	'scripts/courses.js',
@@ -256,49 +250,11 @@ const globPatterns = [
 	'styles/courses/*.css',
 	'styles/dashboard/*.css',
 	'vendor/introjs/intro*.{js,css}',
-	'vendor-optimized/firebasejs/3.9.0/firebase-app.js',
-	'vendor-optimized/firebasejs/3.9.0/firebase-messaging.js',
 	'vendor/feathersjs/feathers.js',
 	'vendor-optimized/mathjax/MathJax.js',
 	'images/manifest.json',
 ];
 
-gulp.task(
-	'generate-service-worker',
-	[
-		'images',
-		'other',
-		'styles',
-		'fonts',
-		'scripts',
-		'base-scripts',
-		'vendor-styles',
-		'vendor-scripts',
-		'vendor-assets',
-		'node-modules',
-	],
-	() => workbox
-		.injectManifest({
-			globDirectory: `./build/${themeName()}/`,
-			globPatterns,
-			swSrc: './static/sw.js',
-			swDest: `./build/${themeName()}/sw.js`,
-			templatedUrls: {
-				'/calendar/': [
-					'../../views/calendar/calendar.hbs',
-					'../../views/lib/loggedin.hbs',
-				],
-			},
-		})
-		.then(({ count, size, warnings }) => {
-			// Optionally, log any warnings and details.
-			warnings.forEach(console.warn);
-			console.log(`${count} files will be precached, totaling ${size} bytes.`);
-		})
-		.catch((error) => {
-			handleError(error);
-		}),
-);
 
 // clear build folder + smart cache
 gulp.task('clear', () => gulp
@@ -328,8 +284,6 @@ gulp.task('build-all', [
 	'vendor-assets',
 	'vendor-optimized-assets',
 	'node-modules',
-	'sw-workbox',
-	'generate-service-worker',
 	'static',
 ]);
 
@@ -349,19 +303,12 @@ gulp.task('watch', ['build-all'], () => {
 	]).on('change', browserSync.reload);
 	gulp.watch(withTheme(nonBaseScripts), watchOptions, [
 		'scripts',
-		'generate-service-worker',
 	]);
 
 	gulp.watch(withTheme('./static/vendor-optimized/**/*.*'), watchOptions, [
 		'vendor-optimized-assets',
 	]);
-	gulp.watch(withTheme('./static/sw.js'), watchOptions, [
-		'generate-service-worker',
-	]);
 	gulp.watch(withTheme('./static/*.*'), watchOptions, ['static']);
-	gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), watchOptions, [
-		'sw-workbox',
-	]);
 });
 
 gulp.task('watch-reload', ['watch', 'browser-sync']);
