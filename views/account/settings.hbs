@@ -82,9 +82,9 @@
 
 					{{#ifeq ../../config.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION "enabled"}}<label>Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.</label>{{/ifeq}}
 
-					{{#ifeq ../../config.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#if isDiscoverable}}checked{{/if}}> Sichtbarkeit im zentralen Verzeichnis aktivieren</label>{{/ifeq}}
+					{{#ifeq ../../config.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis aktivieren</label>{{/ifeq}}
 
-					{{#ifeq ../../config.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#if isDiscoverable}}checked{{/if}}> Sichtbarkeit im zentralen Verzeichnis deaktivieren</label>{{/ifeq}}
+					{{#ifeq ../../config.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis deaktivieren</label>{{/ifeq}}
 				</div>
 				{{/ifneq}}
 				{{/userHasRole}}
