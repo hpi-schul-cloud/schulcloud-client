@@ -72,21 +72,20 @@
                     </div>
                 </div>
                 {{/userHasPermission}}
-				{{#userHasRole "student"}}
-				{{else}}
-				{{#ifneq ../../config.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION "disabled"}}
+				{{#userHasRole not "student"}}
+				{{#ifConfig not "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
 				<h5>Teams</h5>
 				<div class="form-group">
 					Sichtbarkeit für Teameinladungen
 					<p class="text-muted">Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{theme.short_title}}bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.</p>
 
-					{{#ifeq ../../config.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION "enabled"}}<label>Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.</label>{{/ifeq}}
+					{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.</label>{{/ifConfig}}
 
-					{{#ifeq ../../config.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis aktivieren</label>{{/ifeq}}
+					{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis aktivieren</label>{{/ifConfig}}
 
-					{{#ifeq ../../config.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis deaktivieren</label>{{/ifeq}}
+					{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis deaktivieren</label>{{/ifConfig}}
 				</div>
-				{{/ifneq}}
+				{{/ifConfig}}
 				{{/userHasRole}}
 
 
