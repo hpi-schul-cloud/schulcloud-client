@@ -72,8 +72,10 @@
                     </div>
                 </div>
                 {{/userHasPermission}}
-				{{#userHasRole not "student"}}
-				{{#ifConfig not "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
+				{{#userHasRole "student"}}
+				{{else}}
+				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
+				{{else}}
 				<h5>Teams</h5>
 				<div class="form-group">
 					Sichtbarkeit für Teameinladungen
