@@ -33,6 +33,7 @@ let fullscreen = false;
 function fullscreenBtnClicked() {
     togglePresentationMode();
     fullscreen = !fullscreen;
+    //TODO remove alert icon on fullscreen
     sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 
@@ -158,7 +159,48 @@ $(document).ready(function () {
 			Es können keine Klassen und Nutzer angelegt werden.
 			Bitte läute <a href="/administration/school/"> hier das neue Schuljahr ein!</a>`, 'warning');
 		}
+    }
+    
+    // EBS-System | Alert
+    function messageBuilder(message) {
+        let date = new Date(message.timestamp);
+        const d = date.getDate();
+        const m = date.getMonth();
+        const y = date.getFullYear();
+        date = `${(d < 10 ? '0' : '') + d + (m < 10 ? '.0' : '.') + m}.${y}`;
+        
+        let icon = '';
+        switch(message.status) {
+            case 1:
+              icon = '<i class="fa fa-exclamation-circle text-danger"></i>'
+              break;
+            case 2:
+              icon = '<i class="fa fa-check-circle text-success"></i>'
+              break;
+            default:
+              break;
+        }          
+
+		const item = document.createElement('div');
+		item.className = 'alert-item';
+		item.innerHTML = `<div class="alert-title">${icon} ${message.title}</div>
+		${message.text} <div class="alert-link text-nowrap text-muted">${date}</div>`;
+		$('.alert-button').find('.content').append(item);
 	}
+
+	$.ajax({
+		url: '/alerts',
+		contentType: 'application/json',
+		dataType: 'json',
+		success(result) {
+			if (result.length >= 1) {
+				$('.alert-button').css('visibility', 'visible');
+			}
+			result.forEach((message) => {
+				messageBuilder(message);
+			});
+		},
+	});
 });
 
 function showAJAXError(req, textStatus, errorThrown) {

@@ -721,6 +721,39 @@ footer {
     }
 }
 
+.alert-button {
+    visibility: hidden;
+
+    .btn i {
+        color: $primaryColor;
+    }
+
+    .dropdown-menu {
+        width: 400px;
+        max-height: 300px;
+        .content{
+            overflow: auto;
+        }
+    }
+
+    .alert-item {
+        padding: 10px 15px;
+        font-size: 14px;
+
+        .alert-title {
+            font-size: 16px;
+        }
+
+        .alert-link {
+            float: right;
+        }
+
+        & + .notification-item {
+            border-top: 1px solid #e5e5e5;
+        }
+    }
+}
+
 .notification-dropdown {
     .btn.recent i {
         color: $primaryColor;

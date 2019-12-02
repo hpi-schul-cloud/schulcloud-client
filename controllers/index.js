@@ -56,6 +56,7 @@ router.use('/addons', require('./addons'));
 router.use('/administration/', require('./administration'));
 
 router.use('/version', require('./version'));
+router.use('/alerts', require('./alerts'));
 
 
 module.exports = router;

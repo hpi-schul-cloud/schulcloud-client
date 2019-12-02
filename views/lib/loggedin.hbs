@@ -102,6 +102,19 @@
                     {{/if}}
 
                     <ul class="nav navbar-nav float-xs-none dropdowns" data-step="1" data-intro="Hier findest du übergreifende Informationen.">
+                        <li class="nav-item alert-button">
+                            <div class="dropdown minimal-button">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" title="Es gibt ein Problem" data-toggle="dropdown">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                </a>
+
+                                <div class="dropdown-menu">
+                                    <div class="content">
+                                        <!-- alert-item here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                         <li class="nav-item fullscreen-action" data-step="2" data-intro="Hiermit blendest du die Menüs aus.">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="Fullscreen" data-toggle="dropdown">
@@ -185,8 +198,6 @@
                         </li>
                     </ul>
                 </nav>
-
-            {{> "lib/components/alert"}}
 
                 <section class="section-title">
                     <div class="container-fluid">
