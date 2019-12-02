@@ -41,8 +41,11 @@ router.post('/', (req, res, next) => {
 		}
 	}
 	files.forEach((element) => {
-		if (!element.mimetype.includes('image/') && !element.mimetype.includes('video/')) {
-			throw new Error(`"${element.name}" ist kein Bild!`);
+		if (!element.mimetype.includes('image/')
+		&& !element.mimetype.includes('video/')
+		&& !element.mimetype.includes('application/msword')
+		&& !element.mimetype.includes('application/pdf')) {
+			throw new Error(`"${element.name}" ist kein Bild, Video oder Textdatei!`);
 		}
 		fileSize += element.size;
 	});

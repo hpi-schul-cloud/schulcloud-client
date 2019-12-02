@@ -30,7 +30,10 @@ Wenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hie
 		let fileSize = 0;
 		if (this.files.length > 0) {
 			for (let i = 0; i <= this.files.length - 1; i += 1) {
-				if (this.files.item(i).type.includes('image/') || this.files.item(i).type.includes('video/')) {
+				if (this.files.item(i).type.includes('image/')
+				|| this.files.item(i).type.includes('video/')
+				|| this.files.item(i).type.includes('application/msword')
+				|| this.files.item(i).type.includes('application/pdf')) {
 					form.find('.file-alert').html('');
 					form.find(':submit').prop('disabled', false);
 				} else {
