@@ -33,8 +33,6 @@ window.addEventListener('softNavigate', (event) => {
 	updateQueryStringParameter('p', param);
 });
 
-let handlerRegistered = false;
-
 $(document).ready(() => {
 	const $modals = $('.modal');
 	const $terminateSchoolYearModal = $('.terminate-school-year-modal');
@@ -351,29 +349,25 @@ $(document).ready(() => {
 				$this.html(text);
 			});
 	}
-	if (!handlerRegistered) {
-		// softNavigate triggers documentReady again duplicating click handlers
-		handlerRegistered = true;
 
-		$('.btn-send-links-emails').on('click', handleSendLinkEmailsClick);
+	$('.btn-send-links-emails').off('click').on('click', handleSendLinkEmailsClick);
 
-		$('.btn-print-links').on('click', handlePrintLinksClick);
+	$('.btn-print-links').off('click').on('click', handlePrintLinksClick);
 
-		$('#csv-import-example').on('click', (e) => {
-			e.preventDefault();
-			const lines = [
-				'firstName,lastName,email,class',
-				'Max,Mustermann,max@mustermann.de,',
-				'Fritz,Schmidt,fritz.schmidt@schul-cloud.org,1a',
-				'Paula,Meyer,paula.meyer@schul-cloud.org,12/2+12/3',
-			];
-			const csvContent = `data:text/csv;charset=utf-8,${lines.join('\n')}`;
-			const link = document.createElement('a');
-			link.setAttribute('href', encodeURI(csvContent));
-			link.setAttribute('download', 'beispiel.csv');
-			document.body.appendChild(link);
-			link.click();
-			document.body.removeChild(link);
-		});
-	}
+	$('#csv-import-example').off('click').on('click', (e) => {
+		e.preventDefault();
+		const lines = [
+			'firstName,lastName,email,class',
+			'Max,Mustermann,max@mustermann.de,',
+			'Fritz,Schmidt,fritz.schmidt@schul-cloud.org,1a',
+			'Paula,Meyer,paula.meyer@schul-cloud.org,12/2+12/3',
+		];
+		const csvContent = `data:text/csv;charset=utf-8,${lines.join('\n')}`;
+		const link = document.createElement('a');
+		link.setAttribute('href', encodeURI(csvContent));
+		link.setAttribute('download', 'beispiel.csv');
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	});
 });
