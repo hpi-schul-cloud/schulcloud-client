@@ -9,7 +9,7 @@
     <select data-testid="select_team_members_add" name="userIds[]" multiple data-placeholder="Personen auswählen">
         {{#each users}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                    {{this.firstName}} {{this.lastName}}
+                    {{this.lastName}}, {{this.firstName}}
             </option>
         {{/each}}
     </select>
