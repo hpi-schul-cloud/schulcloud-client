@@ -730,9 +730,17 @@ footer {
 
     .dropdown-menu {
         width: 400px;
-        max-height: 300px;
-        .content{
-            overflow: auto;
+    }
+
+    @media (max-width: 450px) {
+        .dropdown-menu {
+            width: 70vw;
+            left: -70px !important;
+        }
+        
+        .dropdown-menu::before,
+        .dropdown-menu::after {
+            content: none !important;
         }
     }
 
@@ -744,11 +752,12 @@ footer {
             font-size: 16px;
         }
 
+        .alert-date,
         .alert-link {
             float: right;
         }
 
-        & + .notification-item {
+        & + .alert-item {
             border-top: 1px solid #e5e5e5;
         }
     }

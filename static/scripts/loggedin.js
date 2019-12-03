@@ -163,11 +163,23 @@ $(document).ready(function () {
     
     // EBS-System | Alert
     function messageBuilder(message) {
-        let date = new Date(message.timestamp);
-        const d = date.getDate();
-        const m = date.getMonth();
-        const y = date.getFullYear();
-        date = `${(d < 10 ? '0' : '') + d + (m < 10 ? '.0' : '.') + m}.${y}`;
+        const timestamp = new Date(message.timestamp);
+        const now = new Date();
+        let date = '';
+        if((now-timestamp)/1000/60/60 < 1){
+            if((now-timestamp)/1000/60 < 2) {
+                date = 'vor 1 Minute';
+            } else {
+                date = `vor ${Math.floor((now-timestamp)/1000/60)} Minuten`;
+            }
+        }else{
+            if((now-timestamp)/1000/60/60 < 2) {
+                date = 'vor 1 Stunde';
+            } else {
+                date = `vor ${Math.floor((now-timestamp)/1000/60/60)} Stunden`;
+            }
+        }
+
 
         let icon = '';
         switch(message.status) {
@@ -183,8 +195,9 @@ $(document).ready(function () {
 
 		const item = document.createElement('div');
 		item.className = 'alert-item';
-		item.innerHTML = `<div class="alert-title">${icon} ${message.title}</div>
-		${message.text} <div class="alert-link text-nowrap text-muted">${date}</div>`;
+        item.innerHTML = `<div class="alert-date text-nowrap text-muted">${date}</div>
+        <div class="alert-title">${icon} ${message.title}</div>
+		${message.text}`;
 		$('.alert-button').find('.content').append(item);
 	}
 

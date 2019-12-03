@@ -142,7 +142,12 @@ $(document).ready(function() {
         const d = date.getDate();
         const m = date.getMonth();
         const y = date.getFullYear();
-        date = `${(d < 10 ? '0' : '') + d + (m < 10 ? '.0' : '.') + m}.${y}`;
+        let h = date.getHours();
+        h = `${(h < 10 ? '0' : '') + h}`;
+        let min = date.getMinutes();
+        min = `${(min < 10 ? '0' : '') + min}`;
+
+        date = `${(d < 10 ? '0' : '') + d + (m < 10 ? '.0' : '.') + m}.${y} ${h}:${min} `;
 
         let icon = '';
         switch(message.status) {
@@ -158,12 +163,8 @@ $(document).ready(function() {
 
         const item = document.createElement('div');
         item.className = 'alert alert-info alert-card';
-        item.innerHTML = `<div class="row">
-        <div class="col-xs-2 col-sm-1 text-center hidden-xs-down"> ${icon} </div>
-        <div class="col-xs-12 col-sm-11"> 
-        <h6>${message.title}</h6>
-        ${message.text}
-        <div class="text-xs-right text-muted">${date}</div></div></div>`;
+        item.innerHTML = `<h6>${icon} ${message.title}</h6>
+        <div class="text-muted" style="float: left;">${date}</div> </br> ${message.text}`;
         $('.alert-section').append(item);
     }
 
