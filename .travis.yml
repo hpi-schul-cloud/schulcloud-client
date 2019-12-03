@@ -16,8 +16,11 @@ env:
     - FEATURE_TEAMS_ENABLED=true
     - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 stages:
-  - Test
-  - Deploy
+  - name: Test
+    if: NOT (commit_message =~ /(skip-test-stage)/ AND branch = master)
+  - name: Deploy
+    if: NOT (commit_message =~ /(skip-deploy-stage)/)
+
 jobs:
   include:
     - stage: Test

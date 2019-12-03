@@ -85,17 +85,19 @@
                             {{> "lib/ldap-info"}}
                         {{else}}
                             <div class="col-sm-12 no-padding">
-                                <button type="submit" data-testid="btn_add_student" class="btn btn-primary btn-add-modal">
-                                    Schüler hinzufügen
-                                </button>
-                                <button class="btn btn-secondary btn-invitation-link student">
-                                    Einladungslink generieren
-                                </button>
-                                {{#inArray "Administrator" roleNames}}
-                                    <button class="btn btn-secondary btn-import student">
-                                        Schüler importieren
+                                {{#userHasPermission "STUDENT_CREATE"}}
+                                    <button type="submit" data-testid="btn_add_student" class="btn btn-primary btn-add-modal">
+                                        Schüler hinzufügen
                                     </button>
-                                {{/inArray}}
+                                    <button class="btn btn-secondary btn-invitation-link student">
+                                        Einladungslink generieren
+                                    </button>
+                                    {{#inArray "Administrator" roleNames}}
+                                        <button class="btn btn-secondary btn-import student">
+                                            Schüler importieren
+                                        </button>
+                                    {{/inArray}}
+                                {{/userHasPermission}}
                             </div>
                         {{/if}}
                     </div>
