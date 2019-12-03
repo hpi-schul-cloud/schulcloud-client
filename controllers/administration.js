@@ -980,7 +980,7 @@ router.delete(
 	getDeleteHandler('users', '/administration/teachers'),
 );
 
-router.all(
+router.get(
 	'/teachers',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_LIST'], 'or'),
 	(req, res, next) => {
@@ -2166,7 +2166,7 @@ const classFilterSettings = ({ years, currentYear }) => {
 
 router.get(
 	'/classes',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_LIST'], 'or'),
 	(req, res, next) => {
 		const tempOrgQuery = (req.query || {}).filterQuery;
 		const filterQueryString = tempOrgQuery
