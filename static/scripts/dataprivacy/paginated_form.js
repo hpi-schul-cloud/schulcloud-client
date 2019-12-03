@@ -148,6 +148,7 @@ function setSelectionByIndex(index, event) {
 function submitForm(event) {
 	if (this.checkValidity()) {
 		event.preventDefault();
+		$('.pin-invalidated').hide();
 		const formSubmitButton = document.querySelector('#nextSection');
 		formSubmitButton.disabled = true;
 		$.ajax({
@@ -169,6 +170,12 @@ function submitForm(event) {
 			setSelectionByIndex(getSelectionIndex() + 1, event);
 		})
 			.fail((response) => {
+				if ($('.combined-pin').length === 1) {
+					document.querySelectorAll('.combined-pin ~ .digit').forEach((element) => {
+						element.value = '';
+					});
+					$('.pin-invalidated').show();
+				}
 				if (response.responseText !== undefined) {
 					$.showNotification(`Fehler: ${response.responseText}`, 'danger', true);
 				} else {
