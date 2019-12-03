@@ -867,9 +867,9 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 };
 
 // teacher admin permissions
-router.all(
+router.get(
 	'/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
 	(req, res, next) => {
 		const title = returnAdminPrefix(res.locals.currentUser.roles);
 		res.render('administration/dashboard', {
