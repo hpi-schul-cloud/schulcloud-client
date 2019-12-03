@@ -143,7 +143,7 @@ $(document).ready(function() {
         const m = date.getMonth();
         const y = date.getFullYear();
         date = `${(d < 10 ? '0' : '') + d + (m < 10 ? '.0' : '.') + m}.${y}`;
-            
+
         let icon = '';
         switch(message.status) {
             case 1:
