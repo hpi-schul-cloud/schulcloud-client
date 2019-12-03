@@ -102,6 +102,11 @@
             text-decoration: none !important;
             position: absolute;
 
+            &:hover, &:focus{
+                min-width: 150px;
+                z-index: 1;
+            }
+
             .card-block {
                 padding: 0.5rem 0;
             }

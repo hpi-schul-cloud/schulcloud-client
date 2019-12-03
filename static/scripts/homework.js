@@ -60,7 +60,6 @@ window.addEventListener("DOMContentLoaded", function(){
     const filterModule = document.getElementById("filter");
     if(!filterModule){return;}
     filterModule.addEventListener('newFilter', (e) => {
-        document.querySelectorAll("circular-progress").forEach(graphic => {graphic.remove();});
         const filter = e.detail;
         const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
         softNavigate(newurl, ".homework", ".pagination");

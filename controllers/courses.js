@@ -581,7 +581,14 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 
 router.get('/:courseId/', (req, res, next) => {
 	// ############################## check if new Editor options should show #################
-	const isNewEdtiroActivated = (req.query.edtr === 'true');
+	if (req.query.edtr === 'true' && !req.cookies.edtr) {
+		res.cookie('edtr', true, { maxAge: 90000000 });
+	} else if (req.query.edtr === 'false' && req.cookies.edtr === 'true') {
+		res.cookie('edtr', false, { maxAge: 1000 });
+		req.cookies.edtr = 'false';
+	}
+
+	const isNewEdtiroActivated = (req.query.edtr === 'true' || req.cookies.edtr === 'true');
 
 	const promises = [
 		api(req).get(`/courses/${req.params.courseId}`, {
@@ -658,8 +665,6 @@ router.get('/:courseId/', (req, res, next) => {
 				}));
 			}
 
-			const hasLessons = ((newLessons || []).length !== 0 || (lessons || []).length !== 0);
-
 			// ###################### end of code for new Editor ################################
 			res.render(
 				'courses/course',
@@ -689,7 +694,6 @@ router.get('/:courseId/', (req, res, next) => {
 						course.times,
 					),
 					// #################### new Editor, till replacing old one ######################
-					hasLessons,
 					newLessons,
 					isNewEdtiroActivated,
 				}),
