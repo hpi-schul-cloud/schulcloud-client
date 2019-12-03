@@ -13,13 +13,18 @@ const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
+const { Configuration } = require('@schul-cloud/commons');
+
 const { tokenInjector, duplicateTokenHandler } = require('./helpers/csrf');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 const logger = require('./helpers/logger');
 
+
 const app = express();
+const Config = new Configuration();
+Config.init(app);
 
 if (process.env.SENTRY_DSN) {
 	Sentry.init({
@@ -69,7 +74,7 @@ const handlebarsHelper = require('./helpers/handlebars');
 const wax = handlebarsWax(handlebars)
 	.partials(path.join(__dirname, 'views/**/*.{hbs,js}'))
 	.helpers(layouts)
-	.helpers(handlebarsHelper.helpers);
+	.helpers(handlebarsHelper.helpers(app));
 
 wax.partials(path.join(__dirname, `theme/${themeName}/views/**/*.{hbs,js}`));
 
@@ -153,7 +158,7 @@ app.use(async (req, res, next) => {
 	res.locals.version = version;
 	res.locals.sha = sha;
 	delete req.session.notification;
-	next();
+	return next();
 });
 
 
