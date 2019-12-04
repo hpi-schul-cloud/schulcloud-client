@@ -19,12 +19,16 @@ const csrfErrorHandler = (err, req, res, next) => {
 		// send base URL for opening in new tab
 		const baseUrl = (req.headers.origin || process.env.HOST || 'http://localhost:3100');
 		const values = Object.keys(req.body).map(name => ({ name, value: req.body[name] }));
+		values.push({
+			name: 'csrfErrorcount',
+			value: '1',
+		});
 		res.render('lib/csrf', {
 			loggedin: res.locals.loggedin,
 			values,
+			previousError: (req.body.csrfErrorcount),
 			baseUrl,
 		});
-		
 		return true;
 	}
 	return next(err);

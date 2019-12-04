@@ -11,6 +11,10 @@
         <br>
         Solltest du keine Aktion ausführen wollen, schließe bitte diesen Tab in deinem Browser.
     </p>
+    {{#if previousError}}
+        <p><b>Die Anfrage ist leider erneut fehlgeschlagen. Um mit der Nutzung fortzufahren, lade die Seite bitte neu. </b></p>
+        <button class="btn btn-primary" onclick="window.location.href=window.location.href">Neu laden</button>
+    {{else}}
     <form id="retryform" method="POST">
         {{> "lib/components/csrfInput"}}
         {{#each values}}
@@ -18,6 +22,7 @@
         {{/each}}
         <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" target="_blank" id="retrybtn">In neuem Tab öffnen</a>
     </form>
+    {{/if}}
     </div>
     <div class="hidden iframe">
     <p>  
