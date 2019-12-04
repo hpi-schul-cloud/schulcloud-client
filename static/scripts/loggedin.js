@@ -3,6 +3,7 @@
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 import './cleanup'; // see login.js for loggedout users
+import {loggedinMessageBuilder} from './helpers/AlertMessageBuilder.js';
 
 iFrameListen();
 
@@ -163,45 +164,6 @@ $(document).ready(function () {
     }
     
     // EBS-System | Alert
-    function messageBuilder(message) {
-        const timestamp = new Date(message.timestamp);
-        const now = new Date();
-        let date = '';
-        if((now-timestamp)/1000/60/60 < 1){
-            if((now-timestamp)/1000/60 < 2) {
-                date = 'vor 1 Minute';
-            } else {
-                date = `vor ${Math.floor((now-timestamp)/1000/60)} Minuten`;
-            }
-        }else{
-            if((now-timestamp)/1000/60/60 < 2) {
-                date = 'vor 1 Stunde';
-            } else {
-                date = `vor ${Math.floor((now-timestamp)/1000/60/60)} Stunden`;
-            }
-        }
-
-
-        let icon = '';
-        switch(message.status) {
-            case 1:
-              icon = '<i class="fa fa-exclamation-circle text-danger"></i>'
-              break;
-            case 2:
-              icon = '<i class="fa fa-check-circle text-success"></i>'
-              break;
-            default:
-              break;
-        }          
-
-		const item = document.createElement('div');
-		item.className = 'alert-item';
-        item.innerHTML = `<div class="alert-date text-nowrap text-muted">${date}</div>
-        <div class="alert-title">${icon} ${message.title}</div>
-		${message.text}`;
-		$('.alert-button').find('.content').append(item);
-	}
-
 	$.ajax({
 		url: '/alerts',
 		contentType: 'application/json',
@@ -211,7 +173,7 @@ $(document).ready(function () {
 				$('.alert-button').css('visibility', 'visible');
 			}
 			result.forEach((message) => {
-				messageBuilder(message);
+                $('.alert-button').find('.content').append(loggedinMessageBuilder(message))
 			});
 		},
 	});

@@ -1,5 +1,6 @@
 import './pwd.js';
 import './cleanup'; // see loggedin.js for loggedin users
+import {loginMessageBuilder} from './helpers/AlertMessageBuilder.js';
 
 /* global introJs */
 $(document).ready(function() {
@@ -138,44 +139,13 @@ $(document).ready(function() {
     }
 
     // EBS-System | Alert
-    function messageBuilder(message) {
-        let date = new Date(message.timestamp);
-        const d = date.getDate();
-        const m = date.getMonth();
-        const y = date.getFullYear();
-        let h = date.getHours();
-        h = `${(h < 10 ? '0' : '') + h}`;
-        let min = date.getMinutes();
-        min = `${(min < 10 ? '0' : '') + min}`;
-
-        date = `${(d < 10 ? '0' : '') + d + (m < 10 ? '.0' : '.') + m}.${y} ${h}:${min} `;
-
-        let icon = '';
-        switch(message.status) {
-            case 1:
-                icon = '<i class="fa fa-exclamation-circle text-danger"></i>'
-                break;
-            case 2:
-                icon = '<i class="fa fa-check-circle text-success"></i>'
-                break;
-            default:
-                break;
-        }          
-
-        const item = document.createElement('div');
-        item.className = 'alert alert-info alert-card';
-        item.innerHTML = `<h6>${icon} ${message.title}</h6>
-        <div class="text-muted" style="float: left;">${date}</div> </br> ${message.text}`;
-        $('.alert-section').append(item);
-    }
-
     $.ajax({
         url: '/alerts',
         contentType: 'application/json',
         dataType: 'json',
         success(result) {
             result.forEach((message) => {
-                messageBuilder(message);
+                $('.alert-section').append(loginMessageBuilder(message));
             });
         },
     });

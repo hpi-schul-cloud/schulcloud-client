@@ -8,11 +8,6 @@ router.get('/', async (req, res, next) => {
 	const contype = req.headers['content-type'];
 	if (!contype || contype.indexOf('application/json') !== 0) {
 		res.redirect('/');
-		// TODO add new page for incidents
-		// res.render('help/alerts', {
-		// 	title: 'Aktuelle Vorfälle',
-		// 	incidents: alert,
-		// });
 	}
 	res.send(alert);
 });
