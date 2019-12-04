@@ -12,7 +12,7 @@ const duplicateTokenHandler = (req, res, next) => {
 	next();
 };
 
-const errorHandler = (err, req, res, next) => {
+const csrfErrorHandler = (err, req, res, next) => {
 	if (err.code === 'EBADCSRFTOKEN') {
 		// convert body object to array
 		res.locals.csrfToken = req.csrfToken();
@@ -33,5 +33,5 @@ const errorHandler = (err, req, res, next) => {
 module.exports = {
 	tokenInjector,
 	duplicateTokenHandler,
-	errorHandler,
+	csrfErrorHandler,
 };
