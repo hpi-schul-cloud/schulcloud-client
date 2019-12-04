@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
 		result.os.name = '';
 	}
 
-	const fileMaxSize = 10 * 1024 * 1024; // 10 MB
+	const fileMaxSize = 5 * 1024 * 1024; // 5 MB
 	let fileSize = 0;
 	let files = [];
 	if (req.files) {

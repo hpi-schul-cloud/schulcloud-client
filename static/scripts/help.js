@@ -2,7 +2,7 @@ import livesearch from './helpers/livesearch';
 import { resizeIframes } from './helpers/iFrameResize';
 import './help/contactForm';
 
-const fileMaxSize = 10 * 1024 * 1024; // 10 MB
+const fileMaxSize = 5 * 1024 * 1024; // 5 MB
 
 $(document).ready(() => {
 	$('.btn-poll').on('click', (e) => {
@@ -11,6 +11,7 @@ $(document).ready(() => {
 		document.cookie = 'pollClicked=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
 	});
 
+	// only fill textarea if empty
 	if (!$('textarea[name= problemDescription]').val()) {
 		/* eslint-disable max-len */
 		$('textarea[name= problemDescription]').text(`Ich als [Nutzerrolle] 
