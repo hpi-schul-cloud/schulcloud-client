@@ -173,7 +173,7 @@ $(document).ready(function () {
 				$('.alert-button').css('visibility', 'visible');
 			}
 			result.forEach((message) => {
-                $('.alert-button').find('.content').append(loggedinMessageBuilder(message))
+                $('.alert-button').find('.js-alert-content').append(loggedinMessageBuilder(message))
 			});
 		},
 	});
