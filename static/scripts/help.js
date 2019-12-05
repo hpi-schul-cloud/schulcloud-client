@@ -20,8 +20,8 @@ die Funktion [???]
 aufgrund des Fehlers/der Fehlermeldung "[???]"
 nicht benutzen können.
 
-Mit welchen Elementen tritt das Problem auf?
-Tritt der Fehler bei weiteren Elementen desselben Bereichs (z.B. andere Kurse oder Nutzer) auf?
+Tritt der Fehler auch bei anderen/ ähnlichen Bereichen (z.B. andere Kurse oder Nutzer) auf?
+Wie genau äußert sich das Problem?
 Wenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hier bitte so kurz und klar wie möglich beschreiben.
 `);
 	}
