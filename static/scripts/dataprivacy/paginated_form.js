@@ -71,10 +71,9 @@ function updateButton(selectedIndex) {
 		document.querySelector('.form #nextSection').classList.remove('hidden');
 	}
 
-	if (selectedIndex === 1) {
-		document.querySelector('.form #firstSection').classList.remove('hidden');
-	} else {
-		document.querySelector('.form #firstSection').classList.add('hidden');
+	const btnLogout = document.querySelector('.form #btn-logout');
+	if (btnLogout) {
+		btnLogout.classList[selectedIndex === 1 ? 'remove' : 'add']('hidden');
 	}
 
 	if (selectedIndex === 1 || selectedIndex === getSubmitPageIndex() + 1) {
