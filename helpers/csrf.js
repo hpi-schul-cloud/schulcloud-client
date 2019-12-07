@@ -17,17 +17,20 @@ const csrfErrorHandler = (err, req, res, next) => {
 		// convert body object to array
 		res.locals.csrfToken = req.csrfToken();
 		// send base URL for opening in new tab
-		const baseUrl = (req.headers.origin || process.env.HOST || 'http://localhost:3100');
+		const baseUrl = (req.headers.origin);
 		const values = Object.keys(req.body).map(name => ({ name, value: req.body[name] }));
 		values.push({
 			name: 'csrfErrorcount',
 			value: '1',
 		});
+		// show only a reload button if not all data is present
+		const simpleView = (!baseUrl || !values);
 		res.render('lib/csrf', {
 			loggedin: res.locals.loggedin,
 			values,
 			previousError: (req.body.csrfErrorcount),
 			baseUrl,
+			simpleView,
 		});
 		return true;
 	}
