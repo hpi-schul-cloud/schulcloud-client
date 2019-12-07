@@ -105,7 +105,7 @@ $(document).ready(() => {
 			},
 		})
 			.done((data) => {
-				if(data.status && data.status === 'ok'){
+				if (data.status && data.status === 'ok') {
 					$.showNotification(
 						'Die Einladungs-E-Mail wurde erfolgreich versendet!',
 						'success',
@@ -118,7 +118,6 @@ $(document).ready(() => {
 						true,
 					);
 				}
-				
 				$this.attr('disabled', false);
 				$this.html(text);
 			})
