@@ -956,7 +956,7 @@ router.post(
 			.then((users) => {
 				if (users.total === 1) {
 					sendMailHandler(users.data[0], req, res, true);
-					res.status(200).send();
+					res.status(200).json({ status: 'ok' });
 				} else {
 					res.status(500).send();
 				}

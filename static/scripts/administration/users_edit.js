@@ -104,18 +104,27 @@ $(document).ready(() => {
 				patchUser: true,
 			},
 		})
-			.done(() => {
-				$.showNotification(
-					'Einladungs-E-Mail erfolgreich versendet',
-					'success',
-					true,
-				);
+			.done((data) => {
+				if(data.status && data.status === 'ok'){
+					$.showNotification(
+						'Die Einladungs-E-Mail wurde erfolgreich versendet!',
+						'success',
+						true,
+					);
+				} else {
+					$.showNotification(
+						'Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!',
+						'danger',
+						true,
+					);
+				}
+				
 				$this.attr('disabled', false);
 				$this.html(text);
 			})
 			.fail(() => {
 				$.showNotification(
-					'Fehler beim senden der Einladungs-E-Mail',
+					'Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!',
 					'danger',
 					true,
 				);
