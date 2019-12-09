@@ -1,0 +1,27 @@
+{{#extend "lib/loggedin"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/help/help.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/help.js" type="text/javascript" defer></script>
+    {{/content}}
+
+    {{#content "page"}}
+
+        {{> "help/search" class="md-2"}}
+
+        <div class="container">
+            <div class="row">
+                {{#embed "help/partials/help_contact"}}{{/embed}}
+                
+                {{#embed "help/icon-card" title="Sprachlicher Hinweis" icon="fa-magic" class="" id="sprachhinweis"}}
+                    {{#content "card-body"}}
+                        {{> "help/language-hint"}}
+                    {{/content}}
+                {{/embed}}
+            </div>
+        </div>
+    {{/content}}
+{{/extend}}
