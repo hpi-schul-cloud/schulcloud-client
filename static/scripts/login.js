@@ -1,6 +1,6 @@
 import './pwd.js';
 import './cleanup'; // see loggedin.js for loggedin users
-import {loginMessageBuilder} from './helpers/AlertMessageBuilder.js';
+import { MessageBuilder } from './helpers/AlertMessageBuilder.js';
 
 /* global introJs */
 $(document).ready(function() {
@@ -144,8 +144,9 @@ $(document).ready(function() {
         contentType: 'application/json',
         dataType: 'json',
         success(result) {
+            $('.alert-section').empty();
             result.forEach((message) => {
-                $('.alert-section').append(loginMessageBuilder(message));
+                $('.alert-section').append(MessageBuilder(message,false));
             });
         },
     });

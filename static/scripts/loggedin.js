@@ -3,7 +3,7 @@
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 import './cleanup'; // see login.js for loggedout users
-import {loggedinMessageBuilder} from './helpers/AlertMessageBuilder.js';
+import { MessageBuilder } from './helpers/AlertMessageBuilder.js';
 
 iFrameListen();
 
@@ -171,9 +171,10 @@ $(document).ready(function () {
 		success(result) {
 			if (result.length >= 1 && !$('body').hasClass('fullscreen')) {
 				$('.alert-button').css('visibility', 'visible');
-			}
+            }
+            $('.alert-button').find('.js-alert-content').empty();
 			result.forEach((message) => {
-                $('.alert-button').find('.js-alert-content').append(loggedinMessageBuilder(message))
+                $('.alert-button').find('.js-alert-content').append(MessageBuilder(message,true));
 			});
 		},
 	});
