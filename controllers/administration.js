@@ -2416,7 +2416,8 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 		});
 };
 
-const schoolUpdateHandler = async (req, res, next) => {
+const schoolFeatureUpdateHandler = async (req, res, next) => {
+	// Update rocketchat feature in school
 	const isChatAllowed = (res.locals.currentSchoolData.features || []).includes(
 		'rocketChat',
 	);
@@ -2440,11 +2441,38 @@ const schoolUpdateHandler = async (req, res, next) => {
 		});
 	}
 	delete req.body.rocketchat;
+
+	// Update videoconference feature in school
+	const videoconferenceEnabled = (res.locals.currentSchoolData.features || []).includes(
+		'videoconference',
+	);
+	if (!videoconferenceEnabled && req.body.videoconference === 'true') {
+		// enable feature
+		await api(req).patch(`/schools/${req.params.id}`, {
+			json: {
+				$push: {
+					features: 'videoconference',
+				},
+			},
+		});
+	} else if (videoconferenceEnabled && req.body.videoconference !== 'true') {
+		// remove rocketChat feature
+		await api(req).patch(`/schools/${req.params.id}`, {
+			json: {
+				$pull: {
+					features: 'videoconference',
+				},
+			},
+		});
+	}
+	delete req.body.videoconference;
+
+	// update other school properties
 	return getUpdateHandler('schools')(req, res, next);
 };
 
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
-router.patch('/schools/:id', schoolUpdateHandler);
+router.patch('/schools/:id', schoolFeatureUpdateHandler);
 router.post('/schools/:id/bucket', createBucket);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch(
