@@ -299,6 +299,7 @@ class TopicBlockList extends React.Component {
      * Render the list items.
      */
     render() {
+        const neXboardEnabled = $contentBlocksContainer.data('nexboardenabled');
         return (
             <div>
                 <SortableList
@@ -315,7 +316,7 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicText)}>+ Text</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}>+ GeoGebra Arbeitsblatt</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
+                        {neXboardEnabled ? <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button> : '' }
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>+ Aufgabe</button>
                     </div>
