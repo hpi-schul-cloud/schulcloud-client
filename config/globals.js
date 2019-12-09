@@ -1,0 +1,3 @@
+module.exports = {
+	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE: (5 * 1024 * 1024), // 5MB
+};

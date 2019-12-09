@@ -2,7 +2,7 @@ import livesearch from './helpers/livesearch';
 import { resizeIframes } from './helpers/iFrameResize';
 import './help/contactForm';
 
-const fileMaxSize = 5 * 1024 * 1024; // 5 MB
+const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE } = require('../../config/globals');
 
 $(document).ready(() => {
 	$('.btn-poll').on('click', (e) => {
@@ -45,7 +45,7 @@ Wenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hie
 				fileSize += this.files.item(i).size;
 			}
 		}
-		if (fileSize > fileMaxSize) {
+		if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE) {
 			if (this.files.length > 1) {
 				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> Die angehängten Dateien überschreitet die maximal zulässige Gesamtgröße!');
 			} else {
