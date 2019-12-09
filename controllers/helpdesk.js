@@ -4,7 +4,7 @@ const router = express.Router();
 const logger = require('winston');
 const UAParser = require('ua-parser-js');
 const api = require('../api');
-const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE } = require('../config/globals');
+const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/globals');
 
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
@@ -49,7 +49,7 @@ router.post('/', (req, res, next) => {
 		}
 		fileSize += element.size;
 	});
-	if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE) {
+	if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE) {
 		if (files.length > 1) {
 			throw new Error('Die angehängten Dateien überschreitet die maximal zulässige Gesamtgröße!');
 		} else {
