@@ -1,6 +1,7 @@
 import livesearch from './helpers/livesearch';
 import { resizeIframes } from './helpers/iFrameResize';
 import './help/contactForm';
+import text from './helpers/form_bug_text';
 
 const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../../config/globals');
 
@@ -14,16 +15,7 @@ $(document).ready(() => {
 	// only fill textarea if empty
 	if (!$('textarea[name= problemDescription]').val()) {
 		/* eslint-disable max-len */
-		$('textarea[name= problemDescription]').text(`Ich als [Nutzerrolle] 
-habe auf der Seite [???]
-die Funktion [???]
-aufgrund des Fehlers/der Fehlermeldung "[???]"
-nicht benutzen können.
-
-Tritt der Fehler auch bei anderen/ ähnlichen Bereichen (z.B. andere Kurse oder Nutzer) auf?
-Wie genau äußert sich das Problem?
-Wenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hier bitte so kurz und klar wie möglich beschreiben.
-`);
+		$('textarea[name= problemDescription]').text(text);
 	}
 
 	$('.form-control-file').change(function x() {
