@@ -299,7 +299,7 @@ class TopicBlockList extends React.Component {
      * Render the list items.
      */
     render() {
-        const neXboardEnabled = $contentBlocksContainer.data('nexboardenabled');
+        const neXboardEnabled = ($contentBlocksContainer.data('nexboardenabled') === true);
         return (
             <div>
                 <SortableList
