@@ -45,7 +45,7 @@ router.post('/', (req, res, next) => {
 		&& !element.mimetype.includes('video/')
 		&& !element.mimetype.includes('application/msword')
 		&& !element.mimetype.includes('application/pdf')) {
-			throw new Error(`"${element.name}" ist kein Bild, Video oder Textdatei!`);
+			throw new Error(`"${element.name}" ist kein Bild, Video oder zulässige Datei!`);
 		}
 		fileSize += element.size;
 	});

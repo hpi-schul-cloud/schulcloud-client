@@ -38,7 +38,7 @@ Wenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hie
 					form.find('.file-alert').html('');
 					form.find(':submit').prop('disabled', false);
 				} else {
-					form.find('.file-alert').html(`<i class="fa fa-exclamation"></i> "${this.files.item(i).name}" ist kein Bild oder Video`);
+					form.find('.file-alert').html(`<i class="fa fa-exclamation"></i> "${this.files.item(i).name}" ist kein Bild, Video oder zulässige Datei`);
 					form.find(':submit').prop('disabled', true);
 					return;
 				}
