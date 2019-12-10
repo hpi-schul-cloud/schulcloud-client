@@ -47,7 +47,7 @@ Wenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hie
 		}
 		if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE) {
 			if (this.files.length > 1) {
-				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> Die angehängten Dateien überschreitet die maximal zulässige Gesamtgröße!');
+				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!');
 			} else {
 				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> Die angehängte Datei überschreitet die maximal zulässige Größe!');
 			}

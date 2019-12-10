@@ -51,7 +51,7 @@ router.post('/', (req, res, next) => {
 	});
 	if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE) {
 		if (files.length > 1) {
-			throw new Error('Die angehängten Dateien überschreitet die maximal zulässige Gesamtgröße!');
+			throw new Error('Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!');
 		} else {
 			throw new Error('Die angehängte Datei überschreitet die maximal zulässige Größe!');
 		}
