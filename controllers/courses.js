@@ -3,6 +3,7 @@ const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
 const api = require('../api');
+const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
@@ -618,7 +619,7 @@ router.get('/:courseId/', (req, res, next) => {
 
 	// ########################### start requests to new Editor #########################
 	if (isNewEdtiroActivated) {
-		promises.push(api(req, { backend: 'editor' }).get(`course/${req.params.courseId}/lessons`));
+		promises.push(apiEditor(req).get(`course/${req.params.courseId}/lessons`));
 	}
 
 	// ############################ end requests to new Editor ##########################

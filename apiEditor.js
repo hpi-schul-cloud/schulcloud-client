@@ -1,6 +1,6 @@
 const rp = require('request-promise');
 
-const baseUrl = process.env.BACKEND_URL || 'http://localhost:3030/';
+const baseUrl = process.env.EDITOR_URL || 'http://localhost:4001';
 const { KEEP_ALIVE } = process.env;
 
 const api = (req, { json = true } = {}) => {
