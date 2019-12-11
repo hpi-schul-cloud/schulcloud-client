@@ -6,7 +6,7 @@ const app = require('../../../app');
 
 chai.use(chaiHttp);
 
-describe.only('Link tests', () => {
+describe('Link tests', () => {
 	before((done) => {
 		this.server = app.listen(3031);
 		this.server.once('listening', () => {
