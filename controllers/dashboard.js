@@ -16,7 +16,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 // secure routes
 router.use(authHelper.authChecker);
 
-const sendTestRequest = (req, res, id) => {
+const sendTestRequest = (req, res, id, browser) => {
 	const dt1 = Date.now();
 	return api(req).get('/testrun/').then((events) => {
 		const dt2 = Date.now();
@@ -26,6 +26,7 @@ const sendTestRequest = (req, res, id) => {
 			request_end: dt2,
 			client_delta: dt2 - dt1,
 			id,
+			browser,
 		};
 	}).catch((err) => {
 		res.json({ error: err });
@@ -34,10 +35,11 @@ const sendTestRequest = (req, res, id) => {
 
 router.get('/testrun', async (req, res, next) => {
 	const stack = [];
-	const numberOfRequests = 10000;
+	const numberOfRequests = 100000;
 	const start = Date.now();
+	const { browser } = req.query;
 	for (let i = 0; i < numberOfRequests; i += 1) {
-		stack.push(sendTestRequest(req, res, i));
+		stack.push(sendTestRequest(req, res, i, browser));
 	}
 	const requestsData = await Promise.all(stack);
 	const end = Date.now();
@@ -46,6 +48,7 @@ router.get('/testrun', async (req, res, next) => {
 		start,
 		end,
 		delta,
+		browser,
 		numberOfRequests,
 		requestsData,
 	});
