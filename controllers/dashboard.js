@@ -19,7 +19,7 @@ router.use(authHelper.authChecker);
 const sendTestRequest = (req, res, id, browser = 'noName', withServer = 1) => {
 	const dt1 = Date.now();
 
-	if (withServer === 1) {
+	if (Number(withServer) === 1) {
 		return api(req).get('/testrun/').then((events) => {
 			const dt2 = Date.now();
 			return {
@@ -50,12 +50,13 @@ router.get('/testrun', async (req, res, next) => {
 		browser,
 		requests = 10000,
 		server = 1,
+		details = 0,
 	} = req.query;
 
 	const stack = [];
 	const start = Date.now();
-
-	for (let i = 0; i < requests; i += 1) {
+	const max = Number(requests);
+	for (let i = 0; i < max; i += 1) {
 		stack.push(sendTestRequest(
 			req,
 			res,
@@ -64,7 +65,12 @@ router.get('/testrun', async (req, res, next) => {
 			server,
 		));
 	}
-	const requestsData = await Promise.all(stack);
+
+	let requestsData = await Promise.all(stack);
+	if (Number(details) === 0) {
+		requestsData = 'details disabled';
+	}
+
 	const end = Date.now();
 	const delta = end - start;
 	res.json({
