@@ -48,9 +48,26 @@ const sendTestRequest = (req, res, id, browser = 'noName', withServer = 1) => {
 let externLog = [];
 
 router.get('/log', (req, res) => {
+	const { short = 1 } = req.query;
+	const log = externLog.slice().sort((a, b) => {
+		let comparison = 0;
+		if (a.request_end > b.request_end) {
+			comparison = 1;
+		} else if (a.request_end < b.request_end) {
+			comparison = -1;
+		}
+		return comparison;
+	});
+
+	if (Number(short) === 0) {
+		res.json({
+			length: log.length,
+			log,
+		});
+	}
 	res.json({
-		length: externLog.length,
-		externLog,
+		length: log.length,
+		log: log.map(e => e.browser + e.id),
 	});
 });
 
@@ -85,6 +102,7 @@ router.get('/testrun', async (req, res, next) => {
 
 	let requestsData = await Promise.all(stack);
 	if (Number(extern) === 1) {
+		// TODO: nach request_end und id einordnen
 		externLog = [...externLog, ...requestsData];
 	}
 	if (Number(details) === 0) {
