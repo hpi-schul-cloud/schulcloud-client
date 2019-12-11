@@ -9,7 +9,7 @@ WORKDIR /home/node/app
 
 COPY ./package.json .
 COPY ./package-lock.json .
-RUN npm install -g nodemon gulp-cli && npm ci
+RUN npm install -g gulp-cli && npm ci
 
 COPY . .
 #COPY ./localtime /etc/localtime
