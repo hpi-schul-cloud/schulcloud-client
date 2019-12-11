@@ -510,39 +510,45 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 router.get('/shared/', (req, res) => {
 	const userId = res.locals.currentUser._id;
 
-	api(req).get('/files')
-		.then(async (result) => {
-			let { data } = result;
-			data = data
-				.filter(f => Boolean(f))
-				.filter((file) => {
-					if (file.owner === userId) {
-						return false;
-					}
-					const permission = file.permissions.find(perm => perm.refId === userId);
-					return permission ? !permission.write : false;
-				})
-				.map(addThumbnails);
+	api(req).get('/files', {
+		qs: {
+			$and: [
+				{ permissions: { $elemMatch: { refPermModel: 'user', refId: userId } } },
+				{ 'permissions.0.refId': { $ne: userId } },
+			],
+		},
+	}).then(async (result) => {
+		let { data } = result;
+		data = data
+			.filter(f => Boolean(f))
+			.filter((file) => {
+				if (file.owner === userId) {
+					return false;
+				}
+				const permission = file.permissions.find(perm => perm.refId === userId);
+				return permission ? !permission.write : false;
+			})
+			.map(addThumbnails);
 
-			const files = {
-				files: checkIfOfficeFiles(data.filter(f => !f.isDirectory)),
-				directories: data.filter(f => f.isDirectory),
-			};
+		const files = {
+			files: checkIfOfficeFiles(data.filter(f => !f.isDirectory)),
+			directories: data.filter(f => f.isDirectory),
+		};
 
-			res.render('files/files', Object.assign({
-				title: 'Dateien',
-				path: '/',
-				breadcrumbs: [{
-					label: 'Mit mir geteilte Dateien',
-					url: '/files/shared/',
-				}],
-				canUploadFile: false,
-				canCreateDir: false,
-				showSearch: true,
-				inline: req.query.inline || req.query.CKEditor,
-				CKEditor: req.query.CKEditor,
-			}, files));
-		});
+		res.render('files/files', Object.assign({
+			title: 'Dateien',
+			path: '/',
+			breadcrumbs: [{
+				label: 'Mit mir geteilte Dateien',
+				url: '/files/shared/',
+			}],
+			canUploadFile: false,
+			canCreateDir: false,
+			showSearch: true,
+			inline: req.query.inline || req.query.CKEditor,
+			CKEditor: req.query.CKEditor,
+		}, files));
+	});
 });
 
 router.get('/', (req, res, next) => {
