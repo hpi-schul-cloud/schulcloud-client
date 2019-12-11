@@ -16,6 +16,41 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 // secure routes
 router.use(authHelper.authChecker);
 
+const sendTestRequest = (req, res, id) => {
+	const dt1 = Date.now();
+	return api(req).get('/testrun/').then((events) => {
+		const dt2 = Date.now();
+		return {
+			request_start: dt1,
+			server: events,
+			request_end: dt2,
+			client_delta: dt2 - dt1,
+			id,
+		};
+	}).catch((err) => {
+		res.json({ error: err });
+	});
+};
+
+router.get('/testrun', async (req, res, next) => {
+	const stack = [];
+	const numberOfRequests = 10000;
+	const start = Date.now();
+	for (let i = 0; i < numberOfRequests; i += 1) {
+		stack.push(sendTestRequest(req, res, i));
+	}
+	const requestsData = await Promise.all(stack);
+	const end = Date.now();
+	const delta = end - start;
+	res.json({
+		start,
+		end,
+		delta,
+		numberOfRequests,
+		requestsData,
+	});
+});
+
 router.get('/', (req, res, next) => {
 	// we display time from 7 a.m. to 5 p.m.
 	const timeStart = 7;
