@@ -18,10 +18,9 @@ router.use(authHelper.authChecker);
 
 const sendTestRequest = (req, res, id, browser = 'noName', withServer = 1) => {
 	const dt1 = Date.now();
-	const apiRequest = api(req).get('/testrun/');
 
 	if (withServer === 1) {
-		return apiRequest.then((events) => {
+		return api(req).get('/testrun/').then((events) => {
 			const dt2 = Date.now();
 			return {
 				request_start: dt1,
