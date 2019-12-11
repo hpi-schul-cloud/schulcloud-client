@@ -45,12 +45,29 @@ const sendTestRequest = (req, res, id, browser = 'noName', withServer = 1) => {
 	};
 };
 
+let externLog = [];
+
+router.get('/log', (req, res) => {
+	res.json({
+		length: externLog.length,
+		externLog,
+	});
+});
+
+router.get('/clear', (req, res) => {
+	externLog = [];
+	res.json({
+		externLog,
+	});
+});
+
 router.get('/testrun', async (req, res, next) => {
 	const {
 		browser,
 		requests = 10000,
 		server = 1,
 		details = 0,
+		extern = 0,
 	} = req.query;
 
 	const stack = [];
@@ -67,10 +84,12 @@ router.get('/testrun', async (req, res, next) => {
 	}
 
 	let requestsData = await Promise.all(stack);
+	if (Number(extern) === 1) {
+		externLog = [...externLog, ...requestsData];
+	}
 	if (Number(details) === 0) {
 		requestsData = 'details disabled';
 	}
-
 	const end = Date.now();
 	const delta = end - start;
 	res.json({
