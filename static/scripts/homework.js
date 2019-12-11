@@ -61,7 +61,10 @@ window.addEventListener("DOMContentLoaded", function(){
     if(!filterModule){return;}
     filterModule.addEventListener('newFilter', (e) => {
         const filter = e.detail;
-        const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
+        const newurl = `?filterQuery=${
+            escape(JSON.stringify(filter[0]))
+        }&p=${
+            getQueryParameterByName('p')}`;
         softNavigate(newurl, ".homework", ".pagination");
     });
 	document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
