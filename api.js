@@ -26,6 +26,7 @@ const api = (req, { useCallback = false, json = true, backend = 'server' } = {})
 		baseUrl,
 		json,
 		headers,
+		timeout: 60 * 1000,
 	});
 };
 
