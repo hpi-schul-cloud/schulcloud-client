@@ -42,7 +42,7 @@ if (SENTRY_DSN) {
 	Sentry.configureScope((scope) => {
 		scope.setTag('frontend', false);
 		scope.setLevel('warning');
-		scope.setTag('domain', SC_DOMAIN || 'localhost');
+		scope.setTag('domain', SC_DOMAIN);
 		scope.setTag('sha', sha);
 	});
 	app.use(Sentry.Handlers.requestHandler());
