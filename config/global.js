@@ -10,6 +10,7 @@ const {
 	SC_THEME = 'default',
 	REDIS_URI,
 	REQUEST_TIMEOUT = 15000, // 15 sec
+	NODE_ENV = 'development',
 } = process.env;
 
 const exp = {
@@ -21,6 +22,7 @@ const exp = {
 	SC_THEME,
 	REDIS_URI,
 	REQUEST_TIMEOUT,
+	NODE_ENV,
 };
 
 logger.info(util.inspect(exp, { depth: 1, compact: false }));
