@@ -9,6 +9,7 @@ const {
 	SC_DOMAIN = 'localhost',
 	SC_THEME = 'default',
 	REDIS_URI,
+	REQUEST_TIMEOUT = 15000, // 15 sec
 } = process.env;
 
 const exp = {
@@ -19,6 +20,7 @@ const exp = {
 	SC_DOMAIN,
 	SC_THEME,
 	REDIS_URI,
+	REQUEST_TIMEOUT,
 };
 
 logger.info(util.inspect(exp, { depth: 1, compact: false }));

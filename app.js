@@ -204,6 +204,10 @@ app.use((err, req, res, next) => {
 	} else {
 		res.locals.message = err.message;
 	}
+
+	if (err.message.includes('ESOCKETTIMEDOUT')) {
+		Sentry.captureMessage(`ESOCKETTIMEDOUT by route: ${err.options.baseUrl + err.options.uri}`);
+	}
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
 	if (res.locals.currentUser) res.locals.loggedin = true;

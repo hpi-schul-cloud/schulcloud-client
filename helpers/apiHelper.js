@@ -1,4 +1,5 @@
 const rp = require('request-promise');
+const { REQUEST_TIMEOUT } = require('../config/global');
 
 const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true } = {}) => {
 	const headers = {};
@@ -11,7 +12,7 @@ const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true } = {})
 
 	return rp.defaults({
 		baseUrl,
-		timeout: 30 * 1000, // ms
+		timeout: REQUEST_TIMEOUT,
 		json,
 		headers,
 	});

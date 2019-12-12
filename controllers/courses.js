@@ -416,6 +416,7 @@ router.get('/', (req, res, next) => {
 	const importToken = req.query.import;
 
 	Promise.all([
+		api(req).get('testrun'),
 		api(req).get(`/users/${userId}/courses/`, {
 			qs: {
 				filter: 'active',
