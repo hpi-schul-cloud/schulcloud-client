@@ -158,7 +158,7 @@ app.use(async (req, res, next) => {
 	res.locals.domain = SC_DOMAIN;
 	res.locals.production = req.app.get('env') === 'production';
 	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
-	res.locals.SENTRY_DSN = SENTRY_DSN || false;
+	res.locals.SENTRY_DSN = SENTRY_DSN;
 	res.locals.version = version;
 	res.locals.sha = sha;
 	delete req.session.notification;
@@ -205,7 +205,7 @@ app.use((err, req, res, next) => {
 		res.locals.message = err.message;
 	}
 
-	if (err.message.includes('ESOCKETTIMEDOUT')) {
+	if (res.locals && res.locals.message.includes('ESOCKETTIMEDOUT') && err.options) {
 		const message = `ESOCKETTIMEDOUT by route: ${err.options.baseUrl + err.options.uri}`;
 		logger.warn(message);
 		Sentry.captureMessage(message);

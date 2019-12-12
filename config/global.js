@@ -5,7 +5,7 @@ const {
 	KEEP_ALIVE = false,
 	BACKEND_URL = 'http://localhost:3030/',
 	EDITOR_URL = 'http://localhost:4001',
-	SENTRY_DSN,
+	SENTRY_DSN = false,
 	SC_DOMAIN = 'localhost',
 	SC_THEME = 'default',
 	REDIS_URI,
