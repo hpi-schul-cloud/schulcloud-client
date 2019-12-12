@@ -11,6 +11,7 @@ const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true } = {})
 
 	return rp.defaults({
 		baseUrl,
+		timeout: 30 * 1000, // ms
 		json,
 		headers,
 	});
