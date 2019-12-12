@@ -206,7 +206,9 @@ app.use((err, req, res, next) => {
 	}
 
 	if (err.message.includes('ESOCKETTIMEDOUT')) {
-		Sentry.captureMessage(`ESOCKETTIMEDOUT by route: ${err.options.baseUrl + err.options.uri}`);
+		const message = `ESOCKETTIMEDOUT by route: ${err.options.baseUrl + err.options.uri}`;
+		logger.warn(message);
+		Sentry.captureMessage(message);
 	}
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
