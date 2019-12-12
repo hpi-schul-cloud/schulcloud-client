@@ -135,6 +135,10 @@ $(document).ready(function () {
     });
 
 	// Auto Loggout
+	const maxTotalRetrys = 1;
+	let rst = rstDefault; // remaining session time in min
+	let processing = false;
+
 	populateModalForm($autoLoggoutAlertModal, {
 		title: 'Achtung',
 	});
@@ -143,18 +147,13 @@ $(document).ready(function () {
 		$autoLoggoutAlertModal.modal('show');
 		$autoLoggoutAlertModal.find('.modal-header').remove();
 		if (text === 'error') {
-			$autoLoggoutAlertModal.find('.sloth-text').hide();
-			$autoLoggoutAlertModal.find('.sloth-text-error').show();
+			$autoLoggoutAlertModal.find('.sloth-default').hide();
+			$autoLoggoutAlertModal.find('.sloth-error').show();
 		} else {
-			$autoLoggoutAlertModal.find('.sloth-text').show();
-			$autoLoggoutAlertModal.find('.sloth-text-error').hide();
+			$autoLoggoutAlertModal.find('.sloth-default').show();
+			$autoLoggoutAlertModal.find('.sloth-error').hide();
 		}
 	});
-
-	const maxTotalRetrys = 1;
-	let rst = rstDefault; // remaining session time in min
-	let totalRetry = 0;
-	let retry = 0;
 
 	const decRst = (() => {
 		setTimeout(() => {
@@ -163,12 +162,12 @@ $(document).ready(function () {
 				$('.js-time').text(rst);
 				// show auto loggout alert modal 60 mins before
 				// don't show modal on retrys or totalRetry =/= 0
-				if (retry === 0 && totalRetry === 0 && rst <= 60) {
+				if (!processing && rst <= 120) {
 					showAutoLogoutModal();
 				}
 				decRst();
 			}
-		}, 1000 * 60);
+		}, 1000 * 5);
 	});
 
 	// Sync rst with Server
@@ -182,15 +181,18 @@ $(document).ready(function () {
 					console.error('Could not get remaining session time');
 				}
 			}));
-		}, 1000 * 60 * 5);
+		}, 1000 * 20);
 	});
 
+	let retry = 0;
+	let totalRetry = 0;
 	// extend session
 	const IStillLoveYou = (async () => {
 		$.post('/account/ttl', { resetTimer: 'true' }, () => {
 			// on success
-            totalRetry = 0;
-            retry = 0;
+			processing = false;
+			totalRetry = 0;
+			retry = 0;
 			rst = rstDefault;
 			$.showNotification('Sitztung erfolgreich verlängert!', 'success', true);
 		}).fail(() => {
@@ -199,7 +201,7 @@ $(document).ready(function () {
 				retry += 1;
 				setTimeout(() => {
 					IStillLoveYou();
-				}, 1000 + retry * 2000);
+				}, (2 ** retry) * 1000);
 			} else {
 				retry = 0;
 				if (totalRetry === maxTotalRetrys) {
@@ -219,10 +221,12 @@ $(document).ready(function () {
 	$autoLoggoutAlertModal.find('.btn-incRst').on('click', (e) => {
 		e.stopPropagation();
 		e.preventDefault();
+		processing = true;
 		$autoLoggoutAlertModal.modal('hide');
 	});
 
 	$autoLoggoutAlertModal.on('hidden.bs.modal', () => {
+		processing = true;
 		IStillLoveYou();
 	});
 
