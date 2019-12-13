@@ -3,6 +3,7 @@ const express = require('express');
 const shortId = require('shortid');
 const Nexboard = require('nexboard-api-js');
 const api = require('../api');
+const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
 
@@ -343,7 +344,7 @@ router.get('/:topicId/edit', editTopicHandler);
 // ########################################## new Edtiro ############################################
 
 router.get('/add/neweditor', async (req, res, next) => {
-	const lesson = await api(req, { backend: 'editor' }).post(`/course/${req.params.courseId}/lessons`, {
+	const lesson = await apiEditor(req).post(`/course/${req.params.courseId}/lessons`, {
 		title: '',
 	});
 
@@ -357,7 +358,7 @@ router.patch('/:topicId/neweditor', async (req, res, next) => {
 		// const visible = !hidden;
 		// TODO root have to be implement
 	} else {
-		api(req, { backend: 'editor' }).patch(`course/${req.params.courseId}/lessons/${req.params.topicId}`, {
+		apiEditor(req).patch(`course/${req.params.courseId}/lessons/${req.params.topicId}`, {
 			data,
 		}).then(() => {
 			res.sendStatus(200);
@@ -368,7 +369,7 @@ router.patch('/:topicId/neweditor', async (req, res, next) => {
 });
 
 router.delete('/:topicId/neweditor', async (req, res, next) => {
-	api(req, { backend: 'editor' }).delete(`course/${req.params.courseId}/lessons/${req.params.topicId}`).then(() => {
+	apiEditor(req).delete(`course/${req.params.courseId}/lessons/${req.params.topicId}`).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		next(err);
