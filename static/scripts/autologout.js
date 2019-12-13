@@ -33,7 +33,7 @@ $(document).ready(() => {
 				}
 				decRst();
 			}
-		}, 1000 * 5);
+		}, 1000 * 60);
 	});
 
 	// Sync rst with Server every 5 mins
@@ -43,11 +43,9 @@ $(document).ready(() => {
 				const { ttl } = result; // in sec
 				if (typeof ttl === 'number') {
 					rst = ttl;
-				} else {
-					console.error('Could not get remaining session time');
 				}
 			}));
-		}, 1000 * 20);
+		}, 1000 * 60 * 5);
 	});
 
 	let retry = 0;
