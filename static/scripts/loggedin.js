@@ -74,10 +74,6 @@ $(document).ready(function () {
     // Init modals
     var $modals = $('.modal');
     var $featureModal = $('.feature-modal');
-    var $autoLoggoutAlertModal = $('.auto-loggout-alert-modal');
-
-    // default remaining session time in min
-    const rstDefault = ($autoLoggoutAlertModal.find('.form-group').data('rstDefault') / 60) || 120;
 
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
@@ -133,103 +129,6 @@ $(document).ready(function () {
         title: 'Neue Features sind verfügbar',
         closeLabel: 'Abbrechen'
     });
-
-	// Auto Loggout
-	const maxTotalRetrys = 1;
-	let rst = rstDefault; // remaining session time in min
-	let processing = false;
-
-	populateModalForm($autoLoggoutAlertModal, {
-		title: 'Achtung',
-	});
-
-	const showAutoLogoutModal = ((text) => {
-		$autoLoggoutAlertModal.modal('show');
-		$autoLoggoutAlertModal.find('.modal-header').remove();
-		if (text === 'error') {
-			$autoLoggoutAlertModal.find('.sloth-default').hide();
-			$autoLoggoutAlertModal.find('.sloth-error').show();
-		} else {
-			$autoLoggoutAlertModal.find('.sloth-default').show();
-			$autoLoggoutAlertModal.find('.sloth-error').hide();
-		}
-	});
-
-	const decRst = (() => {
-		setTimeout(() => {
-			if (rst !== 0) {
-				rst -= 1;
-				$('.js-time').text(rst);
-				// show auto loggout alert modal 60 mins before
-				// don't show modal while processing
-				if (!processing && rst <= 60) {
-					showAutoLogoutModal();
-				}
-				decRst();
-			}
-		}, 1000 * 60);
-	});
-
-	// Sync rst with Server ever 5 mins
-	const syncRst = (() => {
-		setInterval(() => {
-			$.post('/account/ttl', ((result) => {
-				const { ttl } = result; // in sec
-				if (typeof ttl === 'number') {
-					rst = ttl / 60;
-				} else {
-					console.error('Could not get remaining session time');
-				}
-			}));
-		}, 1000 * 60 * 5);
-	});
-
-	let retry = 0;
-	let totalRetry = 0;
-	// extend session
-	const IStillLoveYou = (async () => {
-		$.post('/account/ttl', { resetTimer: 'true' }, () => {
-			// on success
-			processing = false;
-			totalRetry = 0;
-			retry = 0;
-			rst = rstDefault;
-			$.showNotification('Sitzung erfolgreich verlängert.', 'success', true);
-		}).fail(() => {
-			// retry 4 times before showing error
-			if (retry < 4) {
-				retry += 1;
-				setTimeout(() => {
-					IStillLoveYou();
-				}, (2 ** retry) * 1000);
-			} else {
-				retry = 0;
-				if (totalRetry === maxTotalRetrys) {
-					/* eslint-disable-next-line max-len */
-					$.showNotification('Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.', 'danger', false);
-				} else {
-					showAutoLogoutModal('error');
-				}
-				totalRetry += 1;
-			}
-		});
-	});
-
-	decRst(); // dec. rst
-	syncRst(); // Sync rst with Server
-
-	$autoLoggoutAlertModal.find('.btn-incRst').on('click', (e) => {
-		e.stopPropagation();
-		e.preventDefault();
-		processing = true;
-		$autoLoggoutAlertModal.modal('hide');
-	});
-
-    // on modal close (button or backdrop)
-	$autoLoggoutAlertModal.on('hidden.bs.modal', () => {
-		processing = true;
-		IStillLoveYou();
-	});
 
     // from: https://stackoverflow.com/a/187557
     jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function (arg) {

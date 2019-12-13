@@ -15,6 +15,7 @@
 
     {{#content "scripts" mode="append"}}
         <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
+        <script src="/scripts/autologout.js" type="text/javascript" defer></script>
         <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" defer></script>
         <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
         <script type="text/javascript" src="/vendor/feathersjs/feathers.js" defer></script>
@@ -234,7 +235,7 @@
     {{/content}}
 {{/extend}}
 
-{{#embed "lib/components/modal" class="auto-loggout-alert-modal"}}
+{{#embed "lib/components/modal" class="auto-logout-alert-modal"}}
     {{#content "body"}}
         {{> "lib/forms/form-auto-logout-alert"}}
     {{/content}}
