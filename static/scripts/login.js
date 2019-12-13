@@ -62,10 +62,6 @@ $(document).ready(function() {
     var loadSystems = function(schoolId) {
         $systems.empty();
         $.getJSON('/login/systems/' + schoolId, function(systems) {
-            if (systems.length < 2){
-                $systems.parent().hide()
-                return;
-            }
             systems.forEach(function(system) {
                 var systemAlias = system.alias ? ' (' + system.alias + ')' : '';
                 let selected;
@@ -77,6 +73,10 @@ $(document).ready(function() {
             $systems.trigger('chosen:updated');
             systems.length == 1 ? $systems.parent().hide() : $systems.parent().show();
         });
+        if (systems.length < 2){
+            $systems.parent().hide()
+            return;
+        }
     };
 
     $btnToggleProviers.on('click', function(e) {
