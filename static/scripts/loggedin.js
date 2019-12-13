@@ -77,7 +77,7 @@ $(document).ready(function () {
     var $autoLoggoutAlertModal = $('.auto-loggout-alert-modal');
 
     // default remaining session time in min
-    const rstDefault = $autoLoggoutAlertModal.find('.form-group').data('rstDefault') || 120;
+    const rstDefault = ($autoLoggoutAlertModal.find('.form-group').data('rstDefault') / 60) || 120;
 
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
@@ -161,8 +161,8 @@ $(document).ready(function () {
 				rst -= 1;
 				$('.js-time').text(rst);
 				// show auto loggout alert modal 60 mins before
-				// don't show modal on retrys or totalRetry =/= 0
-				if (!processing && rst <= 120) {
+				// don't show modal while processing
+				if (!processing && rst <= 60) {
 					showAutoLogoutModal();
 				}
 				decRst();
@@ -170,11 +170,11 @@ $(document).ready(function () {
 		}, 1000 * 60);
 	});
 
-	// Sync rst with Server
+	// Sync rst with Server ever 5 mins
 	const syncRst = (() => {
 		setInterval(() => {
 			$.post('/account/ttl', ((result) => {
-				const { ttl } = result;
+				const { ttl } = result; // in sec
 				if (typeof ttl === 'number') {
 					rst = ttl / 60;
 				} else {
@@ -194,9 +194,9 @@ $(document).ready(function () {
 			totalRetry = 0;
 			retry = 0;
 			rst = rstDefault;
-			$.showNotification('Sitztung erfolgreich verlängert!', 'success', true);
+			$.showNotification('Sitzung erfolgreich verlängert.', 'success', true);
 		}).fail(() => {
-			// retry 5 times before showing error
+			// retry 4 times before showing error
 			if (retry < 4) {
 				retry += 1;
 				setTimeout(() => {
@@ -206,7 +206,7 @@ $(document).ready(function () {
 				retry = 0;
 				if (totalRetry === maxTotalRetrys) {
 					/* eslint-disable-next-line max-len */
-					$.showNotification('Deine Sitzung konnte nicht verlängert werden! Bitte speichere ggf. deine Arbeit und lade die Seite neu', 'danger', false);
+					$.showNotification('Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.', 'danger', false);
 				} else {
 					showAutoLogoutModal('error');
 				}
@@ -225,6 +225,7 @@ $(document).ready(function () {
 		$autoLoggoutAlertModal.modal('hide');
 	});
 
+    // on modal close (button or backdrop)
 	$autoLoggoutAlertModal.on('hidden.bs.modal', () => {
 		processing = true;
 		IStillLoveYou();

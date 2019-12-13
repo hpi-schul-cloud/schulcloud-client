@@ -25,19 +25,19 @@
     }
     }
 </style>
-<div class="form-group" data-rst-default="{{JWT_TIMEOUT_SECONDS}}">
+<div class="form-group" data-rst-default="{{#env "JWT_TIMEOUT_SECONDS"}}{{/env}}">
 <div class="text-center">
     <img src="/images/sloth.svg" class="sloth sloth-default"/>
     <img src="/images/sloth_error.svg" class="sloth sloth-error"/>
     <div class="sloth-text sloth-default">
-        Achtung, du wirdst in <br>
-        <span style="color: red; font-size: larger;"><span class="js-time">n/a</span> Minuten</span> automatisch Ausgeloggt! <br>
-        Klicke OK und deine Sitzung wird um weitere zwei Stunden verlänegrt.
+        Achtung: Du wirst in <br>
+        <span style="color: red; font-size: larger;"><span class="js-time">n/a</span> Minuten</span> automatisch Ausgeloggt. <br>
+        Verlängere jetzt deine Sitzung auf zwei Stunden.
     </div>
     <div class="sloth-text sloth-error">
         </br>
-        Upps... das hätte nich passieren dürfen! </br> 
-        Deine Sitzung konnte nicht verlängert werden. Versuchen wir es gleich nochmal
+        Uups… das hätte nicht passieren dürfen! </br> 
+        Deine Sitzung konnte nicht verlängert werden. Bitte versuche es gleich noch einmal.
     </div>
 </div>
 <div style="text-align: center; padding: 0 8px; margin-bottom: 30px;">

@@ -127,6 +127,12 @@ module.exports = {
 		}
 		return options.fn(this);
 	},
+	env: (env_variable, options) => {
+		if (process.env[env_variable] !== undefined) {
+			return process.env[env_variable];
+		}
+		return options.inverse(this);
+	},
 	userHasPermission: (permission, opts) => {
 		if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
 			return opts.fn(this);
