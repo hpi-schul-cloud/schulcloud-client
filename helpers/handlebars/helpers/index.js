@@ -127,9 +127,9 @@ module.exports = {
 		}
 		return options.fn(this);
 	},
-	env: (env_variable, options) => {
-		if (process.env[env_variable] !== undefined) {
-			return process.env[env_variable];
+	env: (envVariable, options) => {
+		if (process.env[envVariable] !== undefined) {
+			return process.env[envVariable];
 		}
 		return options.inverse(this);
 	},
