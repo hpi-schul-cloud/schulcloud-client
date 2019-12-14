@@ -3,6 +3,7 @@ const moment = require('moment');
 const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
 const permissionsHelper = require('../../permissions');
+const global = require('../../../config/global');
 
 moment.locale('de');
 
@@ -127,9 +128,9 @@ module.exports = {
 		}
 		return options.fn(this);
 	},
-	env: (envVariable, options) => {
-		if (process.env[envVariable] !== undefined) {
-			return process.env[envVariable];
+	global: (globalVariable, options) => {
+		if (global[globalVariable] !== undefined) {
+			return global[globalVariable];
 		}
 		return options.inverse(this);
 	},

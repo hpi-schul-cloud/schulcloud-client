@@ -11,6 +11,7 @@ const {
 	REDIS_URI,
 	REQUEST_TIMEOUT = 15000, // 15 sec
 	NODE_ENV = 'development',
+	JWT_SHOW_TIMEOUT_WARNING_SECONDS = 3600, // 60 min
 } = process.env;
 
 const exp = {
@@ -23,6 +24,7 @@ const exp = {
 	REDIS_URI,
 	REQUEST_TIMEOUT,
 	NODE_ENV,
+	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 };
 
 logger.info(util.inspect(exp, { depth: 1, compact: false }));
