@@ -10,6 +10,7 @@ $(document).ready(() => {
 	populateModalForm($autoLoggoutAlertModal, {});
 
 	const showAutoLogoutModal = ((status) => {
+		// switching between  to texts inlcuded in the modal
 		if (status === 'error') {
 			$autoLoggoutAlertModal.find('.sloth-default').hide();
 			$autoLoggoutAlertModal.find('.sloth-error').show();
