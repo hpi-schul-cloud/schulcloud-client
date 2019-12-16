@@ -1,7 +1,8 @@
 $(document).ready(() => {
 	const $autoLoggoutAlertModal = $('.auto-logout-alert-modal');
-	const rstDefault = 7200; // default remaining session time in sec
 	const showModalOnRemainingSeconds = $autoLoggoutAlertModal.find('.form-group').data('showOnRemainingSec') || 3600;
+	// default remaining session time in sec, will be overwritten by server
+	const rstDefault = showModalOnRemainingSeconds * 2;
 	const maxTotalRetrys = 1;
 
 	let rst = rstDefault; // remaining session time in sec
