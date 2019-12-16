@@ -160,7 +160,7 @@ app.use(async (req, res, next) => {
 	res.locals.production = req.app.get('env') === 'production';
 	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
 	res.locals.SENTRY_DSN = SENTRY_DSN;
-	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = JWT_SHOW_TIMEOUT_WARNING_SECONDS;
+	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
 	res.locals.version = version;
 	res.locals.sha = sha;
 	delete req.session.notification;
