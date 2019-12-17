@@ -71,12 +71,8 @@ $(document).ready(function() {
                 $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '">' + system.type + systemAlias + '</option>');
             });
             $systems.trigger('chosen:updated');
-            systems.length == 1 ? $systems.parent().hide() : $systems.parent().show();
+            systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
         });
-        if (systems.length < 2){
-            $systems.parent().hide()
-            return;
-        }
     };
 
     $btnToggleProviers.on('click', function(e) {
