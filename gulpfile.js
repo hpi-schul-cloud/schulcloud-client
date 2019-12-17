@@ -238,6 +238,7 @@ const globPatterns = [
 	'images/footer-logo.png',
 	'scripts/all.js',
 	'scripts/loggedin.js',
+	'scripts/autologout.js',
 	'scripts/calendar.js',
 	'scripts/dashboard.js',
 	'scripts/courses.js',
