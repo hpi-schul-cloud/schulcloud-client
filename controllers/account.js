@@ -116,4 +116,17 @@ router.post('/preferences', (req, res, next) => {
 		.catch(() => 'Es ist ein Fehler bei den Präferenzen aufgetreten!');
 });
 
+router.post('/ttl', (req, res, next) => {
+	if (req.body.resetTimer) {
+		api(req).post('/accounts/jwtTimer')
+			.then(result => res.sendStatus(200))
+			.catch(() => res.status(500).send('Could not update remaining session time'));
+	} else {
+		api(req).get('/accounts/jwtTimer')
+			.then(result => res.send(result))
+			.catch(() => res.status(500).send('Could not get remaining session time'));
+	}
+});
+
+
 module.exports = router;
