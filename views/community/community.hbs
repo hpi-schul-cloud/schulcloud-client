@@ -7,59 +7,82 @@
             {{#unless loggedin}}
 				<h2 class="section-title center">{{title}}</h2>
             {{/unless}}
-            <h3 class="section-title center">Schulen</h3>
-            <h4>Wie bewerben sich MINT-EC Schulen?</h4>
-            <p>
-				Alle 316 Schulen aus dem MINT-EC-Schulnetzwerk können sich für die Teilnahme am Projekt „HPI Schul-Cloud“ anmelden. Um Pilotschule zu werden loggen Sie sich bitte mit Ihrem Profil auf der Website des MINT-EC ein und füllen Sie das Formular aus.
-				<br/><br/>
-				<a href="https://www.mint-ec.de/schulnetzwerk/hpi-schul-cloud/mitmachen/" target="_blank">Zur Anmeldung</a>
-				<br/><br/>
-				<b>Die nächsten Starttermine:</b>
-                <ul>
-                    <li>1. Schulhalbjahr 2019/2020</li>
-                    <li>2. Schulhalbjahr 2019/2020</li>
-                    <li>1. Schulhalbjahr 2020/2021</li>
-                </ul>
-            </p>
-            <p>
-                Auf der <a href="https://www.mint-ec.de/schulnetzwerk/hpi-schul-cloud/mitmachen/" target="_blank">MINT-EC-Website</a> finden Schulen weitere hilfreiche Informationen für den Einstieg in die HPI Schul-Cloud, wie etwa Rahmenbedingungen zur Teilnahme,
-                Unterstützung bei der Anmeldung und Nutzung sowie Möglichkeiten das Pilotprojekt aktiv mitzugestalten. Bei Fragen wenden Sie sich gerne an das Team „HPI Schul-Cloud“ von MINT-EC:
-                <ul>
-                    <li>E-Mail: <a href="mailto:schul-cloud@mint-ec.de" target="_blank" rel="noopener">schul-cloud@mint-ec.de</a></li>
-                    <li>Telefon: +49 (0)30 400 067 47</li>
-                </ul>
+            <h4>Jetzt die HPI Schul-Cloud nutzen?</h4>
 
-            </p>
-
-            <h4>Können auch nicht MINT-EC Schulen die HPI Schul-Cloud erproben?</h4>
-            <p>
-                Ja, wir freuen uns sehr die HPI Schul-Cloud ab sofort allen interessierten Schulen in Deutschland anzubieten!<br />
+            <img src="/images/community.png" width="755px">
+            <p class="mt-2">
+                Wir freuen uns sehr die HPI Schul-Cloud ab sofort allen interessierten Schulen in Deutschland anzubieten!<br />
                 Schreiben Sie einfach eine E-Mail an <a href="mailto:info@schul-cloud.org" target="_blank" rel="noopener">info@schul-cloud.org</a> und wir vereinbaren einen gemeinsamen Telefontermin, in welchem wir uns über Ihre Bedarfe und Wünsche zum Einsatz der HPI Schul-Cloud austauschen. 
             </p>
             <p>
 			<a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/flyer/Schul-Cloud_Technische_Vorbereitungen.pdf" target="_blank" rel="noopener">Hier</a> können Sie bereits einsehen, welche Hinweise bei der Vorbereitung auf eine mögliche HPI Schul-Cloud Nutzung helfen können.
 			</p>
+
+            <div class="accordion" id="accordionMint">
+                <div>
+                    <div id="headingMint">
+                        <button class="btn btn-link collapsed" style="padding: 0; font-weight: bold !important;" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" onclick="$(this).find('i').toggleClass('fa fa-angle-up fa fa-angle-down');">
+                            <i class="fa fa-angle-down"></i> Als MINT-EC-Schule mitmachen
+                        </button>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingMint" data-parent="#accordionMint">
+                        <div style="padding: 15px; border-left: solid 1px #cccccc">
+                        <p>
+                    		Alle 316 Schulen aus dem MINT-EC-Schulnetzwerk können sich für die Teilnahme am Projekt „HPI Schul-Cloud“ anmelden. Um Pilotschule zu werden loggen Sie sich bitte mit Ihrem Profil auf der Website des MINT-EC ein und füllen Sie das Formular aus.
+				            <br/><br/>
+				            <a href="https://www.mint-ec.de/schulnetzwerk/hpi-schul-cloud/mitmachen/" target="_blank">Zur Anmeldung</a>
+				            <br/><br/>
+				            <b>Die nächsten Starttermine:</b>
+                            <ul>
+                                <li>1. Schulhalbjahr 2019/2020</li>
+                                <li>2. Schulhalbjahr 2019/2020</li>
+                                <li>1. Schulhalbjahr 2020/2021</li>
+                            </ul>
+                        </p>
+                        <p>
+                            Auf der <a href="https://www.mint-ec.de/schulnetzwerk/hpi-schul-cloud/mitmachen/" target="_blank">MINT-EC-Website</a> finden Schulen weitere hilfreiche Informationen für den Einstieg in die HPI Schul-Cloud, wie etwa Rahmenbedingungen zur Teilnahme,
+                            Unterstützung bei der Anmeldung und Nutzung sowie Möglichkeiten das Pilotprojekt aktiv mitzugestalten. Bei Fragen wenden Sie sich gerne an das Team „HPI Schul-Cloud“ von MINT-EC:
+                            <ul>
+                                <li>E-Mail: <a href="mailto:schul-cloud@mint-ec.de" target="_blank" rel="noopener">schul-cloud@mint-ec.de</a></li>
+                                <li>Telefon: +49 (0)30 400 067 47</li>
+                            </ul>
+                            </p>        
+                        </div>
+                    </div>
+                </div>
+            </div>
             <br />
 		{{/content}}
 	{{/embed}}
 	{{#embed "authentication/section" style="primary" class="content-width-max"}}
 		{{#content "body"}}
 			<h3 class="section-title center">Landesinitiativen</h3>
-            <h4>Niedersächsische Bildungscloud</h4>
-            <p>Seit Februar 2018 kooperiert das Projekt HPI Schul-Cloud mit der niedersächsischen Bildungscloud der <a target='_blank' rel='noopener' href='http://www.n-21.de'>Landesinitiative n-21</a>.
-            Die Projektschulen der Niedersächsischen Bildungscloud werden an die HPI Schul-Cloud angebunden und können diese
-                mit einer individualisierten Oberfläche nutzen. Die Kooperation ermöglicht einen engen Erfahrungsaustausch, von dem
-                beide Seiten profitieren werden. Zudem wird erprobt, wie die HPI Schul-Cloud länderspezifisch und schulformübergreifend
-                effizient eingesetzt werden kann. Weitere Informationen zu der Kooperation mit der niedersächsischen Bildungscloud
-                können Sie hier einsehen: <a target='_blank' rel='noopener' href='https://hpi.de/pressemitteilungen/2018/digitalisierung-niedersaechsische-bildungscloud-und-bundesweite-schul-cloud-starten-kooperation-auf-der-didacta.html'>Pressemitteilung vom Februar 2018</a>
-            </p>
-            <h4>Schul-Cloud Brandenburg</h4>
             <p>
-            Seit dem Frühjahr 2019 kooperieren wir neben dem Land Niedersachsen auch mit Brandenburg. Vom 1. August 2019 bis zum 31. Juli 2021 läuft das Pilotprojekt, in dem 51 Schulen aus dem Programm "medienfit" die HPI Schul-Cloud nutzen und in ihren Schulalltag einbeziehen. Drei weitere brandenburgische Schulen, die gleichzeitig im Programm "medienfit" und im MINT-EC-Netzwerk sind, werden ebenfalls einbezogen. Für die Schul-Cloud Brandenburg wird wie in Niedersachsen eine individualisierte Oberfläche zur Verfügung gestellt. Die Steuerung des Vorhabens liegt beim MBJS, die Projektkoordinierung  bei der DigitalAgentur Brandenburg (DABB) unter dem Dach der ILB. Die technische Projektleitung übernimmt das HPI, die pädagogische Leitung das Landesinstitut für Schule und Medien (LISUM).
+                Die HPI Schul-Cloud wird bereits in drei Bundesländern mit landesspezifischen Umgebungen im Unterricht eingesetzt.
+                Seit Februar 2018 ermöglicht sie als Niedersächsische Bildungscloud der <a href="https://www.n-21.de/index.php">Landesinitiative n-21</a>
+                an 48 weiterführenden Schulen das digitale Arbeiten in der Cloud-Umgebung. </br>
+                Im Sommer 2019 startete das Projekt Schul-Cloud Brandenburg, in Kooperation mit dem <a href="https://mbjs.brandenburg.de/bildung.html">MBJS Brandenburg</a>,
+                dem <a href="https://lisum.berlin-brandenburg.de/lisum/">LISUM</a> und der <a href="https://www.ilb.de/de/wir-ueber-uns/beteiligungen/weitere-beteiligungen/digitalagentur-brandenburg-gmbh/">DAAB</a>.
+                50 Schulen aller Schulformen, erstmals auch Grundschulen, können die brandenburgische Schul-Cloud seitdem im Schulalltag einsetzten. </br>
+                In unserer jüngsten Kooperation mit dem <a href="https://www.schulportal-thueringen.de/thillm">ThILLM</a> und dem <a href="https://bildung.thueringen.de/">MBJS Thüringen</a>
+                ist die Thüringer Schulcloud entstanden auf welche 20 Pilotschulen und 9 Studienseminare zugreifen können.
+                Eine Besonderheit stellt der Login über das Thüringer Schulportal dar, sodass die Schüler:innen und Lehrkräfte keine
+                separaten Anmeldedaten für die Schulcloud benötigen.  
             </p>
+            
             <p>
-                Wenn Sie als Landesinitiative Interesse daran haben, mit der HPI Schul-Cloud zu kooperieren, wenden Sie sich gerne
-                an <a href="mailto:info@schul-cloud.org" target="_blank" rel="noopener">info@schul-cloud.org</a>.
+                <a href="https://hpi.de/pressemitteilungen/2018/digitalisierung-niedersaechsische-bildungscloud-und-bundesweite-schul-cloud-starten-kooperation-auf-der-didacta.html">
+                    Pressemitteilung Niedersächsische Bildungscloud
+                </a></br>
+                <a href="https://hpi.de/pressemitteilungen/2019/51-brandenburger-schulen-starten-ab-dem-neuen-schuljahr-mit-der-hpi-schul-cloud.html">
+                    Pressemitteilung Schul-Cloud Brandenburg
+                </a></br>
+                <a href="https://hpi.de/pressemitteilungen/2019/startschuss-fuer-die-thueringer-schulcloud.html">Pressemitteilung Thüringer Schulcloud</a>
+            </p>
+
+            <p>
+                Die HPI Schul-Cloud begrüßt die Kooperation mit weiteren Bundesländern stets.
+                Sie können sich bei Interesse gerne an <a href="mailto:info@schul-cloud.org" target="_blank" rel="noopener">info@schul-cloud.org</a> wenden. 
             </p>
 		{{/content}}
 	{{/embed}}
