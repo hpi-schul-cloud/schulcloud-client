@@ -12,6 +12,7 @@ const {
 	REQUEST_TIMEOUT = 15000, // 15 sec
 	NODE_ENV = 'development',
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS = 3600, // 60 min
+	JWT_TIMEOUT_SECONDS,
 } = process.env;
 
 const exp = {
@@ -25,6 +26,7 @@ const exp = {
 	REQUEST_TIMEOUT,
 	NODE_ENV,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
+	JWT_TIMEOUT_SECONDS,
 };
 
 logger.info(util.inspect(exp, { depth: 1, compact: false }));
