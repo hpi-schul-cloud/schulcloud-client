@@ -134,20 +134,3 @@ $(document).ready(function() {
     }
 
 });
-
-window.startIntro = function startIntro() {
-    introJs()
-    .setOptions({
-        nextLabel: "Weiter",
-        prevLabel: "Zurück",
-        doneLabel: "Nächste Seite",
-        skipLabel: "Überspringen",
-        hidePrev: true, //hide previous button in the first step
-        hideNext: true  //hide next button in the last step
-    })
-    .start()
-    .oncomplete(function() {
-        localStorage.setItem('Tutorial', true);
-        document.querySelector("#demologin").click();
-    });
-};

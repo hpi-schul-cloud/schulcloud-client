@@ -250,7 +250,6 @@ const globPatterns = [
 	'styles/news/*.css',
 	'styles/courses/*.css',
 	'styles/dashboard/*.css',
-	'vendor/introjs/intro*.{js,css}',
 	'vendor/feathersjs/feathers.js',
 	'vendor-optimized/mathjax/MathJax.js',
 	'images/manifest.json',

@@ -225,30 +225,6 @@ function changeNavBarPositionToFixed() {
     navBar.classList.remove("position-absolute");
 }
 
-function startIntro() {
-    changeNavBarPositionToAbsolute();
-    introJs()
-    .setOptions({
-        nextLabel: "Weiter",
-        prevLabel: "Zurück",
-        doneLabel: "Fertig",
-        skipLabel: "Überspringen",
-        hidePrev: true, //hide previous button in the first step
-        hideNext: true  //hide next button in the last step
-    })
-    .start()
-    .oncomplete(changeNavBarPositionToFixed);
-}
-
-window.addEventListener('load', () => {
-	const continueTuorial = localStorage.getItem('Tutorial');
-	if (continueTuorial == 'true') {
-		startIntro();
-		localStorage.setItem('Tutorial', false);
-	}
-	document.getElementById('intro-loggedin').addEventListener('click', startIntro, false);
-});
-
 document.querySelectorAll('#main-content a').forEach((a) => {
     const href = a.getAttribute('href');
     if (a.querySelector('img, .fa') == null && href) {
