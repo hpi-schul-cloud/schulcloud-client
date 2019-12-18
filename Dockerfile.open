@@ -1,5 +1,5 @@
 # if node version is changed, also adapt .nvmrc file
-FROM node:10.16-alpine
+FROM node:7-alpine
 
 RUN apk update && apk upgrade && apk add --no-cache autoconf automake build-base git libtool make nasm pkgconfig tzdata zlib-dev
 
@@ -9,7 +9,7 @@ WORKDIR /home/node/app
 
 COPY ./package.json .
 COPY ./package-lock.json .
-RUN npm install -g nodemon gulp-cli && npm ci
+RUN npm install -g gulp-cli && npm ci
 
 COPY . .
 #COPY ./localtime /etc/localtime
