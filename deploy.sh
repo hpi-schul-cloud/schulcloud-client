@@ -2,6 +2,16 @@
 
 #export TESTDEPLOY=$( cat testdeploy )
 
+
+set -e
+trap 'catch $? $LINENO' EXIT
+catch() {
+  echo "kabummm!!!"
+  if [ "$1" != "0" ]; then
+    echo "War wohl nicht so gut. Fehler $1, guckst du $2"
+  fi
+}
+
 if [ "$TRAVIS_BRANCH" = "master" ]
 then
   export DOCKERTAG=latest
