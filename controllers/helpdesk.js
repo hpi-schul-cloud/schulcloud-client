@@ -4,7 +4,7 @@ const router = express.Router();
 const logger = require('winston');
 const UAParser = require('ua-parser-js');
 const api = require('../api');
-const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/globals');
+const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
 
 // secure routes
 router.use(require('../helpers/authentication').authChecker);

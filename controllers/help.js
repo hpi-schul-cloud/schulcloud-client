@@ -4,7 +4,7 @@ const { Converter } = require('showdown');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 
-const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/globals');
+const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
 
 const router = express.Router();
 const converter = new Converter();

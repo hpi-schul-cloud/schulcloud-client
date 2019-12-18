@@ -3,7 +3,7 @@ import { resizeIframes } from './helpers/iFrameResize';
 import './help/contactForm';
 import text from './helpers/form_bug_text';
 
-const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../../config/globals');
+const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../../config/global');
 
 $(document).ready(() => {
 	$('.btn-poll').on('click', (e) => {
