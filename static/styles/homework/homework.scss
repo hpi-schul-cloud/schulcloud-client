@@ -37,6 +37,7 @@
     position:relative;
   }
   &.private {
+    min-height: 165px;
     h5::before {
       content: "🔒";
     }
