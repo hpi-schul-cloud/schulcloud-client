@@ -16,7 +16,7 @@
 		"coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js --opts ./test/mocha/mocha.opts"
 	},
 	"engines": {
-		"node": "^10.16.0"
+		"node": "^10.17.0"
 	},
 	"sasslintConfig": "./.sass-lint.yml",
 	"dependencies": {
