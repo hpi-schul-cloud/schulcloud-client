@@ -165,21 +165,23 @@ $(document).ready(function () {
 		}
     }
     
-    // EBS-System | Alert
-    $.ajax({
-        url: '/alerts',
-        contentType: 'application/json',
-        dataType: 'json',
-        success(result) {
-            alertMessageController.showAlert(result);
-            localStorage.setItem('SC-Alerts', JSON.stringify(result));
-        },
-        fail(err) {
-            localStorage.removeItem('SC-Alerts');
-            console.error('');
-        },
-        timeout: 5000
-    });
+	// EBS-System | Alert
+	$.ajax({
+		url: '/alerts',
+		contentType: 'application/json',
+		dataType: 'json',
+		success(result) {
+			alertMessageController.showAlert(result);
+			// keep in data local storage
+			// silently overwrite old data
+			localStorage.setItem('SC-Alerts', JSON.stringify(result));
+		},
+		fail(err) {
+			localStorage.removeItem('SC-Alerts');
+			console.error('');
+		},
+		timeout: 5000
+	});
 });
 
 function showAJAXError(req, textStatus, errorThrown) {

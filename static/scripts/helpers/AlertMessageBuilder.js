@@ -54,8 +54,8 @@ class AlertMessageController {
 			} else {
 				$('.alert-section').empty();
 				if (messageArray.length >= 1) {
-            		messageArray.forEach((message) => {
-                		$('.alert-section').append(this.buildMessage(message));
+					messageArray.forEach((message) => {
+						$('.alert-section').append(this.buildMessage(message));
 					});
 				}
 			}

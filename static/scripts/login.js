@@ -143,6 +143,8 @@ $(document).ready(function() {
         dataType: 'json',
         success(result) {
             alertMessageController.showAlert(result);
+            // keep in data local storage
+            // silently overwrite old data
             localStorage.setItem('SC-Alerts', JSON.stringify(result));
         },
         fail() {
