@@ -39,7 +39,7 @@ const createEventsForCourse = (req, res, course) => {
 					description: course.description,
 					startDate: new Date(
 						new Date(course.startDate).getTime()
-								+ time.startTime,
+						+ time.startTime,
 					).toLocalISOString(),
 					duration: time.duration,
 					repeat_until: course.untilDate,
@@ -93,8 +93,8 @@ const deleteEventsForCourse = (req, res, courseId) => {
 				req.session.notification = {
 					type: 'danger',
 					message:
-							'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
-							+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
+						'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
+						+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
 				};
 				return Promise.resolve();
 			}));
@@ -139,7 +139,7 @@ const editCourseHandler = (req, res, next) => {
 				$limit: -1,
 			},
 		});
-		// .then(data => data.data); needed when pagination is not disabled
+	// .then(data => data.data); needed when pagination is not disabled
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher', 'demoTeacher'],
 		$limit: false,
@@ -665,38 +665,53 @@ router.get('/:courseId/', (req, res, next) => {
 			}
 
 			// ###################### end of code for new Editor ################################
-			res.render(
-				'courses/course',
-				Object.assign({}, course, {
-					title: course.isArchived
-						? `${course.name} (archiviert)`
-						: course.name,
-					activeTab: req.query.activeTab,
-					lessons,
-					homeworks: homeworks.filter(task => !task.private),
-					myhomeworks: homeworks.filter(task => task.private),
-					ltiToolIds,
-					courseGroups,
-					baseUrl,
-					breadcrumb: [
-						{
-							title: 'Meine Kurse',
-							url: '/courses',
-						},
-						{
-							title: course.name,
-							url: `/courses/${course._id}`,
-						},
-					],
-					filesUrl: `/files/courses/${req.params.courseId}`,
-					nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
-						course.times,
-					),
-					// #################### new Editor, till replacing old one ######################
-					newLessons,
-					isNewEdtiroActivated,
-				}),
-			);
+			// videoconference demo
+			const role = res.locals.currentUser.permissions.includes('COURSE_CREATE') ? 'moderator' : 'attendee';
+			api(req).post('/videoconference', {
+				json: {
+					id: req.params.courseId,
+					scopeName: 'course',
+					name: course.name,
+					role,
+				},
+			}).then(({ url }) => {
+				const conference = {};
+				if (role === 'moderator') { conference.moderatorUrl = url; }
+				if (role === 'attendee') { conference.attendeeUrl = url; }
+				res.render(
+					'courses/course',
+					Object.assign({}, course, {
+						title: course.isArchived
+							? `${course.name} (archiviert)`
+							: course.name,
+						activeTab: req.query.activeTab,
+						lessons,
+						homeworks: homeworks.filter(task => !task.private),
+						myhomeworks: homeworks.filter(task => task.private),
+						ltiToolIds,
+						courseGroups,
+						baseUrl,
+						breadcrumb: [
+							{
+								title: 'Meine Kurse',
+								url: '/courses',
+							},
+							{
+								title: course.name,
+								url: `/courses/${course._id}`,
+							},
+						],
+						filesUrl: `/files/courses/${req.params.courseId}`,
+						nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
+							course.times,
+						),
+						// #################### new Editor, till replacing old one ######################
+						newLessons,
+						isNewEdtiroActivated,
+						conference,
+					}),
+				);
+			});
 		})
 		.catch(next);
 });

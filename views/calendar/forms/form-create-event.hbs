@@ -1,64 +1,82 @@
 <input name="scopeId" type="hidden" data-force-value="true" value="{{userId}}" />
 
 <div class="form-group">
-    <label class="control-label" for="title">Titel</label>
-    <input data-testid="team_event_name" class="form-control" name="summary" required placeholder="z.B. Handball-Training">
+	<label class="control-label" for="title">Titel</label>
+	<input data-testid="team_event_name" class="form-control" name="summary" required
+		placeholder="z.B. Handball-Training">
 </div>
 <div class="form-group row">
-    <div class="form-group col-md-6">
-        <label>Von</label>
-        <input name="startDate" id="startDate" type="text" class="form-control" data-datetime/>
-    </div>
+	<div class="form-group col-md-6">
+		<label>Von</label>
+		<input name="startDate" id="startDate" type="text" class="form-control" data-datetime />
+	</div>
 
-    <div class="form-group col-md-6">
-        <label>Bis</label>
-        <input name="endDate" id="endDate" type="text" class="form-control" data-datetime/>
-    </div>
+	<div class="form-group col-md-6">
+		<label>Bis</label>
+		<input name="endDate" id="endDate" type="text" class="form-control" data-datetime />
+	</div>
 </div>
 <div class="form-group">
-    <label data-testid="description_team_event" class="control-label" for="description">Beschreibung</label>
-    <textarea class="form-control" name="description" placeholder=""></textarea>
+	<label data-testid="description_team_event" class="control-label" for="description">Beschreibung</label>
+	<textarea class="form-control" name="description" placeholder=""></textarea>
 </div>
 <div class="form-group">
-    <label class="control-label" for="location">Ort</label>
-    <input data-testid="team_event_location" class="form-control" name="location" placeholder="z.B. Turnhalle">
+	<label class="control-label" for="location">Ort</label>
+	<input data-testid="team_event_location" class="form-control" name="location" placeholder="z.B. Turnhalle">
 </div>
+
 {{#if addCourse}}
-    {{#userHasPermission "COURSE_EDIT"}}
-    <div class="form-group create-course-event">
-        <div class="checkbox disabled">
-            <label>
-                Für Kurs anlegen?
-                <input id="toggle{{../collapseIdCourse}}" name="isCourseEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdCourse}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
-            </label>
-        </div>
-        <div id="collapse{{../collapseIdCourse}}" class="panel-collapse collapse">
-            <div class="form-group">
-                <select class="course-selection form-control" name="courseId">
-                    <option value="" selected hidden>Wähle einen Kurs...</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    {{/userHasPermission}}
+{{#userHasPermission "COURSE_EDIT"}}
+<div class="form-group create-course-event">
+	<div class="checkbox disabled">
+		<label>
+			<input id="toggle{{../collapseIdCourse}}" name="isCourseEvent" type="checkbox"
+				data-collapseRef="collapse{{../collapseIdCourse}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
+			Für Kurs anlegen?
+		</label>
+	</div>
+	<div id="collapse{{../collapseIdCourse}}" class="panel-collapse collapse">
+		<div class="form-group">
+			<select class="course-selection form-control" name="courseId">
+				<option value="" selected hidden>Wähle einen Kurs...</option>
+			</select>
+		</div>
+	</div>
+</div>
+{{/userHasPermission}}
 {{/if}}
 
 {{#if addTeam}}
-    {{#userHasPermission "COURSE_EDIT"}}
-    <div class="form-group create-team-event">
-        <div class="checkbox disabled">
-            <label>
-                Für Team anlegen?
-                <input id="toggle{{../collapseIdTeam}}" name="isTeamEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdTeam}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
-            </label>
-        </div>
-        <div id="collapse{{../collapseIdTeam}}" class="panel-collapse collapse">
-            <div class="form-group">
-                <select class="team-selection form-control" name="teamId">
-                    <option value="" selected hidden>Wähle eine Team...</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    {{/userHasPermission}}
+{{#userHasPermission "COURSE_EDIT"}}
+<div class="form-group create-team-event">
+	<div class="checkbox disabled">
+		<label>
+			<input id="toggle{{../collapseIdTeam}}" name="isTeamEvent" type="checkbox"
+				data-collapseRef="collapse{{../collapseIdTeam}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
+			Für Team anlegen?
+		</label>
+	</div>
+	<div id="collapse{{../collapseIdTeam}}" class="panel-collapse collapse">
+		<div class="form-group">
+			<select class="team-selection form-control" name="teamId">
+				<option value="" selected hidden>Wähle eine Team...</option>
+			</select>
+		</div>
+	</div>
+</div>
+{{/userHasPermission}}
+{{/if}}
+
+{{#if true}}
+{{!-- {{#userHasPermission "VIDEOCONFERENCE_EDIT"}} --}}
+<div class="form-group create-videoconference-event">
+	<div class="checkbox">
+		<input id="featureVideoconference" name="featureVideoconference" type="checkbox" data-toggle="toggle"
+			data-on="Ja" data-off="Nein" {{#if ../featureVideoconference}}checked{{/if}}>
+		<label>
+			Videokonferenz aktivieren?
+		</label>
+	</div>
+</div>
+{{!-- {{/userHasPermission}} --}}
 {{/if}}
