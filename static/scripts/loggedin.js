@@ -3,7 +3,9 @@
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 import './cleanup'; // see login.js for loggedout users
-import { MessageBuilder } from './helpers/AlertMessageBuilder.js';
+import AlertMessageController from './helpers/AlertMessageBuilder.js';
+
+const alertMessageController = new AlertMessageController(true);
 
 iFrameListen();
 
@@ -164,20 +166,20 @@ $(document).ready(function () {
     }
     
     // EBS-System | Alert
-	$.ajax({
-		url: '/alerts',
-		contentType: 'application/json',
-		dataType: 'json',
-		success(result) {
-			if (result.length >= 1 && !$('body').hasClass('fullscreen')) {
-				$('.alert-button').css('visibility', 'visible');
-            }
-            $('.alert-button').find('.js-alert-content').empty();
-			result.forEach((message) => {
-                $('.alert-button').find('.js-alert-content').append(MessageBuilder(message,true));
-			});
-		},
-	});
+    $.ajax({
+        url: '/alerts',
+        contentType: 'application/json',
+        dataType: 'json',
+        success(result) {
+            alertMessageController.showAlert(result);
+            localStorage.setItem('SC-Alerts', JSON.stringify(result));
+        },
+        fail(err) {
+            localStorage.removeItem('SC-Alerts');
+            console.error('');
+        },
+        timeout: 5000
+    });
 });
 
 function showAJAXError(req, textStatus, errorThrown) {

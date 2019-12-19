@@ -1,6 +1,8 @@
 import './pwd.js';
 import './cleanup'; // see loggedin.js for loggedin users
-import { MessageBuilder } from './helpers/AlertMessageBuilder.js';
+import AlertMessageController from './helpers/AlertMessageBuilder.js';
+
+const alertMessageController = new AlertMessageController(false);
 
 /* global introJs */
 $(document).ready(function() {
@@ -140,11 +142,14 @@ $(document).ready(function() {
         contentType: 'application/json',
         dataType: 'json',
         success(result) {
-            $('.alert-section').empty();
-            result.forEach((message) => {
-                $('.alert-section').append(MessageBuilder(message,false));
-            });
+            alertMessageController.showAlert(result);
+            localStorage.setItem('SC-Alerts', JSON.stringify(result));
         },
+        fail() {
+            localStorage.removeItem('SC-Alerts');
+            console.error('');
+        },
+        timeout: 5000
     });
 });
 
