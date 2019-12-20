@@ -98,6 +98,11 @@ Dieser kann weiterhelfen oder auch einen neuen Registrierungslink erstellen, fal
 			backButton.removeEventListener('click', goBack);
 		});
 	}
+
+	$('input[readonly]').click(() => {
+		/* eslint-disable-next-line max-len */
+		$.showNotification('Diese Daten hat deine Lehrkraft oder dein Administrator für dich eingetragen. Falls Anpassungen notwendig sind wende dich bitte an ihn/sie. Du kannst deine Daten auch nach abgeschlossenem Registrierungsprozess selbst ändern.', 'danger', false);
+	});
 });
 
 

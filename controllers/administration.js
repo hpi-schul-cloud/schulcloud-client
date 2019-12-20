@@ -1050,11 +1050,15 @@ router.all(
 						true,
 					);
 					const icon = `<p class="text-center m-0">${statusIcon}</p>`;
+					let classesString = '';
+					if (user.classes && Array.isArray(user.classes) && user.classes.length !== 0) {
+						classesString = user.classes.join(', ');
+					}
 					const row = [
 						user.firstName || '',
 						user.lastName || '',
 						user.email || '',
-						user.classesString || '',
+						classesString,
 					];
 					if (hasEditPermission) {
 						row.push(moment(user.createdAt).format('DD.MM.YYYY'));
