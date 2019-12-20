@@ -13,6 +13,7 @@ const {
 	NODE_ENV = 'development',
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS = 3600, // 60 min
 	JWT_TIMEOUT_SECONDS,
+	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = (5 * 1024 * 1024), // 5MB
 } = process.env;
 
 const exp = {
@@ -27,7 +28,7 @@ const exp = {
 	NODE_ENV,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 	JWT_TIMEOUT_SECONDS,
-	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE: (5 * 1024 * 1024), // 5MB
+	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
 };
 
 logger.info(util.inspect(exp, { depth: 1, compact: false }));
