@@ -174,12 +174,9 @@ $(document).ready(function () {
     })
     .done((result) => {
         alertMessageController.showAlert(result);
-        // keep in data local storage
-        // silently overwrite old data
-        localStorage.setItem('SC-Alerts', JSON.stringify(result));
     })
     .fail(() => {
-        console.error('');
+        console.error('Could not update alerts!');
     });
 });
 
