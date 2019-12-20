@@ -1,6 +1,6 @@
 import './pwd.js';
 import './cleanup'; // see loggedin.js for loggedin users
-import AlertMessageController from './helpers/AlertMessageBuilder.js';
+import AlertMessageController from './helpers/AlertMessageController';
 
 const alertMessageController = new AlertMessageController(false);
 

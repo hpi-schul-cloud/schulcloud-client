@@ -3,7 +3,7 @@
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 import './cleanup'; // see login.js for loggedout users
-import AlertMessageController from './helpers/AlertMessageBuilder.js';
+import AlertMessageController from './helpers/AlertMessageController';
 
 const alertMessageController = new AlertMessageController(true);
 
