@@ -3,6 +3,7 @@ import { resizeIframes } from './helpers/iFrameResize';
 import './help/contactForm';
 import text from './helpers/form_bug_text';
 
+/* eslint-disable max-len */
 const MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = Number($('.form-control-file').data('maxAttachmentSizeMb')) * 1024 * 1024;
 
 $(document).ready(() => {
