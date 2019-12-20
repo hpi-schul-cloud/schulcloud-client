@@ -67,16 +67,18 @@ router.post('/', (req, res, next) => {
 			},
 		},
 	};
-	if (process.env.FEATURE_INSIGHTS_ENABLED && process.env.INSIGHTS_COLLECTOR_URI) {
+	if (process.env.FEATURE_INSIGHTS_ENABLED === 'true' && process.env.INSIGHTS_COLLECTOR_URI) {
 		request.post(`${process.env.INSIGHTS_COLLECTOR_URI}/insights`, {
 			json: xApi,
 		}, (error, response) => {
 			if (error) {
-				logger.error(error);
-				res.send(error);
+				logger.error('Error while communicating with Insights', error);
+				return res.sendStatus(500);
 			}
-			res.send(response);
+			return res.sendStatus(200);
 		});
+	} else {
+		return res.sendStatus(204);
 	}
 });
 
