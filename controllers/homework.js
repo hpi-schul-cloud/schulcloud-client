@@ -610,16 +610,15 @@ router.get('/new', function (req, res, next) {
 	});
 });
 
-router.get('/:assignmentId/copy', function (req, res, next) {
-	api(req).get('/homework/copy/' + req.params.assignmentId)
+router.get('/:assignmentId/copy', (req, res, next) => {
+	api(req).get(`/homework/copy/${req.params.assignmentId}`)
 		.then((assignment) => {
-			if (assignment._id) {
-				return res.redirect('/homework/' + assignment._id + '/edit');
-			} else {
-				let error = new Error('Failed to copy task!');
+			if (!assignment || !assignment._id) {
+				const error = new Error('Ungültige Aufgaben-ID');
 				error.status = 500;
 				return next(error);
 			}
+			return res.redirect(`/homework/${assignment._id}/edit`);
 		}).catch((err) => {
 			next(err);
 		});

@@ -115,7 +115,7 @@ $(document).ready(function() {
         populateModalForm($pwRecoveryModal, {
             title: 'Passwort Zurücksetzen',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Abschicken'
+            submitLabel: 'Passswort zurücksetzen'
         });
         $pwRecoveryModal.appendTo('body').modal('show');
     });
