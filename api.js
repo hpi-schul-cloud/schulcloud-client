@@ -1,21 +1,4 @@
-const request = require('request');
-const rp = require('request-promise');
+const api = require('./helpers/apiHelper');
+const { KEEP_ALIVE, BACKEND_URL } = require('./config/global');
 
-const api = (req, { useCallback = false, json = true } = {}) => {
-	const headers = {};
-	if (req && req.cookies && req.cookies.jwt) {
-		headers.Authorization = (req.cookies.jwt.startsWith('Bearer ') ? '' : 'Bearer ') + req.cookies.jwt;
-	}
-	if (process.env.KEEP_ALIVE) {
-		headers.Connection = 'Keep-Alive';
-	}
-
-	const handler = useCallback ? request : rp;
-	return handler.defaults({
-		baseUrl: process.env.BACKEND_URL || 'http://localhost:3030/',
-		json,
-		headers,
-	});
-};
-
-module.exports = api;
+module.exports = api(BACKEND_URL, { keepAlive: KEEP_ALIVE });

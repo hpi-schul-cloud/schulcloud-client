@@ -960,29 +960,29 @@ router.post(
 );
 router.post(
 	'/teachers/:id',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
 	getTeacherUpdateHandler(),
 );
 router.patch(
 	'/teachers/:id/pw',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
 	userIdtoAccountIdUpdate('accounts'),
 );
 router.get(
 	'/teachers/:id',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_LIST'], 'or'),
 	getDetailHandler('users'),
 );
 router.delete(
 	'/teachers/:id',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_DELETE'], 'or'),
 	getDeleteAccountForUserHandler,
 	getDeleteHandler('users', '/administration/teachers'),
 );
 
 router.all(
 	'/teachers',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_LIST'], 'or'),
 	(req, res, next) => {
 		const tempOrgQuery = (req.query || {}).filterQuery;
 		const filterQueryString = tempOrgQuery
@@ -1012,6 +1012,8 @@ router.all(
 				qs: query,
 			})
 			.then(async (teachersResponse) => {
+				const currentUser = res.locals.currentUser;
+				const hasEditPermission = permissionsHelper.userHasPermission(currentUser, 'TEACHER_EDIT');
 				const users = teachersResponse.data;
 				const years = getSelectableYears(res.locals.currentSchoolData);
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
@@ -1030,17 +1032,17 @@ router.all(
 						true,
 					);
 					const icon = `<p class="text-center m-0">${statusIcon}</p>`;
+					let classesString = '';
+					if (user.classes && Array.isArray(user.classes) && user.classes.length !== 0) {
+						classesString = user.classes.join(', ');
+					}
 					const row = [
 						user.firstName || '',
 						user.lastName || '',
 						user.email || '',
-						user.classesString || '',
+						classesString,
 					];
-					if (
-						res.locals.currentUser.roles
-							.map(role => role.name)
-							.includes('administrator')
-					) {
+					if (hasEditPermission) {
 						row.push(moment(user.createdAt).format('DD.MM.YYYY'));
 						row.push({
 							useHTML: true,
@@ -1079,7 +1081,7 @@ router.all(
 
 router.get(
 	'/teachers/:id/edit',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
 	(req, res, next) => {
 		const userPromise = api(req).get(`/users/${req.params.id}`);
 		const consentPromise = getSelectOptions(req, 'consents', {
@@ -1206,22 +1208,22 @@ router.post(
 );
 router.patch(
 	'/students/:id/pw',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
 	userIdtoAccountIdUpdate('accounts'),
 );
 router.post(
 	'/students/:id',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
 	getStudentUpdateHandler(),
 );
 router.get(
 	'/students/:id',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
 	getDetailHandler('users'),
 );
 router.delete(
 	'/students/:id',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_DELETE'], 'or'),
 	getDeleteAccountForUserHandler,
 	getDeleteHandler('users', '/administration/students'),
 );
@@ -1254,7 +1256,7 @@ router.get(
 
 router.all(
 	'/students',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
 	async (req, res, next) => {
 		const tempOrgQuery = (req.query || {}).filterQuery;
 		const filterQueryString = tempOrgQuery
@@ -1285,6 +1287,8 @@ router.all(
 				qs: query,
 			})
 			.then(async (studentsResponse) => {
+				const currentUser = res.locals.currentUser;
+				const hasEditPermission = permissionsHelper.userHasPermission(currentUser, 'STUDENT_EDIT');
 				const users = studentsResponse.data;
 				const years = getSelectableYears(res.locals.currentSchoolData);
 				const title = `${returnAdminPrefix(
@@ -1303,7 +1307,7 @@ router.all(
 
 				const body = users.map((user) => {
 					const icon = getConsentStatusIcon(user.consent.consentStatus);
-					const userRow = [
+					const actions = [
 						{
 							link: `/administration/students/${user._id}/edit`,
 							title: 'Nutzer bearbeiten',
@@ -1311,7 +1315,7 @@ router.all(
 						},
 					];
 					if (user.importHash && canSkip) {
-						userRow.push({
+						actions.push({
 							link: `/administration/students/${user._id}/skipregistration`,
 							title: 'Einverständnis erklären',
 							icon: 'check-square-o',
@@ -1321,7 +1325,7 @@ router.all(
 						|| user.consent.consentStatus === 'default') {
 						studentsWithoutConsentCount += 1;
 					}
-					return [
+					const row = [
 						user.firstName || '',
 						user.lastName || '',
 						user.email || '',
@@ -1331,8 +1335,11 @@ router.all(
 							useHTML: true,
 							content: `<p class="text-center m-0">${icon}</p>`,
 						},
-						userRow,
 					];
+					if (hasEditPermission) {
+						row.push(actions);
+					}
+					return row;
 				});
 
 				const pagination = {
@@ -1384,7 +1391,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 				$populate: ['userIds'],
 			},
 		});
-		users = klass.userIds.concat(klass.teacherIds);
+		users = klass.userIds;
 	} else {
 		users = (await api(req).get('/users', { qs, $limit: false })).data;
 	}
@@ -1392,7 +1399,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	let consents = [];
 	const batchSize = 50;
 	let slice = 0;
-	while (users.length !== 0 && slice * batchSize <= users.length) {
+	while (users.length !== 0 && slice * batchSize < users.length) {
 		consents = consents.concat(
 			(await api(req).get('/consents', {
 				qs: {
@@ -1410,7 +1417,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	}
 
 	const consentMissing = user => !consents.some(
-		consent => consent.userId._id.toString() === user._id.toString(),
+		consent => consent.userId._id.toString() === (user._id || user).toString(),
 	);
 	const consentIncomplete = consent => !consent.access;
 
@@ -1491,7 +1498,7 @@ Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${
 
 router.get(
 	'/users-without-consent/get-json',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
 	async (req, res, next) => {
 		const role = req.query.role;
 
@@ -1529,7 +1536,7 @@ router.get(
 
 router.get(
 	'/students/:id/edit',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
 	(req, res, next) => {
 		const userPromise = api(req).get(`/users/${req.params.id}`);
 		const consentPromise = getSelectOptions(req, 'consents', {
@@ -1658,6 +1665,10 @@ const renderClassEdit = (req, res, next) => {
 				([teachers, gradeLevels, currentClass]) => {
 					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
 
+					const allSchoolYears = res.locals.currentSchoolData.years.schoolYears
+						.sort((a, b) => b.startDate.localeCompare(a.startDate));
+
+					const lastDefinedSchoolYearId = (allSchoolYears[0] || {})._id;
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
 					);
@@ -1674,6 +1685,7 @@ const renderClassEdit = (req, res, next) => {
 						});
 					}
 					let isCustom = false;
+					let isUpgradable = false;
 					if (currentClass) {
 						// preselect already selected teachers
 						teachers.forEach((t) => {
@@ -1701,7 +1713,15 @@ const renderClassEdit = (req, res, next) => {
 								currentClass.keepYear = true;
 							}
 						}
+
+						if (currentClass.year) {
+							isUpgradable = (lastDefinedSchoolYearId !== (currentClass.year || {}))
+							&& currentClass.gradeLevel
+							&& currentClass.gradeLevel !== 13
+							&& !currentClass.successor;
+						}
 					}
+
 
 					res.render('administration/classes-edit', {
 						title: {
@@ -1715,6 +1735,7 @@ const renderClassEdit = (req, res, next) => {
 							upgrade: '/administration/classes/create',
 						}[mode],
 						edit: mode !== 'create',
+						isUpgradable,
 						mode,
 						schoolyears,
 						teachers,
@@ -1749,7 +1770,7 @@ const getClassOverview = (req, res, next) => {
 router.get(
 	'/classes/create',
 	permissionsHelper.permissionsChecker(
-		['ADMIN_VIEW', 'USERGROUP_CREATE'],
+		['ADMIN_VIEW', 'CLASS_CREATE'],
 		'or',
 	),
 	(req, res, next) => {
@@ -1760,7 +1781,7 @@ router.get(
 );
 router.get(
 	'/classes/students',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		const classIds = JSON.parse(req.query.classes);
 		api(req)
@@ -1783,12 +1804,12 @@ router.get(
 );
 router.get(
 	'/classes/json',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	getClassOverview,
 );
 router.get(
 	'/classes/:classId/edit',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		req.locals = req.locals || {};
 		req.locals.mode = 'edit';
@@ -1798,7 +1819,7 @@ router.get(
 );
 router.get(
 	'/classes/:classId/createSuccessor',
-	permissionsHelper.permissionsChecker(['USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['CLASS_CREATE'], 'or'),
 	(req, res, next) => {
 		req.locals = req.locals || {};
 		req.locals.mode = 'upgrade';
@@ -1809,19 +1830,19 @@ router.get(
 router.get('/classes/:id', getDetailHandler('classes'));
 router.patch(
 	'/classes/:id',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	mapEmptyClassProps,
 	getUpdateHandler('classes'),
 );
 router.delete(
 	'/classes/:id',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_REMOVE'], 'or'),
 	getDeleteHandler('classes'),
 );
 
 router.get(
 	'/classes/:classId/manage',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		api(req)
 			.get(`/classes/${req.params.classId}`, {
@@ -1947,7 +1968,7 @@ router.get(
 
 router.post(
 	'/classes/:classId/manage',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		const changedClass = {
 			teacherIds: req.body.teacherIds || [],
@@ -2001,7 +2022,7 @@ router.get(
 router.post(
 	'/classes/create',
 	permissionsHelper.permissionsChecker(
-		['ADMIN_VIEW', 'USERGROUP_CREATE'],
+		['ADMIN_VIEW', 'CLASS_CREATE'],
 		'or',
 	),
 	(req, res, next) => {
@@ -2050,7 +2071,7 @@ router.post(
 
 router.post(
 	'/classes/:classId/edit',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		const changedClass = {
 			schoolId: req.body.schoolId,
@@ -2084,7 +2105,7 @@ router.post(
 
 router.patch(
 	'/:classId/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	mapEmptyClassProps,
 	(req, res, next) => {
 		api(req)
@@ -2101,7 +2122,7 @@ router.patch(
 
 router.delete(
 	'/:classId/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_REMOVE'], 'or'),
 	(req, res, next) => {
 		api(req)
 			.delete(`/classes/${req.params.classId}`)
@@ -2149,7 +2170,7 @@ const classFilterSettings = ({ years, currentYear }) => {
 
 router.get(
 	'/classes',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	(req, res, next) => {
 		const tempOrgQuery = (req.query || {}).filterQuery;
 		const filterQueryString = tempOrgQuery
@@ -2173,7 +2194,7 @@ router.get(
 		};
 		query = Object.assign(query, filterQuery);
 
-		if (!res.locals.currentUser.permissions.includes('USERGROUP_FULL_ADMIN')) {
+		if (!res.locals.currentUser.permissions.includes('CLASS_FULL_ADMIN')) {
 			query.teacherIds = res.locals.currentUser._id.toString();
 		}
 
@@ -2214,12 +2235,12 @@ router.get(
 							},
 						];
 						if (lastDefinedSchoolYear !== (i.year || {})._id
-							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'USERGROUP_EDIT')
+							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT')
 						) {
 							baseActions.push({
 								link: `${basePath + i._id}/createSuccessor`,
 								icon: 'arrow-up',
-								class: i.successor ? 'disabled' : '',
+								class: i.successor || i.gradeLevel === 13 ? 'disabled' : '',
 								title: 'Klasse in das nächste Schuljahr versetzen',
 							});
 						}
