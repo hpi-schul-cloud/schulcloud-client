@@ -40,9 +40,9 @@ class AlertMessageController {
 
 	showAlert(messageArray) {
 		if (Array.isArray(messageArray)) {
-			// keep in data local storage
-        	// silently overwrite old data
-        	localStorage.setItem('SC-Alerts', JSON.stringify(result));
+			// keep data in local storage
+			// silently overwrite old data
+			localStorage.setItem('SC-Alerts', JSON.stringify(messageArray));
 			if (this.loggedin) {
 				$('.alert-button').css('visibility', 'hidden');
 				if (messageArray.length >= 1) {
