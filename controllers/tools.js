@@ -55,7 +55,7 @@ const generateNonce = (length) => {
 };
 
 const runToolHandler = (req, res, next) => {
-	const currentUser = [res.locals];
+	const { currentUser } = res.locals;
 	Promise.all([
 		api(req).get(`/ltiTools/${req.params.ltiToolId}`),
 		api(req).get(`/roles/${currentUser.roles[0]._id}`),
