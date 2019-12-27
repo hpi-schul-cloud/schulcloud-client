@@ -2,6 +2,7 @@
 // import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
+import './cleanup'; // see login.js for loggedout users
 
 iFrameListen();
 
@@ -40,6 +41,24 @@ function showAJAXSuccess(message, modal) {
     modal.modal('hide');
     $.showNotification(message, "success", true);
 }
+
+function initEnterTheCloud() {
+	const buttons = document.querySelectorAll('.enterthecloud-btn');
+	const modal = document.querySelector('.enterthecloud-modal');
+	if (!buttons.length || !modal) {
+		return false;
+	}
+	buttons.forEach((btn) => {
+		$(btn).on('click', () => {
+			$(modal).appendTo('body').modal('show');
+		});
+	});
+	return true;
+}
+
+$(document).ready(() => {
+	initEnterTheCloud();
+});
 
 $(document).ready(function () {
     // Init mobile nav
@@ -132,7 +151,7 @@ $(document).ready(function () {
 	// check for LDAP Transfer Mode
 	if ($('#schuljahrtransfer').length) {
 		if ($('#schuljahrtransfer').val() === 'Lehrer') {
-			$.showNotification(`Die Schule befindet sich in der Transferphase zum neuen Schuljahr. 
+			$.showNotification(`Die Schule befindet sich in der Transferphase zum neuen Schuljahr.
 			Es können keine Klassen und Nutzer angelegt werden.
 			Bitte kontaktiere den Schul-Administrator!`, 'warning');
 		} else if ($('#schuljahrtransfer').val() === 'Administrator') {
@@ -221,20 +240,13 @@ function startIntro() {
     .oncomplete(changeNavBarPositionToFixed);
 }
 
-window.addEventListener("load", () => {
-    var continueTuorial=localStorage.getItem('Tutorial');
-    if(continueTuorial=='true') {
-        startIntro();
-        localStorage.setItem('Tutorial', false);
-    }
-    if ('serviceWorker' in navigator) {
-        // enable sw for half of users only
-        let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
-        if(testUserGroup == 1) {
-            navigator.serviceWorker.register('/sw.js');
-        }
-    }
-    document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
+window.addEventListener('load', () => {
+	const continueTuorial = localStorage.getItem('Tutorial');
+	if (continueTuorial == 'true') {
+		startIntro();
+		localStorage.setItem('Tutorial', false);
+	}
+	document.getElementById('intro-loggedin').addEventListener('click', startIntro, false);
 });
 
 document.querySelectorAll('#main-content a').forEach((a) => {

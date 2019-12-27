@@ -33,14 +33,14 @@
                                 <strong>Passwörter und Einverständniserklärung</strong>
 
                                 <p>
-                                    Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der {{theme.short_title}} einloggen. 
+                                    Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der {{theme.short_title}} einloggen.
                                     Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der {{theme.short_title}} zu erklären .
                                 </p>
                             {{else}}
                                 <strong>Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.</strong>
                                 <p>
-                                    Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses per E-Mail zukommen oder nutze den QR-Code-Druckbogen, um die Links physisch zu verteilen.<br/> 
-                                    So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{theme.short_title}} erklären. 
+                                    Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses per E-Mail zukommen oder nutze den QR-Code-Druckbogen, um die Links physisch zu verteilen.<br/>
+                                    So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{theme.short_title}} erklären.
                                 </p>
                                 <p>Für alle Lehrer ohne vollständige Einverständniserklärung:</p>
                                 <p>
@@ -63,14 +63,16 @@
                             {{#if schoolUsesLdap}}
                                 {{> "lib/ldap-info"}}
                             {{else}}
-                                <button type="submit" class="btn btn-primary btn-add-modal">
-                                    Lehrer hinzufügen
-                                </button>
-                                {{#inArray "Administrator" roleNames}}
-                                    <button class="btn btn-secondary btn-import teacher">
-                                        Lehrer importieren
+                                {{#userHasPermission "TEACHER_CREATE"}}
+                                    <button type="submit" class="btn btn-primary btn-add-modal">
+                                        Lehrer hinzufügen
                                     </button>
-                                {{/inArray}}
+                                    {{#inArray "Administrator" ../roleNames}}
+                                        <button class="btn btn-secondary btn-import teacher">
+                                            Lehrer importieren
+                                        </button>
+                                    {{/inArray}}
+                                {{/userHasPermission}}
                             {{/if}}
                         </div>
                     </div>
