@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "20.1.5",
+	"version": "20.1.9",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -16,7 +16,7 @@
 		"coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js --opts ./test/mocha/mocha.opts"
 	},
 	"engines": {
-		"node": "^10.16.0"
+		"node": "^10.17.0"
 	},
 	"sasslintConfig": "./.sass-lint.yml",
 	"dependencies": {
@@ -35,6 +35,7 @@
 		"debug": "~2.6.0",
 		"device-detector-js": "^1.1.1",
 		"express": "^4.17.1",
+		"express-fileupload": "^1.1.6",
 		"express-session": "^1.16.2",
 		"fast-csv": "^2.4.1",
 		"feedr": "^2.13.5",
