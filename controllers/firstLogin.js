@@ -73,7 +73,11 @@ router.get('/', async (req, res, next) => {
 	} else {
 		// WELCOME
 		submitPageIndex += 1;
-		if (res.locals.currentUser.birthday) {
+		if ((res.locals.currentUser.preferences || {}).newPassword) {
+			// if a new password has been set by administrator, display notification
+			sections.push('welcome_newpw');
+		} else if (res.locals.currentUser.birthday) {
+			// otherwise handle firstLogin as normal
 			if (res.locals.currentUser.age < 14) {
 				// U14
 				sections.push('welcome');
