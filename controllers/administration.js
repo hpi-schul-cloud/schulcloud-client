@@ -947,6 +947,24 @@ const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, r
 };
 
 router.post(
+	'/registrationlinkMail/',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	generateRegistrationLink({}),
+	(req, res) => {
+		const email = req.body.email || req.body.toHash || '';
+		api(req).get('/users', { qs: { email }, $limit: 1 })
+			.then((users) => {
+				if (users.total === 1) {
+					sendMailHandler(users.data[0], req, res, true);
+					res.status(200).json({ status: 'ok' });
+				} else {
+					res.status(500).send();
+				}
+			});
+	},
+);
+
+router.post(
 	'/teachers/',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	generateRegistrationLink({ role: 'teacher', patchUser: true, save: true }),
@@ -1032,11 +1050,15 @@ router.all(
 						true,
 					);
 					const icon = `<p class="text-center m-0">${statusIcon}</p>`;
+					let classesString = '';
+					if (user.classes && Array.isArray(user.classes) && user.classes.length !== 0) {
+						classesString = user.classes.join(', ');
+					}
 					const row = [
 						user.firstName || '',
 						user.lastName || '',
 						user.email || '',
-						user.classesString || '',
+						classesString,
 					];
 					if (hasEditPermission) {
 						row.push(moment(user.createdAt).format('DD.MM.YYYY'));

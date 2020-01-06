@@ -3,6 +3,7 @@ const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
 const api = require('../api');
+const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
@@ -137,6 +138,7 @@ const editCourseHandler = (req, res, next) => {
 				schoolId: res.locals.currentSchool,
 				$populate: ['year'],
 				$limit: -1,
+				$sort: ['-year', 'displayName'],
 			},
 		});
 		// .then(data => data.data); needed when pagination is not disabled
@@ -580,7 +582,14 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 
 router.get('/:courseId/', (req, res, next) => {
 	// ############################## check if new Editor options should show #################
-	const isNewEdtiroActivated = (req.query.edtr === 'true');
+	if (req.query.edtr === 'true' && !req.cookies.edtr) {
+		res.cookie('edtr', true, { maxAge: 90000000 });
+	} else if (req.query.edtr === 'false' && req.cookies.edtr === 'true') {
+		res.cookie('edtr', false, { maxAge: 1000 });
+		req.cookies.edtr = 'false';
+	}
+
+	const isNewEdtiroActivated = (req.query.edtr === 'true' || req.cookies.edtr === 'true');
 
 	const promises = [
 		api(req).get(`/courses/${req.params.courseId}`, {
@@ -611,7 +620,7 @@ router.get('/:courseId/', (req, res, next) => {
 
 	// ########################### start requests to new Editor #########################
 	if (isNewEdtiroActivated) {
-		promises.push(api(req, { backend: 'editor' }).get(`course/${req.params.courseId}/lessons`));
+		promises.push(apiEditor(req).get(`course/${req.params.courseId}/lessons`));
 	}
 
 	// ############################ end requests to new Editor ##########################
