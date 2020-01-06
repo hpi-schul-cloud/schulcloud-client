@@ -1,0 +1,29 @@
+{{#content "scripts" mode="append"}}
+        <script src="/scripts/csrf.js" type="text/javascript" defer></script>
+{{/content}}
+{{#if loggedin}}
+    {{#extend "lib/loggedin"}}
+        {{#content "styles" mode="append"}}
+            <link rel="stylesheet" href="/styles/lib/error.css"/>
+        {{/content}}
+        {{#content "page"}}
+            {{#embed "lib/csrf_content"}}{{/embed}}
+        {{/content}}
+    {{/extend}}
+{{else}}
+    {{#extend "lib/loggedout"}}
+        {{#content "styles" mode="append"}}
+            <link rel="stylesheet" href="/styles/lib/error.css"/>
+        {{/content}}
+
+        {{#content "page"}}
+			{{#embed "authentication/section"}}
+				{{#content "body"}}
+					<main class="container pt-3 mt-5">
+						{{#embed "lib/csrf_content"}}{{/embed}}
+					</main>
+				{{/content}}
+			{{/embed}}
+        {{/content}}
+    {{/extend}}
+{{/if}}
