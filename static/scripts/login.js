@@ -1,4 +1,5 @@
 import './pwd.js';
+import './cleanup'; // see loggedin.js for loggedin users
 
 /* global introJs */
 $(document).ready(function() {
@@ -70,7 +71,7 @@ $(document).ready(function() {
                 $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '">' + system.type + systemAlias + '</option>');
             });
             $systems.trigger('chosen:updated');
-            systems.length == 1 ? $systems.parent().hide() : $systems.parent().show();
+            systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
         });
     };
 
@@ -114,7 +115,7 @@ $(document).ready(function() {
         populateModalForm($pwRecoveryModal, {
             title: 'Passwort Zurücksetzen',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Abschicken'
+            submitLabel: 'Passswort zurücksetzen'
         });
         $pwRecoveryModal.appendTo('body').modal('show');
     });
@@ -150,23 +151,3 @@ window.startIntro = function startIntro() {
         document.querySelector("#demologin").click();
     });
 };
-
-if ('serviceWorker' in navigator){
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-        for(let registration of registrations) {
-            if(registration.active && registration.active.scriptURL.endsWith('/sw.js')){
-                registration.unregister();
-                caches.keys().then(function(cacheNames) {
-                    return Promise.all(
-                      cacheNames.filter(function(cacheName) {
-                        return cacheName.startsWith('workbox') | cacheName.startsWith('images')
-                        | cacheName.startsWith('pages') | cacheName.startsWith('vendors');
-                      }).map(function(cacheName) {
-                        return caches.delete(cacheName);
-                      })
-                    );
-                });
-            }
-        }
-    });
-}

@@ -1,0 +1,14 @@
+{{#extend "lib/loggedout"}}
+
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/imprint/imprint.css"/>
+	{{/content}}
+
+	{{#content "scripts" mode="append"}}
+	{{/content}}
+
+	{{#content "page"}}
+		{{#embed "dataprivacy/privacy"}}{{/embed}}
+	{{/content}}
+
+{{/extend}}

@@ -29,7 +29,6 @@ router.get('/', (req, res, next) => {
 		return Promise.resolve(template);
 	}).then(template => res.render(template, {
 		title: 'Partner',
-		logo_prefix: '/images/partner/',
 		inline: !!template.includes('guest'),
 		partners,
 		hiddenAdvisers,

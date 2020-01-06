@@ -93,11 +93,14 @@ label {
 	font-weight: bold;
 }
 
-video,
-audio {
+video {
 	width: 100%;
 	height: auto;
 	object-fit: cover;
+}
+
+audio {
+	width: 100%;
 }
 
 .pagination-wrapper {

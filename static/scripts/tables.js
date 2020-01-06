@@ -63,31 +63,31 @@ $(document).ready(function () {
     'members': 'Mitglieder',
 };
 
-$('tr th').each(function(i,j) {
-    $(j).on('click', function (e) {
+// currently not working, issue will be solved by new table component in nuxt-client
+// $('tr th').each(function(i,j) {
+//     $(j).on('click', function (e) {
+//         let location = window.location.search.split('&');
+//         let contained = false;
 
-        let location = window.location.search.split('&');
-        let contained = false;
-
-        location = location.map(entity => {
-            if (entity.includes('sort')) {
-                if (entity === 'sort=' + dictionary[$(j).text()]) {
-                    entity = 'sort=-' + dictionary[$(j).text()];
-                } else {
-                    entity = 'sort=' + dictionary[$(j).text()];
-                }
-                contained = true;
-            }
-            return entity;
-        });
-        if (!contained)
-            location.push('sort=' + dictionary[$(j).text()]);
-        window.location.search = location.join('&');
-    });
-});
+//         location = location.map(entity => {
+//             if (entity.includes('sort')) {
+//                 if (entity === 'sort=' + dictionary[$(j).text()]) {
+//                     entity = 'sort=-' + dictionary[$(j).text()];
+//                 } else {
+//                     entity = 'sort=' + dictionary[$(j).text()];
+//                 }
+//                 contained = true;
+//             }
+//             return entity;
+//         });
+//         if (!contained)
+//             location.push('sort=' + dictionary[$(j).text()]);
+//         window.location.search = location.join('&');
+//     });
+// });
 
 $('#limit').change(function changeLimit() {
-
+	
     let location = window.location.search.split('&');
     let contained = false;
 
@@ -103,24 +103,25 @@ $('#limit').change(function changeLimit() {
     window.location.search = location.join('&');
 });
 
-let location = window.location.search.split('&');
-location.map(entity => {
-   if (entity.includes('sort')) {
-       let queryParam = entity.split('=');
-       queryParam = queryParam[1].toString();
+// disabled because sorting with table headers is currently not working
+// let location = window.location.search.split('&');
+// location.map(entity => {
+//    if (entity.includes('sort')) {
+//        let queryParam = entity.split('=');
+//        queryParam = queryParam[1].toString();
 
-       let asc = true;
+//        let asc = true;
 
-       if (queryParam.charAt(0) === '-') {
-           asc = false;
-           queryParam = queryParam.slice(1);
-       }
+//        if (queryParam.charAt(0) === '-') {
+//            asc = false;
+//            queryParam = queryParam.slice(1);
+//        }
 
-       if (asc) {
-           $('th:contains(' + dictionary[queryParam] + ')').append('<i class="fa fa-arrow-down" aria-hidden="true"></i>');
-       } else {
-           $('th:contains(' + dictionary[queryParam] + ')').append('<i class="fa fa-arrow-up" aria-hidden="true"></i>');
-       }
-   }
-});
+//        if (asc) {
+//            $('th:contains(' + dictionary[queryParam] + ')').append('<i class="fa fa-arrow-down" aria-hidden="true"></i>');
+//        } else {
+//            $('th:contains(' + dictionary[queryParam] + ')').append('<i class="fa fa-arrow-up" aria-hidden="true"></i>');
+//        }
+//    }
+// });
 });

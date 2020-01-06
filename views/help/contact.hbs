@@ -16,7 +16,7 @@
   </form>
 
   <div class="team_form {{#unless teamFormIsActive}}hidden{{/unless}}">
-    <p>Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{theme.short_title}} gesendet. Bitte achte darauf, keine passwörter und andere sensible Daten mitzusenden.</p>
+    <p>Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{theme.short_title}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.</p>
     <p>Welche Art von Feedback möchtest du uns senden?</p>
     <fieldset class="switch_wrapper" id="message_type">
       <div class="switch">
@@ -27,12 +27,12 @@
       </div>
     </fieldset>
 
-    <form class="wish_form hidden" action="/helpdesk" method="post">
+    <form class="wish_form hidden" action="/helpdesk" method="post" enctype="multipart/form-data">
       {{> "help/forms/form_wish"}}
       {{> "lib/components/csrfInput"}}
       <button type="submit">Absenden</button>
     </form>
-    <form class="bug_form" action="/helpdesk" method="post">
+    <form class="bug_form" action="/helpdesk" method="post" enctype="multipart/form-data">
       {{> "help/forms/form_bug"}}
       {{> "lib/components/csrfInput"}}
       <button type="submit">Absenden</button>

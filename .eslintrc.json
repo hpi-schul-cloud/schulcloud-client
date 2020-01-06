@@ -9,6 +9,7 @@
 		"jquery": true
 	},
 	"globals": {
+		"populateModal": false,
 		"populateModalForm": false
 	}
 }
