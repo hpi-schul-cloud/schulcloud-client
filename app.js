@@ -8,12 +8,13 @@ const redis = require('redis');
 const connectRedis = require('connect-redis');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const fileUpload = require('express-fileupload');
 const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
-const { tokenInjector, duplicateTokenHandler } = require('./helpers/csrf');
+const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
@@ -124,6 +125,10 @@ app.use(session({
 	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
 }));
 
+app.use(fileUpload({
+	createParentPath: true,
+}));
+
 // CSRF middlewares
 app.use(duplicateTokenHandler);
 app.use(csurf());
@@ -198,7 +203,8 @@ app.use((req, res, next) => {
 	next(err);
 });
 
-// error handler
+// error handlers
+app.use(csrfErrorHandler);
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
