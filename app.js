@@ -14,7 +14,7 @@ const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
-const { tokenInjector, duplicateTokenHandler } = require('./helpers/csrf');
+const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
@@ -203,7 +203,8 @@ app.use((req, res, next) => {
 	next(err);
 });
 
-// error handler
+// error handlers
+app.use(csrfErrorHandler);
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
