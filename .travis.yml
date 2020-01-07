@@ -49,6 +49,9 @@ before_script:
   - cd schulcloud-server && npm run setup && npm run seed && cd ..
 script:
   # all cd .. in seperate lines to go dir up on test fails
+  - pwd
+  - cd schulcloud-client && npm audit --audit-level=high
+  - cd ..
   - cd schulcloud-client && npm run mocha
   - cd ..
   - cd integration-tests && npm run test
