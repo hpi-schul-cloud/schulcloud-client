@@ -1,10 +1,10 @@
 <div class="form-group section-uploaded-files">
-    <label>Zur Abgabe hochgeladene Dateien</label>
+    <label>Hochgeladene Dateien zur Aufgabe</label>
     <br>
     <ul class="list-group-files d-flex flex-row">
         {{#each this.submission.fileIds}}
             <li class="list-group-item">
-                <i class="fa fa-file" aria-hidden="true"></i>
+                <i class="fa fa-file" aria-hidden="true"></i> 
 				<a href="/files/file?file={{this._id}}" {{#ifeq this.securityCheck.status "blocked"}}class="btn-file-danger"{{/ifeq}}  target="_blank">
                     {{#if this.clearName}}
 						{{this.clearName}}
@@ -19,18 +19,18 @@
                             <i class="fa fa-cloud-download disabled"></i>
                         </a>
                     {{else}}
-                        <a href="/files/file?download=true&file={{../this._id}}" target="_blank">
+                        <a href="/files/file?download=true&file={{this._id}}" target="_blank">
                             <i class="fa fa-cloud-download"></i>
                         </a>
                     {{/ifeq}}
                     {{#if ../deletionAllowed}}
                         <a href="/files/file/"
                             target="_blank"
-                            data-method="delete-file"
+                            data-method="delete-file-homework-edit"
                             data-file-name="{{this.name}}"
                             data-file-id="{{this._id}}">
-                        <i class="fa fa-trash-o"></i>
-                    </a>
+                            <i class="fa fa-trash-o"></i>
+                        </a>
                     {{/if}}
                 </span>
             </li>

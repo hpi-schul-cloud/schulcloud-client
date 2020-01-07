@@ -336,6 +336,18 @@ router.post('/', getCreateHandler('homework'));
 router.patch('/:id', getUpdateHandler('homework'));
 router.delete('/:id', getDeleteHandler('homework'));
 
+router.delete('/:id/files', function (req, res, next) {
+	let homeworkId = req.params.id;
+	api(req).get('/homework/' + homeworkId).then((homework) => {
+		homework.fileIds = _.filter(homework.fileIds, id => JSON.stringify(id) !== JSON.stringify(req.body.fileId));
+		return api(req).patch('/homework/' + homeworkId, {
+			json: homework,
+		});
+	})
+		.then(result => res.json(result))
+		.catch(err => res.send(err));
+});
+
 router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
@@ -627,7 +639,7 @@ router.get('/:assignmentId/copy', (req, res, next) => {
 router.get('/:assignmentId/edit', function (req, res, next) {
 	api(req).get('/homework/' + req.params.assignmentId, {
 		qs: {
-			$populate: ['courseId'],
+			$populate: ['courseId', 'fileIds'],
 		},
 	}).then((assignment) => {
 
@@ -641,6 +653,9 @@ router.get('/:assignmentId/edit', function (req, res, next) {
 
 		assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
 		assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
+
+		addClearNameForFileIds(assignment);
+		//assignment.submissions = assignment.submissions.map((s) => { return { submission: s }; });
 
 		const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
 			$limit: false,

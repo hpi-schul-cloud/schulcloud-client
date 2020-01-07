@@ -445,4 +445,39 @@ $(document).ready(() => {
             });
         });
     });
+
+    $('a[data-method="delete-file-homework-edit"]').on('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let $buttonContext = $(this);
+        let $deleteModal = $('.delete-modal');
+        let fileId = $buttonContext.data('file-id');
+
+        $deleteModal.appendTo('body').modal('show');
+        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('file-name') + "' löschen möchtest?");
+
+        $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
+            $.ajax({
+                url: $buttonContext.attr('href'),
+                type: 'DELETE',
+                data: {
+                    key: $buttonContext.data('file-key')
+                },
+                success: function (_) {
+                    // delete reference in submission
+                    let homeworkId = $("input[name='homeworkId']").val();
+					let teamMembers = $('#teamMembers').val();
+                    $.ajax({
+                        url: `/homework/${homeworkId}/files`,
+                        data: {fileId: fileId, teamMembers: teamMembers},
+                        type: 'DELETE',
+                        success: function (_) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: showAJAXError
+            });
+        });
+    });
 });
