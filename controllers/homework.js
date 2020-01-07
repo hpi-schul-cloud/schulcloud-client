@@ -732,7 +732,7 @@ const addClearNameForFileIds = (submission_s) => {
 router.get('/:assignmentId', function (req, res, next) {
 	api(req).get('/homework/' + req.params.assignmentId, {
 		qs: {
-			$populate: ['courseId'],
+			$populate: ['courseId','fileIds'],
 		},
 	}).then((assignment) => {
 		// Kursfarbe setzen

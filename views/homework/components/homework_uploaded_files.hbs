@@ -1,6 +1,4 @@
 <div class="form-group section-uploaded-files">
-    <label>Hochgeladene Dateien zur Aufgabe</label>
-    <br>
     <ul class="list-group-files d-flex flex-row">
         {{#each this.submission.fileIds}}
             <li class="list-group-item">
@@ -33,6 +31,7 @@
                         </a>
                     {{/if}}
                 </span>
+                <input type="hidden" name="fileIds[{{@index}}]" value="{{this._id}}">
             </li>
         {{/each}}
     </ul>
