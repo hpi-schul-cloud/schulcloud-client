@@ -4,7 +4,6 @@ const autoprefixer = require('autoprefixer');
 const fs = require('fs');
 const gulp = require('gulp');
 const babel = require('gulp-babel');
-const changed = require('gulp-changed-smart');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const gulpCount = require('gulp-count');
@@ -73,13 +72,12 @@ const handleError = (error) => {
 };
 
 const beginPipe = src => gulp
-	.src(withTheme(src))
+	.src(withTheme(src),  { allowEmpty: true })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
-	.pipe(changed(gulp))
 	.pipe(filelog());
 
 const beginPipeAll = src => gulp
-	.src(withTheme(src))
+	.src(withTheme(src), { allowEmpty: true })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
 	.pipe(filelog());
 
@@ -125,7 +123,7 @@ gulp.task('styles', () => {
 		.pipe(browserSync.stream());
 });
 
-gulp.task('styles-done', ['styles'], () => {
+gulp.task('styles-done', gulp.series('styles'), () => {
 	firstRun = false;
 });
 
@@ -262,7 +260,6 @@ gulp.task('clear', () => gulp
 	.src(
 		[
 			'./build/*',
-			'./.gulp-changed-smart.json',
 			'./.webpack-changed-plugin-cache/*',
 		],
 		{
@@ -272,7 +269,7 @@ gulp.task('clear', () => gulp
 	.pipe(rimraf()));
 
 // run all tasks, processing changed files
-gulp.task('build-all', [
+gulp.task('build-all', gulp.series(
 	'images',
 	'other',
 	'styles',
@@ -285,13 +282,13 @@ gulp.task('build-all', [
 	'vendor-assets',
 	'vendor-optimized-assets',
 	'node-modules',
-	'static',
-]);
+	'static'
+));
 
-gulp.task('build-theme-files', ['styles', 'styles-done', 'images', 'static']);
+gulp.task('build-theme-files', gulp.series('styles', 'styles-done', 'images', 'static'));
 
 // watch and run corresponding task on change, process changed files only
-gulp.task('watch', ['build-all'], () => {
+gulp.task('watch', gulp.series('build-all'), () => {
 	const watchOptions = { interval: 1000 };
 	gulp.watch(baseScripts, watchOptions, ['base-scripts']);
 	gulp.watch(
@@ -312,23 +309,6 @@ gulp.task('watch', ['build-all'], () => {
 	gulp.watch(withTheme('./static/*.*'), watchOptions, ['static']);
 });
 
-gulp.task('watch-reload', ['watch', 'browser-sync']);
-
-gulp.task('browser-sync', ['nodemon'], () => {
-	browserSync.init(null, {
-		proxy: 'http://localhost:3100',
-		open: false,
-		port: 7000,
-		ghostMode: false,
-		reloadOnRestart: false,
-		socket: {
-			clients: {
-				heartbeatTimeout: 60000,
-			},
-		},
-	});
-});
-
 gulp.task('nodemon', (cb) => {
 	let started = false;
 	return nodemon({
@@ -345,5 +325,24 @@ gulp.task('nodemon', (cb) => {
 	});
 });
 
+gulp.task('browser-sync', gulp.series('nodemon'), () => {
+	browserSync.init(null, {
+		proxy: 'http://localhost:3100',
+		open: false,
+		port: 7000,
+		ghostMode: false,
+		reloadOnRestart: false,
+		socket: {
+			clients: {
+				heartbeatTimeout: 60000,
+			},
+		},
+	});
+});
+
+gulp.task('watch-reload', gulp.series('watch', 'browser-sync'));
+
+
+
 // run this if only 'gulp' is run on the commandline with no task specified
-gulp.task('default', ['build-all']);
+gulp.task('default', gulp.series('build-all'));
