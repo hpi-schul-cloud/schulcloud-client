@@ -48,7 +48,8 @@ jobs:
       before_script:
         # seed database
         - cd schulcloud-server && npm run setup && npm run seed && cd ..
-      script: 
+      script:
+        - pwd 
         - cd schulcloud-client && npm audit --audit-level=high && cd ..
         - cd schulcloud-client && npm run mocha && cd ..
     - script:
