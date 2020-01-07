@@ -49,10 +49,10 @@ jobs:
         # seed database
         - cd schulcloud-server && npm run setup && npm run seed && cd ..
       script:
-        - pwd 
-        - cd schulcloud-client && npm audit --audit-level=high && cd ..
-        - cd schulcloud-client && npm run mocha && cd ..
+        - cd /home/travis/build/schul-cloud/schulcloud-client && npm audit --audit-level=high
+        - cd /home/travis/build/schul-cloud/schulcloud-client && npm run mocha
     - script:
+        - cd /home/travis/build/schul-cloud/
         - curl https://gist.githubusercontent.com/schul-cloud-bot/a849c38804174f99ca7818782bf03c00/raw/index.sh > integration-test.sh
         - chmod 700 integration-test.sh
         - bash integration-test.sh
