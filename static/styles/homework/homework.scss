@@ -1,6 +1,23 @@
 @import '../lib/colors';
 @import '../lib/bootstrap/scss/bootstrap-grid';
 
+
+.count-badge[data-badge]:after {
+	content: attr(data-badge);
+	background: $colorLightGrey;
+	color: $fontColor;
+	display: inline-block;
+	padding: 0.25em 0.4em;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 0.25rem;
+  }
+
+
 .homework {
   width: 100%;
   list-style: none;
@@ -12,6 +29,7 @@
   width: 100%;
   position: relative;
   padding: 10px;
+  padding-bottom: 48px;
   text-decoration: none;
   a {
     color: #373a3c;
@@ -37,6 +55,7 @@
     position:relative;
   }
   &.private {
+    min-height: 165px;
     h5::before {
       content: "🔒";
     }
