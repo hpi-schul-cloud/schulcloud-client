@@ -83,15 +83,7 @@
 <div class="row">
 	<div class="col-xl-12">
 		<form class="modal-form" id="homework-form" method="post" action="{{action}}">
-			{{#ifneq 0 (arrayLength assignment.fileIds)}}
-        		{{#embed "homework/components/submission_uploaded_files" deletionAllowed=true submission=../assignment}}{{/embed}}
-				<input type="hidden" name="_method" data-force-value="true" value="patch"/>
-			{{else}}
-				<div class="form-group section-uploaded-files">
-					<ul class="list-group-files d-flex flex-row"></ul>
-				</div>
-				<input type="hidden" name="_method" data-force-value="true" value="post"/>
-			{{/ifneq}}
+        	{{#embed "homework/components/submission_uploaded_files" deletionAllowed=true submission=../assignment}}{{/embed}}
 
 			{{#if method}}
 			<input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
