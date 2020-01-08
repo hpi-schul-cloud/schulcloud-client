@@ -5,21 +5,23 @@ const api = require('../api');
 
 const { HOST } = process.env;
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
 	// check first if target already exists (preventing db to be wasted)
 	const target = `${(req.headers.origin || HOST)}/${req.body.target}`;
-	api(req).get('/link/', { qs: { target } }).then((result) => {
+	try {
+		const result = await api(req).get('/link/', { qs: { target } });
 		const existingLink = result.data[0];
 		if (!existingLink) {
-			api(req).post('/link/', { json: { target } }).then((data) => {
-				data.newUrl = `${(req.headers.origin || HOST)}/link/${data._id}`;
-				res.json(data);
-			});
+			const data = await api(req).post('/link/', { json: { target } })
+			data.newUrl = `${(req.headers.origin || HOST)}/link/${data._id}`;
+			res.json(data);
 		} else {
 			existingLink.newUrl = `${(req.headers.origin || HOST)}/link/${existingLink._id}`;
 			res.json(existingLink);
 		}
-	}).catch(err => next(err));
+	} catch (error) {
+		next(error);
+	}
 });
 
 // handles redirect to link and error pages
