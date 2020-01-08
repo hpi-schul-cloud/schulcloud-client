@@ -1,4 +1,4 @@
-/* global kjua jQuery introJs*/
+/* global kjua jQuery */
 // import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
