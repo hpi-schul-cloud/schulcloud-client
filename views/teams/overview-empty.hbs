@@ -23,11 +23,13 @@
                 </div>
             </div>
             {{else}}
+            {{#unless (userHasRole "expert")}}
             <div class="text-wrapper mx-auto d-block">
                 <h3 class="h5 text-muted text-center">
                     Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator.
                 </h3>
             </div>
+            {{/unless}}
             {{/if}}
         </section>
     {{/content}}
