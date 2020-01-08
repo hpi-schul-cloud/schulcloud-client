@@ -277,7 +277,7 @@ $(document).ready(() => {
      */
     function addNewUploadedFile(section, file) {
         let filesCount = section.children().length === 0 ? -1 : section.children().length;
-        let $fileListItem = $(`<li class="list-group-item"><i class="fa fa-file" aria-hidden="true"></i>${file.name}</li>`)
+        let $fileListItem = $(`<li class="list-group-item"><i class="fa fa-file" aria-hidden="true"></i><a href="/files/file?file=${file._id}" target="_blank">${file.name}</a></li>`)
             .append(`<input type="hidden" name="fileIds[${filesCount + 1}]" value="${file._id}" />`);
 		section.append($fileListItem);
     }
@@ -379,7 +379,7 @@ $(document).ready(() => {
                             $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`, {teamMembers: teamMembers});
                         });
                     } else {
-                        addNewUploadedFile($('.list-group-files'), data);
+                        addNewUploadedFile($('.js-file-list'), data);
 
                         // 'empty' submissionId is ok because the route takes the homeworkId first
                         $.post(`/homework/submit/0/files/${data._id}/permissions`, {homeworkId: homeworkId});

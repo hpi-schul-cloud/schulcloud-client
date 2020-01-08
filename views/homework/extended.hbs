@@ -1,6 +1,4 @@
 <section id="extended" class="tab-content section-homeworkdetails active">
-    {{#embed "homework/components/homework_uploaded_files" deletionAllowed=false submission=this}}{{/embed}}
-
     <div class="homework">
         <div class="assignment row">
             <div class="description col-xl-12 print">
@@ -20,6 +18,7 @@
                 {{/if}}
             </div>
         </div>
+        {{#embed "homework/components/homework_uploaded_files" deletionAllowed=false submission=this}}{{/embed}}
         {{#ifvalue teacherId value=currentUser._id}}
         {{#userHasPermission "HOMEWORK_EDIT"}}
         <a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit"
