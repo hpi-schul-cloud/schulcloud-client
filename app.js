@@ -89,7 +89,11 @@ app.set('view cache', true);
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(morgan('dev'));
+app.use(morgan('dev', {
+	skip(req, res) {
+		return req && ((req.route || {}).path || '').includes('tsp-login');
+	},
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
