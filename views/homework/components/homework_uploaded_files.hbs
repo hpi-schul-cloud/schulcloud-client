@@ -2,7 +2,7 @@
     <ul class="js-file-list d-flex flex-row">
         {{#each this.submission.fileIds}}
             <li class="list-group-item">
-                <i class="fa fa-file" aria-hidden="true"></i> 
+                <i class="fa fa-file" aria-hidden="true"></i>
 				<a href="/files/file?file={{this._id}}" {{#ifeq this.securityCheck.status "blocked"}}class="btn-file-danger"{{/ifeq}}  target="_blank">
                     {{#if this.clearName}}
 						{{this.clearName}}
