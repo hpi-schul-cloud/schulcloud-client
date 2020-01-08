@@ -40,7 +40,7 @@ jobs:
       install:
         # boot server
         - cd docker-compose
-        - docker-compose -f docker-compose.integration-test.yml build -parallel server server-mongodb
+        - docker-compose -f docker-compose.integration-test.yml build --parallel server server-mongodb
         - docker-compose -f docker-compose.integration-test.yml up -d server server-mongodb
         - cd ..
         # client packages are needed for mocha
