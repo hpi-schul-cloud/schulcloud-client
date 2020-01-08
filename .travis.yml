@@ -27,6 +27,7 @@ jobs:
       name: Mocha
       before_install:
         # move client into subdirectory
+        - mkdir -p nuxt-client
         - mkdir -p schulcloud-client
         - mv !(schulcloud-client) schulcloud-client
         # fetch switch_branch script
