@@ -2417,29 +2417,33 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 };
 
 const schoolUpdateHandler = async (req, res, next) => {
-	const isChatAllowed = (res.locals.currentSchoolData.features || []).includes(
-		'rocketChat',
-	);
-	if (!isChatAllowed && req.body.rocketchat === 'true') {
-		// add rocketChat feature
-		await api(req).patch(`/schools/${req.params.id}`, {
-			json: {
-				$push: {
-					features: 'rocketChat',
+	try {
+		const isChatAllowed = (res.locals.currentSchoolData.features || []).includes(
+			'rocketChat',
+		);
+		if (!isChatAllowed && req.body.rocketchat === 'true') {
+			// add rocketChat feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'rocketChat',
+					},
 				},
-			},
-		});
-	} else if (isChatAllowed && req.body.rocketchat !== 'true') {
-		// remove rocketChat feature
-		await api(req).patch(`/schools/${req.params.id}`, {
-			json: {
-				$pull: {
-					features: 'rocketChat',
+			});
+		} else if (isChatAllowed && req.body.rocketchat !== 'true') {
+			// remove rocketChat feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'rocketChat',
+					},
 				},
-			},
-		});
+			});
+		}
+		delete req.body.rocketchat;
+	} catch (err) {
+		next(err);
 	}
-	delete req.body.rocketchat;
 	return getUpdateHandler('schools')(req, res, next);
 };
 
