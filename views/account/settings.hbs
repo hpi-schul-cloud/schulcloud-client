@@ -72,24 +72,6 @@
                     </div>
                 </div>
                 {{/userHasPermission}}
-				{{#userHasRole "student"}}
-				{{else}}
-				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
-				{{else}}
-				<h5>Teams</h5>
-				<div class="form-group">
-					Sichtbarkeit für Teameinladungen
-					<p class="text-muted">Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{theme.short_title}}bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.</p>
-
-					{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.</label>{{/ifConfig}}
-
-					{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis aktivieren</label>{{/ifConfig}}
-
-					{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis deaktivieren</label>{{/ifConfig}}
-				</div>
-				{{/ifConfig}}
-				{{/userHasRole}}
-
 
                 {{> "lib/components/csrfInput"}}
 
@@ -126,6 +108,34 @@
                 </p>
             </div>
             {{/unless}}
+
+            {{#userHasRole "student"}}
+            {{else}}
+				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
+				{{else}}
+                <form method="post" action="/account/teamSettings">
+                    <h5>Teams</h5>
+                    <div class="form-group">
+                        Sichtbarkeit für Teameinladungen
+                        <p class="text-muted">Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{theme.short_title}}bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.</p>
+
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.</label>{{/ifConfig}}
+
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis aktivieren</label>{{/ifConfig}}
+
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis deaktivieren</label>{{/ifConfig}}
+                    </div>
+
+                    {{> "lib/components/csrfInput"}}
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            Teameinstellungen speichern
+                        </button>
+                    </div>
+                </form>
+				{{/ifConfig}}
+            {{/userHasRole}}
         </div>
 
         {{#if false}} <!-- the following is hidden until the feature is fixed -->
