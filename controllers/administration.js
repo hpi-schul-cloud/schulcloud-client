@@ -2417,6 +2417,10 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 };
 
 const schoolUpdateHandler = async (req, res, next) => {
+	// remove logo attribute from patch if it is not set explicitly (SC-2881)
+	if (req.body && req.body.logo_dataUrl === '') {
+		delete req.body.logo_dataUrl;
+	}
 	try {
 		const isChatAllowed = (res.locals.currentSchoolData.features || []).includes(
 			'rocketChat',
