@@ -31,7 +31,9 @@
 											<div class="row">
 												<div class="col-md-5">
 													<div>
-														<img class="image" src="{{pictureUrl}}">
+														<noscript class="lazyload">
+    														<img class="image lazyImage" data-src="{{pictureUrl}}" data-width="800" data-height="800">
+														</noscript>
 													</div>
 												</div>
 												<div class="col-md-7">
@@ -56,7 +58,9 @@
 							<div class="buttons">
 								<div id="openCard">
 									<div class="card h-100 person">
-										<img class="card-img-top circular" src="{{pictureUrl}}">
+										<noscript class="lazyload">
+    										<img class="card-img-top circular lazyImage" data-src="{{pictureUrl}}" data-width="150" data-height="150">
+										</noscript>
 										<div class="card-block">
 											<h3 class="person-title card-title" data-lastname="{{lastName}}">{{firstName}} {{lastName}}</h3>
 											<p class="person-desc card-text">{{position}}</p>
@@ -73,4 +77,3 @@
 {{/embed}}
 {{/each}}
 </section>
-

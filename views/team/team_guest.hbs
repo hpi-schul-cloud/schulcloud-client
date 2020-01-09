@@ -6,6 +6,8 @@
 
     {{#content "scripts" mode="append"}}
         <script type="text/javascript" src="/scripts/team.js" defer></script>
+        <script src="/scripts/helpers/lazyload.js" type="text/javascript" defer></script>
+        <script src="/scripts/helpers/lazyImage.js" type="text/javascript" data-pichasso_url="{{@root.PICHASSO_URL}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
