@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* LAZYIMAGE
 	Usage:
 		1. add class "lazyImage" to img tag
