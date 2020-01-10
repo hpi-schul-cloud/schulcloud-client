@@ -200,7 +200,7 @@
 			{{#unless (userHasRole "student")}}
 			<div class="form-group">
 				<label>
-					<input name="private" type="checkbox" value="true" {{#if assignment.private}}checked="checked" {{/if}} />
+					<input name="private" type="checkbox" value="true" data-testid="private-checkbox" {{#if assignment.private}}checked="checked" {{/if}} />
 					Private Aufgabe (nur für mich sichtbar)
 				</label></br>
 				<label>
