@@ -482,6 +482,21 @@ module.exports = [
 				},
 				longDesc: false,
 			},
+			{
+				title: '',
+				firstName: 'Kira',
+				lastName: 'Kötter',
+				position: 'Konzeptionelle Mitarbeiterin, MINT-EC',
+				description: 'Kira absolvierte nach ihrem Masterstudium der französischen Literaturwissenschaft in Hamburg und Bordeaux ein Volontariat im Bereich Kommunikation. Nachdem sie daraufhin eine Online-Community für Fremdsprachenlernende redaktionell betreute, ist sie nun für Öffentlichkeitsarbeit und Community Management für die HPI Schul-Cloud bei MINT-EC tätig',
+				pictureUrl: '/images/team/kira_koetter.JPG',
+				priority: 0,
+				social: {
+					facebook: '',
+					twitter: '',
+					linkedin: '',
+				},
+				longDesc: false,
+			},
 		],
 	},
 

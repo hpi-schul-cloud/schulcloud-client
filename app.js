@@ -8,22 +8,34 @@ const redis = require('redis');
 const connectRedis = require('connect-redis');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const fileUpload = require('express-fileupload');
 const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
-const { tokenInjector, duplicateTokenHandler } = require('./helpers/csrf');
+const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 const logger = require('./helpers/logger');
 
+
+const {
+	KEEP_ALIVE,
+	SENTRY_DSN,
+	SC_DOMAIN,
+	SC_THEME,
+	REDIS_URI,
+	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
+	JWT_TIMEOUT_SECONDS,
+} = require('./config/global');
+
 const app = express();
 
-if (process.env.SENTRY_DSN) {
+if (SENTRY_DSN) {
 	Sentry.init({
-		dsn: process.env.SENTRY_DSN,
+		dsn: SENTRY_DSN,
 		environment: app.get('env'),
 		release: version,
 		integrations: [
@@ -33,7 +45,7 @@ if (process.env.SENTRY_DSN) {
 	Sentry.configureScope((scope) => {
 		scope.setTag('frontend', false);
 		scope.setLevel('warning');
-		scope.setTag('domain', process.env.SC_DOMAIN || 'localhost');
+		scope.setTag('domain', SC_DOMAIN);
 		scope.setTag('sha', sha);
 	});
 	app.use(Sentry.Handlers.requestHandler());
@@ -43,7 +55,7 @@ if (process.env.SENTRY_DSN) {
 const authHelper = require('./helpers/authentication');
 
 // set custom response header for ha proxy
-if (process.env.KEEP_ALIVE) {
+if (KEEP_ALIVE) {
 	app.use((req, res, next) => {
 		res.setHeader('Connection', 'Keep-Alive');
 		next();
@@ -62,7 +74,7 @@ app.use(cors);
 
 app.use(compression());
 app.set('trust proxy', true);
-const themeName = process.env.SC_THEME || 'default';
+const themeName = SC_THEME;
 // view engine setup
 const handlebarsHelper = require('./helpers/handlebars');
 
@@ -91,7 +103,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
 
 let sessionStore;
-const redisUrl = process.env.REDIS_URI;
+const redisUrl = REDIS_URI;
 if (redisUrl) {
 	logger.info(`Using Redis session store at '${redisUrl}'.`);
 	const RedisStore = connectRedis(session);
@@ -111,6 +123,10 @@ app.use(session({
 	saveUninitialized: true,
 	resave: false,
 	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
+}));
+
+app.use(fileUpload({
+	createParentPath: true,
 }));
 
 // CSRF middlewares
@@ -133,7 +149,7 @@ app.use(async (req, res, next) => {
 		logger.error('could not populate current user', error);
 		return next(error);
 	}
-	if (process.env.SENTRY_DSN) {
+	if (SENTRY_DSN) {
 		Sentry.configureScope((scope) => {
 			if (res.locals.currentUser) {
 				scope.setTag({ schoolId: res.locals.currentUser.schoolId });
@@ -146,10 +162,12 @@ app.use(async (req, res, next) => {
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
 	setTheme(res);
-	res.locals.domain = process.env.SC_DOMAIN || 'localhost';
+	res.locals.domain = SC_DOMAIN;
 	res.locals.production = req.app.get('env') === 'production';
-	res.locals.env = req.app.get('env') || false;
-	res.locals.SENTRY_DSN = process.env.SENTRY_DSN || false;
+	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
+	res.locals.SENTRY_DSN = SENTRY_DSN;
+	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
+	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
 	res.locals.version = version;
 	res.locals.sha = sha;
 	delete req.session.notification;
@@ -185,7 +203,8 @@ app.use((req, res, next) => {
 	next(err);
 });
 
-// error handler
+// error handlers
+app.use(csrfErrorHandler);
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
@@ -194,6 +213,12 @@ app.use((err, req, res, next) => {
 		res.locals.message = err.error.message;
 	} else {
 		res.locals.message = err.message;
+	}
+
+	if (res.locals && res.locals.message.includes('ESOCKETTIMEDOUT') && err.options) {
+		const message = `ESOCKETTIMEDOUT by route: ${err.options.baseUrl + err.options.uri}`;
+		logger.warn(message);
+		Sentry.captureMessage(message);
 	}
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
