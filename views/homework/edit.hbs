@@ -76,28 +76,14 @@
 {{/content}}
 {{#extend "homework/homework"}}
 {{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/files/upload.css" />
+<link rel="stylesheet" href="/styles/files/upload.css" />
+<link rel="stylesheet" href="/styles/homework/file-upload.css" />
 {{/content}}
 {{#content "page"}}
-{{#embed "files/file-upload"}}{{/embed}}
+
 <div class="row">
 	<div class="col-xl-12">
 		<form class="modal-form" id="homework-form" method="post" action="{{action}}">
-        	{{#embed "homework/components/homework_uploaded_files" deletionAllowed=true submission=../assignment}}{{/embed}}
-
-			{{#if method}}
-			<input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
-			{{/if}}
-
-			{{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
-
-			<input name="homeworkId" type="hidden" data-force-value="true" value="{{assignment._id}}" />
-
-			<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
-
-			{{#unless isSubstitution}}
-			<input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
-			{{/unless}}
 
 			<div class="form-group">
 				<label>Titel</label>
@@ -119,8 +105,7 @@
 							{{/each}}
 						</select>
 						{{else}}
-						<input name="courseId" type="hidden" data-force-value="true"
-							value="{{assignment.courseId._id}}" />
+						<input name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" />
 						<div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">(Vertretungslehrer dürfen
 								den Kurs nicht ändern)</small></div>
 						{{/unless}}
@@ -134,8 +119,8 @@
 							{{#if assignment.courseId}}
 							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>Keine Zuordnung</option>
 							{{#each lessons}}
-							<option value="{{this._id}}"
-								{{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>{{this.name}}
+							<option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>
+								{{this.name}}
 							</option>
 							{{/each}}
 							{{else}}
@@ -175,19 +160,39 @@
 					placeholder="Aufgabenstellung">{{assignment.description}}</textarea>
 			</div>
 
+			{{#embed "files/file-upload"}}{{/embed}}
+
+			{{#embed "homework/components/homework_uploaded_files" deletionAllowed=true submission=../assignment}}{{/embed}}
+
+			{{#if method}}
+			<input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
+			{{/if}}
+
+			{{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
+
+			<input name="homeworkId" type="hidden" data-force-value="true" value="{{assignment._id}}" />
+
+			<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+
+			{{#unless isSubstitution}}
+			<input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
+			{{/unless}}
+
+
+
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Für Schüler sichtbar und zu bearbeiten ab:</label>
-						<input class="form-control" data-datetime name="availableDate" autocomplete="off"
-							id="availableDate" type="text" value="{{assignment.availableDate}}" />
+						<input class="form-control" data-datetime name="availableDate" autocomplete="off" id="availableDate"
+							type="text" value="{{assignment.availableDate}}" />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Bearbeitungszeitraum endet am:</label>
-						<input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate"
-							type="text" value="{{assignment.dueDate}}" />
+						<input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate" type="text"
+							value="{{assignment.dueDate}}" />
 					</div>
 				</div>
 			</div>
@@ -195,8 +200,7 @@
 			{{#unless (userHasRole "student")}}
 			<div class="form-group">
 				<label>
-					<input name="private" type="checkbox" value="true" {{#if assignment.private}}checked="checked"
-						{{/if}} />
+					<input name="private" type="checkbox" value="true" {{#if assignment.private}}checked="checked" {{/if}} />
 					Private Aufgabe (nur für mich sichtbar)
 				</label></br>
 				<label>
@@ -219,7 +223,7 @@
 					{{closeLabel}}
 				</button>
 
-                {{> "lib/components/csrfInput"}}
+				{{> "lib/components/csrfInput"}}
 				<button type="submit" class="btn btn-primary btn-submit">
 					{{submitLabel}}
 				</button>
@@ -243,9 +247,9 @@
 		{{/content}}
 		{{/embed}}
 		{{#embed "lib/components/modal-information" class="danger-modal" title="Achtung"}}
-			{{#content "fields"}}
-				{{> "files/forms/form-virus-danger"}}
-			{{/content}}
+		{{#content "fields"}}
+		{{> "files/forms/form-virus-danger"}}
+		{{/content}}
 		{{/embed}}
 
 	</div>

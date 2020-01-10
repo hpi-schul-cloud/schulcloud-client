@@ -224,7 +224,7 @@ const patchFunction = function (service, req, res, next) {
 					.then((homework) => {
 						sendNotification(data.studentId,
 							'Deine Abgabe im Fach ' +
-                            homework.courseId.name + ' wurde bewertet',
+							homework.courseId.name + ' wurde bewertet',
 							' ',
 							data.studentId,
 							req,
@@ -311,8 +311,8 @@ const getImportHandler = (service) => {
 			(data) => {
 				res.json(data);
 			}).catch((err) => {
-			next(err);
-		});
+				next(err);
+			});
 	};
 };
 
@@ -484,8 +484,8 @@ const overview = (title = '') => {
 
 					assignment.isSubstitution = !assignment.private && ((assignment.courseId || {}).substitutionIds || []).includes(assignment.currentUser._id.toString());
 					assignment.isTeacher = assignment.isSubstitution
-                        || ((assignment.courseId || {}).teacherIds || []).includes(assignment.currentUser._id.toString())
-                        || assignment.teacherId == res.locals.currentUser._id;
+						|| ((assignment.courseId || {}).teacherIds || []).includes(assignment.currentUser._id.toString())
+						|| assignment.teacherId == res.locals.currentUser._id;
 					assignment.actions = getActions(assignment, '/homework/');
 					if (!assignment.isTeacher) {
 						assignment.stats = undefined;
@@ -501,60 +501,60 @@ const overview = (title = '') => {
 						return [course._id, course.name];
 					});
 					const filterSettings =
-                        [{
-                        	type: 'sort',
-                        	title: 'Sortierung',
-                        	displayTemplate: 'Sortieren nach: %1',
-                        	options: [
-                        		['createdAt', 'Erstelldatum'],
-                        		['updatedAt', 'letze Aktualisierung'],
-                        		['availableDate', 'Verfügbarkeitsdatum'],
-                        		['dueDate', 'Abgabedatum'],
-                        	],
-                        	defaultSelection: 'dueDate',
-                        },
-                        {
-                        	type: 'select',
-                        	title: 'Kurse',
-                        	displayTemplate: 'Kurse: %1',
-                        	property: 'courseId',
-                        	multiple: true,
-                        	expanded: true,
-                        	options: courseList,
-                        },
-                        {
-                        	type: 'date',
-                        	title: 'Abgabedatum',
-                        	displayTemplate: 'Abgabe vom %1 bis %2',
-                        	property: 'dueDate',
-                        	mode: 'fromto',
-                        	fromLabel: 'vom',
-                        	toLabel: 'bis',
-                        },
-                        {
-                        	type: 'boolean',
-                        	title: 'Mehr',
-                        	options: {
-                        		'private': 'private Aufgabe',
-                        		'publicSubmissions': 'Schüler können Abgaben untereinander sehen',
-                        		'teamSubmissions': 'Teamabgaben',
-                        	},
-                        	defaultSelection: {
-                        		'private': ((query.private !== undefined) ? ((query.private === true) ? true : false) : undefined),
-                        	},
-                        	applyNegated: {
-                        		'private': [true, false],
-                        		'publicSubmissions': [true, false],
-                        		'teamSubmissions': [true, false],
-                        	},
-                        }];
+						[{
+							type: 'sort',
+							title: 'Sortierung',
+							displayTemplate: 'Sortieren nach: %1',
+							options: [
+								['createdAt', 'Erstelldatum'],
+								['updatedAt', 'letze Aktualisierung'],
+								['availableDate', 'Verfügbarkeitsdatum'],
+								['dueDate', 'Abgabedatum'],
+							],
+							defaultSelection: 'dueDate',
+						},
+						{
+							type: 'select',
+							title: 'Kurse',
+							displayTemplate: 'Kurse: %1',
+							property: 'courseId',
+							multiple: true,
+							expanded: true,
+							options: courseList,
+						},
+						{
+							type: 'date',
+							title: 'Abgabedatum',
+							displayTemplate: 'Abgabe vom %1 bis %2',
+							property: 'dueDate',
+							mode: 'fromto',
+							fromLabel: 'vom',
+							toLabel: 'bis',
+						},
+						{
+							type: 'boolean',
+							title: 'Mehr',
+							options: {
+								'private': 'private Aufgabe',
+								'publicSubmissions': 'Schüler können Abgaben untereinander sehen',
+								'teamSubmissions': 'Teamabgaben',
+							},
+							defaultSelection: {
+								'private': ((query.private !== undefined) ? ((query.private === true) ? true : false) : undefined),
+							},
+							applyNegated: {
+								'private': [true, false],
+								'publicSubmissions': [true, false],
+								'teamSubmissions': [true, false],
+							},
+						}];
 					//Pagination in client, because filters are in afterhook
 					const currentPage = parseInt(req.query.p) || 1;
 					let pagination = {
 						currentPage,
 						numPages: Math.ceil(homeworks.length / itemsPerPage),
 						baseUrl: req.baseUrl + req._parsedUrl.pathname + '?'
-                            + 'p={{page}}' + filterQueryString,
+							+ 'p={{page}}' + filterQueryString,
 					};
 					const end = currentPage * itemsPerPage;
 					homeworks = homeworks.slice(end - itemsPerPage, end);
@@ -566,9 +566,9 @@ const overview = (title = '') => {
 						courses,
 						filterSettings: JSON.stringify(filterSettings),
 						addButton: (req._parsedUrl.pathname == '/'
-                            || req._parsedUrl.pathname.includes('private')
-                            || (req._parsedUrl.pathname.includes('asked')
-                                && !isStudent)
+							|| req._parsedUrl.pathname.includes('private')
+							|| (req._parsedUrl.pathname.includes('asked')
+								&& !isStudent)
 						),
 						createPrivate: req._parsedUrl.pathname.includes('private') || isStudent,
 					});
@@ -735,7 +735,7 @@ const addClearNameForFileIds = (files) => {
 router.get('/:assignmentId', function (req, res, next) {
 	api(req).get('/homework/' + req.params.assignmentId, {
 		qs: {
-			$populate: ['courseId','fileIds'],
+			$populate: ['courseId', 'fileIds'],
 		},
 	}).then((assignment) => {
 		// Kursfarbe setzen
@@ -745,7 +745,7 @@ router.get('/:assignmentId', function (req, res, next) {
 		const availableDateArray = splitDate(assignment.availableDate);
 		assignment.availableDateF = availableDateArray['date'];
 		assignment.availableTimeF = availableDateArray['time'];
-        
+
 		const dueDateArray = splitDate(assignment.dueDate);
 		assignment.dueDateF = dueDateArray['date'];
 		assignment.dueTimeF = dueDateArray['time'];
@@ -753,7 +753,7 @@ router.get('/:assignmentId', function (req, res, next) {
 		// Abgabe noch möglich?
 		assignment.submittable = (dueDateArray['timestamp'] >= Date.now() || !assignment.dueDate);
 
-        
+
 
 		// file upload path, todo: maybe use subfolders
 		let submissionUploadPath = `users/${res.locals.currentUser._id}/`;
@@ -807,8 +807,8 @@ router.get('/:assignmentId', function (req, res, next) {
 				return submission;
 			}).filter((submission) => {
 				return ((submission.studentId || {})._id == res.locals.currentUser._id) ||
-                    (submission.teamMemberIds.includes(res.locals.currentUser._id.toString())) ||
-                    ((submission.courseGroupMemberIds || []).includes(res.locals.currentUser._id.toString()));
+					(submission.teamMemberIds.includes(res.locals.currentUser._id.toString())) ||
+					((submission.courseGroupMemberIds || []).includes(res.locals.currentUser._id.toString()));
 			})[0];
 
 			courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
@@ -824,10 +824,10 @@ router.get('/:assignmentId', function (req, res, next) {
 				.sort((a, b) => { return (a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1; });
 			// Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
 			if (!assignment.private
-                && ((assignment.teacherId == res.locals.currentUser._id
-                    || ((assignment.courseId || {}).teacherIds || []).includes(res.locals.currentUser._id)
-                    || ((assignment.courseId || {}).substitutionIds || []).includes(res.locals.currentUser._id))
-                    && assignment.courseId != null || assignment.publicSubmissions)) {
+				&& ((assignment.teacherId == res.locals.currentUser._id
+					|| ((assignment.courseId || {}).teacherIds || []).includes(res.locals.currentUser._id)
+					|| ((assignment.courseId || {}).substitutionIds || []).includes(res.locals.currentUser._id))
+					&& assignment.courseId != null || assignment.publicSubmissions)) {
 				// Daten für Abgabenübersicht
 				assignment.submissions = submissions.data.filter(submission => submission.studentId)
 					.sort((a, b) => (a.studentId.lastName.toUpperCase() < b.studentId.lastName.toUpperCase()) ? -1 : 1)
@@ -845,7 +845,7 @@ router.get('/:assignmentId', function (req, res, next) {
 						student: student,
 						submission: assignment.submissions.filter((submission) => {
 							return (submission.studentId._id == student._id) ||
-                                (submission.teamMembers && submission.teamMembers.includes(student._id.toString()));
+								(submission.teamMembers && submission.teamMembers.includes(student._id.toString()));
 						})[0],
 					};
 				});

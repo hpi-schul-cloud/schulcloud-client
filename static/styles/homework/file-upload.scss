@@ -1,0 +1,21 @@
+@import '../lib/colors';
+
+.section-uploaded-files {
+  .fa {
+    margin-right: 10px;
+  }
+  .fa-active {
+    float: right;
+    .fa {
+      color: $primaryColor;
+      cursor: pointer;
+    }
+    .fa.disabled {
+      color: $colorDarkerGrey;
+      cursor: default;
+    }
+    a {
+      text-decoration: none;
+    }
+  }
+}
