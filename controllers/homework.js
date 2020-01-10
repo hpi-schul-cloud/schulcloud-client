@@ -336,12 +336,15 @@ router.post('/', getCreateHandler('homework'));
 router.patch('/:id', getUpdateHandler('homework'));
 router.delete('/:id', getDeleteHandler('homework'));
 
-router.delete('/:id/files', function (req, res, next) {
-	let homeworkId = req.params.id;
+router.delete('/:id/file', function (req, res, next) {
+	const { fileId } = req.body;
+	const homeworkId = req.params.id;
 	api(req).get('/homework/' + homeworkId).then((homework) => {
-		homework.fileIds = _.filter(homework.fileIds, id => JSON.stringify(id) !== JSON.stringify(req.body.fileId));
+		const fileIds = _.filter(homework.fileIds, id => JSON.stringify(id) !== JSON.stringify(fileId));
 		return api(req).patch('/homework/' + homeworkId, {
-			json: homework,
+			json: {
+				fileIds: fileIds,
+			},
 		});
 	})
 		.then(result => res.json(result))
@@ -711,16 +714,16 @@ router.get('/:assignmentId/edit', function (req, res, next) {
 	});
 });
 
-//submission>single=student=upload || submissionS>multi=teacher=overview
-const addClearNameForFileIds = (submission_s) => {
-	if (submission_s == undefined) return;
-	//if array = submissions  else submission
-	if (submission_s.length > 0) {
-		submission_s.forEach((submission) => {
+//files>single=student=upload,teacher=upload || files>multi=teacher=overview ||
+const addClearNameForFileIds = (files) => {
+	if (files == undefined) return;
+
+	if (files.length > 0) {
+		files.forEach((submission) => {
 			addClearNameForFileIds(submission);
 		});
-	} else if (submission_s.fileIds && submission_s.fileIds.length > 0) {
-		return submission_s.fileIds.map((file) => {
+	} else if (files.fileIds && files.fileIds.length > 0) {
+		return files.fileIds.map((file) => {
 			if (file.name) {
 				file.clearName = file.name.replace(/%20/g, ' '); //replace to spaces
 			}
