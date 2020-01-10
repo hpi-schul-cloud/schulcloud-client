@@ -464,12 +464,12 @@ $(document).ready(() => {
                     key: $buttonContext.data('file-key')
                 },
                 success: function () {
-                    // delete reference in submission
+                    // delete reference in homework
                     let homeworkId = $("input[name='homeworkId']").val();
 					let teamMembers = $('#teamMembers').val();
                     $.ajax({
                         url: `/homework/${homeworkId}/file`,
-                        data: {fileId: fileId, teamMembers: teamMembers},
+                        data: {fileId: fileId},
                         type: 'DELETE',
                         success: function () {
                             window.location.reload();
