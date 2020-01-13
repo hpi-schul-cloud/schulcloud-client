@@ -18,6 +18,7 @@
                 {{/if}}
             </div>
         </div>
+        {{#embed "homework/components/homework_uploaded_files" deletionAllowed=false submission=this}}{{/embed}}
         {{#ifvalue teacherId value=currentUser._id}}
         {{#userHasPermission "HOMEWORK_EDIT"}}
         <a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit"

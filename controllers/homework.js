@@ -224,7 +224,7 @@ const patchFunction = function (service, req, res, next) {
 					.then((homework) => {
 						sendNotification(data.studentId,
 							'Deine Abgabe im Fach ' +
-                            homework.courseId.name + ' wurde bewertet',
+							homework.courseId.name + ' wurde bewertet',
 							' ',
 							data.studentId,
 							req,
@@ -311,8 +311,8 @@ const getImportHandler = (service) => {
 			(data) => {
 				res.json(data);
 			}).catch((err) => {
-			next(err);
-		});
+				next(err);
+			});
 	};
 };
 
@@ -335,6 +335,21 @@ const getDeleteHandler = (service, redirectToReferer) => {
 router.post('/', getCreateHandler('homework'));
 router.patch('/:id', getUpdateHandler('homework'));
 router.delete('/:id', getDeleteHandler('homework'));
+
+router.delete('/:id/file', function (req, res, next) {
+	const { fileId } = req.body;
+	const homeworkId = req.params.id;
+	api(req).get('/homework/' + homeworkId).then((homework) => {
+		const fileIds = _.filter(homework.fileIds, id => JSON.stringify(id) !== JSON.stringify(fileId));
+		return api(req).patch('/homework/' + homeworkId, {
+			json: {
+				fileIds: fileIds,
+			},
+		});
+	})
+		.then(result => res.json(result))
+		.catch(err => res.send(err));
+});
 
 router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
@@ -469,8 +484,8 @@ const overview = (title = '') => {
 
 					assignment.isSubstitution = !assignment.private && ((assignment.courseId || {}).substitutionIds || []).includes(assignment.currentUser._id.toString());
 					assignment.isTeacher = assignment.isSubstitution
-                        || ((assignment.courseId || {}).teacherIds || []).includes(assignment.currentUser._id.toString())
-                        || assignment.teacherId == res.locals.currentUser._id;
+						|| ((assignment.courseId || {}).teacherIds || []).includes(assignment.currentUser._id.toString())
+						|| assignment.teacherId == res.locals.currentUser._id;
 					assignment.actions = getActions(assignment, '/homework/');
 					if (!assignment.isTeacher) {
 						assignment.stats = undefined;
@@ -486,60 +501,60 @@ const overview = (title = '') => {
 						return [course._id, course.name];
 					});
 					const filterSettings =
-                        [{
-                        	type: 'sort',
-                        	title: 'Sortierung',
-                        	displayTemplate: 'Sortieren nach: %1',
-                        	options: [
-                        		['createdAt', 'Erstelldatum'],
-                        		['updatedAt', 'letze Aktualisierung'],
-                        		['availableDate', 'Verfügbarkeitsdatum'],
-                        		['dueDate', 'Abgabedatum'],
-                        	],
-                        	defaultSelection: 'dueDate',
-                        },
-                        {
-                        	type: 'select',
-                        	title: 'Kurse',
-                        	displayTemplate: 'Kurse: %1',
-                        	property: 'courseId',
-                        	multiple: true,
-                        	expanded: true,
-                        	options: courseList,
-                        },
-                        {
-                        	type: 'date',
-                        	title: 'Abgabedatum',
-                        	displayTemplate: 'Abgabe vom %1 bis %2',
-                        	property: 'dueDate',
-                        	mode: 'fromto',
-                        	fromLabel: 'vom',
-                        	toLabel: 'bis',
-                        },
-                        {
-                        	type: 'boolean',
-                        	title: 'Mehr',
-                        	options: {
-                        		'private': 'private Aufgabe',
-                        		'publicSubmissions': 'Schüler können Abgaben untereinander sehen',
-                        		'teamSubmissions': 'Teamabgaben',
-                        	},
-                        	defaultSelection: {
-                        		'private': ((query.private !== undefined) ? ((query.private === true) ? true : false) : undefined),
-                        	},
-                        	applyNegated: {
-                        		'private': [true, false],
-                        		'publicSubmissions': [true, false],
-                        		'teamSubmissions': [true, false],
-                        	},
-                        }];
+						[{
+							type: 'sort',
+							title: 'Sortierung',
+							displayTemplate: 'Sortieren nach: %1',
+							options: [
+								['createdAt', 'Erstelldatum'],
+								['updatedAt', 'letze Aktualisierung'],
+								['availableDate', 'Verfügbarkeitsdatum'],
+								['dueDate', 'Abgabedatum'],
+							],
+							defaultSelection: 'dueDate',
+						},
+						{
+							type: 'select',
+							title: 'Kurse',
+							displayTemplate: 'Kurse: %1',
+							property: 'courseId',
+							multiple: true,
+							expanded: true,
+							options: courseList,
+						},
+						{
+							type: 'date',
+							title: 'Abgabedatum',
+							displayTemplate: 'Abgabe vom %1 bis %2',
+							property: 'dueDate',
+							mode: 'fromto',
+							fromLabel: 'vom',
+							toLabel: 'bis',
+						},
+						{
+							type: 'boolean',
+							title: 'Mehr',
+							options: {
+								'private': 'private Aufgabe',
+								'publicSubmissions': 'Schüler können Abgaben untereinander sehen',
+								'teamSubmissions': 'Teamabgaben',
+							},
+							defaultSelection: {
+								'private': ((query.private !== undefined) ? ((query.private === true) ? true : false) : undefined),
+							},
+							applyNegated: {
+								'private': [true, false],
+								'publicSubmissions': [true, false],
+								'teamSubmissions': [true, false],
+							},
+						}];
 					//Pagination in client, because filters are in afterhook
 					const currentPage = parseInt(req.query.p) || 1;
 					let pagination = {
 						currentPage,
 						numPages: Math.ceil(homeworks.length / itemsPerPage),
 						baseUrl: req.baseUrl + req._parsedUrl.pathname + '?'
-                            + 'p={{page}}' + filterQueryString,
+							+ 'p={{page}}' + filterQueryString,
 					};
 					const end = currentPage * itemsPerPage;
 					homeworks = homeworks.slice(end - itemsPerPage, end);
@@ -551,9 +566,9 @@ const overview = (title = '') => {
 						courses,
 						filterSettings: JSON.stringify(filterSettings),
 						addButton: (req._parsedUrl.pathname == '/'
-                            || req._parsedUrl.pathname.includes('private')
-                            || (req._parsedUrl.pathname.includes('asked')
-                                && !isStudent)
+							|| req._parsedUrl.pathname.includes('private')
+							|| (req._parsedUrl.pathname.includes('asked')
+								&& !isStudent)
 						),
 						createPrivate: req._parsedUrl.pathname.includes('private') || isStudent,
 					});
@@ -627,7 +642,7 @@ router.get('/:assignmentId/copy', (req, res, next) => {
 router.get('/:assignmentId/edit', function (req, res, next) {
 	api(req).get('/homework/' + req.params.assignmentId, {
 		qs: {
-			$populate: ['courseId'],
+			$populate: ['courseId', 'fileIds'],
 		},
 	}).then((assignment) => {
 
@@ -641,6 +656,9 @@ router.get('/:assignmentId/edit', function (req, res, next) {
 
 		assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
 		assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
+
+		addClearNameForFileIds(assignment);
+		//assignment.submissions = assignment.submissions.map((s) => { return { submission: s }; });
 
 		const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
 			$limit: false,
@@ -696,16 +714,16 @@ router.get('/:assignmentId/edit', function (req, res, next) {
 	});
 });
 
-//submission>single=student=upload || submissionS>multi=teacher=overview
-const addClearNameForFileIds = (submission_s) => {
-	if (submission_s == undefined) return;
-	//if array = submissions  else submission
-	if (submission_s.length > 0) {
-		submission_s.forEach((submission) => {
+//files>single=student=upload,teacher=upload || files>multi=teacher=overview ||
+const addClearNameForFileIds = (files) => {
+	if (files == undefined) return;
+
+	if (files.length > 0) {
+		files.forEach((submission) => {
 			addClearNameForFileIds(submission);
 		});
-	} else if (submission_s.fileIds && submission_s.fileIds.length > 0) {
-		return submission_s.fileIds.map((file) => {
+	} else if (files.fileIds && files.fileIds.length > 0) {
+		return files.fileIds.map((file) => {
 			if (file.name) {
 				file.clearName = file.name.replace(/%20/g, ' '); //replace to spaces
 			}
@@ -717,7 +735,7 @@ const addClearNameForFileIds = (submission_s) => {
 router.get('/:assignmentId', function (req, res, next) {
 	api(req).get('/homework/' + req.params.assignmentId, {
 		qs: {
-			$populate: ['courseId'],
+			$populate: ['courseId', 'fileIds'],
 		},
 	}).then((assignment) => {
 		// Kursfarbe setzen
@@ -727,7 +745,7 @@ router.get('/:assignmentId', function (req, res, next) {
 		const availableDateArray = splitDate(assignment.availableDate);
 		assignment.availableDateF = availableDateArray['date'];
 		assignment.availableTimeF = availableDateArray['time'];
-        
+
 		const dueDateArray = splitDate(assignment.dueDate);
 		assignment.dueDateF = dueDateArray['date'];
 		assignment.dueTimeF = dueDateArray['time'];
@@ -735,7 +753,7 @@ router.get('/:assignmentId', function (req, res, next) {
 		// Abgabe noch möglich?
 		assignment.submittable = (dueDateArray['timestamp'] >= Date.now() || !assignment.dueDate);
 
-        
+
 
 		// file upload path, todo: maybe use subfolders
 		let submissionUploadPath = `users/${res.locals.currentUser._id}/`;
@@ -789,8 +807,8 @@ router.get('/:assignmentId', function (req, res, next) {
 				return submission;
 			}).filter((submission) => {
 				return ((submission.studentId || {})._id == res.locals.currentUser._id) ||
-                    (submission.teamMemberIds.includes(res.locals.currentUser._id.toString())) ||
-                    ((submission.courseGroupMemberIds || []).includes(res.locals.currentUser._id.toString()));
+					(submission.teamMemberIds.includes(res.locals.currentUser._id.toString())) ||
+					((submission.courseGroupMemberIds || []).includes(res.locals.currentUser._id.toString()));
 			})[0];
 
 			courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
@@ -806,10 +824,10 @@ router.get('/:assignmentId', function (req, res, next) {
 				.sort((a, b) => { return (a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1; });
 			// Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
 			if (!assignment.private
-                && ((assignment.teacherId == res.locals.currentUser._id
-                    || ((assignment.courseId || {}).teacherIds || []).includes(res.locals.currentUser._id)
-                    || ((assignment.courseId || {}).substitutionIds || []).includes(res.locals.currentUser._id))
-                    && assignment.courseId != null || assignment.publicSubmissions)) {
+				&& ((assignment.teacherId == res.locals.currentUser._id
+					|| ((assignment.courseId || {}).teacherIds || []).includes(res.locals.currentUser._id)
+					|| ((assignment.courseId || {}).substitutionIds || []).includes(res.locals.currentUser._id))
+					&& assignment.courseId != null || assignment.publicSubmissions)) {
 				// Daten für Abgabenübersicht
 				assignment.submissions = submissions.data.filter(submission => submission.studentId)
 					.sort((a, b) => (a.studentId.lastName.toUpperCase() < b.studentId.lastName.toUpperCase()) ? -1 : 1)
@@ -827,7 +845,7 @@ router.get('/:assignmentId', function (req, res, next) {
 						student: student,
 						submission: assignment.submissions.filter((submission) => {
 							return (submission.studentId._id == student._id) ||
-                                (submission.teamMembers && submission.teamMembers.includes(student._id.toString()));
+								(submission.teamMembers && submission.teamMembers.includes(student._id.toString()));
 						})[0],
 					};
 				});
