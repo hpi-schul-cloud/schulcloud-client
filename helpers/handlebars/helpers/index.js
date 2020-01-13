@@ -143,10 +143,7 @@ const helpers = app => ({
 	userHasRole: (...args) => {
 		const allowedRoles = Array.from(args);
 		const opts = allowedRoles.pop();
-		if (opts.fn && opts.data.local.currentUser.roles.some(r => allowedRoles.includes(r.name))) {
-			return opts.fn(this);
-		}
-		if (opts.inverse) return opts.inverse(this);
+		return opts.data.local.currentUser.roles.some(r => allowedRoles.includes(r.name));
 	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
