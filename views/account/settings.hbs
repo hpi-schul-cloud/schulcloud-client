@@ -111,7 +111,7 @@
             </div>
             {{/unless}}
 
-            {{#unless(userHasRole "student")}}
+            {{#unless (userHasRole "student")}}
 				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
 				{{else}}
                 <form method="post" action="/account/teamSettings">
@@ -136,7 +136,7 @@
                     </div>
                 </form>
 				{{/ifConfig}}
-            {{/if}}
+            {{/unless}}
         </div>
 
         {{#if false}} <!-- the following is hidden until the feature is fixed -->
