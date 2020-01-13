@@ -143,7 +143,7 @@ const helpers = app => ({
 	userHasRole: (...args) => {
 		const allowedRoles = Array.from(args);
 		const opts = allowedRoles.pop();
-		if (opts.data.local.currentUser.roles.some(r => allowedRoles.includes(r.name))) {
+		if (opts.fn && opts.data.local.currentUser.roles.some(r => allowedRoles.includes(r.name))) {
 			return opts.fn(this);
 		}
 		if (opts.inverse) return opts.inverse(this);
