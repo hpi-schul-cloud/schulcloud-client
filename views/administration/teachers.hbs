@@ -76,6 +76,8 @@
                                             Lehrer importieren
                                         </button>
                                     {{/inArray}}
+                                {{else}}
+                                    {{> "lib/no-create-info"}}
                                 {{/userHasPermission}}
                             {{/if}}
                         </div>
