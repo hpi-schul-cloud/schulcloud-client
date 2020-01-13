@@ -1039,6 +1039,7 @@ router.get(
 					res.locals.currentUser.roles
 						.map(role => role.name)
 						.includes('administrator')
+					&& hasEditPermission
 				) {
 					head.push('Erstellt am');
 					head.push('Einverständnis');
@@ -1320,8 +1321,10 @@ router.all(
 					'Klasse',
 					'Erstellt am',
 					'Einverständnis',
-					'',
 				];
+				if (hasEditPermission) {
+					head.push(''); // Add space for action buttons
+				}
 
 				const body = users.map((user) => {
 					const icon = getConsentStatusIcon(user.consent.consentStatus);
