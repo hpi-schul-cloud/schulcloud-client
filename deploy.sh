@@ -2,6 +2,7 @@
 
 #export TESTDEPLOY=$( cat testdeploy )
 
+
 set -e
 trap 'catch $? $LINENO' EXIT
 catch() {
@@ -10,7 +11,6 @@ catch() {
     echo "War wohl nicht so gut. Fehler $1, guckst du $2"
   fi
 }
-
 
 if [ "$TRAVIS_BRANCH" = "master" ]
 then
