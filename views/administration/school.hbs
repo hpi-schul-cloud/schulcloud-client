@@ -267,17 +267,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 no-padding">
-                    {{> "lib/components/table" head=systemsHead body=systemsBody}}
+                    {{> "lib/components/table" head=../systemsHead body=../systemsBody}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12 no-padding">
                     <form action="/administration/systems/ldap/add" method="POST">
+                        {{> "lib/components/csrfInput"}}
                         <button type="submit" class="btn btn-primary btn-add-modal ">
                             System hinzufügen
                         </button>
-                        {{#if ldapAddable}}
-                        {{> "lib/components/csrfInput"}}
+                        {{#if ../ldapAddable}}
                         <button type="submit" class="btn btn-primary">
                             LDAP System hinzufügen
                         </button>
@@ -300,7 +300,7 @@
         {{/content}}
         {{/embed}}
 
-        {{#embed "lib/components/modal-form" body=systemsBody method="delete" class="delete-modal"}}
+        {{#embed "lib/components/modal-form" body=../systemsBody method="delete" class="delete-modal"}}
         {{#content "fields"}}
         {{> "administration/forms/form-delete-alias"}}
         {{/content}}
