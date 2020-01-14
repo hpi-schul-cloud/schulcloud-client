@@ -120,6 +120,10 @@
                                     {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="Der Nutzer ist bereits registriert"{{/ifeq}}>
                                         Persönlichen Einladungslink generieren
                                     </button>
+                                    <button class="btn btn-secondary btn-send-link-email {{#if editTeacher}}teacher{{else}}student{{/if}}"
+                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="Der Nutzer ist bereits registriert"{{/ifeq}}>
+                                        Einladungslink per E-Mail versenden
+                                    </button>
                                 {{/unless}}
                             </div>
 
