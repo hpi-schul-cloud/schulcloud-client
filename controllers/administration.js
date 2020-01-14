@@ -867,9 +867,9 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 };
 
 // teacher admin permissions
-router.all(
+router.get(
 	'/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
 	(req, res, next) => {
 		const title = returnAdminPrefix(res.locals.currentUser.roles);
 		res.render('administration/dashboard', {
@@ -998,7 +998,7 @@ router.delete(
 	getDeleteHandler('users', '/administration/teachers'),
 );
 
-router.all(
+router.get(
 	'/teachers',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_LIST'], 'or'),
 	(req, res, next) => {
@@ -1039,6 +1039,7 @@ router.all(
 					res.locals.currentUser.roles
 						.map(role => role.name)
 						.includes('administrator')
+					&& hasEditPermission
 				) {
 					head.push('Erstellt am');
 					head.push('Einverständnis');
@@ -1320,8 +1321,10 @@ router.all(
 					'Klasse',
 					'Erstellt am',
 					'Einverständnis',
-					'',
 				];
+				if (hasEditPermission) {
+					head.push(''); // Add space for action buttons
+				}
 
 				const body = users.map((user) => {
 					const icon = getConsentStatusIcon(user.consent.consentStatus);
@@ -2188,7 +2191,7 @@ const classFilterSettings = ({ years, currentYear }) => {
 
 router.get(
 	'/classes',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_LIST'], 'or'),
 	(req, res, next) => {
 		const tempOrgQuery = (req.query || {}).filterQuery;
 		const filterQueryString = tempOrgQuery
@@ -2439,29 +2442,37 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 };
 
 const schoolUpdateHandler = async (req, res, next) => {
-	const isChatAllowed = (res.locals.currentSchoolData.features || []).includes(
-		'rocketChat',
-	);
-	if (!isChatAllowed && req.body.rocketchat === 'true') {
-		// add rocketChat feature
-		await api(req).patch(`/schools/${req.params.id}`, {
-			json: {
-				$push: {
-					features: 'rocketChat',
-				},
-			},
-		});
-	} else if (isChatAllowed && req.body.rocketchat !== 'true') {
-		// remove rocketChat feature
-		await api(req).patch(`/schools/${req.params.id}`, {
-			json: {
-				$pull: {
-					features: 'rocketChat',
-				},
-			},
-		});
+	// remove logo attribute from patch if it is not set explicitly (SC-2881)
+	if (req.body && req.body.logo_dataUrl === '') {
+		delete req.body.logo_dataUrl;
 	}
-	delete req.body.rocketchat;
+	try {
+		const isChatAllowed = (res.locals.currentSchoolData.features || []).includes(
+			'rocketChat',
+		);
+		if (!isChatAllowed && req.body.rocketchat === 'true') {
+			// add rocketChat feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'rocketChat',
+					},
+				},
+			});
+		} else if (isChatAllowed && req.body.rocketchat !== 'true') {
+			// remove rocketChat feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'rocketChat',
+					},
+				},
+			});
+		}
+		delete req.body.rocketchat;
+	} catch (err) {
+		next(err);
+	}
 	return getUpdateHandler('schools')(req, res, next);
 };
 

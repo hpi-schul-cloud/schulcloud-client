@@ -14,12 +14,12 @@ const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
+const { Configuration } = require('@schul-cloud/commons');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 const logger = require('./helpers/logger');
-
 
 const {
 	KEEP_ALIVE,
@@ -32,6 +32,8 @@ const {
 } = require('./config/global');
 
 const app = express();
+const Config = new Configuration();
+Config.init(app);
 
 if (SENTRY_DSN) {
 	Sentry.init({
@@ -81,7 +83,7 @@ const handlebarsHelper = require('./helpers/handlebars');
 const wax = handlebarsWax(handlebars)
 	.partials(path.join(__dirname, 'views/**/*.{hbs,js}'))
 	.helpers(layouts)
-	.helpers(handlebarsHelper.helpers);
+	.helpers(handlebarsHelper.helpers(app));
 
 wax.partials(path.join(__dirname, `theme/${themeName}/views/**/*.{hbs,js}`));
 
@@ -96,7 +98,11 @@ app.set('view cache', true);
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(morgan('dev'));
+app.use(morgan('dev', {
+	skip(req, res) {
+		return req && ((req.route || {}).path || '').includes('tsp-login');
+	},
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -171,7 +177,7 @@ app.use(async (req, res, next) => {
 	res.locals.version = version;
 	res.locals.sha = sha;
 	delete req.session.notification;
-	next();
+	return next();
 });
 
 
