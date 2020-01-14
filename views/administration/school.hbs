@@ -185,7 +185,7 @@
                             <label>Name der Schule</label>
                             <input value="{{../school.name}}" type="text" class="form-control" name="name"
                                 placeholder="Einhorn Gymnasium" {{#if ../schoolUsesLdap}} readonly{{/if}}
-                                {{#if ../isExpertSchool}} readonly{{/if}} required />
+                                {{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}} readonly{{/userHasPermission}} required />
                         </div>
 
                         <div class="form-group">
@@ -213,7 +213,7 @@
                         {{#if ../school.fileStorageType}}
                         <div class="form-group">
                             <label>Cloud-Storage Anbieter</label>
-                            <select name="fileStorageType" type="text">
+                            <select name="fileStorageType" type="text" {{#userHasPermission 'SCHOOL_EDIT'}}{{else}} disabled{{/userHasPermission}}>
                                 {{#each ../provider}}
                                 <option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}}
                                 </option>
@@ -261,6 +261,7 @@
     </section>
     {{/unless}}
 
+    {{#userHasPermission 'SCHOOL_EDIT'}}
     <section class="section-school section-default">
         <h2 class="h4">Authentifizierung</h2>
         <div class="container-fluid">
@@ -305,6 +306,8 @@
         {{/content}}
         {{/embed}}
     </section>
+    {{/userHasPermission}}
+
 
     <section class="section-school section-default">
         <h2 class="h4">RSS-Feeds</h2>

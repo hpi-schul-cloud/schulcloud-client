@@ -155,6 +155,7 @@ $(document).ready(() => {
 			data: {
 				$limit: false,
 				federalState,
+				hideOwnSchool: true,
 			},
 		}).done((schools) => {
 			const schoolSelect = $('#school');
