@@ -6,12 +6,8 @@
 	<input class="form-control" type="text" name="title" placeholder="Kurzbeschreibung des Problems" required>
 </label>
 <label class="form-group">
-	<label class="control-label">IST-Zustand: Was geschieht zur Zeit, nachdem ich welche Schritte durchgeführt habe?</label>
-	<textarea class="form-control" cols="50" name="currentState" rows="6" required></textarea>
-</label>
-<label class="form-group">
-	<label class="control-label">SOLL-Zustand: Was sollte stattdessen geschehen?</label>
-	<textarea class="form-control" cols="50" name="targetState" rows="6" required></textarea>
+	<label class="control-label">Problembeschreibung:</label>
+<textarea class="form-control" cols="50" name="problemDescription" rows="14" required></textarea>
 </label>
 <label class="form-group">
 	<span class="control-label optional">Das Problem tritt auf diesem Gerät auf</span>
@@ -40,4 +36,13 @@
 	</div>
 </div>
 </label>
+{{#ifEnv "FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED" "true"}}
+<br>
+<label class="form-group">
+    <span class="control-label">Bilder, Videos und Dateien (max. {{ ../formAttachmentsSize }}MB):</span>
+    <input type="file" class="form-control-file" name="file" multiple="multiple" accept="image/*,video/*,application/msword,application/pdf"
+		data-max-attachment-size-mb="{{ ../formAttachmentsSize }}">
+</label>
+{{/ifEnv}}
 <hr>
+<span class="control-label file-alert"></span>
