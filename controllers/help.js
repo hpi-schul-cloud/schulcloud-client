@@ -74,6 +74,18 @@ router.get('/faq/people', (req, res, next) => {
 	});
 });
 
+router.get('/lernNuggets', (req, res, next) => {
+	res.render('help/lern-nuggets', {
+		title: 'Lern-Nuggets',
+		breadcrumb: [
+			{
+				title: 'Hilfebereich',
+				url: '/help',
+			},
+		],
+	});
+});
+
 router.get('/faq/documents', async (req, res, next) => {
 	const userRoles = res.locals.currentUser.roles.map(r => r.name);
 	const isDemoUser = userRoles.some(r => r.startsWith('demo'));
