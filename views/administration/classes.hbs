@@ -22,6 +22,7 @@
                     <div class="row">
                         {{> "lib/components/pagination" settings=pagination }}
                     </div>
+                    {{#userHasPermission 'CLASS_CREATE'}}
                     <div class="row">
                         <div class="col-sm-12 no-padding">
                             <a href="/administration/classes/create" class="btn btn-primary btn-add">
@@ -29,6 +30,9 @@
                             </a>
                         </div>
                     </div>
+                    {{else}}
+                        {{> "lib/no-create-info"}}
+                    {{/userHasPermission}}
                 </div>
 
                 {{#embed "lib/components/modal-form" body=body method="delete" class="delete-modal"}}

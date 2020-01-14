@@ -4,7 +4,6 @@ import AlertMessageController from './helpers/AlertMessageController';
 
 const alertMessageController = new AlertMessageController(false);
 
-/* global introJs */
 $(document).ready(function() {
 
 	// reset localStorage when new version is Published
@@ -118,7 +117,7 @@ $(document).ready(function() {
         populateModalForm($pwRecoveryModal, {
             title: 'Passwort Zurücksetzen',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Abschicken'
+            submitLabel: 'Passswort zurücksetzen'
         });
         $pwRecoveryModal.appendTo('body').modal('show');
     });
@@ -136,7 +135,7 @@ $(document).ready(function() {
         $school.trigger('change');
     }
 
-	// EBS-System | Alert
+  // EBS-System | Alert
 	$.ajax({
 		url: '/alerts',
 		contentType: 'application/json',
@@ -150,20 +149,3 @@ $(document).ready(function() {
         console.error('Could not update alerts!');
     });
 });
-
-window.startIntro = function startIntro() {
-    introJs()
-    .setOptions({
-        nextLabel: "Weiter",
-        prevLabel: "Zurück",
-        doneLabel: "Nächste Seite",
-        skipLabel: "Überspringen",
-        hidePrev: true, //hide previous button in the first step
-        hideNext: true  //hide next button in the last step
-    })
-    .start()
-    .oncomplete(function() {
-        localStorage.setItem('Tutorial', true);
-        document.querySelector("#demologin").click();
-    });
-};
