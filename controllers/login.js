@@ -26,6 +26,13 @@ const clearCookie = (req, res, options = { destroySession: false }) => {
 	}
 };
 
+// SSO Login
+
+router.get('/tsp-login/', (req, res, next) => {
+	const ticket = req.query.ticket;
+	return authHelper.login({ strategy: 'tsp', ticket }, req, res, next);
+});
+
 // Login
 
 router.post('/login/', (req, res, next) => {
@@ -36,34 +43,12 @@ router.post('/login/', (req, res, next) => {
 		schoolId,
 	} = req.body;
 
-	const login = d => api(req).post('/authentication', { json: d }).then((data) => {
-		res.cookie('jwt', data.accessToken,
-			{
-				expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-				httpOnly: false, // can't be set to true with nuxt client
-				hostOnly: true,
-				secure: process.env.NODE_ENV === 'production',
-			});
-		res.redirect('/login/success/');
-	}).catch((e) => {
-		res.locals.notification = {
-			type: 'danger',
-			message: 'Login fehlgeschlagen.',
-			statusCode: e.statusCode,
-			timeToWait: process.env.LOGIN_BLOCK_TIME || 15,
-		};
-		if (e.statusCode === 429) {
-			res.locals.notification.timeToWait = e.error.data.timeToWait;
-		}
-		next();
-	});
-
 	if (systemId) {
 		return api(req).get(`/systems/${req.body.systemId}`).then(system => login({
 			strategy: system.type, username, password, systemId, schoolId,
 		}));
 	}
-	return login({ strategy: 'local', username, password });
+	return authHelper.login({ strategy: 'local', username, password }, req, res, next);
 });
 
 
@@ -153,6 +138,7 @@ const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
 	return undefined;
 }).catch(() => undefined); // fixme this is a very bad error catch
 // so we can do proper redirecting and stuff :)
+
 router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 	if (res.locals.currentUser) {
 		const user = res.locals.currentUser;

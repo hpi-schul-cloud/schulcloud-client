@@ -73,22 +73,12 @@
                 </div>
                 {{/userHasPermission}}
 
-				{{#unless hideVisibilitySettings}}
-				<div class="form-group">
-					<label>
-						<input type="checkbox" name="discoverable" value="true" {{#if isDiscoverable}}checked{{/if}}>
-						Sichtbar für Teameinladungen
-						<p class="text-muted">Ist diese Funktion aktiviert, können Dich Lehrkräfte anderer Schulen, die Teamadministratoren sind, über einen {{theme.short_title}}-zentralen Verzeichnisdienst bequem in ein schulübergreifendes Team einladen. Dein Name ist deiner Schule zugeordnet und in der Verzeichnisstruktur unter Name des Bundeslandes > Name der Schule > Namen der Lehrkräfte aufrufbar.</p>
-						</p>
-					</label>
-				</div>
-				{{/unless}}
-
-
                 {{> "lib/components/csrfInput"}}
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" data-testid="submit_new_password_btn"/>
+                    <button type="submit" class="btn btn-primary" data-testid="submit_new_password_btn">
+                        Accounteinstellungen speichern
+                    </button>
                 </div>
             </form>
 
@@ -119,6 +109,33 @@
                     um Änderungen an deinen Nutzerdaten vorzunehmen.
                 </p>
             </div>
+            {{/unless}}
+
+            {{#unless (userHasRole "student")}}
+				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
+				{{else}}
+                <form method="post" action="/account/teamSettings">
+                    <h5>Teams</h5>
+                    <div class="form-group">
+                        Sichtbarkeit für Teameinladungen
+                        <p class="text-muted">Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{theme.short_title}}bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.</p>
+
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.</label>{{/ifConfig}}
+
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis aktivieren</label>{{/ifConfig}}
+
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis deaktivieren</label>{{/ifConfig}}
+                    </div>
+
+                    {{> "lib/components/csrfInput"}}
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            Teameinstellungen speichern
+                        </button>
+                    </div>
+                </form>
+				{{/ifConfig}}
             {{/unless}}
         </div>
 
