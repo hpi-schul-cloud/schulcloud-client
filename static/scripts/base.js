@@ -318,13 +318,6 @@ $(document).ready(() => {
 		btn.addEventListener('click', printPart);
 	});
 
-	// eslint-disable-next-line no-restricted-globals
-	if (document.querySelector('*[data-intro]') && screen.width > 1024) {
-		document.querySelectorAll('.intro-trigger').forEach((trigger) => {
-			trigger.classList.add('show');
-		});
-	}
-
 	// from: https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript
 	function isMobileDevice() {
 		return (

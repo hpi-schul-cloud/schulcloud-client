@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "20.1.9",
+	"version": "20.1.10",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -21,6 +21,7 @@
 	"sasslintConfig": "./.sass-lint.yml",
 	"dependencies": {
 		"@babel/runtime": "^7.6.3",
+		"@schul-cloud/commons": "^1.0.9",
 		"@sentry/browser": "^5.6.1",
 		"@sentry/integrations": "^5.6.1",
 		"@sentry/node": "^5.7.1",
