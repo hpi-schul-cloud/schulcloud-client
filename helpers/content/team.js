@@ -211,21 +211,6 @@ module.exports = [
 			},
 			{
 				title: '',
-				firstName: 'David',
-				lastName: 'Jäger',
-				position: 'Wissenschaftlicher Mitarbeiter, HPI',
-				description: 'David hat an der HTW Berlin sowie der TU Berlin sein Bachelor- und Masterstudium in den Fächern IT/Vernetzte Systeme sowie Technische Informatik und anschließend mehrere Jahre im Ops-Team eines namhaften Hosters zugebracht. Jetzt unterstützt er das HPI Schul-Cloud Team als System-Engineer DevOps. In seiner Freizeit ist er gern mit Freunden unterwegs, liest und spielt gern Exit-Games und Gesellschaftsspiele.',
-				pictureUrl: '/images/team/David_Jäger.jpg',
-				priority: 0,
-				social: {
-					facebook: '',
-					twitter: '',
-					linkedin: '',
-				},
-				longDesc: false,
-			},
-			{
-				title: '',
 				firstName: 'Catrina',
 				lastName: 'John',
 				position: 'Wissenschaftliche Mitarbeiterin, HPI',
