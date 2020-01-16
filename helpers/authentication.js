@@ -157,7 +157,7 @@ const login = (payload, req, res, next) => api(req).post('/authentication', { js
 		statusCode: e.statusCode,
 		timeToWait: process.env.LOGIN_BLOCK_TIME || 15,
 	};
-	if (e.statusCode == 429) {
+	if (e.statusCode === 429) {
 		res.locals.notification.timeToWait = e.error.data.timeToWait;
 	}
 	next();

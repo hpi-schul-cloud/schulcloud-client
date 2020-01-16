@@ -29,7 +29,7 @@ const clearCookie = (req, res, options = { destroySession: false }) => {
 // SSO Login
 
 router.get('/tsp-login/', (req, res, next) => {
-	const ticket = req.query.ticket;
+	const { ticket } = req.query;
 	return authHelper.login({ strategy: 'tsp', ticket }, req, res, next);
 });
 
@@ -44,9 +44,9 @@ router.post('/login/', (req, res, next) => {
 	} = req.body;
 
 	if (systemId) {
-		return api(req).get(`/systems/${req.body.systemId}`).then(system => login({
+		return api(req).get(`/systems/${req.body.systemId}`).then(system => authHelper.login({
 			strategy: system.type, username, password, systemId, schoolId,
-		}));
+		}, req, res, next));
 	}
 	return authHelper.login({ strategy: 'local', username, password }, req, res, next);
 });
