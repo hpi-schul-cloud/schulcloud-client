@@ -1,7 +1,8 @@
 $(document).ready(() => {
+	const timeOnScriptLoad = Date.now(); // timestamp on script load
+
 	const $autoLoggoutAlertModal = $('.auto-logout-alert-modal');
 	const showModalOnRemainingSeconds = $autoLoggoutAlertModal.find('.form-group').data('showOnRemainingSec') || 3600;
-	// default remaining session time in sec, will be overwritten by server
 	const rstDefault = $autoLoggoutAlertModal.find('.form-group').data('rstDefault') || showModalOnRemainingSeconds * 2;
 	const maxTotalRetrys = 1;
 
@@ -26,7 +27,7 @@ $(document).ready(() => {
 	const decRst = (() => {
 		setTimeout(() => {
 			if (rst >= 60) {
-				rst -= 60;
+				rst = (rstDefault - Math.floor((Date.now() - timeOnScriptLoad) / 1000));
 				$('.js-time').text(Math.floor(rst / 60));
 				// show auto loggout alert modal
 				// don't show modal while processing
@@ -36,18 +37,6 @@ $(document).ready(() => {
 				decRst();
 			}
 		}, 1000 * 60);
-	});
-
-	// Sync rst with Server every 5 mins
-	const syncRst = (() => {
-		setInterval(() => {
-			$.post('/account/ttl', ((result) => {
-				const { ttl } = result; // in sec
-				if (typeof ttl === 'number') {
-					rst = ttl;
-				}
-			}));
-		}, 1000 * 60 * 5);
 	});
 
 	let retry = 0;
@@ -82,7 +71,6 @@ $(document).ready(() => {
 	});
 
 	decRst(); // dec. rst
-	syncRst(); // Sync rst with Server
 
 	$autoLoggoutAlertModal.find('.btn-incRst').on('click', (e) => {
 		e.stopPropagation();
