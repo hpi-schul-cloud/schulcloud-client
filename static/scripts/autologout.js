@@ -1,5 +1,5 @@
 $(document).ready(() => {
-	const BACKEND_URL = document.querySelector('script[data-backendurl]').dataset.backendurl;
+	const BACKEND_URL = (document.querySelector('script[data-backendurl]').dataset.backendurl).replace(/\/$/, '');
 	const getJwt = (() => {
 		const rawJwt = document.cookie.split(';').filter(item => item.includes('jwt'));
 		return rawJwt[0].replace('jwt=', '');
