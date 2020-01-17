@@ -49,7 +49,7 @@ $(document).ready(() => {
 	// extend session
 	const IStillLoveYou = (async () => {
 		$.ajax({
-			url: `${BACKEND_URL}accounts/jwtTimer`,
+			url: `${BACKEND_URL}/accounts/jwtTimer`,
 			type: 'POST',
 			dataType: 'json',
 			// Fetch the stored token from localStorage and set in the header
