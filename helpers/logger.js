@@ -3,7 +3,7 @@ const winston = require('winston');
 const isProductionMode = process.env.NODE_ENV === 'production';
 let format;
 
-if (isProductionMode) {
+if (!isProductionMode) {
 	format = winston.format.combine(
 		winston.format.colorize(),
 		winston.format.simple(),
