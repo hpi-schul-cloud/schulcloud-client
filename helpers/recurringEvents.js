@@ -121,7 +121,7 @@ const mapEventProps = (event, req) => {
 	}
 
 	if (event['x-sc-teamId']) {
-		// bad fix for ,<id> error in teams, TODO: fix dashboard
+		// bad fix for ,<id> error in teams, maybe wrong data, i can not reproduce it, but error i throw in sentry
 		let id = event['x-sc-teamId'];
 		if (id.substring(0, 1) === ',') {
 			id = id.substr(1);
