@@ -83,7 +83,6 @@ const createRecurringEvents = (recurringEvent) => {
 			start: newStartDate,
 			end: newEndDate,
 		});
-
 	}
 
 	return recurringEvents;

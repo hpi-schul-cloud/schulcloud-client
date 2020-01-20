@@ -26,8 +26,10 @@ router.get('/events/', (req, res, next) => {
 		},
 	}).then((events) => {
 		Promise.all(events.map(event => recurringEventsHelper.mapEventProps(event, req))).then((responseEvents) => {
-			events = [].concat.apply([], events.map(recurringEventsHelper.mapRecurringEvent));
-			return res.json(responseEvents);
+			// TODO: fix next line
+			// eslint-disable-next-line prefer-spread
+			const convertedEvents = [].concat.apply([], events.map(recurringEventsHelper.mapRecurringEvent));
+			return res.json(convertedEvents);
 		});
 	}).catch(() => {
 		res.json([]);
