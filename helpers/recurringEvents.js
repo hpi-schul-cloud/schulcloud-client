@@ -121,13 +121,12 @@ const mapEventProps = (event, req) => {
 	}
 
 	if (event['x-sc-teamId']) {
-		/*
 		// bad fix for ,<id> error in teams, TODO: fix dashboard
 		let id = event['x-sc-teamId'];
 		if (id.substring(0, 1) === ',') {
 			id = id.substr(1);
-		} */
-		return api(req).get(`/teams/${event['x-sc-teamId']}`).then((team) => {
+		}
+		return api(req).get(`/teams/${id}`).then((team) => {
 			event.url = '';
 			event.color = team.color;
 			return event;
