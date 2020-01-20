@@ -2,7 +2,6 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
-        <link rel="stylesheet" href="/vendor/introjs/introjs.min.css"/>
         <noscript><style>
             .section-title,
             #main-content,
@@ -17,7 +16,6 @@
         <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
         <script src="/scripts/autologout.js" type="text/javascript" defer></script>
         <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" defer></script>
-        <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
         <script type="text/javascript" src="/vendor/feathersjs/feathers.js" defer></script>
         {{#if @root.currentUser.preferences.enterthecloud}}
             <script type="text/javascript" src="/vendor/enterthecloud.min.js" defer></script>
@@ -39,7 +37,7 @@
                         </a>
                     </li>
                     {{#each sidebarItems}}
-                        <li data-step={{this.introNumber}} data-intro="{{this.introText}}">
+                        <li>
                             <a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}">
                                 <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
                                 <span class="link-name">{{this.name}}</span>
@@ -100,15 +98,15 @@
                         </ol>
                     {{/if}}
 
-                    <ul class="nav navbar-nav float-xs-none dropdowns" data-step="1" data-intro="Hier findest du übergreifende Informationen.">
-                        <li class="nav-item fullscreen-action" data-step="2" data-intro="Hiermit blendest du die Menüs aus.">
+                    <ul class="nav navbar-nav float-xs-none dropdowns">
+                        <li class="nav-item fullscreen-action">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="Fullscreen" data-toggle="dropdown">
                                     <i class="fa fa-expand"></i>
                                 </a>
                             </div>
                         </li>
-                        <li class="nav-item qr-code-action" data-step="3" data-intro="Ganz einfach QR-Codes erstellen!">
+                        <li class="nav-item qr-code-action">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" title="QR-Code" data-toggle="dropdown">
                                     <i class="fa fa-qrcode"></i>
@@ -122,7 +120,7 @@
                             </div>
                         </li>
                         {{#if false}}
-                        <li class="nav-item notification-dropdown" data-step="4" data-intro="Hier erhälst du Benachrichtigungen.">
+                        <li class="nav-item notification-dropdown">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
                                         recentNotifications}}recent{{/if}}" title="Benachrichtigungen" data-toggle="dropdown">
@@ -164,7 +162,7 @@
                             {{/unless}}
                         {{/if}}
 
-                        <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
+                        <li class="nav-item">
                             <div class="btn-group" data-matomo-mask>
                               <div class="dropdown btn-avatar">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle"

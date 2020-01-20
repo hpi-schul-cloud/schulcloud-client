@@ -38,14 +38,10 @@ module.exports = (req, res, next) => {
         name: 'Übersicht',
         icon: 'th-large',
         link: '/dashboard/',
-        introNumber: 11,
-        introText: "Hiermit gelangst du stets zu deinem persönlichen Dashboard zurück, auf welchem du auch direkt nach dem Login landest."
     }, {
         name: 'Kurse',
         icon: 'graduation-cap',
         link: '/courses/',
-        introNumber: 13,
-        introText: "Hier gelangst du zu deinen Kursen, die du einsehen, verwalten und neu anlegen kannst."
     }, {
         name: 'Aufgaben',
         icon: 'tasks',
@@ -67,8 +63,6 @@ module.exports = (req, res, next) => {
                 link: '/homework/archive/'
             }
         ],
-        introNumber: 15,
-        introText: "Hier gelangst du zur Aufgabenübersicht. Unter diesem Menüpunkt findest du die von dir gestellten Aufgaben, deine persönlichen Aufgaben sowie das Aufgabenarchiv. Du kannst außerdem die Status der einzelnen Aufgaben einsehen und deinen Schülern Feedback geben."
     }, {
         name: 'Meine Dateien',
         icon: 'folder-open',
@@ -90,26 +84,18 @@ module.exports = (req, res, next) => {
                 link: '/files/shared/'
             }
         ],
-        introNumber: 16,
-        introText: "Hier gelangst du zum Dateibereich, in dem du Dateien hochladen und verwalten kannst. Deine Dateien werden hierbei in folgende Kategorien unterteilt: deine persönlichen Dateien, Kursdateien und mit dir geteilte Dateien."
     }, {
         name: 'Neuigkeiten',
         icon: 'newspaper-o',
         link: '/news/',
-        introNumber: 12,
-        introText: "Hier kannst du noch einmal auf deine Neuigkeiten zugreifen und auch ältere Neuigkeiten einsehen."
     }, {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/',
-        introNumber: 14,
-        introText: "Hier hast du Einsicht in deinen persönlichen Kalender. In diesem sind bisher deine Unterrichtsstunden verfügbar, sowie Termine, die zusätzlich anfallen, wie z.B. AGs oder Fachkonferenzen."
     }, {
         name: 'Lern-Store',
         icon: 'search',
         link: '/content/',
-        introNumber: 17,
-        introText: "Hier gelangst du zur Materialsuche, bei der du in der Datenbank der Schul-Cloud nach Materialien für deine Unterrichtsstunde suchen kannst."
     }];
 
     // Extensions Feature Toggle
@@ -211,8 +197,6 @@ module.exports = (req, res, next) => {
             name: 'Teams',
             icon: 'users',
             link: '/teams/',
-            introNumber: 13,
-            introText: 'Hier gelangst du zu deinen Teams, die du einsehen, verwalten und neu anlegen kannst.',
         });
         res.locals.sidebarItems.find(i => i.name === 'Meine Dateien').children.splice(2, 0, {
             name: 'Teams',
