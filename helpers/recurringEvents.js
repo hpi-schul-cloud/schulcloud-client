@@ -56,7 +56,7 @@ const createRecurringEvents = (recurringEvent) => {
 	const oneWeekIndicator = 7 * oneDayIndicator;
 
 	// find first weekday, if the start-event is not a real weekly event itself, because it's just a period of time
-	for (let i = 0; start + i * oneDayIndicator <= end + oneWeekIndicator; i = +1) {
+	for (let i = 0; start + i * oneDayIndicator <= end + oneWeekIndicator; i += 1) {
 		const newStartDate = start + i * oneDayIndicator;
 		const newEndDate = end + i * oneDayIndicator;
 
@@ -70,7 +70,7 @@ const createRecurringEvents = (recurringEvent) => {
 	}
 
 	// loop over all new weekdays from startDate to untilDate
-	for (let i = 0; start + i * oneWeekIndicator <= until; i = +1) {
+	for (let i = 0; start + i * oneWeekIndicator <= until; i += 1) {
 		const newStartDate = start + i * oneWeekIndicator;
 		const newEndDate = end + i * oneWeekIndicator;
 
