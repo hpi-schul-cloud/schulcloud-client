@@ -40,7 +40,8 @@ router.get('/', (req, res, next) => {
 
 	const eventsPromise = api(req).get('/calendar/', {
 		qs: {
-			all: true,
+			all: 'false',
+			from: start.toLocalISOString(),
 			until: end.toLocalISOString(),
 		},
 	}).then(eve => Promise.all(
