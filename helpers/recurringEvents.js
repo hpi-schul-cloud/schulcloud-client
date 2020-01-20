@@ -61,7 +61,8 @@ const createRecurringEvents = (recurringEvent) => {
 		const newEndDate = end + i * oneDayIndicator;
 
 		// check if it is the given weekday, if so set first date of recurring events
-		if (moment(newStartDate).day() == getNumberForFullCalendarWeekday(recurringEvent.included[0].attributes.wkst)) {
+		const { wkst } = recurringEvent.included[0].attributes;
+		if (moment(newStartDate).day() === getNumberForFullCalendarWeekday(wkst)) {
 			start = newStartDate;
 			end = newEndDate;
 			break;
