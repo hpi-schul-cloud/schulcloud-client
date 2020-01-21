@@ -51,13 +51,14 @@ const runToolHandler = (req, res, next) => {
 		api(req).get(`/pseudonym?userId=${currentUser._id}&toolId=${req.params.ltiToolId}`),
 	]).then(([tool, role, pseudonym]) => {
 		const customer = new ltiCustomer.LTICustomer();
-		const consumer = customer.createConsumer(tool.key, tool.secret);
 		let userId = '';
 		if (tool.privacy_permission === 'pseudonymous') {
 			userId = pseudonym.data[0].pseudonym;
 		} else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
 			userId = currentUser._id;
 		}
+
+		const timestamp = Math.round(Date.now() / 1000);
 		const payload = {
 			lti_version: tool.lti_version,
 			lti_message_type: tool.lti_message_type,
@@ -66,6 +67,11 @@ const runToolHandler = (req, res, next) => {
 			launch_presentation_document_target: 'window',
 			launch_presentation_locale: 'en',
 			user_id: userId,
+			oauth_consumer_key: tool.key,
+			oauth_nonce: timestamp,
+			oauth_signature_method: 'HMAC-SHA1',
+			oauth_timestamp: timestamp,
+			oauth_version: '1.0',
 		};
 
 		if (tool.privacy_permission === 'name') {
@@ -80,19 +86,20 @@ const runToolHandler = (req, res, next) => {
 			payload[customer.customFieldToString(custom)] = custom.value;
 		});
 
-		const requestData = {
-			url: tool.url,
-			method: 'POST',
-			data: payload,
-		};
-
-		const formData = consumer.authorize(requestData);
-
-		res.render('courses/components/run-lti-frame', {
-			url: tool.url,
-			method: 'POST',
-			csrf: (formData.lti_version === '1.3.0'),
-			formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
+		api(req).post('/tools/sign/lti11/', {
+			body: {
+				id: req.params.ltiToolId,
+				payload,
+				url: tool.url,
+			},
+		}).then((signature) => {
+			payload.oauth_signature = signature;
+			res.render('courses/components/run-lti-frame', {
+				url: tool.url,
+				method: 'POST',
+				csrf: (payload.lti_version === '1.3.0'),
+				formData: Object.keys(payload).map(key => ({ name: key, value: payload[key] })),
+			});
 		});
 	});
 };
