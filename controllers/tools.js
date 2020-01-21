@@ -58,7 +58,6 @@ const runToolHandler = (req, res, next) => {
 			userId = currentUser._id;
 		}
 
-		const timestamp = Math.round(Date.now() / 1000);
 		const payload = {
 			lti_version: tool.lti_version,
 			lti_message_type: tool.lti_message_type,
@@ -68,9 +67,9 @@ const runToolHandler = (req, res, next) => {
 			launch_presentation_locale: 'en',
 			user_id: userId,
 			oauth_consumer_key: tool.key,
-			oauth_nonce: timestamp,
+			oauth_nonce: Date.now(),
 			oauth_signature_method: 'HMAC-SHA1',
-			oauth_timestamp: timestamp,
+			oauth_timestamp: Math.round(Date.now() / 1000),
 			oauth_version: '1.0',
 		};
 
