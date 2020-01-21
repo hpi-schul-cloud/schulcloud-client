@@ -1,6 +1,7 @@
 /* global CKEDITOR */
 
 import { softNavigate } from './helpers/navigation';
+import { getQueryParameters } from './helpers/queryStringParameter';
 
 const getDataValue = function(attr) {
     return function() {
@@ -55,17 +56,22 @@ function importSubmission(e){
     }
 }
 
-window.addEventListener("DOMContentLoaded", function(){
-    /* FEATHERS FILTER MODULE */
-    const filterModule = document.getElementById("filter");
-    if(!filterModule){return;}
-    filterModule.addEventListener('newFilter', (e) => {
-        const filter = e.detail;
-        const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
-        softNavigate(newurl, ".homework", ".pagination");
-    });
-	document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
+window.addEventListener('DOMContentLoaded', () => {
+	/* FEATHERS FILTER MODULE */
+	const filterModule = document.getElementById('filter');
+	if (!filterModule) { return; }
+	filterModule.addEventListener('newFilter', (e) => {
+		const filter = e.detail;
+		const params = getQueryParameters();
+		let newurl = `?filterQuery=${escape(JSON.stringify(filter[0]))}`;
+		if (params.p) {
+			newurl += `&p=${params.p}`;
+		}
+		softNavigate(newurl, '.homework', '.pagination');
+	});
+	document.querySelector('.filter').dispatchEvent(new CustomEvent('getFilter'));
 });
+
 $(document).ready(() => {
 	let fileIsUploaded = false;
 	let editorContainsText = false;

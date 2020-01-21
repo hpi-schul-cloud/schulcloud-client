@@ -6,6 +6,7 @@
                 <div class="btn btn-secondary btn-print mb-1" data-toggle="tooltip" title="Aufgabenstellung drucken">
                     <i class='fa fa-print'></i> Drucken
                 </div>
+
                 <h1 class="print-only">{{{this.title}}}</h1>
                 {{#if this.teamSubmissions}}
                 {{#if this.maxTeamMembers}}
@@ -58,6 +59,10 @@
         </a>
         {{/userHasPermission}}
         {{/inArray}}
+        {{#userHasPermission "HOMEWORK_CREATE"}}
+            <a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="Aufgabenstellung kopieren" href="/homework/{{../_id}}/copy"
+            alt="Aufgabe '{{../title}}' kopieren."> <i class='fa fa-copy'></i> Kopieren </a>
+        {{/userHasPermission}}
         {{#if courseId._id}}
         <a href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
             <i class="fa fa-folder-open"></i>
