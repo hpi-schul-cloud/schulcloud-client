@@ -34,7 +34,7 @@ router.post('/login/', (req, res, next) => {
 	} = req.body;
 
 	if (systemId) {
-		return api(req).get(`/systems/${req.body.systemId}`).then(system => authHelper.login({
+		return api(req).get(`/systems/${req.body.systemId}`).then((system) => authHelper.login({
 			strategy: system.type, username, password, systemId, schoolId,
 		}, req, res, next));
 	}
