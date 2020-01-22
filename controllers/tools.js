@@ -91,6 +91,7 @@ const runToolHandler = (req, res, next) => {
 		res.render('courses/components/run-lti-frame', {
 			url: tool.url,
 			method: 'POST',
+			csrf: (formData.lti_version === '1.3.0'),
 			formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
 		});
 	});

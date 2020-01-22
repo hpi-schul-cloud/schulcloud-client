@@ -2,13 +2,17 @@ const express = require('express');
 
 const router = express.Router();
 const logger = require('winston');
+const fileUpload = require('express-fileupload');
 const UAParser = require('ua-parser-js');
 const api = require('../api');
+const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
 
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
 
-router.post('/', (req, res, next) => {
+router.post('/', fileUpload({
+	createParentPath: true,
+}), (req, res, next) => {
 	if (!req.body.subject && req.body.target) {
 		if (req.body.target === 'HPI') { // Contact Admin
 			// title? Y: Feedback N: Problem
@@ -30,6 +34,32 @@ router.post('/', (req, res, next) => {
 		result.os.name = '';
 	}
 
+	let fileSize = 0;
+	let files = [];
+	if (req.files) {
+		if (Array.isArray(req.files.file)) {
+			files = req.files.file;
+		} else {
+			files.push(req.files.file);
+		}
+	}
+	files.forEach((element) => {
+		if (!element.mimetype.includes('image/')
+		&& !element.mimetype.includes('video/')
+		&& !element.mimetype.includes('application/msword')
+		&& !element.mimetype.includes('application/pdf')) {
+			throw new Error(`"${element.name}" ist kein Bild, Video oder zulässige Datei!`);
+		}
+		fileSize += element.size;
+	});
+	if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE) {
+		if (files.length > 1) {
+			throw new Error('Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!');
+		} else {
+			throw new Error('Die angehängte Datei überschreitet die maximal zulässige Größe!');
+		}
+	}
+
 	api(req).post('/helpdesk', {
 		json: {
 			type: req.body.type,
@@ -41,6 +71,7 @@ router.post('/', (req, res, next) => {
 			acceptanceCriteria: req.body.acceptanceCriteria,
 			currentState: req.body.currentState,
 			targetState: req.body.targetState,
+			problemDescription: req.body.problemDescription,
 			schoolName: res.locals.currentSchoolData.name,
 			userId: res.locals.currentUser._id,
 			email: req.body.email,
@@ -52,6 +83,7 @@ router.post('/', (req, res, next) => {
 			os: (result.os.version !== undefined) ? `${result.os.name} ${result.os.version}` : result.os.name,
 			device: req.body.device ? req.body.device : '',
 			deviceUserAgent: result.device.model,
+			files,
 		},
 	})
 		.then(() => {
@@ -68,7 +100,7 @@ router.post('/', (req, res, next) => {
                 'Fehler beim Senden des Feedbacks.',
 			};
 			logger.warn(err);
-			res.status((err.statusCode || 500)).send(err);
+			res.redirect(req.header('Referer'));
 		});
 });
 

@@ -202,16 +202,18 @@ const FileGetter = (req, res, next) => {
  * fetches all sub-scopes (courses, classes etc.) for a given user and super-scope
  */
 const getScopeDirs = (req, res, scope) => {
+	const currentUserId = String(res.locals.currentUser._id);
 	let qs = {
 		$or: [
-			{ userIds: res.locals.currentUser._id },
-			{ teacherIds: res.locals.currentUser._id },
+			{ userIds: currentUserId },
+			{ teacherIds: currentUserId },
+			{ substitutionIds: currentUserId },
 		],
 	};
 	if (scope === 'teams') {
 		qs = {
 			userIds: {
-				$elemMatch: { userId: res.locals.currentUser._id },
+				$elemMatch: { userId: currentUserId },
 			},
 		};
 	}
@@ -489,6 +491,11 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 
 		breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
 	}
+
+	res.locals.files.files = res.locals.files.files.map((file) => {
+		file.saveName = file.name.replace(/'/g, "\\'");
+		return file;
+	});
 
 	res.render('files/files', Object.assign({
 		title: 'Dateien',

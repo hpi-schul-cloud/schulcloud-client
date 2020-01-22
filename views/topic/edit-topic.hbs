@@ -53,7 +53,7 @@
 
                     <!-- React Magic -->
                     <div id="content-blocks" data-value="{{lesson.contents}}" data-etherpadbaseurl="{{etherpadBaseUrl}}"
-                        data-iscoursegroup="{{courseGroupId}}"></div>
+                        data-iscoursegroup="{{courseGroupId}}" data-nexboardenabled="{{#ifEnv "FEATURE_NEXBOARD_ENABLED" "true"}}true{{/ifEnv}}"></div>
                 </div>
 
                 <div class="modal-footer">

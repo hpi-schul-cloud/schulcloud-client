@@ -211,21 +211,6 @@ module.exports = [
 			},
 			{
 				title: '',
-				firstName: 'David',
-				lastName: 'Jäger',
-				position: 'Wissenschaftlicher Mitarbeiter, HPI',
-				description: 'David hat an der HTW Berlin sowie der TU Berlin sein Bachelor- und Masterstudium in den Fächern IT/Vernetzte Systeme sowie Technische Informatik und anschließend mehrere Jahre im Ops-Team eines namhaften Hosters zugebracht. Jetzt unterstützt er das HPI Schul-Cloud Team als System-Engineer DevOps. In seiner Freizeit ist er gern mit Freunden unterwegs, liest und spielt gern Exit-Games und Gesellschaftsspiele.',
-				pictureUrl: '/images/team/David_Jäger.jpg',
-				priority: 0,
-				social: {
-					facebook: '',
-					twitter: '',
-					linkedin: '',
-				},
-				longDesc: false,
-			},
-			{
-				title: '',
 				firstName: 'Catrina',
 				lastName: 'John',
 				position: 'Wissenschaftliche Mitarbeiterin, HPI',
@@ -474,6 +459,21 @@ module.exports = [
 				position: 'Konzeptionelle Mitarbeiterin, MINT-EC',
 				description: 'Sophie absolvierte ihr Masterstudium in British Studies (HU Berlin) und ist zusätzlich staatlich geprüfte Kulturmanagerin (Deutsche Akademie für Management, Berlin). Nach dem Masterabschluss begleitete Sophie die Einführung einer digitalen Lernplattform und war in deren administrativer Betreuung sowie in der Konzeption von E-Learning-Inhalten tätig. Seit Juli 2018 wirkt sie im Projekt HPI Schul-Cloud mit. Zum Ausgleich spielt Sophie Trompete im Blasorchester, besucht Museen, liest und reist gern.',
 				pictureUrl: '/images/team/Sophie_Plötz.JPG',
+				priority: 0,
+				social: {
+					facebook: '',
+					twitter: '',
+					linkedin: '',
+				},
+				longDesc: false,
+			},
+			{
+				title: '',
+				firstName: 'Kira',
+				lastName: 'Kötter',
+				position: 'Konzeptionelle Mitarbeiterin, MINT-EC',
+				description: 'Kira absolvierte nach ihrem Masterstudium der französischen Literaturwissenschaft in Hamburg und Bordeaux ein Volontariat im Bereich Kommunikation. Nachdem sie daraufhin eine Online-Community für Fremdsprachenlernende redaktionell betreute, ist sie nun für Öffentlichkeitsarbeit und Community Management für die HPI Schul-Cloud bei MINT-EC tätig',
+				pictureUrl: '/images/team/kira_koetter.JPG',
 				priority: 0,
 				social: {
 					facebook: '',

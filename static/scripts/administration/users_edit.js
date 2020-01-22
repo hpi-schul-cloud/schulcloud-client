@@ -78,6 +78,59 @@ $(document).ready(() => {
 		});
 		$skipregModal.appendTo('body').modal('show');
 	});
+	$('.btn-send-link-email').on('click', (e) => {
+		e.preventDefault();
+		const $this = $(this);
+		const text = $this.html();
+		const $invitationModal = $('.invitation-modal');
+		const schoolId = $invitationModal.find("input[name='schoolId']").val();
+		let role = 'student';
+		if ($(this).hasClass('teacher')) role = 'teacher';
+		const email = $('input[name="email"]').val();
+
+		$this.html('E-Mail wird gesendet...');
+		$this.attr('disabled', 'disabled');
+
+		$.ajax({
+			type: 'POST',
+			url:
+				`${window.location.origin}/administration/registrationlinkMail`,
+			data: {
+				role,
+				save: true,
+				schoolId,
+				host: window.location.origin,
+				toHash: email,
+				patchUser: true,
+			},
+		})
+			.done((data) => {
+				if (data.status && data.status === 'ok') {
+					$.showNotification(
+						'Die Einladungs-E-Mail wurde erfolgreich versendet!',
+						'success',
+						true,
+					);
+				} else {
+					$.showNotification(
+						'Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!',
+						'danger',
+						true,
+					);
+				}
+				$this.attr('disabled', false);
+				$this.html(text);
+			})
+			.fail(() => {
+				$.showNotification(
+					'Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!',
+					'danger',
+					true,
+				);
+				$this.attr('disabled', false);
+				$this.html(text);
+			});
+	});
 
 	function createInvitationHashHandler(e) {
 		e.preventDefault();
