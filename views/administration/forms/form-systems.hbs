@@ -8,7 +8,7 @@
 <div class="form-group">
     <label>Typ des Systems</label>
     <select name="type" required data-placeholder="Anbieter auswählen" class="sso-type-selection" >
-        {{#each availableSSOTypes}}
+        {{#each @root.availableSSOTypes}}
             {{#unless this.hidden}}
                 <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
             {{/unless}}

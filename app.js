@@ -8,7 +8,6 @@ const redis = require('redis');
 const connectRedis = require('connect-redis');
 const session = require('express-session');
 const methodOverride = require('method-override');
-const fileUpload = require('express-fileupload');
 const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
@@ -29,6 +28,8 @@ const {
 	REDIS_URI,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 	JWT_TIMEOUT_SECONDS,
+	BACKEND_URL,
+	PUBLIC_BACKEND_URL,
 } = require('./config/global');
 
 const app = express();
@@ -131,10 +132,6 @@ app.use(session({
 	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
 }));
 
-app.use(fileUpload({
-	createParentPath: true,
-}));
-
 // CSRF middlewares
 app.use(duplicateTokenHandler);
 app.use(csurf());
@@ -149,6 +146,20 @@ function removeIds(url) {
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
+	// if there's a flash message in the session request, make it available in the response, then delete it
+	res.locals.notification = req.session.notification;
+	res.locals.inline = req.query.inline || false;
+	setTheme(res);
+	res.locals.domain = SC_DOMAIN;
+	res.locals.production = req.app.get('env') === 'production';
+	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
+	res.locals.SENTRY_DSN = SENTRY_DSN;
+	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
+	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
+	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
+	res.locals.version = version;
+	res.locals.sha = sha;
+	delete req.session.notification;
 	try {
 		await authHelper.populateCurrentUser(req, res);
 	} catch (error) {
@@ -164,19 +175,6 @@ app.use(async (req, res, next) => {
 			scope.request = { url: removeIds(url), header };
 		});
 	}
-	// if there's a flash message in the session request, make it available in the response, then delete it
-	res.locals.notification = req.session.notification;
-	res.locals.inline = req.query.inline || false;
-	setTheme(res);
-	res.locals.domain = SC_DOMAIN;
-	res.locals.production = req.app.get('env') === 'production';
-	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
-	res.locals.SENTRY_DSN = SENTRY_DSN;
-	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
-	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
-	res.locals.version = version;
-	res.locals.sha = sha;
-	delete req.session.notification;
 	return next();
 });
 

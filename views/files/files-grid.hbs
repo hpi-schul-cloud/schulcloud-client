@@ -5,7 +5,7 @@
 				<div class="card file {{#ifeq this.securityCheck.status "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
 					<div class="openFile">
 						<div class="card-block"
-							{{#ifneq this.securityCheck.status "blocked"}}onclick="fileViewer('{{../this.type}}', '{{../this.name}}', '{{../this._id}}');"{{/ifneq}}>
+							{{#ifneq this.securityCheck.status "blocked"}}onclick="fileViewer('{{../this.type}}', '{{../this.saveName}}', '{{../this._id}}');"{{/ifneq}}>
 							<div class="card-title">
 								<div class="file-preview-wrapper col-sm-1 no-padding hidden-xs-down">
 									<div class="file-preview"
