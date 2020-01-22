@@ -1,4 +1,9 @@
+let initialized = false;
 $(document).ready(() => {
+	if (initialized) {
+		return;
+	}
+	initialized = true;
 	const BACKEND_URL = (document.querySelector('script[data-backendurl]').dataset.backendurl).replace(/\/$/, '');
 	const getJwt = (() => {
 		const rawJwt = document.cookie.split(';').filter(item => item.includes('jwt'));
