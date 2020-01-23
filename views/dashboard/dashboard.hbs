@@ -1,110 +1,114 @@
 {{#extend "lib/loggedin"}}
 
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/dashboard/dashboard.css"/>
-    {{/content}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/dashboard/dashboard.css" />
+{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script type="text/javascript" src="/scripts/dashboard.js" defer></script>
-    {{/content}}
+{{#content "scripts" mode="append"}}
+<script type="text/javascript" src="/scripts/dashboard.js" defer></script>
+{{/content}}
 
-    {{#content "page"}}
-        <section class="container-fluid section-timetable">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h2 class="h5">Stundenplan</h2>
-                    <time class="selected-date">{{eventsDate}}</time>
-                </div>
-            </div>
+{{#content "page"}}
+<section class="container-fluid section-timetable">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="h5">Stundenplan</h2>
+            <time class="selected-date">{{eventsDate}}</time>
+        </div>
+    </div>
 
-            <div class="timetable">
-                <div class="row lesson-cards">
-                    <div>
-                        {{#each events}}
-                            <a class="lesson-card" {{#if url}}href="{{url}}"{{/if}}
-                               style="width: {{style.width}}%; left: {{style.left}}%;">
-                                <div class="card card-block" style="{{#if color}}background-color: {{color}};
+    <div class="timetable">
+        <div class="row lesson-cards">
+            <div>
+                {{#each events}}
+                <a class="lesson-card" {{#if url}}href="{{url}}" {{/if}}
+                    style="width: {{style.width}}%; left: {{style.left}}%;">
+                    <div class="card card-block" style="{{#if color}}background-color: {{color}};
                                         border-color: {{color}};{{/if}}">
-                                    <div class="card-bg-layer">
-                                        <time class="lesson-time">{{comment}}</time>
-                                        <div class="h3 card-title">{{title}}</div>
-                                    </div>
-                                    <p class="card-text">{{location}}</p>
-                                </div>
-                            </a>
-                        {{/each}}
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="timeline">
-                        <table style="width:100%">
-                            <tr>
-                                {{#each hours}}
-                                    <td style="width:10%">
-                                        <div class="tick">{{this}}.00</div>
-                                    </td>
-                                {{/each}}
-                            </tr>
-                        </table>
-                        <div class="current-time" style="width:{{currentTimePercentage}}%;">
-                            <span>{{currentTime}}</span>
+                        <div class="card-bg-layer">
+                            <time class="lesson-time">{{comment}}</time>
+                            <div class="h3 card-title">{{title}}</div>
                         </div>
-                        {{#times 11}}
-                            <div class="timelines" style="width:{{this}}0%"></div>
-                        {{/times}}
+                        <p class="card-text">{{location}}</p>
                     </div>
+                </a>
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="timeline">
+                <table style="width:100%">
+                    <tr>
+                        {{#each hours}}
+                        <td style="width:10%">
+                            <div class="tick">{{this}}.00</div>
+                        </td>
+                        {{/each}}
+                    </tr>
+                </table>
+                <div class="current-time" style="width:{{currentTimePercentage}}%;">
+                    <span>{{currentTime}}</span>
+                </div>
+                {{#times 11}}
+                <div class="timelines" style="width:{{this}}0%"></div>
+                {{/times}}
+            </div>
+        </div>
+    </div>
+</section>
+
+{{#ifeq this.currentRole "Beta"}}
+<section class="section section-my-material">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="h5">Meine Materialien</h2>
+            </div>
+        </div>
+        <div class="row tasks card-deck-row" data-testid="courses">
+            {{#each myMaterials}}
+            <div class="sc-card-wrapper col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                {{> 'lib/components/sc-card' link-text=../link-text}}
+            </div>
+            {{else}}
+            <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
+                <div class="alert">
+                    Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in
+                    Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href="/my-material">"Meine
+                        Materialien"-Abschnitt</a> vorbei.
                 </div>
             </div>
-        </section>
+        </div>
+        {{/each}}
+    </div>
+</section>
+{{/ifeq}}
 
-        {{#ifeq this.currentRole "Beta"}}
-            <section class="section section-my-material">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-12"><h2 class="h5">Meine Materialien</h2></div>
-                    </div>
-                    <div class="row tasks card-deck-row" data-testid="courses">
-                        {{#each myMaterials}}
-                            <div class="sc-card-wrapper col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                {{> 'lib/components/sc-card' link-text=../link-text}}
-                            </div>
-                        {{else}}
-                            <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
-                                <div class="alert">
-                                    Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href="/my-material">"Meine Materialien"-Abschnitt</a> vorbei.
-                                </div>
-                            </div>
-                        </div>
-                    {{/each}}
-                </div>
-            </section>
-        {{/ifeq}}
+{{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe" href="/homework"}}
+{{> 'dashboard/components/card_section' section-id="mytasks" title="Entwürfe" content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
 
-        {{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe" href="/homework"}}
-        {{> 'dashboard/components/card_section' section-id="mytasks" title="Meine ToDos" content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
+{{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen" href="/news/"}}
 
-        {{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen" href="/news/"}}
+{{#if this.currentSchoolData.pilot}}
+{{#ifneq this.currentRole "Schüler"}}
+{{#ifneq ../this.currentRole "Demo"}}
+{{#embed "lib/components/modal" class="poll-modal"}}
+{{#content "body"}}
+{{> "lib/forms/form-poll"}}
+{{/content}}
+{{/embed}}
+{{/ifneq}}
+{{/ifneq}}
+{{/if}}
 
-        {{#if this.currentSchoolData.pilot}}
-        {{#ifneq this.currentRole "Schüler"}}
-        {{#ifneq ../this.currentRole "Demo"}}
-            {{#embed "lib/components/modal" class="poll-modal"}}
-            {{#content "body"}}
-                {{> "lib/forms/form-poll"}}
-            {{/content}}
-        {{/embed}}
-        {{/ifneq}}
-        {{/ifneq}}
-        {{/if}}
+{{#if showNewReleaseModal}}
+{{#embed "lib/components/modal" class="feature-modal"}}
+{{#content "body"}}
+{{> "lib/forms/form-features"}}
+{{/content}}
+{{/embed}}
+{{/if}}
 
-        {{#if showNewReleaseModal}}
-            {{#embed "lib/components/modal" class="feature-modal"}}
-                {{#content "body"}}
-                    {{> "lib/forms/form-features"}}
-                {{/content}}
-            {{/embed}}
-        {{/if}}
-
-    {{/content}}
+{{/content}}
 {{/extend}}
