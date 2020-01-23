@@ -770,19 +770,14 @@ router.patch('/:courseId/positions', (req, res, next) => {
 	res.sendStatus(200);
 });
 
-router.delete('/:courseId', (req, res, next) => {
-	deleteEventsForCourse(req, res, req.params.courseId)
-		.then(() => {
-			api(req)
-				.delete(`/courses/${req.params.courseId}`)
-				.then(() => {
-					res.sendStatus(200);
-				});
-		})
-		.catch((error) => {
-			res.sendStatus(500);
-			next(error);
-		});
+router.delete('/:courseId', async (req, res, next) => {
+	try {
+		await deleteEventsForCourse(req, res, req.params.courseId);
+		await api(req).delete(`/courses/${req.params.courseId}`);
+		res.sendStatus(200);
+	} catch (error) {
+		next(error);
+	}
 });
 
 router.get('/:courseId/addStudent', (req, res, next) => {
