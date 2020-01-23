@@ -4,9 +4,9 @@
         <div class="dates">
             {{#if this.availableDate}}{{timeToString availableDate}}<br />{{/if}}
             {{#if this.dueDate}}
-                bis {{timeToString dueDate}}
+            bis {{timeToString dueDate}}
             {{else}}
-                Kein Abgabedatum festgelegt
+            Kein Abgabedatum festgelegt
             {{/if}}
         </div>
     </a>
@@ -53,17 +53,17 @@
             {{/if}}
         </div>
     </a>
-        <div>
-            {{#inArray this.currentUser._id this.archived}}
-                <a href="/homework/asked"><span class="count-badge" data-badge="Archiviert"/></span></a>
-            {{else}}
-                {{#if ../this.private}}
-                    <a href="/homework/archive"><span class="count-badge" data-badge="Meine Todos"/></span></a>
-                {{else}}
-                    <a href="/homework/private"><span class="count-badge" data-badge="Asked"/></span></a>
-                {{/if}}
-            {{/inArray}}
-        </div>
+    <div>
+        {{#inArray this.currentUser._id this.archived}}
+        <a href="/homework/asked"><span class="count-badge" data-badge="Archiviert" /></span></a>
+        {{else}}
+        {{#if ../this.private}}
+        <a href="/homework/archive"><span class="count-badge" data-badge="Entwürfe" /></span></a>
+        {{else}}
+        <a href="/homework/private"><span class="count-badge" data-badge="Gestellt" /></span></a>
+        {{/if}}
+        {{/inArray}}
+    </div>
     <div class="action-group">
         {{#inArray this.currentUser._id this.archived}}
         {{#userHasPermission "HOMEWORK_CREATE"}}

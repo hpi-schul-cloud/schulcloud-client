@@ -138,7 +138,7 @@ const editCourseHandler = (req, res, next) => {
 				schoolId: res.locals.currentSchool,
 				$populate: ['year'],
 				$limit: -1,
-				$sort: ['-year', 'displayName'],
+				$sort: { year: -1, displayName: 1 },
 			},
 		});
 		// .then(data => data.data); needed when pagination is not disabled
