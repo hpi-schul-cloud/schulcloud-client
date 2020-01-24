@@ -30,6 +30,7 @@ const {
 	JWT_TIMEOUT_SECONDS,
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
+	FEATURE_NUXT_ENABLED,
 } = require('./config/global');
 
 const app = express();
@@ -157,6 +158,7 @@ app.use(async (req, res, next) => {
 	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
 	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
 	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
+	res.locals.FEATURE_NUXT_ENABLED = FEATURE_NUXT_ENABLED;
 	res.locals.version = version;
 	res.locals.sha = sha;
 	delete req.session.notification;

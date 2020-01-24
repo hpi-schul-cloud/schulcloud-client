@@ -142,6 +142,15 @@ module.exports = (req, res, next) => {
         permission: 'HELPDESK_VIEW'
     });
 
+    let datasources = [];
+    if (process.env.FEATURE_NUXT_ENABLED) {
+        datasources = {
+            name: 'Datenquellen',
+            icon: 'server',
+            link: '/administration/datasources/',
+        };
+    }
+
     // admin views
     res.locals.sidebarItems.push({
         name: 'Administration',
@@ -179,6 +188,7 @@ module.exports = (req, res, next) => {
                 icon: 'building',
                 link: '/administration/school/'
             },
+            datasources,
         ]
     });
 
