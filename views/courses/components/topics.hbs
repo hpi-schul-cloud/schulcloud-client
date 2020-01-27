@@ -36,7 +36,7 @@
 					{{#each lessons}}
 						{{#unless this.hidden}}
 							<!-- TOPIC IS NOT HIDDEN, teacher and student has access -->
-							<div class="card card-topic" onclick="location.href='{{this.url}}'"
+							<div class="card {{#if this.isTitle}}card-title{{/if}} card-topic" {{#unless this.isTitle}}onclick="location.href='{{this.url}}'"{{/unless}}
 								{{#userHasPermission "COURSE_EDIT"}} data-topicId="{{../_id}}" {{/userHasPermission}}>
 								<div class="card-header">
 									<div class="input-group">
@@ -51,7 +51,11 @@
 												</a>
 											{{/unless}}
 										{{/userHasPermission}}
-										<p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
+										{{#if this.isTitle}}
+												<h2 class="h6 topic-label ml-1">{{{stripOnlyScript this.name}}}</h2>
+										{{else}}
+												<p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
+										{{/if}}
 										{{#userHasPermission "COURSE_EDIT"}}
 											<div class="right-btn-group">
 												{{#unless @root.isArchived}}
@@ -62,17 +66,21 @@
 														title="Thema löschen">
 														<i class="fa fa-trash-o"></i>
 													</a>
+													{{#unless ../isTitle}}
 													<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
 														class="btn btn-secondary btn-sm btn-icon-card"
 														title="Thema bearbeiten">
 														<i class="fa fa-pencil"></i>
 													</a>
+													{{/unless}}
 												{{/unless}}
+												{{#unless ../isTitle}}
 												<a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
 													class="btn btn-secondary btn-sm btn-create-share btn-icon-card"
 													title="Thema teilen">
 													<i class="fa fa-share-alt"></i>
 												</a>
+												{{/unless}}
 											</div>
 										{{/userHasPermission}}
 									</div>
@@ -81,8 +89,9 @@
 						{{else}}
 							<!-- TOPIC IS HIDDEN, just teacher has access -->
 							{{#userHasPermission "COURSE_EDIT"}}
-								<div class="card card-topic card-transparent" onclick="location.href='{{../url}}'"
+								<div class="card {{#if ../isTitle}}card-title{{/if}} card-topic card-transparent" {{#unless ../isTitle}}onclick="location.href='{{../url}}'"{{/unless}}
 									data-topicId="{{../_id}}">
+									
 									<div class="card-header">
 										<div class="input-group">
 											<a class="move-handle hidden-xs-down" title="Thema verschieben">
@@ -102,11 +111,13 @@
 														redirect="/courses/{{../courseId}}" title="Thema löschen">
 														<i class="fa fa-trash-o"></i>
 													</a>
+													{{#unless ../isTitle}}
 													<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
 														class="btn btn-secondary btn-sm btn-icon-card"
 														title="Thema bearbeiten">
 														<i class="fa fa-pencil"></i>
 													</a>
+													{{/unless}}
 												{{/unless}}
 												<a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
 													class="btn btn-secondary btn-sm btn-create-share btn-icon-card"
@@ -143,13 +154,25 @@
 			{{#userHasPermission "COURSE_EDIT"}}{{#unless @root.isArchived}}
 				<div class="add-button">
 					<a href="/courses/{{../_id}}/topics/add"
-						class="btn btn-add {{#if ../lessons}}btn-secondary w-100{{else}}btn-primary btn-empty{{/if}} center"
+						class="btn btn-add {{#if ../lessons}}btn-secondary w-100{{else}}btn-primary btn-empty center{{/if}} "
 						title="Thema hinzufügen">
 						{{#if ../lessons}}
 							<span>Weiteres Thema erstellen</span>
 							<i class="fa fa-plus-circle plus-icon pull-right"></i>
 						{{else}}
 							<span>Erstelle ein Thema</span>
+						{{/if}}
+					</a>
+				</div>
+				<div class="add-button">
+					<a href="#"
+						class="btn btn-add-title {{#if ../lessons}}btn-secondary w-100{{else}}btn-primary btn-empty center{{/if}} "
+						title="Überschrift hinzufügen" data-courseId="{{../_id}}">
+						{{#if ../lessons}}
+							<span>Überschrift hinzufügen</span>
+							<i class="fa fa-plus-circle plus-icon pull-right"></i>
+						{{else}}
+							<span>Erstelle eine Überschrift</span>
 						{{/if}}
 					</a>
 				</div>
@@ -269,3 +292,5 @@
 		</div>
 	{{/if}}
 </div>
+
+

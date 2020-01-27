@@ -105,6 +105,24 @@ $(document).ready(() => {
 		$('#topic-list').disableSelection();
 	}
 
+	$('.btn-add-title').click(function addtitle(e) {
+		const courseId = $(this).attr('data-courseId');
+		e.stopPropagation();
+		e.preventDefault();
+		const $importModal = $('.title-modal');
+		console.log(courseId);
+		populateModalForm($importModal, {
+			title: 'Überschrift hinzufügen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Hinzufügen',
+			fields: { courseId },
+		});
+
+		const $modalForm = $importModal.find('.modal-form');
+		$modalForm.attr('action', `/courses/${courseId}/topics/addTitle`);
+		$importModal.appendTo('body').modal('show');
+	});
+
 	$('.btn-create-share-course').click(function createShareCourse(e) {
 		e.stopPropagation();
 		e.preventDefault();

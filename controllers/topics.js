@@ -140,6 +140,26 @@ router.get('/', (req, res, next) => {
 
 router.get('/add', editTopicHandler);
 
+router.post('/addTitle', async (req, res) => {
+	const data = {
+		name: req.body.name,
+		courseId: req.body.courseId,
+		isTitle: true,
+	};
+
+	console.log(data);
+	api(req).post('/lessons/', {
+		json: data, // TODO: sanitize
+	}).then(() => {
+		res.redirect(
+			`/courses/${req.params.courseId}`
+		);
+	}).catch((e) => {
+		console.log(e);
+		res.sendStatus(500);
+	});
+});
+
 
 router.post('/', async (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];

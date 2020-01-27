@@ -111,6 +111,12 @@
 		{{/content}}
       {{/embed}}
 
+      {{#embed "lib/components/modal-form" class="title-modal"}}
+      {{#content "fields"}}
+        {{> "courses/forms/form-add-title"}}
+      {{/content}}
+      {{/embed}}
+
       {{#embed "lib/components/modal-form" class="invitation-modal"}}
       {{#content "fields"}}
         {{> "courses/forms/form-invitation"}}

@@ -304,8 +304,24 @@
   padding: 0.5rem 0.75rem;
   color: $fontColor;
 }
+.card-title {
+  margin-left: inherit !important;
+  .card-header {
+    padding: 0.5rem 0.75rem;
+    background-color: $colorDarkerGrey !important;
+    color: $colorWhite;
+    &.new-edtior {
+      background-color: $secondaryColor
+    }
+  }
+
+  .topic-label {
+    
+  }
+}
 .card-topic {
   cursor: pointer;
+  margin-left: 30px;
 
   .card-header {
     padding: 0.5rem 0.75rem;
