@@ -202,13 +202,12 @@
 
 					<form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
 						<input type="hidden" name="_method" value="patch" />
-
-						<div class="form-group">
-							<label>Name der Schule</label>
-							<input value="{{../school.name}}" type="text" class="form-control" name="name"
-								placeholder="Einhorn Gymnasium" {{#if ../schoolUsesLdap}} readonly{{/if}}
-								{{#if ../isExpertSchool}} readonly{{/if}} required />
-						</div>
+                        <div class="form-group">
+                            <label>Name der Schule</label>
+                            <input value="{{../school.name}}" type="text" class="form-control" name="name"
+                                placeholder="Einhorn Gymnasium" {{#if ../schoolUsesLdap}} readonly{{/if}}
+                                {{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}} readonly{{/userHasPermission}} required />
+                        </div>
 
 						<div class="form-group">
 							<label>Schullogo hochladen</label><br />
@@ -246,15 +245,15 @@
 						</div>
 						{{/ifEnv}}
 						{{#if ../school.fileStorageType}}
-						<div class="form-group">
-							<label>Cloud-Storage Anbieter</label>
-							<select name="fileStorageType" type="text">
-								{{#each ../provider}}
-								<option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}}
-								</option>
-								{{/each}} </select> </div> {{/if}}
-						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+                        <div class="form-group">
+                            <label>Cloud-Storage Anbieter</label>
+                            <select name="fileStorageType" type="text" {{#userHasPermission 'SCHOOL_EDIT'}}{{else}} disabled{{/userHasPermission}}>
+                                {{#each ../provider}}
+                                <option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}}
+                                </option>
+                                {{/each}} </select> </div> {{/if}}
+                        {{> "lib/components/csrfInput"}}
+                        <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
 					</form>
 
 					{{#if ../school.fileStorageType}}
@@ -296,50 +295,53 @@
 	</section>
 	{{/unless}}
 
-	<section class="section-school section-default">
-		<h2 class="h4">Authentifizierung</h2>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-12 no-padding">
-					{{> "lib/components/table" head=systemsHead body=systemsBody}}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12 no-padding">
-					<form action="/administration/systems/ldap/add" method="POST">
-						<button type="submit" class="btn btn-primary btn-add-modal ">
-							System hinzufügen
-						</button>
-						{{#if ldapAddable}}
-						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary">
-							LDAP System hinzufügen
-						</button>
-						{{/if}}
-					</form>
-				</div>
-			</div>
-		</div>
+    {{#userHasPermission 'SCHOOL_EDIT'}}
+    <section class="section-school section-default">
+        <h2 class="h4">Authentifizierung</h2>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 no-padding">
+                    {{> "lib/components/table" head=../systemsHead body=../systemsBody}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 no-padding">
+                    <form action="/administration/systems/ldap/add" method="POST">
+                        {{> "lib/components/csrfInput"}}
+                        <button type="submit" class="btn btn-primary btn-add-modal ">
+                            System hinzufügen
+                        </button>
+                        {{#if ../ldapAddable}}
+                        <button type="submit" class="btn btn-primary">
+                            LDAP System hinzufügen
+                        </button>
+                        {{/if}}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{/userHasPermission}}
 
-		{{#embed "lib/components/modal-form" method="patch" class="edit-modal" collapseId=1}}
-		{{#content "fields"}}
-		{{> "administration/forms/form-systems"}}
-		{{/content}}
-		{{/embed}}
+    {{#embed "lib/components/modal-form" method="patch" class="edit-modal" collapseId=1}}
+    {{#content "fields"}}
+    {{> "administration/forms/form-systems"}}
+    {{/content}}
+    {{/embed}}
 
-		{{#embed "lib/components/modal-form" action="/administration/systems/" method="post" class="add-modal"
-        collapseId=2}}
-		{{#content "fields"}}
-		{{> "administration/forms/form-systems"}}
-		{{/content}}
-		{{/embed}}
+    {{#embed "lib/components/modal-form" action="/administration/systems/" method="post" class="add-modal"
+    collapseId=2}}
+    {{#content "fields"}}
+    {{> "administration/forms/form-systems"}}
+    {{/content}}
+    {{/embed}}
 
-		{{#embed "lib/components/modal-form" body=systemsBody method="delete" class="delete-modal"}}
-		{{#content "fields"}}
-		{{> "administration/forms/form-delete-alias"}}
-		{{/content}}
-		{{/embed}}
-	</section>
+    {{#embed "lib/components/modal-form" body=systemsBody method="delete" class="delete-modal"}}
+    {{#content "fields"}}
+    {{> "administration/forms/form-delete-alias"}}
+    {{/content}}
+    {{/embed}}
+
 
 	<section class="section-school section-default">
 		<h2 class="h4">RSS-Feeds</h2>

@@ -1,6 +1,7 @@
 /* global CKEDITOR */
 
 import { softNavigate } from './helpers/navigation';
+import { getQueryParameters } from './helpers/queryStringParameter';
 
 const getDataValue = function(attr) {
     return function() {
@@ -55,17 +56,22 @@ function importSubmission(e){
     }
 }
 
-window.addEventListener("DOMContentLoaded", function(){
-    /* FEATHERS FILTER MODULE */
-    const filterModule = document.getElementById("filter");
-    if(!filterModule){return;}
-    filterModule.addEventListener('newFilter', (e) => {
-        const filter = e.detail;
-        const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
-        softNavigate(newurl, ".homework", ".pagination");
-    });
-	document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
+window.addEventListener('DOMContentLoaded', () => {
+	/* FEATHERS FILTER MODULE */
+	const filterModule = document.getElementById('filter');
+	if (!filterModule) { return; }
+	filterModule.addEventListener('newFilter', (e) => {
+		const filter = e.detail;
+		const params = getQueryParameters();
+		let newurl = `?filterQuery=${escape(JSON.stringify(filter[0]))}`;
+		if (params.p) {
+			newurl += `&p=${params.p}`;
+		}
+		softNavigate(newurl, '.homework', '.pagination');
+	});
+	document.querySelector('.filter').dispatchEvent(new CustomEvent('getFilter'));
 });
+
 $(document).ready(() => {
 	let fileIsUploaded = false;
 	let editorContainsText = false;
@@ -277,7 +283,7 @@ $(document).ready(() => {
      */
     function addNewUploadedFile(section, file) {
         let filesCount = section.children().length === 0 ? -1 : section.children().length;
-        let $fileListItem = $(`<li class="list-group-item"><i class="fa fa-file" aria-hidden="true"></i>${file.name}</li>`)
+        let $fileListItem = $(`<li class="list-group-item"><i class="fa fa-file" aria-hidden="true"></i><a href="/files/file?file=${file._id}" target="_blank">${file.name}</a></li>`)
             .append(`<input type="hidden" name="fileIds[${filesCount + 1}]" value="${file._id}" />`);
 		section.append($fileListItem);
     }
@@ -379,7 +385,7 @@ $(document).ready(() => {
                             $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`, {teamMembers: teamMembers});
                         });
                     } else {
-                        addNewUploadedFile($('.list-group-files'), data);
+                        addNewUploadedFile($('.js-file-list'), data);
 
                         // 'empty' submissionId is ok because the route takes the homeworkId first
                         $.post(`/homework/submit/0/files/${data._id}/permissions`, {homeworkId: homeworkId});
@@ -437,6 +443,41 @@ $(document).ready(() => {
                         data: {fileId: fileId, teamMembers: teamMembers},
                         type: 'DELETE',
                         success: function (_) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: showAJAXError
+            });
+        });
+    });
+
+    $('a[data-method="delete-file-homework-edit"]').on('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let $buttonContext = $(this);
+        let $deleteModal = $('.delete-modal');
+        let fileId = $buttonContext.data('file-id');
+
+        $deleteModal.appendTo('body').modal('show');
+        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('file-name') + "' löschen möchtest?");
+
+        $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
+            $.ajax({
+                url: $buttonContext.attr('href'),
+                type: 'DELETE',
+                data: {
+                    key: $buttonContext.data('file-key')
+                },
+                success: function () {
+                    // delete reference in homework
+                    let homeworkId = $("input[name='homeworkId']").val();
+					let teamMembers = $('#teamMembers').val();
+                    $.ajax({
+                        url: `/homework/${homeworkId}/file`,
+                        data: {fileId: fileId},
+                        type: 'DELETE',
+                        success: function () {
                             window.location.reload();
                         }
                     });

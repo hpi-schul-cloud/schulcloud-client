@@ -5,9 +5,6 @@
 		</a>
 		{{#unless hideMenu}}
 			<ul class="nav">
-				<li class="intro-trigger hidden-sm-down">
-					<a class="nav-link" href="#" onclick="startIntro()">Intro</a>
-				</li>
 				<li>
 					<a class="nav-link" href="/about">Über das Projekt</a>
 				</li>
@@ -17,6 +14,11 @@
 				<li>
 					<a class="nav-link" href="https://blog.schul-cloud.org/" target="scblog">Blog</a>
 				</li>
+				{{#ifEnv "FEATURE_MINT_PAGES_ENABLED" "true"}}
+				<li>
+					<a class="nav-link" href="/mint-ec/willkommenspaket">Erste Schritte</a>
+				</li>
+				{{/ifEnv}}
 				<li>
 					<a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank" rel="noopener">FAQ</a>
 				</li>

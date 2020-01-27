@@ -1,7 +1,6 @@
 import './pwd.js';
 import './cleanup'; // see loggedin.js for loggedin users
 
-/* global introJs */
 $(document).ready(function() {
 
 	// reset localStorage when new version is Published
@@ -62,10 +61,6 @@ $(document).ready(function() {
     var loadSystems = function(schoolId) {
         $systems.empty();
         $.getJSON('/login/systems/' + schoolId, function(systems) {
-            if (systems.length < 2){
-                $systems.parent().hide()
-                return;
-            }
             systems.forEach(function(system) {
                 var systemAlias = system.alias ? ' (' + system.alias + ')' : '';
                 let selected;
@@ -75,7 +70,7 @@ $(document).ready(function() {
                 $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '">' + system.type + systemAlias + '</option>');
             });
             $systems.trigger('chosen:updated');
-            systems.length == 1 ? $systems.parent().hide() : $systems.parent().show();
+            systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
         });
     };
 
@@ -119,7 +114,7 @@ $(document).ready(function() {
         populateModalForm($pwRecoveryModal, {
             title: 'Passwort Zurücksetzen',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Abschicken'
+            submitLabel: 'Passswort zurücksetzen'
         });
         $pwRecoveryModal.appendTo('body').modal('show');
     });
@@ -138,20 +133,3 @@ $(document).ready(function() {
     }
 
 });
-
-window.startIntro = function startIntro() {
-    introJs()
-    .setOptions({
-        nextLabel: "Weiter",
-        prevLabel: "Zurück",
-        doneLabel: "Nächste Seite",
-        skipLabel: "Überspringen",
-        hidePrev: true, //hide previous button in the first step
-        hideNext: true  //hide next button in the last step
-    })
-    .start()
-    .oncomplete(function() {
-        localStorage.setItem('Tutorial', true);
-        document.querySelector("#demologin").click();
-    });
-};
