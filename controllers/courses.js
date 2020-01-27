@@ -3,6 +3,7 @@ const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
 const api = require('../api');
+const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
@@ -39,7 +40,7 @@ const createEventsForCourse = (req, res, course) => {
 					description: course.description,
 					startDate: new Date(
 						new Date(course.startDate).getTime()
-						+ time.startTime,
+								+ time.startTime,
 					).toLocalISOString(),
 					duration: time.duration,
 					repeat_until: course.untilDate,
@@ -93,8 +94,8 @@ const deleteEventsForCourse = (req, res, courseId) => {
 				req.session.notification = {
 					type: 'danger',
 					message:
-						'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
-						+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
+							'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
+							+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
 				};
 				return Promise.resolve();
 			}));
@@ -137,9 +138,10 @@ const editCourseHandler = (req, res, next) => {
 				schoolId: res.locals.currentSchool,
 				$populate: ['year'],
 				$limit: -1,
+				$sort: { year: -1, displayName: 1 },
 			},
 		});
-	// .then(data => data.data); needed when pagination is not disabled
+		// .then(data => data.data); needed when pagination is not disabled
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher', 'demoTeacher'],
 		$limit: false,
@@ -622,7 +624,7 @@ router.get('/:courseId/', (req, res, next) => {
 
 	// ########################### start requests to new Editor #########################
 	if (isNewEdtiroActivated) {
-		promises.push(api(req, { backend: 'editor' }).get(`course/${req.params.courseId}/lessons`));
+		promises.push(apiEditor(req).get(`course/${req.params.courseId}/lessons`));
 	}
 
 	// ############################ end requests to new Editor ##########################
@@ -672,7 +674,6 @@ router.get('/:courseId/', (req, res, next) => {
 			}
 
 			// ###################### end of code for new Editor ################################
-
 			res.render(
 				'courses/course',
 				Object.assign({}, course, {
@@ -703,7 +704,6 @@ router.get('/:courseId/', (req, res, next) => {
 					// #################### new Editor, till replacing old one ######################
 					newLessons,
 					isNewEdtiroActivated,
-					scopedCoursePermission: scopedPermissions[res.locals.currentUser._id],
 				}),
 			);
 		})

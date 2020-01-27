@@ -203,7 +203,7 @@ $(document).ready(() => {
 			const courseId = $('.bbbTool').parent().attr('data-courseId');
 			$.ajax({
 				type: 'GET',
-				url: `http://localhost:3030/videoconference/course/${courseId}?demo=wait`,
+				url: `http://localhost:3030/videoconference/course/${courseId}?demo=start`,
 				success: videoconferenceResponse,
 			});
 		};

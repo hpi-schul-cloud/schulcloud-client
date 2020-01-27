@@ -16,24 +16,20 @@ router.post('/', (req, res) => {
 		password,
 		passwordNew,
 	} = req.body;
-	const discoverable = !!req.body.discoverable;
 	return api(req).patch(`/accounts/${res.locals.currentPayload.accountId}`, {
 		json: {
 			password_verification: password,
 			password: passwordNew !== '' ? passwordNew : undefined,
-		}
-	}).then(() => {
-		return api(req).patch(`/users/${res.locals.currentUser._id}`, {
-			json: {
-				firstName,
-				lastName,
-				email,
-				discoverable,
-			},
-		}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
-			res.redirect('/account/');
-		});
-	}).catch((err) => {
+		},
+	}).then(() => api(req).patch(`/users/${res.locals.currentUser._id}`, {
+		json: {
+			firstName,
+			lastName,
+			email,
+		},
+	}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
+		res.redirect('/account/');
+	})).catch((err) => {
 		res.render('account/settings', {
 			title: 'Dein Account',
 			notification: {
@@ -47,7 +43,6 @@ router.post('/', (req, res) => {
 router.get('/', (req, res, next) => {
 	const isSSO = Boolean(res.locals.currentPayload.systemId);
 	const isDiscoverable = res.locals.currentUser.discoverable;
-	const hideVisibilitySettings = (res.locals.currentRole === 'Schüler' || process.env.IGNORE_DISCOVERABILITY);
 	Promise.all([
 		api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`),
 		(process.env.NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null),
@@ -67,7 +62,6 @@ router.get('/', (req, res, next) => {
 			session,
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
-			hideVisibilitySettings,
 			isDiscoverable,
 		});
 	}).catch(() => {
@@ -75,7 +69,6 @@ router.get('/', (req, res, next) => {
 			title: 'Dein Account',
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
-			hideVisibilitySettings,
 			isDiscoverable,
 		});
 	});
@@ -114,6 +107,33 @@ router.post('/preferences', (req, res, next) => {
 		json: { [`preferences.${attribute.key}`]: attribute.value },
 	}).then(() => 'Präferenzen wurden aktualisiert!')
 		.catch(() => 'Es ist ein Fehler bei den Präferenzen aufgetreten!');
+});
+
+router.post('/teamSettings', (req, res) => {
+	let discoverable = null;
+	if (req.body.discoverable === 'true') {
+		discoverable = true;
+	}
+	if (req.body.discoverable === 'false') {
+		discoverable = false;
+	}
+	return api(req).patch(`/users/${res.locals.currentUser._id}`, {
+		json: {
+			discoverable,
+		},
+	})
+		.then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
+			res.redirect('/account/');
+		})
+		.catch((err) => {
+			res.render('account/settings', {
+				title: 'Dein Account',
+				notification: {
+					type: 'danger',
+					message: err.error.message,
+				},
+			});
+		});
 });
 
 module.exports = router;

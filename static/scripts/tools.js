@@ -75,7 +75,7 @@ $(document).ready(() => {
 			data: tool,
 			method: 'POST',
 			success(result) {
-				window.location.href = `/courses/${courseId}`;
+				window.location.href = `/courses/${courseId}?activeTab=tools`;
 			},
 		});
 	};

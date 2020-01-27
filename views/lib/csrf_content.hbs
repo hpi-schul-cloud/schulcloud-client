@@ -1,0 +1,43 @@
+<div class="error-header-wrapper pb-3">
+    <img class="error-header-image" src="/images/broken-pen.svg" alt="zerbrochener Stift" />
+    <h1 class="h2 error-header-code">CSRF</h1>
+    <p class="error-header-text">
+        Deine Anfrage konnte nicht verifiziert werden.
+    </p>
+
+    <div class="noiframe">
+        {{#if simpleView}}
+            <p>
+                Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum neu laden auf den Button unten.
+            </p>
+            <button class="btn btn-primary" onclick="window.location.href=window.location.href">Neu laden</button>
+        {{else}}
+            <p>
+                Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen
+                auf den Button unten.
+                <br>
+                Solltest du keine Aktion ausführen wollen, schließe bitte diesen Tab in deinem Browser.
+            </p>
+            {{#if previousError}}
+                <p><b>Die Anfrage ist leider erneut fehlgeschlagen. Um mit der Nutzung fortzufahren, lade die Seite bitte neu.
+                    </b></p>
+                <button class="btn btn-primary" onclick="window.location.href=window.location.href">Neu laden</button>
+            {{else}}
+                <form id="retryform" method="POST">
+                    {{> "lib/components/csrfInput"}}
+                    {{#each values}}
+                    <input type="hidden" name="{{this.name}}" value="{{this.value}}">
+                    {{/each}}
+                    <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" target="_blank" id="retrybtn">In
+                        neuem Tab öffnen</a>
+                </form>
+            {{/if}}
+        {{/if}}
+    </div>
+    <div class="hidden iframe">
+        <p>
+            Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren, <a href="{{baseUrl}}"
+                rel="noopener noreferrer" target="_blank">öffne diese Seite in einem eigenen Fenster</a>.
+        </p>
+    </div>
+</div>

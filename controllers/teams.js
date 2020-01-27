@@ -13,6 +13,8 @@ const logger = require('../helpers/logger');
 const router = express.Router();
 moment.locale('de');
 
+const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference'];
+
 const addThumbnails = (file) => {
 	const thumbs = {
 		default: '/images/thumbs/default.png',
@@ -332,10 +334,13 @@ router.post('/', async (req, res, next) => {
 		delete req.body.untilDate;
 	}
 
-	if (req.body.rocketchat === 'true') {
-		req.body.features = ['rocketChat'];
-	}
-	delete req.body.rocketchat;
+	req.body.features = [];
+	OPTIONAL_TEAM_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
 
 	api(req)
 		.post('/teams/', {
@@ -663,39 +668,23 @@ router.patch('/:teamId', async (req, res, next) => {
 		delete req.body.untilDate;
 	}
 
-	// first delete all old events for the course
-	// deleteEventsForCourse(req, res, req.params.teamId).then(async _ => {
 
 	const currentTeamState = await api(req).get(`/teams/${req.params.teamId}`);
-	const isChatAllowed = (currentTeamState.features || []).includes(
-		'rocketChat',
-	);
-	if (!isChatAllowed && req.body.rocketchat === 'true') {
-		// add rocketChat feature
-		await api(req).patch(`/teams/${req.params.teamId}`, {
-			json: {
-				$push: {
-					features: 'rocketChat',
-				},
-			},
-		});
-	} else if (isChatAllowed && req.body.rocketchat !== 'true') {
-		// remove rocketChat feature
-		await api(req).patch(`/teams/${req.params.teamId}`, {
-			json: {
-				$pull: {
-					features: 'rocketChat',
-				},
-			},
-		});
-	}
-	delete req.body.rocketchat;
+	const features = new Set(currentTeamState.features || []);
+	OPTIONAL_TEAM_FEATURES.forEach((feature) => {
+		const isFeatureEnabled = (currentTeamState.features || []).includes(feature);
+		if (!isFeatureEnabled && req.body[feature] === 'true') {
+			features.add(feature);
+		} else if (isFeatureEnabled && req.body[feature] !== 'true') {
+			features.delete(feature);
+		}
+		delete req.body[feature];
+	});
+	req.body.features = Array.from(features);
 
 	await api(req).patch(`/teams/${req.params.teamId}`, {
 		json: req.body, // TODO: sanitize
 	});
-
-	// await createEventsForCourse(req, res, courseUpdated);
 
 	res.redirect(`/teams/${req.params.teamId}`);
 
