@@ -77,6 +77,17 @@
 										</div>
 									</div>
 								</div>
+								{{/userHasPermission}}
+								{{#userHasPermission 'DATASOURCES_VIEW'}}
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="card h-100 teacher-option" onclick="location.href='/administration/datasources/'">
+										<div class="card-block homework">
+											<div class="card-text">
+												<h2 class="h4"><i class="fa fa-database mr-1"></i>Datenquellen verwalten</h2>
+											</div>
+										</div>
+									</div>
+								</div>
 							{{/userHasPermission}}
 						</div>
 					</div>
