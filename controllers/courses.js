@@ -614,6 +614,10 @@ router.get('/:courseId/', (req, res, next) => {
 				$populate: ['courseId', 'userIds'],
 			},
 		}),
+		api(req).get(`/courses/${req.params.courseId}/userPermissions`, {
+			qs: { userId: res.locals.currentUser._id },
+		}),
+
 	];
 
 	// ########################### start requests to new Editor #########################
@@ -624,10 +628,13 @@ router.get('/:courseId/', (req, res, next) => {
 	// ############################ end requests to new Editor ##########################
 
 	Promise.all(promises)
-		.then(([course, _lessons, _homeworks, _courseGroups, _newLessons]) => {
+		.then(([course, _lessons, _homeworks, _courseGroups, scopedPermissions, _newLessons]) => {
 			const ltiToolIds = (course.ltiToolIds || []).filter(
 				ltiTool => ltiTool.isTemplate !== 'true',
-			);
+			).map((tool) => {
+				tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
+				return tool;
+			});
 			const lessons = (_lessons.data || []).map(lesson => Object.assign(lesson, {
 				url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
 			}));
@@ -665,53 +672,40 @@ router.get('/:courseId/', (req, res, next) => {
 			}
 
 			// ###################### end of code for new Editor ################################
-			// videoconference demo
-			const role = res.locals.currentUser.permissions.includes('COURSE_CREATE') ? 'moderator' : 'attendee';
-			api(req).post('/videoconference', {
-				json: {
-					id: req.params.courseId,
-					scopeName: 'course',
-					name: course.name,
-					role,
-				},
-			}).then(({ url }) => {
-				const conference = {};
-				if (role === 'moderator') { conference.moderatorUrl = url; }
-				if (role === 'attendee') { conference.attendeeUrl = url; }
-				res.render(
-					'courses/course',
-					Object.assign({}, course, {
-						title: course.isArchived
-							? `${course.name} (archiviert)`
-							: course.name,
-						activeTab: req.query.activeTab,
-						lessons,
-						homeworks: homeworks.filter(task => !task.private),
-						myhomeworks: homeworks.filter(task => task.private),
-						ltiToolIds,
-						courseGroups,
-						baseUrl,
-						breadcrumb: [
-							{
-								title: 'Meine Kurse',
-								url: '/courses',
-							},
-							{
-								title: course.name,
-								url: `/courses/${course._id}`,
-							},
-						],
-						filesUrl: `/files/courses/${req.params.courseId}`,
-						nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
-							course.times,
-						),
-						// #################### new Editor, till replacing old one ######################
-						newLessons,
-						isNewEdtiroActivated,
-						conference,
-					}),
-				);
-			});
+
+			res.render(
+				'courses/course',
+				Object.assign({}, course, {
+					title: course.isArchived
+						? `${course.name} (archiviert)`
+						: course.name,
+					activeTab: req.query.activeTab,
+					lessons,
+					homeworks: homeworks.filter(task => !task.private),
+					myhomeworks: homeworks.filter(task => task.private),
+					ltiToolIds,
+					courseGroups,
+					baseUrl,
+					breadcrumb: [
+						{
+							title: 'Meine Kurse',
+							url: '/courses',
+						},
+						{
+							title: course.name,
+							url: `/courses/${course._id}`,
+						},
+					],
+					filesUrl: `/files/courses/${req.params.courseId}`,
+					nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
+						course.times,
+					),
+					// #################### new Editor, till replacing old one ######################
+					newLessons,
+					isNewEdtiroActivated,
+					scopedCoursePermission: scopedPermissions[res.locals.currentUser._id],
+				}),
+			);
 		})
 		.catch(next);
 });

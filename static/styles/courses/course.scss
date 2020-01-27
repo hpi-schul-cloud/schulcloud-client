@@ -137,14 +137,69 @@
   }
 
   .delete-tool {
+    color: rgb(55, 58, 60);
     float: right;
     cursor: pointer;
     padding-top: 1.4em;
+    font-size: 1.2em;
   }
 
-  .card-tool {
+  .card-tool:hover  {
     cursor: pointer;
+    color: rgb(55, 58, 60);
+    text-decoration: none;
+    background-color: #f5f5f5;
   }
+
+  .bbbTool-reload-icon {
+    float: right;
+    cursor: pointer;
+    padding-top: 1.4em;
+    font-size: 1.2em;
+  }
+
+  .bbbTool-info-icon {
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-left: 6px;
+  }
+
+  .bbb-guest-inactive-state,
+  .bbb-moderator-inactive-state,
+  .bbb-running-videoconference-state {
+    display: none;
+  }
+
+  .pulsating-dot {
+    background: rgb(57, 228, 6);
+    border-radius: 50%;
+    padding: 10px;
+    margin-top: 1.4em;
+    height: 20px;
+    width: 20px;
+  
+    box-shadow: 0 0 0 0 rgb(57, 228, 6);
+    transform: scale(1);
+    animation: pulse 1.5s infinite;
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(57, 228, 6, 0.7);
+      }
+    
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+      }
+    
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+      }
+    }
+  }
+  
 
   .ui-state-highlight {
     height: 55px;
@@ -477,4 +532,49 @@
 .alert-course-delete {
   color: $colorDanger;
 }
+
+.create-videoconference {
+  margin: 20px;
+  
+  &-option {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &-text{
+      width: 80%;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+  }
+
+  label {
+    margin-right: 0.5rem;
+  }
+
+  .toggle {
+    height: 2rem !important;
+    width: 7rem !important;
+    .toggle-handle {
+      width: 0.3rem !important;
+      background: whitesmoke !important;
+    }
+  }
+
+  .off {
+    background: grey !important;
+    label {
+      color: whitesmoke !important;
+      padding-left: 48px !important;
+    }
+  }
+
+  .on {
+    label {
+      padding-right: 48px !important;
+    }
+  }
+}
+
+
 
