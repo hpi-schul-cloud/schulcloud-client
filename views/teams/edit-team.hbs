@@ -39,7 +39,7 @@
                     </div>
                 {{/inArray}}
 
-                {{#ifEnv "FEATURE_VIDEOCONFERENCE_ENABLED" "true"}}
+                {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                     <div class="form-group">
                         <label>
                             <input type="checkbox" name="videoconference" value="true" {{#inArray "videoconference" @root.team.features}}checked{{/inArray}}
@@ -53,7 +53,7 @@
                         </small>
                         {{/inArray}}
                     </div>
-                {{/ifEnv}}
+                {{/ifConfig}}
 
                 <div class="form-group">
                     <label>Farbe des Teams:</label>

@@ -230,7 +230,7 @@
 									Weisung der Schule gegenüber dem HPI.</p>
 							</label>
 						</div>
-						{{#ifEnv "FEATURE_VIDEOCONFERENCE_ENABLED" "true"}}
+						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
 						<div class="form-group">
 							<label>
 								<input type="checkbox" name="videoconference" value="true"
@@ -243,7 +243,7 @@
 									Weisung der Schule gegenüber dem HPI.</p>
 							</label>
 						</div>
-						{{/ifEnv}}
+						{{/ifConfig}}
 						{{#if ../school.fileStorageType}}
                         <div class="form-group">
                             <label>Cloud-Storage Anbieter</label>
