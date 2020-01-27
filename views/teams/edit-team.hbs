@@ -39,14 +39,21 @@
                     </div>
                 {{/inArray}}
 
-                {{#inArray "videoconference" schoolData.features}}
+                {{#ifEnv "FEATURE_VIDEOCONFERENCE_ENABLED" "true"}}
                     <div class="form-group">
                         <label>
-                            <input type="checkbox" name="videoconference" value="true" {{#inArray "videoconference" ../team.features}}checked{{/inArray}}>
+                            <input type="checkbox" name="videoconference" value="true" {{#inArray "videoconference" @root.team.features}}checked{{/inArray}}
+                                {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
                             Videokonferenzen für Team aktivieren
                         </label>
+                        {{#inArray "videoconference" @root.schoolData.features}}
+                        {{else}} 
+                        <small class="form-text text-muted">
+                            Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen.
+                        </small>
+                        {{/inArray}}
                     </div>
-                {{/inArray}}
+                {{/ifEnv}}
 
                 <div class="form-group">
                     <label>Farbe des Teams:</label>
