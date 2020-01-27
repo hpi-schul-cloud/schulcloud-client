@@ -16,7 +16,7 @@
 
   {{#content "page"}}
   <meta name="baseUrl" content={{baseUrl}}>
-    {{#userHasPermission "COURSE_EDIT"}}
+    {{#inArray "COURSE_EDIT" scopedCoursePermission}}
       <div class="dropdown dropdown-course minimal-button">
         <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
           <h1 class="h4" id="page-title" class="course-headline">
@@ -42,7 +42,7 @@
           </a>
         </div>
       </div>
-    {{/userHasPermission}}
+    {{/inArray}}
     <div class="row description">
       <div class="col-sm-12">
         {{#if description}}

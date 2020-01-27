@@ -623,6 +623,9 @@ router.get('/:courseId/', (req, res, next) => {
 				$populate: ['courseId', 'userIds'],
 			},
 		}),
+		api(req).get(`/courses/${req.params.courseId}/userPermissions`, {
+			qs: { userId: res.locals.currentUser._id },
+		}),
 	];
 
 	// ########################### start requests to new Editor #########################
@@ -633,7 +636,7 @@ router.get('/:courseId/', (req, res, next) => {
 	// ############################ end requests to new Editor ##########################
 
 	Promise.all(promises)
-		.then(([course, _lessons, _homeworks, _courseGroups, _newLessons]) => {
+		.then(([course, _lessons, _homeworks, _courseGroups, scopedPermissions, _newLessons]) => {
 			const ltiToolIds = (course.ltiToolIds || []).filter(
 				ltiTool => ltiTool.isTemplate !== 'true',
 			);
@@ -704,6 +707,7 @@ router.get('/:courseId/', (req, res, next) => {
 					// #################### new Editor, till replacing old one ######################
 					newLessons,
 					isNewEdtiroActivated,
+					scopedCoursePermission: scopedPermissions[res.locals.currentUser._id],
 				}),
 			);
 		})
