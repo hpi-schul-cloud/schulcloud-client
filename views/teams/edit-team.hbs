@@ -33,8 +33,17 @@
                 {{#inArray "rocketChat" schoolData.features}}
                     <div class="form-group">
                         <label>
-                            <input type="checkbox" name="rocketchat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
+                            <input type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
                             Messenger für Team aktivieren
+                        </label>
+                    </div>
+                {{/inArray}}
+
+                {{#inArray "videoconference" schoolData.features}}
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="videoconference" value="true" {{#inArray "videoconference" ../team.features}}checked{{/inArray}}>
+                            Videokonferenzen für Team aktivieren
                         </label>
                     </div>
                 {{/inArray}}
