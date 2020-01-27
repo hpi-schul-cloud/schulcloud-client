@@ -175,7 +175,7 @@ $(document).ready(() => {
 				};
 
 				const modInactiveState = {
-					conditional: () => permission === 'START_MEETING' && state === 'READY',
+					conditional: () => permission === 'START_MEETING' && state === 'FINISHED',
 					displayDomElements: () => {
 						$('.bbb-state').hide();
 						$('.bbb-moderator-inactive-state').show();
@@ -203,7 +203,7 @@ $(document).ready(() => {
 			const courseId = $('.bbbTool').parent().attr('data-courseId');
 			$.ajax({
 				type: 'GET',
-				url: `http://localhost:3030/videoconference/course/${courseId}?demo=start`,
+				url: `/videoconference/course/${courseId}`,
 				success: videoconferenceResponse,
 			});
 		};
