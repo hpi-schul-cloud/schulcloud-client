@@ -13,7 +13,7 @@ router.get('/:scopeName/:scopeId', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-	const { scopeName, scopeId, options } = req.params;
+	const { scopeName, scopeId, options } = req.body;
 	return authHelper.isAuthenticated(req).then(() => api(req)
 		.post('/videoconference', {
 			body: {

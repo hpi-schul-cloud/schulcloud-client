@@ -156,7 +156,7 @@ $(document).ready(() => {
 					return error.key;
 				}
 				const guestInactiveState = {
-					conditional: () => permission !== 'START_MEETING' && state === 'NOT_STARTED',
+					conditional: () => permission === 'JOIN_MEETING' && state === 'NOT_STARTED',
 					displayDomElements: () => {
 						$('.bbbTool').off('click').css({
 							cursor: 'auto',
@@ -175,7 +175,7 @@ $(document).ready(() => {
 				};
 
 				const modInactiveState = {
-					conditional: () => permission === 'START_MEETING' && state === 'FINISHED',
+					conditional: () => permission === 'START_MEETING' && (state === 'NOT_STARTED' || state === 'FINISHED'),
 					displayDomElements: () => {
 						$('.bbb-state').hide();
 						$('.bbb-moderator-inactive-state').show();
@@ -183,7 +183,7 @@ $(document).ready(() => {
 				};
 
 				const runningState = {
-					conditional: () => permission === 'JOIN_MEETING' && state === 'STARTED,',
+					conditional: () => state === 'RUNNING,',
 					displayDomElements: () => {
 						$('.bbb-state').hide();
 						$('.bbb-running-videoconference-state').show();
@@ -233,9 +233,27 @@ $(document).ready(() => {
 		$createVideoconferenceModal.appendTo('body').modal('show');
 		$createVideoconferenceModal.off('submit').on('submit', (event) => {
 			event.preventDefault();
+
+			// todo rename the options...
 			const startMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
 			const requestModerator = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
 			const everyoneIsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
+
+			$.post('/videoconference/', {
+				scopeId: courseId,
+				scopeName: 'course',
+				options: {
+					// startMuted,
+					// requestModerator,
+					// everyoneIsModerator,
+				},
+			}, (response) => {
+				if (response.success !== 'SUCCESS') {
+					console.error('show a user information instead');
+				}
+				// todo, the browser may block popups...
+				window.open(response.url, '_blank');
+			});
 		});
 	});
 
