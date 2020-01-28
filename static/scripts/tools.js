@@ -113,8 +113,10 @@ $(document).ready(() => {
 					$addBbbToolModal.appendTo('body').modal('show');
 					$addBbbToolModal.off('submit').on('submit', (event) => {
 						event.preventDefault();
-						window.location.href = `/courses/${courseId}?activeTab=tools`;
 						createLocalTool($editModal, tool);
+						setTimeout(() => {
+							window.location.href = `/courses/${courseId}?activeTab=tools`;
+						}, 100);
 					});
 					return;
 				}
