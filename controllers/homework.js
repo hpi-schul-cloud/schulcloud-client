@@ -581,7 +581,7 @@ const overview = (title = '') => {
 };
 router.get('/', overview('Aufgaben'));
 router.get('/asked', overview('Gestellte Aufgaben'));
-router.get('/private', overview('Meine ToDos'));
+router.get('/private', overview('Entwürfe'));
 router.get('/archive', overview('Archivierte Aufgaben und ToDos'));
 
 router.get('/new', function (req, res, next) {

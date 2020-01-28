@@ -136,16 +136,4 @@ router.post('/teamSettings', (req, res) => {
 		});
 });
 
-router.post('/ttl', (req, res, next) => {
-	if (req.body.resetTimer) {
-		api(req).post('/accounts/jwtTimer')
-			.then(result => res.sendStatus(200))
-			.catch(() => res.status(500).send('Could not update remaining session time'));
-	} else {
-		api(req).get('/accounts/jwtTimer')
-			.then(result => res.send(result))
-			.catch(() => res.status(500).send('Could not get remaining session time'));
-	}
-});
-
 module.exports = router;

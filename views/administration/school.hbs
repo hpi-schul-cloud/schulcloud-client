@@ -267,17 +267,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 no-padding">
-                    {{> "lib/components/table" head=systemsHead body=systemsBody}}
+                    {{> "lib/components/table" head=../systemsHead body=../systemsBody}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12 no-padding">
                     <form action="/administration/systems/ldap/add" method="POST">
+                        {{> "lib/components/csrfInput"}}
                         <button type="submit" class="btn btn-primary btn-add-modal ">
                             System hinzufügen
                         </button>
-                        {{#if ldapAddable}}
-                        {{> "lib/components/csrfInput"}}
+                        {{#if ../ldapAddable}}
                         <button type="submit" class="btn btn-primary">
                             LDAP System hinzufügen
                         </button>
@@ -286,27 +286,27 @@
                 </div>
             </div>
         </div>
-
-        {{#embed "lib/components/modal-form" method="patch" class="edit-modal" collapseId=1}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-systems"}}
-        {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal-form" action="/administration/systems/" method="post" class="add-modal"
-        collapseId=2}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-systems"}}
-        {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal-form" body=systemsBody method="delete" class="delete-modal"}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-delete-alias"}}
-        {{/content}}
-        {{/embed}}
     </section>
     {{/userHasPermission}}
+
+    {{#embed "lib/components/modal-form" method="patch" class="edit-modal" collapseId=1}}
+    {{#content "fields"}}
+    {{> "administration/forms/form-systems"}}
+    {{/content}}
+    {{/embed}}
+
+    {{#embed "lib/components/modal-form" action="/administration/systems/" method="post" class="add-modal"
+    collapseId=2}}
+    {{#content "fields"}}
+    {{> "administration/forms/form-systems"}}
+    {{/content}}
+    {{/embed}}
+
+    {{#embed "lib/components/modal-form" body=systemsBody method="delete" class="delete-modal"}}
+    {{#content "fields"}}
+    {{> "administration/forms/form-delete-alias"}}
+    {{/content}}
+    {{/embed}}
 
 
     <section class="section-school section-default">
