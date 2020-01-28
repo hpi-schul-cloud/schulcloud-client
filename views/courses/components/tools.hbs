@@ -6,7 +6,7 @@
 			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{/if}}" {{#unless this.isBBB}}
 				onclick="location.href='/courses/{{../_id}}/tools/show/{{this._id}}'" {{/unless}}>
 				{{#unless this.isBBB}}
-				<p class="card-title-directory">
+				<div class="card-title-directory">
 					{{#if logo_url}}
 					<img src={{this.logo_url}} class="float-left" style="width:auto; height:75px;" />
 					{{else}}
@@ -29,12 +29,12 @@
 					</a>
 					{{/unless}}
 					{{/userHasPermission}}
-				</p>
+				</div>
 				{{/unless}}
 
 
 				{{#if this.isBBB}}
-				<p class="card-title-directory bbb-state bbb-guest-inactive-state">
+				<div class="card-title-directory bbb-state bbb-guest-inactive-state">
 					<img src="/images/tools/bbb/not_started.svg" class="float-left" style="width:auto; height:75px;" />
 					<span>Videokonferenz wurde noch nicht gestartet</span>
 					<a class="bbbTool-info-icon">
@@ -44,9 +44,9 @@
 					<a class="bbbTool-reload-icon">
 						<i class="fa fa-repeat" style="cursor:pointer;" onclick="javascript:reloadThis()"></i>
 					</a>
-				</p>
+				</div>
 
-				<p class="card-title-directory bbb-state bbb-moderator-inactive-state">
+				<div class="card-title-directory bbb-state bbb-moderator-inactive-state">
 
 					<img src="/images/tools/bbb/available.png" class="float-left" style="width:auto; height:75px;" />
 
@@ -60,20 +60,20 @@
 					</a>
 					{{/unless}}
 					{{/userHasPermission}}
-				</p>
+				</div>
 
-				<p class="card-title-directory bbb-state bbb-running-videoconference-state">
+				<div class="card-title-directory bbb-state bbb-running-videoconference-state">
 
 					<img src="/images/tools/bbb/available.png" class="float-left" style="width:auto; height:75px;" />
 
 					<span>Videokonferenz BigBlueButton</span>
 					<span class="pulsating-dot bbbTool-reload-icon"></span>
 
-				</p>
+				</div>
 
-				<p class="card-title-directory bbb-state bbb-error-state">
+				<div class="card-title-directory bbb-state bbb-error-state">
 					It seems that there was an error with the request, please try again
-				</p>
+				</div>
 
 				{{/if}}
 
