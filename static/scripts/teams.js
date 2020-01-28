@@ -108,8 +108,9 @@ $(document).ready(() => {
 			closeLabel: 'Abbrechen',
 			submitLabel: 'Speichern',
 			fields: event,
-			action: `/teams/calendar/events/${event.attributes.uid}`,
+			action: `/teams/calendar/events/${event.attributes.uid}`
 		});
+		$('.create-videoconference').show();
 
 		transformTeamEvent($editEventModal, event);
 
