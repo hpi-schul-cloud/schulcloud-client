@@ -14,9 +14,15 @@ function transformTeamEvent(modal, event) {
 	$.getJSON(`/teams/${teamId}/json`, (team) => {
 		const $title = modal.find('.modal-title');
 		$title.html(`${$title.html()}, Team: ${team.team.name}`);
-		// set fix team on editing
-		modal.find("input[name='scopeId']").attr('value', event['x-sc-teamId']);
-		modal.find('.modal-form').append(`<input name='teamId' value='${teamId}' type='hidden'>`);
+
+		const $modalForm = modal.find('.modal-form');
+		if (!$modalForm.find('input[name=teamId]').length) {
+			// append team id field if it is missing
+			$modalForm.append(`<input name='teamId' type='hidden'>`);
+		}
+		modal.find("input[name=scopeId]").attr('value', event['x-sc-teamId']);
+		modal.find("input[name=teamId]").attr('value', event['x-sc-teamId']);
+
 		modal.find('.create-team-event').remove();
 		modal.find('.create-course-event').remove();
 	});
