@@ -143,10 +143,10 @@ module.exports = (req, res, next) => {
     });
 
     let datasources = [];
-    if (process.env.FEATURE_NUXT_ENABLED) {
+    if (res.locals.currentUser.permissions.includes('DATASOURCES_VIEW')) {
         datasources = {
             name: 'Datenquellen',
-            icon: 'server',
+            icon: 'database',
             link: '/administration/datasources/',
         };
     }
