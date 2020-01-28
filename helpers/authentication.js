@@ -115,7 +115,7 @@ const checkConsent = (req, res) => {
 const restrictSidebar = (req, res) => {
 	res.locals.sidebarItems = res.locals.sidebarItems.filter((item) => {
 		// Check permissions for all children
-		if((item.children || []).length >= 1){
+		if ((item.children || []).length >= 1) {
 			item.children = item.children.filter((child) => {
 				if (!child.permission) return true;
 				return permissionsHelper.userHasPermission(res.locals.currentUser, child.permission);
