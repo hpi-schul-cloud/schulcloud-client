@@ -144,80 +144,77 @@ $(document).ready(() => {
 	});
 
 	if ($('.bbbTool').length > 0) {
-		const checkVideoconferenceStatus = () => {
-			const courseId = $('.bbbTool').parent().attr('data-courseId');
+		const courseId = $('.bbbTool').parent().attr('data-courseId');
 
-			const videoconferenceResponse = (data) => {
-				const {
-					permission, state, error, url,
-				} = data;
+		const videoconferenceResponse = (data) => {
+			const {
+				permission, state, error, url,
+			} = data;
 
-				if (error) {
-					$('.bbb-state').hide();
-					$('.bbb-error-state').show();
-					return error.key;
-				}
-				const guestInactiveState = {
-					conditional: () => permission === 'JOIN_MEETING' && (state === 'NOT_STARTED' || state === 'FINISHED'),
-					displayDomElements: () => {
-						$('.bbbTool').off('click').css({
-							cursor: 'auto',
-							backgroundColor: 'white',
-						});
-
-						$('.bbb-state').hide();
-						$('.bbb-guest-inactive-state').show();
-
-						$('.bbbTool-reload-icon').off('click').on('click', (e) => {
-							e.stopPropagation();
-							e.preventDefault();
-							$.ajax({
-								type: 'GET',
-								url: `/videoconference/course/${courseId}`,
-								success: videoconferenceResponse,
-							}).done((res) => {
-								if (res.state === 'RUNNING') {
-									$('.bbb-state').hide();
-									$('.bbb-running-videoconference-state').show();
-								}
-							});
-						});
-					},
-				};
-
-				const modInactiveState = {
-					conditional: () => permission === 'START_MEETING' && (state === 'NOT_STARTED' || state === 'FINISHED'),
-					displayDomElements: () => {
-						$('.bbb-state').hide();
-						$('.bbb-moderator-inactive-state').show();
-					},
-				};
-
-				const runningState = {
-					conditional: () => state === 'RUNNING',
-					displayDomElements: () => {
-						$('.bbb-state').hide();
-						$('.bbb-running-videoconference-state').show();
-
-						$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => window.open(url, '_blank'));
-					},
-				};
-
-				// eslint-disable-next-line func-names
-				$('.bbbTool').each(() => {
-					[guestInactiveState, modInactiveState, runningState].forEach((bbbState) => {
-						if (bbbState.conditional()) bbbState.displayDomElements();
+			if (error) {
+				$('.bbb-state').hide();
+				$('.bbb-error-state').show();
+				return error.key;
+			}
+			const guestInactiveState = {
+				conditional: () => permission === 'JOIN_MEETING' && (state === 'NOT_STARTED' || state === 'FINISHED'),
+				displayDomElements: () => {
+					$('.bbbTool').off('click').css({
+						cursor: 'auto',
+						backgroundColor: 'white',
 					});
-				});
+
+					$('.bbb-state').hide();
+					$('.bbb-guest-inactive-state').show();
+
+					$('.bbbTool-reload-icon').off('click').on('click', (e) => {
+						e.stopPropagation();
+						e.preventDefault();
+						$.ajax({
+							type: 'GET',
+							url: `/videoconference/course/${courseId}`,
+							success: videoconferenceResponse,
+						}).done((res) => {
+							if (res.state === 'RUNNING') {
+								$('.bbb-state').hide();
+								$('.bbb-running-videoconference-state').show();
+							}
+						});
+					});
+				},
 			};
 
-			$.ajax({
-				type: 'GET',
-				url: `/videoconference/course/${courseId}`,
-				success: videoconferenceResponse,
+			const modInactiveState = {
+				conditional: () => permission === 'START_MEETING' && (state === 'NOT_STARTED' || state === 'FINISHED'),
+				displayDomElements: () => {
+					$('.bbb-state').hide();
+					$('.bbb-moderator-inactive-state').show();
+				},
+			};
+
+			const runningState = {
+				conditional: () => state === 'RUNNING',
+				displayDomElements: () => {
+					$('.bbb-state').hide();
+					$('.bbb-running-videoconference-state').show();
+
+					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => window.open(url, '_blank'));
+				},
+			};
+
+			// eslint-disable-next-line func-names
+			$('.bbbTool').each(() => {
+				[guestInactiveState, modInactiveState, runningState].forEach((bbbState) => {
+					if (bbbState.conditional()) bbbState.displayDomElements();
+				});
 			});
 		};
-		checkVideoconferenceStatus();
+
+		$.ajax({
+			type: 'GET',
+			url: `/videoconference/course/${courseId}`,
+			success: videoconferenceResponse,
+		});
 	}
 
 
@@ -262,7 +259,10 @@ $(document).ready(() => {
 				}
 				// todo, the browser may block popups...
 				window.open(response.url, '_blank');
+				$('.bbb-state').hide();
+				$('.bbb-running-videoconference-state').show();
 			});
+			$createVideoconferenceModal.modal('hide');
 		});
 	});
 
