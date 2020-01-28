@@ -194,6 +194,7 @@ $(document).ready(function () {
         var ref = $(this).attr("data-collapseRef");
         var $collapse = $("#" + $(this).attr("data-collapseRef"));
         var $selection = $collapse.find('.team-selection');
+        var $videoconferenceToggle = $('.create-videoconference');
         $selection.find('option')
             .remove()
             .end();
@@ -211,9 +212,11 @@ $(document).ready(function () {
                     $selection.append(option);
                 });
                 $selection.chosen().trigger("chosen:updated");
+                $videoconferenceToggle.show();
             });
         } else {
             $collapse.collapse('hide');
+            $videoconferenceToggle.hide();
         }
     });
 
