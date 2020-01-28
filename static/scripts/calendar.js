@@ -25,9 +25,9 @@ $(document).ready(function () {
     }
 
     /**
-     * transform a event modal-form for course events
+     * Transforms an event modal-form for course/team events
      * @param modal {DOM-Element} - the given modal which will be transformed
-     * @param event {object} - a event, maybe a course-event
+     * @param event {object} - an event, might be a course/team event
      */
     function transformCourseOrTeamEvent(modal, event) {
         if (event["x-sc-courseId"]) {
@@ -53,7 +53,7 @@ $(document).ready(function () {
                 var $title = modal.find(".modal-title");
                 $title.html($title.html() + ", Team: " + team.team.name);
 
-                // if not teacher, not allow editing team events
+                // if not teacher, don't allow editing team events
                 if($('.create-team-event').length <= 0) {
                     modal.find(".modal-form :input").attr("disabled", true);
                 }
