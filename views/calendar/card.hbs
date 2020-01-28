@@ -1,98 +1,124 @@
 <style>
-.events-card p {
-  margin-bottom: 0;
-}
-.events-card .date-info {
-  display: flex;
-  align-items: center;
-  flex-flow: column;
-}
-.badge-secondary {
-    color: #fff;
-    background-color: #6c757d;
-}
-.badge {
-    display: inline-block;
-    min-width: 4em;
-    padding: .25em .4em;
-    font-size: 75%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25rem;
-}
-.list-inline-item {
-  font-size: small;
-}
-.m-0 {
-  margin: 0;
-}
-
-.valign-wrapper{
-  display: flex;
-  flex-direction: row;
-}
-
-.valign-wrapper .date-info {
-  display: flex;
-  align-items: center;
-  flex-flow: row;
-}
-
-.list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
 
 .events-card {
-  padding: 0 16px;
-}
-
-.events-card .valign-wrapper {
+  margin-bottom: 16px;
   min-height: 80px;
+  padding: 16px;
 }
 
-.events-card .event-title {
+.events-card .event-row {
   display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.events-card .event-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.events-card .badge-secondary {
+  color: #fff;
+  background-color: #6c757d;
+}
+.events-card .badge {
+  display: inline-block;
+  min-width: 4em;
+  padding: .25em .4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25rem;
+}
+
+.events-card .pulsating-dot {
+  background: rgb(57, 228, 6);
+  border-radius: 50%;
+  padding: 10px;
+  height: 20px;
+  width: 20px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  box-shadow: 0 0 0 0 rgb(57, 228, 6);
+  transform: scale(1);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(57, 228, 6, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+.events-card .title {
+  font-weight: bold;
+  font-size: larger;
+  margin-bottom: 8px;
+}
+
+.events-card .event-details {
+  padding-left: 16px;
+  flex-grow: 1;
   align-items: left;
   justify-content: center;
   flex-flow: column;
-  padding-left: 16px;
 }
 
-.ml-auto {
-  margin-left: auto;
+.events-card .event-details .meta {
+  padding-right: 8px;
 }
 
-i.ml-auto {
-  color: rgba(0, 0, 0, 0.26);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.events-card .event-details i {
+  margin-right: 8px;
 }
-
 </style>
 
 <div data-event="{{json event}}" class="col-sm-12 events-card">
-  <div class="valign-wrapper">
-    <div class="date-info">
+  <div class="event-row">
+    <div class="event-column date-info">
       <div class="h4"><span class="badge badge-secondary">{{event.day}} {{event.month}}</span></div>
+      {{#if event.attributes.x-sc-featurevideoconference}}
+        <div class="pulsating-dot"></div>
+      {{/if}}
     </div>
-    <div class="event-title">
-      <span class="event-title-text">{{event.title}}</span>
-      <span>
-        <ul class="list-inline m-0">
-          <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> {{event.dayOfTheWeek}}</li>
-          <li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i> {{event.fromTo}}</li>
-          {{#if event.location}}
-            <li class="list-inline-item"><i class="fa fa-location-arrow" aria-hidden="true"></i> {{event.location}}</li>
-          {{/if}}
-        </ul>
-      </span>
-      <span class="card-description">{{event.description}}</span>
+    <div class="column event-details">
+      <div class="title">{{event.title}}</div>
+        
+      <div class="event-row">
+        <div class="meta"><i class="fa fa-calendar-o" aria-hidden="true"></i>{{event.dayOfTheWeek}}</div>
+        <div class="meta"><i class="fa fa-clock-o" aria-hidden="true"></i>{{event.fromTo}}</div>
+        {{#if event.location}}
+          <div class="meta"><i class="fa fa-location-arrow" aria-hidden="true"></i>{{event.location}}</div>
+        {{/if}}
+      </div>
+
+      {{#if event.attributes.x-sc-featurevideoconference}}
+        <div class="event-row">
+          <i class="fa fa-video-camera" aria-hidden="true"></i>
+          <a href="#">An Videokonferenz teilnehmen</a>
+        </div>
+      {{/if}}
+
+      <div class="event-row">
+        <i class="fa fa-align-justify" aria-hidden="true"></i>
+        <span class="card-description">{{event.description}}</span>
+      </div>
     </div>
     {{#if canEdit}}
     <i style="cursor: pointer; font-size: 18px" class="ml-auto btn-edit-event fa fa-edit"></i>
