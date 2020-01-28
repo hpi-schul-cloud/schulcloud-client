@@ -143,19 +143,17 @@ $(document).ready(() => {
 		});
 	});
 
+	let activeBbbCard = false;
+
 	if ($('.bbbTool').length > 0) {
 		const courseId = $('.bbbTool').parent().attr('data-courseId');
 
 		const videoconferenceResponse = (data) => {
+			activeBbbCard = true;
 			const {
 				permission, state, error, url,
 			} = data;
 
-			if (error) {
-				$('.bbb-state').hide();
-				$('.bbb-error-state').show();
-				return error.key;
-			}
 			const guestInactiveState = {
 				conditional: () => permission === 'JOIN_MEETING' && (state === 'NOT_STARTED' || state === 'FINISHED'),
 				displayDomElements: () => {
@@ -220,6 +218,10 @@ $(document).ready(() => {
 
 	// eslint-disable-next-line func-names
 	$('.bbbTool').click(function (e) {
+		if (!activeBbbCard) {
+			return;
+		}
+
 		e.stopPropagation();
 		e.preventDefault();
 		const courseId = $(this).parent().attr('data-courseId');
@@ -240,18 +242,17 @@ $(document).ready(() => {
 		$createVideoconferenceModal.off('submit').on('submit', (event) => {
 			event.preventDefault();
 
-			// todo rename the options...
-			const startMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
-			const requestModerator = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
-			const everyoneIsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
+			const everyAttendeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
+			const moderatorMustApproveJoinRequests = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
+			const everybodyJoinsAsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
 
 			$.post('/videoconference/', {
 				scopeId: courseId,
 				scopeName: 'course',
 				options: {
-					// startMuted,
-					// requestModerator,
-					// everyoneIsModerator,
+					// everyAttendeJoinsMuted,
+					// moderatorMustApproveJoinRequests,
+					// everybodyJoinsAsModerator,
 				},
 			}, (response) => {
 				if (response.success !== 'SUCCESS') {
@@ -261,6 +262,7 @@ $(document).ready(() => {
 				window.open(response.url, '_blank');
 				$('.bbb-state').hide();
 				$('.bbb-running-videoconference-state').show();
+				$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => window.open(response.url, '_blank'));
 			});
 			$createVideoconferenceModal.modal('hide');
 		});
