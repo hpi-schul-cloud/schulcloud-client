@@ -142,15 +142,6 @@ module.exports = (req, res, next) => {
         permission: 'HELPDESK_VIEW'
     });
 
-    let datasources = [];
-    if (res.locals.currentUser.permissions.includes('DATASOURCES_VIEW')) {
-        datasources = {
-            name: 'Datenquellen',
-            icon: 'database',
-            link: '/administration/datasources/',
-        };
-    }
-
     // admin views
     res.locals.sidebarItems.push({
         name: 'Administration',
@@ -188,7 +179,12 @@ module.exports = (req, res, next) => {
                 icon: 'building',
                 link: '/administration/school/'
             },
-            datasources,
+            {
+                name: 'Datenquellen',
+                icon: 'database',
+                link: '/administration/datasources/',
+                permission: 'DATASOURCES_VIEW',
+            },
         ]
     });
 
