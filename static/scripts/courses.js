@@ -199,7 +199,7 @@ $(document).ready(() => {
 						$('.bbb-state').hide();
 						$('.bbb-running-videoconference-state').show();
 
-						$('.bbbTool').off('click');
+						$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => window.open(url, '_blank'));
 					},
 				};
 
