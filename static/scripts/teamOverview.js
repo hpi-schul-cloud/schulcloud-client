@@ -1,21 +1,5 @@
+import { softNavigate } from './helpers/navigation';
 $(document).ready(() => {
-	$('.section-teamInvitations a').click(function handler(e) {
-		e.stopPropagation();
-		e.preventDefault();
-
-		const id = $(this).parents('.sc-card-wrapper').data('id');
-
-		$.ajax({
-			url: `/teams/invitation/accept/${id}`,
-			method: 'GET',
-		}).done(() => {
-			$.showNotification('Einladung erfolgreich angenommen', 'success', true);
-			location.reload();
-		}).fail(() => {
-			$.showNotification('Problem beim Akzeptieren der Einladung', 'danger', true);
-		});
-	});
-
 	$('.btn-member').on('click', function (e) {
         e.stopPropagation();
         e.preventDefault();
