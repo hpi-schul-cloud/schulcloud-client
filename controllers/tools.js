@@ -66,11 +66,6 @@ const runToolHandler = (req, res, next) => {
 			launch_presentation_document_target: 'window',
 			launch_presentation_locale: 'en',
 			user_id: userId,
-			oauth_consumer_key: tool.key,
-			oauth_nonce: Date.now(),
-			oauth_signature_method: 'HMAC-SHA1',
-			oauth_timestamp: Math.round(Date.now() / 1000),
-			oauth_version: '1.0',
 		};
 
 		if (tool.privacy_permission === 'name') {
@@ -91,13 +86,12 @@ const runToolHandler = (req, res, next) => {
 				payload,
 				url: tool.url,
 			},
-		}).then((signature) => {
-			payload.oauth_signature = signature;
+		}).then((formData) => {
 			res.render('courses/components/run-lti-frame', {
 				url: tool.url,
 				method: 'POST',
-				csrf: (payload.lti_version === '1.3.0'),
-				formData: Object.keys(payload).map(key => ({ name: key, value: payload[key] })),
+				csrf: (formData.lti_version === '1.3.0'),
+				formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
 			});
 		});
 	});
