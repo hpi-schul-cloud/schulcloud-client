@@ -421,11 +421,6 @@
 			"url": "https://halloluise.de"
 		},
 		{
-			"name": "Marion-Dönhoff-Gymnasium, Nienburg",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/md-nienburg.png",
-			"url": "https://www.mdg-nienburg.de"
-		},   
-		{
 			"name": "Martin-Niemöller-Schule, Wiesbaden",
 			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/martin-niemöller.png",
 			"url": "https://niemoellerschule.net"
@@ -527,6 +522,11 @@
 			"name": "Gymnasium Laurentianum, Warendorf",
 			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Laurentianum-logo.png",
 			"url": "http://laurentianum-warendorf.de"
+		},
+		{
+			"name": "Gymnasium Schloß Neuhaus, Paderborn",
+			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/gym_schloss_neuhaus.png",
+			"url": "http://gymnasium-schloss-neuhaus.de"
 		},
 		{
 			"name": "Gymnasium Remigianum, Borken",
