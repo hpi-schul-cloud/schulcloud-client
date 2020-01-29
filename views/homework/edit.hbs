@@ -14,6 +14,7 @@
 		$('input[data-datetime]').datetimepicker({
 			format: 'd.m.Y H:i',
 			mask: '39.19.9999 29:59',
+			dayOfWeekStart: 1,
 			onShow: function (ct, input) {
 				if (input[0].id == "availableDate") {
 					let due = $("#dueDate").val().split(" ");
