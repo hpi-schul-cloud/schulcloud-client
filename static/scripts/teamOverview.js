@@ -1,4 +1,3 @@
-import { softNavigate } from './helpers/navigation';
 $(document).ready(() => {
 	$('.btn-member').on('click', function (e) {
         e.stopPropagation();
