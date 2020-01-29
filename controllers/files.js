@@ -341,7 +341,6 @@ router.delete('/file', (req, res, next) => {
 	const data = {
 		_id: req.body.id,
 	};
-
 	api(req).delete('/fileStorage/', {
 		qs: data,
 	}).then(() => {
@@ -363,6 +362,7 @@ router.get('/file', (req, res, next) => {
 		name,
 		download: download || false,
 	};
+
 	const sharedPromise = share && share !== 'undefined'
 		? registerSharedPermission(res.locals.currentUser._id, data.file, share, req)
 		: Promise.resolve();
