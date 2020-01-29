@@ -19,6 +19,7 @@
             </div>
         </div>
         {{#embed "homework/components/homework_uploaded_files" deletionAllowed=false submission=this}}{{/embed}}
+	{{#unless @root.inline}}
         {{#ifvalue teacherId value=currentUser._id}}
         {{#userHasPermission "HOMEWORK_EDIT"}}
         <a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit"
@@ -72,6 +73,7 @@
             alt="Zum Thema der Aufgabe">Zum Thema</a>
         {{/if}}
         {{/if}}
+	{{/unless}}
     </div>
     {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
     {{#content "body"}}
