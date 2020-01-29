@@ -16,20 +16,10 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then(data => data.data);
 
-const clearCookie = (req, res, options = { destroySession: false }) => {
-	if (options.destroySession && req.session && req.session.destroy) {
-		req.session.destroy();
-	}
-	res.clearCookie('jwt');
-	if (res.locals && res.locals.domain) {
-		res.clearCookie('jwt', { domain: res.locals.domain });
-	}
-};
-
 // SSO Login
 
 router.get('/tsp-login/', (req, res, next) => {
-	const ticket = req.query.ticket;
+	const { ticket } = req.query;
 	return authHelper.login({ strategy: 'tsp', ticket }, req, res, next);
 });
 
@@ -44,9 +34,9 @@ router.post('/login/', (req, res, next) => {
 	} = req.body;
 
 	if (systemId) {
-		return api(req).get(`/systems/${req.body.systemId}`).then(system => login({
+		return api(req).get(`/systems/${req.body.systemId}`).then((system) => authHelper.login({
 			strategy: system.type, username, password, systemId, schoolId,
-		}));
+		}, req, res, next));
 	}
 	return authHelper.login({ strategy: 'local', username, password }, req, res, next);
 });
@@ -114,7 +104,7 @@ router.all('/login/', (req, res, next) => {
 				$sort: 'name',
 			})
 			.then((schools) => {
-				clearCookie(req, res);
+				authHelper.clearCookie(req, res);
 				res.render('authentication/login', {
 					schools,
 					systems: [],
@@ -122,7 +112,7 @@ router.all('/login/', (req, res, next) => {
 			});
 	}).catch((error) => {
 		logger.error(error);
-		clearCookie(req, res, { destroySession: true });
+		authHelper.clearCookie(req, res, { destroySession: true });
 		return res.redirect('/');
 	});
 });
@@ -196,7 +186,7 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
 		.then(() => {
-			clearCookie(req, res, { destroySession: true });
+			authHelper.clearCookie(req, res, { destroySession: true });
 			return res.redirect('/');
 		}).catch(() => res.redirect('/'));
 });

@@ -281,9 +281,11 @@
 				{{#unless @root.course.isArchived}}
 					<div class="modal-footer">
 						{{#if course._id}}
-							<a href="/courses/{{course._id}}/" class="btn btn-delete-course btn-secondary pull-left"
-								target="_blank" data-method="DELETE" data-name="{{course.name}}"
+							{{#inArray "COURSE_DELETE" scopePermissions}}
+							<a href="/courses/{{../course._id}}/" class="btn btn-delete-course btn-secondary pull-left"
+								target="_blank" data-method="DELETE" data-name="{{../course.name}}"
 								redirect="/courses/">Kurs löschen</a>
+							{{/inArray}}
 						{{/if}}
 						<button type="button" class="btn btn-secondary btn-cancel">
 							{{closeLabel}}
