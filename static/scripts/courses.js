@@ -150,9 +150,7 @@ $(document).ready(() => {
 
 		const videoconferenceResponse = (data) => {
 			activeBbbCard = true;
-			const {
-				permission, state, error, url,
-			} = data;
+			const { permission, state } = data;
 
 			const guestInactiveState = {
 				conditional: () => permission === 'JOIN_MEETING' && (state === 'NOT_STARTED' || state === 'FINISHED'),
@@ -196,7 +194,15 @@ $(document).ready(() => {
 					$('.bbb-state').hide();
 					$('.bbb-running-videoconference-state').show();
 
-					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => window.open(url, '_blank'));
+					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => {
+						$.post('/videoconference/', {
+							scopeId: courseId,
+							scopeName: 'course',
+							options: {},
+						}, (response) => {
+							window.open(response.url, '_blank');
+						});
+					});
 				},
 			};
 
@@ -255,9 +261,6 @@ $(document).ready(() => {
 					// everybodyJoinsAsModerator,
 				},
 			}, (response) => {
-				if (response.success !== 'SUCCESS') {
-					console.error('show a user information instead');
-				}
 				// todo, the browser may block popups...
 				window.open(response.url, '_blank');
 				$('.bbb-state').hide();
