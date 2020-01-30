@@ -109,6 +109,7 @@ $(document).ready(() => {
 		}
 		event.startDate = event.start.format('DD.MM.YYYY HH:mm');
 		event.endDate = (event.end || event.start).format('DD.MM.YYYY HH:mm');
+		event.featureVideoConference = event.attributes['x-sc-featurevideoconference'];
 		populateModalForm($editEventModal, {
 			title: 'Termin - Details',
 			closeLabel: 'Abbrechen',
