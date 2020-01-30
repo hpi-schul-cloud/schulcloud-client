@@ -486,4 +486,7 @@ $(document).ready(() => {
             });
         });
     });
+
+    // typeset all MathJAX formulas displayed
+    MathJax.Hub.Typeset()
 });
