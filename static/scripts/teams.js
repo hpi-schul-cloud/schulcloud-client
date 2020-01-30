@@ -239,4 +239,24 @@ $(document).ready(() => {
 
 		return false;
 	});
+
+	initVideoconferencing();
 });
+
+function initVideoconferencing() {
+	const videoconferenceEvents = Array.from($('div[data-event]'))
+		.map((div) => [div, JSON.parse(div.attributes['data-event'].value)])
+		.filter(([_, event]) => event.attributes['x-sc-featurevideoconference'] === true);
+	
+	videoconferenceEvents.forEach(([container, event]) => {
+		console.log(event)
+		const eventId = event.id;
+		const teamId = event.attributes['x-sc-teamid'];
+		$.ajax({
+			type: 'GET',
+			url: `/videoconference/event/${eventId}`,
+		}).done((res) => {
+			console.log(res);
+		});
+	});
+}
