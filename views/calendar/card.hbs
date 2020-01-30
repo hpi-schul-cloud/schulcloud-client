@@ -1,5 +1,4 @@
 <style>
-
 .events-card {
   margin-bottom: 16px;
   min-height: 80px;
@@ -116,10 +115,12 @@
         </div>
       {{/if}}
 
+      {{#if event.description}}
       <div class="event-row">
         <i class="fa fa-file-text-o" aria-hidden="true"></i>
         <span class="card-description">{{event.description}}</span>
       </div>
+      {{/if}}
     </div>
     {{#if canEdit}}
     <i style="cursor: pointer; font-size: 18px" class="ml-auto btn-edit-event fa fa-edit"></i>
