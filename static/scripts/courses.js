@@ -179,7 +179,7 @@ $(document).ready(() => {
 
 						setTimeout(() => {
 							reloadIcon.removeClass('reload-animation');
-						}, 1200);
+						}, 700);
 
 						$.ajax({
 							type: 'GET',
