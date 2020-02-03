@@ -250,8 +250,8 @@ function initVideoconferencing() {
 	
 	videoconferenceEvents.forEach(([container, event]) => {
 		console.log(event)
-		const eventId = event.id;
-		const teamId = event.attributes['x-sc-teamid'];
+		const eventId = event['_id'];
+		const teamId = event['x-sc-teamid'];
 		$.ajax({
 			type: 'GET',
 			url: `/videoconference/event/${eventId}`,
