@@ -154,6 +154,10 @@ $(document).ready(() => {
 			activeBbbCard = true;
 			const { permission, state } = data;
 
+			if (!permission || permission.length < 0) {
+				$.showNotification('Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen.', 'danger');
+			}
+
 			const guestInactiveState = {
 				condition: videoconferenceStates.GuestInactiveState.condition,
 				displayDomElements: () => {
@@ -201,7 +205,15 @@ $(document).ready(() => {
 							scopeId: courseId,
 							scopeName: 'course',
 							options: {},
+							error: (error) => {
+								if (error && error.status !== 'SUCCESS') {
+									$.showNotification('The videoconference has finished or has not yet started, please try again later.', 'danger');
+								}
+							},
 						}, (response) => {
+							if (!response.url || response.url.length < 0) {
+								$.showNotification('The videoconference has finished or has not yet started, please try again later.', 'danger');
+							}
 							window.open(response.url, '_blank');
 						});
 					});
@@ -220,6 +232,11 @@ $(document).ready(() => {
 			type: 'GET',
 			url: `/videoconference/course/${courseId}`,
 			success: videoconferenceResponse,
+			error: (error) => {
+				if (error && error.status !== 'SUCCESS') {
+					$.showNotification('It seems that there was an error with your request, please try again.', 'danger');
+				}
+			},
 		});
 	}
 
@@ -274,8 +291,11 @@ $(document).ready(() => {
 				$('.bbb-state').hide();
 				$('.bbb-running-videoconference-state').show();
 				$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => window.open(response.url, '_blank'));
-			}).fail((err) => {
-				console.log(err);
+			}).fail((error) => {
+				console.log(error);
+				if (error && error.status !== 'SUCCESS') {
+					$.showNotification('It seems that there was an error with your request, please try again.', 'danger');
+				}
 			});
 			$createVideoconferenceModal.modal('hide');
 		});
