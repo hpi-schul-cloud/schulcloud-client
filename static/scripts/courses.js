@@ -210,20 +210,25 @@ $(document).ready(() => {
 					$('.bbb-running-videoconference-state').show();
 
 					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => {
-						$.post('/videoconference/', {
-							scopeId: courseId,
-							scopeName: 'course',
-							options: {},
-							error: (error) => {
-								if (error && error.status !== 'SUCCESS') {
-									$.showNotification('The videoconference has finished or has not yet started, please try again later.', 'danger');
-								}
-							},
-						}, (response) => {
+						$.ajax({
+							method: 'POST',
+							url: '/videoconference/',
+							contentType: 'application/json',
+							dataType: 'json',
+							data: JSON.stringify({
+								scopeId: courseId,
+								scopeName: 'course',
+								options: {},
+							}),
+						}).done((response) => {
 							if (!response.url || response.url.length < 0) {
 								$.showNotification('The videoconference has finished or has not yet started, please try again later.', 'danger');
 							}
 							window.open(response.url, '_blank');
+						}).fail((error) => {
+							if (error && error.status !== 'SUCCESS') {
+								$.showNotification('The videoconference has finished or has not yet started, please try again later.', 'danger');
+							}
 						});
 					});
 				},
@@ -280,25 +285,32 @@ $(document).ready(() => {
 			const moderatorMustApproveJoinRequests = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
 			const everybodyJoinsAsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
 
-			$.post('/videoconference/', {
-				scopeId: courseId,
-				scopeName: 'course',
-				options: {
-					// everyAttendeJoinsMuted,
-					// moderatorMustApproveJoinRequests,
-					// everybodyJoinsAsModerator,
-				},
-				error: (error) => {
-					if (error && error.status !== 'SUCCESS') {
-						$.showNotification('It seems that there was an error with your request, please try again.', 'danger');
-					}
-				},
-			}, (response) => {
+			$.ajax({
+				type: 'POST',
+				url: '/videoconference/',
+				contentType: 'application/json',
+				dataType: 'json',
+				data: JSON.stringify({
+					scopeId: courseId,
+					scopeName: 'course',
+					options: {
+						everyAttendeJoinsMuted,
+						moderatorMustApproveJoinRequests,
+						everybodyJoinsAsModerator,
+					},
+				}),
+			}).done((response) => {
 				// todo, the browser may block popups...
 				window.open(response.url, '_blank');
 				$('.bbb-state').hide();
 				$('.bbb-running-videoconference-state').show();
 				$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => window.open(response.url, '_blank'));
+			}).fail((error) => {
+				console.log(error);
+				if (error && error.status !== 'SUCCESS') {
+					return $.showNotification('It seems that there was an error with your request, please try again.', 'danger');
+				}
+				return $.showNotification('It seems that there was an error with your request, please try again.', 'danger');
 			});
 			$createVideoconferenceModal.modal('hide');
 		});
