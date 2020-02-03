@@ -110,7 +110,7 @@
     <div class="event-column hidden-sm-down">
       <div class="h4"><span class="badge badge-secondary">{{event.day}} {{event.month}}</span></div>
       {{#if event.attributes.x-sc-featurevideoconference}}
-        <div class="pulsating-dot join-conference"></div>
+        <div class="pulsating-dot video-conference join-conference"></div>
       {{/if}}
     </div>
     <div class="column event-details">
@@ -127,20 +127,20 @@
       {{#if event.attributes.x-sc-featurevideoconference}}
         <div class="event-row">
           <!-- state: RUNNING -->
-          <i class="fa fa-video-camera join-conference" aria-hidden="true"></i>
-          <a class="join-conference" href="/videoconference">An Videokonferenz teilnehmen</a>
+          <i class="fa fa-video-camera video-conference join-conference" aria-hidden="true"></i>
+          <a class="video-conference join-conference" href="/videoconference">An Videokonferenz teilnehmen</a>
           <!-- state: FINISHED || NOT_STARTED + permission: JOIN_MEETING -->
-          <i class="fa fa-video-camera not-started" aria-hidden="true"></i>
-          <span class="muted not-started">Videokonferenz wurde noch nicht gestartet</span>
-          <i class="fa fa-info-circle not-started"></i>
-          <i class="fa fa-repeat not-started"></i>
+          <i class="fa fa-video-camera video-conference not-started" aria-hidden="true"></i>
+          <span class="muted video-conference not-started">Videokonferenz wurde noch nicht gestartet</span>
+          <i class="fa fa-info-circle video-conference not-started"></i>
+          <i class="fa fa-repeat video-conference not-started" id="btn-reload"></i>
           <!-- state: FINISHED || NOT_STARTED + permission: START_MEETING -->   
-          <i class="fa fa-video-camera start-conference" aria-hidden="true"></i>
-          <a class="start-conference" href="#">Videokonferenz starten</a>
+          <i class="fa fa-video-camera video-conference start-conference" aria-hidden="true"></i>
+          <a class="video-conference start-conference" href="#">Videokonferenz starten</a>
           <!-- no permission -->
-          <i class="fa fa-ban no-permission" aria-hidden="true"></i>
-          <span class="muted no-permission">Keine Berechtigung</span>
-          <i class="fa fa-info-circle no-permission" aria-hidden="true"></i>
+          <i class="fa fa-ban video-conference no-permission" aria-hidden="true"></i>
+          <span class="muted video-conference no-permission">Keine Berechtigung</span>
+          <i class="fa fa-info-circle video-conference no-permission" aria-hidden="true"></i>
         </div>
       {{/if}}
 
