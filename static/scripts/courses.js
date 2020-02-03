@@ -254,20 +254,28 @@ $(document).ready(() => {
 			const moderatorMustApproveJoinRequests = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
 			const everybodyJoinsAsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
 
-			$.post('/videoconference/', {
-				scopeId: courseId,
-				scopeName: 'course',
-				options: {
-					// everyAttendeJoinsMuted,
-					// moderatorMustApproveJoinRequests,
-					// everybodyJoinsAsModerator,
-				},
-			}, (response) => {
+			$.ajax({
+				type: 'POST',
+				url: '/videoconference/',
+				contentType: 'application/json',
+				dataType: 'json',
+				data: JSON.stringify({
+					scopeId: courseId,
+					scopeName: 'course',
+					options: {
+						everyAttendeJoinsMuted,
+						moderatorMustApproveJoinRequests,
+						everybodyJoinsAsModerator,
+					},
+				}),
+			}).done((response) => {
 				// todo, the browser may block popups...
 				window.open(response.url, '_blank');
 				$('.bbb-state').hide();
 				$('.bbb-running-videoconference-state').show();
 				$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => window.open(response.url, '_blank'));
+			}).fail((err) => {
+				console.log(err);
 			});
 			$createVideoconferenceModal.modal('hide');
 		});
