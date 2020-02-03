@@ -161,6 +161,8 @@ $(document).ready(() => {
 			const guestInactiveState = {
 				condition: videoconferenceStates.GuestInactiveState.condition,
 				displayDomElements: () => {
+					const reloadIcon = $('.bbbTool-reload-icon');
+
 					$('.bbbTool').off('click').css({
 						cursor: 'auto',
 						backgroundColor: 'white',
@@ -169,9 +171,16 @@ $(document).ready(() => {
 					$('.bbb-state').hide();
 					$('.bbb-guest-inactive-state').show();
 
-					$('.bbbTool-reload-icon').off('click').on('click', (e) => {
+					reloadIcon.off('click').on('click', (e) => {
 						e.stopPropagation();
 						e.preventDefault();
+
+						reloadIcon.addClass('reload-animation');
+
+						setTimeout(() => {
+							reloadIcon.removeClass('reload-animation');
+						}, 1200);
+
 						$.ajax({
 							type: 'GET',
 							url: `/videoconference/course/${courseId}`,
