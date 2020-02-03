@@ -4,6 +4,8 @@
 import moment from 'moment';
 import 'jquery-datetimepicker';
 
+import { initVideoconferencing } from './videoconference';
+
 /**
  * transform a event modal-form for team events
  * @param modal {DOM-Element} - the given modal which will be transformed
@@ -239,4 +241,6 @@ $(document).ready(() => {
 
 		return false;
 	});
+
+	initVideoconferencing();
 });

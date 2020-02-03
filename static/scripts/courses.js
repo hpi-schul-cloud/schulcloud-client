@@ -1,3 +1,5 @@
+import { STATES as videoconferenceStates } from './videoconference';
+
 /* eslint-disable max-len */
 $(document).ready(() => {
 	$('.js-course-name-input').change(function courseNameInput() {
@@ -157,7 +159,7 @@ $(document).ready(() => {
 			}
 
 			const guestInactiveState = {
-				conditional: () => permission === 'JOIN_MEETING' && (state === 'NOT_STARTED' || state === 'FINISHED'),
+				condition: videoconferenceStates.GuestInactiveState.condition,
 				displayDomElements: () => {
 					$('.bbbTool').off('click').css({
 						cursor: 'auto',
@@ -185,7 +187,7 @@ $(document).ready(() => {
 			};
 
 			const modInactiveState = {
-				conditional: () => permission === 'START_MEETING' && (state === 'NOT_STARTED' || state === 'FINISHED'),
+				condition: videoconferenceStates.ModeratorInactiveState.condition,
 				displayDomElements: () => {
 					$('.bbb-state').hide();
 					$('.bbb-moderator-inactive-state').show();
@@ -193,7 +195,7 @@ $(document).ready(() => {
 			};
 
 			const runningState = {
-				conditional: () => state === 'RUNNING',
+				condition: videoconferenceStates.RunningState.condition,
 				displayDomElements: () => {
 					$('.bbb-state').hide();
 					$('.bbb-running-videoconference-state').show();
@@ -221,7 +223,7 @@ $(document).ready(() => {
 			// eslint-disable-next-line func-names
 			$('.bbbTool').each(() => {
 				[guestInactiveState, modInactiveState, runningState].forEach((bbbState) => {
-					if (bbbState.conditional()) bbbState.displayDomElements();
+					if (bbbState.condition(permission, state)) bbbState.displayDomElements();
 				});
 			});
 		};
