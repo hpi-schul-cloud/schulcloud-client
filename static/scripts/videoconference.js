@@ -3,7 +3,6 @@
 const GuestInactiveState = Object.freeze({
 	condition: (permission, state) => permission === 'JOIN_MEETING' && ['NOT_STARTED', 'FINISHED'].includes(state),
 	updateUi: (container) => {
-		console.log($(container).find('i.video-conference.not-started.reload'));
 		$(container).find('i.video-conference.not-started.reload').off('click').on('click', (e) => {
 			updateVideoconferenceForEvent(container);
 		});
