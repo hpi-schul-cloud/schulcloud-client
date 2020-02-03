@@ -152,6 +152,10 @@ $(document).ready(() => {
 			activeBbbCard = true;
 			const { permission, state } = data;
 
+			if (!permission || permission.length < 0) {
+				$.showNotification('Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen.', 'danger');
+			}
+
 			const guestInactiveState = {
 				conditional: () => permission === 'JOIN_MEETING' && (state === 'NOT_STARTED' || state === 'FINISHED'),
 				displayDomElements: () => {
@@ -199,7 +203,15 @@ $(document).ready(() => {
 							scopeId: courseId,
 							scopeName: 'course',
 							options: {},
+							error: (error) => {
+								if (error && error.status !== 'SUCCESS') {
+									$.showNotification('The videoconference has finished or has not yet started, please try again later.', 'danger');
+								}
+							},
 						}, (response) => {
+							if (!response.url || response.url.length < 0) {
+								$.showNotification('The videoconference has finished or has not yet started, please try again later.', 'danger');
+							}
 							window.open(response.url, '_blank');
 						});
 					});
@@ -218,6 +230,11 @@ $(document).ready(() => {
 			type: 'GET',
 			url: `/videoconference/course/${courseId}`,
 			success: videoconferenceResponse,
+			error: (error) => {
+				if (error && error.status !== 'SUCCESS') {
+					$.showNotification('It seems that there was an error with your request, please try again.', 'danger');
+				}
+			},
 		});
 	}
 
@@ -259,6 +276,11 @@ $(document).ready(() => {
 					// everyAttendeJoinsMuted,
 					// moderatorMustApproveJoinRequests,
 					// everybodyJoinsAsModerator,
+				},
+				error: (error) => {
+					if (error && error.status !== 'SUCCESS') {
+						$.showNotification('It seems that there was an error with your request, please try again.', 'danger');
+					}
 				},
 			}, (response) => {
 				// todo, the browser may block popups...
