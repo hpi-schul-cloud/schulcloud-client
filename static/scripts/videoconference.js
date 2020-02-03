@@ -30,9 +30,12 @@ const ModeratorInactiveState = Object.freeze({
 			$createVideoconferenceModal.off('submit').on('submit', (ev) => {
 				ev.preventDefault();
 
-				const everyAttendeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
-				const moderatorMustApproveJoinRequests = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
-				const everybodyJoinsAsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
+				const everyAttendeJoinsMuted = $createVideoconferenceModal
+					.find('[name=startMuted]').is(':checked');
+				const moderatorMustApproveJoinRequests = $createVideoconferenceModal
+					.find('[name=requestModerator]').is(':checked');
+				const everybodyJoinsAsModerator = $createVideoconferenceModal
+					.find('[name=everyoneIsModerator]').is(':checked');
 
 				$.ajax({
 					type: 'POST',
@@ -52,8 +55,8 @@ const ModeratorInactiveState = Object.freeze({
 					// todo, the browser may block popups...
 					window.open(response.url, '_blank');
 					updateVideoconferenceForEvent(container);
-				}).fail((error) => {
-					console.error(error);
+				}).fail(() => {
+					// eslint-disable-next-line max-len
 					$.showNotification('Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.', 'danger');
 					updateVideoconferenceForEvent(container);
 				});
