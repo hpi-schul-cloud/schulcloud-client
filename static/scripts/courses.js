@@ -223,11 +223,15 @@ $(document).ready(() => {
 						}).done((response) => {
 							if (!response.url || response.url.length < 0) {
 								$.showNotification('The videoconference has finished or has not yet started, please try again later.', 'danger');
+								$('.bbb-state').hide();
+								$('.bbb-guest-inactive-state').show();
 							}
 							window.open(response.url, '_blank');
 						}).fail((error) => {
 							if (error && error.status !== 'SUCCESS') {
 								$.showNotification('The videoconference has finished or has not yet started, please try again later.', 'danger');
+								$('.bbb-state').hide();
+								$('.bbb-guest-inactive-state').show();
 							}
 						});
 					});
