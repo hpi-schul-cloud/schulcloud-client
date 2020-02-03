@@ -1,8 +1,9 @@
+/* eslint-disable no-use-before-define */
 
 const GuestInactiveState = Object.freeze({
 	condition: (permission, state) => permission === 'JOIN_MEETING' && ['NOT_STARTED', 'FINISHED'].includes(state),
 	updateUi: (container) => {
-		container.find('.video-conference.not-started#reload').off('click').on('click', (e) => {
+		$(container).find('a.video-conference.not-started.reload').off('click').on('click', (e) => {
 			e.stopPropagation();
 			e.preventDefault();
 			updateVideoconferenceForEvent(container);
@@ -14,6 +15,52 @@ const GuestInactiveState = Object.freeze({
 const ModeratorInactiveState = Object.freeze({
 	condition: (permission, state) => permission === 'START_MEETING' && ['NOT_STARTED', 'FINISHED'].includes(state),
 	updateUi: (container) => {
+		$(container).find('a.video-conference.start-conference').off('click').on('click', (e) => {
+			e.stopPropagation();
+			e.preventDefault();
+			const event = JSON.parse(container.attributes['data-event'].value);
+			const $createVideoconferenceModal = $('.create-videoconference-modal');
+
+			populateModalForm($createVideoconferenceModal, {
+				title: `Videokonferenzraum "${event.title}" erstellen`,
+				closeLabel: 'Abbrechen',
+				submitLabel: 'Erstellen',
+			});
+
+			$createVideoconferenceModal.appendTo('body').modal('show');
+			$createVideoconferenceModal.off('submit').on('submit', (ev) => {
+				ev.preventDefault();
+
+				const everyAttendeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
+				const moderatorMustApproveJoinRequests = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
+				const everybodyJoinsAsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
+
+				$.ajax({
+					type: 'POST',
+					url: '/videoconference/',
+					contentType: 'application/json',
+					dataType: 'json',
+					data: JSON.stringify({
+						scopeId: event._id,
+						scopeName: 'event',
+						options: {
+							everyAttendeJoinsMuted,
+							moderatorMustApproveJoinRequests,
+							everybodyJoinsAsModerator,
+						},
+					}),
+				}).done((response) => {
+					// todo, the browser may block popups...
+					window.open(response.url, '_blank');
+					updateVideoconferenceForEvent(container);
+				}).fail((error) => {
+					console.error(error);
+					$.showNotification('Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.', 'danger');
+					updateVideoconferenceForEvent(container);
+				});
+				$createVideoconferenceModal.modal('hide');
+			});
+		});
 		switchVideoconferenceUIState(container, 'start-conference');
 	},
 });
@@ -21,7 +68,7 @@ const ModeratorInactiveState = Object.freeze({
 const RunningState = Object.freeze({
 	condition: (permission, state) => state === 'RUNNING',
 	updateUi: (container) => {
-		container.find('a.video-conference.join-conference').off('click').on('click', (e) => {
+		$(container).find('a.video-conference.join-conference').off('click').on('click', (e) => {
 			e.stopPropagation();
 			e.preventDefault();
 			joinConference(container);
@@ -41,10 +88,9 @@ function updateVideoconferenceForEvent(container) {
 		url: `/videoconference/event/${eventId}`,
 	}).done((res) => {
 		const { permission, state } = res;
-		const $container = $(container);
 		STATELIST.forEach((uiState) => {
 			if (uiState.condition(permission, state)) {
-				uiState.updateUi($container);
+				uiState.updateUi(container);
 			}
 		});
 	}).fail((_, err) => {
@@ -64,8 +110,8 @@ function joinConference(container) {
 }
 
 function switchVideoconferenceUIState(container, state) {
-	container.find('.video-conference').hide();
-	container.find(`.video-conference.${state}`).show();
+	$(container).find('.video-conference').hide();
+	$(container).find(`.video-conference.${state}`).show();
 }
 
 export function initVideoconferencing() {
