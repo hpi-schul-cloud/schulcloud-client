@@ -99,12 +99,20 @@ function updateVideoconferenceForEvent(container) {
 
 function joinConference(container) {
 	const event = JSON.parse(container.attributes['data-event'].value);
-	$.post('/videoconference/', {
-		scopeId: event._id,
-		scopeName: 'event',
-		options: {},
-	}, (response) => {
-		window.open(response.url, '_blank');
+	$.ajax({
+		type: 'POST',
+		url: '/videoconference/',
+		contentType: 'application/json',
+		dataType: 'json',
+		data: JSON.stringify({
+			scopeId: event._id,
+			scopeName: 'event',
+			options: {},
+		}),
+	}).done((res) => {
+		window.open(res.url, '_blank');
+	}).fail((_, err) => {
+		console.error(err);
 	});
 }
 
