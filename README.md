@@ -4,6 +4,10 @@ _An implementation of the Schul-Cloud client with NodeJS and Express._
 Dev: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/schul-cloud/schulcloud-client)
 Master: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/schul-cloud/schulcloud-client)
   
+> # Deprecation Warning
+> Please note that this client is going to be deprecated.
+> All new frontend works is done in Vue.js and can be found here: https://github.com/schul-cloud/nuxt-client
+
 ## Requirements  
   
 * node.js 8.7 or later

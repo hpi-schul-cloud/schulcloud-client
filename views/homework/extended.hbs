@@ -1,98 +1,100 @@
 <section id="extended" class="tab-content section-homeworkdetails active">
-    <div class="homework">
-        <div class="assignment row">
-            <div class="description col-xl-12 print">
-                {{#if this.description}}
-                <div class="btn btn-secondary btn-print mb-1" data-toggle="tooltip" title="Aufgabenstellung drucken">
-                    <i class='fa fa-print'></i> Drucken
-                </div>
+	<div class="homework">
+		<div class="assignment row">
+			<div class="description col-xl-12 print">
+				{{#if this.description}}
+					<div class="btn btn-secondary btn-print mb-1" data-toggle="tooltip" title="Aufgabenstellung drucken">
+						<i class='fa fa-print'></i> Drucken
+					</div>
 
-                <h1 class="print-only">{{{this.title}}}</h1>
-                {{#if this.teamSubmissions}}
-                {{#if this.maxTeamMembers}}
-                <div>Maximale Gruppengröße: <b>{{{this.maxTeamMembers}}} Mitglieder</b></div>
-                {{/if}}
-                {{/if}}
-                <div>{{{this.description}}}</div>
-                {{else}}
-                keine Beschreibung vorhanden
-                {{/if}}
-            </div>
-        </div>
-        {{#embed "homework/components/homework_uploaded_files" deletionAllowed=false submission=this}}{{/embed}}
-        {{#ifvalue teacherId value=currentUser._id}}
-        {{#userHasPermission "HOMEWORK_EDIT"}}
-        <a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit"
-            alt="Aufgabe '{{../title}}' bearbeiten.">Bearbeiten</a>
-        <a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/homework" target="_blank"
-            data-method="DELETE" data-name="{{../title}}" alt="Löschen der Aufgabe: '{{../title}}'.">
-            Löschen
-        </a>
-        {{/userHasPermission}}
-        {{else}}
-        {{#inArray currentUser._id courseId.substitutionIds}}
-        {{#userHasPermission "HOMEWORK_EDIT"}}
-        <a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit"
-            alt="Aufgabe '{{../title}}' bearbeiten.">Bearbeiten</a>
-        <a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/homework" target="_blank"
-            data-method="DELETE" data-name="{{../title}}" alt="Löschen der Aufgabe: '{{../title}}'.">
-            Löschen
-        </a>
-        {{/userHasPermission}}
-        {{/inArray}}
-        {{/ifvalue}}
+					<h1 class="print-only">{{{this.title}}}</h1>
+					{{#if this.teamSubmissions}}
+						{{#if this.maxTeamMembers}}
+							<div>Maximale Gruppengröße: <b>{{{this.maxTeamMembers}}} Mitglieder</b></div>
+						{{/if}}
+					{{/if}}
+					<div>{{{this.description}}}</div>
+				{{else}}
+					keine Beschreibung vorhanden
+				{{/if}}
+			</div>
+		</div>
+		{{#embed "homework/components/homework_uploaded_files" deletionAllowed=false submission=this}}{{/embed}}
+		{{#unless @root.inline}}
+			{{#ifvalue teacherId value=currentUser._id}}
+				{{#userHasPermission "HOMEWORK_EDIT"}}
+				<a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit"
+					alt="Aufgabe '{{../title}}' bearbeiten.">Bearbeiten</a>
+				<a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/homework" target="_blank"
+					data-method="DELETE" data-name="{{../title}}" alt="Löschen der Aufgabe: '{{../title}}'.">
+					Löschen
+				</a>
+				{{/userHasPermission}}
+			{{else}}
+				{{#inArray currentUser._id courseId.substitutionIds}}
+					{{#userHasPermission "HOMEWORK_EDIT"}}
+						<a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit"
+							alt="Aufgabe '{{../title}}' bearbeiten.">Bearbeiten</a>
+						<a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/homework" target="_blank"
+							data-method="DELETE" data-name="{{../title}}" alt="Löschen der Aufgabe: '{{../title}}'.">
+							Löschen
+						</a>
+					{{/userHasPermission}}
+				{{/inArray}}
+			{{/ifvalue}}
 
-        {{#inArray this.currentUser._id this.archived}}
-        {{#userHasPermission "HOMEWORK_CREATE"}}
-        <a class="btn btn-secondary btn-archive" href="{{this.url}}" target="_blank" data="archive=open"
-            data-toggle="tooltip" title="Verschiebe Aufgabe aus Archiv in die Übersichtsseite"
-            alt-text="<i class='fa fa-archive'></i> Archivieren">
-            <i class='fa fa-mail-reply'></i> Wiederherstellen
-        </a>
-        {{/userHasPermission}}
-        {{else}}
-        {{#userHasPermission "HOMEWORK_EDIT"}}
-        <a class="btn btn-secondary btn-archive" href="{{this.url}}" target="_blank" data="archive=done"
-            data-toggle="tooltip" title="Verschiebe Aufgabe von Übersichtsseite ins Archiv"
-            alt-text="<i class='fa fa-mail-reply'></i> Wiederherstellen">
-            <i class='fa fa-archive'></i> Archivieren
-        </a>
-        {{/userHasPermission}}
-        {{/inArray}}
-        {{#userHasPermission "HOMEWORK_CREATE"}}
-            <a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="Aufgabenstellung kopieren" href="/homework/{{../_id}}/copy"
-            alt="Aufgabe '{{../title}}' kopieren."> <i class='fa fa-copy'></i> Kopieren </a>
-        {{/userHasPermission}}
-        {{#if courseId._id}}
-        <a href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
-            <i class="fa fa-folder-open"></i>
-            Zu den Kursdateien
-        </a>
-        <a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="Zum Kurs der Aufgabe">
-            <i class="fa fa-graduation-cap"></i>
-            Zum Kurs
-        </a>
-        {{#if lessonId}}
-        <a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
-            alt="Zum Thema der Aufgabe">Zum Thema</a>
-        {{/if}}
-        {{/if}}
-    </div>
-    {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
-    {{#content "body"}}
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-close">
-            Abbrechen
-        </button>
-        <button type="submit" class="btn btn-primary btn-submit">
-            Löschen
-        </button>
-    </div>
-    {{/content}}
-    {{/embed}}
-    {{#embed "lib/components/modal-information" class="danger-modal" title="Achtung"}}
-	    {{#content "fields"}}
-		    {{> "files/forms/form-virus-danger"}}
-	    {{/content}}
-    {{/embed}}
+			{{#inArray this.currentUser._id this.archived}}
+				{{#userHasPermission "HOMEWORK_CREATE"}}
+				<a class="btn btn-secondary btn-archive" href="{{this.url}}" target="_blank" data="archive=open"
+					data-toggle="tooltip" title="Verschiebe Aufgabe aus Archiv in die Übersichtsseite"
+					alt-text="<i class='fa fa-archive'></i> Archivieren">
+					<i class='fa fa-mail-reply'></i> Wiederherstellen
+				</a>
+				{{/userHasPermission}}
+			{{else}}
+				{{#userHasPermission "HOMEWORK_EDIT"}}
+				<a class="btn btn-secondary btn-archive" href="{{this.url}}" target="_blank" data="archive=done"
+					data-toggle="tooltip" title="Verschiebe Aufgabe von Übersichtsseite ins Archiv"
+					alt-text="<i class='fa fa-mail-reply'></i> Wiederherstellen">
+					<i class='fa fa-archive'></i> Archivieren
+				</a>
+				{{/userHasPermission}}
+			{{/inArray}}
+			{{#userHasPermission "HOMEWORK_CREATE"}}
+				<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="Aufgabenstellung kopieren" href="/homework/{{../_id}}/copy"
+					alt="Aufgabe '{{../title}}' kopieren."> <i class='fa fa-copy'></i> Kopieren </a>
+			{{/userHasPermission}}
+			{{#if courseId._id}}
+				<a href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
+					<i class="fa fa-folder-open"></i>
+					Zu den Kursdateien
+				</a>
+				<a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="Zum Kurs der Aufgabe">
+					<i class="fa fa-graduation-cap"></i>
+					Zum Kurs
+				</a>
+				{{#if lessonId}}
+					<a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
+						alt="Zum Thema der Aufgabe">Zum Thema</a>
+				{{/if}}
+			{{/if}}
+		{{/unless}}
+	</div>
+	{{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+	{{#content "body"}}
+	<div class="modal-footer">
+		<button type="button" class="btn btn-secondary btn-close">
+			Abbrechen
+		</button>
+		<button type="submit" class="btn btn-primary btn-submit">
+			Löschen
+		</button>
+	</div>
+	{{/content}}
+	{{/embed}}
+	{{#embed "lib/components/modal-information" class="danger-modal" title="Achtung"}}
+		{{#content "fields"}}
+			{{> "files/forms/form-virus-danger"}}
+		{{/content}}
+	{{/embed}}
 </section>

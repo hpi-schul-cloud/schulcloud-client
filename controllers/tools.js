@@ -51,13 +51,13 @@ const runToolHandler = (req, res, next) => {
 		api(req).get(`/pseudonym?userId=${currentUser._id}&toolId=${req.params.ltiToolId}`),
 	]).then(([tool, role, pseudonym]) => {
 		const customer = new ltiCustomer.LTICustomer();
-		const consumer = customer.createConsumer(tool.key, tool.secret);
 		let userId = '';
 		if (tool.privacy_permission === 'pseudonymous') {
 			userId = pseudonym.data[0].pseudonym;
 		} else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
 			userId = currentUser._id;
 		}
+
 		const payload = {
 			lti_version: tool.lti_version,
 			lti_message_type: tool.lti_message_type,
@@ -80,19 +80,19 @@ const runToolHandler = (req, res, next) => {
 			payload[customer.customFieldToString(custom)] = custom.value;
 		});
 
-		const requestData = {
-			url: tool.url,
-			method: 'POST',
-			data: payload,
-		};
-
-		const formData = consumer.authorize(requestData);
-
-		res.render('courses/components/run-lti-frame', {
-			url: tool.url,
-			method: 'POST',
-			csrf: (formData.lti_version === '1.3.0'),
-			formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
+		api(req).post('/tools/sign/lti11/', {
+			body: {
+				id: req.params.ltiToolId,
+				payload,
+				url: tool.url,
+			},
+		}).then((formData) => {
+			res.render('courses/components/run-lti-frame', {
+				url: tool.url,
+				method: 'POST',
+				csrf: (formData.lti_version === '1.3.0'),
+				formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
+			});
 		});
 	});
 };
