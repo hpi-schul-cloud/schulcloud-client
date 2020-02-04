@@ -137,4 +137,17 @@ export function initVideoconferencing() {
 		.filter(([_, event]) => event.attributes['x-sc-featurevideoconference'] === true);
 
 	videoconferenceEvents.forEach(([container]) => updateVideoconferenceForEvent(container));
+
+	$('i.fa-info-circle.video-conference.not-started').click((e) => {
+		e.stopPropagation();
+		e.preventDefault();
+
+		const $updateConferenceStatusModal = $('.reload-info-modal');
+		populateModalForm($updateConferenceStatusModal, {
+			title: '',
+			closeLabel: 'OK',
+		});
+
+		$updateConferenceStatusModal.appendTo('body').modal('show');
+	});
 }
