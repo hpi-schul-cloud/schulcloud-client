@@ -568,17 +568,17 @@ router.get('/:teamId', async (req, res, next) => {
 		});
 
 		let events = [];
+		const twentyfourHours = 24 * 60 * 60 * 1000;
+		const filterStart = new Date(Date.now() - twentyfourHours);
 		try {
 			events = await api(req).get('/calendar/', {
 				qs: {
 					'scope-id': req.params.teamId,
-					all: true,
+					all: false,
+					from: filterStart.toLocalISOString(),
 				},
 			});
-			const twentyfourHours = 24 * 60 * 60 * 1000;
-			const filterStart = Date.now() - twentyfourHours;
 			events = events
-				.filter(event => event.start >= filterStart || event.end >= filterStart)
 				.map((event) => {
 					const start = moment(event.start).utc();
 					const end = moment(event.end).utc();
