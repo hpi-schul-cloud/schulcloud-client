@@ -115,6 +115,8 @@ function joinConference(container) {
 		window.open(res.url, '_blank');
 	}).fail((_, err) => {
 		console.error(err);
+		$.showNotification('Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.', 'danger');
+		updateVideoconferenceForEvent(container);
 	});
 }
 
