@@ -67,7 +67,6 @@ $(document).ready(() => {
 		// cleaning
 		tool.isTemplate = false;
 		tool.courseId = courseId;
-		tool.originTool = tool._id;
 		delete tool.oAuthClientId;
 		delete tool._id;
 		$.ajax({
@@ -98,6 +97,7 @@ $(document).ready(() => {
 		const entry = $(this).attr('href');
 		$.getJSON(entry, (result) => {
 			const tool = result.tool[0];
+			tool.originTool = tool._id;
 			if (tool.isLocal) {
 				if (tool.name === 'Video-Konferenz mit BigBlueButton') {
 					const $addBbbToolModal = $('.add-bbb-modal');
