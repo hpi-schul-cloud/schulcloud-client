@@ -575,19 +575,23 @@ router.get('/:teamId', async (req, res, next) => {
 					all: true,
 				},
 			});
-			events = events.map((event) => {
-				const start = moment(event.start).utc();
-				const end = moment(event.end).utc();
-				event.day = start.format('D');
-				event.month = start
-					.format('MMM')
-					.toUpperCase()
-					.split('.')
-					.join('');
-				event.dayOfTheWeek = start.format('dddd');
-				event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
-				return event;
-			});
+			const twentyfourHours = 24 * 60 * 60 * 1000;
+			const filterStart = Date.now() - twentyfourHours;
+			events = events
+				.filter(event => event.start >= filterStart || event.end >= filterStart)
+				.map((event) => {
+					const start = moment(event.start).utc();
+					const end = moment(event.end).utc();
+					event.day = start.format('D');
+					event.month = start
+						.format('MMM')
+						.toUpperCase()
+						.split('.')
+						.join('');
+					event.dayOfTheWeek = start.format('dddd');
+					event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
+					return event;
+				});
 			events = events.sort((a, b) => a.start - b.start);
 		} catch (e) {
 			events = [];
