@@ -152,6 +152,9 @@
         {{#if ../showVideoconferenceOption}}
           {{#if ../event.attributes.x-sc-featurevideoconference}}
             <div class="event-row">
+              <!-- state: DEFAULT -->
+              <i class="fa fa-video-camera video-conference" aria-hidden="true"></i>
+              <span class="muted video-conference">Videokonferenzdetails werden geladen...</span>
               <!-- state: RUNNING -->
               <i class="fa fa-video-camera video-conference join-conference" aria-hidden="true"></i>
               <a class="video-conference join-conference" href="/videoconference">An Videokonferenz teilnehmen</a>
