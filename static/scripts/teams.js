@@ -20,10 +20,10 @@ function transformTeamEvent(modal, event) {
 		const $modalForm = modal.find('.modal-form');
 		if (!$modalForm.find('input[name=teamId]').length) {
 			// append team id field if it is missing
-			$modalForm.append(`<input name='teamId' type='hidden'>`);
+			$modalForm.append('<input name=\'teamId\' type=\'hidden\'>');
 		}
-		modal.find("input[name=scopeId]").attr('value', event['x-sc-teamId']);
-		modal.find("input[name=teamId]").attr('value', event['x-sc-teamId']);
+		modal.find('input[name=scopeId]').attr('value', event['x-sc-teamId']);
+		modal.find('input[name=teamId]').attr('value', event['x-sc-teamId']);
 
 		modal.find('.create-team-event').remove();
 		modal.find('.create-course-event').remove();
@@ -123,6 +123,8 @@ $(document).ready(() => {
 			fields: event,
 			action: `/teams/calendar/events/${event.attributes.uid}`,
 		});
+		$editEventModal.find('input[name=featureVideoConference]')
+			.bootstrapToggle(event.featureVideoConference ? 'on' : 'off');
 		$editEventModal.find('.create-videoconference').show();
 
 		transformTeamEvent($editEventModal, event);
