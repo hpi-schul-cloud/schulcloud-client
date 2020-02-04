@@ -10,7 +10,7 @@ const GuestInactiveState = Object.freeze({
 	condition: (permission, state) => permission === 'JOIN_MEETING' && ['NOT_STARTED', 'FINISHED'].includes(state),
 	updateUi: (container) => {
 		const $reloadButton = $(container).find('i.video-conference.not-started.reload');
-		$reloadButton.off('click').on('click', (e) => {
+		$reloadButton.off('click').on('click', () => {
 			$reloadButton.addClass('reload-animation');
 			updateVideoconferenceForEvent(container);
 			setTimeout(() => { $reloadButton.removeClass('reload-animation'); }, 1000);
@@ -115,6 +115,7 @@ function updateVideoconferenceForEvent(container) {
 		if (err.status === 403) {
 			ForbiddenState.updateUi(container);
 		} else {
+			// eslint-disable-next-line no-console
 			console.error(err);
 		}
 	});
@@ -135,6 +136,7 @@ function joinConference(container) {
 	}).done((res) => {
 		window.open(res.url, '_blank');
 	}).fail((err) => {
+		// eslint-disable-next-line no-console
 		console.error(err);
 		$.showNotification(ERROR_MESSAGES.GENERAL_ERROR, 'danger');
 		updateVideoconferenceForEvent(container);
@@ -149,7 +151,7 @@ function switchVideoconferenceUIState(container, state) {
 export function initVideoconferencing() {
 	const videoconferenceEvents = Array.from($('div[data-event]'))
 		.map(div => [div, JSON.parse(div.attributes['data-event'].value)])
-		.filter(([_, event]) => event.attributes['x-sc-featurevideoconference'] === true);
+		.filter(tuple => tuple[1].attributes['x-sc-featurevideoconference'] === true);
 
 	videoconferenceEvents.forEach(([container]) => updateVideoconferenceForEvent(container));
 
