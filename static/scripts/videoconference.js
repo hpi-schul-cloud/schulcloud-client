@@ -1,5 +1,11 @@
 /* eslint-disable no-use-before-define */
 
+export const ERROR_MESSAGES = {
+	NOT_STARTED_OR_FINISHED: 'Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.',
+	NO_PERMISSION: 'Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen.',
+	GENERAL_ERROR: 'Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.',
+};
+
 const GuestInactiveState = Object.freeze({
 	condition: (permission, state) => permission === 'JOIN_MEETING' && ['NOT_STARTED', 'FINISHED'].includes(state),
 	updateUi: (container) => {
@@ -56,7 +62,7 @@ const ModeratorInactiveState = Object.freeze({
 					updateVideoconferenceForEvent(container);
 				}).fail(() => {
 					// eslint-disable-next-line max-len
-					$.showNotification('Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.', 'danger');
+					$.showNotification(ERROR_MESSAGES.GENERAL_ERROR, 'danger');
 					updateVideoconferenceForEvent(container);
 				});
 				$createVideoconferenceModal.modal('hide');
@@ -115,6 +121,8 @@ function joinConference(container) {
 		window.open(res.url, '_blank');
 	}).fail((_, err) => {
 		console.error(err);
+		$.showNotification(ERROR_MESSAGES.GENERAL_ERROR, 'danger');
+		updateVideoconferenceForEvent(container);
 	});
 }
 
