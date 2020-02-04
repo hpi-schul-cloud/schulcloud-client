@@ -146,6 +146,11 @@ $(document).ready(() => {
 	});
 
 	let activeBbbCard = false;
+	const errorMessagesBBB = {
+		NOT_STARTED_OR_FINISHED: 'Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.',
+		NO_PERMISSION: 'Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen.',
+		GENERAL_ERROR: 'Leider ist ein Fehler aufgetreten, bitte versuche es erneut.',
+	};
 
 	if ($('.bbbTool').length > 0) {
 		const courseId = $('.bbbTool').parent().attr('data-courseId');
@@ -155,7 +160,7 @@ $(document).ready(() => {
 			const { permission, state } = data;
 
 			if (!permission || permission.length < 0) {
-				$.showNotification('Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen.', 'danger');
+				$.showNotification(errorMessagesBBB.NO_PERMISSION, 'danger');
 			}
 
 			const guestInactiveState = {
@@ -222,14 +227,14 @@ $(document).ready(() => {
 							}),
 						}).done((response) => {
 							if (!response.url || response.url.length < 0) {
-								$.showNotification('The videoconference has finished or has not yet started, please try again later.', 'danger');
+								$.showNotification(errorMessagesBBB.NOT_STARTED_OR_FINISHED, 'danger');
 								$('.bbb-state').hide();
 								$('.bbb-guest-inactive-state').show();
 							}
 							window.open(response.url, '_blank');
 						}).fail((error) => {
 							if (error && error.status !== 'SUCCESS') {
-								$.showNotification('The videoconference has finished or has not yet started, please try again later.', 'danger');
+								$.showNotification(errorMessagesBBB.NOT_STARTED_OR_FINISHED, 'danger');
 								$('.bbb-state').hide();
 								$('.bbb-guest-inactive-state').show();
 							}
@@ -252,7 +257,7 @@ $(document).ready(() => {
 			success: videoconferenceResponse,
 			error: (error) => {
 				if (error && error.status !== 'SUCCESS') {
-					$.showNotification('It seems that there was an error with your request, please try again.', 'danger');
+					$.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger');
 				}
 			},
 		});
@@ -312,9 +317,9 @@ $(document).ready(() => {
 			}).fail((error) => {
 				console.log(error);
 				if (error && error.status !== 'SUCCESS') {
-					return $.showNotification('It seems that there was an error with your request, please try again.', 'danger');
+					return $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger');
 				}
-				return $.showNotification('It seems that there was an error with your request, please try again.', 'danger');
+				return $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger');
 			});
 			$createVideoconferenceModal.modal('hide');
 		});
