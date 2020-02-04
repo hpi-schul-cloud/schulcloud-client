@@ -311,6 +311,7 @@ $(document).ready(() => {
 				$('.bbb-running-videoconference-state').show();
 				$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => window.open(response.url, '_blank'));
 			}).fail((error) => {
+				// eslint-disable-next-line no-console
 				console.log(error);
 				if (error && error.status !== 'SUCCESS') {
 					return $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger');
