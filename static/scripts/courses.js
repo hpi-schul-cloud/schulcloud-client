@@ -161,7 +161,7 @@ $(document).ready(() => {
 
 			const guestInactiveState = {
 				condition: videoconferenceStates.GuestInactiveState.condition,
-				displayDomElements: () => {
+				updateUi: () => {
 					const reloadIcon = $('.bbbTool-reload-icon');
 
 					$('.bbbTool').off('click').css({
@@ -198,7 +198,7 @@ $(document).ready(() => {
 
 			const modInactiveState = {
 				condition: videoconferenceStates.ModeratorInactiveState.condition,
-				displayDomElements: () => {
+				updateUi: () => {
 					$('.bbb-state').hide();
 					$('.bbb-moderator-inactive-state').show();
 				},
@@ -206,7 +206,7 @@ $(document).ready(() => {
 
 			const runningState = {
 				condition: videoconferenceStates.RunningState.condition,
-				displayDomElements: () => {
+				updateUi: () => {
 					$('.bbb-state').hide();
 					$('.bbb-running-videoconference-state').show();
 
@@ -242,7 +242,7 @@ $(document).ready(() => {
 			// eslint-disable-next-line func-names
 			$('.bbbTool').each(() => {
 				[guestInactiveState, modInactiveState, runningState].forEach((bbbState) => {
-					if (bbbState.condition(permission, state)) bbbState.displayDomElements();
+					if (bbbState.condition(permission, state)) bbbState.updateUi();
 				});
 			});
 		};
