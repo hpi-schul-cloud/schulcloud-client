@@ -60,14 +60,13 @@ $(document).ready(() => {
      * @param modal {Modal} - the modal which has the post-action and the courseId
      * @param tool {object} - the tool which will be created
      */
-	  const createLocalTool = function createLocalTool(modal, tool) {
+	const createLocalTool = function createLocalTool(modal, tool) {
 		const $modalForm = modal.find('.modal-form');
 		const href = $modalForm.attr('action');
 		const courseId = $modalForm.find("input[name='courseId']").val();
 		// cleaning
 		tool.isTemplate = false;
 		tool.courseId = courseId;
-		tool.originTool = tool._id;
 		delete tool.oAuthClientId;
 		delete tool._id;
 		$.ajax({
@@ -97,6 +96,7 @@ $(document).ready(() => {
 		const entry = $(this).attr('href');
 		$.getJSON(entry, (result) => {
 			const tool = result.tool[0];
+			tool.originTool = tool._id;
 			if (tool.isLocal) {
 				createLocalTool($editModal, tool);
 			} else {

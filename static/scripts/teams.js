@@ -53,6 +53,7 @@ $(document).ready(() => {
 			onShow() {
 				this.setOptions({
 					minDate: 0,
+					dayOfWeekStart: 1,
 				});
 			},
 			onChangeDateTime(dp, $input) {
@@ -95,6 +96,7 @@ $(document).ready(() => {
 		$('input[data-datetime]').datetimepicker({
 			format: 'd.m.Y H:i',
 			mask: '39.19.9999 29:59',
+			dayOfWeekStart: 1,
 		});
 
 		if (event.url) {

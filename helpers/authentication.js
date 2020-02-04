@@ -15,6 +15,16 @@ const rolesDisplayName = {
 	expert: 'Experte',
 };
 
+const clearCookie = (req, res, options = { destroySession: false }) => {
+	if (options.destroySession && req.session && req.session.destroy) {
+		req.session.destroy();
+	}
+	res.clearCookie('jwt');
+	if (res.locals && res.locals.domain) {
+		res.clearCookie('jwt', { domain: res.locals.domain });
+	}
+};
+
 const isJWT = req => (req && req.cookies && req.cookies.jwt);
 
 const cookieDomain = (res) => {
@@ -80,9 +90,10 @@ const populateCurrentUser = (req, res) => {
 		}).catch((e) => {
 			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
 			if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
-				res.clearCookie('jwt');
-				res.redirect('/logout');
+				clearCookie(req, res, { destroySession: true });
+				return res.redirect('/');
 			}
+			throw e;
 		});
 	}
 
@@ -165,6 +176,7 @@ const login = (payload, req, res, next) => api(req).post('/authentication', { js
 });
 
 module.exports = {
+	clearCookie,
 	isJWT,
 	cookieDomain,
 	authChecker,
