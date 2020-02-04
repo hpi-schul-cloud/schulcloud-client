@@ -249,12 +249,13 @@ const getUpdateHandler = service => function updateHandler(req, res, next) {
 		// check archived
 		if (req.body.archive) {
 			return api(req).get(`/homework/${req.params.id}`, {}).then((homework) => {
-				if (homework.archived.includes(res.locals.currentUser._id) && req.body.archive === 'open') {
-					homework.archived.splice(homework.archived.indexOf(res.locals.currentUser._id), 1);
-				} else if (!homework.archived.includes(res.locals.currentUser._id) && req.body.archive === 'done') {
-					homework.archived.push(res.locals.currentUser._id);
+				const archived = homework.archived || [];
+				if (archived.includes(res.locals.currentUser._id) && req.body.archive === 'open') {
+					archived.splice(homework.archived.indexOf(res.locals.currentUser._id), 1);
+				} else if (!archived.includes(res.locals.currentUser._id) && req.body.archive === 'done') {
+					archived.push(res.locals.currentUser._id);
 				}
-				req.body.archived = homework.archived;
+				req.body.archived = archived;
 				delete req.body.archive;
 				return patchFunction(service, req, res, next);
 			});
