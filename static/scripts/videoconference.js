@@ -9,8 +9,11 @@ export const ERROR_MESSAGES = {
 const GuestInactiveState = Object.freeze({
 	condition: (permission, state) => permission === 'JOIN_MEETING' && ['NOT_STARTED', 'FINISHED'].includes(state),
 	updateUi: (container) => {
-		$(container).find('i.video-conference.not-started.reload').off('click').on('click', (e) => {
+		const $reloadButton = $(container).find('i.video-conference.not-started.reload');
+		$reloadButton.off('click').on('click', (e) => {
+			$reloadButton.addClass('reload-animation');
 			updateVideoconferenceForEvent(container);
+			setTimeout(() => { $reloadButton.removeClass('reload-animation'); }, 1000);
 		});
 		switchVideoconferenceUIState(container, 'not-started');
 	},
