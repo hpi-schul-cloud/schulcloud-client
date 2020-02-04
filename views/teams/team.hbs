@@ -265,23 +265,27 @@
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
-                {{#content "fields"}}
-                {{> "lib/forms/form-create-videoconference"}}
-                {{/content}}
-            {{/embed}}
+            {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+                {{#if ../showVideoconferenceOption}}
+                    {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
+                        {{#content "fields"}}
+                        {{> "lib/forms/form-create-videoconference"}}
+                        {{/content}}
+                    {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="reload-info-modal"}}
-                {{#content "fields"}}
-                {{> "lib/forms/form-bbb-reload-info"}}
-                {{/content}}
-            {{/embed}}
+                    {{#embed "lib/components/modal-form" class="reload-info-modal"}}
+                        {{#content "fields"}}
+                        {{> "lib/forms/form-bbb-reload-info"}}
+                        {{/content}}
+                    {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="forbidden-info-modal"}}
-                {{#content "fields"}}
-                {{> "lib/forms/form-bbb-forbidden-info"}}
-                {{/content}}
-            {{/embed}}
+                    {{#embed "lib/components/modal-form" class="forbidden-info-modal"}}
+                        {{#content "fields"}}
+                        {{> "lib/forms/form-bbb-forbidden-info"}}
+                        {{/content}}
+                    {{/embed}}
+                {{/if}}
+            {{/ifConfig}}
         </section>
     </div>
 
