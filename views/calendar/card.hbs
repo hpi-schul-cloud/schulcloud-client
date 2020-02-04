@@ -113,9 +113,13 @@
   <div class="event-row">
     <div class="event-column hidden-sm-down">
       <div class="h4"><span class="badge badge-secondary">{{event.day}} {{event.month}}</span></div>
-      {{#if event.attributes.x-sc-featurevideoconference}}
-        <div class="pulsating-dot video-conference join-conference"></div>
-      {{/if}}
+      {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+        {{#if ../showVideoconferenceOption}}
+          {{#if ../event.attributes.x-sc-featurevideoconference}}
+            <div class="pulsating-dot video-conference join-conference"></div>
+          {{/if}}
+        {{/if}}
+      {{/ifConfig}}
     </div>
     <div class="column event-details">
       <div class="title">{{event.title}}</div>
@@ -128,25 +132,29 @@
         {{/if}}
       </div>
 
-      {{#if event.attributes.x-sc-featurevideoconference}}
-        <div class="event-row">
-          <!-- state: RUNNING -->
-          <i class="fa fa-video-camera video-conference join-conference" aria-hidden="true"></i>
-          <a class="video-conference join-conference" href="/videoconference">An Videokonferenz teilnehmen</a>
-          <!-- state: FINISHED || NOT_STARTED + permission: JOIN_MEETING -->
-          <i class="fa fa-video-camera video-conference not-started" aria-hidden="true"></i>
-          <span class="muted video-conference not-started">Videokonferenz wurde noch nicht gestartet</span>
-          <i class="fa fa-info-circle video-conference not-started clickable"></i>
-          <i class="fa fa-repeat video-conference not-started clickable reload"></i>
-          <!-- state: FINISHED || NOT_STARTED + permission: START_MEETING -->   
-          <i class="fa fa-video-camera video-conference start-conference" aria-hidden="true"></i>
-          <a class="video-conference start-conference" href="#">Videokonferenz starten</a>
-          <!-- no permission -->
-          <i class="fa fa-ban video-conference no-permission" aria-hidden="true"></i>
-          <span class="muted video-conference no-permission">Keine Berechtigung</span>
-          <i class="fa fa-info-circle video-conference clickable no-permission" aria-hidden="true"></i>
-        </div>
-      {{/if}}
+      {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+        {{#if ../showVideoconferenceOption}}
+          {{#if ../event.attributes.x-sc-featurevideoconference}}
+            <div class="event-row">
+              <!-- state: RUNNING -->
+              <i class="fa fa-video-camera video-conference join-conference" aria-hidden="true"></i>
+              <a class="video-conference join-conference" href="/videoconference">An Videokonferenz teilnehmen</a>
+              <!-- state: FINISHED || NOT_STARTED + permission: JOIN_MEETING -->
+              <i class="fa fa-video-camera video-conference not-started" aria-hidden="true"></i>
+              <span class="muted video-conference not-started">Videokonferenz wurde noch nicht gestartet</span>
+              <i class="fa fa-info-circle video-conference not-started clickable"></i>
+              <i class="fa fa-repeat video-conference not-started clickable reload"></i>
+              <!-- state: FINISHED || NOT_STARTED + permission: START_MEETING -->   
+              <i class="fa fa-video-camera video-conference start-conference" aria-hidden="true"></i>
+              <a class="video-conference start-conference" href="#">Videokonferenz starten</a>
+              <!-- no permission -->
+              <i class="fa fa-ban video-conference no-permission" aria-hidden="true"></i>
+              <span class="muted video-conference no-permission">Keine Berechtigung</span>
+              <i class="fa fa-info-circle video-conference clickable no-permission" aria-hidden="true"></i>
+            </div>
+          {{/if}}
+        {{/if}}
+      {{/ifConfig}}
 
       {{#if event.description}}
       <div class="event-row">

@@ -195,7 +195,7 @@
                         <div class="section" data-testid="team_events" data-section="js-events">
                             <div class="row">
                                 {{#each ../events}}
-                                    {{> 'calendar/card' event=this canEdit=../canEditEvents}}
+                                    {{> 'calendar/card' event=this canEdit=../canEditEvents showVideoconferenceOption=@root.showVideoconferenceOption}}
                                 {{/each}}
                             </div>
                             <div style="margin-top: .5rem">
@@ -250,7 +250,7 @@
 
             {{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1 userId=../userId teamId=../teamId}}
                 {{#content "fields"}}
-                    {{> "calendar/forms/form-create-event"}}
+                    {{> "calendar/forms/form-create-event" showVideoconferenceOption=@root.showVideoconferenceOption}}
                 {{/content}}
             {{/embed}}
 

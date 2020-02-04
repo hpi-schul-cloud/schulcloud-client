@@ -79,6 +79,8 @@ $(document).ready(() => {
 			},
 		});
 
+		$createEventModal.find('.create-videoconference').show();
+
 		populateModalForm($createEventModal, {
 			title: 'Termin hinzufügen',
 			closeLabel: 'Abbrechen',
@@ -119,9 +121,9 @@ $(document).ready(() => {
 			closeLabel: 'Abbrechen',
 			submitLabel: 'Speichern',
 			fields: event,
-			action: `/teams/calendar/events/${event.attributes.uid}`
+			action: `/teams/calendar/events/${event.attributes.uid}`,
 		});
-		$('.create-videoconference').show();
+		$editEventModal.find('.create-videoconference').show();
 
 		transformTeamEvent($editEventModal, event);
 

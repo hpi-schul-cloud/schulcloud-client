@@ -593,6 +593,12 @@ router.get('/:teamId', async (req, res, next) => {
 			events = [];
 		}
 
+		const teamUsesVideoconferencing = course.features.includes('videoconference');
+		const schoolUsesVideoconferencing = (
+			res.locals.currentSchoolData.features || []
+		).includes('videoconference');
+		const showVideoconferenceOption = !schoolIsExpertSchool && schoolUsesVideoconferencing && teamUsesVideoconferencing;
+
 		// leave team
 		const leaveTeamAction = `/teams/${teamId}/members`;
 		// teamowner could not leave if there is no other teamowner
@@ -615,6 +621,7 @@ router.get('/:teamId', async (req, res, next) => {
 				permissions,
 				course,
 				events,
+				showVideoconferenceOption,
 				directories,
 				files,
 				filesUrl: `/files/teams/${req.params.teamId}`,

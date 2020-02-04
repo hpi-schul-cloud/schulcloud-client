@@ -63,7 +63,9 @@
     {{/userHasPermission}}
 {{/if}}
 
+
 {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+    {{#if ../showVideoconferenceOption}}
     <div class="form-group create-videoconference hidden">
         <div class="checkbox disabled">
             <input name="featureVideoConference" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
@@ -72,4 +74,5 @@
             </label>
         </div>
     </div>
+    {{/if}}
 {{/ifConfig}}
