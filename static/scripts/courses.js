@@ -1,4 +1,5 @@
-import { STATES as videoconferenceStates } from './videoconference';
+import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
+
 
 /* eslint-disable max-len */
 $(document).ready(() => {
@@ -146,11 +147,6 @@ $(document).ready(() => {
 	});
 
 	let activeBbbCard = false;
-	const errorMessagesBBB = {
-		NOT_STARTED_OR_FINISHED: 'Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.',
-		NO_PERMISSION: 'Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen.',
-		GENERAL_ERROR: 'Leider ist ein Fehler aufgetreten, bitte versuche es erneut.',
-	};
 
 	if ($('.bbbTool').length > 0) {
 		const courseId = $('.bbbTool').parent().attr('data-courseId');
