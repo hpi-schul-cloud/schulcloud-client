@@ -107,6 +107,22 @@
 .clickable {
   cursor: pointer;
 }
+
+.reload-animation {
+  animation: spin .7s;
+  animation-iteration-count: 1;
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
 </style>
 
 <div data-event="{{json event}}" class="col-sm-12 events-card">
@@ -136,6 +152,9 @@
         {{#if ../showVideoconferenceOption}}
           {{#if ../event.attributes.x-sc-featurevideoconference}}
             <div class="event-row">
+              <!-- state: DEFAULT -->
+              <i class="fa fa-video-camera video-conference" aria-hidden="true"></i>
+              <span class="muted video-conference">Videokonferenzdetails werden geladen...</span>
               <!-- state: RUNNING -->
               <i class="fa fa-video-camera video-conference join-conference" aria-hidden="true"></i>
               <a class="video-conference join-conference" href="/videoconference">An Videokonferenz teilnehmen</a>

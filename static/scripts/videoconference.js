@@ -9,8 +9,11 @@ export const ERROR_MESSAGES = {
 const GuestInactiveState = Object.freeze({
 	condition: (permission, state) => permission === 'JOIN_MEETING' && ['NOT_STARTED', 'FINISHED'].includes(state),
 	updateUi: (container) => {
-		$(container).find('i.video-conference.not-started.reload').off('click').on('click', (e) => {
+		const $reloadButton = $(container).find('i.video-conference.not-started.reload');
+		$reloadButton.off('click').on('click', (e) => {
+			$reloadButton.addClass('reload-animation');
 			updateVideoconferenceForEvent(container);
+			setTimeout(() => { $reloadButton.removeClass('reload-animation'); }, 1000);
 		});
 		switchVideoconferenceUIState(container, 'not-started');
 	},
@@ -61,7 +64,6 @@ const ModeratorInactiveState = Object.freeze({
 					window.open(response.url, '_blank');
 					updateVideoconferenceForEvent(container);
 				}).fail(() => {
-					// eslint-disable-next-line max-len
 					$.showNotification(ERROR_MESSAGES.GENERAL_ERROR, 'danger');
 					updateVideoconferenceForEvent(container);
 				});
@@ -84,8 +86,17 @@ const RunningState = Object.freeze({
 	},
 });
 
-export const STATES = Object.freeze({ GuestInactiveState, ModeratorInactiveState, RunningState });
-export const STATELIST = [GuestInactiveState, ModeratorInactiveState, RunningState];
+const ForbiddenState = Object.freeze({
+	condition: permission => !permission,
+	updateUi: (container) => {
+		switchVideoconferenceUIState(container, 'no-permission');
+	},
+});
+
+export const STATES = Object.freeze({
+	GuestInactiveState, ModeratorInactiveState, RunningState, ForbiddenState,
+});
+export const STATELIST = [GuestInactiveState, ModeratorInactiveState, RunningState, ForbiddenState];
 
 function updateVideoconferenceForEvent(container) {
 	const event = JSON.parse(container.attributes['data-event'].value);
@@ -100,8 +111,12 @@ function updateVideoconferenceForEvent(container) {
 				uiState.updateUi(container);
 			}
 		});
-	}).fail((_, err) => {
-		console.error(err);
+	}).fail((err) => {
+		if (err.status === 403) {
+			ForbiddenState.updateUi(container);
+		} else {
+			console.error(err);
+		}
 	});
 }
 
@@ -119,7 +134,7 @@ function joinConference(container) {
 		}),
 	}).done((res) => {
 		window.open(res.url, '_blank');
-	}).fail((_, err) => {
+	}).fail((err) => {
 		console.error(err);
 		$.showNotification(ERROR_MESSAGES.GENERAL_ERROR, 'danger');
 		updateVideoconferenceForEvent(container);
@@ -137,4 +152,30 @@ export function initVideoconferencing() {
 		.filter(([_, event]) => event.attributes['x-sc-featurevideoconference'] === true);
 
 	videoconferenceEvents.forEach(([container]) => updateVideoconferenceForEvent(container));
+
+	$('i.fa-info-circle.video-conference.not-started').click((e) => {
+		e.stopPropagation();
+		e.preventDefault();
+
+		const $updateConferenceStatusModal = $('.reload-info-modal');
+		populateModalForm($updateConferenceStatusModal, {
+			title: '',
+			closeLabel: 'OK',
+		});
+
+		$updateConferenceStatusModal.appendTo('body').modal('show');
+	});
+
+	$('i.fa-info-circle.video-conference.no-permission').click((e) => {
+		e.stopPropagation();
+		e.preventDefault();
+
+		const $forbiddenModal = $('.forbidden-info-modal');
+		populateModalForm($forbiddenModal, {
+			title: '',
+			closeLabel: 'OK',
+		});
+
+		$forbiddenModal.appendTo('body').modal('show');
+	});
 }
