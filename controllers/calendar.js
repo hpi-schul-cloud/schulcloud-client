@@ -37,25 +37,21 @@ router.post('/events/', function (req, res, next) {
     req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
     req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 
-    // filter params
     if (req.body.courseId && req.body.courseId !== '') {
         req.body.scopeId = req.body.courseId;
-    } else if (req.body.teamId && req.body.teamId !== '') {
+    } else {
+        delete req.body.courseId;
+    }
+
+    if (req.body.teamId && req.body.teamId !== '') {
         req.body.scopeId = req.body.teamId;
     } else {
-        delete req.body.courseId;
+        delete req.body.teamId;
     }
 
-    // filter params
-    if (req.body.courseId && req.body.courseId !== '') {
-        req.body.scopeId = req.body.courseId;
-    } else {
-        delete req.body.courseId;
-    }
-
-   api(req).post('/calendar/', {json: req.body}).then(event => {
-      res.redirect('/calendar');
-   });
+    api(req).post('/calendar/', {json: req.body}).then(event => {
+        res.redirect('/calendar');
+    }).catch(next);
 });
 
 router.delete('/events/:eventId', function (req, res, next) {
