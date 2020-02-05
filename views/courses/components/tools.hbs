@@ -1,57 +1,111 @@
 <div class="row">
 	<div class="col-sm-12">
-		<div class="list-group">
+		<div class="list-group" data-courseId="{{@root/_id}}">
 			{{#if ltiToolIds}}
-				{{#each ltiToolIds}}
-					<div class="card card-block card-tool"
-						onclick="location.href='/courses/{{../_id}}/tools/show/{{this._id}}'">
-						<p class="card-title-directory">
-							{{#if logo_url}}
-								<img src={{this.logo_url}} class="float-left" style="width:auto; height:75px;" />
-							{{else}}
-								<img src="/images/cloud.png" class="float-left" style="width:auto; height:75px;" />
-							{{/if}}
-							<span>{{this.name}}</span>
-
-							{{#userHasPermission "TOOL_CREATE" }}
-								{{#unless @root.isArchived}}
-									<a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}"
-										target="_blank" data-method="DELETE" data-name="{{../name}}"
-										redirect="/courses/{{../../_id}}/?activeTab=tools">
-										<i class="fa fa-trash-o"></i>
-									</a>
-								{{/unless}}
-							{{/userHasPermission}}
-						</p>
-					</div>
-				{{/each}}
-			{{else}}
-				<div class="empty-state">
-					<img src="/images/empty-states/tools.svg" alt="Keine hinzufügten Tools" class="image" />
-					{{#unless @root.isArchived}}
-						{{#userHasPermission "TOOL_CREATE" }}
-							<h2 class="h4">Füge dem Kurs Tools hinzu</h2>
-							<p class="text-muted">
-								Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.
-							</p>
-						{{else}}
-							<h2 class="h4 text-muted">Es gibt noch keine Tools in diesem Kurs.</h2>
-						{{/userHasPermission}}
+			{{#each ltiToolIds}}
+			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{/if}}" {{#unless this.isBBB}}
+				onclick="location.href='/courses/{{../_id}}/tools/show/{{this._id}}'" {{/unless}}>
+				{{#unless this.isBBB}}
+				<div class="card-title-directory">
+					{{#if logo_url}}
+					<img src={{this.logo_url}} class="float-left" style="width:auto; height:75px;" />
 					{{else}}
-						<h2 class="h4 text-muted">Es gibt keine Tools in diesem Kurs.</h2>
+					<img src="/images/cloud.png" class="float-left" style="width:auto; height:75px;" />
+					{{/if}}
+
+					<span>{{this.name}}</span>
+
+					{{#if this.isBBB}}
+					<a class="bbbTool-reload-icon">
+						<i class="fa fa-trash"></i>
+					</a>
+					{{/if}}
+
+					{{#userHasPermission "TOOL_CREATE" }}
+					{{#unless @root.isArchived}}
+					<a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank"
+						data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{../../_id}}/?activeTab=tools">
+						<i class="fa fa-trash-o"></i>
+					</a>
 					{{/unless}}
+					{{/userHasPermission}}
 				</div>
+				{{/unless}}
+
+
+				{{#if this.isBBB}}
+				<div class="card-title-directory bbb-state bbb-guest-inactive-state">
+					<img src="/images/tools/bbb/not_started.png" class="float-left" style="width:auto; height:75px;" />
+					<span>Videokonferenz wurde noch nicht gestartet</span>
+					<a class="bbbTool-info-icon">
+						<i class="fa fa-info-circle"></i>
+					</a>
+
+					<a class="bbbTool-reload-container">
+						<i class="fa fa-repeat bbbTool-reload-icon" style="cursor:pointer;"></i>
+					</a>
+				</div>
+
+				<div class="card-title-directory bbb-state bbb-moderator-inactive-state">
+
+					<img src="/images/tools/bbb/available.png" class="float-left" style="width:auto; height:75px;" />
+
+					<span>Videokonferenz BigBlueButton</span>
+
+					{{#userHasPermission "TOOL_CREATE" }}
+					{{#unless @root.isArchived}}
+					<a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank"
+						data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{../../_id}}/?activeTab=tools">
+						<i class="fa fa-trash-o"></i>
+					</a>
+					{{/unless}}
+					{{/userHasPermission}}
+				</div>
+
+				<div class="card-title-directory bbb-state bbb-running-videoconference-state">
+
+					<img src="/images/tools/bbb/available.png" class="float-left" style="width:auto; height:75px;" />
+
+					<span>Videokonferenz BigBlueButton</span>
+					<span class="pulsating-dot bbbTool-reload-container"></span>
+
+				</div>
+
+				<div class="card-title-directory bbb-state ">
+					<img src="/images/tools/bbb/not_started.png" class="float-left" style="width:auto; height:75px;" />
+					<span>Videokonferenz BigBlueButton</span>
+				</div>
+
+				{{/if}}
+
+			</div>
+			{{/each}}
+			{{else}}
+			<div class="empty-state">
+				<img src="/images/empty-states/tools.svg" alt="Keine hinzufügten Tools" class="image" />
+				{{#unless @root.isArchived}}
+				{{#userHasPermission "TOOL_CREATE" }}
+				<h2 class="h4">Füge dem Kurs Tools hinzu</h2>
+				<p class="text-muted">
+					Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.
+				</p>
+				{{else}}
+				<h2 class="h4 text-muted">Es gibt noch keine Tools in diesem Kurs.</h2>
+				{{/userHasPermission}}
+				{{else}}
+				<h2 class="h4 text-muted">Es gibt keine Tools in diesem Kurs.</h2>
+				{{/unless}}
+			</div>
 			{{/if}}
 		</div>
 	</div>
 	<div class="col-sm-12 add-button">
 		{{#userHasPermission "TOOL_CREATE" }}
-			{{#unless @root.isArchived}}
-				<a href="/courses/{{../_id}}/tools/add"
-					class="btn btn-primary {{#if ../ltiToolIds}}w-100{{else}}btn-empty{{/if}}"
-					title="Neues Tool hinzufügen">
-					<span>Füge ein neues Tool hinzu</span></a>
-			{{/unless}}
+		{{#unless @root.isArchived}}
+		<a href="/courses/{{../_id}}/tools/add" class="btn btn-primary {{#if ../ltiToolIds}}w-100{{else}}btn-empty{{/if}}"
+			title="Neues Tool hinzufügen">
+			<span>Füge ein neues Tool hinzu</span></a>
+		{{/unless}}
 		{{/userHasPermission}}
 	</div>
 </div>

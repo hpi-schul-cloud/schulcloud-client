@@ -195,7 +195,7 @@
                         <div class="section" data-testid="team_events" data-section="js-events">
                             <div class="row">
                                 {{#each ../events}}
-                                    {{> 'calendar/card' event=this canEdit=../canEditEvents}}
+                                    {{> 'calendar/card' event=this canEdit=../canEditEvents showVideoconferenceOption=@root.showVideoconferenceOption}}
                                 {{/each}}
                             </div>
                             <div style="margin-top: .5rem">
@@ -250,7 +250,7 @@
 
             {{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1 userId=../userId teamId=../teamId}}
                 {{#content "fields"}}
-                    {{> "calendar/forms/form-create-event"}}
+                    {{> "calendar/forms/form-create-event" showVideoconferenceOption=@root.showVideoconferenceOption}}
                 {{/content}}
             {{/embed}}
 
@@ -264,6 +264,28 @@
                         </button>
                 {{/content}}
             {{/embed}}
+
+            {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+                {{#if ../showVideoconferenceOption}}
+                    {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
+                        {{#content "fields"}}
+                        {{> "lib/forms/form-create-videoconference"}}
+                        {{/content}}
+                    {{/embed}}
+
+                    {{#embed "lib/components/modal-form" class="reload-info-modal"}}
+                        {{#content "fields"}}
+                        {{> "lib/forms/form-bbb-reload-info"}}
+                        {{/content}}
+                    {{/embed}}
+
+                    {{#embed "lib/components/modal-form" class="forbidden-info-modal"}}
+                        {{#content "fields"}}
+                        {{> "lib/forms/form-bbb-forbidden-info"}}
+                        {{/content}}
+                    {{/embed}}
+                {{/if}}
+            {{/ifConfig}}
         </section>
     </div>
 
