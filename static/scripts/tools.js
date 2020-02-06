@@ -60,23 +60,23 @@ $(document).ready(() => {
      * @param modal {Modal} - the modal which has the post-action and the courseId
      * @param tool {object} - the tool which will be created
      */
-	  const createLocalTool = function createLocalTool(modal, tool) {
+	const createLocalTool = function createLocalTool(modal, tool) {
 		const $modalForm = modal.find('.modal-form');
 		const href = $modalForm.attr('action');
 		const courseId = $modalForm.find("input[name='courseId']").val();
 		// cleaning
 		tool.isTemplate = false;
 		tool.courseId = courseId;
-		tool.originTool = tool._id;
 		delete tool.oAuthClientId;
 		delete tool._id;
 		$.ajax({
 			action: href,
 			data: tool,
 			method: 'POST',
-			success(result) {
-				window.location.href = `/courses/${courseId}`;
-			},
+		}).done(() => {
+			window.location.href = `/courses/${courseId}?activeTab=tools`;
+		}).fail(() => {
+			$.showNotification('Beim Hinzufügen des Tools ist ein Fehler aufgetreten.', 'danger');
 		});
 	};
 
@@ -97,7 +97,23 @@ $(document).ready(() => {
 		const entry = $(this).attr('href');
 		$.getJSON(entry, (result) => {
 			const tool = result.tool[0];
+			tool.originTool = tool._id;
 			if (tool.isLocal) {
+				if (tool.name === 'Video-Konferenz mit BigBlueButton') {
+					const $addBbbToolModal = $('.add-bbb-modal');
+
+					populateModalForm($addBbbToolModal, {
+						title: 'Videokonferenzen im Kurs',
+						closeLabel: 'Abbrechen',
+						submitLabel: 'Hinzufügen',
+					});
+					$addBbbToolModal.appendTo('body').modal('show');
+					$addBbbToolModal.off('submit').on('submit', (event) => {
+						event.preventDefault();
+						createLocalTool($editModal, tool);
+					});
+					return;
+				}
 				createLocalTool($editModal, tool);
 			} else {
 				populateModalForm($editModal, {

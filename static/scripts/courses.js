@@ -1,3 +1,7 @@
+import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
+
+
+/* eslint-disable max-len */
 $(document).ready(() => {
 	$('.js-course-name-input').change(function courseNameInput() {
 		$(this).val($(this).val().trim());
@@ -140,5 +144,195 @@ $(document).ready(() => {
 				$shareqrbox.append(image);
 			},
 		});
+	});
+
+	let activeBbbCard = false;
+
+	if ($('.bbbTool').length > 0) {
+		const courseId = $('.bbbTool').parent().attr('data-courseId');
+
+		const videoconferenceResponse = (data) => {
+			activeBbbCard = true;
+			const { permission, state } = data;
+
+			if (!permission || permission.length < 0) {
+				$.showNotification(errorMessagesBBB.NO_PERMISSION, 'danger');
+			}
+
+			const guestInactiveState = {
+				condition: videoconferenceStates.GuestInactiveState.condition,
+				updateUi: () => {
+					const reloadIcon = $('.bbbTool-reload-icon');
+
+					$('.bbbTool').off('click').css({
+						cursor: 'auto',
+						backgroundColor: 'white',
+					});
+
+					$('.bbb-state').hide();
+					$('.bbb-guest-inactive-state').show();
+
+					reloadIcon.off('click').on('click', (e) => {
+						e.stopPropagation();
+						e.preventDefault();
+
+						reloadIcon.addClass('reload-animation');
+
+						setTimeout(() => {
+							reloadIcon.removeClass('reload-animation');
+						}, 700);
+
+						$.ajax({
+							type: 'GET',
+							url: `/videoconference/course/${courseId}`,
+							success: videoconferenceResponse,
+						}).done((res) => {
+							if (res.state === 'RUNNING') {
+								$('.bbb-state').hide();
+								$('.bbb-running-videoconference-state').show();
+							}
+						});
+					});
+				},
+			};
+
+			const modInactiveState = {
+				condition: videoconferenceStates.ModeratorInactiveState.condition,
+				updateUi: () => {
+					$('.bbb-state').hide();
+					$('.bbb-moderator-inactive-state').show();
+				},
+			};
+
+			const runningState = {
+				condition: videoconferenceStates.RunningState.condition,
+				updateUi: () => {
+					$('.bbb-state').hide();
+					$('.bbb-running-videoconference-state').show();
+
+					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => {
+						$.ajax({
+							method: 'POST',
+							url: '/videoconference/',
+							contentType: 'application/json',
+							dataType: 'json',
+							data: JSON.stringify({
+								scopeId: courseId,
+								scopeName: 'course',
+								options: {},
+							}),
+						}).done((response) => {
+							if (!response.url || response.url.length < 0) {
+								$.showNotification(errorMessagesBBB.NOT_STARTED_OR_FINISHED, 'danger');
+								$('.bbb-state').hide();
+								$('.bbb-guest-inactive-state').show();
+							}
+							window.open(response.url, '_blank');
+						}).fail((error) => {
+							if (error && error.status !== 'SUCCESS') {
+								$.showNotification(errorMessagesBBB.NOT_STARTED_OR_FINISHED, 'danger');
+								$('.bbb-state').hide();
+								$('.bbb-guest-inactive-state').show();
+							}
+						});
+					});
+				},
+			};
+
+			// eslint-disable-next-line func-names
+			$('.bbbTool').each(() => {
+				[guestInactiveState, modInactiveState, runningState].forEach((bbbState) => {
+					if (bbbState.condition(permission, state)) bbbState.updateUi();
+				});
+			});
+		};
+
+		$.ajax({
+			type: 'GET',
+			url: `/videoconference/course/${courseId}`,
+			success: videoconferenceResponse,
+			error: (error) => {
+				if (error && error.status !== 'SUCCESS') {
+					$.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger');
+				}
+			},
+		});
+	}
+
+
+	// eslint-disable-next-line func-names
+	$('.bbbTool').click(function (e) {
+		if (!activeBbbCard) {
+			return;
+		}
+
+		e.stopPropagation();
+		e.preventDefault();
+		const courseId = $(this).parent().attr('data-courseId');
+		const $createVideoconferenceModal = $('.create-videoconference-modal');
+
+		$.ajax({
+			type: 'GET',
+			url: `/courses/${courseId}/usersJson`,
+			success(data) {
+				populateModalForm($createVideoconferenceModal, {
+					title: `Videokonferenzraum "${data.course.name}" erstellen`,
+					closeLabel: 'Abbrechen',
+					submitLabel: 'Erstellen',
+				});
+			},
+		});
+		$createVideoconferenceModal.appendTo('body').modal('show');
+		$createVideoconferenceModal.off('submit').on('submit', (event) => {
+			event.preventDefault();
+
+			const everyAttendeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
+			const moderatorMustApproveJoinRequests = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
+			const everybodyJoinsAsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
+
+			$.ajax({
+				type: 'POST',
+				url: '/videoconference/',
+				contentType: 'application/json',
+				dataType: 'json',
+				data: JSON.stringify({
+					scopeId: courseId,
+					scopeName: 'course',
+					options: {
+						everyAttendeJoinsMuted,
+						moderatorMustApproveJoinRequests,
+						everybodyJoinsAsModerator,
+					},
+				}),
+			}).done((response) => {
+				// todo, the browser may block popups...
+				window.open(response.url, '_blank');
+				$('.bbb-state').hide();
+				$('.bbb-running-videoconference-state').show();
+				$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => window.open(response.url, '_blank'));
+			}).fail((error) => {
+				// eslint-disable-next-line no-console
+				console.log(error);
+				if (error && error.status !== 'SUCCESS') {
+					return $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger');
+				}
+				return $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger');
+			});
+			$createVideoconferenceModal.modal('hide');
+		});
+	});
+
+	$('.bbbTool-info-icon').click((e) => {
+		e.stopPropagation();
+		e.preventDefault();
+
+		const $bbbReloadInfoModal = $('.reload-info-modal');
+
+		populateModalForm($bbbReloadInfoModal, {
+			title: '',
+			closeLabel: 'OK',
+		});
+
+		$bbbReloadInfoModal.appendTo('body').modal('show');
 	});
 });
