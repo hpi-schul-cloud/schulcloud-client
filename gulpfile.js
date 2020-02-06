@@ -93,6 +93,11 @@ gulp.task('other', () => gulp
 	.src('./static/other/**/*.*')
 	.pipe(gulp.dest(`./build/${themeName()}/other`)));
 
+// minify static/other
+gulp.task('other-with-theme', ['other'], () => gulp
+	.src(withTheme('./static/other/**/*.*'))
+	.pipe(gulp.dest(`./build/${themeName()}/other`)));
+
 const loadPaths = path.resolve('./static/styles/');
 sassGrapher.init('./static/styles/', {
 	loadPaths,
@@ -274,6 +279,7 @@ gulp.task('clear', () => gulp
 gulp.task('build-all', [
 	'images',
 	'other',
+	'other-with-theme',
 	'styles',
 	'styles-done',
 	'fonts',
