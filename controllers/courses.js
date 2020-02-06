@@ -40,7 +40,7 @@ const createEventsForCourse = (req, res, course) => {
 					description: course.description,
 					startDate: new Date(
 						new Date(course.startDate).getTime()
-								+ time.startTime,
+						+ time.startTime,
 					).toLocalISOString(),
 					duration: time.duration,
 					repeat_until: course.untilDate,
@@ -94,8 +94,8 @@ const deleteEventsForCourse = (req, res, courseId) => {
 				req.session.notification = {
 					type: 'danger',
 					message:
-							'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
-							+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
+						'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
+						+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
 				};
 				return Promise.resolve();
 			}));
@@ -141,7 +141,7 @@ const editCourseHandler = (req, res, next) => {
 				$sort: { year: -1, displayName: 1 },
 			},
 		});
-		// .then(data => data.data); needed when pagination is not disabled
+	// .then(data => data.data); needed when pagination is not disabled
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher', 'demoTeacher'],
 		$limit: false,
@@ -396,7 +396,7 @@ const enrichCourse = (course) => {
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
 		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 			time.room ? `| ${time.room}` : ''
-		}</div>`;
+			}</div>`;
 	});
 	return course;
 };
@@ -639,7 +639,10 @@ router.get('/:courseId/', (req, res, next) => {
 		.then(([course, _lessons, _homeworks, _courseGroups, scopedPermissions, _newLessons]) => {
 			const ltiToolIds = (course.ltiToolIds || []).filter(
 				ltiTool => ltiTool.isTemplate !== 'true',
-			);
+			).map((tool) => {
+				tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
+				return tool;
+			});
 			const lessons = (_lessons.data || []).map(lesson => Object.assign(lesson, {
 				url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
 			}));
@@ -805,7 +808,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 					type: 'danger',
 					message: `Sie sind bereits Teilnehmer des Kurses/Fachs ${
 						course.name
-					}.`,
+						}.`,
 				};
 				res.redirect(`/courses/${req.params.courseId}`);
 				return;
@@ -823,7 +826,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 						type: 'success',
 						message: `Sie wurden erfolgreich beim Kurs/Fach ${
 							course.name
-						} hinzugefügt`,
+							} hinzugefügt`,
 					};
 					res.redirect(`/courses/${req.params.courseId}`);
 				});
