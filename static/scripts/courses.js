@@ -148,6 +148,13 @@ $(document).ready(() => {
 
 	let activeBbbCard = false;
 
+	const videoconferenceWindowRedirect = (response) => {
+		const { url } = response;
+		return !url || url.length < 0
+			? $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger')
+			: window.open(url, '_blank');
+	};
+
 	if ($('.bbbTool').length > 0) {
 		const courseId = $('.bbbTool').parent().attr('data-courseId');
 
@@ -227,7 +234,7 @@ $(document).ready(() => {
 								$('.bbb-state').hide();
 								$('.bbb-guest-inactive-state').show();
 							}
-							window.open(response.url, '_blank');
+							videoconferenceWindowRedirect(response);
 						}).fail((error) => {
 							if (error && error.status !== 'SUCCESS') {
 								$.showNotification(errorMessagesBBB.NOT_STARTED_OR_FINISHED, 'danger');
@@ -271,55 +278,69 @@ $(document).ready(() => {
 		const courseId = $(this).parent().attr('data-courseId');
 		const $createVideoconferenceModal = $('.create-videoconference-modal');
 
-		$.ajax({
-			type: 'GET',
-			url: `/courses/${courseId}/usersJson`,
-			success(data) {
-				populateModalForm($createVideoconferenceModal, {
-					title: `Videokonferenzraum "${data.course.name}" erstellen`,
-					closeLabel: 'Abbrechen',
-					submitLabel: 'Erstellen',
-				});
-			},
-		});
-		$createVideoconferenceModal.appendTo('body').modal('show');
-		$createVideoconferenceModal.off('submit').on('submit', (event) => {
-			event.preventDefault();
-
-			const everyAttendeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
-			const moderatorMustApproveJoinRequests = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
-			const everybodyJoinsAsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
-
+		const moderatorCardClickHandler = () => {
 			$.ajax({
-				type: 'POST',
-				url: '/videoconference/',
-				contentType: 'application/json',
-				dataType: 'json',
-				data: JSON.stringify({
-					scopeId: courseId,
-					scopeName: 'course',
-					options: {
-						everyAttendeJoinsMuted,
-						moderatorMustApproveJoinRequests,
-						everybodyJoinsAsModerator,
-					},
-				}),
-			}).done((response) => {
-				// todo, the browser may block popups...
-				window.open(response.url, '_blank');
-				$('.bbb-state').hide();
-				$('.bbb-running-videoconference-state').show();
-				$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => window.open(response.url, '_blank'));
-			}).fail((error) => {
-				// eslint-disable-next-line no-console
-				console.log(error);
-				if (error && error.status !== 'SUCCESS') {
-					return $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger');
-				}
-				return $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger');
+				type: 'GET',
+				url: `/courses/${courseId}/usersJson`,
+				success(data) {
+					populateModalForm($createVideoconferenceModal, {
+						title: `Videokonferenzraum "${data.course.name}" erstellen`,
+						closeLabel: 'Abbrechen',
+						submitLabel: 'Erstellen',
+					});
+				},
 			});
-			$createVideoconferenceModal.modal('hide');
-		});
+			$createVideoconferenceModal.appendTo('body').modal('show');
+			$createVideoconferenceModal.off('submit').on('submit', (event) => {
+				event.preventDefault();
+
+				const everyAttendeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
+				const moderatorMustApproveJoinRequests = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
+				const everybodyJoinsAsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
+
+				$.ajax({
+					type: 'POST',
+					url: '/videoconference/',
+					contentType: 'application/json',
+					dataType: 'json',
+					data: JSON.stringify({
+						scopeId: courseId,
+						scopeName: 'course',
+						options: {
+							everyAttendeJoinsMuted,
+							moderatorMustApproveJoinRequests,
+							everybodyJoinsAsModerator,
+						},
+					}),
+				}).done((response) => {
+				// todo, the browser may block popups...
+					videoconferenceWindowRedirect(response);
+					$('.bbb-state').hide();
+					$('.bbb-running-videoconference-state').show();
+					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => {
+						$.ajax({
+							type: 'GET',
+							url: `/videoconference/course/${courseId}`,
+						}).done((res) => {
+							if (res.state === 'FINISHED') {
+								$('.bbb-state').hide();
+								$('.bbb-moderator-inactive-state').show();
+								moderatorCardClickHandler();
+							} else if (res.state === 'RUNNING') {
+								videoconferenceWindowRedirect(response);
+							}
+						});
+					});
+				}).fail((error) => {
+					if (error && error.status !== 'SUCCESS') {
+						return $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger');
+					}
+					return $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger');
+				});
+				$createVideoconferenceModal.modal('hide');
+			});
+		};
+		moderatorCardClickHandler();
 	});
 
 	$('.bbbTool-info-icon').click((e) => {
