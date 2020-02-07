@@ -9,7 +9,7 @@ const { HOST } = process.env;
 router.get('/:scopeName/:scopeId', (req, res, next) => {
 	const { scopeName, scopeId } = req.params;
 	return authHelper.isAuthenticated(req).then(() => api(req)
-		.get(`/videoconference/${scopeName}/${scopeId}?demo=wait`))
+		.get(`/videoconference/${scopeName}/${scopeId}`))
 		.then(response => res.send(response))
 		.catch(err => next(err));
 });
