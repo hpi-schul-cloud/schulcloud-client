@@ -16,9 +16,6 @@ router.get('/:scopeName/:scopeId', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
 	const { scopeName, scopeId, options = {} } = req.body;
-	if (!options.filename) {
-		options.filename = `${HOST}/other/pdf/bbb-default-presentation.pdf`;
-	}
 	return authHelper.isAuthenticated(req).then(() => api(req)
 		.post('/videoconference', {
 			body: {
