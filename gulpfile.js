@@ -83,9 +83,8 @@ const beginPipeAll = src => gulp
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
 	.pipe(filelog());
 
-// minify images
+// copy images
 gulp.task('images', () => beginPipe('./static/images/**/*.*')
-	.pipe(imagemin())
 	.pipe(gulp.dest(`./build/${themeName()}/images`)));
 
 // minify static/other
@@ -135,10 +134,12 @@ gulp.task('styles-done', ['styles'], () => {
 });
 
 // copy fonts
-gulp.task('fonts', () => beginPipe('./static/fonts/**/*.*').pipe(gulp.dest(`./build/${themeName()}/fonts`)));
+gulp.task('fonts', () => beginPipe('./static/fonts/**/*.*')
+	.pipe(gulp.dest(`./build/${themeName()}/fonts`)));
 
 // copy static assets
-gulp.task('static', () => beginPipe('./static/*').pipe(gulp.dest(`./build/${themeName()}/`)));
+gulp.task('static', () => beginPipe('./static/*')
+	.pipe(gulp.dest(`./build/${themeName()}/`)));
 
 // compile/transpile JSX and ES6 to ES5 and minify scripts
 gulp.task('scripts', () => beginPipeAll(nonBaseScripts)
