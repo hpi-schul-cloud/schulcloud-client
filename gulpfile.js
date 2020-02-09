@@ -231,35 +231,10 @@ gulp.task('vendor-optimized-assets', () => beginPipe(['./static/vendor-optimized
 	.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`)));
 
 // copy node modules
-const nodeModules = ['mathjax', 'font-awesome'];
+const nodeModules = ['mathjax', 'font-awesome/fonts'];
 gulp.task('node-modules', () => Promise.all(nodeModules
 	.map(module => beginPipe([`./node_modules/${module}/**/*.*`])
 		.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)))));
-
-// service worker patterns used for precaching of files
-const globPatterns = [
-	'fonts/**/*.{woff,css}',
-	'images/logo/*.svg',
-	'images/footer-logo.png',
-	'scripts/all.js',
-	'scripts/loggedin.js',
-	'scripts/autologout.js',
-	'scripts/calendar.js',
-	'scripts/dashboard.js',
-	'scripts/courses.js',
-	'scripts/news.js',
-	'styles/lib/*.css',
-	'styles/lib/toggle/*.min.css',
-	'styles/lib/datetimepicker/*.min.css',
-	'styles/calendar/*.css',
-	'styles/news/*.css',
-	'styles/courses/*.css',
-	'styles/dashboard/*.css',
-	'vendor/feathersjs/feathers.js',
-	'vendor-optimized/mathjax/MathJax.js',
-	'images/manifest.json',
-];
-
 
 // clear build folder + smart cache
 gulp.task('clear', () => gulp
