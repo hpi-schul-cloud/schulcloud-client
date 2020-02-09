@@ -53,7 +53,7 @@ const EXIT_ON_ERROR = process.env.GULP_EXIT_ON_ERROR
 const nonBaseScripts = [
 	'./static/scripts/**/*.js',
 ].concat(baseScripts.map(script => `!${script}`));
-// used by all gulp tasks instead of gulp.src(...)
+// used by almost all gulp tasks instead of gulp.src(...)
 // plumber prevents pipes from stopping when errors occur
 // changed only passes on files that were modified since last time
 // filelog logs and counts all processed files
@@ -83,15 +83,19 @@ const beginPipeAll = src => gulp
 	.pipe(filelog());
 
 // copy images
-gulp.task('images', () => beginPipe('./static/images/**/*.*')
+// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
+gulp.task('images', () => gulp
+	.src(withTheme('./static/images/**/*.*'))
 	.pipe(gulp.dest(`./build/${themeName()}/images`)));
 
 // minify static/other
+// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
 gulp.task('other', () => gulp
-	.src('./static/other/**/*.*')
+	.src(withTheme('./static/other/**/*.*'))
 	.pipe(gulp.dest(`./build/${themeName()}/other`)));
 
 // minify static/other
+// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
 gulp.task('other-with-theme', ['other'], () => gulp
 	.src(withTheme('./static/other/**/*.*'))
 	.pipe(gulp.dest(`./build/${themeName()}/other`)));
@@ -233,7 +237,8 @@ gulp.task('vendor-optimized-assets', () => beginPipe(['./static/vendor-optimized
 // copy node modules
 const nodeModules = ['mathjax', 'font-awesome/fonts'];
 gulp.task('node-modules', () => Promise.all(nodeModules
-	.map(module => beginPipe([`./node_modules/${module}/**/*.*`])
+	// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
+	.map(module => gulp.src([`./node_modules/${module}/**/*.*`])
 		.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)))));
 
 // clear build folder + smart cache
