@@ -49,7 +49,7 @@ jobs:
         # seed database
         - cd schulcloud-server && npm run setup && npm run seed && cd ..
       script: cd schulcloud-client && npm run mocha && cd ..
-    - script: curl "https://gist.githubusercontent.com/schul-cloud-bot/0cba8294a2faab5743eefea69f956541/raw/fetch.travis.sh" | bash
+    - script: curl "https://raw.githubusercontent.com/schul-cloud/integration-tests/master/scripts/ci/fetch.travis.sh" | bash
       name: Integration
       env:
         - IT_CLIENT_HOST=nuxtclient
