@@ -155,12 +155,25 @@ $(document).ready(() => {
 			: window.open(url, '_blank');
 	};
 
+	const setVideoConferenceOptions = (options) => {
+		const { everyAttendeJoinsMuted, everybodyJoinsAsModerator, moderatorMustApproveJoinRequests } = options;
+		const $createVideoconferenceModal = $('.create-videoconference-modal');
+
+		$createVideoconferenceModal.find('[name=startMuted]').bootstrapToggle(everyAttendeJoinsMuted ? 'on' : 'off');
+		$createVideoconferenceModal.find('[name=requestModerator]').bootstrapToggle(moderatorMustApproveJoinRequests ? 'on' : 'off');
+		$createVideoconferenceModal.find('[name=everyoneIsModerator]').bootstrapToggle(everybodyJoinsAsModerator ? 'on' : 'off');
+	};
+
+
 	if ($('.bbbTool').length > 0) {
 		const courseId = $('.bbbTool').parent().attr('data-courseId');
 
 		const videoconferenceResponse = (data) => {
 			activeBbbCard = true;
-			const { permission, state } = data;
+			const { permission, state, options } = data;
+
+			setVideoConferenceOptions(options);
+
 
 			if (!permission || permission.length < 0) {
 				$.showNotification(errorMessagesBBB.NO_PERMISSION, 'danger');
