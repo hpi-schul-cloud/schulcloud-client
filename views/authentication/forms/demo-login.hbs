@@ -1,4 +1,4 @@
-<section class="demo-login mt-2" id="loginarea" data-step="1" data-intro="Sie möchten die {{theme.title}} entdecken? Mit Hilfe unserer Demo Funktion können Sie die {{theme.short_title}} sowohl aus Lehrer*in und Schüler*in Perspektive entdecken.">
+<section class="demo-login mt-2" id="loginarea">
     <h2 class="h3 card-title">Jetzt Demoversion ausprobieren</h2>
     <div class="logins">
         <form method="post" action="/login/" class="form-demo-login">
@@ -7,7 +7,7 @@
             <input type="text" name="type" value="student" hidden>
             <div class="form-group">
                 {{> "lib/components/csrfInput"}}
-                <input type="submit" class="btn btn-outline btn-primary" value="als Schüler*In einloggen" />
+                <input type="submit" class="btn btn-outline btn-primary" value="als Schüler:in einloggen" />
             </div>
         </form>
 
@@ -17,7 +17,7 @@
             <input type="text" name="type" value="teacher" hidden>
             <div class="form-group">
                 {{> "lib/components/csrfInput"}}
-                <input type="submit" id="demologin" class="btn btn-outline btn-primary" value="als Lehrer*In einloggen" />
+                <input type="submit" id="demologin" class="btn btn-outline btn-primary" value="als Lehrer:in einloggen" />
             </div>
         </form>
     </div>

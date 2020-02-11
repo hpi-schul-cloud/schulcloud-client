@@ -211,21 +211,6 @@ module.exports = [
 			},
 			{
 				title: '',
-				firstName: 'David',
-				lastName: 'Jäger',
-				position: 'Wissenschaftlicher Mitarbeiter, HPI',
-				description: 'David hat an der HTW Berlin sowie der TU Berlin sein Bachelor- und Masterstudium in den Fächern IT/Vernetzte Systeme sowie Technische Informatik und anschließend mehrere Jahre im Ops-Team eines namhaften Hosters zugebracht. Jetzt unterstützt er das HPI Schul-Cloud Team als System-Engineer DevOps. In seiner Freizeit ist er gern mit Freunden unterwegs, liest und spielt gern Exit-Games und Gesellschaftsspiele.',
-				pictureUrl: '/images/team/David_Jäger.jpg',
-				priority: 0,
-				social: {
-					facebook: '',
-					twitter: '',
-					linkedin: '',
-				},
-				longDesc: false,
-			},
-			{
-				title: '',
 				firstName: 'Catrina',
 				lastName: 'John',
 				position: 'Wissenschaftliche Mitarbeiterin, HPI',
@@ -488,7 +473,7 @@ module.exports = [
 				lastName: 'Kötter',
 				position: 'Konzeptionelle Mitarbeiterin, MINT-EC',
 				description: 'Kira absolvierte nach ihrem Masterstudium der französischen Literaturwissenschaft in Hamburg und Bordeaux ein Volontariat im Bereich Kommunikation. Nachdem sie daraufhin eine Online-Community für Fremdsprachenlernende redaktionell betreute, ist sie nun für Öffentlichkeitsarbeit und Community Management für die HPI Schul-Cloud bei MINT-EC tätig',
-				pictureUrl: '/images/team/kira_koetter.JPG',
+				pictureUrl: '/images/team/kira_koetter.jpg',
 				priority: 0,
 				social: {
 					facebook: '',
@@ -675,7 +660,7 @@ module.exports = [
 				},
 				longDesc: false,
 			},
-				
+
 		],
 	},
 	{

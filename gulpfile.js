@@ -13,7 +13,6 @@ const filelog = require('gulp-filelog');
 const header = require('gulp-header');
 const gulpif = require('gulp-if');
 const optimizejs = require('gulp-optimize-js');
-const imagemin = require('gulp-imagemin');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const cssvariables = require('postcss-css-variables');
@@ -54,7 +53,7 @@ const EXIT_ON_ERROR = process.env.GULP_EXIT_ON_ERROR
 const nonBaseScripts = [
 	'./static/scripts/**/*.js',
 ].concat(baseScripts.map(script => `!${script}`));
-// used by all gulp tasks instead of gulp.src(...)
+// used by almost all gulp tasks instead of gulp.src(...)
 // plumber prevents pipes from stopping when errors occur
 // changed only passes on files that were modified since last time
 // filelog logs and counts all processed files
@@ -83,14 +82,22 @@ const beginPipeAll = src => gulp
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
 	.pipe(filelog());
 
-// minify images
-gulp.task('images', () => beginPipe('./static/images/**/*.*')
-	.pipe(imagemin())
+// copy images
+// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
+gulp.task('images', () => gulp
+	.src(withTheme('./static/images/**/*.*'))
 	.pipe(gulp.dest(`./build/${themeName()}/images`)));
 
 // minify static/other
+// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
 gulp.task('other', () => gulp
-	.src('./static/other/**/*.*')
+	.src(withTheme('./static/other/**/*.*'))
+	.pipe(gulp.dest(`./build/${themeName()}/other`)));
+
+// minify static/other
+// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
+gulp.task('other-with-theme', ['other'], () => gulp
+	.src(withTheme('./static/other/**/*.*'))
 	.pipe(gulp.dest(`./build/${themeName()}/other`)));
 
 const loadPaths = path.resolve('./static/styles/');
@@ -130,10 +137,12 @@ gulp.task('styles-done', ['styles'], () => {
 });
 
 // copy fonts
-gulp.task('fonts', () => beginPipe('./static/fonts/**/*.*').pipe(gulp.dest(`./build/${themeName()}/fonts`)));
+gulp.task('fonts', () => beginPipe('./static/fonts/**/*.*')
+	.pipe(gulp.dest(`./build/${themeName()}/fonts`)));
 
 // copy static assets
-gulp.task('static', () => beginPipe('./static/*').pipe(gulp.dest(`./build/${themeName()}/`)));
+gulp.task('static', () => beginPipe('./static/*')
+	.pipe(gulp.dest(`./build/${themeName()}/`)));
 
 // compile/transpile JSX and ES6 to ES5 and minify scripts
 gulp.task('scripts', () => beginPipeAll(nonBaseScripts)
@@ -226,36 +235,11 @@ gulp.task('vendor-optimized-assets', () => beginPipe(['./static/vendor-optimized
 	.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`)));
 
 // copy node modules
-const nodeModules = ['mathjax', 'font-awesome'];
+const nodeModules = ['mathjax', 'font-awesome/fonts'];
 gulp.task('node-modules', () => Promise.all(nodeModules
-	.map(module => beginPipe([`./node_modules/${module}/**/*.*`])
+	// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
+	.map(module => gulp.src([`./node_modules/${module}/**/*.*`])
 		.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)))));
-
-// service worker patterns used for precaching of files
-const globPatterns = [
-	'fonts/**/*.{woff,css}',
-	'images/logo/*.svg',
-	'images/footer-logo.png',
-	'scripts/all.js',
-	'scripts/loggedin.js',
-	'scripts/autologout.js',
-	'scripts/calendar.js',
-	'scripts/dashboard.js',
-	'scripts/courses.js',
-	'scripts/news.js',
-	'styles/lib/*.css',
-	'styles/lib/toggle/*.min.css',
-	'styles/lib/datetimepicker/*.min.css',
-	'styles/calendar/*.css',
-	'styles/news/*.css',
-	'styles/courses/*.css',
-	'styles/dashboard/*.css',
-	'vendor/introjs/intro*.{js,css}',
-	'vendor/feathersjs/feathers.js',
-	'vendor-optimized/mathjax/MathJax.js',
-	'images/manifest.json',
-];
-
 
 // clear build folder + smart cache
 gulp.task('clear', () => gulp
@@ -275,6 +259,7 @@ gulp.task('clear', () => gulp
 gulp.task('build-all', [
 	'images',
 	'other',
+	'other-with-theme',
 	'styles',
 	'styles-done',
 	'fonts',

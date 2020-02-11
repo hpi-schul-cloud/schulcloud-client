@@ -8,18 +8,17 @@ const redis = require('redis');
 const connectRedis = require('connect-redis');
 const session = require('express-session');
 const methodOverride = require('method-override');
-const fileUpload = require('express-fileupload');
 const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
+const { Configuration } = require('@schul-cloud/commons');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 const logger = require('./helpers/logger');
-
 
 const {
 	KEEP_ALIVE,
@@ -30,9 +29,13 @@ const {
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 	JWT_TIMEOUT_SECONDS,
 	PICHASSO_URL,
+	BACKEND_URL,
+	PUBLIC_BACKEND_URL,
 } = require('./config/global');
 
 const app = express();
+const Config = new Configuration();
+Config.init(app);
 
 if (SENTRY_DSN) {
 	Sentry.init({
@@ -82,7 +85,7 @@ const handlebarsHelper = require('./helpers/handlebars');
 const wax = handlebarsWax(handlebars)
 	.partials(path.join(__dirname, 'views/**/*.{hbs,js}'))
 	.helpers(layouts)
-	.helpers(handlebarsHelper.helpers);
+	.helpers(handlebarsHelper.helpers(app));
 
 wax.partials(path.join(__dirname, `theme/${themeName}/views/**/*.{hbs,js}`));
 
@@ -97,7 +100,11 @@ app.set('view cache', true);
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(morgan('dev'));
+app.use(morgan('dev', {
+	skip(req, res) {
+		return req && ((req.route || {}).path || '').includes('tsp-login');
+	},
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -126,10 +133,6 @@ app.use(session({
 	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
 }));
 
-app.use(fileUpload({
-	createParentPath: true,
-}));
-
 // CSRF middlewares
 app.use(duplicateTokenHandler);
 app.use(csurf());
@@ -144,6 +147,20 @@ function removeIds(url) {
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
+	// if there's a flash message in the session request, make it available in the response, then delete it
+	res.locals.notification = req.session.notification;
+	res.locals.inline = req.query.inline || false;
+	setTheme(res);
+	res.locals.domain = SC_DOMAIN;
+	res.locals.production = req.app.get('env') === 'production';
+	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
+	res.locals.SENTRY_DSN = SENTRY_DSN;
+	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
+	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
+	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
+	res.locals.version = version;
+	res.locals.sha = sha;
+	delete req.session.notification;
 	try {
 		await authHelper.populateCurrentUser(req, res);
 	} catch (error) {
@@ -173,7 +190,7 @@ app.use(async (req, res, next) => {
 	res.locals.version = version;
 	res.locals.sha = sha;
 	delete req.session.notification;
-	next();
+	return next();
 });
 
 
