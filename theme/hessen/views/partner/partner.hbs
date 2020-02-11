@@ -1,0 +1,134 @@
+<section class="section-partner">
+	{{#embed "authentication/section" class="content-width-max"}}
+		{{#content "body"}}
+			{{#unless loggedin}}
+				<h2 class="section-title center">Partner</h2>
+			{{/unless}}
+			<h3 class="section-title center">Projektdurchführung</h3>
+			<div class="container">
+				<div class="row">
+					{{#each partners.project_partners_thr}}
+					<div class="partner-box-wrapper col-md-4">
+						<div class="partner-box">
+							<a href="{{{url}}}" target="_blank">
+								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+									{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+							</a>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+		{{/content}}
+	{{/embed}}
+	{{#embed "authentication/section" style="primary" class="content-width-max"}}
+		{{#content "body"}}
+			<h3 class="section-title center">Fachbeirat</h3>
+			<div class="container">
+				<div class="row">
+					<div class="intro-box col-sm-12">
+						<p>
+							Das Schul-Cloud Projekt wird von einem Fachbeirat unterstützt, der sich aus verschiedenen
+							Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben
+							technischen Aspekten, auch Themen wie Datenschutz und Pädagogik.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				{{#each partners.advisers}}
+					<div class="partner-box-wrapper col-xs-6 col-md-3">
+						<div class="partner-box">
+							{{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
+								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+									{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+							{{#if url}}</a>{{/if}}
+						</div>
+					</div>
+				{{/each}}
+				<div class="col-xs-12">
+					<div id="hiddenAdvisers" class="collapse row">
+						{{#each hiddenAdvisers}}
+							<div class="partner-box-wrapper col-xs-6 col-md-3">
+								<div class="partner-box">
+									{{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
+										<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+											{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+									{{#if url}}</a>{{/if}}
+								</div>
+							</div>
+					{{/each}}
+					</div>
+				</div>
+				<div class="buttonWrapper">
+					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+				</div>
+			</div>
+		{{/content}}
+	{{/embed}}
+	{{#embed "authentication/section" class="content-width-max"}}
+		{{#content "body"}}
+			<h3 class="section-title center">Pilotpartner für Lerninhalte</h3>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<p>Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die HPI Schul-Cloud erfahrbar wird.</p>
+					</div>
+				</div>
+				<div class="row">
+					{{#each partners.content_partners}}
+						<div class="partner-box-wrapper col-xs-6 col-md-3">
+							<div class="partner-box">
+								<a href="{{{url}}}" target="_blank">
+									<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+								</a>
+							</div>
+						</div>
+					{{/each}}
+					<div class="col-xs-12">
+						<div id="hiddenContentPartner" class="collapse row">
+							{{#each hiddenContentPartners}}
+								<div class="partner-box-wrapper col-xs-6 col-md-3">
+									<div class="partner-box">
+										<a href="{{{url}}}" target="_blank">
+											<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+												{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+										</a>
+									</div>
+								</div>
+							{{/each}}
+						</div>
+					</div>
+					<div class="buttonWrapper">
+						<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenContentPartner">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+					</div>
+				</div>
+			</div>
+		{{/content}}
+	{{/embed}}
+	{{#embed "authentication/section" style="accent" class="content-width-max"}}
+		{{#content "body"}}
+			<h3 class="section-title center">Unterstützer für Schulinfrastruktur</h3>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<p>Wir danken unseren Unterstützern für Schulinfrastruktur.</p>
+					</div>
+				</div>
+				<div class="row">
+					{{#each partners.sponsors}}
+						<div class="partner-box-wrapper col-xs-6 col-md-6">
+							<div class="partner-box">
+								<a href="{{{url}}}" target="_blank">
+									<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+								</a>
+							</div>
+						</div>
+					{{/each}}
+				</div>
+			</div>
+		{{/content}}
+	{{/embed}}
+</section>

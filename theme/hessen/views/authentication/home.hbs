@@ -1,0 +1,42 @@
+{{#extend "lib/loggedout"}}
+
+{{#content "styles" mode="append"}}
+	<link rel="stylesheet" href="/styles/homepage/index.css" />
+{{/content}}
+
+{{#content "scripts" mode="append"}}
+	<script src="/scripts/login.js" type="text/javascript" defer></script>
+
+	<script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
+{{/content}}
+
+{{#content "page"}}
+
+{{#embed "authentication/section"}}
+	{{#content "body"}}
+		<div class="rows-2">
+			<div>
+				<h1>
+					Herzlich willkommen in der Schul-Cloud Hessen!
+				</h1>
+				<p>Die Hessische Zentrale für Datenverarbeitung und das Hasso-Plattner-Institut für Digital Engineering bringen digital gestütztes Lernen gemeinsam voran!</p>
+				<p>Zusammen wollen wir für Hessen eine Schul-Cloud auf einer zeitgemäßen Cloud-Infrastruktur Wirklichkeit werden lassen. Hier auf <a href="hessen.schul-cloud.org">hessen.schul-cloud.org</a> stellen wir einen produktiven Prototypen bereit.</p>
+				<p>Das HPI entwickelt unter der Leitung von Prof. Dr. Christoph Meinel, unterstützt vom Bundesministerium für Bildung und Forschung, den Open-Source-Softwarekern der Schul-Cloud stetig weiter, so dass Landesprojekte von der Entwicklung profitieren können. Lehrkräfte und Schüler können in jedem Unterrichtsfach auf moderne digitale Lerninhalte und -werkzeuge zugreifen, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Weitere Informationen zum BMBF-geförderten Softwareprojekt finden Sie unter <a href="https://schul-cloud.org/about">https://schul-cloud.org/about</a>. Der Quellcode ist unter <a href="https://github.com/schul-cloud">https://github.com/schul-cloud</a> frei verfügbar.</p>
+			</div>
+
+			<div>
+				{{> "authentication/forms/login"}}
+			</div>
+		</div>
+	{{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
+	{{#content "fields"}}
+		{{> "authentication/forms/pwrecovery"}}
+	{{/content}}
+{{/embed}}
+
+
+	{{/content}}
+{{/extend}}

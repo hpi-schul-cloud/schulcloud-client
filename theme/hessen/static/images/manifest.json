@@ -1,0 +1,9 @@
+{
+    "name": "Schul-Cloud Hessen",
+    "short_name": "Schul-Cloud",
+    "start_url": "/?homescreen=1&theme=hessen",
+    "scope": "/",
+    "theme_color": "#185888",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}

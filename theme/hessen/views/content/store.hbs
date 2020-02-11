@@ -1,0 +1,17 @@
+{{#extend "lib/loggedin"}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/courses/empty-state.css"/>
+    {{/content}}
+
+    {{#content "page"}}
+        <section class="section-courses empty-state">
+            <img src="/images/empty-states/lernstore.svg" alt="Wolke mit Unterrichtsmaterial" class="image mx-auto d-block"/>
+            <div class="text-wrapper mx-auto d-block">
+                <h2 class="text-center">Mit der {{theme.title}} wird dein Unterrichtsmaterial digital</h2>
+                <h3 class="h5 text-muted text-center">
+                  In Zukunft findest du hier die Verlinkung zur Mediothek und Pixiothek des Thüringer Schulportals, um diese Inhalte weiterhin auch in der {{theme.title}} nutzen zu können.
+                </h3>
+            </div>
+        </section>
+    {{/content}}
+{{/extend}}

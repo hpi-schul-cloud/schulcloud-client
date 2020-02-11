@@ -1,0 +1,14 @@
+{{#extend "lib/simple"}}
+
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/imprint/imprint.css"/>
+	{{/content}}
+
+	{{#content "scripts" mode="append"}}
+	{{/content}}
+
+	{{#content "page"}}
+		{{#embed "imprint/imprint"}}{{/embed}}
+	{{/content}}
+
+{{/extend}}

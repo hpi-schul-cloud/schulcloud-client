@@ -1,0 +1,15 @@
+{{#extend "lib/loggedin" hideSearch="true"}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/partners.js" type="text/javascript" defer></script>
+    {{/content}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/partner/partner.css"/>
+    {{/content}}
+
+    {{#content "page"}}
+        {{#embed "partner/partner" loggedin="true"}}{{/embed}}
+    {{/content}}
+
+{{/extend}}
