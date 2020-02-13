@@ -103,7 +103,7 @@ $(document).ready(() => {
 					const $addBbbToolModal = $('.add-bbb-modal');
 
 					populateModalForm($addBbbToolModal, {
-						title: 'Videokonferenzen im Kurs',
+						title: 'Videokonferenz',
 						closeLabel: 'Abbrechen',
 						submitLabel: 'Hinzufügen',
 					});
