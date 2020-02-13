@@ -1,7 +1,7 @@
 {{#extend "administration/administration"}}
 {{#content "styles" mode="append"}}
 <link rel="stylesheet" href="/styles/administration/school.css" />
-<link rel="stylesheet" href="/styles/administration/progress-static.css"/>
+<link rel="stylesheet" href="/styles/administration/progress-static.css" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
@@ -10,177 +10,198 @@
 
 {{#content "page" mode="prepend"}}
 <div class="route-administration">
-    <section class="section-school section-default">
-        <h2 class="h4">
-            {{#if schoolMaintanance.schoolUsesLdap}}
-            Schuljahreswechsel
-            {{else}}
-            Schuljahr: {{../school.currentYear.name}}
-            {{/if}}
-        </h2>
-        <p>
-        {{#if schoolMaintanance.schoolUsesLdap}}
-        {{#ifeq schoolMaintananceMode "active"}}
-            Transferphase
-        {{else}}
-            Aktuelles Schuljahr: {{../school.currentYear.name}}
-        {{/ifeq}}
-        {{else}}
-            Das neue Schuljahr beginnt in der {{theme.title}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien.
-            Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.
-        {{/if}}
-        </p>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    {{#if schoolMaintanance.schoolUsesLdap}}
-                    <p>Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen.
-                        Übernimm abschließend alle Änderungen mit einem Mal in die Schul-Cloud.</p>
-                    <p><a class="ldapschoolyearadditionalinfotoggle" href="#">Mehr Infos ></a></p>
-                    <div id="ldapschoolyearadditionalinfo">
-                        <p>Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen
-                            (z.B. Klassenfahrtfotos) zugreifen kann, speichert die Schul-Cloud ab, in welchem Schuljahr
-                            ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten
-                            Klassen funktioniert, stellt die Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:
-                        </p>
-                        <p class="font-weight-bold">Während des Schuljahres</p>
-                        <ul>
-                            <li>neue dazugekommen Nutzer, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden beständig synchronisiert</li>
-                        </ul>
-                        <p class="font-weight-bold">Start der Transferphase</p>
-                        <ul>
-                            <li>ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten</li>
-                            <li>ist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch</li>
-                        </ul>
-                        <p class="font-weight-bold">Während der Transferphase</p>
-                        <ul>
-                            <li>neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus dem LDAP synchronisiert</li>
-                            <li class="font-weight-bold">du kannst die notwendigen Änderungen für das neue Schuljahr im LDAP vornehmen (neue Nutzer, Update der Klassen)</li>
-                            <li>der Login via LDAP ist für bestehende Nutzer weiterhin möglich</li>
-                            <li>Passwortänderungen werden weiterhin synchronisiert</li>
-                            <li>Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)</li>
-                        </ul>
-                        <p class="font-weight-bold">Beenden der Transferphase</p>
-                        <ul>
-                            <li>beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind</li>
-                            <li>bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag synchronisiert</li>
-                            <li>gleichzeitig läutest Du damit das neue Schuljahr in der Schul-Cloud ein</li>
-                            <li>die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert</li>
-                        </ul>
-                        <p class="font-weight-bold">Nach Beenden der Transferphase</p>
-                        <ul>
-                            <li>die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden</li>
-                            <li>alle Daten aus dem LDAP werden wie gewohnt synchronisiert, neue Nutzer und Klassen können jederzeit dort angelegt werden</li>
-                        </ul>
-                    </div>
-                    {{#ifeq schoolMaintananceMode "idle"}}
-                        <button type="submit" class="btn btn-primary disabled">
-                            Schuljahr beenden
-                        </button>
-                        <p>Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.</p>
-                    {{else}}
-                    <p class="font-weight-bold">Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:</p>
-                    <section class="section-course">
-                        <div class="wizard-card">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    Altes Schuljahr
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    Rund um die Sommerferien
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    Neues Schuljahr
-                                </div>
-                            </div>
-                            
+	<section class="section-school section-default">
+		<h2 class="h4">
+			{{#if schoolMaintanance.schoolUsesLdap}}
+			Schuljahreswechsel
+			{{else}}
+			Schuljahr: {{../school.currentYear.name}}
+			{{/if}}
+		</h2>
+		<p>
+			{{#if schoolMaintanance.schoolUsesLdap}}
+			{{#ifeq schoolMaintananceMode "active"}}
+			Transferphase
+			{{else}}
+			Aktuelles Schuljahr: {{../school.currentYear.name}}
+			{{/ifeq}}
+			{{else}}
+			Das neue Schuljahr beginnt in der {{theme.title}} mit der Vorbereitungszeit eine Woche vor Ende der
+			Sommerferien.
+			Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden
+			Schuljahres vornehmen.
+			{{/if}}
+		</p>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 no-padding">
+					{{#if schoolMaintanance.schoolUsesLdap}}
+					<p>Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit
+						und Personendaten anzupassen.
+						Übernimm abschließend alle Änderungen mit einem Mal in die Schul-Cloud.</p>
+					<p><a class="ldapschoolyearadditionalinfotoggle" href="#">Mehr Infos ></a></p>
+					<div id="ldapschoolyearadditionalinfo">
+						<p>Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen
+							(z.B. Klassenfahrtfotos) zugreifen kann, speichert die Schul-Cloud ab, in welchem Schuljahr
+							ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus
+							synchronisierten
+							Klassen funktioniert, stellt die Schul-Cloud eine Transferphase zur Verfügung. So ist der
+							Ablauf während eines Schuljahreswechsels:
+						</p>
+						<p class="font-weight-bold">Während des Schuljahres</p>
+						<ul>
+							<li>neue dazugekommen Nutzer, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden
+								beständig synchronisiert</li>
+						</ul>
+						<p class="font-weight-bold">Start der Transferphase</p>
+						<ul>
+							<li>ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten</li>
+							<li>ist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch
+							</li>
+						</ul>
+						<p class="font-weight-bold">Während der Transferphase</p>
+						<ul>
+							<li>neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus
+								dem LDAP synchronisiert</li>
+							<li class="font-weight-bold">du kannst die notwendigen Änderungen für das neue Schuljahr im
+								LDAP vornehmen (neue Nutzer, Update der Klassen)</li>
+							<li>der Login via LDAP ist für bestehende Nutzer weiterhin möglich</li>
+							<li>Passwortänderungen werden weiterhin synchronisiert</li>
+							<li>Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase
+								angelegt werden (ohne Klassenzuordnung)</li>
+						</ul>
+						<p class="font-weight-bold">Beenden der Transferphase</p>
+						<ul>
+							<li>beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind</li>
+							<li>bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag
+								synchronisiert</li>
+							<li>gleichzeitig läutest Du damit das neue Schuljahr in der Schul-Cloud ein</li>
+							<li>die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen
+								im Kontext des alten Schuljahres archiviert</li>
+						</ul>
+						<p class="font-weight-bold">Nach Beenden der Transferphase</p>
+						<ul>
+							<li>die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden</li>
+							<li>alle Daten aus dem LDAP werden wie gewohnt synchronisiert, neue Nutzer und Klassen
+								können jederzeit dort angelegt werden</li>
+						</ul>
+					</div>
+					{{#ifeq schoolMaintananceMode "idle"}}
+					<button type="submit" class="btn btn-primary disabled">
+						Schuljahr beenden
+					</button>
+					<p>Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.</p>
+					{{else}}
+					<p class="font-weight-bold">Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:</p>
+					<section class="section-course">
+						<div class="wizard-card">
+							<div class="row">
+								<div class="col-xs-4 text-center">
+									Altes Schuljahr
+								</div>
+								<div class="col-xs-4 text-center">
+									Rund um die Sommerferien
+								</div>
+								<div class="col-xs-4 text-center">
+									Neues Schuljahr
+								</div>
+							</div>
 
-                            <div class="row stages">
-                                <div class="col-xs-4 text-center">
-                                    <label id="section-1" class="{{#ifeq ../schoolMaintananceMode "standby"}}current{{else}}done{{/ifeq}}">
-                                    {{#ifeq ../schoolMaintananceMode "standby"}}1{{else}}&#x2713;{{/ifeq}}
-                                    </label>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <label id="section-2" class="{{#ifeq ../schoolMaintananceMode "active"}}current{{/ifeq}}">2</label>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <label id="section-3">3</label>
-                                </div>
-                            </div>
 
-                            <span class="progressbar"></span>
-                            <div class="row head">
-                                <div class="col-xs-4">
-                                    <p>Beachte vor der Transferphase:</p>
-                                </div>
-                                <div class="col-xs-4">
-                                    <p>Beachte verfügbare Funktionen <br> in der Transferphase:</p>
-                                </div>
-                                <div class="col-xs-4">
-                                    <p>Nach Beendung der Transferphase <br> kann deine Schule ins neue Schuljahr starten.</p>
-                                </div>
-                            </div>
-                            <div class="row body">
-                                <div class="col-xs-4">                                
-                                    <p><i class="fa fa-arrow-right"></i> Du kannst nicht mehr zurück</p>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="d-flex justify-content-center">
-                                        <p><i class="fa fa-check green"></i> Logins bestehender Nutzer</p>
-                                        <p><i class="fa fa-check green"></i> Kennwortänderungen im LDAP</p>
-                                        <p><i class="fa fa-times red"></i> Änderung von Klassen/neue Klassen</p>
-                                        <p><i class="fa fa-times red"></i> Änderung von Nutzerdaten/neue Nutzer</p>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <p><i class="fa fa-smile-o"></i> Alles erledigt!</p>
-                                </div>
-                            </div>
-                            <form action="/administration/startschoolyear" type="post">
-                            {{> "lib/components/csrfInput"}}
-                            <div class="row">
-                                <div class="col-xs-12 col-md-4 text-center">
-                                    <button {{#ifeq ../schoolMaintananceMode "standby"}}{{else}}disabled{{/ifeq}} class="btn btn-primary btn-terminate-school-year">Transferphase starten</button>
-                                </div>
-                                <div class="col-xs-12 col-md-4 text-center">
-                                    <p><a href="#" id="checkldapdata" class="btn btn-primary {{#ifeq ../schoolMaintananceMode "active"}}{{else}}disabled{{/ifeq}}">LDAP-Daten überprüfen</a></p>
-                                    <label>                           
-                                        <input required disabled type="checkbox" id="startldapschoolyear">                   
-                                        Nutzer- und Klassendaten im LDAP <br> für das neue Schuljahr sind bearbeitet.
-                                    </label>
-                                </div>
-                                <div class="col-xs-12 col-md-4 text-center">
-                                    <button disabled id="buttonstartldapschoolyear" class="btn btn-primary">Transferphase beenden</button>
-                                </div>
-                            </div>
-                            </form>
-                        </div>
-                    </section>
-                    {{/ifeq}}
-                    {{/if}}
-                </div>
-            </div>
-        </div>
+							<div class="row stages">
+								<div class="col-xs-4 text-center">
+									<label id="section-1"
+										class="{{#ifeq ../schoolMaintananceMode "standby"}}current{{else}}done{{/ifeq}}">
+										{{#ifeq ../schoolMaintananceMode "standby"}}1{{else}}&#x2713;{{/ifeq}}
+									</label>
+								</div>
+								<div class="col-xs-4 text-center">
+									<label id="section-2"
+										class="{{#ifeq ../schoolMaintananceMode "active"}}current{{/ifeq}}">2</label>
+								</div>
+								<div class="col-xs-4 text-center">
+									<label id="section-3">3</label>
+								</div>
+							</div>
 
-        {{#embed "lib/components/modal-form" action="/administration/terminateschoolyear" method="post" class="terminate-school-year-modal"}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-terminate-school-year"}}
-        {{/content}}
-        {{/embed}}
-    </section>
+							<span class="progressbar"></span>
+							<div class="row head">
+								<div class="col-xs-4">
+									<p>Beachte vor der Transferphase:</p>
+								</div>
+								<div class="col-xs-4">
+									<p>Beachte verfügbare Funktionen <br> in der Transferphase:</p>
+								</div>
+								<div class="col-xs-4">
+									<p>Nach Beendung der Transferphase <br> kann deine Schule ins neue Schuljahr
+										starten.</p>
+								</div>
+							</div>
+							<div class="row body">
+								<div class="col-xs-4">
+									<p><i class="fa fa-arrow-right"></i> Du kannst nicht mehr zurück</p>
+								</div>
+								<div class="col-xs-4">
+									<div class="d-flex justify-content-center">
+										<p><i class="fa fa-check green"></i> Logins bestehender Nutzer</p>
+										<p><i class="fa fa-check green"></i> Kennwortänderungen im LDAP</p>
+										<p><i class="fa fa-times red"></i> Änderung von Klassen/neue Klassen</p>
+										<p><i class="fa fa-times red"></i> Änderung von Nutzerdaten/neue Nutzer</p>
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<p><i class="fa fa-smile-o"></i> Alles erledigt!</p>
+								</div>
+							</div>
+							<form action="/administration/startschoolyear" type="post">
+								{{> "lib/components/csrfInput"}}
+								<div class="row">
+									<div class="col-xs-12 col-md-4 text-center">
+										<button {{#ifeq ../schoolMaintananceMode "standby"}}{{else}}disabled{{/ifeq}}
+											class="btn btn-primary btn-terminate-school-year">Transferphase
+											starten</button>
+									</div>
+									<div class="col-xs-12 col-md-4 text-center">
+										<p><a href="#" id="checkldapdata"
+												class="btn btn-primary {{#ifeq ../schoolMaintananceMode "active"}}{{else}}disabled{{/ifeq}}">LDAP-Daten
+												überprüfen</a></p>
+										<label>
+											<input required disabled type="checkbox" id="startldapschoolyear">
+											Nutzer- und Klassendaten im LDAP <br> für das neue Schuljahr sind
+											bearbeitet.
+										</label>
+									</div>
+									<div class="col-xs-12 col-md-4 text-center">
+										<button disabled id="buttonstartldapschoolyear"
+											class="btn btn-primary">Transferphase beenden</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</section>
+					{{/ifeq}}
+					{{/if}}
+				</div>
+			</div>
+		</div>
 
-    <section class="section-school section-default">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    <!-- Admin View -->
-                    {{#userHasPermission 'ADMIN_VIEW'}}
-                    <h2 class="h4">Schule</h2>
+		{{#embed "lib/components/modal-form" action="/administration/terminateschoolyear" method="post" class="terminate-school-year-modal"}}
+		{{#content "fields"}}
+		{{> "administration/forms/form-terminate-school-year"}}
+		{{/content}}
+		{{/embed}}
+	</section>
 
-                    <form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
-                        <input type="hidden" name="_method" value="patch" />
+	<section class="section-school section-default">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 no-padding">
+					<!-- Admin View -->
+					{{#userHasPermission 'ADMIN_VIEW'}}
+					<h2 class="h4">Schule</h2>
 
+					<form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
+						<input type="hidden" name="_method" value="patch" />
                         <div class="form-group">
                             <label>Name der Schule</label>
                             <input value="{{../school.name}}" type="text" class="form-control" name="name"
@@ -188,29 +209,42 @@
                                 {{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}} readonly{{/userHasPermission}} required />
                         </div>
 
-                        <div class="form-group">
-                            <label>Schullogo hochladen</label><br />
-                            <input type="hidden" name="logo_dataUrl">
-                            <input type="file" id="logo-input">
-                            <label for="logo-input" class="btn btn-secondary">Datei auswählen</label>
-                            <span id="logo-filename">Keine Datei ausgewählt</span>
-                            <img id="preview-logo" src="">
-                            <canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
-                        </div>
+						<div class="form-group">
+							<label>Schullogo hochladen</label><br />
+							<input type="hidden" name="logo_dataUrl">
+							<input type="file" id="logo-input">
+							<label for="logo-input" class="btn btn-secondary">Datei auswählen</label>
+							<span id="logo-filename">Keine Datei ausgewählt</span>
+							<img id="preview-logo" src="">
+							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
+						</div>
 
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" name="rocketchat" value="true"
-                                    {{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
-                                Chatfunktion aktivieren
-                                <p class="text-muted">Durch Ihren Klick auf „Chatfunktion aktivieren“ bestätigen Sie,
-                                    dass Sie weisungsberechtigter Schul-Administrator und befugt sind,
-                                    die Chat-Funktion für Ihre Schule freizuschalten. Ihr Klick gilt insofern als
-                                    Weisung der Schule gegenüber dem HPI.</p>
-                            </label>
-                        </div>
-
-                        {{#if ../school.fileStorageType}}
+						<div class="form-group">
+							<label>
+								<input type="checkbox" name="rocketchat" value="true"
+									{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
+								Chatfunktion aktivieren
+								<p class="text-muted">Durch Ihren Klick auf „Chatfunktion aktivieren“ bestätigen Sie,
+									dass Sie weisungsberechtigter Schul-Administrator und befugt sind,
+									die Funktion für Ihre Schule freizuschalten. Ihr Klick gilt insofern als
+									Weisung der Schule gegenüber dem HPI.</p>
+							</label>
+						</div>
+						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+						<div class="form-group">
+							<label>
+								<input type="checkbox" name="videoconference" value="true"
+									{{#inArray "videoconference" ../../school.features}}checked{{/inArray}}>
+								Videokonferenzen für Teams, Klassen und Termine aktivieren
+								<p class="text-muted">Durch Ihren Klick auf „Videokonferenzen für Teams, Klassen und
+									Termine aktivieren“ bestätigen Sie,
+									dass Sie weisungsberechtigter Schul-Administrator und befugt sind,
+									die Funktion für Ihre Schule freizuschalten. Ihr Klick gilt insofern als
+									Weisung der Schule gegenüber dem HPI.</p>
+							</label>
+						</div>
+						{{/ifConfig}}
+						{{#if ../school.fileStorageType}}
                         <div class="form-group">
                             <label>Cloud-Storage Anbieter</label>
                             <select name="fileStorageType" type="text" {{#userHasPermission 'SCHOOL_EDIT'}}{{else}} disabled{{/userHasPermission}}>
@@ -220,46 +254,46 @@
                                 {{/each}} </select> </div> {{/if}}
                         {{> "lib/components/csrfInput"}}
                         <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
-                    </form>
+					</form>
 
-                    {{#if ../school.fileStorageType}}
-                    <div style="padding-top: 20px">
-                        <label>Genutzter Datei-Speicherplatz in der Cloud</label>
-                        <p>Derzeit bezieht Ihre Schule {{writeFileSizePretty ../totalStorage.totalSize}}.</p>
-                    </div>
-                    {{/if}}
-                    {{/userHasPermission}}
-                </div>
-            </div>
-        </div>
-    </section>
-    {{#unless school.fileStorageType}}
-    <section class="section-school section-default">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    <form action="/administration/schools/{{currentSchool}}/bucket" method="post"
-                        class="edit-form-school">
+					{{#if ../school.fileStorageType}}
+					<div style="padding-top: 20px">
+						<label>Genutzter Datei-Speicherplatz in der Cloud</label>
+						<p>Derzeit bezieht Ihre Schule {{writeFileSizePretty ../totalStorage.totalSize}}.</p>
+					</div>
+					{{/if}}
+					{{/userHasPermission}}
+				</div>
+			</div>
+		</div>
+	</section>
+	{{#unless school.fileStorageType}}
+	<section class="section-school section-default">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 no-padding">
+					<form action="/administration/schools/{{currentSchool}}/bucket" method="post"
+						class="edit-form-school">
 
-                        <div class="form-group">
-                            <label>Cloud-Storage Anbieter</label>
-                            <select name="fileStorageType" type="text">
-                                <option disabled="disabled" selected="selected">Anbieter auswählen</option>
-                                {{#each provider}}
-                                <option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}}
-                                </option>
-                                {{/each}}
-                            </select> </div>
+						<div class="form-group">
+							<label>Cloud-Storage Anbieter</label>
+							<select name="fileStorageType" type="text">
+								<option disabled="disabled" selected="selected">Anbieter auswählen</option>
+								{{#each provider}}
+								<option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}}
+								</option>
+								{{/each}}
+							</select> </div>
 
-                        {{> "lib/components/csrfInput"}}
-                        <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+						{{> "lib/components/csrfInput"}}
+						<button type="submit" class="btn btn-primary btn-submit">Speichern</button>
 
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    {{/unless}}
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	{{/unless}}
 
     {{#userHasPermission 'SCHOOL_EDIT'}}
     <section class="section-school section-default">
@@ -267,17 +301,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 no-padding">
-                    {{> "lib/components/table" head=systemsHead body=systemsBody}}
+                    {{> "lib/components/table" head=../systemsHead body=../systemsBody}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12 no-padding">
                     <form action="/administration/systems/ldap/add" method="POST">
+                        {{> "lib/components/csrfInput"}}
                         <button type="submit" class="btn btn-primary btn-add-modal ">
                             System hinzufügen
                         </button>
-                        {{#if ldapAddable}}
-                        {{> "lib/components/csrfInput"}}
+                        {{#if ../ldapAddable}}
                         <button type="submit" class="btn btn-primary">
                             LDAP System hinzufügen
                         </button>
@@ -286,64 +320,64 @@
                 </div>
             </div>
         </div>
-
-        {{#embed "lib/components/modal-form" method="patch" class="edit-modal" collapseId=1}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-systems"}}
-        {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal-form" action="/administration/systems/" method="post" class="add-modal"
-        collapseId=2}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-systems"}}
-        {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal-form" body=systemsBody method="delete" class="delete-modal"}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-delete-alias"}}
-        {{/content}}
-        {{/embed}}
     </section>
     {{/userHasPermission}}
 
+    {{#embed "lib/components/modal-form" method="patch" class="edit-modal" collapseId=1}}
+    {{#content "fields"}}
+    {{> "administration/forms/form-systems"}}
+    {{/content}}
+    {{/embed}}
 
-    <section class="section-school section-default">
-        <h2 class="h4">RSS-Feeds</h2>
-        <div class="container-fluid">
-            <div class="row">
-                {{#if hasRSS}}
-                <div class="col-sm-12 no-padding">
-                    {{> "lib/components/table" head=rssHead body=rssBody}}
-                </div>
-                {{else}}
-                <p>Es sind noch keine RSS-Feeds hinterlegt.</p>
-                {{/if}}
-            </div>
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    <button type="submit" class="btn btn-primary btn-add-modal--rss">
-                        RSS-Feed hinzufügen
-                    </button>
-                </div>
-            </div>
-        </div>
+    {{#embed "lib/components/modal-form" action="/administration/systems/" method="post" class="add-modal"
+    collapseId=2}}
+    {{#content "fields"}}
+    {{> "administration/forms/form-systems"}}
+    {{/content}}
+    {{/embed}}
 
-        {{#embed "lib/components/modal-form" action="/administration/rss/" method="post" class="add-modal--rss"
+    {{#embed "lib/components/modal-form" body=systemsBody method="delete" class="delete-modal"}}
+    {{#content "fields"}}
+    {{> "administration/forms/form-delete-alias"}}
+    {{/content}}
+    {{/embed}}
+
+
+	<section class="section-school section-default">
+		<h2 class="h4">RSS-Feeds</h2>
+		<div class="container-fluid">
+			<div class="row">
+				{{#if hasRSS}}
+				<div class="col-sm-12 no-padding">
+					{{> "lib/components/table" head=rssHead body=rssBody}}
+				</div>
+				{{else}}
+				<p>Es sind noch keine RSS-Feeds hinterlegt.</p>
+				{{/if}}
+			</div>
+			<div class="row">
+				<div class="col-sm-12 no-padding">
+					<button type="submit" class="btn btn-primary btn-add-modal--rss">
+						RSS-Feed hinzufügen
+					</button>
+				</div>
+			</div>
+		</div>
+
+		{{#embed "lib/components/modal-form" action="/administration/rss/" method="post" class="add-modal--rss"
         collapseId=3}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-rss"}}
-        {{/content}}
-        {{/embed}}
+		{{#content "fields"}}
+		{{> "administration/forms/form-rss"}}
+		{{/content}}
+		{{/embed}}
 
-        {{#embed "lib/components/modal-form" body=rssBody method="delete" class="delete-modal--rss"}}
-        {{#content "fields"}}
-        {{> "administration/forms/form-delete-rss"}}
-        {{/content}}
-        {{/embed}}
+		{{#embed "lib/components/modal-form" body=rssBody method="delete" class="delete-modal--rss"}}
+		{{#content "fields"}}
+		{{> "administration/forms/form-delete-rss"}}
+		{{/content}}
+		{{/embed}}
 
-    </section>
+	</section>
 </div>
 {{/content}}
 {{/extend}}
