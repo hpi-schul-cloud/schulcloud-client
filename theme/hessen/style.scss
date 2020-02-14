@@ -11,7 +11,7 @@ $logoBackground: url("../../images/logo/cloud-transparent-mono.svg") no-repeat c
 $logoBackgroundTablet: url("../../images/logo/cloud-transparent-mono-48-48.svg") no-repeat center;
 
 header.header{
-	background-color: #AC0020
+	background: linear-gradient(45deg, #E60146, #F4027C);
 }
 h1.homepage-title{
 	color: $primaryColor
