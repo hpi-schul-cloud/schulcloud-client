@@ -41,11 +41,18 @@ router.post('/login/', (req, res, next) => {
 	return authHelper.login({ strategy: 'local', username, password }, req, res, next);
 });
 
+const redirectAuthenticated = (req, res) => {
+	let redirectUrl = '/login/success';
+	if (req.query && req.query.redirect) {
+		redirectUrl = `${redirectUrl}?redirect=${req.query.redirect}`;
+	}
+	return res.redirect(redirectUrl);
+};
 
 router.all('/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
-			return res.redirect('/login/success/');
+			return redirectAuthenticated(req, res);
 		}
 		return new Promise((resolve) => {
 			feedr.readFeed('https://blog.schul-cloud.org/rss', {
@@ -95,7 +102,7 @@ router.all('/', (req, res, next) => {
 router.all('/login/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
-			return res.redirect('/login/success/');
+			return redirectAuthenticated(req, res);
 		}
 		return getSelectOptions(req,
 			'schools', {
@@ -142,9 +149,14 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 						});
 				}
 				const consent = consents.data[0];
-				const redirectUrl = (req.session.login_challenge
-					? '/oauth2/login/success'
-					: '/dashboard');
+				let redirectUrl;
+				if (req.query && req.query.redirect) {
+					redirectUrl = req.query.redirect;
+				} else if (req.session.login_challenge) {
+					redirectUrl = '/oauth2/login/success';
+				} else {
+					redirectUrl = '/dashboard';
+				}
 				// check consent versions
 				return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
 					if (consent.access && !consentUpdates.haveBeenUpdated) {
