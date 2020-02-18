@@ -128,9 +128,6 @@ const authChecker = (req, res, next) => {
 	isAuthenticated(req)
 		.then((isAuthenticated2) => {
 			let redirectUrl = req.app.Config.get('NOT_AUTHENTICATED_REDIRECT_URL');
-			if (req.query && req.query.challenge) {
-				redirectUrl = `/login?challenge=${req.query.challenge}`;
-			}
 			if (isAuthenticated2) {
 				// fetch user profile
 				populateCurrentUser(req, res)
