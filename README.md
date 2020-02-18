@@ -2,7 +2,7 @@
 _An implementation of the Schul-Cloud client with NodeJS and Express._  
   
 Dev: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/schul-cloud/schulcloud-client)
-Master: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/schul-cloud/schulcloud-client)
+Master: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/schul-cloud/schulcloud-client) [![Greenkeeper badge](https://badges.greenkeeper.io/schul-cloud/schulcloud-client.svg)](https://greenkeeper.io/)
   
 > # Deprecation Warning
 > Please note that this client is going to be deprecated.
