@@ -176,9 +176,14 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 
 		ssoSchoolData(req, systemId).then((school) => {
 			if (school === undefined) {
-				const redirectUrl = (req.session.login_challenge
-					? '/oauth2/login/success'
-					: '/dashboard/');
+				let redirectUrl;
+				if (req.query && req.query.redirect) {
+					redirectUrl = req.query.redirect;
+				} else if (req.session.login_challenge) {
+					redirectUrl = '/oauth2/login/success';
+				} else {
+					redirectUrl = '/dashboard';
+				}
 				res.redirect(redirectUrl);
 			} else {
 				res.redirect(`/registration/${school._id}/sso/${accountId}`);
