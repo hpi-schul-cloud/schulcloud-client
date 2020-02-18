@@ -61,7 +61,7 @@ const ModeratorInactiveState = Object.freeze({
 					}),
 				}).done((response) => {
 					// todo, the browser may block popups...
-					window.open(response.url, '_blank');
+					window.location.replace(response.url);
 					updateVideoconferenceForEvent(container);
 				}).fail(() => {
 					$.showNotification(ERROR_MESSAGES.GENERAL_ERROR, 'danger');
@@ -134,7 +134,7 @@ function joinConference(container) {
 			options: {},
 		}),
 	}).done((res) => {
-		window.open(res.url, '_blank');
+		window.location.replace(res.url);
 	}).fail((err) => {
 		// eslint-disable-next-line no-console
 		console.error(err);
