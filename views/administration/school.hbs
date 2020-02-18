@@ -224,10 +224,10 @@
 								<input type="checkbox" name="rocketchat" value="true"
 									{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
 								Chatfunktion aktivieren
-								<p class="text-muted">Durch Ihren Klick auf „Chatfunktion aktivieren“ bestätigen Sie,
-									dass Sie weisungsberechtigter Schul-Administrator und befugt sind,
-									die Funktion für Ihre Schule freizuschalten. Ihr Klick gilt insofern als
-									Weisung der Schule gegenüber dem HPI.</p>
+								<p class="text-muted">
+									Sind Chats an deiner Schule aktiviert, können Team-Administratoren
+									im jeweiligen Team die Chatfunktion gezielt freischalten.
+								</p>
 							</label>
 						</div>
 						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
@@ -236,11 +236,14 @@
 								<input type="checkbox" name="videoconference" value="true"
 									{{#inArray "videoconference" ../../school.features}}checked{{/inArray}}>
 								Videokonferenzen für Teams, Klassen und Termine aktivieren
-								<p class="text-muted">Durch Ihren Klick auf „Videokonferenzen für Teams, Klassen und
-									Termine aktivieren“ bestätigen Sie,
-									dass Sie weisungsberechtigter Schul-Administrator und befugt sind,
-									die Funktion für Ihre Schule freizuschalten. Ihr Klick gilt insofern als
-									Weisung der Schule gegenüber dem HPI.</p>
+								<p class="text-muted">
+									Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte 
+									ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und
+									dann von dort aus Videokonferenzen für alle Kursteilnehmer starten.
+									Team-Administratoren können die Videokonferenzfunktion im jeweiligen
+									Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen
+									zu Terminen hinzufügen und starten. 
+								</p>
 							</label>
 						</div>
 						{{/ifConfig}}
