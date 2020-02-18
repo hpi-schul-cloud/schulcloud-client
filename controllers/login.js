@@ -52,6 +52,16 @@ const redirectAuthenticated = (req, res) => {
 	return res.redirect(redirectUrl);
 };
 
+const determineRedirectUrl = (req) => {
+	if (req.query && req.query.redirect) {
+		return req.query.redirect;
+	}
+	if (req.session.login_challenge) {
+		return '/oauth2/login/success';
+	}
+	return '/dashboard';
+};
+
 router.all('/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
@@ -153,14 +163,7 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 						});
 				}
 				const consent = consents.data[0];
-				let redirectUrl;
-				if (req.query && req.query.redirect) {
-					redirectUrl = req.query.redirect;
-				} else if (req.session.login_challenge) {
-					redirectUrl = '/oauth2/login/success';
-				} else {
-					redirectUrl = '/dashboard';
-				}
+				const redirectUrl = determineRedirectUrl(req);
 				// check consent versions
 				return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
 					if (consent.access && !consentUpdates.haveBeenUpdated) {
@@ -176,14 +179,7 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 
 		ssoSchoolData(req, systemId).then((school) => {
 			if (school === undefined) {
-				let redirectUrl;
-				if (req.query && req.query.redirect) {
-					redirectUrl = req.query.redirect;
-				} else if (req.session.login_challenge) {
-					redirectUrl = '/oauth2/login/success';
-				} else {
-					redirectUrl = '/dashboard';
-				}
+				const redirectUrl = determineRedirectUrl(req);
 				res.redirect(redirectUrl);
 			} else {
 				res.redirect(`/registration/${school._id}/sso/${accountId}`);
