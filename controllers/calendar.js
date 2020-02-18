@@ -12,9 +12,14 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 router.use(require('../helpers/authentication').authChecker);
 
 router.get('/', function (req, res, next) {
+    const schoolUsesVideoconferencing = (
+        res.locals.currentSchoolData.features || []
+    ).includes('videoconference');
+    const showVideoconferenceOption = schoolUsesVideoconferencing;
     res.render('calendar/calendar', {
         title: 'Kalender',
-        userId: res.locals.currentUser._id
+        userId: res.locals.currentUser._id,
+        showVideoconferenceOption,
     });
 });
 
