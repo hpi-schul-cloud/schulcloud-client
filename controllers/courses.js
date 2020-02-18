@@ -629,15 +629,10 @@ router.get('/:courseId/', (req, res, next) => {
 	Promise.all(promises)
 		.then(([course, _lessons, _homeworks, _courseGroups, scopedPermissions, _newLessons]) => {
 			// ############################## check if new Editor options should show #################
-			const courseFeatures = course.features || [];
-			if (courseFeatures.includes('edtr') && !req.cookies.edtr) {
-				res.cookie('edtr', true, { maxAge: 90000000 });
-			} else if (!courseFeatures.includes('edtr') && req.cookies.edtr === 'true') {
-				res.cookie('edtr', false, { maxAge: 1000 });
-				req.cookies.edtr = 'false';
-			}
+			const userHasEditorEnabled = EDITOR_URL && (res.locals.currentUser.features || []).includes('edtr');
+			const courseHasNewEditorLessons = ((_newLessons || {}).total || 0) > 0;
 
-			const isNewEdtrioActivated = (courseFeatures.includes('edtr') || req.cookies.edtr === 'true');
+			const isNewEdtrioActivated = (courseHasNewEditorLessons || userHasEditorEnabled);
 			// ################################ end new Editor check ##################################
 
 			const ltiToolIds = (course.ltiToolIds || []).filter(
