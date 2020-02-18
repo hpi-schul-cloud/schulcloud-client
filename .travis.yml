@@ -5,6 +5,7 @@ branches:
     - develop
     - master
     - /^(?i:release|hotfix).*$/
+    - /^greenkeeper/.*$/
 services:
   - docker
 env:
