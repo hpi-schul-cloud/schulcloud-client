@@ -127,7 +127,10 @@ const restrictSidebar = (req, res) => {
 const authChecker = (req, res, next) => {
 	isAuthenticated(req)
 		.then((isAuthenticated2) => {
-			const redirectUrl = `/login?challenge=${req.query.challenge}`;
+			let redirectUrl = req.app.Config.get('NOT_AUTHENTICATED_REDIRECT_URL');
+			if (req.query && req.query.challenge) {
+				redirectUrl = `/login?challenge=${req.query.challenge}`;
+			}
 			if (isAuthenticated2) {
 				// fetch user profile
 				populateCurrentUser(req, res)
@@ -146,34 +149,42 @@ const authChecker = (req, res, next) => {
 						}
 					});
 			} else {
-				res.redirect(redirectUrl);
+				res.redirect(`${redirectUrl}?redirect=${req.originalUrl}`);
 			}
 		});
 };
 
-const login = (payload, req, res, next) => api(req).post('/authentication', { json: payload }).then((data) => {
-	res.cookie('jwt', data.accessToken,
-		Object.assign({},
-			{
-				expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-				httpOnly: false, // can't be set to true with nuxt client
-				hostOnly: true,
-				secure: process.env.NODE_ENV === 'production',
-			},
-			cookieDomain(res)));
-	res.redirect('/login/success/');
-}).catch((e) => {
-	res.locals.notification = {
-		type: 'danger',
-		message: 'Login fehlgeschlagen.',
-		statusCode: e.statusCode,
-		timeToWait: process.env.LOGIN_BLOCK_TIME || 15,
-	};
-	if (e.statusCode === 429) {
-		res.locals.notification.timeToWait = e.error.data.timeToWait;
-	}
-	next();
-});
+const login = (payload = {}, req, res, next) => {
+	const { redirect } = payload;
+	delete payload.redirect;
+	return api(req).post('/authentication', { json: payload }).then((data) => {
+		res.cookie('jwt', data.accessToken,
+			Object.assign({},
+				{
+					expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+					httpOnly: false, // can't be set to true with nuxt client
+					hostOnly: true,
+					secure: process.env.NODE_ENV === 'production',
+				},
+				cookieDomain(res)));
+		let redirectUrl = '/login/success';
+		if (redirect) {
+			redirectUrl = `${redirectUrl}?redirect=${redirect}`;
+		}
+		res.redirect(redirectUrl);
+	}).catch((e) => {
+		res.locals.notification = {
+			type: 'danger',
+			message: 'Login fehlgeschlagen.',
+			statusCode: e.statusCode,
+			timeToWait: process.env.LOGIN_BLOCK_TIME || 15,
+		};
+		if (e.statusCode === 429) {
+			res.locals.notification.timeToWait = e.error.data.timeToWait;
+		}
+		next();
+	});
+};
 
 module.exports = {
 	clearCookie,

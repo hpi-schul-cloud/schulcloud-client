@@ -19,8 +19,8 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 // SSO Login
 
 router.get('/tsp-login/', (req, res, next) => {
-	const { ticket } = req.query;
-	return authHelper.login({ strategy: 'tsp', ticket }, req, res, next);
+	const { ticket, redirect } = req.query;
+	return authHelper.login({ strategy: 'tsp', ticket, redirect }, req, res, next);
 });
 
 // Login
@@ -31,14 +31,17 @@ router.post('/login/', (req, res, next) => {
 		password,
 		systemId,
 		schoolId,
+		redirect,
 	} = req.body;
 
 	if (systemId) {
-		return api(req).get(`/systems/${req.body.systemId}`).then((system) => authHelper.login({
-			strategy: system.type, username, password, systemId, schoolId,
+		return api(req).get(`/systems/${req.body.systemId}`).then(system => authHelper.login({
+			strategy: system.type, username, password, systemId, schoolId, redirect,
 		}, req, res, next));
 	}
-	return authHelper.login({ strategy: 'local', username, password }, req, res, next);
+	return authHelper.login({
+		strategy: 'local', username, password, redirect,
+	}, req, res, next);
 });
 
 const redirectAuthenticated = (req, res) => {
@@ -115,6 +118,7 @@ router.all('/login/', (req, res, next) => {
 				res.render('authentication/login', {
 					schools,
 					systems: [],
+					redirect: req.query && req.query.redirect ? req.query.redirect : '',
 				});
 			});
 	}).catch((error) => {
