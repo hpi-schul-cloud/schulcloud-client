@@ -19,7 +19,8 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 // SSO Login
 
 router.get('/tsp-login/', (req, res, next) => {
-	const { ticket, redirect } = req.query;
+	const { ticket, redirect: redirectParam } = req.query;
+	const redirect = Array.isArray(redirectParam) ? redirectParam[0] : redirectParam;
 	return authHelper.login({ strategy: 'tsp', ticket, redirect }, req, res, next);
 });
 
