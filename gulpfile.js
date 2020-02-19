@@ -94,9 +94,9 @@ gulp.task('other', () => gulp
 
 // minify static/other
 // uses gulp.src instead of beginPipe for performance reasons (logging is slow)
-gulp.task('other-with-theme', ['other'], () => gulp
+gulp.task('other-with-theme', gulp.series('other', () => gulp
 	.src(withTheme('./static/other/**/*.*'))
-	.pipe(gulp.dest(`./build/${themeName()}/other`)));
+	.pipe(gulp.dest(`./build/${themeName()}/other`))));
 
 const loadPaths = path.resolve('./static/styles/');
 sassGrapher.init('./static/styles/', {
