@@ -5,7 +5,7 @@ const {
 	KEEP_ALIVE = false,
 	BACKEND_URL = 'http://localhost:3030/',
 	PUBLIC_BACKEND_URL,
-	EDITOR_URL = 'http://localhost:4001',
+	EDITOR_URL = undefined,
 	SENTRY_DSN = false,
 	SC_DOMAIN = 'localhost',
 	SC_THEME = 'default',
