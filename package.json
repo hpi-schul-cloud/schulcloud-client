@@ -113,7 +113,7 @@
 		"gulp-uglify": "^2.0.1",
 		"istanbul": "^0.4.5",
 		"mocha": "^6.2.1",
-		"node-sass": "^4.12.0",
+		"node-sass": "^4.13.1",
 		"nodemon": "^1.18.3",
 		"postcss-css-variables": "^0.13.0",
 		"pump": "^1.0.2",
