@@ -320,7 +320,7 @@ gulp.task('browser-sync', () => {
 	});
 });
 
-gulp.task('watch-reload', gulp.series('watch', 'nodemon', 'browser-sync'));
+gulp.task('watch-reload', gulp.parallel('watch', 'nodemon', 'browser-sync'));
 
 
 // run this if only 'gulp' is run on the commandline with no task specified
