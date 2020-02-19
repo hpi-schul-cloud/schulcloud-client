@@ -16,15 +16,12 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then(data => data.data);
 
-const clearCookie = (req, res, options = { destroySession: false }) => {
-	if (options.destroySession && req.session && req.session.destroy) {
-		req.session.destroy();
-	}
-	res.clearCookie('jwt');
-	if (res.locals && res.locals.domain) {
-		res.clearCookie('jwt', { domain: res.locals.domain });
-	}
-};
+// SSO Login
+
+router.get('/tsp-login/', (req, res, next) => {
+	const { ticket } = req.query;
+	return authHelper.login({ strategy: 'tsp', ticket }, req, res, next);
+});
 
 // Login
 
@@ -36,34 +33,12 @@ router.post('/login/', (req, res, next) => {
 		schoolId,
 	} = req.body;
 
-	const login = d => api(req).post('/authentication', { json: d }).then((data) => {
-		res.cookie('jwt', data.accessToken,
-			{
-				expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-				httpOnly: false, // can't be set to true with nuxt client
-				hostOnly: true,
-				secure: process.env.NODE_ENV === 'production',
-			});
-		res.redirect('/login/success/');
-	}).catch((e) => {
-		res.locals.notification = {
-			type: 'danger',
-			message: 'Login fehlgeschlagen.',
-			statusCode: e.statusCode,
-			timeToWait: process.env.LOGIN_BLOCK_TIME || 15,
-		};
-		if (e.statusCode === 429) {
-			res.locals.notification.timeToWait = e.error.data.timeToWait;
-		}
-		next();
-	});
-
 	if (systemId) {
-		return api(req).get(`/systems/${req.body.systemId}`).then(system => login({
+		return api(req).get(`/systems/${req.body.systemId}`).then((system) => authHelper.login({
 			strategy: system.type, username, password, systemId, schoolId,
-		}));
+		}, req, res, next));
 	}
-	return login({ strategy: 'local', username, password });
+	return authHelper.login({ strategy: 'local', username, password }, req, res, next);
 });
 
 
@@ -129,7 +104,7 @@ router.all('/login/', (req, res, next) => {
 				$sort: 'name',
 			})
 			.then((schools) => {
-				clearCookie(req, res);
+				authHelper.clearCookie(req, res);
 				res.render('authentication/login', {
 					schools,
 					systems: [],
@@ -137,7 +112,7 @@ router.all('/login/', (req, res, next) => {
 			});
 	}).catch((error) => {
 		logger.error(error);
-		clearCookie(req, res, { destroySession: true });
+		authHelper.clearCookie(req, res, { destroySession: true });
 		return res.redirect('/');
 	});
 });
@@ -153,6 +128,7 @@ const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
 	return undefined;
 }).catch(() => undefined); // fixme this is a very bad error catch
 // so we can do proper redirecting and stuff :)
+
 router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 	if (res.locals.currentUser) {
 		const user = res.locals.currentUser;
@@ -210,7 +186,7 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
 		.then(() => {
-			clearCookie(req, res, { destroySession: true });
+			authHelper.clearCookie(req, res, { destroySession: true });
 			return res.redirect('/');
 		}).catch(() => res.redirect('/'));
 });

@@ -50,15 +50,16 @@
                         </p>
                     </div>
 
+					{{#userHasPermission "REQUEST_CONSENTS"}}
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
                             <h2 class="h4">
                                 Einverständniserklärung einholen
                             </h2>
-                            {{#if schoolUsesLdap}}
+                            {{#if ../schoolUsesLdap}}
                                 <strong>Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein</strong>
 
-                                <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
+                                <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{../theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
                             {{else}}
                                 <strong>Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben</strong>
                                 <p>
@@ -79,6 +80,7 @@
                             {{/if}}
                         </div>
                     </div>
+					{{/userHasPermission}}
 
                     <div class="row">
                         {{#if schoolUsesLdap}}
@@ -98,6 +100,8 @@
                                             Schüler importieren
                                         </button>
                                     {{/inArray}}
+                                {{else}}
+                                    {{> "lib/no-create-info"}}
                                 {{/userHasPermission}}
                             </div>
                         {{/if}}
