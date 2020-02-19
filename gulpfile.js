@@ -71,12 +71,12 @@ const handleError = (error) => {
 };
 
 const beginPipe = src => gulp
-	.src(withTheme(src),  { allowEmpty: true, since: gulp.lastRun('build-all') })
+	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
 	.pipe(filelog());
 
 const beginPipeAll = src => gulp
-	.src(withTheme(src), { allowEmpty: true })
+	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
 	.pipe(filelog());
 
@@ -267,7 +267,7 @@ gulp.task('build-all', gulp.series(
 	'vendor-assets',
 	'vendor-optimized-assets',
 	'node-modules',
-	'static'
+	'static',
 ));
 
 gulp.task('build-theme-files', gulp.series('styles', 'styles-done', 'images', 'static'));
@@ -326,7 +326,6 @@ gulp.task('browser-sync', gulp.series('nodemon'), () => {
 });
 
 gulp.task('watch-reload', gulp.series('watch', 'browser-sync'));
-
 
 
 // run this if only 'gulp' is run on the commandline with no task specified
