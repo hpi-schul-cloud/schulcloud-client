@@ -273,26 +273,21 @@ gulp.task('build-all', gulp.series(
 gulp.task('build-theme-files', gulp.series('styles', 'styles-done', 'images', 'static'));
 
 // watch and run corresponding task on change, process changed files only
-gulp.task('watch', gulp.series('build-all'), () => {
+gulp.task('watch', gulp.series('build-all', () => {
 	const watchOptions = { interval: 1000 };
-	gulp.watch(baseScripts, watchOptions, ['base-scripts']);
+	gulp.watch(baseScripts, watchOptions, gulp.series('base-scripts'));
 	gulp.watch(
 		withTheme('./static/styles/**/*.{css,sass,scss}'),
 		watchOptions,
-		['styles', 'styles-done'],
+		gulp.series('styles', 'styles-done'),
 	);
-	gulp.watch(withTheme('./static/images/**/*.*'), watchOptions, [
-		'images',
-	]).on('change', browserSync.reload);
-	gulp.watch(withTheme(nonBaseScripts), watchOptions, [
-		'scripts',
-	]);
+	gulp.watch(withTheme('./static/images/**/*.*'), watchOptions, gulp.series('images'))
+		.on('change', browserSync.reload);
+	gulp.watch(withTheme(nonBaseScripts), watchOptions, gulp.series('scripts'));
 
-	gulp.watch(withTheme('./static/vendor-optimized/**/*.*'), watchOptions, [
-		'vendor-optimized-assets',
-	]);
-	gulp.watch(withTheme('./static/*.*'), watchOptions, ['static']);
-});
+	gulp.watch(withTheme('./static/vendor-optimized/**/*.*'), watchOptions, gulp.series('vendor-optimized-assets'));
+	gulp.watch(withTheme('./static/*.*'), watchOptions, gulp.series('static'));
+}));
 
 gulp.task('nodemon', (cb) => {
 	let started = false;
@@ -310,7 +305,7 @@ gulp.task('nodemon', (cb) => {
 	});
 });
 
-gulp.task('browser-sync', gulp.series('nodemon'), () => {
+gulp.task('browser-sync', () => {
 	browserSync.init(null, {
 		proxy: 'http://localhost:3100',
 		open: false,
@@ -325,7 +320,7 @@ gulp.task('browser-sync', gulp.series('nodemon'), () => {
 	});
 });
 
-gulp.task('watch-reload', gulp.series('watch', 'browser-sync'));
+gulp.task('watch-reload', gulp.series('watch', 'nodemon', 'browser-sync'));
 
 
 // run this if only 'gulp' is run on the commandline with no task specified
