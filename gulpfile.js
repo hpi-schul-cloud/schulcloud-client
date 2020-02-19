@@ -71,7 +71,7 @@ const handleError = (error) => {
 };
 
 const beginPipe = src => gulp
-	.src(withTheme(src),  { allowEmpty: true })
+	.src(withTheme(src),  { allowEmpty: true, since: gulp.lastRun('build-all') })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
 	.pipe(filelog());
 
