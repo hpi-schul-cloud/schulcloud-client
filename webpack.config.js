@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const RebuildChangedPlugin = require('rebuild-changed-entrypoints-webpack-plugin');
 
+let minimize = true;
+
 const plugins = [
 	// By default, moment loads aaaall the locale files, which bloats the bundle size
 	// This plugin forces moment to only load the German locale
@@ -15,6 +17,7 @@ const devPlugins = [
 ];
 
 if (process.env.NODE_ENV !== 'production') {
+	minimize = false;
 	plugins.push(...devPlugins);
 }
 
@@ -40,6 +43,7 @@ module.exports = {
 		],
 	},
 	optimization: {
+		minimize,
 		splitChunks: {
 			cacheGroups: {
 				// Bundle react & react-dom into separate vendor-react bundle
