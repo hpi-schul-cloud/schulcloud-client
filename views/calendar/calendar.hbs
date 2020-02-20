@@ -15,7 +15,7 @@
         </div>
 
         {{#userHasPermission "CALENDAR_CREATE"}}
-        {{#embed "lib/components/modal-form" class="create-event-modal" action="/calendar/events/" userId=../userId}}
+        {{#embed "lib/components/modal-form" class="create-event-modal" action="/calendar/events/" userId=../userId showVideoconferenceOption=../showVideoconferenceOption}}
             {{#content "fields"}}
                 {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="2" collapseIdTeam="3"}}
             {{/content}}

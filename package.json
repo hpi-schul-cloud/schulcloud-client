@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "22.1.1",
+	"version": "22.1.4",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -52,10 +52,10 @@
 		"handlebars": "^4.5.3",
 		"handlebars-layouts": "^3.1.4",
 		"handlebars-wax": "^5.1.1",
-		"hbs": "^4.0.6",
+		"hbs": "git://github.com/schul-cloud/hbs.git",
 		"ipaddr.js": "^1.5.4",
 		"jquery-datetimepicker": "^2.5.20",
-		"jsonwebtoken": "^7.3.0",
+		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.15",
 		"marked": "^0.7.0",
 		"mathjax": "2.7.4",
@@ -99,7 +99,7 @@
 		"eslint-config-airbnb-base": "^13.1.0",
 		"eslint-plugin-import": "^2.17.1",
 		"expose-loader": "^0.7.5",
-		"gulp": "^3.9.1",
+		"gulp": "^4.0.2",
 		"gulp-babel": "^8.0.0",
 		"gulp-changed-smart": "^1.1.1",
 		"gulp-clean-css": "^3.0.3",
@@ -122,7 +122,7 @@
 		"istanbul": "^0.4.5",
 		"lint-staged": "^10.0.7",
 		"mocha": "^6.2.1",
-		"node-sass": "^4.12.0",
+		"node-sass": "^4.13.1",
 		"nodemon": "^1.18.3",
 		"postcss-css-variables": "^0.13.0",
 		"pump": "^1.0.2",
@@ -132,7 +132,7 @@
 		"script-loader": "^0.7.2",
 		"vinyl-map": "^1.0.2",
 		"vinyl-named": "^1.1.0",
-		"webpack": "^4.16.1",
-		"webpack-stream": "^4.0.3"
+		"webpack": "^4.41.5",
+		"webpack-stream": "^5.2.1"
 	}
 }
