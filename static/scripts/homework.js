@@ -13,6 +13,10 @@ const getDataValue = function(attr) {
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
 
+$(document).on('pageload', () => {
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub])
+});
+
 function archiveTask(e){
     e.preventDefault();
     e.stopPropagation();
@@ -486,4 +490,7 @@ $(document).ready(() => {
             });
         });
     });
+
+    // typeset all MathJAX formulas displayed
+    MathJax.Hub.Typeset()
 });

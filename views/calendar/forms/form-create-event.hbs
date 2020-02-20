@@ -27,9 +27,9 @@
     {{#userHasPermission "COURSE_EDIT"}}
     <div class="form-group create-course-event">
         <div class="checkbox disabled">
+            <input id="toggle{{../collapseIdCourse}}" name="isCourseEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdCourse}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
             <label>
                 Für Kurs anlegen?
-                <input id="toggle{{../collapseIdCourse}}" name="isCourseEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdCourse}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
             </label>
         </div>
         <div id="collapse{{../collapseIdCourse}}" class="panel-collapse collapse">
@@ -47,9 +47,9 @@
     {{#userHasPermission "COURSE_EDIT"}}
     <div class="form-group create-team-event">
         <div class="checkbox disabled">
+            <input id="toggle{{../collapseIdTeam}}" name="isTeamEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdTeam}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
             <label>
                 Für Team anlegen?
-                <input id="toggle{{../collapseIdTeam}}" name="isTeamEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdTeam}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
             </label>
         </div>
         <div id="collapse{{../collapseIdTeam}}" class="panel-collapse collapse">
@@ -62,3 +62,17 @@
     </div>
     {{/userHasPermission}}
 {{/if}}
+
+
+{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+    {{#if ../showVideoconferenceOption}}
+    <div class="form-group create-videoconference hidden">
+        <div class="checkbox disabled">
+            <input name="featureVideoConference" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
+            <label>
+                Videokonferenz hinzufügen?
+            </label>
+        </div>
+    </div>
+    {{/if}}
+{{/ifConfig}}
