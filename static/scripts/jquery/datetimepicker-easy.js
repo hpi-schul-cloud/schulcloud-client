@@ -32,6 +32,7 @@ if (!window.datetimepicker) {
 				scrollMonth: false,
 				scrollTime: false,
 				scrollInput: false,
+				dayOfWeekStart: 1,
 			});
 			input.setAttribute('autocomplete', 'off');
 			if (input.hasAttribute('required')) {

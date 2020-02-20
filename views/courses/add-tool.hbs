@@ -33,6 +33,12 @@
                 {{/content}}
             {{/embed}}
             {{/userHasPermission}}
+            
+            {{#embed "lib/components/modal-form" class="add-bbb-modal"}}
+            {{#content "fields"}}
+            {{> "courses/forms/form-add-bbb-tool"}}
+            {{/content}}
+            {{/embed}}
         </section>
     {{/content}}
 

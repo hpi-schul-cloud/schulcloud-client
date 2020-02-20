@@ -2224,50 +2224,61 @@ router.get(
 				qs: query,
 			})
 			.then(async (data) => {
-				const head = ['Klasse', 'Lehrer', 'Schuljahr', 'Schüler', ''];
+				const head = ['Klasse', 'Lehrer', 'Schuljahr', 'Schüler'];
+				const hasEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT');
+				if (hasEditPermission) {
+					head.push(''); // action buttons head
+				}
 
 				const schoolYears = res.locals.currentSchoolData.years.schoolYears
 					.sort((a, b) => b.startDate.localeCompare(a.startDate));
 				const lastDefinedSchoolYear = (schoolYears[0] || {})._id;
 
-				const body = data.data.map(item => [
-					item.displayName || '',
-					(item.teacherIds || []).map(i => i.lastName).join(', '),
-					(item.year || {}).name || '',
-					item.userIds.length || '0',
-					((i, basePath) => {
-						const baseActions = [
-							{
-								link: `${basePath + i._id}/manage`,
-								icon: 'users',
-								title: 'Klasse verwalten',
-							},
-							{
-								link: `${basePath + i._id}/edit`,
-								icon: 'edit',
-								title: 'Klasse bearbeiten',
-							},
-							{
-								link: basePath + i._id,
-								class: 'btn-delete',
-								icon: 'trash-o',
-								method: 'delete',
-								title: 'Klasse löschen',
-							},
-						];
-						if (lastDefinedSchoolYear !== (i.year || {})._id
-							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT')
-						) {
-							baseActions.push({
-								link: `${basePath + i._id}/createSuccessor`,
-								icon: 'arrow-up',
-								class: i.successor || i.gradeLevel === 13 ? 'disabled' : '',
-								title: 'Klasse in das nächste Schuljahr versetzen',
-							});
-						}
-						return baseActions;
-					})(item, '/administration/classes/'),
-				]);
+				const createActionButtons = (item, basePath) => {
+					const baseActions = [
+						{
+							link: `${basePath + item._id}/manage`,
+							icon: 'users',
+							title: 'Klasse verwalten',
+						},
+						{
+							link: `${basePath + item._id}/edit`,
+							icon: 'edit',
+							title: 'Klasse bearbeiten',
+						},
+						{
+							link: basePath + item._id,
+							class: 'btn-delete',
+							icon: 'trash-o',
+							method: 'delete',
+							title: 'Klasse löschen',
+						},
+					];
+					if (lastDefinedSchoolYear !== (item.year || {})._id
+						&& permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT')
+					) {
+						baseActions.push({
+							link: `${basePath + item._id}/createSuccessor`,
+							icon: 'arrow-up',
+							class: item.successor || item.gradeLevel === 13 ? 'disabled' : '',
+							title: 'Klasse in das nächste Schuljahr versetzen',
+						});
+					}
+					return baseActions;
+				};
+
+				const body = data.data.map((item) => {
+					const cells = [
+						item.displayName || '',
+						(item.teacherIds || []).map(i => i.lastName).join(', '),
+						(item.year || {}).name || '',
+						item.userIds.length || '0',
+					];
+					if (hasEditPermission) {
+						cells.push(createActionButtons(item, '/administration/classes/'));
+					}
+					return cells;
+				});
 
 				const pagination = {
 					currentPage,
@@ -2441,12 +2452,9 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 		});
 };
 
-const schoolUpdateHandler = async (req, res, next) => {
-	// remove logo attribute from patch if it is not set explicitly (SC-2881)
-	if (req.body && req.body.logo_dataUrl === '') {
-		delete req.body.logo_dataUrl;
-	}
+const schoolFeatureUpdateHandler = async (req, res, next) => {
 	try {
+		// Update rocketchat feature in school
 		const isChatAllowed = (res.locals.currentSchoolData.features || []).includes(
 			'rocketChat',
 		);
@@ -2470,14 +2478,41 @@ const schoolUpdateHandler = async (req, res, next) => {
 			});
 		}
 		delete req.body.rocketchat;
+
+		// Update videoconference feature in school
+		const videoconferenceEnabled = (res.locals.currentSchoolData.features || []).includes(
+			'videoconference',
+		);
+		if (!videoconferenceEnabled && req.body.videoconference === 'true') {
+			// enable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'videoconference',
+					},
+				},
+			});
+		} else if (videoconferenceEnabled && req.body.videoconference !== 'true') {
+			// disable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'videoconference',
+					},
+				},
+			});
+		}
+		delete req.body.videoconference;
 	} catch (err) {
 		next(err);
 	}
+
+	// update other school properties
 	return getUpdateHandler('schools')(req, res, next);
 };
 
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
-router.patch('/schools/:id', schoolUpdateHandler);
+router.patch('/schools/:id', schoolFeatureUpdateHandler);
 router.post('/schools/:id/bucket', createBucket);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch(

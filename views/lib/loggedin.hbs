@@ -14,7 +14,7 @@
 
     {{#content "scripts" mode="append"}}
         <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
-        <script src="/scripts/autologout.js" type="text/javascript" defer></script>
+        <script src="/scripts/autologout.js" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" defer></script>
         <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" defer></script>
         <script type="text/javascript" src="/vendor/feathersjs/feathers.js" defer></script>
         {{#if @root.currentUser.preferences.enterthecloud}}
