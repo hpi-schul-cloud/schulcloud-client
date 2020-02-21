@@ -360,7 +360,7 @@ router.patch('/:topicId/neweditor', (req, res, next) => {
 			json: { visible: !boolean(req.body.hidden) },
 		}).then((response) => {
 			res.json({
-				hidden: response.visible,
+				hidden: !response.visible,
 			});
 		}).catch((err) => {
 			next(err);
