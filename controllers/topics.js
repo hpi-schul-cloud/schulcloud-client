@@ -352,7 +352,8 @@ router.get('/add/neweditor', async (req, res, next) => {
 	res.redirect(`/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`);
 });
 
-const boolean = v => v === 1 || v === 'true' || v === true;
+// eslint-disable-next-line
+const boolean = (v) => v === 1 || v === 'true' || v === true || v === '1';
 router.patch('/:topicId/neweditor', (req, res, next) => {
 	if (req.body.hidden !== undefined) {
 		apiEditor(req).patch(`/helpers/setVisibility/${req.params.topicId}`, {
