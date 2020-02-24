@@ -13,7 +13,7 @@ router.get('/login', csrfProtection, (req, res, next) => api(req)
 		if (loginRequest.skip) {
 			res.redirect('/oauth2/login/success');
 		} else {
-			res.redirect('/login');
+			res.redirect(req.app.Config.get('NOT_AUTHENTICATED_REDIRECT_URL'));
 		}
 	}));
 

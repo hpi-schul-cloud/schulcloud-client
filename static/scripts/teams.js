@@ -4,6 +4,8 @@
 import moment from 'moment';
 import 'jquery-datetimepicker';
 
+import { initVideoconferencing } from './videoconference';
+
 /**
  * transform a event modal-form for team events
  * @param modal {DOM-Element} - the given modal which will be transformed
@@ -14,9 +16,15 @@ function transformTeamEvent(modal, event) {
 	$.getJSON(`/teams/${teamId}/json`, (team) => {
 		const $title = modal.find('.modal-title');
 		$title.html(`${$title.html()}, Team: ${team.team.name}`);
-		// set fix team on editing
-		modal.find("input[name='scopeId']").attr('value', event['x-sc-teamId']);
-		modal.find('.modal-form').append(`<input name='teamId' value='${teamId}' type='hidden'>`);
+
+		const $modalForm = modal.find('.modal-form');
+		if (!$modalForm.find('input[name=teamId]').length) {
+			// append team id field if it is missing
+			$modalForm.append('<input name=\'teamId\' type=\'hidden\'>');
+		}
+		modal.find('input[name=scopeId]').attr('value', event['x-sc-teamId']);
+		modal.find('input[name=teamId]').attr('value', event['x-sc-teamId']);
+
 		modal.find('.create-team-event').remove();
 		modal.find('.create-course-event').remove();
 	});
@@ -53,6 +61,7 @@ $(document).ready(() => {
 			onShow() {
 				this.setOptions({
 					minDate: 0,
+					dayOfWeekStart: 1,
 				});
 			},
 			onChangeDateTime(dp, $input) {
@@ -69,6 +78,8 @@ $(document).ready(() => {
 				});
 			},
 		});
+
+		$createEventModal.find('.create-videoconference').show();
 
 		populateModalForm($createEventModal, {
 			title: 'Termin hinzufügen',
@@ -95,6 +106,7 @@ $(document).ready(() => {
 		$('input[data-datetime]').datetimepicker({
 			format: 'd.m.Y H:i',
 			mask: '39.19.9999 29:59',
+			dayOfWeekStart: 1,
 		});
 
 		if (event.url) {
@@ -103,6 +115,7 @@ $(document).ready(() => {
 		}
 		event.startDate = event.start.format('DD.MM.YYYY HH:mm');
 		event.endDate = (event.end || event.start).format('DD.MM.YYYY HH:mm');
+		event.featureVideoConference = event.attributes['x-sc-featurevideoconference'];
 		populateModalForm($editEventModal, {
 			title: 'Termin - Details',
 			closeLabel: 'Abbrechen',
@@ -110,6 +123,9 @@ $(document).ready(() => {
 			fields: event,
 			action: `/teams/calendar/events/${event.attributes.uid}`,
 		});
+		$editEventModal.find('input[name=featureVideoConference]')
+			.bootstrapToggle(event.featureVideoConference ? 'on' : 'off');
+		$editEventModal.find('.create-videoconference').show();
 
 		transformTeamEvent($editEventModal, event);
 
@@ -231,4 +247,6 @@ $(document).ready(() => {
 
 		return false;
 	});
+
+	initVideoconferencing();
 });

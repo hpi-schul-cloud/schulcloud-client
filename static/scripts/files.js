@@ -780,12 +780,6 @@ window.fileViewer = function fileViewer(type, name, id) {
 	}
 
 	switch (type) {
-		case 'application/pdf':
-			$('#file-view').hide();
-			win = window.open(`/files/file?file=${id}`, '_blank');
-			win.focus();
-			break;
-
 		case `image/${type.substr(6)}`:
 			window.location.href = '#file-view';
 			$('#file-view').css('display', '');
@@ -819,8 +813,11 @@ window.fileViewer = function fileViewer(type, name, id) {
 			win = window.open(`/files/file/${id}/lool`, '_self');
 			win.focus();
 
-			break;
-
+		case 'application/pdf': // .pdf
+			$('#file-view').hide();
+			win = window.open(`/files/file?file=${id}`, '_blank');
+			win.focus();
+		break;
 		default:
 			$('#file-view').hide();
 			win = window.open(`/files/file?file=${id}&download`, '_blank');
