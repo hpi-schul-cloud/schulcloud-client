@@ -57,9 +57,6 @@ typings/
 # Optional eslint cache
 .eslintcache
 
-# gulp changed smart cache
-.gulp-changed-smart.json
-
 # Optional REPL history
 .node_repl_history
 
