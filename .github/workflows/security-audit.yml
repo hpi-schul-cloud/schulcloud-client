@@ -5,14 +5,12 @@ on: [push]
 jobs:
   PROD:
     runs-on: ubuntu-latest
-    name: "npm audit"
     steps:
       - uses: actions/checkout@v1
       - name: npm audit prod
         run: npm audit --production --audit-level=low
   DEV:
     runs-on: ubuntu-latest
-    name: "npm audit"
     steps:
       - uses: actions/checkout@v1
       - name: npm audit dev
