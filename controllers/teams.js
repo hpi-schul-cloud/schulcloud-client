@@ -291,6 +291,7 @@ router.get('/', async (req, res, next) => {
 		team.background = team.color;
 		team.memberAmount = team.userIds.length;
 		team.id = team._id;
+		team.url = `/teams/invitation/accept/${team._id}`;
 
 		return team;
 	});
@@ -1200,7 +1201,7 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
         der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. `,
 				err,
 			);
-			res.redirect('/teams/');
+			res.redirect(`/teams/${req.params.teamId}`);
 		});
 });
 
