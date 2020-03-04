@@ -10,5 +10,5 @@ jobs:
       - uses: actions/checkout@v1
       - name: npm audit prod
         run: npm audit --production --audit-level=low
-      - name: npm audit dev
-        run: npm audit --only=dev --audit-level=moderate
+#     - name: npm audit dev
+#       run: npm audit --only=dev --audit-level=moderate
