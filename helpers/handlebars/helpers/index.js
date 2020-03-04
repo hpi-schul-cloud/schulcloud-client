@@ -258,6 +258,7 @@ const helpers = app => ({
 		.replace(/>/g, '&gt;')
 		.replace(/"/g, '&quot;')
 		.replace(/'/g, '&#039;'),
+	encodeURI: data => encodeURI(data)
 });
 
 
