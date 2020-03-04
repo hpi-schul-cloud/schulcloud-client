@@ -4,7 +4,8 @@ const logger = require('../helpers/logger');
 const {
 	KEEP_ALIVE = false,
 	BACKEND_URL = 'http://localhost:3030/',
-	EDITOR_URL = 'http://localhost:4001',
+	PUBLIC_BACKEND_URL,
+	EDITOR_URL = undefined,
 	SENTRY_DSN = false,
 	SC_DOMAIN = 'localhost',
 	SC_THEME = 'default',
@@ -19,6 +20,7 @@ const {
 const exp = {
 	KEEP_ALIVE,
 	BACKEND_URL,
+	PUBLIC_BACKEND_URL,
 	EDITOR_URL,
 	SENTRY_DSN,
 	SC_DOMAIN,

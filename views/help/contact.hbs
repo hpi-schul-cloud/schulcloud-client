@@ -27,12 +27,12 @@
       </div>
     </fieldset>
 
-    <form class="wish_form hidden" action="/helpdesk" method="post" enctype="multipart/form-data">
+    <form class="wish_form hidden" action={{concat "/helpdesk?_csrf=" @root.csrfToken}} method="post" enctype="multipart/form-data">
       {{> "help/forms/form_wish"}}
       {{> "lib/components/csrfInput"}}
       <button type="submit">Absenden</button>
     </form>
-    <form class="bug_form" action="/helpdesk" method="post" enctype="multipart/form-data">
+    <form class="bug_form" action={{concat "/helpdesk?_csrf=" @root.csrfToken}} method="post" enctype="multipart/form-data">
       {{> "help/forms/form_bug"}}
       {{> "lib/components/csrfInput"}}
       <button type="submit">Absenden</button>

@@ -16,15 +16,21 @@
 
   {{#content "page"}}
   <meta name="baseUrl" content={{baseUrl}}>
-    {{#userHasPermission "COURSE_EDIT"}}
       <div class="dropdown dropdown-course minimal-button">
+        {{#inArray "COURSE_EDIT" scopedCoursePermission}}
         <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
-          <h1 class="h4" id="page-title" class="course-headline">
-			  {{{stripOnlyScript ../name}}}
-          <i class="fa fa-cog i-cog"></i>
-		  	{{#if ../isArchived}}<small class="count-badge" data-badge="Archiv"/></small>{{/if}}
-		  </h1>
+			<h1 class="h4" id="page-title" class="course-headline">
+				{{{stripOnlyScript ../name}}}
+            	<i class="fa fa-cog i-cog"></i>
+		  	    {{#if ../isArchived}}<small class="count-badge" data-badge="Archiv"/></small>{{/if}}
+			</h1>
         </a>
+        {{else}}
+			<h1 class="h4" id="page-title" class="course-headline">
+				{{{stripOnlyScript ../name}}}
+				{{#if ../isArchived}}<small class="count-badge" data-badge="Archiv"/></small>{{/if}}
+			<h1>
+        {{/inArray}}
         <div class="dropdown-menu dropdown-menu dropdown-menu-course">
           <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
             <i class="fa fa-edit" aria-hidden="true"></i> Kurs bearbeiten/löschen
@@ -42,7 +48,6 @@
           </a>
         </div>
       </div>
-    {{/userHasPermission}}
     <div class="row description">
       <div class="col-sm-12">
         {{#if description}}
@@ -129,6 +134,18 @@
       {{/content}}
       {{/embed}}
 
+    {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
+      {{#content "fields"}}
+      {{> "lib/forms/form-create-videoconference"}}
+      {{/content}}
+    {{/embed}}
+
+    {{#embed "lib/components/modal-form" class="reload-info-modal"}}
+      {{#content "fields"}}
+      {{> "lib/forms/form-bbb-reload-info"}}
+      {{/content}}
+    {{/embed}}
+  
     </section>
   {{/content}}
 {{/extend}}

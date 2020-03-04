@@ -1,0 +1,30 @@
+{
+	"title": "HPI Schul-Cloud Configuration",
+	"type": "object",
+	"properties": {
+		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
+			"type": "string",
+			"default": "opt-out",
+			"enum": [
+				"disabled",
+				"opt-in",
+				"opt-out",
+				"enabled"
+			],
+			"description": "Defines wether external team invitation shows teachers from different schools or not. if enabled system wide there are options general enabled or opt-in/-out by user required."
+		},
+		"FEATURE_VIDEOCONFERENCE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, adds video conferences to teams and courses."
+		},
+		"NOT_AUTHENTICATED_REDIRECT_URL": {
+			"type": "string",
+			"default": "/login",
+			"description": "The URL to authenticate. Unauthenticated users are redirected to this URL with ?redirect= pointing to the original request URL"
+		}
+	},
+	"required": [
+		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION"
+	]
+}

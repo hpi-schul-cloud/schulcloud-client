@@ -26,6 +26,7 @@
                 </div>
             </div>
             {{else}}
+            {{#unless (userHasRole "expert")}}
                 <div class="col-xs-12">
                 <div class="row padding-top">
                     <div class="col-sm-12">
@@ -36,6 +37,7 @@
                     </div>
                 </div>
             </div>
+            {{/unless}}
             {{/if}}
 
             {{#embed "lib/components/modal" class="member-modal"}}

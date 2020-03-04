@@ -1,11 +1,11 @@
 <section id="loginarea" class="card">
-    <div class="card-block" data-step="2" data-intro="Wenn Ihre Schule bereits über {{theme.title}}-Accounts verfügt, dann können Sie sich hier mit Ihren persönlichen Anmeldedaten einloggen.">
+    <div class="card-block">
         <h2 class="h4 card-title">Anmeldung für registrierte Nutzer</h2>
         <div class="card-text form-wrapper">
             {{> "lib/components/notification"}}
 
-            <form method="post" action="/login/" class="login-form">
-                <input type="hidden" name="challenge" value={{challenge}} />
+            <form method="post" action="/login" class="login-form">
+                <input type="hidden" name="redirect" value={{redirect}} />
 
                 <div class="form-group">
                     <input type="text" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="E-Mail / Nutzername" data-testid="username" required>

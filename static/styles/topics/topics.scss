@@ -1,40 +1,16 @@
 @keyframes in {
-    0% {
-        transform: scale(0.85);
-        opacity: 0.8;
-    }
-    
-    50% {
-        transform: scale(1.05);
-        opacity: 1;
-    }
+	0% {
+		transform: scale(0.85);
+		opacity: 0.8;
+	}
 
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
+	50% {
+		transform: scale(1.05);
+		opacity: 1;
+	}
 
-.edtr-link-wrapper {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.edtr-link {
-
-    animation-name: in;
-    animation-play-state: running;
-    animation-duration: 1000ms;
-    animation-iteration-count: 5;
-    animation-direction: alternate;
-    animation-timing-function: ease-in-out;
-
-    &::after {
-        display: none;
-    }
-}
-
-.edtr-btn, .edtr-btn:active, .edtr-btn:visited, .edtr-btn:focus {
-    background-color: #f6a800 !important;
-    border-color: #f6a800 !important;
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
 }

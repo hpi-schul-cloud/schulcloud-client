@@ -341,7 +341,6 @@ router.delete('/file', (req, res, next) => {
 	const data = {
 		_id: req.body.id,
 	};
-
 	api(req).delete('/fileStorage/', {
 		qs: data,
 	}).then(() => {
@@ -363,6 +362,7 @@ router.get('/file', (req, res, next) => {
 		name,
 		download: download || false,
 	};
+
 	const sharedPromise = share && share !== 'undefined'
 		? registerSharedPermission(res.locals.currentUser._id, data.file, share, req)
 		: Promise.resolve();
@@ -491,6 +491,11 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 
 		breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
 	}
+
+	res.locals.files.files = res.locals.files.files.map((file) => {
+		file.saveName = file.name.replace(/'/g, "\\'");
+		return file;
+	});
 
 	res.render('files/files', Object.assign({
 		title: 'Dateien',

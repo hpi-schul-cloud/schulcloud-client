@@ -16,15 +16,23 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then(data => data.data);
 
-const clearCookie = (req, res, options = { destroySession: false }) => {
-	if (options.destroySession && req.session && req.session.destroy) {
-		req.session.destroy();
+// SSO Login
+
+router.get('/tsp-login/', (req, res, next) => {
+	const { ticket, redirect: redirectParam } = req.query;
+	let redirect = '/dashboard';
+	if (redirectParam) {
+		if (Array.isArray(redirectParam)) {
+			const redirects = redirectParam.filter(v => v !== 'true');
+			if (redirects.length > 0) {
+				redirect = redirects[0];
+			}
+		} else if (String(redirectParam) !== 'true') {
+			redirect = redirectParam;
+		}
 	}
-	res.clearCookie('jwt');
-	if (res.locals && res.locals.domain) {
-		res.clearCookie('jwt', { domain: res.locals.domain });
-	}
-};
+	return authHelper.login({ strategy: 'tsp', ticket, redirect }, req, res, next);
+});
 
 // Login
 
@@ -34,43 +42,41 @@ router.post('/login/', (req, res, next) => {
 		password,
 		systemId,
 		schoolId,
+		redirect,
 	} = req.body;
 
-	const login = d => api(req).post('/authentication', { json: d }).then((data) => {
-		res.cookie('jwt', data.accessToken,
-			{
-				expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-				httpOnly: false, // can't be set to true with nuxt client
-				hostOnly: true,
-				secure: process.env.NODE_ENV === 'production',
-			});
-		res.redirect('/login/success/');
-	}).catch((e) => {
-		res.locals.notification = {
-			type: 'danger',
-			message: 'Login fehlgeschlagen.',
-			statusCode: e.statusCode,
-			timeToWait: process.env.LOGIN_BLOCK_TIME || 15,
-		};
-		if (e.statusCode === 429) {
-			res.locals.notification.timeToWait = e.error.data.timeToWait;
-		}
-		next();
-	});
-
 	if (systemId) {
-		return api(req).get(`/systems/${req.body.systemId}`).then(system => login({
-			strategy: system.type, username, password, systemId, schoolId,
-		}));
+		return api(req).get(`/systems/${req.body.systemId}`).then(system => authHelper.login({
+			strategy: system.type, username, password, systemId, schoolId, redirect,
+		}, req, res, next));
 	}
-	return login({ strategy: 'local', username, password });
+	return authHelper.login({
+		strategy: 'local', username, password, redirect,
+	}, req, res, next);
 });
 
+const redirectAuthenticated = (req, res) => {
+	let redirectUrl = '/login/success';
+	if (req.query && req.query.redirect) {
+		redirectUrl = `${redirectUrl}?redirect=${req.query.redirect}`;
+	}
+	return res.redirect(redirectUrl);
+};
+
+const determineRedirectUrl = (req) => {
+	if (req.query && req.query.redirect) {
+		return req.query.redirect;
+	}
+	if (req.session.login_challenge) {
+		return '/oauth2/login/success';
+	}
+	return '/dashboard';
+};
 
 router.all('/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
-			return res.redirect('/login/success/');
+			return redirectAuthenticated(req, res);
 		}
 		return new Promise((resolve) => {
 			feedr.readFeed('https://blog.schul-cloud.org/rss', {
@@ -120,7 +126,7 @@ router.all('/', (req, res, next) => {
 router.all('/login/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
-			return res.redirect('/login/success/');
+			return redirectAuthenticated(req, res);
 		}
 		return getSelectOptions(req,
 			'schools', {
@@ -129,15 +135,16 @@ router.all('/login/', (req, res, next) => {
 				$sort: 'name',
 			})
 			.then((schools) => {
-				clearCookie(req, res);
+				authHelper.clearCookie(req, res);
 				res.render('authentication/login', {
 					schools,
 					systems: [],
+					redirect: req.query && req.query.redirect ? req.query.redirect : '',
 				});
 			});
 	}).catch((error) => {
 		logger.error(error);
-		clearCookie(req, res, { destroySession: true });
+		authHelper.clearCookie(req, res, { destroySession: true });
 		return res.redirect('/');
 	});
 });
@@ -153,6 +160,7 @@ const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
 	return undefined;
 }).catch(() => undefined); // fixme this is a very bad error catch
 // so we can do proper redirecting and stuff :)
+
 router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 	if (res.locals.currentUser) {
 		const user = res.locals.currentUser;
@@ -166,9 +174,7 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 						});
 				}
 				const consent = consents.data[0];
-				const redirectUrl = (req.session.login_challenge
-					? '/oauth2/login/success'
-					: '/dashboard');
+				const redirectUrl = determineRedirectUrl(req);
 				// check consent versions
 				return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
 					if (consent.access && !consentUpdates.haveBeenUpdated) {
@@ -184,9 +190,7 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 
 		ssoSchoolData(req, systemId).then((school) => {
 			if (school === undefined) {
-				const redirectUrl = (req.session.login_challenge
-					? '/oauth2/login/success'
-					: '/dashboard/');
+				const redirectUrl = determineRedirectUrl(req);
 				res.redirect(redirectUrl);
 			} else {
 				res.redirect(`/registration/${school._id}/sso/${accountId}`);
@@ -210,7 +214,7 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
 		.then(() => {
-			clearCookie(req, res, { destroySession: true });
+			authHelper.clearCookie(req, res, { destroySession: true });
 			return res.redirect('/');
 		}).catch(() => res.redirect('/'));
 });
