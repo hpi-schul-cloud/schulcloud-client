@@ -1,28 +1,31 @@
 <div class="section-imprint {{#unless loggedin}}loggedout{{/unless}}">
 	{{#unless loggedin}}
-		<h4>Datenschutzerklärung</h4>
+		<div class="section-title">
+			<h2>Datenschutzhinweise</h2>
+		</div>
 	{{/unless}}
+
 	<p>Hinweise zum Datenschutz entnehmen Sie bitte folgender Seite.</p>
 
-	{{#embed "dataprivacy/privacy_priv-und-daten"}}{{/embed}}
+	{{#embed "dataprivacy/text_intro"}}{{/embed}}
 
-	{{#embed "dataprivacy/privacy_verantw-stelle"}}{{/embed}}
+	{{#embed "dataprivacy/text_datenverarbeitung-web"}}{{/embed}}
 
-	{{#embed "dataprivacy/privacy_erh-persb-daten"}}{{/embed}}
+	{{#embed "dataprivacy/text_datenverarbeitung-schulen"}}{{/embed}}
 
-	{{#embed "dataprivacy/privacy_verarb-persb-daten"}}{{/embed}}
+	{{#embed "dataprivacy/text_einwilligung-dv"}}{{/embed}}
 
-	{{#embed "dataprivacy/privacy_newsletter"}}{{/embed}}
+	{{#embed "dataprivacy/text_persbezogene-daten"}}{{/embed}}
 
-	{{#embed "dataprivacy/privacy_cookies"}}{{/embed}}
+	{{#embed "dataprivacy/text_chat"}}{{/embed}}
 
-	{{#embed "dataprivacy/privacy_logs"}}{{/embed}}
+	{{#embed "dataprivacy/text_helpdesk"}}{{/embed}}
 
-	{{#embed "dataprivacy/privacy_weiterg-von-daten"}}{{/embed}}
+	{{#embed "dataprivacy/text_weitergabe-von-daten"}}{{/embed}}
 
-	{{#embed "dataprivacy/privacy_tom"}}{{/embed}}
+	{{#embed "dataprivacy/text_speicherdauer"}}{{/embed}}
 
-	{{#embed "dataprivacy/privacy_rechte"}}{{/embed}}
+	{{#embed "dataprivacy/text_rechte"}}{{/embed}}
 
-	{{#embed "dataprivacy/privacy_anschrift"}}{{/embed}}
+	{{#embed "dataprivacy/text_datensicherheit"}}{{/embed}}
 </div>

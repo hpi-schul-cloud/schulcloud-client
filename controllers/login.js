@@ -19,8 +19,19 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 // SSO Login
 
 router.get('/tsp-login/', (req, res, next) => {
-	const { ticket } = req.query;
-	return authHelper.login({ strategy: 'tsp', ticket }, req, res, next);
+	const { ticket, redirect: redirectParam } = req.query;
+	let redirect = '/dashboard';
+	if (redirectParam) {
+		if (Array.isArray(redirectParam)) {
+			const redirects = redirectParam.filter(v => v !== 'true');
+			if (redirects.length > 0) {
+				redirect = redirects[0];
+			}
+		} else if (String(redirectParam) !== 'true') {
+			redirect = redirectParam;
+		}
+	}
+	return authHelper.login({ strategy: 'tsp', ticket, redirect }, req, res, next);
 });
 
 // Login
@@ -31,21 +42,41 @@ router.post('/login/', (req, res, next) => {
 		password,
 		systemId,
 		schoolId,
+		redirect,
 	} = req.body;
 
 	if (systemId) {
-		return api(req).get(`/systems/${req.body.systemId}`).then((system) => authHelper.login({
-			strategy: system.type, username, password, systemId, schoolId,
+		return api(req).get(`/systems/${req.body.systemId}`).then(system => authHelper.login({
+			strategy: system.type, username, password, systemId, schoolId, redirect,
 		}, req, res, next));
 	}
-	return authHelper.login({ strategy: 'local', username, password }, req, res, next);
+	return authHelper.login({
+		strategy: 'local', username, password, redirect,
+	}, req, res, next);
 });
 
+const redirectAuthenticated = (req, res) => {
+	let redirectUrl = '/login/success';
+	if (req.query && req.query.redirect) {
+		redirectUrl = `${redirectUrl}?redirect=${req.query.redirect}`;
+	}
+	return res.redirect(redirectUrl);
+};
+
+const determineRedirectUrl = (req) => {
+	if (req.query && req.query.redirect) {
+		return req.query.redirect;
+	}
+	if (req.session.login_challenge) {
+		return '/oauth2/login/success';
+	}
+	return '/dashboard';
+};
 
 router.all('/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
-			return res.redirect('/login/success/');
+			return redirectAuthenticated(req, res);
 		}
 		return new Promise((resolve) => {
 			feedr.readFeed('https://blog.schul-cloud.org/rss', {
@@ -95,7 +126,7 @@ router.all('/', (req, res, next) => {
 router.all('/login/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
-			return res.redirect('/login/success/');
+			return redirectAuthenticated(req, res);
 		}
 		return getSelectOptions(req,
 			'schools', {
@@ -108,6 +139,7 @@ router.all('/login/', (req, res, next) => {
 				res.render('authentication/login', {
 					schools,
 					systems: [],
+					redirect: req.query && req.query.redirect ? req.query.redirect : '',
 				});
 			});
 	}).catch((error) => {
@@ -142,9 +174,7 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 						});
 				}
 				const consent = consents.data[0];
-				const redirectUrl = (req.session.login_challenge
-					? '/oauth2/login/success'
-					: '/dashboard');
+				const redirectUrl = determineRedirectUrl(req);
 				// check consent versions
 				return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
 					if (consent.access && !consentUpdates.haveBeenUpdated) {
@@ -160,9 +190,7 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 
 		ssoSchoolData(req, systemId).then((school) => {
 			if (school === undefined) {
-				const redirectUrl = (req.session.login_challenge
-					? '/oauth2/login/success'
-					: '/dashboard/');
+				const redirectUrl = determineRedirectUrl(req);
 				res.redirect(redirectUrl);
 			} else {
 				res.redirect(`/registration/${school._id}/sso/${accountId}`);
