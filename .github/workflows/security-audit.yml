@@ -1,0 +1,14 @@
+name: Security Audit
+
+on: [push]
+
+jobs:
+  npmaudit:
+    runs-on: ubuntu-latest
+    name: "npm audit"
+    steps:
+      - uses: actions/checkout@v1
+      - name: npm audit prod
+        run: npm audit --only=prod --audit-level=low
+      - name: npm audit dev
+        run: npm audit --only=dev --audit-level=moderate
