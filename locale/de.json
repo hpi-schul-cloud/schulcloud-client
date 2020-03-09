@@ -1,9 +1,32 @@
 {
-	"views": {
-		"dashboard": {
-			"dashboard": {
-				"schedule": "Stundenplan"
+	"global": {
+		"sidebar": {
+			"text": {
+				"overview": "Übersicht",
+				"courses": "Kurse",
+				"tasks": "Kurse",
+				"files": "Meine Dateien",
+				"news": "Neuigkeiten",
+				"calendar": "Termine",
+				"lernstore": "Lern-Store",
+				"management": "Verwaltung",
+				"managementStudents": "Schüler",
+				"managementTeachers": "Lehrer",
+				"managementClasses": "Klassen",
+				"administration": "Administration"
 			}
+		}
+	},
+	"dashboard": {
+		"headline": {
+			"title": "Übersicht",
+			"schedule": "Stundenplan",
+			"openTasks": "Gestellte Aufgaben",
+			"privateTasks": "Entwürfe",
+			"news": "Neuigkeiten"
+		},
+		"text": {
+			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	}
 }

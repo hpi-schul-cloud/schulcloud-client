@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const logger = require('./logger');
 
-const defaultLanguage = 'de';
+const defaultLanguage = 'en';
 const localeDir = '../locale';
 
 // load in and cache language files
@@ -20,10 +20,11 @@ files.forEach((filename) => {
 		),
 	};
 });
+const availableLanuages = Object.keys(languageKeys)
 i18next
 	.init({
 		lng: defaultLanguage,
-		fallbackLng: ['de', 'en'],
+		fallbackLng: availableLanuages,
 		resources: languageKeys,
 	})
 	.then(() => {
@@ -54,10 +55,13 @@ const getInstance = (user) => {
 
 	return (key, options = {}) => i18next.t(key, {
 		lng,
+		fallbackLng: availableLanuages,
 		...options,
 	});
 };
 
 module.exports = {
+	defaultLanguage,
+	availableLanuages,
 	getInstance,
 };

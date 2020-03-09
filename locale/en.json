@@ -1,9 +1,14 @@
 {
-	"views": {
-		"dashboard": {
-			"dashboard": {
-				"schedule": "Schedule"
-			}
+	"dashboard": {
+		"headline": {
+			"title": "Dashboard",
+			"schedule": "Schedule",
+			"openTasks": "Open Tasks",
+			"privateTasks": "Drafts",
+			"news": "News"
+		},
+		"text": {
+			"notFound": "No active entries found."
 		}
 	}
 }
