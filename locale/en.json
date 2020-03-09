@@ -1,1 +1,9 @@
-{}
+{
+	"views": {
+		"dashboard": {
+			"dashboard": {
+				"schedule": "Schedule"
+			}
+		}
+	}
+}
