@@ -1,7 +1,7 @@
 {
 	"global": {
 		"sidebar": {
-			"text": {
+			"link": {
 				"overview": "Übersicht",
 				"courses": "Kurse",
 				"tasks": "Kurse",
