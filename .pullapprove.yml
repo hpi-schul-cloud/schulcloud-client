@@ -35,7 +35,7 @@ groups:
     reviewers:
       teams:
       - integrathors
-      
+
   loki:
     conditions:
     - "'Loki' in labels"
@@ -46,10 +46,12 @@ groups:
     reviewers:
       teams:
       - loki
-      
+
   client-core:
     conditions:
     - "'Loki' not in labels and 'IntegraTHORs' not in labels"
+    # not created by a bot
+    - "'schul-cloud-bot' not in author.username"
     reviewers:
       teams:
       - client-core
