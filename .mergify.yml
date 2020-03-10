@@ -1,4 +1,13 @@
 pull_request_rules:
+  - name: auto merge language file updates
+    conditions:
+      - author=schul-cloud-bot
+      # PR must only contain language file changes
+      - files~=^(?!locale\/.*\.json)
+    actions:
+      merge:
+        method: squash
+        strict: true
   - name: auto merge when label is set
     conditions:
       - label!=WIP
