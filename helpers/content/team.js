@@ -276,7 +276,7 @@ module.exports = [
 				firstName: 'Sophie',
 				lastName: 'Krüger',
 				position: 'Wissenschaftliche Mitarbeiterin, HPI',
-				description: 'Sophie studiert Englisch und LER auf Lehramt im Master an der Universität Potsdam. Im Team HPI Schul-Cloud hilft sie dabei, die HPI Schul-Cloud bestmöglich in den modernen Unterricht zu integrieren. In ihrer Freizeit engagiert sie sich ehrenamtlich in diversen Vereinen. Außerdem liest, reist und kocht sie sehr gerne.',
+				description: 'Sophie studiert Englisch und LER auf Lehramt im Master an der Universität Potsdam. Im Team HPI Schul-Cloud unterstützt sie das Team bei pädagogischen und didaktischen Fragen. Weiterhin koordiniert sie die bildungswissenschaftliche Begleitforschung, den User-Support und das Onboarding der Schulen. In ihrer Freizeit entspannt sie gern mit einem guten Buch, kocht oder reist durch virtuelle Welten.',
 				pictureUrl: '/images/team/sophie_krueger.jpg',
 				priority: 0,
 				social: {
@@ -381,7 +381,7 @@ module.exports = [
 				firstName: 'Jacqueline',
 				lastName: 'Thorns',
 				position: 'Wissenschaftliche Mitarbeiterin, HPI',
-				description: 'Jacqueline hat European Studies an der Europa-Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin für die Öffentlichkeitsarbeit und das Eventmanagement zuständig. Außerdem koordiniert sie den User Support und ist für das Onboarding der HPI Schul-Cloud-Schulen verantwortlich. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.',
+				description: 'Jacqueline hat European Studies an der Europa-Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin für das Eventmanagement und den Datenschutz zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.',
 				pictureUrl: '/images/team/Jacqueline_Thorns.jpg',
 				priority: 0,
 				social: {
