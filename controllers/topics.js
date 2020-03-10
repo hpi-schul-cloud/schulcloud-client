@@ -6,7 +6,7 @@ const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
-const { EDITOR_URL } = require('../config/global');
+const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
 
@@ -189,10 +189,10 @@ router.post('/:id/share', (req, res, next) => {
 // eslint-disable-next-line consistent-return
 router.get('/:topicId', (req, res, next) => {
 	// ############################# start new Edtior ###################################
-	if (req.query.edtr && EDITOR_URL) {
+	if (req.query.edtr && EDTR_SOURCE) {
 		// return to skip rendering old editor
 		return res.render('topic/topic-edtr', {
-			EDITOR_URL,
+			EDTR_SOURCE,
 		});
 	}
 	// ############################## end new Edtior ######################################
