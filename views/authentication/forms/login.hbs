@@ -4,8 +4,8 @@
         <div class="card-text form-wrapper">
             {{> "lib/components/notification"}}
 
-            <form method="post" action="/login/" class="login-form">
-                <input type="hidden" name="challenge" value={{challenge}} />
+            <form method="post" action="/login" class="login-form">
+                <input type="hidden" name="redirect" value={{redirect}} />
 
                 <div class="form-group">
                     <input type="text" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="E-Mail / Nutzername" data-testid="username" required>

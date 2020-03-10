@@ -13,6 +13,7 @@ const setTheme = (res) => {
 			specificFiles: documents.specificFiles(baseDir),
 			globalFiles: documents.globalFiles(),
 		},
+		url: process.env.HOST,
 	};
 };
 

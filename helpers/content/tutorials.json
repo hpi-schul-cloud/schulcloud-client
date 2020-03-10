@@ -44,6 +44,11 @@
 						"id": "102204000",
 						"title": "Kurs löschen",
 						"type": "article"
+					},
+					{
+						"id": "113641943",
+						"title": "Alte Kurse wiederverwenden",
+						"type": "article"
 					}
 				]
 			},
@@ -214,6 +219,11 @@
 						"id": "36700233",
 						"title": "Klassen verwalten",
 						"type": "article"
+					},
+					{
+						"id": "113641993",
+						"title": "Fehlende Einverständniserklärungen einholen",
+						"type": "article"
 					}
 				]
 			},
@@ -256,6 +266,11 @@
 						"id": "102205330",
 						"title": "Team löschen",
 						"type": "article"
+					},
+					{
+						"id": "110724218",
+						"title": "Teams: Rollen und ihre Berechtigungen",
+						"type": "article"
 					}
 				]
 			},
@@ -292,6 +307,11 @@
 					{
 						"id": "98598995",
 						"title": "Browser richtig konfigurieren",
+						"type": "article"
+					},
+					{
+						"id": "113640783",
+						"title": "Moodle-Hinweise für Schulen",
 						"type": "article"
 					}
 				]

@@ -4,9 +4,9 @@
         <div class="dates">
             {{#if this.availableDate}}{{timeToString availableDate}}<br />{{/if}}
             {{#if this.dueDate}}
-                bis {{timeToString dueDate}}
+            bis {{timeToString dueDate}}
             {{else}}
-                Kein Abgabedatum festgelegt
+            Kein Abgabedatum festgelegt
             {{/if}}
         </div>
     </a>
@@ -53,17 +53,17 @@
             {{/if}}
         </div>
     </a>
-        <div>
-            {{#inArray this.currentUser._id this.archived}}
-                <a href="/homework/asked"><span class="count-badge" data-badge="Archiviert"/></span></a>
-            {{else}}
-                {{#if ../this.private}}
-                    <a href="/homework/archive"><span class="count-badge" data-badge="Meine Todos"/></span></a>
-                {{else}}
-                    <a href="/homework/private"><span class="count-badge" data-badge="Asked"/></span></a>
-                {{/if}}
-            {{/inArray}}
-        </div>
+    <div>
+        {{#inArray this.currentUser._id this.archived}}
+        <span class="count-badge" data-badge="Archiviert" /></span>
+        {{else}}
+        {{#if ../this.private}}
+        <span class="count-badge" data-badge="Entwürfe" /></span>
+        {{else}}
+        <span class="count-badge" data-badge="Gestellt" /></span>
+        {{/if}}
+        {{/inArray}}
+    </div>
     <div class="action-group">
         {{#inArray this.currentUser._id this.archived}}
         {{#userHasPermission "HOMEWORK_CREATE"}}
@@ -85,9 +85,9 @@
         {{#if ../this.isTeacher}}
         {{#each ../this.actions}}
         {{#if this.method}}
-        <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" redirect="?p={{@root.pagination.currentPage}}" target="_blank"
-            data-method="{{this.method}}" data-name="{{../../name}}"
-            title="Die Aufgabe: '{{{escapeHtml ../../name}}}' {{{escapeHtml this.title}}}.">
+        <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}"
+            redirect="?p={{@root.pagination.currentPage}}" target="_blank" data-method="{{this.method}}"
+            data-name="{{../../name}}" title="Die Aufgabe: '{{{escapeHtml ../../name}}}' {{{escapeHtml this.title}}}.">
             <i class="fa fa-{{this.icon}}"></i>
         </a>
         {{else}}

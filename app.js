@@ -8,7 +8,6 @@ const redis = require('redis');
 const connectRedis = require('connect-redis');
 const session = require('express-session');
 const methodOverride = require('method-override');
-const fileUpload = require('express-fileupload');
 const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
@@ -29,6 +28,8 @@ const {
 	REDIS_URI,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 	JWT_TIMEOUT_SECONDS,
+	BACKEND_URL,
+	PUBLIC_BACKEND_URL,
 } = require('./config/global');
 
 const app = express();
@@ -70,9 +71,7 @@ const securityHeaders = require('./middleware/security_headers');
 app.use(securityHeaders);
 
 // set cors headers
-const cors = require('./middleware/cors');
-
-app.use(cors);
+app.use(require('./middleware/cors'));
 
 app.use(compression());
 app.set('trust proxy', true);
@@ -107,6 +106,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
+app.use('/locales', express.static(path.join(__dirname, 'locales')));
 
 let sessionStore;
 const redisUrl = REDIS_URI;
@@ -131,10 +131,6 @@ app.use(session({
 	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
 }));
 
-app.use(fileUpload({
-	createParentPath: true,
-}));
-
 // CSRF middlewares
 app.use(duplicateTokenHandler);
 app.use(csurf());
@@ -149,6 +145,20 @@ function removeIds(url) {
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
+	// if there's a flash message in the session request, make it available in the response, then delete it
+	res.locals.notification = req.session.notification;
+	res.locals.inline = req.query.inline || false;
+	setTheme(res);
+	res.locals.domain = SC_DOMAIN;
+	res.locals.production = req.app.get('env') === 'production';
+	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
+	res.locals.SENTRY_DSN = SENTRY_DSN;
+	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
+	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
+	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
+	res.locals.version = version;
+	res.locals.sha = sha;
+	delete req.session.notification;
 	try {
 		await authHelper.populateCurrentUser(req, res);
 	} catch (error) {
@@ -164,19 +174,6 @@ app.use(async (req, res, next) => {
 			scope.request = { url: removeIds(url), header };
 		});
 	}
-	// if there's a flash message in the session request, make it available in the response, then delete it
-	res.locals.notification = req.session.notification;
-	res.locals.inline = req.query.inline || false;
-	setTheme(res);
-	res.locals.domain = SC_DOMAIN;
-	res.locals.production = req.app.get('env') === 'production';
-	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
-	res.locals.SENTRY_DSN = SENTRY_DSN;
-	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
-	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
-	res.locals.version = version;
-	res.locals.sha = sha;
-	delete req.session.notification;
 	return next();
 });
 
@@ -191,6 +188,9 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 		return method;
 	}
 }));
+
+// add res.$t method for i18n with users prefered language
+app.use(require('./middleware/i18n'));
 
 // Initialize the modules and their routes
 app.use(require('./controllers/'));

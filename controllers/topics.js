@@ -279,6 +279,7 @@ router.get('/:topicId', (req, res, next) => {
 router.patch('/:topicId', async (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	const data = req.body;
+
 	data.time = moment(data.time || 0, 'HH:mm').toString();
 	data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
@@ -294,7 +295,7 @@ router.patch('/:topicId', async (req, res, next) => {
 	if (!req.query.courseGroup) delete data.courseGroupId;
 
 	// create new Nexboard when necessary, if not simple hidden or position patch
-	if (data.content) data.contents = await createNewNexBoards(req, res, data.contents);
+	if (data.contents) data.contents = await createNewNexBoards(req, res, data.contents);
 
 	if (data.contents) { data.contents = data.contents.filter(c => c !== undefined); }
 
@@ -351,20 +352,20 @@ router.get('/add/neweditor', async (req, res, next) => {
 	res.redirect(`/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`);
 });
 
-router.patch('/:topicId/neweditor', async (req, res, next) => {
-	const [hidden, ...data] = req.body;
-
-	if (hidden !== undefined) {
-		// const visible = !hidden;
-		// TODO root have to be implement
-	} else {
-		apiEditor(req).patch(`course/${req.params.courseId}/lessons/${req.params.topicId}`, {
-			data,
-		}).then(() => {
-			res.sendStatus(200);
+const boolean = v => v === 1 || v === 'true' || v === true || v === '1';
+router.patch('/:topicId/neweditor', (req, res, next) => {
+	if (req.body.hidden !== undefined) {
+		apiEditor(req).patch(`/helpers/setVisibility/${req.params.topicId}`, {
+			json: { visible: !boolean(req.body.hidden) },
+		}).then((response) => {
+			res.json({
+				hidden: !response.visible,
+			});
 		}).catch((err) => {
 			next(err);
 		});
+	} else {
+		res.sendStatus(200);
 	}
 });
 
