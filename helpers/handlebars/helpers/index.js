@@ -3,6 +3,7 @@ const moment = require('moment');
 const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
 const permissionsHelper = require('../../permissions');
+const i18n = require('../../i18n');
 
 moment.locale('de');
 
@@ -258,7 +259,13 @@ const helpers = app => ({
 		.replace(/>/g, '&gt;')
 		.replace(/"/g, '&quot;')
 		.replace(/'/g, '&#039;'),
-	encodeURI: data => encodeURI(data)
+	encodeURI: data => encodeURI(data),
+	$t: (key, data, opts) => {
+		if (!opts) {
+			return i18n.getInstance(data.data.local.currentUser)(key);
+		}
+		return i18n.getInstance(opts.data.local.currentUser)(key, data);
+	},
 });
 
 
