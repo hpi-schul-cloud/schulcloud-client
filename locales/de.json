@@ -1,32 +1,32 @@
 {
-	"global": {
-		"sidebar": {
-			"link": {
-				"overview": "Übersicht",
-				"courses": "Kurse",
-				"tasks": "Aufgaben",
-				"files": "Meine Dateien",
-				"news": "Neuigkeiten",
-				"calendar": "Termine",
-				"lernstore": "Lern-Store",
-				"management": "Verwaltung",
-				"managementStudents": "Schüler",
-				"managementTeachers": "Lehrer",
-				"managementClasses": "Klassen",
-				"administration": "Administration"
-			}
-		}
-	},
 	"dashboard": {
 		"headline": {
-			"title": "Übersicht",
-			"schedule": "Stundenplan",
+			"news": "Neuigkeiten",
 			"openTasks": "Gestellte Aufgaben",
 			"privateTasks": "Entwürfe",
-			"news": "Neuigkeiten"
+			"schedule": "Stundenplan",
+			"title": "Übersicht"
 		},
 		"text": {
 			"notFound": "Keine aktuellen Einträge vorhanden."
+		}
+	},
+	"global": {
+		"sidebar": {
+			"link": {
+				"administration": "Administration",
+				"calendar": "Termine",
+				"courses": "Kurse",
+				"files": "Meine Dateien",
+				"lernstore": "Lern-Store",
+				"management": "Verwaltung",
+				"managementClasses": "Klassen",
+				"managementStudents": "Schüler",
+				"managementTeachers": "Lehrer",
+				"news": "Neuigkeiten",
+				"overview": "Übersicht",
+				"tasks": "Aufgaben"
+			}
 		}
 	}
 }
