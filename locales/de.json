@@ -16,8 +16,9 @@
 				"administration": "Administration"
 			}
 		}
+		
 	},
-	"dashboard": {
+"dashboard": {
 		"headline": {
 			"title": "Übersicht",
 			"schedule": "Stundenplan",
@@ -27,6 +28,28 @@
 		},
 		"text": {
 			"notFound": "Keine aktuellen Einträge vorhanden."
+		}
+	},
+"about":{
+		"headline":{
+			"title": "Über die HPI Schul-Cloud",
+			"pilotSchool": "Pilostschulen",
+			"bestPractice": "Best Practice Schulen",
+			"educSupp": "Bildungswissenschaftliche Begleitung",
+			
+		},
+		"link":{
+			"shortDesc" : "Kurzbeschreibung \"Die HPI Schul-Cloud\" (.pdf)"
+		},
+		"text":{
+			"startM2017": "(Start März 2017)",
+			"startM2018": "(Start Mai 2018)",
+			"startF2019": "(Start Februar 2019)",
+			"startA2019": "(Start August 2019)",
+			"moreInfo":"Mehr Informationen:",
+			"showMore":"Mehr anzeigen",
+			"showLess":"Weniger anzeigen"
+
 		}
 	}
 }
