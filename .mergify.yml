@@ -3,7 +3,7 @@ pull_request_rules:
     conditions:
       - author=schul-cloud-bot
       # PR must only contain language file changes
-      - files~=^(?!locale\/.*\.json)
+      - files~=^(?!locales\/.*\.json)
     actions:
       merge:
         method: squash
