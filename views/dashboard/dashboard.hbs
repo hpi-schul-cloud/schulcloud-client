@@ -12,7 +12,7 @@
 <section class="container-fluid section-timetable">
     <div class="row">
         <div class="col-sm-12">
-            <h2 class="h5">Stundenplan</h2>
+            <h2 class="h5">{{$t "dashboard.headline.schedule"}}</h2>
             <time class="selected-date">{{eventsDate}}</time>
         </div>
     </div>
@@ -85,10 +85,10 @@
 </section>
 {{/ifeq}}
 
-{{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe" href="/homework"}}
-{{> 'dashboard/components/card_section' section-id="mytasks" title="Entwürfe" content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
+{{> 'dashboard/components/card_section' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
+{{> 'dashboard/components/card_section' section-id="mytasks" title=($t "dashboard.headline.privateTasks") content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
 
-{{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen" href="/news/"}}
+{{>  'dashboard/components/card_section' section-id="news" title=($t "dashboard.headline.news") content=news link-text="Weiterlesen" href="/news/"}}
 
 {{#if this.currentSchoolData.pilot}}
 {{#ifneq this.currentRole "Schüler"}}
