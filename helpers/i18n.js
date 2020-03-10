@@ -24,7 +24,7 @@ const availableLanuages = Object.keys(languageKeys)
 i18next
 	.init({
 		lng: defaultLanguage,
-		fallbackLng: availableLanuages,
+		fallbackLng: availableLanuages.filter(lng => lng !== defaultLanguage),
 		resources: languageKeys,
 	})
 	.then(() => {

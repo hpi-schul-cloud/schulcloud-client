@@ -13,7 +13,7 @@ i18next
 	.use(Backend)
 	.init({
 		lng: userLanguage,
-		fallbackLng: ['de', 'en'], // .filter(lng => lng !== userLanguage),
+		fallbackLng: ['de', 'en'].filter(lng => lng !== userLanguage),
 		backend: {
 			backends: [
 				LocalStorageBackend, // primary
