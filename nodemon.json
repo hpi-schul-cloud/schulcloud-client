@@ -9,6 +9,7 @@
 		"theme",
 		"controllers",
 		"helpers",
+		"locales",
 		"config",
 		"app.js",
 		"api.js"

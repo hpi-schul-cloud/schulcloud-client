@@ -4,7 +4,7 @@ const path = require('path');
 const logger = require('./logger');
 
 const defaultLanguage = 'en';
-const localeDir = '../locale';
+const localeDir = '../locales';
 
 // load in and cache language files
 const languageKeys = {};
@@ -62,6 +62,7 @@ const getInstance = (user) => {
 
 module.exports = {
 	defaultLanguage,
+	getUserLanguage,
 	availableLanuages,
 	getInstance,
 };

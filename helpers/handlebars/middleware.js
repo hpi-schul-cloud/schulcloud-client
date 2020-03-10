@@ -35,15 +35,15 @@ module.exports = (req, res, next) => {
 	res.locals.backendUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
 	// standard views
 	res.locals.sidebarItems = [{
-		name: res.$t('global.sidebar.text.overview'),
+		name: res.$t('global.sidebar.link.overview'),
 		icon: 'th-large',
 		link: '/dashboard/',
 	}, {
-		name: res.$t('global.sidebar.text.courses'),
+		name: res.$t('global.sidebar.link.courses'),
 		icon: 'graduation-cap',
 		link: '/courses/',
 	}, {
-		name: res.$t('global.sidebar.text.tasks'),
+		name: res.$t('global.sidebar.link.tasks'),
 		icon: 'tasks',
 		link: '/homework/',
 		children: [
@@ -64,7 +64,7 @@ module.exports = (req, res, next) => {
 			},
 		],
 	}, {
-		name: res.$t('global.sidebar.text.files'),
+		name: res.$t('global.sidebar.link.files'),
 		icon: 'folder-open',
 		link: '/files/',
 		children: [
@@ -85,15 +85,15 @@ module.exports = (req, res, next) => {
 			},
 		],
 	}, {
-		name: res.$t('global.sidebar.text.news'),
+		name: res.$t('global.sidebar.link.news'),
 		icon: 'newspaper-o',
 		link: '/news/',
 	}, {
-		name: res.$t('global.sidebar.text.calendar'),
+		name: res.$t('global.sidebar.link.calendar'),
 		icon: 'table',
 		link: '/calendar/',
 	}, {
-		name: res.$t('global.sidebar.text.lernstore'),
+		name: res.$t('global.sidebar.link.lernstore'),
 		icon: 'search',
 		link: '/content/',
 	}];
@@ -110,24 +110,24 @@ module.exports = (req, res, next) => {
 
 	// teacher views
 	res.locals.sidebarItems.push({
-		name: res.$t('global.sidebar.text.management'),
+		name: res.$t('global.sidebar.link.management'),
 		icon: 'cogs',
 		link: '/administration/',
 		permission: 'STUDENT_LIST',
 		excludedPermission: 'ADMIN_VIEW',
 		children: [
 			{
-				name: res.$t('global.sidebar.text.managementStudents'),
+				name: res.$t('global.sidebar.link.managementStudents'),
 				icon: 'odnoklassniki',
 				link: '/administration/students/',
 			},
 			{
-				name: res.$t('global.sidebar.text.managementTeachers'),
+				name: res.$t('global.sidebar.link.managementTeachers'),
 				icon: 'user',
 				link: '/administration/teachers/',
 			},
 			{
-				name: res.$t('global.sidebar.text.managementClasses'),
+				name: res.$t('global.sidebar.link.managementClasses'),
 				icon: 'users',
 				link: '/administration/classes/',
 			},
@@ -144,7 +144,7 @@ module.exports = (req, res, next) => {
 
 	// admin views
 	res.locals.sidebarItems.push({
-		name: res.$t('global.sidebar.text.administration'),
+		name: res.$t('global.sidebar.link.administration'),
 		icon: 'cogs',
 		link: '/administration/',
 		permission: 'ADMIN_VIEW',

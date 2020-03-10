@@ -106,6 +106,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
+app.use('/locales', express.static(path.join(__dirname, 'locales')));
 
 let sessionStore;
 const redisUrl = REDIS_URI;
