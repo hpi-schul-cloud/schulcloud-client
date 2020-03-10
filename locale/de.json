@@ -1,0 +1,32 @@
+{
+	"dashboard": {
+		"headline": {
+			"news": "Neuigkeiten",
+			"openTasks": "Gestellte Aufgaben",
+			"privateTasks": "Entwürfe",
+			"schedule": "Stundenplan",
+			"title": "Übersicht"
+		},
+		"text": {
+			"notFound": "Keine aktuellen Einträge vorhanden."
+		}
+	},
+	"global": {
+		"sidebar": {
+			"link": {
+				"administration": "Administration",
+				"calendar": "Termine",
+				"courses": "Kurse",
+				"files": "Meine Dateien",
+				"lernstore": "Lern-Store",
+				"management": "Verwaltung",
+				"managementClasses": "Klassen",
+				"managementStudents": "Schüler",
+				"managementTeachers": "Lehrer",
+				"news": "Neuigkeiten",
+				"overview": "Übersicht",
+				"tasks": "Aufgaben"
+			}
+		}
+	}
+}

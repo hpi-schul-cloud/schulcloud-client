@@ -1,0 +1,32 @@
+{
+	"dashboard": {
+		"headline": {
+			"news": "News",
+			"openTasks": "Open Tasks",
+			"privateTasks": "Drafts",
+			"schedule": "Schedule",
+			"title": "Dashboard"
+		},
+		"text": {
+			"notFound": "No active entries found."
+		}
+	},
+	"global": {
+		"sidebar": {
+			"link": {
+				"administration": "Administration",
+				"calendar": "Calendar",
+				"courses": "Courses",
+				"files": "My Files",
+				"lernstore": "Lern-Store",
+				"management": "Management",
+				"managementClasses": "Classes",
+				"managementStudents": "Students",
+				"managementTeachers": "Teacher",
+				"news": "News",
+				"overview": "Dashboard",
+				"tasks": "Tasks"
+			}
+		}
+	}
+}
