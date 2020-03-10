@@ -1,46 +1,30 @@
 const i18next = require('i18next');
+const Backend = require('i18next-sync-fs-backend');
 const fs = require('fs');
 const path = require('path');
 const logger = require('./logger');
 
 const defaultLanguage = 'en';
-const localeDir = '../locales';
+const localeDir = path.join(__dirname, '../locales');
 
-// load in and cache language files
-const languageKeys = {};
-const files = fs.readdirSync(path.join(__dirname, localeDir));
-files.forEach((filename) => {
-	if (!filename.endsWith('.json')) {
-		return; // skip
-	}
-	const lang = filename.replace('.json', '');
-	languageKeys[lang] = {
-		translation: JSON.parse(
-			fs.readFileSync(path.join(__dirname, localeDir, filename)),
-		),
-	};
-});
-const availableLanuages = Object.keys(languageKeys)
+const availableLanuages = fs.readdirSync(localeDir)
+	.filter(filename => filename.endsWith('.json'))
+	.map(filename => filename.replace('.json', ''));
+
 i18next
+	.use(Backend)
 	.init({
+		initImmediate: false,
 		lng: defaultLanguage,
 		fallbackLng: availableLanuages.filter(lng => lng !== defaultLanguage),
-		resources: languageKeys,
+		backend: {
+			loadPath: `${localeDir}/{{lng}}.json`,
+		},
 	})
 	.then(() => {
 		logger.info('i18n initialized');
 	})
 	.catch(logger.error);
-
-// PERFORMANCE TESTS
-// switch lang only:
-// 1.185.294/s
-
-// with t() output:
-// without lang switch:    137.979/s
-// with lang switch:       115.459/s
-// with const lang on t(): 118.422/s
-// lang switch on t():     123.035/s
 
 const getUserLanguage = (user = {}) => {
 	let lang = defaultLanguage;
@@ -51,11 +35,11 @@ const getUserLanguage = (user = {}) => {
 };
 
 const getInstance = (user) => {
-	const lng = getUserLanguage(user);
+	const userLng = getUserLanguage(user);
 
 	return (key, options = {}) => i18next.t(key, {
-		lng,
-		fallbackLng: availableLanuages,
+		lng: userLng,
+		fallbackLng: availableLanuages.filter(lng => lng !== userLng),
 		...options,
 	});
 };
