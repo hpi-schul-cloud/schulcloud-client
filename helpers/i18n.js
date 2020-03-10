@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const logger = require('./logger');
 
-const defaultLanguage = 'en';
+const defaultLanguage = 'de';
 const localeDir = path.join(__dirname, '../locales');
 
 const availableLanuages = fs.readdirSync(localeDir)
