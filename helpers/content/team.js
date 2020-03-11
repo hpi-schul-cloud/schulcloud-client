@@ -94,7 +94,7 @@ module.exports = [
 				title: '',
 				firstName: 'Matthias',
 				lastName: 'Luderich',
-				position: 'Leiter externe Kommunikation und Partnerschaften, HPI',
+				position: 'Chief Operating Officer, HPI',
 				description: 'Matthias ist Politikwissenschaftler (M.A.) und hat sich als Berater vor allem mit den politischen Seiten der digitalen Transformation im Bildungsbereich befasst. Seit Juli 2018 ist er im Team zuständig für die politische Kommunikation. Wenn Matthias nicht gerade fasziniert den Berliner Politikkosmos verfolgt, spielt er beim USV Potsdam Regionalliga-Basketball oder verbringt seine Zeit im heimischen Garten.',
 				pictureUrl: '/images/team/matthias_luderich.jpg',
 				priority: 0,
