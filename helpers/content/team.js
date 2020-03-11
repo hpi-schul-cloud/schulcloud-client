@@ -425,7 +425,7 @@ module.exports = [
 				title: '',
 				firstName: 'Sophie',
 				lastName: 'Plötz',
-				position: 'Operative Projektleiterin, MINT-EC',
+				position: 'Projektkoordination, MINT-EC',
 				description: 'Sophie absolvierte ihr Masterstudium in British Studies (HU Berlin) und ist zusätzlich staatlich geprüfte Kulturmanagerin (Deutsche Akademie für Management, Berlin). Seit Juli 2018 wirkt sie im Projekt HPI Schul-Cloud mit und übernimmt seit November 2019 die operative Projektleitung des Roll-Outs an die MINT-EC-Schulen. Dort koordiniert sie die Mitgestaltung der Lehrkräfte im Pilotprojekt. Nach dem Masterabschluss begleitete Sophie die Einführung einer digitalen Lernplattform und war in deren administrativer Betreuung sowie in der Konzeption von E-Learning-Inhalten tätig. Zum Ausgleich spielt sie Trompete im Blasorchester, besucht Museen, liest und reist gern.',
 				pictureUrl: '/images/team/Sophie_Plötz.JPG',
 				priority: 0,
