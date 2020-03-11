@@ -545,6 +545,14 @@ router.post('/copy/:courseId', (req, res, next) => {
 	// req.body.courseId = req.params.courseId;
 	req.body.copyCourseId = req.params.courseId;
 
+	req.body.features = [];
+	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
+
 	api(req)
 		.post('/courses/copy/', {
 			json: req.body, // TODO: sanitize
