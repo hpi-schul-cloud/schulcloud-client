@@ -10,6 +10,8 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const logger = require('../helpers/logger');
 
+const OPTIONAL_COURSE_FEATURES = ['rocketChat'];
+
 const router = express.Router();
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
@@ -244,6 +246,7 @@ const editCourseHandler = (req, res, next) => {
 				),
 				students: markSelected(students, _.map(course.userIds, '_id')),
 				scopePermissions: _scopePermissions,
+				schoolData: res.locals.currentSchoolData,
 			});
 		} else {
 			res.render('courses/create-course', {
@@ -372,6 +375,7 @@ const copyCourseHandler = (req, res, next) => {
 			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
 			substitutions,
 			students,
+			schoolData: res.locals.currentSchoolData,
 		});
 	});
 };
@@ -748,6 +752,14 @@ router.patch('/:courseId', (req, res, next) => {
 	if (req.body.unarchive === 'true') {
 		req.body = { untilDate: req.body.untilDate };
 	}
+
+	req.body.features = [];
+	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
 
 	// first delete all old events for the course
 	deleteEventsForCourse(req, res, req.params.courseId)
