@@ -156,6 +156,53 @@ const getStorageContext = (req, res) => {
 };
 
 /**
+ * Get value of an object property/path even if it's nested
+ * @param {object} obj The Object to extract data from
+ * @param {string} dataPath The path to the data, seperated by "." (e.g. "key1.key2")
+ * @return The value of the object at obj[key1][key2] ...
+ */
+function getValueByPath(obj, dataPath) {
+	const value = dataPath.split('.').reduce((o, i) => o[i], obj);
+	return value;
+}
+/**
+ * sorts the fileList Array
+ * @param {*} fileList Array of data objects
+ * @param {*} sortBy path to the key to sort by
+ * @param {*} sortOrder (desc, asc)
+ * @returns sorted fileList Array
+ */
+const sortFileList = (fileList, sortBy, sortOrder) => {
+	const sortedData = [...fileList].sort((first, second) => {
+		const a = getValueByPath(first, sortBy);
+		const b = getValueByPath(second, sortBy);
+		// handle undefined values
+		if (a === undefined || a === null) {
+			return 1;
+		}
+		if (b === undefined || b === null) {
+			return -1;
+		}
+
+		// sort numbers
+		if (typeof a === 'number' && typeof b === 'number') {
+			return a - b;
+		}
+
+		// sort booleans
+		if (typeof a === 'boolean' && typeof b === 'boolean') {
+			// eslint-disable-next-line no-nested-ternary
+			return a === b ? 0 : a ? -1 : 1;
+		}
+
+		// sort strings
+		return a.localeCompare(b);
+	});
+	return sortOrder !== 'desc' ? sortedData : sortedData.reverse();
+};
+
+
+/**
  * fetches all files and directories for a given storageContext
  */
 const FileGetter = (req, res, next) => {
@@ -189,7 +236,11 @@ const FileGetter = (req, res, next) => {
 			});
 
 			res.locals.files = {
-				files: checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
+				files: sortFileList(
+					checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
+					req.query.sortBy || 'updatedAt',
+					req.query.sortOrder || 'desc',
+				),
 				directories: files.filter(f => f.isDirectory),
 			};
 			next();
