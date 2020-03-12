@@ -155,7 +155,7 @@ module.exports = [
 				lastName: 'Feldtkeller',
 				position: 'Wissenschaftlicher Mitarbeiter, HPI',
 				description: 'Thomas hat sein Bachelorstudium am HPI abgeschlossen und entwickelt seit November 2017 die HPI Schul-Cloud mit, zunächst als Praktikant und seit Oktober 2018 als wissenschaftlicher Mitarbeiter. Er kümmert sich unter anderem um die Verarbeitung von Daten im Backend und baut Schnittstellen zu anderen Systemen. Privat jongliert er und spielt kompetitiv sowie kooperativ Videospiele.',
-				pictureUrl: '/images/team/Thomas_Feldtkeller.jpg',
+				pictureUrl: '/images/team/thomas_feldtkeller.jpg',
 				priority: 0,
 				social: {
 					facebook: '',
@@ -170,7 +170,7 @@ module.exports = [
 				lastName: 'Flesjø',
 				position: 'Wissenschaftlicher Mitarbeiter, HPI',
 				description: 'Tor ist ein norwegischer Softwareentwickler und lebt seit 2018 in Deutschland. Ursprünglich ist er Therapeut, hat jedoch durch seine Leidenschaft für Technologie die Karriere gewechselt und Development in Berlin studiert. Im Projekt HPI Schul-Cloud kümmert er sich um die Datenverarbeitung und Codesicherheit im Backend. In seiner Freizeit geht er gerne ins Fitnessstudio und spielt Schach.',
-				pictureUrl: '/images/team/tormod.png',
+				pictureUrl: '/images/team/tormod_flesjo.jpg',
 				priority: 0,
 				social: {
 					facebook: '',
@@ -276,8 +276,8 @@ module.exports = [
 				firstName: 'Sophie',
 				lastName: 'Krüger',
 				position: 'Wissenschaftliche Mitarbeiterin, HPI',
-				description: 'Sophie studiert Englisch und LER auf Lehramt im Master an der Universität Potsdam. Im Team HPI Schul-Cloud hilft sie dabei, die HPI Schul-Cloud bestmöglich in den modernen Unterricht zu integrieren. In ihrer Freizeit engagiert sie sich ehrenamtlich in diversen Vereinen. Außerdem liest, reist und kocht sie sehr gerne.',
-				pictureUrl: '/images/team/Sophie_Krueger.jpg',
+				description: 'Sophie studiert Englisch und LER auf Lehramt im Master an der Universität Potsdam. Im Team HPI Schul-Cloud unterstützt sie das Team bei pädagogischen und didaktischen Fragen. Weiterhin koordiniert sie die bildungswissenschaftliche Begleitforschung, den User-Support und das Onboarding der Schulen. In ihrer Freizeit entspannt sie gern mit einem guten Buch, kocht oder reist durch virtuelle Welten.',
+				pictureUrl: '/images/team/sophie_krueger.jpg',
 				priority: 0,
 				social: {
 					facebook: '',
@@ -337,7 +337,7 @@ module.exports = [
 				lastName: 'Schrott',
 				position: 'Wissenschaftliche Mitarbeiterin, HPI',
 				description: 'Luisa hat bereits als Designerin für die Aachener Agentur Polarstern Education gearbeitet und dort digitale Bildungsformate konzipiert und umgesetzt. Umso mehr freut sie sich jetzt Teil des Frontend Development Teams der HPI Schul-Cloud zu sein, um digitales Lernen und Lehren an deutschen Schulen weiter vorantreiben zu können. Mit ihrer Begeisterung für UX / UI wuchs auch die Neugier am Programmieren, was der Grund für sie war am 9 wöchigen Web Development Bootcamp Ironhack in Berlin teilzunehmen. In der Freizeit trifft man Luisa auf ihrer Yogamatte, in fernen Ländern oder beim Kochen mit Freunden.',
-				pictureUrl: '/images/team/luisa_schrott.png',
+				pictureUrl: '/images/team/luisa_schrott.jpg',
 				priority: 0,
 				social: {
 					facebook: '',
@@ -381,7 +381,7 @@ module.exports = [
 				firstName: 'Jacqueline',
 				lastName: 'Thorns',
 				position: 'Wissenschaftliche Mitarbeiterin, HPI',
-				description: 'Jacqueline hat European Studies an der Europa-Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin für die Öffentlichkeitsarbeit und das Eventmanagement zuständig. Außerdem koordiniert sie den User Support und ist für das Onboarding der HPI Schul-Cloud-Schulen verantwortlich. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.',
+				description: 'Jacqueline hat European Studies an der Europa-Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin für das Eventmanagement und den Datenschutz zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.',
 				pictureUrl: '/images/team/Jacqueline_Thorns.jpg',
 				priority: 0,
 				social: {
@@ -397,7 +397,7 @@ module.exports = [
 				lastName: 'Weitzenberg',
 				position: 'Wissenschaftliche Mitarbeiterin',
 				description: 'Mona gestaltet. Mit Menschen. Für Menschen. Durch ihre 15-jährige Praxis als freiberufliche Designerin, konnte sich Mona neben einem immensen Erfahrungsschatz und kreativer Routine ein multidisziplinäres Gestaltungsportfolio erarbeiten, dass sowohl die klassischen als auch die neuen Medien umfasst. Eine Gestaltung einer Broschüre erfährt die gleiche Hingabe wie die Entwicklung einer komplexen Applikation. Seit November 2018 unterstützt sie das Team der HPI Schul-Cloud in allen Gestaltungsfragen als Art Direktorin. Dabei liegt der Kern ihrer Arbeit im Interfacedesign (UI/UX) und in der Erarbeitung einer durchgehenden Corporate Identity. Familie, Hund und Haus sind für Mona nötiger Ruhepol, Erdung, Inspiration und kreative Neuerfindung zugleich.',
-				pictureUrl: '/images/team/Mona.png',
+				pictureUrl: '/images/team/ramona_weitzenberg.jpg',
 				priority: 0,
 				social: {
 					facebook: '',
