@@ -9,11 +9,12 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
 const logger = require('../helpers/logger');
+const { ROCKETCHAT_SERVICE_ENABLED } = require('../config/global');
 
 const router = express.Router();
 moment.locale('de');
 
-const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference'];
+const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference', 'messenger'];
 
 const addThumbnails = (file) => {
 	const thumbs = {
@@ -472,7 +473,7 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		});
 
-		const instanceUsesRocketChat = process.env.ROCKETCHAT_SERVICE_ENABLED;
+		const instanceUsesRocketChat = ROCKETCHAT_SERVICE_ENABLED;
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (
 			res.locals.currentSchoolData.features || []

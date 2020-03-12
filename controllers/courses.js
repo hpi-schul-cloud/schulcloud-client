@@ -10,7 +10,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const logger = require('../helpers/logger');
 
-const OPTIONAL_COURSE_FEATURES = ['rocketChat'];
+const OPTIONAL_COURSE_FEATURES = ['messenger'];
 
 const router = express.Router();
 

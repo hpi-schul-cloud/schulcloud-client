@@ -195,14 +195,17 @@
 						{{/each}}
 					</select>
 				</div>
-				{{#inArray "rocketChat" schoolData.features}}
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../course.features}}checked{{/inArray}}>
-                            Messenger für Kurs aktivieren
-                        </label>
-                    </div>
-                {{/inArray}}
+
+				{{#if @root.FEATURE_MESSENGER_ENABLED}}
+					{{#inArray "messenger" schoolData.features}}
+						<div class="form-group">
+							<label>
+								<input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
+								Messenger für Kurs aktivieren
+							</label>
+						</div>
+					{{/inArray}}
+				{{/if}}
 
 
 				<label>Termine auswählen</label>
