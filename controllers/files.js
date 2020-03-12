@@ -504,7 +504,7 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile: true,
-		showSearch: true,
+		showSearch: false,
 		inline: req.query.inline || req.query.CKEditor,
 		CKEditor: req.query.CKEditor,
 		parentId,
@@ -549,7 +549,7 @@ router.get('/shared/', (req, res) => {
 			}],
 			canUploadFile: false,
 			canCreateDir: false,
-			showSearch: true,
+			showSearch: false,
 			inline: req.query.inline || req.query.CKEditor,
 			CKEditor: req.query.CKEditor,
 		}, files));
@@ -559,7 +559,7 @@ router.get('/shared/', (req, res) => {
 router.get('/', (req, res, next) => {
 	res.render('files/files-overview', Object.assign({
 		title: 'Meine Dateien',
-		showSearch: true,
+		showSearch: false,
 	}));
 });
 
@@ -577,7 +577,7 @@ router.get('/courses/', (req, res, next) => {
 			breadcrumbs,
 			files: [],
 			directories,
-			showSearch: true,
+			showSearch: false,
 		});
 	});
 });
@@ -618,7 +618,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		inline: req.query.inline || req.query.CKEditor,
 		CKEditor: req.query.CKEditor,
 		breadcrumbs,
-		showSearch: true,
+		showSearch: false,
 		courseId: req.params.courseId,
 		ownerId: req.params.courseId,
 		toCourseText: 'Zum Kurs',
@@ -643,7 +643,7 @@ router.get('/teams/', (req, res, next) => {
 			teamFiles: true,
 			files: [],
 			directories,
-			showSearch: true,
+			showSearch: false,
 		});
 	});
 });
@@ -682,7 +682,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 		CKEditor: req.query.CKEditor,
 		teamFiles: true,
 		breadcrumbs,
-		showSearch: true,
+		showSearch: false,
 		courseId: req.params.teamId,
 		ownerId: req.params.teamId,
 		canEditPermissions: team.user.permissions.includes('EDIT_ALL_FILES'),
@@ -706,7 +706,7 @@ router.get('/classes/', (req, res, next) => {
 			breadcrumbs,
 			files: [],
 			directories,
-			showSearch: true,
+			showSearch: false,
 		});
 	});
 });
@@ -739,7 +739,7 @@ router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 			path: res.locals.files.path,
 			canUploadFile: true,
 			breadcrumbs,
-			showSearch: true,
+			showSearch: false,
 			inline: req.query.inline || req.query.CKEditor,
 			CKEditor: req.query.CKEditor,
 			parentId: req.params.folderId,
