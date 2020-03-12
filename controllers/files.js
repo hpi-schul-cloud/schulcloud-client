@@ -166,14 +166,14 @@ function getValueByPath(obj, dataPath) {
 	return value;
 }
 /**
- * sorts the fileList Array
- * @param {*} fileList Array of data objects
+ * sorts the data Array
+ * @param {*} data Array of data objects
  * @param {*} sortBy path to the key to sort by
  * @param {*} sortOrder (desc, asc)
  * @returns sorted fileList Array
  */
-const sortFileList = (fileList, sortBy, sortOrder) => {
-	const sortedData = [...fileList].sort((first, second) => {
+const dataSort = (data, sortBy, sortOrder) => {
+	const sortedData = [...data].sort((first, second) => {
 		const a = getValueByPath(first, sortBy);
 		const b = getValueByPath(second, sortBy);
 		// handle undefined values
@@ -236,12 +236,16 @@ const FileGetter = (req, res, next) => {
 			});
 
 			res.locals.files = {
-				files: sortFileList(
+				files: dataSort(
 					checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
 					req.query.sortBy || 'updatedAt',
 					req.query.sortOrder || 'desc',
 				),
-				directories: files.filter(f => f.isDirectory),
+				directories: dataSort(
+					files.filter(f => f.isDirectory),
+					req.query.sortBy || 'updatedAt',
+					req.query.sortOrder || 'desc',
+				),
 			};
 			next();
 		}).catch((err) => {
