@@ -44,14 +44,15 @@ router.post('/login/', (req, res, next) => {
 		schoolId,
 		redirect,
 	} = req.body;
+	const privateDevice = req.body.privateDevice === "true";
 
 	if (systemId) {
 		return api(req).get(`/systems/${req.body.systemId}`).then(system => authHelper.login({
-			strategy: system.type, username, password, systemId, schoolId, redirect,
+			strategy: system.type, username, password, systemId, schoolId, redirect, privateDevice,
 		}, req, res, next));
 	}
 	return authHelper.login({
-		strategy: 'local', username, password, redirect,
+		strategy: 'local', username, password, redirect, privateDevice,
 	}, req, res, next);
 });
 
