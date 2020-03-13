@@ -15,6 +15,13 @@
                             <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                         </div>
                     </div>
+                    {{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}
+                    <div class="form-check" style="margin-top: 10px;">
+                        <input type="checkbox" id="privateDevice" name="privateDevice" value="true">
+                        <label for="privateDevice">Dies ist ein privates Gerät</label>
+                        <span title="Wenn aktiviert, bleibst du länger eingeloggt." class="fa fa-info"></span>
+                    </div>
+                    {{/ifEnv}}
                 </div>
 
                 <div class="form-group toggle-providers">
