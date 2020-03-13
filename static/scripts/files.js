@@ -1,5 +1,34 @@
 import { getQueryParameterByName } from './helpers/queryStringParameter';
 
+window.addEventListener('DOMContentLoaded', () => {
+	let sortBy = getQueryParameterByName('sortBy');
+	let sortOrder = getQueryParameterByName('sortOrder');
+	const navigate = () => {
+		let params = '';
+		if (sortBy) {
+			params += `sortBy=${sortBy}&`;
+		}
+		if (sortOrder) {
+			params += `sortOrder=${sortOrder}&`;
+		}
+		window.location = `?${params}`;
+	};
+	$('select[name="sortBy"]').chosen({
+		width: '',
+		disable_search: true,
+	}).change((_, { selected }) => {
+		sortBy = selected;
+		navigate();
+	});
+	$('select[name="sortOrder"]').chosen({
+		width: '',
+		disable_search: true,
+	}).change((_, { selected }) => {
+		sortOrder = selected;
+		navigate();
+	});
+});
+
 const getDataValue = attr => () => {
 	const value = $('.section-upload').data(attr);
 	return value || undefined;

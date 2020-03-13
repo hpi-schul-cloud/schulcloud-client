@@ -210,47 +210,72 @@ const FileGetter = (req, res, next) => {
 	const userId = res.locals.currentUser._id;
 	const { params: { folderId, subFolderId } } = req;
 	const parent = subFolderId || folderId;
-	const promises = [
-		api(req).get('/roles', { qs: { name: 'student' } }),
-		api(req).get('/fileStorage', {
-			qs: { owner, parent },
-		}),
-	];
+	const promise = api(req).get('/fileStorage', {
+		qs: { owner, parent },
+	});
 
-	return Promise.all(promises)
-		.then(([role, result]) => {
-			if (!Array.isArray(result) && result.code === 403) {
-				res.locals.files = { files: [], directories: [] };
-				logger.warn(result);
-				next();
-				return;
-			}
-
-			const files = result.filter(f => f).map((file) => {
-				if (file.permissions[0].refId === userId) {
-					Object.assign(file, {
-						userIsOwner: true,
-					});
-				}
-				return file;
-			});
-
-			res.locals.files = {
-				files: dataSort(
-					checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
-					req.query.sortBy || 'updatedAt',
-					req.query.sortOrder || 'desc',
-				),
-				directories: dataSort(
-					files.filter(f => f.isDirectory),
-					req.query.sortBy || 'updatedAt',
-					req.query.sortOrder || 'desc',
-				),
-			};
+	return promise.then((result) => {
+		if (!Array.isArray(result) && result.code === 403) {
+			res.locals.files = { files: [], directories: [] };
+			logger.warn(result);
 			next();
-		}).catch((err) => {
-			next(err);
+			return;
+		}
+
+		const files = result.filter(f => f).map((file) => {
+			if (file.permissions[0].refId === userId) {
+				Object.assign(file, {
+					userIsOwner: true,
+				});
+			}
+			return file;
 		});
+
+		res.locals.fileSort = {
+			sortBy: req.query.sortBy || 'updatedAt',
+			sortOrder: req.query.sortOrder || 'desc',
+		};
+		res.locals.sortOptions = [
+			{
+				label: 'Erstelldatum',
+				value: 'createdAt',
+			},
+			{
+				label: 'Änderungsdatum',
+				value: 'updatedAt',
+			},
+			{
+				label: 'Dateiname',
+				value: 'name',
+			},
+			{
+				label: 'Größe',
+				value: 'size',
+			},
+		].map((option) => {
+			if (option.value === req.query.sortBy) {
+				option.selected = true;
+			}
+			return option;
+		});
+
+
+		res.locals.files = {
+			files: dataSort(
+				checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
+				res.locals.fileSort.sortBy,
+				res.locals.fileSort.sortOrder,
+			),
+			directories: dataSort(
+				files.filter(f => f.isDirectory),
+				res.locals.fileSort.sortBy,
+				res.locals.fileSort.sortOrder,
+			),
+		};
+		next();
+	}).catch((err) => {
+		next(err);
+	});
 };
 
 /**
