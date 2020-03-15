@@ -815,3 +815,7 @@ footer {
 .avatar-circle      { @include avatar(40px); }
 .avatar-circle-sm   { @include avatar(25px); }
 .avatar-circle-lg   { @include avatar(100px); }
+
+#matrixchat {
+    z-index: 10000;
+}

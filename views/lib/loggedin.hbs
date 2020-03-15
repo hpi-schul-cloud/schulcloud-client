@@ -22,6 +22,13 @@
         {{#if @root.currentUser.preferences.enterthecloud}}
             <script type="text/javascript" src="/vendor/enterthecloud.min.js" defer></script>
         {{/if}}
+    
+<section
+  id="matrixchat"
+  data-vector-indexeddb-worker-script="/indexeddb-worker.js"
+  data-vector-config="/riot_config.json"
+></section>
+<script async src="https://embed.stomt.com/bundles/7b6b640c5ddd980c24fa/bundle.js"></script>
     {{/content}}
 
     {{#content "body"}}
