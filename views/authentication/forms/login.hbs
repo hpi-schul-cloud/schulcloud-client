@@ -19,7 +19,10 @@
                     <div class="form-check" style="margin-top: 10px;">
                         <input type="checkbox" id="privateDevice" name="privateDevice" value="true">
                         <label for="privateDevice">Dies ist ein privates Gerät</label>
-                        <span title="Wenn aktiviert, bleibst du länger eingeloggt." class="fa fa-info"></span>
+						<button type="button" data-toggle="tooltip" data-placement="left" title="Wenn aktiviert, bleibst du länger eingeloggt." class="btn-link px-1">
+							<i class="fa fa-info"></i>
+						</button>
+
                     </div>
                     {{/ifEnv}}
                 </div>
