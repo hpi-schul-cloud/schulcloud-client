@@ -9,6 +9,7 @@ const hiddenBPSchools = schools.bp.splice(4);
 const hiddenSchoolsMarch2017 = schools.march2017.splice(4);
 const hiddenSchoolsMay2018 = schools.may2018.splice(4);
 const hiddenSchoolsFeb2019 = schools.feb2019.splice(4);
+const hiddenSchoolsAugust2019 = schools.august2019.splice(4);
 const hiddenSchoolsThuringia2019 = schools.thuringia2019.splice(4);
 
 router.get('/', (req, res, next) => {
@@ -28,6 +29,7 @@ router.get('/', (req, res, next) => {
 		hiddenSchoolsMarch2017,
 		hiddenSchoolsMay2018,
 		hiddenSchoolsFeb2019,
+		hiddenSchoolsAugust2019,
 		hiddenSchoolsThuringia2019,
 	}));
 });
