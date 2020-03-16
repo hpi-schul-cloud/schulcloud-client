@@ -1,16 +1,18 @@
 {
 	"about": {
 		"headline": {
-			"publications" :"Veröffentlichungen",
-			"morePublications" : "Weitere Veröffentlichungen",
 			"bestPractice": "Best Practice Schulen",
 			"educSupp": "Bildungswissenschaftliche Begleitung",
+			"morePublications": "Weitere Veröffentlichungen",
+			"ourAwards": "Unsere Auszeichnungen",
 			"pilotSchool": "Pilostschulen",
-			"title": "Über die HPI Schul-Cloud",
-			"recordingsLecture":"Aufzeichnungen von Vorträgen",
-			"ourAwards" : "Unsere Auszeichnungen"
+			"publications": "Veröffentlichungen",
+			"recordingsLecture": "Aufzeichnungen von Vorträgen",
+			"title": "Über die HPI Schul-Cloud"
 		},
 		"link": {
+			"awardWinnerIdea": "Ernennung zum „Ausgezeichneten Ort“ im bundesweiten Wettbewerb „Land der Ideen“",
+			"awardWinnerInnovation": "Preisträger im \"Innovationspreis Berlin Brandenburg 2018\"",
 			"cloudGermanyConcept": "Die Cloud für Schulen in Deutschland: Konzept und Pilotierung der HPI Schul-Cloud",
 			"cloudImpotanceStakeholder": "Schulrechner wandern in die Cloud – Was bedeutet das für die unterschiedlichen Stakeholder?",
 			"hpiCloudDuringLesson": "Die HPI Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien und Methoden",
@@ -18,13 +20,10 @@
 			"hpiCloudLearning": "HPI Schul-Cloud und Lernen 4.0 - Best-Practice-Unterrichtsbeispiele für die Sekundarstufe",
 			"hpiCloudTechnicalReport": "Technischer Bericht: Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland",
 			"shortDescription": "Kurzbeschreibung \"Die HPI Schul-Cloud\" (.pdf)",
-			"talksFirstCloudForum":"Vorträge des 1. HPI Schul-Cloud-Forums (April 2017)",
-			"talksSecondCloudForum":"Vorträge des 2. HPI Schul-Cloud-Forums (März 2018)",
-			"talksThirdCloudForum":"Vorträge des 3. HPI Schul-Cloud-Forums (März 2019)",
-			"awardWinnerInnovation": "Preisträger im \"Innovationspreis Berlin Brandenburg 2018\"",
-			"awardWinnerIdea" :"Ernennung zum „Ausgezeichneten Ort“ im bundesweiten Wettbewerb „Land der Ideen“"
+			"talksFirstCloudForum": "Vorträge des 1. HPI Schul-Cloud-Forums (April 2017)",
+			"talksSecondCloudForum": "Vorträge des 2. HPI Schul-Cloud-Forums (März 2018)",
+			"talksThirdCloudForum": "Vorträge des 3. HPI Schul-Cloud-Forums (März 2019)"
 		},
-
 		"text": {
 			"moreInfo": "Mehr Informationen:",
 			"showLess": "Weniger anzeigen",
@@ -33,18 +32,6 @@
 			"startF2019": "(Start Februar 2019)",
 			"startM2017": "(Start März 2017)",
 			"startM2018": "(Start Mai 2018)"
-		}
-	},
-	"dashboard": {
-		"headline": {
-			"news": "Neuigkeiten",
-			"openTasks": "Gestellte Aufgaben",
-			"privateTasks": "Entwürfe",
-			"schedule": "Stundenplan",
-			"title": "Übersicht"
-		},
-		"text": {
-			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
 	"courses": {
@@ -58,9 +45,7 @@
 				}
 			},
 			"edit": {
-				"pop_up": {
-
-				}
+				"pop_up": {}
 			},
 			"groups": {
 				"group": {

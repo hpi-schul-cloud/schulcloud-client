@@ -33,32 +33,32 @@
         {{/inArray}}
         <div class="dropdown-menu dropdown-menu dropdown-menu-course">
           <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
-            <i class="fa fa-edit" aria-hidden="true"></i> Kurs bearbeiten/löschen
+            <i class="fa fa-edit" aria-hidden="true"></i> {{$t "courses.course.dropdown_menu.link.editDeleteCourse"}}
           </a>
 		  {{#unless ../isArchived}}
           <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
-            <i class="fa fa-envelope" aria-hidden="true"></i> zum Kurs einladen
+            <i class="fa fa-envelope" aria-hidden="true"></i> {{$t "courses.course.dropdown_menu.link.inviteToCourse"}}
           </a>
           <a class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
-            <i class="fa fa-share" aria-hidden="true"></i> Kurs teilen
+            <i class="fa fa-share" aria-hidden="true"></i> {{$t "courses.course.dropdown_menu.link.shareCourse"}}
           </a>
 		  {{/unless}}
           <a href="/courses/{{../_id}}/copy" class="dropdown-item">
-            <i class="fa fa-clone" aria-hidden="true"></i> Kurs duplizieren
+            <i class="fa fa-clone" aria-hidden="true"></i> {{$t "courses.course.dropdown_menu.link.duplicateCourse"}}
           </a>
         </div>
       </div>
     <div class="row description">
       <div class="col-sm-12">
         {{#if description}}
-        <p class="lead">Kursbeschreibung: {{{stripOnlyScript description}}}</p>
+        <p class="lead">{{$t "courses.course.text.coursedescription"}} {{{stripOnlyScript description}}}</p>
         {{/if}}
 		{{#unless ../isArchived}}{{#if nextEvent}}
-          <p class="text-muted">Nächste Unterrichtsstunde: {{nextEvent}}</p>
+          <p class="text-muted">{{$t "courses.course.text.nextClass"}}{{nextEvent}}</p>
         {{/if}}{{/unless}}
         <a href="{{filesUrl}}" class="btn btn-add btn-secondary pull-right">
           <i class="fa fa-folder-open"></i>
-          Zu den Kursdateien
+          {{$t "courses.course.link.toCourseFiles"}}
         </a>
       </div>
     </div>
@@ -67,16 +67,16 @@
         <div class="tabContainer" data-active-tab={{activeTab}}>
           <div class="tabs" data-max-width="1024">
             <button class="tab" data-testid="topics" data-tab="js-topics">
-              <span class="text">Themen <span class="count-badge" data-badge="{{lessons.length}}"/></span>
+              <span class="text">{{$t "courses.course.tab_label.topics"}} <span class="count-badge" data-badge="{{lessons.length}}"/></span>
             </button>
             <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
-              <span class="text">Aufgaben <span class="count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}"/></span>
+              <span class="text">{{$t "courses.course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}"/></span>
             </button>
             <button class="tab" data-testid="tools" data-tab="js-tools">
-              <span class="text">Tools <span class="count-badge" data-badge="{{../ltiToolIds.length}}"/></span>
+              <span class="text">{{$t "courses.course.tab_label.tools"}} <span class="count-badge" data-badge="{{../ltiToolIds.length}}"/></span>
             </button>
             <button class="tab" data-testid="groups" data-tab="js-groups">
-              <span class="text">Gruppen <span class="count-badge" data-badge="{{../courseGroups.length}}"/></span>
+              <span class="text">{{$t "courses.course.tab_label.groups"}} <span class="count-badge" data-badge="{{../courseGroups.length}}"/></span>
             </button>
           </div>
         </div>
@@ -106,11 +106,11 @@
 		{{#content "body"}}
 			<div class="modal-footer">
 			<button type="button" class="btn btn-secondary btn-close">
-				Abbrechen
+				{{$t "global.button.cancel"}}
 			</button>
 
 			<button type="submit" class="btn btn-primary btn-submit">
-				Löschen
+				{{$t "global.button.delete"}}
 			</button>
 			</div>
 		{{/content}}
