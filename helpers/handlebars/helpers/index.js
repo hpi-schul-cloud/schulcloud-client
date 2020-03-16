@@ -135,6 +135,9 @@ const helpers = app => ({
 		}
 		return options.inverse(this);
 	},
+	userInitials: (opts)=> {
+		return opts.data.local.currentUser.avatarInitials;
+	},
 	userHasPermission: (permission, opts) => {
 		if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
 			return opts.fn(this);
