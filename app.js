@@ -221,10 +221,11 @@ app.use((err, req, res, next) => {
 		res.locals.message = err.message;
 	}
 
-	if (res.locals && res.locals.message.includes('ESOCKETTIMEDOUT') && err.options) {
+	if (res.locals && res.locals.message && res.locals.message.includes('ESOCKETTIMEDOUT') && err.options) {
 		const message = `ESOCKETTIMEDOUT by route: ${err.options.baseUrl + err.options.uri}`;
 		logger.warn(message);
 		Sentry.captureMessage(message);
+		res.locals.message = 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.'
 	}
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
