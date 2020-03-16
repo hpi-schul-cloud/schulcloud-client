@@ -24,6 +24,7 @@
 			"awardWinnerInnovation": "Preisträger im \"Innovationspreis Berlin Brandenburg 2018\"",
 			"awardWinnerIdea" :"Ernennung zum „Ausgezeichneten Ort“ im bundesweiten Wettbewerb „Land der Ideen“"
 		},
+
 		"text": {
 			"moreInfo": "Mehr Informationen:",
 			"showLess": "Weniger anzeigen",
@@ -46,7 +47,79 @@
 			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
+	"courses": {
+		"course": {
+			"dropdown_menu": {
+				"link": {
+					"duplicateCourse": "Kurs duplizieren",
+					"editDeleteCourse": "Kurs bearbeiten/löschen",
+					"inviteToCourse": "zum Kurs einladen",
+					"shareCourse": "Kurs teilen"
+				}
+			},
+			"edit": {
+				"pop_up": {
+
+				}
+			},
+			"groups": {
+				"group": {
+					"headline": {
+						"doneGroupTasks": "getätigte Gruppenabgaben",
+						"openGroupTasks": "offene (mögliche) Gruppenabgaben",
+						"topics": "Themen"
+					},
+					"link": {
+						"addTopic": "Thema hinzufügen",
+						"deleteGroup": "Schülergruppe löschen",
+						"editGroup": "Schülergruppe bearbeiten"
+					},
+					"text": {
+						"groupMembers": "Gruppenteilnehmer: ",
+						"noOpenGroupTasks": "Keine weiteren Gruppenabgaben möglich.",
+						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
+						"noTopics": "keine Themen.",
+						"responsibleTeachers": "Verantwortliche Lehrer: "
+					}
+				}
+			},
+			"link": {
+				"toCourseFiles": "Zu den Kursdateien"
+			},
+			"tab_label": {
+				"groups": "Gruppen",
+				"tasks": "Aufgaben",
+				"tools": "Tools",
+				"topics": "Themen"
+			},
+			"text": {
+				"coursedescription": "Kursbeschreibung: ",
+				"nextClass": "Nächste Unterrichtsstunde: "
+			}
+		},
+		"tools": {
+			"text": {
+				"noTools": "Keine Tools."
+			}
+		}
+	},
+	"dashboard": {
+		"headline": {
+			"news": "Neuigkeiten",
+			"openTasks": "Gestellte Aufgaben",
+			"privateTasks": "Entwürfe",
+			"schedule": "Stundenplan",
+			"title": "Übersicht"
+		},
+		"text": {
+			"notFound": "Keine aktuellen Einträge vorhanden."
+		}
+	},
 	"global": {
+		"button": {
+			"cancel": "Abbrechen",
+			"delete": "Löschen"
+		},
 		"sidebar": {
 			"link": {
 				"administration": "Administration",
