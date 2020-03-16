@@ -28,6 +28,8 @@ const nodemon = require('gulp-nodemon');
 const browserSync = require('browser-sync');
 const webpackConfig = require('./webpack.config');
 
+const browserlist = ['> 0.2%', 'last 10 version', 'not dead'];
+
 const baseScripts = [
 	'./static/scripts/jquery/jquery.min.js',
 	'./static/scripts/jquery/jquery.serialize-object.js',
@@ -119,7 +121,7 @@ gulp.task('styles', () => {
 				preserve: true,
 			}),
 			autoprefixer({
-				browsers: ['> 1%', 'not dead'],
+				browsers: browserlist,
 			}),
 		]))
 		.pipe(cleanCSS({
@@ -174,7 +176,7 @@ gulp.task('base-scripts', () => beginPipeAll(baseScripts)
 				'@babel/preset-env',
 				{
 					modules: false,
-					targets: '> 1%, not dead',
+					targets: browserlist.join(', '),
 				},
 			],
 		],
@@ -192,7 +194,7 @@ gulp.task('vendor-styles', () => beginPipe('./static/vendor/**/*.{css,sass,scss}
 	}))
 	.pipe(postcss([
 		autoprefixer({
-			browsers: ['> 1%', 'not dead'],
+			browsers: browserlist,
 		}),
 	]))
 	.pipe(cleanCSS({
@@ -211,7 +213,7 @@ gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
 				'@babel/preset-env',
 				{
 					modules: false,
-					targets: '> 1%, not dead',
+					targets: browserlist.join(', '),
 				},
 			],
 		],
