@@ -26,7 +26,9 @@
                 <form id="retryform" method="POST">
                     {{> "lib/components/csrfInput"}}
                     {{#each values}}
-                    <input type="hidden" name="{{this.name}}" value="{{this.value}}">
+                        {{#ifneq this.name "_csrf"}}
+                            <input type="hidden" name="{{../this.name}}" value="{{../this.value}}">
+                        {{/ifneq}}
                     {{/each}}
                     <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" target="_blank" id="retrybtn">In
                         neuem Tab öffnen</a>
