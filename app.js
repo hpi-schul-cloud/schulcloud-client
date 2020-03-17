@@ -33,8 +33,6 @@ const {
 } = require('./config/global');
 
 const app = express();
-const Config = new Configuration();
-Config.init(app);
 
 if (SENTRY_DSN) {
 	Sentry.init({
@@ -71,9 +69,7 @@ const securityHeaders = require('./middleware/security_headers');
 app.use(securityHeaders);
 
 // set cors headers
-const cors = require('./middleware/cors');
-
-app.use(cors);
+app.use(require('./middleware/cors'));
 
 app.use(compression());
 app.set('trust proxy', true);
@@ -99,15 +95,20 @@ app.set('view cache', true);
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(morgan('dev', {
-	skip(req, res) {
-		return req && ((req.route || {}).path || '').includes('tsp-login');
-	},
-}));
+if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
+	const morganLogFormat = Configuration.get('MORGAN_LOG_FORMAT');
+	app.use(morgan(morganLogFormat, {
+		skip(req, res) {
+			return req && ((req.route || {}).path || '').includes('tsp-login');
+		},
+	}));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
+app.use('/locales', express.static(path.join(__dirname, 'locales')));
 
 let sessionStore;
 const redisUrl = REDIS_URI;
@@ -190,6 +191,9 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 	}
 }));
 
+// add res.$t method for i18n with users prefered language
+app.use(require('./middleware/i18n'));
+
 // Initialize the modules and their routes
 app.use(require('./controllers/'));
 
@@ -219,10 +223,11 @@ app.use((err, req, res, next) => {
 		res.locals.message = err.message;
 	}
 
-	if (res.locals && res.locals.message.includes('ESOCKETTIMEDOUT') && err.options) {
+	if (res.locals && res.locals.message && res.locals.message.includes('ESOCKETTIMEDOUT') && err.options) {
 		const message = `ESOCKETTIMEDOUT by route: ${err.options.baseUrl + err.options.uri}`;
 		logger.warn(message);
 		Sentry.captureMessage(message);
+		res.locals.message = 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.';
 	}
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 

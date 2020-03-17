@@ -90,15 +90,19 @@ $(document).ready(function() {
         $systems.trigger('chosen:updated');
     });
 
-    $btnLogin.on('click', function(e) {
-		const school = $school.val();
-		const system = $systems.val();
-		if(school){
-			localStorage.setItem('loginSchool', school);
-		}
-		if(system){
-			localStorage.setItem('loginSystem', system);
-		}
+    $btnLogin.on('click', function (e) {
+        const school = $school.val();
+        const system = $systems.val();
+        if (school) {
+            localStorage.setItem('loginSchool', school);
+        } else {
+            localStorage.removeItem('loginSchool');
+        }
+        if (system) {
+            localStorage.setItem('loginSystem', system);
+        } else {
+            localStorage.removeItem('loginSystem');
+        }
     });
 
     $school.on('change', function() {
