@@ -17,8 +17,8 @@ COPY . .
 
 ENV SC_THEME=default
 ENV TZ=Europe/Berlin
+RUN gulp clear-cache
 RUN gulp
 
 VOLUME /home/node/app/build
 CMD npm start
-
