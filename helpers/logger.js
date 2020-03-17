@@ -1,25 +1,8 @@
 const winston = require('winston');
-
+const { Configuration } = require('@schul-cloud/commons');
 const isProductionMode = process.env.NODE_ENV === 'production';
 
-let logLevel = process.env.LOG_LEVEL;
-
-if (!logLevel) {
-	switch (process.env.NODE_ENV) {
-		case 'default':
-		case 'development':
-			logLevel = 'debug';
-			break;
-		case 'test':
-			logLevel = 'silly';
-			break;
-		case 'production':
-			logLevel = 'warn';
-			break;
-		default:
-			logLevel = 'info';
-	}
-}
+let logLevel = Configuration.get('LOG_LEVEL');
 
 let format;
 
