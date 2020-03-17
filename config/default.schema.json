@@ -2,6 +2,38 @@
 	"title": "HPI Schul-Cloud Configuration",
 	"type": "object",
 	"properties": {
+		"FEATURE_MORGAN_LOG_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, morgan logs are written."
+		},
+		"MORGAN_LOG_FORMAT": {
+			"type": "string",
+			"default": "dev",
+			"enum": [
+				"default",
+				"common",
+				"short",
+				"tiny",
+				"combined",
+				"dev"
+			],
+			"description": "Sets the morgan log level. Morgan is creating access logs for express."
+		},
+		"LOG_LEVEL": {
+			"type": "string",
+			"default": "info",
+			"enum": [
+				"error",
+				"warn",
+				"info",
+				"http",
+				"verbose",
+				"debug",
+				"silly"
+			],
+			"description": "Sets the winston log level. Winston is used for all logs. @see AbstractConfigSetLevels"
+		},
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
 			"type": "string",
 			"default": "opt-out",
