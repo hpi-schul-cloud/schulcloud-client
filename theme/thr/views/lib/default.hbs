@@ -51,6 +51,9 @@
 
 	{{#block "scripts"}}
 	{{#embed "lib/sw-metrix"}}{{/embed}}
+	{{! make window.$t() available. Must be executed before all other scripts! }}
+	<script src="/scripts/i18n.js" type="text/javascript"></script>
+
 	<script src="/scripts/all.js" type="text/javascript" defer></script>
 	{{/block}}
 
