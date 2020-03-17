@@ -24,7 +24,7 @@
                         {{> "lib/components/pagination" settings=pagination }}
                     </div>
 
-					{{#userHasPermission "REQUEST_CONSENTS"}}
+                    {{#userHasPermission "REQUEST_CONSENTS"}}
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
                             <h2 class="h4">
@@ -52,7 +52,7 @@
                                         Link-Druckbogen erstellen
                                     </button>
                                 </p>
-								{{#userHasPermission "TEACHER_CREATE"}}
+                                {{#userHasPermission "TEACHER_CREATE"}}
                                 <p>
                                     Alternativ kannst du auch im "Nutzer bearbeiten"-Dialog jedes Nutzers einzeln individuelle Registrierungslinks generieren.
                                 </p>
@@ -60,7 +60,7 @@
                             {{/if}}
                         </div>
                     </div>
-					{{/userHasPermission}}
+                    {{/userHasPermission}}
 
                     <div class="row">
                         <div class="col-sm-12 no-padding">
@@ -72,9 +72,9 @@
                                         Lehrer hinzufügen
                                     </button>
                                     {{#inArray "Administrator" ../roleNames}}
-                                        <button class="btn btn-secondary btn-import teacher">
+                                         <a href="/administration/students/import" class="btn btn-secondary btn-import">
                                             Lehrer importieren
-                                        </button>
+                                        </a>
                                     {{/inArray}}
                                 {{else}}
                                     {{> "lib/no-create-info"}}
@@ -96,13 +96,6 @@
                         {{> "administration/forms/form-invitation-teacher"}}
                     {{/content}}
                 {{/embed}}
-
-                {{#embed "lib/components/modal-form" action=(concat "/administration/teachers/import?_csrf=" @root.csrfToken) method="post" class="import-modal" enctype="multipart/form-data"}}
-                    {{#content "fields"}}
-                        {{> "administration/forms/form-import" roles="teacher"}}
-                    {{/content}}
-                {{/embed}}
-
             </section>
         </div>
     {{/content}}
