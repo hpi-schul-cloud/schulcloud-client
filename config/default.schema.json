@@ -2,6 +2,24 @@
 	"title": "HPI Schul-Cloud Configuration",
 	"type": "object",
 	"properties": {
+		"FEATURE_MORGAN_LOG_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, morgan logs are written."
+		},
+		"MORGAN_LOG_FORMAT": {
+			"type": "string",
+			"default": "dev",
+			"enum": [
+				"default",
+				"common",
+				"short",
+				"tiny",
+				"combined",
+				"dev"
+			],
+			"description": "Sets the morgan log level. Morgan is creating access logs for express."
+		},
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
 			"type": "string",
 			"default": "opt-out",

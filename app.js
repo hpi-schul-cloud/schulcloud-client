@@ -97,9 +97,8 @@ app.set('view cache', true);
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-const morganLogDisabled = process.env.MORGAN_LOG_DISABLED === 'true' || false;
-if (!morganLogDisabled) {
-	const morganLogFormat = process.env.MORGAN_LOG_FORMAT || 'dev';
+if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
+	const morganLogFormat = Configuration.get('MORGAN_LOG_FORMAT');
 	app.use(morgan(morganLogFormat, {
 		skip(req, res) {
 			return req && ((req.route || {}).path || '').includes('tsp-login');
