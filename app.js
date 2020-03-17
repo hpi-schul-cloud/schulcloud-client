@@ -33,8 +33,6 @@ const {
 } = require('./config/global');
 
 const app = express();
-const Config = new Configuration();
-Config.init(app);
 
 if (SENTRY_DSN) {
 	Sentry.init({
@@ -99,11 +97,15 @@ app.set('view cache', true);
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(morgan('dev', {
-	skip(req, res) {
-		return req && ((req.route || {}).path || '').includes('tsp-login');
-	},
-}));
+if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
+	const morganLogFormat = Configuration.get('MORGAN_LOG_FORMAT');
+	app.use(morgan(morganLogFormat, {
+		skip(req, res) {
+			return req && ((req.route || {}).path || '').includes('tsp-login');
+		},
+	}));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -223,7 +225,7 @@ app.use((err, req, res, next) => {
 		const message = `ESOCKETTIMEDOUT by route: ${err.options.baseUrl + err.options.uri}`;
 		logger.warn(message);
 		Sentry.captureMessage(message);
-		res.locals.message = 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.'
+		res.locals.message = 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.';
 	}
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
