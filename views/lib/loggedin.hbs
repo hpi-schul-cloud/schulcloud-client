@@ -23,12 +23,22 @@
             <script type="text/javascript" src="/vendor/enterthecloud.min.js" defer></script>
         {{/if}}
     
-<section
-  id="matrixchat"
-  data-vector-indexeddb-worker-script="/indexeddb-worker.js"
-  data-vector-config="/riot_config.json"
-></section>
-<script async src="https://embed.stomt.com/bundles/7b6b640c5ddd980c24fa/bundle.js"></script>
+        <!-- Load embedded Riot Chat client -->
+        <section
+          id="matrixchat"
+          data-vector-indexeddb-worker-script="/indexeddb-worker.js"
+          data-vector-config="/riot_config.json"
+
+          data-matrix-room-id=""
+          data-matrix-lang="de"
+
+          data-matrix-homeserver-url=""
+          data-matrix-user-id=""
+          data-matrix-access-token=""
+        ></section>
+        <script async src="https://embed.stomt.com/bundles/94c45458725671558e06/bundle.js"></script>
+        <!-- END: Load embedded Riot Chat client -->
+
     {{/content}}
 
     {{#content "body"}}
