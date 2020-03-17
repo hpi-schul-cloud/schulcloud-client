@@ -99,11 +99,16 @@ app.set('view cache', true);
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(morgan('dev', {
-	skip(req, res) {
-		return req && ((req.route || {}).path || '').includes('tsp-login');
-	},
-}));
+const morganLogDisabled = process.env.MORGAN_LOG_DISABLED === 'true' || false;
+if (!morganLogDisabled) {
+	const morganLogFormat = process.env.MORGAN_LOG_FORMAT || 'dev';
+	app.use(morgan(morganLogFormat, {
+		skip(req, res) {
+			return req && ((req.route || {}).path || '').includes('tsp-login');
+		},
+	}));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -223,7 +228,7 @@ app.use((err, req, res, next) => {
 		const message = `ESOCKETTIMEDOUT by route: ${err.options.baseUrl + err.options.uri}`;
 		logger.warn(message);
 		Sentry.captureMessage(message);
-		res.locals.message = 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.'
+		res.locals.message = 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.';
 	}
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
