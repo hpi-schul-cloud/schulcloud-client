@@ -57,7 +57,7 @@ function readNetworkProtocol(result) {
 	}
 }
 
-function sendResults(result) {
+function sendResults(result, url) {
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', '/logs/', true);
 	xhr.setRequestHeader('Content-type', 'application/json');
@@ -66,28 +66,41 @@ function sendResults(result) {
 	const data = {
 		attributes: {
 			context: result,
-			url: window.location.href,
+			url,
 		},
 	};
 	xhr.send(JSON.stringify(data));
 }
 
-function calculateMetrics() {
-	const result = {};
+function calculateMetrics(result, url) {
+	//getFirstConsistentlyInteractive waits for all timers to finish,
+	//including the one used before redirecting to an external resource
 	ttiPolyfill.getFirstConsistentlyInteractive().then((tti) => {
 		result['time-to-interactive'] = Math.round(tti);
 		return result;
 	}).then((_result) => {
-		measureCRP(_result);
-		calculatePaintingTimes(_result);
-		readConnectionType(_result);
-		readNetworkProtocol(_result);
-		sendResults(_result);
+		addResultsAndSend(_result, url);
 	});
+}
+
+function addResultsAndSend(result, url) {
+	measureCRP(result);
+	calculatePaintingTimes(result);
+	readConnectionType(result);
+	readNetworkProtocol(result);
+	sendResults(result, url);
 }
 
 window.addEventListener('load', () => {
 	setTimeout(() => {
-		calculateMetrics();
+		const result = {};
+		if (window.location.pathname.startsWith('/redirect')) {
+			result['time-to-interactive'] = -1;
+			const url = (new URL(document.location)).searchParams.get('href');
+			addResultsAndSend(result, url);
+		} else {
+			const url = window.location.href;
+			calculateMetrics(result, url);
+		}
 	}, 0);
 });

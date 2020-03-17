@@ -134,7 +134,8 @@ function joinConference(container) {
 			options: {},
 		}),
 	}).done((res) => {
-		window.open(res.url, '_blank');
+		window.location.href = '/redirect?href=' + res.url + '&display=BigBlueButton&target=_blank';
+		//window.open(res.url, '_blank');
 	}).fail((err) => {
 		// eslint-disable-next-line no-console
 		console.error(err);

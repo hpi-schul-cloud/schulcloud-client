@@ -1,0 +1,23 @@
+{{#extend "lib/loggedout"}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/lib/error.css"/>
+    {{/content}}
+    {{#content "scripts" mode="append"}}
+        <script type="text/javascript">
+            window.onload = () => setTimeout(() => window.location.href="{{href}}", 5000)
+        </script>
+    {{/content}}
+
+    {{#content "page"}}
+            <main class="container pt-3 mt-5">
+                <div class="error-header-wrapper pb-3">
+
+                    <p class="error-header-text">
+                        Du wirst jetzt zu {{display}} weitergeleitet.
+                    </p>
+
+                    <button class="btn btn-primary" onclick="window.history.back();"><i class="fa fa-arrow-left"></i> zurück</button>
+                </div>
+            </main>
+    {{/content}}
+{{/extend}}

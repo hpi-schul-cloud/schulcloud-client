@@ -52,6 +52,7 @@ router.use('/users/', require('./users'));
 router.use('/rocketChat/', require('./rocketChat'));
 router.use('/addons', require('./addons'));
 router.use('/videoconference', require('./videoconference'));
+router.use('/redirect', require('./redirect'));
 
 
 router.use('/administration/', require('./administration'));

@@ -152,7 +152,7 @@ $(document).ready(() => {
 		const { url } = response;
 		return !url || url.length < 0
 			? $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger')
-			: window.location.replace(url);
+			: window.location.href = '/redirect?href=' + url;
 	};
 
 	const setVideoConferenceOptions = (options) => {
