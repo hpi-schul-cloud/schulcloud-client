@@ -86,16 +86,16 @@ router.get('/', (req, res, next) => {
 				width: 100 * (eventDuration / numMinutes), // percent
 			};
 
-			if (event && (!event.url || event.url === "")) {
+			if (event && (!event.url || event.url === '')) {
 				// add team or course url to event, otherwise just link to the calendar
 				try {
 					if (event.hasOwnProperty('x-sc-courseId')) {
 						// create course link
-						event.url = '/courses/' + event['x-sc-courseId'];
+						event.url = `/courses/${event['x-sc-courseId']}`;
 						event.alt = 'Kurs anzeigen';
 					} else if (event.hasOwnProperty('x-sc-teamId')) {
 						// create team link
-						event.url = '/teams/' + event['x-sc-teamId'] + '/?activeTab=events';
+						event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
 						event.alt = 'Termine im Team anzeigen';
 					} else {
 						event.url = '/calendar';
@@ -198,7 +198,7 @@ router.get('/', (req, res, next) => {
 		}
 
 		res.render('dashboard/dashboard', {
-			title: 'Übersicht',
+			title: res.$t('dashboard.headline.title'),
 			events: events.reverse(),
 			eventsDate: moment().format('dddd, DD. MMMM YYYY'),
 			homeworks: homeworks.filter(task => !task.private).slice(0, 4),

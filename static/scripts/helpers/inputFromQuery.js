@@ -2,10 +2,6 @@
 /* apply input from query */
 import { getQueryParameters } from './queryStringParameter';
 
-if (!NodeList.prototype.forEach) {
-	NodeList.prototype.forEach = Array.prototype.forEach;
-}
-
 window.addEventListener('DOMContentLoaded', () => {
 	const params = getQueryParameters();
 	Object.entries(params).forEach(([key, value]) => {

@@ -397,7 +397,7 @@ const enrichCourse = (course) => {
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
 		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 			time.room ? `| ${time.room}` : ''
-			}</div>`;
+		}</div>`;
 	});
 	return course;
 };
@@ -806,7 +806,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 					type: 'danger',
 					message: `Sie sind bereits Teilnehmer des Kurses/Fachs ${
 						course.name
-						}.`,
+					}.`,
 				};
 				res.redirect(`/courses/${req.params.courseId}`);
 				return;
@@ -824,7 +824,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 						type: 'success',
 						message: `Sie wurden erfolgreich beim Kurs/Fach ${
 							course.name
-							} hinzugefügt`,
+						} hinzugefügt`,
 					};
 					res.redirect(`/courses/${req.params.courseId}`);
 				});
