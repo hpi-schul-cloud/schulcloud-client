@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const api = require('../api');
 const permissionsHelper = require('./permissions');
+const { Configuration } = require('@schul-cloud/commons');
 
 const rolesDisplayName = {
 	teacher: 'Lehrer',
@@ -127,7 +128,7 @@ const restrictSidebar = (req, res) => {
 const authChecker = (req, res, next) => {
 	isAuthenticated(req)
 		.then((isAuthenticated2) => {
-			const redirectUrl = req.app.Config.get('NOT_AUTHENTICATED_REDIRECT_URL');
+			const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
 			if (isAuthenticated2) {
 				// fetch user profile
 				populateCurrentUser(req, res)
