@@ -17,13 +17,13 @@
 
 		<div class="row description">
 			<div class="col-sm-12 col-md-12">
-				<p class="lead">{{$t "courses.course.groups.group.text.groupMembers"}}{{#each userIds }}
+				<p class="lead">{{$t "courses._course.groups._group.text.groupMembers"}}{{#each userIds }}
 						<span class="tag tag-primary">{{ displayName }}</span>
 					{{/each}}</p>
 			</div>
 
 			<div class="col-sm-12 col-md-12">
-				<p class="lead">{{$t "courses.course.groups.group.text.responsibleTeachers"}}{{#each course.teacherIds }}
+				<p class="lead">{{$t "courses._course.groups._group.text.responsibleTeachers"}}{{#each course.teacherIds }}
 						<span class="tag tag-primary">{{ displayName }}</span>
 					{{/each}}</p>
 			</div>
@@ -36,10 +36,10 @@
 					<a href="/courses/{{courseId}}/topics/add?courseGroup={{_id}}"
 						class="btn btn-primary btn-sm pull-right ml-1" title="Thema hinzufügen">
 						<i class="fa fa-plus" aria-hidden="true"></i>
-						<span class="hidden-lg-down">{{$t "courses.course.groups.group.link.addTopic"}}</span>
+						<span class="hidden-lg-down">{{$t "courses._course.groups._group.link.addTopic"}}</span>
 					</a>
 				{{/unless}}
-				<h2 class="h4">{{$t "courses.course.groups.group.headline.topics"}}</h2>
+				<h2 class="h4">{{$t "courses._course.groups._group.headline.topics"}}</h2>
 
 				<div class="list-group">
 					{{#if lessons}}
@@ -71,7 +71,7 @@
 						</div>
 					{{else}}
 						<p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-							<span>{{$t "courses.course.groups.group.text.noTopics"}}</span>
+							<span>{{$t "courses._course.groups._group.text.noTopics"}}</span>
 						</p>
 					{{/if}}
 				</div>
@@ -81,7 +81,7 @@
 		<!-- Done Submissions -->
 		<div class="row section-course-group">
 			<div class="col-sm-12 col-md-12">
-				<h2 class="h4">{{$t "courses.course.groups.group.headline.doneGroupTasks"}}</h2>
+				<h2 class="h4">{{$t "courses._course.groups._group.headline.doneGroupTasks"}}</h2>
 
 				<div class="list-group">
 					{{#if doneSubmissions}}
@@ -92,7 +92,7 @@
 						{{/each}}
 					{{else}}
 						<p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-							<span>{{$t "courses.course.groups.group.text.noSubmissions"}}</span>
+							<span>{{$t "courses._course.groups._group.text.noSubmissions"}}</span>
 						</p>
 					{{/if}}
 				</div>
@@ -102,7 +102,7 @@
 		<!-- Open Submissions -->
 		<div class="row section-course-group">
 			<div class="col-sm-12 col-md-12">
-				<h2 class="h4">{{$t "courses.course.groups.group.headline.openGroupTasks"}}</h2>
+				<h2 class="h4">{{$t "courses._course.groups._group.headline.openGroupTasks"}}</h2>
 
 				<div class="list-group">
 					{{#if openSubmissions}}
@@ -113,7 +113,7 @@
 						{{/each}}
 					{{else}}
 						<p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-							<span>{{$t "courses.course.groups.group.text.noOpenGroupTasks"}}</span>
+							<span>{{$t "courses._course.groups._group.text.noOpenGroupTasks"}}</span>
 						</p>
 					{{/if}}
 				</div>
@@ -124,10 +124,10 @@
 		{{#unless course.isArchived}}
 			<div class="row padding-top">
 				<div class="col-sm-12 col-md-12">
-					<a href="/courses/{{courseId}}/groups/{{_id}}/edit" class="btn btn-add btn-primary"><i class="fa fa-edit"></i> {{$t "courses.course.groups.group.link.editGroup"}}</a>
+					<a href="/courses/{{courseId}}/groups/{{_id}}/edit" class="btn btn-add btn-primary"><i class="fa fa-edit"></i> {{$t "courses._course.groups._group.link.editGroup"}}</a>
 					<a href="/courses/{{courseId}}/groups/{{_id}}" class="btn btn-delete-course btn-secondary"
 						target="_blank" data-method="DELETE" data-name="{{../name}}"
-						redirect="/courses/{{courseId}}/?activeTab=groups"><i class="fa fa-trash-o"></i> {{$t "courses.course.groups.group.link.deleteGroup"}}</a>
+						redirect="/courses/{{courseId}}/?activeTab=groups"><i class="fa fa-trash-o"></i> {{$t "courses._course.groups._group.link.deleteGroup"}}</a>
 				</div>
 			</div>
 		{{/unless}}
