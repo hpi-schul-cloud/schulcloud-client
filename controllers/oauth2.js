@@ -4,6 +4,7 @@ const router = express.Router();
 const csrf = require('csurf');
 const auth = require('../helpers/authentication');
 const api = require('../api');
+const { Configuration } = require('@schul-cloud/commons');
 
 const csrfProtection = csrf({ cookie: true });
 
@@ -13,7 +14,7 @@ router.get('/login', csrfProtection, (req, res, next) => api(req)
 		if (loginRequest.skip) {
 			res.redirect('/oauth2/login/success');
 		} else {
-			res.redirect(req.app.Config.get('NOT_AUTHENTICATED_REDIRECT_URL'));
+			res.redirect(Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL'));
 		}
 	}));
 
@@ -27,9 +28,9 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 
 	api(req).patch(`/oauth2/loginRequest/${req.session.login_challenge}/?accept=1`,
 		{ body }).then((loginRequest) => {
-		delete (req.session.login_challenge);
-		res.redirect(loginRequest.redirect_to);
-	});
+			delete (req.session.login_challenge);
+			res.redirect(loginRequest.redirect_to);
+		});
 });
 
 const acceptConsent = (r, w, challenge, grantScopes, remember = false) => {
@@ -91,8 +92,8 @@ router.get('/username/:pseudonym', (req, res, next) => {
 			completeName,
 			shortName,
 			infoText: 'Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus'
-      + ' der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver'
-      + ' anzeigen kann.',
+				+ ' der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver'
+				+ ' anzeigen kann.',
 		});
 	});
 });

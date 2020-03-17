@@ -33,8 +33,6 @@ const {
 } = require('./config/global');
 
 const app = express();
-const Config = new Configuration();
-Config.init(app);
 
 if (SENTRY_DSN) {
 	Sentry.init({
