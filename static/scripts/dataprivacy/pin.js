@@ -44,6 +44,6 @@ $('#resend-pin').on('click', (e) => {
 			timeoutSend = false;
 		}, 60000);
 	} else {
-		$.showNotification(`Eine E-Mail wurde bereits versendet. Bitte prüfe, ob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du die E-Mail erneut anfordern.`, 'info', 7000);
+		$.showNotification(`Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner, ob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.`, 'info', 7000);
 	}
 });
