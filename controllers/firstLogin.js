@@ -97,8 +97,11 @@ router.get('/', async (req, res, next) => {
 		}
 
 		// EMAIL
-		submitPageIndex += 1;
-		sections.push('email');
+		if (!res.locals.currentUser.source) {
+			// only display the confirm email page if the user was not generated from an external source
+			submitPageIndex += 1;
+			sections.push('email');
+		}
 
 		// BIRTHDATE
 		if (!res.locals.currentUser.birthday && isStudent(res)) {

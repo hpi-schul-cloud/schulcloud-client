@@ -69,9 +69,7 @@ const securityHeaders = require('./middleware/security_headers');
 app.use(securityHeaders);
 
 // set cors headers
-const cors = require('./middleware/cors');
-
-app.use(cors);
+app.use(require('./middleware/cors'));
 
 app.use(compression());
 app.set('trust proxy', true);
@@ -110,6 +108,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
+app.use('/locales', express.static(path.join(__dirname, 'locales')));
 
 let sessionStore;
 const redisUrl = REDIS_URI;
@@ -194,6 +193,9 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 		return method;
 	}
 }));
+
+// add res.$t method for i18n with users prefered language
+app.use(require('./middleware/i18n'));
 
 // Initialize the modules and their routes
 app.use(require('./controllers/'));

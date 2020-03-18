@@ -1,0 +1,52 @@
+{
+	"about": {
+		"headline": {
+			"bestPractice": "Best Practice Schulen",
+			"educSupp": "Bildungswissenschaftliche Begleitung",
+			"pilotSchool": "Pilostschulen",
+			"title": "Über die HPI Schul-Cloud"
+		},
+		"link": {
+			"shortDesc": "Kurzbeschreibung \"Die HPI Schul-Cloud\" (.pdf)"
+		},
+		"text": {
+			"moreInfo": "Mehr Informationen:",
+			"showLess": "Weniger anzeigen",
+			"showMore": "Mehr anzeigen",
+			"startA2019": "(Start August 2019)",
+			"startF2019": "(Start Februar 2019)",
+			"startM2017": "(Start März 2017)",
+			"startM2018": "(Start Mai 2018)"
+		}
+	},
+	"dashboard": {
+		"headline": {
+			"news": "Neuigkeiten",
+			"openTasks": "Gestellte Aufgaben",
+			"privateTasks": "Entwürfe",
+			"schedule": "Stundenplan",
+			"title": "Übersicht"
+		},
+		"text": {
+			"notFound": "Keine aktuellen Einträge vorhanden."
+		}
+	},
+	"global": {
+		"sidebar": {
+			"link": {
+				"administration": "Administration",
+				"calendar": "Termine",
+				"courses": "Kurse",
+				"files": "Meine Dateien",
+				"lernstore": "Lern-Store",
+				"management": "Verwaltung",
+				"managementClasses": "Klassen",
+				"managementStudents": "Schüler",
+				"managementTeachers": "Lehrer",
+				"news": "Neuigkeiten",
+				"overview": "Übersicht",
+				"tasks": "Aufgaben"
+			}
+		}
+	}
+}

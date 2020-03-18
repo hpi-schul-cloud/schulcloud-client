@@ -1,7 +1,3 @@
-if (!NodeList.prototype.forEach) {
-	NodeList.prototype.forEach = Array.prototype.forEach;
-}
-
 function buildPin(wrapper) {
 	let pin = '';
 	wrapper.querySelectorAll('.digit').forEach((input) => {
