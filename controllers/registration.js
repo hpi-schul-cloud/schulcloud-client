@@ -38,8 +38,8 @@ router.post('/registration/pincreation', (req, res, next) => {
 				email: req.body.email,
 				mailTextForRole: req.body.mailTextForRole,
 			},
-		}).then(() => {
-			res.sendStatus(200);
+		}).then((result) => {
+			res.sendStatus((result || {}).status || 200);
 		}).catch(err => res.status(500).send(err));
 	}
 	return res.sendStatus(500);
