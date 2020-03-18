@@ -135,9 +135,12 @@ app.use(session({
 }));
 
 // CSRF middlewares
-app.use(duplicateTokenHandler);
-app.use(csurf());
-app.use(tokenInjector);
+if (Configuration.get('FEATURE_CSRF_ENABLED')) {
+	app.use(duplicateTokenHandler);
+	app.use(csurf());
+	app.use(tokenInjector);
+	// there follows an csrf error handler below...
+}
 
 const setTheme = require('./helpers/theme');
 
@@ -210,7 +213,9 @@ app.use((req, res, next) => {
 });
 
 // error handlers
-app.use(csrfErrorHandler);
+if (Configuration.get('FEATURE_CSRF_ENABLED')) {
+	app.use(csrfErrorHandler);
+}
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
