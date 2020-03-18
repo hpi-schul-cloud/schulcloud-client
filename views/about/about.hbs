@@ -4,7 +4,7 @@
 		{{#unless loggedin}}
 			<h1 class="h2 section-title center">{{title}}</h1>
 		{{/unless}}
-		<h2 class="h3 section-title center">Über die HPI Schul-Cloud</h2>
+		<h2 class="h3 section-title center">{{$t "about.headline.title"}}</h2>
 		<p>Das <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt
 			unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/"
 				target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von 325 Schulen bundesweit und
@@ -12,9 +12,9 @@
 			Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und
 			Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
 		<ul>
-			<li>Mehr Informationen:
+			<li>{{$t "about.text.moreInfo"}}
 				<a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/publikationen/projekte/schul-cloud_beschreibung_website.pdf"
-					title="Initiates file download" target="_blank">Kurzbeschreibung "Die HPI Schul-Cloud" (.pdf)</a>
+					title="Initiates file download" target="_blank">{{$t "about.link.shortDesc"}}<a>
 			</li>
 		</ul>
 		<br />
@@ -23,8 +23,8 @@
 			Im Mai 2018 begann die Roll-Out-Phase, in der die Nutzung der HPI Schul-Cloud stufenweise auf alle 325
 			Schulen aus dem nationalen Excellence-Schulnetzwerk MINT-EC ausgeweitet wird. Derzeit können 128 MINT-EC
 			Pilotschulen bundesweit und im Ausland die HPI Schul-Cloud im Unterricht nutzen. <br />
-			Als Niedersächsische Bildungscloud, Schul-Cloud Brandenburg und Thüringer Schulcloud werden landesweite Lösungen an jeweils 
-			mehr als 40 Schulen aller Schulformen und Bildungseinrichtungen im Unterrichtseinsatz erprobt. Weitere Pilotprojekte mit Schulträgern 
+			Als Niedersächsische Bildungscloud, Schul-Cloud Brandenburg und Thüringer Schulcloud werden landesweite Lösungen an jeweils
+			mehr als 40 Schulen aller Schulformen und Bildungseinrichtungen im Unterrichtseinsatz erprobt. Weitere Pilotprojekte mit Schulträgern
 			und einzelnen Schulen starten derzeit in ganz Deutschland. (Stand Februar 2020) <br />
 			Auch unser <a href="/team">Team</a> wächst stetig!
 		</p>
@@ -39,14 +39,14 @@
 	{{#embed "authentication/section" style="primary" class="content-width-max"}}
 	{{#content "body"}}
 		<div class="section-partner">
-			<h2 class="h3 section-title center">Pilotschulen</h2>
-			<h3 class="h4">Best Practice Schulen</h3>
+			<h2 class="h3 section-title center">{{$t "about.headline.pilotSchool"}}</h2>
+			<h3 class="h4">{{$t "about.headline.bestPractice"}}</h3>
 			<div class="row">
 				{{#each schools.bp}}
 					<div class="partner-box-wrapper col-xs-6 col-md-3">
 						<div class="partner-box">
 							<a href="{{{url}}}" target="_blank">
-								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+								<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
 									style="padding: {{{padding}}};" {{/if}}>
 							</a>
 						</div>
@@ -58,7 +58,7 @@
 							<div class="partner-box-wrapper col-xs-6 col-md-3">
 								<div class="partner-box">
 									<a href="{{{url}}}" target="_blank">
-										<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+										<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
 											style="padding: {{{padding}}};" {{/if}}>
 									</a>
 								</div>
@@ -68,18 +68,18 @@
 				</div>
 				<div class="buttonWrapper">
 					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-						data-target="#hiddenBPSchools">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i>
+						data-target="#hiddenBPSchools">{{$t "about.text.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i>
 					</div>
 				</div>
 			</div>
 
-			<h3 class="h4">Pilotschulen <span style="font-size: 12px;">(Start März 2017)</span></h3>
+			<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span style="font-size: 12px;">{{$t "about.text.startM2017"}}</span></h3>
 			<div class="row">
 				{{#each schools.march2017}}
 					<div class="partner-box-wrapper col-xs-6 col-md-3">
 						<div class="partner-box">
 							<a href="{{{url}}}" target="_blank">
-								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+								<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
 									style="padding: {{{padding}}};" {{/if}}>
 							</a>
 						</div>
@@ -91,7 +91,7 @@
 							<div class="partner-box-wrapper col-xs-6 col-md-3">
 								<div class="partner-box">
 									<a href="{{{url}}}" target="_blank">
-										<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+										<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
 											style="padding: {{{padding}}};" {{/if}}>
 									</a>
 								</div>
@@ -101,18 +101,18 @@
 				</div>
 				<div class="buttonWrapper">
 					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-						data-target="#hiddenSchoolsMarch2017">mehr anzeigen<i class="fa fa-angle-down"
+						data-target="#hiddenSchoolsMarch2017">{{$t "about.text.showMore"}}<i class="fa fa-angle-down"
 							aria-hidden="true"></i></div>
 				</div>
 			</div>
 
-			<h3 class="h4">Pilotschulen <span style="font-size: 12px;">(Start Mai 2018)</span></h3>
+			<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span style="font-size: 12px;">{{$t "about.text.startM2018"}}</span></h3>
 			<div class="row">
 				{{#each schools.may2018}}
 					<div class="partner-box-wrapper col-xs-6 col-md-3">
 						<div class="partner-box">
 							<a href="{{{url}}}" target="_blank">
-								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+								<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
 									style="padding: {{{padding}}};" {{/if}}>
 							</a>
 						</div>
@@ -124,7 +124,7 @@
 							<div class="partner-box-wrapper col-xs-6 col-md-3">
 								<div class="partner-box">
 									<a href="{{{url}}}" target="_blank">
-										<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+										<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
 											style="padding: {{{padding}}};" {{/if}}>
 									</a>
 								</div>
@@ -134,18 +134,18 @@
 				</div>
 				<div class="buttonWrapper">
 					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-						data-target="#hiddenSchoolsMay2018">mehr anzeigen<i class="fa fa-angle-down"
+						data-target="#hiddenSchoolsMay2018">{{$t "about.text.showMore"}}<i class="fa fa-angle-down"
 							aria-hidden="true"></i></div>
 				</div>
 			</div>
 
-			<h3 class="h4">Pilotschulen <span style="font-size: 12px;">(Start Februar 2019)</span></h3>
+			<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span style="font-size: 12px;">{{$t "about.text.startF2019"}}</span></h3>
 			<div class="row">
 				{{#each schools.feb2019}}
 					<div class="partner-box-wrapper col-xs-6 col-md-3">
 						<div class="partner-box">
 							<a href="{{{url}}}" target="_blank">
-								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+								<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
 									style="padding: {{{padding}}};" {{/if}}>
 							</a>
 						</div>
@@ -157,7 +157,7 @@
 							<div class="partner-box-wrapper col-xs-6 col-md-3">
 								<div class="partner-box">
 									<a href="{{{url}}}" target="_blank">
-										<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+										<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
 											style="padding: {{{padding}}};" {{/if}}>
 									</a>
 								</div>
@@ -167,17 +167,17 @@
 				</div>
 				<div class="buttonWrapper">
 					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-						data-target="#hiddenSchoolsFeb2019">mehr anzeigen<i class="fa fa-angle-down"
+						data-target="#hiddenSchoolsFeb2019">{{$t "about.text.showMore"}}<i class="fa fa-angle-down"
 							aria-hidden="true"></i></div>
 				</div>
-				
-				<h3 class="h4">Pilotschulen <span style="font-size: 12px;">(Start August 2019)</span></h3>
+
+				<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span style="font-size: 12px;">{{$t "about.text.startA2019"}}</span></h3>
 				<div class="row">
 					{{#each schools.august2019}}
 						<div class="partner-box-wrapper col-xs-6 col-md-3">
 							<div class="partner-box">
 								<a href="{{{url}}}" target="_blank">
-									<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+									<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
 										style="padding: {{{padding}}};" {{/if}}>
 								</a>
 							</div>
@@ -189,7 +189,7 @@
 								<div class="partner-box-wrapper col-xs-6 col-md-3">
 									<div class="partner-box">
 										<a href="{{{url}}}" target="_blank">
-											<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+											<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
 												style="padding: {{{padding}}};" {{/if}}>
 										</a>
 									</div>
@@ -199,7 +199,7 @@
 					</div>
 					<div class="buttonWrapper">
 						<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-							data-target="#hiddenSchoolsAugust2019">mehr anzeigen<i class="fa fa-angle-down"
+							data-target="#hiddenSchoolsAugust2019">{{$t "about.text.showMore"}}<i class="fa fa-angle-down"
 								aria-hidden="true"></i></div>
 					</div>
 				</div>
@@ -228,7 +228,7 @@
 	{{#embed "authentication/section" class="content-width-max"}}
 	{{#content "body"}}
 
-		<h2 class="h3 section-title center">Bildungswissenschaftliche Begleitung</h2>
+		<h2 class="h3 section-title center">{{$t "about.headline.educSupp"}}</h2>
 		<p>Zur pädagogisch-didaktischen Unterstützung des Projekts im Sinne der Entwicklung von Beispielen für die
 			Unterrichtsgestaltung
 			mit verfügbarem digitalen Lernmaterial aus der HPI Schul-Cloud und dem Erkenntnisgewinn über die digitale
@@ -241,7 +241,7 @@
 			<a href="http://www.gei.de/home.html" target="_blank">Georg-Eckert-Institut</a>
 			aufbauend auf den Ergebnissen von Unterrichtsbeobachtungen und Workshops mit den Pilotschulen ein
 			Nutzungskonzept für die pädagogisch-didaktisch sinnvolle Anwendung der HPI Schul-Cloud. Außerdem hat das HPI
-			zusammen mit der <a href="https://www.presse.uni-augsburg.de/unipressedienst/2018/jan-maerz/2018_003/"
+			zusammen mit der <a href="https://www.philso.uni-augsburg.de/lehrstuehle/schulpaed/Projekte/Digitalisierung/Lernen-4_0-in-der-Praxis/"
 				target="_blank">Universität Augsburg</a>
 			einen MOOC zu dem Thema <a href="https://mooc.house/courses/lernen40-2018" target="_blank">Lernen 4.0 -
 				Möglichkeiten und Grenzen einer Digitalisierung im Bildungsbereich</a> durchgeführt.</p>
@@ -299,7 +299,7 @@
 								Cloud-Architektur für Schulen in Deutschland</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.jpg" />
+								src="{{encodeURI "https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.jpg"}}" />
 						</a>
 					</div>
 				</div>
@@ -364,7 +364,7 @@
 			<div class="row">
 				<div class="single-award col-xs-12 col-md-6">
 					<div class="single-award-wrapper">
-						<a href="https://www.innovationspreis.de/preisträger-und-finalisten/preisträger/2018/"
+						<a href="{{encodeURI "https://www.innovationspreis.de/preisträger-und-finalisten/preisträger/2018/"}}"
 							target="_blank">
 							<div class="row">
 								<div class="col-md-6"><b class="single-award-title">Preisträger im "Innovationspreis

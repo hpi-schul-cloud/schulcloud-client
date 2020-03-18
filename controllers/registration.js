@@ -105,7 +105,7 @@ ${res.locals.theme.short_title}-Team`,
 			res.sendStatus(200);
 		})
 		.catch((err) => {
-			let message = 'Ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.'
+			let message = 'Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.'
 			const customMessage = (err.error || {}).message || err.message;
 			if (customMessage) { message = customMessage; }
 			if (err && err.code) {

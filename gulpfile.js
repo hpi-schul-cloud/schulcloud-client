@@ -4,7 +4,6 @@ const autoprefixer = require('autoprefixer');
 const fs = require('fs');
 const gulp = require('gulp');
 const babel = require('gulp-babel');
-const changed = require('gulp-changed-smart');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const gulpCount = require('gulp-count');
@@ -28,6 +27,8 @@ const webpackStream = require('webpack-stream');
 const nodemon = require('gulp-nodemon');
 const browserSync = require('browser-sync');
 const webpackConfig = require('./webpack.config');
+
+const browserlist = ['> 0.2%', 'last 10 version', 'not dead'];
 
 const baseScripts = [
 	'./static/scripts/jquery/jquery.min.js',
@@ -72,13 +73,12 @@ const handleError = (error) => {
 };
 
 const beginPipe = src => gulp
-	.src(withTheme(src))
+	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
-	.pipe(changed(gulp))
 	.pipe(filelog());
 
 const beginPipeAll = src => gulp
-	.src(withTheme(src))
+	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
 	.pipe(filelog());
 
@@ -96,9 +96,9 @@ gulp.task('other', () => gulp
 
 // minify static/other
 // uses gulp.src instead of beginPipe for performance reasons (logging is slow)
-gulp.task('other-with-theme', ['other'], () => gulp
+gulp.task('other-with-theme', gulp.series('other', () => gulp
 	.src(withTheme('./static/other/**/*.*'))
-	.pipe(gulp.dest(`./build/${themeName()}/other`)));
+	.pipe(gulp.dest(`./build/${themeName()}/other`))));
 
 const loadPaths = path.resolve('./static/styles/');
 sassGrapher.init('./static/styles/', {
@@ -121,7 +121,7 @@ gulp.task('styles', () => {
 				preserve: true,
 			}),
 			autoprefixer({
-				browsers: ['> 1%', 'not dead'],
+				browsers: browserlist,
 			}),
 		]))
 		.pipe(cleanCSS({
@@ -132,7 +132,7 @@ gulp.task('styles', () => {
 		.pipe(browserSync.stream());
 });
 
-gulp.task('styles-done', ['styles'], () => {
+gulp.task('styles-done', gulp.series('styles'), () => {
 	firstRun = false;
 });
 
@@ -176,7 +176,7 @@ gulp.task('base-scripts', () => beginPipeAll(baseScripts)
 				'@babel/preset-env',
 				{
 					modules: false,
-					targets: '> 1%, not dead',
+					targets: browserlist.join(', '),
 				},
 			],
 		],
@@ -194,7 +194,7 @@ gulp.task('vendor-styles', () => beginPipe('./static/vendor/**/*.{css,sass,scss}
 	}))
 	.pipe(postcss([
 		autoprefixer({
-			browsers: ['> 1%', 'not dead'],
+			browsers: browserlist,
 		}),
 	]))
 	.pipe(cleanCSS({
@@ -213,7 +213,7 @@ gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
 				'@babel/preset-env',
 				{
 					modules: false,
-					targets: '> 1%, not dead',
+					targets: browserlist.join(', '),
 				},
 			],
 		],
@@ -251,12 +251,27 @@ gulp.task('clear', () => gulp
 		],
 		{
 			read: false,
+			allowEmpty: true
 		},
 	)
 	.pipe(rimraf()));
 
+// clear gulp cache without removing current build	
+gulp.task('clear-cache', () => gulp
+	.src(
+		[
+			'./.gulp-changed-smart.json',
+			'./.webpack-changed-plugin-cache/*',
+		],
+		{
+			read: false,
+			allowEmpty: true
+		},
+	)
+	.pipe(rimraf({})));
+
 // run all tasks, processing changed files
-gulp.task('build-all', [
+gulp.task('build-all', gulp.series(
 	'images',
 	'other',
 	'other-with-theme',
@@ -271,48 +286,26 @@ gulp.task('build-all', [
 	'vendor-optimized-assets',
 	'node-modules',
 	'static',
-]);
+));
 
-gulp.task('build-theme-files', ['styles', 'styles-done', 'images', 'static']);
+gulp.task('build-theme-files', gulp.series('styles', 'styles-done', 'images', 'static'));
 
 // watch and run corresponding task on change, process changed files only
-gulp.task('watch', ['build-all'], () => {
+gulp.task('watch', gulp.series('build-all', () => {
 	const watchOptions = { interval: 1000 };
-	gulp.watch(baseScripts, watchOptions, ['base-scripts']);
+	gulp.watch(baseScripts, watchOptions, gulp.series('base-scripts'));
 	gulp.watch(
 		withTheme('./static/styles/**/*.{css,sass,scss}'),
 		watchOptions,
-		['styles', 'styles-done'],
+		gulp.series('styles', 'styles-done'),
 	);
-	gulp.watch(withTheme('./static/images/**/*.*'), watchOptions, [
-		'images',
-	]).on('change', browserSync.reload);
-	gulp.watch(withTheme(nonBaseScripts), watchOptions, [
-		'scripts',
-	]);
+	gulp.watch(withTheme('./static/images/**/*.*'), watchOptions, gulp.series('images'))
+		.on('change', browserSync.reload);
+	gulp.watch(withTheme(nonBaseScripts), watchOptions, gulp.series('scripts'));
 
-	gulp.watch(withTheme('./static/vendor-optimized/**/*.*'), watchOptions, [
-		'vendor-optimized-assets',
-	]);
-	gulp.watch(withTheme('./static/*.*'), watchOptions, ['static']);
-});
-
-gulp.task('watch-reload', ['watch', 'browser-sync']);
-
-gulp.task('browser-sync', ['nodemon'], () => {
-	browserSync.init(null, {
-		proxy: 'http://localhost:3100',
-		open: false,
-		port: 7000,
-		ghostMode: false,
-		reloadOnRestart: false,
-		socket: {
-			clients: {
-				heartbeatTimeout: 60000,
-			},
-		},
-	});
-});
+	gulp.watch(withTheme('./static/vendor-optimized/**/*.*'), watchOptions, gulp.series('vendor-optimized-assets'));
+	gulp.watch(withTheme('./static/*.*'), watchOptions, gulp.series('static'));
+}));
 
 gulp.task('nodemon', (cb) => {
 	let started = false;
@@ -330,5 +323,23 @@ gulp.task('nodemon', (cb) => {
 	});
 });
 
+gulp.task('browser-sync', () => {
+	browserSync.init(null, {
+		proxy: 'http://localhost:3100',
+		open: false,
+		port: 7000,
+		ghostMode: false,
+		reloadOnRestart: false,
+		socket: {
+			clients: {
+				heartbeatTimeout: 60000,
+			},
+		},
+	});
+});
+
+gulp.task('watch-reload', gulp.parallel('watch', 'nodemon', 'browser-sync'));
+
+
 // run this if only 'gulp' is run on the commandline with no task specified
-gulp.task('default', ['build-all']);
+gulp.task('default', gulp.series('build-all'));

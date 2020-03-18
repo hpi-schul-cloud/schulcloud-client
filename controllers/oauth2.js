@@ -44,6 +44,19 @@ const acceptConsent = (r, w, challenge, grantScopes, remember = false) => {
 		.then(consentRequest => w.redirect(consentRequest.redirect_to));
 };
 
+const displayScope = (scope) => {
+	switch (scope) {
+		case 'openid':
+			return 'eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt';
+		case 'profile':
+			return 'deinen Namen'
+		case 'email':
+			return 'deine E-Mail-Adresse'
+		default:
+			return scope;
+	}
+}
+
 router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
 	// This endpoint is hit when hydra initiates the consent flow
 	if (r.query.error) {
@@ -51,22 +64,22 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
 		return w.send(`${r.query.error}<br />${r.query.error_description}`);
 	}
 	return api(r).get(`/oauth2/consentRequest/${r.query.consent_challenge}`).then((consentRequest) => {
-		if (consentRequest.skip) {
-			return acceptConsent(r, w, r.query.consent_challenge, consentRequest.requested_scope);
-		}
-		return w.render('oauth2/consent', {
-			inline: true,
-			title: 'Login mit Schul-Cloud',
-			subtitle: '',
-			client: consentRequest.client.client_name,
-			action: `/oauth2/consent?challenge=${r.query.consent_challenge}`,
-			buttonLabel: 'Akzeptieren',
-			scopes: consentRequest.requested_scope.map(scope => ({
-				display: (scope === 'openid'
-					? 'eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt'
-					: scope),
-				value: scope,
-			})),
+		return api(r).get(`/ltitools/?oAuthClientId=${consentRequest.client.client_id}&isLocal=true`).then((tool) => {
+			if (consentRequest.skip || tool.data[0].skipConsent) {
+				return acceptConsent(r, w, r.query.consent_challenge, consentRequest.requested_scope);
+			}
+			return w.render('oauth2/consent', {
+				inline: true,
+				title: 'Login mit Schul-Cloud',
+				subtitle: '',
+				client: consentRequest.client.client_name,
+				action: `/oauth2/consent?challenge=${r.query.consent_challenge}`,
+				buttonLabel: 'Akzeptieren',
+				scopes: consentRequest.requested_scope.map(scope => ({
+					display: displayScope(scope),
+					value: scope,
+				})),
+			});
 		});
 	});
 });

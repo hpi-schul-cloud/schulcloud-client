@@ -44,14 +44,15 @@ router.post('/login/', (req, res, next) => {
 		schoolId,
 		redirect,
 	} = req.body;
+	const privateDevice = req.body.privateDevice === 'true';
 
 	if (systemId) {
 		return api(req).get(`/systems/${req.body.systemId}`).then(system => authHelper.login({
-			strategy: system.type, username, password, systemId, schoolId, redirect,
+			strategy: system.type, username, password, systemId, schoolId, redirect, privateDevice,
 		}, req, res, next));
 	}
 	return authHelper.login({
-		strategy: 'local', username, password, redirect,
+		strategy: 'local', username, password, redirect, privateDevice,
 	}, req, res, next);
 });
 
@@ -128,24 +129,29 @@ router.all('/login/', (req, res, next) => {
 		if (isAuthenticated) {
 			return redirectAuthenticated(req, res);
 		}
-		return getSelectOptions(req,
-			'schools', {
-				purpose: { $ne: 'expert' },
-				$limit: false,
-				$sort: 'name',
-			})
-			.then((schools) => {
-				authHelper.clearCookie(req, res);
-				res.render('authentication/login', {
-					schools,
-					systems: [],
-					redirect: req.query && req.query.redirect ? req.query.redirect : '',
-				});
-			});
+		return authHelper.clearCookie(req, res)
+			.then(() => getSelectOptions(req,
+				'schools', {
+					purpose: { $ne: 'expert' },
+					$limit: false,
+					$sort: 'name',
+				})
+				.then((schools) => {
+					res.render('authentication/login', {
+						schools,
+						systems: [],
+						redirect: req.query && req.query.redirect ? req.query.redirect : '',
+					});
+				}));
 	}).catch((error) => {
-		logger.error(error);
-		authHelper.clearCookie(req, res, { destroySession: true });
-		return res.redirect('/');
+		// another try catch to catch error from authHelper.clearCookie
+		try {
+			logger.error(error);
+			return authHelper.clearCookie(req, res, { destroySession: true })
+				.then(() => res.redirect('/'));
+		} catch (err) {
+			return next(err);
+		}
 	});
 });
 
@@ -213,10 +219,8 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
-		.then(() => {
-			authHelper.clearCookie(req, res, { destroySession: true });
-			return res.redirect('/');
-		}).catch(() => res.redirect('/'));
+		.then(() => authHelper.clearCookie(req, res, { destroySession: true }))
+		.finally(() => res.redirect('/'));
 });
 
 module.exports = router;
