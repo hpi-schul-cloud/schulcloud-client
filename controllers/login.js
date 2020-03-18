@@ -144,9 +144,14 @@ router.all('/login/', (req, res, next) => {
 				});
 			});
 	}).catch((error) => {
-		logger.error(error);
-		authHelper.clearCookie(req, res, { destroySession: true });
-		return res.redirect('/');
+		// another try catch to catch error from authHelper.clearCookie
+		try {
+			logger.error(error);
+			authHelper.clearCookie(req, res, { destroySession: true });
+			return res.redirect('/');
+		} catch (err) {
+			return next(err);
+		}
 	});
 });
 
