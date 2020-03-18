@@ -47,10 +47,29 @@
 				}
 			},
 			"edit": {
-				"pop_up": {}
+				"button": {
+					"deleteCourse": "Kurs löschen",
+					"showCourseDetail": "Kursdetails anzeigen"
+				},
+				"headline": {
+					"courseIsArchieved": "Der Kurs {{coursename}} ist archivert."
+				},
+				"img_alt": {
+					"courseIsArchieved": "Kurs ist archiviert"
+				},
+				"label": {
+					"from": "Von",
+					"till": "Bis",
+					"timeSpan": "Zeitraum (z.B. Schuljahr)",
+					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
+				},
+				"pop_up": {},
+				"text": {
+					"toEditChangeDate": "Um Daten des Kurses zu bearbeiten musst du zunächst das Enddatum anpassen."
+				}
 			},
 			"groups": {
-				"group": {
+				"_group": {
 					"headline": {
 						"doneGroupTasks": "getätigte Gruppenabgaben",
 						"openGroupTasks": "offene (mögliche) Gruppenabgaben",
@@ -82,6 +101,63 @@
 			"text": {
 				"coursedescription": "Kursbeschreibung: ",
 				"nextClass": "Nächste Unterrichtsstunde: "
+			}
+		},
+		"add": {
+			"button": {
+				"addLessonAppointment": "Schulstundentermin im Stundenplan anlegen (optional)",
+				"deleteCourse": "Kurs löschen"
+			},
+			"headline": {
+				"almostDone": "Du hast es fast geschafft...",
+				"done": "Geschafft!",
+				"whatToDoCourses": "Was kannst du in einem Kurs machen?"
+			},
+			"input": {
+				"chooseTeacher": "Lehrer auswählen",
+				"egMaths": "z.B. Mathe 10a",
+				"egRoom1-21": "z.B. R-1.21",
+				"inMinutes": "In Minuten",
+				"selectClasses": "Klasse(n) auswählen",
+				"selectStudents": "Schüler auswählen"
+			},
+			"label": {
+				"addClassesToCourse": "Klasse(n) (Alle Schüler der Klasse werden automatisch hinzugefügt!) - Optional",
+				"addStudentsToCourse": "Schüler / Teilnehmer - Optional",
+				"courseSubstitute": "Vertretungslehrer - Optional",
+				"room": "Raum",
+				"timeSpan": "Zeitraum (z.B. Schuljahr) von - Optional",
+				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben",
+				"timeSpanUntil": "Bis - Optional"
+			},
+			"link": {
+				"addAnotherCourse": "Einen weiteren Kurs anlegen",
+				"courseOverview": "Zur Kursübersicht",
+				"createTopics": "Themen anlegen",
+				"giveExercises": "Aufgaben stellen"
+			},
+			"tab_label": {
+				"courseData": "Kursdaten",
+				"courseMembers": "Teilnehmer",
+				"finish": "Abschließen"
+			},
+			"text": {
+				"addStudentsOrClasses": "Füge Klassen oder einzelne Schüler deinem Kurs hinzu.",
+				"contentOfClass": "Lege die Inhalte deines Unterrichts an.",
+				"doItNowOrLaterInSettings": "Dies kannst du jetzt oder später in den Kurseinstellungen machen.",
+				"giveExercisesAndGetResults": "Stelle deinen Kursteilnehmern Aufgaben und sieh dir ihre Abgaben an.",
+				"groupsWorkTogether": "In einem Kurs wird gemeinsam mit den Teilnehmern an Themen, Aufgaben und Dateien gearbeitet.",
+				"willAlsoDeleteForStudents": "Dies löscht den Kurs auch bei allen Schüler:innen."
+			}
+		},
+		"global": {
+			"label": {
+				"courseColor": "Farbe des Kurses",
+				"courseName": "Name des Kurses",
+				"courseTeacher": "Unterrichtender Lehrer",
+				"lengthOfLesson": "Dauer der Schulstunde",
+				"startOfLesson": "Start der Schulstunde",
+				"weekday": "Wochentag"
 			}
 		},
 		"tools": {
@@ -122,6 +198,15 @@
 				"overview": "Übersicht",
 				"tasks": "Aufgaben"
 			}
+		},
+		"text": {
+			"friday": "Freitag",
+			"monday": "Montag",
+			"saturday": "Samstag",
+			"sunday": "Sonntag",
+			"thursday": "Donnerstag",
+			"tuesday": "Dienstag",
+			"wednesday": "Mittwoch"
 		}
 	}
 }
