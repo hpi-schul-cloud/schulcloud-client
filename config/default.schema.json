@@ -2,6 +2,11 @@
 	"title": "HPI Schul-Cloud Configuration",
 	"type": "object",
 	"properties": {
+		"FEATURE_CSRF_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables CSRF Token generation and error handler in app."
+		},
 		"FEATURE_MORGAN_LOG_ENABLED": {
 			"type": "boolean",
 			"default": true,
