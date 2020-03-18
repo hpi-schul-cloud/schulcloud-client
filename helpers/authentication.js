@@ -16,9 +16,9 @@ const rolesDisplayName = {
 	expert: 'Experte',
 };
 
-const clearCookie = (req, res, options = { destroySession: false }) => {
+const clearCookie = async (req, res, options = { destroySession: false }) => {
 	if (options.destroySession && req.session && req.session.destroy) {
-		req.session.destroy();
+		await new Promise(resolve => req.session.destroy(resolve));
 	}
 	res.clearCookie('jwt');
 	if (res.locals && res.locals.domain) {
