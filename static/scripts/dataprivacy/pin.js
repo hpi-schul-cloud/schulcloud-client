@@ -21,8 +21,8 @@ function sendPin(sendConfirm) {
 		}
 		pinSent = true;
 	}).fail(() => {
-		const errorMessage = `Fehler bei der PIN-Erstellung!
-			Bitte versuche es erneut und prüfe deine E-Mail-Adresse (${usermail}).`;
+		const errorMessage = `Hoppla, es gab einen Fehler bei der Code-Erstellung!
+			Bitte prüfe deine E-Mail-Adresse (${usermail}) und versuche es dann erneut.`;
 		$.showNotification(errorMessage, 'danger', 7000);
 		timeoutSend = false;
 	});
