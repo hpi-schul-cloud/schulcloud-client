@@ -1,9 +1,10 @@
 let pinSent;
 let resendTimer = null;
 let timeoutSend = false;
+let usermail;
 
 function sendPin(sendConfirm) {
-	const usermail = $("input[name$='email']:last").val();
+	usermail = $("input[name$='email']:last").val();
 	let role;
 	try {
 		role = window.location.pathname.split('/by')[1].split('/')[0].replace('/', '');
