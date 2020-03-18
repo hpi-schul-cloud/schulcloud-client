@@ -17,7 +17,7 @@ function sendPin(sendConfirm) {
 		data: { email: usermail, mailTextForRole: role },
 	}).done(() => {
 		if (sendConfirm) {
-			$.showNotification(`Eine PIN wurde an ${usermail} versendet.`, 'success', 15000);
+			$.showNotification(`Wir haben dir soeben einen Bestätigungscode an ${usermail} gesendet.`, 'success', 15000);
 		}
 		pinSent = true;
 	}).fail(() => {
