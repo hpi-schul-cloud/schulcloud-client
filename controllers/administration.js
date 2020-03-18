@@ -984,7 +984,7 @@ router.get(
 		res.render('administration/import', {
 			title,
 			roles: 'teacher',
-			action: `/administration/teacher/import?_csrf=${res.locals.csrfToken}`,
+			action: `/administration/teachers/import?_csrf=${res.locals.csrfToken}`,
 			redirectTarget: '/administration/teachers',
 			schoolCurrentYear: res.locals.currentSchoolData.currentYear,
 			years,
