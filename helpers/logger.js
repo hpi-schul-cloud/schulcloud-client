@@ -7,11 +7,6 @@ const logLevel = Configuration.get('LOG_LEVEL');
 const colorize = process.env.NODE_ENV !== 'production';
 let formater;
 
-const test = format.printf((log) => {
-	console.log(log);
-	return log;
-});
-
 if (process.env.NODE_ENV === 'test') {
 	formater = format.combine(
 		format.prettyPrint({ depth: 1, colorize }),
