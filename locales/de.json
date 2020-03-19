@@ -225,7 +225,9 @@
 			"noDelivery" :"Keine Abgabe"			
 		},
 		"label":{
-			"selectStudentGroup" :"Schülergruppe auswählen"	  
+			"selectStudentGroup" :"Schülergruppe auswählen"	,
+			"filesUploadedForDelivery" : "Zur Abgabe hochgeladene Dateien (ungespeichert!)"  ,
+			"selectTeamMembers"  : "Teammitglieder auswählen"
 		}
 	}
 }
