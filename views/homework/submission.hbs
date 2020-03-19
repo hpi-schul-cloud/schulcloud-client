@@ -90,7 +90,7 @@
 				{{#ifeq @root.currentUser._id @root.submission.studentId._id}}
 					<a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission" 
 						target="_blank"
-						data-method='{{$t "homework.button.hrefDataMethod"  }}'
+						data-method="delete-submission"
 						data-name='{{$t "homework.button.hrefDataName"  }}'
 						alt='{{$t "homework.button.hrefAlt"  }}'
 					><i class="fa fa-trash-o"></i> Löschen</a>
