@@ -2,6 +2,21 @@
 	"title": "HPI Schul-Cloud Configuration",
 	"type": "object",
 	"properties": {
+		"GLOBAL_LOGIN_ANNOUNCEMENT": {
+			"type": "string",
+			"description": "global announcement, shown as notification in header on startpage when not loggedin."
+		},
+		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
+			"type": "string",
+			"default": "info",
+			"enum": [
+				"success",
+				"info",
+				"warning",
+				"danger"
+			],
+			"description": "alert types"
+		},
 		"FEATURE_CSRF_ENABLED": {
 			"type": "boolean",
 			"default": true,

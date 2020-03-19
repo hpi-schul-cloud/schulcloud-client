@@ -162,14 +162,10 @@ router.all('/login/', (req, res, next) => {
 					});
 				}));
 	}).catch((error) => {
-		// another try catch to catch error from authHelper.clearCookie
-		try {
-			logger.error(error);
-			return authHelper.clearCookie(req, res, { destroySession: true })
-				.then(() => res.redirect('/'));
-		} catch (err) {
-			return next(err);
-		}
+		logger.error('Error during login', { error: error.toString() });
+		return authHelper.clearCookie(req, res, { destroySession: true })
+			.catch((err) => { logger.error('clearCookie failed during login', { error: err.toString() }); })
+			.finally(() => res.redirect('/'));
 	});
 });
 
@@ -235,10 +231,9 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 	});
 });
 
-router.get('/logout/', (req, res, next) => {
-	api(req).del('/authentication')
-		.then(() => authHelper.clearCookie(req, res, { destroySession: true }))
-		.finally(() => res.redirect('/'));
-});
+router.get('/logout/', (req, res, next) => api(req).del('/authentication')
+	.then(() => authHelper.clearCookie(req, res, { destroySession: true }))
+	.catch((err) => { logger.error('clearCookie failed during logout.', { error: err.toString() }); })
+	.finally(() => res.redirect('/')));
 
 module.exports = router;
