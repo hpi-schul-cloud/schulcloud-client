@@ -33,6 +33,7 @@ const exp = {
 	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
 };
 
-logger.info(util.inspect(exp, { depth: 1, compact: false }));
+// eslint-disable-next-line no-console
+console.log(util.inspect(exp, { depth: 1, compact: false }));
 
 module.exports = exp;
