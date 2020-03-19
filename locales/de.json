@@ -214,7 +214,6 @@
 			"addTask": "Aufgabe hinzufügen",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
-			"hrefDataMethod": "delete-submission",
 			"hrefDataName": "deine Abgabe",
 			"hrefAlt": "Abgabe löschen"				        
 		} 
