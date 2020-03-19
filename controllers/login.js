@@ -80,10 +80,26 @@ router.all('/', (req, res, next) => {
 		if (isAuthenticated) {
 			return redirectAuthenticated(req, res);
 		}
+
+		const schoolsPromise = getSelectOptions(
+			req, 'schools',
+			{
+				purpose: { $ne: 'expert' },
+				$limit: false,
+				$sort: 'name',
+			},
+		);
+		return schoolsPromise.then(schools => res.render('authentication/home', {
+			schools,
+			blogFeed: [],
+			inline: true,
+			systems: [],
+		}));
+		/*
 		return new Promise((resolve) => {
 			feedr.readFeed('https://blog.schul-cloud.org/rss', {
 				requestOptions: { timeout: 2000 },
-			}, (err, data /* , headers */) => {
+			}, (err, data) => {
 				let blogFeed;
 				try {
 					blogFeed = data.rss.channel[0].item
@@ -122,6 +138,7 @@ router.all('/', (req, res, next) => {
 				})));
 			});
 		});
+		*/
 	});
 });
 
@@ -145,14 +162,10 @@ router.all('/login/', (req, res, next) => {
 					});
 				}));
 	}).catch((error) => {
-		// another try catch to catch error from authHelper.clearCookie
-		try {
-			logger.error(error);
-			return authHelper.clearCookie(req, res, { destroySession: true })
-				.then(() => res.redirect('/'));
-		} catch (err) {
-			return next(err);
-		}
+		logger.error('Error during login', { error: error.toString() });
+		return authHelper.clearCookie(req, res, { destroySession: true })
+			.catch((err) => { logger.error('clearCookie failed during login', { error: err.toString() }); })
+			.finally(() => res.redirect('/'));
 	});
 });
 
@@ -218,10 +231,9 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 	});
 });
 
-router.get('/logout/', (req, res, next) => {
-	api(req).del('/authentication')
-		.then(() => authHelper.clearCookie(req, res, { destroySession: true }))
-		.finally(() => res.redirect('/'));
-});
+router.get('/logout/', (req, res, next) => api(req).del('/authentication')
+	.then(() => authHelper.clearCookie(req, res, { destroySession: true }))
+	.catch((err) => { logger.error('clearCookie failed during logout.', { error: err.toString() }); })
+	.finally(() => res.redirect('/')));
 
 module.exports = router;
