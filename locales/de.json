@@ -208,5 +208,12 @@
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
 		}
+	},  
+	"homework": {
+		"button":{
+			"addTask": "Aufgabe hinzufügen",
+			"filterAdd": "Filter hinzufügen",
+			"filterApply": "Übernehmen"				        
+		} 
 	}
 }
