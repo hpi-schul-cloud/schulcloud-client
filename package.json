@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "22.6.0",
+	"version": "22.5.4",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -86,7 +86,7 @@
 		"string_decoder": "^1.0.1",
 		"truncate-html": "^1.0.0",
 		"ua-parser-js": "^0.7.21",
-		"winston": "^3.0.0"
+		"winston": "^3.2.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.6.2",
