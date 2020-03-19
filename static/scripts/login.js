@@ -135,5 +135,5 @@ $(document).ready(function() {
         $school.trigger('chosen:updated');
         $school.trigger('change');
     }
-	
+
 });
