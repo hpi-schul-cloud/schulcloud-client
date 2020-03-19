@@ -1,8 +1,5 @@
 import './pwd.js';
 import './cleanup'; // see loggedin.js for loggedin users
-import AlertMessageController from './helpers/AlertMessageController';
-
-const alertMessageController = new AlertMessageController(false);
 
 $(document).ready(function() {
 
@@ -138,18 +135,4 @@ $(document).ready(function() {
         $school.trigger('chosen:updated');
         $school.trigger('change');
     }
-
-  // EBS-System | Alert
-	$.ajax({
-		url: '/alerts',
-		contentType: 'application/json',
-		dataType: 'json',
-		timeout: 5000
-    })
-    .done((result) => {
-        alertMessageController.showAlert(result);
-    })
-    .fail(() => {
-        console.error('Could not update alerts!');
-    });
 });

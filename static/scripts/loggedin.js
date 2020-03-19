@@ -1,9 +1,6 @@
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 import './cleanup'; // see login.js for loggedout users
-import AlertMessageController from './helpers/AlertMessageController';
-
-const alertMessageController = new AlertMessageController(true);
 
 iFrameListen();
 
@@ -162,20 +159,6 @@ $(document).ready(function () {
 			Bitte läute <a href="/administration/school/"> hier das neue Schuljahr ein!</a>`, 'warning');
 		}
     }
-    
-	// EBS-System | Alert
-	$.ajax({
-		url: '/alerts',
-		contentType: 'application/json',
-		dataType: 'json',
-		timeout: 5000
-    })
-    .done((result) => {
-        alertMessageController.showAlert(result);
-    })
-    .fail(() => {
-        console.error('Could not update alerts!');
-    });
 });
 
 function showAJAXError(req, textStatus, errorThrown) {

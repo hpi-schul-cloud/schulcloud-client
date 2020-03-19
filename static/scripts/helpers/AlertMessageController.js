@@ -23,17 +23,39 @@ class AlertMessageController {
 		const date = moment(message.timestamp);
 		const icon = getIconTag(message.status);
 
+		// show only 150 charckters of message
+		let messageText;
+		if (message.text.length > 60) {
+			messageText = `${message.text.substring(0, 60)}...`;
+		} else {
+			messageText = message.text;
+		}
+
+		// if message includes url
+		let url = '';
+		if (message.url) {
+			url = `
+				<a href="${message.url}" rel="noopener" target="_blank" style="float: right;">
+					${message.url.replace(/(^\w+:|^)\/\//, '')}
+				</a>
+				`;
+		}
+
 		const item = document.createElement('div');
 		if (this.loggedin) {
 			item.className = 'alert-item';
 			item.innerHTML = `<div class="alert-date text-nowrap text-muted">${date.fromNow()}</div>
 			<div class="alert-title">${icon} ${message.title}</div>
-			${message.text}`;
+			${message.text}
+			${url}
+			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6>${icon} ${message.title}</h6>
 			<div class="text-muted" style="float: left;">${date.format('DD.MM.YYYY HH:mm')}</div> <br>
-			${message.text}`;
+			${messageText}
+			${url}
+			<div style="clear: both;"></div>`;
 		}
 		return item;
 	}
