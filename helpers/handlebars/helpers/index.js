@@ -136,7 +136,16 @@ const helpers = app => ({
 		}
 		return options.inverse(this);
 	},
-	userInitials: (opts)=> {
+	hasConfig: (key, options) => {
+		if (Configuration.has(key)) {
+			return options.fn(this);
+		}
+		return options.inverse(this);
+	},
+	getConfig: (key) => {
+		return Configuration.get(key);
+	},
+	userInitials: (opts) => {
 		return opts.data.local.currentUser.avatarInitials;
 	},
 	userHasPermission: (permission, opts) => {
