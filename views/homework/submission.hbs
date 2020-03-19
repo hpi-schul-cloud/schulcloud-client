@@ -45,18 +45,18 @@
                         "
                     >{{this.firstName}} {{this.lastName}}</option>
                 {{else}}
-                    <option value="" disabled>keine weiteren Schüler in deinem Kurs</option>
+                    <option value="" disabled>'{{$t "homework.text.noMoreStudentsInYourCourse"  }}'</option>
                 {{/each}}
             </select>
         </div>
         <div class="form-group">
             <input name="teamSubmissionOptions" value="courseGroup" type="radio" id="courseGroup1" {{#if @root.courseGroupSelected}}checked{{/if}}/>
-            <label for="courseGroup1">Schülergruppe auswählen</label>
+            <label for="courseGroup1">'{{$t "homework.label.selectStudentGroup"  }}'</label>
             <select name="courseGroupId" id="courseGroupId" data-placeholder="Mitstreiter auswählen">
                 {{#each @root.courseGroups}}
                     <option value="{{this._id}}" {{#ifeq this._id @root.submission.courseGroupId._id}}selected{{/ifeq}}>{{this.name}}</option>
                 {{else}}
-                    <option value="" disabled>keine Schülergruppen in diesem Kurs</option>
+                    <option value="" disabled>'{{$t "homework.text.noStudentGroupsInThisCourse"  }}'</option>
                 {{/each}}
             </select>
         </div>
@@ -74,7 +74,7 @@
         {{#if @root.submission.comment}}
             {{{@root.submission.comment}}}
         {{else}}
-            <p>Keine Abgabe.</p>
+            <p>'{{$t "homework.text.noDelivery"  }}'.</p>
         {{/if}}
     </div>
   {{/if}}
@@ -82,7 +82,7 @@
     {{#if @root.submittable}}
         {{> "lib/components/csrfInput"}}
         {{#userHasPermission "SUBMISSIONS_CREATE"}}
-            <button type="submit" class="btn btn-primary btn-submit" disabled="true">Speichern</button>
+            <button type="submit" class="btn btn-primary btn-submit" disabled="true">'{{$t "homework.button.toSave"  }}'</button>
         {{/userHasPermission}}
 
         {{#if @root.submission}}
@@ -93,7 +93,7 @@
 						data-method= "delete-submission"
 						data-name='{{$t "homework.button.hrefDataName"  }}'
 						alt='{{$t "homework.button.hrefAlt"  }}'
-					><i class="fa fa-trash-o"></i> Löschen</a>
+					><i class="fa fa-trash-o"></i> '{{$t "global.button.delete"  }}'</a>
 				{{/ifeq}}
 			{{/userHasPermission}}
 		{{/if}}
@@ -105,10 +105,10 @@
         {{#content "body"}}
             <div class="modal-footer" id="modal-delete-homework-footer">
                 <button type="button" class="btn btn-secondary btn-close">
-                    Abbrechen
+                    '{{$t "global.button.cancel"  }}'
                 </button>
                 <button type="submit" class="btn btn-primary btn-submit">
-                    Löschen
+                   '{{$t "global.button.delete"  }}'
                 </button>
             </div>
         {{/content}}

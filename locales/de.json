@@ -216,12 +216,16 @@
 			"filterApply": "Übernehmen",
 			"hrefDataName": "deine Abgabe",
 			"hrefAlt": "Abgabe löschen"	,
-			"abort"	: "Abbrechen",
-			"clear" : "Löschen"	        
+			"toSave" :"Speichern"        
 		} ,
 		"text":{
-             "noTasks" : "Keine Aufgaben"      
-
+			"noTasks" : "Keine Aufgaben" ,
+			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs" ,
+			"noStudentGroupsInThisCourse" : "keine Schülergruppen in diesem Kurs" ,
+			"noDelivery" :"Keine Abgabe"			
+		},
+		"label":{
+			"selectStudentGroup" :"Schülergruppe auswählen"	  
 		}
 	}
 }
