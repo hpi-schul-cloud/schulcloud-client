@@ -234,12 +234,12 @@ app.use((err, req, res, next) => {
 		Sentry.captureMessage(message);
 		res.locals.message = 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.';
 	}
-	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
+	res.locals.error = req.app.get('env') === 'development' ? err : { status };
+	if (err.error) logger.error(err.error);
 	if (res.locals.currentUser) res.locals.loggedin = true;
 	// render the error page
-	res.status(status);
-	res.render('lib/error', {
+	res.status(status).render('lib/error', {
 		loggedin: res.locals.loggedin,
 		inline: res.locals.inline ? true : !res.locals.loggedin,
 	});
