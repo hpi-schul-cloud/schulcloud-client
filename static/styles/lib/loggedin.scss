@@ -818,4 +818,14 @@ footer {
 
 #matrixchat {
     z-index: 10000;
+    .mx_RoomHeader_avatar{
+        -ms-flex: inherit;
+        flex: inherit;
+    }
+    .mx_RoomTile_avatar {
+        -ms-flex: 0;
+        flex: inherit;
+        padding: 0px;
+        width: auto;
+    }
 }

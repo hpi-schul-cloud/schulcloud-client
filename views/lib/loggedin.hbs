@@ -23,6 +23,10 @@
             <script type="text/javascript" src="/vendor/enterthecloud.min.js" defer></script>
         {{/if}}
     
+    {{/content}}
+
+    {{#content "body"}}
+
         <!-- Load embedded Riot Chat client -->
         <section
           id="matrixchat"
@@ -31,17 +35,18 @@
           data-vector-default-toggled="true"
           data-matrix-room-id=""
           data-matrix-lang="de"
-
-          data-matrix-homeserver-url=""
-          data-matrix-user-id=""
-          data-matrix-access-token=""
+          data-matrix-homeserver-url="https://matrix.messenger.schule"
+          data-matrix-user-id="@..."
+          data-matrix-access-token="..."
         ></section>
-        <script async src="https://embed.stomt.com/bundles/2151e592c9361990e11c/bundle.js"></script>
+        <script type="text/javascript">
+            var riotScript = document.createElement("script");
+            riotScript.src = "https://embed.stomt.com/bundles/5a1ddf45b59d88d77d17/bundle.js";
+            riotScript.type = "text/javascript";
+            document.getElementsByTagName("head")[0].appendChild(riotScript);
+        </script>
         <!-- END: Load embedded Riot Chat client -->
 
-    {{/content}}
-
-    {{#content "body"}}
         {{#if currentSchoolData.inMaintenance}}
         <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
         {{/if}}
