@@ -6,18 +6,17 @@ $(document).ready(function() {
 		return;
 	}
     initialized = true;
-    
-    const BACKEND_URL = (document.querySelector('script[data-view]').dataset.backendurl).replace(/\/$/, '');
+
     const view = document.querySelector('script[data-view]').dataset.view === 'loggedin';
     const alertMessageController = new AlertMessageController(view);
 
   // EBS-System | Alert
     $.ajax({
-        url: `${BACKEND_URL}/alert`,
+        url: `/alerts`,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
-        timeout: 8000
+        timeout: 5000
     })
     .done((result) => {
         alertMessageController.showAlert(result);

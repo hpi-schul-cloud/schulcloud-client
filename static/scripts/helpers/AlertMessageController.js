@@ -4,9 +4,9 @@ moment.locale('de'); // set the localization
 
 function getIconTag(status) {
 	switch (status) {
-		case 1:
+		case 'danger':
 			return '<i class="fa fa-exclamation-circle text-danger"></i>';
-		case 2:
+		case 'info':
 			return '<i class="fa fa-check-circle text-success"></i>';
 		default:
 			return '';
@@ -51,7 +51,7 @@ class AlertMessageController {
 			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
-			item.innerHTML = `<h6>${icon} ${message.title}</h6>
+			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			<div class="text-muted" style="float: left;">${date.format('DD.MM.YYYY HH:mm')}</div> <br>
 			${messageText}
 			${url}
