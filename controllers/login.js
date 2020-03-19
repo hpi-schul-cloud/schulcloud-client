@@ -80,10 +80,26 @@ router.all('/', (req, res, next) => {
 		if (isAuthenticated) {
 			return redirectAuthenticated(req, res);
 		}
+
+		const schoolsPromise = getSelectOptions(
+			req, 'schools',
+			{
+				purpose: { $ne: 'expert' },
+				$limit: false,
+				$sort: 'name',
+			},
+		);
+		return schoolsPromise.then(schools => res.render('authentication/home', {
+			schools,
+			blogFeed: [],
+			inline: true,
+			systems: [],
+		}));
+		/*
 		return new Promise((resolve) => {
 			feedr.readFeed('https://blog.schul-cloud.org/rss', {
 				requestOptions: { timeout: 2000 },
-			}, (err, data /* , headers */) => {
+			}, (err, data) => {
 				let blogFeed;
 				try {
 					blogFeed = data.rss.channel[0].item
@@ -122,6 +138,7 @@ router.all('/', (req, res, next) => {
 				})));
 			});
 		});
+		*/
 	});
 });
 
