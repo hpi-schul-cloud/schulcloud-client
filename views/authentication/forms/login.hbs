@@ -1,64 +1,73 @@
 <div class="alert-section"></div>
 <section id="loginarea" class="card">
-    <div class="card-block">
-        <h2 class="h4 card-title">Anmeldung für registrierte Nutzer</h2>
-        <div class="card-text form-wrapper">
-            {{> "lib/components/notification"}}
+	<div class="card-block">
+		<h2 class="h4 card-title">Anmeldung für registrierte Nutzer</h2>
+		<div class="card-text form-wrapper">
+			{{> "lib/components/notification"}}
 
-            <form method="post" action="/login/" class="login-form">
-                <input type="hidden" name="challenge" value={{challenge}} />
+			<form method="post" action="/login" class="login-form">
+				<input type="hidden" name="redirect" value={{redirect}} />
 
-                <div class="form-group">
-                    <input type="text" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="E-Mail / Nutzername" data-testid="username" required>
-                    <div class="input-group mt-1" id="show_hide_password">
-                        <input type="password" autocomplete="current-password" name="password" class="form-control form-control-lg" placeholder="Passwort" data-testid="password" required>
-                        <div class="input-group-addon">
-                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
+				<div class="form-group">
+					<input type="text" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="E-Mail / Nutzername" data-testid="username" required>
+					<div class="input-group mt-1" id="show_hide_password">
+						<input type="password" autocomplete="current-password" name="password" class="form-control form-control-lg" placeholder="Passwort" data-testid="password" required>
+						<div class="input-group-addon">
+							<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+						</div>
+					</div>
+					{{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}
+					<div class="form-check" style="margin-top: 10px;">
+						<input type="checkbox" id="privateDevice" name="privateDevice" value="true">
+						<label for="privateDevice">Dies ist ein privates Gerät</label>
+						<button type="button" data-toggle="tooltip" data-placement="left" title="Wenn aktiviert, bleibst du länger eingeloggt." class="btn-link px-1">
+							<i class="fa fa-info"></i>
+						</button>
+					</div>
+					{{/ifEnv}}
+				</div>
 
-                <div class="form-group toggle-providers">
-                    <a class="btn btn-block btn-secondary btn-toggle-providers">
-                        <i class="fa fa-chevron-down"></i> Mehr Optionen
-                    </a>
-                </div>
+				<div class="form-group toggle-providers">
+					<a class="btn btn-block btn-secondary btn-toggle-providers">
+						<i class="fa fa-chevron-down"></i> Mehr Optionen
+					</a>
+				</div>
 
-                <div class="login-providers">
-                    <div class="form-group ">
-                        <select name="schoolId" class="school search-enabled" data-placeholder="Schule">
+				<div class="login-providers">
+					<div class="form-group ">
+						<select name="schoolId" class="school search-enabled" data-placeholder="Schule">
 							<option selected disabled></option>
-                            {{#each schools}}
-                                <option value="{{this._id}}">{{this.name}}</option>
+							{{#each schools}}
+								<option value="{{this._id}}">{{this.name}}</option>
 							{{else}}
 								<option disabled>Keine Schulen verfügbar</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    <div class="form-group ">
-                        <select name="systemId" class="system" data-placeholder="System">
-                            {{#each systems}}
-                                <option value="{{this._id}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
+							{{/each}}
+						</select>
+					</div>
+					<div class="form-group ">
+						<select name="systemId" class="system" data-placeholder="System">
+							{{#each systems}}
+								<option value="{{this._id}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
+							{{/each}}
+						</select>
+					</div>
 
-                    <div class="form-group ">
-                        <a class="btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-up"></i> Weniger</a>
-                    </div>
-                </div>
-                {{> "lib/components/csrfInput"}}
-                <div class="form-group">
-                    {{#if notification.statusCode}}
-                        <input type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="Anmelden" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
-                    {{else}}
-                        <input type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="Anmelden" data-testid="submit-login" />
-                    {{/if}}
-                </div>
-            </form>
-        </div>
-        <div style="text-align:center">
-            <a href="" class="submit-pwrecovery">Passwort vergessen?</a>
-        </div>
-    </div>
+					<div class="form-group ">
+						<a class="btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-up"></i> Weniger</a>
+					</div>
+				</div>
+				{{> "lib/components/csrfInput"}}
+				<div class="form-group">
+					{{#if notification.statusCode}}
+						<input type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="Anmelden" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+					{{else}}
+						<input type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="Anmelden" data-testid="submit-login" />
+					{{/if}}
+				</div>
+			</form>
+		</div>
+		<div style="text-align:center">
+			<a href="" class="submit-pwrecovery">Passwort vergessen?</a>
+		</div>
+	</div>
 </section>

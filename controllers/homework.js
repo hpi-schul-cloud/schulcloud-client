@@ -242,68 +242,67 @@ const patchFunction = function (service, req, res, next) {
 		next(err);
 	});
 };
-const getUpdateHandler = (service) => {
-	return function (req, res, next) {
-		if (service == 'homework') {
-			//check archived
-			if (req.body.archive) {
-				return api(req).get('/homework/' + req.params.id, {}).then((homework) => {
-					if (homework.archived.includes(res.locals.currentUser._id) && req.body.archive == 'open') {
-						homework.archived.splice(homework.archived.indexOf(res.locals.currentUser._id), 1);
-					} else if (!homework.archived.includes(res.locals.currentUser._id) && req.body.archive == 'done') {
-						homework.archived.push(res.locals.currentUser._id);
-					}
-					req.body.archived = homework.archived;
-					delete req.body.archive;
-					return patchFunction(service, req, res, next);
-				});
-			} else {
-				if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
-					req.body.courseId = null;
-					req.body.private = true;
-				}
-				if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
-					req.body.lessonId = null;
-				}
 
-				req.body.private = !!req.body.private;
-				req.body.publicSubmissions = !!req.body.publicSubmissions;
-				req.body.teamSubmissions = !!req.body.teamSubmissions;
-
-				// rewrite german format to ISO
-				if (req.body.availableDate) {
-					req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+const getUpdateHandler = service => function updateHandler(req, res, next) {
+	let referrer;
+	if (service === 'homework') {
+		// check archived
+		if (req.body.archive) {
+			return api(req).get(`/homework/${req.params.id}`, {}).then((homework) => {
+				const archived = homework.archived || [];
+				if (archived.includes(res.locals.currentUser._id) && req.body.archive === 'open') {
+					archived.splice(homework.archived.indexOf(res.locals.currentUser._id), 1);
+				} else if (!archived.includes(res.locals.currentUser._id) && req.body.archive === 'done') {
+					archived.push(res.locals.currentUser._id);
 				}
-				if (req.body.dueDate) {
-					req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
-				}
-				if (req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
-					req.session.notification = {
-						type: 'danger',
-						message: 'Das Beginndatum muss vor dem Abgabedatum liegen!',
-					};
-					if (req.body.referrer) {
-						var referrer = req.body.referrer.replace('/edit', '');
-						delete req.body.referrer;
-					}
-					res.redirect(referrer);
-					return;
-				}
-			}
-		} else {
-			if (service == 'submissions') {
-				if (req.body.teamMembers && typeof req.body.teamMembers == 'string') {
-					req.body.teamMembers = [req.body.teamMembers];
-				}
-				if (req.body.grade) {
-					req.body.grade = parseInt(req.body.grade);
-				}
-				handleTeamSubmissionsBody(req.body, res.locals.currentUser);
-			}
+				req.body.archived = archived;
+				delete req.body.archive;
+				return patchFunction(service, req, res, next);
+			});
 		}
-		return patchFunction(service, req, res, next);
-	};
+		if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
+			req.body.courseId = null;
+			req.body.private = true;
+		}
+		if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
+			req.body.lessonId = null;
+		}
+
+		req.body.private = !!req.body.private;
+		req.body.publicSubmissions = !!req.body.publicSubmissions;
+		req.body.teamSubmissions = !!req.body.teamSubmissions;
+
+		// rewrite german format to ISO
+		if (req.body.availableDate) {
+			req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+		}
+		if (req.body.dueDate) {
+			req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+		}
+		if (req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
+			req.session.notification = {
+				type: 'danger',
+				message: 'Das Beginndatum muss vor dem Abgabedatum liegen!',
+			};
+			if (req.body.referrer) {
+				referrer = req.body.referrer.replace('/edit', '');
+				delete req.body.referrer;
+			}
+			return res.redirect(referrer);
+		}
+	}
+	if (service === 'submissions') {
+		if (req.body.teamMembers && typeof req.body.teamMembers === 'string') {
+			req.body.teamMembers = [req.body.teamMembers];
+		}
+		if (req.body.grade) {
+			req.body.grade = parseInt(req.body.grade, 10);
+		}
+		handleTeamSubmissionsBody(req.body, res.locals.currentUser);
+	}
+	return patchFunction(service, req, res, next);
 };
+
 
 const getImportHandler = (service) => {
 	return function (req, res, next) {
@@ -581,7 +580,7 @@ const overview = (title = '') => {
 };
 router.get('/', overview('Aufgaben'));
 router.get('/asked', overview('Gestellte Aufgaben'));
-router.get('/private', overview('Meine ToDos'));
+router.get('/private', overview('Entwürfe'));
 router.get('/archive', overview('Archivierte Aufgaben und ToDos'));
 
 router.get('/new', function (req, res, next) {

@@ -12,6 +12,7 @@ const api = require('../api');
 moment.locale('de');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 
+const { error } = require('../helpers/logger');
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -38,12 +39,13 @@ router.get('/', (req, res, next) => {
 	if (currentTimePercentage < 0) currentTimePercentage = 0;
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
-	const eventsPromise = api(req).get('/calendar/', {
+	// TODO: remove this Promise.resolve to enable the calendar again
+	const eventsPromise = Promise.resolve([])/*api(req).get('/calendar/', {
 		qs: {
 			all: true,
 			until: end.toLocalISOString(),
 		},
-	}).then(eve => Promise.all(
+	})*/.then(eve => Promise.all(
 		eve.map(event => recurringEventsHelper.mapEventProps(event, req)),
 	).then((evnts) => {
 		// because the calender service is *§$" and is not
@@ -84,6 +86,26 @@ router.get('/', (req, res, next) => {
 				left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
 				width: 100 * (eventDuration / numMinutes), // percent
 			};
+
+			if (event && (!event.url || event.url === '')) {
+				// add team or course url to event, otherwise just link to the calendar
+				try {
+					if (event.hasOwnProperty('x-sc-courseId')) {
+						// create course link
+						event.url = `/courses/${event['x-sc-courseId']}`;
+						event.alt = 'Kurs anzeigen';
+					} else if (event.hasOwnProperty('x-sc-teamId')) {
+						// create team link
+						event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
+						event.alt = 'Termine im Team anzeigen';
+					} else {
+						event.url = '/calendar';
+						event.alt = 'Kalender anzeigen';
+					}
+				} catch (err) {
+					error(err);
+				}
+			}
 
 			return event;
 		});
@@ -173,11 +195,11 @@ router.get('/', (req, res, next) => {
 		if (newRelease || !userPreferences.releaseDate) {
 			api(req).patch(`/users/${user._id}`, {
 				json: { 'preferences.releaseDate': newestRelease.createdAt },
-			}).catch(() => {});
+			}).catch(() => { });
 		}
 
 		res.render('dashboard/dashboard', {
-			title: 'Übersicht',
+			title: res.$t('dashboard.headline.title'),
 			events: events.reverse(),
 			eventsDate: moment().format('dddd, DD. MMMM YYYY'),
 			homeworks: homeworks.filter(task => !task.private).slice(0, 4),

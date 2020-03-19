@@ -16,11 +16,17 @@
                 <h3 class="h5 text-muted text-center">
                   Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen.
                 </h3>
-              {{else}}
+                {{else}}
                 <h2 class="text-center">Mit der {{theme.title}} Unterricht digital gestalten</h2>
-                <h3 class="h5 text-muted text-center">
-                    Es gibt noch keine Kurse. Ein Kurs in der {{theme.short_title}} bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen.
-                </h3>
+                    {{#if (userHasRole "expert")}}
+                    <h3 class="h5 text-muted text-center">
+                        Der Bereich Kurse steht nur Lehrkräften und Schüler:innen zur Verfügung.
+                    </h3>
+                    {{else}}
+                    <h3 class="h5 text-muted text-center">
+                        Es gibt noch keine Kurse. Ein Kurs in der {{theme.short_title}} bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen.
+                    </h3>
+                {{/if}}
               {{/if}}
             </div>
 
