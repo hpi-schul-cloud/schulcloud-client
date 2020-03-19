@@ -1,6 +1,6 @@
 {{#hasConfig "GLOBAL_LOGIN_ANNOUNCEMENT"}}
 <div class="notification alert alert-{{getConfig "GLOBAL_LOGIN_ANNOUNCEMENT_TYPE"}}">
-    <div class="notification-content" data-testid="notification">{{getConfig "GLOBAL_LOGIN_ANNOUNCEMENT"}}</div>
+    <div class="notification-content" data-testid="notification">{{{getConfig "GLOBAL_LOGIN_ANNOUNCEMENT"}}}</div>
 </div>
 {{/hasConfig}}
 
