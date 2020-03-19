@@ -215,7 +215,13 @@
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
 			"hrefDataName": "deine Abgabe",
-			"hrefAlt": "Abgabe löschen"				        
-		} 
+			"hrefAlt": "Abgabe löschen"	,
+			"abort"	: "Abbrechen",
+			"clear" : "Löschen"	        
+		} ,
+		"text":{
+             "noTasks" : "Keine Aufgaben"      
+
+		}
 	}
 }

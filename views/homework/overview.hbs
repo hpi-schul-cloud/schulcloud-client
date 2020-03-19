@@ -34,7 +34,7 @@
                             {{> 'homework/components/overview_card_template'}}
                         {{else}}
                             <p class="text-muted text-center">
-                                <span>Keine Aufgaben.</span>
+                                <span>'{{$t "homework.text.noTasks"  }}'.</span>
                             </p>
                         {{/each}}
                     </div></div>
@@ -46,10 +46,10 @@
                     {{#content "body"}}
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-close">
-                                Abbrechen
+                                '{{$t "homework.button.abort"  }}'
                             </button>
                             <button type="submit" class="btn btn-primary btn-submit">
-                                Löschen
+                               '{{$t "homework.button.clear"  }}'
                             </button>
                         </div>
                     {{/content}}
