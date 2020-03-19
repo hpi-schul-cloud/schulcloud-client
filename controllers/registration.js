@@ -38,8 +38,8 @@ router.post('/registration/pincreation', (req, res, next) => {
 				email: req.body.email,
 				mailTextForRole: req.body.mailTextForRole,
 			},
-		}).then(() => {
-			res.sendStatus(200);
+		}).then((result) => {
+			res.sendStatus((result || {}).status || 200);
 		}).catch(err => res.status(500).send(err));
 	}
 	return res.sendStatus(500);
@@ -105,7 +105,15 @@ ${res.locals.theme.short_title}-Team`,
 			res.sendStatus(200);
 		})
 		.catch((err) => {
-			res.status(500).send((err.error || {}).message || err.message || 'Fehler bei der Registrierung.');
+			let message = 'Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.'
+			const customMessage = (err.error || {}).message || err.message;
+			if (customMessage) { message = customMessage; }
+			if (err && err.code) {
+				if (err.code === 'ESOCKETTIMEDOUT') {
+					message = 'Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout). Bitte versuche es erneut.'
+				}
+			}
+			return res.status(500).send(message);
 		});
 });
 
