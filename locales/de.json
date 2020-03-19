@@ -213,7 +213,10 @@
 		"button":{
 			"addTask": "Aufgabe hinzufügen",
 			"filterAdd": "Filter hinzufügen",
-			"filterApply": "Übernehmen"				        
+			"filterApply": "Übernehmen",
+			"hrefDataMethod": "delete-submission",
+			"hrefDataName": "deine Abgabe",
+			"hrefAlt": "Abgabe löschen"				        
 		} 
 	}
 }
