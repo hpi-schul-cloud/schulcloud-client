@@ -1,4 +1,11 @@
-<div class="notification alert alert-dismissible {{#if notification}}alert-{{notification.type}}{{else}}hidden{{/if}}" role="alert">
+{{#hasConfig "GLOBAL_LOGIN_ANNOUNCEMENT"}}
+<div class="notification alert alert-{{getConfig "GLOBAL_LOGIN_ANNOUNCEMENT_TYPE"}}">
+    <div class="notification-content" data-testid="notification">{{getConfig "GLOBAL_LOGIN_ANNOUNCEMENT"}}</div>
+</div>
+{{/hasConfig}}
+
+<div class="notification alert alert-dismissible {{#if notification}}alert-{{notification.type}}{{else}}hidden{{/if}}"
+    role="alert">
     <button type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
