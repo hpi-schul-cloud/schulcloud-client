@@ -3,8 +3,7 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
-const { HOST, NODE_ENV } = require('../config/global');
+const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
 
 let invalid = false;

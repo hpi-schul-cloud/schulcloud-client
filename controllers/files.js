@@ -361,7 +361,7 @@ const getLibreOfficeUrl = (fileId, accessToken) => {
 
 	// in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980
 	const libreOfficeBaseUrl = LIBRE_OFFICE_CLIENT_URL;
-	const wopiRestUrl = PUBLIC_BACKEND_URL || 'http://localhost:3030';
+	const wopiRestUrl = PUBLIC_BACKEND_URL;
 	const wopiSrc = `${wopiRestUrl}/wopi/files/${fileId}?access_token=${accessToken}`;
 	return `${libreOfficeBaseUrl}/loleaflet/dist/loleaflet.html?WOPISrc=${wopiSrc}`;
 };

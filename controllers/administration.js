@@ -17,8 +17,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
-const { CALENDAR_SERVICE_ENABLED, HOST } = require('../config/global');
+const { CALENDAR_SERVICE_ENABLED, HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 
 moment.locale('de');
 
