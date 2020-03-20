@@ -42,7 +42,8 @@ router.get('/', (req, res, next) => {
 	// TODO: remove this Promise.resolve to enable the calendar again
 	const eventsPromise = Promise.resolve([])/*api(req).get('/calendar/', {
 		qs: {
-			all: true,
+			all: 'false',
+			from: start.toLocalISOString(),
 			until: end.toLocalISOString(),
 		},
 	})*/.then(eve => Promise.all(
