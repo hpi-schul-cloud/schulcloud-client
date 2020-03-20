@@ -10,11 +10,13 @@ const {
 	SC_DOMAIN = 'localhost',
 	SC_THEME = 'default',
 	REDIS_URI,
-	REQUEST_TIMEOUT = 15000, // 15 sec
+	REQUEST_TIMEOUT_MS = 5000, // 5 sec
 	NODE_ENV = 'development',
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS = 3600, // 60 min
 	JWT_TIMEOUT_SECONDS,
 	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = (5 * 1024 * 1024), // 5MB
+	FEATURE_INSIGHTS_ENABLED,
+	INSIGHTS_COLLECTOR_URI,
 } = process.env;
 
 const FEATURE_MESSENGER_ENABLED = process.env.FEATURE_MESSENGER_ENABLED === 'true';
@@ -29,15 +31,18 @@ const exp = {
 	SC_DOMAIN,
 	SC_THEME,
 	REDIS_URI,
-	REQUEST_TIMEOUT,
+	REQUEST_TIMEOUT_MS: Number(REQUEST_TIMEOUT_MS),
 	NODE_ENV,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 	JWT_TIMEOUT_SECONDS,
 	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
 	FEATURE_MESSENGER_ENABLED,
 	ROCKETCHAT_SERVICE_ENABLED,
+	FEATURE_INSIGHTS_ENABLED,
+	INSIGHTS_COLLECTOR_URI,
 };
 
-logger.info(util.inspect(exp, { depth: 1, compact: false }));
+// eslint-disable-next-line no-console
+console.log(util.inspect(exp, { depth: 1, compact: false }));
 
 module.exports = exp;

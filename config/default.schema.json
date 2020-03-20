@@ -2,6 +2,58 @@
 	"title": "HPI Schul-Cloud Configuration",
 	"type": "object",
 	"properties": {
+		"GLOBAL_LOGIN_ANNOUNCEMENT": {
+			"type": "string",
+			"description": "global announcement, shown as notification in header on startpage when not loggedin."
+		},
+		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
+			"type": "string",
+			"default": "info",
+			"enum": [
+				"success",
+				"info",
+				"warning",
+				"danger"
+			],
+			"description": "alert types"
+		},
+		"FEATURE_CSRF_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables CSRF Token generation and error handler in app."
+		},
+		"FEATURE_MORGAN_LOG_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, morgan logs are written."
+		},
+		"MORGAN_LOG_FORMAT": {
+			"type": "string",
+			"default": "dev",
+			"enum": [
+				"default",
+				"common",
+				"short",
+				"tiny",
+				"combined",
+				"dev"
+			],
+			"description": "Sets the morgan log level. Morgan is creating access logs for express."
+		},
+		"LOG_LEVEL": {
+			"type": "string",
+			"default": "info",
+			"enum": [
+				"error",
+				"warn",
+				"info",
+				"http",
+				"verbose",
+				"debug",
+				"silly"
+			],
+			"description": "Sets the winston log level. Winston is used for all logs. @see AbstractConfigSetLevels"
+		},
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
 			"type": "string",
 			"default": "opt-out",
@@ -22,6 +74,16 @@
 			"type": "string",
 			"default": "/login",
 			"description": "The URL to authenticate. Unauthenticated users are redirected to this URL with ?redirect= pointing to the original request URL"
+		},
+		"FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Using privateDevice parameter in login, the logout/jwt timeout can be extended to JWT_EXTENDED_TIMEOUT_SECONDS instead of JWT_TIMEOUT_SECONDS."
+		},
+		"SC_CONTACT_EMAIL": {
+			"type": "string",
+			"default": "feedback@schul-cloud.org",
+			"description": "Contact E-Mail Adress to The HPI School-Cloud team."
 		}
 	},
 	"required": [

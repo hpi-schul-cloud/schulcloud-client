@@ -2,6 +2,7 @@
 const moment = require('moment');
 const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
+const { Configuration } = require('@schul-cloud/commons');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 
@@ -129,13 +130,22 @@ const helpers = app => ({
 		return options.fn(this);
 	},
 	ifConfig: (key, value, options) => {
-		const exist = app.Config.has(key);
-		if (exist && app.Config.get(key) === value) {
+		const exist = Configuration.has(key);
+		if (exist && Configuration.get(key) === value) {
 			return options.fn(this);
 		}
 		return options.inverse(this);
 	},
-	userInitials: (opts)=> {
+	hasConfig: (key, options) => {
+		if (Configuration.has(key)) {
+			return options.fn(this);
+		}
+		return options.inverse(this);
+	},
+	getConfig: (key) => {
+		return Configuration.get(key);
+	},
+	userInitials: (opts) => {
 		return opts.data.local.currentUser.avatarInitials;
 	},
 	userHasPermission: (permission, opts) => {

@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const api = require('../api');
 const permissionsHelper = require('./permissions');
+const { Configuration } = require('@schul-cloud/commons');
 
 const rolesDisplayName = {
 	teacher: 'Lehrer',
@@ -15,9 +16,17 @@ const rolesDisplayName = {
 	expert: 'Experte',
 };
 
-const clearCookie = (req, res, options = { destroySession: false }) => {
+const clearCookie = async (req, res, options = { destroySession: false }) => {
 	if (options.destroySession && req.session && req.session.destroy) {
-		req.session.destroy();
+		await new Promise((resolve, reject) => {
+			req.session.destroy((err) => {
+				if (err) {
+					reject(err);
+					return;
+				}
+				resolve();
+			});
+		});
 	}
 	res.clearCookie('jwt');
 	if (res.locals && res.locals.domain) {
@@ -127,7 +136,7 @@ const restrictSidebar = (req, res) => {
 const authChecker = (req, res, next) => {
 	isAuthenticated(req)
 		.then((isAuthenticated2) => {
-			const redirectUrl = req.app.Config.get('NOT_AUTHENTICATED_REDIRECT_URL');
+			const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
 			if (isAuthenticated2) {
 				// fetch user profile
 				populateCurrentUser(req, res)

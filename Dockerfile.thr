@@ -17,6 +17,7 @@ COPY . .
 ENV SC_THEME=thr
 ENV TZ=Europe/Berlin
 
+RUN gulp clear-cache
 RUN gulp
 
 VOLUME /home/node/app/build

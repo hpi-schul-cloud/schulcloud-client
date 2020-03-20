@@ -21,11 +21,11 @@
 		<section class="section-course">
 			{{#if course.isArchived}}
 				<div class="empty-state">
-					<img src="/images/empty-states/books_empty.svg" alt="Kurs ist archiviert" class="image" />
+					<img src="/images/empty-states/books_empty.svg" alt= "{{$t "courses._course.edit.img_alt.courseIsArchieved"}}" class="image" />
 
 					<h2 class="h4">Der Kurs "{{course.name}}" ist archivert.</h2>
 					<p class="text-muted text-center">
-						Um Daten des Kurses zu bearbeiten musst du zunächst das Enddatum anpassen.
+						{{$t "courses._course.edit.text.toEditChangeDate"}}
 					</p>
 					<form action="{{action}}" method="post">
 						{{#if method}}
@@ -33,19 +33,19 @@
 						{{/if}}
 						<input type="hidden" name="unarchive" data-force-value="true" value="true" />
 						<div class="times" id="timesContainer">
-							<label>Zeitraum (z.B. Schuljahr)</label>
+							<label>{{$t "courses._course.edit.label.timeSpan"}}</label>
 							<div class="row">
 								<div class="form-group col-md-6">
-									<label>Von</label>
+									<label>{{$t "courses._course.edit.label.from"}}</label>
 									<input name="startDate" id="startDate" data-date type="text" class="form-control"
-										value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+										value="{{course.startDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
 										{{#if @root.course.isArchived}}disabled{{/if}} />
 								</div>
 
 								<div class="form-group col-md-6">
-									<label>Bis</label>
+									<label>{{$t "courses._course.edit.label.till"}}</label>
 									<input name="untilDate" id="untilDate" data-date type="text" class="form-control"
-										value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+										value="{{course.untilDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
 										{{#if @root.course.isArchived}}data-min-date="{{datePickerTodayMinus 0 0 0}}"
 										{{/if}} />
 								</div>
@@ -54,7 +54,7 @@
 						<div class="modal-footer">
 							<a href="/courses/{{course._id}}/" class="btn btn-delete-course btn-secondary pull-left"
 								target="_blank" data-method="DELETE" data-name="{{course.name}}" redirect="/courses/">
-								Kurs löschen
+								{{$t "courses._course.edit.button.deleteCourse"}}
 							</a>
 							<button type="button" class="btn btn-secondary btn-cancel">
 								{{closeLabel}}
@@ -73,7 +73,7 @@
 						<small title="Kursdetails anzeigen">
 							<i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i>
 						</small>
-						Kursdetails anzeigen
+						{{$t "courses._course.edit.button.showCourseDetail"}}
 					</div>
 				</a>
 				<div id="myhomeworks" class="container-fluid collapse">
@@ -215,14 +215,14 @@
 						<div class="form-group col-md-6">
 							<label>Von</label>
 							<input name="startDate" id="startDate" data-date type="text" class="form-control"
-								value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+								value="{{course.startDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
 								{{#if @root.course.isArchived}}disabled{{/if}} />
 						</div>
 
 						<div class="form-group col-md-6">
 							<label>Bis</label>
 							<input name="untilDate" id="untilDate" data-date type="text" class="form-control"
-								value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+								value="{{course.untilDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
 								{{#if @root.course.isArchived}}disabled{{/if}} />
 						</div>
 					</div>
