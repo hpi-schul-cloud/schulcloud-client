@@ -79,8 +79,9 @@ router.post('/', (req, res, next) => {
 			}
 			return res.sendStatus(200);
 		});
+	} else {
+		return res.sendStatus(204);
 	}
-	return res.sendStatus(204);
 });
 
 module.exports = router;
