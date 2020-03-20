@@ -19,7 +19,7 @@ const {
 	INSIGHTS_COLLECTOR_URI,
 } = process.env;
 
-const FEATURE_ALERTRS_ENABLED = process.env.FEATURE_ALERTRS_ENABLED === "true";
+const FEATURE_ALERTRS_ENABLED = process.env.FEATURE_ALERTRS_ENABLED === 'true';
 
 const exp = {
 	KEEP_ALIVE,

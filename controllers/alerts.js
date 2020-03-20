@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
 	let alert;
 
-	if(true){
+	if (FEATURE_ALERTRS_ENABLED) {
 		alert = await api(req).get('/alert');
 	} else {
 		alert = [];
