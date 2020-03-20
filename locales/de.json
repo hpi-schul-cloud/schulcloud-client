@@ -1,22 +1,169 @@
 {
 	"about": {
+		"button": {
+			"showLess": "Weniger anzeigen",
+			"showMore": "Mehr anzeigen"
+		},
 		"headline": {
 			"bestPractice": "Best Practice Schulen",
 			"educSupp": "Bildungswissenschaftliche Begleitung",
+			"morePublications": "Weitere Veröffentlichungen",
+			"ourAwards": "Unsere Auszeichnungen",
 			"pilotSchool": "Pilostschulen",
+			"publications": "Veröffentlichungen",
+			"recordingsLecture": "Aufzeichnungen von Vorträgen",
 			"title": "Über die HPI Schul-Cloud"
 		},
 		"link": {
-			"shortDesc": "Kurzbeschreibung \"Die HPI Schul-Cloud\" (.pdf)"
+			"awardWinnerIdea": "Ernennung zum „Ausgezeichneten Ort“ im bundesweiten Wettbewerb „Land der Ideen“",
+			"awardWinnerInnovation": "Preisträger im \"Innovationspreis Berlin Brandenburg 2018\"",
+			"cloudGermanyConcept": "Die Cloud für Schulen in Deutschland: Konzept und Pilotierung der HPI Schul-Cloud",
+			"cloudImpotanceStakeholder": "Schulrechner wandern in die Cloud – Was bedeutet das für die unterschiedlichen Stakeholder?",
+			"hpiCloudDuringLesson": "Die HPI Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien und Methoden",
+			"hpiCloudInDayLife": "Die HPI Schul-Cloud in Unterricht und Schulalltag - Mehrwert und Voraussetzungen",
+			"hpiCloudLearning": "HPI Schul-Cloud und Lernen 4.0 - Best-Practice-Unterrichtsbeispiele für die Sekundarstufe",
+			"hpiCloudTechnicalReport": "Technischer Bericht: Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland",
+			"shortDescription": "Kurzbeschreibung \"Die HPI Schul-Cloud\" (.pdf)",
+			"talksFirstCloudForum": "Vorträge des 1. HPI Schul-Cloud-Forums (April 2017)",
+			"talksSecondCloudForum": "Vorträge des 2. HPI Schul-Cloud-Forums (März 2018)",
+			"talksThirdCloudForum": "Vorträge des 3. HPI Schul-Cloud-Forums (März 2019)"
 		},
 		"text": {
 			"moreInfo": "Mehr Informationen:",
-			"showLess": "Weniger anzeigen",
-			"showMore": "Mehr anzeigen",
 			"startA2019": "(Start August 2019)",
 			"startF2019": "(Start Februar 2019)",
 			"startM2017": "(Start März 2017)",
 			"startM2018": "(Start Mai 2018)"
+		}
+	},
+	"courses": {
+		"_course": {
+			"dropdown_menu": {
+				"link": {
+					"duplicateCourse": "Kurs duplizieren",
+					"editDeleteCourse": "Kurs bearbeiten/löschen",
+					"inviteToCourse": "zum Kurs einladen",
+					"shareCourse": "Kurs teilen"
+				}
+			},
+			"edit": {
+				"button": {
+					"deleteCourse": "Kurs löschen",
+					"showCourseDetail": "Kursdetails anzeigen"
+				},
+				"headline": {
+					"courseIsArchieved": "Der Kurs {{coursename}} ist archivert."
+				},
+				"img_alt": {
+					"courseIsArchieved": "Kurs ist archiviert"
+				},
+				"label": {
+					"from": "Von",
+					"till": "Bis",
+					"timeSpan": "Zeitraum (z.B. Schuljahr)",
+					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
+				},
+				"pop_up": {},
+				"text": {
+					"toEditChangeDate": "Um Daten des Kurses zu bearbeiten musst du zunächst das Enddatum anpassen."
+				}
+			},
+			"groups": {
+				"_group": {
+					"headline": {
+						"doneGroupTasks": "getätigte Gruppenabgaben",
+						"openGroupTasks": "offene (mögliche) Gruppenabgaben",
+						"topics": "Themen"
+					},
+					"link": {
+						"addTopic": "Thema hinzufügen",
+						"deleteGroup": "Schülergruppe löschen",
+						"editGroup": "Schülergruppe bearbeiten"
+					},
+					"text": {
+						"groupMembers": "Gruppenteilnehmer: ",
+						"noOpenGroupTasks": "Keine weiteren Gruppenabgaben möglich.",
+						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
+						"noTopics": "keine Themen.",
+						"responsibleTeachers": "Verantwortliche Lehrer: "
+					}
+				}
+			},
+			"link": {
+				"toCourseFiles": "Zu den Kursdateien"
+			},
+			"tab_label": {
+				"groups": "Gruppen",
+				"tasks": "Aufgaben",
+				"tools": "Tools",
+				"topics": "Themen"
+			},
+			"text": {
+				"coursedescription": "Kursbeschreibung: ",
+				"nextClass": "Nächste Unterrichtsstunde: "
+			}
+		},
+		"add": {
+			"button": {
+				"addLessonAppointment": "Schulstundentermin im Stundenplan anlegen (optional)",
+				"deleteCourse": "Kurs löschen"
+			},
+			"headline": {
+				"almostDone": "Du hast es fast geschafft...",
+				"done": "Geschafft!",
+				"whatToDoCourses": "Was kannst du in einem Kurs machen?"
+			},
+			"input": {
+				"chooseTeacher": "Lehrer auswählen",
+				"egMaths": "z.B. Mathe 10a",
+				"egRoom1-21": "z.B. R-1.21",
+				"inMinutes": "In Minuten",
+				"selectClasses": "Klasse(n) auswählen",
+				"selectStudents": "Schüler auswählen"
+			},
+			"label": {
+				"addClassesToCourse": "Klasse(n) (Alle Schüler der Klasse werden automatisch hinzugefügt!) - Optional",
+				"addStudentsToCourse": "Schüler / Teilnehmer - Optional",
+				"courseSubstitute": "Vertretungslehrer - Optional",
+				"room": "Raum",
+				"timeSpan": "Zeitraum (z.B. Schuljahr) von - Optional",
+				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben",
+				"timeSpanUntil": "Bis - Optional"
+			},
+			"link": {
+				"addAnotherCourse": "Einen weiteren Kurs anlegen",
+				"courseOverview": "Zur Kursübersicht",
+				"createTopics": "Themen anlegen",
+				"giveExercises": "Aufgaben stellen"
+			},
+			"tab_label": {
+				"courseData": "Kursdaten",
+				"courseMembers": "Teilnehmer",
+				"finish": "Abschließen"
+			},
+			"text": {
+				"addStudentsOrClasses": "Füge Klassen oder einzelne Schüler deinem Kurs hinzu.",
+				"contentOfClass": "Lege die Inhalte deines Unterrichts an.",
+				"doItNowOrLaterInSettings": "Dies kannst du jetzt oder später in den Kurseinstellungen machen.",
+				"giveExercisesAndGetResults": "Stelle deinen Kursteilnehmern Aufgaben und sieh dir ihre Abgaben an.",
+				"groupsWorkTogether": "In einem Kurs wird gemeinsam mit den Teilnehmern an Themen, Aufgaben und Dateien gearbeitet.",
+				"willAlsoDeleteForStudents": "Dies löscht den Kurs auch bei allen Schüler:innen."
+			}
+		},
+		"global": {
+			"label": {
+				"courseColor": "Farbe des Kurses",
+				"courseName": "Name des Kurses",
+				"courseTeacher": "Unterrichtender Lehrer",
+				"lengthOfLesson": "Dauer der Schulstunde",
+				"startOfLesson": "Start der Schulstunde",
+				"weekday": "Wochentag"
+			}
+		},
+		"tools": {
+			"text": {
+				"noTools": "Keine Tools."
+			}
 		}
 	},
 	"dashboard": {
@@ -32,6 +179,10 @@
 		}
 	},
 	"global": {
+		"button": {
+			"cancel": "Abbrechen",
+			"delete": "Löschen"
+		},
 		"sidebar": {
 			"link": {
 				"administration": "Administration",
@@ -47,6 +198,15 @@
 				"overview": "Übersicht",
 				"tasks": "Aufgaben"
 			}
+		},
+		"text": {
+			"friday": "Freitag",
+			"monday": "Montag",
+			"saturday": "Samstag",
+			"sunday": "Sonntag",
+			"thursday": "Donnerstag",
+			"tuesday": "Dienstag",
+			"wednesday": "Mittwoch"
 		}
 	}
 }
