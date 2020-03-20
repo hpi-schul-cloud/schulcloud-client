@@ -17,6 +17,11 @@
 			],
 			"description": "alert types"
 		},
+		"LOGIN_BLOCKED_COOKIES_NOTE": {
+			"type": "string",
+			"default": "Bitte aktiviere Cookies für diese Seite. Andernfalls ist ein Login aus technischen Gründen nicht möglich.",
+			"description": "text that is shown above the login form if cookies are blocked by the browser."
+		},
 		"FEATURE_CSRF_ENABLED": {
 			"type": "boolean",
 			"default": true,
