@@ -29,7 +29,7 @@ router.get('/', (req, res, next) => {
 		hiddenSchoolsMay2018,
 		hiddenSchoolsFeb2019,
 		hiddenSchoolsThuringia2019,
-	}));
+	})).catch(next);
 });
 
 module.exports = router;

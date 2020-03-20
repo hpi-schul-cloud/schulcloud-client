@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
 			title: 'Datenschutzerklärung',
 			inline: isAuthenticated,
 		});
-	});
+	}).catch(next);
 });
 
 module.exports = router;
