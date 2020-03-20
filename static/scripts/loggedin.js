@@ -25,15 +25,16 @@ function togglePresentationMode() {
     $('body').toggleClass('fullscreen');
     toggleButton.children('i').toggleClass('fa-compress');
     toggleButton.children('i').toggleClass('fa-expand');
+
+    fullscreen = !fullscreen;
+    fullscreen ? $('.alert-button').css('visibility', 'hidden') : $('.alert-button').css('visibility', 'visible');
+    sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 
 let fullscreen = false;
 
 function fullscreenBtnClicked() {
     togglePresentationMode();
-    fullscreen = !fullscreen;
-    fullscreen ? $('.alert-button').css('visibility', 'hidden') : $('.alert-button').css('visibility', 'visible');
-    sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 
 function showAJAXSuccess(message, modal) {
