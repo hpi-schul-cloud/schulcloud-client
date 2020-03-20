@@ -73,9 +73,10 @@ $(document).ready(() => {
 			action: href,
 			data: tool,
 			method: 'POST',
-			success(result) {
-				window.location.href = `/courses/${courseId}`;
-			},
+		}).done(() => {
+			window.location.href = `/courses/${courseId}?activeTab=tools`;
+		}).fail(() => {
+			$.showNotification('Beim Hinzufügen des Tools ist ein Fehler aufgetreten.', 'danger');
 		});
 	};
 
@@ -98,6 +99,21 @@ $(document).ready(() => {
 			const tool = result.tool[0];
 			tool.originTool = tool._id;
 			if (tool.isLocal) {
+				if (tool.name === 'Video-Konferenz mit BigBlueButton') {
+					const $addBbbToolModal = $('.add-bbb-modal');
+
+					populateModalForm($addBbbToolModal, {
+						title: 'Videokonferenz',
+						closeLabel: 'Abbrechen',
+						submitLabel: 'Hinzufügen',
+					});
+					$addBbbToolModal.appendTo('body').modal('show');
+					$addBbbToolModal.off('submit').on('submit', (event) => {
+						event.preventDefault();
+						createLocalTool($editModal, tool);
+					});
+					return;
+				}
 				createLocalTool($editModal, tool);
 			} else {
 				populateModalForm($editModal, {

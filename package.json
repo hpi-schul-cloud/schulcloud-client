@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "20.2.3",
+	"version": "22.6.3",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -16,16 +16,21 @@
 		"coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js --opts ./test/mocha/mocha.opts"
 	},
 	"engines": {
-		"node": "^10.17.0"
+		"node": "10.x || 12.x"
 	},
 	"sasslintConfig": "./.sass-lint.yml",
+	"husky": {
+		"hooks": {
+			"pre-commit": "npx lint-staged"
+		}
+	},
 	"dependencies": {
 		"@babel/runtime": "^7.6.3",
-		"@schul-cloud/commons": "^1.0.9",
+		"@schul-cloud/commons": "^1.0.16",
 		"@sentry/browser": "^5.6.1",
 		"@sentry/integrations": "^5.6.1",
 		"@sentry/node": "^5.7.1",
-		"acorn": "^6.0.0",
+		"acorn": "^6.4.1",
 		"body-parser": "^1.19.0",
 		"browser-sync": "^2.26.7",
 		"compression": "^1.6.2",
@@ -35,26 +40,29 @@
 		"csv-parse": "^4.6.5",
 		"debug": "~2.6.0",
 		"device-detector-js": "^1.1.1",
+		"encoding-japanese": "^1.0.30",
 		"express": "^4.17.1",
 		"express-fileupload": "^1.1.6",
 		"express-session": "^1.16.2",
-		"fast-csv": "^2.4.1",
 		"feedr": "^2.13.5",
 		"font-awesome": "^4.7.0",
 		"fullcalendar": "^3.9.0",
 		"git-repo-info": "^2.1.0",
-		"gulp-nodemon": "^2.2.1",
+		"gulp-nodemon": "^2.5.0",
 		"handlebars": "^4.5.3",
 		"handlebars-layouts": "^3.1.4",
 		"handlebars-wax": "^5.1.1",
-		"hbs": "^4.0.6",
-		"ipaddr.js": "^1.5.4",
+		"hbs": "git://github.com/schul-cloud/hbs.git",
+		"i18next": "^19.3.2",
+		"i18next-chained-backend": "^2.0.1",
+		"i18next-fetch-backend": "^2.2.0",
+		"i18next-localstorage-backend": "^3.1.1",
+		"i18next-sync-fs-backend": "^1.1.1",
 		"jquery-datetimepicker": "^2.5.20",
-		"jsonwebtoken": "^7.3.0",
+		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.15",
 		"marked": "^0.7.0",
 		"mathjax": "2.7.4",
-		"maxmind": "^2.3.0",
 		"method-override": "^2.3.7",
 		"moment": "^2.22.2",
 		"morgan": "^1.9.1",
@@ -74,11 +82,12 @@
 		"serve-favicon": "^2.5.0",
 		"shortid": "^2.2.8",
 		"showdown": "^1.9.1",
+		"storage-factory": "^0.1.0",
 		"string-strip-html": "^3.2.0",
 		"string_decoder": "^1.0.1",
 		"truncate-html": "^1.0.0",
 		"ua-parser-js": "^0.7.21",
-		"winston": "^3.0.0"
+		"winston": "^3.2.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.6.2",
@@ -94,9 +103,8 @@
 		"eslint-config-airbnb-base": "^13.1.0",
 		"eslint-plugin-import": "^2.17.1",
 		"expose-loader": "^0.7.5",
-		"gulp": "^3.9.1",
+		"gulp": "^4.0.2",
 		"gulp-babel": "^8.0.0",
-		"gulp-changed-smart": "^1.1.1",
 		"gulp-clean-css": "^3.0.3",
 		"gulp-concat": "^2.6.1",
 		"gulp-count": "^0.3.0",
@@ -104,7 +112,6 @@
 		"gulp-filelog": "^0.4.1",
 		"gulp-header": "^2.0.1",
 		"gulp-if": "^2.0.2",
-		"gulp-imagemin": "^6.1.0",
 		"gulp-optimize-js": "^1.1.0",
 		"gulp-plumber": "^1.1.0",
 		"gulp-postcss": "^7.0.1",
@@ -113,9 +120,12 @@
 		"gulp-sass-grapher": "^0.1.4",
 		"gulp-sourcemaps": "^2.6.4",
 		"gulp-uglify": "^2.0.1",
+		"husky": "^4.2.1",
+		"imagemin-lint-staged": "^0.4.0",
 		"istanbul": "^0.4.5",
+		"lint-staged": "^10.0.7",
 		"mocha": "^6.2.1",
-		"node-sass": "^4.12.0",
+		"node-sass": "^4.13.1",
 		"nodemon": "^1.18.3",
 		"postcss-css-variables": "^0.13.0",
 		"pump": "^1.0.2",
@@ -125,7 +135,7 @@
 		"script-loader": "^0.7.2",
 		"vinyl-map": "^1.0.2",
 		"vinyl-named": "^1.1.0",
-		"webpack": "^4.16.1",
-		"webpack-stream": "^4.0.3"
+		"webpack": "^4.41.5",
+		"webpack-stream": "^5.2.1"
 	}
 }

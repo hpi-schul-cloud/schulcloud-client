@@ -33,11 +33,27 @@
                 {{#inArray "rocketChat" schoolData.features}}
                     <div class="form-group">
                         <label>
-                            <input type="checkbox" name="rocketchat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
+                            <input type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
                             Messenger für Team aktivieren
                         </label>
                     </div>
                 {{/inArray}}
+
+                {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="videoconference" value="true" {{#inArray "videoconference" @root.team.features}}checked{{/inArray}}
+                                {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
+                            Videokonferenzen für Team aktivieren
+                        </label>
+                        {{#inArray "videoconference" @root.schoolData.features}}
+                        {{else}} 
+                        <small class="form-text text-muted">
+                            Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen.
+                        </small>
+                        {{/inArray}}
+                    </div>
+                {{/ifConfig}}
 
                 <div class="form-group">
                     <label>Farbe des Teams:</label>

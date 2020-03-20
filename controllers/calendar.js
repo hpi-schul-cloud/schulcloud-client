@@ -12,11 +12,16 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
 
-router.get('/', (req, res, next) => {
-	res.render('calendar/calendar', {
-		title: 'Kalender',
-		userId: res.locals.currentUser._id,
-	});
+router.get('/', function (req, res, next) {
+    const schoolUsesVideoconferencing = (
+        res.locals.currentSchoolData.features || []
+    ).includes('videoconference');
+    const showVideoconferenceOption = schoolUsesVideoconferencing;
+    res.render('calendar/calendar', {
+        title: 'Kalender',
+        userId: res.locals.currentUser._id,
+        showVideoconferenceOption,
+    });
 });
 
 router.get('/events/', (req, res, next) => {
@@ -42,25 +47,21 @@ router.post('/events/', (req, res, next) => {
 	// eslint-disable-next-line no-underscore-dangle
 	req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 
-	// filter params
-	if (req.body.courseId && req.body.courseId !== '') {
-		req.body.scopeId = req.body.courseId;
-	} else if (req.body.teamId && req.body.teamId !== '') {
-		req.body.scopeId = req.body.teamId;
-	} else {
-		delete req.body.courseId;
-	}
+    if (req.body.courseId && req.body.courseId !== '') {
+        req.body.scopeId = req.body.courseId;
+    } else {
+        delete req.body.courseId;
+    }
 
-	// filter params
-	if (req.body.courseId && req.body.courseId !== '') {
-		req.body.scopeId = req.body.courseId;
-	} else {
-		delete req.body.courseId;
-	}
+    if (req.body.teamId && req.body.teamId !== '') {
+        req.body.scopeId = req.body.teamId;
+    } else {
+        delete req.body.teamId;
+    }
 
-	api(req).post('/calendar/', { json: req.body }).then(() => {
-		res.redirect('/calendar');
-	});
+    api(req).post('/calendar/', {json: req.body}).then(event => {
+        res.redirect('/calendar');
+    }).catch(next);
 });
 
 router.delete('/events/:eventId', (req, res, next) => {

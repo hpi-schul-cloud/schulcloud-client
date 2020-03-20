@@ -29,9 +29,7 @@ describe('Link tests', function () {
                     // NOTE It is unclear why res.redirects is an array. However, to make the test agnostic, we loop through all
                     let baseUrl = process.env.BACKEND_URL || 'http://localhost:3030';
 
-                    expect(res.redirects.some(link => {
-                        return link.includes(`${baseUrl}/link/${testId}`)
-                    })).to.be.true;
+                    expect(res.status).to.be.equal(404);
                     resolve();
                 });
         });

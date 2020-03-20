@@ -7,18 +7,15 @@ const express = require('express');
 const logger = require('winston');
 const moment = require('moment');
 const multer = require('multer');
+const encoding = require('encoding-japanese');
+const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
-// eslint-disable-next-line import/order
-const StringDecoder = require('string_decoder').StringDecoder;
-// eslint-disable-next-line import/order
-const _ = require('lodash');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
-const decoder = new StringDecoder('utf8');
 
 const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
 
@@ -526,7 +523,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		return errorText;
 	};
 	try {
-		const csvData = decoder.write(req.file.buffer);
+		const csvData = Buffer.from(encoding.convert(req.file.buffer, { to: 'UTF8', from: 'AUTO' })).toString('UTF-8');
 		const [stats] = await api(req).post('/sync/', {
 			qs: {
 				target: 'csv',
@@ -549,7 +546,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			type: messageType,
 			message,
 		};
-		res.redirect(req.header('Referer'));
+		res.redirect(req.body.referrer || req.header('Referer'));
 		return;
 	} catch (err) {
 		req.session.notification = {
@@ -557,7 +554,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			message:
 				'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
 		};
-		res.redirect(req.header('Referer'));
+		res.redirect(req.body.referrer || req.header('Referer'));
 	}
 };
 
@@ -976,6 +973,24 @@ router.post(
 	upload.single('csvFile'),
 	getCSVImportHandler(),
 );
+router.get(
+	'/teachers/import',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	async (req, res, next) => {
+		const years = getSelectableYears(res.locals.currentSchoolData);
+		const title = `${returnAdminPrefix(
+			res.locals.currentUser.roles,
+		)}Schüler`;
+		res.render('administration/import', {
+			title,
+			roles: 'teacher',
+			action: `/administration/teachers/import?_csrf=${res.locals.csrfToken}`,
+			redirectTarget: '/administration/teachers',
+			schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+			years,
+		});
+	},
+);
 router.post(
 	'/teachers/:id',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
@@ -1225,6 +1240,24 @@ router.post(
 	upload.single('csvFile'),
 	getCSVImportHandler(),
 );
+router.get(
+	'/students/import',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	async (req, res, next) => {
+		const years = getSelectableYears(res.locals.currentSchoolData);
+		const title = `${returnAdminPrefix(
+			res.locals.currentUser.roles,
+		)}Schüler`;
+		res.render('administration/import', {
+			title,
+			roles: 'student',
+			action: `/administration/students/import?_csrf=${res.locals.csrfToken}`,
+			redirectTarget: '/administration/students',
+			schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+			years,
+		});
+	},
+);
 router.patch(
 	'/students/:id/pw',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
@@ -1273,7 +1306,7 @@ router.get(
 	},
 );
 
-router.all(
+router.get(
 	'/students',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
 	async (req, res, next) => {
@@ -2452,12 +2485,9 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 		});
 };
 
-const schoolUpdateHandler = async (req, res, next) => {
-	// remove logo attribute from patch if it is not set explicitly (SC-2881)
-	if (req.body && req.body.logo_dataUrl === '') {
-		delete req.body.logo_dataUrl;
-	}
+const schoolFeatureUpdateHandler = async (req, res, next) => {
 	try {
+		// Update rocketchat feature in school
 		const isChatAllowed = (res.locals.currentSchoolData.features || []).includes(
 			'rocketChat',
 		);
@@ -2481,14 +2511,41 @@ const schoolUpdateHandler = async (req, res, next) => {
 			});
 		}
 		delete req.body.rocketchat;
+
+		// Update videoconference feature in school
+		const videoconferenceEnabled = (res.locals.currentSchoolData.features || []).includes(
+			'videoconference',
+		);
+		if (!videoconferenceEnabled && req.body.videoconference === 'true') {
+			// enable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'videoconference',
+					},
+				},
+			});
+		} else if (videoconferenceEnabled && req.body.videoconference !== 'true') {
+			// disable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'videoconference',
+					},
+				},
+			});
+		}
+		delete req.body.videoconference;
 	} catch (err) {
 		next(err);
 	}
+
+	// update other school properties
 	return getUpdateHandler('schools')(req, res, next);
 };
 
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
-router.patch('/schools/:id', schoolUpdateHandler);
+router.patch('/schools/:id', schoolFeatureUpdateHandler);
 router.post('/schools/:id/bucket', createBucket);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch(

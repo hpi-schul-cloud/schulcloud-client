@@ -132,6 +132,5 @@ document.addEventListener('DOMContentLoaded', () => {
 		activeTab.classList.add('active');
 		activeSection.classList.add('active');
 	}
-
-	app.tabs.initialize();
+	setTimeout(() => app.tabs.initialize(), 0);
 }, false);

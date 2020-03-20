@@ -1,22 +1,31 @@
 const winston = require('winston');
+const { Configuration } = require('@schul-cloud/commons');
 
-const isProductionMode = process.env.NODE_ENV === 'production';
-let format;
+const { format, transports, createLogger } = winston;
 
-if (!isProductionMode) {
-	format = winston.format.combine(
-		winston.format.colorize(),
-		winston.format.simple(),
+const logLevel = Configuration.get('LOG_LEVEL');
+const colorize = process.env.NODE_ENV !== 'production';
+let formater;
+
+if (process.env.NODE_ENV === 'test') {
+	formater = format.combine(
+		format.prettyPrint({ depth: 1, colorize }),
 	);
 } else {
-	format = winston.format.simple();
+	formater = format.combine(
+		format.errors({ stack: true }),
+		format.timestamp(),
+		format.prettyPrint({ depth: 3, colorize }),
+	);
 }
 
 
-const logger = winston.createLogger({
+const logger = createLogger({
+	level: logLevel,
 	transports: [
-		new winston.transports.Console({
-			format,
+		new transports.Console({
+			level: logLevel,
+			format: formater,
 		}),
 	],
 });
