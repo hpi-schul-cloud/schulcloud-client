@@ -150,4 +150,6 @@ $(document).ready(() => {
     }
 
     initAlerts('login');
+    // remove duplicated login error
+    $( ".col-xs-12 > .notification" ).remove(); 
 });

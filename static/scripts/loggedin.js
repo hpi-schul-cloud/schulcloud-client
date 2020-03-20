@@ -28,7 +28,7 @@ function togglePresentationMode() {
     toggleButton.children('i').toggleClass('fa-expand');
 
     fullscreen = !fullscreen;
-    fullscreen ? $('.alert-button').css('visibility', 'hidden') : $('.alert-button').css('visibility', 'visible');
+    $('.alert-button').toggle().css('visibility');
     sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 
