@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "22.5.4",
+	"version": "22.5.5",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -82,6 +82,7 @@
 		"serve-favicon": "^2.5.0",
 		"shortid": "^2.2.8",
 		"showdown": "^1.9.1",
+		"storage-factory": "^0.1.0",
 		"string-strip-html": "^3.2.0",
 		"string_decoder": "^1.0.1",
 		"truncate-html": "^1.0.0",
