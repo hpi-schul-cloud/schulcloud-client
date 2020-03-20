@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const api = require('../api');
 const permissionsHelper = require('./permissions');
+const logger = require('./logger');
 const { Configuration } = require('@schul-cloud/commons');
 
 const rolesDisplayName = {
@@ -59,9 +60,16 @@ const isAuthenticated = (req) => {
 const populateCurrentUser = (req, res) => {
 	let payload = {};
 	if (isJWT(req)) {
-		// eslint-disable-next-line prefer-destructuring
-		payload = (jwt.decode(req.cookies.jwt, { complete: true }) || {}).payload;
-		res.locals.currentPayload = payload;
+		try {
+			// eslint-disable-next-line prefer-destructuring
+			payload = (jwt.decode(req.cookies.jwt, { complete: true }) || {}).payload;
+			res.locals.currentPayload = payload;
+		} catch (err) {
+			logger.error('Broken JWT / JWT decoding failed', { error: err });
+			return clearCookie(req, res, { destroySession: true })
+				.catch((err) => { logger.error('clearCookie failed during jwt check', { error: err.toString() }); })
+				.finally(() => res.redirect('/'));
+		}
 	}
 
 	// separates users in two groups for AB testing
@@ -99,8 +107,9 @@ const populateCurrentUser = (req, res) => {
 		}).catch((e) => {
 			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
 			if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
-				clearCookie(req, res, { destroySession: true });
-				return res.redirect('/');
+				return clearCookie(req, res, { destroySession: true })
+					.catch((err) => { logger.error('clearCookie failed during populateUser', { error: err.toString() }); })
+					.finally(() => res.redirect('/'));
 			}
 			throw e;
 		});
