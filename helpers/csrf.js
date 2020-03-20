@@ -14,13 +14,14 @@ const duplicateTokenHandler = (req, res, next) => {
 			const error = new Error('Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.');
 			error.status = 400;
 			logger.error(error);
-			return next(error);
+			next(error);
+		} else {
+			logger.warn('Die Anfrage enthält mehrere identische Sicherheitstokens (CSRF).');
+			req.body._csrf = req.body._csrf[0];
 		}
-		logger.warn('Die Anfrage enthält mehrere identische Sicherheitstokens (CSRF).');
-
-		req.body._csrf = req.body._csrf[0];
+	} else {
+		next();
 	}
-	return next();
 };
 
 const csrfErrorHandler = (err, req, res, next) => {
@@ -43,9 +44,9 @@ const csrfErrorHandler = (err, req, res, next) => {
 			baseUrl,
 			simpleView,
 		});
-		return true;
+	} else {
+		next(err);
 	}
-	return next(err);
 };
 
 module.exports = {
