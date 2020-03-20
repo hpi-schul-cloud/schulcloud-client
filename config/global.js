@@ -43,6 +43,7 @@ const {
 	FEATURE_MINT_PAGES_ENABLED,
 	FEATURE_NEXBOARD_ENABLED,
 	SC_DEMO_USER_PASSWORD = 'Schulcloud1!',
+	SC_DEMO_USER_NAME = 'schueler@schul-cloud.org',
 } = process.env;
 
 const exp = {
@@ -88,6 +89,7 @@ const exp = {
 	FEATURE_MINT_PAGES_ENABLED,
 	FEATURE_NEXBOARD_ENABLED,
 	SC_DEMO_USER_PASSWORD,
+	SC_DEMO_USER_NAME,
 };
 
 // eslint-disable-next-line no-console

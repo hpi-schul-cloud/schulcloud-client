@@ -3,11 +3,7 @@ const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
-const { SC_DEMO_USER_PASSWORD } = require('../../../config/global');
-
-const studentName = 'schueler@schul-cloud.org';
-const password = SC_DEMO_USER_PASSWORD;
-
+const { SC_DEMO_USER_NAME, SC_DEMO_USER_PASSWORD } = require('../../../config/global');
 
 const getLoginPage = agent => new Promise((resolve, reject) => {
 	agent.get('/login/').end((err, res) => {
@@ -48,8 +44,8 @@ const login = (app) => {
 				.post('/login/')
 				.redirects(2)
 				.send({
-					username: studentName,
-					password,
+					username: SC_DEMO_USER_NAME,
+					password: SC_DEMO_USER_PASSWORD,
 					_csrf: csrf,
 				})
 				.end((err, res) => {
@@ -67,9 +63,9 @@ const login = (app) => {
 					return agent
 						.post('/firstLogin/submit')
 						.send({
-							'student-email': studentName,
-							'password-1': password,
-							'password-2': password,
+							'student-email': SC_DEMO_USER_NAME,
+							'password-1': SC_DEMO_USER_PASSWORD,
+							'password-2': SC_DEMO_USER_PASSWORD,
 							_csrf: csrf,
 						})
 						.end((err, resFirstLogin) => {
