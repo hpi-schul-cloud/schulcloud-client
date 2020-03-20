@@ -19,6 +19,8 @@ const {
 	INSIGHTS_COLLECTOR_URI,
 } = process.env;
 
+const FEATURE_ALERTRS_ENABLED = process.env.FEATURE_ALERTRS_ENABLED === "true";
+
 const exp = {
 	KEEP_ALIVE,
 	BACKEND_URL,
@@ -35,6 +37,7 @@ const exp = {
 	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
 	FEATURE_INSIGHTS_ENABLED,
 	INSIGHTS_COLLECTOR_URI,
+	FEATURE_ALERTRS_ENABLED,
 };
 
 // eslint-disable-next-line no-console

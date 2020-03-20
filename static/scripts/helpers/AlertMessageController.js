@@ -1,5 +1,7 @@
 const moment = require('moment');
 
+const max = 2;
+
 moment.locale('de'); // set the localization
 
 function getIconTag(status) {
@@ -60,6 +62,30 @@ class AlertMessageController {
 		return item;
 	}
 
+	readMore(messageArray) {
+		const item = document.createElement('div');
+		let text = '';
+		if (messageArray.length - max > 1) {
+			text = `+${messageArray.length - max} weitere Vorfälle`;
+		} else {
+			text = `+${messageArray.length - max} weiterer Vorfall`;
+		}
+		if (this.loggedin) {
+			item.className = 'alert-item text-center';
+			item.innerHTML = `
+			<a href="${messageArray[max].url}" rel="noopener" target="_blank">
+				${text}
+			</a>`;
+		} else {
+			item.className = 'alert alert-info alert-card';
+			item.innerHTML = `
+			<a href="${messageArray[max].url}" rel="noopener" target="_blank">
+				${text}
+			</a>`;
+		}
+		return item;
+	}
+
 	showAlert(messageArray) {
 		if (Array.isArray(messageArray)) {
 			// keep data in local storage
@@ -72,16 +98,27 @@ class AlertMessageController {
 						$('.alert-button').css('visibility', 'visible');
 					}
 					$('.alert-button').find('.js-alert-content').empty();
-					messageArray.forEach((message) => {
-						$('.alert-button').find('.js-alert-content').append(this.buildMessage(message));
+					messageArray.forEach((message, index) => {
+						if (index < max) {
+							$('.alert-button').find('.js-alert-content').append(this.buildMessage(message));
+						}
 					});
 				}
 			} else {
 				$('.alert-section').empty();
 				if (messageArray.length >= 1) {
-					messageArray.forEach((message) => {
-						$('.alert-section').append(this.buildMessage(message));
+					messageArray.forEach((message, index) => {
+						if (index < max) {
+							$('.alert-section').append(this.buildMessage(message));
+						}
 					});
+				}
+			}
+			if (messageArray.length > max) {
+				if (this.loggedin) {
+					$('.alert-button').find('.js-alert-content').append(this.readMore(messageArray));
+				} else {
+					$('.alert-section').append(this.readMore(messageArray));
 				}
 			}
 		}

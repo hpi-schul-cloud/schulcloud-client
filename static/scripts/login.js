@@ -1,5 +1,6 @@
 import './pwd.js';
 import './cleanup'; // see loggedin.js for loggedin users
+import initAlerts from './alerts';
 
 $(document).ready(function() {
 
@@ -136,4 +137,5 @@ $(document).ready(function() {
         $school.trigger('change');
     }
 
+    initAlerts('login');
 });

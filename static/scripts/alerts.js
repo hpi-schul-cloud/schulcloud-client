@@ -1,13 +1,13 @@
 import AlertMessageController from './helpers/AlertMessageController';
 
 let initialized = false;
-$(document).ready(() => {
+export default function initAlerts(viewToInit) {
 	if (initialized) {
 		return;
 	}
 	initialized = true;
 
-	const view = document.querySelector('script[data-view]').dataset.view === 'loggedin';
+	const view = viewToInit === 'loggedin';
 	const alertMessageController = new AlertMessageController(view);
 
 	// EBS-System | Alert
@@ -25,4 +25,4 @@ $(document).ready(() => {
 			/* eslint-disable-next-line */
 			console.error('Could not update alerts!');
 		});
-});
+}

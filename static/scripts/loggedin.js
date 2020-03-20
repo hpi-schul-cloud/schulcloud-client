@@ -1,6 +1,7 @@
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 import './cleanup'; // see login.js for loggedout users
+import initAlerts from './alerts';
 
 iFrameListen();
 
@@ -160,6 +161,8 @@ $(document).ready(function () {
 			Bitte läute <a href="/administration/school/"> hier das neue Schuljahr ein!</a>`, 'warning');
 		}
     }
+
+    initAlerts('loggedin');
 });
 
 function showAJAXError(req, textStatus, errorThrown) {
