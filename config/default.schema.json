@@ -79,6 +79,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Using privateDevice parameter in login, the logout/jwt timeout can be extended to JWT_EXTENDED_TIMEOUT_SECONDS instead of JWT_TIMEOUT_SECONDS."
+		},
+		"SC_CONTACT_EMAIL": {
+			"type": "string",
+			"default": "feedback@schul-cloud.org",
+			"description": "Contact E-Mail Adress to The HPI School-Cloud team."
 		}
 	},
 	"required": [
