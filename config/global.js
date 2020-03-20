@@ -10,6 +10,8 @@ const {
 	SC_THEME = 'default',
 	SC_TITLE = 'HPI Schul-Cloud',
 	SC_SHORT_TITLE = 'Schul-Cloud',
+	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/schul-cloud-hpi/',
+	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	REDIS_URI,
 	REQUEST_TIMEOUT_MS = 5000, // 5 sec
 	NODE_ENV = 'development',
@@ -52,6 +54,8 @@ const exp = {
 	SC_THEME,
 	SC_TITLE,
 	SC_SHORT_TITLE,
+	DOCUMENT_BASE_DIR,
+	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS: parseInt(CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS || 16, 10),
 	REDIS_URI,
 	REQUEST_TIMEOUT_MS: Number(REQUEST_TIMEOUT_MS),
 	NODE_ENV,
