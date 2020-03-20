@@ -1,10 +1,12 @@
-const studentName = 'schueler@schul-cloud.org';
-const password = process.env.SC_DEMO_USER_PASSWORD || 'Schulcloud1!';
-
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
+
+const { SC_DEMO_USER_PASSWORD } = require('../../../config/global');
+
+const studentName = 'schueler@schul-cloud.org';
+const password = SC_DEMO_USER_PASSWORD;
 
 
 const getLoginPage = agent => new Promise((resolve, reject) => {
