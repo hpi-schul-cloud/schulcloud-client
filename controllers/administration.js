@@ -546,7 +546,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			type: messageType,
 			message,
 		};
-		res.redirect(req.header('Referer'));
+		res.redirect(req.body.referrer || req.header('Referer'));
 		return;
 	} catch (err) {
 		req.session.notification = {
@@ -554,7 +554,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			message:
 				'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
 		};
-		res.redirect(req.header('Referer'));
+		res.redirect(req.body.referrer || req.header('Referer'));
 	}
 };
 
@@ -973,6 +973,24 @@ router.post(
 	upload.single('csvFile'),
 	getCSVImportHandler(),
 );
+router.get(
+	'/teachers/import',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	async (req, res, next) => {
+		const years = getSelectableYears(res.locals.currentSchoolData);
+		const title = `${returnAdminPrefix(
+			res.locals.currentUser.roles,
+		)}Schüler`;
+		res.render('administration/import', {
+			title,
+			roles: 'teacher',
+			action: `/administration/teachers/import?_csrf=${res.locals.csrfToken}`,
+			redirectTarget: '/administration/teachers',
+			schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+			years,
+		});
+	},
+);
 router.post(
 	'/teachers/:id',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
@@ -1222,6 +1240,24 @@ router.post(
 	upload.single('csvFile'),
 	getCSVImportHandler(),
 );
+router.get(
+	'/students/import',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	async (req, res, next) => {
+		const years = getSelectableYears(res.locals.currentSchoolData);
+		const title = `${returnAdminPrefix(
+			res.locals.currentUser.roles,
+		)}Schüler`;
+		res.render('administration/import', {
+			title,
+			roles: 'student',
+			action: `/administration/students/import?_csrf=${res.locals.csrfToken}`,
+			redirectTarget: '/administration/students',
+			schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+			years,
+		});
+	},
+);
 router.patch(
 	'/students/:id/pw',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
@@ -1270,7 +1306,7 @@ router.get(
 	},
 );
 
-router.all(
+router.get(
 	'/students',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
 	async (req, res, next) => {
