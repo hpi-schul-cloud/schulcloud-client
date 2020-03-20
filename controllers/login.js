@@ -203,7 +203,8 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 					// make sure fistLogin flag is not set
 					return res.redirect('/firstLogin');
 				});
-			});
+			})
+			.catch(next);
 	} else {
 		// if this happens: SSO
 		const { accountId, systemId } = (res.locals.currentPayload || {});
@@ -220,15 +221,12 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 });
 
 router.get('/login/systems/:schoolId', (req, res, next) => {
-	api(req).get(
-		`/schools/${req.params.schoolId}`,
-		{
-			qs: { $populate: ['systems'] },
-		},
-	).then((data) => {
-		const systems = data.systems.filter(value => value.type !== 'ldap' || value.ldapConfig.active === true);
-		return res.send(systems);
-	});
+	api(req).get(`/schools/${req.params.schoolId}`, { qs: { $populate: ['systems'] } })
+		.then((data) => {
+			const systems = data.systems.filter(value => value.type !== 'ldap' || value.ldapConfig.active === true);
+			return res.send(systems);
+		})
+		.catch(next);
 });
 
 router.get('/logout/', (req, res, next) => api(req).del('/authentication')
