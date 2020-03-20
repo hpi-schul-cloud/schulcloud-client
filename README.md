@@ -1,9 +1,14 @@
 # Schul-Cloud Client  
 _An implementation of the Schul-Cloud client with NodeJS and Express._  
-  
+
 Dev: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/schul-cloud/schulcloud-client)
 Master: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/schul-cloud/schulcloud-client)
-  
+
+## Powered By
+
+[![Mergify Status](https://gh.mergify.io/badges/schul-cloud/nuxt-client.png?style=cut)](https://mergify.io)
+<a href="https://lokalise.com/" ><img height="18px" src="https://lokalise.com/img/lokalise_logo_black.png" style="padding: 2px 8px; border: 1px solid lightgrey; border-radius: 4px;" alt="Lokalise Logo"></a>
+
 > # Deprecation Warning
 > Please note that this client is going to be deprecated.
 > All new frontend works is done in Vue.js and can be found here: https://github.com/schul-cloud/nuxt-client
@@ -41,9 +46,7 @@ Short version:
 For connecting to the [SchulCloud Calendar-Service](https://github.com/schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.  
   
 For connecting to the [SchulCloud Notification-Service](https://github.com/schul-cloud/node-notification-service) you have to set `export NOTIFICATION_SERVICE_ENABLED=true`.  
-  
-For activating Google Analytics tracking you have to set `export GOOGLE_ANALYTICS_TRACKING_ID={TRACKING_ID}`.  
-  
+   
 ## Theming  
   
 Add Themes to /theme directory. Call gulp and node with SC_THEME set to name of directory.  

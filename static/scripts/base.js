@@ -14,9 +14,13 @@ function nodeListAddEventListener(events,
 	});
 	return this;
 }
-
 if (!NodeList.prototype.addEventListener) {
 	NodeList.prototype.addEventListener = nodeListAddEventListener;
+}
+
+// Polyfill for Edge 13 and other outdated browsers
+if (!NodeList.prototype.forEach) {
+	NodeList.prototype.forEach = Array.prototype.forEach;
 }
 
 // if is needed for IE11
