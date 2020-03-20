@@ -4,6 +4,14 @@
 		<div class="card-text form-wrapper">
 			{{> "lib/components/notification"}}
 
+			<div class="notification alert alert-danger alert-cookies-blocked hidden">
+				<div class="notification-content">
+					Dein Browser blockiert Cookies der {{@root.theme.short_title}}.
+					Eine Anmeldung ohne Cookies ist leider nicht möglich.
+					Bitte aktiviere Cookies für diese Seite.
+				</div>
+			</div>
+
 			<form method="post" action="/login" class="login-form">
 				<input type="hidden" name="redirect" value={{redirect}} />
 
