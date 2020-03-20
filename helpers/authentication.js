@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
+const { Configuration } = require('@schul-cloud/commons');
+
 const api = require('../api');
 const permissionsHelper = require('./permissions');
-const { Configuration } = require('@schul-cloud/commons');
+const { NODE_ENV, SW_ENABLED, LOGIN_BLOCK_TIME } = require('../config/global');
 
 const rolesDisplayName = {
 	teacher: 'Lehrer',
@@ -37,7 +39,7 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 const isJWT = req => (req && req.cookies && req.cookies.jwt);
 
 const cookieDomain = (res) => {
-	if (res.locals.domain && process.env.NODE_ENV === 'production') {
+	if (res.locals.domain && NODE_ENV === 'production') {
 		return { domain: res.locals.domain };
 	}
 	return {};
@@ -66,7 +68,7 @@ const populateCurrentUser = (req, res) => {
 
 	// separates users in two groups for AB testing
 	function setTestGroup(user) {
-		if (process.env.SW_ENABLED) {
+		if (SW_ENABLED) {
 			const lChar = user._id.substr(user._id.length - 1);
 			const group = parseInt(lChar, 16) % 2 ? 1 : 0;
 			user.testGroup = group;
@@ -170,7 +172,7 @@ const login = (payload = {}, req, res, next) => {
 					expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
 					httpOnly: false, // can't be set to true with nuxt client
 					hostOnly: true,
-					secure: process.env.NODE_ENV === 'production',
+					secure: NODE_ENV === 'production',
 				},
 				cookieDomain(res)));
 		let redirectUrl = '/login/success';
@@ -183,7 +185,7 @@ const login = (payload = {}, req, res, next) => {
 			type: 'danger',
 			message: 'Login fehlgeschlagen.',
 			statusCode: e.statusCode,
-			timeToWait: process.env.LOGIN_BLOCK_TIME || 15,
+			timeToWait: LOGIN_BLOCK_TIME || 15,
 		};
 		if (e.statusCode === 429) {
 			res.locals.notification.timeToWait = e.error.data.timeToWait;
