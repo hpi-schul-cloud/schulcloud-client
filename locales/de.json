@@ -259,5 +259,34 @@
 			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
 			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien"
 		}
+	},
+	"files":{
+		"text":{
+		   "storeFilesForUpload": "Dateien zum Hochladen ablegen.",
+		   "rememberThisSelection": "Diese Auswahl merken",
+		   "foundIn": "gefunden in:",
+		   "libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
+			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.",
+			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
+			"searchResultFor": "Suchergebnisse für",
+			"searchResults": "Suchergebnisse",
+			"noSearchResults": "Keine Suchergebnisse",
+			"foldersAreLocated": "Ordner werden geladen"
+		},
+		"button":{
+		   "open": "Öffnen",
+		   "ascending": "↑ aufsteigend",
+			"descending": "↓ absteigend",
+			"createANewFloder": "Neuen Ordner erstellen",
+			"createANewFile": "Neue Datei erstellen",
+			"search": "Suchen"
+		},
+		"label":{
+			"folder": "Ordner",
+			"files2": "Dateien",
+			"conclude": "Schließen",
+			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
+			"selectAFolder": "Wähle einen Ordner aus"
+		},
 	}
 }
