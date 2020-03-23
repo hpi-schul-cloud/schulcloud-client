@@ -48,6 +48,7 @@
 			},
 			"edit": {
 				"button": {
+					"addLesson": "Neuen Stundentermin hinzufügen",
 					"deleteCourse": "Kurs löschen",
 					"showCourseDetail": "Kursdetails anzeigen"
 				},
@@ -58,18 +59,40 @@
 					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
+					"chooseDate": "Termine auswählen",
+					"class": "Klasse(n)",
 					"from": "Von",
+					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)",
+					"substitute": "Vertretungslehrer",
 					"till": "Bis",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
 					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
 				},
 				"pop_up": {},
 				"text": {
+					"attentionDeletion": "Alle Daten werden unwiderruflich gelöscht.",
+					"courseWillDelete": "Dies löscht den Kurs auch für alle Schüler:innen.",
 					"toEditChangeDate": "Um Daten des Kurses zu bearbeiten musst du zunächst das Enddatum anpassen."
+				}
+			},
+			"global": {
+				"label": {
+					"studentParticipant": "Schüler / Teilnehmer"
+				},
+				"text": {
+					"more": "Weiteres"
 				}
 			},
 			"groups": {
 				"_group": {
+					"edit": {
+						"input": {
+							"group1": "Gruppe 1"
+						},
+						"label": {
+							"nameOfGroup": "Name der Gruppe"
+						}
+					},
 					"headline": {
 						"doneGroupTasks": "getätigte Gruppenabgaben",
 						"openGroupTasks": "offene (mögliche) Gruppenabgaben",
@@ -85,7 +108,8 @@
 						"noOpenGroupTasks": "Keine weiteren Gruppenabgaben möglich.",
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
 						"noTopics": "keine Themen.",
-						"responsibleTeachers": "Verantwortliche Lehrer: "
+						"responsibleTeachers": "Verantwortliche Lehrer: ",
+						"workOnTopic": "Thema bearbeiten"
 					}
 				}
 			},
@@ -114,18 +138,12 @@
 				"whatToDoCourses": "Was kannst du in einem Kurs machen?"
 			},
 			"input": {
-				"chooseTeacher": "Lehrer auswählen",
-				"egMaths": "z.B. Mathe 10a",
-				"egRoom1-21": "z.B. R-1.21",
-				"inMinutes": "In Minuten",
-				"selectClasses": "Klasse(n) auswählen",
-				"selectStudents": "Schüler auswählen"
+				"egMaths": "z.B. Mathe 10a"
 			},
 			"label": {
 				"addClassesToCourse": "Klasse(n) (Alle Schüler der Klasse werden automatisch hinzugefügt!) - Optional",
 				"addStudentsToCourse": "Schüler / Teilnehmer - Optional",
 				"courseSubstitute": "Vertretungslehrer - Optional",
-				"room": "Raum",
 				"timeSpan": "Zeitraum (z.B. Schuljahr) von - Optional",
 				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben",
 				"timeSpanUntil": "Bis - Optional"
@@ -150,15 +168,49 @@
 				"willAlsoDeleteForStudents": "Dies löscht den Kurs auch bei allen Schüler:innen."
 			}
 		},
+		"button": {
+			"createCourse": "Erstelle einen neuen Kurs",
+			"createFirstCourse": "Erstelle deinen ersten Kurs",
+			"importCourse": "Importiere einen Kurs"
+		},
 		"global": {
+			"input": {
+				"chooseTeacher": "Lehrer auswählen",
+				"egRoom1-21": "z.B. R-1.21",
+				"inMinutes": "In Minuten",
+				"mathsClass": "Mathe 10a",
+				"selectClasses": "Klasse(n) auswählen",
+				"selectStudents": "Schüler auswählen"
+			},
 			"label": {
 				"courseColor": "Farbe des Kurses",
+				"courseDescription": "Beschreibung des Kurses",
 				"courseName": "Name des Kurses",
 				"courseTeacher": "Unterrichtender Lehrer",
 				"lengthOfLesson": "Dauer der Schulstunde",
 				"startOfLesson": "Start der Schulstunde",
 				"weekday": "Wochentag"
 			}
+		},
+		"headline": {
+			"createDuplicateImport": "Erstelle, dupliziere oder importiere einen Kurs",
+			"mySubstitutes": "Meine Vertretungen",
+			"noArchievedCourses": "Du hast noch keine archivierten Kurse",
+			"noCourse": "Es gibt aktuell keine Kurse"
+		},
+		"img_alt": {
+			"noArchievedCourses": "Keine archivierten Kurse",
+			"noCourses": "Keine Kurse vorhanden"
+		},
+		"tab_labels": {
+			"archievedCourses": "Archivierte Kurse",
+			"currentCourses": "Aktuelle Kurse"
+		},
+		"text": {
+			"courseNoAccess": "Der Bereich Kurse steht nur Lehrkräften und Schüler:innen zur Verfügung.",
+			"descriptionArchievedCourses": "Kurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
+			"descriptionCourseManagement": "Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
+			"noCourseGetInvited": "Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen."
 		},
 		"tools": {
 			"text": {
@@ -181,7 +233,11 @@
 	"global": {
 		"button": {
 			"cancel": "Abbrechen",
-			"delete": "Löschen"
+			"delete": "Löschen",
+			"open": "Öffnen"
+		},
+		"label": {
+			"room": "Raum"
 		},
 		"sidebar": {
 			"link": {
@@ -200,6 +256,8 @@
 			}
 		},
 		"text": {
+			"areYouSure": "Bist du dir sicher?",
+			"attention": "Achtung:",
 			"friday": "Freitag",
 			"monday": "Montag",
 			"saturday": "Samstag",
@@ -208,26 +266,26 @@
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
 		}
-	},  
+	},
 	"homework": {
-		"button":{
+		"button": {
 			"addTask": "Aufgabe hinzufügen",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
+			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
-			"hrefAlt": "Abgabe löschen"	,
-			"toSave" :"Speichern"        
-		} ,
-		"text":{
-			"noTasks" : "Keine Aufgaben" ,
-			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs" ,
-			"noStudentGroupsInThisCourse" : "keine Schülergruppen in diesem Kurs" ,
-			"noDelivery" :"Keine Abgabe"			
+			"toSave": "Speichern"
 		},
-		"label":{
-			"selectStudentGroup" :"Schülergruppe auswählen"	,
-			"filesUploadedForDelivery" : "Zur Abgabe hochgeladene Dateien (ungespeichert!)"  ,
-			"selectTeamMembers"  : "Teammitglieder auswählen"
+		"label": {
+			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
+			"selectStudentGroup": "Schülergruppe auswählen",
+			"selectTeamMembers": "Teammitglieder auswählen"
+		},
+		"text": {
+			"noDelivery": "Keine Abgabe",
+			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
+			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
+			"noTasks": "Keine Aufgaben"
 		}
 	}
 }

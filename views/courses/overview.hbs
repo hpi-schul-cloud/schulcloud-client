@@ -15,10 +15,10 @@
                 <div class="tabContainer" data-active-tab={{activeTab}}>
                 <div class="tabs" data-max-width="1024">
                     <button class="tab" data-tab="js-active">
-                        <span class="text">Aktuelle Kurse <span class="count-badge" data-badge="{{ total.active }}"/></span>
+                        <span class="text">{{$t "courses.tab_labels.currentCourses"}} <span class="count-badge" data-badge="{{ total.active }}"/></span>
                     </button>
                     <button class="tab" data-tab="js-archived">
-                        <span class="text">Archivierte Kurse <span class="count-badge" data-badge="{{ total.archived }}"/></span>
+                        <span class="text">{{$t "courses.tab_labels.archievedCourses"}} <span class="count-badge" data-badge="{{ total.archived }}"/></span>
                     </button>
                 </div>
                 </div>
@@ -27,14 +27,14 @@
                         <!-- Aktuelle Kurse -->
                         <div class="section section-course" data-section="js-active">
                             {{#if total.active}}
-                                {{> 'dashboard/components/card_section' section-id="activeCourses" title="" content=activeCourses link-text="Öffnen" additionalInfoName="memberCount"}}
+                                {{> 'dashboard/components/card_section' section-id="activeCourses" title="" content=activeCourses link-text= ($t "global.button.open") additionalInfoName="memberCount"}}
                             {{else}}
                                 <div class="empty-state">
-                                    <img src="/images/empty-states/books.svg" alt="Keine Kurse vorhanden" class="image"/>
+                                    <img src="/images/empty-states/books.svg" alt="{{$t "courses.img_alt.noCourses"}}" class="image"/>
                                     {{#userHasPermission "COURSE_EDIT"}}
-                                        <h2 class="h4">Erstelle, dupliziere oder importiere einen Kurs</h2>
+                                        <h2 class="h4">{{$t "courses.headline.createDuplicateImport"}}</h2>
                                     {{else}}
-                                        <h2 class="h4 text-muted">Es gibt aktuell keine Kurse</h2>
+                                        <h2 class="h4 text-muted">{{$t "courses.headline.noCourse"}}</h2>
                                     {{/userHasPermission}}
                                 </div>
 
@@ -42,15 +42,15 @@
                                     <p class="text-muted text-center">
                                         <i class="fa fa-frown-o"></i>
                                         <span>Kurse, deren Enddatum erreicht ist, findest du <a href="?activeTab=archived">im Archiv</a>.
-										<br/>Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.</span>
+										<br/>{{$t "courses.text.descriptionCourseManagement"}}</span>
                                     </p>
                                 </div>
                             {{/if}}
                             {{#if activeSubstitutions}}
                                 {{#userHasPermission "COURSE_EDIT"}}
                                     <section>
-                                        <div class="section-title mb-2"><h2 class="h4">Meine Vertretungen</h2></div>
-                                        {{> 'dashboard/components/card_section' section-id="activeSubstitutions" title="" content=../activeSubstitutions link-text="Öffnen" additionalInfoName="memberCount"}}
+                                        <div class="section-title mb-2"><h2 class="h4">{{$t "courses.headline.mySubstitutes"}}</h2></div>
+                                        {{> 'dashboard/components/card_section' section-id="activeSubstitutions" title="" content=../activeSubstitutions link-text= ($t "global.button.open") additionalInfoName="memberCount"}}
                                     </section>
                                 {{/userHasPermission}}
                             {{/if}}
@@ -59,8 +59,8 @@
                                     <div class="row padding-top">
                                         <div class="col-sm-12">
                                             <div class="pull-right">
-                                            <a class="btn btn-secondary btn-import-course">Importiere einen Kurs</a>
-                                            <a href="/courses/add" class="btn btn-primary btn-add">Erstelle einen neuen Kurs</a>
+                                            <a class="btn btn-secondary btn-import-course">{{$t "courses.button.importCourse"}}</a>
+                                            <a href="/courses/add" class="btn btn-primary btn-add">{{$t "courses.button.createCourse"}}</a>
                                         </div>
                                         </div>
                                     </div>
@@ -71,23 +71,22 @@
                         <!--- Archivierte Kurse -->
                         <div class="section section-course" data-section="js-archived">
                             {{#if total.archived}}
-                                {{> 'dashboard/components/card_section' section-id="archievedCourses" title="" content=archivedCourses link-text="Öffnen" additionalInfoName="memberCount"}}
+                                {{> 'dashboard/components/card_section' section-id="archievedCourses" title="" content=archivedCourses link-text= ($t "global.button.open") additionalInfoName="memberCount"}}
                             {{else}}
                                 <div class="empty-state">
-                                    <img src="/images/empty-states/books_empty.svg" alt="Keine archivierten Kurse" class="image"/>
+                                    <img src="/images/empty-states/books_empty.svg" alt="{{$t "courses.img_alt.noArchievedCourses"}}" class="image"/>
 
-                                    <h2 class="h4">Du hast noch keine archivierten Kurse</h2>
+                                    <h2 class="h4">{{$t "courses.headline.noArchievedCourses"}}</h2>
                                     <p class="text-muted">
-                                      Kurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.
+                                      {{$t "courses.text.descriptionArchievedCourses"}}
                                     </p>
-
                                 </div>
                             {{/if}}
                             {{#if archivedSubstitutions}}
                                 {{#userHasPermission "COURSE_EDIT"}}
                                     <section>
-                                        <div class="section-title mb-2"><h2 class="h4">Meine Vertretungen</h2></div>
-                                        {{> 'dashboard/components/card_section' section-id="archivedSubstitutions" title="" content=../archivedSubstitutions link-text="Öffnen" additionalInfoName="memberCount"}}
+                                        <div class="section-title mb-2"><h2 class="h4">{{$t "courses.headline.mySubstitutes"}}</h2></div>
+                                        {{> 'dashboard/components/card_section' section-id="archivedSubstitutions" title="" content=../archivedSubstitutions link-text=($t "global.button.open") additionalInfoName="memberCount"}}
                                     </section>
                                 {{/userHasPermission}}
                             {{/if}}

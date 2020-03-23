@@ -87,7 +87,7 @@
                 <div class="form-group col-md-6">
                     <label>{{$t "courses.global.label.courseTeacher"}}</label>
 
-                    <select name="teacherIds[]" required multiple data-placeholder= "{{$t "courses.add.input.chooseTeacher"}}"data-testid="teachersearch" autocomplete="off">
+                    <select name="teacherIds[]" required multiple data-placeholder= "{{$t "courses.global.input.chooseTeacher"}}"data-testid="teachersearch" autocomplete="off">
                         {{#each teachers}}
                             <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
@@ -102,7 +102,7 @@
 
                 <div class="form-group col-md-6">
                     <label>{{$t "courses.add.label.courseSubstitute"}}</label>
-                    <select name="substitutionIds[]" multiple data-placeholder="{{$t "courses.add.input.chooseTeacher"}}"  autocomplete="off" data-testid="substituent">
+                    <select name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"  autocomplete="off" data-testid="substituent">
                         {{#each substitutions}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{this.firstName}} {{this.lastName}}
@@ -142,7 +142,7 @@
                         <th><label>{{$t "courses.global.label.weekday"}}</label></th>
                         <th><label>{{$t "courses.global.label.startOfLesson"}}</label></th>
                         <th><label>{{$t "courses.global.label.lengthOfLesson"}}</label></th>
-                        <th><label>{{$t "courses.add.label.room"}}</label></th>
+                        <th><label>{{$t "global.label.room"}}</label></th>
                       </thead>
                       <tbody class="add-course-times">
                           {{#each course.times}}
@@ -169,11 +169,11 @@
                                   </td>
                                   <td>
                                       <input class="form-control" name="times[{{this.count}}][duration]" type="number"
-                                             value="{{this.duration}}" placeholder={{$t "courses.add.input.inMinutes"}}/>
+                                             value="{{this.duration}}" placeholder={{$t "courses.global.input.inMinutes"}}/>
                                   </td>
                                   <td>
                                       <input class="form-control" type="text"
-                                             name="times[{{this.count}}][room]" value="{{this.room}}" placeholder={{$t "courses.add.input.egRoom1-21"}}/>
+                                             name="times[{{this.count}}][room]" value="{{this.room}}" placeholder={{$t "courses.global.input.egRoom1-21"}}/>
                                   </td>
                               </tr>
                           {{/each}}
@@ -191,7 +191,7 @@
               <div class="form-group">
                   <label>{{$t "courses.add.label.addClassesToCourse"}}</label>
 
-                  <select name="classIds[]" multiple data-placeholder="{{$t "courses.add.input.selectClasses"}}" data-testid="classes">
+                  <select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
                       {{#each classes}}
                           <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                               {{log this.year}}
@@ -214,7 +214,7 @@
               <div class="form-group">
                   <label>{{$t "courses.add.label.addStudentsToCourse"}}</label>
 
-                  <select name="userIds[]" multiple data-placeholder="{{$t "courses.add.input.selectStudents"}}" data-testid="pupils">
+                  <select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
                       {{#each students}}
                           <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                               {{#if this.displayName}}
@@ -271,7 +271,7 @@
         {{/embed}}
         </div>
 
-        {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+        {{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
             {{#content "body"}}
                 <p>{{$t "courses.text.willAlsoDeleteForStudents"}}</p>
                 <div class="modal-footer">
