@@ -1,20 +1,20 @@
 <section id="feedback" class="tab-content section-homeworkdetails">
     <div class="homework print">
         {{#if @root.submission.grade}}
-            Du hast <b class="grade">{{@root.submission.grade}}%</b> richtig gelöst.
+           '{{$t "homework.text.youHave" }}' <b class="grade">{{@root.submission.grade}}%</b> '{{$t "homework.text.solvedCorrectly" }}'
         {{/if}}
 
         <div class="comment ckcontent">
             {{#if @root.submission.gradeComment}}
                 {{{@root.submission.gradeComment}}}
             {{else}}
-                <p>Kein Bewertungstext vorhanden.</p>
+                <p>'{{$t "homework.text.noEvaluationTextAvailable" }}'</p>
             {{/if}}
         </div>
 
         <div class="btn btn-secondary btn-print mb-1"
             data-toggle="tooltip" title="Bewertung drucken">
-                <i class='fa fa-print'></i> Drucken
+                <i class='fa fa-print'></i> '{{$t "homework.text.toPress" }}'
         </div>
     </div>
 </section>

@@ -222,7 +222,11 @@
 			"noTasks" : "Keine Aufgaben" ,
 			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs" ,
 			"noStudentGroupsInThisCourse" : "keine Schülergruppen in diesem Kurs" ,
-			"noDelivery" :"Keine Abgabe"			
+			"noDelivery" :"Keine Abgabe",
+			"youHave": "Du hast",
+			"solvedCorrectly": "richtig gelöst",
+			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
+			"toPress": "Drucken"	
 		},
 		"label":{
 			"selectStudentGroup" :"Schülergruppe auswählen"	,
