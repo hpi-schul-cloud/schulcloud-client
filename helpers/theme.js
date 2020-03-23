@@ -1,19 +1,25 @@
 const { defaultDocuments } = require('../config/documents.js');
+const {
+	SC_THEME,
+	SC_TITLE,
+	SC_SHORT_TITLE,
+	HOST,
+} = require('../config/global');
 
 const setTheme = (res) => {
 	const documents = defaultDocuments();
 	const baseDir = (res.locals.currentSchoolData || {}).documentBaseDir || documents.documentBaseDir;
 
 	res.locals.theme = {
-		name: process.env.SC_THEME || 'default',
-		title: process.env.SC_TITLE || 'HPI Schul-Cloud',
-		short_title: process.env.SC_SHORT_TITLE || 'Schul-Cloud',
+		name: SC_THEME,
+		title: SC_TITLE,
+		short_title: SC_SHORT_TITLE,
 		documents: {
 			baseDir,
 			specificFiles: documents.specificFiles(baseDir),
 			globalFiles: documents.globalFiles(),
 		},
-		url: process.env.HOST,
+		url: HOST,
 	};
 };
 

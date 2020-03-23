@@ -7,6 +7,8 @@ const expect = chai.expect;
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
+const { BACKEND_URL } = require('../../../config/global');
+
 describe('Link tests', function () {
     before(function (done) {
         this.server = app.listen(3031);
@@ -27,7 +29,6 @@ describe('Link tests', function () {
                 .end((err, res) => {
 
                     // NOTE It is unclear why res.redirects is an array. However, to make the test agnostic, we loop through all
-                    let baseUrl = process.env.BACKEND_URL || 'http://localhost:3030';
 
                     expect(res.status).to.be.equal(404);
                     resolve();
