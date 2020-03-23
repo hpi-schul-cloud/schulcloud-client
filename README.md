@@ -31,7 +31,7 @@ Short version:
 
 **Alternative with browser-sync**
 
-1. run `gulp watch reload` to run gulp with browser sync. It also starts the node-client-server.
+1. run `gulp watch-reload` to run gulp with browser sync. It also starts the node-client-server.
 2. go to `http://localhost:7000`
   
 For connecting to the [SchulCloud Calendar-Service](https://github.com/schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.  
