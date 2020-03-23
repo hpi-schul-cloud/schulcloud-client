@@ -18,14 +18,14 @@
             </iframe>
             {{else}}
               <div class="alert alert-warning" role="alert">
-                  <p>LibreOffice Online wurde nicht richtig konfiguriert! <span class="hidden-md-down">Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.</span></p>
+                  <p>'{{$t "files.text.libreOfficeOnlineWasNotConfiguredCorrectly"}}' <span class="hidden-md-down">'{{$t "files.text.pleaseTryAgainLaterOrNotifyYourAdministrator"}}'</span></p>
               </div>
             {{/if}}
         </div>
         {{#if libreOfficeUrl}}
             <div class="alert alert-warning">
-                <p class="card-text">💡 TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern</p>
-                <a class="btn btn-secondary" href="{{libreOfficeUrl}}" target="_blank">Dokument in neuem Fenster öffnen</a>
+                <p class="card-text">💡 '{{$t "files.text.tips"}}'</p>
+                <a class="btn btn-secondary" href="{{libreOfficeUrl}}" target="_blank">'{{$t "files.label.openDocumentInNewWindow"}}'</a>
             </div>
         {{/if}}
     {{/content}}
