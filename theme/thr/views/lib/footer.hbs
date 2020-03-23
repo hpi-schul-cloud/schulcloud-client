@@ -1,17 +1,21 @@
 <footer class="hide-inline small-footer">
     <div class="imprint">
         <div class="center">
-            <img src="/images/footer-logo.png" alt="Anbieterlogo"/>
+            <img src="/images/footer-logo.png" alt="Anbieterlogo" />
             <span>&copy; {{currentYear}} {{theme.short_title}} </span>
 
             <div>
                 <a href="/impressum">Impressum</a>
                 <span> - </span>
-                Datenschutzerklärung: <a href="/datenschutz">HPI</a> / <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank" rel="noopener">Muster Schulen</a>
+                Datenschutzerklärung: <a href="/datenschutz">HPI</a> / <a
+                    href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank"
+                    rel="noopener">Muster Schulen</a>
                 <span> - </span>
-				<a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" rel="noopener">Nutzungsordnung</a>
+                <a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank"
+                    rel="noopener">Nutzungsordnung</a>
                 <span> - </span>
-                <a href="mailto:info@schul-cloud.org?subject=Schul_Cloud%20Anfrage" target="_blank" rel="noopener">Kontakt</a>
+                <a href="mailto:{{getConfig "SC_CONTACT_EMAIL"}}?subject=Schul_Cloud%20Anfrage" target="_blank"
+                    rel="noopener">Kontakt</a>
                 <span> - </span>
                 <a href="/about">Über das Projekt</a>
                 <span> - </span>

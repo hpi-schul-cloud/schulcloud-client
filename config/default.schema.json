@@ -2,6 +2,31 @@
 	"title": "HPI Schul-Cloud Configuration",
 	"type": "object",
 	"properties": {
+		"GLOBAL_LOGIN_ANNOUNCEMENT": {
+			"type": "string",
+			"description": "global announcement, shown as notification in header on startpage when not loggedin."
+		},
+		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
+			"type": "string",
+			"default": "info",
+			"enum": [
+				"success",
+				"info",
+				"warning",
+				"danger"
+			],
+			"description": "alert types"
+		},
+		"LOGIN_BLOCKED_COOKIES_NOTE": {
+			"type": "string",
+			"default": "Bitte aktiviere Cookies für diese Seite. Andernfalls ist ein Login aus technischen Gründen nicht möglich.",
+			"description": "text that is shown above the login form if cookies are blocked by the browser."
+		},
+		"FEATURE_CSRF_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables CSRF Token generation and error handler in app."
+		},
 		"FEATURE_MORGAN_LOG_ENABLED": {
 			"type": "boolean",
 			"default": true,
@@ -59,6 +84,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Using privateDevice parameter in login, the logout/jwt timeout can be extended to JWT_EXTENDED_TIMEOUT_SECONDS instead of JWT_TIMEOUT_SECONDS."
+		},
+		"SC_CONTACT_EMAIL": {
+			"type": "string",
+			"default": "feedback@schul-cloud.org",
+			"description": "Contact E-Mail Adress to The HPI School-Cloud team."
 		}
 	},
 	"required": [

@@ -39,12 +39,14 @@ router.get('/', (req, res, next) => {
 	if (currentTimePercentage < 0) currentTimePercentage = 0;
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
-	const eventsPromise = api(req).get('/calendar/', {
+	// TODO: remove this Promise.resolve to enable the calendar again
+	const eventsPromise = Promise.resolve([])/*api(req).get('/calendar/', {
 		qs: {
-			all: true,
+			all: 'false',
+			from: start.toLocalISOString(),
 			until: end.toLocalISOString(),
 		},
-	}).then(eve => Promise.all(
+	})*/.then(eve => Promise.all(
 		eve.map(event => recurringEventsHelper.mapEventProps(event, req)),
 	).then((evnts) => {
 		// because the calender service is *§$" and is not
