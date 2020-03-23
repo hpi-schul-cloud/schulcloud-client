@@ -226,12 +226,21 @@
 			"youHave": "Du hast",
 			"solvedCorrectly": "richtig gelöst",
 			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
-			"toPress": "Drucken"	
+			"toPress": "Drucken",
+			"nodescriptionAvailable": "keine Beschreibung vorhanden"
+			
 		},
 		"label":{
 			"selectStudentGroup" :"Schülergruppe auswählen"	,
 			"filesUploadedForDelivery" : "Zur Abgabe hochgeladene Dateien (ungespeichert!)"  ,
-			"selectTeamMembers"  : "Teammitglieder auswählen"
+			"selectTeamMembers"  : "Teammitglieder auswählen",
+			"edit": "Bearbeiten",
+			"restore": "Wiederherstellen",
+			"archiving": "Archivieren",
+			"copy": "Kopieren",
+			"onTheSubject": "Zum Thema",
+			"toTheCourseFiles": "Zu den Kursdateien",
+			"toClass": "Zum Kurs"
 		}
 	}
 }
