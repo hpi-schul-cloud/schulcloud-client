@@ -119,13 +119,13 @@ const helpers = app => ({
 		return options.inverse(this);
 	},
 	ifEnv: (env_variable, value, options) => {
-		if (Globals[env_variable] == value) {
+		if (Globals[env_variable] === value) {
 			return options.fn(this);
 		}
 		return options.inverse(this);
 	},
 	unlessEnv: (env_variable, value, options) => {
-		if (Globals[env_variable] == value) {
+		if (Globals[env_variable] === value) {
 			return options.inverse(this);
 		}
 		return options.fn(this);

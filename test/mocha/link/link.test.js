@@ -29,7 +29,6 @@ describe('Link tests', function () {
                 .end((err, res) => {
 
                     // NOTE It is unclear why res.redirects is an array. However, to make the test agnostic, we loop through all
-                    let baseUrl = BACKEND_URL;
 
                     expect(res.status).to.be.equal(404);
                     resolve();

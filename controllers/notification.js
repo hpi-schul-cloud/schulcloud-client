@@ -9,7 +9,7 @@ const { NOTIFICATION_SERVICE_ENABLED } = require('../config/global');
 router.use(authHelper.authChecker);
 
 const postRequest = (req, res, next) => {
-    if (NOTIFICATION_SERVICE_ENABLED) {
+	if (NOTIFICATION_SERVICE_ENABLED) {
         api(req).post(res.locals.url, {
             body: res.locals.body
         }).then((response) => {
