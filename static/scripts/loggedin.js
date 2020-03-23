@@ -27,15 +27,15 @@ function togglePresentationMode() {
     toggleButton.children('i').toggleClass('fa-compress');
     toggleButton.children('i').toggleClass('fa-expand');
 
-    fullscreen = !fullscreen;
     $('.alert-button').toggle().css('visibility');
-    sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 
 let fullscreen = false;
 
 function fullscreenBtnClicked() {
     togglePresentationMode();
+    fullscreen = !fullscreen;
+    sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 
 function showAJAXSuccess(message, modal) {
