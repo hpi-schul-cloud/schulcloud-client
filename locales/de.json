@@ -256,7 +256,8 @@
 			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:",
 			"procssingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
 			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)", 
-			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar"
+			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
+			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien"
 		}
 	}
 }
