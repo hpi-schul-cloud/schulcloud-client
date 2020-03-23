@@ -240,7 +240,11 @@
 			"copy": "Kopieren",
 			"onTheSubject": "Zum Thema",
 			"toTheCourseFiles": "Zu den Kursdateien",
-			"toClass": "Zum Kurs"
+			"toClass": "Zum Kurs",
+			"submission": "Abgabe",
+			"rating": "Bewertung",
+			"inPercent": "in Prozent",
+			"comment": "Kommentar"
 		}
 	}
 }
