@@ -1,13 +1,13 @@
 const express = require('express');
+const { Configuration } = require('@schul-cloud/commons');
 const api = require('../api');
-const { FEATURE_ALERTRS_ENABLED } = require('../config/global');
 
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
 	let alert;
 
-	if (FEATURE_ALERTRS_ENABLED) {
+	if (Configuration.get('FEATURE_ALERTRS_ENABLED')) {
 		alert = await api(req).get('/alert');
 	} else {
 		alert = [];

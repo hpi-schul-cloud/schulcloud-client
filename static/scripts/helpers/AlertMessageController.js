@@ -8,10 +8,10 @@ function getIconTag(status) {
 	switch (status) {
 		case 'danger':
 			return '<i class="fa fa-exclamation-circle text-danger"></i>';
-		case 'info':
+		case 'done':
 			return '<i class="fa fa-check-circle text-success"></i>';
 		default:
-			return '';
+			return '<i class="fa fa-info-circle text-info"></i>';
 	}
 }
 

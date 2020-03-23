@@ -89,6 +89,11 @@
 			"type": "string",
 			"default": "feedback@schul-cloud.org",
 			"description": "Contact E-Mail Adress to The HPI School-Cloud team."
+		},
+		"FEATURE_ALERTRS_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, user will see messages/incidents from e.g status.schul-cloud"
 		}
 	},
 	"required": [
