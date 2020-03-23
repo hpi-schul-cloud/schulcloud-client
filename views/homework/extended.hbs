@@ -4,7 +4,7 @@
 			<div class="description col-xl-12 print">
 				{{#if this.description}}
 					<div class="btn btn-secondary btn-print mb-1" data-toggle="tooltip" title="Aufgabenstellung drucken">
-						<i class='fa fa-print'></i> '{{$t "homework.text.toPress" }}'
+						<i class='fa fa-print'></i> '{{$t "homework.button.toPress" }}'
 					</div>
 
 					<h1 class="print-only">{{{this.title}}}</h1>
@@ -56,22 +56,22 @@
 				<a class="btn btn-secondary btn-archive" href="{{this.url}}" target="_blank" data="archive=done"
 					data-toggle="tooltip" title="Verschiebe Aufgabe von Übersichtsseite ins Archiv"
 					alt-text="<i class='fa fa-mail-reply'></i> Wiederherstellen">
-					<i class='fa fa-archive'></i> '{{$t "homework.label.archiving" }}'
+					<i class='fa fa-archive'></i> '{{$t "homework.button.archiving" }}'
 				</a>
 				{{/userHasPermission}}
 			{{/inArray}}
 			{{#userHasPermission "HOMEWORK_CREATE"}}
 				<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="Aufgabenstellung kopieren" href="/homework/{{../_id}}/copy"
-					alt="Aufgabe '{{../title}}' kopieren."> <i class='fa fa-copy'></i> '{{$t "homework.label.copy" }}' </a>
+					alt="Aufgabe '{{../title}}' kopieren."> <i class='fa fa-copy'></i> '{{$t "homework.button.copy" }}' </a>
 			{{/userHasPermission}}
 			{{#if courseId._id}}
 				<a href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
 					<i class="fa fa-folder-open"></i>
-					'{{$t "homework.label.toTheCourseFiles" }}'
+					'{{$t "homework.button.toTheCourseFiles" }}'
 				</a>
 				<a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="Zum Kurs der Aufgabe">
 					<i class="fa fa-graduation-cap"></i>
-					'{{$t "homework.label.toClass" }}'
+					'{{$t "homework.button.toClass" }}'
 				</a>
 				{{#if lessonId}}
 					<a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
