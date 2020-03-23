@@ -111,11 +111,13 @@ router.get('/', (req, res, next) => {
 		});
 	})).catch(() => []);
 
+	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req).get('/homework/', {
 		qs: {
 			$populate: ['courseId'],
 			$sort: 'dueDate',
-			archived: { $ne: res.locals.currentUser._id },
+			archived: { $ne: userId },
+			schoolId,
 			$or: [
 				{
 					dueDate: null,
