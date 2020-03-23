@@ -199,7 +199,7 @@ const login = (payload = {}, req, res, next) => {
 		if (e.statusCode === 429) {
 			res.locals.notification.timeToWait = e.error.data.timeToWait;
 		}
-		next();
+		next(e);
 	});
 };
 

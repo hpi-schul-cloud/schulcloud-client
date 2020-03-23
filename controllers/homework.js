@@ -420,11 +420,12 @@ const splitDate = function (date) {
 };
 
 const overview = (title = '') => {
-	return function (req, res, next) {
-
+	return (req, res, next) => {
+		const { _id: userId, schoolId } = res.locals.currentUser || {};
 		let query = {
 			$populate: ['courseId'],
 			archived: { $ne: res.locals.currentUser._id },
+			schoolId,
 		};
 
 		const tempOrgQuery = (req.query || {}).filterQuery;
@@ -446,13 +447,14 @@ const overview = (title = '') => {
 			}
 		}
 		if (req._parsedUrl.pathname.includes('archive')) {
-			query.archived = res.locals.currentUser._id;
+			query.archived = userId;
 		}
+		// TODO: homework and user in Promise.all, remove populate courseId in homeworks
 		api(req).get('/homework/', {
 			qs: query,
 		}).then((homeworks) => {
 			// ist der aktuelle Benutzer ein Schueler? -> Für Sichtbarkeit von Daten benötigt
-			api(req).get('/users/' + res.locals.currentUser._id, {
+			api(req).get('/users/' + userId, {
 				qs: {
 					$populate: ['roles', 'courseId'],
 				},
