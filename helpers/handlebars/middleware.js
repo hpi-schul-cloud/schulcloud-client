@@ -1,6 +1,11 @@
 const url = require('url');
-const moment = require('moment');
 const api = require('../../api');
+const {
+	PUBLIC_BACKEND_URL,
+	FEATURE_EXTENSIONS_ENABLED,
+	NOTIFICATION_SERVICE_ENABLED,
+	FEATURE_TEAMS_ENABLED,
+} = require('../../config/global');
 
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
@@ -32,7 +37,7 @@ const makeActive = (items, currentUrl) => {
 };
 
 module.exports = (req, res, next) => {
-	res.locals.backendUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
+	res.locals.backendUrl = PUBLIC_BACKEND_URL;
 	// standard views
 	res.locals.sidebarItems = [{
 		name: res.$t('global.sidebar.link.overview'),
@@ -99,7 +104,7 @@ module.exports = (req, res, next) => {
 	}];
 
 	// Extensions Feature Toggle
-	const extensionsEnabled = process.env.FEATURE_EXTENSIONS_ENABLED === 'true';
+	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
 	if (extensionsEnabled) {
 		res.locals.sidebarItems.push({
 			name: 'Add-ons',
@@ -191,7 +196,7 @@ module.exports = (req, res, next) => {
 	});
 
 	// team feature toggle
-	const teamsEnabled = process.env.FEATURE_TEAMS_ENABLED === 'true';
+	const teamsEnabled = FEATURE_TEAMS_ENABLED === 'true';
 	if (teamsEnabled) {
 		res.locals.sidebarItems.splice(2, 0, {
 			name: 'Teams',
@@ -215,7 +220,7 @@ module.exports = (req, res, next) => {
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
 	let notificationsPromise = [];
-	if (process.env.NOTIFICATION_SERVICE_ENABLED) {
+	if (NOTIFICATION_SERVICE_ENABLED) {
 		notificationsPromise = api(req).get('/notification', {
 			qs: {
 				$limit: 10,

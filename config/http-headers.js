@@ -1,7 +1,8 @@
 /* eslint-disable max-len */
+const { CORS } = require('../config/global');
 
 const config = {
-	enabled: process.env.CORS === '1',
+	enabled: CORS === '1',
 
 	// Settings for HTTP Content-Security-Policy Header
 	contentSecurityPolicy: {

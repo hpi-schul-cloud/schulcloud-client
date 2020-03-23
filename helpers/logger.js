@@ -1,13 +1,14 @@
 const winston = require('winston');
 const { Configuration } = require('@schul-cloud/commons');
+const { NODE_ENV } = require('../config/global');
 
 const { format, transports, createLogger } = winston;
 
 const logLevel = Configuration.get('LOG_LEVEL');
-const colorize = process.env.NODE_ENV !== 'production';
+const colorize = NODE_ENV !== 'production';
 let formater;
 
-if (process.env.NODE_ENV === 'test') {
+if (NODE_ENV === 'test') {
 	formater = format.combine(
 		format.prettyPrint({ depth: 1, colorize }),
 	);
