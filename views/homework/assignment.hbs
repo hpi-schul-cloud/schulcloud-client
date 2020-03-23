@@ -80,7 +80,7 @@
                 {{#if dueDate}}
                     bis: {{dueDateF}} ({{dueTimeF}})
                 {{else}}
-                    Kein Abgabedatum festgelegt
+                    '{{$t "homework.text.noDeliveryDateSet"}}'
                 {{/if}}
 
             </div>
@@ -90,19 +90,19 @@
                         alt="Details der Aufgabe">Details</a>
                     {{#if private}}
                         <a id="submission-tab-link" class="tab-link" href="#activetabid=submission"
-                            alt="Deine Abgabe">Abgabe</a>
+                            alt="Deine Abgabe">{{$t "homework.label.submission" }}'</a>
                     {{else}}
                         {{#if (userHasRole "teacher")}}
                             <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions"
-                                alt="alle Abgaben">Abgaben</a>
+                                alt="alle Abgaben">{{$t "homework.label.submission" }}'</a>
                         {{else}}
                             <a id="submission-tab-link" class="tab-link" href="#activetabid=submission"
-                                alt="Deine Abgabe">Abgabe</a>
+                                alt="Deine Abgabe">{{$t "homework.label.submission" }}'</a>
                             <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback"
                                 alt="Bewertung deiner Abgabe durch den Lehrer">Feedback</a>
                             {{#if ../publicSubmissions}}
                                 <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions"
-                                    alt="alle Abgaben">Abgaben</a>
+                                    alt="alle Abgaben">{{$t "homework.label.submission" }}'</a>
                             {{/if}}
                         {{/if}}
                     {{/if}}

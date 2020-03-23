@@ -227,8 +227,11 @@
 			"solvedCorrectly": "richtig gelöst",
 			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
 			"toPress": "Drucken",
-			"nodescriptionAvailable": "keine Beschreibung vorhanden"
-			
+			"nodescriptionAvailable": "keine Beschreibung vorhanden",
+			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)",
+			"noAssignment": "Keine Zuordnung",
+			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
+			"noDeliveryDateSet": " Kein Abgabedatum festgelegt"			
 		},
 		"label":{
 			"selectStudentGroup" :"Schülergruppe auswählen"	,
@@ -244,7 +247,16 @@
 			"submission": "Abgabe",
 			"rating": "Bewertung",
 			"inPercent": "in Prozent",
-			"comment": "Kommentar"
+			"comment": "Kommentar",
+			"title": "Titel",
+			"theme": "Thema",
+			"allowGroupDonation": "Gruppenabgabe ermöglichen",
+			"maximumGroupSize": "maximale Gruppengröße:",
+			"task": "Aufgabenstellung",
+			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:",
+			"procssingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
+			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)", 
+			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar"
 		}
 	}
 }
