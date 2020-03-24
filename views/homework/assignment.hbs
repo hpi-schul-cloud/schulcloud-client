@@ -90,19 +90,19 @@
                         alt="Details der Aufgabe">Details</a>
                     {{#if private}}
                         <a id="submission-tab-link" class="tab-link" href="#activetabid=submission"
-                            alt="Deine Abgabe">{{$t "homework.label.levy" }}'</a>
+                            alt="Deine Abgabe">'{{$t "homework.label.levy" }}'</a>
                     {{else}}
                         {{#if (userHasRole "teacher")}}
                             <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions"
-                                alt="alle Abgaben">{{$t "homework.label.levies" }}'</a>
+                                alt="alle Abgaben">'{{$t "homework.label.levies" }}'</a>
                         {{else}}
                             <a id="submission-tab-link" class="tab-link" href="#activetabid=submission"
-                                alt="Deine Abgabe">{{$t "homework.label.levy" }}'</a>
+                                alt="Deine Abgabe">'{{$t "homework.label.levy" }}'</a>
                             <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback"
                                 alt="Bewertung deiner Abgabe durch den Lehrer">Feedback</a>
                             {{#if ../publicSubmissions}}
                                 <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions"
-                                    alt="alle Abgaben">{{$t "homework.label.levies" }}'</a>
+                                    alt="alle Abgaben">'{{$t "homework.label.levies" }}'</a>
                             {{/if}}
                         {{/if}}
                     {{/if}}

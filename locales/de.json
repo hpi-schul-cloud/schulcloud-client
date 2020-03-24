@@ -383,7 +383,8 @@
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
-			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar"
+			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
+			"task": "Aufgabenstellung"
 		}
 	},
 	"files":{
