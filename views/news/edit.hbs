@@ -40,12 +40,12 @@
             </div>
 
             <div class="form-group">
-                <label>Inhalt</label>
+                <label>'{{$t "news.label.content"  }}'</label>
                 <textarea type="text" class="form-control customckeditor" name="content" placeholder="Inhalt der Nachricht..." required>{{news.content}}</textarea>
             </div>
 
             <div class="form-group">
-                <label>automatische Veröffentlichung vorplanen (optional)</label>
+                <label>'{{$t "news.label.shceduleAutomaticPublication"  }}'</label>
                 <input class="form-control" data-datetime data-min-date="0" data-testid="news_date_to_be_displayed" name="displayAt" type="text" value="{{news.displayAt}}"/>
             </div>
 

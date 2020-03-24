@@ -359,5 +359,27 @@
 			"fileName": "Dateiname:",
 			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten."		
 		}
+	},
+	"news":{
+		"text":{
+			"from": "von",
+			"created": "erstellt",
+			"lastFrom": "(zuletzt von",
+			"processed": "bearbeitet)",
+			"inTheTeam": "im Team",
+			"inTheCourse": "im Kurs",
+			"inTheClass": "in der Klasse",
+			"atYourSchool": "an deiner Schule ",
+			"atSchool": "an der Schule",
+			"released": "Veröffentlicht",
+			"unpublished": "Unveröffentlicht"
+		},
+		"button":{
+			"addNews": "News hinzufügen"			
+		},
+		"label":{
+			"content": "Inhalt",
+            "shceduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)"
+		}
 	}
 }
