@@ -27,6 +27,10 @@ function requestSession() {
 }
 
 function ready() {
+	if (window.innerWidth < 768) { // breakpoint: md
+		return; // screen to small to use embedded messenger
+	}
+
 	// Find Matrix Session
 	// > in localstorage?
 	if (window.localStorage
