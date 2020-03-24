@@ -1,7 +1,7 @@
 <section id="feedback" class="tab-content section-homeworkdetails">
     <div class="homework print">
         {{#if @root.submission.grade}}
-           '{{$t "homework.text.youHave" }}' <b class="grade">{{@root.submission.grade}}%</b> '{{$t "homework.text.solvedCorrectly" }}'
+           Du hast <b class="grade">{{@root.submission.grade}}%</b> richtig gelöst.
         {{/if}}
 
         <div class="comment ckcontent">
@@ -14,7 +14,7 @@
 
         <div class="btn btn-secondary btn-print mb-1"
             data-toggle="tooltip" title="Bewertung drucken">
-                <i class='fa fa-print'></i> '{{$t "homework.text.toPress" }}'
+                <i class='fa fa-print'></i> '{{$t "homework.button.toPress" }}'
         </div>
     </div>
 </section>

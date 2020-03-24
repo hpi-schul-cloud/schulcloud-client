@@ -287,7 +287,7 @@
 			"noStudentGroupsInThisCourse" : "keine Schülergruppen in diesem Kurs" ,
 			"noDelivery" :"Keine Abgabe",
 			"youHave": "Du hast",
-			"solvedCorrectly": "richtig gelöst",
+			"solvedCorrectly": "richtig gelöst.",
 			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",		
 			"nodescriptionAvailable": "keine Beschreibung vorhanden",
 			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)",
@@ -308,6 +308,7 @@
 			"comment": "Kommentar",
 			"title": "Titel",
 			"theme": "Thema",
+			"courses2": "Kurse",
 			"allowGroupDonation": "Gruppenabgabe ermöglichen",
 			"maximumGroupSize": "maximale Gruppengröße:",
 			"task": "Aufgabenstellung",
@@ -329,7 +330,10 @@
 			"searchResultFor": "Suchergebnisse für",
 			"searchResults": "Suchergebnisse",
 			"noSearchResults": "Keine Suchergebnisse",
-			"foldersAreLocated": "Ordner werden geladen"
+			"foldersAreLocated": "Ordner werden geladen",
+			"studentCanEdit": "Schüler können editieren?",
+			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
+			"FileCanNotBeDownloaded": "Keine Sorge, die Datei kann nicht heruntergeladen werden."
 		},
 		"button":{
 		   "open": "Öffnen",
@@ -337,14 +341,23 @@
 			"descending": "↓ absteigend",
 			"createANewFolder": "Neuen Ordner erstellen",
 			"createANewFile": "Neue Datei erstellen",
-			"search": "Suchen"
+			"search": "Suchen",
+			"selectFormat": "Format auswählen",
+			"textDocument": "Textdokument (docx)",
+			"table": "Tabelle (xlsx)",
+			"presentation": "Präsentation (pptx)"
 		},
 		"label":{
 			"folder": "Ordner",
 			"files2": "Dateien",
 			"conclude": "Schließen",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
-			"selectAFolder": "Wähle einen Ordner aus"
+			"selectAFolder": "Wähle einen Ordner aus",
+			"chooseANewName": "Wähle einen neuen Namen aus:",
+			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
+			"fileType": "Dateityp:"	,
+			"fileName": "Dateiname:",
+			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten."		
 		}
 	}
 }
