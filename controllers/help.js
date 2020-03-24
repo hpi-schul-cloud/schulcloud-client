@@ -22,6 +22,7 @@ router.get('/', (req, res, next) => {
 		adminFormIsActive: req.query.activeForm === 'admin',
 		teamFormIsActive: req.query.activeForm === 'team',
 		formAttachmentsSize: (MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE / 1024 / 1024),
+		userEmail: res.locals.currentUser.source ? '' : res.locals.currentUser.email,
 	});
 });
 

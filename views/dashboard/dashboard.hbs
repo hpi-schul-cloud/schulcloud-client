@@ -17,7 +17,9 @@
         </div>
     </div>
 
-    <div class="timetable">
+	<p class="my-2">Der Stundenplan ist derzeit ausgeblendet. Gehe stattdessen in den Kursbereich, um deine Lerninhalte zu finden.</p>
+	<!--
+	<div class="timetable">
         <div class="row lesson-cards">
             <div>
                 {{#each events}}
@@ -56,6 +58,7 @@
             </div>
         </div>
     </div>
+	-->
 </section>
 
 {{#ifeq this.currentRole "Beta"}}
@@ -85,10 +88,17 @@
 </section>
 {{/ifeq}}
 
+{{#if homeworks}}
 {{> 'dashboard/components/card_section' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
-{{> 'dashboard/components/card_section' section-id="mytasks" title=($t "dashboard.headline.privateTasks") content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
+{{/if}}
 
+{{#if myhomeworks}}
+{{> 'dashboard/components/card_section' section-id="mytasks" title=($t "dashboard.headline.privateTasks") content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
+{{/if}}
+
+{{#if news}}
 {{>  'dashboard/components/card_section' section-id="news" title=($t "dashboard.headline.news") content=news link-text="Weiterlesen" href="/news/"}}
+{{/if}}
 
 {{#if this.currentSchoolData.pilot}}
 {{#ifneq this.currentRole "Schüler"}}

@@ -5,10 +5,12 @@ const {
 	sha, branch, message, stat,
 } = require('../helpers/version');
 
+const { SHOW_VERSION } = require('../config/global');
+
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-	if (!process.env.SHOW_VERSION) {
+	if (!SHOW_VERSION) {
 		return res.sendStatus(403);
 	}
 	const { birthtime } = stat;

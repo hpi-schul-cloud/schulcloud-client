@@ -2,6 +2,7 @@ const express = require('express');
 
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const { NOTIFICATION_SERVICE_ENABLED } = require('../config/global');
 
 const router = express.Router();
 
@@ -45,7 +46,7 @@ router.get('/', (req, res, next) => {
 	const isDiscoverable = res.locals.currentUser.discoverable;
 	Promise.all([
 		api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`),
-		(process.env.NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null),
+		(NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null),
 	]).then(([session, device]) => {
 		if (device) {
 			device.map((d) => {
