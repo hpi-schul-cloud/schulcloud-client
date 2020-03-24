@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const logger = require('winston');
+const logger = require('../helpers/logger');
 
 const router = express.Router();
 const moment = require('moment');
