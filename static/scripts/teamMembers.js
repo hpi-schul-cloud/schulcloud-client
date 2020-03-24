@@ -155,6 +155,7 @@ $(document).ready(() => {
 			data: {
 				$limit: false,
 				federalState,
+				hideOwnSchool: true,
 			},
 		}).done((schools) => {
 			const schoolSelect = $('#school');
@@ -179,20 +180,24 @@ $(document).ready(() => {
 		const teacherSelect = $('#teacher');
 		teacherSelect.find('option').remove();
 		teacherSelect.trigger('chosen:updated');
-		$.ajax({
-			type: 'GET',
-			url: `${window.location.origin}/users/teachersOfSchool`,
-			data: {
-				schoolId,
-			},
-		}).done((users) => {
-			users.forEach((user) => {
-				teacherSelect.append(`<option value="${user._id}">${user.firstName} ${user.lastName}</option>`);
+		if (schoolId) {
+			$.ajax({
+				type: 'GET',
+				url: `${window.location.origin}/users/teachersOfSchool`,
+				data: {
+					schoolId,
+				},
+			}).done((users) => {
+				users.forEach((user) => {
+					teacherSelect.append(`<option value="${user._id}">${user.firstName} ${user.lastName}</option>`);
+				});
+				teacherSelect.trigger('chosen:updated');
+			}).fail(() => {
+				$.showNotification('Problem beim Auslesen der Lehrer', 'danger', true);
 			});
-			teacherSelect.trigger('chosen:updated');
-		}).fail(() => {
-			$.showNotification('Problem beim Auslesen der Lehrer', 'danger', true);
-		});
+		} else {
+			$.showNotification('Für die gewählte Auswahl ist keine Schule vorhanden.', 'warning', true);
+		}
 	};
 
 	$('#school').on('change', (e) => {

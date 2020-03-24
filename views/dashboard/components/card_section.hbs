@@ -1,4 +1,4 @@
-<section class="section section-{{section-id}}" data-step="{{step}}" data-intro="{{intro}}">
+<section class="section section-{{section-id}}">
     <div class="container-fluid">
         {{#if title}}
         <div class="row">
@@ -15,7 +15,7 @@
             {{else}}
             <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
                 <div class="alert">
-                    Keine aktuellen Einträge vorhanden.
+                    {{$t "dashboard.text.notFound"}}
                 </div>
             </div>
             {{/each}}

@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
 
 let invalid = false;
@@ -38,8 +38,8 @@ router.post('/registration/pincreation', (req, res, next) => {
 				email: req.body.email,
 				mailTextForRole: req.body.mailTextForRole,
 			},
-		}).then(() => {
-			res.sendStatus(200);
+		}).then((result) => {
+			res.sendStatus((result || {}).status || 200);
 		}).catch(err => res.status(500).send(err));
 	}
 	return res.sendStatus(500);
@@ -76,7 +76,7 @@ damit du die ${res.locals.theme.short_title} nutzen kannst.`;
 						content: {
 							text: `Hallo ${response.user.firstName}
 mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einloggen:
-Adresse: ${req.headers.origin || process.env.HOST}
+Adresse: ${req.headers.origin || HOST}
 E-Mail: ${response.user.email}
 ${passwordText}
 ${studentInfotext}
@@ -96,7 +96,7 @@ ${res.locals.theme.short_title}-Team`,
 						expires: new Date(Date.now() - 100000),
 						httpOnly: false,
 						hostOnly: true,
-						secure: process.env.NODE_ENV === 'production',
+						secure: NODE_ENV === 'production',
 					},
 				);
 			}
@@ -105,7 +105,15 @@ ${res.locals.theme.short_title}-Team`,
 			res.sendStatus(200);
 		})
 		.catch((err) => {
-			res.status(500).send((err.error || {}).message || err.message || 'Fehler bei der Registrierung.');
+			let message = 'Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.'
+			const customMessage = (err.error || {}).message || err.message;
+			if (customMessage) { message = customMessage; }
+			if (err && err.code) {
+				if (err.code === 'ESOCKETTIMEDOUT') {
+					message = 'Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout). Bitte versuche es erneut.'
+				}
+			}
+			return res.status(500).send(message);
 		});
 });
 

@@ -10,8 +10,12 @@ const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
 const logger = require('../helpers/logger');
 
+const { CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED, ROCKET_CHAT_URI } = require('../config/global');
+
 const router = express.Router();
 moment.locale('de');
+
+const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference'];
 
 const addThumbnails = (file) => {
 	const thumbs = {
@@ -57,7 +61,7 @@ const getSelectOptions = (req, service, query) => api(req)
  * @param teamId {string} - the id of the course the events will be deleted
  */
 const deleteEventsForTeam = async (req, res, teamId) => {
-	if (process.env.CALENDAR_SERVICE_ENABLED) {
+	if (CALENDAR_SERVICE_ENABLED) {
 		const events = await api(req).get('/calendar/', {
 			qs: {
 				'scope-id': teamId,
@@ -289,6 +293,7 @@ router.get('/', async (req, res, next) => {
 		team.background = team.color;
 		team.memberAmount = team.userIds.length;
 		team.id = team._id;
+		team.url = `/teams/invitation/accept/${team._id}`;
 
 		return team;
 	});
@@ -332,10 +337,13 @@ router.post('/', async (req, res, next) => {
 		delete req.body.untilDate;
 	}
 
-	if (req.body.rocketchat === 'true') {
-		req.body.features = ['rocketChat'];
-	}
-	delete req.body.rocketchat;
+	req.body.features = [];
+	OPTIONAL_TEAM_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
 
 	api(req)
 		.post('/teams/', {
@@ -466,7 +474,7 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		});
 
-		const instanceUsesRocketChat = process.env.ROCKETCHAT_SERVICE_ENABLED;
+		const instanceUsesRocketChat = ROCKETCHAT_SERVICE_ENABLED;
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (
 			res.locals.currentSchoolData.features || []
@@ -483,7 +491,7 @@ router.get('/:teamId', async (req, res, next) => {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
 				);
-				const rocketChatURL = process.env.ROCKET_CHAT_URI;
+				const rocketChatURL = ROCKET_CHAT_URI;
 				rocketChatCompleteURL = `${rocketChatURL}/group/${
 					rocketChatChannel.channelName
 				}`;
@@ -563,30 +571,41 @@ router.get('/:teamId', async (req, res, next) => {
 		});
 
 		let events = [];
+		const twentyfourHours = 24 * 60 * 60 * 1000;
+		const filterStart = new Date(Date.now() - twentyfourHours);
 		try {
 			events = await api(req).get('/calendar/', {
 				qs: {
 					'scope-id': req.params.teamId,
-					all: true,
+					all: false,
+					from: filterStart.toLocalISOString(),
 				},
 			});
-			events = events.map((event) => {
-				const start = moment(event.start).utc();
-				const end = moment(event.end).utc();
-				event.day = start.format('D');
-				event.month = start
-					.format('MMM')
-					.toUpperCase()
-					.split('.')
-					.join('');
-				event.dayOfTheWeek = start.format('dddd');
-				event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
-				return event;
-			});
+			events = events
+				.map((event) => {
+					const start = moment(event.start).utc();
+					const end = moment(event.end).utc();
+					event.day = start.format('D');
+					event.month = start
+						.format('MMM')
+						.toUpperCase()
+						.split('.')
+						.join('');
+					event.dayOfTheWeek = start.format('dddd');
+					event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
+					return event;
+				});
 			events = events.sort((a, b) => a.start - b.start);
 		} catch (e) {
 			events = [];
 		}
+
+		const teamUsesVideoconferencing = course.features.includes('videoconference');
+		const schoolUsesVideoconferencing = (
+			res.locals.currentSchoolData.features || []
+		).includes('videoconference');
+		const showVideoconferenceOption = !schoolIsExpertSchool
+			&& schoolUsesVideoconferencing && teamUsesVideoconferencing;
 
 		// leave team
 		const leaveTeamAction = `/teams/${teamId}/members`;
@@ -610,6 +629,7 @@ router.get('/:teamId', async (req, res, next) => {
 				permissions,
 				course,
 				events,
+				showVideoconferenceOption,
 				directories,
 				files,
 				filesUrl: `/files/teams/${req.params.teamId}`,
@@ -663,39 +683,23 @@ router.patch('/:teamId', async (req, res, next) => {
 		delete req.body.untilDate;
 	}
 
-	// first delete all old events for the course
-	// deleteEventsForCourse(req, res, req.params.teamId).then(async _ => {
 
 	const currentTeamState = await api(req).get(`/teams/${req.params.teamId}`);
-	const isChatAllowed = (currentTeamState.features || []).includes(
-		'rocketChat',
-	);
-	if (!isChatAllowed && req.body.rocketchat === 'true') {
-		// add rocketChat feature
-		await api(req).patch(`/teams/${req.params.teamId}`, {
-			json: {
-				$push: {
-					features: 'rocketChat',
-				},
-			},
-		});
-	} else if (isChatAllowed && req.body.rocketchat !== 'true') {
-		// remove rocketChat feature
-		await api(req).patch(`/teams/${req.params.teamId}`, {
-			json: {
-				$pull: {
-					features: 'rocketChat',
-				},
-			},
-		});
-	}
-	delete req.body.rocketchat;
+	const features = new Set(currentTeamState.features || []);
+	OPTIONAL_TEAM_FEATURES.forEach((feature) => {
+		const isFeatureEnabled = (currentTeamState.features || []).includes(feature);
+		if (!isFeatureEnabled && req.body[feature] === 'true') {
+			features.add(feature);
+		} else if (isFeatureEnabled && req.body[feature] !== 'true') {
+			features.delete(feature);
+		}
+		delete req.body[feature];
+	});
+	req.body.features = Array.from(features);
 
 	await api(req).patch(`/teams/${req.params.teamId}`, {
 		json: req.body, // TODO: sanitize
 	});
-
-	// await createEventsForCourse(req, res, courseUpdated);
 
 	res.redirect(`/teams/${req.params.teamId}`);
 
@@ -1199,7 +1203,7 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
         der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. `,
 				err,
 			);
-			res.redirect('/teams/');
+			res.redirect(`/teams/${req.params.teamId}`);
 		});
 });
 

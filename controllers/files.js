@@ -14,6 +14,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
+const { LIBRE_OFFICE_CLIENT_URL, PUBLIC_BACKEND_URL, FEATURE_TEAMS_ENABLED } = require('../config/global');
 
 const router = express.Router();
 
@@ -125,7 +126,7 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = []) => api(req).get(`/files/${
  * check whether given files can be opened in LibreOffice
  */
 const checkIfOfficeFiles = (files) => {
-	if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+	if (!LIBRE_OFFICE_CLIENT_URL) {
 		logger.error('LibreOffice env is currently not defined.');
 		return files;
 	}
@@ -156,6 +157,53 @@ const getStorageContext = (req, res) => {
 };
 
 /**
+ * Get value of an object property/path even if it's nested
+ * @param {object} obj The Object to extract data from
+ * @param {string} dataPath The path to the data, seperated by "." (e.g. "key1.key2")
+ * @return The value of the object at obj[key1][key2] ...
+ */
+function getValueByPath(obj, dataPath) {
+	const value = dataPath.split('.').reduce((o, i) => o[i], obj);
+	return value;
+}
+/**
+ * sorts the data Array
+ * @param {*} data Array of data objects
+ * @param {*} sortBy path to the key to sort by
+ * @param {*} sortOrder (desc, asc)
+ * @returns sorted fileList Array
+ */
+const dataSort = (data, sortBy, sortOrder) => {
+	const sortedData = [...data].sort((first, second) => {
+		const a = getValueByPath(first, sortBy);
+		const b = getValueByPath(second, sortBy);
+		// handle undefined values
+		if (a === undefined || a === null) {
+			return 1;
+		}
+		if (b === undefined || b === null) {
+			return -1;
+		}
+
+		// sort numbers
+		if (typeof a === 'number' && typeof b === 'number') {
+			return a - b;
+		}
+
+		// sort booleans
+		if (typeof a === 'boolean' && typeof b === 'boolean') {
+			// eslint-disable-next-line no-nested-ternary
+			return a === b ? 0 : a ? -1 : 1;
+		}
+
+		// sort strings
+		return a.localeCompare(b);
+	});
+	return sortOrder !== 'desc' ? sortedData : sortedData.reverse();
+};
+
+
+/**
  * fetches all files and directories for a given storageContext
  */
 const FileGetter = (req, res, next) => {
@@ -163,39 +211,72 @@ const FileGetter = (req, res, next) => {
 	const userId = res.locals.currentUser._id;
 	const { params: { folderId, subFolderId } } = req;
 	const parent = subFolderId || folderId;
-	const promises = [
-		api(req).get('/roles', { qs: { name: 'student' } }),
-		api(req).get('/fileStorage', {
-			qs: { owner, parent },
-		}),
-	];
+	const promise = api(req).get('/fileStorage', {
+		qs: { owner, parent },
+	});
 
-	return Promise.all(promises)
-		.then(([role, result]) => {
-			if (!Array.isArray(result) && result.code === 403) {
-				res.locals.files = { files: [], directories: [] };
-				logger.warn(result);
-				next();
-				return;
-			}
-
-			const files = result.filter(f => f).map((file) => {
-				if (file.permissions[0].refId === userId) {
-					Object.assign(file, {
-						userIsOwner: true,
-					});
-				}
-				return file;
-			});
-
-			res.locals.files = {
-				files: checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
-				directories: files.filter(f => f.isDirectory),
-			};
+	return promise.then((result) => {
+		if (!Array.isArray(result) && result.code === 403) {
+			res.locals.files = { files: [], directories: [] };
+			logger.warn(result);
 			next();
-		}).catch((err) => {
-			next(err);
+			return;
+		}
+
+		const files = result.filter(f => f).map((file) => {
+			if (file.permissions[0].refId === userId) {
+				Object.assign(file, {
+					userIsOwner: true,
+				});
+			}
+			return file;
 		});
+
+		res.locals.fileSort = {
+			sortBy: req.query.sortBy || 'updatedAt',
+			sortOrder: req.query.sortOrder || 'desc',
+		};
+		res.locals.sortOptions = [
+			{
+				label: 'Erstelldatum',
+				value: 'createdAt',
+			},
+			{
+				label: 'Änderungsdatum',
+				value: 'updatedAt',
+			},
+			{
+				label: 'Dateiname',
+				value: 'name',
+			},
+			{
+				label: 'Größe',
+				value: 'size',
+			},
+		].map((option) => {
+			if (option.value === req.query.sortBy) {
+				option.selected = true;
+			}
+			return option;
+		});
+
+
+		res.locals.files = {
+			files: dataSort(
+				checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
+				res.locals.fileSort.sortBy,
+				res.locals.fileSort.sortOrder,
+			),
+			directories: dataSort(
+				files.filter(f => f.isDirectory),
+				res.locals.fileSort.sortBy,
+				res.locals.fileSort.sortOrder,
+			),
+		};
+		next();
+	}).catch((err) => {
+		next(err);
+	});
 };
 
 /**
@@ -273,14 +354,14 @@ const registerSharedPermission = (userId, fileId, shareToken, req) => api(req)
  * see https://wopi.readthedocs.io/en/latest/overview.html#integration-process for further details
  */
 const getLibreOfficeUrl = (fileId, accessToken) => {
-	if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+	if (!LIBRE_OFFICE_CLIENT_URL) {
 		logger.error('LibreOffice env is currently not defined.');
 		return '';
 	}
 
 	// in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980
-	const libreOfficeBaseUrl = process.env.LIBRE_OFFICE_CLIENT_URL;
-	const wopiRestUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
+	const libreOfficeBaseUrl = LIBRE_OFFICE_CLIENT_URL;
+	const wopiRestUrl = PUBLIC_BACKEND_URL;
 	const wopiSrc = `${wopiRestUrl}/wopi/files/${fileId}?access_token=${accessToken}`;
 	return `${libreOfficeBaseUrl}/loleaflet/dist/loleaflet.html?WOPISrc=${wopiSrc}`;
 };
@@ -341,7 +422,6 @@ router.delete('/file', (req, res, next) => {
 	const data = {
 		_id: req.body.id,
 	};
-
 	api(req).delete('/fileStorage/', {
 		qs: data,
 	}).then(() => {
@@ -363,6 +443,7 @@ router.get('/file', (req, res, next) => {
 		name,
 		download: download || false,
 	};
+
 	const sharedPromise = share && share !== 'undefined'
 		? registerSharedPermission(res.locals.currentUser._id, data.file, share, req)
 		: Promise.resolve();
@@ -492,6 +573,11 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 		breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
 	}
 
+	res.locals.files.files = res.locals.files.files.map((file) => {
+		file.saveName = file.name.replace(/'/g, "\\'");
+		return file;
+	});
+
 	res.render('files/files', Object.assign({
 		title: 'Dateien',
 		path: res.locals.files.path,
@@ -499,7 +585,7 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile: true,
-		showSearch: true,
+		showSearch: false,
 		inline: req.query.inline || req.query.CKEditor,
 		CKEditor: req.query.CKEditor,
 		parentId,
@@ -544,7 +630,7 @@ router.get('/shared/', (req, res) => {
 			}],
 			canUploadFile: false,
 			canCreateDir: false,
-			showSearch: true,
+			showSearch: false,
 			inline: req.query.inline || req.query.CKEditor,
 			CKEditor: req.query.CKEditor,
 		}, files));
@@ -554,7 +640,7 @@ router.get('/shared/', (req, res) => {
 router.get('/', (req, res, next) => {
 	res.render('files/files-overview', Object.assign({
 		title: 'Meine Dateien',
-		showSearch: true,
+		showSearch: false,
 	}));
 });
 
@@ -572,7 +658,7 @@ router.get('/courses/', (req, res, next) => {
 			breadcrumbs,
 			files: [],
 			directories,
-			showSearch: true,
+			showSearch: false,
 		});
 	});
 });
@@ -613,7 +699,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		inline: req.query.inline || req.query.CKEditor,
 		CKEditor: req.query.CKEditor,
 		breadcrumbs,
-		showSearch: true,
+		showSearch: false,
 		courseId: req.params.courseId,
 		ownerId: req.params.courseId,
 		toCourseText: 'Zum Kurs',
@@ -638,7 +724,7 @@ router.get('/teams/', (req, res, next) => {
 			teamFiles: true,
 			files: [],
 			directories,
-			showSearch: true,
+			showSearch: false,
 		});
 	});
 });
@@ -677,7 +763,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 		CKEditor: req.query.CKEditor,
 		teamFiles: true,
 		breadcrumbs,
-		showSearch: true,
+		showSearch: false,
 		courseId: req.params.teamId,
 		ownerId: req.params.teamId,
 		canEditPermissions: team.user.permissions.includes('EDIT_ALL_FILES'),
@@ -701,7 +787,7 @@ router.get('/classes/', (req, res, next) => {
 			breadcrumbs,
 			files: [],
 			directories,
-			showSearch: true,
+			showSearch: false,
 		});
 	});
 });
@@ -734,7 +820,7 @@ router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 			path: res.locals.files.path,
 			canUploadFile: true,
 			breadcrumbs,
-			showSearch: true,
+			showSearch: false,
 			inline: req.query.inline || req.query.CKEditor,
 			CKEditor: req.query.CKEditor,
 			parentId: req.params.folderId,
@@ -845,7 +931,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 		children: (await getScopeDirs(req, res, 'courses')).map(extractor),
 	}];
 
-	if (process.env.FEATURE_TEAMS_ENABLED === 'true') {
+	if (FEATURE_TEAMS_ENABLED === 'true') {
 		directoryTree.push({
 			name: 'Meine Team-Dateien',
 			model: 'teams',

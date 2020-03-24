@@ -22,6 +22,7 @@ router.get('/', (req, res, next) => {
 		adminFormIsActive: req.query.activeForm === 'admin',
 		teamFormIsActive: req.query.activeForm === 'team',
 		formAttachmentsSize: (MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE / 1024 / 1024),
+		userEmail: res.locals.currentUser.source ? '' : res.locals.currentUser.email,
 	});
 });
 
@@ -65,6 +66,18 @@ router.get('/confluence/:id', (req, res, next) => {
 router.get('/faq/people', (req, res, next) => {
 	res.render('help/people', {
 		title: 'Ansprechpartner und Kontaktdaten',
+		breadcrumb: [
+			{
+				title: 'Hilfebereich',
+				url: '/help',
+			},
+		],
+	});
+});
+
+router.get('/lernNuggets', (req, res, next) => {
+	res.render('help/lern-nuggets', {
+		title: 'Lern-Nuggets',
 		breadcrumb: [
 			{
 				title: 'Hilfebereich',

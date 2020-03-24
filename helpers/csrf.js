@@ -1,4 +1,5 @@
-/* eslint-disable no-underscore-dangle, max-len */
+/* eslint-disable no-underscore-dangle */
+const logger = require('./logger');
 
 const tokenInjector = (req, res, next) => {
 	res.locals.csrfToken = req.csrfToken();
@@ -7,9 +8,19 @@ const tokenInjector = (req, res, next) => {
 
 const duplicateTokenHandler = (req, res, next) => {
 	if (req.body && Array.isArray(req.body._csrf)) {
+		const allArrayItemsIdentical = req.body._csrf.every(token => token === req.body._csrf[0]);
+		if (!allArrayItemsIdentical) {
+			// eslint-disable-next-line max-len
+			const error = new Error('Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.');
+			error.status = 400;
+			logger.error(error);
+			return next(error);
+		}
+		logger.warn('Die Anfrage enthält mehrere identische Sicherheitstokens (CSRF).');
+
 		req.body._csrf = req.body._csrf[0];
 	}
-	next();
+	return next();
 };
 
 const csrfErrorHandler = (err, req, res, next) => {

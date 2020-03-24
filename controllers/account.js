@@ -2,6 +2,7 @@ const express = require('express');
 
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const { NOTIFICATION_SERVICE_ENABLED } = require('../config/global');
 
 const router = express.Router();
 
@@ -16,24 +17,20 @@ router.post('/', (req, res) => {
 		password,
 		passwordNew,
 	} = req.body;
-	const discoverable = !!req.body.discoverable;
 	return api(req).patch(`/accounts/${res.locals.currentPayload.accountId}`, {
 		json: {
 			password_verification: password,
 			password: passwordNew !== '' ? passwordNew : undefined,
-		}
-	}).then(() => {
-		return api(req).patch(`/users/${res.locals.currentUser._id}`, {
-			json: {
-				firstName,
-				lastName,
-				email,
-				discoverable,
-			},
-		}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
-			res.redirect('/account/');
-		});
-	}).catch((err) => {
+		},
+	}).then(() => api(req).patch(`/users/${res.locals.currentUser._id}`, {
+		json: {
+			firstName,
+			lastName,
+			email,
+		},
+	}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
+		res.redirect('/account/');
+	})).catch((err) => {
 		res.render('account/settings', {
 			title: 'Dein Account',
 			notification: {
@@ -47,10 +44,9 @@ router.post('/', (req, res) => {
 router.get('/', (req, res, next) => {
 	const isSSO = Boolean(res.locals.currentPayload.systemId);
 	const isDiscoverable = res.locals.currentUser.discoverable;
-	const hideVisibilitySettings = (res.locals.currentRole === 'Schüler' || process.env.IGNORE_DISCOVERABILITY);
 	Promise.all([
 		api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`),
-		(process.env.NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null),
+		(NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null),
 	]).then(([session, device]) => {
 		if (device) {
 			device.map((d) => {
@@ -67,7 +63,6 @@ router.get('/', (req, res, next) => {
 			session,
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
-			hideVisibilitySettings,
 			isDiscoverable,
 		});
 	}).catch(() => {
@@ -75,7 +70,6 @@ router.get('/', (req, res, next) => {
 			title: 'Dein Account',
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
-			hideVisibilitySettings,
 			isDiscoverable,
 		});
 	});
@@ -116,17 +110,31 @@ router.post('/preferences', (req, res, next) => {
 		.catch(() => 'Es ist ein Fehler bei den Präferenzen aufgetreten!');
 });
 
-router.post('/ttl', (req, res, next) => {
-	if (req.body.resetTimer) {
-		api(req).post('/accounts/jwtTimer')
-			.then(result => res.sendStatus(200))
-			.catch(() => res.status(500).send('Could not update remaining session time'));
-	} else {
-		api(req).get('/accounts/jwtTimer')
-			.then(result => res.send(result))
-			.catch(() => res.status(500).send('Could not get remaining session time'));
+router.post('/teamSettings', (req, res) => {
+	let discoverable = null;
+	if (req.body.discoverable === 'true') {
+		discoverable = true;
 	}
+	if (req.body.discoverable === 'false') {
+		discoverable = false;
+	}
+	return api(req).patch(`/users/${res.locals.currentUser._id}`, {
+		json: {
+			discoverable,
+		},
+	})
+		.then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
+			res.redirect('/account/');
+		})
+		.catch((err) => {
+			res.render('account/settings', {
+				title: 'Dein Account',
+				notification: {
+					type: 'danger',
+					message: err.error.message,
+				},
+			});
+		});
 });
-
 
 module.exports = router;

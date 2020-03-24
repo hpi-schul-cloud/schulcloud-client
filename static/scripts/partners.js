@@ -2,9 +2,9 @@ function changeButtonText() {
 	const button = this;
 	const hiddenPartners = document.querySelector(button.dataset.target);
 	if (hiddenPartners.classList.contains('in')) {
-		button.innerHTML = 'mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i>';
+		button.innerHTML = `${$t('about.button.showMore')}<i class="fa fa-angle-down" aria-hidden="true"></i>`;
 	} else {
-		button.innerHTML = 'weniger anzeigen<i class="fa fa-angle-up" aria-hidden="true"></i>';
+		button.innerHTML = `${$t('about.button.showLess')}<i class="fa fa-angle-up" aria-hidden="true"></i>`;
 	}
 }
 

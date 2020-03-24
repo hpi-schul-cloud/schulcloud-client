@@ -7,20 +7,17 @@ const express = require('express');
 const logger = require('winston');
 const moment = require('moment');
 const multer = require('multer');
+const encoding = require('encoding-japanese');
+const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
-// eslint-disable-next-line import/order
-const StringDecoder = require('string_decoder').StringDecoder;
-// eslint-disable-next-line import/order
-const _ = require('lodash');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
-const decoder = new StringDecoder('utf8');
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+const { CALENDAR_SERVICE_ENABLED, HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 
 moment.locale('de');
 
@@ -216,7 +213,7 @@ const mapTimeProps = (req, res, next) => {
 const createEventsForData = (data, service, req, res) => {
 	// can just run if a calendar service is running on the environment and the course have a teacher
 	if (
-		process.env.CALENDAR_SERVICE_ENABLED
+		CALENDAR_SERVICE_ENABLED
 		&& service === 'courses'
 		&& data.teacherIds[0]
 		&& data.times.length > 0
@@ -251,7 +248,7 @@ const createEventsForData = (data, service, req, res) => {
  * @param service {string}
  */
 const deleteEventsForData = service => (req, res, next) => {
-	if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses') {
+	if (CALENDAR_SERVICE_ENABLED && service === 'courses') {
 		return api(req)
 			.get(`courses/${req.params.id}`)
 			.then((course) => {
@@ -396,7 +393,7 @@ ${res.locals.theme.short_title}-Team`,
             let source = data.toString();
             let template = handlebars.compile(source);
             let outputString = template({
-                "url": (req.headers.origin || process.env.HOST) + "/register/account/" + user._id,
+                "url": (req.headers.origin || HOST) + "/register/account/" + user._id,
                 "firstName": user.firstName,
                 "lastName": user.lastName
             });
@@ -405,7 +402,7 @@ ${res.locals.theme.short_title}-Team`,
                 "html": outputString,
                 "text": "Sehr geehrte/r " + user.firstName + " " + user.lastName + ",\n\n" +
                     "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
-                    (req.headers.origin || process.env.HOST) + "/register/account/" + user._id + "\n\n" +
+                    (req.headers.origin || HOST) + "/register/account/" + user._id + "\n\n" +
                     "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
             };
             req.body.content = content;
@@ -526,7 +523,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		return errorText;
 	};
 	try {
-		const csvData = decoder.write(req.file.buffer);
+		const csvData = Buffer.from(encoding.convert(req.file.buffer, { to: 'UTF8', from: 'AUTO' })).toString('UTF-8');
 		const [stats] = await api(req).post('/sync/', {
 			qs: {
 				target: 'csv',
@@ -549,7 +546,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			type: messageType,
 			message,
 		};
-		res.redirect(req.header('Referer'));
+		res.redirect(req.body.referrer || req.header('Referer'));
 		return;
 	} catch (err) {
 		req.session.notification = {
@@ -557,7 +554,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			message:
 				'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
 		};
-		res.redirect(req.header('Referer'));
+		res.redirect(req.body.referrer || req.header('Referer'));
 	}
 };
 
@@ -867,9 +864,9 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 };
 
 // teacher admin permissions
-router.all(
+router.get(
 	'/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
 	(req, res, next) => {
 		const title = returnAdminPrefix(res.locals.currentUser.roles);
 		res.render('administration/dashboard', {
@@ -976,6 +973,24 @@ router.post(
 	upload.single('csvFile'),
 	getCSVImportHandler(),
 );
+router.get(
+	'/teachers/import',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	async (req, res, next) => {
+		const years = getSelectableYears(res.locals.currentSchoolData);
+		const title = `${returnAdminPrefix(
+			res.locals.currentUser.roles,
+		)}Schüler`;
+		res.render('administration/import', {
+			title,
+			roles: 'teacher',
+			action: `/administration/teachers/import?_csrf=${res.locals.csrfToken}`,
+			redirectTarget: '/administration/teachers',
+			schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+			years,
+		});
+	},
+);
 router.post(
 	'/teachers/:id',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
@@ -998,7 +1013,7 @@ router.delete(
 	getDeleteHandler('users', '/administration/teachers'),
 );
 
-router.all(
+router.get(
 	'/teachers',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_LIST'], 'or'),
 	(req, res, next) => {
@@ -1039,6 +1054,7 @@ router.all(
 					res.locals.currentUser.roles
 						.map(role => role.name)
 						.includes('administrator')
+					&& hasEditPermission
 				) {
 					head.push('Erstellt am');
 					head.push('Einverständnis');
@@ -1224,6 +1240,24 @@ router.post(
 	upload.single('csvFile'),
 	getCSVImportHandler(),
 );
+router.get(
+	'/students/import',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	async (req, res, next) => {
+		const years = getSelectableYears(res.locals.currentSchoolData);
+		const title = `${returnAdminPrefix(
+			res.locals.currentUser.roles,
+		)}Schüler`;
+		res.render('administration/import', {
+			title,
+			roles: 'student',
+			action: `/administration/students/import?_csrf=${res.locals.csrfToken}`,
+			redirectTarget: '/administration/students',
+			schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+			years,
+		});
+	},
+);
 router.patch(
 	'/students/:id/pw',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
@@ -1272,7 +1306,7 @@ router.get(
 	},
 );
 
-router.all(
+router.get(
 	'/students',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
 	async (req, res, next) => {
@@ -1320,8 +1354,10 @@ router.all(
 					'Klasse',
 					'Erstellt am',
 					'Einverständnis',
-					'',
 				];
+				if (hasEditPermission) {
+					head.push(''); // Add space for action buttons
+				}
 
 				const body = users.map((user) => {
 					const icon = getConsentStatusIcon(user.consent.consentStatus);
@@ -1464,7 +1500,7 @@ router.get(
 					{
 						role,
 						save: true,
-						host: process.env.HOST,
+						host: HOST,
 						schoolId: res.locals.currentSchool,
 						toHash: user.email,
 						patchUser: true,
@@ -1533,7 +1569,7 @@ router.get(
 						{
 							role,
 							save: true,
-							host: process.env.HOST,
+							host: HOST,
 							schoolId: res.locals.currentSchool,
 							toHash: user.email,
 							patchUser: true,
@@ -2188,7 +2224,7 @@ const classFilterSettings = ({ years, currentYear }) => {
 
 router.get(
 	'/classes',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_LIST'], 'or'),
 	(req, res, next) => {
 		const tempOrgQuery = (req.query || {}).filterQuery;
 		const filterQueryString = tempOrgQuery
@@ -2221,50 +2257,61 @@ router.get(
 				qs: query,
 			})
 			.then(async (data) => {
-				const head = ['Klasse', 'Lehrer', 'Schuljahr', 'Schüler', ''];
+				const head = ['Klasse', 'Lehrer', 'Schuljahr', 'Schüler'];
+				const hasEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT');
+				if (hasEditPermission) {
+					head.push(''); // action buttons head
+				}
 
 				const schoolYears = res.locals.currentSchoolData.years.schoolYears
 					.sort((a, b) => b.startDate.localeCompare(a.startDate));
 				const lastDefinedSchoolYear = (schoolYears[0] || {})._id;
 
-				const body = data.data.map(item => [
-					item.displayName || '',
-					(item.teacherIds || []).map(i => i.lastName).join(', '),
-					(item.year || {}).name || '',
-					item.userIds.length || '0',
-					((i, basePath) => {
-						const baseActions = [
-							{
-								link: `${basePath + i._id}/manage`,
-								icon: 'users',
-								title: 'Klasse verwalten',
-							},
-							{
-								link: `${basePath + i._id}/edit`,
-								icon: 'edit',
-								title: 'Klasse bearbeiten',
-							},
-							{
-								link: basePath + i._id,
-								class: 'btn-delete',
-								icon: 'trash-o',
-								method: 'delete',
-								title: 'Klasse löschen',
-							},
-						];
-						if (lastDefinedSchoolYear !== (i.year || {})._id
-							&& permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT')
-						) {
-							baseActions.push({
-								link: `${basePath + i._id}/createSuccessor`,
-								icon: 'arrow-up',
-								class: i.successor || i.gradeLevel === 13 ? 'disabled' : '',
-								title: 'Klasse in das nächste Schuljahr versetzen',
-							});
-						}
-						return baseActions;
-					})(item, '/administration/classes/'),
-				]);
+				const createActionButtons = (item, basePath) => {
+					const baseActions = [
+						{
+							link: `${basePath + item._id}/manage`,
+							icon: 'users',
+							title: 'Klasse verwalten',
+						},
+						{
+							link: `${basePath + item._id}/edit`,
+							icon: 'edit',
+							title: 'Klasse bearbeiten',
+						},
+						{
+							link: basePath + item._id,
+							class: 'btn-delete',
+							icon: 'trash-o',
+							method: 'delete',
+							title: 'Klasse löschen',
+						},
+					];
+					if (lastDefinedSchoolYear !== (item.year || {})._id
+						&& permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT')
+					) {
+						baseActions.push({
+							link: `${basePath + item._id}/createSuccessor`,
+							icon: 'arrow-up',
+							class: item.successor || item.gradeLevel === 13 ? 'disabled' : '',
+							title: 'Klasse in das nächste Schuljahr versetzen',
+						});
+					}
+					return baseActions;
+				};
+
+				const body = data.data.map((item) => {
+					const cells = [
+						item.displayName || '',
+						(item.teacherIds || []).map(i => i.lastName).join(', '),
+						(item.year || {}).name || '',
+						item.userIds.length || '0',
+					];
+					if (hasEditPermission) {
+						cells.push(createActionButtons(item, '/administration/classes/'));
+					}
+					return cells;
+				});
 
 				const pagination = {
 					currentPage,
@@ -2438,35 +2485,67 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 		});
 };
 
-const schoolUpdateHandler = async (req, res, next) => {
-	const isChatAllowed = (res.locals.currentSchoolData.features || []).includes(
-		'rocketChat',
-	);
-	if (!isChatAllowed && req.body.rocketchat === 'true') {
-		// add rocketChat feature
-		await api(req).patch(`/schools/${req.params.id}`, {
-			json: {
-				$push: {
-					features: 'rocketChat',
+const schoolFeatureUpdateHandler = async (req, res, next) => {
+	try {
+		// Update rocketchat feature in school
+		const isChatAllowed = (res.locals.currentSchoolData.features || []).includes(
+			'rocketChat',
+		);
+		if (!isChatAllowed && req.body.rocketchat === 'true') {
+			// add rocketChat feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'rocketChat',
+					},
 				},
-			},
-		});
-	} else if (isChatAllowed && req.body.rocketchat !== 'true') {
-		// remove rocketChat feature
-		await api(req).patch(`/schools/${req.params.id}`, {
-			json: {
-				$pull: {
-					features: 'rocketChat',
+			});
+		} else if (isChatAllowed && req.body.rocketchat !== 'true') {
+			// remove rocketChat feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'rocketChat',
+					},
 				},
-			},
-		});
+			});
+		}
+		delete req.body.rocketchat;
+
+		// Update videoconference feature in school
+		const videoconferenceEnabled = (res.locals.currentSchoolData.features || []).includes(
+			'videoconference',
+		);
+		if (!videoconferenceEnabled && req.body.videoconference === 'true') {
+			// enable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'videoconference',
+					},
+				},
+			});
+		} else if (videoconferenceEnabled && req.body.videoconference !== 'true') {
+			// disable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'videoconference',
+					},
+				},
+			});
+		}
+		delete req.body.videoconference;
+	} catch (err) {
+		next(err);
 	}
-	delete req.body.rocketchat;
+
+	// update other school properties
 	return getUpdateHandler('schools')(req, res, next);
 };
 
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
-router.patch('/schools/:id', schoolUpdateHandler);
+router.patch('/schools/:id', schoolFeatureUpdateHandler);
 router.post('/schools/:id/bucket', createBucket);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch(

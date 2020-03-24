@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const logger = require('winston');
+const fileUpload = require('express-fileupload');
 const UAParser = require('ua-parser-js');
 const api = require('../api');
 const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
@@ -9,7 +10,9 @@ const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/glo
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
 
-router.post('/', (req, res, next) => {
+router.post('/', fileUpload({
+	createParentPath: true,
+}), (req, res, next) => {
 	if (!req.body.subject && req.body.target) {
 		if (req.body.target === 'HPI') { // Contact Admin
 			// title? Y: Feedback N: Problem

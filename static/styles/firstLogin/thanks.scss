@@ -1,4 +1,5 @@
 @import "../lib/colors";
+@import '../lib/bootstrap/scss/bootstrap';
 
 .welcomeGreeting {
     max-width: 750px;
@@ -6,54 +7,70 @@
 }
 
 .welcomeGreetingImage {
-    height: 55vh;
+    height: 80vh;
     width: 100%;
-}
 
-.welcomeGreetingImage img {
-    height: 100%;
-}
+    img {
+        max-height: 250px;
+    }
 
-.welcomeGreetingScroll {
-    height: 20vh;
-    width: 100%;
-}
+    @include media-breakpoint-down(xs) {
+        margin-top: 20vw;
+        h1 {
+            font-size: 7.5vw;
+        }
+        img {
+            max-height: 40vw;
+        }
+    }
+    @media (min-width: 850px){
+        .content{
+            position: relative;
+            top: 45%;
+            transform: translateY(-50%);
+        }
+    }
+    @media (max-width: 850px){
+        margin-bottom: 20vw;
+    }
 
-.btn-scroll {
-    width: 40px;
-    height: 40px;
-    left: 45%;
-    position: absolute;
-    border-radius: 100px;
-    background-color: $primaryColor;
-    cursor: pointer;
-}
+    .btn-scroll {
+        width: 40px;
+        height: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+        border-radius: 100px;
+        background-color: $primaryColor;
+        cursor: pointer;
+    
+        .arrow {
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            position: inherit;
+            padding: 6px;
+            margin: 8px;
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            animation: example 4s infinite;
+            left: 5px;
+        }
 
-.btn-scroll .arrow {
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    position: inherit;
-    padding: 6px;
-    margin: 8px;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    animation: example 4s infinite;
-    left: 5px;
-}
-
-@-webkit-keyframes example {
-    0%   {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
-    20%  {border-color: rgba(255, 255, 255, 1); top: 8px;}
-    25%  {}
-    45%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
-    100%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
-}
-  
-@keyframes example {
-    0%   {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
-    20%  {border-color: rgba(255, 255, 255, 1); top: 8px;}
-    25%  {}
-    45%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
-    100%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
+        @-webkit-keyframes example {
+            0%   {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
+            20%  {border-color: rgba(255, 255, 255, 1); top: 8px;}
+            25%  {}
+            45%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
+            100%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
+        }
+          
+        @keyframes example {
+            0%   {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
+            20%  {border-color: rgba(255, 255, 255, 1); top: 8px;}
+            25%  {}
+            45%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
+            100%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
+        }
+    }
 }

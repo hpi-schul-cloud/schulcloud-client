@@ -185,19 +185,6 @@ $(document).ready(() => {
 	}
 	$('.btn-invitation-link').on('click', invitationLinkHandler);
 
-	$('.btn-import').on('click', (e) => {
-		e.preventDefault();
-		populateModalForm($importModal, {
-			title: 'Nutzer Importieren',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Importieren',
-			fields: {
-				sendRegistration: 'true',
-			},
-		});
-		$importModal.appendTo('body').modal('show');
-	});
-
 	function ssoSelectHandler(e) {
 		e.preventDefault();
 		// show oauth properties for iserv only

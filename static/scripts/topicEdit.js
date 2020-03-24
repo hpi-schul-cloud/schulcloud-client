@@ -810,7 +810,7 @@ class TopicInternal extends TopicBlock {
                             href="#"
                             data-toggle="tooltip"
                             data-placement="top"
-                            title={`Der Link muss mit '${this.state.baseUrl}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Andere Inhalte werden momentan nicht unterstützt.`}><i className="fa fa-info-circle" /></a>
+                            title={`Der Link muss mit '${this.state.baseUrl}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.`}><i className="fa fa-info-circle" /></a>
                     </span>
                     <input
                         className="form-control"
