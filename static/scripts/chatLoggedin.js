@@ -38,7 +38,12 @@ function ready() {
 		loadChatClient();
 	} else {
 		// > get new Session from Server and pass it to the chat
-		requestSession().then(loadChatClient);
+		requestSession()
+			.then(loadChatClient)
+			.catch((error) => {
+				/* eslint-disable-next-line no-console */
+				console.error('Failed to request Messenger Session.', error);
+			});
 	}
 }
 
