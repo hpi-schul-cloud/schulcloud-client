@@ -445,7 +445,8 @@
 		},
 		"label":{
 			"content": "Inhalt",
-            "shceduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)"
+			"shceduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
+			"title": "Titel"
 		}
 	}
 }
