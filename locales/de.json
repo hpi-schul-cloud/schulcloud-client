@@ -377,12 +377,12 @@
 			"onTheSubject": "Zum Thema",
 			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
 			"procssingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
+			"submission": "Einreichung",
 			"rating": "Bewertung",
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
 			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar"
-
 		}
 	},
 	"files":{
