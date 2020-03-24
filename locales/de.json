@@ -373,10 +373,26 @@
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
-			"toClass": "Zum Kurs",
-			"toPress": "Drucken",
-			"toSave": "Speichern",
-			"toTheCourseFiles": "Zu den Kursdateien"
+			"toSave" :"Speichern",
+			"archiving": "Archivieren",  
+			"copy": "Kopieren",  
+			"toTheCourseFiles": "Zu den Kursdateien",
+			"toClass": "Zum Kurs" ,
+			"toPress": "Drucken" 
+		} ,
+		"text":{
+			"noTasks" : "Keine Aufgaben" ,
+			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs" ,
+			"noStudentGroupsInThisCourse" : "keine Schülergruppen in diesem Kurs" ,
+			"noDelivery" :"Keine Abgabe",
+			"youHave": "Du hast",
+			"solvedCorrectly": "richtig gelöst.",
+			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",		
+			"nodescriptionAvailable": "keine Beschreibung vorhanden",
+			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)",
+			"noAssignment": "Keine Zuordnung",
+			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
+			"noDeliveryDateSet": " Kein Abgabedatum festgelegt"			
 		},
 		"label": {
 			"allowGroupDonation": "Gruppenabgabe ermöglichen",
@@ -385,6 +401,11 @@
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
+			"comment": "Kommentar",
+			"title": "Titel",
+			"theme": "Thema",
+			"courses2": "Kurse",
+			"allowGroupDonation": "Gruppenabgabe ermöglichen",
 			"maximumGroupSize": "maximale Gruppengröße:",
 			"onTheSubject": "Zum Thema",
 			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
@@ -394,25 +415,48 @@
 			"selectStudentGroup": "Schülergruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
 			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
-			"submission": "Abgabe",
-			"task": "Aufgabenstellung",
-			"theme": "Thema",
-			"title": "Titel",
-			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
+			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien"
+		}
+	},
+	"files":{
+		"text":{
+		   "storeFilesForUpload": "Dateien zum Hochladen ablegen.",
+		   "rememberThisSelection": "Diese Auswahl merken",
+		   "foundIn": "gefunden in:",
+		   "libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
+			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.",
+			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
+			"searchResultFor": "Suchergebnisse für",
+			"searchResults": "Suchergebnisse",
+			"noSearchResults": "Keine Suchergebnisse",
+			"foldersAreLocated": "Ordner werden geladen",
+			"studentCanEdit": "Schüler können editieren?",
+			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
+			"FileCanNotBeDownloaded": "Keine Sorge, die Datei kann nicht heruntergeladen werden."
 		},
-		"text": {
-			"noAssignment": "Keine Zuordnung",
-			"noDelivery": "Keine Abgabe",
-			"noDeliveryDateSet": " Kein Abgabedatum festgelegt",
-			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
-			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
-			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
-			"noTasks": "Keine Aufgaben",
-			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
-			"nodescriptionAvailable": "keine Beschreibung vorhanden",
-			"solvedCorrectly": "richtig gelöst",
-			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)",
-			"youHave": "Du hast"
+		"button":{
+		   "open": "Öffnen",
+		   "ascending": "↑ aufsteigend",
+			"descending": "↓ absteigend",
+			"createANewFolder": "Neuen Ordner erstellen",
+			"createANewFile": "Neue Datei erstellen",
+			"search": "Suchen",
+			"selectFormat": "Format auswählen",
+			"textDocument": "Textdokument (docx)",
+			"table": "Tabelle (xlsx)",
+			"presentation": "Präsentation (pptx)"
+		},
+		"label":{
+			"folder": "Ordner",
+			"files2": "Dateien",
+			"conclude": "Schließen",
+			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
+			"selectAFolder": "Wähle einen Ordner aus",
+			"chooseANewName": "Wähle einen neuen Namen aus:",
+			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
+			"fileType": "Dateityp:"	,
+			"fileName": "Dateiname:",
+			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten."		
 		}
 	}
 }
