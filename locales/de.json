@@ -295,35 +295,6 @@
 			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
-	"files": {
-		"button": {
-			"ascending": "↑ aufsteigend",
-			"createANewFile": "Neue Datei erstellen",
-			"createANewFolder": "Neuen Ordner erstellen",
-			"descending": "↓ absteigend",
-			"open": "Öffnen",
-			"search": "Suchen"
-		},
-		"label": {
-			"conclude": "Schließen",
-			"files2": "Dateien",
-			"folder": "Ordner",
-			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
-			"selectAFolder": "Wähle einen Ordner aus"
-		},
-		"text": {
-			"foldersAreLocated": "Ordner werden geladen",
-			"foundIn": "gefunden in:",
-			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
-			"noSearchResults": "Keine Suchergebnisse",
-			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.",
-			"rememberThisSelection": "Diese Auswahl merken",
-			"searchResultFor": "Suchergebnisse für",
-			"searchResults": "Suchergebnisse",
-			"storeFilesForUpload": "Dateien zum Hochladen ablegen.",
-			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern"
-		}
-	},
 	"global": {
 		"button": {
 			"cancel": "Abbrechen",
@@ -373,8 +344,7 @@
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
-			"toSave" :"Speichern", 
-			"copy": "Kopieren",  
+			"toSave" :"Speichern",   
 			"toTheCourseFiles": "Zu den Kursdateien",
 			"toClass": "Zum Kurs" ,
 			"toPress": "Drucken" 
@@ -400,11 +370,9 @@
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
-			"comment": "Kommentar",
 			"title": "Titel",
 			"theme": "Thema",
 			"courses2": "Kurse",
-			"allowGroupDonation": "Gruppenabgabe ermöglichen",
 			"maximumGroupSize": "maximale Gruppengröße:",
 			"onTheSubject": "Zum Thema",
 			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
@@ -413,8 +381,8 @@
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
-			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
-			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien"
+			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar"
+
 		}
 	},
 	"files":{
