@@ -2,7 +2,7 @@ function clearLocalstorage() {
 	// only delete localStorage entries starting with 'mx'
 	if (window.localStorage) {
 		const allKeys = Object.keys(window.localStorage);
-		const mxKeys = allKeys.filter(key => key.indexOf('mx') === 0);
+		const mxKeys = allKeys.filter((key) => key.indexOf('mx') === 0);
 		mxKeys.forEach((key) => {
 			window.localStorage.removeItem(key);
 		});
