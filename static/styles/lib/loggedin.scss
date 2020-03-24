@@ -724,7 +724,7 @@ footer {
 .alert-button {
     visibility: hidden;
 
-    .btn i {
+    &.danger i  {
         color: $colorDanger;
     }
 

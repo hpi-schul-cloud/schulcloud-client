@@ -7,6 +7,7 @@ moment.locale('de'); // set the localization
 function getIconTag(status) {
 	switch (status) {
 		case 'danger':
+			$('.alert-button').addClass('danger');
 			return '<i class="fa fa-exclamation-circle text-danger"></i>';
 		case 'done':
 			return '<i class="fa fa-check-circle text-success"></i>';
@@ -27,8 +28,8 @@ class AlertMessageController {
 
 		// show only 150 charckters of message
 		let messageText;
-		if (message.text.length > 60) {
-			messageText = `${message.text.substring(0, 60)}...`;
+		if (message.text.length > 100) {
+			messageText = `${message.text.substring(0, 100)}...`;
 		} else {
 			messageText = message.text;
 		}
