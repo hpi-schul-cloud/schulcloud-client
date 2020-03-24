@@ -17,7 +17,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+const { CALENDAR_SERVICE_ENABLED, HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 
 moment.locale('de');
 
@@ -213,7 +213,7 @@ const mapTimeProps = (req, res, next) => {
 const createEventsForData = (data, service, req, res) => {
 	// can just run if a calendar service is running on the environment and the course have a teacher
 	if (
-		process.env.CALENDAR_SERVICE_ENABLED
+		CALENDAR_SERVICE_ENABLED
 		&& service === 'courses'
 		&& data.teacherIds[0]
 		&& data.times.length > 0
@@ -248,7 +248,7 @@ const createEventsForData = (data, service, req, res) => {
  * @param service {string}
  */
 const deleteEventsForData = service => (req, res, next) => {
-	if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses') {
+	if (CALENDAR_SERVICE_ENABLED && service === 'courses') {
 		return api(req)
 			.get(`courses/${req.params.id}`)
 			.then((course) => {
@@ -393,7 +393,7 @@ ${res.locals.theme.short_title}-Team`,
             let source = data.toString();
             let template = handlebars.compile(source);
             let outputString = template({
-                "url": (req.headers.origin || process.env.HOST) + "/register/account/" + user._id,
+                "url": (req.headers.origin || HOST) + "/register/account/" + user._id,
                 "firstName": user.firstName,
                 "lastName": user.lastName
             });
@@ -402,7 +402,7 @@ ${res.locals.theme.short_title}-Team`,
                 "html": outputString,
                 "text": "Sehr geehrte/r " + user.firstName + " " + user.lastName + ",\n\n" +
                     "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
-                    (req.headers.origin || process.env.HOST) + "/register/account/" + user._id + "\n\n" +
+                    (req.headers.origin || HOST) + "/register/account/" + user._id + "\n\n" +
                     "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
             };
             req.body.content = content;
@@ -1500,7 +1500,7 @@ router.get(
 					{
 						role,
 						save: true,
-						host: process.env.HOST,
+						host: HOST,
 						schoolId: res.locals.currentSchool,
 						toHash: user.email,
 						patchUser: true,
@@ -1569,7 +1569,7 @@ router.get(
 						{
 							role,
 							save: true,
-							host: process.env.HOST,
+							host: HOST,
 							schoolId: res.locals.currentSchool,
 							toHash: user.email,
 							patchUser: true,
