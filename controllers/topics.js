@@ -6,6 +6,7 @@ const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
+const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
 
@@ -193,16 +194,10 @@ router.post('/:id/share', (req, res, next) => {
 // eslint-disable-next-line consistent-return
 router.get('/:topicId', (req, res, next) => {
 	// ############################# start new Edtior ###################################
-	if (req.query.edtr || req.query.edtr_hash) {
-		let edtrSource = '';
-		if (req.query.edtr_hash) {
-			edtrSource = `https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@${req.query.edtr_hash}/dist/index.js`;
-		}
-
-		// return to skip execution
+	if (req.query.edtr && EDTR_SOURCE) {
+		// return to skip rendering old editor
 		return res.render('topic/topic-edtr', {
-			edtrSource: edtrSource || 'https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@develop/dist/index.js',
-			backendUrl: PUBLIC_BACKEND_URL,
+			EDTR_SOURCE,
 		});
 	}
 	// ############################## end new Edtior ######################################
