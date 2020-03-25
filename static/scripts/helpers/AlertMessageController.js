@@ -63,24 +63,26 @@ class AlertMessageController {
 		return item;
 	}
 
-	readMore(messageArray) {
+	readMore(length, url) {
 		const item = document.createElement('div');
 		let text = '';
-		if (messageArray.length - max > 1) {
-			text = `+${messageArray.length - max} weitere Vorfälle`;
+
+		if (length > 1) {
+			text = `+${length} weitere Vorfälle`;
 		} else {
-			text = `+${messageArray.length - max} weiterer Vorfall`;
+			text = `+${length} weiterer Vorfall`;
 		}
+
 		if (this.loggedin) {
 			item.className = 'alert-item text-center';
 			item.innerHTML = `
-			<a href="${messageArray[max].url}" rel="noopener" target="_blank">
+			<a href="${url}" rel="noopener" target="_blank">
 				${text}
 			</a>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `
-			<a href="${messageArray[max].url}" rel="noopener" target="_blank">
+			<a href="${url}" rel="noopener" target="_blank">
 				${text}
 			</a>`;
 		}
@@ -115,11 +117,16 @@ class AlertMessageController {
 					});
 				}
 			}
+			const length = messageArray.filter(message => message.status === 'danger').length;
 			if (messageArray.length > max) {
 				if (this.loggedin) {
-					$('.alert-button').find('.js-alert-content').append(this.readMore(messageArray));
-				} else {
-					$('.alert-section').append(this.readMore(messageArray));
+					$('.alert-button').find('.js-alert-content').append(
+						this.readMore(messageArray.length-max, messageArray[max].url)
+					);
+				} else if(length != 0 && length > max) {
+					$('.alert-section').append(
+						this.readMore(length-max, messageArray[max].url)
+					);
 				}
 			}
 		}
