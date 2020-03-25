@@ -819,6 +819,7 @@ footer {
 
 #matrixchat {
     z-index: 10000;
+	box-sizing: content-box;
 
 	// Browser fixes
 	.mx_RoomHeader_avatar{
@@ -846,6 +847,9 @@ footer {
 		border-top-left-radius: 2px;
 		border-top-right-radius: 2px;
 
+		.mx_BaseAvatar {
+			box-shadow: 2px 2px 5px rgba(0,0,0,.2);
+		}
 		.mx_TopLeftMenuButton {
 			background-color: transparent;
 			color: $colorWhite;
@@ -873,6 +877,9 @@ footer {
 		border: none;
 		cursor: pointer;
 
+		.mx_BaseAvatar_image {
+			box-shadow: 2px 2px 5px rgba(0,0,0,.2);
+		}
 		.mx_RoomHeader_name {
 			color: $colorWhite;
 			text-shadow: 2px 2px 5px rgba(0,0,0,.6);
@@ -880,6 +887,9 @@ footer {
 			&:hover div:not(.mx_RoomHeader_editable) {
 				color: $colorWhite;
 			}
+		}
+		.mx_RoomHeader_settingsHint {
+			color: $colorWhite !important;
 		}
 
 		.mx_RoomHeader_topic {
