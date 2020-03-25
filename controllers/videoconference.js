@@ -4,8 +4,6 @@ const router = express.Router();
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 
-const { HOST } = process.env;
-
 router.get('/:scopeName/:scopeId', (req, res, next) => {
 	const { scopeName, scopeId } = req.params;
 	return authHelper.isAuthenticated(req).then(() => api(req)

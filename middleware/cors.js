@@ -1,7 +1,8 @@
 const { contentSecurityPolicy, accessControlAllowOrigin, enabled } = require('../config/http-headers');
+const { CORS } = require('../config/global');
 const logger = require('../helpers/logger');
 
-if (!process.env.CORS) 	{
+if (!CORS) 	{
 	logger.info('CORS env has not been defined, to enable route specific CORS'
 	+ ' header set value to 1 and update values in config.cors');
 }

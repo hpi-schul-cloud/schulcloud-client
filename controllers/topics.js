@@ -10,7 +10,12 @@ const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
 
-const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/p/';
+const {
+	ETHERPAD_BASE_URL,
+	NEXBOARD_USER_ID,
+	NEXBOARD_API_KEY,
+	PUBLIC_BACKEND_URL,
+} = require('../config/global');
 
 const editTopicHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
@@ -46,7 +51,7 @@ const editTopicHandler = (req, res, next) => {
 			topicId: req.params.topicId,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
-			etherpadBaseUrl,
+			etherpadBaseUrl: ETHERPAD_BASE_URL,
 		});
 	}).catch((err) => {
 		next(err);
@@ -67,10 +72,10 @@ const checkInternalComponents = (data, baseUrl) => {
 };
 
 const getNexBoardAPI = () => {
-	if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
+	if (!NEXBOARD_USER_ID && !NEXBOARD_API_KEY) {
 		logger.error('nexBoard env is currently not defined.');
 	}
-	return new Nexboard(process.env.NEXBOARD_API_KEY, process.env.NEXBOARD_USER_ID);
+	return new Nexboard(NEXBOARD_API_KEY, NEXBOARD_USER_ID);
 };
 
 const getNexBoardProjectFromUser = async (req, user) => {

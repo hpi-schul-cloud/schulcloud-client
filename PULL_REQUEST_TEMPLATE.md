@@ -38,6 +38,7 @@
   - Guidelines / Hilfe
   - Release Notes - wenn es sich um große Feature-Releases handelt
 - [ ] mind. 1 Screenshot bei Content-Änderungen
+- [ ] Changelog-Eintrag
 
 ## Datenschutz
 - [ ] Neue Verarbeitung von personenbezogene Daten wurde mit der Datenschutz-Gruppe besprochen

@@ -1,6 +1,7 @@
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 import './cleanup'; // see login.js for loggedout users
+import initAlerts from './alerts';
 
 iFrameListen();
 
@@ -25,6 +26,8 @@ function togglePresentationMode() {
     $('body').toggleClass('fullscreen');
     toggleButton.children('i').toggleClass('fa-compress');
     toggleButton.children('i').toggleClass('fa-expand');
+
+    $('.alert-button').toggle().css('visibility');
 }
 
 let fullscreen = false;
@@ -157,7 +160,9 @@ $(document).ready(function () {
 			Es können keine Klassen und Nutzer angelegt werden.
 			Bitte läute <a href="/administration/school/"> hier das neue Schuljahr ein!</a>`, 'warning');
 		}
-	}
+    }
+
+    initAlerts('loggedin');
 });
 
 function showAJAXError(req, textStatus, errorThrown) {
