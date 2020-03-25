@@ -117,15 +117,15 @@ class AlertMessageController {
 					});
 				}
 			}
-			const length = messageArray.filter(message => message.status === 'danger').length;
+			const { length } = messageArray.filter(message => message.status === 'danger');
 			if (messageArray.length > max) {
 				if (this.loggedin) {
 					$('.alert-button').find('.js-alert-content').append(
-						this.readMore(messageArray.length-max, messageArray[max].url)
+						this.readMore(messageArray.length - max, messageArray[max].url),
 					);
-				} else if(length != 0 && length > max) {
+				} else if (length != 0 && length > max) {
 					$('.alert-section').append(
-						this.readMore(length-max, messageArray[max].url)
+						this.readMore(length - max, messageArray[max].url),
 					);
 				}
 			}
