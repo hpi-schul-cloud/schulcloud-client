@@ -274,9 +274,7 @@ const FileGetter = (req, res, next) => {
 			),
 		};
 		next();
-	}).catch((err) => {
-		next(err);
-	});
+	}).catch(next);
 };
 
 /**
@@ -660,7 +658,7 @@ router.get('/courses/', (req, res, next) => {
 			directories,
 			showSearch: false,
 		});
-	});
+	}).catch(next);
 });
 
 

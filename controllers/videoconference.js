@@ -9,7 +9,7 @@ router.get('/:scopeName/:scopeId', (req, res, next) => {
 	return authHelper.isAuthenticated(req).then(() => api(req)
 		.get(`/videoconference/${scopeName}/${scopeId}`))
 		.then(response => res.send(response))
-		.catch(err => next(err));
+		.catch(next);
 });
 
 router.post('/', (req, res, next) => {
@@ -21,7 +21,7 @@ router.post('/', (req, res, next) => {
 			},
 		}))
 		.then(response => res.send(response))
-		.catch(err => next(err));
+		.catch(next);
 });
 
 module.exports = router;
