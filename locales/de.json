@@ -458,6 +458,20 @@
 			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet",
 			"startAVideoConference": "Videokonferenz starten",
 			"noAuthorization": "Keine Berechtigung"
+		},
+		"button":{
+			"chooseACourse": "Wähle einen Kurs...",
+			"chooseATeam": "Wähle eine Team"
+		},
+		"label":{
+			"title": "Titel",
+			"of": "Von",
+			"to": "Bis",
+			"description": "Beschreibung",
+			"place": "Ort",
+			"createCourse": "Für Kurs anlegen?",
+			"createTeam": "Für Team anlegen?",
+			"addVideoConference": "Videokonferenz hinzufügen?"
 		}
 	}
 }
