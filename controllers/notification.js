@@ -3,11 +3,13 @@ const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
+const { NOTIFICATION_SERVICE_ENABLED } = require('../config/global');
+
 // secure routes
 router.use(authHelper.authChecker);
 
 const postRequest = (req, res, next) => {
-    if (process.env.NOTIFICATION_SERVICE_ENABLED) {
+	if (NOTIFICATION_SERVICE_ENABLED) {
         api(req).post(res.locals.url, {
             body: res.locals.body
         }).then((response) => {

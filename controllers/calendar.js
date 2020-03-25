@@ -30,17 +30,21 @@ router.get('/events/', (req, res, next) => {
 			all: true,
 		},
 	}).then((events) => {
-		Promise.all(events.map(event => recurringEventsHelper.mapEventProps(event, req))).then((events) => {
-			events = [].concat.apply([], events.map(recurringEventsHelper.mapRecurringEvent));
-			return res.json(events);
+		Promise.all(events.map(event => recurringEventsHelper.mapEventProps(event, req))).then((responseEvents) => {
+			// TODO: fix next line
+			// eslint-disable-next-line prefer-spread
+			const convertedEvents = [].concat.apply([], events.map(recurringEventsHelper.mapRecurringEvent));
+			return res.json(convertedEvents);
 		});
-	}).catch((err) => {
+	}).catch(() => {
 		res.json([]);
 	});
 });
 
 router.post('/events/', (req, res, next) => {
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 
 	if (req.body.courseId && req.body.courseId !== '') {
@@ -61,13 +65,15 @@ router.post('/events/', (req, res, next) => {
 });
 
 router.delete('/events/:eventId', (req, res, next) => {
-	api(req).delete(`/calendar/${req.params.eventId}`).then((_) => {
-		res.json(_);
+	api(req).delete(`/calendar/${req.params.eventId}`).then((response) => {
+		res.json(response);
 	}).catch(next);
 });
 
 router.put('/events/:eventId', (req, res, next) => {
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 
 	api(req).put(`/calendar/${req.params.eventId}`, {

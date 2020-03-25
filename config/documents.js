@@ -1,5 +1,7 @@
 const { URL } = require('url');
 
+const { DOCUMENT_BASE_DIR, SC_THEME } = require('./global');
+
 const specificFiles = {
 	privacyExemplary: 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
 	privacy: 'Onlineeinwilligung/Datenschutzerklaerung-Onlineeinwilligung.pdf',
@@ -22,18 +24,15 @@ const globalFiles = {
 	SCKonzeptPilotierung2017: 'Dokumente/Konzept-und-Pilotierung-der-Schul-Cloud-2017.pdf',
 };
 
-const documentBaseDir = process.env.DOCUMENT_BASE_DIR || 'https://s3.hidrive.strato.com/schul-cloud-hpi/';
-const theme = process.env.SC_THEME || 'default';
-
 module.exports = {
 	defaultDocuments: () => ({
-		documentBaseDir: String(new URL(`${theme}/`, documentBaseDir)),
+		documentBaseDir: String(new URL(`${SC_THEME}/`, DOCUMENT_BASE_DIR)),
 		specificFiles: baseDir => Object.entries(specificFiles).reduce((obj, [key, value]) => {
 			obj[key] = String(new URL(value, baseDir));
 			return obj;
 		}, {}),
 		globalFiles: () => Object.entries(globalFiles).reduce((obj, [key, value]) => {
-			obj[key] = String(new URL(`global/${value}`, documentBaseDir));
+			obj[key] = String(new URL(`global/${value}`, DOCUMENT_BASE_DIR));
 			return obj;
 		}, {}),
 	}),

@@ -3,6 +3,7 @@
  */
 
 const express = require('express');
+const logger = require('../helpers/logger');
 
 const router = express.Router();
 const moment = require('moment');
@@ -42,7 +43,8 @@ router.get('/', (req, res, next) => {
 	// TODO: remove this Promise.resolve to enable the calendar again
 	const eventsPromise = Promise.resolve([])/* api(req).get('/calendar/', {
 		qs: {
-			all: true,
+			all: 'false',
+			from: start.toLocalISOString(),
 			until: end.toLocalISOString(),
 		},
 	}) */.then(eve => Promise.all(
@@ -111,11 +113,13 @@ router.get('/', (req, res, next) => {
 			});
 		})).catch(() => []);
 
+	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req).get('/homework/', {
 		qs: {
 			$populate: ['courseId'],
 			$sort: 'dueDate',
-			archived: { $ne: res.locals.currentUser._id },
+			archived: { $ne: userId },
+			schoolId,
 			$or: [
 				{
 					dueDate: null,
@@ -142,7 +146,10 @@ router.get('/', (req, res, next) => {
 		homeworks.url = `/homework/${homeworks._id}`;
 		homeworks.content = homeworks.description;
 		return homeworks;
-	}));
+	})).catch((err) => {
+		logger.error(`Can not fetch data from /homework/ in router.all("/") | message: ${err.message} | code: ${err.code}.`);
+		return [];
+	});
 
 	function sortFunction(a, b) {
 		if (a.displayAt === b.displayAt) {
@@ -163,7 +170,10 @@ router.get('/', (req, res, next) => {
 		n.url = `/news/${n._id}`;
 		n.secondaryTitle = moment(n.displayAt).fromNow();
 		return n;
-	}).sort(sortFunction).slice(0, 3));
+	}).sort(sortFunction).slice(0, 3)).catch((err) => {
+		logger.error(`Can not fetch data from /news/ in router.all("/") | message: ${err.message} | code: ${err.code}.`);
+		return [];
+	});
 
 	const newestReleasePromise = api(req).get('/releases', {
 		qs: {
@@ -172,7 +182,10 @@ router.get('/', (req, res, next) => {
 				createdAt: -1,
 			},
 		},
-	}).then(({ data }) => data);
+	}).then(({ data }) => data).catch((err) => {
+		logger.error(`Can not fetch data from /releases in router.all("/") | message: ${err.message} | code: ${err.code}.`);
+		return [];
+	});
 
 	Promise.all([
 		eventsPromise,

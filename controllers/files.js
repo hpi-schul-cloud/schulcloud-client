@@ -14,6 +14,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
+const { LIBRE_OFFICE_CLIENT_URL, PUBLIC_BACKEND_URL, FEATURE_TEAMS_ENABLED } = require('../config/global');
 
 const router = express.Router();
 
@@ -125,7 +126,7 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = []) => api(req).get(`/files/${
  * check whether given files can be opened in LibreOffice
  */
 const checkIfOfficeFiles = (files) => {
-	if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+	if (!LIBRE_OFFICE_CLIENT_URL) {
 		logger.error('LibreOffice env is currently not defined.');
 		return files;
 	}
@@ -351,14 +352,14 @@ const registerSharedPermission = (userId, fileId, shareToken, req) => api(req)
  * see https://wopi.readthedocs.io/en/latest/overview.html#integration-process for further details
  */
 const getLibreOfficeUrl = (fileId, accessToken) => {
-	if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+	if (!LIBRE_OFFICE_CLIENT_URL) {
 		logger.error('LibreOffice env is currently not defined.');
 		return '';
 	}
 
 	// in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980
-	const libreOfficeBaseUrl = process.env.LIBRE_OFFICE_CLIENT_URL;
-	const wopiRestUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
+	const libreOfficeBaseUrl = LIBRE_OFFICE_CLIENT_URL;
+	const wopiRestUrl = PUBLIC_BACKEND_URL;
 	const wopiSrc = `${wopiRestUrl}/wopi/files/${fileId}?access_token=${accessToken}`;
 	return `${libreOfficeBaseUrl}/loleaflet/dist/loleaflet.html?WOPISrc=${wopiSrc}`;
 };
@@ -928,7 +929,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 		children: (await getScopeDirs(req, res, 'courses')).map(extractor),
 	}];
 
-	if (process.env.FEATURE_TEAMS_ENABLED === 'true') {
+	if (FEATURE_TEAMS_ENABLED === 'true') {
 		directoryTree.push({
 			name: 'Meine Team-Dateien',
 			model: 'teams',
