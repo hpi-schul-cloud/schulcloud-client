@@ -473,5 +473,14 @@
 			"createTeam": "Für Team anlegen?",
 			"addVideoConference": "Videokonferenz hinzufügen?"
 		}
+	},
+	"content":{
+		"label":{
+			"chooseACourse": "Wähle einen Kurs / Fach",
+			"chooseALessonTopic": "Wähle ein Unterrichtsthema"
+		},
+		"button":{
+			"choose": "Wähle..."
+		}
 	}
 }
