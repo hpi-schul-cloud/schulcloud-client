@@ -20,9 +20,11 @@
         {{#if @root.currentUser.preferences.enterthecloud}}
             <script type="text/javascript" src="/vendor/enterthecloud.min.js" defer></script>
         {{/if}}
-        {{#ifEnv "FEATURE_MATRIX_MESSENGER_ENABLED" "true"}}
-            <script src="/scripts/chatLoggedin.js" type="text/javascript" defer></script>
-        {{/ifEnv}}
+        {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+            {{#inArray "messenger" @root.currentSchoolData.features}}
+                <script src="/scripts/chatLoggedin.js" type="text/javascript" defer></script>
+            {{/inArray}}
+        {{/ifConfig}}
     {{/content}}
 
     {{#content "body"}}
