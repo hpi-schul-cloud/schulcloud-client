@@ -11,13 +11,14 @@
 {{#content "page"}}
 <section class="container-fluid section-timetable">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col">
             <h2 class="h5">{{$t "dashboard.headline.schedule"}}</h2>
-            <time class="selected-date">{{eventsDate}}</time>
+            {{!-- <time class="selected-date">{{eventsDate}}</time> --}}
         </div>
     </div>
 
-	<p class="my-2">Der Stundenplan ist derzeit ausgeblendet. Gehe stattdessen in den Kursbereich, um deine Lerninhalte zu finden.</p>
+    <img class="w-100 pl-1 pr-1" src="/images/empty-states/timetable-empty.svg" alt="{{$t "dashboard.text.emptyTimetable"}}"/>
+	<p class="my-2 pl-1">{{$t "dashboard.text.empytTimetableInfo"}}</p>
 	<!--
 	<div class="timetable">
         <div class="row lesson-cards">
@@ -90,6 +91,17 @@
 
 {{#if homeworks}}
 {{> 'dashboard/components/card_section' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
+{{else}}
+<section class="container-fluid section-timetable mb-2">
+    <div class="row">
+        <div class="col">
+            <h2 class="h5">{{$t "dashboard.headline.tasks"}}</h2>
+        </div>
+    </div>
+    <div class="row d-block text-center">
+        <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.headline.noTasks"}}" />
+    </div>
+</section>
 {{/if}}
 
 {{#if myhomeworks}}
@@ -98,6 +110,17 @@
 
 {{#if news}}
 {{>  'dashboard/components/card_section' section-id="news" title=($t "dashboard.headline.news") content=news link-text="Weiterlesen" href="/news/"}}
+{{else}}
+<section class="container-fluid section-timetable mb-2">
+    <div class="row">
+        <div class="col">
+            <h2 class="h5">{{$t "dashboard.headline.news"}}</h2>
+        </div>
+    </div>
+    <div class="row d-block text-center">
+        <img src="/images/empty-states/news-empty.svg" alt="{{$t "dashboard.headline.noNews"}}" />
+    </div>
+</section>
 {{/if}}
 
 {{#if this.currentSchoolData.pilot}}
