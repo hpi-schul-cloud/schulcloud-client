@@ -9,7 +9,6 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
 const logger = require('../helpers/logger');
-const { ROCKETCHAT_SERVICE_ENABLED } = require('../config/global');
 
 const { CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED, ROCKET_CHAT_URI } = require('../config/global');
 
