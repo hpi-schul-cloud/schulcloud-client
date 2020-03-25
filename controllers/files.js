@@ -298,7 +298,7 @@ const getScopeDirs = (req, res, scope) => {
 	}
 	return api(req).get(`/${scope}/`, { qs }).then(records => records.data.map(record => Object.assign(record, {
 		url: `/files/${scope}/${record._id}`,
-	}))).catch(next);
+	})));
 };
 
 /**
@@ -658,7 +658,7 @@ router.get('/courses/', (req, res, next) => {
 			directories,
 			showSearch: false,
 		});
-	});
+	}).catch(next);
 });
 
 
