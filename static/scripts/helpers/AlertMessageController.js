@@ -28,8 +28,8 @@ class AlertMessageController {
 
 		// show only 150 charckters of message
 		let messageText;
-		if (message.text.length > 100) {
-			messageText = `${message.text.substring(0, 100)}...`;
+		if (message.text.length > 113) {
+			messageText = `${message.text.substring(0, 113)}...`;
 		} else {
 			messageText = message.text;
 		}
@@ -109,7 +109,7 @@ class AlertMessageController {
 				$('.alert-section').empty();
 				if (messageArray.length >= 1) {
 					messageArray.forEach((message, index) => {
-						if (index < max) {
+						if (message.status === 'danger' && index < max) {
 							$('.alert-section').append(this.buildMessage(message));
 						}
 					});
