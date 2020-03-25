@@ -11,6 +11,8 @@ const api = require('../api');
 const logger = require('../helpers/logger');
 const { ROCKETCHAT_SERVICE_ENABLED } = require('../config/global');
 
+const { CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED, ROCKET_CHAT_URI } = require('../config/global');
+
 const router = express.Router();
 moment.locale('de');
 
@@ -60,7 +62,7 @@ const getSelectOptions = (req, service, query) => api(req)
  * @param teamId {string} - the id of the course the events will be deleted
  */
 const deleteEventsForTeam = async (req, res, teamId) => {
-	if (process.env.CALENDAR_SERVICE_ENABLED) {
+	if (CALENDAR_SERVICE_ENABLED) {
 		const events = await api(req).get('/calendar/', {
 			qs: {
 				'scope-id': teamId,
@@ -490,7 +492,7 @@ router.get('/:teamId', async (req, res, next) => {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
 				);
-				const rocketChatURL = process.env.ROCKET_CHAT_URI;
+				const rocketChatURL = ROCKET_CHAT_URI;
 				rocketChatCompleteURL = `${rocketChatURL}/group/${
 					rocketChatChannel.channelName
 				}`;

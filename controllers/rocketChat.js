@@ -3,12 +3,13 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const { ROCKET_CHAT_URI } = require('../config/global');
 
 router.use(authHelper.authChecker);
 
 router.get('/Iframe', function(req, res, next) {
     return api(req).get('/rocketChat/login/' + res.locals.currentUser._id).then(result => {
-        let shortURL = process.env.ROCKET_CHAT_URI;
+		const shortURL = ROCKET_CHAT_URI;
         let rocketChatURL = `${shortURL}/home`;
         return res.send(`<script>
             window.parent.postMessage({

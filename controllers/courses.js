@@ -13,8 +13,7 @@ const logger = require('../helpers/logger');
 const OPTIONAL_COURSE_FEATURES = ['messenger'];
 
 const router = express.Router();
-
-const { CALENDAR_SERVICE_ENABLED, HOST } = process.env;
+const { CALENDAR_SERVICE_ENABLED, HOST } = require('../config/global');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
