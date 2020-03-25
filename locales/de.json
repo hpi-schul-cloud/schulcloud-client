@@ -180,7 +180,9 @@
 			"noTasks": "Keine Aufgaben",
 			"noNews": "Keine Neuigkeiten",
 			"emptyTimetable": "Leerer Stundenplan",
-			"empytTimetableInfo": "Der Stundenplan ist derzeit ausgeblendet. Du findest deine Lerninhalte im Kursbereich."
+			"empytTimetableInfo": "Der Stundenplan ist derzeit ausgeblendet. Du findest deine Lerninhalte im Kursbereich.",
+			"emptyHomeworksInfo": "Du findest alle Aufgaben im Aufgaben-Bereich.",
+			"emptyNewsInfo": "Es gibt keine aktuellen Neuigkeiten. Alles Weitere findest du im Neuigkeiten-Bereich."
 		}
 	},
 	"global": {
