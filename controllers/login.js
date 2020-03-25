@@ -150,10 +150,10 @@ router.all('/login/', (req, res, next) => {
 		return authHelper.clearCookie(req, res)
 			.then(() => getSelectOptions(req,
 				'schools', {
-					purpose: { $ne: 'expert' },
-					$limit: false,
-					$sort: 'name',
-				})
+				purpose: { $ne: 'expert' },
+				$limit: false,
+				$sort: 'name',
+			})
 				.then((schools) => {
 					res.render('authentication/login', {
 						schools,
@@ -163,9 +163,7 @@ router.all('/login/', (req, res, next) => {
 				}));
 	}).catch((error) => {
 		logger.error('Error during login', { error: error.toString() });
-		return authHelper.clearCookie(req, res, { destroySession: true })
-			.catch((err) => { logger.error('clearCookie failed during login', { error: err.toString() }); })
-			.finally(() => res.redirect('/'));
+		return next(error);
 	});
 });
 
@@ -203,7 +201,8 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 					// make sure fistLogin flag is not set
 					return res.redirect('/firstLogin');
 				});
-			});
+			})
+			.catch(next);
 	} else {
 		// if this happens: SSO
 		const { accountId, systemId } = (res.locals.currentPayload || {});
@@ -220,20 +219,21 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 });
 
 router.get('/login/systems/:schoolId', (req, res, next) => {
-	api(req).get(
-		`/schools/${req.params.schoolId}`,
-		{
-			qs: { $populate: ['systems'] },
-		},
-	).then((data) => {
-		const systems = data.systems.filter(value => value.type !== 'ldap' || value.ldapConfig.active === true);
-		return res.send(systems);
-	});
+	api(req).get(`/schools/${req.params.schoolId}`, { qs: { $populate: ['systems'] } })
+		.then((data) => {
+			const systems = data.systems.filter(value => value.type !== 'ldap' || value.ldapConfig.active === true);
+			return res.send(systems);
+		})
+		.catch(next);
 });
 
-router.get('/logout/', (req, res, next) => api(req).del('/authentication')
-	.then(() => authHelper.clearCookie(req, res, { destroySession: true }))
-	.catch((err) => { logger.error('clearCookie failed during logout.', { error: err.toString() }); })
-	.finally(() => res.redirect('/')));
+router.get('/logout/', (req, res, next) => {
+	api(req).del('/authentication') // async, ignore result
+		.catch((err) => { logger.error('error during logout.', { error: err.toString() }); })
+	return authHelper
+		.clearCookie(req, res, { destroySession: true })
+		.then(() => res.redirect('/'))
+		.catch(next);
+});
 
 module.exports = router;

@@ -4,6 +4,12 @@
 		<div class="card-text form-wrapper">
 			{{> "lib/components/notification"}}
 
+			<div class="notification alert alert-danger alert-cookies-blocked hidden">
+				<div class="notification-content">
+					{{{getConfig "LOGIN_BLOCKED_COOKIES_NOTE"}}}
+				</div>
+			</div>
+
 			<form method="post" action="/login" class="login-form">
 				<input type="hidden" name="redirect" value={{redirect}} />
 
@@ -70,3 +76,4 @@
 		</div>
 	</div>
 </section>
+<div class="alert-section"></div>

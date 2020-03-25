@@ -17,6 +17,11 @@
 			],
 			"description": "alert types"
 		},
+		"LOGIN_BLOCKED_COOKIES_NOTE": {
+			"type": "string",
+			"default": "Bitte aktiviere Cookies für diese Seite. Andernfalls ist ein Login aus technischen Gründen nicht möglich.",
+			"description": "text that is shown above the login form if cookies are blocked by the browser."
+		},
 		"FEATURE_CSRF_ENABLED": {
 			"type": "boolean",
 			"default": true,
@@ -84,6 +89,11 @@
 			"type": "string",
 			"default": "feedback@schul-cloud.org",
 			"description": "Contact E-Mail Adress to The HPI School-Cloud team."
+		},
+		"FEATURE_ALERTS_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, user will see messages/incidents from e.g status.schul-cloud"
 		}
 	},
 	"required": [
