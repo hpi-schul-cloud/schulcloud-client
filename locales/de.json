@@ -450,5 +450,14 @@
 			"shceduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
 			"title": "Titel"
 		}
+	},
+	"calendar":{
+		"text":{
+			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen...",
+			"participateInVideoConference": "An Videokonferenz teilnehmen",
+			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet",
+			"startAVideoConference": "Videokonferenz starten",
+			"noAuthorization": "Keine Berechtigung"
+		}
 	}
 }
