@@ -1,39 +1,39 @@
 {
+	"dashboard": {
+		"headline": {
+			"news": "News",
+			"openTasks": "Open Tasks",
+			"privateTasks": "Drafts",
+			"schedule": "Schedule",
+			"tasks": "Tasks",
+			"title": "Dashboard"
+		},
+		"text": {
+			"emptyHomeworksInfo": "All homeworks are shown in the homeworks section.",
+			"emptyNewsInfo": "No recent news. Check the news section to stay informed.",
+			"emptyTimetable": "Empty timetable",
+			"empytTimetableInfo": "The timetable is not shown. You can find your learning content in the course section.",
+			"noNews": "No news",
+			"noTasks": "No tasks",
+			"notFound": "No active entries found."
+		}
+	},
 	"global": {
 		"sidebar": {
 			"link": {
-				"overview": "Dashboard",
-				"courses": "Courses",
-				"tasks": "Tasks",
-				"files": "My Files",
-				"news": "News",
+				"administration": "Administration",
 				"calendar": "Events",
+				"courses": "Courses",
+				"files": "My Files",
 				"lernstore": "Lern-Store",
 				"management": "Management",
+				"managementClasses": "Classes",
 				"managementStudents": "Students",
 				"managementTeachers": "Teacher",
-				"managementClasses": "Classes",
-				"administration": "Administration"
+				"news": "News",
+				"overview": "Dashboard",
+				"tasks": "Tasks"
 			}
-		}
-	},
-	"dashboard": {
-		"headline": {
-			"title": "Dashboard",
-			"schedule": "Schedule",
-			"openTasks": "Open Tasks",
-			"privateTasks": "Drafts",
-			"tasks": "Tasks",
-			"news": "News"
-		},
-		"text": {
-			"notFound": "No active entries found.",
-			"noTasks": "No tasks",
-			"noNews": "No news",
-			"emptyTimetable": "Empty timetable",
-			"empytTimetableInfo": "The timetable is not shown. You can find your learning content in the course section.",
-			"emptyHomeworksInfo": "All homeworks are shown in the homeworks section.",
-			"emptyNewsInfo": "No recent news. Check the news section to stay informed."
 		}
 	}
 }

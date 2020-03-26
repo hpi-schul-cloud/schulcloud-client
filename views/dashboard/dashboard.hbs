@@ -9,7 +9,7 @@
 {{/content}}
 
 {{#content "page"}}
-<section class="container-fluid section-timetable">
+<section class="section section-timetable">
     <div class="row">
         <div class="col-sm-12">
             <h2 class="h5">{{$t "dashboard.headline.schedule"}}</h2>
@@ -83,8 +83,8 @@
                         Materialien"-Abschnitt</a> vorbei.
                 </div>
             </div>
+            {{/each}}
         </div>
-        {{/each}}
     </div>
 </section>
 {{/ifeq}}
@@ -92,7 +92,7 @@
 {{#if homeworks}}
 {{> 'dashboard/components/card_section' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
 {{else}}
-<section class="container-fluid mb-2">
+<section class="section mb-2">
     <div class="row">
         <div class="col-sm-12">
             <h2 class="h5"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
@@ -114,7 +114,7 @@
 {{#if news}}
 {{>  'dashboard/components/card_section' section-id="news" title=($t "dashboard.headline.news") content=news link-text="Weiterlesen" href="/news/"}}
 {{else}}
-<section class="container-fluid mb-2">
+<section class="section mb-2">
     <div class="row">
         <div class="col-sm-12">
             <h2 class="h5"><a class="dashboard-title" href="/news/">{{$t "dashboard.headline.news"}}</a></h2>

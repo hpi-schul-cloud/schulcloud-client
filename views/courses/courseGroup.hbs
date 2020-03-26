@@ -34,7 +34,7 @@
 			<div class="col-sm-12 col-md-12">
 				{{#unless course.isArchived}}
 					<a href="/courses/{{courseId}}/topics/add?courseGroup={{_id}}"
-						class="btn btn-primary btn-sm pull-right ml-1" title="Thema hinzufügen">
+						class="btn btn-primary btn-sm pull-right ml-1" title="{{$t "courses._course.groups._group.link.addTopic"}}">
 						<i class="fa fa-plus" aria-hidden="true"></i>
 						<span class="hidden-lg-down">{{$t "courses._course.groups._group.link.addTopic"}}</span>
 					</a>
@@ -59,7 +59,7 @@
 													</a>
 													<a class="btn btn-secondary btn-sm btn-icon-card"
 														href="/courses/{{../courseId}}/topics/{{_id}}/edit?courseGroup={{../_id}}"
-														title="Thema bearbeiten">
+														title="{{$t "courses._course.groups._group.text.workOnTopic"}}">
 														<i class="fa fa-pencil"></i>
 													</a>
 												</div>
@@ -132,7 +132,7 @@
 			</div>
 		{{/unless}}
 
-		{{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+		{{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
 
 		{{#content "body"}}
 			<div class="modal-footer">
