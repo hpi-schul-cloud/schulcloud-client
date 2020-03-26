@@ -5,20 +5,20 @@
             "server_name": "SC"
         },
         "m.identity_server": {
-            "base_url": false
+            "base_url": "https://matrix.messenger.schule"
         }
     },
     "disable_custom_urls": false,
     "disable_guests": true,
     "disable_login_language_selector": false,
     "disable_3pid_login": true,
-    "brand": "Custom Riot",
+    "brand": "Schul-Cloud Embedded Client",
     "integrations_ui_url": false,
     "integrations_rest_url": null,
     "integrations_widgets_urls": [],
     "integrations_jitsi_widget_url": false,
     "bug_report_endpoint_url": false,
-    "defaultCountryCode": "GB",
+    "defaultCountryCode": "DE",
     "showLabsSettings": false,
     "features": {
         "feature_pinning": "labs",
@@ -26,7 +26,7 @@
         "feature_custom_tags": "labs",
         "feature_state_counters": "labs"
     },
-    "default_federate": true,
+    "default_federate": false,
     "default_theme": "light",
     "roomDirectory": {
     },
