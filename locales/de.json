@@ -492,10 +492,20 @@
 			"birthdate": "Geburtsdatum:",
 			"assignPassword": "Passwort vergeben:",
 			"dataProtection": "Datenschutz",
-			"use": "Nutzung"
+			"use": "Nutzung",
+			"classes": "Klassen:",
+			"parents": "Eltern",
+			"student": "Schüler"
 		},
 		"button":{
-			"printListWithAccessData": "Liste mit Zugangsdaten drucken"
+			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
+			"edit": "Bearbeiten",
+			"consent": "Einwilligungen:",
+			"getConsentOnPaper": "Einverständnis auf Papier erhalten",
+			"changePassword": "Passwort ändern",
+			"deleteUser": "Benutzer löschen",
+			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
+			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
 		},
 		"text":{
 			"registrationAtThe": "Die Anmeldung an der",
