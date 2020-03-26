@@ -934,7 +934,7 @@ class TopicNexboard extends TopicBlock {
                     content: content
                 });
                 return 0;
-       }});
+        }});
     }
 
     /**
