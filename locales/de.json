@@ -338,16 +338,16 @@
 	"homework": {
 		"button": {
 			"addTask": "Aufgabe hinzufügen",
-			"archiving": "Archivieren",
+			"archive": "Archivieren",
 			"copy": "Kopieren",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
-			"toSave" :"Speichern",   
+			"save" :"Speichern",   
 			"toTheCourseFiles": "Zu den Kursdateien",
 			"toClass": "Zum Kurs" ,
-			"toPress": "Drucken" 
+			"print": "Drucken" 
 		} ,
 		"text":{
 			"noTasks" : "Keine Aufgaben" ,
@@ -364,7 +364,7 @@
 			"noDeliveryDateSet": " Kein Abgabedatum festgelegt"			
 		},
 		"label": {
-			"allowGroupDonation": "Gruppenabgabe ermöglichen",
+			"allowGroupSubmission": "Gruppenabgabe ermöglichen",
 			"comment": "Kommentar",
 			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
@@ -378,8 +378,8 @@
 			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
 			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:",			
 			"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
-			"levy": "Abgabe",
-			"levies": "Abgaben",
+			"submission": "Abgabe",
+			"submissions": "Abgaben",
 			"rating": "Bewertung",
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
@@ -418,8 +418,8 @@
 		},
 		"label":{
 			"folder": "Ordner",
-			"files2": "Dateien",
-			"conclude": "Schließen",
+			"files": "Dateien",
+			"close": "Schließen",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
 			"selectAFolder": "Wähle einen Ordner aus",
 			"chooseANewName": "Wähle einen neuen Namen aus:",
@@ -507,7 +507,7 @@
 			"deleteUser": "Benutzer löschen",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden",
-			"toSave": "Speichern"
+			"save": "Speichern"
 		},
 		"text":{
 			"registrationAtThe": "Die Anmeldung an der",
