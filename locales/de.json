@@ -493,6 +493,13 @@
 			"assignPassword": "Passwort vergeben:",
 			"dataProtection": "Datenschutz",
 			"use": "Nutzung"
+		},
+		"button":{
+			"printListWithAccessData": "Liste mit Zugangsdaten drucken"
+		},
+		"text":{
+			"registrationAtThe": "Die Anmeldung an der",
+			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich."
 		}
 	}
 }
