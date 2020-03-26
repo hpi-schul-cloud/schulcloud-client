@@ -367,7 +367,7 @@
 		"label": {
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
-			"conclude": "Schließen",
+			"close": "Schließen",
 			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten.",
 			"fileName": "Dateiname:",
 			"fileType": "Dateityp:",
@@ -435,7 +435,7 @@
 	"homework": {
 		"button": {
 			"addTask": "Aufgabe hinzufügen",
-			"archiving": "Archivieren",
+			"archive": "Archivieren",
 			"copy": "Kopieren",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
@@ -447,7 +447,7 @@
 			"toTheCourseFiles": "Zu den Kursdateien"
 		},
 		"label": {
-			"allowGroupDonation": "Gruppenabgabe ermöglichen",
+			"allowGroupSubmission": "Gruppenabgabe ermöglichen",
 			"comment": "Kommentar",
 			"courses": "Kurse",
 			"edit": "Bearbeiten",
