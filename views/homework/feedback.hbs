@@ -8,13 +8,13 @@
             {{#if @root.submission.gradeComment}}
                 {{{@root.submission.gradeComment}}}
             {{else}}
-                <p>'{{$t "homework.text.noEvaluationTextAvailable" }}'</p>
+                <p>{{$t "homework.text.noEvaluationTextAvailable" }}</p>
             {{/if}}
         </div>
 
         <div class="btn btn-secondary btn-print mb-1"
             data-toggle="tooltip" title="Bewertung drucken">
-                <i class='fa fa-print'></i> '{{$t "homework.button.toPress" }}'
+                <i class='fa fa-print'></i> {{$t "homework.button.print" }}
         </div>
     </div>
 </section>

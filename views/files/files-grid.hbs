@@ -19,7 +19,7 @@
 								</a>
 							</div>
 							<div class="card-text">
-							  <small class="file-location">{{#if this.context}}'{{$t files.text.foundIn}}' {{this.context}}{{/if}}</small><br>
+							  <small class="file-location">{{#if this.context}}{{$t files.text.foundIn}} {{this.context}}{{/if}}</small><br>
 								{{#ifeq this.securityCheck.status "blocked"}}
 									<a href="#"
 									class="btn-file-danger"
@@ -68,7 +68,7 @@
 									<div class="popup-content" id="{{@index}}">
 										<a class="btn btn-secondary btn-file-share-view" data-file-id="{{../this._id}}" data-file-attribute="view" style="width: 100%">Bearbeiten</a>
 										<a class="btn btn-secondary btn-file-share-download" data-file-id="{{../this._id}}" data-file-attribute="download" style="width: 100%">Runterladen</a>
-										<a class="btn btn-secondary btn-file-share-close" style="width: 100%">'{{$t "files.label.conclude"}}'</a>
+										<a class="btn btn-secondary btn-file-share-close" style="width: 100%">{{$t "files.label.close"}}</a>
 									</div>
 								</div>
 
@@ -112,11 +112,11 @@
 
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary btn-close">
-				'{{$t "global.button.cancel"  }}'
+				{{$t "global.button.cancel" }}
 			</button>
 
 			<button type="submit" class="btn btn-primary btn-submit">
-				'{{$t "global.button.delete"  }}'
+				{{$t "global.button.delete" }}
 			</button>
 		</div>
 	{{/content}}

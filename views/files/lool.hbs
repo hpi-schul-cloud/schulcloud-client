@@ -18,14 +18,14 @@
             </iframe>
             {{else}}
               <div class="alert alert-warning" role="alert">
-                  <p>'{{$t "files.text.libreOfficeOnlineWasNotConfiguredCorrectly"}}' <span class="hidden-md-down">'{{$t "files.text.pleaseTryAgainLaterOrNotifyYourAdministrator"}}'</span></p>
+                  <p>{{$t "files.text.libreOfficeOnlineWasNotConfiguredCorrectly"}}' <span class="hidden-md-down">'{{$t "files.text.pleaseTryAgainLaterOrNotifyYourAdministrator"}}</span></p>
               </div>
             {{/if}}
         </div>
         {{#if libreOfficeUrl}}
             <div class="alert alert-warning">
-                <p class="card-text">💡 '{{$t "files.text.tips"}}'</p>
-                <a class="btn btn-secondary" href="{{libreOfficeUrl}}" target="_blank">'{{$t "files.label.openDocumentInNewWindow"}}'</a>
+                <p class="card-text">💡 {{$t "files.text.tips"}}</p>
+                <a class="btn btn-secondary" href="{{libreOfficeUrl}}" target="_blank">{{$t "files.label.openDocumentInNewWindow"}}</a>
             </div>
         {{/if}}
     {{/content}}

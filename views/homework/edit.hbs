@@ -87,7 +87,7 @@
 		<form class="modal-form" id="homework-form" method="post" action="{{action}}">
 
 			<div class="form-group">
-				<label>'{{$t "homework.label.title" }}'</label>
+				<label>{{$t "homework.label.title" }}</label>
 				<input class="form-control" name="name" type="text" placeholder="Titel" required
 					value="{{{assignment.name}}}" data-testid="homework-name" />
 			</div>
@@ -95,7 +95,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>'{{$t "homework.label.courses2" }}'</label>
+						<label>{{$t "homework.label.courses" }}</label>
 						{{#unless isSubstitution}}
 						<select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
 							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
@@ -107,24 +107,24 @@
 						</select>
 						{{else}}
 						<input name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" />
-						<div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">'{{$t "homework.text.substitutionTeachersMayNotChangeTheCourse"}}'</small></div>
+						<div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">{{$t "homework.text.substitutionTeachersMayNotChangeTheCourse"}}</small></div>
 						{{/unless}}
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>'{{$t "homework.label.theme"}}'</label>
+						<label>{{$t "homework.label.topic"}}</label>
 						<select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen"
 							{{#unless lessons}}disabled="true" {{/unless}}>
 							{{#if assignment.courseId}}
-							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>'{{$t "homework.text.noAssignment"}}'</option>
+							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>{{$t "homework.text.noAssignment"}}</option>
 							{{#each lessons}}
 							<option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>
 								{{this.name}}
 							</option>
 							{{/each}}
 							{{else}}
-							<option value="">'{{$t "homework.text.noTopicsInTheCourse"}}'</option>
+							<option value="">{{$t "homework.text.noTopicsInTheCourse"}}</option>
 							{{/if}}
 						</select>
 					</div>
@@ -139,13 +139,13 @@
 							<label>
 								<input id="teamSubmissions" name="teamSubmissions" type="checkbox" value="true"
 									{{#if assignment.teamSubmissions}}checked="checked" {{/if}} />
-								'{{$t "homework.label.allowGroupDonation"}}'
+								{{$t "homework.label.allowGroupSubmission"}}
 							</label>
 						</div>
 					</div>
 					<div class="col-md-6 {{#unless assignment.teamSubmissions}}hidden-xl-down{{/unless}}" id="teamsize">
 						<div class="form-group">
-							<label>'{{$t "homework.label.maximumGroupSize"}}'</label>
+							<label>{{$t "homework.label.maximumGroupSize"}}</label>
 							<input class="form-control" name="maxTeamMembers" id="maxTeamMembers" type="number" min="2"
 								placeholder="5" value="{{assignment.maxTeamMembers}}" />
 						</div>
@@ -155,7 +155,7 @@
 			{{/unless}}
 
 			<div class="form-group">
-				<label>'{{$t "homework.label.task" }}'</label>
+				<label>{{$t "homework.label.task" }}</label>
 				<textarea name="description" type="text" class="form-control customckeditor"
 					placeholder="Aufgabenstellung">{{assignment.description}}</textarea>
 			</div>
@@ -183,14 +183,14 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>'{{$t "homework.label.visibleAndEditableForStudentsFrom" }}'</label>
+						<label>{{$t "homework.label.visibleAndEditableForStudentsFrom" }}</label>
 						<input class="form-control" data-datetime name="availableDate" autocomplete="off" id="availableDate"
 							type="text" value="{{assignment.availableDate}}" />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>'{{$t "homework.label.processingPeriodEndsOn" }}'</label>
+						<label>{{$t "homework.label.processingPeriodEndsOn" }}</label>
 						<input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate" type="text"
 							value="{{assignment.dueDate}}" />
 					</div>
@@ -201,12 +201,12 @@
 			<div class="form-group">
 				<label>
 					<input name="private" type="checkbox" value="true" data-testid="private-checkbox" {{#if assignment.private}}checked="checked" {{/if}} />
-					'{{$t "homework.label.privateTaskOnlyVisibleToMe"}}'
+					{{$t "homework.label.privateTaskOnlyVisibleToMe"}}
 				</label></br>
 				<label>
 					<input name="publicSubmissions" type="checkbox" value="public"
 						{{#if assignment.publicSubmissions}}checked="checked" {{/if}} />
-					'{{$t "studentFeesVisibleToEachOthers" }}'
+					{{$t "studentFeesVisibleToEachOthers" }}
 				</label>
 			</div>
 			{{else}}
@@ -238,10 +238,10 @@
 		{{#content "body"}}
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary btn-close">
-				'{{$t "global.button.cancel"  }}'
+				{{$t "global.button.cancel" }}
 			</button>
 			<button type="submit" class="btn btn-primary btn-submit">
-				'{{$t "global.button.delete"  }}'
+				{{$t "global.button.delete" }}
 			</button>
 		</div>
 		{{/content}}
