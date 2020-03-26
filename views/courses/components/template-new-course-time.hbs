@@ -3,22 +3,22 @@
     <td><i class="fa fa-trash-o course-time-delete"></i></td>
     <td>
         <select class="form-control new-course-time-template-weekday" type="text">
-            <option value="0">Montag</option>
-            <option value="1">Dienstag</option>
-            <option value="2">Mittwoch</option>
-            <option value="3">Donnerstag</option>
-            <option value="4">Freitag</option>
-            <option value="5">Samstag</option>
-            <option value="6">Sonntag</option>
+            <option value="0">{{$t "global.text.monday"}}</option>
+            <option value="1">{{$t "global.text.tuesday"}}</option>
+            <option value="2">{{$t "global.text.wednesday"}}</option>
+            <option value="3">{{$t "global.text.thursday"}}</option>
+            <option value="4">{{$t "global.text.friday"}}</option>
+            <option value="5">{{$t "global.text.saturday"}}</option>
+            <option value="6">{{$t "global.text.sunday"}}</option>
         </select>
     </td>
     <td>
         <input class="form-control new-course-time-template-startTime" data-time type="text"/>
     </td>
     <td>
-        <input class="form-control new-course-time-template-duration"  type="number" placeholder="in Minuten"/>
+        <input class="form-control new-course-time-template-duration"  type="number" placeholder="{{$t "courses.global.input.inMinutes"}}"/>
     </td>
     <td>
-        <input class="form-control new-course-time-template-room" type="text" placeholder="z.B. R-1.21"/>
+        <input class="form-control new-course-time-template-room" type="text" placeholder="{{$t "courses.global.input.egRoom1-21"}}"/>
     </td>
 </tr>
