@@ -1,0 +1,104 @@
+@import './colors';
+
+#matrixchat {
+	z-index: 10000;
+	box-sizing: content-box;
+
+	// Browser fixes
+	.mx_RoomHeader_avatar{
+		-ms-flex: inherit;
+		flex: inherit;
+	}
+	.mx_RoomTile_avatar {
+		-ms-flex: 0;
+		flex: inherit;
+		padding: 0px;
+		width: auto;
+	}
+
+	// Theme
+	// > Menu
+	.mx_LeftPanel_container {
+		box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);
+	}
+	.mx_LeftPanel {
+		background-color: $colorWhite;
+	}
+	.my_HeaderContainer {
+		background-color: $primaryColor;
+		background-image: linear-gradient(to left, rgba(255, 255, 255, 0.15) ,rgba(255, 255, 255, 0)); // changed to 15% only
+		border-top-left-radius: 2px;
+		border-top-right-radius: 2px;
+
+		.mx_BaseAvatar {
+			box-shadow: 2px 2px 5px rgba(0,0,0,.2);
+		}
+		.mx_TopLeftMenuButton {
+			background-color: transparent;
+			color: $colorWhite;
+			text-shadow: 2px 2px 5px rgba(0,0,0,.6);
+			border: none;
+		}
+		.my_CollapseButtons {
+			background-color: transparent;
+			border: none;
+		}
+		.mx_RightPanel_headerButton:before {
+			background-color: $colorWhite;
+		}
+	}
+
+	// > Chat
+	.mx_GroupView, .mx_RoomView {
+		box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);
+	}
+	.mx_RoomHeader {
+		background-color: $primaryColor;
+		background-image: linear-gradient(to left, rgba(255, 255, 255, 0.15) ,rgba(255, 255, 255, 0)); // changed to 15% only
+		border-top-left-radius: 2px;
+		border-top-right-radius: 2px;
+		border: none;
+		cursor: pointer;
+
+		.mx_BaseAvatar_image {
+			box-shadow: 2px 2px 5px rgba(0,0,0,.2);
+		}
+		.mx_RoomHeader_name {
+			color: $colorWhite;
+			text-shadow: 2px 2px 5px rgba(0,0,0,.6);
+
+			&:hover div:not(.mx_RoomHeader_editable) {
+				color: $colorWhite;
+			}
+		}
+		.mx_RoomHeader_settingsHint {
+			color: $colorWhite !important;
+		}
+
+		.mx_RoomHeader_topic {
+			color: $colorWhite;
+		}
+
+		.mx_RoomHeader_buttons {
+			background-color: transparent;
+		}
+
+		.mx_RoomHeader_button:before {
+			background-color: $colorWhite;
+		}
+
+		.my_CollapseButtons:before {
+			background-color: $colorWhite;
+		}
+
+		.mx_RightPanel_headerButton:before {
+			background-color: $colorWhite;
+		}
+
+		// Content
+		.mx_TextualEvent {
+			opacity: 0.7;
+		}
+	}
+
+}
