@@ -496,7 +496,9 @@
 			"classes": "Klassen:",
 			"parents": "Eltern",
 			"student": "Schüler",
-			"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen"
+			"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen",
+			"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
+			"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben."
 		},
 		"button":{
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
@@ -507,7 +509,11 @@
 			"deleteUser": "Benutzer löschen",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden",
-			"save": "Speichern"
+			"save": "Speichern",
+			"addTeacher": "Lehrer hinzufügen",
+			"importTeacher": "Lehrer importieren",
+			"sendLinksToTeacherEmail": "Links an Lehrer E-Mail Adressen senden",
+			"createLinkSheet": "Link-Druckbogen erstellen"
 		},
 		"text":{
 			"registrationAtThe": "Die Anmeldung an der",
@@ -515,7 +521,8 @@
 			"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
 			"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 			"teamHasOwners": "Team hat Eigentümer",
-			"chatIsActivated": "Chat ist aktiviert"
+			"chatIsActivated": "Chat ist aktiviert",
+			"obtainADeclarationConsent": "Einverständniserklärung einholen"
 		}
 	}
 }
