@@ -3,6 +3,7 @@
  */
 
 const express = require('express');
+const logger = require('../helpers/logger');
 
 const router = express.Router();
 const moment = require('moment');
@@ -12,7 +13,7 @@ const api = require('../api');
 moment.locale('de');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 
-const { error } = require('../helpers/logger');
+const { error, warn } = require('../helpers/logger');
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -39,82 +40,86 @@ router.get('/', (req, res, next) => {
 	if (currentTimePercentage < 0) currentTimePercentage = 0;
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
-	const eventsPromise = api(req).get('/calendar/', {
+	// TODO: remove this Promise.resolve to enable the calendar again
+	const eventsPromise = Promise.resolve([])/* api(req).get('/calendar/', {
 		qs: {
-			all: true,
+			all: 'false',
+			from: start.toLocalISOString(),
 			until: end.toLocalISOString(),
 		},
-	}).then(eve => Promise.all(
-		eve.map(event => recurringEventsHelper.mapEventProps(event, req)),
-	).then((evnts) => {
-		// because the calender service is *§$" and is not
-		// returning recurring events for a given time period
-		// now we have to load all events from the beginning of time
-		// until end of the current day, map recurring events and
-		// display only the correct ones.
-		// I'm not happy with the solution but don't see any other less
-		// crappy way for this without changing the
-		// calendar service in it's core.
-		const mappedEvents = evnts.map(recurringEventsHelper.mapRecurringEvent);
-		const flatEvents = [].concat(...mappedEvents);
-		const events = flatEvents.filter((event) => {
-			const eventStart = new Date(event.start);
-			const eventEnd = new Date(event.end);
+	}) */.then(eve => Promise.all(
+			eve.map(event => recurringEventsHelper.mapEventProps(event, req)),
+		).then((evnts) => {
+			// because the calender service is *§$" and is not
+			// returning recurring events for a given time period
+			// now we have to load all events from the beginning of time
+			// until end of the current day, map recurring events and
+			// display only the correct ones.
+			// I'm not happy with the solution but don't see any other less
+			// crappy way for this without changing the
+			// calendar service in it's core.
+			const mappedEvents = evnts.map(recurringEventsHelper.mapRecurringEvent);
+			const flatEvents = [].concat(...mappedEvents);
+			const events = flatEvents.filter((event) => {
+				const eventStart = new Date(event.start);
+				const eventEnd = new Date(event.end);
 
-			return eventStart < end && eventEnd > start;
-		});
+				return eventStart < end && eventEnd > start;
+			});
 
 
-		return (events || []).map((event) => {
-			const eventStart = new Date(event.start);
-			let eventEnd = new Date(event.end);
+			return (events || []).map((event) => {
+				const eventStart = new Date(event.start);
+				let eventEnd = new Date(event.end);
 
-			// cur events that are too long
-			if (eventEnd > end) {
-				eventEnd = end;
-				event.end = eventEnd.toLocalISOString();
-			}
-
-			// subtract timeStart so we can use these values for left alignment
-			const eventStartRelativeMinutes = ((eventStart.getUTCHours() - timeStart) * 60) + eventStart.getMinutes();
-			const eventEndRelativeMinutes = ((eventEnd.getUTCHours() - timeStart) * 60) + eventEnd.getMinutes();
-			const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
-
-			event.comment = `${moment.utc(eventStart).format('kk:mm')} - ${moment.utc(eventEnd).format('kk:mm')}`;
-			event.style = {
-				left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
-				width: 100 * (eventDuration / numMinutes), // percent
-			};
-
-			if (event && (!event.url || event.url === '')) {
-				// add team or course url to event, otherwise just link to the calendar
-				try {
-					if (event.hasOwnProperty('x-sc-courseId')) {
-						// create course link
-						event.url = `/courses/${event['x-sc-courseId']}`;
-						event.alt = 'Kurs anzeigen';
-					} else if (event.hasOwnProperty('x-sc-teamId')) {
-						// create team link
-						event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
-						event.alt = 'Termine im Team anzeigen';
-					} else {
-						event.url = '/calendar';
-						event.alt = 'Kalender anzeigen';
-					}
-				} catch (err) {
-					error(err);
+				// cur events that are too long
+				if (eventEnd > end) {
+					eventEnd = end;
+					event.end = eventEnd.toLocalISOString();
 				}
-			}
 
-			return event;
-		});
-	})).catch(() => []);
+				// subtract timeStart so we can use these values for left alignment
+				const eventStartRelativeMinutes = ((eventStart.getUTCHours() - timeStart) * 60) + eventStart.getMinutes();
+				const eventEndRelativeMinutes = ((eventEnd.getUTCHours() - timeStart) * 60) + eventEnd.getMinutes();
+				const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
 
+				event.comment = `${moment.utc(eventStart).format('kk:mm')} - ${moment.utc(eventEnd).format('kk:mm')}`;
+				event.style = {
+					left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
+					width: 100 * (eventDuration / numMinutes), // percent
+				};
+
+				if (event && (!event.url || event.url === '')) {
+				// add team or course url to event, otherwise just link to the calendar
+					try {
+						if (event.hasOwnProperty('x-sc-courseId')) {
+						// create course link
+							event.url = `/courses/${event['x-sc-courseId']}`;
+							event.alt = 'Kurs anzeigen';
+						} else if (event.hasOwnProperty('x-sc-teamId')) {
+						// create team link
+							event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
+							event.alt = 'Termine im Team anzeigen';
+						} else {
+							event.url = '/calendar';
+							event.alt = 'Kalender anzeigen';
+						}
+					} catch (err) {
+						error(err);
+					}
+				}
+
+				return event;
+			});
+		})).catch(() => []);
+
+	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req).get('/homework/', {
 		qs: {
 			$populate: ['courseId'],
 			$sort: 'dueDate',
-			archived: { $ne: res.locals.currentUser._id },
+			archived: { $ne: userId },
+			schoolId,
 			$or: [
 				{
 					dueDate: null,
@@ -141,7 +146,10 @@ router.get('/', (req, res, next) => {
 		homeworks.url = `/homework/${homeworks._id}`;
 		homeworks.content = homeworks.description;
 		return homeworks;
-	}));
+	})).catch((err) => {
+		logger.error(`Can not fetch data from /homework/ in router.all("/") | message: ${err.message} | code: ${err.code}.`);
+		return [];
+	});
 
 	function sortFunction(a, b) {
 		if (a.displayAt === b.displayAt) {
@@ -162,7 +170,10 @@ router.get('/', (req, res, next) => {
 		n.url = `/news/${n._id}`;
 		n.secondaryTitle = moment(n.displayAt).fromNow();
 		return n;
-	}).sort(sortFunction).slice(0, 3));
+	}).sort(sortFunction).slice(0, 3)).catch((err) => {
+		logger.error(`Can not fetch data from /news/ in router.all("/") | message: ${err.message} | code: ${err.code}.`);
+		return [];
+	});
 
 	const newestReleasePromise = api(req).get('/releases', {
 		qs: {
@@ -171,7 +182,10 @@ router.get('/', (req, res, next) => {
 				createdAt: -1,
 			},
 		},
-	}).then(({ data }) => data);
+	}).then(({ data }) => data).catch((err) => {
+		logger.error(`Can not fetch data from /releases in router.all("/") | message: ${err.message} | code: ${err.code}.`);
+		return [];
+	});
 
 	Promise.all([
 		eventsPromise,
@@ -194,7 +208,9 @@ router.get('/', (req, res, next) => {
 		if (newRelease || !userPreferences.releaseDate) {
 			api(req).patch(`/users/${user._id}`, {
 				json: { 'preferences.releaseDate': newestRelease.createdAt },
-			}).catch(() => { });
+			}).catch(() => {
+				warn('failed to update user preference releaseDate');
+			});
 		}
 
 		res.render('dashboard/dashboard', {
@@ -209,7 +225,7 @@ router.get('/', (req, res, next) => {
 			showNewReleaseModal: newRelease,
 			currentTime: moment(currentTime).format('HH:mm'),
 		});
-	});
+	}).catch(next);
 });
 
 

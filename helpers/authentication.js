@@ -1,6 +1,10 @@
 const jwt = require('jsonwebtoken');
+const { Configuration } = require('@schul-cloud/commons');
+
 const api = require('../api');
 const permissionsHelper = require('./permissions');
+const { NODE_ENV, SW_ENABLED, LOGIN_BLOCK_TIME } = require('../config/global');
+const logger = require('./logger');
 
 const rolesDisplayName = {
 	teacher: 'Lehrer',
@@ -15,9 +19,17 @@ const rolesDisplayName = {
 	expert: 'Experte',
 };
 
-const clearCookie = (req, res, options = { destroySession: false }) => {
+const clearCookie = async (req, res, options = { destroySession: false }) => {
 	if (options.destroySession && req.session && req.session.destroy) {
-		req.session.destroy();
+		await new Promise((resolve, reject) => {
+			req.session.destroy((err) => {
+				if (err) {
+					reject(err);
+					return;
+				}
+				resolve();
+			});
+		});
 	}
 	res.clearCookie('jwt');
 	if (res.locals && res.locals.domain) {
@@ -28,7 +40,7 @@ const clearCookie = (req, res, options = { destroySession: false }) => {
 const isJWT = req => (req && req.cookies && req.cookies.jwt);
 
 const cookieDomain = (res) => {
-	if (res.locals.domain && process.env.NODE_ENV === 'production') {
+	if (res.locals.domain && NODE_ENV === 'production') {
 		return { domain: res.locals.domain };
 	}
 	return {};
@@ -50,14 +62,21 @@ const isAuthenticated = (req) => {
 const populateCurrentUser = (req, res) => {
 	let payload = {};
 	if (isJWT(req)) {
-		// eslint-disable-next-line prefer-destructuring
-		payload = (jwt.decode(req.cookies.jwt, { complete: true }) || {}).payload;
-		res.locals.currentPayload = payload;
+		try {
+			// eslint-disable-next-line prefer-destructuring
+			payload = (jwt.decode(req.cookies.jwt, { complete: true }) || {}).payload;
+			res.locals.currentPayload = payload;
+		} catch (err) {
+			logger.error('Broken JWT / JWT decoding failed', { error: err });
+			return clearCookie(req, res, { destroySession: true })
+				.catch((err) => { logger.error('clearCookie failed during jwt check', { error: err.toString() }); })
+				.finally(() => res.redirect('/'));
+		}
 	}
 
 	// separates users in two groups for AB testing
 	function setTestGroup(user) {
-		if (process.env.SW_ENABLED) {
+		if (SW_ENABLED) {
 			const lChar = user._id.substr(user._id.length - 1);
 			const group = parseInt(lChar, 16) % 2 ? 1 : 0;
 			user.testGroup = group;
@@ -90,8 +109,9 @@ const populateCurrentUser = (req, res) => {
 		}).catch((e) => {
 			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
 			if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
-				clearCookie(req, res, { destroySession: true });
-				return res.redirect('/');
+				return clearCookie(req, res, { destroySession: true })
+					.catch((err) => { logger.error('clearCookie failed during populateUser', { error: err.toString() }); })
+					.finally(() => res.redirect('/'));
 			}
 			throw e;
 		});
@@ -127,7 +147,7 @@ const restrictSidebar = (req, res) => {
 const authChecker = (req, res, next) => {
 	isAuthenticated(req)
 		.then((isAuthenticated2) => {
-			const redirectUrl = req.app.Config.get('NOT_AUTHENTICATED_REDIRECT_URL');
+			const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
 			if (isAuthenticated2) {
 				// fetch user profile
 				populateCurrentUser(req, res)
@@ -161,7 +181,7 @@ const login = (payload = {}, req, res, next) => {
 					expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
 					httpOnly: false, // can't be set to true with nuxt client
 					hostOnly: true,
-					secure: process.env.NODE_ENV === 'production',
+					secure: NODE_ENV === 'production',
 				},
 				cookieDomain(res)));
 		let redirectUrl = '/login/success';
@@ -174,12 +194,12 @@ const login = (payload = {}, req, res, next) => {
 			type: 'danger',
 			message: 'Login fehlgeschlagen.',
 			statusCode: e.statusCode,
-			timeToWait: process.env.LOGIN_BLOCK_TIME || 15,
+			timeToWait: LOGIN_BLOCK_TIME || 15,
 		};
 		if (e.statusCode === 429) {
 			res.locals.notification.timeToWait = e.error.data.timeToWait;
 		}
-		next();
+		next(e);
 	});
 };
 

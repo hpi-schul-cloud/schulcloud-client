@@ -246,13 +246,29 @@ gulp.task('clear', () => gulp
 	.src(
 		[
 			'./build/*',
+			'./.gulp-changed-smart.json',
 			'./.webpack-changed-plugin-cache/*',
 		],
 		{
 			read: false,
+			allowEmpty: true
 		},
 	)
 	.pipe(rimraf()));
+
+// clear gulp cache without removing current build	
+gulp.task('clear-cache', () => gulp
+	.src(
+		[
+			'./.gulp-changed-smart.json',
+			'./.webpack-changed-plugin-cache/*',
+		],
+		{
+			read: false,
+			allowEmpty: true
+		},
+	)
+	.pipe(rimraf({})));
 
 // run all tasks, processing changed files
 gulp.task('build-all', gulp.series(

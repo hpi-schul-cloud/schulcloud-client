@@ -66,8 +66,7 @@
 
       <section data-panel="section-3" class="submit-page" data-feature="pin">
           <h2 class="h4">Fast geschafft!</h2>
-          <p>Wir habe soeben eine E-Mail an deine angegebene Adresse gesendet. Bitte gib den darin enthaltenen Code hier ein, um die Registrierung abzuschließen.</p>
-          <p>Keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button>.</p>
+          {{#embed "registration/request-pin"}}{{/embed}}
           <div id="pinverification">
               {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
           </div>

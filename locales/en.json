@@ -23,10 +23,17 @@
 			"schedule": "Schedule",
 			"openTasks": "Open Tasks",
 			"privateTasks": "Drafts",
+			"tasks": "Tasks",
 			"news": "News"
 		},
 		"text": {
-			"notFound": "No active entries found."
+			"notFound": "No active entries found.",
+			"noTasks": "No tasks",
+			"noNews": "No news",
+			"emptyTimetable": "Empty timetable",
+			"empytTimetableInfo": "The timetable is not shown. You can find your learning content in the course section.",
+			"emptyHomeworksInfo": "All homeworks are shown in the homeworks section.",
+			"emptyNewsInfo": "No recent news. Check the news section to stay informed."
 		}
 	}
 }
