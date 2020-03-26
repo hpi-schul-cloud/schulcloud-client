@@ -74,7 +74,7 @@
         {{#if @root.submission.comment}}
             {{{@root.submission.comment}}}
         {{else}}
-            <p>{{$t "homework.text.noDelivery"  }}.</p>
+            <p>{{$t "homework.text.noSubmission"  }}.</p>
         {{/if}}
     </div>
   {{/if}}
@@ -82,7 +82,7 @@
     {{#if @root.submittable}}
         {{> "lib/components/csrfInput"}}
         {{#userHasPermission "SUBMISSIONS_CREATE"}}
-            <button type="submit" class="btn btn-primary btn-submit" disabled="true">{{$t "homework.button.toSave"  }}</button>
+            <button type="submit" class="btn btn-primary btn-submit" disabled="true">{{$t "homework.button.save"  }}</button>
         {{/userHasPermission}}
 
         {{#if @root.submission}}

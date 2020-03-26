@@ -8,7 +8,7 @@
             {{!-- TODO  Color by distance --}}
               Fällig {{timeFromNow dueDate}}
             {{else}}
-               {{$t "homework.text.noDeliveryDateSet"}}
+               {{$t "homework.text.noSubmissionDateSet"}}
             {{/if}}
             &nbsp;<i class="fa fa-info" title="{{timeToString availableDate}} {{#if dueDate}}bis {{timeToString dueDate}}{{/if}}"></i>
         </div>

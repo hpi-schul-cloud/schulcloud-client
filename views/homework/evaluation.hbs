@@ -1,6 +1,6 @@
 <section class="section-evaluation tab-view">
     <nav class="tab-links">
-        <a id="submission-tab-link" class="tab-link active">{{$t "homework.label.levy" }}</a>
+        <a id="submission-tab-link" class="tab-link active">{{$t "homework.label.submission" }}</a>
         {{#if @root.isTeacher}}
             <a id="comment-tab-link" class="tab-link">{{$t "homework.label.rating" }}</a>
         {{/if}}
@@ -16,12 +16,12 @@
                     <div class="ckcontent print">
                         <div class="btn btn-secondary btn-print mb-1"
                             data-toggle="tooltip" title="Abgabe drucken">
-                                <i class='fa fa-print'></i> {{$t "homework.button.toPress" }}
+                                <i class='fa fa-print'></i> {{$t "homework.button.print" }}
                         </div>
                         {{{this.submission.comment}}}
                     </div>
                 {{else}}
-                    {{$t "homework.text.noDelivery"  }}
+                    {{$t "homework.text.noSubmission"  }}
                 {{/if}}
             </div>
         </div>
@@ -52,7 +52,7 @@
                         </div>
                         {{#userHasPermission "HOMEWORK_CREATE"}}
                             {{> "lib/components/csrfInput"}}
-                            <button type="submit" class="btn btn-primary">{{$t "homework.button.toSave"  }}</button>
+                            <button type="submit" class="btn btn-primary">{{$t "homework.button.save"  }}</button>
                         {{/userHasPermission}}
                     </form>
             {{else}}

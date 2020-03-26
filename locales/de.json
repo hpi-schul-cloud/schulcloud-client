@@ -36,6 +36,66 @@
 			"startM2018": "(Start Mai 2018)"
 		}
 	},
+	"administration": {
+		"button": {
+			"changePassword": "Passwort ändern",
+			"consent": "Einwilligungen:",
+			"deleteUser": "Benutzer löschen",
+			"edit": "Bearbeiten",
+			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
+			"getConsentOnPaper": "Einverständnis auf Papier erhalten",
+			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
+			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
+		},
+		"label": {
+			"assignPassword": "Passwort vergeben:",
+			"birthdate": "Geburtsdatum:",
+			"classes": "Klassen:",
+			"dataProtection": "Datenschutz",
+			"emailAddress": "E-Mail-Adresse:",
+			"firstName": "Vorname:",
+			"lastName": "Nachname:",
+			"parents": "Eltern",
+			"student": "Schüler",
+			"use": "Nutzung"
+		},
+		"text": {
+			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
+			"registrationAtThe": "Die Anmeldung an der"
+		}
+	},
+	"calendar": {
+		"button": {
+			"chooseACourse": "Wähle einen Kurs...",
+			"chooseATeam": "Wähle eine Team"
+		},
+		"label": {
+			"addVideoConference": "Videokonferenz hinzufügen?",
+			"createCourse": "Für Kurs anlegen?",
+			"createTeam": "Für Team anlegen?",
+			"description": "Beschreibung",
+			"of": "Von",
+			"place": "Ort",
+			"title": "Titel",
+			"to": "Bis"
+		},
+		"text": {
+			"noAuthorization": "Keine Berechtigung",
+			"participateInVideoConference": "An Videokonferenz teilnehmen",
+			"startAVideoConference": "Videokonferenz starten",
+			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen...",
+			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
+		}
+	},
+	"content": {
+		"button": {
+			"choose": "Wähle..."
+		},
+		"label": {
+			"chooseACourse": "Wähle einen Kurs / Fach",
+			"chooseALessonTopic": "Wähle ein Unterrichtsthema"
+		}
+	},
 	"courses": {
 		"_course": {
 			"dropdown_menu": {
@@ -295,6 +355,47 @@
 			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
+	"files": {
+		"button": {
+			"ascending": "↑ aufsteigend",
+			"createANewFile": "Neue Datei erstellen",
+			"createANewFolder": "Neuen Ordner erstellen",
+			"descending": "↓ absteigend",
+			"open": "Öffnen",
+			"presentation": "Präsentation (pptx)",
+			"search": "Suchen",
+			"selectFormat": "Format auswählen",
+			"table": "Tabelle (xlsx)",
+			"textDocument": "Textdokument (docx)"
+		},
+		"label": {
+			"chooseANewName": "Wähle einen neuen Namen aus:",
+			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
+			"conclude": "Schließen",
+			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten.",
+			"fileName": "Dateiname:",
+			"fileType": "Dateityp:",
+			"files2": "Dateien",
+			"folder": "Ordner",
+			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
+			"selectAFolder": "Wähle einen Ordner aus"
+		},
+		"text": {
+			"FileCanNotBeDownloaded": "Keine Sorge, die Datei kann nicht heruntergeladen werden.",
+			"foldersAreLocated": "Ordner werden geladen",
+			"foundIn": "gefunden in:",
+			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
+			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
+			"noSearchResults": "Keine Suchergebnisse",
+			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.",
+			"rememberThisSelection": "Diese Auswahl merken",
+			"searchResultFor": "Suchergebnisse für",
+			"searchResults": "Suchergebnisse",
+			"storeFilesForUpload": "Dateien zum Hochladen ablegen.",
+			"studentCanEdit": "Schüler können editieren?",
+			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern"
+		}
+	},
 	"global": {
 		"button": {
 			"cancel": "Abbrechen",
@@ -344,172 +445,69 @@
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
-			"toSave" :"Speichern",   
-			"toTheCourseFiles": "Zu den Kursdateien",
-			"toClass": "Zum Kurs" ,
-			"toPress": "Drucken" 
-		} ,
-		"text":{
-			"noTasks" : "Keine Aufgaben" ,
-			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs" ,
-			"noStudentGroupsInThisCourse" : "keine Schülergruppen in diesem Kurs" ,
-			"noDelivery" :"Keine Abgabe",
-			"youHave": "Du hast",
-			"solvedCorrectly": "richtig gelöst.",
-			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",		
-			"nodescriptionAvailable": "keine Beschreibung vorhanden",
-			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)",
-			"noAssignment": "Keine Zuordnung",
-			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
-			"noDeliveryDateSet": " Kein Abgabedatum festgelegt"			
+			"print": "Drucken",
+			"save": "Speichern",
+			"toClass": "Zum Kurs",
+			"toTheCourseFiles": "Zu den Kursdateien"
 		},
 		"label": {
 			"allowGroupDonation": "Gruppenabgabe ermöglichen",
 			"comment": "Kommentar",
+			"courses": "Kurse",
 			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
-			"title": "Titel",
-			"theme": "Thema",
-			"courses2": "Kurse",
 			"maximumGroupSize": "maximale Gruppengröße:",
 			"onTheSubject": "Zum Thema",
 			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
-			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:",			
 			"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
-			"levy": "Abgabe",
-			"levies": "Abgaben",
 			"rating": "Bewertung",
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
 			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
-			"task": "Aufgabenstellung"
+			"submission": "Abgabe",
+			"submissions": "Abgaben",
+			"task": "Aufgabenstellung",
+			"title": "Titel",
+			"topic": "Thema",
+			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
+		},
+		"text": {
+			"noAssignment": "Keine Zuordnung",
+			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
+			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
+			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
+			"noSubmission": "Keine Abgabe",
+			"noSubmissionDateSet": " Kein Abgabedatum festgelegt",
+			"noTasks": "Keine Aufgaben",
+			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
+			"nodescriptionAvailable": "keine Beschreibung vorhanden",
+			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)"
 		}
 	},
-	"files":{
-		"text":{
-		   "storeFilesForUpload": "Dateien zum Hochladen ablegen.",
-		   "rememberThisSelection": "Diese Auswahl merken",
-		   "foundIn": "gefunden in:",
-		   "libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
-			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.",
-			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
-			"searchResultFor": "Suchergebnisse für",
-			"searchResults": "Suchergebnisse",
-			"noSearchResults": "Keine Suchergebnisse",
-			"foldersAreLocated": "Ordner werden geladen",
-			"studentCanEdit": "Schüler können editieren?",
-			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
-			"FileCanNotBeDownloaded": "Keine Sorge, die Datei kann nicht heruntergeladen werden."
+	"news": {
+		"button": {
+			"addNews": "News hinzufügen"
 		},
-		"button":{
-		   "open": "Öffnen",
-		   "ascending": "↑ aufsteigend",
-			"descending": "↓ absteigend",
-			"createANewFolder": "Neuen Ordner erstellen",
-			"createANewFile": "Neue Datei erstellen",
-			"search": "Suchen",
-			"selectFormat": "Format auswählen",
-			"textDocument": "Textdokument (docx)",
-			"table": "Tabelle (xlsx)",
-			"presentation": "Präsentation (pptx)"
-		},
-		"label":{
-			"folder": "Ordner",
-			"files2": "Dateien",
-			"conclude": "Schließen",
-			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
-			"selectAFolder": "Wähle einen Ordner aus",
-			"chooseANewName": "Wähle einen neuen Namen aus:",
-			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
-			"fileType": "Dateityp:"	,
-			"fileName": "Dateiname:",
-			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten."		
-		}
-	},
-	"news":{
-		"text":{
-			"from": "von",
-			"created": "erstellt",
-			"lastFrom": "(zuletzt von",
-			"processed": "bearbeitet)",
-			"inTheTeam": "im Team",
-			"inTheCourse": "im Kurs",
-			"inTheClass": "in der Klasse",
-			"atYourSchool": "an deiner Schule ",
-			"atSchool": "an der Schule",
-			"released": "Veröffentlicht",
-			"unpublished": "Unveröffentlicht"
-		},
-		"button":{
-			"addNews": "News hinzufügen"			
-		},
-		"label":{
+		"label": {
 			"content": "Inhalt",
 			"shceduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
 			"title": "Titel"
-		}
-	},
-	"calendar":{
-		"text":{
-			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen...",
-			"participateInVideoConference": "An Videokonferenz teilnehmen",
-			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet",
-			"startAVideoConference": "Videokonferenz starten",
-			"noAuthorization": "Keine Berechtigung"
 		},
-		"button":{
-			"chooseACourse": "Wähle einen Kurs...",
-			"chooseATeam": "Wähle eine Team"
-		},
-		"label":{
-			"title": "Titel",
-			"of": "Von",
-			"to": "Bis",
-			"description": "Beschreibung",
-			"place": "Ort",
-			"createCourse": "Für Kurs anlegen?",
-			"createTeam": "Für Team anlegen?",
-			"addVideoConference": "Videokonferenz hinzufügen?"
-		}
-	},
-	"content":{
-		"label":{
-			"chooseACourse": "Wähle einen Kurs / Fach",
-			"chooseALessonTopic": "Wähle ein Unterrichtsthema"
-		},
-		"button":{
-			"choose": "Wähle..."
-		}
-	},
-	"administration":{
-		"label":{
-			"firstName": "Vorname:",
-			"lastName": "Nachname:",
-			"emailAddress": "E-Mail-Adresse:",
-			"birthdate": "Geburtsdatum:",
-			"assignPassword": "Passwort vergeben:",
-			"dataProtection": "Datenschutz",
-			"use": "Nutzung",
-			"classes": "Klassen:",
-			"parents": "Eltern",
-			"student": "Schüler"
-		},
-		"button":{
-			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
-			"edit": "Bearbeiten",
-			"consent": "Einwilligungen:",
-			"getConsentOnPaper": "Einverständnis auf Papier erhalten",
-			"changePassword": "Passwort ändern",
-			"deleteUser": "Benutzer löschen",
-			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
-			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
-		},
-		"text":{
-			"registrationAtThe": "Die Anmeldung an der",
-			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich."
+		"text": {
+			"atSchool": "an der Schule",
+			"atYourSchool": "an deiner Schule ",
+			"created": "erstellt",
+			"from": "von",
+			"inTheClass": "in der Klasse",
+			"inTheCourse": "im Kurs",
+			"inTheTeam": "im Team",
+			"lastFrom": "(zuletzt von",
+			"processed": "bearbeitet)",
+			"released": "Veröffentlicht",
+			"unpublished": "Unveröffentlicht"
 		}
 	}
 }
