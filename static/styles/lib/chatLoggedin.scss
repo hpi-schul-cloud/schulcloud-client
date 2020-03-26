@@ -15,6 +15,10 @@
 		padding: 0px;
 		width: auto;
 	}
+	// #matrixchat .mx_RoomHeader .mx_BaseAvatar_image in Firefox
+	img {
+		max-width: none;
+	}
 
 	// Theme
 	// > Menu
