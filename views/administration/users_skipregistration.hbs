@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>'{{$t "administration.label.firstName" }}' <sup>*</sup></label>
+                        <label>{{$t "administration.label.firstName" }} <sup>*</sup></label>
                         <input class="form-control" name="firstName" type="text" required readonly
                             value="{{user.firstName}}" />
                     </div>
@@ -25,7 +25,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>'{{$t "administration.label.lastName" }}' <sup>*</sup></label>
+                        <label>{{$t "administration.label.lastName" }} <sup>*</sup></label>
                         <input class="form-control" name="lastName" type="text" required readonly
                             value="{{user.lastName}}" />
                     </div>
@@ -34,20 +34,20 @@
 
 
             <div class="form-group">
-                <label>'{{$t "administration.label.emailAddress" }}' <sup>*</sup></label>
+                <label>{{$t "administration.label.emailAddress" }} <sup>*</sup></label>
                 <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org"
                     value="{{user.email}}" required readonly>
             </div>
             {{#unless editTeacher}}
             <div class="form-group">
-                <label>'{{$t "administration.label.birthdate" }}'<sup>*</sup></label>
+                <label>{{$t "administration.label.birthdate" }}<sup>*</sup></label>
                 <input class="form-control linked" id="birthday" data-date
                     data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}"
                     name="birthday" type="text" required value="{{dateToPicker user.birthday "DD.MM.YYYY"}}" />
             </div>
             {{/unless}}
             <div class="form-group">
-                <label for="password">'{{$t "administration.label.assignPassword" }}' <sup>*</sup></label>
+                <label for="password">{{$t "administration.label.assignPassword" }} <sup>*</sup></label>
                 <input id="passwd" type="text" name="passwd" value={{password}} class="form-control linked"
                     placeholder="***************" required>
             </div>
@@ -65,11 +65,11 @@
                         <br />
                         <label>
 							<input name="parent_privacyConsent" type="checkbox" value="true" checked />
-                            '{{$t "administration.label.dataProtection" }}'
+                            {{$t "administration.label.dataProtection" }}
 						</label><br />
                         <label>
 							<input name="parent_termsOfUseConsent" type="checkbox" value="true" checked />
-                            '{{$t "administration.label.use" }}'
+                            {{$t "administration.label.use" }}
 						</label><br />
                     </div>
                     <div class="col-md-6">
@@ -81,11 +81,11 @@
                         <br />
                         <label>
 							<input name="privacyConsent" type="checkbox" value="true" data-force-value="true" checked />
-                            '{{$t "administration.label.dataProtection" }}'
+                            {{$t "administration.label.dataProtection" }}
 						</label><br />
                         <label>
 							<input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true" checked />
-                            '{{$t "administration.label.use" }}'
+                            {{$t "administration.label.use" }}
 						</label><br />
                     </div>
                     {{else}}
@@ -97,11 +97,11 @@
                         <br />
                         <label>
 							<input name="privacyConsent" type="checkbox" data-force-value="true" checked />
-                            '{{$t "administration.label.dataProtection" }}'
+                            {{$t "administration.label.dataProtection" }}
 						</label><br />
                         <label>
 							<input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true" checked />
-                            '{{$t "administration.label.use" }}'
+                            {{$t "administration.label.use" }}
 						</label><br />
                     </div>
                     {{/unless}}

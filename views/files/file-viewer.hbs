@@ -12,11 +12,11 @@
 {{#embed "lib/components/modal" class="open-modal" title="Möchtest du diese Datei mit einem externen Dienst öffnen?"}}
     {{#content "body"}}
         <div class="modal-body">
-            <input class="box" type="checkbox" name="allowExternalViewers" value="save">'{{$t files.text.rememberThisSelection}}'<br>
+            <input class="box" type="checkbox" name="allowExternalViewers" value="save">{{$t files.text.rememberThisSelection}}<br>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-close">'{{$t "global.button.cancel"  }}'</button>
-            <button type="submit" class="btn btn-primary btn-submit">'{{$t "files.button.open"  }}'</button>
+            <button type="button" class="btn btn-secondary btn-close">{{$t "global.button.cancel"  }}</button>
+            <button type="submit" class="btn btn-primary btn-submit">{{$t "files.button.open"  }}</button>
         </div>
     {{/content}}
 {{/embed}}

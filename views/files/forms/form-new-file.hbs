@@ -1,24 +1,24 @@
 <div class="form-group">
-    <label>'{{$t "files.label.chooseANewNameAndAFileExtension" }}'</label>
+    <label>{{$t "files.label.chooseANewNameAndAFileExtension" }}</label>
     <br />
 
-    <label for="file-ending">'{{$t "files.label.fileType" }}':</label>
+    <label for="file-ending">{{$t "files.label.fileType" }}:</label>
     <select class="custom-select mr-sm-2 form-control" id="file-ending">
-        <option selected disabled style="display:none;">'{{$t "files.button.selectFormat" }}'</option>
-        <option value="docx">'{{$t "files.button.textDocument" }}'</option>
-        <option value="xlsx">'{{$t "files.button.table" }}'</option>
-        <option value="pptx">'{{$t "files.button.presentation" }}'</option>
+        <option selected disabled style="display:none;">{{$t "files.button.selectFormat" }}</option>
+        <option value="docx">{{$t "files.button.textDocument" }}</option>
+        <option value="xlsx">{{$t "files.button.table" }}</option>
+        <option value="pptx">{{$t "files.button.presentation" }}</option>
     </select>
     <br />
     <br />
 
-    <label for="file-name">'{{$t "files.label.fileName" }}':</label>
+    <label for="file-name">{{$t "files.label.fileName" }}:</label>
     <input id="file-name" type="text" class="form-control" name="new-file-name" placeholder="Name der Datei" required />
     <br />
 
     {{#userHasPermission "COURSE_EDIT"}}
     <div id="student-can-edit-div">
-        <input type="checkbox" id="student-can-edit"> '{{$t "files.text.studentCanEdit" }}'
+        <input type="checkbox" id="student-can-edit"> {{$t "files.text.studentCanEdit" }}
     </div>
     {{/userHasPermission}}
 

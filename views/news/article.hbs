@@ -4,24 +4,24 @@
     <small class="text-muted">{{timeFromNow news.displayAt}}</small>
     {{#unless isRSS}}
     <small class="text-muted">
-        '{{$t "news.text.from" }}' {{news.creator.firstName}} {{news.creator.lastName}} '{{$t "news.text.created" }}'
+        {{$t "news.text.from" }}' {{news.creator.firstName}} {{news.creator.lastName}} '{{$t "news.text.created" }}
         {{#if news.updater}}
-        '{{$t "news.text.lastFrom" }}' {{news.updater.firstName}} {{news.updater.lastName}} '{{$t "news.text.processed" }}'
+        {{$t "news.text.lastFrom" }}' {{news.updater.firstName}} {{news.updater.lastName}} '{{$t "news.text.processed" }}
         {{/if}}
         {{#if news.target.name}}
         {{#ifCond news.targetModel '===' 'teams'}}
-        '{{$t "news.text.inTheTeam" }}'
+        {{$t "news.text.inTheTeam" }}
         {{/ifCond}}
         {{#ifCond news.targetModel '===' 'courses'}}
-        '{{$t "news.text.inTheCourse" }}'
+        {{$t "news.text.inTheCourse" }}
         {{/ifCond}}
         {{#ifCond news.targetModel '===' 'class'}}
-        '{{$t "news.text.inTheClass" }}'
+        {{$t "news.text.inTheClass" }}
         {{/ifCond}}
         <a href="/{{news.targetModel}}/{{news.target._id}}">{{news.target.name}}</a>
         {{/if}}
-        {{#ifCond @root.currentUser.schoolId '===' news.schoolId}} '{{$t "news.text.atYourSchool" }}'{{else}}
-        '{{$t "news.text.atSchool" }}' {{news.school.name}}
+        {{#ifCond @root.currentUser.schoolId '===' news.schoolId}} {{$t "news.text.atYourSchool" }}{{else}}
+        {{$t "news.text.atSchool" }} {{news.school.name}}
         {{/ifCond}}
     </small>
     {{/unless}}
@@ -50,7 +50,7 @@
     {{#inArray 'NEWS_EDIT' ../news.permissions}}
     <a class="btn btn-secondary btn-delete" href="/news/{{../news._id}}" target="_blank" data-method="DELETE"
         data-name="{{../news.title}}" alt="Artikel '{{../news.title}}' löschen" redirect="/news/">
-        '{{$t "global.button.delete"  }}'
+        {{$t "global.button.delete"  }}
     </a>
     {{/inArray}}
 </div>
@@ -58,10 +58,10 @@
 {{#content "body"}}
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary btn-close">
-        '{{$t "global.button.cancel"  }}'
+        {{$t "global.button.cancel"  }}
     </button>
     <button type="submit" class="btn btn-primary btn-submit">
-        '{{$t "global.button.delete"  }}'
+        {{$t "global.button.delete"  }}
     </button>
 </div>
 {{/content}}
