@@ -23,25 +23,25 @@
                                placeholder="Dateien durchsuchen..."/>
                     </div>
                 </div>
-                <button class="btn btn-primary float-right" type="submit">Suchen</button>
+                <button class="btn btn-primary float-right" type="submit">{{$t "files.button.search"}}</button>
 			</form>
 		</section>
 		<section class="search-results">
 			{{#if query }}
 				{{#if files}}
 					<hr>
-					<h2 class="h5">Suchergebnisse für "{{ query }}"</h2>
+					<h2 class="h5">{{$t "files.text.searchResultFor"}}{{ query }}"</h2>
 				{{/if}}
 			{{else}}
 				{{#if files}}
 					<hr>
-					<h2 class="h5">Suchergebnisse</h2>
+					<h2 class="h5">{{$t "files.text.searchResults"}}</h2>
 				{{/if}}
 			{{/if}}
 			{{#unless files}}{{#unless suppressNoResultsMessage}}
 				<hr>
 				<h2 class="h5" class="text-muted text-center">
-					<span>Keine Suchergebnisse</span>
+					<span>{{$t "files.text.noSearchResults"}}</span>
 				</h2>
 			{{/unless}}{{/unless}}
 

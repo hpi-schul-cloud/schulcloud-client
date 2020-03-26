@@ -3,25 +3,29 @@
 		{{#ifneq 0 (arrayLength homeworks)}}
 			<div class="course-tasks-header">
 				<i class="fa fa-eye"></i>
-				Gestellte Aufgaben
-				<small>({{arrayLength ../homeworks}} Aufgabe{{#ifneq 1 (arrayLength ../homeworks)}}n{{/ifneq}})</small>
+				{{$t "courses._course.tasks.headline.posedTasks"}}
+				<small>
+					({{arrayLength ../homeworks}} {{#ifneq 1 (arrayLength ../homeworks)}}
+													{{$t "courses._course.tasks.headline.tasks"}}
+												  {{else}}
+													{{$t "courses._course.tasks.headline.task"}}
+												  {{/ifneq}})
+				</small>
 			</div>
 			{{else}}
 				<div class="empty-state">
-					<img src="/images/empty-states/assignments.svg" alt="Keine gestellten Aufgaben" class="image" />
+					<img src="/images/empty-states/assignments.svg" alt="{{$t "courses._course.tasks.img_alt.noPosedTasks"}}" class="image" />
 					{{#unless @root.isArchived}}
 						{{#userHasPermission "COURSE_EDIT" }}
-							<h2 class="h4">Erstelle die erste Aufgabe in deinem Kurs</h2>
+							<h2 class="h4">{{$t "courses._course.tasks.headline.createFirstTask"}}</h2>
 							<p class="text-muted">
-								Kursteilnehmer*innen können spielend leicht Aufgaben bis zu einem gesetzten Termin
-								bearbeiten und Ergebnisse digital einreichen.
-								Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.
+								{{$t "courses._course.tasks.text.descriptionTasks"}}
 							</p>
-					{{else}}
-						<h2 class="h4 text-muted">Es gibt noch keine gestellten Aufgaben in diesem Kurs.</h2>
+						{{else}}
+							<h2 class="h4 text-muted">{{$t "courses._course.tasks.headline.noTasksPosedYet"}}</h2>
 						{{/userHasPermission}}
 					{{else}}
-						<h2 class="h4 text-muted">Es gibt keine gestellten Aufgaben in diesem Kurs.</h2>
+						<h2 class="h4 text-muted">{{$t "courses._course.tasks.headline.noTasksPosed"}}</h2>
 					{{/unless}}
 				</div>
 		{{/ifneq}}
@@ -42,8 +46,8 @@
 			{{#unless @root.isArchived}}
 				<a href="/homework/new?course={{../_id}}"
 					class="btn btn-primary {{#if ../homeworks}}w-100{{else}}btn-empty{{/if}}"
-					title="Aufgabe hinzufügen">
-					<span>Erstelle eine Aufgabe</span>
+					title="{{$t "courses._course.tasks.text.addTasks"}}">
+					<span>{{$t "courses._course.tasks.button.createTask"}}</span>
 				</a>
 			{{/unless}}
 		{{/userHasPermission}}
@@ -55,21 +59,26 @@
 			{{#userHasPermission "HOMEWORK_CREATE" }}
 				{{#unless @root.isArchived}}
 					<a href="/homework/new?course={{../_id}}&private=true"
-						class="btn btn-secondary btn-sm pull-right ml-1" title="private Aufgabe hinzufügen">
-						<i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private Aufgabe
-							hinzufügen</span>
+						class="btn btn-secondary btn-sm pull-right ml-1" title="{{$t "courses._course.tasks.text.addPrivateTask"}}">
+						<i class="fa fa-plus" aria-hidden="true"></i>
+						<span class="hidden-md-down"> {{$t "courses._course.tasks.button.addPrivateTask"}}</span>
 					</a>
+
 				{{/unless}}
 			{{/userHasPermission}}
 			{{#ifneq 0 (arrayLength myhomeworks)}}
 				<a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
 					<div class="course-tasks-header">
-						<small title="Private Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon"
+						<small title="{{$t "courses._course.tasks.text.showPrivateTasks"}}"><i class="fa fa-chevron-right collapse-icon"
 								aria-hidden="true"></i></small>
 						<i class="fa fa-eye-slash"></i>
-						Private Aufgaben
-						<small>({{arrayLength ../myhomeworks}}
-							Aufgabe{{#ifneq 1 (arrayLength ../myhomeworks)}}n{{/ifneq}})</small>
+						{{$t "courses._course.tasks.button.privateTasks"}}
+						<small>({{arrayLength ../myhomeworks}} {{#ifneq 1 (arrayLength ../myhomeworks)}}
+																    {{$t "courses._course.tasks.headline.tasks"}}
+												  			   {{else}}
+															    	{{$t "courses._course.tasks.headline.task"}}
+												  			   {{/ifneq}})
+						</small>
 					</div>
 				</a>
 				<div id="myhomeworks" class="container-fluid collapse">
