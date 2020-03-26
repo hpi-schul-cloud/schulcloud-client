@@ -16,7 +16,7 @@
          <input type="hidden" name="_method" data-force-value="true" value="patch"/>
       {{else}}
         <div class="form-group section-uploaded-files">
-            <label>{{$t "homework.label.filesUploadedForDelivery"  }}</label>
+            <label>{{$t "homework.label.filesUploadedForDelivery" }}</label>
             <ul class="list-group-files js-file-list d-flex flex-row"></ul>
         </div>
         <input type="hidden" name="_method" data-force-value="true" value="post"/>
@@ -29,7 +29,7 @@
         <p class="submissionLabel"><i class="fa fa-users"></i>Teamabgabe {{#if maxTeamMembers}}(maximal <span id="maxTeamMembers">{{@root.maxTeamMembers}}</span> Personen){{/if}}</p>
         <div class="form-group">
             <input name="teamSubmissionOptions" value="teamMembers" type="radio" id="teamMembers1" {{#unless @root.courseGroupSelected}}checked{{/unless}}/>
-            <label for="teamMembers1">{{$t "homework.label.selectTeamMembers"  }}</label>
+            <label for="teamMembers1">{{$t "homework.label.selectTeamMembers" }}</label>
             <select name="teamMembers" id="teamMembers" multiple data-placeholder="Mitstreiter auswählen">
                 {{#each @root.students}}
                     <option value="{{this._id}}" 
@@ -45,18 +45,18 @@
                         "
                     >{{this.firstName}} {{this.lastName}}</option>
                 {{else}}
-                    <option value="" disabled>{{$t "homework.text.noMoreStudentsInYourCourse"  }}</option>
+                    <option value="" disabled>{{$t "homework.text.noMoreStudentsInYourCourse" }}</option>
                 {{/each}}
             </select>
         </div>
         <div class="form-group">
             <input name="teamSubmissionOptions" value="courseGroup" type="radio" id="courseGroup1" {{#if @root.courseGroupSelected}}checked{{/if}}/>
-            <label for="courseGroup1">{{$t "homework.label.selectStudentGroup"  }}</label>
+            <label for="courseGroup1">{{$t "homework.label.selectStudentGroup" }}</label>
             <select name="courseGroupId" id="courseGroupId" data-placeholder="Mitstreiter auswählen">
                 {{#each @root.courseGroups}}
                     <option value="{{this._id}}" {{#ifeq this._id @root.submission.courseGroupId._id}}selected{{/ifeq}}>{{this.name}}</option>
                 {{else}}
-                    <option value="" disabled>{{$t "homework.text.noStudentGroupsInThisCourse"  }}</option>
+                    <option value="" disabled>{{$t "homework.text.noStudentGroupsInThisCourse" }}</option>
                 {{/each}}
             </select>
         </div>
@@ -74,7 +74,7 @@
         {{#if @root.submission.comment}}
             {{{@root.submission.comment}}}
         {{else}}
-            <p>{{$t "homework.text.noSubmission"  }}.</p>
+            <p>{{$t "homework.text.noSubmission" }}.</p>
         {{/if}}
     </div>
   {{/if}}
@@ -82,18 +82,18 @@
     {{#if @root.submittable}}
         {{> "lib/components/csrfInput"}}
         {{#userHasPermission "SUBMISSIONS_CREATE"}}
-            <button type="submit" class="btn btn-primary btn-submit" disabled="true">{{$t "homework.button.save"  }}</button>
+            <button type="submit" class="btn btn-primary btn-submit" disabled="true">{{$t "homework.button.save" }}</button>
         {{/userHasPermission}}
 
         {{#if @root.submission}}
 			{{#userHasPermission "SUBMISSIONS_EDIT"}}
 				{{#ifeq @root.currentUser._id @root.submission.studentId._id}}
-					<a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission" 
+					<a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission"
 						target="_blank"
 						data-method="delete-submission"
-						data-name={{$t "homework.button.hrefDataName"  }}
-						alt={{$t "homework.button.hrefAlt"  }}
-					><i class="fa fa-trash-o"></i> {{$t "global.button.delete"  }}</a>
+						data-name="{{$t "homework.button.hrefDataName" }}"
+						alt="{{$t "homework.button.hrefAlt" }}"
+					><i class="fa fa-trash-o"></i> {{$t "global.button.delete" }}</a>
 				{{/ifeq}}
 			{{/userHasPermission}}
 		{{/if}}
@@ -105,10 +105,10 @@
         {{#content "body"}}
             <div class="modal-footer" id="modal-delete-homework-footer">
                 <button type="button" class="btn btn-secondary btn-close">
-                    {{$t "global.button.cancel"  }}
+                    {{$t "global.button.cancel" }}
                 </button>
                 <button type="submit" class="btn btn-primary btn-submit">
-                   {{$t "global.button.delete"  }}
+                   {{$t "global.button.delete" }}
                 </button>
             </div>
         {{/content}}

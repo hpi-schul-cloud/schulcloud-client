@@ -45,8 +45,8 @@
 					{{/each}}
 				</select>
 				<select name="sortOrder" class="form-control">
-					<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending"  }}</option>
-					<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending"  }}</option>
+					<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
+					<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending" }}</option>
 				</select>
 			</div>
 
@@ -85,7 +85,7 @@
 				</div>
 			</section>
 			{{/if}}
-			<h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "files.label.files2"}}</h3>
+			<h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "files.label.files"}}</h3>
 			{{#embed "files/file-viewer"}}{{/embed}}
 			{{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
 
@@ -96,11 +96,11 @@
 						<div class="col-sm-12">
 							<div data-toggle="modal">
 								<span class="btn btn-primary create-directory">
-									<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder"  }}
+									<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder" }}
 								</span>
 								{{#if ../canCreateFile}}
 									<span class="btn btn-primary new-file" data-file-path="{{this.path}}">
-										<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFile"  }}
+										<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFile" }}
 									</span>
 								{{/if}}
 							</div>

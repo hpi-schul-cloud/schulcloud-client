@@ -43,7 +43,7 @@
 			"deleteUser": "Benutzer löschen",
 			"edit": "Bearbeiten",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
-			"getConsentOnPaper": "Einverständnis auf Papier erhalten",
+			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
 		},
@@ -57,11 +57,7 @@
 			"lastName": "Nachname:",
 			"parents": "Eltern",
 			"student": "Schüler",
-			"use": "Nutzung"
-		},
-		"text": {
-			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
-			"registrationAtThe": "Die Anmeldung an der"
+			"termsOfUse": "Nutzung"
 		}
 	},
 	"calendar": {
@@ -71,11 +67,11 @@
 		},
 		"label": {
 			"addVideoConference": "Videokonferenz hinzufügen?",
-			"createCourse": "Für Kurs anlegen?",
-			"createTeam": "Für Team anlegen?",
+			"createForCourse": "Für Kurs anlegen?",
+			"createForTeam": "Für Team anlegen?",
 			"description": "Beschreibung",
 			"of": "Von",
-			"place": "Ort",
+			"location": "Ort",
 			"title": "Titel",
 			"to": "Bis"
 		},
@@ -375,7 +371,7 @@
 			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten.",
 			"fileName": "Dateiname:",
 			"fileType": "Dateityp:",
-			"files2": "Dateien",
+			"files": "Dateien",
 			"folder": "Ordner",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
 			"selectAFolder": "Wähle einen Ordner aus"
@@ -456,7 +452,7 @@
 			"courses": "Kurse",
 			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
-			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien",
+			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
 			"maximumGroupSize": "maximale Gruppengröße:",
 			"onTheSubject": "Zum Thema",
@@ -483,7 +479,7 @@
 			"noSubmissionDateSet": " Kein Abgabedatum festgelegt",
 			"noTasks": "Keine Aufgaben",
 			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
-			"nodescriptionAvailable": "keine Beschreibung vorhanden",
+			"noDescriptionAvailable": "keine Beschreibung vorhanden",
 			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)"
 		}
 	},

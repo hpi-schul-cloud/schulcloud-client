@@ -15,7 +15,7 @@
 					{{/if}}
 					<div>{{{this.description}}}</div>
 				{{else}}
-					{{$t "homework.text.nodescriptionAvailable" }}
+					{{$t "homework.text.noDescriptionAvailable" }}
 				{{/if}}
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 					alt="Aufgabe '{{../title}}' bearbeiten.">{{$t "homework.label.edit" }}</a>
 				<a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/homework" target="_blank"
 					data-method="DELETE" data-name="{{../title}}" alt="Löschen der Aufgabe: '{{../title}}'.">
-					{{$t "global.button.delete"  }}
+					{{$t "global.button.delete" }}
 				</a>
 				{{/userHasPermission}}
 			{{else}}
@@ -37,7 +37,7 @@
 							alt="Aufgabe '{{../title}}' bearbeiten.">{{$t "homework.label.edit" }}</a>
 						<a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/homework" target="_blank"
 							data-method="DELETE" data-name="{{../title}}" alt="Löschen der Aufgabe: '{{../title}}'.">
-							{{$t "global.button.delete"  }}
+							{{$t "global.button.delete" }}
 						</a>
 					{{/userHasPermission}}
 				{{/inArray}}
@@ -84,10 +84,10 @@
 	{{#content "body"}}
 	<div class="modal-footer">
 		<button type="button" class="btn btn-secondary btn-close">
-			{{$t "global.button.cancel"  }}
+			{{$t "global.button.cancel" }}
 		</button>
 		<button type="submit" class="btn btn-primary btn-submit">
-			{{$t "global.button.delete"  }}
+			{{$t "global.button.delete" }}
 		</button>
 	</div>
 	{{/content}}
