@@ -11,7 +11,7 @@
     <a href="https://docs.schul-cloud.org/x/NYBgAw" target="_blank">hier</a>.
 </p>
 <p>
-    <img src="/images/csv_example.png" />
+    <img src="/images/csv_example2.png" />
 </p>
 <div class="form-group">
     <label>CSV-Datei auswählen</label>
@@ -21,7 +21,8 @@
     <label>Schuljahr</label>
     <select class="form-control" name="schoolYear" data-placeholder="Schuljahr auswählen" data-force-value="true">
         {{#each years}}
-            <option {{#ifeq this._id ../schoolCurrentYear}}selected="selected"{{/ifeq}} value="{{this._id}}">{{this.name}}</option>
+        <option {{#ifeq this._id ../schoolCurrentYear}}selected="selected" {{/ifeq}} value="{{this._id}}">{{this.name}}
+        </option>
         {{/each}}
     </select>
 </div>
@@ -31,6 +32,14 @@
         Registrierungslinks sofort nach Import an Nutzer senden
     </label>
     <p>
-        Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.
+        Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen
+        zukommen lassen.
+    </p>
+    <p class="lead">
+        ⚠️ ACHTUNG: Beim Import großer Datensätze kommt es kurz nach dem Start zu einer Fehlermeldung. Im Hintergrund
+        läuft der Importprozess trotzdem unsichtbar weiter. Zeitdauer: circa 4 Minuten pro 1000 Nutzer:innen. Bitte
+        warte die entsprechende Zeit ab und aktualisiere dann dein Browserfenster, um die aktualisierte
+        Schüler:innen-Übersicht überprüfen zu können.
+
     </p>
 </div>
