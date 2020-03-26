@@ -495,7 +495,8 @@
 			"use": "Nutzung",
 			"classes": "Klassen:",
 			"parents": "Eltern",
-			"student": "Schüler"
+			"student": "Schüler",
+			"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen"
 		},
 		"button":{
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
@@ -505,11 +506,16 @@
 			"changePassword": "Passwort ändern",
 			"deleteUser": "Benutzer löschen",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
-			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
+			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden",
+			"toSave": "Speichern"
 		},
 		"text":{
 			"registrationAtThe": "Die Anmeldung an der",
-			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich."
+			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
+			"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
+			"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
+			"teamHasOwners": "Team hat Eigentümer",
+			"chatIsActivated": "Chat ist aktiviert"
 		}
 	}
 }
