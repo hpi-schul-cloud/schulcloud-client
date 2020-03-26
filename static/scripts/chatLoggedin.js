@@ -17,7 +17,7 @@ function loadChatClient(session = null) {
 
 	// load javascript
 	const riotScript = document.createElement('script');
-	riotScript.src = 'https://embed.stomt.com/bundles/5a1ddf45b59d88d77d17/bundle.js';
+	riotScript.src = 'https://embed.stomt.com/bundles/18ffce39b05cc3743f41/bundle.js';
 	riotScript.type = 'text/javascript';
 	document.head.appendChild(riotScript);
 }

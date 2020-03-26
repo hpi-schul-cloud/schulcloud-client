@@ -2,23 +2,26 @@
 
 #matrixchat {
 	z-index: 10000;
-	box-sizing: content-box;
 
-	// Browser fixes
-	.mx_RoomHeader_avatar{
-		-ms-flex: inherit;
-		flex: inherit;
+	// Hide additional Functionality
+	// > hide chat header icons of advanced features
+	.mx_RoomHeader_settingsButton,
+	.mx_RoomHeader_shareButton,
+	.mx_HeaderButtons::before,
+	.mx_RightPanel_filesButton,
+	.mx_RightPanel_notifsButton {
+	    display: none;
 	}
-	.mx_RoomTile_avatar {
-		-ms-flex: 0;
-		flex: inherit;
-		padding: 0px;
-		width: auto;
+	.mx_RightPanel_membersButton {
+	    margin-left: 10px;
 	}
-	// #matrixchat .mx_RoomHeader .mx_BaseAvatar_image in Firefox
-	img {
-		max-width: none;
+	// > hide menu buttons
+	.mx_LeftPanel_explore,
+	.mx_RoomSubList_addRoom,
+	.mx_RoomTile_menuButton {
+	    display: none !important;
 	}
+
 
 	// Theme
 	// > Menu
@@ -27,12 +30,12 @@
 	}
 	.mx_LeftPanel {
 		background-color: $colorWhite;
+		border-top-left-radius: 2px;
+		border-top-right-radius: 2px;
 	}
 	.my_HeaderContainer {
 		background-color: $primaryColor;
 		background-image: linear-gradient(to left, rgba(255, 255, 255, 0.15) ,rgba(255, 255, 255, 0)); // changed to 15% only
-		border-top-left-radius: 2px;
-		border-top-right-radius: 2px;
 
 		.mx_BaseAvatar {
 			box-shadow: 2px 2px 5px rgba(0,0,0,.2);
@@ -55,12 +58,12 @@
 	// > Chat
 	.mx_GroupView, .mx_RoomView {
 		box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);
+		border-top-left-radius: 2px;
+		border-top-right-radius: 2px;
 	}
 	.mx_RoomHeader {
 		background-color: $primaryColor;
 		background-image: linear-gradient(to left, rgba(255, 255, 255, 0.15) ,rgba(255, 255, 255, 0)); // changed to 15% only
-		border-top-left-radius: 2px;
-		border-top-right-radius: 2px;
 		border: none;
 		cursor: pointer;
 
@@ -105,7 +108,7 @@
 		}
 	}
 
-	// Menu
+	// > Popover
 	.mx_TabbedView_tabLabels {
 		width: 200px;
 		min-width: 200px;
