@@ -1,5 +1,6 @@
 import './pwd';
 import './cleanup'; // see loggedin.js for loggedin users
+import initAlerts from './alerts';
 import * as storage from './helpers/storage';
 
 $(document).ready(() => {
@@ -148,4 +149,7 @@ $(document).ready(() => {
         $school.trigger('change');
     }
 
+    initAlerts('login');
+    // remove duplicated login error
+    $( ".col-xs-12 > .notification" ).remove(); 
 });

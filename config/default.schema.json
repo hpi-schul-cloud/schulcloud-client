@@ -94,6 +94,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled, adds support for matrix messenger"
+		},
+		"FEATURE_ALERTS_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, user will see messages/incidents from e.g status.schul-cloud"
 		}
 	},
 	"required": [

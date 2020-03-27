@@ -4,6 +4,7 @@ const {
 	KEEP_ALIVE = false,
 	BACKEND_URL = 'http://localhost:3030/',
 	PUBLIC_BACKEND_URL,
+	EDTR_SOURCE = undefined,
 	EDITOR_URL = undefined,
 	SENTRY_DSN = false,
 	SC_DOMAIN = 'localhost',
@@ -50,6 +51,7 @@ const exp = {
 	KEEP_ALIVE,
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
+	EDTR_SOURCE,
 	EDITOR_URL,
 	SENTRY_DSN,
 	SC_DOMAIN,
@@ -93,6 +95,6 @@ const exp = {
 };
 
 // eslint-disable-next-line no-console
-console.log(util.inspect(exp, { depth: 1, compact: false }));
+console.log(util.inspect(exp, { depth: 1, compact: false, sorted: true }));
 
 module.exports = exp;
