@@ -95,6 +95,6 @@ const exp = {
 };
 
 // eslint-disable-next-line no-console
-console.log(util.inspect(exp, { depth: 1, compact: false }));
+console.log(util.inspect(exp, { depth: 1, compact: false, sorted: true }));
 
 module.exports = exp;
