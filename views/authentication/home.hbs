@@ -14,6 +14,15 @@
 
 {{#embed "authentication/section"}}
 	{{#content "body"}}
+
+	{{#hasConfig "GLOBAL_ANNOUNCEMENT"}}
+		<div class="notification alert alert-info">
+			<div class="notification-content">
+				{{{getConfig "GLOBAL_ANNOUNCEMENT"}}}
+			</div>
+		</div>
+	{{/hasConfig}}
+
 		<div class="rows-2">
 			<div>
 				<h1 class="section-title">
