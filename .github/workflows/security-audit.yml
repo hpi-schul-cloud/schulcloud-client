@@ -1,6 +1,14 @@
 name: Security Audit
 
-on: [push]
+on:
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+  push:
+    branches:
+      - 'master'
+      - 'develop'
 
 jobs:
   PROD:
