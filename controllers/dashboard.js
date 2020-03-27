@@ -204,9 +204,8 @@ router.get('/', (req, res, next) => {
 		const userPreferences = user.preferences || {};
 		const newestRelease = newestReleases[0] || {};
 		const newRelease = !!(Date.parse(userPreferences.releaseDate) < Date.parse(newestRelease.createdAt));
-		const roles = user.roles.map((role) => {
-			return role.name;
-		});
+		const roles = user.roles.map(role => role.name);
+		let homeworksFeedbackRequired = [];
 
 		if (newRelease || !userPreferences.releaseDate) {
 			api(req).patch(`/users/${user._id}`, {
@@ -216,12 +215,20 @@ router.get('/', (req, res, next) => {
 			});
 		}
 
+		if (roles.includes('teacher')) {
+			homeworksFeedbackRequired = homeworks.filter(
+				homework => homework.stats.submissionCount > 0
+				&& homework.stats.submissionCount !== homework.stats.gradeCount,
+			);
+		}
+
 		res.render('dashboard/dashboard', {
 			title: res.$t('dashboard.headline.title'),
 			events: events.reverse(),
 			eventsDate: moment().format('dddd, DD. MMMM YYYY'),
 			homeworks: homeworks.filter(task => !task.private).slice(0, 10),
 			myhomeworks: homeworks.filter(task => task.private).slice(0, 10),
+			homeworksFeedbackRequired: homeworksFeedbackRequired.slice(0, 10),
 			news,
 			hours,
 			currentTimePercentage,
