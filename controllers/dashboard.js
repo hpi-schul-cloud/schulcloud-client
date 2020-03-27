@@ -135,7 +135,7 @@ router.get('/', (req, res, next) => {
 	}).then(data => data.data.map((homeworks) => {
 		homeworks.secondaryTitle = (homeworks.dueDate)
 			? moment(homeworks.dueDate).fromNow()
-			: 'Kein Abgabedatum festgelegt';
+			: 'Ohne Abgabedatum';
 		if (homeworks.courseId != null) {
 			homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
 			homeworks.background = homeworks.courseId.color;
