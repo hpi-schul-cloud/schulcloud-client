@@ -15,15 +15,13 @@
 {{#embed "authentication/section"}}
 	{{#content "body"}}
 
+	{{#hasConfig "GLOBAL_ANNOUNCEMENT"}}
 		<div class="notification alert alert-info">
 			<div class="notification-content">
-				Zur schnellen Unterstützung der Schulen in der Coronakrise
-				öffnet das Bundesministeriumfür Bildung und Forschung die
-				HPI Schul-Cloud für alle Schulen, die kein vergleichbares
-				Angebot des Landes oder Schulträgers nutzen können.
-				<a href="/community" target="_blank">Mehr erfahren</a>
+				{{{getConfig "GLOBAL_ANNOUNCEMENT"}}}
 			</div>
 		</div>
+	{{/hasConfig}}
 
 		<div class="rows-2">
 			<div>
