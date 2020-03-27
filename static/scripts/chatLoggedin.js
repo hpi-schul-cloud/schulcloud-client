@@ -1,11 +1,17 @@
 function loadChatClient(session = null) {
+	let roomIdentifier = '';
+	const matches = RegExp('/courses/([^/]+).*').exec(window.location.pathname)
+	if (matches && matches.length >= 2) {
+		roomIdentifier = `#course_${matches[1]}:matrix.stomt.com`;
+	}
+
 	// create chat tag
 	const riotBox = document.createElement('section');
 	riotBox.id = 'matrixchat';
 	riotBox.dataset.vectorIndexeddbWorkerScript = '/indexeddb-worker.js';
 	riotBox.dataset.vectorConfig = '/riot_config.json';
 	riotBox.dataset.vectorDefaultToggled = 'true';
-	riotBox.dataset.matrixRoomId = '';
+	riotBox.dataset.matrixRoomId = roomIdentifier;
 	riotBox.dataset.matrixLang = 'de';
 
 	if (session) {
@@ -17,7 +23,7 @@ function loadChatClient(session = null) {
 
 	// load javascript
 	const riotScript = document.createElement('script');
-	riotScript.src = 'https://embed.stomt.com/bundles/db56d8a22f6a774449ba/bundle.js';
+	riotScript.src = 'https://embed.stomt.com/bundles/bbf7f874b7f3891917fb/bundle.js';
 	riotScript.type = 'text/javascript';
 	document.head.appendChild(riotScript);
 }
