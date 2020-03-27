@@ -1,6 +1,6 @@
 function loadChatClient(session = null) {
 	let roomIdentifier = '';
-	const matches = RegExp('/courses/([^/]+).*').exec(window.location.pathname)
+	const matches = RegExp('/courses/([^/]+).*').exec(window.location.pathname);
 	if (matches && matches.length >= 2) {
 		roomIdentifier = `#course_${matches[1]}:matrix.stomt.com`;
 	}
