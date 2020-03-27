@@ -250,3 +250,23 @@
 .dashboard-empty-info{
     margin-top: -35px;
 }
+
+.homework-link{
+    color: $fontColor;
+    .homework-tile{
+        border: 0;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(0,0,0,.125);
+        cursor: pointer;
+        .title{
+            font-size: 1.3rem;
+        }
+        &:hover{
+            background-color: $colorLightGrey;
+        }
+    }
+    &:hover{
+        text-decoration: none;
+        color: $fontColor;
+    }
+}

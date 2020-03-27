@@ -92,12 +92,12 @@
 {{#if isTeacher}}
     teacher
     {{#if homeworks}}
-        {{> 'dashboard/components/card_section' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
     {{else}}
     <section class="section mb-2">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
             </div>
         </div>
         <div class="row d-block text-center">
@@ -112,18 +112,18 @@
     <section class="section mb-2">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5"><a class="dashboard-title" href="/homework">Aufgaben ohne Feedback</a></h2>
+                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">Aufgaben mit Abgaben</a></h2>
             </div>
         </div>
     </section>
 
     {{#if myhomeworks}}
-        {{> 'dashboard/components/card_section' section-id="mytasks" title="Aufgaben Entwürfe" content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
+        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title="Private Aufgaben" content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
     {{else}}
     <section class="section mb-2">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5"><a class="dashboard-title" href="/homework">Aufgaben Entwürfe Empty</a></h2>
+                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">Aufgaben Entwürfe Empty</a></h2>
             </div>
         </div>
     </section>
@@ -131,12 +131,12 @@
 
 {{else if isStudent}}
     {{#if homeworks}}
-        {{> 'dashboard/components/card_section' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
     {{else}}
     <section class="section mb-2">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
             </div>
         </div>
         <div class="row d-block text-center">
@@ -151,7 +151,7 @@
     <section class="section mb-2">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5"><a class="dashboard-title" href="/homework">Aufgaben mit Lehrer:in Feedback</a></h2>
+                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">Aufgaben mit Lehrer:in Feedback</a></h2>
             </div>
         </div>
     </section>
@@ -167,7 +167,7 @@
 <section class="section mb-2">
     <div class="row">
         <div class="col-sm-12">
-            <h2 class="h5"><a class="dashboard-title" href="/news/">{{$t "dashboard.headline.news"}}</a></h2>
+            <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/news/">{{$t "dashboard.headline.news"}}</a></h2>
         </div>
     </div>
     <div class="row d-block text-center">
