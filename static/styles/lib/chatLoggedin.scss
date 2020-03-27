@@ -5,17 +5,6 @@
 	font-family: "PT Sans", Nunito, Twemoji, Apple Color Emoji, Segoe UI Emoji, "Helvetica Neue", Noto Color Emoji, sans-serif !important;
 	color: var(--color-black);
 
-	// TO BE MOVED TO RIOT //
-	right: 8px !important;
-
-	// hide in firefox
-	.mx_LeftPanel_container.toggled .mx_LeftPanel_exploreAndFilterRow {
-		height: 0;
-		overflow: hidden;
-	}
-
-	// END //
-
 	// Hide additional Functionality
 	// > hide chat header icons of advanced features
 	.mx_RoomHeader_settingsButton,
