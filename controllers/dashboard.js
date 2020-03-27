@@ -206,6 +206,8 @@ router.get('/', (req, res, next) => {
 		const newRelease = !!(Date.parse(userPreferences.releaseDate) < Date.parse(newestRelease.createdAt));
 		const roles = user.roles.map(role => role.name);
 		let homeworksFeedbackRequired = [];
+		let homeworksWithFeedback = [];
+		let studentHomeworks;
 
 		if (newRelease || !userPreferences.releaseDate) {
 			api(req).patch(`/users/${user._id}`, {
@@ -217,8 +219,21 @@ router.get('/', (req, res, next) => {
 
 		if (roles.includes('teacher')) {
 			homeworksFeedbackRequired = homeworks.filter(
-				homework => homework.stats.submissionCount > 0
+				homework => !homework.private
+				&& homework.stats
+				&& homework.stats.submissionCount > 0
 				&& homework.stats.submissionCount !== homework.stats.gradeCount,
+			);
+		}
+
+		if (roles.includes('student')) {
+			homeworksWithFeedback = homeworks.filter(
+				homework => !homework.private
+				&& homework.grade,
+			);
+			studentHomeworks = homeworks.filter(
+				homework => (!homework.submissions || homework.submissions === 0)
+				&& !homework.grade,
 			);
 		}
 
@@ -226,9 +241,10 @@ router.get('/', (req, res, next) => {
 			title: res.$t('dashboard.headline.title'),
 			events: events.reverse(),
 			eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-			homeworks: homeworks.filter(task => !task.private).slice(0, 10),
+			homeworks: (studentHomeworks || homeworks).filter(task => !task.private).slice(0, 10),
 			myhomeworks: homeworks.filter(task => task.private).slice(0, 10),
 			homeworksFeedbackRequired: homeworksFeedbackRequired.slice(0, 10),
+			homeworksWithFeedback: homeworksWithFeedback.slice(0, 10),
 			news,
 			hours,
 			currentTimePercentage,
