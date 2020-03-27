@@ -204,6 +204,9 @@ router.get('/', (req, res, next) => {
 		const userPreferences = user.preferences || {};
 		const newestRelease = newestReleases[0] || {};
 		const newRelease = !!(Date.parse(userPreferences.releaseDate) < Date.parse(newestRelease.createdAt));
+		const roles = user.roles.map((role) => {
+			return role.name;
+		});
 
 		if (newRelease || !userPreferences.releaseDate) {
 			api(req).patch(`/users/${user._id}`, {
@@ -224,6 +227,8 @@ router.get('/', (req, res, next) => {
 			currentTimePercentage,
 			showNewReleaseModal: newRelease,
 			currentTime: moment(currentTime).format('HH:mm'),
+			isTeacher: roles.includes('teacher'),
+			isStudent: roles.includes('student'),
 		});
 	}).catch(next);
 });

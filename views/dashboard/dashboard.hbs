@@ -89,27 +89,77 @@
 </section>
 {{/ifeq}}
 
-{{#if homeworks}}
-{{> 'dashboard/components/card_section' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
-{{else}}
-<section class="section mb-2">
-    <div class="row">
-        <div class="col-sm-12">
-            <h2 class="h5"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+{{#if isTeacher}}
+    teacher
+    {{#if homeworks}}
+        {{> 'dashboard/components/card_section' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
+    {{else}}
+    <section class="section mb-2">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="h5"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+            </div>
         </div>
-    </div>
-    <div class="row d-block text-center">
-        <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
-        <p class="text-muted dashboard-empty-info">
-            {{$t "dashboard.text.emptyHomeworksInfo"}}
-        </p>
-    </div>
-</section>
+        <div class="row d-block text-center">
+            <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
+            <p class="text-muted dashboard-empty-info">
+                {{$t "dashboard.text.emptyHomeworksInfo"}}
+            </p>
+        </div>
+    </section>
+    {{/if}}
+
+    <section class="section mb-2">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="h5"><a class="dashboard-title" href="/homework">Aufgaben ohne Feedback</a></h2>
+            </div>
+        </div>
+    </section>
+
+    {{#if myhomeworks}}
+        {{> 'dashboard/components/card_section' section-id="mytasks" title="Aufgaben Entwürfe" content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
+    {{else}}
+    <section class="section mb-2">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="h5"><a class="dashboard-title" href="/homework">Aufgaben Entwürfe Empty</a></h2>
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
+{{else if isStudent}}
+    {{#if homeworks}}
+        {{> 'dashboard/components/card_section' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
+    {{else}}
+    <section class="section mb-2">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="h5"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+            </div>
+        </div>
+        <div class="row d-block text-center">
+            <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
+            <p class="text-muted dashboard-empty-info">
+                {{$t "dashboard.text.emptyHomeworksInfo"}}
+            </p>
+        </div>
+    </section>
+    {{/if}}
+
+    <section class="section mb-2">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="h5"><a class="dashboard-title" href="/homework">Aufgaben mit Lehrer:in Feedback</a></h2>
+            </div>
+        </div>
+    </section>
 {{/if}}
 
-{{#if myhomeworks}}
-{{> 'dashboard/components/card_section' section-id="mytasks" title=($t "dashboard.headline.privateTasks") content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
-{{/if}}
+
+
+
 
 {{#if news}}
 {{>  'dashboard/components/card_section' section-id="news" title=($t "dashboard.headline.news") content=news link-text="Weiterlesen" href="/news/"}}
