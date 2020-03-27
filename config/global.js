@@ -27,6 +27,7 @@ const {
 	LIBRE_OFFICE_CLIENT_URL,
 	ROCKET_CHAT_URI,
 	ROCKETCHAT_SERVICE_ENABLED,
+	FEATURE_MESSENGER_ENABLED,
 	ETHERPAD_BASE_URL = 'https://etherpad.schul-cloud.org/p/',
 	NEXBOARD_USER_ID,
 	NEXBOARD_API_KEY,
@@ -73,7 +74,8 @@ const exp = {
 	FEATURE_TEAMS_ENABLED,
 	LIBRE_OFFICE_CLIENT_URL,
 	ROCKET_CHAT_URI,
-	ROCKETCHAT_SERVICE_ENABLED,
+	ROCKETCHAT_SERVICE_ENABLED: (ROCKETCHAT_SERVICE_ENABLED === 'true'),
+	FEATURE_MESSENGER_ENABLED: (FEATURE_MESSENGER_ENABLED === 'true'),
 	ETHERPAD_BASE_URL,
 	NEXBOARD_USER_ID,
 	NEXBOARD_API_KEY,
@@ -95,6 +97,6 @@ const exp = {
 };
 
 // eslint-disable-next-line no-console
-console.log(util.inspect(exp, { depth: 1, compact: false }));
+console.log(util.inspect(exp, { depth: 1, compact: false, sorted: true }));
 
 module.exports = exp;

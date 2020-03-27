@@ -2536,6 +2536,31 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 			});
 		}
 		delete req.body.videoconference;
+
+		// Update riot messenger feature in school
+		const messengerEnabled = (res.locals.currentSchoolData.features || []).includes(
+			'messenger',
+		);
+		if (!messengerEnabled && req.body.messenger === 'true') {
+			// enable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'messenger',
+					},
+				},
+			});
+		} else if (messengerEnabled && req.body.messenger !== 'true') {
+			// disable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'messenger',
+					},
+				},
+			});
+		}
+		delete req.body.messenger;
 	} catch (err) {
 		next(err);
 	}
