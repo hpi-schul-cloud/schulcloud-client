@@ -228,7 +228,7 @@ router.get('/', (req, res, next) => {
 						&& homework.stats.submissionCount > homework.stats.gradeCount
 					) || (
 						!homework.dueDate
-					&& homework.stats.submissionCount > 0
+						&& homework.stats.submissionCount > 0
 					)
 				)
 				&& homework.stats.userCount > homework.stats.gradeCount,
