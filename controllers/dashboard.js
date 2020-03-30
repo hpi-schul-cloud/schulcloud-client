@@ -153,6 +153,7 @@ router.get('/', (req, res, next) => {
 			return homeworks;
 		}))
 		.catch((err) => {
+			/* eslint-disable-next-line max-len */
 			logger.error(
 				`Can not fetch data from /homework/ in router.all("/") | message: ${err.message} | code: ${err.code}.`,
 			);
@@ -185,6 +186,7 @@ router.get('/', (req, res, next) => {
 			.sort(sortFunction)
 			.slice(0, 3))
 		.catch((err) => {
+			/* eslint-disable-next-line max-len */
 			logger.error(
 				`Can not fetch data from /news/ in router.all("/") | message: ${err.message} | code: ${err.code}.`,
 			);
@@ -202,6 +204,7 @@ router.get('/', (req, res, next) => {
 		})
 		.then(({ data }) => data)
 		.catch((err) => {
+			/* eslint-disable-next-line max-len */
 			logger.error(
 				`Can not fetch data from /releases in router.all("/") | message: ${err.message} | code: ${err.code}.`,
 			);
