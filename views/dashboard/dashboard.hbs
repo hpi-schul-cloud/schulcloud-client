@@ -91,7 +91,7 @@
 
 {{#if isTeacher}}
     {{#if homeworksFeedbackRequired}}
-        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/"}}
+        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/" redirectToTab="submissions"}}
     {{/if}}
 
     {{#if assignedHomeworks}}
@@ -136,7 +136,7 @@
     {{/if}}
 
     {{#if homeworksWithFeedback}}
-        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.withFeedback") content=homeworksWithFeedback href="/homework"}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.withFeedback") content=homeworksWithFeedback href="/homework" redirectToTab="feedback"}}
     {{/if}}
 {{/if}}
 

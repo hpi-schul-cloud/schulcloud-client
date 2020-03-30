@@ -8,7 +8,7 @@
     {{/if}}
     <div class="col-sm-12" data-testid="courses">
         {{#each content}}
-            <a class="homework-link" href="{{this.url}}">
+            <a class="homework-link" href="{{this.url}}{{#if ../redirectToTab}}#activetabid={{../redirectToTab}}{{/if}}">
                 <div class="card card-block homework-tile" style="border-left: 10px solid {{this.background}};">
                     <div class="text-muted">
                         <span>{{{ stripOnlyScript this.courseId.name }}}</span>
