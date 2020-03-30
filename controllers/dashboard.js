@@ -225,6 +225,7 @@ router.get('/', (req, res, next) => {
 				&& (
 					(
 						homework.dueDate && new Date(homework.dueDate) < (new Date().getTime())
+						&& homework.stats.submissionCount > homework.stats.gradeCount
 					) || (
 						!homework.dueDate
 					&& homework.stats.submissionCount > 0
