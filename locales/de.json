@@ -476,7 +476,7 @@
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
-			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
+			"studentSolutionVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
 			"task": "Aufgabenstellung",
