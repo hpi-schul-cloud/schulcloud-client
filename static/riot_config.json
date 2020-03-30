@@ -4,9 +4,7 @@
             "base_url": "https://matrix.messenger.schule",
             "server_name": "SC"
         },
-        "m.identity_server": {
-            "base_url": "https://matrix.messenger.schule"
-        }
+        "m.identity_server": false
     },
     "disable_custom_urls": false,
     "disable_guests": true,
