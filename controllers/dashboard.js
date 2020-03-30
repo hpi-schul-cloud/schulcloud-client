@@ -36,21 +36,18 @@ router.get('/', (req, res, next) => {
 
 	const currentTime = new Date();
 	// eslint-disable-next-line max-len
-	let currentTimePercentage = (100 * ((currentTime.getHours() - timeStart) * 60 + currentTime.getMinutes())) / numMinutes;
+	let currentTimePercentage = 100 * (((currentTime.getHours() - timeStart) * 60) + currentTime.getMinutes()) / numMinutes;
 	if (currentTimePercentage < 0) currentTimePercentage = 0;
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
 	// TODO: remove this Promise.resolve to enable the calendar again
-	const eventsPromise = Promise.resolve(
-		[],
-	) /* api(req).get('/calendar/', {
+	const eventsPromise = Promise.resolve([])/* api(req).get('/calendar/', {
 		qs: {
 			all: 'false',
 			from: start.toLocalISOString(),
 			until: end.toLocalISOString(),
 		},
-	}) */
-		.then(eve => Promise.all(
+	}) */.then(eve => Promise.all(
 			eve.map(event => recurringEventsHelper.mapEventProps(event, req)),
 		).then((evnts) => {
 			// because the calender service is *§$" and is not
@@ -70,6 +67,7 @@ router.get('/', (req, res, next) => {
 				return eventStart < end && eventEnd > start;
 			});
 
+
 			return (events || []).map((event) => {
 				const eventStart = new Date(event.start);
 				let eventEnd = new Date(event.end);
@@ -81,27 +79,25 @@ router.get('/', (req, res, next) => {
 				}
 
 				// subtract timeStart so we can use these values for left alignment
-				const eventStartRelativeMinutes = (eventStart.getUTCHours() - timeStart) * 60 + eventStart.getMinutes();
-				const eventEndRelativeMinutes = (eventEnd.getUTCHours() - timeStart) * 60 + eventEnd.getMinutes();
+				const eventStartRelativeMinutes = ((eventStart.getUTCHours() - timeStart) * 60) + eventStart.getMinutes();
+				const eventEndRelativeMinutes = ((eventEnd.getUTCHours() - timeStart) * 60) + eventEnd.getMinutes();
 				const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
 
-				event.comment = `${moment
-					.utc(eventStart)
-					.format('kk:mm')} - ${moment.utc(eventEnd).format('kk:mm')}`;
+				event.comment = `${moment.utc(eventStart).format('kk:mm')} - ${moment.utc(eventEnd).format('kk:mm')}`;
 				event.style = {
 					left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
 					width: 100 * (eventDuration / numMinutes), // percent
 				};
 
 				if (event && (!event.url || event.url === '')) {
-					// add team or course url to event, otherwise just link to the calendar
+				// add team or course url to event, otherwise just link to the calendar
 					try {
 						if (event.hasOwnProperty('x-sc-courseId')) {
-							// create course link
+						// create course link
 							event.url = `/courses/${event['x-sc-courseId']}`;
 							event.alt = 'Kurs anzeigen';
 						} else if (event.hasOwnProperty('x-sc-teamId')) {
-							// create team link
+						// create team link
 							event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
 							event.alt = 'Termine im Team anzeigen';
 						} else {
@@ -115,8 +111,7 @@ router.get('/', (req, res, next) => {
 
 				return event;
 			});
-		}))
-		.catch(() => []);
+		})).catch(() => []);
 
 	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req)
@@ -142,7 +137,7 @@ router.get('/', (req, res, next) => {
 				],
 			},
 		})
-		.then(data => data.data.map((homeworks) => {
+		.then((data) => data.data.map((homeworks) => {
 			homeworks.secondaryTitle = homeworks.dueDate
 				? moment(homeworks.dueDate).fromNow()
 				: 'Ohne Abgabedatum';
@@ -181,7 +176,7 @@ router.get('/', (req, res, next) => {
 				},
 			},
 		})
-		.then(news => news.data
+		.then((news) => news.data
 			.map((n) => {
 				n.url = `/news/${n._id}`;
 				n.secondaryTitle = moment(n.displayAt).fromNow();
@@ -235,7 +230,7 @@ router.get('/', (req, res, next) => {
 				Date.parse(userPreferences.releaseDate)
 			< Date.parse(newestRelease.createdAt)
 			);
-			const roles = user.roles.map(role => role.name);
+			const roles = user.roles.map((role) => role.name);
 			let homeworksFeedbackRequired = [];
 			let homeworksWithFeedback = [];
 			let studentHomeworks;
@@ -253,30 +248,30 @@ router.get('/', (req, res, next) => {
 
 			if (roles.includes('teacher')) {
 				homeworksFeedbackRequired = assignedHomeworks.filter(
-					homework => !homework.private
-				&& homework.stats
-				&& (
-					(homework.dueDate
-					&& new Date(homework.dueDate) < new Date().getTime()
-					&& homework.stats.submissionCount > homework.stats.gradeCount
-					) || (
-						!homework.dueDate && homework.stats.submissionCount > 0
+					(homework) => !homework.private
+					&& homework.stats
+					&& (
+						(homework.dueDate
+						&& new Date(homework.dueDate) < new Date().getTime()
+						&& homework.stats.submissionCount > homework.stats.gradeCount
+						) || (
+							!homework.dueDate && homework.stats.submissionCount > 0
+						)
 					)
-				)
-				&& homework.stats.userCount > homework.stats.gradeCount,
+					&& homework.stats.userCount > homework.stats.gradeCount,
 				);
 				filteredAssignedHomeworks = assignedHomeworks.filter(
-					homework => homework.stats
+					(homework) => homework.stats
 				&& homework.stats.submissionCount < homework.stats.userCount,
 				);
 			}
 
 			if (roles.includes('student')) {
 				homeworksWithFeedback = assignedHomeworks.filter(
-					homework => !homework.private && homework.hasEvaluation,
+					(homework) => !homework.private && homework.hasEvaluation,
 				);
 				studentHomeworks = assignedHomeworks.filter(
-					homework => (!homework.submissions || homework.submissions === 0)
+					(homework) => (!homework.submissions || homework.submissions === 0)
 				&& !homework.hasEvaluation,
 				);
 			}
@@ -287,11 +282,11 @@ router.get('/', (req, res, next) => {
 				eventsDate: moment().format('dddd, DD. MMMM YYYY'),
 				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
-						task => !task.private
+						(task) => !task.private
 					&& (new Date(task.dueDate) >= new Date().getTime() || !task.dueDate),
 					).slice(0, 10),
 				privateHomeworks: assignedHomeworks
-					.filter(task => task.private)
+					.filter((task) => task.private)
 					.slice(0, 10),
 				homeworksFeedbackRequired: homeworksFeedbackRequired.slice(0, 10),
 				homeworksWithFeedback: homeworksWithFeedback.slice(0, 10),
