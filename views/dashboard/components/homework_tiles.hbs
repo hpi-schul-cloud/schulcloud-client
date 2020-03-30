@@ -20,7 +20,7 @@
                     </div>
                     <div class="title-row">
                         {{#if this.stats.userCount}}
-                            <span class="pull-right pl-2 text-muted hidden-xs-down">{{$t "dashboard.homeworkTile.graded"}} {{this.stats.gradeCount}}/{{this.stats.userCount}}</span>
+                            <span class="pull-right pl-2 text-muted hidden-xs-down">{{$t "dashboard.homeworkTile.graded"}} {{this.stats.gradeCount}}/{{this.stats.submissionCount}}</span>
                         {{/if}}
                         <span class="title w-100">{{{ stripOnlyScript this.name }}}</span>
                     </div>
