@@ -208,6 +208,7 @@ router.get('/', (req, res, next) => {
 		let homeworksFeedbackRequired = [];
 		let homeworksWithFeedback = [];
 		let studentHomeworks;
+		let filteredAssignedHomeworks;
 
 		if (newRelease || !userPreferences.releaseDate) {
 			api(req).patch(`/users/${user._id}`, {
@@ -227,9 +228,13 @@ router.get('/', (req, res, next) => {
 					) || (
 						!homework.dueDate
 					&& homework.stats.submissionCount > 0
-					&& homework.stats.submissionCount !== homework.stats.gradeCount
 					)
-				),
+				)
+				&& homework.stats.userCount > homework.stats.gradeCount,
+			);
+			filteredAssignedHomeworks = assignedHomeworks.filter(
+				homework => homework.stats
+				&& homework.stats.submissionCount < homework.stats.userCount,
 			);
 		}
 
@@ -248,7 +253,7 @@ router.get('/', (req, res, next) => {
 			title: res.$t('dashboard.headline.title'),
 			events: events.reverse(),
 			eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-			assignedHomeworks: (studentHomeworks || assignedHomeworks).filter(
+			assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks).filter(
 				task => !task.private
 				&& ((new Date(task.dueDate) >= (new Date().getTime())) || !task.dueDate),
 			).slice(0, 10),
