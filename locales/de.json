@@ -513,9 +513,9 @@
 			"of": "Von",
 			"to": "Bis",
 			"description": "Beschreibung",
-			"place": "Ort",
-			"createCourse": "Für Kurs anlegen?",
-			"createTeam": "Für Team anlegen?",
+			"location": "Ort",
+			"createForCourse": "Für Kurs anlegen?",
+			"createForTeam": "Für Team anlegen?",
 			"addVideoConference": "Videokonferenz hinzufügen?"
 		}
 	},
@@ -542,7 +542,36 @@
 			"student": "Schüler",
 			"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen",
 			"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
-			"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben."
+			"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.",
+			"schoolYearChange": "Schuljahreswechsel",
+			"schoolYear": "Schuljahr:",
+			"transferPhase": "Transferphase",
+			"currentSchoolYear": "Aktuelles Schuljahr:",
+			"duringTheSchoolYear": "Während des Schuljahres",
+			"startOfTheTransferPhase": "Start der Transferphase",
+			"duringTheTransferPhase": "Während der Transferphase",
+			"endOfTheTransferPhase": "Beenden der Transferphase",
+			"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
+			"atTheEndOfTheSchoolYearWithLDAP": "Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
+			"noteBeforeTheTransferPhase": "Beachte vor der Transferphase:",
+			"noteAvailableFunction": "Beachte verfügbare Funktionen",
+			"inTheTransferPhase": "in der Transferphase:",
+			"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr",
+			"youCantGoBack": "Du kannst nicht mehr zurück",
+			"loginFromExistingUsers": "Logins bestehender Nutzer",
+			"passwordChangesInLDAP": "Kennwortänderungen im LDAP",
+			"changeOfClasses": "Änderung von Klassen/neue Klassen",
+			"changeOfUserData": "Änderung von Nutzerdaten/neue Nutzer",
+			"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP",
+			"processedForTheNewSchoolYear": "für das neue Schuljahr sind bearbeitet.",
+			"nameOfTheSchool": "Name der Schule",
+			"uploadSchoolLogo": "Schullogo hochladen",
+			"activeChatFunction": "Chatfunktion aktivieren",
+			"enableVideoConference": "Videokonferenzen für Kurse und Teams aktivieren",
+			"cloudStorageProvider": "Cloud-Storage Anbieter",
+			"fileStorageSpaceUsedInCloud": "Genutzter Datei-Speicherplatz in der Cloud",
+			"selectProvider": "Anbieter auswählen",
+			"authentication": "Authentifizierung"
 		},
 		"button":{
 			"filterAdd2": "Filter hinzufügen",
@@ -564,7 +593,15 @@
 			"generateInvitationLink": "Einladungslink generieren",
 			"importStudents": "Schüler importieren",
 			"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden",
-			"createLinkList": "Link-Druckbogen erstellen"
+			"createLinkList": "Link-Druckbogen erstellen",
+			"endSchoolYear": "Schuljahr beenden",
+			"start": "starten",
+			"checkLDAPData": "LDAP-Daten überprüfen",
+			"endTransferPhase": "Transferphase beenden",
+			"chooseAFile": "Datei auswählen",
+			"addSystem": "System hinzufügen",
+			"addLDAPSystem": "LDAP System hinzufügen",
+			"addRSSFeed": "RSS-Feed hinzufügen"
 		},
 		"text":{
 			"registrationAtThe": "Die Anmeldung an der",
@@ -581,7 +618,15 @@
 			"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
 			"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein",
 			"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
-			"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:"
+			"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
+			"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
+			"oldSchoolYear": "Altes Schuljahr",
+			"allAboutTheSummerVacation": "Rund um die Sommerferien",
+			"newSchoolYear": "Neues Schuljahr",
+			"allDone": "Alles erledigt!",
+			"noFileSelected": "Keine Datei ausgewählt",
+			"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule",
+			"noRssFeedsYet": "Es sind noch keine RSS-Feeds hinterlegt."
 		}
 	}
 }
