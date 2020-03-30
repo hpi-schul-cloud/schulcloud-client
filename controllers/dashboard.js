@@ -192,8 +192,8 @@ router.get('/', (req, res, next) => {
 		homeworksPromise,
 		newsPromise,
 		newestReleasePromise,
-	]).then(([events, homeworks, news, newestReleases]) => {
-		homeworks.sort((a, b) => {
+	]).then(([events, assignedHomeworks, news, newestReleases]) => {
+		assignedHomeworks.sort((a, b) => {
 			if (a.dueDate > b.dueDate || !a.dueDate) {
 				return 1;
 			}
@@ -218,7 +218,7 @@ router.get('/', (req, res, next) => {
 		}
 
 		if (roles.includes('teacher')) {
-			homeworksFeedbackRequired = homeworks.filter(
+			homeworksFeedbackRequired = assignedHomeworks.filter(
 				homework => !homework.private
 				&& homework.stats
 				&& (
@@ -234,11 +234,11 @@ router.get('/', (req, res, next) => {
 		}
 
 		if (roles.includes('student')) {
-			homeworksWithFeedback = homeworks.filter(
+			homeworksWithFeedback = assignedHomeworks.filter(
 				homework => !homework.private
 				&& homework.hasEvaluation,
 			);
-			studentHomeworks = homeworks.filter(
+			studentHomeworks = assignedHomeworks.filter(
 				homework => (!homework.submissions || homework.submissions === 0)
 				&& !homework.hasEvaluation,
 			);
@@ -248,11 +248,11 @@ router.get('/', (req, res, next) => {
 			title: res.$t('dashboard.headline.title'),
 			events: events.reverse(),
 			eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-			homeworks: (studentHomeworks || homeworks).filter(
+			assignedHomeworks: (studentHomeworks || assignedHomeworks).filter(
 				task => !task.private
 				&& ((new Date(task.dueDate) >= (new Date().getTime())) || !task.dueDate),
 			).slice(0, 10),
-			myhomeworks: homeworks.filter(task => task.private).slice(0, 10),
+			privateHomeworks: assignedHomeworks.filter(task => task.private).slice(0, 10),
 			homeworksFeedbackRequired: homeworksFeedbackRequired.slice(0, 10),
 			homeworksWithFeedback: homeworksWithFeedback.slice(0, 10),
 			news,

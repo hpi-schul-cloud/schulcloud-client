@@ -94,8 +94,8 @@
         {{> 'dashboard/components/homework_tiles' section-id="mytasks" title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/"}}
     {{/if}}
 
-    {{#if homeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks href="/homework/asked/"}}
+    {{#if assignedHomeworks}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
     {{else}}
     <section class="section mb-2">
         <div class="row">
@@ -112,13 +112,13 @@
     </section>
     {{/if}}
 
-    {{#if myhomeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title=($t "dashboard.headline.privateTasks") content=myhomeworks href="/homework/private/"}}
+    {{#if privateHomeworks}}
+        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title=($t "dashboard.headline.privateTasks") content=privateHomeworks href="/homework/private/"}}
     {{/if}}
 
 {{else if isStudent}}
-    {{#if homeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks href="/homework/asked/"}}
+    {{#if assignedHomeworks}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
     {{else}}
         <section class="section mb-2">
             <div class="row">
