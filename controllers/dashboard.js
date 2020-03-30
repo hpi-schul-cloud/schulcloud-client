@@ -126,7 +126,7 @@ router.get('/', (req, res, next) => {
 				},
 				{
 					dueDate: {
-						$gte: new Date().getTime(),
+						$gte: ((new Date().getTime()) - 1000 * 60 * 60 * 24 * 7),
 						$lte: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
 					},
 				},
@@ -221,19 +221,26 @@ router.get('/', (req, res, next) => {
 			homeworksFeedbackRequired = homeworks.filter(
 				homework => !homework.private
 				&& homework.stats
-				&& homework.stats.submissionCount > 0
-				&& homework.stats.submissionCount !== homework.stats.gradeCount,
+				&& (
+					(
+						homework.dueDate && new Date(homework.dueDate) < (new Date().getTime())
+					) || (
+						!homework.dueDate
+					&& homework.stats.submissionCount > 0
+					&& homework.stats.submissionCount !== homework.stats.gradeCount
+					)
+				),
 			);
 		}
 
 		if (roles.includes('student')) {
 			homeworksWithFeedback = homeworks.filter(
 				homework => !homework.private
-				&& homework.grade,
+				&& homework.hasEvaluation,
 			);
 			studentHomeworks = homeworks.filter(
 				homework => (!homework.submissions || homework.submissions === 0)
-				&& !homework.grade,
+				&& !homework.hasEvaluation,
 			);
 		}
 
@@ -241,7 +248,10 @@ router.get('/', (req, res, next) => {
 			title: res.$t('dashboard.headline.title'),
 			events: events.reverse(),
 			eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-			homeworks: (studentHomeworks || homeworks).filter(task => !task.private).slice(0, 10),
+			homeworks: (studentHomeworks || homeworks).filter(
+				task => !task.private
+				&& ((new Date(task.dueDate) >= (new Date().getTime())) || !task.dueDate),
+			).slice(0, 10),
 			myhomeworks: homeworks.filter(task => task.private).slice(0, 10),
 			homeworksFeedbackRequired: homeworksFeedbackRequired.slice(0, 10),
 			homeworksWithFeedback: homeworksWithFeedback.slice(0, 10),
