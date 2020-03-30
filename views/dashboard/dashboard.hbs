@@ -90,9 +90,8 @@
 {{/ifeq}}
 
 {{#if isTeacher}}
-    teacher
     {{#if homeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks href="/homework/asked/"}}
     {{else}}
     <section class="section mb-2">
         <div class="row">
@@ -109,52 +108,37 @@
     </section>
     {{/if}}
 
-    <section class="section mb-2">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">Aufgaben mit Abgaben</a></h2>
-            </div>
-        </div>
-    </section>
+    {{#if homeworksFeedbackRequired}}
+        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/"}}
+
+    {{/if}}
 
     {{#if myhomeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title="Private Aufgaben" content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
-    {{else}}
-    <section class="section mb-2">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">Aufgaben Entwürfe Empty</a></h2>
-            </div>
-        </div>
-    </section>
+        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title=($t "dashboard.headline.privateTasks") content=myhomeworks href="/homework/private/"}}
     {{/if}}
 
 {{else if isStudent}}
     {{#if homeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks href="/homework/asked/"}}
     {{else}}
-    <section class="section mb-2">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+        <section class="section mb-2">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+                </div>
             </div>
-        </div>
-        <div class="row d-block text-center">
-            <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
-            <p class="text-muted dashboard-empty-info">
-                {{$t "dashboard.text.emptyHomeworksInfo"}}
-            </p>
-        </div>
-    </section>
+            <div class="row d-block text-center">
+                <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
+                <p class="text-muted dashboard-empty-info">
+                    {{$t "dashboard.text.emptyHomeworksInfo"}}
+                </p>
+            </div>
+        </section>
     {{/if}}
 
-    <section class="section mb-2">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">Aufgaben mit Lehrer:in Feedback</a></h2>
-            </div>
-        </div>
-    </section>
+    {{#if homeworksWithFeedback}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.withFeedback") content=homeworksWithFeedback href="/homework"}}
+    {{/if}}
 {{/if}}
 
 

@@ -12,10 +12,17 @@
                 <div class="card card-block homework-tile" style="border-left: 10px solid {{this.background}};">
                     <div class="text-muted">
                         <span>{{{ stripOnlyScript this.courseId.name }}}</span>
-                        <span class="pull-right">{{{ stripOnlyScript this.secondaryTitle }}}</span>
+                        <span class="pull-right">{{{ stripOnlyScript this.secondaryTitle }}}
+                            {{#if this.stats.userCount}}
+                                <span class="hidden-xs-down">| {{$t "dashboard.homeworkTile.handedIn"}} {{this.stats.submissionCount}}/{{this.stats.userCount}}</span>
+                            {{/if}}
+                        </span>
                     </div>
                     <div data-id="{{id}}">
-                        <div class="title">{{{ stripOnlyScript this.name }}}</div>
+                        <span class="title">{{{ stripOnlyScript this.name }}}</span>
+                        {{#if this.stats.userCount}}
+                            <span class="pull-right text-muted hidden-xs-down">{{$t "dashboard.homeworkTile.graded"}} {{this.stats.gradeCount}}/{{this.stats.userCount}}</span>
+                        {{/if}}
                     </div>
                 </div>
             </a>
