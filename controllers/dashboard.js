@@ -126,7 +126,7 @@ router.get('/', (req, res, next) => {
 				},
 				{
 					dueDate: {
-						$gte: ((new Date().getTime()) - 1000 * 60 * 60 * 24 * 7),
+						$gte: ((new Date().getTime()) - 1000 * 60 * 60 * 24 * 7), // homeworks with max. 7 days after dueDate
 						$lte: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
 					},
 				},
@@ -194,7 +194,7 @@ router.get('/', (req, res, next) => {
 		newestReleasePromise,
 	]).then(([events, assignedHomeworks, news, newestReleases]) => {
 		assignedHomeworks.sort((a, b) => {
-			//sort dueDate first, then createdAt
+			// sort dueDate first, then createdAt
 			if (a.dueDate > b.dueDate || !a.dueDate && b.createdAt > a.createdAt) {
 				return 1;
 			}
