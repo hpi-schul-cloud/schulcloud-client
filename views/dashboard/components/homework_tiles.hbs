@@ -6,7 +6,7 @@
         </div>
     </div>
     {{/if}}
-    <div class="col-sm-12" data-testid="courses">
+    <div data-testid="courses">
         {{#each content}}
             <a class="homework-link" href="{{this.url}}{{#if ../redirectToTab}}#activetabid={{../redirectToTab}}{{/if}}">
                 <div class="card card-block homework-tile" style="border-left: 10px solid {{this.background}};">
@@ -14,14 +14,14 @@
                         <span>{{{ stripOnlyScript this.courseId.name }}}</span>
                         <span class="pull-right">{{{ stripOnlyScript this.secondaryTitle }}}
                             {{#if this.stats.userCount}}
-                                <span class="hidden-xs-down">| {{$t "dashboard.homeworkTile.handedIn"}} {{this.stats.submissionCount}}/{{this.stats.userCount}}</span>
+                                <span class="hidden-sm-down">| {{$t "dashboard.homeworkTile.handedIn"}} {{this.stats.submissionCount}}/{{this.stats.userCount}}</span>
                             {{/if}}
                         </span>
                     </div>
                     <div data-id="{{id}}">
                         <span class="title">{{{ stripOnlyScript this.name }}}</span>
                         {{#if this.stats.userCount}}
-                            <span class="pull-right text-muted hidden-xs-down">{{$t "dashboard.homeworkTile.graded"}} {{this.stats.gradeCount}}/{{this.stats.userCount}}</span>
+                            <span class="pull-right text-muted hidden-sm-down">{{$t "dashboard.homeworkTile.graded"}} {{this.stats.gradeCount}}/{{this.stats.userCount}}</span>
                         {{/if}}
                     </div>
                 </div>

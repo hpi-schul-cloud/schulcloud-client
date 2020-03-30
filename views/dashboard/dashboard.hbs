@@ -91,11 +91,11 @@
 
 {{#if isTeacher}}
     {{#if homeworksFeedbackRequired}}
-        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/" redirectToTab="submissions"}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/" redirectToTab="submissions"}}
     {{/if}}
 
     {{#if assignedHomeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
     {{else}}
     <section class="section mb-2">
         <div class="row">
@@ -113,12 +113,12 @@
     {{/if}}
 
     {{#if privateHomeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title=($t "dashboard.headline.privateTasks") content=privateHomeworks href="/homework/private/"}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.privateTasks") content=privateHomeworks href="/homework/private/"}}
     {{/if}}
 
 {{else if isStudent}}
     {{#if assignedHomeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
     {{else}}
         <section class="section mb-2">
             <div class="row">
@@ -136,7 +136,7 @@
     {{/if}}
 
     {{#if homeworksWithFeedback}}
-        {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.withFeedback") content=homeworksWithFeedback href="/homework" redirectToTab="feedback"}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.withFeedback") content=homeworksWithFeedback href="/homework" redirectToTab="feedback"}}
     {{/if}}
 {{/if}}
 
