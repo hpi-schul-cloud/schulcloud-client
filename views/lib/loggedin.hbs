@@ -27,6 +27,9 @@
         {{/if}}
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
             {{#inArray "messenger" @root.currentSchoolData.features}}
+                <script>
+                    window.matrixBundle = '{{getConfig "MATRIX_MESSENGER_BUNDLE"}}';
+                </script>
                 <script src="/scripts/chatLoggedin.js" type="text/javascript" defer></script>
             {{/inArray}}
         {{/ifConfig}}

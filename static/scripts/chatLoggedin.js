@@ -22,8 +22,12 @@ function loadChatClient(session = null) {
 	document.body.appendChild(riotBox);
 
 	// load javascript
+	const bundle = window.matrixBundle;
+	if (!bundle) {
+		throw new Error('window.matrixBundle has to be defined.');
+	}
 	const riotScript = document.createElement('script');
-	riotScript.src = 'https://embed.stomt.com/bundles/bbf7f874b7f3891917fb/bundle.js';
+	riotScript.src = bundle;
 	riotScript.type = 'text/javascript';
 	document.head.appendChild(riotScript);
 }
