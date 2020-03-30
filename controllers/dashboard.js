@@ -126,7 +126,7 @@ router.get('/', (req, res, next) => {
 				},
 				{
 					dueDate: {
-						$gte: ((new Date().getTime()) - 1000 * 60 * 60 * 24 * 7), // homeworks with max. 7 days after dueDate
+						$gte: ((new Date().getTime()) - 1000 * 60 * 60 * 24 * 7), // homeworks with max. 7 days before dueDate
 						$lte: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
 					},
 				},
