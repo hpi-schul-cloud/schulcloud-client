@@ -90,6 +90,10 @@
 {{/ifeq}}
 
 {{#if isTeacher}}
+    {{#if homeworksFeedbackRequired}}
+        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/"}}
+    {{/if}}
+
     {{#if homeworks}}
         {{> 'dashboard/components/homework_tiles' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks href="/homework/asked/"}}
     {{else}}
@@ -106,11 +110,6 @@
             </p>
         </div>
     </section>
-    {{/if}}
-
-    {{#if homeworksFeedbackRequired}}
-        {{> 'dashboard/components/homework_tiles' section-id="mytasks" title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/"}}
-
     {{/if}}
 
     {{#if myhomeworks}}
