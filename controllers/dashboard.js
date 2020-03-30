@@ -36,9 +36,7 @@ router.get('/', (req, res, next) => {
 
 	const currentTime = new Date();
 	// eslint-disable-next-line max-len
-	let currentTimePercentage = (100
-      * ((currentTime.getHours() - timeStart) * 60 + currentTime.getMinutes()))
-    / numMinutes;
+	let currentTimePercentage = (100 * ((currentTime.getHours() - timeStart) * 60 + currentTime.getMinutes())) / numMinutes;
 	if (currentTimePercentage < 0) currentTimePercentage = 0;
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
@@ -83,8 +81,7 @@ router.get('/', (req, res, next) => {
 				}
 
 				// subtract timeStart so we can use these values for left alignment
-				const eventStartRelativeMinutes = (eventStart.getUTCHours() - timeStart) * 60
-            + eventStart.getMinutes();
+				const eventStartRelativeMinutes = (eventStart.getUTCHours() - timeStart) * 60 + eventStart.getMinutes();
 				const eventEndRelativeMinutes = (eventEnd.getUTCHours() - timeStart) * 60 + eventEnd.getMinutes();
 				const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
 
@@ -224,7 +221,7 @@ router.get('/', (req, res, next) => {
 	])
 		.then(([events, assignedHomeworks, news, newestReleases]) => {
 			assignedHomeworks.sort((a, b) => {
-				// sort dueDate first, then createdAt
+			// sort dueDate first, then createdAt
 				if (a.dueDate > b.dueDate || !a.dueDate) {
 					return 1;
 				}
@@ -236,7 +233,7 @@ router.get('/', (req, res, next) => {
 			const newestRelease = newestReleases[0] || {};
 			const newRelease = !!(
 				Date.parse(userPreferences.releaseDate)
-        < Date.parse(newestRelease.createdAt)
+			< Date.parse(newestRelease.createdAt)
 			);
 			const roles = user.roles.map(role => role.name);
 			let homeworksFeedbackRequired = [];
@@ -257,16 +254,20 @@ router.get('/', (req, res, next) => {
 			if (roles.includes('teacher')) {
 				homeworksFeedbackRequired = assignedHomeworks.filter(
 					homework => !homework.private
-            && homework.stats
-            && ((homework.dueDate
-              && new Date(homework.dueDate) < new Date().getTime()
-              && homework.stats.submissionCount > homework.stats.gradeCount)
-              || (!homework.dueDate && homework.stats.submissionCount > 0))
-            && homework.stats.userCount > homework.stats.gradeCount,
+				&& homework.stats
+				&& (
+					(homework.dueDate
+					&& new Date(homework.dueDate) < new Date().getTime()
+					&& homework.stats.submissionCount > homework.stats.gradeCount
+					) || (
+						!homework.dueDate && homework.stats.submissionCount > 0
+					)
+				)
+				&& homework.stats.userCount > homework.stats.gradeCount,
 				);
 				filteredAssignedHomeworks = assignedHomeworks.filter(
 					homework => homework.stats
-            && homework.stats.submissionCount < homework.stats.userCount,
+				&& homework.stats.submissionCount < homework.stats.userCount,
 				);
 			}
 
@@ -276,7 +277,7 @@ router.get('/', (req, res, next) => {
 				);
 				studentHomeworks = assignedHomeworks.filter(
 					homework => (!homework.submissions || homework.submissions === 0)
-            && !homework.hasEvaluation,
+				&& !homework.hasEvaluation,
 				);
 			}
 
@@ -284,16 +285,11 @@ router.get('/', (req, res, next) => {
 				title: res.$t('dashboard.headline.title'),
 				events: events.reverse(),
 				eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-				assignedHomeworks: (
-					studentHomeworks
-          || filteredAssignedHomeworks
-          || assignedHomeworks
-				)
+				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
 						task => !task.private
-              && (new Date(task.dueDate) >= new Date().getTime() || !task.dueDate),
-					)
-					.slice(0, 10),
+					&& (new Date(task.dueDate) >= new Date().getTime() || !task.dueDate),
+					).slice(0, 10),
 				privateHomeworks: assignedHomeworks
 					.filter(task => task.private)
 					.slice(0, 10),
