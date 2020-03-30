@@ -1,0 +1,519 @@
+{
+	"global": {
+		"sidebar": {
+			"link": {
+				"overview": "Dashboard",
+				"courses": "Courses",
+				"tasks": "Tasks",
+				"files": "My Files",
+				"news": "News",
+				"calendar": "Calendar",
+				"lernstore": "Lern-Store",
+				"management": "Management",
+				"managementStudents": "Students",
+				"managementTeachers": "Teacher",
+				"managementClasses": "Classes",
+				"administration": "Administration"
+			}
+		},
+		"button": {
+			"cancel": "",
+			"delete": "",
+			"open": ""
+		},
+		"text": {
+			"friday": "",
+			"monday": "",
+			"saturday": "",
+			"sunday": "",
+			"thursday": "",
+			"tuesday": "",
+			"wednesday": "",
+			"areYouSure": "",
+			"attention": ""
+		},
+		"label": {
+			"room": ""
+		},
+		"link": {
+			"openInNewTab": ""
+		}
+	},
+	"dashboard": {
+		"headline": {
+			"title": "Dashboard",
+			"schedule": "Schedule",
+			"openTasks": "Open Tasks",
+			"privateTasks": "Drafts",
+			"news": "News",
+			"tasks": "Tasks"
+		},
+		"text": {
+			"notFound": "No active entries found.",
+			"noTasks": "No tasks",
+			"noNews": "No news",
+			"emptyTimetable": "Empty timetable",
+			"empytTimetableInfo": "The timetable is not shown. You can find your learning content in the course section.",
+			"emptyHomeworksInfo": "All homeworks are shown in the homeworks section.",
+			"emptyNewsInfo": "No recent news. Check the news section to stay informed."
+		}
+	},
+	"about": {
+		"headline": {
+			"bestPractice": "Best practice schools",
+			"educSupp": "Educational science support",
+			"pilotSchool": "Pilot Schools",
+			"title": "About the HPI Schul-Cloud",
+			"morePublications": "",
+			"ourAwards": "",
+			"publications": "",
+			"recordingsLecture": ""
+		},
+		"text": {
+			"moreInfo": "More information:",
+			"startA2019": "(Start August 2019)",
+			"startF2019": "(Start February 2019)",
+			"startM2017": "(Start March 2017)",
+			"startM2018": "(Start May 2018)"
+		},
+		"button": {
+			"showLess": "",
+			"showMore": ""
+		},
+		"link": {
+			"awardWinnerIdea": "",
+			"awardWinnerInnovation": "",
+			"cloudGermanyConcept": "",
+			"cloudImpotanceStakeholder": "",
+			"hpiCloudDuringLesson": "",
+			"hpiCloudInDayLife": "",
+			"hpiCloudLearning": "",
+			"hpiCloudTechnicalReport": "",
+			"shortDescription": "",
+			"talksFirstCloudForum": "",
+			"talksSecondCloudForum": "",
+			"talksThirdCloudForum": ""
+		}
+	},
+	"courses": {
+		"_course": {
+			"dropdown_menu": {
+				"link": {
+					"duplicateCourse": "",
+					"editDeleteCourse": "",
+					"inviteToCourse": "",
+					"shareCourse": ""
+				}
+			},
+			"edit": {
+				"pop_up": {
+					"one": "",
+					"other": ""
+				},
+				"button": {
+					"deleteCourse": "",
+					"showCourseDetail": "",
+					"addLesson": ""
+				},
+				"headline": {
+					"courseIsArchieved": ""
+				},
+				"img_alt": {
+					"courseIsArchieved": ""
+				},
+				"label": {
+					"from": "",
+					"till": "",
+					"timeSpan": "",
+					"timeSpanFormat": "",
+					"chooseDate": "",
+					"class": "",
+					"studentsWillBeAdded": "",
+					"substitute": ""
+				},
+				"text": {
+					"toEditChangeDate": "",
+					"attentionDeletion": "",
+					"courseWillDelete": ""
+				}
+			},
+			"link": {
+				"toCourseFiles": ""
+			},
+			"tab_label": {
+				"groups": "",
+				"tasks": "",
+				"tools": "",
+				"topics": ""
+			},
+			"text": {
+				"coursedescription": "",
+				"nextClass": ""
+			},
+			"groups": {
+				"_group": {
+					"headline": {
+						"doneGroupTasks": "",
+						"openGroupTasks": "",
+						"topics": ""
+					},
+					"link": {
+						"addTopic": "",
+						"deleteGroup": "",
+						"editGroup": ""
+					},
+					"text": {
+						"groupMembers": "",
+						"noOpenGroupTasks": "",
+						"noSubmissions": "",
+						"noTopics": "",
+						"responsibleTeachers": "",
+						"workOnTopic": ""
+					},
+					"edit": {
+						"input": {
+							"group1": ""
+						},
+						"label": {
+							"nameOfGroup": ""
+						}
+					}
+				},
+				"button": {
+					"createNewGroup": ""
+				},
+				"headline": {
+					"createGroup": "",
+					"myStudentGroups": "",
+					"noGroups": "",
+					"noGroupsYet": "",
+					"studentGroups": ""
+				},
+				"img_alt": {
+					"noCreatedGroups": ""
+				},
+				"text": {
+					"addGroup": "",
+					"descriptionCourses": ""
+				}
+			},
+			"global": {
+				"label": {
+					"studentParticipant": ""
+				},
+				"text": {
+					"more": ""
+				}
+			},
+			"tasks": {
+				"button": {
+					"addPrivateTask": "",
+					"createTask": "",
+					"privateTasks": ""
+				},
+				"headline": {
+					"createFirstTask": "",
+					"noTasksPosed": "",
+					"noTasksPosedYet": "",
+					"posedTasks": "",
+					"task": "",
+					"tasks": ""
+				},
+				"img_alt": {
+					"noPosedTasks": ""
+				},
+				"text": {
+					"addPrivateTask": "",
+					"addTasks": "",
+					"descriptionTasks": "",
+					"showPrivateTasks": ""
+				}
+			},
+			"tools": {
+				"button": {
+					"addNewTool": ""
+				},
+				"headline": {
+					"addToolToCourse": "",
+					"noTools": "",
+					"noToolsYet": ""
+				},
+				"text": {
+					"addNewTool": "",
+					"descriptionAddToolToCourse": "",
+					"noTools": "",
+					"videoConferenceBBB": "",
+					"videoConferenceNotStartedYet": ""
+				}
+			},
+			"topic": {
+				"button": {
+					"importTopic": ""
+				},
+				"headline": {
+					"firstTopicSuccess": ""
+				},
+				"text": {
+					"clickOnTopicForPreview": "",
+					"importTopic": ""
+				}
+			}
+		},
+		"add": {
+			"button": {
+				"addLessonAppointment": "",
+				"deleteCourse": ""
+			},
+			"headline": {
+				"almostDone": "",
+				"done": "",
+				"whatToDoCourses": ""
+			},
+			"input": {
+				"egMaths": ""
+			},
+			"label": {
+				"addClassesToCourse": "",
+				"addStudentsToCourse": "",
+				"courseSubstitute": "",
+				"timeSpan": "",
+				"timeSpanFormat": "",
+				"timeSpanUntil": ""
+			},
+			"link": {
+				"addAnotherCourse": "",
+				"courseOverview": "",
+				"createTopics": "",
+				"giveExercises": ""
+			},
+			"tab_label": {
+				"courseData": "",
+				"courseMembers": "",
+				"finish": ""
+			},
+			"text": {
+				"addStudentsOrClasses": "",
+				"contentOfClass": "",
+				"doItNowOrLaterInSettings": "",
+				"giveExercisesAndGetResults": "",
+				"groupsWorkTogether": "",
+				"willAlsoDeleteForStudents": ""
+			}
+		},
+		"global": {
+			"label": {
+				"courseColor": "",
+				"courseName": "",
+				"courseTeacher": "",
+				"lengthOfLesson": "",
+				"startOfLesson": "",
+				"weekday": "",
+				"courseDescription": ""
+			},
+			"input": {
+				"chooseTeacher": "",
+				"egRoom1-21": "",
+				"inMinutes": "",
+				"mathsClass": "",
+				"selectClasses": "",
+				"selectStudents": ""
+			}
+		},
+		"button": {
+			"createCourse": "",
+			"createFirstCourse": "",
+			"importCourse": ""
+		},
+		"headline": {
+			"createDuplicateImport": "",
+			"mySubstitutes": "",
+			"noArchievedCourses": "",
+			"noCourse": ""
+		},
+		"img_alt": {
+			"noArchievedCourses": "",
+			"noCourses": ""
+		},
+		"tab_labels": {
+			"archievedCourses": "",
+			"currentCourses": ""
+		},
+		"text": {
+			"courseNoAccess": "",
+			"descriptionArchievedCourses": "",
+			"descriptionCourseManagement": "",
+			"noCourseGetInvited": ""
+		}
+	},
+	"homework": {
+		"button": {
+			"addTask": "",
+			"filterAdd": "",
+			"filterApply": "",
+			"archive": "",
+			"copy": "",
+			"hrefAlt": "",
+			"hrefDataName": "",
+			"print": "",
+			"save": "",
+			"toClass": "",
+			"toTheCourseFiles": ""
+		},
+		"label": {
+			"allowGroupSubmission": "",
+			"comment": "",
+			"courses": "",
+			"edit": "",
+			"filesUploadedForDelivery": "",
+			"forSubmissionUploadedFiles": "",
+			"inPercent": "",
+			"maximumGroupSize": "",
+			"onTheSubject": "",
+			"privateTaskOnlyVisibleToMe": "",
+			"processingPeriodEndsOn": "",
+			"rating": "",
+			"restore": "",
+			"selectStudentGroup": "",
+			"selectTeamMembers": "",
+			"studentFeesVisibleToEachOthers": "",
+			"submission": "",
+			"submissions": "",
+			"task": "",
+			"title": "",
+			"topic": "",
+			"visibleAndEditableForStudentsFrom": ""
+		},
+		"text": {
+			"noAssignment": "",
+			"noEvaluationTextAvailable": "",
+			"noMoreStudentsInYourCourse": "",
+			"noStudentGroupsInThisCourse": "",
+			"noSubmission": "",
+			"noSubmissionDateSet": "",
+			"noTasks": "",
+			"noTopicsInTheCourse": "",
+			"noDescriptionAvailable": "",
+			"substitutionTeachersMayNotChangeTheCourse": ""
+		}
+	},
+	"administration": {
+		"button": {
+			"changePassword": "",
+			"consent": "",
+			"deleteUser": "",
+			"edit": "",
+			"generatePersonalInvitationLink": "",
+			"receivedConsentOnPaper": "",
+			"printListWithAccessData": "",
+			"sendTheInvitationLinkByMail": ""
+		},
+		"label": {
+			"assignPassword": "",
+			"birthdate": "",
+			"classes": "",
+			"dataProtection": "",
+			"emailAddress": "",
+			"firstName": "",
+			"lastName": "",
+			"parents": "",
+			"student": "",
+			"termsOfUse": ""
+		}
+	},
+	"calendar": {
+		"button": {
+			"chooseACourse": "",
+			"chooseATeam": ""
+		},
+		"label": {
+			"addVideoConference": "",
+			"createForCourse": "",
+			"createForTeam": "",
+			"description": "",
+			"of": "",
+			"location": "",
+			"title": "",
+			"to": ""
+		},
+		"text": {
+			"noAuthorization": "",
+			"participateInVideoConference": "",
+			"startAVideoConference": "",
+			"videoConferenceDetailsAreLoading": "",
+			"videoConferenceHasNotYetStarted": ""
+		}
+	},
+	"content": {
+		"button": {
+			"choose": ""
+		},
+		"label": {
+			"chooseACourse": "",
+			"chooseALessonTopic": ""
+		}
+	},
+	"files": {
+		"button": {
+			"ascending": "",
+			"createANewFile": "",
+			"createANewFolder": "",
+			"descending": "",
+			"open": "",
+			"presentation": "",
+			"search": "",
+			"selectFormat": "",
+			"table": "",
+			"textDocument": ""
+		},
+		"label": {
+			"chooseANewName": "",
+			"chooseANewNameAndAFileExtension": "",
+			"close": "",
+			"distributeTheFollowingLink": "",
+			"fileName": "",
+			"fileType": "",
+			"files": "",
+			"folder": "",
+			"openDocumentInNewWindow": "",
+			"selectAFolder": ""
+		},
+		"text": {
+			"FileCanNotBeDownloaded": "",
+			"foldersAreLocated": "",
+			"foundIn": "",
+			"foundMaliciousContent": "",
+			"libreOfficeOnlineWasNotConfiguredCorrectly": "",
+			"noSearchResults": "",
+			"pleaseTryAgainLaterOrNotifyYourAdministrator": "",
+			"rememberThisSelection": "",
+			"searchResultFor": "",
+			"searchResults": "",
+			"storeFilesForUpload": "",
+			"studentCanEdit": "",
+			"tips": ""
+		}
+	},
+	"news": {
+		"button": {
+			"addNews": ""
+		},
+		"label": {
+			"content": "",
+			"shceduleAutomaticPublication": "",
+			"title": ""
+		},
+		"text": {
+			"atSchool": "",
+			"atYourSchool": "",
+			"created": "",
+			"from": "",
+			"inTheClass": "",
+			"inTheCourse": "",
+			"inTheTeam": "",
+			"lastFrom": "",
+			"processed": "",
+			"released": "",
+			"unpublished": ""
+		}
+	}
+}
