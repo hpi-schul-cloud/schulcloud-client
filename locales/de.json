@@ -508,6 +508,8 @@
 			"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben."
 		},
 		"button":{
+			"filterAdd2": "Filter hinzufügen",
+			"filterApply2": "Übernehmen",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"edit": "Bearbeiten",
 			"consent": "Einwilligungen:",
@@ -520,7 +522,12 @@
 			"addTeacher": "Lehrer hinzufügen",
 			"importTeacher": "Lehrer importieren",
 			"sendLinksToTeacherEmail": "Links an Lehrer E-Mail Adressen senden",
-			"createLinkSheet": "Link-Druckbogen erstellen"
+			"createLinkSheet": "Link-Druckbogen erstellen",
+			"addStudents": "Schüler hinzufügen",
+			"generateInvitationLink": "Einladungslink generieren",
+			"importStudents": "Schüler importieren",
+			"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden",
+			"createLinkList": "Link-Druckbogen erstellen"
 		},
 		"text":{
 			"registrationAtThe": "Die Anmeldung an der",
@@ -529,7 +536,15 @@
 			"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 			"teamHasOwners": "Team hat Eigentümer",
 			"chatIsActivated": "Chat ist aktiviert",
-			"obtainADeclarationConsent": "Einverständniserklärung einholen"
+			"obtainADeclarationConsent": "Einverständniserklärung einholen",
+			"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
+			"parentsAgreed": "Eltern haben zugestimmt",
+			"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
+			"manuallyConsent": "Einverständnis manuell erklären",
+			"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
+			"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein",
+			"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
+			"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:"
 		}
 	}
 }

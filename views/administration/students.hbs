@@ -8,9 +8,9 @@
             <section class="section-students section-default">
                 <div><feathers-filter id="filter"
                                       filter='{{filterSettings}}'
-                                      add-label='Filter hinzufügen'
-                                      apply-label='Übernehmen'
-                                      cancle-label='Abbrechen'
+                                      add-label='{{$t "administration.button.filterAdd2" }}'
+                                      apply-label='{{$t "administration.button.filterApply2" }}'
+                                      cancle-label='{{$t "global.button.cancel" }}'
                                       handle-url='true'
                                       save-state='true'
                 /></div>
@@ -24,18 +24,18 @@
                         <div class="col-sm-12 no-padding">
                             <center>
                                 <i class="fa fa-times consent-status"></i>
-                                Keine Einverständniserklärung vorhanden &emsp;
+                                {{$t "administration.text.NodeclarationOfConsentTable" }} &emsp;
                                 <i class="fa fa-check consent-status"></i>
-                                Eltern haben zugestimmt &emsp;
+                                {{$t "administration.text.parentsAgreed" }} &emsp;
                                 <div>
                                     <span>
                                         <i class="fa fa-check double-check consent-status"></i>
                                         <i class="fa fa-check double-check consent-status"></i>
                                     </span>
-                                    <span>Alle Zustimmungen vorhanden</span>
+                                    <span>{{$t "administration.text.allApprovalsAvailable" }}</span>
                                 </div>
                                 <i class="fa fa-check-square-o"></i>
-                                Einverständnis manuell erklären
+                               {{$t "administration.text.manuallyConsent" }}
                                 <div>
                             </center>
                         </div>
@@ -54,28 +54,28 @@
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
                             <h2 class="h4">
-                                Einverständniserklärung einholen
+                                {{$t "administration.text.obtainADeclarationConsent" }}
                             </h2>
                             {{#if ../schoolUsesLdap}}
-                                <strong>Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein</strong>
+                                <strong>{{$t "administration.text.studentsLoginInThePresenceOfGuardian" }}</strong>
 
                                 <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{../theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
                             {{else}}
-                                <strong>Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben</strong>
+                                <strong>{{$t "administration.text.inviteparentsAndStudentViaLink" }}</strong>
                                 <p>
                                     Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.
                                 </p>
-                                <p>Für alle Schüler ohne vollständige Einverständniserklärung:</p>
+                                <p>{{$t "administration.text.forAllStudentsWithoutAFullConsentForm" }}</p>
                                 <p>
                                     <button data-role="student" class="btn btn-secondary btn-send-links-emails">
-                                        Links an Schüler E-Mail Adressen senden
+                                        {{$t "administration.button.sendLinksToStudentEmailAddresses" }}
                                     </button>
                                     <button data-role="student" class="btn btn-secondary btn-print-links">
-                                        Link-Druckbogen erstellen
+                                        {{$t "administration.button.createLinkList" }}
                                     </button>
                                 </p>
                                 <p>
-                                    Oder wähle Schüler in der Tabelle aus.
+                                    {{$t "administration.text.orSelectStudentFromTable" }}
                                 </p>
                             {{/if}}
                         </div>
@@ -89,15 +89,15 @@
                             <div class="col-sm-12 no-padding">
                                 {{#userHasPermission "STUDENT_CREATE"}}
                                     <button type="submit" data-testid="btn_add_student" class="btn btn-primary btn-add-modal">
-                                        Schüler hinzufügen
+                                        {{$t "administration.button.addStudents" }}
                                     </button>
                                     <button class="btn btn-secondary btn-invitation-link student">
-                                        Einladungslink generieren
+                                        {{$t "administration.button.generateInvitationLink" }}
                                     </button>
 
                                     {{#inArray "Administrator" ../roleNames}}
                                         <a href="/administration/students/import" class="btn btn-secondary btn-import">
-                                            Schüler importieren
+                                            {{$t "administration.button.importStudents" }}
                                         </a>
                                     {{/inArray}}
                                 {{else}}
