@@ -2,6 +2,8 @@
 <script src="/vendor/ckeditor/ckeditor.js" defer></script>
 <script src="/scripts/mousetrap/mousetrap.js" defer></script>
 <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+<script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
+
 <script>
 	window.addEventListener('DOMContentLoaded', function () {
 		CKEDITOR.replaceAll(function (textarea, config) {
@@ -12,6 +14,7 @@
 		$('input[data-datetime]').datetimepicker({
 			format: 'd.m.Y H:i',
 			mask: '39.19.9999 29:59',
+			dayOfWeekStart: 1,
 			onShow: function (ct, input) {
 				if (input[0].id == "availableDate") {
 					let due = $("#dueDate").val().split(" ");
@@ -81,32 +84,26 @@
 </script>
 {{/content}}
 {{#extend "homework/homework"}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/files/upload.css" />
+<link rel="stylesheet" href="/styles/homework/file-upload.css" />
+{{/content}}
 {{#content "page"}}
+
 <div class="row">
 	<div class="col-xl-12">
 		<form class="modal-form" id="homework-form" method="post" action="{{action}}">
-			{{#if method}}
-			<input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
-			{{/if}}
-
-			{{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
-
-			<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
-
-			{{#unless isSubstitution}}
-			<input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
-			{{/unless}}
 
 			<div class="form-group">
-				<label>Titel</label>
+				<label>{{$t "homework.label.title" }}</label>
 				<input class="form-control" name="name" type="text" placeholder="Titel" required
-					value="{{{assignment.name}}}" />
+					value="{{{assignment.name}}}" data-testid="homework-name" />
 			</div>
 
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>Kurs</label>
+						<label>{{$t "homework.label.courses" }}</label>
 						{{#unless isSubstitution}}
 						<select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
 							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
@@ -117,27 +114,25 @@
 							{{/each}}
 						</select>
 						{{else}}
-						<input name="courseId" type="hidden" data-force-value="true"
-							value="{{assignment.courseId._id}}" />
-						<div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">(Vertretungslehrer dürfen
-								den Kurs nicht ändern)</small></div>
+						<input name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" />
+						<div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">{{$t "homework.text.substitutionTeachersMayNotChangeTheCourse"}}</small></div>
 						{{/unless}}
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>Thema</label>
+						<label>{{$t "homework.label.topic"}}</label>
 						<select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen"
 							{{#unless lessons}}disabled="true" {{/unless}}>
 							{{#if assignment.courseId}}
-							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>Keine Zuordnung</option>
+							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>{{$t "homework.text.noAssignment"}}</option>
 							{{#each lessons}}
-							<option value="{{this._id}}"
-								{{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>{{this.name}}
+							<option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>
+								{{this.name}}
 							</option>
 							{{/each}}
 							{{else}}
-							<option value="">Keine Themen in diesem Kurs</option>
+							<option value="">{{$t "homework.text.noTopicsInTheCourse"}}</option>
 							{{/if}}
 						</select>
 					</div>
@@ -152,13 +147,13 @@
 							<label>
 								<input id="teamSubmissions" name="teamSubmissions" type="checkbox" value="true"
 									{{#if assignment.teamSubmissions}}checked="checked" {{/if}} />
-								Gruppenabgabe ermöglichen
+								{{$t "homework.label.allowGroupSubmission"}}
 							</label>
 						</div>
 					</div>
 					<div class="col-md-6 {{#unless assignment.teamSubmissions}}hidden-xl-down{{/unless}}" id="teamsize">
 						<div class="form-group">
-							<label>maximale Gruppengröße:</label>
+							<label>{{$t "homework.label.maximumGroupSize"}}</label>
 							<input class="form-control" name="maxTeamMembers" id="maxTeamMembers" type="number" min="2"
 								placeholder="5" value="{{assignment.maxTeamMembers}}" />
 						</div>
@@ -168,24 +163,44 @@
 			{{/unless}}
 
 			<div class="form-group">
-				<label>Aufgabenstellung</label>
+				<label>{{$t "homework.label.task" }}</label>
 				<textarea name="description" type="text" class="form-control customckeditor"
 					placeholder="Aufgabenstellung">{{assignment.description}}</textarea>
 			</div>
 
+			{{#embed "files/file-upload"}}{{/embed}}
+
+			{{#embed "homework/components/homework_uploaded_files" deletionAllowed=true submission=../assignment}}{{/embed}}
+
+			{{#if method}}
+			<input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
+			{{/if}}
+
+			{{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
+
+			<input name="homeworkId" type="hidden" data-force-value="true" value="{{assignment._id}}" />
+
+			<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+
+			{{#unless isSubstitution}}
+			<input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
+			{{/unless}}
+
+
+
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>Für Schüler sichtbar und zu bearbeiten ab:</label>
-						<input class="form-control" data-datetime name="availableDate" autocomplete="off"
-							id="availableDate" type="text" value="{{assignment.availableDate}}" />
+						<label>{{$t "homework.label.visibleAndEditableForStudentsFrom" }}</label>
+						<input class="form-control" data-datetime name="availableDate" autocomplete="off" id="availableDate"
+							type="text" value="{{assignment.availableDate}}" />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>Bearbeitungszeitraum endet am:</label>
-						<input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate"
-							type="text" value="{{assignment.dueDate}}" />
+						<label>{{$t "homework.label.processingPeriodEndsOn" }}</label>
+						<input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate" type="text"
+							value="{{assignment.dueDate}}" />
 					</div>
 				</div>
 			</div>
@@ -193,19 +208,18 @@
 			{{#unless (userHasRole "student")}}
 			<div class="form-group">
 				<label>
-					<input name="private" type="checkbox" value="private" {{#if assignment.private}}checked="checked"
-						{{/if}} />
-					Private Aufgabe (nur für mich sichtbar)
+					<input name="private" type="checkbox" value="true" data-testid="private-checkbox" {{#if assignment.private}}checked="checked" {{/if}} />
+					{{$t "homework.label.privateTaskOnlyVisibleToMe"}}
 				</label></br>
 				<label>
 					<input name="publicSubmissions" type="checkbox" value="public"
 						{{#if assignment.publicSubmissions}}checked="checked" {{/if}} />
-					Schülerabgaben untereinander sichtbar
+					{{$t "studentFeesVisibleToEachOthers" }}
 				</label>
 			</div>
 			{{else}}
 			<div class="form-group">
-				<input name="private" type="hidden" data-force-value="true" value="private" />
+				<input name="private" type="hidden" data-force-value="true" value="true" />
 			</div>
 			{{/unless}}
 
@@ -217,7 +231,7 @@
 					{{closeLabel}}
 				</button>
 
-                {{> "lib/components/csrfInput"}}
+				{{> "lib/components/csrfInput"}}
 				<button type="submit" class="btn btn-primary btn-submit">
 					{{submitLabel}}
 				</button>
@@ -226,6 +240,24 @@
 
 		{{#embed "lib/components/modal-cancel" class="cancel-modal"}}
 
+		{{/embed}}
+
+		{{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+		{{#content "body"}}
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary btn-close">
+				{{$t "global.button.cancel" }}
+			</button>
+			<button type="submit" class="btn btn-primary btn-submit">
+				{{$t "global.button.delete" }}
+			</button>
+		</div>
+		{{/content}}
+		{{/embed}}
+		{{#embed "lib/components/modal-information" class="danger-modal" title="Achtung"}}
+		{{#content "fields"}}
+		{{> "files/forms/form-virus-danger"}}
+		{{/content}}
 		{{/embed}}
 
 	</div>

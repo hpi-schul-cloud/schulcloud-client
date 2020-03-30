@@ -3,12 +3,17 @@ const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
 const api = require('../api');
+const apiEditor = require('../apiEditor');
+const { EDITOR_URL } = require('../config/global');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const logger = require('../helpers/logger');
 
+const OPTIONAL_COURSE_FEATURES = ['messenger'];
+
 const router = express.Router();
+const { CALENDAR_SERVICE_ENABLED, HOST } = require('../config/global');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
@@ -30,7 +35,7 @@ const markSelected = (options, values = []) => options.map((option) => {
  */
 const createEventsForCourse = (req, res, course) => {
 	// can just run if a calendar service is running on the environment
-	if (process.env.CALENDAR_SERVICE_ENABLED) {
+	if (CALENDAR_SERVICE_ENABLED) {
 		return Promise.all(
 			course.times.map(time => api(req).post('/calendar', {
 				json: {
@@ -39,7 +44,7 @@ const createEventsForCourse = (req, res, course) => {
 					description: course.description,
 					startDate: new Date(
 						new Date(course.startDate).getTime()
-								+ time.startTime,
+						+ time.startTime,
 					).toLocalISOString(),
 					duration: time.duration,
 					repeat_until: course.untilDate,
@@ -75,7 +80,7 @@ const createEventsForCourse = (req, res, course) => {
  * @param courseId {string} - the id of the course the events will be deleted
  */
 const deleteEventsForCourse = (req, res, courseId) => {
-	if (process.env.CALENDAR_SERVICE_ENABLED) {
+	if (CALENDAR_SERVICE_ENABLED) {
 		return api(req)
 			.get(`courses/${courseId}`)
 			.then(course => Promise.all(
@@ -93,8 +98,8 @@ const deleteEventsForCourse = (req, res, courseId) => {
 				req.session.notification = {
 					type: 'danger',
 					message:
-							'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
-							+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
+						'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
+						+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
 				};
 				return Promise.resolve();
 			}));
@@ -137,9 +142,10 @@ const editCourseHandler = (req, res, next) => {
 				schoolId: res.locals.currentSchool,
 				$populate: ['year'],
 				$limit: -1,
+				$sort: { year: -1, displayName: 1 },
 			},
 		});
-		// .then(data => data.data); needed when pagination is not disabled
+	// .then(data => data.data); needed when pagination is not disabled
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher', 'demoTeacher'],
 		$limit: false,
@@ -150,12 +156,19 @@ const editCourseHandler = (req, res, next) => {
 		$sort: 'lastName',
 	});
 
+	let scopePermissions;
+	if (req.params.courseId) {
+		scopePermissions = api(req)
+			.get(`/courses/${req.params.courseId}/userPermissions/${res.locals.currentUser._id}`);
+	}
+
 	Promise.all([
 		coursePromise,
 		classesPromise,
 		teachersPromise,
 		studentsPromise,
-	]).then(([course, _classes, _teachers, _students]) => {
+		scopePermissions,
+	]).then(([course, _classes, _teachers, _students, _scopePermissions]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		const classes = _classes.filter(
 			c => c.schoolId === res.locals.currentSchool,
@@ -167,10 +180,9 @@ const editCourseHandler = (req, res, next) => {
 			s => s.schoolId === res.locals.currentSchool,
 		);
 		const substitutions = _.cloneDeep(
-			teachers.filter(t => t._id !== res.locals.currentUser._id),
+			teachers,
 		);
 
-		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
 			const duration = moment.duration(time.startTime);
@@ -234,6 +246,8 @@ const editCourseHandler = (req, res, next) => {
 					_.map(course.substitutionIds, '_id'),
 				),
 				students: markSelected(students, _.map(course.userIds, '_id')),
+				scopePermissions: _scopePermissions,
+				schoolData: res.locals.currentSchoolData,
 			});
 		} else {
 			res.render('courses/create-course', {
@@ -362,6 +376,7 @@ const copyCourseHandler = (req, res, next) => {
 			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
 			substitutions,
 			students,
+			schoolData: res.locals.currentSchoolData,
 		});
 	});
 };
@@ -531,6 +546,14 @@ router.post('/copy/:courseId', (req, res, next) => {
 	// req.body.courseId = req.params.courseId;
 	req.body.copyCourseId = req.params.courseId;
 
+	req.body.features = [];
+	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
+
 	api(req)
 		.post('/courses/copy/', {
 			json: req.body, // TODO: sanitize
@@ -579,17 +602,7 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 
 // EDITOR
 
-router.get('/:courseId/', (req, res, next) => {
-	// ############################## check if new Editor options should show #################
-	if (req.query.edtr === 'true' && !req.cookies.edtr) {
-		res.cookie('edtr', true, { maxAge: 90000000 });
-	} else if (req.query.edtr === 'false' && req.cookies.edtr === 'true') {
-		res.cookie('edtr', false, { maxAge: 1000 });
-		req.cookies.edtr = 'false';
-	}
-
-	const isNewEdtiroActivated = (req.query.edtr === 'true' || req.cookies.edtr === 'true');
-
+router.get('/:courseId/', async (req, res, next) => {
 	const promises = [
 		api(req).get(`/courses/${req.params.courseId}`, {
 			qs: {
@@ -615,91 +628,128 @@ router.get('/:courseId/', (req, res, next) => {
 				$populate: ['courseId', 'userIds'],
 			},
 		}),
+		api(req).get(`/courses/${req.params.courseId}/userPermissions`, {
+			qs: { userId: res.locals.currentUser._id },
+		}),
 	];
 
 	// ########################### start requests to new Editor #########################
-	if (isNewEdtiroActivated) {
-		promises.push(api(req, { backend: 'editor' }).get(`course/${req.params.courseId}/lessons`));
+	let editorBackendIsAlive = true;
+	if (EDITOR_URL) {
+		promises.push(apiEditor(req)
+			.get(`course/${req.params.courseId}/lessons`)
+			.catch((err) => {
+				logger.warn('Can not fetch new editor lessons.', err);
+				editorBackendIsAlive = false;
+				return {
+					total: 0,
+					data: [],
+				};
+			}));
 	}
 
 	// ############################ end requests to new Editor ##########################
+	const [
+		course,
+		_lessons,
+		_homeworks,
+		_courseGroups,
+		scopedPermissions,
+		_newLessons,
+	] = await Promise.all(promises).catch((err) => {
+		logger.warn('Can not fetch course datas', err);
+		next(err);
+	});
 
-	Promise.all(promises)
-		.then(([course, _lessons, _homeworks, _courseGroups, _newLessons]) => {
-			const ltiToolIds = (course.ltiToolIds || []).filter(
-				ltiTool => ltiTool.isTemplate !== 'true',
-			);
-			const lessons = (_lessons.data || []).map(lesson => Object.assign(lesson, {
-				url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
-			}));
+	try {
+		// ############################## check if new Editor options should show #################
+		const edtrUser = (res.locals.currentUser.features || []).includes('edtr');
+		const userHasEditorEnabled = EDITOR_URL && edtrUser;
+		const courseHasNewEditorLessons = ((_newLessons || {}).total || 0) > 0;
 
-			const homeworks = (_homeworks.data || []).map((assignment) => {
-				assignment.url = `/homework/${assignment._id}`;
-				return assignment;
-			});
+		const isNewEdtrioActivated = editorBackendIsAlive && (courseHasNewEditorLessons || userHasEditorEnabled);
+		// ################################ end new Editor check ##################################
 
-			homeworks.sort((a, b) => {
-				if (a.dueDate > b.dueDate) {
-					return 1;
-				}
-				return -1;
-			});
+		const ltiToolIds = (course.ltiToolIds || []).filter(
+			ltiTool => ltiTool.isTemplate !== 'true',
+		).map((tool) => {
+			tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
+			return tool;
+		});
+		const lessons = (_lessons.data || []).map(lesson => Object.assign(lesson, {
+			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
+		}));
 
-			const baseUrl = (req.headers.origin || process.env.HOST || 'http://localhost:3100');
-			const courseGroups = permissionHelper.userHasPermission(
-				res.locals.currentUser,
-				'COURSE_EDIT',
-			)
-				? _courseGroups.data || []
-				: (_courseGroups.data || []).filter(cg => cg.userIds.some(
-					user => user._id === res.locals.currentUser._id,
-				));
+		const homeworks = (_homeworks.data || []).map((assignment) => {
+			assignment.url = `/homework/${assignment._id}`;
+			return assignment;
+		});
 
-			// ###################### start of code for new Editor ################################
-			let newLessons;
-			if (isNewEdtiroActivated) {
-				newLessons = (_newLessons.data || []).map(lesson => ({
-					...lesson,
-					url: `/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`,
-					hidden: !lesson.visible,
-				}));
+		homeworks.sort((a, b) => {
+			if (a.dueDate > b.dueDate) {
+				return 1;
 			}
+			return -1;
+		});
 
-			// ###################### end of code for new Editor ################################
-			res.render(
-				'courses/course',
-				Object.assign({}, course, {
-					title: course.isArchived
-						? `${course.name} (archiviert)`
-						: course.name,
-					activeTab: req.query.activeTab,
-					lessons,
-					homeworks: homeworks.filter(task => !task.private),
-					myhomeworks: homeworks.filter(task => task.private),
-					ltiToolIds,
-					courseGroups,
-					baseUrl,
-					breadcrumb: [
-						{
-							title: 'Meine Kurse',
-							url: '/courses',
-						},
-						{
-							title: course.name,
-							url: `/courses/${course._id}`,
-						},
-					],
-					filesUrl: `/files/courses/${req.params.courseId}`,
-					nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
-						course.times,
-					),
-					// #################### new Editor, till replacing old one ######################
-					newLessons,
-					isNewEdtiroActivated,
-				}),
-			);
-		})
-		.catch(next);
+		const baseUrl = req.headers.origin || HOST || 'http://localhost:3100';
+		const courseGroups = permissionHelper.userHasPermission(
+			res.locals.currentUser,
+			'COURSE_EDIT',
+		)
+			? _courseGroups.data || []
+			: (_courseGroups.data || []).filter(cg => cg.userIds.some(
+				user => user._id === res.locals.currentUser._id,
+			));
+
+		// ###################### start of code for new Editor ################################
+		let newLessons;
+		if (isNewEdtrioActivated) {
+			newLessons = (_newLessons.data || []).map(lesson => ({
+				...lesson,
+				url: `/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`,
+				hidden: !lesson.visible,
+			}));
+		}
+
+		// ###################### end of code for new Editor ################################
+		res.render(
+			'courses/course',
+			Object.assign({}, course, {
+				title: course.isArchived
+					? `${course.name} (archiviert)`
+					: course.name,
+				activeTab: req.query.activeTab,
+				lessons,
+				homeworks: homeworks.filter(task => !task.private),
+				myhomeworks: homeworks.filter(task => task.private),
+				ltiToolIds,
+				courseGroups,
+				baseUrl,
+				breadcrumb: [
+					{
+						title: 'Meine Kurse',
+						url: '/courses',
+					},
+					{
+						title: course.name,
+						url: `/courses/${course._id}`,
+					},
+				],
+				filesUrl: `/files/courses/${req.params.courseId}`,
+				nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
+					course.times,
+				),
+				// #################### new Editor, till replacing old one ######################
+				newLessons,
+				isNewEdtrioActivated,
+				scopedCoursePermission: scopedPermissions[res.locals.currentUser._id],
+			}),
+		);
+	} catch (err) {
+		logger.warn(err);
+		next(err);
+	}
 });
 
 router.patch('/:courseId', (req, res, next) => {
@@ -736,6 +786,14 @@ router.patch('/:courseId', (req, res, next) => {
 		req.body = { untilDate: req.body.untilDate };
 	}
 
+	req.body.features = [];
+	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
+
 	// first delete all old events for the course
 	deleteEventsForCourse(req, res, req.params.courseId)
 		.then(() => api(req)
@@ -762,19 +820,14 @@ router.patch('/:courseId/positions', (req, res, next) => {
 	res.sendStatus(200);
 });
 
-router.delete('/:courseId', (req, res, next) => {
-	deleteEventsForCourse(req, res, req.params.courseId)
-		.then(() => {
-			api(req)
-				.delete(`/courses/${req.params.courseId}`)
-				.then(() => {
-					res.sendStatus(200);
-				});
-		})
-		.catch((error) => {
-			res.sendStatus(500);
-			next(error);
-		});
+router.delete('/:courseId', async (req, res, next) => {
+	try {
+		await deleteEventsForCourse(req, res, req.params.courseId);
+		await api(req).delete(`/courses/${req.params.courseId}`);
+		res.sendStatus(200);
+	} catch (error) {
+		next(error);
+	}
 });
 
 router.get('/:courseId/addStudent', (req, res, next) => {

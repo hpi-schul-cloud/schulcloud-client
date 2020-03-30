@@ -1,100 +1,114 @@
 {{#extend "lib/loggedin" searchLabel="Dateien durchsuchen ..." searchAction="/files/search/" searchClass="file-search"}}
 
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/files/files.css"/>
-    {{/content}}
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/files/files.css"/>
+	{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
-        <script src="/scripts/files.js" type="text/javascript" defer></script>
-        <script src="/scripts/jquery.cookie.js" type="text/javascript" defer></script>
-    {{/content}}
+	{{#content "scripts" mode="append"}}
+		<script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
+		<script src="/scripts/files.js" type="text/javascript" defer></script>
+		<script src="/scripts/jquery.cookie.js" type="text/javascript" defer></script>
+	{{/content}}
 
-    {{#content "page"}}
-        <div class="route-files">
-            {{#if canUploadFile}}
-                {{#embed "files/file-upload"}}{{/embed}}
-            {{/if}}
-            <section class="section-title">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-12 no-padding">
-                            <h2 class="h5">
-                                {{#each breadcrumbs}}
-                                    <a class="{{#if @last}}active{{/if}}"
-                                       href="{{this.url}}">{{{stripOnlyScript this.label}}}</a><span> / </span>
-                                {{/each}}
-                            </h2>
-                            {{#if courseUrl}}
-                                <a href="{{courseUrl}}" class="btn btn-secondary pull-right">
-                                    <i class="fa fa-graduation-cap"></i>
-                                    {{ toCourseText }}
-                                </a>
-                            {{/if}}
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {{#if directories}}
-            <h3 class="h6" style="padding: 1rem 0 1.5rem">Ordner</h3>
-            <section class="directories">
-                <div class="row">
-                    {{#each directories}}
-            						<div class="col-xs-12">
-                          <div class="card card-block folder" onclick="location.href = openFolder('{{this._id}}');">
-            								<strong class="card-title-directory">
-            									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
-            								</strong>
-                                            {{#userHasPermission "FOLDER_DELETE"}}
-            								<a href="/files/directory/"
-            								   target="_blank"
-            								   data-method="delete"
-                               title="Ordner löschen"
-            								   data-file-id="{{../this._id}}"
-            								   data-file-name="{{{../this.name}}}">
-            									<i class="fa fa-trash-o directory-icon pull-right"></i>
-            								</a>
+	{{#content "page"}}
+		<div class="route-files">
+			{{#if canUploadFile}}
+				{{#embed "files/file-upload"}}{{/embed}}
+			{{/if}}
+			<section class="section-title">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12 no-padding">
+							<h2 class="h5">
+								{{#each breadcrumbs}}
+									<a class="{{#if @last}}active{{/if}}"
+									   href="{{this.url}}">{{{stripOnlyScript this.label}}}</a><span> / </span>
+								{{/each}}
+							</h2>
+							{{#if courseUrl}}
+								<a href="{{courseUrl}}" class="btn btn-secondary pull-right">
+									<i class="fa fa-graduation-cap"></i>
+									{{ toCourseText }}
+								</a>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+			</section>
 
-                            <a href="/directoryModel/{{../this._id}}/rename"
-            								   target="_blank"
-            								   data-method="dir-rename"
-                               title="Ordner umbenennen"
-                               data-directory-id="{{../this._id}}"
-            								   data-directory-name="{{../this.name}}">
-            									<i class="fa fa-edit directory-icon pull-right"></i>
-            								</a>
-                            {{/userHasPermission}}
-            							</div>
-            						</div>
-                    {{/each}}
-                </div>
-            </section>
-            {{/if}}
-            <h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">Dateien</h3>
-            {{#embed "files/file-viewer"}}{{/embed}}
-            {{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
+			<div class="pull-right">
+				<select name="sortBy" class="form-control">
+					{{#each sortOptions}}
+						<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
+							{{this.label}}
+						</option>
+					{{/each}}
+				</select>
+				<select name="sortOrder" class="form-control">
+					<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
+					<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending" }}</option>
+				</select>
+			</div>
 
-            {{#userHasPermission "FOLDER_CREATE"}}
-            <section class="new-directory">
-                <div class="row">
-                    {{#if ../canCreateDir}}
-                        <div class="col-sm-12"></div>
-                        <div class="col-sm-10 col-xs-16 col-md-8">
-                            <div data-toggle="modal">
-                                <span class="btn btn-primary create-directory">
-                                    <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
-                                </span>
-                                {{#if ../canCreateFile}}
-                                    <span class="btn btn-primary new-file" data-file-path="{{this.path}}">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
-                                    </span>
-                                {{/if}}
-                            </div>
-                        </div>
-                    {{/if}}
-                </div>
-            </section>
-            {{/userHasPermission}}
-        </div>
-    {{/content}}
+			{{#if directories}}
+			<h3 class="h6" style="padding: 1rem 0 1.5rem">{{$t "files.label.folder"}}</h3>
+			<section class="directories">
+				<div class="row">
+					{{#each directories}}
+									<div class="col-xs-12">
+						  <div class="card card-block folder" onclick="location.href = openFolder('{{this._id}}');">
+											<strong class="card-title-directory">
+												<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
+											</strong>
+											{{#userHasPermission "FOLDER_DELETE"}}
+											<a href="/files/directory/"
+											   target="_blank"
+											   data-method="delete"
+							   title="Ordner löschen"
+											   data-file-id="{{../this._id}}"
+											   data-file-name="{{{../this.name}}}">
+												<i class="fa fa-trash-o directory-icon pull-right"></i>
+											</a>
+
+							<a href="/directoryModel/{{../this._id}}/rename"
+											   target="_blank"
+											   data-method="dir-rename"
+							   title="Ordner umbenennen"
+							   data-directory-id="{{../this._id}}"
+											   data-directory-name="{{../this.name}}">
+												<i class="fa fa-edit directory-icon pull-right"></i>
+											</a>
+							{{/userHasPermission}}
+										</div>
+									</div>
+					{{/each}}
+				</div>
+			</section>
+			{{/if}}
+			<h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "files.label.files"}}</h3>
+			{{#embed "files/file-viewer"}}{{/embed}}
+			{{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
+
+			{{#userHasPermission "FOLDER_CREATE"}}
+			<section class="new-directory">
+				<div class="row">
+					{{#if ../canCreateDir}}
+						<div class="col-sm-12">
+							<div data-toggle="modal">
+								<span class="btn btn-primary create-directory">
+									<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder" }}
+								</span>
+								{{#if ../canCreateFile}}
+									<span class="btn btn-primary new-file" data-file-path="{{this.path}}">
+										<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFile" }}
+									</span>
+								{{/if}}
+							</div>
+						</div>
+					{{/if}}
+				</div>
+			</section>
+			{{/userHasPermission}}
+		</div>
+	{{/content}}
 {{/extend}}

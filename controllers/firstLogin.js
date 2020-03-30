@@ -6,7 +6,7 @@ const userConsentVersions = require('../helpers/consentVersions');
 
 const converter = new showdown.Converter();
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 
 const router = express.Router();
 
@@ -97,8 +97,11 @@ router.get('/', async (req, res, next) => {
 		}
 
 		// EMAIL
-		submitPageIndex += 1;
-		sections.push('email');
+		if (!res.locals.currentUser.source) {
+			// only display the confirm email page if the user was not generated from an external source
+			submitPageIndex += 1;
+			sections.push('email');
+		}
 
 		// BIRTHDATE
 		if (!res.locals.currentUser.birthday && isStudent(res)) {

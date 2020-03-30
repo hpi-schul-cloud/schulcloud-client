@@ -2,9 +2,9 @@
 	{{#userHasPermission "COURSE_EDIT"}}{{#unless @root.isArchived}}
 			<div class="col-sm-12">
 				<a href="#" data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic"
-					title="Thema importieren">
+					title="{{$t "courses._course.topic.text.importTopic"}}">
 					<i class="fa fa-exchange" aria-hidden="true"></i>
-					<span>Thema importieren</span>
+					<span>{{$t "courses._course.topic.button.importTopic"}}</span>
 				</a>
 			</div>
 		{{/unless}}{{/userHasPermission}}
@@ -12,7 +12,7 @@
 		{{#ifCond (isCond ../lessons.length "==" 1) "&& !" @root.isArchived}}
 			<div class="col-sm-12">
 				<div class="first-topic-success">
-					<h2 class="h5">Geschafft - Das erste Thema in deinem Kurs!</h2>
+					<h2 class="h5">{{$t "courses._course.topic.headline.firstTopicSuccess"}}</h2>
 					<div>
 						Ein Klick auf das Auge <i class="fa fa-eye"></i> macht das Thema für Schüler*innen sichtbar oder
 						unsichtbar.
@@ -23,7 +23,7 @@
 							class="fa fa-trash-o"></i> oder teilen <i class="fa fa-share-alt"></i>.
 					</div>
 					<div>
-						Ein Klick auf das Thema bringt dich in die Vorschau-Ansicht.
+						{{$t "courses._course.topic.text.clickOnTopicForPreview"}}
 					</div>
 				</div>
 			</div>
@@ -242,7 +242,7 @@
 		</div>
 
 			<!-- ###################  start new Editors ############################ -->
-	{{#if @root.isNewEdtiroActivated}}
+	{{#if @root.isNewEdtrioActivated}}
 		<div class="col-sm-12 mt-3">
 			<div class="list-group">
 				{{#if @root.newLessons}}

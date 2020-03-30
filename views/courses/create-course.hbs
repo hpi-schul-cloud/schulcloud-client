@@ -28,7 +28,7 @@
             <div class="headlines">
               <h2 class="h3">{{sectionTitle}}</h2>
               <p class="text-muted subtitle">
-                In einem Kurs wird gemeinsam mit den Teilnehmern an Themen, Aufgaben und Dateien gearbeitet.
+               {{$t "courses.add.text.groupsWorkTogether"}}
               </p>
             </div>
           </div>
@@ -36,13 +36,13 @@
           <div class="wizard-card">
             <div class="step-label-wrapper">
               <div class="text-muted step-label">
-                Kursdaten
+                {{$t "courses.add.tab_label.courseData"}}
               </div>
               <div class="text-muted step-label">
-                Teilnehmer
+                {{$t "courses.add.tab_label.courseMembers"}}
               </div>
               <div class="text-muted step-label">
-                Abschließen
+                {{$t "courses.add.tab_label.finish"}}
               </div>
             </div>
           {{#embed "lib/forms/paginatedForm" sections=3 action=action method=method submit-label=submitLabel}}
@@ -57,13 +57,13 @@
 
               <div class="row">
                 <div class="form-group col-md-6">
-                    <label>Name des Kurses</label>
-                    <input class="form-control js-course-name-input" name="name" type="text" placeholder="z.B. Mathe 10a" value="{{course.name}}" autocomplete="off"
+                    <label>{{$t "courses.global.label.courseName"}}</label>
+                    <input class="form-control js-course-name-input" name="name" type="text" placeholder="{{$t "courses.add.input.egMaths"}}" value="{{course.name}}" autocomplete="off"
                            required autofocus data-testid="coursename"/>
                 </div>
 
                 <div class="form-group col-md-6">
-                  <label>Farbe des Kurses:</label>
+                  <label>{{$t "courses.global.label.courseColor"}}</label>
                   <div class="color-picker" data-testid="color-picker">
                     {{#if course.color}}
                       <div class="color-picker__item" data-testid="item">
@@ -85,9 +85,9 @@
 
               <div class="row">
                 <div class="form-group col-md-6">
-                    <label>Unterrichtender Lehrer</label>
+                    <label>{{$t "courses.global.label.courseTeacher"}}</label>
 
-                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen" data-testid="teachersearch" autocomplete="off">
+                    <select name="teacherIds[]" required multiple data-placeholder= "{{$t "courses.global.input.chooseTeacher"}}"data-testid="teachersearch" autocomplete="off">
                         {{#each teachers}}
                             <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
@@ -101,8 +101,8 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label>Vertretungslehrer - Optional</label>
-                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen" autocomplete="off" data-testid="substituent">
+                    <label>{{$t "courses.add.label.courseSubstitute"}}</label>
+                    <select name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"  autocomplete="off" data-testid="substituent">
                         {{#each substitutions}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{this.firstName}} {{this.lastName}}
@@ -116,7 +116,7 @@
               <div class="times" id="timesContainer">
                   <div class="row">
                       <div class="form-group col-md-6">
-                          <label>Zeitraum (z.B. Schuljahr) von - Optional</label>
+                          <label>{{$t "courses.add.label.timeSpan"}}</label>
                           <input
                             name="startDate"
                             id="startDate"
@@ -124,25 +124,25 @@
                             type="text"
                             class="form-control"
                             value="{{course.startDate}}" data-testid="date_start"
-                            title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
+                            title="{{$t "courses.add.label.timeSpanFormat"}}"/>
                       </div>
 
                       <div class="form-group col-md-6">
-                          <label>Bis - Optional</label>
-                          <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
+                          <label>{{$t "courses.add.label.timeSpanUntil"}}</label>
+                          <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="{{$t "courses.add.label.timeSpanFormat"}}"/>
                       </div>
                   </div>
 
                   <button class="new-course-time-add btn-link" data-timesref="#timesContainer" type="button">
-                      <i class="fa fa-plus-circle fa-6"></i> Schulstundentermin im Stundenplan anlegen (optional)
+                      <i class="fa fa-plus-circle fa-6"></i> {{$t "courses.add.button.addLessonAppointment"}}
                   </button>
                   <table width="100%" cellpadding="5px" class="course-times-table">
                       <thead>
                         <th></th>
-                        <th><label>Wochentag</label></th>
-                        <th><label>Start der Schulstunde</label></th>
-                        <th><label>Dauer der Schulstunde</label></th>
-                        <th><label>Raum</label></th>
+                        <th><label>{{$t "courses.global.label.weekday"}}</label></th>
+                        <th><label>{{$t "courses.global.label.startOfLesson"}}</label></th>
+                        <th><label>{{$t "courses.global.label.lengthOfLesson"}}</label></th>
+                        <th><label>{{$t "global.label.room"}}</label></th>
                       </thead>
                       <tbody class="add-course-times">
                           {{#each course.times}}
@@ -155,13 +155,13 @@
 								</td>
 								<td>
                                       <select class="form-control" name="times[{{this.count}}][weekday]" type="text">
-                                          <option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>Montag</option>
-                                          <option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>Dienstag</option>
-                                          <option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>Mittwoch</option>
-                                          <option value="3" {{#ifeq this.weekday "3"}}selected{{/ifeq}}>Donnerstag</option>
-                                          <option value="4" {{#ifeq this.weekday "4"}}selected{{/ifeq}}>Freitag</option>
-                                          <option value="5" {{#ifeq this.weekday "5"}}selected{{/ifeq}}>Samstag</option>
-                                          <option value="6" {{#ifeq this.weekday "6"}}selected{{/ifeq}}>Sonntag</option>
+                                          <option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>{{$t "global.text.monday"}}</option>
+                                          <option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>{{$t "global.text.tuesday"}}</option>
+                                          <option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>{{$t "global.text.wednesday"}}</option>
+                                          <option value="3" {{#ifeq this.weekday "3"}}selected{{/ifeq}}>{{$t "global.text.thursday"}}</option>
+                                          <option value="4" {{#ifeq this.weekday "4"}}selected{{/ifeq}}>{{$t "global.text.friday"}}</option>
+                                          <option value="5" {{#ifeq this.weekday "5"}}selected{{/ifeq}}>{{$t "global.text.saturday"}}</option>
+                                          <option value="6" {{#ifeq this.weekday "6"}}selected{{/ifeq}}>{{$t "global.text.sunday"}}</option>
                                       </select>
                                   </td>
                                   <td>
@@ -169,11 +169,11 @@
                                   </td>
                                   <td>
                                       <input class="form-control" name="times[{{this.count}}][duration]" type="number"
-                                             value="{{this.duration}}" placeholder="in Minuten"/>
+                                             value="{{this.duration}}" placeholder="{{$t "courses.global.input.inMinutes"}}"/>
                                   </td>
                                   <td>
                                       <input class="form-control" type="text"
-                                             name="times[{{this.count}}][room]" value="{{this.room}}" placeholder="z.B. R-1.21"/>
+                                             name="times[{{this.count}}][room]" value="{{this.room}}" placeholder="{{$t "courses.global.input.egRoom1-21"}}"/>
                                   </td>
                               </tr>
                           {{/each}}
@@ -186,12 +186,12 @@
             </section>
 
             <section data-panel="section-2" class="submit-page course-submit-page">
-              <h2 class="h4">Du hast es fast geschafft...</h2>
-              <p class="text-muted">Füge Klassen oder einzelne Schüler deinem Kurs hinzu.<br>Dies kannst du jetzt oder später in den Kurseinstellungen machen.</p>
+              <h2 class="h4">{{$t "courses.add.headline.almostDone"}}</h2>
+              <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
               <div class="form-group">
-                  <label>Klasse(n) (Alle Schüler der Klasse werden automatisch hinzugefügt!) - Optional</label>
+                  <label>{{$t "courses.add.label.addClassesToCourse"}}</label>
 
-                  <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen" data-testid="classes">
+                  <select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
                       {{#each classes}}
                           <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                               {{log this.year}}
@@ -212,9 +212,9 @@
 
 
               <div class="form-group">
-                  <label>Schüler / Teilnehmer - Optional</label>
+                  <label>{{$t "courses.add.label.addStudentsToCourse"}}</label>
 
-                  <select name="userIds[]" multiple data-placeholder="Schüler auswählen" data-testid="pupils">
+                  <select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
                       {{#each students}}
                           <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                               {{#if this.displayName}}
@@ -234,25 +234,25 @@
                   <img class="image" src="/images/empty-states/add_people.svg"/>
                 </div>
                 <div>
-                  <h2 class="h4">Geschafft!</h2>
-                  <h3 class="h5 text-muted">Was kannst du in einem Kurs machen?</h3>
+                  <h2 class="h4">{{$t "courses.add.headline.done"}}</h2>
+                  <h3 class="h5 text-muted">{{$t "courses.add.headline.whatToDoCourses"}}</h3>
                   <div class="course-features">
-                    <a class="h6" id="addclass-create-topic" href="#">Themen anlegen</a>
+                    <a class="h6" id="addclass-create-topic" href="#">{{$t "courses.add.link.createTopics"}}</a>
                     <p class="text-muted">
-                      Lege die Inhalte deines Unterrichts an.
+                      {{$t "courses.add.text.contentOfClass"}}
                     </p>
 
-                    <a class="h6" id="addclass-create-homework" href="#">Aufgaben stellen</a>
+                    <a class="h6" id="addclass-create-homework" href="#">{{$t "courses.add.link.giveExercises"}}</a>
                     <p class="text-muted">
-                      Stelle deinen Kursteilnehmern Aufgaben und sieh dir ihre Abgaben an.
+                      {{$t "courses.add.text.giveExercisesAndGetResults"}}
                     </p>
                   </div>
                 </div>
               </div>
 
               <div class="pull-right">
-                <a class="btn btn-secondary" href="/courses/add">Einen weiteren Kurs anlegen</a>
-                <a class="btn btn-primary" href="{{redirectUrl}}">Zur Kursübersicht</a>
+                <a class="btn btn-secondary" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
+                <a class="btn btn-primary" href="{{redirectUrl}}">{{$t "courses.add.link.giveExercises"}}</a>
               </div>
             </section>
 
@@ -265,22 +265,22 @@
                  target="_blank"
                  data-method="DELETE"
                  data-name="{{course.name}}"
-                 redirect="/courses/">Kurs löschen</a>
+                 redirect="/courses/">{{$t "courses.add.button.deleteCourse"}}</a>
             {{/if}}
           {{/content}}
         {{/embed}}
         </div>
 
-        {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+        {{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
             {{#content "body"}}
-                <p>Dies löscht den Kurs auch bei allen Schüler:innen.</p>
+                <p>{{$t "courses.text.willAlsoDeleteForStudents"}}</p>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-close">
-                        Abbrechen
+                        {{$t "global.button.cancel"}}
                     </button>
 
                     <button type="submit" class="btn btn-primary btn-submit">
-                        Löschen
+                        {{$t "global.button.delete"}}
                     </button>
                 </div>
             {{/content}}

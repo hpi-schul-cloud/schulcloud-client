@@ -721,6 +721,49 @@ footer {
     }
 }
 
+.alert-button {
+    visibility: hidden;
+
+    &.danger i  {
+        color: $colorDanger;
+    }
+
+    .dropdown-menu {
+        width: 400px;
+    }
+
+    @media (max-width: 450px) {
+        .dropdown-menu {
+            width: 70vw;
+            left: -70px !important;
+        }
+        
+        .dropdown-menu::before,
+        .dropdown-menu::after {
+            content: none !important;
+        }
+    }
+
+    .alert-item {
+        padding: 10px 15px;
+        font-size: 14px;
+
+        .alert-title {
+            font-size: 16px;
+            padding-bottom: 2px;
+        }
+
+        .alert-date {
+            padding-top: 2px;
+            float: right;
+        }
+
+        &:not(:first-child) {
+            border-top: 1px solid #e5e5e5;
+        }
+    }
+}
+
 .notification-dropdown {
     .btn.recent i {
         color: $primaryColor;
@@ -784,10 +827,6 @@ footer {
 }
 
 @media (max-width: 1024px) {
-    .intro-trigger {
-        display: none;
-    }
-
     .form-group sup {
         color: red;
         font-size: 16px;

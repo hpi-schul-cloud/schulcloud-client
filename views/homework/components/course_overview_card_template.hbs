@@ -1,5 +1,5 @@
 <li class="card assignment">
-    <a href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'">
+    <a href="{{this.url}}" alt="Details der Aufgabe: '{{escapeHtml this.name}}'">
         <div class="dates">
             {{#if availableDate}}
               Veröffentlicht {{timeFromNow availableDate}}<br />
@@ -8,7 +8,7 @@
             {{!-- TODO  Color by distance --}}
               Fällig {{timeFromNow dueDate}}
             {{else}}
-                Kein Abgabedatum festgelegt
+               {{$t "homework.text.noSubmissionDateSet"}}
             {{/if}}
             &nbsp;<i class="fa fa-info" title="{{timeToString availableDate}} {{#if dueDate}}bis {{timeToString dueDate}}{{/if}}"></i>
         </div>
@@ -17,7 +17,7 @@
             {{#if this.description}}
                 {{{ truncateHTML (conflictFreeHtml this.description) 140 false }}}
             {{else}}
-                keine Beschreibung vorhanden
+                {{$t "homework.text.noDescriptionAvailable" }}
             {{/if}}
         </div>
         <span class="more">Details ><i className="fa fa-chevron-right" aria-hidden="true"></i></span>

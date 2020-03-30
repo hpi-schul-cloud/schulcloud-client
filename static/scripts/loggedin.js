@@ -1,8 +1,7 @@
-/* global kjua jQuery introJs*/
-// import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 import './cleanup'; // see login.js for loggedout users
+import initAlerts from './alerts';
 
 iFrameListen();
 
@@ -27,6 +26,8 @@ function togglePresentationMode() {
     $('body').toggleClass('fullscreen');
     toggleButton.children('i').toggleClass('fa-compress');
     toggleButton.children('i').toggleClass('fa-expand');
+
+    $('.alert-button').toggle().css('visibility');
 }
 
 let fullscreen = false;
@@ -159,7 +160,9 @@ $(document).ready(function () {
 			Es können keine Klassen und Nutzer angelegt werden.
 			Bitte läute <a href="/administration/school/"> hier das neue Schuljahr ein!</a>`, 'warning');
 		}
-	}
+    }
+
+    initAlerts('loggedin');
 });
 
 function showAJAXError(req, textStatus, errorThrown) {
@@ -224,30 +227,6 @@ function changeNavBarPositionToFixed() {
     var navBar = document.querySelector('.nav-sidebar');
     navBar.classList.remove("position-absolute");
 }
-
-function startIntro() {
-    changeNavBarPositionToAbsolute();
-    introJs()
-    .setOptions({
-        nextLabel: "Weiter",
-        prevLabel: "Zurück",
-        doneLabel: "Fertig",
-        skipLabel: "Überspringen",
-        hidePrev: true, //hide previous button in the first step
-        hideNext: true  //hide next button in the last step
-    })
-    .start()
-    .oncomplete(changeNavBarPositionToFixed);
-}
-
-window.addEventListener('load', () => {
-	const continueTuorial = localStorage.getItem('Tutorial');
-	if (continueTuorial == 'true') {
-		startIntro();
-		localStorage.setItem('Tutorial', false);
-	}
-	document.getElementById('intro-loggedin').addEventListener('click', startIntro, false);
-});
 
 document.querySelectorAll('#main-content a').forEach((a) => {
     const href = a.getAttribute('href');

@@ -113,10 +113,6 @@ label,
 	user-select: none;
 }
 
-.intro-trigger {
-	display: none;
-}
-
 .hidden {
 	display: none;
 }
@@ -202,12 +198,19 @@ footer {
 					}
 				}
 			}
-			img {
+			#footer-logo {
 				width: auto;
 				max-width: 175px;
 				height: auto;
 				max-height: 44px;
 			}
+		}
+	}
+
+	.made-with-love {
+		.poweredby-logo {
+			height: 1em;
+			vertical-align: middle;
 		}
 	}
 }
