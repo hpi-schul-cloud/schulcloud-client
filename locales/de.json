@@ -361,7 +361,8 @@
 		},
 		"homeworkTile": {
 			"handedIn": "Abgegeben",
-			"graded": "Bewertet"
+			"graded": "Bewertet",
+			"moreTasks": "Weitere Aufgaben..."
 		}
 	},
 	"files": {
