@@ -10,5 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 ### Added
-
 - This changelog has been added
+
+### Changed
+- SC-3719 Shared files are now determined more more cleverly
