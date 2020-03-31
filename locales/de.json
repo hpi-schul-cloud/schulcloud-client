@@ -47,7 +47,7 @@
 			"checkLDAPData": "LDAP-Daten überprüfen",
 			"chooseAFile": "Datei auswählen",
 			"consent": "Einwilligungen:",
-			"createLinkList": "Link-Druckbogen erstellen",
+			"contactSupport":"Support kontaktieren",
 			"createLinkSheet": "Link-Druckbogen erstellen",
 			"deleteUser": "Benutzer löschen",
 			"edit": "Bearbeiten",
@@ -110,6 +110,7 @@
 			"startOfTheTransferPhase": "Start der Transferphase",
 			"student": "Schüler",
 			"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen",
+			"tips": "Tipp:",
 			"transferPhase": "Transferphase",
 			"uploadSchoolLogo": "Schullogo hochladen",
 			"use": "Nutzung",
@@ -125,6 +126,7 @@
 			"allDone": "Alles erledigt!",
 			"chatIsActivated": "Chat ist aktiviert",
 			"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
+			"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
 			"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 			"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
 			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
@@ -141,7 +143,8 @@
 			"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
 			"teamHasOwners": "Team hat Eigentümer",
 			"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
-			"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule"
+			"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule",
+			"youCanAlsoOpenEntries": "Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol"
 		}
 	},
 	"calendar": {
@@ -549,6 +552,7 @@
 			"close": "Schließen",
 			"create": "Erstellen",
 			"delete": "Löschen",
+			"import": "Importieren",
 			"nextStep": "Nächster Schritt",
 			"open": "Öffnen",
 			"save": "Speichern",
