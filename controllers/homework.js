@@ -508,7 +508,7 @@ const overview = (title = '') => {
 							displayTemplate: 'Sortieren nach: %1',
 							options: [
 								['createdAt', 'Erstelldatum'],
-								['updatedAt', 'letze Aktualisierung'],
+								['updatedAt', 'letzte Aktualisierung'],
 								['availableDate', 'Verfügbarkeitsdatum'],
 								['dueDate', 'Abgabedatum'],
 							],
