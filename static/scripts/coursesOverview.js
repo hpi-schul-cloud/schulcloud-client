@@ -12,7 +12,7 @@ $(document).ready(function () {
         }).done(function (res) {
 
             let $memberModal = $('.member-modal');
-            let courseMembers = 'Keine Teilnehmer';
+            let courseMembers = $t('courses.text.noAttendees');
             let courseName = res.course.name;
             if(res.course.userIds.length != 0) {
                 courseMembers = '<ol>';
@@ -26,9 +26,9 @@ $(document).ready(function () {
                 courseMembers = courseMembers + '</ol>';
             }
 
-            populateModal($memberModal, '.modal-title', 'Teilnehmer des Kurses: '.concat(courseName));
+            populateModal($memberModal, '.modal-title', $t('courses.headline.courseAttendees').concat(courseName));
             populateModal($memberModal, '#member-modal-body', courseMembers);
-            populateModal($memberModal, '#course-edit', '<a href="/courses/'.concat(courseId).concat('/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>'));
+            populateModal($memberModal, '#course-edit', '<a href="/courses/'.concat(courseId).concat(`/edit" class="btn btn-add btn-primary">${$t('courses.button.editCourse')} </a>`));
 
             $memberModal.appendTo('body').modal('show');
 
@@ -40,9 +40,9 @@ $(document).ready(function () {
         e.preventDefault();
         let $importModal = $('.import-modal');
         populateModalForm($importModal, {
-            title: 'Kurs importieren',
-            closeLabel: 'Abbrechen',
-            submitLabel: 'Abschicken'
+            title: $t('courses.headline.importCourse'),
+            closeLabel: $t('global.button.cancel'),
+            submitLabel: $t('global.button.send')
         });
 
         let $modalForm = $importModal.find(".modal-form");
@@ -58,7 +58,7 @@ $(document).ready(function () {
         $('#step1').show();
         $('#step2').hide();
 
-        $('.modal-footer').append("<button type='button' class='btn btn-primary btn-next-step'>Nächster Schritt</button>");
+        $('.modal-footer').append(`<button type='button' class='btn btn-primary btn-next-step'>${$t("global.button.nextStep")}</button>`);
     });
 
     $('.modal-footer').on('click', '.btn-next-step', function (e) {
@@ -76,7 +76,7 @@ $(document).ready(function () {
                     $('#shareToken').attr('name', 'shareToken');
                 } else {
                     $('.import-modal').modal('hide');
-                    $.showNotification('Dieser shareToken scheint nicht in Verwendung zu sein!', 'danger', 10000);
+                    $.showNotification($t('courses.text.shareTokenNotInUse'), 'danger', 10000);
                 }
             });
 

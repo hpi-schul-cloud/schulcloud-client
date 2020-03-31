@@ -36,6 +36,139 @@
 			"startM2018": "(Start Mai 2018)"
 		}
 	},
+	"administration": {
+		"button": {
+			"addLDAPSystem": "LDAP System hinzufügen",
+			"addRSSFeed": "RSS-Feed hinzufügen",
+			"addStudents": "Schüler hinzufügen",
+			"addSystem": "System hinzufügen",
+			"addTeacher": "Lehrer hinzufügen",
+			"changePassword": "Passwort ändern",
+			"checkLDAPData": "LDAP-Daten überprüfen",
+			"chooseAFile": "Datei auswählen",
+			"consent": "Einwilligungen:",
+			"createLinkList": "Link-Druckbogen erstellen",
+			"createLinkSheet": "Link-Druckbogen erstellen",
+			"deleteUser": "Benutzer löschen",
+			"edit": "Bearbeiten",
+			"endSchoolYear": "Schuljahr beenden",
+			"endTransferPhase": "Transferphase beenden",
+			"filterAdd2": "Filter hinzufügen",
+			"filterApply2": "Übernehmen",
+			"generateInvitationLink": "Einladungslink generieren",
+			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
+			"getConsentOnPaper": "Einverständnis auf Papier erhalten",
+			"importStudents": "Schüler importieren",
+			"importTeacher": "Lehrer importieren",
+			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
+			"save": "Speichern",
+			"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden",
+			"sendLinksToTeacherEmail": "Links an Lehrer E-Mail Adressen senden",
+			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden",
+			"start": "starten"
+		},
+		"label": {
+			"activeChatFunction": "Chatfunktion aktivieren",
+			"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
+			"assignPassword": "Passwort vergeben:",
+			"atTheEndOfTheSchoolYearWithLDAP": "Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
+			"authentication": "Authentifizierung",
+			"birthdate": "Geburtsdatum:",
+			"changeOfClasses": "Änderung von Klassen/neue Klassen",
+			"changeOfUserData": "Änderung von Nutzerdaten/neue Nutzer",
+			"classes": "Klassen:",
+			"cloudStorageProvider": "Cloud-Storage Anbieter",
+			"currentSchoolYear": "Aktuelles Schuljahr:",
+			"dataProtection": "Datenschutz",
+			"duringTheSchoolYear": "Während des Schuljahres",
+			"duringTheTransferPhase": "Während der Transferphase",
+			"emailAddress": "E-Mail-Adresse:",
+			"enableVideoConference": "Videokonferenzen für Kurse und Teams aktivieren",
+			"endOfTheTransferPhase": "Beenden der Transferphase",
+			"fileStorageSpaceUsedInCloud": "Genutzter Datei-Speicherplatz in der Cloud",
+			"firstName": "Vorname:",
+			"inTheTransferPhase": "in der Transferphase:",
+			"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.",
+			"lastName": "Nachname:",
+			"loginFromExistingUsers": "Logins bestehender Nutzer",
+			"nameOfTheSchool": "Name der Schule",
+			"noteAvailableFunction": "Beachte verfügbare Funktionen",
+			"noteBeforeTheTransferPhase": "Beachte vor der Transferphase:",
+			"parents": "Eltern",
+			"passwordChangesInLDAP": "Kennwortänderungen im LDAP",
+			"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
+			"processedForTheNewSchoolYear": "für das neue Schuljahr sind bearbeitet.",
+			"schoolYear": "Schuljahr:",
+			"schoolYearChange": "Schuljahreswechsel",
+			"selectProvider": "Anbieter auswählen",
+			"startOfTheTransferPhase": "Start der Transferphase",
+			"student": "Schüler",
+			"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen",
+			"transferPhase": "Transferphase",
+			"uploadSchoolLogo": "Schullogo hochladen",
+			"use": "Nutzung",
+			"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP",
+			"youCantGoBack": "Du kannst nicht mehr zurück",
+			"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr"
+		},
+		"text": {
+			"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
+			"allAboutTheSummerVacation": "Rund um die Sommerferien",
+			"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
+			"allDone": "Alles erledigt!",
+			"chatIsActivated": "Chat ist aktiviert",
+			"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
+			"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
+			"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
+			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
+			"manuallyConsent": "Einverständnis manuell erklären",
+			"newSchoolYear": "Neues Schuljahr",
+			"noFileSelected": "Keine Datei ausgewählt",
+			"noRssFeedsYet": "Es sind noch keine RSS-Feeds hinterlegt.",
+			"obtainADeclarationConsent": "Einverständniserklärung einholen",
+			"oldSchoolYear": "Altes Schuljahr",
+			"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
+			"parentsAgreed": "Eltern haben zugestimmt",
+			"registrationAtThe": "Die Anmeldung an der",
+			"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein",
+			"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
+			"teamHasOwners": "Team hat Eigentümer",
+			"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
+			"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule"
+		}
+	},
+	"calendar": {
+		"button": {
+			"chooseACourse": "Wähle einen Kurs...",
+			"chooseATeam": "Wähle eine Team"
+		},
+		"label": {
+			"addVideoConference": "Videokonferenz hinzufügen?",
+			"createForCourse": "Für Kurs anlegen?",
+			"createForTeam": "Für Team anlegen?",
+			"description": "Beschreibung",
+			"location": "Ort",
+			"of": "Von",
+			"title": "Titel",
+			"to": "Bis"
+		},
+		"text": {
+			"noAuthorization": "Keine Berechtigung",
+			"participateInVideoConference": "An Videokonferenz teilnehmen",
+			"startAVideoConference": "Videokonferenz starten",
+			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen...",
+			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
+		}
+	},
+	"content": {
+		"button": {
+			"choose": "Wähle..."
+		},
+		"label": {
+			"chooseACourse": "Wähle einen Kurs / Fach",
+			"chooseALessonTopic": "Wähle ein Unterrichtsthema"
+		}
+	},
 	"courses": {
 		"_course": {
 			"dropdown_menu": {
@@ -53,7 +186,8 @@
 					"showCourseDetail": "Kursdetails anzeigen"
 				},
 				"headline": {
-					"courseIsArchieved": "Der Kurs {{coursename}} ist archivert."
+					"courseIsArchieved": "Der Kurs {{coursename}} ist archiviert.",
+					"editCourse": "Kurs bearbeiten"
 				},
 				"img_alt": {
 					"courseIsArchieved": "Kurs ist archiviert"
@@ -130,6 +264,10 @@
 					"descriptionCourses": "In Gruppen können sich Teilnehmer*innen innerhalb eines Kurses in Teams aufteilen, z.B. für Gruppenarbeiten."
 				}
 			},
+			"headline": {
+				"createVideoconference": "Videokonferenzraum {{coursename}} erstellen",
+				"shareCodeGenerated": "Kopiercode generiert!"
+			},
 			"link": {
 				"toCourseFiles": "Zu den Kursdateien"
 			},
@@ -164,16 +302,21 @@
 				}
 			},
 			"text": {
+				"QRCodeAlternative": "Alternativ kannst du deinen Lehrer-Kollegen auch folgenden QR-Code zeigen.",
 				"coursedescription": "Kursbeschreibung: ",
-				"nextClass": "Nächste Unterrichtsstunde: "
+				"eventCouldNotBeSavedContactSupport": "Die Kurszeiten konnten eventuell nicht richtig gespeichert werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.",
+				"nextClass": "Nächste Unterrichtsstunde: ",
+				"shareCodeExplanation": "Verteile folgenden Code an einen Lehrer-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse."
 			},
 			"tools": {
-				"label": {
-					"otherSettings" : "Sonstige Einstellungen:",
-					"nameTool" : "Name (Pflichtfeld):",
-					"logoUrl" : "Logo (URL):"
+				"add": {
+					"headline": {
+						"videoConference": "Videokonferenz"
+					},
+					"text": {
+						"errorWhileAddingTool": "Beim Hinzufügen des Tools ist ein Fehler aufgetreten."
+					}
 				},
-
 				"button": {
 					"addNewTool": "Füge ein neues Tool hinzu"
 				},
@@ -181,6 +324,11 @@
 					"addToolToCourse": "Füge dem Kurs Tools hinzu",
 					"noTools": "Es gibt keine Tools in diesem Kurs.",
 					"noToolsYet": "Es gibt noch keine Tools in diesem Kurs."
+				},
+				"label": {
+					"logoUrl": "Logo (URL):",
+					"nameTool": "Name (Pflichtfeld):",
+					"otherSettings": "Sonstige Einstellungen:"
 				},
 				"text": {
 					"addNewTool": "Neues Tool hinzufügen",
@@ -192,39 +340,41 @@
 			},
 			"topic": {
 				"button": {
-					"importTopic": "Thema importieren",
-					"createFirstTopic": "Erstelle ein Thema",
 					"createAnotherTopic": "Weiteres Thema erstellen",
-					"createAnotherTopicWithTool" : "Weiteres Thema im neuen Editor erstellen",
-					"createFirstTopicWithTool" : "Erstelle ein Thema im neuen Themenwerkzeug"
+					"createAnotherTopicWithTool": "Weiteres Thema im neuen Editor erstellen",
+					"createFirstTopic": "Erstelle ein Thema",
+					"createFirstTopicWithTool": "Erstelle ein Thema im neuen Themenwerkzeug",
+					"importTopic": "Thema importieren"
 				},
 				"headline": {
+					"createFirstTopic": "Erstelle das erste Thema in deinem Kurs",
+					"createFirstTopicWithTool": "Erstelle das erste Thema mit dem neuen Themenwerkzeug",
 					"firstTopicSuccess": "Geschafft - Das erste Thema in deinem Kurs!",
-					"createFirstTopic" : "Erstelle das erste Thema in deinem Kurs",
-					"createFirstTopicWithTool" : "Erstelle das erste Thema mit dem neuen Themenwerkzeug",
+					"importTopic": "Thema importieren",
+					"invitationLinkGenerated": "Einladungslink generiert!",
 					"noTopic": "Es gibt keine Themen in diesem Kurs.",
-					"noTopicWithTool" : "Es gibt keine Themen in diesem Kurs, die mit dem neuen Themenwerkzeug erstellt wurden.",
-					"noTopicYet": "Es gibt noch keine Themen in diesem Kurs.",
-					"noTopicWithToolYet" : "Es gibt noch keine Themen in diesem Kurs, die mit dem neuen Themenwerkzeug erstellt wurden."
+					"noTopicWithTool": "Es gibt keine Themen in diesem Kurs, die mit dem neuen Themenwerkzeug erstellt wurden.",
+					"noTopicWithToolYet": "Es gibt noch keine Themen in diesem Kurs, die mit dem neuen Themenwerkzeug erstellt wurden.",
+					"noTopicYet": "Es gibt noch keine Themen in diesem Kurs."
+				},
+				"img_alt": {
+					"noTopics": "Leeres Thema"
 				},
 				"text": {
-					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler, um sie zum Kurs einzuladen. Die Schüler müssen dafür angemeldet sein.",
-					"importTopicAdviseChangeData": "Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
-					"insertCodeToImportTopic" : "Füge einen Code ein, um Themen anderer Nutzer zu importieren. Im Thema enthaltene Dateien werden in deinem Kursordner abgelegt.",
-					"addTopicWithTool" : "Thema mit neuem Editor hinzufügen (beta)",
+					"addTopic": "Thema hinzufügen",
+					"addTopicWithTool": "Thema mit neuem Editor hinzufügen (beta)",
 					"clickOnTopicForPreview": "Ein Klick auf das Thema bringt dich in die Vorschau-Ansicht.",
-					"importTopic": "Thema importieren",
-					"moveTopic" : "Thema verschieben",
-					"hideTopic" : "Thema verstecken",
-					"addTopic" : "Thema hinzufügen",
-					"revealTopic": "Thema wieder anzeigen",
-					"deleteTopic":"Thema löschen",
+					"deleteTopic": "Thema löschen",
+					"descriptionTopic": "Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu. Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses.",
+					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler, um sie zum Kurs einzuladen. Die Schüler müssen dafür angemeldet sein.",
 					"editTopic": "Thema bearbeiten",
-					"shareTopic" : "Thema teilen",
-					"descriptionTopic" : "Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu. Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses."
-				},
-				"img_alt" : {
-					"noTopics" : "Leeres Thema"
+					"hideTopic": "Thema verstecken",
+					"importTopic": "Thema importieren",
+					"importTopicAdviseChangeData": "Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
+					"insertCodeToImportTopic": "Füge einen Code ein, um Themen anderer Nutzer zu importieren. Im Thema enthaltene Dateien werden in deinem Kursordner abgelegt.",
+					"moveTopic": "Thema verschieben",
+					"revealTopic": "Thema wieder anzeigen",
+					"shareTopic": "Thema teilen"
 				}
 			}
 		},
@@ -272,6 +422,7 @@
 		"button": {
 			"createCourse": "Erstelle einen neuen Kurs",
 			"createFirstCourse": "Erstelle deinen ersten Kurs",
+			"editCourse": "Kurs bearbeiten",
 			"importCourse": "Importiere einen Kurs"
 		},
 		"global": {
@@ -294,7 +445,9 @@
 			}
 		},
 		"headline": {
+			"courseAttendees": "Teilnehmer des Kurses: ",
 			"createDuplicateImport": "Erstelle, dupliziere oder importiere einen Kurs",
+			"importCourse": "Kurs importieren",
 			"mySubstitutes": "Meine Vertretungen",
 			"noArchievedCourses": "Du hast noch keine archivierten Kurse",
 			"noCourse": "Es gibt aktuell keine Kurse"
@@ -308,16 +461,18 @@
 			"currentCourses": "Aktuelle Kurse"
 		},
 		"text": {
-			"finishImport" : "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler hinzu.",
-			"renameCourse" : "Benenne den Kurs um.",
-			"importCourseAttentionTools": "Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
-			"importCourseDescription" : "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schülerbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler hinzu und vergib einen Termin für den Kurs.",
-			"importedCourseWithQR" : "Du hast einen Kurs über einen QR-Code importiert.",
-			"insertCodeToImport" : "Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.", 
 			"courseNoAccess": "Der Bereich Kurse steht nur Lehrkräften und Schüler:innen zur Verfügung.",
 			"descriptionArchievedCourses": "Kurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
 			"descriptionCourseManagement": "Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
-			"noCourseGetInvited": "Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen."
+			"finishImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler hinzu.",
+			"importCourseAttentionTools": "Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
+			"importCourseDescription": "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schülerbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler hinzu und vergib einen Termin für den Kurs.",
+			"importedCourseWithQR": "Du hast einen Kurs über einen QR-Code importiert.",
+			"insertCodeToImport": "Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.",
+			"noAttendees": "Keine Teilnehmer",
+			"noCourseGetInvited": "Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen.",
+			"renameCourse": "Benenne den Kurs um.",
+			"shareTokenNotInUse": "Dieser shareToken scheint nicht in Verwendung zu sein!"
 		}
 	},
 	"dashboard": {
@@ -325,25 +480,72 @@
 			"news": "Neuigkeiten",
 			"openTasks": "Gestellte Aufgaben",
 			"privateTasks": "Entwürfe",
-			"tasks": "Aufgaben",
 			"schedule": "Stundenplan",
+			"tasks": "Aufgaben",
 			"title": "Übersicht"
 		},
 		"text": {
-			"notFound": "Keine aktuellen Einträge vorhanden.",
-			"noTasks": "Keine Aufgaben",
-			"noNews": "Keine Neuigkeiten",
+			"emptyHomeworksInfo": "Du findest alle Aufgaben im Aufgaben-Bereich.",
+			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich.",
 			"emptyTimetable": "Leerer Stundenplan",
 			"empytTimetableInfo": "Der Stundenplan ist derzeit ausgeblendet. Du findest deine Lerninhalte im Kursbereich.",
-			"emptyHomeworksInfo": "Du findest alle Aufgaben im Aufgaben-Bereich.",
-			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich."
+			"noNews": "Keine Neuigkeiten",
+			"noTasks": "Keine Aufgaben",
+			"notFound": "Keine aktuellen Einträge vorhanden."
+		}
+	},
+	"files": {
+		"button": {
+			"ascending": "↑ aufsteigend",
+			"createANewFile": "Neue Datei erstellen",
+			"createANewFolder": "Neuen Ordner erstellen",
+			"descending": "↓ absteigend",
+			"open": "Öffnen",
+			"presentation": "Präsentation (pptx)",
+			"search": "Suchen",
+			"selectFormat": "Format auswählen",
+			"table": "Tabelle (xlsx)",
+			"textDocument": "Textdokument (docx)"
+		},
+		"label": {
+			"chooseANewName": "Wähle einen neuen Namen aus:",
+			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
+			"close": "Schließen",
+			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten.",
+			"fileName": "Dateiname:",
+			"fileType": "Dateityp:",
+			"files": "Dateien",
+			"folder": "Ordner",
+			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
+			"selectAFolder": "Wähle einen Ordner aus"
+		},
+		"text": {
+			"FileCanNotBeDownloaded": "Keine Sorge, die Datei kann nicht heruntergeladen werden.",
+			"foldersAreLocated": "Ordner werden geladen",
+			"foundIn": "gefunden in:",
+			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
+			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
+			"noSearchResults": "Keine Suchergebnisse",
+			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.",
+			"rememberThisSelection": "Diese Auswahl merken",
+			"searchResultFor": "Suchergebnisse für",
+			"searchResults": "Suchergebnisse",
+			"storeFilesForUpload": "Dateien zum Hochladen ablegen.",
+			"studentCanEdit": "Schüler können editieren?",
+			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern"
 		}
 	},
 	"global": {
 		"button": {
+			"add": "Hinzufügen",
 			"cancel": "Abbrechen",
+			"close": "Schließen",
+			"create": "Erstellen",
 			"delete": "Löschen",
-			"open": "Öffnen"
+			"nextStep": "Nächster Schritt",
+			"open": "Öffnen",
+			"save": "Speichern",
+			"send": "Abschicken"
 		},
 		"label": {
 			"room": "Raum"
@@ -388,246 +590,71 @@
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
-			"save" :"Speichern",   
-			"toTheCourseFiles": "Zu den Kursdateien",
-			"toClass": "Zum Kurs" ,
-			"print": "Drucken" 
-		} ,
-		"text":{
-			"noTasks" : "Keine Aufgaben" ,
-			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs" ,
-			"noStudentGroupsInThisCourse" : "keine Schülergruppen in diesem Kurs" ,
-			"noDelivery" :"Keine Abgabe",
-			"youHave": "Du hast",
-			"solvedCorrectly": "richtig gelöst.",
-			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",		
-			"nodescriptionAvailable": "keine Beschreibung vorhanden",
-			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)",
-			"noAssignment": "Keine Zuordnung",
-			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
-			"noDeliveryDateSet": " Kein Abgabedatum festgelegt"			
+			"print": "Drucken",
+			"save": "Speichern",
+			"toClass": "Zum Kurs",
+			"toTheCourseFiles": "Zu den Kursdateien"
 		},
 		"label": {
 			"allowGroupSubmission": "Gruppenabgabe ermöglichen",
 			"comment": "Kommentar",
+			"courses2": "Kurse",
 			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
-			"title": "Titel",
-			"theme": "Thema",
-			"courses2": "Kurse",
 			"maximumGroupSize": "maximale Gruppengröße:",
 			"onTheSubject": "Zum Thema",
 			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
-			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:",			
 			"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
-			"submission": "Abgabe",
-			"submissions": "Abgaben",
 			"rating": "Bewertung",
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
 			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
-			"task": "Aufgabenstellung"
+			"submission": "Abgabe",
+			"submissions": "Abgaben",
+			"task": "Aufgabenstellung",
+			"theme": "Thema",
+			"title": "Titel",
+			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
+		},
+		"text": {
+			"noAssignment": "Keine Zuordnung",
+			"noDelivery": "Keine Abgabe",
+			"noDeliveryDateSet": " Kein Abgabedatum festgelegt",
+			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
+			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
+			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
+			"noTasks": "Keine Aufgaben",
+			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
+			"nodescriptionAvailable": "keine Beschreibung vorhanden",
+			"solvedCorrectly": "richtig gelöst.",
+			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)",
+			"youHave": "Du hast"
 		}
 	},
-	"files":{
-		"text":{
-		   "storeFilesForUpload": "Dateien zum Hochladen ablegen.",
-		   "rememberThisSelection": "Diese Auswahl merken",
-		   "foundIn": "gefunden in:",
-		   "libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
-			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.",
-			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
-			"searchResultFor": "Suchergebnisse für",
-			"searchResults": "Suchergebnisse",
-			"noSearchResults": "Keine Suchergebnisse",
-			"foldersAreLocated": "Ordner werden geladen",
-			"studentCanEdit": "Schüler können editieren?",
-			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
-			"FileCanNotBeDownloaded": "Keine Sorge, die Datei kann nicht heruntergeladen werden."
+	"news": {
+		"button": {
+			"addNews": "News hinzufügen"
 		},
-		"button":{
-		   "open": "Öffnen",
-		   "ascending": "↑ aufsteigend",
-			"descending": "↓ absteigend",
-			"createANewFolder": "Neuen Ordner erstellen",
-			"createANewFile": "Neue Datei erstellen",
-			"search": "Suchen",
-			"selectFormat": "Format auswählen",
-			"textDocument": "Textdokument (docx)",
-			"table": "Tabelle (xlsx)",
-			"presentation": "Präsentation (pptx)"
-		},
-		"label":{
-			"folder": "Ordner",
-			"files": "Dateien",
-			"close": "Schließen",
-			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
-			"selectAFolder": "Wähle einen Ordner aus",
-			"chooseANewName": "Wähle einen neuen Namen aus:",
-			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
-			"fileType": "Dateityp:"	,
-			"fileName": "Dateiname:",
-			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten."		
-		}
-	},
-	"news":{
-		"text":{
-			"from": "von",
-			"created": "erstellt",
-			"lastFrom": "(zuletzt von",
-			"processed": "bearbeitet)",
-			"inTheTeam": "im Team",
-			"inTheCourse": "im Kurs",
-			"inTheClass": "in der Klasse",
-			"atYourSchool": "an deiner Schule ",
-			"atSchool": "an der Schule",
-			"released": "Veröffentlicht",
-			"unpublished": "Unveröffentlicht"
-		},
-		"button":{
-			"addNews": "News hinzufügen"			
-		},
-		"label":{
+		"label": {
 			"content": "Inhalt",
 			"shceduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
 			"title": "Titel"
-		}
-	},
-	"calendar":{
-		"text":{
-			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen...",
-			"participateInVideoConference": "An Videokonferenz teilnehmen",
-			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet",
-			"startAVideoConference": "Videokonferenz starten",
-			"noAuthorization": "Keine Berechtigung"
 		},
-		"button":{
-			"chooseACourse": "Wähle einen Kurs...",
-			"chooseATeam": "Wähle eine Team"
-		},
-		"label":{
-			"title": "Titel",
-			"of": "Von",
-			"to": "Bis",
-			"description": "Beschreibung",
-			"location": "Ort",
-			"createForCourse": "Für Kurs anlegen?",
-			"createForTeam": "Für Team anlegen?",
-			"addVideoConference": "Videokonferenz hinzufügen?"
-		}
-	},
-	"content":{
-		"label":{
-			"chooseACourse": "Wähle einen Kurs / Fach",
-			"chooseALessonTopic": "Wähle ein Unterrichtsthema"
-		},
-		"button":{
-			"choose": "Wähle..."
-		}
-	},
-	"administration":{
-		"label":{
-			"firstName": "Vorname:",
-			"lastName": "Nachname:",
-			"emailAddress": "E-Mail-Adresse:",
-			"birthdate": "Geburtsdatum:",
-			"assignPassword": "Passwort vergeben:",
-			"dataProtection": "Datenschutz",
-			"use": "Nutzung",
-			"classes": "Klassen:",
-			"parents": "Eltern",
-			"student": "Schüler",
-			"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen",
-			"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
-			"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.",
-			"schoolYearChange": "Schuljahreswechsel",
-			"schoolYear": "Schuljahr:",
-			"transferPhase": "Transferphase",
-			"currentSchoolYear": "Aktuelles Schuljahr:",
-			"duringTheSchoolYear": "Während des Schuljahres",
-			"startOfTheTransferPhase": "Start der Transferphase",
-			"duringTheTransferPhase": "Während der Transferphase",
-			"endOfTheTransferPhase": "Beenden der Transferphase",
-			"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
-			"atTheEndOfTheSchoolYearWithLDAP": "Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
-			"noteBeforeTheTransferPhase": "Beachte vor der Transferphase:",
-			"noteAvailableFunction": "Beachte verfügbare Funktionen",
-			"inTheTransferPhase": "in der Transferphase:",
-			"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr",
-			"youCantGoBack": "Du kannst nicht mehr zurück",
-			"loginFromExistingUsers": "Logins bestehender Nutzer",
-			"passwordChangesInLDAP": "Kennwortänderungen im LDAP",
-			"changeOfClasses": "Änderung von Klassen/neue Klassen",
-			"changeOfUserData": "Änderung von Nutzerdaten/neue Nutzer",
-			"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP",
-			"processedForTheNewSchoolYear": "für das neue Schuljahr sind bearbeitet.",
-			"nameOfTheSchool": "Name der Schule",
-			"uploadSchoolLogo": "Schullogo hochladen",
-			"activeChatFunction": "Chatfunktion aktivieren",
-			"enableVideoConference": "Videokonferenzen für Kurse und Teams aktivieren",
-			"cloudStorageProvider": "Cloud-Storage Anbieter",
-			"fileStorageSpaceUsedInCloud": "Genutzter Datei-Speicherplatz in der Cloud",
-			"selectProvider": "Anbieter auswählen",
-			"authentication": "Authentifizierung",
-			"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
-		},
-		"button":{
-			"filterAdd2": "Filter hinzufügen",
-			"filterApply2": "Übernehmen",
-			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
-			"edit": "Bearbeiten",
-			"consent": "Einwilligungen:",
-			"getConsentOnPaper": "Einverständnis auf Papier erhalten",
-			"changePassword": "Passwort ändern",
-			"deleteUser": "Benutzer löschen",
-			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
-			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden",
-			"save": "Speichern",
-			"addTeacher": "Lehrer hinzufügen",
-			"importTeacher": "Lehrer importieren",
-			"sendLinksToTeacherEmail": "Links an Lehrer E-Mail Adressen senden",
-			"createLinkSheet": "Link-Druckbogen erstellen",
-			"addStudents": "Schüler hinzufügen",
-			"generateInvitationLink": "Einladungslink generieren",
-			"importStudents": "Schüler importieren",
-			"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden",
-			"createLinkList": "Link-Druckbogen erstellen",
-			"endSchoolYear": "Schuljahr beenden",
-			"start": "starten",
-			"checkLDAPData": "LDAP-Daten überprüfen",
-			"endTransferPhase": "Transferphase beenden",
-			"chooseAFile": "Datei auswählen",
-			"addSystem": "System hinzufügen",
-			"addLDAPSystem": "LDAP System hinzufügen",
-			"addRSSFeed": "RSS-Feed hinzufügen"
-		},
-		"text":{
-			"registrationAtThe": "Die Anmeldung an der",
-			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
-			"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
-			"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
-			"teamHasOwners": "Team hat Eigentümer",
-			"chatIsActivated": "Chat ist aktiviert",
-			"obtainADeclarationConsent": "Einverständniserklärung einholen",
-			"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
-			"parentsAgreed": "Eltern haben zugestimmt",
-			"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
-			"manuallyConsent": "Einverständnis manuell erklären",
-			"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
-			"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein",
-			"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
-			"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
-			"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
-			"oldSchoolYear": "Altes Schuljahr",
-			"allAboutTheSummerVacation": "Rund um die Sommerferien",
-			"newSchoolYear": "Neues Schuljahr",
-			"allDone": "Alles erledigt!",
-			"noFileSelected": "Keine Datei ausgewählt",
-			"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule",
-			"noRssFeedsYet": "Es sind noch keine RSS-Feeds hinterlegt."
+		"text": {
+			"atSchool": "an der Schule",
+			"atYourSchool": "an deiner Schule ",
+			"created": "erstellt",
+			"from": "von",
+			"inTheClass": "in der Klasse",
+			"inTheCourse": "im Kurs",
+			"inTheTeam": "im Team",
+			"lastFrom": "(zuletzt von",
+			"processed": "bearbeitet)",
+			"released": "Veröffentlicht",
+			"unpublished": "Unveröffentlicht"
 		}
 	}
 }
