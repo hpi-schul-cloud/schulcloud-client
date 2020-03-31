@@ -81,6 +81,10 @@
     }
 
     .svg-timetable-empty {
+        background-image: url('/images/empty-states/timetable-empty-bg.svg');
+        background-size: auto 100%;
+        background-repeat: repeat-x;
+        max-height: 300px;
         opacity: 0.3;
     }
 }
