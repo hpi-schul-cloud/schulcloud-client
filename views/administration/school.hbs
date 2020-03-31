@@ -262,7 +262,7 @@
 					{{#if ../school.fileStorageType}}
 					<div style="padding-top: 20px">
 						<label>{{$t "administration.label.fileStorageSpaceUsedInCloud" }}</label>
-						<p>{{$t "administration.label.yourSchoolIsCurrentlyDrawing" }} {{writeFileSizePretty ../totalStorage.totalSize}}.</p>
+						<p>{{$t "administration.text.yourSchoolIsCurrentlyDrawing" }} {{writeFileSizePretty ../totalStorage.totalSize}}.</p>
 					</div>
 					{{/if}}
 					{{/userHasPermission}}
@@ -355,7 +355,7 @@
 					{{> "lib/components/table" head=rssHead body=rssBody}}
 				</div>
 				{{else}}
-				<p>{{$t "administration.button.noRssFeedsYet" }}</p>
+				<p>{{$t "administration.text.noRssFeedsYet" }}</p>
 				{{/if}}
 			</div>
 			<div class="row">

@@ -109,7 +109,8 @@
 			"use": "Nutzung",
 			"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP",
 			"youCantGoBack": "Du kannst nicht mehr zurück",
-			"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr"
+			"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr",
+			"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
 		},
 		"text": {
 			"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
