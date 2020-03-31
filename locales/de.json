@@ -571,7 +571,8 @@
 			"cloudStorageProvider": "Cloud-Storage Anbieter",
 			"fileStorageSpaceUsedInCloud": "Genutzter Datei-Speicherplatz in der Cloud",
 			"selectProvider": "Anbieter auswählen",
-			"authentication": "Authentifizierung"
+			"authentication": "Authentifizierung",
+			"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
 		},
 		"button":{
 			"filterAdd2": "Filter hinzufügen",
