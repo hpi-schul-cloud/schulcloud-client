@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Fixed
+
+- edit button was not visible for course teachers except the author on the task detail page
+
 ### Added
 
 - This changelog has been added
