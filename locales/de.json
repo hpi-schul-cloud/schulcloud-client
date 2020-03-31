@@ -38,6 +38,8 @@
 	},
 	"administration": {
 		"button": {
+			"addClass": "Klasse hinzufügen",
+			"addCourse": " Kurs hinzufügen",
 			"addLDAPSystem": "LDAP System hinzufügen",
 			"addRSSFeed": "RSS-Feed hinzufügen",
 			"addStudents": "Schüler hinzufügen",
@@ -97,6 +99,12 @@
 			"loginFromExistingUsers": "Logins bestehender Nutzer",
 			"LDAPClasses": "LDAP-Klassen",
 			"LDAPUsers": "LDAP-Nutzer",
+			"manageClasses": "Klassen verwalten",
+			"manageCourses": "Kurse verwalten",
+			"manageSchool": "Schule verwalten",
+			"manageStudents": "Schüler verwalten",
+			"manageTeachers": "Lehrer verwalten",
+			"manaegTeams": "Teams verwalten",
 			"nameOfTheSchool": "Name der Schule",
 			"noteAvailableFunction": "Beachte verfügbare Funktionen",
 			"noteBeforeTheTransferPhase": "Beachte vor der Transferphase:",
