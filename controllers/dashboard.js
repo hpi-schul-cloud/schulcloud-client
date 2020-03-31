@@ -242,9 +242,8 @@ router.get('/', (req, res, next) => {
 			const teacher = ['teacher', 'demoTeacher'];
 			const student = ['student', 'demoStudent'];
 
-			const hasRole = (allowedRoles) => {
-				return roles.some((role) => (allowedRoles || []).includes(role));
-			}
+			const hasRole = (allowedRoles) =>
+				roles.some((role) => (allowedRoles || []).includes(role));
 
 			if (newRelease || !userPreferences.releaseDate) {
 				api(req)
