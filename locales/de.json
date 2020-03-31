@@ -76,6 +76,7 @@
 			"birthdate": "Geburtsdatum:",
 			"changeOfClasses": "Änderung von Klassen/neue Klassen",
 			"changeOfUserData": "Änderung von Nutzerdaten/neue Nutzer",
+			"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr",
 			"classes": "Klassen:",
 			"cloudStorageProvider": "Cloud-Storage Anbieter",
 			"currentSchoolYear": "Aktuelles Schuljahr:",
@@ -91,6 +92,7 @@
 			"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.",
 			"lastName": "Nachname:",
 			"loginFromExistingUsers": "Logins bestehender Nutzer",
+			"LDAPUsers": "LDAP-Nutzer",
 			"nameOfTheSchool": "Name der Schule",
 			"noteAvailableFunction": "Beachte verfügbare Funktionen",
 			"noteBeforeTheTransferPhase": "Beachte vor der Transferphase:",
@@ -110,7 +112,6 @@
 			"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP",
 			"youCantGoBack": "Du kannst nicht mehr zurück",
 			"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr",
-			"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
 		},
 		"text": {
 			"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
