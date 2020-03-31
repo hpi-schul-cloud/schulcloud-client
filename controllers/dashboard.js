@@ -239,6 +239,11 @@ router.get('/', (req, res, next) => {
 			let studentHomeworks;
 			let filteredAssignedHomeworks;
 
+			const teacher = ['teacher', 'demoTeacher'];
+			const student = ['student', 'demoStudent'];
+
+			const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
+
 			if (newRelease || !userPreferences.releaseDate) {
 				api(req)
 					.patch(`/users/${user._id}`, {
@@ -249,7 +254,7 @@ router.get('/', (req, res, next) => {
 					});
 			}
 
-			if (roles.includes('teacher')) {
+			if (hasRole(teacher)) {
 				homeworksFeedbackRequired = assignedHomeworks.filter(
 					(homework) => !homework.private
 					&& homework.stats
@@ -269,7 +274,7 @@ router.get('/', (req, res, next) => {
 				);
 			}
 
-			if (roles.includes('student')) {
+			if (hasRole(student)) {
 				homeworksWithFeedback = assignedHomeworks.filter(
 					(homework) => !homework.private && homework.hasEvaluation,
 				);
@@ -298,8 +303,8 @@ router.get('/', (req, res, next) => {
 				currentTimePercentage,
 				showNewReleaseModal: newRelease,
 				currentTime: moment(currentTime).format('HH:mm'),
-				isTeacher: roles.includes('teacher'),
-				isStudent: roles.includes('student'),
+				isTeacher: hasRole(teacher),
+				isStudent: hasRole(student),
 			});
 		})
 		.catch(next);
