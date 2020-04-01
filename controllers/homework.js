@@ -12,6 +12,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
 const logger = require('../helpers/logger');
+const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
 
 const router = express.Router();
 
@@ -22,7 +23,6 @@ handlebars.registerHelper('ifvalue', function (conditional, options) {
 		return options.inverse(this);
 	}
 });
-
 
 router.use(authHelper.authChecker);
 
@@ -127,7 +127,7 @@ const getCreateHandler = service => (req, res, next) => {
 						'Sie haben eine neue Hausaufgabe im Fach ' + course.name, data.name + ' ist bis zum ' + moment(data.dueDate).format('DD.MM.YYYY HH:mm') + ' abzugeben.',
 						data.teacherId,
 						req,
-						`${(req.headers.origin || process.env.HOST)}/homework/${data._id}`);
+						`${(req.headers.origin || HOST)}/homework/${data._id}`);
 				});
 		}
 		let promise = service === 'submissions' ?
@@ -140,7 +140,7 @@ const getCreateHandler = service => (req, res, next) => {
 					referrer = `/courses/${data.courseId}?activeTab=homeworks`;
 				} else if (!req.body.courseId && referrer.includes('/courses')) {
 					// homework is created inside a course but course reference was unset before create ("Kurs = Keine Zuordnung")
-					referrer = `${(req.headers.origin || process.env.HOST)}/homework/${data._id}`;
+					referrer = `${(req.headers.origin || HOST)}/homework/${data._id}`;
 				} else {
 					// homework was created from homeworks overview
 					referrer += data._id;
@@ -156,7 +156,7 @@ const getCreateHandler = service => (req, res, next) => {
 
 
 const sendNotification = (courseId, title, message, userId, req, link) => {
-	if (process.env.NOTIFICATION_SERVICE_ENABLED) {
+	if (NOTIFICATION_SERVICE_ENABLED) {
 		api(req).post('/notification/messages', {
 			json: {
 				'title': title,
@@ -228,7 +228,7 @@ const patchFunction = function (service, req, res, next) {
 							' ',
 							data.studentId,
 							req,
-							`${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
+							`${(req.headers.origin || HOST)}/homework/${homework._id}`);
 					});
 				res.redirect(req.header('Referrer'));
 			});

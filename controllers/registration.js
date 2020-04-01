@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
 
 let invalid = false;
@@ -76,7 +76,7 @@ damit du die ${res.locals.theme.short_title} nutzen kannst.`;
 						content: {
 							text: `Hallo ${response.user.firstName}
 mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einloggen:
-Adresse: ${req.headers.origin || process.env.HOST}
+Adresse: ${req.headers.origin || HOST}
 E-Mail: ${response.user.email}
 ${passwordText}
 ${studentInfotext}
@@ -96,7 +96,7 @@ ${res.locals.theme.short_title}-Team`,
 						expires: new Date(Date.now() - 100000),
 						httpOnly: false,
 						hostOnly: true,
-						secure: process.env.NODE_ENV === 'production',
+						secure: NODE_ENV === 'production',
 					},
 				);
 			}
