@@ -9,14 +9,16 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [22.8.0]
+
 ### Fixed
 
-- SC-3732: edit button was not visible for course teachers except the author on the task detail page
+-   SC-3732: edit button was not visible for course teachers except the author on the task detail page
 
 ### Added
 
-- This changelog has been added
+-   This changelog has been added
 
 ### Fixed
 
-- provide more formats for PTSans font to be compatible with more browsers
+-   provide more formats for PTSans font to be compatible with more browsers
