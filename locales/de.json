@@ -343,12 +343,26 @@
 		"headline": {
 			"news": "Neuigkeiten",
 			"openTasks": "Gestellte Aufgaben",
-			"privateTasks": "Entwürfe",
+			"privateTasks": "Private Aufgaben und Entwürfe",
+			"tasks": "Aufgaben",
 			"schedule": "Stundenplan",
-			"title": "Übersicht"
+			"title": "Übersicht",
+			"withFeedback": "Aufgaben mit Lehrer:in Feedback",
+			"withRequiredFeedback": "Aufgaben mit erforderlichem Feedback"
 		},
 		"text": {
-			"notFound": "Keine aktuellen Einträge vorhanden."
+			"notFound": "Keine aktuellen Einträge vorhanden.",
+			"noTasks": "Keine Aufgaben",
+			"noNews": "Keine Neuigkeiten",
+			"emptyTimetable": "Leerer Stundenplan",
+			"empytTimetableInfo": "Der Stundenplan ist derzeit ausgeblendet. Du findest deine Lerninhalte im Kursbereich.",
+			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
+			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich."
+		},
+		"homeworkTile": {
+			"handedIn": "Abgegeben",
+			"graded": "Bewertet",
+			"moreTasks": "Weitere Aufgaben..."
 		}
 	},
 	"files": {
@@ -442,7 +456,7 @@
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
 			"print": "Drucken",
-			"save": "Speichern",
+			"save": "Speichern und Abschicken",
 			"toClass": "Zum Kurs",
 			"toTheCourseFiles": "Zu den Kursdateien"
 		},
@@ -462,7 +476,7 @@
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
-			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
+			"studentSolutionVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
 			"task": "Aufgabenstellung",
@@ -476,7 +490,7 @@
 			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
 			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
 			"noSubmission": "Keine Abgabe",
-			"noSubmissionDateSet": " Kein Abgabedatum festgelegt",
+			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
 			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
 			"noDescriptionAvailable": "keine Beschreibung vorhanden",
