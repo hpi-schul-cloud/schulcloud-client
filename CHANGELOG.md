@@ -9,10 +9,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-### Fixed
-
-- SC-3732: edit button was not visible for course teachers except the author on the task detail page
-
 ### Added
 
 - This changelog has been added
@@ -23,4 +19,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-3732: edit button was not visible for course teachers except the author on the task detail page
+- SC-3807: link "Methodenguide" in nbc addons
 - provide more formats for PTSans font to be compatible with more browsers
