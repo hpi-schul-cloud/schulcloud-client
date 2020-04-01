@@ -17,6 +17,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - This changelog has been added
 
+### Changed
+
+- SC-3868 changed NBC contact details from `terhaseborg@n-21.de` to `nbc-support@netz-21.de`
+
 ### Fixed
 
 - provide more formats for PTSans font to be compatible with more browsers
