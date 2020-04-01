@@ -128,9 +128,11 @@
 			"schoolYear": "Schuljahr:",
 			"schoolYearChange": "Schuljahreswechsel",
 			"selectAnAdditionalOwner": "Wähle hier einen zusätzlichen Eigentümer für das Team aus:",
+			"selectCSVFile": "CSV-Datei auswählen",
 			"selectProvider": "Anbieter auswählen",
 			"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden",
 			"sendRegistrationLinkToStudent": "Registrierungslink an Schüler senden",
+			"sendRegistrationLinkToUsers": "Registrierungslinks sofort nach Import an Nutzer senden",
 			"startOfTheTransferPhase": "Start der Transferphase",
 			"student": "Schüler",
 			"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen",
@@ -154,9 +156,14 @@
 		},
 		"text": {
 			"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
+			"areYouSureYouWantTheFollowingUser": "Sind Sie sich sicher, dass Sie folgenden Nutzer wollen?",
+			"areYouSureYouWantToDeleteTheFollowingRSS": "Sind Sie sich sicher, dass Sie folgenden RSS-Feed löschen wollen?",
+			"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
+			"andSendYourUsersARegistrationLinl": "und lass deinen Nutzern einen Registrierungslink zukommen.",
 			"allAboutTheSummerVacation": "Rund um die Sommerferien",
 			"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
 			"allDone": "Alles erledigt!",
+			"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
 			"areYouSureYouWantToRemoveAllMembers": "Bist du sicher, dass du alle Mitglieder deiner Schule aus diesem Team entfernen willst?",
 			"andTo": "und zur",
 			"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
@@ -165,9 +172,11 @@
 			"chatIsActivated": "Chat ist aktiviert",
 			"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
 			"dataProtection": "Datenschutzerklärung",
+			"example": "Beispiel",
 			"ofThe": "der",
 			"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
 			"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
+			"importUserData": "Importiere Nutzerdaten per .csv-Datei",
 			"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 			"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
 			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
@@ -194,7 +203,8 @@
 			"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
 			"years": "Jahre:",
 			"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule",
-			"youCanAlsoOpenEntries": "Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol"
+			"youCanAlsoOpenEntries": "Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol",
+			"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du"
 		}
 	},
 	"calendar": {
