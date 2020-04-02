@@ -594,7 +594,7 @@
 			"noNews": "Keine Neuigkeiten",
 			"emptyTimetable": "Leerer Stundenplan",
 			"empytTimetableInfo": "Der Stundenplan ist derzeit ausgeblendet. Du findest deine Lerninhalte im Kursbereich.",
-			"emptyHomeworksInfo": "Du findest alle Aufgaben im Aufgaben-Bereich.",
+			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich."
 		},
 		"homeworkTile": {
@@ -732,7 +732,7 @@
 		"text": {
 			"noAssignment": "Keine Zuordnung",
 			"noSubmission": "Keine Abgabe",
-			"noSubmissionDateSet": " Kein Abgabedatum festgelegt",
+			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
 			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
 			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
