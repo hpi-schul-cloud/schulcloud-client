@@ -16,8 +16,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - SC-3872: update dataprivacy text
+- SC-3868 changed NBC contact details from `terhaseborg@n-21.de` to `nbc-support@netz-21.de`
 
 ### Fixed
 
 - SC-3732: edit button was not visible for course teachers except the author on the task detail page
+- SC-3807: link "Methodenguide" in nbc addons
 - provide more formats for PTSans font to be compatible with more browsers
