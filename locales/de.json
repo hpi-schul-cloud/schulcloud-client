@@ -718,7 +718,6 @@
 				"maximumGroupSize": "maximale Gruppengröße:",
 				"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
 				"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
-				"studentSolutionVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
 				"task": "Aufgabenstellung",
 				"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
 			},
@@ -731,12 +730,12 @@
 		"global":{
 			"label":{
 			"courses": "Kurse",
-			"edit": "Bearbeiten",
 			"title": "Titel"
 		   }
 		},
 		"label": {
-			"comment": "Kommentar",			
+			"comment": "Kommentar",	
+			"edit": "Bearbeiten",		
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
@@ -745,6 +744,7 @@
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
+			"studentSolutionVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben"	
 		},
