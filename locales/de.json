@@ -711,44 +711,52 @@
 			"toClass": "Zum Kurs",
 			"toTheCourseFiles": "Zu den Kursdateien"
 		},
+		"edit":{
+			"label":{
+				"topic": "Thema",
+				"allowGroupSubmission": "Gruppenabgabe ermöglichen",
+				"maximumGroupSize": "maximale Gruppengröße:",
+				"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
+				"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
+				"studentSolutionVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
+				"task": "Aufgabenstellung",
+				"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
+			},
+			"text":{
+				"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)",
+				"noAssignment": "Keine Zuordnung",
+				"noTopicsInTheCourse": "Keine Themen in diesem Kurs"
+			}
+		},
 		"global":{
+			"label":{
 			"courses": "Kurse",
 			"edit": "Bearbeiten",
 			"title": "Titel"
+		   }
 		},
 		"label": {
-			"allowGroupSubmission": "Gruppenabgabe ermöglichen",
 			"comment": "Kommentar",			
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
-			"maximumGroupSize": "maximale Gruppengröße:",
 			"onTheSubject": "Zum Thema",
-			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
-			"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
 			"rating": "Bewertung",
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
-			"studentSolutionVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
 			"submission": "Abgabe",
-			"submissions": "Abgaben",
-			"task": "Aufgabenstellung",
-			"topic": "Thema",
-			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
+			"submissions": "Abgaben"	
 		},
 		"text": {
-			"noAssignment": "Keine Zuordnung",
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
 			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
 			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
-			"noTasks": "Keine Aufgaben",
-			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
+			"noTasks": "Keine Aufgaben",	
 			"nodescriptionAvailable": "keine Beschreibung vorhanden",
 			"solvedCorrectly": "richtig gelöst.",
-			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)",
 			"youHave": "Du hast"
 		}
 	},
