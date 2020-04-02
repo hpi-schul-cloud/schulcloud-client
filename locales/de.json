@@ -53,7 +53,6 @@
 			"chooseAFile": "Datei auswählen",
 			"copyLink": "Link kopieren",
 			"consent": "Einwilligungen:",
-			"contactSupport":"Support kontaktieren",
 			"createLinkSheet": "Link-Druckbogen erstellen",
 			"declareConsentOnBehalfOfTheStudents": "Einverständnis im Namen der Schüler erklären",
 			"deleteUser": "Benutzer löschen",
@@ -78,6 +77,15 @@
 			"verify": "Verifizieren"
 		},
 		"global":{
+			"helpdesk":{
+				"contactSupport":"Support kontaktieren"
+			},
+			"label":{
+				"courseName": "Name des Kurses"
+			},
+			"text":{
+				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?"
+			}
 		},
 		"label": {
 			"activeChatFunction": "Chatfunktion aktivieren",
@@ -98,7 +106,6 @@
 			"clientSecret": "Client-Geheimnis",
 			"cloudStorageProvider": "Cloud-Storage Anbieter",
 			"colorOfTheCourse": "Farbe des Kurses:",
-			"courseName": "Name des Kurses",
 			"createdOn": "Erstellt am:",
 			"currentSchoolYear": "Aktuelles Schuljahr:",
 			"dataProtection": "Datenschutz",
@@ -185,7 +192,6 @@
 			"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 			"areYouSureYouWantTheFollowingUser": "Sind Sie sich sicher, dass Sie folgenden Nutzer wollen?",
 			"areYouSureYouWantToDeleteTheFollowingRSS": "Sind Sie sich sicher, dass Sie folgenden RSS-Feed löschen wollen?",
-			"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
 			"andSendYourUsersARegistrationLinl": "und lass deinen Nutzern einen Registrierungslink zukommen.",
 			"allAboutTheSummerVacation": "Rund um die Sommerferien",
 			"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
