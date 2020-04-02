@@ -19,6 +19,7 @@
                 {{#if this.stats.gradePercentage}}secdata="{{this.stats.gradePercentage}}" {{/if}} width="70"
                 height="70" style="width: 70px; height: 70px;" data-toggle="tooltip" data-placement="left"
                 data-html="true" data-original-title="
+                        Teilnehmer: {{this.stats.userCount}}</br>
                         Abgegeben: {{this.stats.submissionCount}}</br>
                         Bewertet: {{#if this.stats.gradeCount}}{{this.stats.gradeCount}}{{else}}-{{/if}}</br>
                         Ø: {{#if this.stats.averageGrade}}{{this.stats.averageGrade}}% richtig gelöst{{else}}-{{/if}}">
@@ -32,7 +33,7 @@
         <div class="state">
             <circular-progress class="meinel-progress" primarycolor="#009688" accentcolor="lightgrey"
                 data="{{this.grade}}" width="70" height="70" data-toggle="tooltip" data-placement="left"
-                data-original-title="Du hast {{this.grade}}% richtig gelöst.">
+                data-original-title="{{this.grade}}% richtig gelöst">
             </circular-progress>
         </div>
     </a>
