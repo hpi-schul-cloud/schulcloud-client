@@ -198,7 +198,7 @@
 			"tasks": {
 				"button": {
 					"addPrivateTask": "private Aufgabe hinzufügen",
-					"createTask": "Erstelle eine Aufgabe",
+					"createTask": "Stelle eine Aufgabe",
 					"privateTasks": "Private Aufgaben"
 				},
 				"headline": {
