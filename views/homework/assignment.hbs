@@ -72,17 +72,33 @@
 
 {{#extend "homework/homework"}}
     {{#content "page"}}
-
         <section class="section-homework">
-            <div class="dates">
-                {{availableDateF}} ({{availableTimeF}})<br />
+            <div class="dates text-muted">
+                {{availableDateF}} ({{availableTimeF}}) |
                 {{#if dueDate}}
                     bis: {{dueDateF}} ({{dueTimeF}})
                 {{else}}
                     {{$t "homework.text.noSubmissionDateSet"}}
                 {{/if}}
-
             </div>
+            {{#if courseId._id}}
+                <div class="col-sm-12">
+                    <div class="pull-right">
+                        <a href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
+                            <i class="fa fa-folder-open"></i>
+                            {{$t "homework.button.toTheCourseFiles" }}
+                        </a>
+                        <a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="Zum Kurs der Aufgabe">
+                            <i class="fa fa-graduation-cap"></i>
+                            {{$t "homework.button.toClass" }}
+                        </a>
+                        {{#if lessonId}}
+                            <a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
+                                alt="Zum Thema der Aufgabe">{{$t "homework.label.onTheSubject" }}</a>
+                        {{/if}}
+                    </div>
+                </div>
+			{{/if}}
             <div class="tab-view maintabs">
                 <nav class="nav tab-links">
                     <a id="extended-tab-link" class="tab-link active" href="#activetabid=extended"

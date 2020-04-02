@@ -198,7 +198,7 @@
 			"tasks": {
 				"button": {
 					"addPrivateTask": "private Aufgabe hinzufügen",
-					"createTask": "Erstelle eine Aufgabe",
+					"createTask": "Stelle eine Aufgabe",
 					"privateTasks": "Private Aufgaben"
 				},
 				"headline": {
@@ -216,7 +216,8 @@
 					"addPrivateTask": "private Aufgabe hinzufügen",
 					"addTasks": "Aufgabe hinzufügen",
 					"descriptionTasks": "Kursteilnehmer*innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
-					"showPrivateTasks": "Private Aufgaben ein/ausklappen"
+					"showPrivateTasks": "Private Aufgaben ein/ausklappen",
+					"moreArchivedLinkLabel": "mehr archivierte Aufgaben..."
 				}
 			},
 			"text": {
