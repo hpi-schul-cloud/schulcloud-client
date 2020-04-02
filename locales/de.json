@@ -77,6 +77,8 @@
 			"start": "starten",
 			"verify": "Verifizieren"
 		},
+		"global":{
+		},
 		"label": {
 			"activeChatFunction": "Chatfunktion aktivieren",
 			"addStudentFromPreviousYearClass": "Schüler aus Vorjahres-Klasse hinzufügen",
@@ -582,7 +584,9 @@
 			"privateTasks": "Entwürfe",
 			"schedule": "Stundenplan",
 			"tasks": "Aufgaben",
-			"title": "Übersicht"
+			"title": "Übersicht",
+			"withFeedback": "Aufgaben mit Lehrer:in Feedback",
+			"withRequiredFeedback": "Aufgaben mit erforderlichem Feedback"
 		},
 		"text": {
 			"emptyHomeworksInfo": "Du findest alle Aufgaben im Aufgaben-Bereich.",
@@ -592,6 +596,11 @@
 			"noNews": "Keine Neuigkeiten",
 			"noTasks": "Keine Aufgaben",
 			"notFound": "Keine aktuellen Einträge vorhanden."
+		},
+		"homeworkTile": {
+			"handedIn": "Abgegeben",
+			"graded": "Bewertet",
+			"moreTasks": "Weitere Aufgaben..."
 		}
 	},
 	"files": {
@@ -712,7 +721,7 @@
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
-			"studentFeesVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
+			"studentSolutionVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
 			"task": "Aufgabenstellung",
