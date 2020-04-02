@@ -54,6 +54,12 @@ const helpers = app => ({
 		}
 		return opts.inverse(this);
 	},
+	notInArray: (item, array = [], opts) => {
+		if (!array.includes(item)) {
+			return opts.fn(this);
+		}
+		return opts.inverse(this);
+	},
 	arrayLength: array => array.length,
 	truncate: (text = '', { length = 140 } = {}) => {
 		if (text.length <= length) {
