@@ -588,14 +588,14 @@
 			"withFeedback": "Aufgaben mit Lehrer:in Feedback",
 			"withRequiredFeedback": "Aufgaben mit erforderlichem Feedback"
 		},
-		"text": {
-			"emptyHomeworksInfo": "Du findest alle Aufgaben im Aufgaben-Bereich.",
-			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich.",
+		"text": {			
+			"notFound": "Keine aktuellen Einträge vorhanden.",
+			"noTasks": "Keine Aufgaben",
+			"noNews": "Keine Neuigkeiten",
 			"emptyTimetable": "Leerer Stundenplan",
 			"empytTimetableInfo": "Der Stundenplan ist derzeit ausgeblendet. Du findest deine Lerninhalte im Kursbereich.",
-			"noNews": "Keine Neuigkeiten",
-			"noTasks": "Keine Aufgaben",
-			"notFound": "Keine aktuellen Einträge vorhanden."
+			"emptyHomeworksInfo": "Du findest alle Aufgaben im Aufgaben-Bereich.",
+			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich."
 		},
 		"homeworkTile": {
 			"handedIn": "Abgegeben",
@@ -732,7 +732,7 @@
 		"text": {
 			"noAssignment": "Keine Zuordnung",
 			"noSubmission": "Keine Abgabe",
-			"noDeliveryDateSet": " Kein Abgabedatum festgelegt",
+			"noSubmissionDateSet": " Kein Abgabedatum festgelegt",
 			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
 			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
 			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
