@@ -711,11 +711,14 @@
 			"toClass": "Zum Kurs",
 			"toTheCourseFiles": "Zu den Kursdateien"
 		},
+		"global":{
+			"courses": "Kurse",
+			"edit": "Bearbeiten",
+			"title": "Titel"
+		},
 		"label": {
 			"allowGroupSubmission": "Gruppenabgabe ermöglichen",
-			"comment": "Kommentar",
-			"courses2": "Kurse",
-			"edit": "Bearbeiten",
+			"comment": "Kommentar",			
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
@@ -731,8 +734,7 @@
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
 			"task": "Aufgabenstellung",
-			"theme": "Thema",
-			"title": "Titel",
+			"topic": "Thema",
 			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
 		},
 		"text": {
