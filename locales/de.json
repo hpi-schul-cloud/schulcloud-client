@@ -88,7 +88,6 @@
 			}
 		},
 		"label": {
-			"activeChatFunction": "Chatfunktion aktivieren",
 			"addStudentFromPreviousYearClass": "Schüler aus Vorjahres-Klasse hinzufügen",
 			"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
 			"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)",
@@ -187,6 +186,11 @@
 			"startOfLesson": "Start der Schulstunde",
 			"weekday": "Wochentag",
 			"room": "Raum"
+		},
+		"school":{
+			"label":{
+				"activeChatFunction": "Chatfunktion aktivieren"
+			}
 		},
 		"text": {
 			"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
