@@ -38,18 +38,16 @@
     </a>
     {{/if}}
     <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">
-        <h2 class="h5 title">
+        <h2 class="h6 title">
             {{#if this.courseId}}
             [<span>{{{stripOnlyScript this.courseId.name}}}</span>{{#if this.isSubstitution}}
             <sub>Vertretung</sub>{{/if}}] -
             {{/if}}
             {{{ stripOnlyScript this.name }}}
         </h2>
-        <div class="ckcontent">
+        <div class="ckcontent text-muted">
             {{#if this.description}}
-            {{{ truncateHTML (conflictFreeHtml this.description) 140 false }}}
-            {{else}}
-            {{$t "homework.text.noDescriptionAvailable" }}
+                {{{ truncateHTML (conflictFreeHtml this.description) 140 false }}}
             {{/if}}
         </div>
     </a>
@@ -57,12 +55,15 @@
         {{#inArray this.currentUser._id this.archived}}
         <span class="count-badge" data-badge="Archiviert" /></span>
         {{else}}
-        {{#if ../this.private}}
-        <span class="count-badge" data-badge="Entwürfe" /></span>
-        {{else}}
-        <span class="count-badge" data-badge="Gestellt" /></span>
-        {{/if}}
+            {{#if ../this.private}}
+            <span class="count-badge" data-badge="Entwürfe" /></span>
+            {{else}}
+            <span class="count-badge" data-badge="Gestellt" /></span>
+            {{/if}}
         {{/inArray}}
+        {{#if this.grade}}
+            <span class="count-badge" data-badge="Feedback" /></span>
+        {{/if}}
     </div>
     <div class="action-group">
         {{#userHasPermission "HOMEWORK_CREATE"}}
@@ -98,6 +99,6 @@
         {{/userHasPermission}}
     </div>
     <a href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">
-        <span class="more">Details ><i className="fa fa-chevron-right" aria-hidden="true"></i></span>
+        <span class="more">Aufgabe öffnen ><i className="fa fa-chevron-right" aria-hidden="true"></i></span>
     </a>
 </li>

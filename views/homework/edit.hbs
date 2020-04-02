@@ -157,7 +157,7 @@
 			<div class="form-group">
 				<label>{{$t "homework.label.task" }}</label>
 				<textarea name="description" type="text" class="form-control customckeditor"
-					placeholder="Aufgabenstellung">{{assignment.description}}</textarea>
+					placeholder="{{$t "homework.label.task" }}">{{assignment.description}}</textarea>
 			</div>
 
 			{{#embed "files/file-upload"}}{{/embed}}

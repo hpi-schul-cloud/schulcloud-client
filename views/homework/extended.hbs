@@ -3,8 +3,8 @@
 		<div class="assignment row">
 			<div class="description col-xl-12 print">
 				{{#if this.description}}
-					<div class="btn btn-secondary btn-print mb-1" data-toggle="tooltip" title="Aufgabenstellung drucken">
-						<i class='fa fa-print'></i> {{$t "homework.button.print" }}
+					<div class="btn btn-secondary btn-print btn-sm pull-right" data-toggle="tooltip" title="Aufgabenstellung drucken">
+						<i class='fa fa-print'></i>
 					</div>
 
 					<h1 class="print-only">{{{this.title}}}</h1>
@@ -24,11 +24,14 @@
 			{{#if isTeacher}}
 				{{#userHasPermission "HOMEWORK_EDIT"}}
 					<a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit"
-						alt="Aufgabe '{{../title}}' bearbeiten.">{{$t "homework.label.edit" }}</a>
+						alt="Aufgabe '{{../title}}' bearbeiten."> <i class='fa fa-edit'></i> {{$t "homework.label.edit" }}
+					</a>
 					<a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/homework" target="_blank"
 						data-method="DELETE" data-name="{{../title}}" alt="Löschen der Aufgabe: '{{../title}}'.">
-						{{$t "global.button.delete" }}
+						<i class='fa fa-trash-o'></i> {{$t "global.button.delete" }}
 					</a>
+					<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="Aufgabenstellung kopieren" href="/homework/{{../_id}}/copy"
+						alt="Aufgabe '{{../title}}' kopieren."> <i class='fa fa-copy'></i> {{$t "homework.button.copy" }} </a>
 				{{/userHasPermission}}
 			{{/if}}
 
@@ -49,24 +52,6 @@
 				</a>
 				{{/userHasPermission}}
 			{{/inArray}}
-			{{#userHasPermission "HOMEWORK_CREATE"}}
-				<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="Aufgabenstellung kopieren" href="/homework/{{../_id}}/copy"
-					alt="Aufgabe '{{../title}}' kopieren."> <i class='fa fa-copy'></i> {{$t "homework.button.copy" }} </a>
-			{{/userHasPermission}}
-			{{#if courseId._id}}
-				<a href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
-					<i class="fa fa-folder-open"></i>
-					{{$t "homework.button.toTheCourseFiles" }}
-				</a>
-				<a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="Zum Kurs der Aufgabe">
-					<i class="fa fa-graduation-cap"></i>
-					{{$t "homework.button.toClass" }}
-				</a>
-				{{#if lessonId}}
-					<a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
-						alt="Zum Thema der Aufgabe">{{$t "homework.label.onTheSubject" }}</a>
-				{{/if}}
-			{{/if}}
 		{{/unless}}
 	</div>
 	{{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
