@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [22.7.1] - 2020-04-02
+
+### Changed
+
+- SC-3884 update community page text
+
 ### Added
 
 - This changelog has been added
