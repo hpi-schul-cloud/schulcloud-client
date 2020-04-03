@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+- SC-3749 remove cookie domain
+
 ## [22.7.2] - 2020-04-03
 
 ### Changed
