@@ -16,6 +16,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 -   SC-3732: edit button was not visible for course teachers except the author on the task detail page
 
 
+## [22.7.2] - 2020-04-03
+
+### Changed
+
+- SC-3900 update tsc email on community page
+
+
 ## [22.7.1] - 2020-04-02
 ### Changed
 - SC-3884 update community page text
