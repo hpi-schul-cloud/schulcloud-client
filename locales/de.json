@@ -1,37 +1,424 @@
 {
 	"about": {
+		"button": {
+			"showLess": "Weniger anzeigen",
+			"showMore": "Mehr anzeigen"
+		},
 		"headline": {
 			"bestPractice": "Best Practice Schulen",
 			"educSupp": "Bildungswissenschaftliche Begleitung",
-			"pilotSchool": "Pilostschulen",
+			"morePublications": "Weitere Veröffentlichungen",
+			"ourAwards": "Unsere Auszeichnungen",
+			"pilotSchool": "Pilotschulen",
+			"publications": "Veröffentlichungen",
+			"recordingsLecture": "Aufzeichnungen von Vorträgen",
 			"title": "Über die HPI Schul-Cloud"
 		},
 		"link": {
-			"shortDesc": "Kurzbeschreibung \"Die HPI Schul-Cloud\" (.pdf)"
+			"awardWinnerIdea": "Ernennung zum „Ausgezeichneten Ort“ im bundesweiten Wettbewerb „Land der Ideen“",
+			"awardWinnerInnovation": "Preisträger im \"Innovationspreis Berlin Brandenburg 2018\"",
+			"cloudGermanyConcept": "Die Cloud für Schulen in Deutschland: Konzept und Pilotierung der HPI Schul-Cloud",
+			"cloudImpotanceStakeholder": "Schulrechner wandern in die Cloud – Was bedeutet das für die unterschiedlichen Stakeholder?",
+			"hpiCloudDuringLesson": "Die HPI Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien und Methoden",
+			"hpiCloudInDayLife": "Die HPI Schul-Cloud in Unterricht und Schulalltag - Mehrwert und Voraussetzungen",
+			"hpiCloudLearning": "HPI Schul-Cloud und Lernen 4.0 - Best-Practice-Unterrichtsbeispiele für die Sekundarstufe",
+			"hpiCloudTechnicalReport": "Technischer Bericht: Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland",
+			"shortDescription": "Kurzbeschreibung \"Die HPI Schul-Cloud\" (.pdf)",
+			"talksFirstCloudForum": "Vorträge des 1. HPI Schul-Cloud-Forums (April 2017)",
+			"talksSecondCloudForum": "Vorträge des 2. HPI Schul-Cloud-Forums (März 2018)",
+			"talksThirdCloudForum": "Vorträge des 3. HPI Schul-Cloud-Forums (März 2019)"
 		},
 		"text": {
 			"moreInfo": "Mehr Informationen:",
-			"showLess": "Weniger anzeigen",
-			"showMore": "Mehr anzeigen",
 			"startA2019": "(Start August 2019)",
 			"startF2019": "(Start Februar 2019)",
 			"startM2017": "(Start März 2017)",
 			"startM2018": "(Start Mai 2018)"
 		}
 	},
+	"administration": {
+		"button": {
+			"changePassword": "Passwort ändern",
+			"consent": "Einwilligungen:",
+			"deleteUser": "Benutzer löschen",
+			"edit": "Bearbeiten",
+			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
+			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
+			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
+			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
+		},
+		"label": {
+			"assignPassword": "Passwort vergeben:",
+			"birthdate": "Geburtsdatum:",
+			"classes": "Klassen:",
+			"dataProtection": "Datenschutz",
+			"emailAddress": "E-Mail-Adresse:",
+			"firstName": "Vorname:",
+			"lastName": "Nachname:",
+			"parents": "Eltern",
+			"student": "Schüler",
+			"termsOfUse": "Nutzung"
+		}
+	},
+	"calendar": {
+		"button": {
+			"chooseACourse": "Wähle einen Kurs...",
+			"chooseATeam": "Wähle eine Team"
+		},
+		"label": {
+			"addVideoConference": "Videokonferenz hinzufügen?",
+			"createForCourse": "Für Kurs anlegen?",
+			"createForTeam": "Für Team anlegen?",
+			"description": "Beschreibung",
+			"of": "Von",
+			"location": "Ort",
+			"title": "Titel",
+			"to": "Bis"
+		},
+		"text": {
+			"noAuthorization": "Keine Berechtigung",
+			"participateInVideoConference": "An Videokonferenz teilnehmen",
+			"startAVideoConference": "Videokonferenz starten",
+			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen...",
+			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
+		}
+	},
+	"content": {
+		"button": {
+			"choose": "Wähle..."
+		},
+		"label": {
+			"chooseACourse": "Wähle einen Kurs / Fach",
+			"chooseALessonTopic": "Wähle ein Unterrichtsthema"
+		}
+	},
+	"courses": {
+		"_course": {
+			"dropdown_menu": {
+				"link": {
+					"duplicateCourse": "Kurs duplizieren",
+					"editDeleteCourse": "Kurs bearbeiten/löschen",
+					"inviteToCourse": "zum Kurs einladen",
+					"shareCourse": "Kurs teilen"
+				}
+			},
+			"edit": {
+				"button": {
+					"addLesson": "Neuen Stundentermin hinzufügen",
+					"deleteCourse": "Kurs löschen",
+					"showCourseDetail": "Kursdetails anzeigen"
+				},
+				"headline": {
+					"courseIsArchieved": "Der Kurs {{coursename}} ist archivert."
+				},
+				"img_alt": {
+					"courseIsArchieved": "Kurs ist archiviert"
+				},
+				"label": {
+					"chooseDate": "Termine auswählen",
+					"class": "Klasse(n)",
+					"from": "Von",
+					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)",
+					"substitute": "Vertretungslehrer",
+					"till": "Bis",
+					"timeSpan": "Zeitraum (z.B. Schuljahr)",
+					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
+				},
+				"pop_up": {},
+				"text": {
+					"attentionDeletion": "Alle Daten werden unwiderruflich gelöscht.",
+					"courseWillDelete": "Dies löscht den Kurs auch für alle Schüler:innen.",
+					"toEditChangeDate": "Um Daten des Kurses zu bearbeiten musst du zunächst das Enddatum anpassen."
+				}
+			},
+			"global": {
+				"label": {
+					"studentParticipant": "Schüler / Teilnehmer"
+				},
+				"text": {
+					"more": "Weiteres"
+				}
+			},
+			"groups": {
+				"_group": {
+					"edit": {
+						"input": {
+							"group1": "Gruppe 1"
+						},
+						"label": {
+							"nameOfGroup": "Name der Gruppe"
+						}
+					},
+					"headline": {
+						"doneGroupTasks": "getätigte Gruppenabgaben",
+						"openGroupTasks": "offene (mögliche) Gruppenabgaben",
+						"topics": "Themen"
+					},
+					"link": {
+						"addTopic": "Thema hinzufügen",
+						"deleteGroup": "Schülergruppe löschen",
+						"editGroup": "Schülergruppe bearbeiten"
+					},
+					"text": {
+						"groupMembers": "Gruppenteilnehmer: ",
+						"noOpenGroupTasks": "Keine weiteren Gruppenabgaben möglich.",
+						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
+						"noTopics": "keine Themen.",
+						"responsibleTeachers": "Verantwortliche Lehrer: ",
+						"workOnTopic": "Thema bearbeiten"
+					}
+				},
+				"button": {
+					"createNewGroup": "Erstelle eine neue Gruppe"
+				},
+				"headline": {
+					"createGroup": "Erstelle eine Gruppe",
+					"myStudentGroups": "Meine Schülergruppen",
+					"noGroups": "Es gibt keine Gruppen in diesem Kurs.",
+					"noGroupsYet": "Es gibt noch keine Gruppen in diesem Kurs.",
+					"studentGroups": "Schülergruppen"
+				},
+				"img_alt": {
+					"noCreatedGroups": "Keine erstellte Gruppe"
+				},
+				"text": {
+					"addGroup": "Gruppe hinzufügen",
+					"descriptionCourses": "In Gruppen können sich Teilnehmer*innen innerhalb eines Kurses in Teams aufteilen, z.B. für Gruppenarbeiten."
+				}
+			},
+			"link": {
+				"toCourseFiles": "Zu den Kursdateien"
+			},
+			"tab_label": {
+				"groups": "Gruppen",
+				"tasks": "Aufgaben",
+				"tools": "Tools",
+				"topics": "Themen"
+			},
+			"tasks": {
+				"button": {
+					"addPrivateTask": "private Aufgabe hinzufügen",
+					"createTask": "Stelle eine Aufgabe",
+					"privateTasks": "Private Aufgaben"
+				},
+				"headline": {
+					"createFirstTask": "Erstelle die erste Aufgabe in deinem Kurs",
+					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
+					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
+					"posedTasks": "Gestellte Aufgaben",
+					"task": "Aufgabe",
+					"tasks": "Aufgaben"
+				},
+				"img_alt": {
+					"noPosedTasks": "Keine gestellten Aufgaben"
+				},
+				"text": {
+					"addPrivateTask": "private Aufgabe hinzufügen",
+					"addTasks": "Aufgabe hinzufügen",
+					"descriptionTasks": "Kursteilnehmer*innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
+					"showPrivateTasks": "Private Aufgaben ein/ausklappen",
+					"moreArchivedLinkLabel": "mehr archivierte Aufgaben..."
+				}
+			},
+			"text": {
+				"coursedescription": "Kursbeschreibung: ",
+				"nextClass": "Nächste Unterrichtsstunde: "
+			},
+			"tools": {
+				"button": {
+					"addNewTool": "Füge ein neues Tool hinzu"
+				},
+				"headline": {
+					"addToolToCourse": "Füge dem Kurs Tools hinzu",
+					"noTools": "Es gibt keine Tools in diesem Kurs.",
+					"noToolsYet": "Es gibt noch keine Tools in diesem Kurs."
+				},
+				"text": {
+					"addNewTool": "Neues Tool hinzufügen",
+					"descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
+					"noTools": "Keine Tools.",
+					"videoConferenceBBB": "Videokonferenz BigBlueButton",
+					"videoConferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet"
+				}
+			},
+			"topic": {
+				"button": {
+					"importTopic": "Thema importieren"
+				},
+				"headline": {
+					"firstTopicSuccess": "Geschafft - Das erste Thema in deinem Kurs!"
+				},
+				"text": {
+					"clickOnTopicForPreview": "Ein Klick auf das Thema bringt dich in die Vorschau-Ansicht.",
+					"importTopic": "Thema importieren"
+				}
+			}
+		},
+		"add": {
+			"button": {
+				"addLessonAppointment": "Schulstundentermin im Stundenplan anlegen (optional)",
+				"deleteCourse": "Kurs löschen"
+			},
+			"headline": {
+				"almostDone": "Du hast es fast geschafft...",
+				"done": "Geschafft!",
+				"whatToDoCourses": "Was kannst du in einem Kurs machen?"
+			},
+			"input": {
+				"egMaths": "z.B. Mathe 10a"
+			},
+			"label": {
+				"addClassesToCourse": "Klasse(n) (Alle Schüler der Klasse werden automatisch hinzugefügt!) - Optional",
+				"addStudentsToCourse": "Schüler / Teilnehmer - Optional",
+				"courseSubstitute": "Vertretungslehrer - Optional",
+				"timeSpan": "Zeitraum (z.B. Schuljahr) von - Optional",
+				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben",
+				"timeSpanUntil": "Bis - Optional"
+			},
+			"link": {
+				"addAnotherCourse": "Einen weiteren Kurs anlegen",
+				"courseOverview": "Zur Kursübersicht",
+				"createTopics": "Themen anlegen",
+				"giveExercises": "Aufgaben stellen"
+			},
+			"tab_label": {
+				"courseData": "Kursdaten",
+				"courseMembers": "Teilnehmer",
+				"finish": "Abschließen"
+			},
+			"text": {
+				"addStudentsOrClasses": "Füge Klassen oder einzelne Schüler deinem Kurs hinzu.",
+				"contentOfClass": "Lege die Inhalte deines Unterrichts an.",
+				"doItNowOrLaterInSettings": "Dies kannst du jetzt oder später in den Kurseinstellungen machen.",
+				"giveExercisesAndGetResults": "Stelle deinen Kursteilnehmern Aufgaben und sieh dir ihre Abgaben an.",
+				"groupsWorkTogether": "In einem Kurs wird gemeinsam mit den Teilnehmern an Themen, Aufgaben und Dateien gearbeitet.",
+				"willAlsoDeleteForStudents": "Dies löscht den Kurs auch bei allen Schüler:innen."
+			}
+		},
+		"button": {
+			"createCourse": "Erstelle einen neuen Kurs",
+			"createFirstCourse": "Erstelle deinen ersten Kurs",
+			"importCourse": "Importiere einen Kurs"
+		},
+		"global": {
+			"input": {
+				"chooseTeacher": "Lehrer auswählen",
+				"egRoom1-21": "z.B. R-1.21",
+				"inMinutes": "In Minuten",
+				"mathsClass": "Mathe 10a",
+				"selectClasses": "Klasse(n) auswählen",
+				"selectStudents": "Schüler auswählen"
+			},
+			"label": {
+				"courseColor": "Farbe des Kurses",
+				"courseDescription": "Beschreibung des Kurses",
+				"courseName": "Name des Kurses",
+				"courseTeacher": "Unterrichtender Lehrer",
+				"lengthOfLesson": "Dauer der Schulstunde",
+				"startOfLesson": "Start der Schulstunde",
+				"weekday": "Wochentag"
+			}
+		},
+		"headline": {
+			"createDuplicateImport": "Erstelle, dupliziere oder importiere einen Kurs",
+			"mySubstitutes": "Meine Vertretungen",
+			"noArchievedCourses": "Du hast noch keine archivierten Kurse",
+			"noCourse": "Es gibt aktuell keine Kurse"
+		},
+		"img_alt": {
+			"noArchievedCourses": "Keine archivierten Kurse",
+			"noCourses": "Keine Kurse vorhanden"
+		},
+		"tab_labels": {
+			"archievedCourses": "Archivierte Kurse",
+			"currentCourses": "Aktuelle Kurse"
+		},
+		"text": {
+			"courseNoAccess": "Der Bereich Kurse steht nur Lehrkräften und Schüler:innen zur Verfügung.",
+			"descriptionArchievedCourses": "Kurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
+			"descriptionCourseManagement": "Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
+			"noCourseGetInvited": "Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen."
+		}
+	},
 	"dashboard": {
 		"headline": {
 			"news": "Neuigkeiten",
 			"openTasks": "Gestellte Aufgaben",
-			"privateTasks": "Entwürfe",
+			"privateTasks": "Private Aufgaben und Entwürfe",
+			"tasks": "Aufgaben",
 			"schedule": "Stundenplan",
-			"title": "Übersicht"
+			"title": "Übersicht",
+			"withFeedback": "Aufgaben mit Lehrer:in Feedback",
+			"withRequiredFeedback": "Aufgaben mit erforderlichem Feedback"
 		},
 		"text": {
-			"notFound": "Keine aktuellen Einträge vorhanden."
+			"notFound": "Keine aktuellen Einträge vorhanden.",
+			"noTasks": "Keine Aufgaben",
+			"noNews": "Keine Neuigkeiten",
+			"emptyTimetable": "Leerer Stundenplan",
+			"empytTimetableInfo": "Der Stundenplan ist derzeit ausgeblendet. Du findest deine Lerninhalte im Kursbereich.",
+			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
+			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich."
+		},
+		"homeworkTile": {
+			"handedIn": "Abgegeben",
+			"graded": "Bewertet",
+			"moreTasks": "Weitere Aufgaben..."
+		}
+	},
+	"files": {
+		"button": {
+			"ascending": "↑ aufsteigend",
+			"createANewFile": "Neue Datei erstellen",
+			"createANewFolder": "Neuen Ordner erstellen",
+			"descending": "↓ absteigend",
+			"open": "Öffnen",
+			"presentation": "Präsentation (pptx)",
+			"search": "Suchen",
+			"selectFormat": "Format auswählen",
+			"table": "Tabelle (xlsx)",
+			"textDocument": "Textdokument (docx)"
+		},
+		"label": {
+			"chooseANewName": "Wähle einen neuen Namen aus:",
+			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
+			"close": "Schließen",
+			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten.",
+			"fileName": "Dateiname:",
+			"fileType": "Dateityp:",
+			"files": "Dateien",
+			"folder": "Ordner",
+			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
+			"selectAFolder": "Wähle einen Ordner aus"
+		},
+		"text": {
+			"FileCanNotBeDownloaded": "Keine Sorge, die Datei kann nicht heruntergeladen werden.",
+			"foldersAreLocated": "Ordner werden geladen",
+			"foundIn": "gefunden in:",
+			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
+			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
+			"noSearchResults": "Keine Suchergebnisse",
+			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.",
+			"rememberThisSelection": "Diese Auswahl merken",
+			"searchResultFor": "Suchergebnisse für",
+			"searchResults": "Suchergebnisse",
+			"storeFilesForUpload": "Dateien zum Hochladen ablegen.",
+			"studentCanEdit": "Schüler können editieren?",
+			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern"
 		}
 	},
 	"global": {
+		"button": {
+			"cancel": "Abbrechen",
+			"delete": "Löschen",
+			"open": "Öffnen"
+		},
+		"label": {
+			"room": "Raum"
+		},
+		"link": {
+			"openInNewTab": "in neuem Tab öffnen"
+		},
 		"sidebar": {
 			"link": {
 				"administration": "Administration",
@@ -47,6 +434,91 @@
 				"overview": "Übersicht",
 				"tasks": "Aufgaben"
 			}
+		},
+		"text": {
+			"areYouSure": "Bist du dir sicher?",
+			"attention": "Achtung:",
+			"friday": "Freitag",
+			"monday": "Montag",
+			"saturday": "Samstag",
+			"sunday": "Sonntag",
+			"thursday": "Donnerstag",
+			"tuesday": "Dienstag",
+			"wednesday": "Mittwoch"
+		}
+	},
+	"homework": {
+		"button": {
+			"addTask": "Aufgabe hinzufügen",
+			"archive": "Archivieren",
+			"copy": "Kopieren",
+			"filterAdd": "Filter hinzufügen",
+			"filterApply": "Übernehmen",
+			"hrefAlt": "Abgabe löschen",
+			"hrefDataName": "deine Abgabe",
+			"print": "Drucken",
+			"save": "Speichern und Abschicken",
+			"toClass": "Zum Kurs",
+			"toTheCourseFiles": "Zu den Kursdateien"
+		},
+		"label": {
+			"allowGroupSubmission": "Gruppenabgabe ermöglichen",
+			"comment": "Kommentar",
+			"courses": "Kurse",
+			"edit": "Bearbeiten",
+			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
+			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
+			"inPercent": "in Prozent",
+			"maximumGroupSize": "maximale Gruppengröße:",
+			"onTheSubject": "Zum Thema",
+			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
+			"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
+			"rating": "Bewertung",
+			"restore": "Wiederherstellen",
+			"selectStudentGroup": "Schülergruppe auswählen",
+			"selectTeamMembers": "Teammitglieder auswählen",
+			"studentSolutionVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
+			"submission": "Abgabe",
+			"submissions": "Abgaben",
+			"task": "Aufgabenstellung",
+			"title": "Titel",
+			"topic": "Thema",
+			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
+		},
+		"text": {
+			"noAssignment": "Keine Zuordnung",
+			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
+			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
+			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
+			"noSubmission": "Keine Abgabe",
+			"noSubmissionDateSet": "Ohne Abgabedatum",
+			"noTasks": "Keine Aufgaben",
+			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
+			"noDescriptionAvailable": "keine Beschreibung vorhanden",
+			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)"
+		}
+	},
+	"news": {
+		"button": {
+			"addNews": "News hinzufügen"
+		},
+		"label": {
+			"content": "Inhalt",
+			"shceduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
+			"title": "Titel"
+		},
+		"text": {
+			"atSchool": "an der Schule",
+			"atYourSchool": "an deiner Schule ",
+			"created": "erstellt",
+			"from": "von",
+			"inTheClass": "in der Klasse",
+			"inTheCourse": "im Kurs",
+			"inTheTeam": "im Team",
+			"lastFrom": "(zuletzt von",
+			"processed": "bearbeitet)",
+			"released": "Veröffentlicht",
+			"unpublished": "Unveröffentlicht"
 		}
 	}
 }

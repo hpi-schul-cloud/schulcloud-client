@@ -7,20 +7,17 @@ const express = require('express');
 const logger = require('winston');
 const moment = require('moment');
 const multer = require('multer');
+const encoding = require('encoding-japanese');
+const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
-// eslint-disable-next-line import/order
-const StringDecoder = require('string_decoder').StringDecoder;
-// eslint-disable-next-line import/order
-const _ = require('lodash');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
-const decoder = new StringDecoder('utf8');
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/consent');
+const { CALENDAR_SERVICE_ENABLED, HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 
 moment.locale('de');
 
@@ -216,7 +213,7 @@ const mapTimeProps = (req, res, next) => {
 const createEventsForData = (data, service, req, res) => {
 	// can just run if a calendar service is running on the environment and the course have a teacher
 	if (
-		process.env.CALENDAR_SERVICE_ENABLED
+		CALENDAR_SERVICE_ENABLED
 		&& service === 'courses'
 		&& data.teacherIds[0]
 		&& data.times.length > 0
@@ -251,7 +248,7 @@ const createEventsForData = (data, service, req, res) => {
  * @param service {string}
  */
 const deleteEventsForData = service => (req, res, next) => {
-	if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses') {
+	if (CALENDAR_SERVICE_ENABLED && service === 'courses') {
 		return api(req)
 			.get(`courses/${req.params.id}`)
 			.then((course) => {
@@ -396,7 +393,7 @@ ${res.locals.theme.short_title}-Team`,
             let source = data.toString();
             let template = handlebars.compile(source);
             let outputString = template({
-                "url": (req.headers.origin || process.env.HOST) + "/register/account/" + user._id,
+                "url": (req.headers.origin || HOST) + "/register/account/" + user._id,
                 "firstName": user.firstName,
                 "lastName": user.lastName
             });
@@ -405,7 +402,7 @@ ${res.locals.theme.short_title}-Team`,
                 "html": outputString,
                 "text": "Sehr geehrte/r " + user.firstName + " " + user.lastName + ",\n\n" +
                     "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
-                    (req.headers.origin || process.env.HOST) + "/register/account/" + user._id + "\n\n" +
+                    (req.headers.origin || HOST) + "/register/account/" + user._id + "\n\n" +
                     "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
             };
             req.body.content = content;
@@ -526,7 +523,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		return errorText;
 	};
 	try {
-		const csvData = decoder.write(req.file.buffer);
+		const csvData = Buffer.from(encoding.convert(req.file.buffer, { to: 'UTF8', from: 'AUTO' })).toString('UTF-8');
 		const [stats] = await api(req).post('/sync/', {
 			qs: {
 				target: 'csv',
@@ -549,7 +546,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			type: messageType,
 			message,
 		};
-		res.redirect(req.header('Referer'));
+		res.redirect(req.body.referrer || req.header('Referer'));
 		return;
 	} catch (err) {
 		req.session.notification = {
@@ -557,7 +554,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			message:
 				'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
 		};
-		res.redirect(req.header('Referer'));
+		res.redirect(req.body.referrer || req.header('Referer'));
 	}
 };
 
@@ -976,6 +973,24 @@ router.post(
 	upload.single('csvFile'),
 	getCSVImportHandler(),
 );
+router.get(
+	'/teachers/import',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	async (req, res, next) => {
+		const years = getSelectableYears(res.locals.currentSchoolData);
+		const title = `${returnAdminPrefix(
+			res.locals.currentUser.roles,
+		)}Schüler`;
+		res.render('administration/import', {
+			title,
+			roles: 'teacher',
+			action: `/administration/teachers/import?_csrf=${res.locals.csrfToken}`,
+			redirectTarget: '/administration/teachers',
+			schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+			years,
+		});
+	},
+);
 router.post(
 	'/teachers/:id',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
@@ -1225,6 +1240,24 @@ router.post(
 	upload.single('csvFile'),
 	getCSVImportHandler(),
 );
+router.get(
+	'/students/import',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	async (req, res, next) => {
+		const years = getSelectableYears(res.locals.currentSchoolData);
+		const title = `${returnAdminPrefix(
+			res.locals.currentUser.roles,
+		)}Schüler`;
+		res.render('administration/import', {
+			title,
+			roles: 'student',
+			action: `/administration/students/import?_csrf=${res.locals.csrfToken}`,
+			redirectTarget: '/administration/students',
+			schoolCurrentYear: res.locals.currentSchoolData.currentYear,
+			years,
+		});
+	},
+);
 router.patch(
 	'/students/:id/pw',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
@@ -1273,7 +1306,7 @@ router.get(
 	},
 );
 
-router.all(
+router.get(
 	'/students',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
 	async (req, res, next) => {
@@ -1467,7 +1500,7 @@ router.get(
 					{
 						role,
 						save: true,
-						host: process.env.HOST,
+						host: HOST,
 						schoolId: res.locals.currentSchool,
 						toHash: user.email,
 						patchUser: true,
@@ -1536,7 +1569,7 @@ router.get(
 						{
 							role,
 							save: true,
-							host: process.env.HOST,
+							host: HOST,
 							schoolId: res.locals.currentSchool,
 							toHash: user.email,
 							patchUser: true,
@@ -2503,6 +2536,31 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 			});
 		}
 		delete req.body.videoconference;
+
+		// Update riot messenger feature in school
+		const messengerEnabled = (res.locals.currentSchoolData.features || []).includes(
+			'messenger',
+		);
+		if (!messengerEnabled && req.body.messenger === 'true') {
+			// enable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'messenger',
+					},
+				},
+			});
+		} else if (messengerEnabled && req.body.messenger !== 'true') {
+			// disable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'messenger',
+					},
+				},
+			});
+		}
+		delete req.body.messenger;
 	} catch (err) {
 		next(err);
 	}

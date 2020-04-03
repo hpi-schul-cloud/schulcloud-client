@@ -164,9 +164,9 @@ $(document).ready(() => {
             if(after){after(this, element.serializeArray());}
         });
         request.fail(function() {
-            if(request.getResponseHeader("error-message")){
-                showAJAXError(undefined, undefined,request.getResponseHeader("error-message"));
-            }
+
+			showAJAXError(undefined, undefined, 'Die Bewertung konnte leider nicht gespeichert werden.');
+
             submitButton.disabled = false;
             submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)';
         });
@@ -237,27 +237,6 @@ $(document).ready(() => {
         },function(c){
             return (c.grade || c.gradeComment);
         });
-        return false;
-    });
-
-    // Kommentar erstellen
-    $('.discussionarea form[action="/homework/comment"]').on("submit",function(e){
-        if(e) e.preventDefault();
-        ajaxForm($(this),function(t){
-            $(t).parent().prev().append('<li class="comment"><b class="name">'+$(t).find("div[data-username]").attr('data-username')+'</b><pre>'+$(t).find("textarea")[0].value+'</pre></li>');
-            $(t).find("textarea")[0].value = "";
-        });
-        return false;
-    });
-
-    // Kommentar löschen
-    $('.discussionarea ul.comments form').on("submit",function(e){
-        if(e) e.preventDefault();
-        if(confirm("Kommentar endgültig löschen?")){
-            ajaxForm($(this),function(t){
-                $(t).closest("li.comment").remove();
-            });
-        }
         return false;
     });
 

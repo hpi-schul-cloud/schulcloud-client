@@ -4,14 +4,12 @@ const router = express.Router();
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 
-const { HOST } = process.env;
-
 router.get('/:scopeName/:scopeId', (req, res, next) => {
 	const { scopeName, scopeId } = req.params;
 	return authHelper.isAuthenticated(req).then(() => api(req)
 		.get(`/videoconference/${scopeName}/${scopeId}`))
 		.then(response => res.send(response))
-		.catch(err => next(err));
+		.catch(next);
 });
 
 router.post('/', (req, res, next) => {
@@ -23,7 +21,7 @@ router.post('/', (req, res, next) => {
 			},
 		}))
 		.then(response => res.send(response))
-		.catch(err => next(err));
+		.catch(next);
 });
 
 module.exports = router;

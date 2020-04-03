@@ -7,11 +7,6 @@ const handlebarsHelper = require('../helpers/handlebars');
 
 router.use(handlebarsHelper.middleware);
 
-// Track page views in Google Analytics
-const googleAnalyticsHelper = require('../helpers/googleAnalytics');
-
-router.use(googleAnalyticsHelper.middleware());
-
 router.use(require('./login'));
 router.use(require('./registration'));
 
@@ -57,6 +52,7 @@ router.use('/videoconference', require('./videoconference'));
 router.use('/administration/', require('./administration'));
 
 router.use('/version', require('./version'));
+router.use('/alerts', require('./alerts'));
 
 
 module.exports = router;
