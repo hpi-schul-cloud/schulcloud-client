@@ -7,6 +7,7 @@ const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../co
 const setTheme = require('../helpers/theme');
 
 let invalid = false;
+const isProduction = NODE_ENV === 'production';
 
 const resetThemeForPrivacyDocuments = async (req, res) => {
 	res.locals.currentSchoolData = await api(req).get(`registrationSchool/${req.params.classOrSchoolId}`);
@@ -96,7 +97,7 @@ ${res.locals.theme.short_title}-Team`,
 						expires: new Date(Date.now() - 100000),
 						httpOnly: false,
 						hostOnly: true,
-						secure: NODE_ENV === 'production',
+						secure: isProduction,
 					},
 				);
 			}
