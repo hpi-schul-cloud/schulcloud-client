@@ -9,6 +9,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [22.7.2] - 2020-04-03
+
+### Changed
+
+- SC-3900 update tsc email on community page
+
+
 ## [22.7.1] - 2020-04-02
 
 ### Changed
