@@ -14,7 +14,6 @@ const {
 	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/schul-cloud-hpi/',
 	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	REDIS_URI,
-	REQUEST_TIMEOUT_MS = 5000, // 5 sec
 	NODE_ENV = 'development',
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS = 3600, // 60 min
 	JWT_TIMEOUT_SECONDS,
