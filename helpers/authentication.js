@@ -32,9 +32,9 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 		});
 	}
 	res.clearCookie('jwt');
+	// this is deprecated and only used for cookie removal from now on,
+	// and can be removed after one month (max cookie lifetime from life systems)
 	if (res.locals && res.locals.domain) {
-		// this is deprecated and only used for cookie removal from now on, 
-		// and can be removed after one month (max cookie lifetime from life systems)
 		res.clearCookie('jwt', { domain: res.locals.domain });
 	}
 };
@@ -171,11 +171,11 @@ const login = (payload = {}, req, res, next) => {
 	delete payload.redirect;
 	return api(req).post('/authentication', { json: payload }).then((data) => {
 		res.cookie('jwt', data.accessToken, {
-					expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-					httpOnly: false, // can't be set to true with nuxt client
-					hostOnly: true,
-					secure: NODE_ENV === 'production',
-				});
+			expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+			httpOnly: false, // can't be set to true with nuxt client
+			hostOnly: true,
+			secure: NODE_ENV === 'production',
+		});
 		let redirectUrl = '/login/success';
 		if (redirect) {
 			redirectUrl = `${redirectUrl}?redirect=${redirect}`;
