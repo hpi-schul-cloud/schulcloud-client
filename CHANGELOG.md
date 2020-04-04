@@ -9,6 +9,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+- SC-3749 remove cookie domain
+- use babel-eslint parser for eslint and updated liner rules for json
+
+## [22.7.2] - 2020-04-03
+
+### Changed
+
+- SC-3900 update tsc email on community page
+
+
 ## [22.7.1] - 2020-04-02
 
 ### Changed
@@ -27,6 +39,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-3785: link to course after course creation corrected
 - SC-3732: edit button was not visible for course teachers except the author on the task detail page
 - SC-3807: link "Methodenguide" in nbc addons
 - provide more formats for PTSans font to be compatible with more browsers
