@@ -763,8 +763,9 @@
 			"toClass": "Zum Kurs",
 			"toTheCourseFiles": "Zu den Kursdateien"
 		},
-		"edit": {
-			"label": {
+		"_homework": { 
+		   "edit": {
+			    "label": {
 				"allowGroupSubmission": "Gruppenabgabe ermöglichen",
 				"maximumGroupSize": "maximale Gruppengröße:",
 				"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
@@ -773,18 +774,17 @@
 				"topic": "Thema",
 				"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
 			},
-			"text": {
+			   "text": {
 				"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
 				"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)"
-			}
-		},
+			  }
+		  }
+	    },
 		"global": {
 			"label": {
 				"courses": "Kurse",
 				"title": "Titel"
 			}
-		},
-		"_homework":{	
 		},
 		"label": {
 			"comment": "Kommentar",
