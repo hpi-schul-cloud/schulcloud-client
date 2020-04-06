@@ -95,14 +95,14 @@ router.get('/', (req, res, next) => {
 						if (event.hasOwnProperty('x-sc-courseId')) {
 						// create course link
 							event.url = `/courses/${event['x-sc-courseId']}`;
-							event.alt = 'Kurs anzeigen';
+							event.alt = res.$t("dashboard.img_alt.showCourse");
 						} else if (event.hasOwnProperty('x-sc-teamId')) {
 						// create team link
 							event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
-							event.alt = 'Termine im Team anzeigen';
+							event.alt = res.$t("dashboard.img_alt.showAppointmentInTeam");
 						} else {
 							event.url = '/calendar';
-							event.alt = 'Kalender anzeigen';
+							event.alt = res.$t("dashboard.img_alt.showCalendar");
 						}
 					} catch (err) {
 						error(err);
@@ -140,7 +140,7 @@ router.get('/', (req, res, next) => {
 		.then(data => data.data.map((homeworks) => {
 			homeworks.secondaryTitle = homeworks.dueDate
 				? moment(homeworks.dueDate).fromNow()
-				: 'Ohne Abgabedatum';
+				: res.$t("dashboard.text.noDueDate");
 			if (homeworks.courseId != null) {
 				homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
 				homeworks.background = homeworks.courseId.color;
