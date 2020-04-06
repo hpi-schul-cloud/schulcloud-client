@@ -483,30 +483,41 @@
 			"toClass": "Zum Kurs",
 			"toTheCourseFiles": "Zu den Kursdateien"
 		},
+		"global": {
+			"label": {
+				"allowGroupSubmission": "Gruppenabgabe ermöglichen",
+				"courses": "Kurse",
+				"description": "Aufgabenstellung",
+				"maximumGroupSize": "maximale Gruppengröße:",
+				"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
+				"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
+				"title": "Titel",
+				"topic": "Thema",
+				"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
+			},
+			"placeholder": {
+				"description": "Finde heraus warum..."
+			},
+			"text": {
+				"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
+				"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)"
+			}
+		},
 		"label": {
-			"allowGroupSubmission": "Gruppenabgabe ermöglichen",
 			"comment": "Kommentar",
-			"courses": "Kurse",
 			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
-			"maximumGroupSize": "maximale Gruppengröße:",
 			"onTheSubject": "Zum Thema",
-			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
-			"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
-			"rating_comment": "Kommentar/Bewertung",
 			"rating": "Bewertung",
+			"rating_comment": "Kommentar/Bewertung",
 			"restore": "Wiederherstellen",
-			"selectStudentGroup": "Schülergruppe auswählen",
+			"selectStudentGroup": "Schüler:innen-Gruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
 			"studentSolutionVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
 			"submission": "Abgabe",
-			"submissions": "Abgaben",
-			"task": "Aufgabenstellung",
-			"title": "Titel",
-			"topic": "Thema",
-			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
+			"submissions": "Abgaben"
 		},
 		"text": {
 			"noAssignment": "Keine Zuordnung",
@@ -516,9 +527,7 @@
 			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
-			"noTasks": "Keine Aufgaben",
-			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
-			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)"
+			"noTasks": "Keine Aufgaben"
 		}
 	},
 	"news": {
