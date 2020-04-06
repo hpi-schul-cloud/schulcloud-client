@@ -160,7 +160,6 @@ router.get('/', (req, res, next) => {
 			return [];
 		});
 
-
 	function sortFunction(a, b) {
 		if (a.displayAt === b.displayAt) {
 			return 0;
