@@ -13,17 +13,17 @@
 	<section class="section-school section-default">
 		<h2 class="h4">
 			{{#if schoolMaintanance.schoolUsesLdap}}
-			{{$t "administration.label.schoolYearChange" }}
+			{{$t "administration.school.label.schoolYearChange" }}
 			{{else}}
-			{{$t "administration.label.schoolYear" }} {{../school.currentYear.name}}
+			{{$t "administration.school.label.schoolYear" }} {{../school.currentYear.name}}
 			{{/if}}
 		</h2>
 		<p>
 			{{#if schoolMaintanance.schoolUsesLdap}}
 			{{#ifeq schoolMaintananceMode "active"}}
-			{{$t "administration.label.transferPhase" }}
+			{{$t "administration.school.label.transferPhase" }}
 			{{else}}
-			{{$t "administration.label.currentSchoolYear" }} {{../school.currentYear.name}}
+			{{$t "administration.school.label.currentSchoolYear" }} {{../school.currentYear.name}}
 			{{/ifeq}}
 			{{else}}
 			Das neue Schuljahr beginnt in der {{theme.title}} mit der Vorbereitungszeit eine Woche vor Ende der
@@ -48,18 +48,18 @@
 							Klassen funktioniert, stellt die Schul-Cloud eine Transferphase zur Verfügung. So ist der
 							Ablauf während eines Schuljahreswechsels:
 						</p>
-						<p class="font-weight-bold">{{$t "administration.label.duringTheSchoolYear" }}</p>
+						<p class="font-weight-bold">{{$t "administration.school.label.duringTheSchoolYear" }}</p>
 						<ul>
 							<li>neue dazugekommen Nutzer, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden
 								beständig synchronisiert</li>
 						</ul>
-						<p class="font-weight-bold">{{$t "administration.label.startOfTheTransferPhase" }}</p>
+						<p class="font-weight-bold">{{$t "administration.school.label.startOfTheTransferPhase" }}</p>
 						<ul>
 							<li>ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten</li>
 							<li>ist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch
 							</li>
 						</ul>
-						<p class="font-weight-bold">{{$t "administration.label.duringTheTransferPhase" }}</p>
+						<p class="font-weight-bold">{{$t "administration.school.label.duringTheTransferPhase" }}</p>
 						<ul>
 							<li>neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus
 								dem LDAP synchronisiert</li>
@@ -70,7 +70,7 @@
 							<li>Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase
 								angelegt werden (ohne Klassenzuordnung)</li>
 						</ul>
-						<p class="font-weight-bold">{{$t "administration.label.endOfTheTransferPhase" }}</p>
+						<p class="font-weight-bold">{{$t "administration.school.label.endOfTheTransferPhase" }}</p>
 						<ul>
 							<li>beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind</li>
 							<li>bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag
@@ -79,7 +79,7 @@
 							<li>die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen
 								im Kontext des alten Schuljahres archiviert</li>
 						</ul>
-						<p class="font-weight-bold">{{$t "administration.label.afterTheTransferPhaseEnded" }}</p>
+						<p class="font-weight-bold">{{$t "administration.school.label.afterTheTransferPhaseEnded" }}</p>
 						<ul>
 							<li>die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden</li>
 							<li>alle Daten aus dem LDAP werden wie gewohnt synchronisiert, neue Nutzer und Klassen
@@ -88,22 +88,22 @@
 					</div>
 					{{#ifeq schoolMaintananceMode "idle"}}
 					<button type="submit" class="btn btn-primary disabled">
-						{{$t "administration.button.endSchoolYear" }}
+						{{$t "administration.school.button.endSchoolYear" }}
 					</button>
-					<p>{{$t "administration.text.thisOptionIsAvailable" }}</p>
+					<p>{{$t "administration.school.text.thisOptionIsAvailable" }}</p>
 					{{else}}
-					<p class="font-weight-bold">{{$t "administration.text.atTheEndOfTheSchoolYearWithLDAP" }}</p>
+					<p class="font-weight-bold">{{$t "administration.school.text.atTheEndOfTheSchoolYearWithLDAP" }}</p>
 					<section class="section-course">
 						<div class="wizard-card">
 							<div class="row">
 								<div class="col-xs-4 text-center">
-									{{$t "administration.text.oldSchoolYear" }}
+									{{$t "administration.school.text.oldSchoolYear" }}
 								</div>
 								<div class="col-xs-4 text-center">
-									{{$t "administration.text.allAboutTheSummerVacation" }}
+									{{$t "administration.school.text.allAboutTheSummerVacation" }}
 								</div>
 								<div class="col-xs-4 text-center">
-									{{$t "administration.text.newSchoolYear" }}
+									{{$t "administration.school.text.newSchoolYear" }}
 								</div>
 							</div>
 
@@ -127,30 +127,30 @@
 							<span class="progressbar"></span>
 							<div class="row head">
 								<div class="col-xs-4">
-									<p>{{$t "administration.label.noteBeforeTheTransferPhase" }}</p>
+									<p>{{$t "administration.school.label.noteBeforeTheTransferPhase" }}</p>
 								</div>
 								<div class="col-xs-4">
-									<p>{{$t "administration.label.noteAvailableFunction" }} <br> {{$t "administration.label.inTheTransferPhase" }}</p>
+									<p>{{$t "administration.school.label.noteAvailableFunction" }} <br> {{$t "administration.school.label.inTheTransferPhase" }}</p>
 								</div>
 								<div class="col-xs-4">
-									<p>{{$t "administration.label.afterTheTransferPhaseEnded" }}<br> {{$t "administration.label.yourSchoolCanStartNewSchool" }}
-										{{$t "administration.button.start" }}</p>
+									<p>{{$t "administration.school.label.afterTheTransferPhaseEnded" }}<br> {{$t "administration.school.label.yourSchoolCanStartNewSchool" }}
+										{{$t "administration.school.button.start" }}</p>
 								</div>
 							</div>
 							<div class="row body">
 								<div class="col-xs-4">
-									<p><i class="fa fa-arrow-right"></i>{{$t "administration.label.youCantGoBack" }}</p>
+									<p><i class="fa fa-arrow-right"></i>{{$t "administration.school.label.youCantGoBack" }}</p>
 								</div>
 								<div class="col-xs-4">
 									<div class="d-flex justify-content-center">
-										<p><i class="fa fa-check green"></i> {{$t "administration.label.loginFromExistingUsers" }}</p>
-										<p><i class="fa fa-check green"></i> {{$t "administration.label.passwordChangesInLDAP" }}</p>
-										<p><i class="fa fa-times red"></i> {{$t "administration.label.changeOfClasses" }}</p>
-										<p><i class="fa fa-times red"></i> {{$t "administration.label.changeOfUserData" }}</p>
+										<p><i class="fa fa-check green"></i> {{$t "administration.school.label.loginFromExistingUsers" }}</p>
+										<p><i class="fa fa-check green"></i> {{$t "administration.school.label.passwordChangesInLDAP" }}</p>
+										<p><i class="fa fa-times red"></i> {{$t "administration.school.label.changeOfClasses" }}</p>
+										<p><i class="fa fa-times red"></i> {{$t "administration.school.label.changeOfUserData" }}</p>
 									</div>
 								</div>
 								<div class="col-xs-4">
-									<p><i class="fa fa-smile-o"></i> {{$t "administration.text.allDone" }}</p>
+									<p><i class="fa fa-smile-o"></i> {{$t "administration.school.text.allDone" }}</p>
 								</div>
 							</div>
 							<form action="/administration/startschoolyear" type="post">
@@ -158,20 +158,20 @@
 								<div class="row">
 									<div class="col-xs-12 col-md-4 text-center">
 										<button {{#ifeq ../schoolMaintananceMode "standby"}}{{else}}disabled{{/ifeq}}
-											class="btn btn-primary btn-terminate-school-year">{{$t "administration.label.transferPhase" }}
-											{{$t "administration.button.start" }}</button>
+											class="btn btn-primary btn-terminate-school-year">{{$t "administration.school.label.transferPhase" }}
+											{{$t "administration.school.button.start" }}</button>
 									</div>
 									<div class="col-xs-12 col-md-4 text-center">
 										<p><a href="#" id="checkldapdata"
-												class="btn btn-primary {{#ifeq ../schoolMaintananceMode "active"}}{{else}}disabled{{/ifeq}}">{{$t "administration.button.checkLDAPData" }}</a></p>
+												class="btn btn-primary {{#ifeq ../schoolMaintananceMode "active"}}{{else}}disabled{{/ifeq}}">{{$t "administration.school.button.checkLDAPData" }}</a></p>
 										<label>
 											<input required disabled type="checkbox" id="startldapschoolyear">
-											{{$t "administration.label.userAndClassDataInLDAP" }} <br> {{$t "administration.label.processedForTheNewSchoolYear" }}
+											{{$t "administration.school.label.userAndClassDataInLDAP" }} <br> {{$t "administration.school.label.processedForTheNewSchoolYear" }}
 										</label>
 									</div>
 									<div class="col-xs-12 col-md-4 text-center">
 										<button disabled id="buttonstartldapschoolyear"
-											class="btn btn-primary">{{$t "administration.button.endTransferPhase" }}</button>
+											class="btn btn-primary">{{$t "administration.school.button.endTransferPhase" }}</button>
 									</div>
 								</div>
 							</form>
@@ -201,7 +201,7 @@
 					<form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
 						<input type="hidden" name="_method" value="patch" />
 						<div class="form-group">
-							<label>{{$t "administration.label.nameOfTheSchool" }}</label>
+							<label>{{$t "administration.school.label.nameOfTheSchool" }}</label>
 							<input value="{{../school.name}}" type="text" class="form-control" name="name"
 								placeholder="Einhorn Gymnasium" {{#if ../schoolUsesLdap}} readonly{{/if}}
 								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
@@ -209,11 +209,11 @@
 						</div>
 
 						<div class="form-group">
-							<label>{{$t "administration.label.uploadSchoolLogo" }}</label><br />
+							<label>{{$t "administration.school.label.uploadSchoolLogo" }}</label><br />
 							<input type="hidden" name="logo_dataUrl">
 							<input type="file" id="logo-input">
-							<label for="logo-input" class="btn btn-secondary">{{$t "administration.button.chooseAFile" }}</label>
-							<span id="logo-filename">{{$t "administration.text.noFileSelected" }}</span>
+							<label for="logo-input" class="btn btn-secondary">{{$t "administration.school.button.chooseAFile" }}</label>
+							<span id="logo-filename">{{$t "administration.school.text.noFileSelected" }}</span>
 							<img id="preview-logo" src="">
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
@@ -234,7 +234,7 @@
 							<label>
 								<input type="checkbox" name="videoconference" value="true"
 									{{#inArray "videoconference" ../../school.features}}checked{{/inArray}}>
-								{{$t "administration.label.enableVideoConference" }}
+								{{$t "administration.school.label.enableVideoConference" }}
 								<p class="text-muted">
 									Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte
 									ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und
@@ -248,7 +248,7 @@
 						{{/ifConfig}}
 						{{#if ../school.fileStorageType}}
 						<div class="form-group">
-							<label>{{$t "administration.label.cloudStorageProvider" }}</label>
+							<label>{{$t "administration.school.label.cloudStorageProvider" }}</label>
 							<select name="fileStorageType" type="text" {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
 								disabled{{/userHasPermission}}>
 								{{#each ../provider}}
@@ -256,13 +256,13 @@
 								</option>
 								{{/each}} </select> </div> {{/if}}
 						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">{{$t "administration.button.save" }}</button>
+						<button type="submit" class="btn btn-primary btn-submit">{{$t "administration.school.button.save" }}</button>
 					</form>
 
 					{{#if ../school.fileStorageType}}
 					<div style="padding-top: 20px">
-						<label>{{$t "administration.label.fileStorageSpaceUsedInCloud" }}</label>
-						<p>{{$t "administration.text.yourSchoolIsCurrentlyDrawing" }} {{writeFileSizePretty ../totalStorage.totalSize}}.</p>
+						<label>{{$t "administration.school.label.fileStorageSpaceUsedInCloud" }}</label>
+						<p>{{$t "administration.school.text.yourSchoolIsCurrentlyDrawing" }} {{writeFileSizePretty ../totalStorage.totalSize}}.</p>
 					</div>
 					{{/if}}
 					{{/userHasPermission}}
@@ -279,9 +279,9 @@
 						class="edit-form-school">
 
 						<div class="form-group">
-							<label>{{$t "administration.label.cloudStorageProvider" }}</label>
+							<label>{{$t "administration.school.label.cloudStorageProvider" }}</label>
 							<select name="fileStorageType" type="text">
-								<option disabled="disabled" selected="selected">{{$t "administration.label.selectProvider" }}</option>
+								<option disabled="disabled" selected="selected">{{$t "administration.school.label.selectProvider" }}</option>
 								{{#each provider}}
 								<option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}}
 								</option>
@@ -289,7 +289,7 @@
 							</select> </div>
 
 						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">{{$t "administration.button.save" }}</button>
+						<button type="submit" class="btn btn-primary btn-submit">{{$t "administration.school.button.save" }}</button>
 
 					</form>
 				</div>
@@ -300,7 +300,7 @@
 
 	{{#userHasPermission 'SCHOOL_EDIT'}}
 	<section class="section-school section-default">
-		<h2 class="h4">{{$t "administration.label.authentication" }}</h2>
+		<h2 class="h4">{{$t "administration.school.label.authentication" }}</h2>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12 no-padding">
@@ -312,11 +312,11 @@
 					<form action="/administration/systems/ldap/add" method="POST">
 						{{> "lib/components/csrfInput"}}
 						<button type="submit" class="btn btn-primary btn-add-modal ">
-							{{$t "administration.button.addSystem" }}
+							{{$t "administration.school.button.addSystem" }}
 						</button>
 						{{#if ../ldapAddable}}
 						<button type="submit" class="btn btn-primary">
-							{{$t "administration.button.addLDAPSystem" }}
+							{{$t "administration.school.button.addLDAPSystem" }}
 						</button>
 						{{/if}}
 					</form>
@@ -355,13 +355,13 @@
 					{{> "lib/components/table" head=rssHead body=rssBody}}
 				</div>
 				{{else}}
-				<p>{{$t "administration.text.noRssFeedsYet" }}</p>
+				<p>{{$t "administration.school.text.noRssFeedsYet" }}</p>
 				{{/if}}
 			</div>
 			<div class="row">
 				<div class="col-sm-12 no-padding">
 					<button type="submit" class="btn btn-primary btn-add-modal--rss">
-						{{$t "administration.button.addRSSFeed" }}
+						{{$t "administration.school.button.addRSSFeed" }}
 					</button>
 				</div>
 			</div>
