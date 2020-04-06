@@ -348,8 +348,8 @@
 			"tasks": "Aufgaben",
 			"schedule": "Stundenplan",
 			"title": "Übersicht",
-			"withFeedback": "Aufgaben mit Lehrer:in Feedback",
-			"withRequiredFeedback": "Aufgaben mit erforderlichem Feedback"
+			"withFeedback": "Aufgaben mit Lehrer:innen-Kommentar",
+			"withRequiredFeedback": "Aufgaben mit unkommentierten Abgaben"
 		},
 		"text": {
 			"notFound": "Keine aktuellen Einträge vorhanden.",
@@ -362,7 +362,7 @@
 		},
 		"homeworkTile": {
 			"handedIn": "Abgegeben",
-			"graded": "Bewertet",
+			"graded": "Kommentiert",
 			"moreTasks": "Weitere Aufgaben..."
 		}
 	},
@@ -473,6 +473,7 @@
 			"onTheSubject": "Zum Thema",
 			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
 			"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
+			"rating_comment": "Kommentar/Bewertung",
 			"rating": "Bewertung",
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
@@ -487,7 +488,7 @@
 		},
 		"text": {
 			"noAssignment": "Keine Zuordnung",
-			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
+			"noEvaluationTextAvailable": "Noch kein Kommentar vorhanden.",
 			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
 			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
 			"noSubmission": "Keine Abgabe",
