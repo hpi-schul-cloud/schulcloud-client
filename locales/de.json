@@ -170,8 +170,8 @@
 					},
 					"link": {
 						"addTopic": "Thema hinzufügen",
-						"deleteGroup": "Schüler:innengruppe löschen",
-						"editGroup": "Schüler:innengruppe bearbeiten"
+						"deleteGroup": "Gruppe löschen",
+						"editGroup": "Gruppe bearbeiten"
 					},
 					"text": {
 						"groupMembers": "Gruppenteilnehmer:innen: ",
