@@ -58,7 +58,7 @@ $(document).ready(function () {
         $('#step1').show();
         $('#step2').hide();
 
-        $('.modal-footer').append(`<button type='button' class='btn btn-primary btn-next-step'>${$t("global.button.nextStep")}</button>`);
+        $('.modal-footer').append(`<button type='button' class='btn btn-primary btn-next-step'>${$t("courses.button.nextStep")}</button>`);
     });
 
     $('.modal-footer').on('click', '.btn-next-step', function (e) {

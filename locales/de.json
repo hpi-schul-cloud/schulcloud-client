@@ -202,7 +202,7 @@
 			},
 			"headline": {
 				"createVideoconference": "Videokonferenzraum {{coursename}} erstellen",
-				"shareCodeGenerated": "Kopiercode generiert!"
+				"shareCodeGenerated": "Kopiercode wurde generiert!"
 			},
 			"link": {
 				"toCourseFiles": "Zu den Kursdateien"
@@ -253,7 +253,7 @@
 						"createTool": "Tool anlegen"
 					},
 					"headline": {
-						"course/Subject": ", Kurs/Fach: {{coursename}}",
+						"course": ", Kurs: {{coursename}}",
 						"createToolForCourse": "Tool anlegen für {{coursename}}",
 						"videoConference": "Videokonferenz"
 					},
@@ -371,7 +371,8 @@
 			"createCourse": "Erstelle einen neuen Kurs",
 			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"editCourse": "Kurs bearbeiten",
-			"importCourse": "Importiere einen Kurs"
+			"importCourse": "Importiere einen Kurs",
+			"nextStep": "Nächster Schritt"
 		},
 		"global": {
 			"input": {
@@ -497,8 +498,10 @@
 	"global": {
 		"button": {
 			"cancel": "Abbrechen",
+			"close": "Schließen",
 			"delete": "Löschen",
-			"open": "Öffnen"
+			"open": "Öffnen",
+			"save": "Speichern"
 		},
 		"label": {
 			"room": "Raum"

@@ -133,7 +133,7 @@ const showToolHandler = (req, res, next) => {
 			const renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
 			res.render(renderPath, {
 				course,
-				title: `${tool.name}${(course.name ? res.$t("courses._course.tools.add.headline.course/Subject", {coursename : course.name}) : '')}`,
+				title: `${tool.name}${(course.name ? res.$t("courses._course.tools.add.headline.course", {coursename : course.name}) : '')}`,
 				tool,
 			});
 		}
