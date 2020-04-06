@@ -24,7 +24,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-3732: edit button was not visible for course teachers except the author on the task detail page
-
 ## [22.7.2] - 2020-04-03
 
 ### Changed
