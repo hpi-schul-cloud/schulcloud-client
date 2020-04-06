@@ -440,6 +440,7 @@
 	},
 	"dashboard": {
 		"headline": {
+			"myMaterials": "Meine Materialien",
 			"news": "Neuigkeiten",
 			"openTasks": "Gestellte Aufgaben",
 			"privateTasks": "Private Aufgaben und Entwürfe",
@@ -450,15 +451,26 @@
 			"withRequiredFeedback": "Aufgaben mit unkommentierten Abgaben"
 		},
 		"homeworkTile": {
-			"graded": "Kommentiert",
+			"graded": "Bewertet",
 			"handedIn": "Abgegeben",
 			"moreTasks": "Weitere Aufgaben..."
+		},
+		"img_alt": {
+			"showAppointmentInTeam": "Termine im Team anzeigen",
+			"showCalendar": "Kalender anzeigen",
+			"showCourse": "Kurs anzeigen"
+		},
+		"link": {
+			"continueReading": "Weiterlesen",
+			"toTask": "Zur Aufgabe"
 		},
 		"text": {
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich.",
 			"emptyTimetable": "Leerer Stundenplan",
 			"empytTimetableInfo": "Der Stundenplan ist derzeit ausgeblendet. Du findest deine Lerninhalte im Kursbereich.",
+			"noDueDate": "Kein Abgabedatum festgelegt",
+			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
 			"noTasks": "Keine Aufgaben",
 			"notFound": "Keine aktuellen Einträge vorhanden."
