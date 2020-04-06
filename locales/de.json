@@ -233,7 +233,8 @@
 				"text": {
 					"addPrivateTask": "private Aufgabe hinzufügen",
 					"addTasks": "Aufgabe hinzufügen",
-					"descriptionTasks": "Kursteilnehmer*innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
+					"descriptionTasks": "Kursteilnehmer:innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
+					"moreArchivedLinkLabel": "mehr archivierte Aufgaben...",
 					"showPrivateTasks": "Private Aufgaben ein/ausklappen"
 				}
 			},
