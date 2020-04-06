@@ -114,119 +114,200 @@ router.get('/', (req, res, next) => {
 		})).catch(() => []);
 
 	const { _id: userId, schoolId } = res.locals.currentUser;
-	const homeworksPromise = api(req).get('/homework/', {
-		qs: {
-			$populate: ['courseId'],
-			$sort: 'dueDate',
-			archived: { $ne: userId },
-			schoolId,
-			$or: [
-				{
-					dueDate: null,
-				},
-				{
-					dueDate: {
-						$gte: new Date().getTime(),
-						$lte: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+	const homeworksPromise = api(req)
+		.get('/homework/', {
+			qs: {
+				$populate: ['courseId'],
+				$sort: 'createdAt',
+				archived: { $ne: userId },
+				schoolId,
+				$or: [
+					{
+						dueDate: null,
 					},
-				},
-			],
-		},
-	}).then(data => data.data.map((homeworks) => {
-		homeworks.secondaryTitle = (homeworks.dueDate)
-			? moment(homeworks.dueDate).fromNow()
-			: 'Kein Abgabedatum festgelegt';
-		if (homeworks.courseId != null) {
-			homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
-			homeworks.background = homeworks.courseId.color;
-		} else {
-			homeworks.title = homeworks.name;
-			homeworks.private = true;
-		}
-		homeworks.url = `/homework/${homeworks._id}`;
-		homeworks.content = homeworks.description;
-		return homeworks;
-	})).catch((err) => {
-		logger.error(`Can not fetch data from /homework/ in router.all("/") | message: ${err.message} | code: ${err.code}.`);
-		return [];
-	});
+					{
+						dueDate: {
+							// homeworks with max. 7 days after and 1 year before dueDate
+							$gte: new Date().getTime() - 1000 * 60 * 60 * 24 * 7,
+							$lte: new Date(
+								new Date().setFullYear(new Date().getFullYear() + 1),
+							),
+						},
+					},
+				],
+			},
+		})
+		.then(data => data.data.map((homeworks) => {
+			homeworks.secondaryTitle = homeworks.dueDate
+				? moment(homeworks.dueDate).fromNow()
+				: 'Ohne Abgabedatum';
+			if (homeworks.courseId != null) {
+				homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
+				homeworks.background = homeworks.courseId.color;
+			} else {
+				homeworks.title = homeworks.name;
+				homeworks.private = true;
+			}
+			homeworks.url = `/homework/${homeworks._id}`;
+			homeworks.content = homeworks.description;
+			return homeworks;
+		}))
+		.catch((err) => {
+			/* eslint-disable-next-line max-len */
+			logger.error(
+				`Can not fetch data from /homework/ in router.all("/") | message: ${err.message} | code: ${err.code}.`,
+			);
+			return [];
+		});
 
 	function sortFunction(a, b) {
 		if (a.displayAt === b.displayAt) {
 			return 0;
 		}
 
-		return (a.displayAt < b.displayAt) ? 1 : -1;
+		return a.displayAt < b.displayAt ? 1 : -1;
 	}
 	// Somehow $lte doesn't work in normal query so I manually put it into a request
-	const newsPromise = api(req).get('/news/', {
-		qs: {
-			schoolId: res.locals.currentSchool,
-			displayAt: {
-				$lte: new Date().getTime(),
+	const newsPromise = api(req)
+		.get('/news/', {
+			qs: {
+				schoolId: res.locals.currentSchool,
+				displayAt: {
+					$lte: new Date().getTime(),
+				},
 			},
-		},
-	}).then(news => news.data.map((n) => {
-		n.url = `/news/${n._id}`;
-		n.secondaryTitle = moment(n.displayAt).fromNow();
-		return n;
-	}).sort(sortFunction).slice(0, 3)).catch((err) => {
-		logger.error(`Can not fetch data from /news/ in router.all("/") | message: ${err.message} | code: ${err.code}.`);
-		return [];
-	});
+		})
+		.then(news => news.data
+			.map((n) => {
+				n.url = `/news/${n._id}`;
+				n.secondaryTitle = moment(n.displayAt).fromNow();
+				return n;
+			})
+			.sort(sortFunction)
+			.slice(0, 3))
+		.catch((err) => {
+			/* eslint-disable-next-line max-len */
+			logger.error(
+				`Can not fetch data from /news/ in router.all("/") | message: ${err.message} | code: ${err.code}.`,
+			);
+			return [];
+		});
 
-	const newestReleasePromise = api(req).get('/releases', {
-		qs: {
-			$limit: 1,
-			$sort: {
-				createdAt: -1,
+	const newestReleasePromise = api(req)
+		.get('/releases', {
+			qs: {
+				$limit: 1,
+				$sort: {
+					createdAt: -1,
+				},
 			},
-		},
-	}).then(({ data }) => data).catch((err) => {
-		logger.error(`Can not fetch data from /releases in router.all("/") | message: ${err.message} | code: ${err.code}.`);
-		return [];
-	});
+		})
+		.then(({ data }) => data)
+		.catch((err) => {
+			/* eslint-disable-next-line max-len */
+			logger.error(
+				`Can not fetch data from /releases in router.all("/") | message: ${err.message} | code: ${err.code}.`,
+			);
+			return [];
+		});
 
 	Promise.all([
 		eventsPromise,
 		homeworksPromise,
 		newsPromise,
 		newestReleasePromise,
-	]).then(([events, homeworks, news, newestReleases]) => {
-		homeworks.sort((a, b) => {
-			if (a.dueDate > b.dueDate || !a.dueDate) {
-				return 1;
-			}
-			return -1;
-		});
-
-		const user = res.locals.currentUser || {};
-		const userPreferences = user.preferences || {};
-		const newestRelease = newestReleases[0] || {};
-		const newRelease = !!(Date.parse(userPreferences.releaseDate) < Date.parse(newestRelease.createdAt));
-
-		if (newRelease || !userPreferences.releaseDate) {
-			api(req).patch(`/users/${user._id}`, {
-				json: { 'preferences.releaseDate': newestRelease.createdAt },
-			}).catch(() => {
-				warn('failed to update user preference releaseDate');
+	])
+		.then(([events, assignedHomeworks, news, newestReleases]) => {
+			assignedHomeworks.sort((a, b) => {
+			// sort dueDate first, then createdAt
+				if (a.dueDate > b.dueDate || !a.dueDate) {
+					return 1;
+				}
+				return -1;
 			});
-		}
 
-		res.render('dashboard/dashboard', {
-			title: res.$t('dashboard.headline.title'),
-			events: events.reverse(),
-			eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-			homeworks: homeworks.filter(task => !task.private).slice(0, 4),
-			myhomeworks: homeworks.filter(task => task.private).slice(0, 4),
-			news,
-			hours,
-			currentTimePercentage,
-			showNewReleaseModal: newRelease,
-			currentTime: moment(currentTime).format('HH:mm'),
-		});
-	}).catch(next);
+			const user = res.locals.currentUser || {};
+			const userPreferences = user.preferences || {};
+			const newestRelease = newestReleases[0] || {};
+			const newRelease = !!(
+				Date.parse(userPreferences.releaseDate)
+			< Date.parse(newestRelease.createdAt)
+			);
+			const roles = user.roles.map(role => role.name);
+			let homeworksFeedbackRequired = [];
+			let homeworksWithFeedback = [];
+			let studentHomeworks;
+			let filteredAssignedHomeworks;
+
+			const teacher = ['teacher', 'demoTeacher'];
+			const student = ['student', 'demoStudent'];
+
+			const hasRole = allowedRoles => roles.some(role => (allowedRoles || []).includes(role));
+
+			if (newRelease || !userPreferences.releaseDate) {
+				api(req)
+					.patch(`/users/${user._id}`, {
+						json: { 'preferences.releaseDate': newestRelease.createdAt },
+					})
+					.catch(() => {
+						warn('failed to update user preference releaseDate');
+					});
+			}
+
+			if (hasRole(teacher)) {
+				homeworksFeedbackRequired = assignedHomeworks.filter(
+					homework => !homework.private
+					&& homework.stats
+					&& (
+						(homework.dueDate
+						&& new Date(homework.dueDate) < new Date().getTime()
+						&& homework.stats.submissionCount > homework.stats.gradeCount
+						) || (
+							!homework.dueDate && homework.stats.submissionCount > 0
+						)
+					)
+					&& homework.stats.userCount > homework.stats.gradeCount,
+				);
+				filteredAssignedHomeworks = assignedHomeworks.filter(
+					homework => homework.stats
+				&& homework.stats.submissionCount < homework.stats.userCount,
+				);
+			}
+
+			if (hasRole(student)) {
+				homeworksWithFeedback = assignedHomeworks.filter(
+					homework => !homework.private && homework.hasEvaluation,
+				);
+				studentHomeworks = assignedHomeworks.filter(
+					homework => (!homework.submissions || homework.submissions === 0)
+				&& !homework.hasEvaluation,
+				);
+			}
+
+			res.render('dashboard/dashboard', {
+				title: res.$t('dashboard.headline.title'),
+				events: events.reverse(),
+				eventsDate: moment().format('dddd, DD. MMMM YYYY'),
+				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
+					.filter(
+						task => !task.private
+					&& (new Date(task.dueDate) >= new Date().getTime() || !task.dueDate),
+					).slice(0, 10),
+				privateHomeworks: assignedHomeworks
+					.filter(task => task.private)
+					.slice(0, 10),
+				homeworksFeedbackRequired: homeworksFeedbackRequired.slice(0, 10),
+				homeworksWithFeedback: homeworksWithFeedback.slice(0, 10),
+				news,
+				hours,
+				currentTimePercentage,
+				showNewReleaseModal: newRelease,
+				currentTime: moment(currentTime).format('HH:mm'),
+				isTeacher: hasRole(teacher),
+				isStudent: hasRole(student),
+			});
+		})
+		.catch(next);
 });
-
 
 module.exports = router;
