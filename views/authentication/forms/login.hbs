@@ -50,9 +50,9 @@
 						</select>
 					</div>
 					<div class="form-group ">
-						<select name="systemId" class="system" data-placeholder="System">
+						<select name="system" class="system" data-placeholder="System">
 							{{#each systems}}
-								<option value="{{this._id}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
+								<option value="{{this._id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
 							{{/each}}
 						</select>
 					</div>

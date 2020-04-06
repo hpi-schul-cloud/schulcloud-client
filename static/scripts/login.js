@@ -80,7 +80,7 @@ $(document).ready(() => {
                 if(storage.local.getItem('loginSystem') == system._id) {
                     selected = true;
                 }
-                $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '">' + system.type + systemAlias + '</option>');
+                $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '//' + system.type + '">' + system.type + systemAlias + '</option>');
             });
             $systems.trigger('chosen:updated');
             systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
