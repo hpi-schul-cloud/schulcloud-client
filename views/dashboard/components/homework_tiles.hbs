@@ -1,32 +1,34 @@
 <section class="section section-{{section-id}}">
-    {{#if title}}
-    <div class="row">
-        <div class="col-sm-12">
-            <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="{{href}}">{{title}}</a></h2>
-        </div>
-    </div>
-    {{/if}}
-    <div data-testid="courses">
-        {{#each content}}
-            <a class="homework-link" href="{{this.url}}{{#if ../redirectToTab}}#activetabid={{../redirectToTab}}{{/if}}">
-                <div class="card card-block homework-tile" style="border-left: 10px solid {{this.background}};">
-                    <div class="text-muted">
-                        <span>{{{ stripOnlyScript this.courseId.name }}}</span>
-                        <span class="pull-right">{{{ stripOnlyScript this.secondaryTitle }}}
-                            {{#if this.stats.userCount}}
-                                <span class="hidden-xs-down">| {{$t "dashboard.homeworkTile.handedIn"}} {{this.stats.submissionCount}}/{{this.stats.userCount}}</span>
-                            {{/if}}
-                        </span>
-                    </div>
-                    <div class="title-row">
-                        {{#if this.stats.userCount}}
-                            <span class="pull-right pl-2 text-muted hidden-xs-down">{{$t "dashboard.homeworkTile.graded"}} {{this.stats.gradeCount}}/{{this.stats.submissionCount}}</span>
-                        {{/if}}
-                        <span class="title w-100">{{{ stripOnlyScript this.name }}}</span>
-                    </div>
-                </div>
-            </a>
-        {{/each}}
-        <a class="pull-right" href="{{href}}">{{$t "dashboard.homeworkTile.moreTasks"}}</a>
-    </div>
+	{{#if title}}
+	<div class="row">
+		<div class="col-sm-12">
+			<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="{{href}}">{{title}}</a></h2>
+		</div>
+	</div>
+	{{/if}}
+	<div data-testid="courses">
+		{{#each content}}
+			<a class="homework-link" href="{{this.url}}{{#if ../redirectToTab}}#activetabid={{../redirectToTab}}{{/if}}">
+				<div class="card card-block homework-tile" style="border-left: 10px solid {{this.background}};">
+					<div class="text-muted">
+						{{#if this.courseId}}
+							<span>{{{ stripOnlyScript this.courseId.name }}}</span>
+						{{/if}}
+						<span class="pull-right">{{{ stripOnlyScript this.secondaryTitle }}}
+							{{#if this.stats.userCount}}
+								<span class="hidden-xs-down">| {{$t "dashboard.homeworkTile.handedIn"}} {{this.stats.submissionCount}}/{{this.stats.userCount}}</span>
+							{{/if}}
+						</span>
+					</div>
+					<div class="title-row">
+						{{#if this.stats.userCount}}
+							<span class="pull-right pl-2 text-muted hidden-xs-down">{{$t "dashboard.homeworkTile.graded"}} {{this.stats.gradeCount}}/{{this.stats.submissionCount}}</span>
+						{{/if}}
+						<span class="title w-100">{{{ stripOnlyScript this.name }}}</span>
+					</div>
+				</div>
+			</a>
+		{{/each}}
+		<a class="pull-right" href="{{href}}">{{$t "dashboard.homeworkTile.moreTasks"}}</a>
+	</div>
 </section>

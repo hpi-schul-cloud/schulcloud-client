@@ -137,7 +137,7 @@ router.get('/', (req, res, next) => {
 				],
 			},
 		})
-		.then((data) => data.data.map((homeworks) => {
+		.then(data => data.data.map((homeworks) => {
 			homeworks.secondaryTitle = homeworks.dueDate
 				? moment(homeworks.dueDate).fromNow()
 				: 'Ohne Abgabedatum';
@@ -177,7 +177,7 @@ router.get('/', (req, res, next) => {
 				},
 			},
 		})
-		.then((news) => news.data
+		.then(news => news.data
 			.map((n) => {
 				n.url = `/news/${n._id}`;
 				n.secondaryTitle = moment(n.displayAt).fromNow();
@@ -219,7 +219,6 @@ router.get('/', (req, res, next) => {
 	])
 		.then(([events, assignedHomeworks, news, newestReleases]) => {
 			assignedHomeworks.sort((a, b) => {
-			// sort dueDate first, then createdAt
 				if (a.dueDate > b.dueDate || !a.dueDate) {
 					return 1;
 				}
@@ -233,11 +232,16 @@ router.get('/', (req, res, next) => {
 				Date.parse(userPreferences.releaseDate)
 			< Date.parse(newestRelease.createdAt)
 			);
-			const roles = user.roles.map((role) => role.name);
+			const roles = user.roles.map(role => role.name);
 			let homeworksFeedbackRequired = [];
 			let homeworksWithFeedback = [];
 			let studentHomeworks;
 			let filteredAssignedHomeworks;
+
+			const teacher = ['teacher', 'demoTeacher'];
+			const student = ['student', 'demoStudent'];
+
+			const hasRole = allowedRoles => roles.some(role => (allowedRoles || []).includes(role));
 
 			if (newRelease || !userPreferences.releaseDate) {
 				api(req)
@@ -249,9 +253,9 @@ router.get('/', (req, res, next) => {
 					});
 			}
 
-			if (roles.includes('teacher')) {
+			if (hasRole(teacher)) {
 				homeworksFeedbackRequired = assignedHomeworks.filter(
-					(homework) => !homework.private
+					homework => !homework.private
 					&& homework.stats
 					&& (
 						(homework.dueDate
@@ -264,17 +268,17 @@ router.get('/', (req, res, next) => {
 					&& homework.stats.userCount > homework.stats.gradeCount,
 				);
 				filteredAssignedHomeworks = assignedHomeworks.filter(
-					(homework) => homework.stats
+					homework => homework.stats
 				&& homework.stats.submissionCount < homework.stats.userCount,
 				);
 			}
 
-			if (roles.includes('student')) {
+			if (hasRole(student)) {
 				homeworksWithFeedback = assignedHomeworks.filter(
-					(homework) => !homework.private && homework.hasEvaluation,
+					homework => !homework.private && homework.hasEvaluation,
 				);
 				studentHomeworks = assignedHomeworks.filter(
-					(homework) => (!homework.submissions || homework.submissions === 0)
+					homework => (!homework.submissions || homework.submissions === 0)
 				&& !homework.hasEvaluation,
 				);
 			}
@@ -285,11 +289,11 @@ router.get('/', (req, res, next) => {
 				eventsDate: moment().format('dddd, DD. MMMM YYYY'),
 				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
-						(task) => !task.private
+						task => !task.private
 					&& (new Date(task.dueDate) >= new Date().getTime() || !task.dueDate),
 					).slice(0, 10),
 				privateHomeworks: assignedHomeworks
-					.filter((task) => task.private)
+					.filter(task => task.private)
 					.slice(0, 10),
 				homeworksFeedbackRequired: homeworksFeedbackRequired.slice(0, 10),
 				homeworksWithFeedback: homeworksWithFeedback.slice(0, 10),
@@ -298,8 +302,8 @@ router.get('/', (req, res, next) => {
 				currentTimePercentage,
 				showNewReleaseModal: newRelease,
 				currentTime: moment(currentTime).format('HH:mm'),
-				isTeacher: roles.includes('teacher'),
-				isStudent: roles.includes('student'),
+				isTeacher: hasRole(teacher),
+				isStudent: hasRole(student),
 			});
 		})
 		.catch(next);

@@ -619,6 +619,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				courseId: req.params.courseId,
 				$populate: ['courseId'],
 				archived: { $ne: res.locals.currentUser._id },
+				$sort: 'createdAt',
 			},
 		}),
 		api(req).get('/courseGroups/', {
@@ -685,7 +686,7 @@ router.get('/:courseId/', async (req, res, next) => {
 		});
 
 		homeworks.sort((a, b) => {
-			if (a.dueDate > b.dueDate) {
+			if (a.dueDate > b.dueDate || !a.dueDate) {
 				return 1;
 			}
 			return -1;
