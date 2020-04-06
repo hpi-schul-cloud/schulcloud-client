@@ -170,7 +170,6 @@
 				"chooseAFile": "Datei auswählen",
 				"endSchoolYear": "Schuljahr beenden",
 				"endTransferPhase": "Transferphase beenden",
-				"save": "Speichern",
 				"start": "starten"
 			},
 			"label": {
@@ -761,7 +760,6 @@
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
 			"print": "Drucken",
-			"save": "Speichern",
 			"toClass": "Zum Kurs",
 			"toTheCourseFiles": "Zu den Kursdateien"
 		},
@@ -785,6 +783,8 @@
 				"courses": "Kurse",
 				"title": "Titel"
 			}
+		},
+		"_homework":{	
 		},
 		"label": {
 			"comment": "Kommentar",
