@@ -67,7 +67,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5">Meine Materialien</h2>
+                <h2 class="h5">{{$t "dashboard.headline.myMaterials"}}</h2>
             </div>
         </div>
         <div class="row tasks card-deck-row" data-testid="courses">
@@ -78,9 +78,7 @@
             {{else}}
             <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
                 <div class="alert">
-                    Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in
-                    Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href="/my-material">"Meine
-                        Materialien"-Abschnitt</a> vorbei.
+                    {{{$t "dashboard.text.noMaterialsYetLookAtOthers"}}}
                 </div>
             </div>
             {{/each}}
@@ -145,7 +143,7 @@
 
 
 {{#if news}}
-{{>  'dashboard/components/card_section' section-id="news" title=($t "dashboard.headline.news") content=news link-text="Weiterlesen" href="/news/"}}
+{{>  'dashboard/components/card_section' section-id="news" title=($t "dashboard.headline.news") content=news link-text=($t "dashboard.link.continueReading") href="/news/"}}
 {{else}}
 <section class="section mb-2">
     <div class="row">

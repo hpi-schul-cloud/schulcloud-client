@@ -53,8 +53,8 @@
 			"deleteUser": "Benutzer löschen",
 			"edit": "Bearbeiten",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
-			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
+			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
 		},
 		"label": {
@@ -80,8 +80,8 @@
 			"createForCourse": "Für Kurs anlegen?",
 			"createForTeam": "Für Team anlegen?",
 			"description": "Beschreibung",
-			"of": "Von",
 			"location": "Ort",
+			"of": "Von",
 			"title": "Titel",
 			"to": "Bis"
 		},
@@ -226,8 +226,8 @@
 					"addPrivateTask": "private Aufgabe hinzufügen",
 					"addTasks": "Aufgabe hinzufügen",
 					"descriptionTasks": "Kursteilnehmer*innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
-					"showPrivateTasks": "Private Aufgaben ein/ausklappen",
-					"moreArchivedLinkLabel": "mehr archivierte Aufgaben..."
+					"moreArchivedLinkLabel": "mehr archivierte Aufgaben...",
+					"showPrivateTasks": "Private Aufgaben ein/ausklappen"
 				}
 			},
 			"text": {
@@ -352,28 +352,40 @@
 	},
 	"dashboard": {
 		"headline": {
+			"myMaterials": "Meine Materialien",
 			"news": "Neuigkeiten",
 			"openTasks": "Gestellte Aufgaben",
 			"privateTasks": "Private Aufgaben und Entwürfe",
-			"tasks": "Aufgaben",
 			"schedule": "Stundenplan",
+			"tasks": "Aufgaben",
 			"title": "Übersicht",
 			"withFeedback": "Aufgaben mit Lehrer:innen-Kommentar",
 			"withRequiredFeedback": "Aufgaben mit unkommentierten Abgaben"
 		},
+		"homeworkTile": {
+			"graded": "Bewertet",
+			"handedIn": "Abgegeben",
+			"moreTasks": "Weitere Aufgaben..."
+		},
+		"img_alt": {
+			"showAppointmentInTeam": "Termine im Team anzeigen",
+			"showCalendar": "Kalender anzeigen",
+			"showCourse": "Kurs anzeigen"
+		},
+		"link": {
+			"continueReading": "Weiterlesen",
+			"toTask": "Zur Aufgabe"
+		},
 		"text": {
-			"notFound": "Keine aktuellen Einträge vorhanden.",
-			"noTasks": "Keine Aufgaben",
-			"noNews": "Keine Neuigkeiten",
+			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
+			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich.",
 			"emptyTimetable": "Leerer Stundenplan",
 			"empytTimetableInfo": "Der Stundenplan ist derzeit ausgeblendet. Du findest deine Lerninhalte im Kursbereich.",
-			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
-			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich."
-		},
-		"homeworkTile": {
-			"handedIn": "Abgegeben",
-			"graded": "Kommentiert",
-			"moreTasks": "Weitere Aufgaben..."
+			"noDueDate": "Kein Abgabedatum festgelegt",
+			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
+			"noNews": "Keine Neuigkeiten",
+			"noTasks": "Keine Aufgaben",
+			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
 	"files": {
@@ -498,14 +510,14 @@
 		},
 		"text": {
 			"noAssignment": "Keine Zuordnung",
-			"noEvaluationTextAvailable": "Noch kein Kommentar vorhanden.",
+			"noDescriptionAvailable": "keine Beschreibung vorhanden",
+			"noEvaluationTextAvailable": "Kein Bewertungstext vorhanden.",
 			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
 			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
 			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
-			"noDescriptionAvailable": "keine Beschreibung vorhanden",
 			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)"
 		}
 	},
