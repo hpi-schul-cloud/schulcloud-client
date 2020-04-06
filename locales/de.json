@@ -470,7 +470,7 @@
 					"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
 					"task": "Aufgabenstellung",
 					"topic": "Thema",
-					"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
+					"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
 				},
 				"text": {
 					"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
