@@ -349,8 +349,8 @@
 			"schedule": "Stundenplan",
 			"tasks": "Aufgaben",
 			"title": "Übersicht",
-			"withFeedback": "Aufgaben mit Lehrer:in Feedback",
-			"withRequiredFeedback": "Aufgaben mit erforderlichem Feedback"
+			"withFeedback": "Aufgaben mit Lehrer:innen-Kommentar",
+			"withRequiredFeedback": "Aufgaben mit unkommentierten Abgaben"
 		},
 		"homeworkTile": {
 			"graded": "Bewertet",
@@ -485,6 +485,7 @@
 			"onTheSubject": "Zum Thema",
 			"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
 			"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
+			"rating_comment": "Kommentar/Bewertung",
 			"rating": "Bewertung",
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schülergruppe auswählen",
