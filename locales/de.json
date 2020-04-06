@@ -36,15 +36,6 @@
             "startM2018": "(Start Mai 2018)"
         }
     },
-    "addons": {
-        "headline": {
-            "addons": "Add-ons",
-            "portfolio": "Portfolio"
-        },
-        "text": {
-            "portfolioDescription": "Erzeuge dein digitales Portfolio in einem flexiblen persönlichen Lernsystem. Teile die Erfolge und deine Entwicklung an einem Ort, den du selbst gestaltest. Arbeite mit anderen in Gruppen zusammen."
-        }
-    },
     "administration": {
         "button": {
             "changePassword": "Passwort ändern",
