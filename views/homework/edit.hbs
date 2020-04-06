@@ -117,7 +117,7 @@
 						<select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen"
 							{{#unless lessons}}disabled="true" {{/unless}}>
 							{{#if assignment.courseId}}
-							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>{{$t "homework.edit.text.noAssignment"}}</option>
+							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>{{$t "homework.text.noAssignment"}}</option>
 							{{#each lessons}}
 							<option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>
 								{{this.name}}
