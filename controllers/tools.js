@@ -31,11 +31,11 @@ const addToolHandler = (req, res, next) => {
 	api(req).get('/ltiTools', { qs: { isTemplate: true } })
 		.then((tools) => {
 			api(req).get(`/${context}/${req.params.courseId}`)
-				.then((course) => {
+				.then((course) => { 
 					res.render('courses/add-tool', {
 						action,
-						title: `Tool anlegen für ${course.name}`,
-						submitLabel: 'Tool anlegen',
+						title: res.$t("courses._course.tools.add.headline.createToolForCourse", {coursename : course.name}),
+						submitLabel: res.$t("courses._course.tools.add.button.createTool"),
 						ltiTools: tools.data,
 						courseId: req.params.courseId,
 					});
@@ -127,13 +127,13 @@ const showToolHandler = (req, res, next) => {
 		if (!tool) {
 			res.render('lib/error', {
 				loggedin: res.locals.loggedin,
-				message: 'Das Tool konnte nicht gefunden werden.',
+				message: res.$t("courses._course.tools.add.text.toolCouldNotBeFound"),
 			});
 		} else {
 			const renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
 			res.render(renderPath, {
 				course,
-				title: `${tool.name}${(course.name ? `, Kurs/Fach: ${course.name}` : '')}`,
+				title: `${tool.name}${(course.name ? res.$t("courses._course.tools.add.headline.course/Subject", {coursename : course.name}) : '')}`,
 				tool,
 			});
 		}
