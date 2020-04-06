@@ -56,7 +56,7 @@
 			"firstName": "Vorname:",
 			"lastName": "Nachname:",
 			"parents": "Eltern",
-			"student": "Schüler",
+			"student": "Schüler:in",
 			"termsOfUse": "Nutzung"
 		}
 	},
@@ -96,7 +96,7 @@
 		"_course": {
 			"addStudent": {
 				"text": {
-					"youAreNoStudent": "Sie sind kein Nutzer der Rolle 'Schüler'."
+					"youAreNoStudent": "Sie sind kein Nutzer der Rolle 'Schüler:in'."
 				}
 			},
 			"copy": {
@@ -132,8 +132,8 @@
 					"chooseDate": "Termine auswählen",
 					"class": "Klasse(n)",
 					"from": "Von",
-					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)",
-					"substitute": "Vertretungslehrer",
+					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
+					"substitute": "Vertretungslehrer:innen",
 					"till": "Bis",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
 					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
@@ -147,7 +147,7 @@
 			},
 			"global": {
 				"label": {
-					"studentParticipant": "Schüler / Teilnehmer"
+					"studentParticipant": "Schüler:in / Teilnehmer:in"
 				},
 				"text": {
 					"more": "Weiteres"
@@ -170,15 +170,15 @@
 					},
 					"link": {
 						"addTopic": "Thema hinzufügen",
-						"deleteGroup": "Schülergruppe löschen",
-						"editGroup": "Schülergruppe bearbeiten"
+						"deleteGroup": "Schüler:innengruppe löschen",
+						"editGroup": "Schüler:innengruppe bearbeiten"
 					},
 					"text": {
-						"groupMembers": "Gruppenteilnehmer: ",
+						"groupMembers": "Gruppenteilnehmer:innen: ",
 						"noOpenGroupTasks": "Keine weiteren Gruppenabgaben möglich.",
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
 						"noTopics": "keine Themen.",
-						"responsibleTeachers": "Verantwortliche Lehrer: ",
+						"responsibleTeachers": "Verantwortliche Lehrer:innen: ",
 						"workOnTopic": "Thema bearbeiten"
 					}
 				},
@@ -187,17 +187,17 @@
 				},
 				"headline": {
 					"createGroup": "Erstelle eine Gruppe",
-					"myStudentGroups": "Meine Schülergruppen",
+					"myStudentGroups": "Meine Schüler:innengruppen",
 					"noGroups": "Es gibt keine Gruppen in diesem Kurs.",
 					"noGroupsYet": "Es gibt noch keine Gruppen in diesem Kurs.",
-					"studentGroups": "Schülergruppen"
+					"studentGroups": "Schüler:innengruppen"
 				},
 				"img_alt": {
 					"noCreatedGroups": "Keine erstellte Gruppe"
 				},
 				"text": {
 					"addGroup": "Gruppe hinzufügen",
-					"descriptionCourses": "In Gruppen können sich Teilnehmer*innen innerhalb eines Kurses in Teams aufteilen, z.B. für Gruppenarbeiten."
+					"descriptionCourses": "In Gruppen können sich Teilnehmer:innen innerhalb eines Kurses in Teams aufteilen, z.B. für Gruppenarbeiten."
 				}
 			},
 			"headline": {
@@ -239,13 +239,13 @@
 				}
 			},
 			"text": {
-				"QRCodeAlternative": "Alternativ kannst du deinen Lehrer-Kollegen auch folgenden QR-Code zeigen.",
+				"QRCodeAlternative": "Alternativ kannst du deinen Lehrer:innen-Kollegen auch folgenden QR-Code zeigen.",
 				"coursedescription": "Kursbeschreibung: ",
 				"eventCouldNotBeSavedContactSupport": "Die Kurszeiten konnten eventuell nicht richtig gespeichert werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.",
 				"nextClass": "Nächste Unterrichtsstunde: ",
-				"shareCodeExplanation": "Verteile folgenden Code an einen Lehrer-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.",
-				"youAreAlreadyMember": "Sie sind bereits Teilnehmer des Kurses/Fachs {{coursename}}.",
-				"youHaveBeenAdded": "Sie wurden erfolgreich beim Kurs/Fach {{coursename}} hinzugefügt"
+				"shareCodeExplanation": "Verteile folgenden Code an einen Lehrer:innen-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.",
+				"youAreAlreadyMember": "Du bist bereits Teilnehmer:in des Kurses/Fachs {{coursename}}.",
+				"youHaveBeenAdded": "Du wurdest erfolgreich beim Kurs/Fach {{coursename}} hinzugefügt"
 			},
 			"tools": {
 				"add": {
@@ -311,7 +311,7 @@
 					"clickOnTopicForPreview": "Ein Klick auf das Thema bringt dich in die Vorschau-Ansicht.",
 					"deleteTopic": "Thema löschen",
 					"descriptionTopic": "Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu. Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses.",
-					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler, um sie zum Kurs einzuladen. Die Schüler müssen dafür angemeldet sein.",
+					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler:innen, um sie zum Kurs einzuladen. Die Schüler:innen müssen dafür angemeldet sein.",
 					"editTopic": "Thema bearbeiten",
 					"hideTopic": "Thema verstecken",
 					"importTopic": "Thema importieren",
@@ -340,9 +340,9 @@
 				"egMaths": "z.B. Mathe 10a"
 			},
 			"label": {
-				"addClassesToCourse": "Klasse(n) (Alle Schüler der Klasse werden automatisch hinzugefügt!) - Optional",
-				"addStudentsToCourse": "Schüler / Teilnehmer - Optional",
-				"courseSubstitute": "Vertretungslehrer - Optional",
+				"addClassesToCourse": "Klasse(n) (Alle Schüler:innen der Klasse werden automatisch hinzugefügt!) - Optional",
+				"addStudentsToCourse": "Schüler:innen / Teilnehmer:innen - Optional",
+				"courseSubstitute": "Vertretungslehrer:innen - Optional",
 				"timeSpan": "Zeitraum (z.B. Schuljahr) von - Optional",
 				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben",
 				"timeSpanUntil": "Bis - Optional"
@@ -355,15 +355,15 @@
 			},
 			"tab_label": {
 				"courseData": "Kursdaten",
-				"courseMembers": "Teilnehmer",
+				"courseMembers": "Teilnehmer:innen",
 				"finish": "Abschließen"
 			},
 			"text": {
-				"addStudentsOrClasses": "Füge Klassen oder einzelne Schüler deinem Kurs hinzu.",
+				"addStudentsOrClasses": "Füge Klassen oder einzelne Schüler:innen deinem Kurs hinzu.",
 				"contentOfClass": "Lege die Inhalte deines Unterrichts an.",
 				"doItNowOrLaterInSettings": "Dies kannst du jetzt oder später in den Kurseinstellungen machen.",
-				"giveExercisesAndGetResults": "Stelle deinen Kursteilnehmern Aufgaben und sieh dir ihre Abgaben an.",
-				"groupsWorkTogether": "In einem Kurs wird gemeinsam mit den Teilnehmern an Themen, Aufgaben und Dateien gearbeitet.",
+				"giveExercisesAndGetResults": "Stelle deinen Kursteilnehmer:innen Aufgaben und sieh dir ihre Abgaben an.",
+				"groupsWorkTogether": "In einem Kurs wird gemeinsam mit den Teilnehmer:innen an Themen, Aufgaben und Dateien gearbeitet.",
 				"willAlsoDeleteForStudents": "Dies löscht den Kurs auch bei allen Schüler:innen."
 			}
 		},
@@ -375,25 +375,25 @@
 		},
 		"global": {
 			"input": {
-				"chooseTeacher": "Lehrer auswählen",
+				"chooseTeacher": "Lehrer:in auswählen",
 				"egRoom1-21": "z.B. R-1.21",
 				"inMinutes": "In Minuten",
 				"mathsClass": "Mathe 10a",
 				"selectClasses": "Klasse(n) auswählen",
-				"selectStudents": "Schüler auswählen"
+				"selectStudents": "Schüler:innen auswählen"
 			},
 			"label": {
 				"courseColor": "Farbe des Kurses",
 				"courseDescription": "Beschreibung des Kurses",
 				"courseName": "Name des Kurses",
-				"courseTeacher": "Unterrichtender Lehrer",
+				"courseTeacher": "Unterrichtende:r Lehrer:in",
 				"lengthOfLesson": "Dauer der Schulstunde",
 				"startOfLesson": "Start der Schulstunde",
 				"weekday": "Wochentag"
 			}
 		},
 		"headline": {
-			"courseAttendees": "Teilnehmer des Kurses:",
+			"courseAttendees": "Teilnehmer:innen des Kurses:",
 			"createDuplicateImport": "Erstelle, dupliziere oder importiere einen Kurs",
 			"importCourse": "Kurs importieren",
 			"myCourses": "Meine Kurse",
@@ -416,12 +416,12 @@
 			"courseNoAccess": "Der Bereich Kurse steht nur Lehrkräften und Schüler:innen zur Verfügung.",
 			"descriptionArchievedCourses": "Kurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
 			"descriptionCourseManagement": "Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
-			"finishImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler hinzu.",
+			"finishImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler:innen hinzu.",
 			"importCourseAttentionTools": "Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
-			"importCourseDescription": "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schülerbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler hinzu und vergib einen Termin für den Kurs.",
+			"importCourseDescription": "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schüler:innenbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler:innen hinzu und vergib einen Termin für den Kurs.",
 			"importedCourseWithQR": "Du hast einen Kurs über einen QR-Code importiert.",
-			"insertCodeToImport": "Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.",
-			"noAttendees": "Keine Teilnehmer",
+			"insertCodeToImport": "Füge einen Code ein, um Kursinhalte anderer Nutzer:innen zu importieren.",
+			"noAttendees": "Keine Teilnehmer:innen",
 			"noCourseGetInvited": "Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen.",
 			"renameCourse": "Benenne den Kurs um.",
 			"shareTokenNotInUse": "Dieser shareToken scheint nicht in Verwendung zu sein!"
@@ -490,7 +490,7 @@
 			"searchResultFor": "Suchergebnisse für",
 			"searchResults": "Suchergebnisse",
 			"storeFilesForUpload": "Dateien zum Hochladen ablegen.",
-			"studentCanEdit": "Schüler können editieren?",
+			"studentCanEdit": "Schüler:innen können editieren?",
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern"
 		}
 	},
@@ -515,8 +515,8 @@
 				"lernstore": "Lern-Store",
 				"management": "Verwaltung",
 				"managementClasses": "Klassen",
-				"managementStudents": "Schüler",
-				"managementTeachers": "Lehrer",
+				"managementStudents": "Schüler:innen",
+				"managementTeachers": "Lehrer:innen",
 				"news": "Neuigkeiten",
 				"overview": "Übersicht",
 				"tasks": "Aufgaben"
@@ -563,27 +563,27 @@
 			"rating": "Bewertung",
 			"rating_comment": "Kommentar/Bewertung",
 			"restore": "Wiederherstellen",
-			"selectStudentGroup": "Schülergruppe auswählen",
+			"selectStudentGroup": "Schüler:innengruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
-			"studentSolutionVisibleToEachOthers": "Schülerabgaben untereinander sichtbar",
+			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
 			"task": "Aufgabenstellung",
 			"title": "Titel",
 			"topic": "Thema",
-			"visibleAndEditableForStudentsFrom": "Für Schüler sichtbar und zu bearbeiten ab:"
+			"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
 		},
 		"text": {
 			"noAssignment": "Keine Zuordnung",
 			"noDescriptionAvailable": "keine Beschreibung vorhanden",
 			"noEvaluationTextAvailable": "Noch kein Kommentar vorhanden.",
-			"noMoreStudentsInYourCourse": "keine weiteren Schüler in deinem Kurs",
-			"noStudentGroupsInThisCourse": "keine Schülergruppen in diesem Kurs",
+			"noMoreStudentsInYourCourse": "keine weiteren Schüler:innen in deinem Kurs",
+			"noStudentGroupsInThisCourse": "keine Schüler:innengruppen in diesem Kurs",
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
 			"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
-			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer dürfen den kurs nicht ändern)"
+			"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer:innen dürfen den Kurs nicht ändern)"
 		}
 	},
 	"news": {
