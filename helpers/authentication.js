@@ -184,7 +184,7 @@ const login = (payload = {}, req, res, next) => {
 	}).catch((e) => {
 		res.locals.notification = {
 			type: 'danger',
-			message: 'Login fehlgeschlagen.',
+			message:  res.$t("login.text.loginFailed"),
 			statusCode: e.statusCode,
 			timeToWait: LOGIN_BLOCK_TIME || 15,
 		};
