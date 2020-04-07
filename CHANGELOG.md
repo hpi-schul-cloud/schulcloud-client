@@ -13,13 +13,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-3749 remove cookie domain
 - use babel-eslint parser for eslint and updated liner rules for json
+- SC-3719 Shared files are now determined more more cleverly
 
 
 ## [22.8.0]
 
 ### Fixed
 
--   SC-3732: edit button was not visible for course teachers except the author on the task detail page
+- SC-3732: edit button was not visible for course teachers except the author on the task detail page
 
 
 ## [22.7.2] - 2020-04-03
@@ -37,7 +38,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
--   This changelog has been added
+- This changelog has been added
 
 ### Changed
 
