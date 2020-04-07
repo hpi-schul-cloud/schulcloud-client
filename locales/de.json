@@ -36,6 +36,16 @@
 			"startM2018": "(Start Mai 2018)"
 		}
 	},
+	"addons":{
+		"headline" : {
+			"addons" : "Add-ons",
+			"portfolio": "Portfolio"
+		},
+		"text":{
+			"portfolioDescription" : "Erzeuge dein digitales Portfolio in einem flexiblen persönlichen Lernsystem. Teile die Erfolge und deine Entwicklung an einem Ort, den du selbst gestaltest. Arbeite mit anderen in Gruppen zusammen."
+		}
+
+	},
 	"administration": {
 		"button": {
 			"changePassword": "Passwort ändern",
@@ -198,7 +208,7 @@
 			"tasks": {
 				"button": {
 					"addPrivateTask": "private Aufgabe hinzufügen",
-					"createTask": "Erstelle eine Aufgabe",
+					"createTask": "Stelle eine Aufgabe",
 					"privateTasks": "Private Aufgaben"
 				},
 				"headline": {
@@ -216,7 +226,8 @@
 					"addPrivateTask": "private Aufgabe hinzufügen",
 					"addTasks": "Aufgabe hinzufügen",
 					"descriptionTasks": "Kursteilnehmer*innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
-					"showPrivateTasks": "Private Aufgaben ein/ausklappen"
+					"showPrivateTasks": "Private Aufgaben ein/ausklappen",
+					"moreArchivedLinkLabel": "zum Aufgaben-Archiv"
 				}
 			},
 			"text": {
@@ -464,6 +475,7 @@
 			"allowGroupSubmission": "Gruppenabgabe ermöglichen",
 			"comment": "Kommentar",
 			"courses": "Kurse",
+			"details": "Details",
 			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",

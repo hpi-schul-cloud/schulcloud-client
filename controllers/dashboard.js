@@ -219,7 +219,6 @@ router.get('/', (req, res, next) => {
 	])
 		.then(([events, assignedHomeworks, news, newestReleases]) => {
 			assignedHomeworks.sort((a, b) => {
-			// sort dueDate first, then createdAt
 				if (a.dueDate > b.dueDate || !a.dueDate) {
 					return 1;
 				}
