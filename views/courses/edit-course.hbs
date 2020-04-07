@@ -195,6 +195,17 @@
 					</select>
 				</div>
 
+				{{#if @root.FEATURE_MESSENGER_ENABLED}}
+					{{#inArray "messenger" schoolData.features}}
+						<div class="form-group">
+							<label>
+								<input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
+								Messenger für Kurs aktivieren
+							</label>
+						</div>
+					{{/inArray}}
+				{{/if}}
+
 
 				<label>{{$t "courses._course.edit.label.chooseDate"}}</label>
 				<div class="times" id="timesContainer">

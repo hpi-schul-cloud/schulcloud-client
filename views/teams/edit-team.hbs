@@ -30,14 +30,27 @@
                     <textarea class="form-control" data-testid="description_team" name="description">{{team.description}}</textarea>
                 </div>
 
-                {{#inArray "rocketChat" schoolData.features}}
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
-                            Messenger für Team aktivieren
-                        </label>
-                    </div>
-                {{/inArray}}
+                {{#if @root.FEATURE_MESSENGER_ENABLED}}
+                    {{#inArray "messenger" schoolData.features}}
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../team.features}}checked{{/inArray}}>
+                                Messenger für Team aktivieren
+                            </label>
+                        </div>
+                    {{/inArray}}
+                {{else}}
+                    {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
+                        {{#inArray "rocketChat" schoolData.features}}
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
+                                    Messenger für Team aktivieren
+                                </label>
+                            </div>
+                        {{/inArray}}
+                    {{/if}}
+                {{/if}}
 
                 {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                     <div class="form-group">

@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <img class="w-100 pl-1 pr-1 svg-timetable-empty" src="/images/empty-states/timetable-empty.svg" alt="{{$t "dashboard.text.emptyTimetable"}}"/>
+    <img class="w-100 pl-1 pr-1 svg-timetable-empty" src="/images/empty-states/timetable-empty-cards.svg" alt="{{$t "dashboard.text.emptyTimetable"}}"/>
     <p class="my-2 pl-1 text-muted">{{$t "dashboard.text.empytTimetableInfo"}}</p>
 	<!--
 	<div class="timetable">
@@ -67,7 +67,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5">Meine Materialien</h2>
+                <h2 class="h5">{{$t "dashboard.headline.myMaterials"}}</h2>
             </div>
         </div>
         <div class="row tasks card-deck-row" data-testid="courses">
@@ -78,9 +78,7 @@
             {{else}}
             <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
                 <div class="alert">
-                    Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in
-                    Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href="/my-material">"Meine
-                        Materialien"-Abschnitt</a> vorbei.
+                    {{{$t "dashboard.text.noMaterialsYetLookAtOthers"}}}
                 </div>
             </div>
             {{/each}}
@@ -89,35 +87,68 @@
 </section>
 {{/ifeq}}
 
-{{#if homeworks}}
-{{> 'dashboard/components/card_section' section-id="tasks" title=($t "dashboard.headline.openTasks") content=homeworks link-text="Zur Aufgabe" href="/homework"}}
-{{else}}
-<section class="section mb-2">
-    <div class="row">
-        <div class="col-sm-12">
-            <h2 class="h5"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+{{#if isTeacher}}
+    {{#if homeworksFeedbackRequired}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/" redirectToTab="submissions"}}
+    {{/if}}
+
+    {{#if assignedHomeworks}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
+    {{else}}
+    <section class="section mb-2">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+            </div>
         </div>
-    </div>
-    <div class="row d-block text-center">
-        <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
-        <p class="text-muted dashboard-empty-info">
-            {{$t "dashboard.text.emptyHomeworksInfo"}}
-        </p>
-    </div>
-</section>
+        <div class="row d-block text-center">
+            <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
+            <p class="text-muted dashboard-empty-info">
+                {{$t "dashboard.text.emptyHomeworksInfo"}}
+            </p>
+        </div>
+    </section>
+    {{/if}}
+
+    {{#if privateHomeworks}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.privateTasks") content=privateHomeworks href="/homework/private/"}}
+    {{/if}}
+
+{{else if isStudent}}
+    {{#if assignedHomeworks}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
+    {{else}}
+        <section class="section mb-2">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+                </div>
+            </div>
+            <div class="row d-block text-center">
+                <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
+                <p class="text-muted dashboard-empty-info">
+                    {{$t "dashboard.text.emptyHomeworksInfo"}}
+                </p>
+            </div>
+        </section>
+    {{/if}}
+
+    {{#if homeworksWithFeedback}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.withFeedback") content=homeworksWithFeedback href="/homework" redirectToTab="feedback"}}
+    {{/if}}
 {{/if}}
 
-{{#if myhomeworks}}
-{{> 'dashboard/components/card_section' section-id="mytasks" title=($t "dashboard.headline.privateTasks") content=myhomeworks link-text="Zur Aufgabe" href="/homework/private/"}}
-{{/if}}
+
+
+
 
 {{#if news}}
-{{>  'dashboard/components/card_section' section-id="news" title=($t "dashboard.headline.news") content=news link-text="Weiterlesen" href="/news/"}}
+{{>  'dashboard/components/card_section' section-id="news" title=($t "dashboard.headline.news") content=news link-text=($t "dashboard.link.continueReading") href="/news/"}}
 {{else}}
 <section class="section mb-2">
     <div class="row">
         <div class="col-sm-12">
-            <h2 class="h5"><a class="dashboard-title" href="/news/">{{$t "dashboard.headline.news"}}</a></h2>
+            <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/news/">{{$t "dashboard.headline.news"}}</a></h2>
         </div>
     </div>
     <div class="row d-block text-center">

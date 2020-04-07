@@ -158,7 +158,7 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			doneSubmissions,
 			openSubmissions,
 			breadcrumb: [{
-				title: 'Meine Kurse',
+				title: res.$t("courses.headline.myCourses"),
 				url: '/courses',
 			},
 			{

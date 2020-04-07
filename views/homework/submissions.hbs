@@ -6,7 +6,7 @@
                     <th>Team</th>
                     <th></th>
                     <th>Abgegeben <span>{{@root.stats.submissionCount}}/{{@root.stats.userCount}}</span></th>
-                    <th>Bewertung {{#if @root.stats.averageGrade}}<span>{{@root.stats.averageGrade}}%</span>{{/if}}</th>
+                    <th>{{$t "homework.label.rating_comment" }} {{#if @root.stats.averageGrade}}<span>{{@root.stats.averageGrade}}%</span>{{/if}}</th>
                     <th/>
                 </tr>
             </thead>
@@ -57,7 +57,7 @@
                     <th>Vorname</th>
                     <th>Nachname</th>
                     <th>Abgegeben <span>{{@root.stats.submissionCount}}/{{@root.stats.userCount}}</span></th>
-                    <th>Bewertung {{#if @root.stats.averageGrade}}<span>{{@root.stats.averageGrade}}%</span>{{/if}}</th>
+                    <th>{{$t "homework.label.rating_comment" }} {{#if @root.stats.averageGrade}}<span>{{@root.stats.averageGrade}}%</span>{{/if}}</th>
                     <th/>
                 </tr>
             </thead>

@@ -1,5 +1,9 @@
 <section id="feedback" class="tab-content section-homeworkdetails">
     <div class="homework print">
+        <div class="btn btn-secondary btn-print btn-sm pull-right mb-1"
+            data-toggle="tooltip" title="Bewertung drucken">
+                <i class='fa fa-print'></i>
+        </div>
         {{#if @root.submission.grade}}
            Du hast <b class="grade">{{@root.submission.grade}}%</b> richtig gelöst.
         {{/if}}
@@ -10,11 +14,6 @@
             {{else}}
                 <p>{{$t "homework.text.noEvaluationTextAvailable" }}</p>
             {{/if}}
-        </div>
-
-        <div class="btn btn-secondary btn-print mb-1"
-            data-toggle="tooltip" title="Bewertung drucken">
-                <i class='fa fa-print'></i> {{$t "homework.button.print" }}
         </div>
     </div>
 </section>

@@ -11,8 +11,7 @@
 
     {{#content "page"}}
         <section class="section-courses">
-            <div class="course-card">
-                <div class="tabContainer" data-active-tab={{activeTab}}>
+            <div class="tabContainer" data-active-tab={{activeTab}}>
                 <div class="tabs" data-max-width="1024">
                     <button class="tab" data-tab="js-active">
                         <span class="text">{{$t "courses.tab_labels.currentCourses"}} <span class="count-badge" data-badge="{{ total.active }}"/></span>
@@ -20,7 +19,6 @@
                     <button class="tab" data-tab="js-archived">
                         <span class="text">{{$t "courses.tab_labels.archievedCourses"}} <span class="count-badge" data-badge="{{ total.archived }}"/></span>
                     </button>
-                </div>
                 </div>
                 <div class="sectionsContainer">
                     <div class="sections">

@@ -53,7 +53,6 @@
     <link rel="stylesheet" href="/styles/homework/homework.css" />
     <link rel="stylesheet" href="/styles/homework/assignment.css" />
     <link rel="stylesheet" href="/styles/homework/submissions.css" />
-    <link rel="stylesheet" href="/styles/homework/discussions.css" />
     <link rel="stylesheet" href="/styles/homework/tabs.css" />
     <link rel="stylesheet" href="/styles/files/upload.css" />
     <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css" />
@@ -73,36 +72,58 @@
 
 {{#extend "homework/homework"}}
     {{#content "page"}}
-
         <section class="section-homework">
-            <div class="dates">
-                {{availableDateF}} ({{availableTimeF}})<br />
+            <div class="dates text-muted">
+                {{availableDateF}} ({{availableTimeF}}) |
                 {{#if dueDate}}
                     bis: {{dueDateF}} ({{dueTimeF}})
                 {{else}}
                     {{$t "homework.text.noSubmissionDateSet"}}
                 {{/if}}
-
             </div>
+            {{#if courseId._id}}
+                <div class="col-sm-12">
+                    <div class="pull-right">
+                        <a href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
+                            <i class="fa fa-folder-open"></i>
+                            {{$t "homework.button.toTheCourseFiles" }}
+                        </a>
+                        <a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="Zum Kurs der Aufgabe">
+                            <i class="fa fa-graduation-cap"></i>
+                            {{$t "homework.button.toClass" }}
+                        </a>
+                        {{#if lessonId}}
+                            <a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
+                                alt="Zum Thema der Aufgabe">{{$t "homework.label.onTheSubject" }}</a>
+                        {{/if}}
+                    </div>
+                </div>
+			{{/if}}
             <div class="tab-view maintabs">
                 <nav class="nav tab-links">
-                    <a id="extended-tab-link" class="tab-link active" href="#activetabid=extended"
-                        alt="Details der Aufgabe">Details</a>
+                    <a id="extended-tab-link" class="tab-link active" href="#activetabid=extended">
+                        {{$t "homework.label.details" }}
+                    </a>
                     {{#if private}}
-                        <a id="submission-tab-link" class="tab-link" href="#activetabid=submission"
-                            alt="Deine Abgabe">{{$t "homework.label.submission" }}</a>
+                        <a id="submission-tab-link" class="tab-link" href="#activetabid=submission">
+                            {{$t "homework.label.submission" }}
+                        </a>
                     {{else}}
                         {{#if (userHasRole "teacher")}}
-                            <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions"
-                                alt="alle Abgaben">{{$t "homework.label.submissions" }}</a>
+                            <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions">
+                                {{$t "homework.label.submissions" }}
+                            </a>
                         {{else}}
-                            <a id="submission-tab-link" class="tab-link" href="#activetabid=submission"
-                                alt="Deine Abgabe">{{$t "homework.label.submission" }}</a>
-                            <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback"
-                                alt="Bewertung deiner Abgabe durch den Lehrer">Feedback</a>
+                            <a id="submission-tab-link" class="tab-link" href="#activetabid=submission">
+                                {{$t "homework.label.submission" }}
+                            </a>
+                            <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback">
+                                {{$t "homework.label.rating_comment" }}
+                            </a>
                             {{#if ../publicSubmissions}}
-                                <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions"
-                                    alt="alle Abgaben">{{$t "homework.label.submissions" }}</a>
+                                <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions">
+                                    {{$t "homework.label.submissions" }}
+                                </a>
                             {{/if}}
                         {{/if}}
                     {{/if}}
