@@ -671,6 +671,10 @@
 			"forgotPassword": "Passwort vergessen?"
 		},
 		"popup_resetPw": {
+			"button": {
+				"cancel": "Abbrechen",
+				"resetPassword": "Passwort Zurücksetzen"
+			},
 			"headline": {
 				"resetPassword": "Passwort Zurücksetzen"
 			},
@@ -686,7 +690,8 @@
 			}
 		},
 		"text": {
-			"loginFailed": "Login fehlgeschlagen."
+			"loginFailed": "Login fehlgeschlagen.",
+			"pleaseWaitXSeconds": "Bitte  {{seconds}} Sekunden warten"
 		}
 	},
 	"news": {
