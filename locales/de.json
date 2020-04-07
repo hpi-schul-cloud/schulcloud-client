@@ -83,6 +83,7 @@
 			},
 			"text": {
 				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
+				"chatIsActivated": "Chat ist aktiviert",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen"
 			}
 		},
@@ -136,7 +137,6 @@
 			"startOfLesson": "Start der Schulstunde",
 			"student": "Schüler",
 			"studentParticipants": "Schüler / Teilnehmer",
-			"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen",
 			"substituteTeacher": "Vertretungs Lehrer",
 			"systemName": "Name des Systems",
 			"systemType": "Typ des Systems",
@@ -249,6 +249,16 @@
 				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung"
 			}
 		},
+		"teams": {
+			"label":{
+				"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen"
+			},
+			"text":{
+				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
+			    "teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
+			    "teamHasOwners": "Team hat Eigentümer"
+			}
+		},
 		"text": {
 			"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
 			"andSendYourUsersARegistrationLinl": "und lass deinen Nutzern einen Registrierungslink zukommen.",
@@ -261,14 +271,12 @@
 			"beforeUsingThe": "Bevor die Nutzung der",
 			"butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
 			"byClickingOn": "Durch den Klick auf",
-			"chatIsActivated": "Chat ist aktiviert",
 			"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
 			"dataProtection": "Datenschutzerklärung",
 			"example": "Beispiel",
 			"forAllStudents": "Für alle Schüler",
 			"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
 			"importUserData": "Importiere Nutzerdaten per .csv-Datei",
-			"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 			"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
 			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
 			"manageClass": "Klasse verwalten",
@@ -280,8 +288,6 @@
 			"required": "erforderlich",
 			"studentUnder": "Schüler unter",
 			"studentsFrom": "Schüler ab",
-			"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
-			"teamHasOwners": "Team hat Eigentümer",
 			"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
 			"theTeacherMustHaveGoneThrough": "möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben.",
 			"toExplain": "erklären.",
