@@ -53,7 +53,6 @@
 			"addCourse": " Kurs hinzufügen",
 			"addNewAppoinment": "Neuen Termin hinzufügen",
 			"addStudentsFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
-			"addTeacher": "Lehrer hinzufügen",
 			"changePassword": "Passwort ändern",
 			"classInSchoolYear": "Klasse in Schuljahr",
 			"consent": "Einwilligungen:",
@@ -62,11 +61,9 @@
 			"deleteUser": "Benutzer löschen",
 			"edit": "Bearbeiten",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
-			"importTeacher": "Lehrer importieren",
 			"printLinkWithQRCode": "Link mit QR-Code Drucken",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
-			"sendLinksToTeacherEmail": "Links an Lehrer E-Mail Adressen senden",
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden",
 			"transfer": "versetzen",
 			"transferClassToTheNextSchoolYear": "Klasse ins nächste Schuljahr versetzen",
@@ -74,6 +71,9 @@
 		},
 		"global": {
 			"button": {
+				"filterAdd2": "Filter hinzufügen",
+				"filterApply2": "Übernehmen",
+				"createLinkSheet": "Link-Druckbogen erstellen",
 				"contactSupport": "Support kontaktieren"
 			},
 			"label": {
@@ -82,6 +82,7 @@
 				"termsOfUse": "Nutzungsbedingungen"
 			},
 			"text": {
+				"obtainADeclarationConsent": "Einverständniserklärung einholen",
 				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?"
 			}
 		},
@@ -112,7 +113,6 @@
 			"hide": "Ausblenden",
 			"importantNote": "Wichtiger Hinweis",
 			"invitationLink": "Einladungslink",
-			"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.",
 			"itsOn": "Ist-Zustand",
 			"lastName": "Nachname:",
 			"lengthOfLesson": "Dauer der Schulstunde",
@@ -121,7 +121,6 @@
 			"moreOption": "Mehr Optionen",
 			"parents": "Eltern",
 			"password": "Passwort:",
-			"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
 			"pleaseNote": "Bitte beachte:",
 			"remarks": "Anmerkungen",
 			"renameClass": "Klasse umbenennen",
@@ -224,24 +223,31 @@
 		"students": {
 			"button": {
 				"addStudents": "Schüler hinzufügen",
-				"createLinkSheet": "Link-Druckbogen erstellen",
-				"filterAdd2": "Filter hinzufügen",
-				"filterApply2": "Übernehmen",
 				"generateInvitationLink": "Einladungslink generieren",
 				"importStudents": "Schüler importieren",
 				"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden"
 			},
 			"text": {
-				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
 				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
 				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
 				"manuallyConsent": "Einverständnis manuell erklären",
-				"obtainADeclarationConsent": "Einverständniserklärung einholen",
+				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 				"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
 				"parentsAgreed": "Eltern haben zugestimmt",
 				"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein"
 			}
+		},
+		"teachers":{
+			  "button":{
+				"addTeacher": "Lehrer hinzufügen",
+				"importTeacher": "Lehrer importieren",
+				"sendLinksToTeacherEmail": "Links an Lehrer E-Mail Adressen senden"
+			  },
+			  "label":{
+				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
+				"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben."
+			  }
 		},
 		"text": {
 			"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",

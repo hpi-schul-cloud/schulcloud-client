@@ -8,8 +8,8 @@
             <section class="section-students section-default">
                 <div><feathers-filter id="filter"
                                       filter='{{filterSettings}}'
-                                      add-label='{{$t "administration.students.button.filterAdd2" }}'
-                                      apply-label='{{$t "administration.students.button.filterApply2" }}'
+                                      add-label='{{$t "administration.global.button.filterAdd2" }}'
+                                      apply-label='{{$t "administration.global.button.filterApply2" }}'
                                       cancle-label='{{$t "global.button.cancel" }}'
                                       handle-url='true'
                                       save-state='true'
@@ -54,7 +54,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
                             <h2 class="h4">
-                                {{$t "administration.students.text.obtainADeclarationConsent" }}
+                                {{$t "administration.global.text.obtainADeclarationConsent" }}
                             </h2>
                             {{#if ../schoolUsesLdap}}
                                 <strong>{{$t "administration.students.text.studentsLoginInThePresenceOfGuardian" }}</strong>
@@ -71,7 +71,7 @@
                                         {{$t "administration.students.button.sendLinksToStudentEmailAddresses" }}
                                     </button>
                                     <button data-role="student" class="btn btn-secondary btn-print-links">
-                                        {{$t "administration.students.button.createLinkSheet" }}
+                                        {{$t "administration.global.button.createLinkSheet" }}
                                     </button>
                                 </p>
                                 <p>
