@@ -2,7 +2,10 @@
 const moment = require('moment');
 const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
+const { Configuration } = require('@schul-cloud/commons');
 const permissionsHelper = require('../../permissions');
+const i18n = require('../../i18n');
+const Globals = require('../../../config/global');
 
 moment.locale('de');
 
@@ -47,6 +50,12 @@ const helpers = app => ({
 	},
 	inArray: (item, array = [], opts) => {
 		if (array.includes(item)) {
+			return opts.fn(this);
+		}
+		return opts.inverse(this);
+	},
+	notInArray: (item, array = [], opts) => {
+		if (!array.includes(item)) {
 			return opts.fn(this);
 		}
 		return opts.inverse(this);
@@ -116,23 +125,35 @@ const helpers = app => ({
 		return options.inverse(this);
 	},
 	ifEnv: (env_variable, value, options) => {
-		if (process.env[env_variable] == value) {
+		if (Globals[env_variable] === value) {
 			return options.fn(this);
 		}
 		return options.inverse(this);
 	},
 	unlessEnv: (env_variable, value, options) => {
-		if (process.env[env_variable] == value) {
+		if (Globals[env_variable] === value) {
 			return options.inverse(this);
 		}
 		return options.fn(this);
 	},
 	ifConfig: (key, value, options) => {
-		const exist = app.Config.has(key);
-		if (exist && app.Config.get(key) === value) {
+		const exist = Configuration.has(key);
+		if (exist && Configuration.get(key) === value) {
 			return options.fn(this);
 		}
 		return options.inverse(this);
+	},
+	hasConfig: (key, options) => {
+		if (Configuration.has(key)) {
+			return options.fn(this);
+		}
+		return options.inverse(this);
+	},
+	getConfig: (key) => {
+		return Configuration.get(key);
+	},
+	userInitials: (opts) => {
+		return opts.data.local.currentUser.avatarInitials;
 	},
 	userHasPermission: (permission, opts) => {
 		if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
@@ -258,7 +279,13 @@ const helpers = app => ({
 		.replace(/>/g, '&gt;')
 		.replace(/"/g, '&quot;')
 		.replace(/'/g, '&#039;'),
-	encodeURI: data => encodeURI(data)
+	encodeURI: data => encodeURI(data),
+	$t: (key, data, opts) => {
+		if (!opts) {
+			return i18n.getInstance(data.data.local.currentUser)(key);
+		}
+		return i18n.getInstance(opts.data.local.currentUser)(key, data);
+	},
 });
 
 

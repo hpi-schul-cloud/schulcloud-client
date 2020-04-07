@@ -1,5 +1,9 @@
 {
-	"extends": "airbnb-base",
+	"parser": "babel-eslint",
+	"extends": [
+		"airbnb-base",
+		"plugin:json/recommended"
+	],
 	"rules": {
 		"max-len": [
 			"error",
@@ -100,7 +104,9 @@
 		"jquery": true
 	},
 	"globals": {
-		"populateModal": false,
-		"populateModalForm": false
+		"$t": "readonly",
+		"csrftoken": "readonly",
+		"populateModal": "readonly",
+		"populateModalForm": "readonly"
 	}
 }

@@ -1,0 +1,39 @@
+{
+	"dashboard": {
+		"headline": {
+			"news": "News",
+			"openTasks": "Open Tasks",
+			"privateTasks": "Drafts",
+			"schedule": "Schedule",
+			"tasks": "Tasks",
+			"title": "Dashboard"
+		},
+		"text": {
+			"emptyHomeworksInfo": "All homeworks are shown in the homeworks section.",
+			"emptyNewsInfo": "No recent news. Check the news section to stay informed.",
+			"emptyTimetable": "Empty timetable",
+			"empytTimetableInfo": "The timetable is not shown. You can find your learning content in the course section.",
+			"noNews": "No news",
+			"noTasks": "No tasks",
+			"notFound": "No active entries found."
+		}
+	},
+	"global": {
+		"sidebar": {
+			"link": {
+				"administration": "Administration",
+				"calendar": "Events",
+				"courses": "Courses",
+				"files": "My Files",
+				"lernstore": "Lern-Store",
+				"management": "Management",
+				"managementClasses": "Classes",
+				"managementStudents": "Students",
+				"managementTeachers": "Teacher",
+				"news": "News",
+				"overview": "Dashboard",
+				"tasks": "Tasks"
+			}
+		}
+	}
+}

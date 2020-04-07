@@ -1,15 +1,16 @@
-import './pwd.js';
+import './pwd';
 import './cleanup'; // see loggedin.js for loggedin users
+import initAlerts from './alerts';
+import * as storage from './helpers/storage';
 
-$(document).ready(function() {
-
+$(document).ready(() => {
 	// reset localStorage when new version is Published
 	const newVersion = 1;
-	const currentVersion = parseInt(localStorage.getItem('homepageVersion') || '0', 10);
+	const currentVersion = parseInt(storage.local.getItem('homepageVersion') || '0', 10);
 
-	if(currentVersion < newVersion){
-		localStorage.clear();
-		localStorage.setItem('homepageVersion', newVersion.toString());
+	if (currentVersion < newVersion) {
+		storage.local.clear();
+		storage.local.setItem('homepageVersion', newVersion.toString());
 	}
 
 	try {
@@ -22,9 +23,21 @@ $(document).ready(function() {
 	  \\ \\_\\ \\_\\ \\_\\    /\\_____\\   \\ \`\\____\\ \\____\\\\ \\_\\ \\_\\ \\____/ /\\____\\/_____/ \\ \\____//\\____\\ \\____/\\ \\____/\\ \\___,_\\
 	   \\/_/\\/_/\\/_/    \\/_____/    \\/_____/\\/____/ \\/_/\\/_/\\/___/  \\/____/         \\/___/ \\/____/\\/___/  \\/___/  \\/__,_ /
 	`);
-		console.log("Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs");
-	} catch(e) {
+		console.log('Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs');
+	} catch (e) {
 		// no log
+	}
+
+	const checkCookie = () => {
+		let { cookieEnabled } = navigator;
+		if (!cookieEnabled) {
+			document.cookie = 'testcookie';
+			cookieEnabled = document.cookie.indexOf('testcookie') !== -1;
+		}
+		return cookieEnabled;
+	};
+	if (!checkCookie()) {
+		$('.alert-cookies-blocked').removeClass('hidden');
 	}
 
     var $btnToggleProviers = $('.btn-toggle-providers');
@@ -64,10 +77,10 @@ $(document).ready(function() {
             systems.forEach(function(system) {
                 var systemAlias = system.alias ? ' (' + system.alias + ')' : '';
                 let selected;
-                if(localStorage.getItem('loginSystem') == system._id) {
+                if(storage.local.getItem('loginSystem') == system._id) {
                     selected = true;
                 }
-                $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '">' + system.type + systemAlias + '</option>');
+                $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '//' + system.type + '">' + system.type + systemAlias + '</option>');
             });
             $systems.trigger('chosen:updated');
             systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
@@ -90,15 +103,19 @@ $(document).ready(function() {
         $systems.trigger('chosen:updated');
     });
 
-    $btnLogin.on('click', function(e) {
-		const school = $school.val();
-		const system = $systems.val();
-		if(school){
-			localStorage.setItem('loginSchool', school);
-		}
-		if(system){
-			localStorage.setItem('loginSystem', system);
-		}
+    $btnLogin.on('click', function (e) {
+        const school = $school.val();
+        const system = $systems.val();
+        if (school) {
+            storage.local.setItem('loginSchool', school);
+        } else {
+            storage.local.removeItem('loginSchool');
+        }
+        if (system) {
+            storage.local.setItem('loginSystem', system);
+        } else {
+            storage.local.removeItem('loginSystem');
+        }
     });
 
     $school.on('change', function() {
@@ -124,12 +141,15 @@ $(document).ready(function() {
     });
 
     // if stored login system - use that
-    if(localStorage.getItem('loginSchool')) {
+    if(storage.local.getItem('loginSchool')) {
         $btnToggleProviers.hide();
         $loginProviders.show();
-        $school.val(localStorage.getItem('loginSchool'));
+        $school.val(storage.local.getItem('loginSchool'));
         $school.trigger('chosen:updated');
         $school.trigger('change');
     }
 
+    initAlerts('login');
+    // remove duplicated login error
+    $( ".col-xs-12 > .notification" ).remove(); 
 });

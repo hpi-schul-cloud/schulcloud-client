@@ -1,6 +1,8 @@
 const express = require('express');
 const request = require('request');
 const logger = require('../helpers/logger');
+const { FEATURE_INSIGHTS_ENABLED, INSIGHTS_COLLECTOR_URI } = require('../config/global');
+
 
 const router = express.Router();
 
@@ -67,8 +69,8 @@ router.post('/', (req, res, next) => {
 			},
 		},
 	};
-	if (process.env.FEATURE_INSIGHTS_ENABLED === 'true' && process.env.INSIGHTS_COLLECTOR_URI) {
-		request.post(`${process.env.INSIGHTS_COLLECTOR_URI}/insights`, {
+	if (FEATURE_INSIGHTS_ENABLED === 'true' && INSIGHTS_COLLECTOR_URI) {
+		request.post(`${INSIGHTS_COLLECTOR_URI}/insights`, {
 			json: xApi,
 		}, (error, response) => {
 			if (error) {

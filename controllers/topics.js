@@ -6,10 +6,16 @@ const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
+const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
 
-const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/p/';
+const {
+	ETHERPAD_BASE_URL,
+	NEXBOARD_USER_ID,
+	NEXBOARD_API_KEY,
+	PUBLIC_BACKEND_URL,
+} = require('../config/global');
 
 const editTopicHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
@@ -45,7 +51,7 @@ const editTopicHandler = (req, res, next) => {
 			topicId: req.params.topicId,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
-			etherpadBaseUrl,
+			etherpadBaseUrl: ETHERPAD_BASE_URL,
 		});
 	}).catch((err) => {
 		next(err);
@@ -66,10 +72,10 @@ const checkInternalComponents = (data, baseUrl) => {
 };
 
 const getNexBoardAPI = () => {
-	if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
+	if (!NEXBOARD_USER_ID && !NEXBOARD_API_KEY) {
 		logger.error('nexBoard env is currently not defined.');
 	}
-	return new Nexboard(process.env.NEXBOARD_API_KEY, process.env.NEXBOARD_USER_ID);
+	return new Nexboard(NEXBOARD_API_KEY, NEXBOARD_USER_ID);
 };
 
 const getNexBoardProjectFromUser = async (req, user) => {
@@ -188,18 +194,10 @@ router.post('/:id/share', (req, res, next) => {
 // eslint-disable-next-line consistent-return
 router.get('/:topicId', (req, res, next) => {
 	// ############################# start new Edtior ###################################
-	if (req.query.edtr || req.query.edtr_hash) {
-		let edtrSource = '';
-		if (req.query.edtr_hash) {
-			edtrSource = `https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@${req.query.edtr_hash}/dist/index.js`;
-		} else {
-			edtrSource = req.query.version === 'B' ? process.env.EDTR_SOURCE_B : process.env.EDTR_SOURCE;
-		}
-
-		// return to skip execution
+	if (req.query.edtr && EDTR_SOURCE) {
+		// return to skip rendering old editor
 		return res.render('topic/topic-edtr', {
-			edtrSource: edtrSource || 'https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@develop/dist/index.js',
-			backendUrl: process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030',
+			EDTR_SOURCE,
 		});
 	}
 	// ############################## end new Edtior ######################################
@@ -249,7 +247,7 @@ router.get('/:topicId', (req, res, next) => {
 			courseId: req.params.courseId,
 			isCourseGroupTopic: courseGroup._id !== undefined,
 			breadcrumb: [{
-				title: 'Meine Kurse',
+				title: res.$t("courses.headline.myCourses"),
 				url: `/${context}`,
 			},
 			{
