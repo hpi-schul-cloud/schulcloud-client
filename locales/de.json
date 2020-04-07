@@ -227,7 +227,7 @@
 					"addTasks": "Aufgabe hinzufügen",
 					"descriptionTasks": "Kursteilnehmer*innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
 					"showPrivateTasks": "Private Aufgaben ein/ausklappen",
-					"moreArchivedLinkLabel": "mehr archivierte Aufgaben..."
+					"moreArchivedLinkLabel": "zum Aufgaben-Archiv"
 				}
 			},
 			"text": {
@@ -475,6 +475,7 @@
 			"allowGroupSubmission": "Gruppenabgabe ermöglichen",
 			"comment": "Kommentar",
 			"courses": "Kurse",
+			"details": "Details",
 			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
