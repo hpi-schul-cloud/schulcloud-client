@@ -26,9 +26,9 @@ $(document).ready(function () {
                 courseMembers = courseMembers + '</ol>';
             }
 
-            populateModal($memberModal, '.modal-title', $t('courses.headline.courseAttendees').concat(courseName));
+            populateModal($memberModal, '.modal-title', `${$t('courses.headline.courseAttendees')} ${courseName}`);
             populateModal($memberModal, '#member-modal-body', courseMembers);
-            populateModal($memberModal, '#course-edit', '<a href="/courses/'.concat(courseId).concat(`/edit" class="btn btn-add btn-primary">${$t('courses.button.editCourse')} </a>`));
+            populateModal($memberModal, '#course-edit', `<a href="/courses/${courseId}/edit" class="btn btn-add btn-primary">${$t('courses.button.editCourse')} </a>`);
 
             $memberModal.appendTo('body').modal('show');
 
@@ -58,7 +58,7 @@ $(document).ready(function () {
         $('#step1').show();
         $('#step2').hide();
 
-        $('.modal-footer').append(`<button type='button' class='btn btn-primary btn-next-step'>${$t("global.button.nextStep")}</button>`);
+        $('.modal-footer').append(`<button type='button' class='btn btn-primary btn-next-step'>${$t("courses.button.nextStep")}</button>`);
     });
 
     $('.modal-footer').on('click', '.btn-next-step', function (e) {

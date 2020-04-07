@@ -2,7 +2,7 @@
     <nav class="tab-links">
         <a id="submission-tab-link" class="tab-link active">{{$t "homework.label.submission" }}</a>
         {{#if @root.isTeacher}}
-            <a id="comment-tab-link" class="tab-link">{{$t "homework.label.rating" }}</a>
+            <a id="comment-tab-link" class="tab-link">{{$t "homework.label.rating_comment" }}</a>
         {{/if}}
     </nav>
     <div class="tabs">
@@ -44,7 +44,7 @@
                 {{/if}}
                         <div class="comment form-group">
                             <div class="form-group">
-                                <label>{{$t "homework.label.rating" }}<small>{{$t "homework.label.inPercent" }}</small></label>
+                                <label>{{$t "homework.label.rating" }}<small> {{$t "homework.label.inPercent" }}</small></label>
                                 <input data-testid="evaluation_procent" type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}" />
                             </div>
                             <h2 class="h6">{{$t "homework.label.comment" }}</h2>

@@ -218,17 +218,34 @@
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
 
-						<div class="form-group">
-							<label>
-								<input type="checkbox" name="rocketchat" value="true"
-									{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
-								{{$t "administration.school.label.activeChatFunction" }}
-								<p class="text-muted">
-									Sind Chats an deiner Schule aktiviert, können Team-Administratoren
-									im jeweiligen Team die Chatfunktion gezielt freischalten.
-								</p>
-							</label>
-						</div>
+						{{#if @root.FEATURE_MESSENGER_ENABLED}}
+							<div class="form-group">
+								<label>
+									<input type="checkbox" name="messenger" value="true"
+										{{#inArray "messenger" ../school.features}}checked{{/inArray}}>
+									{{$t "administration.school.label.activeChatFunction" }}
+									<p class="text-muted">
+										Sind Chats an deiner Schule aktiviert, können Team-Administratoren
+										im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.
+									</p>
+								</label>
+							</div>
+						{{else}}
+							{{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
+								<div class="form-group">
+									<label>
+										<input type="checkbox" name="rocketchat" value="true"
+											{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
+										{{$t "administration.school.label.activeChatFunction" }}
+										<p class="text-muted">
+											Sind Chats an deiner Schule aktiviert, können Team-Administratoren
+											im jeweiligen Team die Chatfunktion gezielt freischalten.
+										</p>
+									</label>
+								</div>
+							{{/if}}
+						{{/if}}
+
 						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
 						<div class="form-group">
 							<label>

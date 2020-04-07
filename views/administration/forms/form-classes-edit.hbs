@@ -115,12 +115,12 @@
 	{{#ifeq mode "edit"}}
 		<button class="btn btn-primary" type="submit" disabled>{{$t "global.button.saveChanges" }}</button>
 		{{#if ../isUpgradable}}
-			<a class="btn btn-outline-primary" href="/administration/classes/{{@root.class.id}}/createSuccessor">{{$t "administration.button.trasnferClassToTheNextSchoolYear" }}</a>
+			<a class="btn btn-outline-primary" href="/administration/classes/{{@root.class.id}}/createSuccessor">{{$t "administration.button.transferClassToTheNextSchoolYear" }}</a>
 		{{/if}}
 	{{/ifeq}}
 	{{#ifeq mode "upgrade"}}
 		<button class="btn btn-primary" type="submit">{{$t "administration.button.classInSchoolYear" }} <span data-from="schoolyear"></span>
-			{{$t "administration.button.offset" }}</button>
+			{{$t "administration.button.transfer" }}</button>
 	{{/ifeq}}
 </div>
 

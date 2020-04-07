@@ -40,17 +40,18 @@ router.post('/login/', (req, res, next) => {
 	const {
 		username,
 		password,
-		systemId,
+		system,
 		schoolId,
 		redirect,
 	} = req.body;
 	const privateDevice = req.body.privateDevice === 'true';
 	const errorSink = () => next();
 
-	if (systemId) {
-		return api(req).get(`/systems/${req.body.systemId}`).then(system => authHelper.login({
-			strategy: system.type, username, password, systemId, schoolId, redirect, privateDevice,
-		}, req, res, errorSink));
+	if (system) {
+		const [ systemId, strategy ] = system.split('//');
+		return authHelper.login({
+			strategy, username, password, systemId, schoolId, redirect, privateDevice,
+		}, req, res, errorSink);
 	}
 	return authHelper.login({
 		strategy: 'local', username, password, redirect, privateDevice,
@@ -150,10 +151,10 @@ router.all('/login/', (req, res, next) => {
 		return authHelper.clearCookie(req, res)
 			.then(() => getSelectOptions(req,
 				'schools', {
-				purpose: { $ne: 'expert' },
-				$limit: false,
-				$sort: 'name',
-			})
+					purpose: { $ne: 'expert' },
+					$limit: false,
+					$sort: 'name',
+				})
 				.then((schools) => {
 					res.render('authentication/login', {
 						schools,
@@ -229,7 +230,7 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication') // async, ignore result
-		.catch((err) => { logger.error('error during logout.', { error: err.toString() }); })
+		.catch((err) => { logger.error('error during logout.', { error: err.toString() }); });
 	return authHelper
 		.clearCookie(req, res, { destroySession: true })
 		.then(() => res.redirect('/'))

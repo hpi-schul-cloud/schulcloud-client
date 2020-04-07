@@ -10,6 +10,8 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const logger = require('../helpers/logger');
 
+const OPTIONAL_COURSE_FEATURES = ['messenger'];
+
 const router = express.Router();
 const { CALENDAR_SERVICE_ENABLED, HOST } = require('../config/global');
 
@@ -241,6 +243,7 @@ const editCourseHandler = (req, res, next) => {
 				),
 				students: markSelected(students, _.map(course.userIds, '_id')),
 				scopePermissions: _scopePermissions,
+				schoolData: res.locals.currentSchoolData,
 			});
 		} else {
 			res.render('courses/create-course', {
@@ -369,6 +372,7 @@ const copyCourseHandler = (req, res, next) => {
 			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
 			substitutions,
 			students,
+			schoolData: res.locals.currentSchoolData,
 		});
 	});
 };
@@ -538,6 +542,14 @@ router.post('/copy/:courseId', (req, res, next) => {
 	// req.body.courseId = req.params.courseId;
 	req.body.copyCourseId = req.params.courseId;
 
+	req.body.features = [];
+	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
+
 	api(req)
 		.post('/courses/copy/', {
 			json: req.body, // TODO: sanitize
@@ -603,6 +615,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				courseId: req.params.courseId,
 				$populate: ['courseId'],
 				archived: { $ne: res.locals.currentUser._id },
+				$sort: 'createdAt',
 			},
 		}),
 		api(req).get('/courseGroups/', {
@@ -669,7 +682,7 @@ router.get('/:courseId/', async (req, res, next) => {
 		});
 
 		homeworks.sort((a, b) => {
-			if (a.dueDate > b.dueDate) {
+			if (a.dueDate > b.dueDate || !a.dueDate) {
 				return 1;
 			}
 			return -1;
@@ -768,6 +781,14 @@ router.patch('/:courseId', (req, res, next) => {
 	if (req.body.unarchive === 'true') {
 		req.body = { untilDate: req.body.untilDate };
 	}
+
+	req.body.features = [];
+	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
 
 	// first delete all old events for the course
 	deleteEventsForCourse(req, res, req.params.courseId)
