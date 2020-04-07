@@ -50,8 +50,6 @@
 		"button": {
 			"addAnotherOwner": "Weiteren Eigentümer hinzufügen",
 			"addClass": "Klasse hinzufügen",
-			"addCourse": " Kurs hinzufügen",
-			"addNewAppoinment": "Neuen Termin hinzufügen",
 			"addStudentsFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
 			"changePassword": "Passwort ändern",
 			"classInSchoolYear": "Klasse in Schuljahr",
@@ -71,15 +69,31 @@
 		},
 		"global": {
 			"button": {
+				"addCourse": " Kurs hinzufügen",
+				"addNewAppoinment": "Neuen Termin hinzufügen",
 				"contactSupport": "Support kontaktieren",
 				"createLinkSheet": "Link-Druckbogen erstellen",
 				"filterAdd2": "Filter hinzufügen",
 				"filterApply2": "Übernehmen"
 			},
 			"label": {
+				"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)",
+				"chooseDate": "Termine auswählen",
+				"classes": "Klassen:",
+				"colorOfTheCourse": "Farbe des Kurses:",
 				"courseName": "Name des Kurses",
 				"dataProtection": "Datenschutz",
-				"termsOfUse": "Nutzungsbedingungen"
+				"from": "Von",
+				"lengthOfLesson": "Dauer der Schulstunde",
+				"room": "Raum",
+				"startOfLesson": "Start der Schulstunde",
+				"studentParticipants": "Schüler / Teilnehmer",
+				"substituteTeacher": "Vertretungs Lehrer",
+				"teachingTeacher": "Unterrichtender Lehrer",
+				"termsOfUse": "Nutzungsbedingungen",
+				"timeSpan": "Zeitraum (z.B. Schuljahr)",
+				"to": "Bis",
+				"weekday": "Wochentag"
 			},
 			"text": {
 				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
@@ -91,24 +105,19 @@
 			"LDAPClasses": "LDAP-Klassen",
 			"LDAPUsers": "LDAP-Nutzer",
 			"addStudentFromPreviousYearClass": "Schüler aus Vorjahres-Klasse hinzufügen",
-			"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)",
 			"assignPassword": "Passwort vergeben:",
 			"birthdate": "Geburtsdatum:",
 			"briefdescription": "Kurzbeschreibung (optional)",
 			"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr",
-			"chooseDate": "Termine auswählen",
 			"className": "Klassenbezeichnung",
 			"classUsers": "Nutzer der Klasse",
-			"classes": "Klassen:",
 			"clientSecret": "Client-Geheimnis",
-			"colorOfTheCourse": "Farbe des Kurses:",
 			"createdOn": "Erstellt am:",
 			"dateOfBirth": "Geburtsdatum (optional):",
 			"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:",
 			"emailAddress": "E-Mail-Adresse:",
 			"filterBySchoolYear": "Nach Schuljahr filtern",
 			"firstName": "Vorname:",
-			"from": "Von",
 			"furtherInformation": "Weitere Informationen (OAuth)",
 			"grade": "Jahrgangsstufe",
 			"hide": "Ausblenden",
@@ -116,7 +125,6 @@
 			"invitationLink": "Einladungslink",
 			"itsOn": "Ist-Zustand",
 			"lastName": "Nachname:",
-			"lengthOfLesson": "Dauer der Schulstunde",
 			"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
 			"messageText": "Nachrichtentext:",
 			"moreOption": "Mehr Optionen",
@@ -125,7 +133,6 @@
 			"pleaseNote": "Bitte beachte:",
 			"remarks": "Anmerkungen",
 			"renameClass": "Klasse umbenennen",
-			"room": "Raum",
 			"schoolYear": "Schuljahr",
 			"selectAnAdditionalOwner": "Wähle hier einen zusätzlichen Eigentümer für das Team aus:",
 			"selectCSVFile": "CSV-Datei auswählen",
@@ -134,26 +141,19 @@
 			"sendRegistrationLinkToStudent": "Registrierungslink an Schüler senden",
 			"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden",
 			"sendRegistrationLinkToUsers": "Registrierungslinks sofort nach Import an Nutzer senden",
-			"startOfLesson": "Start der Schulstunde",
 			"student": "Schüler",
-			"studentParticipants": "Schüler / Teilnehmer",
-			"substituteTeacher": "Vertretungs Lehrer",
 			"systemName": "Name des Systems",
 			"systemType": "Typ des Systems",
 			"targetState": "Soll-Zustand",
 			"teacher": "Lehrer ",
-			"teachingTeacher": "Unterrichtender Lehrer",
 			"termOfUse": "Nutzungsordnung",
-			"timeSpan": "Zeitraum (z.B. Schuljahr)",
 			"tips": "Tipp:",
 			"title": "Titel",
-			"to": "Bis",
 			"toInviteToTheSchoolCloud": "Um in die Schul-Cloud einzuladen, verteile folgenden Link an:",
 			"urlOfTheRSSSystem": "URL des RSS-Feeds",
 			"urlOfTheSystem": "Url des Systems",
 			"use": "Nutzung",
 			"users": "Nutzer:",
-			"weekday": "Wochentag",
 			"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler das Einverständnis zur",
 			"yourStudentsAreNotYetInThe": "Deine Schüler sind noch nicht in der"
 		},
@@ -250,13 +250,13 @@
 			}
 		},
 		"teams": {
-			"label":{
+			"label": {
 				"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen"
 			},
-			"text":{
+			"text": {
 				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
-			    "teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
-			    "teamHasOwners": "Team hat Eigentümer"
+				"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
+				"teamHasOwners": "Team hat Eigentümer"
 			}
 		},
 		"text": {

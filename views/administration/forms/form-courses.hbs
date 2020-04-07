@@ -6,12 +6,12 @@
 </div>
 
 <div class="form-group">
-    <label>{{$t "administration.label.colorOfTheCourse" }}</label>
+    <label>{{$t "administration.global.label.colorOfTheCourse" }}</label>
     <input name="color" type="color" value="{{#if course.color}}{{course.color}}{{else}}#d32f2f{{/if}}" required/>
 </div>
 
 <div class="form-group">
-    <label>{{$t "administration.label.classes" }} <small>{{$t "administration.label.afterSavingAllStudentsAdded" }}</small></label>
+    <label>{{$t "administration.global.label.classes" }} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded" }}</small></label>
 
     <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
         {{#each classes}}
@@ -21,7 +21,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{$t "administration.label.teachingTeacher" }} </label>
+    <label>{{$t "administration.global.label.teachingTeacher" }} </label>
 
     <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
         {{#each teachers}}
@@ -37,7 +37,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{$t "administration.label.substituteTeacher" }}</label>
+    <label>{{$t "administration.global.label.substituteTeacher" }}</label>
     <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
         {{#each substitutions}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -48,7 +48,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{$t "administration.label.studentParticipants" }}</label>
+    <label>{{$t "administration.global.label.studentParticipants" }}</label>
 
     <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
         {{#each students}}
@@ -66,19 +66,19 @@
 <div class="panel-group">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a data-toggle="collapse" href="#collapse{{collapseId}}" class="collapse-toggle"><label>{{$t "administration.label.chooseDate" }}</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+            <a data-toggle="collapse" href="#collapse{{collapseId}}" class="collapse-toggle"><label>{{$t "administration.global.label.chooseDate" }}</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
         </div>
         <div id="collapse{{collapseId}}" class="panel-collapse collapse">
             <div class="times">
-                <label>{{$t "administration.label.timeSpan" }}</label>
+                <label>{{$t "administration.global.label.timeSpan" }}</label>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label>{{$t "administration.label.from" }}</label>
+                        <label>{{$t "administration.global.label.from" }}</label>
                         <input name="startDate" id="startDate" type="date" class="form-control" value="{{course.startDate}}"/>
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label>{{$t "administration.label.to" }}</label>
+                        <label>{{$t "administration.global.label.to" }}</label>
                         <input name="untilDate" id="untilDate" type="date" class="form-control" value="{{course.untilDate}}"/>
                     </div>
                 </div>
@@ -86,17 +86,17 @@
                 <table width="100%" cellpadding="5px" class="course-times">
                     <thead>
                     <th></th>
-                    <th><label>{{$t "administration.label.weekday" }}</label></th>
-                    <th><label>{{$t "administration.label.startOfLesson" }}</label></th>
-                    <th><label>{{$t "administration.label.lengthOfLesson" }}</label></th>
-                    <th><label>{{$t "administration.label.room" }}</label></th>
+                    <th><label>{{$t "administration.global.label.weekday" }}</label></th>
+                    <th><label>{{$t "administration.global.label.startOfLesson" }}</label></th>
+                    <th><label>{{$t "administration.global.label.lengthOfLesson" }}</label></th>
+                    <th><label>{{$t "administration.global.label.room" }}</label></th>
                     </thead>
                     <tbody class="add-course-times">
                         {{#embed "courses/components/template-new-course-time"}}{{/embed}}
                     </tbody>
                 </table>
                 <button class="new-course-time-add btn-link" data-timesref="#collapse1" type="button">
-                    <i class="fa fa-plus-circle fa-6"></i> {{$t "administration.button.addNewAppoinment" }}
+                    <i class="fa fa-plus-circle fa-6"></i> {{$t "administration.global.button.addNewAppoinment" }}
                 </button>
             </div>
         </div>
