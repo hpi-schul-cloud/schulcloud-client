@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
 		}
 		return Promise.resolve(template);
 	}).then(template => res.render(template, {
-		title: 'Projekt',
+		title: res.$t("about.headline.project"),
 		inline: !!template.includes('guest'),
 		schools,
 		hiddenBPSchools,
