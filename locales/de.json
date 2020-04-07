@@ -9,7 +9,6 @@
 			"educSupp": "Bildungswissenschaftliche Begleitung",
 			"morePublications": "Weitere Veröffentlichungen",
 			"ourAwards": "Unsere Auszeichnungen",
-			"project": "Projekt",
 			"pilotSchool": "Pilotschulen",
 			"project": "Projekt",
 			"publications": "Veröffentlichungen",
@@ -70,15 +69,15 @@
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
 			"importStudents": "Schüler importieren",
 			"importTeacher": "Lehrer importieren",
-			"transfer": "versetzen",
 			"printLinkWithQRCode": "Link mit QR-Code Drucken",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
+			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
 			"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden",
 			"sendLinksToTeacherEmail": "Links an Lehrer E-Mail Adressen senden",
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden",
+			"transfer": "versetzen",
 			"transferClassToTheNextSchoolYear": "Klasse ins nächste Schuljahr versetzen",
-			"verify": "Verifizieren",
-			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten"
+			"verify": "Verifizieren"
 		},
 		"global": {
 			"button": {
@@ -132,8 +131,8 @@
 			"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
 			"messageText": "Nachrichtentext:",
 			"moreOption": "Mehr Optionen",
-			"password": "Passwort:",
 			"parents": "Eltern",
+			"password": "Passwort:",
 			"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
 			"pleaseNote": "Bitte beachte:",
 			"remarks": "Anmerkungen",
@@ -738,7 +737,7 @@
 			"open": "Öffnen",
 			"save": "Speichern",
 			"saveChanges": "Änderungen speichern",
-			"send": "Abschicken",
+			"send": "Abschicken"
 		},
 		"label": {
 			"room": "Raum"
@@ -812,7 +811,7 @@
 			"comment": "Kommentar",
 			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
-			"forUploadingUploadedFiles": "Zur Abgabe hochgeladene Dateien",
+			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
 			"onTheSubject": "Zum Thema",
 			"rating": "Bewertung",
