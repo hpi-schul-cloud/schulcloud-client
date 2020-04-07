@@ -52,27 +52,20 @@
 			"addClass": "Klasse hinzufügen",
 			"addCourse": " Kurs hinzufügen",
 			"addNewAppoinment": "Neuen Termin hinzufügen",
-			"addStudents": "Schüler hinzufügen",
 			"addStudentsFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
 			"addTeacher": "Lehrer hinzufügen",
 			"changePassword": "Passwort ändern",
 			"classInSchoolYear": "Klasse in Schuljahr",
 			"consent": "Einwilligungen:",
 			"copyLink": "Link kopieren",
-			"createLinkSheet": "Link-Druckbogen erstellen",
 			"declareConsentOnBehalfOfTheStudents": "Einverständnis im Namen der Schüler erklären",
 			"deleteUser": "Benutzer löschen",
 			"edit": "Bearbeiten",
-			"filterAdd2": "Filter hinzufügen",
-			"filterApply2": "Übernehmen",
-			"generateInvitationLink": "Einladungslink generieren",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
-			"importStudents": "Schüler importieren",
 			"importTeacher": "Lehrer importieren",
 			"printLinkWithQRCode": "Link mit QR-Code Drucken",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
-			"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden",
 			"sendLinksToTeacherEmail": "Links an Lehrer E-Mail Adressen senden",
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden",
 			"transfer": "versetzen",
@@ -85,9 +78,8 @@
 			},
 			"label": {
 				"courseName": "Name des Kurses",
-				"termsOfUse": "Nutzungsbedingungen",
-				"dataProtection": "Datenschutz"
-
+				"dataProtection": "Datenschutz",
+				"termsOfUse": "Nutzungsbedingungen"
 			},
 			"text": {
 				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?"
@@ -124,12 +116,6 @@
 			"itsOn": "Ist-Zustand",
 			"lastName": "Nachname:",
 			"lengthOfLesson": "Dauer der Schulstunde",
-			"manageClasses": "Klassen verwalten",
-			"manageCourses": "Kurse verwalten",
-			"manageSchool": "Schule verwalten",
-			"manageStudents": "Schüler verwalten",
-			"manageTeachers": "Lehrer verwalten",
-			"manageTeams": "Teams verwalten",
 			"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
 			"messageText": "Nachrichtentext:",
 			"moreOption": "Mehr Optionen",
@@ -171,6 +157,14 @@
 			"weekday": "Wochentag",
 			"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler das Einverständnis zur",
 			"yourStudentsAreNotYetInThe": "Deine Schüler sind noch nicht in der"
+		},
+		"link": {
+			"manageClasses": "Klassen verwalten",
+			"manageCourses": "Kurse verwalten",
+			"manageSchool": "Schule verwalten",
+			"manageStudents": "Schüler verwalten",
+			"manageTeachers": "Lehrer verwalten",
+			"manageTeams": "Teams verwalten"
 		},
 		"school": {
 			"button": {
@@ -227,9 +221,29 @@
 				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule"
 			}
 		},
+		"students": {
+			"button": {
+				"addStudents": "Schüler hinzufügen",
+				"createLinkSheet": "Link-Druckbogen erstellen",
+				"filterAdd2": "Filter hinzufügen",
+				"filterApply2": "Übernehmen",
+				"generateInvitationLink": "Einladungslink generieren",
+				"importStudents": "Schüler importieren",
+				"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden"
+			},
+			"text": {
+				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
+				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
+				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
+				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
+				"manuallyConsent": "Einverständnis manuell erklären",
+				"obtainADeclarationConsent": "Einverständniserklärung einholen",
+				"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
+				"parentsAgreed": "Eltern haben zugestimmt",
+				"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein"
+			}
+		},
 		"text": {
-			"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
-			"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
 			"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
 			"andSendYourUsersARegistrationLinl": "und lass deinen Nutzern einen Registrierungslink zukommen.",
 			"andTo": "und zur",
@@ -246,27 +260,20 @@
 			"dataProtection": "Datenschutzerklärung",
 			"example": "Beispiel",
 			"forAllStudents": "Für alle Schüler",
-			"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
 			"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
 			"importUserData": "Importiere Nutzerdaten per .csv-Datei",
 			"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 			"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
-			"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
 			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
 			"manageClass": "Klasse verwalten",
-			"manuallyConsent": "Einverständnis manuell erklären",
 			"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler erklären",
 			"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler auszudrucken.",
 			"noLackOfInformedConsent": "In dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
-			"obtainADeclarationConsent": "Einverständniserklärung einholen",
 			"ofThe": "der",
-			"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
-			"parentsAgreed": "Eltern haben zugestimmt",
 			"registrationAtThe": "Die Anmeldung an der",
 			"required": "erforderlich",
 			"studentUnder": "Schüler unter",
 			"studentsFrom": "Schüler ab",
-			"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein",
 			"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
 			"teamHasOwners": "Team hat Eigentümer",
 			"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
