@@ -49,13 +49,11 @@
 	"administration": {
 		"button": {
 			"addAnotherOwner": "Weiteren Eigentümer hinzufügen",
-			"addClass": "Klasse hinzufügen",
 			"addStudentsFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
 			"changePassword": "Passwort ändern",
 			"classInSchoolYear": "Klasse in Schuljahr",
 			"consent": "Einwilligungen:",
 			"copyLink": "Link kopieren",
-			"declareConsentOnBehalfOfTheStudents": "Einverständnis im Namen der Schüler erklären",
 			"deleteUser": "Benutzer löschen",
 			"edit": "Bearbeiten",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
@@ -66,6 +64,28 @@
 			"transfer": "versetzen",
 			"transferClassToTheNextSchoolYear": "Klasse ins nächste Schuljahr versetzen",
 			"verify": "Verifizieren"
+		},
+		"classes": {
+			"button": {
+				"addClass": "Klasse hinzufügen",
+				"declareConsentOnBehalfOfTheStudents": "Einverständnis im Namen der Schüler erklären"
+			},
+			"label": {
+				"assignPassword": "Passwort vergeben:",
+				"birthdate": "Geburtsdatum:",
+				"termOfUse": "Nutzungsordnung",
+				"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler das Einverständnis zur"
+			},
+			"text": {
+				"andTo": "und zur",
+				"byClickingOn": "Durch den Klick auf",
+				"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
+				"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler auszudrucken.",
+				"noLackOfInformedConsent": "In dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
+				"ofThe": "der",
+				"required": "erforderlich",
+				"toExplain": "erklären."
+			}
 		},
 		"global": {
 			"button": {
@@ -105,8 +125,6 @@
 			"LDAPClasses": "LDAP-Klassen",
 			"LDAPUsers": "LDAP-Nutzer",
 			"addStudentFromPreviousYearClass": "Schüler aus Vorjahres-Klasse hinzufügen",
-			"assignPassword": "Passwort vergeben:",
-			"birthdate": "Geburtsdatum:",
 			"briefdescription": "Kurzbeschreibung (optional)",
 			"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr",
 			"className": "Klassenbezeichnung",
@@ -146,7 +164,6 @@
 			"systemType": "Typ des Systems",
 			"targetState": "Soll-Zustand",
 			"teacher": "Lehrer ",
-			"termOfUse": "Nutzungsordnung",
 			"tips": "Tipp:",
 			"title": "Titel",
 			"toInviteToTheSchoolCloud": "Um in die Schul-Cloud einzuladen, verteile folgenden Link an:",
@@ -154,7 +171,6 @@
 			"urlOfTheSystem": "Url des Systems",
 			"use": "Nutzung",
 			"users": "Nutzer:",
-			"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler das Einverständnis zur",
 			"yourStudentsAreNotYetInThe": "Deine Schüler sind noch nicht in der"
 		},
 		"link": {
@@ -262,7 +278,6 @@
 		"text": {
 			"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
 			"andSendYourUsersARegistrationLinl": "und lass deinen Nutzern einen Registrierungslink zukommen.",
-			"andTo": "und zur",
 			"areYouSureYouWantTheFollowingUser": "Sind Sie sich sicher, dass Sie folgenden Nutzer wollen?",
 			"areYouSureYouWantToDeleteTheFollowingRSS": "Sind Sie sich sicher, dass Sie folgenden RSS-Feed löschen wollen?",
 			"areYouSureYouWantToRemoveAllMembers": "Bist du sicher, dass du alle Mitglieder deiner Schule aus diesem Team entfernen willst?",
@@ -270,8 +285,6 @@
 			"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
 			"beforeUsingThe": "Bevor die Nutzung der",
 			"butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
-			"byClickingOn": "Durch den Klick auf",
-			"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
 			"dataProtection": "Datenschutzerklärung",
 			"example": "Beispiel",
 			"forAllStudents": "Für alle Schüler",
@@ -281,16 +294,11 @@
 			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
 			"manageClass": "Klasse verwalten",
 			"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler erklären",
-			"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler auszudrucken.",
-			"noLackOfInformedConsent": "In dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
-			"ofThe": "der",
 			"registrationAtThe": "Die Anmeldung an der",
-			"required": "erforderlich",
 			"studentUnder": "Schüler unter",
 			"studentsFrom": "Schüler ab",
 			"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
 			"theTeacherMustHaveGoneThrough": "möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben.",
-			"toExplain": "erklären.",
 			"toTheStudentsThemselves": "an die Schüler selbst ",
 			"transferred": "versetzt",
 			"withoutAFullDeclarationOfConsent": " ohne vollständige Einverständniserklärung:",
