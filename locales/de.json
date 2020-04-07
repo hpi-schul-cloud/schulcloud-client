@@ -71,10 +71,10 @@
 		},
 		"global": {
 			"button": {
-				"filterAdd2": "Filter hinzufügen",
-				"filterApply2": "Übernehmen",
+				"contactSupport": "Support kontaktieren",
 				"createLinkSheet": "Link-Druckbogen erstellen",
-				"contactSupport": "Support kontaktieren"
+				"filterAdd2": "Filter hinzufügen",
+				"filterApply2": "Übernehmen"
 			},
 			"label": {
 				"courseName": "Name des Kurses",
@@ -82,8 +82,8 @@
 				"termsOfUse": "Nutzungsbedingungen"
 			},
 			"text": {
-				"obtainADeclarationConsent": "Einverständniserklärung einholen",
-				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?"
+				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
+				"obtainADeclarationConsent": "Einverständniserklärung einholen"
 			}
 		},
 		"label": {
@@ -228,26 +228,26 @@
 				"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden"
 			},
 			"text": {
+				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
 				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
 				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
 				"manuallyConsent": "Einverständnis manuell erklären",
-				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 				"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
 				"parentsAgreed": "Eltern haben zugestimmt",
 				"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein"
 			}
 		},
-		"teachers":{
-			  "button":{
+		"teachers": {
+			"button": {
 				"addTeacher": "Lehrer hinzufügen",
 				"importTeacher": "Lehrer importieren",
 				"sendLinksToTeacherEmail": "Links an Lehrer E-Mail Adressen senden"
-			  },
-			  "label":{
-				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
-				"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben."
-			  }
+			},
+			"label": {
+				"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.",
+				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung"
+			}
 		},
 		"text": {
 			"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
