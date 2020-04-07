@@ -11,10 +11,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [22.9.0]
+
+### Changed
+
+- Security fixes, Update Handlebars from 4.5 to 4.7
 - SC-3749 remove cookie domain
 - use babel-eslint parser for eslint and updated liner rules for json
 - SC-3719 Shared files are now determined more more cleverly
-
 
 ## [22.8.0]
 
@@ -22,13 +26,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-3732: edit button was not visible for course teachers except the author on the task detail page
 
-
 ## [22.7.2] - 2020-04-03
 
 ### Changed
 
 - SC-3900 update tsc email on community page
-
 
 ## [22.7.1] - 2020-04-02
 
