@@ -32,19 +32,14 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 		});
 	}
 	res.clearCookie('jwt');
+	// this is deprecated and only used for cookie removal from now on,
+	// and can be removed after one month (max cookie lifetime from life systems)
 	if (res.locals && res.locals.domain) {
 		res.clearCookie('jwt', { domain: res.locals.domain });
 	}
 };
 
 const isJWT = req => (req && req.cookies && req.cookies.jwt);
-
-const cookieDomain = (res) => {
-	if (res.locals.domain && NODE_ENV === 'production') {
-		return { domain: res.locals.domain };
-	}
-	return {};
-};
 
 const isAuthenticated = (req) => {
 	if (!isJWT(req)) {
@@ -175,15 +170,12 @@ const login = (payload = {}, req, res, next) => {
 	const { redirect } = payload;
 	delete payload.redirect;
 	return api(req).post('/authentication', { json: payload }).then((data) => {
-		res.cookie('jwt', data.accessToken,
-			Object.assign({},
-				{
-					expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-					httpOnly: false, // can't be set to true with nuxt client
-					hostOnly: true,
-					secure: NODE_ENV === 'production',
-				},
-				cookieDomain(res)));
+		res.cookie('jwt', data.accessToken, {
+			expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+			httpOnly: false, // can't be set to true with nuxt client
+			hostOnly: true,
+			secure: NODE_ENV === 'production',
+		});
 		let redirectUrl = '/login/success';
 		if (redirect) {
 			redirectUrl = `${redirectUrl}?redirect=${redirect}`;
@@ -206,7 +198,6 @@ const login = (payload = {}, req, res, next) => {
 module.exports = {
 	clearCookie,
 	isJWT,
-	cookieDomain,
 	authChecker,
 	isAuthenticated,
 	restrictSidebar,

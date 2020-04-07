@@ -27,7 +27,7 @@ $(document).ready(() => {
 				} else {
 					$hiddenToggleIcon.removeClass('fa-eye-slash');
 					$hiddenToggleIcon.addClass('fa-eye');
-					$hiddenToggleBtn.attr('title', $t("courses._course.topic.text.hideTopic")); 
+					$hiddenToggleBtn.attr('title', $t("courses._course.topic.text.hideTopic"));
 					$card.removeClass('card-transparent');
 				}
 			},

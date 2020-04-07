@@ -14,7 +14,6 @@ const {
 	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/schul-cloud-hpi/',
 	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	REDIS_URI,
-	REQUEST_TIMEOUT_MS = 5000, // 5 sec
 	NODE_ENV = 'development',
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS = 3600, // 60 min
 	JWT_TIMEOUT_SECONDS,
@@ -27,6 +26,7 @@ const {
 	LIBRE_OFFICE_CLIENT_URL,
 	ROCKET_CHAT_URI,
 	ROCKETCHAT_SERVICE_ENABLED,
+	FEATURE_MESSENGER_ENABLED,
 	ETHERPAD_BASE_URL = 'https://etherpad.schul-cloud.org/p/',
 	NEXBOARD_USER_ID,
 	NEXBOARD_API_KEY,
@@ -61,7 +61,6 @@ const exp = {
 	DOCUMENT_BASE_DIR,
 	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS: parseInt(CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS || 16, 10),
 	REDIS_URI,
-	REQUEST_TIMEOUT_MS: Number(REQUEST_TIMEOUT_MS),
 	NODE_ENV,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 	JWT_TIMEOUT_SECONDS,
@@ -73,7 +72,8 @@ const exp = {
 	FEATURE_TEAMS_ENABLED,
 	LIBRE_OFFICE_CLIENT_URL,
 	ROCKET_CHAT_URI,
-	ROCKETCHAT_SERVICE_ENABLED,
+	ROCKETCHAT_SERVICE_ENABLED: (ROCKETCHAT_SERVICE_ENABLED === 'true'),
+	FEATURE_MESSENGER_ENABLED: (FEATURE_MESSENGER_ENABLED === 'true'),
 	ETHERPAD_BASE_URL,
 	NEXBOARD_USER_ID,
 	NEXBOARD_API_KEY,
@@ -95,6 +95,6 @@ const exp = {
 };
 
 // eslint-disable-next-line no-console
-console.log(util.inspect(exp, { depth: 1, compact: false }));
+console.log(util.inspect(exp, { depth: 1, compact: false, sorted: true }));
 
 module.exports = exp;

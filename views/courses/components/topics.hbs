@@ -236,7 +236,7 @@
 						<img src="/images/empty-states/topics.svg" alt="{{$t "courses._course.topic.img_alt.noTopics"}}" class="image topic-image" />
 						{{#unless @root.isArchived}}
 							{{#userHasPermission "COURSE_EDIT"}}
-								<h2 class="h4">{{$t "courses._course.topic.headline.createFirstTopicWithTool"}}</h2>
+								<h2 class="h4">{{$t "courses._course.topic.headline.createFirstTopicWithNewEditor"}}</h2>
 								<p class="text-muted">
 									{{$t "courses._course.topic.text.descriptionTopic"}}
 								</p>
@@ -253,12 +253,12 @@
 						<div class="add-button">
 							<a href="/courses/{{@root._id}}/topics/add/neweditor"
 								class="btn btn-add {{#if @root.newLessons}}btn-secondary w-100{{else}}btn-primary btn-empty{{/if}} center"
-								title="{{$t "courses._course.topic.text.addTopicWithTool"}}">
+								title="{{$t "courses._course.topic.text.addTopicWithNewEditor"}}">
 								{{#if @root.newLessons}}
-									<span>{{$t "courses._course.topic.button.createAnotherTopicWithTool"}} <span class="tag tag-default">beta</span></span>
+									<span>{{$t "courses._course.topic.button.createAnotherTopicWithNewEditor"}} <span class="tag tag-default">beta</span></span>
 									<i class="fa fa-plus-circle plus-icon pull-right"></i>
 								{{else}}
-									<span>{{$t "courses._course.topic.button.createFirstTopicWithTool"}} <span class="tag tag-default">beta</span></span>
+									<span>{{$t "courses._course.topic.button.createFirstTopicWithNewEditor"}} <span class="tag tag-default">beta</span></span>
 								{{/if}}
 							</a>
 						</div>

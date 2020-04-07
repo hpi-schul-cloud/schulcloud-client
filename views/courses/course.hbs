@@ -63,41 +63,39 @@
       </div>
     </div>
     <section class="section-course">
-      <div class="course-card">
-        <div class="tabContainer" data-active-tab={{activeTab}}>
-          <div class="tabs" data-max-width="1024">
-            <button class="tab" data-testid="topics" data-tab="js-topics">
-              <span class="text">{{$t "courses._course.tab_label.topics"}} <span class="count-badge" data-badge="{{lessons.length}}"/></span>
-            </button>
-            <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
-              <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}"/></span>
-            </button>
-            <button class="tab" data-testid="tools" data-tab="js-tools">
-              <span class="text">{{$t "courses._course.tab_label.tools"}} <span class="count-badge" data-badge="{{../ltiToolIds.length}}"/></span>
-            </button>
-            <button class="tab" data-testid="groups" data-tab="js-groups">
-              <span class="text">{{$t "courses._course.tab_label.groups"}} <span class="count-badge" data-badge="{{../courseGroups.length}}"/></span>
-            </button>
-          </div>
+      <div class="tabContainer" data-active-tab={{activeTab}}>
+        <div class="tabs" data-max-width="1024">
+          <button class="tab" data-testid="topics" data-tab="js-topics">
+            <span class="text">{{$t "courses._course.tab_label.topics"}}
+          </button>
+          <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
+            <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}"/></span>
+          </button>
+          <button class="tab" data-testid="tools" data-tab="js-tools">
+            <span class="text">{{$t "courses._course.tab_label.tools"}} <span class="count-badge" data-badge="{{../ltiToolIds.length}}"/></span>
+          </button>
+          <button class="tab" data-testid="groups" data-tab="js-groups">
+            <span class="text">{{$t "courses._course.tab_label.groups"}} <span class="count-badge" data-badge="{{../courseGroups.length}}"/></span>
+          </button>
         </div>
-        <div class="sectionsContainer">
-          <div class="sections">
-            <!-- Themen -->
-            <div class="section" data-section="js-topics">
-              {{> "courses/components/topics" archived=@root.isArchived}}
-            </div>
-            <!--- Aufgaben -->
-            <div class="section" data-section="js-homeworks">
-              {{> "courses/components/tasks" archived=@root.isArchived}}
-            </div>
-            <!-- Tools -->
-            <div name="js-tools-section" name="js-tools" class="section" data-section="js-tools">
-              {{> "courses/components/tools" archived=@root.isArchived}}
-            </div>
-            <!-- Gruppen -->
-            <div class="section" data-section="js-groups">
-              {{> "courses/components/groups" id=../_id archived=@root.isArchived}}
-            </div>
+      </div>
+      <div class="sectionsContainer">
+        <div class="sections">
+          <!-- Themen -->
+          <div class="section" data-section="js-topics">
+            {{> "courses/components/topics" archived=@root.isArchived}}
+          </div>
+          <!--- Aufgaben -->
+          <div class="section" data-section="js-homeworks">
+            {{> "courses/components/tasks" archived=@root.isArchived}}
+          </div>
+          <!-- Tools -->
+          <div name="js-tools-section" name="js-tools" class="section" data-section="js-tools">
+            {{> "courses/components/tools" archived=@root.isArchived}}
+          </div>
+          <!-- Gruppen -->
+          <div class="section" data-section="js-groups">
+            {{> "courses/components/groups" id=../_id archived=@root.isArchived}}
           </div>
         </div>
       </div>

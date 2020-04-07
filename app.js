@@ -30,6 +30,8 @@ const {
 	JWT_TIMEOUT_SECONDS,
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
+	FEATURE_MESSENGER_ENABLED,
+	ROCKETCHAT_SERVICE_ENABLED,
 } = require('./config/global');
 
 const app = express();
@@ -163,6 +165,8 @@ app.use(async (req, res, next) => {
 	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
 	res.locals.version = version;
 	res.locals.sha = sha;
+	res.locals.ROCKETCHAT_SERVICE_ENABLED = ROCKETCHAT_SERVICE_ENABLED;
+	res.locals.FEATURE_MESSENGER_ENABLED = FEATURE_MESSENGER_ENABLED;
 	delete req.session.notification;
 	try {
 		await authHelper.populateCurrentUser(req, res);
