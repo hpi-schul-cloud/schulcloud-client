@@ -84,7 +84,10 @@
 				"contactSupport": "Support kontaktieren"
 			},
 			"label": {
-				"courseName": "Name des Kurses"
+				"courseName": "Name des Kurses",
+				"termsOfUse": "Nutzungsbedingungen",
+				"dataProtection": "Datenschutz"
+
 			},
 			"text": {
 				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?"
@@ -106,7 +109,6 @@
 			"clientSecret": "Client-Geheimnis",
 			"colorOfTheCourse": "Farbe des Kurses:",
 			"createdOn": "Erstellt am:",
-			"dataProtection": "Datenschutz",
 			"dateOfBirth": "Geburtsdatum (optional):",
 			"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:",
 			"emailAddress": "E-Mail-Adresse:",

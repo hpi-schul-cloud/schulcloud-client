@@ -91,7 +91,7 @@
                                 <p>
                                     <a class="btn btn-secondary" href="/administration/students/{{user._id}}/skipregistration">
                                         <i class="fa fa-check-square-o"></i>
-                                        {{$t "administration.button.receivedConsentOnPaper" }} 
+                                        {{$t "administration.button.receivedConsentOnPaper" }}
                                     </a>
                                 </p>
                             </div>
@@ -103,8 +103,8 @@
                             <label><input name="form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
                             <label><input name="form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
                             <br/>
-                            <label><input name="privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.label.dataProtection" }}</label><br/>
-                            <label><input name="termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> {{$t "administration.label.termsOfUse" }}</label><br/>
+                            <label><input name="privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.global.label.dataProtection" }}</label><br/>
+                            <label><input name="termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> {{$t "administration.global.label.termsOfUse" }}</label><br/>
                         </div>
                     {{/unless}}
                     </div>
