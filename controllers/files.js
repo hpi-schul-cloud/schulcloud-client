@@ -598,17 +598,14 @@ router.get('/shared/', (req, res) => {
 		qs: {
 			$and: [
 				{ permissions: { $elemMatch: { refPermModel: 'user', refId: userId } } },
-				{ 'permissions.0.refId': { $ne: userId } },
+				{ creator: { $ne: userId } },
 			],
 		},
 	}).then(async (result) => {
 		let { data } = result;
 		data = data
-			.filter(f => Boolean(f))
 			.filter((file) => {
-				if (file.owner === userId) {
-					return false;
-				}
+				if (!file || !Array.isArray(file.permissions)) return false;
 				const permission = file.permissions.find(perm => perm.refId === userId);
 				return permission ? !permission.write : false;
 			})

@@ -14,8 +14,8 @@ $(document).ready(function () {
             url: `/courses/${courseId}/topics/${topicId}/share/`,
             success: function(data) {
                 populateModalForm($shareModal, {
-                    title: 'Kopiercode generiert!',
-                    closeLabel: 'Schließen',
+                    title: $t('courses._course.headline.shareCodeGenerated'),
+                    closeLabel: $t('global.button.close'),
                     fields: {shareToken: data.shareToken}
                 });
                 $shareModal.find('.btn-submit').remove();
