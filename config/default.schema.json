@@ -113,6 +113,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled, user will see messages/incidents from e.g status.schul-cloud"
+		},
+		"N21_BLOG_CONTENT_API_KEY": {
+			"type": "string",
+			"default": "9cbea173e6e7ecb709e8f9c960",
+			"description": "Content API Key of n21 blog"
 		}
 	},
 	"required": [
