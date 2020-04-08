@@ -6,27 +6,23 @@ const router = express.Router();
 
 router.get('/:slug', async (req, res, next) => {
 
-	try {
-		const contentApiKey = Configuration.get('N21_BLOG_CONTENT_API_KEY');
+	if(!Configuration.has('GHOST_API_KEY') || !Configuration.has('GHOST_API_URL')){
+		return next(new Error('GHOST_API_URL or/and GHOST_API_KEY are not defined'));
+	}
 		const options = {
-			uri: `https://blog.niedersachsen.cloud/ghost/api/v2/content/pages/slug/${req.params.slug}/`,
+			uri: `${Configuration.get('GHOST_API_URL')}/content/pages/slug/${req.params.slug}/`,
 			qs: {
-				key: contentApiKey,
+				key: Configuration.get('GHOST_API_KEY'),
 				fields: 'html,title',
 			},
 			json: true,
-			timeout: 8000,
+			timeout: Configuration.get('REQUEST_TIMEOUT_MS'),
 		};
 
-		try {
-			const page = await request(options);
-			return res.json(page);
-		} catch (error) {
-			return res.status(400).send(error);
-        }
-	} catch (error) {
-		return res.status(400).send(error);
-	}
+		return request(options)
+				.then((page) => res.json(page))
+				.catch(next);
+
 });
 
 module.exports = router;

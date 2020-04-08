@@ -1,7 +1,7 @@
 {{#extend "lib/default"}}
 
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/authentication/home.css" /> 
+<link rel="stylesheet" href="/styles/authentication/home.css" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
@@ -22,7 +22,11 @@
                 <div class="card-block">
                     <div class="n21-blog">
                         <h4 class="title">Herzlich willkommen bei der Niedersächsischen Bildungscloud!</h4>
-                        <div class="content"></div>
+                        <div class="content">
+                            <div class="text-center mt-3 mb-3" style="min-height: 75vh;">
+                                <i class="fa fa-spinner fa-spin load-icon" aria-hidden="true" style="postion: absolute; top: 40%; font-size: 25px; position: absolute;"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -34,5 +38,6 @@
         </aside>
     </div>
 </div>
-{{#embed "lib/extended_footer"}}{{/embed}} {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
+{{#embed "lib/extended_footer"}}{{/embed}}
+{{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
 {{#content "fields"}} {{> "authentication/forms/pwrecovery"}} {{/content}} {{/embed}} {{/content}} {{/extend}}

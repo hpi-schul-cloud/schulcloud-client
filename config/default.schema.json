@@ -114,9 +114,16 @@
 			"default": false,
 			"description": "If enabled, user will see messages/incidents from e.g status.schul-cloud"
 		},
-		"N21_BLOG_CONTENT_API_KEY": {
+		"GHOST_API_KEY": {
 			"type": "string",
-			"description": "Content API Key of n21 blog"
+			"minLength": 10,
+			"description": "Content API Key of ghost blog"
+		},
+		"GHOST_API_URL": {
+			"type": "string",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
+			"description": "Content API URL of ghost blog (should end without a slash)"
 		}
 	},
 	"required": [
