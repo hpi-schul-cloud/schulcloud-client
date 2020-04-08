@@ -116,7 +116,6 @@
 		},
 		"N21_BLOG_CONTENT_API_KEY": {
 			"type": "string",
-			"default": "9cbea173e6e7ecb709e8f9c960",
 			"description": "Content API Key of n21 blog"
 		}
 	},
