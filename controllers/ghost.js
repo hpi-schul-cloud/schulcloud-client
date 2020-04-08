@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.get('/:slug', async (req, res, next) => {
 
-    try {
-        const contentApiKey = Configuration.get('N21_BLOG_CONTENT_API_KEY');
-        const options = {
+	try {
+		const contentApiKey = Configuration.get('N21_BLOG_CONTENT_API_KEY');
+		const options = {
 			uri: `https://blog.niedersachsen.cloud/ghost/api/v2/content/pages/slug/${req.params.slug}/`,
 			qs: {
 				key: contentApiKey,
@@ -24,9 +24,9 @@ router.get('/:slug', async (req, res, next) => {
 		} catch (error) {
 			return res.status(400).send(error);
         }
-    } catch (error) {
-        return res.status(400).send(error);
-    }
+	} catch (error) {
+		return res.status(400).send(error);
+	}
 });
 
 module.exports = router;
