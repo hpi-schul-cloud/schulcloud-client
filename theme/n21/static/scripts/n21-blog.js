@@ -1,23 +1,12 @@
-const initialized = false;
+const stripHtml = require('string-strip-html');
+
 $(document).ready(() => {
-	if (initialized) {
-		return;
-	}
-
-	function sanitize(input) {
-		const output = input.replace(/<script[^>]*?>.*?<\/script>/gi, '')
-			.replace(/<style[^>]*?>.*?<\/style>/gi, '')
-			.replace(/<![\s\S]*?--[ \t\n\r]*>/gi, '')
-			.replace(/&nbsp;/g, '');
-		return output;
-	}
-
-	const contentKey = document.querySelector('script[data-contentkey]').dataset.contentkey;
+	const contentApiKey = document.querySelector('script[data-content-key-n21-blog]').dataset.contentKeyN21Blog;
 
 	$.ajax({
 		url: 'https://blog.niedersachsen.cloud/ghost/api/v2/content/pages/slug/startseite-nbc/',
 		data: {
-			key: contentKey,
+			key: contentApiKey,
 			fields: 'html,title',
 		},
 		type: 'GET',
@@ -27,9 +16,10 @@ $(document).ready(() => {
 	})
 		.done((result) => {
 			$('.n21-blog .title').text(result.pages[0].title);
-			$('.n21-blog .context').html(sanitize(result.pages[0].html));
+			$('.n21-blog .content').html(stripHtml(result.pages[0].html, { onlyStripTags: ['script', 'style'] }));
 		})
 		.fail(() => {
+			/* eslint-disable-next-line */
 			console.error('Could not load frontpage content from blog');
 		});
 });
