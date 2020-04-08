@@ -1,14 +1,9 @@
 const stripHtml = require('string-strip-html');
 
 $(document).ready(() => {
-	const contentApiKey = document.querySelector('script[data-content-key-n21-blog]').dataset.contentKeyN21Blog;
-
+	
 	$.ajax({
-		url: 'https://blog.niedersachsen.cloud/ghost/api/v2/content/pages/slug/startseite-nbc/',
-		data: {
-			key: contentApiKey,
-			fields: 'html,title',
-		},
+		url: '/ghost/startseite-nbc',
 		type: 'GET',
 		dataType: 'json',
 		contentType: 'application/json',
