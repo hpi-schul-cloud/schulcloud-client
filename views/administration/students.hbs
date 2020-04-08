@@ -35,7 +35,7 @@
                                     <span>{{$t "administration.students.text.allApprovalsAvailable" }}</span>
                                 </div>
                                 <i class="fa fa-check-square-o"></i>
-                               {{$t "administration.students.text.manuallyConsent" }}
+                               {{$t "administration.global.text.manuallyConsent" }}
                                 <div>
                             </center>
                         </div>
@@ -57,25 +57,25 @@
                                 {{$t "administration.global.text.obtainADeclarationConsent" }}
                             </h2>
                             {{#if ../schoolUsesLdap}}
-                                <strong>{{$t "administration.students.text.studentsLoginInThePresenceOfGuardian" }}</strong>
+                                <strong>{{$t "administration.global.text.studentsLoginInThePresenceOfGuardian" }}</strong>
 
                                 <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{../theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
                             {{else}}
-                                <strong>{{$t "administration.students.text.inviteparentsAndStudentViaLink" }}</strong>
+                                <strong>{{$t "administration.global.text.inviteparentsAndStudentViaLink" }}</strong>
                                 <p>
                                     Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.
                                 </p>
                                 <p>{{$t "administration.students.text.forAllStudentsWithoutAFullConsentForm" }}</p>
                                 <p>
                                     <button data-role="student" class="btn btn-secondary btn-send-links-emails">
-                                        {{$t "administration.students.button.sendLinksToStudentEmailAddresses" }}
+                                        {{$t "administration.global.button.sendLinksToStudentEmailAddresses" }}
                                     </button>
                                     <button data-role="student" class="btn btn-secondary btn-print-links">
                                         {{$t "administration.global.button.createLinkSheet" }}
                                     </button>
                                 </p>
                                 <p>
-                                    {{$t "administration.students.text.orSelectStudentFromTable" }}
+                                    {{$t "administration.global.text.orSelectStudentFromTable" }}
                                 </p>
                             {{/if}}
                         </div>
