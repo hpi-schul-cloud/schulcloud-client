@@ -8,7 +8,7 @@ router.use(authHelper.authChecker);
 
 router.get('/token', (req, res, next) => api(req)
 	.post('/messengerToken', {})
-	.then(result => res.send(result))
+	.then((result) => res.send(result))
 	.catch((e) => {
 		// eslint-disable-next-line no-console
 		console.error('Failed to get messengerToken', e.error);
