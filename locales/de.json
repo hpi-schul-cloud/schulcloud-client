@@ -48,7 +48,6 @@
 	},
 	"administration": {
 		"button": {
-			"addAnotherOwner": "Weiteren Eigentümer hinzufügen",
 			"changePassword": "Passwort ändern",
 			"classInSchoolYear": "Klasse in Schuljahr",
 			"consent": "Einwilligungen:",
@@ -65,39 +64,39 @@
 		"classes": {
 			"button": {
 				"addClass": "Klasse hinzufügen",
-				"copyLink": "Link kopieren",
-				"printLinkWithQRCode": "Link mit QR-Code Drucken",
 				"addStudentsFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
-				"declareConsentOnBehalfOfTheStudents": "Einverständnis im Namen der Schüler erklären"
+				"copyLink": "Link kopieren",
+				"declareConsentOnBehalfOfTheStudents": "Einverständnis im Namen der Schüler erklären",
+				"printLinkWithQRCode": "Link mit QR-Code Drucken"
 			},
 			"label": {
+				"addStudentFromPreviousYearClass": "Schüler aus Vorjahres-Klasse hinzufügen",
 				"assignPassword": "Passwort vergeben:",
 				"birthdate": "Geburtsdatum:",
-				"addStudentFromPreviousYearClass": "Schüler aus Vorjahres-Klasse hinzufügen",
-				"student": "Schüler",
-			    "yourStudentsAreNotYetInThe": "Deine Schüler sind noch nicht in der",
-				"teacher": "Lehrer ",
-				"pleaseNote": "Bitte beachte:",
-			    "filterBySchoolYear": "Nach Schuljahr filtern",
+				"filterBySchoolYear": "Nach Schuljahr filtern",
 				"invitationLink": "Einladungslink",
-			    "renameClass": "Klasse umbenennen",
+				"pleaseNote": "Bitte beachte:",
+				"renameClass": "Klasse umbenennen",
+				"student": "Schüler",
+				"teacher": "Lehrer ",
 				"termOfUse": "Nutzungsordnung",
-				"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler das Einverständnis zur"
+				"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler das Einverständnis zur",
+				"yourStudentsAreNotYetInThe": "Deine Schüler sind noch nicht in der"
 			},
 			"text": {
 				"andTo": "und zur",
+				"attentionIfYouChangeTheSchoolYear": "Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.",
 				"byClickingOn": "Durch den Klick auf",
 				"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
+				"forAllStudents": "Für alle Schüler",
+				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
+				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler erklären",
 				"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler auszudrucken.",
 				"noLackOfInformedConsent": "In dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
 				"ofThe": "der",
-				"attentionIfYouChangeTheSchoolYear": "Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.",
-				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler erklären",
-				"withoutAFullDeclarationOfConsent": " ohne vollständige Einverständniserklärung:",
-				"forAllStudents": "Für alle Schüler",
-				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
 				"required": "erforderlich",
-				"toExplain": "erklären."
+				"toExplain": "erklären.",
+				"withoutAFullDeclarationOfConsent": " ohne vollständige Einverständniserklärung:"
 			}
 		},
 		"global": {
@@ -117,7 +116,11 @@
 				"colorOfTheCourse": "Farbe des Kurses:",
 				"courseName": "Name des Kurses",
 				"dataProtection": "Datenschutz",
+				"dateOfBirth": "Geburtsdatum (optional):",
+				"emailAddress": "E-Mail-Adresse:",
+				"firstName": "Vorname:",
 				"from": "Von",
+				"lastName": "Nachname:",
 				"lengthOfLesson": "Dauer der Schulstunde",
 				"room": "Raum",
 				"startOfLesson": "Start der Schulstunde",
@@ -132,32 +135,24 @@
 			"text": {
 				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
 				"chatIsActivated": "Chat ist aktiviert",
-				"manuallyConsent": "Einverständnis manuell erklären",
-				"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
 				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
+				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
+				"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
 				"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein"
 			}
 		},
 		"label": {
-			"LDAPClasses": "LDAP-Klassen",
-			"LDAPUsers": "LDAP-Nutzer",
 			"briefdescription": "Kurzbeschreibung (optional)",
-			"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr",
 			"className": "Klassenbezeichnung",
 			"classUsers": "Nutzer der Klasse",
 			"clientSecret": "Client-Geheimnis",
 			"createdOn": "Erstellt am:",
-			"dateOfBirth": "Geburtsdatum (optional):",
 			"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:",
-			"emailAddress": "E-Mail-Adresse:",
-			"firstName": "Vorname:",
 			"furtherInformation": "Weitere Informationen (OAuth)",
 			"grade": "Jahrgangsstufe",
 			"hide": "Ausblenden",
-			"importantNote": "Wichtiger Hinweis",
 			"itsOn": "Ist-Zustand",
-			"lastName": "Nachname:",
 			"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
 			"messageText": "Nachrichtentext:",
 			"moreOption": "Mehr Optionen",
@@ -165,12 +160,9 @@
 			"password": "Passwort:",
 			"remarks": "Anmerkungen",
 			"schoolYear": "Schuljahr",
-			"selectAnAdditionalOwner": "Wähle hier einen zusätzlichen Eigentümer für das Team aus:",
 			"selectCSVFile": "CSV-Datei auswählen",
 			"selectElement": "keine Auswahl",
 			"selectTeacher": "Lehrer auswählen (auch später möglich)",
-			"sendRegistrationLinkToStudent": "Registrierungslink an Schüler senden",
-			"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden",
 			"sendRegistrationLinkToUsers": "Registrierungslinks sofort nach Import an Nutzer senden",
 			"systemName": "Name des Systems",
 			"systemType": "Typ des Systems",
@@ -182,6 +174,18 @@
 			"urlOfTheSystem": "Url des Systems",
 			"use": "Nutzung",
 			"users": "Nutzer:"
+		},
+		"ldapEdit": {
+			"heading": {
+				"importantNote": "Wichtiger Hinweis"
+			}
+		},
+		"ldapSchoolYearStart": {
+			"heading": {
+				"LDAPClasses": "LDAP-Klassen",
+				"LDAPUsers": "LDAP-Nutzer",
+				"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
+			}
 		},
 		"link": {
 			"manageClasses": "Klassen verwalten",
@@ -252,6 +256,9 @@
 				"generateInvitationLink": "Einladungslink generieren",
 				"importStudents": "Schüler importieren"
 			},
+			"label": {
+				"sendRegistrationLinkToStudent": "Registrierungslink an Schüler senden"
+			},
 			"text": {
 				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
@@ -267,11 +274,16 @@
 			},
 			"label": {
 				"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.",
-				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung"
+				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
+				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden"
 			}
 		},
 		"teams": {
+			"button": {
+				"addAnotherOwner": "Weiteren Eigentümer hinzufügen"
+			},
 			"label": {
+				"selectAnAdditionalOwner": "Wähle hier einen zusätzlichen Eigentümer für das Team aus:",
 				"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen"
 			},
 			"text": {

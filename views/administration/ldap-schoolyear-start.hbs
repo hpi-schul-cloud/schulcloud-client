@@ -1,17 +1,17 @@
 {{#extend "lib/simple"}}
     {{#content "page" mode="prepend"}}
-        <h1 class="h4" id="page-title">{{$t "administration.label.checkTheSynchronizationOfTheDataAvailable" }}</h1>
+        <h1 class="h4" id="page-title">{{$t "administration.ldapSchoolYearStart.heading.checkTheSynchronizationOfTheDataAvailable" }}</h1>
         <div class="route-administration">
             <p>Auf dieser Seite findest du die Daten aller Klassen und Nutzer, so wie sie die {{@root.theme.short_title}} aus deinem LDAP übernehmen wird. Bitte überprüfe vor Übernahme der Daten durch Beenden der Transferphase diese Daten stichprobenartig auf ihre Richtigkeit.</p>
             <section class="section-school section-default">
                 <div class="container-fluid ajaxcontent">
-                    <h5>{{$t "administration.label.LDAPClasses" }}</h5>
+                    <h5>{{$t "administration.ldapSchoolYearStart.heading.LDAPClasses" }}</h5>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
                             {{> "lib/components/table" head=headClasses body=bodyClasses limit=false}}
                         </div>
                     </div>
-                    <h5>{{$t "administration.label.LDAPUsers" }}</h5>
+                    <h5>{{$t "administration.ldapSchoolYearStart.heading.LDAPUsers" }}</h5>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
                             {{> "lib/components/table" head=headUser body=bodyUsers limit=false}}
