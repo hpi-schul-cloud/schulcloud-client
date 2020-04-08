@@ -1,6 +1,8 @@
 const stripHtml = require('string-strip-html');
 
-$(document).ready(() => {
+function fetchContent() {
+	$('.n21-blog .spinner').show();
+	$('.n21-blog .placeholder').hide();
 
 	$.ajax({
 		url: '/ghost/startseite-nbc',
@@ -9,12 +11,17 @@ $(document).ready(() => {
 		contentType: 'application/json',
 		timeout: 8000,
 	})
-	.done((result) => {
-		$('.n21-blog .title').text(result.pages[0].title);
-		$('.n21-blog .content').html(stripHtml(result.pages[0].html, { onlyStripTags: ['script', 'style'] }));
-	})
-	.fail(() => {
-		/* eslint-disable-next-line */
-		console.error('Could not load frontpage content from blog');
-	});
+		.done((result) => {
+			$('.n21-blog .title').text(result.pages[0].title);
+			$('.n21-blog .content').html(stripHtml(result.pages[0].html, { onlyStripTags: ['script', 'style'] }));
+		})
+		.fail(() => {
+			$('.n21-blog .spinner').hide();
+			$('.n21-blog .placeholder').show();
+		});
+}
+
+$(document).ready(() => {
+	fetchContent();
+	$('.n21-blog .placeholder button').on("click", fetchContent);
 });
