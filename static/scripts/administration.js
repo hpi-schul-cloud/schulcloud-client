@@ -349,7 +349,7 @@ $(document).ready(() => {
 			'Fritz,Schmidt,fritz.schmidt@schul-cloud.org,1a,',
 			'Paula,Meyer,paula.meyer@schul-cloud.org,12/2+12/3,',
 			'Hildegard,Handschuh,hildegard@handschuh.de,4b,29.11.1992',
-			'Renate,Durchdenwald,renate@durchdenwald.de,,15.02.1994'
+			'Renate,Durchdenwald,renate@durchdenwald.de,,15.02.1994',
 		];
 		const csvContent = `data:text/csv;charset=utf-8,${lines.join('\n')}`;
 		const link = document.createElement('a');
