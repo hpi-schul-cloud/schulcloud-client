@@ -13,7 +13,6 @@ $(document).ready(() => {
 	}
 
 	const contentKey = document.querySelector('script[data-contentkey]').dataset.contentkey;
-	console.log(contentKey);
 
 	$.ajax({
 		url: 'https://blog.niedersachsen.cloud/ghost/api/v2/content/pages/slug/startseite-nbc/',
@@ -31,6 +30,6 @@ $(document).ready(() => {
 			$('.n21-blog .context').html(sanitize(result.pages[0].html));
 		})
 		.fail(() => {
-			console.error('Could not load front page content from blog');
+			console.error('Could not load frontpage content from blog');
 		});
 });
