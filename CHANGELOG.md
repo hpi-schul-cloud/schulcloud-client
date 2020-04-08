@@ -11,6 +11,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- SC-3607 CSV import now suggests the new birthday field (sample file + image)
+- SC-3607 the student/teacher import page now displays a warning for large imports
+
+
 ## [22.9.0]
 
 ### Changed
