@@ -5,15 +5,15 @@
 
 {{#content "page"}}
 <p>
-    {{$t "administration.label.youCanConsentToThisOnBehalfOfYourStudent" }}<a
+    {{$t "administration.classes.label.youCanConsentToThisOnBehalfOfYourStudent" }}<a
         href="{{@root.theme.documents.specificFiles.privacyExemplary}}"
         target="_blank">{{$t "administration.global.label.dataProtection" }}</a>
-    {{$t "administration.text.andTo" }} <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}"
-        target="_blank">{{$t "administration.label.termOfUse" }}</a> {{$t "administration.text.ofThe" }} {{@root.theme.short_title}} {{$t "administration.text.toExplain" }} <br>
-    {{$t "administration.text.byClickingOn" }} <i>{{$t "administration.button.declareConsentOnBehalfOfTheStudents" }}</i> {{$t "administration.text.consentConfirmation" }}
+    {{$t "administration.classes.text.andTo" }} <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}"
+        target="_blank">{{$t "administration.classes.label.termOfUse" }}</a> {{$t "administration.classes.text.ofThe" }} {{@root.theme.short_title}} {{$t "administration.classes.text.toExplain" }} <br>
+    {{$t "administration.classes.text.byClickingOn" }} <i>{{$t "administration.classes.button.declareConsentOnBehalfOfTheStudents" }}</i> {{$t "administration.classes.text.consentConfirmation" }}
 </p>
 <p>
-    {{$t "administration.text.nextPageYouWillReceiveConfirmation" }}
+    {{$t "administration.classes.text.nextPageYouWillReceiveConfirmation" }}
 </p>
 <form method="POST">
     {{#if students}}
@@ -21,8 +21,8 @@
         <tr>
             <th>Name</th>
             <th>E-Mail</th>
-            <th>{{$t "administration.label.birthdate" }}<sup>*</sup></th>
-            <th>{{$t "administration.label.assignPassword" }} <sup>*</sup></th>
+            <th>{{$t "administration.classes.label.birthdate" }}<sup>*</sup></th>
+            <th>{{$t "administration.classes.label.assignPassword" }} <sup>*</sup></th>
         </tr>
         {{#each students}}
         <tr>
@@ -47,9 +47,9 @@
         </tr>
         {{/each}}
     </table>
-    <sup>*</sup> {{$t "administration.text.required" }}
+    <sup>*</sup> {{$t "administration.classes.text.required" }}
     {{else}}
-    <b>{{$t "administration.text.noLackOfInformedConsent" }} </b>
+    <b>{{$t "administration.classes.text.noLackOfInformedConsent" }} </b>
     {{/if}}
     <div class="modal-footer w-100">
         <button class="btn btn-secondary btn-cancel">
@@ -58,7 +58,7 @@
         {{#if students}}
         {{> "lib/components/csrfInput"}}
         <button type="submit" class="btn btn-primary btn-submit">
-            {{$t "administration.button.declareConsentOnBehalfOfTheStudents" }}
+            {{$t "administration.classes.button.declareConsentOnBehalfOfTheStudents" }}
         </button>
         {{/if}}
     </div>

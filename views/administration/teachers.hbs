@@ -8,8 +8,8 @@
             <section class="section-teachers section-default">
                 <div><feathers-filter id="filter"
                                       filter='{{filterSettings}}'
-                                      add-label='{{$t "administration.button.filterAdd2" }}'
-                                      apply-label='{{$t "administration.button.filterApply2" }}'
+                                      add-label='{{$t "administration.global.button.filterAdd2" }}'
+                                      apply-label='{{$t "administration.global.button.filterApply2" }}'
                                       cancle-label='{{$t "global.button.cancel" }}'
                                       handle-url='true'
                                       save-state='true'
@@ -28,17 +28,17 @@
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
                             <h2 class="h4">
-                                {{$t "administration.text.obtainADeclarationConsent" }}
+                                {{$t "administration.global.text.obtainADeclarationConsent" }}
                             </h2>
                             {{#if ../schoolUsesLdap}}
-                                <strong>{{$t "administration.label.passwordsAndDeclarationOfConsent" }}</strong>
+                                <strong>{{$t "administration.teachers.label.passwordsAndDeclarationOfConsent" }}</strong>
 
                                 <p>
                                     Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der {{../theme.short_title}} einloggen.
                                     Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der {{../theme.short_title}} zu erklären .
                                 </p>
                             {{else}}
-                                <strong>{{$t "administration.label.inviteTeachersViaLink" }}</strong>
+                                <strong>{{$t "administration.teachers.label.inviteTeachersViaLink" }}</strong>
                                 <p>
                                     Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses per E-Mail zukommen oder nutze den QR-Code-Druckbogen, um die Links physisch zu verteilen.<br/>
                                     So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{../theme.short_title}} erklären.
@@ -46,10 +46,10 @@
                                 <p>Für alle Lehrer ohne vollständige Einverständniserklärung:</p>
                                 <p>
                                     <button data-role="teacher" class="btn btn-secondary btn-send-links-emails">
-                                        {{$t "administration.button.sendLinksToTeacherEmail" }}
+                                        {{$t "administration.teachers.button.sendLinksToTeacherEmail" }}
                                     </button>
                                     <button data-role="teacher" class="btn btn-secondary btn-print-links">
-                                        {{$t "administration.button.createLinkSheet" }}
+                                        {{$t "administration.global.button.createLinkSheet" }}
                                     </button>
                                 </p>
                                 {{#userHasPermission "TEACHER_CREATE"}}
@@ -69,11 +69,11 @@
                             {{else}}
                                 {{#userHasPermission "TEACHER_CREATE"}}
                                     <button type="submit" class="btn btn-primary btn-add-modal">
-                                        {{$t "administration.button.addTeacher" }}
+                                        {{$t "administration.teachers.button.addTeacher" }}
                                     </button>
                                     {{#inArray "Administrator" ../roleNames}}
                                          <a href="/administration/teachers/import" class="btn btn-secondary btn-import">
-                                            {{$t "administration.button.importTeacher" }}
+                                            {{$t "administration.teachers.button.importTeacher" }}
                                         </a>
                                     {{/inArray}}
                                 {{else}}

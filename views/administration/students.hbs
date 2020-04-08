@@ -8,8 +8,8 @@
             <section class="section-students section-default">
                 <div><feathers-filter id="filter"
                                       filter='{{filterSettings}}'
-                                      add-label='{{$t "administration.button.filterAdd2" }}'
-                                      apply-label='{{$t "administration.button.filterApply2" }}'
+                                      add-label='{{$t "administration.global.button.filterAdd2" }}'
+                                      apply-label='{{$t "administration.global.button.filterApply2" }}'
                                       cancle-label='{{$t "global.button.cancel" }}'
                                       handle-url='true'
                                       save-state='true'
@@ -24,18 +24,18 @@
                         <div class="col-sm-12 no-padding">
                             <center>
                                 <i class="fa fa-times consent-status"></i>
-                                {{$t "administration.text.NodeclarationOfConsentTable" }} &emsp;
+                                {{$t "administration.students.text.NodeclarationOfConsentTable" }} &emsp;
                                 <i class="fa fa-check consent-status"></i>
-                                {{$t "administration.text.parentsAgreed" }} &emsp;
+                                {{$t "administration.students.text.parentsAgreed" }} &emsp;
                                 <div>
                                     <span>
                                         <i class="fa fa-check double-check consent-status"></i>
                                         <i class="fa fa-check double-check consent-status"></i>
                                     </span>
-                                    <span>{{$t "administration.text.allApprovalsAvailable" }}</span>
+                                    <span>{{$t "administration.students.text.allApprovalsAvailable" }}</span>
                                 </div>
                                 <i class="fa fa-check-square-o"></i>
-                               {{$t "administration.text.manuallyConsent" }}
+                               {{$t "administration.global.text.manuallyConsent" }}
                                 <div>
                             </center>
                         </div>
@@ -54,28 +54,28 @@
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
                             <h2 class="h4">
-                                {{$t "administration.text.obtainADeclarationConsent" }}
+                                {{$t "administration.global.text.obtainADeclarationConsent" }}
                             </h2>
                             {{#if ../schoolUsesLdap}}
-                                <strong>{{$t "administration.text.studentsLoginInThePresenceOfGuardian" }}</strong>
+                                <strong>{{$t "administration.global.text.studentsLoginInThePresenceOfGuardian" }}</strong>
 
                                 <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{../theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
                             {{else}}
-                                <strong>{{$t "administration.text.inviteparentsAndStudentViaLink" }}</strong>
+                                <strong>{{$t "administration.global.text.inviteparentsAndStudentViaLink" }}</strong>
                                 <p>
                                     Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.
                                 </p>
-                                <p>{{$t "administration.text.forAllStudentsWithoutAFullConsentForm" }}</p>
+                                <p>{{$t "administration.students.text.forAllStudentsWithoutAFullConsentForm" }}</p>
                                 <p>
                                     <button data-role="student" class="btn btn-secondary btn-send-links-emails">
-                                        {{$t "administration.button.sendLinksToStudentEmailAddresses" }}
+                                        {{$t "administration.global.button.sendLinksToStudentEmailAddresses" }}
                                     </button>
                                     <button data-role="student" class="btn btn-secondary btn-print-links">
-                                        {{$t "administration.button.createLinkSheet" }}
+                                        {{$t "administration.global.button.createLinkSheet" }}
                                     </button>
                                 </p>
                                 <p>
-                                    {{$t "administration.text.orSelectStudentFromTable" }}
+                                    {{$t "administration.global.text.orSelectStudentFromTable" }}
                                 </p>
                             {{/if}}
                         </div>
@@ -89,15 +89,15 @@
                             <div class="col-sm-12 no-padding">
                                 {{#userHasPermission "STUDENT_CREATE"}}
                                     <button type="submit" data-testid="btn_add_student" class="btn btn-primary btn-add-modal">
-                                        {{$t "administration.button.addStudents" }}
+                                        {{$t "administration.students.button.addStudents" }}
                                     </button>
                                     <button class="btn btn-secondary btn-invitation-link student">
-                                        {{$t "administration.button.generateInvitationLink" }}
+                                        {{$t "administration.students.button.generateInvitationLink" }}
                                     </button>
 
                                     {{#inArray "Administrator" ../roleNames}}
                                         <a href="/administration/students/import" class="btn btn-secondary btn-import">
-                                            {{$t "administration.button.importStudents" }}
+                                            {{$t "administration.students.button.importStudents" }}
                                         </a>
                                     {{/inArray}}
                                 {{else}}
