@@ -15,7 +15,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-- frontpage of n21 now loading content from n21 blog
+- SC-3951: frontpage of n21 now loading content from n21 blog
 
 ## [22.9.0]
 
