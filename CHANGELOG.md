@@ -11,6 +11,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [22.9.1] - 2020-04-08
+
+### Changed
+
+- frontpage of n21 now loading content from n21 blog
+
 ## [22.9.0]
 
 ### Changed
