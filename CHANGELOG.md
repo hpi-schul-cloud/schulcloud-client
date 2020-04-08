@@ -13,7 +13,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-3607 CSV import now suggests the new birthday field (sample file + image)
 - SC-3607 the student/teacher import page now displays a warning for large imports
-
+- updated airbnb linter from 13.1 to 14.1
 
 ## [22.9.0]
 
