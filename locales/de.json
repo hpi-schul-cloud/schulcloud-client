@@ -621,6 +621,8 @@
 		},
 		"label": {
 			"comment": "Kommentar",
+			"courses": "Kurse",
+			"details": "Details",
 			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",

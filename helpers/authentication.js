@@ -174,6 +174,7 @@ const login = (payload = {}, req, res, next) => {
 			expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
 			httpOnly: false, // can't be set to true with nuxt client
 			hostOnly: true,
+			sameSite: 'strict', // restrict jwt access to our domain ressources only
 			secure: NODE_ENV === 'production',
 		});
 		let redirectUrl = '/login/success';
