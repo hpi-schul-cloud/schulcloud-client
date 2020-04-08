@@ -5,6 +5,13 @@
 		"plugin:json/recommended"
 	],
 	"rules": {
+		"arrow-parens": [
+			"error",
+			"always",
+			{
+				"requireForBlockBody": true
+			}
+		],
 		"max-len": [
 			"error",
 			{
