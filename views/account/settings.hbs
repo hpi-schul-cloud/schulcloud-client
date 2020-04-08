@@ -17,12 +17,12 @@
             <form method="post">
                 {{#ifneq currentRole "Schüler"}}
                 <div class="form-group">
-                    <label>Vorname:</label>
+                    <label>{{$t "account.global.label.firstName" }}</label>
                     <input type="text" class="form-control" name="firstName" value="{{ ../currentUser.firstName }}">
                 </div>
 
                 <div class="form-group">
-                    <label>Nachname:</label>
+                    <label>{{$t "account.global.label.LastName" }}</label>
                     <input type="text" class="form-control" name="lastName" value="{{ ../currentUser.lastName }}">
                 </div>
 				{{else}}
@@ -31,12 +31,12 @@
                 {{/ifneq}}
 
                 <div class="form-group">
-                    <label>E-Mail-Adresse:</label>
+                    <label>{{$t "account.global.label.emailAddress" }}</label>
                     <input type="email" class="form-control" name="email" value="{{ currentUser.email }}">
                 </div>
 
                 <div class="form-group">
-                    <label>Aktuelles Passwort: <sup>*</sup></label>
+                    <label>{{$t "account.global.label.currentPassword" }} <sup>*</sup></label>
                     <div class="input-group" id="show_hide_password">
                         <input type="password" autocomplete="current-password" id="settings_current_password" data-testid="settings_password_current" name="password" class="form-control"
                         placeholder="***************" required>
@@ -48,7 +48,7 @@
 
                 {{#userHasPermission "PASSWORD_EDIT"}}
                 <div class="form-group">
-                    <label>Neues Passwort:</label>
+                    <label>{{$t "account.global.label.newPassword" }}</label>
                     <div class="input-group" id="show_hide_password">
                         <input type="password" autocomplete="new-password" name="passwordNew" id="passwordNew" data-testid="settings_password_new" class="form-control"
                             placeholder="***************"
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Neues Passwort wiederholen:</label>
+                    <label>{{$t "account.global.label.repeatNewPassword" }}</label>
                     <div class="input-group" id="show_hide_password">
                         <input type="password" autocomplete="new-password" name="password_control" id="password_control" data-testid="settings_password_control"
                         class="form-control" placeholder="***************"
@@ -77,7 +77,7 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary" data-testid="submit_new_password_btn">
-                        Accounteinstellungen speichern
+                        {{$t "account.button.saveAccountSetting" }}
                     </button>
                 </div>
             </form>
@@ -91,15 +91,15 @@
             {{else}}
             <div>
                 <div class="form-group">
-                    <label>Vorname</label>
+                    <label>{{$t "account.global.label.firstName" }}</label>
                     <input type="text" class="form-control" value="{{ currentUser.firstName }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label>Nachname</label>
+                    <label>{{$t "account.global.label.LastName" }}</label>
                     <input type="text" class="form-control" value="{{ currentUser.lastName }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label>E-Mail-Adresse</label>
+                    <label>{{$t "account.global.label.emailAddress" }}</label>
                     <input type="email" class="form-control" value="{{ currentUser.email }}" readonly>
                 </div>
                 <p class="warning">
@@ -117,7 +117,7 @@
                 <form method="post" action="/account/teamSettings">
                     <h5>Teams</h5>
                     <div class="form-group">
-                        Sichtbarkeit für Teameinladungen
+                        {{$t "account.text.visibilityForTeamInvitation" }}
                         <p class="text-muted">Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{theme.short_title}}bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.</p>
 
                         {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.</label>{{/ifConfig}}
@@ -131,7 +131,7 @@
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">
-                            Teameinstellungen speichern
+                            {{$t "account.button.saveTeamSetting" }}
                         </button>
                     </div>
                 </form>
@@ -144,7 +144,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h2 class="h4 panel-title">
-                            <a data-toggle="collapse" href="#collapse1" class="collapse-toggle"><label>Benachrichtigungseinstellungen</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+                            <a data-toggle="collapse" href="#collapse1" class="collapse-toggle"><label>{{$t "account.label.notificationsetting" }}</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
                     </h2>
                     </div>
                     <div id="collapse1" class="panel-collapse collapse">
@@ -155,8 +155,8 @@
                                     <thead>
                                     <th></th>
                                     <th><label>Name</label></th>
-                                    <th><label>Typ</label></th>
-                                    <th><label>Betriebssystem</label></th>
+                                    <th><label>{{$t "account.global.label.type" }}</label></th>
+                                    <th><label>{{$t "account.global.label.operatingSystem" }}</label></th>
                                     </thead>
                                     <tbody>
                                     {{#each device}}
@@ -177,21 +177,19 @@
                                 </table>
                             {{else}}
                                 <h3 class="h5 text-muted text-center">
-                                    <span>Keine Geräte eingetragen</span>
+                                    <span>{{$t "account.text.noDeviceEntered" }}</span>
                                 </h3>
                             {{/if}}
                             <div class="panel-footer">
                                 <button type="button" class="btn btn-default btn-device"
                                         onclick="pushManager.requestPermission()">
                                     <i class="fa fa-bell" aria-hidden="true"></i>
-                                    Benachrichtigungen
-                                    aktivieren
+                                    {{$t "account.button.activateNotifications" }}
                                 </button>
 
                                 <button type="button" class="btn btn-default send-test-notification">
                                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                    Test-Benachrichtigung
-                                    senden
+                                    {{$t "account.button.sendTestNotification" }}
                                 </button>
                             </div>
                         </div>
@@ -205,11 +203,11 @@
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary btn-close">
-						Abbrechen
+						{{$t "global.button.cancel" }}
 					</button>
 
 					<button type="submit" class="btn btn-primary btn-submit">
-						Löschen
+						{{$t "global.button.delete" }}
 					</button>
 				</div>
 			{{/content}}
@@ -219,7 +217,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h2 class="h4 panel-title">
-						<a data-toggle="collapse" href="#collapse2" class="collapse-toggle"><label>Drittanbieter-Logins</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+						<a data-toggle="collapse" href="#collapse2" class="collapse-toggle"><label>{{$t "account.global.label.thirdPartyLogins" }}</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
 					</h2>
 				</div>
 				<div id="collapse2" class="panel-collapse collapse">
@@ -229,7 +227,7 @@
 							<table width="100%" cellpadding="5px">
 								<thead>
 								<th></th>
-								<th><label>Anbieter</label></th>
+								<th><label>{{$t "account.label.providers" }}</label></th>
 								</thead>
 								<tbody>
 								{{#each session}}
@@ -243,7 +241,7 @@
 							</table>
 						{{else}}
 							<h3 class=" h5 text-muted text-center">
-								<span>Keine Drittanbieter genutzt</span>
+								<span>{{$t "account.text.nothirdPartyProvidersUsed" }}</span>
 							</h3>
 						{{/if}}
 					</div>
