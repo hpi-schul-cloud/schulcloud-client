@@ -800,24 +800,31 @@
 	"firstLogin": {
 		"button": {
 			"continue": "Weiter",
-			"signOutAndCancel": "Abmelden und abbrechen"
+			"getStartedImmediately": "Sofort loslegen",
+			"signOutAndCancel": "Abmelden und abbrechen",
+			"takeALookAtTheFirstSteps": "Erste Schritte anschauen"
 		},
 		"heading": {
-			"sorryItDidnotWork": "Entschuldige, das hat nicht geklappt"
+			"almostThere": "Fast geschafft!",
+			"sorryItDidnotWork": "Entschuldige, das hat nicht geklappt",
+			"youAlmostMadeIt": "Du hast es fast geschafft..."
 		},
 		"label": {
+			"newPassword": "Neues Passwort: ",
+			"repeatYourNewPassword": "Wiederhole dein neues Passwort:",
 			"under14YearsOld": "unter 14 Jahre alt."
 		},
 		"text": {
+			"clickhereForFurtherTraining": "Hier gehts zur Fortbildung",
+			"justHaveALook": "Schau einfach mal vorbei!",
+			"pleaseChangeTheStartPassword": "Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!",
 			"pleaseChoose": "Bitte wähle: Ich bin...",
 			"yourLoginWorksButThereIsAProblem": "Dein Login funktioniert, allerdings gibt es ein Problem mit deinen Einverständniserklärungen. Bitte wende dich an deinen Lehrer oder einen Administrator."
 		},
 		"welcome": {
 			"button": {
 				"createYourFirstCourse": "Erstelle deinen ersten Kurs",
-				"toYourCourses": "Zu deinen Kursen",
-				"takeALookAtTheFirstSteps": "Erste Schritte anschauen",
-				"getStartedImmediately": "Sofort loslegen"
+				"toYourCourses": "Zu deinen Kursen"
 			},
 			"heading": {
 				"congratulations": "Herzlichen Glückwunsch,",
@@ -825,14 +832,12 @@
 			},
 			"text": {
 				"canContinueToUse": "weiter nutzen kannst.",
-				"clickhereForFurtherTraining": "Hier gehts zur Fortbildung",
 				"designLessonsDigitally": "Unterricht digital gestalten",
 				"fromTheAgeOF14": " Ab 14 Jahren ist dies zusätzlich zum bereits erklärten Einverständnis deiner Eltern nötig, damit du die ",
 				"pleaseBrieflyFileSomeData": "Bitte gleiche kurz ein paar Daten ab, lege ein neues Passwort fest und dann kann es auch schon losgehen.",
 				"wantToUse": "nutzen möchtest.",
 				"weArePleasedThatYou": "Wir freuen uns, dass du die",
 				"welcomeTo": "Willkommen in der",
-				"justHaveALook": "Schau einfach mal vorbei!",
 				"withThe": "Mit der",
 				"youAreNow14YearsOld": "Du bist jetzt 14 Jahre alt. Bitte erkläre im folgenden Schritt dein Einverständnis zur Nutzung der"
 			}
