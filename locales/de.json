@@ -756,6 +756,29 @@
             "notFound": "Keine aktuellen Einträge vorhanden."
         }
     },
+    "firstLogin": {
+        "button": {
+            "continue": "Weiter",
+            "signOutAndCancel": "Abmelden und abbrechen"
+        },
+        "heading":{
+            "sorryItDidnotWork": "Entschuldige, das hat nicht geklappt"
+        },
+        "label": {
+            "under14YearsOld": "unter 14 Jahre alt."
+        },
+        "link":{
+            "toYourCourses": "Zu deinen Kursen",
+            "createYourFirstCourse": "Erstelle deinen ersten Kurs"
+        },
+        "text":{
+            "welcomeTo": "Willkommen in der",
+            "withThe": "Mit der",
+            "designLessonsDigitally": "Unterricht digital gestalten",
+            "pleaseChoose": "Bitte wähle: Ich bin...",
+            "yourLoginWorksButThereIsAProblem": "Dein Login funktioniert, allerdings gibt es ein Problem mit deinen Einverständniserklärungen. Bitte wende dich an deinen Lehrer oder einen Administrator."
+        }
+    },
     "files": {
         "button": {
             "ascending": "↑ aufsteigend",
