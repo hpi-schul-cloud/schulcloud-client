@@ -5,7 +5,6 @@ const request = require('request-promise');
 const router = express.Router();
 
 router.get('/:slug', async (req, res, next) => {
-
 	if (!Configuration.has('GHOST_API_KEY') || !Configuration.has('GHOST_API_URL')) {
 		return next(new Error('GHOST_API_URL or/and GHOST_API_KEY are not defined'));
 	}
@@ -23,7 +22,6 @@ router.get('/:slug', async (req, res, next) => {
 	return request(options)
 		.then((page) => res.json(page))
 		.catch(next);
-
 });
 
 module.exports = router;

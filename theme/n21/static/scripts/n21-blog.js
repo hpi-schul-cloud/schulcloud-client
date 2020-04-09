@@ -23,5 +23,5 @@ function fetchContent() {
 
 $(document).ready(() => {
 	fetchContent();
-	$('.n21-blog .placeholder button').on("click", fetchContent);
+	$('.n21-blog .placeholder button').on('click', fetchContent);
 });
