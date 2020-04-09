@@ -11,6 +11,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [22.9.2] - 2020-04-09
+
+### Changed in 22.9.2
+
+- All team events load now.
+
 ## [22.9.1] - 2020-04-08
 
 ### Changed in 22.9.1
