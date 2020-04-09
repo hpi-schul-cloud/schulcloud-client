@@ -581,8 +581,6 @@ router.get('/:teamId', async (req, res, next) => {
 					// HOTFIX: timestamp do not work, for hotfix it is changed to old request logic
 					// all: false, 
 					// from: filterStart.toLocalISOString(),
-					// all: false,
-					// from: filterStart.toLocalISOString(),
 				},
 			});
 			events = events
