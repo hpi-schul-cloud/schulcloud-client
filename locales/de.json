@@ -815,7 +815,9 @@
 		"welcome": {
 			"button": {
 				"createYourFirstCourse": "Erstelle deinen ersten Kurs",
-				"toYourCourses": "Zu deinen Kursen"
+				"toYourCourses": "Zu deinen Kursen",
+				"takeALookAtTheFirstSteps": "Erste Schritte anschauen",
+				"getStartedImmediately": "Sofort loslegen"
 			},
 			"heading": {
 				"congratulations": "Herzlichen Glückwunsch,",
@@ -823,12 +825,14 @@
 			},
 			"text": {
 				"canContinueToUse": "weiter nutzen kannst.",
+				"clickhereForFurtherTraining": "Hier gehts zur Fortbildung",
 				"designLessonsDigitally": "Unterricht digital gestalten",
 				"fromTheAgeOF14": " Ab 14 Jahren ist dies zusätzlich zum bereits erklärten Einverständnis deiner Eltern nötig, damit du die ",
 				"pleaseBrieflyFileSomeData": "Bitte gleiche kurz ein paar Daten ab, lege ein neues Passwort fest und dann kann es auch schon losgehen.",
 				"wantToUse": "nutzen möchtest.",
 				"weArePleasedThatYou": "Wir freuen uns, dass du die",
 				"welcomeTo": "Willkommen in der",
+				"justHaveALook": "Schau einfach mal vorbei!",
 				"withThe": "Mit der",
 				"youAreNow14YearsOld": "Du bist jetzt 14 Jahre alt. Bitte erkläre im folgenden Schritt dein Einverständnis zur Nutzung der"
 			}
