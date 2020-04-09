@@ -11,6 +11,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- SC-3607 CSV import now suggests the new birthday field (sample file + image)
+- SC-3607 the student/teacher import page now displays a warning for large imports
+
+
 ## [22.9.0]
 
 ### Changed
@@ -18,12 +22,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - Security fixes, Update Handlebars from 4.5 to 4.7
 - SC-3749 remove cookie domain
 - use babel-eslint parser for eslint and updated liner rules for json
+- SC-3719 Shared files are now determined more more cleverly
 
 ## [22.8.0]
 
 ### Fixed
 
 - SC-3732: edit button was not visible for course teachers except the author on the task detail page
+
 ## [22.7.2] - 2020-04-03
 
 ### Changed
