@@ -49,7 +49,7 @@ jobs:
         - cd schulcloud-client && npm ci && cd ..
       before_script:
         # seed database
-        - cd schulcloud-server && npm install & npm run setup && npm run seed && cd ..
+        - cd schulcloud-server && npm run setup && npm run seed && cd ..
       script: cd schulcloud-client && npm run mocha && cd ..
     - script: curl "https://raw.githubusercontent.com/schul-cloud/integration-tests/master/scripts/ci/fetch.travis.sh" | bash
       name: Integration
