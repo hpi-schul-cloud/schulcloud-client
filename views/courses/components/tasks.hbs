@@ -1,11 +1,11 @@
 <div class="row">
 	<div class="col-sm-12 container">
-		{{#ifneq 0 (arrayLength assignedHomeworks)}}
+		{{#ifneq 0 (arrayLength homeworks)}}
 			<div class="course-tasks-header">
 				<i class="fa fa-eye"></i>
 				{{$t "courses._course.tasks.headline.posedTasks"}}
 				<small>
-					({{arrayLength ../assignedHomeworks}} {{#ifneq 1 (arrayLength ../assignedHomeworks)}}
+					({{arrayLength ../homeworks}} {{#ifneq 1 (arrayLength ../homeworks)}}
 													{{$t "courses._course.tasks.headline.tasks"}}
 												  {{else}}
 													{{$t "courses._course.tasks.headline.task"}}
@@ -29,43 +29,84 @@
 					{{/unless}}
 				</div>
 		{{/ifneq}}
-		{{#if assignedHomeworks}}
-			<section class="section mb-2">
-				<div class="row">
-					<div class="col-sm-12">
-						<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "courses._course.tasks.headline.unsubmittedTasks"}}</a></h2>
+		{{#if isTeacher}}
+			{{#if assignedHomeworks}}
+				<section class="section mb-2">
+					<div class="row">
+						<div class="col-sm-12">
+							<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "courses._course.tasks.headline.unsubmittedTasks"}}</a></h2>
+						</div>
 					</div>
-				</div>
-				<div id="homeworks" class="container-fluid">
-					<ol class="homework">
-						<div class="row">
-							{{#each assignedHomeworks}}
+					<div id="homeworks" class="container-fluid">
+						<ol class="homework">
+							<div class="row">
+								{{#each assignedHomeworks}}
+										{{> 'homework/components/course_overview_card_template'}}
+								{{/each}}
+							</div>
+						</ol>
+						<a class="pull-right mb-2" href="/homework/archive"><i class="fa fa-archive"></i> {{$t "courses._course.tasks.text.moreArchivedLinkLabel"}}</a>
+					</div>
+				</section>
+			{{/if}}
+			{{#if homeworksWithSubmission}}
+				<section class="section mb-2">
+					<div class="row">
+						<div class="col-sm-12">
+							<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "courses._course.tasks.headline.tasksWithSubmissions"}}</a></h2>
+						</div>
+					</div>
+					<div id="homeworks" class="container-fluid">
+						<ol class="homework">
+							<div class="row">
+								{{#each homeworksWithSubmission}}
 									{{> 'homework/components/course_overview_card_template'}}
-							{{/each}}
-						</div>
-					</ol>
-					<a class="pull-right mb-2" href="/homework/archive"><i class="fa fa-archive"></i> {{$t "courses._course.tasks.text.moreArchivedLinkLabel"}}</a>
-				</div>
-			</section>
-		{{/if}}
-		{{#if homeworksWithSubmission}}
-			<section class="section mb-2">
-				<div class="row">
-					<div class="col-sm-12">
-						<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "courses._course.tasks.headline.submittedTasks"}}</a></h2>
+								{{/each}}
+							</div>
+						</ol>
+						<a class="pull-right mb-2" href="/homework/archive"><i class="fa fa-archive"></i> {{$t "courses._course.tasks.text.moreArchivedLinkLabel"}}</a>
 					</div>
-				</div>
-				<div id="homeworks" class="container-fluid">
-					<ol class="homework">
-						<div class="row">
-							{{#each homeworksWithSubmission}}
-								{{> 'homework/components/course_overview_card_template'}}
-							{{/each}}
+				</section>
+			{{/if}}
+		{{else}}
+			{{#if assignedHomeworks}}
+				<section class="section mb-2">
+					<div class="row">
+						<div class="col-sm-12">
+							<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "courses._course.tasks.headline.unsubmittedTasks"}}</a></h2>
 						</div>
-					</ol>
-					<a class="pull-right mb-2" href="/homework/archive"><i class="fa fa-archive"></i> {{$t "courses._course.tasks.text.moreArchivedLinkLabel"}}</a>
-				</div>
-			</section>
+					</div>
+					<div id="homeworks" class="container-fluid">
+						<ol class="homework">
+							<div class="row">
+								{{#each assignedHomeworks}}
+										{{> 'homework/components/course_overview_card_template'}}
+								{{/each}}
+							</div>
+						</ol>
+						<a class="pull-right mb-2" href="/homework/archive"><i class="fa fa-archive"></i> {{$t "courses._course.tasks.text.moreArchivedLinkLabel"}}</a>
+					</div>
+				</section>
+			{{/if}}
+			{{#if homeworksWithSubmission}}
+				<section class="section mb-2">
+					<div class="row">
+						<div class="col-sm-12">
+							<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "courses._course.tasks.headline.submittedTasks"}}</a></h2>
+						</div>
+					</div>
+					<div id="homeworks" class="container-fluid">
+						<ol class="homework">
+							<div class="row">
+								{{#each homeworksWithSubmission}}
+									{{> 'homework/components/course_overview_card_template'}}
+								{{/each}}
+							</div>
+						</ol>
+						<a class="pull-right mb-2" href="/homework/archive"><i class="fa fa-archive"></i> {{$t "courses._course.tasks.text.moreArchivedLinkLabel"}}</a>
+					</div>
+				</section>
+			{{/if}}
 		{{/if}}
 	</div>
 	<div class="col-sm-12 add-button">

@@ -236,6 +236,7 @@
 					"posedTasks": "Gestellte Aufgaben",
 					"submittedTasks": "Abgebene Aufgaben",
 					"unsubmittedTasks": "Ausstehende Abgaben",
+					"tasksWithSubmissions": "Aufgaben mit Abgaben",
 					"task": "Aufgabe",
 					"tasks": "Aufgaben"
 				},
