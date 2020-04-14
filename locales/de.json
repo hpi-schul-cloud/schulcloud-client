@@ -814,6 +814,40 @@
 			"repeatYourNewPassword": "Wiederhole dein neues Passwort:",
 			"under14YearsOld": "unter 14 Jahre alt."
 		},
+		"parent": {
+			"button": {
+				"exitAndContinueLater": "Beenden und später fortfahren"
+			},
+			"global": {
+				"label": {
+					"firstName": "Vorname:",
+					"lastName": "Nachname:",
+					"mustNotBeYourChildsEmailAddress": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
+					"yourEmailAddress": "Ihre E-Mail-Adresse "
+				}
+			},
+			"heading": {
+				"declarationOfConsent": "Einwilligungserklärung",
+				"declarationOfConsentFromALegalGuardian": "Einverständniserklärung eines Erziehungsberechtigten benötigt",
+				"yourData": "Ihre Daten"
+			},
+			"text": {
+				"aParentOrLegalGuardianMystUse": "Jahren muss ein Erziehungsberechtigter in die Nutzung der",
+				"amLegalGuardianFor": "bin erziehungsberechtigt für",
+				"andExplainTheFollowing": "und erkläre Folgendes:",
+				"canUse": "nutzen kannst.",
+				"doesNotPassOnTheAddress": "gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
+				"forStudentsUnder": "Für Schüler unter",
+				"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
+				"islegallyValidThe": "rechtlich gültig ist. Die",
+				"pleaseConfirmTheFollowingDeclaration": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der Schul-Cloud nutzen kann:",
+				"sinsceYouAreUnder": "Da du unter",
+				"theNextStepMustBeCarriedOut": "Die nächsten Schritte müssen von einem Erziehungsberechtigten durchgeführt werden.",
+				"toConsent": "einwilligen.",
+				"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der ",
+				"yearsOldAparentsConsentFormRequired": "Jahre alt bist, wird die Einverständniserklärung eines Elternteils benötigt, damit du die"
+			}
+		},
 		"text": {
 			"clickhereForFurtherTraining": "Hier gehts zur Fortbildung",
 			"justHaveALook": "Schau einfach mal vorbei!",
