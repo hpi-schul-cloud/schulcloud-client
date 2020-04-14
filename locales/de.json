@@ -165,6 +165,7 @@
 			"text": {
 				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
 				"chatIsActivated": "Chat ist aktiviert",
+				"dataProtection": "Datenschutzerklärung",
 				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
 				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
@@ -331,7 +332,6 @@
 			"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
 			"beforeUsingThe": "Bevor die Nutzung der",
 			"butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
-			"dataProtection": "Datenschutzerklärung",
 			"example": "Beispiel",
 			"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
 			"importUserData": "Importiere Nutzerdaten per .csv-Datei",
@@ -804,6 +804,43 @@
 			"signOutAndCancel": "Abmelden und abbrechen",
 			"takeALookAtTheFirstSteps": "Erste Schritte anschauen"
 		},
+		"consent": {
+			"heading":{
+				"importantInformation": "Wichtige Information",
+				"toThe": "zum",
+				"summaryOfTheExtension": "Zusammenfassung der Erweiterung in der"
+			},
+			"text":{
+				"i": "Ich,",
+				"the": "die",
+				"and": "und",
+				"pleaseClickOnRead": "Bitte nimm mit Klick auf »Gelesen« diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
+				"expanded": "erweitert.",
+				"termsOfUse": "Nutzungsordnung",
+				"explainTheFollowing": "erkläre folgendes:",
+				"constantlyEvolving": "stetig weiterentwickelt. Im Zuge dessen hat sich",
+				"forAnEvenBetterLearningExperience": "Für ein noch besseres Lernerlebnis wird die",
+				"pleaseConfirmTheFollowingDeclarationOfConsent": "Bitte bestätige folgende Einwilligungserklärungen, damit du die"
+			}
+		},
+		"email": {
+			"heading":{
+				"howCanWeContactYou": "Wie können wir dich erreichen?"
+			},
+			"text":{
+				"pleaseCheckYourEmail": "Bitte überprüfe deine E-Mail-Adresse:",
+				"ifTheEmailAddressIsNotTheCorrectOne": "Sollte die E-Mail-Adresse nicht die richtige sein, wende dich bitte an deinen"
+			}
+		},
+		"global": {
+			"heading":{
+				"declarationOfConsent": "Einwilligungserklärung"
+			},
+			"text":{
+				"canUse": "nutzen kannst.",
+				"dataProtection": "Datenschutzerklärung"
+			}
+		},
 		"heading": {
 			"almostThere": "Fast geschafft!",
 			"sorryItDidnotWork": "Entschuldige, das hat nicht geklappt",
@@ -827,7 +864,6 @@
 				}
 			},
 			"heading": {
-				"declarationOfConsent": "Einwilligungserklärung",
 				"declarationOfConsentFromALegalGuardian": "Einverständniserklärung eines Erziehungsberechtigten benötigt",
 				"yourData": "Ihre Daten"
 			},
@@ -835,7 +871,6 @@
 				"aParentOrLegalGuardianMystUse": "Jahren muss ein Erziehungsberechtigter in die Nutzung der",
 				"amLegalGuardianFor": "bin erziehungsberechtigt für",
 				"andExplainTheFollowing": "und erkläre Folgendes:",
-				"canUse": "nutzen kannst.",
 				"doesNotPassOnTheAddress": "gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 				"forStudentsUnder": "Für Schüler unter",
 				"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
