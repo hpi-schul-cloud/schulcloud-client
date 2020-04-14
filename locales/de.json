@@ -798,6 +798,11 @@
 		}
 	},
 	"firstLogin": {
+		"birthdate": {
+			"text": {
+				"weNeedYourDateOfBirth": "Zur Vervollständigung deines Accounts benötigen wir noch dein Geburtsdatum:"
+			}
+		},
 		"button": {
 			"continue": "Weiter",
 			"getStartedImmediately": "Sofort loslegen",
@@ -805,38 +810,42 @@
 			"takeALookAtTheFirstSteps": "Erste Schritte anschauen"
 		},
 		"consent": {
-			"heading":{
+			"heading": {
 				"importantInformation": "Wichtige Information",
-				"toThe": "zum",
-				"summaryOfTheExtension": "Zusammenfassung der Erweiterung in der"
+				"summaryOfTheExtension": "Zusammenfassung der Erweiterung in der",
+				"toThe": "zum"
 			},
-			"text":{
-				"i": "Ich,",
-				"the": "die",
+			"text": {
 				"and": "und",
-				"pleaseClickOnRead": "Bitte nimm mit Klick auf »Gelesen« diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
-				"expanded": "erweitert.",
-				"termsOfUse": "Nutzungsordnung",
-				"explainTheFollowing": "erkläre folgendes:",
 				"constantlyEvolving": "stetig weiterentwickelt. Im Zuge dessen hat sich",
+				"expanded": "erweitert.",
+				"explainTheFollowing": "erkläre folgendes:",
 				"forAnEvenBetterLearningExperience": "Für ein noch besseres Lernerlebnis wird die",
-				"pleaseConfirmTheFollowingDeclarationOfConsent": "Bitte bestätige folgende Einwilligungserklärungen, damit du die"
+				"i": "Ich,",
+				"pleaseClickOnRead": "Bitte nimm mit Klick auf »Gelesen« diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
+				"pleaseConfirmTheFollowingDeclarationOfConsent": "Bitte bestätige folgende Einwilligungserklärungen, damit du die",
+				"termsOfUse": "Nutzungsordnung",
+				"the": "die"
 			}
 		},
 		"email": {
-			"heading":{
+			"heading": {
 				"howCanWeContactYou": "Wie können wir dich erreichen?"
 			},
-			"text":{
-				"pleaseCheckYourEmail": "Bitte überprüfe deine E-Mail-Adresse:",
-				"ifTheEmailAddressIsNotTheCorrectOne": "Sollte die E-Mail-Adresse nicht die richtige sein, wende dich bitte an deinen"
+			"text": {
+				"ifTheEmailAddressIsNotTheCorrectOne": "Sollte die E-Mail-Adresse nicht die richtige sein, wende dich bitte an deinen",
+				"pleaseCheckYourEmail": "Bitte überprüfe deine E-Mail-Adresse:"
 			}
 		},
 		"global": {
-			"heading":{
+			"heading": {
+				"birthdate": "Geburtsdatum",
 				"declarationOfConsent": "Einwilligungserklärung"
 			},
-			"text":{
+			"label": {
+				"birthdate": "Geburtsdatum:"
+			},
+			"text": {
 				"canUse": "nutzen kannst.",
 				"dataProtection": "Datenschutzerklärung"
 			}
