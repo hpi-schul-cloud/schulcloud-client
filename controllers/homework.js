@@ -559,7 +559,6 @@ const overview = (title = '') => {
 					};
 					const end = currentPage * itemsPerPage;
 					homeworks = homeworks.slice(end - itemsPerPage, end);
-					console.log(homeworks);
 					//Render overview
 					res.render('homework/overview', {
 						title,

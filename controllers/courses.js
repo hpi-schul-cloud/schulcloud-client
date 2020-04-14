@@ -709,6 +709,8 @@ router.get('/:courseId/', async (req, res, next) => {
 		}
 
 		// ###################### end of code for new Editor ################################
+		const { currentUser } = res.locals;
+
 		res.render(
 			'courses/course',
 			Object.assign({}, course, {
@@ -717,8 +719,12 @@ router.get('/:courseId/', async (req, res, next) => {
 					: course.name,
 				activeTab: req.query.activeTab,
 				lessons,
-				assignedHomeworks: homeworks.filter(task => !task.private && !task.submissions),
-				homeworksWithSubmission: homeworks.filter(task => !task.private && task.submissions),
+				assignedHomeworks: (currentUser.roles.filter(r => r.name === 'student' || r.name === 'demoStudent').length <= 0)
+					? homeworks.filter(task => !task.private && !task.stats.submissionCount)
+					: homeworks.filter(task => !task.private && !task.submissions),
+				homeworksWithSubmission: (currentUser.roles.filter(r => r.name === 'student' || r.name === 'demoStudent').length <= 0)
+					? homeworks.filter(task => !task.private && task.stats.submissionCount)
+					: homeworks.filter(task => !task.private && task.submissions),
 				privateHomeworks: homeworks.filter(task => task.private),
 				ltiToolIds,
 				courseGroups,
