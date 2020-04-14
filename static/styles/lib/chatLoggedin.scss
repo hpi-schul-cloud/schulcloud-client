@@ -31,6 +31,11 @@ $chat-color-secondary: hsl(hue($chat-color-primary), saturation($chat-color-prim
 		display: none !important;
 	}
 
+	// > do not ask to activate desktop notifications
+	.mx_MatrixToolbar {
+		display: none;
+	}
+
 
 	// Theme
 	// > Menu
