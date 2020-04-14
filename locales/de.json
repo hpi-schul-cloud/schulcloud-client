@@ -234,6 +234,8 @@
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
 					"posedTasks": "Gestellte Aufgaben",
+					"submittedTasks": "Abgebene Aufgaben",
+					"unsubmittedTasks": "Ausstehende Abgaben",
 					"task": "Aufgabe",
 					"tasks": "Aufgaben"
 				},

@@ -69,7 +69,7 @@
             <span class="text">{{$t "courses._course.tab_label.topics"}}
           </button>
           <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
-            <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}"/></span>
+            <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../privateHomeworks)  (arrayLength ../assignedHomeworks) }}"/></span>
           </button>
           <button class="tab" data-testid="tools" data-tab="js-tools">
             <span class="text">{{$t "courses._course.tab_label.tools"}} <span class="count-badge" data-badge="{{../ltiToolIds.length}}"/></span>

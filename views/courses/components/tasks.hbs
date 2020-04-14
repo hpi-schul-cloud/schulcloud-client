@@ -1,11 +1,11 @@
 <div class="row">
 	<div class="col-sm-12 container">
-		{{#ifneq 0 (arrayLength homeworks)}}
+		{{#ifneq 0 (arrayLength assignedHomeworks)}}
 			<div class="course-tasks-header">
 				<i class="fa fa-eye"></i>
 				{{$t "courses._course.tasks.headline.posedTasks"}}
 				<small>
-					({{arrayLength ../homeworks}} {{#ifneq 1 (arrayLength ../homeworks)}}
+					({{arrayLength ../assignedHomeworks}} {{#ifneq 1 (arrayLength ../assignedHomeworks)}}
 													{{$t "courses._course.tasks.headline.tasks"}}
 												  {{else}}
 													{{$t "courses._course.tasks.headline.task"}}
@@ -29,44 +29,72 @@
 					{{/unless}}
 				</div>
 		{{/ifneq}}
-		{{#if homeworks}}
-			<section class="section mb-2">
-				<div id="homeworks" class="container-fluid">
-					<ol class="homework">
-						<div class="row">
-							{{#each homeworks}}
-							{{this.submissions}}
-								{{#ifeq 0 (this.submissions)}}
-									{{!-- {{> 'homework/components/course_overview_card_template'}} --}}
-									Hallo
-								{{/ifeq}}
-							{{/each}}
+		{{#if isTeacher}}
+				<section class="section mb-2">
+					<div class="row">
+						<div class="col-sm-12">
+							<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "courses._course.tasks.headline.unsubmittedTasks"}}</a></h2>
 						</div>
-					</ol>
-					<a class="pull-right mb-2" href="/homework/archive"><i class="fa fa-archive"></i> {{$t "courses._course.tasks.text.moreArchivedLinkLabel"}}</a>
-				</div>
-			</section>
-			{{!-- <section class="section mb-2">
-				<div id="homeworks" class="container-fluid">
-					<ol class="homework">
-						<div class="row">
-							{{#each homeworks}}
-								{{#ifneq 0 (arrayLength this.submission)}}
-									{{> 'homework/components/course_overview_card_template'}}
-								{{/ifneq}}
-							{{/each}}
+					</div>
+					<div id="homeworks" class="container-fluid">
+						<ol class="homework">
+							<div class="row">
+								{{#each assignedHomeworks}}
+										{{#ifneq 0 (this.stats.submissionCount)}}
+											{{> 'homework/components/course_overview_card_template'}}
+										{{/ifneq}}
+								{{/each}}
+							</div>
+						</ol>
+						<a class="pull-right mb-2" href="/homework/archive"><i class="fa fa-archive"></i> {{$t "courses._course.tasks.text.moreArchivedLinkLabel"}}</a>
+					</div>
+				</section>
+		{{else if isStudent}}
+			{{#if assignedHomeworks}}
+				<section class="section mb-2">
+					<div class="row">
+						<div class="col-sm-12">
+							<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "courses._course.tasks.headline.unsubmittedTasks"}}</a></h2>
 						</div>
-					</ol>
-					<a class="pull-right mb-2" href="/homework/archive"><i class="fa fa-archive"></i> {{$t "courses._course.tasks.text.moreArchivedLinkLabel"}}</a>
-				</div>
-			</section> --}}
+					</div>
+					<div id="homeworks" class="container-fluid">
+						<ol class="homework">
+							<div class="row">
+								{{#each assignedHomeworks}}
+										{{> 'homework/components/course_overview_card_template'}}
+								{{/each}}
+							</div>
+						</ol>
+						<a class="pull-right mb-2" href="/homework/archive"><i class="fa fa-archive"></i> {{$t "courses._course.tasks.text.moreArchivedLinkLabel"}}</a>
+					</div>
+				</section>
+			{{/if}}
+			{{#if homeworksWithSubmission}}
+				<section class="section mb-2">
+					<div class="row">
+						<div class="col-sm-12">
+							<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "courses._course.tasks.headline.submittedTasks"}}</a></h2>
+						</div>
+					</div>
+					<div id="homeworks" class="container-fluid">
+						<ol class="homework">
+							<div class="row">
+								{{#each homeworksWithSubmission}}
+										{{> 'homework/components/course_overview_card_template'}}
+								{{/each}}
+							</div>
+						</ol>
+						<a class="pull-right mb-2" href="/homework/archive"><i class="fa fa-archive"></i> {{$t "courses._course.tasks.text.moreArchivedLinkLabel"}}</a>
+					</div>
+				</section>
+			{{/if}}
 		{{/if}}
 	</div>
 	<div class="col-sm-12 add-button">
 		{{#userHasPermission "COURSE_EDIT" }}
 			{{#unless @root.isArchived}}
 				<a href="/homework/new?course={{../_id}}"
-					class="btn btn-primary {{#if ../homeworks}}w-100{{else}}btn-empty{{/if}}"
+					class="btn btn-primary {{#if ../assignedHomeworks}}w-100{{else}}btn-empty{{/if}}"
 					title="{{$t "courses._course.tasks.text.addTasks"}}">
 					<span>{{$t "courses._course.tasks.button.createTask"}}</span>
 				</a>
@@ -86,12 +114,12 @@
 					</a>
 				{{/unless}}
 			{{/userHasPermission}}
-			{{#ifneq 0 (arrayLength myhomeworks)}}
+			{{#ifneq 0 (arrayLength privateHomeworks)}}
 				<h2 class="h6">{{$t "courses._course.tasks.button.privateTasks"}}</h2>
 				<div id="myhomeworks" class="container-fluid">
 					<ol class="homework">
 						<div class="row">
-							{{#each ../myhomeworks}}
+							{{#each ../privateHomeworks}}
 								{{> 'homework/components/course_overview_card_template'}}
 							{{/each}}
 						</div>
