@@ -894,9 +894,12 @@
 		},
 		"text": {
 			"clickhereForFurtherTraining": "Hier gehts zur Fortbildung",
+			"isThereForEveryone": "ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
 			"justHaveALook": "Schau einfach mal vorbei!",
+			"linguisticNote": "Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der",
 			"pleaseChangeTheStartPassword": "Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!",
 			"pleaseChoose": "Bitte wähle: Ich bin...",
+			"theMaleForm": "die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die",
 			"yourLoginWorksButThereIsAProblem": "Dein Login funktioniert, allerdings gibt es ein Problem mit deinen Einverständniserklärungen. Bitte wende dich an deinen Lehrer oder einen Administrator."
 		},
 		"welcome": {
@@ -910,13 +913,17 @@
 			},
 			"text": {
 				"canContinueToUse": "weiter nutzen kannst.",
+				"captureElectronicallyAgain": "erneut elektronisch erfassen.",
 				"designLessonsDigitally": "Unterricht digital gestalten",
 				"fromTheAgeOF14": " Ab 14 Jahren ist dies zusätzlich zum bereits erklärten Einverständnis deiner Eltern nötig, damit du die ",
 				"pleaseBrieflyFileSomeData": "Bitte gleiche kurz ein paar Daten ab, lege ein neues Passwort fest und dann kann es auch schon losgehen.",
+				"switchedFromPaperToDigital": "von Papier auf Digital umgestellt. Das macht es notwendig, dass wir dein Einverständnis zur Nutzung der",
 				"wantToUse": "nutzen möchtest.",
 				"weArePleasedThatYou": "Wir freuen uns, dass du die",
+				"welcomeBackTothe": "Herzlich willkommen zurück in der",
 				"welcomeTo": "Willkommen in der",
 				"withThe": "Mit der",
+				"withTheSchoolYear": "mit dem Schuljahr 2018/2019 haben wir die Registrierung in der",
 				"youAreNow14YearsOld": "Du bist jetzt 14 Jahre alt. Bitte erkläre im folgenden Schritt dein Einverständnis zur Nutzung der"
 			}
 		}
