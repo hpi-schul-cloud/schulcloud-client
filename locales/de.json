@@ -693,7 +693,7 @@
 		},
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
-			"pleaseWaitXSeconds": "Bitte  {{seconds}} Sekunden warten"
+			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
 		}
 	},
 	"news": {
