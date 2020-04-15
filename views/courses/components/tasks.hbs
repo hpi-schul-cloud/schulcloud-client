@@ -23,7 +23,7 @@
 				<section class="section mb-2">
 					<div class="row">
 						<div class="col-sm-12">
-							<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework/asked">{{$t "courses._course.tasks.headline.unsubmittedTasks"}}</a></h2>
+							<h2 class="h5 mb-1 mt-2"><a class="course-link" href="/homework/asked">{{$t "courses._course.tasks.headline.unsubmittedTasks"}}</a></h2>
 						</div>
 					</div>
 					<div id="homeworks" class="container-fluid">
@@ -42,7 +42,7 @@
 				<section class="section mb-2">
 					<div class="row">
 						<div class="col-sm-12">
-							<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "courses._course.tasks.headline.tasksWithSubmissions"}}</a></h2>
+							<h2 class="h5 mb-1 mt-2"><a class="course-link" href="/homework">{{$t "courses._course.tasks.headline.tasksWithSubmissions"}}</a></h2>
 						</div>
 					</div>
 					<div id="homeworks" class="container-fluid">
@@ -62,7 +62,7 @@
 				<section class="section mb-2">
 					<div class="row">
 						<div class="col-sm-12">
-							<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework/asked">{{$t "courses._course.tasks.headline.unsubmittedTasks"}}</a></h2>
+							<h2 class="h5 mb-1 mt-2"><a class="course-link" href="/homework/asked">{{$t "courses._course.tasks.headline.unsubmittedTasks"}}</a></h2>
 						</div>
 					</div>
 					<div id="homeworks" class="container-fluid">
@@ -81,7 +81,7 @@
 				<section class="section mb-2">
 					<div class="row">
 						<div class="col-sm-12">
-							<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "courses._course.tasks.headline.submittedTasks"}}</a></h2>
+							<h2 class="h5 mb-1 mt-2"><a class="course-link" href="/homework">{{$t "courses._course.tasks.headline.submittedTasks"}}</a></h2>
 						</div>
 					</div>
 					<div id="homeworks" class="container-fluid">
@@ -124,7 +124,7 @@
 					{{/unless}}
 				{{/userHasPermission}}
 				{{#ifneq 0 (arrayLength privateHomeworks)}}
-					<h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework/private">{{$t "courses._course.tasks.headline.privateTasks"}}</a></h2>
+					<h2 class="h5 mb-1 mt-2"><a class="course-link" href="/homework/private">{{$t "courses._course.tasks.headline.privateTasks"}}</a></h2>
 					<div id="myhomeworks" class="container-fluid">
 						<ol class="homework">
 							<div class="row">
