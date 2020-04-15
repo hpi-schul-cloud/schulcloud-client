@@ -21,10 +21,11 @@
             {{/if}}
         </div>
         {{#if this.hasEvaluation}}
-            <div>
-                <span class="count-badge" data-badge="Feedback" /></span>
-            </div>
+            <span class="count-badge" data-badge="Kommentar" /></span>
         {{/if}}
+        {{#ifCond this.stats.submissionCount '>' this.stats.gradeCount}}
+            <span class="count-badge" data-badge="unkommentierte Abgaben" /></span>
+        {{/ifCond}}
         <span class="more">Details ><i className="fa fa-chevron-right" aria-hidden="true"></i></span>
     </a>
 </li>
