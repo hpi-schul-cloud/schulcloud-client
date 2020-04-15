@@ -1,9 +1,8 @@
-$(document).ready(function () {
-
-    var $modals = $('.modal');
-    var $editModal = $('.edit-modal');
-    var $deepLinkingModal = $('.deep-linking-modal');
-    var customFieldCount = 0;
+$(document).ready(() => {
+	const $modals = $('.modal');
+	const $editModal = $('.edit-modal');
+	const $deepLinkingModal = $('.deep-linking-modal');
+	let customFieldCount = 0;
 
 	function guidGenerator() {
 		const S4 = function guid() {
@@ -19,16 +18,15 @@ $(document).ready(function () {
 	const populateCustomField = function populateCustomField($customFields, field) {
 		if (!field.key || field.key === '') return;
 
-        var _id = guidGenerator();
-        var $field = $("<div id='" + _id + "'>Key: " + field.key + ", Value: " + field.value + "</div>")
-            .append($("<input name='customs[" + customFieldCount + "][key]' value='" + field.key + "' type='hidden'></input>"))
-            .append($("<input name='customs[" + customFieldCount + "][value]' value='" + field.value + "' type='hidden'></input>"))
-            .append($("<i class='fa fa-trash-o custom-field-delete' />")
-                .click(deleteCustomField.bind(this, _id))
-            );
-        $customFields.append($field);
-        customFieldCount++;
-    };
+        const _id = guidGenerator();
+        const $field = $(`<div id='${_id}'>Key: ${field.key}, Value: ${field.value}</div>`)
+			.append($(`<input name='customs["${customFieldCount}"][key]' value='${field.key}' type='hidden'></input>`))
+			.append($(`<input name='customs["${customFieldCount}"][value]' value='${field.value}' type='hidden'></input>`))
+			.append($('<i class="fa fa-trash-o custom-field-delete" />')
+				.click(deleteCustomField.bind(this, _id)));
+ 		$customFields.append($field);
+		customFieldCount += 1;
+	};
 
 	const addNewCustomField = function addNewCustomField(modal) {
 		const $customFields = modal.find('.custom-fields');

@@ -1,11 +1,11 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const fs = require('fs');
 
-const router = express.Router({ mergeParams: true });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
+
+const router = express.Router({ mergeParams: true });
 
 const createToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
@@ -64,7 +64,6 @@ const runToolHandler = (req, res, next) => {
 		api(req).get(`/pseudonym?userId=${currentUser._id}&toolId=${req.params.ltiToolId}`),
 	]).then(([tool, role, pseudonym]) => {
 		let userId = '';
-		let formData = '';
 		let name = null;
 
 		if (tool.privacy_permission === 'pseudonymous') {
@@ -76,8 +75,6 @@ const runToolHandler = (req, res, next) => {
 
 		const customer = new ltiCustomer.LTICustomer();
 		if (tool.lti_version === 'LTI-1p0') {
-			const consumer = customer.createConsumer(tool.key, tool.secret);
-
 			const payload = {
 				lti_version: tool.lti_version,
 				lti_message_type: tool.lti_message_type,
@@ -154,12 +151,12 @@ const runToolHandler = (req, res, next) => {
 						: undefined),
 			};
 
-			api(req).post('/tools/sign/lti13/', { json: {  request: idToken } }).then((id_token) => {
+			api(req).post('/tools/sign/lti13/', { json: { request: idToken } }).then((idToken) => {
 				res.render('courses/components/run-lti-frame', {
 					url: tool.url,
 					method: 'POST',
 					csrf: false,
-					formData: [{ name: 'id_token', value: id_token }],
+					formData: [{ name: 'id_token', value: idToken }],
 				});
 			});
 		}
