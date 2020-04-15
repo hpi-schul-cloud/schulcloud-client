@@ -976,27 +976,54 @@
 		}
 	},
 	"help": {
-		"lernNuggets":{
-			"heading":{
+		"confluence": {
+			"link":{
+				"openArticleInConfluence": "Artikel in Confluence öffnen",
+				"openInConfluence": "in Confluence öffnen"
+			},
+			"text":{
+				"languageNote": "Sprachlicher Hinweis:",
+				"ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch"
+			}
+		},
+		"contact": {
+			"global": {
+				"button": {
+					"submit": "Absenden"
+				}
+			},
+			"label": {
+				"schoolAdmin": "Schul-Admin",
+				"wish": "Wunsch"
+			},
+			"text": {
+				"pleaseTakeCareNotToSent": "gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
+				"thankYouForYourFeedbak": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der",
+				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
+				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
+			}
+		},
+		"lernNuggets": {
+			"heading": {
+				"instructionsForUse": "Hinweise zur Benutzung",
 				"learningNuggetBasicOfGDPR": "Lern-Nugget: Grundlagen der DSGVO",
 				"learningNuggetDataProtectioin": "Lern-Nugget: Datenschutz im Schulalltag",
 				"learningNuggetDataProtectionAndCloud": "Lern-Nugget: Datenschutz und Cloud-Lösungen",
 				"learningNuggetLicenseModels": "Lern-Nugget: Lizenzmodelle und Nutzungsrechte",
-				"welcomeToTheOnlineCourse": "Willkommen beim Online-Kurs 'Datenschutz und Urheberrecht' ",
-				"instructionsForUse": "Hinweise zur Benutzung"
+				"welcomeToTheOnlineCourse": "Willkommen beim Online-Kurs 'Datenschutz und Urheberrecht' "
 			},
-			"text":{
-				"dataProtectionInSchoolLife": "Datenschutz im Schulalltag",
-				"contentAndProduction": "Inhalte und Produktion:",
+			"text": {
+				"basicsOfTheGDPR": "Grundlagen der DSGVO",
 				"clientAndLicensedFor": "Auftraggeber und lizenziert für: Verein MINT-EC®,",
+				"contentAndProduction": "Inhalte und Produktion:",
 				"createdAsPartOfThe": "Entstanden im Rahmen des Projekts HPI Schul-Cloud.",
 				"dataProtectionAndCloudSolution": "Datenschutz und Cloud-Lösungen",
+				"dataProtectionInSchoolLife": "Datenschutz im Schulalltag",
 				"hereIsTheLearningNugget": "Hier geht's zum Lern-Nugget:",
-				"licenseModelAndUsageRights": "Lizenzmodelle und Nutzungsrechte",
-				"basicsOfTheGDPR": "Grundlagen der DSGVO"
+				"licenseModelAndUsageRights": "Lizenzmodelle und Nutzungsrechte"
 			}
 		},
-		"text":{
+		"text": {
 			"someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
 			"theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
 			"theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:"
