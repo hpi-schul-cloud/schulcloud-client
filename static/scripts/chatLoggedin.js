@@ -1,8 +1,8 @@
 function loadChatClient(session = null) {
-	let roomIdentifier = '';
+	let roomId = '';
 	const matches = RegExp('/courses/([^/]+).*').exec(window.location.pathname);
 	if (matches && matches.length >= 2) {
-		roomIdentifier = `#course_${matches[1]}:matrix.stomt.com`;
+		roomId = matches[1];
 	}
 
 	// create chat tag
@@ -11,9 +11,12 @@ function loadChatClient(session = null) {
 	riotBox.dataset.vectorIndexeddbWorkerScript = '/indexeddb-worker.js';
 	riotBox.dataset.vectorConfig = '/riot_config.json';
 	riotBox.dataset.vectorDefaultToggled = 'true';
-	riotBox.dataset.matrixRoomId = roomIdentifier;
 	riotBox.dataset.matrixLang = 'de';
 
+	if (session && roomId) {
+		const servername = session.userId.substr(session.userId.indexOf(':') + 1);
+		riotBox.dataset.matrixRoomId = `#course_${roomId}:${servername}`;
+	}
 	if (session) {
 		riotBox.dataset.matrixHomeserverUrl = session.homeserverUrl;
 		riotBox.dataset.matrixUserId = session.userId;
