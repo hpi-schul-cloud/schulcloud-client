@@ -975,6 +975,33 @@
 			"wednesday": "Mittwoch"
 		}
 	},
+	"help": {
+		"lernNuggets":{
+			"heading":{
+				"learningNuggetBasicOfGDPR": "Lern-Nugget: Grundlagen der DSGVO",
+				"learningNuggetDataProtectioin": "Lern-Nugget: Datenschutz im Schulalltag",
+				"learningNuggetDataProtectionAndCloud": "Lern-Nugget: Datenschutz und Cloud-Lösungen",
+				"learningNuggetLicenseModels": "Lern-Nugget: Lizenzmodelle und Nutzungsrechte",
+				"welcomeToTheOnlineCourse": "Willkommen beim Online-Kurs 'Datenschutz und Urheberrecht' ",
+				"instructionsForUse": "Hinweise zur Benutzung"
+			},
+			"text":{
+				"dataProtectionInSchoolLife": "Datenschutz im Schulalltag",
+				"contentAndProduction": "Inhalte und Produktion:",
+				"clientAndLicensedFor": "Auftraggeber und lizenziert für: Verein MINT-EC®,",
+				"createdAsPartOfThe": "Entstanden im Rahmen des Projekts HPI Schul-Cloud.",
+				"dataProtectionAndCloudSolution": "Datenschutz und Cloud-Lösungen",
+				"hereIsTheLearningNugget": "Hier geht's zum Lern-Nugget:",
+				"licenseModelAndUsageRights": "Lizenzmodelle und Nutzungsrechte",
+				"basicsOfTheGDPR": "Grundlagen der DSGVO"
+			}
+		},
+		"text":{
+			"someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
+			"theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
+			"theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:"
+		}
+	},
 	"homework": {
 		"button": {
 			"addTask": "Aufgabe hinzufügen",
