@@ -63,10 +63,6 @@ const runToolHandler = (req, res, next) => {
 		api(req).get(`/roles/${currentUser.roles[0]._id}`),
 		api(req).get(`/pseudonym?userId=${currentUser._id}&toolId=${req.params.ltiToolId}`),
 	]).then(([tool, role, pseudonym]) => {
-<<<<<<< HEAD
-=======
-		const customer = new ltiCustomer.LTICustomer();
->>>>>>> develop
 		let userId = '';
 		let formData = '';
 		let name = null;
@@ -77,9 +73,7 @@ const runToolHandler = (req, res, next) => {
 		} else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
 			userId = currentUser._id;
 		}
-<<<<<<< HEAD
 
-		const customer = new ltiCustomer.LTICustomer();
 		if (tool.lti_version === 'LTI-1p0') {
 			const consumer = customer.createConsumer(tool.key, tool.secret);
 
@@ -98,17 +92,35 @@ const runToolHandler = (req, res, next) => {
 					: ''),
 				user_id: userId,
 			};
+
+			if (tool.privacy_permission === 'name') {
+				payload.lis_person_name_full = currentUser.displayName
+					|| `${currentUser.firstName} ${currentUser.lastName}`;
+			}
+
+			if (tool.privacy_permission === 'e-mail') {
+				payload.lis_person_contact_email_primary = currentUser.email;
+			}
+
 			tool.customs.forEach((custom) => {
 				payload[customer.customFieldToString(custom)] = custom.value;
 			});
 
-			const requestData = {
-				url: tool.url,
-				method: 'POST',
-				data: payload,
-			};
 
-			formData = consumer.authorize(requestData);
+			api(req).post('/tools/sign/lti11/', {
+				body: {
+					id: req.params.ltiToolId,
+					payload,
+					url: tool.url,
+				},
+			}).then((formData) => {
+				res.render('courses/components/run-lti-frame', {
+					url: tool.url,
+					method: 'POST',
+					csrf: false,
+					formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
+				});
+			});
 		} else if (tool.lti_version === '1.3.0') {
 			const current = new Date();
 			const iss = process.env.FRONTEND_URL || 'http://localhost:3100/';
@@ -143,51 +155,13 @@ const runToolHandler = (req, res, next) => {
 			formData = {
 				id_token: jwt.sign(idToken, fs.readFileSync('private_key.pem'), { algorithm: 'RS256' }),
 			};
-		}
-
-		res.render('courses/components/run-lti-frame', {
-			url: tool.url,
-			method: 'POST',
-			formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
-=======
-
-		const payload = {
-			lti_version: tool.lti_version,
-			lti_message_type: tool.lti_message_type,
-			resource_link_id: tool.resource_link_id || req.params.courseId,
-			roles: customer.mapSchulcloudRoleToLTIRole(role.name),
-			launch_presentation_document_target: 'window',
-			launch_presentation_locale: 'en',
-			user_id: userId,
-		};
-
-		if (tool.privacy_permission === 'name') {
-			payload.lis_person_name_full = currentUser.displayName
-				|| `${currentUser.firstName} ${currentUser.lastName}`;
-		}
-		if (tool.privacy_permission === 'e-mail') {
-			payload.lis_person_contact_email_primary = currentUser.email;
-		}
-
-		tool.customs.forEach((custom) => {
-			payload[customer.customFieldToString(custom)] = custom.value;
-		});
-
-		api(req).post('/tools/sign/lti11/', {
-			body: {
-				id: req.params.ltiToolId,
-				payload,
-				url: tool.url,
-			},
-		}).then((formData) => {
 			res.render('courses/components/run-lti-frame', {
 				url: tool.url,
 				method: 'POST',
-				csrf: (formData.lti_version === '1.3.0'),
+				csrf: true,
 				formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
 			});
->>>>>>> develop
-		});
+		}
 	});
 };
 
