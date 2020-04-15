@@ -9,9 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-### Changed
+### Added
 
 - SC-3892 Task sorting on the course side
+
+### Changed
+
 - SC-3607 CSV import now suggests the new birthday field (sample file + image)
 - SC-3607 the student/teacher import page now displays a warning for large imports
 - updated airbnb linter from 13.1 to 14.1
