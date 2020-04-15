@@ -238,7 +238,8 @@
 					"unsubmittedTasks": "Gestellte Aufgaben",
 					"tasksWithSubmissions": "Aufgaben mit Abgaben",
 					"task": "Aufgabe",
-					"tasks": "Aufgaben"
+					"tasks": "Aufgaben",
+					"privateTasks": "Private Aufgaben und Entwürfe"
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"

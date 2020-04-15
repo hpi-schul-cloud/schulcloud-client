@@ -723,7 +723,9 @@ router.get('/:courseId/', async (req, res, next) => {
 					: course.name,
 				activeTab: req.query.activeTab,
 				lessons,
-				homeworks: { homeworks },
+				homeworksCount: (homeworks
+					? homeworks.length
+					: 0),
 				assignedHomeworks: (hasRole(teacher)
 					? homeworks.filter(task => !task.private && !task.stats.submissionCount)
 					: homeworks.filter(task => !task.private && !task.submissions)),
