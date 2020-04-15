@@ -129,7 +129,8 @@
 				"button": {
 					"addLesson": "Neuen Stundentermin hinzufügen",
 					"deleteCourse": "Kurs löschen",
-					"showCourseDetail": "Kursdetails anzeigen"
+					"showCourseDetail": "Kursdetails anzeigen",
+					"saveChanges" : "Änderungen speichern"
 				},
 				"headline": {
 					"courseIsArchieved": "Der Kurs {{coursename}} ist archiviert.",
@@ -139,6 +140,7 @@
 					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
+					"activateMessengerForCourse" : "Messenger für Kurs aktivieren",
 					"chooseDate": "Termine auswählen",
 					"class": "Klasse(n)",
 					"from": "Von",
@@ -259,6 +261,10 @@
 			},
 			"tools": {
 				"add": {
+					"placeholder" : {
+						"key" : "Key",
+						"value" : "Value"
+					},
 					"button": {
 						"createTool": "Tool anlegen"
 					},
@@ -268,6 +274,7 @@
 						"videoConference": "Videokonferenz"
 					},
 					"text": {
+						"BBBDescriptionExplanation" : "Führe Videokonferenzen mit anderen Nutzer:innen durch. Das Tool BigBlueButton ermöglicht dem ganzen Kurs die unkomplizierte, sichere Teilnahme mit euren {{short_title}}-Logins. Gute Audio- und Videoübertragungsqualität werden ergänzt durch ein zur Laufzeit nutzbares interaktives Whiteboard, Funktionen zum Bildschirm teilen und einen Chat.",
 						"errorWhileAddingTool": "Beim Hinzufügen des Tools ist ein Fehler aufgetreten.",
 						"toolCouldNotBeFound": "Das Tool konnte nicht gefunden werden."
 					}
@@ -291,6 +298,9 @@
 					"noTools": "Keine Tools.",
 					"videoConferenceBBB": "Videokonferenz BigBlueButton",
 					"videoConferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet"
+				},
+				"img_alt":{
+					"noAddedTools" : "Keine hinzugefügten Tools"
 				}
 			},
 			"topic": {
@@ -316,6 +326,9 @@
 					"noTopics": "Leeres Thema"
 				},
 				"text": {
+					"beta" : "beta",
+					"editSortDeleteShareTopicsHere" : "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-ellipsis-v\"></i>&nbsp;<i class=\"fa fa-ellipsis-v\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
+					"clickOnEyeToggleVisibility" : "Ein Klick auf das Auge <i class=\"fa fa-eye\"></i> macht das Thema für Schüler*innen sichtbar oder unsichtbar.",
 					"addTopic": "Thema hinzufügen",
 					"addTopicWithNewEditor": "Thema mit neuem Editor hinzufügen (beta)",
 					"clickOnTopicForPreview": "Ein Klick auf das Thema bringt dich in die Vorschau-Ansicht.",
@@ -356,6 +369,9 @@
 				"timeSpan": "Zeitraum (z.B. Schuljahr) von - Optional",
 				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben",
 				"timeSpanUntil": "Bis - Optional"
+			},
+			"img_alt":{
+				"spaceShuttleStart" : "Space Shuttle Start"
 			},
 			"link": {
 				"addAnotherCourse": "Einen weiteren Kurs anlegen",
@@ -404,6 +420,10 @@
 			}
 		},
 		"headline": {
+			"expiredCoursesInArchive" : "Kurse, deren Enddatum erreicht ist, findest du <a href=\"?activeTab=archived\">im Archiv",
+			"SCMakesTeachingDigital" : "Mit der {{themetitle}} wird der Unterricht digital",
+			"makeTeachingDigital":"Mit der {{themetitle}} Unterricht digital gestalten",
+			"noCoursesYet" : "Es gibt noch keine Kurse. Ein Kurs in der {{short_title}} bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen.",
 			"courseAttendees": "Teilnehmer:innen des Kurses:",
 			"createDuplicateImport": "Erstelle, dupliziere oder importiere einen Kurs",
 			"importCourse": "Kurs importieren",
@@ -413,6 +433,7 @@
 			"noCourse": "Es gibt aktuell keine Kurse"
 		},
 		"img_alt": {
+			"teacherWithClass" : "Lehrer mit Klasse",
 			"noArchievedCourses": "Keine archivierten Kurse",
 			"noCourses": "Keine Kurse vorhanden"
 		},
