@@ -17,13 +17,13 @@
 
 		<div class="row description">
 			<div class="col-sm-12 col-md-12">
-				<p class="lead">{{$t "courses._course.groups._group.text.groupMembers"}}{{#each userIds }}
+				<p class="lead">{{$t "courses._course.groups._group.text.groupMembers"}} {{#each userIds }}
 						<span class="tag tag-primary">{{ displayName }}</span>
 					{{/each}}</p>
 			</div>
 
 			<div class="col-sm-12 col-md-12">
-				<p class="lead">{{$t "courses._course.groups._group.text.responsibleTeachers"}}{{#each course.teacherIds }}
+				<p class="lead">{{$t "courses._course.groups._group.text.responsibleTeachers"}} {{#each course.teacherIds }}
 						<span class="tag tag-primary">{{ displayName }}</span>
 					{{/each}}</p>
 			</div>

@@ -184,11 +184,11 @@
 						"editGroup": "Gruppe bearbeiten"
 					},
 					"text": {
-						"groupMembers": "Gruppenteilnehmer:innen: ",
+						"groupMembers": "Gruppenteilnehmer:innen:",
 						"noOpenGroupTasks": "Keine weiteren Gruppenabgaben möglich.",
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
 						"noTopics": "keine Themen.",
-						"responsibleTeachers": "Verantwortliche Lehrer:innen: ",
+						"responsibleTeachers": "Verantwortliche Lehrer:innen:",
 						"workOnTopic": "Thema bearbeiten"
 					}
 				},
@@ -250,9 +250,9 @@
 			},
 			"text": {
 				"QRCodeAlternative": "Alternativ kannst du deinen Lehrer:innen-Kollegen auch folgenden QR-Code zeigen.",
-				"coursedescription": "Kursbeschreibung: ",
+				"coursedescription": "Kursbeschreibung:",
 				"eventCouldNotBeSavedContactSupport": "Die Kurszeiten konnten eventuell nicht richtig gespeichert werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.",
-				"nextClass": "Nächste Unterrichtsstunde: ",
+				"nextClass": "Nächste Unterrichtsstunde:",
 				"shareCodeExplanation": "Verteile folgenden Code an einen Lehrer:innen-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.",
 				"youAreAlreadyMember": "Du bist bereits Teilnehmer:in des Kurses {{coursename}}.",
 				"youHaveBeenAdded": "Du wurdest erfolgreich beim Kurs {{coursename}} hinzugefügt"
@@ -580,7 +580,7 @@
 		},
 		"text": {
 			"BlogIsDeactivated": "Der Blog ist derzeit deaktiviert! Das HPI Schul-Cloud Team kümmert sich darum.",
-			"moreInformation": "Mehr Informationen: ",
+			"moreInformation": "Mehr Informationen:",
 			"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
 			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
 		}
