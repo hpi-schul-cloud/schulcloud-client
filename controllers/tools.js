@@ -151,12 +151,12 @@ const runToolHandler = (req, res, next) => {
 						: undefined),
 			};
 
-			api(req).post('/tools/sign/lti13/', { json: { request: idToken } }).then((idToken) => {
+			api(req).post('/tools/sign/lti13/', { json: { request: idToken } }).then((signedToken) => {
 				res.render('courses/components/run-lti-frame', {
 					url: tool.url,
 					method: 'POST',
 					csrf: false,
-					formData: [{ name: 'id_token', value: idToken }],
+					formData: [{ name: 'id_token', value: signedToken }],
 				});
 			});
 		}

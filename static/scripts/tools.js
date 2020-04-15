@@ -18,13 +18,15 @@ $(document).ready(() => {
 	const populateCustomField = function populateCustomField($customFields, field) {
 		if (!field.key || field.key === '') return;
 
-        const _id = guidGenerator();
-        const $field = $(`<div id='${_id}'>Key: ${field.key}, Value: ${field.value}</div>`)
-			.append($(`<input name='customs["${customFieldCount}"][key]' value='${field.key}' type='hidden'></input>`))
-			.append($(`<input name='customs["${customFieldCount}"][value]' value='${field.value}' type='hidden'></input>`))
+		const _id = guidGenerator();
+		const $field = $(`<div id='${_id}'>Key: ${field.key}, Value: ${field.value}</div>`)
+			.append($(`<input name='customs["${customFieldCount}"][key]' value='${field.key}' type='hidden'>
+			</input>`))
+			.append($(`<input name='customs["${customFieldCount}"][value]' value='${field.value}' type='hidden'>
+			</input>`))
 			.append($('<i class="fa fa-trash-o custom-field-delete" />')
 				.click(deleteCustomField.bind(this, _id)));
- 		$customFields.append($field);
+		$customFields.append($field);
 		customFieldCount += 1;
 	};
 
