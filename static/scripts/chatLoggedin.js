@@ -1,8 +1,22 @@
 function loadChatClient(session = null) {
+	// extract user id
+	let matrixUserId = '';
+	if (session) {
+		matrixUserId = session.userId;
+	} else {
+		matrixUserId = window.localStorage.getItem('mx_user_id');
+	}
+
+	// extract room id
 	let roomId = '';
 	const matches = RegExp('/courses/([^/]+).*').exec(window.location.pathname);
 	if (matches && matches.length >= 2) {
 		roomId = matches[1];
+	}
+	let matrixRoomId = '';
+	if (matrixUserId && roomId) {
+		const servername = matrixUserId.substr(matrixUserId.indexOf(':') + 1);
+		matrixRoomId = `#course_${roomId}:${servername}`;
 	}
 
 	// create chat tag
@@ -12,11 +26,8 @@ function loadChatClient(session = null) {
 	riotBox.dataset.vectorConfig = '/riot_config.json';
 	riotBox.dataset.vectorDefaultToggled = 'true';
 	riotBox.dataset.matrixLang = 'de';
+	riotBox.dataset.matrixRoomId = matrixRoomId;
 
-	if (session && roomId) {
-		const servername = session.userId.substr(session.userId.indexOf(':') + 1);
-		riotBox.dataset.matrixRoomId = `#course_${roomId}:${servername}`;
-	}
 	if (session) {
 		riotBox.dataset.matrixHomeserverUrl = session.homeserverUrl;
 		riotBox.dataset.matrixUserId = session.userId;
