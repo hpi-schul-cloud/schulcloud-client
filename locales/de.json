@@ -548,6 +548,7 @@
 			}
 		},
 		"text": {
+			"sureAboutDiscardingChanges" : "Bist du dir sicher, dass du die Änderungen verwerfen möchtest?",
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
 			"friday": "Freitag",
@@ -578,8 +579,16 @@
 			"moreArticles": "weitere Artikel anzeigen",
 			"openArticle": "Artikel öffnen"
 		},
+		"img_alt" : {
+			"logoMINTEC": "Logo MINT-EC",
+			"logoHPI" : "Logo HPI",
+			"logoBMBF" : "Logo BMBF"
+		},
 		"text": {
-			"BlogIsDeactivated": "Der Blog ist derzeit deaktiviert! Das HPI Schul-Cloud Team kümmert sich darum.",
+			"downloadFile" : "Datei herunterladen",
+			"advertisementForOurTeam" : "Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs",
+			"browserDoesNotSupportPlayer" : "Your browser does not support this (HTML5) videoplayer.",
+			"blogIsDeactivated": "Der Blog ist derzeit deaktiviert! Das HPI Schul-Cloud Team kümmert sich darum.",
 			"moreInformation": "Mehr Informationen:",
 			"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
 			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
@@ -648,6 +657,14 @@
 			"noTasks": "Keine Aufgaben"
 		}
 	},
+	"loggedin" : {
+		"text" : {
+			"timeout" : "Zeitüberschreitung der Anfrage",
+			"newFeaturesAvailable" : "Neue Features sind verfügbar",
+			"schoolInTransferPhaseContactAdmin" : "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte kontaktiere den Schul-Administrator!",
+			"schoolInTransferPhaseStartNew" : "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>"
+		}
+	},
 	"login": {
 		"button": {
 			"less": "Weniger",
@@ -687,8 +704,7 @@
 				"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
 			},
 			"text": {
-				"contactTeacherAdmin": "Wenn du zusätzliche Hilfe beim Passwort zurücksetzen benötigst, wende dich bitte an deine betreuende Lehrkraft (als Schüler) oder an deinen Administrator (als Lehrkraft).",
-				"thoseWillHelpYou": "Diese können dein Passwort über die Nutzerverwaltung mit sofortiger Wirkung zurücksetzen."
+				"contactTeacherAdminForHelp": "Wenn du zusätzliche Hilfe beim Passwort zurücksetzen benötigst, wende dich bitte an deine betreuende Lehrkraft (als Schüler) oder an deinen Administrator (als Lehrkraft). </br>Diese können dein Passwort über die Nutzerverwaltung mit sofortiger Wirkung zurücksetzen."
 			}
 		},
 		"text": {
