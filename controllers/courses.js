@@ -711,7 +711,7 @@ router.get('/:courseId/', async (req, res, next) => {
 		// ###################### end of code for new Editor ################################
 		const user = res.locals.currentUser || {};
 		const roles = user.roles.map((role) => role.name);
-		const hasRole = allowedRoles => roles.some((role) => (allowedRoles || []).includes(role));
+		const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
 		const teacher = ['teacher', 'demoTeacher'];
 		const student = ['student', 'demoStudent'];
 
