@@ -554,6 +554,7 @@
 			"monday": "Montag",
 			"saturday": "Samstag",
 			"sunday": "Sonntag",
+			"sureAboutDiscardingChanges": "Bist du dir sicher, dass du die Änderungen verwerfen möchtest?",
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
@@ -565,6 +566,15 @@
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrer:in einloggen",
 			"subscribeNewsletter": "Newsletter abonnieren"
+		},
+		"header":{
+			"link" : {
+				"firstSteps" : "Erste Schritte",
+				"aboutUs" : "Über das Projekt",
+				"joinUs" : "Mitmachen",
+				"blog" : "Blog",
+				"faq" : "FAQ"
+			}
 		},
 		"headline": {
 			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> Blog",
@@ -583,6 +593,29 @@
 			"moreInformation": "Mehr Informationen:",
 			"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
 			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
+		}
+	},
+	"pwRecovery" : {
+		"response" : {
+			"text" : {
+				"didYouChangeEmail" : "Hast du deine <b>E-Mail-Adresse</b> in der Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
+				"didYouRegisterPerThirdParty" : "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der Schul-Cloud einzuloggen.",
+				"wasYourEmailCorrect" : "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?",
+				"didYouRegistercorrectly" : "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einem Lehrer oder Schuladministrator bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
+				"emailHasBeenSent" : "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>"
+			}
+		},
+		"text" : {
+			"allowedPasswords" : "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
+			"allowedPasswordsWithTags" : "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. <br/>Erlaubte Sonderzeichen sind: <code>!§$%&/()=?\\;:,.#+*~</code>",
+			"passwordsAreDifferent" : "Passwörter stimmen nicht überein."
+		},
+		"label" : {
+			"newPw" : "Neues Passwort",
+			"repeatNewPw" : "Neues Passwort wiederholen"
+		},
+		"input" :{
+			"hiddenPw": "***************"
 		}
 	},
 	"homework": {
