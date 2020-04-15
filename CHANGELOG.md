@@ -15,6 +15,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-3607 the student/teacher import page now displays a warning for large imports
 
 ## [22.9.1] - 2020-04-09
+## [22.9.2] - 2020-04-09
+
+### Changed in 22.9.2
+
+- All team events load now.
+
+## [22.9.1] - 2020-04-08
 
 ### Changed in 22.9.1
 
