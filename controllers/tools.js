@@ -69,11 +69,12 @@ const runToolHandler = (req, res, next) => {
 
 		if (tool.privacy_permission === 'pseudonymous') {
 			userId = pseudonym.data[0].pseudonym;
-			name = pseudonym.data[0].user.iframe;
+			name = encodeURI(pseudonym.data[0].user.iframe);
 		} else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
 			userId = currentUser._id;
 		}
 
+		const customer = new ltiCustomer.LTICustomer();
 		if (tool.lti_version === 'LTI-1p0') {
 			const consumer = customer.createConsumer(tool.key, tool.secret);
 
@@ -152,14 +153,14 @@ const runToolHandler = (req, res, next) => {
 						}
 						: undefined),
 			};
-			formData = {
-				id_token: jwt.sign(idToken, fs.readFileSync('private_key.pem'), { algorithm: 'RS256' }),
-			};
-			res.render('courses/components/run-lti-frame', {
-				url: tool.url,
-				method: 'POST',
-				csrf: true,
-				formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
+
+			api(req).post('/tools/sign/lti13/', { json: {  request: idToken } }).then((id_token) => {
+				res.render('courses/components/run-lti-frame', {
+					url: tool.url,
+					method: 'POST',
+					csrf: false,
+					formData: [{ name: 'id_token', value: id_token }],
+				});
 			});
 		}
 	});
