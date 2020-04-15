@@ -977,13 +977,13 @@
 	},
 	"help": {
 		"confluence": {
-			"link":{
+			"link": {
 				"openArticleInConfluence": "Artikel in Confluence öffnen",
 				"openInConfluence": "in Confluence öffnen"
 			},
-			"text":{
-				"languageNote": "Sprachlicher Hinweis:",
-				"ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch"
+			"text": {
+				"ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch",
+				"languageNote": "Sprachlicher Hinweis:"
 			}
 		},
 		"contact": {
@@ -1003,6 +1003,23 @@
 				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
 			}
 		},
+		"form_Wish": {
+			"label": {
+				"acceptanceCriteria": "Akzeptanzkriterien",
+				"around": "um ...",
+				"as": "Als...",
+				"briefdescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
+				"device": "Gerät",
+				"furtherInformation": "Weitere Informationen (optional):",
+				"iWouldLikeTo": "möchte ich ...",
+				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
+			},
+			"text": {
+				"browserNameAndVersion": "Browser Name und Version (z.B: Firefox 69.0)",
+				"iAgreeThatTheFollowingInformation": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:",
+				"operatingSystemAndVersion": "Betriebssystem und Version (z.B: Windows 10)"
+			}
+		},
 		"lernNuggets": {
 			"heading": {
 				"instructionsForUse": "Hinweise zur Benutzung",
@@ -1012,15 +1029,17 @@
 				"learningNuggetLicenseModels": "Lern-Nugget: Lizenzmodelle und Nutzungsrechte",
 				"welcomeToTheOnlineCourse": "Willkommen beim Online-Kurs 'Datenschutz und Urheberrecht' "
 			},
-			"text": {
+			"link": {
 				"basicsOfTheGDPR": "Grundlagen der DSGVO",
+				"dataProtectionAndCloudSolution": "Datenschutz und Cloud-Lösungen",
+				"dataProtectionInSchoolLife": "Datenschutz im Schulalltag",
+				"licenseModelAndUsageRights": "Lizenzmodelle und Nutzungsrechte"
+			},
+			"text": {
 				"clientAndLicensedFor": "Auftraggeber und lizenziert für: Verein MINT-EC®,",
 				"contentAndProduction": "Inhalte und Produktion:",
 				"createdAsPartOfThe": "Entstanden im Rahmen des Projekts HPI Schul-Cloud.",
-				"dataProtectionAndCloudSolution": "Datenschutz und Cloud-Lösungen",
-				"dataProtectionInSchoolLife": "Datenschutz im Schulalltag",
-				"hereIsTheLearningNugget": "Hier geht's zum Lern-Nugget:",
-				"licenseModelAndUsageRights": "Lizenzmodelle und Nutzungsrechte"
+				"hereIsTheLearningNugget": "Hier geht's zum Lern-Nugget:"
 			}
 		},
 		"text": {
