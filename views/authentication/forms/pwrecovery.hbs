@@ -1,12 +1,16 @@
 <div class="form-group">
-    <label class="control-label" for="username">Ihr Nutzername</label>
+    <label class="control-label" for="username">{{$t "login.popup_resetPw.label.yourEmailUsername"}}</label>
     <input type="text"
            autocomplete="username"
            name="username"
            id="username"
            size="30"
            maxlength="60"
-           placeholder="Ihr Nutzername"
+           placeholder="{{$t "login.popup_resetPw.input.yourEmailUsername"}}"
            class="form-control"
             required>
 </div>
+<p>
+    {{$t "login.popup_resetPw.text.contactTeacherAdmin"}} </br>
+    {{$t "login.popup_resetPw.text.thoseWillHelpYou"}} 
+</p>

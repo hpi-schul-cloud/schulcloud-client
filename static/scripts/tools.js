@@ -59,23 +59,23 @@ $(document).ready(function () {
      * @param modal {Modal} - the modal which has the post-action and the courseId
      * @param tool {object} - the tool which will be created
      */
-	  const createLocalTool = function createLocalTool(modal, tool) {
+	const createLocalTool = function createLocalTool(modal, tool) {
 		const $modalForm = modal.find('.modal-form');
 		const href = $modalForm.attr('action');
 		const courseId = $modalForm.find("input[name='courseId']").val();
 		// cleaning
 		tool.isTemplate = false;
 		tool.courseId = courseId;
-		tool.originTool = tool._id;
 		delete tool.oAuthClientId;
 		delete tool._id;
 		$.ajax({
 			action: href,
 			data: tool,
 			method: 'POST',
-			success(result) {
-				window.location.href = `/courses/${courseId}`;
-			},
+		}).done(() => {
+			window.location.href = `/courses/${courseId}?activeTab=tools`;
+		}).fail(() => {
+			$.showNotification($t('courses._course.tools.add.text.errorWhileAddingTool'), 'danger');
 		});
 	};
 
@@ -84,7 +84,23 @@ $(document).ready(function () {
 		const entry = $(this).attr('href');
 		$.getJSON(entry, (result) => {
 			const tool = result.tool[0];
+			tool.originTool = tool._id;
 			if (tool.isLocal) {
+				if (tool.name === 'Video-Konferenz mit BigBlueButton') {
+					const $addBbbToolModal = $('.add-bbb-modal');
+
+					populateModalForm($addBbbToolModal, {
+						title: $t('courses._course.tools.add.headline.videoConference'),
+						closeLabel: $t('global.button.cancel'),
+						submitLabel: $t('global.button.add'),
+					});
+					$addBbbToolModal.appendTo('body').modal('show');
+					$addBbbToolModal.off('submit').on('submit', (event) => {
+						event.preventDefault();
+						createLocalTool($editModal, tool);
+					});
+					return;
+				}
 				createLocalTool($editModal, tool);
 			} else if (tool.lti_message_type === 'LtiDeepLinkingRequest') {
 				tool.lti_message_type = 'LtiResourceLinkRequest';
@@ -101,8 +117,8 @@ $(document).ready(function () {
 				$deepLinkingModal.appendTo('body').modal('show');
 			} else {
 				populateModalForm($editModal, {
-					closeLabel: 'Abbrechen',
-					submitLabel: 'Speichern',
+					closeLabel: $t('global.button.cancel'),
+					submitLabel: $t('global.button.save'),
 					fields: tool,
 				});
 				populateCustomFields($editModal, tool.customs);

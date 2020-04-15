@@ -5,9 +5,11 @@
 		</a>
 		{{#unless hideMenu}}
 			<ul class="nav">
-				<li class="intro-trigger hidden-sm-down">
-					<a class="nav-link" href="#" onclick="startIntro()">Intro</a>
+				{{#ifEnv "FEATURE_MINT_PAGES_ENABLED" "true"}}
+				<li>
+					<a class="nav-link" href="/mint-ec/willkommenspaket">Erste Schritte</a>
 				</li>
+				{{/ifEnv}}
 				<li>
 					<a class="nav-link" href="/about">Über das Projekt</a>
 				</li>

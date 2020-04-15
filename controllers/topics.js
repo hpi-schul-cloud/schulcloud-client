@@ -3,12 +3,19 @@ const express = require('express');
 const shortId = require('shortid');
 const Nexboard = require('nexboard-api-js');
 const api = require('../api');
+const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
+const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
 
-const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/p/';
+const {
+	ETHERPAD_BASE_URL,
+	NEXBOARD_USER_ID,
+	NEXBOARD_API_KEY,
+	PUBLIC_BACKEND_URL,
+} = require('../config/global');
 
 const editTopicHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
@@ -44,7 +51,7 @@ const editTopicHandler = (req, res, next) => {
 			topicId: req.params.topicId,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
-			etherpadBaseUrl,
+			etherpadBaseUrl: ETHERPAD_BASE_URL,
 		});
 	}).catch((err) => {
 		next(err);
@@ -65,10 +72,10 @@ const checkInternalComponents = (data, baseUrl) => {
 };
 
 const getNexBoardAPI = () => {
-	if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
+	if (!NEXBOARD_USER_ID && !NEXBOARD_API_KEY) {
 		logger.error('nexBoard env is currently not defined.');
 	}
-	return new Nexboard(process.env.NEXBOARD_API_KEY, process.env.NEXBOARD_USER_ID);
+	return new Nexboard(NEXBOARD_API_KEY, NEXBOARD_USER_ID);
 };
 
 const getNexBoardProjectFromUser = async (req, user) => {
@@ -187,18 +194,10 @@ router.post('/:id/share', (req, res, next) => {
 // eslint-disable-next-line consistent-return
 router.get('/:topicId', (req, res, next) => {
 	// ############################# start new Edtior ###################################
-	if (req.query.edtr || req.query.edtr_hash) {
-		let edtrSource = '';
-		if (req.query.edtr_hash) {
-			edtrSource = `https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@${req.query.edtr_hash}/dist/index.js`;
-		} else {
-			edtrSource = req.query.version === 'B' ? process.env.EDTR_SOURCE_B : process.env.EDTR_SOURCE;
-		}
-
-		// return to skip execution
+	if (req.query.edtr && EDTR_SOURCE) {
+		// return to skip rendering old editor
 		return res.render('topic/topic-edtr', {
-			edtrSource: edtrSource || 'https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@develop/dist/index.js',
-			backendUrl: process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030',
+			EDTR_SOURCE,
 		});
 	}
 	// ############################## end new Edtior ######################################
@@ -248,7 +247,7 @@ router.get('/:topicId', (req, res, next) => {
 			courseId: req.params.courseId,
 			isCourseGroupTopic: courseGroup._id !== undefined,
 			breadcrumb: [{
-				title: 'Meine Kurse',
+				title: res.$t("courses.headline.myCourses"),
 				url: `/${context}`,
 			},
 			{
@@ -278,6 +277,7 @@ router.get('/:topicId', (req, res, next) => {
 router.patch('/:topicId', async (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	const data = req.body;
+
 	data.time = moment(data.time || 0, 'HH:mm').toString();
 	data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
@@ -293,7 +293,7 @@ router.patch('/:topicId', async (req, res, next) => {
 	if (!req.query.courseGroup) delete data.courseGroupId;
 
 	// create new Nexboard when necessary, if not simple hidden or position patch
-	if (data.content) data.contents = await createNewNexBoards(req, res, data.contents);
+	if (data.contents) data.contents = await createNewNexBoards(req, res, data.contents);
 
 	if (data.contents) { data.contents = data.contents.filter(c => c !== undefined); }
 
@@ -343,32 +343,32 @@ router.get('/:topicId/edit', editTopicHandler);
 // ########################################## new Edtiro ############################################
 
 router.get('/add/neweditor', async (req, res, next) => {
-	const lesson = await api(req, { backend: 'editor' }).post(`/course/${req.params.courseId}/lessons`, {
+	const lesson = await apiEditor(req).post(`/course/${req.params.courseId}/lessons`, {
 		title: '',
 	});
 
 	res.redirect(`/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`);
 });
 
-router.patch('/:topicId/neweditor', async (req, res, next) => {
-	const [hidden, ...data] = req.body;
-
-	if (hidden !== undefined) {
-		// const visible = !hidden;
-		// TODO root have to be implement
-	} else {
-		api(req, { backend: 'editor' }).patch(`course/${req.params.courseId}/lessons/${req.params.topicId}`, {
-			data,
-		}).then(() => {
-			res.sendStatus(200);
+const boolean = v => v === 1 || v === 'true' || v === true || v === '1';
+router.patch('/:topicId/neweditor', (req, res, next) => {
+	if (req.body.hidden !== undefined) {
+		apiEditor(req).patch(`/helpers/setVisibility/${req.params.topicId}`, {
+			json: { visible: !boolean(req.body.hidden) },
+		}).then((response) => {
+			res.json({
+				hidden: !response.visible,
+			});
 		}).catch((err) => {
 			next(err);
 		});
+	} else {
+		res.sendStatus(200);
 	}
 });
 
 router.delete('/:topicId/neweditor', async (req, res, next) => {
-	api(req, { backend: 'editor' }).delete(`course/${req.params.courseId}/lessons/${req.params.topicId}`).then(() => {
+	apiEditor(req).delete(`course/${req.params.courseId}/lessons/${req.params.topicId}`).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		next(err);

@@ -14,9 +14,13 @@ function nodeListAddEventListener(events,
 	});
 	return this;
 }
-
 if (!NodeList.prototype.addEventListener) {
 	NodeList.prototype.addEventListener = nodeListAddEventListener;
+}
+
+// Polyfill for Edge 13 and other outdated browsers
+if (!NodeList.prototype.forEach) {
+	NodeList.prototype.forEach = Array.prototype.forEach;
 }
 
 // if is needed for IE11
@@ -317,13 +321,6 @@ $(document).ready(() => {
 	document.querySelectorAll('.print .btn-print').forEach((btn) => {
 		btn.addEventListener('click', printPart);
 	});
-
-	// eslint-disable-next-line no-restricted-globals
-	if (document.querySelector('*[data-intro]') && screen.width > 1024) {
-		document.querySelectorAll('.intro-trigger').forEach((trigger) => {
-			trigger.classList.add('show');
-		});
-	}
 
 	// from: https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript
 	function isMobileDevice() {

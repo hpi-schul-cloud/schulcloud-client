@@ -79,6 +79,14 @@
         color: #969696;
         line-height:22px;
     }
+
+    .svg-timetable-empty {
+        background-image: url('/images/empty-states/timetable-empty-bg.svg');
+        background-size: auto 100%;
+        background-repeat: repeat-x;
+        max-height: 300px;
+        opacity: 0.3;
+    }
 }
 
 
@@ -241,4 +249,33 @@
     padding-top: 8px;
     padding-left: 8px;
     padding-right: 8px;
+}
+
+.dashboard-empty-info{
+    margin-top: -35px;
+}
+
+.homework-link{
+    color: $fontColor;
+    .homework-tile{
+        border: 0;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(0,0,0,.125);
+        cursor: pointer;
+        .title-row{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            .title{
+                font-size: 1.2rem;
+            }
+        }
+        &:hover{
+            background-color: $colorLightGrey;
+        }
+    }
+    &:hover, &:focus{
+        text-decoration: none;
+        color: $fontColor;
+    }
 }

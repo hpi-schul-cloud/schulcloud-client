@@ -8,5 +8,11 @@
     {{#each formData}}
         <input name="{{this.name}}" value="{{this.value}}">
     {{/each}}
+<<<<<<< HEAD
     {{> "lib/components/csrfInput"}}
+=======
+	{{#if csrf}}
+		{{> "lib/components/csrfInput"}}
+	{{/if}}
+>>>>>>> develop
 </form>

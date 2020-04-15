@@ -29,7 +29,7 @@
 	<span class="control-label" for="email">
 		E-Mail-Adresse für eventuelle Rückfragen
 	</span>
-	<input type="email" name="replyEmail" placeholder="E-Mail-Adresse" value="{{ currentUser.email }}" class="form-control" required>
+	<input type="email" name="replyEmail" placeholder="E-Mail-Adresse" value="{{ userEmail }}" class="form-control" required>
 </label>
 <hr>
 <p>Weitere Informationen (optional):</p>
@@ -48,4 +48,13 @@
 	</div>
 </div>
 </label>
+{{#ifEnv "FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED" "true"}}
+<br>
+<label class="form-group">
+    <span class="control-label">Bilder, Videos und Dateien (max. {{ ../formAttachmentsSize }}MB):</span>
+    <input type="file" class="form-control-file" name="file" multiple="multiple" accept="image/*,video/*,application/msword,application/pdf"
+		data-max-attachment-size-mb="{{ ../formAttachmentsSize }}">
+</label>
+{{/ifEnv}}
 <hr>
+<span class="control-label file-alert"></span>
