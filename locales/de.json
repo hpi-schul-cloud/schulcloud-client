@@ -1008,15 +1008,41 @@
 				"acceptanceCriteria": "Akzeptanzkriterien",
 				"around": "um ...",
 				"as": "Als...",
-				"briefdescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
+				"briefDescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
 				"device": "Gerät",
-				"furtherInformation": "Weitere Informationen (optional):",
 				"iWouldLikeTo": "möchte ich ...",
 				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
 			},
 			"text": {
+				"iAgreeThatTheFollowingInformation": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:"
+			}
+		},
+		"form_admin": {
+			"label": {
+				"currentStatus": "IST-Zustand: Was geschieht zur Zeit, nachdem ich welche Schritte durchgeführt habe?",
+				"targetState": "SOLL-Zustand: Was sollte stattdessen geschehen?"
+			},
+			"text": {
+				"hereYouCanContact": "Hier erreichst du den Administrator deiner Schule. Er kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über deinen Kontaktgesuch informiert."
+			}
+		},
+		"form_bug": {
+			"label": {
+				"emailAddressForAnyQueries": "E-Mail-Adresse für eventuelle Rückfragen",
+				"problemDescription": "Problembeschreibung:",
+				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
+			},
+			"text": {
+				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen:"
+			}
+		},
+		"global": {
+			"label": {
+				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
+				"furtherInformation": "Weitere Informationen (optional):"
+			},
+			"text": {
 				"browserNameAndVersion": "Browser Name und Version (z.B: Firefox 69.0)",
-				"iAgreeThatTheFollowingInformation": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:",
 				"operatingSystemAndVersion": "Betriebssystem und Version (z.B: Windows 10)"
 			}
 		},
