@@ -718,5 +718,7 @@
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
 		}
+	},
+	"registration": {
 	}
 }
