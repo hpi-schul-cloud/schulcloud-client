@@ -19,24 +19,24 @@
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
       <section data-panel="section-1">
-        <h2 class="h4">Persönliche Daten</h2>
+        <h2 class="h4">{{$t "registration._registration.student.heading.personalData" }}</h2>
         <p>Die {{theme.short_title}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.</p>
         <p>Für die Nutzung der {{theme.short_title}} benötigen wir folgende Angaben:</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>Vorname: <sup>*</sup></label>
+            <label>{{$t "registration._registration.student.global.label.firstName" }} <sup>*</sup></label>
             <input class="form-control linked" name="firstName" type="text" placeholder="Dein offizieller Vorname, kein Spitzname"
                 value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}}/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>Nachname: <sup>*</sup></label>
+            <label>{{$t "registration._registration.student.global.label.lastName" }} <sup>*</sup></label>
             <input class="form-control linked" name="lastName" type="text" placeholder="Dein offizieller Nachname"
                 value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
           </div>
         </div>
 
         <div class="form-group">
-            <label>Geburtsdatum: <sup>*</sup></label>
+            <label>{{$t "registration._registration.student.global.label.birthDate" }} <sup>*</sup></label>
             <input class="form-control linked" name="birthDate" type="text"
                 data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 0}}"
                 value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{/if}}"
@@ -45,27 +45,27 @@
         </div>
 
         <div class="form-group">
-            <label>E-Mail-Adresse: <sup>*</sup></label>
+            <label>{{$t "registration._registration.student.global.label.emailAddress" }} <sup>*</sup></label>
             <input class="form-control linked" type="email" name="email" placeholder="schueler@schul-cloud.org"
                 value="{{user.email}}" required {{#if user.email}}readonly{{/if}}>
         </div>
         <p class="explanation nomargin">
-            Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.
+            {{$t "registration._registration.student.text.theEmailAddressEnables" }}
         </p>
       </section>
 
 
       <section data-panel="section-2">
-        <h2 class="h4">Einwilligungserklärung</h2>
+        <h2 class="h4">{{$t "registration._registration.student.global.heading.declarationOfConsent" }}</h2>
         <p>Bitte bestätige folgende Einwilligungserklärungen, damit du die {{theme.short_title}} nutzen kannst.</p>
-        <p>Ich, <b data-from="firstName"></b> <b data-from="lastName"></b>, erkläre Folgendes:</p>
+        <p>{{$t "registration._registration.student.global.text.i" }}, <b data-from="firstName"></b> <b data-from="lastName"></b>, {{$t "registration._registration.student.text.explainTheFollowing" }}</p>
           {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
 
       </section>
 
 
       <section data-panel="section-3" class="submit-page" data-feature="pin">
-          <h2 class="h4">Fast geschafft!</h2>
+          <h2 class="h4">{{$t "registration._registration.student.heading.almostThere" }}</h2>
           {{#embed "registration/request-pin"}}{{/embed}}
           <div id="pinverification">
               {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
@@ -76,10 +76,10 @@
 
 
       <section data-panel="section-4">
-        <h2 class="h4">Vielen Dank für die Registrierung in der {{theme.short_title}}!</h2>
+        <h2 class="h4">{{$t "registration._registration.student.heading.thankYouForRegistering" }} {{theme.short_title}}!</h2>
 
         {{#if user.sso}}
-            <p>Deine SSO-Accountdaten sind jetzt freigeschaltet.</p>
+            <p>{{$t "registration._registration.student.text.yourSSOAccountDetails" }}</p>
         {{else}}
             <div id="userdata-summary">
                 <p>Mit folgenden Daten kannst du dich in der {{theme.short_title}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.</p>
@@ -87,17 +87,17 @@
                     <div class="recap">
                         <!--<p>Nutzername: <i data-from="firstName"></i>.<i data-from="lastName"></i></p>-->
                         <p>E-Mail: <i data-from="email"></i></p>
-                        <p>Passwort: <i class="student-password">********</i></p>
+                        <p>{{$t "registration._registration.student.text.password" }}<i class="student-password">********</i></p>
                     </div>
                     <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
-                        <i class="fa fa-print"></i> Drucken
+                        <i class="fa fa-print"></i> {{$t "registration._registration.student.button.toPress" }}
                     </div>
                 </div>
-                <p>Du kannst dich jetzt in der Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.</p>
+                <p>{{$t "registration._registration.student.text.youCanNowLogin" }}</p>
             </div>
         {{/if}}
 
-        <a class="btn btn-primary" href="/logout">Login öffnen</a>
+        <a class="btn btn-primary" href="/logout">{{$t "registration._registration.student.button.openLogin" }}</a>
       </section>
       {{/content}}
     {{/embed}}
