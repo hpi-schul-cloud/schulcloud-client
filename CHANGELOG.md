@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## Added
+
+- SC-3757 the LDAP config page now contains a link to the docs
+
 ### Changed
 
 - SC-3607 CSV import now suggests the new birthday field (sample file + image)
