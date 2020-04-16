@@ -720,6 +720,34 @@
 		}
 	},
 	"registration": {
+		"_registration":{
+			"button":{
+				"further": "Weiter"
+			},
+			"heading":{
+				"welcomeToTheregister": "Willkommen zur Anmeldung in der "
+			},
+			"text":{
+				"herself": "sie selbst.",
+				"isThereForEveryone": "ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
+				"wantToUseAndHelp": "nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
+				"andAgreeToTheTerms": "und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
+				"thefollowingRestrationMustBe": "Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern.",
+				"linguisticNote": "Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der",
+				"weArePleasedThatYou": "Wir freuen uns, dass du die",
+				"danger": "Achtung:",
+				"theMailForm": "die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die",
+				"pleaseRegisterInTheFirst": "Bitte registriere dich zunächst in der",
+				"weArePleasedThat": "Wir freuen uns, dass Sie Ihrem Kind die Nutzung der ",
+				"weKindlyAskYou": "Wir bitten Sie, Ihr Kind zunächst in der",
+				"agreeSoThatYourChild": "zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
+				"toRegisterAndThen": "zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der",
+				"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers:",
+				"enableAndThusHelp": "ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
+				"aLegalGuardianMustComplete": "muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über",
+				"theRegistrationProcessChanges": "Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter"
+			}
+		},
 		"requestPin": {
 			"button": {
 				"requestVerificationCode": "Bestätigungscode jetzt anfordern"
