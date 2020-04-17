@@ -1,9 +1,17 @@
 @import './colors';
+@import './bootstrap/scss/bootstrap-flex';
 
 $chat-color-text: $fontColor;
 $chat-color-background: $colorWhite;
 $chat-color-primary: $colorTertiary;
 $chat-color-secondary: hsl(hue($chat-color-primary), saturation($chat-color-primary), 85%);
+
+// add space for messenger
+footer {
+	@include media-breakpoint-up(md) {
+		padding-bottom: 50px;
+	}
+}
 
 #matrixchat {
 	z-index: 1039; // less than .modal-backdrop
@@ -33,6 +41,72 @@ $chat-color-secondary: hsl(hue($chat-color-primary), saturation($chat-color-prim
 
 	// > do not ask to activate desktop notifications
 	.mx_MatrixToolbar {
+		display: none;
+	}
+
+	// hide user id
+	.mx_InviteDialog_roomTile_userId,
+	.mx_MemberInfo_profileField {
+		display: none;
+	}
+
+	// hide reference to user Ids
+	.mx_InviteDialog_helpText {
+		display: none;
+	}
+
+	// don't invite via email
+	.mx_AddressPickerDialog_identityServer {
+		display: none;
+	}
+
+	// hide verbannen
+	.mx_MemberInfo_field:nth-child(2) {
+		display: none;
+	}
+	// hide letzte Nachricht löschen
+	.mx_MemberInfo_field:nth-child(3) {
+		display: none;
+	}
+
+	// reduce message menu
+	// > weiterleiten
+	.mx_MessageContextMenu_field:nth-child(2) {
+		dispaly: none;
+	}
+	// > quellcode
+	.mx_MessageContextMenu_field:nth-child(3) {
+		dispaly: none;
+	}
+	// > teilen
+	.mx_MessageContextMenu_field:nth-child(4) {
+		dispaly: none;
+	}
+
+	// hide sticker creation
+	#stickersButton {
+		display: none;
+	}
+
+	// full width content
+	.mx_RoomView_timeline_rr_enabled .mx_EventTile_line,
+	.mx_RoomView_timeline_rr_enabled .mx_EventTile_reply {
+		margin-right: 0;
+	}
+	.mx_EventListSummary_toggle {
+		display: none;
+	}
+
+	// hide archiv
+	.mx_RoomSubList[aria-label="Archiv"] {
+		display: none;
+	}
+
+	.mx_EmojiPicker_anchor {
+		box-sizing: border-box;
+	}
+
+	.mx_EventTile {
 		display: none;
 	}
 
