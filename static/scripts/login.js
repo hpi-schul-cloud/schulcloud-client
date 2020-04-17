@@ -54,10 +54,10 @@ $(document).ready(() => {
         setTimeout (function(){
             if(countdownNum != 1){
                 countdownNum--;
-                $submitButton.val('Bitte ' + countdownNum + ' Sekunden warten');
+                $submitButton.val($t("login.text.pleaseWaitXSeconds",{seconds : countdownNum}));
                 incTimer();
             } else {
-                $submitButton.val('Anmelden');
+                $submitButton.val($t("login.button.login"));
             }
         },1000);
     };
@@ -80,7 +80,7 @@ $(document).ready(() => {
                 if(storage.local.getItem('loginSystem') == system._id) {
                     selected = true;
                 }
-                $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '">' + system.type + systemAlias + '</option>');
+                $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '//' + system.type + '">' + system.type + systemAlias + '</option>');
             });
             $systems.trigger('chosen:updated');
             systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
@@ -129,9 +129,9 @@ $(document).ready(() => {
     $('.submit-pwrecovery').on('click', function(e) {
         e.preventDefault();
         populateModalForm($pwRecoveryModal, {
-            title: 'Passwort Zurücksetzen',
-            closeLabel: 'Abbrechen',
-            submitLabel: 'Passswort zurücksetzen'
+            title: $t("login.popup_resetPw.headline.resetPassword"),
+            closeLabel: $t("login.popup_resetPw.button.cancel"),
+            submitLabel: $t("login.popup_resetPw.button.resetPassword")
         });
         $pwRecoveryModal.appendTo('body').modal('show');
     });

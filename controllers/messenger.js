@@ -1,15 +1,14 @@
 const express = require('express');
 
 const router = express.Router();
-
+const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
 router.use(authHelper.authChecker);
 
-router.get('/', (req, res, next) => {
-	res.render('addons/addons', {
-		title: res.$t("addons.headline.addons"),
-	});
-});
+router.get('/token', (req, res, next) => api(req)
+	.post('/messengerToken', {})
+	.then((result) => res.send(result))
+	.catch(next));
 
 module.exports = router;
