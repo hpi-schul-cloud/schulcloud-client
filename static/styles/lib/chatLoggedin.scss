@@ -106,7 +106,9 @@ footer {
 		box-sizing: border-box;
 	}
 
-	.mx_EventTile {
+	// hide audio/video calls
+	.mx_MessageComposer_voicecall,
+	.mx_MessageComposer_videocall {
 		display: none;
 	}
 
@@ -311,5 +313,4 @@ footer {
 		width: 200px;
 		min-width: 200px;
 	}
-
 }
