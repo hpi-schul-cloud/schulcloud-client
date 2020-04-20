@@ -228,7 +228,7 @@ const editCourseHandler = (req, res, next) => {
 				action,
 				method,
 				title: res.$t('courses._course.edit.headline.editCourse'),
-				submitLabel: res.$t('global.button.saveChanges'),
+				submitLabel: res.$t('global.button.save'),
 				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
