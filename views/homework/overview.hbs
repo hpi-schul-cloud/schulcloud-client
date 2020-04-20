@@ -16,15 +16,15 @@
                     {{#userHasPermission "HOMEWORK_CREATE"}}
                     <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}" class="btn btn-primary btn-add create">
                         <i class="fa fa-plus" aria-hidden="true"></i>
-                        <p>Aufgabe hinzufügen</p>
+                        <p>{{$t "homework.button.addTask" }}</p>
                     </a>
                     {{/userHasPermission}}
                 {{/if}}
                 <div><feathers-filter id="filter"
                         filter='{{@root.filterSettings}}'
-                        add-label='Filter hinzufügen'
-                        apply-label='Übernehmen'
-                        cancle-label='Abbrechen'
+                        add-label='{{$t "homework.button.filterAdd" }}'
+                        apply-label='{{$t "homework.button.filterApply" }}'
+                        cancle-label='{{$t "global.button.cancel" }}'
                         handle-url='true'
                 /></div>
 
@@ -34,7 +34,7 @@
                             {{> 'homework/components/overview_card_template'}}
                         {{else}}
                             <p class="text-muted text-center">
-                                <span>Keine Aufgaben.</span>
+                                <span>{{$t "homework.text.noTasks" }}.</span>
                             </p>
                         {{/each}}
                     </div></div>
@@ -46,10 +46,10 @@
                     {{#content "body"}}
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-close">
-                                Abbrechen
+                                {{$t "global.button.cancel" }}
                             </button>
                             <button type="submit" class="btn btn-primary btn-submit">
-                                Löschen
+                               {{$t "global.button.delete" }}
                             </button>
                         </div>
                     {{/content}}

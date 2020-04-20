@@ -76,7 +76,7 @@ $(document).ready(() => {
 		}).done(() => {
 			window.location.href = `/courses/${courseId}?activeTab=tools`;
 		}).fail(() => {
-			$.showNotification('Beim Hinzufügen des Tools ist ein Fehler aufgetreten.', 'danger');
+			$.showNotification($t('courses._course.tools.add.text.errorWhileAddingTool'), 'danger');
 		});
 	};
 
@@ -103,9 +103,9 @@ $(document).ready(() => {
 					const $addBbbToolModal = $('.add-bbb-modal');
 
 					populateModalForm($addBbbToolModal, {
-						title: 'Videokonferenzen im Kurs',
-						closeLabel: 'Abbrechen',
-						submitLabel: 'Hinzufügen',
+						title: $t('courses._course.tools.add.headline.videoConference'),
+						closeLabel: $t('global.button.cancel'),
+						submitLabel: $t('global.button.add'),
 					});
 					$addBbbToolModal.appendTo('body').modal('show');
 					$addBbbToolModal.off('submit').on('submit', (event) => {
@@ -117,8 +117,8 @@ $(document).ready(() => {
 				createLocalTool($editModal, tool);
 			} else {
 				populateModalForm($editModal, {
-					closeLabel: 'Abbrechen',
-					submitLabel: 'Speichern',
+					closeLabel: $t('global.button.cancel'),
+					submitLabel: $t('global.button.save'),
 					fields: tool,
 				});
 				populateCustomFields($editModal, tool.customs);

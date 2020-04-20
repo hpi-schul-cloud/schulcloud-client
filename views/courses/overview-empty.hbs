@@ -14,21 +14,27 @@
 				{{#if (userHasRole "student")}}
                 <h2 class="text-center">Mit der {{theme.title}} wird der Unterricht digital</h2>
                 <h3 class="h5 text-muted text-center">
-                  Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen.
+                  {{$t "courses.text.noCourseGetInvited"}}
                 </h3>
-              {{else}}
+                {{else}}
                 <h2 class="text-center">Mit der {{theme.title}} Unterricht digital gestalten</h2>
-                <h3 class="h5 text-muted text-center">
-                    Es gibt noch keine Kurse. Ein Kurs in der {{theme.short_title}} bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen.
-                </h3>
+                    {{#if (userHasRole "expert")}}
+                    <h3 class="h5 text-muted text-center">
+                        {{$t "courses.text.courseNoAccess"}}
+                    </h3>
+                    {{else}}
+                    <h3 class="h5 text-muted text-center">
+                        Es gibt noch keine Kurse. Ein Kurs in der {{theme.short_title}} bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen.
+                    </h3>
+                {{/if}}
               {{/if}}
             </div>
 
             {{#userHasPermission "COURSE_EDIT"}}
               <div class="row">
                   <div class="center buttons">
-                      <button class="btn btn-secondary btn-lg btn-import-course btn-first">Importiere einen Kurs</button>
-                      <a href="/courses/add" class="btn btn-primary btn-lg btn-add">Erstelle deinen ersten Kurs</a>
+                      <button class="btn btn-secondary btn-lg btn-import-course btn-first">{{$t "courses.button.importCourse"}}</button>
+                      <a href="/courses/add" class="btn btn-primary btn-lg btn-add">{{$t "courses.button.createFirstCourse"}}</a>
                   </div>
               </div>
             {{/userHasPermission}}
