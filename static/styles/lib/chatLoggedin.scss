@@ -32,11 +32,20 @@ footer {
 		margin-left: 10px;
 	}
 
+	// > hide explore public room
+	.mx_LeftPanel_explore {
+		display:none;
+	}
+
 	// > hide menu buttons
-	.mx_LeftPanel_explore,
 	.mx_RoomSubList_addRoom,
 	.mx_RoomTile_menuButton {
-		display: none !important;
+		//display: none !important;
+	}
+	// hide room settings (make public, shared)
+	.mx_SettingsFlag,
+	.mx_CreateRoomDialog_details {
+		display: none;
 	}
 
 	// > do not ask to activate desktop notifications
@@ -72,15 +81,15 @@ footer {
 	// reduce message menu
 	// > weiterleiten
 	.mx_MessageContextMenu_field:nth-child(2) {
-		dispaly: none;
+		display: none;
 	}
 	// > quellcode
 	.mx_MessageContextMenu_field:nth-child(3) {
-		dispaly: none;
+		display: none;
 	}
 	// > teilen
 	.mx_MessageContextMenu_field:nth-child(4) {
-		dispaly: none;
+		display: none;
 	}
 
 	// hide sticker creation
@@ -114,6 +123,17 @@ footer {
 	// hide room error messages
 	.mx_RoomPreviewBar_RoomNotFound {
 		display: none;
+	}
+
+	// hide room type changer and room settings
+	.mx_RoomTileContextMenu_tag_field {
+		display: none;
+	}
+	.mx_ContextualMenu_withChevron_left {
+		margin-top: 110px;
+		.mx_ContextualMenu_chevron_left {
+			display: none;
+		}
 	}
 
 	// hide audio/video calls
