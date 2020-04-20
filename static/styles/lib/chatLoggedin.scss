@@ -106,6 +106,16 @@ footer {
 		box-sizing: border-box;
 	}
 
+	// hide menu breadcrumbs if many rooms are present
+	.mx_RoomBreadcrumbs {
+		display: none;
+	}
+
+	// hide room error messages
+	.mx_RoomPreviewBar_RoomNotFound {
+		display: none;
+	}
+
 	// hide audio/video calls
 	.mx_MessageComposer_voicecall,
 	.mx_MessageComposer_videocall {

@@ -1,3 +1,34 @@
+function extractRoomId(matrixUserId) {
+	if (!matrixUserId) {
+		return '';
+	}
+	const servername = matrixUserId.substr(matrixUserId.indexOf(':') + 1);
+
+	// extract room id from url
+	let roomId = null;
+	let roomType = null;
+	const { pathname } = window.location;
+	// > from course
+	const courseMatches = RegExp('/courses/([^/]+).*').exec(pathname);
+	if (courseMatches && courseMatches.length >= 2 && courseMatches[1] !== 'add') {
+		roomId = courseMatches[1];
+		roomType = 'course';
+	}
+	// > from team
+	const teamMatches = RegExp('/teams/([^/]+).*').exec(pathname);
+	if (teamMatches && teamMatches.length >= 2 && teamMatches[1] !== 'add') {
+		roomId = teamMatches[1];
+		roomType = 'team';
+	}
+
+	if (!roomId || !roomType || !servername) {
+		return '';
+	}
+
+	// build matrix room id
+	return `#${roomType}_${roomId}:${servername}`;
+}
+
 function loadChatClient(session = null) {
 	// extract user id
 	let matrixUserId = '';
@@ -7,18 +38,6 @@ function loadChatClient(session = null) {
 		matrixUserId = window.localStorage.getItem('mx_user_id');
 	}
 
-	// extract room id
-	let roomId = '';
-	const matches = RegExp('/courses/([^/]+).*').exec(window.location.pathname);
-	if (matches && matches.length >= 2) {
-		roomId = matches[1];
-	}
-	let matrixRoomId = '';
-	if (matrixUserId && roomId) {
-		const servername = matrixUserId.substr(matrixUserId.indexOf(':') + 1);
-		matrixRoomId = `#course_${roomId}:${servername}`;
-	}
-
 	// create chat tag
 	const riotBox = document.createElement('section');
 	riotBox.id = 'matrixchat';
@@ -26,12 +45,13 @@ function loadChatClient(session = null) {
 	riotBox.dataset.vectorConfig = '/riot_config.json';
 	riotBox.dataset.vectorDefaultToggled = 'true';
 	riotBox.dataset.matrixLang = 'de';
-	riotBox.dataset.matrixRoomId = matrixRoomId;
+	riotBox.dataset.matrixRoomId = extractRoomId(matrixUserId);
 
 	if (session) {
 		riotBox.dataset.matrixHomeserverUrl = session.homeserverUrl;
 		riotBox.dataset.matrixUserId = session.userId;
 		riotBox.dataset.matrixAccessToken = session.accessToken;
+		riotBox.dataset.maxtrixDeviceId = session.deviceId;
 	}
 	document.body.appendChild(riotBox);
 
