@@ -55,7 +55,7 @@ footer {
 
 	// hide user id
 	.mx_InviteDialog_roomTile_userId,
-	.mx_MemberInfo_profileField {
+	.mx_MemberInfo_profile > .mx_MemberInfo_profileField:first-child {
 		display: none;
 	}
 
