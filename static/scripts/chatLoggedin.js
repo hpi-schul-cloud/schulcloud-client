@@ -70,10 +70,15 @@ function requestSession() {
 	return $.getJSON('/messenger/token');
 }
 
+let started = false;
 function ready() {
+	if (started) {
+		return;
+	}
 	if (window.innerWidth < 768) { // breakpoint: md
 		return; // screen to small to use embedded messenger
 	}
+	started = true;
 
 	// Find Matrix Session
 	// > in localstorage?
