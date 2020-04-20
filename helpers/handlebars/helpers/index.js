@@ -287,14 +287,14 @@ const helpers = app => ({
 		return i18n.getInstance(opts.data.local.currentUser)(key, data);
 	},
 	dict: (...keyValues) => {
-		const dict = {}
+		const dict = {};
 		keyValues.forEach((keyValue, index) => {
-		  if (!(index % 2)){
-			dict[keyValue] = keyValues[index + 1]
-		  }
-		})
-		return dict
-	  }
+			if (!(index % 2)) {
+				dict[keyValue] = keyValues[index + 1];
+			}
+		});
+		return dict;
+	},
 });
 
 
