@@ -721,17 +721,27 @@
 	},
 	"teams": {
 		"_team": {
+			"tab_label" : {
+				"files" : "Dateien",
+				"news" : "Neuigkeiten",
+				"dates" : "Termine"
+			},
 			"button": {
 				"leaveTeam": "Team verlassen"
 			},
 			"dropdown_menu": {
 				"link": {
-					"manageMembers": "Teammitglieder verwalten"
+					"editTeam" : "Team bearbeiten",
+					"deleteTeam" : "Team löschen",
+					"manageMembers": "Teammitglieder verwalten",
+					"seeMembers" : "Teammitglieder ansehen",
+					"leaveTeam" : "Team verlassen"
 				}
 			},
 			"events": {
 				"button": {
-					"add": "Hinzufügen"
+					"add": "Hinzufügen",
+					"addDate" : "Termin anlegen"
 				},
 				"headline": {
 					"addDate": "Termin hinzufügen",
@@ -739,7 +749,18 @@
 				}
 			},
 			"files": {
+				"button" : {
+					"toTeamFiles" : "Zu den Team-Dateien",
+					"deleteFolder" : "Ordner löschen",
+					"renameFolder" : "Ordner umbenennen",
+					"shareFolder" : "Ordner-Freigabe",
+					"changeSharingSettings" : "Freigabe-Einstellungen ändern",
+					"createFolder" : "Ordner erstellen"
+				},
 				"headline": {
+					"fileActions" : "Datei-Aktionen",
+					"files" : "Dateien",
+					"folders" : "Ordner",
 					"changeFilePermissions": "Freigabe-Einstellungen ändern"
 				},
 				"text": {
@@ -782,7 +803,14 @@
 					"owner": "Eigentümer"
 				}
 			},
-			"news": {},
+			"news": {
+				"link" : {
+					"showAllNews" : "Alle Neuigkeiten anzeigen..."
+				},
+				"button" : {
+					"addNews" : "Neuigkeit anlegen"
+				}
+			},
 			"text": {
 				"invitationAcceptedSuccess": "Teameinladung erfolgreich angenommen.",
 				"invitationAcceptionFailed": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
