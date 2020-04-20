@@ -7,9 +7,9 @@
 	{{/content}}
 	{{#content "page"}}
 	<div id="welcome-screen">
-		<h2 class="h4">{{$t "registration._registration.heading.welcomeToTheregister" }} {{theme.title}}!</h2>
-		<p>{{$t "registration._registration.text.theRegistrationProcessChanges" }} {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} {{$t "registration._registration.text.aLegalGuardianMustComplete" }} {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} {{$t "registration._registration.text.herself" }}</p>
-		<p>{{$t "registration._registration.text.pleaseChooseTheAgeOfTheStudents" }}</p>
+		<h2 class="h4">{{$t "registration._registration.heading.welcomeToTheregister" }} {{theme.title}}!</h2> 
+		<p>{{$t "registration._registration.text.theRegistrationProcessChanges" }} {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} {{$t "registration._registration.text.aLegalGuardianMustComplete" }} {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} {{$t "registration._registration.text.herself" }}</p>  
+		<p>{{$t "registration._registration.text.pleaseChooseTheAgeOfTheStudents" }}</p> 
 		<div class="form-group">
 			<fieldset>
 				<input type="radio" id="reg-u16" name="student-age" value="u16"> <label for="reg-u16">unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahre alt</label><br>
@@ -29,7 +29,8 @@
 
 		<button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>{{$t "registration._registration.button.further" }}</button>
 
-		<p class="mt-2 explanation nomargin">* {{$t "registration._registration.text.linguisticNote" }} {{theme.short_title}} {{$t "registration._registration.text.theMailForm" }}{{theme.short_title}} {{$t "registration._registration.text.isThereForEveryone" }} 🌈🎉🦄 </p>
+		<p class="mt-2 explanation nomargin">* {{$t "registration._registration.text.linguisticNote" }} {{theme.short_title}} {{$t "registration._registration.text.theMailForm" }}{{theme.short_title}} {{$t "registration._registration.text.isThereForEveryone" }} 🌈🎉🦄
+		</p>
 		{{#if importHash}}<input type="hidden" name="importHash" value="{{importHash}}" />{{/if}}
 		{{#if classOrSchoolId}}<input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />{{/if}}
 		{{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}

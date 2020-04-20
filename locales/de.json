@@ -724,6 +724,20 @@
 			"button": {
 				"further": "Weiter"
 			},
+			"global": {
+				"label": {
+					"birthDate": "Geburtsdatum:",
+					"emailAddress": "E-Mail-Adresse:",
+					"firstName": "Vorname:",
+					"lastName": "Nachname:"
+				},
+				"text": {
+					"forTheUseOfThe": "Für die Nutzung der",
+					"storesUsersData": "bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.",
+					"the": "Die",
+					"weNeedTheFollowingInformation": "benötigen wir folgende Angaben:"
+				}
+			},
 			"heading": {
 				"welcomeToTheregister": "Willkommen zur Anmeldung in der "
 			},
@@ -735,12 +749,6 @@
 				"global": {
 					"heading": {
 						"declarationOfConsent": "Einwilligungserklärung"
-					},
-					"label": {
-						"birthDate": "Geburtsdatum:",
-						"emailAddress": "E-Mail-Adresse:",
-						"firstName": "Vorname:",
-						"lastName": "Nachname:"
 					},
 					"text": {
 						"i": "Ich"
@@ -754,8 +762,10 @@
 				"text": {
 					"explainTheFollowing": "erkläre Folgendes:",
 					"password": "Passwort: ",
+					"signInPlease": "anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"youCanNowLogin": "Du kannst dich jetzt in der Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
+					"youCanUseTheFollowingData": "Mit folgenden Daten kannst du dich in der",
 					"yourSSOAccountDetails": "Deine SSO-Accountdaten sind jetzt freigeschaltet."
 				}
 			},
