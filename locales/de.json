@@ -1,4 +1,64 @@
 {
+	"teams":{
+		"_team" :{
+			"text" : {
+				"noTopicFoundWithCode" :"Es wurde kein Thema für diesen Code gefunden.",
+ 				"invitationAcceptedSuccess" : "Teameinladung erfolgreich angenommen.",
+				"invitationAcceptionFailed" : "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams."
+			},
+			"members" : {
+				"text" : {
+					"member" : "Teilnehmer",
+					"expert" : "Externer Experte",
+					"leader" : "Leiter",
+					"admin" : "Administrator",
+					"owner" : "Eigentümer"
+				},
+				"label" : {
+					"externExpert" : "externer Experte",
+					"externTeacher" : "Lehrer anderer Schule (Team-Admin)",
+					"sendInvitationAgain" : "Einladung erneut versenden",
+					"deleteInvitation" : "Einladung löschen",
+					"editRole" : "Rolle bearbeiten",
+					"removeUser" : "Nutzer entfernen",
+					"leavingTeamRequiresNewOwner" : "Das Verlassen des Teams erfordert einen anderen Eigentümer",
+					"removeClass" : "Klasse entfernen"
+				},
+				"headline" : {
+					"teamMembers" : "Team-Teilnehmer",
+					"firstName" : "Vorname",
+					"surname" : "Nachname",
+					"role" : "Rolle",
+					"school" : "Schule",
+					"actions" : "Aktionen",
+					"name" : "Name",
+					"student" : "Schüler",
+					"email" : "E-Mail",
+					"invitedOn" : "Eingeladen am"
+				}
+			}
+		},
+		"headline" : {
+			"myTeams" : "Meine Teams",
+			"duplicateTeam" : "Team duplizieren"
+		},
+		"placeholder" :{
+			"searchForTeams" : "Suche nach Teams"
+		},
+		"button" : {
+			"duplicateTeam" : "Team duplizieren"
+		},
+		"add":{
+			"headline" : {
+				"editTeam" : "Team bearbeiten",
+				"createTeam" : "Team anlegen"
+			},
+			"button" :{
+				"createTeam" : "Team anlegen",
+				"saveChanges" : "Änderungen speichern"
+			}
+		}
+	},
 	"about": {
 		"button": {
 			"showLess": "Weniger anzeigen",
