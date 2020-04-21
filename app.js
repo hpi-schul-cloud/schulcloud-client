@@ -41,6 +41,7 @@ if (SENTRY_DSN) {
 		dsn: SENTRY_DSN,
 		environment: app.get('env'),
 		release: version,
+		sampleRate: Configuration.get('SENTRY_SAMPLE_RATE'),
 		integrations: [
 			new Sentry.Integrations.Console(),
 		],
