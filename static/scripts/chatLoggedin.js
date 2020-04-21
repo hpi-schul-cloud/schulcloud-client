@@ -50,7 +50,7 @@ function addMatrixchatElement(session) {
 	riotBox.dataset.vectorIndexeddbWorkerScript = '/indexeddb-worker.js';
 	riotBox.dataset.vectorConfig = '/riot_config.json';
 	riotBox.dataset.vectorDefaultToggled = 'true';
-	riotBox.dataset.matrixLang = 'de';
+	riotBox.dataset.matrixLang = window.userLanguage || 'de';
 
 	// force the selection of a specific room
 	if (matrixRoomId) {
