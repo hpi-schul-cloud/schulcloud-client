@@ -57,8 +57,8 @@
 
       <section data-panel="section-2">
         <h2 class="h4">{{$t "registration._registration.global.heading.declarationOfConsent" }}</h2>
-        <p>Bitte bestätige folgende Einwilligungserklärungen, damit du die {{theme.short_title}} nutzen kannst.</p>
-        <p>{{$t "registration._registration.student.global.text.i" }}, <b data-from="firstName"></b> <b data-from="lastName"></b>, {{$t "registration._registration.student.text.explainTheFollowing" }}</p>
+        <p>{{$t "registration._registration.student.text.pleaseconfirmTheFollowingDeclarations" }} {{theme.short_title}} {{$t "registration._registration.global.text.canUse" }}.</p>
+        <p>{{$t "registration._registration.global.text.i" }}, <b data-from="firstName"></b> <b data-from="lastName"></b>, {{$t "registration._registration.global.text.explainTheFollowing" }}</p>
           {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
 
       </section>

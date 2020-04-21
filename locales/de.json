@@ -724,6 +724,23 @@
 			"button": {
 				"further": "Weiter"
 			},
+			"employee": {
+				"heading": {
+					"yourData": "Deine Daten"
+				},
+				"input": {
+					"yourEmailAddress": "Deine E-Mail-Adresse:"
+				},
+				"label": {
+					"password": "Passwort:",
+					"repeatPassword": "Passwort wiederholen:"
+				},
+				"text": {
+					"pleaseconfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die Vorteile der",
+					"signIn": "anmelden.",
+					"youCanNowInThe": "Du kannst dich jetzt in der"
+				}
+			},
 			"global": {
 				"button": {
 					"openLogin": "Login öffnen",
@@ -744,7 +761,10 @@
 					"yourEmailAddress": "Ihre E-Mail-Adresse:"
 				},
 				"text": {
+					"canUse": "nutzen kann:",
+					"explainTheFollowing": "erkläre Folgendes:",
 					"forTheUseOfThe": "Für die Nutzung der",
+					"i": "Ich",
 					"password": "Passwort: ",
 					"storesUsersData": "bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.",
 					"the": "Die",
@@ -768,7 +788,6 @@
 				},
 				"text": {
 					"aParentOrLegalGuardian": "Jahren muss ein Erziehungsberechtigter in die Nutzung der",
-					"canUse": "nutzen kann:",
 					"doesNotPassOnTheAddress": "gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 					"forStudentsUnder": "Für Schüler unter",
 					"forThisWeNeedFollowing": "Dazu benötigen wir folgende Angaben von Ihnen:",
@@ -787,16 +806,11 @@
 				}
 			},
 			"student": {
-				"global": {
-					"text": {
-						"i": "Ich"
-					}
-				},
 				"heading": {
 					"personalData": "Persönliche Daten"
 				},
 				"text": {
-					"explainTheFollowing": "erkläre Folgendes:",
+					"pleaseconfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die",
 					"signInPlease": "anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.",
 					"youCanNowLogin": "Du kannst dich jetzt in der Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
 					"youCanUseTheFollowingData": "Mit folgenden Daten kannst du dich in der",
