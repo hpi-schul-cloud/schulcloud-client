@@ -13,6 +13,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
+const queryString = require('querystring');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -546,15 +547,23 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			type: messageType,
 			message,
 		};
-		res.redirect(req.body.referrer || req.header('Referer'));
+		const query = queryString.stringify({
+			"type": "success",
+			"message": encodeURIComponent(message)
+		});
+		res.redirect((req.body.referrer || req.header('Referer')) + '/?' + query);
 		return;
 	} catch (err) {
+		let message = 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.';
 		req.session.notification = {
 			type: 'danger',
-			message:
-				'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
+			message: message,
 		};
-		res.redirect(req.body.referrer || req.header('Referer'));
+		const query = queryString.stringify({
+			"type": "danger",
+			"message": encodeURIComponent(message)
+		});
+		res.redirect((req.body.referrer || req.header('Referer')) + '/?' + query);
 	}
 };
 
