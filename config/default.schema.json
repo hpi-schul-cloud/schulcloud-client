@@ -106,6 +106,7 @@
 		},
 		"MATRIX_MESSENGER_BUNDLE": {
 			"type": "string",
+			"format": "uri",
 			"default": "https://embed.stomt.com/bundles/03cf3aa140359adf6a00/bundle.js",
 			"description": "Where to find the messenger dependencies."
 		},

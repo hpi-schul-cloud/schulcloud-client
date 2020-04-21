@@ -1,42 +1,48 @@
-function extractRoomId(matrixUserId) {
+function findMatrixUserId(session = null) {
+	if (session) {
+		return session.userId;
+	}
+
+	return window.localStorage.getItem('mx_user_id');
+}
+
+function extractRoomTypeAndIdFromPath(path) {
+	const matches = RegExp('/(course|team)s/([0-9a-f]{24})')
+		.exec(path);
+	if (matches && matches.length >= 3) {
+		return {
+			roomType: matches[1],
+			roomId: matches[2],
+		};
+	}
+
+	return {
+		roomType: null,
+		roomId: null,
+	};
+}
+
+function extractServernameFromMatrixUserId(matrixUserId) {
 	if (!matrixUserId) {
-		return '';
+		return null;
 	}
-	const servername = matrixUserId.substr(matrixUserId.indexOf(':') + 1);
+	return matrixUserId.substr(matrixUserId.indexOf(':') + 1);
+}
 
-	// extract room id from url
-	let roomId = null;
-	let roomType = null;
-	const { pathname } = window.location;
-	// > from course
-	const courseMatches = RegExp('/courses/([^/]+).*').exec(pathname);
-	if (courseMatches && courseMatches.length >= 2 && courseMatches[1] !== 'add') {
-		roomId = courseMatches[1];
-		roomType = 'course';
-	}
-	// > from team
-	const teamMatches = RegExp('/teams/([^/]+).*').exec(pathname);
-	if (teamMatches && teamMatches.length >= 2 && teamMatches[1] !== 'add') {
-		roomId = teamMatches[1];
-		roomType = 'team';
-	}
-
+function composeMatrixRoomId(roomType, roomId, servername) {
 	if (!roomId || !roomType || !servername) {
-		return '';
+		return null;
 	}
 
 	// build matrix room id
 	return `#${roomType}_${roomId}:${servername}`;
 }
 
-function loadChatClient(session = null) {
-	// extract user id
-	let matrixUserId = '';
-	if (session) {
-		matrixUserId = session.userId;
-	} else {
-		matrixUserId = window.localStorage.getItem('mx_user_id');
-	}
+function addMatrixchatElement(session) {
+	const matrixUserId = findMatrixUserId(session);
+	const { roomType, roomId } = extractRoomTypeAndIdFromPath(window.location.pathname);
+	const servername = extractServernameFromMatrixUserId(matrixUserId);
+	const matrixRoomId = composeMatrixRoomId(roomType, roomId, servername);
 
 	// create chat tag
 	const riotBox = document.createElement('section');
@@ -45,7 +51,11 @@ function loadChatClient(session = null) {
 	riotBox.dataset.vectorConfig = '/riot_config.json';
 	riotBox.dataset.vectorDefaultToggled = 'true';
 	riotBox.dataset.matrixLang = 'de';
-	riotBox.dataset.matrixRoomId = extractRoomId(matrixUserId);
+
+	// force the selection of a specific room
+	if (matrixRoomId) {
+		riotBox.dataset.matrixRoomId = matrixRoomId;
+	}
 
 	if (session) {
 		riotBox.dataset.matrixHomeserverUrl = session.homeserverUrl;
@@ -54,7 +64,9 @@ function loadChatClient(session = null) {
 		riotBox.dataset.maxtrixDeviceId = session.deviceId;
 	}
 	document.body.appendChild(riotBox);
+}
 
+function loadMessengerBundle() {
 	// load javascript
 	const bundle = window.matrixBundle;
 	if (!bundle) {
@@ -66,38 +78,47 @@ function loadChatClient(session = null) {
 	document.head.appendChild(riotScript);
 }
 
+function hasActiveSessionInLocalStorage() {
+	return window.localStorage
+		&& window.localStorage.getItem('mx_hs_url')
+		&& window.localStorage.getItem('mx_access_token')
+		&& window.localStorage.getItem('mx_user_id');
+}
+
 function requestSession() {
 	return $.getJSON('/messenger/token');
 }
 
-let started = false;
-function ready() {
-	if (started) {
-		return;
-	}
-	if (window.innerWidth < 768) { // breakpoint: md
-		return; // screen to small to use embedded messenger
-	}
-	started = true;
-
+async function initializeMessenger() {
 	// Find Matrix Session
-	// > in localstorage?
-	if (window.localStorage
-		&& window.localStorage.getItem('mx_hs_url')
-		&& window.localStorage.getItem('mx_access_token')
-		&& window.localStorage.getItem('mx_user_id')
-	) {
-		// session available, the chat will access it itself
-		loadChatClient();
+	let session;
+	if (hasActiveSessionInLocalStorage()) {
+		// session available, the messenger will access it itself
+		session = null;
 	} else {
-		// > get new Session from Server and pass it to the chat
-		requestSession()
-			.then(loadChatClient)
-			.catch((error) => {
-				/* eslint-disable-next-line no-console */
-				console.error('Failed to request Messenger Session.', error);
-			});
+		// get new session from Server
+		session = await requestSession();
 	}
+
+	addMatrixchatElement(session);
+	loadMessengerBundle();
 }
 
-$(document).ready(ready);
+let onReadyTriggered = false;
+
+async function onDocumentReady() {
+	if (window.innerWidth < 768) { // breakpoint: md
+		return false; // screen to small to use embedded messenger
+	}
+	// ensure that the initialization is only triggered once
+	if (onReadyTriggered) {
+		return false;
+	}
+	onReadyTriggered = true;
+
+	await initializeMessenger();
+	return true;
+}
+
+$(document)
+	.ready(onDocumentReady);
