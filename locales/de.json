@@ -838,6 +838,19 @@
 				"weKindlyAskYou": "Wir bitten Sie, Ihr Kind zunächst in der"
 			}
 		},
+		"deprecatedWarning": {
+			"heading": {
+				"sorryItDidnotWork": "Entschuldige, das hat nicht geklappt"
+			},
+			"text": {
+				"weHaveRevisedAndImprovedRegistration": "Wir haben die Registrierung in der HPI Schul-Cloud überarbeitet und verbessert. Leider sind deswegen alte Regisitrierungslinks nicht mehr gültig. Bitte kontaktiere deinen Lehrer oder Administrator, um einen neuen Registrierungslink zu erhalten."
+			}
+		},
+		"pin": {
+			"input": {
+				"verificationCode": "Bestätigungscode:"
+			}
+		},
 		"requestPin": {
 			"button": {
 				"requestVerificationCode": "Bestätigungscode jetzt anfordern"
@@ -847,6 +860,14 @@
 				"theCodeCanBeRequestedSeveralTimes": "Der Code kann mehrfach angefordert werden. Das erneute Zusenden macht bisher versendete Codes allerdings ungültig. Warte vor dem erneuten Anfordern lieber einen Moment länger und prüfe ggf. den Spam-Ordner in deinem E-Mail-Postfach.",
 				"weOnlyHaveToCheckWhether": "Wir müssen nur kurz prüfen, ob es deine E-Mail-Adresse wirklich gibt."
 			}
+		},
+		"text": {
+			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
+			"iAgreeThatMyPersonalData": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der",
+			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
+			"iHaveThe": "Ich habe die",
+			"readAndAgreeWith": "gelesen und stimme ihr zu.",
+			"termsOfUseOfThe": "Nutzungsordnung der"
 		}
 	}
 }
