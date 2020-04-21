@@ -20,13 +20,13 @@
                 {{/if}}
 
                 <div class="form-group">
-                    <label>Name des Teams</label>
-                    <input class="form-control" data-testid="team_name" name="name" type="text" placeholder="A-Team" value="{{team.name}}"
-                           required/>
+                    <label>{{$t "teams._team.edit.label.teamName"}}</label>
+                    <input class="form-control" data-testid="team_name" name="name" type="text"
+                           placeholder="{{$t "teams._team.edit.placeholder.teamName"}}" value="{{team.name}}" required/>
                 </div>
 
                 <div class="form-group">
-                    <label>Beschreibung des Teams (optional)</label>
+                    <label>{{$t "teams._team.edit.label.teamDescription"}}</label>
                     <textarea class="form-control" data-testid="description_team" name="description">{{team.description}}</textarea>
                 </div>
 
@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label>
                                 <input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../team.features}}checked{{/inArray}}>
-                                Teilnahmer:innen erlauben im Team Chat Nachrichten zu verfassen
+                                {{$t "teams._team.edit.label.activateBidirectionalMessenger"}}
                             </label>
                         </div>
                     {{/inArray}}
@@ -57,19 +57,19 @@
                         <label>
                             <input type="checkbox" name="videoconference" value="true" {{#inArray "videoconference" @root.team.features}}checked{{/inArray}}
                                 {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
-                            Videokonferenzen für Team aktivieren
+                            {{$t "teams._team.edit.label.activateVideoConferences"}}
                         </label>
                         {{#inArray "videoconference" @root.schoolData.features}}
                         {{else}}
                         <small class="form-text text-muted">
-                            Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen.
+	                        {{$t "teams._team.edit.text.videoConferencesNotAllowedBySchool"}}
                         </small>
                         {{/inArray}}
                     </div>
                 {{/ifConfig}}
 
                 <div class="form-group">
-                    <label>Farbe des Teams:</label>
+                    <label>{{$t "teams._team.edit.label.teamColor"}}</label>
                     <input name="color" type="color"
                            value="{{#if team.color}}{{team.color}}{{else}}#d32f2f{{/if}}" required/>
                 </div>
