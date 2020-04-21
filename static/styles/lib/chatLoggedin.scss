@@ -215,25 +215,48 @@ footer {
 	input[type=text].mx_LeftPanel_filterRooms {
 		font-size: var(--text-xs);
 		color: $chat-color-primary;
-		padding-left: 41px !important;
+		padding-left: 52px !important;
 	}
 
 	.mx_RoomSubList_label > span {
 		font-size: var(--text-xs);
 		color: $chat-color-primary;
-		margin-left: 19px;
+		margin-left: 30px;
 	}
 
 	.mx_RoomTile_name {
 		font-size: var(--text-xs);
 		color: $chat-color-text;
-		padding-left: 12px;
+		padding-left: 23px;
 	}
 
 	.mx_RoomSubList_chevron {
 		background-color: $chat-color-primary;
 		opacity: 0.9;
 		margin-left: -1px;
+	}
+
+	.mx_RoomSubList_addRoom {
+		background-color: $chat-color-primary;
+	}
+
+	.mx_RoomSubList_badge > div,
+	.mx_RoomTile_badge.mx_RoomTile_badgeUnread, .mx_RoomTile_unreadNotify .mx_RoomTile_badge {
+		background-color: #ff4b55;
+	}
+
+	.mx_SearchBox .mx_SearchBox_closeButton {
+		margin-right: 6px;
+	}
+
+	.mx_RoomTileContextMenu_leave {
+		font-size: 0;
+		padding-left: 3px;
+
+		&:after {
+			font-size: 14px;
+			content: 'Raum Verlassen';
+		}
 	}
 
 	.mx_RoomSubList_chevronDown {
