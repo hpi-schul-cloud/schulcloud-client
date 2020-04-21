@@ -11,6 +11,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [22.9.7] - 2020-04-21
+
+### Added in 22.9.7
+
+- part of frontpage now loading content from sc blog.
+
 ## [22.9.2] - 2020-04-09
 
 ### Changed in 22.9.2
