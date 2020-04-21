@@ -42,9 +42,11 @@ if (SENTRY_DSN) {
 		environment: app.get('env'),
 		release: version,
 		sampleRate: Configuration.get('SENTRY_SAMPLE_RATE'),
+	/*	Sentry.Handlers.requestHandler() is used
 		integrations: [
 			new Sentry.Integrations.Console(),
 		],
+	*/
 	});
 	Sentry.configureScope((scope) => {
 		scope.setTag('frontend', false);
@@ -161,6 +163,7 @@ app.use(async (req, res, next) => {
 	res.locals.production = req.app.get('env') === 'production';
 	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
 	res.locals.SENTRY_DSN = SENTRY_DSN;
+	res.locals.SENTRY_SAMPLE_RATE = Configuration.get('SENTRY_SAMPLE_RATE');
 	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
 	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
 	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;

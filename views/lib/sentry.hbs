@@ -9,9 +9,11 @@
 		dsn: "{{@root.SENTRY_DSN}}",
 		environment: "{{@root.env}}",
 		release: "{{@root.version}}",
+		sampleRate :"{{@root.SENTRY_SAMPLE_RATE}}"
 		integrations: [
 			new SentryIntegrations.CaptureConsole()
 		],
+		levels: ['warn', 'error'],
 		beforeSend: (event) => {
 			if (event.request && event.request.url) {
 				var cleanUrl = removeIds(event.request.url);
