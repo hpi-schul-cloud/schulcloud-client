@@ -40,8 +40,8 @@
 	"account": {
 		"button": {
 			"activateNotifications": "Benachrichtigungen aktivieren",
-			"saveAccountSetting": "Accounteinstellungen speichern",
-			"saveTeamSetting": "Teameinstellungen speichern",
+			"saveAccountSettings": "Accounteinstellungen speichern",
+			"saveTeamSettings": "Teameinstellungen speichern",
 			"sendTestNotification": "Test-Benachrichtigung senden"
 		},
 		"global": {
@@ -58,7 +58,7 @@
 			}
 		},
 		"label": {
-			"notificationsetting": "Benachrichtigungseinstellungen",
+			"notificationsettings": "Benachrichtigungseinstellungen",
 			"providers": "Anbieter"
 		},
 		"text": {
@@ -100,7 +100,7 @@
 				"printLinkWithQRCode": "Link mit QR-Code Drucken"
 			},
 			"label": {
-				"addStudentFromPreviousYearClass": "Schüler aus Vorjahres-Klasse hinzufügen",
+				"addStudentFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
 				"assignPassword": "Passwort vergeben:",
 				"birthdate": "Geburtsdatum:",
 				"filterBySchoolYear": "Nach Schuljahr filtern",
@@ -135,8 +135,8 @@
 				"addNewAppoinment": "Neuen Termin hinzufügen",
 				"contactSupport": "Support kontaktieren",
 				"createLinkSheet": "Link-Druckbogen erstellen",
-				"filterAdd2": "Filter hinzufügen",
-				"filterApply2": "Übernehmen",
+				"filterAdd": "Filter hinzufügen",
+				"filterApply": "Übernehmen",
 				"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden"
 			},
 			"label": {
@@ -144,7 +144,7 @@
 				"chooseDate": "Termine auswählen",
 				"classes": "Klassen:",
 				"colorOfTheCourse": "Farbe des Kurses:",
-				"courseName": "Name des Kurses",
+				"nameOfTheCourse": "Name des Kurses",
 				"dataProtection": "Datenschutz",
 				"dateOfBirth": "Geburtsdatum (optional):",
 				"emailAddress": "E-Mail-Adresse:",

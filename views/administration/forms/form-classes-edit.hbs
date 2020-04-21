@@ -18,7 +18,7 @@
 {{/ifeq}}
 
 <div class="form-group">
-	<label>{{$t "administration.label.schoolYear" }} <sup>*</sup></label>
+	<label>{{$t "administration.label.schoolYear" }}<sup>*</sup></label>
 	<select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen"
 		{{#ifCond edit '&&' isCustom}}{{#unless @root.class.keepYear}}disabled {{/unless}}{{/ifCond}}>
 		{{#each schoolyears}}
