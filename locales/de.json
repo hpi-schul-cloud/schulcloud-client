@@ -719,6 +719,33 @@
 			"unpublished": "Unveröffentlicht"
 		}
 	},
-	"topic":{
+	"topic": {
+		"_topic": {
+			"button": {
+				"editTopic": "Thema bearbeiten"
+			},
+			"global": {
+				"button": {
+					"addPrivateTask": "private Aufgabe hinzufügen",
+					"addTask": "Aufgabe hinzufügen",
+					"toEdit": "Bearbeiten"
+				},
+				"heading": {
+					"task": "Aufgabe"
+				}
+			},
+			"heading": {
+				"assignedTasks": "Gestellte Aufgaben",
+				"privateTasks": "Private Aufgaben",
+				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
+			},
+			"label": {
+				"titleOfTheTopic": "Titel des Themas",
+				"content": "Inhalte"
+			},
+			"text": {
+				"shareWithOthersTeachers": "mit anderen Lehrern teilen"
+			}
+		}
 	}
 }
