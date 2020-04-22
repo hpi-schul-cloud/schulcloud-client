@@ -368,6 +368,18 @@ router.post('/submit/:id/files', function (req, res, next) {
 		.catch(err => res.send(err));
 });
 
+router.post('/submit/:id/grade-files', function (req, res, next) {
+	let submissionId = req.params.id;
+	api(req).get('/submissions/' + submissionId).then((submission) => {
+		submission.gradeFileIds.push(req.body.fileId);
+		return api(req).patch('/submissions/' + submissionId, {
+			json: submission,
+		});
+	})
+		.then(result => res.json(result))
+		.catch(err => res.send(err));
+});
+
 /* adds shared permission for teacher in the corresponding homework */
 router.post('/submit/:id/files/:fileId/permissions', async (req, res) => {
 	const { fileId, id: submissionId } = req.params;
