@@ -9,7 +9,7 @@
 		dsn: "{{getConfig 'SENTRY_DSN'}}",
 		environment: "{{@root.env}}",
 		release: "{{@root.version}}",
-		sampleRate: "{{getConfig 'SENTRY_SAMPLE_RATE'}}"
+		sampleRate: {{getConfig 'SENTRY_SAMPLE_RATE'}},
 		integrations: [
 			new SentryIntegrations.CaptureConsole({
 				levels: [
@@ -33,10 +33,10 @@
 		{{#if @root.currentUser }}
 		scope.setTag({ "schoolId": "{{@root.currentUser.schoolId}}" });
 		{{/if}}
-				scope.setTag("frontend", true);
-				scope.setTag("theme", "{{@root.theme.name}}");
-				scope.setTag("sha", "{{@root.sha}}");
-				scope.setTag("domain", "{{@root.domain}}");
-			});
+		scope.setTag("frontend", true);
+		scope.setTag("theme", "{{@root.theme.name}}");
+		scope.setTag("sha", "{{@root.sha}}");
+		scope.setTag("domain", "{{@root.domain}}");
+	});
 </script>
 {{/hasConfig}}
