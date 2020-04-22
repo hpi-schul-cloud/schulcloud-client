@@ -13,7 +13,7 @@
 		integrations: [
 			new SentryIntegrations.CaptureConsole({
 				levels: [
-					//'log', 'info', 
+					//'log', 'info',
 					'warn', 'error',
 					'debug', 'assert'
 				]
@@ -32,9 +32,7 @@
 		scope.setLevel('warn');
 		{{#if @root.currentUser }}
 		scope.setTag({ "schoolId": "{{@root.currentUser.schoolId}}" });
-		{
-			{
-				/if}}
+		{{/if}}
 				scope.setTag("frontend", true);
 				scope.setTag("theme", "{{@root.theme.name}}");
 				scope.setTag("sha", "{{@root.sha}}");
