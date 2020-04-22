@@ -523,7 +523,8 @@
 			"close": "Schließen",
 			"delete": "Löschen",
 			"open": "Öffnen",
-			"save": "Speichern"
+			"save": "Speichern",
+			"saveChanges": "Änderungen Speichern"
 		},
 		"label": {
 			"room": "Raum"
