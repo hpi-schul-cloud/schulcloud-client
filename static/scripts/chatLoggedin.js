@@ -63,6 +63,7 @@ function addMatrixchatElement(session) {
 		riotBox.dataset.matrixRoomId = matrixRoomId;
 	}
 
+	// apply session
 	if (session) {
 		riotBox.dataset.matrixHomeserverUrl = session.homeserverUrl;
 		riotBox.dataset.matrixUserId = session.userId;
