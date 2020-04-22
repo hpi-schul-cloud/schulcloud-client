@@ -101,8 +101,6 @@
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
-				"assignPassword": "Passwort vergeben:",
-				"birthdate": "Geburtsdatum:",
 				"filterBySchoolYear": "Nach Schuljahr filtern",
 				"invitationLink": "Einladungslink",
 				"pleaseNote": "Bitte beachte:",
@@ -141,10 +139,11 @@
 			},
 			"label": {
 				"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)",
+				"assignPassword": "Passwort vergeben:",
+				"birthdate": "Geburtsdatum:",
 				"chooseDate": "Termine auswählen",
 				"classes": "Klassen:",
 				"colorOfTheCourse": "Farbe des Kurses:",
-				"nameOfTheCourse": "Name des Kurses",
 				"dataProtection": "Datenschutz",
 				"dateOfBirth": "Geburtsdatum (optional):",
 				"emailAddress": "E-Mail-Adresse:",
@@ -152,6 +151,7 @@
 				"from": "Von",
 				"lastName": "Nachname:",
 				"lengthOfLesson": "Dauer der Schulstunde",
+				"nameOfTheCourse": "Name des Kurses",
 				"room": "Raum",
 				"startOfLesson": "Start der Schulstunde",
 				"studentParticipants": "Schüler / Teilnehmer",
@@ -166,6 +166,7 @@
 				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
 				"chatIsActivated": "Chat ist aktiviert",
 				"dataProtection": "Datenschutzerklärung",
+				"forStudentsUnder": "Für Schüler unter",
 				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
 				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
@@ -348,6 +349,13 @@
 			"youCanAlsoOpenEntries": "Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol",
 			"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du",
 			"yourClassDoesntFitInto": "Deine Klasse passt nicht ins klassische Schema?"
+		},
+		"users_skipRegistration": {
+			"text": {
+				"forStudentsAged14": "Für Schüler ab 14 Jahren: Einverständnis des Schülers",
+				"years_parentalConsent": "Jahren: Einverständnis der Eltern",
+				"youGiveTheFollowingConsent": "Du erteilst folgende Einwilligungen im Namen des Nutzers:"
+			}
 		}
 	},
 	"calendar": {
@@ -870,6 +878,9 @@
 					"lastName": "Nachname:",
 					"mustNotBeYourChildsEmailAddress": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
 					"yourEmailAddress": "Ihre E-Mail-Adresse "
+				},
+				"text": {
+					"forStudentsUnder": "Für Schüler unter"
 				}
 			},
 			"heading": {
@@ -881,7 +892,6 @@
 				"amLegalGuardianFor": "bin erziehungsberechtigt für",
 				"andExplainTheFollowing": "und erkläre Folgendes:",
 				"doesNotPassOnTheAddress": "gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
-				"forStudentsUnder": "Für Schüler unter",
 				"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
 				"islegallyValidThe": "rechtlich gültig ist. Die",
 				"pleaseConfirmTheFollowingDeclaration": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der Schul-Cloud nutzen kann:",
