@@ -1,3 +1,8 @@
+const AUTO_SELECT_ROOM_SCOPES = [
+	'course',
+	'team',
+];
+
 function findMatrixUserId(session = null) {
 	if (session) {
 		return session.userId;
@@ -7,7 +12,8 @@ function findMatrixUserId(session = null) {
 }
 
 function extractRoomTypeAndIdFromPath(path) {
-	const matches = RegExp('/(course|team)s/([0-9a-f]{24})')
+	const scopes = AUTO_SELECT_ROOM_SCOPES.join('|');
+	const matches = RegExp(`^/(${scopes})s/([0-9a-f]{24})`)
 		.exec(path);
 	if (matches && matches.length >= 3) {
 		return {
