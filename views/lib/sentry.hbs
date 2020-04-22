@@ -30,7 +30,7 @@
 	});
 	Sentry.configureScope((scope) => {
 		scope.setLevel('warn');
-		{ {#if @root.currentUser } }
+		{{#if @root.currentUser }}
 		scope.setTag({ "schoolId": "{{@root.currentUser.schoolId}}" });
 		{
 			{
