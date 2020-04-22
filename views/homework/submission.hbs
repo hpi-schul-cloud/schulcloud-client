@@ -12,7 +12,7 @@
       {{/if}}
 
       {{#if @root.submission}}
-        {{#embed "homework/components/submission_uploaded_files" deletionAllowed=true submission=@root.submission}}{{/embed}}
+        {{#embed "homework/components/submission_uploaded_files" fileIds=@root.submission.fileIds deletionAllowed=true submission=@root.submission}}{{/embed}}
          <input type="hidden" name="_method" data-force-value="true" value="patch"/>
       {{else}}
         <div class="form-group section-uploaded-files">
@@ -32,7 +32,7 @@
             <label for="teamMembers1">{{$t "homework.label.selectTeamMembers" }}</label>
             <select name="teamMembers" id="teamMembers" multiple data-placeholder="Mitstreiter auswählen">
                 {{#each @root.students}}
-                    <option value="{{this._id}}" 
+                    <option value="{{this._id}}"
                         {{#if @root.submission}}
                             {{#inArray this._id @root.submission.teamMemberIds}}selected{{/inArray}}
                             {{#ifeq this._id @root.submission.studentId._id}} selected{{/ifeq}}

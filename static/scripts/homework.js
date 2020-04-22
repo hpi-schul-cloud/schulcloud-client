@@ -13,6 +13,13 @@ const getDataValue = function(attr) {
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
 
+function isSubmissionGradeUpload() {
+	// Uses the fact that the page can only ever contain one file upload form,
+	// either nested in the submission or the comment tab. And if it is in the
+	// comment tab, then it is the submission grade upload
+	return $('#comment .section-upload').length > 0
+}
+
 $(document).on('pageload', () => {
     MathJax.Hub.Queue(["Typeset",MathJax.Hub])
 });
@@ -340,8 +347,8 @@ $(document).ready(() => {
             this.on("success", function (file, response) {
                 finishedFilesSize += file.size;
 
-                var parentId = getCurrentParent();
-                var params = {
+                const parentId = getCurrentParent();
+                const params = {
                     name: file.name,
                     owner: getOwnerId(),
                     type: file.type,
@@ -359,12 +366,14 @@ $(document).ready(() => {
                     // add submitted file reference to submission
                     // hint: this only runs when an submission is already existing. if not, the file submission will be
                     // only saved when hitting the save button in the corresponding submission form
-                    let submissionId = $("input[name='submissionId']").val();
-                    let homeworkId = $("input[name='homeworkId']").val();
+                    const submissionId = $("input[name='submissionId']").val();
+                    const homeworkId = $("input[name='homeworkId']").val();
 
-                    let teamMembers = $('#teamMembers').val();
+                    const teamMembers = $('#teamMembers').val();
                     if (submissionId) {
-                        $.post(`/homework/submit/${submissionId}/files`, {fileId: data._id, teamMembers: teamMembers}, _ => {
+						const fileType = isSubmissionGradeUpload() ? 'grade-files' : 'files'
+
+                        $.post(`/homework/submit/${submissionId}/${fileType}`, {fileId: data._id, teamMembers: teamMembers}, () => {
                             $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`, {teamMembers: teamMembers});
                         });
                     } else {
