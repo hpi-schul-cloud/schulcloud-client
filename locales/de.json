@@ -740,11 +740,16 @@
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
 			},
 			"label": {
-				"titleOfTheTopic": "Titel des Themas",
-				"content": "Inhalte"
+				"content": "Inhalte",
+				"titleOfTheTopic": "Titel des Themas"
 			},
 			"text": {
 				"shareWithOthersTeachers": "mit anderen Lehrern teilen"
+			}
+		},
+		"form_share": {
+			"label": {
+				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
 			}
 		}
 	}
