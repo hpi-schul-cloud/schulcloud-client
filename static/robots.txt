@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /registration
+Disallow: /link
+Disallow: /*?
+Disallow: /*/
+Allow: /mint-ec

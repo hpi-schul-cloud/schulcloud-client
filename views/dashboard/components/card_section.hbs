@@ -1,12 +1,12 @@
 <section class="section section-{{section-id}}">
-    <div class="container-fluid">
-        {{#if title}}
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 class="h5"><a class="dashboard-title" href="{{href}}">{{title}}</a></h2>
-            </div>
+    {{#if title}}
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="{{href}}">{{title}}</a></h2>
         </div>
-        {{/if}}
+    </div>
+    {{/if}}
+    <div class="container-fluid">
         <div class="row tasks card-deck-row" data-testid="courses">
             {{#each content}}
             <div class="sc-card-wrapper col-xl-3 col-lg-4 col-md-6 col-sm-12" data-rss="{{isRSS}}" data-id="{{id}}">
@@ -15,7 +15,7 @@
             {{else}}
             <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
                 <div class="alert">
-                    Keine aktuellen Einträge vorhanden.
+                    {{$t "dashboard.text.notFound"}}
                 </div>
             </div>
             {{/each}}

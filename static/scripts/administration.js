@@ -185,19 +185,6 @@ $(document).ready(() => {
 	}
 	$('.btn-invitation-link').on('click', invitationLinkHandler);
 
-	$('.btn-import').on('click', (e) => {
-		e.preventDefault();
-		populateModalForm($importModal, {
-			title: 'Nutzer Importieren',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Importieren',
-			fields: {
-				sendRegistration: 'true',
-			},
-		});
-		$importModal.appendTo('body').modal('show');
-	});
-
 	function ssoSelectHandler(e) {
 		e.preventDefault();
 		// show oauth properties for iserv only
@@ -357,10 +344,12 @@ $(document).ready(() => {
 	$('#csv-import-example').off('click').on('click', (e) => {
 		e.preventDefault();
 		const lines = [
-			'firstName,lastName,email,class',
-			'Max,Mustermann,max@mustermann.de,',
-			'Fritz,Schmidt,fritz.schmidt@schul-cloud.org,1a',
-			'Paula,Meyer,paula.meyer@schul-cloud.org,12/2+12/3',
+			'firstName,lastName,email,class,birthday',
+			'Max,Mustermann,max@mustermann.de,,',
+			'Fritz,Schmidt,fritz.schmidt@schul-cloud.org,1a,',
+			'Paula,Meyer,paula.meyer@schul-cloud.org,12/2+12/3,',
+			'Hildegard,Handschuh,hildegard@handschuh.de,4b,29.11.1992',
+			'Renate,Durchdenwald,renate@durchdenwald.de,,15.02.1994',
 		];
 		const csvContent = `data:text/csv;charset=utf-8,${lines.join('\n')}`;
 		const link = document.createElement('a');

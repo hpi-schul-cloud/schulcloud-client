@@ -19,8 +19,19 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 // SSO Login
 
 router.get('/tsp-login/', (req, res, next) => {
-	const { ticket } = req.query;
-	return authHelper.login({ strategy: 'tsp', ticket }, req, res, next);
+	const { ticket, redirect: redirectParam } = req.query;
+	let redirect = '/dashboard';
+	if (redirectParam) {
+		if (Array.isArray(redirectParam)) {
+			const redirects = redirectParam.filter(v => v !== 'true');
+			if (redirects.length > 0) {
+				redirect = redirects[0];
+			}
+		} else if (String(redirectParam) !== 'true') {
+			redirect = redirectParam;
+		}
+	}
+	return authHelper.login({ strategy: 'tsp', ticket, redirect }, req, res, next);
 });
 
 // Login
@@ -29,28 +40,67 @@ router.post('/login/', (req, res, next) => {
 	const {
 		username,
 		password,
-		systemId,
+		system,
 		schoolId,
+		redirect,
 	} = req.body;
+	const privateDevice = req.body.privateDevice === 'true';
+	const errorSink = () => next();
 
-	if (systemId) {
-		return api(req).get(`/systems/${req.body.systemId}`).then((system) => authHelper.login({
-			strategy: system.type, username, password, systemId, schoolId,
-		}, req, res, next));
+	if (system) {
+		const [ systemId, strategy ] = system.split('//');
+		return authHelper.login({
+			strategy, username, password, systemId, schoolId, redirect, privateDevice,
+		}, req, res, errorSink);
 	}
-	return authHelper.login({ strategy: 'local', username, password }, req, res, next);
+	return authHelper.login({
+		strategy: 'local', username, password, redirect, privateDevice,
+	}, req, res, errorSink);
 });
 
+const redirectAuthenticated = (req, res) => {
+	let redirectUrl = '/login/success';
+	if (req.query && req.query.redirect) {
+		redirectUrl = `${redirectUrl}?redirect=${req.query.redirect}`;
+	}
+	return res.redirect(redirectUrl);
+};
+
+const determineRedirectUrl = (req) => {
+	if (req.query && req.query.redirect) {
+		return req.query.redirect;
+	}
+	if (req.session.login_challenge) {
+		return '/oauth2/login/success';
+	}
+	return '/dashboard';
+};
 
 router.all('/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
-			return res.redirect('/login/success/');
+			return redirectAuthenticated(req, res);
 		}
+
+		const schoolsPromise = getSelectOptions(
+			req, 'schools',
+			{
+				purpose: { $ne: 'expert' },
+				$limit: false,
+				$sort: 'name',
+			},
+		);
+		return schoolsPromise.then(schools => res.render('authentication/home', {
+			schools,
+			blogFeed: [],
+			inline: true,
+			systems: [],
+		}));
+		/*
 		return new Promise((resolve) => {
 			feedr.readFeed('https://blog.schul-cloud.org/rss', {
 				requestOptions: { timeout: 2000 },
-			}, (err, data /* , headers */) => {
+			}, (err, data) => {
 				let blogFeed;
 				try {
 					blogFeed = data.rss.channel[0].item
@@ -89,31 +139,32 @@ router.all('/', (req, res, next) => {
 				})));
 			});
 		});
+		*/
 	});
 });
 
 router.all('/login/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
-			return res.redirect('/login/success/');
+			return redirectAuthenticated(req, res);
 		}
-		return getSelectOptions(req,
-			'schools', {
-				purpose: { $ne: 'expert' },
-				$limit: false,
-				$sort: 'name',
-			})
-			.then((schools) => {
-				authHelper.clearCookie(req, res);
-				res.render('authentication/login', {
-					schools,
-					systems: [],
-				});
-			});
+		return authHelper.clearCookie(req, res)
+			.then(() => getSelectOptions(req,
+				'schools', {
+					purpose: { $ne: 'expert' },
+					$limit: false,
+					$sort: 'name',
+				})
+				.then((schools) => {
+					res.render('authentication/login', {
+						schools,
+						systems: [],
+						redirect: req.query && req.query.redirect ? req.query.redirect : '',
+					});
+				}));
 	}).catch((error) => {
-		logger.error(error);
-		authHelper.clearCookie(req, res, { destroySession: true });
-		return res.redirect('/');
+		logger.error('Error during login', { error: error.toString() });
+		return next(error);
 	});
 });
 
@@ -142,9 +193,7 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 						});
 				}
 				const consent = consents.data[0];
-				const redirectUrl = (req.session.login_challenge
-					? '/oauth2/login/success'
-					: '/dashboard');
+				const redirectUrl = determineRedirectUrl(req);
 				// check consent versions
 				return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
 					if (consent.access && !consentUpdates.haveBeenUpdated) {
@@ -153,16 +202,15 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 					// make sure fistLogin flag is not set
 					return res.redirect('/firstLogin');
 				});
-			});
+			})
+			.catch(next);
 	} else {
 		// if this happens: SSO
 		const { accountId, systemId } = (res.locals.currentPayload || {});
 
 		ssoSchoolData(req, systemId).then((school) => {
 			if (school === undefined) {
-				const redirectUrl = (req.session.login_challenge
-					? '/oauth2/login/success'
-					: '/dashboard/');
+				const redirectUrl = determineRedirectUrl(req);
 				res.redirect(redirectUrl);
 			} else {
 				res.redirect(`/registration/${school._id}/sso/${accountId}`);
@@ -172,23 +220,21 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 });
 
 router.get('/login/systems/:schoolId', (req, res, next) => {
-	api(req).get(
-		`/schools/${req.params.schoolId}`,
-		{
-			qs: { $populate: ['systems'] },
-		},
-	).then((data) => {
-		const systems = data.systems.filter(value => value.type !== 'ldap' || value.ldapConfig.active === true);
-		return res.send(systems);
-	});
+	api(req).get(`/schools/${req.params.schoolId}`, { qs: { $populate: ['systems'] } })
+		.then((data) => {
+			const systems = data.systems.filter(value => value.type !== 'ldap' || value.ldapConfig.active === true);
+			return res.send(systems);
+		})
+		.catch(next);
 });
 
 router.get('/logout/', (req, res, next) => {
-	api(req).del('/authentication')
-		.then(() => {
-			authHelper.clearCookie(req, res, { destroySession: true });
-			return res.redirect('/');
-		}).catch(() => res.redirect('/'));
+	api(req).del('/authentication') // async, ignore result
+		.catch((err) => { logger.error('error during logout.', { error: err.toString() }); });
+	return authHelper
+		.clearCookie(req, res, { destroySession: true })
+		.then(() => res.redirect('/'))
+		.catch(next);
 });
 
 module.exports = router;

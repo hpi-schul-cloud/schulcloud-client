@@ -10,10 +10,12 @@ const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
 const logger = require('../helpers/logger');
 
+const { CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED, ROCKET_CHAT_URI } = require('../config/global');
+
 const router = express.Router();
 moment.locale('de');
 
-const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference'];
+const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference', 'messenger'];
 
 const addThumbnails = (file) => {
 	const thumbs = {
@@ -59,7 +61,7 @@ const getSelectOptions = (req, service, query) => api(req)
  * @param teamId {string} - the id of the course the events will be deleted
  */
 const deleteEventsForTeam = async (req, res, teamId) => {
-	if (process.env.CALENDAR_SERVICE_ENABLED) {
+	if (CALENDAR_SERVICE_ENABLED) {
 		const events = await api(req).get('/calendar/', {
 			qs: {
 				'scope-id': teamId,
@@ -291,6 +293,7 @@ router.get('/', async (req, res, next) => {
 		team.background = team.color;
 		team.memberAmount = team.userIds.length;
 		team.id = team._id;
+		team.url = `/teams/invitation/accept/${team._id}`;
 
 		return team;
 	});
@@ -471,7 +474,7 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		});
 
-		const instanceUsesRocketChat = process.env.ROCKETCHAT_SERVICE_ENABLED;
+		const instanceUsesRocketChat = ROCKETCHAT_SERVICE_ENABLED;
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (
 			res.locals.currentSchoolData.features || []
@@ -488,7 +491,7 @@ router.get('/:teamId', async (req, res, next) => {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
 				);
-				const rocketChatURL = process.env.ROCKET_CHAT_URI;
+				const rocketChatURL = ROCKET_CHAT_URI;
 				rocketChatCompleteURL = `${rocketChatURL}/group/${
 					rocketChatChannel.channelName
 				}`;
@@ -568,14 +571,16 @@ router.get('/:teamId', async (req, res, next) => {
 		});
 
 		let events = [];
-		const twentyfourHours = 24 * 60 * 60 * 1000;
-		const filterStart = new Date(Date.now() - twentyfourHours);
+		// const twentyfourHours = 24 * 60 * 60 * 1000;
+		// const filterStart = new Date(Date.now() - twentyfourHours);
 		try {
 			events = await api(req).get('/calendar/', {
 				qs: {
 					'scope-id': req.params.teamId,
-					all: false,
-					from: filterStart.toLocalISOString(),
+					all: true,
+					// HOTFIX: timestamp do not work, for hotfix it is changed to old request logic
+					// all: false, 
+					// from: filterStart.toLocalISOString(),
 				},
 			});
 			events = events
@@ -1200,7 +1205,7 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
         der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. `,
 				err,
 			);
-			res.redirect('/teams/');
+			res.redirect(`/teams/${req.params.teamId}`);
 		});
 });
 

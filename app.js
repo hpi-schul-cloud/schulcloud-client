@@ -30,11 +30,11 @@ const {
 	JWT_TIMEOUT_SECONDS,
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
+	FEATURE_MESSENGER_ENABLED,
+	ROCKETCHAT_SERVICE_ENABLED,
 } = require('./config/global');
 
 const app = express();
-const Config = new Configuration();
-Config.init(app);
 
 if (SENTRY_DSN) {
 	Sentry.init({
@@ -71,9 +71,7 @@ const securityHeaders = require('./middleware/security_headers');
 app.use(securityHeaders);
 
 // set cors headers
-const cors = require('./middleware/cors');
-
-app.use(cors);
+app.use(require('./middleware/cors'));
 
 app.use(compression());
 app.set('trust proxy', true);
@@ -99,15 +97,20 @@ app.set('view cache', true);
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(morgan('dev', {
-	skip(req, res) {
-		return req && ((req.route || {}).path || '').includes('tsp-login');
-	},
-}));
+if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
+	const morganLogFormat = Configuration.get('MORGAN_LOG_FORMAT');
+	app.use(morgan(morganLogFormat, {
+		skip(req, res) {
+			return req && ((req.route || {}).path || '').includes('tsp-login');
+		},
+	}));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
+app.use('/locales', express.static(path.join(__dirname, 'locales')));
 
 let sessionStore;
 const redisUrl = REDIS_URI;
@@ -133,9 +136,12 @@ app.use(session({
 }));
 
 // CSRF middlewares
-app.use(duplicateTokenHandler);
-app.use(csurf());
-app.use(tokenInjector);
+if (Configuration.get('FEATURE_CSRF_ENABLED')) {
+	app.use(duplicateTokenHandler);
+	app.use(csurf());
+	app.use(tokenInjector);
+	// there follows an csrf error handler below...
+}
 
 const setTheme = require('./helpers/theme');
 
@@ -159,6 +165,8 @@ app.use(async (req, res, next) => {
 	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
 	res.locals.version = version;
 	res.locals.sha = sha;
+	res.locals.ROCKETCHAT_SERVICE_ENABLED = ROCKETCHAT_SERVICE_ENABLED;
+	res.locals.FEATURE_MESSENGER_ENABLED = FEATURE_MESSENGER_ENABLED;
 	delete req.session.notification;
 	try {
 		await authHelper.populateCurrentUser(req, res);
@@ -190,6 +198,9 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 	}
 }));
 
+// add res.$t method for i18n with users prefered language
+app.use(require('./middleware/i18n'));
+
 // Initialize the modules and their routes
 app.use(require('./controllers/'));
 
@@ -208,7 +219,9 @@ app.use((req, res, next) => {
 });
 
 // error handlers
-app.use(csrfErrorHandler);
+if (Configuration.get('FEATURE_CSRF_ENABLED')) {
+	app.use(csrfErrorHandler);
+}
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
@@ -219,17 +232,18 @@ app.use((err, req, res, next) => {
 		res.locals.message = err.message;
 	}
 
-	if (res.locals && res.locals.message.includes('ESOCKETTIMEDOUT') && err.options) {
+	if (res.locals && res.locals.message && res.locals.message.includes('ESOCKETTIMEDOUT') && err.options) {
 		const message = `ESOCKETTIMEDOUT by route: ${err.options.baseUrl + err.options.uri}`;
 		logger.warn(message);
 		Sentry.captureMessage(message);
+		res.locals.message = 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.';
 	}
-	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
+	res.locals.error = req.app.get('env') === 'development' ? err : { status };
+	if (err.error) logger.error(err.error);
 	if (res.locals.currentUser) res.locals.loggedin = true;
 	// render the error page
-	res.status(status);
-	res.render('lib/error', {
+	res.status(status).render('lib/error', {
 		loggedin: res.locals.loggedin,
 		inline: res.locals.inline ? true : !res.locals.loggedin,
 	});

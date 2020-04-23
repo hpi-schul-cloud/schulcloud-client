@@ -96,9 +96,9 @@
                                     </button>
 
                                     {{#inArray "Administrator" ../roleNames}}
-                                        <button class="btn btn-secondary btn-import student">
+                                        <a href="/administration/students/import" class="btn btn-secondary btn-import">
                                             Schüler importieren
-                                        </button>
+                                        </a>
                                     {{/inArray}}
                                 {{else}}
                                     {{> "lib/no-create-info"}}

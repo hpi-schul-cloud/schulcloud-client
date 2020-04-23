@@ -202,12 +202,13 @@
 
 					<form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
 						<input type="hidden" name="_method" value="patch" />
-                        <div class="form-group">
-                            <label>Name der Schule</label>
-                            <input value="{{../school.name}}" type="text" class="form-control" name="name"
-                                placeholder="Einhorn Gymnasium" {{#if ../schoolUsesLdap}} readonly{{/if}}
-                                {{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}} readonly{{/userHasPermission}} required />
-                        </div>
+						<div class="form-group">
+							<label>Name der Schule</label>
+							<input value="{{../school.name}}" type="text" class="form-control" name="name"
+								placeholder="Einhorn Gymnasium" {{#if ../schoolUsesLdap}} readonly{{/if}}
+								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+								readonly{{/userHasPermission}} required />
+						</div>
 
 						<div class="form-group">
 							<label>Schullogo hochladen</label><br />
@@ -219,41 +220,62 @@
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
 
-						<div class="form-group">
-							<label>
-								<input type="checkbox" name="rocketchat" value="true"
-									{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
-								Chatfunktion aktivieren
-								<p class="text-muted">Durch Ihren Klick auf „Chatfunktion aktivieren“ bestätigen Sie,
-									dass Sie weisungsberechtigter Schul-Administrator und befugt sind,
-									die Funktion für Ihre Schule freizuschalten. Ihr Klick gilt insofern als
-									Weisung der Schule gegenüber dem HPI.</p>
-							</label>
-						</div>
+						{{#if @root.FEATURE_MESSENGER_ENABLED}}
+							<div class="form-group">
+								<label>
+									<input type="checkbox" name="messenger" value="true"
+										{{#inArray "messenger" ../school.features}}checked{{/inArray}}>
+									Chatfunktion aktivieren
+									<p class="text-muted">
+										Sind Chats an deiner Schule aktiviert, können Team-Administratoren 
+										im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.
+									</p>
+								</label>
+							</div>
+						{{else}}
+							{{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
+								<div class="form-group">
+									<label>
+										<input type="checkbox" name="rocketchat" value="true"
+											{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
+										Chatfunktion aktivieren
+										<p class="text-muted">
+											Sind Chats an deiner Schule aktiviert, können Team-Administratoren
+											im jeweiligen Team die Chatfunktion gezielt freischalten.
+										</p>
+									</label>
+								</div>
+							{{/if}}
+						{{/if}}
+
 						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
 						<div class="form-group">
 							<label>
 								<input type="checkbox" name="videoconference" value="true"
 									{{#inArray "videoconference" ../../school.features}}checked{{/inArray}}>
-								Videokonferenzen für Teams, Klassen und Termine aktivieren
-								<p class="text-muted">Durch Ihren Klick auf „Videokonferenzen für Teams, Klassen und
-									Termine aktivieren“ bestätigen Sie,
-									dass Sie weisungsberechtigter Schul-Administrator und befugt sind,
-									die Funktion für Ihre Schule freizuschalten. Ihr Klick gilt insofern als
-									Weisung der Schule gegenüber dem HPI.</p>
+								Videokonferenzen für Kurse und Teams aktivieren
+								<p class="text-muted">
+									Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte
+									ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und
+									dann von dort aus Videokonferenzen für alle Kursteilnehmer starten.
+									Team-Administratoren können die Videokonferenzfunktion im jeweiligen
+									Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen
+									zu Terminen hinzufügen und starten.
+								</p>
 							</label>
 						</div>
 						{{/ifConfig}}
 						{{#if ../school.fileStorageType}}
-                        <div class="form-group">
-                            <label>Cloud-Storage Anbieter</label>
-                            <select name="fileStorageType" type="text" {{#userHasPermission 'SCHOOL_EDIT'}}{{else}} disabled{{/userHasPermission}}>
-                                {{#each ../provider}}
-                                <option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}}
-                                </option>
-                                {{/each}} </select> </div> {{/if}}
-                        {{> "lib/components/csrfInput"}}
-                        <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+						<div class="form-group">
+							<label>Cloud-Storage Anbieter</label>
+							<select name="fileStorageType" type="text" {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+								disabled{{/userHasPermission}}>
+								{{#each ../provider}}
+								<option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}}
+								</option>
+								{{/each}} </select> </div> {{/if}}
+						{{> "lib/components/csrfInput"}}
+						<button type="submit" class="btn btn-primary btn-submit">Speichern</button>
 					</form>
 
 					{{#if ../school.fileStorageType}}
@@ -295,52 +317,52 @@
 	</section>
 	{{/unless}}
 
-    {{#userHasPermission 'SCHOOL_EDIT'}}
-    <section class="section-school section-default">
-        <h2 class="h4">Authentifizierung</h2>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    {{> "lib/components/table" head=../systemsHead body=../systemsBody}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    <form action="/administration/systems/ldap/add" method="POST">
-                        {{> "lib/components/csrfInput"}}
-                        <button type="submit" class="btn btn-primary btn-add-modal ">
-                            System hinzufügen
-                        </button>
-                        {{#if ../ldapAddable}}
-                        <button type="submit" class="btn btn-primary">
-                            LDAP System hinzufügen
-                        </button>
-                        {{/if}}
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    {{/userHasPermission}}
+	{{#userHasPermission 'SCHOOL_EDIT'}}
+	<section class="section-school section-default">
+		<h2 class="h4">Authentifizierung</h2>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 no-padding">
+					{{> "lib/components/table" head=../systemsHead body=../systemsBody}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 no-padding">
+					<form action="/administration/systems/ldap/add" method="POST">
+						{{> "lib/components/csrfInput"}}
+						<button type="submit" class="btn btn-primary btn-add-modal ">
+							System hinzufügen
+						</button>
+						{{#if ../ldapAddable}}
+						<button type="submit" class="btn btn-primary">
+							LDAP System hinzufügen
+						</button>
+						{{/if}}
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	{{/userHasPermission}}
 
-    {{#embed "lib/components/modal-form" method="patch" class="edit-modal" collapseId=1}}
-    {{#content "fields"}}
-    {{> "administration/forms/form-systems"}}
-    {{/content}}
-    {{/embed}}
+	{{#embed "lib/components/modal-form" method="patch" class="edit-modal" collapseId=1}}
+	{{#content "fields"}}
+	{{> "administration/forms/form-systems"}}
+	{{/content}}
+	{{/embed}}
 
-    {{#embed "lib/components/modal-form" action="/administration/systems/" method="post" class="add-modal"
+	{{#embed "lib/components/modal-form" action="/administration/systems/" method="post" class="add-modal"
     collapseId=2}}
-    {{#content "fields"}}
-    {{> "administration/forms/form-systems"}}
-    {{/content}}
-    {{/embed}}
+	{{#content "fields"}}
+	{{> "administration/forms/form-systems"}}
+	{{/content}}
+	{{/embed}}
 
-    {{#embed "lib/components/modal-form" body=systemsBody method="delete" class="delete-modal"}}
-    {{#content "fields"}}
-    {{> "administration/forms/form-delete-alias"}}
-    {{/content}}
-    {{/embed}}
+	{{#embed "lib/components/modal-form" body=systemsBody method="delete" class="delete-modal"}}
+	{{#content "fields"}}
+	{{> "administration/forms/form-delete-alias"}}
+	{{/content}}
+	{{/embed}}
 
 
 	<section class="section-school section-default">

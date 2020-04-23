@@ -1,31 +1,37 @@
 <footer class="hide-inline small-footer">
-    <div class="imprint">
-        <div class="center">
-            <img src="/images/footer-logo.png" alt="Anbieterlogo"/>
-            <span>&copy; {{currentYear}} {{theme.short_title}} </span>
+	<div class="imprint">
+		<div class="center">
+			<a href="https://hpi.de" target="_blank" rel="noopener">
+				<img id="footer-logo" src="/images/footer-logo.png" alt="Anbieterlogo" />
+			</a>
+			<span>&copy; {{currentYear}} {{theme.short_title}} </span>
 
-            <div>
-                <a href="/impressum">Impressum</a>
-                <span> - </span>
-                Datenschutzerklärung: <a href="/datenschutz">HPI</a> / <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank" rel="noopener">Muster Schulen</a>
+			<div>
+				<a href="/impressum">Impressum</a>
 				<span> - </span>
-                <a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" rel="noopener">Nutzungsordnung</a>
-                <span> - </span>
-                <a href="mailto:info@schul-cloud.org?subject=Schul_Cloud%20Anfrage" target="_blank" rel="noopener">Kontakt</a>
-                <span> - </span>
-                <a href="/team">Team</a>
-                <span> - </span>
-                <a href="/about">Über das Projekt</a>
-                <span> - </span>
-                <a href="/community">Mitmachen</a>
-                <span> - </span>
-                <a href="/partner">Partner</a>
-                <span> - </span>
-                <a href="https://github.com/schul-cloud/" target="_blank" rel="noopener">GitHub</a>
-            </div>
-            <div>
-                <p class="made-with-love">Made with <span class="heart">❤</span> in Potsdam</p>
-            </div>
-        </div>
-    </div>
+				<a href="/datenschutz">Datenschutzerklärung</a>
+				<span> - </span>
+				<a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank"
+					rel="noopener">Nutzungsordnung</a>
+				<span> - </span>
+				<a href="mailto:{{getConfig "SC_CONTACT_EMAIL"}}?subject=Schul_Cloud%20Anfrage" target="_blank"
+					rel="noopener">Kontakt</a>
+				<span> - </span>
+				<a href="/team">Team</a>
+				<span> - </span>
+				<a href="/about">Über das Projekt</a>
+				<span> - </span>
+				<a href="/community">Mitmachen</a>
+				<span> - </span>
+				<a href="/partner">Partner</a>
+				<span> - </span>
+				<a href="https://github.com/schul-cloud/" target="_blank" rel="noopener">GitHub</a>
+				<span> - </span>
+				<a href="https://status.schul-cloud.org" target="_blank" rel="noopener">Status</a>
+			</div>
+			<div>
+				<p class="made-with-love">Made with <span class="heart">❤</span> in Potsdam | Translated by <a href="https://lokalise.com" target="_"><img class="poweredby-logo" alt="lokalise.com Logo" src="/images/logo/lokalise_logo.svg"></a></p>
+			</div>
+		</div>
+	</div>
 </footer>

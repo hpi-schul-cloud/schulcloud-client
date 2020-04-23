@@ -21,11 +21,11 @@
 		<section class="section-course">
 			{{#if course.isArchived}}
 				<div class="empty-state">
-					<img src="/images/empty-states/books_empty.svg" alt="Kurs ist archiviert" class="image" />
+					<img src="/images/empty-states/books_empty.svg" alt= "{{$t "courses._course.edit.img_alt.courseIsArchieved"}}" class="image" />
 
 					<h2 class="h4">Der Kurs "{{course.name}}" ist archivert.</h2>
 					<p class="text-muted text-center">
-						Um Daten des Kurses zu bearbeiten musst du zunächst das Enddatum anpassen.
+						{{$t "courses._course.edit.text.toEditChangeDate"}}
 					</p>
 					<form action="{{action}}" method="post">
 						{{#if method}}
@@ -33,19 +33,19 @@
 						{{/if}}
 						<input type="hidden" name="unarchive" data-force-value="true" value="true" />
 						<div class="times" id="timesContainer">
-							<label>Zeitraum (z.B. Schuljahr)</label>
+							<label>{{$t "courses._course.edit.label.timeSpan"}}</label>
 							<div class="row">
 								<div class="form-group col-md-6">
-									<label>Von</label>
+									<label>{{$t "courses._course.edit.label.from"}}</label>
 									<input name="startDate" id="startDate" data-date type="text" class="form-control"
-										value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+										value="{{course.startDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
 										{{#if @root.course.isArchived}}disabled{{/if}} />
 								</div>
 
 								<div class="form-group col-md-6">
-									<label>Bis</label>
+									<label>{{$t "courses._course.edit.label.till"}}</label>
 									<input name="untilDate" id="untilDate" data-date type="text" class="form-control"
-										value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+										value="{{course.untilDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
 										{{#if @root.course.isArchived}}data-min-date="{{datePickerTodayMinus 0 0 0}}"
 										{{/if}} />
 								</div>
@@ -54,7 +54,7 @@
 						<div class="modal-footer">
 							<a href="/courses/{{course._id}}/" class="btn btn-delete-course btn-secondary pull-left"
 								target="_blank" data-method="DELETE" data-name="{{course.name}}" redirect="/courses/">
-								Kurs löschen
+								{{$t "courses._course.edit.button.deleteCourse"}}
 							</a>
 							<button type="button" class="btn btn-secondary btn-cancel">
 								{{closeLabel}}
@@ -70,10 +70,10 @@
 				</div>
 				<a data-toggle="collapse" class="collapse-toggle text-center" href="#myhomeworks">
 					<div class="course-tasks-header">
-						<small title="Kursdetails anzeigen">
+						<small title="{{$t "courses._course.edit.button.showCourseDetail"}}">
 							<i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i>
 						</small>
-						Kursdetails anzeigen
+						{{$t "courses._course.edit.button.showCourseDetail"}}
 					</div>
 				</a>
 				<div id="myhomeworks" class="container-fluid collapse">
@@ -88,19 +88,19 @@
 					{{#if course.isArchived}}disabled{{/if}} />
 
 				<div class="form-group">
-					<label>Name des Kurses</label>
-					<input class="form-control" name="name" type="text" placeholder="Mathe 10a" value="{{course.name}}"
+					<label>{{$t "courses.global.label.courseName"}}</label>
+					<input class="form-control" name="name" type="text" placeholder="{{$t "courses.global.input.mathsClass"}}" value="{{course.name}}"
 						{{#if course.isArchived}}disabled{{/if}} required autofocus />
 				</div>
 
 				<div class="form-group">
-					<label>Beschreibung des Kurses</label>
+					<label>{{$t "courses.global.label.courseDescription"}}</label>
 					<textarea class="form-control" name="description"
 						{{#if course.isArchived}}disabled{{/if}}>{{{stripOnlyScript course.description}}}</textarea>
 				</div>
 
 				<div class="form-group">
-					<label>Farbe des Kurses:</label>
+					<label>{{$t "courses.global.label.courseColor"}}</label>
 					<div class="color-picker">
 						{{#if course.color}}
 							<div class="color-picker__item">
@@ -127,9 +127,9 @@
 				</div>
 
 				<div class="form-group">
-					<label>Unterrichtender Lehrer</label>
+					<label>{{$t "courses.global.label.courseTeacher"}}</label>
 
-					<select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen"
+					<select name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each teachers}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -144,8 +144,8 @@
 				</div>
 
 				<div class="form-group">
-					<label>Vertretungslehrer</label>
-					<select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen"
+					<label>{{$t "courses._course.edit.label.substitute"}}</label>
+					<select name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each substitutions}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -155,12 +155,10 @@
 					</select>
 				</div>
 
-
 				<div class="form-group">
-					<label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch
-							hinzugefügt!)</small></label>
+					<label>{{$t "courses._course.edit.label.class"}} <small>{{$t "courses._course.edit.label.studentsWillBeAdded"}}</small></label>
 
-					<select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen"
+					<select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each classes}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -180,9 +178,9 @@
 				</div>
 
 				<div class="form-group">
-					<label>Schüler / Teilnehmer</label>
+					<label>{{$t "courses._course.global.label.studentParticipant"}}</label>
 
-					<select name="userIds[]" multiple data-placeholder="Schüler auswählen"
+					<select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each students}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -196,22 +194,33 @@
 					</select>
 				</div>
 
+				{{#if @root.FEATURE_MESSENGER_ENABLED}}
+					{{#inArray "messenger" schoolData.features}}
+						<div class="form-group">
+							<label>
+								<input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
+								{{$t "courses._course.edit.label.activateBidirectionalMessenger"}}
+							</label>
+						</div>
+					{{/inArray}}
+				{{/if}}
 
-				<label>Termine auswählen</label>
+
+				<label>{{$t "courses._course.edit.label.chooseDate"}}</label>
 				<div class="times" id="timesContainer">
-					<label>Zeitraum (z.B. Schuljahr)</label>
+					<label>{{$t "courses._course.edit.label.timeSpan"}}</label>
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label>Von</label>
+							<label>{{$t "courses._course.edit.label.from"}}</label>
 							<input name="startDate" id="startDate" data-date type="text" class="form-control"
-								value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+								value="{{course.startDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
 								{{#if @root.course.isArchived}}disabled{{/if}} />
 						</div>
 
 						<div class="form-group col-md-6">
-							<label>Bis</label>
+							<label>{{$t "courses._course.edit.label.till"}}</label>
 							<input name="untilDate" id="untilDate" data-date type="text" class="form-control"
-								value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"
+								value="{{course.untilDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
 								{{#if @root.course.isArchived}}disabled{{/if}} />
 						</div>
 					</div>
@@ -219,10 +228,10 @@
 					<table width="100%" cellpadding="5px">
 						<thead>
 							<th></th>
-							<th><label>Wochentag</label></th>
-							<th><label>Start der Schulstunde</label></th>
-							<th><label>Dauer der Schulstunde</label></th>
-							<th><label>Raum</label></th>
+							<th><label>{{$t "courses.global.label.weekday"}}</label></th>
+							<th><label>{{$t "courses.global.label.startOfLesson"}}</label></th>
+							<th><label>{{$t "courses.global.label.lengthOfLesson"}}</label></th>
+							<th><label>{{$t "global.label.room"}}</label></th>
 						</thead>
 						<tbody class="add-course-times">
 							{{#each course.times}}
@@ -235,19 +244,19 @@
 									<td>
 										<select class="form-control" name="times[{{this.count}}][weekday]" type="text"
 											{{#if @root.course.isArchived}}disabled{{/if}}>
-											<option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>Montag
+											<option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>{{$t "global.text.monday"}}
 											</option>
-											<option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>Dienstag
+											<option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>{{$t "global.text.tuesday"}}
 											</option>
-											<option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>Mittwoch
+											<option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>{{$t "global.text.wednesday"}}
 											</option>
-											<option value="3" {{#ifeq this.weekday "3"}}selected{{/ifeq}}>Donnerstag
+											<option value="3" {{#ifeq this.weekday "3"}}selected{{/ifeq}}>{{$t "global.text.thursday"}}
 											</option>
-											<option value="4" {{#ifeq this.weekday "4"}}selected{{/ifeq}}>Freitag
+											<option value="4" {{#ifeq this.weekday "4"}}selected{{/ifeq}}>{{$t "global.text.friday"}}
 											</option>
-											<option value="5" {{#ifeq this.weekday "5"}}selected{{/ifeq}}>Samstag
+											<option value="5" {{#ifeq this.weekday "5"}}selected{{/ifeq}}>{{$t "global.text.saturday"}}
 											</option>
-											<option value="6" {{#ifeq this.weekday "6"}}selected{{/ifeq}}>Sonntag
+											<option value="6" {{#ifeq this.weekday "6"}}selected{{/ifeq}}>{{$t "global.text.sunday"}}
 											</option>
 										</select>
 									</td>
@@ -258,12 +267,12 @@
 									</td>
 									<td>
 										<input class="form-control" name="times[{{this.count}}][duration]" type="number"
-											value="{{this.duration}}" placeholder="in Minuten"
+											value="{{this.duration}}" placeholder="{{$t "courses.global.input.inMinutes"}}"
 											{{#if @root.course.isArchived}}disabled{{/if}} />
 									</td>
 									<td>
 										<input class="form-control" type="text" name="times[{{this.count}}][room]"
-											value="{{this.room}}" placeholder="z.B. R-1.21"
+											value="{{this.room}}" placeholder="{{$t "courses.global.input.egRoom1-21"}}"
 											{{#if @root.course.isArchived}}disabled{{/if}} />
 									</td>
 								</tr>
@@ -273,7 +282,7 @@
 					</table>
 					<button class="new-course-time-add btn-link" data-timesref="#timesContainer" type="button"
 						{{#if @root.course.isArchived}}disabled{{/if}}>
-						<i class="fa fa-plus-circle fa-6"></i> Neuen Stundentermin hinzufügen
+						<i class="fa fa-plus-circle fa-6"></i> {{$t "courses._course.edit.button.addLesson"}}
 					</button>
 				</div>
 
@@ -284,7 +293,7 @@
 							{{#inArray "COURSE_DELETE" scopePermissions}}
 							<a href="/courses/{{../course._id}}/" class="btn btn-delete-course btn-secondary pull-left"
 								target="_blank" data-method="DELETE" data-name="{{../course.name}}"
-								redirect="/courses/">Kurs löschen</a>
+								redirect="/courses/">{{$t "courses._course.edit.button.deleteCourse"}}</a>
 							{{/inArray}}
 						{{/if}}
 						<button type="button" class="btn btn-secondary btn-cancel">
@@ -301,20 +310,20 @@
 			{{#if @root.course.isArchived}}
 				</div>{{/if}}
 
-			{{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+			{{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
 			{{#content "body"}}
 				<p class="m-1">
-					<b class="alert-course-delete"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Achtung:</b> Dies löscht den Kurs auch für alle Schüler:innen. <br />
-					Alle Daten werden unwiederruflich gelöscht.
+					<b class="alert-course-delete"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{$t "global.text.attention"}}</b> {{$t "courses._course.edit.text.courseWillDelete"}} <br />
+					{{$t "courses._course.edit.text.attentionDeletion"}}
 				</p>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary btn-close">
-						Abbrechen
+						{{$t "global.button.cancel"}}
 					</button>
 
                     {{> "lib/components/csrfInput"}}
 					<button type="submit" class="btn btn-primary btn-submit">
-						Löschen
+						{{$t "global.button.delete"}}
 					</button>
 				</div>
 			{{/content}}

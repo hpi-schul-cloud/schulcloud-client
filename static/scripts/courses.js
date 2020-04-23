@@ -22,12 +22,12 @@ $(document).ready(() => {
 				if (result.hidden) {
 					$hiddenToggleIcon.addClass('fa-eye-slash');
 					$hiddenToggleIcon.removeClass('fa-eye');
-					$hiddenToggleBtn.attr('data-original-title', 'Thema sichtbar machen');
+					$hiddenToggleBtn.attr('title', $t("courses._course.topic.text.revealTopic"));
 					$card.addClass('card-transparent');
 				} else {
 					$hiddenToggleIcon.removeClass('fa-eye-slash');
 					$hiddenToggleIcon.addClass('fa-eye');
-					$hiddenToggleBtn.attr('data-original-title', 'Thema verstecken');
+					$hiddenToggleBtn.attr('title', $t("courses._course.topic.text.hideTopic"));
 					$card.removeClass('card-transparent');
 				}
 			},
@@ -51,9 +51,9 @@ $(document).ready(() => {
 			},
 			success(data) {
 				populateModalForm($invitationModal, {
-					title: 'Einladungslink generiert!',
-					closeLabel: 'Abbrechen',
-					submitLabel: 'Speichern',
+					title: $t("courses._course.topic.headline.invitationLinkGenerated"),
+					closeLabel: $t("global.button.cancel"),
+					submitLabel: $t("global.button.save"),
 					fields: { invitation: data.newUrl },
 				});
 				$invitationModal.find('.btn-submit').remove();
@@ -73,9 +73,9 @@ $(document).ready(() => {
 		const courseId = $(this).attr('data-courseId');
 		const $importModal = $('.import-modal');
 		populateModalForm($importModal, {
-			title: 'Thema importieren',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Speichern',
+			title: $t("courses._course.topic.headline.importTopic"),
+			closeLabel: $t("global.button.cancel"),
+			submitLabel: $t("global.button.save"),
 			fields: { courseId },
 		});
 
@@ -119,8 +119,8 @@ $(document).ready(() => {
 			url: `/courses/${courseId}/share/`,
 			success(data) {
 				populateModalForm($shareModal, {
-					title: 'Kopiercode generiert!',
-					closeLabel: 'Schließen',
+					title: $t("courses._course.headline.shareCodeGenerated"),
+					closeLabel: $t("global.button.close"),
 					fields: { shareToken: data.shareToken },
 				});
 				$shareModal.find('.btn-submit').remove();
@@ -131,7 +131,7 @@ $(document).ready(() => {
 				$shareModal.appendTo('body').modal('show');
 
 				// eslint-disable-next-line max-len
-				$("label[for='shareToken']").text('Verteile folgenden Code an einen Lehrer-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.');
+				$("label[for='shareToken']").text($t("courses._course.text.shareCodeExplanation"));
 				// eslint-disable-next-line no-undef
 				const image = kjua({
 					text: `${$('meta[name=baseUrl]').attr('content')}/courses?import=${data.shareToken}`,
@@ -140,7 +140,7 @@ $(document).ready(() => {
 				const $shareqrbox = $('.course-qr');
 				$shareqrbox.empty();
 				// eslint-disable-next-line max-len
-				$shareqrbox.append('<p>Alternativ kannst du deinen Lehrer-Kollegen auch folgenden QR-Code zeigen. </p>');
+				$shareqrbox.append(`<p> ${$t('courses._course.text.QRCodeAlternative')} </p>`);
 				$shareqrbox.append(image);
 			},
 		});
@@ -152,7 +152,7 @@ $(document).ready(() => {
 		const { url } = response;
 		return !url || url.length < 0
 			? $.showNotification(errorMessagesBBB.GENERAL_ERROR, 'danger')
-			: window.open(url, '_blank');
+			: window.location.replace(url);
 	};
 
 	const setVideoConferenceOptions = (options) => {
@@ -297,9 +297,9 @@ $(document).ready(() => {
 				url: `/courses/${courseId}/usersJson`,
 				success(data) {
 					populateModalForm($createVideoconferenceModal, {
-						title: `Videokonferenzraum "${data.course.name}" erstellen`,
-						closeLabel: 'Abbrechen',
-						submitLabel: 'Erstellen',
+						title: $t("courses._course.headline.createVideoconference" , {coursename :data.course.name}),
+						closeLabel: $t('global.button.cancel'),
+						submitLabel: $t('global.button.create'),
 					});
 				},
 			});

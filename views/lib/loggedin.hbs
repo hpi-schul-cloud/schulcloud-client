@@ -2,6 +2,11 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
+        {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+			{{#inArray "messenger" @root.currentSchoolData.features}}
+				<link rel="stylesheet" href="/styles/lib/chatLoggedin.css"/>
+			{{/inArray}}
+		{{/ifConfig}}
         <noscript><style>
             .section-title,
             #main-content,
@@ -20,9 +25,19 @@
         {{#if @root.currentUser.preferences.enterthecloud}}
             <script type="text/javascript" src="/vendor/enterthecloud.min.js" defer></script>
         {{/if}}
+        {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+            {{#inArray "messenger" @root.currentSchoolData.features}}
+                <script>
+                    window.matrixBundle = '{{getConfig "MATRIX_MESSENGER_BUNDLE"}}';
+                    window.userLanguage = '{{ @root.userLanguage }}';
+                </script>
+                <script src="/scripts/chatLoggedin.js" type="text/javascript" defer></script>
+            {{/inArray}}
+        {{/ifConfig}}
     {{/content}}
 
     {{#content "body"}}
+
         {{#if currentSchoolData.inMaintenance}}
         <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
         {{/if}}
@@ -99,6 +114,18 @@
                     {{/if}}
 
                     <ul class="nav navbar-nav float-xs-none dropdowns">
+                        <li class="nav-item alert-button">
+                            <div class="dropdown minimal-button">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" title="Es gibt ein Problem" data-toggle="dropdown">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                </a>
+
+                                <div class="dropdown-menu">
+                                    <div class="content js-alert-content">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                         <li class="nav-item fullscreen-action">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="Fullscreen" data-toggle="dropdown">
@@ -175,7 +202,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
                                     <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{ currentRole }})</div>
                                     <a class="dropdown-item" data-testid="settings" href="/account/">Einstellungen</a>
-                                    <a class="dropdown-item" data-testid="logout" href="/logout/">Abmelden</a>
+                                    <a class="dropdown-item" data-testid="logout" href="/logout/" onclick="localStorage.clear();">Abmelden</a>
                                 </div>
                               </div>
                             </div>
