@@ -20,6 +20,12 @@
                 {{$t "homework.text.noDescriptionAvailable" }}
             {{/if}}
         </div>
+        {{#if this.hasEvaluation}}
+            <span class="count-badge" data-badge={{$t "homework.label.comment" }} /></span>
+        {{/if}}
+        {{#ifCond this.stats.submissionCount '>' this.stats.gradeCount}}
+            <span class="count-badge" data-badge={{$t "homework.label.submissionsWithoutFeedback" }} /></span>
+        {{/ifCond}}
         <span class="more">Details ><i className="fa fa-chevron-right" aria-hidden="true"></i></span>
     </a>
 </li>
