@@ -1,8 +1,8 @@
 <section id="submission" class="tab-content section-homeworkdetails">
-  {{#if @root.submittable}}
+    {{#if @root.submittable}}
     <div class="comment editor">
-      <p class="submissionLabel"><i class="fa fa-folder-open"></i>Dateiabgabe</p>
-      {{#embed "files/file-upload" path=@root.path}}{{/embed}}
+        <p class="submissionLabel"><i class="fa fa-folder-open"></i>Dateiabgabe</p>
+        {{#embed "files/file-upload" path=@root.path}}{{/embed}}
 
       {{#if @root.submission}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{@root.submission._id}}">
@@ -16,7 +16,7 @@
             fileIds=@root.submission.fileIds
             deletionAllowed=true
             submission=@root.submission}}{{/embed}}
-         <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+        <input type="hidden" name="_method" data-force-value="true" value="patch"/>
       {{else}}
         <div class="form-group section-uploaded-files">
             <label>{{$t "homework.label.filesUploadedForDelivery" }}</label>
@@ -72,7 +72,7 @@
             <textarea id="evaluation" name="comment" class="form-control customckeditor"
                   placeholder="Erstelle deine Abgabe...">{{@root.submission.comment}}</textarea>
         </div>
-  {{else}}
+    {{else}}
     <div class="comment">
         {{#if @root.submission.comment}}
             {{{@root.submission.comment}}}
@@ -80,7 +80,7 @@
             <p>{{$t "homework.text.noSubmission" }}.</p>
         {{/if}}
     </div>
-  {{/if}}
+    {{/if}}
 
     {{#if @root.submittable}}
         {{> "lib/components/csrfInput"}}
