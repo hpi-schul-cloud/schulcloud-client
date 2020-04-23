@@ -154,7 +154,6 @@
 						{{/each}}
 					</select>
 				</div>
-				
 
 				<div class="form-group">
 					<label>{{$t "courses._course.edit.label.class"}} <small>{{$t "courses._course.edit.label.studentsWillBeAdded"}}</small></label>
@@ -200,7 +199,7 @@
 						<div class="form-group">
 							<label>
 								<input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
-								Messenger für Kurs aktivieren
+								{{$t "courses._course.edit.label.activateBidirectionalMessenger"}}
 							</label>
 						</div>
 					{{/inArray}}
@@ -225,7 +224,7 @@
 								{{#if @root.course.isArchived}}disabled{{/if}} />
 						</div>
 					</div>
-					
+
 					<table width="100%" cellpadding="5px">
 						<thead>
 							<th></th>
