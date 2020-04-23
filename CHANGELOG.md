@@ -11,6 +11,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [22.9.8] - 2020-04-23
+
+### Added in 22.9.8
+
+- add support for API-Key
+
 ## [22.9.7] - 2020-04-21
 
 ### Added in 22.9.7
