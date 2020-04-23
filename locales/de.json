@@ -144,6 +144,7 @@
 					"from": "Von",
 					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 					"substitute": "Vertretungslehrer:innen",
+					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"till": "Bis",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
 					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
@@ -523,7 +524,8 @@
 			"close": "Schließen",
 			"delete": "Löschen",
 			"open": "Öffnen",
-			"save": "Speichern"
+			"save": "Speichern",
+			"saveChanges": "Änderungen speichern"
 		},
 		"label": {
 			"room": "Raum"
@@ -652,7 +654,7 @@
 		"button": {
 			"less": "Weniger",
 			"login": "Anmelden",
-			"longerLoggedInWhenActivated": "Wenn aktiviert, bleibst du länger eingeloggt.",
+			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
 			"moreOptions": "Mehr Optionen"
 		},
 		"headline": {
@@ -667,7 +669,7 @@
 			"system": "System"
 		},
 		"label": {
-			"thisIsAPrivateDevice": "Dies ist ein privates Gerät"
+			"thisIsAPrivateDevice": "Angemeldet bleiben"
 		},
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
@@ -717,6 +719,25 @@
 			"processed": "bearbeitet)",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
+		}
+	},
+	"teams": {
+		"_team": {
+			"edit": {
+				"label": {
+					"teamName": "Name des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
+					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
+					"teamColor": "Farbe des Teams"
+				},
+				"placeholder": {
+					"teamName": "A-Team"
+				},
+				"text": {
+					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
+				}
+			}
 		}
 	}
 }

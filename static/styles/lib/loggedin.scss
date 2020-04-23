@@ -453,11 +453,6 @@ footer {
     width: 100%;
     padding: 20px 0px;
 
-	// add space for messenger
-	@include media-breakpoint-up(md) {
-		padding-bottom: 50px;
-	}
-
     @include media-breakpoint-down(xs) {
         background: $colorBeige;
 
@@ -742,7 +737,7 @@ footer {
             width: 70vw;
             left: -70px !important;
         }
-        
+
         .dropdown-menu::before,
         .dropdown-menu::after {
             content: none !important;
