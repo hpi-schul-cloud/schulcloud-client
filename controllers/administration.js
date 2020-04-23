@@ -509,7 +509,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		return (
 			`${stats.users.successful} von ${numberOfUsers} `
 			+ `Nutzer${numberOfUsers > 1 ? 'n' : ''} erfolgreich importiert `
-			+ `(${stats.users.created} erstellt, ${stats.users.updated} aktualisiert).`
+			+ `(${stats.users.created} erstellt ${stats.users.updated} aktualisiert).`
 		);
 	};
 	const buildErrorMessage = (stats) => {
@@ -548,8 +548,8 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			message,
 		};
 		const query = queryString.stringify({
-			"type": "success",
-			"message": encodeURIComponent(message)
+			"toast-type": "success",
+			"toast-message": encodeURIComponent(message)
 		});
 		res.redirect((req.body.referrer || req.header('Referer')) + '/?' + query);
 		return;
@@ -560,8 +560,8 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			message: message,
 		};
 		const query = queryString.stringify({
-			"type": "danger",
-			"message": encodeURIComponent(message)
+			"toast-type": "error",
+			"toast-message": encodeURIComponent(message)
 		});
 		res.redirect((req.body.referrer || req.header('Referer')) + '/?' + query);
 	}
