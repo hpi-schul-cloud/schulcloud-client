@@ -785,7 +785,7 @@ router.get('/:assignmentId', (req, res, next) => {
 			api(req).get('/submissions/', {
 				qs: {
 					homeworkId: assignment._id,
-					$populate: ['homeworkId', 'fileIds', 'teamMembers', 'studentId', 'courseGroupId'],
+					$populate: ['homeworkId', 'fileIds', 'gradeFileIds', 'teamMembers', 'studentId', 'courseGroupId'],
 				},
 			}),
 		];
