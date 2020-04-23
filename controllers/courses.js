@@ -709,6 +709,12 @@ router.get('/:courseId/', async (req, res, next) => {
 		}
 
 		// ###################### end of code for new Editor ################################
+		const user = res.locals.currentUser || {};
+		const roles = user.roles.map((role) => role.name);
+		const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
+		const teacher = ['teacher', 'demoTeacher'];
+		const student = ['student', 'demoStudent'];
+
 		res.render(
 			'courses/course',
 			Object.assign({}, course, {
@@ -717,8 +723,14 @@ router.get('/:courseId/', async (req, res, next) => {
 					: course.name,
 				activeTab: req.query.activeTab,
 				lessons,
-				homeworks: homeworks.filter(task => !task.private),
-				myhomeworks: homeworks.filter(task => task.private),
+				homeworksCount: (homeworks.filter((task) => !task.private)).length,
+				assignedHomeworks: (hasRole(teacher)
+					? homeworks.filter((task) => !task.private && !task.stats.submissionCount)
+					: homeworks.filter((task) => !task.private && !task.submissions)),
+				homeworksWithSubmission: (hasRole(teacher)
+					? homeworks.filter((task) => !task.private && task.stats.submissionCount)
+					: homeworks.filter((task) => !task.private && task.submissions)),
+				privateHomeworks: homeworks.filter((task) => task.private),
 				ltiToolIds,
 				courseGroups,
 				baseUrl,
@@ -740,6 +752,8 @@ router.get('/:courseId/', async (req, res, next) => {
 				newLessons,
 				isNewEdtrioActivated,
 				scopedCoursePermission: scopedPermissions[res.locals.currentUser._id],
+				isTeacher: hasRole(teacher),
+				isStudent: hasRole(student),
 			}),
 		);
 	} catch (err) {

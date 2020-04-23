@@ -235,8 +235,12 @@
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
 					"posedTasks": "Gestellte Aufgaben",
+					"submittedTasks": "Bearbeitete Aufgaben",
+					"unsubmittedTasks": "Gestellte Aufgaben",
+					"tasksWithSubmissions": "Aufgaben mit Abgaben",
 					"task": "Aufgabe",
-					"tasks": "Aufgaben"
+					"tasks": "Aufgaben",
+					"privateTasks": "Private Aufgaben und Entwürfe"
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
@@ -637,7 +641,8 @@
 			"selectTeamMembers": "Teammitglieder auswählen",
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
 			"submission": "Abgabe",
-			"submissions": "Abgaben"
+			"submissions": "Abgaben",
+			"submissionsWithoutFeedback": "unkommentierte Abgaben"
 		},
 		"text": {
 			"noAssignment": "Keine Zuordnung",
