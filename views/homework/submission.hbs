@@ -12,7 +12,10 @@
       {{/if}}
 
       {{#if @root.submission}}
-        {{#embed "homework/components/submission_uploaded_files" fileIds=@root.submission.fileIds deletionAllowed=true submission=@root.submission}}{{/embed}}
+        {{#embed "homework/components/submission_files"
+            fileIds=@root.submission.fileIds
+            deletionAllowed=true
+            submission=@root.submission}}{{/embed}}
          <input type="hidden" name="_method" data-force-value="true" value="patch"/>
       {{else}}
         <div class="form-group section-uploaded-files">
@@ -113,7 +116,7 @@
                     {{$t "global.button.cancel" }}
                 </button>
                 <button type="submit" class="btn btn-primary btn-submit">
-                   {{$t "global.button.delete" }}
+                    {{$t "global.button.delete" }}
                 </button>
             </div>
         {{/content}}
