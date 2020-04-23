@@ -29,6 +29,7 @@
             {{#inArray "messenger" @root.currentSchoolData.features}}
                 <script>
                     window.matrixBundle = '{{getConfig "MATRIX_MESSENGER_BUNDLE"}}';
+                    window.userLanguage = '{{ @root.userLanguage }}';
                 </script>
                 <script src="/scripts/chatLoggedin.js" type="text/javascript" defer></script>
             {{/inArray}}
