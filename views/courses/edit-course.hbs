@@ -194,7 +194,7 @@
 					</select>
 				</div>
 
-				{{#if @root.FEATURE_MESSENGER_ENABLED}}
+				{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
 					{{#inArray "messenger" schoolData.features}}
 						<div class="form-group">
 							<label>
@@ -203,7 +203,7 @@
 							</label>
 						</div>
 					{{/inArray}}
-				{{/if}}
+				{{/ifConfig}}
 
 
 				<label>{{$t "courses._course.edit.label.chooseDate"}}</label>
