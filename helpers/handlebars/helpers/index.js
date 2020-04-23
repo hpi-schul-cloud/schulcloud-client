@@ -60,7 +60,7 @@ const helpers = app => ({
 		}
 		return opts.inverse(this);
 	},
-	arrayLength: array => array.length,
+	arrayLength: array => array && array.length,
 	truncate: (text = '', { length = 140 } = {}) => {
 		if (text.length <= length) {
 			return text;
