@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Added
 
 - SC-3757 the LDAP config page now contains a link to the docs
+- SC-438 on logout button click localStorge will be deleted
 
 ### Changed
 
