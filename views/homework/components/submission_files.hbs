@@ -1,5 +1,11 @@
 <div class="form-group section-uploaded-files">
-    <label>{{$t "homework.label.forSubmissionUploadedFiles"}}</label>
+    <label>
+        {{#if this.grading}}
+            {{$t "homework.label.forSubmissionUploadedFiles"}}
+        {{else}}
+            {{$t "homework.label.forGradingUploadedFiles"}}
+        {{/if}}
+    </label>
     <br>
     <ul class="list-group-files js-file-list d-flex flex-row">
         {{#each this.fileIds}}
