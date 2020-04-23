@@ -652,7 +652,7 @@
 		"button": {
 			"less": "Weniger",
 			"login": "Anmelden",
-			"longerLoggedInWhenActivated": "Wenn aktiviert, bleibst du länger eingeloggt.",
+			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
 			"moreOptions": "Mehr Optionen"
 		},
 		"headline": {
@@ -667,7 +667,7 @@
 			"system": "System"
 		},
 		"label": {
-			"thisIsAPrivateDevice": "Dies ist ein privates Gerät"
+			"thisIsAPrivateDevice": "Angemeldet bleiben"
 		},
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
