@@ -10,7 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 ### Added
-
+- SC-3664 query toast-type and toast-message
 - SC-3892 Task sorting on the course side
 - SC-3757 the LDAP config page now contains a link to the docs
 - SC-438 on logout button click localStorge will be deleted
