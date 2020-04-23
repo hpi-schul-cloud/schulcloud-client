@@ -303,6 +303,12 @@
 				"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.",
 				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
 				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden"
+			},
+			"text": {
+				"byConnectingToASchool": "Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der",
+				"loginWhenYouLogin": "einloggen.Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der",
+				"toExplain": "zu erklären .",
+				"forAllTeachersWithoutAFullConsentForm": "Für alle Lehrer ohne vollständige Einverständniserklärung:"
 			}
 		},
 		"teams": {
@@ -315,6 +321,7 @@
 			},
 			"text": {
 				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
+				"legend": "Legende:",
 				"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
 				"teamHasOwners": "Team hat Eigentümer"
 			}
