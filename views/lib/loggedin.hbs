@@ -202,7 +202,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
                                     <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{ currentRole }})</div>
                                     <a class="dropdown-item" data-testid="settings" href="/account/">Einstellungen</a>
-                                    <a class="dropdown-item" data-testid="logout" href="/logout/">Abmelden</a>
+                                    <a class="dropdown-item" data-testid="logout" href="/logout/" onclick="localStorage.clear();">Abmelden</a>
                                 </div>
                               </div>
                             </div>
