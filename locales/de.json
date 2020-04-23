@@ -168,6 +168,7 @@
 				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
 				"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
+				"studentUnder": "Schüler unter",
 				"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein"
 			}
 		},
@@ -289,8 +290,13 @@
 			"text": {
 				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
+				"byConnectingToASchoolState": "Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der",
 				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
-				"parentsAgreed": "Eltern haben zugestimmt"
+				"loginAskYourStudents": "einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
+				"parentsAgreed": "Eltern haben zugestimmt",
+				"provideYourStudentsAnd": "Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.",
+				"studentsStillNeedTheDecalaration": "Schüler benötigen noch die Einverständniserklärung zur Nutzung der",
+				"yearsFirstRequireTheConsent": "Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären."
 			}
 		},
 		"teachers": {
@@ -306,9 +312,9 @@
 			},
 			"text": {
 				"byConnectingToASchool": "Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der",
+				"forAllTeachersWithoutAFullConsentForm": "Für alle Lehrer ohne vollständige Einverständniserklärung:",
 				"loginWhenYouLogin": "einloggen.Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der",
-				"toExplain": "zu erklären .",
-				"forAllTeachersWithoutAFullConsentForm": "Für alle Lehrer ohne vollständige Einverständniserklärung:"
+				"toExplain": "zu erklären ."
 			}
 		},
 		"teams": {
@@ -340,7 +346,6 @@
 			"importUserData": "Importiere Nutzerdaten per .csv-Datei",
 			"manageClass": "Klasse verwalten",
 			"registrationAtThe": "Die Anmeldung an der",
-			"studentUnder": "Schüler unter",
 			"studentsFrom": "Schüler ab",
 			"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
 			"theTeacherMustHaveGoneThrough": "möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben.",
