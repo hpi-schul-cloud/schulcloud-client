@@ -32,6 +32,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-3801 added generic filepicker url to ckeditor
 - SC-4260 added sentry sampling
 - SC-4064 allow for bulk download of ungraded homework files
+- SC-4064 allow to append files to submission feedback
 
 ### Changed in 22.10.0
 
