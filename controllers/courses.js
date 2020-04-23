@@ -778,18 +778,19 @@ router.patch('/:courseId', (req, res, next) => {
 		delete req.body.untilDate;
 	}
 
+	if (req.body.unarchive !== 'true' && req.body.untilDate < new Date()) {
+		req.body.features = [];
+		OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+			if (req.body[feature] === 'true') {
+				req.body.features.push(feature);
+			}
+			delete req.body[feature];
+		});
+	}
+
 	if (req.body.unarchive === 'true') {
 		req.body = { untilDate: req.body.untilDate };
 	}
-
-	req.body.features = [];
-	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
-		if (req.body[feature] === 'true') {
-			req.body.features.push(feature);
-		}
-		delete req.body[feature];
-	});
-
 	// first delete all old events for the course
 	deleteEventsForCourse(req, res, req.params.courseId)
 		.then(() => api(req)
