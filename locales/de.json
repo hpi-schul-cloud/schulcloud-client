@@ -152,6 +152,7 @@
 				"lastName": "Nachname:",
 				"lengthOfLesson": "Dauer der Schulstunde",
 				"nameOfTheCourse": "Name des Kurses",
+				"password": "Passwort:",
 				"room": "Raum",
 				"startOfLesson": "Start der Schulstunde",
 				"studentParticipants": "Schüler / Teilnehmer",
@@ -168,6 +169,7 @@
 				"dataProtection": "Datenschutzerklärung",
 				"forStudentsUnder": "Für Schüler unter",
 				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
+				"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
 				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
 				"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
@@ -189,7 +191,6 @@
 			"messageText": "Nachrichtentext:",
 			"moreOption": "Mehr Optionen",
 			"parents": "Eltern",
-			"password": "Passwort:",
 			"remarks": "Anmerkungen",
 			"schoolYear": "Schuljahr",
 			"selectCSVFile": "CSV-Datei auswählen",
@@ -336,7 +337,6 @@
 			"example": "Beispiel",
 			"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
 			"importUserData": "Importiere Nutzerdaten per .csv-Datei",
-			"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
 			"manageClass": "Klasse verwalten",
 			"registrationAtThe": "Die Anmeldung an der",
 			"studentUnder": "Schüler unter",
@@ -349,6 +349,12 @@
 			"youCanAlsoOpenEntries": "Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol",
 			"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du",
 			"yourClassDoesntFitInto": "Deine Klasse passt nicht ins klassische Schema?"
+		},
+		"users_registrationComplete": {
+			"text": {
+				"registrationAtThe": "Die Anmeldung an der",
+				"whenLoginForTheFirstTime": " Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen bei ihrem ersten Login die Einwilligungserklärung zusätzlich selbst erklären."
+			}
 		},
 		"users_skipRegistration": {
 			"text": {
