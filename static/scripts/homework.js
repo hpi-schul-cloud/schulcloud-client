@@ -14,6 +14,15 @@ const getDataValue = function(attr) {
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
 
+function getTeamMemberIds() {
+	const domValue = $('#teamMembers').val();
+	return (
+		$.isArray(domValue)
+			? domValue
+			: domValue.split(',')
+	);
+}
+
 function isSubmissionGradeUpload() {
 	// Uses the fact that the page can only ever contain one file upload form,
 	// either nested in the submission or the comment tab. And if it is in the
@@ -219,7 +228,7 @@ $(document).ready(() => {
     //validate teamMembers
     var lastTeamMembers = null;
     const maxTeamMembers = parseInt($("#maxTeamMembers").html());
-    $('#teamMembers').change(function(event) {
+    $('select#teamMembers').change(function(event) {
         if ($(this).val().length > maxTeamMembers) {
             $(this).val(lastTeamMembers);
             $.showNotification("Die maximale Teamgröße beträgt " + maxTeamMembers + " Mitglieder", "warning", 5000);
@@ -229,7 +238,7 @@ $(document).ready(() => {
         $(this).chosen().trigger("chosen:updated");
     });
 
-    $('#teamMembers').chosen().change(function(event, data) {
+    $('select#teamMembers').chosen().change(function(event, data) {
         if(data.deselected && data.deselected == $('.owner').val()){
             $(".owner").prop('selected', true);
             $('#teamMembers').trigger("chosen:updated");
@@ -370,7 +379,7 @@ $(document).ready(() => {
                     const submissionId = $("input[name='submissionId']").val();
                     const homeworkId = $("input[name='homeworkId']").val();
 
-                    const teamMembers = $('#teamMembers').val();
+                    const teamMembers = getTeamMemberIds();
                     if (submissionId) {
 						const fileType = isSubmissionGradeUpload() ? 'grade-files' : 'files'
 
