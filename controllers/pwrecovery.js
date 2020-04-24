@@ -46,7 +46,6 @@ router.get('/:pwId', (req, res, next) => {
 			}
 			return res.render('pwRecovery/pwrecovery', {
 				title: 'Passwort-Wiederherstellung',
-				subtitle: obscureEmail(result.account.username),
 				resetId: req.params.pwId,
 				action: '/pwrecovery/reset/',
 				buttonLabel: 'Neues Passwort anlegen',
