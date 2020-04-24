@@ -9,12 +9,21 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-### Changed
+### Added
 
-- SC-3607 CSV import now suggests the new birthday field (sample file + image)
-- SC-3607 the student/teacher import page now displays a warning for large imports
-- updated airbnb linter from 13.1 to 14.1
-- Increase performance - error logging in sentry
+- added sentry sampling
+
+## [22.9.9] - 2020-04-24
+
+### Added in 22.9.8
+
+- added api key auth for user service
+
+## [22.9.8] - 2020-04-23
+
+### Added in 22.9.8
+
+- add support for API-Key
 
 ## [22.9.7] - 2020-04-21
 
