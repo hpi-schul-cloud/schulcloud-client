@@ -1,45 +1,55 @@
-function loadFile() {
-    var file = document.querySelector('#logo-input').files[0];
-    var reader = new FileReader();
-    reader.addEventListener("load", function () {
-        transformToBase64(reader.result);
-    }, false);
-    if (file) {
-        reader.readAsDataURL(file);
-    }
-}
-function transformToBase64(image_src) {
-    var img = new Image();
-    var canvas = document.querySelector('#logo-canvas');
-    var ctx = canvas.getContext("2d");
-    var scalingFactor;
-    img.onload = function () {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        (img.width < img.height) ? scalingFactor = img.height / canvas.height : scalingFactor = img.width / canvas.width;
-        ctx.drawImage(img, canvas.width / 2 - img.width / scalingFactor / 2, canvas.height / 2 - img.height / scalingFactor / 2, img.width / scalingFactor, img.height / scalingFactor);
-        document.getElementsByName('logo_dataUrl')[0].value = canvas.toDataURL("image/png");
-        document.querySelector('#preview-logo').src = canvas.toDataURL("image/png");
-        document.querySelector('#logo-filename').innerHTML = 'Datei ausgewählt';
-    }
-    img.src = image_src;
+function transformToBase64(imageSrc) {
+	const img = new Image();
+	const canvas = document.querySelector('#logo-canvas');
+	const ctx = canvas.getContext('2d');
+	let scalingFactor;
+	img.onload = () => {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		if (img.width < img.height) {
+			scalingFactor = img.height / canvas.height;
+		} else {
+			scalingFactor = img.width / canvas.width;
+		}
+		const dx = canvas.width / 2 - img.width / scalingFactor / 2;
+		const dy = canvas.height / 2 - img.height / scalingFactor / 2;
+		const dw = img.width / scalingFactor;
+		const dh = img.height / scalingFactor;
+		ctx.drawImage(img, dx, dy, dw, dh);
+		document.getElementsByName('logo_dataUrl')[0].value = canvas.toDataURL('image/png');
+		document.querySelector('#preview-logo').src = canvas.toDataURL('image/png');
+		document.querySelector('#logo-filename').innerHTML = 'Datei ausgewählt';
+	};
+	img.src = imageSrc;
 }
 
-document.querySelector('#logo-input').addEventListener("change", loadFile, false);
+function loadFile() {
+	const file = document.querySelector('#logo-input').files[0];
+	const reader = new FileReader();
+	reader.addEventListener('load', () => {
+		transformToBase64(reader.result);
+	}, false);
+	if (file) {
+		reader.readAsDataURL(file);
+	}
+}
+
+document.querySelector('#logo-input')
+	.addEventListener('change', loadFile, false);
 
 // hide/show Messenger sub options
-var messengerInput = document.querySelector('#messenger');
-var messengerSubOptions = document.querySelector('#messenger-sub-options');
+const messengerInput = document.querySelector('#messenger');
+const messengerSubOptions = document.querySelector('#messenger-sub-options');
 if (messengerInput && messengerSubOptions) {
-    var setMessengerSubOptionsVisability = function(visible) {
-        if (visible) {
-            messengerSubOptions.classList.remove('hidden');
-        } else {
-            messengerSubOptions.classList.add('hidden');
-        }
-    };
+	const setMessengerSubOptionsViability = (visible) => {
+		if (visible) {
+			messengerSubOptions.classList.remove('hidden');
+		} else {
+			messengerSubOptions.classList.add('hidden');
+		}
+	};
 
-    setMessengerSubOptionsVisability(messengerInput.checked);
-    messengerInput.addEventListener('change', (event) => {
-        setMessengerSubOptionsVisability(event.target.checked);
-    });
+	setMessengerSubOptionsViability(messengerInput.checked);
+	messengerInput.addEventListener('change', (event) => {
+		setMessengerSubOptionsViability(event.target.checked);
+	});
 }
