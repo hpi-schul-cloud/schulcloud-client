@@ -223,15 +223,30 @@
 						{{#if @root.FEATURE_MESSENGER_ENABLED}}
 							<div class="form-group">
 								<label>
-									<input type="checkbox" name="messenger" value="true"
-										{{#inArray "messenger" ../school.features}}checked{{/inArray}}>
+									<input id="messenger" type="checkbox" name="messenger" value="true"
+										{{#inArray "messenger" ../school.features}}checked{{/inArray}}/>
 									Chatfunktion aktivieren
 									<p class="text-muted">
-										Sind Chats an deiner Schule aktiviert, können Team-Administratoren 
+										Sind Chats an deiner Schule aktiviert, können Team-Administratoren
 										im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.
 									</p>
 								</label>
 							</div>
+
+							<div id="messenger-sub-options">
+								<div class="form-group">
+									<label>
+										<input type="checkbox" name="messengerSchoolRoom" value="true"
+											{{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}/>
+										Ankündigungs Chat Raum für gesamte Schule anlegen
+										<p class="text-muted">
+											Der Ankündigungs Chat Raum ermöglicht Schul-Admins Nachrichten  an die gesamte Schule zu senden.
+											Die Schüler haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.
+										</p>
+									</label>
+								</div>
+							</div>
+
 						{{else}}
 							{{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
 								<div class="form-group">

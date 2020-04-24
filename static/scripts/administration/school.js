@@ -25,3 +25,21 @@ function transformToBase64(image_src) {
 }
 
 document.querySelector('#logo-input').addEventListener("change", loadFile, false);
+
+// hide/show Messenger sub options
+var messengerInput = document.querySelector('#messenger');
+var messengerSubOptions = document.querySelector('#messenger-sub-options');
+if (messengerInput && messengerSubOptions) {
+    var setMessengerSubOptionsVisability = function(visible) {
+        if (visible) {
+            messengerSubOptions.classList.remove('hidden');
+        } else {
+            messengerSubOptions.classList.add('hidden');
+        }
+    };
+
+    setMessengerSubOptionsVisability(messengerInput.checked);
+    messengerInput.addEventListener('change', (event) => {
+        setMessengerSubOptionsVisability(event.target.checked);
+    });
+}
