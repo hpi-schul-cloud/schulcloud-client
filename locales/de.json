@@ -565,7 +565,8 @@
 			"aboutTheProject": "Über das Projekt",
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrer:in einloggen",
-			"subscribeNewsletter": "Newsletter abonnieren"
+			"subscribeNewsletter": "Newsletter abonnieren",
+			"tryAgain": "Erneut Versuchen"
 		},
 		"headline": {
 			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> Blog",
@@ -590,6 +591,7 @@
 			"blogIsDeactivated": "Der Blog ist derzeit deaktiviert! Das HPI Schul-Cloud Team kümmert sich darum.",
 			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) videoplayer.",
 			"downloadFile": "Datei herunterladen",
+			"errorWhileLoadingHomepage": "Beim Laden des Inhalts der Startseite ist ein Fehler aufgetreten.",
 			"moreInformation": "Mehr Informationen:",
 			"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
 			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
