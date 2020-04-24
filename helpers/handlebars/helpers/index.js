@@ -173,6 +173,7 @@ const helpers = app => ({
 		}
 		return options.inverse(this);
 	},
+	userIds: (users) => users.map(user => user._id).join(','),
 	timeFromNow: (date, opts) => moment(date).fromNow(),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
