@@ -1,4 +1,5 @@
 /* global CKEDITOR */
+import multiDownload from 'multi-download';
 
 import { softNavigate } from './helpers/navigation';
 import { getQueryParameters } from './helpers/queryStringParameter';
