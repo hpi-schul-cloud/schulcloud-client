@@ -119,6 +119,16 @@
 				"withoutAFullDeclarationOfConsent": " ohne vollständige Einverständniserklärung:"
 			}
 		},
+		"dashboard": {
+			"heading": {
+				"manageClasses": "Klassen verwalten",
+				"manageCourses": "Kurse verwalten",
+				"manageSchool": "Schule verwalten",
+				"manageStudents": "Schüler verwalten",
+				"manageTeachers": "Lehrer verwalten",
+				"manageTeams": "Teams verwalten"
+			}
+		},
 		"global": {
 			"button": {
 				"addCourse": " Kurs hinzufügen",
@@ -172,6 +182,15 @@
 				"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein"
 			}
 		},
+		"helpdesk": {
+			"label": {
+				"tips": "Tipp:"
+			},
+			"text": {
+				"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
+				"youCanAlsoOpenEntries": "Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol"
+			}
+		},
 		"label": {
 			"briefdescription": "Kurzbeschreibung (optional)",
 			"className": "Klassenbezeichnung",
@@ -193,7 +212,6 @@
 			"systemName": "Name des Systems",
 			"systemType": "Typ des Systems",
 			"targetState": "Soll-Zustand",
-			"tips": "Tipp:",
 			"title": "Titel",
 			"toInviteToTheSchoolCloud": "Um in die Schul-Cloud einzuladen, verteile folgenden Link an:",
 			"urlOfTheRSSSystem": "URL des RSS-Feeds",
@@ -226,14 +244,6 @@
 				"fromYourLDAPPleaseCheck": "aus deinem LDAP übernehmen wird. Bitte überprüfe vor Übernahme der Daten durch Beenden der Transferphase diese Daten stichprobenartig auf ihre Richtigkeit.",
 				"onThisPageYouWillFindTheData": "Auf dieser Seite findest du die Daten aller Klassen und Nutzer, so wie sie die"
 			}
-		},
-		"link": {
-			"manageClasses": "Klassen verwalten",
-			"manageCourses": "Kurse verwalten",
-			"manageSchool": "Schule verwalten",
-			"manageStudents": "Schüler verwalten",
-			"manageTeachers": "Lehrer verwalten",
-			"manageTeams": "Teams verwalten"
 		},
 		"school": {
 			"button": {
@@ -376,7 +386,6 @@
 			"beforeUsingThe": "Bevor die Nutzung der",
 			"butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
 			"example": "Beispiel",
-			"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
 			"importUserData": "Importiere Nutzerdaten per .csv-Datei",
 			"manageClass": "Klasse verwalten",
 			"registrationAtThe": "Die Anmeldung an der",
@@ -386,7 +395,6 @@
 			"toTheStudentsThemselves": "an die Schüler selbst ",
 			"transferred": "versetzt",
 			"years": "Jahre:",
-			"youCanAlsoOpenEntries": "Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol",
 			"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du",
 			"yourClassDoesntFitInto": "Deine Klasse passt nicht ins klassische Schema?"
 		},
