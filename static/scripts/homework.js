@@ -471,5 +471,14 @@ $(document).ready(() => {
     });
 
     // typeset all MathJAX formulas displayed
-    MathJax.Hub.Typeset()
+	MathJax.Hub.Typeset()
+
+	// allow muti-download
+	$('button.multi-download').on('click', function() {
+		const files = $(this).data('files').split(' ');
+		const names = $(this).data('fileNames').split(' ');
+		multiDownload(files, {
+			rename: ({ url, index, urls }) => names[index],
+		});
+	});
 });
