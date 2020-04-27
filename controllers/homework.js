@@ -491,6 +491,8 @@ const overview = (title = '') => {
 					if (!assignment.isTeacher) {
 						assignment.stats = undefined;
 					}
+					const dueDateArray = splitDate(assignment.dueDate);
+					assignment.submittable = dueDateArray.timestamp >= Date.now() || !assignment.dueDate;
 					return assignment;
 				});
 
