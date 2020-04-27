@@ -129,6 +129,39 @@
 				"manageTeams": "Teams verwalten"
 			}
 		},
+		"form_Problem": {
+			"label": {
+				"createdOn": "Erstellt am:",
+				"itsOn": "Ist-Zustand",
+				"remarks": "Anmerkungen",
+				"targetState": "Soll-Zustand",
+				"title": "Titel"
+			}
+		},
+		"form_Rss": {
+			"label": {
+				"briefdescription": "Kurzbeschreibung (optional)",
+				"urlOfTheRSSSystem": "URL des RSS-Feeds"
+			}
+		},
+		"form_System": {
+			"label": {
+				"clientSecret": "Client-Geheimnis",
+				"furtherInformation": "Weitere Informationen (OAuth)",
+				"systemName": "Name des Systems",
+				"systemType": "Typ des Systems",
+				"urlOfTheSystem": "Url des Systems"
+			}
+		},
+		"form_TerminateSchoolYear": {
+			"text": {
+				"TheSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data",
+				"isEndedAndTheTransferPhase": "wird beendet und die Transferphase zum neuen Schuljahr beginnt.",
+				"noClassesAndUsersCanBeCreated": "Es können in dieser Zeit keine Klassen und Nutzer angelegt oder geändert werden.",
+				"theSchoolYear": "Das Schuljahr",
+				"thisStepCannotBeUndone": "Dieser Schritt kann nicht rückgängig gemacht werden."
+			}
+		},
 		"global": {
 			"button": {
 				"addCourse": " Kurs hinzufügen",
@@ -192,30 +225,18 @@
 			}
 		},
 		"label": {
-			"briefdescription": "Kurzbeschreibung (optional)",
 			"className": "Klassenbezeichnung",
-			"clientSecret": "Client-Geheimnis",
-			"createdOn": "Erstellt am:",
 			"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:",
-			"furtherInformation": "Weitere Informationen (OAuth)",
 			"grade": "Jahrgangsstufe",
-			"itsOn": "Ist-Zustand",
 			"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
 			"messageText": "Nachrichtentext:",
 			"moreOption": "Mehr Optionen",
-			"remarks": "Anmerkungen",
 			"schoolYear": "Schuljahr",
 			"selectCSVFile": "CSV-Datei auswählen",
 			"selectElement": "keine Auswahl",
 			"selectTeacher": "Lehrer auswählen (auch später möglich)",
 			"sendRegistrationLinkToUsers": "Registrierungslinks sofort nach Import an Nutzer senden",
-			"systemName": "Name des Systems",
-			"systemType": "Typ des Systems",
-			"targetState": "Soll-Zustand",
-			"title": "Titel",
 			"toInviteToTheSchoolCloud": "Um in die Schul-Cloud einzuladen, verteile folgenden Link an:",
-			"urlOfTheRSSSystem": "URL des RSS-Feeds",
-			"urlOfTheSystem": "Url des Systems",
 			"use": "Nutzung"
 		},
 		"ldapEdit": {
