@@ -12,11 +12,13 @@
       {{/if}}
 
       {{#if @root.submission}}
-        {{#embed "homework/components/submission_files"
-            fileIds=@root.submission.fileIds
-            deletionAllowed=true
-            submission=@root.submission}}{{/embed}}
-        <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+        {{#ifneq 0 (arrayLength this.submission.fileIds)}}
+            {{#embed "homework/components/submission_files"
+                fileIds=@root.submission.fileIds
+                deletionAllowed=true
+                submission=@root.submission}}{{/embed}}
+            <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+        {{/ifneq}}
       {{else}}
         <div class="form-group section-uploaded-files">
             <label>{{$t "homework.label.filesUploadedForDelivery" }}</label>
