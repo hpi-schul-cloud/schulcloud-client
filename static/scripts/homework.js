@@ -16,11 +16,7 @@ const getCurrentParent = getDataValue('parent');
 
 function getTeamMemberIds() {
 	const domValue = $('#teamMembers').val();
-	return (
-		$.isArray(domValue)
-			? domValue
-			: domValue.split(',')
-	);
+	return $.isArray(domValue) ? domValue : (domValue || '').split(',');
 }
 
 function isSubmissionGradeUpload() {
