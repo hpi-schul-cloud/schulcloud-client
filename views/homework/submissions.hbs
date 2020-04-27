@@ -119,4 +119,6 @@
             </div>
         {{/ifArray}}
     {{/if}}
+
+    <button type="button" class="btn btn-secondary" {{#unless @root.ungradedFileSubmissions}}disabled="disabled" {{/unless}}>{{$t "homework.button.downloadUngradedFiles"}}</button>
 </section>
