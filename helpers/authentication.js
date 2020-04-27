@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+
 const { Configuration } = require('@schul-cloud/commons');
 
 const api = require('../api');
 const permissionsHelper = require('./permissions');
-
-const crypto = require('crypto');
 const wordlist = require('../static/other/wordlist.js')
 
 const { NODE_ENV, SW_ENABLED, LOGIN_BLOCK_TIME } = require('../config/global');
@@ -24,15 +24,15 @@ const rolesDisplayName = {
 };
 
 const generatePassword = () => {
-	let passphraseParts = [];
+	const passphraseParts = [];
 
 	// iterate 3 times, to add 3 password parts
-	[1,2,3].forEach(x => {
+	[1, 2, 3].forEach(() => {
 		passphraseParts.push(
-			wordlist[crypto.randomBytes(2).readUInt16LE(0)%wordlist.length]
-		)
-	})
-	return passphraseParts.join(" ");
+			wordlist[ crypto.randomBytes(2).readUInt16LE(0) % wordlist.length ]
+		);
+	});
+	return passphraseParts.join(' ');
 };
 
 const clearCookie = async (req, res, options = { destroySession: false }) => {
@@ -220,5 +220,5 @@ module.exports = {
 	restrictSidebar,
 	populateCurrentUser,
 	login,
-	generatePassword
+	generatePassword,
 };

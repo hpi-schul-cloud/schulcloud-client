@@ -170,5 +170,5 @@ module.exports = [
 	'landkreis', 'geringer', 'variante', 'aufsichtsrat', 'fortgesetzt', 'betreiben',
 	'zeitschrift', 'mitteilung', 'geeignet', 'weihnachten', 'umfrage', 'kroatien',
 	'herbert', 'nochmals', 'registriert', 'tempo', 'spannung', 'klima',
-	'bewerber', 'irgendwie', 'erweitert', 'widerspruch'
-]
+	'bewerber', 'irgendwie', 'erweitert', 'widerspruch',
+];
