@@ -175,13 +175,11 @@
 		"label": {
 			"briefdescription": "Kurzbeschreibung (optional)",
 			"className": "Klassenbezeichnung",
-			"classUsers": "Nutzer der Klasse",
 			"clientSecret": "Client-Geheimnis",
 			"createdOn": "Erstellt am:",
 			"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:",
 			"furtherInformation": "Weitere Informationen (OAuth)",
 			"grade": "Jahrgangsstufe",
-			"hide": "Ausblenden",
 			"itsOn": "Ist-Zustand",
 			"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
 			"messageText": "Nachrichtentext:",
@@ -200,19 +198,33 @@
 			"toInviteToTheSchoolCloud": "Um in die Schul-Cloud einzuladen, verteile folgenden Link an:",
 			"urlOfTheRSSSystem": "URL des RSS-Feeds",
 			"urlOfTheSystem": "Url des Systems",
-			"use": "Nutzung",
-			"users": "Nutzer:"
+			"use": "Nutzung"
 		},
 		"ldapEdit": {
 			"heading": {
 				"importantNote": "Wichtiger Hinweis"
+			},
+			"label": {
+				"classUsers": "Nutzer der Klasse",
+				"hide": "Ausblenden",
+				"users": "Nutzer:"
+			},
+			"text": {
+				"anyChangesToTheFollowingConfigurationCanResult": "Jegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und alle Nutzer Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die Änderungen final zu speichern, wenn die Verifizierung erfolgreich war."
 			}
 		},
 		"ldapSchoolYearStart": {
+			"button": {
+				"closeTheWindow": "Fenster schließen"
+			},
 			"heading": {
 				"LDAPClasses": "LDAP-Klassen",
 				"LDAPUsers": "LDAP-Nutzer",
 				"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
+			},
+			"text": {
+				"fromYourLDAPPleaseCheck": "aus deinem LDAP übernehmen wird. Bitte überprüfe vor Übernahme der Daten durch Beenden der Transferphase diese Daten stichprobenartig auf ihre Richtigkeit.",
+				"onThisPageYouWillFindTheData": "Auf dieser Seite findest du die Daten aller Klassen und Nutzer, so wie sie die"
 			}
 		},
 		"link": {
