@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "22.9.2",
+	"version": "22.9.9",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -102,7 +102,7 @@
 		"env2": "^2.2.0",
 		"eslint": "^5.16.0",
 		"eslint-config-airbnb-base": "^14.1.0",
-		"eslint-plugin-import": "^2.17.1",
+		"eslint-plugin-import": "^2.20.2",
 		"eslint-plugin-json": "^2.1.1",
 		"expose-loader": "^0.7.5",
 		"gulp": "^4.0.2",
