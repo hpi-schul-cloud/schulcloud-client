@@ -107,6 +107,7 @@
 				"byClickingOn": "Durch den Klick auf",
 				"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
 				"forAllStudents": "Für alle Schüler",
+				"ifAllStudentsAndParentshaveGiven": "Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
 				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
 				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler erklären",
 				"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler auszudrucken.",
@@ -125,6 +126,16 @@
 				"manageStudents": "Schüler verwalten",
 				"manageTeachers": "Lehrer verwalten",
 				"manageTeams": "Teams verwalten"
+			}
+		},
+		"form_DeleteRss": {
+			"text": {
+				"areYouSureYouWantToDeleteTheFollowingRSS": "Sind Sie sich sicher, dass Sie folgenden RSS-Feed löschen wollen?"
+			}
+		},
+		"form_DeleteUser": {
+			"text": {
+				"areYouSureYouWantTheFollowingUser": "Sind Sie sich sicher, dass Sie folgenden Nutzer wollen?"
 			}
 		},
 		"form_Import": {
@@ -235,14 +246,17 @@
 			},
 			"text": {
 				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
+				"byConnectingToASchoolState": "Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der",
 				"chatIsActivated": "Chat ist aktiviert",
 				"dataProtection": "Datenschutzerklärung",
 				"forStudentsUnder": "Für Schüler unter",
 				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
 				"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
+				"loginAskYourStudents": "einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
 				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
 				"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
+				"provideYourStudentsAnd": "Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.",
 				"studentUnder": "Schüler unter",
 				"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein"
 			}
@@ -410,11 +424,8 @@
 			"text": {
 				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
-				"byConnectingToASchoolState": "Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der",
 				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
-				"loginAskYourStudents": "einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
 				"parentsAgreed": "Eltern haben zugestimmt",
-				"provideYourStudentsAnd": "Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.",
 				"studentsStillNeedTheDecalaration": "Schüler benötigen noch die Einverständniserklärung zur Nutzung der",
 				"yearsFirstRequireTheConsent": "Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären."
 			}
@@ -453,8 +464,6 @@
 			}
 		},
 		"text": {
-			"areYouSureYouWantTheFollowingUser": "Sind Sie sich sicher, dass Sie folgenden Nutzer wollen?",
-			"areYouSureYouWantToDeleteTheFollowingRSS": "Sind Sie sich sicher, dass Sie folgenden RSS-Feed löschen wollen?",
 			"areYouSureYouWantToRemoveAllMembers": "Bist du sicher, dass du alle Mitglieder deiner Schule aus diesem Team entfernen willst?",
 			"butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
 			"manageClass": "Klasse verwalten",
