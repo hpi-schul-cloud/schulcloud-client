@@ -14,13 +14,10 @@
 				<div class="first-topic-success">
 					<h2 class="h5">{{$t "courses._course.topic.headline.firstTopicSuccess"}}</h2>
 					<div>
-						Ein Klick auf das Auge <i class="fa fa-eye"></i> macht das Thema für Schüler*innen sichtbar oder
-						unsichtbar.
+						{{{$t "courses._course.topic.text.clickOnEyeToggleVisibility"}}}
 					</div>
 					<div>
-						Du kannst dein Thema jederzeit bearbeiten <i class="fa fa-pencil"></i>, umsortieren <i
-							class="fa fa-ellipsis-v"></i>&nbsp;<i class="fa fa-ellipsis-v"></i>, löschen <i
-							class="fa fa-trash-o"></i> oder teilen <i class="fa fa-share-alt"></i>.
+						{{{$t "courses._course.topic.text.editSortDeleteShareTopicsHere"}}}
 					</div>
 					<div>
 						{{$t "courses._course.topic.text.clickOnTopicForPreview"}}
@@ -180,7 +177,7 @@
 												{{/unless}}
 											{{/userHasPermission}}
 											<p class="topic-label ml-1">{{{stripOnlyScript this.title}}}</p>
-											<span class="tag tag-default">beta</span>
+											<span class="tag tag-default">{{$t "courses._course.topic.text.beta"}}</span>
 											{{#userHasPermission "COURSE_EDIT"}}
 												<div class="right-btn-group">
 													{{#unless @root.isArchived}}
@@ -213,7 +210,7 @@
 													<i class="fa fa-eye-slash"></i>
 												</a>
 												<p class="topic-label ml-1">{{{stripOnlyScript ../title}}}</p>
-												<span class="tag tag-default">beta</span>
+												<span class="tag tag-default">{{$t "courses._course.topic.text.beta"}}</span>
 												<div class="right-btn-group">
 													{{#unless @root.isArchived}}
 														<a class="delete-topic btn btn-secondary btn-sm btn-icon-card"
@@ -255,10 +252,10 @@
 								class="btn btn-add {{#if @root.newLessons}}btn-secondary w-100{{else}}btn-primary btn-empty{{/if}} center"
 								title="{{$t "courses._course.topic.text.addTopicWithNewEditor"}}">
 								{{#if @root.newLessons}}
-									<span>{{$t "courses._course.topic.button.createAnotherTopicWithNewEditor"}} <span class="tag tag-default">beta</span></span>
+									<span>{{$t "courses._course.topic.button.createAnotherTopicWithNewEditor"}} <span class="tag tag-default">{{$t "courses._course.topic.text.beta"}}</span></span>
 									<i class="fa fa-plus-circle plus-icon pull-right"></i>
 								{{else}}
-									<span>{{$t "courses._course.topic.button.createFirstTopicWithNewEditor"}} <span class="tag tag-default">beta</span></span>
+									<span>{{$t "courses._course.topic.button.createFirstTopicWithNewEditor"}} <span class="tag tag-default">{{$t "courses._course.topic.text.beta"}}</span></span>
 								{{/if}}
 							</a>
 						</div>
