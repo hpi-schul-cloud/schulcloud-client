@@ -23,7 +23,7 @@
         <section class="section-course">
           <div class="wizard-header">
             <div class="header-icon">
-              <img src="/images/empty-states/shuttle.svg" alt="Space Shuttle Start" class="hidden-xs-down"/>
+              <img src="/images/empty-states/shuttle.svg" alt="{{$t "courses.add.img_alt.spaceShuttleStart"}}" class="hidden-xs-down"/>
             </div>
             <div class="headlines">
               <h2 class="h3">{{sectionTitle}}</h2>
@@ -252,7 +252,14 @@
 
               <div class="pull-right">
                 <a class="btn btn-secondary" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
-                <a class="btn btn-primary" href="{{redirectUrl}}">{{$t "courses.add.link.giveExercises"}}</a>
+                
+                <a class="btn btn-primary" href="{{../redirectUrl}}">
+                   {{#ifeq redirectUrl "/courses"}}
+                      {{$t "courses.add.link.courseOverview"}}
+                   {{else}}
+                      {{$t "courses.add.link.giveExercises"}}
+                   {{/ifeq}}
+                </a>
               </div>
             </section>
 

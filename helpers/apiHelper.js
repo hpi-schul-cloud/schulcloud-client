@@ -1,5 +1,9 @@
 const rp = require('request-promise');
-const { REQUEST_TIMEOUT_MS } = require('../config/global');
+const { Configuration } = require('@schul-cloud/commons');
+
+if (Configuration.has('REQUEST_TIMEOUT_MS') !== true) {
+	throw new Error('REQUEST_TIMEOUT_MS missing in Configuration');
+}
 
 const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true } = {}) => {
 	const headers = {};
@@ -9,10 +13,11 @@ const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true } = {})
 	if (keepAlive) {
 		headers.Connection = 'Keep-Alive';
 	}
+	headers['x-api-key'] = Configuration.get('API_KEY');
 
 	return rp.defaults({
 		baseUrl,
-		timeout: REQUEST_TIMEOUT_MS,
+		timeout: Configuration.get('REQUEST_TIMEOUT_MS'),
 		json,
 		headers,
 	});

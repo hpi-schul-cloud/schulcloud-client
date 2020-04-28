@@ -6,22 +6,22 @@ const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
 
 const createToolHandler = (req, res, next) => {
-    const context = req.originalUrl.split('/')[1];
-    api(req).post('/ltiTools/', {
-        json: req.body
-    }).then((tool) => {
-        if (tool._id) {
-            api(req).patch(`/${context}/` + req.body.courseId, {
-                json: {
-                    $push: {
-                        ltiToolIds: tool._id
-                    }
-                }
+	const context = req.originalUrl.split('/')[1];
+	api(req).post('/ltiTools/', {
+		json: req.body,
+	}).then((tool) => {
+		if (tool._id) {
+			api(req).patch(`/${context}/${req.body.courseId}`, {
+				json: {
+					$push: {
+						ltiToolIds: tool._id,
+					},
+				},
 			}).then((course) => {
 				res.redirect(`/${context}/${course._id}/?activeTab=tools`);
 			});
-        }
-    });
+		}
+	});
 };
 
 const addToolHandler = (req, res, next) => {
@@ -34,8 +34,10 @@ const addToolHandler = (req, res, next) => {
 				.then((course) => {
 					res.render('courses/add-tool', {
 						action,
-						title: `Tool anlegen für ${course.name}`,
-						submitLabel: 'Tool anlegen',
+						title: res.$t('courses._course.tools.add.headline.createToolForCourse', {
+							coursename: course.name,
+						}),
+						submitLabel: res.$t('courses._course.tools.add.button.createTool'),
 						ltiTools: tools.data,
 						courseId: req.params.courseId,
 					});
@@ -127,13 +129,16 @@ const showToolHandler = (req, res, next) => {
 		if (!tool) {
 			res.render('lib/error', {
 				loggedin: res.locals.loggedin,
-				message: 'Das Tool konnte nicht gefunden werden.',
+				message: res.$t('courses._course.tools.add.text.toolCouldNotBeFound'),
 			});
 		} else {
 			const renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
 			res.render(renderPath, {
 				course,
-				title: `${tool.name}${(course.name ? `, Kurs/Fach: ${course.name}` : '')}`,
+				title: `${tool.name}${(course.name
+					? res.$t('courses._course.tools.add.headline.course', { coursename: course.name })
+					: ''
+				)}`,
 				tool,
 			});
 		}

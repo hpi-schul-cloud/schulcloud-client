@@ -13,6 +13,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
+const queryString = require('querystring');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -508,7 +509,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		return (
 			`${stats.users.successful} von ${numberOfUsers} `
 			+ `Nutzer${numberOfUsers > 1 ? 'n' : ''} erfolgreich importiert `
-			+ `(${stats.users.created} erstellt, ${stats.users.updated} aktualisiert).`
+			+ `(${stats.users.created} erstellt ${stats.users.updated} aktualisiert).`
 		);
 	};
 	const buildErrorMessage = (stats) => {
@@ -546,15 +547,23 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			type: messageType,
 			message,
 		};
-		res.redirect(req.body.referrer || req.header('Referer'));
+		const query = queryString.stringify({
+			"toast-type": "success",
+			"toast-message": encodeURIComponent(message)
+		});
+		res.redirect((req.body.referrer || req.header('Referer')) + '/?' + query);
 		return;
 	} catch (err) {
+		let message = 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.';
 		req.session.notification = {
 			type: 'danger',
-			message:
-				'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
+			message: message,
 		};
-		res.redirect(req.body.referrer || req.header('Referer'));
+		const query = queryString.stringify({
+			"toast-type": "error",
+			"toast-message": encodeURIComponent(message)
+		});
+		res.redirect((req.body.referrer || req.header('Referer')) + '/?' + query);
 	}
 };
 
@@ -2536,6 +2545,31 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 			});
 		}
 		delete req.body.videoconference;
+
+		// Update riot messenger feature in school
+		const messengerEnabled = (res.locals.currentSchoolData.features || []).includes(
+			'messenger',
+		);
+		if (!messengerEnabled && req.body.messenger === 'true') {
+			// enable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'messenger',
+					},
+				},
+			});
+		} else if (messengerEnabled && req.body.messenger !== 'true') {
+			// disable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'messenger',
+					},
+				},
+			});
+		}
+		delete req.body.messenger;
 	} catch (err) {
 		next(err);
 	}
@@ -3288,27 +3322,15 @@ router.get(
 	'/systems/ldap/edit/:id',
 	permissionsHelper.permissionsChecker('ADMIN_VIEW'),
 	async (req, res, next) => {
-		// Find LDAP-System
-		const school = await Promise.resolve(
-			api(req).get(`/schools/${res.locals.currentSchool}`, {
-				qs: {
-					$populate: ['systems'],
-				},
-			}),
-		);
-		const system = school.systems.filter(
-			// eslint-disable-next-line no-shadow
-			system => system._id === req.params.id,
-		);
-
-		if (system.length === 1) {
+		try {
+			const system = await Promise.resolve(
+				api(req).get(`/systems/${req.params.id}`),
+			);
 			res.render('administration/ldap-edit', {
 				title: 'LDAP bearbeiten',
-				system: system[0],
+				system: system,
 			});
-		} else {
-			const err = new Error('Not Found');
-			err.status = 404;
+		} catch (err) {
 			next(err);
 		}
 	},
@@ -3318,17 +3340,8 @@ router.post(
 	'/systems/ldap/edit/:id',
 	permissionsHelper.permissionsChecker('ADMIN_VIEW'),
 	async (req, res, next) => {
-		// Find LDAP-System
-		const school = await Promise.resolve(
-			api(req).get(`/schools/${res.locals.currentSchool}`, {
-				qs: {
-					$populate: ['systems'],
-				},
-			}),
-		);
-		const system = school.systems.filter(
-			// eslint-disable-next-line no-shadow
-			system => system._id === req.params.id,
+		const system = await Promise.resolve(
+			api(req).get(`/systems/${req.params.id}`),
 		);
 
 		// Classes acitve
@@ -3347,7 +3360,7 @@ router.post(
 		}
 
 		api(req)
-			.patch(`/systems/${system[0]._id}`, {
+			.patch(`/systems/${system._id}`, {
 				json: {
 					alias: req.body.ldapalias,
 					ldapConfig: {
@@ -3388,7 +3401,7 @@ router.post(
 			})
 			.then(() => {
 				api(req)
-					.get(`/ldap/${system[0]._id}`)
+					.get(`/ldap/${system._id}`)
 					.then((data) => {
 						res.json(data);
 					});

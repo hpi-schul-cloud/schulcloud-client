@@ -54,6 +54,12 @@ const helpers = app => ({
 		}
 		return opts.inverse(this);
 	},
+	notInArray: (item, array = [], opts) => {
+		if (!array.includes(item)) {
+			return opts.fn(this);
+		}
+		return opts.inverse(this);
+	},
 	arrayLength: array => array.length,
 	truncate: (text = '', { length = 140 } = {}) => {
 		if (text.length <= length) {
@@ -279,6 +285,15 @@ const helpers = app => ({
 			return i18n.getInstance(data.data.local.currentUser)(key);
 		}
 		return i18n.getInstance(opts.data.local.currentUser)(key, data);
+	},
+	dict: (...keyValues) => {
+		const dict = {};
+		keyValues.forEach((keyValue, index) => {
+			if (!(index % 2)) {
+				dict[keyValue] = keyValues[index + 1];
+			}
+		});
+		return dict;
 	},
 });
 
