@@ -9,6 +9,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Security
+- SC-3990 generation of first login passwords
+
 ### Added
 - SC-3664 query toast-type and toast-message
 - SC-3892 Task sorting on the course side
