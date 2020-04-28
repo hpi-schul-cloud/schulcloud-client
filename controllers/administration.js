@@ -802,12 +802,7 @@ const parseDate = (input) => {
 	return new Date(parts[2], parts[1] - 1, parts[0]);
 };
 
-const generatePassword = () => {
-	const words = ['auto', 'baum', 'bein', 'blumen', 'flocke', 'frosch', 'halsband', 'hand', 'haus', 'herr', 'horn',
-		'kind', 'kleid', 'kobra', 'komet', 'konzert', 'kopf', 'kugel', 'puppe', 'rauch', 'raupe', 'regenbogen', 'schuh',
-		'seele', 'spatz', 'taktisch', 'traum', 'trommel', 'wolke'];
-	return words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 98) + 1).toString();
-};
+
 
 const skipRegistration = (req, res, next) => {
 	const userid = req.params.id;
@@ -1305,7 +1300,7 @@ router.get(
 					submitLabel: 'Einverständnis erklären',
 					closeLabel: 'Abbrechen',
 					user,
-					password: generatePassword(),
+					password: authHelper.generatePassword(),
 					referrer: req.header('Referer'),
 				});
 			})
@@ -2067,7 +2062,7 @@ router.get(
 			if (obj.importHash) return true;
 			return false;
 		});
-		const passwords = students.map(() => (generatePassword()));
+		const passwords = students.map(() => (authHelper.generatePassword()));
 		const renderUsers = students.map((student, i) => ({
 			fullname: `${student.firstName} ${student.lastName}`,
 			id: student._id,
