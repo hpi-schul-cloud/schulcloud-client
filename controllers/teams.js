@@ -139,7 +139,8 @@ const editTeamHandler = (req, res, next) => {
 			action,
 			method,
 			title: req.params.teamId ? res.$t('teams.add.headline.editTeam') : res.$t('teams.add.headline.createTeam'),
-			submitLabel: req.params.teamId ? res.$t('teams.add.button.saveChanges') : res.$t('teams.add.button.createTeam'),
+			submitLabel: req.params.teamId ? res.$t('teams.add.button.saveChanges') 
+										   : res.$t('teams.add.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
@@ -302,7 +303,7 @@ router.get('/', async (req, res, next) => {
 		res.json(teams);
 	} else if (teams.length !== 0 || teamInvitations.length !== 0) {
 		res.render('teams/overview', {
-			title: res.$t("teams.headline.myTeams"),
+			title: res.$t('teams.headline.myTeams'),
 			teams,
 			teamInvitations,
 			allowedCreateTeam,
@@ -808,20 +809,26 @@ router.get('/:teamId/members', async (req, res, next) => {
 		teamowner: res.$t('teams._team.members.text.owner'),
 	};
 
-	const head = [res.$t('teams._team.members.headline.firstName'), 
-				res.$t('teams._team.members.headline.surname'),
-				res.$t('teams._team.members.headline.role'),
-				res.$t('teams._team.members.headline.school'),
-				res.$t('teams._team.members.headline.actions'),];
+	const head = [
+		res.$t('teams._team.members.headline.firstName'),
+		res.$t('teams._team.members.headline.surname'),
+		res.$t('teams._team.members.headline.role'),
+		res.$t('teams._team.members.headline.school'),
+		res.$t('teams._team.members.headline.actions'),
+	];
 
-	const headClasses = [res.$t('teams._team.members.headline.name'), 
-						res.$t('teams._team.members.headline.student'), 
-						res.$t('teams._team.members.headline.actions')];
+	const headClasses = [
+		res.$t('teams._team.members.headline.name'),
+		res.$t('teams._team.members.headline.student'),
+		res.$t('teams._team.members.headline.actions'),
+	];
 
-	const headInvitations = [res.$t('teams._team.members.headline.email'), 
-							res.$t('teams._team.members.headline.invitedOn'),
-							res.$t('teams._team.members.headline.role'),
-							res.$t('teams._team.members.headline.actions')];
+	const headInvitations = [
+		res.$t('teams._team.members.headline.email'),
+		res.$t('teams._team.members.headline.invitedOn'),
+		res.$t('teams._team.members.headline.role'),
+		res.$t('teams._team.members.headline.actions')
+	];
 
 	const invitationActions = [
 		{

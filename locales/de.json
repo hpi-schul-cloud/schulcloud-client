@@ -140,12 +140,12 @@
 					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
+					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"chooseDate": "Termine auswählen",
 					"class": "Klasse(n)",
 					"from": "Von",
 					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 					"substitute": "Vertretungslehrer:innen",
-					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"till": "Bis",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
 					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
@@ -236,12 +236,12 @@
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
 					"posedTasks": "Gestellte Aufgaben",
+					"privateTasks": "Private Aufgaben und Entwürfe",
 					"submittedTasks": "Bearbeitete Aufgaben",
-					"unsubmittedTasks": "Gestellte Aufgaben",
-					"tasksWithSubmissions": "Aufgaben mit Abgaben",
 					"task": "Aufgabe",
 					"tasks": "Aufgaben",
-					"privateTasks": "Private Aufgaben und Entwürfe"
+					"tasksWithSubmissions": "Aufgaben mit Abgaben",
+					"unsubmittedTasks": "Gestellte Aufgaben"
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
@@ -767,43 +767,37 @@
 	},
 	"teams": {
 		"_team": {
-			"edit": {
-				"label": {
-					"teamName": "Name des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
-					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
-					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams"
-				},
-				"placeholder": {
-					"teamName": "A-Team"
-				},
-					"text": {
-						"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
-					}
-				}
-			},
-			"tab_label" : {
-				"files" : "Dateien",
-				"news" : "Neuigkeiten",
-				"dates" : "Termine"
-			},
 			"button": {
 				"leaveTeam": "Team verlassen"
 			},
 			"dropdown_menu": {
 				"link": {
-					"editTeam" : "Team bearbeiten",
-					"deleteTeam" : "Team löschen",
+					"deleteTeam": "Team löschen",
+					"editTeam": "Team bearbeiten",
+					"leaveTeam": "Team verlassen",
 					"manageMembers": "Teammitglieder verwalten",
-					"seeMembers" : "Teammitglieder ansehen",
-					"leaveTeam" : "Team verlassen"
+					"seeMembers": "Teammitglieder ansehen"
+				}
+			},
+			"edit": {
+				"label": {
+					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
+					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
+				},
+				"placeholder": {
+					"teamName": "A-Team"
+				},
+				"text": {
+					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
 				}
 			},
 			"events": {
 				"button": {
 					"add": "Hinzufügen",
-					"addDate" : "Termin anlegen"
+					"addDate": "Termin anlegen"
 				},
 				"headline": {
 					"addDate": "Termin hinzufügen",
@@ -811,19 +805,19 @@
 				}
 			},
 			"files": {
-				"button" : {
-					"toTeamFiles" : "Zu den Team-Dateien",
-					"deleteFolder" : "Ordner löschen",
-					"renameFolder" : "Ordner umbenennen",
-					"shareFolder" : "Ordner-Freigabe",
-					"changeSharingSettings" : "Freigabe-Einstellungen ändern",
-					"createFolder" : "Ordner erstellen"
+				"button": {
+					"changeSharingSettings": "Freigabe-Einstellungen ändern",
+					"createFolder": "Ordner erstellen",
+					"deleteFolder": "Ordner löschen",
+					"renameFolder": "Ordner umbenennen",
+					"shareFolder": "Ordner-Freigabe",
+					"toTeamFiles": "Zu den Team-Dateien"
 				},
 				"headline": {
-					"fileActions" : "Datei-Aktionen",
-					"files" : "Dateien",
-					"folders" : "Ordner",
-					"changeFilePermissions": "Freigabe-Einstellungen ändern"
+					"changeFilePermissions": "Freigabe-Einstellungen ändern",
+					"fileActions": "Datei-Aktionen",
+					"files": "Dateien",
+					"folders": "Ordner"
 				},
 				"text": {
 					"changedFilePermissionsError": "Problem beim Ändern der Berechtigungen",
@@ -866,12 +860,17 @@
 				}
 			},
 			"news": {
-				"link" : {
-					"showAllNews" : "Alle Neuigkeiten anzeigen..."
+				"button": {
+					"addNews": "Neuigkeit anlegen"
 				},
-				"button" : {
-					"addNews" : "Neuigkeit anlegen"
+				"link": {
+					"showAllNews": "Alle Neuigkeiten anzeigen..."
 				}
+			},
+			"tab_label": {
+				"dates": "Termine",
+				"files": "Dateien",
+				"news": "Neuigkeiten"
 			},
 			"text": {
 				"invitationAcceptedSuccess": "Teameinladung erfolgreich angenommen.",
@@ -899,4 +898,5 @@
 		"placeholder": {
 			"searchForTeams": "Suche nach Teams"
 		}
+	}
 }
