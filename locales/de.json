@@ -501,6 +501,8 @@
 			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
+	"dataprivacy": {
+	},
 	"files": {
 		"button": {
 			"ascending": "↑ aufsteigend",
