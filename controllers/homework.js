@@ -918,8 +918,6 @@ router.get('/:assignmentId', (req, res, next) => {
 function collectUngradedFiles(submissions) {
 	const isGraded = (submission) =>
 		typeof submission.grade === 'number' || submission.gradeComment || !_.isEmpty(submission.gradeFileIds);
-	const getFileName = (file) =>
-		`${file.createdAt.slice(0, 4 + 1 + 2 + 1 + 2)}_grade_${file._id}.${_.last(file.name.split('.'))}`;
 
 	const ungradedFiles = submissions
 		.filter((submission) => !isGraded(submission))
@@ -928,7 +926,6 @@ function collectUngradedFiles(submissions) {
 	return {
 		length: ungradedFiles.length,
 		urls: ungradedFiles.map((file) => `/files/file?download=true&file=${file._id}`).join(' '),
-		names: ungradedFiles.map(getFileName).join(' '),
 	};
 }
 
