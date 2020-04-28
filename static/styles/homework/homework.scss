@@ -52,7 +52,8 @@
 		}
 
 		i {
-			font-size: 20px;
+			font-size: $font-size-lg;
+			padding: 10px;
 		}
 
 		i.done {
@@ -63,8 +64,8 @@
 			color: $colorDanger;
 		}
 
-		i.warning {
-			color: $colorWarning;
+		i.closed {
+			color: $colorSemiTransparent;
 		}
 	}
 

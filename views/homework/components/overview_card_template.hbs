@@ -3,7 +3,7 @@
     <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">
         <div class="datesWithIcon">
             <i
-                class="fa fa-{{#if submissions}}check-circle-o done{{else if submittable}}exclamation-circle warning{{else}}times-circle-o danger{{/if}}"></i>
+                class="fa fa-{{#if submissions}}check done{{else if submittable}}exclamation-triangle danger{{else}}ban closed{{/if}}"></i>
             <div>
                 {{#if this.availableDate}}{{timeToString availableDate}}<br />{{/if}}
                 {{#if this.dueDate}}
