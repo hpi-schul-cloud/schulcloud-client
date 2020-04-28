@@ -19,6 +19,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-438 on logout button click localStorge will be deleted
 - SC-3801 added generic filepicker url to ckeditor
 - SC-4260 added sentry sampling
+- SC-4064 allow for bulk download of ungraded homework files
 
 ### Changed
 
