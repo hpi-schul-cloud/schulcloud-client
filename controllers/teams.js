@@ -139,8 +139,8 @@ const editTeamHandler = (req, res, next) => {
 			action,
 			method,
 			title: req.params.teamId ? res.$t('teams.add.headline.editTeam') : res.$t('teams.add.headline.createTeam'),
-			submitLabel: req.params.teamId ? res.$t('teams.add.button.saveChanges') 
-										   : res.$t('teams.add.button.createTeam'),
+			submitLabel: req.params.teamId ? res.$t('teams.add.button.saveChanges')
+										: res.$t('teams.add.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
@@ -827,7 +827,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		res.$t('teams._team.members.headline.email'),
 		res.$t('teams._team.members.headline.invitedOn'),
 		res.$t('teams._team.members.headline.role'),
-		res.$t('teams._team.members.headline.actions')
+		res.$t('teams._team.members.headline.actions'),
 	];
 
 	const invitationActions = [
