@@ -571,16 +571,11 @@ router.get('/:teamId', async (req, res, next) => {
 		});
 
 		let events = [];
-		// const twentyfourHours = 24 * 60 * 60 * 1000;
-		// const filterStart = new Date(Date.now() - twentyfourHours);
 		try {
 			events = await api(req).get('/calendar/', {
 				qs: {
 					'scope-id': req.params.teamId,
-					all: true,
-					// HOTFIX: timestamp do not work, for hotfix it is changed to old request logic
-					// all: false, 
-					// from: filterStart.toLocalISOString(),
+					all: false, 
 				},
 			});
 			events = events
