@@ -54,7 +54,7 @@
         <p class="lead">{{$t "courses._course.text.coursedescription"}} {{{stripOnlyScript description}}}</p>
         {{/if}}
 		{{#unless ../isArchived}}{{#if nextEvent}}
-          <p class="text-muted">{{$t "courses._course.text.nextClass"}}{{nextEvent}}</p>
+          <p class="text-muted">{{$t "courses._course.text.nextClass"}} {{nextEvent}}</p>
         {{/if}}{{/unless}}
         <a href="{{filesUrl}}" class="btn btn-add btn-secondary pull-right">
           <i class="fa fa-folder-open"></i>
@@ -68,8 +68,12 @@
           <button class="tab" data-testid="topics" data-tab="js-topics">
             <span class="text">{{$t "courses._course.tab_label.topics"}}
           </button>
-          <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
-            <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}"/></span>
+            <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
+            {{#if isTeacher}}
+              <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../privateHomeworks) ( add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) ) }}"/></span>
+            {{else}}
+              <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) }}"/></span>
+            {{/if}}
           </button>
           <button class="tab" data-testid="tools" data-tab="js-tools">
             <span class="text">{{$t "courses._course.tab_label.tools"}} <span class="count-badge" data-badge="{{../ltiToolIds.length}}"/></span>
