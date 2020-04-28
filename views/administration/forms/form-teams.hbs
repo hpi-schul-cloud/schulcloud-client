@@ -2,11 +2,11 @@
 
 <div class="form-group">
     <label>Wähle hier einen zusätzlichen Eigentümer für das Team aus:</label>
-    {{{course.name}}}
+    {{course.name}}
     <select class="form-control form-control-lg" type="text" name="userId">
         <option value="">Weiteren Eigentümer hinzufügen</option>
         {{#each users}}
-            <option value="{{{this._id}}}">{{{this.firstName}}} {{{this.lastName}}}</option>
+            <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
         {{/each}}
     </select>
 </div>

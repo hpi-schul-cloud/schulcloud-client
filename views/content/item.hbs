@@ -1,6 +1,6 @@
 <div class="card">
 
-    <img class="card-img-top" src="{{{ thumbnail }}}" alt="Thumbnail">
+    <img class="card-img-top" src="{{ thumbnail }}" alt="Thumbnail">
     <div class="card-block">
 
         {{#userIsAllowedToViewContent nonOer}}
@@ -15,7 +15,7 @@
 
         <div class="card-tags">
             {{#each (truncateArray tags 15)}}
-                <span class="tag tag-default">{{{ this }}}</span>
+                <span class="tag tag-default">{{ this }}</span>
             {{/each}}
         </div>
         <p class="card-text">{{{ truncateLength (stripHTMLTags description) 500}}}</p>
@@ -41,9 +41,9 @@
             </a>
         {{/userIsAllowedToViewContent}}
 
-        <span>via {{{ providerName }}}</span>
+        <span>via {{ providerName }}</span>
         {{#if @root.isCourseGroupTopic}}
-            <a class="add-to-lesson pull-right" href="{{{ _id }}}">
+            <a class="add-to-lesson pull-right" href="{{ _id }}">
                 <i class="fa fa-plus-square"></i>
             </a>
         {{else}}
