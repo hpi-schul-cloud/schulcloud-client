@@ -127,6 +127,37 @@
 				"manageTeams": "Teams verwalten"
 			}
 		},
+		"form_Import": {
+			"label": {
+				"selectCSVFile": "CSV-Datei auswählen",
+				"sendRegistrationLinkToUsers": "Registrierungslinks sofort nach Import an Nutzer senden"
+			},
+			"text": {
+				"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
+				"andSendYourUsersARegistrationLink": "und lass deinen Nutzern einen Registrierungslink zukommen.",
+				"example": "Beispiel",
+				"importUserData": "Importiere Nutzerdaten per .csv-Datei",
+				"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du"
+			}
+		},
+		"form_InvitationStudent": {
+			"text": {
+				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
+				"studentsFrom": "Schüler ab",
+				"theParents": "die Eltern",
+				"toTheStudentsThemselves": "an die Schüler selbst ",
+				"years": "Jahre:"
+			}
+		},
+		"form_InvitationTeacher": {
+			"label": {
+				"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:"
+			},
+			"text": {
+				"beforeUsingThe": "Bevor die Nutzung der",
+				"theTeacherMustHaveGoneThrough": "möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben."
+			}
+		},
 		"form_Problem": {
 			"label": {
 				"createdOn": "Erstellt am:",
@@ -189,6 +220,7 @@
 				"parents": "Eltern",
 				"password": "Passwort:",
 				"room": "Raum",
+				"schoolYear": "Schuljahr",
 				"startOfLesson": "Start der Schulstunde",
 				"student": "Schüler",
 				"studentParticipants": "Schüler / Teilnehmer",
@@ -226,16 +258,12 @@
 		},
 		"label": {
 			"className": "Klassenbezeichnung",
-			"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:",
 			"grade": "Jahrgangsstufe",
 			"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
 			"messageText": "Nachrichtentext:",
 			"moreOption": "Mehr Optionen",
-			"schoolYear": "Schuljahr",
-			"selectCSVFile": "CSV-Datei auswählen",
 			"selectElement": "keine Auswahl",
 			"selectTeacher": "Lehrer auswählen (auch später möglich)",
-			"sendRegistrationLinkToUsers": "Registrierungslinks sofort nach Import an Nutzer senden",
 			"toInviteToTheSchoolCloud": "Um in die Schul-Cloud einzuladen, verteile folgenden Link an:",
 			"use": "Nutzung"
 		},
@@ -425,25 +453,14 @@
 			}
 		},
 		"text": {
-			"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
-			"andSendYourUsersARegistrationLinl": "und lass deinen Nutzern einen Registrierungslink zukommen.",
 			"areYouSureYouWantTheFollowingUser": "Sind Sie sich sicher, dass Sie folgenden Nutzer wollen?",
 			"areYouSureYouWantToDeleteTheFollowingRSS": "Sind Sie sich sicher, dass Sie folgenden RSS-Feed löschen wollen?",
 			"areYouSureYouWantToRemoveAllMembers": "Bist du sicher, dass du alle Mitglieder deiner Schule aus diesem Team entfernen willst?",
-			"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
-			"beforeUsingThe": "Bevor die Nutzung der",
 			"butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
-			"example": "Beispiel",
-			"importUserData": "Importiere Nutzerdaten per .csv-Datei",
 			"manageClass": "Klasse verwalten",
 			"registrationAtThe": "Die Anmeldung an der",
-			"studentsFrom": "Schüler ab",
 			"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
-			"theTeacherMustHaveGoneThrough": "möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben.",
-			"toTheStudentsThemselves": "an die Schüler selbst ",
 			"transferred": "versetzt",
-			"years": "Jahre:",
-			"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du",
 			"yourClassDoesntFitInto": "Deine Klasse passt nicht ins klassische Schema?"
 		},
 		"users_edit": {

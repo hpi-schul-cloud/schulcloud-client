@@ -18,7 +18,7 @@
 {{/ifeq}}
 
 <div class="form-group">
-	<label>{{$t "administration.label.schoolYear" }}<sup>*</sup></label>
+	<label>{{$t "administration.global.label.schoolYear" }}<sup>*</sup></label>
 	<select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen"
 		{{#ifCond edit '&&' isCustom}}{{#unless @root.class.keepYear}}disabled {{/unless}}{{/ifCond}}>
 		{{#each schoolyears}}
@@ -91,7 +91,7 @@
 			<p>{{$t "administration.text.className" }}
 				<span data-from="grade"></span><span data-from="classsuffix"></span>
 			</p>
-			<p>{{$t "administration.label.schoolYear" }}  <span data-from="schoolyear" /></p>
+			<p>{{$t "administration.global.label.schoolYear" }}  <span data-from="schoolyear" /></p>
 		</div>
 		<div class="class-custom {{#unless isCustom}}hidden{{/unless}}">
 			<p>{{$t "administration.text.className" }}
@@ -99,7 +99,7 @@
 			</p>
 			<p id="recap-keepyear"
 				{{#ifCond edit '&&' isCustom}}class="{{#unless @root.class.keepYear}}hidden{{/unless}}" {{/ifCond}}>
-				{{$t "administration.label.schoolYear" }} <span data-from="schoolyear" /></p>
+				{{$t "administration.global.label.schoolYear" }} <span data-from="schoolyear" /></p>
 		</div>
 	</div>
 </section>
