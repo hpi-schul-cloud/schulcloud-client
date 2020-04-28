@@ -78,25 +78,31 @@
 	},
 	"administration": {
 		"button": {
-			"classInSchoolYear": "Klasse in Schuljahr",
-			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
-			"transfer": "versetzen",
-			"transferClassToTheNextSchoolYear": "Klasse ins nächste Schuljahr versetzen"
+			"printListWithAccessData": "Liste mit Zugangsdaten drucken"
 		},
 		"classes": {
 			"button": {
 				"addClass": "Klasse hinzufügen",
 				"addStudentsFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
+				"classInSchoolYear": "Klasse in Schuljahr",
 				"copyLink": "Link kopieren",
 				"declareConsentOnBehalfOfTheStudents": "Einverständnis im Namen der Schüler erklären",
-				"printLinkWithQRCode": "Link mit QR-Code Drucken"
+				"printLinkWithQRCode": "Link mit QR-Code Drucken",
+				"transfer": "versetzen",
+				"transferClassToTheNextSchoolYear": "Klasse ins nächste Schuljahr versetzen"
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
+				"className": "Klassenbezeichnung",
 				"filterBySchoolYear": "Nach Schuljahr filtern",
+				"grade": "Jahrgangsstufe",
 				"invitationLink": "Einladungslink",
+				"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
+				"moreOption": "Mehr Optionen",
 				"pleaseNote": "Bitte beachte:",
 				"renameClass": "Klasse umbenennen",
+				"selectElement": "keine Auswahl",
+				"selectTeacher": "Lehrer auswählen (auch später möglich)",
 				"termOfUse": "Nutzungsordnung",
 				"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler das Einverständnis zur",
 				"yourStudentsAreNotYetInThe": "Deine Schüler sind noch nicht in der"
@@ -104,17 +110,21 @@
 			"text": {
 				"andTo": "und zur",
 				"attentionIfYouChangeTheSchoolYear": "Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.",
+				"butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
 				"byClickingOn": "Durch den Klick auf",
 				"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
 				"forAllStudents": "Für alle Schüler",
 				"ifAllStudentsAndParentshaveGiven": "Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
 				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
+				"manageClass": "Klasse verwalten",
 				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler erklären",
 				"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler auszudrucken.",
 				"noLackOfInformedConsent": "In dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
 				"ofThe": "der",
 				"required": "erforderlich",
+				"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
 				"toExplain": "erklären.",
+				"transferred": "versetzt",
 				"withoutAFullDeclarationOfConsent": " ohne vollständige Einverständniserklärung:"
 			}
 		},
@@ -271,13 +281,7 @@
 			}
 		},
 		"label": {
-			"className": "Klassenbezeichnung",
-			"grade": "Jahrgangsstufe",
-			"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
 			"messageText": "Nachrichtentext:",
-			"moreOption": "Mehr Optionen",
-			"selectElement": "keine Auswahl",
-			"selectTeacher": "Lehrer auswählen (auch später möglich)",
 			"toInviteToTheSchoolCloud": "Um in die Schul-Cloud einzuladen, verteile folgenden Link an:",
 			"use": "Nutzung"
 		},
@@ -465,11 +469,7 @@
 		},
 		"text": {
 			"areYouSureYouWantToRemoveAllMembers": "Bist du sicher, dass du alle Mitglieder deiner Schule aus diesem Team entfernen willst?",
-			"butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
-			"manageClass": "Klasse verwalten",
 			"registrationAtThe": "Die Anmeldung an der",
-			"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
-			"transferred": "versetzt",
 			"yourClassDoesntFitInto": "Deine Klasse passt nicht ins klassische Schema?"
 		},
 		"users_edit": {
