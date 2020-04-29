@@ -233,19 +233,21 @@
 								</label>
 							</div>
 
-							<div id="messenger-sub-options">
-								<div class="form-group">
-									<label>
-										<input type="checkbox" name="messengerSchoolRoom" value="true"
-											{{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}/>
-										Ankündigungs Chat Raum für gesamte Schule anlegen
-										<p class="text-muted">
-											Der Ankündigungs Chat Raum ermöglicht Schul-Admins Nachrichten  an die gesamte Schule zu senden.
-											Die Schüler haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.
-										</p>
-									</label>
+							{{#ifConfig "FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED" true}}
+								<div id="messenger-sub-options">
+									<div class="form-group">
+										<label>
+											<input type="checkbox" name="messengerSchoolRoom" value="true"
+												{{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}/>
+											Ankündigungs Chat Raum für gesamte Schule anlegen
+											<p class="text-muted">
+												Der Ankündigungs Chat Raum ermöglicht Schul-Admins Nachrichten  an die gesamte Schule zu senden.
+												Die Schüler haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.
+											</p>
+										</label>
+									</div>
 								</div>
-							</div>
+							{{/ifConfig}}
 
 						{{else}}
 							{{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
