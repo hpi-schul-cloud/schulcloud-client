@@ -120,14 +120,16 @@
         {{/ifArray}}
     {{/if}}
 
-    <button
-        type="button"
-        class="btn btn-secondary multi-download"
-        id="submissions-download-ungraded-files"
-        {{#ifeq 0 @root.ungradedFileSubmissions.length}}disabled="disabled"{{/ifeq}}
+    <div class="text-xs-right">
+        <button
+            type="button"
+            class="btn btn-secondary multi-download"
+            id="submissions-download-ungraded-files"
+            {{#ifeq 0 @root.ungradedFileSubmissions.length}}disabled="disabled"{{/ifeq}}
 
-        data-files="{{@root.ungradedFileSubmissions.urls}}"
-    >
-        {{$t "homework.button.downloadUngradedFiles"}}
-    </button>
+            data-files="{{@root.ungradedFileSubmissions.urls}}"
+        >
+            {{$t "homework.button.downloadUngradedFiles"}}
+        </button>
+    </div>
 </section>
