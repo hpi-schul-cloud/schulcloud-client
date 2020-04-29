@@ -543,3 +543,10 @@
 .alert-course-delete {
   color: $colorDanger;
 }
+
+.course-link{
+  color: $fontColor;
+  &:hover, &:focus{
+      text-decoration: none;
+  }
+}

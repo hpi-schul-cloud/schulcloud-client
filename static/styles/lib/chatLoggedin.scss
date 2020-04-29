@@ -1,9 +1,17 @@
 @import './colors';
+@import './bootstrap/scss/bootstrap-flex';
 
 $chat-color-text: $fontColor;
 $chat-color-background: $colorWhite;
 $chat-color-primary: $colorTertiary;
 $chat-color-secondary: hsl(hue($chat-color-primary), saturation($chat-color-primary), 85%);
+
+// add space for messenger
+footer {
+	@include media-breakpoint-up(md) {
+		padding-bottom: 50px;
+	}
+}
 
 #matrixchat {
 	z-index: 1039; // less than .modal-backdrop
@@ -24,15 +32,113 @@ $chat-color-secondary: hsl(hue($chat-color-primary), saturation($chat-color-prim
 		margin-left: 10px;
 	}
 
+	// > hide explore public room
+	.mx_LeftPanel_explore {
+		display:none;
+	}
+
 	// > hide menu buttons
-	.mx_LeftPanel_explore,
 	.mx_RoomSubList_addRoom,
 	.mx_RoomTile_menuButton {
-		display: none !important;
+		//display: none !important;
+	}
+	// hide room settings (make public, shared)
+	.mx_SettingsFlag,
+	.mx_CreateRoomDialog_details {
+		display: none;
 	}
 
 	// > do not ask to activate desktop notifications
 	.mx_MatrixToolbar {
+		display: none;
+	}
+
+	// hide user id
+	.mx_InviteDialog_roomTile_userId,
+	.mx_MemberInfo_profile > .mx_MemberInfo_profileField:first-child {
+		display: none;
+	}
+
+	// hide reference to user Ids
+	.mx_InviteDialog_helpText {
+		display: none;
+	}
+
+	// don't invite via email
+	.mx_AddressPickerDialog_identityServer {
+		display: none;
+	}
+
+	// hide verbannen
+	.mx_MemberInfo_field:nth-child(2) {
+		display: none;
+	}
+	// hide letzte Nachricht löschen
+	.mx_MemberInfo_field:nth-child(3) {
+		display: none;
+	}
+
+	// reduce message menu
+	// > weiterleiten
+	.mx_MessageContextMenu_field:nth-child(2) {
+		display: none;
+	}
+	// > quellcode
+	.mx_MessageContextMenu_field:nth-child(3) {
+		display: none;
+	}
+	// > teilen
+	.mx_MessageContextMenu_field:nth-child(4) {
+		display: none;
+	}
+
+	// hide sticker creation
+	#stickersButton {
+		display: none;
+	}
+
+	// full width content
+	.mx_RoomView_timeline_rr_enabled .mx_EventTile_line,
+	.mx_RoomView_timeline_rr_enabled .mx_EventTile_reply {
+		margin-right: 0;
+	}
+	.mx_EventListSummary_toggle {
+		display: none;
+	}
+
+	// hide archiv
+	.mx_RoomSubList[aria-label="Archiv"] {
+		display: none;
+	}
+
+	.mx_EmojiPicker_anchor {
+		box-sizing: border-box;
+	}
+
+	// hide menu breadcrumbs if many rooms are present
+	.mx_RoomBreadcrumbs {
+		display: none;
+	}
+
+	// hide room error messages
+	.mx_RoomPreviewBar_RoomNotFound {
+		display: none;
+	}
+
+	// hide room type changer and room settings
+	.mx_RoomTileContextMenu_tag_field {
+		display: none;
+	}
+	.mx_ContextualMenu_withChevron_left {
+		margin-top: 110px;
+		.mx_ContextualMenu_chevron_left {
+			display: none;
+		}
+	}
+
+	// hide audio/video calls
+	.mx_MessageComposer_voicecall,
+	.mx_MessageComposer_videocall {
 		display: none;
 	}
 
@@ -109,25 +215,48 @@ $chat-color-secondary: hsl(hue($chat-color-primary), saturation($chat-color-prim
 	input[type=text].mx_LeftPanel_filterRooms {
 		font-size: var(--text-xs);
 		color: $chat-color-primary;
-		padding-left: 41px !important;
+		padding-left: 52px !important;
 	}
 
 	.mx_RoomSubList_label > span {
 		font-size: var(--text-xs);
 		color: $chat-color-primary;
-		margin-left: 19px;
+		margin-left: 30px;
 	}
 
 	.mx_RoomTile_name {
 		font-size: var(--text-xs);
 		color: $chat-color-text;
-		padding-left: 12px;
+		padding-left: 23px;
 	}
 
 	.mx_RoomSubList_chevron {
 		background-color: $chat-color-primary;
 		opacity: 0.9;
 		margin-left: -1px;
+	}
+
+	.mx_RoomSubList_addRoom {
+		background-color: $chat-color-primary;
+	}
+
+	.mx_RoomSubList_badge > div,
+	.mx_RoomTile_badge.mx_RoomTile_badgeUnread, .mx_RoomTile_unreadNotify .mx_RoomTile_badge {
+		background-color: #ff4b55;
+	}
+
+	.mx_SearchBox .mx_SearchBox_closeButton {
+		margin-right: 6px;
+	}
+
+	.mx_RoomTileContextMenu_leave {
+		font-size: 0;
+		padding-left: 3px;
+
+		&:after {
+			font-size: 14px;
+			content: 'Raum Verlassen';
+		}
 	}
 
 	.mx_RoomSubList_chevronDown {
@@ -237,5 +366,4 @@ $chat-color-secondary: hsl(hue($chat-color-primary), saturation($chat-color-prim
 		width: 200px;
 		min-width: 200px;
 	}
-
 }
