@@ -23,7 +23,7 @@
 				<div class="empty-state">
 					<img src="/images/empty-states/books_empty.svg" alt= "{{$t "courses._course.edit.img_alt.courseIsArchieved"}}" class="image" />
 
-					<h2 class="h4">Der Kurs "{{course.name}}" ist archivert.</h2>
+					<h2 class="h4">{{$t "courses._course.edit.headline.courseIsArchieved" (dict "coursename" course.name )}}</h2>
 					<p class="text-muted text-center">
 						{{$t "courses._course.edit.text.toEditChangeDate"}}
 					</p>
@@ -154,7 +154,6 @@
 						{{/each}}
 					</select>
 				</div>
-				
 
 				<div class="form-group">
 					<label>{{$t "courses._course.edit.label.class"}} <small>{{$t "courses._course.edit.label.studentsWillBeAdded"}}</small></label>
@@ -200,7 +199,7 @@
 						<div class="form-group">
 							<label>
 								<input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
-								Messenger für Kurs aktivieren
+								{{$t "courses._course.edit.label.activateBidirectionalMessenger"}}
 							</label>
 						</div>
 					{{/inArray}}
@@ -225,7 +224,7 @@
 								{{#if @root.course.isArchived}}disabled{{/if}} />
 						</div>
 					</div>
-					
+
 					<table width="100%" cellpadding="5px">
 						<thead>
 							<th></th>
