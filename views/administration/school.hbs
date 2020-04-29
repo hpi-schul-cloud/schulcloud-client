@@ -220,7 +220,7 @@
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
 
-						{{#if @root.FEATURE_MESSENGER_ENABLED}}
+						{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
 							<div class="form-group">
 								<label>
 									<input id="messenger" type="checkbox" name="messenger" value="true"
@@ -248,8 +248,9 @@
 									</div>
 								</div>
 							{{/ifConfig}}
-
-						{{else}}
+						{{/ifConfig}}
+            
+						{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
 							{{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
 								<div class="form-group">
 									<label>
@@ -263,7 +264,7 @@
 									</label>
 								</div>
 							{{/if}}
-						{{/if}}
+						{{/ifConfig}}
 
 						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
 						<div class="form-group">
