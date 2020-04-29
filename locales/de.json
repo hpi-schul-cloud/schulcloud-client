@@ -140,12 +140,12 @@
 					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
+					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"chooseDate": "Termine auswählen",
 					"class": "Klasse(n)",
 					"from": "Von",
 					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 					"substitute": "Vertretungslehrer:innen",
-					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"till": "Bis",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
 					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
@@ -236,12 +236,12 @@
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
 					"posedTasks": "Gestellte Aufgaben",
+					"privateTasks": "Private Aufgaben und Entwürfe",
 					"submittedTasks": "Bearbeitete Aufgaben",
-					"unsubmittedTasks": "Gestellte Aufgaben",
-					"tasksWithSubmissions": "Aufgaben mit Abgaben",
 					"task": "Aufgabe",
 					"tasks": "Aufgaben",
-					"privateTasks": "Private Aufgaben und Entwürfe"
+					"tasksWithSubmissions": "Aufgaben mit Abgaben",
+					"unsubmittedTasks": "Gestellte Aufgaben"
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
@@ -502,6 +502,22 @@
 		}
 	},
 	"dataprivacy": {
+		"text_weitergabe": {
+			"heading": {
+				"SubcontractorToOutsourceTheData": "Subunternehmen zur Auslagerung der Daten",
+				"disclosureDueToLegalObligation": "Weitergabe wegen gesetzlicher Verpflichtung",
+				"disclosureOfPersonalData": "Weitergabe von personenbezogenen Daten / Empfänger",
+				"learningStore": "Lernstore: Externe Lerninhalte durch Inhalte-Anbieter"
+			},
+			"text": {
+				"PseudonymsAreSometimesUsedTo": "Für die Nutzung interaktiver Inhalte externer Anbieter (z. B. Schulbuchverlage) werden teilweise Pseudonyme eingesetzt. Diese dienen nur dazu, um Lernfortschritte festzuhalten (z.B. User 123456 hat Aufgabe X beendet). Die Inhalte-Anbieter erhalten hingegen keine unmittelbar personenbezogenen Daten (z.B. Namen, Kontaktdaten usw.) und können daher keine direkten Rückschlüsse auf die realen Nutzer*innen der {{theme.title}} ziehen. Die Daten über die Nutzung digitaler Angebote (bspw. Testfragen) können von den Inhalte-Anbietern anonymisiert ausgewertet und zur Verbesserung ihrer Inhalte und Produkte eingesetzt werden. Folgende Inhalte-Anbieter erhalten derzeit von dem HPI aufgrund von Kooperationsverträgen pseudonymisierte nutzungsbezogene Daten:",
+				"forTechnicalOrOrganizationalReasons": "Aus technischen oder organisatorischen Gründen behält sich das HPI vor, Hosting-Dienstleistungen an Subunternehmer zu vergeben. Folgende Subunternehmer werden derzeit zum Hosting eingesetzt:",
+				"inAdditionYour": "Darüber hinaus gibt Deine / Ihre Schule und das HPI keine personenbezogenen Daten an Dritte weiter, es sei denn, die Weitergabe erfolgt in Erfüllung einer gesetzlichen Verpflichtung (z. B. im Rahmen von strafrechtlichen Ermittlungen).",
+				"personalDataWillOnlyBeProcessed": "anfallenden personenbezogenen Daten werden ausschließlich innerhalb der Europäischen Union verarbeitet.",
+				"theDataCollectedIsTrasnmittedToHPI": "Die erfassten Daten werden an das HPI als Dienstleister der Schulen übermittelt. Das HPI ist durch einen Vertrag nach Art. 28 DSGVO zur weisungsgebundenen Verarbeitung im Auftrag der teilenehmenden Schulen verpflichtet. Sofern Daten an weitere Dienstleister weitergeben werden, dürfen diese die Daten ausschließlich zur Erfüllung ihrer Aufgaben verwenden. Die Dienstleister werden sorgfältig ausgewählt und beauftragt, sodass es zu keiner Schwächung des Datenschutzes kommt. Sie sind vertraglich an Weisungen gebunden, verfügen über geeignete technische und organisatorische Maßnahmen zum Schutz der Rechte der betroffenen Personen und werden regelmäßig kontrolliert. Eine aktuelle Liste der Subunternehmer kann auf folgender Website eingesehen werden:",
+				"whenUsingThe": "Die bei der Nutzung der"
+			}
+		}
 	},
 	"files": {
 		"button": {
@@ -771,11 +787,11 @@
 		"_team": {
 			"edit": {
 				"label": {
-					"teamName": "Name des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
 					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
 					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams"
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
 				},
 				"placeholder": {
 					"teamName": "A-Team"
