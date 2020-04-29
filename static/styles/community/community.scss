@@ -1,0 +1,7 @@
+@import '../lib/colors';
+
+.accordion-button {
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    background-color: red;
+}
