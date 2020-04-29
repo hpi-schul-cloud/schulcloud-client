@@ -15,19 +15,12 @@
     {{!-- <p>Lade externe Experten ein, sich in der {{theme.short_title}} zu registrieren deinem Team beizutreten.</p> --}}
 
     {{!-- <h3>Externe einladen</h3> --}}
-    <h2 class="h3 mt-2">Wen möchtest du ins Team einladen?</h2>
-    <button type="button" data-role="teacher" class="btn btn-set-role" >Lehrer anderer Schulen</button>
-    <button type="button" data-role="expert" class="btn btn-set-role">Externe Experten</button>
+    {{> "help/partials/help_form_invite_external_members"}}
 
     <div class="form-group mt-3" data-role="teacher">
         <h2 class="h3">Lehrer anderer Schulen einladen</h2>
-        <p>
-            Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit
-            der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und
-            Lehrer ihrer Schule zum Team hinzufügen.
-        </p>
-
-        <button type="button" data-method="directory" class="btn btn-set-method">Aus Verzeichnis auswählen</button>
+        <p>Wähle eine Lehrkraft anderer Schule aus einem zentralen Verzeichnis aus oder gib die E-mail Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler:innen und Lehrer:innen ihrer Schule zum Team hinzufügen.</p>
+     <button type="button" data-method="directory" class="btn btn-set-method">Aus Verzeichnis auswählen</button>
         <button type="button" data-method="email" class="btn btn-set-method" >per E-Mail einladen</button>
 
         <div class="form-group mt-3" data-method="directory">
@@ -62,15 +55,21 @@
                         <option value="teamadministrator" selected="selected">Team-Admin</option>
                 </select>
             </div>
-        </div>    
+        </div>
 
         <div class="form-group mt-3" data-method="email">
             <h2 class="h3">Lehrer per E-Mail einladen</h2>
             <div class="form-group">
-                <label for="email">Gebe die E-Mail des Lehrers ein, an welchen die Einladung verschickt wird.</label>
+                <label for="email">Voraussetzungen:
+                    <ul>
+                        <li>Lehrkraft ist an einer anderen Schule</li>
+                        <li>Registrierung der Lehrkraft in der {{ theme.short_title }} ist abgeschlossen</li>
+                        <li>Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der [env short] registriert ist.</li>
+                    </ul>
+                </label>
                 <input class="form-control" type="text" name="email" id="email" placeholder="E-Mail eingeben">
-            </div>      
-        </div>        
+            </div>
+        </div>
     </div>
 
     <div class="form-group mt-3" data-role="expert">
@@ -78,6 +77,6 @@
         <div class="form-group">
             <label for="email">Gebe die E-Mail des Experten ein, an welchen die Einladung verschickt wird.</label>
             <input class="form-control" type="text" name="email" id="email" placeholder="E-Mail eingeben">
-        </div>      
+        </div>
     </div>
 </div>
