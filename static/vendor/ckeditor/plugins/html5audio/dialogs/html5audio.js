@@ -89,7 +89,7 @@ CKEDITOR.dialog.add( 'html5audio', function( editor ) {
             label: editor.lang.html5audio.advanced,
             elements: [ {
                 type: 'vbox',
-                padding: 0,
+                padding: 10,
                 children: [ {
                     type: 'hbox',
                     children: [ {
@@ -108,6 +108,41 @@ CKEDITOR.dialog.add( 'html5audio', function( editor ) {
                         },
                         commit: function( widget ) {
                             widget.setData( 'autoplay', this.getValue() );
+                        }
+                    },
+                    {
+                        type: 'radio',
+                        id: 'allowdownload',
+                        label: editor.lang.html5audio.allowdownload,
+                        items: [
+                            [editor.lang.html5audio.yes, 'yes'],
+                            [editor.lang.html5audio.no, 'no']
+                        ],
+                        'default': 'no',
+                        setup: function( widget ) {
+                            if ( widget.data.allowdownload ) {
+                                this.setValue(widget.data.allowdownload);
+                            }
+                        },
+                        commit: function( widget ) {
+                            widget.setData( 'allowdownload', this.getValue() );
+                        }
+                    } ]
+                }, 
+                {
+                    type: 'hbox',
+                    children: [ {
+                        type: "text",
+                        id: 'advisorytitle',
+                        label: editor.lang.html5audio.advisorytitle,
+                        'default': '',
+                        setup: function( widget ) {
+                            if ( widget.data.advisorytitle ) {
+                                this.setValue(widget.data.advisorytitle);
+                            }
+                        },
+                        commit: function( widget ) {
+                            widget.setData( 'advisorytitle', this.getValue() );
                         }
                     } ]
                 } ]
