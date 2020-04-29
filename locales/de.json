@@ -844,6 +844,10 @@
 					"teamMembers": "Team-Teilnehmer"
 				},
 				"label": {
+					"selectRoleForMember" : "Gebe ein, welche Rolle der Teilnehmer erhalten soll.",
+					"reallyWantToRmUser" : "Möchtest du diesen Teilnehmer wirklich entfernen?",
+					"reallyWantToRmInvitation" : "Möchtest du die Einladung wirklich zurückziehen?",
+					"reallyWantToRmClass" : "Möchtest du diese Klasse wirklich entfernen?",
 					"addTeacherStudentsFromSchool" : "Füge Lehrer und Schüler deiner Schule zum Team hinzu",
 					"deleteInvitation": "Einladung löschen",
 					"editRole": "Rolle bearbeiten",
@@ -855,9 +859,11 @@
 					"sendInvitationAgain": "Einladung erneut versenden"
 				},
 				"placeholder" :{
+					"selectRole" : "Rolle angeben",
 					"selectPersons" : "Personen auswählen"
 				},
 				"text": {
+					"changeRoleOfMember" : "Ändere die Rolle des Nutzers:",
 					"admin": "Administrator",
 					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers",
 					"expert": "Externer Experte",
