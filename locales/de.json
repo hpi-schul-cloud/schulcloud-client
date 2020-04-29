@@ -502,6 +502,22 @@
 		}
 	},
 	"dataprivacy": {
+		"text_intro": {
+			"global": {
+				"text": {
+					"the": "Die"
+				}
+			},
+			"heading": {
+				"dearVisitors": "Liebe Besucher*innen, liebe Nutzer*innen, liebe Erziehungsberechtigte,"
+			},
+			"text": {
+				"automaticallyCollectedByEachVisitor": "von jedem Besucher automatisch durch das HPI erhoben werden (Buchstabe A) sowie über die Verarbeitung von Daten, die im Auftrag der teilnehmenden Schulen bei Nutzung der HPI Schul-Cloud erhoben werden (Buchstabe B).",
+				"createsTheTechnicalBasis": "schafft die technische Grundlage dafür, dass Lehrende und Schüler*innen in jedem Unterrichtsfach moderne digitale Lehr- und Lerninhalte nutzen können. Weitere Informationen zum Projekt stehen unter:",
+				"personalDataIsInformationThatRelates": "Personenbezogene Daten sind Informationen, die sich auf eine identifizierte oder identifizierbare Person beziehen. Hierunter fallen vor allem Angaben, die Rückschlüsse auf die Identität ermöglichen, beispielsweise Name, Telefonnummer, Anschrift oder E-Mail-Adresse. Statistische Daten, die beispielsweise bei einem Besuch der Website erhoben werden und die nicht mit einer Person in Verbindung gebracht werden können, fallen nicht unter den Begriff des personenbezogenen Datums.",
+				"thisDataProtectionNoticeProvides": "Diese Datenschutzhinweise informieren über die Verarbeitung personenbezogener Daten, die beim Aufruf der Website"
+			}
+		},
 		"text_rechte": {
 			"heading": {
 				"yourRights": "Deine / Ihre Rechte"
