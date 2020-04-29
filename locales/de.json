@@ -828,6 +828,9 @@
 				"leaveTeam": "Team verlassen"
 			},
 			"members": {
+				"button":{
+					"addPerson" : "Person hinzufügen"
+				},
 				"headline": {
 					"actions": "Aktionen",
 					"email": "E-Mail",
@@ -841,6 +844,7 @@
 					"teamMembers": "Team-Teilnehmer"
 				},
 				"label": {
+					"addTeacherStudentsFromSchool" : "Füge Lehrer und Schüler deiner Schule zum Team hinzu",
 					"deleteInvitation": "Einladung löschen",
 					"editRole": "Rolle bearbeiten",
 					"externExpert": "externer Experte",
@@ -849,6 +853,9 @@
 					"removeClass": "Klasse entfernen",
 					"removeUser": "Nutzer entfernen",
 					"sendInvitationAgain": "Einladung erneut versenden"
+				},
+				"placeholder" :{
+					"selectPersons" : "Personen auswählen"
 				},
 				"text": {
 					"admin": "Administrator",
