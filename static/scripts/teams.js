@@ -220,7 +220,7 @@ $(document).ready(() => {
 		const userId = $(this).data('user-id');
 		populateModalForm($leaveTeamModal, {
 			title: $t('teams._team.headline.leaveTeam'),
-			closeLabel: $('global.button.cancel'),
+			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.button.leaveTeam'),
 			payload: { userId },
 		});
