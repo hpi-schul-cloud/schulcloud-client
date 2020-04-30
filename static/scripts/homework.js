@@ -496,7 +496,7 @@ $(document).ready(() => {
 		});
 	});
 
-	$('form.bulk-upload').connectBulkUpload({
+	$('.bulk-upload').connectBulkUpload({
 		successAlert: '#bulk-grading-success',
 		warningAlert: '#bulk-grading-error',
 		parent: getCurrentParent(),
