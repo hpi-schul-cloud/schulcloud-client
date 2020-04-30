@@ -12,6 +12,24 @@
 }
 .cke_editable {
 	img, video, iframe{
-		max-width: 100%;
+		max-width: 100% !important;
+	}
+}
+
+.cke_dialog_image_ratiolock{
+	display: none;
+}
+
+.cke_dialog_container{
+	a.cke_dialog_ui_button:hover,
+	a.cke_dialog_ui_button:focus,
+	a.cke_dialog_ui_button:active{
+		background-color: $primaryColor !important;
+		border-color: $primaryColor !important;
+	}
+	a.cke_dialog_ui_button:hover>span,
+	a.cke_dialog_ui_button:focus>span,
+	a.cke_dialog_ui_button:active>span{
+		background-color: transparent !important;
 	}
 }
