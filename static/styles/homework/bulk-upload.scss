@@ -1,10 +1,16 @@
+@import '../lib/bootstrap/scss/variables';
+
 .bulk-upload {
 	height: calc(2.25rem + 2px);
 	position: relative;
 	flex: 1 1 auto;
-	margin-bottom: 0;
 	display: flex;
 	align-items: center;
+
+	&.section-upload {
+		width: auto;
+		margin: 0 0 $spacer-y 0;
+	}
 
 	&__input {
 		overflow: visible;

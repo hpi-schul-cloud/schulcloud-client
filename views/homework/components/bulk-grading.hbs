@@ -1,17 +1,15 @@
 <div class="bulk-grading">
-	<div class="text-xs-right mb-1">
-		<div class="mb-1">
+	<div class="text-xs-right">
 			<button
 				type="button"
-				class="btn btn-secondary multi-download"
+				class="btn btn-secondary multi-download mb-1"
 				id="submissions-download-ungraded-files"
 				{{#if @root.ungradedFileSubmissions.empty}}disabled="disabled" {{/if}}
 				data-files="{{@root.ungradedFileSubmissions.urls}}"
 			>
 				{{$t "homework.button.downloadUngradedFiles"}}
 			</button>
-		</div>
-		<form
+		<span
 			class="bulk-upload btn btn-secondary section-upload"
 			data-owner="{{ownerId}}"
 			data-parent="{{parentId}}"
@@ -27,7 +25,7 @@
 			<label class="bulk-upload__label btn" for="bulk-grade-file-upload">
 				{{$t "homework.label.uploadGradeFiles"}}
 			</label>
-		</form>
+		</span>
 	</div>
 	<div class="alert alert-success hidden mb-1" id="bulk-grading-success">{{$t "homework.text.bulkGradingSuccess"}}</div>
 	<div class="alert alert-warning hidden mb-1" id="bulk-grading-error">
