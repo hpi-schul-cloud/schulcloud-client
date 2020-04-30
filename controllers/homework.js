@@ -13,7 +13,7 @@ const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
 const logger = require('../helpers/logger');
 const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
-const { getGradingFileDownloadPath, isGraded } = require('../helpers/homework');
+const { getGradingFileDownloadPath, getGradingFileName, isGraded } = require('../helpers/homework');
 
 const router = express.Router();
 
@@ -929,13 +929,23 @@ router.get('/:assignmentId', (req, res, next) => {
 });
 
 function collectUngradedFiles(submissions) {
-	const ungradedFiles = submissions
-		.filter((submission) => !isGraded(submission))
-		.flatMap((submission) => submission.fileIds);
+	const ungradedSubmissionsWithFiles = submissions.filter(
+		(submission) => !isGraded(submission) && !_.isEmpty(submission.fileIds),
+	);
+	const ungradedFiles = ungradedSubmissionsWithFiles.flatMap((submission) => submission.fileIds);
+	const fileNames = _.fromPairs(
+		submissions.flatMap((submission) =>
+			submission.fileIds.map((file) => [
+				getGradingFileName(file),
+				{ submissionId: submission._id, teamMemberIds: submission.teamMemberIds },
+			]),
+		),
+	);
 
-		return {
-		length: ungradedFiles.length,
+	return {
+		empty: _.isEmpty(ungradedFiles),
 		urls: ungradedFiles.map(getGradingFileDownloadPath).join(' '),
+		fileNames,
 	};
 }
 
