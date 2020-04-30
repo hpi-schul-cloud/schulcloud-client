@@ -3,13 +3,15 @@ import multiDownload from 'multi-download';
 
 import { softNavigate } from './helpers/navigation';
 import { getQueryParameters } from './helpers/queryStringParameter';
+import { requestUploadUrl, createFileModel, associateFileWithSubmission } from './homework/api-requests';
+import extendWithBulkUpload from './homework/bulk-upload';
 
 function getDataValue(attr) {
 	return () => {
 		const value = $('.section-upload').data(attr);
 		return (value || undefined);
 	};
-};
+}
 
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
@@ -27,7 +29,7 @@ function isSubmissionGradeUpload() {
 }
 
 $(document).on('pageload', () => {
-	MathJax.Hub.Queue(["Typeset",MathJax.Hub])
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 });
 
 function archiveTask(e){
@@ -73,111 +75,7 @@ function importSubmission(e){
 	}
 }
 
-(function (jQuery) {
-	const hideClass = 'hidden'
-	function connectForm(element, { successAlert, errorAlert }) {
-		const form = $(element);
-		
-		form.find('input[type=file]').on('change', function onFileUpload(event) {
-			form.find(successAlert).addClass(hideClass)
-			form.find(errorAlert).addClass(hideClass)
-
-			const knownFileNames = JSON.parse(this.dataset.knownFileNames);
-			const files = Array.from(this.files);
-			const parent = getCurrentParent();
-			const owner = getOwnerId();
-
-			const unknown = files.filter((file) => !knownFileNames[file.name]);
-			Promise.all(
-				files
-					.filter((file) => !!knownFileNames[file.name])
-					.map((file) => {
-						const { submissionId, teamMembers } = knownFileNames[file.name];
-						return uploadSubmissionFile({
-							file,
-							owner,
-							parent,
-							submissionId,
-							teamMembers,
-							associationType: 'grade-files',
-						});
-					}),
-			).then(() => {
-				if (unknown.length < 1) {
-					$(successAlert).removeClass(hideClass);
-				} else {
-					$(errorAlert)
-						.removeClass(hideClass)
-						.find('#bulk-grading-error-files')
-						.text(unknown.map((file) => file.name).join(', '));
-				}
-			}, (error) => $.showNotification(error.message, "danger"));
-		});
-	}
-
-	jQuery.fn.extend({
-		connectBulkUpload: function bulkUpload(options) {
-			this.each(function () {
-				connectForm(this, options);
-			});
-			return this;
-		},
-	});
-})($);
-
-function requestUploadUrl(file, parent) {
-	// get signed url before processing the file
-	return $.post(
-		'/files/file',
-		{
-			parent,
-			type: file.type,
-			filename: file.name,
-		},
-	)
-}
-
-function uploadFile(signedUrl, file) {
-	return $.ajax({
-		url: signedUrl.url,
-		headers: signedUrl.header,
-		type: 'PUT',
-		data: file,
-		dataType: 'text',
-		cache: false,
-		contentType: file.type,
-		processData: false,
-	});
-}
-
-function createFileModel(params) {
-	return $.post('/files/fileModel', params)
-}
-
-function associateFileWithSubmission({ submissionId, associationType = 'files', fileId, teamMembers }) {
-	return $.post(`/homework/submit/${submissionId}/${associationType}`, { fileId, teamMembers }).then(() =>
-		$.post(`/homework/submit/${submissionId}/files/${fileId}/permissions`, { teamMembers }),
-	);
-}
-
-async function uploadSubmissionFile({ file, owner, parent, submissionId, associationType, teamMembers }) {
-	const { signedUrl } = await requestUploadUrl(file, parent);
-	await uploadFile(signedUrl, file);
-
-	const fileModelParams = {
-		name: file.name,
-		owner: owner,
-		type: file.type,
-		size: file.size,
-		storageFileName: signedUrl.header['x-amz-meta-flat-name'],
-		thumbnail: signedUrl.header['x-amz-meta-thumbnail'],
-		parent: parent || undefined // JSON.stringify will remove the key
-	};
-
-
-	const fileModel = await createFileModel(fileModelParams);
-	await associateFileWithSubmission({ fileId: fileModel._id, submissionId, associationType, teamMembers, });
-}
+extendWithBulkUpload($);
 
 window.addEventListener('DOMContentLoaded', () => {
 	/* FEATHERS FILTER MODULE */
@@ -228,7 +126,7 @@ $(document).ready(() => {
 	// enable submit button when editor contains text
 	const editorInstanceNames = Object.keys((window.CKEDITOR || {}).instances || {});
 	editorInstanceNames
-		.filter(e => e.startsWith('evaluation'))
+		.filter((name) => name.startsWith('evaluation'))
 		.forEach((name) => {
 			const editor = window.CKEDITOR.instances[name];
 			editor.on('instanceReady', () => { enableSubmissionWhenEditorContainsText(editor); });
@@ -517,9 +415,9 @@ $(document).ready(() => {
 	$('a[data-method="delete-file"]').on('click', function (e) {
 		e.stopPropagation();
 		e.preventDefault();
-		let $buttonContext = $(this);
-		let $deleteModal = $('.delete-modal');
-		let fileId = $buttonContext.data('file-id');
+		const $buttonContext = $(this);
+		const $deleteModal = $('.delete-modal');
+		const fileId = $buttonContext.data('file-id');
 
 		$deleteModal.appendTo('body').modal('show');
 		$deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('file-name') + "' löschen möchtest?");
@@ -585,10 +483,10 @@ $(document).ready(() => {
 	});
 
 	// typeset all MathJAX formulas displayed
-	MathJax.Hub.Typeset()
+	MathJax.Hub.Typeset();
 
 	// allow muti-download
-	$('button.multi-download').on('click', function() {
+	$('button.multi-download').on('click', function () {
 		const files = $(this).data('files').split(' ');
 
 		// renaming here does not work, because the files are all served from a different origin
@@ -598,12 +496,10 @@ $(document).ready(() => {
 		});
 	});
 
-	/*\
-	 * Bulk homework upload
-	\*/
 	$('form.bulk-upload').connectBulkUpload({
 		successAlert: '#bulk-grading-success',
-		errorAlert: '#bulk-grading-error',
+		warningAlert: '#bulk-grading-error',
+		parent: getCurrentParent(),
+		owner: getOwnerId(),
 	});
-
 });
