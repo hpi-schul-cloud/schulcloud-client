@@ -9,8 +9,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-### Added
+### Security
+- SC-3990 generation of first login passwords
 
+### Added
+- SC-3664 query toast-type and toast-message
 - SC-3892 Task sorting on the course side
 - SC-3757 the LDAP config page now contains a link to the docs
 - SC-438 on logout button click localStorge will be deleted
@@ -20,6 +23,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-3607 CSV import now suggests the new birthday field (sample file + image)
 - SC-3607 the student/teacher import page now displays a warning for large imports
 - updated airbnb linter from 13.1 to 14.1
+
+## [22.9.8] - 2020-04-23
+
+### Added in 22.9.8
+
+- add support for API-Key
 
 ## [22.9.7] - 2020-04-21
 
