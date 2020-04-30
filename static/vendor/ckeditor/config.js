@@ -14,7 +14,6 @@ CKEDITOR.editorConfig = (config) => {
 
 	// non preinstalled plugins
 	config.extraPlugins = [
-		'uploadimage',
 		'colorbutton',
 		'colordialog',
 		'mathjax',
