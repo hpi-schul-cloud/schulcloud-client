@@ -1,54 +1,50 @@
 /*!
- * Bootstrap v4.0.0-alpha.5 (https://getbootstrap.com)
- * Copyright 2011-2016 The Bootstrap Authors
- * Copyright 2011-2016 Twitter, Inc.
+ * Bootstrap v4.3.1 (https://getbootstrap.com/)
+ * Copyright 2011-2020 The Bootstrap Authors
+ * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-// Core variables and mixins
-@import "custom";
+// scss-docs-start import-stack
+// Configuration
+@import "functions";
 @import "variables";
 @import "mixins";
+@import "utilities";
 
-// Reset and dependencies
-@import "normalize";
-@import "print";
-
-// Core CSS
+// Layout & components
+@import "root";
 @import "reboot";
 @import "type";
 @import "images";
-@import "code";
+@import "containers";
 @import "grid";
 @import "tables";
 @import "forms";
 @import "buttons";
-
-// Components
-@import "animation";
+@import "transitions";
 @import "dropdown";
 @import "button-group";
-@import "input-group";
-@import "custom-forms";
 @import "nav";
 @import "navbar";
 @import "card";
 @import "breadcrumb";
 @import "pagination";
-@import "tags";
-@import "jumbotron";
+@import "badge";
 @import "alert";
 @import "progress";
-@import "media";
 @import "list-group";
-@import "responsive-embed";
 @import "close";
-
-// Components w/ JavaScript
+@import "toasts";
 @import "modal";
 @import "tooltip";
 @import "popover";
 @import "carousel";
+@import "spinners";
 
-// Utility classes
-@import "utilities";
+// Helpers
+@import "helpers";
+
+// Utilities
+@import "utilities/api";
+// scss-docs-end import-stack
