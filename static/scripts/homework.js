@@ -74,31 +74,45 @@ function importSubmission(e){
 }
 
 (function (jQuery) {
+	const hideClass = 'hidden'
 	function connectForm(element, { successAlert, errorAlert }) {
 		const form = $(element);
+		
 		form.find('input[type=file]').on('change', function onFileUpload(event) {
+			form.find(successAlert).addClass(hideClass)
+			form.find(errorAlert).addClass(hideClass)
+
 			const knownFileNames = JSON.parse(this.dataset.knownFileNames);
-			const files = this.files;
-			console.log(files, knownFileNames);
+			const files = Array.from(this.files);
+			const parent = getCurrentParent();
+			const owner = getOwnerId();
+
+			const unknown = files.filter((file) => !knownFileNames[file.name]);
+			Promise.all(
+				files
+					.filter((file) => !!knownFileNames[file.name])
+					.map((file) => {
+						const { submissionId, teamMembers } = knownFileNames[file.name];
+						return uploadSubmissionFile({
+							file,
+							owner,
+							parent,
+							submissionId,
+							teamMembers,
+							associationType: 'grade-files',
+						});
+					}),
+			).then(() => {
+				if (unknown.length < 1) {
+					$(successAlert).removeClass(hideClass);
+				} else {
+					$(errorAlert)
+						.removeClass(hideClass)
+						.find('#bulk-grading-error-files')
+						.text(unknown.map((file) => file.name).join(', '));
+				}
+			}, (error) => $.showNotification(error.message, "danger"));
 		});
-		// form.on('submit', function onSubmit(event) {
-		//     event.preventDefault();
-		//     const formData = new FormData(element);
-		//     $.ajax({
-		//         data: formData,
-		//         processData: false,
-		//         contentType: false,
-		//         cache: false,
-		//         url: form.attr('action'),
-		//         type: form.attr('method'),
-		//         error: function (xhr, status, error) {
-		//             console.error('bulk', error);
-		//         },
-		//         success: function (response) {
-		//             console.log('bulk success', response);
-		//         },
-		//     });
-		// });
 	}
 
 	jQuery.fn.extend({
@@ -122,6 +136,20 @@ function requestUploadUrl(file, parent) {
 		},
 	)
 }
+
+function uploadFile(signedUrl, file) {
+	return $.ajax({
+		url: signedUrl.url,
+		headers: signedUrl.header,
+		type: 'PUT',
+		data: file,
+		dataType: 'text',
+		cache: false,
+		contentType: file.type,
+		processData: false,
+	});
+}
+
 function createFileModel(params) {
 	return $.post('/files/fileModel', params)
 }
@@ -130,6 +158,25 @@ function associateFileWithSubmission({ submissionId, associationType = 'files', 
 	return $.post(`/homework/submit/${submissionId}/${associationType}`, { fileId, teamMembers }).then(() =>
 		$.post(`/homework/submit/${submissionId}/files/${fileId}/permissions`, { teamMembers }),
 	);
+}
+
+async function uploadSubmissionFile({ file, owner, parent, submissionId, associationType, teamMembers }) {
+	const { signedUrl } = await requestUploadUrl(file, parent);
+	await uploadFile(signedUrl, file);
+
+	const fileModelParams = {
+		name: file.name,
+		owner: owner,
+		type: file.type,
+		size: file.size,
+		storageFileName: signedUrl.header['x-amz-meta-flat-name'],
+		thumbnail: signedUrl.header['x-amz-meta-thumbnail'],
+		parent: parent || undefined // JSON.stringify will remove the key
+	};
+
+
+	const fileModel = await createFileModel(fileModelParams);
+	await associateFileWithSubmission({ fileId: fileModel._id, submissionId, associationType, teamMembers, });
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -423,7 +470,7 @@ $(document).ready(() => {
 				}
 
 				// post file meta to proxy file service for persisting data
-				$.post('/files/fileModel', params , (data) => {
+				createFileModel(params).then((data) => {
 					// add submitted file reference to submission
 					// hint: this only runs when an submission is already existing. if not, the file submission will be
 					// only saved when hitting the save button in the corresponding submission form

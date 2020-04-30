@@ -11,7 +11,11 @@
 				{{$t "homework.button.downloadUngradedFiles"}}
 			</button>
 		</div>
-		<form class="bulk-upload btn btn-secondary" method="post" enctype="multipart/form-data" action="/homework/bulk-grading">
+		<form
+			class="bulk-upload btn btn-secondary section-upload"
+			data-owner="{{ownerId}}"
+			data-parent="{{parentId}}"
+		>
 			<input
 				type="file"
 				multiple="multiple"
