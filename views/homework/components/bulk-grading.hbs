@@ -1,0 +1,32 @@
+<div class="bulk-grading">
+	<div class="text-xs-right mb-1">
+		<div class="mb-1">
+			<button
+				type="button"
+				class="btn btn-secondary multi-download"
+				id="submissions-download-ungraded-files"
+				{{#ifeq 0 @root.ungradedFileSubmissions.length}}disabled="disabled" {{/ifeq}}
+				data-files="{{@root.ungradedFileSubmissions.urls}}"
+			>
+				{{$t "homework.button.downloadUngradedFiles"}}
+			</button>
+		</div>
+		<form class="bulk-upload btn btn-secondary" method="post" enctype="multipart/form-data" action="/homework/bulk-grading">
+			<input
+				type="file"
+				multiple="multiple"
+				name="gradesFiles[]"
+				id="bulk-grade-file-upload"
+				class="bulk-upload__input"
+			/>
+			<label class="bulk-upload__label btn" for="bulk-grade-file-upload">
+				{{$t "homework.label.uploadGradeFiles"}}
+			</label>
+		</form>
+	</div>
+	<div class="alert alert-success hidden mb-1" id="bulk-grading-success">{{$t "homework.text.bulkGradingSuccess"}}</div>
+	<div class="alert alert-warning hidden mb-1" id="bulk-grading-error">
+		{{$t "homework.text.bulkGradingError"}}
+		<span id="bulk-grading-error-files"></span>
+	</div>
+</div>

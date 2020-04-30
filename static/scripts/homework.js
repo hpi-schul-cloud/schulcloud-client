@@ -73,6 +73,42 @@ function importSubmission(e){
     }
 }
 
+(function (jQuery) {
+	function connectForm(element, { successAlert, errorAlert }) {
+		const form = $(element);
+		form.find('input[type=file]').on('change', function onFileUpload(event) {
+			form.submit();
+		});
+		form.on('submit', function onSubmit(event) {
+			event.preventDefault();
+			const formData = new FormData(element);
+			$.ajax({
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				url: form.attr('action'),
+				type: form.attr('method'),
+				error: function (xhr, status, error) {
+					console.error('bulk', error);
+				},
+				success: function (response) {
+					console.log('bulk success', response);
+				},
+			});
+		});
+	}
+
+	jQuery.fn.extend({
+		connectBulkUpload: function bulkUpload({ successAlert, errorAlert }) {
+			this.each(function () {
+				connectForm(this, { successAlert, errorAlert });
+			});
+			return this;
+		},
+	});
+})($);
+
 window.addEventListener('DOMContentLoaded', () => {
 	/* FEATHERS FILTER MODULE */
 	const filterModule = document.getElementById('filter');
@@ -498,4 +534,13 @@ $(document).ready(() => {
 			setTimeout(() => document.querySelector('body').classList.add('loaded'), 1000);
 		});
 	});
+
+	/*\
+	 * Bulk homework upload
+	\*/
+	$('form.bulk-upload').connectBulkUpload({
+		successAlert: '#bulk-grading-success',
+		errorAlert: '#bulk-grading-error',
+	});
+
 });
