@@ -3,11 +3,11 @@
 		{{#content "body"}}
 			{{#unless loggedin}}
 				<div class="section-title">
-					<h2>Datenschutzhinweise</h2>
+					<h2>{{$t "dataprivacy.privacy.heading.dataProtectionNotice" }}</h2>
 				</div>
 			{{/unless}}
 
-			<p>Hinweise zum Datenschutz entnehmen Sie bitte folgender Seite.</p>
+			<p>{{$t "dataprivacy.privacy.text.forInformatioinOnDataProtection" }}</p>
 
 			{{#embed "dataprivacy/text_intro"}}{{/embed}}
 
