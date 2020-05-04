@@ -1,7 +1,5 @@
 <section class="section-community">
-	{{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/community/community.css"/>
-    {{/content}}
+	
 	{{#embed "authentication/section" class="content-width-max"}}
 	{{#content "body"}}
 
@@ -16,9 +14,9 @@
 		<div class="accordion" id="accordionRegistration">
 		<div class="card">
 			<div class="" id="niAccordion" data-toggle="collapse" data-target="#collapseNi" aria-expanded="true" aria-controls="collapseNi">
-				<button class="btn btn-link accordion-button" type="button">
-					Niedersachsen
-					<img src="/images/logo/n21-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px" height="33px" class="ml-3">
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">Niedersachsen</div>
+					<img src="/images/logo/n21-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px" height="33px" class="registration-logo">
 				</button>
 			</div>
 
@@ -31,9 +29,9 @@
 		</div>
 		<div class="card">
 			<div class="" id="brbAccordion" data-toggle="collapse" data-target="#collapseBrb" aria-expanded="true" aria-controls="collapseBrb">
-				<button class="btn btn-link accordion-button" type="button">
-					Brandenburg
-					<img src="/images/logo/brb-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px" height="35px" class="ml-3">
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">Brandenburg</div>
+					<img src="/images/logo/brb-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px" height="35px" class="registration-logo">
 				</button>
 			</div>
 			<div id="collapseBrb" class="collapse" aria-labelledby="brbAccordion" data-parent="#accordionRegistration">
@@ -47,9 +45,9 @@
 		</div>
 		<div class="card">
 			<div class="" id="thAccordion" data-toggle="collapse" data-target="#collapseTh" aria-expanded="true" aria-controls="collapseTh">
-				<button class="btn btn-link accordion-button" type="button">
-					Thüringen
-					<img src="/images/logo/th-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px" height="35px" class="ml-3">
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">Thüringen</div>
+					<img src="/images/logo/th-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px" height="35px" class="registration-logo">
 				</button>
 			</div>
 			<div id="collapseTh" class="collapse" aria-labelledby="thAccordion" data-parent="#accordionRegistration">
@@ -62,8 +60,8 @@
 		</div>
 		<div class="card">
 			<div class="" id="foreignAccordion" data-toggle="collapse" data-target="#collapseForeign" aria-expanded="true" aria-controls="collapseForeign">
-				<button class="btn btn-link accordion-button" type="button">
-					Deutsche Auslandsschulen
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">Deutsche Auslandsschulen</div>
 					<img src="/images/logo/globe.svg" role="presentation" loading="lazy" width="35px" height="35px" class="ml-1">
 				</button>
 			</div>
@@ -77,9 +75,9 @@
 		</div>
 		<div class="card">
 			<div class="" id="mintAccordion" data-toggle="collapse" data-target="#collapseMint" aria-expanded="true" aria-controls="collapseMint">
-				<button class="btn btn-link accordion-button" type="button">
-					MINT-EC Schulen
-					<img src="/images/logo/mint-ec-logo.png" role="presentation" loading="lazy" width="74px" height="40px" class="ml-3">
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">MINT-EC Schulen</div>
+					<img src="/images/logo/mint-ec-logo.png" role="presentation" loading="lazy" width="74px" height="40px" class="registration-logo">
 				</button>
 			</div>
 			<div id="collapseMint" class="collapse" aria-labelledby="mintAccordion" data-parent="#accordionRegistration">
@@ -93,9 +91,9 @@
 		</div>
 		<div class="card">
 			<div class="" id="otherSchoolsAccordion" data-toggle="collapse" data-target="#collapseOtherSchools" aria-expanded="true" aria-controls="collapseOtherSchools">
-				<button class="btn btn-link accordion-button" type="button">
-					Alle anderen
-					<img src="/images/logo/hand-in-hand.svg" role="presentation" loading="lazy" width="35px" height="35px" class="ml-3">
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">Alle anderen</div>
+					<img src="/images/logo/hand-in-hand.svg" role="presentation" loading="lazy" width="35px" height="35px" class="registration-logo">
 				</button>
 			</div>
 			<div id="collapseOtherSchools" class="collapse" aria-labelledby="otherSchoolsAccordion" data-parent="#accordionRegistration">

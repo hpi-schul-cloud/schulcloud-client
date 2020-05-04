@@ -1,7 +1,11 @@
 @import '../lib/colors';
 
-.accordion-button {
-    display: grid;
-    grid-template-columns: 30% 30% 30%;
-    background-color: red;
+.registration-button {
+    display: flex;
+    width: 100%;
+    text-align: left;
+}
+.registration-label {
+    flex: 0 0 40%;
+    line-height: 35px;
 }
