@@ -75,7 +75,7 @@
 <section class="section-homework">
     <div class="dates text-muted">
         <i
-            class="fa fa-{{#if submissions}}check done{{else if submittable}}exclamation-triangle danger{{else}}ban closed{{/if}}"></i>
+            class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
         {{availableDateF}} ({{availableTimeF}}) |
         {{#if dueDate}}
         bis: {{dueDateF}} ({{dueTimeF}})

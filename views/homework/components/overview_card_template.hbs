@@ -1,9 +1,9 @@
 <li class="card assignment {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}}{{#if this.grade}} has-stats{{/if}} {{this.privateclass}}"
     style="border-left:10px solid {{this.color}}">
     <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">
-        <div class="datesWithIcon">
+        <div class="dates">
             <i
-                class="fa fa-{{#if submissions}}check done{{else if submittable}}exclamation-triangle danger{{else}}ban closed{{/if}}"></i>
+                class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
             <div>
                 {{#if this.availableDate}}{{timeToString availableDate}}<br />{{/if}}
                 {{#if this.dueDate}}
