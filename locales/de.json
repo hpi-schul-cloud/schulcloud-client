@@ -688,6 +688,8 @@
 			"noTasks": "Keine Aufgaben"
 		}
 	},
+	"lib": {
+	},
 	"loggedin": {
 		"text": {
 			"newFeaturesAvailable": "Neue Features sind verfügbar",
