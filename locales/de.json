@@ -502,6 +502,18 @@
 		}
 	},
 	"dataprivacy": {
+		"text_datensicherheit": {
+			"heading": {
+				"changesToThisDataProtectionNotice": "Änderungen dieser Datenschutzhinweise",
+				"dataSequrity": "Datensicherheit"
+			},
+			"text": {
+				"canBeFoundUnder": "findest Du / finden Sie unter",
+				"changeOrTheLegal": "ändern oder sich die gesetzlichen oder behördlichen Vorgaben ändern.",
+				"theHPIMaintainsCurrentTechnical": "Das HPI unterhält aktuelle technische und organisatorische Maßnahmen zur Gewährleistung der Datensicherheit, insbesondere zum Schutz personenbezogener Daten vor Gefahren bei Datenübertragungen sowie vor Kenntniserlangung durch Dritte. Diese werden dem aktuellen Stand der Technik entsprechend jeweils angepasst. Auf der Website eingegebene Daten werden verschlüsselt übertragen (Transport Layer Security). Eine Beschreibung der übrigen technischen und organisatorischen Maßnahmen für die",
+				"thisDataProtectionNotice": "Gelegentlich werden diese Datenschutzhinweise aktualisiert, beispielsweise wenn sich die Funktionalitäten in der"
+			}
+		},
 		"text_datenverarbeitung": {
 			"heading": {
 				"dataProcessingByTheHPI": "A. Datenverarbeitung durch das HPI beim Aufruf der Website",
