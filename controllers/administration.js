@@ -2518,19 +2518,30 @@ const updateSchoolFeature = async (req, currentFeatures, newState, featureName) 
 };
 
 const schoolFeatureUpdateHandler = async (req, res, next) => {
+	const updateListMembershipWithCheckboxState = async (featureString, currentFeatures) => {
+		await updateSchoolFeature(
+			req,
+			currentFeatures,
+			req.body[featureString] === 'true',
+			featureString,
+		);
+		delete req.body[featureString];
+	};
+
 	try {
 		const currentFeatures = res.locals.currentSchoolData.features;
-		await updateSchoolFeature(req, currentFeatures, req.body.rocketchat === 'true', 'rocketChat');
-		delete req.body.rocketchat;
-
-		await updateSchoolFeature(req, currentFeatures, req.body.videoconference === 'true', 'videoconference');
-		delete req.body.videoconference;
-
-		await updateSchoolFeature(req, currentFeatures, req.body.messenger === 'true', 'messenger');
-		delete req.body.messenger;
-
-		await updateSchoolFeature(req, currentFeatures, req.body.messengerSchoolRoom === 'true', 'messengerSchoolRoom');
-		delete req.body.messengerSchoolRoom;
+		await [
+			'rocketChat',
+			'videoconference',
+			'videoconferenceRecording',
+			'messenger',
+			'messengerSchoolRoom',
+		].reduce(
+			(lastFeatureUpdate, currentFeature) => lastFeatureUpdate.then(() => {
+				updateListMembershipWithCheckboxState(currentFeature, currentFeatures);
+			}),
+			Promise.resolve(),
+		);
 	} catch (err) {
 		next(err);
 	}
