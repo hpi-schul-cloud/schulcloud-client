@@ -44,6 +44,7 @@ const ModeratorInactiveState = Object.freeze({
 					.find('[name=requestModerator]').is(':checked');
 				const everybodyJoinsAsModerator = $createVideoconferenceModal
 					.find('[name=everyoneIsModerator]').is(':checked');
+				const record = $createVideoconferenceModal.find('[name=record]').is(':checked');
 
 				$.ajax({
 					type: 'POST',
@@ -57,6 +58,7 @@ const ModeratorInactiveState = Object.freeze({
 							everyAttendeJoinsMuted,
 							moderatorMustApproveJoinRequests,
 							everybodyJoinsAsModerator,
+							record,
 						},
 					}),
 				}).done((response) => {

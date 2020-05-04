@@ -54,5 +54,11 @@
 			<p class="create-videoconference-option-text">Alle Nutzer nehmen als Moderator teil</p>
 			<input name="everyoneIsModerator" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
 		</div>
+		{{#inArray "videoconferenceRecording" @root.currentSchoolData.features}}
+		<div class="checkbox create-videoconference-option">
+			<p class="create-videoconference-option-text">Videokonferenz aufnehmen</p>
+			<input name="record" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
+		</div>
+		{{/inArray}}
 	</div>
 </div>
