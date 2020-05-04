@@ -502,6 +502,26 @@
 		}
 	},
 	"dataprivacy": {
+		"text_einwilligung": {
+			"heading": {
+				"consentToDataProcessingInThe": "Einwilligung in die Datenverarbeitung in der"
+			},
+			"text": {
+				"aConsentConcept": "ein Einwilligungskonzept um, zu dem wir auch in enger Abstimmung mit Vertretern der Datenschutzbehörden aller Bundesländer stehen. Voraussetzungen für eine datenschutzkonforme Einwilligung ist stets die Freiwilligkeit der Einwilligungserteilung. Die Schulen gewährleisten diese Freiwilligkeit, indem sie den Schüler*innen bei Nichterteilung/Widerruf der Einwilligung die Teilnehme am Unterricht auch ohne",
+				"againstThisBackground": "Vor diesem Hintergrund setzt die",
+				"enableByUsingTraditionalTeaching": "ermöglichen, z.B. indem auf herkömmliche Unterrichtsmittel zurückgegriffen wird. Es besteht grundsätzlich keine Verpflichtung zur Nutzung der",
+				"forStudentsUnderAgeOf16": "Bei Schülern unter 16 Jahren muss die Einwilligung durch einen erziehungsberechtigten Elternteil abgegeben werden. Nach Vollendung des 16. Lebensjahrs wird der oder die Schüler*in dann nach der eigenen Einwilligung gefragt.",
+				"unlessSomethingElseIsProvided": "(soweit nicht in den Schulgesetzen ausnahmsweise etwas anderes vorgesehen ist). Die Einwilligung kann jederzeit von Dir / Ihnen widerrufen werden. Durch einen Widerruf wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder Du willst / Sie wollen vorher noch auf die gespeicherten Daten zugreifen.",
+				"weGenerallyCollectDataBasedOn": "Wir erheben Daten grundsätzlich auf Basis Deiner / Ihrer Einwilligung."
+			}
+		},
+		"text_helpdesk": {
+			"text": {
+				"symbolizedByTheQuestionMark": "(symbolisiert durch das Fragezeichen) hast Du / haben Sie die Möglichkeit, über ein Kontaktformular mit den von der Schule benannten Schul-Administratoren in Kontakt zu treten. In den vorgegebenen Feldern hast Du / haben Sie die Möglichkeit, das Problem, den Ist-Zustand und den Soll-Zustand zu beschreiben und eine von mehreren vorgegebenen Kategorien zu wählen. Zusätzlich wird eine Nutzerkennung übertragen, damit eine Zuordnung zu Deinem / Ihrem Konto möglich ist. Den Schul-Administratoren werden auch der in Deinem / Ihrem Nutzerkonto hinterlegte Vor- und Nachname angezeigt, jedoch keine darüberhinausgehenden personenbezogenen Daten. Die Schul-Administratoren werden versuchen, das Problem zu lösen oder dies an die Administratoren des HPI weiterleiten, denen ebenfalls nur die zuvor genannten Daten angezeigt werden. Die Antwort auf Deine / Ihre Supportanfrage wird systemseitig an die im Nutzerkonto hinterlegte E-Mail-Adresse versendet.",
+				"theDataCollectedWhenUsing": "Die bei der Verwendung des Kontaktformulars erhobenen Daten werden nach vollständiger Bearbeitung Deiner / Ihrer Anfrage automatisch gelöscht, es sei denn, Deine / Ihre Anfrage wird noch zur Erfüllung vertraglicher oder gesetzlicher Pflichten benötigt (vgl. Abschnitt „Speicherdauer“).",
+				"viaTheHelpAreaOfThe": "Über den Hilfebereich der"
+			}
+		},
 		"text_intro": {
 			"global": {
 				"text": {
