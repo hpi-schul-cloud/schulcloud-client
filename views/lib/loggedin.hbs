@@ -87,13 +87,13 @@
             <div class="content-min-height">
                 <section class="demo" id="offlineAlert" style="display:none;">
                     <div class="alert alert-warning" role="alert">
-                        <p>Du bist offline. <span class="hidden-md-down">Um dir trotzdem etwas anzuzeigen siehst du eventuell veraltete Inhalte.</span></p>
+                        <p>{{$t "lib.loggedin.text.youAreOffline" }} <span class="hidden-md-down">{{$t "lib.loggedin.text.inOrderToShow" }}</span></p>
                     </div>
                 </section>
                 {{#ifeq currentRole "Demo"}}
                     <section class="demo">
                         <div class="alert alert-warning" role="alert">
-                            <p>Dies ist ein Demoaccount. <span class="hidden-md-down">Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.</span></p>
+                            <p>{{$t "lib.loggedin.text.thisIsADemoAccount" }} <span class="hidden-md-down">{{$t "lib.loggedin.text.allActionsThatCreate" }}</span></p>
                         </div>
                     </section>
                 {{/ifeq}}
@@ -141,7 +141,7 @@
                                 <div class="dropdown-menu print">
                                     <div class="content qr-show"></div>
                                     <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="QR-Code drucken">
-                                        <i class="fa fa-print"></i> Drucken
+                                        <i class="fa fa-print"></i> {{$t "lib.loggedin.global.button.toPress" }}
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                                             {{/each}}
                                         {{else}}
                                             <div class="notification-item" data-notification-id="0">
-                                                <span>Derzeit keine Benachrichtigungen</span>
+                                                <span>{{$t "lib.loggedin.text.noNotificationsAtTheMoment" }}</span>
                                             </div>
                                         {{/if}}
                                     </div>
@@ -201,8 +201,8 @@
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
                                 <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
                                     <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{ currentRole }})</div>
-                                    <a class="dropdown-item" data-testid="settings" href="/account/">Einstellungen</a>
-                                    <a class="dropdown-item" data-testid="logout" href="/logout/" onclick="localStorage.clear();">Abmelden</a>
+                                    <a class="dropdown-item" data-testid="settings" href="/account/">{{$t "lib.loggedin.tab_label.settings" }}</a>
+                                    <a class="dropdown-item" data-testid="logout" href="/logout/" onclick="localStorage.clear();">{{$t "lib.loggedin.tab_label.signOut" }}</a>
                                 </div>
                               </div>
                             </div>

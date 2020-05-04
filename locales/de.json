@@ -140,12 +140,12 @@
 					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
+					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"chooseDate": "Termine auswählen",
 					"class": "Klasse(n)",
 					"from": "Von",
 					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 					"substitute": "Vertretungslehrer:innen",
-					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"till": "Bis",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
 					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
@@ -236,12 +236,12 @@
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
 					"posedTasks": "Gestellte Aufgaben",
+					"privateTasks": "Private Aufgaben und Entwürfe",
 					"submittedTasks": "Bearbeitete Aufgaben",
-					"unsubmittedTasks": "Gestellte Aufgaben",
-					"tasksWithSubmissions": "Aufgaben mit Abgaben",
 					"task": "Aufgabe",
 					"tasks": "Aufgaben",
-					"privateTasks": "Private Aufgaben und Entwürfe"
+					"tasksWithSubmissions": "Aufgaben mit Abgaben",
+					"unsubmittedTasks": "Gestellte Aufgaben"
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
@@ -544,7 +544,7 @@
 	},
 	"global": {
 		"button": {
-			"add" : "Hinzufügen",
+			"add": "Hinzufügen",
 			"cancel": "Abbrechen",
 			"close": "Schließen",
 			"delete": "Löschen",
@@ -689,6 +689,24 @@
 		}
 	},
 	"lib": {
+		"loggedin": {
+			"global": {
+				"button": {
+					"toPress": "Drucken"
+				}
+			},
+			"tab_label": {
+				"settings": "Einstellungen",
+				"signOut": "Abmelden"
+			},
+			"text": {
+				"allActionsThatCreate": "Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.",
+				"inOrderToShow": "Um dir trotzdem etwas anzuzeigen siehst du eventuell veraltete Inhalte.",
+				"noNotificationsAtTheMoment": "Derzeit keine Benachrichtigungen",
+				"thisIsADemoAccount": "Dies ist ein Demoaccount.",
+				"youAreOffline": "Du bist offline."
+			}
+		}
 	},
 	"loggedin": {
 		"text": {
@@ -772,11 +790,11 @@
 		"_team": {
 			"edit": {
 				"label": {
-					"teamName": "Name des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
 					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
 					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams"
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
 				},
 				"placeholder": {
 					"teamName": "A-Team"
