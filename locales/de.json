@@ -502,6 +502,28 @@
 		}
 	},
 	"dataprivacy": {
+		"text_datenverarbeitung": {
+			"heading": {
+				"dataProcessingByTheHPI": "A. Datenverarbeitung durch das HPI beim Aufruf der Website",
+				"dataProcessingByTheSchools": "B. Datenverarbeitung durch die Schulen als verantwortliche Stellen bei Nutzung der"
+			},
+			"text": {
+				"at": "Bei",
+				"everyTimeYouVisitTheWebsite": "Bei jedem Aufruf der Website",
+				"forquestiosAboutDataProtection": "Für Fragen zum Thema Datenschutz im Zusammenhang mit der",
+				"isTheHassoPlattner": "ist das Hasso Plattner Institut (HPI), Prof.-Dr.-Helmert-Str. 2-3, 14482 Potsdam,",
+				"nonRegisteredVisitors": "nicht-angemeldete Besucher*innen",
+				"registeredUsers": "angemeldeten Nutzern*innen",
+				"responsibleForTheAformentionedDataProcessing": "für die zuvor genannten Verarbeitungsvorgänge verantwortlich. Für alle Fragen zum Thema Datenschutz ist der Datenschutzbeauftragte des HPI unter den zuvor genannten Kontaktdaten erreichbar (Stichwort: „z. Hd. Datenschutzbeauftragter“). Rechtsgrundlage für die Verarbeitung sind die zuvor genannten berechtigten Interessen des HPI.",
+				"theAforementionedDataProcessing": "findet die zuvor genannte Datenverarbeitung unter der nachfolgend beschriebenen datenschutzrechtlichen Verantwortlichkeit der Schulen statt, die das HPI als technischen Dienstleister beauftragen.",
+				"theBrowserAutomaticallyTransmits": "werden durch den Browser automatisch Zugriffsdaten übermittelt, um den Besuch der Website zu ermöglichen. Die Zugriffsdaten umfassen insbesondere die IP-Adresse des anfragenden Geräts, das Datum und die Uhrzeit der Anfrage, die Adresse der aufgerufenen Website und der anfragenden Website sowie Angaben über den verwendeten Browser und das Betriebssystem. Die Verarbeitung dieser Zugriffsdaten ist erforderlich, um den Besuch der Website zu ermöglichen und die dauerhafte Funktionsfähigkeit und Sicherheit der Systeme des HPI zu gewährleisten. Diese Zugriffsdaten werden für 14 Tage gespeichert und nach anschließender Anonymisierung archiviert.",
+				"theContactPersonAndTheresponsibleBody": "ist Ansprechpartner und verantwortliche Stelle für die Verarbeitung personenbezogener Daten nach der EU-Datenschutzgrundverordnung (DSGVO) die Schulleitung der jeweiligen Schule, die Du besuchst / Ihr Kind besucht. Die Kontaktadressen der teilnehmenden Schulen können in der folgenden Liste eingesehen werden:",
+				"theWebsiteAlsoUsesItsOwnCookies": "Die Website nutzt zudem eigene Cookies, d.h. kleine Dateien, die auf den Geräten der Besucher*innen gespeichert werden und Informationen für den Austausch mit den Systemen des HPI enthalten. Die meisten Browser sind standardmäßig so eingestellt, dass sie Cookies akzeptieren. Besucher*innen können jedoch ihre Browsereinstellungen so anpassen, dass Cookies abgelehnt oder nur nach vorheriger Zustimmung gespeichert werden. Ohne Cookies können jedoch ggf. nicht alle Angebote und Funktionen der Website störungsfrei funktionieren. Die auf der Website eingesetzten Cookies dienen insbesondere zur Login-Authentifizierung, zur Lastverteilung und um zu vermerken, dass eine auf der Website platzierte Informationen angezeigt wurde, sodass diese beim nächsten Besuch der Website nicht erneut angezeigt werden muss. Wir wollen dadurch eine komfortablere und individuellere Nutzung der Website ermöglichen.",
+				"throughTheSchool": "durch die Schule kannst Du / können Sie sich jederzeit auch an den Datenschutzbeauftragten der Schule wenden. Dieser ist unter der in der Liste angegebenen postalischen Adresse sowie unter der dort angegebenen E-Mail-Adresse (Stichwort: „z. Hd. Datenschutzbeauftragter“) erreichbar.",
+				"whenCallingTheWebsiteThrough": "Beim Aufruf der Website durch",
+				"whenUsingThe": "Bei Nutzung der"
+			}
+		},
 		"text_einwilligung": {
 			"heading": {
 				"consentToDataProcessingInThe": "Einwilligung in die Datenverarbeitung in der"
