@@ -1,4 +1,4 @@
-@import '../lib/colors';
+@import '../lib/bootstrap/scss/custom';
 
 .registration-button {
     display: flex;
@@ -8,4 +8,5 @@
 .registration-label {
     flex: 0 0 40%;
     line-height: 35px;
+    font-family: $font-family-base;
 }

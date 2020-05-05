@@ -1,16 +1,16 @@
 <section class="section-community">
-	
+
 	{{#embed "authentication/section" class="content-width-max"}}
 	{{#content "body"}}
 
 		{{#unless loggedin}}
-			<h2 class="section-title center">{{title}}</h2>
+			<h1 class="h2 section-title center">{{$t "community.title"}}</h1>
 		{{/unless}}
 
 		<img src="/images/community.svg" role="presentation" class="mb-2 w-100"
 			style="height: auto; border-radius: 4px;" width="1000" height="667" loading="lazy">
 
-		<h3 class="h5 mb-2">Wählen Sie Ihr Bundesland oder das Projekt dem Sie angehören.</h3>
+		<h2 class="h5 mb-2">Wählen Sie Ihr Bundesland oder das Projekt dem Sie angehören.</h2>
 		<div class="accordion" id="accordionRegistration">
 		<div class="card">
 			<div class="" id="niAccordion" data-toggle="collapse" data-target="#collapseNi" aria-expanded="true" aria-controls="collapseNi">
@@ -62,7 +62,7 @@
 			<div class="" id="foreignAccordion" data-toggle="collapse" data-target="#collapseForeign" aria-expanded="true" aria-controls="collapseForeign">
 				<button class="btn btn-link registration-button" type="button">
 					<div class="registration-label">Deutsche Auslandsschulen</div>
-					<img src="/images/logo/globe.svg" role="presentation" loading="lazy" width="35px" height="35px" class="ml-1">
+					<img src="/images/logo/globe.svg" role="presentation" loading="lazy" width="35px" height="35px" class="registration-logo">
 				</button>
 			</div>
 			<div id="collapseForeign" class="collapse" aria-labelledby="foreignAccordion" data-parent="#accordionRegistration">
