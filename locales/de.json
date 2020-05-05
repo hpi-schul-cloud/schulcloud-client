@@ -689,6 +689,25 @@
 		}
 	},
 	"lib": {
+		"footer": {
+			"link": {
+				"contact": "Kontakt",
+				"dataProtection": "Datenschutzerklärung ",
+				"imprint": "Impressum",
+				"termsOfUse": "Nutzungsordnung"
+			}
+		},
+		"global": {
+			"link": {
+				"aboutTheProject": "Über das Projekt",
+				"perticipate": "Mitmachen"
+			}
+		},
+		"header": {
+			"link": {
+				"firstSteps": "Erste Schritte"
+			}
+		},
 		"help_menu": {
 			"button": {
 				"openGame": "Spiel öffnen",

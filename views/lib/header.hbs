@@ -7,14 +7,14 @@
 			<ul class="nav">
 				{{#ifEnv "FEATURE_MINT_PAGES_ENABLED" "true"}}
 				<li>
-					<a class="nav-link" href="/mint-ec/willkommenspaket">Erste Schritte</a>
+					<a class="nav-link" href="/mint-ec/willkommenspaket">{{$t "lib.header.link.firstSteps" }}</a>
 				</li>
 				{{/ifEnv}}
 				<li>
-					<a class="nav-link" href="/about">Über das Projekt</a>
+					<a class="nav-link" href="/about">{{$t "lib.global.link.aboutTheProject" }}</a>
 				</li>
 				<li>
-					<a class="nav-link" href="/community">Mitmachen</a>
+					<a class="nav-link" href="/community">{{$t "lib.global.link.perticipate" }}</a>
 				</li>
 				<li>
 					<a class="nav-link" href="https://blog.schul-cloud.org/" target="scblog">Blog</a>

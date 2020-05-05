@@ -7,21 +7,21 @@
 			<span>&copy; {{currentYear}} {{theme.short_title}} </span>
 
 			<div>
-				<a href="/impressum">Impressum</a>
+				<a href="/impressum">{{$t "lib.footer.link.imprint" }}</a>
 				<span> - </span>
-				<a href="/datenschutz">Datenschutzerklärung</a>
+				<a href="/datenschutz">{{$t "lib.footer.link.dataProtection" }}</a>
 				<span> - </span>
 				<a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank"
-					rel="noopener">Nutzungsordnung</a>
+					rel="noopener">{{$t "lib.footer.link.termsOfUse" }}</a>
 				<span> - </span>
 				<a href="mailto:{{getConfig "SC_CONTACT_EMAIL"}}?subject=Schul_Cloud%20Anfrage" target="_blank"
-					rel="noopener">Kontakt</a>
+					rel="noopener">{{$t "lib.footer.link.contact" }}</a>
 				<span> - </span>
 				<a href="/team">Team</a>
 				<span> - </span>
-				<a href="/about">Über das Projekt</a>
+				<a href="/about">{{$t "lib.global.link.aboutTheProject" }}</a>
 				<span> - </span>
-				<a href="/community">Mitmachen</a>
+				<a href="/community">{{$t "lib.global.link.perticipate" }}</a>
 				<span> - </span>
 				<a href="/partner">Partner</a>
 				<span> - </span>
