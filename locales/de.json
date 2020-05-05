@@ -255,10 +255,10 @@
 				}
 			},
 			"text": {
+				"QRCodeAlternative": "Alternativ kannst du deinen Lehrer:innen-Kollegen auch folgenden QR-Code zeigen.",
 				"coursedescription": "Kursbeschreibung:",
 				"eventCouldNotBeSavedContactSupport": "Die Kurszeiten konnten eventuell nicht richtig gespeichert werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.",
 				"nextClass": "Nächste Unterrichtsstunde:",
-				"QRCodeAlternative": "Alternativ kannst du deinen Lehrer:innen-Kollegen auch folgenden QR-Code zeigen.",
 				"shareCodeExplanation": "Verteile folgenden Code an einen Lehrer:innen-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.",
 				"youAreAlreadyMember": "Du bist bereits Teilnehmer:in des Kurses {{coursename}}.",
 				"youHaveBeenAdded": "Du wurdest erfolgreich beim Kurs {{coursename}} hinzugefügt"
@@ -424,6 +424,7 @@
 			}
 		},
 		"headline": {
+			"SCMakesTeachingDigital": "Mit der {{themetitle}} wird der Unterricht digital",
 			"courseAttendees": "Teilnehmer:innen des Kurses:",
 			"createDuplicateImport": "Erstelle, dupliziere oder importiere einen Kurs",
 			"expiredCoursesInArchive": "Kurse, deren Enddatum erreicht ist, findest du <a href=\"?activeTab=archived\">im Archiv",
@@ -433,8 +434,7 @@
 			"mySubstitutes": "Meine Vertretungen",
 			"noArchievedCourses": "Du hast noch keine archivierten Kurse",
 			"noCourse": "Es gibt aktuell keine Kurse",
-			"noCoursesYet": "Es gibt noch keine Kurse. Ein Kurs in der {{short_title}} bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen.",
-			"SCMakesTeachingDigital": "Mit der {{themetitle}} wird der Unterricht digital"
+			"noCoursesYet": "Es gibt noch keine Kurse. Ein Kurs in der {{short_title}} bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen."
 		},
 		"img_alt": {
 			"noArchievedCourses": "Keine archivierten Kurse",
@@ -520,8 +520,8 @@
 			"close": "Schließen",
 			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten.",
 			"fileName": "Dateiname:",
-			"files": "Dateien",
 			"fileType": "Dateityp:",
+			"files": "Dateien",
 			"folder": "Ordner",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
 			"selectAFolder": "Wähle einen Ordner aus"
@@ -544,7 +544,7 @@
 	},
 	"global": {
 		"button": {
-			"add" : "Hinzufügen",
+			"add": "Hinzufügen",
 			"cancel": "Abbrechen",
 			"close": "Schließen",
 			"delete": "Löschen",
@@ -599,9 +599,9 @@
 			"tryAgain": "Erneut Versuchen"
 		},
 		"headline": {
+			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> Blog",
 			"allNewsOnHPINewsletter": "Alle Neuigkeiten rund um die <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> bequem in Ihrem Postfach:",
 			"explainationVideo": "Erklärvideo zur HPI Schul-Cloud",
-			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> Blog",
 			"projectLeaders": "Projektdurchführung",
 			"theIdea": "Die Grundidee der <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span>",
 			"tryDemoVersion": "Jetzt Demoversion ausprobieren",
@@ -855,15 +855,15 @@
 					"actions": "Aktionen",
 					"email": "E-Mail",
 					"firstName": "Vorname",
-					"invitedOn": "Eingeladen am",
 					"inviteExternExpert": "Externen Experten einladen",
 					"inviteTeacherByEmail": "Lehrer per E-Mail einladen",
 					"inviteTeacherFromOtherSchool": "Lehrer anderer Schulen einladen",
+					"invitedOn": "Eingeladen am",
 					"member": "1 Teilnehmer",
 					"members": "{{numberOfMembers}} Teilnehmer",
 					"name": "Name",
 					"pendingInvitations": "Ausstehende Einladungen",
-					"requirements" : "Voraussetzungen:",
+					"requirements": "Voraussetzungen:",
 					"role": "Rolle",
 					"school": "Schule",
 					"selectAndAddTeacher": "Lehrer auswählen und hinzufügen",
@@ -904,19 +904,19 @@
 					"teamAdmin": "Team-Admin"
 				},
 				"text": {
-					"teacherIsFromOtherSchool" : "Lehrkraft ist an einer anderen Schule",
-					"teachersRegisterProcessFinished" : "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen",
-					"invitationEmailIsEqualToRegisterEmail" : "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
 					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
 					"admin": "Administrator",
 					"changeRoleOfMember": "Ändere die Rolle des Nutzers:",
 					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers",
 					"expert": "Externer Experte",
+					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
 					"inviteTeachersAndExpertsByEmail": "Lade Lehrer anderer Schulen und Experten per E-Mail ein.",
 					"leader": "Leiter",
 					"member": "Teilnehmer",
 					"owner": "Eigentümer",
-					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und Lehrer ihrer Schule zum Team hinzufügen."
+					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und Lehrer ihrer Schule zum Team hinzufügen.",
+					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
+					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
 				}
 			},
 			"news": {
@@ -951,14 +951,26 @@
 			}
 		},
 		"button": {
-			"duplicateTeam": "Team duplizieren"
+			"accept": "Akzeptieren",
+			"createTeam": "Team anlegen",
+			"duplicateTeam": "Team duplizieren",
+			"foundATeam": "Gründe ein Team"
 		},
 		"headline": {
 			"duplicateTeam": "Team duplizieren",
-			"myTeams": "Meine Teams"
+			"invitations": "Einladungen",
+			"myTeams": "Meine Teams",
+			"teamsConnectSchools": "Teams vernetzen Schule"
+		},
+		"img_alt": {
+			"teamOfTeachers": "Team von Lehrern"
 		},
 		"placeholder": {
 			"searchForTeams": "Suche nach Teams"
+		},
+		"text": {
+			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
+			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
 		}
 	}
 }
