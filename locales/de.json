@@ -689,18 +689,31 @@
 		}
 	},
 	"lib": {
+		"extended_footer": {
+			"heading": {
+				"contact": "Kontakt",
+				"vacancies": "Stellenausschreibungen"
+			},
+			"link": {
+				"subscribeTheNewsletter": "Newsletter abonnieren"
+			},
+			"text": {
+				"becomeATeam": "Team werden? Wir suchen:",
+				"youWouldLikeToBeAMember": "Du möchtest gerne Mitglied in unserem"
+			}
+		},
 		"footer": {
 			"link": {
-				"contact": "Kontakt",
-				"dataProtection": "Datenschutzerklärung ",
-				"imprint": "Impressum",
-				"termsOfUse": "Nutzungsordnung"
+				"contact": "Kontakt"
 			}
 		},
 		"global": {
 			"link": {
 				"aboutTheProject": "Über das Projekt",
-				"perticipate": "Mitmachen"
+				"dataProtection": "Datenschutzerklärung ",
+				"imprint": "Impressum",
+				"perticipate": "Mitmachen",
+				"termsOfUse": "Nutzungsordnung"
 			}
 		},
 		"header": {
