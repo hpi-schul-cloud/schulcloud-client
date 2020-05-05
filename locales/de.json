@@ -689,6 +689,29 @@
 		}
 	},
 	"lib": {
+		"help_menu": {
+			"button": {
+				"openGame": "Spiel öffnen",
+				"playEnterTheCloud": "Enter The Cloud spielen"
+			},
+			"input": {
+				"password": "Passwort:",
+				"userName": "Benutzername:"
+			},
+			"link": {
+				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
+				"helpArea": "Hilfebereich",
+				"sendRequestOrProblem": "Wunsch oder Problem senden"
+			}
+		},
+		"idap_info": {
+			"text": {
+				"isSyncronizedWithAnIdentity": "ist mit einem Identitätsmanagement (LDAP, Landessystem o.ä.) synchronisiert.",
+				"theDataOfTeachersAndStudents": "Die Daten von Lehrkräften und Schülern werden dort zentral verwaltet und können nur dort geändert werden. Das schließt auch Passwortänderungen mit ein.",
+				"whyCantIEditEntries": "Warum kann ich keine Einträge bearbeiten?",
+				"yourSchoolInThe": "Deine Schule in der"
+			}
+		},
 		"loggedin": {
 			"global": {
 				"button": {
