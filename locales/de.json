@@ -547,6 +547,7 @@
 	},
 	"global": {
 		"button": {
+			"add" : "Hinzufügen",
 			"cancel": "Abbrechen",
 			"close": "Schließen",
 			"delete": "Löschen",
