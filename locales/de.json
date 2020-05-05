@@ -695,6 +695,9 @@
 				"vacancies": "Stellenausschreibungen"
 			},
 			"link": {
+				"contentProviders": "Inhalteanbieter:",
+				"generalInquiries": "Allgemeine Anfragen:",
+				"privacy": "Datenschutz:",
 				"subscribeTheNewsletter": "Newsletter abonnieren"
 			},
 			"text": {
