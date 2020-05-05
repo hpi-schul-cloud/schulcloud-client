@@ -1135,11 +1135,9 @@ router.get(
 
 		Promise.all([
 			userPromise,
-			consentPromise,
 			classesPromise,
 			accountPromise,
-		]).then(([user, _consent, _classes, _account]) => {
-			const consent = _consent[0] || {};
+		]).then(([user, _classes, _account]) => {
 			const account = _account[0];
 			const hidePwChangeButton = !account;
 
@@ -1153,8 +1151,8 @@ router.get(
 				submitLabel: 'Speichern',
 				closeLabel: 'Abbrechen',
 				user,
-				consentStatusIcon: getConsentStatusIcon(consent.consentStatus, true),
-				consent,
+				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
+				consent: user.consent,
 				classes,
 				editTeacher: true,
 				hidePwChangeButton,
@@ -1597,17 +1595,15 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
 	(req, res, next) => {
 		const userPromise = api(req).get(`/users/${req.params.id}`);
-		const consentPromise = getSelectOptions(req, 'consents', {
-			userId: req.params.id,
-		});
 		const accountPromise = api(req).get('/accounts/', {
 			qs: { userId: req.params.id },
 		});
 		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
-		Promise.all([userPromise, consentPromise, accountPromise])
-			.then(([user, _consent, [account]]) => {
+		Promise.all([userPromise, accountPromise])
+			.then(([user, [account]]) => {
 				const consent = _consent[0] || {};
+				const consent = user.consent || {};
 				if (consent) {
 					consent.parentConsent = (consent.parentConsents || []).length
 						? consent.parentConsents[0]
@@ -1620,7 +1616,7 @@ router.get(
 					submitLabel: 'Speichern',
 					closeLabel: 'Abbrechen',
 					user,
-					consentStatusIcon: getConsentStatusIcon(consent.consentStatus),
+					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
 					consent,
 					canSkipConsent: canSkip,
 					hasImportHash: user.importHash,
