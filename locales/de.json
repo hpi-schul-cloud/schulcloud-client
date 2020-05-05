@@ -689,6 +689,19 @@
 		}
 	},
 	"lib": {
+		"error": {
+			"button": {
+				"back": "zurück",
+				"hideDetails": "Details verstecken",
+				"viewDetails": "Details anzeigen"
+			},
+			"heading": {
+				"errorDetalis": "Fehler-Details:"
+			},
+			"text": {
+				"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
+			}
+		},
 		"extended_footer": {
 			"heading": {
 				"contact": "Kontakt",
