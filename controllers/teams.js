@@ -15,7 +15,7 @@ const { CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED, ROCKET_CHAT_URI } 
 const router = express.Router();
 moment.locale('de');
 
-const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference', 'videoconferenceRecording', 'messenger'];
+const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference', 'messenger'];
 
 const addThumbnails = (file) => {
 	const thumbs = {
