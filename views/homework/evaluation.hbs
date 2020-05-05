@@ -18,7 +18,7 @@
                             data-toggle="tooltip" title="Abgabe drucken">
                                 <i class='fa fa-print'></i> {{$t "homework.button.print" }}
                         </div>
-                        {{this.submission.comment}}
+						{{{this.submission.comment}}}
                     </div>
                 {{else}}
                     {{$t "homework.text.noSubmission" }}
@@ -59,7 +59,7 @@
                 <b class="grade">{{this.submission.gradeText}}</b>
                 <div class="comment">
                     {{#if this.submission.gradeComment}}
-                        {{this.submission.gradeComment}}
+                        {{{this.submission.gradeComment}}}
                     {{else}}
                         <p>{{$t "homework.text.noEvaluationTextAvailable" }}</p>
                     {{/if}}
