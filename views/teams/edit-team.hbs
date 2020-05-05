@@ -30,7 +30,7 @@
                     <textarea class="form-control" data-testid="description_team" name="description">{{team.description}}</textarea>
                 </div>
 
-                {{#if @root.FEATURE_MESSENGER_ENABLED}}
+                {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
                     {{#inArray "messenger" schoolData.features}}
                         <div class="form-group">
                             <label>
@@ -39,7 +39,9 @@
                             </label>
                         </div>
                     {{/inArray}}
-                {{else}}
+                {{/ifConfig}}
+
+               {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
                     {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
                         {{#inArray "rocketChat" schoolData.features}}
                             <div class="form-group">
@@ -50,7 +52,7 @@
                             </div>
                         {{/inArray}}
                     {{/if}}
-                {{/if}}
+                {{/ifConfig}}
 
                 {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                     <div class="form-group">
