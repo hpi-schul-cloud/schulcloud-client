@@ -57,7 +57,7 @@
             {{/ifCond}}
 
             <h2 class="h4 padding-top">
-                {{arrayLength body}} Teilnehmer
+                {{$t "teams._team.members.headline.member" (dict "count" (arrayLength body))}}
             </h2>
             <div class="container-fluid">
                 <div class="row">
@@ -68,9 +68,9 @@
             </div>
 
             {{#if bodyClasses}}
-                <h2 class="h4 padding-top">{{arrayLength bodyClasses}}
-                    {{#ifCond (arrayLength bodyClasses) '==' 1}} Klasse {{/ifCond}}
-                    {{#ifCond (arrayLength bodyClasses) '>' 1}} Klassen {{/ifCond}}
+                <h2 class="h4 padding-top">
+                    {{$t "teams._team.members.headline.class" (dict "count" (arrayLength bodyClasses))}}
+
                 </h2>
                 <div class="container-fluid">
                     <div class="row">

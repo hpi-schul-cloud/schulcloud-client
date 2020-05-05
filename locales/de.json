@@ -853,14 +853,16 @@
 				},
 				"headline": {
 					"actions": "Aktionen",
+					"class": "{{count}} Klasse",
+					"class_plural": "{{count}} Klassen",
 					"email": "E-Mail",
 					"firstName": "Vorname",
 					"inviteExternExpert": "Externen Experten einladen",
 					"inviteTeacherByEmail": "Lehrer per E-Mail einladen",
 					"inviteTeacherFromOtherSchool": "Lehrer anderer Schulen einladen",
 					"invitedOn": "Eingeladen am",
-					"member": "1 Teilnehmer",
-					"members": "{{numberOfMembers}} Teilnehmer",
+					"member": "{{count}} Teilnehmer",
+					"member_plural": "{{count}} Teilnehmer",
 					"name": "Name",
 					"pendingInvitations": "Ausstehende Einladungen",
 					"requirements": "Voraussetzungen:",
@@ -964,6 +966,9 @@
 		},
 		"img_alt": {
 			"teamOfTeachers": "Team von Lehrern"
+		},
+		"label": {
+			"more": "Weiteres"
 		},
 		"placeholder": {
 			"searchForTeams": "Suche nach Teams"
