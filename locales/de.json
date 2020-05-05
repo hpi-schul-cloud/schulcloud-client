@@ -689,6 +689,25 @@
 		}
 	},
 	"lib": {
+		"csrf_content": {
+			"global": {
+				"button": {
+					"reload": "Neu laden",
+					"openANewTab": "In neuem Tab öffnen"
+				}
+			},
+			"link": {
+				"openThisPageInASeparateWindow": "öffne diese Seite in einem eigenen Fenster"
+			},
+			"text": {
+				"theSchoolCloudWasEmbedded": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren,",
+				"unfortunatelyTheRequestFaliedAgain": "Die Anfrage ist leider erneut fehlgeschlagen. Um mit der Nutzung fortzufahren, lade die Seite bitte neu.",
+				"ifYouDontWantToTakeAnyAction": "Solltest du keine Aktion ausführen wollen, schließe bitte diesen Tab in deinem Browser.",
+				"WeCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
+				"weCouldNotMakeSureThat": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum neu laden auf den Button unten.",
+				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
+			}
+		},
 		"error": {
 			"button": {
 				"back": "zurück",
