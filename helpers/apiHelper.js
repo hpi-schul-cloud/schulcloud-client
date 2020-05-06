@@ -13,6 +13,7 @@ const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true } = {})
 	if (keepAlive) {
 		headers.Connection = 'Keep-Alive';
 	}
+	headers['x-api-key'] = Configuration.get('API_KEY');
 
 	return rp.defaults({
 		baseUrl,
