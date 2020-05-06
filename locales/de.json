@@ -742,6 +742,26 @@
 				"contact": "Kontakt"
 			}
 		},
+		"form_auto_logout": {
+			"button": {
+				"extendSession": "Sitzung verlängern"
+			},
+			"text": {
+				"loggedOutAutomatically": "automatisch ausgeloggt.",
+				"minutes": "Minuten",
+				"nowExtendYourSession": "Verlängere jetzt deine Sitzung auf zwei Stunden.",
+				"oopsThatshouldntHaveHappened": "Uups… das hätte nicht passieren dürfen!",
+				"warning": "Achtung: Du wirst in",
+				"yourSessionCouldntBeExtended": "Deine Sitzung konnte nicht verlängert werden. Bitte versuche es gleich noch einmal."
+			}
+		},
+		"form_bbb": {
+			"text": {
+				"theVideoConferenceHasNotYetStarted": "Die Videokonferenz wurde noch nicht gestartet.",
+				"toQuerytheStatusAgain": "Um den Status erneut abzufragen, klicke das Aktualisieren-Icon",
+				"youAreNotAuthorisedToAttend": "Du bist nicht berechtigt, an dieser Videokonferenz teilzunehmen. Kontaktiere zur Freigabe einen Team-Admin."
+			}
+		},
 		"form_create_videoConference": {
 			"text": {
 				"allUsersParticipate": "Alle Nutzer nehmen als Moderator teil",
