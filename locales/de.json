@@ -742,7 +742,23 @@
 				"contact": "Kontakt"
 			}
 		},
+		"form_poll": {
+			"global": {
+				"button": {
+					"totheSurvey": "Zur Umfrage"
+				}
+			},
+			"text": {
+				"isOnlineWeWouldLikeToAskAgain": "ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen.",
+				"thanksForYourSupport": "Vielen Dank für Ihre Unterstützung!",
+				"theNextQuestionnaire": "Die nächste Befragung zum Projekt"
+			}
+		},
 		"global": {
+			"button": {
+				"back": "Zurück",
+				"continue": "Weiter"
+			},
 			"link": {
 				"aboutTheProject": "Über das Projekt",
 				"dataProtection": "Datenschutzerklärung ",
