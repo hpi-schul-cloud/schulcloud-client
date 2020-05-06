@@ -76,7 +76,13 @@
 			"chooseATeam": "Wähle eine Team"
 		},
 		"headline": {
-			"calendar": "Kalender"
+			"addDate": "Termin hinzufügen",
+			"calendar": "Kalender",
+			"dateDetails": "Termin - Details"
+		},
+		"input": {
+			"egGym": "z.B. Turnhalle",
+			"egHandballTraining": "z.B. Handball-Training"
 		},
 		"label": {
 			"addVideoConference": "Videokonferenz hinzufügen?",
@@ -92,6 +98,7 @@
 			"noAuthorization": "Keine Berechtigung",
 			"participateInVideoConference": "An Videokonferenz teilnehmen",
 			"startAVideoConference": "Videokonferenz starten",
+			"timedOut": "Zeitüberschreitung der Anfrage",
 			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen...",
 			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
 		}
@@ -583,11 +590,13 @@
 			"cancel": "Abbrechen",
 			"close": "Schließen",
 			"delete": "Löschen",
+			"no": "Nein",
 			"okay": "Okay",
 			"open": "Öffnen",
 			"save": "Speichern",
 			"saveChanges": "Änderungen speichern",
-			"send": "Senden"
+			"send": "Senden",
+			"yes": "Ja"
 		},
 		"label": {
 			"room": "Raum"
