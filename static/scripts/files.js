@@ -349,10 +349,10 @@ $(document).ready(() => {
 
 		// add filter fields below file-search-bar
 		const filterOptions = [
-			{ key: 'pics', label: 'Bilder' },
-			{ key: 'videos', label: 'Videos' },
-			{ key: 'pdfs', label: 'PDF Dokumente' },
-			{ key: 'msoffice', label: 'Word/Excel/PowerPoint' },
+			{ key: 'pics', label: $t('files.search.label.pics') },
+			{ key: 'videos', label: $t('files.search.label.videos') },
+			{ key: 'pdfs', label: $t('files.search.label.pdfs') },
+			{ key: 'msoffice', label: $t('files.search.label.msoffice') },
 		];
 
 		const $filterOptionsDiv = $('<div class="filter-options"></div>');

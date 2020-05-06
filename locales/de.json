@@ -544,6 +544,12 @@
 		}
 	},
 	"files": {
+		"_file": {
+			"text": {
+				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
+				"fileMoved": "Verschieben der Datei war erfolgreich!"
+			}
+		},
 		"button": {
 			"ascending": "↑ aufsteigend",
 			"createANewFile": "Neue Datei erstellen",
@@ -554,19 +560,48 @@
 			"search": "Suchen",
 			"selectFormat": "Format auswählen",
 			"table": "Tabelle (xlsx)",
-			"textDocument": "Textdokument (docx)"
+			"textDocument": "Textdokument (docx)",
+			"toCourse": "Zum Kurs",
+			"toTeam": "Zum Team"
+		},
+		"headline": {
+			"files": "Dateien",
+			"myFiles": "Meine Dateien"
+		},
+		"input": {
+			"filename": "Name der Datei"
 		},
 		"label": {
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
 			"close": "Schließen",
+			"createdAt": "Erstelldatum",
 			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten.",
 			"fileName": "Dateiname:",
 			"fileType": "Dateityp:",
 			"files": "Dateien",
+			"filesFromMyClasses": "Dateien aus meinen Klassen",
+			"filesFromMyCourse": "Dateien aus meinen Kursen",
+			"filesFromMyTeam": "Dateien aus meinen Teams",
+			"filesSharedWithMe": "Mit mir geteilte Dateien",
 			"folder": "Ordner",
+			"myPersonalData": "Meine persönlichen Dateien",
+			"name": "Dateiname",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
-			"selectAFolder": "Wähle einen Ordner aus"
+			"selectAFolder": "Wähle einen Ordner aus",
+			"size": "Größe",
+			"updatedAt": "Änderungsdatum"
+		},
+		"search": {
+			"headline": {
+				"search": "Dateisuche"
+			},
+			"label": {
+				"msoffice": "Word/Excel/PowerPoint",
+				"pdfs": "PDF Dokumente",
+				"pics": "Bilder",
+				"videos": "Videos"
+			}
 		},
 		"text": {
 			"FileCanNotBeDownloaded": "Keine Sorge, die Datei kann nicht heruntergeladen werden.",
@@ -574,6 +609,7 @@
 			"foundIn": "gefunden in:",
 			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
 			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
+			"noAccessToThisFile": "Zu dieser Datei haben Sie keinen Zugriff!",
 			"noSearchResults": "Keine Suchergebnisse",
 			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.",
 			"rememberThisSelection": "Diese Auswahl merken",
