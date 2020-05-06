@@ -793,7 +793,8 @@
 		"global": {
 			"button": {
 				"back": "Zurück",
-				"continue": "Weiter"
+				"continue": "Weiter",
+				"discardChange": "Änderung verwerfen"
 			},
 			"link": {
 				"aboutTheProject": "Über das Projekt",
@@ -854,6 +855,11 @@
 				"allowedSpecialCharactersAre": "Erlaubte Sonderzeichen sind:",
 				"atlist8Characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
 				"atlist8CharactersWithUpperAndLower": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen."
+			}
+		},
+		"table": {
+			"option": {
+				"numberofEntries": "Anzahl der Einträge"
 			}
 		}
 	},
