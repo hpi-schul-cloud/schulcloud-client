@@ -84,6 +84,17 @@
 			],
 			"description": "Defines wether external team invitation shows teachers from different schools or not. if enabled system wide there are options general enabled or opt-in/-out by user required."
 		},
+		"STUDENT_TEAM_CREATION": {
+			"type": "string",
+			"default": "opt-in",
+			"enum": [
+				"disabled",
+				"opt-in",
+				"opt-out",
+				"enabled"
+			],
+			"description": "defines wether students may create teams or not. if enabled system wide there are options general enabled or opt-in/-out by school admin required."
+		},
 		"FEATURE_VIDEOCONFERENCE_ENABLED": {
 			"type": "boolean",
 			"default": false,
@@ -138,6 +149,7 @@
 		}
 	},
 	"required": [
-		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION"
+		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
+		"STUDENT_TEAM_CREATION"
 	]
 }
