@@ -742,6 +742,22 @@
 				"contact": "Kontakt"
 			}
 		},
+		"form_create_videoConference": {
+			"text": {
+				"allUsersParticipate": "Alle Nutzer nehmen als Moderator teil",
+				"approvalByTheModerator": "Freigabe durch Moderator, bevor der Raum betreten werden kann",
+				"muteParticipants": "Teilnehmer beim Betreten stummschalten"
+			}
+		},
+		"form_features": {
+			"button": {
+				"clickHere": "Hier klicken"
+			},
+			"text": {
+				"forMoreInformationCliclThisButton": "Für weitere Informationen klicken Sie doch bitte diesen Button",
+				"thereAreNewFeatures": "Es gibt neue Features in der"
+			}
+		},
 		"form_poll": {
 			"global": {
 				"button": {
