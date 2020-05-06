@@ -78,14 +78,17 @@ $(document).ready(() => {
 		});
 		$skipregModal.appendTo('body').modal('show');
 	});
-	$('.btn-send-link-email').on('click', (e) => {
+
+	function sendLinkEmailClickHandler(e) {
 		e.preventDefault();
 		const $this = $(this);
 		const text = $this.html();
 		const $invitationModal = $('.invitation-modal');
 		const schoolId = $invitationModal.find("input[name='schoolId']").val();
 		let role = 'student';
-		if ($(this).hasClass('teacher')) role = 'teacher';
+		if ($this.hasClass('teacher')) {
+			role = 'teacher';
+		}
 		const email = $('input[name="email"]').val();
 
 		$this.html('E-Mail wird gesendet...');
@@ -130,7 +133,8 @@ $(document).ready(() => {
 				$this.attr('disabled', false);
 				$this.html(text);
 			});
-	});
+	}
+	$('.btn-send-link-email').on('click', sendLinkEmailClickHandler);
 
 	function createInvitationHashHandler(e) {
 		e.preventDefault();
