@@ -75,8 +75,8 @@
 			"chooseACourse": "Wähle einen Kurs...",
 			"chooseATeam": "Wähle eine Team"
 		},
-		"headline":{
-			"calendar" : "Kalender"
+		"headline": {
+			"calendar": "Kalender"
 		},
 		"label": {
 			"addVideoConference": "Videokonferenz hinzufügen?",
@@ -98,11 +98,43 @@
 	},
 	"content": {
 		"button": {
-			"choose": "Wähle..."
+			"addFilter": "Filter hinzufügen",
+			"apply": "Übernehmen",
+			"choose": "Wähle...",
+			"report": "melden"
+		},
+		"headline": {
+			"addContentToTopic": "Material zu Thema hinzufügen",
+			"contentCantBeAddedInDemo": "<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>",
+			"contentStore": "Lern-Store",
+			"entriesPerPage": "Einträge pro Seite",
+			"featuredContent": "Aktuelle Inhalte",
+			"fileType": "Dateityp",
+			"nSearchResultsFoundWith": "{{ searchResultsTotal }} Suchergebnisse für \"{{ query }}\"",
+			"noResultsFoundWith": "Es wurden keine Suchergebnisse für \"{{ query }}\" gefunden",
+			"sortBy": "Sortierung",
+			"trendingContent": "Beliebte Inhalte",
+			"youAreLeavingSC": "Sie verlassen jetzt die Schul-Cloud"
+		},
+		"input": {
+			"searchInSC": "In der Schul-Cloud suchen"
 		},
 		"label": {
 			"chooseACourse": "Wähle einen Kurs / Fach",
-			"chooseALessonTopic": "Wähle ein Unterrichtsthema"
+			"chooseALessonTopic": "Wähle ein Unterrichtsthema",
+			"entriesPerPage": "Einträge pro Seite: %1",
+			"fileType": "Dateitypen: %1",
+			"sortBy": "Sortieren nach: %1"
+		},
+		"text": {
+			"contentDisabledInDemo": "Inhalt aus Lizenzgründen im Demomodus nicht verfügbar.",
+			"date": "Aktualität",
+			"popularity": "Beliebtheit",
+			"provider": "Anbieter",
+			"text": "Text",
+			"viaProvider": "via {{provider}}",
+			"video": "Video",
+			"youAreRedirectedToProvider": "Sie werden auf die Seite von <span class=\"provider\">einem externen Anbieter</span> weitergeleitet."
 		}
 	},
 	"courses": {
@@ -143,12 +175,12 @@
 					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
+					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"chooseDate": "Termine auswählen",
 					"class": "Klasse(n)",
 					"from": "Von",
 					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 					"substitute": "Vertretungslehrer:innen",
-					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"till": "Bis",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
 					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
@@ -239,12 +271,12 @@
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
 					"posedTasks": "Gestellte Aufgaben",
+					"privateTasks": "Private Aufgaben und Entwürfe",
 					"submittedTasks": "Bearbeitete Aufgaben",
-					"unsubmittedTasks": "Gestellte Aufgaben",
-					"tasksWithSubmissions": "Aufgaben mit Abgaben",
 					"task": "Aufgabe",
 					"tasks": "Aufgaben",
-					"privateTasks": "Private Aufgaben und Entwürfe"
+					"tasksWithSubmissions": "Aufgaben mit Abgaben",
+					"unsubmittedTasks": "Gestellte Aufgaben"
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
@@ -547,13 +579,15 @@
 	},
 	"global": {
 		"button": {
-			"add" : "Hinzufügen",
+			"add": "Hinzufügen",
 			"cancel": "Abbrechen",
 			"close": "Schließen",
 			"delete": "Löschen",
+			"okay": "Okay",
 			"open": "Öffnen",
 			"save": "Speichern",
-			"saveChanges": "Änderungen speichern"
+			"saveChanges": "Änderungen speichern",
+			"send": "Senden"
 		},
 		"label": {
 			"room": "Raum"
@@ -773,11 +807,11 @@
 		"_team": {
 			"edit": {
 				"label": {
-					"teamName": "Name des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
 					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
 					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams"
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
 				},
 				"placeholder": {
 					"teamName": "A-Team"
