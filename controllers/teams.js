@@ -18,17 +18,17 @@ moment.locale('de');
 
 const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference', 'messenger'];
 
-handlebars.registerHelper('stringify', function (jsonValue) {
-	let attributes = [];
+handlebars.registerHelper('stringify', jsonValue => {
+	const attributes = [];
 	const escapedKeyList = ['style', 'data-payload'];
 	const stringifyValue = JSON.stringify(jsonValue);
 	const escapedValueList = ['display: none', stringifyValue];
 	escapedKeyList.forEach((entity, i) => {
 		const escapedKey = handlebars.escapeExpression(entity);
 		const escapedValue = handlebars.escapeExpression(escapedValueList[i]);
-		attributes.push(escapedKey + '="' + escapedValue + '"');
+		attributes.push(`${escapedKey}="${escapedValue}"`);
 	});
-	const escapedOutput = '<td ' + attributes.join(" ") + '/>';
+	const escapedOutput = `<td ${attributes.join(" ")} />`;
 	return new handlebars.SafeString(escapedOutput);
 });
 
