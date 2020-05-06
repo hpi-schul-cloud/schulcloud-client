@@ -112,8 +112,13 @@
 		"MATRIX_MESSENGER_BUNDLE": {
 			"type": "string",
 			"format": "uri",
-			"default": "https://embed.stomt.com/bundles/03cf3aa140359adf6a00/bundle.js",
+			"default": "https://embed.stomt.com/bundles/10f5ebeaaad4e5220219/bundle.js",
 			"description": "Where to find the messenger dependencies."
+		},
+		"FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, school admins can choose to create a room for all students and teachers of the school"
 		},
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
