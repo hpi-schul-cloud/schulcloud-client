@@ -164,7 +164,14 @@
 					"default": 2592000000,
 					"description": "Expiration in seconds from now"
 				}
-			}
+			},
+			"required": [
+				"SAME_SITE",
+				"HTTP_ONLY",
+				"HOST_ONLY",
+				"SECURE",
+				"EXPIRES_SECONDS"
+			]
 		}
 	},
 	"required": [
