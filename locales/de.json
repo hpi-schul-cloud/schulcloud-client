@@ -75,6 +75,9 @@
 			"chooseACourse": "Wähle einen Kurs...",
 			"chooseATeam": "Wähle eine Team"
 		},
+		"headline":{
+			"calendar" : "Kalender"
+		},
 		"label": {
 			"addVideoConference": "Videokonferenz hinzufügen?",
 			"createForCourse": "Für Kurs anlegen?",
