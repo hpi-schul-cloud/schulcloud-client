@@ -8,9 +8,12 @@ $chat-color-secondary: hsl(hue($chat-color-primary), saturation($chat-color-prim
 
 // add space for messenger
 footer {
-	@include media-breakpoint-up(md) {
-		padding-bottom: 50px;
-	}
+	padding-bottom: 50px;
+}
+
+.route-homework .create {
+	bottom: 65px;
+	right: 14px;
 }
 
 #matrixchat {
@@ -69,27 +72,48 @@ footer {
 		display: none;
 	}
 
-	// hide verbannen
-	.mx_MemberInfo_field:nth-child(2) {
-		display: none;
-	}
-	// hide letzte Nachricht löschen
-	.mx_MemberInfo_field:nth-child(3) {
-		display: none;
+	.mx_MemberInfo_container {
+		#headline-user-options,
+		#headline-admin-tools {
+			display: none;
+		}
+		#button-ignore,
+		#button-read-receipt,
+		#button-mention,
+		#button-invite,
+		#button-share,
+		//#button-direct,
+		//#button-kick,
+		#button-recent,
+		#button-ban,
+		//#button-mute,
+		#button-mod,
+		#button-deactivate {
+			display: none;
+		}
 	}
 
 	// reduce message menu
-	// > weiterleiten
-	.mx_MessageContextMenu_field:nth-child(2) {
-		display: none;
-	}
-	// > quellcode
-	.mx_MessageContextMenu_field:nth-child(3) {
-		display: none;
-	}
-	// > teilen
-	.mx_MessageContextMenu_field:nth-child(4) {
-		display: none;
+	.mx_MessageContextMenu {
+		//#button-resend,
+		//#button-resend-edit,
+		//#button-resend-reactions,
+		//#button-resend-removal,
+		//#button-remove,
+		//#button-cancel-sending,
+		#button-forward,
+		#button-pin,
+		#button-source,
+		#button-source-decrypt,
+		#button-unhide-preview,
+		//#button-quote,
+		#button-source-url,
+		#button-collapse-thread,
+		#button-e2e,
+		//#button-report,
+		#button-share {
+			display: none;
+		}
 	}
 
 	// hide sticker creation
@@ -121,6 +145,7 @@ footer {
 	}
 
 	// hide room error messages
+	.mx_RoomPreviewBar_ViewingRoom,
 	.mx_RoomPreviewBar_RoomNotFound {
 		display: none;
 	}
@@ -271,6 +296,11 @@ footer {
 		margin-left: 20px;
 	}
 
+	// Scroll shadow
+	.mx_RoomSubList:not(.resized-all)>.mx_RoomSubList_scroll.mx_IndicatorScrollbar_topOverflow:before {
+		background: linear-gradient(0deg, rgba(242, 245, 248, 0), $chat-color-background);
+	}
+
 	// > Chat
 	.mx_GroupView, .mx_RoomView {
 		box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.20);
@@ -324,6 +354,7 @@ footer {
 
 		.mx_RoomHeader_topic {
 			color: $chat-color-background;
+			white-space: nowrap;
 		}
 
 		.mx_RoomHeader_buttons {
