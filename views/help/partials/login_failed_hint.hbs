@@ -4,6 +4,7 @@
 		<h4>{{$t "login.headline.LoginFailedHint"}}</h4>
 			<div class="steps">
 				<li> {{$t "login.text.LoginFailedFirstHint"}}</li>
+				<p>{{ $t "login.text.LoginFailedFirstHintText"}}</p>
 					<img class="browser" src="/images/chrome.png" alt="Firefox" height="42" width="42">
 					<img class="browser" src="/images/firefox.png" alt="Chrome" height="42" width="42">
 					<img class="browser" src="/images/safari.png" alt="Safari" height="42" width="42">
@@ -17,11 +18,16 @@
 			</div>
 			<div class="steps">
 				<li> {{$t "login.text.LoginFailedFourthHint"}}</li>
+				<p>{{ $t "login.text.LoginFailedFourthHintText"}}</p>
 				<img class="screenshot"src="/images/login-fail.png" alt="Login failed">
 			</div>
 			<div class="steps">
 				<li>{{$t "login.text.LoginFailedFithHint"}}</li>
-				<li><a href="https://niedersachsen.cloud/"><img class="sc-logo" src="/images/n21-logo.png" alt="Logo n21"target="_blank" width="200"></a></li>
+				<p>{{ $t "login.text.LoginFailedFithHintText"}}</p>
+				<a href="https://schul-cloud.org/"><img class="sc-logo" src="/images/schulcoud-logo.png" alt="Logo Schul-Cloud"target="_blank" width="200"></a>
+				<a href="https://niedersachsen.cloud/"><img class="sc-logo" src="/images/n21-logo.png" alt="Logo n21"target="_blank" width="200"></a>
+				<a href="https://niedersachsen.cloud/"><img class="sc-logo" src="/images/brb-logo.png" alt="Logo brb"target="_blank" width="200"></a>
+				<a href="https://niedersachsen.cloud/"><img class="sc-logo" src="/images/thr-logo.png" alt="Logo thr"target="_blank" width="200"></a>
 			</div>
 			{{else}}
 			{{/if}}

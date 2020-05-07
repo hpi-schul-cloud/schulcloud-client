@@ -742,11 +742,14 @@
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
-			"LoginFailedFirstHint": "1. Einen anderen Browser benutzen. Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir auf Grund veralteter Technologien nicht.",
-			"LoginFailedSecondHint": "2. Browser Cookies und Website-Daten löschen.",
-			"LoginFailedThirdHint":"3. Ein anderes Gerät ausprobieren (bspw. Laptop statt Handy).",
-			"LoginFailedFourthHint":"4. Bist du auf der richtigen URL? Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen Funktion.",
-			"LoginFailedFithHint": "5. Hier findest du alle Instanzen der Schulcould:"
+			"LoginFailedFirstHint": "1. Welchen Browser benutzt du ?",
+			"LoginFailedFirstHintText":" Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir auf Grund veralteter Technologien nicht.",
+			"LoginFailedSecondHint": "2. Hast du deine Cookies und Website-Datengelöscht ?",
+			"LoginFailedThirdHint":"3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
+			"LoginFailedFourthHint":"4. Hast du deine Anmeldedaten schon überprüft?", 
+			"LoginFailedFourthHintText":"Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen Funktion.",
+			"LoginFailedFithHint": "5. Bist du auf der richtigen URL?",
+			"LoginFailedFithHintText": "Hier findest du alle Instanzen der Schulcould:"
 		}
 	},
 	"news": {
