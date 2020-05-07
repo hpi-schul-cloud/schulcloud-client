@@ -135,6 +135,11 @@
 			"format": "uri",
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
+		},
+		"LOGIN_BLOCK_TIME": {
+			"type": "integer",
+			"default": 15,
+			"description": "Number of second the user will be blocked before logging in again"
 		}
 	},
 	"required": [

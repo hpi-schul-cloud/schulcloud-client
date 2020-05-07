@@ -7,7 +7,7 @@ const api = require('../api');
 const permissionsHelper = require('./permissions');
 const wordlist = require('../static/other/wordlist.js');
 
-const { NODE_ENV, SW_ENABLED, LOGIN_BLOCK_TIME } = require('../config/global');
+const { NODE_ENV, SW_ENABLED } = require('../config/global');
 const logger = require('./logger');
 
 const rolesDisplayName = {
@@ -55,7 +55,7 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 	}
 };
 
-const isJWT = req => (req && req.cookies && req.cookies.jwt);
+const isJWT = (req) => (req && req.cookies && req.cookies.jwt);
 
 const isAuthenticated = (req) => {
 	if (!isJWT(req)) {
@@ -106,7 +106,7 @@ const populateCurrentUser = (req, res) => {
 			setTestGroup(res.locals.currentUser);
 			res.locals.currentRole = rolesDisplayName[data.roles[0].name];
 			res.locals.roles = data.roles.map(({ name }) => name);
-			res.locals.roleNames = data.roles.map(r => rolesDisplayName[r.name]);
+			res.locals.roleNames = data.roles.map((r) => rolesDisplayName[r.name]);
 			return api(req).get(`/schools/${res.locals.currentUser.schoolId}`, {
 				qs: {
 					$populate: ['federalState'],
@@ -143,11 +143,11 @@ const checkConsent = (req, res) => {
 };
 
 const checkSuperhero = (req, res) => {
-	if (!(res.locals.roles || []).includes("superhero")) { 
+	if (!(res.locals.roles || []).includes('superhero')) {
 		return Promise.resolve();
 	}
 
-	// eslint-disable-next-line prefer-promise-reject-errors	
+	// eslint-disable-next-line prefer-promise-reject-errors
 	return Promise.reject('superhero access forbidden, redirecting...');
 };
 
@@ -184,8 +184,7 @@ const authChecker = (req, res, next) => {
 							res.redirect('/firstLogin');
 						} else if (err === 'superhero access forbidden, redirecting...') {
 							res.redirect('/login/superhero');
-						}
-						else {
+						} else {
 							res.redirect(redirectUrl);
 						}
 					});
@@ -216,7 +215,7 @@ const login = (payload = {}, req, res, next) => {
 			type: 'danger',
 			message: res.$t('login.text.loginFailed'),
 			statusCode: e.statusCode,
-			timeToWait: LOGIN_BLOCK_TIME || 15,
+			timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
 		};
 		if (e.statusCode === 429) {
 			res.locals.notification.timeToWait = e.error.data.timeToWait;
