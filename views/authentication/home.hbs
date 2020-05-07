@@ -54,7 +54,7 @@
 			poster="https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/explainer-poster.jpg"
 		>
 			<source src="https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hd/video.mp4" type="video/mp4">
-			Your browser does not support this (HTML5) videoplayer.
+			{{$t "home.text.browserDoesNotSupportPlayer"}}
 		</video>
 	{{/content}}
 {{/embed}}
@@ -68,20 +68,15 @@
 					<i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
 						style="font-size: 25px;"></i>
 					<div class="placeholder" style="display: none;">
-						Beim Laden des Inhalts der Startseite ist ein Fehler aufgetreten. <br>
-						<button type="button" class="btn btn-primary mt-1">Erneut Versuchen</button>
+						{{$t "home.text.errorWhileLoadingHomepage"}} <br>
+						<button type="button" class="btn btn-primary mt-1">{{$t "home.button.tryAgain"}}</button>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<h2 class="h3 section-title center">Die Grundidee der <span style="white-space: nowrap;">HPI Schul-Cloud</span></h2>
-		<p>Webbasierte Anwendungen sowie Rechenressourcen und Speichermöglichkeiten per Cloud Computing ermöglichen einen effizienten Zugriff auf zeitgemäße IT-Dienste für einen großen Kreis an Nutzer/innen.</p>
-		<p>Der spontane, bedarfsgerechte Einsatz in jedem beliebigen Unterrichtsfach wird dadurch erleichtert. Die aufwendige Installation von Software auf einzelnen Endgeräten der Nutzer/innen entfällt.</p>
-		<p>Sämtliche Programme und das Benutzerprofil werden via Internet zur Verfügung gestellt. Um Zugang zu den digitalen Inhalten zu erlangen, braucht es lediglich einen Internetzugang, webfähige Anzeige- und Eingabegeräte, einen modernen Webbrowser sowie entsprechende Berechtigungen.</p>
-		<p>Die Bereitstellung der HPI Schul-Cloud ist ein entscheidender Schritt, um die Nutzung digitaler Medien in der Schule flächendeckend voranzubringen.</p>
 		<ul>
-			<li>{{$t "home.text.moreInformation"}} <a href="{{theme.documents.globalFiles.TechnischerBericht2019}}" title="Initiates file download" target="_blank">{{$t "home.text.technicalReportHPISchoolCloud"}}</a></li>
+			<li>{{$t "home.text.moreInformation"}} <a href="{{theme.documents.globalFiles.TechnischerBericht2019}}" title="{{$t "home.text.downloadFile"}}" target="_blank">{{$t "home.text.technicalReportHPISchoolCloud"}}</a></li>
 		</ul>
 		<div class="text-center">
 			<a href="/about"class="btn btn-outline btn-white-outlined mt-2">
@@ -95,11 +90,7 @@
 	{{#content "body"}}
 		<h2 class="h3 section-title center">{{{$t "home.headline.HPISchoolCloudBlog"}}}</h2>
 			<div class="blog-cards">
-				{{#each blogFeed}}
-					{{> "authentication/blog-card" article=this}}
-				{{else}}
-					<p>{{$t "home.text.BlogIsDeactivated"}}</p>
-				{{/each}}
+				<p>{{$t "home.text.blogIsDeactivated"}}</p>
 			</div>
 		<a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">{{$t "home.link.moreArticles"}}</a>
 	{{/content}}
@@ -126,13 +117,13 @@
 			</h2>
 			<div class="partners row">
 				<a class="col-sm py-1" href="https://hpi.de/open-campus/hpi-initiativen/schulcloud.html" target="_blank" rel="noopener">
-					<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/hpi-logo.jpg" alt="Logo HPI" class="partner">
+					<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/hpi-logo.jpg" alt="{{$t "home.img_alt.logoHPI"}}" class="partner">
 				</a>
 				<a class="col-sm py-1" href="https://www.mint-ec.de/" target="_blank" rel="noopener">
-					<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/default/images/partner/mintec-logo.jpg" alt="Logo MINT-EC" class="partner">
+					<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/default/images/partner/mintec-logo.jpg" alt="{{$t "home.img_alt.logoMINTEC"}}" class="partner">
 				</a>
 				<a class="col-sm py-1" href="https://www.bmbf.de/" target="_blank" rel="noopener">
-					<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/default/images/partner/bmbf-logo.jpg" alt="Logo BMBF" class="partner">
+					<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/default/images/partner/bmbf-logo.jpg" alt="{{$t "home.img_alt.logoBMBF"}}" class="partner">
 				</a>
 			</div>
 		</div>

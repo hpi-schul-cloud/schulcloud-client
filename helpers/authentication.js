@@ -1,8 +1,12 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+
 const { Configuration } = require('@schul-cloud/commons');
 
 const api = require('../api');
 const permissionsHelper = require('./permissions');
+const wordlist = require('../static/other/wordlist.js');
+
 const { NODE_ENV, SW_ENABLED, LOGIN_BLOCK_TIME } = require('../config/global');
 const logger = require('./logger');
 
@@ -17,6 +21,18 @@ const rolesDisplayName = {
 	helpdesk: 'Helpdesk',
 	betaTeacher: 'Beta',
 	expert: 'Experte',
+};
+
+const generatePassword = () => {
+	const passphraseParts = [];
+
+	// iterate 3 times, to add 3 password parts
+	[1, 2, 3].forEach(() => {
+		passphraseParts.push(
+			wordlist[crypto.randomBytes(2).readUInt16LE(0) % wordlist.length],
+		);
+	});
+	return passphraseParts.join(' ');
 };
 
 const clearCookie = async (req, res, options = { destroySession: false }) => {
@@ -171,11 +187,11 @@ const login = (payload = {}, req, res, next) => {
 	delete payload.redirect;
 	return api(req).post('/authentication', { json: payload }).then((data) => {
 		res.cookie('jwt', data.accessToken, {
-			expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-			httpOnly: false, // can't be set to true with nuxt client
-			hostOnly: true,
-			sameSite: 'strict', // restrict jwt access to our domain ressources only
-			secure: NODE_ENV === 'production',
+			expires: new Date(Date.now() + Configuration.get('COOKIE__EXPIRES_SECONDS')),
+			httpOnly: Configuration.get('COOKIE__HTTP_ONLY'), // can't be set to true with nuxt client
+			hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
+			sameSite: Configuration.get('COOKIE__SAME_SITE'), // restrict jwt access to our domain ressources only
+			secure: Configuration.get('COOKIE__SECURE'),
 		});
 		let redirectUrl = '/login/success';
 		if (redirect) {
@@ -204,4 +220,5 @@ module.exports = {
 	restrictSidebar,
 	populateCurrentUser,
 	login,
+	generatePassword,
 };
