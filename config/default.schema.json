@@ -111,8 +111,14 @@
 		},
 		"MATRIX_MESSENGER_BUNDLE": {
 			"type": "string",
-			"default": "https://embed.stomt.com/bundles/bbf7f874b7f3891917fb/bundle.js",
+			"format": "uri",
+			"default": "https://embed.stomt.com/bundles/10f5ebeaaad4e5220219/bundle.js",
 			"description": "Where to find the messenger dependencies."
+		},
+		"FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, school admins can choose to create a room for all students and teachers of the school"
 		},
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
@@ -141,9 +147,53 @@
 			"minimum": 0.0,
 			"maximum": 1.0,
 			"description": "This is the % count (0.00 to 1.00) of how many of the errors send to the backend. This filter go over all errors, maybe some lost by low user counts."
+		},
+		"COOKIE": {
+			"type": "object",
+			"description": "Cookie properties, required always to be defined",
+			"properties": {
+				"SAME_SITE": {
+					"type": "string",
+					"default": "None",
+					"enum": [
+						"None",
+						"Lax",
+						"Strict"
+					],
+					"description": "Value for cookies sameSite property"
+				},
+				"HTTP_ONLY": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies httpOnly property"
+				},
+				"HOST_ONLY": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies hostOnly property"
+				},
+				"SECURE": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies httpOnly property"
+				},
+				"EXPIRES_SECONDS": {
+					"type": "integer",
+					"default": 2592000000,
+					"description": "Expiration in seconds from now"
+				}
+			},
+			"required": [
+				"SAME_SITE",
+				"HTTP_ONLY",
+				"HOST_ONLY",
+				"SECURE",
+				"EXPIRES_SECONDS"
+			]
 		}
 	},
 	"required": [
-		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION"
+		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
+		"COOKIE"
 	]
 }
