@@ -142,6 +142,15 @@ const checkConsent = (req, res) => {
 	return Promise.reject('firstLogin was not completed, redirecting...');
 };
 
+const checkSuperhero = (req, res) => {
+	if (!(res.locals.roles || []).includes("superhero")) { 
+		return Promise.resolve();
+	}
+
+	// eslint-disable-next-line prefer-promise-reject-errors	
+	return Promise.reject('superhero access forbidden, redirecting...');
+};
+
 
 const restrictSidebar = (req, res) => {
 	res.locals.sidebarItems = res.locals.sidebarItems.filter((item) => {
@@ -162,6 +171,7 @@ const authChecker = (req, res, next) => {
 			if (isAuthenticated2) {
 				// fetch user profile
 				populateCurrentUser(req, res)
+					.then(() => checkSuperhero(req, res))
 					.then(() => checkConsent(req, res))
 					.then(() => restrictSidebar(req, res))
 					.then(() => {
@@ -172,7 +182,10 @@ const authChecker = (req, res, next) => {
 						if (err === 'firstLogin was not completed, redirecting...') {
 							// print message?
 							res.redirect('/firstLogin');
-						} else {
+						} else if (err === 'superhero access forbidden, redirecting...') {
+							res.redirect('/login/superhero');
+						}
+						else {
 							res.redirect(redirectUrl);
 						}
 					});

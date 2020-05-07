@@ -740,6 +740,7 @@
 		},
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
+			"superheroForbidden": "Superhero forbidden",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
 		}
 	},

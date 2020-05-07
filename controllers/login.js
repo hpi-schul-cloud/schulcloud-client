@@ -11,6 +11,7 @@ const authHelper = require('../helpers/authentication');
 const userConsentVersions = require('../helpers/consentVersions');
 
 const logger = require('../helpers/logger');
+const { LOGIN_BLOCK_TIME } = require('../config/global');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
@@ -148,25 +149,42 @@ router.all('/login/', (req, res, next) => {
 		if (isAuthenticated) {
 			return redirectAuthenticated(req, res);
 		}
-		return authHelper.clearCookie(req, res)
-			.then(() => getSelectOptions(req,
-				'schools', {
-					purpose: { $ne: 'expert' },
-					$limit: false,
-					$sort: 'name',
-				})
-				.then((schools) => {
-					res.render('authentication/login', {
-						schools,
-						systems: [],
-						redirect: req.query && req.query.redirect ? req.query.redirect : '',
-					});
-				}));
+		return handleLoginFailed(req,res);
 	}).catch((error) => {
 		logger.error('Error during login', { error: error.toString() });
 		return next(error);
 	});
 });
+
+router.all('/login/superhero/', (req, res, next) => {
+	res.locals.notification = {
+		type: 'danger',
+		message: res.$t('login.text.superheroForbidden'),
+		statusCode: 401,
+		timeToWait: LOGIN_BLOCK_TIME || 15,
+	};
+	handleLoginFailed(req,res).catch((error) => {
+		logger.error('Error during login', { error: error.toString() });
+		return next(error);
+	});
+});
+
+const handleLoginFailed = (req, res) => {
+	return authHelper.clearCookie(req, res).then(() =>
+		getSelectOptions(req, "schools", {
+			purpose: { $ne: "expert" },
+			$limit: false,
+			$sort: "name",
+		}).then((schools) => {
+			res.render("authentication/login", {
+				schools,
+				systems: [],
+				redirect:
+					req.query && req.query.redirect ? req.query.redirect : "",
+			});
+		})
+	);
+};
 
 const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
 	qs: {

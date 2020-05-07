@@ -1,0 +1,32 @@
+'use strict';
+
+const app = require('../../../app');
+const chai = require('chai');
+const expect = chai.expect;
+const chaiHttp = require('chai-http');
+const loginHelper = require('../helper/login-helper');
+chai.use(chaiHttp);
+
+const { SC_SUPERHERO_USER_NAME, SC_SUPERHERO_USER_PASSWORD } = require('../../../config/global');
+
+describe('Superhero Log-in tests', function () {
+    before(function (done) {
+        this.server = app.listen(3031);
+        this.server.once('listening', () => {
+            done();
+        });
+    });
+
+    after(function (done) {
+        this.server.close(done);
+    });
+
+    // Log-in as superhero should be forbidden
+    it('GET /login/superhero', function (done) {
+        loginHelper.login(app, SC_SUPERHERO_USER_NAME, SC_SUPERHERO_USER_PASSWORD).then(response => {
+            expect(response.res.statusCode).to.equal(200);
+            expect(response.res.text).to.contain('Superhero forbidden');
+            done();
+        });
+    });
+});
