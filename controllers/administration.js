@@ -2683,9 +2683,7 @@ const getTeamFlags = (team) => {
 const enableStudentUpdateHandler = async function enableStudentUpdate(req, res, next) {
 	await api(req).patch(`/schools/${req.params.id}`, {
 		json: {
-			$push: {
-				enableStudentTeamCreation: req.body.enablestudentteamcreation,
-			},
+			enableStudentTeamCreation: req.body.enablestudentteamcreation === 'true',
 		},
 	});
 	return res.redirect(cutEditOffUrl(req.header('Referer')));
