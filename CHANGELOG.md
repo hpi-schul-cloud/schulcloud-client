@@ -31,6 +31,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-3945 Courses are now again unarchiveable
 
+## [22.9.12] - 2020-05-06
+
+### Changed in 22.9.12
+
+- Moved the Cookie parameters into the configuration
+- Cookie property sameSite changed from strict to none as default
+
 ## [22.9.8] - 2020-04-23
 
 ### Added in 22.9.8
