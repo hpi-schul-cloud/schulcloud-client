@@ -35,5 +35,10 @@
 				"tasks": "Tasks"
 			}
 		}
+	},
+	"login": {
+		"text": {
+			"superheroForbidden": "You are trying log in with a superhero account. Please use another account"
+		}
 	}
 }
