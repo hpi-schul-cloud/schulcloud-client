@@ -44,6 +44,7 @@
 
 	.dates {
 		float: right;
+		display: flex;
 
 		div {
 			float: right;
@@ -53,7 +54,8 @@
 
 		i {
 			font-size: $font-size-lg;
-			padding: 10px;
+			padding-right: 10px;
+			align-self: center;
 		}
 
 		i.done {

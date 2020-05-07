@@ -2,8 +2,10 @@
     style="border-left:10px solid {{this.color}}">
     <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">
         <div class="dates">
+            {{#if (userHasRole "student")}}
             <i
                 class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
+            {{/if}}
             <div>
                 {{#if this.availableDate}}{{timeToString availableDate}}<br />{{/if}}
                 {{#if this.dueDate}}
