@@ -1,5 +1,5 @@
 @import "./variables";
-
+@import '../lib/bootstrap/scss/bootstrap';
 // legacy css for login form
 #loginarea{
 	&:not(.demo-login){
@@ -23,5 +23,40 @@
 	}
     .login-providers {
         display:none;
-    }
+	}
+}
+
+.login-failed-container{
+	margin-top: 30px;
+	max-width: 900px;
+
+	li {
+		list-style: none;
+		font-weight: 800;
+		margin-bottom: 10px;
+		&::before{
+			display: none;
+		}
+	}
+	.screenshot{
+		width: 60%;
+
+		@include media-breakpoint-down(md) {
+			width: 80%;
+		}
+		@include media-breakpoint-down(xs) {
+			width: 100%;
+		}
+	}
+
+	.steps{
+		margin-bottom: 30px;
+		margin-top: 10px;
+	}
+	.browser{
+		margin-left: 10px 0px 0px 10px;
+	}
+	.sc-logo{
+		cursor:pointer;
+	}
 }

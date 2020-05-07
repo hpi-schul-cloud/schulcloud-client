@@ -1,0 +1,28 @@
+
+<div class="login-failed-container">
+	{{#if notification.statusCode}}
+		<h4>{{$t "login.headline.LoginFailedHint"}}</h4>
+			<div class="steps">
+				<li> {{$t "login.text.LoginFailedFirstHint"}}</li>
+					<img class="browser" src="/images/chrome.png" alt="Firefox" height="42" width="42">
+					<img class="browser" src="/images/firefox.png" alt="Chrome" height="42" width="42">
+					<img class="browser" src="/images/safari.png" alt="Safari" height="42" width="42">
+			</div>
+			<div class="steps">
+				<li> {{$t "login.text.LoginFailedSecondHint"}}</li>
+				<a href="https://support.google.com/accounts/answer/32050?co=GENIE.Platform%3DDesktop&hl=de" target="_blank">Hier findest du heraus wie du deine Cookies löschst.</a>
+			</div>
+			<div class="steps">
+				<li>{{$t "login.text.LoginFailedThirdHint"}}</li>
+			</div>
+			<div class="steps">
+				<li> {{$t "login.text.LoginFailedFourthHint"}}</li>
+				<img class="screenshot"src="/images/login-fail.png" alt="Login failed">
+			</div>
+			<div class="steps">
+				<li>{{$t "login.text.LoginFailedFithHint"}}</li>
+				<li><a href="https://niedersachsen.cloud/"><img class="sc-logo" src="/images/n21-logo.png" alt="Logo n21"target="_blank" width="200"></a></li>
+			</div>
+			{{else}}
+			{{/if}}
+</div>
