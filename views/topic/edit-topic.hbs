@@ -34,13 +34,13 @@
                 <input name="position" type="hidden" data-force-value="true" value="{{lesson.position}}" />
 
                 <div class="form-group">
-                    <label>Titel des Themas</label>
+                    <label>{{$t "topic._topic.label.titleOfTheTopic" }}</label>
                     <input class="form-control" name="name" type="text" placeholder="z.B. Rechnen mit Primzahlen"
                         value="{{{lesson.name}}}" required />
                 </div>
 
                 <div class="form-group">
-                    <label>Inhalte</label>
+                    <label>{{$t "topic._topic.label.content" }}</label>
 
                     <!-- React Magic -->
                     <div id="content-blocks" data-value="{{lesson.contents}}" data-etherpadbaseurl="{{etherpadBaseUrl}}"
