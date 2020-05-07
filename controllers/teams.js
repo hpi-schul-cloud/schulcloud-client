@@ -18,7 +18,7 @@ moment.locale('de');
 
 const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference', 'messenger'];
 
-handlebars.registerHelper('stringify', jsonValue => {
+handlebars.registerHelper('stringify', (jsonValue) => {
 	const attributes = [];
 	const escapedKeyList = ['style', 'data-payload'];
 	const stringifyValue = JSON.stringify(jsonValue);
@@ -28,7 +28,7 @@ handlebars.registerHelper('stringify', jsonValue => {
 		const escapedValue = handlebars.escapeExpression(escapedValueList[i]);
 		attributes.push(`${escapedKey}="${escapedValue}"`);
 	});
-	const escapedOutput = `<td ${attributes.join(" ")} />`;
+	const escapedOutput = `<td ${attributes.join(' ')} />`;
 	return new handlebars.SafeString(escapedOutput);
 });
 
