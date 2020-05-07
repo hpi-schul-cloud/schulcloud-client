@@ -90,11 +90,7 @@
 	{{#content "body"}}
 		<h2 class="h3 section-title center">{{{$t "home.headline.HPISchoolCloudBlog"}}}</h2>
 			<div class="blog-cards">
-				{{#each blogFeed}}
-					{{> "authentication/blog-card" article=this}}
-				{{else}}
-					<p>{{$t "home.text.blogIsDeactivated"}}</p>
-				{{/each}}
+				<p>{{$t "home.text.blogIsDeactivated"}}</p>
 			</div>
 		<a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">{{$t "home.link.moreArticles"}}</a>
 	{{/content}}
