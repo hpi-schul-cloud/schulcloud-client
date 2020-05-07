@@ -8,9 +8,9 @@
 
     color: var(--color-text);
     padding: var(--space-xxl) var(--space-lg);
-	position: relative;
-    &:first-of-type{
-		padding-top: 0;
+    position: relative;
+    &:first-of-type:not(.accent){
+        padding-top: 0;
     }
 	@include media-breakpoint-down(md) {
 		padding: var(--space-xxl) var(--space-xs)

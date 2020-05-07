@@ -5,7 +5,7 @@ function fetchContent() {
 	$('.sc-blog .placeholder').hide();
 
 	$.ajax({
-		url: '/ghost/startseite-hpi-schul-cloud',
+		url: '/ghost/sc-startseite',
 		type: 'GET',
 		dataType: 'json',
 		contentType: 'application/json',

@@ -17,6 +17,12 @@ main {
 	flex-grow: 1;
 }
 
+@media (max-width: 575.98px) {
+	main {
+		margin-top: 8rem;
+	}
+}
+
 ul {
 	list-style-type: square;
 	padding-left: 1.2em;
