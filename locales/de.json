@@ -550,7 +550,7 @@
 			"delete": "Löschen",
 			"open": "Öffnen",
 			"save": "Speichern",
-			"saveChanges": "Änderungen speichern"
+			"saveChanges": "Änderungen Speichern"
 		},
 		"label": {
 			"room": "Raum"
@@ -765,6 +765,45 @@
 			"processed": "bearbeitet)",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
+		}
+	},
+	"topic": {
+		"_topic": {
+			"button": {
+				"editTopic": "Thema bearbeiten"
+			},
+			"global": {
+				"button": {
+					"addPrivateTask": "private Aufgabe hinzufügen",
+					"addTask": "Aufgabe hinzufügen",
+					"toEdit": "Bearbeiten"
+				},
+				"heading": {
+					"task": "Aufgabe"
+				}
+			},
+			"heading": {
+				"assignedTasks": "Gestellte Aufgaben",
+				"privateTasks": "Private Aufgaben",
+				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
+			},
+			"label": {
+				"content": "Inhalte",
+				"titleOfTheTopic": "Titel des Themas"
+			},
+			"text": {
+				"shareWithOthersTeachers": "mit anderen Lehrern teilen"
+			}
+		},
+		"content": {
+			"link": {
+				"openInNewTab": "in neuem Tab öffnen"
+			}
+		},
+		"form_share": {
+			"label": {
+				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
+			}
 		}
 	},
 	"teams": {
