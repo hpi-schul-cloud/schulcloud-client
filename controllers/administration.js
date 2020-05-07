@@ -1602,7 +1602,6 @@ router.get(
 
 		Promise.all([userPromise, accountPromise])
 			.then(([user, [account]]) => {
-				const consent = _consent[0] || {};
 				const consent = user.consent || {};
 				if (consent) {
 					consent.parentConsent = (consent.parentConsents || []).length
