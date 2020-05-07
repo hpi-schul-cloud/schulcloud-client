@@ -27,6 +27,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-3801 updated CKEDITOR to 4.14
 - SC-3801 changes CKEDITOR theme to a more maintained one (n1theme)
 
+### Fixed
+
+- SC-3945 Courses are now again unarchiveable
+
 ## [22.9.8] - 2020-04-23
 
 ### Added in 22.9.8
