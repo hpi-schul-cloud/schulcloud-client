@@ -18,6 +18,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-3757 the LDAP config page now contains a link to the docs
 - SC-438 on logout button click localStorge will be deleted
 - SC-3801 added generic filepicker url to ckeditor
+- SC-4260 added sentry sampling
 
 ### Changed
 
