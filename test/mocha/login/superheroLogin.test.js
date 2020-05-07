@@ -26,7 +26,8 @@ describe('Superhero Log-in tests', function () {
 	it('GET /login/superhero', function (done) {
 		loginHelper.login(app, SC_SUPERHERO_USER_NAME, SC_SUPERHERO_USER_PASSWORD).then((response) => {
 			expect(response.res.statusCode).to.equal(200);
-			expect(response.res.text).to.contain('Superhero forbidden');
+			expect(response.res.text).to
+				.contain('Du versuchst dich mit einem Superhero Account anzumelden.');
 			done();
 		});
 	});
