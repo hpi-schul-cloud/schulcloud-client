@@ -802,12 +802,7 @@ const parseDate = (input) => {
 	return new Date(parts[2], parts[1] - 1, parts[0]);
 };
 
-const generatePassword = () => {
-	const words = ['auto', 'baum', 'bein', 'blumen', 'flocke', 'frosch', 'halsband', 'hand', 'haus', 'herr', 'horn',
-		'kind', 'kleid', 'kobra', 'komet', 'konzert', 'kopf', 'kugel', 'puppe', 'rauch', 'raupe', 'regenbogen', 'schuh',
-		'seele', 'spatz', 'taktisch', 'traum', 'trommel', 'wolke'];
-	return words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 98) + 1).toString();
-};
+
 
 const skipRegistration = (req, res, next) => {
 	const userid = req.params.id;
@@ -1305,7 +1300,7 @@ router.get(
 					submitLabel: 'Einverständnis erklären',
 					closeLabel: 'Abbrechen',
 					user,
-					password: generatePassword(),
+					password: authHelper.generatePassword(),
 					referrer: req.header('Referer'),
 				});
 			})
@@ -2067,7 +2062,7 @@ router.get(
 			if (obj.importHash) return true;
 			return false;
 		});
-		const passwords = students.map(() => (generatePassword()));
+		const passwords = students.map(() => (authHelper.generatePassword()));
 		const renderUsers = students.map((student, i) => ({
 			fullname: `${student.firstName} ${student.lastName}`,
 			id: student._id,
@@ -2494,82 +2489,48 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 		});
 };
 
+const updateSchoolFeature = async (req, currentFeatures, newState, featureName) => {
+	const isCurrentlyAllowed = (currentFeatures || []).includes(featureName);
+
+	if (!isCurrentlyAllowed && newState) {
+		// add feature
+		await api(req)
+			.patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: featureName,
+					},
+				},
+			});
+	}
+
+	if (isCurrentlyAllowed && !newState) {
+		// remove feature
+		await api(req)
+			.patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: featureName,
+					},
+				},
+			});
+	}
+};
+
 const schoolFeatureUpdateHandler = async (req, res, next) => {
 	try {
-		// Update rocketchat feature in school
-		const isChatAllowed = (res.locals.currentSchoolData.features || []).includes(
-			'rocketChat',
-		);
-		if (!isChatAllowed && req.body.rocketchat === 'true') {
-			// add rocketChat feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: 'rocketChat',
-					},
-				},
-			});
-		} else if (isChatAllowed && req.body.rocketchat !== 'true') {
-			// remove rocketChat feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: 'rocketChat',
-					},
-				},
-			});
-		}
+		const currentFeatures = res.locals.currentSchoolData.features;
+		await updateSchoolFeature(req, currentFeatures, req.body.rocketchat === 'true', 'rocketChat');
 		delete req.body.rocketchat;
 
-		// Update videoconference feature in school
-		const videoconferenceEnabled = (res.locals.currentSchoolData.features || []).includes(
-			'videoconference',
-		);
-		if (!videoconferenceEnabled && req.body.videoconference === 'true') {
-			// enable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: 'videoconference',
-					},
-				},
-			});
-		} else if (videoconferenceEnabled && req.body.videoconference !== 'true') {
-			// disable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: 'videoconference',
-					},
-				},
-			});
-		}
+		await updateSchoolFeature(req, currentFeatures, req.body.videoconference === 'true', 'videoconference');
 		delete req.body.videoconference;
 
-		// Update riot messenger feature in school
-		const messengerEnabled = (res.locals.currentSchoolData.features || []).includes(
-			'messenger',
-		);
-		if (!messengerEnabled && req.body.messenger === 'true') {
-			// enable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: 'messenger',
-					},
-				},
-			});
-		} else if (messengerEnabled && req.body.messenger !== 'true') {
-			// disable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: 'messenger',
-					},
-				},
-			});
-		}
+		await updateSchoolFeature(req, currentFeatures, req.body.messenger === 'true', 'messenger');
 		delete req.body.messenger;
+
+		await updateSchoolFeature(req, currentFeatures, req.body.messengerSchoolRoom === 'true', 'messengerSchoolRoom');
+		delete req.body.messengerSchoolRoom;
 	} catch (err) {
 		next(err);
 	}
