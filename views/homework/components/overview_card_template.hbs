@@ -2,8 +2,9 @@
     style="border-left:10px solid {{this.color}}">
     <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">
         <div class="dates">
-			{{#if (userHasRole "student")}}
-            <i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
+            {{#if (userHasRole "student")}}
+            <i
+                class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
             {{/if}}
             {{#if this.availableDate}}{{timeToString availableDate}}<br />{{/if}}
             {{#if this.dueDate}}
@@ -30,17 +31,30 @@
         </div>
     </a>
     {{/if}}
-    {{#if this.grade}}
-    <a class="content" href="{{this.url}}#activetabid=feedback"
-        title="Bewertung der Aufgabe: '{{{escapeHtml this.name}}}'">
-        <div class="state">
+    <div class="state">
+        <div>
+            {{#if (userHasRole "student")}}
+            {{#if submissions}}
+            {{$t "homework.text.done"}}
+            {{else if warning}}
+            {{$t "homework.text.toBeDoneWithin24Hours"}}
+            {{else}}
+            {{#unless submittable}}
+            {{$t "homework.text.notDone"}}
+            {{/unless}}
+            {{/if}}
+            {{/if}}
+        </div>
+        {{#if this.grade}}
+        <a class="content" href="{{this.url}}#activetabid=feedback"
+            title="Bewertung der Aufgabe: '{{{escapeHtml this.name}}}'">
             <circular-progress class="meinel-progress" primarycolor="#009688" accentcolor="lightgrey"
                 data="{{this.grade}}" width="70" height="70" data-toggle="tooltip" data-placement="left"
                 data-original-title="{{this.grade}}% richtig gelöst">
             </circular-progress>
-        </div>
-    </a>
-    {{/if}}
+        </a>
+        {{/if}}
+    </div>
     <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">
         <h2 class="h6 title">
             {{#if this.courseId}}
@@ -51,7 +65,7 @@
         </h2>
         <div class="ckcontent text-muted">
             {{#if this.description}}
-                {{{ truncateHTML (conflictFreeHtml this.description) 140 false }}}
+            {{{ truncateHTML (conflictFreeHtml this.description) 140 false }}}
             {{/if}}
         </div>
     </a>
@@ -59,47 +73,47 @@
         {{#inArray this.currentUser._id this.archived}}
         <span class="count-badge" data-badge="Archiviert" /></span>
         {{else}}
-            {{#if ../this.private}}
-            <span class="count-badge" data-badge="Entwürfe" /></span>
-            {{else}}
-            <span class="count-badge" data-badge="Gestellt" /></span>
-            {{/if}}
+        {{#if ../this.private}}
+        <span class="count-badge" data-badge="Entwürfe" /></span>
+        {{else}}
+        <span class="count-badge" data-badge="Gestellt" /></span>
+        {{/if}}
         {{/inArray}}
         {{#if this.grade}}
-            <span class="count-badge" data-badge="Feedback" /></span>
+        <span class="count-badge" data-badge="Feedback" /></span>
         {{/if}}
     </div>
     <div class="action-group">
         {{#userHasPermission "HOMEWORK_CREATE"}}
-            {{#inArray ../this.currentUser._id ../this.archived}}
-                <a class="btn btn-secondary btn-sm btn-archive" href="{{../url}}" target="_blank" data="archive=open"
-                    title="Verschiebe Aufgabe zwischen Übersichtsseite und Archiv" alt-text="<i class='fa fa-archive'></i>">
-                    <i class='fa fa-mail-reply'></i>
-                </a>
-            {{/inArray}}
-            {{! Maybe Teachers create Tasks for other Teachers -> prevent editing by them }}
-            {{#if ../this.isTeacher}}
-                {{#notInArray ../this.currentUser._id ../this.archived}}
-                    <a class="btn btn-secondary btn-sm btn-archive" href="{{../url}}" target="_blank" data="archive=done"
-                        title="Verschiebe Aufgabe zwischen Übersichtsseite und Archiv" alt-text="<i class='fa fa-mail-reply'></i>">
-                        <i class='fa fa-archive'></i>
-                    </a>
-                {{/notInArray}}
-                {{#each ../this.actions}}
-                    {{#if this.method}}
-                        <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}"
-                            redirect="?p={{@root.pagination.currentPage}}" target="_blank" data-method="{{this.method}}"
-                            data-name="{{../../name}}" title="Die Aufgabe: '{{{escapeHtml ../../name}}}' {{{escapeHtml this.title}}}.">
-                            <i class="fa fa-{{this.icon}}"></i>
-                        </a>
-                    {{else}}
-                        <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}"
-                            title="Die Aufgabe: '{{{escapeHtml ../../name}}}' {{this.title}}">
-                            <i class="fa fa-{{this.icon}}"></i> {{this.label}}
-                        </a>
-                    {{/if}}
-                {{/each}}
-            {{/if}}
+        {{#inArray ../this.currentUser._id ../this.archived}}
+        <a class="btn btn-secondary btn-sm btn-archive" href="{{../url}}" target="_blank" data="archive=open"
+            title="Verschiebe Aufgabe zwischen Übersichtsseite und Archiv" alt-text="<i class='fa fa-archive'></i>">
+            <i class='fa fa-mail-reply'></i>
+        </a>
+        {{/inArray}}
+        {{! Maybe Teachers create Tasks for other Teachers -> prevent editing by them }}
+        {{#if ../this.isTeacher}}
+        {{#notInArray ../this.currentUser._id ../this.archived}}
+        <a class="btn btn-secondary btn-sm btn-archive" href="{{../url}}" target="_blank" data="archive=done"
+            title="Verschiebe Aufgabe zwischen Übersichtsseite und Archiv" alt-text="<i class='fa fa-mail-reply'></i>">
+            <i class='fa fa-archive'></i>
+        </a>
+        {{/notInArray}}
+        {{#each ../this.actions}}
+        {{#if this.method}}
+        <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}"
+            redirect="?p={{@root.pagination.currentPage}}" target="_blank" data-method="{{this.method}}"
+            data-name="{{../../name}}" title="Die Aufgabe: '{{{escapeHtml ../../name}}}' {{{escapeHtml this.title}}}.">
+            <i class="fa fa-{{this.icon}}"></i>
+        </a>
+        {{else}}
+        <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}"
+            title="Die Aufgabe: '{{{escapeHtml ../../name}}}' {{this.title}}">
+            <i class="fa fa-{{this.icon}}"></i> {{this.label}}
+        </a>
+        {{/if}}
+        {{/each}}
+        {{/if}}
         {{/userHasPermission}}
     </div>
     <a href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">

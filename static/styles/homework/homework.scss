@@ -45,12 +45,8 @@
 	.dates {
 		float: right;
 		display: flex;
-
-		div {
-			float: right;
-			text-align: right;
-			font-size: $font-size-xs;
-		}
+		color: grey;
+		font-size: $font-size-xs;
 
 		i {
 			font-size: $font-size-lg;
@@ -81,6 +77,14 @@
 		clear: right;
 		color: grey;
 		position: relative;
+		display: flex;
+		width: 250px;
+
+		div {
+			color: black;
+			font-size: $font-size-sm;
+			align-self: center;
+		}
 	}
 
 	&.private {
