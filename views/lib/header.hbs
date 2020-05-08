@@ -5,9 +5,6 @@
 		</a>
 		{{#unless hideMenu}}
 			<ul class="nav">
-				<li>
-					<a class="btn btn-outline btn-primary" href="/community">Registrieren</a>
-				</li>
 				{{#ifEnv "FEATURE_MINT_PAGES_ENABLED" "true"}}
 				<li>
 					<a class="nav-link" href="/mint-ec/willkommenspaket">Erste Schritte</a>
@@ -21,16 +18,20 @@
 				</li>
 				<li>
 					<a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank" rel="noopener">FAQ</a>
+				</li class="hidden-xs-down">
+				<li class="hidden-xs-down">
+					<a class="btn btn-sm btn-outline btn-primary" href="/community" style="margin-left: 8px;">Registrieren</a>
 				</li>
 				<li class="hidden-xs-down">
-					<a class="btn btn-sm btn-primary" href="/login" style="margin-left: 8px;">
+					<a class="btn btn-sm btn-primary" href="/login" style="margin-left: 4px;">
 						<i class="fa fa-sign-in"></i> Login
 					</a>
 				</li>
 			</ul>
 		{{/unless}}
 	</nav>
-	<div class="text-center">
-		<a class="btn btn-sm btn-primary hidden-sm-up" href="/login" style="margin-bottom: 10px;"><i class="fa fa-sign-in"></i> Login</a>
+	<div class="text-center hidden-sm-up" style="margin-bottom: 10px;">
+		<a class="btn btn-sm btn-outline btn-primary" href="/community">Registrieren</a>
+		<a class="btn btn-sm btn-primary" href="/login"><i class="fa fa-sign-in"></i> Login</a>
 	</div>
 </header>
