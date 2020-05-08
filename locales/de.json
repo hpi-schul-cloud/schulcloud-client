@@ -727,7 +727,7 @@
 			},
 			"label" : {
 				"weNeedToSendThisData" : "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-				"email" : "Deine deine E-Mail-Adresse",
+				"email" : "deine E-Mail-Adresse",
 				"yourName" : "deinen Namen",
 				"openId" : "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt"
 			},
