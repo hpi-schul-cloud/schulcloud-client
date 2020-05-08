@@ -25,33 +25,32 @@
 
 	<!-- GHOST (will be replaced by js) -->
 	<div class="sc-blog">
-		<div class="content">
-			<div class="container container-content content-width-max">
-					<h1 class="section-title primary" style="color: var(--color-primary);">
-						{{{$t "home.headline.welcomeToHPISchoolCloud"}}}
-					</h1>
-			</div>
-			<div class="text-center mt-3 mb-3" style="min-height: 70vh;">
-				<i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
-					style="font-size: 25px;"></i>
-				<div class="placeholder" style="display: none;">
-					{{$t "home.text.errorWhileLoadingHomepage"}} <br>
-					<button type="button" class="btn btn-primary mt-1">{{$t "home.button.tryAgain"}}</button>
-				</div>
+		<div class="container container-content content-width-max">
+			<h1 class="section-title primary title" style="color: var(--color-primary);">
+				{{{$t "home.headline.welcomeToHPISchoolCloud"}}}
+			</h1>
+		</div>
+		<div class="content" style="opacity: 0; transition: opacity 1.5s ease-in;" />
+		<div class="loading text-center mt-3 mb-3" style="min-height: 70vh;">
+			<i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
+				style="font-size: 25px;"></i>
+			<div class="placeholder" style="display: none;">
+				{{$t "home.text.errorWhileLoadingHomepage"}} <br>
+				<button type="button" class="btn btn-primary mt-1">{{$t "home.button.tryAgain"}}</button>
 			</div>
 		</div>
 	</div>
 
 	<!-- BLOG -->
-{{#embed "authentication/section" style="accent" class=""}}
-	{{#content "body"}}
-		<h2 class="h3 section-title center">{{{$t "home.headline.HPISchoolCloudBlog"}}}</h2>
-			<div class="blog-cards">
-				<p>{{$t "home.text.blogIsDeactivated"}}</p>
-			</div>
-		<a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">{{$t "home.link.moreArticles"}}</a>
-	{{/content}}
-{{/embed}}
+	{{#embed "authentication/section" style="accent" class=""}}
+		{{#content "body"}}
+			<h2 class="h3 section-title center">{{{$t "home.headline.HPISchoolCloudBlog"}}}</h2>
+				<div class="blog-cards">
+					<p>{{$t "home.text.blogIsDeactivated"}}</p>
+				</div>
+			<a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">{{$t "home.link.moreArticles"}}</a>
+		{{/content}}
+	{{/embed}}
 
 	{{/content}}
 {{/extend}}

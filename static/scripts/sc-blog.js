@@ -12,10 +12,12 @@ function fetchContent() {
 		timeout: 8000,
 	})
 		.done((result) => {
+			$('.sc-blog .loading').remove();
 			$('.sc-blog .title').text(result.pages[0].title);
 			result.pages[0].html = result.pages[0].html
 				.replace(/<td>x<[/]td>/g, '<td><i class="fa fa-check"></i></td>');
 			$('.sc-blog .content').html(stripHtml(result.pages[0].html, { onlyStripTags: ['script', 'style'] }));
+			$('.sc-blog .content').css('opacity', '1');
 		})
 		.fail(() => {
 			$('.sc-blog .spinner').hide();
