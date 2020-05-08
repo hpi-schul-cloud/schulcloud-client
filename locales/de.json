@@ -37,6 +37,19 @@
 			"startM2018": "(Start Mai 2018)"
 		}
 	},
+	"account" : {
+		"global" :{
+			"label":{
+				"thirdPartyLogins" : "Drittanbieter-Logins"
+			}
+		},
+		"label" : {
+			"providers" : "Anbieter"
+		},
+		"text" : {
+			"noThirdPartyProvidersUsed" : "Keine Drittanbieter genutzt"
+		}
+	},
 	"addons": {
 		"headline": {
 			"addons": "Add-ons",
