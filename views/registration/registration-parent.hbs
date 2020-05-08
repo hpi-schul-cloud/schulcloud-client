@@ -96,8 +96,8 @@
         <div id="pinverification">
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
         </div>
-        <input type="hidden" name="password_1" class="student-password-input" />
-        <input type="hidden" name="password_2" class="student-password-input" />
+        <input type="hidden" value="{{password}}" name="password_1" class="student-password-input" />
+        <input type="hidden" value="{{password}}" name="password_2" class="student-password-input" />
       </section>
 
 
@@ -117,7 +117,7 @@
               <div class="recap">
                 <!--<p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>-->
                 <p>E-Mail: <i data-from="email"></i></p>
-                <p>Passwort: <i class="student-password">********</i></p>
+                <p>Passwort: <i class="student-password">{{password}}</i></p>
               </div>
               <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
                 <i class="fa fa-print"></i> Drucken
