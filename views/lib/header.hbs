@@ -5,6 +5,9 @@
 		</a>
 		{{#unless hideMenu}}
 			<ul class="nav">
+				<li>
+					<a class="btn btn-outline btn-primary" href="/community">Registrieren</a>
+				</li>
 				{{#ifEnv "FEATURE_MINT_PAGES_ENABLED" "true"}}
 				<li>
 					<a class="nav-link" href="/mint-ec/willkommenspaket">Erste Schritte</a>
@@ -12,9 +15,6 @@
 				{{/ifEnv}}
 				<li>
 					<a class="nav-link" href="/about">Über das Projekt</a>
-				</li>
-				<li>
-					<a class="nav-link" href="/community">Mitmachen</a>
 				</li>
 				<li>
 					<a class="nav-link" href="https://blog.schul-cloud.org/" target="scblog">Blog</a>
