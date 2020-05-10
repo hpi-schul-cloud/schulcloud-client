@@ -5,6 +5,9 @@
 		</a>
 		{{#unless hideMenu}}
 			<ul class="nav">
+				<li>
+					<a class="btn btn-outline btn-primary" href="/community">{{$t "home.header.link.register"}}</a>
+				</li>
 				{{#ifEnv "FEATURE_MINT_PAGES_ENABLED" "true"}}
 				<li>
 					<a class="nav-link" href="/mint-ec/willkommenspaket">{{$t "home.header.link.firstSteps"}}</a>
@@ -12,9 +15,6 @@
 				{{/ifEnv}}
 				<li>
 					<a class="nav-link" href="/about">{{$t "home.header.link.aboutUs"}}</a>
-				</li>
-				<li>
-					<a class="nav-link" href="/community">{{$t "home.header.link.joinUs"}}</a>
 				</li>
 				<li>
 					<a class="nav-link" href="https://blog.schul-cloud.org/" target="scblog">{{$t "home.header.link.blog"}}</a>
