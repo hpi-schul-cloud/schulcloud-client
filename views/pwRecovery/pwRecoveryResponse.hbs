@@ -1,13 +1,12 @@
 {{#extend "lib/simple"}}
   {{#content "page"}}
-    <p>Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>
-    Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>
+    <p>{{{$t "pwRecovery.response.text.emailHasBeenSent"}}}
     
     <ul>
-    <li>Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?</li>
-    <li>Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einem Lehrer oder Schuladministrator bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.</li>
-    <li>Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der Schul-Cloud einzuloggen.</li>
-    <li>Hast du deine <b>E-Mail-Adresse</b> in der Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software</li>
+    <li>{{{$t "pwRecovery.response.text.wasYourEmailCorrect"}}}</li>
+    <li>{{{$t "pwRecovery.response.text.didYouRegisterCorrectly"}}}</li>
+    <li>{{{$t "pwRecovery.response.text.didYouRegisterPerThirdParty"}}}</li>
+    <li>{{{$t "pwRecovery.response.text.didYouChangeEmail"}}}</li>
     </ul>
   {{/content}}
 {{/extend}}
