@@ -1,4 +1,4 @@
-{{#ifneq @root.SENTRY_DSN false}}
+{{#hasConfig 'SENTRY_DSN'}}
 <script src="/scripts/sentry.js"></script>
 <script>
 	function removeIds(url) {
@@ -6,12 +6,20 @@
 		return url.replace(checkForHexRegExp, 'ID');
 	}
 	Sentry.init({
-		dsn: "{{@root.SENTRY_DSN}}",
+		dsn: "{{getConfig 'SENTRY_DSN'}}",
 		environment: "{{@root.env}}",
 		release: "{{@root.version}}",
+		sampleRate: {{getConfig 'SENTRY_SAMPLE_RATE'}},
 		integrations: [
-			new SentryIntegrations.CaptureConsole()
+			new SentryIntegrations.CaptureConsole({
+				levels: [
+					//'log', 'info',
+					'warn', 'error',
+					'debug', 'assert'
+				]
+			})
 		],
+		levels: ['warn', 'error'],
 		beforeSend: (event) => {
 			if (event.request && event.request.url) {
 				var cleanUrl = removeIds(event.request.url);
@@ -31,4 +39,4 @@
 		scope.setTag("domain", "{{@root.domain}}");
 	});
 </script>
-{{/ifneq}}
+{{/hasConfig}}

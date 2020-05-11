@@ -40,11 +40,6 @@ footer {
 		display:none;
 	}
 
-	// > hide menu buttons
-	.mx_RoomSubList_addRoom,
-	.mx_RoomTile_menuButton {
-		//display: none !important;
-	}
 	// hide room settings (make public, shared)
 	.mx_SettingsFlag,
 	.mx_CreateRoomDialog_details {
@@ -167,6 +162,10 @@ footer {
 		display: none;
 	}
 
+	// hide error message
+	.mx_ErrorBoundary {
+		display: none;
+	}
 
 	// Theme
 	// > Menu
@@ -237,6 +236,14 @@ footer {
 		border-radius: 0;
 	}
 
+	.mx_InviteOnlyIcon_large {
+		display: none !important;
+	}
+
+	.mx_RoomTile_menuButton {
+		margin-right: 3px; // align with other buttons
+	}
+
 	input[type=text].mx_LeftPanel_filterRooms {
 		font-size: var(--text-xs);
 		color: $chat-color-primary;
@@ -268,6 +275,11 @@ footer {
 	.mx_RoomSubList_badge > div,
 	.mx_RoomTile_badge.mx_RoomTile_badgeUnread, .mx_RoomTile_unreadNotify .mx_RoomTile_badge {
 		background-color: #ff4b55;
+	}
+	.mx_RoomTile_badge {
+		min-width: 6px; // display more like a circle
+		text-align: center;
+		margin-right: 2px;
 	}
 
 	.mx_SearchBox .mx_SearchBox_closeButton {
@@ -397,4 +409,19 @@ footer {
 		width: 200px;
 		min-width: 200px;
 	}
+
+
+	// custom font size
+	//.mx_EventTile .mx_SenderProfile {
+	//	font-size: 14px;
+	//	line-height: 17px;
+	//}
+	//.mx_EventTile,
+	//.mx_TextualEvent.mx_EventListSummary_summary {
+	//	font-size: 14px;
+	//}
+	//
+	//.mx_EventTile_line, .mx_EventTile_reply {
+	//	line-height: 22px;
+	//}
 }
