@@ -56,8 +56,16 @@
 	.browser{
 		margin-left: 10px 0px 0px 10px;
 	}
-	.sc-logo{
-		cursor:pointer;
-		margin-left: 10px;
+	
+
+	.logo-container{
+		display: flex;
+		flex-direction:	column;
+
+		.sc-logo{
+			cursor:pointer;
+			margin-left: 10px;
+			margin-bottom: 10px;
+		}
 	}
 }

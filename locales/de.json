@@ -749,7 +749,7 @@
 			"LoginFailedFourthHint":"4. Hast du deine Anmeldedaten schon überprüft?", 
 			"LoginFailedFourthHintText":"Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen Funktion.",
 			"LoginFailedFithHint": "5. Bist du auf der richtigen URL?",
-			"LoginFailedFithHintText": "Hier findest du alle Instanzen der Schulcould:"
+			"LoginFailedFithHintText": "Hier findest du alle Schulcould Instanzen:"
 		}
 	},
 	"news": {
