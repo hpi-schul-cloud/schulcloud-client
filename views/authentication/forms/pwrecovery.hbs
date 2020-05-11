@@ -1,17 +1,15 @@
 <div class="form-group">
-    <label class="control-label" for="username">Deine E-Mail-Adresse/Nutzername</label>
+    <label class="control-label" for="username">{{$t "login.popup_resetPw.label.yourEmailUsername"}}</label>
     <input type="text"
            autocomplete="username"
            name="username"
            id="username"
            size="30"
            maxlength="60"
-           placeholder="Deine E-Mail-Adresse/Nutzername"
+           placeholder="{{$t "login.popup_resetPw.input.yourEmailUsername"}}"
            class="form-control"
             required>
 </div>
 <p>
-    Wenn du zusätzliche Hilfe beim Passwort zurücksetzen benötigst, wende dich bitte an deine betreuende Lehrkraft 
-    (als Schüler) oder an deinen Administrator (als Lehrkraft). </br>
-    Diese können dein Passwort über die Nutzerverwaltung mit sofortiger Wirkung zurücksetzen.
+    {{{$t "login.popup_resetPw.text.contactTeacherAdminForHelp"}}}
 </p>
