@@ -7,7 +7,7 @@
 <p>
     {{$t "administration.classes.label.youCanConsentToThisOnBehalfOfYourStudent" }}<a
         href="{{@root.theme.documents.specificFiles.privacyExemplary}}"
-        target="_blank">{{$t "administration.global.label.dataProtection" }}</a>
+        target="_blank">{{$t "administration.global.text.dataProtection" }}</a>
     {{$t "administration.classes.text.andTo" }} <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}"
         target="_blank">{{$t "administration.classes.label.termOfUse" }}</a> {{$t "administration.classes.text.ofThe" }} {{@root.theme.short_title}} {{$t "administration.classes.text.toExplain" }} <br>
     {{$t "administration.classes.text.byClickingOn" }} <i>{{$t "administration.classes.button.declareConsentOnBehalfOfTheStudents" }}</i> {{$t "administration.classes.text.consentConfirmation" }}
@@ -21,8 +21,8 @@
         <tr>
             <th>Name</th>
             <th>E-Mail</th>
-            <th>{{$t "administration.classes.label.birthdate" }}<sup>*</sup></th>
-            <th>{{$t "administration.classes.label.assignPassword" }} <sup>*</sup></th>
+            <th>{{$t "administration.global.label.birthdate" }}<sup>*</sup></th>
+            <th>{{$t "administration.global.label.assignPassword" }} <sup>*</sup></th>
         </tr>
         {{#each students}}
         <tr>

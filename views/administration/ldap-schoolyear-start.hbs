@@ -2,7 +2,7 @@
     {{#content "page" mode="prepend"}}
         <h1 class="h4" id="page-title">{{$t "administration.ldapSchoolYearStart.heading.checkTheSynchronizationOfTheDataAvailable" }}</h1>
         <div class="route-administration">
-            <p>Auf dieser Seite findest du die Daten aller Klassen und Nutzer, so wie sie die {{@root.theme.short_title}} aus deinem LDAP übernehmen wird. Bitte überprüfe vor Übernahme der Daten durch Beenden der Transferphase diese Daten stichprobenartig auf ihre Richtigkeit.</p>
+            <p>{{$t "administration.ldapSchoolYearStart.text.onThisPageYouWillFindTheData" }} {{@root.theme.short_title}} {{$t "administration.ldapSchoolYearStart.text.fromYourLDAPPleaseCheck" }}</p>
             <section class="section-school section-default">
                 <div class="container-fluid ajaxcontent">
                     <h5>{{$t "administration.ldapSchoolYearStart.heading.LDAPClasses" }}</h5>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            <button class="btn btn-primary btn-add" onclick="self.close()">Fenster schließen</button>
+                            <button class="btn btn-primary btn-add" onclick="self.close()">{{$t "administration.ldapSchoolYearStart.button.closeTheWindow" }}</button>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@
             <div class="content">
                 <img src="/images/firstLogin/welcome_screen.svg">
                 <hr class="mt-0">
-                    <h1 class="h2">Willkommen in der {{@root.theme.short_title}}</h1>
+                    <h1 class="h2">{{$t "firstLogin.welcome.text.welcomeTo" }} {{@root.theme.short_title}}</h1>
                 <hr>
                 <!-- fokus here -->
                 <a href=""></a> 
@@ -28,7 +28,7 @@
                             Besuche unsere <b>Online-Fortbildung</b> und erfahre dort in anschaulichen Erklärvideos alles was du als Admin wissen musst! 
                         </p>
                         <div class="text-xs-center text-sm-right">
-                            <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/courses/schulcloud2019">Hier gehts zur Fortbildung</a>
+                            <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/courses/schulcloud2019">{{$t "firstLogin.text.clickhereForFurtherTraining" }}</a>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                                 Besuche unsere <b>Online-Fortbildung</b> für anschauliche und praxisnahe Videos und finde es heraus! 
                             </p>
                             <div class="text-xs-center text-sm-right">
-                                <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/courses/schulcloud2019">Hier gehts zur Fortbildung</a>
+                                <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/courses/schulcloud2019">{{$t "firstLogin.text.clickhereForFurtherTraining" }}</a>
                             </div>
                         </div>
                     </div>
@@ -75,20 +75,20 @@
                         Dort findest du zu beinahe jedem Thema ausführliche Anleitungen und Bilderstrecken.
                     </p>
                     <p>
-                        Schau einfach mal vorbei!
+                       {{$t "firstLogin.text.justHaveALook" }}
                     </p>
                 </div>
             </div>
             <div class="text-xs-center text-sm-right mt-2 mb-3">
-                <a class="btn btn-secondary mt-1" data-testid="btn_schul-cloud_erkunden" href="/dashboard">Sofort loslegen</a>
+                <a class="btn btn-secondary mt-1" data-testid="btn_schul-cloud_erkunden" href="/dashboard">{{$t "firstLogin.button.getStartedImmediately" }}</a>
                 {{#inArray 'administrator' roleNames}}
-                    <a class="btn btn-primary mt-1" href="/help/confluence/40304667">Erste Schritte anschauen</a>
+                    <a class="btn btn-primary mt-1" href="/help/confluence/40304667">{{$t "firstLogin.button.takeALookAtTheFirstSteps" }}</a>
                 {{else}}
                     {{#inArray 'teacher' ../roleNames}}
-                        <a class="btn btn-primary mt-1" href="/help/confluence/40304726">Erste Schritte anschauen</a>
+                        <a class="btn btn-primary mt-1" href="/help/confluence/40304726">{{$t "firstLogin.button.takeALookAtTheFirstSteps" }}</a>
                     {{else}}
                         {{#inArray 'student' ../roleNames}}
-                            <a class="btn btn-primary mt-1" href="/help/confluence/40304731">Erste Schritte anschauen</a>
+                            <a class="btn btn-primary mt-1" href="/help/confluence/40304731">{{$t "firstLogin.button.takeALookAtTheFirstSteps" }}</a>
                         {{/inArray}}
                     {{/inArray}}
                 {{/inArray}}
