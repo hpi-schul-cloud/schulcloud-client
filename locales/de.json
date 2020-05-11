@@ -1306,8 +1306,6 @@
 			"addTask": "Aufgabe hinzufügen",
 			"archive": "Archivieren",
 			"copy": "Kopieren",
-			"filterAdd": "Filter hinzufügen",
-			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
 			"print": "Drucken",
@@ -1319,6 +1317,8 @@
 			"label": {
 				"allowGroupSubmission": "Gruppenabgabe ermöglichen",
 				"courses": "Kurse",
+				"filterAdd": "Filter hinzufügen",
+			    "filterApply": "Übernehmen",
 				"description": "Aufgabenstellung",
 				"maximumGroupSize": "maximale Gruppengröße:",
 				"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
