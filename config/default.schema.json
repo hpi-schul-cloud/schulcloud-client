@@ -115,6 +115,11 @@
 			"default": "https://embed.stomt.com/bundles/32a38d5dfb4ea9e7ea17/bundle.js",
 			"description": "Where to find the messenger dependencies."
 		},
+		"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
+			"type": "boolean",
+			"default": false,
+			"description": "Only if enabled, school admins can activate the messenger in their school setting"
+		},
 		"FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED": {
 			"type": "boolean",
 			"default": false,
