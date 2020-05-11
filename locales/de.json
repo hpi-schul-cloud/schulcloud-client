@@ -702,8 +702,27 @@
 	},
 	"imprint": {
 		"global": {
-			"header": {
+			"heading": {
 				"imprint": "Impressum"
+			},
+			"text": {
+				"the": "Die"
+			}
+		},
+		"imprint_platform_intro": {
+			"heading": {
+				"legalNotice": "Rechtliche Hinweise:"
+			},
+			"text": {
+				"isANonCommercialPilotProject": "ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT EC",
+				"isCarriedOutAndFunded": "durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter:"
+			}
+		},
+		"imprint_rights": {
+			"heading": {
+				"editorialStuff": "Redaktion:",
+				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso-Plattner-Institut für Digital Engineering gGmbH",
+				"managingDirectorAuthorized": "Vertretungsberechtigter Geschäftsführer:"
 			}
 		}
 	},
