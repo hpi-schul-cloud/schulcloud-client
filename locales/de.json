@@ -93,6 +93,9 @@
 			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
 		}
 	},
+	"community":{
+		"title": "Jetzt mitmachen!"
+	},
 	"content": {
 		"button": {
 			"choose": "Wähle..."
@@ -140,12 +143,12 @@
 					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
+					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"chooseDate": "Termine auswählen",
 					"class": "Klasse(n)",
 					"from": "Von",
 					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 					"substitute": "Vertretungslehrer:innen",
-					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"till": "Bis",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
 					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
@@ -236,12 +239,12 @@
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
 					"posedTasks": "Gestellte Aufgaben",
+					"privateTasks": "Private Aufgaben und Entwürfe",
 					"submittedTasks": "Bearbeitete Aufgaben",
-					"unsubmittedTasks": "Gestellte Aufgaben",
-					"tasksWithSubmissions": "Aufgaben mit Abgaben",
 					"task": "Aufgabe",
 					"tasks": "Aufgaben",
-					"privateTasks": "Private Aufgaben und Entwürfe"
+					"tasksWithSubmissions": "Aufgaben mit Abgaben",
+					"unsubmittedTasks": "Gestellte Aufgaben"
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
@@ -595,6 +598,15 @@
 			"subscribeNewsletter": "Newsletter abonnieren",
 			"tryAgain": "Erneut Versuchen"
 		},
+		"header": {
+			"link": {
+				"aboutUs": "Über das Projekt",
+				"blog": "Blog",
+				"faq": "FAQ",
+				"firstSteps": "Erste Schritte",
+				"register" : "Registrieren"
+			}
+		},
 		"headline": {
 			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> Blog",
 			"allNewsOnHPINewsletter": "Alle Neuigkeiten rund um die <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> bequem in Ihrem Postfach:",
@@ -766,6 +778,29 @@
 			"unpublished": "Unveröffentlicht"
 		}
 	},
+	"pwRecovery": {
+		"input": {
+			"hiddenPw": "***************"
+		},
+		"label": {
+			"newPw": "Neues Passwort",
+			"repeatNewPw": "Neues Passwort wiederholen"
+		},
+		"response": {
+			"text": {
+				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
+				"didYouRegisterCorrectly": "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einem Lehrer oder Schuladministrator bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
+				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der Schul-Cloud einzuloggen.",
+				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
+				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
+			}
+		},
+		"text": {
+			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
+			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. <br/>Erlaubte Sonderzeichen sind: <code>!§$%&/()=?\\;:,.#+*~</code>",
+			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
+		}
+	},
 	"topic": {
 		"_topic": {
 			"button": {
@@ -809,11 +844,11 @@
 		"_team": {
 			"edit": {
 				"label": {
-					"teamName": "Name des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
 					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
 					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams"
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
 				},
 				"placeholder": {
 					"teamName": "A-Team"
