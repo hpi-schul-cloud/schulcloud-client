@@ -220,7 +220,7 @@
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
 
-						{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+						{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}
 							<div class="form-group">
 								<label>
 									<input
@@ -269,7 +269,7 @@
 							{{/ifConfig}}
 						{{/ifConfig}}
 
-						{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
+						{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}
 							{{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
 								<div class="form-group">
 									<label>

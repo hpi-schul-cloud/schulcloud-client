@@ -10,9 +10,21 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 ### Security
-- SC-3990 generation of first login passwords
 
 ### Added
+
+### Changed
+
+### Fixed
+
+
+
+## [22.10.0] - 2020-05-11
+
+### Security in 22.10.0
+- SC-3990 generation of first login passwords
+
+### Added in 22.10.0
 - SC-3664 query toast-type and toast-message
 - SC-3892 Task sorting on the course side
 - SC-3757 the LDAP config page now contains a link to the docs
@@ -20,7 +32,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-3801 added generic filepicker url to ckeditor
 - SC-4260 added sentry sampling
 
-### Changed
+### Changed in 22.10.0
 
 - SC-3607 CSV import now suggests the new birthday field (sample file + image)
 - SC-3607 the student/teacher import page now displays a warning for large imports
@@ -28,9 +40,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-3801 updated CKEDITOR to 4.14
 - SC-3801 changes CKEDITOR theme to a more maintained one (n1theme)
 
-### Fixed
+### Fixed in 22.10.0
 
 - SC-3945 Courses are now again unarchiveable
+
 
 ## [22.9.12] - 2020-05-06
 
