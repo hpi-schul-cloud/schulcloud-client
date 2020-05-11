@@ -92,7 +92,7 @@
 				"transferClassToTheNextSchoolYear": "Klasse ins nächste Schuljahr versetzen"
 			},
 			"label": {
-				"addStudentFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
+				"addStudentFromPreviousYearClass": "Schüler:in aus Vorjahresklasse hinzufügen",
 				"className": "Klassenbezeichnung",
 				"filterBySchoolYear": "Nach Schuljahr filtern",
 				"grade": "Jahrgangsstufe",
@@ -117,8 +117,8 @@
 				"ifAllStudentsAndParentshaveGiven": "Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
 				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
 				"manageClass": "Klasse verwalten",
-				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler erklären",
-				"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler auszudrucken.",
+				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler:innen erklären",
+				"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler:innen auszudrucken.",
 				"noLackOfInformedConsent": "In dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
 				"ofThe": "der",
 				"required": "erforderlich",
@@ -133,8 +133,8 @@
 				"manageClasses": "Klassen verwalten",
 				"manageCourses": "Kurse verwalten",
 				"manageSchool": "Schule verwalten",
-				"manageStudents": "Schüler verwalten",
-				"manageTeachers": "Lehrer verwalten",
+				"manageStudents": "Schüler:innen verwalten",
+				"manageTeachers": "Lehrer:innen verwalten",
 				"manageTeams": "Teams verwalten"
 			}
 		},
@@ -224,7 +224,7 @@
 				"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden"
 			},
 			"label": {
-				"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)",
+				"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 				"assignPassword": "Passwort vergeben:",
 				"birthdate": "Geburtsdatum:",
 				"chooseDate": "Termine auswählen",
@@ -243,11 +243,11 @@
 				"room": "Raum",
 				"schoolYear": "Schuljahr",
 				"startOfLesson": "Start der Schulstunde",
-				"student": "Schüler",
+				"student": "Schüler:in",
 				"studentParticipants": "Schüler / Teilnehmer",
-				"substituteTeacher": "Vertretungs Lehrer",
-				"teacher": "Lehrer ",
-				"teachingTeacher": "Unterrichtender Lehrer",
+				"substituteTeacher": "Vertretungslehrer:in",
+				"teacher": "Lehrer:in",
+				"teachingTeacher": "Unterrichtenderlehrer:in",
 				"termsOfUse": "Nutzungsbedingungen",
 				"timeSpan": "Zeitraum (z.B. Schuljahr)",
 				"to": "Bis",
@@ -260,15 +260,15 @@
 				"chatIsActivated": "Chat ist aktiviert",
 				"dataProtection": "Datenschutzerklärung",
 				"forStudentsUnder": "Für Schüler unter",
-				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
+				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler:innen per Link ein, die Einverständniserklärung abzugeben",
 				"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
 				"loginAskYourStudents": "einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
 				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
-				"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
+				"orSelectStudentFromTable": "Oder wähle Schüler:innen in der Tabelle aus.",
 				"provideYourStudentsAnd": "Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.",
 				"studentUnder": "Schüler unter",
-				"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein"
+				"studentsLoginInThePresenceOfGuardian": "Schüler:innen loggen sich in Anwesenheit eines Erziehungberechtigten ein"
 			}
 		},
 		"helpdesk": {
@@ -428,7 +428,7 @@
 			"text": {
 				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
-				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
+				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler:innen ohne vollständige Einverständniserklärung:",
 				"parentsAgreed": "Eltern haben zugestimmt",
 				"studentsStillNeedTheDecalaration": "Schüler benötigen noch die Einverständniserklärung zur Nutzung der",
 				"yearsFirstRequireTheConsent": "Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären."
