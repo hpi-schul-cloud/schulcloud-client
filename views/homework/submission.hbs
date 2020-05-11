@@ -70,6 +70,11 @@
                   placeholder="Erstelle deine Abgabe...">{{@root.submission.comment}}</textarea>
         </div>
   {{else}}
+    {{#if @root.submission}}
+        {{#if @root.submission.hasFile}}
+            {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false submission=@root.submission}}{{/embed}}
+        {{/if}}
+    {{/if}}
     <div class="comment">
         {{#if @root.submission.comment}}
             {{{@root.submission.comment}}}

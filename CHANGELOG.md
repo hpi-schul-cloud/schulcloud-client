@@ -9,44 +9,108 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Security
+
+### Added
+
 ### Changed
 
-## [22.9.0]
+### Fixed
 
-### Changed
+
+
+## [22.10.0] - 2020-05-11
+
+### Security in 22.10.0
+- SC-3990 generation of first login passwords
+
+### Added in 22.10.0
+- SC-3664 query toast-type and toast-message
+- SC-3892 Task sorting on the course side
+- SC-3757 the LDAP config page now contains a link to the docs
+- SC-438 on logout button click localStorge will be deleted
+- SC-3801 added generic filepicker url to ckeditor
+- SC-4260 added sentry sampling
+
+### Changed in 22.10.0
+
+- SC-3607 CSV import now suggests the new birthday field (sample file + image)
+- SC-3607 the student/teacher import page now displays a warning for large imports
+- updated airbnb linter from 13.1 to 14.1
+- SC-3801 updated CKEDITOR to 4.14
+- SC-3801 changes CKEDITOR theme to a more maintained one (n1theme)
+
+### Fixed in 22.10.0
+
+- SC-3945 Courses are now again unarchiveable
+
+
+## [22.9.12] - 2020-05-06
+
+### Changed in 22.9.12
+
+- Moved the Cookie parameters into the configuration
+- Cookie property sameSite changed from strict to none as default
+
+## [22.9.8] - 2020-04-23
+
+### Added in 22.9.8
+
+- add support for API-Key
+
+## [22.9.7] - 2020-04-21
+
+### Added in 22.9.7
+
+- part of frontpage now loading content from sc blog.
+
+## [22.9.2] - 2020-04-09
+
+### Changed in 22.9.2
+
+- All team events load now.
+
+## [22.9.1] - 2020-04-08
+
+### Changed in 22.9.1
+
+- SC-3951: frontpage of n21 now loading content from n21 blog
+
+## [22.9.0] - 2020-04-08
+
+### Changed in 22.9.0
 
 - Security fixes, Update Handlebars from 4.5 to 4.7
 - SC-3749 remove cookie domain
 - use babel-eslint parser for eslint and updated liner rules for json
+- SC-3719 Shared files are now determined more more cleverly
 
 ## [22.8.0]
 
-### Fixed
+### Fixed in 22.8.0
 
 - SC-3732: edit button was not visible for course teachers except the author on the task detail page
+
 ## [22.7.2] - 2020-04-03
 
-### Changed
+### Changed in 22.7.2
 
 - SC-3900 update tsc email on community page
 
 ## [22.7.1] - 2020-04-02
 
-### Changed
-
-- SC-3884 update community page text
-
-### Added
+### Added in 22.7.1
 
 - This changelog has been added
 
-### Changed
+### Changed in 22.7.1
 
+- SC-3884 update community page text
 - SC-3872: update dataprivacy text
 - SC-3868 changed NBC contact details from `terhaseborg@n-21.de` to `nbc-support@netz-21.de`
 - SC-3878 some styling and interaction improvements to homeworks and archived homeworks
 
-### Fixed
+### Fixed in 22.7.1
 
 - SC-3785: link to course after course creation corrected
 - SC-3732: edit button was not visible for course teachers except the author on the task detail page

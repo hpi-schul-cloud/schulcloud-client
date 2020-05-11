@@ -64,9 +64,7 @@ const createEventsForCourse = (req, res, course) => {
 			);
 			req.session.notification = {
 				type: 'danger',
-				message:
-					'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
-					+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
+				message: res.$t('courses._course.text.eventCouldNotBeSavedContactSupport'),
 			};
 			return Promise.resolve();
 		});
@@ -97,9 +95,7 @@ const deleteEventsForCourse = (req, res, courseId) => {
 				);
 				req.session.notification = {
 					type: 'danger',
-					message:
-						'Die Kurszeiten konnten eventuell nicht richtig gespeichert werden.'
-						+ 'Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.',
+					message: res.$t('courses._course.text.eventCouldNotBeSavedContactSupport'),
 				};
 				return Promise.resolve();
 			}));
@@ -231,9 +227,9 @@ const editCourseHandler = (req, res, next) => {
 			res.render('courses/edit-course', {
 				action,
 				method,
-				title: 'Kurs bearbeiten',
-				submitLabel: 'Änderungen speichern',
-				closeLabel: 'Abbrechen',
+				title: res.$t('courses._course.edit.headline.editCourse'),
+				submitLabel: res.$t('courses._course.edit.button.saveChanges'),
+				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
 				classes: markSelected(classes, _.map(course.classIds, '_id')),
@@ -253,9 +249,9 @@ const editCourseHandler = (req, res, next) => {
 			res.render('courses/create-course', {
 				action,
 				method,
-				sectionTitle: 'Kurs anlegen',
-				submitLabel: 'Kurs anlegen und Weiter',
-				closeLabel: 'Abbrechen',
+				sectionTitle: res.$t('courses.add.headline.addCourse'),
+				submitLabel: res.$t('courses.add.button.addCourseAndContinue'),
+				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
 				classes: markSelected(classes, _.map(course.classIds, '_id')),
@@ -367,9 +363,9 @@ const copyCourseHandler = (req, res, next) => {
 		res.render('courses/edit-course', {
 			action,
 			method,
-			title: 'Kurs klonen',
-			submitLabel: 'Kurs klonen',
-			closeLabel: 'Abbrechen',
+			title: res.$t('courses._course.copy.headline.cloneCourse'),
+			submitLabel: res.$t('courses._course.copy.button.cloneCourse'),
+			closeLabel: res.$t('global.button.cancel'),
 			course,
 			classes,
 			colors,
@@ -463,7 +459,7 @@ router.get('/', (req, res, next) => {
 				res.json(active.data);
 			} else if (active.total !== 0 || archived.total !== 0) {
 				res.render('courses/overview', {
-					title: 'Meine Kurse',
+					title: res.$t("courses.headline.myCourses"),
 					activeTab: req.query.activeTab,
 					importToken,
 					activeCourses,
@@ -474,7 +470,7 @@ router.get('/', (req, res, next) => {
 						active: active.total,
 						archived: archived.total,
 					},
-					searchLabel: 'Suche nach Kursen',
+					searchLabel: res.$t("courses.input.searchForCourses"),
 					searchAction: '/courses',
 					showSearch: true,
 					liveSearch: true,
@@ -713,6 +709,12 @@ router.get('/:courseId/', async (req, res, next) => {
 		}
 
 		// ###################### end of code for new Editor ################################
+		const user = res.locals.currentUser || {};
+		const roles = user.roles.map((role) => role.name);
+		const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
+		const teacher = ['teacher', 'demoTeacher'];
+		const student = ['student', 'demoStudent'];
+
 		res.render(
 			'courses/course',
 			Object.assign({}, course, {
@@ -721,14 +723,20 @@ router.get('/:courseId/', async (req, res, next) => {
 					: course.name,
 				activeTab: req.query.activeTab,
 				lessons,
-				homeworks: homeworks.filter(task => !task.private),
-				myhomeworks: homeworks.filter(task => task.private),
+				homeworksCount: (homeworks.filter((task) => !task.private)).length,
+				assignedHomeworks: (hasRole(teacher)
+					? homeworks.filter((task) => !task.private && !task.stats.submissionCount)
+					: homeworks.filter((task) => !task.private && !task.submissions)),
+				homeworksWithSubmission: (hasRole(teacher)
+					? homeworks.filter((task) => !task.private && task.stats.submissionCount)
+					: homeworks.filter((task) => !task.private && task.submissions)),
+				privateHomeworks: homeworks.filter((task) => task.private),
 				ltiToolIds,
 				courseGroups,
 				baseUrl,
 				breadcrumb: [
 					{
-						title: 'Meine Kurse',
+						title: res.$t("courses.headline.myCourses"),
 						url: '/courses',
 					},
 					{
@@ -744,6 +752,8 @@ router.get('/:courseId/', async (req, res, next) => {
 				newLessons,
 				isNewEdtrioActivated,
 				scopedCoursePermission: scopedPermissions[res.locals.currentUser._id],
+				isTeacher: hasRole(teacher),
+				isStudent: hasRole(student),
 			}),
 		);
 	} catch (err) {
@@ -782,18 +792,19 @@ router.patch('/:courseId', (req, res, next) => {
 		delete req.body.untilDate;
 	}
 
+	if (req.body.unarchive !== 'true' && req.body.untilDate < new Date()) {
+		req.body.features = [];
+		OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+			if (req.body[feature] === 'true') {
+				req.body.features.push(feature);
+			}
+			delete req.body[feature];
+		});
+	}
+
 	if (req.body.unarchive === 'true') {
 		req.body = { untilDate: req.body.untilDate };
 	}
-
-	req.body.features = [];
-	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
-		if (req.body[feature] === 'true') {
-			req.body.features.push(feature);
-		}
-		delete req.body[feature];
-	});
-
 	// first delete all old events for the course
 	deleteEventsForCourse(req, res, req.params.courseId)
 		.then(() => api(req)
@@ -836,7 +847,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 	if (currentUser.roles.filter(r => r.name === 'student').length <= 0) {
 		req.session.notification = {
 			type: 'danger',
-			message: "Sie sind kein Nutzer der Rolle 'Schüler'.",
+			message: res.$t("courses._course.addStudent.text.youAreNoStudent"),
 		};
 		res.redirect(`/courses/${req.params.courseId}`);
 		return;
@@ -849,9 +860,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 			if (_.includes(course.userIds, currentUser._id)) {
 				req.session.notification = {
 					type: 'danger',
-					message: `Sie sind bereits Teilnehmer des Kurses/Fachs ${
-						course.name
-					}.`,
+					message: res.$t("courses._course.text.youAreAlreadyMember", {coursename : course.name}),
 				};
 				res.redirect(`/courses/${req.params.courseId}`);
 				return;
@@ -867,9 +876,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 				.then(() => {
 					req.session.notification = {
 						type: 'success',
-						message: `Sie wurden erfolgreich beim Kurs/Fach ${
-							course.name
-						} hinzugefügt`,
+						message: res.$t("courses._course.text.youHaveBeenAdded", {coursename : course.name}),
 					};
 					res.redirect(`/courses/${req.params.courseId}`);
 				});
@@ -886,7 +893,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: 'Es wurde kein Thema für diesen Code gefunden.',
+					message: res.$t("courses._course.topic.text.noTopicFoundWithCode"),
 				};
 
 				res.redirect(req.header('Referer'));

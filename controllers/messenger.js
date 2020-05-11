@@ -8,6 +8,7 @@ router.use(authHelper.authChecker);
 
 router.get('/token', (req, res, next) => api(req)
 	.post('/messengerToken', {})
-	.then((result) => res.send(result)));
+	.then((result) => res.send(result))
+	.catch(next));
 
 module.exports = router;
