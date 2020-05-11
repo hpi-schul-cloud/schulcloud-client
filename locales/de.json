@@ -63,7 +63,7 @@
 		},
 		"text": {
 			"noDeviceEntered": "Keine Geräte eingetragen",
-			"nothirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
 			"visibilityForTeamInvitation": "Sichtbarkeit für Teameinladungen"
 		}
 	},
