@@ -26,7 +26,7 @@
 	<!-- GHOST (will be replaced by js) -->
 	<div class="sc-blog">
 		<div class="container container-content content-width-max">
-			<h1 class="section-title primary title" style="color: var(--color-primary);">
+			<h1 class="section-title title text-center" style="color: var(--color-primary);">
 				{{{$t "home.headline.welcomeToHPISchoolCloud"}}}
 			</h1>
 		</div>
@@ -35,9 +35,9 @@
 			<i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
 				style="font-size: 25px;"></i>
 			<div class="placeholder" style="display: none;">
-				<img src="/images/repair.png" width="350px"><br>
-				{{$t "home.text.errorWhileLoadingHomepage"}} <br>
-				<button type="button" class="btn btn-primary mt-1">{{$t "home.button.tryAgain"}}</button>
+				<img src="/images/repair.png" width="350px">
+				<p class="text-muted">{{$t "global.text.errorWhileLoadingPage"}}</p>
+				<button type="button" class="btn btn-primary mt-2">{{$t "global.button.tryAgain"}}</button>
 			</div>
 		</div>
 	</div>
