@@ -779,6 +779,12 @@
 		}
 	},
 	"imprint":{
+		"global": {
+			"header": {
+				"imprint": "Impressum"
+			}
+
+		}
 	},
 	"pwRecovery": {
 		"input": {
