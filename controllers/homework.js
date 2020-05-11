@@ -901,6 +901,14 @@ router.get('/:assignmentId', (req, res, next) => {
 				renderOptions.studentSubmissions = studentSubmissions;
 				renderOptions.studentsWithoutSubmission = studentsWithoutSubmission;
 			}
+
+			if (assignment.submission) {
+				assignment.submission.hasFile = false;
+				if (assignment.submission.fileIds.length > 0) {
+					assignment.submission.hasFile = true;
+				}
+			}
+
 			res.render('homework/assignment', Object.assign({}, assignment, {
 				...renderOptions,
 			}));
