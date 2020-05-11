@@ -373,6 +373,9 @@
 			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
 		}
 	},
+	"community":{
+		"title": "Jetzt mitmachen!"
+	},
 	"content": {
 		"button": {
 			"choose": "Wähle..."
@@ -409,6 +412,7 @@
 				"button": {
 					"addLesson": "Neuen Stundentermin hinzufügen",
 					"deleteCourse": "Kurs löschen",
+					"saveChanges": "Änderungen speichern",
 					"showCourseDetail": "Kursdetails anzeigen"
 				},
 				"headline": {
@@ -419,6 +423,7 @@
 					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
+					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"chooseDate": "Termine auswählen",
 					"class": "Klasse(n)",
 					"from": "Von",
@@ -464,11 +469,11 @@
 						"editGroup": "Gruppe bearbeiten"
 					},
 					"text": {
-						"groupMembers": "Gruppenteilnehmer:innen: ",
+						"groupMembers": "Gruppenteilnehmer:innen:",
 						"noOpenGroupTasks": "Keine weiteren Gruppenabgaben möglich.",
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
 						"noTopics": "keine Themen.",
-						"responsibleTeachers": "Verantwortliche Lehrer:innen: ",
+						"responsibleTeachers": "Verantwortliche Lehrer:innen:",
 						"workOnTopic": "Thema bearbeiten"
 					}
 				},
@@ -514,8 +519,12 @@
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
 					"posedTasks": "Gestellte Aufgaben",
+					"privateTasks": "Private Aufgaben und Entwürfe",
+					"submittedTasks": "Bearbeitete Aufgaben",
 					"task": "Aufgabe",
-					"tasks": "Aufgaben"
+					"tasks": "Aufgaben",
+					"tasksWithSubmissions": "Aufgaben mit Abgaben",
+					"unsubmittedTasks": "Gestellte Aufgaben"
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
@@ -530,9 +539,9 @@
 			},
 			"text": {
 				"QRCodeAlternative": "Alternativ kannst du deinen Lehrer:innen-Kollegen auch folgenden QR-Code zeigen.",
-				"coursedescription": "Kursbeschreibung: ",
+				"coursedescription": "Kursbeschreibung:",
 				"eventCouldNotBeSavedContactSupport": "Die Kurszeiten konnten eventuell nicht richtig gespeichert werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.",
-				"nextClass": "Nächste Unterrichtsstunde: ",
+				"nextClass": "Nächste Unterrichtsstunde:",
 				"shareCodeExplanation": "Verteile folgenden Code an einen Lehrer:innen-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.",
 				"youAreAlreadyMember": "Du bist bereits Teilnehmer:in des Kurses {{coursename}}.",
 				"youHaveBeenAdded": "Du wurdest erfolgreich beim Kurs {{coursename}} hinzugefügt"
@@ -547,7 +556,12 @@
 						"createToolForCourse": "Tool anlegen für {{coursename}}",
 						"videoConference": "Videokonferenz"
 					},
+					"placeholder": {
+						"key": "Key",
+						"value": "Value"
+					},
 					"text": {
+						"BBBDescriptionExplanation": "Führe Videokonferenzen mit anderen Nutzer:innen durch. Das Tool BigBlueButton ermöglicht dem ganzen Kurs die unkomplizierte, sichere Teilnahme mit euren {{short_title}}-Logins. Gute Audio- und Videoübertragungsqualität werden ergänzt durch ein zur Laufzeit nutzbares interaktives Whiteboard, Funktionen zum Bildschirm teilen und einen Chat.",
 						"errorWhileAddingTool": "Beim Hinzufügen des Tools ist ein Fehler aufgetreten.",
 						"toolCouldNotBeFound": "Das Tool konnte nicht gefunden werden."
 					}
@@ -559,6 +573,9 @@
 					"addToolToCourse": "Füge dem Kurs Tools hinzu",
 					"noTools": "Es gibt keine Tools in diesem Kurs.",
 					"noToolsYet": "Es gibt noch keine Tools in diesem Kurs."
+				},
+				"img_alt": {
+					"noAddedTools": "Keine hinzugefügten Tools"
 				},
 				"label": {
 					"logoUrl": "Logo (URL):",
@@ -598,10 +615,13 @@
 				"text": {
 					"addTopic": "Thema hinzufügen",
 					"addTopicWithNewEditor": "Thema mit neuem Editor hinzufügen (beta)",
+					"beta": "beta",
+					"clickOnEyeToggleVisibility": "Ein Klick auf das Auge <i class=\"fa fa-eye\"></i> macht das Thema für Schüler*innen sichtbar oder unsichtbar.",
 					"clickOnTopicForPreview": "Ein Klick auf das Thema bringt dich in die Vorschau-Ansicht.",
 					"deleteTopic": "Thema löschen",
 					"descriptionTopic": "Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu. Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses.",
 					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler:innen, um sie zum Kurs einzuladen. Die Schüler:innen müssen dafür angemeldet sein.",
+					"editSortDeleteShareTopicsHere": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-ellipsis-v\"></i>&nbsp;<i class=\"fa fa-ellipsis-v\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
 					"editTopic": "Thema bearbeiten",
 					"hideTopic": "Thema verstecken",
 					"importTopic": "Thema importieren",
@@ -625,6 +645,9 @@
 				"almostDone": "Du hast es fast geschafft...",
 				"done": "Geschafft!",
 				"whatToDoCourses": "Was kannst du in einem Kurs machen?"
+			},
+			"img_alt": {
+				"spaceShuttleStart": "Space Shuttle Start"
 			},
 			"input": {
 				"egMaths": "z.B. Mathe 10a"
@@ -684,17 +707,22 @@
 			}
 		},
 		"headline": {
+			"SCMakesTeachingDigital": "Mit der {{themetitle}} wird der Unterricht digital",
 			"courseAttendees": "Teilnehmer:innen des Kurses:",
 			"createDuplicateImport": "Erstelle, dupliziere oder importiere einen Kurs",
+			"expiredCoursesInArchive": "Kurse, deren Enddatum erreicht ist, findest du <a href=\"?activeTab=archived\">im Archiv",
 			"importCourse": "Kurs importieren",
+			"makeTeachingDigital": "Mit der {{themetitle}} Unterricht digital gestalten",
 			"myCourses": "Meine Kurse",
 			"mySubstitutes": "Meine Vertretungen",
 			"noArchievedCourses": "Du hast noch keine archivierten Kurse",
-			"noCourse": "Es gibt aktuell keine Kurse"
+			"noCourse": "Es gibt aktuell keine Kurse",
+			"noCoursesYet": "Es gibt noch keine Kurse. Ein Kurs in der {{short_title}} bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen."
 		},
 		"img_alt": {
 			"noArchievedCourses": "Keine archivierten Kurse",
-			"noCourses": "Keine Kurse vorhanden"
+			"noCourses": "Keine Kurse vorhanden",
+			"teacherWithClass": "Lehrer mit Klasse"
 		},
 		"input": {
 			"searchForCourses": "Suche nach Kursen"
@@ -970,9 +998,56 @@
 			"monday": "Montag",
 			"saturday": "Samstag",
 			"sunday": "Sonntag",
+			"sureAboutDiscardingChanges": "Bist du dir sicher, dass du die Änderungen verwerfen möchtest?",
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
+		}
+	},
+	"home": {
+		"button": {
+			"aboutTheProject": "Über das Projekt",
+			"loginAsStudentDemo": "als Schüler:in einloggen",
+			"loginAsTeacherDemo": "als Lehrer:in einloggen",
+			"subscribeNewsletter": "Newsletter abonnieren",
+			"tryAgain": "Erneut Versuchen"
+		},
+		"header": {
+			"link": {
+				"aboutUs": "Über das Projekt",
+				"blog": "Blog",
+				"faq": "FAQ",
+				"firstSteps": "Erste Schritte",
+				"register" : "Registrieren"
+			}
+		},
+		"headline": {
+			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> Blog",
+			"allNewsOnHPINewsletter": "Alle Neuigkeiten rund um die <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> bequem in Ihrem Postfach:",
+			"explainationVideo": "Erklärvideo zur HPI Schul-Cloud",
+			"projectLeaders": "Projektdurchführung",
+			"theIdea": "Die Grundidee der <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span>",
+			"tryDemoVersion": "Jetzt Demoversion ausprobieren",
+			"welcomeToHPISchoolCloud": "Herzlich willkommen bei der <span style=\"white-space: nowrap;\">HPI Schul-Cloud!</span>"
+		},
+		"img_alt": {
+			"logoBMBF": "Logo BMBF",
+			"logoHPI": "Logo HPI",
+			"logoMINTEC": "Logo MINT-EC"
+		},
+		"link": {
+			"moreArticles": "weitere Artikel anzeigen",
+			"openArticle": "Artikel öffnen"
+		},
+		"text": {
+			"advertisementForOurTeam": "Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs",
+			"blogIsDeactivated": "Der Blog ist derzeit deaktiviert! Das HPI Schul-Cloud Team kümmert sich darum.",
+			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) videoplayer.",
+			"downloadFile": "Datei herunterladen",
+			"errorWhileLoadingHomepage": "Beim Laden des Inhalts der Startseite ist ein Fehler aufgetreten.",
+			"moreInformation": "Mehr Informationen:",
+			"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
+			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
 		}
 	},
 	"homework": {
@@ -1025,7 +1100,8 @@
 			"selectTeamMembers": "Teammitglieder auswählen",
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
 			"submission": "Abgabe",
-			"submissions": "Abgaben"
+			"submissions": "Abgaben",
+			"submissionsWithoutFeedback": "unkommentierte Abgaben"
 		},
 		"text": {
 			"noAssignment": "Keine Zuordnung",
@@ -1036,6 +1112,61 @@
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben"
+		}
+	},
+	"loggedin": {
+		"text": {
+			"newFeaturesAvailable": "Neue Features sind verfügbar",
+			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte kontaktiere den Schul-Administrator!",
+			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
+			"timeout": "Zeitüberschreitung der Anfrage"
+		}
+	},
+	"login": {
+		"button": {
+			"less": "Weniger",
+			"login": "Anmelden",
+			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
+			"moreOptions": "Mehr Optionen"
+		},
+		"headline": {
+			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer"
+		},
+		"input": {
+			"emailUsername": "E-Mail / Nutzername",
+			"noSchoolsAvailable": "Keine Schulen verfügbar",
+			"noSystemsAvailable": "Keine Systeme verfügbar",
+			"password": "Passwort",
+			"school": "Schule",
+			"system": "System"
+		},
+		"label": {
+			"thisIsAPrivateDevice": "Angemeldet bleiben"
+		},
+		"link": {
+			"forgotPassword": "Passwort vergessen?"
+		},
+		"popup_resetPw": {
+			"button": {
+				"cancel": "Abbrechen",
+				"resetPassword": "Passwort Zurücksetzen"
+			},
+			"headline": {
+				"resetPassword": "Passwort Zurücksetzen"
+			},
+			"input": {
+				"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
+			},
+			"label": {
+				"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
+			},
+			"text": {
+				"contactTeacherAdminForHelp": "Wenn du zusätzliche Hilfe beim Passwort zurücksetzen benötigst, wende dich bitte an deine betreuende Lehrkraft (als Schüler) oder an deinen Administrator (als Lehrkraft). </br>Diese können dein Passwort über die Nutzerverwaltung mit sofortiger Wirkung zurücksetzen."
+			}
+		},
+		"text": {
+			"loginFailed": "Login fehlgeschlagen.",
+			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
 		}
 	},
 	"news": {
@@ -1059,6 +1190,87 @@
 			"processed": "bearbeitet)",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
+		}
+	},
+	"pwRecovery": {
+		"input": {
+			"hiddenPw": "***************"
+		},
+		"label": {
+			"newPw": "Neues Passwort",
+			"repeatNewPw": "Neues Passwort wiederholen"
+		},
+		"response": {
+			"text": {
+				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
+				"didYouRegisterCorrectly": "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einem Lehrer oder Schuladministrator bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
+				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der Schul-Cloud einzuloggen.",
+				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
+				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
+			}
+		},
+		"text": {
+			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
+			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. <br/>Erlaubte Sonderzeichen sind: <code>!§$%&/()=?\\;:,.#+*~</code>",
+			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
+		}
+	},
+	"topic": {
+		"_topic": {
+			"button": {
+				"editTopic": "Thema bearbeiten"
+			},
+			"global": {
+				"button": {
+					"addPrivateTask": "private Aufgabe hinzufügen",
+					"addTask": "Aufgabe hinzufügen",
+					"toEdit": "Bearbeiten"
+				},
+				"heading": {
+					"task": "Aufgabe"
+				}
+			},
+			"heading": {
+				"assignedTasks": "Gestellte Aufgaben",
+				"privateTasks": "Private Aufgaben",
+				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
+			},
+			"label": {
+				"content": "Inhalte",
+				"titleOfTheTopic": "Titel des Themas"
+			},
+			"text": {
+				"shareWithOthersTeachers": "mit anderen Lehrern teilen"
+			}
+		},
+		"content": {
+			"link": {
+				"openInNewTab": "in neuem Tab öffnen"
+			}
+		},
+		"form_share": {
+			"label": {
+				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
+			}
+		}
+	},
+	"teams": {
+		"_team": {
+			"edit": {
+				"label": {
+					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
+					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
+				},
+				"placeholder": {
+					"teamName": "A-Team"
+				},
+				"text": {
+					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
+				}
+			}
 		}
 	}
 }

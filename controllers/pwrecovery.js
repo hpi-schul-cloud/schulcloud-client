@@ -30,9 +30,7 @@ router.get('/response', (req, res, next) => {
 
 router.get('/:pwId', (req, res, next) => {
 	api(req)
-		.get(`/passwordRecovery/${req.params.pwId}`, {
-			qs: { $populate: ['account'] },
-		})
+		.get(`/passwordRecovery/${req.params.pwId}`)
 		.then((result) => {
 			if (result.changed) {
 				const error = new Error(
@@ -48,8 +46,6 @@ router.get('/:pwId', (req, res, next) => {
 			}
 			return res.render('pwRecovery/pwrecovery', {
 				title: 'Passwort-Wiederherstellung',
-				subtitle: obscureEmail(result.account.username),
-				accountId: result.account._id,
 				resetId: req.params.pwId,
 				action: '/pwrecovery/reset/',
 				buttonLabel: 'Neues Passwort anlegen',

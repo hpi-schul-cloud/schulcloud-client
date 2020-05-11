@@ -5,6 +5,7 @@ const api = require('../api');
 
 const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
+const authHelper = require('../helpers/authentication');
 
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
@@ -142,6 +143,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 		}
 		return res.render('registration/registration-parent', {
 			title: 'Registrierung - Eltern',
+			password: authHelper.generatePassword(),
 			hideMenu: true,
 			user,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
@@ -174,6 +176,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 
 		return res.render('registration/registration-student', {
 			title: 'Registrierung - Schüler*',
+			password: authHelper.generatePassword(),
 			hideMenu: true,
 			user,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
