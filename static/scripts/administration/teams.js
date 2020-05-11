@@ -2,7 +2,7 @@
 // eslint-disable-next-line func-names
 $(window).ready(() => {
 	function getPayload(tableRow) {
-		const json = tableRow.find('td[data-payload]').data('payload');
+		const json = JSON.parse(atob(tableRow.find('td[data-payload]').data('payload')));
 		return json;
 	}
 

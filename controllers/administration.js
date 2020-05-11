@@ -9,11 +9,11 @@ const moment = require('moment');
 const multer = require('multer');
 const encoding = require('encoding-japanese');
 const _ = require('lodash');
+const queryString = require('querystring');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
-const queryString = require('querystring');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -27,7 +27,7 @@ const getSelectOptions = (req, service, query, values = []) => api(req)
 	.get(`/${service}`, {
 		qs: query,
 	})
-	.then(data => data.data);
+	.then((data) => data.data);
 
 const getSelectableYears = (school) => {
 	let years = [];
@@ -36,7 +36,7 @@ const getSelectableYears = (school) => {
 			school.years.activeYear,
 			school.years.nextYear,
 			school.years.lastYear,
-		].filter(y => !!y));
+		].filter((y) => !!y));
 	}
 	return years;
 };
@@ -220,7 +220,7 @@ const createEventsForData = (data, service, req, res) => {
 		&& data.times.length > 0
 	) {
 		return Promise.all(
-			data.times.map(time => api(req).post('/calendar', {
+			data.times.map((time) => api(req).post('/calendar', {
 				json: {
 					summary: data.name,
 					location: res.locals.currentSchoolData.name,
@@ -248,7 +248,7 @@ const createEventsForData = (data, service, req, res) => {
  * Deletes all events from the given dataId in @param req.params, clear function
  * @param service {string}
  */
-const deleteEventsForData = service => (req, res, next) => {
+const deleteEventsForData = (service) => (req, res, next) => {
 	if (CALENDAR_SERVICE_ENABLED && service === 'courses') {
 		return api(req)
 			.get(`courses/${req.params.id}`)
@@ -411,7 +411,7 @@ ${res.locals.theme.short_title}-Team`,
     }); */
 };
 
-const getUserCreateHandler = internalReturn => function userCreate(req, res, next) {
+const getUserCreateHandler = (internalReturn) => function userCreate(req, res, next) {
 	const { shortLink } = req.body;
 	if (req.body.birthday) {
 		const birthday = req.body.birthday.split('.');
@@ -458,7 +458,7 @@ const getUserCreateHandler = internalReturn => function userCreate(req, res, nex
  * @param service currently only used for helpdesk
  * @returns {Function}
  */
-const getSendHelper = service => function send(req, res, next) {
+const getSendHelper = (service) => function send(req, res, next) {
 	api(req)
 		.get(`/${service}/${req.params.id}`)
 		.then((data) => {
@@ -515,8 +515,8 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 	const buildErrorMessage = (stats) => {
 		const whitelist = ['file', 'user', 'invitation', 'class'];
 		let errorText = stats.errors
-			.filter(err => whitelist.includes(err.type))
-			.map(err => `${err.entity} (${err.message})`)
+			.filter((err) => whitelist.includes(err.type))
+			.map((err) => `${err.entity} (${err.message})`)
 			.join(', ');
 		if (errorText === '') {
 			errorText = 'Es ist ein unbekannter Fehler beim Importieren aufgetreten.';
@@ -548,22 +548,22 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			message,
 		};
 		const query = queryString.stringify({
-			"toast-type": "success",
-			"toast-message": encodeURIComponent(message)
+			'toast-type': 'success',
+			'toast-message': encodeURIComponent(message),
 		});
-		res.redirect((req.body.referrer || req.header('Referer')) + '/?' + query);
+		res.redirect(`${req.body.referrer || req.header('Referer')}/?${query}`);
 		return;
 	} catch (err) {
-		let message = 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.';
+		const message = 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.';
 		req.session.notification = {
 			type: 'danger',
-			message: message,
+			message,
 		};
 		const query = queryString.stringify({
-			"toast-type": "error",
-			"toast-message": encodeURIComponent(message)
+			'toast-type': 'error',
+			'toast-message': encodeURIComponent(message),
 		});
-		res.redirect((req.body.referrer || req.header('Referer')) + '/?' + query);
+		res.redirect(`${req.body.referrer || req.header('Referer')}/?${query}`);
 	}
 };
 
@@ -573,7 +573,7 @@ const dictionary = {
 	submitted: 'Gesendet',
 };
 
-const getUpdateHandler = service => function updateHandler(req, res, next) {
+const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 	api(req)
 		.patch(`/${service}/${req.params.id}`, {
 			// TODO: sanitize
@@ -589,7 +589,7 @@ const getUpdateHandler = service => function updateHandler(req, res, next) {
 		});
 };
 
-const getDetailHandler = service => function detailHandler(req, res, next) {
+const getDetailHandler = (service) => function detailHandler(req, res, next) {
 	api(req)
 		.get(`/${service}/${req.params.id}`)
 		.then((data) => {
@@ -678,7 +678,7 @@ const createSystemHandler = (req, res, next) => {
 		});
 };
 
-const getStorageProviders = res => [
+const getStorageProviders = (res) => [
 	{
 		label: res.locals.theme.short_title,
 		value: 'awsS3',
@@ -727,7 +727,7 @@ const returnAdminPrefix = (roles) => {
 };
 
 // with userId to accountId
-const userIdtoAccountIdUpdate = service => function useIdtoAccountId(req, res, next) {
+const userIdtoAccountIdUpdate = (service) => function useIdtoAccountId(req, res, next) {
 	api(req)
 		.get(`/${service}/?userId=${req.params.id}`)
 		.then((users) => {
@@ -801,7 +801,6 @@ const parseDate = (input) => {
 	const parts = input.match(/(\d+)/g);
 	return new Date(parts[2], parts[1] - 1, parts[0]);
 };
-
 
 
 const skipRegistration = (req, res, next) => {
@@ -915,12 +914,12 @@ const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, r
 		qs: {
 			teacherIds: req.params.id,
 		},
-	})).data.map(c => c._id);
+	})).data.map((c) => c._id);
 	const addedClasses = (req.body.classes || []).filter(
-		i => !usersClasses.includes(i),
+		(i) => !usersClasses.includes(i),
 	);
 	const removedClasses = usersClasses.filter(
-		i => !(req.body.classes || []).includes(i),
+		(i) => !(req.body.classes || []).includes(i),
 	);
 	addedClasses.forEach((addClass) => {
 		promises.push(
@@ -1056,7 +1055,7 @@ router.get(
 				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
-						.map(role => role.name)
+						.map((role) => role.name)
 						.includes('administrator')
 					&& hasEditPermission
 				) {
@@ -1464,7 +1463,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 					userId: {
 						$in: users
 							.slice(slice * batchSize, (slice + 1) * batchSize)
-							.map(u => u._id),
+							.map((u) => u._id),
 					},
 					$populate: 'userId',
 					$limit: false,
@@ -1474,16 +1473,16 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 		slice += 1;
 	}
 
-	const consentMissing = user => !consents.some(
-		consent => consent.userId._id.toString() === (user._id || user).toString(),
+	const consentMissing = (user) => !consents.some(
+		(consent) => consent.userId._id.toString() === (user._id || user).toString(),
 	);
-	const consentIncomplete = consent => !consent.access;
+	const consentIncomplete = (consent) => !consent.access;
 
 	const usersWithoutConsent = users.filter(consentMissing);
 	const usersWithIncompleteConsent = consents
 		.filter(consentIncomplete)
 		// get full user object from users list
-		.map(c => users.find(user => user._id.toString() === c.userId._id.toString()));
+		.map((c) => users.find((user) => user._id.toString() === c.userId._id.toString()));
 	return usersWithoutConsent.concat(usersWithIncompleteConsent);
 };
 
@@ -1713,7 +1712,7 @@ const renderClassEdit = (req, res, next) => {
 					roles: ['teacher', 'demoTeacher'],
 					$limit: false,
 				}), // teachers
-				Array.from(Array(13).keys()).map(e => ({
+				Array.from(Array(13).keys()).map((e) => ({
 					grade: e + 1,
 				})),
 				req.locals.class,
@@ -1853,7 +1852,7 @@ router.get(
 			})
 			.then((classes) => {
 				const students = classes.data
-					.map(c => c.userIds)
+					.map((c) => c.userIds)
 					// eslint-disable-next-line no-shadow
 					.reduce((flat, next) => flat.concat(next), []);
 				res.json(students);
@@ -1948,13 +1947,13 @@ router.get(
 					}
 					// preselect current teacher when creating new class
 
-					const teacherIds = currentClass.teacherIds.map(t => t._id);
+					const teacherIds = currentClass.teacherIds.map((t) => t._id);
 					teachers.forEach((t) => {
 						if (teacherIds.includes(t._id)) {
 							t.selected = true;
 						}
 					});
-					const studentIds = currentClass.userIds.map(t => t._id);
+					const studentIds = currentClass.userIds.map((t) => t._id);
 					students.forEach((s) => {
 						if (studentIds.includes(s._id)) {
 							s.selected = true;
@@ -2307,7 +2306,7 @@ router.get(
 				const body = data.data.map((item) => {
 					const cells = [
 						item.displayName || '',
-						(item.teacherIds || []).map(i => i.lastName).join(', '),
+						(item.teacherIds || []).map((i) => i.lastName).join(', '),
 						(item.year || {}).name || '',
 						item.userIds.length || '0',
 					];
@@ -2329,7 +2328,7 @@ router.get(
 							name: -1,
 						},
 					},
-				})).data.map(year => [
+				})).data.map((year) => [
 					year._id,
 					year.name,
 				]);
@@ -2353,7 +2352,7 @@ router.get(
  * @param service usually helpdesk, to disable instead of delete entry
  * @returns {Function}
  */
-const getDisableHandler = service => function diasableHandler(req, res, next) {
+const getDisableHandler = (service) => function diasableHandler(req, res, next) {
 	api(req)
 		.patch(`/${service}/${req.params.id}`, {
 			json: {
@@ -2430,7 +2429,7 @@ router.all(
 					'',
 				];
 
-				const body = data.data.map(item => [
+				const body = data.data.map((item) => [
 					truncate(item.subject || ''),
 					truncate(item.currentState || ''),
 					truncate(item.targetState || ''),
@@ -2593,12 +2592,12 @@ router.all('/courses', (req, res, next) => {
 				substitutionPromise,
 				studentsPromise,
 			]).then(([classes, teachers, substitutions, students]) => {
-				const body = data.data.map(item => [
+				const body = data.data.map((item) => [
 					item.name,
 					// eslint-disable-next-line no-shadow
-					(item.classIds || []).map(item => item.displayName).join(', '),
+					(item.classIds || []).map((item) => item.displayName).join(', '),
 					// eslint-disable-next-line no-shadow
-					(item.teacherIds || []).map(item => item.lastName).join(', '),
+					(item.teacherIds || []).map((item) => item.lastName).join(', '),
 					[
 						{
 							link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
@@ -2709,10 +2708,10 @@ const disableStudentUpdateHandler = async function disableStudentUpdate(req, res
 
 router.patch('/teams/disablestudents/:id', disableStudentUpdateHandler);
 
-const getTeamMembersButton = counter => `
+const getTeamMembersButton = (counter) => `
   <div class="btn-show-members" role="button">${counter}<i class="fa fa-user team-flags"></i></div>`;
 
-const getTeamSchoolsButton = counter => `
+const getTeamSchoolsButton = (counter) => `
   <div class="btn-show-schools" role="button">${counter}<i class="fa fa-building team-flags"></i></div>`;
 
 router.all('/teams', (req, res, next) => {
@@ -2840,13 +2839,13 @@ router.all('/teams', (req, res, next) => {
 							content: getTeamFlags(item),
 						},
 						{
-							payload: {
+							payload: Buffer.from({
 								members: item.schoolMembers.map((member) => {
 									member.role = roleTranslations[member.role];
 									return member;
 								}),
 								schools: item.schools,
-							},
+							}, 'utf-8').toString('base64'),
 						},
 						actions,
 					];
@@ -2952,7 +2951,7 @@ router.get('/rss/:id', async (req, res) => {
 	const school = await api(req).patch(`/schools/${res.locals.currentSchool}`);
 
 	const matchingRSSFeed = school.rssFeeds.find(
-		feed => feed._id === req.params.id,
+		(feed) => feed._id === req.params.id,
 	);
 
 	res.send(matchingRSSFeed);
@@ -2963,7 +2962,7 @@ router.post('/rss/', async (req, res) => {
 
 	if (
 		school.rssFeeds
-		&& school.rssFeeds.find(el => el.url === req.body.rssURL)
+		&& school.rssFeeds.find((el) => el.url === req.body.rssURL)
 	) {
 		return res.redirect('/administration/school');
 	}
@@ -3027,11 +3026,11 @@ router.use(
 		if (Array.isArray(school.systems)) {
 			school.systems = _.orderBy(school.systems, req.query.sort, 'desc');
 			// eslint-disable-next-line eqeqeq
-			systems = school.systems.filter(system => system.type != 'local');
-			ldapAddable = !systems.some(e => e.type === 'ldap');
+			systems = school.systems.filter((system) => system.type != 'local');
+			ldapAddable = !systems.some((e) => e.type === 'ldap');
 
 			systemsBody = systems.map((item) => {
-				const name = getSSOTypes().filter(type => item.type === type.value);
+				const name = getSSOTypes().filter((type) => item.type === type.value);
 				return [
 					item.type === 'ldap' && item.ldapConfig.active === false
 						? `${item.alias} (inaktiv)`
@@ -3152,7 +3151,7 @@ router.get('/startldapschoolyear', async (req, res) => {
 	);
 	const system = school.systems.filter(
 		// eslint-disable-next-line no-shadow
-		system => system.type === 'ldap',
+		(system) => system.type === 'ldap',
 	);
 
 	const ldapData = await Promise.resolve(api(req).get(`/ldap/${system[0]._id}`));
@@ -3211,7 +3210,7 @@ router.post(
 			}),
 		);
 		// eslint-disable-next-line no-shadow
-		const system = school.systems.filter(system => system.type === 'ldap');
+		const system = school.systems.filter((system) => system.type === 'ldap');
 
 		if (system.length === 1) {
 			// LDAP System already available, do not create another one
@@ -3289,7 +3288,7 @@ router.get(
 			);
 			res.render('administration/ldap-edit', {
 				title: 'LDAP bearbeiten',
-				system: system,
+				system,
 			});
 		} catch (err) {
 			next(err);
@@ -3388,7 +3387,7 @@ router.post(
 		);
 		const system = school.systems.filter(
 			// eslint-disable-next-line no-shadow
-			system => system._id === req.params.id,
+			(system) => system._id === req.params.id,
 		);
 
 		api(req)
