@@ -112,8 +112,13 @@
 		"MATRIX_MESSENGER_BUNDLE": {
 			"type": "string",
 			"format": "uri",
-			"default": "https://embed.stomt.com/bundles/10f5ebeaaad4e5220219/bundle.js",
+			"default": "https://embed.stomt.com/bundles/32a38d5dfb4ea9e7ea17/bundle.js",
 			"description": "Where to find the messenger dependencies."
+		},
+		"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
+			"type": "boolean",
+			"default": false,
+			"description": "Only if enabled, school admins can activate the messenger in their school setting"
 		},
 		"FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED": {
 			"type": "boolean",
@@ -135,9 +140,65 @@
 			"format": "uri",
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
+		},
+		"SENTRY_DSN": {
+			"type": "string",
+			"format": "uri",
+			"description": "Sentry DSN (uri), if defined, increase SENTRY_SAMPLE_RATE to desired value to get errors reported."
+		},
+		"SENTRY_SAMPLE_RATE": {
+			"type": "number",
+			"default": 1.0,
+			"minimum": 0.0,
+			"maximum": 1.0,
+			"description": "This is the % count (0.00 to 1.00) of how many of the errors send to the backend. This filter go over all errors, maybe some lost by low user counts."
+		},
+		"COOKIE": {
+			"type": "object",
+			"description": "Cookie properties, required always to be defined",
+			"properties": {
+				"SAME_SITE": {
+					"type": "string",
+					"default": "None",
+					"enum": [
+						"None",
+						"Lax",
+						"Strict"
+					],
+					"description": "Value for cookies sameSite property"
+				},
+				"HTTP_ONLY": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies httpOnly property"
+				},
+				"HOST_ONLY": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies hostOnly property"
+				},
+				"SECURE": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies httpOnly property"
+				},
+				"EXPIRES_SECONDS": {
+					"type": "integer",
+					"default": 2592000000,
+					"description": "Expiration in seconds from now"
+				}
+			},
+			"required": [
+				"SAME_SITE",
+				"HTTP_ONLY",
+				"HOST_ONLY",
+				"SECURE",
+				"EXPIRES_SECONDS"
+			]
 		}
 	},
 	"required": [
-		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION"
+		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
+		"COOKIE"
 	]
 }

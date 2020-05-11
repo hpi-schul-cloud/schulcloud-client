@@ -22,7 +22,6 @@ const logger = require('./helpers/logger');
 
 const {
 	KEEP_ALIVE,
-	SENTRY_DSN,
 	SC_DOMAIN,
 	SC_THEME,
 	REDIS_URI,
@@ -35,14 +34,17 @@ const {
 
 const app = express();
 
-if (SENTRY_DSN) {
+if (Configuration.has('SENTRY_DSN')) {
 	Sentry.init({
-		dsn: SENTRY_DSN,
+		dsn: Configuration.get('SENTRY_DSN'),
 		environment: app.get('env'),
 		release: version,
-		integrations: [
-			new Sentry.Integrations.Console(),
-		],
+		sampleRate: Configuration.get('SENTRY_SAMPLE_RATE'),
+		/*	Sentry.Handlers.requestHandler() is used
+			integrations: [
+				new Sentry.Integrations.Console(),
+			],
+		*/
 	});
 	Sentry.configureScope((scope) => {
 		scope.setTag('frontend', false);
@@ -158,7 +160,6 @@ app.use(async (req, res, next) => {
 	res.locals.domain = SC_DOMAIN;
 	res.locals.production = req.app.get('env') === 'production';
 	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
-	res.locals.SENTRY_DSN = SENTRY_DSN;
 	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
 	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
 	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
@@ -172,7 +173,7 @@ app.use(async (req, res, next) => {
 		logger.error('could not populate current user', error);
 		return next(error);
 	}
-	if (SENTRY_DSN) {
+	if (Configuration.has('SENTRY_DSN')) {
 		Sentry.configureScope((scope) => {
 			if (res.locals.currentUser) {
 				scope.setTag({ schoolId: res.locals.currentUser.schoolId });
