@@ -93,7 +93,7 @@
 			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
 		}
 	},
-	"community":{
+	"community": {
 		"title": "Jetzt mitmachen!"
 	},
 	"content": {
@@ -547,7 +547,7 @@
 	},
 	"global": {
 		"button": {
-			"add" : "Hinzufügen",
+			"add": "Hinzufügen",
 			"cancel": "Abbrechen",
 			"close": "Schließen",
 			"delete": "Löschen",
@@ -604,7 +604,7 @@
 				"blog": "Blog",
 				"faq": "FAQ",
 				"firstSteps": "Erste Schritte",
-				"register" : "Registrieren"
+				"register": "Registrieren"
 			}
 		},
 		"headline": {
@@ -700,6 +700,13 @@
 			"noTasks": "Keine Aufgaben"
 		}
 	},
+	"imprint": {
+		"global": {
+			"header": {
+				"imprint": "Impressum"
+			}
+		}
+	},
 	"loggedin": {
 		"text": {
 			"newFeaturesAvailable": "Neue Features sind verfügbar",
@@ -778,14 +785,6 @@
 			"unpublished": "Unveröffentlicht"
 		}
 	},
-	"imprint":{
-		"global": {
-			"header": {
-				"imprint": "Impressum"
-			}
-
-		}
-	},
 	"pwRecovery": {
 		"input": {
 			"hiddenPw": "***************"
@@ -807,6 +806,25 @@
 			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
 			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. <br/>Erlaubte Sonderzeichen sind: <code>!§$%&/()=?\\;:,.#+*~</code>",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
+		}
+	},
+	"teams": {
+		"_team": {
+			"edit": {
+				"label": {
+					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
+					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
+				},
+				"placeholder": {
+					"teamName": "A-Team"
+				},
+				"text": {
+					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
+				}
+			}
 		}
 	},
 	"topic": {
@@ -845,25 +863,6 @@
 		"form_share": {
 			"label": {
 				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
-			}
-		}
-	},
-	"teams": {
-		"_team": {
-			"edit": {
-				"label": {
-					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
-					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
-					"teamName": "Name des Teams"
-				},
-				"placeholder": {
-					"teamName": "A-Team"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
-				}
 			}
 		}
 	}
