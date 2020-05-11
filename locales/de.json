@@ -70,18 +70,18 @@
 				"printLinkWithQRCode": "Link mit QR-Code Drucken"
 			},
 			"label": {
-				"addStudentFromPreviousYearClass": "Schüler aus Vorjahres-Klasse hinzufügen",
+				"addStudentFromPreviousYearClass": "Schüler:in aus Vorjahres-Klasse hinzufügen",
 				"assignPassword": "Passwort vergeben:",
 				"birthdate": "Geburtsdatum:",
 				"filterBySchoolYear": "Nach Schuljahr filtern",
 				"invitationLink": "Einladungslink",
 				"pleaseNote": "Bitte beachte:",
 				"renameClass": "Klasse umbenennen",
-				"student": "Schüler",
-				"teacher": "Lehrer ",
+				"student": "Schüler:in",
+				"teacher": "Lehrer:in",
 				"termOfUse": "Nutzungsordnung",
-				"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler das Einverständnis zur",
-				"yourStudentsAreNotYetInThe": "Deine Schüler sind noch nicht in der"
+				"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur",
+				"yourStudentsAreNotYetInThe": "Deine Schüler:innen sind noch nicht in der"
 			},
 			"text": {
 				"andTo": "und zur",
@@ -90,8 +90,8 @@
 				"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
 				"forAllStudents": "Für alle Schüler",
 				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
-				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler erklären",
-				"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler auszudrucken.",
+				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler:innen erklären",
+				"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler:innen auszudrucken.",
 				"noLackOfInformedConsent": "In dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
 				"ofThe": "der",
 				"required": "erforderlich",
@@ -110,7 +110,7 @@
 				"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden"
 			},
 			"label": {
-				"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)",
+				"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 				"chooseDate": "Termine auswählen",
 				"classes": "Klassen:",
 				"colorOfTheCourse": "Farbe des Kurses:",
@@ -124,9 +124,9 @@
 				"lengthOfLesson": "Dauer der Schulstunde",
 				"room": "Raum",
 				"startOfLesson": "Start der Schulstunde",
-				"studentParticipants": "Schüler / Teilnehmer",
-				"substituteTeacher": "Vertretungs Lehrer",
-				"teachingTeacher": "Unterrichtender Lehrer",
+				"studentParticipants": "Schüler:innen / Teilnehmer:innen",
+				"substituteTeacher": "Vertretungslehrer:in",
+				"teachingTeacher": "Unterrichtende/r Lehrer:in",
 				"termsOfUse": "Nutzungsbedingungen",
 				"timeSpan": "Zeitraum (z.B. Schuljahr)",
 				"to": "Bis",
@@ -135,11 +135,11 @@
 			"text": {
 				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
 				"chatIsActivated": "Chat ist aktiviert",
-				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben",
+				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler:innen per Link ein, die Einverständniserklärung abzugeben",
 				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
-				"orSelectStudentFromTable": "Oder wähle Schüler in der Tabelle aus.",
-				"studentsLoginInThePresenceOfGuardian": "Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein"
+				"orSelectStudentFromTable": "oder wähle Schüler:innen in der Tabelle aus.",
+				"studentsLoginInThePresenceOfGuardian": "Schüler:innen loggen sich in Anwesenheit eines Erziehungberechtigten ein"
 			}
 		},
 		"label": {
@@ -191,8 +191,8 @@
 			"manageClasses": "Klassen verwalten",
 			"manageCourses": "Kurse verwalten",
 			"manageSchool": "Schule verwalten",
-			"manageStudents": "Schüler verwalten",
-			"manageTeachers": "Lehrer verwalten",
+			"manageStudents": "Schüler:innen verwalten",
+			"manageTeachers": "Lehrer:innen verwalten",
 			"manageTeams": "Teams verwalten"
 		},
 		"school": {
@@ -257,25 +257,25 @@
 				"importStudents": "Schüler importieren"
 			},
 			"label": {
-				"sendRegistrationLinkToStudent": "Registrierungslink an Schüler senden"
+				"sendRegistrationLinkToStudent": "Registrierungslink an Schüler:innen senden"
 			},
 			"text": {
 				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
-				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler ohne vollständige Einverständniserklärung:",
+				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler:innen ohne vollständige Einverständniserklärung:",
 				"parentsAgreed": "Eltern haben zugestimmt"
 			}
 		},
 		"teachers": {
 			"button": {
-				"addTeacher": "Lehrer hinzufügen",
-				"importTeacher": "Lehrer importieren",
-				"sendLinksToTeacherEmail": "Links an Lehrer E-Mail Adressen senden"
+				"addTeacher": "Lehrer:in hinzufügen",
+				"importTeacher": "Lehrer:in importieren",
+				"sendLinksToTeacherEmail": "Links an E-Mail Adressen der Lehrer:innen senden"
 			},
 			"label": {
-				"inviteTeachersViaLink": "Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.",
+				"inviteTeachersViaLink": "Lade Lehrer:innen per Link dazu ein, die Einverständniserklärung abzugeben.",
 				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
-				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden"
+				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer:innen senden"
 			}
 		},
 		"teams": {
@@ -284,7 +284,7 @@
 			},
 			"label": {
 				"selectAnAdditionalOwner": "Wähle hier einen zusätzlichen Eigentümer für das Team aus:",
-				"studentsAreAllowedToCreateTeam": "Schülern ist erlaubt Teams anzulegen"
+				"studentsAreAllowedToCreateTeam": "Schüler:innen ist es erlaubt Teams anzulegen"
 			},
 			"text": {
 				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
