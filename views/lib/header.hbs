@@ -7,20 +7,20 @@
 			<ul class="nav">
 				{{#ifEnv "FEATURE_MINT_PAGES_ENABLED" "true"}}
 				<li>
-					<a class="nav-link" href="/mint-ec/willkommenspaket">Erste Schritte</a>
+					<a class="nav-link" href="/mint-ec/willkommenspaket">{{$t "home.header.link.firstSteps"}}</a>
 				</li>
 				{{/ifEnv}}
 				<li>
-					<a class="nav-link" href="/about">Über das Projekt</a>
+					<a class="nav-link" href="/about">{{$t "home.header.link.aboutUs"}}</a>
 				</li>
 				<li>
-					<a class="nav-link" href="https://blog.schul-cloud.org/" target="scblog">Blog</a>
+					<a class="nav-link" href="https://blog.schul-cloud.org/" target="scblog">{{$t "home.header.link.blog"}}</a>
 				</li>
 				<li>
-					<a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank" rel="noopener">FAQ</a>
+					<a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank" rel="noopener">{{$t "home.header.link.faq"}}</a>
 				</li class="hidden-xs-down">
 				<li class="hidden-xs-down">
-					<a class="btn btn-sm btn-outline btn-primary" href="/community" style="margin-left: 8px;">Registrieren</a>
+					<a class="btn btn-sm btn-outline btn-primary" href="/community" style="margin-left: 8px;">{{$t "home.header.link.register"}}</a>
 				</li>
 				<li class="hidden-xs-down">
 					<a class="btn btn-sm btn-primary" href="/login" style="margin-left: 4px;" data-testid="login-btn">
