@@ -604,7 +604,8 @@
 				"blog": "Blog",
 				"faq": "FAQ",
 				"firstSteps": "Erste Schritte",
-				"register" : "Registrieren"
+				"register" : "Registrieren",
+				"login": "Login"
 			}
 		},
 		"headline": {
