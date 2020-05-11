@@ -810,10 +810,9 @@
 			},
 			"link": {
 				"aboutTheProject": "Über das Projekt",
-				"dataProtection": "Datenschutzerklärung ",
+				"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
 				"imprint": "Impressum",
-				"perticipate": "Mitmachen",
-				"termsOfUse": "Nutzungsordnung"
+				"perticipate": "Mitmachen"
 			}
 		},
 		"header": {
