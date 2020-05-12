@@ -348,7 +348,6 @@
 				"chooseAFile": "Datei auswählen",
 				"endSchoolYear": "Schuljahr beenden",
 				"endTransferPhase": "Transferphase beenden",
-				"save": "Speichern",
 				"start": "starten"
 			},
 			"label": {
@@ -1311,7 +1310,6 @@
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
 			"print": "Drucken",
-			"save": "Speichern und Abschicken",
 			"toClass": "Zum Kurs",
 			"toTheCourseFiles": "Zu den Kursdateien"
 		},
