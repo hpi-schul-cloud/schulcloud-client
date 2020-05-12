@@ -106,8 +106,10 @@
 			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
 		}
 	},
-	"community":{
-		"title": "Jetzt mitmachen!"
+	"community": {
+		"heading": {
+			"joinNow": "Jetzt mitmachen!"
+		}
 	},
 	"content": {
 		"button": {
