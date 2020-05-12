@@ -109,6 +109,7 @@
 			},
 			"text": {
 				"andTo": "und zur",
+				"className": "Klassenname:",
 				"attentionIfYouChangeTheSchoolYear": "Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.",
 				"butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
 				"byClickingOn": "Durch den Klick auf",
