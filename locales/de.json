@@ -37,17 +37,17 @@
 			"startM2018": "(Start Mai 2018)"
 		}
 	},
-	"account" : {
-		"global" :{
-			"label":{
-				"thirdPartyLogins" : "Drittanbieter-Logins"
+	"account": {
+		"global": {
+			"label": {
+				"thirdPartyLogins": "Drittanbieter-Logins"
 			}
 		},
-		"label" : {
-			"providers" : "Anbieter"
+		"label": {
+			"providers": "Anbieter"
 		},
-		"text" : {
-			"noThirdPartyProvidersUsed" : "Keine Drittanbieter genutzt"
+		"text": {
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
 		}
 	},
 	"addons": {
@@ -107,8 +107,30 @@
 		}
 	},
 	"community": {
+		"button": {
+			"allOtherSchools": "Alle anderen Schulen",
+			"germanSchoolsAbroad": "Deutsche Auslandsschulen"
+		},
 		"heading": {
+			"chooseYourState": "Wählen Sie Ihr Bundesland oder das Projekt dem Sie angehören.",
 			"joinNow": "Jetzt mitmachen!"
+		},
+		"text": {
+			"MINTECSchoolsAnd": "Hier können sich MINT-EC-Schulen und auch Schulen die keinem Länderprojekt angehören anmelden, die dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
+			"forGeneralQuestionsPleaseContact": "Bei allgemeinen Fragen kontaktieren Sie bitte folgende E-Mail-Adresse:",
+			"hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
+			"inBrandenburgTheAdmissionOfNewSchools": "In Brandenburg wird die Aufnahme neuer Schulen gemeinsam mit der DigitalAgentur Brandenburg (ILB) und dem MBJS koordiniert.",
+			"inMarch2020ZENSOSQueries": "Im März 2020 wurde über ZENSOS-Abfragen zuletzt die Notwendigkeit unserer Infrastruktur an den Schulen abgefragt.Die dadurch entstandenen Anmeldungen befinden sich aktuell in der Bearbeitung.",
+			"inNiedersachsenTheReferenceSchool": "In Niedersachsen ist das Referenzschulnetzwerk n-21 zuständig für die Aufnahme neuer Schulen.",
+			"inThuringiaTheThuringianInstitute": "In Thüringen ist das Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien (ThILLM) für die Aufnahme neuer Schulen zuständig.",
+			"justWriteAnEmailTo": "Schreiben Sie einfach eine E-Mail an",
+			"orMr": "oder Herrn Jörg Becker:",
+			"ourPartnerOfMINIECAlso": "Unser Partner der MINT-EC bietet zudem regelmäßig Webinare rund um die HPI Schul-Cloud an. Die neuen Termine finden Sie hier:",
+			"pleaseContactEither": "Kontaktieren Sie bitte entweder Frau Julia Günther:",
+			"pleaseContactTheFollowingEmailAddress": "Bitte kontaktieren Sie folgende E-Mail-Adresse, um den Registrierungsvorgang zu starten:",
+			"theCentralOfficeForSchools": "Die Zentralstelle für das Auslandsschulwesen (ZfA) unterstützt Sie im Registrierungsprozess.",
+			"youCanGetSupport": "Unterstützung bei der Einarbeitung in die Schul-Cloud und Erstellung erster Inhalte erhalten Sie hier:",
+			"youWillThenBeGiven": "Ihnen werden dann alle nötigen Infos mitgeteilt, sodass es bald losgehen kann."
 		}
 	},
 	"content": {
@@ -562,8 +584,8 @@
 	},
 	"global": {
 		"button": {
-			"accept" : "Akzeptieren",
-			"add" : "Hinzufügen",
+			"accept": "Akzeptieren",
+			"add": "Hinzufügen",
 			"cancel": "Abbrechen",
 			"close": "Schließen",
 			"delete": "Löschen",
@@ -620,7 +642,7 @@
 				"blog": "Blog",
 				"faq": "FAQ",
 				"firstSteps": "Erste Schritte",
-				"register" : "Registrieren"
+				"register": "Registrieren"
 			}
 		},
 		"headline": {
@@ -749,18 +771,18 @@
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
 		},
-		"oauth2" : {
-			"headline":{
+		"oauth2": {
+			"headline": {
 				"loginWithSchoolCloud": "Login mit Schul-Cloud"
 			},
-			"label" : {
-				"weNeedToSendThisData" : "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-				"email" : "deine E-Mail-Adresse",
-				"yourName" : "deinen Namen",
-				"openId" : "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt"
+			"label": {
+				"email": "deine E-Mail-Adresse",
+				"openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt",
+				"weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
+				"yourName": "deinen Namen"
 			},
-			"text" : {
-				"yourNameIsProtected" : "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
+			"text": {
+				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
 			}
 		},
 		"popup_resetPw": {
@@ -832,6 +854,25 @@
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
 		}
 	},
+	"teams": {
+		"_team": {
+			"edit": {
+				"label": {
+					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
+					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
+				},
+				"placeholder": {
+					"teamName": "A-Team"
+				},
+				"text": {
+					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
+				}
+			}
+		}
+	},
 	"topic": {
 		"_topic": {
 			"button": {
@@ -868,25 +909,6 @@
 		"form_share": {
 			"label": {
 				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
-			}
-		}
-	},
-	"teams": {
-		"_team": {
-			"edit": {
-				"label": {
-					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
-					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
-					"teamName": "Name des Teams"
-				},
-				"placeholder": {
-					"teamName": "A-Team"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
-				}
 			}
 		}
 	}
