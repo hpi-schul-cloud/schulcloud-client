@@ -2,8 +2,11 @@
 // eslint-disable-next-line func-names
 $(window).ready(() => {
 	function getPayload(tableRow) {
-		const json = JSON.parse(atob(tableRow.find('td[data-payload]').data('payload')));
-		return json;
+		const data = tableRow.find('td[data-payload]').data('payload');
+		const json = JSON.parse(decodeURIComponent(atob(data).split('').map((value) => {
+			return '%' + ('00' + value.charCodeAt(0).toString(16)).slice(-2);
+	}).join('')));
+	return json;
 	}
 
 	function displayModalTeamMembers(headline, content) {
