@@ -1305,6 +1305,7 @@
 			"addTask": "Aufgabe hinzufügen",
 			"archive": "Archivieren",
 			"copy": "Kopieren",
+			"downloadUngradedFiles": "Dateien unbewerteter Hausaufgaben herunterladen",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",

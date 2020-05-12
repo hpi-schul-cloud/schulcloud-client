@@ -112,7 +112,7 @@
 		"MATRIX_MESSENGER_BUNDLE": {
 			"type": "string",
 			"format": "uri",
-			"default": "https://embed.stomt.com/bundles/32a38d5dfb4ea9e7ea17/bundle.js",
+			"default": "https://embed.stomt.com/bundles/9ac7f93b23bd51c534cd/bundle.js",
 			"description": "Where to find the messenger dependencies."
 		},
 		"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
