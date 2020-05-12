@@ -1,41 +1,45 @@
 const stripHtml = require('string-strip-html');
-const { Configuration } = require('@schul-cloud/commons');
-
 
 function fetchContent() {
+	console.log('hoho')
+
 	$('.sc-blog .spinner').show();
 	$('.sc-blog .placeholder').hide();
 
-	if (Configuration.has('GHOST_PAGES_URLS')) {
-		const Array2 = Configuration.get('GHOST_API_URL');
+	const Array = [
+		'https://blog.schul-cloud.org/herzlich-willkommen/',
+		'https://blog.schul-cloud.org/explanatory-video/',
+	];
 
-		Array2.map((url) => {
-			$.ajax({
-				url,
-				type: 'GET',
-				dataType: 'json',
-				contentType: 'application/json',
-				timeout: 8000,
+	Array.forEach((url) => {
+		console.log('hoho');
+
+		$.ajax({
+			url,
+			type: 'GET',
+			dataType: 'json',
+			contentType: 'application/json',
+			timeout: 8000,
+		})
+			.done((result) => {
+				console.log(result);
+				$('.sc-blog .loading').remove();
+				$('.sc-blog .title').text(result.pages[0].title);
+				result.pages[0].html += result.pages[0].html
+					.replace(/<td>x<[/]td>/g, '<td><i class="fa fa-check"></i></td>');
+				$('.sc-blog .content').html(stripHtml(result.pages[0].html,
+					{ onlyStripTags: ['script', 'style'] }));
+				$('.sc-blog .content').css('opacity', '1');
 			})
-				.done((result) => {
-					console.log(result);
-					$('.sc-blog .loading').remove();
-					$('.sc-blog .title').text(result.pages[0].title);
-					result.pages[0].html = result.pages[0].html
-						.replace(/<td>x<[/]td>/g, '<td><i class="fa fa-check"></i></td>');
-					$('.sc-blog .content').html(stripHtml(result.pages[0].html,
-						{ onlyStripTags: ['script', 'style'] }));
-					$('.sc-blog .content').css('opacity', '1');
-				})
-				.fail(() => {
-					$('.sc-blog .spinner').hide();
-					$('.sc-blog .placeholder').show();
-				});
-		});
-	}
+			.fail(() => {
+				$('.sc-blog .spinner').hide();
+				$('.sc-blog .placeholder').show();
+			});
+	});
 }
 
 $(document).ready(() => {
+	console.log('hoho')
 	fetchContent();
 	$('.sc-blog .placeholder button').on('click', fetchContent);
 });
