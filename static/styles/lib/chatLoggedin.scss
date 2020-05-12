@@ -57,6 +57,11 @@ footer {
 		display: none;
 	}
 
+	// hide user id
+	.mx_UserInfo_profile > div:nth-child(2) {
+		display: none;
+	}
+
 	// hide reference to user Ids
 	.mx_InviteDialog_helpText {
 		display: none;
@@ -67,7 +72,9 @@ footer {
 		display: none;
 	}
 
-	.mx_MemberInfo_container {
+	.mx_MemberInfo_container,
+	.mx_UserInfo {
+		#container-security,
 		#headline-user-options,
 		#headline-admin-tools {
 			display: none;
@@ -408,6 +415,10 @@ footer {
 	.mx_TabbedView_tabLabels {
 		width: 200px;
 		min-width: 200px;
+	}
+
+	.mx_UserInfo .mx_UserInfo_avatar>div {
+		max-width: 20vh;
 	}
 
 
