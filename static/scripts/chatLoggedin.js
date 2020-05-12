@@ -54,6 +54,7 @@ function addMatrixchatElement(session) {
 	const riotBox = document.createElement('section');
 	riotBox.id = 'matrixchat';
 	riotBox.dataset.vectorIndexeddbWorkerScript = '/indexeddb-worker.js';
+	riotBox.dataset.vectorBundleScript = window.matrixBundle;
 	riotBox.dataset.vectorConfig = '/riot_config.json';
 	riotBox.dataset.vectorForceToggled = 'true';
 	riotBox.dataset.matrixLang = window.userLanguage || 'de';
@@ -75,12 +76,8 @@ function addMatrixchatElement(session) {
 
 function loadMessengerBundle() {
 	// load javascript
-	const bundle = window.matrixBundle;
-	if (!bundle) {
-		throw new Error('window.matrixBundle has to be defined.');
-	}
 	const riotScript = document.createElement('script');
-	riotScript.src = bundle;
+	riotScript.src = window.matrixBundle;
 	riotScript.type = 'text/javascript';
 	document.head.appendChild(riotScript);
 }
@@ -107,6 +104,9 @@ async function initializeMessenger() {
 		session = await requestSession();
 	}
 
+	if (!window.matrixBundle) {
+		throw new Error('window.matrixBundle has to be defined.');
+	}
 	addMatrixchatElement(session);
 	loadMessengerBundle();
 }
