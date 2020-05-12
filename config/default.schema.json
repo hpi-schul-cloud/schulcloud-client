@@ -141,6 +141,16 @@
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
 		},
+		"GHOST_PAGES_URLS": {
+			"type": "array",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
+			"description": "Content Array of URLS of ghost blogs",
+			"enum": [
+				"https://blog.schul-cloud.org/herzlich-willkommen/",
+				"https://blog.schul-cloud.org/explanatory-video/"
+			]
+		},
 		"SENTRY_DSN": {
 			"type": "string",
 			"format": "uri",
