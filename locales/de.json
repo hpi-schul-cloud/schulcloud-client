@@ -113,6 +113,8 @@
 		"button": {
 			"choose": "Wähle..."
 		},
+		"global": {
+		},
 		"label": {
 			"chooseACourse": "Wähle einen Kurs / Fach",
 			"chooseALessonTopic": "Wähle ein Unterrichtsthema"
