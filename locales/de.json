@@ -784,6 +784,8 @@
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
 		}
 	},
+	"my_material": {
+	},
 	"news": {
 		"button": {
 			"addNews": "News hinzufügen"
