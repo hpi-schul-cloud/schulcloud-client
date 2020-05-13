@@ -40,15 +40,18 @@ router.get('/', (req, res, next) => {
 	if (currentTimePercentage < 0) currentTimePercentage = 0;
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
-	const eventsPromise = api(req).get('/calendar/', {
+	const eventsPromise = api(req)
+	.get('/calendar/', {
 		qs: {
 			all: 'false',
 			from: start.toLocalISOString(),
 			until: end.toLocalISOString(),
 		},
-	}).then((eve) => Promise.all(
+	})
+	.then((eve) => Promise.all(
 		eve.map((event) => recurringEventsHelper.mapEventProps(event, req)),
-	).then((evnts) => {
+	)
+	.then((evnts) => {
 		// because the calender service is *§$" and is not
 		// returning recurring events for a given time period
 		// now we have to load all events from the beginning of time
@@ -110,7 +113,8 @@ router.get('/', (req, res, next) => {
 
 			return event;
 		});
-	})).catch(() => []);
+	}))
+	.catch(() => []);
 
 	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req)
