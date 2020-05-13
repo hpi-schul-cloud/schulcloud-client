@@ -1,19 +1,16 @@
 const stripHtml = require('string-strip-html');
 
 function fetchContent() {
-	console.log('hoho')
-
+	let finalHtml = '';
 	$('.sc-blog .spinner').show();
 	$('.sc-blog .placeholder').hide();
 
 	const Array = [
-		'https://blog.schul-cloud.org/herzlich-willkommen/',
-		'https://blog.schul-cloud.org/explanatory-video/',
+		'/ghost/herzlich-willkommen/',
+		'/ghost/explanatory-video/',
 	];
 
-	Array.forEach((url) => {
-		console.log('hoho');
-
+	Array.forEach((url, index) => {
 		$.ajax({
 			url,
 			type: 'GET',
@@ -22,14 +19,19 @@ function fetchContent() {
 			timeout: 8000,
 		})
 			.done((result) => {
-				console.log(result);
 				$('.sc-blog .loading').remove();
-				$('.sc-blog .title').text(result.pages[0].title);
-				result.pages[0].html += result.pages[0].html
-					.replace(/<td>x<[/]td>/g, '<td><i class="fa fa-check"></i></td>');
-				$('.sc-blog .content').html(stripHtml(result.pages[0].html,
-					{ onlyStripTags: ['script', 'style'] }));
-				$('.sc-blog .content').css('opacity', '1');
+				if (index === 0) {
+					$('.sc-blog .title').text(result.pages[0].title);
+				}
+
+				finalHtml += result.pages[0].html;
+				if (index === Array.length - 1) {
+					finalHtml = finalHtml
+						.replace(/<td>x<[/]td>/g, '<td><i class="fa fa-check"></i></td>');
+					$('.sc-blog .content').html(stripHtml(finalHtml,
+						{ onlyStripTags: ['script', 'style'] }));
+					$('.sc-blog .content').css('opacity', '1');
+				}
 			})
 			.fail(() => {
 				$('.sc-blog .spinner').hide();
@@ -39,7 +41,6 @@ function fetchContent() {
 }
 
 $(document).ready(() => {
-	console.log('hoho')
 	fetchContent();
 	$('.sc-blog .placeholder button').on('click', fetchContent);
 });
