@@ -216,9 +216,17 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 		Object.assign(user, existingUser);
 	}
 
+	let needConsent = true;
+	let sectionNumber = 5;
+
 	let roleText;
 	if (req.params.byRole === 'byemployee') {
 		roleText = 'Lehrer*/Admins*';
+		if (!Configuration.get('SKIP_CONDITIONS_CONSENT').includes('teacher')
+		|| !Configuration.get('SKIP_CONDITIONS_CONSENT').includes('admin')) {
+			needConsent = false;
+			sectionNumber = 4;
+		}
 	} else {
 		delete user.firstName;
 		delete user.lastName;
@@ -229,6 +237,8 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 		title: `Registrierung - ${roleText}`,
 		hideMenu: true,
 		user,
+		needConsent,
+		sectionNumber,
 		invalid,
 	});
 });

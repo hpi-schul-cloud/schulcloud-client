@@ -34,7 +34,8 @@ function getMaxSelectionIndex() {
 }
 function getSelectionIndex() {
 	const radioButtons = document.querySelectorAll('.form input[type=radio]');
-	return radioButtons.indexOf(radioButtons.filter(node => node.checked)[0]) + 1;
+	const currentSelection = radioButtons.indexOf(radioButtons.filter((node) => node.checked)[0]) + 1;
+	return currentSelection < 1 ? 1 : currentSelection;
 }
 function showInvalid(sectionNr) {
 	document.querySelectorAll('form .panels > section[data-panel]')[sectionNr - 1].classList.add('show-invalid');
