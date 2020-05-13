@@ -57,9 +57,11 @@ const editCourseGroupHandler = (req, res, next) => {
 			courseGroup,
 			courseId,
 			students: markSelected(students, _.map(courseGroup.userIds, '_id')),
-			title: req.params.courseGroupId ? 'Schülergruppe bearbeiten' : 'Schülergruppe anlegen',
-			submitLabel: req.params.courseGroupId ? 'Änderungen speichern' : 'Schülergruppe anlegen',
-			closeLabel: 'Abbrechen',
+			title: req.params.courseGroupId ? res.$t('courses._course.groups.headline.editGroup') 
+											: res.$t('courses._course.groups.headline.addGroup'),
+			submitLabel: req.params.courseGroupId ? res.$t('global.button.saveChanges') 
+												  : res.$t('courses._course.groups.button.addGroup'),
+			closeLabel: res.$t('global.button.cancel'),
 		});
 	}).catch(next);
 };

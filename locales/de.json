@@ -235,6 +235,7 @@
 					},
 					"headline": {
 						"doneGroupTasks": "getätigte Gruppenabgaben",
+						"homework": "Hausaufgabe: {{name}}",
 						"openGroupTasks": "offene (mögliche) Gruppenabgaben",
 						"topics": "Themen"
 					},
@@ -253,10 +254,13 @@
 					}
 				},
 				"button": {
+					"addGroup": "Schülergruppe anlegen",
 					"createNewGroup": "Erstelle eine neue Gruppe"
 				},
 				"headline": {
+					"addGroup": "Schülergruppe anlegen",
 					"createGroup": "Erstelle eine Gruppe",
+					"editGroup": "Schülergruppe bearbeiten",
 					"myStudentGroups": "Meine Schüler:innengruppen",
 					"noGroups": "Es gibt keine Gruppen in diesem Kurs.",
 					"noGroupsYet": "Es gibt noch keine Gruppen in diesem Kurs.",
@@ -696,34 +700,34 @@
 		},
 		"sidebar": {
 			"link": {
+				"addons": "Add-ons",
 				"administration": "Administration",
-				"administrationStudents" : "Schüler",
-				"administrationTeachers" : "Lehrer",
-				"administrationCourses" : "Kurse",
-				"administrationClasses" : "Klassen",
-				"administrationTeams" : "Teams",
-				"administrationSchools" : "Schule",
+				"administrationClasses": "Klassen",
+				"administrationCourses": "Kurse",
+				"administrationSchools": "Schule",
+				"administrationStudents": "Schüler",
+				"administrationTeachers": "Lehrer",
+				"administrationTeams": "Teams",
 				"calendar": "Termine",
 				"courses": "Kurse",
 				"files": "Meine Dateien",
-				"filesPersonal" : "persönliche Dateien",
-				"filesCourse" : "Kurse",
-				"filesShared" : "geteilte Dateien",
-				"helpDesk" : "Helpdesk",
+				"filesCourse": "Kurse",
+				"filesPersonal": "persönliche Dateien",
+				"filesShared": "geteilte Dateien",
+				"helpDesk": "Helpdesk",
 				"lernstore": "Lern-Store",
 				"management": "Verwaltung",
 				"managementClasses": "Klassen",
 				"managementStudents": "Schüler:innen",
 				"managementTeachers": "Lehrer:innen",
+				"myMaterial": "Meine Materialien",
 				"news": "Neuigkeiten",
 				"overview": "Übersicht",
 				"tasks": "Aufgaben",
-				"tasksAsked" : "Gestellte Aufgaben",
-				"tasksDrafts" : "Entwürfe",
-				"tasksArchive" : "Archiv",
-				"addons" : "Add-ons",
-				"myMaterial" : "Meine Materialien",
-				"teams" : "Teams"
+				"tasksArchive": "Archiv",
+				"tasksAsked": "Gestellte Aufgaben",
+				"tasksDrafts": "Entwürfe",
+				"teams": "Teams"
 			}
 		},
 		"text": {
@@ -915,8 +919,8 @@
 		},
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
-			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
-			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
+			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 		}
 	},
 	"news": {
