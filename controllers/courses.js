@@ -895,7 +895,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 					message: res.$t("courses._course.topic.text.noTopicFoundWithCode"),
 				};
 
-				res.redirect(req.header('Referer'));
+				redirectHelper.safeBackRedirect(req, res);
 			}
 
 			api(req)
@@ -907,7 +907,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 					},
 				})
 				.then(() => {
-					res.redirect(req.header('Referer'));
+					redirectHelper.safeBackRedirect(req, res);
 				});
 		})
 		.catch(err => res.status(err.statusCode || 500).send(err));

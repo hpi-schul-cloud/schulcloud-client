@@ -92,7 +92,7 @@ router.post('/', fileUpload({
 				message:
                 'Feedback erfolgreich versendet!',
 			};
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		}).catch((err) => {
 			req.session.notification = {
 				type: 'danger',
@@ -100,7 +100,7 @@ router.post('/', fileUpload({
                 'Fehler beim Senden des Feedbacks.',
 			};
 			logger.warn(err);
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		});
 });
 

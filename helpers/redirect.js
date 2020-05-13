@@ -25,6 +25,18 @@ const getValidRedirect = (redirectUrl) => {
 	return encodeURI(sanitizeUrl(targetUrl.path));
 };
 
+/**
+ * Perform a safe redirect to the referer header of the request
+ * @param {Object} req Express request object
+ * @param {Object} res Express response object
+ * @param {string} [appendage=''] string that should be attached to the redirect
+ */
+const safeBackRedirect = (req, res, appendage = '') => {
+	const location = req.body.referrer || req.header('Referer') || '/';
+	return res.redirect(getValidRedirect(location) + appendage);
+};
+
 module.exports = {
 	getValidRedirect,
+	safeBackRedirect,
 };

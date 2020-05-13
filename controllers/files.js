@@ -984,7 +984,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
 				message: 'Umbenennen der Datei war erfolgreich!',
 			};
 
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((e) => {
 			req.session.notification = {
@@ -994,7 +994,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
 					: e.error.message,
 			};
 
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		});
 });
 
@@ -1011,7 +1011,7 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 				message: 'Umbenennen des Ordners war erfolgreich!',
 			};
 
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((e) => {
 			req.session.notification = {
@@ -1021,7 +1021,7 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 					: e.error.message,
 			};
 
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		});
 });
 

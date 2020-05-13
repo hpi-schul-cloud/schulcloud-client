@@ -13,6 +13,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
+const redirectHelper = require('../helpers/redirect');
 const queryString = require('querystring');
 
 const router = express.Router();
@@ -319,7 +320,7 @@ const generateRegistrationLink = (params, internalReturn) => function registrati
           Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.
           ${(err.error || {}).message || err.message || err || ''}`,
 			};
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		});
 };
 
@@ -368,7 +369,7 @@ ${res.locals.theme.short_title}-Team`,
 					message:
 						'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.',
 				};
-				return res.redirect(req.header('Referer'));
+				return redirectHelper.safeBackRedirect(req, res);
 			})
 			.catch((err) => {
 				if (internalReturn) return false;
@@ -378,7 +379,7 @@ ${res.locals.theme.short_title}-Team`,
             Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.
             ${(err.error || {}).message || err.message || err || ''}`,
 				};
-				return res.redirect(req.header('Referer'));
+				return redirectHelper.safeBackRedirect(req, res);
 			});
 	}
 	if (internalReturn) return true;
@@ -386,7 +387,7 @@ ${res.locals.theme.short_title}-Team`,
 		type: 'success',
 		message: 'Nutzer erfolgreich erstellt.',
 	};
-	return res.redirect(req.header('Referer'));
+	return redirectHelper.safeBackRedirect(req, res);
 
 	/* deprecated code for template-based e-mails - we keep that for later copy&paste
     fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
@@ -434,7 +435,7 @@ const getUserCreateHandler = internalReturn => function userCreate(req, res, nex
 				type: 'success',
 				message: 'Nutzer erfolgreich erstellt.',
 			};
-			return res.redirect(req.header('Referer'));
+			return redirectHelper.safeBackRedirect(req, res);
 
 			/*
             createEventsForData(data, service, req, res).then(_ => {
@@ -449,7 +450,7 @@ const getUserCreateHandler = internalReturn => function userCreate(req, res, nex
 				message: `Fehler beim Erstellen des Nutzers. ${err.error.message
 					|| ''}`,
 			};
-			return res.redirect(req.header('Referer'));
+			return redirectHelper.safeBackRedirect(req, res);
 		});
 };
 
@@ -499,7 +500,7 @@ const getSendHelper = service => function send(req, res, next) {
 				.catch((err) => {
 					res.status(err.statusCode || 500).send(err);
 				});
-			res.redirect(req.get('Referrer'));
+			redirectHelper.safeBackRedirect(req, res);
 		});
 };
 
@@ -551,7 +552,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			"toast-type": "success",
 			"toast-message": encodeURIComponent(message)
 		});
-		res.redirect((req.body.referrer || req.header('Referer')) + '/?' + query);
+		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 		return;
 	} catch (err) {
 		let message = 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.';
@@ -563,7 +564,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			"toast-type": "error",
 			"toast-message": encodeURIComponent(message)
 		});
-		res.redirect((req.body.referrer || req.header('Referer')) + '/?' + query);
+		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 	}
 };
 
@@ -605,7 +606,7 @@ const getDeleteHandler = (service, redirectUrl) => function deleteHandler(req, r
 			if (redirectUrl) {
 				res.redirect(redirectUrl);
 			} else {
-				res.redirect(req.header('Referer'));
+				redirectHelper.safeBackRedirect(req, res);
 			}
 		})
 		.catch((err) => {
@@ -706,7 +707,7 @@ const createBucket = (req, res, next) => {
 			}),
 		])
 			.then(() => {
-				res.redirect(req.header('Referer'));
+				redirectHelper.safeBackRedirect(req, res);
 			})
 			.catch((err) => {
 				next(err);
@@ -740,7 +741,7 @@ const userIdtoAccountIdUpdate = service => function useIdtoAccountId(req, res, n
 						type: 'success',
 						message: 'Änderungen erfolgreich gespeichert.',
 					};
-					res.redirect(req.header('Referer'));
+					redirectHelper.safeBackRedirect(req, res);
 				})
 				.catch((err) => {
 					next(err);
@@ -845,7 +846,7 @@ const skipRegistration = (req, res, next) => {
 			type: 'danger',
 			message: 'Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ',
 		};
-		res.redirect(req.header('Referer'));
+		redirectHelper.safeBackRedirect(req, res);
 	});
 };
 
@@ -940,7 +941,7 @@ const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, r
 	// do all db requests
 	Promise.all(promises)
 		.then(() => {
-			res.redirect(req.body.referrer);
+			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
 			next(err);
@@ -1225,7 +1226,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 
 	Promise.all(promises)
 		.then(() => {
-			res.redirect(req.body.referrer);
+			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
 			next(err);
@@ -1652,7 +1653,7 @@ const skipRegistrationClass = async (req, res, next) => {
 			type: 'danger',
 			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
 		};
-		res.redirect(req.body.referrer);
+		redirectHelper.safeBackRedirect(req, res);
 		return;
 	}
 	// fallback if only one user is supposed to be edited
@@ -1668,7 +1669,7 @@ const skipRegistrationClass = async (req, res, next) => {
 			type: 'danger',
 			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
 		};
-		res.redirect(req.body.referrer);
+		redirectHelper.safeBackRedirect(req, res);
 		return;
 	}
 	const changePromises = userids.map(async (userid, i) => {
@@ -1700,7 +1701,7 @@ const skipRegistrationClass = async (req, res, next) => {
 			type: 'danger',
 			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
 		};
-		res.redirect(req.body.referrer);
+		redirectHelper.safeBackRedirect(req, res);
 	});
 };
 
@@ -2038,7 +2039,7 @@ router.post(
 				json: changedClass,
 			})
 			.then(() => {
-				res.redirect(req.body.referrer);
+				redirectHelper.safeBackRedirect(req, res);
 			})
 			.catch((err) => {
 				next(err);
@@ -2155,7 +2156,7 @@ router.post(
 				json: changedClass,
 			})
 			.then(() => {
-				res.redirect(req.body.referrer);
+				redirectHelper.safeBackRedirect(req, res);
 			})
 			.catch(next);
 	},
@@ -2172,7 +2173,7 @@ router.patch(
 				json: req.body,
 			})
 			.then(() => {
-				res.redirect(req.header('Referer'));
+				redirectHelper.safeBackRedirect(req, res);
 			})
 			.catch(next);
 	},
@@ -2362,7 +2363,7 @@ const getDisableHandler = service => function diasableHandler(req, res, next) {
 			},
 		})
 		.then(() => {
-			res.redirect(req.get('Referrer'));
+			redirectHelper.safeBackRedirect(req, res);
 		});
 };
 

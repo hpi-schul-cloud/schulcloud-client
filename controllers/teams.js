@@ -7,6 +7,7 @@ const moment = require('moment');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
+const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
 
@@ -1324,7 +1325,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 					message: 'Es wurde kein Thema für diesen Code gefunden.',
 				};
 
-				res.redirect(req.header('Referer'));
+				redirectHelper.safeBackRedirect(req, res);
 			}
 
 			api(req)
@@ -1336,7 +1337,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 					},
 				})
 				.then(() => {
-					res.redirect(req.header('Referer'));
+					redirectHelper.safeBackRedirect(req, res);
 				});
 		})
 		.catch(err => res.status(err.statusCode || 500).send(err));
