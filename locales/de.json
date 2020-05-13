@@ -119,10 +119,23 @@
 				"chooseALessonTopic": "Wähle ein Unterrichtsthema"
 			}
 		},
+		"form_external_link": {
+			"text": {
+				"anExternalProvider": "einem externen Anbieter",
+				"forwarded": "weitergeleitet.",
+				"youWillBeOnTheSide": "Sie werden auf die Seite von"
+			}
+		},
 		"global": {
 			"button": {
 				"filterAdd": "Filter hinzufügen",
 				"filterApply": "Übernehmen"
+			}
+		},
+		"item": {
+			"text": {
+				"contentNotAvailable": "Inhalt aus Lizenzgründen im Demomodus nicht verfügbar.",
+				"report": "melden"
 			}
 		},
 		"store": {
