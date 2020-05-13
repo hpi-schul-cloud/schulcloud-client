@@ -1,6 +1,6 @@
 const stripHtml = require('string-strip-html');
 
-async function fetchContent() {
+function fetchContent() {
 	let finalHtml = '';
 	$('.sc-blog .spinner').show();
 	$('.sc-blog .placeholder').hide();
@@ -18,7 +18,7 @@ async function fetchContent() {
 		$('.sc-blog .content').css('opacity', '1');
 	};
 
-	const bar = new Promise((resolve, reject) => {
+	const promiseFunc = new Promise((resolve, reject) => {
 		Array.forEach((url, index) => {
 			$.ajax({
 				url,
@@ -41,7 +41,7 @@ async function fetchContent() {
 				});
 		});
 	});
-	bar.then(() => {
+	promiseFunc.then(() => {
 		changePage();
 	});
 }
