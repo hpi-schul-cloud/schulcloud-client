@@ -109,10 +109,10 @@
 			"default": false,
 			"description": "If enabled, adds support for matrix messenger"
 		},
-		"MATRIX_MESSENGER_BUNDLE": {
+		"MATRIX_MESSENGER_ASSET_DOMAIN": {
 			"type": "string",
 			"format": "uri",
-			"default": "https://embed.stomt.com/bundles/b695ee39d076c200ee2f/bundle.js",
+			"default": "https://embed.stomt.com/",
 			"description": "Where to find the messenger dependencies."
 		},
 		"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
