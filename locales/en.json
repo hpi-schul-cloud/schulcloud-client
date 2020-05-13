@@ -35,5 +35,10 @@
 				"tasks": "Tasks"
 			}
 		}
+	},
+	"homework": {
+		"button": {
+			"downloadUngradedFiles": "Download files of ungraded homework"
+		}
 	}
 }
