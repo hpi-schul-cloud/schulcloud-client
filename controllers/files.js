@@ -13,6 +13,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
 const { LIBRE_OFFICE_CLIENT_URL, PUBLIC_BACKEND_URL, FEATURE_TEAMS_ENABLED } = require('../config/global');
 
