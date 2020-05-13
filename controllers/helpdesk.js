@@ -4,6 +4,7 @@ const router = express.Router();
 const logger = require('winston');
 const fileUpload = require('express-fileupload');
 const UAParser = require('ua-parser-js');
+const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
 

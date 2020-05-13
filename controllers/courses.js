@@ -8,6 +8,7 @@ const { EDITOR_URL } = require('../config/global');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
+const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger'];

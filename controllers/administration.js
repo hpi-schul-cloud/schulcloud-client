@@ -804,7 +804,6 @@ const parseDate = (input) => {
 };
 
 
-
 const skipRegistration = (req, res, next) => {
 	const userid = req.params.id;
 	const {
