@@ -11,7 +11,7 @@
     {{/content}}
     {{#content "page" mode="prepend"}}
 			{{#ifConfig "STUDENT_TEAM_CREATION" "disabled"}}
-			<label>Schüler:innen dürfen keine Teams anlegen. Diese Funktionalität ist im zentralen Verzeichnis systemweit deaktiviert und kann nicht aktiviert werden.</label>
+			<label>Schüler:innen können keine Teams anlegen. Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.</label>
 			{{else}}
 			{{#ifConfig "STUDENT_TEAM_CREATION" "enabled"}}
 				<label>Schüler:innen können Teams anlegen. Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.</label>
