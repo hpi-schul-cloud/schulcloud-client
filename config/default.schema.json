@@ -156,7 +156,7 @@
 		"SKIP_CONDITIONS_CONSENT": {
 			"type": "string",
 			"default": "student",
-			"description": "A string with concatenated user types (student, teacher, admin, expert) that don't need to explicitly state their consent with the terms and conditions"
+			"description": "A string with concatenated user types (student, employee) that don't need to explicitly state their consent with the terms and conditions. "employee" means teachers and admins"
 		},
 		"COOKIE": {
 			"type": "object",

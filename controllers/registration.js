@@ -222,8 +222,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 	let roleText;
 	if (req.params.byRole === 'byemployee') {
 		roleText = 'Lehrer*/Admins*';
-		if (!Configuration.get('SKIP_CONDITIONS_CONSENT').includes('teacher')
-		|| !Configuration.get('SKIP_CONDITIONS_CONSENT').includes('admin')) {
+		if (!Configuration.get('SKIP_CONDITIONS_CONSENT').includes('employee')) {
 			needConsent = false;
 			sectionNumber = 4;
 		}
