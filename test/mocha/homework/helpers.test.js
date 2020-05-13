@@ -1,11 +1,10 @@
-'use strict';
-
 const chai = require('chai');
-const expect = chai.expect;
+
+const { expect } = chai;
 
 const { isGraded, getGradingFileName, getGradingFileDownloadPath } = require('../../../helpers/homework');
 
-describe('Homework helpers', function () {
+describe('Homework helpers', () => {
 	describe('isGraded', () => {
 		const basicSubmission = { createdAt: 'just now', comment: 'See file', fileIds: ['ObjectId(123abc)'] };
 

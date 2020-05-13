@@ -25,14 +25,14 @@ function isSubmissionGradeUpload() {
 	// Uses the fact that the page can only ever contain one file upload form,
 	// either nested in the submission or the comment tab. And if it is in the
 	// comment tab, then it is the submission grade upload
-	return $('#comment .section-upload').length > 0
+	return $('#comment .section-upload').length > 0;
 }
 
 $(document).on('pageload', () => {
-	MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+	MathJax.Hub.Queue(['Typeset', MathJax.Hub]); // eslint-disable-line no-undef
 });
 
-function archiveTask(e){
+function archiveTask(e) {
 	e.preventDefault();
 	e.stopPropagation();
 	// loading animation
@@ -58,7 +58,7 @@ function archiveTask(e){
 	});
 	return false;
 }
-function importSubmission(e){
+function importSubmission(e) {
 	e.preventDefault();
 	const submissionid = this.getAttribute("data");
 	this.disabled = true;
@@ -143,19 +143,20 @@ $(document).ready(() => {
 		}
 	}
 
-	function ajaxForm(element, after, contentTest){
+	function ajaxForm(element, after, contentTest) {
 		const submitButton = element.find('[type=submit]')[0];
 		let submitButtonText = submitButton.innerHTML || submitButton.value;
-		submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)',"");
-		submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
+		submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)', '');
+		// eslint-disable-next-line max-len
+		submitButton.innerHTML = `${submitButtonText} <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>`;
 		submitButton.disabled = true;
-		const submitButtonStyleDisplay = submitButton.getAttribute("style");
-		submitButton.style["display"]="inline-block";
+		const submitButtonStyleDisplay = submitButton.getAttribute('style');
+		submitButton.style.display = 'inline-block';
 
-		const url     = element.attr("action");
-		const method  = element.attr("method");
+		const url = element.attr('action');
+		const method = element.attr('method');
 		// update value of ckeditor instances
-		let ckeditorInstance = element.find('textarea.customckeditor').attr("id");
+		let ckeditorInstance = element.find('textarea.customckeditor').attr('id');
 		if (ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement();
 		const content = element.serialize();
 		if(contentTest){
@@ -228,7 +229,7 @@ $(document).ready(() => {
 	//validate teamMembers
 	var lastTeamMembers = null;
 	const maxTeamMembers = parseInt($("#maxTeamMembers").html());
-    $('select#teamMembers').change(function(event) {
+	$('select#teamMembers').change(function(event) {
 		if ($(this).val().length > maxTeamMembers) {
 			$(this).val(lastTeamMembers);
 			$.showNotification("Die maximale Teamgröße beträgt " + maxTeamMembers + " Mitglieder", "warning", 5000);
@@ -238,7 +239,7 @@ $(document).ready(() => {
 		$(this).chosen().trigger("chosen:updated");
 	});
 
-    $('select#teamMembers').chosen().change(function(event, data) {
+	$('select#teamMembers').chosen().change(function(event, data) {
 		if(data.deselected && data.deselected == $('.owner').val()){
 			$(".owner").prop('selected', true);
 			$('#teamMembers').trigger("chosen:updated");
@@ -353,8 +354,8 @@ $(document).ready(() => {
 			this.on("success", function (file, response) {
 				finishedFilesSize += file.size;
 
-                const parentId = getCurrentParent();
-                const params = {
+				const parentId = getCurrentParent();
+				const params = {
 					name: file.name,
 					owner: getOwnerId(),
 					type: file.type,
@@ -372,13 +373,13 @@ $(document).ready(() => {
 					// add submitted file reference to submission
 					// hint: this only runs when an submission is already existing. if not, the file submission will be
 					// only saved when hitting the save button in the corresponding submission form
-                    const submissionId = $("input[name='submissionId']").val();
-                    const homeworkId = $("input[name='homeworkId']").val();
+					const submissionId = $("input[name='submissionId']").val();
+					const homeworkId = $("input[name='homeworkId']").val();
 
-                    const teamMembers = getTeamMemberIds();
+					const teamMembers = getTeamMemberIds();
 					if (submissionId) {
 						const associationType = isSubmissionGradeUpload() ? 'grade-files' : 'files'
-                        associateFileWithSubmission({ submissionId, fileId: data._id, associationType, teamMembers });
+						associateFileWithSubmission({ submissionId, fileId: data._id, associationType, teamMembers });
 					} else {
 						addNewUploadedFile($('.js-file-list'), data);
 
