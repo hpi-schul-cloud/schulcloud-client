@@ -39,7 +39,7 @@ const login = (app, user, pass) => {
 	const agent = chai.request.agent(app); // create agent for storing cookies
 
 	const userLogin = user || SC_DEMO_USER_NAME;
-	const userPasswrod = pass || SC_DEMO_USER_PASSWORD;
+	const userPassword = pass || SC_DEMO_USER_PASSWORD;
 
 	return new Promise((resolve, reject) => {
 		getCsrfToken(agent).then(({ csrf }) => {
@@ -48,7 +48,7 @@ const login = (app, user, pass) => {
 				.redirects(2)
 				.send({
 					username: userLogin,
-					password: userPasswrod,
+					password: userPassword,
 					_csrf: csrf,
 				})
 				.end((err, res) => {
@@ -67,8 +67,8 @@ const login = (app, user, pass) => {
 						.post('/firstLogin/submit')
 						.send({
 							'student-email': userLogin,
-							'password-1': userPasswrod,
-							'password-2': userPasswrod,
+							'password-1': userPassword,
+							'password-2': userPassword,
 							_csrf: csrf,
 						})
 						.end((err, resFirstLogin) => {
