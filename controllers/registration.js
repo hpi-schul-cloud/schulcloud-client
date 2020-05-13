@@ -1,4 +1,5 @@
 const express = require('express');
+const { Configuration } = require('@schul-cloud/commons');
 
 const router = express.Router();
 const api = require('../api');
@@ -42,7 +43,7 @@ router.post('/registration/pincreation', (req, res, next) => {
 			},
 		}).then((result) => {
 			res.sendStatus((result || {}).status || 200);
-		}).catch(err => res.status(500).send(err));
+		}).catch((err) => res.status(500).send(err));
 	}
 	return res.sendStatus(500);
 });
@@ -141,11 +142,17 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			const existingUser = await api(req).get(`/users/linkImport/${user.importHash}`);
 			Object.assign(user, existingUser);
 		}
+
+		const needConsent = !Configuration.get('SKIP_CONDITIONS_CONSENT').includes('student');
+		const sectionNumber = needConsent ? 5 : 3;
+
 		return res.render('registration/registration-parent', {
 			title: 'Registrierung - Eltern',
 			password: authHelper.generatePassword(),
 			hideMenu: true,
 			user,
+			needConsent,
+			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 		});
@@ -174,11 +181,16 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			Object.assign(user, existingUser);
 		}
 
+		const needConsent = !Configuration.get('SKIP_CONDITIONS_CONSENT').includes('student');
+		const sectionNumber = needConsent ? 4 : 3;
+
 		return res.render('registration/registration-student', {
 			title: 'Registrierung - Schüler*',
 			password: authHelper.generatePassword(),
 			hideMenu: true,
 			user,
+			needConsent,
+			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 		});

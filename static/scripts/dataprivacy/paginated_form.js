@@ -37,7 +37,7 @@ function getSelectionIndex() {
 	return radioButtons.indexOf(radioButtons.filter(node => node.checked)[0]) + 1;
 }
 function showInvalid(sectionNr) {
-	document.querySelector(`section[data-panel="section-${sectionNr}"]`).classList.add('show-invalid');
+	document.querySelectorAll('form .panels > section[data-panel]')[sectionNr - 1].classList.add('show-invalid');
 	window.scrollTo(0, 0);
 }
 function getSubmitPageIndex() {
@@ -50,7 +50,7 @@ function isSubmitted() {
 }
 
 function updateButton(selectedIndex) {
-	const currentPage = document.querySelector(`section[data-panel="section-${selectedIndex}"]`);
+	const currentPage = document.querySelectorAll('form .panels > section[data-panel]')[selectedIndex - 1];
 	const submitPage = currentPage.classList.contains('submit-page');
 	let { nextLabel } = currentPage.dataset;
 	if (!nextLabel) {
@@ -102,11 +102,15 @@ function setSelectionByIndex(index, event) {
 				sectionIndex: getSelectionIndex(),
 			},
 		});
-		document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`).dispatchEvent(hideEvent);
+		console.log(document.querySelectorAll('form .panels > section[data-panel]'));
+		console.log('getSelectionIndex()', getSelectionIndex());
+		console.log('newIndex', newIndex);
+		document.querySelectorAll('form .panels > section[data-panel]')[getSelectionIndex() - 1]
+			.dispatchEvent(hideEvent);
 
 		document.querySelector(`.form input[type="radio"]:nth-of-type(${newIndex})`).checked = true;
 		// set keyboard focus to first focusable element in the opened section.
-		const nextSectionNode = document.querySelector(`section[data-panel="section-${newIndex}"]`);
+		const nextSectionNode = document.querySelectorAll('form .panels > section[data-panel]')[newIndex - 1];
 		const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 		const firstInput = nextSectionNode.querySelectorAll(focusableElements)[0];
 		if (firstInput) {
@@ -118,10 +122,15 @@ function setSelectionByIndex(index, event) {
 		const eventData = {
 			detail: { sectionIndex: newIndex },
 		};
-		const newSectionSelector = `section[data-panel="section-${newIndex}"]`;
+		const showEvent = new CustomEvent('showSection', {
+			detail: { sectionIndex: newIndex },
+		});
+		nextSectionNode.dispatchEvent(showEvent);
+		// const newSectionSelector = `section[data-panel="section-${newIndex}"]`;
+		// console.log('$(newSectionSelector)', $(newSectionSelector));
 		// const showEvent = new CustomEvent('showSection', eventData);
 		// document.querySelector(newSectionSelector).dispatchEvent(showEvent);
-		$(newSectionSelector).trigger('showSection', [eventData]);
+		// $(newSectionSelector).trigger('showSection', [eventData]);
 	}
 
 	function findLatestInvalid(to) {
@@ -149,6 +158,12 @@ function setSelectionByIndex(index, event) {
 			setSelection(latestInvalid);
 		}
 	}
+}
+
+function skipConsent() {
+	const skipConsentFor = 'student'; // TODO get from feature toggle
+	const role = document.querySelector('input[name="roles"]');
+	return skipConsentFor.includes(role.value);
 }
 
 function submitForm(event) {
@@ -190,7 +205,7 @@ function submitForm(event) {
 
 function nextSection(event) {
 	// ValidationEnabled is for testing only
-	const currentSection = document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`);
+	const currentSection = document.querySelectorAll('form .panels > section[data-panel]')[getSelectionIndex() - 1];
 	const isSubmitPage = ValidationDisabled ? false : currentSection.classList.contains('submit-page');
 	if (ValidationDisabled) { document.querySelector('.form').classList.add('form-submitted'); }
 
@@ -233,6 +248,13 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (nextButton) {
 		nextButton.addEventListener('click', nextSection);
 	}
+
+	// if (skipConsent()) {
+	// 	form.querySelector('[data-panel="section-2"]').innerHTML = '';
+	// 	document.querySelector('label[for="section-2"]').remove();
+	// 	document.querySelector('label[for="section-3"]').innerHTML = '2';
+	// 	document.querySelector('label[for="section-4"]').innerHTML = '3';
+	// }
 });
 window.addEventListener('load', () => {
 	if (document.querySelector('.form')) {
