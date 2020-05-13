@@ -1,6 +1,6 @@
 const stripHtml = require('string-strip-html');
 
-function fetchContent() {
+async function fetchContent() {
 	let finalHtml = '';
 	$('.sc-blog .spinner').show();
 	$('.sc-blog .placeholder').hide();
@@ -10,33 +10,39 @@ function fetchContent() {
 		'/ghost/explanatory-video/',
 	];
 
-	Array.forEach((url, index) => {
-		$.ajax({
-			url,
-			type: 'GET',
-			dataType: 'json',
-			contentType: 'application/json',
-			timeout: 8000,
-		})
-			.done((result) => {
-				$('.sc-blog .loading').remove();
-				if (index === 0) {
-					$('.sc-blog .title').text(result.pages[0].title);
-				}
+	const changePage = () => {
+		finalHtml = finalHtml
+			.replace(/<td>x<[/]td>/g, '<td><i class="fa fa-check"></i></td>');
+		$('.sc-blog .content').html(stripHtml(finalHtml,
+			{ onlyStripTags: ['script', 'style'] }));
+		$('.sc-blog .content').css('opacity', '1');
+	};
 
-				finalHtml += result.pages[0].html;
-				if (index === Array.length - 1) {
-					finalHtml = finalHtml
-						.replace(/<td>x<[/]td>/g, '<td><i class="fa fa-check"></i></td>');
-					$('.sc-blog .content').html(stripHtml(finalHtml,
-						{ onlyStripTags: ['script', 'style'] }));
-					$('.sc-blog .content').css('opacity', '1');
-				}
+	const bar = new Promise((resolve, reject) => {
+		Array.forEach((url, index) => {
+			$.ajax({
+				url,
+				type: 'GET',
+				dataType: 'json',
+				contentType: 'application/json',
+				timeout: 8000,
+				async: false,
 			})
-			.fail(() => {
-				$('.sc-blog .spinner').hide();
-				$('.sc-blog .placeholder').show();
-			});
+				.then((result) => {
+					finalHtml += result.pages[0].html;
+					$('.sc-blog .loading').remove();
+					if (index === Array.length - 1) {
+						resolve();
+					}
+				})
+				.fail(() => {
+					$('.sc-blog .spinner').hide();
+					$('.sc-blog .placeholder').show();
+				});
+		});
+	});
+	bar.then(() => {
+		changePage();
 	});
 }
 
