@@ -110,7 +110,7 @@ $(document).ready(() => {
 		$deleteModal.modal('hide');
 		$moveModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification('Zeitüberschreitung der Anfrage', 'warn');
+			$.showNotification($t('global.error.text.timeout'), 'warn');
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}
@@ -255,7 +255,7 @@ $(document).ready(() => {
 						$form.fadeIn(50);
 						showAJAXSuccess(
 							// eslint-disable-next-line max-len
-							'Datei(en) erfolgreich hinzugefügt und werden gleich nach einer Aktualisierung der Seite angezeigt.',
+							$t('files._file.text.fileAddedSuccess'),
 						);
 						setTimeout(() => {
 							reloadFiles(); // waiting for success message
@@ -285,9 +285,8 @@ $(document).ready(() => {
 		$deleteModal
 			.find('.modal-title')
 			.text(
-				`Bist du dir sicher, dass du '${
-					$buttonContext.data('file-name')
-				}' löschen möchtest?`,
+				$t('files._file.headline.assertDeletion', 
+				{filename :$buttonContext.data('file-name')} )
 			);
 
 		$deleteModal
@@ -406,8 +405,8 @@ $(document).ready(() => {
 			studentEdit = document.getElementById('student-can-edit').checked;
 		}
 		const fileType = $('#file-ending').val();
-		if (!fileType || fileType === 'Format auswählen') {
-			$.showNotification('Bitte wähle einen Dateityp aus.', 'danger', 30000);
+		if (!fileType || fileType === 'Format auswählen' || fileType === $t('files.button.selectFormat')) {
+			$.showNotification($t('files._file.text.pleaseSelectFileType'), 'danger', 30000);
 		} else {
 			$.post(
 				'/files/newFile',
@@ -454,8 +453,8 @@ $(document).ready(() => {
 
 		populateModalForm($renameModal, {
 			title,
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Speichern',
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.save'),
 			fields: {
 				name: oldName,
 			},
@@ -487,7 +486,7 @@ $(document).ready(() => {
 		populateRenameModal(
 			oldName,
 			`/files/directoryModel/${dirId}/rename`,
-			'Ordner umbenennen',
+			$t('files._file.headline.renameDir'),
 		);
 	}
 	$('a[data-method="dir-rename"]').on('click', dirRenameClickHandler);
@@ -518,8 +517,8 @@ $(document).ready(() => {
 			})
 			.then((link) => {
 				populateModalForm($shareModal, {
-					title: 'Freigabe-Link',
-					closeLabel: 'Schließen',
+					title: $t('files._file.headline.shareLink'),
+					closeLabel: $t('global.button.close'),
 					fields: {
 						invitation: link.newUrl,
 					},
@@ -562,19 +561,19 @@ $(document).ready(() => {
 		$.ajax({ url: `/files/permissions/?file=${fileId}` })
 			.then((permissions) => {
 				const nameMap = {
-					teacher: 'Lehrer',
-					student: 'Schüler',
-					teammember: 'Mitglied',
-					teamexpert: 'Experte',
-					teamleader: 'Leiter',
-					teamadministrator: 'Administrator',
-					teamowner: 'Eigentümer',
+					teacher: $t('global.role.text.teacher'),
+					student: $t('global.role.text.student'),
+					teammember: $t('global.role.text.member'),
+					teamexpert: $t('global.role.text.expert'),
+					teamleader: $t('global.role.text.leader'),
+					teamadministrator: $t('global.role.text.administrator'),
+					teamowner: $t('global.role.text.owner'),
 				};
 
 				populateModalForm($permissionModal, {
-					title: 'Berechtigungen bearbeiten',
-					closeLabel: 'Abbrechen',
-					submitLabel: 'Speichern',
+					title: $t('files._file.headline.editPermissions'),
+					closeLabel: $t('global.button.cancel'),
+					submitLabel: $t('global.button.save'),
 					fields: {
 						fileId,
 					},
@@ -625,21 +624,21 @@ $(document).ready(() => {
 
 					$table.show();
 				} else {
-					$message.text('Keine Berechtigungen zum Bearbeiten vorhanden.');
+					$message.text($t('files._file.text.thereAreNoPermissionsToEdit'));
 					$message.show();
 				}
 			})
 			.catch((err) => {
 				populateModalForm($permissionModal, {
-					title: 'Berechtigungen bearbeiten',
-					closeLabel: 'Abbrechen',
+					title: $t('files._file.headline.editPermissions'),
+					closeLabel: $t('global.button.cancel'),
 				});
 
 				$loader.hide();
 
 				// eslint-disable-next-line no-console
 				console.error(err);
-				$message.text('Leider ist ein Fehler beim Abfragen der Berechtigungen aufgetreten.');
+				$message.text($t('files._file.text.errorWhileLoadingPermissions'));
 				$message.show();
 			});
 	}
@@ -686,11 +685,11 @@ $(document).ready(() => {
 			data: { fileId, permissions },
 		})
 			.done(() => {
-				$.showNotification('Datei-Berechtigungen erfolgreich geändert', 'success', true);
+				$.showNotification($t('files._file.text.permissionsChangedSuccess'), 'success', true);
 				$('.permissions-modal').modal('hide');
 			})
 			.fail(() => {
-				$.showNotification('Problem beim Ändern der Berechtigungen', 'danger', true);
+				$.showNotification($t('files._file.text.permissionsChangedFail'), 'danger', true);
 			});
 	});
 
@@ -784,7 +783,7 @@ $(document).ready(() => {
 
 		// eslint-disable no-undef
 		populateModalForm($moveModal, { // eslint-disable-line
-			title: 'Datei verschieben',
+			title: $t('files._file.headline.moveFile'),
 			fields: {
 				fileId: $context.attr('data-file-id'),
 				fileName: $context.attr('data-file-name'),
@@ -886,7 +885,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 				// eslint-disable-next-line no-console
 				console.error(`window.open("/files/file?file=${id}", '_blank') failed`);
 				$.showNotification(
-					'Fehler beim Öffnen der Datei',
+					$t('files._file.text.errorWhileOpeningFile'),
 					'danger',
 				);
 			}
@@ -899,7 +898,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 				// eslint-disable-next-line no-console
 				console.error(`window.open("/files/file?file=${id}", '_blank') failed`);
 				$.showNotification(
-					'Fehler beim Öffnen der Datei',
+					$t('files._file.text.errorWhileOpeningFile'),
 					'danger',
 				);
 			}

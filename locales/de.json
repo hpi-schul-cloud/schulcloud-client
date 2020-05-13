@@ -37,17 +37,17 @@
 			"startM2018": "(Start Mai 2018)"
 		}
 	},
-	"account" : {
-		"global" :{
-			"label":{
-				"thirdPartyLogins" : "Drittanbieter-Logins"
+	"account": {
+		"global": {
+			"label": {
+				"thirdPartyLogins": "Drittanbieter-Logins"
 			}
 		},
-		"label" : {
-			"providers" : "Anbieter"
+		"label": {
+			"providers": "Anbieter"
 		},
-		"text" : {
-			"noThirdPartyProvidersUsed" : "Keine Drittanbieter genutzt"
+		"text": {
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
 		}
 	},
 	"addons": {
@@ -116,7 +116,7 @@
 			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
 		}
 	},
-	"community":{
+	"community": {
 		"title": "Jetzt mitmachen!"
 	},
 	"content": {
@@ -561,9 +561,27 @@
 	},
 	"files": {
 		"_file": {
+			"headline": {
+				"assertDeletion": "Bist du dir sicher, dass du '{{filename}}' löschen möchtest?",
+				"editPermissions": "Berechtigungen bearbeiten",
+				"moveFile": "Datei verschieben",
+				"renameDir": "Ordner umbenennen",
+				"shareLink": "Freigabe-Link"
+			},
 			"text": {
+				"dirAlreadyExists": "Es existiert bereits ein Ordner mit diesem Namen im gleichen Ordner!",
+				"errorWhileLoadingPermissions": "Leider ist ein Fehler beim Abfragen der Berechtigungen aufgetreten.",
+				"errorWhileOpeningFile": "Fehler beim Öffnen der Datei",
+				"fileAddedSuccess": "Datei(en) erfolgreich hinzugefügt und werden gleich nach einer Aktualisierung der Seite angezeigt.",
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
-				"fileMoved": "Verschieben der Datei war erfolgreich!"
+				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
+				"fileMoved": "Verschieben der Datei war erfolgreich!",
+				"permissionsChangedFail": "Problem beim Ändern der Berechtigungen",
+				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
+				"pleaseSelectFileType": "Bitte wähle einen Dateityp aus.",
+				"renameDirSuccess": "Umbenennen des Ordners war erfolgreich!",
+				"renameFileSuccess": "Umbenennen der Datei war erfolgreich!",
+				"thereAreNoPermissionsToEdit": "Keine Berechtigungen zum Bearbeiten vorhanden."
 			}
 		},
 		"button": {
@@ -625,6 +643,8 @@
 			"foundIn": "gefunden in:",
 			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
 			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
+			"newDir": "Neuer Ordner",
+			"newFile": "Neue Datei",
 			"noAccessToThisFile": "Zu dieser Datei haben Sie keinen Zugriff!",
 			"noSearchResults": "Keine Suchergebnisse",
 			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.",
@@ -638,8 +658,8 @@
 	},
 	"global": {
 		"button": {
-			"accept" : "Akzeptieren",
-			"add" : "Hinzufügen",
+			"accept": "Akzeptieren",
+			"add": "Hinzufügen",
 			"cancel": "Abbrechen",
 			"close": "Schließen",
 			"create": "Erstellen",
@@ -652,11 +672,27 @@
 			"send": "Senden",
 			"yes": "Ja"
 		},
+		"error": {
+			"text": {
+				"timeout": "Zeitüberschreitung der Anfrage"
+			}
+		},
 		"label": {
 			"room": "Raum"
 		},
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"
+		},
+		"role": {
+			"text": {
+				"administrator": "Administrator",
+				"expert": "Experte",
+				"leader": "Leiter",
+				"member": "Mitglied",
+				"owner": "Eigentümer",
+				"student": "Schüler",
+				"teacher": "Lehrer"
+			}
 		},
 		"sidebar": {
 			"link": {
@@ -701,7 +737,7 @@
 				"blog": "Blog",
 				"faq": "FAQ",
 				"firstSteps": "Erste Schritte",
-				"register" : "Registrieren"
+				"register": "Registrieren"
 			}
 		},
 		"headline": {
@@ -829,18 +865,18 @@
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
 		},
-		"oauth2" : {
-			"headline":{
+		"oauth2": {
+			"headline": {
 				"loginWithSchoolCloud": "Login mit Schul-Cloud"
 			},
-			"label" : {
-				"weNeedToSendThisData" : "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-				"email" : "deine E-Mail-Adresse",
-				"yourName" : "deinen Namen",
-				"openId" : "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt"
+			"label": {
+				"email": "deine E-Mail-Adresse",
+				"openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt",
+				"weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
+				"yourName": "deinen Namen"
 			},
-			"text" : {
-				"yourNameIsProtected" : "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
+			"text": {
+				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
 			}
 		},
 		"popup_resetPw": {
@@ -912,6 +948,25 @@
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
 		}
 	},
+	"teams": {
+		"_team": {
+			"edit": {
+				"label": {
+					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
+					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
+				},
+				"placeholder": {
+					"teamName": "A-Team"
+				},
+				"text": {
+					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
+				}
+			}
+		}
+	},
 	"topic": {
 		"_topic": {
 			"button": {
@@ -948,25 +1003,6 @@
 		"form_share": {
 			"label": {
 				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
-			}
-		}
-	},
-	"teams": {
-		"_team": {
-			"edit": {
-				"label": {
-					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
-					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
-					"teamName": "Name des Teams"
-				},
-				"placeholder": {
-					"teamName": "A-Team"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
-				}
 			}
 		}
 	}

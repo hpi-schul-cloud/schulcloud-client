@@ -507,7 +507,7 @@ router.post('/newFile', (req, res, next) => {
 		parent,
 	} = req.body;
 
-	const fileName = name || 'Neue Datei';
+	const fileName = name || res.$t('files.text.newFile');
 
 	api(req).post('fileStorage/files/new', {
 		json: {
@@ -524,7 +524,7 @@ router.post('/newFile', (req, res, next) => {
 router.post('/directory', (req, res, next) => {
 	const { name, owner, parent } = req.body;
 	const json = {
-		name: name || 'Neuer Ordner',
+		name: name || res.$t('files.text.newDir'),
 		owner,
 		parent,
 	};
@@ -981,7 +981,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
 		.then(() => {
 			req.session.notification = {
 				type: 'success',
-				message: 'Umbenennen der Datei war erfolgreich!',
+				message: res.$t('files._file.text.renameFileSuccess'),
 			};
 
 			res.redirect(req.header('Referer'));
@@ -990,7 +990,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
 			req.session.notification = {
 				type: 'danger',
 				message: e.error.message.indexOf('E11000 duplicate key error') >= 0
-					? 'Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!'
+					? res.$t('files._file.text.fileAlreadyExistsInDir')
 					: e.error.message,
 			};
 
@@ -1008,7 +1008,7 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 		.then(() => {
 			req.session.notification = {
 				type: 'success',
-				message: 'Umbenennen des Ordners war erfolgreich!',
+				message: res.$t('files._file.text.renameDirSuccess'),
 			};
 
 			res.redirect(req.header('Referer'));
@@ -1017,7 +1017,7 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 			req.session.notification = {
 				type: 'danger',
 				message: e.error.message.indexOf('E11000 duplicate key error') >= 0
-					? 'Es existiert bereits ein Ordner mit diesem Namen im gleichen Ordner!'
+					? res.$t('files._file.text.dirAlreadyExists')
 					: e.error.message,
 			};
 
