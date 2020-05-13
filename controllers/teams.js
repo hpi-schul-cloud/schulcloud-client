@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-const handlebars = require('handlebars');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -17,20 +16,6 @@ const router = express.Router();
 moment.locale('de');
 
 const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference', 'messenger'];
-
-handlebars.registerHelper('stringify', (jsonValue) => {
-	const attributes = [];
-	const escapedKeyList = ['style', 'data-payload'];
-	const stringifyValue = JSON.stringify(jsonValue);
-	const escapedValueList = ['display: none', stringifyValue];
-	escapedKeyList.forEach((entity, i) => {
-		const escapedKey = handlebars.escapeExpression(entity);
-		const escapedValue = handlebars.escapeExpression(escapedValueList[i]);
-		attributes.push(`${escapedKey}="${escapedValue}"`);
-	});
-	const escapedOutput = `<td ${attributes.join(' ')} />`;
-	return new handlebars.SafeString(escapedOutput);
-});
 
 const addThumbnails = (file) => {
 	const thumbs = {
