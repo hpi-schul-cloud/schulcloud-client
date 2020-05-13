@@ -2844,7 +2844,7 @@ router.all('/teams', (req, res, next) => {
 									member.role = roleTranslations[member.role];
 									return member;
 								}),
-							schools: item.schools,
+								schools: item.schools,
 							}, 'utf-8')).toString('base64'),
 						},
 						actions,
