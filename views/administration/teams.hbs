@@ -11,10 +11,14 @@
     {{/content}}
     {{#content "page" mode="prepend"}}
 			{{#ifConfig "STUDENT_TEAM_CREATION" "disabled"}}
-			<label>Schüler:innen können keine Teams anlegen. Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.</label>
+			<label>Schüler:innen können keine Teams anlegen.
+				<p class="text-muted">Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.</p>
+			</label>
 			{{else}}
 			{{#ifConfig "STUDENT_TEAM_CREATION" "enabled"}}
-				<label>Schüler:innen können Teams anlegen. Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.</label>
+				<label>Schüler:innen können Teams anlegen.
+					<p class="text-muted">Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.</p>
+				</label>
 			{{else}}
 				<form action="/administration/teams/enablestudents/{{@root.school._id}}" method="post" class="edit-form-school">
             <input type="hidden" name="_method" value="patch" />
