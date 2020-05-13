@@ -856,6 +856,25 @@
 			}
 		}
 	},
+	"template": {
+		"global": {
+			"link": {
+				"contact": "Kontakt",
+				"imprint": "Impressum"
+			}
+		},
+		"heading": {
+			"invitationToThe": "Einladung in die"
+		},
+		"link": {
+			"toRegister": "Registrieren"
+		},
+		"text": {
+			"dear": "Sehr geehrte/r",
+			"toJoinPleaseComplete": "beizutreten, bitte vervollständigen Sie Ihre Einladung unter folgendem Link",
+			"youWereInvitedToThe": "Sie wurden eingeladen, der"
+		}
+	},
 	"topic": {
 		"_topic": {
 			"button": {
