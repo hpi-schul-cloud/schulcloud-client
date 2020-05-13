@@ -18,20 +18,20 @@
 				</li>
 				<li>
 					<a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank" rel="noopener">{{$t "home.header.link.faq"}}</a>
-				</li class="hidden-xs-down">
-				<li class="hidden-xs-down">
-					<a class="btn btn-sm btn-outline btn-primary" href="/community" style="margin-left: 8px;">{{$t "home.header.link.register"}}</a>
 				</li>
 				<li class="hidden-xs-down">
-					<a class="btn btn-sm btn-primary" href="/login" style="margin-left: 4px;" data-testid="login-btn">
+					<a class="btn btn-sm btn-outline btn-primary" href="/login" style="margin-left: 4px;" data-testid="login-btn">
 						<i class="fa fa-sign-in"></i> {{$t "home.header.link.login"}}
 					</a>
+				</li>
+				<li class="hidden-xs-down">
+					<a class="btn btn-sm btn-primary" href="/community" style="margin-left: 8px;">{{$t "home.header.link.register"}}</a>
 				</li>
 			</ul>
 		{{/unless}}
 	</nav>
 	<div class="text-center hidden-sm-up" style="margin-bottom: 10px;">
-		<a class="btn btn-sm btn-outline btn-primary" href="/community">Registrieren</a>
-		<a class="btn btn-sm btn-primary" href="/login"><i class="fa fa-sign-in"></i> Login</a>
+		<a class="btn btn-sm btn-outline btn-primary" href="/login"><i class="fa fa-sign-in"></i> Login</a>
+		<a class="btn btn-sm btn-primary" href="/community">Registrieren</a>
 	</div>
 </header>

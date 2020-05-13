@@ -8,6 +8,7 @@ function fetchContent() {
 	const Array = [
 		'/ghost/herzlich-willkommen/',
 		'/ghost/explanatory-video/',
+		'/ghost/what-matters/',
 	];
 
 	const changePage = () => {
