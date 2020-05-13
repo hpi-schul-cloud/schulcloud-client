@@ -23,22 +23,26 @@
 				<form action="/administration/teams/enablestudents/{{@root.school._id}}" method="post" class="edit-form-school">
             <input type="hidden" name="_method" value="patch" />
             <div class="form-group" id="enableStudentsTeamsCreate">
-				{{#ifConfig "STUDENT_TEAM_CREATION" "opt-in"}}
-					<label>
-						<input type="checkbox" name="enablestudentteamcreation" value="true" {{#ifeq ../school.enableStudentTeamCreation true}}checked{{/ifeq}}>Schüler:innen dürfen Teams anlegen.
-						<p class="text-muted">Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,
-							ohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter Administrator kannst du diese Funktion zentral für die
-							gesamte Schule deaktivieren/aktiveren.</p>
-					</label>
-				{{/ifConfig}}
-				{{#ifConfig "STUDENT_TEAM_CREATION" "opt-out"}}
-					<label>
-						<input type="checkbox" name="enablestudentteamcreation" value="false" {{#ifeq ../school.enableStudentTeamCreation false}}checked{{/ifeq}}>Schüler:innen dürfen keine Teams anlegen.
-						<p class="text-muted">Ist diese Funktion aktiviert, können Schüler:innen Teams nicht selbst gründen.
-							Die Team-Gründung muss stets durch eine Lehrkraft erfolgen. Als weisungsberechtigter Administrator kannst du diese Funktion zentral
-							für die gesamte Schule deaktivieren/aktiveren.</p>
-					</label>
-				{{/ifConfig}}
+				<label>
+					<input type="checkbox" name="enablestudentteamcreation"
+						   value="true"
+						{{#ifConfig "STUDENT_TEAM_CREATION" "opt-in"}}
+						   {{#ifeq ../school.enableStudentTeamCreation true}}
+						   			checked
+						   {{/ifeq}}
+						{{/ifConfig}}
+						{{#ifConfig "STUDENT_TEAM_CREATION" "opt-out"}}
+							{{#ifneq ../school.enableStudentTeamCreation false}}
+						   			checked
+							{{/ifneq}}
+						{{/ifConfig}}
+					>
+					Schüler:innen dürfen Teams anlegen.
+					<p class="text-muted">Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,
+						ohne dass eine Lehrkraft beteiligt sein muss. <br>
+						Als weisungsberechtigter Administrator kannst du diese Funktion zentral für die
+						gesamte Schule deaktivieren/aktiveren.</p>
+				</label>
             </div>
             {{> "lib/components/csrfInput"}}
             <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
