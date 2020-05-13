@@ -564,6 +564,7 @@
 			"add" : "Hinzufügen",
 			"cancel": "Abbrechen",
 			"close": "Schließen",
+			"create": "Erstellen",
 			"delete": "Löschen",
 			"open": "Öffnen",
 			"save": "Speichern",
@@ -643,7 +644,6 @@
 		},
 		"text": {
 			"advertisementForOurTeam": "Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs",
-			"blogIsDeactivated": "Der Blog ist derzeit deaktiviert! Das HPI Schul-Cloud Team kümmert sich darum.",
 			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) videoplayer.",
 			"downloadFile": "Datei herunterladen",
 			"moreInformation": "Mehr Informationen:",
@@ -656,6 +656,7 @@
 			"addTask": "Aufgabe hinzufügen",
 			"archive": "Archivieren",
 			"copy": "Kopieren",
+			"downloadUngradedFiles": "Dateien unbewerteter Hausaufgaben herunterladen",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
@@ -781,6 +782,7 @@
 		},
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
 		}
 	},
