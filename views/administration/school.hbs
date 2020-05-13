@@ -220,11 +220,21 @@
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
 
-						{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+						{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}
 							<div class="form-group">
 								<label>
-									<input type="checkbox" name="messenger" value="true"
-										{{#inArray "messenger" ../school.features}}checked{{/inArray}}>
+									<input
+										id="messenger"
+										type="checkbox"
+										name="messenger"
+										value="true"
+										{{#inArray "messenger" ../school.features}}checked{{/inArray}}
+										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+											{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+												disabled
+											{{/userHasPermission}}
+										{{/userHasPermission}}
+                                    />
 									Chatfunktion aktivieren
 									<p class="text-muted">
 										Sind Chats an deiner Schule aktiviert, können Team-Administratoren
@@ -232,8 +242,34 @@
 									</p>
 								</label>
 							</div>
+
+							{{#ifConfig "FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED" true}}
+								<div id="messenger-sub-options">
+									<div class="form-group">
+										<label>
+											<input
+												type="checkbox"
+												name="messengerSchoolRoom"
+												value="true"
+												{{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}
+												{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+													{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+														disabled
+													{{/userHasPermission}}
+												{{/userHasPermission}}
+											/>
+											Chatraum für Ankündigungen an die gesamte Schule anlegen
+											<p class="text-muted">
+												Der Ankündigungs-Chatraum ermöglicht Schul-Administrator:innen, Nachrichten an die gesamte Schule zu senden.
+												Schüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.
+											</p>
+										</label>
+									</div>
+								</div>
+							{{/ifConfig}}
 						{{/ifConfig}}
-						{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
+
+						{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}
 							{{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
 								<div class="form-group">
 									<label>

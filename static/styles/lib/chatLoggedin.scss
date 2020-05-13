@@ -8,9 +8,12 @@ $chat-color-secondary: hsl(hue($chat-color-primary), saturation($chat-color-prim
 
 // add space for messenger
 footer {
-	@include media-breakpoint-up(md) {
-		padding-bottom: 50px;
-	}
+	padding-bottom: 50px;
+}
+
+.route-homework .create {
+	bottom: 65px;
+	right: 14px;
 }
 
 #matrixchat {
@@ -37,11 +40,6 @@ footer {
 		display:none;
 	}
 
-	// > hide menu buttons
-	.mx_RoomSubList_addRoom,
-	.mx_RoomTile_menuButton {
-		//display: none !important;
-	}
 	// hide room settings (make public, shared)
 	.mx_SettingsFlag,
 	.mx_CreateRoomDialog_details {
@@ -59,6 +57,11 @@ footer {
 		display: none;
 	}
 
+	// hide user id
+	.mx_UserInfo_profile > div:nth-child(2) {
+		display: none;
+	}
+
 	// hide reference to user Ids
 	.mx_InviteDialog_helpText {
 		display: none;
@@ -69,27 +72,50 @@ footer {
 		display: none;
 	}
 
-	// hide verbannen
-	.mx_MemberInfo_field:nth-child(2) {
-		display: none;
-	}
-	// hide letzte Nachricht löschen
-	.mx_MemberInfo_field:nth-child(3) {
-		display: none;
+	.mx_MemberInfo_container,
+	.mx_UserInfo {
+		#container-security,
+		#headline-user-options,
+		#headline-admin-tools {
+			display: none;
+		}
+		#button-ignore,
+		#button-read-receipt,
+		#button-mention,
+		#button-invite,
+		#button-share,
+		//#button-direct,
+		//#button-kick,
+		#button-recent,
+		#button-ban,
+		//#button-mute,
+		#button-mod,
+		#button-deactivate {
+			display: none;
+		}
 	}
 
 	// reduce message menu
-	// > weiterleiten
-	.mx_MessageContextMenu_field:nth-child(2) {
-		display: none;
-	}
-	// > quellcode
-	.mx_MessageContextMenu_field:nth-child(3) {
-		display: none;
-	}
-	// > teilen
-	.mx_MessageContextMenu_field:nth-child(4) {
-		display: none;
+	.mx_MessageContextMenu {
+		//#button-resend,
+		//#button-resend-edit,
+		//#button-resend-reactions,
+		//#button-resend-removal,
+		//#button-remove,
+		//#button-cancel-sending,
+		#button-forward,
+		#button-pin,
+		#button-source,
+		#button-source-decrypt,
+		#button-unhide-preview,
+		//#button-quote,
+		#button-source-url,
+		#button-collapse-thread,
+		#button-e2e,
+		//#button-report,
+		#button-share {
+			display: none;
+		}
 	}
 
 	// hide sticker creation
@@ -121,6 +147,7 @@ footer {
 	}
 
 	// hide room error messages
+	.mx_RoomPreviewBar_ViewingRoom,
 	.mx_RoomPreviewBar_RoomNotFound {
 		display: none;
 	}
@@ -142,6 +169,10 @@ footer {
 		display: none;
 	}
 
+	// hide error message
+	.mx_ErrorBoundary {
+		display: none;
+	}
 
 	// Theme
 	// > Menu
@@ -212,6 +243,14 @@ footer {
 		border-radius: 0;
 	}
 
+	.mx_InviteOnlyIcon_large {
+		display: none !important;
+	}
+
+	.mx_RoomTile_menuButton {
+		margin-right: 3px; // align with other buttons
+	}
+
 	input[type=text].mx_LeftPanel_filterRooms {
 		font-size: var(--text-xs);
 		color: $chat-color-primary;
@@ -244,6 +283,11 @@ footer {
 	.mx_RoomTile_badge.mx_RoomTile_badgeUnread, .mx_RoomTile_unreadNotify .mx_RoomTile_badge {
 		background-color: #ff4b55;
 	}
+	.mx_RoomTile_badge {
+		min-width: 6px; // display more like a circle
+		text-align: center;
+		margin-right: 2px;
+	}
 
 	.mx_SearchBox .mx_SearchBox_closeButton {
 		margin-right: 6px;
@@ -269,6 +313,11 @@ footer {
 
 	.collapsed .mx_RoomSubList_labelContainer {
 		margin-left: 20px;
+	}
+
+	// Scroll shadow
+	.mx_RoomSubList:not(.resized-all)>.mx_RoomSubList_scroll.mx_IndicatorScrollbar_topOverflow:before {
+		background: linear-gradient(0deg, rgba(242, 245, 248, 0), $chat-color-background);
 	}
 
 	// > Chat
@@ -324,6 +373,7 @@ footer {
 
 		.mx_RoomHeader_topic {
 			color: $chat-color-background;
+			white-space: nowrap;
 		}
 
 		.mx_RoomHeader_buttons {
@@ -366,4 +416,23 @@ footer {
 		width: 200px;
 		min-width: 200px;
 	}
+
+	.mx_UserInfo .mx_UserInfo_avatar>div {
+		max-width: 20vh;
+	}
+
+
+	// custom font size
+	//.mx_EventTile .mx_SenderProfile {
+	//	font-size: 14px;
+	//	line-height: 17px;
+	//}
+	//.mx_EventTile,
+	//.mx_TextualEvent.mx_EventListSummary_summary {
+	//	font-size: 14px;
+	//}
+	//
+	//.mx_EventTile_line, .mx_EventTile_reply {
+	//	line-height: 22px;
+	//}
 }
