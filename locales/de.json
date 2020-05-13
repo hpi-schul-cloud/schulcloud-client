@@ -697,9 +697,19 @@
 		"sidebar": {
 			"link": {
 				"administration": "Administration",
+				"administrationStudents" : "Schüler",
+				"administrationTeachers" : "Lehrer",
+				"administrationCourses" : "Kurse",
+				"administrationClasses" : "Klassen",
+				"administrationTeams" : "Teams",
+				"administrationSchools" : "Schule",
 				"calendar": "Termine",
 				"courses": "Kurse",
 				"files": "Meine Dateien",
+				"filesPersonal" : "persönliche Dateien",
+				"filesCourse" : "Kurse",
+				"filesShared" : "geteilte Dateien",
+				"helpDesk" : "Helpdesk",
 				"lernstore": "Lern-Store",
 				"management": "Verwaltung",
 				"managementClasses": "Klassen",
@@ -707,7 +717,13 @@
 				"managementTeachers": "Lehrer:innen",
 				"news": "Neuigkeiten",
 				"overview": "Übersicht",
-				"tasks": "Aufgaben"
+				"tasks": "Aufgaben",
+				"tasksAsked" : "Gestellte Aufgaben",
+				"tasksDrafts" : "Entwürfe",
+				"tasksArchive" : "Archiv",
+				"addons" : "Add-ons",
+				"myMaterial" : "Meine Materialien",
+				"teams" : "Teams"
 			}
 		},
 		"text": {

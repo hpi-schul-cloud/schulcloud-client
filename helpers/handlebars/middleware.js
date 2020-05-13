@@ -53,17 +53,17 @@ module.exports = (req, res, next) => {
 		link: '/homework/',
 		children: [
 			{
-				name: 'Gestellte Aufgaben',
+				name: res.$t('global.sidebar.link.tasksAsked'),
 				icon: 'bullhorn',
 				link: '/homework/asked/',
 			},
 			{
-				name: 'Entwürfe',
+				name: res.$t('global.sidebar.link.tasksDrafts'),
 				icon: 'lock',
 				link: '/homework/private/',
 			},
 			{
-				name: 'Archiv',
+				name: res.$t('global.sidebar.link.tasksArchive'),
 				icon: 'archive',
 				link: '/homework/archive/',
 			},
@@ -74,17 +74,17 @@ module.exports = (req, res, next) => {
 		link: '/files/',
 		children: [
 			{
-				name: 'persönliche Dateien',
+				name: res.$t('global.sidebar.link.filesPersonal'),
 				icon: 'folder-open-o',
 				link: '/files/my/',
 			},
 			{
-				name: 'Kurse',
+				name: res.$t('global.sidebar.link.filesCourse'),
 				icon: 'folder-open-o',
 				link: '/files/courses/',
 			},
 			{
-				name: 'geteilte Dateien',
+				name: res.$t('global.sidebar.link.filesShared'),
 				icon: 'folder-open-o',
 				link: '/files/shared/',
 			},
@@ -107,7 +107,7 @@ module.exports = (req, res, next) => {
 	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
 	if (extensionsEnabled) {
 		res.locals.sidebarItems.push({
-			name: 'Add-ons',
+			name: res.$t('global.sidebar.link.archive'),
 			icon: 'puzzle-piece',
 			link: '/addons',
 		});
@@ -141,7 +141,7 @@ module.exports = (req, res, next) => {
 
 	// helpdesk views
 	res.locals.sidebarItems.push({
-		name: 'Helpdesk',
+		name: res.$t('global.sidebar.link.helpDesk'),
 		icon: 'ticket',
 		link: '/administration/helpdesk/',
 		permission: 'HELPDESK_VIEW',
@@ -155,32 +155,32 @@ module.exports = (req, res, next) => {
 		permission: 'ADMIN_VIEW',
 		children: [
 			{
-				name: 'Schüler',
+				name: res.$t('global.sidebar.link.administrationStudents'),
 				icon: 'odnoklassniki',
 				link: '/administration/students/',
 			},
 			{
-				name: 'Lehrer',
+				name: res.$t('global.sidebar.link.administrationTeachers'),
 				icon: 'user',
 				link: '/administration/teachers/',
 			},
 			{
-				name: 'Kurse',
+				name: res.$t('global.sidebar.link.administrationCourses'),
 				icon: 'graduation-cap',
 				link: '/administration/courses/',
 			},
 			{
-				name: 'Klassen',
+				name: res.$t('global.sidebar.link.administrationClasses'),
 				icon: 'users',
 				link: '/administration/classes/',
 			},
 			{
-				name: 'Teams',
+				name: res.$t('global.sidebar.link.administrationTeams'),
 				icon: 'users',
 				link: '/administration/teams/',
 			},
 			{
-				name: 'Schule',
+				name: res.$t('global.sidebar.link.administrationSchools'),
 				icon: 'building',
 				link: '/administration/school/',
 			},
@@ -189,7 +189,7 @@ module.exports = (req, res, next) => {
 
 	// beta user view
 	res.locals.sidebarItems.push({
-		name: 'Meine Materialien',
+		name: res.$t('global.sidebar.link.myMaterial'),
 		icon: 'book',
 		link: '/my-material/',
 		permission: 'BETA_FEATURES',
@@ -199,12 +199,12 @@ module.exports = (req, res, next) => {
 	const teamsEnabled = FEATURE_TEAMS_ENABLED === 'true';
 	if (teamsEnabled) {
 		res.locals.sidebarItems.splice(2, 0, {
-			name: 'Teams',
+			name: res.$t('global.sidebar.link.teams'),
 			icon: 'users',
 			link: '/teams/',
 		});
-		res.locals.sidebarItems.find(i => i.name === 'Meine Dateien').children.splice(2, 0, {
-			name: 'Teams',
+		res.locals.sidebarItems.find(i => i.name === res.$t('global.sidebar.link.files')).children.splice(2, 0, {
+			name: res.$t('global.sidebar.link.teams'),
 			icon: 'folder-open-o',
 			link: '/files/teams/',
 		});
