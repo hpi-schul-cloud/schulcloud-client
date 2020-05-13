@@ -898,7 +898,17 @@ router.get('/:assignmentId', (req, res, next) => {
 
 				renderOptions.studentSubmissions = studentSubmissions;
 				renderOptions.studentsWithoutSubmission = studentsWithoutSubmission;
+
+				renderOptions.ungradedFileSubmissions = collectUngradedFiles(submissions.data)
 			}
+
+			if (assignment.submission) {
+				assignment.submission.hasFile = false;
+				if (assignment.submission.fileIds.length > 0) {
+					assignment.submission.hasFile = true;
+				}
+			}
+
 			res.render('homework/assignment', Object.assign({}, assignment, {
 				...renderOptions,
 			}));
@@ -906,5 +916,18 @@ router.get('/:assignmentId', (req, res, next) => {
 	}).catch(next);
 });
 
+function collectUngradedFiles(submissions) {
+	const isGraded = (submission) =>
+		typeof submission.grade === 'number' || submission.gradeComment || !_.isEmpty(submission.gradeFileIds);
+
+	const ungradedFiles = submissions
+		.filter((submission) => !isGraded(submission))
+		.flatMap((submission) => submission.fileIds);
+	console.log(ungradedFiles);
+	return {
+		length: ungradedFiles.length,
+		urls: ungradedFiles.map((file) => `/files/file?download=true&file=${file._id}`).join(' '),
+	};
+}
 
 module.exports = router;
