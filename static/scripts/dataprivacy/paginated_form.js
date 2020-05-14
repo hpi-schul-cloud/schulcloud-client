@@ -103,9 +103,6 @@ function setSelectionByIndex(index, event) {
 				sectionIndex: getSelectionIndex(),
 			},
 		});
-		console.log(document.querySelectorAll('form .panels > section[data-panel]'));
-		console.log('getSelectionIndex()', getSelectionIndex());
-		console.log('newIndex', newIndex);
 		document.querySelectorAll('form .panels > section[data-panel]')[getSelectionIndex() - 1]
 			.dispatchEvent(hideEvent);
 
@@ -120,18 +117,10 @@ function setSelectionByIndex(index, event) {
 
 		updateButton(newIndex);
 
-		const eventData = {
-			detail: { sectionIndex: newIndex },
-		};
 		const showEvent = new CustomEvent('showSection', {
 			detail: { sectionIndex: newIndex },
 		});
 		nextSectionNode.dispatchEvent(showEvent);
-		// const newSectionSelector = `section[data-panel="section-${newIndex}"]`;
-		// console.log('$(newSectionSelector)', $(newSectionSelector));
-		// const showEvent = new CustomEvent('showSection', eventData);
-		// document.querySelector(newSectionSelector).dispatchEvent(showEvent);
-		// $(newSectionSelector).trigger('showSection', [eventData]);
 	}
 
 	function findLatestInvalid(to) {
@@ -159,12 +148,6 @@ function setSelectionByIndex(index, event) {
 			setSelection(latestInvalid);
 		}
 	}
-}
-
-function skipConsent() {
-	const skipConsentFor = 'student'; // TODO get from feature toggle
-	const role = document.querySelector('input[name="roles"]');
-	return skipConsentFor.includes(role.value);
 }
 
 function submitForm(event) {
@@ -249,13 +232,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (nextButton) {
 		nextButton.addEventListener('click', nextSection);
 	}
-
-	// if (skipConsent()) {
-	// 	form.querySelector('[data-panel="section-2"]').innerHTML = '';
-	// 	document.querySelector('label[for="section-2"]').remove();
-	// 	document.querySelector('label[for="section-3"]').innerHTML = '2';
-	// 	document.querySelector('label[for="section-4"]').innerHTML = '3';
-	// }
 });
 window.addEventListener('load', () => {
 	if (document.querySelector('.form')) {
