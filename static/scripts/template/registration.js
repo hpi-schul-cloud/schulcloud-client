@@ -1,7 +1,7 @@
-$('#register').on('mouseover', function (e) {
-    this.style.backgroundColor = '#514F4E';
+$('#register').on('mouseover', () => {
+	this.style.backgroundColor = '#514F4E';
 });
 
-$('#register').on('mouseout', function (e) {
-    this.style.backgroundColor = '#474544';
+$('#register').on('mouseout', () => {
+	this.style.backgroundColor = '#474544';
 });

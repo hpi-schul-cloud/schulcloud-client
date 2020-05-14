@@ -48,10 +48,10 @@ window.openFolder = (id) => {
 	return target + window.location.search || '';
 };
 
-$('.openfolder').on('click', function (e) {
-	let folderid = this.getAttribute('data-folder-id');
+$('.openfolder').on('click', () => {
+	const folderid = this.getAttribute('data-folder-id');
 	if (folderid) {
-		openFolder(folderid);
+		window.openFolder(folderid);
 	}
 });
 
@@ -826,17 +826,17 @@ window.videoClick = function videoClick(e) {
 	e.preventDefault();
 };
 
-$('.videoclick').on('click', function (e) {
-	videoClick(e);
+$('.videoclick').on('click', (e) => {
+	window.videoClick(e);
 });
 
-$('.videostop').on('click', function (e) {
-	videojs('my-video').ready(function () {
+$('.videostop').on('click', () => {
+	window.videojs('my-video').ready(() => {
 		this.pause();
 	});
 	$('#link').html('');
 	$('#picture').attr('src', '');
-	$('#file-view').css('display','none');
+	$('#file-view').css('display', 'none');
 });
 
 const fileTypes = {
@@ -927,15 +927,15 @@ window.fileViewer = function fileViewer(type, name, id) {
 	}
 };
 
-$('.fileviewer').on('click', function (e) {
-	let fileviewertype = this.getAttribute('data-file-viewer-type');
-	let fileviewersavename = this.getAttribute('data-file-viewer-savename');
-	let fileviewerid = this.getAttribute('data-file-viewer-id');
+$('.fileviewer').on('click', () => {
+	const fileviewertype = this.getAttribute('data-file-viewer-type');
+	const fileviewersavename = this.getAttribute('data-file-viewer-savename');
+	const fileviewerid = this.getAttribute('data-file-viewer-id');
 	if (
-		fileviewertype && 
-		fileviewersavename && 
-		fileviewerid
+		fileviewertype
+		&& fileviewersavename
+		&& fileviewerid
 	) {
-		fileViewer(fileviewertype, fileviewersavename, fileviewerid);
+		window.fileViewer(fileviewertype, fileviewersavename, fileviewerid);
 	}
 });

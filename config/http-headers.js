@@ -11,8 +11,8 @@ const config = {
 	contentSecurityPolicy: {
 		// Default Content-Security-Policy Header for every site
 		// Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
-	    corsDefault: {
-	    	defaultSrc: "'self' data: blob: https://api.schul-cloud.org https://scchat.schul-cloud.org https://s3.hidrive.strato.com https://libreoffice.schul-cloud.org https://docs.schul-cloud.org https://edtrio.schul-cloud.org https://etherpad.schul-cloud.org https://blog.schul-cloud.org https://sc-content-resources.schul-cloud.org https://sentry.schul-cloud.dev https://open.hpi.de https://upload.wikimedia.org https://user-images.githubusercontent.com",
+		corsDefault: {
+			defaultSrc: "'self' data: blob: https://api.schul-cloud.org https://scchat.schul-cloud.org https://s3.hidrive.strato.com https://libreoffice.schul-cloud.org https://docs.schul-cloud.org https://edtrio.schul-cloud.org https://etherpad.schul-cloud.org https://blog.schul-cloud.org https://sc-content-resources.schul-cloud.org https://sentry.schul-cloud.dev https://open.hpi.de https://upload.wikimedia.org https://user-images.githubusercontent.com",
 			fontSrc: "'self' data:",
 			styleSrc: "'self' 'unsafe-inline'",
 			// scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
@@ -26,7 +26,7 @@ const config = {
 			site is matched with called website URL and regex key within corsSiteSpecific
 			use * as value for defaultSrc, fontSrc, styleSrc, scriptSrc ... to ignore corsDefault and allow any external content
 		*/
-	    corsSiteSpecific: {
+		corsSiteSpecific: {
 			'^/$': {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://play.google.com https://schul-cloud-hpi.s3.hidrive.strato.com',
 			},
@@ -80,7 +80,7 @@ const config = {
 			},
 			'^/help': {
 			}, */
-	    },
+		},
 	},
 	/*
 		Access-Control-Allow-Origin header depending on the site

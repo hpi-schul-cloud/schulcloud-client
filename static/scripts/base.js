@@ -319,7 +319,7 @@ $(document).ready(() => {
 
 	// Self Window Close
 	$('.selfclose').on('click', () => {
-		self.close();
+		window.close();
 	});
 
 	// Window Print
