@@ -95,7 +95,6 @@ const config = {
 	// Additional default Security header can be set - key reprensents the HTTP header and the value the value of the header
 	additionalSecurityHeader: {
 		'X-Frame-Options': 'sameorigin',
-		'X-Robots-Tag': 'none',
 		'X-Download-Options': 'noopen',
 		'X-Content-Type-Options': 'nosniff',
 		'X-XSS-Protection': '1; mode=block',
