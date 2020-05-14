@@ -26,7 +26,17 @@
     color: var(--color-primary);
     background: transparent;
 }
-
+.btn-accent.btn-outline{
+    &:hover {
+        background-color: var(--color-white);
+        border-color: var(--color-accent);
+        color: var(--color-accent);
+    }
+    border: 1px solid var(--color-accent);
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-white);;
+}
 .section a.btn.btn-white-outlined{
     display: inline-block;
     border: 1px solid;

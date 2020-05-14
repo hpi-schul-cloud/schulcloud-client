@@ -1,37 +1,51 @@
 {{#extend "lib/loggedout"}}
 
 {{#content "styles" mode="append"}}
-	<link rel="stylesheet" href="/styles/homepage/index.css" />
+<link rel="stylesheet" href="/styles/homepage/index.css" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-	<script src="/scripts/login.js" type="text/javascript" defer></script>
-	<script src="/scripts/sc-blog.js" type="text/javascript" defer></script>
-	<script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
+<script src="/scripts/login.js" type="text/javascript" defer></script>
+<script src="/scripts/sc-blog.js" type="text/javascript" defer></script>
+<script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false"
+	defer></script>
 {{/content}}
 
 {{#content "page"}}
 
 <div class="container">
+	<div class="row flex-container mb-3">
+		<div class="col-md-6">
+			<h5 class="font-weight-bold">HPI Schul-Cloud</h5>
+			<br />
+			<h1>Schule digital unterstützt</h1>
+			<br />
+			<a class="btn btn-sm btn-outline btn-accent" href="/community">Jetzt Registrieren</a>
+		</div>
+		<div class="col-md-6">
+			<img src="/images/desk_img.jpg" alt="desk_img" />
+		</div>
+	</div>
+
 	<h3>Das macht die Hpi Schul-Cloud aus</h3>
 	<div class="row flex-container mb-3">
-			<div class="col-sm-12 col-md-6">
-				<img src="/images/product.png" alt="">
+		<div class="col-sm-12 col-md-6">
+			<img src="/images/product.png" alt="">
+		</div>
+		<div class="col-sm-12 col-md-6">
+			<div class="flex-container mb-2">
+				<img src="/images/broken-pen.svg">
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, </p>
 			</div>
-			<div class="col-sm-12 col-md-6">
-				<div class="flex-container mb-2">
-					<img src="/images/broken-pen.svg">
-					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, </p>
-				</div>
-				<div class="flex-container mb-2">
-					<img src="/images/broken-pen.svg">
-					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, </p>
-				</div>
-				<div class="flex-container mb-2">
-					<img src="/images/broken-pen.svg">
-					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, </p>
-				</div>
+			<div class="flex-container mb-2">
+				<img src="/images/broken-pen.svg">
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, </p>
 			</div>
+			<div class="flex-container mb-2">
+				<img src="/images/broken-pen.svg">
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, </p>
+			</div>
+		</div>
 	</div>
 	<h3>Vorteile der HPI Schul-Cloud</h3>
 
@@ -41,7 +55,8 @@
 		</div>
 		<div class="col-sm-12 col-md-8">
 			<h5 class="heading font-weight-bold ">Gefördert vom Bundesministerium für Bildung und Forschung</h5>
-			<p> Jede Schule und ihre Schüler:innen sollen Zugang zu digitalem Lernen haben. In der Covid-19 Krise und darüber hinaus.</p>
+			<p> Jede Schule und ihre Schüler:innen sollen Zugang zu digitalem Lernen haben. In der Covid-19 Krise und
+				darüber hinaus.</p>
 			<link><a href="">Mehr erfahren <i class="fa fa-angle-double-right"></i></a></link>
 		</div>
 	</div>
@@ -49,7 +64,8 @@
 	<div class="row flex-container mb-3">
 		<div class="col-sm-12 col-md-8">
 			<h5 class="heading font-weight-bold ">Gefördert vom Bundesministerium für Bildung und Forschung</h5>
-			<p> Jede Schule und ihre Schüler:innen sollen Zugang zu digitalem Lernen haben. In der Covid-19 Krise und darüber hinaus.</p>
+			<p> Jede Schule und ihre Schüler:innen sollen Zugang zu digitalem Lernen haben. In der Covid-19 Krise und
+				darüber hinaus.</p>
 			<link><a href="">Mehr erfahren <i class="fa fa-angle-double-right"></i></a></link>
 		</div>
 		<div class="col-sm-12 col-md-4">
@@ -58,46 +74,45 @@
 	</div>
 
 </div>
-	<!-- GLOBAL_ANNOUNCEMENT -->
-	<div class="container container-content">
-		{{#hasConfig "GLOBAL_ANNOUNCEMENT"}}
-			<div class="notification alert alert-info">
-				<div class="notification-content">
-					{{{getConfig "GLOBAL_ANNOUNCEMENT"}}}
-				</div>
-			</div>
-		{{/hasConfig}}
-	</div>
-
-	<!-- GHOST (will be replaced by js) -->
-	<div class="sc-blog">
-		<div class="container container-content content-width-max">
-			<h1 class="section-title title text-center" style="color: var(--color-primary);">
-				{{{$t "home.headline.welcomeToHPISchoolCloud"}}}
-			</h1>
-		</div>
-		<div class="content" style="opacity: 0; transition: opacity 0.7s ease-in;"></div>
-		<div class="loading text-center mt-3 mb-3" style="min-height: 70vh;">
-			<i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
-				style="font-size: 25px;"></i>
-			<div class="placeholder" style="display: none;">
-				<img src="/images/repair.png" width="350px">
-				<p class="text-muted">{{$t "global.text.errorWhileLoadingPage"}}</p>
-				<button type="button" class="btn btn-primary mt-2">{{$t "global.button.tryAgain"}}</button>
-			</div>
+<!-- GLOBAL_ANNOUNCEMENT -->
+<div class="container container-content">
+	{{#hasConfig "GLOBAL_ANNOUNCEMENT"}}
+	<div class="notification alert alert-info">
+		<div class="notification-content">
+			{{{getConfig "GLOBAL_ANNOUNCEMENT"}}}
 		</div>
 	</div>
+	{{/hasConfig}}
+</div>
 
-	<!-- BLOG -->
-	{{#embed "authentication/section" style="accent" class=""}}
-		{{#content "body"}}
-			<h2 class="h3 section-title center">{{{$t "home.headline.HPISchoolCloudBlog"}}}</h2>
-				<div class="blog-cards">
-					<p>{{$t "home.text.blogIsDeactivated"}}</p>
-				</div>
-			<a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">{{$t "home.link.moreArticles"}}</a>
-		{{/content}}
-	{{/embed}}
+<!-- GHOST (will be replaced by js) -->
+<div class="sc-blog">
+	<div class="container container-content content-width-max">
+		<h1 class="section-title title text-center" style="color: var(--color-primary);">
+			{{{$t "home.headline.welcomeToHPISchoolCloud"}}}
+		</h1>
+	</div>
+	<div class="content" style="opacity: 0; transition: opacity 0.7s ease-in;"></div>
+	<div class="loading text-center mt-3 mb-3" style="min-height: 70vh;">
+		<i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true" style="font-size: 25px;"></i>
+		<div class="placeholder" style="display: none;">
+			<img src="/images/repair.png" width="350px">
+			<p class="text-muted">{{$t "global.text.errorWhileLoadingPage"}}</p>
+			<button type="button" class="btn btn-primary mt-2">{{$t "global.button.tryAgain"}}</button>
+		</div>
+	</div>
+</div>
 
-	{{/content}}
+<!-- BLOG -->
+{{#embed "authentication/section" style="accent" class=""}}
+{{#content "body"}}
+<h2 class="h3 section-title center">{{{$t "home.headline.HPISchoolCloudBlog"}}}</h2>
+<div class="blog-cards">
+	<p>{{$t "home.text.blogIsDeactivated"}}</p>
+</div>
+<a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">{{$t "home.link.moreArticles"}}</a>
+{{/content}}
+{{/embed}}
+
+{{/content}}
 {{/extend}}
