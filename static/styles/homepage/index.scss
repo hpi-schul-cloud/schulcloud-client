@@ -79,3 +79,15 @@
         }
     }
 }
+
+.flex-container{
+    display: flex;
+    align-items: center;
+
+    p {
+        margin-bottom: 0;
+    }
+}
+.heading{
+    font-size: 29px;
+}
