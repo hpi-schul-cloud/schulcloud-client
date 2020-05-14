@@ -2,6 +2,16 @@
 	"title": "HPI Schul-Cloud Configuration",
 	"type": "object",
 	"properties": {
+		"CORS": {
+			"type": "string",
+			"default": "1",
+			"description": "If enabled, default content security policy (CSP) header will be set."
+		},
+		"SECURITY_HEADERS": {
+			"type": "string",
+			"default": "1",
+			"description": "If enabled, additional content security policy (CSP) header will be set."
+		},
 		"API_KEY": {
 			"type": "string",
 			"default": "example",

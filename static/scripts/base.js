@@ -317,6 +317,26 @@ $(document).ready(() => {
 		$modals.modal('hide');
 	});
 
+	// Self Window Close
+	$('.selfclose').on('click', () => {
+		self.close();
+	});
+
+	// Window Print
+	$('.windowprint').on('click', () => {
+		window.print();
+	});
+
+	// Window History Back
+	$('.historyback').on('click', () => {
+		window.history.back();
+	});
+
+	// Window Local Storage Clear
+	$('.localstorageclear').on('click', () => {
+		localStorage.clear();
+	});
+
 	// Print Button
 	document.querySelectorAll('.print .btn-print').forEach((btn) => {
 		btn.addEventListener('click', printPart);

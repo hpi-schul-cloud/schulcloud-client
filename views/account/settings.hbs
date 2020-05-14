@@ -4,7 +4,7 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/settings.js" type="text/javascript" defer></script>
+        <script src="/scripts/settings.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -182,7 +182,7 @@
                             {{/if}}
                             <div class="panel-footer">
                                 <button type="button" class="btn btn-default btn-device"
-                                        onclick="pushManager.requestPermission()">
+                                        data-method="requestpermission">
                                     <i class="fa fa-bell" aria-hidden="true"></i>
                                     Benachrichtigungen
                                     aktivieren

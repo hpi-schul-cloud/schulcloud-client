@@ -3,82 +3,87 @@
 		<div class="list-group" data-courseId="{{@root/_id}}">
 			{{#if ltiToolIds}}
 			{{#each ltiToolIds}}
-			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{/if}}" {{#unless this.isBBB}}
-				onclick="location.href='/courses/{{../_id}}/tools/show/{{this._id}}'" {{/unless}}>
-				{{#unless this.isBBB}}
-				<div class="card-title-directory">
-					{{#if logo_url}}
-					<img src={{this.logo_url}} class="float-left" style="width:auto; height:75px;" />
-					{{else}}
-					<img src="/images/cloud.png" class="float-left" style="width:auto; height:75px;" />
-					{{/if}}
+			{{#unless this.isBBB}}
+			<a href="/courses/{{../_id}}/tools/show/{{this._id}}">
+			{{/unless}}
+				<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{/if}}">
+					{{#unless this.isBBB}}
+					<div class="card-title-directory">
+						{{#if logo_url}}
+						<img src={{this.logo_url}} class="float-left" style="width:auto; height:75px;" />
+						{{else}}
+						<img src="/images/cloud.png" class="float-left" style="width:auto; height:75px;" />
+						{{/if}}
 
-					<span>{{this.name}}</span>
+						<span>{{this.name}}</span>
+
+						{{#if this.isBBB}}
+						<a class="bbbTool-reload-icon">
+							<i class="fa fa-trash"></i>
+						</a>
+						{{/if}}
+
+						{{#userHasPermission "TOOL_CREATE" }}
+						{{#unless @root.isArchived}}
+						<a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank"
+							data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{../../_id}}/?activeTab=tools">
+							<i class="fa fa-trash-o"></i>
+						</a>
+						{{/unless}}
+						{{/userHasPermission}}
+					</div>
+					{{/unless}}
+
 
 					{{#if this.isBBB}}
-					<a class="bbbTool-reload-icon">
-						<i class="fa fa-trash"></i>
-					</a>
+					<div class="card-title-directory bbb-state bbb-guest-inactive-state">
+						<img src="/images/tools/bbb/not_started.png" class="float-left" style="width:auto; height:75px;" />
+						<span>{{$t "courses._course.tools.text.videoConferenceNotStartedYet"}}</span>
+						<a class="bbbTool-info-icon">
+							<i class="fa fa-info-circle"></i>
+						</a>
+
+						<a class="bbbTool-reload-container">
+							<i class="fa fa-repeat bbbTool-reload-icon" style="cursor:pointer;"></i>
+						</a>
+					</div>
+
+					<div class="card-title-directory bbb-state bbb-moderator-inactive-state">
+
+						<img src="/images/tools/bbb/available.png" class="float-left" style="width:auto; height:75px;" />
+
+						<span>{{$t "courses._course.tools.text.videoConferenceBBB"}}</span>
+
+						{{#userHasPermission "TOOL_CREATE" }}
+						{{#unless @root.isArchived}}
+						<a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank"
+							data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{../../_id}}/?activeTab=tools">
+							<i class="fa fa-trash-o"></i>
+						</a>
+						{{/unless}}
+						{{/userHasPermission}}
+					</div>
+
+					<div class="card-title-directory bbb-state bbb-running-videoconference-state">
+
+						<img src="/images/tools/bbb/available.png" class="float-left" style="width:auto; height:75px;" />
+
+						<span>{{$t "courses._course.tools.text.videoConferenceBBB"}}</span>
+						<span class="pulsating-dot bbbTool-reload-container"></span>
+
+					</div>
+
+					<div class="card-title-directory bbb-state ">
+						<img src="/images/tools/bbb/not_started.png" class="float-left" style="width:auto; height:75px;" />
+						<span>{{$t "courses._course.tools.text.videoConferenceBBB"}}</span>
+					</div>
+
 					{{/if}}
 
-					{{#userHasPermission "TOOL_CREATE" }}
-					{{#unless @root.isArchived}}
-					<a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank"
-						data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{../../_id}}/?activeTab=tools">
-						<i class="fa fa-trash-o"></i>
-					</a>
-					{{/unless}}
-					{{/userHasPermission}}
 				</div>
-				{{/unless}}
-
-
-				{{#if this.isBBB}}
-				<div class="card-title-directory bbb-state bbb-guest-inactive-state">
-					<img src="/images/tools/bbb/not_started.png" class="float-left" style="width:auto; height:75px;" />
-					<span>{{$t "courses._course.tools.text.videoConferenceNotStartedYet"}}</span>
-					<a class="bbbTool-info-icon">
-						<i class="fa fa-info-circle"></i>
-					</a>
-
-					<a class="bbbTool-reload-container">
-						<i class="fa fa-repeat bbbTool-reload-icon" style="cursor:pointer;"></i>
-					</a>
-				</div>
-
-				<div class="card-title-directory bbb-state bbb-moderator-inactive-state">
-
-					<img src="/images/tools/bbb/available.png" class="float-left" style="width:auto; height:75px;" />
-
-					<span>{{$t "courses._course.tools.text.videoConferenceBBB"}}</span>
-
-					{{#userHasPermission "TOOL_CREATE" }}
-					{{#unless @root.isArchived}}
-					<a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank"
-						data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{../../_id}}/?activeTab=tools">
-						<i class="fa fa-trash-o"></i>
-					</a>
-					{{/unless}}
-					{{/userHasPermission}}
-				</div>
-
-				<div class="card-title-directory bbb-state bbb-running-videoconference-state">
-
-					<img src="/images/tools/bbb/available.png" class="float-left" style="width:auto; height:75px;" />
-
-					<span>{{$t "courses._course.tools.text.videoConferenceBBB"}}</span>
-					<span class="pulsating-dot bbbTool-reload-container"></span>
-
-				</div>
-
-				<div class="card-title-directory bbb-state ">
-					<img src="/images/tools/bbb/not_started.png" class="float-left" style="width:auto; height:75px;" />
-					<span>{{$t "courses._course.tools.text.videoConferenceBBB"}}</span>
-				</div>
-
-				{{/if}}
-
-			</div>
+			{{#unless this.isBBB}}
+			</a>
+			{{/unless}}
 			{{/each}}
 			{{else}}
 			<div class="empty-state">

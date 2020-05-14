@@ -48,6 +48,13 @@ window.openFolder = (id) => {
 	return target + window.location.search || '';
 };
 
+$('.openfolder').on('click', function (e) {
+	let folderid = this.getAttribute('data-folder-id');
+	if (folderid) {
+		openFolder(folderid);
+	}
+});
+
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
 
@@ -819,6 +826,19 @@ window.videoClick = function videoClick(e) {
 	e.preventDefault();
 };
 
+$('.videoclick').on('click', function (e) {
+	videoClick(e);
+});
+
+$('.videostop').on('click', function (e) {
+	videojs('my-video').ready(function () {
+		this.pause();
+	});
+	$('#link').html('');
+	$('#picture').attr('src', '');
+	$('#file-view').css('display','none');
+});
+
 const fileTypes = {
 	docx:
 		'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -906,3 +926,16 @@ window.fileViewer = function fileViewer(type, name, id) {
 			win.focus();
 	}
 };
+
+$('.fileviewer').on('click', function (e) {
+	let fileviewertype = this.getAttribute('data-file-viewer-type');
+	let fileviewersavename = this.getAttribute('data-file-viewer-savename');
+	let fileviewerid = this.getAttribute('data-file-viewer-id');
+	if (
+		fileviewertype && 
+		fileviewersavename && 
+		fileviewerid
+	) {
+		fileViewer(fileviewertype, fileviewersavename, fileviewerid);
+	}
+});

@@ -7,31 +7,33 @@
 				<link rel="stylesheet" href="/styles/lib/chatLoggedin.css"/>
 			{{/inArray}}
 		{{/ifConfig}}
-        <noscript><style>
-            .section-title,
-            #main-content,
-            footer
-            {
-                opacity: 1;
-            }
-        </style></noscript>
+        <noscript>
+            <style>
+                .section-title,
+                #main-content,
+                footer
+                {
+                    opacity: 1;
+                }
+            </style>
+        </noscript>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
-        <script src="/scripts/autologout.js" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" defer></script>
-        <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" defer></script>
-        <script type="text/javascript" src="/vendor/feathersjs/feathers.js" defer></script>
+        <script src="/scripts/loggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/autologout.js" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
+        <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" nonce="{{nonceValue}}" defer></script>
+        <script type="text/javascript" src="/vendor/feathersjs/feathers.js" nonce="{{nonceValue}}" defer></script>
         {{#if @root.currentUser.preferences.enterthecloud}}
-            <script type="text/javascript" src="/vendor/enterthecloud.min.js" defer></script>
+            <script type="text/javascript" src="/vendor/enterthecloud.min.js" nonce="{{nonceValue}}" defer></script>
         {{/if}}
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
             {{#inArray "messenger" @root.currentSchoolData.features}}
-                <script>
+                <script nonce="{{nonceValue}}">
                     window.matrixBundle = '{{getConfig "MATRIX_MESSENGER_BUNDLE"}}';
                     window.userLanguage = '{{ @root.userLanguage }}';
                 </script>
-                <script src="/scripts/chatLoggedin.js" type="text/javascript" defer></script>
+                <script src="/scripts/chatLoggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
             {{/inArray}}
         {{/ifConfig}}
     {{/content}}
@@ -202,7 +204,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
                                     <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{ currentRole }})</div>
                                     <a class="dropdown-item" data-testid="settings" href="/account/">Einstellungen</a>
-                                    <a class="dropdown-item" data-testid="logout" href="/logout/" onclick="localStorage.clear();">Abmelden</a>
+                                    <a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/">Abmelden</a>
                                 </div>
                               </div>
                             </div>

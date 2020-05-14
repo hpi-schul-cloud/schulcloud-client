@@ -33,87 +33,90 @@
 					{{#each lessons}}
 						{{#unless this.hidden}}
 							<!-- TOPIC IS NOT HIDDEN, teacher and student has access -->
-							<div class="card card-topic" onclick="location.href='{{this.url}}'"
-								{{#userHasPermission "COURSE_EDIT"}} data-topicId="{{../_id}}" {{/userHasPermission}}>
-								<div class="card-header">
-									<div class="input-group">
-										{{#userHasPermission "COURSE_EDIT"}}
-											{{#unless @root.isArchived}}
+							<a href="{{this.url}}">
+								<div class="card card-topic"
+									{{#userHasPermission "COURSE_EDIT"}} data-topicId="{{../_id}}" {{/userHasPermission}}>
+									<div class="card-header">
+										<div class="input-group">
+											{{#userHasPermission "COURSE_EDIT"}}
+												{{#unless @root.isArchived}}
+													<a class="move-handle hidden-xs-down" title="{{$t "courses._course.topic.text.moveTopic"}}">
+														<i class="fa fa-ellipsis-v"></i>
+														<i class="fa fa-ellipsis-v"></i>
+													</a>
+													<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}" title="{{$t "courses._course.topic.text.hideTopic"}}">
+														<i class="fa fa-eye"></i>
+													</a>
+												{{/unless}}
+											{{/userHasPermission}}
+											<p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
+											{{#userHasPermission "COURSE_EDIT"}}
+												<div class="right-btn-group">
+													{{#unless @root.isArchived}}
+														<a class="delete-topic btn btn-secondary btn-secondary btn-sm btn-icon-card"
+															href="/courses/{{../courseId}}/topics/{{../_id}}"
+															target="_blank" data-method="DELETE" data-name="{{../name}}"
+															redirect="/courses/{{../courseId}}/?activeTab=topics"
+															title="{{$t "courses._course.topic.text.deleteTopic"}}">
+															<i class="fa fa-trash-o"></i>
+														</a>
+														<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
+															class="btn btn-secondary btn-sm btn-icon-card"
+															title="{{$t "courses._course.topic.text.editTopic"}}">
+															<i class="fa fa-pencil"></i>
+														</a>
+													{{/unless}}
+													<a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
+														class="btn btn-secondary btn-sm btn-create-share btn-icon-card"
+														title="{{$t "courses._course.topic.text.shareTopic"}}">
+														<i class="fa fa-share-alt"></i>
+													</a>
+												</div>
+											{{/userHasPermission}}
+										</div>
+									</div>
+								</div>
+							</a>
+						{{else}}
+							<!-- TOPIC IS HIDDEN, just teacher has access -->
+							{{#userHasPermission "COURSE_EDIT"}}
+								<a href="{{../url}}">
+									<div class="card card-topic card-transparent" data-topicId="{{../_id}}">
+										<div class="card-header">
+											<div class="input-group">
 												<a class="move-handle hidden-xs-down" title="{{$t "courses._course.topic.text.moveTopic"}}">
 													<i class="fa fa-ellipsis-v"></i>
 													<i class="fa fa-ellipsis-v"></i>
 												</a>
-												<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}" title="{{$t "courses._course.topic.text.hideTopic"}}">
-													<i class="fa fa-eye"></i>
+												<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}"
+													title="{{$t "courses._course.topic.text.revealTopic"}}">
+													<i class="fa fa-eye-slash"></i>
 												</a>
-											{{/unless}}
-										{{/userHasPermission}}
-										<p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
-										{{#userHasPermission "COURSE_EDIT"}}
-											<div class="right-btn-group">
-												{{#unless @root.isArchived}}
-													<a class="delete-topic btn btn-secondary btn-secondary btn-sm btn-icon-card"
-														href="/courses/{{../courseId}}/topics/{{../_id}}"
-														target="_blank" data-method="DELETE" data-name="{{../name}}"
-														redirect="/courses/{{../courseId}}/?activeTab=topics"
-														title="{{$t "courses._course.topic.text.deleteTopic"}}">
-														<i class="fa fa-trash-o"></i>
+												<p class="topic-label ml-1">{{{stripOnlyScript ../name}}}</p>
+												<div class="right-btn-group">
+													{{#unless @root.isArchived}}
+														<a class="delete-topic btn btn-secondary btn-sm btn-icon-card"
+															href="/courses/{{../courseId}}/topics/{{../_id}}"
+															target="_blank" data-method="DELETE" data-name="{{../name}}"
+															redirect="/courses/{{../courseId}}" title="{{$t "courses._course.topic.text.deleteTopic"}}">
+															<i class="fa fa-trash-o"></i>
+														</a>
+														<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
+															class="btn btn-secondary btn-sm btn-icon-card"
+															title="{{$t "courses._course.topic.text.editTopic"}}">
+															<i class="fa fa-pencil"></i>
+														</a>
+													{{/unless}}
+													<a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
+														class="btn btn-secondary btn-sm btn-create-share btn-icon-card"
+														title="{{$t "courses._course.topic.text.shareTopic"}}">
+														<i class="fa fa-share-alt"></i>
 													</a>
-													<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
-														class="btn btn-secondary btn-sm btn-icon-card"
-														title="{{$t "courses._course.topic.text.editTopic"}}">
-														<i class="fa fa-pencil"></i>
-													</a>
-												{{/unless}}
-												<a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
-													class="btn btn-secondary btn-sm btn-create-share btn-icon-card"
-													title="{{$t "courses._course.topic.text.shareTopic"}}">
-													<i class="fa fa-share-alt"></i>
-												</a>
-											</div>
-										{{/userHasPermission}}
-									</div>
-								</div>
-							</div>
-						{{else}}
-							<!-- TOPIC IS HIDDEN, just teacher has access -->
-							{{#userHasPermission "COURSE_EDIT"}}
-								<div class="card card-topic card-transparent" onclick="location.href='{{../url}}'"
-									data-topicId="{{../_id}}">
-									<div class="card-header">
-										<div class="input-group">
-											<a class="move-handle hidden-xs-down" title="{{$t "courses._course.topic.text.moveTopic"}}">
-												<i class="fa fa-ellipsis-v"></i>
-												<i class="fa fa-ellipsis-v"></i>
-											</a>
-											<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}"
-												title="{{$t "courses._course.topic.text.revealTopic"}}">
-												<i class="fa fa-eye-slash"></i>
-											</a>
-											<p class="topic-label ml-1">{{{stripOnlyScript ../name}}}</p>
-											<div class="right-btn-group">
-												{{#unless @root.isArchived}}
-													<a class="delete-topic btn btn-secondary btn-sm btn-icon-card"
-														href="/courses/{{../courseId}}/topics/{{../_id}}"
-														target="_blank" data-method="DELETE" data-name="{{../name}}"
-														redirect="/courses/{{../courseId}}" title="{{$t "courses._course.topic.text.deleteTopic"}}">
-														<i class="fa fa-trash-o"></i>
-													</a>
-													<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
-														class="btn btn-secondary btn-sm btn-icon-card"
-														title="{{$t "courses._course.topic.text.editTopic"}}">
-														<i class="fa fa-pencil"></i>
-													</a>
-												{{/unless}}
-												<a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
-													class="btn btn-secondary btn-sm btn-create-share btn-icon-card"
-													title="{{$t "courses._course.topic.text.shareTopic"}}">
-													<i class="fa fa-share-alt"></i>
-												</a>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
+								</a>
 							{{/userHasPermission}}
 						{{/unless}}
 					{{/each}}
@@ -161,69 +164,72 @@
 						{{#each newLessons}}
 							{{#if this.visible}}
 								<!-- TOPIC IS NOT HIDDEN, teacher and student has access -->
-								<div class="card card-topic" onclick="location.href='{{this.url}}'"
-									{{#userHasPermission "COURSE_EDIT"}} data-topicId="{{../_id}}" {{/userHasPermission}}>
-									<div class="card-header new-editor">
-										<div class="input-group">
-											{{#userHasPermission "COURSE_EDIT"}}
-												{{#unless @root.isArchived}}
+								<a href="{{this.url}}">
+									<div class="card card-topic"
+										{{#userHasPermission "COURSE_EDIT"}} data-topicId="{{../_id}}" {{/userHasPermission}}>
+										<div class="card-header new-editor">
+											<div class="input-group">
+												{{#userHasPermission "COURSE_EDIT"}}
+													{{#unless @root.isArchived}}
+														<a class="move-handle hidden-xs-down" title="{{$t "courses._course.topic.text.moveTopic"}}">
+															<i class="fa fa-ellipsis-v"></i>
+															<i class="fa fa-ellipsis-v"></i>
+														</a>
+														<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}/neweditor" title="{{$t "courses._course.topic.text.hideTopic"}}">
+															<i class="fa fa-eye"></i>
+														</a>
+													{{/unless}}
+												{{/userHasPermission}}
+												<p class="topic-label ml-1">{{{stripOnlyScript this.title}}}</p>
+												<span class="tag tag-default">{{$t "courses._course.topic.text.beta"}}</span>
+												{{#userHasPermission "COURSE_EDIT"}}
+													<div class="right-btn-group">
+														{{#unless @root.isArchived}}
+															<a class="delete-topic btn btn-secondary btn-secondary btn-sm btn-icon-card"
+																href="/courses/{{../courseId}}/topics/{{../_id}}/neweditor"
+																target="_blank" data-method="DELETE" data-name="{{../title}}"
+																redirect="/courses/{{../courseId}}/?activeTab=topics"
+																title="{{$t "courses._course.topic.text.deleteTopic"}}">
+																<i class="fa fa-trash-o"></i>
+															</a>
+														{{/unless}}
+													</div>
+												{{/userHasPermission}}
+											</div>
+										</div>
+									</div>
+								</a>
+							{{else}}
+								<!-- TOPIC IS HIDDEN, just teacher has access -->
+								{{#userHasPermission "COURSE_EDIT"}}
+									<a href="{{../url}}">
+										<div class="card card-topic card-transparent" data-topicId="{{../_id}}">
+											<div class="card-header">
+												<div class="input-group">
 													<a class="move-handle hidden-xs-down" title="{{$t "courses._course.topic.text.moveTopic"}}">
 														<i class="fa fa-ellipsis-v"></i>
 														<i class="fa fa-ellipsis-v"></i>
 													</a>
-													<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}/neweditor" title="{{$t "courses._course.topic.text.hideTopic"}}">
-														<i class="fa fa-eye"></i>
+													<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}/neweditor"
+														title="{{$t "courses._course.topic.text.revealTopic"}}">
+														<i class="fa fa-eye-slash"></i>
 													</a>
-												{{/unless}}
-											{{/userHasPermission}}
-											<p class="topic-label ml-1">{{{stripOnlyScript this.title}}}</p>
-											<span class="tag tag-default">{{$t "courses._course.topic.text.beta"}}</span>
-											{{#userHasPermission "COURSE_EDIT"}}
-												<div class="right-btn-group">
-													{{#unless @root.isArchived}}
-														<a class="delete-topic btn btn-secondary btn-secondary btn-sm btn-icon-card"
-															href="/courses/{{../courseId}}/topics/{{../_id}}/neweditor"
-															target="_blank" data-method="DELETE" data-name="{{../title}}"
-															redirect="/courses/{{../courseId}}/?activeTab=topics"
-															title="{{$t "courses._course.topic.text.deleteTopic"}}">
-															<i class="fa fa-trash-o"></i>
-														</a>
-													{{/unless}}
-												</div>
-											{{/userHasPermission}}
-										</div>
-									</div>
-								</div>
-							{{else}}
-								<!-- TOPIC IS HIDDEN, just teacher has access -->
-								{{#userHasPermission "COURSE_EDIT"}}
-									<div class="card card-topic card-transparent" onclick="location.href='{{../url}}'"
-										data-topicId="{{../_id}}">
-										<div class="card-header">
-											<div class="input-group">
-												<a class="move-handle hidden-xs-down" title="{{$t "courses._course.topic.text.moveTopic"}}">
-													<i class="fa fa-ellipsis-v"></i>
-													<i class="fa fa-ellipsis-v"></i>
-												</a>
-												<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}/neweditor"
-													title="{{$t "courses._course.topic.text.revealTopic"}}">
-													<i class="fa fa-eye-slash"></i>
-												</a>
-												<p class="topic-label ml-1">{{{stripOnlyScript ../title}}}</p>
-												<span class="tag tag-default">{{$t "courses._course.topic.text.beta"}}</span>
-												<div class="right-btn-group">
-													{{#unless @root.isArchived}}
-														<a class="delete-topic btn btn-secondary btn-sm btn-icon-card"
-															href="/courses/{{../courseId}}/topics/{{../_id}}/neweditor"
-															target="_blank" data-method="DELETE" data-name="{{../title}}"
-															redirect="/courses/{{../courseId}}" title="{{$t "courses._course.topic.text.deleteTopic"}}">
-															<i class="fa fa-trash-o"></i>
-														</a>
-													{{/unless}}
+													<p class="topic-label ml-1">{{{stripOnlyScript ../title}}}</p>
+													<span class="tag tag-default">{{$t "courses._course.topic.text.beta"}}</span>
+													<div class="right-btn-group">
+														{{#unless @root.isArchived}}
+															<a class="delete-topic btn btn-secondary btn-sm btn-icon-card"
+																href="/courses/{{../courseId}}/topics/{{../_id}}/neweditor"
+																target="_blank" data-method="DELETE" data-name="{{../title}}"
+																redirect="/courses/{{../courseId}}" title="{{$t "courses._course.topic.text.deleteTopic"}}">
+																<i class="fa fa-trash-o"></i>
+															</a>
+														{{/unless}}
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
+									</a>
 								{{/userHasPermission}}
 							{{/if}}
 						{{/each}}

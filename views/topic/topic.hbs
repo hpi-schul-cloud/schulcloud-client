@@ -1,5 +1,3 @@
-<script src="https://www.geogebra.org/apps/deployggb.js"></script>
-
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
@@ -8,7 +6,7 @@
         <link rel="stylesheet" href="/styles/topics/topics.css" />
     {{/content}}
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/topic.js" defer></script>
+        <script src="/scripts/topic.js" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}

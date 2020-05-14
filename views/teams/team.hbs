@@ -8,12 +8,12 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
-        <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
-        <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
-        <script src="/scripts/files.js" type="text/javascript" defer></script>
-        <script src="/scripts/teams.js" type="text/javascript" defer></script>
-        <script src="/scripts/tabbar.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/teams.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -101,44 +101,46 @@
                                         <div class="row">
                                             {{#each ../directories}}
                                                 <div class="col-sm-6 col-xs-12 col-md-4">
-                                                    <div class="card card-block folder" onclick="location.href = '/files/teams/{{../../_id}}/{{this._id}}';">
-                                                        <strong class="card-title-directory">
-                                                            <i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
-                                                        </strong>
-                                                        {{#userHasPermission "FOLDER_DELETE"}}
-                                                            <a href="/files/directory/"
-                                                            target="_blank"
-                                                            data-method="delete"
-                                                            title="Ordner löschen"
-                                                            data-file-name="{{../this.name}}"
-                                                            data-file-id="{{../this._id}}"
-                                                            >
-                                                                <i class="fa fa-trash-o pull-right"></i>
-                                                            </a>
-
-                                                            <a href="/directoryModel/{{../this._id}}/rename"
-                                                            target="_blank"
-                                                            data-method="dir-rename"
-                                                            title="Ordner umbenennen"
-                                                            data-directory-id="{{../this._id}}"
-                                                            data-directory-name="{{../this.name}}"
-                                                            >
-                                                                <i class="fa fa-edit pull-right"></i>
-                                                            </a>
-                                                            {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
-                                                                <a href="/directoryModel/{{../this._id}}/share"
+                                                    <a href="/files/teams/{{../../_id}}/{{this._id}}">
+                                                        <div class="card card-block folder">
+                                                            <strong class="card-title-directory">
+                                                                <i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
+                                                            </strong>
+                                                            {{#userHasPermission "FOLDER_DELETE"}}
+                                                                <a href="/files/directory/"
                                                                 target="_blank"
-                                                                class="btn-file-share"
-                                                                data-method="dir-share"
-                                                                title="Ordner-Freigabe"
-                                                                data-file-id="{{../this._id}}"
+                                                                data-method="delete"
+                                                                title="Ordner löschen"
                                                                 data-file-name="{{../this.name}}"
+                                                                data-file-id="{{../this._id}}"
                                                                 >
-                                                                    <i class="fa fa-share-alt pull-right"></i>
+                                                                    <i class="fa fa-trash-o pull-right"></i>
                                                                 </a>
-                                                            {{/inArray}}
-                                                        {{/userHasPermission}}
-                                                    </div>
+
+                                                                <a href="/directoryModel/{{../this._id}}/rename"
+                                                                target="_blank"
+                                                                data-method="dir-rename"
+                                                                title="Ordner umbenennen"
+                                                                data-directory-id="{{../this._id}}"
+                                                                data-directory-name="{{../this.name}}"
+                                                                >
+                                                                    <i class="fa fa-edit pull-right"></i>
+                                                                </a>
+                                                                {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
+                                                                    <a href="/directoryModel/{{../this._id}}/share"
+                                                                    target="_blank"
+                                                                    class="btn-file-share"
+                                                                    data-method="dir-share"
+                                                                    title="Ordner-Freigabe"
+                                                                    data-file-id="{{../this._id}}"
+                                                                    data-file-name="{{../this.name}}"
+                                                                    >
+                                                                        <i class="fa fa-share-alt pull-right"></i>
+                                                                    </a>
+                                                                {{/inArray}}
+                                                            {{/userHasPermission}}
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             {{/each}}
                                         </div>
