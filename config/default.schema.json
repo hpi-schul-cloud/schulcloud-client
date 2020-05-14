@@ -125,6 +125,16 @@
 			"format": "uri",
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
+		},
+		"ETHERPAD_BASE_PATH": {
+			"type": "string",
+			"default": "/etherpad",
+			"description": "Base path for our etherpad"
+		},
+		"ETHERPAD_PAD_URI": {
+			"type": "string",
+			"default": "https://schul-cloud.org/etherpad/p",
+			"description": "Base path for our etherpad"
 		}
 	},
 	"required": [

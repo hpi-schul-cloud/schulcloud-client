@@ -11,7 +11,7 @@ const { EDTR_SOURCE } = require('../config/global');
 const router = express.Router({ mergeParams: true });
 
 const {
-	ETHERPAD_BASE_URL,
+	ETHERPAD_PAD_URI,
 	NEXBOARD_USER_ID,
 	NEXBOARD_API_KEY,
 	PUBLIC_BACKEND_URL,
@@ -51,7 +51,7 @@ const editTopicHandler = (req, res, next) => {
 			topicId: req.params.topicId,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
-			etherpadBaseUrl: ETHERPAD_BASE_URL,
+			etherpadBaseUrl: ETHERPAD_PAD_URI,
 		});
 	}).catch((err) => {
 		next(err);
@@ -70,6 +70,66 @@ const checkInternalComponents = (data, baseUrl) => {
 
 	return data;
 };
+
+const getEtherpadPadForCourse = async (req, user, courseId, content) => {
+	const pad = await api(req).post('/etherpad/pads', {
+		json: {
+			"courseId": courseId,
+			"padName": content.title,
+			"text": content.description
+		}
+	}).catch((err) => {
+		logger.error(err);
+	});
+
+	return pad.data.padID;
+};
+
+async function createNewEtherpad(req, res, contents = [], courseId) {
+	// eslint-disable-next-line no-return-await
+	return await Promise.all(contents.map(async (content) => {
+		if (!!content && content.component === 'Etherpad') {
+			try {
+				const etherpadPadId = await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content);
+				content.content.url = `${ETHERPAD_PAD_URI}/${etherpadPadId}`;
+				return content;
+			} catch (err) {
+				logger.error(err);
+
+				return undefined;
+			}
+		} else {
+			return content;
+		}
+	}));
+}
+
+const getEtherpads = (req, res, next) => {
+	api(req).get('/lessons/contents/etherpad', {
+		qs: {
+			type: 'etherpad',
+			user: res.locals.currentUser._id,
+		},
+	})
+		.then((pads) => {
+			res.json(pads);
+		});
+};
+
+const getEtherpadSession = (req, res, courseId) => {
+	return api(req).post('/etherpad/sessions', {
+		form: {
+			courseId,
+		},
+	})
+	.then((sessionInfo) => {
+		return sessionInfo;
+	});
+};
+
+router.get('/:topicId/etherpads/pads', getEtherpads);
+
+router.get('/etherpad/pads', getEtherpads);
 
 const getNexBoardAPI = () => {
 	if (!NEXBOARD_USER_ID && !NEXBOARD_API_KEY) {
@@ -151,7 +211,9 @@ router.post('/', async (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	const data = req.body;
 
-	// Check for neXboard compontent
+	// Check for etherpad component
+	data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
+	// Check for neXboard component
 	data.contents = await createNewNexBoards(req, res, data.contents);
 
 	data.contents = data.contents.filter(c => c !== undefined);
@@ -222,6 +284,60 @@ router.get('/:topicId', (req, res, next) => {
 			? api(req).get(`/courseGroups/${req.query.courseGroup}`)
 			: Promise.resolve({}),
 	]).then(([course, lesson, homeworks, courseGroup]) => {
+		let returnPromise;
+		const foundEtherpad = lesson.contents.find((content) => content.component === "Etherpad");
+		if(foundEtherpad) {
+			returnPromise = Promise.all([
+				getEtherpadSession(req, res, course.id),
+				Promise.resolve(course),
+				Promise.resolve(lesson),
+				Promise.resolve(homeworks),
+				Promise.resolve(courseGroup),
+			]);
+		} else {
+			returnPromise = Promise.all([
+				Promise.resolve(undefined),
+				Promise.resolve(course),
+				Promise.resolve(lesson),
+				Promise.resolve(homeworks),
+				Promise.resolve(courseGroup),
+			]);
+		}
+		return returnPromise;
+	}).then(([etherpadSession, course, lesson, homeworks, courseGroup]) => {
+
+		let etherpadLoginPromises = [];
+		let etherpadComponentCount = 0;
+		if(typeof(lesson.contents) !== "undefined") {
+			etherpadComponentCount = lesson.contents.filter( (content)  => { return content.component === "Etherpad" } ).length;
+		}
+
+		etherpadLoginPromises.push(Promise.resolve(etherpadComponentCount));
+		if(typeof(lesson.contents) !== "undefined") {
+			lesson.contents.forEach((lesson, index) => {
+				if( lesson.component === "Etherpad" ) {
+					let url = lesson.content.url;
+					let padId = url.substring(url.lastIndexOf('/')+1);
+					// set cookie for this pad
+					etherpadLoginPromises.push(
+						Promise.resolve(authHelper.etherpad_cookie_helper(etherpadSession, padId, res))
+					);
+				}
+			});
+		}
+		etherpadLoginPromises.push(Promise.resolve(course));
+		etherpadLoginPromises.push(Promise.resolve(lesson));
+		etherpadLoginPromises.push(Promise.resolve(homeworks));
+		etherpadLoginPromises.push(Promise.resolve(courseGroup));
+
+		return Promise.all(etherpadLoginPromises);
+	}).then((promisesWithEPLogin) => {
+		let etherpadNumber = promisesWithEPLogin.shift();
+		for (i = 0; i < etherpadNumber; i++) {
+			promisesWithEPLogin.shift(); // this should not be done this way.
+		}
+
+		let [course, lesson, homeworks, courseGroup] = promisesWithEPLogin;
 		// decorate contents
 		lesson.contents = (lesson.contents || []).map((block) => {
 			block.component = `topic/components/content-${block.component}`;

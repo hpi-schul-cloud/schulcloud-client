@@ -1,8 +1,10 @@
 const jwt = require('jsonwebtoken');
+
 const { Configuration } = require('@schul-cloud/commons');
 
 const api = require('../api');
 const permissionsHelper = require('./permissions');
+
 const { NODE_ENV, SW_ENABLED, LOGIN_BLOCK_TIME } = require('../config/global');
 const logger = require('./logger');
 
@@ -171,11 +173,11 @@ const login = (payload = {}, req, res, next) => {
 	delete payload.redirect;
 	return api(req).post('/authentication', { json: payload }).then((data) => {
 		res.cookie('jwt', data.accessToken, {
-			expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-			httpOnly: false, // can't be set to true with nuxt client
-			hostOnly: true,
-			sameSite: 'strict', // restrict jwt access to our domain ressources only
-			secure: NODE_ENV === 'production',
+			expires: new Date(Date.now() + Configuration.get('COOKIE__EXPIRES_SECONDS')),
+			httpOnly: Configuration.get('COOKIE__HTTP_ONLY'), // can't be set to true with nuxt client
+			hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
+			sameSite: Configuration.get('COOKIE__SAME_SITE'), // restrict jwt access to our domain ressources only
+			secure: Configuration.get('COOKIE__SECURE'),
 		});
 		let redirectUrl = '/login/success';
 		if (redirect) {
@@ -196,6 +198,17 @@ const login = (payload = {}, req, res, next) => {
 	});
 };
 
+const etherpad_cookie_helper = (etherpadSession, padId, res) => {
+	res.cookie('sessionID', etherpadSession.data.sessionID, {
+		path: `${Configuration.get('ETHERPAD_BASE_PATH')}/p/${padId}`,
+		expires: new Date(etherpadSession.data.validUntil * 1000),
+		httpOnly: Configuration.get('COOKIE__HTTP_ONLY'),
+		hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
+		sameSite: Configuration.get('COOKIE__SAME_SITE'),
+		secure: Configuration.get('COOKIE__SECURE'),
+	});
+};
+
 module.exports = {
 	clearCookie,
 	isJWT,
@@ -204,4 +217,5 @@ module.exports = {
 	restrictSidebar,
 	populateCurrentUser,
 	login,
+	etherpad_cookie_helper,
 };
