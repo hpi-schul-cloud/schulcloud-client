@@ -9,17 +9,49 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Security
+
 ### Added
+
+### Changed
+
+### Fixed
+
+
+
+## [22.10.0] - 2020-05-11
+
+### Security in 22.10.0
+- SC-3990 generation of first login passwords
+
+### Added in 22.10.0
 - SC-3664 query toast-type and toast-message
 - SC-3892 Task sorting on the course side
 - SC-3757 the LDAP config page now contains a link to the docs
 - SC-438 on logout button click localStorge will be deleted
+- SC-3801 added generic filepicker url to ckeditor
+- SC-4260 added sentry sampling
+- SC-4064 allow for bulk download of ungraded homework files
 
-### Changed
+### Changed in 22.10.0
 
 - SC-3607 CSV import now suggests the new birthday field (sample file + image)
 - SC-3607 the student/teacher import page now displays a warning for large imports
 - updated airbnb linter from 13.1 to 14.1
+- SC-3801 updated CKEDITOR to 4.14
+- SC-3801 changes CKEDITOR theme to a more maintained one (n1theme)
+
+### Fixed in 22.10.0
+
+- SC-3945 Courses are now again unarchiveable
+
+
+## [22.9.12] - 2020-05-06
+
+### Changed in 22.9.12
+
+- Moved the Cookie parameters into the configuration
+- Cookie property sameSite changed from strict to none as default
 
 ## [22.9.8] - 2020-04-23
 

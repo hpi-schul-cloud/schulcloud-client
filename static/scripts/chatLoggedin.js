@@ -55,7 +55,7 @@ function addMatrixchatElement(session) {
 	riotBox.id = 'matrixchat';
 	riotBox.dataset.vectorIndexeddbWorkerScript = '/indexeddb-worker.js';
 	riotBox.dataset.vectorConfig = '/riot_config.json';
-	riotBox.dataset.vectorDefaultToggled = 'true';
+	riotBox.dataset.vectorForceToggled = 'true';
 	riotBox.dataset.matrixLang = window.userLanguage || 'de';
 
 	// force the selection of a specific room
@@ -68,7 +68,7 @@ function addMatrixchatElement(session) {
 		riotBox.dataset.matrixHomeserverUrl = session.homeserverUrl;
 		riotBox.dataset.matrixUserId = session.userId;
 		riotBox.dataset.matrixAccessToken = session.accessToken;
-		riotBox.dataset.maxtrixDeviceId = session.deviceId;
+		riotBox.dataset.matrixDeviceId = session.deviceId;
 	}
 	document.body.appendChild(riotBox);
 }
@@ -114,9 +114,6 @@ async function initializeMessenger() {
 let onReadyTriggered = false;
 
 async function onDocumentReady() {
-	if (window.innerWidth < 768) { // breakpoint: md
-		return false; // screen to small to use embedded messenger
-	}
 	// ensure that the initialization is only triggered once
 	if (onReadyTriggered) {
 		return false;
