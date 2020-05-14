@@ -2,7 +2,10 @@
 // eslint-disable-next-line func-names
 $(window).ready(() => {
 	function getPayload(tableRow) {
-		const json = tableRow.find('td[data-payload]').data('payload');
+		const data = tableRow.find('td[data-payload]').data('payload');
+		const json = JSON.parse(decodeURIComponent(atob(data).split('').map((value) => {
+			const germanLetter = `00${value.charCodeAt(0).toString(16)}`;
+			return `%${(germanLetter).slice(-2)}`}).join('')));
 		return json;
 	}
 

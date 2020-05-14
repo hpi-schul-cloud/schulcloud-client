@@ -68,7 +68,7 @@ function addMatrixchatElement(session) {
 		riotBox.dataset.matrixHomeserverUrl = session.homeserverUrl;
 		riotBox.dataset.matrixUserId = session.userId;
 		riotBox.dataset.matrixAccessToken = session.accessToken;
-		riotBox.dataset.maxtrixDeviceId = session.deviceId;
+		riotBox.dataset.matrixDeviceId = session.deviceId;
 	}
 	document.body.appendChild(riotBox);
 }
