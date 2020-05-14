@@ -7,11 +7,11 @@ function fetchContent() {
 	$('.sc-blog .spinner').show();
 	$('.sc-blog .placeholder').hide();
 
-	const Array = [
-		'/ghost/herzlich-willkommen/',
-		'/ghost/explanatory-video/',
-		'/ghost/what-matters/',
-	];
+	// const Array = [
+	// 	'/ghost/herzlich-willkommen/',
+	// 	'/ghost/explanatory-video/',
+	// 	'/ghost/what-matters/',
+	// ];
 
 	const changePage = () => {
 		$('.sc-blog .loading').remove();
@@ -23,9 +23,9 @@ function fetchContent() {
 	};
 
 	const promiseFunc = new Promise((resolve) => {
-		Array.forEach((url, index) => {
+		linksArray.forEach((url, index) => {
 			$.ajax({
-				url,
+				url: `/ghost/${element}/`,
 				type: 'GET',
 				dataType: 'json',
 				contentType: 'application/json',
@@ -47,6 +47,25 @@ function fetchContent() {
 	promiseFunc.then(() => {
 		changePage();
 	});
+
+	$.ajax({
+		url: '/ghost/landing-page/',
+		type: 'GET',
+		dataType: 'json',
+		contentType: 'application/json',
+		timeout: 8000,
+	})
+		.then((result) => {
+			const regex = /\#{1}[a-zA-Z--]+/g;
+			const linksArray = result.pages[0].html.match(regex);
+			linksArray.forEach((element) => {
+				element = element.substr(1);
+			});
+			promiseFunc();
+		})
+		.fail((error) => {
+			console.log(error);
+		});
 }
 
 $(document).ready(() => {
