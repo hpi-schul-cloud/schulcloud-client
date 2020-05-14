@@ -77,7 +77,7 @@ router.get('/faq/people', (req, res, next) => {
 
 router.get('/lernNuggets', (req, res, next) => {
 	res.render('help/lern-nuggets', {
-		title: 'Lern-Nuggets',
+		title: 'Datenschutzkurs',
 		breadcrumb: [
 			{
 				title: 'Hilfebereich',
