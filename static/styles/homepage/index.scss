@@ -94,11 +94,28 @@
     display: flex;
     align-items: center;
 
+    h1{
+        font-size: 50px;
+
+        @include media-breakpoint-down(sm) {
+        font-size: 40px;
+        }
+    }
+
     p {
         margin-bottom: 0;
     }
     .teaser{
         font-size:24px;
+    }
+
+}
+
+.section-heading {
+    font-size: 45px;
+
+    @include media-breakpoint-down(sm) {
+        font-size: 35px;
     }
 
 }
