@@ -40,7 +40,11 @@ router.get('/', async (req, res, next) => {
 	let skipConsent = res.locals.currentUser.roles.length > 0;
 	if (res.locals.currentUser.roles.length > 0) {
 		res.locals.currentUser.roles.forEach((role) => {
-			skipConsent = skipConsent && Configuration.get('SKIP_CONDITIONS_CONSENT').includes(role.name);
+			let roleName = role.name;
+			if (roleName === 'teacher' || roleName === 'administrator') {
+				roleName = 'employee';
+			}
+			skipConsent = skipConsent && Configuration.get('SKIP_CONDITIONS_CONSENT').includes(roleName);
 		});
 	}
 
