@@ -86,7 +86,7 @@
 		},
 		"STUDENT_TEAM_CREATION": {
 			"type": "string",
-			"default": "opt-in",
+			"default": "opt-out",
 			"enum": [
 				"disabled",
 				"opt-in",
