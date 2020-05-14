@@ -161,6 +161,7 @@
 			"type": "string",
 			"default": "https://schul-cloud.org/etherpad/p",
 			"description": "Base path for our etherpad"
+		},
 		"SENTRY_DSN": {
 			"type": "string",
 			"format": "uri",
