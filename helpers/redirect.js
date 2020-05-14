@@ -1,28 +1,23 @@
 const url = require('url');
+const sanitizeHtml = require('sanitize-html');
 
 /**
  * Collapse leading slashes to one slash to avoid redirects to other websides
  * @param {string} redirectUrl URL to which the user should be redirected
  * @returns {string} URL without multiple leading slashes
  */
-const collapseLeadingSlashes = (str) => str.replace(/^\/*/, '/');
+const collapseLeadingSlashes = (redirectUrl) => redirectUrl.replace(/^\/*/, '/');
 
 /**
- * Sanitize given URL
- * @param {string} redirectUrl URL to which the user should be redirected
- * @returns {string} sanitized URL
- */
-const sanitizeUrl = collapseLeadingSlashes;
-
-/**
- * Transform given URL to valid redirect URL
+ * Transform given URL to valid (sanitized and relative) redirect URL
  * @param {string} redirectUrl URL to which the user should be redirected
  * @returns {string} valid redirect URL
  */
 const getValidRedirect = (redirectUrl) => {
 	if (!redirectUrl) return '/';
-	const targetUrl = url.parse(redirectUrl);
-	return encodeURI(sanitizeUrl(targetUrl.path));
+	const sanitizedUrl = sanitizeHtml(redirectUrl);
+	const relativeUrl = url.parse(sanitizedUrl).path || '/';
+	return collapseLeadingSlashes(relativeUrl);
 };
 
 /**
