@@ -19,7 +19,7 @@ function fetchContent() {
 
 	const promiseFunc = new Promise((resolve) => {
 		$.ajax({
-			url: 'landing-pag/',
+			url: 'ghost/landing-page/',
 			type: 'GET',
 			dataType: 'json',
 			contentType: 'application/json',
@@ -36,9 +36,8 @@ function fetchContent() {
 				resolve();
 			})
 			.fail(() => {
-				finalHtml = '<h2 class="section-title title text-center'
-					+ 'style="color: var(--color-primary);">Failed to load data from ghost/landing-page/</h2>';
-				changePage();
+				$('.sc-blog .spinner').hide();
+				$('.sc-blog .placeholder').show();
 			});
 	});
 
@@ -70,7 +69,7 @@ function fetchContent() {
 
 
 $(document).ready(() => {
-	({ production } = window);
+	production = window.production === 'true';
 	fetchContent();
 	$('.sc-blog .placeholder button').on('click', fetchContent);
 });
