@@ -19,7 +19,7 @@ function fetchContent() {
 
 	const promiseFunc = new Promise((resolve) => {
 		$.ajax({
-			url: '/ghost/landing-page/',
+			url: 'landing-pag/',
 			type: 'GET',
 			dataType: 'json',
 			contentType: 'application/json',
@@ -35,8 +35,10 @@ function fetchContent() {
 				}
 				resolve();
 			})
-			.fail((error) => {
-				console.log(error);
+			.fail(() => {
+				finalHtml = '<h2 class="section-title title text-center'
+					+ 'style="color: var(--color-primary);">Failed to load data from ghost/landing-page/</h2>';
+				changePage();
 			});
 	});
 
