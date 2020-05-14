@@ -1,5 +1,7 @@
 const stripHtml = require('string-strip-html');
 
+let production;
+
 function fetchContent() {
 	let finalHtml = '';
 	$('.sc-blog .spinner').show();
@@ -48,6 +50,7 @@ function fetchContent() {
 }
 
 $(document).ready(() => {
+	({ production } = window);
 	fetchContent();
 	$('.sc-blog .placeholder button').on('click', fetchContent);
 });
