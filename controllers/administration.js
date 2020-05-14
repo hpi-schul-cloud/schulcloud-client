@@ -2822,13 +2822,13 @@ router.all('/teams', (req, res, next) => {
 							content: getTeamFlags(item),
 						},
 						{
-							payload: {
+							payload: Buffer.from(JSON.stringify({
 								members: item.schoolMembers.map((member) => {
 									member.role = roleTranslations[member.role];
 									return member;
 								}),
 								schools: item.schools,
-							},
+							}, 'utf-8')).toString('base64'),
 						},
 						actions,
 					];
