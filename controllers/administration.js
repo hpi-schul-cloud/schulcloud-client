@@ -2680,33 +2680,16 @@ const getTeamFlags = (team) => {
 	return combined;
 };
 
-const disableStudentUpdateHandler = async function disableStudentUpdate(req, res, next) {
-	// pay attention logic of checkbox is inverse to database/server naming
-	const isdisableStudentCreation = (res.locals.currentSchoolData.features
-		|| []).includes('disableStudentTeamCreation');
-	if (!isdisableStudentCreation && req.body.enablestudentteamcreation !== 'true') {
-		// add disableStudentTeamCreation feature
-		await api(req).patch(`/schools/${req.params.id}`, {
-			json: {
-				$push: {
-					features: 'disableStudentTeamCreation',
-				},
-			},
-		});
-	} else if (isdisableStudentCreation && req.body.enablestudentteamcreation === 'true') {
-		// remove disableStudentTeamCreation feature
-		await api(req).patch(`/schools/${req.params.id}`, {
-			json: {
-				$pull: {
-					features: 'disableStudentTeamCreation',
-				},
-			},
-		});
-	}
+const enableStudentUpdateHandler = async function enableStudentUpdate(req, res, next) {
+	await api(req).patch(`/schools/${req.params.id}`, {
+		json: {
+			enableStudentTeamCreation: req.body.enablestudentteamcreation === 'true',
+		},
+	});
 	return res.redirect(cutEditOffUrl(req.header('Referer')));
 };
 
-router.patch('/teams/disablestudents/:id', disableStudentUpdateHandler);
+router.patch('/teams/enablestudents/:id', enableStudentUpdateHandler);
 
 const getTeamMembersButton = (counter) => `
   <div class="btn-show-members" role="button">${counter}<i class="fa fa-user team-flags"></i></div>`;
