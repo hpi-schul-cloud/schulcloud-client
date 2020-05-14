@@ -334,7 +334,7 @@ router.get('/:topicId', (req, res, next) => {
 	}).then((promisesWithEPLogin) => {
 		let etherpadNumber = promisesWithEPLogin.shift();
 		for (i = 0; i < etherpadNumber; i++) {
-			promisesWithEPLogin.shift(); // this should not be done this way.
+			promisesWithEPLogin.shift();
 		}
 
 		let [course, lesson, homeworks, courseGroup] = promisesWithEPLogin;
