@@ -14,6 +14,7 @@ function fetchContent() {
 	];
 
 	const changePage = () => {
+		$('.sc-blog .loading').remove();
 		finalHtml = finalHtml
 			.replace(/<td>x<[/]td>/g, '<td><i class="fa fa-check"></i></td>');
 		$('.sc-blog .content').html(stripHtml(finalHtml,
@@ -21,7 +22,7 @@ function fetchContent() {
 		$('.sc-blog .content').css('opacity', '1');
 	};
 
-	const promiseFunc = new Promise((resolve, reject) => {
+	const promiseFunc = new Promise((resolve) => {
 		Array.forEach((url, index) => {
 			$.ajax({
 				url,
@@ -33,7 +34,6 @@ function fetchContent() {
 			})
 				.then((result) => {
 					finalHtml += result.pages[0].html;
-					$('.sc-blog .loading').remove();
 					if (index === Array.length - 1) {
 						resolve();
 					}
