@@ -8,7 +8,7 @@ const permissionsHelper = require('./permissions');
 
 const wordlist = require('../static/other/wordlist.js');
 
-const { SW_ENABLED, LOGIN_BLOCK_TIME } = require('../config/global');
+const { SW_ENABLED } = require('../config/global');
 
 const logger = require('./logger');
 
