@@ -2700,8 +2700,15 @@ const getTeamSchoolsButton = (counter) => `
 router.all('/teams', (req, res, next) => {
 	const path = '/administration/teams/';
 
-	const itemsPerPage = req.query.limit || 10;
+	let itemsPerPage = 25;
+	let filterQuery = {};
 	const currentPage = parseInt(req.query.p, 10) || 1;
+
+	let query = {
+		limit: itemsPerPage,
+		skip: itemsPerPage * (currentPage - 1),
+	};
+	query = Object.assign(query, filterQuery);
 
 	// TODO: mapping sort
 	/*
@@ -2712,12 +2719,7 @@ router.all('/teams', (req, res, next) => {
 
 	api(req)
 		.get('/teams/manage/admin', {
-			qs: {
-				$populate: ['userIds'],
-				$limit: itemsPerPage,
-				$skip: itemsPerPage * (currentPage - 1),
-				$sort: req.query.sort,
-			},
+			qs: query,
 		})
 		.then((data) => {
 			const head = [
@@ -2741,7 +2743,7 @@ router.all('/teams', (req, res, next) => {
 			};
 
 			Promise.all([classesPromise, usersPromise]).then(([classes, users]) => {
-				const body = data.map((item) => {
+				const body = data.data.map((item) => {
 					const actions = [
 						{
 							link: path + item._id,
@@ -2847,7 +2849,7 @@ router.all('/teams', (req, res, next) => {
 				const pagination = {
 					currentPage,
 					numPages: Math.ceil(data.total / itemsPerPage),
-					baseUrl: `/administration/teams/?p={{page}}${sortQuery}${limitQuery}`,
+					baseUrl: `/administration/teams/?p={{page}}`,
 				};
 
 				res.render('administration/teams', {
