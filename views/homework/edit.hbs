@@ -72,7 +72,28 @@
 				$("#teamsize").addClass("hidden-xl-down");
 			}
 		});
+
+		function displayModalTeamMembers(headline, content) {
+			const $warningModal = $('.warning-modal');
+			populateModal($memberModal, '.modal-title', headline);
+			populateModal($warningModal, '#member-modal-body', content);
+
+			$warningModal.appendTo('body').modal('show');
+		}
+		$('#test').on("change", function (e) {
+			e.preventDefault();
+			if (localStorage.getItem('Private-Alert') != false && $(this).prop("checked")) {
+				let content = "Durch das Aktivieren dieser Option werden deine bearbeiteten Aufgaben für alle anderen Schüler deines Kurses einsehbar.";
+				displayModalTeamMembers('Beachtung', content);
+			}
+		});
+		$('#privateSubmission').on('change', function showMemebers(e) {
+			console.log($(this).prop("checked"));
+			e.preventDefault();
+			localStorage.setItem('Private-Alert', $(this).prop("checked"));
+		});
 	});
+
 </script>
 {{/content}}
 {{#extend "homework/homework"}}
@@ -88,8 +109,8 @@
 
 			<div class="form-group">
 				<label>{{$t "homework.global.label.title" }}</label>
-				<input class="form-control" name="name" type="text" placeholder="Titel" required
-					value="{{{assignment.name}}}" data-testid="homework-name" />
+				<input class="form-control" name="name" type="text" placeholder="Titel" required value="{{{assignment.name}}}"
+					data-testid="homework-name" />
 			</div>
 
 			<div class="row">
@@ -107,7 +128,9 @@
 						</select>
 						{{else}}
 						<input name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" />
-						<div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">{{$t "homework.global.text.substitutionTeachersMayNotChangeTheCourse"}}</small></div>
+						<div><i>{{assignment.courseId.name}}</i> <small
+								class="text-secondary">{{$t "homework.global.text.substitutionTeachersMayNotChangeTheCourse"}}</small>
+						</div>
 						{{/unless}}
 					</div>
 				</div>
@@ -117,7 +140,8 @@
 						<select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen"
 							{{#unless lessons}}disabled="true" {{/unless}}>
 							{{#if assignment.courseId}}
-							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>{{$t "homework.text.noAssignment"}}</option>
+							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>{{$t "homework.text.noAssignment"}}
+							</option>
 							{{#each lessons}}
 							<option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>
 								{{this.name}}
@@ -200,7 +224,8 @@
 			{{#unless (userHasRole "student")}}
 			<div class="form-group">
 				<label>
-					<input name="private" type="checkbox" value="true" data-testid="private-checkbox" {{#if assignment.private}}checked="checked" {{/if}} />
+					<input id="test" name="private" type="checkbox" value="true" data-testid="private-checkbox"
+						{{#if assignment.private}}checked="checked" {{/if}} />
 					{{$t "homework.global.label.privateTaskOnlyVisibleToMe"}}
 				</label></br>
 				<label>
@@ -214,10 +239,6 @@
 				<input name="private" type="hidden" data-force-value="true" value="true" />
 			</div>
 			{{/unless}}
-
-
-
-
 			<div class="modal-footer">
 				<button class="btn btn-add btn-secondary btn-cancel">
 					{{closeLabel}}
@@ -252,7 +273,18 @@
 		{{/content}}
 		{{/embed}}
 
+		{{#embed "lib/components/modal" class="warning-modal"}}
+		{{#content "body"}}
+		<div class="modal-body">
+			<div id="member-modal-body">
+			</div>
+			<label>
+				<input id="privateSubmission" name="private" type="checkbox" value="false" />
+				{{$t "homework.label.dontShowAgain" }}
+			</label>
+			{{/content}}
+			{{/embed}}
+		</div>
 	</div>
-</div>
-{{/content}}
-{{/extend}}
+	{{/content}}
+	{{/extend}}
