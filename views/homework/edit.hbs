@@ -83,9 +83,6 @@
 		$('#privateCheckbox').on("change", function (e) {
 			e.preventDefault();
 			if (!localStorage.getItem('Private-Alert') && $(this).prop("checked")) {
-				console.log(localStorage.getItem('Private-Alert'));
-				console.log($(this).prop("checked"));
-				console.log(localStorage.getItem('Private-Alert') != false && $(this).prop("checked"));
 				let content = "Durch das Aktivieren dieser Option werden deine bearbeiteten Aufgaben für alle anderen Schüler deines Kurses einsehbar.";
 				displayWarningModal('Beachtung', content);
 			}
