@@ -74,12 +74,28 @@
     {{#content "page"}}
         <section class="section-homework">
             <div class="dates text-muted">
+				{{#if (userHasRole "student")}}
+				<i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
+				{{/if}}
                 {{availableDateF}} ({{availableTimeF}}) |
                 {{#if dueDate}}
                     bis: {{dueDateF}} ({{dueTimeF}})
                 {{else}}
                     {{$t "homework.text.noSubmissionDateSet"}}
                 {{/if}}
+				{{#if (userHasRole "student")}}
+				<div>
+					{{#if submissions}}
+					{{$t "homework.text.done"}}
+					{{else if warning}}
+					{{$t "homework.text.toBeDoneWithin24Hours"}}
+					{{else}}
+					{{#unless submittable}}
+					{{$t "homework.text.notDone"}}
+					{{/unless}}
+				{{/if}}
+			</div>
+        {{/if}}
             </div>
             {{#if courseId._id}}
                 <div class="col-sm-12">
