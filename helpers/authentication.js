@@ -8,7 +8,7 @@ const permissionsHelper = require('./permissions');
 
 const wordlist = require('../static/other/wordlist.js');
 
-const { NODE_ENV, SW_ENABLED, LOGIN_BLOCK_TIME } = require('../config/global');
+const { SW_ENABLED, LOGIN_BLOCK_TIME } = require('../config/global');
 
 const logger = require('./logger');
 
@@ -226,7 +226,7 @@ const login = (payload = {}, req, res, next) => {
 	});
 };
 
-const etherpad_cookie_helper = (etherpadSession, padId, res) => {
+const etherpadCookieHelper = (etherpadSession, padId, res) => {
 	res.cookie('sessionID', etherpadSession.data.sessionID, {
 		path: `${Configuration.get('ETHERPAD_BASE_PATH')}/p/${padId}`,
 		expires: new Date(etherpadSession.data.validUntil * 1000),
@@ -245,6 +245,6 @@ module.exports = {
 	restrictSidebar,
 	populateCurrentUser,
 	login,
-	etherpad_cookie_helper,
+	etherpadCookieHelper,
 	generatePassword,
 };
