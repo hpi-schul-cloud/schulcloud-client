@@ -74,10 +74,10 @@ const checkInternalComponents = (data, baseUrl) => {
 const getEtherpadPadForCourse = async (req, user, courseId, content) => {
 	const pad = await api(req).post('/etherpad/pads', {
 		json: {
-			courseId: courseId,
+			courseId,
 			padName: content.title,
 			text: content.description,
-		}
+		},
 	}).catch((err) => {
 		logger.error(err);
 	});
@@ -305,17 +305,17 @@ router.get('/:topicId', (req, res, next) => {
 		const etherpadLoginPromises = [];
 		let etherpadComponentCount = 0;
 		if (typeof(lesson.contents) !== 'undefined') {
-			etherpadComponentCount = lesson.contents.filter( (content) => content.component === 'Etherpad' ).length;
+			etherpadComponentCount = lesson.contents.filter((content) => content.component === 'Etherpad').length;
 		}
 		etherpadLoginPromises.push(Promise.resolve(etherpadComponentCount));
 		if (typeof(lesson.contents) !== 'undefined') {
-			lesson.contents.forEach((lesson, index) => {
-				if ( lesson.component === 'Etherpad' ) {
-					const url = lesson.content.url;
+			lesson.contents.forEach((this, index) => {
+				if (this.component === 'Etherpad') {
+					const { url } = this.content;
 					const padId = url.substring(url.lastIndexOf('/') + 1);
 					// set cookie for this pad
 					etherpadLoginPromises.push(
-						Promise.resolve(authHelper.etherpad_cookie_helper(etherpadSession, padId, res))
+						Promise.resolve(authHelper.etherpad_cookie_helper(etherpadSession, padId, res)),
 					);
 				}
 			});
