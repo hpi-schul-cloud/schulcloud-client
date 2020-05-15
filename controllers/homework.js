@@ -491,6 +491,9 @@ const overview = (title = '') => {
 					if (!assignment.isTeacher) {
 						assignment.stats = undefined;
 					}
+					const dueDateArray = splitDate(assignment.dueDate);
+					assignment.submittable = dueDateArray.timestamp >= Date.now() || !assignment.dueDate;
+					assignment.warning = ((dueDateArray.timestamp <= (Date.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
 					return assignment;
 				});
 
@@ -753,7 +756,7 @@ router.get('/:assignmentId', (req, res, next) => {
 
 		// Abgabe noch möglich?
 		assignment.submittable = (dueDateArray.timestamp >= Date.now() || !assignment.dueDate);
-
+		assignment.warning = ((dueDateArray.timestamp <= (Date.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
 
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
