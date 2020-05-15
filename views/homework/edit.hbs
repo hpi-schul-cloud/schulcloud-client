@@ -75,7 +75,7 @@
 
 		function displayModalTeamMembers(headline, content) {
 			const $warningModal = $('.warning-modal');
-			populateModal($memberModal, '.modal-title', headline);
+			populateModal($warningModal, '.modal-title', headline);
 			populateModal($warningModal, '#member-modal-body', content);
 
 			$warningModal.appendTo('body').modal('show');
