@@ -309,13 +309,13 @@ router.get('/:topicId', (req, res, next) => {
 		}
 		etherpadLoginPromises.push(Promise.resolve(etherpadComponentCount));
 		if (typeof(lesson.contents) !== 'undefined') {
-			lesson.contents.forEach((this, index) => {
-				if (this.component === 'Etherpad') {
-					const { url } = this.content;
+			lesson.contents.forEach((that, index) => {
+				if (that.component === 'Etherpad') {
+					const { url } = that.content;
 					const padId = url.substring(url.lastIndexOf('/') + 1);
 					// set cookie for this pad
 					etherpadLoginPromises.push(
-						Promise.resolve(authHelper.etherpad_cookie_helper(etherpadSession, padId, res)),
+						Promise.resolve(authHelper.etherpadCookieHelper(etherpadSession, padId, res)),
 					);
 				}
 			});
@@ -332,7 +332,9 @@ router.get('/:topicId', (req, res, next) => {
 			promisesWithEPLogin.shift();
 		}
 
-		const [course, lesson, homeworks, courseGroup] = promisesWithEPLogin;
+		let [homeworks] = promisesWithEPLogin;
+		const [course, lesson, courseGroup] = promisesWithEPLogin;
+
 		// decorate contents
 		lesson.contents = (lesson.contents || []).map((block) => {
 			block.component = `topic/components/content-${block.component}`;
@@ -349,7 +351,6 @@ router.get('/:topicId', (req, res, next) => {
 			}
 			return -1;
 		});
-		// return for consistent return
 		return res.render('topic/topic', Object.assign({}, lesson, {
 			title: lesson.name,
 			context,
