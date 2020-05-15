@@ -73,22 +73,24 @@
 			}
 		});
 
-		function displayModalTeamMembers(headline, content) {
+		function displayWarningModal(headline, content) {
 			const $warningModal = $('.warning-modal');
 			populateModal($warningModal, '.modal-title', headline);
 			populateModal($warningModal, '#member-modal-body', content);
 
 			$warningModal.appendTo('body').modal('show');
 		}
-		$('#test').on("change", function (e) {
+		$('#privateCheckbox').on("change", function (e) {
 			e.preventDefault();
-			if (localStorage.getItem('Private-Alert') != false && $(this).prop("checked")) {
+			if (!localStorage.getItem('Private-Alert') && $(this).prop("checked")) {
+				console.log(localStorage.getItem('Private-Alert'));
+				console.log($(this).prop("checked"));
+				console.log(localStorage.getItem('Private-Alert') != false && $(this).prop("checked"));
 				let content = "Durch das Aktivieren dieser Option werden deine bearbeiteten Aufgaben für alle anderen Schüler deines Kurses einsehbar.";
-				displayModalTeamMembers('Beachtung', content);
+				displayWarningModal('Beachtung', content);
 			}
 		});
-		$('#privateSubmission').on('change', function showMemebers(e) {
-			console.log($(this).prop("checked"));
+		$('#privateSubmission').on('change', function (e) {
 			e.preventDefault();
 			localStorage.setItem('Private-Alert', $(this).prop("checked"));
 		});
@@ -224,7 +226,7 @@
 			{{#unless (userHasRole "student")}}
 			<div class="form-group">
 				<label>
-					<input id="test" name="private" type="checkbox" value="true" data-testid="private-checkbox"
+					<input id="privateCheckbox" name="private" type="checkbox" value="true" data-testid="private-checkbox"
 						{{#if assignment.private}}checked="checked" {{/if}} />
 					{{$t "homework.global.label.privateTaskOnlyVisibleToMe"}}
 				</label></br>
