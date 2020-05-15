@@ -28,7 +28,7 @@
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
             {{#inArray "messenger" @root.currentSchoolData.features}}
                 <script>
-                    window.matrixBundle = '{{getConfig "MATRIX_MESSENGER_BUNDLE"}}';
+                    window.matrixAssetDomain = '{{getConfig "MATRIX_MESSENGER_ASSET_DOMAIN"}}';
                     window.userLanguage = '{{ @root.userLanguage }}';
                 </script>
                 <script src="/scripts/chatLoggedin.js" type="text/javascript" defer></script>
