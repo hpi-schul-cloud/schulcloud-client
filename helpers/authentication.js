@@ -229,7 +229,7 @@ const login = (payload = {}, req, res, next) => {
 const etherpadCookieHelper = (etherpadSession, padId, res) => {
 	const encodedPadId = encodeURI(padId);
 	res.cookie('sessionID', etherpadSession.data.sessionID, {
-		path: `${Configuration.get('ETHERPAD_BASE_PATH')}/p/${padId}`,
+		path: `${Configuration.get('ETHERPAD_BASE_PATH')}/p/${encodedPadId}`,
 		expires: new Date(etherpadSession.data.validUntil * 1000),
 		httpOnly: Configuration.get('COOKIE__HTTP_ONLY'),
 		hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
