@@ -58,7 +58,7 @@ router.get('/', (req, res, next) => {
 		}
 
 		res.render('account/settings', {
-			title: res.$t('account.headline.yourAccount') + ' lol',
+			title: res.$t('account.headline.yourAccount'),
 			device,
 			session,
 			userId: res.locals.currentUser._id,
