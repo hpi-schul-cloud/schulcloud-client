@@ -627,6 +627,15 @@
 			"noWelcomeDocuments": "Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support."
 		}
 	},
+	"helpdesk": {
+		"text": {
+			"feedbackError": "Fehler beim Senden des Feedbacks.",
+			"feedbackSuccessful": "Feedback erfolgreich versendet!",
+			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
+			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+			"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!"
+		}
+	},
 	"home": {
 		"button": {
 			"aboutTheProject": "Über das Projekt",
