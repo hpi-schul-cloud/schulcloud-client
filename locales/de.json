@@ -43,11 +43,16 @@
 				"thirdPartyLogins" : "Drittanbieter-Logins"
 			}
 		},
+		"headline": {
+			"yourAccount": "Dein Account"
+		},
 		"label" : {
 			"providers" : "Anbieter"
 		},
 		"text" : {
-			"noThirdPartyProvidersUsed" : "Keine Drittanbieter genutzt"
+			"noThirdPartyProvidersUsed" : "Keine Drittanbieter genutzt",
+			"preferencesUpdates": "Präferenzen wurden aktualisiert!",
+			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!"
 		}
 	},
 	"addons": {
@@ -517,6 +522,11 @@
 			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
+	"dataprivacy":{
+		"headline": {
+			"privacyPolicy": "Datenschutzerklärung"
+		}
+	},
 	"files": {
 		"button": {
 			"ascending": "↑ aufsteigend",
@@ -603,6 +613,18 @@
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
+		}
+	},
+	"help": {
+		"headline": {
+			"contactDetails": "Ansprechpartner und Kontaktdaten",
+			"helpSection": "Hilfebereich",
+			"privacyCourse": "Datenschutzkurs",
+			"welcomeDocuments": "Willkommens-Dokumente zum Download"
+		},
+		"text": {
+			"noAccessDemoAccount": "Sie haben im Demo-Account keinen Zugriff auf diese Dokumente.",
+			"noWelcomeDocuments": "Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support."
 		}
 	},
 	"home": {
@@ -731,10 +753,16 @@
 			"less": "Weniger",
 			"login": "Anmelden",
 			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
-			"moreOptions": "Mehr Optionen"
+			"moreOptions": "Mehr Optionen",
+			"submitPrivacyPolicy": "Gelesen"
 		},
 		"headline": {
-			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer"
+			"firstLogin": "Willkommen - Erster Login",
+			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
+			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
+			"onlyPrivacy": "Datenschutzerklärung",
+			"onlyTermsOfUse": "Nutzungsordnung",
+			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
 		},
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
@@ -783,6 +811,7 @@
 			}
 		},
 		"text": {
+			"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
 			"loginFailed": "Login fehlgeschlagen.",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
