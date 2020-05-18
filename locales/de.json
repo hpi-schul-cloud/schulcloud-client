@@ -726,10 +726,10 @@
 				"openThisPageInASeparateWindow": "öffne diese Seite in einem eigenen Fenster"
 			},
 			"text": {
-				"WeCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
+				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
 				"ifYouDontWantToTakeAnyAction": "Solltest du keine Aktion ausführen wollen, schließe bitte diesen Tab in deinem Browser.",
 				"theSchoolCloudWasEmbedded": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren,",
-				"unfortunatelyTheRequestFaliedAgain": "Die Anfrage ist leider erneut fehlgeschlagen. Um mit der Nutzung fortzufahren, lade die Seite bitte neu.",
+				"unfortunatelyTheRequestFailedAgain": "Die Anfrage ist leider erneut fehlgeschlagen. Um mit der Nutzung fortzufahren, lade die Seite bitte neu.",
 				"weCouldNotMakeSureThat": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum neu laden auf den Button unten.",
 				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
 			}
@@ -776,7 +776,7 @@
 				"loggedOutAutomatically": "automatisch ausgeloggt.",
 				"minutes": "Minuten",
 				"nowExtendYourSession": "Verlängere jetzt deine Sitzung auf zwei Stunden.",
-				"oopsThatshouldntHaveHappened": "Uups… das hätte nicht passieren dürfen!",
+				"oopsThatShouldntHaveHappened": "Uups… das hätte nicht passieren dürfen!",
 				"warning": "Achtung: Du wirst in",
 				"yourSessionCouldntBeExtended": "Deine Sitzung konnte nicht verlängert werden. Bitte versuche es gleich noch einmal."
 			}
@@ -784,7 +784,7 @@
 		"form_bbb": {
 			"text": {
 				"theVideoConferenceHasNotYetStarted": "Die Videokonferenz wurde noch nicht gestartet.",
-				"toQuerytheStatusAgain": "Um den Status erneut abzufragen, klicke das Aktualisieren-Icon",
+				"toQueryTheStatusAgain": "Um den Status erneut abzufragen, klicke das Aktualisieren-Icon",
 				"youAreNotAuthorisedToAttend": "Du bist nicht berechtigt, an dieser Videokonferenz teilzunehmen. Kontaktiere zur Freigabe einen Team-Admin."
 			}
 		},
@@ -800,14 +800,14 @@
 				"clickHere": "Hier klicken"
 			},
 			"text": {
-				"forMoreInformationCliclThisButton": "Für weitere Informationen klicken Sie doch bitte diesen Button",
+				"forMoreInformationClickThisButton": "Für weitere Informationen klicken Sie doch bitte diesen Button",
 				"thereAreNewFeatures": "Es gibt neue Features in der"
 			}
 		},
 		"form_poll": {
 			"global": {
 				"button": {
-					"totheSurvey": "Zur Umfrage"
+					"toTheSurvey": "Zur Umfrage"
 				}
 			},
 			"text": {
@@ -826,7 +826,7 @@
 				"aboutTheProject": "Über das Projekt",
 				"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
 				"imprint": "Impressum",
-				"perticipate": "Mitmachen"
+				"participate": "Mitmachen"
 			}
 		},
 		"header": {
@@ -849,7 +849,7 @@
 				"sendRequestOrProblem": "Wunsch oder Problem senden"
 			}
 		},
-		"idap_info": {
+		"ldap_info": {
 			"text": {
 				"isSyncronizedWithAnIdentity": "ist mit einem Identitätsmanagement (LDAP, Landessystem o.ä.) synchronisiert.",
 				"theDataOfTeachersAndStudents": "Die Daten von Lehrkräften und Schülern werden dort zentral verwaltet und können nur dort geändert werden. Das schließt auch Passwortänderungen mit ein.",
@@ -879,7 +879,7 @@
 			"text": {
 				"allowedSpecialCharactersAre": "Erlaubte Sonderzeichen sind:",
 				"atlist8Characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
-				"atlist8CharactersWithUpperAndLower": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen."
+				"atList8CharactersWithUpperAndLower": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen."
 			}
 		},
 		"table": {

@@ -13,12 +13,12 @@
             <button class="btn btn-primary" onclick="window.location.href=window.location.href">{{$t "lib.csrf_content.global.button.reload" }}</button>
         {{else}}
             <p>
-                {{$t "lib.csrf_content.text.WeCouldNotMakeSureThatThisRequestReallyCameFromYou" }}
+                {{$t "lib.csrf_content.text.weCouldNotMakeSureThatThisRequestReallyCameFromYou" }}
                 <br>
                 {{$t "lib.csrf_content.text.ifYouDontWantToTakeAnyAction" }}
             </p>
             {{#if previousError}}
-                <p><b>{{$t "lib.csrf_content.text.unfortunatelyTheRequestFaliedAgain" }}
+                <p><b>{{$t "lib.csrf_content.text.unfortunatelyTheRequestFailedAgain" }}
                     </b></p>
                 <button class="btn btn-primary" onclick="window.location.href=window.location.href">{{$t "lib.csrf_content.global.button.reload" }}</button>
             {{else}}
