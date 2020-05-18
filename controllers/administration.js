@@ -762,7 +762,7 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 			['lastName', 'Nachname'],
 			['email', 'E-Mail-Adresse'],
 			['class', 'Klasse(n)'],
-			['consent', 'Einwilligung'],
+			['consentStatus', 'Einwilligung'],
 			['createdAt', 'Erstelldatum'],
 		],
 		defaultSelection: defaultOrder || 'firstName',
