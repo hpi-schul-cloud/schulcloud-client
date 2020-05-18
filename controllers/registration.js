@@ -52,14 +52,14 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 	// normalize form data
 	req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
 
-	let skipConsent = res.locals.currentUser.roles.length > 0;
+	let skipConsent = false;
 	if (res.locals.currentUser.roles.length > 0) {
-		res.locals.currentUser.roles.forEach((role) => {
+		skipConsent = res.locals.currentUser.roles.some((role) => {
 			let roleName = role.name;
 			if (roleName === 'teacher' || roleName === 'administrator') {
 				roleName = 'employee';
 			}
-			skipConsent = skipConsent && Configuration.get('SKIP_CONDITIONS_CONSENT').includes(roleName);
+			return skipConsent && Configuration.get('SKIP_CONDITIONS_CONSENT').includes(roleName);
 		});
 	}
 
