@@ -99,6 +99,23 @@
         font-size:24px;
     }
 
+    .section-img {
+        @include media-breakpoint-down(sm) {
+            width: 40vw;
+        }
+    }
+}
+
+.section-landing{
+    margin-bottom: 100px;
+
+    @include media-breakpoint-down(sm) {
+        margin-bottom: 60px;
+    }
+}
+
+.heading{
+    font-size: 29px;
 }
 
 .section-heading {
@@ -108,12 +125,4 @@
         font-size: 35px;
     }
 
-}
-
-.section-landing{
-    margin-bottom: 100px;
-}
-
-.heading{
-    font-size: 29px;
 }
