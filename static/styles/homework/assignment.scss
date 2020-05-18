@@ -3,19 +3,38 @@
 @import 'homework';
 
 .section-homework {
-  width: 100%;
-  clear: both;
-  .dates {
-    margin: 0;
-    font-size: $font-size-xs;
-    @include media-breakpoint-down(xs) {
-      width: 100%;
-      padding: 0 0 10px;
-    }
-  }
-  .maintabs > .tab-links .tab-link{
-    @include media-breakpoint-up(sm) {
-      margin-top: 1.5rem;
-    }
-  }
+	width: 100%;
+	clear: both;
+
+	.dates {
+		margin: 0;
+		font-size: $font-size-xs;
+
+		@include media-breakpoint-down(xs) {
+			width: 100%;
+			padding: 0 0 10px;
+		}
+
+		i {
+			font-size: $font-size-sm;
+		}
+
+		i.done {
+			color: $colorSuccess;
+		}
+
+		i.danger {
+			color: $colorDanger;
+		}
+
+		i.closed {
+			color: $colorSemiTransparent;
+		}
+	}
+
+	.maintabs>.tab-links .tab-link {
+		@include media-breakpoint-up(sm) {
+			margin-top: 1.5rem;
+		}
+	}
 }

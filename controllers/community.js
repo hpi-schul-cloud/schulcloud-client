@@ -13,7 +13,6 @@ router.get('/', (req, res, next) => {
 		}
 		return Promise.resolve(template);
 	}).then(template => res.render(template, {
-		title: 'Mitmachen',
 		inline: !!template.includes('guest'),
 	})).catch(next);
 });

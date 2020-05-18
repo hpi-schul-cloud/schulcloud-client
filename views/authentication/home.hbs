@@ -7,7 +7,7 @@
 {{#content "scripts" mode="append"}}
 	<script src="/scripts/login.js" type="text/javascript" defer></script>
 	<script src="/scripts/sc-blog.js" type="text/javascript" defer></script>
-	<script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
+	<script src="/scripts/blog-fetch.js" type="text/javascript" defer></script>
 {{/content}}
 
 {{#content "page"}}
@@ -86,15 +86,39 @@
 	{{/content}}
 {{/embed}}
 
+<script id="blog-card" type="text/x-handlebars-template">
+	<a target="_blank" rel="noopener" href="\{{article.url}}" class="blog-card-wrapper">
+	<article class="blog-card">
+		<img class="thumbnail" alt="\{{article.img.title}}" src="\{{article.img.src}}">
+		<div class="body">
+			<h2 class="heading">
+				<div class="title">
+					\{{article.title}}
+				</div>
+				<small class="pub-date text-muted">\{{article.pubDate}}</small>
+			</h2>
+			<p class="description text-dark">\{{truncatePure (stripHTMLTags article.description) 200}}</p>
+		</div>
+		<div class="mb-1">
+			<span class="open-link">{{$t "home.link.openArticle"}}</span>
+		</div>
+	</article>
+</a>
+</script>
+
+<script id="blog-entries" type="text/x-handlebars-template">
+	\{{#each blogFeed}}
+		\{{> "blog-card" article=this}}
+	\{{/each}}
+</script>
+
+
 {{#embed "authentication/section" style="accent" class=""}}
 	{{#content "body"}}
 		<h2 class="h3 section-title center">{{{$t "home.headline.HPISchoolCloudBlog"}}}</h2>
 			<div class="blog-cards">
-				{{#each blogFeed}}
-					{{> "authentication/blog-card" article=this}}
-				{{else}}
-					<p>{{$t "home.text.blogIsDeactivated"}}</p>
-				{{/each}}
+				<i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
+					style="font-size: 25px;"></i>
 			</div>
 		<a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">{{$t "home.link.moreArticles"}}</a>
 	{{/content}}
