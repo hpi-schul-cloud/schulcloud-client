@@ -50,37 +50,36 @@ function addMatrixchatElement(session) {
 	const servername = extractServernameFromMatrixUserId(matrixUserId);
 	const matrixRoomId = composeMatrixRoomId(roomType, roomId, servername);
 
-	// create chat tag
-	const riotBox = document.createElement('section');
-	riotBox.id = 'matrixchat';
-	riotBox.dataset.vectorIndexeddbWorkerScript = '/indexeddb-worker.js';
-	riotBox.dataset.vectorConfig = '/riot_config.json';
-	riotBox.dataset.vectorForceToggled = 'true';
-	riotBox.dataset.matrixLang = window.userLanguage || 'de';
+	// base options
+	const options = {
+		riotConfig: '/riot_config.json',
+		indexeddbWorkerScript: '/indexeddb-worker.js',
+		assetDomain: window.matrixAssetDomain,
+		language: window.userLanguage || 'de',
+		forceToggled: true,
+	};
 
 	// force the selection of a specific room
 	if (matrixRoomId) {
-		riotBox.dataset.matrixRoomId = matrixRoomId;
+		options.roomId = matrixRoomId;
 	}
 
 	// apply session
 	if (session) {
-		riotBox.dataset.matrixHomeserverUrl = session.homeserverUrl;
-		riotBox.dataset.matrixUserId = session.userId;
-		riotBox.dataset.matrixAccessToken = session.accessToken;
-		riotBox.dataset.maxtrixDeviceId = session.deviceId;
+		options.homeserverUrl = session.homeserverUrl;
+		options.userId = session.userId;
+		options.accessToken = session.accessToken;
+		options.deviceId = session.deviceId;
 	}
-	document.body.appendChild(riotBox);
+
+	window.Matrix = window.Matrix || [];
+	window.Matrix.push(['setup', options]);
 }
 
-function loadMessengerBundle() {
+function loadMessengerEmbed() {
 	// load javascript
-	const bundle = window.matrixBundle;
-	if (!bundle) {
-		throw new Error('window.matrixBundle has to be defined.');
-	}
 	const riotScript = document.createElement('script');
-	riotScript.src = bundle;
+	riotScript.src = `${window.matrixAssetDomain}embed.js`;
 	riotScript.type = 'text/javascript';
 	document.head.appendChild(riotScript);
 }
@@ -108,7 +107,7 @@ async function initializeMessenger() {
 	}
 
 	addMatrixchatElement(session);
-	loadMessengerBundle();
+	loadMessengerEmbed();
 }
 
 let onReadyTriggered = false;
