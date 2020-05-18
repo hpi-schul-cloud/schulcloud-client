@@ -54,7 +54,7 @@ function addMatrixchatElement(session) {
 	const options = {
 		riotConfig: '/riot_config.json',
 		indexeddbWorkerScript: '/indexeddb-worker.js',
-		assetDomain: window.matrixAssetDomain,
+		assetDomain: `${window.matrixAssetDomain}/`,
 		language: window.userLanguage || 'de',
 		forceToggled: true,
 	};
@@ -79,7 +79,7 @@ function addMatrixchatElement(session) {
 function loadMessengerEmbed() {
 	// load javascript
 	const riotScript = document.createElement('script');
-	riotScript.src = `${window.matrixAssetDomain}embed.js`;
+	riotScript.src = `${window.matrixAssetDomain}/embed.js`;
 	riotScript.type = 'text/javascript';
 	document.head.appendChild(riotScript);
 }
