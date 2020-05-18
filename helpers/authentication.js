@@ -7,7 +7,7 @@ const api = require('../api');
 const permissionsHelper = require('./permissions');
 const wordlist = require('../static/other/wordlist.js');
 
-const { NODE_ENV, SW_ENABLED } = require('../config/global');
+const { SW_ENABLED } = require('../config/global');
 const logger = require('./logger');
 
 const rolesDisplayName = {
@@ -121,7 +121,10 @@ const populateCurrentUser = (req, res) => {
 			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
 			if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
 				return clearCookie(req, res, { destroySession: true })
-					.catch((err) => { logger.error('clearCookie failed during populateUser', { error: err.toString() }); })
+					.catch((err) => {
+						const meta = { error: err.toString() };
+						logger.error('clearCookie failed during populateUser', meta);
+					})
 					.finally(() => res.redirect('/'));
 			}
 			throw e;
@@ -217,9 +220,20 @@ const login = (payload = {}, req, res, next) => {
 			statusCode: e.statusCode,
 			timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
 		};
-		if (e.statusCode === 429) {
-			res.locals.notification.timeToWait = e.error.data.timeToWait;
+
+		switch (e.statusCode) {
+			case 403: // Forbidden
+				res.locals.notification.message = res.$t('login.text.loginFailedBlockedEmailDomain');
+				break;
+
+			case 429: // TooManyRequests
+				res.locals.notification.timeToWait = e.error.data.timeToWait;
+				break;
+
+			default:
+				break;
 		}
+
 		next(e);
 	});
 };

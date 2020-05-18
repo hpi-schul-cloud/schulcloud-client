@@ -784,6 +784,7 @@
 		},
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
+			"loginFailedBlockedEmailDomain": "E-Mail Domain geblockt.",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
 		}
