@@ -13,8 +13,14 @@ body {
 	min-width: 300px;
 }
 main {
-	margin-top: 6rem;
+	margin-top: 2.75rem;
 	flex-grow: 1;
+}
+
+@include media-breakpoint-down(sm) {
+	main {
+		margin-top: 5.20rem;
+	}
 }
 
 @media (max-width: 575.98px) {
