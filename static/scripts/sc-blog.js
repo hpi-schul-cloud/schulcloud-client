@@ -44,9 +44,9 @@ function fetchContent() {
 	promiseFunc
 		.then(() => {
 			linksArray.forEach((url, index) => {
-				url = url.substr(1);
+				urlCut = url.substr(1);
 				$.ajax({
-					url: `/ghost/${url}/`,
+					url: `/ghost/${urlCut}/`,
 					type: 'GET',
 					dataType: 'json',
 					contentType: 'application/json',
