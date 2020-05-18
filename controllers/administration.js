@@ -1066,7 +1066,7 @@ router.get(
 				}
 				const body = users.map((user) => {
 					const statusIcon = getConsentStatusIcon(
-						user.consent.consentStatus,
+						user.consentStatus,
 						true,
 					);
 					const icon = `<p class="text-center m-0">${statusIcon}</p>`;
@@ -1362,7 +1362,7 @@ router.get(
 				}
 
 				const body = users.map((user) => {
-					const icon = getConsentStatusIcon(user.consent.consentStatus);
+					const icon = getConsentStatusIcon(user.consentStatus);
 					const actions = [
 						{
 							link: `/administration/students/${user._id}/edit`,
@@ -1377,8 +1377,8 @@ router.get(
 							icon: 'check-square-o',
 						});
 					}
-					if (user.consent.consentStatus === 'missing'
-						|| user.consent.consentStatus === 'default') {
+					if (user.consentStatus === 'missing'
+						|| user.consentStatus === 'default') {
 						studentsWithoutConsentCount += 1;
 					}
 					const row = [
