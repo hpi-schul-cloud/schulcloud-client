@@ -1,0 +1,154 @@
+{{#extend "lib/loggedout"}}
+
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/homepage/index.css" />
+{{/content}}
+
+{{#content "scripts" mode="append"}}
+<script src="/scripts/login.js" type="text/javascript" defer></script>
+<script src="/scripts/sc-blog.js" type="text/javascript" defer></script>
+<script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false"
+	defer></script>
+{{/content}}
+
+{{#content "page"}}
+
+<div class="container">
+	<div class="row section flex-container">
+		<div class="col-md-6 push-md-6">
+			<div class="text-xs-center text-md-right">
+				<img class="image mb-3 mb-md-0" src="/images/right_one_desk_img.jpg" alt="desk_img" />
+			</div>
+		</div>
+		<div class="col-sm-6 pull-md-6">
+			<div class="pull-left">
+				<h6 class="font-weight-bold mb-2">HPI Schul-Cloud</h6>
+				<h1 class="mb-3">Schule digital unterstützt</h1>
+				<a class="btn btn-outline btn-accent mt-md-2 mb-md-3 mb-md-0" href="/community">Jetzt Registrieren</a>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="section-heading mb-3">Das macht die HPI Schul-Cloud aus</h2>
+	<div class="row section flex-container">
+		<div class="col-sm-12 col-md-6">
+			<img class="mb-3 mb-md-0" src="/images/product.png" alt="">
+		</div>
+		<div class="col-sm-12 col-md-6">
+			<div class="pull-right">
+				<div class="flex-container mb-2">
+					<img src="/images/check-icon-1.svg">
+					<p class="ml-2 teaser">Lernen zusammen in digitalen Räumen</p>
+				</div>
+				<div class="flex-container mb-2">
+					<img src="/images/check-icon-2.svg">
+					<p class="ml-2 teaser">Kostenlos für alle Schulen erhältlich</p>
+				</div>
+				<div class="flex-container mb-2">
+					<img src="/images/check-icon-1.svg">
+					<p class="ml-2 teaser">Lermaterial, Aufgaben, Chat, Video und mehr </p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="section-heading mb-3">Vorteile der HPI Schul-Cloud</h2>
+	<div class="row flex-container mb-3">
+		<div class="col-sm-12 col-md-4 text-xs-center">
+			<img class="mb-3 mb-md-0" src="/images/cloud-landing.svg" alt="">
+		</div>
+		<div class="col-sm-12 col-md-8">
+			<h5 class="heading font-weight-bold">Gefördert vom Bundesministerium für Bildung und Forschung</h5>
+			<p class="mb-2"> Jede Schule und ihre Schüler:innen sollen Zugang zu digitalem Lernen haben. In der Covid-19
+				Krise und
+				darüber hinaus.</p>
+			<link><a class="font-weight-bold" href="">Mehr erfahren <i
+					class="fa fa-angle-double-right font-weight-bold"></i></a></link>
+		</div>
+	</div>
+
+	<div class="row flex-container mb-3">
+		<div class="col-md-4 push-md-8">
+			<div class="text-xs-center text-md-right">
+				<img class="mb-3 mb-md-0" src="/images/hands-landing.svg" alt="">
+			</div>
+		</div>
+		<div class="col-md-8 pull-md-4">
+			<h5 class="heading font-weight-bold ">Datenschutz konform und sicher</h5>
+			<p class="mb-2">Die HPI Schul-Cloud wurde in Deutschland entwickelt, im Austausch mit Datenschützern und
+				Sicherheitsexperten. Auch unsere Server stehen in Deutschland.</p>
+			<link><a class="font-weight-bold" href="">Mehr erfahren <i
+					class="fa fa-angle-double-right font-weight-bold"></i></a></link>
+		</div>
+	</div>
+
+	<div class="row flex-container mb-3">
+		<div class="col-sm-12 col-md-4 text-xs-center">
+			<img class="mb-3 mb-md-0" src="/images/people-landing.svg" alt="">
+		</div>
+		<div class="col-sm-12 col-md-8">
+			<h5 class="heading font-weight-bold ">Benutzerfreundlich und inhaltlich neutral - Lehrer bestimmen den
+				Lernstoff </h5>
+			<p class="mb-2">Opensource, die HPI Schul-Cloud kann mit praktisch jedem Gerät genutzt werden und ist
+				kompatibel mit vielen etablierten Anbietern von Lernsoftware</p>
+			<link><a class="font-weight-bold" href="">Mehr erfahren <i
+					class="fa fa-angle-double-right font-weight-bold"></i></a></link>
+		</div>
+	</div>
+	<div class="row flex-container mb-3">
+		<div class="col-md-4 push-md-8">
+			<div class="text-xs-center text-md-right">
+				<img class="mb-3 mb-md-0" src="/images/computer-landing.svg" alt="">
+			</div>
+		</div>
+		<div class="col-md-8 pull-md-4">
+			<h5 class="heading font-weight-bold ">Lernen mit digitaler Hilfe</h5>
+			<p class="mb-2">Einfach, sicher, von deinem Handy, Tablet oder Computer.</p>
+			<link><a class="font-weight-bold" href="">Mehr erfahren <i
+					class="fa fa-angle-double-right font-weight-bold"></i></a></link>
+		</div>
+	</div>
+</div>
+
+<!-- GLOBAL_ANNOUNCEMENT -->
+<div class="container container-content">
+	{{#hasConfig "GLOBAL_ANNOUNCEMENT"}}
+	<div class="notification alert alert-info">
+		<div class="notification-content">
+			{{{getConfig "GLOBAL_ANNOUNCEMENT"}}}
+		</div>
+	</div>
+	{{/hasConfig}}
+</div>
+
+<!-- GHOST (will be replaced by js) -->
+<div class="sc-blog">
+	<div class="container container-content content-width-max">
+		<h1 class="section-title title text-center" style="color: var(--color-primary);">
+			{{{$t "home.headline.welcomeToHPISchoolCloud"}}}
+		</h1>
+	</div>
+	<div class="content" style="opacity: 0; transition: opacity 0.7s ease-in;"></div>
+	<div class="loading text-center mt-3 mb-3" style="min-height: 70vh;">
+		<i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true" style="font-size: 25px;"></i>
+		<div class="placeholder" style="display: none;">
+			<img src="/images/repair.png" width="350px">
+			<p class="text-muted">{{$t "global.text.errorWhileLoadingPage"}}</p>
+			<button type="button" class="btn btn-primary mt-2">{{$t "global.button.tryAgain"}}</button>
+		</div>
+	</div>
+</div>
+
+<!-- BLOG -->
+{{#embed "authentication/section" style="accent" class=""}}
+{{#content "body"}}
+<h2 class="h3 section-title center">{{{$t "home.headline.HPISchoolCloudBlog"}}}</h2>
+<div class="blog-cards">
+	<p>{{$t "home.text.blogIsDeactivated"}}</p>
+</div>
+<a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">{{$t "home.link.moreArticles"}}</a>
+{{/content}}
+{{/embed}}
+
+{{/content}}
+{{/extend}}
