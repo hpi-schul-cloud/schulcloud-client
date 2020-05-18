@@ -26,8 +26,8 @@ function fetchContent() {
 			timeout: 8000,
 		})
 			.then((result) => {
-				const regexHash = /\#{1}[a-zA-Z--]+/g;
-				const regexAsterisk = /\~{1}[a-zA-Z--]+/g;
+				const regexHash = /#{1}[a-zA-Z--]+/g;
+				const regexAsterisk = /~{1}[a-zA-Z--]+/g;
 				if (production) {
 					linksArray = result.pages[0].html.match(regexHash);
 				} else {
@@ -44,6 +44,7 @@ function fetchContent() {
 	promiseFunc
 		.then(() => {
 			linksArray.forEach((url, index) => {
+				const urlCut;
 				urlCut = url.substr(1);
 				$.ajax({
 					url: `/ghost/${urlCut}/`,
