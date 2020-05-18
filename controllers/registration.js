@@ -59,7 +59,7 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 			if (roleName === 'teacher' || roleName === 'administrator') {
 				roleName = 'employee';
 			}
-			return skipConsent && Configuration.get('SKIP_CONDITIONS_CONSENT').includes(roleName);
+			return Configuration.get('SKIP_CONDITIONS_CONSENT').includes(roleName);
 		});
 	}
 
