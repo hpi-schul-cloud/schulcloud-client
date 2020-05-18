@@ -4,7 +4,8 @@
                                                                       $('#picture').attr('src', '');
                                                                       $('#file-view').css('display','none');">
         <video id="my-video" class="video-js vjs-default-skin" onclick="videoClick(event);" autoplay controls preload="auto" data-setup='{"fluid": true}'></video>
-        <script src="/vendor/video.js"></script>
+		<script src="/vendor/videojs/video.js"></script>
+		<script src="/vendor/videojs/lang/{{ @root.userLanguage }}.js"></script>
         <img id="picture">
     </a>
 </section>
