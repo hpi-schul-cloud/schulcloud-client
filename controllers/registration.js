@@ -1,10 +1,12 @@
 const express = require('express');
+const { Configuration } = require('@schul-cloud/commons');
 
 const router = express.Router();
 const api = require('../api');
 
 const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
+const authHelper = require('../helpers/authentication');
 
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
@@ -41,7 +43,7 @@ router.post('/registration/pincreation', (req, res, next) => {
 			},
 		}).then((result) => {
 			res.sendStatus((result || {}).status || 200);
-		}).catch(err => res.status(500).send(err));
+		}).catch((err) => res.status(500).send(err));
 	}
 	return res.sendStatus(500);
 });
@@ -140,10 +142,17 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			const existingUser = await api(req).get(`/users/linkImport/${user.importHash}`);
 			Object.assign(user, existingUser);
 		}
+
+		const needConsent = !Configuration.get('SKIP_CONDITIONS_CONSENT').includes('student');
+		const sectionNumber = needConsent ? 5 : 3;
+
 		return res.render('registration/registration-parent', {
 			title: 'Registrierung - Eltern',
+			password: authHelper.generatePassword(),
 			hideMenu: true,
 			user,
+			needConsent,
+			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 		});
@@ -172,10 +181,16 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			Object.assign(user, existingUser);
 		}
 
+		const needConsent = !Configuration.get('SKIP_CONDITIONS_CONSENT').includes('student');
+		const sectionNumber = needConsent ? 4 : 3;
+
 		return res.render('registration/registration-student', {
 			title: 'Registrierung - Schüler*',
+			password: authHelper.generatePassword(),
 			hideMenu: true,
 			user,
+			needConsent,
+			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 		});
@@ -201,9 +216,16 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 		Object.assign(user, existingUser);
 	}
 
+	let needConsent = true;
+	let sectionNumber = 5;
+
 	let roleText;
 	if (req.params.byRole === 'byemployee') {
 		roleText = 'Lehrer*/Admins*';
+		if (Configuration.get('SKIP_CONDITIONS_CONSENT').includes('employee')) {
+			needConsent = false;
+			sectionNumber = 4;
+		}
 	} else {
 		delete user.firstName;
 		delete user.lastName;
@@ -214,6 +236,8 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 		title: `Registrierung - ${roleText}`,
 		hideMenu: true,
 		user,
+		needConsent,
+		sectionNumber,
 		invalid,
 	});
 });

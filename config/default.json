@@ -1,0 +1,11 @@
+{
+	"$schema": "./default.schema.json",
+	"COOKIE": {
+		"SAME_SITE": "None",
+		"HTTP_ONLY": false,
+		"HOST_ONLY": false,
+		"SECURE": false,
+		"EXPIRES_SECONDS": 2592000000
+	},
+	"STUDENT_TEAM_CREATION" : "opt-out"
+}

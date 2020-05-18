@@ -37,6 +37,19 @@
 			"startM2018": "(Start Mai 2018)"
 		}
 	},
+	"account" : {
+		"global" :{
+			"label":{
+				"thirdPartyLogins" : "Drittanbieter-Logins"
+			}
+		},
+		"label" : {
+			"providers" : "Anbieter"
+		},
+		"text" : {
+			"noThirdPartyProvidersUsed" : "Keine Drittanbieter genutzt"
+		}
+	},
 	"addons": {
 		"headline": {
 			"addons": "Add-ons",
@@ -93,6 +106,9 @@
 			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
 		}
 	},
+	"community":{
+		"title": "Jetzt mitmachen!"
+	},
 	"content": {
 		"button": {
 			"choose": "Wähle..."
@@ -140,12 +156,12 @@
 					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
+					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"chooseDate": "Termine auswählen",
 					"class": "Klasse(n)",
 					"from": "Von",
 					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 					"substitute": "Vertretungslehrer:innen",
-					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"till": "Bis",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
 					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
@@ -236,12 +252,12 @@
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
 					"posedTasks": "Gestellte Aufgaben",
+					"privateTasks": "Private Aufgaben und Entwürfe",
 					"submittedTasks": "Bearbeitete Aufgaben",
-					"unsubmittedTasks": "Gestellte Aufgaben",
-					"tasksWithSubmissions": "Aufgaben mit Abgaben",
 					"task": "Aufgabe",
 					"tasks": "Aufgaben",
-					"privateTasks": "Private Aufgaben und Entwürfe"
+					"tasksWithSubmissions": "Aufgaben mit Abgaben",
+					"unsubmittedTasks": "Gestellte Aufgaben"
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
@@ -544,12 +560,15 @@
 	},
 	"global": {
 		"button": {
+			"accept" : "Akzeptieren",
+			"add" : "Hinzufügen",
 			"cancel": "Abbrechen",
 			"close": "Schließen",
+			"create": "Erstellen",
 			"delete": "Löschen",
 			"open": "Öffnen",
 			"save": "Speichern",
-			"saveChanges": "Änderungen speichern"
+			"saveChanges": "Änderungen Speichern"
 		},
 		"label": {
 			"room": "Raum"
@@ -580,6 +599,7 @@
 			"monday": "Montag",
 			"saturday": "Samstag",
 			"sunday": "Sonntag",
+			"sureAboutDiscardingChanges": "Bist du dir sicher, dass du die Änderungen verwerfen möchtest?",
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
@@ -590,22 +610,41 @@
 			"aboutTheProject": "Über das Projekt",
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrer:in einloggen",
-			"subscribeNewsletter": "Newsletter abonnieren"
+			"subscribeNewsletter": "Newsletter abonnieren",
+			"tryAgain": "Erneut Versuchen"
+		},
+		"header": {
+			"link": {
+				"aboutUs": "Über das Projekt",
+				"blog": "Blog",
+				"faq": "FAQ",
+				"firstSteps": "Erste Schritte",
+				"register" : "Registrieren"
+			}
 		},
 		"headline": {
 			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> Blog",
 			"allNewsOnHPINewsletter": "Alle Neuigkeiten rund um die <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> bequem in Ihrem Postfach:",
 			"explainationVideo": "Erklärvideo zur HPI Schul-Cloud",
 			"projectLeaders": "Projektdurchführung",
+			"theIdea": "Die Grundidee der <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span>",
 			"tryDemoVersion": "Jetzt Demoversion ausprobieren",
 			"welcomeToHPISchoolCloud": "Herzlich willkommen bei der <span style=\"white-space: nowrap;\">HPI Schul-Cloud!</span>"
+		},
+		"img_alt": {
+			"logoBMBF": "Logo BMBF",
+			"logoHPI": "Logo HPI",
+			"logoMINTEC": "Logo MINT-EC"
 		},
 		"link": {
 			"moreArticles": "weitere Artikel anzeigen",
 			"openArticle": "Artikel öffnen"
 		},
 		"text": {
-			"BlogIsDeactivated": "Der Blog ist derzeit deaktiviert! Das HPI Schul-Cloud Team kümmert sich darum.",
+			"advertisementForOurTeam": "Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs",
+			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) videoplayer.",
+			"downloadFile": "Datei herunterladen",
+			"errorWhileLoadingHomepage": "Beim Laden des Inhalts der Startseite ist ein Fehler aufgetreten.",
 			"moreInformation": "Mehr Informationen:",
 			"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
 			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
@@ -616,6 +655,7 @@
 			"addTask": "Aufgabe hinzufügen",
 			"archive": "Archivieren",
 			"copy": "Kopieren",
+			"downloadUngradedFiles": "Dateien unbewerteter Hausaufgaben herunterladen",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
@@ -672,7 +712,18 @@
 			"noStudentGroupsInThisCourse": "keine Schüler:innengruppen in diesem Kurs",
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
-			"noTasks": "Keine Aufgaben"
+			"noTasks": "Keine Aufgaben",
+			"done": "Super! Du hast deine Aufgabe erledigt!",
+			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
+			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
+		}
+	},
+	"loggedin": {
+		"text": {
+			"newFeaturesAvailable": "Neue Features sind verfügbar",
+			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte kontaktiere den Schul-Administrator!",
+			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
+			"timeout": "Zeitüberschreitung der Anfrage"
 		}
 	},
 	"login": {
@@ -699,6 +750,20 @@
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
 		},
+		"oauth2" : {
+			"headline":{
+				"loginWithSchoolCloud": "Login mit Schul-Cloud"
+			},
+			"label" : {
+				"weNeedToSendThisData" : "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
+				"email" : "deine E-Mail-Adresse",
+				"yourName" : "deinen Namen",
+				"openId" : "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt"
+			},
+			"text" : {
+				"yourNameIsProtected" : "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
+			}
+		},
 		"popup_resetPw": {
 			"button": {
 				"cancel": "Abbrechen",
@@ -714,12 +779,12 @@
 				"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
 			},
 			"text": {
-				"contactTeacherAdmin": "Wenn du zusätzliche Hilfe beim Passwort zurücksetzen benötigst, wende dich bitte an deine betreuende Lehrkraft (als Schüler) oder an deinen Administrator (als Lehrkraft).",
-				"thoseWillHelpYou": "Diese können dein Passwort über die Nutzerverwaltung mit sofortiger Wirkung zurücksetzen."
+				"contactTeacherAdminForHelp": "Wenn du zusätzliche Hilfe beim Passwort zurücksetzen benötigst, wende dich bitte an deine betreuende Lehrkraft (als Schüler) oder an deinen Administrator (als Lehrkraft). </br>Diese können dein Passwort über die Nutzerverwaltung mit sofortiger Wirkung zurücksetzen."
 			}
 		},
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
 		}
 	},
@@ -746,15 +811,77 @@
 			"unpublished": "Unveröffentlicht"
 		}
 	},
+	"pwRecovery": {
+		"input": {
+			"hiddenPw": "***************"
+		},
+		"label": {
+			"newPw": "Neues Passwort",
+			"repeatNewPw": "Neues Passwort wiederholen"
+		},
+		"response": {
+			"text": {
+				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
+				"didYouRegisterCorrectly": "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einem Lehrer oder Schuladministrator bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
+				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der Schul-Cloud einzuloggen.",
+				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
+				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
+			}
+		},
+		"text": {
+			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
+			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. <br/>Erlaubte Sonderzeichen sind: <code>!§$%&/()=?\\;:,.#+*~</code>",
+			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
+		}
+	},
+	"topic": {
+		"_topic": {
+			"button": {
+				"editTopic": "Thema bearbeiten"
+			},
+			"global": {
+				"button": {
+					"addPrivateTask": "private Aufgabe hinzufügen",
+					"addTask": "Aufgabe hinzufügen",
+					"toEdit": "Bearbeiten"
+				},
+				"heading": {
+					"task": "Aufgabe"
+				}
+			},
+			"heading": {
+				"assignedTasks": "Gestellte Aufgaben",
+				"privateTasks": "Private Aufgaben",
+				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
+			},
+			"label": {
+				"content": "Inhalte",
+				"titleOfTheTopic": "Titel des Themas"
+			},
+			"text": {
+				"shareWithOthersTeachers": "mit anderen Lehrern teilen"
+			}
+		},
+		"content": {
+			"link": {
+				"openInNewTab": "in neuem Tab öffnen"
+			}
+		},
+		"form_share": {
+			"label": {
+				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
+			}
+		}
+	},
 	"teams": {
 		"_team": {
 			"edit": {
 				"label": {
-					"teamName": "Name des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
 					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
 					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams"
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
 				},
 				"placeholder": {
 					"teamName": "A-Team"

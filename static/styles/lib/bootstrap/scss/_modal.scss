@@ -113,7 +113,7 @@
   flex-shrink: 0;
   align-items: flex-start; // so the close btn always stays on the upper right corner
   justify-content: space-between; // Put modal header elements (title and dismiss) on opposite ends
-  padding: $modal-header-padding;
+  padding: $pagination-padding-x-lg;
   border-bottom: $modal-header-border-width solid $modal-header-border-color;
   @include border-top-radius($modal-content-inner-border-radius);
 
@@ -137,7 +137,19 @@
   // Enable `flex-grow: 1` so that the body take up as much space as possible
   // when there should be a fixed height on `.modal-dialog`.
   flex: 1 1 auto;
-  padding: $modal-inner-padding;
+  padding: $pagination-padding-x-lg;
+
+  ol {
+    padding-inline-start: initial !important;
+    counter-reset: counter;
+    li {
+      display:block;
+    }
+    li:before {
+      counter-increment: counter;
+      content: counter(counter) ". ";
+    }
+  }
 }
 
 // Footer (for actions)
