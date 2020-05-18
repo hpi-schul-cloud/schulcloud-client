@@ -230,7 +230,7 @@ gulp.task('vendor-assets', () => beginPipe([
 ]).pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
 // copy node modules
-const nodeModules = ['mathjax', 'font-awesome/fonts'];
+const nodeModules = ['mathjax', 'font-awesome/fonts', 'video.js'];
 gulp.task('node-modules', () => Promise.all(nodeModules
 	// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
 	.map((module) => gulp.src([`./node_modules/${module}/**/*.*`])
