@@ -84,6 +84,15 @@
   margin-top: -2px;
 }
 
+.modal-header-notification{
+  padding: $pagination-padding-x-sm $pagination-padding-x-sm 0 $pagination-padding-x-sm;
+  @include clearfix;
+
+  .close {
+    margin-top: -2px;
+  }
+}
+
 // Title text within header
 .modal-title {
   margin: 0;
@@ -106,6 +115,14 @@
       counter-increment: counter;
       content: counter(counter) ". ";
     }
+  }
+}
+
+.modal-body-notification {
+  position: relative;
+  padding:  0 $pagination-padding-x-lg $pagination-padding-x-lg $pagination-padding-x-lg;
+  div {
+    margin-bottom: 51px;
   }
 }
 
