@@ -22,6 +22,7 @@ In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the 
 
 ### Fixed
 
+- SC-4392 add/edit link dialog in ckeditor could not be opened
 
 
 ## [22.10.0] - 2020-05-11
