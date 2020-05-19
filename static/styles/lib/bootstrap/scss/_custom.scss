@@ -482,9 +482,9 @@ $popover-title-padding-x: 14px !default;
 $popover-title-padding-y: 8px !default;
 $popover-content-padding-x: 14px !default;
 $popover-content-padding-y: 9px !default;
-$popover-arrow-width: 10px !default;
+$popover-arrow-width: 0.55rem !default;
 $popover-arrow-color: $popover-bg !default;
-$popover-arrow-outer-width: ($popover-arrow-width + 1px) !default;
+$popover-arrow-outer-width: ($popover-arrow-width + 0.05rem) !default;
 $popover-arrow-outer-color: fade-in($popover-border-color, .05) !default;
 // Tags
 $tag-default-bg: $gray-light !default;
