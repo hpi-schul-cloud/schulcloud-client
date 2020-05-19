@@ -784,16 +784,16 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 		expanded: true,
 		options: isTeacherPage
 			? [
-				['missing', 'Keine Zustimmung vorhanden'],
-				['ok', 'Benötigte Zustimmung(en) zur Registrierung vorhanden'],
+				['missing', 'Keine Einverständniserklärung vorhanden'],
+				['ok', 'Zur Registrierung benötigte Einverständniserklärungen vorhanden'],
 			]
 			: [
-				['missing', 'Keine Zustimmung vorhanden'],
+				['missing', 'Keine Einverständniserklärung vorhanden'],
 				[
 					'parentsAgreed',
 					'Eltern haben zugestimmt, Schüler:in noch offen',
 				],
-				['ok', 'Benötigte Zustimmung(en) zur Registrierung vorhanden'],
+				['ok', 'Zur Registrierung benötigte Einverständniserklärungen vorhanden'],
 			],
 	},
 ];
