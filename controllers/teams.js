@@ -855,12 +855,6 @@ router.get('/:teamId/members', async (req, res, next) => {
 			return team;
 		});
 
-	const getUsers = () => api(req)
-		.get('/users', {
-			qs: { schoolId, $limit, $sort: { lastName: 1, firstName: 1 } },
-		})
-		.then((users) => users.data);
-
 	const getRoles = () => api(req)
 		.get('/roles', {
 			qs: {
@@ -891,19 +885,13 @@ router.get('/:teamId/members', async (req, res, next) => {
 		.then((federalStates) => federalStates.data);
 
 	try {
-		let [
-			// eslint-disable-next-line prefer-const
+		const [
 			team,
-			users,
-			// eslint-disable-next-line prefer-const
 			roles,
-			// eslint-disable-next-line prefer-const
 			classes,
-			// eslint-disable-next-line prefer-const
 			federalStates,
 		] = await Promise.all([
 			getTeam(),
-			getUsers(),
 			getRoles(),
 			getClasses(),
 			getFederalStates(),
@@ -913,8 +901,6 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 		const { permissions } = team.user || {};
 		team.userIds = team.userIds.filter((user) => user.userId !== null); // fix if user do not exist
-		const teamUserIds = team.userIds.map((user) => user.userId._id);
-		users = users.filter((user) => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter((s) => s._id === schoolId)[0];
 		const currentFederalStateId = (currentSchool || {}).federalState;
 		let couldLeave = true; // will be set to false if current user is the only teamowner
@@ -1057,7 +1043,6 @@ router.get('/:teamId/members', async (req, res, next) => {
 				rolesExternal,
 				headInvitations,
 				bodyInvitations,
-				users,
 				federalStates,
 				currentFederalState: currentFederalStateId,
 				breadcrumb: [
