@@ -1,4 +1,4 @@
-<section id="loginarea" class="card">
+<section id="loginarea" class="card mt-3">
 	<div class="card-block">
 		<h2 class="h4 card-title">{{$t "login.headline.LoginForRegisteredUsers"}}</h2>
 		<div class="card-text form-wrapper">
@@ -16,7 +16,7 @@
 				<div class="form-group">
 					<input type="text" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" data-testid="username" required>
 					<div class="input-group mt-1" id="show_hide_password">
-						<input type="password" autocomplete="current-password" name="password" class="form-control form-control-lg" placeholder="{{$t "login.input.password"}}" data-testid="password" required>
+						<input type="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg" placeholder="{{$t "login.input.password"}}" data-testid="password" required>
 						<div class="input-group-addon">
 							<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
 						</div>
@@ -55,6 +55,7 @@
 								<option value="{{this._id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
 							{{else}}
 								<option disabled>{{$t "login.input.noSystemsAvailable"}}</option>
+	
 							{{/each}}
 						</select>
 					</div>

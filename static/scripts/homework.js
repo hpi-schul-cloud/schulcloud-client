@@ -1,4 +1,5 @@
 /* global CKEDITOR */
+import multiDownload from 'multi-download';
 
 import { softNavigate } from './helpers/navigation';
 import { getQueryParameters } from './helpers/queryStringParameter';
@@ -471,5 +472,16 @@ $(document).ready(() => {
     });
 
     // typeset all MathJAX formulas displayed
-    MathJax.Hub.Typeset()
+	MathJax.Hub.Typeset()
+
+	// allow muti-download
+	$('button.multi-download').on('click', function() {
+		const files = $(this).data('files').split(' ');
+
+		// renaming here does not work, because the files are all served from a different origin
+		multiDownload(files).then(() => {
+			// Clicking a link, even if it is a download link, triggers a `beforeunload` event. Undo those changes here.
+			setTimeout(() => document.querySelector('body').classList.add('loaded'), 1000);
+		});
+	});
 });
