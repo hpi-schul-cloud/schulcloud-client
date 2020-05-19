@@ -53,17 +53,17 @@ module.exports = (req, res, next) => {
 		link: '/homework/',
 		children: [
 			{
-				name: 'Gestellte Aufgaben',
+				name: res.$t('global.sidebar.link.assignedTasks'),
 				icon: 'bullhorn',
 				link: '/homework/asked/',
 			},
 			{
-				name: 'Entwürfe',
+				name: res.$t('global.sidebar.link.drafts'),
 				icon: 'lock',
 				link: '/homework/private/',
 			},
 			{
-				name: 'Archiv',
+				name: res.$t('global.sidebar.link.archive'),
 				icon: 'archive',
 				link: '/homework/archive/',
 			},
@@ -74,17 +74,17 @@ module.exports = (req, res, next) => {
 		link: '/files/',
 		children: [
 			{
-				name: 'persönliche Dateien',
+				name: res.$t('global.sidebar.link.personalFiles'),
 				icon: 'folder-open-o',
 				link: '/files/my/',
 			},
 			{
-				name: 'Kurse',
+				name: res.$t('global.sidebar.link.courses'),
 				icon: 'folder-open-o',
 				link: '/files/courses/',
 			},
 			{
-				name: 'geteilte Dateien',
+				name: res.$t('global.sidebar.link.sharedFiles'),
 				icon: 'folder-open-o',
 				link: '/files/shared/',
 			},
@@ -155,22 +155,22 @@ module.exports = (req, res, next) => {
 		permission: 'ADMIN_VIEW',
 		children: [
 			{
-				name: 'Schüler',
+				name: res.$t('global.sidebar.link.student'),
 				icon: 'odnoklassniki',
 				link: '/administration/students/',
 			},
 			{
-				name: 'Lehrer',
+				name: res.$t('global.sidebar.link.teacher'),
 				icon: 'user',
 				link: '/administration/teachers/',
 			},
 			{
-				name: 'Kurse',
+				name: res.$t('global.sidebar.link.courses'),
 				icon: 'graduation-cap',
 				link: '/administration/courses/',
 			},
 			{
-				name: 'Klassen',
+				name: res.$t('global.sidebar.link.classes'),
 				icon: 'users',
 				link: '/administration/classes/',
 			},
@@ -180,7 +180,7 @@ module.exports = (req, res, next) => {
 				link: '/administration/teams/',
 			},
 			{
-				name: 'Schule',
+				name: res.$t('global.sidebar.link.school'),
 				icon: 'building',
 				link: '/administration/school/',
 			},
@@ -189,7 +189,7 @@ module.exports = (req, res, next) => {
 
 	// beta user view
 	res.locals.sidebarItems.push({
-		name: 'Meine Materialien',
+		name: res.$t('global.sidebar.link.myMaterials'),
 		icon: 'book',
 		link: '/my-material/',
 		permission: 'BETA_FEATURES',
@@ -203,7 +203,7 @@ module.exports = (req, res, next) => {
 			icon: 'users',
 			link: '/teams/',
 		});
-		res.locals.sidebarItems.find(i => i.name === 'Meine Dateien').children.splice(2, 0, {
+		res.locals.sidebarItems.find(i => i.name === res.$t('global.sidebar.link.files')).children.splice(2, 0, {
 			name: 'Teams',
 			icon: 'folder-open-o',
 			link: '/files/teams/',

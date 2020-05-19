@@ -579,17 +579,27 @@
 		"sidebar": {
 			"link": {
 				"administration": "Administration",
+				"archive": "Archiv",
+				"assignedTasks": "Gestellte Aufgaben",
 				"calendar": "Termine",
+				"classes": "Klassen",
 				"courses": "Kurse",
+				"drafts": "Entwürfe",
 				"files": "Meine Dateien",
 				"lernstore": "Lern-Store",
 				"management": "Verwaltung",
 				"managementClasses": "Klassen",
 				"managementStudents": "Schüler:innen",
 				"managementTeachers": "Lehrer:innen",
+				"myMaterials": "Meine Materialien",
 				"news": "Neuigkeiten",
 				"overview": "Übersicht",
-				"tasks": "Aufgaben"
+				"personalFiles": "persönliche Dateien",
+				"school": "Schule",
+				"sharedFiles": "geteilte Dateien",
+				"student": "Schüler",
+				"tasks": "Aufgaben",
+				"teacher": "Lehrer"
 			}
 		},
 		"text": {
