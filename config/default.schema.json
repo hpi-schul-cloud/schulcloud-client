@@ -86,7 +86,7 @@
 		},
 		"STUDENT_TEAM_CREATION": {
 			"type": "string",
-			"default": "opt-in",
+			"default": "opt-out",
 			"enum": [
 				"disabled",
 				"opt-in",
@@ -120,10 +120,10 @@
 			"default": false,
 			"description": "If enabled, adds support for matrix messenger"
 		},
-		"MATRIX_MESSENGER_BUNDLE": {
+		"MATRIX_MESSENGER_EMBED_URI": {
 			"type": "string",
 			"format": "uri",
-			"default": "https://embed.stomt.com/bundles/9ac7f93b23bd51c534cd/bundle.js",
+			"pattern": ".*(?<!/)$",
 			"description": "Where to find the messenger dependencies."
 		},
 		"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
