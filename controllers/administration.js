@@ -762,7 +762,7 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 			['lastName', 'Nachname'],
 			['email', 'E-Mail-Adresse'],
 			['classes', 'Klasse(n)'],
-			['consentStatus', 'Einwilligung'],
+			['consentStatus', 'Registrierung'],
 			['createdAt', 'Erstelldatum'],
 		],
 		defaultSelection: defaultOrder || 'firstName',
@@ -784,16 +784,16 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 		expanded: true,
 		options: isTeacherPage
 			? [
-				['missing', 'Keine Einverständniserklärung vorhanden'],
-				['ok', 'Alle Zustimmungen vorhanden'],
+				['missing', 'Keine Zustimmung vorhanden'],
+				['ok', 'Benötigte Zustimmung(en) zur Registrierung vorhanden'],
 			]
 			: [
-				['missing', 'Keine Einverständniserklärung vorhanden'],
+				['missing', 'Keine Zustimmung vorhanden'],
 				[
 					'parentsAgreed',
-					`Eltern haben zugestimmt (oder Schüler ist über ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS})`,
+					'Eltern haben zugestimmt, Schüler:in noch offen',
 				],
-				['ok', 'Alle Zustimmungen vorhanden'],
+				['ok', 'Benötigte Zustimmung(en) zur Registrierung vorhanden'],
 			],
 	},
 ];
@@ -1355,7 +1355,7 @@ router.get(
 					'E-Mail-Adresse',
 					'Klasse',
 					'Erstellt am',
-					'Einverständnis',
+					'Registrierung',
 				];
 				if (hasEditPermission) {
 					head.push(''); // Add space for action buttons
