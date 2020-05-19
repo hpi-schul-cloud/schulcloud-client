@@ -104,18 +104,6 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 	}));
 }
 
-const getEtherpads = (req, res, next) => {
-	api(req).get('/lessons/contents/etherpad', {
-		qs: {
-			type: 'etherpad',
-			user: res.locals.currentUser._id,
-		},
-	})
-		.then((pads) => {
-			res.json(pads);
-		});
-};
-
 const getEtherpadSession = async (req, res, courseId) => {
 	const sessionInfo = await api(req).post(
 		'/etherpad/sessions', {
@@ -129,10 +117,6 @@ const getEtherpadSession = async (req, res, courseId) => {
 
 	return sessionInfo;
 };
-
-router.get('/:topicId/etherpads/pads', getEtherpads);
-
-router.get('/etherpad/pads', getEtherpads);
 
 const getNexBoardAPI = () => {
 	if (!NEXBOARD_USER_ID && !NEXBOARD_API_KEY) {
@@ -282,7 +266,7 @@ router.get('/:topicId', (req, res, next) => {
 						const { url } = element.content;
 						const padId = url.substring(url.lastIndexOf('/') + 1);
 						// set cookie for this pad
-						etherpadPads.push(padId, res);
+						etherpadPads.push(padId);
 					}
 				});
 			}
