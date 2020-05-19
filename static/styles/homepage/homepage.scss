@@ -17,13 +17,19 @@ main {
 	flex-grow: 1;
 }
 
+@include media-breakpoint-down(md) {
+	main {
+		margin-top: 4.7rem;
+	}
+}
+
 @include media-breakpoint-down(sm) {
 	main {
 		margin-top: 5.20rem;
 	}
 }
 
-@media (max-width: 575.98px) {
+@include media-breakpoint-down(xs) {
 	main {
 		margin-top: 8rem;
 	}
