@@ -9,15 +9,23 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-### Security
-
 ### Added
-
-### Changed
 
 ### Fixed
 
+### Changed
 
+### Removed
+
+
+## [23.0.0] - 2020-05-19
+
+### Changed in 23.0.0
+
+- SC-4075 Teams creation by students logic was changed. New environment enumeration variable `STUDENT_TEAM_CREATION` 
+with possible values `disabled`, `enabled`, `opt-in`, `opt-out` was introduced. The feature value is set by instance deployment. 
+In case of `disabled`, `enabled` it is valid for all schools of the instance and cannot be changed by the admin. 
+In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the school admin.
 
 ## [22.10.0] - 2020-05-11
 
@@ -31,6 +39,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-438 on logout button click localStorge will be deleted
 - SC-3801 added generic filepicker url to ckeditor
 - SC-4260 added sentry sampling
+- SC-4064 allow for bulk download of ungraded homework files
 
 ### Changed in 22.10.0
 
