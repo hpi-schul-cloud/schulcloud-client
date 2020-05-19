@@ -399,7 +399,7 @@ class TopicText extends TopicBlock {
 
             if ( dialogName == 'link' ) {
                 const infoTab = dialogDefinition.getContents( 'info' );
-                infoTab.remove( 'protocol' );
+                // infoTab.remove( 'protocol' );
                 dialogDefinition.removeContents( 'advanced' );
             }
 
