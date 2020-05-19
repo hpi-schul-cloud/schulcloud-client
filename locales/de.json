@@ -730,6 +730,18 @@
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 		}
 	},
+	"index": {
+		"text": {
+			"oopsThisPageDoesntExist": "Ups, diese Seite gibt's wohl nicht.",
+			"oopsWeHaveAnInternalProblem": "Ups, da haben wir wohl ein internes Problem. Probier es gleich nochmal.",
+			"pleaseAuthenticate": "Bitte Authentifiziere dich zunächst.",
+			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
+			"sorryButWeReallyCant": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
+			"thisPageHasBeenMoved": "Diese Seite wurde verschoben.",
+			"thisRequestWasIncorrect": "Diese Anfrage war fehlerhaft.",
+			"youStillHaveToPay": "Diese Funktion musst du erst noch bezahlen."
+		}
+	},
 	"loggedin": {
 		"text": {
 			"newFeaturesAvailable": "Neue Features sind verfügbar",

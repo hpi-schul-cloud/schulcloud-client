@@ -206,28 +206,28 @@ const helpers = app => ({
 		console.log(data);
 	},
 	castStatusCodeToString: (statusCode) => {
-		console.log(statusCode);
+		console.log(statusCode, res);
 		if (statusCode >= 500) {
-			return 'Ups, da haben wir wohl ein internes Problem. Probier es gleich nochmal.';
+			return res.$t('index.text.oopsWeHaveAnInternalProblem');
 		}
 		if (statusCode >= 400) {
 			switch (statusCode) {
 				case 400:
-					return 'Diese Anfrage war fehlerhaft.';
+					return res.$t('index.text.thisRequestWasIncorrect');
 				case 401:
-					return 'Bitte Authentifiziere dich zunächst.';
+					return res.$t('index.text.pleaseAuthenticate');
 				case 402:
-					return 'Diese Funktion musst du erst noch bezahlen.';
+					return res.$t('index.text.youStillHaveToPay');
 				case 403:
-					return 'Sorry, aber das dürfen wir dir wirklich nicht zeigen!';
+					return res.$t('index.text.sorryButWeReallyCant');
 				case 404:
-					return "Ups, diese Seite gibt's wohl nicht.";
+					return res.$t("index.text.oopsThisPageDoesntExist");
 			}
 		}
 		if (statusCode > 300) {
-			return 'Diese Seite wurde verschoben.';
+			return res.$t('index.text.thisPageHasBeenMoved');
 		}
-		return 'Da ist wohl etwas schief gelaufen!';
+		return res.$t('index.text.somethingWentWrong');
 	},
 	writeFileSizePretty: (fileSize) => {
 		let unit;
