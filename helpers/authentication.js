@@ -224,6 +224,18 @@ const login = (payload = {}, req, res, next) => {
 	});
 };
 
+const etherpadCookieHelper = (etherpadSession, padId, res) => {
+	const encodedPadId = encodeURI(padId);
+	res.cookie('sessionID', etherpadSession.data.sessionID, {
+		path: `/p/${encodedPadId}`, //`${Configuration.get('ETHERPAD_BASE_PATH')}/p/${encodedPadId}`,
+		expires: new Date(etherpadSession.data.validUntil * 1000),
+		httpOnly: Configuration.get('COOKIE__HTTP_ONLY'),
+		hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
+		sameSite: Configuration.get('COOKIE__SAME_SITE'),
+		secure: Configuration.get('COOKIE__SECURE'),
+	});
+};
+
 module.exports = {
 	clearCookie,
 	isJWT,
@@ -232,5 +244,6 @@ module.exports = {
 	restrictSidebar,
 	populateCurrentUser,
 	login,
+	etherpadCookieHelper,
 	generatePassword,
 };
