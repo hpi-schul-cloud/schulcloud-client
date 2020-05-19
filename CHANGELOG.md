@@ -17,6 +17,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+### Security
+- SC-4506 Secure User Route. Removed not used /users route from view team members. 
+
 ### Removed
 
 
