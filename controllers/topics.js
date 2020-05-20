@@ -89,19 +89,16 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 	// eslint-disable-next-line no-return-await
 	return await Promise.all(contents.map(async (content) => {
 		if (!!content && content.component === 'Etherpad') {
-			try {
-				const etherpadPadId = await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content);
-				content.content.url = `${ETHERPAD_PAD_URI}/${etherpadPadId}`;
-				return content;
-			} catch (err) {
-				logger.error(err);
-
-				return undefined;
-			}
+			const etherpadPadId = await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content);
+			content.content.url = `${ETHERPAD_PAD_URI}/${etherpadPadId}`;
+			return content;
 		} else {
 			return content;
 		}
-	}));
+	})).catch((err) => {
+		logger.error(err);
+		return undefined;
+	});
 }
 
 const getEtherpadSession = async (req, res, courseId) => {
