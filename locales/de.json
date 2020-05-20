@@ -569,7 +569,8 @@
 			"open": "Öffnen",
 			"save": "Speichern",
 			"saveChanges": "Änderungen Speichern",
-			"tryAgain": "Erneut Versuchen"
+			"tryAgain": "Erneut Versuchen",
+			"ok": "Okay"
 		},
 		"label": {
 			"room": "Raum"
@@ -621,7 +622,7 @@
 				"faq": "FAQ",
 				"firstSteps": "Erste Schritte",
 				"register": "Registrieren",
-				"login": "Login",
+				"login": "Login"
 			}
 		},
 		"headline": {

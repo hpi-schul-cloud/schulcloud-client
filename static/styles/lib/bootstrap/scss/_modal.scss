@@ -84,15 +84,6 @@
   margin-top: -2px;
 }
 
-.modal-header-notification{
-  padding: $pagination-padding-x-sm $pagination-padding-x-sm 0 $pagination-padding-x-sm;
-  @include clearfix;
-
-  .close {
-    margin-top: -2px;
-  }
-}
-
 // Title text within header
 .modal-title {
   margin: 0;
@@ -118,11 +109,13 @@
   }
 }
 
-.modal-body-notification {
-  position: relative;
-  padding:  0 $pagination-padding-x-lg $pagination-padding-x-lg $pagination-padding-x-lg;
+.modal-body-text {
+  
   div {
-    margin-bottom: 51px;
+    display:inline;
+  }
+  .modal-danger {
+    color: $state-danger-text;
   }
 }
 
@@ -132,6 +125,21 @@
   text-align: right; // right align buttons
   border-top: $modal-footer-border-width solid $modal-footer-border-color;
   @include clearfix(); // clear it in case folks use .pull-* classes on buttons
+}
+
+// For Footer containing checkbox
+.modal-checkbox {
+  display:flex;
+  padding: $pagination-padding-x-lg;
+
+  div {
+    margin-left: auto;
+  }
+
+  label {
+    align-self: center;
+  }
+
 }
 
 // Measure scrollbar width for padding body during modal show/hide

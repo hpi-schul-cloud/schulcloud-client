@@ -73,22 +73,28 @@
 			}
 		});
 
-		function displayWarningModal(content) {
-			const $warningModal = $('.warning-modal');
+		let $warningModal = $('.warning-modal');
+		function displayWarningModal(headline, content) {
+			populateModal($warningModal, '.modal-title', headline);
 			populateModal($warningModal, '#member-modal-body', content);
 			$warningModal.appendTo('body').modal('show');
 		}
+
 		$('#publicCheckbox').on('change', function (e) {
 			e.preventDefault();
 			const isPrivateAlertTrue = (localStorage.getItem('Private-Alert')?.toLowerCase() === 'true');
 			if (!isPrivateAlertTrue && $(this).prop('checked')) {
-				let content = 'Durch das Aktivieren dieser Option werden deine bearbeiteten Aufgaben für alle anderen Schüler deines Kurses einsehbar.';
-				displayWarningModal(content);
+				const content = 'Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.';
+				$warningModal.find('#publicSubmission').prop('checked', false);
+				displayWarningModal('Bist du dir sicher?', content);
 			}
 		});
-		$('#publicSubmission').on('change', function (e) {
+
+		$warningModal.find('.btn-submit').unbind('click').on('click', function (e) {
 			e.preventDefault();
-			localStorage.setItem('Private-Alert', $(this).prop('checked'));
+			const checkboxValue = $warningModal.find('#publicSubmission').prop('checked');
+			localStorage.setItem('Private-Alert', checkboxValue);
+			$warningModal.appendTo('body').modal('hide');
 		});
 	});
 
@@ -271,18 +277,30 @@
 		{{/content}}
 		{{/embed}}
 
-		{{#embed "lib/components/modal-notification" class="warning-modal"}}
+		{{#embed "lib/components/modal" class="warning-modal"}}
 		{{#content "body"}}
-		<div class="modal-body-notification">
-			<div id="member-modal-body">
+		<div class="modal-body">
+			<div class="modal-body-text">
+				<div class="modal-danger">
+					<i class="fa fa-exclamation-triangle"></i>
+					{{$t "global.text.attention" }}
+				</div>
+				<div id="member-modal-body">
+				</div>
 			</div>
+		</div>
+		<div class="modal-footer modal-checkbox">
 			<label>
 				<input id="publicSubmission" name="public" type="checkbox" value="false" />
 				{{$t "homework.label.dontShowAgain" }}
 			</label>
-			{{/content}}
-			{{/embed}}
+			<div>
+				<button type="button" class="btn btn-secondary btn-close">{{$t "global.button.cancel" }}</button>
+				<button type="submit" class="btn btn-primary btn-submit">{{$t "global.button.ok" }}</button>
+			</div>
 		</div>
+		{{/content}}
+		{{/embed}}
 	</div>
 	{{/content}}
 	{{/extend}}
