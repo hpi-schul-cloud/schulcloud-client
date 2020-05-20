@@ -398,8 +398,6 @@ class TopicText extends TopicBlock {
             ev.data.definition.resizable = CKEDITOR.DIALOG_RESIZE_NONE;
 
             if ( dialogName == 'link' ) {
-                const infoTab = dialogDefinition.getContents( 'info' );
-                infoTab.remove( 'protocol' );
                 dialogDefinition.removeContents( 'advanced' );
             }
 
