@@ -221,17 +221,14 @@ const login = (payload = {}, req, res, next) => {
 			timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
 		};
 
-		switch (e.statusCode) {
-			case 403: // Forbidden
-				res.locals.notification.message = res.$t('login.text.loginFailedBlockedEmailDomain');
-				break;
+		// Email Domain Blocked
+		if (e.statusCode === 400 && e.error.message === 'Email Domain Blocked') {
+			res.locals.notification.message = res.$t('login.text.loginFailedBlockedEmailDomain');
+		}
 
-			case 429: // TooManyRequests
-				res.locals.notification.timeToWait = e.error.data.timeToWait;
-				break;
-
-			default:
-				break;
+		// Too Many Requests
+		if (e.statusCode === 429) {
+			res.locals.notification.timeToWait = e.error.data.timeToWait;
 		}
 
 		next(e);
