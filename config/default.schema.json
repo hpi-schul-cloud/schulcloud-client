@@ -1,6 +1,7 @@
 {
 	"title": "HPI Schul-Cloud Configuration",
 	"type": "object",
+	"additionalProperties": false,
 	"properties": {
 		"API_KEY": {
 			"type": "string",
@@ -164,29 +165,54 @@
 			"maximum": 1.0,
 			"description": "This is the % count (0.00 to 1.00) of how many of the errors send to the backend. This filter go over all errors, maybe some lost by low user counts."
 		},
-		"ETHERPAD_API_KEY": {
-			"type": "string",
-			"description": "The etherpad api key for sending requests."
+		"FEATURE_ETHERPAD_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Etherpad "
 		},
-		"ETHERPAD_API_PATH": {
-			"type": "string",
-			"default":"/api/1",
-			"description": "The etherpad api path."
-		},
-		"ETHERPAD_URI": {
-			"type": "string",
-			"default":"https://schul-cloud.org/etherpad/api/1",
-			"description": "The etherpad api version uri."
-		},
-		"ETHERPAD_COOKIE__EXPIRES_SECONDS": {
-			"type": "integer",
-			"default": 28800,
-			"description": "Number of seconds after an etherpad cookie expires."
-		},
-		"ETHERPAD_ETHERPAD_COOKIE_RELEASE_THRESHOLD": {
-			"type": "integer",
-			"default": 7200,
-			"description": "If Session Valid time is smaller than this, a new session is created on request."
+		"ETHERPAD": {
+			"type": "object",
+			"description": "Cookie properties, required always to be defined",
+			"required": [
+				"API_PATH",
+				"COOKIE_EXPIRES_SECONDS",
+				"COOKIE_RELEASE_THRESHOLD",
+				"PAD_PATH",
+				"PAD_URI",
+				"URI"
+			],
+			"properties": {
+				"API_PATH": {
+					"type": "string",
+					"default":"/api/1",
+					"description": "The etherpad api path."
+				},
+				"COOKIE_EXPIRES_SECONDS": {
+					"type": "integer",
+					"default": 28800,
+					"description": "Number of seconds after an etherpad cookie expires."
+				},
+				"COOKIE_RELEASE_THRESHOLD": {
+					"type": "integer",
+					"default": 7200,
+					"description": "If Session Valid time is smaller than this, a new session is created on request."
+				},
+				"PAD_PATH": {
+					"type": "string",
+					"default": "/etherpad/p",
+					"description": ""
+				},
+				"PAD_URI": {
+					"type": "string",
+					"default": "https://schul-cloud.org/etherpad/p",
+					"description": "The etherpad pad uri"
+				},
+				"URI": {
+					"type": "string",
+					"default":"https://schul-cloud.org/etherpad/api/1",
+					"description": "The etherpad api version uri."
+				}
+			}
 		},
 		"SKIP_CONDITIONS_CONSENT": {
 			"type": "string",
@@ -242,9 +268,31 @@
 			"description": "Number of second the user will be blocked before logging in again"
 		}
 	},
+	"allOf": [
+		{
+			"$ref": "#/definitions/ETHERPAD_ENABLED"
+		}
+	],
+	"definitions" : {
+		"ETHERPAD_ENABLED": {
+			"if": {
+				"properties": {
+					"FEATURE_ETHERPAD_ENABLED": {
+						"const": "true"
+					}
+				}
+			},
+			"then": {
+				"required": [
+					"ETHERPAD"
+				]
+			}
+		}
+	},
 	"required": [
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
 		"COOKIE",
-		"STUDENT_TEAM_CREATION"
+		"STUDENT_TEAM_CREATION",
+		"FEATURE_ETHERPAD_ENABLED"
 	]
 }

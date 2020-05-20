@@ -10,8 +10,8 @@ const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
 
+const { Configuration } = require('@schul-cloud/commons');
 const {
-	ETHERPAD_PAD_URI,
 	NEXBOARD_USER_ID,
 	NEXBOARD_API_KEY,
 	PUBLIC_BACKEND_URL,
@@ -39,7 +39,6 @@ const editTopicHandler = (req, res, next) => {
 			// so we can share the content through data-value to the react component
 			lesson.contents = JSON.stringify(lesson.contents);
 		}
-
 		res.render('topic/edit-topic', {
 			action,
 			method,
@@ -51,7 +50,7 @@ const editTopicHandler = (req, res, next) => {
 			topicId: req.params.topicId,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
-			etherpadBaseUrl: ETHERPAD_PAD_URI,
+			etherpadBaseUrl: Configuration.get('ETHERPAD__PAD_URI'),
 		});
 	}).catch((err) => {
 		next(err);
@@ -89,8 +88,9 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 	// eslint-disable-next-line no-return-await
 	return await Promise.all(contents.map(async (content) => {
 		if (!!content && content.component === 'Etherpad') {
+			const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
 			const etherpadPadId = await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content);
-			content.content.url = `${ETHERPAD_PAD_URI}/${etherpadPadId}`;
+			content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
 			return content;
 		} else {
 			return content;
