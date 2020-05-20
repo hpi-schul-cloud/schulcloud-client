@@ -30,6 +30,10 @@ with possible values `disabled`, `enabled`, `opt-in`, `opt-out` was introduced. 
 In case of `disabled`, `enabled` it is valid for all schools of the instance and cannot be changed by the admin. 
 In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the school admin.
 
+### Fixed
+
+- SC-4392 add/edit link dialog in ckeditor could not be opened
+
 ## [22.10.0] - 2020-05-11
 
 ### Security in 22.10.0
