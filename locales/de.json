@@ -37,17 +37,17 @@
 			"startM2018": "(Start Mai 2018)"
 		}
 	},
-	"account" : {
-		"global" :{
-			"label":{
-				"thirdPartyLogins" : "Drittanbieter-Logins"
+	"account": {
+		"global": {
+			"label": {
+				"thirdPartyLogins": "Drittanbieter-Logins"
 			}
 		},
-		"label" : {
-			"providers" : "Anbieter"
+		"label": {
+			"providers": "Anbieter"
 		},
-		"text" : {
-			"noThirdPartyProvidersUsed" : "Keine Drittanbieter genutzt"
+		"text": {
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
 		}
 	},
 	"addons": {
@@ -106,7 +106,7 @@
 			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
 		}
 	},
-	"community":{
+	"community": {
 		"title": "Jetzt mitmachen!"
 	},
 	"content": {
@@ -560,8 +560,8 @@
 	},
 	"global": {
 		"button": {
-			"accept" : "Akzeptieren",
-			"add" : "Hinzufügen",
+			"accept": "Akzeptieren",
+			"add": "Hinzufügen",
 			"cancel": "Abbrechen",
 			"close": "Schließen",
 			"create": "Erstellen",
@@ -620,8 +620,8 @@
 				"blog": "Blog",
 				"faq": "FAQ",
 				"firstSteps": "Erste Schritte",
-				"register" : "Registrieren",
-				"login": "Login"
+				"login": "Login",
+				"register": "Registrieren"
 			}
 		},
 		"headline": {
@@ -706,6 +706,7 @@
 			"submissionsWithoutFeedback": "unkommentierte Abgaben"
 		},
 		"text": {
+			"done": "Super! Du hast deine Aufgabe erledigt!",
 			"noAssignment": "Keine Zuordnung",
 			"noDescriptionAvailable": "keine Beschreibung vorhanden",
 			"noEvaluationTextAvailable": "Noch kein Kommentar vorhanden.",
@@ -714,7 +715,6 @@
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
-			"done": "Super! Du hast deine Aufgabe erledigt!",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 		}
@@ -751,18 +751,18 @@
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
 		},
-		"oauth2" : {
-			"headline":{
+		"oauth2": {
+			"headline": {
 				"loginWithSchoolCloud": "Login mit Schul-Cloud"
 			},
-			"label" : {
-				"weNeedToSendThisData" : "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-				"email" : "deine E-Mail-Adresse",
-				"yourName" : "deinen Namen",
-				"openId" : "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt"
+			"label": {
+				"email": "deine E-Mail-Adresse",
+				"openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt",
+				"weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
+				"yourName": "deinen Namen"
 			},
-			"text" : {
-				"yourNameIsProtected" : "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
+			"text": {
+				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
 			}
 		},
 		"popup_resetPw": {
@@ -785,8 +785,8 @@
 		},
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
-			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
-			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
+			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 		}
 	},
 	"news": {
@@ -835,6 +835,25 @@
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
 		}
 	},
+	"teams": {
+		"_team": {
+			"edit": {
+				"label": {
+					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
+					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
+				},
+				"placeholder": {
+					"teamName": "A-Team"
+				},
+				"text": {
+					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
+				}
+			}
+		}
+	},
 	"topic": {
 		"_topic": {
 			"button": {
@@ -871,25 +890,6 @@
 		"form_share": {
 			"label": {
 				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
-			}
-		}
-	},
-	"teams": {
-		"_team": {
-			"edit": {
-				"label": {
-					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
-					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
-					"teamName": "Name des Teams"
-				},
-				"placeholder": {
-					"teamName": "A-Team"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
-				}
 			}
 		}
 	}
