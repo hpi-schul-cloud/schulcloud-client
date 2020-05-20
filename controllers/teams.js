@@ -893,10 +893,14 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 	try {
 		let [
+			// eslint-disable-next-line prefer-const
 			team,
 			users,
+			// eslint-disable-next-line prefer-const
 			roles,
+			// eslint-disable-next-line prefer-const
 			classes,
+			// eslint-disable-next-line prefer-const
 			federalStates,
 		] = await Promise.all([
 			getTeam(),
