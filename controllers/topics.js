@@ -362,6 +362,8 @@ router.patch('/:topicId', async (req, res, next) => {
 
 	if (!req.query.courseGroup) delete data.courseGroupId;
 
+	// create new Etherpads when necessary, if not simple hidden or position patch
+	if (data.contents) data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
 	// create new Nexboard when necessary, if not simple hidden or position patch
 	if (data.contents) data.contents = await createNewNexBoards(req, res, data.contents);
 
