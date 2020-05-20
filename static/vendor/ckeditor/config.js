@@ -123,8 +123,10 @@ CKEDITOR.on('dialogDefinition', (ev) => {
 		dialogDefinition.removeContents('target');
 
 		const infoTab = dialogDefinition.getContents('info');
-		const urlField = infoTab.get('url');
-		urlField.default = 'https://';
+		const protocolField = infoTab.get('protocol');
+		if (protocolField) {
+			protocolField.default = 'https://';
+		}
 	}
 
 	if (dialogName === 'image') {
