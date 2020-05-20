@@ -47,7 +47,7 @@ router.post('/', (req, res, next) => {
 		res.redirect('response');
 		next();
 	}).catch((err) => {
-		if (err.statusCode === 400 && err.error.message === 'Email Domain Blocked') {
+		if (err.statusCode === 400 && err.error.message === 'EMAIL_DOMAIN_BLOCKED') {
 			res.redirect('failed');
 		} else {
 			res.redirect('response');
