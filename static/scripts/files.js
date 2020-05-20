@@ -843,7 +843,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 		// eslint-disable-next-line no-param-reassign
 		type = fileTypes[fType[fType.length - 1]] || '';
 	}
-
+	let myPlayer = null;
 	switch (type) {
 		case `image/${type.substr(6)}`:
 			window.location.href = '#file-view';
@@ -855,11 +855,10 @@ window.fileViewer = function fileViewer(type, name, id) {
 		case `video/${type.substr(6)}`:
 			window.location.href = '#file-view';
 			$('#file-view').css('display', '');
-			// eslint-disable-next-line no-undef
-			videojs('my-video').ready(() => {
-				this.src({ type, src: `/files/file?file=${id}` });
-			});
 			$('#my-video').css('display', '');
+			// eslint-disable-next-line no-undef
+			myPlayer = videojs('my-video');
+			myPlayer.src({ type: `video/${type.substr(6)}`, src: `/files/file?file=${id}` });
 			break;
 
 		case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': // .docx
