@@ -5,8 +5,8 @@
     "API_PATH": "/api/1",
     "COOKIE_EXPIRES_SECONDS": 28800,
     "COOKIE_RELEASE_THRESHOLD": 7200,
-    "PAD_URI": "http://127.0.0.1:9001/p",
-    "URI": "http://127.0.0.1:9001/api/1"
+    "PAD_URI": "https://schul-cloud.org/etherpad/p",
+    "URI": "https://schul-cloud.org/etherpad/api/1"
   },
   "COOKIE": {
 		"SAME_SITE": "None",
