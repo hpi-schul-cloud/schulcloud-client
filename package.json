@@ -45,6 +45,7 @@
 		"express-session": "^1.16.2",
 		"feedr": "^2.13.5",
 		"font-awesome": "^4.7.0",
+		"form-serializer": "^2.5.0",
 		"fullcalendar": "^3.9.0",
 		"git-repo-info": "^2.1.0",
 		"handlebars": "^4.7.6",
