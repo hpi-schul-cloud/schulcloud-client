@@ -115,6 +115,10 @@ const getEtherpadSession = async (req, res, courseId) => {
 	return sessionInfo;
 };
 
+const getPadIdFromUrl = (url) => {
+	return url.substring(url.lastIndexOf('/') + 1);
+}
+
 const getNexBoardAPI = () => {
 	if (!NEXBOARD_USER_ID && !NEXBOARD_API_KEY) {
 		logger.error('nexBoard env is currently not defined.');
@@ -261,7 +265,7 @@ router.get('/:topicId', (req, res, next) => {
 				lesson.contents.forEach((element) => {
 					if (element.component === 'Etherpad') {
 						const { url } = element.content;
-						const padId = url.substring(url.lastIndexOf('/') + 1);
+						const padId = getPadIdFromUrl(url);
 						// set cookie for this pad
 						etherpadPads.push(padId);
 					}
