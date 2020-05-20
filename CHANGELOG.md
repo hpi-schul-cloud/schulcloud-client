@@ -11,6 +11,17 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+### Fixed
+
+### Changed
+
+### Removed
+
+
+## [23.1.0] - 2020-05-20
+
+### Added
+
 - SC-4250, SC-4135, SC-4252, loading new landing page content and theme from ghost. About page partly loaded from ghost. Login form removed from front page and replaced by button in navbar. Demo-Login removed from front page.
 
 ### Fixed
