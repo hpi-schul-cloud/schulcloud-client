@@ -79,9 +79,13 @@ const getEtherpadPadForCourse = async (req, user, courseId, content) => {
 		},
 	}).catch((err) => {
 		logger.error(err);
+		throw err;
 	});
 
-	return pad.data.padID;
+	if(typeof(pad.data.padID) !== 'undefined') {
+		return pad.data.padID;
+	}
+	return undefined;
 };
 
 async function createNewEtherpad(req, res, contents = [], courseId) {
@@ -89,8 +93,16 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 	return await Promise.all(contents.map(async (content) => {
 		if (!!content && content.component === 'Etherpad') {
 			const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
-			const etherpadPadId = await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content);
-			content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
+			const etherpadPadId = await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content).catch(() => undefined);
+			if(typeof(etherpadPadId) === 'undefined') {
+				req.session.notification = {
+					type: 'danger',
+					message: res.$t('courses._course.text.etherpadCouldNotBeAdded'),
+				};
+				content.content.url = undefined;
+			} else {
+				content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
+			}
 			return content;
 		} else {
 			return content;
@@ -116,6 +128,9 @@ const getEtherpadSession = async (req, res, courseId) => {
 };
 
 const getPadIdFromUrl = (url) => {
+	if(typeof(url) === 'undefined') {
+		return url;
+	}
 	return url.substring(url.lastIndexOf('/') + 1);
 }
 
@@ -267,7 +282,9 @@ router.get('/:topicId', (req, res, next) => {
 						const { url } = element.content;
 						const padId = getPadIdFromUrl(url);
 						// set cookie for this pad
-						etherpadPads.push(padId);
+						if(typeof(padId) !== 'undefined') {
+							etherpadPads.push(padId);
+						}
 					}
 				});
 			}
