@@ -31,7 +31,6 @@ const {
 	FEATURE_EXTENSIONS_ENABLED,
 	SHOW_VERSION,
 	SW_ENABLED,
-	LOGIN_BLOCK_TIME,
 	HOST,
 	PORT = '3100',
 	CORS,
@@ -43,6 +42,8 @@ const {
 	FEATURE_NEXBOARD_ENABLED,
 	SC_DEMO_USER_PASSWORD = 'Schulcloud1!',
 	SC_DEMO_USER_NAME = 'schueler@schul-cloud.org',
+	SC_SUPERHERO_USER_PASSWORD = 'Schulcloud1!',
+	SC_SUPERHERO_USER_NAME = 'superhero@schul-cloud.org',
 } = process.env;
 
 const exp = {
@@ -76,7 +77,6 @@ const exp = {
 	FEATURE_EXTENSIONS_ENABLED,
 	SHOW_VERSION,
 	SW_ENABLED,
-	LOGIN_BLOCK_TIME,
 	HOST,
 	PORT,
 	CORS,
@@ -88,6 +88,8 @@ const exp = {
 	FEATURE_NEXBOARD_ENABLED,
 	SC_DEMO_USER_PASSWORD,
 	SC_DEMO_USER_NAME,
+	SC_SUPERHERO_USER_PASSWORD,
+	SC_SUPERHERO_USER_NAME,
 };
 
 // eslint-disable-next-line no-console
