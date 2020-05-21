@@ -7,6 +7,7 @@ const moment = require('moment');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
+const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
 
@@ -1120,7 +1121,7 @@ router.patch('/:teamId/members', async (req, res, next) => {
 	}
 });
 
-router.post('/external/invite', (req, res) => {
+router.post('/external/invite', (req, res, next) => {
 	const json = {
 		userId: req.body.userId,
 		email: req.body.email,
@@ -1134,9 +1135,7 @@ router.post('/external/invite', (req, res) => {
 		.then((result) => {
 			res.sendStatus(200);
 		})
-		.catch(() => {
-			res.sendStatus(500);
-		});
+		.catch(next);
 });
 
 router.delete('/:teamId/members', async (req, res, next) => {
@@ -1325,7 +1324,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 					message: 'Es wurde kein Thema für diesen Code gefunden.',
 				};
 
-				res.redirect(req.header('Referer'));
+				redirectHelper.safeBackRedirect(req, res);
 			}
 
 			api(req)
@@ -1337,7 +1336,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 					},
 				})
 				.then(() => {
-					res.redirect(req.header('Referer'));
+					redirectHelper.safeBackRedirect(req, res);
 				});
 		})
 		.catch((err) => res.status(err.statusCode || 500).send(err));

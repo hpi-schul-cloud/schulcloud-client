@@ -43,14 +43,25 @@ router.post('/registration/pincreation', (req, res, next) => {
 			},
 		}).then((result) => {
 			res.sendStatus((result || {}).status || 200);
-		}).catch((err) => res.status(500).send(err));
+		}).catch(next);
 	}
-	return res.sendStatus(500);
+	return res.sendStatus(400);
 });
 
 router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (req, res, next) => {
 	// normalize form data
 	req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
+
+	let skipConsent = false;
+	if (req.body.roles.length > 0) {
+		skipConsent = req.body.roles.some((role) => {
+			let roleName = role.name;
+			if (roleName === 'teacher' || roleName === 'administrator') {
+				roleName = 'employee';
+			}
+			return Configuration.get('SKIP_CONDITIONS_CONSENT').includes(roleName);
+		});
+	}
 
 	return api(req)
 		.post('/registration/', {
@@ -61,15 +72,18 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 			if (response.parent) {
 				eMailAdresses.push(response.parent.email);
 			}
+			const consentText = skipConsent ? ''
+				: `Wenn du zwischen 14 und ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt bist,
+bestätige bitte zusätzlich die Einverständniserklärung,
+damit du die ${res.locals.theme.short_title} nutzen kannst.`;
+
 			eMailAdresses.forEach((eMailAdress) => {
 				let passwordText = '';
 				let studentInfotext = '';
 				if (req.body.roles.includes('student')) {
 					passwordText = `Startpasswort: ${req.body.password_1}`;
 					studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen.
-Wenn du zwischen 14 und ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt bist,
-bestätige bitte zusätzlich die Einverständniserklärung,
-damit du die ${res.locals.theme.short_title} nutzen kannst.`;
+${consentText}`;
 				}
 				return api(req).post('/mails/', {
 					json: {
@@ -108,12 +122,13 @@ ${res.locals.theme.short_title}-Team`,
 			res.sendStatus(200);
 		})
 		.catch((err) => {
-			let message = 'Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.'
+			let message = 'Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.';
 			const customMessage = (err.error || {}).message || err.message;
 			if (customMessage) { message = customMessage; }
 			if (err && err.code) {
 				if (err.code === 'ESOCKETTIMEDOUT') {
-					message = 'Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout). Bitte versuche es erneut.'
+					message = `Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout).
+					Bitte versuche es erneut.`;
 				}
 			}
 			return res.status(500).send(message);

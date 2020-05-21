@@ -9,6 +9,7 @@ const router = express.Router();
 const { Configuration } = require('@schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const redirectHelper = require('../helpers/redirect');
 const userConsentVersions = require('../helpers/consentVersions');
 
 const logger = require('../helpers/logger');
@@ -32,6 +33,7 @@ router.get('/tsp-login/', (req, res, next) => {
 			redirect = redirectParam;
 		}
 	}
+	redirect = redirectHelper.getValidRedirect(redirect);
 	return authHelper.login({ strategy: 'tsp', ticket, redirect }, req, res, next);
 });
 
@@ -45,17 +47,18 @@ router.post('/login/', (req, res, next) => {
 		schoolId,
 		redirect,
 	} = req.body;
+	const validRedirect = redirectHelper.getValidRedirect(redirect);
 	const privateDevice = req.body.privateDevice === 'true';
 	const errorSink = () => next();
 
 	if (system) {
 		const [systemId, strategy] = system.split('//');
 		return authHelper.login({
-			strategy, username, password, systemId, schoolId, redirect, privateDevice,
+			strategy, username, password, systemId, schoolId, validRedirect, privateDevice,
 		}, req, res, errorSink);
 	}
 	return authHelper.login({
-		strategy: 'local', username, password, redirect, privateDevice,
+		strategy: 'local', username, password, validRedirect, privateDevice,
 	}, req, res, errorSink);
 });
 
@@ -64,12 +67,12 @@ const redirectAuthenticated = (req, res) => {
 	if (req.query && req.query.redirect) {
 		redirectUrl = `${redirectUrl}?redirect=${req.query.redirect}`;
 	}
-	return res.redirect(redirectUrl);
+	return res.redirect(redirectHelper.getValidRedirect(redirectUrl));
 };
 
 const determineRedirectUrl = (req) => {
 	if (req.query && req.query.redirect) {
-		return req.query.redirect;
+		return redirectHelper.getValidRedirect(req.query.redirect);
 	}
 	if (req.session.login_challenge) {
 		return '/oauth2/login/success';
@@ -108,7 +111,7 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 		res.render('authentication/login', {
 			schools,
 			systems: [],
-			redirect: req.query && req.query.redirect ? req.query.redirect : '',
+			redirect: redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : ''),
 		});
 	}));
 
