@@ -29,7 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
-const getDataValue = attr => () => {
+const getDataValue = (attr) => () => {
 	const value = $('.section-upload').data(attr);
 	return value || undefined;
 };
@@ -175,7 +175,7 @@ $(document).ready(() => {
 					pathArray.pop();
 
 					const lastPromise = pathArray.reduce((seq, name) => seq
-						.then(parent => promisePost(name, parent._id))
+						.then((parent) => promisePost(name, parent._id))
 						.catch(() => undefined), Promise.resolve({ _id: getCurrentParent() }));
 
 					lastPromise.then((result) => {
@@ -661,7 +661,7 @@ $(document).ready(() => {
 		const fileId = $(e.target).find('input[name="fileId"]').val();
 		const permissions = inputs.reduce((arr, input) => {
 			const [action, refId] = input.name.split('-');
-			const perm = arr.find(i => i.refId === refId);
+			const perm = arr.find((i) => i.refId === refId);
 
 			if (perm) {
 				perm[action] = input.checked;
@@ -781,6 +781,11 @@ $(document).ready(() => {
 		e.stopPropagation();
 		e.preventDefault();
 		const $context = $(e.currentTarget);
+
+		// temporary disabled
+		if ($context.attr('disabled')) {
+			return;
+		}
 
 		// eslint-disable no-undef
 		populateModalForm($moveModal, { // eslint-disable-line
