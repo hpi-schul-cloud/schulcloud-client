@@ -64,17 +64,6 @@ router.post(['/registration/submit/:sso/:accountId'], (req, res, next) => {
 		});
 	}
 
-	let skipConsent = false;
-	if (req.body.roles.length > 0) {
-		skipConsent = req.body.roles.some((role) => {
-			let roleName = role.name;
-			if (roleName === 'teacher' || roleName === 'administrator') {
-				roleName = 'employee';
-			}
-			return Configuration.get('SKIP_CONDITIONS_CONSENT').includes(roleName);
-		});
-	}
-
 	return api(req)
 		.post('/registration/', {
 			json: req.body,
