@@ -2537,6 +2537,25 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		}
 		delete req.body.videoconference;
 
+		// Toggle teacher's studentVisibility permission
+		const role = 'teacher';
+		const permission = 'studentVisibility';
+
+		if (req.body.studentVisibility === 'true') {
+			const toggle = 'true';
+			await api(req)
+				.patch(
+					`roles/${role}/togglepermission?toggle=${toggle}&permission=${permission}`,
+				);
+		} else if (!req.body.studentVisibility) {
+			const toggle = 'false';
+			await api(req)
+				.patch(
+					`roles/${role}/togglepermission?toggle=${toggle}&permission=${permission}`,
+				);
+		}
+		delete req.body.studentVisibility;
+
 		// Update riot messenger feature in school
 		const messengerEnabled = (res.locals.currentSchoolData.features || []).includes(
 			'messenger',
@@ -3319,7 +3338,7 @@ router.get(
 			);
 			res.render('administration/ldap-edit', {
 				title: 'LDAP bearbeiten',
-				system: system,
+				system,
 			});
 		} catch (err) {
 			next(err);
