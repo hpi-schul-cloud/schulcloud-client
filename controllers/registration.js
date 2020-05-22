@@ -48,9 +48,21 @@ router.post('/registration/pincreation', (req, res, next) => {
 	return res.sendStatus(400);
 });
 
-router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (req, res, next) => {
+
+router.post(['/registration/submit/:sso/:accountId'], (req, res, next) => {
 	// normalize form data
 	req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
+
+	let skipConsent = false;
+	if (req.body.roles.length > 0) {
+		skipConsent = req.body.roles.some((role) => {
+			let roleName = role.name;
+			if (roleName === 'teacher' || roleName === 'administrator') {
+				roleName = 'employee';
+			}
+			return Configuration.get('SKIP_CONDITIONS_CONSENT').includes(roleName);
+		});
+	}
 
 	let skipConsent = false;
 	if (req.body.roles.length > 0) {
@@ -129,6 +141,23 @@ ${res.locals.theme.short_title}-Team`,
 				if (err.code === 'ESOCKETTIMEDOUT') {
 					message = `Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout).
 					Bitte versuche es erneut.`;
+				}
+			})
+			.then(() => {
+				res.sendStatus(200);
+			})
+			.catch((err) => {
+				let message =
+					"Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.";
+				const customMessage = (err.error || {}).message || err.message;
+				if (customMessage) {
+					message = customMessage;
+				}
+				if (err && err.code) {
+					if (err.code === "ESOCKETTIMEDOUT") {
+						message =
+							"Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout). Bitte versuche es erneut.";
+					}
 				}
 			}
 			return res.status(500).send(message);
