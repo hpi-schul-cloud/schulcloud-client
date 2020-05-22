@@ -674,6 +674,7 @@
 			"save": "Speichern",
 			"saveChanges": "Änderungen speichern",
 			"send": "Senden",
+			"tryAgain": "Erneut Versuchen",
 			"yes": "Ja"
 		},
 		"error": {
@@ -733,6 +734,7 @@
 		"text": {
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
+			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
 			"friday": "Freitag",
 			"monday": "Montag",
 			"saturday": "Samstag",
@@ -748,8 +750,7 @@
 			"aboutTheProject": "Über das Projekt",
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrer:in einloggen",
-			"subscribeNewsletter": "Newsletter abonnieren",
-			"tryAgain": "Erneut Versuchen"
+			"subscribeNewsletter": "Newsletter abonnieren"
 		},
 		"header": {
 			"link": {
@@ -757,7 +758,8 @@
 				"blog": "Blog",
 				"faq": "FAQ",
 				"firstSteps": "Erste Schritte",
-				"register": "Registrieren"
+				"register" : "Registrieren",
+				"login": "Login"
 			}
 		},
 		"headline": {
@@ -782,7 +784,6 @@
 			"advertisementForOurTeam": "Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs",
 			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) videoplayer.",
 			"downloadFile": "Datei herunterladen",
-			"errorWhileLoadingHomepage": "Beim Laden des Inhalts der Startseite ist ein Fehler aufgetreten.",
 			"moreInformation": "Mehr Informationen:",
 			"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
 			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
@@ -850,7 +851,10 @@
 			"noStudentGroupsInThisCourse": "keine Schüler:innengruppen in diesem Kurs",
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
-			"noTasks": "Keine Aufgaben"
+			"noTasks": "Keine Aufgaben",
+			"done": "Super! Du hast deine Aufgabe erledigt!",
+			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
+			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 		}
 	},
 	"loggedin": {
@@ -919,8 +923,9 @@
 		},
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
-			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
-			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
+			"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
+			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
 		}
 	},
 	"news": {
@@ -961,6 +966,11 @@
 				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der Schul-Cloud einzuloggen.",
 				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
 				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
+			}
+		},
+		"failed": {
+			"text": {
+				"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
 			}
 		},
 		"text": {
