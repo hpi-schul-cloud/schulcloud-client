@@ -31,7 +31,7 @@
                 </div>
 
                 {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-                    {{#inArray "messenger" schoolData.features}}
+                    {{#inArray "messenger" @root.schoolData.features}}
                         <div class="form-group">
                             <label>
                                 <input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../team.features}}checked{{/inArray}}>
@@ -43,7 +43,7 @@
 
                {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
                     {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
-                        {{#inArray "rocketChat" schoolData.features}}
+                        {{#inArray "rocketChat" @root.schoolData.features}}
                             <div class="form-group">
                                 <label>
                                     <input type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
