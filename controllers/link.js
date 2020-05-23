@@ -27,7 +27,7 @@ router.get('/:id', function (req, res, next) {
     if (!req.params || !req.params.id) {
         return res.send(400);
     }
-    const customError = { message: 'Der Link ist nicht gültig oder abgelaufen. Bitte überprüfe den Link oder lasse dir einen neuen Link erstellen.', statusCode: 404 };
+    const customError = { message: res.$t('link.text.invalidLink'), statusCode: 404 };
     return api(req).get(`/link/${req.params.id}?includeShortId=true&redirect=false`)
         .then(result => {
             if (result.target) {

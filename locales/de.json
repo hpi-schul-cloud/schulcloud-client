@@ -789,6 +789,16 @@
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 		}
 	},
+	"imprint": {
+		"headline": {
+			"imprint": "Impressum"
+		}
+	},
+	"link": {
+		"text": {
+			"invalidLink": "Der Link ist nicht gültig oder abgelaufen. Bitte überprüfe den Link oder lasse dir einen neuen Link erstellen."
+		}
+	},
 	"loggedin": {
 		"text": {
 			"newFeaturesAvailable": "Neue Features sind verfügbar",
@@ -867,13 +877,28 @@
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
 		}
 	},
+	"my_material": {
+		"headline":{
+			"myMaterial": "Meine Materialien"
+		}
+	},
 	"news": {
 		"button": {
-			"addNews": "News hinzufügen"
+			"addNews": "News hinzufügen",
+			"closeNews": "Abbrechen",
+			"saveNews": "Speichern",
+			"submitNews": "Hinzufügen"
+		},
+		"headline": {
+			"createNews": "News erstellen",
+			"editNews": "News bearbeiten",
+			"news": "Neuigkeiten",
+			"newsTeam": "Neuigkeiten aus dem Team"
 		},
 		"label": {
 			"content": "Inhalt",
 			"shceduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
+			"searchForNews": "Suche nach Neuigkeiten",
 			"title": "Titel"
 		},
 		"text": {
@@ -891,8 +916,14 @@
 		}
 	},
 	"pwRecovery": {
+		"button": {
+			"createNewPassword": "Neues Passwort anlegen"
+		},
 		"input": {
 			"hiddenPw": "***************"
+		},
+		"headline": {
+			"passwordRecovery": "Passwort-Wiederherstellung"
 		},
 		"label": {
 			"newPw": "Neues Passwort",
@@ -915,6 +946,8 @@
 		"text": {
 			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
 			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. <br/>Erlaubte Sonderzeichen sind: <code>!§$%&/()=?\\;:,.#+*~</code>",
+			"errorPasswordAlreadyChanged": "Ihr Passwort wurde bereits über diese URL geändert.",
+			"errorTimeExpired": "Zeit abgelaufen für Passwort Recovery.",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
 		}
 	},
