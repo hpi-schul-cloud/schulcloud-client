@@ -3,8 +3,8 @@
 	"ETHERPAD": {
     "PAD_PATH": "/p",
     "API_PATH": "/api/1",
-    "PAD_URI": "http://localhost:9001/p",
-    "URI": "http://localhost:9001/api/1"
+    "PAD_URI": "https://schul-cloud.org/p",
+    "URI": "https://schul-cloud.org/api/1"
   },
   "COOKIE": {
 		"SAME_SITE": "None",
