@@ -126,12 +126,6 @@
 				"youWillBeOnTheSide": "Sie werden auf die Seite von"
 			}
 		},
-		"global": {
-			"button": {
-				"filterAdd": "Filter hinzufügen",
-				"filterApply": "Übernehmen"
-			}
-		},
 		"item": {
 			"text": {
 				"contentNotAvailable": "Inhalt aus Lizenzgründen im Demomodus nicht verfügbar.",
@@ -596,6 +590,8 @@
 			"close": "Schließen",
 			"create": "Erstellen",
 			"delete": "Löschen",
+			"filterAdd": "Filter hinzufügen",
+			"filterApply": "Übernehmen",
 			"open": "Öffnen",
 			"save": "Speichern",
 			"saveChanges": "Änderungen Speichern",
