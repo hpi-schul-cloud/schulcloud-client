@@ -2538,20 +2538,14 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		delete req.body.videoconference;
 
 		// Toggle teacher's studentVisibility permission
-		const role = 'teacher';
-		const studentVisibilityOptions = {
-			permission: 'studentVisibility',
-			toggle: !req.body.studentVisibility ? 'false' : 'true',
-		};
-		const createVisibilityQuery = () => {
-			const { permission, toggle } = studentVisibilityOptions;
-			return `roles/${role}/togglepermission?toggle=${toggle}&permission=${permission}`;
-		};
 
 		await api(req)
-			.patch(
-				createVisibilityQuery(),
-			);
+			.post('roles/teacher/togglepermission', {
+				json: {
+					permission: 'studentVisibility',
+					toggle: !!req.body.studentVisibility,
+				},
+			});
 
 		delete req.body.studentVisibility;
 
