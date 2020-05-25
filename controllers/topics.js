@@ -106,7 +106,7 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 }
 
 const getEtherpadSession = async (req, res, courseId) => {
-	const sessionInfo = await api(req).post(
+	return await api(req).post(
 		'/etherpad/sessions', {
 			form: {
 				courseId,
@@ -114,9 +114,8 @@ const getEtherpadSession = async (req, res, courseId) => {
 		},
 	).catch((err) => {
 		logger.error(err);
+		return undefined;
 	});
-
-	return sessionInfo;
 };
 
 const getPadIdFromUrl = (url) => {
