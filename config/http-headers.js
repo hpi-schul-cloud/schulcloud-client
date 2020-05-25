@@ -6,8 +6,17 @@ if (Configuration.has('CORS') !== true) {
 }
 
 const config = {
-	enabled: Configuration.get('CORS') === '1',
+	enabled: Configuration.get('CORS'),
 	// Settings for HTTP Content-Security-Policy Header
+	/*
+	Use:
+		defaultSrc, fontSrc, styleSrc, scriptSrc, imageSrc,
+		connectSrc, mediaSrc, objectSrc, prefetchSrc, childSrc,
+		frameSrc, workerSrc, frameancestorsSrc, formactionSrc, baseuriSrc
+		manifestSrc, sandboxSrc, upgradeInsecureRequestsSrc and blockAllMixedContentSrc
+
+		For more Information: https://report-uri.com/home/generate
+	*/
 	contentSecurityPolicy: {
 		// Default Content-Security-Policy Header for every site
 		// Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
@@ -24,7 +33,11 @@ const config = {
 		/*
 			Content-Security-Policy Header (added to default header) depending on the site
 			site is matched with called website URL and regex key within corsSiteSpecific
-			use * as value for defaultSrc, fontSrc, styleSrc, scriptSrc ... to ignore corsDefault and allow any external content
+			use * as value for
+			defaultSrc, fontSrc, styleSrc, scriptSrc, imageSrc,
+			connectSrc, mediaSrc, objectSrc, prefetchSrc, childSrc,
+			frameSrc, workerSrc, frameancestorsSrc, formactionSrc, baseuriSrc
+			and manifestSrc to ignore corsDefault and allow any external content
 		*/
 		corsSiteSpecific: {
 			'^/$': {
