@@ -4,6 +4,7 @@ const router = express.Router();
 const logger = require('winston');
 const fileUpload = require('express-fileupload');
 const UAParser = require('ua-parser-js');
+const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
 
@@ -92,7 +93,7 @@ router.post('/', fileUpload({
 				message:
                 'Feedback erfolgreich versendet!',
 			};
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		}).catch((err) => {
 			req.session.notification = {
 				type: 'danger',
@@ -100,7 +101,7 @@ router.post('/', fileUpload({
                 'Fehler beim Senden des Feedbacks.',
 			};
 			logger.warn(err);
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		});
 });
 

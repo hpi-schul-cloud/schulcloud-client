@@ -44,7 +44,7 @@ const config = {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://play.google.com https://schul-cloud-hpi.s3.hidrive.strato.com',
 			},
 			'^/dashboard': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de',
+				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://schul-cloud-hpi.s3.hidrive.strato.com',
 			},
 			'^/courses': {
 				defaultSrc: 'https://nexboard.nexenio.com https://www.geogebra.org https://lti.tools https://codeocean.openhpi.de https://acc.bettermarks.com https://moodle.schul-cloud.org',
@@ -84,7 +84,7 @@ const config = {
 			'^/datenschutz': {
 			}, */
 			'^/about': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://play.google.com https://schul-cloud-hpi.s3.hidrive.strato.com',
+				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://schul-cloud-hpi.s3.hidrive.strato.com',
 			},
 			'^/community': {
 				defaultSrc: 'https://play.google.com',

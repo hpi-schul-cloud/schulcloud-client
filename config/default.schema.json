@@ -1,7 +1,7 @@
 {
-    "title": "HPI Schul-Cloud Configuration",
-    "type": "object",
-    "properties": {
+	"title": "HPI Schul-Cloud Configuration",
+	"type": "object",
+	"properties": {
         "CORS": {
             "type": "boolean",
             "default": true,
@@ -12,208 +12,225 @@
             "default": true,
             "description": "If enabled, additional security header will be set."
         },
-        "API_KEY": {
-            "type": "string",
-            "default": "example",
-            "description": "The API Key of the Client for authentication towards the server. required for sending mails."
-        },
-        "REQUEST_TIMEOUT_MS": {
-            "type": "integer",
-            "default": 5000,
-            "description": "API handler request timeout in milliseconds"
-        },
-        "GLOBAL_LOGIN_ANNOUNCEMENT": {
-            "type": "string",
-            "description": "global announcement, shown as notification in header on startpage when not loggedin."
-        },
-        "GLOBAL_ANNOUNCEMENT": {
-            "type": "string",
-            "description": "global announcement, shown as notification in header on startpage"
-        },
-        "GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
-            "type": "string",
-            "default": "info",
-            "enum": [
-                "success",
-                "info",
-                "warning",
-                "danger"
-            ],
-            "description": "alert types"
-        },
-        "LOGIN_BLOCKED_COOKIES_NOTE": {
-            "type": "string",
-            "default": "Bitte aktiviere Cookies für diese Seite. Andernfalls ist ein Login aus technischen Gründen nicht möglich.",
-            "description": "text that is shown above the login form if cookies are blocked by the browser."
-        },
-        "FEATURE_CSRF_ENABLED": {
-            "type": "boolean",
-            "default": true,
-            "description": "Enables CSRF Token generation and error handler in app."
-        },
-        "FEATURE_MORGAN_LOG_ENABLED": {
-            "type": "boolean",
-            "default": true,
-            "description": "If enabled, morgan logs are written."
-        },
-        "MORGAN_LOG_FORMAT": {
-            "type": "string",
-            "default": "dev",
-            "enum": [
-                "default",
-                "common",
-                "short",
-                "tiny",
-                "combined",
-                "dev"
-            ],
-            "description": "Sets the morgan log level. Morgan is creating access logs for express."
-        },
-        "LOG_LEVEL": {
-            "type": "string",
-            "default": "info",
-            "enum": [
-                "error",
-                "warn",
-                "info",
-                "http",
-                "verbose",
-                "debug",
-                "silly"
-            ],
-            "description": "Sets the winston log level. Winston is used for all logs. @see AbstractConfigSetLevels"
-        },
-        "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
-            "type": "string",
-            "default": "opt-out",
-            "enum": [
-                "disabled",
-                "opt-in",
-                "opt-out",
-                "enabled"
-            ],
-            "description": "Defines wether external team invitation shows teachers from different schools or not. if enabled system wide there are options general enabled or opt-in/-out by user required."
-        },
-        "FEATURE_VIDEOCONFERENCE_ENABLED": {
-            "type": "boolean",
-            "default": false,
-            "description": "If enabled, adds video conferences to teams and courses."
-        },
-        "NOT_AUTHENTICATED_REDIRECT_URL": {
-            "type": "string",
-            "default": "/login",
-            "description": "The URL to authenticate. Unauthenticated users are redirected to this URL with ?redirect= pointing to the original request URL"
-        },
-        "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED": {
-            "type": "boolean",
-            "default": false,
-            "description": "Using privateDevice parameter in login, the logout/jwt timeout can be extended to JWT_EXTENDED_TIMEOUT_SECONDS instead of JWT_TIMEOUT_SECONDS."
-        },
-        "SC_CONTACT_EMAIL": {
-            "type": "string",
-            "default": "feedback@schul-cloud.org",
-            "description": "Contact E-Mail Adress to The HPI School-Cloud team."
-        },
-        "FEATURE_MATRIX_MESSENGER_ENABLED": {
-            "type": "boolean",
-            "default": false,
-            "description": "If enabled, adds support for matrix messenger"
-        },
-        "MATRIX_MESSENGER_BUNDLE": {
-            "type": "string",
-            "format": "uri",
-            "default": "https://embed.stomt.com/bundles/9ac7f93b23bd51c534cd/bundle.js",
-            "description": "Where to find the messenger dependencies."
-        },
-        "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
-            "type": "boolean",
-            "default": false,
-            "description": "Only if enabled, school admins can activate the messenger in their school setting"
-        },
-        "FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED": {
-            "type": "boolean",
-            "default": false,
-            "description": "If enabled, school admins can choose to create a room for all students and teachers of the school"
-        },
-        "FEATURE_ALERTS_ENABLED": {
-            "type": "boolean",
-            "default": false,
-            "description": "If enabled, user will see messages/incidents from e.g status.schul-cloud"
-        },
-        "GHOST_API_KEY": {
-            "type": "string",
-            "minLength": 10,
-            "description": "Content API Key of ghost blog"
-        },
-        "GHOST_API_URL": {
-            "type": "string",
-            "format": "uri",
-            "pattern": ".*(?<!/)$",
-            "description": "Content API URL of ghost blog (should end without a slash)"
-        },
-        "SENTRY_DSN": {
-            "type": "string",
-            "format": "uri",
-            "description": "Sentry DSN (uri), if defined, increase SENTRY_SAMPLE_RATE to desired value to get errors reported."
-        },
-        "SENTRY_SAMPLE_RATE": {
-            "type": "number",
-            "default": 1.0,
-            "minimum": 0.0,
-            "maximum": 1.0,
-            "description": "This is the % count (0.00 to 1.00) of how many of the errors send to the backend. This filter go over all errors, maybe some lost by low user counts."
-        },
-        "COOKIE": {
-            "type": "object",
-            "description": "Cookie properties, required always to be defined",
-            "properties": {
-                "SAME_SITE": {
-                    "type": "string",
-                    "default": "None",
-                    "enum": [
-                        "None",
-                        "Lax",
-                        "Strict"
-                    ],
-                    "description": "Value for cookies sameSite property"
-                },
-                "HTTP_ONLY": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Value for cookies httpOnly property"
-                },
-                "HOST_ONLY": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Value for cookies hostOnly property"
-                },
-                "SECURE": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Value for cookies httpOnly property"
-                },
-                "EXPIRES_SECONDS": {
-                    "type": "integer",
-                    "default": 2592000000,
-                    "description": "Expiration in seconds from now"
-                }
-            },
-            "required": [
-                "SAME_SITE",
-                "HTTP_ONLY",
-                "HOST_ONLY",
-                "SECURE",
-                "EXPIRES_SECONDS"
-            ]
-        },
-        "LOGIN_BLOCK_TIME": {
-            "type": "integer",
-            "default": 15,
-            "description": "Number of second the user will be blocked before logging in again"
-        }
-    },
-    "required": [
-        "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
-        "COOKIE"
-    ]
+		"API_KEY": {
+			"type": "string",
+			"default": "example",
+			"description": "The API Key of the Client for authentication towards the server. required for sending mails."
+		},
+		"REQUEST_TIMEOUT_MS": {
+			"type": "integer",
+			"default": 5000,
+			"description": "API handler request timeout in milliseconds"
+		},
+		"GLOBAL_LOGIN_ANNOUNCEMENT": {
+			"type": "string",
+			"description": "global announcement, shown as notification in header on startpage when not loggedin."
+		},
+		"GLOBAL_ANNOUNCEMENT": {
+			"type": "string",
+			"description": "global announcement, shown as notification in header on startpage"
+		},
+		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
+			"type": "string",
+			"default": "info",
+			"enum": [
+				"success",
+				"info",
+				"warning",
+				"danger"
+			],
+			"description": "alert types"
+		},
+		"LOGIN_BLOCKED_COOKIES_NOTE": {
+			"type": "string",
+			"default": "Bitte aktiviere Cookies für diese Seite. Andernfalls ist ein Login aus technischen Gründen nicht möglich.",
+			"description": "text that is shown above the login form if cookies are blocked by the browser."
+		},
+		"FEATURE_CSRF_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables CSRF Token generation and error handler in app."
+		},
+		"FEATURE_MORGAN_LOG_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, morgan logs are written."
+		},
+		"MORGAN_LOG_FORMAT": {
+			"type": "string",
+			"default": "dev",
+			"enum": [
+				"default",
+				"common",
+				"short",
+				"tiny",
+				"combined",
+				"dev"
+			],
+			"description": "Sets the morgan log level. Morgan is creating access logs for express."
+		},
+		"LOG_LEVEL": {
+			"type": "string",
+			"default": "info",
+			"enum": [
+				"error",
+				"warn",
+				"info",
+				"http",
+				"verbose",
+				"debug",
+				"silly"
+			],
+			"description": "Sets the winston log level. Winston is used for all logs. @see AbstractConfigSetLevels"
+		},
+		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
+			"type": "string",
+			"default": "opt-out",
+			"enum": [
+				"disabled",
+				"opt-in",
+				"opt-out",
+				"enabled"
+			],
+			"description": "Defines wether external team invitation shows teachers from different schools or not. if enabled system wide there are options general enabled or opt-in/-out by user required."
+		},
+		"STUDENT_TEAM_CREATION": {
+			"type": "string",
+			"default": "opt-out",
+			"enum": [
+				"disabled",
+				"opt-in",
+				"opt-out",
+				"enabled"
+			],
+			"description": "defines wether students may create teams or not. if enabled system wide there are options general enabled or opt-in/-out by school admin required."
+		},
+		"FEATURE_VIDEOCONFERENCE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, adds video conferences to teams and courses."
+		},
+		"NOT_AUTHENTICATED_REDIRECT_URL": {
+			"type": "string",
+			"default": "/login",
+			"description": "The URL to authenticate. Unauthenticated users are redirected to this URL with ?redirect= pointing to the original request URL"
+		},
+		"FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Using privateDevice parameter in login, the logout/jwt timeout can be extended to JWT_EXTENDED_TIMEOUT_SECONDS instead of JWT_TIMEOUT_SECONDS."
+		},
+		"SC_CONTACT_EMAIL": {
+			"type": "string",
+			"default": "feedback@schul-cloud.org",
+			"description": "Contact E-Mail Adress to The HPI School-Cloud team."
+		},
+		"FEATURE_MATRIX_MESSENGER_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, adds support for matrix messenger"
+		},
+		"MATRIX_MESSENGER_EMBED_URI": {
+			"type": "string",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
+			"description": "Where to find the messenger dependencies."
+		},
+		"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
+			"type": "boolean",
+			"default": false,
+			"description": "Only if enabled, school admins can activate the messenger in their school setting"
+		},
+		"FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, school admins can choose to create a room for all students and teachers of the school"
+		},
+		"FEATURE_ALERTS_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, user will see messages/incidents from e.g status.schul-cloud"
+		},
+		"GHOST_API_KEY": {
+			"type": "string",
+			"minLength": 10,
+			"description": "Content API Key of ghost blog"
+		},
+		"GHOST_API_URL": {
+			"type": "string",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
+			"description": "Content API URL of ghost blog (should end without a slash)"
+		},
+		"SENTRY_DSN": {
+			"type": "string",
+			"format": "uri",
+			"description": "Sentry DSN (uri), if defined, increase SENTRY_SAMPLE_RATE to desired value to get errors reported."
+		},
+		"SENTRY_SAMPLE_RATE": {
+			"type": "number",
+			"default": 1.0,
+			"minimum": 0.0,
+			"maximum": 1.0,
+			"description": "This is the % count (0.00 to 1.00) of how many of the errors send to the backend. This filter go over all errors, maybe some lost by low user counts."
+		},
+		"SKIP_CONDITIONS_CONSENT": {
+			"type": "string",
+			"default": "",
+			"description": "A string with concatenated user types (student, employee) that don't need to explicitly state their consent with the terms and conditions. \"employee\" means teachers and admins"
+		},
+		"COOKIE": {
+			"type": "object",
+			"description": "Cookie properties, required always to be defined",
+			"properties": {
+				"SAME_SITE": {
+					"type": "string",
+					"default": "None",
+					"enum": [
+						"None",
+						"Lax",
+						"Strict"
+					],
+					"description": "Value for cookies sameSite property"
+				},
+				"HTTP_ONLY": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies httpOnly property"
+				},
+				"HOST_ONLY": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies hostOnly property"
+				},
+				"SECURE": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies httpOnly property"
+				},
+				"EXPIRES_SECONDS": {
+					"type": "integer",
+					"default": 2592000000,
+					"description": "Expiration in seconds from now"
+				}
+			},
+			"required": [
+				"SAME_SITE",
+				"HTTP_ONLY",
+				"HOST_ONLY",
+				"SECURE",
+				"EXPIRES_SECONDS"
+			]
+		},
+		"LOGIN_BLOCK_TIME": {
+			"type": "integer",
+			"default": 15,
+			"description": "Number of second the user will be blocked before logging in again"
+		}
+	},
+	"required": [
+		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
+		"COOKIE",
+		"STUDENT_TEAM_CREATION"
+	]
 }
