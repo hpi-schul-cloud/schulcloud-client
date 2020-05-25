@@ -1,4 +1,3 @@
-//  import { getCookiesMap, pushManager } from './notificationService/index';
 import './pwd.js';
 
 $(document).ready(function() {
@@ -23,10 +22,6 @@ $(document).ready(function() {
         delete_cookie("notificationPermission");
         window.location.reload();
     };
-
-    // var cookies = getCookiesMap(document.cookie);
-    // if (cookies["notificationPermission"])
-    //     $(".btn-device").prop("disabled", true);
 
     $('a[data-method="delete"]').on('click', function(e) {
         e.stopPropagation();
@@ -72,5 +67,3 @@ $(document).ready(function() {
     }
 
 });
-
-//  window.pushManager = pushManager;
