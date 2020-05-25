@@ -15,85 +15,151 @@
 	white-space: nowrap;
 	vertical-align: baseline;
 	border-radius: 0.25rem;
-  }
+}
 
 
 .homework {
-  width: 100%;
-  list-style: none;
-  margin: 0;
-  padding: 10px 0;
-  clear: both;
+	width: 100%;
+	list-style: none;
+	margin: 0;
+	padding: 10px 0;
+	clear: both;
 }
+
 .assignment {
-  width: 100%;
-  position: relative;
-  padding: 10px;
-  padding-bottom: 48px;
-  text-decoration: none;
-  a {
-    color: #373a3c;
-    &:hover {
-      text-decoration: none !important;
-      color: #373a3c;
-    }
-  }
-  .dates {
-    float: right;
-    text-align: right;
-    font-size: $font-size-xs;
-  }
-  &.has-stats{
-    min-height: 165px;
-  }
-  .state {
-    float: right;
-    text-align: right;
-    clear: right;
-    color: grey;
-    position:relative;
-  }
-  &.private {
-    min-height: 165px;
-    h5::before {
-      content: "🔒";
-    }
-  }
-  h5 {
-    margin: 0;
-    color: $primaryColor;
-  }
-  .description {
-    margin: 10px 0;
-    min-height: 50px;
-    color: #373a3c;
-    text-decoration:none;
-    &:hover{text-decoration:none;}
-    word-break: break-all;
-    word-break: break-word;
-    @include media-breakpoint-down(xs) {
-      margin-right: 25px;
-    }
-    h1 {font-size: 1.3rem;font-weight:bold}
-    h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
-    h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
-    p  {font-size: 1rem;margin-bottom:.25rem;}
-    a  {text-decoration: underline; color: $primaryColor;}
-    blockquote{
-      color: grey;
-      margin-left: 1rem;
-      border-left: 2px solid grey;
-      padding-left: 5px;
-    }
-  }
-  .more {
-    position: absolute;
-    right: 10px;
-    bottom: 5px;
-    padding: 5px 0 5px 10px;
-    clear: both;
-    text-align: right;
-    color: $primaryColor;
-    text-decoration: none;
-  }
+	width: 100%;
+	position: relative;
+	padding: 10px;
+	padding-bottom: 48px;
+	text-decoration: none;
+
+	a {
+		color: #373a3c;
+
+		&:hover {
+			text-decoration: none !important;
+			color: #373a3c;
+		}
+	}
+
+	.dates {
+		float: right;
+		display: flex;
+		color: grey;
+		font-size: $font-size-xs;
+
+		i {
+			font-size: $font-size-lg;
+			padding-right: 10px;
+			align-self: center;
+		}
+
+		i.done {
+			color: $colorSuccess;
+		}
+
+		i.danger {
+			color: $colorDanger;
+		}
+
+		i.closed {
+			color: $colorSemiTransparent;
+		}
+	}
+
+	&.has-stats {
+		min-height: 165px;
+	}
+
+	.state {
+		float: right;
+		text-align: right;
+		clear: right;
+		color: grey;
+		position: relative;
+		display: flex;
+		width: 250px;
+
+		div {
+			color: black;
+			font-size: $font-size-sm;
+			align-self: center;
+		}
+	}
+
+	&.private {
+		min-height: 165px;
+
+		h5::before {
+			content: "🔒";
+		}
+	}
+
+	h5 {
+		margin: 0;
+		color: $primaryColor;
+	}
+
+	.description {
+		margin: 10px 0;
+		min-height: 50px;
+		color: #373a3c;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: none;
+		}
+
+		word-break: break-all;
+		word-break: break-word;
+
+		@include media-breakpoint-down(xs) {
+			margin-right: 25px;
+		}
+
+		h1 {
+			font-size: 1.3rem;
+			font-weight: bold
+		}
+
+		h2 {
+			font-size: 1.2rem;
+			font-weight: bold;
+			font-style: italic
+		}
+
+		h3 {
+			font-size: 1.1rem;
+			font-style: italic;
+			text-decoration: underline
+		}
+
+		p {
+			font-size: 1rem;
+			margin-bottom: .25rem;
+		}
+
+		a {
+			text-decoration: underline;
+			color: $primaryColor;
+		}
+
+		blockquote {
+			color: grey;
+			margin-left: 1rem;
+			border-left: 2px solid grey;
+			padding-left: 5px;
+		}
+	}
+
+	.more {
+		position: absolute;
+		right: 10px;
+		bottom: 5px;
+		padding: 5px 0 5px 10px;
+		clear: both;
+		text-align: right;
+		color: $primaryColor;
+		text-decoration: none;
+	}
 }
