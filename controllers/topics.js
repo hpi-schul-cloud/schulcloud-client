@@ -1,3 +1,4 @@
+const uri = require('uri-js');
 const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
@@ -118,11 +119,13 @@ const getEtherpadSession = async (req, res, courseId) => {
 	});
 };
 
-const getPadIdFromUrl = (url) => {
-	if(typeof(url) === 'undefined') {
-		return url;
+const getPadIdFromUrl = (path) => {
+	path += "";
+	if (uri.parse(path).host === undefined) {
+		return undefined;
 	}
-	return url.substring(url.lastIndexOf('/') + 1);
+	path = uri.parse(path).path;
+	return path.substring(path.lastIndexOf('/') + 1);
 }
 
 const getNexBoardAPI = () => {
