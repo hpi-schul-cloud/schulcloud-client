@@ -70,6 +70,13 @@
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
 		},
+		"controller": {
+			"heading": {
+				"deleteEntry": "Eintrag löschen",
+				"resetPassword": "Passwort zurücksetzen",
+				"toEditnAnEntry": "Eintrag bearbeiten"
+			}
+		},
 		"label": {
 			"assignPassword": "Passwort vergeben:",
 			"birthdate": "Geburtsdatum:",

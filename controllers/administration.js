@@ -56,6 +56,7 @@ const cutEditOffUrl = (url) => {
 const getTableActions = (
 	item,
 	path,
+	res,
 	isAdmin = true,
 	isTeacher = false,
 	isStudentAction = false,
@@ -71,7 +72,7 @@ const getTableActions = (
 				item.type === 'ldap' ? `${path}ldap/edit/${item._id}` : path + item._id,
 			class: `${editButtonClass} ${isTeacher ? 'disabled' : ''}`,
 			icon: 'edit',
-			title: 'Eintrag bearbeiten',
+			title: res.$t('administration.controller.heading.toEditnAnEntry'),
 		},
 		{
 			link: path + item._id,
@@ -79,13 +80,13 @@ const getTableActions = (
 				&& 'btn-delete--systems'}`,
 			icon: 'trash-o',
 			method: `${isAdmin ? 'delete' : ''}`,
-			title: 'Eintrag löschen',
+			title: res.$t('administration.controller.heading.deleteEntry'),
 		},
 		{
 			link: isStudentAction ? `${path}pw/${item._id}` : '',
 			class: isStudentAction ? 'btn-pw' : 'invisible',
 			icon: isStudentAction ? 'key' : '',
-			title: 'Passwort zurücksetzen',
+			title: res.$t('administration.controller.heading.resetPassword'),
 		},
 	];
 };
