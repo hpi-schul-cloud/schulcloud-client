@@ -73,7 +73,7 @@
 			}
 		});
 
-		let $warningModal = $('.warning-modal');
+		const $warningModal = $('.warning-modal');
 		function displayWarningModal(headline, content) {
 			populateModal($warningModal, '.modal-title', headline);
 			populateModal($warningModal, '#member-modal-body', content);
@@ -82,7 +82,7 @@
 
 		$('#publicCheckbox').on('change', function (e) {
 			e.preventDefault();
-			const isPrivateAlertTrue = (localStorage.getItem('Private-Alert')?.toLowerCase() === 'true');
+			const isPrivateAlertTrue = localStorage.getItem('Private-Alert') ? JSON.parse(localStorage.getItem('Private-Alert')) : false;
 			if (!isPrivateAlertTrue && $(this).prop('checked')) {
 				const content = 'Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.';
 				$warningModal.find('#publicSubmission').prop('checked', false);
