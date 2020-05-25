@@ -19,18 +19,17 @@ const config = {
 		*/
 		corsSiteSpecific: {
 			'^/$': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://blog.schul-cloud.org https://play.google.com https://s3.hidrive.strato.com https://schul-cloud-hpi.s3.hidrive.strato.com',
+				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://blog.schul-cloud.org https://s3.hidrive.strato.com https://schul-cloud-hpi.s3.hidrive.strato.com',
 				scriptSrc: "'unsafe-eval'",
 			},
 			'^/about': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://schul-cloud-hpi.s3.hidrive.strato.com https://play.google.com',
+				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://schul-cloud-hpi.s3.hidrive.strato.com',
 				scriptSrc: "'unsafe-eval'",
 			},
 			'^/help/faq/documents': {
 				scriptSrc: "'unsafe-eval'",
 			},
 			'^/administration': {
-				defaultSrc: 'https://fonts.gstatic.com',
 				scriptSrc: "'unsafe-eval'",
 			},
 			'^/calendar': {
@@ -41,14 +40,7 @@ const config = {
 				scriptSrc: "* 'unsafe-eval' 'unsafe-inline'",
 				objectSrc: '*',
 			},
-			'^/community': {
-				defaultSrc: 'https://play.google.com',
-			},
-			'^/files': {
-				defaultSrc: 'https://vjs.zencdn.net',
-			},
 			'^/homework': {
-				defaultSrc: 'https://fonts.gstatic.com',
 				scriptSrc: "'unsafe-eval'",
 			},
 		},

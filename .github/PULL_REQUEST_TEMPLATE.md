@@ -1,7 +1,7 @@
 # Description
 <!--
   This is a template to add as many information as possible to the pull request, to help reviewer and as a checklist for you. Points to remember are set in the comments, please read and keep them in mind:
-  
+
     - Code should be self-explanatory and share your knowledge with others
     - Document code that is not self-explanatory
     - Think about bugs and keep security in mind
@@ -66,5 +66,5 @@ Base links to copy
 
 > Notice: Please remove the WIP label if the PR is ready to review, otherwise nobody will review it.
 
-### Link to Definiton of Done
+### Link to Definition of Done
 More and detailed information on the *definition of done* can be found [on Confluence](https://docs.schul-cloud.org/pages/viewpage.action?pageId=92831762)
