@@ -71,45 +71,37 @@ const checkInternalComponents = (data, baseUrl) => {
 };
 
 const getEtherpadPadForCourse = async (req, user, courseId, content) => {
-	const pad = await api(req).post('/etherpad/pads', {
+	return api(req).post('/etherpad/pads', {
 		json: {
 			courseId,
 			padName: content.title,
 			text: content.description,
 		},
-	}).catch((err) => {
-		logger.error(err);
-		throw err;
-	});
-
-	if(typeof(pad.data.padID) !== 'undefined') {
-		return pad.data.padID;
-	}
-	return undefined;
+	}).then((response) => response.data.padID );
 };
 
 async function createNewEtherpad(req, res, contents = [], courseId) {
 	// eslint-disable-next-line no-return-await
 	return await Promise.all(contents.map(async (content) => {
-		if (!!content && content.component === 'Etherpad') {
-			const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
-			const etherpadPadId = await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content).catch(() => undefined);
-			if(typeof(etherpadPadId) === 'undefined') {
+		if (!content || content.component !== 'Etherpad') {
+			return content;
+		}
+		const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
+		await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content)
+			.then((etherpadPadId) => {
+				content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
+			}).catch((err) => {
+				logger.error(err);
 				req.session.notification = {
 					type: 'danger',
 					message: res.$t('courses._course.text.etherpadCouldNotBeAdded'),
 				};
 				content.content.url = undefined;
-			} else {
-				content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
-			}
-			return content;
-		} else {
-			return content;
-		}
+			});
+		return content;
 	})).catch((err) => {
 		logger.error(err);
-		return undefined;
+		return contents;
 	});
 }
 
