@@ -867,23 +867,22 @@
 			}
 		}
 	},
-	"template": {
+	"registration": {
 		"global": {
 			"link": {
-				"contact": "Kontakt",
-				"imprint": "Impressum"
+				"contact": "Kontakt"
 			}
 		},
 		"heading": {
 			"invitationToThe": "Einladung in die"
 		},
 		"link": {
-			"toRegister": "Registrieren"
+			"toRegister": "Registrieren",
+			"imprint": "Impressum"
 		},
 		"text": {
 			"dear": "Sehr geehrte/r",
-			"toJoinPleaseComplete": "beizutreten, bitte vervollständigen Sie Ihre Einladung unter folgendem Link",
-			"youWereInvitedToThe": "Sie wurden eingeladen, der"
+			"youWereInvitedToThe": "Sie wurden eingeladen, der {{shortTitle}} beizutreten, bitte vervollständigen Sie Ihre Einladung unter folgendem Link"
 		}
 	},
 	"topic": {
