@@ -5,11 +5,16 @@ const router = express.Router();
 const api = require('../api');
 
 const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
+const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
 
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
 
+const resetThemeForPrivacyDocuments = async (req, res) => {
+	res.locals.currentSchoolData = await api(req).get(`registrationSchool/${req.params.classOrSchoolId}`);
+	setTheme(res);
+};
 
 const checkValidRegistration = async (req) => {
 	if (req.query.importHash) {
