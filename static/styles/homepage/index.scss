@@ -104,6 +104,9 @@
             width: 40vw;
         }
     }
+    .check {
+        width: 40px;
+    }
 }
 
 .section-landing{
@@ -119,7 +122,7 @@
 }
 
 .section-heading {
-    font-size: 45px;
+    font-size: 40px;
 
     @include media-breakpoint-down(sm) {
         font-size: 35px;
