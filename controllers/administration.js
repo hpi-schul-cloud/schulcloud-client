@@ -2539,21 +2539,20 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		// Toggle teacher's studentVisibility permission
 		const role = 'teacher';
-		const permission = 'studentVisibility';
+		const studentVisibilityOptions = {
+			permission: 'studentVisibility',
+			toggle: !req.body.studentVisibility ? 'false' : 'true',
+		};
+		const createVisibilityQuery = () => {
+			const { permission, toggle } = studentVisibilityOptions;
+			return `roles/${role}/togglepermission?toggle=${toggle}&permission=${permission}`;
+		};
 
-		if (req.body.studentVisibility === 'true') {
-			const toggle = 'true';
-			await api(req)
-				.patch(
-					`roles/${role}/togglepermission?toggle=${toggle}&permission=${permission}`,
-				);
-		} else if (!req.body.studentVisibility) {
-			const toggle = 'false';
-			await api(req)
-				.patch(
-					`roles/${role}/togglepermission?toggle=${toggle}&permission=${permission}`,
-				);
-		}
+		await api(req)
+			.patch(
+				createVisibilityQuery(),
+			);
+
 		delete req.body.studentVisibility;
 
 		// Update riot messenger feature in school
