@@ -92,6 +92,7 @@ $(document).ready(() => {
 	const $editModal = $('.edit-modal');
 	const $deleteModal = $('.delete-modal');
 	const $moveModal = $('.move-modal');
+	const $disabledMoveModal = $('.move-modal-disabled');
 	const $renameModal = $('.rename-modal');
 	const $newFileModal = $('.new-file-modal');
 
@@ -784,11 +785,10 @@ $(document).ready(() => {
 
 		// temporary disabled
 		if ($context.attr('disabled')) {
+			$disabledMoveModal.appendTo('body').modal('show');
 			return;
 		}
-
-		// eslint-disable no-undef
-		populateModalForm($moveModal, { // eslint-disable-line
+		populateModalForm($moveModal, {
 			title: 'Datei verschieben',
 			fields: {
 				fileId: $context.attr('data-file-id'),
@@ -796,6 +796,7 @@ $(document).ready(() => {
 				filePath: $context.attr('data-file-path'),
 			},
 		});
+
 
 		$moveModal.find('.modal-footer').empty();
 		$moveModal.appendTo('body').modal('show');
