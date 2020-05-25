@@ -7,5 +7,5 @@
 		"SECURE": false,
 		"EXPIRES_SECONDS": 2592000000
 	},
-	"STUDENT_TEAM_CREATION" : "opt-in"
+	"STUDENT_TEAM_CREATION" : "opt-out"
 }
