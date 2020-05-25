@@ -121,10 +121,10 @@
 			"default": false,
 			"description": "If enabled, adds support for matrix messenger"
 		},
-		"MATRIX_MESSENGER_ASSET_DOMAIN": {
+		"MATRIX_MESSENGER_EMBED_URI": {
 			"type": "string",
 			"format": "uri",
-			"default": "https://embed.stomt.com/",
+			"pattern": ".*(?<!/)$",
 			"description": "Where to find the messenger dependencies."
 		},
 		"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
