@@ -131,7 +131,7 @@ ${res.locals.theme.short_title}-Team`,
 					message = `Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout).
 					Bitte versuche es erneut.`;
 				}
-			})
+			}})
 			.then(() => {
 				res.sendStatus(200);
 			})
