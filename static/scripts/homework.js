@@ -483,5 +483,28 @@ $(document).ready(() => {
 			// Clicking a link, even if it is a download link, triggers a `beforeunload` event. Undo those changes here.
 			setTimeout(() => document.querySelector('body').classList.add('loaded'), 1000);
 		});
-	});
+    });
+    const $warningModal = $('.warning-modal');
+    function displayWarningModal(headline, content) {
+        populateModal($warningModal, '.modal-title', headline);
+        populateModal($warningModal, '#member-modal-body', content);
+        $warningModal.appendTo('body').modal('show');
+    }
+
+    $('#publicCheckbox').on('change', function (e) {
+        e.preventDefault();
+        const isPrivateAlertTrue = localStorage.getItem('Private-Alert') ? JSON.parse(localStorage.getItem('Private-Alert')) : false;
+        if (!isPrivateAlertTrue && $(this).prop('checked')) {
+            const content = 'Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.';
+            $warningModal.find('#publicSubmission').prop('checked', false);
+            displayWarningModal('Bist du dir sicher?', content);
+        }
+    });
+
+    $warningModal.find('.btn-submit').unbind('click').on('click', function (e) {
+        e.preventDefault();
+        const checkboxValue = $warningModal.find('#publicSubmission').prop('checked');
+        localStorage.setItem('Private-Alert', checkboxValue);
+        $warningModal.appendTo('body').modal('hide');
+    });
 });
