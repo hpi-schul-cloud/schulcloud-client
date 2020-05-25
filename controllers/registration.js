@@ -1,4 +1,5 @@
 const express = require('express');
+const { Configuration } = require('@schul-cloud/commons');
 
 const router = express.Router();
 const api = require('../api');
@@ -42,14 +43,25 @@ router.post('/registration/pincreation', (req, res, next) => {
 			},
 		}).then((result) => {
 			res.sendStatus((result || {}).status || 200);
-		}).catch(err => res.status(500).send(err));
+		}).catch(next);
 	}
-	return res.sendStatus(500);
+	return res.sendStatus(400);
 });
 
 router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (req, res, next) => {
 	// normalize form data
 	req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
+
+	let skipConsent = false;
+	if (req.body.roles.length > 0) {
+		skipConsent = req.body.roles.some((role) => {
+			let roleName = role.name;
+			if (roleName === 'teacher' || roleName === 'administrator') {
+				roleName = 'employee';
+			}
+			return Configuration.get('SKIP_CONDITIONS_CONSENT').includes(roleName);
+		});
+	}
 
 	return api(req)
 		.post('/registration/', {
@@ -60,15 +72,18 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 			if (response.parent) {
 				eMailAdresses.push(response.parent.email);
 			}
+			const consentText = skipConsent ? ''
+				: `Wenn du zwischen 14 und ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt bist,
+bestätige bitte zusätzlich die Einverständniserklärung,
+damit du die ${res.locals.theme.short_title} nutzen kannst.`;
+
 			eMailAdresses.forEach((eMailAdress) => {
 				let passwordText = '';
 				let studentInfotext = '';
 				if (req.body.roles.includes('student')) {
 					passwordText = `Startpasswort: ${req.body.password_1}`;
 					studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen.
-Wenn du zwischen 14 und ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt bist,
-bestätige bitte zusätzlich die Einverständniserklärung,
-damit du die ${res.locals.theme.short_title} nutzen kannst.`;
+${consentText}`;
 				}
 				return api(req).post('/mails/', {
 					json: {
@@ -107,12 +122,13 @@ ${res.locals.theme.short_title}-Team`,
 			res.sendStatus(200);
 		})
 		.catch((err) => {
-			let message = 'Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.'
+			let message = 'Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.';
 			const customMessage = (err.error || {}).message || err.message;
 			if (customMessage) { message = customMessage; }
 			if (err && err.code) {
 				if (err.code === 'ESOCKETTIMEDOUT') {
-					message = 'Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout). Bitte versuche es erneut.'
+					message = `Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout).
+					Bitte versuche es erneut.`;
 				}
 			}
 			return res.status(500).send(message);
@@ -141,11 +157,17 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			const existingUser = await api(req).get(`/users/linkImport/${user.importHash}`);
 			Object.assign(user, existingUser);
 		}
+
+		const needConsent = !Configuration.get('SKIP_CONDITIONS_CONSENT').includes('student');
+		const sectionNumber = needConsent ? 5 : 3;
+
 		return res.render('registration/registration-parent', {
 			title: 'Registrierung - Eltern',
 			password: authHelper.generatePassword(),
 			hideMenu: true,
 			user,
+			needConsent,
+			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 		});
@@ -174,11 +196,16 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			Object.assign(user, existingUser);
 		}
 
+		const needConsent = !Configuration.get('SKIP_CONDITIONS_CONSENT').includes('student');
+		const sectionNumber = needConsent ? 4 : 3;
+
 		return res.render('registration/registration-student', {
 			title: 'Registrierung - Schüler*',
 			password: authHelper.generatePassword(),
 			hideMenu: true,
 			user,
+			needConsent,
+			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 		});
@@ -204,9 +231,16 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 		Object.assign(user, existingUser);
 	}
 
+	let needConsent = true;
+	let sectionNumber = 5;
+
 	let roleText;
 	if (req.params.byRole === 'byemployee') {
 		roleText = 'Lehrer*/Admins*';
+		if (Configuration.get('SKIP_CONDITIONS_CONSENT').includes('employee')) {
+			needConsent = false;
+			sectionNumber = 4;
+		}
 	} else {
 		delete user.firstName;
 		delete user.lastName;
@@ -217,6 +251,8 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 		title: `Registrierung - ${roleText}`,
 		hideMenu: true,
 		user,
+		needConsent,
+		sectionNumber,
 		invalid,
 	});
 });

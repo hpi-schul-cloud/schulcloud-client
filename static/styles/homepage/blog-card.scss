@@ -53,6 +53,7 @@ a.blog-card-wrapper{
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    text-align: left;
     position: relative;
     overflow: hidden;
     border: var(--border-width) solid var(--color-gray-light);

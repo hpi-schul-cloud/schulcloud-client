@@ -11,6 +11,7 @@ const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
+const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
 const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
 
@@ -100,7 +101,7 @@ const getCreateHandler = service => (req, res, next) => {
 				type: 'danger',
 				message: 'Das Beginndatum muss vor dem Abgabedatum liegen!',
 			};
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 			return;
 		}
 	}
@@ -320,7 +321,7 @@ const getDeleteHandler = (service, redirectToReferer) => {
 	return function (req, res, next) {
 		api(req).delete('/' + service + '/' + req.params.id).then((_) => {
 			if (redirectToReferer) {
-				res.redirect(req.header('Referer'));
+				redirectHelper.safeBackRedirect(req, res);
 			} else {
 				res.sendStatus(200);
 				res.redirect('/' + service);
@@ -491,6 +492,9 @@ const overview = (title = '') => {
 					if (!assignment.isTeacher) {
 						assignment.stats = undefined;
 					}
+					const dueDateArray = splitDate(assignment.dueDate);
+					assignment.submittable = dueDateArray.timestamp >= Date.now() || !assignment.dueDate;
+					assignment.warning = ((dueDateArray.timestamp <= (Date.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
 					return assignment;
 				});
 
@@ -753,7 +757,7 @@ router.get('/:assignmentId', (req, res, next) => {
 
 		// Abgabe noch möglich?
 		assignment.submittable = (dueDateArray.timestamp >= Date.now() || !assignment.dueDate);
-
+		assignment.warning = ((dueDateArray.timestamp <= (Date.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
 
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
