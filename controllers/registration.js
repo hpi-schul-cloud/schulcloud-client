@@ -5,16 +5,11 @@ const router = express.Router();
 const api = require('../api');
 
 const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
-const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
 
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
 
-const resetThemeForPrivacyDocuments = async (req, res) => {
-	res.locals.currentSchoolData = await api(req).get(`registrationSchool/${req.params.classOrSchoolId}`);
-	setTheme(res);
-};
 
 const checkValidRegistration = async (req) => {
 	if (req.query.importHash) {
@@ -47,7 +42,6 @@ router.post('/registration/pincreation', (req, res, next) => {
 	}
 	return res.sendStatus(400);
 });
-
 
 router.post(['/registration/submit/:sso/:accountId'], (req, res, next) => {
 	// normalize form data
@@ -131,23 +125,6 @@ ${res.locals.theme.short_title}-Team`,
 					message = `Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout).
 					Bitte versuche es erneut.`;
 				}
-			}})
-			.then(() => {
-				res.sendStatus(200);
-			})
-			.catch((err) => {
-				let message =
-					"Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.";
-				const customMessage = (err.error || {}).message || err.message;
-				if (customMessage) {
-					message = customMessage;
-				}
-				if (err && err.code) {
-					if (err.code === "ESOCKETTIMEDOUT") {
-						message =
-							"Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout). Bitte versuche es erneut.";
-					}
-				}
 			}
 			return res.status(500).send(message);
 		});
@@ -229,48 +206,7 @@ router.get(['/registration/:classOrSchoolId/bystudent/:sso/:accountId'],
 		});
 	});
 
-
-	const user = {};
-	user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
-	user.classOrSchoolId = req.params.classOrSchoolId;
-
-	invalid = await checkValidRegistration(req);
-
-	await resetThemeForPrivacyDocuments(req, res);
-
-	if (user.importHash) {
-		const existingUser = await api(req).get(`/users/linkImport/${user.importHash}`);
-		Object.assign(user, existingUser);
-	}
-
-	let needConsent = true;
-	let sectionNumber = 5;
-
-	let roleText;
-	if (req.params.byRole === 'byemployee') {
-		roleText = 'Lehrer*/Admins*';
-		if (Configuration.get('SKIP_CONDITIONS_CONSENT').includes('employee')) {
-			needConsent = false;
-			sectionNumber = 4;
-		}
-	} else {
-		delete user.firstName;
-		delete user.lastName;
-		roleText = 'Experte*';
-	}
-
-	return res.render('registration/registration-employee', {
-		title: `Registrierung - ${roleText}`,
-		hideMenu: true,
-		user,
-		needConsent,
-		sectionNumber,
-		invalid,
-	});
-});
-
-router.get(
-	['/registration/:classOrSchoolId/:sso/:accountId'],
+router.get(['/registration/:classOrSchoolId/:sso/:accountId'],
 	async (req, res, next) => {
 		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 			if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
