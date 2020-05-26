@@ -25,7 +25,7 @@ const replaceNonceAttribute = (nonceValueField, nonceValue) => {
 const addMatchHeaders = (defvalue, addvalue) => {
 	let headerString = defvalue;
 	if (addvalue && addvalue.includes('*')) {
-		headerString = `* ${addvalue}`;
+		headerString = `${addvalue}`;
 	} else if (addvalue) {
 		headerString = `${headerString} ${addvalue}`;
 	}
