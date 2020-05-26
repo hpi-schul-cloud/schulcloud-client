@@ -8,7 +8,7 @@
                 <li class="list-group-item list-group-item-action">
                     <span>
                         <i class="fa fa-question-circle" aria-hidden="true"></i>
-                        <a href="/help" class="link">{{$t "lib.idap_info.link.helpArea" }}</a>
+                        <a href="/help" class="link">{{$t "lib.help_menu.link.helpArea" }}</a>
                     </span>
                 </li>
 
@@ -17,7 +17,7 @@
                     <li class="list-group-item list-group-item-action enterthecloud-btn">
                         <span>
                             <i class="fa fa-gamepad"aria-hidden="true"></i>
-                            <button type="button" class="link btn-link enterthecloud-btn" style="line-height: initial">{{$t "lib.idap_info.button.playEnterTheCloud" }}</button>
+                            <button type="button" class="link btn-link enterthecloud-btn" style="line-height: initial">{{$t "lib.help_menu.button.playEnterTheCloud" }}</button>
                         </span>
                     </li>
                 {{/userHasPermission}}
@@ -26,13 +26,13 @@
                 <li class="list-group-item list-group-item-action">
                     <span>
                         <i class="fa fa-pencil" aria-hidden="true"></i>
-                        <a href="/help?activeForm=team#contact-form" class="link">{{$t "lib.idap_info.link.sendRequestOrProblem" }}</a>
+                        <a href="/help?activeForm=team#contact-form" class="link">{{$t "lib.help_menu.link.sendRequestOrProblem" }}</a>
                     </span>
                 </li>
                 <li class="list-group-item list-group-item-action">
                     <span>
                         <i class="fa fa-comment" aria-hidden="true"></i>
-                        <a href="/help?activeForm=admin#contact-form" class="link">{{$t "lib.idap_info.link.contactYourSchoolAdmin" }}</a>
+                        <a href="/help?activeForm=admin#contact-form" class="link">{{$t "lib.help_menu.link.contactYourSchoolAdmin" }}</a>
                     </span>
                 </li>
             </ul>
@@ -45,9 +45,9 @@
 {{#embed "lib/components/modal" class="enterthecloud-modal" title="Enter The Cloud spielen"}}
     {{#content "body"}}
         <div class="modal-body">
-            <p>{{$t "lib.idap_info.input.userName" }} <code>...</code></p>
-            <p>{{$t "lib.idap_info.input.password" }} <code>...</code></p>
-            <a class="btn btn-primary" href="TODO">{{$t "lib.idap_info.button.openGame" }}</a>
+            <p>{{$t "lib.help_menu.input.userName" }} <code>...</code></p>
+            <p>{{$t "lib.help_menu.input.password" }} <code>...</code></p>
+            <a class="btn btn-primary" href="TODO">{{$t "lib.help_menu.button.openGame" }}</a>
         </div>
     {{/content}}
 {{/embed}}

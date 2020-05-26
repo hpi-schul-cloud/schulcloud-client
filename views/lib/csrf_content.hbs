@@ -10,7 +10,7 @@
             <p>
                 {{$t "lib.csrf_content.text.weCouldNotMakeSureThat" }}
             </p>
-            <button class="btn btn-primary" onclick="window.location.href=window.location.href">{{$t "lib.csrf_content.global.button.reload" }}</button>
+            <button class="btn btn-primary" onclick="window.location.href=window.location.href">{{$t "global.button.reload" }}</button>
         {{else}}
             <p>
                 {{$t "lib.csrf_content.text.weCouldNotMakeSureThatThisRequestReallyCameFromYou" }}
@@ -20,7 +20,7 @@
             {{#if previousError}}
                 <p><b>{{$t "lib.csrf_content.text.unfortunatelyTheRequestFailedAgain" }}
                     </b></p>
-                <button class="btn btn-primary" onclick="window.location.href=window.location.href">{{$t "lib.csrf_content.global.button.reload" }}</button>
+                <button class="btn btn-primary" onclick="window.location.href=window.location.href">{{$t "global.button.reload" }}</button>
             {{else}}
                 <form id="retryform" method="POST">
                     {{> "lib/components/csrfInput"}}
@@ -29,7 +29,7 @@
                             <input type="hidden" name="{{../this.name}}" value="{{../this.value}}">
                         {{/ifneq}}
                     {{/each}}
-                    <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" target="_blank" id="retrybtn">{{$t "lib.csrf_content.global.button.openANewTab" }}</a>
+                    <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" target="_blank" id="retrybtn">{{$t "global.button.openANewTab" }}</a>
                 </form>
             {{/if}}
         {{/if}}

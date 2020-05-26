@@ -562,11 +562,17 @@
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
+			"back": "zurück",
 			"cancel": "Abbrechen",
+			"clickHere": "Hier klicken",
 			"close": "Schließen",
+			"continue": "Weiter",
 			"create": "Erstellen",
 			"delete": "Löschen",
 			"open": "Öffnen",
+			"openANewTab": "In neuem Tab öffnen",
+			"print": "Drucken",
+			"reload": "Neu laden",
 			"save": "Speichern",
 			"saveChanges": "Änderungen Speichern",
 			"tryAgain": "Erneut Versuchen"
@@ -721,12 +727,6 @@
 	},
 	"lib": {
 		"csrf_content": {
-			"global": {
-				"button": {
-					"openANewTab": "In neuem Tab öffnen",
-					"reload": "Neu laden"
-				}
-			},
 			"link": {
 				"openThisPageInASeparateWindow": "öffne diese Seite in einem eigenen Fenster"
 			},
@@ -741,7 +741,6 @@
 		},
 		"error": {
 			"button": {
-				"back": "zurück",
 				"hideDetails": "Details verstecken",
 				"viewDetails": "Details anzeigen"
 			},
@@ -787,8 +786,8 @@
 		},
 		"form_bbb": {
 			"text": {
+				"refreshStatus": "Um den Status erneut abzufragen, klicke das Aktualisieren-Icon",
 				"theVideoConferenceHasNotYetStarted": "Die Videokonferenz wurde noch nicht gestartet.",
-				"toQueryTheStatusAgain": "Um den Status erneut abzufragen, klicke das Aktualisieren-Icon",
 				"youAreNotAuthorisedToAttend": "Du bist nicht berechtigt, an dieser Videokonferenz teilzunehmen. Kontaktiere zur Freigabe einen Team-Admin."
 			}
 		},
@@ -800,12 +799,9 @@
 			}
 		},
 		"form_features": {
-			"button": {
-				"clickHere": "Hier klicken"
-			},
 			"text": {
 				"forMoreInformationClickThisButton": "Für weitere Informationen klicken Sie doch bitte diesen Button",
-				"thereAreNewFeatures": "Es gibt neue Features in der"
+				"thereAreNewFeatures": "Es gibt neue Features in der {{shortTitle}}"
 			}
 		},
 		"form_poll": {
@@ -821,8 +817,6 @@
 		},
 		"global": {
 			"button": {
-				"back": "Zurück",
-				"continue": "Weiter",
 				"discardChange": "Änderung verwerfen"
 			},
 			"link": {
@@ -860,11 +854,6 @@
 			}
 		},
 		"loggedin": {
-			"global": {
-				"button": {
-					"toPress": "Drucken"
-				}
-			},
 			"tab_label": {
 				"settings": "Einstellungen",
 				"signOut": "Abmelden"
@@ -881,7 +870,7 @@
 			"text": {
 				"allowedSpecialCharactersAre": "Erlaubte Sonderzeichen sind:",
 				"atList8CharactersWithUpperAndLower": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
-				"atlist8Characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:"
+				"atList8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:"
 			}
 		},
 		"table": {
@@ -957,8 +946,8 @@
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
 			"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
-			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
-			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
+			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 		}
 	},
 	"news": {
@@ -985,6 +974,11 @@
 		}
 	},
 	"pwRecovery": {
+		"failed": {
+			"text": {
+				"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
+			}
+		},
 		"input": {
 			"hiddenPw": "***************"
 		},
@@ -999,11 +993,6 @@
 				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der Schul-Cloud einzuloggen.",
 				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
 				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
-			}
-		},
-		"failed": {
-			"text": {
-				"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
 			}
 		},
 		"text": {
