@@ -6,6 +6,9 @@
 		<link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
 	{{/content}}
 	{{#content "page"}}
+		{{#if this.nonSecure}}
+			{{> "lib/registration_content"}}
+		{{else}}
 	<div id="welcome-screen">
 		<h2 class="h4">Willkommen zur Anmeldung in der {{theme.title}}!</h2>
 		<p>Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} sie selbst.</p>
@@ -30,12 +33,14 @@
 		<button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>Weiter</button>
 
 		<p class="mt-2 explanation nomargin">* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{theme.short_title}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{theme.short_title}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. 🌈🎉🦄 </p>
+
 		{{#if importHash}}<input type="hidden" name="importHash" value="{{importHash}}" />{{/if}}
 		{{#if classOrSchoolId}}<input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />{{/if}}
 		{{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}
 		{{#if account}}<input type="hidden" name="account" value="{{account}}" />{{/if}}
 		{{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
-		
+
 	</div>
+		{{/if}}
 	{{/content}}
 {{/extend}}

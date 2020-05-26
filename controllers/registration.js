@@ -48,7 +48,7 @@ router.post('/registration/pincreation', (req, res, next) => {
 	return res.sendStatus(400);
 });
 
-router.post(['/registration/submit/:sso/:accountId'], (req, res, next) => {
+router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (req, res, next) => {
 	// normalize form data
 	req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
 
@@ -127,7 +127,7 @@ ${res.locals.theme.short_title}-Team`,
 			if (customMessage) { message = customMessage; }
 			if (err && err.code) {
 				if (err.code === 'ESOCKETTIMEDOUT') {
-					message = `Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout).
+					message = `Leider konnte deine Registrierung nicht abgeschlossen werden.
 					Bitte versuche es erneut.`;
 				}
 			}
@@ -135,12 +135,16 @@ ${res.locals.theme.short_title}-Team`,
 		});
 });
 
-router.get(['/registration/:classOrSchoolId/byparent/:sso/:accountId'],
+router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'],
 	async (req, res, next) => {
 		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 			if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
 				return res.sendStatus(400);
 			}
+		}
+		let nonSecure;
+		if ((!req.url.includes('sso')) && (!req.url.includes('importHash'))) {
+			nonSecure = true;
 		}
 
 		const user = {};
@@ -170,16 +174,22 @@ router.get(['/registration/:classOrSchoolId/byparent/:sso/:accountId'],
 			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
+			nonSecure,
 		});
 	});
 
-router.get(['/registration/:classOrSchoolId/bystudent/:sso/:accountId'],
+router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'],
 	async (req, res, next) => {
 		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 			if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
 				return res.sendStatus(400);
 			}
 		}
+		let nonSecure;
+		if ((!req.url.includes('sso')) && (!req.url.includes('importHash'))) {
+			nonSecure = true;
+		}
+
 
 		const user = {};
 		user.importHash = req.query.importHash;
@@ -208,15 +218,74 @@ router.get(['/registration/:classOrSchoolId/bystudent/:sso/:accountId'],
 			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
+			nonSecure,
 		});
 	});
 
-router.get(['/registration/:classOrSchoolId/:sso/:accountId'],
+router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) => {
+	if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
+		if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
+			return res.sendStatus(400);
+		}
+	}
+	let nonSecure;
+
+	if ((!req.url.includes('sso')) && (!req.url.includes('importHash'))) {
+		nonSecure = true;
+	}
+
+	const user = {};
+	user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
+	user.classOrSchoolId = req.params.classOrSchoolId;
+
+	invalid = await checkValidRegistration(req);
+
+	await resetThemeForPrivacyDocuments(req, res);
+
+	if (user.importHash) {
+		const existingUser = await api(req).get(`/users/linkImport/${user.importHash}`);
+		Object.assign(user, existingUser);
+	}
+
+	let needConsent = true;
+	let sectionNumber = 5;
+
+	let roleText;
+	if (req.params.byRole === 'byemployee') {
+		roleText = 'Lehrer*/Admins*';
+		if (Configuration.get('SKIP_CONDITIONS_CONSENT').includes('employee')) {
+			needConsent = false;
+			sectionNumber = 4;
+		}
+	} else {
+		delete user.firstName;
+		delete user.lastName;
+		roleText = 'Experte*';
+	}
+
+	return res.render('registration/registration-employee', {
+		title: `Registrierung - ${roleText}`,
+		hideMenu: true,
+		user,
+		needConsent,
+		sectionNumber,
+		invalid,
+		nonSecure,
+	});
+});
+
+router.get(
+	['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'],
 	async (req, res, next) => {
 		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 			if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
 				return res.sendStatus(400);
 			}
+		}
+		let nonSecure;
+
+		if ((!req.url.includes('sso')) && (!req.url.includes('importHash'))) {
+			nonSecure = true;
 		}
 
 		invalid = await checkValidRegistration(req);
@@ -231,6 +300,7 @@ router.get(['/registration/:classOrSchoolId/:sso/:accountId'],
 			sso: req.params.sso === 'sso',
 			account: req.params.accountId || '',
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+			nonSecure,
 			invalid,
 		});
 	},
