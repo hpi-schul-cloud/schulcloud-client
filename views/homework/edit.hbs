@@ -89,8 +89,8 @@
 
 			<div class="form-group">
 				<label>{{$t "homework.global.label.title" }}</label>
-				<input class="form-control" name="name" type="text" placeholder="Titel" required value="{{{assignment.name}}}"
-					data-testid="homework-name" />
+				<input class="form-control" name="name" type="text" placeholder="Titel" required 
+					value="{{{assignment.name}}}" data-testid="homework-name" />
 			</div>
 
 			<div class="row">
@@ -108,9 +108,7 @@
 						</select>
 						{{else}}
 						<input name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" />
-						<div><i>{{assignment.courseId.name}}</i> <small
-								class="text-secondary">{{$t "homework.global.text.substitutionTeachersMayNotChangeTheCourse"}}</small>
-						</div>
+						<div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">{{$t "homework.global.text.substitutionTeachersMayNotChangeTheCourse"}}</small></div>
 						{{/unless}}
 					</div>
 				</div>
@@ -120,8 +118,7 @@
 						<select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen"
 							{{#unless lessons}}disabled="true" {{/unless}}>
 							{{#if assignment.courseId}}
-							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>{{$t "homework.text.noAssignment"}}
-							</option>
+							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>{{$t "homework.text.noAssignment"}}</option>
 							{{#each lessons}}
 							<option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>
 								{{this.name}}
@@ -204,12 +201,11 @@
 			{{#unless (userHasRole "student")}}
 			<div class="form-group">
 				<label>
-					<input id="privateCheckbox" name="private" type="checkbox" value="true" data-testid="private-checkbox"
-						{{#if assignment.private}}checked="checked" {{/if}} />
+					<input name="private" type="checkbox" value="true" data-testid="private-checkbox" {{#if assignment.private}}checked="checked" {{/if}} />
 					{{$t "homework.global.label.privateTaskOnlyVisibleToMe"}}
 				</label></br>
 				<label>
-					<input id="publicCheckbox" name="publicSubmissions" type="checkbox" value="public"
+					<input id="publicSubmissionsCheckbox" name="publicSubmissions" type="checkbox" value="public"
 						{{#if assignment.publicSubmissions}}checked="checked" {{/if}} />
 					{{$t "homework.label.studentSolutionVisibleToEachOthers" }}
 				</label>
@@ -253,7 +249,7 @@
 		{{/content}}
 		{{/embed}}
 
-		{{#embed "lib/components/modal" class="warning-modal"}}
+		{{#embed "lib/components/modal" class="dontShowAgainAlert-modal"}}
 		{{#content "body"}}
 		<div class="modal-body">
 			<div class="modal-body-text">
@@ -267,7 +263,7 @@
 		</div>
 		<div class="modal-footer modal-checkbox">
 			<label>
-				<input id="publicSubmission" name="public" type="checkbox" value="false" />
+				<input class="dontShowAgain-checkbox" name="public" type="checkbox" value="false" />
 				{{$t "homework.label.dontShowAgain" }}
 			</label>
 			<div>
