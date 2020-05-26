@@ -746,7 +746,7 @@
 				"viewDetails": "Details anzeigen"
 			},
 			"heading": {
-				"errorDetalis": "Fehler-Details:"
+				"errorDetails": "Fehler-Details:"
 			},
 			"text": {
 				"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
