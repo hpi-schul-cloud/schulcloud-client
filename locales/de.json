@@ -728,7 +728,7 @@
 	"lib": {
 		"csrf_content": {
 			"link": {
-				"openThisPageInASeparateWindow": "öffne diese Seite in einem eigenen Fenster"
+				"openThisPageInASeparateWindow": "Öffne diese Seite in einem neuen Tab"
 			},
 			"text": {
 				"ifYouDontWantToTakeAnyAction": "Solltest du keine Aktion ausführen wollen, schließe bitte diesen Tab in deinem Browser.",
@@ -745,7 +745,7 @@
 				"viewDetails": "Details anzeigen"
 			},
 			"heading": {
-				"errorDetalis": "Fehler-Details:"
+				"errorDetails": "Fehler-Details:"
 			},
 			"text": {
 				"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
@@ -763,7 +763,7 @@
 				"subscribeTheNewsletter": "Newsletter abonnieren"
 			},
 			"text": {
-				"weAreHiring": "You would like to be a member of our <span style = 'white-space: nowrap' > Become an HPI school cloud team? We are looking for: "
+				"weAreHiring": "Du möchtest gerne Mitglied in unserem <span style='white-space: nowrap;'>HPI Schul-Cloud</span> Team werden? Wir suchen:"
 			}
 		},
 		"footer": {
