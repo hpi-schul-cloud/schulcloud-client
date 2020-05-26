@@ -9,18 +9,58 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-### Security
-- SC-3990 generation of first login passwords
+### Added
+SC-4151 hint for user when login failes
+
+### Fixed
+
+### Changed
+
+### Removed
+
+
+## [23.1.0] - 2020-05-20
 
 ### Added
+
+- SC-4250, SC-4135, SC-4252, loading new landing page content and theme from ghost. About page partly loaded from ghost. Login form removed from front page and replaced by button in navbar. Demo-Login removed from front page.
+
+### Fixed
+
+### Changed
+
+### Removed
+
+
+## [23.0.0] - 2020-05-19
+
+### Changed in 23.0.0
+
+- SC-4392 add/edit link dialog in ckeditor could not be opened
+- SC-4075 Teams creation by students logic was changed. New environment enumeration variable `STUDENT_TEAM_CREATION` 
+with possible values `disabled`, `enabled`, `opt-in`, `opt-out` was introduced. The feature value is set by instance deployment. 
+In case of `disabled`, `enabled` it is valid for all schools of the instance and cannot be changed by the admin. 
+In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the school admin.
+
+### Fixed
+
+- SC-4392 add/edit link dialog in ckeditor could not be opened
+
+## [22.10.0] - 2020-05-11
+
+### Security in 22.10.0
+- SC-3990 generation of first login passwords
+
+### Added in 22.10.0
 - SC-3664 query toast-type and toast-message
 - SC-3892 Task sorting on the course side
 - SC-3757 the LDAP config page now contains a link to the docs
 - SC-438 on logout button click localStorge will be deleted
 - SC-3801 added generic filepicker url to ckeditor
 - SC-4260 added sentry sampling
+- SC-4064 allow for bulk download of ungraded homework files
 
-### Changed
+### Changed in 22.10.0
 
 - SC-3607 CSV import now suggests the new birthday field (sample file + image)
 - SC-3607 the student/teacher import page now displays a warning for large imports
@@ -28,9 +68,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-3801 updated CKEDITOR to 4.14
 - SC-3801 changes CKEDITOR theme to a more maintained one (n1theme)
 
-### Fixed
+### Fixed in 22.10.0
 
 - SC-3945 Courses are now again unarchiveable
+
 
 ## [22.9.12] - 2020-05-06
 

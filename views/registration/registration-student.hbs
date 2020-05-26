@@ -6,7 +6,7 @@
       <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
   {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=4 action="/registration/submit" method="post" class="registration-form student" submit-label="Absenden & Loslegen"}}
+    {{#embed "lib/forms/paginatedForm" sections=sectionNumber action="/registration/submit" method="post" class="registration-form student" submit-label="Absenden & Loslegen"}}
       {{#content "panels"}}
       <input type="hidden" name="classOrSchoolId" value="{{user.classOrSchoolId}}"/>
       <input type="hidden" name="roles" value="student"/>
@@ -18,7 +18,7 @@
       {{#if user.userId}}<input type="hidden" name="userId" value="{{user.userId}}"/>{{/if}}
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
-      <section data-panel="section-1">
+      <section data-panel="">
         <h2 class="h4">{{$t "registration._registration.student.heading.personalData" }}</h2>
         <p>{{$t "registration._registration.global.text.the" }} {{theme.short_title}} {{$t "registration._registration.global.text.storesUsersData" }}</p>
         <p>{{$t "registration._registration.global.text.forTheUseOfThe" }} {{theme.short_title}} {{$t "registration._registration.global.text.weNeedTheFollowingInformation" }}</p>
@@ -55,16 +55,18 @@
       </section>
 
 
-      <section data-panel="section-2">
-        <h2 class="h4">{{$t "registration._registration.global.heading.declarationOfConsent" }}</h2>
-        <p>{{$t "registration._registration.student.text.pleaseconfirmTheFollowingDeclarations" }} {{theme.short_title}} {{$t "registration._registration.global.text.canUse" }}.</p>
-        <p>{{$t "registration._registration.global.text.i" }}, <b data-from="firstName"></b> <b data-from="lastName"></b>, {{$t "registration._registration.global.text.explainTheFollowing" }}</p>
-          {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
+      {{#if needConsent}}
+        <section data-panel="">
+          <h2 class="h4">{{$t "registration._registration.global.heading.declarationOfConsent" }}</h2>
+          <p>{{$t "registration._registration.student.text.pleaseconfirmTheFollowingDeclarations" }} {{theme.short_title}} {{$t "registration._registration.global.text.canUse" }}.</p>
+          <p>{{$t "registration._registration.global.text.i" }}, <b data-from="firstName"></b> <b data-from="lastName"></b>, {{$t "registration._registration.global.text.explainTheFollowing" }}</p>
+            {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
 
-      </section>
+        </section>
+      {{/if}}
 
 
-      <section data-panel="section-3" class="submit-page" data-feature="pin">
+      <section data-panel="" class="submit-page" data-feature="pin">
           <h2 class="h4">{{$t "registration._registration.global.heading.almostThere" }}</h2>
           {{#embed "registration/request-pin"}}{{/embed}}
           <div id="pinverification">
@@ -75,7 +77,7 @@
       </section>
 
 
-      <section data-panel="section-4">
+      <section data-panel="">
         <h2 class="h4">{{$t "registration._registration.global.heading.thankYouForRegistering" }} {{theme.short_title}}!</h2>
 
         {{#if user.sso}}
