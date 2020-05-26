@@ -2718,6 +2718,7 @@ router.all('/teams', (req, res, next) => {
 		'Erstellt am': 'createdAt',
 	*/
 
+	
 	api(req)
 		.get('/teams/manage/admin', {
 			qs: query,
