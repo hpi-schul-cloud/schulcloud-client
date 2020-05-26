@@ -734,7 +734,7 @@
 				"ifYouDontWantToTakeAnyAction": "Solltest du keine Aktion ausführen wollen, schließe bitte diesen Tab in deinem Browser.",
 				"theSchoolCloudWasEmbedded": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren,",
 				"unfortunatelyTheRequestFailedAgain": "Die Anfrage ist leider erneut fehlgeschlagen. Um mit der Nutzung fortzufahren, lade die Seite bitte neu.",
-				"weCouldNotMakeSureThat": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum neu laden auf den Button unten.",
+				"weCouldNotMakeSureThat": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke auf den Button unten zum erneuten Laden der Seite.",
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
 				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
 			}
