@@ -34,6 +34,7 @@ const baseScripts = [
 	'./static/scripts/jquery/jquery.min.js',
 	'./static/scripts/jquery/jquery.serialize-object.js',
 	'./static/scripts/tether/tether.min.js',
+	'./static/scripts/popper/popper.min.js',
 	'./static/scripts/bootstrap/bootstrap.min.js',
 	'./static/scripts/chosen/chosen.jquery.min.js',
 	'./static/scripts/base.js',
