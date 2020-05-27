@@ -73,12 +73,14 @@
 								</div>
 
 									{{#if ../this.userIsOwner}}
-										<a href="#"
+										<a
+										href=""
 										class="btn-file-move"
-										title="Datei verschieben"
+										title="Datei verschieben - vorübergehend deaktiviert"
 										data-file-path="{{../path}}"
 										data-file-id="{{../_id}}"
-										data-file-name="{{../name}}">
+										data-file-name="{{../name}}"
+										disabled>
 											<i class="fa fa-folder-open"></i>
 										</a>
 									{{/if}}
@@ -122,6 +124,13 @@
 	{{/content}}
 {{/embed}}
 
+{{#embed "lib/components/modal-information" class="move-modal-disabled danger-modal" title="Funktion vorübergehend deaktiviert"}}
+	{{#content "fields"}}
+			<p>Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.</p>
+			<p><b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.</p>
+	{{/content}}
+{{/embed}}
+
 {{#embed "lib/components/modal-form" class="share-modal"}}
 	{{#content "fields"}}
 		{{> "files/forms/form-share-file"}}
@@ -158,3 +167,4 @@
 		{{> "files/forms/form-new-file"}}
 	{{/content}}
 {{/embed}}
+
