@@ -6,7 +6,7 @@
       <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
   {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=5 action="/registration/submit" method="post" class="registration-form parent" submit-label="Absenden & Loslegen"}}
+    {{#embed "lib/forms/paginatedForm" sections=5 action="/registration/submit" method="post" class="registration-form parent" submit-label=($t "registration._registration.global.button.sendAndGetStarted")}}
       {{#content "panels"}}
       <input type="hidden" name="classOrSchoolId" value="{{user.classOrSchoolId}}"/>
       <input type="hidden" name="roles" value="student"/>
@@ -20,17 +20,17 @@
 
       <section data-panel="section-1">
         <h2 class="h4">{{$t "registration._registration.parent.heading.yourChildsData" }}</h2>
-        <p>{{$t "registration._registration.global.text.the" }} {{theme.short_title}} {{$t "registration._registration.global.text.storesUsersData" }}</p>
-        <p>{{$t "registration._registration.global.text.forTheUseOfThe" }} {{theme.short_title}} {{$t "registration._registration.parent.text.needFollowingInformationForChild" }}</p>
+        <p>{{$t "registration._registration.global.text.weStoreUserDataSafely" (dict "shortTitle" theme.short_title)}}</p>
+        <p>{{$t "registration._registration.parent.text.weNeedFollowingDataOfChild" (dict "shortTitle" theme.short_title)}}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <label>{{$t "registration._registration.global.label.firstName" }} <sup>*</sup></label>
-            <input class="form-control linked" name="firstName" type="text" placeholder="Vorname des Kindes in offizieller Schreibweise, keine Spitznamen"
+            <input class="form-control linked" name="firstName" type="text" placeholder="{{$t "registration._registration.parent.input.completeFirstName"}}"
               value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}} />
           </div>
           <div class="form-group col-md-6 col-sm-12">
             <label>{{$t "registration._registration.global.label.lastName" }}<sup>*</sup></label>
-            <input class="form-control linked" name="lastName" type="text"  placeholder="Nachname des Kindes"
+            <input class="form-control linked" name="lastName" type="text"  placeholder="{{$t "registration._registration.parent.input.lastName"}}"
               value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
           </div>
         </div>
@@ -43,8 +43,8 @@
         </div>
 
         <div class="form-group">
-          <label>{{$t "registration._registration.global.label.studentEmailAddress" }} * <small>{{$t "registration._registration.parent.text.studentNeedTheirOwnEmail" }}</small></label>
-          <input class="form-control linked" name="email" type="email" placeholder="schueler@schul-cloud.org"
+          <label>{{$t "registration._registration.global.label.studentEmailAddress" }} <sup>*</sup><small>{{$t "registration._registration.parent.text.studentNeedTheirOwnEmail" }}</small></label>
+          <input class="form-control linked" name="email" type="email" placeholder="{{$t "registration._registration.parent.input.studentEmail"}}"
             value="{{user.email}}" required {{#if user.email}}readonly{{/if}} />
         </div>
         <p class="explanation nomargin">
@@ -56,27 +56,27 @@
 
       <section data-panel="section-2">
         <h2 class="h4">{{$t "registration._registration.parent.heading.yourData" }}</h2>
-        <p>{{$t "registration._registration.parent.text.forStudentsUnder" }} {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} {{$t "registration._registration.parent.text.aParentOrLegalGuardian" }} {{theme.short_title}}  {{$t "registration._registration.parent.text.toConsent" }}</p>
+        <p>{{$t "registration._registration.parent.text.legalGuardingHasToAgreeToTermsOfUse" (dict "years" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "shortTitle" theme.short_title)}}</p>
         <p>{{$t "registration._registration.parent.text.forThisWeNeedFollowing" }}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <label>{{$t "registration._registration.global.label.firstName" }}<sup>*</sup></label>
-            <input class="form-control linked" name="parent_firstName" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
+            <input class="form-control linked" name="parent_firstName" type="text" placeholder="{{$t "registration._registration.parent.input.yourFirstName"}}" required/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
             <label>{{$t "registration._registration.global.label.lastName" }} <sup>*</sup></label>
-            <input class="form-control linked" name="parent_lastName" type="text" placeholder="Ihren Nachname hier eingeben" required/>
+            <input class="form-control linked" name="parent_lastName" type="text" placeholder="{{$t "registration._registration.parent.input.yourLastName"}}" required/>
           </div>
         </div>
 
         <div class="form-group">
           <label>{{$t "registration._registration.global.label.yourEmailAddress" }} <sup>*</sup> <small>{{$t "registration._registration.parent.text.mustNotBeYourChildsEmail" }}</small></label>
-          <input class="form-control" type="email" name="parent_email" required placeholder="eltern@schul-cloud.org" autocomplete />
+          <input class="form-control" type="email" name="parent_email" required placeholder="{{$t "registration._registration.parent.input.parentEmail"}}" autocomplete />
         </div>
         <p class="explanation nomargin">
-          {{$t "registration._registration.parent.text.weNeedAnEmailAddress" }} {{theme.short_title}} {{$t "registration._registration.parent.text.isLegallyValid" }} {{theme.short_title}} {{$t "registration._registration.parent.text.doesNotPassOnTheAddress" }}
+          {{$t "registration._registration.parent.text.weNeedAnEmailAddress" (dict "shortTitle" theme.short_title)}}
           <br/>
-          {{$t "registration._registration.parent.text.inAdditionWeArePlanning" }}
+          {{$t "registration._registration.parent.text.inAdditionWeArePlanning"}}
         </p>
       </section>
 
@@ -84,14 +84,14 @@
 
       <section data-panel="section-3">
         <h2 class="h4">{{$t "registration._registration.global.heading.declarationOfConsent" }}</h2>
-        <p>{{$t "registration._registration.parent.text.pleaseConfirmTheFollowing" }} {{theme.short_title}} {{$t "registration._registration.global.text.canUse" }}</p>
+        <p>{{$t "registration._registration.parent.text.pleaseConfirmTheFollowing" (dict "shortTitle" theme.short_title)}}</p>
           {{#embed "registration/forms/einwilligungserklaerung" prefix="parent_"}}{{/embed}}
       </section>
 
 
 
       <section data-panel="section-4" class="submit-page" data-feature="pin">
-        <h2 class="h4">{{$t "registration._registration.global.heading.almostThere" }}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.heading.almostThere"}}</h2>
         {{#embed "registration/request-pin"}}{{/embed}}
         <div id="pinverification">
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
@@ -103,20 +103,17 @@
 
 
       <section data-panel="section-5">
-        <h2 class="h4">{{$t "registration._registration.global.heading.thankYouForRegistering" }} {{theme.short_title}}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.heading.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
       {{#if user.sso}}
               <p>{{$t "registration._registration.parent.heading.yourChildsSSO" }}</p>
       {{else}}
         <div>
           <p>
-            {{$t "registration._registration.parent.heading.withTheFollowingData" }}
-            <b data-from="firstName"></b>
-            <b data-from="secondName"></b>
-            {{$t "registration._registration.parent.global.text.inThe" }} {{theme.short_title}} {{$t "registration._registration.parent.global.text.signInPleasePass" }}
+            {{{$t "registration._registration.parent.text.yourSonCanLogInWithThisData" (dict "shortTitle" theme.short_title)}}}
             <div class="print">
               <div class="recap">
                 <!--<p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>-->
-                <p>E-Mail: <i data-from="email"></i></p>
+                <p>{{$t "registration._registration.global.label.eMail"}} <i data-from="email"></i></p>
                 <p>{{$t "registration._registration.global.text.password" }} <i class="student-password">{{password}}</i></p>
               </div>
               <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">

@@ -7,29 +7,28 @@
 	{{/content}}
 	{{#content "page"}}
 	<div id="welcome-screen">
-		<h2 class="h4">{{$t "registration._registration.heading.welcomeToTheregister" }} {{theme.title}}!</h2> 
-		<p>{{$t "registration._registration.text.theRegistrationProcessChanges" }} {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} {{$t "registration._registration.text.aLegalGuardianMustComplete" }} {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} {{$t "registration._registration.text.herself" }}</p>  
-		<p>{{$t "registration._registration.text.pleaseChooseTheAgeOfTheStudents" }}</p> 
+		<h2 class="h4">{{$t "registration._registration.heading.welcomeToTheRegistration" (dict "title" theme.title)}}</h2> 
+		<p>{{$t "registration._registration.text.theRegistrationProcessChangesAccordingToAge" (dict "minAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "independentAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>  
+		<p>{{$t "registration._registration.text.pleaseChooseTheAgeOfTheStudents"}} </p> 
 		<div class="form-group">
 			<fieldset>
-				<input type="radio" id="reg-u16" name="student-age" value="u16"> <label for="reg-u16">unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahre alt</label><br>
-				<input type="radio" id="reg-16" name="student-age" value="16"> <label for="reg-16">ab {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahre alt</label>
+				<input type="radio" id="reg-u16" name="student-age" value="u16"> <label for="reg-u16">{{$t "registration._registration.label.bellowNYearsOld" (dict "years" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</label><br>
+				<input type="radio" id="reg-16" name="student-age" value="16"> <label for="reg-16">{{$t "registration._registration.label.overNYearsOld" (dict "years" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</label>
 			</fieldset>
 		</div>
 		<p></p>
 		<div id="infotext-u16" class="hidden">
-			<p>{{$t "registration._registration.text.weArePleasedThat" }}  {{theme.short_title}} {{$t "registration._registration.text.enableAndThusHelp" }}</p>
-			<p>{{$t "registration._registration.text.weKindlyAskYou" }} {{theme.short_title}} {{$t "registration._registration.text.toRegisterAndThen" }} {{theme.title}} {{$t "registration._registration.text.agreeSoThatYourChild" }}</p>
+			<p>{{$t "registration._registration.text.letsTakeThisStepWithYouAndYourChild" (dict "shortTitle" theme.short_title)}}</p>
+			<p>{{$t "registration._registration.text.pleaseRegisterChildThenAgreeToTermsOfUse" (dict "shortTitle" theme.short_title "title" theme.title)}}</p>
 		</div>
 		<div id="infotext-16" class="hidden">
-			<p>{{$t "registration._registration.text.weArePleasedThatYou" }} {{theme.title}} {{$t "registration._registration.text.wantToUseAndHelp" }}</p>
-			<p>{{$t "registration._registration.text.pleaseRegisterInTheFirst" }} {{theme.title}} {{$t "registration._registration.text.andAgreeToTheTerms" }}</p>
+			<p>{{$t "registration._registration.text.thankYouForTakingThisStepWithUs" (dict "shortTitle" theme.title)}}</p>
+			<p>{{$t "registration._registration.text.pleaseRegisterFirstAndAgreeToTerms" (dict "themetitle" theme.title)}}</p>
 			<p><strong>{{$t "registration._registration.text.danger" }}</strong> {{$t "registration._registration.text.thefollowingRestrationMustBe" }}</p>
 		</div>
 
 		<button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>{{$t "registration._registration.button.further" }}</button>
-
-		<p class="mt-2 explanation nomargin">* {{$t "registration._registration.text.linguisticNote" }} {{theme.short_title}} {{$t "registration._registration.text.theMailForm" }} {{theme.short_title}} {{$t "registration._registration.text.isThereForEveryone" }} 🌈🎉🦄
+		<p class="mt-2 explanation nomargin">* {{$t "registration._registration.text.linguisticNoteWeUseMaleFormForReadability" (dict "shortTitle" theme.short_title)}} 🌈🎉🦄
 		</p>
 		{{#if importHash}}<input type="hidden" name="importHash" value="{{importHash}}" />{{/if}}
 		{{#if classOrSchoolId}}<input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />{{/if}}
