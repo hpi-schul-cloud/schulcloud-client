@@ -1,7 +1,6 @@
 const express = require('express');
 
 const router = express.Router();
-const { orderBy } = require('lodash');
 const authHelper = require('../helpers/authentication');
 
 router.get('/', (req, res, next) => {
@@ -14,7 +13,7 @@ router.get('/', (req, res, next) => {
 		}
 		return Promise.resolve(template);
 	}).then(template => res.render(template,{
-		title: 'Security',
+		title: 'Sicherheit',
 		inline: !!template.includes('guest')}));
 });
 
