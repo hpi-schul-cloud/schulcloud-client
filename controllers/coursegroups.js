@@ -120,10 +120,12 @@ router.get('/:courseGroupId/', (req, res, next) => {
 				courseId: req.params.courseId,
 			},
 		}),
-	]).then(([courseGroup, lessons, course, doneSubmissions, openSubmissions]) => {
+		res,
+	]).then(([courseGroup, lessons, course, doneSubmissions, openSubmissions, res]) => {
 		// set params for sc-cards
+		console.log(res)
 		doneSubmissions = (doneSubmissions.data || []).map((s) => {
-			s.title = `Hausaufgabe: ${s.homeworkId.name}`;
+			s.title = res.$t('courses._course.groups._group.headline.homework', {name : s.homeworkId.name});
 			s.content = s.homeworkId.description.substr(0, 140);
 			s.secondaryTitle = `Abgabe: ${moment(s.updatedAt).format('DD.MM.YY HH:mm')}`;
 			s.background = course.color;
@@ -134,16 +136,15 @@ router.get('/:courseGroupId/', (req, res, next) => {
 		lessons = (lessons.data || []).map(lesson => Object.assign(lesson, {
 			url: `/courses/${req.params.courseId}/topics/${lesson._id}?courseGroup=${req.params.courseGroupId}`,
 		}));
-
 		// get team-homework which does not have an group-submission from this group
 		openSubmissions = (openSubmissions.data || [])
 			.filter(os => os.teamSubmissions)
 			.filter(os => os.maxTeamMembers >= (courseGroup.userIds || []).length)
 			.filter(os => _.every(doneSubmissions, s => JSON.stringify(s.homeworkId._id) !== JSON.stringify(os._id)))
-			.map((os) => {
-				os.title = `Hausaufgabe: ${os.name}`;
+			.map(os => {
+				os.title = res.$t('courses._course.groups._group.headline.homework', {name : os.name});
 				os.content = os.description.substr(0, 140);
-				os.secondaryTitle = `bis zum: ${moment(os.dueDate).format('DD.MM.YY HH:mm')}`;
+				os.secondaryTitle = res.$t('courses._course.groups._group.text.dueTo' , {date : moment(os.dueDate).format('DD.MM.YY HH:mm')});
 				os.background = course.color;
 				os.url = `/homework/${os._id}`;
 				return os;

@@ -245,6 +245,7 @@
 						"editGroup": "Gruppe bearbeiten"
 					},
 					"text": {
+						"dueTo": "bis zum: {{date}}",
 						"groupMembers": "Gruppenteilnehmer:innen:",
 						"noOpenGroupTasks": "Keine weiteren Gruppenabgaben möglich.",
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
@@ -758,8 +759,8 @@
 				"blog": "Blog",
 				"faq": "FAQ",
 				"firstSteps": "Erste Schritte",
-				"register" : "Registrieren",
-				"login": "Login"
+				"login": "Login",
+				"register": "Registrieren"
 			}
 		},
 		"headline": {
@@ -844,6 +845,7 @@
 			"submissionsWithoutFeedback": "unkommentierte Abgaben"
 		},
 		"text": {
+			"done": "Super! Du hast deine Aufgabe erledigt!",
 			"noAssignment": "Keine Zuordnung",
 			"noDescriptionAvailable": "keine Beschreibung vorhanden",
 			"noEvaluationTextAvailable": "Noch kein Kommentar vorhanden.",
@@ -852,7 +854,6 @@
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
-			"done": "Super! Du hast deine Aufgabe erledigt!",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 		}
@@ -924,8 +925,8 @@
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
 			"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
-			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
-			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
+			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 		}
 	},
 	"news": {
@@ -952,6 +953,11 @@
 		}
 	},
 	"pwRecovery": {
+		"failed": {
+			"text": {
+				"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
+			}
+		},
 		"input": {
 			"hiddenPw": "***************"
 		},
@@ -966,11 +972,6 @@
 				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der Schul-Cloud einzuloggen.",
 				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
 				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
-			}
-		},
-		"failed": {
-			"text": {
-				"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
 			}
 		},
 		"text": {
