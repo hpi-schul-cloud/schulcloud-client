@@ -904,7 +904,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			federalStates,
 		] = await Promise.all([
 			getTeam(),
-			getUsers(),
+			checkIfUserCanCreateTeam(res) ? getUsers() : [],
 			getRoles(),
 			getClasses(),
 			getFederalStates(),

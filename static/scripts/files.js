@@ -29,7 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
-const getDataValue = attr => () => {
+const getDataValue = (attr) => () => {
 	const value = $('.section-upload').data(attr);
 	return value || undefined;
 };
@@ -99,6 +99,7 @@ $(document).ready(() => {
 	const $editModal = $('.edit-modal');
 	const $deleteModal = $('.delete-modal');
 	const $moveModal = $('.move-modal');
+	const $disabledMoveModal = $('.move-modal-disabled');
 	const $renameModal = $('.rename-modal');
 	const $newFileModal = $('.new-file-modal');
 
@@ -182,7 +183,7 @@ $(document).ready(() => {
 					pathArray.pop();
 
 					const lastPromise = pathArray.reduce((seq, name) => seq
-						.then(parent => promisePost(name, parent._id))
+						.then((parent) => promisePost(name, parent._id))
 						.catch(() => undefined), Promise.resolve({ _id: getCurrentParent() }));
 
 					lastPromise.then((result) => {
@@ -668,7 +669,7 @@ $(document).ready(() => {
 		const fileId = $(e.target).find('input[name="fileId"]').val();
 		const permissions = inputs.reduce((arr, input) => {
 			const [action, refId] = input.name.split('-');
-			const perm = arr.find(i => i.refId === refId);
+			const perm = arr.find((i) => i.refId === refId);
 
 			if (perm) {
 				perm[action] = input.checked;
@@ -789,8 +790,12 @@ $(document).ready(() => {
 		e.preventDefault();
 		const $context = $(e.currentTarget);
 
-		// eslint-disable no-undef
-		populateModalForm($moveModal, { // eslint-disable-line
+		// temporary disabled
+		if ($context.attr('disabled')) {
+			$disabledMoveModal.appendTo('body').modal('show');
+			return;
+		}
+		populateModalForm($moveModal, {
 			title: 'Datei verschieben',
 			fields: {
 				fileId: $context.attr('data-file-id'),
@@ -798,6 +803,7 @@ $(document).ready(() => {
 				filePath: $context.attr('data-file-path'),
 			},
 		});
+
 
 		$moveModal.find('.modal-footer').empty();
 		$moveModal.appendTo('body').modal('show');
