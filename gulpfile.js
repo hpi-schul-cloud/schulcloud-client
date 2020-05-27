@@ -31,8 +31,8 @@ const webpackConfig = require('./webpack.config');
 const browserlist = ['> 0.2%', 'last 10 version', 'not dead'];
 
 const baseScripts = [
-	'./node_modules/jquery/dist/jquery.min.js',
-	'./node_modules/form-serializer/dist/jquery.serialize-object.min.js',
+	'./static/scripts/jquery/jquery.min.js',
+	'./static/scripts/jquery/jquery.serialize-object.js',
 	'./static/scripts/tether/tether.min.js',
 	'./static/scripts/bootstrap/bootstrap.min.js',
 	'./static/scripts/chosen/chosen.jquery.min.js',

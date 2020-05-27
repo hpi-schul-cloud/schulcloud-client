@@ -74,7 +74,7 @@ $(document).ready(() => {
 		e.preventDefault();
 
 		let userIds = $('.add-member-modal form .form-users select').val();
-		userIds = userIds.map((userId) => ({ userId }));
+		userIds = userIds.map(userId => ({ userId }));
 
 		const classIds = $('.add-member-modal form .form-classes select').val();
 
@@ -261,17 +261,13 @@ $(document).ready(() => {
 			$inviteExternalMemberModal.modal('hide');
 			// eslint-disable-next-line no-restricted-globals
 			location.reload();
-		}).fail((err) => {
-			let errorMessage;
-			if (err.status === 400) {
-				errorMessage = `Der Provider der eingeladenen E-Mail-Adresse ist geblockt!
-				Bitte verwende eine andere Adresse und versuche es dann erneut.`;
-			} else {
-				errorMessage = `Möglicherweise gab es Probleme bei der Einladung.
-				Bitte eingeladenen Nutzer oder Admins fragen.`;
-			}
-
-			$.showNotification(errorMessage, 'danger', true);
+		}).fail(() => {
+			$.showNotification(
+				'Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admins fragen.',
+				'danger',
+				// eslint-disable-next-line comma-dangle
+				true
+			);
 		});
 	});
 

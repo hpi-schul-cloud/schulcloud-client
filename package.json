@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "23.1.0",
+	"version": "23.0.0",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -45,7 +45,6 @@
 		"express-session": "^1.16.2",
 		"feedr": "^2.13.5",
 		"font-awesome": "^4.7.0",
-		"form-serializer": "^2.5.0",
 		"fullcalendar": "^3.9.0",
 		"git-repo-info": "^2.1.0",
 		"handlebars": "^4.7.6",
@@ -57,7 +56,6 @@
 		"i18next-fetch-backend": "^2.2.0",
 		"i18next-localstorage-backend": "^3.1.1",
 		"i18next-sync-fs-backend": "^1.1.1",
-		"jquery": "^3.5.1",
 		"jquery-datetimepicker": "^2.5.20",
 		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.15",
@@ -134,7 +132,7 @@
 		"istanbul": "^0.4.5",
 		"lint-staged": "^10.0.7",
 		"mocha": "^7.1.2",
-		"node-sass": "^4.14.1",
+		"node-sass": "^4.13.1",
 		"nodemon": "^1.18.3",
 		"postcss-css-variables": "^0.13.0",
 		"pump": "^1.0.2",

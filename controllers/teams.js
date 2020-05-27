@@ -904,7 +904,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			federalStates,
 		] = await Promise.all([
 			getTeam(),
-			checkIfUserCanCreateTeam(res) ? getUsers() : [],
+			getUsers(),
 			getRoles(),
 			getClasses(),
 			getFederalStates(),
@@ -1121,7 +1121,7 @@ router.patch('/:teamId/members', async (req, res, next) => {
 	}
 });
 
-router.post('/external/invite', (req, res, next) => {
+router.post('/external/invite', (req, res) => {
 	const json = {
 		userId: req.body.userId,
 		email: req.body.email,
@@ -1135,7 +1135,9 @@ router.post('/external/invite', (req, res, next) => {
 		.then((result) => {
 			res.sendStatus(200);
 		})
-		.catch(next);
+		.catch(() => {
+			res.sendStatus(500);
+		});
 });
 
 router.delete('/:teamId/members', async (req, res, next) => {

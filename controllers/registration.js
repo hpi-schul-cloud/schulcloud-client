@@ -43,9 +43,9 @@ router.post('/registration/pincreation', (req, res, next) => {
 			},
 		}).then((result) => {
 			res.sendStatus((result || {}).status || 200);
-		}).catch(next);
+		}).catch((err) => res.status(500).send(err));
 	}
-	return res.sendStatus(400);
+	return res.sendStatus(500);
 });
 
 router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (req, res, next) => {
@@ -53,8 +53,8 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 	req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
 
 	let skipConsent = false;
-	if (req.body.roles.length > 0) {
-		skipConsent = req.body.roles.some((role) => {
+	if (res.locals.currentUser.roles.length > 0) {
+		skipConsent = res.locals.currentUser.roles.some((role) => {
 			let roleName = role.name;
 			if (roleName === 'teacher' || roleName === 'administrator') {
 				roleName = 'employee';
@@ -122,13 +122,12 @@ ${res.locals.theme.short_title}-Team`,
 			res.sendStatus(200);
 		})
 		.catch((err) => {
-			let message = 'Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.';
+			let message = 'Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.'
 			const customMessage = (err.error || {}).message || err.message;
 			if (customMessage) { message = customMessage; }
 			if (err && err.code) {
 				if (err.code === 'ESOCKETTIMEDOUT') {
-					message = `Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout).
-					Bitte versuche es erneut.`;
+					message = 'Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout). Bitte versuche es erneut.'
 				}
 			}
 			return res.status(500).send(message);

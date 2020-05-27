@@ -1,3 +1,5 @@
+let pinSent;
+let resendTimer = null;
 let timeoutSend = false;
 let usermail;
 
@@ -15,20 +17,12 @@ function sendPin(sendConfirm) {
 		data: { email: usermail, mailTextForRole: role },
 	}).done(() => {
 		if (sendConfirm) {
-			$.showNotification(`Wir haben dir soeben einen Bestätigungscode an ${usermail} gesendet.`,
-				'success',
-				15000);
+			$.showNotification(`Wir haben dir soeben einen Bestätigungscode an ${usermail} gesendet.`, 'success', 15000);
 		}
-	}).fail((err) => {
-		let errorMessage;
-		if (err.status === 400) {
-			errorMessage = `Der Provider deiner E-Mail-Adresse (${usermail}) ist geblockt!
-			Bitte verwende eine andere Adresse und versuche es dann erneut.`;
-		} else {
-			errorMessage = `Hoppla, es gab einen Fehler bei der Code-Erstellung!
+		pinSent = true;
+	}).fail(() => {
+		const errorMessage = `Hoppla, es gab einen Fehler bei der Code-Erstellung!
 			Bitte prüfe deine E-Mail-Adresse (${usermail}) und versuche es dann erneut.`;
-		}
-
 		$.showNotification(errorMessage, 'danger', 7000);
 		timeoutSend = false;
 	});
@@ -36,6 +30,7 @@ function sendPin(sendConfirm) {
 
 // if email for pin registration is changed, reset pin-sent status
 $('form.registration-form.student input[name$="email"]:last').on('change', () => {
+	pinSent = false;
 	timeoutSend = false;
 });
 
@@ -45,13 +40,10 @@ $('#resend-pin').on('click', (e) => {
 		sendPin(true);
 		$('.pin-input .digit').val('');
 		timeoutSend = true;
-		setTimeout(() => {
+		resendTimer = setTimeout(() => {
 			timeoutSend = false;
 		}, 60000);
 	} else {
-		$.showNotification(`Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,
-		ob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.`,
-		'info',
-		7000);
+		$.showNotification(`Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner, ob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.`, 'info', 7000);
 	}
 });
