@@ -29,6 +29,9 @@ SC-4151 hint for user when login failes
 
 ### Changed
 
+### Security
+- SC-4506 Secure User Route. Removed not used /users route from view team members. 
+
 ### Removed
 
 
