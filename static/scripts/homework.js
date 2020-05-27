@@ -490,21 +490,25 @@ $(document).ready(() => {
         populateModal(modal, '#member-modal-body', content);
         modal.appendTo('body').modal('show');
     }
+    function modalCheckboxHandler(headline, content, modal, localStorageItem, checkbox) {
+        const isPrivateAlertTrue = localStorage.getItem(localStorageItem) ? JSON.parse(localStorage.getItem(localStorageItem)) : false;
+        if (!isPrivateAlertTrue && $(checkbox).prop('checked')) {
+            modal.find('.dontShowAgain-checkbox').prop('checked', false);
+            displayModal(headline, content, modal);
+
+            modal.find('.btn-submit').unbind('click').on('click', function (e) {
+                e.preventDefault();
+                const checkboxValue = modal.find('.dontShowAgain-checkbox').prop('checked');
+                localStorage.setItem(localStorageItem, checkboxValue);
+                modal.appendTo('body').modal('hide');
+            });
+        }
+    }
 
     $('#publicSubmissionsCheckbox').on('change', function (e) {
         e.preventDefault();
-        const isPrivateAlertTrue = localStorage.getItem('PublicSubmissions-Alert') ? JSON.parse(localStorage.getItem('PublicSubmissions-Alert')) : false;
-        if (!isPrivateAlertTrue && $(this).prop('checked')) {
-            const content = 'Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.';
-            $dontShowAgainAlertModal.find('.dontShowAgain-checkbox').prop('checked', false);
-            displayModal('Bist du dir sicher?', content, $dontShowAgainAlertModal);
-        }
+        const content = 'Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.';
+        modalCheckboxHandler('Bist du dir sicher?', content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
     });
 
-    $dontShowAgainAlertModal.find('.btn-submit').unbind('click').on('click', function (e) {
-        e.preventDefault();
-        const checkboxValue = $dontShowAgainAlertModal.find('.dontShowAgain-checkbox').prop('checked');
-        localStorage.setItem('PublicSubmissions-Alert', checkboxValue);
-        $dontShowAgainAlertModal.appendTo('body').modal('hide');
-    });
 });
