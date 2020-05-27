@@ -10,17 +10,17 @@ const authHelper = require('../helpers/authentication');
 
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
-let nonSecure;
 
 const resetThemeForPrivacyDocuments = async (req, res) => {
 	res.locals.currentSchoolData = await api(req).get(`registrationSchool/${req.params.classOrSchoolId}`);
 	setTheme(res);
 };
 
-const checkSecure = (url) => {
+const isSecure = (url) => {
 	if ((!url.includes('sso')) && (!url.includes('importHash'))) {
-		nonSecure = true;
+		return true;
 	}
+	return false;
 };
 
 const checkValidRegistration = async (req) => {
@@ -144,13 +144,12 @@ ${res.locals.theme.short_title}-Team`,
 
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'],
 	async (req, res, next) => {
-
 		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 			if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
 				return res.sendStatus(400);
 			}
 		}
-		checkSecure(req.url);
+		const nonSecure = isSecure(req.url);
 
 		const user = {};
 		user.importHash = req.query.importHash;
@@ -190,7 +189,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 				return res.sendStatus(400);
 			}
 		}
-		checkSecure(req.url);
+		const nonSecure = isSecure(req.url);
 
 		const user = {};
 		user.importHash = req.query.importHash;
@@ -229,7 +228,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 			return res.sendStatus(400);
 		}
 	}
-	checkSecure(req.url);
+	const nonSecure = isSecure(req.url);
 
 	const user = {};
 	user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
@@ -279,7 +278,7 @@ router.get(
 				return res.sendStatus(400);
 			}
 		}
-		checkSecure(req.url);
+		const nonSecure = isSecure(req.url);
 
 		invalid = await checkValidRegistration(req);
 

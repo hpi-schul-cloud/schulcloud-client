@@ -1,15 +1,15 @@
 <main class="container pt-3 mt-5 text-center>
 			<div class="error-header-wrapper">
 			<img class="error-header-image w-100 h-100" src="/images/broken-pen.svg" alt="zerbrochener Stift" />
-			<h1 class="h1 error-header-code text-center">SSO / HASH</h1>
+			<h1 class="h1 error-header-code text-center">{{{$t "registration.registationFailedAuthTitle"}}}</h1>
 			<p class="error-header-text text-center">
-				Link outdated, request a new one from your school administrator.
+				{{{$t "registration.registationFailedAuthParagraph"}}}
 			</p>
 
 				<div class="hidden iframe">
 					<p>
-						Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren, <a href="{{baseUrl}}"
-																												rel="noopener noreferrer" target="_blank">öffne diese Seite in einem eigenen Fenster</a>.
+						{{{$t "registration.registationFailedContinue"}}}<a href="{{baseUrl}}"
+																												rel="noopener noreferrer" target="_blank">{{{$t "registration.registationFailedContinueSecond"}}} </a>.
 					</p>
 				</div>
 			</div>
