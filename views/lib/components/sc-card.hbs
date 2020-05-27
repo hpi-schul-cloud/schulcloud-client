@@ -1,9 +1,9 @@
 {{#if this.url}}
-<a href="{{this.url}}">
-{{/if}}
+    <article class="sc-card locationlink" data-loclink="{{this.url}}">
+    {{else}}
     <article class="sc-card">
-        <div class="sc-card-header" {{#if this.background}} style="background:{{this.background}};"
-            {{/if}}>
+        {{/if}}
+        <div class="sc-card-header" {{#if this.background}} style="background:{{this.background}};" {{/if}}>
             {{#if this.isRSS}}
             {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
             <span class="rss-icon">RSS</span>
@@ -26,22 +26,21 @@
 
             <div class="sc-card-menu">
                 {{#each this.actions}}
-                    {{#if this.method}}
-                        <a href="{{this.link}}" class="sc-card-menu-action {{this.class}}"
-                            data-method="{{this.method}}" data-name="{{../title}}"
-                            alt="'{{../../title}}' {{this.alt}}.">
-                            <i class="fa fa-{{this.icon}}"></i>
-                        </a>
-                    {{else}}
-                        <a href="{{this.link}}" class="sc-card-menu-action {{this.class}}"
-                            target="_blank" alt="'{{../../title}}' {{this.alt}}.">
-                            <i class="fa fa-{{this.icon}}"></i>
-                        </a>
-                    {{/if}}
+                {{#if this.method}}
+                <a href="{{this.link}}" class="sc-card-menu-action {{this.class}}" data-method="{{this.method}}"
+                    data-name="{{../title}}" alt="'{{../../title}}' {{this.alt}}.">
+                    <i class="fa fa-{{this.icon}}"></i>
+                </a>
                 {{else}}
-                    {{#if this.menuInfo}}
-                        <small class="sc-card-menu-info">{{{this.menuInfo}}}</small>
-                    {{/if}}
+                    <a href="{{this.link}}" class="sc-card-menu-action {{this.class}}" target="_blank"
+                        alt="'{{../../title}}' {{this.alt}}.">
+                    <i class="fa fa-{{this.icon}}"></i>
+                </a>
+                {{/if}}
+                {{else}}
+                {{#if this.menuInfo}}
+                <small class="sc-card-menu-info">{{{this.menuInfo}}}</small>
+                {{/if}}
                 {{/each}}
             </div>
         </div>
@@ -57,6 +56,3 @@
             {{/if}}
         </div>
     </article>
-{{#if this.url}}
-</a>
-{{/if}}

@@ -16,78 +16,66 @@
 						<div class="row card-deck-row">
 							{{#userHasPermission 'STUDENT_LIST'}}
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<a href="/administration/students">
-										<div class="card h-100 teacher-option" data-testid="administrate_students">
-											<div class="card-block homework">
-												<div class="card-text">
-													<h2 class="h4"><i class="fa fa-odnoklassniki"></i> Schüler verwalten</h2>
-												</div>
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/students" data-testid="administrate_students">
+										<div class="card-block homework">
+											<div class="card-text">
+												<h2 class="h4"><i class="fa fa-odnoklassniki"></i> Schüler verwalten</h2>
 											</div>
 										</div>
-									</a>
+									</div>
 								</div>
 							{{/userHasPermission}}
 							{{#userHasPermission 'TEACHER_LIST'}}
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<a href="/administration/teachers">
-										<div class="card h-100 teacher-option" data-testid="administrate_teachers">
-											<div class="card-block homework">
-												<div class="card-text">
-													<h2 class="h4"><i class="fa fa-user"></i> Lehrer verwalten</h2>
-												</div>
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/teachers" data-testid="administrate_teachers">
+										<div class="card-block homework">
+											<div class="card-text">
+												<h2 class="h4"><i class="fa fa-user"></i> Lehrer verwalten</h2>
 											</div>
 										</div>
-									</a>
+									</div>
 								</div>
 							{{/userHasPermission}}
 							{{#userHasPermission 'ADMIN_VIEW'}}
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<a href="/administration/courses">
-										<div class="card h-100 teacher-option">
-											<div class="card-block homework">
-												<div class="card-text">
-													<h2 class="h4"><i class="fa fa-graduation-cap"></i> Kurse verwalten</h2>
-												</div>
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/courses">
+										<div class="card-block homework">
+											<div class="card-text">
+												<h2 class="h4"><i class="fa fa-graduation-cap"></i> Kurse verwalten</h2>
 											</div>
 										</div>
-									</a>
+									</div>
 								</div>
 							{{/userHasPermission}}
 							{{#userHasPermission 'CLASS_LIST'}}
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<a href="/administration/classes">
-									<div class="card h-100 teacher-option" data-testid="administrate_classes">
-										<div class="card-block homework">
-											<div class="card-text">
-												<h2 class="h4"><i class="fa fa-users"></i> Klassen verwalten</h2>
-											</div>
+								<div class="card h-100 teacher-option locationlink" data-loclink="/administration/classes" data-testid="administrate_classes">
+									<div class="card-block homework">
+										<div class="card-text">
+											<h2 class="h4"><i class="fa fa-users"></i> Klassen verwalten</h2>
 										</div>
 									</div>
-								</a>
+								</div>
 							</div>
 							{{/userHasPermission}}
 							{{#userHasPermission 'ADMIN_VIEW'}}
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<a href="/administration/teams">
-										<div class="card h-100 teacher-option">
-											<div class="card-block homework">
-												<div class="card-text">
-													<h2 class="h4"><i class="fa fa-users"></i> Teams verwalten</h2>
-												</div>
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/teams">
+										<div class="card-block homework">
+											<div class="card-text">
+												<h2 class="h4"><i class="fa fa-users"></i> Teams verwalten</h2>
 											</div>
 										</div>
-									</a>
+									</div>
 								</div>
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<a href="/administration/school">
-										<div class="card h-100 teacher-option">
-											<div class="card-block homework">
-												<div class="card-text">
-													<h2 class="h4"><i class="fa fa-building"></i> Schule verwalten</h2>
-												</div>
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/school">
+										<div class="card-block homework">
+											<div class="card-text">
+												<h2 class="h4"><i class="fa fa-building"></i> Schule verwalten</h2>
 											</div>
 										</div>
-									</a>
+									</div>
 								</div>
 							{{/userHasPermission}}
 						</div>

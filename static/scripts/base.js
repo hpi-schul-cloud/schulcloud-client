@@ -317,8 +317,8 @@ $(document).ready(() => {
 		$modals.modal('hide');
 	});
 
-	// Self Window Close
-	$('.selfclose').on('click', () => {
+	// Window Close
+	$('.windowclose').on('click', () => {
 		window.close();
 	});
 
@@ -335,6 +335,11 @@ $(document).ready(() => {
 	// Window Local Storage Clear
 	$('.localstorageclear').on('click', () => {
 		localStorage.clear();
+	});
+
+	// Window Location Link
+	$('.locationlink').on('click', function locationLink() {
+		nextPage($(this).attr('data-loclink'));
 	});
 
 	// Print Button
