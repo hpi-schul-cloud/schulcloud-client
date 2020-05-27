@@ -300,8 +300,8 @@ router.get(
 			sso: req.params.sso === 'sso',
 			account: req.params.accountId || '',
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
-			nonSecure,
 			invalid,
+			nonSecure,
 		});
 	},
 );
