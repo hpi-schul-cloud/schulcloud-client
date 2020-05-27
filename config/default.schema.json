@@ -205,6 +205,16 @@
 					"default":"https://schul-cloud.org/etherpad/api/1",
 					"pattern": ".*(?<!/)$",
 					"description": "The etherpad api version uri."
+				},
+				"OLD_DOMAIN": {
+					"type": "string",
+					"default":"etherpad.schul-cloud.org",
+					"description": "The old etherpad domain"
+				},
+				"NEW_DOMAIN": {
+					"type": "string",
+					"default":"schul-cloud.org",
+					"description": "The new etherpad domain"
 				}
 			}
 		},

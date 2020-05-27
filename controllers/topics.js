@@ -1,4 +1,3 @@
-const uri = require('uri-js');
 const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
@@ -119,12 +118,27 @@ const getEtherpadSession = async (req, res, courseId) => {
 	});
 };
 
+const validatePadDomain = (url) => {
+	const whitelist = [
+		Configuration.get('ETHERPAD__OLD_DOMAIN'),
+		Configuration.get('ETHERPAD__NEW_DOMAIN')
+	];
+	if ( whitelist.indexOf(url.hostname) === -1 ) {
+		throw new Error(`not a valid etherpad hostname: ${url.hostname}`);
+	}
+}
+
 const getPadIdFromUrl = (path) => {
 	path += "";
-	if (uri.parse(path).host === undefined) {
+	let parsedUrl;
+	try {
+		parsedUrl = new URL(path);
+		validatePadDomain(parsedUrl);
+	} catch (err) {
+		logger.error(err.message);
 		return undefined;
-	}
-	path = uri.parse(path).path;
+	};
+	path = parsedUrl.pathname;
 	return path.substring(path.lastIndexOf('/') + 1);
 }
 

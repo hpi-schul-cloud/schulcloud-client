@@ -1,12 +1,13 @@
 {
 	"$schema": "./default.schema.json",
 	"ETHERPAD": {
-    "PAD_PATH": "/p",
-    "API_PATH": "/api/1",
-    "PAD_URI": "https://schul-cloud.org/p",
-    "URI": "https://schul-cloud.org/api/1"
-  },
-  "COOKIE": {
+		"PAD_PATH": "/etherpad/p",
+		"PAD_URI": "https://schul-cloud.org/etherpad/p",
+		"URI": "https://schul-cloud.org/etherpad/api/1",
+		"OLD_DOMAIN": "etherpad.schul-cloud.org",
+		"NEW_DOMAIN": "schul-cloud.org"
+	},
+	"COOKIE": {
 		"SAME_SITE": "None",
 		"HTTP_ONLY": false,
 		"HOST_ONLY": false,
