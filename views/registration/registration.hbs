@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
 	{{/content}}
 	{{#content "page"}}
-		{{#if this.nonSecure}}
+		{{#unless this.Secure}}
 			{{> "lib/registration"}}
 		{{else}}
 	<div id="welcome-screen">
@@ -41,6 +41,6 @@
 		{{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
 	</div>
-		{{/if}}
+		{{/unless}}
 	{{/content}}
 {{/extend}}
