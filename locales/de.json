@@ -733,7 +733,7 @@
 		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
 		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
 		"registationFailedContinue": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
-		"registationFailedContinueSecond": "öffne diese Seite in einem eigenen Fenster"
+		"registationFailedContinueLink": "öffne diese Seite in einem eigenen Fenster"
 	},
 	"login": {
 		"button": {
