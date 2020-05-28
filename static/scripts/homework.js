@@ -147,9 +147,9 @@ $(document).ready(() => {
                 $.showNotification("Form validation failed", "danger", 15000);
                 return;
             }
-		}
+        }
         element.unbind('submit');
-		element.submit();
+        element.submit();
     }
     // Abgabe speichern
     $('form.submissionForm.ajaxForm').on("submit",function(e){
