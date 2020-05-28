@@ -568,6 +568,7 @@
 			"create": "Erstellen",
 			"delete": "Löschen",
 			"open": "Öffnen",
+			"next": "Weiter",
 			"save": "Speichern",
 			"saveChanges": "Änderungen Speichern",
 			"tryAgain": "Erneut Versuchen",
@@ -744,7 +745,8 @@
 			"moreOptions": "Mehr Optionen"
 		},
 		"headline": {
-			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer"
+			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
+			"LoginFailedHint":"Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung"
 		},
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
@@ -794,9 +796,23 @@
 		},
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
+			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
+			"loginFailedFirstHintText":" Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
+			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
+			"loginFailedThirdHint":"3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
+			"loginFailedFourthHint":"4. Hast du deine Anmeldedaten schon überprüft?",
+			"loginFailedFourthHintText":"Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
+			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
+			"loginFailedFithHintText": "Hier findest du alle HPI Schul-Could Instanzen:",
+			"loginFailedScreenshot":"Login fehlgeschlagen",
+			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
+			"loginFailedLogoBrandenburg": "Logo Brandenburg",
+			"loginFailedLogoTühringen": "Logo Thüringen",
+			"loginFailedLogoNiedersachen": "Logo Niedersachsen",
+			"loginFailedLogoOpen": "Logo Open",
 			"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
-			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
-			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
+			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 		}
 	},
 	"news": {
@@ -850,6 +866,186 @@
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
 		}
 	},
+	"registration": {
+		"_registration": {
+			"employee": {
+				"heading": {
+					"yourData": "Deine Daten"
+				},
+				"input": {
+					"firstName": "Ihren Vornamen hier eingeben",
+					"lastName": "Ihren Nachname hier eingeben",
+					"password": "Passwort",
+					"repeatPassword": "Passwort wiederholen",
+					"teacherEmail": "lehrer@schul-cloud.org",
+					"yourEmailAddress": "Deine E-Mail-Adresse:"
+				},
+				"label": {
+					"password": "Passwort:",
+					"repeatPassword": "Passwort wiederholen:"
+				},
+				"text": {
+					"pleaseconfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die Vorteile der {{shortTitle}} nutzen kannst.",
+					"youCanNowSingIn": "Du kannst dich jetzt in der {{title}} anmelden."
+				}
+			},
+			"global": {
+				"button": {
+					"openLogin": "Login öffnen",
+					"sendAndGetStarted": "Absenden & Loslegen",
+					"toPress": "Drucken"
+				},
+				"heading": {
+					"almostThere": "Fast geschafft!",
+					"declarationOfConsent": "Einwilligungserklärung",
+					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
+				},
+				"label": {
+					"birthDate": "Geburtsdatum:",
+					"eMail": "E-Mail:",
+					"emailAddress": "E-Mail-Adresse:",
+					"firstName": "Vorname:",
+					"lastName": "Nachname:",
+					"studentEmailAddress": "E-Mail-Adresse des Schülers:",
+					"studentsDateOfBirth": "Geburtsdatum des Schülers:",
+					"yourEmailAddress": "Ihre E-Mail-Adresse:"
+				},
+				"text": {
+					"agreementCanBeRevoked": "Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href=\"mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung\">widerruf@schul-cloud.org</a>.",
+					"agreementIsVoluntary": "Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{title}}, wird durch die Schule ermöglicht werden.",
+					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
+					"inCaseOfRevokationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a> entnehmen.",
+					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
+					"password": "Passwort: ",
+					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
+					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
+					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
+				}
+			},
+			"heading": {
+				"welcomeToTheRegistration": "Willkommen zur Anmeldung in der {{title}}!"
+			},
+			"label": {
+				"bellowNYearsOld": "unter {{years}} Jahre alt",
+				"overNYearsOld": "ab {{years}} Jahre alt"
+			},
+			"parent": {
+				"global": {
+					"text": {
+						"inThe": "in der"
+					}
+				},
+				"heading": {
+					"yourChildsData": "Daten Ihres Kindes",
+					"yourChildsSSO": "Der SSO-Account Ihres Kindes ist jetzt freigeschaltet.",
+					"yourData": "Ihre Daten"
+				},
+				"input": {
+					"completeFirstName": "Vorname des Kindes in offizieller Schreibweise, keine Spitznamen",
+					"lastName": "Nachname des Kindes",
+					"parentEmail": "eltern@schul-cloud.org",
+					"studentEmail": "schueler@schul-cloud.org",
+					"yourFirstName": "Ihren Vornamen hier eingeben",
+					"yourLastName": "Ihren Nachname hier eingeben"
+				},
+				"label": {
+					"iAmLegalGuardianOfChild": "Ich, <b data-from=\"parent_firstName\"></b> <b data-from=\"parent_lastName\"></b>, bin erziehungsberechtigt für <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b> und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten."
+				},
+				"text": {
+					"aParentOrLegalGuardian": "Jahren muss ein Erziehungsberechtigter in die Nutzung der",
+					"forThisWeNeedFollowing": "Dazu benötigen wir folgende Angaben von Ihnen:",
+					"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
+					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren muss ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen.",
+					"mustNotBeYourChildsEmail": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
+					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
+					"needFollowingInformationForChild": "benötigen wir folgende Angaben für Ihr Kind:",
+					"pleaseConfirmTheFollowing": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{shortTitle}} nutzen kann:",
+					"studentNeedTheirOwnEmail": "(Schüler benötigen eine eigene E-Mail-Adresse)",
+					"toConsent": "einwilligen.",
+					"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
+					"weNeedFollowingDataOfChild": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben für Ihr Kind:",
+					"whenLoggingInFor": "Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.",
+					"yourChildCan": "Ihr Kind kann sich nun einloggen:",
+					"yourSonCanLogInWithThisData": "Mit folgenden Daten kann sich <b data-from=\"firstName\"></b> <b data-from=\"secondName\"></b> in der {{shortTitle}} anmelden. Bitte geben Sie die Daten an Ihr Kind weiter. Zusätzlich haben Sie und Ihr Kind die Daten per E-Mail erhalten."
+				}
+			},
+			"student": {
+				"heading": {
+					"personalData": "Persönliche Daten"
+				},
+				"input": {
+					"studentEmail": "schueler@schul-cloud.org",
+					"yourOfficialFirstName": "Dein offizieller Vorname, kein Spitzname",
+					"yourOfficialLastName": "Dein offizieller Nachname"
+				},
+				"text": {
+					"pleaseConfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{shortTitle}} nutzen kannst.",
+					"useThisDataToSignIn": "Mit folgenden Daten kannst du dich in der {{shortTitle}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.",
+					"youCanNowLogin": "Du kannst dich jetzt in der Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
+					"yourSSOAccountDetails": "Deine SSO-Accountdaten sind jetzt freigeschaltet."
+				}
+			},
+			"text": {
+				"agreeSoThatYourChild": "zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
+				"danger": "Achtung:",
+				"letsTakeThisStepWithYouAndYourChild": "Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{shortTitle}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
+				"linguisticNoteWeUseMaleFormForReadability": "* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} teilweise die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
+				"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers:",
+				"pleaseRegisterChildThenAgreeToTermsOfUse": "Wir bitten Sie, Ihr Kind zunächst in der {{shortTitle}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
+				"pleaseRegisterFirstAndAgreeToTerms": "Bitte registriere dich zunächst in der {{shortTitle}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
+				"thankYouForTakingThisStepWithUs": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
+				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über {{independentAge}} sie selbst.",
+				"thefollowingRestrationMustBe": "Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern."
+			}
+		},
+		"deprecatedWarning": {
+			"heading": {
+				"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt"
+			},
+			"text": {
+				"weHaveRevisedAndImprovedRegistration": "Wir haben die Registrierung in der HPI Schul-Cloud überarbeitet und verbessert. Leider sind deswegen alte Regisitrierungslinks nicht mehr gültig. Bitte kontaktiere deinen Lehrer oder Administrator, um einen neuen Registrierungslink zu erhalten."
+			}
+		},
+		"pin": {
+			"input": {
+				"verificationCode": "Bestätigungscode:"
+			}
+		},
+		"requestPin": {
+			"button": {
+				"requestVerificationCode": "Bestätigungscode jetzt anfordern"
+			},
+			"text": {
+				"pleaseRequestAConfirmationCode": "Bitte fordere dazu einen Bestätigungscode an:",
+				"theCodeCanBeRequestedSeveralTimes": "Der Code kann mehrfach angefordert werden. Das erneute Zusenden macht bisher versendete Codes allerdings ungültig. Warte vor dem erneuten Anfordern lieber einen Moment länger und prüfe ggf. den Spam-Ordner in deinem E-Mail-Postfach.",
+				"weOnlyHaveToCheckWhether": "Wir müssen nur kurz prüfen, ob es deine E-Mail-Adresse wirklich gibt."
+			}
+		},
+		"text": {
+			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
+			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
+			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu."
+		}
+	},
+	"teams": {
+		"_team": {
+			"edit": {
+				"label": {
+					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
+					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
+					"teamColor": "Farbe des Teams",
+					"teamDescription": "Beschreibung des Teams (optional)",
+					"teamName": "Name des Teams"
+				},
+				"placeholder": {
+					"teamName": "A-Team"
+				},
+				"text": {
+					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
+				}
+			}
+		}
+	},
 	"topic": {
 		"_topic": {
 			"button": {
@@ -888,24 +1084,6 @@
 				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
 			}
 		}
-	},
-	"teams": {
-		"_team": {
-			"edit": {
-				"label": {
-					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
-					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
-					"teamName": "Name des Teams"
-				},
-				"placeholder": {
-					"teamName": "A-Team"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
-				}
-			}
-		}
 	}
+
 }
