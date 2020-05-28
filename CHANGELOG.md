@@ -9,15 +9,45 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-### Security
-
 ### Added
-
-### Changed
+SC-4151 hint for user when login failes
 
 ### Fixed
 
+### Changed
 
+### Removed
+
+
+## [23.1.0] - 2020-05-20
+
+### Added
+
+- SC-4250, SC-4135, SC-4252, loading new landing page content and theme from ghost. About page partly loaded from ghost. Login form removed from front page and replaced by button in navbar. Demo-Login removed from front page.
+
+### Fixed
+
+### Changed
+
+### Security
+- SC-4506 Secure User Route. Removed not used /users route from view team members. 
+
+### Removed
+
+
+## [23.0.0] - 2020-05-19
+
+### Changed in 23.0.0
+
+- SC-4392 add/edit link dialog in ckeditor could not be opened
+- SC-4075 Teams creation by students logic was changed. New environment enumeration variable `STUDENT_TEAM_CREATION` 
+with possible values `disabled`, `enabled`, `opt-in`, `opt-out` was introduced. The feature value is set by instance deployment. 
+In case of `disabled`, `enabled` it is valid for all schools of the instance and cannot be changed by the admin. 
+In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the school admin.
+
+### Fixed
+
+- SC-4392 add/edit link dialog in ckeditor could not be opened
 
 ## [22.10.0] - 2020-05-11
 

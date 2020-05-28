@@ -13,6 +13,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
 const { LIBRE_OFFICE_CLIENT_URL, PUBLIC_BACKEND_URL, FEATURE_TEAMS_ENABLED } = require('../config/global');
 
@@ -984,7 +985,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
 				message: 'Umbenennen der Datei war erfolgreich!',
 			};
 
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((e) => {
 			req.session.notification = {
@@ -994,7 +995,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
 					: e.error.message,
 			};
 
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		});
 });
 
@@ -1011,7 +1012,7 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 				message: 'Umbenennen des Ordners war erfolgreich!',
 			};
 
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((e) => {
 			req.session.notification = {
@@ -1021,7 +1022,7 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 					: e.error.message,
 			};
 
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		});
 });
 

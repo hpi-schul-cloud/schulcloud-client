@@ -7,6 +7,7 @@ const moment = require('moment');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
+const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
 
@@ -54,7 +55,7 @@ const getSelectOptions = (req, service, query) => api(req)
 	.get(`/${service}`, {
 		qs: query,
 	})
-	.then(data => data.data);
+	.then((data) => data.data);
 
 /**
  * Deletes all events from the given course, clear function
@@ -101,14 +102,12 @@ const checkIfUserCouldLeaveTeam = (current, others) => {
 };
 
 const checkIfUserCanCreateTeam = (res) => {
-	const roleNames = res.locals.currentUser.roles.map(role => role.name);
+	const roleNames = res.locals.currentUser.roles.map((role) => role.name);
 	let allowedCreateTeam = false;
 	if (roleNames.includes('administrator') || roleNames.includes('teacher') || roleNames.includes('student')) {
 		allowedCreateTeam = true;
 		const currentSchool = res.locals.currentSchoolData;
-		const isSchoolFeatureSet = currentSchool.features instanceof Array
-			&& currentSchool.features.includes('disableStudentTeamCreation');
-		if (roleNames.includes('student') && isSchoolFeatureSet) {
+		if (roleNames.includes('student') && !currentSchool.isTeamCreationByStudentsEnabled) {
 			allowedCreateTeam = false;
 		}
 	}
@@ -189,13 +188,13 @@ const copyCourseHandler = (req, res, next) => {
 		studentsPromise,
 	]).then(([course, classes, teachers, students]) => {
 		const classesOfCurrentSchool = classes.filter(
-			c => c.schoolId === res.locals.currentSchool,
+			(c) => c.schoolId === res.locals.currentSchool,
 		);
 		const teachersOfCurrentSchool = teachers.filter(
-			t => t.schoolId === res.locals.currentSchool,
+			(t) => t.schoolId === res.locals.currentSchool,
 		);
 		const studentsOfCurrentSchool = students.filter(
-			s => s.schoolId === res.locals.currentSchool,
+			(s) => s.schoolId === res.locals.currentSchool,
 		);
 		const substitutions = _.cloneDeep(teachersOfCurrentSchool);
 
@@ -399,7 +398,7 @@ router.get('/add/', editTeamHandler);
 
 function mapPermissionRoles(permissions, roles) {
 	return permissions.map((permission) => {
-		const role = roles.find(r => r._id === permission.refId);
+		const role = roles.find((r) => r._id === permission.refId);
 		permission.roleName = role ? role.name : '';
 		return permission;
 	});
@@ -429,7 +428,7 @@ router.get('/:teamId/json', (req, res, next) => {
 			const { data: roles } = result;
 
 			team.filePermission = team.filePermission.map((permission) => {
-				const role = roles.find(r => r._id === permission.refId);
+				const role = roles.find((r) => r._id === permission.refId);
 				permission.roleName = role ? role.name : '';
 				return permission;
 			});
@@ -455,8 +454,8 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
-		const permission = permissions.find(p => p.roleName === role);
-		return Object.keys(permission).every(p => permission[p]);
+		const permission = permissions.find((p) => p.roleName === role);
+		return Object.keys(permission).every((p) => permission[p]);
 	};
 
 	try {
@@ -521,7 +520,7 @@ router.get('/:teamId', async (req, res, next) => {
 			files = [];
 		}
 
-		files = files.filter(file => file);
+		files = files.filter((file) => file);
 
 		files = files.map((file) => {
 			if (file && file.permissions) {
@@ -531,8 +530,8 @@ router.get('/:teamId', async (req, res, next) => {
 			return undefined;
 		});
 
-		const directories = files.filter(f => f.isDirectory);
-		files = files.filter(f => !f.isDirectory);
+		const directories = files.filter((f) => f.isDirectory);
+		files = files.filter((f) => !f.isDirectory);
 
 		// Sort by most recent files and limit to 6 files
 		files
@@ -575,7 +574,7 @@ router.get('/:teamId', async (req, res, next) => {
 			events = await api(req).get('/calendar/', {
 				qs: {
 					'scope-id': req.params.teamId,
-					all: false, 
+					all: false,
 				},
 			});
 			events = events
@@ -613,7 +612,8 @@ router.get('/:teamId', async (req, res, next) => {
 
 		res.render(
 			'teams/team',
-			Object.assign({}, course, {
+			{
+				...course,
 				title: course.name,
 				activeTab: req.query.activeTab,
 				breadcrumb: [
@@ -649,7 +649,7 @@ router.get('/:teamId', async (req, res, next) => {
 				userId: res.locals.currentUser._id,
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
-			}),
+			},
 		);
 	} catch (e) {
 		next(e);
@@ -860,7 +860,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		.get('/users', {
 			qs: { schoolId, $limit, $sort: { lastName: 1, firstName: 1 } },
 		})
-		.then(users => users.data);
+		.then((users) => users.data);
 
 	const getRoles = () => api(req)
 		.get('/roles', {
@@ -876,7 +876,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				},
 			},
 		})
-		.then(roles => roles.data.map((role) => {
+		.then((roles) => roles.data.map((role) => {
 			role.label = roleTranslations[role.name];
 			return role;
 		}));
@@ -885,11 +885,11 @@ router.get('/:teamId/members', async (req, res, next) => {
 		.get('/classes', {
 			qs: { schoolId, $populate: ['year'], $limit },
 		})
-		.then(classes => classes.data);
+		.then((classes) => classes.data);
 
 	const getFederalStates = () => api(req)
 		.get('/federalStates')
-		.then(federalStates => federalStates.data);
+		.then((federalStates) => federalStates.data);
 
 	try {
 		let [
@@ -904,7 +904,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			federalStates,
 		] = await Promise.all([
 			getTeam(),
-			getUsers(),
+			checkIfUserCanCreateTeam(res) ? getUsers() : [],
 			getRoles(),
 			getClasses(),
 			getFederalStates(),
@@ -913,10 +913,10 @@ router.get('/:teamId/members', async (req, res, next) => {
 		});
 
 		const { permissions } = team.user || {};
-		team.userIds = team.userIds.filter(user => user.userId !== null); // fix if user do not exist
-		const teamUserIds = team.userIds.map(user => user.userId._id);
-		users = users.filter(user => !teamUserIds.includes(user._id));
-		const currentSchool = team.schoolIds.filter(s => s._id === schoolId)[0];
+		team.userIds = team.userIds.filter((user) => user.userId !== null); // fix if user do not exist
+		const teamUserIds = team.userIds.map((user) => user.userId._id);
+		users = users.filter((user) => !teamUserIds.includes(user._id));
+		const currentSchool = team.schoolIds.filter((s) => s._id === schoolId)[0];
 		const currentFederalStateId = (currentSchool || {}).federalState;
 		let couldLeave = true; // will be set to false if current user is the only teamowner
 
@@ -924,12 +924,12 @@ router.get('/:teamId/members', async (req, res, next) => {
 			{
 				name: 'teamexpert',
 				label: 'externer Experte',
-				_id: roles.find(role => role.name === 'teamexpert'),
+				_id: roles.find((role) => role.name === 'teamexpert'),
 			},
 			{
 				name: 'teamadministrator',
 				label: 'Lehrer anderer Schule (Team-Admin)',
-				_id: roles.find(role => role.name === 'teamadministrator'),
+				_id: roles.find((role) => role.name === 'teamadministrator'),
 			},
 		];
 
@@ -1012,7 +1012,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			];
 		});
 
-		const bodyClasses = team.classes.map(c => [
+		const bodyClasses = team.classes.map((c) => [
 			`${c.fullName || c.name} (${c.year ? c.year.name : ''})`,
 			c.userIds.length,
 			{
@@ -1023,7 +1023,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			addButtonTrashClass(),
 		]);
 
-		const bodyInvitations = team.invitedUserIds.map(invitation => [
+		const bodyInvitations = team.invitedUserIds.map((invitation) => [
 			invitation.email,
 			moment(invitation.createdAt).format('DD.MM.YYYY'),
 			roleTranslations[invitation.role],
@@ -1037,7 +1037,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 		res.render(
 			'teams/members',
-			Object.assign({}, team, {
+			{
+				...team,
 				title: 'Team-Teilnehmer',
 				action,
 				classes,
@@ -1071,7 +1072,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 					},
 					{},
 				],
-			}),
+			},
 		);
 	} catch (err) {
 		logger.warn('Can not fetch, or render get teams/members', err);
@@ -1120,7 +1121,7 @@ router.patch('/:teamId/members', async (req, res, next) => {
 	}
 });
 
-router.post('/external/invite', (req, res) => {
+router.post('/external/invite', (req, res, next) => {
 	const json = {
 		userId: req.body.userId,
 		email: req.body.email,
@@ -1134,18 +1135,16 @@ router.post('/external/invite', (req, res) => {
 		.then((result) => {
 			res.sendStatus(200);
 		})
-		.catch(() => {
-			res.sendStatus(500);
-		});
+		.catch(next);
 });
 
 router.delete('/:teamId/members', async (req, res, next) => {
 	const courseOld = await api(req).get(`/teams/${req.params.teamId}`);
 	const userIds = courseOld.userIds.filter(
-		user => user.userId !== req.body.userIdToRemove,
+		(user) => user.userId !== req.body.userIdToRemove,
 	);
 	const classIds = courseOld.classIds.filter(
-		_class => _class !== req.body.classIdToRemove,
+		(_class) => _class !== req.body.classIdToRemove,
 	);
 
 	await api(req).patch(`/teams/${req.params.teamId}`, {
@@ -1237,9 +1236,9 @@ router.get('/:teamId/topics', async (req, res, next) => {
 	])
 		.then(([course, lessons, homeworks, courseGroups]) => {
 			const ltiToolIds = (course.ltiToolIds || []).filter(
-				ltiTool => ltiTool.isTemplate !== 'true',
+				(ltiTool) => ltiTool.isTemplate !== 'true',
 			);
-			const lessonsData = (lessons.data || []).map(lesson => Object.assign(lesson, {
+			const lessonsData = (lessons.data || []).map((lesson) => Object.assign(lesson, {
 				url: `/teams/${req.params.teamId}/topics/${lesson._id}/`,
 			}));
 
@@ -1261,16 +1260,17 @@ router.get('/:teamId/topics', async (req, res, next) => {
 			)
 				? courseGroups.data || []
 				: (courseGroups.data || []).filter(
-					cg => cg.userIds.some(user => user._id === res.locals.currentUser._id),
+					(cg) => cg.userIds.some((user) => user._id === res.locals.currentUser._id),
 				);
 
 			res.render(
 				'teams/topics',
-				Object.assign({}, course, {
+				{
+					...course,
 					title: course.name,
 					lessons: lessonsData,
-					homeworks: homeworksData.filter(task => !task.private),
-					myhomeworks: homeworksData.filter(task => task.private),
+					homeworks: homeworksData.filter((task) => !task.private),
+					myhomeworks: homeworksData.filter((task) => task.private),
 					ltiToolIds,
 					courseGroups: courseGroupsData,
 					breadcrumb: [
@@ -1288,7 +1288,7 @@ router.get('/:teamId/topics', async (req, res, next) => {
 					nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
 						course.times,
 					),
-				}),
+				},
 			);
 		})
 		.catch((err) => {
@@ -1324,7 +1324,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 					message: 'Es wurde kein Thema für diesen Code gefunden.',
 				};
 
-				res.redirect(req.header('Referer'));
+				redirectHelper.safeBackRedirect(req, res);
 			}
 
 			api(req)
@@ -1336,21 +1336,21 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 					},
 				})
 				.then(() => {
-					res.redirect(req.header('Referer'));
+					redirectHelper.safeBackRedirect(req, res);
 				});
 		})
-		.catch(err => res.status(err.statusCode || 500).send(err));
+		.catch((err) => res.status(err.statusCode || 500).send(err));
 });
 
 // return shareToken
 router.get('/:id/share', (req, res, next) => api(req)
 	.get(`/teams/share/${req.params.id}`)
-	.then(course => res.json(course)));
+	.then((course) => res.json(course)));
 
 // return course Name for given shareToken
 router.get('/share/:id', (req, res, next) => api(req)
 	.get('/teams/share', { qs: { shareToken: req.params.id } })
-	.then(name => res.json({ msg: name, status: 'success' }))
+	.then((name) => res.json({ msg: name, status: 'success' }))
 	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
 router.post('/import', (req, res, next) => {
