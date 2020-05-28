@@ -13,8 +13,6 @@ router.get('/', (req, res, next) => {
 		}
 		return Promise.resolve(template);
 	}).then(template => res.render(template,{
-		title: 'Sicherheit',
-		theme_title: res.locals.theme.title,
 		inline: !!template.includes('guest')}));
 });
 
