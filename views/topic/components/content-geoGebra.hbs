@@ -1,21 +1,6 @@
 <h2 class="h4">{{title}}</h2>
-{{! app embedding tutorial: https://wiki.geogebra.org/en/Reference:GeoGebra_Apps_Embedding }}
-{{! configuration settings: https://wiki.geogebra.org/en/Reference:GeoGebra_App_Parameters }}
-<div id="applet_error_{{this._id}}">
-    <div class="notification alert alert-info hidden"></div>
+{{! localisation should be added later}}
+<div>
+    <a href="https://geogebra.org/m/{{{content.materialId}}}" class="button"  nofollow target="geogebra">GeoGebra Material ({{{content.materialId}}}) auf geogebra.org jetzt öffnen</a>
+    <p>Dies ist ein externer Inhalt des Anbieters GeoGebra. Er wird in einem neuen Fenster bzw. Tab geöffnet.</p>
 </div>
-<div id="applet_container_{{this._id}}"></div>
-<script>
-    var applet1 = new GGBApplet({
-        material_id: "{{content.materialId}}",
-        borderColor: "#b10438",
-        showResetIcon: true,
-        onError: function (err) {
-            $('#applet_error_{{this._id}} .alert').removeClass('hidden');
-            $('#applet_error_{{this._id}} .alert')
-                .text(`Fehler beim Abrufen des Materials von GeoGebra. `
-                    + `Bitte prüfe, ob das Material öffentlich freigegeben und die eingegebene Material-ID korrekt ist.`);
-        }
-    }, true);
-    applet1.inject('applet_container_{{this._id}}');
-</script>

@@ -483,5 +483,32 @@ $(document).ready(() => {
 			// Clicking a link, even if it is a download link, triggers a `beforeunload` event. Undo those changes here.
 			setTimeout(() => document.querySelector('body').classList.add('loaded'), 1000);
 		});
-	});
+    });
+    const $dontShowAgainAlertModal = $('.dontShowAgainAlert-modal');
+    function displayModal(headline, content, modal) {
+        populateModal(modal, '.modal-title', headline);
+        populateModal(modal, '#member-modal-body', content);
+        modal.appendTo('body').modal('show');
+    }
+    function modalCheckboxHandler(headline, content, modal, localStorageItem, checkbox) {
+        const isPrivateAlertTrue = localStorage.getItem(localStorageItem) ? JSON.parse(localStorage.getItem(localStorageItem)) : false;
+        if (!isPrivateAlertTrue && $(checkbox).prop('checked')) {
+            modal.find('.dontShowAgain-checkbox').prop('checked', false);
+            displayModal(headline, content, modal);
+
+            modal.find('.btn-submit').unbind('click').on('click', function (e) {
+                e.preventDefault();
+                const checkboxValue = modal.find('.dontShowAgain-checkbox').prop('checked');
+                localStorage.setItem(localStorageItem, checkboxValue);
+                modal.appendTo('body').modal('hide');
+            });
+        }
+    }
+
+    $('#publicSubmissionsCheckbox').on('change', function (e) {
+        e.preventDefault();
+        const content = 'Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.';
+        modalCheckboxHandler('Bist du dir sicher?', content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
+    });
+
 });

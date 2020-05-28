@@ -53,8 +53,8 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 	req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
 
 	let skipConsent = false;
-	if (res.locals.currentUser.roles.length > 0) {
-		skipConsent = res.locals.currentUser.roles.some((role) => {
+	if (req.body.roles.length > 0) {
+		skipConsent = req.body.roles.some((role) => {
 			let roleName = role.name;
 			if (roleName === 'teacher' || roleName === 'administrator') {
 				roleName = 'employee';
