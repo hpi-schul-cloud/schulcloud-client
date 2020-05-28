@@ -70,12 +70,13 @@ const checkInternalComponents = (data, baseUrl) => {
 	return data;
 };
 
-const getEtherpadPadForCourse = async (req, user, courseId, content) => {
+const getEtherpadPadForCourse = async (req, user, courseId, content, oldPadId) => {
 	return api(req).post('/etherpad/pads', {
 		json: {
 			courseId,
 			padName: content.title,
 			text: content.description,
+			oldPadId
 		},
 	}).then((response) => response.data.padID );
 };
@@ -86,8 +87,19 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 		if (!content || content.component !== 'Etherpad') {
 			return content;
 		}
+		let isOldPad;
+		let oldPadId;
+		try {
+			let parsedUrl = new URL(content.content.url);
+			isOldPad = isPadDomainOld(parsedUrl);
+			if(isOldPad) {
+				oldPadId = getPadIdFromUrl(content.content.url);
+			}
+		} catch (err) {
+			logger.error(err.message);
+		};
 		const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
-		await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content)
+		await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content, oldPadId)
 			.then((etherpadPadId) => {
 				content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
 			}).catch((err) => {
@@ -117,6 +129,13 @@ const getEtherpadSession = async (req, res, courseId) => {
 		return undefined;
 	});
 };
+
+const isPadDomainOld = (url) => {
+	if(url.hostname === Configuration.get('ETHERPAD__OLD_DOMAIN')) {
+		return true;
+	}
+	return false;
+}
 
 const validatePadDomain = (url) => {
 	const whitelist = [
