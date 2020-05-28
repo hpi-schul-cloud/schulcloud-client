@@ -567,6 +567,7 @@
 			"create": "Erstellen",
 			"delete": "Löschen",
 			"open": "Öffnen",
+			"next": "Weiter",
 			"save": "Speichern",
 			"saveChanges": "Änderungen Speichern",
 			"tryAgain": "Erneut Versuchen",
@@ -851,9 +852,6 @@
 	},
 	"registration": {
 		"_registration": {
-			"button": {
-				"further": "Weiter"
-			},
 			"employee": {
 				"heading": {
 					"yourData": "Deine Daten"
@@ -975,7 +973,7 @@
 				"agreeSoThatYourChild": "zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
 				"danger": "Achtung:",
 				"letsTakeThisStepWithYouAndYourChild": "Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{shortTitle}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
-				"linguisticNoteWeUseMaleFormForReadability": "Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
+				"linguisticNoteWeUseMaleFormForReadability": "* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} teilweise die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
 				"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers:",
 				"pleaseRegisterChildThenAgreeToTermsOfUse": "Wir bitten Sie, Ihr Kind zunächst in der {{shortTitle}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
 				"pleaseRegisterFirstAndAgreeToTerms": "Bitte registriere dich zunächst in der {{shortTitle}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
