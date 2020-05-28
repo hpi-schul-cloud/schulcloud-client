@@ -37,17 +37,17 @@
 			"startM2018": "(Start Mai 2018)"
 		}
 	},
-	"account" : {
-		"global" :{
-			"label":{
-				"thirdPartyLogins" : "Drittanbieter-Logins"
+	"account": {
+		"global": {
+			"label": {
+				"thirdPartyLogins": "Drittanbieter-Logins"
 			}
 		},
-		"label" : {
-			"providers" : "Anbieter"
+		"label": {
+			"providers": "Anbieter"
 		},
-		"text" : {
-			"noThirdPartyProvidersUsed" : "Keine Drittanbieter genutzt"
+		"text": {
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
 		}
 	},
 	"addons": {
@@ -106,7 +106,7 @@
 			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
 		}
 	},
-	"community":{
+	"community": {
 		"title": "Jetzt mitmachen!"
 	},
 	"content": {
@@ -559,8 +559,8 @@
 	},
 	"global": {
 		"button": {
-			"accept" : "Akzeptieren",
-			"add" : "Hinzufügen",
+			"accept": "Akzeptieren",
+			"add": "Hinzufügen",
 			"cancel": "Abbrechen",
 			"close": "Schließen",
 			"create": "Erstellen",
@@ -568,7 +568,8 @@
 			"open": "Öffnen",
 			"save": "Speichern",
 			"saveChanges": "Änderungen Speichern",
-			"tryAgain": "Erneut Versuchen"
+			"tryAgain": "Erneut Versuchen",
+			"ok": "Okay"
 		},
 		"label": {
 			"room": "Raum"
@@ -622,7 +623,7 @@
 				"blog": "Blog",
 				"faq": "FAQ",
 				"firstSteps": "Erste Schritte",
-				"register" : "Registrieren",
+				"register": "Registrieren",
 				"login": "Login"
 			}
 		},
@@ -705,7 +706,8 @@
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
-			"submissionsWithoutFeedback": "unkommentierte Abgaben"
+			"submissionsWithoutFeedback": "unkommentierte Abgaben",
+			"dontShowAgain": "Nicht mehr anzeigen"
 		},
 		"text": {
 			"noAssignment": "Keine Zuordnung",
@@ -728,6 +730,12 @@
 			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
 			"timeout": "Zeitüberschreitung der Anfrage"
 		}
+	},
+	"registration": {
+		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
+		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
+		"registationFailedContinue": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
+		"registationFailedContinueLink": "öffne diese Seite in einem eigenen Fenster"
 	},
 	"login": {
 		"button": {
@@ -753,18 +761,18 @@
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
 		},
-		"oauth2" : {
-			"headline":{
+		"oauth2": {
+			"headline": {
 				"loginWithSchoolCloud": "Login mit Schul-Cloud"
 			},
-			"label" : {
-				"weNeedToSendThisData" : "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-				"email" : "deine E-Mail-Adresse",
-				"yourName" : "deinen Namen",
-				"openId" : "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt"
+			"label": {
+				"weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
+				"email": "deine E-Mail-Adresse",
+				"yourName": "deinen Namen",
+				"openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt"
 			},
-			"text" : {
-				"yourNameIsProtected" : "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
+			"text": {
+				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
 			}
 		},
 		"popup_resetPw": {
