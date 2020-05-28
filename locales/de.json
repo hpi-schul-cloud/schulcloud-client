@@ -744,7 +744,8 @@
 			"moreOptions": "Mehr Optionen"
 		},
 		"headline": {
-			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer"
+			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
+			"LoginFailedHint":"Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung"
 		},
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
@@ -794,9 +795,23 @@
 		},
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
+			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
+			"loginFailedFirstHintText":" Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
+			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
+			"loginFailedThirdHint":"3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
+			"loginFailedFourthHint":"4. Hast du deine Anmeldedaten schon überprüft?",
+			"loginFailedFourthHintText":"Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
+			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
+			"loginFailedFithHintText": "Hier findest du alle HPI Schul-Could Instanzen:",
+			"loginFailedScreenshot":"Login fehlgeschlagen",
+			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
+			"loginFailedLogoBrandenburg": "Logo Brandenburg",
+			"loginFailedLogoTühringen": "Logo Thüringen",
+			"loginFailedLogoNiedersachen": "Logo Niedersachsen",
+			"loginFailedLogoOpen": "Logo Open",
 			"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
-			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
-			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten"
+			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 		}
 	},
 	"news": {
@@ -1069,4 +1084,5 @@
 			}
 		}
 	}
+
 }
