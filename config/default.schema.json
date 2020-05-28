@@ -174,10 +174,10 @@
 			"type": "object",
 			"description": "Cookie properties, required always to be defined",
 			"required": [
-				"API_PATH",
 				"PAD_PATH",
 				"PAD_URI",
-				"URI"
+				"OLD_DOMAIN",
+				"NEW_DOMAIN"
 			],
 			"properties": {
 				"PAD_PATH": {
