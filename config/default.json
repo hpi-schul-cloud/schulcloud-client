@@ -3,7 +3,6 @@
 	"ETHERPAD": {
 		"PAD_PATH": "/etherpad/p",
 		"PAD_URI": "https://schul-cloud.org/etherpad/p",
-		"URI": "https://schul-cloud.org/etherpad/api/1",
 		"OLD_DOMAIN": "etherpad.schul-cloud.org",
 		"NEW_DOMAIN": "schul-cloud.org"
 	},

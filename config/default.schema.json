@@ -180,12 +180,6 @@
 				"URI"
 			],
 			"properties": {
-				"API_PATH": {
-					"type": "string",
-					"default":"/api/1",
-					"pattern": ".*(?<!/)$",
-					"description": "The etherpad api path."
-				},
 				"PAD_PATH": {
 					"type": "string",
 					"default": "/etherpad/p",
@@ -198,13 +192,6 @@
 					"default": "https://schul-cloud.org/etherpad/p",
 					"pattern": ".*(?<!/)$",
 					"description": "The etherpad pad uri"
-				},
-				"URI": {
-					"type": "string",
-					"format": "uri",
-					"default":"https://schul-cloud.org/etherpad/api/1",
-					"pattern": ".*(?<!/)$",
-					"description": "The etherpad api version uri."
 				},
 				"OLD_DOMAIN": {
 					"type": "string",
