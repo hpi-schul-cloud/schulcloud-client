@@ -869,12 +869,6 @@
 				"youAreOffline": "Du bist offline."
 			}
 		},
-		"password_hint": {
-			"text": {
-				"allowedSpecialCharactersAre": "Erlaubte Sonderzeichen sind:",
-				"atList8CharactersWithUpperAndLower": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
-			}
-		},
 		"table": {
 			"option": {
 				"numberofEntries": "Anzahl der Einträge"
@@ -888,12 +882,6 @@
 			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
 			"timeout": "Zeitüberschreitung der Anfrage"
 		}
-	},
-	"registration": {
-		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
-		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
-		"registationFailedContinue": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
-		"registationFailedContinueLink": "öffne diese Seite in einem eigenen Fenster"
 	},
 	"login": {
 		"button": {
@@ -1011,6 +999,10 @@
 		}
 	},
 	"registration": {
+		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
+		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
+		"registationFailedContinue": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
+		"registationFailedContinueLink": "Öffne diese Seite in einem eigenen Fenster",
 		"_registration": {
 			"employee": {
 				"heading": {
