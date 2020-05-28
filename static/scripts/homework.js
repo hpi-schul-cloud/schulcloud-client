@@ -164,9 +164,14 @@ $(document).ready(() => {
             submitButton.innerHTML = "gespeichert 😊";
             if(after){after(this, element.serializeArray());}
         });
-        request.fail(function() {
-
-			showAJAXError(undefined, undefined, 'Die Bewertung konnte leider nicht gespeichert werden.');
+        request.fail(function(r) {
+            let errormsg = 'Es ist ein Fehler beim Speichern aufgetreten';
+            try {
+                errormsg = r.getResponseHeader('error-message');
+            } catch (error) {
+                // we can not get an header error message
+            }
+			showAJAXError(undefined, undefined, errormsg);
 
             submitButton.disabled = false;
             submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)';
