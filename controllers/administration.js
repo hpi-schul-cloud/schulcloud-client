@@ -2701,10 +2701,10 @@ const getTeamSchoolsButton = (counter) => `
 router.all('/teams', (req, res, next) => {
 	const path = '/administration/teams/';
 
-	let itemsPerPage = 25;
+	let itemsPerPage = parseInt(req.query.limit, 10) || 25;
 	let filterQuery = {};
 	const currentPage = parseInt(req.query.p, 10) || 1;
-
+	
 	let query = {
 		limit: itemsPerPage,
 		skip: itemsPerPage * (currentPage - 1),
@@ -2851,7 +2851,7 @@ router.all('/teams', (req, res, next) => {
 				const pagination = {
 					currentPage,
 					numPages: Math.ceil(data.total / itemsPerPage),
-					baseUrl: `/administration/teams/?p={{page}}`,
+					baseUrl: `/administration/teams/?p={{page}}${sortQuery}${limitQuery}`,
 				};
 
 				res.render('administration/teams', {
