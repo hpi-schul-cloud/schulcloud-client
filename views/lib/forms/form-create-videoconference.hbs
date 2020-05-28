@@ -5,16 +5,16 @@
 <div class="form-group">
 	<div class="create-videoconference">
 		<div class="checkbox create-videoconference-option">
-			<p class="create-videoconference-option-text">Teilnehmer beim Betreten stummschalten</p>
+			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.muteParticipants" }}</p>
 			<input name="startMuted" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
 		</div>
 		<div class="checkbox create-videoconference-option" style="display:none;">
 			<!-- feature currently not supported in bbb -->
-			<p class="create-videoconference-option-text">Freigabe durch Moderator, bevor der Raum betreten werden kann</p>
+			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.approvalByTheModerator" }}</p>
 			<input name="requestModerator" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
 		</div>
 		<div class="checkbox create-videoconference-option">
-			<p class="create-videoconference-option-text">Alle Nutzer nehmen als Moderator teil</p>
+			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.allUsersParticipate" }}</p>
 			<input name="everyoneIsModerator" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
 		</div>
 	</div>
