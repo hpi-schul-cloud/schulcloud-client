@@ -148,34 +148,8 @@ $(document).ready(() => {
                 return;
             }
 		}
-        let request = $.ajax({
-            type: method,
-            url: url,
-            data: content,
-            context: element
-		});
-        request.done(function(r) {
-            var saved = setInterval(_ => {
-                submitButton.innerHTML = submitButtonText;
-                submitButton.disabled = false;
-                submitButton.setAttribute("style",submitButtonStyleDisplay);
-                clearInterval(saved);
-            }, 2500);
-            submitButton.innerHTML = "gespeichert 😊";
-            if(after){after(this, element.serializeArray());}
-        });
-        request.fail(function(r) {
-            let errormsg = 'Es ist ein Fehler beim Speichern aufgetreten';
-            try {
-                errormsg = r.getResponseHeader('error-message');
-            } catch (error) {
-                // we can not get an header error message
-            }
-			showAJAXError(undefined, undefined, errormsg);
-
-            submitButton.disabled = false;
-            submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)';
-        });
+        element.unbind('submit');
+		element.submit();
     }
     // Abgabe speichern
     $('form.submissionForm.ajaxForm').on("submit",function(e){
