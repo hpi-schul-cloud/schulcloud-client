@@ -275,6 +275,7 @@
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
 						"noTopics": "keine Themen.",
 						"responsibleTeachers": "Verantwortliche Lehrer:innen:",
+						"submittedOn" : "Abgabe: {{ddmmyy_hhmm}}",
 						"workOnTopic": "Thema bearbeiten"
 					}
 				},

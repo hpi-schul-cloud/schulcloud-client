@@ -123,11 +123,10 @@ router.get('/:courseGroupId/', (req, res, next) => {
 		res,
 	]).then(([courseGroup, lessons, course, doneSubmissions, openSubmissions, res]) => {
 		// set params for sc-cards
-		console.log(res)
 		doneSubmissions = (doneSubmissions.data || []).map((s) => {
 			s.title = res.$t('courses._course.groups._group.headline.homework', {name : s.homeworkId.name});
 			s.content = s.homeworkId.description.substr(0, 140);
-			s.secondaryTitle = `Abgabe: ${moment(s.updatedAt).format('DD.MM.YY HH:mm')}`;
+			s.secondaryTitle = res.$t('courses._course.groups._group.text.submittedOn' , {ddmmyy_hhmm : moment(s.updatedAt).format('DD.MM.YY HH:mm')});
 			s.background = course.color;
 			s.url = `/homework/${s.homeworkId._id}/#activetabid=submission`;
 			return s;
