@@ -3,8 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	// invalid registration detexted
 	*/
 	const message = `
-<main class="container pt-3 mt-5 text-center>
-	<div class="error-header-wrapper">
+	<div class="error-header-wrapper mt-1">
 	<img class="error-header-image w-100 h-100" src="/images/broken-pen.svg" alt="zerbrochener Stift" />
 	<h1 class="h1 error-header-code text-center">Registrierung fehlerhaft</h1>
 	<p class="error-header-text text-center">
@@ -23,9 +22,6 @@ window.addEventListener('DOMContentLoaded', () => {
 `;
 
 	if ($("input[name='invalid']").val() === 'true') {
-		$('#welcome-screen')
-			.empty()
-			.append(message);
 		$('#welcome-screen').replaceWith(message);
 		$('form').replaceWith(message);
 	}
