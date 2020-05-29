@@ -41,80 +41,80 @@ router.get('/', (req, res, next) => {
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
 	const eventsPromise = api(req)
-	.get('/calendar/', {
-		qs: {
-			all: 'false',
-			from: start.toLocalISOString(),
-			until: end.toLocalISOString(),
-		},
-	})
-	.then((eve) => Promise.all(
-		eve.map((event) => recurringEventsHelper.mapEventProps(event, req)),
-	)
-	.then((evnts) => {
-		// because the calender service is *§$" and is not
-		// returning recurring events for a given time period
-		// now we have to load all events from the beginning of time
-		// until end of the current day, map recurring events and
-		// display only the correct ones.
-		// I'm not happy with the solution but don't see any other less
-		// crappy way for this without changing the
-		// calendar service in it's core.
-		const mappedEvents = evnts.map(recurringEventsHelper.mapRecurringEvent);
-		const flatEvents = [].concat(...mappedEvents);
-		const events = flatEvents.filter((event) => {
-			const eventStart = new Date(event.start);
-			const eventEnd = new Date(event.end);
+		.get('/calendar/', {
+			qs: {
+				all: 'false',
+				from: start.toLocalISOString(),
+				until: end.toLocalISOString(),
+			},
+		})
+		.then((eve) => Promise.all(
+			eve.map((event) => recurringEventsHelper.mapEventProps(event, req)),
+		)
+			.then((evnts) => {
+				// because the calender service is *§$" and is not
+				// returning recurring events for a given time period
+				// now we have to load all events from the beginning of time
+				// until end of the current day, map recurring events and
+				// display only the correct ones.
+				// I'm not happy with the solution but don't see any other less
+				// crappy way for this without changing the
+				// calendar service in it's core.
+				const mappedEvents = evnts.map(recurringEventsHelper.mapRecurringEvent);
+				const flatEvents = [].concat(...mappedEvents);
+				const events = flatEvents.filter((event) => {
+					const eventStart = new Date(event.start);
+					const eventEnd = new Date(event.end);
 
-			return eventStart < end && eventEnd > start;
-		});
+					return eventStart < end && eventEnd > start;
+				});
 
 
-		return (events || []).map((event) => {
-			const eventStart = new Date(event.start);
-			let eventEnd = new Date(event.end);
+				return (events || []).map((event) => {
+					const eventStart = new Date(event.start);
+					let eventEnd = new Date(event.end);
 
-			// cur events that are too long
-			if (eventEnd > end) {
-				eventEnd = end;
-				event.end = eventEnd.toLocalISOString();
-			}
-
-			// subtract timeStart so we can use these values for left alignment
-			const eventStartRelativeMinutes = ((eventStart.getUTCHours() - timeStart) * 60) + eventStart.getMinutes();
-			const eventEndRelativeMinutes = ((eventEnd.getUTCHours() - timeStart) * 60) + eventEnd.getMinutes();
-			const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
-
-			event.comment = `${moment.utc(eventStart).format('kk:mm')} - ${moment.utc(eventEnd).format('kk:mm')}`;
-			event.style = {
-				left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
-				width: 100 * (eventDuration / numMinutes), // percent
-			};
-
-			if (event && (!event.url || event.url === '')) {
-			// add team or course url to event, otherwise just link to the calendar
-				try {
-					if (event.hasOwnProperty('x-sc-courseId')) {
-					// create course link
-						event.url = `/courses/${event['x-sc-courseId']}`;
-						event.alt = res.$t("dashboard.img_alt.showCourse");
-					} else if (event.hasOwnProperty('x-sc-teamId')) {
-					// create team link
-						event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
-						event.alt = res.$t("dashboard.img_alt.showAppointmentInTeam");
-					} else {
-						event.url = '/calendar';
-						event.alt = res.$t("dashboard.img_alt.showCalendar");
+					// cur events that are too long
+					if (eventEnd > end) {
+						eventEnd = end;
+						event.end = eventEnd.toLocalISOString();
 					}
-				} catch (err) {
-					error(err);
-				}
-			}
 
-			return event;
-		});
-	}))
-	.catch(() => []);
+					// subtract timeStart so we can use these values for left alignment
+					const eventStartRelativeMinutes = ((eventStart.getUTCHours() - timeStart) * 60) + eventStart.getMinutes();
+					const eventEndRelativeMinutes = ((eventEnd.getUTCHours() - timeStart) * 60) + eventEnd.getMinutes();
+					const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
+
+					event.comment = `${moment.utc(eventStart).format('kk:mm')} - ${moment.utc(eventEnd).format('kk:mm')}`;
+					event.style = {
+						left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
+						width: 100 * (eventDuration / numMinutes), // percent
+					};
+
+					if (event && (!event.url || event.url === '')) {
+						// add team or course url to event, otherwise just link to the calendar
+						try {
+							if (event.hasOwnProperty('x-sc-courseId')) {
+								// create course link
+								event.url = `/courses/${event['x-sc-courseId']}`;
+								event.alt = res.$t("dashboard.img_alt.showCourse");
+							} else if (event.hasOwnProperty('x-sc-teamId')) {
+								// create team link
+								event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
+								event.alt = res.$t("dashboard.img_alt.showAppointmentInTeam");
+							} else {
+								event.url = '/calendar';
+								event.alt = res.$t("dashboard.img_alt.showCalendar");
+							}
+						} catch (err) {
+							error(err);
+						}
+					}
+
+					return event;
+				});
+			}))
+		.catch(() => []);
 
 	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req)
