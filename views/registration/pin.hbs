@@ -1,5 +1,5 @@
 <div class="pin-input {{class}}">
-  Bestätigungscode: <input class="combined-pin" type="text" name="{{name}}" pattern="{{pattern}}{ {{~digits~}} }" {{#if required}}required{{/if}} tabIndex="-1"/>
+  {{$t "registration.pin.input.verificationCode" }} <input class="combined-pin" type="text" name="{{name}}" pattern="{{pattern}}{ {{~digits~}} }" {{#if required}}required{{/if}} tabIndex="-1"/>
   {{#times digits}}
     <input class="digit" type="text" pattern="{{../pattern~}} {1}" maxlength="1" placeholder="·" {{#if ../required}}required{{/if}}>
   {{/times}}

@@ -16,6 +16,8 @@ const resetThemeForPrivacyDocuments = async (req, res) => {
 	setTheme(res);
 };
 
+const isSecure = (url) => (url.includes('sso') || url.includes('importHash') ? true : false);
+
 const checkValidRegistration = async (req) => {
 	if (req.query.importHash) {
 		const existingUser = await api(req).get(`/users/linkImport/${req.query.importHash}`);
@@ -127,7 +129,7 @@ ${res.locals.theme.short_title}-Team`,
 			if (customMessage) { message = customMessage; }
 			if (err && err.code) {
 				if (err.code === 'ESOCKETTIMEDOUT') {
-					message = `Leider konnte deine Registrierung nicht abgeschlossen werden (Timeout).
+					message = `Leider konnte deine Registrierung nicht abgeschlossen werden.
 					Bitte versuche es erneut.`;
 				}
 			}
@@ -142,6 +144,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 				return res.sendStatus(400);
 			}
 		}
+		const secure = isSecure(req.url);
 
 		const user = {};
 		user.importHash = req.query.importHash;
@@ -170,6 +173,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
+			secure,
 		});
 	});
 
@@ -180,6 +184,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 				return res.sendStatus(400);
 			}
 		}
+		const secure = isSecure(req.url);
 
 		const user = {};
 		user.importHash = req.query.importHash;
@@ -208,6 +213,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
+			secure,
 		});
 	});
 
@@ -217,6 +223,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 			return res.sendStatus(400);
 		}
 	}
+	const secure = isSecure(req.url);
 
 	const user = {};
 	user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
@@ -254,6 +261,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 		needConsent,
 		sectionNumber,
 		invalid,
+		secure,
 	});
 });
 
@@ -265,6 +273,7 @@ router.get(
 				return res.sendStatus(400);
 			}
 		}
+		const secure = isSecure(req.url);
 
 		invalid = await checkValidRegistration(req);
 
@@ -279,6 +288,7 @@ router.get(
 			account: req.params.accountId || '',
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
+			secure,
 		});
 	},
 );
