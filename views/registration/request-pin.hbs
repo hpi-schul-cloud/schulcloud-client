@@ -1,6 +1,4 @@
-<p>Wir müssen nur kurz prüfen, ob es deine E-Mail-Adresse wirklich gibt. <br>Bitte fordere dazu einen Bestätigungscode an:</p>
-<p><button type="button" class="btn btn-primary" id="resend-pin">Bestätigungscode jetzt anfordern</button></p>
-<p class="info">Der Code kann mehrfach angefordert werden. Das erneute Zusenden macht bisher versendete Codes
-	allerdings ungültig. Warte vor dem erneuten Anfordern lieber einen Moment länger und prüfe ggf. den Spam-Ordner in
-	deinem E-Mail-Postfach.
+<p>{{$t "registration.requestPin.text.weOnlyHaveToCheckWhether" }}<br>{{$t "registration.requestPin.text.pleaseRequestAConfirmationCode" }}</p>
+<p><button type="button" class="btn btn-primary" id="resend-pin">{{$t "registration.requestPin.button.requestVerificationCode" }}</button></p>
+<p class="info">{{$t "registration.requestPin.text.theCodeCanBeRequestedSeveralTimes" }}
 </p>
