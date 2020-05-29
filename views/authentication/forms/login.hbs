@@ -1,4 +1,4 @@
-<section id="loginarea" class="card">
+<section id="loginarea" class="card mt-3">
 	<div class="card-block">
 		<h2 class="h4 card-title">{{$t "login.headline.LoginForRegisteredUsers"}}</h2>
 		<div class="card-text form-wrapper">
@@ -80,3 +80,8 @@
 	</div>
 </section>
 <div class="alert-section"></div>
+<div>
+    {{#if notification.statusCode}}
+   		{{#embed "help/partials/login_failed_hint"}}{{/embed}}
+    {{/if}}
+</div>
