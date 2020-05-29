@@ -120,7 +120,11 @@ $(document).ready(() => {
 
     $school.on('change', function() {
         const id = $(this).val();
-        loadSystems( id );
+        if (id !== ''){
+            loadSystems( id );
+        } else {
+            $systems.parent().hide();
+        }
         $school.find("option").not("[value='"+id+"']").removeAttr('selected');
         $school.find("option[value='"+id+"']").attr('selected',true);
         $school.trigger('chosen:updated');
