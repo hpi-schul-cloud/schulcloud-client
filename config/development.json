@@ -1,5 +1,4 @@
 {
 	"$schema": "./default.schema.json",
-	"REQUEST_TIMEOUT_MS": 60000,
-	"CALENDAR_SERVICE_ENABLED": false
+	"REQUEST_TIMEOUT_MS": 60000
 }
