@@ -147,30 +147,9 @@ $(document).ready(() => {
                 $.showNotification("Form validation failed", "danger", 15000);
                 return;
             }
-		}
-        let request = $.ajax({
-            type: method,
-            url: url,
-            data: content,
-            context: element
-		});
-        request.done(function(r) {
-            var saved = setInterval(_ => {
-                submitButton.innerHTML = submitButtonText;
-                submitButton.disabled = false;
-                submitButton.setAttribute("style",submitButtonStyleDisplay);
-                clearInterval(saved);
-            }, 2500);
-            submitButton.innerHTML = "gespeichert 😊";
-            if(after){after(this, element.serializeArray());}
-        });
-        request.fail(function() {
-
-			showAJAXError(undefined, undefined, 'Die Bewertung konnte leider nicht gespeichert werden.');
-
-            submitButton.disabled = false;
-            submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)';
-        });
+        }
+        element.unbind('submit');
+        element.submit();
     }
     // Abgabe speichern
     $('form.submissionForm.ajaxForm').on("submit",function(e){
