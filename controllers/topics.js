@@ -42,9 +42,9 @@ const editTopicHandler = (req, res, next) => {
 		res.render('topic/edit-topic', {
 			action,
 			method,
-			title: req.params.topicId ? 'Thema bearbeiten' : 'Thema anlegen',
-			submitLabel: req.params.topicId ? 'Änderungen speichern' : 'Thema anlegen',
-			closeLabel: 'Abbrechen',
+			title: req.params.topicId ? res.$t('topic._topic.headline.editTopic') : res.$t('topic._topic.headline.createTopic'),
+			submitLabel: req.params.topicId ? res.$t('topic._topic.button.editTopic') : res.$t('topic._topic.button.createTopic'),
+			closeLabel: res.$t('topic._topic.button.cancel'),
 			lesson,
 			courseId: req.params.courseId,
 			topicId: req.params.topicId,

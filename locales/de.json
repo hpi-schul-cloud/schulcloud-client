@@ -641,6 +641,7 @@
 			"attention": "Achtung:",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
 			"friday": "Freitag",
+			"invalidRequest": "Ungültige Anfrage",
 			"monday": "Montag",
 			"saturday": "Samstag",
 			"sunday": "Sonntag",
@@ -1355,6 +1356,11 @@
 			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu."
 		}
 	},
+	"team": {
+		"headline": {
+			"team": "Das HPI Schul-Cloud Team"
+		}
+	},
 	"teams": {
 		"_team": {
 			"edit": {
@@ -1377,7 +1383,10 @@
 	"topic": {
 		"_topic": {
 			"button": {
-				"editTopic": "Thema bearbeiten"
+				"cancel": "Abbrechen",
+				"createTopic": "Thema anlegen",
+				"editTopic": "Thema bearbeiten",
+				"saveChanges": "Änderungen speichern"
 			},
 			"global": {
 				"button": {
@@ -1393,6 +1402,10 @@
 				"assignedTasks": "Gestellte Aufgaben",
 				"privateTasks": "Private Aufgaben",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
+			},
+			"headline": {
+				"createTopic": "Thema anlegen",
+				"editTopic": "Thema bearbeiten"
 			},
 			"label": {
 				"content": "Inhalte",
