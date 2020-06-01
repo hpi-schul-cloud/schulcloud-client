@@ -145,6 +145,15 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 				return res.sendStatus(400);
 			}
 		}
+		const validID = () => {
+			router.get('/registrationlink',
+				async (reqLink, resLink) => {
+					if (resLink.schoolId === req.params.classOrSchoolId) {
+						return true;
+					}
+					return false;
+				});
+		};
 		const secure = isSecure(req.url);
 
 		const user = {};
@@ -175,6 +184,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 			secure,
+			validID
 		});
 	});
 
@@ -185,6 +195,15 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 				return res.sendStatus(400);
 			}
 		}
+		const validID = () => {
+			router.get('/registrationlink',
+				async (reqLink, resLink) => {
+					if (resLink.schoolId === req.params.classOrSchoolId) {
+						return true;
+					}
+					return false;
+				});
+		};
 		const secure = isSecure(req.url);
 
 		const user = {};
@@ -215,16 +234,26 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 			secure,
+			validID
 		});
 	});
 
 router.get(['/registration/:classOrSchoolId/:byRole'],
-	async (req, res, next) => {
+	async (req, res) => {
 		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 			if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
 				return res.sendStatus(400);
 			}
 		}
+		const validID = () => {
+			router.get('/registrationlink',
+				async (reqLink, resLink) => {
+					if (resLink.schoolId === req.params.classOrSchoolId) {
+						return true;
+					}
+					return false;
+				});
+		};
 		const secure = isSecure(req.url);
 
 		const user = {};
@@ -264,6 +293,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'],
 			sectionNumber,
 			invalid,
 			secure,
+			validID
 		});
 	});
 
