@@ -16,7 +16,7 @@ const resetThemeForPrivacyDocuments = async (req, res) => {
 	setTheme(res);
 };
 
-const isSecure = (url) => (!!(url.includes('sso') || url.includes('importHash')));
+const isSecure = (url) => (url.includes('sso') || url.includes('importHash') ? true : false);
 
 const checkValidRegistration = async (req) => {
 	if (req.query.importHash) {
@@ -74,8 +74,7 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 			if (response.parent) {
 				eMailAdresses.push(response.parent.email);
 			}
-			const consentText = skipConsent
-				? ''
+			const consentText = skipConsent ? ''
 				: `Wenn du zwischen 14 und ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt bist,
 bestätige bitte zusätzlich die Einverständniserklärung,
 damit du die ${res.locals.theme.short_title} nutzen kannst.`;
@@ -85,8 +84,8 @@ damit du die ${res.locals.theme.short_title} nutzen kannst.`;
 				let studentInfotext = '';
 				if (req.body.roles.includes('student')) {
 					passwordText = `Startpasswort: ${req.body.password_1}`;
-					studentInfotext = `Für Schüler: Nach dem ersten Login musst
-						 du ein persönliches Passwort festlegen.
+					studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches 
+Passwort festlegen.
 ${consentText}`;
 				}
 				return api(req).post('/mails/', {
@@ -96,9 +95,7 @@ ${consentText}`;
 						headers: {},
 						content: {
 							text: `Hallo ${response.user.firstName}
-mit folgenden Anmeldedaten kannst du dich in der ${
-	res.locals.theme.title
-} einloggen:
+mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einloggen:
 Adresse: ${req.headers.origin || HOST}
 E-Mail: ${response.user.email}
 ${passwordText}
@@ -130,9 +127,7 @@ ${res.locals.theme.short_title}-Team`,
 		.catch((err) => {
 			let message = 'Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.';
 			const customMessage = (err.error || {}).message || err.message;
-			if (customMessage) {
-				message = customMessage;
-			}
+			if (customMessage) { message = customMessage; }
 			if (err && err.code) {
 				if (err.code === 'ESOCKETTIMEDOUT') {
 					message = `Leider konnte deine Registrierung nicht abgeschlossen werden.
@@ -278,9 +273,9 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
 			router.get('/registrationlink',
 				async (reqLink, resLink) => {
 					if (resLink.schoolId === req.params.classOrSchoolId) {
-						return false;
+						return true;
 					}
-					return true;
+					return false;
 				});
 		};
 		const secure = isSecure(req.url);
