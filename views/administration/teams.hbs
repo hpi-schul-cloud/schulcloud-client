@@ -5,9 +5,9 @@
         <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
     {{/content}}
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
-        <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
-        <script src="/scripts/administration/teams.js" type="text/javascript" defer></script>
+        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/administration/teams.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "page" mode="prepend"}}
 			{{#ifConfig "STUDENT_TEAM_CREATION" "disabled"}}
