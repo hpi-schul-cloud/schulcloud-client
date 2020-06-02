@@ -297,12 +297,12 @@
 			"text": {
 				"QRCodeAlternative": "Alternativ kannst du deinen Lehrer:innen-Kollegen auch folgenden QR-Code zeigen.",
 				"coursedescription": "Kursbeschreibung:",
+				"etherpadCouldNotBeAdded": "Es konnte kein Etherpad in den Kurs hinzugefügt werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.",
 				"eventCouldNotBeSavedContactSupport": "Die Kurszeiten konnten eventuell nicht richtig gespeichert werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.",
 				"nextClass": "Nächste Unterrichtsstunde:",
 				"shareCodeExplanation": "Verteile folgenden Code an einen Lehrer:innen-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.",
 				"youAreAlreadyMember": "Du bist bereits Teilnehmer:in des Kurses {{coursename}}.",
-				"youHaveBeenAdded": "Du wurdest erfolgreich zum Kurs {{coursename}} hinzugefügt",
-				"etherpadCouldNotBeAdded": "Es konnte kein Etherpad in den Kurs hinzugefügt werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support."
+				"youHaveBeenAdded": "Du wurdest erfolgreich zum Kurs {{coursename}} hinzugefügt"
 			},
 			"tools": {
 				"add": {
@@ -595,14 +595,14 @@
 			"create": "Erstellen",
 			"delete": "Löschen",
 			"next": "Weiter",
+			"ok": "Okay",
 			"open": "Öffnen",
 			"openANewTab": "In neuem Tab öffnen",
 			"print": "Drucken",
 			"reload": "Neu laden",
 			"save": "Speichern",
 			"saveChanges": "Änderungen Speichern",
-			"tryAgain": "Erneut Versuchen",
-			"ok": "Okay"
+			"tryAgain": "Erneut Versuchen"
 		},
 		"label": {
 			"room": "Raum"
@@ -723,6 +723,7 @@
 			"comment": "Kommentar",
 			"courses": "Kurse",
 			"details": "Details",
+			"dontShowAgain": "Nicht mehr anzeigen",
 			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
@@ -736,8 +737,7 @@
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
-			"submissionsWithoutFeedback": "unkommentierte Abgaben",
-			"dontShowAgain": "Nicht mehr anzeigen"
+			"submissionsWithoutFeedback": "unkommentierte Abgaben"
 		},
 		"text": {
 			"done": "Super! Du hast deine Aufgabe erledigt!",
@@ -945,8 +945,8 @@
 			"moreOptions": "Mehr Optionen"
 		},
 		"headline": {
-			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
-			"LoginFailedHint":"Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung"
+			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
+			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer"
 		},
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
@@ -996,21 +996,21 @@
 		},
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
+			"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
-			"loginFailedFirstHintText":" Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
-			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
-			"loginFailedThirdHint":"3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
-			"loginFailedFourthHint":"4. Hast du deine Anmeldedaten schon überprüft?",
-			"loginFailedFourthHintText":"Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
+			"loginFailedFirstHintText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
 			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
 			"loginFailedFithHintText": "Hier findest du alle HPI Schul-Could Instanzen:",
-			"loginFailedScreenshot":"Login fehlgeschlagen",
-			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
+			"loginFailedFourthHint": "4. Hast du deine Anmeldedaten schon überprüft?",
+			"loginFailedFourthHintText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
 			"loginFailedLogoBrandenburg": "Logo Brandenburg",
-			"loginFailedLogoTühringen": "Logo Thüringen",
 			"loginFailedLogoNiedersachen": "Logo Niedersachsen",
 			"loginFailedLogoOpen": "Logo Open",
-			"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
+			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
+			"loginFailedLogoTühringen": "Logo Thüringen",
+			"loginFailedScreenshot": "Login fehlgeschlagen",
+			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
+			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 		}
@@ -1068,10 +1068,6 @@
 		}
 	},
 	"registration": {
-		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
-		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
-		"registationFailedContinue": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
-		"registationFailedContinueLink": "Öffne diese Seite in einem eigenen Fenster",
 		"_registration": {
 			"employee": {
 				"heading": {
@@ -1216,6 +1212,10 @@
 				"verificationCode": "Bestätigungscode:"
 			}
 		},
+		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
+		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
+		"registationFailedContinue": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
+		"registationFailedContinueLink": "Öffne diese Seite in einem eigenen Fenster",
 		"requestPin": {
 			"button": {
 				"requestVerificationCode": "Bestätigungscode jetzt anfordern"
@@ -1290,5 +1290,4 @@
 			}
 		}
 	}
-
 }
