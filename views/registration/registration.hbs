@@ -9,8 +9,10 @@
 		{{#unless this.secure}}
 			{{> "lib/registration"}}
 		{{else if this.validID}}
-			{{> "lib/registration"}}
-	{{else}}
+			<div>WRONG WRONG</div>
+            <div>WRONG WRONG</div>
+            <div>WRONG WRONG</div>
+		{{else}}
 	<div id="welcome-screen">
 		<h2 class="h4">{{$t "registration._registration.heading.welcomeToTheRegistration" (dict "title" theme.title)}}</h2>
 		<p>{{$t "registration._registration.text.theRegistrationProcessChangesAccordingToAge" (dict "minAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "independentAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>

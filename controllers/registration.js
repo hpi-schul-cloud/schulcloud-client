@@ -184,7 +184,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 			secure,
-			validID
+			validID,
 		});
 	});
 
@@ -234,7 +234,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 			secure,
-			validID
+			validID,
 		});
 	});
 
@@ -293,20 +293,21 @@ router.get(['/registration/:classOrSchoolId/:byRole'],
 			sectionNumber,
 			invalid,
 			secure,
-			validID
+			validID,
 		});
 	});
 
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'],
 	async (req, res) => {
 		const validID = () => {
-			router.get('/registrationlink',
+			const request = router.get('/registrationlink',
 				async (reqLink, resLink) => {
 					if (resLink.schoolId === req.params.classOrSchoolId) {
 						return true;
 					}
 					return false;
 				});
+			request ? true : false
 		};
 		const secure = isSecure(req.url);
 
