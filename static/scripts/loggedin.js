@@ -1,4 +1,3 @@
-import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 import './cleanup'; // see login.js for loggedout users
 import initAlerts from './alerts';
@@ -85,9 +84,6 @@ $(document).ready(function () {
 
         $('.notification-dropdown .notification-item.unread').each(function () {
             if ($(this).data('read') == true) return;
-
-            sendShownCallback({notificationId: $(this).data('notification-id')});
-            sendReadCallback($(this).data('notification-id'));
             $(this).data('read', true);
         });
     });
