@@ -37,19 +37,36 @@
 			"startM2018": "(Start Mai 2018)"
 		}
 	},
-	"account": {
-		"global": {
-			"label": {
-				"thirdPartyLogins": "Drittanbieter-Logins"
-			}
-		},
-		"label": {
-			"providers": "Anbieter"
-		},
-		"text": {
-			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
-		}
-	},
+    "account": {
+        "button": {
+            "activateNotifications": "Benachrichtigungen aktivieren",
+            "saveAccountSettings": "Accounteinstellungen speichern",
+            "saveTeamSettings": "Teameinstellungen speichern",
+            "sendTestNotification": "Test-Benachrichtigung senden"
+        },
+        "global": {
+            "label": {
+                "currentPassword": "Aktuelles Passwort:",
+                "emailAddress": "E-Mail-Adresse:",
+                "firstName": "Vorname:",
+                "lastName": "Nachname:",
+                "newPassword": "Neues Passwort:",
+                "operatingSystem": "Betriebssystem",
+                "repeatNewPassword": "Neues Passwort wiederholen:",
+                "thirdPartyLogins": "Drittanbieter-Logins",
+                "type": "Typ"
+            }
+        },
+        "label": {
+            "notificationsettings": "Benachrichtigungseinstellungen",
+            "providers": "Anbieter"
+        },
+        "text": {
+            "noDeviceEntered": "Keine Geräte eingetragen",
+            "noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
+            "visibilityForTeamInvitation": "Sichtbarkeit für Teameinladungen"
+        }
+    },
 	"addons": {
 		"headline": {
 			"addons": "Add-ons",
