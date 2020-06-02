@@ -348,14 +348,20 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'],
 	async (req, res) => {
 		const validID = () => {
-			const isExists = api.get(
-				`/schools/${req.params.classOrSchoolId}`,
+			let isExists = false;
+			(api.get(`/schools/${req.params.classOrSchoolId}`,
 				(request, response) => {
 					if (response.statusCode === 200) {
-						return true;
+						isExists = true;
 					}
-					return false;
-				},
+				})
+			);
+			(api.get(`/classes/${req.params.classOrSchoolId}`,
+				(request, response) => {
+					if (response.statusCode === 200) {
+						isExists = true;
+					}
+				})
 			);
 			return isExists;
 		};
