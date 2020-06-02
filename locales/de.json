@@ -711,6 +711,25 @@
 				"operatingSystemAndVersion": "Betriebssystem und Version (z.B: Windows 10)"
 			}
 		},
+		"help_confluenceLinks": {
+			"link": {
+				"aboutTheProject": "Über das Projekt",
+				"contactForm": "Kontaktformular",
+				"firstSteps": "Erste Schritte",
+				"linguisticNote": "Sprachlicher Hinweis",
+				"usageAids": "Nutzungshilfen",
+				"writeUsAnEmail": "Schreib uns eine E-Mail"
+			}
+		},
+		"help_fromInviteExternalMember": {
+			"button": {
+				"externalExpert": "External experts",
+				"teachersFromOtherSchool": "Teachers from other schools"
+			},
+			"heading": {
+				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
+			}
+		},
 		"lernNuggets": {
 			"heading": {
 				"instructionsForUse": "Hinweise zur Benutzung",
