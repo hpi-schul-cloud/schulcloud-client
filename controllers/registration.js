@@ -168,14 +168,20 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			}
 		}
 		const validID = () => {
-			const isExists = api.get(
-				`/schools/${req.params.classOrSchoolId}`,
+			let isExists = false;
+			(api.get(`/schools/${req.params.classOrSchoolId}`,
 				(request, response) => {
 					if (response.statusCode === 200) {
-						return true;
+						isExists = true;
 					}
-					return false;
-				},
+				})
+			);
+			(api.get(`/classes/${req.params.classOrSchoolId}`,
+				(request, response) => {
+					if (response.statusCode === 200) {
+						isExists = true;
+					}
+				})
 			);
 			return isExists;
 		};
@@ -215,8 +221,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			secure,
 			validID,
 		});
-	},
-);
+	});
 
 router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'],
 	async (req, res, next) => {
@@ -229,14 +234,20 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			}
 		}
 		const validID = () => {
-			const isExists = api.get(
-				`/schools/${req.params.classOrSchoolId}`,
+			let isExists = false;
+			(api.get(`/schools/${req.params.classOrSchoolId}`,
 				(request, response) => {
 					if (response.statusCode === 200) {
-						return true;
+						isExists = true;
 					}
-					return false;
-				},
+				})
+			);
+			(api.get(`/classes/${req.params.classOrSchoolId}`,
+				(request, response) => {
+					if (response.statusCode === 200) {
+						isExists = true;
+					}
+				})
 			);
 			return isExists;
 		};
@@ -276,8 +287,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			secure,
 			validID,
 		});
-	},
-);
+	});
 
 router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 	if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
@@ -289,14 +299,20 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		}
 	}
 	const validID = () => {
-		const isExists = api.get(
-			`/schools/${req.params.classOrSchoolId}`,
+		let isExists = false;
+		(api.get(`/schools/${req.params.classOrSchoolId}`,
 			(request, response) => {
 				if (response.statusCode === 200) {
-					return true;
+					isExists = true;
 				}
-				return false;
-			},
+			})
+		);
+		(api.get(`/classes/${req.params.classOrSchoolId}`,
+			(request, response) => {
+				if (response.statusCode === 200) {
+					isExists = true;
+				}
+			})
 		);
 		return isExists;
 	};
