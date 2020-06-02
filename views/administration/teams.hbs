@@ -39,8 +39,7 @@
 					>
 					Schüler:innen dürfen Teams anlegen.
 					<p class="text-muted">Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,
-						ohne dass eine Lehrkraft beteiligt sein muss. <br>
-						Als weisungsberechtigter Administrator kannst du diese Funktion zentral für die
+						ohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter Administrator kannst du diese Funktion zentral für die
 						gesamte Schule deaktivieren/aktiveren.</p>
 				</label>
             </div>
@@ -54,7 +53,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            {{> "lib/components/table" head=head body=body limit=false}}
+                            {{> "lib/components/table" head=head body=body }}
                         </div>
                     </div>
                     <div class="row">
@@ -73,9 +72,9 @@
                         </div>
                     </div>
                     {{!-- TODO --}}
-                    {{!-- <div class="row">
+                    <div class="row">
                         {{> "lib/components/pagination" settings=pagination }}
-                    </div> --}}
+                    </div>
                     {{!-- <div class="row">
                         <div class="col-sm-12 no-padding">
                             <button type="submit" class="btn btn-primary btn-add-modal">
