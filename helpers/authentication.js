@@ -7,7 +7,7 @@ const api = require('../api');
 const permissionsHelper = require('./permissions');
 const wordlist = require('../static/other/wordlist.js');
 
-const { NODE_ENV, SW_ENABLED } = require('../config/global');
+const { SW_ENABLED } = require('../config/global');
 const logger = require('./logger');
 
 const rolesDisplayName = {
@@ -121,7 +121,10 @@ const populateCurrentUser = (req, res) => {
 			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
 			if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
 				return clearCookie(req, res, { destroySession: true })
-					.catch((err) => { logger.error('clearCookie failed during populateUser', { error: err.toString() }); })
+					.catch((err) => {
+						const meta = { error: err.toString() };
+						logger.error('clearCookie failed during populateUser', meta);
+					})
 					.finally(() => res.redirect('/'));
 			}
 			throw e;
@@ -217,10 +220,31 @@ const login = (payload = {}, req, res, next) => {
 			statusCode: e.statusCode,
 			timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
 		};
+
+		// Email Domain Blocked
+		if (e.statusCode === 400 && e.error.message === 'EMAIL_DOMAIN_BLOCKED') {
+			res.locals.notification.message = res.$t('login.text.loginFailedBlockedEmailDomain');
+		}
+
+		// Too Many Requests
 		if (e.statusCode === 429) {
 			res.locals.notification.timeToWait = e.error.data.timeToWait;
 		}
+
 		next(e);
+	});
+};
+
+const etherpadCookieHelper = (etherpadSession, padId, res) => {
+	const encodedPadId = encodeURI(padId);
+	const padPath = Configuration.get('ETHERPAD__PAD_PATH');
+	res.cookie('sessionID', etherpadSession.data.sessionID, {
+		path: `${padPath}/${encodedPadId}`,
+		expires: new Date(etherpadSession.data.validUntil * 1000),
+		httpOnly: Configuration.get('COOKIE__HTTP_ONLY'),
+		hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
+		sameSite: Configuration.get('COOKIE__SAME_SITE'),
+		secure: Configuration.get('COOKIE__SECURE'),
 	});
 };
 
@@ -232,5 +256,6 @@ module.exports = {
 	restrictSidebar,
 	populateCurrentUser,
 	login,
+	etherpadCookieHelper,
 	generatePassword,
 };
