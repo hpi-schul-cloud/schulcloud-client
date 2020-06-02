@@ -640,6 +640,105 @@
 			"wednesday": "Mittwoch"
 		}
 	},
+    "help": {
+        "confluence": {
+            "link": {
+                "openArticleInConfluence": "Artikel in Confluence öffnen",
+                "openInConfluence": "in Confluence öffnen"
+            },
+            "text": {
+                "ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch",
+                "languageNote": "Sprachlicher Hinweis:"
+            }
+        },
+        "contact": {
+            "global": {
+                "button": {
+                    "submit": "Absenden"
+                }
+            },
+            "label": {
+                "schoolAdmin": "Schul-Admin",
+                "wish": "Wunsch"
+            },
+            "text": {
+                "pleaseTakeCareNotToSent": "gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
+                "thankYouForYourFeedbak": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der",
+                "whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
+                "whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
+            }
+        },
+        "form_Wish": {
+            "label": {
+                "acceptanceCriteria": "Akzeptanzkriterien",
+                "around": "um ...",
+                "as": "Als...",
+                "briefDescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
+                "device": "Gerät",
+                "iWouldLikeTo": "möchte ich ...",
+                "replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
+            },
+            "text": {
+                "iAgreeThatTheFollowingInformation": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:"
+            }
+        },
+        "form_admin": {
+            "label": {
+                "currentStatus": "IST-Zustand: Was geschieht zur Zeit, nachdem ich welche Schritte durchgeführt habe?",
+                "targetState": "SOLL-Zustand: Was sollte stattdessen geschehen?"
+            },
+            "text": {
+                "hereYouCanContact": "Hier erreichst du den Administrator deiner Schule. Er kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über deinen Kontaktgesuch informiert."
+            }
+        },
+        "form_bug": {
+            "label": {
+                "emailAddressForAnyQueries": "E-Mail-Adresse für eventuelle Rückfragen",
+                "problemDescription": "Problembeschreibung:",
+                "theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
+            },
+            "text": {
+                "iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen:"
+            }
+        },
+        "global": {
+            "label": {
+                "briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
+                "furtherInformation": "Weitere Informationen (optional):"
+            },
+            "text": {
+                "browserNameAndVersion": "Browser Name und Version (z.B: Firefox 69.0)",
+                "operatingSystemAndVersion": "Betriebssystem und Version (z.B: Windows 10)"
+            }
+        },
+        "lernNuggets": {
+            "heading": {
+                "instructionsForUse": "Hinweise zur Benutzung",
+                "learningNuggetBasicOfGDPR": "Lern-Nugget: Grundlagen der DSGVO",
+                "learningNuggetDataProtectioin": "Lern-Nugget: Datenschutz im Schulalltag",
+                "learningNuggetDataProtectionAndCloud": "Lern-Nugget: Datenschutz und Cloud-Lösungen",
+                "learningNuggetLicenseModels": "Lern-Nugget: Lizenzmodelle und Nutzungsrechte",
+                "welcomeToTheOnlineCourse": "Willkommen beim Online-Kurs 'Datenschutz und Urheberrecht' "
+            },
+            "link": {
+                "basicsOfTheGDPR": "Grundlagen der DSGVO",
+                "dataProtectionAndCloudSolution": "Datenschutz und Cloud-Lösungen",
+                "dataProtectionInSchoolLife": "Datenschutz im Schulalltag",
+                "licenseModelAndUsageRights": "Lizenzmodelle und Nutzungsrechte"
+            },
+            "text": {
+                "clientAndLicensedFor": "Auftraggeber und lizenziert für: Verein MINT-EC®,",
+                "contentAndProduction": "Inhalte und Produktion:",
+                "createdAsPartOfThe": "Entstanden im Rahmen des Projekts HPI Schul-Cloud.",
+                "hereIsTheLearningNugget": "Hier geht's zum Lern-Nugget:"
+            }
+        },
+        "text": {
+            "someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
+            "theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
+            "theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:"
+        }
+    },
 	"home": {
 		"button": {
 			"aboutTheProject": "Über das Projekt",
