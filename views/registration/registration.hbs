@@ -8,10 +8,12 @@
 	{{#content "page"}}
 		{{#unless this.secure}}
 			{{> "lib/registration"}}
-		{{else if this.validID}}
+		{{else unless this.properID}}
+            <div>{{this.properID}}</div>
 			<div>WRONG WRONG</div>
             <div>WRONG WRONG</div>
             <div>WRONG WRONG</div>
+            <div>{{this.properID}}</div>
 		{{else}}
 	<div id="welcome-screen">
 		<h2 class="h4">{{$t "registration._registration.heading.welcomeToTheRegistration" (dict "title" theme.title)}}</h2>
