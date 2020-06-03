@@ -19,6 +19,11 @@ SC-4151 hint for user when login failes
 ### Removed
 
 
+## [23.1.2] - 2020-06-02
+
+### Changed
+- SC-4766 minor text changes for n21
+
 ## [23.1.0] - 2020-05-20
 
 ### Added
