@@ -5,20 +5,21 @@
         {{#if error.statusCode}}
         {{castStatusCodeToString error.statusCode}}
         {{else}}
-        {{$t "lib.error.text.somethingWentWrong" }}
+        Da ist wohl etwas schief gelaufen!
         {{/if}}
     </p>
-    <button class="btn btn-primary historyback"><i class="fa fa-arrow-left"></i> {{$t "global.button.back" }}</button>
+
+    <button class="btn btn-primary" onclick="window.history.back();"><i class="fa fa-arrow-left"></i> zurück</button>
 </div>
 
 <div class="error-details-wrapper">
     <button id="error-toggle-details" class="btn btn-secondary mb-1" data-toggle="collapse" data-target="#error-details"
         aria-expanded="false" aria-controls="error-details">
-        <span class="show">{{$t "lib.error.button.viewDetails" }}</span>
-        <span class="hide">{{$t "lib.error.button.hideDetails" }}</span>
+        <span class="show">Details anzeigen</span>
+        <span class="hide">Details verstecken</span>
     </button>
     <div id="error-details" class="collapse card error-card">
-        <div class="card-header">{{$t "lib.error.heading.errorDetails" }} <br />
+        <div class="card-header">Fehler-Details: <br />
             <code style="padding:0 0 0 0;">{{message}}</code>
         </div>
         {{#unlessEnv "NODE_ENV" "production"}}

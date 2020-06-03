@@ -1,92 +1,63 @@
-const { Configuration } = require('@schul-cloud/commons');
 const { contentSecurityPolicy, accessControlAllowOrigin, enabled } = require('../config/http-headers');
+const { CORS } = require('../config/global');
 const logger = require('../helpers/logger');
 
-if (Configuration.has('CORS') !== true) {
-	throw new Error('CORS missing in Configuration');
-}
-
-if (!Configuration.get('CORS')) 	{
+if (!CORS) 	{
 	logger.info('CORS env has not been defined, to enable route specific CORS'
 	+ ' header set value to 1 and update values in config.cors');
 }
 
-const replaceNonceAttribute = (nonceValueField, nonceValue) => {
-	let nonceValueFieldString = nonceValueField;
-	if (
-		nonceValueFieldString
-		&& nonceValueFieldString.includes('nonce-<nonceValue>')
-	) {
-		nonceValueFieldString = nonceValueFieldString.replace(/<nonceValue>/g, nonceValue);
-	}
-	return nonceValueFieldString;
-};
 
-const addMatchHeaders = (defvalue, addvalue) => {
-	let headerString = defvalue;
-	if (addvalue && addvalue.includes('*')) {
-		headerString = `${addvalue}`;
-	} else if (addvalue) {
-		headerString = `${headerString} ${addvalue}`;
-	}
-	return headerString;
-};
-
-const cspHeadersForRoute = (path, regexs, corsDefault, nonceValue) => {
-	const attributes = {
-		defaultSrc: `${corsDefault.defaultSrc}`,
-		scriptSrc: `${corsDefault.scriptSrc}`,
-		styleSrc: `${corsDefault.styleSrc}`,
-		imageSrc: `${corsDefault.imageSrc}`,
-		fontSrc: `${corsDefault.fontSrc}`,
-		connectSrc: `${corsDefault.connectSrc}`,
-		mediaSrc: `${corsDefault.mediaSrc}`,
-		objectSrc: `${corsDefault.objectSrc}`,
-		prefetchSrc: `${corsDefault.prefetchSrc}`,
-		childSrc: `${corsDefault.childSrc}`,
-		frameSrc: `${corsDefault.frameSrc}`,
-		workerSrc: `${corsDefault.workerSrc}`,
-		frameancestorsSrc: `${corsDefault.frameancestorsSrc}`,
-		formactionSrc: `${corsDefault.formactionSrc}`,
-		upgradeInsecureRequestsSrc: `${corsDefault.upgradeInsecureRequestsSrc}`,
-		blockAllMixedContentSrc: `${corsDefault.blockAllMixedContentSrc}`,
-		sandboxSrc: `${corsDefault.sandboxSrc}`,
-		baseuriSrc: `${corsDefault.baseuriSrc}`,
-		manifestSrc: `${corsDefault.manifestSrc}`,
-	};
+const cspHeadersForRoute = (path, regexs, corsDefault) => {
+	let { defaultSrc, scriptSrc, objectSrc } = corsDefault;
 
 	const matchingKeys = Object.keys(regexs)
-		.filter((key) => path.match(key));
-	const corsHeaders = matchingKeys.map((key) => regexs[key]);
-
+		.filter(key => path.match(key));
+	const corsHeaders = matchingKeys.map(key => regexs[key]);
 	corsHeaders.forEach((matchingHeader) => {
-		for (const headerAttribute in attributes) {
-			if (Object.prototype.hasOwnProperty.call(attributes, headerAttribute)) {
-				attributes[headerAttribute] = addMatchHeaders(
-					attributes[headerAttribute],
-					matchingHeader[headerAttribute],
-				);
+		if (matchingHeader.defaultSrc && matchingHeader.defaultSrc.includes('*')) {
+			defaultSrc = '*';
+			if (matchingHeader.defaultSrc.includes('unsafe-inline')) {
+				defaultSrc += " 'unsafe-inline'";
 			}
+			if (matchingHeader.defaultSrc.includes('unsafe-eval')) {
+				defaultSrc += " 'unsafe-eval'";
+			}
+		} else if (matchingHeader.defaultSrc) {
+			defaultSrc = `${defaultSrc} ${matchingHeader.defaultSrc}`;
+		}
+		if (matchingHeader.scriptSrc && matchingHeader.scriptSrc.includes('*')) {
+			scriptSrc = '*';
+			if (matchingHeader.scriptSrc.includes('unsafe-inline')) {
+				scriptSrc += " 'unsafe-inline'";
+			}
+			if (matchingHeader.scriptSrc.includes('unsafe-eval')) {
+				scriptSrc += " 'unsafe-eval'";
+			}
+		} else if (matchingHeader.scriptSrc) {
+			scriptSrc = `${scriptSrc} ${matchingHeader.scriptSrc}`;
+		}
+		if (matchingHeader.objectSrc && matchingHeader.objectSrc.includes('*')) {
+			objectSrc = '*';
+			if (matchingHeader.objectSrc.includes('unsafe-inline')) {
+				objectSrc += " 'unsafe-inline'";
+			}
+			if (matchingHeader.objectSrc.includes('unsafe-eval')) {
+				objectSrc += " 'unsafe-eval'";
+			}
+		} else if (matchingHeader.objectSrc) {
+			objectSrc = `${objectSrc} ${matchingHeader.objectSrc}`;
 		}
 	});
-
-	for (const NonceAttribute in attributes) {
-		if (Object.prototype.hasOwnProperty.call(attributes, NonceAttribute)) {
-			attributes[NonceAttribute] = replaceNonceAttribute(
-				attributes[NonceAttribute],
-				nonceValue,
-			);
-		}
-	}
-
-	logger.debug(`cors headers for route ${path}`, attributes);
-	return attributes;
+	const finalCors = { defaultSrc, scriptSrc, objectSrc };
+	logger.debug(`cors headers for route ${path}`, finalCors);
+	return finalCors;
 };
 
 const accessControlHeadersForRoute = (path, regexs) => {
 	const matchingKeys = Object.keys(regexs)
-		.filter((key) => path.match(key));
-	const corsHeaders = matchingKeys.map((key) => regexs[key]);
+		.filter(key => path.match(key));
+	const corsHeaders = matchingKeys.map(key => regexs[key]);
 	logger.debug(`cors headers for route ${path}`, corsHeaders);
 	return corsHeaders;
 };
@@ -96,37 +67,10 @@ const cors = (req, res, next) => {
 		try {
 			// Content-Security-Policy
 			const { corsDefault, corsSiteSpecific } = contentSecurityPolicy;
-			const corsAllowContentOrigins = cspHeadersForRoute(
-				req.path,
-				corsSiteSpecific,
-				corsDefault,
-				res.locals.nonceValue,
-			);
+			const corsAllowContentOrigins = cspHeadersForRoute(req.path, corsSiteSpecific, corsDefault);
 			if (corsAllowContentOrigins) {
-				let cspString = '';
-				for (const cspAttribute in corsAllowContentOrigins) {
-					if (Object.prototype.hasOwnProperty.call(corsAllowContentOrigins, cspAttribute)) {
-						const cspKey = cspAttribute.replace(/([a-z])([A-Z])/g, '$1-$2')
-							.replace(/\s+/g, '-').toLowerCase();
-						const cspValue = corsAllowContentOrigins[cspAttribute];
-						if (cspValue !== 'undefined') {
-							if (
-								cspAttribute === 'upgradeInsecureRequestsSrc'
-								|| cspAttribute === 'blockAllMixedContentSrc'
-							) {
-								cspString += `${corsAllowContentOrigins[cspAttribute]}; `;
-							} else {
-								cspString += `${cspKey} ${corsAllowContentOrigins[cspAttribute]}; `;
-							}
-						}
-					}
-				}
-				if (cspString) {
-					// eslint-disable-next-line max-len
-					res.setHeader('Content-Security-Policy', cspString);
-				} else {
-					logger.debug('Content-Security-Policy header string not found');
-				}
+				// eslint-disable-next-line max-len
+				res.setHeader('Content-Security-Policy', `default-src ${corsAllowContentOrigins.defaultSrc}; script-src ${corsAllowContentOrigins.scriptSrc}; object-src ${corsAllowContentOrigins.objectSrc};`);
 			} else {
 				logger.debug('Content-Security-Policy header not set, because config does not contain valid content');
 			}

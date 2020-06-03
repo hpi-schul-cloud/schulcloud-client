@@ -1,8 +1,8 @@
 ﻿{{#content "scripts" mode="append"}}
-    <script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script type="text/javascript" nonce="{{nonceValue}}">
+    <script src="/vendor/ckeditor/ckeditor.js" defer></script>
+    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+    <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
+    <script type="text/javascript">
         window.addEventListener('load', function () {
             $('.userinfo').click(function () {
                 $(this).parent('.usersubmission.active').addClass('clicked');
@@ -40,14 +40,14 @@
             }
         });
     </script>
-    <script nonce="{{nonceValue}}">
+    <script>
         window.addEventListener('DOMContentLoaded', function () {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
         });
     </script>
-    <script src="/scripts/lessons.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/lessons.js" type="text/javascript" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
     <link rel="stylesheet" href="/styles/homework/homework.css" />

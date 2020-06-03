@@ -53,6 +53,5 @@ router.use('/version', require('./version'));
 router.use('/alerts', require('./alerts'));
 router.use('/ghost', require('./ghost'));
 router.use('/blog', require('./blog'));
-router.use('/security/', require('./security'));
 
 module.exports = router;

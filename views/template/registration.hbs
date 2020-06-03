@@ -1,11 +1,15 @@
-{{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/template/registration.css" />
-{{/content}}
+<style type="text/css">
+    @media only screen and (max-width: 480px) {
+        table {
+            display: block !important;
+            width: 100% !important;
+        }
 
-{{#content "scripts" mode="append"}}
-<script src="/scripts/template/registration.js" type="text/javascript" nonce="{{nonceValue}}"></script>
-{{/content}}
-
+        td {
+            width: 480px !important;
+        }
+    }
+</style>
 <body style="font-family: 'Malgun Gothic', Arial, sans-serif; margin: 0; padding: 0; width: 100%; -webkit-text-size-adjust: none; -webkit-font-smoothing: antialiased;">
 <table width="100%" bgcolor="#FFFFFF" border="0" cellspacing="0" cellpadding="0" id="background" style="height: 100% !important; margin: 0; padding: 0; width: 100% !important;">
     <tr>
@@ -38,7 +42,7 @@
                             <tr>
                                 <td align="center">
                                     <div>
-                                        <a href="{{url}}" id="register" style="background-color:#b10438;border-radius:3px;color:#FFFFFF;display:inline-block;font-family:'Helvetica',Arial,sans-serif;font-size:13px;height:45px;line-height:45px;text-align:center;text-decoration:none;text-transform:uppercase;width:150px;-webkit-text-size-adjust:none;mso-hide:all;">Registrieren</a>
+                                        <a href="{{url}}" style="background-color:#b10438;border-radius:3px;color:#FFFFFF;display:inline-block;font-family:'Helvetica',Arial,sans-serif;font-size:13px;height:45px;line-height:45px;text-align:center;text-decoration:none;text-transform:uppercase;width:150px;-webkit-text-size-adjust:none;mso-hide:all;" onmouseover="this.style.backgroundColor='#514F4E'" onmouseout="this.style.backgroundColor='#474544'">{{$t "registration.link.toRegister" }}</a>
                                     </div>
                                     <br>
                                     <a href="{{url}}" target="_blank">{{url}}</a>

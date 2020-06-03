@@ -5,12 +5,12 @@
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-	<script src="/scripts/login.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-	<script nonce="{{nonceValue}}">
-    window.production = '{{ @root.production }}';
-  </script>
-  <script src="/scripts/sc-blog.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-	<script src="/scripts/blog-fetch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	<script src="/scripts/login.js" type="text/javascript" defer></script>
+	<script>
+        window.production = '{{ @root.production }}';
+    </script>
+	<script src="/scripts/sc-blog.js" type="text/javascript" defer></script>
+	<script src="/scripts/blog-fetch.js" type="text/javascript" defer></script>
 {{/content}}
 
 {{#content "page"}}

@@ -1,8 +1,20 @@
-{{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/help/lern-nuggets.css" />
-{{/content}}
-
 {{#extend "lib/loggedin"}}
+
+	{{#content "styles" mode="append"}}
+		<style>
+            .nugget img{
+                    max-width: 200px;
+            }
+            @media (max-width: 576px) {
+                .nugget img{
+                    max-width: 100%;
+                }
+            }
+        </style>
+	{{/content}}
+
+	{{#content "scripts" mode="append"}}
+	{{/content}}
 
 	{{#content "page"}}
 		<div class="container-fluid">

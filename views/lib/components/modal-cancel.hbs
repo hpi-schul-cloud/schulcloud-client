@@ -2,10 +2,11 @@
     {{#content "body"}}
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary btn-close">
-                {{$t "global.button.cancel" }}
+                Abbrechen
             </button>
-            <button type="submit" class="btn btn-primary btn-close historyback">
-                {{$t "lib.global.button.discardChange" }}
+
+            <button type="submit" class="btn btn-primary btn-close" onclick="window.history.back();">
+                Änderung verwerfen
             </button>
         </div>
     {{/content}}

@@ -61,12 +61,29 @@ function printInvitation(event) {
 	printQRs(invitations);
 }
 
+function createInvitationLink() {
+	const target = `registration/${$("input[name='classid']").val()}`;
+	$.ajax({
+		type: 'POST',
+		url: '/link/',
+		beforeSend(xhr) {
+			xhr.setRequestHeader('Csrf-Token', csrftoken);
+		},
+		data: {
+			target,
+		},
+		success(data) {
+			$('#invitationLink').val(data.newUrl);
+		},
+	});
+}
 
 window.addEventListener('DOMContentLoaded', () => {
 	initializeCopy();
 	document
 		.querySelector('#printInvitation')
 		.addEventListener('click', printInvitation);
+	createInvitationLink();
 });
 
 window.addEventListener('load', () => {

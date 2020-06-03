@@ -1,6 +1,6 @@
 {{#hasConfig 'SENTRY_DSN'}}
-<script src="/scripts/sentry.js" nonce="{{nonceValue}}"></script>
-<script nonce="{{nonceValue}}">
+<script src="/scripts/sentry.js"></script>
+<script>
 	function removeIds(url) {
 		var checkForHexRegExp = /[a-f\d]{24}/ig;
 		return url.replace(checkForHexRegExp, 'ID');

@@ -48,13 +48,6 @@ window.openFolder = (id) => {
 	return target + window.location.search || '';
 };
 
-$('.openfolder').on('click', () => {
-	const folderid = this.getAttribute('data-folder-id');
-	if (folderid) {
-		window.openFolder(folderid);
-	}
-});
-
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
 
@@ -832,19 +825,6 @@ window.videoClick = function videoClick(e) {
 	e.preventDefault();
 };
 
-$('.videoclick').on('click', (e) => {
-	window.videoClick(e);
-});
-
-$('.videostop').on('click', () => {
-	window.videojs('my-video').ready(() => {
-		this.pause();
-	});
-	$('#link').html('');
-	$('#picture').attr('src', '');
-	$('#file-view').css('display', 'none');
-});
-
 const fileTypes = {
 	docx:
 		'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -932,16 +912,3 @@ window.fileViewer = function fileViewer(type, name, id) {
 			win.focus();
 	}
 };
-
-$('.fileviewer').on('click', () => {
-	const fileviewertype = this.getAttribute('data-file-viewer-type');
-	const fileviewersavename = this.getAttribute('data-file-viewer-savename');
-	const fileviewerid = this.getAttribute('data-file-viewer-id');
-	if (
-		fileviewertype
-		&& fileviewersavename
-		&& fileviewerid
-	) {
-		window.fileViewer(fileviewertype, fileviewersavename, fileviewerid);
-	}
-});

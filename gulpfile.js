@@ -230,42 +230,11 @@ gulp.task('vendor-assets', () => beginPipe([
 ]).pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
 // copy node modules
-const nodeModules = {
-	// example
-	// 'module/path/to/keep': [
-	// 	 '**/*', // matched files, e.g. copy all files in folder
-	//	 'folder/**/*', // folders defined by name will be flattened
-	// ],
-
-	// mathjax
-	mathjax: ['MathJax.js'],
-	'mathjax/config': ['**/*'],
-	'mathjax/extensions': ['**/*'],
-	'mathjax/fonts': ['**/*'],
-	'mathjax/jax': ['**/*'],
-	'mathjax/localization': ['**/*'],
-
-	// font-awesome
-	'font-awesome/fonts': [
-		'**/*',
-	],
-
-	// video.js
-	'video.js/dist': ['video.min.js'],
-	'video.js/dist/lang': ['*.js'],
-};
-gulp.task('node-modules', () => {
-	const promises = [];
-
-	for (const [module, modulePaths] of Object.entries(nodeModules)) {
-		promises.push(
-			gulp.src(modulePaths.map((modulePath) => `./node_modules/${module}/${modulePath}`))
-				.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)),
-		);
-	}
-
-	return Promise.all(promises);
-});
+const nodeModules = ['mathjax', 'font-awesome/fonts', 'video.js'];
+gulp.task('node-modules', () => Promise.all(nodeModules
+	// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
+	.map((module) => gulp.src([`./node_modules/${module}/**/*.*`])
+		.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)))));
 
 // clear build folder + smart cache
 gulp.task('clear', () => gulp

@@ -1,18 +1,7 @@
 {
 	"title": "HPI Schul-Cloud Configuration",
 	"type": "object",
-	"additionalProperties": false,
 	"properties": {
-        "CORS": {
-            "type": "boolean",
-            "default": true,
-            "description": "If enabled, default content security policy (CSP) header will be set."
-        },
-        "SECURITY_HEADERS": {
-            "type": "boolean",
-            "default": true,
-            "description": "If enabled, additional security header will be set."
-        },
 		"API_KEY": {
 			"type": "string",
 			"default": "example",
@@ -175,46 +164,6 @@
 			"maximum": 1.0,
 			"description": "This is the % count (0.00 to 1.00) of how many of the errors send to the backend. This filter go over all errors, maybe some lost by low user counts."
 		},
-		"FEATURE_ETHERPAD_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "Etherpad "
-		},
-		"ETHERPAD": {
-			"type": "object",
-			"description": "Cookie properties, required always to be defined",
-			"required": [
-				"PAD_PATH",
-				"PAD_URI",
-				"OLD_DOMAIN",
-				"NEW_DOMAIN"
-			],
-			"properties": {
-				"PAD_PATH": {
-					"type": "string",
-					"default": "/etherpad/p",
-					"pattern": ".*(?<!/)$",
-					"description": ""
-				},
-				"PAD_URI": {
-					"type": "string",
-					"format": "uri",
-					"default": "https://schul-cloud.org/etherpad/p",
-					"pattern": ".*(?<!/)$",
-					"description": "The etherpad pad uri"
-				},
-				"OLD_DOMAIN": {
-					"type": "string",
-					"default":"etherpad.schul-cloud.org",
-					"description": "The old etherpad domain"
-				},
-				"NEW_DOMAIN": {
-					"type": "string",
-					"default":"schul-cloud.org",
-					"description": "The new etherpad domain"
-				}
-			}
-		},
 		"SKIP_CONDITIONS_CONSENT": {
 			"type": "string",
 			"default": "",
@@ -269,31 +218,9 @@
 			"description": "Number of second the user will be blocked before logging in again"
 		}
 	},
-	"allOf": [
-		{
-			"$ref": "#/definitions/ETHERPAD_ENABLED"
-		}
-	],
-	"definitions" : {
-		"ETHERPAD_ENABLED": {
-			"if": {
-				"properties": {
-					"FEATURE_ETHERPAD_ENABLED": {
-						"const": "true"
-					}
-				}
-			},
-			"then": {
-				"required": [
-					"ETHERPAD"
-				]
-			}
-		}
-	},
 	"required": [
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
 		"COOKIE",
-		"STUDENT_TEAM_CREATION",
-		"FEATURE_ETHERPAD_ENABLED"
+		"STUDENT_TEAM_CREATION"
 	]
 }

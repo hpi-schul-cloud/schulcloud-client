@@ -1,6 +1,13 @@
-{{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/teams/forms/form-invite-external-member.css" />
-{{/content}}
+<style>
+.btn-toggle[data-state=inactive] {
+  display: none;
+  background: blue;
+}
+.menu[data-state=active] {
+  display: inherit;
+  background: red;
+}
+</style>
 
 <div class="form-group" data-teamId="{{teamId}}">
     <!--<p>Lade Lehrer anderer Schulen als Team-Admin ein, damit diese Lehrer und Schüler ihrer Schule hinzufügen können.

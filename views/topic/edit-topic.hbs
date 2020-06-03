@@ -1,10 +1,10 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/vendor-react.js" nonce="{{nonceValue}}" defer></script>
-        <script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/topicEdit.js" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/courses.js" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/vendor-react.js" defer></script>
+        <script src="/vendor/ckeditor/ckeditor.js" defer></script>
+        <script src="/scripts/topicEdit.js" defer></script>
+        <script src="/scripts/courses.js" defer></script>
     {{/content}}
 
     {{#content "styles" mode="append"}}
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close historyback">
+                    <button type="button" class="btn btn-secondary btn-close" onclick="window.history.back();">
                         {{closeLabel}}
                     </button>
 

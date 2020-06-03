@@ -317,31 +317,6 @@ $(document).ready(() => {
 		$modals.modal('hide');
 	});
 
-	// Window Close
-	$('.windowclose').on('click', () => {
-		window.close();
-	});
-
-	// Window Print
-	$('.windowprint').on('click', () => {
-		window.print();
-	});
-
-	// Window History Back
-	$('.historyback').on('click', () => {
-		window.history.back();
-	});
-
-	// Window Local Storage Clear
-	$('.localstorageclear').on('click', () => {
-		localStorage.clear();
-	});
-
-	// Window Location Link
-	$('.locationlink').on('click', function locationLink() {
-		nextPage($(this).attr('data-loclink'));
-	});
-
 	// Print Button
 	document.querySelectorAll('.print .btn-print').forEach((btn) => {
 		btn.addEventListener('click', printPart);

@@ -10,8 +10,8 @@ const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
 
-const { Configuration } = require('@schul-cloud/commons');
 const {
+	ETHERPAD_BASE_URL,
 	NEXBOARD_USER_ID,
 	NEXBOARD_API_KEY,
 	PUBLIC_BACKEND_URL,
@@ -39,6 +39,7 @@ const editTopicHandler = (req, res, next) => {
 			// so we can share the content through data-value to the react component
 			lesson.contents = JSON.stringify(lesson.contents);
 		}
+
 		res.render('topic/edit-topic', {
 			action,
 			method,
@@ -50,7 +51,7 @@ const editTopicHandler = (req, res, next) => {
 			topicId: req.params.topicId,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
-			etherpadBaseUrl: Configuration.get('ETHERPAD__PAD_URI'),
+			etherpadBaseUrl: ETHERPAD_BASE_URL,
 		});
 	}).catch((err) => {
 		next(err);
@@ -69,97 +70,6 @@ const checkInternalComponents = (data, baseUrl) => {
 
 	return data;
 };
-
-const getEtherpadPadForCourse = async (req, user, courseId, content, oldPadId) => {
-	return api(req).post('/etherpad/pads', {
-		json: {
-			courseId,
-			padName: content.title,
-			text: content.description,
-			oldPadId
-		},
-	}).then((response) => response.data.padID );
-};
-
-async function createNewEtherpad(req, res, contents = [], courseId) {
-	// eslint-disable-next-line no-return-await
-	return await Promise.all(contents.map(async (content) => {
-		if (!content || content.component !== 'Etherpad') {
-			return content;
-		}
-		let isOldPad;
-		let oldPadId;
-		try {
-			let parsedUrl = new URL(content.content.url);
-			isOldPad = isPadDomainOld(parsedUrl);
-			if(isOldPad) {
-				oldPadId = getPadIdFromUrl(content.content.url);
-			}
-		} catch (err) {
-			logger.error(err.message);
-		};
-		const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
-		await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content, oldPadId)
-			.then((etherpadPadId) => {
-				content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
-			}).catch((err) => {
-				logger.error(err);
-				req.session.notification = {
-					type: 'danger',
-					message: res.$t('courses._course.text.etherpadCouldNotBeAdded'),
-				};
-				content.content.url = undefined;
-			});
-		return content;
-	})).catch((err) => {
-		logger.error(err);
-		return contents;
-	});
-}
-
-const getEtherpadSession = async (req, res, courseId) => {
-	return await api(req).post(
-		'/etherpad/sessions', {
-			form: {
-				courseId,
-			},
-		},
-	).catch((err) => {
-		logger.error(err);
-		return undefined;
-	});
-};
-
-const isPadDomainOld = (url) => {
-	if(url.hostname === Configuration.get('ETHERPAD__OLD_DOMAIN')) {
-		return true;
-	}
-	return false;
-}
-
-const validatePadDomain = (url) => {
-	const whitelist = [
-		Configuration.get('ETHERPAD__OLD_DOMAIN'),
-		Configuration.get('ETHERPAD__NEW_DOMAIN')
-	];
-	if ( whitelist.indexOf(url.hostname) === -1 ) {
-		throw new Error(`not a valid etherpad hostname: ${url.hostname}`);
-	}
-}
-
-const getPadIdFromUrl = (path) => {
-	path += "";
-	let parsedUrl;
-	try {
-		parsedUrl = new URL(path);
-		validatePadDomain(parsedUrl);
-	} catch (err) {
-		logger.error(err.message);
-		return undefined;
-	};
-	path = parsedUrl.pathname;
-	return path.substring(path.lastIndexOf('/') + 1);
-}
 
 const getNexBoardAPI = () => {
 	if (!NEXBOARD_USER_ID && !NEXBOARD_API_KEY) {
@@ -241,8 +151,6 @@ router.post('/', async (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	const data = req.body;
 
-	// Check for etherpad component
-	data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
 	// Check for neXboard compontent
 	data.contents = await createNewNexBoards(req, res, data.contents);
 
@@ -301,28 +209,6 @@ router.get('/:topicId', (req, res, next) => {
 			qs: {
 				$populate: ['materialIds'],
 			},
-		}).then(lesson => {
-			let etherpadPads = [];
-			if (typeof lesson.contents !== 'undefined') {
-				lesson.contents.forEach((element) => {
-					if (element.component === 'Etherpad') {
-						const { url } = element.content;
-						const padId = getPadIdFromUrl(url);
-						// set cookie for this pad
-						if(typeof(padId) !== 'undefined') {
-							etherpadPads.push(padId);
-						}
-					}
-				});
-			}
-			if (typeof lesson.contents !== 'undefined') {
-				return getEtherpadSession(req, res, req.params.courseId).then(sessionInfo => {
-					etherpadPads.forEach((padId) => {
-						authHelper.etherpadCookieHelper(sessionInfo, padId, res);
-					});
-				}).then(() => lesson);
-			}
-			return lesson;
 		}),
 		api(req).get('/homework/', {
 			qs: {
@@ -406,8 +292,6 @@ router.patch('/:topicId', async (req, res, next) => {
 
 	if (!req.query.courseGroup) delete data.courseGroupId;
 
-	// create new Etherpads when necessary, if not simple hidden or position patch
-	if (data.contents) data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
 	// create new Nexboard when necessary, if not simple hidden or position patch
 	if (data.contents) data.contents = await createNewNexBoards(req, res, data.contents);
 

@@ -761,8 +761,8 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 			['firstName', 'Vorname'],
 			['lastName', 'Nachname'],
 			['email', 'E-Mail-Adresse'],
-			['classes', 'Klasse(n)'],
-			['consentStatus', 'Registrierung'],
+			['class', 'Klasse(n)'],
+			['consent', 'Einwilligung'],
 			['createdAt', 'Erstelldatum'],
 		],
 		defaultSelection: defaultOrder || 'firstName',
@@ -785,15 +785,15 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 		options: isTeacherPage
 			? [
 				['missing', 'Keine Einverständniserklärung vorhanden'],
-				['ok', 'Zur Registrierung benötigte Einverständniserklärungen vorhanden'],
+				['ok', 'Alle Zustimmungen vorhanden'],
 			]
 			: [
 				['missing', 'Keine Einverständniserklärung vorhanden'],
 				[
 					'parentsAgreed',
-					'Eltern haben zugestimmt, Schüler:in noch offen',
+					`Eltern haben zugestimmt (oder Schüler ist über ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS})`,
 				],
-				['ok', 'Zur Registrierung benötigte Einverständniserklärungen vorhanden'],
+				['ok', 'Alle Zustimmungen vorhanden'],
 			],
 	},
 ];
@@ -1066,7 +1066,7 @@ router.get(
 				}
 				const body = users.map((user) => {
 					const statusIcon = getConsentStatusIcon(
-						user.consentStatus,
+						user.consent.consentStatus,
 						true,
 					);
 					const icon = `<p class="text-center m-0">${statusIcon}</p>`;
@@ -1135,9 +1135,11 @@ router.get(
 
 		Promise.all([
 			userPromise,
+			consentPromise,
 			classesPromise,
 			accountPromise,
-		]).then(([user, _classes, _account]) => {
+		]).then(([user, _consent, _classes, _account]) => {
+			const consent = _consent[0] || {};
 			const account = _account[0];
 			const hidePwChangeButton = !account;
 
@@ -1151,8 +1153,8 @@ router.get(
 				submitLabel: 'Speichern',
 				closeLabel: 'Abbrechen',
 				user,
-				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
-				consent: user.consent,
+				consentStatusIcon: getConsentStatusIcon(consent.consentStatus, true),
+				consent,
 				classes,
 				editTeacher: true,
 				hidePwChangeButton,
@@ -1355,14 +1357,14 @@ router.get(
 					'E-Mail-Adresse',
 					'Klasse',
 					'Erstellt am',
-					'Registrierung',
+					'Einverständnis',
 				];
 				if (hasEditPermission) {
 					head.push(''); // Add space for action buttons
 				}
 
 				const body = users.map((user) => {
-					const icon = getConsentStatusIcon(user.consentStatus);
+					const icon = getConsentStatusIcon(user.consent.consentStatus);
 					const actions = [
 						{
 							link: `/administration/students/${user._id}/edit`,
@@ -1377,8 +1379,8 @@ router.get(
 							icon: 'check-square-o',
 						});
 					}
-					if (user.consentStatus === 'missing'
-						|| user.consentStatus === 'default') {
+					if (user.consent.consentStatus === 'missing'
+						|| user.consent.consentStatus === 'default') {
 						studentsWithoutConsentCount += 1;
 					}
 					const row = [
@@ -1595,14 +1597,17 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
 	(req, res, next) => {
 		const userPromise = api(req).get(`/users/${req.params.id}`);
+		const consentPromise = getSelectOptions(req, 'consents', {
+			userId: req.params.id,
+		});
 		const accountPromise = api(req).get('/accounts/', {
 			qs: { userId: req.params.id },
 		});
 		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
-		Promise.all([userPromise, accountPromise])
-			.then(([user, [account]]) => {
-				const consent = user.consent || {};
+		Promise.all([userPromise, consentPromise, accountPromise])
+			.then(([user, _consent, [account]]) => {
+				const consent = _consent[0] || {};
 				if (consent) {
 					consent.parentConsent = (consent.parentConsents || []).length
 						? consent.parentConsents[0]
@@ -1615,7 +1620,7 @@ router.get(
 					submitLabel: 'Speichern',
 					closeLabel: 'Abbrechen',
 					user,
-					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
+					consentStatusIcon: getConsentStatusIcon(consent.consentStatus),
 					consent,
 					canSkipConsent: canSkip,
 					hasImportHash: user.importHash,
@@ -2696,15 +2701,8 @@ const getTeamSchoolsButton = (counter) => `
 router.all('/teams', (req, res, next) => {
 	const path = '/administration/teams/';
 
-	let itemsPerPage = parseInt(req.query.limit, 10) || 25;
-	let filterQuery = {};
+	const itemsPerPage = req.query.limit || 10;
 	const currentPage = parseInt(req.query.p, 10) || 1;
-	
-	let query = {
-		limit: itemsPerPage,
-		skip: itemsPerPage * (currentPage - 1),
-	};
-	query = Object.assign(query, filterQuery);
 
 	// TODO: mapping sort
 	/*
@@ -2713,10 +2711,14 @@ router.all('/teams', (req, res, next) => {
 		'Erstellt am': 'createdAt',
 	*/
 
-	
 	api(req)
 		.get('/teams/manage/admin', {
-			qs: query,
+			qs: {
+				$populate: ['userIds'],
+				$limit: itemsPerPage,
+				$skip: itemsPerPage * (currentPage - 1),
+				$sort: req.query.sort,
+			},
 		})
 		.then((data) => {
 			const head = [
@@ -2740,7 +2742,7 @@ router.all('/teams', (req, res, next) => {
 			};
 
 			Promise.all([classesPromise, usersPromise]).then(([classes, users]) => {
-				const body = data.data.map((item) => {
+				const body = data.map((item) => {
 					const actions = [
 						{
 							link: path + item._id,
