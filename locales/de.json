@@ -1038,6 +1038,13 @@
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 		}
 	},
+	"my_material": {
+		"text": {
+			"andTakeTheOpportunityToDesign": "und nutzen Sie die Möglichkeit, das Feature nach ihren Wünschen zu gestalten.",
+			"blogArticle": "Blogartikel",
+			"hereYouWillSoonHaveTheOpportunity": "Hier werden Sie bald die Möglichkeit haben, eigene Inhalte zu erstellen, sich Inhalte anderer Lehrer*Innen anzuschauen und durch Bewerten und Kategorisieren dieser Punkte verdienen, um die erweiterten Suchfunktionen nutzen zu können. Interessiert, wie das funktionieren wird? Lesen Sie den"
+		}
+	},
 	"news": {
 		"button": {
 			"addNews": "News hinzufügen"
@@ -1237,6 +1244,24 @@
 		"pin": {
 			"input": {
 				"verificationCode": "Bestätigungscode:"
+			}
+		},
+		"registration_template": {
+			"global": {
+				"link": {
+					"contact": "Kontakt"
+				}
+			},
+			"heading": {
+				"invitationToThe": "Einladung in die"
+			},
+			"link": {
+				"toRegister": "Registrieren",
+				"imprint": "Impressum"
+			},
+			"text": {
+				"dear": "Sehr geehrte/r",
+				"youWereInvitedToThe": "Sie wurden eingeladen, der {{shortTitle}} beizutreten, bitte vervollständigen Sie Ihre Einladung unter folgendem Link"
 			}
 		},
 		"requestPin": {
