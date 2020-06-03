@@ -1,0 +1,9 @@
+.btn-toggle[data-state=inactive] {
+    display: none;
+    background: blue;
+}
+
+.menu[data-state=active] {
+    display: inherit;
+    background: red;
+}
