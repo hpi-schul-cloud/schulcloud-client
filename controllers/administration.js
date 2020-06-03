@@ -9,6 +9,7 @@ const moment = require('moment');
 const multer = require('multer');
 const encoding = require('encoding-japanese');
 const _ = require('lodash');
+const { Configuration } = require('@schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
@@ -2538,14 +2539,37 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		delete req.body.videoconference;
 
 		// Toggle teacher's studentVisibility permission
-
-		await api(req)
-			.post('roles/teacher/togglepermission', {
+		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY');
+		const isStudentVisibilityEnabled = (res.locals.currentSchoolData.features || []).includes(
+			'studentVisibility',
+		);
+		if (studentVisibilityFeature !== 'disabled' && !isStudentVisibilityEnabled) {
+			await api(req).patch(`/schools/${req.params.id}`, {
 				json: {
-					permission: 'studentVisibility',
-					toggle: !!req.body.studentVisibility,
+					$push: {
+						features: 'studentVisibility',
+					},
 				},
 			});
+		} else if (studentVisibilityFeature === 'disabled' && isStudentVisibilityEnabled ) {
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'studentVisibility',
+					},
+				},
+			});
+		}
+		if (isStudentVisibilityEnabled) {
+			await api(req)
+				.patch('school/teacher/permissions', {
+					json: {
+						permissions: {
+							studentVisibility: !!req.body.studentVisibility,
+						},
+					},
+				});
+		}
 
 		delete req.body.studentVisibility;
 
