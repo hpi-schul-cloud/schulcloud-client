@@ -72,7 +72,7 @@ const getTableActions = (
 				item.type === 'ldap' ? `${path}ldap/edit/${item._id}` : path + item._id,
 			class: `${editButtonClass} ${isTeacher ? 'disabled' : ''}`,
 			icon: 'edit',
-			title: res.$t('administration.controller.heading.toEditnAnEntry'),
+			title: res.$t('administration.controller.link.toEditnAnEntry'),
 		},
 		{
 			link: path + item._id,
@@ -80,18 +80,18 @@ const getTableActions = (
 				&& 'btn-delete--systems'}`,
 			icon: 'trash-o',
 			method: `${isAdmin ? 'delete' : ''}`,
-			title: res.$t('administration.controller.heading.deleteEntry'),
+			title: res.$t('administration.controller.link.deleteEntry'),
 		},
 		{
 			link: isStudentAction ? `${path}pw/${item._id}` : '',
 			class: isStudentAction ? 'btn-pw' : 'invisible',
 			icon: isStudentAction ? 'key' : '',
-			title: res.$t('administration.controller.heading.resetPassword'),
+			title: res.$t('administration.controller.link.resetPassword'),
 		},
 	];
 };
 
-const getTableActionsSend = (item, path, state) => {
+const getTableActionsSend = (item, path, res, state) => {
 	const actions = [];
 	if (state === 'submitted' || state === 'closed') {
 		actions.push(
@@ -99,7 +99,7 @@ const getTableActionsSend = (item, path, state) => {
 				link: path + item._id,
 				class: 'btn-edit',
 				icon: 'edit',
-				title: 'Eintrag bearbeiten',
+				title: res.$t('administration.controller.link.toEditnAnEntry'),
 			},
 			{
 				class: 'disabled',
@@ -116,21 +116,21 @@ const getTableActionsSend = (item, path, state) => {
 				link: path + item._id,
 				class: 'btn-edit',
 				icon: 'edit',
-				title: 'Eintrag bearbeiten',
+				title: res.$t('administration.controller.link.toEditnAnEntry'),
 			},
 			{
 				link: path + item._id,
 				class: 'btn-disable',
 				icon: 'archive',
 				method: 'delete',
-				title: 'Eintrag abschließen',
+				title: res.$t('administration.controller.link.completeEntry'),
 			},
 			{
 				link: path + item._id,
 				class: 'btn',
 				icon: 'paper-plane',
 				method: 'post',
-				title: 'Eintrag an Entwicklerteam senden',
+				title: res.$t('administration.controller.link.sendEntryToDevelopmentTeam'),
 			},
 		);
 	}
@@ -305,7 +305,7 @@ const generateRegistrationLink = (params, internalReturn) => function registrati
 			json: options,
 		});
 	}
-	return api(req)
+	return api(req, res)
 		.post('/registrationlink/', {
 			json: options,
 		})
@@ -345,7 +345,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 		&& user.schoolId
 		&& (user.shortLink || res.locals.linkData.shortLink)
 	) {
-		return api(req)
+		return api(req, res)
 			.post('/mails/', {
 				json: {
 					email: user.email,
@@ -368,7 +368,7 @@ ${res.locals.theme.short_title}-Team`,
 				req.session.notification = {
 					type: 'success',
 					message:
-						'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.',
+					res.$t('administration.controller.text.userCreatedSuccessfullyAndRegistration'),
 				};
 				return redirectHelper.safeBackRedirect(req, res);
 			})
@@ -386,7 +386,7 @@ ${res.locals.theme.short_title}-Team`,
 	if (internalReturn) return true;
 	req.session.notification = {
 		type: 'success',
-		message: 'Nutzer erfolgreich erstellt.',
+		message: res.$t('administration.controller.text.userCreatedSuccessfully'),
 	};
 	return redirectHelper.safeBackRedirect(req, res);
 
@@ -434,7 +434,7 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 			if (internalReturn) return true;
 			req.session.notification = {
 				type: 'success',
-				message: 'Nutzer erfolgreich erstellt.',
+				message: res.$t('administration.controller.text.userCreatedSuccessfully'),
 			};
 			return redirectHelper.safeBackRedirect(req, res);
 
@@ -521,7 +521,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			.map((err) => `${err.entity} (${err.message})`)
 			.join(', ');
 		if (errorText === '') {
-			errorText = 'Es ist ein unbekannter Fehler beim Importieren aufgetreten.';
+			errorText = res.$t('administration.controller.text.anUnknownErrorOccured');
 		}
 		return errorText;
 	};
@@ -556,7 +556,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 		return;
 	} catch (err) {
-		const message = 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.';
+		const message = res.$t('administration.controller.text.importFailed');
 		req.session.notification = {
 			type: 'danger',
 			message,
@@ -740,7 +740,7 @@ const userIdtoAccountIdUpdate = (service) => function useIdtoAccountId(req, res,
 				.then(() => {
 					req.session.notification = {
 						type: 'success',
-						message: 'Änderungen erfolgreich gespeichert.',
+						message: res.$t('administration.controller.text.changesSuccessfullySaved'),
 					};
 					redirectHelper.safeBackRedirect(req, res);
 				})
@@ -753,7 +753,7 @@ const userIdtoAccountIdUpdate = (service) => function useIdtoAccountId(req, res,
 		});
 };
 
-const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
+const userFilterSettings = (defaultOrder, isTeacherPage = false, res) => [
 	{
 		type: 'sort',
 		title: 'Sortierung',
