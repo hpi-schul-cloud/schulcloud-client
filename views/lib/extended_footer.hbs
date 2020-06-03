@@ -4,28 +4,28 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
-				<h2 class="h4">Kontakt</h2>
+				<h2 class="h4">{{$t "lib.extended_footer.heading.contact" }}</h2>
 				<ul>
 					{{> "lib/extended_footer_links"}}
-					<li><a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank"
-							rel="noopener">
-							<span class="text-nowrap">Newsletter abonnieren</span></a></li>
+					<li><a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank" rel="noopener">
+					<span class="text-nowrap">{{$t "lib.extended_footer.link.subscribeTheNewsletter" }}</span></a></li>
 				</ul>
 			</div>
 			<div class="col-md-4">
 				<h2 class="h4">Links</h2>
 				<ul>
-					<li><a href="/impressum">Impressum</a></li>
+					<li><a href="/impressum">{{$t "lib.global.link.imprint" }}</a></li>
 					<li><a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank"
-							rel="noopener">Nutzungsordnung HPI Schul-Cloud</a>
+							rel="noopener">{{$t "lib.global.link.termsOfUseHPI" }}</a>
 					</li>
 					<li><a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank"
-							rel="noopener">Datenschutzerklärung HPI Schul-Cloud</a>
+							rel="noopener">{{$t "lib.global.link.dataProtectionDeclaration" }}</a>
 					</li>
 					<li><a href="/team">Team</a></li>
 					<li><a href="/partner">Partner</a></li>
 					<li><a href="https://github.com/schul-cloud/" target="_blank" rel="noopener">GitHub</a></li>
 					<li><a href="https://status.schul-cloud.org" target="_blank" rel="noopener">Status</a></li>
+					<li><a href="/security">Sicherheit</a></li>
 				</ul>
 			</div>
 			<div class="col-md-4">
@@ -48,10 +48,9 @@
 					</div>
 					-->
 				</div>
-				<h2 class="h4 card-title">Stellenausschreibungen</h2>
+				<h2 class="h4 card-title">{{$t "lib.extended_footer.heading.vacancies" }}</h2>
 				<div class="form-group">
-					Du möchtest gerne Mitglied in unserem <span style="white-space: nowrap;">HPI Schul-Cloud</span> Team werden?
-					Wir suchen:
+					{{{$t "lib.extended_footer.text.weAreHiring"}}}
 				</div>
 				<a class="mr-2"
 					href="https://hpi.de/das-hpi/organisation/jobs/web-developer-m/w/d-im-projekt-hpi-schul-cloud.html"
