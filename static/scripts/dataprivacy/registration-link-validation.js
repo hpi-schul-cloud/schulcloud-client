@@ -4,8 +4,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	*/
 	const message = `
 	<div class="error-header-wrapper mt-1">
-	<img class="error-header-image w-100 h-100" src="/images/broken-pen.svg" alt="zerbrochener Stift" />
-	<h1 class="h1 error-header-code text-center">Registrierung fehlerhaft</h1>
+	<img class="error-header-image" src="/images/broken-pen.svg" alt="zerbrochener Stift" />
+	<h1 class="h2 error-header-code text-center">Registrierung fehlerhaft</h1>
 	<p class="error-header-text text-center">
 	Diese Registrierung bzw. dieser Registrierungslink scheint nicht valide zu sein. Dies kann mehrere Gründe haben:
 	</p>
@@ -19,6 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		</ul>
 	<p>Bitte kontaktiere einen verantwortlichen Lehrer oder Administrator und frage diesbezüglich nach.
 		Dieser kann weiterhelfen oder auch einen neuen Registrierungslink erstellen, falls nötig.</p>
+	</div>
 `;
 
 	if ($("input[name='invalid']").val() === 'true') {
