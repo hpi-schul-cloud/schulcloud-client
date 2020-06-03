@@ -71,11 +71,9 @@
                                     <button type="submit" class="btn btn-primary btn-add-modal">
                                         Lehrer hinzufügen
                                     </button>
-                                    {{#inArray "Administrator" ../roleNames}}
                                          <a href="/administration/teachers/import" class="btn btn-secondary btn-import">
                                             Lehrer importieren
                                         </a>
-                                    {{/inArray}}
                                 {{else}}
                                     {{> "lib/no-create-info"}}
                                 {{/userHasPermission}}

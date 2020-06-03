@@ -92,11 +92,9 @@
                                         Schüler hinzufügen
                                     </button>
 
-                                    {{#inArray "Administrator" ../roleNames}}
                                         <a href="/administration/students/import" class="btn btn-secondary btn-import">
                                             Schüler importieren
                                         </a>
-                                    {{/inArray}}
                                 {{else}}
                                     {{> "lib/no-create-info"}}
                                 {{/userHasPermission}}
