@@ -1,0 +1,29 @@
+.pin-input input.combined-pin {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: none;
+    outline: none;
+}
+
+.pin-input .digit {
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+    padding: .5rem;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1rem;
+    border: 1px solid #555;
+    margin: 0 .15rem;
+}
+
+.show-invalid .pin-input .digit:invalid {
+    border-color: #f55
+}
+
+.pin-input .digit:focus {
+    outline: none;
+    border-color: #b10438;
+}
