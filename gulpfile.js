@@ -31,14 +31,13 @@ const webpackConfig = require('./webpack.config');
 const browserlist = ['> 0.2%', 'last 10 version', 'not dead'];
 
 const baseScripts = [
-	'./static/scripts/jquery/jquery.min.js',
-	'./static/scripts/jquery/jquery.serialize-object.js',
+	'./node_modules/jquery/dist/jquery.min.js',
+	'./node_modules/form-serializer/dist/jquery.serialize-object.min.js',
 	'./static/scripts/tether/tether.min.js',
 	'./static/scripts/bootstrap/bootstrap.min.js',
 	'./static/scripts/chosen/chosen.jquery.min.js',
 	'./static/scripts/base.js',
 	'./static/scripts/toggle/bootstrap-toggle.min.js',
-	'./static/scripts/mailchimp/mailchimp.js',
 	'./static/scripts/qrcode/kjua-0.1.1.min.js',
 	'./static/scripts/ajaxconfig.js',
 ];
@@ -53,7 +52,7 @@ const EXIT_ON_ERROR = process.env.GULP_EXIT_ON_ERROR
 
 const nonBaseScripts = [
 	'./static/scripts/**/*.js',
-].concat(baseScripts.map(script => `!${script}`));
+].concat(baseScripts.map((script) => `!${script}`));
 // used by almost all gulp tasks instead of gulp.src(...)
 // plumber prevents pipes from stopping when errors occur
 // changed only passes on files that were modified since last time
@@ -64,7 +63,7 @@ function withTheme(src) {
 		return [src, `./theme/${themeName()}/${src.slice(2)}`];
 	}
 	return src.concat(src
-		.map(e => `./theme/${themeName()}/${e.slice(2)}`));
+		.map((e) => `./theme/${themeName()}/${e.slice(2)}`));
 }
 
 const handleError = (error) => {
@@ -72,12 +71,12 @@ const handleError = (error) => {
 	process.exit(1);
 };
 
-const beginPipe = src => gulp
+const beginPipe = (src) => gulp
 	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
 	.pipe(filelog());
 
-const beginPipeAll = src => gulp
+const beginPipeAll = (src) => gulp
 	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
 	.pipe(filelog());
@@ -187,7 +186,7 @@ gulp.task('base-scripts', () => beginPipeAll(baseScripts)
 	.pipe(gulp.dest(`./build/${themeName()}/scripts`)));
 
 // compile vendor SASS/SCSS to CSS and minify it
-gulp.task('vendor-styles', () => beginPipe('./static/vendor/**/*.{css,sass,scss}')
+gulp.task('vendor-styles', () => beginPipe('./static/vendor/**/*.{sass,scss}')
 	.pipe(sourcemaps.init())
 	.pipe(sass({
 		sourceMap: true,
@@ -227,19 +226,46 @@ gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
 gulp.task('vendor-assets', () => beginPipe([
 	'./static/vendor/**/*.*',
 	'!./static/vendor/**/*.js',
-	'!./static/vendor/**/*.{css,sass,scss}',
+	'!./static/vendor/**/*.{sass,scss}',
 ]).pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
-// copy vendor-optimized files
-gulp.task('vendor-optimized-assets', () => beginPipe(['./static/vendor-optimized/**/*.*'])
-	.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`)));
-
 // copy node modules
-const nodeModules = ['mathjax', 'font-awesome/fonts'];
-gulp.task('node-modules', () => Promise.all(nodeModules
-	// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
-	.map(module => gulp.src([`./node_modules/${module}/**/*.*`])
-		.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)))));
+const nodeModules = {
+	// example
+	// 'module/path/to/keep': [
+	// 	 '**/*', // matched files, e.g. copy all files in folder
+	//	 'folder/**/*', // folders defined by name will be flattened
+	// ],
+
+	// mathjax
+	mathjax: ['MathJax.js'],
+	'mathjax/config': ['**/*'],
+	'mathjax/extensions': ['**/*'],
+	'mathjax/fonts': ['**/*'],
+	'mathjax/jax': ['**/*'],
+	'mathjax/localization': ['**/*'],
+
+	// font-awesome
+	'font-awesome/fonts': [
+		'**/*',
+	],
+
+	// video.js
+	'video.js/dist': ['video.min.js'],
+	'video.js/dist/lang': ['*.js'],
+};
+gulp.task('node-modules', () => {
+	const promises = [];
+
+	for (const [module, modulePaths] of Object.entries(nodeModules)) {
+		promises.push(
+			gulp.src(modulePaths.map((modulePath) => `./node_modules/${module}/${modulePath}`))
+				.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)),
+		);
+	}
+
+	return Promise.all(promises);
+});
 
 // clear build folder + smart cache
 gulp.task('clear', () => gulp
@@ -251,12 +277,12 @@ gulp.task('clear', () => gulp
 		],
 		{
 			read: false,
-			allowEmpty: true
+			allowEmpty: true,
 		},
 	)
 	.pipe(rimraf()));
 
-// clear gulp cache without removing current build	
+// clear gulp cache without removing current build
 gulp.task('clear-cache', () => gulp
 	.src(
 		[
@@ -265,7 +291,7 @@ gulp.task('clear-cache', () => gulp
 		],
 		{
 			read: false,
-			allowEmpty: true
+			allowEmpty: true,
 		},
 	)
 	.pipe(rimraf({})));
@@ -283,7 +309,6 @@ gulp.task('build-all', gulp.series(
 	'vendor-styles',
 	'vendor-scripts',
 	'vendor-assets',
-	'vendor-optimized-assets',
 	'node-modules',
 	'static',
 ));
@@ -303,7 +328,9 @@ gulp.task('watch', gulp.series('build-all', () => {
 		.on('change', browserSync.reload);
 	gulp.watch(withTheme(nonBaseScripts), watchOptions, gulp.series('scripts'));
 
-	gulp.watch(withTheme('./static/vendor-optimized/**/*.*'), watchOptions, gulp.series('vendor-optimized-assets'));
+	gulp.watch(withTheme('./static/vendor/**/*.*'), watchOptions, gulp.series('vendor-styles',
+		'vendor-scripts',
+		'vendor-assets'));
 	gulp.watch(withTheme('./static/*.*'), watchOptions, gulp.series('static'));
 }));
 

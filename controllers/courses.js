@@ -8,6 +8,7 @@ const { EDITOR_URL } = require('../config/global');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
+const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger'];
@@ -228,7 +229,7 @@ const editCourseHandler = (req, res, next) => {
 				action,
 				method,
 				title: res.$t('courses._course.edit.headline.editCourse'),
-				submitLabel: res.$t('global.button.saveChanges'),
+				submitLabel: res.$t('courses._course.edit.button.saveChanges'),
 				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
@@ -709,6 +710,12 @@ router.get('/:courseId/', async (req, res, next) => {
 		}
 
 		// ###################### end of code for new Editor ################################
+		const user = res.locals.currentUser || {};
+		const roles = user.roles.map((role) => role.name);
+		const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
+		const teacher = ['teacher', 'demoTeacher'];
+		const student = ['student', 'demoStudent'];
+
 		res.render(
 			'courses/course',
 			Object.assign({}, course, {
@@ -717,8 +724,14 @@ router.get('/:courseId/', async (req, res, next) => {
 					: course.name,
 				activeTab: req.query.activeTab,
 				lessons,
-				homeworks: homeworks.filter(task => !task.private),
-				myhomeworks: homeworks.filter(task => task.private),
+				homeworksCount: (homeworks.filter((task) => !task.private)).length,
+				assignedHomeworks: (hasRole(teacher)
+					? homeworks.filter((task) => !task.private && !task.stats.submissionCount)
+					: homeworks.filter((task) => !task.private && !task.submissions)),
+				homeworksWithSubmission: (hasRole(teacher)
+					? homeworks.filter((task) => !task.private && task.stats.submissionCount)
+					: homeworks.filter((task) => !task.private && task.submissions)),
+				privateHomeworks: homeworks.filter((task) => task.private),
 				ltiToolIds,
 				courseGroups,
 				baseUrl,
@@ -740,6 +753,8 @@ router.get('/:courseId/', async (req, res, next) => {
 				newLessons,
 				isNewEdtrioActivated,
 				scopedCoursePermission: scopedPermissions[res.locals.currentUser._id],
+				isTeacher: hasRole(teacher),
+				isStudent: hasRole(student),
 			}),
 		);
 	} catch (err) {
@@ -778,18 +793,19 @@ router.patch('/:courseId', (req, res, next) => {
 		delete req.body.untilDate;
 	}
 
+	if (req.body.unarchive !== 'true' && req.body.untilDate < new Date()) {
+		req.body.features = [];
+		OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+			if (req.body[feature] === 'true') {
+				req.body.features.push(feature);
+			}
+			delete req.body[feature];
+		});
+	}
+
 	if (req.body.unarchive === 'true') {
 		req.body = { untilDate: req.body.untilDate };
 	}
-
-	req.body.features = [];
-	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
-		if (req.body[feature] === 'true') {
-			req.body.features.push(feature);
-		}
-		delete req.body[feature];
-	});
-
 	// first delete all old events for the course
 	deleteEventsForCourse(req, res, req.params.courseId)
 		.then(() => api(req)
@@ -881,7 +897,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 					message: res.$t("courses._course.topic.text.noTopicFoundWithCode"),
 				};
 
-				res.redirect(req.header('Referer'));
+				redirectHelper.safeBackRedirect(req, res);
 			}
 
 			api(req)
@@ -893,7 +909,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 					},
 				})
 				.then(() => {
-					res.redirect(req.header('Referer'));
+					redirectHelper.safeBackRedirect(req, res);
 				});
 		})
 		.catch(err => res.status(err.statusCode || 500).send(err));

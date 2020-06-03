@@ -1,7 +1,7 @@
 {{#extend "lib/loggedin"}}
 
 {{#content "scripts" mode="append"}}
-<script src="/scripts/administration/systems/ldap-edit.js" type="text/javascript" defer></script>
+<script src="/scripts/administration/systems/ldap-edit.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "styles" mode="append"}}
@@ -34,6 +34,9 @@ Probably delete it.--}}
                 Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene
                 Inhalte werden nicht übernommen, da bei dem Nutzer der Vorname, der Nachname und/oder die E-Mail-Adresse
                 nicht im LDAP verfügbar ist.
+            </p>
+            <p>
+                Weitere Informationen zur LDAP-Konfiguration finden Sie in unserem <a href="/help/confluence/55902270">Hilfebereich</a>.
             </p>
         </div>
     </div>

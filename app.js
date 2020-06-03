@@ -15,6 +15,7 @@ const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
 const { Configuration } = require('@schul-cloud/commons');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
+const { nonceValueSet } = require('./helpers/csp');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
@@ -22,7 +23,6 @@ const logger = require('./helpers/logger');
 
 const {
 	KEEP_ALIVE,
-	SENTRY_DSN,
 	SC_DOMAIN,
 	SC_THEME,
 	REDIS_URI,
@@ -30,20 +30,22 @@ const {
 	JWT_TIMEOUT_SECONDS,
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
-	FEATURE_MESSENGER_ENABLED,
 	ROCKETCHAT_SERVICE_ENABLED,
 } = require('./config/global');
 
 const app = express();
 
-if (SENTRY_DSN) {
+if (Configuration.has('SENTRY_DSN')) {
 	Sentry.init({
-		dsn: SENTRY_DSN,
+		dsn: Configuration.get('SENTRY_DSN'),
 		environment: app.get('env'),
 		release: version,
-		integrations: [
-			new Sentry.Integrations.Console(),
-		],
+		sampleRate: Configuration.get('SENTRY_SAMPLE_RATE'),
+		/*	Sentry.Handlers.requestHandler() is used
+			integrations: [
+				new Sentry.Integrations.Console(),
+			],
+		*/
 	});
 	Sentry.configureScope((scope) => {
 		scope.setTag('frontend', false);
@@ -65,10 +67,18 @@ if (KEEP_ALIVE) {
 	});
 }
 
+// disable x-powered-by header
+app.disable('x-powered-by');
+
 // set security headers
 const securityHeaders = require('./middleware/security_headers');
 
 app.use(securityHeaders);
+
+// generate nonce value
+if (Configuration.get('CORS')) {
+	app.use(nonceValueSet);
+}
 
 // set cors headers
 app.use(require('./middleware/cors'));
@@ -159,14 +169,12 @@ app.use(async (req, res, next) => {
 	res.locals.domain = SC_DOMAIN;
 	res.locals.production = req.app.get('env') === 'production';
 	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
-	res.locals.SENTRY_DSN = SENTRY_DSN;
 	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
 	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
 	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
 	res.locals.version = version;
 	res.locals.sha = sha;
 	res.locals.ROCKETCHAT_SERVICE_ENABLED = ROCKETCHAT_SERVICE_ENABLED;
-	res.locals.FEATURE_MESSENGER_ENABLED = FEATURE_MESSENGER_ENABLED;
 	delete req.session.notification;
 	try {
 		await authHelper.populateCurrentUser(req, res);
@@ -174,7 +182,7 @@ app.use(async (req, res, next) => {
 		logger.error('could not populate current user', error);
 		return next(error);
 	}
-	if (SENTRY_DSN) {
+	if (Configuration.has('SENTRY_DSN')) {
 		Sentry.configureScope((scope) => {
 			if (res.locals.currentUser) {
 				scope.setTag({ schoolId: res.locals.currentUser.schoolId });

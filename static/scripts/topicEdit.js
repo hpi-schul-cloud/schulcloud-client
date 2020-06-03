@@ -398,8 +398,6 @@ class TopicText extends TopicBlock {
             ev.data.definition.resizable = CKEDITOR.DIALOG_RESIZE_NONE;
 
             if ( dialogName == 'link' ) {
-                const infoTab = dialogDefinition.getContents( 'info' );
-                infoTab.remove( 'protocol' );
                 dialogDefinition.removeContents( 'advanced' );
             }
 
@@ -434,15 +432,11 @@ class TopicText extends TopicBlock {
         const editorId = (this.props.content || {}).editorId || this.editorId;
 
         CKEDITOR.replace(editorId, {
-            extraPlugins: 'uploadimage,colorbutton,colordialog,mathjax,html5video,html5audio',
             uploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserBrowseUrl: '/files/' + storageContext,
             filebrowserUploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserImageUploadUrl: '/files/upload/?path=' + storageContext,
-            removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link;html5video:Upload;html5audio:Upload',
-			removeButtons: 'Maximize',
-            DefaultLinkTarget: '_blank'
-        });
+		});
 
         CKEDITOR.instances[editorId].on("change", function () {
             const data = CKEDITOR.instances[editorId].getData();
@@ -976,7 +970,7 @@ class TopicNexboard extends TopicBlock {
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
                        value={(this.props.content || {}).url } />
             </div>
-        );
+		);
 	}
 }
 

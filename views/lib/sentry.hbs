@@ -1,17 +1,25 @@
-{{#ifneq @root.SENTRY_DSN false}}
-<script src="/scripts/sentry.js"></script>
-<script>
+{{#hasConfig 'SENTRY_DSN'}}
+<script src="/scripts/sentry.js" nonce="{{nonceValue}}"></script>
+<script nonce="{{nonceValue}}">
 	function removeIds(url) {
 		var checkForHexRegExp = /[a-f\d]{24}/ig;
 		return url.replace(checkForHexRegExp, 'ID');
 	}
 	Sentry.init({
-		dsn: "{{@root.SENTRY_DSN}}",
+		dsn: "{{getConfig 'SENTRY_DSN'}}",
 		environment: "{{@root.env}}",
 		release: "{{@root.version}}",
+		sampleRate: {{getConfig 'SENTRY_SAMPLE_RATE'}},
 		integrations: [
-			new SentryIntegrations.CaptureConsole()
+			new SentryIntegrations.CaptureConsole({
+				levels: [
+					//'log', 'info',
+					'warn', 'error',
+					'debug', 'assert'
+				]
+			})
 		],
+		levels: ['warn', 'error'],
 		beforeSend: (event) => {
 			if (event.request && event.request.url) {
 				var cleanUrl = removeIds(event.request.url);
@@ -31,4 +39,4 @@
 		scope.setTag("domain", "{{@root.domain}}");
 	});
 </script>
-{{/ifneq}}
+{{/hasConfig}}

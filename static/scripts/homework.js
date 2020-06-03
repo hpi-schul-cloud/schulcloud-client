@@ -1,4 +1,5 @@
 /* global CKEDITOR */
+import multiDownload from 'multi-download';
 
 import { softNavigate } from './helpers/navigation';
 import { getQueryParameters } from './helpers/queryStringParameter';
@@ -146,30 +147,9 @@ $(document).ready(() => {
                 $.showNotification("Form validation failed", "danger", 15000);
                 return;
             }
-		}
-        let request = $.ajax({
-            type: method,
-            url: url,
-            data: content,
-            context: element
-		});
-        request.done(function(r) {
-            var saved = setInterval(_ => {
-                submitButton.innerHTML = submitButtonText;
-                submitButton.disabled = false;
-                submitButton.setAttribute("style",submitButtonStyleDisplay);
-                clearInterval(saved);
-            }, 2500);
-            submitButton.innerHTML = "gespeichert 😊";
-            if(after){after(this, element.serializeArray());}
-        });
-        request.fail(function() {
-
-			showAJAXError(undefined, undefined, 'Die Bewertung konnte leider nicht gespeichert werden.');
-
-            submitButton.disabled = false;
-            submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)';
-        });
+        }
+        element.unbind('submit');
+        element.submit();
     }
     // Abgabe speichern
     $('form.submissionForm.ajaxForm').on("submit",function(e){
@@ -471,5 +451,43 @@ $(document).ready(() => {
     });
 
     // typeset all MathJAX formulas displayed
-    MathJax.Hub.Typeset()
+	MathJax.Hub.Typeset()
+
+	// allow muti-download
+	$('button.multi-download').on('click', function() {
+		const files = $(this).data('files').split(' ');
+
+		// renaming here does not work, because the files are all served from a different origin
+		multiDownload(files).then(() => {
+			// Clicking a link, even if it is a download link, triggers a `beforeunload` event. Undo those changes here.
+			setTimeout(() => document.querySelector('body').classList.add('loaded'), 1000);
+		});
+    });
+    const $dontShowAgainAlertModal = $('.dontShowAgainAlert-modal');
+    function displayModal(headline, content, modal) {
+        populateModal(modal, '.modal-title', headline);
+        populateModal(modal, '#member-modal-body', content);
+        modal.appendTo('body').modal('show');
+    }
+    function modalCheckboxHandler(headline, content, modal, localStorageItem, checkbox) {
+        const isPrivateAlertTrue = localStorage.getItem(localStorageItem) ? JSON.parse(localStorage.getItem(localStorageItem)) : false;
+        if (!isPrivateAlertTrue && $(checkbox).prop('checked')) {
+            modal.find('.dontShowAgain-checkbox').prop('checked', false);
+            displayModal(headline, content, modal);
+
+            modal.find('.btn-submit').unbind('click').on('click', function (e) {
+                e.preventDefault();
+                const checkboxValue = modal.find('.dontShowAgain-checkbox').prop('checked');
+                localStorage.setItem(localStorageItem, checkboxValue);
+                modal.appendTo('body').modal('hide');
+            });
+        }
+    }
+
+    $('#publicSubmissionsCheckbox').on('change', function (e) {
+        e.preventDefault();
+        const content = 'Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.';
+        modalCheckboxHandler('Bist du dir sicher?', content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
+    });
+
 });

@@ -1,7 +1,7 @@
 {{#extend "lib/loggedin"}}
 
 	{{#content "scripts" mode="append"}}
-		<script src="/scripts/administration/classes/manage.js" type="text/javascript" defer></script>
+		<script src="/scripts/administration/classes/manage.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 
 	{{#content "styles" mode="append"}}
