@@ -2551,7 +2551,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 					},
 				},
 			});
-		} else if (studentVisibilityFeature === 'disabled' && isStudentVisibilityEnabled ) {
+		} else if (studentVisibilityFeature === 'disabled' && isStudentVisibilityEnabled) {
 			await api(req).patch(`/schools/${req.params.id}`, {
 				json: {
 					$pull: {
@@ -2564,8 +2564,8 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 			await api(req)
 				.patch('school/teacher/permissions', {
 					json: {
-						permissions: {
-							studentVisibility: !!req.body.studentVisibility,
+						permission: {
+							isEnabled: !!req.body.studentVisibility,
 						},
 					},
 				});
@@ -3060,7 +3060,7 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage, schoolMaintanance] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance, studentVisibility] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
 					$populate: ['systems', 'currentYear'],
@@ -3069,6 +3069,7 @@ router.use(
 			}),
 			api(req).get('/fileStorage/total'),
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
+			api(req).get('/school/teacher/permissions'),
 		]);
 
 		// Maintanance - Show Menu depending on the state
@@ -3165,6 +3166,7 @@ router.use(
 			systems,
 			ldapAddable,
 			provider,
+			studentVisibility: studentVisibility.isEnabled,
 			availableSSOTypes: ssoTypes,
 			ssoTypes,
 			totalStorage,

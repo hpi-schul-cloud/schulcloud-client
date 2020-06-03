@@ -225,7 +225,7 @@
 							<div class="form-group">
 								<label>
 									<input type="checkbox" name="studentVisibility" value="true"
-										{{#inArray "studentVisibility" ../school.features}}checked{{/inArray}}>
+										{{#if ../studentVisibility}}checked{{/if}}>
 									Schüler:innen-Daten verbergen <i class="fa fa-eye-slash"></i>
 									<p class="text-muted">
 										Lehrer:innen dürfen keine Daten von Schüler:innen außernhalb der eigenen Klassen und Kurse einsehen. 
