@@ -150,40 +150,6 @@ $(document).ready(() => {
 	}
 	$('.btn-edit').on('click', handleEditClick);
 
-	function invitationLinkHandler(e) {
-		e.preventDefault();
-		const schoolId = $invitationModal.find("input[name='schoolId']").val();
-		let role = 'student';
-		if ($(this).hasClass('teacher')) role = 'teacher';
-		$.ajax({
-			type: 'POST',
-			url: `${window.location.origin}/administration/registrationlink`,
-			data: {
-				role,
-				save: true,
-				schoolId,
-				host: window.location.origin,
-			},
-			success(linkData) {
-				populateModalForm($invitationModal, {
-					title: 'Einladungslink generiert!',
-					closeLabel: 'Abbrechen',
-					submitLabel: 'Speichern',
-					fields: { invitation: linkData.shortLink },
-				});
-				$invitationModal.find('.btn-submit').remove();
-				$invitationModal
-					.find("input[name='invitation']")
-					// eslint-disable-next-line func-names
-					.click(function () {
-						$(this).select();
-					});
-
-				$invitationModal.appendTo('body').modal('show');
-			},
-		});
-	}
-	$('.btn-invitation-link').on('click', invitationLinkHandler);
 
 	function ssoSelectHandler(e) {
 		e.preventDefault();

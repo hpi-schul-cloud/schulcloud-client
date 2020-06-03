@@ -10,6 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 ### Added
+SC-4151 hint for user when login failes
 
 ### Fixed
 
@@ -32,6 +33,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 ### Changed
+
+### Security
+- SC-4506 Secure User Route. Removed not used /users route from view team members. 
 
 ### Removed
 
