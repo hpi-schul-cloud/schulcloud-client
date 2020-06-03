@@ -16,7 +16,7 @@
                         <table width="100%" border="0" bgcolor="#b10438" cellspacing="0" cellpadding="0" id="header">
                             <tr>
                                 <td valign="top" class="header_content">
-                                    <h1 style="color: #F4F4F4; font-size: 24px; text-align: center;">{{$t "registration.heading.invitationToThe" }} {{theme.short_title}}</h1>
+                                    <h1 style="color: #F4F4F4; font-size: 24px; text-align: center;">{{$t "registration.registration_template.heading.invitationToThe" }} {{theme.short_title}}</h1>
                                 </td>
                             </tr>
                         </table>
@@ -32,13 +32,13 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="20">
                             <tr>
                                 <td valign="top">
-                                    <p style="color: #000000; font-size: 14px; line-height: 22px; text-align: center;">{{$t "registration.text.dear" }} {{firstName}} {{lastName}} <br>{{$t "registration.text.youWereInvitedToThe" (dict "shortTitle" theme.short_title) }} </p>
+                                    <p style="color: #000000; font-size: 14px; line-height: 22px; text-align: center;">{{$t "registration.registration_template.text.dear" }} {{firstName}} {{lastName}} <br>{{$t "registration.registration_template.text.youWereInvitedToThe" (dict "shortTitle" theme.short_title) }} </p>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="center">
                                     <div>
-                                        <a href="{{url}}" id="register" style="background-color:#b10438;border-radius:3px;color:#FFFFFF;display:inline-block;font-family:'Helvetica',Arial,sans-serif;font-size:13px;height:45px;line-height:45px;text-align:center;text-decoration:none;text-transform:uppercase;width:150px;-webkit-text-size-adjust:none;mso-hide:all;">Registrieren</a>
+                                        <a href="{{url}}" id="register" style="background-color:#b10438;border-radius:3px;color:#FFFFFF;display:inline-block;font-family:'Helvetica',Arial,sans-serif;font-size:13px;height:45px;line-height:45px;text-align:center;text-decoration:none;text-transform:uppercase;width:150px;-webkit-text-size-adjust:none;mso-hide:all;">{{$t "registration.registration_template.link.toRegister" }}</a>
                                     </div>
                                     <br>
                                     <a href="{{url}}" target="_blank">{{url}}</a>
@@ -57,9 +57,9 @@
 
                         <nobr>
                             <span> - </span>
-                            <a href="https://hpi.de/impressum.html" target="blank">{{$t "registration.link.imprint" }}</a>
+                            <a href="https://hpi.de/impressum.html" target="blank">{{$t "registration.registration_template.link.imprint" }}</a>
                             <span> - </span>
-                            <a href="mailto:hpi-info@hpi.de?subject=Schul_Cloud%20Anfrage">{{$t "registration.global.link.contact" }}</a>
+                            <a href="mailto:hpi-info@hpi.de?subject=Schul_Cloud%20Anfrage">{{$t "registration.registration_template.global.link.contact" }}</a>
                             <span> - </span>
                             <a href="https://schul-cloud.org/partner">Partner</a>
                         </nobr>

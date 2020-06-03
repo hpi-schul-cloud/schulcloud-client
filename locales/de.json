@@ -1223,6 +1223,24 @@
 				"verificationCode": "Bestätigungscode:"
 			}
 		},
+		"registration_template": {
+			"global": {
+				"link": {
+					"contact": "Kontakt"
+				}
+			},
+			"heading": {
+				"invitationToThe": "Einladung in die"
+			},
+			"link": {
+				"toRegister": "Registrieren",
+				"imprint": "Impressum"
+			},
+			"text": {
+				"dear": "Sehr geehrte/r",
+				"youWereInvitedToThe": "Sie wurden eingeladen, der {{shortTitle}} beizutreten, bitte vervollständigen Sie Ihre Einladung unter folgendem Link"
+			}
+		},
 		"requestPin": {
 			"button": {
 				"requestVerificationCode": "Bestätigungscode jetzt anfordern"
