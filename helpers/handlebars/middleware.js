@@ -38,6 +38,7 @@ const makeActive = (items, currentUrl) => {
 
 module.exports = (req, res, next) => {
 	res.locals.backendUrl = PUBLIC_BACKEND_URL;
+
 	// standard views
 	res.locals.sidebarItems = [{
 		name: res.$t('global.sidebar.link.overview'),

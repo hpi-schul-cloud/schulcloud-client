@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "23.1.0",
+	"version": "23.2.0",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -140,7 +140,7 @@
 		"pump": "^1.0.2",
 		"rebuild-changed-entrypoints-webpack-plugin": "^1.0.1",
 		"sass-lint": "^1.13.1",
-		"sass-lint-auto-fix": "^0.17.0",
+		"sass-lint-auto-fix": "^0.21.0",
 		"script-loader": "^0.7.2",
 		"vinyl-map": "^1.0.2",
 		"vinyl-named": "^1.1.0",
