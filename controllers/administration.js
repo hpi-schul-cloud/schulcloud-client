@@ -871,7 +871,7 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 // teacher admin permissions
 router.get(
 	'/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST', 'TEACHER_LIST'], 'or'),
 	(req, res, next) => {
 		const title = returnAdminPrefix(res.locals.currentUser.roles);
 		res.render('administration/dashboard', {
@@ -2755,10 +2755,10 @@ const getTeamSchoolsButton = (counter) => `
 router.all('/teams', (req, res, next) => {
 	const path = '/administration/teams/';
 
-	let itemsPerPage = parseInt(req.query.limit, 10) || 25;
-	let filterQuery = {};
+	const itemsPerPage = parseInt(req.query.limit, 10) || 25;
+	const filterQuery = {};
 	const currentPage = parseInt(req.query.p, 10) || 1;
-	
+
 	let query = {
 		limit: itemsPerPage,
 		skip: itemsPerPage * (currentPage - 1),
@@ -2772,7 +2772,7 @@ router.all('/teams', (req, res, next) => {
 		'Erstellt am': 'createdAt',
 	*/
 
-	
+
 	api(req)
 		.get('/teams/manage/admin', {
 			qs: query,
