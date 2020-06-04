@@ -117,7 +117,6 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 					type: 'danger',
 					message: res.$t('courses._course.text.etherpadCouldNotBeAdded'),
 				};
-				content.content.url = undefined;
 			});
 		return content;
 	})).catch((err) => {
