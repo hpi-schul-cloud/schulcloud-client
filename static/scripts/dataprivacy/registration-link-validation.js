@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const message = `
 	<div class="error-header-wrapper mt-1">
 	<img class="error-header-image" src="/images/broken-pen.svg" alt="zerbrochener Stift" />
-	<h1 class="h2 error-header-code text-center">Registrierung fehlerhaft</h1>
+	<h1 class="h3 error-header-code text-center">Registrierung fehlerhaft</h1>
 	<p class="error-header-text text-center">
 	Diese Registrierung bzw. dieser Registrierungslink scheint nicht valide zu sein. Dies kann mehrere Gründe haben:
 	</p>
