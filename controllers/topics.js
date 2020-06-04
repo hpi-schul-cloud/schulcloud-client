@@ -75,7 +75,7 @@ const getEtherpadPadForCourse = async (req, user, courseId, content, oldPadId) =
 	return api(req).post('/etherpad/pads', {
 		json: {
 			courseId,
-			padName: content.title,
+			padName: content.content.title,
 			text: content.description,
 			oldPadId
 		},
@@ -85,7 +85,11 @@ const getEtherpadPadForCourse = async (req, user, courseId, content, oldPadId) =
 async function createNewEtherpad(req, res, contents = [], courseId) {
 	// eslint-disable-next-line no-return-await
 	return await Promise.all(contents.map(async (content) => {
-		if (!content || content.component !== 'Etherpad') {
+		if (!content
+			|| typeof(content.component) === 'undefined'
+			|| content.component !== 'Etherpad'
+			|| typeof(content.content) === 'undefined'
+		) {
 			return content;
 		}
 		let isOldPad;
@@ -100,17 +104,15 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 			logger.error(err.message);
 		};
 		// no pad name supplied, generate one
-		if (typeof(content.title) === 'undefined' || content.title === '') {
-			content.title = randomBytes(48, function(err, buffer) {
-				return buffer.toString('hex');
-			});
+		if (typeof(content.content.title) === 'undefined' || content.content.title === '') {
+			content.content.title = randomBytes(12).toString('hex');
 		}
 		const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
 		await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content, oldPadId)
 			.then((etherpadPadId) => {
 				content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
 			}).catch((err) => {
-				logger.error(err);
+				logger.error(err.message);
 				req.session.notification = {
 					type: 'danger',
 					message: res.$t('courses._course.text.etherpadCouldNotBeAdded'),
