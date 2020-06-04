@@ -661,8 +661,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 				Promise.resolve(lessonsPromise).then((lessons) => {
 					(lessons || []).sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 					res.render('homework/edit', {
-						title: res.$t('homework.label.filterMoreTeamSubmissions'),
-						submitLabel: res.$t('homework.label.filterMoreTeamSubmissions'),
+						title: res.$t('homework.headline.editTask'),
+						submitLabel: res.$t('homework.button.submitTask'),
 						closeLabel: res.$t('homework.button.closeTask'),
 						method: 'patch',
 						action: `/homework/${req.params.assignmentId}`,
