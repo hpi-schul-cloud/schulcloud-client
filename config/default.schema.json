@@ -263,6 +263,10 @@
 				"EXPIRES_SECONDS"
 			]
 		},
+		"COOKIE_SECRET": {
+			"type": "string",
+			"description": "Secret used to sign the session ID cookie"
+		},
 		"LOGIN_BLOCK_TIME": {
 			"type": "integer",
 			"default": 15,
@@ -293,6 +297,7 @@
 	"required": [
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
 		"COOKIE",
+		"COOKIE_SECRET",
 		"STUDENT_TEAM_CREATION",
 		"FEATURE_ETHERPAD_ENABLED"
 	]

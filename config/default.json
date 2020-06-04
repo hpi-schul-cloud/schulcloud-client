@@ -13,5 +13,6 @@
 		"SECURE": false,
 		"EXPIRES_SECONDS": 2592000000
 	},
+	"COOKIE_SECRET": "ihasDF(=4jA4aF",
 	"STUDENT_TEAM_CREATION" : "opt-out"
 }
