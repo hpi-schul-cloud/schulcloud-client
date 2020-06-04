@@ -4,11 +4,7 @@ const { Configuration } = require('@schul-cloud/commons');
 const router = express.Router();
 const api = require('../api');
 
-const {
-	HOST,
-	NODE_ENV,
-	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
-} = require('../config/global');
+const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
 
@@ -16,13 +12,17 @@ let invalid = false;
 const isProduction = NODE_ENV === 'production';
 
 const resetThemeForPrivacyDocuments = async (req, res) => {
-	res.locals.currentSchoolData = await api(req).get(
-		`registrationSchool/${req.params.classOrSchoolId}`,
-	);
+	try {
+		res.locals.currentSchoolData = await api(req).get(
+			`registrationSchool/${req.params.classOrSchoolId}`,
+		);
+	} catch (error) {
+		console.error(error);
+	}
 	setTheme(res);
 };
 
-const isSecure = (url) => (url.includes('sso') || url.includes('importHash') ? true : false);
+const isSecure = (url) => (!!(url.includes('sso') || url.includes('importHash')));
 
 const checkValidRegistration = async (req) => {
 	if (req.query.importHash) {
@@ -167,26 +167,24 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 				return res.sendStatus(400);
 			}
 		}
-		const validID = () => {
+		const validID = async () => {
 			let idExists = false;
-			const promise = new Promise((resolve) => {
-				(api(req).get(`/schools/${req.params.classOrSchoolId}`,
-					(request, response) => {
-						if (response.statusCode === 200) {
-							resolve();
-						}
-					}));
-				(api(req).get(`/classes/${req.params.classOrSchoolId}`,
-					(request, response) => {
-						if (response.statusCode === 200) {
-							resolve();
-						}
-					}));
-			});
-			promise
-				.then(() => {
+
+			try {
+				await api(req).get(`/schools/${req.params.classOrSchoolId}`);
+				idExists = true;
+			} catch (e) {
+				idExists = false;
+			}
+
+			if (!idExists) {
+				try {
+					await api(req).get(`/classes/${req.params.classOrSchoolId}`);
 					idExists = true;
-				});
+				} catch (e) {
+					idExists = false;
+				}
+			}
 			return idExists;
 		};
 		const secure = isSecure(req.url);
@@ -239,26 +237,24 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 				return res.sendStatus(400);
 			}
 		}
-		const validID = () => {
+		const validID = async () => {
 			let idExists = false;
-			const promise = new Promise((resolve) => {
-				(api(req).get(`/schools/${req.params.classOrSchoolId}`,
-					(request, response) => {
-						if (response.statusCode === 200) {
-							resolve();
-						}
-					}));
-				(api(req).get(`/classes/${req.params.classOrSchoolId}`,
-					(request, response) => {
-						if (response.statusCode === 200) {
-							resolve();
-						}
-					}));
-			});
-			promise
-				.then(() => {
+
+			try {
+				await api(req).get(`/schools/${req.params.classOrSchoolId}`);
+				idExists = true;
+			} catch (e) {
+				idExists = false;
+			}
+
+			if (!idExists) {
+				try {
+					await api(req).get(`/classes/${req.params.classOrSchoolId}`);
 					idExists = true;
-				});
+				} catch (e) {
+					idExists = false;
+				}
+			}
 			return idExists;
 		};
 		const secure = isSecure(req.url);
@@ -310,26 +306,24 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 			return res.sendStatus(400);
 		}
 	}
-	const validID = () => {
+	const validID = async () => {
 		let idExists = false;
-		const promise = new Promise((resolve) => {
-			(api(req).get(`/schools/${req.params.classOrSchoolId}`,
-				(request, response) => {
-					if (response.statusCode === 200) {
-						resolve();
-					}
-				}));
-			(api(req).get(`/classes/${req.params.classOrSchoolId}`,
-				(request, response) => {
-					if (response.statusCode === 200) {
-						resolve();
-					}
-				}));
-		});
-		promise
-			.then(() => {
+
+		try {
+			await api(req).get(`/schools/${req.params.classOrSchoolId}`);
+			idExists = true;
+		} catch (e) {
+			idExists = false;
+		}
+
+		if (!idExists) {
+			try {
+				await api(req).get(`/classes/${req.params.classOrSchoolId}`);
 				idExists = true;
-			});
+			} catch (e) {
+				idExists = false;
+			}
+		}
 		return idExists;
 	};
 	const secure = isSecure(req.url);
@@ -381,39 +375,29 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'],
 	async (req, res) => {
-		let resp1 = 'resp1';
-		let resp2 = 'resp2';
 		const validID = async () => {
 			let idExists = false;
-			const promise = new Promise((resolve) => {
-				(api(req).get(`/schools/${req.params.classOrSchoolId}`,
-					(request, response) => {
-						if (response.statusCode === 200) {
-							resp1 = response.statusCode;
-							idExists = true;
-							resolve();
-						}
-					}));
-				(api(req).get(`/classes/${req.params.classOrSchoolId}`,
-					(request, response) => {
-						if (response.statusCode === 200) {
-							resp2 = response.statusCode;
-							idExists = true;
-							resolve();
-						}
-					}));
-				return idExists;
-			});
-			promise
-				.then(() => {
+
+			try {
+				await api(req).get(`/schools/${req.params.classOrSchoolId}`);
+				idExists = true;
+			} catch (e) {
+				idExists = false;
+			}
+
+			if (!idExists) {
+				try {
+					await api(req).get(`/classes/${req.params.classOrSchoolId}`);
 					idExists = true;
-				});
-			await promise;
+				} catch (e) {
+					idExists = false;
+				}
+			}
 			return idExists;
 		};
 		const secure = isSecure(req.url);
 
-		// const correctID = await validID();
+		const correctID = await validID();
 
 		invalid = await checkValidRegistration(req);
 
@@ -429,9 +413,7 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 			secure,
-			correctID: false,
-			resp1,
-			resp2,
+			correctID,
 		});
 	});
 

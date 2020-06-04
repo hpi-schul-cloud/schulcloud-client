@@ -7,12 +7,7 @@
 	{{/content}}
 	{{#content "page"}}
 		{{#unless this.correctID}}
-        <div>{{this.correctID}}</div>
-        <div>{{this.resp1}}</div>
-        <div>{{this.resp2}}</div>
-        <br/>
-        <div>WRONG WRONG</div>
-        <div>WRONG WRONG</div>
+			{{> "lib/registration"}}
 		{{else}}
 		{{#unless this.secure}}
 			{{> "lib/registration"}}
