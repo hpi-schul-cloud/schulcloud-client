@@ -7,6 +7,7 @@ const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
 const { EDTR_SOURCE } = require('../config/global');
+const { randomBytes } = require('crypto');
 
 const router = express.Router({ mergeParams: true });
 
@@ -98,6 +99,12 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 		} catch (err) {
 			logger.error(err.message);
 		};
+		// no pad name supplied, generate one
+		if (typeof(content.title) === 'undefined' || content.title === '') {
+			content.title = randomBytes(48, function(err, buffer) {
+				return buffer.toString('hex');
+			});
+		}
 		const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
 		await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content, oldPadId)
 			.then((etherpadPadId) => {
@@ -112,7 +119,7 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 			});
 		return content;
 	})).catch((err) => {
-		logger.error(err);
+		logger.error(err.message);
 		return contents;
 	});
 }
@@ -125,7 +132,7 @@ const getEtherpadSession = async (req, res, courseId) => {
 			},
 		},
 	).catch((err) => {
-		logger.error(err);
+		logger.error(err.message);
 		return undefined;
 	});
 };
