@@ -97,11 +97,14 @@ const populateCurrentUser = (req, res) => {
 	}
 
 	if (payload && payload.userId) {
-		return api(req).get(`/users/${payload.userId}`, {
-			qs: {
-				$populate: ['roles'],
-			},
-		}).then((data) => {
+		return Promise.all([
+			api(req).get(`/users/${payload.userId}`),
+			api(req).get(`/roles/user/${payload.userId}`),
+		]).then(([user, roles]) => {
+			const data = {
+				...user,
+				roles,
+			};
 			res.locals.currentUser = data;
 			setTestGroup(res.locals.currentUser);
 			res.locals.currentRole = rolesDisplayName[data.roles[0].name];
