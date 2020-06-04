@@ -5,8 +5,8 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/files.js" type="text/javascript" defer></script>
-        <script src="/scripts/jquery.cookie.js" type="text/javascript" defer></script>
+        <script src="/scripts/files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/jquery.cookie.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
