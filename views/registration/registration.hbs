@@ -6,14 +6,16 @@
 		<link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
 	{{/content}}
 	{{#content "page"}}
+		{{#unless this.correctID}}
+        <div>{{this.correctID}}</div>
+        <div>{{this.resp1}}</div>
+        <div>{{this.resp2}}</div>
+        <br/>
+        <div>WRONG WRONG</div>
+        <div>WRONG WRONG</div>
+		{{else}}
 		{{#unless this.secure}}
 			{{> "lib/registration"}}
-		{{else unless this.properID}}
-            <div>{{this.properID}}</div>
-			<div>WRONG WRONG</div>
-            <div>WRONG WRONG</div>
-            <div>WRONG WRONG</div>
-            <div>{{this.properID}}</div>
 		{{else}}
 	<div id="welcome-screen">
 		<h2 class="h4">{{$t "registration._registration.heading.welcomeToTheRegistration" (dict "title" theme.title)}}</h2>
@@ -48,5 +50,6 @@
 
 	</div>
 		{{/unless}}
+	{{/unless}}
 	{{/content}}
 {{/extend}}

@@ -168,25 +168,30 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			}
 		}
 		const validID = () => {
-			let isExists = false;
-			(api(req).get(`/schools/${req.params.classOrSchoolId}`,
-				(request, response) => {
-					if (response.statusCode === 200) {
-						isExists = true;
-					}
-				})
-			);
-			(api(req).get(`/classes/${req.params.classOrSchoolId}`,
-				(request, response) => {
-					if (response.statusCode === 200) {
-						isExists = true;
-					}
-				})
-			);
-			return isExists;
+			let idExists = false;
+			const promise = new Promise((resolve) => {
+				(api(req).get(`/schools/${req.params.classOrSchoolId}`,
+					(request, response) => {
+						if (response.statusCode === 200) {
+							resolve();
+						}
+					}));
+				(api(req).get(`/classes/${req.params.classOrSchoolId}`,
+					(request, response) => {
+						if (response.statusCode === 200) {
+							resolve();
+						}
+					}));
+			});
+			promise
+				.then(() => {
+					idExists = true;
+				});
+			return idExists;
 		};
 		const secure = isSecure(req.url);
-		const properID = validID();
+
+		const correctID = await validID();
 
 		const user = {};
 		user.importHash = req.query.importHash;
@@ -220,7 +225,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 			secure,
-			properID,
+			correctID,
 		});
 	});
 
@@ -235,25 +240,30 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			}
 		}
 		const validID = () => {
-			let isExists = false;
-			(api(req).get(`/schools/${req.params.classOrSchoolId}`,
-				(request, response) => {
-					if (response.statusCode === 200) {
-						isExists = true;
-					}
-				})
-			);
-			(api(req).get(`/classes/${req.params.classOrSchoolId}`,
-				(request, response) => {
-					if (response.statusCode === 200) {
-						isExists = true;
-					}
-				})
-			);
-			return isExists;
+			let idExists = false;
+			const promise = new Promise((resolve) => {
+				(api(req).get(`/schools/${req.params.classOrSchoolId}`,
+					(request, response) => {
+						if (response.statusCode === 200) {
+							resolve();
+						}
+					}));
+				(api(req).get(`/classes/${req.params.classOrSchoolId}`,
+					(request, response) => {
+						if (response.statusCode === 200) {
+							resolve();
+						}
+					}));
+			});
+			promise
+				.then(() => {
+					idExists = true;
+				});
+			return idExists;
 		};
 		const secure = isSecure(req.url);
-		const properID = validID();
+
+		const correctID = await validID();
 
 		const user = {};
 		user.importHash = req.query.importHash;
@@ -287,7 +297,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 			secure,
-			properID,
+			correctID,
 		});
 	});
 
@@ -301,25 +311,30 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		}
 	}
 	const validID = () => {
-		let isExists = false;
-		(api(req).get(`/schools/${req.params.classOrSchoolId}`,
-			(request, response) => {
-				if (response.statusCode === 200) {
-					isExists = true;
-				}
-			})
-		);
-		(api(req).get(`/classes/${req.params.classOrSchoolId}`,
-			(request, response) => {
-				if (response.statusCode === 200) {
-					isExists = true;
-				}
-			})
-		);
-		return isExists;
+		let idExists = false;
+		const promise = new Promise((resolve) => {
+			(api(req).get(`/schools/${req.params.classOrSchoolId}`,
+				(request, response) => {
+					if (response.statusCode === 200) {
+						resolve();
+					}
+				}));
+			(api(req).get(`/classes/${req.params.classOrSchoolId}`,
+				(request, response) => {
+					if (response.statusCode === 200) {
+						resolve();
+					}
+				}));
+		});
+		promise
+			.then(() => {
+				idExists = true;
+			});
+		return idExists;
 	};
 	const secure = isSecure(req.url);
-	const properID = validID();
+
+	const correctID = await validID();
 
 	const user = {};
 	user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
@@ -360,40 +375,45 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		sectionNumber,
 		invalid,
 		secure,
-		properID,
+		correctID,
 	});
 });
 
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'],
 	async (req, res) => {
+		let resp1 = 'resp1';
+		let resp2 = 'resp2';
 		const validID = async () => {
-			let isExists = false;
+			let idExists = false;
 			const promise = new Promise((resolve) => {
 				(api(req).get(`/schools/${req.params.classOrSchoolId}`,
 					(request, response) => {
 						if (response.statusCode === 200) {
+							resp1 = response.statusCode;
+							idExists = true;
 							resolve();
 						}
 					}));
 				(api(req).get(`/classes/${req.params.classOrSchoolId}`,
 					(request, response) => {
 						if (response.statusCode === 200) {
+							resp2 = response.statusCode;
+							idExists = true;
 							resolve();
 						}
 					}));
+				return idExists;
 			});
 			promise
 				.then(() => {
-					isExists = true;
-					return isExists;
-				})
-				.catch(() => {
-					isExists = false;
-					return isExists;
+					idExists = true;
 				});
+			await promise;
+			return idExists;
 		};
 		const secure = isSecure(req.url);
-		const properID = validID();
+
+		// const correctID = await validID();
 
 		invalid = await checkValidRegistration(req);
 
@@ -409,7 +429,9 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 			secure,
-			properID,
+			correctID: false,
+			resp1,
+			resp2,
 		});
 	});
 
