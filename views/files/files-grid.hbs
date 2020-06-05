@@ -22,7 +22,7 @@
 								</a>
 							</div>
 							<div class="card-text">
-							  <small class="file-location">{{#if this.context}}{{$t files.text.foundIn}} {{this.context}}{{/if}}</small><br>
+							  <small class="file-location">{{#if this.context}}{{$t "files.text.foundIn"}} {{this.context}}{{/if}}</small><br>
 								{{#ifeq this.securityCheck.status "blocked"}}
 									<a href="#"
 									class="btn-file-danger"
