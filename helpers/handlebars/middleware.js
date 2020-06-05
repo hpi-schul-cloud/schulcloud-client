@@ -120,7 +120,7 @@ module.exports = (req, res, next) => {
 		icon: 'cogs',
 		link: '/administration/',
 		permission: 'STUDENT_LIST',
-		excludedPermission: 'ADMIN_VIEW',
+		excludedPermission: ['ADMIN_VIEW', 'TEACHER_LIST'],
 		children: [
 			{
 				name: res.$t('global.sidebar.link.managementStudents'),
@@ -146,7 +146,7 @@ module.exports = (req, res, next) => {
 		icon: 'cogs',
 		link: '/administration/',
 		permission: 'TEACHER_LIST',
-		excludedPermission: 'ADMIN_VIEW',
+		excludedPermission: ['ADMIN_VIEW', 'STUDENT_LIST'],
 		children: [
 			{
 				name: res.$t('global.sidebar.link.managementTeachers'),
