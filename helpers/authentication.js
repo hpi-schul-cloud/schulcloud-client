@@ -104,7 +104,7 @@ const populateCurrentUser = (req, res) => {
 			const data = {
 				...user,
 				roles,
-				permissions: [...new Set(roles.map(({ permissions }) => permissions))][0],
+				permissions: roles.reduce((acc, role) => [...new Set(acc.concat(role.permissions))], []),
 			};
 			res.locals.currentUser = data;
 			setTestGroup(res.locals.currentUser);
