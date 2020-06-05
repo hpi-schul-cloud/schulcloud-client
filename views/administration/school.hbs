@@ -355,22 +355,24 @@
 	{{/unless}}
 	{{#userHasPermission 'SCHOOL_EDIT'}}
 		{{#ifConfig "FEATURE_SCHOOL_POLICY_ENABLED" true}}
-				<form enctype="multipart/form-data" action="/administration/schools/{{../../school.id}}/policy" method="post" class="edit-form-school">
+<!--				<form enctype="multipart/form-data" action="/administration/schools/{{../../school.id}}/policy" method="post" class="edit-form-school">-->
 					<section class="section-school section-default">
 						<h2 class="h4">Datenschutzerklärung</h2>
-						<div class="form-group">
-							<label>Datenschutzerklärung hochladen (nur PDF, max 4MB)</label><br />
-							<input type="file" id="policy-input" accept="application/pdf">
-							<label for="policy-input" class="btn btn-secondary">Datei auswählen</label>
-							<img id="policy-file-logo" src="/images/thumbs/pdfs.png" width="25px">
-							<span id="policy-filename">Keine Datei ausgewählt</span>
-
-							<p class="text-muted">Wenn eine neue Datenschutzerklärung hochgeladen wird, müssen alle Schulnutzer sie zustimmen. </p>
-						</div>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-12 no-padding">
+						{{> "lib/components/table" head=../policiesHead body=../policiesBody}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 no-padding">
+						<button type="submit" class="btn btn-primary btn-add-modal--policy">
+							Datenschutzerklärung hinzufügen
+						</button>
+					</div>
+				</div>
+			</div>
 					</section>
-					{{> "lib/components/csrfInput"}}
-					<button type="submit" class="btn btn-primary btn-submit">Speichern</button>
-				</form>
 		{{/ifConfig}}
 
 	<section class="section-school section-default">
@@ -417,6 +419,13 @@
 	{{#content "fields"}}
 	{{> "administration/forms/form-delete-alias"}}
 	{{/content}}
+	{{/embed}}
+
+	{{#embed "lib/components/modal-form" action="/administration/schools/policy" method="post" class="add-modal--policy"
+			 collapseId=3}}
+		{{#content "fields"}}
+			{{> "administration/forms/form-policy"}}
+		{{/content}}
 	{{/embed}}
 
 
