@@ -3049,7 +3049,7 @@ router.use(
 			}),
 			api(req).get('/fileStorage/total'),
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
-			api(req).get('/school/teacher/permissions'),
+			api(req).get('/school/teacher/studentvisibility'),
 		]);
 
 		// Maintanance - Show Menu depending on the state
