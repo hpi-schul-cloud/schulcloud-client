@@ -224,7 +224,7 @@ const editCourseHandler = (req, res, next) => {
 			'#FFEE58',
 		];
 
-		// checks for user's 'STUDENT_LIST' permission and filters active students
+		// checks for user's 'STUDENT_LIST' permission and filters checked students
 		const filterStudents = (ctx, s) => (
 			!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
 				? s.filter(({ selected }) => selected) : s

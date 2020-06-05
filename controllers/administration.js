@@ -1957,6 +1957,12 @@ router.get(
 						}
 					});
 
+					// checks for user's 'STUDENT_LIST' permission and filters selected students
+					const filterStudents = (ctx, s) => (
+						!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
+							? s.filter(({ selected }) => selected) : s
+					);
+
 					// importHash exists --> not signed up
 					const usersWithoutConsent = allUsersWithoutConsent.filter((obj) => {
 						if (obj.importHash) return true;
@@ -1968,7 +1974,7 @@ router.get(
 						class: currentClass,
 						classes,
 						teachers,
-						students,
+						students: filterStudents(res, students),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						schoolyears,
 						notes: [
