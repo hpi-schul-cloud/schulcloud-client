@@ -718,7 +718,7 @@ const createBucket = (req, res, next) => {
 const updatePolicy = (req, res, next) => {
 	const file = req.body;
 	// TODO: set correct API request
-	api(req).post('/files/file', {
+	api(req).post('/consentVersions', {
 		json: {
 			parent: 'parent',
 			type: file.type,
