@@ -167,8 +167,11 @@ const restrictSidebar = (req, res) => {
 		let hasExcludedPermission = false;
 		if (Array.isArray(item.excludedPermission)) {
 			hasExcludedPermission = item.excludedPermission
-				.reduce((acc, perm) => acc && permissionsHelper.userHasPermission(res.locals.currentUser, perm),
-					false);
+				.reduce((acc, perm) => {
+					if (acc === true) return true;
+					return permissionsHelper.userHasPermission(res.locals.currentUser, perm);
+				},
+				false);
 		} else {
 			hasExcludedPermission = permissionsHelper.userHasPermission(res.locals.currentUser,
 				item.excludedPermission);
