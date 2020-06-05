@@ -715,6 +715,22 @@ const createBucket = (req, res, next) => {
 	}
 };
 
+const updatePolicy = (req, res, next) => {
+	const file = req.body;
+	// TODO: set correct API request
+	api(req).post('/files/file', {
+		json: {
+			parent: 'parent',
+			type: file.type,
+			filename: req.params.id,
+		},
+	}).then(() => {
+		redirectHelper.safeBackRedirect(req, res);
+	}).catch((err) => {
+		next(err);
+	});
+};
+
 const returnAdminPrefix = (roles) => {
 	let prefix;
 	// eslint-disable-next-line array-callback-return
@@ -2537,6 +2553,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 router.patch('/schools/:id', schoolFeatureUpdateHandler);
 router.post('/schools/:id/bucket', createBucket);
+router.post('/schools/:id/policy', updatePolicy);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch(
 	'/courses/:id',
@@ -2696,10 +2713,10 @@ const getTeamSchoolsButton = (counter) => `
 router.all('/teams', (req, res, next) => {
 	const path = '/administration/teams/';
 
-	let itemsPerPage = parseInt(req.query.limit, 10) || 25;
-	let filterQuery = {};
+	const itemsPerPage = parseInt(req.query.limit, 10) || 25;
+	const filterQuery = {};
 	const currentPage = parseInt(req.query.p, 10) || 1;
-	
+
 	let query = {
 		limit: itemsPerPage,
 		skip: itemsPerPage * (currentPage - 1),
@@ -2713,7 +2730,7 @@ router.all('/teams', (req, res, next) => {
 		'Erstellt am': 'createdAt',
 	*/
 
-	
+
 	api(req)
 		.get('/teams/manage/admin', {
 			qs: query,

@@ -36,6 +36,36 @@ function loadFile() {
 document.querySelector('#logo-input')
 	.addEventListener('change', loadFile, false);
 
+const MAX_FILE_SIZE_MB = 4;
+
+function loadPolicyFile() {
+	const file = document.querySelector('#policy-input').files[0];
+	const reader = new FileReader();
+	reader.addEventListener('load', (evt) => {
+		if (!file.type.match('application/pdf')) {
+			$.showNotification('nur PDF Dateien werden unterstützt', 'danger', true);
+			document.querySelector('#policy-input').value = '';
+			document.querySelector('#policy-filename').innerHTML = '';
+			document.querySelector('#policy-file-logo').style.display = 'none';
+			return;
+		}
+		const filesize = ((file.size / 1024) / 1024).toFixed(4); // MB
+
+		if (filesize > MAX_FILE_SIZE_MB) {
+			$.showNotification('PDF Datei ist zu groß. Maximal 4MB', 'danger', true);
+			return;
+		}
+		document.querySelector('#policy-filename').innerHTML = file.name;
+		document.querySelector('#policy-file-logo').style.display = 'inline';
+	}, false);
+	if (file) {
+		reader.readAsDataURL(file);
+	}
+}
+
+document.querySelector('#policy-input')
+	.addEventListener('change', loadPolicyFile, false);
+
 // hide/show Messenger sub options
 const messengerInput = document.querySelector('#messenger');
 const messengerSubOptions = document.querySelector('#messenger-sub-options');

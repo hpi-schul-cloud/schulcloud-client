@@ -355,6 +355,28 @@
 	{{/unless}}
 
 	{{#userHasPermission 'SCHOOL_EDIT'}}
+		<form enctype="multipart/form-data" action="/administration/schools/{{../school.id}}/policy" method="post" class="edit-form-school">
+			<section class="section-school section-default">
+				<h2 class="h4">Datenschutzerklärung</h2>
+				<div class="form-group">
+					<label>Datenschutzerklärung hochladen (nur PDF, max 4MB)</label><br />
+					<input type="file" id="policy-input" accept="application/pdf">
+					<label for="policy-input" class="btn btn-secondary">Datei auswählen</label>
+					<img id="policy-file-logo" src="/images/thumbs/pdfs.png" width="25px">
+					<span id="policy-filename">Keine Datei ausgewählt</span>
+				</div>
+				<div class="form-group" id="policycontentchanged">
+					<label>
+						<input type="checkbox" name="policycontentchanged"
+							   value="true">
+						Die Datenschutzerklärung hat sich inhaltlich geändert. Alle Nutzer sollen benachrichtigt werden.
+					</label>
+				</div>
+			</section>
+			{{> "lib/components/csrfInput"}}
+			<button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+		</form>
+
 	<section class="section-school section-default">
 		<h2 class="h4">Authentifizierung</h2>
 		<div class="container-fluid">
