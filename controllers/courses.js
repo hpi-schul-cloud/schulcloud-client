@@ -166,9 +166,6 @@ const editCourseHandler = (req, res, next) => {
 		studentsPromise,
 		scopePermissions,
 	]).then(([course, _classes, _teachers, _students, _scopePermissions]) => {
-		// checks for user's 'STUDENT_LIST' permission
-		const hasStudentListPermission = res.locals.currentUser.permissions.includes('STUDENT_LIST');
-
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		const classes = _classes.filter(
 			c => c.schoolId === res.locals.currentSchool,
@@ -176,9 +173,9 @@ const editCourseHandler = (req, res, next) => {
 		const teachers = _teachers.filter(
 			t => t.schoolId === res.locals.currentSchool,
 		);
-		const students = hasStudentListPermission ? _students.filter(
+		const students = _students.filter(
 			s => s.schoolId === res.locals.currentSchool,
-		) : [];
+		);
 		const substitutions = _.cloneDeep(
 			teachers,
 		);
@@ -227,6 +224,12 @@ const editCourseHandler = (req, res, next) => {
 			'#FFEE58',
 		];
 
+		// checks for user's 'STUDENT_LIST' permission and filters active students
+		const filterStudents = (ctx, s) => (
+			!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
+				? s.filter(({ selected }) => selected) : s
+		);
+
 		if (req.params.courseId) {
 			res.render('courses/edit-course', {
 				action,
@@ -245,7 +248,7 @@ const editCourseHandler = (req, res, next) => {
 					substitutions,
 					_.map(course.substitutionIds, '_id'),
 				),
-				students: markSelected(students, _.map(course.userIds, '_id')),
+				students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
 			});
