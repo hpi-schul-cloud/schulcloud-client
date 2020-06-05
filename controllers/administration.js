@@ -2552,7 +2552,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		}
 		if (isStudentVisibilityEnabled) {
 			await api(req)
-				.patch('school/teacher/permissions', {
+				.patch('school/teacher/studentvisibility', {
 					json: {
 						permission: {
 							isEnabled: !!req.body.studentVisibility,
