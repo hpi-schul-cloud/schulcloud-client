@@ -1040,8 +1040,8 @@
 	},
 	"partner": {
 		"headline": {
-			"partner" : "Partner",
 			"advisoryBoard": "Fachbeirat",
+			"partner" : "Partner",
 			"pilotPartners": "Pilotpartner für Lerninhalte",
 			"projectExecution": "Projektdurchführung",
 			"supporters": "Unterstützer für Schulinfrastruktur <3"
