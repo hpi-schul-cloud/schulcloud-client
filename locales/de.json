@@ -1040,6 +1040,7 @@
 	},
 	"partner": {
 		"headline": {
+			"partner" : "Partner",
 			"advisoryBoard": "Fachbeirat",
 			"pilotPartners": "Pilotpartner für Lerninhalte",
 			"projectExecution": "Projektdurchführung",
