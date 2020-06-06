@@ -70,7 +70,7 @@ const isAuthenticated = (req) => {
 	}).then(() => true).catch(() => false);
 };
 
-const populateCurrentUser = (req, res) => {
+const populateCurrentUser = async (req, res) => {
 	let payload = {};
 	if (isJWT(req)) {
 		try {
@@ -97,11 +97,15 @@ const populateCurrentUser = (req, res) => {
 	}
 
 	if (payload && payload.userId) {
-		return api(req).get(`/users/${payload.userId}`, {
-			qs: {
-				$populate: ['roles'],
-			},
-		}).then((data) => {
+		return Promise.all([
+			api(req).get(`/roles/user/${payload.userId}`),
+			api(req).get(`/users/${payload.userId}`),
+		]).then(([roles, user]) => {
+			const data = {
+				...user,
+				roles,
+				permissions: roles.reduce((acc, role) => [...new Set(acc.concat(role.permissions))], []),
+			};
 			res.locals.currentUser = data;
 			setTestGroup(res.locals.currentUser);
 			res.locals.currentRole = rolesDisplayName[data.roles[0].name];
@@ -160,8 +164,19 @@ const restrictSidebar = (req, res) => {
 		if (!item.permission) return true;
 
 		const hasRequiredPermission = permissionsHelper.userHasPermission(res.locals.currentUser, item.permission);
-		const hasExcludedPermission = permissionsHelper.userHasPermission(res.locals.currentUser,
-			item.excludedPermission);
+		let hasExcludedPermission = false;
+		if (Array.isArray(item.excludedPermission)) {
+			hasExcludedPermission = item.excludedPermission
+				.reduce((acc, perm) => {
+					if (acc === true) return true;
+					return permissionsHelper.userHasPermission(res.locals.currentUser, perm);
+				},
+				false);
+		} else {
+			hasExcludedPermission = permissionsHelper.userHasPermission(res.locals.currentUser,
+				item.excludedPermission);
+		}
+
 		return hasRequiredPermission && !hasExcludedPermission;
 		// excludedPermission is used to prevent the case that an Admin has both: Verwaltung and Administration
 	});

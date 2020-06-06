@@ -220,6 +220,20 @@
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
 
+						{{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY" "enabled"}}
+							<h2 class="h6 mt-2">Datenschutz-Einstellugen</h2>
+							<div class="form-group">
+								<label>
+									<input type="checkbox" name="studentVisibility" value="true"
+										{{#if ../studentVisibility}}checked{{/if}}>
+									Schüler:innen-Daten verbergen <i class="fa fa-eye-slash"></i>
+									<p class="text-muted">
+										Lehrer:innen dürfen keine Daten von Schüler:innen außernhalb der eigenen Klassen und Kurse einsehen. 
+									</p>
+								</label>
+							</div>
+						{{/ifConfig}}
+
 						{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}
 							<div class="form-group">
 								<label>
