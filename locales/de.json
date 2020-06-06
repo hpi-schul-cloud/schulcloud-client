@@ -61,18 +61,26 @@
 	},
 	"administration": {
 		"button": {
+			"cancel": "Abbrechen",
 			"changePassword": "Passwort ändern",
 			"consent": "Einwilligungen:",
 			"deleteUser": "Benutzer löschen",
 			"edit": "Bearbeiten",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
+			"mailsAreBeingSent": "E-Mails werden gesendet...",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
+			"printSheetIsBeingGenerated": "Druckbogen wird generiert...",
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
-			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
+			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden",
+			"submitImportClass": "Hinzufügen"
+		},
+		"headline":{
+			"importClass": "Klasse importieren"
 		},
 		"label": {
 			"assignPassword": "Passwort vergeben:",
 			"birthdate": "Geburtsdatum:",
+			"class": "Klasse:",
 			"classes": "Klassen:",
 			"dataProtection": "Datenschutz",
 			"emailAddress": "E-Mail-Adresse:",
@@ -81,6 +89,14 @@
 			"parents": "Eltern",
 			"student": "Schüler:in",
 			"termsOfUse": "Nutzung"
+		},
+		"text": {
+			"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
+			"errorSendingMails": "Fehler beim Senden der Erinnerungs-E-Mails",
+			"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
+			"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
+			"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet",
+			"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden"
 		}
 	},
 	"calendar": {
