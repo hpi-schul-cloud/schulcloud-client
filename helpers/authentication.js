@@ -99,12 +99,12 @@ const populateCurrentUser = (req, res) => {
 	if (payload && payload.userId) {
 		return Promise.all([
 			api(req).get(`/users/${payload.userId}`),
-			api(req).get(`/roles/user/${payload.userId}`),
+			// api(req).get(`/roles/user/${payload.userId}`),
 		]).then(([user, roles]) => {
 			const data = {
 				...user,
-				roles,
-				permissions: roles.reduce((acc, role) => [...new Set(acc.concat(role.permissions))], []),
+				// roles,
+				// permissions: roles.reduce((acc, role) => [...new Set(acc.concat(role.permissions))], []),
 			};
 			res.locals.currentUser = data;
 			setTestGroup(res.locals.currentUser);
