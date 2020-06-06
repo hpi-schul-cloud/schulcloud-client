@@ -91,7 +91,7 @@ $(document).ready(() => {
 		}
 		const email = $('input[name="email"]').val();
 
-		$this.html($t('administration.button.mailIsBeingSent'));
+		$this.html($t('administration.users_edit.button.mailIsBeingSent'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({

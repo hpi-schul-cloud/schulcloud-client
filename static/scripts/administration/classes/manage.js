@@ -37,7 +37,7 @@ function copy(event) {
 	copySource.select();
 	document.execCommand('copy');
 	$.showNotification(
-		$t('administration.text.linkCopiedToClipboard'),
+		$t('administration.classes.text.linkCopiedToClipboard'),
 		'success',
 		3000,
 	);
@@ -54,7 +54,7 @@ function printInvitation(event) {
 	const invitationLink = document.querySelector('#invitationLink').value;
 	const invitation = {
 		href: invitationLink,
-		title: `${$t('administration.label.class')} ${className}`,
+		title: `${$t('administration.classes.label.class')} ${className}`,
 		description: invitationLink,
 	};
 	const invitations = Array(25).fill(invitation);
@@ -86,7 +86,7 @@ window.addEventListener('load', () => {
 
 			// update items
 			if (classes.total === 0) {
-				classInput.innerHTML = `<option value="" disabled>${$t('administration.text.noClassesInYear')}</option>`;
+				classInput.innerHTML = `<option value="" disabled>${$t('administration.classes.text.noClassesInYear')}</option>`;
 			} else {
 				classInput.innerHTML = `${classes.data
 					.map(
@@ -108,9 +108,9 @@ window.addEventListener('load', () => {
 			});
 		$('select[name="classes"]').trigger('chosen:updated');
 		populateModalForm($importModal, {
-			title: $t('administration.headline.importClass'),
-			closeLabel: $t('administration.button.cancel'),
-			submitLabel: $t('administration.button.submitImportClass'),
+			title: $t('administration.classes.headline.importClass'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.add'),
 		});
 		$importModal.appendTo('body').modal('show');
 	});
@@ -144,7 +144,7 @@ window.addEventListener('load', () => {
 		const classId = $this.data('class');
 		const role = $this.data('role');
 
-		$this.html($t('administration.button.mailsAreBeingSent'));
+		$this.html($t('administration.classes.button.mailsAreBeingSent'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -157,7 +157,7 @@ window.addEventListener('load', () => {
 		})
 			.done(() => {
 				$.showNotification(
-					$t('administration.text.successfullySentMails'),
+					$t('administration.classes.text.successfullySentMails'),
 					'success',
 					true,
 				);
@@ -166,7 +166,7 @@ window.addEventListener('load', () => {
 			})
 			.fail(() => {
 				$.showNotification(
-					$t('administration.text.errorSendingMails'),
+					$t('administration.classes.text.errorSendingMails'),
 					'danger',
 					true,
 				);
@@ -184,7 +184,7 @@ window.addEventListener('load', () => {
 		const classId = $this.data('class');
 		const role = $this.data('role');
 
-		$this.html($t('administration.button.printSheetIsBeingGenerated'));
+		$this.html($t('administration.classes.button.printSheetIsBeingGenerated'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -204,7 +204,7 @@ window.addEventListener('load', () => {
 					})),
 				);
 				$.showNotification(
-					$t('administration.text.successfullyGeneratedPrintSheet'),
+					$t('administration.classes.text.successfullyGeneratedPrintSheet'),
 					'success',
 					true,
 				);
@@ -213,7 +213,7 @@ window.addEventListener('load', () => {
 			})
 			.fail(() => {
 				$.showNotification(
-					$t('administration.text.errorGeneratingPrintSheet'),
+					$t('administration.classes.text.errorGeneratingPrintSheet'),
 					'danger',
 					true,
 				);
