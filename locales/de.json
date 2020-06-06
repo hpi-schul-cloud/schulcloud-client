@@ -67,6 +67,7 @@
 			"deleteUser": "Benutzer löschen",
 			"edit": "Bearbeiten",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
+			"mailIsBeingSent": "E-Mail wird gesendet...",
 			"mailsAreBeingSent": "E-Mails werden gesendet...",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"printSheetIsBeingGenerated": "Druckbogen wird generiert...",
@@ -124,7 +125,7 @@
 				"messageToTeamOwners": "Neue Nachricht an den/die Team-Eigentümer senden",
 				"newTeamOwner": "Einen zusätzlichen Team-Eigentümer ernennen",
 				"removeSchoolFromTeam": "Schule aus Team entfernen",
-				"schools": "Schulen",
+				"schools": "Schulen"
 			},
 			"text": {
 				"noParticipants": "Keine Teilnehmer",
@@ -138,6 +139,18 @@
 			"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
 			"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet",
 			"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden"
+		},
+		"users_edit": {
+			"headline": {
+				"changePassword": "Passwort ändern",
+				"completeRegistration": "Nutzerregistrierung abschließen",
+				"deleteUser": "Benutzer löschen?",
+				"generatedLink": "Einladungslink generiert!"
+			},
+			"text": {
+				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
+				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!"
+			}
 		}
 	},
 	"calendar": {
