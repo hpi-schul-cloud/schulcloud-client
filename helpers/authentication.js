@@ -97,10 +97,13 @@ const populateCurrentUser = async (req, res) => {
 	}
 
 	if (payload && payload.userId) {
+		if (res.locals.currentUser && res.locals.currentSchoolData) {
+			return Promise.resolve(res.locals.currentSchoolData);
+		}
 		return Promise.all([
-			api(req).get(`/roles/user/${payload.userId}`),
 			api(req).get(`/users/${payload.userId}`),
-		]).then(([roles, user]) => {
+			api(req).get(`/roles/user/${payload.userId}`),
+		]).then(([user, roles]) => {
 			const data = {
 				...user,
 				roles,
