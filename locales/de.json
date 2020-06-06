@@ -107,6 +107,11 @@
 				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!"
 			}
 		},
+		"school": {
+			"text": {
+				"fileSelected": "Datei ausgewählt"
+			}
+		},
 		"text": {
 			"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
 			"errorSendingMails": "Fehler beim Senden der Erinnerungs-E-Mails",
