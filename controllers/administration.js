@@ -3037,12 +3037,16 @@ router.use(
 				const title = consentVersion.title;
 				const text = consentVersion.consentText;
 				const publishedAt = new Date(consentVersion.publishedAt).toLocaleString();
-				const linkToPolicy = 'https://s3.hidrive.strato.com/schul-cloud-hpi/default/Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf';
-				return [title, text, publishedAt, [{
-					link: linkToPolicy,
-					icon: 'file-pdf-o',
-					title: 'Datenschutzerklärung ansehen',
-				}]];
+				const linkToPolicy = consentVersion.consentData;
+				const links = [];
+				if (linkToPolicy) {
+					links.push({
+						link: linkToPolicy,
+						icon: 'file-pdf-o',
+						title: 'Datenschutzerklärung ansehen'
+					});
+				}
+				return [title, text, publishedAt, links];
 			});
 		}
 
