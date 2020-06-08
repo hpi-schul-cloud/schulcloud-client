@@ -756,8 +756,8 @@ const userIdtoAccountIdUpdate = (service) => function useIdtoAccountId(req, res,
 const userFilterSettings = (defaultOrder, isTeacherPage = false, res) => [
 	{
 		type: 'sort',
-		title: 'Sortierung',
-		displayTemplate: 'Sortieren nach: %1',
+		title: res.$t('administration.controller.heading.sorting'),
+		displayTemplate: res.$t('administration.controller.text.sortBy'),
 		options: [
 			['firstName', 'Vorname'],
 			['lastName', 'Nachname'],
@@ -771,14 +771,14 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false, res) => [
 	},
 	{
 		type: 'limit',
-		title: 'Einträge pro Seite',
-		displayTemplate: 'Einträge pro Seite: %1',
+		title: res.$t('administration.controller.heading.entriesPerPage'),
+		displayTemplate: res.$t('administration.controller.text.entriesPerPage'),
 		options: [25, 50, 100],
 		defaultSelection: 25,
 	},
 	{
 		type: 'select',
-		title: 'Einverständniserklärung Status',
+		title: res.$t('administration.controller.heading.declarationOfConsentStatus'),
 		displayTemplate: 'Status: %1',
 		property: 'consentStatus',
 		multiple: true,
@@ -829,8 +829,8 @@ const skipRegistration = (req, res, next) => {
 		},
 	}).then(() => {
 		res.render('administration/users_registrationcomplete', {
-			title: 'Einverständnis erfolgreich erklärt',
-			submitLabel: 'Zurück',
+			title: res.$t('administration.controller.text.agreementSuccessfullyDeclared'),
+			submitLabel: $t('global.button.back'),
 			users: [
 				{
 					email: req.body.email,
@@ -844,7 +844,7 @@ const skipRegistration = (req, res, next) => {
 	}).catch(() => {
 		req.session.notification = {
 			type: 'danger',
-			message: 'Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ',
+			message: res.$t('administration.controller.text.setupFailed'),
 		};
 		redirectHelper.safeBackRedirect(req, res);
 	});

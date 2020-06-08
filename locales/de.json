@@ -71,6 +71,11 @@
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
 		},
 		"controller": {
+			"heading": {
+				"declarationOfConsentStatus": "Einverständniserklärung Status",
+				"entriesPerPage": "Einträge pro Seite",
+				"sorting": "Sortierung"
+			},
 			"link": {
 				"completeEntry": "Eintrag abschließen",
 				"deleteEntry": "Eintrag löschen",
@@ -79,9 +84,13 @@
 				"toEditnAnEntry": "Eintrag bearbeiten"
 			},
 			"text": {
+				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
 				"anUnknownErrorOccured": "Es ist ein unbekannter Fehler beim Importieren aufgetreten.",
 				"changesSuccessfullySaved": "Änderungen erfolgreich gespeichert.",
+				"entriesPerPage": "Einträge pro Seite: %1",
 				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
+				"setupFailed": "Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ",
+				"sortBy": "Sortieren nach: %1",
 				"userCreatedSuccessfully": "Nutzer erfolgreich erstellt.",
 				"userCreatedSuccessfullyAndRegistration": "Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt."
 			}
