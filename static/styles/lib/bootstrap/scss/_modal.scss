@@ -156,6 +156,16 @@
 	}
 }
 
+.modal-body-text {
+  
+  div {
+    display:inline;
+  }
+  .modal-danger {
+    color: #ff1134;
+  }
+}
+
 // Footer (for actions)
 .modal-footer {
 	display: flex;
@@ -173,6 +183,21 @@
 	> * {
 		margin: $modal-footer-margin-between / 2;
 	}
+}
+
+// For Footer containing checkbox
+.modal-checkbox {
+  display:flex;
+  padding: $pagination-padding-x-lg;
+
+  div {
+    margin-left: auto;
+  }
+
+  label {
+    align-self: center;
+  }
+
 }
 
 // Measure scrollbar width for padding body during modal show/hide
