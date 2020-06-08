@@ -3043,7 +3043,7 @@ router.use(
 					links.push({
 						link: `/administration/policies/${linkToPolicy}`,
 						class: 'policy-download-btn',
-						icon: 'file-pdf-o',
+						icon: 'file-o',
 						title: 'Datenschutzerklärung der Schule',
 					});
 				}
