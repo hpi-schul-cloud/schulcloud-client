@@ -1053,8 +1053,8 @@
 		"headline": {
 			"firstLogin": "Willkommen - Erster Login",
 			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
-			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
 			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
+			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
 			"onlyPrivacy": "Datenschutzerklärung",
 			"onlyTermsOfUse": "Nutzungsordnung",
 			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
@@ -1200,10 +1200,12 @@
 		},
 		"text": {
 			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
-			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. <br/>Erlaubte Sonderzeichen sind: <code>!§$%&/()=?\\;:,.#+*~</code>",
+			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
+			"allowedCharacters": "Erlaubte Sonderzeichen sind: ",
 			"errorPasswordAlreadyChanged": "Ihr Passwort wurde bereits über diese URL geändert.",
 			"errorTimeExpired": "Zeit abgelaufen für Passwort Recovery.",
 			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
+			"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
 		}
 	},
