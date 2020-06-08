@@ -133,12 +133,12 @@ $(document).ready(() => {
 
 	$('.policy-download-btn').on('click', (e) => {
 		e.preventDefault();
-		const pdf = e.target.href;
-		const downloadLink = document.createElement('a');
-
-		downloadLink.href = pdf;
-		downloadLink.download = e.target.title;
-		downloadLink.click();
+		$.getJSON(e.target.href, (result) => {
+			const downloadLink = document.createElement('a');
+			downloadLink.href = result;
+			downloadLink.download = e.target.title;
+			downloadLink.click();
+		});
 	});
 
 	function handleEditClick(e) {

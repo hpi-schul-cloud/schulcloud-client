@@ -3006,7 +3006,7 @@ router.use(
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
 			api(req).get('/consentVersions', {
 				qs: {
-					$limit: 5,
+					$limit: 100,
 					schoolId: res.locals.currentSchool,
 					consentTypes: 'privacy',
 					$sort: {
@@ -3037,14 +3037,14 @@ router.use(
 				const title = consentVersion.title;
 				const text = consentVersion.consentText;
 				const publishedAt = new Date(consentVersion.publishedAt).toLocaleString();
-				const linkToPolicy = consentVersion.consentData;
+				const linkToPolicy = consentVersion.consentDataId;
 				const links = [];
 				if (linkToPolicy) {
 					links.push({
-						link: linkToPolicy,
+						link: `/administration/policies/${linkToPolicy}`,
 						class: 'policy-download-btn',
 						icon: 'file-pdf-o',
-						title: 'Datenschutzerklärung der Schule'
+						title: 'Datenschutzerklärung der Schule',
 					});
 				}
 				return [title, text, publishedAt, links];
@@ -3146,6 +3146,19 @@ router.use(
 		});
 	},
 );
+
+router.use('/administration/policies/:id', async (req, res, next) => {
+	permissionsHelper.permissionsChecker('ADMIN_VIEW');
+	try {
+		const base64File = await Promise.resolve(
+			api(req).get(`/base64Files/${req.params.id}`),
+		);
+		const fileData = base64File.data;
+		res.json(fileData);
+	} catch (err) {
+		next(err);
+	}
+});
 
 /*
 
