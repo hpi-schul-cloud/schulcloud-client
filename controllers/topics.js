@@ -100,7 +100,7 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 			logger.error(err.message);
 		};
 		// no pad name supplied, generate one
-		if (typeof(content.title) === 'undefined' || content.title === '') {
+		if (typeof content.title === 'undefined' || content.title === '') {
 			content.title = randomBytes(48, function(err, buffer) {
 				return buffer.toString('hex');
 			});
