@@ -79,18 +79,24 @@
 			"link": {
 				"completeEntry": "Eintrag abschließen",
 				"deleteEntry": "Eintrag löschen",
+				"editUsers": "Nutzer bearbeiten",
+				"editingStudents": "Schüler bearbeiten",
 				"resetPassword": "Passwort zurücksetzen",
 				"sendEntryToDevelopmentTeam": "Eintrag an Entwicklerteam senden",
-				"toEditnAnEntry": "Eintrag bearbeiten"
+				"toEditnAnEntry": "Eintrag bearbeiten",
+				"toGiveConsent": "Einverständnis erklären"
 			},
 			"text": {
 				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
 				"anUnknownErrorOccured": "Es ist ein unbekannter Fehler beim Importieren aufgetreten.",
 				"changesSuccessfullySaved": "Änderungen erfolgreich gespeichert.",
+				"consentGrantedSuccessfylly": "Einwilligungen erfolgreich erteilt",
+				"createdOn": "Erstellt am",
 				"entriesPerPage": "Einträge pro Seite: %1",
 				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
 				"setupFailed": "Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ",
 				"sortBy": "Sortieren nach: %1",
+				"thereWasAnError": "Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ",
 				"userCreatedSuccessfully": "Nutzer erfolgreich erstellt.",
 				"userCreatedSuccessfullyAndRegistration": "Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt."
 			}
@@ -996,8 +1002,8 @@
 			"moreOptions": "Mehr Optionen"
 		},
 		"headline": {
-			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
-			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung"
+			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
+			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer"
 		},
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
@@ -1050,18 +1056,18 @@
 			"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
 			"loginFailedFirstHintText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
-			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
-			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
-			"loginFailedFourthHint": "4. Hast du deine Anmeldedaten schon überprüft?",
-			"loginFailedFourthHintText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
 			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
 			"loginFailedFithHintText": "Hier findest du alle HPI Schul-Could Instanzen:",
-			"loginFailedScreenshot": "Login fehlgeschlagen",
-			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
+			"loginFailedFourthHint": "4. Hast du deine Anmeldedaten schon überprüft?",
+			"loginFailedFourthHintText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
 			"loginFailedLogoBrandenburg": "Logo Brandenburg",
 			"loginFailedLogoNiedersachen": "Logo Niedersachsen",
 			"loginFailedLogoOpen": "Logo Open",
+			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
 			"loginFailedLogoTühringen": "Logo Thüringen",
+			"loginFailedScreenshot": "Login fehlgeschlagen",
+			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
+			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 		}
@@ -1119,12 +1125,12 @@
 			}
 		},
 		"text": {
+			"allowedCharacters": "Erlaubte Sonderzeichen sind: ",
 			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
 			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
-			"allowedCharacters": "Erlaubte Sonderzeichen sind: ",
-			"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
 			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
-			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
+			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
+			"specialCharacters": "!§$%&/()=?\\;:,.#+*~"
 		}
 	},
 	"registration": {
@@ -1286,8 +1292,8 @@
 				"invitationToThe": "Einladung in die"
 			},
 			"link": {
-				"toRegister": "Registrieren",
-				"imprint": "Impressum"
+				"imprint": "Impressum",
+				"toRegister": "Registrieren"
 			},
 			"text": {
 				"dear": "Sehr geehrte/r",

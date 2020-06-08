@@ -1045,7 +1045,7 @@ router.get(
 		};
 		query = Object.assign(query, filterQuery);
 
-		api(req)
+		api(req,res)
 			.get('users/admin/teachers', {
 				qs: query,
 			})
@@ -1090,7 +1090,7 @@ router.get(
 						row.push([
 							{
 								link: `/administration/teachers/${user._id}/edit`,
-								title: 'Nutzer bearbeiten',
+								title: res.$t('administration.controller.link.editUsers'),
 								icon: 'edit',
 							},
 						]);
@@ -1149,8 +1149,8 @@ router.get(
 			res.render('administration/users_edit', {
 				title: 'Lehrer bearbeiten',
 				action: `/administration/teachers/${user._id}`,
-				submitLabel: 'Speichern',
-				closeLabel: 'Abbrechen',
+				submitLabel: $t('global.button.save'),
+				closeLabel: $t('global.button.cancel'),
 				user,
 				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
 				consent: user.consent,
@@ -1294,10 +1294,10 @@ router.get(
 		api(req).get(`/users/${req.params.id}`)
 			.then((user) => {
 				res.render('administration/users_skipregistration', {
-					title: 'Einverständnis erklären',
+					title: res.$t('administration.controller.link.toGiveConsent'),
 					action: `/administration/students/${user._id}/skipregistration`,
-					submitLabel: 'Einverständnis erklären',
-					closeLabel: 'Abbrechen',
+					submitLabel: res.$t('administration.controller.link.toGiveConsent'),
+					closeLabel: $t('global.button.cancel'),
 					user,
 					password: authHelper.generatePassword(),
 					referrer: req.header('Referer'),
@@ -1362,19 +1362,19 @@ router.get(
 					head.push(''); // Add space for action buttons
 				}
 
-				const body = users.map((user) => {
+				const body = users.map((user, res) => {
 					const icon = getConsentStatusIcon(user.consentStatus);
 					const actions = [
 						{
 							link: `/administration/students/${user._id}/edit`,
-							title: 'Nutzer bearbeiten',
+							title: res.$t('administration.controller.link.editUsers'),
 							icon: 'edit',
 						},
 					];
 					if (user.importHash && canSkip) {
 						actions.push({
 							link: `/administration/students/${user._id}/skipregistration`,
-							title: 'Einverständnis erklären',
+							title: res.$t('administration.controller.link.toGiveConsent'),
 							icon: 'check-square-o',
 						});
 					}
@@ -1611,10 +1611,10 @@ router.get(
 				}
 				const hidePwChangeButton = !account;
 				res.render('administration/users_edit', {
-					title: 'Schüler bearbeiten',
+					title: res.$t('administration.controller.link.editingStudents'),
 					action: `/administration/students/${user._id}`,
-					submitLabel: 'Speichern',
-					closeLabel: 'Abbrechen',
+					submitLabel: $t('global.button.save'),
+					closeLabel:	$t('global.button.cancel'),
 					user,
 					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
 					consent,
@@ -1646,7 +1646,7 @@ const skipRegistrationClass = async (req, res, next) => {
 	if (!(userids && birthdays && passwords && emails && fullnames)) {
 		req.session.notification = {
 			type: 'danger',
-			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
+			message: res.$t('administration.controller.text.thereWasAnError'),
 		};
 		redirectHelper.safeBackRedirect(req, res);
 		return;
@@ -1662,7 +1662,7 @@ const skipRegistrationClass = async (req, res, next) => {
 	if (!((userids.length === birthdays.length) && (birthdays.length === passwords.length))) {
 		req.session.notification = {
 			type: 'danger',
-			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
+			message: res.$t('administration.controller.text.thereWasAnError'),
 		};
 		redirectHelper.safeBackRedirect(req, res);
 		return;
@@ -1686,7 +1686,7 @@ const skipRegistrationClass = async (req, res, next) => {
 			fullname: fullnames[i],
 		}));
 		res.render('administration/users_registrationcomplete', {
-			title: 'Einwilligungen erfolgreich erteilt',
+			title: res.$t('administration.controller.text.consentGrantedSuccessfylly'),
 			submitLabel: 'Zurück',
 			users: result,
 			linktarget: '/administration/classes',
@@ -1694,7 +1694,7 @@ const skipRegistrationClass = async (req, res, next) => {
 	}).catch(() => {
 		req.session.notification = {
 			type: 'danger',
-			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
+			message: res.$t('administration.controller.text.thereWasAnError'),
 		};
 		redirectHelper.safeBackRedirect(req, res);
 	});
