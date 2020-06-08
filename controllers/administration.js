@@ -3042,8 +3042,9 @@ router.use(
 				if (linkToPolicy) {
 					links.push({
 						link: linkToPolicy,
+						class: 'policy-download-btn',
 						icon: 'file-pdf-o',
-						title: 'Datenschutzerklärung ansehen'
+						title: 'Datenschutzerklärung der Schule'
 					});
 				}
 				return [title, text, publishedAt, links];

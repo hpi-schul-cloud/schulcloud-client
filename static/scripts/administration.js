@@ -131,6 +131,15 @@ $(document).ready(() => {
 		$addPolicyModal.appendTo('body').modal('show');
 	});
 
+	$('.policy-download-btn').on('click', (e) => {
+		e.preventDefault();
+		const pdf = e.target.href;
+		const downloadLink = document.createElement('a');
+
+		downloadLink.href = pdf;
+		downloadLink.download = e.target.title;
+		downloadLink.click();
+	});
 
 	function handleEditClick(e) {
 		e.preventDefault();
@@ -288,7 +297,7 @@ $(document).ready(() => {
 		})
 			.done((users) => {
 				printQRs(
-					users.map(user => ({
+					users.map((user) => ({
 						href: user.registrationLink.shortLink,
 						title:
 							user.fullName
