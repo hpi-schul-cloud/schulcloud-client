@@ -3147,7 +3147,7 @@ router.use(
 	},
 );
 
-router.use('/administration/policies/:id', async (req, res, next) => {
+router.get('/policies/:id', async (req, res, next) => {
 	permissionsHelper.permissionsChecker('ADMIN_VIEW');
 	try {
 		const base64File = await Promise.resolve(
