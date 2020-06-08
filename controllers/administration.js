@@ -725,7 +725,7 @@ const updatePolicy = (req, res, next) => {
 			publishedAt: new Date().toLocaleString(),
 			consentTypes: ['privacy'],
 			schoolId: body.schoolId,
-			fileData: body.consentData,
+			consentData: body.consentData,
 		},
 	}).then(() => {
 		redirectHelper.safeBackRedirect(req, res);
@@ -3006,7 +3006,7 @@ router.use(
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
 			api(req).get('/consentVersions', {
 				qs: {
-					$limit: 10,
+					$limit: 5,
 					schoolId: res.locals.currentSchool,
 					consentTypes: 'privacy',
 					$sort: {

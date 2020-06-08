@@ -38,14 +38,24 @@ document.querySelector('#logo-input')
 
 const MAX_FILE_SIZE_MB = 4;
 
-function loadPolicyFile() {
+const toBase64 = (file) => new Promise((resolve, reject) => {
+	const reader = new FileReader();
+	reader.readAsDataURL(file);
+	reader.onload = () => resolve(reader.result);
+	reader.onerror = (error) => reject(error);
+});
+
+const loadPolicyFile = async () => {
 	const file = document.querySelector('#policy-input').files[0];
+	const base64file = await toBase64(file);
+
 	const reader = new FileReader();
 	reader.addEventListener('load', (evt) => {
 		if (!file.type.match('application/pdf')) {
 			$.showNotification('nur PDF Dateien werden unterstützt', 'danger', true);
 			document.querySelector('#policy-input').value = '';
-			document.querySelector('#policy-filename').innerHTML = '';
+			document.querySelector('#policy-file-name').innerHTML = '';
+			document.querySelector('#policy-file-data').value = '';
 			document.querySelector('#policy-file-logo').style.display = 'none';
 			return;
 		}
@@ -55,13 +65,14 @@ function loadPolicyFile() {
 			$.showNotification('PDF Datei ist zu groß. Maximal 4MB', 'danger', true);
 			return;
 		}
-		document.querySelector('#policy-filename').innerHTML = file.name;
+		document.querySelector('#policy-file-name').innerHTML = `${file.name} (${filesize}MB)`;
 		document.querySelector('#policy-file-logo').style.display = 'inline';
+		document.querySelector('#policy-file-data').value = base64file;
 	}, false);
 	if (file) {
 		reader.readAsDataURL(file);
 	}
-}
+};
 
 document.querySelector('#policy-input')
 	.addEventListener('change', loadPolicyFile, false);
