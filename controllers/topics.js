@@ -2,12 +2,12 @@ const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
 const Nexboard = require('nexboard-api-js');
+const { randomBytes } = require('crypto');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
 const { EDTR_SOURCE } = require('../config/global');
-const { randomBytes } = require('crypto');
 
 const router = express.Router({ mergeParams: true });
 
