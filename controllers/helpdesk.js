@@ -49,7 +49,7 @@ router.post('/', fileUpload({
 		&& !element.mimetype.includes('video/')
 		&& !element.mimetype.includes('application/msword')
 		&& !element.mimetype.includes('application/pdf')) {
-			throw new Error(res.$t('helpdesk.text.fileWrongFormat', {filename: element.name}));
+			throw new Error(res.$t('helpdesk.text.fileWrongFormat', { filename: element.name }));
 		}
 		fileSize += element.size;
 	});

@@ -75,22 +75,33 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 				eMailAdresses.push(response.parent.email);
 			}
 			const consentText = skipConsent ? ''
-				: res.$t('registration.text.acceptConsentWithoutParents', {age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS, title: res.locals.theme.short_title});
+				: res.$t('registration.text.acceptConsentWithoutParents', {
+					age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+					title: res.locals.theme.short_title
+				});
 
 			eMailAdresses.forEach((eMailAdress) => {
 				let passwordText = '';
 				let studentInfotext = '';
 				if (req.body.roles.includes('student')) {
-					passwordText = res.$t('registration.text.startPassword', {password: req.body.password_1});
-					studentInfotext = res.$t('registration.text.studentsChooseNewPassword', {consentText: consentText});
+					passwordText = res.$t('registration.text.startPassword', { password: req.body.password_1 });
+					studentInfotext = res.$t('registration.text.studentsChooseNewPassword', { consentText });
 				}
 				return api(req).post('/mails/', {
 					json: {
 						email: eMailAdress,
-						subject: res.$t('registration.text.welcomeMailSubject', {title: res.locals.theme.title}),
+						subject: res.$t('registration.text.welcomeMailSubject', { title: res.locals.theme.title }),
 						headers: {},
 						content: {
-							text: res.$t('registration.text.welcomeMailText', {firstName: response.user.firstName, title: res.locals.theme.title, address: req.headers.origin || HOST, email: response.user.email, password: passwordText, infotext: studentInfotext, shortTitle: res.locals.theme.short_title}),
+							text: res.$t('registration.text.welcomeMailText', {
+								firstName: response.user.firstName,
+								title: res.locals.theme.title,
+								address: req.headers.origin || HOST,
+								email: response.user.email,
+								password: passwordText,
+								infotext: studentInfotext,
+								shortTitle: res.locals.theme.short_title
+							}),
 						},
 					},
 				});
@@ -244,7 +255,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 	}
 
 	return res.render('registration/registration-employee', {
-		title: res.$t('registration.headline.registrationEmployee', {role: roleText}),
+		title: res.$t('registration.headline.registrationEmployee', { role: roleText }),
 		hideMenu: true,
 		user,
 		needConsent,
