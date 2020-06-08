@@ -57,3 +57,40 @@ label{
 input[type="radio"]{
     margin-right: 4px;
 }
+.error-container {
+	line-height: var(--line-height-sm) !important;
+}
+.error-header-image {
+	width: 50% !important;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-bottom: 54px;
+}
+.error-header-wrapper {
+	margin-top: 80px;
+}
+.text-container {
+	max-width: 80%;
+	margin: auto;
+}
+.h2.error-header-code {
+	margin-bottom: 27px;
+}
+@media (max-width: 460px) {
+	.error-header-image {
+		width: 80% !important;
+		margin-left: 10%;
+		margin-right: 10%;
+		margin-bottom: 27px
+	}
+	.error-header-wrapper {
+		margin-top: 0;
+	}
+	.text-container {
+		max-width: 100%;
+	}
+	.h2.error-header-code {
+		font-size: 40px !important;
+		margin-bottom: 18px;
+	}
+}
