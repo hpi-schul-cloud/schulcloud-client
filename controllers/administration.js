@@ -3030,15 +3030,19 @@ router.use(
 			schoolMaintananceMode = 'standby';
 		}
 		// POLICIES
-		const policiesHead = ['Title', 'Text', 'Hochgeladen am', 'Link'];
+		const policiesHead = ['Titel', 'Beschreibung', 'Hochgeladen am', 'Link'];
 		let policiesBody;
 		if (Array.isArray(consentVersions.data)) {
 			policiesBody = consentVersions.data.map((consentVersion) => {
 				const title = consentVersion.title;
 				const text = consentVersion.consentText;
 				const publishedAt = new Date(consentVersion.publishedAt).toLocaleString();
-				const link = 'http://www.google.com';
-				return [title, text, publishedAt, link];
+				const linkToPolicy = 'https://s3.hidrive.strato.com/schul-cloud-hpi/default/Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf';
+				return [title, text, publishedAt, [{
+					link: linkToPolicy,
+					icon: 'file-pdf-o',
+					title: 'Datenschutzerklärung ansehen',
+				}]];
 			});
 		}
 

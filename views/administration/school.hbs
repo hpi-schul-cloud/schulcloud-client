@@ -355,9 +355,8 @@
 	{{/unless}}
 	{{#userHasPermission 'SCHOOL_EDIT'}}
 		{{#ifConfig "FEATURE_SCHOOL_POLICY_ENABLED" true}}
-<!--				<form enctype="multipart/form-data" action="/administration/schools/{{../../school.id}}/policy" method="post" class="edit-form-school">-->
-					<section class="section-school section-default">
-						<h2 class="h4">Datenschutzerklärung</h2>
+		<section class="section-school section-default">
+			<h2 class="h4">Datenschutzerklärung</h2>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-sm-12 no-padding">
@@ -372,7 +371,7 @@
 					</div>
 				</div>
 			</div>
-					</section>
+		</section>
 		{{/ifConfig}}
 
 	<section class="section-school section-default">
