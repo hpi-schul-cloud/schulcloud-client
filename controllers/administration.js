@@ -1779,7 +1779,7 @@ const renderClassEdit = (req, res, next) => {
 
 					res.render('administration/classes-edit', {
 						title: {
-							create: 'Erstelle eine neue Klasse',
+							create: res.$t('administration.controller.link.createANewClass'),
 							edit: `Klasse '${(currentClass || {}).displayName}' bearbeiten`,
 							upgrade: `Klasse '${(currentClass || {}).displayName}' in neues Schuljahr bringen`,
 						}[mode],
@@ -1987,8 +1987,8 @@ router.get(
 								title: `Deine Schüler sind mindestens ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}`
 									+ ' Jahre alt?',
 								content:
-									'Gib den Registrierungslink direkt an den Schüler weiter. '
-									+ 'Die Schritte für die Eltern entfallen automatisch.',
+								res.$t('administration.controller.text.passTheRegistrationLinkDirectly')
+									+ res.$t('administration.controller.text.theStepsForTheParentsAreOmitted'),
 							},
 							/* { // TODO - Feature not implemented
                             "title":"Deine Schüler sind in der Schülerliste rot?",
@@ -2006,10 +2006,10 @@ router.get(
                             isi anim magna tempor laborum in sit esse nostrud consequat."
                         }, */
 							{
-								title: 'Passwort ändern',
+								title: res.$t('administration.controller.link.changePassword'),
 								content:
 									// eslint-disable-next-line max-len
-									'Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben.',
+									res.$t('administration.controller.text.whenLoggingInForTheFirstTime'),
 							},
 						],
 						referrer: '/administration/classes/',
@@ -2067,7 +2067,7 @@ router.get(
 			password: passwords[i],
 		}));
 		res.render('administration/classes_skipregistration', {
-			title: 'Einverständnis erklären',
+			title: res.$t('administration.controller.link.toGiveConsent'),
 			students: renderUsers,
 		});
 	},
@@ -2192,8 +2192,8 @@ router.delete(
 const classFilterSettings = ({ years, currentYear }) => {
 	const yearFilter = {
 		type: 'select',
-		title: 'Schuljahr',
-		displayTemplate: 'Schuljahr: %1',
+		title: res.$t('administration.controller.heading.schoolYear'),
+		displayTemplate: res.$t('administration.controller.text.schoolYearPercentage'),
 		property: 'year',
 		multiple: true,
 		expanded: true,
@@ -2205,8 +2205,8 @@ const classFilterSettings = ({ years, currentYear }) => {
 	return [
 		{
 			type: 'sort',
-			title: 'Sortierung',
-			displayTemplate: 'Sortieren nach: %1',
+			title: res.$t('administration.controller.heading.sorting'),
+			displayTemplate: res.$t('administration.controller.text.sortBy'),
 			options: [['displayName', 'Klasse']],
 			defaultSelection: 'displayName',
 			defaultOrder: 'DESC',
@@ -2214,8 +2214,8 @@ const classFilterSettings = ({ years, currentYear }) => {
 		yearFilter,
 		{
 			type: 'limit',
-			title: 'Einträge pro Seite',
-			displayTemplate: 'Einträge pro Seite: %1',
+			title: res.$t('administration.controller.heading.sorting'),
+			displayTemplate: res.$t('administration.controller.text.entriesPerPage'),
 			options: [25, 50, 100],
 			defaultSelection: 25,
 		},
@@ -2252,7 +2252,7 @@ router.get(
 			query.teacherIds = res.locals.currentUser._id.toString();
 		}
 
-		api(req)
+		api(req, res)
 			.get('/classes', {
 				qs: query,
 			})
@@ -2272,19 +2272,19 @@ router.get(
 						{
 							link: `${basePath + item._id}/manage`,
 							icon: 'users',
-							title: 'Klasse verwalten',
+							title: res.$t('administration.controller.link.manageClass'),
 						},
 						{
 							link: `${basePath + item._id}/edit`,
 							icon: 'edit',
-							title: 'Klasse bearbeiten',
+							title: res.$t('administration.controller.link.editClass'),
 						},
 						{
 							link: basePath + item._id,
 							class: 'btn-delete',
 							icon: 'trash-o',
 							method: 'delete',
-							title: 'Klasse löschen',
+							title: res.$t('administration.controller.link.deleteClass'),
 						},
 					];
 					if (lastDefinedSchoolYear !== (item.year || {})._id
@@ -2294,7 +2294,7 @@ router.get(
 							link: `${basePath + item._id}/createSuccessor`,
 							icon: 'arrow-up',
 							class: item.successor || item.gradeLevel === 13 ? 'disabled' : '',
-							title: 'Klasse in das nächste Schuljahr versetzen',
+							title: res.$t('administration.controller.link.transferClassToTheNextSchoolYear'),
 						});
 					}
 					return baseActions;
@@ -2406,7 +2406,7 @@ router.all(
 		const currentPage = parseInt(req.query.p, 10) || 1;
 		const title = returnAdminPrefix(res.locals.currentUser.roles);
 
-		api(req)
+		api(req, res)
 			.get('/helpdesk', {
 				qs: {
 					$limit: itemsPerPage,

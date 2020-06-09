@@ -74,17 +74,24 @@
 			"heading": {
 				"declarationOfConsentStatus": "Einverständniserklärung Status",
 				"entriesPerPage": "Einträge pro Seite",
+				"schoolYear": "Schuljahr",
 				"sorting": "Sortierung"
 			},
 			"link": {
+				"changePassword": "Passwort ändern",
 				"completeEntry": "Eintrag abschließen",
+				"createANewClass": "Erstelle eine neue Klasse",
+				"deleteClass": "Klasse löschen",
 				"deleteEntry": "Eintrag löschen",
+				"editClass": "Klasse bearbeiten",
 				"editUsers": "Nutzer bearbeiten",
 				"editingStudents": "Schüler bearbeiten",
+				"manageClass": "Klasse verwalten",
 				"resetPassword": "Passwort zurücksetzen",
 				"sendEntryToDevelopmentTeam": "Eintrag an Entwicklerteam senden",
 				"toEditnAnEntry": "Eintrag bearbeiten",
-				"toGiveConsent": "Einverständnis erklären"
+				"toGiveConsent": "Einverständnis erklären",
+				"transferClassToTheNextSchoolYear": "Klasse in das nächste Schuljahr versetzen"
 			},
 			"text": {
 				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
@@ -94,11 +101,15 @@
 				"createdOn": "Erstellt am",
 				"entriesPerPage": "Einträge pro Seite: %1",
 				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
+				"passTheRegistrationLinkDirectly": "Gib den Registrierungslink direkt an den Schüler weiter.",
+				"schoolYearPercentage": "Schuljahr: %1",
 				"setupFailed": "Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ",
 				"sortBy": "Sortieren nach: %1",
+				"theStepsForTheParentsAreOmitted": "Die Schritte für die Eltern entfallen automatisch.",
 				"thereWasAnError": "Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ",
 				"userCreatedSuccessfully": "Nutzer erfolgreich erstellt.",
-				"userCreatedSuccessfullyAndRegistration": "Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt."
+				"userCreatedSuccessfullyAndRegistration": "Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.",
+				"whenLoggingInForTheFirstTime": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
 			}
 		},
 		"label": {
