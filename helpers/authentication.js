@@ -70,7 +70,7 @@ const isAuthenticated = (req) => {
 	}).then(() => true).catch(() => false);
 };
 
-const populateCurrentUser = (req, res) => {
+const populateCurrentUser = async (req, res) => {
 	let payload = {};
 	if (isJWT(req)) {
 		try {
