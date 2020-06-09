@@ -16,7 +16,7 @@ router.use(authHelper.authChecker);
 
 const consentFullfilled = (consent) => consent.privacyConsent && consent.termsOfUseConsent;
 const isStudent = (res) => {
-	const roles = res.locals.currentUser.roles.map(role => role.name);
+	const roles = res.locals.currentUser.roles.map((role) => role.name);
 	return roles.includes('student');
 };
 const hasAccount = (req, res) => api(req).get('/consents', {
@@ -55,6 +55,23 @@ router.get('/', async (req, res, next) => {
 	});
 	if (consent.data.length < 1) { consent = undefined; } else {
 		consent = consent.data[0];
+	}
+
+	const consentVersion = await api(req).get('/consentVersions', {
+		qs: {
+			$limit: 1,
+			schoolId: res.locals.currentSchool,
+			consentTypes: 'privacy',
+			$sort: {
+				updatedAt: -1,
+			},
+		},
+	});
+
+	let schoolPrivacyPolicy;
+	if (consentVersion && (consentVersion.data || []).length === 1) {
+		const { consentDataId } = consentVersion.data[0];
+	 	schoolPrivacyPolicy = await api(req).get(`/base64Files/${consentDataId}`);
 	}
 
 	const userConsent = consentFullfilled((consent || {}).userConsent || {});
@@ -137,6 +154,8 @@ router.get('/', async (req, res, next) => {
 		) {
 			submitPageIndex += 1;
 			sections.push('consent');
+		} else if (skipConsent && schoolPrivacyPolicy) {
+			sections.push('privacy_policy');
 		}
 
 
@@ -166,12 +185,13 @@ router.get('/', async (req, res, next) => {
 		hideMenu: true,
 		sso: !!(res.locals.currentPayload || {}).systemId,
 		now: Date.now(),
-		sections: sections.map(name => `firstLogin/sections/${name}`),
+		sections: sections.map((name) => `firstLogin/sections/${name}`),
 		submitPageIndex,
 		userConsent,
 		updatedConsents,
 		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 		roleNames: res.locals.roles,
+		schoolPrivacyPolicy: { data: schoolPrivacyPolicy.data, fileType: schoolPrivacyPolicy.fileType },
 	};
 
 	if (consentVersions.haveBeenUpdated) {
