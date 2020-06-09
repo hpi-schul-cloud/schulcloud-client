@@ -384,7 +384,7 @@ const copyCourseHandler = (req, res, next) => {
 			colors,
 			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
 			substitutions,
-			students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
+			students: filterStudents(res, students),
 			schoolData: res.locals.currentSchoolData,
 		});
 	});
