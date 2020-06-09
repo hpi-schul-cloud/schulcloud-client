@@ -164,7 +164,7 @@ CKEDITOR.on('dialogDefinition', (ev) => {
 		const infoTab = dialogDefinition.getContents('info');
 		const border = infoTab.get('txtBorder');
 		border.default = 1;
-		infoTab.remove('txtBorder');
+		// infoTab.remove('txtBorder');
 		infoTab.remove('cmbAlign');
 		infoTab.remove('txtWidth');
 		infoTab.remove('txtHeight');
