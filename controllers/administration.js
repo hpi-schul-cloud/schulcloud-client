@@ -3041,8 +3041,8 @@ router.use(
 				const links = [];
 				if (linkToPolicy) {
 					links.push({
-						link: `/administration/policies/${linkToPolicy}`,
-						class: 'policy-download-btn',
+						link: `/base64Files/${linkToPolicy}`,
+						class: 'base64File-download-btn',
 						icon: 'file-o',
 						title: 'Datenschutzerklärung der Schule',
 					});
@@ -3148,7 +3148,6 @@ router.use(
 );
 
 router.get('/policies/:id', async (req, res, next) => {
-	permissionsHelper.permissionsChecker('ADMIN_VIEW');
 	try {
 		const base64File = await Promise.resolve(
 			api(req).get(`/base64Files/${req.params.id}`),

@@ -182,7 +182,7 @@
 		},
 		"FEATURE_SCHOOL_POLICY_ENABLED": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "Custom School Policy can be uploaded by the school admin "
 		},
 		"ETHERPAD": {
