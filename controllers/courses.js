@@ -224,6 +224,12 @@ const editCourseHandler = (req, res, next) => {
 			'#FFEE58',
 		];
 
+		// checks for user's 'STUDENT_LIST' permission and filters checked students
+		const filterStudents = (ctx, s) => (
+			!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
+				? s.filter(({ selected }) => selected) : s
+		);
+
 		if (req.params.courseId) {
 			res.render('courses/edit-course', {
 				action,
@@ -242,7 +248,7 @@ const editCourseHandler = (req, res, next) => {
 					substitutions,
 					_.map(course.substitutionIds, '_id'),
 				),
-				students: markSelected(students, _.map(course.userIds, '_id')),
+				students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
 			});
@@ -264,7 +270,7 @@ const editCourseHandler = (req, res, next) => {
 					substitutions,
 					_.map(course.substitutionIds, '_id'),
 				),
-				students: markSelected(students, _.map(course.userIds, '_id')),
+				students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
 				redirectUrl: req.query.redirectUrl || '/courses',
 			});
 		}
@@ -361,6 +367,12 @@ const copyCourseHandler = (req, res, next) => {
 
 		course.isArchived = false;
 
+		// checks for user's 'STUDENT_LIST' permission and filters checked students
+		const filterStudents = (ctx, s) => (
+			!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
+				? s.filter(({ selected }) => selected) : s
+		);
+
 		res.render('courses/edit-course', {
 			action,
 			method,
@@ -372,7 +384,7 @@ const copyCourseHandler = (req, res, next) => {
 			colors,
 			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
 			substitutions,
-			students,
+			students: filterStudents(res, students),
 			schoolData: res.locals.currentSchoolData,
 		});
 	});
