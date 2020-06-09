@@ -13,19 +13,22 @@
 					<a class="nav-link" href="/mint-ec/willkommenspaket">{{$t "home.header.link.firstSteps"}}</a>
 				</li>
 				{{/ifEnv}}
+                <li>
+                <a class="nav-link" href="https://docs.schul-cloud.org/pages/viewpage.action?pageId=13828239" target="_blank">{{$t "home.header.link.firstSteps"}}</a>
+                </li>
 				<li>
-					<a class="nav-link" href="https://blog.schul-cloud.org/" target="scblog">{{$t "home.header.link.blog"}}</a>
+					<a class="nav-link" href="https://blog.schul-cloud.org/" target="_blank">{{$t "home.header.link.blog"}}</a>
 				</li>
 				<li>
 					<a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank" rel="noopener">{{$t "home.header.link.faq"}}</a>
 				</li>
 				<li class="hidden-xs-down">
-					<a class="btn btn-sm btn-outline btn-primary" href="/login" style="margin-left: 10px;" data-testid="login-btn">
+					<a class="btn-primary2-outline" href="/login" style="margin-left: 10px;" data-testid="login-btn">
 						<i class="fa fa-sign-in"></i> {{$t "home.header.link.login"}}
 					</a>
 				</li>
 				<li class="hidden-xs-down">
-					<a class="btn btn-sm btn-primary" href="/community" style="margin-left: 8px;">{{$t "home.header.link.register"}}</a>
+					<a class="btn-primary2" href="/community" style="margin-left: 8px;">{{$t "home.header.link.register"}}</a>
 				</li>
 			</ul>
 		{{/unless}}

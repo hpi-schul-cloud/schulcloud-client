@@ -59,7 +59,7 @@ router.post('/login/', (req, res, next) => {
 	}
 	return authHelper.login({
 		strategy: 'local', username, password, validRedirect, privateDevice,
-	}, req, res, errorSink);
+	}, req, res, errorSink)
 });
 
 const redirectAuthenticated = (req, res) => {
