@@ -97,6 +97,9 @@ const populateCurrentUser = (req, res) => {
 	}
 
 	if (payload && payload.userId) {
+		if (res.locals.currentUser && res.locals.currentSchoolData) {
+			return Promise.resolve(res.locals.currentSchoolData);
+		}
 		return Promise.all([
 			api(req).get(`/users/${payload.userId}`),
 			api(req).get(`/roles/user/${payload.userId}`),
