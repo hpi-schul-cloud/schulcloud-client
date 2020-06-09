@@ -350,6 +350,9 @@ router.get('/submit/:id/delete', getDeleteHandler('submissions', true));
 router.post('/submit/:id/files', (req, res, next) => {
 	const submissionId = req.params.id;
 	api(req).get(`/submissions/${submissionId}`).then((submission) => {
+		delete submission.grade;
+		delete submission.gradeComment;
+		delete submission.comment;
 		submission.fileIds.push(req.body.fileId);
 		return api(req).patch(`/submissions/${submissionId}`, {
 			json: submission,

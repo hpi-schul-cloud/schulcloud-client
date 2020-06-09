@@ -131,16 +131,6 @@ $(document).ready(() => {
 		$addPolicyModal.appendTo('body').modal('show');
 	});
 
-	$('.policy-download-btn').on('click', (e) => {
-		e.preventDefault();
-		$.getJSON(e.currentTarget.href, (result) => {
-			const downloadLink = document.createElement('a');
-			downloadLink.href = result;
-			downloadLink.download = e.target.title;
-			downloadLink.click();
-		});
-	});
-
 	function handleEditClick(e) {
 		e.preventDefault();
 		const entry = $(this).attr('href');
