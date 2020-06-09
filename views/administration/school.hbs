@@ -368,8 +368,27 @@
 		</div>
 	</section>
 	{{/unless}}
-
 	{{#userHasPermission 'SCHOOL_EDIT'}}
+		{{#ifConfig "FEATURE_SCHOOL_POLICY_ENABLED" true}}
+		<section class="section-school section-default">
+			<h2 class="h4">Datenschutzerklärung</h2>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-12 no-padding">
+						{{> "lib/components/table" head=../policiesHead body=../policiesBody}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 no-padding">
+						<button type="submit" class="btn btn-primary btn-add-modal--policy">
+							Datenschutzerklärung hinzufügen
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+		{{/ifConfig}}
+
 	<section class="section-school section-default">
 		<h2 class="h4">Authentifizierung</h2>
 		<div class="container-fluid">
@@ -414,6 +433,13 @@
 	{{#content "fields"}}
 	{{> "administration/forms/form-delete-alias"}}
 	{{/content}}
+	{{/embed}}
+
+	{{#embed "lib/components/modal-form" action="/administration/schools/policy" method="post" class="add-modal--policy"
+			 collapseId=3}}
+		{{#content "fields"}}
+			{{> "administration/forms/form-policy"}}
+		{{/content}}
 	{{/embed}}
 
 
