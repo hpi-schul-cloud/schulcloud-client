@@ -162,8 +162,9 @@ router.get('/', async (req, res, next) => {
 	// THANKS
 	sections.push('thanks');
 	const privacyData = _.get(updatedConsents, 'privacy.data');
-	const schoolPrivacyLink = privacyData && privacyData.length > 0
-		? `base64Files/${privacyData[0].consentDataId}` : undefined;
+	const consentDataId = privacyData && privacyData.length > 0
+		? privacyData[0].consentDataId : undefined;
+	const schoolPrivacyLink = consentDataId ? `base64Files/${consentDataId}` : undefined;
 	const renderObject = {
 		title: 'Willkommen - Erster Login',
 		hideMenu: true,
