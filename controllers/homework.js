@@ -118,7 +118,10 @@ const getCreateHandler = (service) => (req, res, next) => {
 			api(req).get(`/courses/${data.courseId}`)
 				.then((course) => {
 					sendNotification(data.courseId,
-						res.$t('homework.text.newHomeworkCourseNotification', {coursename: course.name}), res.$t('homework.text.newHomeworkDueDateNotification', {homeworkname: data.name, duedate: moment(data.dueDate).format('DD.MM.YYYY HH:mm')}),
+						res.$t('homework.text.newHomeworkCourseNotification',
+							{ coursename: course.name }),
+						res.$t('homework.text.newHomeworkDueDateNotification',
+							{ homeworkname: data.name, duedate: moment(data.dueDate).format('DD.MM.YYYY HH:mm') }),
 						data.teacherId,
 						req,
 						`${(req.headers.origin || HOST)}/homework/${data._id}`);
@@ -216,7 +219,7 @@ const patchFunction = function (service, req, res, next) {
 				api(req).get(`/homework/${data.homeworkId}`, { qs: { $populate: ['courseId'] } })
 					.then((homework) => {
 						sendNotification(data.studentId,
-							res.$t('homework.text.submissionGradedNotification', {coursename: homework.courseId.name}),
+							res.$t('homework.text.submissionGradedNotification', { coursename: homework.courseId.name }),
 							' ',
 							data.studentId,
 							req,
@@ -814,7 +817,7 @@ router.get('/:assignmentId', (req, res, next) => {
 					: (`${assignment.courseId.name} - ${assignment.name}`),
 				breadcrumb: [
 					{
-						title: res.$t('homework.headline.breadcrumb', {breadcrumbtitle: breadcrumbTitle}),
+						title: res.$t('homework.headline.breadcrumb', { breadcrumbtitle: breadcrumbTitle }),
 						url: breadcrumbUrl,
 					},
 				],
