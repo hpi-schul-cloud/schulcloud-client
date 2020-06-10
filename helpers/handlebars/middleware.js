@@ -27,7 +27,7 @@ const makeActive = (items, currentUrl) => {
 		if (item.children && item.childActive) {
 			item.children = makeActive(item.children, currentUrl);
 
-			if (item.children.filter(child => child.class == 'active').length == 0) {
+			if (item.children.filter((child) => child.class == 'active').length == 0) {
 				item.class += ' active';
 			}
 		}
@@ -140,6 +140,27 @@ module.exports = (req, res, next) => {
 		],
 	});
 
+	// teacher views
+	res.locals.sidebarItems.push({
+		name: res.$t('global.sidebar.link.management'),
+		icon: 'cogs',
+		link: '/administration/',
+		permission: 'TEACHER_LIST',
+		excludedPermission: ['ADMIN_VIEW', 'STUDENT_LIST'],
+		children: [
+			{
+				name: res.$t('global.sidebar.link.managementTeachers'),
+				icon: 'user',
+				link: '/administration/teachers/',
+			},
+			{
+				name: res.$t('global.sidebar.link.managementClasses'),
+				icon: 'users',
+				link: '/administration/classes/',
+			},
+		],
+	});
+
 	// helpdesk views
 	res.locals.sidebarItems.push({
 		name: 'Helpdesk',
@@ -227,7 +248,7 @@ module.exports = (req, res, next) => {
 				$limit: 10,
 				$sort: '-createdAt',
 			},
-		}).catch(_ => []);
+		}).catch((_) => []);
 	}
 	let notificationCount = 0;
 
