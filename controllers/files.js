@@ -899,7 +899,7 @@ router.get('/search/', (req, res, next) => {
 		qs: filterQuery,
 	}).then((result) => {
 		const files = result.data.map(addThumbnails);
-		const filterOption = filterOptions(res).filter(f => f.key === filter)[0];
+		const filterOption = filterOptions(res).filter((f) => f.key === filter)[0];
 
 		res.render('files/search', {
 			title: res.$t('files.search.headline.search'),

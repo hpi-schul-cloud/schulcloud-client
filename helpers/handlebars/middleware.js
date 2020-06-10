@@ -204,7 +204,7 @@ module.exports = (req, res, next) => {
 			icon: 'users',
 			link: '/teams/',
 		});
-		res.locals.sidebarItems.find(i => i.name === res.$t('global.sidebar.link.files')).children.splice(2, 0, {
+		res.locals.sidebarItems.find((i) => i.name === res.$t('global.sidebar.link.files')).children.splice(2, 0, {
 			name: res.$t('global.sidebar.link.teams'),
 			icon: 'folder-open-o',
 			link: '/files/teams/',

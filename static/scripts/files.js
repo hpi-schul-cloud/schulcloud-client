@@ -293,8 +293,7 @@ $(document).ready(() => {
 		$deleteModal
 			.find('.modal-title')
 			.text(
-				$t('files._file.headline.assertDeletion', 
-				{filename :$buttonContext.data('file-name')} )
+				$t('files._file.headline.assertDeletion', { filename: $buttonContext.data('file-name') }),
 			);
 
 		$deleteModal

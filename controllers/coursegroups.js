@@ -57,10 +57,10 @@ const editCourseGroupHandler = (req, res, next) => {
 			courseGroup,
 			courseId,
 			students: markSelected(students, _.map(courseGroup.userIds, '_id')),
-			title: req.params.courseGroupId ? res.$t('courses._course.groups.headline.editGroup') 
-											: res.$t('courses._course.groups.headline.addGroup'),
-			submitLabel: req.params.courseGroupId ? res.$t('global.button.saveChanges') 
-												  : res.$t('courses._course.groups.button.addGroup'),
+			title: req.params.courseGroupId ? res.$t('courses._course.groups.headline.editGroup')
+				: res.$t('courses._course.groups.headline.addGroup'),
+			submitLabel: req.params.courseGroupId ? res.$t('global.button.saveChanges')
+				: res.$t('courses._course.groups.button.addGroup'),
 			closeLabel: res.$t('global.button.cancel'),
 		});
 	}).catch(next);
@@ -121,12 +121,13 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			},
 		}),
 		res,
-	]).then(([courseGroup, lessons, course, doneSubmissions, openSubmissions, res]) => {
+	]).then(([courseGroup, lessons, course, doneSubmissions, openSubmissions]) => {
 		// set params for sc-cards
 		doneSubmissions = (doneSubmissions.data || []).map((s) => {
-			s.title = res.$t('courses._course.groups._group.headline.homework', {name : s.homeworkId.name});
+			s.title = res.$t('courses._course.groups._group.headline.homework', { name: s.homeworkId.name });
 			s.content = s.homeworkId.description.substr(0, 140);
-			s.secondaryTitle = res.$t('courses._course.groups._group.text.submittedOn' , {ddmmyy_hhmm : moment(s.updatedAt).format('DD.MM.YY HH:mm')});
+			// eslint-disable-next-line max-len
+			s.secondaryTitle = res.$t('courses._course.groups._group.text.submittedOn', { ddmmyy_hhmm: moment(s.updatedAt).format('DD.MM.YY HH:mm') });
 			s.background = course.color;
 			s.url = `/homework/${s.homeworkId._id}/#activetabid=submission`;
 			return s;
@@ -140,10 +141,11 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			.filter(os => os.teamSubmissions)
 			.filter(os => os.maxTeamMembers >= (courseGroup.userIds || []).length)
 			.filter(os => _.every(doneSubmissions, s => JSON.stringify(s.homeworkId._id) !== JSON.stringify(os._id)))
-			.map(os => {
-				os.title = res.$t('courses._course.groups._group.headline.homework', {name : os.name});
+			.map((os) => {
+				os.title = res.$t('courses._course.groups._group.headline.homework', { name: os.name });
 				os.content = os.description.substr(0, 140);
-				os.secondaryTitle = res.$t('courses._course.groups._group.text.dueTo' , {date : moment(os.dueDate).format('DD.MM.YY HH:mm')});
+				// eslint-disable-next-line max-len
+				os.secondaryTitle = res.$t('courses._course.groups._group.text.dueTo', { date: moment(os.dueDate).format('DD.MM.YY HH:mm') });
 				os.background = course.color;
 				os.url = `/homework/${os._id}`;
 				return os;
