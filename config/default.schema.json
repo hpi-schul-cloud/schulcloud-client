@@ -268,6 +268,11 @@
 			"type": "integer",
 			"default": 15,
 			"description": "Number of second the user will be blocked before logging in again"
+		},
+		"FEATURE_LERNSTORE_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables Lern-Store in app"
 		}
 	},
 	"allOf": [
