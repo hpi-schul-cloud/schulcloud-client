@@ -38,6 +38,7 @@ router.use('/impressum/', require('./imprint'));
 router.use('/datenschutz/', require('./dataprivacy'));
 router.use('/team', require('./team'));
 router.use('/my-material', require('./my-material'));
+router.use('/base64Files', require('./base64Files'));
 router.use('/logs', require('./logs'));
 router.use('/firstLogin', require('./firstLogin'));
 router.use('/oauth2', require('./oauth2'));
@@ -53,5 +54,6 @@ router.use('/version', require('./version'));
 router.use('/alerts', require('./alerts'));
 router.use('/ghost', require('./ghost'));
 router.use('/blog', require('./blog'));
+router.use('/security/', require('./security'));
 
 module.exports = router;

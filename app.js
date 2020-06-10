@@ -15,6 +15,7 @@ const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
 const { Configuration } = require('@schul-cloud/commons');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
+const { nonceValueSet } = require('./helpers/csp');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
@@ -66,10 +67,18 @@ if (KEEP_ALIVE) {
 	});
 }
 
+// disable x-powered-by header
+app.disable('x-powered-by');
+
 // set security headers
 const securityHeaders = require('./middleware/security_headers');
 
 app.use(securityHeaders);
+
+// generate nonce value
+if (Configuration.get('CORS')) {
+	app.use(nonceValueSet);
+}
 
 // set cors headers
 app.use(require('./middleware/cors'));
@@ -107,8 +116,8 @@ if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
 	}));
 }
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
 app.use('/locales', express.static(path.join(__dirname, 'locales')));

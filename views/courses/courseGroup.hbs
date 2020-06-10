@@ -1,153 +1,153 @@
 {{#extend "lib/loggedin"}}
 
-	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="/styles/courses/course.css" />
-		<link rel="stylesheet" href="/styles/homework/homework.css" />
-		<link rel="stylesheet" href="/vendor/jquery/jquery-ui.css" />
-	{{/content}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/courses/course.css" />
+<link rel="stylesheet" href="/styles/homework/homework.css" />
+<link rel="stylesheet" href="/vendor/jquery/jquery-ui.css" />
+{{/content}}
 
-	{{#content "scripts" mode="append"}}
-		<script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
-		<script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
-		<script src="/scripts/courses.js" type="text/javascript" defer></script>
+{{#content "scripts" mode="append"}}
+	<script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	<script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	<script src="/scripts/courses.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+{{/content}}
 
-	{{/content}}
+{{#content "page"}}
 
-	{{#content "page"}}
+<div class="row description">
+	<div class="col-sm-12 col-md-12">
+		<p class="lead">{{$t "courses._course.groups._group.text.groupMembers"}} {{#each userIds }}
+			<span class="tag tag-primary">{{ displayName }}</span>
+			{{/each}}</p>
+	</div>
 
-		<div class="row description">
-			<div class="col-sm-12 col-md-12">
-				<p class="lead">{{$t "courses._course.groups._group.text.groupMembers"}} {{#each userIds }}
-						<span class="tag tag-primary">{{ displayName }}</span>
-					{{/each}}</p>
-			</div>
+	<div class="col-sm-12 col-md-12">
+		<p class="lead">{{$t "courses._course.groups._group.text.responsibleTeachers"}} {{#each course.teacherIds }}
+			<span class="tag tag-primary">{{ displayName }}</span>
+			{{/each}}</p>
+	</div>
+</div>
 
-			<div class="col-sm-12 col-md-12">
-				<p class="lead">{{$t "courses._course.groups._group.text.responsibleTeachers"}} {{#each course.teacherIds }}
-						<span class="tag tag-primary">{{ displayName }}</span>
-					{{/each}}</p>
-			</div>
-		</div>
-
-		<!-- Themen -->
-		<div class="row section-course-group">
-			<div class="col-sm-12 col-md-12">
-				{{#unless course.isArchived}}
-					<a href="/courses/{{courseId}}/topics/add?courseGroup={{_id}}"
-						class="btn btn-primary btn-sm pull-right ml-1" title="{{$t "courses._course.groups._group.link.addTopic"}}">
-						<i class="fa fa-plus" aria-hidden="true"></i>
-						<span class="hidden-lg-down">{{$t "courses._course.groups._group.link.addTopic"}}</span>
-					</a>
-				{{/unless}}
-				<h2 class="h4">{{$t "courses._course.groups._group.headline.topics"}}</h2>
-
-				<div class="list-group">
-					{{#if lessons}}
-						<div id="topic-list">
-							{{#each lessons}}
-								<div class="card card-topic" onclick="location.href='{{this.url}}'">
-									<div class="card-header">
-										<div class="input-group">
-											<p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
-											{{#unless course.isArchived}}
-												<div class="right-btn-group">
-													<a class="delete-topic btn btn-secondary btn-sm btn-icon-card"
-														href="/courses/{{../courseId}}/topics/{{_id}}?courseGroup={{../_id}}"
-														target="_blank" data-method="DELETE" data-name="{{this.name}}"
-														redirect="/courses/{{../courseId}}/groups/{{../_id}}">
-														<i class="fa fa-trash-o"></i>
-													</a>
-													<a class="btn btn-secondary btn-sm btn-icon-card"
-														href="/courses/{{../courseId}}/topics/{{_id}}/edit?courseGroup={{../_id}}"
-														title="{{$t "courses._course.groups._group.text.workOnTopic"}}">
-														<i class="fa fa-pencil"></i>
-													</a>
-												</div>
-											{{/unless}}
-										</div>
-									</div>
-								</div>
-							{{/each}}
-						</div>
-					{{else}}
-						<p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-							<span>{{$t "courses._course.groups._group.text.noTopics"}}</span>
-						</p>
-					{{/if}}
-				</div>
-			</div>
-		</div>
-
-		<!-- Done Submissions -->
-		<div class="row section-course-group">
-			<div class="col-sm-12 col-md-12">
-				<h2 class="h4">{{$t "courses._course.groups._group.headline.doneGroupTasks"}}</h2>
-
-				<div class="list-group">
-					{{#if doneSubmissions}}
-						{{#each doneSubmissions}}
-							<div class="sc-card-wrapper col-xl-4 col-lg-4 col-md-6 col-sm-12">
-								{{> 'lib/components/sc-card' link-text="Zur Aufgabe"}}
-							</div>
-						{{/each}}
-					{{else}}
-						<p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-							<span>{{$t "courses._course.groups._group.text.noSubmissions"}}</span>
-						</p>
-					{{/if}}
-				</div>
-			</div>
-		</div>
-
-		<!-- Open Submissions -->
-		<div class="row section-course-group">
-			<div class="col-sm-12 col-md-12">
-				<h2 class="h4">{{$t "courses._course.groups._group.headline.openGroupTasks"}}</h2>
-
-				<div class="list-group">
-					{{#if openSubmissions}}
-						{{#each openSubmissions}}
-							<div class="sc-card-wrapper col-xl-4 col-lg-4 col-md-6 col-sm-12">
-								{{> 'lib/components/sc-card' link-text="Zur Aufgabe"}}
-							</div>
-						{{/each}}
-					{{else}}
-						<p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-							<span>{{$t "courses._course.groups._group.text.noOpenGroupTasks"}}</span>
-						</p>
-					{{/if}}
-				</div>
-			</div>
-		</div>
-
-		<!-- Actions -->
+<!-- Themen -->
+<div class="row section-course-group">
+	<div class="col-sm-12 col-md-12">
 		{{#unless course.isArchived}}
-			<div class="row padding-top">
-				<div class="col-sm-12 col-md-12">
-					<a href="/courses/{{courseId}}/groups/{{_id}}/edit" class="btn btn-add btn-primary"><i class="fa fa-edit"></i> {{$t "courses._course.groups._group.link.editGroup"}}</a>
-					<a href="/courses/{{courseId}}/groups/{{_id}}" class="btn btn-delete-course btn-secondary"
-						target="_blank" data-method="DELETE" data-name="{{../name}}"
-						redirect="/courses/{{courseId}}/?activeTab=groups"><i class="fa fa-trash-o"></i> {{$t "courses._course.groups._group.link.deleteGroup"}}</a>
-				</div>
-			</div>
+		<a href="/courses/{{courseId}}/topics/add?courseGroup={{_id}}" class="btn btn-primary btn-sm pull-right ml-1"
+			title="{{$t "courses._course.groups._group.link.addTopic"}}">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+			<span class="hidden-lg-down">{{$t "courses._course.groups._group.link.addTopic"}}</span>
+		</a>
 		{{/unless}}
+		<h2 class="h4">{{$t "courses._course.groups._group.headline.topics"}}</h2>
 
-		{{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
-
-		{{#content "body"}}
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary btn-close">
-					{{$t "global.button.cancel"}}
-				</button>
-
-				<button type="submit" class="btn btn-primary btn-submit">
-					{{$t "global.button.delete"}}
-				</button>
+		<div class="list-group">
+			{{#if lessons}}
+			<div id="topic-list">
+				{{#each lessons}}
+				<div class="card card-topic locationlink" data-loclink="{{this.url}}">
+					<div class="card-header">
+						<div class="input-group">
+							<p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
+							{{#unless course.isArchived}}
+							<div class="right-btn-group">
+								<a class="delete-topic btn btn-secondary btn-sm btn-icon-card"
+									href="/courses/{{../courseId}}/topics/{{_id}}?courseGroup={{../_id}}"
+									target="_blank" data-method="DELETE" data-name="{{this.name}}"
+									redirect="/courses/{{../courseId}}/groups/{{../_id}}">
+									<i class="fa fa-trash-o"></i>
+								</a>
+								<a class="btn btn-secondary btn-sm btn-icon-card"
+									href="/courses/{{../courseId}}/topics/{{_id}}/edit?courseGroup={{../_id}}"
+									title="{{$t "courses._course.groups._group.text.workOnTopic"}}">
+									<i class="fa fa-pencil"></i>
+								</a>
+							</div>
+							{{/unless}}
+						</div>
+					</div>
+				</div>
+				{{/each}}
 			</div>
-		{{/content}}
+			{{else}}
+			<p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
+				<span>{{$t "courses._course.groups._group.text.noTopics"}}</span>
+			</p>
+			{{/if}}
+		</div>
+	</div>
+</div>
 
-		{{/embed}}
+<!-- Done Submissions -->
+<div class="row section-course-group">
+	<div class="col-sm-12 col-md-12">
+		<h2 class="h4">{{$t "courses._course.groups._group.headline.doneGroupTasks"}}</h2>
 
-	{{/content}}
+		<div class="list-group">
+			{{#if doneSubmissions}}
+			{{#each doneSubmissions}}
+			<div class="sc-card-wrapper col-xl-4 col-lg-4 col-md-6 col-sm-12">
+				{{> 'lib/components/sc-card' link-text="Zur Aufgabe"}}
+			</div>
+			{{/each}}
+			{{else}}
+			<p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
+				<span>{{$t "courses._course.groups._group.text.noSubmissions"}}</span>
+			</p>
+			{{/if}}
+		</div>
+	</div>
+</div>
+
+<!-- Open Submissions -->
+<div class="row section-course-group">
+	<div class="col-sm-12 col-md-12">
+		<h2 class="h4">{{$t "courses._course.groups._group.headline.openGroupTasks"}}</h2>
+
+		<div class="list-group">
+			{{#if openSubmissions}}
+			{{#each openSubmissions}}
+			<div class="sc-card-wrapper col-xl-4 col-lg-4 col-md-6 col-sm-12">
+				{{> 'lib/components/sc-card' link-text="Zur Aufgabe"}}
+			</div>
+			{{/each}}
+			{{else}}
+			<p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
+				<span>{{$t "courses._course.groups._group.text.noOpenGroupTasks"}}</span>
+			</p>
+			{{/if}}
+		</div>
+	</div>
+</div>
+
+<!-- Actions -->
+{{#unless course.isArchived}}
+<div class="row padding-top">
+	<div class="col-sm-12 col-md-12">
+		<a href="/courses/{{courseId}}/groups/{{_id}}/edit" class="btn btn-add btn-primary"><i class="fa fa-edit"></i>
+			{{$t "courses._course.groups._group.link.editGroup"}}</a>
+		<a href="/courses/{{courseId}}/groups/{{_id}}" class="btn btn-delete-course btn-secondary" target="_blank"
+			data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{courseId}}/?activeTab=groups"><i
+				class="fa fa-trash-o"></i> {{$t "courses._course.groups._group.link.deleteGroup"}}</a>
+	</div>
+</div>
+{{/unless}}
+
+{{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
+
+{{#content "body"}}
+<div class="modal-footer">
+	<button type="button" class="btn btn-secondary btn-close">
+		{{$t "global.button.cancel"}}
+	</button>
+
+	<button type="submit" class="btn btn-primary btn-submit">
+		{{$t "global.button.delete"}}
+	</button>
+</div>
+{{/content}}
+
+{{/embed}}
+
+{{/content}}
 
 {{/extend}}
