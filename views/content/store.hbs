@@ -20,9 +20,9 @@
                     {{#if query}}
                         <div><feathers-filter id="filter"
                                 filter='{{@root.filterSettings}}'
-                                add-label='Filter hinzufügen'
-                                apply-label='Übernehmen'
-                                cancle-label='Abbrechen'
+                                add-label='{{$t "global.button.filterAdd" }}'
+                                apply-label='{{$t "global.button.filterApply" }}'
+                                cancle-label='{{$t "global.button.cancel" }}'
                                 handle-url='false'
                         /></div>
                     {{/if}}
@@ -31,15 +31,15 @@
             <div class="ajaxcontent">
                 {{#if query}}
                     {{#if searchResults}}
-                        <h2 class="h5 mb-1">{{ searchResults.total }} Suchergebnisse für "{{ query }}"</h2>
+                        <h2 class="h5 mb-1">{{ searchResults.total }} {{$t "content.store.heading.searchResultFor" }} "{{ query }}"</h2>
                     {{else}}
-                        <h2 class="h5 mb-1">Es wurden keine Suchergebnisse für "{{ query }}" gefunden</h2>
+                        <h2 class="h5 mb-1">{{$t "content.store.heading.noSearchResultsWere" }} "{{ query }}" {{$t "content.store.heading.found" }}</h2>
                     {{/if}}
                     <hr class="mt-0">
                 {{/if}}
                 {{#unless query }}
                     {{#with featuredContent}}
-                    <h2 class="h3">Aktuelle Inhalte</h2>
+                    <h2 class="h3">{{$t "content.store.heading.currentContent" }}</h2>
                     <div class="row equal-height">
                         {{#each this}}
                             <div class="col-md-6 col-lg-4">
@@ -50,7 +50,7 @@
                     {{/with}}
 
                     {{#with trendingContent}}
-                    <h2 class="h3">Beliebte Inhalte</h2>
+                    <h2 class="h3">{{$t "content.store.heading.popularContent" }}</h2>
                     <div class="row equal-height">
                         {{#each this}}
                             <div class="col-md-6 col-lg-4">

@@ -14,7 +14,9 @@ const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true } = {})
 		headers.Connection = 'Keep-Alive';
 	}
 	headers['x-api-key'] = Configuration.get('API_KEY');
-
+	if (json === true) {
+		headers['Content-Type'] = 'application/json';
+	}
 	return rp.defaults({
 		baseUrl,
 		timeout: Configuration.get('REQUEST_TIMEOUT_MS'),
