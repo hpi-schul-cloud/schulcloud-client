@@ -14,7 +14,7 @@ const getLoginPage = agent => new Promise((resolve, reject) => {
 		// return agent for making further request in loggedIn state
 		resolve({
 			agent,
-			res
+			res,
 		});
 	});
 });
