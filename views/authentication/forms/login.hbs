@@ -17,8 +17,8 @@
 					<input type="text" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" data-testid="username" required>
 					<div class="input-group mt-1" id="show_hide_password">
 						<input type="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg" placeholder="{{$t "login.input.password"}}" data-testid="password" required>
-						<div class="input-group-addon">
-							<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+						<div class="input-group-addon input-group-append">
+							<a href="" class="input-group-text"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
 						</div>
 					</div>
 					{{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}

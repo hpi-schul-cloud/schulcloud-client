@@ -626,3 +626,39 @@ $pre-bg: #f7f7f9 !default;
 $pre-color: $gray-dark !default;
 $pre-border-color: #ccc !default;
 $pre-scrollable-max-height: 340px !default;
+
+@media (max-width: 767px) {
+	.hidden-sm-down {
+		display: none!important;
+	}
+}
+@media (max-width: 575px) {
+	.hidden-xs-down {
+		display: none!important;
+	}
+}
+
+.topbar .navbar-nav .nav-item {
+	margin-left: 1rem;
+}
+.mt-3 {
+    margin-top: 3rem!important;
+}
+.mt-1 {
+    margin-top: 1rem!important;
+}
+.icon-background {
+	max-width: 121px;
+}
+.card-block {
+    padding: 1.25rem;
+}
+.form-group {
+	margin-bottom: 1rem;
+}
+
+@media (min-width: 576px) {
+	.hidden-sm-up {
+		display: none!important;
+	}
+}
