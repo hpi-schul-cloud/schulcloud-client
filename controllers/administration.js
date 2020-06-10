@@ -9,6 +9,7 @@ const moment = require('moment');
 const multer = require('multer');
 const encoding = require('encoding-japanese');
 const _ = require('lodash');
+const { Configuration } = require('@schul-cloud/commons');
 const queryString = require('querystring');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -889,7 +890,7 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 // teacher admin permissions
 router.get(
 	'/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST', 'TEACHER_LIST'], 'or'),
 	(req, res, next) => {
 		const title = returnAdminPrefix(res.locals.currentUser.roles);
 		res.render('administration/dashboard', {
@@ -1975,6 +1976,12 @@ router.get(
 						}
 					});
 
+					// checks for user's 'STUDENT_LIST' permission and filters selected students
+					const filterStudents = (ctx, s) => (
+						!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
+							? s.filter(({ selected }) => selected) : s
+					);
+
 					// importHash exists --> not signed up
 					const usersWithoutConsent = allUsersWithoutConsent.filter((obj) => {
 						if (obj.importHash) return true;
@@ -1986,7 +1993,7 @@ router.get(
 						class: currentClass,
 						classes,
 						teachers,
-						students,
+						students: filterStudents(res, students),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						schoolyears,
 						notes: [
@@ -2540,6 +2547,64 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		await updateSchoolFeature(req, currentFeatures, req.body.videoconference === 'true', 'videoconference');
 		delete req.body.videoconference;
 
+		// Toggle teacher's studentVisibility permission
+		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY');
+		const isStudentVisibilityEnabled = (res.locals.currentSchoolData.features || []).includes(
+			'studentVisibility',
+		);
+		if (studentVisibilityFeature !== 'disabled' && !isStudentVisibilityEnabled) {
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'studentVisibility',
+					},
+				},
+			});
+		} else if (studentVisibilityFeature === 'disabled' && isStudentVisibilityEnabled) {
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'studentVisibility',
+					},
+				},
+			});
+		}
+		if (isStudentVisibilityEnabled) {
+			await api(req)
+				.patch('school/teacher/studentvisibility', {
+					json: {
+						permission: {
+							isEnabled: !!req.body.studentVisibility,
+						},
+					},
+				});
+		}
+
+		delete req.body.studentVisibility;
+
+		// Update riot messenger feature in school
+		const messengerEnabled = (res.locals.currentSchoolData.features || []).includes(
+			'messenger',
+		);
+		if (!messengerEnabled && req.body.messenger === 'true') {
+			// enable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'messenger',
+					},
+				},
+			});
+		} else if (messengerEnabled && req.body.messenger !== 'true') {
+			// disable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'messenger',
+					},
+				},
+			});
+		}
 		await updateSchoolFeature(req, currentFeatures, req.body.messenger === 'true', 'messenger');
 		delete req.body.messenger;
 
@@ -2995,7 +3060,7 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage, schoolMaintanance, consentVersions] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance, consentVersions, studentVisibility] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
 					$populate: ['systems', 'currentYear'],
@@ -3014,6 +3079,7 @@ router.use(
 					},
 				},
 			}),
+			api(req).get('/school/teacher/studentvisibility'),
 		]);
 
 		// Maintanance - Show Menu depending on the state
@@ -3132,6 +3198,7 @@ router.use(
 			systems,
 			ldapAddable,
 			provider,
+			studentVisibility: studentVisibility.isEnabled,
 			availableSSOTypes: ssoTypes,
 			ssoTypes,
 			totalStorage,
