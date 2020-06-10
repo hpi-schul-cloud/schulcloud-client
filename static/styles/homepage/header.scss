@@ -34,7 +34,7 @@
             padding: var(--space-xs);
             margin-left: var(--space-xxs);
             &:hover, &:focus{
-                background-color: var(--color-gray-light);
+                background-color: rgb(238, 238, 238);
             }
             &.active{
                 font-weight: bold;

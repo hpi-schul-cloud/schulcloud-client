@@ -26,6 +26,16 @@
     color: var(--color-primary);
     background: transparent;
 }
+.nav-link {
+	font-size: 16px;
+	line-height: 19.2px;
+	&:hover, &:focus{
+		background-color: rgb(238, 238, 238) !important;
+	}
+}
+ul.nav > li {
+	margin-right: 12px;
+}
 .btn-primary2 {
 	display: inline-flex;
 	flex-wrap: nowrap;
