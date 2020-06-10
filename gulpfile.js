@@ -15,6 +15,8 @@ const optimizejs = require('gulp-optimize-js');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const cssvariables = require('postcss-css-variables');
+const merge = require('merge-stream');
+const rename = require('gulp-rename');
 const rimraf = require('gulp-rimraf');
 const sass = require('gulp-sass');
 const sassGrapher = require('gulp-sass-grapher');
@@ -40,6 +42,13 @@ const baseScripts = [
 	'./static/scripts/toggle/bootstrap-toggle.min.js',
 	'./static/scripts/qrcode/kjua-0.1.1.min.js',
 	'./static/scripts/ajaxconfig.js',
+];
+
+// specify css files (e.g. in node modules) that should be copied to the build directory
+const baseStyles = [
+	{ dirname: 'calendar/', filename: 'fullcalendar.min.css', src: './node_modules/@fullcalendar/core/main.min.css' },
+	{ dirname: 'calendar/', filename: 'daygrid.min.css', src: './node_modules/@fullcalendar/daygrid/main.min.css' },
+	{ dirname: 'calendar/', filename: 'timegrid.min.css', src: './node_modules/@fullcalendar/timegrid/main.min.css' },
 ];
 
 function themeName() {
@@ -129,6 +138,20 @@ gulp.task('styles', () => {
 		.pipe(sourcemaps.write('./sourcemaps'))
 		.pipe(gulp.dest(`./build/${themeName()}/styles`))
 		.pipe(browserSync.stream());
+});
+
+const copyStyle = (dirname, filename, src) => {
+	return gulp.src(src)
+		// .pipe(copy(`./build/${themeName()}/styles`))
+		.pipe(rename((path2) => {
+			path2.basename = path.parse(filename).name;
+			path2.dirname = dirname;
+		}))
+		.pipe(gulp.dest(`./build/${themeName()}/styles`));
+};
+
+gulp.task('copy-styles', () => {
+	return merge(baseStyles.map(({ dirname, filename, src }) => copyStyle(dirname, filename, src)));
 });
 
 gulp.task('styles-done', gulp.series('styles'), () => {
@@ -306,6 +329,7 @@ gulp.task('build-all', gulp.series(
 	'fonts',
 	'scripts',
 	'base-scripts',
+	'copy-styles',
 	'vendor-styles',
 	'vendor-scripts',
 	'vendor-assets',
