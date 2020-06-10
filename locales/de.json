@@ -101,6 +101,8 @@
 				"editingStudents": "Schüler bearbeiten",
 				"manageClass": "Klasse verwalten",
 				"resetPassword": "Passwort zurücksetzen",
+				"addAnotherOwner": "Weiteren Eigentümer hinzufügen",
+				"sendMessageToOwner": "Nachricht an Eigentümer senden",
 				"sendEntryToDevelopmentTeam": "Eintrag an Entwicklerteam senden",
 				"toEditnAnEntry": "Eintrag bearbeiten",
 				"toGiveConsent": "Einverständnis erklären",
@@ -108,6 +110,8 @@
 			},
 			"text": {
 				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
+				"onlyAllMembers": "Es können nur alle Mitglieder der eigenen Schule aus dem Team entfernt werden",
+				"removeMembers": "Mitglieder eigener Schule aus Team entfernen",
 				"anUnknownErrorOccured": "Es ist ein unbekannter Fehler beim Importieren aufgetreten.",
 				"changesSuccessfullySaved": "Änderungen erfolgreich gespeichert.",
 				"consentGrantedSuccessfylly": "Einwilligungen erfolgreich erteilt",

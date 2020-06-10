@@ -2812,9 +2812,9 @@ router.all('/teams', (req, res, next) => {
 							link: path + item._id,
 							class: 'btn-write-owner',
 							icon: 'envelope-o',
-							title: 'Nachricht an Eigentümer senden',
+							title: res.$t('administration.controller.link.sendMessageToOwner'),
 							data: {
-								'original-title': 'Nachricht an Eigentümer senden',
+								'original-title': res.$t('administration.controller.link.sendMessageToOwner'),
 								placement: 'top',
 								toggle: 'tooltip',
 							},
@@ -2823,9 +2823,9 @@ router.all('/teams', (req, res, next) => {
 							link: path + item._id,
 							class: item.createdAtMySchool ? 'btn-set-teamowner' : 'disabled',
 							icon: 'user-plus',
-							title: 'Weiteren Eigentümer hinzufügen',
+							title: res.$t('administration.controller.link.addAnotherOwner'),
 							data: {
-								'original-title': 'Weiteren Eigentümer hinzufügen',
+								'original-title': res.$t('administration.controller.link.addAnotherOwner'),
 								placement: 'top',
 								toggle: 'tooltip',
 							},
@@ -2839,8 +2839,8 @@ router.all('/teams', (req, res, next) => {
 							data: {
 								name: item.name,
 								'original-title': item.createdAtMySchool
-									? 'Es können nur alle Mitglieder der eigenen Schule aus dem Team entfernt werden'
-									: 'Mitglieder eigener Schule aus Team entfernen',
+									? res.$t('administration.controller.text.onlyAllMembers')
+									: res.$t('administration.controller.text.removeMembers'),
 								placement: 'top',
 								toggle: 'tooltip',
 							},
@@ -2848,7 +2848,7 @@ router.all('/teams', (req, res, next) => {
 								? 'Schüler der eigenen Schule aus dem Team entfernen. Nur möglich, wenn das Team an '
 								+ 'einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst '
 								+ 'oder jemand anderem Admin-Rechte für das Team zuzuweisen.'
-								: 'Mitglieder eigener Schule aus Team entfernen',
+								: res.$t('administration.controller.text.removeMembers'),
 						},
 						{
 							link: path + item._id,
