@@ -17,7 +17,7 @@ const resetThemeForPrivacyDocuments = async (req, res) => {
 			`registrationSchool/${req.params.classOrSchoolId}`,
 		);
 	} catch (error) {
-		console.error(error);
+		console.log(error);
 	}
 	setTheme(res);
 };
