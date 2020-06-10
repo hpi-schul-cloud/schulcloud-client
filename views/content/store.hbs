@@ -20,9 +20,9 @@
                     {{#if query}}
                         <div><feathers-filter id="filter"
                                 filter='{{@root.filterSettings}}'
-                                add-label='{{$t "content.button.addFilter"}}'
-                                apply-label='{{$t "content.button.apply"}}'
-                                cancle-label='{{$t "global.button.cancel"}}'
+                                add-label='{{$t "global.button.filterAdd" }}'
+                                apply-label='{{$t "global.button.filterApply" }}'
+                                cancle-label='{{$t "global.button.cancel" }}'
                                 handle-url='false'
                         /></div>
                     {{/if}}
@@ -41,7 +41,7 @@
                 {{/if}}
                 {{#unless query }}
                     {{#with featuredContent}}
-                    <h2 class="h3">{{$t "content.headline.featuredContent"}}</h2>
+                    <h2 class="h3">{{$t "content.store.heading.currentContent" }}</h2>
                     <div class="row equal-height">
                         {{#each this}}
                             <div class="col-md-6 col-lg-4">
@@ -52,7 +52,7 @@
                     {{/with}}
 
                     {{#with trendingContent}}
-                    <h2 class="h3">{{$t "content.headline.trendingContent"}}</h2>
+                    <h2 class="h3">{{$t "content.store.heading.popularContent" }}</h2>
                     <div class="row equal-height">
                         {{#each this}}
                             <div class="col-md-6 col-lg-4">
