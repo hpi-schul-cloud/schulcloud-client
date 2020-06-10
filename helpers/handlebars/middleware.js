@@ -97,11 +97,17 @@ module.exports = (req, res, next) => {
 		name: res.$t('global.sidebar.link.calendar'),
 		icon: 'table',
 		link: '/calendar/',
-	}, {
-		name: res.$t('global.sidebar.link.lernstore'),
-		icon: 'search',
-		link: '/content/',
 	}];
+
+	// Lern-Store Feature Toggle
+	const lernStoreEnabled = FEATURE_LERNSTORE_ENABLED === 'true';
+	if(lernStoreEnabled) {
+		res.locals.sidebarItems.push({
+			name: res.$t('global.sidebar.link.lernstore'),
+			icon: 'search',
+			link: '/content/',
+		});
+	}
 
 	// Extensions Feature Toggle
 	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
