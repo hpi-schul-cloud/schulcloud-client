@@ -2417,12 +2417,12 @@ router.all(
 			})
 			.then((data) => {
 				const head = [
-					'Titel',
-					'Ist-Zustand',
-					'Soll-Zustand',
+					res.$t('administration.controller.heading.title'),
+					res.$t('administration.controller.heading.itsOn'),
+					res.$t('administration.controller.heading.targetState'),
 					'Status',
-					'Erstellungsdatum',
-					'Anmerkungen',
+					res.$t('administration.controller.heading.creationDate'),
+					res.$t('administration.controller.heading.remarks'),
 					'',
 				];
 
@@ -2557,7 +2557,7 @@ router.all('/courses', (req, res, next) => {
 	const itemsPerPage = req.query.limit || 10;
 	const currentPage = parseInt(req.query.p, 10) || 1;
 
-	api(req)
+	api(req, res)
 		.get('/courses', {
 			qs: {
 				$populate: ['classIds', 'teacherIds'],
@@ -2599,14 +2599,14 @@ router.all('/courses', (req, res, next) => {
 						{
 							link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
 							icon: 'edit',
-							title: 'Eintrag bearbeiten',
+							title: res.$t('administration.controller.link.toEditnAnEntry'),
 						},
 						{
 							link: `/administration/courses/${item._id}`,
 							class: 'btn-delete',
 							icon: 'trash-o',
 							method: 'delete',
-							title: 'Eintrag löschen',
+							title: res.$t('administration.controller.link.deleteEntry'),
 						},
 					],
 				]);
@@ -2715,29 +2715,29 @@ router.all('/teams', (req, res, next) => {
 	*/
 
 	
-	api(req)
+	api(req, res)
 		.get('/teams/manage/admin', {
 			qs: query,
 		})
 		.then((data) => {
 			const head = [
 				'Name',
-				'Mitglieder',
-				'Schule(n)',
-				'Erstellt am',
+				res.$t('administration.controller.heading.members'),
+				res.$t('administration.controller.heading.schools'),
+				res.$t('administration.controller.heading.createdOn'),
 				'Status*',
-				'Aktionen',
+				res.$t('administration.controller.heading.actions'),
 			];
 
 			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 			const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
 
 			const roleTranslations = {
-				teammember: 'Teilnehmer',
-				teamexpert: 'Externer Experte',
-				teamleader: 'Leiter',
+				teammember: res.$t('administration.controller.heading.attendees'),
+				teamexpert: res.$t('administration.controller.heading.externalExpert'),
+				teamleader: res.$t('administration.controller.heading.leader'),
 				teamadministrator: 'Administrator',
-				teamowner: 'Eigentümer',
+				teamowner: res.$t('administration.controller.heading.owner'),
 			};
 
 			Promise.all([classesPromise, usersPromise]).then(([classes, users]) => {

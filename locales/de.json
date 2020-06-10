@@ -72,10 +72,23 @@
 		},
 		"controller": {
 			"heading": {
+				"actions": "Aktionen",
+				"attendees": "Teilnehmer",
+				"createdOn": "Erstellt am",
+				"creationDate": "Erstellungsdatum",
 				"declarationOfConsentStatus": "Einverständniserklärung Status",
 				"entriesPerPage": "Einträge pro Seite",
+				"externalExpert": "Externer Experte",
+				"itsOn": "Ist-Zustand",
+				"leader": "Leiter",
+				"members": "Mitglieder",
+				"owner": "Eigentümer",
+				"remarks": "Anmerkungen",
 				"schoolYear": "Schuljahr",
-				"sorting": "Sortierung"
+				"schools": "'Schule(n)'",
+				"sorting": "Sortierung",
+				"targetState": "Soll-Zustand",
+				"title": "Titel"
 			},
 			"link": {
 				"changePassword": "Passwort ändern",
