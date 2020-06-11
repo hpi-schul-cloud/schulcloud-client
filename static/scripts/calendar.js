@@ -1,3 +1,4 @@
+import './jquery/datetimepicker-easy.js';
 import moment from 'moment';
 import { Calendar } from '@fullcalendar/core';
 import deLocale from '@fullcalendar/core/locales/de';
@@ -93,8 +94,8 @@ $(document).ready(() => {
 				return false;
 			}
 			// personal event
-			event.startDate = moment(event.start).format('DD.MM.YYYY HH:mm');
-			event.endDate = moment(event.end || event.start).format('DD.MM.YYYY HH:mm');
+			event.startDate = event.start.format('DD.MM.YYYY HH:mm');
+			event.endDate = (event.end || event.start).format('DD.MM.YYYY HH:mm');
 
 			populateModalForm($editEventModal, {
 				title: 'Termin - Details',
@@ -148,23 +149,6 @@ $(document).ready(() => {
 	});
 
 	calendar.render();
-
-	// 	// 	dayClick(date, jsEvent, view) {
-	// 	// 		// open create event modal
-	// 	// 		const _startDate = date.format('DD.MM.YYYY HH:mm');
-	// 	// 		const _endDate = date.add(1, 'hour').format('DD.MM.YYYY HH:mm');
-
-	// 	// 		populateModalForm($createEventModal, {
-	// 	// 			title: 'Termin hinzufügen',
-	// 	// 			closeLabel: 'Abbrechen',
-	// 	// 			submitLabel: 'Hinzufügen',
-	// 	// 			fields: {
-	// 	// 				startDate: _startDate,
-	// 	// 				endDate: _endDate,
-	// 	// 			},
-	// 	// 		});
-	// 	// 		$createEventModal.appendTo('body').modal('show');
-	// 	// 	},
 
 	$('.fc-left > button')
 		.wrap('<div class="fc-button-group"></div>');

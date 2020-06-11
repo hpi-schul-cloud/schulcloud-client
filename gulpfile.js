@@ -142,10 +142,9 @@ gulp.task('styles', () => {
 
 const copyStyle = (dirname, filename, src) => {
 	return gulp.src(src)
-		// .pipe(copy(`./build/${themeName()}/styles`))
-		.pipe(rename((path2) => {
-			path2.basename = path.parse(filename).name;
-			path2.dirname = dirname;
+		.pipe(rename((targetPath) => {
+			targetPath.basename = path.parse(filename).name;
+			targetPath.dirname = dirname;
 		}))
 		.pipe(gulp.dest(`./build/${themeName()}/styles`));
 };
