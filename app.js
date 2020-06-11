@@ -252,7 +252,7 @@ app.use((err, req, res, next) => {
 	if (res.locals.currentUser) res.locals.loggedin = true;
 
 	// keep sidebar restricted in error page
-	authHelper.restrictSidebar(req, res);
+	// authHelper.restrictSidebar(req, res);
 
 	// render the error page
 	res.status(status).render('lib/error', {
