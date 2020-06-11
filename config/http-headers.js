@@ -5,6 +5,13 @@ if (Configuration.has('CORS') !== true) {
 	throw new Error('CORS missing in Configuration');
 }
 
+/*
+	The matrix based messenger loads its assets (scripts, styles, fonts, images) from a specified domain.
+	After initialization the chat protocol communicates with its home server.
+ */
+const matrixMessengerEmbed = Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED') ? Configuration.get('MATRIX_MESSENGER_EMBED_URI') : '';
+const matrixMessengerHomeserver = Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED') ? Configuration.get('MATRIX_MESSENGER_HOMESERVER_URI') : '';
+
 const config = {
 	enabled: Configuration.get('CORS'),
 	// Settings for HTTP Content-Security-Policy Header
@@ -21,11 +28,11 @@ const config = {
 		// Default Content-Security-Policy Header for every site
 		// Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
 		corsDefault: {
-			defaultSrc: "'self' data: blob: https://api.schul-cloud.org https://scchat.schul-cloud.org https://s3.hidrive.strato.com https://libreoffice.schul-cloud.org https://docs.schul-cloud.org https://edtrio.schul-cloud.org https://etherpad.schul-cloud.org https://blog.schul-cloud.org https://sc-content-resources.schul-cloud.org https://sentry.schul-cloud.dev https://open.hpi.de https://upload.wikimedia.org https://user-images.githubusercontent.com",
-			fontSrc: "'self' data:",
-			styleSrc: "'self' 'unsafe-inline'",
+			defaultSrc: `'self' data: blob: https://api.schul-cloud.org https://scchat.schul-cloud.org https://s3.hidrive.strato.com https://libreoffice.schul-cloud.org https://docs.schul-cloud.org https://edtrio.schul-cloud.org https://etherpad.schul-cloud.org https://blog.schul-cloud.org https://sc-content-resources.schul-cloud.org https://sentry.schul-cloud.dev https://open.hpi.de https://upload.wikimedia.org https://user-images.githubusercontent.com ${matrixMessengerEmbed} ${matrixMessengerHomeserver}`,
+			fontSrc: `'self' data: ${matrixMessengerEmbed}`,
+			styleSrc: `'self' 'unsafe-inline' ${matrixMessengerEmbed}`,
 			// scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
-			scriptSrc: "'self' 'unsafe-eval' 'unsafe-inline'",
+			scriptSrc: `'self' 'unsafe-eval' 'unsafe-inline' ${matrixMessengerEmbed}`,
 			// Please activate for production
 			// upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
 			// blockAllMixedContentSrc: 'block-all-mixed-content',
@@ -117,19 +124,5 @@ const config = {
 		'Feature-Policy': "vibrate 'self'; speaker *; fullscreen *; sync-xhr *; notifications 'self'; push 'self'; geolocation 'self'; midi 'self'; microphone 'self'; camera 'self'; magnetometer 'self'; gyroscope 'self'; payment 'none';",
 	},
 };
-
-/*
-	The matrix based messenger loads its assets (scripts, styles, fonts, images) from an specified domain.
-	After initialization the chat protocol communicates with its home server.
- */
-if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
-	// Messenger assets
-	config.contentSecurityPolicy.corsDefault.defaultSrc += ` ${Configuration.get('MATRIX_MESSENGER_EMBED_URI')}`;
-	config.contentSecurityPolicy.corsDefault.scriptSrc += ` ${Configuration.get('MATRIX_MESSENGER_EMBED_URI')}`;
-	config.contentSecurityPolicy.corsDefault.styleSrc += ` ${Configuration.get('MATRIX_MESSENGER_EMBED_URI')}`;
-	config.contentSecurityPolicy.corsDefault.fontSrc += ` ${Configuration.get('MATRIX_MESSENGER_EMBED_URI')}`;
-	// Chat communication
-	config.contentSecurityPolicy.corsDefault.defaultSrc += ` ${Configuration.get('MATRIX_MESSENGER_HOMESERVER_URI')}`;
-}
 
 module.exports = config;
