@@ -219,7 +219,9 @@ const patchFunction = function (service, req, res, next) {
 				api(req).get(`/homework/${data.homeworkId}`, { qs: { $populate: ['courseId'] } })
 					.then((homework) => {
 						sendNotification(data.studentId,
-							res.$t('homework.text.submissionGradedNotification', { coursename: homework.courseId.name }),
+							res.$t('homework.text.submissionGradedNotification', {
+								coursename: homework.courseId.name,
+							}),
 							' ',
 							data.studentId,
 							req,
