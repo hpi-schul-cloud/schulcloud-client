@@ -250,6 +250,10 @@ app.use((err, req, res, next) => {
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 	if (err.error) logger.error(err.error);
 	if (res.locals.currentUser) res.locals.loggedin = true;
+
+	// keep sidebar restricted in error page
+	authHelper.restrictSidebar(req, res);
+
 	// render the error page
 	res.status(status).render('lib/error', {
 		loggedin: res.locals.loggedin,
