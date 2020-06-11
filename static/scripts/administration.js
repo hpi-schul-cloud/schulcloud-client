@@ -38,6 +38,7 @@ $(document).ready(() => {
 	const $terminateSchoolYearModal = $('.terminate-school-year-modal');
 	const $addSystemsModal = $('.add-modal');
 	const $addRSSModal = $('.add-modal--rss');
+	const $addPolicyModal = $('.add-modal--policy');
 	const $editModal = $('.edit-modal');
 	const $invitationModal = $('.invitation-modal');
 	const $importModal = $('.import-modal');
@@ -118,6 +119,16 @@ $(document).ready(() => {
 			submitLabel: 'Hinzufügen',
 		});
 		$addRSSModal.appendTo('body').modal('show');
+	});
+
+	$('.btn-add-modal--policy').on('click', (e) => {
+		e.preventDefault();
+		populateModalForm($addPolicyModal, {
+			title: 'Datenschutzerklärung hinzufügen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Hinzufügen',
+		});
+		$addPolicyModal.appendTo('body').modal('show');
 	});
 
 	function handleEditClick(e) {
@@ -276,7 +287,7 @@ $(document).ready(() => {
 		})
 			.done((users) => {
 				printQRs(
-					users.map(user => ({
+					users.map((user) => ({
 						href: user.registrationLink.shortLink,
 						title:
 							user.fullName
