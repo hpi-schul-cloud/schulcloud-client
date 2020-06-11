@@ -88,11 +88,11 @@
 			"termsOfUse": "Nutzung"
 		}
 	},
-	"autologout" : {
-		"text" : {
-			"sessionAlreadyExpired" : "Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.",
-			"sessionCouldNotBeExtended" : "Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.",
-			"sessionExtended" : "Sitzung erfolgreich verlängert."
+	"autologout": {
+		"text": {
+			"sessionAlreadyExpired": "Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.",
+			"sessionCouldNotBeExtended": "Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.",
+			"sessionExtended": "Sitzung erfolgreich verlängert."
 		}
 	},
 	"calendar": {
@@ -647,8 +647,8 @@
 			"tryAgain": "Erneut Versuchen",
 			"ok": "Okay"
 		},
-		"error" : {
-			"requestTimeout" : "Zeitüberschreitung der Anfrage"
+		"error": {
+			"requestTimeout": "Zeitüberschreitung der Anfrage"
 		},
 		"label": {
 			"room": "Raum"
@@ -766,8 +766,8 @@
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
-			"importing" : "importiere",
-			"importSubmission" : "Abgabe des Schülers importieren",
+			"importing": "importiere",
+			"importSubmission": "Abgabe des Schülers importieren",
 			"print": "Drucken",
 			"save": "Speichern und Abschicken",
 			"submitTask": "Speichern",
@@ -844,14 +844,14 @@
 			"dontShowAgain": "Nicht mehr anzeigen"
 		},
 		"text": {
-			"activatingThisMakesSubmissionsPublic" : "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
-			"creatorCanNotBeRemoved" : "Du darfst den Ersteller der Aufgabe nicht entfernen!",
+			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
+			"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
-			"doYouReallyWantToDelete" : "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
+			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
 			"errorInvalidTaskId": "Ungültige Aufgaben-ID",
-			"doYouReallyWantToReplaceSubmission" : "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
-			"fileAlreadyExists" : "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
-			"maximumTeamSize" : "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
+			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
+			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
+			"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
 			"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
 			"newHomeworkDueDateNotification": "{{homeworkname}} ist bis zum {{duedate}} abzugeben.",
 			"noAssignment": "Keine Zuordnung",
@@ -863,7 +863,7 @@
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
-			"ratingHasBeenSaved" : "Bewertung wurde gespeichert!",
+			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
 			"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
