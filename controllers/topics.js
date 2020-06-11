@@ -47,7 +47,7 @@ const editTopicHandler = (req, res, next) => {
 				? res.$t('topic._topic.headline.editTopic')
 				: res.$t('topic._topic.headline.createTopic'),
 			submitLabel: req.params.topicId
-				? res.$t('topic._topic.button.editTopic')
+				? res.$t('topic._topic.button.saveChanges')
 				: res.$t('topic._topic.button.createTopic'),
 			closeLabel: res.$t('topic._topic.button.cancel'),
 			lesson,
