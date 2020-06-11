@@ -137,6 +137,12 @@
 			"pattern": ".*(?<!/)$",
 			"description": "Where to find the messenger dependencies."
 		},
+		"MATRIX_MESSENGER_HOMESERVER_URI": {
+			"type": "string",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
+			"description": "Where to find the messenger server."
+		},
 		"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
 			"type": "boolean",
 			"default": false,

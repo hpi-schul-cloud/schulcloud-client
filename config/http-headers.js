@@ -118,4 +118,18 @@ const config = {
 	},
 };
 
+/*
+	The matrix based messenger loads its assets (scripts, styles, fonts, images) from an specified domain.
+	After initialization the chat protocol communicates with its home server.
+ */
+if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
+	// Messenger assets
+	config.contentSecurityPolicy.corsDefault.defaultSrc += ` ${Configuration.get('MATRIX_MESSENGER_EMBED_URI')}`;
+	config.contentSecurityPolicy.corsDefault.scriptSrc += ` ${Configuration.get('MATRIX_MESSENGER_EMBED_URI')}`;
+	config.contentSecurityPolicy.corsDefault.styleSrc += ` ${Configuration.get('MATRIX_MESSENGER_EMBED_URI')}`;
+	config.contentSecurityPolicy.corsDefault.fontSrc += ` ${Configuration.get('MATRIX_MESSENGER_EMBED_URI')}`;
+	// Chat communication
+	config.contentSecurityPolicy.corsDefault.defaultSrc += ` ${Configuration.get('MATRIX_MESSENGER_HOMESERVER_URI')}`;
+}
+
 module.exports = config;
