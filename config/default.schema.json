@@ -294,6 +294,9 @@
 	"allOf": [
 		{
 			"$ref": "#/definitions/ETHERPAD_ENABLED"
+		},
+		{
+			"$ref": "#/definitions/MESSENGER_ENABLED"
 		}
 	],
 	"definitions" : {
@@ -301,13 +304,30 @@
 			"if": {
 				"properties": {
 					"FEATURE_ETHERPAD_ENABLED": {
-						"const": "true"
+						"const": true
 					}
 				}
 			},
 			"then": {
 				"required": [
 					"ETHERPAD"
+				]
+			}
+		},
+		"MESSENGER_ENABLED": {
+			"if": {
+				"properties": {
+					"FEATURE_MATRIX_MESSENGER_ENABLED": {
+						"const": true
+					}
+				}
+			},
+			"then": {
+				"required": [
+					"MATRIX_MESSENGER_EMBED_URI",
+					"MATRIX_MESSENGER_HOMESERVER_URI",
+					"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE",
+					"FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED"
 				]
 			}
 		}
