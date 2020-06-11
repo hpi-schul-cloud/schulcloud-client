@@ -9,8 +9,12 @@ if (Configuration.has('CORS') !== true) {
 	The matrix based messenger loads its assets (scripts, styles, fonts, images) from a specified domain.
 	After initialization the chat protocol communicates with its home server.
  */
-const matrixMessengerEmbed = Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED') ? Configuration.get('MATRIX_MESSENGER_EMBED_URI') : '';
-const matrixMessengerHomeserver = Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED') ? Configuration.get('MATRIX_MESSENGER_HOMESERVER_URI') : '';
+let matrixMessengerEmbed = '';
+let matrixMessengerHomeserver = '';
+if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
+	matrixMessengerEmbed = Configuration.get('MATRIX_MESSENGER_EMBED_URI');
+	matrixMessengerHomeserver = Configuration.get('MATRIX_MESSENGER_HOMESERVER_URI');
+}
 
 const config = {
 	enabled: Configuration.get('CORS'),
