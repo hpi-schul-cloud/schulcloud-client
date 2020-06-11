@@ -119,6 +119,14 @@
 			}
 		},
 		"school": {
+			"button": {
+				"yes": "Ja"
+			},
+			"headline": {
+				"add": "Hinzufügen",
+				"addPolicy": "Datenschutzerklärung hinzufügen",
+				"finishSchoolYear": "Das Schuljahr wirklich beenden?"
+			},
 			"text": {
 				"fileSelected": "Datei ausgewählt"
 			}
@@ -715,6 +723,10 @@
 		},
 		"error" : {
 			"requestTimeout" : "Zeitüberschreitung der Anfrage"
+		},
+		"headline": {
+			"delete": "Löschen",
+			"edit": "Bearbeiten"
 		},
 		"label": {
 			"room": "Raum"

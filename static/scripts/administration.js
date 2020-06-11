@@ -53,9 +53,9 @@ $(document).ready(() => {
 	$('.btn-terminate-school-year').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($terminateSchoolYearModal, {
-			title: 'Das Schuljahr wirklich beenden?',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Ja',
+			title: $t('administration.school.headline.finishSchoolYear'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('administration.school.button.yes'),
 		});
 		$terminateSchoolYearModal.appendTo('body').modal('show');
 	});
@@ -104,9 +104,9 @@ $(document).ready(() => {
 	$('.btn-add-modal').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addSystemsModal, {
-			title: 'Hinzufügen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Hinzufügen',
+			title: $t('administration.school.headline.add'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.add'),
 		});
 		$addSystemsModal.appendTo('body').modal('show');
 	});
@@ -114,9 +114,9 @@ $(document).ready(() => {
 	$('.btn-add-modal--rss').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addRSSModal, {
-			title: 'Hinzufügen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Hinzufügen',
+			title: $t('administration.school.headline.add'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.add'),
 		});
 		$addRSSModal.appendTo('body').modal('show');
 	});
@@ -124,9 +124,9 @@ $(document).ready(() => {
 	$('.btn-add-modal--policy').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addPolicyModal, {
-			title: 'Datenschutzerklärung hinzufügen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Hinzufügen',
+			title: $t('administration.school.headline.addPolicy'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.add'),
 		});
 		$addPolicyModal.appendTo('body').modal('show');
 	});
@@ -138,9 +138,9 @@ $(document).ready(() => {
 			result.createdAt = new Date(result.createdAt).toLocaleString();
 			populateModalForm($editModal, {
 				action: entry,
-				title: 'Bearbeiten',
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Speichern',
+				title: $t('global.headline.edit'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.save'),
 				fields: result,
 			});
 			// post-fill gradiation selection
@@ -199,9 +199,9 @@ $(document).ready(() => {
 		$.getJSON(entry, (result) => {
 			populateModalForm($deleteSystemsModal, {
 				action: entry,
-				title: 'Löschen',
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Löschen',
+				title: $t('global.headline.delete'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.delete'),
 				fields: result,
 			});
 
@@ -219,9 +219,9 @@ $(document).ready(() => {
 			populateModalForm($deleteRSSModal, {
 				action,
 				fields: { url: result.url },
-				title: 'Löschen',
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Löschen',
+				title: $t('global.headline.delete'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.delete'),
 			});
 
 			$deleteRSSModal.modal('show');
