@@ -79,7 +79,7 @@ $(document).ready(() => {
 			left: 'title',
 			right: 'dayGridMonth,timeGridWeek,timeGridDay prev,today,next',
 		},
-		events: (info, successCallback, failureCallback) => {
+		events: (info, successCallback) => {
 			$.getJSON('/calendar/events', (events) => successCallback(events));
 		},
 		eventRender(info) {
@@ -127,6 +127,8 @@ $(document).ready(() => {
 		},
 		dateClick: (info) => {
 			const { date } = info;
+
+			console.log('hello');
 
 			// open create event modal
 			const startDate = moment(date).format('DD.MM.YYYY HH:mm');
