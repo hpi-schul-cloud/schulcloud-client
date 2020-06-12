@@ -490,4 +490,13 @@ $(document).ready(() => {
         modalCheckboxHandler('Bist du dir sicher?', content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
     });
 
+    function checkVideoElements(){
+        let vids = $("video"); 
+        $.each(vids, function(){
+            this.controls = true; 
+        }); 
+    } 
+    
+    checkVideoElements();
+    
 });
