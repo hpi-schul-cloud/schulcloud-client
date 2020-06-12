@@ -888,6 +888,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 						'teamleader',
 						'teamadministrator',
 						'teamowner',
+						'student',
 					],
 				},
 			},
@@ -1051,6 +1052,13 @@ router.get('/:teamId/members', async (req, res, next) => {
 			invitationActions,
 		]);
 
+		// checks for user's 'STUDENT_LIST' permission and filters student users
+		const filteredUsers = users.filter((user) => {
+			const { _id } = roles.filter((role) => role.name === 'student')[0];
+			return !res.locals.currentUser.permissions.includes('STUDENT_LIST')
+				? !user.roles.includes(_id) : user;
+		});
+
 		res.render(
 			'teams/members',
 			{
@@ -1074,7 +1082,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				rolesExternal,
 				headInvitations,
 				bodyInvitations,
-				users,
+				users: filteredUsers,
 				federalStates,
 				currentFederalState: currentFederalStateId,
 				breadcrumb: [
