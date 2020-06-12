@@ -118,7 +118,7 @@ $(document).ready(() => {
 		$deleteModal.modal('hide');
 		$moveModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification($t('global.error.text.timeout'), 'warn');
+			$.showNotification($t('global.error.requestTimeout'), 'warn');
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}
