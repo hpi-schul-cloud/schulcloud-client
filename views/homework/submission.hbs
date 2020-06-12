@@ -8,7 +8,7 @@
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{@root.submission._id}}">
         <input name="submissionId" type="hidden" data-force-value="true" value="{{@root.submission._id}}"/>
       {{else}}
-        <form class="form submissionForm" method="post" action="/homework/submit">
+        <form class="form submissionForm ajaxForm" method="post" action="/homework/submit">
       {{/if}}
 
       {{#if @root.submission}}

@@ -8,6 +8,7 @@ const { EDITOR_URL } = require('../config/global');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
+const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger'];
@@ -223,6 +224,12 @@ const editCourseHandler = (req, res, next) => {
 			'#FFEE58',
 		];
 
+		// checks for user's 'STUDENT_LIST' permission and filters checked students
+		const filterStudents = (ctx, s) => (
+			!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
+				? s.filter(({ selected }) => selected) : s
+		);
+
 		if (req.params.courseId) {
 			res.render('courses/edit-course', {
 				action,
@@ -241,7 +248,7 @@ const editCourseHandler = (req, res, next) => {
 					substitutions,
 					_.map(course.substitutionIds, '_id'),
 				),
-				students: markSelected(students, _.map(course.userIds, '_id')),
+				students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
 			});
@@ -263,7 +270,7 @@ const editCourseHandler = (req, res, next) => {
 					substitutions,
 					_.map(course.substitutionIds, '_id'),
 				),
-				students: markSelected(students, _.map(course.userIds, '_id')),
+				students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
 				redirectUrl: req.query.redirectUrl || '/courses',
 			});
 		}
@@ -360,6 +367,12 @@ const copyCourseHandler = (req, res, next) => {
 
 		course.isArchived = false;
 
+		// checks for user's 'STUDENT_LIST' permission and filters checked students
+		const filterStudents = (ctx, s) => (
+			!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
+				? s.filter(({ selected }) => selected) : s
+		);
+
 		res.render('courses/edit-course', {
 			action,
 			method,
@@ -371,7 +384,7 @@ const copyCourseHandler = (req, res, next) => {
 			colors,
 			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
 			substitutions,
-			students,
+			students: filterStudents(res, students),
 			schoolData: res.locals.currentSchoolData,
 		});
 	});
@@ -896,7 +909,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 					message: res.$t("courses._course.topic.text.noTopicFoundWithCode"),
 				};
 
-				res.redirect(req.header('Referer'));
+				redirectHelper.safeBackRedirect(req, res);
 			}
 
 			api(req)
@@ -908,7 +921,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 					},
 				})
 				.then(() => {
-					res.redirect(req.header('Referer'));
+					redirectHelper.safeBackRedirect(req, res);
 				});
 		})
 		.catch(err => res.status(err.statusCode || 500).send(err));

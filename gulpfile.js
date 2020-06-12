@@ -31,14 +31,13 @@ const webpackConfig = require('./webpack.config');
 const browserlist = ['> 0.2%', 'last 10 version', 'not dead'];
 
 const baseScripts = [
-	'./static/scripts/jquery/jquery.min.js',
-	'./static/scripts/jquery/jquery.serialize-object.js',
+	'./node_modules/jquery/dist/jquery.min.js',
+	'./node_modules/form-serializer/dist/jquery.serialize-object.min.js',
 	'./static/scripts/tether/tether.min.js',
 	'./static/scripts/bootstrap/bootstrap.min.js',
 	'./static/scripts/chosen/chosen.jquery.min.js',
 	'./static/scripts/base.js',
 	'./static/scripts/toggle/bootstrap-toggle.min.js',
-	'./static/scripts/mailchimp/mailchimp.js',
 	'./static/scripts/qrcode/kjua-0.1.1.min.js',
 	'./static/scripts/ajaxconfig.js',
 ];
@@ -231,11 +230,42 @@ gulp.task('vendor-assets', () => beginPipe([
 ]).pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
 // copy node modules
-const nodeModules = ['mathjax', 'font-awesome/fonts'];
-gulp.task('node-modules', () => Promise.all(nodeModules
-	// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
-	.map((module) => gulp.src([`./node_modules/${module}/**/*.*`])
-		.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)))));
+const nodeModules = {
+	// example
+	// 'module/path/to/keep': [
+	// 	 '**/*', // matched files, e.g. copy all files in folder
+	//	 'folder/**/*', // folders defined by name will be flattened
+	// ],
+
+	// mathjax
+	mathjax: ['MathJax.js'],
+	'mathjax/config': ['**/*'],
+	'mathjax/extensions': ['**/*'],
+	'mathjax/fonts': ['**/*'],
+	'mathjax/jax': ['**/*'],
+	'mathjax/localization': ['**/*'],
+
+	// font-awesome
+	'font-awesome/fonts': [
+		'**/*',
+	],
+
+	// video.js
+	'video.js/dist': ['video.min.js'],
+	'video.js/dist/lang': ['*.js'],
+};
+gulp.task('node-modules', () => {
+	const promises = [];
+
+	for (const [module, modulePaths] of Object.entries(nodeModules)) {
+		promises.push(
+			gulp.src(modulePaths.map((modulePath) => `./node_modules/${module}/${modulePath}`))
+				.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)),
+		);
+	}
+
+	return Promise.all(promises);
+});
 
 // clear build folder + smart cache
 gulp.task('clear', () => gulp
