@@ -86,7 +86,9 @@ window.addEventListener('load', () => {
 
 			// update items
 			if (classes.total === 0) {
-				classInput.innerHTML = `<option value="" disabled>${$t('administration.classes.text.noClassesInYear')}</option>`;
+				classInput.innerHTML = `<option value="" disabled>
+					${$t('administration.classes.text.noClassesInYear')}
+				</option>`;
 			} else {
 				classInput.innerHTML = `${classes.data
 					.map(

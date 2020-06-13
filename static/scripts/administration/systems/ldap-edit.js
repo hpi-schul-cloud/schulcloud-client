@@ -186,12 +186,20 @@ window.addEventListener('DOMContentLoaded', () => {
 	document.querySelector('#select-roletype').onchange = function (e) {
 		if (e.target.options[e.target.selectedIndex].value === 'group') {
 			document.querySelector('#role-name').style.display = 'none';
-			document.querySelector('#headline-role-type').innerHTML = $t('administration.ldapEdit.label.rolesLDAPPaths');
-			document.querySelector('#description-role-attribute').setAttribute('data-original-title', $t('administration.ldapEdit.label.rolesLDAPPathsDescription'));
+			document.querySelector('#headline-role-type')
+				.innerHTML	= $t('administration.ldapEdit.label.rolesLDAPPaths');
+			document.querySelector('#description-role-attribute').setAttribute(
+				'data-original-title',
+				$t('administration.ldapEdit.label.rolesLDAPPathsDescription'),
+			);
 		} else {
 			document.querySelector('#role-name').style.display = 'block';
-			document.querySelector('#headline-role-type').innerHTML = $t('administration.ldapEdit.label.rolesAttributes');
-			document.querySelector('#description-role-attribute').setAttribute('data-original-title', $t('administration.ldapEdit.label.rolesAttributesDescription'));
+			document.querySelector('#headline-role-type')
+				.innerHTML = $t('administration.ldapEdit.label.rolesAttributes');
+			document.querySelector('#description-role-attribute').setAttribute(
+				'data-original-title',
+				$t('administration.ldapEdit.label.rolesAttributesDescription'),
+			);
 		}
 	};
 
