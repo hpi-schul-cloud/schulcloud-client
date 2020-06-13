@@ -11,6 +11,12 @@
         <div class="route-account">
             {{#unless (userHasRole "student")}}
 				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
+                    <p>
+                        Sichtbarkeit für Teameinladungen ist deaktiviert
+                    </p>
+                    <a href="/account" class="btn btn-secondary">
+                        Zurück
+                    </a>
 				{{else}}
                 <form method="post" action="/account/teamSettings">
                     <h5>Teams</h5>
@@ -37,6 +43,10 @@
                     </div>
                 </form>
 				{{/ifConfig}}
+            {{else}}
+            <a href="/account" class="btn btn-secondary">
+                Zurück
+            </a>
             {{/unless}}
         </div>
     {{/content}}
