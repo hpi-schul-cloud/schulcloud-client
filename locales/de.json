@@ -573,6 +573,13 @@
 			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
+	"dataprivacy": {
+		"text": {
+			"errorSubmittingForm": "Fehler: {{text}}",
+			"errorSubmittingFormUndefined": "Das Absenden des Formulars ist fehlgeschlagen. (unbekannter Fehler)",
+			"invalidForm": "Formular ungültig, bitte füllen Sie alle Felder korrekt aus."
+		}
+	},
 	"files": {
 		"button": {
 			"ascending": "↑ aufsteigend",
