@@ -235,7 +235,7 @@ $(document).ready(() => {
 		const text = $this.html();
 		const role = $this.data('role');
 
-		$this.html('E-Mails werden gesendet...');
+		$this.html($t('administration.global.button.mailsAreBeingSent'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -249,7 +249,7 @@ $(document).ready(() => {
 		})
 			.done(() => {
 				$.showNotification(
-					'Erinnerungs-E-Mails erfolgreich versendet',
+					$t('administration.global.text.successfullySentMails'),
 					'success',
 					true,
 				);
@@ -258,7 +258,7 @@ $(document).ready(() => {
 			})
 			.fail(() => {
 				$.showNotification(
-					'Fehler beim senden der Erinnerungs-E-Mails',
+					$t('administration.global.text.errorSendingMails'),
 					'danger',
 					true,
 				);
@@ -273,7 +273,7 @@ $(document).ready(() => {
 		const text = $this.html();
 		const role = $this.data('role');
 
-		$this.html('Druckbogen wird generiert...');
+		$this.html($t('administration.global.button.printSheetIsBeingGenerated'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -296,7 +296,7 @@ $(document).ready(() => {
 					})),
 				);
 				$.showNotification(
-					'Druckbogen erfolgreich generiert',
+					$t('administration.global.text.successfullyGeneratedPrintSheet'),
 					'success',
 					true,
 				);
@@ -305,7 +305,7 @@ $(document).ready(() => {
 			})
 			.fail(() => {
 				$.showNotification(
-					'Problem beim Erstellen des Druckbogens',
+					$t('administration.global.text.errorGeneratingPrintSheet'),
 					'danger',
 					true,
 				);

@@ -71,10 +71,6 @@
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
 		},
 		"classes": {
-			"button": {
-				"mailsAreBeingSent": "E-Mails werden gesendet...",
-				"printSheetIsBeingGenerated": "Druckbogen wird generiert..."
-			},
 			"headline":{
 				"importClass": "Klasse importieren"
 			},
@@ -82,12 +78,20 @@
 				"class": "Klasse:"
 			},
 			"text": {
+				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
+				"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden"
+			}
+		},
+		"global": {
+			"button": {
+				"mailsAreBeingSent": "E-Mails werden gesendet...",
+				"printSheetIsBeingGenerated": "Druckbogen wird generiert..."
+			},
+			"text": {
 				"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
 				"errorSendingMails": "Fehler beim Senden der Erinnerungs-E-Mails",
-				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
 				"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
-				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet",
-				"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden"
+				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet"
 			}
 		},
 		"label": {

@@ -146,7 +146,7 @@ window.addEventListener('load', () => {
 		const classId = $this.data('class');
 		const role = $this.data('role');
 
-		$this.html($t('administration.classes.button.mailsAreBeingSent'));
+		$this.html($t('administration.global.button.mailsAreBeingSent'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -159,7 +159,7 @@ window.addEventListener('load', () => {
 		})
 			.done(() => {
 				$.showNotification(
-					$t('administration.classes.text.successfullySentMails'),
+					$t('administration.global.text.successfullySentMails'),
 					'success',
 					true,
 				);
@@ -168,7 +168,7 @@ window.addEventListener('load', () => {
 			})
 			.fail(() => {
 				$.showNotification(
-					$t('administration.classes.text.errorSendingMails'),
+					$t('administration.global.text.errorSendingMails'),
 					'danger',
 					true,
 				);
@@ -186,7 +186,7 @@ window.addEventListener('load', () => {
 		const classId = $this.data('class');
 		const role = $this.data('role');
 
-		$this.html($t('administration.classes.button.printSheetIsBeingGenerated'));
+		$this.html($t('administration.global.button.printSheetIsBeingGenerated'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -206,7 +206,7 @@ window.addEventListener('load', () => {
 					})),
 				);
 				$.showNotification(
-					$t('administration.classes.text.successfullyGeneratedPrintSheet'),
+					$t('administration.global.text.successfullyGeneratedPrintSheet'),
 					'success',
 					true,
 				);
@@ -215,7 +215,7 @@ window.addEventListener('load', () => {
 			})
 			.fail(() => {
 				$.showNotification(
-					$t('administration.classes.text.errorGeneratingPrintSheet'),
+					$t('administration.global.text.errorGeneratingPrintSheet'),
 					'danger',
 					true,
 				);
