@@ -492,9 +492,11 @@ $(document).ready(() => {
 
     function checkVideoElements(){
         let vids = $("video"); 
-        $.each(vids, function(){
-            this.controls = true; 
-        }); 
+        if(vids.length>0){
+            $.each(vids, function(){
+                this.controls = true; 
+            }); 
+        }
     } 
     
     checkVideoElements();
