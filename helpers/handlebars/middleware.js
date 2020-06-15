@@ -7,6 +7,8 @@ const {
 	FEATURE_TEAMS_ENABLED,
 } = require('../../config/global');
 
+const { Configuration } = require('@schul-cloud/commons');
+
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
 	return items.map((item) => {
@@ -97,11 +99,16 @@ module.exports = (req, res, next) => {
 		name: res.$t('global.sidebar.link.calendar'),
 		icon: 'table',
 		link: '/calendar/',
-	}, {
-		name: res.$t('global.sidebar.link.lernstore'),
-		icon: 'search',
-		link: '/content/',
 	}];
+
+	// Lern-Store Feature Toggle
+	if (Configuration.get('FEATURE_LERNSTORE_ENABLED') === true) {
+		res.locals.sidebarItems.push({
+			name: res.$t('global.sidebar.link.lernstore'),
+			icon: 'search',
+			link: '/content/',
+		});
+	}
 
 	// Extensions Feature Toggle
 	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
@@ -230,12 +237,12 @@ module.exports = (req, res, next) => {
 			link: '/files/teams/',
 		});
 		/*
-        res.locals.sidebarItems.find(i => i.name === 'Administration').children.splice(4, 0, {
-            name: 'Teams',
-            icon: 'users',
-            link: '/administration/teams/',
-        });
-        */
+				res.locals.sidebarItems.find(i => i.name === 'Administration').children.splice(4, 0, {
+						name: 'Teams',
+						icon: 'users',
+						link: '/administration/teams/',
+				});
+				*/
 	}
 
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
