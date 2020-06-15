@@ -133,3 +133,13 @@
 		margin-top: $btn-block-spacing-y;
 	}
 }
+
+.btn-secondary {
+	color: #373a3c;
+    background-color: #fff;
+	border-color: #ccc;
+	&:hover {
+		background-color: #e6e6e6;
+    	border-color: #adadad;
+	}
+}

@@ -319,6 +319,7 @@ header {
         padding: 0;
         margin-left: 15px;
         margin-right: 15px;
+        width: calc(100% - 30px);
     }
 }
 
@@ -588,6 +589,7 @@ footer {
     .navbar-nav .nav-item {
         float: none;
         display: inline-block;
+        align-self: center;
     }
     .nav-item button, .nav-link {
         line-height: 30px;

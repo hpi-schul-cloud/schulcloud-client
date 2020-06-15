@@ -237,10 +237,10 @@ $enable-important-utilities: true !default;
 $spacer: 1rem !default;
 $spacers: (
 	0: 0,
-	1: $spacer * 0.25,
-	2: $spacer * 0.5,
-	3: $spacer,
-	4: $spacer * 1.5,
+	1: $spacer * 1,
+	2: $spacer * 1.5,
+	3: $spacer*2,
+	4: $spacer * 2.5,
 	5: $spacer * 3,
 ) !default;
 
@@ -405,7 +405,7 @@ $font-weight-bolder: bolder !default;
 
 $font-weight-base: $font-weight-normal !default;
 
-$line-height-base: 1.5 !default;
+$line-height-base: 1.25 !default;
 $line-height-sm: 1.25 !default;
 $line-height-lg: 2 !default;
 
@@ -665,7 +665,7 @@ $input-height-sm: add(
 	add($input-padding-y-sm * 2, $input-height-border, false)
 ) !default;
 $input-height-lg: add(
-	$input-line-height * 1em,
+	$input-line-height * 1rem,
 	add($input-padding-y-lg * 2, $input-height-border, false)
 ) !default;
 

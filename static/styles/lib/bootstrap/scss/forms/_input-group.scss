@@ -73,7 +73,9 @@
   border: $input-border-width solid $input-group-addon-border-color;
   @include border-radius($input-border-radius);
 }
-
+.input-group-text .fa {
+  min-height: 22px!important;
+}
 
 // Sizing
 //
@@ -95,6 +97,7 @@
   padding: $input-padding-y-lg $input-padding-x-lg;
   @include font-size($input-font-size-lg);
   @include border-radius($input-border-radius-lg);
+  min-height: 22px;
 }
 
 .input-group-sm > .form-control {
@@ -118,7 +121,13 @@
 .input-group-sm > .form-select {
   padding-right: $form-select-padding-x + $form-select-indicator-padding;
 }
+.input-group-sm>.input-group-btn>.btn {
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  border-radius: 0 .2rem .2rem 0;
+  min-height: 1.83rem;
 
+}
 
 // Rounded corners
 //
