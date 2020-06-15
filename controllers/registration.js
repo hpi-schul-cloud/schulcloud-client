@@ -41,6 +41,24 @@ const checkValidRegistration = async (req) => {
  */
 router.get(['/register', '/register/*'], (req, res, next) => res.render('registration/deprecated_warning'));
 
+const getSchoolPrivacy = async (req, res) => {
+	const consentVersion = await api(req).get('/consentVersions', {
+		qs: {
+			$limit: 1,
+			schoolId: res.locals.currentSchool,
+			consentTypes: 'privacy',
+			$sort: {
+				updatedAt: -1,
+			},
+		},
+	});
+	let consentDataId;
+	if (consentVersion && (consentVersion.data || []).length === 1) {
+		consentDataId = consentVersion.data[0].consentDataId;
+	}
+	return consentDataId ? `/base64Files/${consentDataId}` : undefined;
+};
+
 /*
  * EzD Dataprivacy Routes
  */
@@ -219,6 +237,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			hideMenu: true,
 			user,
 			needConsent,
+			schoolPrivacyLink: await getSchoolPrivacy(req, res),
 			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
@@ -290,6 +309,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			user,
 			needConsent,
 			sectionNumber,
+			schoolPrivacyLink: await getSchoolPrivacy(req, res),
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 			secure,
@@ -367,6 +387,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		user,
 		needConsent,
 		sectionNumber,
+		schoolPrivacyLink: await getSchoolPrivacy(req, res),
 		invalid,
 		secure,
 		correctID,
@@ -411,6 +432,7 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
 			sso: req.params.sso === 'sso',
 			account: req.params.accountId || '',
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+			schoolPrivacyLink: await getSchoolPrivacy(req, res),
 			invalid,
 			secure,
 			correctID,
