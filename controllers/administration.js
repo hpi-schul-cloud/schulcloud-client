@@ -2860,15 +2860,15 @@ router.all('/teams', (req, res, next) => {
 								name: item.name,
 								'original-title': item.createdAtMySchool
 									? res.$t('administration.controller.text.onlyAllMembers')
-									: res.$t('administration.controller.text.removeMembers'),
+									: res.$t('administration.controller.link.removeMembers'),
 								placement: 'top',
 								toggle: 'tooltip',
 							},
 							title: item.createdAtMySchool
-								? 'Schüler der eigenen Schule aus dem Team entfernen. Nur möglich, wenn das Team an '
-								+ 'einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst '
-								+ 'oder jemand anderem Admin-Rechte für das Team zuzuweisen.'
-								: res.$t('administration.controller.text.removeMembers'),
+								? res.$t('administration.controller.text.removeStudentsFromYourOwnSchool')
+								+ res.$t('administration.controller.text.anotherSchoolWasFounded')
+								+ res.$t('administration.controller.text.orAssignAdminRights')
+								: res.$t('administration.controller.link.removeMembers'),
 						},
 						{
 							link: path + item._id,
@@ -2879,15 +2879,15 @@ router.all('/teams', (req, res, next) => {
 							data: {
 								name: item.name,
 								'original-title': item.createdAtMySchool
-									? 'Team löschen'
-									: 'Löschen des Teams nur bei Teams der eigenen Schule möglich',
+									? res.$t('administration.controller.link.deleteTeam')
+									: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
 								placement: 'top',
 								toggle: 'tooltip',
 							},
 							// lmethod: `${item.hasMembersOfOtherSchools ? '' : 'delete'}`,
 							title: item.createdAtMySchool
-								? 'Team löschen'
-								: 'Löschen des Teams nur bei Teams der eigenen Schule möglich',
+								? res.$t('administration.controller.link.deleteTeam')
+								: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
 						},
 					];
 
@@ -3097,7 +3097,7 @@ router.use(
 			schoolMaintananceMode = 'standby';
 		}
 		// POLICIES
-		const policiesHead = ['Titel', 'Beschreibung', 'Hochgeladen am', 'Link'];
+		const policiesHead = [ res.$t('administration.controller.heading.title'), res.$t('administration.controller.heading.description'), res.$t('administration.controller.heading.uploadedOn'), 'Link'];
 		let policiesBody;
 		if (Array.isArray(consentVersions.data)) {
 			policiesBody = consentVersions.data.map((consentVersion) => {
@@ -3111,7 +3111,7 @@ router.use(
 						link: `/base64Files/${linkToPolicy}`,
 						class: 'base64File-download-btn',
 						icon: 'file-o',
-						title: 'Datenschutzerklärung der Schule',
+						title: res.$t('administration.controller.link.schoolPrivacyPolicy'),
 					});
 				}
 				return [title, text, publishedAt, links];
@@ -3150,7 +3150,7 @@ router.use(
 		}
 
 		// RSS
-		const rssHead = ['URL', 'Kurzbeschreibung', 'Status', ''];
+		const rssHead = ['URL', res.$t('administration.controller.heading.briefDescription'), 'Status', ''];
 		let rssBody;
 		if (school.rssFeeds) {
 			rssBody = school.rssFeeds.map(({
@@ -3160,17 +3160,17 @@ router.use(
 				description,
 				// eslint-disable-next-line no-nested-ternary
 				status === 'success'
-					? 'Aktiv'
+					? res.$t('administration.controller.text.active')
 					: status === 'error'
-						? 'Fehler beim Abrufen'
-						: 'In der Warteschlange',
+						? res.$t('administration.controller.text.retrieveFailed')
+						: res.$t('administration.controller.text.inTheQueue'),
 				[
 					{
 						link: `/administration/rss/${_id}`,
 						class: 'btn-delete--rss',
 						icon: 'trash-o',
 						method: 'delete',
-						title: 'Eintrag löschen',
+						title: res.$t('administration.controller.link.deleteEntry'),
 					},
 				],
 			]);
@@ -3300,7 +3300,7 @@ router.get('/startldapschoolyear', async (req, res) => {
 	const headClasses = ['Name', 'Domain', 'Nutzer der Klasse'];
 
 	res.render('administration/ldap-schoolyear-start', {
-		title: 'Prüfung der LDAP-Daten für Schuljahreswechsel',
+		title: res.$t('administration.controller.text.checkingTheLDAPData'),
 		headUser,
 		bodyUsers,
 		headClasses,
@@ -3403,7 +3403,7 @@ router.get(
 				api(req).get(`/systems/${req.params.id}`),
 			);
 			res.render('administration/ldap-edit', {
-				title: 'LDAP bearbeiten',
+				title: res.$t('administration.controller.link.editLDAP'),
 				system,
 			});
 		} catch (err) {
