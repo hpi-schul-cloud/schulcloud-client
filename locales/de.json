@@ -83,6 +83,13 @@
 			"termsOfUse": "Nutzung"
 		}
 	},
+	"autologout" : {
+		"text" : {
+			"sessionAlreadyExpired" : "Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.",
+			"sessionCouldNotBeExtended" : "Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.",
+			"sessionExtended" : "Sitzung erfolgreich verlängert."
+		}
+	},
 	"calendar": {
 		"button": {
 			"chooseACourse": "Wähle einen Kurs...",
@@ -630,6 +637,9 @@
 			"tryAgain": "Erneut Versuchen",
 			"ok": "Okay"
 		},
+		"error" : {
+			"requestTimeout" : "Zeitüberschreitung der Anfrage"
+		},
 		"label": {
 			"room": "Raum"
 		},
@@ -720,6 +730,8 @@
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
+			"importing" : "importiere",
+			"importSubmission" : "Abgabe des Schülers importieren",
 			"print": "Drucken",
 			"save": "Speichern und Abschicken",
 			"toClass": "Zum Kurs",
@@ -766,7 +778,13 @@
 			"dontShowAgain": "Nicht mehr anzeigen"
 		},
 		"text": {
+			"activatingThisMakesSubmissionsPublic" : "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
+			"creatorCanNotBeRemoved" : "Du darfst den Ersteller der Aufgabe nicht entfernen!",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
+			"doYouReallyWantToDelete" : "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
+			"doYouReallyWantToReplaceSubmission" : "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
+			"fileAlreadyExists" : "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
+			"maximumTeamSize" : "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
 			"noAssignment": "Keine Zuordnung",
 			"noDescriptionAvailable": "keine Beschreibung vorhanden",
 			"noEvaluationTextAvailable": "Noch kein Kommentar vorhanden.",
@@ -776,6 +794,7 @@
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
+			"ratingHasBeenSaved" : "Bewertung wurde gespeichert!",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 		}
 	},
@@ -972,7 +991,7 @@
 		},
 		"headline": {
 			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
-			"LoginFailedHint":"Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung"
+			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung"
 		},
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
@@ -1023,14 +1042,14 @@
 		"text": {
 			"loginFailed": "Login fehlgeschlagen.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
-			"loginFailedFirstHintText":" Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
+			"loginFailedFirstHintText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
 			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
-			"loginFailedThirdHint":"3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
-			"loginFailedFourthHint":"4. Hast du deine Anmeldedaten schon überprüft?",
-			"loginFailedFourthHintText":"Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
+			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
+			"loginFailedFourthHint": "4. Hast du deine Anmeldedaten schon überprüft?",
+			"loginFailedFourthHintText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
 			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
 			"loginFailedFithHintText": "Hier findest du alle HPI Schul-Could Instanzen:",
-			"loginFailedScreenshot":"Login fehlgeschlagen",
+			"loginFailedScreenshot": "Login fehlgeschlagen",
 			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
 			"loginFailedLogoBrandenburg": "Logo Brandenburg",
 			"loginFailedLogoTühringen": "Logo Thüringen",
@@ -1095,7 +1114,9 @@
 		},
 		"text": {
 			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
-			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. <br/>Erlaubte Sonderzeichen sind: <code>!§$%&/()=?\\;:,.#+*~</code>",
+			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
+			"allowedCharacters": "Erlaubte Sonderzeichen sind: ",
+			"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
 			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
 		}
@@ -1153,11 +1174,12 @@
 					"agreementIsVoluntary": "Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{title}}, wird durch die Schule ermöglicht werden.",
 					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
 					"inCaseOfRevokationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a> entnehmen.",
-					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
+					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
 					"password": "Passwort: ",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
-					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
+					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.",
+					"bellowNYearsOldConsantOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten"
 				}
 			},
 			"heading": {
@@ -1195,7 +1217,7 @@
 					"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
 					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren muss ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen.",
 					"mustNotBeYourChildsEmail": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
-					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
+					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
 					"needFollowingInformationForChild": "benötigen wir folgende Angaben für Ihr Kind:",
 					"pleaseConfirmTheFollowing": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{shortTitle}} nutzen kann:",
 					"studentNeedTheirOwnEmail": "(Schüler benötigen eine eigene E-Mail-Adresse)",
@@ -1348,5 +1370,4 @@
 			}
 		}
 	}
-
 }
