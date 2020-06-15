@@ -717,6 +717,25 @@ const createBucket = (req, res, next) => {
 	}
 };
 
+const updatePolicy = (req, res, next) => {
+	const body = req.body;
+	// TODO: set correct API request
+	api(req).post('/consentVersions', {
+		json: {
+			title: body.consentTitle,
+			consentText: body.consentText,
+			publishedAt: new Date().toLocaleString(),
+			consentTypes: ['privacy'],
+			schoolId: body.schoolId,
+			consentData: body.consentData,
+		},
+	}).then(() => {
+		redirectHelper.safeBackRedirect(req, res);
+	}).catch((err) => {
+		next(err);
+	});
+};
+
 const returnAdminPrefix = (roles) => {
 	let prefix;
 	// eslint-disable-next-line array-callback-return
@@ -2603,6 +2622,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 router.patch('/schools/:id', schoolFeatureUpdateHandler);
 router.post('/schools/:id/bucket', createBucket);
+router.post('/schools/policy', updatePolicy);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch(
 	'/courses/:id',
@@ -3041,7 +3061,7 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage, schoolMaintanance, studentVisibility] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance, studentVisibility, consentVersions] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
 					$populate: ['systems', 'currentYear'],
@@ -3051,6 +3071,16 @@ router.use(
 			api(req).get('/fileStorage/total'),
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
 			api(req).get('/school/teacher/studentvisibility'),
+			api(req).get('/consentVersions', {
+				qs: {
+					$limit: 100,
+					schoolId: res.locals.currentSchool,
+					consentTypes: 'privacy',
+					$sort: {
+						publishedAt: -1,
+					},
+				},
+			}),
 		]);
 
 		// Maintanance - Show Menu depending on the state
@@ -3066,6 +3096,28 @@ router.use(
 		} else if (maintananceModeStarts && twoWeeksFromStart < currentTime) {
 			schoolMaintananceMode = 'standby';
 		}
+		// POLICIES
+		const policiesHead = ['Titel', 'Beschreibung', 'Hochgeladen am', 'Link'];
+		let policiesBody;
+		if (Array.isArray(consentVersions.data)) {
+			policiesBody = consentVersions.data.map((consentVersion) => {
+				const title = consentVersion.title;
+				const text = consentVersion.consentText;
+				const publishedAt = new Date(consentVersion.publishedAt).toLocaleString();
+				const linkToPolicy = consentVersion.consentDataId;
+				const links = [];
+				if (linkToPolicy) {
+					links.push({
+						link: `/base64Files/${linkToPolicy}`,
+						class: 'base64File-download-btn',
+						icon: 'file-o',
+						title: 'Datenschutzerklärung der Schule',
+					});
+				}
+				return [title, text, publishedAt, links];
+			});
+		}
+
 
 		// SYSTEMS
 		const systemsHead = ['Alias', 'Typ', ''];
@@ -3153,6 +3205,8 @@ router.use(
 			totalStorage,
 			systemsHead,
 			systemsBody,
+			policiesHead,
+			policiesBody,
 			rssHead,
 			rssBody,
 			hasRSS: rssBody && !!rssBody.length,
@@ -3160,6 +3214,18 @@ router.use(
 		});
 	},
 );
+
+router.get('/policies/:id', async (req, res, next) => {
+	try {
+		const base64File = await Promise.resolve(
+			api(req).get(`/base64Files/${req.params.id}`),
+		);
+		const fileData = base64File.data;
+		res.json(fileData);
+	} catch (err) {
+		next(err);
+	}
+});
 
 /*
 
