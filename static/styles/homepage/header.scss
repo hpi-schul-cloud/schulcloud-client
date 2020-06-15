@@ -44,7 +44,13 @@
         }
     }
 	ul.nav > li {
-		margin-right: 12px;
+		margin-right: 8px;
+	}
+	ul.nav > li > a {
+		margin: 0!important;
+	}
+	ul.nav > li.nav-link-login > a > .fa {
+		margin-right: 8px!important;
 	}
 	.btn-primary-nuxt {
 		display: inline-flex;
@@ -110,6 +116,7 @@
             display: block;
             white-space: nowrap;
             overflow-x: auto;
+			padding-top: 2px;
             > li{
                 display: inline-block;
             }
