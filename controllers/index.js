@@ -1,7 +1,5 @@
 const express = require('express');
-const {
-	FEATURE_LERNSTORE_ENABLED,
-} = require('../config/global');
+const { Configuration } = require('@schul-cloud/commons');
 
 const router = express.Router();
 
@@ -57,8 +55,8 @@ router.use('/alerts', require('./alerts'));
 router.use('/ghost', require('./ghost'));
 router.use('/blog', require('./blog'));
 
-if(FEATURE_LERNSTORE_ENABLED === 'true') {
-    router.use('/content/', require('./content'));
+if (Configuration.get('FEATURE_LERNSTORE_ENABLED') === true) {
+	router.use('/content/', require('./content'));
 }
 
 module.exports = router;

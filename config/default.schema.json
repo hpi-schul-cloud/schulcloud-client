@@ -211,12 +211,12 @@
 				},
 				"OLD_DOMAIN": {
 					"type": "string",
-					"default":"etherpad.schul-cloud.org",
+					"default": "etherpad.schul-cloud.org",
 					"description": "The old etherpad domain"
 				},
 				"NEW_DOMAIN": {
 					"type": "string",
-					"default":"schul-cloud.org",
+					"default": "schul-cloud.org",
 					"description": "The new etherpad domain"
 				}
 			}
@@ -285,7 +285,7 @@
 			"$ref": "#/definitions/ETHERPAD_ENABLED"
 		}
 	],
-	"definitions" : {
+	"definitions": {
 		"ETHERPAD_ENABLED": {
 			"if": {
 				"properties": {
