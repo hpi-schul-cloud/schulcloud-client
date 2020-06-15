@@ -1,4 +1,7 @@
 const express = require('express');
+const {
+	FEATURE_LERNSTORE_ENABLED,
+} = require('../config/global');
 
 const router = express.Router();
 
@@ -12,7 +15,6 @@ router.use(require('./registration'));
 
 router.use('/account/', require('./account'));
 router.use('/calendar/', require('./calendar'));
-router.use('/content/', require('./content'));
 router.use('/courses/', require('./courses'));
 router.use('/courses/:courseId/topics/', require('./topics'));
 router.use('/courses/:courseId/tools/', require('./tools'));
@@ -53,5 +55,9 @@ router.use('/version', require('./version'));
 router.use('/alerts', require('./alerts'));
 router.use('/ghost', require('./ghost'));
 router.use('/blog', require('./blog'));
+
+if(FEATURE_LERNSTORE_ENABLED === 'true') {
+    router.use('/content/', require('./content'));
+}
 
 module.exports = router;
