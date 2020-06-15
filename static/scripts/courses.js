@@ -369,4 +369,12 @@ $(document).ready(() => {
 
 		$bbbReloadInfoModal.appendTo('body').modal('show');
 	});
+
+	// Safari 3.0+ "[object HTMLElementConstructor]"
+	const remoteNotification = (p) => (p.toString() === '[object SafariRemoteNotification]');
+	const isSafari = /constructor/i.test(window.HTMLElement)
+		|| remoteNotification(!window.safari || (typeof safari !== 'undefined' && safari.pushNotification));
+	if (isSafari) {
+		$('#safari-workaround').show();
+	}
 });
