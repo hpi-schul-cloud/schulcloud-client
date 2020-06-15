@@ -276,8 +276,8 @@
 		},
 		"FEATURE_LERNSTORE_ENABLED": {
 			"type": "boolean",
-			"default": true,
-			"description": "Enables Lern-Store in app"
+			"default": false,
+			"description": "Enables Lern-Store (navigation, route) in app"
 		}
 	},
 	"allOf": [
@@ -305,6 +305,7 @@
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
 		"COOKIE",
 		"STUDENT_TEAM_CREATION",
-		"FEATURE_ETHERPAD_ENABLED"
+		"FEATURE_ETHERPAD_ENABLED",
+		"FEATURE_LERNSTORE_ENABLED"
 	]
 }
