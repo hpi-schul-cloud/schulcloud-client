@@ -191,6 +191,11 @@
 			"default": true,
 			"description": "Etherpad "
 		},
+		"FEATURE_SCHOOL_POLICY_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Custom School Policy can be uploaded by the school admin "
+		},
 		"ETHERPAD": {
 			"type": "object",
 			"description": "Cookie properties, required always to be defined",
