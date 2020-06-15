@@ -1,0 +1,38 @@
+.create-videoconference-option {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.create-videoconference-option-text {
+    width: 80%;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.create-videoconference label {
+    margin-right: 0.5rem;
+}
+
+.create-videoconference .toggle {
+    height: 2rem !important;
+    width: 7rem !important;
+}
+
+.create-videoconference .toggle .toggle-handle {
+    width: 0.3rem !important;
+    background: whitesmoke !important;
+}
+
+.create-videoconference .off {
+    background: grey !important;
+}
+
+.create-videoconference .off label {
+    color: whitesmoke !important;
+    padding-left: 48px !important;
+}
+
+.create-videoconference .on label {
+    padding-right: 48px !important;
+}
