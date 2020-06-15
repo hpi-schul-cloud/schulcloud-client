@@ -35,9 +35,8 @@ const browserlist = ['> 0.2%', 'last 10 version', 'not dead'];
 const baseScripts = [
 	'./node_modules/jquery/dist/jquery.min.js',
 	'./node_modules/form-serializer/dist/jquery.serialize-object.min.js',
-	'./node_modules/popper.js/dist/umd/popper.min.js',
-	'./node_modules/bootstrap/dist/js/bootstrap.min.js',
 	'./static/scripts/tether/tether.min.js',
+	'./static/scripts/bootstrap/bootstrap.min.js',
 	'./static/scripts/chosen/chosen.jquery.min.js',
 	'./static/scripts/base.js',
 	'./static/scripts/toggle/bootstrap-toggle.min.js',

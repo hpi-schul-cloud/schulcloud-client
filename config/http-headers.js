@@ -25,10 +25,10 @@ const config = {
 			fontSrc: "'self' data:",
 			styleSrc: "'self' 'unsafe-inline'",
 			// scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
-			// scriptSrc: "'self' 'unsafe-eval' 'unsafe-inline'",
+			scriptSrc: "'self' 'unsafe-eval' 'unsafe-inline'",
 			// Please activate for production
-			upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
-			blockAllMixedContentSrc: 'block-all-mixed-content',
+			// upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
+			// blockAllMixedContentSrc: 'block-all-mixed-content',
 		},
 		/*
 			Content-Security-Policy Header (added to default header) depending on the site
