@@ -31,8 +31,8 @@ describe('Content tests', () => {
 			this.agent
 				.get('/content/')
 				.end((err, res) => {
-					if (err) logger.ERROR(err);
-					logger.INFO(res);
+					if (err) logger.log(err);
+					logger.log(res);
 					expect(res.statusCode).to.equal(200);
 					expect(res.text).to.contain('Lern-Store');
 					resolve();

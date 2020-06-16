@@ -1,4 +1,5 @@
 {
 	"$schema": "./default.schema.json",
-	"REQUEST_TIMEOUT_MS": 60000
+	"REQUEST_TIMEOUT_MS": 60000,
+	"FEATURE_LERNSTORE_ENABLED": true
 }

@@ -1,3 +1,4 @@
 {
+	"$schema": "./default.schema.json",
 	"FEATURE_LERNSTORE_ENABLED": true
 }
