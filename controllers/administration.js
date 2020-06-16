@@ -3060,7 +3060,7 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage, schoolMaintanance, consentVersions, studentVisibility] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance, studentVisibility, consentVersions] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
 					$populate: ['systems', 'currentYear'],
@@ -3069,6 +3069,7 @@ router.use(
 			}),
 			api(req).get('/fileStorage/total'),
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
+			api(req).get('/school/teacher/studentvisibility'),
 			api(req).get('/consentVersions', {
 				qs: {
 					$limit: 100,
@@ -3079,7 +3080,6 @@ router.use(
 					},
 				},
 			}),
-			api(req).get('/school/teacher/studentvisibility'),
 		]);
 
 		// Maintanance - Show Menu depending on the state
@@ -3213,6 +3213,18 @@ router.use(
 		});
 	},
 );
+
+router.get('/policies/:id', async (req, res, next) => {
+	try {
+		const base64File = await Promise.resolve(
+			api(req).get(`/base64Files/${req.params.id}`),
+		);
+		const fileData = base64File.data;
+		res.json(fileData);
+	} catch (err) {
+		next(err);
+	}
+});
 
 /*
 
