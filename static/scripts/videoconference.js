@@ -1,9 +1,9 @@
 /* eslint-disable no-use-before-define */
 
 export const ERROR_MESSAGES = {
-	NOT_STARTED_OR_FINISHED: 'Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.',
-	NO_PERMISSION: 'Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen.',
-	GENERAL_ERROR: 'Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.',
+	NOT_STARTED_OR_FINISHED: $t('videoconference.text.theVideoConferenceHasEither'),
+	NO_PERMISSION: $t('videoconference.text.youDoNotHaveTheNecessaryAuthorization'),
+	GENERAL_ERROR: $t('videoconference.text.thereWasAProblemWithTheVideo'),
 };
 
 const GuestInactiveState = Object.freeze({
@@ -30,8 +30,8 @@ const ModeratorInactiveState = Object.freeze({
 
 			populateModalForm($createVideoconferenceModal, {
 				title: `Videokonferenzraum "${event.title}" erstellen`,
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Erstellen',
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.create'),
 			});
 
 			$createVideoconferenceModal.appendTo('body').modal('show');
