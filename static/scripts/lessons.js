@@ -13,7 +13,7 @@ $(document).ready(function() {
     function showAJAXError(req, textStatus, errorThrown) {
         $deleteModal.modal('hide');
         if(textStatus==="timeout") {
-            $.showNotification("Zeitüberschreitung der Anfrage", "warn");
+            $.showNotification($t('global.error.requestTimeout'), "warn");
         } else {
             $.showNotification(errorThrown, "danger");
         }
@@ -25,7 +25,7 @@ $(document).ready(function() {
         var $buttonContext = $(this);
 
         $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('name') + "' löschen möchtest?");
+        $deleteModal.find('.modal-title').text($t('homework.text.doYouReallyWantToDelete', {name : $buttonContext.data('name')}));
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
             $.ajax({
                 url: $buttonContext.attr('href'),
