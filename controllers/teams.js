@@ -451,6 +451,14 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
+function sortFunction(a, b) {
+	if (a.displayAt === b.displayAt) {
+		return 0;
+	}
+
+	return a.displayAt < b.displayAt ? 1 : -1;
+}
+
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
@@ -554,20 +562,34 @@ router.get('/:teamId', async (req, res, next) => {
 			})
 			.slice(0, 6);
 
-		let news = (await api(req).get('/news/', {
-			qs: {
-				target: req.params.teamId,
-				targetModel: 'teams',
-				$limit: 4,
-				$sort: '-displayAt',
-			},
-		})).data;
-
-		news = news.map((n) => {
-			n.url = `/teams/${req.params.teamId}/news/${n._id}`;
-			n.secondaryTitle = moment(n.displayAt).fromNow();
-			return n;
-		});
+		const news = await api(req)
+			.get('/news/', {
+				qs: {
+					target: req.params.teamId,
+					targetModel: 'teams',
+					displayAt: {
+						$lte: new Date().getTime(),
+					},
+				},
+			})
+			.then((newsres) => newsres.data
+				.map((n) => {
+					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
+					n.secondaryTitle = moment(n.displayAt).fromNow();
+					return n;
+				})
+				.sort(sortFunction)
+				.slice(0, 4))
+			.catch((err) => {
+				/* eslint-disable-next-line max-len */
+				logger.error(
+					`
+						Can not fetch data from /news/ in router.get("/:teamId")
+						| message: ${err.message} | code: ${err.code}.
+					`,
+				);
+				return [];
+			});
 
 		let events = [];
 		try {
