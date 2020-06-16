@@ -112,10 +112,11 @@
             height: 2.25rem;
         }
         .nav{
-            text-align: center;
-            display: block;
-            white-space: nowrap;
-            overflow-x: auto;
+            display: flex;
+			flex-flow: row wrap;
+			text-align: center;
+			justify-content: center;
+			white-space: nowrap;
 			padding-top: 2px;
             > li{
                 display: inline-block;
