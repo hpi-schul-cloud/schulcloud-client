@@ -38,13 +38,24 @@
     vertical-align: bottom;
   }
 
+
   // Highlight border color between thead, tbody and tfoot.
   // stylelint-disable-next-line selector-max-universal
   > :not(:last-child) > :last-child > * {
     border-bottom-color: $table-group-seperator-color;
   }
 }
-
+.table-bordered {
+  border: 1px solid #eceeef;
+}
+.table-bordered td, .table-bordered th {
+  border: 1px solid #eceeef;
+}
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #eceeef;
+  background: #f5f5f5;
+}
 
 //
 // Change placement of captions with a class
