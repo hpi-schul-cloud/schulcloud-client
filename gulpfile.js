@@ -140,18 +140,15 @@ gulp.task('styles', () => {
 		.pipe(browserSync.stream());
 });
 
-const copyStyle = (dirname, filename, src) => {
-	return gulp.src(src)
-		.pipe(rename((targetPath) => {
-			targetPath.basename = path.parse(filename).name;
-			targetPath.dirname = dirname;
-		}))
-		.pipe(gulp.dest(`./build/${themeName()}/styles`));
-};
+const copyStyle = (dirname, filename, src) => gulp.src(src)
+	.pipe(rename((targetPath) => {
+		targetPath.basename = path.parse(filename).name;
+		targetPath.dirname = dirname;
+	}))
+	.pipe(gulp.dest(`./build/${themeName()}/styles`));
 
-gulp.task('copy-styles', () => {
-	return merge(baseStyles.map(({ dirname, filename, src }) => copyStyle(dirname, filename, src)));
-});
+gulp.task('copy-styles',
+	() => merge(baseStyles.map(({ dirname, filename, src }) => copyStyle(dirname, filename, src))));
 
 gulp.task('styles-done', gulp.series('styles'), () => {
 	firstRun = false;

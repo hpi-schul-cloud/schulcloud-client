@@ -1,11 +1,10 @@
-import './jquery/datetimepicker-easy.js';
+import './jquery/datetimepicker-easy';
 import moment from 'moment';
 import { Calendar } from '@fullcalendar/core';
 import deLocale from '@fullcalendar/core/locales/de';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-
 
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
@@ -79,7 +78,7 @@ $(document).ready(() => {
 			left: 'title',
 			right: 'dayGridMonth,timeGridWeek,timeGridDay prev,today,next',
 		},
-		events: (info, successCallback, failureCallback) => {
+		events: (info, successCallback) => {
 			$.getJSON('/calendar/events', (events) => successCallback(events));
 		},
 		eventRender(info) {
@@ -124,6 +123,8 @@ $(document).ready(() => {
 				const teamId = event['x-sc-teamId'];
 				window.location.assign(`/teams/${teamId}?activeTab=events`);
 			}
+
+			return true;
 		},
 		dateClick: (info) => {
 			const { date } = info;
@@ -150,7 +151,7 @@ $(document).ready(() => {
 
 	calendar.render();
 
-	$("input[name='isCourseEvent']").change((e) => {
+	$("input[name='isCourseEvent']").change(() => {
 		const isChecked = $(this).is(':checked');
 		const ref = $(this).attr('data-collapseRef');
 		const $collapse = $(`#${ref}`);
@@ -163,7 +164,7 @@ $(document).ready(() => {
 			// fetch all courses for teacher and show selection
 			$.getJSON('/courses?json=true', (courses) => {
 				$collapse.collapse('show');
-				const $toggleTeam = $(`#toggle${parseInt(ref.substr(ref.length - 1, ref.length)) + 1}`);
+				const $toggleTeam = $(`#toggle${parseInt(ref.substr(ref.length - 1, ref.length), 10) + 1}`);
 				$toggleTeam.bootstrapToggle('off');
 
 				courses.forEach((course) => {
@@ -179,7 +180,7 @@ $(document).ready(() => {
 		}
 	});
 
-	$("input[name='isTeamEvent']").change((e) => {
+	$("input[name='isTeamEvent']").change(() => {
 		const isChecked = $(this).is(':checked');
 		const ref = $(this).attr('data-collapseRef');
 		const $collapse = $(`#${$(this).attr('data-collapseRef')}`);
@@ -193,7 +194,7 @@ $(document).ready(() => {
 			// fetch all courses for teacher and show selection
 			$.getJSON('/teams?json=true', (teams) => {
 				$collapse.collapse('show');
-				const $toggleTCourse = $(`#toggle${parseInt(ref.substr(ref.length - 1, ref.length)) - 1}`);
+				const $toggleTCourse = $(`#toggle${parseInt(ref.substr(ref.length - 1, ref.length), 10) - 1}`);
 				$toggleTCourse.bootstrapToggle('off');
 				teams.forEach((team) => {
 					const option = document.createElement('option');
