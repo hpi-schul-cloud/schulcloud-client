@@ -567,10 +567,12 @@
 			"close": "Schließen",
 			"create": "Erstellen",
 			"delete": "Löschen",
+			"import": "Importieren",
 			"open": "Öffnen",
 			"next": "Weiter",
 			"save": "Speichern",
 			"saveChanges": "Änderungen Speichern",
+			"send": "Abschicken",
 			"tryAgain": "Erneut Versuchen",
 			"ok": "Okay"
 		},
