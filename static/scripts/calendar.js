@@ -150,18 +150,6 @@ $(document).ready(() => {
 
 	calendar.render();
 
-	$('.fc-left > button')
-		.wrap('<div class="fc-button-group"></div>');
-
-	$('.fc-button')
-		.removeClass('fc-button fc-corner-left fc-corner-right')
-		.addClass('btn btn-secondary');
-
-	$('.fc-button-group')
-		.removeClass()
-		.addClass('btn-group btn-group-sm');
-
-
 	$("input[name='isCourseEvent']").change((e) => {
 		const isChecked = $(this).is(':checked');
 		const ref = $(this).attr('data-collapseRef');
