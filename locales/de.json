@@ -627,6 +627,7 @@
 			"delete": "Löschen",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
+			"import": "Importieren",
 			"next": "Weiter",
 			"open": "Öffnen",
 			"openANewTab": "In neuem Tab öffnen",
@@ -634,6 +635,7 @@
 			"reload": "Neu laden",
 			"save": "Speichern",
 			"saveChanges": "Änderungen Speichern",
+			"send": "Abschicken",
 			"tryAgain": "Erneut Versuchen",
 			"ok": "Okay"
 		},
