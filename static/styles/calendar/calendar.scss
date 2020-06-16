@@ -73,10 +73,7 @@
                 &:hover {
                     color: #292b2c;
                     background: #e6e6e6;
-                    -webkit-transition: background-position 0.1s linear;
-                    -moz-transition: background-position 0.1s linear;
-                    -o-transition: background-position 0.1s linear;
-                    transition: none;
+                    transition: background-position 0.1s linear;
                 }
 
                 &:disabled {

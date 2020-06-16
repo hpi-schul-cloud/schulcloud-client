@@ -66,7 +66,7 @@ $(document).ready(() => {
 
 	const calendarElement = document.getElementById('calendar');
 
-	const view = location.hash.substring(1);
+	const view = window.location.hash.substring(1);
 
 	const calendar = new Calendar(calendarElement, {
 		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -106,7 +106,7 @@ $(document).ready(() => {
 
 			if (!event['x-sc-teamId']) { // course or non-course event
 				transformCourseOrTeamEvent($editEventModal, event);
-				$editEventModal.find('.btn-delete').click((e) => {
+				$editEventModal.find('.btn-delete').click(() => {
 					$.ajax({
 						url: `/calendar/events/${event.attributes.uid}`,
 						type: 'DELETE',
@@ -145,7 +145,7 @@ $(document).ready(() => {
 			$createEventModal.appendTo('body').modal('show');
 		},
 		viewRender(info) {
-			location.hash = info.view.name;
+			window.location.hash = info.view.name;
 		},
 	});
 
