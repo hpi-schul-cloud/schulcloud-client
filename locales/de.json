@@ -639,9 +639,13 @@
 		},
 		"button": {
 			"ascending": "↑ aufsteigend",
+			"createNewFile" : "Datei erstellen", 
+			"createNewFolder" : "Ordner erstellen",
 			"createANewFile": "Neue Datei erstellen",
 			"createANewFolder": "Neuen Ordner erstellen",
 			"descending": "↓ absteigend",
+			"download" : "Runterladen",
+			"edit" : "Bearbeiten",
 			"open": "Öffnen",
 			"presentation": "Präsentation (pptx)",
 			"search": "Suchen",
@@ -658,12 +662,28 @@
 		"input": {
 			"filename": "Name der Datei"
 		},
+		"headline": {
+			"attention" : "Achtung",
+			"createNewFile" : "Neue Datei erstellen",
+			"doYouWantToOpenThisFile" : "Möchtest du diese Datei mit einem externen Dienst öffnen?",
+			"newFolder" : "Neuer Ordner"
+		},
+		"input" : {
+			"filename" : "Name der Datei",
+			"foldername" : "Name des Ordners",
+			"searchFiles" : "Dateien durchsuchen..."
+		},
 		"label": {
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
 			"close": "Schließen",
 			"createdAt": "Erstelldatum",
+			"dangerousCode" : "Schädlicher Code",
+			"deleteFile" : "Datei löschen",
+			"deleteFolder" : "Ordner löschen",
 			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten.",
+			"downloadFile" : "Datei herunterladen",
+			"editFilePermissions" : "Dateiberechtigungen bearbeiten",
 			"fileName": "Dateiname:",
 			"fileType": "Dateityp:",
 			"files": "Dateien",
@@ -672,12 +692,19 @@
 			"filesFromMyTeam": "Dateien aus meinen Teams",
 			"filesSharedWithMe": "Mit mir geteilte Dateien",
 			"folder": "Ordner",
+			"moveFile" : "Datei verschieben - vorübergehend deaktiviert",
 			"myPersonalData": "Meine persönlichen Dateien",
 			"name": "Dateiname",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
+			"read" : "Lesen",
+			"renameFile" : "Datei umbenennen",
+			"renameFolder" : "Ordner umbenennen",
+			"roleUser" : "Rolle/Benutzer",
 			"selectAFolder": "Wähle einen Ordner aus",
+			"shareFile" : "Datei teilen",
 			"size": "Größe",
-			"updatedAt": "Änderungsdatum"
+			"updatedAt": "Änderungsdatum",
+			"write" : "Schreiben"
 		},
 		"search": {
 			"headline": {
@@ -696,6 +723,7 @@
 			"foundIn": "gefunden in:",
 			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
 			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
+			"movingCurrentlyDisabled" : "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 			"newDir": "Neuer Ordner",
 			"newFile": "Neue Datei",
 			"noAccessToThisFile": "Zu dieser Datei haben Sie keinen Zugriff!",
@@ -722,6 +750,7 @@
 			"delete": "Löschen",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
+			"import": "Importieren",
 			"next": "Weiter",
 			"no": "Nein",
 			"open": "Öffnen",
@@ -729,8 +758,8 @@
 			"print": "Drucken",
 			"reload": "Neu laden",
 			"save": "Speichern",
-			"saveChanges": "Änderungen speichern",
-			"send": "Senden",
+			"saveChanges": "Änderungen Speichern",
+			"send": "Abschicken",
 			"tryAgain": "Erneut Versuchen",
 			"yes": "Ja",
 			"ok": "Okay"
@@ -1337,10 +1366,10 @@
 					"iAmLegalGuardianOfChild": "Ich, <b data-from=\"parent_firstName\"></b> <b data-from=\"parent_lastName\"></b>, bin erziehungsberechtigt für <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b> und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten."
 				},
 				"text": {
-					"aParentOrLegalGuardian": "Jahren muss ein Erziehungsberechtigter in die Nutzung der",
+					"aParentOrLegalGuardian": "Jahren bedarf ein Erziehungsberechtigter in die Nutzung der",
 					"forThisWeNeedFollowing": "Dazu benötigen wir folgende Angaben von Ihnen:",
 					"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
-					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren muss ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen.",
+					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren bedarf ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen.",
 					"mustNotBeYourChildsEmail": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
 					"needFollowingInformationForChild": "benötigen wir folgende Angaben für Ihr Kind:",
