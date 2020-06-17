@@ -576,9 +576,13 @@
 	"files": {
 		"button": {
 			"ascending": "↑ aufsteigend",
+			"createNewFile" : "Datei erstellen", 
+			"createNewFolder" : "Ordner erstellen",
 			"createANewFile": "Neue Datei erstellen",
 			"createANewFolder": "Neuen Ordner erstellen",
 			"descending": "↓ absteigend",
+			"download" : "Runterladen",
+			"edit" : "Bearbeiten",
 			"open": "Öffnen",
 			"presentation": "Präsentation (pptx)",
 			"search": "Suchen",
@@ -586,17 +590,40 @@
 			"table": "Tabelle (xlsx)",
 			"textDocument": "Textdokument (docx)"
 		},
+		"headline": {
+			"attention" : "Achtung",
+			"createNewFile" : "Neue Datei erstellen",
+			"doYouWantToOpenThisFile" : "Möchtest du diese Datei mit einem externen Dienst öffnen?",
+			"newFolder" : "Neuer Ordner"
+		},
+		"input" : {
+			"filename" : "Name der Datei",
+			"foldername" : "Name des Ordners",
+			"searchFiles" : "Dateien durchsuchen..."
+		},
 		"label": {
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
 			"close": "Schließen",
+			"dangerousCode" : "Schädlicher Code",
+			"deleteFile" : "Datei löschen",
+			"deleteFolder" : "Ordner löschen",
 			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten.",
+			"downloadFile" : "Datei herunterladen",
+			"editFilePermissions" : "Dateiberechtigungen bearbeiten",
 			"fileName": "Dateiname:",
 			"fileType": "Dateityp:",
 			"files": "Dateien",
 			"folder": "Ordner",
+			"moveFile" : "Datei verschieben - vorübergehend deaktiviert",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
-			"selectAFolder": "Wähle einen Ordner aus"
+			"read" : "Lesen",
+			"renameFile" : "Datei umbenennen",
+			"renameFolder" : "Ordner umbenennen",
+			"roleUser" : "Rolle/Benutzer",
+			"selectAFolder": "Wähle einen Ordner aus",
+			"shareFile" : "Datei teilen",
+			"write" : "Schreiben"
 		},
 		"text": {
 			"FileCanNotBeDownloaded": "Keine Sorge, die Datei kann nicht heruntergeladen werden.",
@@ -604,6 +631,7 @@
 			"foundIn": "gefunden in:",
 			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
 			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
+			"movingCurrentlyDisabled" : "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 			"noSearchResults": "Keine Suchergebnisse",
 			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.",
 			"rememberThisSelection": "Diese Auswahl merken",
