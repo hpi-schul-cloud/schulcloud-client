@@ -118,8 +118,9 @@
 			justify-content: center;
 			white-space: nowrap;
 			padding-top: 2px;
-            > li{
+            > li {
                 display: inline-block;
+				margin-right: 0 !important;
             }
             .nav-link{
                 margin: 0;
