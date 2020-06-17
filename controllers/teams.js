@@ -139,7 +139,7 @@ const editTeamHandler = (req, res, next) => {
 			method,
 			title: req.params.teamId ? res.$t('teams.add.headline.editTeam') : res.$t('teams.add.headline.createTeam'),
 			submitLabel: req.params.teamId ? res.$t('teams.add.button.saveChanges')
-										: res.$t('teams.add.button.createTeam'),
+				: res.$t('teams.add.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
@@ -941,12 +941,12 @@ router.get('/:teamId/members', async (req, res, next) => {
 			{
 				name: 'teamexpert',
 				label: res.$t('teams._team.members.label.externExpert'),
-				_id: roles.find(role => role.name === 'teamexpert'),
+				_id: roles.find((role) => role.name === 'teamexpert'),
 			},
 			{
 				name: 'teamadministrator',
 				label: res.$t('teams._team.members.label.externTeacher'),
-				_id: roles.find(role => role.name === 'teamadministrator'),
+				_id: roles.find((role) => role.name === 'teamadministrator'),
 			},
 		];
 
