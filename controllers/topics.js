@@ -3,16 +3,16 @@ const express = require('express');
 const shortId = require('shortid');
 const Nexboard = require('nexboard-api-js');
 const { randomBytes } = require('crypto');
+const { Configuration } = require('@schul-cloud/commons');
+
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
 const { EDTR_SOURCE } = require('../config/global');
-const { randomBytes } = require('crypto');
 
 const router = express.Router({ mergeParams: true });
 
-const { Configuration } = require('@schul-cloud/commons');
 const {
 	NEXBOARD_USER_ID,
 	NEXBOARD_API_KEY,
@@ -350,6 +350,7 @@ router.get('/:topicId', (req, res, next) => {
 			block.component = `topic/components/content-${block.component}`;
 			return block;
 		});
+
 		// eslint-disable-next-line no-param-reassign
 		homeworks = (homeworks.data || []).map((assignment) => {
 			assignment.url = `/homework/${assignment._id}`;
