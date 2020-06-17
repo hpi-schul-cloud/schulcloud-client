@@ -1115,6 +1115,8 @@
 			"inTheCourse": "im Kurs",
 			"inTheTeam": "im Team",
 			"lastFrom": "(zuletzt von",
+			"newsNeedContent" : "News benötigen Inhalt!",
+			"newsNeedTitle" : "News benötigen einen Titel!",
 			"processed": "bearbeitet)",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
