@@ -581,7 +581,6 @@ router.get('/:teamId', async (req, res, next) => {
 				.sort(sortFunction)
 				.slice(0, 4))
 			.catch((err) => {
-				/* eslint-disable-next-line max-len */
 				logger.error(
 					`
 						Can not fetch data from /news/ in router.get("/:teamId")
