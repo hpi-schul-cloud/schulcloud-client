@@ -163,6 +163,17 @@
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
 		},
+		"FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY": {
+			"type": "string",
+			"default": "disabled",
+			"enum": [
+				"disabled",
+				"opt-in",
+				"opt-out",
+				"enabled"
+			],
+			"description": "Allows school admin to toggle teacher's STUDENT_LIST permission."
+		},
 		"SENTRY_DSN": {
 			"type": "string",
 			"format": "uri",
@@ -179,6 +190,11 @@
 			"type": "boolean",
 			"default": true,
 			"description": "Etherpad "
+		},
+		"FEATURE_SCHOOL_POLICY_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Custom School Policy can be uploaded by the school admin "
 		},
 		"ETHERPAD": {
 			"type": "object",
@@ -205,12 +221,12 @@
 				},
 				"OLD_DOMAIN": {
 					"type": "string",
-					"default":"etherpad.schul-cloud.org",
+					"default": "etherpad.schul-cloud.org",
 					"description": "The old etherpad domain"
 				},
 				"NEW_DOMAIN": {
 					"type": "string",
-					"default":"schul-cloud.org",
+					"default": "schul-cloud.org",
 					"description": "The new etherpad domain"
 				}
 			}
@@ -267,6 +283,11 @@
 			"type": "integer",
 			"default": 15,
 			"description": "Number of second the user will be blocked before logging in again"
+		},
+		"FEATURE_LERNSTORE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables Lern-Store (navigation, route) in app"
 		}
 	},
 	"allOf": [
@@ -274,7 +295,7 @@
 			"$ref": "#/definitions/ETHERPAD_ENABLED"
 		}
 	],
-	"definitions" : {
+	"definitions": {
 		"ETHERPAD_ENABLED": {
 			"if": {
 				"properties": {
@@ -294,6 +315,7 @@
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
 		"COOKIE",
 		"STUDENT_TEAM_CREATION",
-		"FEATURE_ETHERPAD_ENABLED"
+		"FEATURE_ETHERPAD_ENABLED",
+		"FEATURE_LERNSTORE_ENABLED"
 	]
 }

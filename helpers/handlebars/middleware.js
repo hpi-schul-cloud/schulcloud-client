@@ -7,6 +7,8 @@ const {
 	FEATURE_TEAMS_ENABLED,
 } = require('../../config/global');
 
+const { Configuration } = require('@schul-cloud/commons');
+
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
 	return items.map((item) => {
@@ -27,7 +29,7 @@ const makeActive = (items, currentUrl) => {
 		if (item.children && item.childActive) {
 			item.children = makeActive(item.children, currentUrl);
 
-			if (item.children.filter(child => child.class == 'active').length == 0) {
+			if (item.children.filter((child) => child.class == 'active').length == 0) {
 				item.class += ' active';
 			}
 		}
@@ -98,11 +100,16 @@ module.exports = (req, res, next) => {
 		name: res.$t('global.sidebar.link.calendar'),
 		icon: 'table',
 		link: '/calendar/',
-	}, {
-		name: res.$t('global.sidebar.link.lernstore'),
-		icon: 'search',
-		link: '/content/',
 	}];
+
+	// Lern-Store Feature Toggle
+	if (Configuration.get('FEATURE_LERNSTORE_ENABLED') === true) {
+		res.locals.sidebarItems.push({
+			name: res.$t('global.sidebar.link.lernstore'),
+			icon: 'search',
+			link: '/content/',
+		});
+	}
 
 	// Extensions Feature Toggle
 	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
@@ -127,6 +134,27 @@ module.exports = (req, res, next) => {
 				icon: 'odnoklassniki',
 				link: '/administration/students/',
 			},
+			{
+				name: res.$t('global.sidebar.link.managementTeachers'),
+				icon: 'user',
+				link: '/administration/teachers/',
+			},
+			{
+				name: res.$t('global.sidebar.link.managementClasses'),
+				icon: 'users',
+				link: '/administration/classes/',
+			},
+		],
+	});
+
+	// teacher views
+	res.locals.sidebarItems.push({
+		name: res.$t('global.sidebar.link.management'),
+		icon: 'cogs',
+		link: '/administration/',
+		permission: 'TEACHER_LIST',
+		excludedPermission: ['ADMIN_VIEW', 'STUDENT_LIST'],
+		children: [
 			{
 				name: res.$t('global.sidebar.link.managementTeachers'),
 				icon: 'user',
@@ -210,12 +238,12 @@ module.exports = (req, res, next) => {
 			link: '/files/teams/',
 		});
 		/*
-        res.locals.sidebarItems.find(i => i.name === 'Administration').children.splice(4, 0, {
-            name: 'Teams',
-            icon: 'users',
-            link: '/administration/teams/',
-        });
-        */
+				res.locals.sidebarItems.find(i => i.name === 'Administration').children.splice(4, 0, {
+						name: 'Teams',
+						icon: 'users',
+						link: '/administration/teams/',
+				});
+				*/
 	}
 
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
@@ -227,7 +255,7 @@ module.exports = (req, res, next) => {
 				$limit: 10,
 				$sort: '-createdAt',
 			},
-		}).catch(_ => []);
+		}).catch((_) => []);
 	}
 	let notificationCount = 0;
 
