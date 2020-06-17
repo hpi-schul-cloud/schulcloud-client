@@ -29,7 +29,7 @@ $(document).ready(function() {
         var $buttonContext = $(this);
 
         $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('account.headline.doYouWantToDeleteDevice', {'device' :  $buttonContext.data('device-name')}));
+        $deleteModal.find('.modal-title').text($t('account.headline.doYouWantToDeleteDevice', { device:  $buttonContext.data('device-name') }));
 
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
             $.ajax({
