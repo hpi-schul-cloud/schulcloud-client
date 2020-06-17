@@ -23,6 +23,10 @@ privacy policy should be confirmed by every school user
 ### Removed
 
 
+## [23.4.3] - 2020-06-17
+
+- SC-5048 Temporarily disables Portfolio for NBC by removal of link to portfolio in add-ons.
+
 ## [23.1.2] - 2020-06-02
 
 ### Changed
