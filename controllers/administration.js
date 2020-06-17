@@ -3381,7 +3381,7 @@ router.post(
 				// eslint-disable-next-line no-shadow
 				.then((system) => {
 					api(req)
-						.patch(`/schools/${res.locals.currentSchool}`, {
+						.patch(`/schools/${res.locals.currentSchool}`, { // TODO move to server. Should be one transaction
 							json: {
 								$push: {
 									systems: system._id,
@@ -3430,9 +3430,10 @@ router.post(
 			classesPath = '';
 		}
 
-		let ldapURL = req.body.ldapurl;
+		// TODO potentielles Problem url: testSchule/ldap -> testSchule/ldaps
+		let ldapURL = req.body.ldapurl; // Better: let ldapURL = req.body.ldapurl.trim();
 		if (!ldapURL.startsWith('ldaps')) {
-			if (ldapURL.includes('ldap')) {
+			if (ldapURL.includes('ldap')) { // Better ldapURL.startsWith('ldap')
 				ldapURL = ldapURL.replace('ldap', 'ldaps');
 			} else {
 				ldapURL = `ldaps://${ldapURL}`;
@@ -3444,7 +3445,7 @@ router.post(
 				json: {
 					alias: req.body.ldapalias,
 					ldapConfig: {
-						active: false,
+						active: false, // Don't switch of by verify
 						url: ldapURL,
 						rootPath: req.body.rootpath,
 						searchUser: req.body.searchuser,
@@ -3511,16 +3512,11 @@ router.post(
 		);
 
 		api(req)
-			.patch(`/systems/${system[0]._id}`, {
+			.patch(`/ldap/${system[0]._id}`, {
 				json: {
 					'ldapConfig.active': true,
 				},
 			})
-			.then(() => api(req).patch(`/schools/${school._id}`, {
-				json: {
-					ldapSchoolIdentifier: system[0].ldapConfig.rootPath,
-				},
-			}))
 			.then(() => {
 				res.json('success');
 			})
