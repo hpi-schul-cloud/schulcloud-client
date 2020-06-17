@@ -208,26 +208,15 @@ const helpers = app => ({
 	castStatusCodeToString: (statusCode, data) => {
 		console.log(statusCode);
 		if (statusCode >= 500) {
-			return i18n.getInstance(data.data.local.currentUser)('index.text.oopsWeHaveAnInternalProblem');
+			return i18n.getInstance(data.data.local.currentUser)('global.error.oopsWeHaveAnInternalProblem');
 		}
 		if (statusCode >= 400) {
-			switch (statusCode) {
-				case 400:
-					return i18n.getInstance(data.data.local.currentUser)('index.text.thisRequestWasIncorrect');
-				case 401:
-					return i18n.getInstance(data.data.local.currentUser)('index.text.pleaseAuthenticate');
-				case 402:
-					return i18n.getInstance(data.data.local.currentUser)('index.text.youStillHaveToPay');
-				case 403:
-					return i18n.getInstance(data.data.local.currentUser)('index.text.sorryButWeReallyCant');
-				case 404:
-					return i18n.getInstance(data.data.local.currentUser)('index.text.oopsThisPageDoesntExist');
-			}
+			return i18n.getInstance(data.data.local.currentUser)('global.error.'.concat(statusCode.toString()));
 		}
 		if (statusCode > 300) {
-			return i18n.getInstance(data.data.local.currentUser)('index.text.thisPageHasBeenMoved');
+			return i18n.getInstance(data.data.local.currentUser)('global.error.thisPageHasBeenMoved');
 		}
-		return i18n.getInstance(data.data.local.currentUser)('index.text.somethingWentWrong');
+		return i18n.getInstance(data.data.local.currentUser)('global.error.somethingWentWrong');
 	},
 	writeFileSizePretty: (fileSize) => {
 		let unit;
