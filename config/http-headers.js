@@ -24,7 +24,7 @@ const config = {
 			defaultSrc: "'self' data: blob: https://api.schul-cloud.org https://scchat.schul-cloud.org https://s3.hidrive.strato.com https://libreoffice.schul-cloud.org https://docs.schul-cloud.org https://edtrio.schul-cloud.org https://etherpad.schul-cloud.org https://blog.schul-cloud.org https://sc-content-resources.schul-cloud.org https://sentry.schul-cloud.dev https://open.hpi.de https://upload.wikimedia.org https://user-images.githubusercontent.com https://dev-storage.schul-cloud.org:9001",
 			fontSrc: "'self' data:",
 			styleSrc: "'self' 'unsafe-inline'",
-			// scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
+			// scriptSrc: "'strict-dynamic' 'nonce-<nonceValue>'",
 			scriptSrc: "'self' 'unsafe-eval' 'unsafe-inline'",
 			// Please activate for production
 			// upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
