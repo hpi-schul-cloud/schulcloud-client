@@ -719,6 +719,23 @@
 			"wednesday": "Mittwoch"
 		}
 	},
+	"help": {
+		"contactForm": {
+			"text":{
+				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
+				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+				"typeNotAllowed" : "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
+			}
+		},
+		"search": {
+			"headline":{
+				"noSearchResults" : "Keine Ergebnisse gefunden 😪"
+			},
+			"text" : {
+				"tryAnotherQuery": "Probiere es mit anderen Suchbegriffen erneut"
+			}
+		}
+	},
 	"home": {
 		"button": {
 			"aboutTheProject": "Über das Projekt",
