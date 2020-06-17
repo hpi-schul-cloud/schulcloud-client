@@ -8,9 +8,13 @@
     {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}
     und
     {{/ifCond}}
-    die <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank">Datenschutzerklärung</a>
+		{{#if @root.schoolPrivacyLink}}
+			die <a href="{{@root.schoolPrivacyLink}}" class="base64File-download-btn" id="privacy-link" target="_blank">Datenschutzerklärung</a>
+		{{else}}
+			die <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank">Datenschutzerklärung</a>
+		{{/if}}
     {{/ifCond}}
-    erweitert.
+    erweitert oder spezifisch für deine Schule angepasst.
   </p>
   <div id="consentUpdateFields">
     {{#if @root.updatedConsents.haveBeenUpdated}}
