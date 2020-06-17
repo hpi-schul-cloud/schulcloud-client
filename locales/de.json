@@ -43,11 +43,24 @@
 				"thirdPartyLogins": "Drittanbieter-Logins"
 			}
 		},
+		"headline": {
+			"doYouWantToDeleteDevice" : "Bist du dir sicher, dass du {{device}} löschen möchtest?"
+		} ,
 		"label": {
 			"providers": "Anbieter"
 		},
+		"testNotification": {
+			"headline": {
+				"test": "Neue Test-Benachrichtigung"
+			},
+			"text": {
+				"youHaveANewMessage" : "Du hast eine neue Benachrichtigung"
+			}
+		},
 		"text": {
-			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
+			"doYouReallyWantToRemoveDevice" : "",
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
+			"passwordsDoNotMatch" : "Passwörter stimmen nicht überein."
 		}
 	},
 	"addons": {
