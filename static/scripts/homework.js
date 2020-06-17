@@ -43,22 +43,6 @@ function archiveTask(e) {
 	});
 	return false;
 }
-function importSubmission(e) {
-	e.preventDefault();
-	const submissionid = this.getAttribute('data');
-	this.disabled = true;
-	this.innerHTML = `${$t('homework.button.importing')} <style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>`;
-	if (confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))) {
-		$.ajax({
-			url: `/homework/submit/${submissionid}/import`,
-			context: this,
-		}).done(function (r) {
-			CKEDITOR.instances[`evaluation ${submissionid}`].setData(r.comment);
-			this.disabled = false;
-			this.innerHTML = $t('homework.button.importSubmission');
-		});
-	}
-}
 
 window.addEventListener('DOMContentLoaded', () => {
 	/* FEATHERS FILTER MODULE */
@@ -81,7 +65,7 @@ $(document).ready(() => {
 		const fileList = $('.list-group-files');
 		const filesCount = fileList.children().length;
 		const fileIsUploaded = !!filesCount;
-		const submitButton = document.querySelector('#CKEditorSubmit');
+		const submitButton = document.querySelector('.ckeditor-submit');
 		if (submitButton) {
 			submitButton.setAttribute('fileIsUploaded', fileIsUploaded);
 			const editorContainsText = submitButton.getAttribute('editorContainsText');
@@ -200,8 +184,6 @@ $(document).ready(() => {
 		const reg = new RegExp(`(${key}=)[^\&]+`);
 		window.location.search = (url.indexOf(key) !== -1) ? (url.replace(reg, `$1${value}`)) : (`${url + ((url.indexOf('?') == -1) ? '?' : '&') + key}=${value}`);
 	}
-
-	document.querySelectorAll('.importsubmission').forEach((btn) => { btn.addEventListener('click', importSubmission); });
 
 	// file upload stuff, todo: maybe move or make it more flexible when also uploading to homework-assignment
 	const $uploadForm = $('.form-upload');

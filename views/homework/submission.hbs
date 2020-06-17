@@ -66,7 +66,7 @@
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}"/>
 
         <div class="form-group">
-            <textarea id="evaluation" name="comment" class="form-control customckeditor"
+            <textarea id="evaluation" name="comment" class="ckeditor form-control customckeditor"
                   placeholder="Erstelle deine Abgabe...">{{@root.submission.comment}}</textarea>
         </div>
   {{else}}
@@ -87,7 +87,7 @@
     {{#if @root.submittable}}
         {{> "lib/components/csrfInput"}}
         {{#userHasPermission "SUBMISSIONS_CREATE"}}
-            <button id="CKEditorSubmit" type="submit" class="btn btn-primary btn-submit" disabled="true">{{$t "homework.button.save" }}</button>
+            <button type="submit" class="ckeditor-submit btn btn-primary btn-submit" disabled="true">{{$t "homework.button.save" }}</button>
         {{/userHasPermission}}
 
         {{#if @root.submission}}
