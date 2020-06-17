@@ -205,29 +205,29 @@ const helpers = app => ({
 	log: (data) => {
 		console.log(data);
 	},
-	castStatusCodeToString: (statusCode) => {
-		console.log(statusCode, res);
+	castStatusCodeToString: (statusCode, data) => {
+		console.log(statusCode);
 		if (statusCode >= 500) {
-			return res.$t('index.text.oopsWeHaveAnInternalProblem');
+			return i18n.getInstance(data.data.local.currentUser)('index.text.oopsWeHaveAnInternalProblem');
 		}
 		if (statusCode >= 400) {
 			switch (statusCode) {
 				case 400:
-					return res.$t('index.text.thisRequestWasIncorrect');
+					return i18n.getInstance(data.data.local.currentUser)('index.text.thisRequestWasIncorrect');
 				case 401:
-					return res.$t('index.text.pleaseAuthenticate');
+					return i18n.getInstance(data.data.local.currentUser)('index.text.pleaseAuthenticate');
 				case 402:
-					return res.$t('index.text.youStillHaveToPay');
+					return i18n.getInstance(data.data.local.currentUser)('index.text.youStillHaveToPay');
 				case 403:
-					return res.$t('index.text.sorryButWeReallyCant');
+					return i18n.getInstance(data.data.local.currentUser)('index.text.sorryButWeReallyCant');
 				case 404:
-					return res.$t("index.text.oopsThisPageDoesntExist");
+					return i18n.getInstance(data.data.local.currentUser)('index.text.oopsThisPageDoesntExist');
 			}
 		}
 		if (statusCode > 300) {
-			return res.$t('index.text.thisPageHasBeenMoved');
+			return i18n.getInstance(data.data.local.currentUser)('index.text.thisPageHasBeenMoved');
 		}
-		return res.$t('index.text.somethingWentWrong');
+		return i18n.getInstance(data.data.local.currentUser)('index.text.somethingWentWrong');
 	},
 	writeFileSizePretty: (fileSize) => {
 		let unit;
