@@ -9,7 +9,7 @@ const chaiHttp = require('chai-http');
 const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
 
-describe.only('Content tests', function () {
+describe('Content tests', function () {
     before(function (done) {
         this.server = app.listen(3031);
         this.server.once('listening', () => {
