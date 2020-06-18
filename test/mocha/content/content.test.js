@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const { Configuration } = require('@schul-cloud/commons')
+const { Configuration } = require('@schul-cloud/commons');
 const app = require('../../../app');
 const chai = require('chai');
 const expect = chai.expect;
@@ -25,7 +25,7 @@ describe('Content tests', function () {
     });
 
     it('GET /content', function () {
-        expect(Configuration.get('FEATURE_LERNSTORE_ENABLED'), 'FEATURE_LERNSTORE_ENABLED not set!').to.be.true;
+		expect(Configuration.get('FEATURE_LERNSTORE_ENABLED'), 'FEATURE_LERNSTORE_ENABLED not set!').to.be.true;
             return new Promise((resolve, reject) => {
                 this.agent
                     .get('/content/')
@@ -38,7 +38,7 @@ describe('Content tests', function () {
     });
 
     it('GET /content/?q=Mathe', function () {
-        expect(Configuration.get('FEATURE_LERNSTORE_ENABLED'), 'FEATURE_LERNSTORE_ENABLED not set!').to.be.true;
+		expect(Configuration.get('FEATURE_LERNSTORE_ENABLED'), 'FEATURE_LERNSTORE_ENABLED not set!').to.be.true;
             return new Promise((resolve, reject) => {
                 this.agent
                     .get('/content/?q=Mathe')
