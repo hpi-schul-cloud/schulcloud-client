@@ -284,6 +284,11 @@
 			"default": 15,
 			"description": "Number of second the user will be blocked before logging in again"
 		},
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables Portfolio (navigation, addons) in app"
+		},
 		"FEATURE_LERNSTORE_ENABLED": {
 			"type": "boolean",
 			"default": false,
@@ -316,6 +321,7 @@
 		"COOKIE",
 		"STUDENT_TEAM_CREATION",
 		"FEATURE_ETHERPAD_ENABLED",
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED",
 		"FEATURE_LERNSTORE_ENABLED"
 	]
 }
