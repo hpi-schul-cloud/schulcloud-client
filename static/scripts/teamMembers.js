@@ -354,24 +354,24 @@ $(document).ready(() => {
 		e.stopPropagation();
 		e.preventDefault();
 		const $editMemberModal = $('.edit-member-modal');
-		const payload =  $(this).parent().parent().find('[data-payload]')
-		.data('payload');
-		if(process.env.FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR) {
-			if(payload.role == 'student') {
+		const payload = $(this).parent().parent().find('[data-payload]')
+			.data('payload');
+		if (process.env.FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR) {
+			if (payload.role === 'student') {
 				$("#role option[value='teamadministrator']").hide();
 				$("#role option[value='teamowner']").hide();
 			} else {
 				$("#role option[value='teamadministrator']").show();
 				$("#role option[value='teamowner']").show();
 			}
-	}
-		const userId = payload.userId;
+		}
+		const { userId } = payload;
 		populateModalForm($editMemberModal, {
 			title: 'Teilnehmer bearbeiten',
 			closeLabel: 'Abbrechen',
 			submitLabel: 'Teilnehmer bearbeiten',
-			payload: userId
-				});
+			payload: userId,
+		});
 
 		// needed?? const $modalForm = $editMemberModal.find('.modal-form');
 		$editMemberModal.appendTo('body').modal('show');

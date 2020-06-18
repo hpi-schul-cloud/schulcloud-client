@@ -680,7 +680,6 @@ router.patch('/:teamId', async (req, res, next) => {
 		delete req.body.untilDate;
 	}
 
-
 	const currentTeamState = await api(req).get(`/teams/${req.params.teamId}`);
 	const features = new Set(currentTeamState.features || []);
 	OPTIONAL_TEAM_FEATURES.forEach((feature) => {
