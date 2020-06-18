@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import {
 	SortableContainer, SortableElement, SortableHandle, arrayMove,
 } from 'react-sortable-hoc';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import './calendar';
 
 /**
  * A wrapper for each block including a title field, remove, sortable, ...
@@ -330,10 +330,6 @@ class TopicBlockList extends React.Component {
  * @extends React.Component
  */
 class TopicBlock extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	/**
      * This function returns the name of the component that will be used to render the block in view mode.
      */
@@ -387,21 +383,8 @@ class TopicText extends TopicBlock {
 
 	componentDidMount() {
 		const editorId = (this.props.content || {}).editorId || this.editorId;
-		this.initEditor();
+		// this.initEditor();
 	}
-
-
-	async initEditor() {
-		const storageContext = this.getStorageContext();
-
-		const editorId = (this.props.content || {}).editorId || this.editorId;
-		const editor = await ClassicEditor.create(document.querySelector(`#${editorId}`));
-
-		editor.on('change:data', () => {
-			this.updateText(editor.getData());
-		});
-	}
-
 
 	getStorageContext() {
 		const url = window.location.pathname;
