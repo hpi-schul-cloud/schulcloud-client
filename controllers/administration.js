@@ -3376,7 +3376,8 @@ router.post(
 				// eslint-disable-next-line no-shadow
 				.then((system) => {
 					api(req)
-						.patch(`/schools/${res.locals.currentSchool}`, { // TODO move to server. Should be one transaction
+						// TODO move to server. Should be one transaction
+						.patch(`/schools/${res.locals.currentSchool}`, {
 							json: {
 								$push: {
 									systems: system._id,
