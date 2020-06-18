@@ -1330,7 +1330,9 @@
 						"inviteToTeamHint": "Die Einladung externer Experten ist vorübergehend bis zum 1.7. deaktiviert, um Probleme und Überschneidungen mit dem Onboarding neuer Schulen in der Niedersächsischen Bildungscloud zu vermeiden."
 					}
 				}
-			}
+			},
+			"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
+			"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde."
 		}
 	},
 	"topic": {

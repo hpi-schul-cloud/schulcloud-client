@@ -41,6 +41,7 @@ const {
 	SC_DEMO_USER_NAME = 'schueler@schul-cloud.org',
 	SC_SUPERHERO_USER_PASSWORD = 'Schulcloud1!',
 	SC_SUPERHERO_USER_NAME = 'superhero@schul-cloud.org',
+	FEATURE_MATRIX_MESSENGER_ENABLED,
 } = process.env;
 
 const exp = {
@@ -84,6 +85,7 @@ const exp = {
 	SC_DEMO_USER_NAME,
 	SC_SUPERHERO_USER_PASSWORD,
 	SC_SUPERHERO_USER_NAME,
+	FEATURE_MATRIX_MESSENGER_ENABLED,
 };
 
 // eslint-disable-next-line no-console
