@@ -4,7 +4,7 @@
         <label for="role">Gebe ein, welche Rolle der Teilnehmer erhalten soll.</label>
         <select placeholder="Rolle angeben" data-placeholder="Rolle angeben" name="role" id="role">
             {{#each roles}}
-                <option value="{{this._id}}" {{#ifeq this.name "teamexpert"}}selected{{/ifeq}}>{{this.label}}</option>
+            <option value="{{this.name}}" {{#ifeq this.name "teamexpert"}}selected{{/ifeq}}>{{this.label}}</option>
             {{/each}}
         </select>
     </div>

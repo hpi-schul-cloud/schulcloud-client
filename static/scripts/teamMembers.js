@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable no-undef */
 // jshint esversion: 6
-
 $(document).ready(() => {
 	const handler = {
 		get(target, name) {
@@ -355,14 +354,24 @@ $(document).ready(() => {
 		e.stopPropagation();
 		e.preventDefault();
 		const $editMemberModal = $('.edit-member-modal');
-		const userId = $(this).parent().parent().find('[data-payload]')
-			.data('payload');
+		const payload =  $(this).parent().parent().find('[data-payload]')
+		.data('payload');
+		if(process.env.FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR) {
+			if(payload.role == 'student') {
+				$("#role option[value='teamadministrator']").hide();
+				$("#role option[value='teamowner']").hide();
+			} else {
+				$("#role option[value='teamadministrator']").show();
+				$("#role option[value='teamowner']").show();
+			}
+	}
+		const userId = payload.userId;
 		populateModalForm($editMemberModal, {
 			title: 'Teilnehmer bearbeiten',
 			closeLabel: 'Abbrechen',
 			submitLabel: 'Teilnehmer bearbeiten',
-			payload: userId,
-		});
+			payload: userId
+				});
 
 		// needed?? const $modalForm = $editMemberModal.find('.modal-form');
 		$editMemberModal.appendTo('body').modal('show');

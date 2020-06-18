@@ -999,6 +999,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			} else {
 				actions = addButtonTrash(actions);
 			}
+			const userRole = roles.find((r) => r._id === user.userId.roles[0]);
 			return [
 				user.userId.firstName || '',
 				user.userId.lastName || '',
@@ -1007,6 +1008,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				{
 					payload: {
 						userId: user.userId._id,
+						role: userRole && userRole.name,
 					},
 				},
 				actions,
@@ -1042,7 +1044,6 @@ router.get('/:teamId/members', async (req, res, next) => {
 			return !res.locals.currentUser.permissions.includes('STUDENT_LIST')
 				? !user.roles.includes(_id) : user;
 		});
-
 		res.render(
 			'teams/members',
 			{
