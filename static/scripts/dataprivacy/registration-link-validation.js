@@ -10,10 +10,10 @@ window.addEventListener('DOMContentLoaded', () => {
 				<h1 class="h2 error-header-code text-center">${$t('dataprivacy.headline.registrationInvalid')}</h1>
 				<p class="error-header-text font-weight-bold">${$t('dataprivacy.text.registrationInvalid')}</p>
 				<ul>
-						<li>${$t('dataprivacy.text.registrationInvalidAlreadyUsed')}</li>
-						<li>${$t('dataprivacy.text.registrationInvalidManualConsent')}</li>
-						<li>${$t('dataprivacy.text.registrationInvalidOutdatedLink')}</li>
-					</ul>
+					<li>${$t('dataprivacy.text.registrationInvalidAlreadyUsed')}</li>
+					<li>${$t('dataprivacy.text.registrationInvalidManualConsent')}</li>
+					<li>${$t('dataprivacy.text.registrationInvalidOutdatedLink')}</li>
+				</ul>
 				<p>${$t('dataprivacy.text.registrationInvalidContactAdvice')}</p>
 			</div>
 		</div>
@@ -21,7 +21,6 @@ window.addEventListener('DOMContentLoaded', () => {
 `;
 
 	if ($("input[name='invalid']").val() === 'true') {
-		await sleep(2000);
 		$('#welcome-screen').replaceWith(message);
 		$('form').replaceWith(message);
 	}
