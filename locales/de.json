@@ -110,12 +110,36 @@
 		"title": "Jetzt mitmachen!"
 	},
 	"content": {
-		"button": {
-			"choose": "Wähle..."
+		"form_add_lesson": {
+			"button": {
+				"choose": "Wähle..."
+			},
+			"label": {
+				"chooseACourse": "Wähle einen Kurs / Fach",
+				"chooseALessonTopic": "Wähle ein Unterrichtsthema"
+			}
 		},
-		"label": {
-			"chooseACourse": "Wähle einen Kurs / Fach",
-			"chooseALessonTopic": "Wähle ein Unterrichtsthema"
+		"form_external_link": {
+			"text": {
+				"anExternalProvider": "einem externen Anbieter",
+				"forwarded": "weitergeleitet.",
+				"youWillBeOnTheSide": "Sie werden auf die Seite von"
+			}
+		},
+		"item": {
+			"text": {
+				"contentNotAvailable": "Inhalt aus Lizenzgründen im Demomodus nicht verfügbar.",
+				"report": "melden"
+			}
+		},
+		"store": {
+			"heading": {
+				"currentContent": "Aktuelle Inhalte",
+				"found": "gefunden",
+				"noSearchResultsWere": "Es wurden keine Suchergebnisse für",
+				"popularContent": "Beliebte Inhalte",
+				"searchResultFor": "Suchergebnisse für"
+			}
 		}
 	},
 	"courses": {
@@ -569,6 +593,9 @@
 			"create": "Erstellen",
 			"delete": "Löschen",
 			"import": "Importieren",
+			"filterAdd": "Filter hinzufügen",
+			"filterApply": "Übernehmen",
+			"next": "Weiter",
 			"open": "Öffnen",
 			"next": "Weiter",
 			"save": "Speichern",
