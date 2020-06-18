@@ -7,7 +7,7 @@ const api = require('../api');
 const permissionsHelper = require('./permissions');
 const wordlist = require('../static/other/wordlist.js');
 
-const { NODE_ENV, SW_ENABLED, LOGIN_BLOCK_TIME } = require('../config/global');
+const { SW_ENABLED } = require('../config/global');
 const logger = require('./logger');
 
 const rolesDisplayName = {
@@ -55,7 +55,7 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 	}
 };
 
-const isJWT = req => (req && req.cookies && req.cookies.jwt);
+const isJWT = (req) => (req && req.cookies && req.cookies.jwt);
 
 const isAuthenticated = (req) => {
 	if (!isJWT(req)) {
@@ -70,7 +70,7 @@ const isAuthenticated = (req) => {
 	}).then(() => true).catch(() => false);
 };
 
-const populateCurrentUser = (req, res) => {
+const populateCurrentUser = async (req, res) => {
 	let payload = {};
 	if (isJWT(req)) {
 		try {
@@ -97,16 +97,23 @@ const populateCurrentUser = (req, res) => {
 	}
 
 	if (payload && payload.userId) {
-		return api(req).get(`/users/${payload.userId}`, {
-			qs: {
-				$populate: ['roles'],
-			},
-		}).then((data) => {
+		if (res.locals.currentUser && res.locals.currentSchoolData) {
+			return Promise.resolve(res.locals.currentSchoolData);
+		}
+		return Promise.all([
+			api(req).get(`/users/${payload.userId}`),
+			api(req).get(`/roles/user/${payload.userId}`),
+		]).then(([user, roles]) => {
+			const data = {
+				...user,
+				roles,
+				permissions: roles.reduce((acc, role) => [...new Set(acc.concat(role.permissions))], []),
+			};
 			res.locals.currentUser = data;
 			setTestGroup(res.locals.currentUser);
 			res.locals.currentRole = rolesDisplayName[data.roles[0].name];
 			res.locals.roles = data.roles.map(({ name }) => name);
-			res.locals.roleNames = data.roles.map(r => rolesDisplayName[r.name]);
+			res.locals.roleNames = data.roles.map((r) => rolesDisplayName[r.name]);
 			return api(req).get(`/schools/${res.locals.currentUser.schoolId}`, {
 				qs: {
 					$populate: ['federalState'],
@@ -121,7 +128,10 @@ const populateCurrentUser = (req, res) => {
 			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
 			if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
 				return clearCookie(req, res, { destroySession: true })
-					.catch((err) => { logger.error('clearCookie failed during populateUser', { error: err.toString() }); })
+					.catch((err) => {
+						const meta = { error: err.toString() };
+						logger.error('clearCookie failed during populateUser', meta);
+					})
 					.finally(() => res.redirect('/'));
 			}
 			throw e;
@@ -142,14 +152,34 @@ const checkConsent = (req, res) => {
 	return Promise.reject('firstLogin was not completed, redirecting...');
 };
 
+const checkSuperhero = (req, res) => {
+	if (!(res.locals.roles || []).includes('superhero')) {
+		return Promise.resolve();
+	}
+
+	// eslint-disable-next-line prefer-promise-reject-errors
+	return Promise.reject('superhero access forbidden, redirecting...');
+};
+
 
 const restrictSidebar = (req, res) => {
 	res.locals.sidebarItems = res.locals.sidebarItems.filter((item) => {
 		if (!item.permission) return true;
 
 		const hasRequiredPermission = permissionsHelper.userHasPermission(res.locals.currentUser, item.permission);
-		const hasExcludedPermission = permissionsHelper.userHasPermission(res.locals.currentUser,
-			item.excludedPermission);
+		let hasExcludedPermission = false;
+		if (Array.isArray(item.excludedPermission)) {
+			hasExcludedPermission = item.excludedPermission
+				.reduce((acc, perm) => {
+					if (acc === true) return true;
+					return permissionsHelper.userHasPermission(res.locals.currentUser, perm);
+				},
+				false);
+		} else {
+			hasExcludedPermission = permissionsHelper.userHasPermission(res.locals.currentUser,
+				item.excludedPermission);
+		}
+
 		return hasRequiredPermission && !hasExcludedPermission;
 		// excludedPermission is used to prevent the case that an Admin has both: Verwaltung and Administration
 	});
@@ -162,6 +192,7 @@ const authChecker = (req, res, next) => {
 			if (isAuthenticated2) {
 				// fetch user profile
 				populateCurrentUser(req, res)
+					.then(() => checkSuperhero(req, res))
 					.then(() => checkConsent(req, res))
 					.then(() => restrictSidebar(req, res))
 					.then(() => {
@@ -172,6 +203,8 @@ const authChecker = (req, res, next) => {
 						if (err === 'firstLogin was not completed, redirecting...') {
 							// print message?
 							res.redirect('/firstLogin');
+						} else if (err === 'superhero access forbidden, redirecting...') {
+							res.redirect('/login/superhero');
 						} else {
 							res.redirect(redirectUrl);
 						}
@@ -203,12 +236,33 @@ const login = (payload = {}, req, res, next) => {
 			type: 'danger',
 			message: res.$t('login.text.loginFailed'),
 			statusCode: e.statusCode,
-			timeToWait: LOGIN_BLOCK_TIME || 15,
+			timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
 		};
+
+		// Email Domain Blocked
+		if (e.statusCode === 400 && e.error.message === 'EMAIL_DOMAIN_BLOCKED') {
+			res.locals.notification.message = res.$t('login.text.loginFailedBlockedEmailDomain');
+		}
+
+		// Too Many Requests
 		if (e.statusCode === 429) {
 			res.locals.notification.timeToWait = e.error.data.timeToWait;
 		}
+
 		next(e);
+	});
+};
+
+const etherpadCookieHelper = (etherpadSession, padId, res) => {
+	const encodedPadId = encodeURI(padId);
+	const padPath = Configuration.get('ETHERPAD__PAD_PATH');
+	res.cookie('sessionID', etherpadSession.data.sessionID, {
+		path: `${padPath}/${encodedPadId}`,
+		expires: new Date(etherpadSession.data.validUntil * 1000),
+		httpOnly: Configuration.get('COOKIE__HTTP_ONLY'),
+		hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
+		sameSite: Configuration.get('COOKIE__SAME_SITE'),
+		secure: Configuration.get('COOKIE__SECURE'),
 	});
 };
 
@@ -220,5 +274,6 @@ module.exports = {
 	restrictSidebar,
 	populateCurrentUser,
 	login,
+	etherpadCookieHelper,
 	generatePassword,
 };

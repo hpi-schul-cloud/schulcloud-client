@@ -4,17 +4,18 @@ const request = require('request-promise');
 
 const router = express.Router();
 
-let cache = null;
-let lastUpdatedTimestamp = 0;
+const cache = {};
 
 router.get('/:slug', async (req, res, next) => {
 	if (!Configuration.has('GHOST_API_KEY') || !Configuration.has('GHOST_API_URL')) {
 		return next(new Error('GHOST_API_URL or/and GHOST_API_KEY are not defined'));
 	}
 
-	if (lastUpdatedTimestamp < Date.now() - 1000 * 60 * 5) {
+	const { slug } = req.params;
+
+	if (!cache[slug] || cache[slug].lastUpdatedTimestamp < Date.now() - 1000 * 60 * 5) {
 		const options = {
-			uri: `${Configuration.get('GHOST_API_URL')}/content/pages/slug/${req.params.slug}/`,
+			uri: `${Configuration.get('GHOST_API_URL')}/content/pages/slug/${slug}/`,
 			qs: {
 				key: Configuration.get('GHOST_API_KEY'),
 				fields: 'html,title',
@@ -25,13 +26,16 @@ router.get('/:slug', async (req, res, next) => {
 
 		await request(options)
 			.then((page) => {
-				cache = page;
-				lastUpdatedTimestamp = Date.now();
+				const element = {
+					page,
+					lastUpdatedTimestamp: Date.now(),
+				};
+				cache[slug] = element;
 				return res.json(page);
 			})
 			.catch(next);
 	} else {
-		return res.json(cache);
+		return res.json(cache[slug].page);
 	}
 });
 

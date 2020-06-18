@@ -1,8 +1,10 @@
+const { Configuration } = require('@schul-cloud/commons');
 const express = require('express');
 const showdown = require('showdown');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const userConsentVersions = require('../helpers/consentVersions');
+const _ = require('lodash');
 
 const converter = new showdown.Converter();
 
@@ -13,7 +15,7 @@ const router = express.Router();
 // secure routes
 router.use(authHelper.authChecker);
 
-const consentFullfilled = consent => consent.privacyConsent && consent.termsOfUseConsent;
+const consentFullfilled = (consent) => consent.privacyConsent && consent.termsOfUseConsent;
 const isStudent = (res) => {
 	const roles = res.locals.currentUser.roles.map(role => role.name);
 	return roles.includes('student');
@@ -35,6 +37,17 @@ router.get('/', async (req, res, next) => {
 
 	const sections = [];
 	let submitPageIndex = 0;
+
+	let skipConsent = res.locals.currentUser.roles.length > 0;
+	if (res.locals.currentUser.roles.length > 0) {
+		res.locals.currentUser.roles.forEach((role) => {
+			let roleName = role.name;
+			if (roleName === 'teacher' || roleName === 'administrator') {
+				roleName = 'employee';
+			}
+			skipConsent = skipConsent && Configuration.get('SKIP_CONDITIONS_CONSENT').includes(roleName);
+		});
+	}
 
 	let consent = await api(req).get('/consents', {
 		qs: {
@@ -119,7 +132,8 @@ router.get('/', async (req, res, next) => {
 
 		// USER CONSENT
 		if (
-			(!userConsent)
+			!skipConsent
+			&& !userConsent
 			&& ((!res.locals.currentUser.age && !req.query.u14) || res.locals.currentUser.age >= 14)
 		) {
 			submitPageIndex += 1;
@@ -136,7 +150,7 @@ router.get('/', async (req, res, next) => {
 		}
 
 		// PARENT CONSENT (must be the submit page because of the pin validation!)
-		if ((req.query.u14 || req.query.ue14 || consent.requiresParentConsent) && !parentConsent) {
+		if ((req.query.u14 || req.query.ue14 || consent.requiresParentConsent) && !parentConsent && !skipConsent) {
 			submitPageIndex += 4;
 			sections.push('parent_intro');
 			sections.push('parent_data');
@@ -147,13 +161,17 @@ router.get('/', async (req, res, next) => {
 
 	// THANKS
 	sections.push('thanks');
-
+	const privacyData = _.get(updatedConsents, 'privacy.data');
+	const consentDataId = privacyData && privacyData.length > 0
+		? privacyData[0].consentDataId : undefined;
+	const schoolPrivacyLink = consentDataId ? `base64Files/${consentDataId}` : undefined;
 	const renderObject = {
 		title: 'Willkommen - Erster Login',
 		hideMenu: true,
 		sso: !!(res.locals.currentPayload || {}).systemId,
 		now: Date.now(),
 		sections: sections.map(name => `firstLogin/sections/${name}`),
+		schoolPrivacyLink,
 		submitPageIndex,
 		userConsent,
 		updatedConsents,

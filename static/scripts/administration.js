@@ -38,6 +38,7 @@ $(document).ready(() => {
 	const $terminateSchoolYearModal = $('.terminate-school-year-modal');
 	const $addSystemsModal = $('.add-modal');
 	const $addRSSModal = $('.add-modal--rss');
+	const $addPolicyModal = $('.add-modal--policy');
 	const $editModal = $('.edit-modal');
 	const $invitationModal = $('.invitation-modal');
 	const $importModal = $('.import-modal');
@@ -120,6 +121,16 @@ $(document).ready(() => {
 		$addRSSModal.appendTo('body').modal('show');
 	});
 
+	$('.btn-add-modal--policy').on('click', (e) => {
+		e.preventDefault();
+		populateModalForm($addPolicyModal, {
+			title: 'Datenschutzerklärung hinzufügen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Hinzufügen',
+		});
+		$addPolicyModal.appendTo('body').modal('show');
+	});
+
 	function handleEditClick(e) {
 		e.preventDefault();
 		const entry = $(this).attr('href');
@@ -150,40 +161,6 @@ $(document).ready(() => {
 	}
 	$('.btn-edit').on('click', handleEditClick);
 
-	function invitationLinkHandler(e) {
-		e.preventDefault();
-		const schoolId = $invitationModal.find("input[name='schoolId']").val();
-		let role = 'student';
-		if ($(this).hasClass('teacher')) role = 'teacher';
-		$.ajax({
-			type: 'POST',
-			url: `${window.location.origin}/administration/registrationlink`,
-			data: {
-				role,
-				save: true,
-				schoolId,
-				host: window.location.origin,
-			},
-			success(linkData) {
-				populateModalForm($invitationModal, {
-					title: 'Einladungslink generiert!',
-					closeLabel: 'Abbrechen',
-					submitLabel: 'Speichern',
-					fields: { invitation: linkData.shortLink },
-				});
-				$invitationModal.find('.btn-submit').remove();
-				$invitationModal
-					.find("input[name='invitation']")
-					// eslint-disable-next-line func-names
-					.click(function () {
-						$(this).select();
-					});
-
-				$invitationModal.appendTo('body').modal('show');
-			},
-		});
-	}
-	$('.btn-invitation-link').on('click', invitationLinkHandler);
 
 	function ssoSelectHandler(e) {
 		e.preventDefault();
@@ -310,7 +287,7 @@ $(document).ready(() => {
 		})
 			.done((users) => {
 				printQRs(
-					users.map(user => ({
+					users.map((user) => ({
 						href: user.registrationLink.shortLink,
 						title:
 							user.fullName

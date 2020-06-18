@@ -123,7 +123,10 @@ CKEDITOR.on('dialogDefinition', (ev) => {
 		dialogDefinition.removeContents('target');
 
 		const infoTab = dialogDefinition.getContents('info');
-		infoTab.get('protocol').default = 'https://';
+		const protocolField = infoTab.get('protocol');
+		if (protocolField) {
+			protocolField.default = 'https://';
+		}
 	}
 
 	if (dialogName === 'image') {
@@ -159,7 +162,9 @@ CKEDITOR.on('dialogDefinition', (ev) => {
 
 	if (dialogName === 'table') {
 		const infoTab = dialogDefinition.getContents('info');
-		infoTab.remove('txtBorder');
+		const border = infoTab.get('txtBorder');
+		border.default = 1;
+		// infoTab.remove('txtBorder');
 		infoTab.remove('cmbAlign');
 		infoTab.remove('txtWidth');
 		infoTab.remove('txtHeight');
