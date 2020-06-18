@@ -9,7 +9,7 @@ const chaiHttp = require('chai-http');
 const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
 
-describe('Content tests', function () {
+describe.only('Content tests', function () {
     before(function (done) {
         this.server = app.listen(3031);
         this.server.once('listening', () => {
@@ -25,7 +25,7 @@ describe('Content tests', function () {
     });
 
     it('GET /content', function () {
-        if (Configuration.get('FEATURE_LERNSTORE_ENABLED') === true) {
+        expect(Configuration.get('FEATURE_LERNSTORE_ENABLED'), 'FEATURE_LERNSTORE_ENABLED not set!').to.be.true;
             return new Promise((resolve, reject) => {
                 this.agent
                     .get('/content/')
@@ -35,11 +35,10 @@ describe('Content tests', function () {
                         resolve();
                     });
             });
-        }
     });
 
     it('GET /content/?q=Mathe', function () {
-        if (Configuration.get('FEATURE_LERNSTORE_ENABLED') === true) {
+        expect(Configuration.get('FEATURE_LERNSTORE_ENABLED'), 'FEATURE_LERNSTORE_ENABLED not set!').to.be.true;
             return new Promise((resolve, reject) => {
                 this.agent
                     .get('/content/?q=Mathe')
@@ -51,6 +50,5 @@ describe('Content tests', function () {
                         resolve();
                     });
             });
-        }
     });
 });
