@@ -221,12 +221,12 @@
 				},
 				"OLD_DOMAIN": {
 					"type": "string",
-					"default":"etherpad.schul-cloud.org",
+					"default": "etherpad.schul-cloud.org",
 					"description": "The old etherpad domain"
 				},
 				"NEW_DOMAIN": {
 					"type": "string",
-					"default":"schul-cloud.org",
+					"default": "schul-cloud.org",
 					"description": "The new etherpad domain"
 				}
 			}
@@ -283,6 +283,16 @@
 			"type": "integer",
 			"default": 15,
 			"description": "Number of second the user will be blocked before logging in again"
+		},
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables Portfolio (navigation, addons) in app"
+		},
+		"FEATURE_LERNSTORE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables Lern-Store (navigation, route) in app"
 		}
 	},
 	"allOf": [
@@ -290,7 +300,7 @@
 			"$ref": "#/definitions/ETHERPAD_ENABLED"
 		}
 	],
-	"definitions" : {
+	"definitions": {
 		"ETHERPAD_ENABLED": {
 			"if": {
 				"properties": {
@@ -310,6 +320,8 @@
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
 		"COOKIE",
 		"STUDENT_TEAM_CREATION",
-		"FEATURE_ETHERPAD_ENABLED"
+		"FEATURE_ETHERPAD_ENABLED",
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED",
+		"FEATURE_LERNSTORE_ENABLED"
 	]
 }
