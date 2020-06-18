@@ -83,6 +83,12 @@
 			"termsOfUse": "Nutzung"
 		}
 	},
+	"alert": {
+		"text": {
+			"furtherCase": "+{{amount}} weiterer Vorfall",
+			"furtherCases": "+{{amount}} weitere Vorfälle"
+		}
+	},
 	"autologout": {
 		"text": {
 			"sessionAlreadyExpired": "Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.",
