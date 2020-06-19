@@ -48,7 +48,7 @@
           {{#embed "lib/forms/paginatedForm" sections=3 action=action method=method submit-label=submitLabel}}
             {{#content "panels"}}
 
-            <section data-panel="section-1">
+            <section data-panel="section-1" data-testid= "section-1-area">
               {{#if method}}
                   <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
               {{/if}}
@@ -185,10 +185,10 @@
 
             </section>
 
-            <section data-panel="section-2" class="submit-page course-submit-page">
+            <section data-panel="section-2" data-testid="section-2-area" class="submit-page course-submit-page">
               <h2 class="h4">{{$t "courses.add.headline.almostDone"}}</h2>
               <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
-              <div class="form-group">
+              <div class="form-group" data-testid="class_container">
                   <label>{{$t "courses.add.label.addClassesToCourse"}}</label>
 
                   <select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
@@ -211,7 +211,7 @@
 
 
 
-              <div class="form-group">
+              <div class="form-group" data-testid="students_container">
                   <label>{{$t "courses.add.label.addStudentsToCourse"}}</label>
 
                   <select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
@@ -228,7 +228,7 @@
               </div>
             </section>
 
-            <section data-panel="section-3">
+            <section data-panel="section-3" data-testid="section-3-area">
               <div class="final-step">
                 <div class="image-wrapper hidden-xs-down">
                   <img class="image" src="/images/empty-states/add_people.svg"/>
@@ -251,9 +251,9 @@
               </div>
 
               <div class="pull-right">
-                <a class="btn btn-secondary" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
+                <a class="btn btn-secondary" data-testid="einen-weiteren-kurs-anlegen-btn" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
                 
-                <a class="btn btn-primary" href="{{../redirectUrl}}">
+                <a class="btn btn-primary" data-testid="zur-uebersicht-btn" href="{{../redirectUrl}}">
                    {{#ifeq redirectUrl "/courses"}}
                       {{$t "courses.add.link.courseOverview"}}
                    {{else}}
