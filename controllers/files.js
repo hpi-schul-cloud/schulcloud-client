@@ -617,6 +617,11 @@ router.get('/shared/', (req, res) => {
 			directories: data.filter(f => f.isDirectory),
 		};
 
+		files.files = files.files.map((file) => {
+			file.saveName = file.name.replace(/'/g, "\\'");
+			return file;
+		});
+
 		res.render('files/files', Object.assign({
 			title: 'Dateien',
 			path: '/',
@@ -685,6 +690,11 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 	if (['Schüler', 'Demo'].includes(res.locals.currentRole)) {
 		canCreateFile = false;
 	}
+
+	res.locals.files.files = res.locals.files.files.map((file) => {
+		file.saveName = file.name.replace(/'/g, "\\'");
+		return file;
+	});
 
 	res.render('files/files', Object.assign({
 		title: 'Dateien',
