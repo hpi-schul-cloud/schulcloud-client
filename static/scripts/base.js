@@ -268,7 +268,7 @@ $(document).ready(() => {
 	function showAJAXError(req, textStatus, errorThrown) {
 		$deleteModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification('Zeitüberschreitung der Anfrage', 'warn', 30000);
+			$.showNotification($t('global.error.requestTimeout'), 'warn', 30000);
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}
@@ -293,9 +293,7 @@ $(document).ready(() => {
 		$deleteModal
 			.find('.modal-title')
 			.text(
-				`Bist du dir sicher, dass du '${
-					decodingHelper($buttonContext.data('name'))
-				}' löschen möchtest?`,
+				$t('global.text.sureAboutDeleting', { name: decodingHelper($buttonContext.data('name')) }),
 			);
 		$deleteModal
 			.find('.btn-submit')
@@ -375,7 +373,7 @@ $(document).ready(() => {
 				+ `<iframe src="${
 					pdf
 				}" style="width:100%; height:700px; border: none;">\n`
-				+ `<p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="${
+				+ `<p>${$t('about.text.browserNotSupported')} <a href="${
 					pdf
 				}" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>\n`
 				+ '</iframe>\n'
