@@ -14,7 +14,7 @@ $(document).ready(() => {
 
 	// only fill textarea if empty
 	if (!$('textarea[name= problemDescription]').val()) {
-		$('textarea[name= problemDescription]').text($t('lib.help_menu.text.formBugText'));
+		$('textarea[name= problemDescription]').text($t('help.placeholder.formBugText'));
 	}
 
 	$('.form-control-file').change(function x() {
