@@ -1,7 +1,6 @@
 import livesearch from './helpers/livesearch';
 import { resizeIframes } from './helpers/iFrameResize';
 import './help/contactForm';
-import text from './helpers/form_bug_text';
 
 /* eslint-disable max-len */
 const MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = Number($('.form-control-file').data('maxAttachmentSizeMb')) * 1024 * 1024;
@@ -15,7 +14,7 @@ $(document).ready(() => {
 
 	// only fill textarea if empty
 	if (!$('textarea[name= problemDescription]').val()) {
-		$('textarea[name= problemDescription]').text(text);
+		$('textarea[name= problemDescription]').text($t('lib.help_menu.text.formBugText'));
 	}
 
 	$('.form-control-file').change(function x() {
