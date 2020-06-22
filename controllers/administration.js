@@ -1081,7 +1081,7 @@ router.get(
 					&& hasEditPermission
 				) {
 					head.push('Erstellt am');
-					head.push('Einverständnis');
+					head.push('Registrierung');
 					head.push('');
 				}
 				const body = users.map((user) => {

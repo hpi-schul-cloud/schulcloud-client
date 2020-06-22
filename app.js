@@ -142,7 +142,7 @@ app.use(session({
 	store: sessionStore,
 	saveUninitialized: true,
 	resave: false,
-	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
+	secret: Configuration.get('COOKIE_SECRET'), // Secret used to sign the session ID cookie
 }));
 
 // CSRF middlewares
