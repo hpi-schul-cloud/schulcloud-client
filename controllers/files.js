@@ -370,12 +370,10 @@ const getLibreOfficeUrl = (fileId, accessToken) => {
  * @param {*} files, the array of files
  * @returns The file array with saveName attribute
  */
-const getFilesWithSaveName = (files) => {
-	return files.map((file) => {
-		file.saveName = file.name.replace(/'/g, "\\'");
-		return file;
-	});
-};
+const getFilesWithSaveName = (files) => files.map((file) => {
+	file.saveName = file.name.replace(/'/g, "\\'");
+	return file;
+});
 
 
 // secure routes
