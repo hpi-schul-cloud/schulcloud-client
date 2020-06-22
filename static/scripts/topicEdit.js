@@ -5,6 +5,8 @@ import {
 	SortableContainer, SortableElement, SortableHandle, arrayMove,
 } from 'react-sortable-hoc';
 import './calendar';
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import ckeditorConfig from './ckeditor/ckeditor-config';
 
 /**
  * A wrapper for each block including a title field, remove, sortable, ...
@@ -383,7 +385,18 @@ class TopicText extends TopicBlock {
 
 	componentDidMount() {
 		const editorId = (this.props.content || {}).editorId || this.editorId;
-		// this.initEditor();
+		this.initEditor();
+	}
+
+	async initEditor() {
+		const storageContext = this.getStorageContext();
+
+		const editorId = (this.props.content || {}).editorId || this.editorId;
+		const editor = await ClassicEditor.create(document.querySelector(`#${editorId}`), ckeditorConfig);
+
+		editor.on('change:data', () => {
+			this.updateText(editor.getData());
+		});
 	}
 
 	getStorageContext() {
@@ -418,13 +431,6 @@ class TopicText extends TopicBlock {
 			},
 		});
 	}
-
-	// componentDidUpdate() {
-	// 	const editorId = (this.props.content || {}).editorId || this.editorId;
-	// 	if (!CKEDITOR.instances[editorId]) {
-	// 		this.initEditor();
-	// 	}
-	// }
 
 	/**
      * Render the block (an textarea)
