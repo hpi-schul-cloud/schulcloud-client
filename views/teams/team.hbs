@@ -1,194 +1,177 @@
-
 {{#extend "lib/loggedin" notitle="true"}}
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/teams/teams.css"/>
-        <link rel="stylesheet" href="/styles/files/files.css"/>
-        <link rel="stylesheet" href="/styles/teams/team.css"/>
-        <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
-    {{/content}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/teams/teams.css" />
+<link rel="stylesheet" href="/styles/files/files.css" />
+<link rel="stylesheet" href="/styles/teams/team.css" />
+<link rel="stylesheet" href="/vendor/jquery/jquery-ui.css" />
+{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
-        <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
-        <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
-        <script src="/scripts/files.js" type="text/javascript" defer></script>
-        <script src="/scripts/teams.js" type="text/javascript" defer></script>
-        <script src="/scripts/tabbar.js" type="text/javascript" defer></script>
-    {{/content}}
+{{#content "scripts" mode="append"}}
+    <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/teams.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+{{/content}}
 
-    {{#content "page"}}
-     <div id="team-wrapper">
-        <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
-            <div class="dropdown dropdown-title minimal-button">
-                <a class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" title="Weiteres" data-toggle="dropdown">
-                    <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
-                    <i class="fa fa-cog i-cog"></i>
+{{#content "page"}}
+<div id="team-wrapper">
+    <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
+        <div class="dropdown dropdown-title minimal-button">
+            <a class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" title="{{$t "teams.label.more"}}"
+                data-toggle="dropdown">
+                <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
+                <i class="fa fa-cog i-cog"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu dropdown-menu-team">
+                <a data-testid="administrate_team_members" href="/teams/{{_id}}/members" class="dropdown-item">
+                    <i class="fa fa-users" aria-hidden="true"></i> {{#inArray "ADD_SCHOOL_MEMBERS" permissions}}
+                    {{$t "teams._team.dropdown_menu.link.manageMembers"}}{{else}}{{$t "teams._team.dropdown_menu.link.seeMembers"}}{{/inArray}}
                 </a>
-                <div class="dropdown-menu dropdown-menu dropdown-menu-team">
-                    <a data-testid="administrate_team_members" href="/teams/{{_id}}/members" class="dropdown-item">
-                        <i class="fa fa-users" aria-hidden="true"></i> Teammitglieder {{#inArray "ADD_SCHOOL_MEMBERS" permissions}}verwalten{{else}}ansehen{{/inArray}}
-                    </a>
-                    {{#userHasPermission "TEAM_EDIT"}}
-                        {{#inArray "RENAME_TEAM"../ permissions}}
-                            <a href="/teams/{{../_id}}/edit" class="dropdown-item">
-                                <i class="fa fa-edit" aria-hidden="true"></i> Team bearbeiten
-                            </a>
-                        {{/inArray}}
-                        {{#if ../couldLeave}}
-                            {{#inArray "LEAVE_TEAM" ../permissions}}
-                                <a href="/teams/{{../_id}}/member"
-                                class="dropdown-item dropdown-leave-team"
-                                data-user-id="{{../userId}}"
-                                redirect="/teams/">
-                                    <i class="fa fa-sign-out" aria-hidden="true"></i> Team verlassen
-                                </a>
-                            {{/inArray}}
-                        {{/if}}
-                        {{#inArray "DELETE_TEAM" ../permissions}}
-                            <a href="/teams/{{../_id}}/"
-                            class="dropdown-item"
-                            target="_blank"
-                            data-method="DELETE"
-                            data-name="{{../name}}"
-                            redirect="/teams/">
-                                <i class="fa fa-trash" aria-hidden="true"></i> Team löschen
-                            </a>
-                        {{/inArray}}
-                    {{/userHasPermission}}
+                {{#userHasPermission "TEAM_EDIT"}}
+                {{#inArray "RENAME_TEAM"../ permissions}}
+                <a href="/teams/{{../_id}}/edit" class="dropdown-item">
+                    <i class="fa fa-edit" aria-hidden="true"></i> {{$t "teams._team.dropdown_menu.link.editTeam"}}
+                </a>
+                {{/inArray}}
+                {{#if ../couldLeave}}
+                {{#inArray "LEAVE_TEAM" ../permissions}}
+                <a href="/teams/{{../_id}}/member" class="dropdown-item dropdown-leave-team"
+                    data-user-id="{{../userId}}" redirect="/teams/">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> {{$t "teams._team.dropdown_menu.link.leaveTeam"}}
+                </a>
+                {{/inArray}}
+                {{/if}}
+                {{#inArray "DELETE_TEAM" ../permissions}}
+                <a href="/teams/{{../_id}}/" class="dropdown-item" target="_blank" data-method="DELETE"
+                    data-name="{{../name}}" redirect="/teams/">
+                    <i class="fa fa-trash" aria-hidden="true"></i> {{$t "teams._team.dropdown_menu.link.deleteTeam"}}
+                </a>
+                {{/inArray}}
+                {{/userHasPermission}}
+            </div>
+        </div>
+
+        <section class="row section-description">
+            <div class="col-sm-12">
+                <p class="lead">{{description}}</p>
+            </div>
+        </section>
+
+        {{#if rocketChatURL}}
+        <section class="section-chat">
+            <div class="rocketchat">
+                <iframe src="{{rocketChatURL}}?layout=embedded" frameborder="0"></iframe>
+            </div>
+        </section>
+        {{/if}}
+
+
+        <div class="course-card">
+            <div class="tabContainer" data-active-tab={{activeTab}}>
+                <div class="tabs" data-max-width="1024">
+                    <button class="tab" data-tab="js-files">
+                        <span class="text">{{$t "teams._team.tab_label.files"}}</span>
+                    </button>
+                    <button class="tab" data-tab="js-news">
+                        <span class="text">{{$t "teams._team.tab_label.news"}}</span>
+                    </button>
+                    <button class="tab" data-tab="js-events">
+                        <span class="text">{{$t "teams._team.tab_label.dates"}}</span>
+                    </button>
                 </div>
             </div>
+            <div class="sectionsContainer">
+                <div class="sections">
+                    <!-- Dateien -->
+                    <div class="section" data-testid="team_files" data-section="js-files">
+                        {{#if canUploadFile}}
+                        {{#embed "files/file-upload"}}{{/embed}}
+                        {{/if}}
 
-            <section class="row section-description">
-                <div class="col-sm-12">
-                    <p class="lead">{{description}}</p>
-                </div>
-            </section>
+                        {{#ifneq 0 (arrayLength directories)}}
+                        <section style="margin-top: 1rem" class="directories">
+                            <h5 style="color: #373a3c">{{$t "teams._team.files.headline.folders"}}</h5>
+                            <div class="row">
+                                {{#each ../directories}}
+                                <div class="col-sm-6 col-xs-12 col-md-4">
+                                    <div class="card card-block folder locationlink"
+                                        data-loclink="/files/teams/{{../../_id}}/{{this._id}}">
+                                        <strong class="card-title-directory">
+                                            <i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
+                                        </strong>
+                                        {{#userHasPermission "FOLDER_DELETE"}}
+                                        <a href="/files/directory/" target="_blank" data-method="delete"
+                                            title="{{$t "teams._team.files.button.deleteFolder"}}" data-file-name="{{../this.name}}"
+                                            data-file-id="{{../this._id}}">
+                                            <i class="fa fa-trash-o pull-right"></i>
+                                        </a>
 
-            {{#if rocketChatURL}}
-            <section class="section-chat">
-                <div class="rocketchat">
-                    <iframe src="{{rocketChatURL}}?layout=embedded" frameborder="0"></iframe>
-                </div>
-            </section>
-            {{/if}}
-
-
-            <div class="course-card">
-                <div class="tabContainer" data-active-tab={{activeTab}}>
-                    <div class="tabs" data-max-width="1024">
-                        <button class="tab" data-tab="js-files">
-                            <span class="text">Dateien</span>
-                        </button>
-                        <button class="tab" data-tab="js-news">
-                            <span class="text">Neuigkeiten</span>
-                        </button>
-                        <button class="tab" data-tab="js-events">
-                            <span class="text">Termine</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="sectionsContainer">
-                    <div class="sections">
-                        <!-- Dateien -->
-                        <div class="section" data-testid="team_files" data-section="js-files">
-                            {{#if canUploadFile}}
-                                    {{#embed "files/file-upload"}}{{/embed}}
-                                {{/if}}
-
-                                {{#ifneq 0 (arrayLength directories)}}
-                                    <section style="margin-top: 1rem" class="directories">
-                                        <h5 style="color: #373a3c">Ordner</h5>
-                                        <div class="row">
-                                            {{#each ../directories}}
-                                                <div class="col-sm-6 col-xs-12 col-md-4">
-                                                    <div class="card card-block folder" onclick="location.href = '/files/teams/{{../../_id}}/{{this._id}}';">
-                                                        <strong class="card-title-directory">
-                                                            <i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
-                                                        </strong>
-                                                        {{#userHasPermission "FOLDER_DELETE"}}
-                                                            <a href="/files/directory/"
-                                                            target="_blank"
-                                                            data-method="delete"
-                                                            title="Ordner löschen"
-                                                            data-file-name="{{../this.name}}"
-                                                            data-file-id="{{../this._id}}"
-                                                            >
-                                                                <i class="fa fa-trash-o pull-right"></i>
-                                                            </a>
-
-                                                            <a href="/directoryModel/{{../this._id}}/rename"
-                                                            target="_blank"
-                                                            data-method="dir-rename"
-                                                            title="Ordner umbenennen"
-                                                            data-directory-id="{{../this._id}}"
-                                                            data-directory-name="{{../this.name}}"
-                                                            >
-                                                                <i class="fa fa-edit pull-right"></i>
-                                                            </a>
-                                                            {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
-                                                                <a href="/directoryModel/{{../this._id}}/share"
-                                                                target="_blank"
-                                                                class="btn-file-share"
-                                                                data-method="dir-share"
-                                                                title="Ordner-Freigabe"
-                                                                data-file-id="{{../this._id}}"
-                                                                data-file-name="{{../this.name}}"
-                                                                >
-                                                                    <i class="fa fa-share-alt pull-right"></i>
-                                                                </a>
-                                                            {{/inArray}}
-                                                        {{/userHasPermission}}
-                                                    </div>
-                                                </div>
-                                            {{/each}}
-                                        </div>
-                                    </section>
-                                {{/ifneq}}
-
-                                <section style="padding-top: 2rem; clear: both" class="row">
-                                    <div class="col-sm-12">
-                                        {{#ifneq 0 (arrayLength files)}}
-                                            <h5 style="padding: 10px 0 20px">Dateien</h5>
-                                        {{/ifneq}}
-                                        {{#embed "files/file-viewer"}}{{/embed}}
-                                        {{#embed "files/files-grid" files=files teamFiles=true canEditPermissions=canEditPermissions teamId=../_id}}{{/embed}}
+                                        <a href="/directoryModel/{{../this._id}}/rename" target="_blank"
+                                            data-method="dir-rename" title="{{$t "teams._team.files.button.renameFolder"}}"
+                                            data-directory-id="{{../this._id}}" data-directory-name="{{../this.name}}">
+                                            <i class="fa fa-edit pull-right"></i>
+                                        </a>
+                                        {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
+                                        <a href="/directoryModel/{{../this._id}}/share" target="_blank"
+                                            class="btn-file-share" data-method="dir-share" title="{{$t "teams._team.files.button.shareFolder"}}"
+                                            data-file-id="{{../this._id}}" data-file-name="{{../this.name}}">
+                                            <i class="fa fa-share-alt pull-right"></i>
+                                        </a>
+                                        {{/inArray}}
+                                        {{/userHasPermission}}
                                     </div>
-                                </section>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </section>
+                        {{/ifneq}}
 
-                                <section style="margin-top: 1rem">
-                                    <h5 style="padding: 10px 0 20px">Datei-Aktionen</h5>
+                        <section style="padding-top: 2rem; clear: both" class="row">
+                            <div class="col-sm-12">
+                                {{#ifneq 0 (arrayLength files)}}
+                                <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.files"}}</h5>
+                                {{/ifneq}}
+                                {{#embed "files/file-viewer"}}{{/embed}}
+                                {{#embed "files/files-grid" files=files teamFiles=true canEditPermissions=canEditPermissions teamId=../_id}}{{/embed}}
+                            </div>
+                        </section>
 
-                                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
-                                        <i class="fa fa-folder-open"></i> Zu den Team-Dateien
-                                    </a>
-                                    {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
-                                        <button class="btn btn-add btn-secondary btn-file-permissions">
-                                            <i class="fa fa-share-alt"></i> Freigabe-Einstellungen ändern
-                                        </button>
-                                    {{/inArray}}
-                                    {{#if ../canCreateDir}}
-                                        <span class="btn btn-primary create-directory">
-                                            <i class="fa fa-folder" aria-hidden="true"></i> Ordner erstellen
-                                        </span>
-                                    {{/if}}
-                                    {{!-- {{#if ../canCreateFile}}
+                        <section style="margin-top: 1rem">
+                            <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
+
+                            <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
+                                <i class="fa fa-folder-open"></i> {{$t "teams._team.files.button.toTeamFiles"}}
+                            </a>
+                            {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
+                            <button class="btn btn-add btn-secondary btn-file-permissions">
+                                <i class="fa fa-share-alt"></i> {{$t "teams._team.files.button.changeSharingSettings"}}
+                            </button>
+                            {{/inArray}}
+                            {{#if ../canCreateDir}}
+                            <span class="btn btn-primary create-directory">
+                                <i class="fa fa-folder" aria-hidden="true"></i> {{$t "teams._team.files.button.createFolder"}}
+                            </span>
+                            {{/if}}
+                            {{!-- {{#if ../canCreateFile}}
                                         <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
                                             <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
                                         </span>
                                     {{/if}}                 --}}
-                                </section>
+                        </section>
 
-                        </div>
+                    </div>
                         <!--- Neuigkeiten -->
                         <div class="section" data-section="js-news">
-                            {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
+                            {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text=($t "teams._team.news.label.continueReading")}}
                             <a href="/teams/{{../_id}}/news" class="">
-                                Alle Neuigkeiten anzeigen...
+                                {{$t "teams._team.news.link.showAllNews"}}
                             </a>
                             {{#inArray "NEWS_CREATE" permissions}}
-                                <a href="/teams/{{../_id}}/news/new" data-testid="create_a_team" class="btn btn-add btn-primary pull-right">
-                                    <i class="fa fa-plus" aria-hidden="true"></i> Neuigkeit anlegen
-                                </a>
+                            <a href="/teams/{{../_id}}/news/new" data-testid="create_a_team" class="btn btn-add btn-primary pull-right">
+                                <i class="fa fa-plus" aria-hidden="true"></i> {{$t "teams._team.news.button.addNews"}}
+                            </a>
                             {{/inArray}}
                         </div>
                         <!-- Termine -->
@@ -200,17 +183,18 @@
                             </div>
                             <div style="margin-top: .5rem">
                                 {{#inArray "CALENDAR_CREATE" permissions}}
-                                    <button class="btn btn-add btn-primary btn-create-event pull-right">
-                                        Termin anlegen
-                                    </button>
+                                <button class="btn btn-add btn-primary btn-create-event pull-right">
+                                    {{$t "teams._team.events.button.addDate"}}
+                                </button>
                                 {{/inArray}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Vorerst ausblenden, bis wir Themen in Teams wieder unterstützen
+        <!-- Vorerst ausblenden, bis wir Themen in Teams wieder unterstützen
 			<section class="row">
                 <div class="col-sm-12">
                     <h4>Themen & Aufgaben</h4>
@@ -221,73 +205,73 @@
                 </div>
             </section> -->
 
-            {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
-                {{#content "body"}}
+        {{#embed "lib/components/modal" class="delete-modal" title=($t "global.text.areYouSure")}}
+        {{#content "body"}}
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-close">
-                            Abbrechen
-                        </button>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-close">
+                {{$t "global.button.cancel"}}
+            </button>
 
-                        <button type="submit" class="btn btn-primary btn-submit">
-                            Löschen
-                        </button>
-                    </div>
-                {{/content}}
-            {{/embed}}
+            <button type="submit" class="btn btn-primary btn-submit">
+                {{$t "global.button.delete"}}
+            </button>
+        </div>
+        {{/content}}
+        {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="file-permissions-modal" title="Freigabe-Einstellungen ändern"}}
-                {{#content "fields"}}
-                    {{> "teams/forms/form-file-permissions" teamFiles=true}}
-                {{/content}}
-            {{/embed}}
+        {{#embed "lib/components/modal-form" class="file-permissions-modal" title=($t "teams._team.files.button.changeSharingSettings")}}
+        {{#content "fields"}}
+        {{> "teams/forms/form-file-permissions" teamFiles=true}}
+        {{/content}}
+        {{/embed}}
 
-            {{#embed "lib/components/modal-form" action=leaveTeamAction class="leave-team-modal"}}
-                {{#content "fields"}}
-                    {{> "teams/forms/form-leave-team"}}
-                {{/content}}
-            {{/embed}}
+        {{#embed "lib/components/modal-form" action=leaveTeamAction class="leave-team-modal"}}
+        {{#content "fields"}}
+        {{> "teams/forms/form-leave-team"}}
+        {{/content}}
+        {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1 userId=../userId teamId=../teamId}}
-                {{#content "fields"}}
-                    {{> "calendar/forms/form-create-event" showVideoconferenceOption=@root.showVideoconferenceOption}}
-                {{/content}}
-            {{/embed}}
+        {{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1 userId=../userId teamId=../teamId}}
+        {{#content "fields"}}
+        {{> "calendar/forms/form-create-event" showVideoconferenceOption=@root.showVideoconferenceOption}}
+        {{/content}}
+        {{/embed}}
 
-            {{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
-                {{#content "fields"}}
-                    {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
-                {{/content}}
-                {{#content "additional-actions"}}
-                        <button type="button" class="btn btn-primary btn-danger btn-delete pull-left">
-                            <i class="fa fa-trash-o"></i> Löschen
-                        </button>
-                {{/content}}
-            {{/embed}}
+        {{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
+        {{#content "fields"}}
+        {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
+        {{/content}}
+        {{#content "additional-actions"}}
+        <button type="button" class="btn btn-primary btn-danger btn-delete pull-left">
+            <i class="fa fa-trash-o"></i> {{$t "global.button.delete"}}
+        </button>
+        {{/content}}
+        {{/embed}}
 
-            {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
-                {{#if ../showVideoconferenceOption}}
-                    {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
-                        {{#content "fields"}}
-                        {{> "lib/forms/form-create-videoconference"}}
-                        {{/content}}
-                    {{/embed}}
+        {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+        {{#if ../showVideoconferenceOption}}
+        {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
+        {{#content "fields"}}
+        {{> "lib/forms/form-create-videoconference"}}
+        {{/content}}
+        {{/embed}}
 
-                    {{#embed "lib/components/modal-form" class="reload-info-modal"}}
-                        {{#content "fields"}}
-                        {{> "lib/forms/form-bbb-reload-info"}}
-                        {{/content}}
-                    {{/embed}}
+        {{#embed "lib/components/modal-form" class="reload-info-modal"}}
+        {{#content "fields"}}
+        {{> "lib/forms/form-bbb-reload-info"}}
+        {{/content}}
+        {{/embed}}
 
-                    {{#embed "lib/components/modal-form" class="forbidden-info-modal"}}
-                        {{#content "fields"}}
-                        {{> "lib/forms/form-bbb-forbidden-info"}}
-                        {{/content}}
-                    {{/embed}}
-                {{/if}}
-            {{/ifConfig}}
-        </section>
-    </div>
+        {{#embed "lib/components/modal-form" class="forbidden-info-modal"}}
+        {{#content "fields"}}
+        {{> "lib/forms/form-bbb-forbidden-info"}}
+        {{/content}}
+        {{/embed}}
+        {{/if}}
+        {{/ifConfig}}
+    </section>
+</div>
 
-    {{/content}}
+{{/content}}
 {{/extend}}

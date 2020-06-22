@@ -26,6 +26,13 @@
     color: var(--color-primary);
     background: transparent;
 }
+.nav-link {
+	font-size: 16px;
+	line-height: 19.2px;
+	&:hover, &:focus{
+		background-color: rgb(238, 238, 238) !important;
+	}
+}
 
 .section a.btn.btn-white-outlined{
     display: inline-block;
@@ -78,6 +85,10 @@
             text-align: left;
         }
     }
+	img.check {
+		width: 100% !important;
+		max-width: 61px !important;
+	}
 }
 
 .flex-container {
@@ -132,4 +143,7 @@
         font-size: 35px;
     }
 
+}
+.alert {
+	margin-top: 1rem !important;
 }

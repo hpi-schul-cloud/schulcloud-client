@@ -1,9 +1,11 @@
 {{#extend "lib/simple"}}
   {{#content "scripts" mode="append"}}
-      <script src="/scripts/dataprivacy/user-registration.js" type="text/javascript" defer></script>
+      <script src="/scripts/dataprivacy/user-registration.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	  <script src="/scripts/base64files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
   {{/content}}
   {{#content "styles" mode="append"}}
       <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
+      <link rel="stylesheet" href="/styles/registration/pin.css" />
   {{/content}}
   {{#content "page"}}
     {{#embed "lib/forms/paginatedForm" sections=sectionNumber action="/registration/submit" method="post" class="registration-form student" submit-label=($t "registration._registration.global.button.sendAndGetStarted")}}
@@ -21,7 +23,7 @@
       <section data-panel="section-1">
         <h2 class="h4">{{$t "registration._registration.student.heading.personalData" }}</h2>
         <p>{{$t "registration._registration.global.text.weStoreUserDataSafely" (dict "shortTitle" theme.short_title)}}</p>
-        <p>{{$t "registration._registration.global.text.weNeedFollowingDataForRegistration" (dict "shortTitle" theme.short_title)}}</p>
+	  <p>{{$t "registration._registration.global.text.weNeedFollowingDataForRegistration" (dict "shortTitle" theme.short_title)}}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <label>{{$t "registration._registration.global.label.firstName" }} <sup>*</sup></label>

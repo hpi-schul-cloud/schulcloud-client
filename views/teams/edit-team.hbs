@@ -5,8 +5,8 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
-        <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
+        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
 
@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <label>
                                     <input type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
-                                    Messenger für Team aktivieren
+                                    {{$t "teams._team.edit.label.activateMessengerForTeam"}}
                                 </label>
                             </div>
                         {{/inArray}}
