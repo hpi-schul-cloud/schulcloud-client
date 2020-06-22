@@ -356,13 +356,13 @@ $(document).ready(() => {
 		const $editMemberModal = $('.edit-member-modal');
 		const payload = $(this).parent().parent().find('[data-payload]')
 			.data('payload');
-			if (payload.role === 'student') {
-				$("#role option[data-name='teamadministrator']").hide();
-				$("#role option[data-name='teamowner']").hide();
-			} else {
-				$("#role option[data-name='teamadministrator']").show();
-				$("#role option[data-name='teamowner']").show();
-			}
+		if (payload.role === 'student') {
+			$("#role option[data-name='teamadministrator']").hide();
+			$("#role option[data-name='teamowner']").hide();
+		} else {
+			$("#role option[data-name='teamadministrator']").show();
+			$("#role option[data-name='teamowner']").show();
+		}
 		const { userId } = payload;
 		populateModalForm($editMemberModal, {
 			title: 'Teilnehmer bearbeiten',
