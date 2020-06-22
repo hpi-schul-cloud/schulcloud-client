@@ -1,5 +1,3 @@
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
-
 import BlockQuotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold';
 import CKFinderPlugin from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
@@ -17,6 +15,7 @@ import IndentPlugin from '@ckeditor/ckeditor5-indent/src/indent';
 import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
 import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
 import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
+import MathPlugin from 'ckeditor5-math/src/math';
 import MediaEmbedPlugin from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
 import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import RemoveFormatPlugin from '@ckeditor/ckeditor5-remove-format/src/removeformat';
@@ -29,58 +28,56 @@ import TablePlugin from '@ckeditor/ckeditor5-table/src/table';
 import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import UploadAdapterPlugin from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
 
-window.addEventListener('DOMContentLoaded', async () => {
-	document.querySelectorAll('.ckeditor').forEach(async (element) => {
-		const editor = await ClassicEditor.create(element, {
-			language: 'de',
-			plugins: [
-				BlockQuotePlugin,
-				BoldPlugin,
-				CKFinderPlugin,
-				EasyImagePlugin,
-				EssentialsPlugin,
-				FontPlugin,
-				HeadingPlugin,
-				HorizontalLinePlugin,
-				ImageCaptionPlugin,
-				ImagePlugin,
-				ImageStylePlugin,
-				ImageToolbarPlugin,
-				ImageUploadPlugin,
-				IndentPlugin,
-				ItalicPlugin,
-				LinkPlugin,
-				ListPlugin,
-				MediaEmbedPlugin,
-				ParagraphPlugin,
-				RemoveFormatPlugin,
-				SpecialCharacterEssentialPlugin,
-				SpecialCharacterPlugin,
-				StrikethroughPlugin,
-				SubscriptPlugin,
-				SuperscriptPlugin,
-				TablePlugin,
-				UnderlinePlugin,
-				UploadAdapterPlugin,
-			],
-			toolbar: ['undo', 'redo', '|',
-				'imageUpload', 'mediaEmbed', 'MathType', 'ckfinder', 'insertTable', 'specialCharacters', 'link', '|',
-				'heading', '|',
-				'numberedList', 'bulletedList', '|',
-				'outdent', 'indent', '|',
-				'blockQuote', 'fontColor', 'fontBackgroundColor', 'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|',
-				'removeFormat',
-			],
-		});
-		editor.model.document.on('change:data', () => {
-			const submitButton = document.querySelector('.ckeditor-submit');
-			if (submitButton) {
-				const editorContent = editor.getData();
-				const editorContainsText = editorContent !== '';
-				submitButton.setAttribute('editorContainsText', editorContainsText);
-				const fileIsUploaded = submitButton.getAttribute('fileIsUploaded');
-				submitButton.disabled = !editorContainsText && !fileIsUploaded;
-			}
-		});
-	});
-});
+
+const ckeditorConfig = {
+	language: 'de',
+	plugins: [
+		BlockQuotePlugin,
+		BoldPlugin,
+		CKFinderPlugin,
+		EasyImagePlugin,
+		EssentialsPlugin,
+		FontPlugin,
+		HeadingPlugin,
+		HorizontalLinePlugin,
+		ImageCaptionPlugin,
+		ImagePlugin,
+		ImageStylePlugin,
+		ImageToolbarPlugin,
+		ImageUploadPlugin,
+		IndentPlugin,
+		ItalicPlugin,
+		LinkPlugin,
+		ListPlugin,
+		MathPlugin,
+		MediaEmbedPlugin,
+		ParagraphPlugin,
+		RemoveFormatPlugin,
+		SpecialCharacterEssentialPlugin,
+		SpecialCharacterPlugin,
+		StrikethroughPlugin,
+		SubscriptPlugin,
+		SuperscriptPlugin,
+		TablePlugin,
+		UnderlinePlugin,
+		UploadAdapterPlugin,
+	],
+	toolbar: [
+		'undo', 'redo', '|',
+		'imageUpload', 'mediaEmbed', 'math', 'ckfinder', 'insertTable', 'horizontalLine', 'specialCharacters', 'link', '|',
+		'heading', '|',
+		'numberedList', 'bulletedList', '|',
+		'outdent', 'indent', '|',
+		'blockQuote', 'fontColor', 'fontBackgroundColor',
+		'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|',
+		'removeFormat',
+	],
+	math: {
+		engine: 'mathjax',
+		outputType: 'script',
+		forceOutputType: false,
+		enablePreview: true,
+	},
+};
+
+export default ckeditorConfig;
