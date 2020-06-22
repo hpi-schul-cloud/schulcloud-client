@@ -11,7 +11,7 @@ const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
 
-const { CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED, ROCKET_CHAT_URI } = require('../config/global');
+const { CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED, ROCKET_CHAT_URI, FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR_ENABLED } = require('../config/global');
 
 const router = express.Router();
 moment.locale('de');
@@ -998,7 +998,10 @@ router.get('/:teamId/members', async (req, res, next) => {
 			} else {
 				actions = addButtonTrash(actions);
 			}
-			const userRole = roles.find((r) => r._id === user.userId.roles[0]);
+			let userRole;
+			if (FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR_ENABLED) {
+			userRole = roles.find((r) => r._id === user.userId.roles[0]);
+			}
 			return [
 				user.userId.firstName || '',
 				user.userId.lastName || '',

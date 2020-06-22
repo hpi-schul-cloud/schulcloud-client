@@ -356,15 +356,13 @@ $(document).ready(() => {
 		const $editMemberModal = $('.edit-member-modal');
 		const payload = $(this).parent().parent().find('[data-payload]')
 			.data('payload');
-		if (process.env.FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR) {
 			if (payload.role === 'student') {
-				$("#role option[value='teamadministrator']").hide();
-				$("#role option[value='teamowner']").hide();
+				$("#role option[data-name='teamadministrator']").hide();
+				$("#role option[data-name='teamowner']").hide();
 			} else {
-				$("#role option[value='teamadministrator']").show();
-				$("#role option[value='teamowner']").show();
+				$("#role option[data-name='teamadministrator']").show();
+				$("#role option[data-name='teamowner']").show();
 			}
-		}
 		const { userId } = payload;
 		populateModalForm($editMemberModal, {
 			title: 'Teilnehmer bearbeiten',
@@ -373,7 +371,6 @@ $(document).ready(() => {
 			payload: userId,
 		});
 
-		// needed?? const $modalForm = $editMemberModal.find('.modal-form');
 		$editMemberModal.appendTo('body').modal('show');
 	});
 

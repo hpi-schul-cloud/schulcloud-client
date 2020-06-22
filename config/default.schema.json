@@ -3,16 +3,16 @@
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
-        "CORS": {
-            "type": "boolean",
-            "default": true,
-            "description": "If enabled, default content security policy (CSP) header will be set."
-        },
-        "SECURITY_HEADERS": {
-            "type": "boolean",
-            "default": true,
-            "description": "If enabled, additional security header will be set."
-        },
+		"CORS": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, default content security policy (CSP) header will be set."
+		},
+		"SECURITY_HEADERS": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, additional security header will be set."
+		},
 		"API_KEY": {
 			"type": "string",
 			"default": "example",
@@ -293,6 +293,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables Lern-Store (navigation, route) in app"
+		},
+		"FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables to exclude the possibility of assigning the role of team administrator and team owner to a student in teams"
 		}
 	},
 	"allOf": [
