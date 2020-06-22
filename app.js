@@ -142,7 +142,7 @@ app.use(session({
 	store: sessionStore,
 	saveUninitialized: true,
 	resave: false,
-	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
+	secret: Configuration.get('COOKIE_SECRET'), // Secret used to sign the session ID cookie
 }));
 
 // CSRF middlewares
@@ -250,6 +250,10 @@ app.use((err, req, res, next) => {
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 	if (err.error) logger.error(err.error);
 	if (res.locals.currentUser) res.locals.loggedin = true;
+
+	// keep sidebar restricted in error page
+	authHelper.restrictSidebar(req, res);
+
 	// render the error page
 	res.status(status).render('lib/error', {
 		loggedin: res.locals.loggedin,

@@ -48,10 +48,10 @@ window.openFolder = (id) => {
 	return target + window.location.search || '';
 };
 
-$('.openfolder').on('click', () => {
+$('.openfolder').on('click', function determineFolder() {
 	const folderid = this.getAttribute('data-folder-id');
 	if (folderid) {
-		window.openFolder(folderid);
+		window.location.href = window.openFolder(folderid);
 	}
 });
 
@@ -933,7 +933,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 	}
 };
 
-$('.fileviewer').on('click', () => {
+$('.fileviewer').on('click', function determineViewer(e) {
 	const fileviewertype = this.getAttribute('data-file-viewer-type');
 	const fileviewersavename = this.getAttribute('data-file-viewer-savename');
 	const fileviewerid = this.getAttribute('data-file-viewer-id');
