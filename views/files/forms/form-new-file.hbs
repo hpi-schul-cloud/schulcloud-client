@@ -2,7 +2,7 @@
     <label>{{$t "files.label.chooseANewNameAndAFileExtension" }}</label>
     <br />
 
-    <label for="file-ending">{{$t "files.label.fileType" }}:</label>
+    <label for="file-ending">{{$t "files.label.fileType" }}</label>
     <select class="custom-select mr-sm-2 form-control" id="file-ending">
         <option selected disabled style="display:none;">{{$t "files.button.selectFormat" }}</option>
         <option value="docx">{{$t "files.button.textDocument" }}</option>
@@ -12,8 +12,8 @@
     <br />
     <br />
 
-    <label for="file-name">{{$t "files.label.fileName" }}:</label>
-    <input id="file-name" type="text" class="form-control" name="new-file-name" placeholder="Name der Datei" required />
+    <label for="file-name">{{$t "files.label.fileName" }}</label>
+    <input id="file-name" type="text" class="form-control" name="new-file-name" placeholder="{{$t "files.input.filename"}}" required />
     <br />
 
     {{#userHasPermission "COURSE_EDIT"}}
