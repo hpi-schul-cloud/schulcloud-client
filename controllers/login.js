@@ -54,11 +54,11 @@ router.post('/login/', (req, res, next) => {
 	if (system) {
 		const [systemId, strategy] = system.split('//');
 		return authHelper.login({
-			strategy, username, password, systemId, schoolId, validRedirect, privateDevice,
+			strategy, username, password, systemId, schoolId, redirect: validRedirect, privateDevice,
 		}, req, res, errorSink);
 	}
 	return authHelper.login({
-		strategy: 'local', username, password, validRedirect, privateDevice,
+		strategy: 'local', username, password, redirect: validRedirect, privateDevice,
 	}, req, res, errorSink);
 });
 

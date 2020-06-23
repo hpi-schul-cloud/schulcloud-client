@@ -142,7 +142,7 @@ app.use(session({
 	store: sessionStore,
 	saveUninitialized: true,
 	resave: false,
-	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
+	secret: Configuration.get('COOKIE_SECRET'), // Secret used to sign the session ID cookie
 }));
 
 // CSRF middlewares
@@ -233,7 +233,7 @@ if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
-	if (err.statusCode && err.error) {
+	if (err.statusCode && err.error && err.error.message) {
 		res.setHeader('error-message', err.error.message);
 		res.locals.message = err.error.message;
 	} else {
