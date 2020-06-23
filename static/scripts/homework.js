@@ -490,4 +490,15 @@ $(document).ready(() => {
         modalCheckboxHandler($t('global.text.areYouSure'), content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
     });
 
+    function checkVideoElements(){
+        let vids = $("video"); 
+        if(vids.length>0){
+            $.each(vids, function(){
+                this.controls = true; 
+            }); 
+        }
+    } 
+    
+    checkVideoElements();
+    
 });
