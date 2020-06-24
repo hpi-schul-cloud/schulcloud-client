@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 		if (!accountResponse[0]) {
 			throw new Error('Der Nutzer wurde nicht gefunden!');
 		}
-		if (!accountResponse[0].forceChangePassword) {
+		if (!accountResponse[0].forcePasswordChange) {
 			return res.redirect('dashboard');
 		}
 		const renderObject = {
