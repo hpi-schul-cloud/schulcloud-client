@@ -85,6 +85,10 @@
             text-align: left;
         }
     }
+	img.check {
+		width: 100% !important;
+		max-width: 61px !important;
+	}
 }
 
 .flex-container {
@@ -132,4 +136,7 @@
         font-size: 35px;
     }
 
+}
+.alert {
+	margin-top: 1rem !important;
 }
