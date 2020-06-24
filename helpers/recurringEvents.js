@@ -36,7 +36,7 @@ const getWeekdayForNumber = (weekdayNum, res) => {
 		res.$t('global.text.thursday'),
 		res.$t('global.text.friday'),
 		res.$t('global.text.saturday'),
-		res.$t('global.text.sunday')
+		res.$t('global.text.sunday'),
 	];
 
 	return weekdayNames[weekdayNum];
@@ -48,7 +48,16 @@ const getWeekdayForNumber = (weekdayNum, res) => {
  * @returns {number} - number of weekday
  */
 const getNumberForWeekday = (weekday, res) => {
-	const weekdayNames = [res.$t('global.text.monday'), res.$t('global.text.tuesday'), res.$t('global.text.wednesday'), res.$t('global.text.thursday'), res.$t('global.text.friday'), res.$t('global.text.saturday'), res.$t('global.text.sunday')];
+	const weekdayNames = [
+		res.$t('global.text.monday'),
+		res.$t('global.text.tuesday'),
+		res.$t('global.text.wednesday'),
+		res.$t('global.text.thursday'),
+		res.$t('global.text.friday'),
+		res.$t('global.text.saturday'),
+		res.$t('global.text.sunday'),
+	];
+
 	return weekdayNames.indexOf(weekday);
 };
 
