@@ -29,7 +29,16 @@ const getNumberForFullCalendarWeekday = (weekday) => {
  * @returns {string} - abbreviation of weekday
  */
 const getWeekdayForNumber = (weekdayNum, res) => {
-	const weekdayNames = [res.$t('global.text.monday'), res.$t('global.text.tuesday'), res.$t('global.text.wednesday'), res.$t('global.text.thursday'), res.$t('global.text.friday'), res.$t('global.text.saturday'), res.$t('global.text.sunday')];
+	const weekdayNames = [
+		res.$t('global.text.monday'),
+		res.$t('global.text.tuesday'),
+		res.$t('global.text.wednesday'),
+		res.$t('global.text.thursday'),
+		res.$t('global.text.friday'),
+		res.$t('global.text.saturday'),
+		res.$t('global.text.sunday')
+	];
+
 	return weekdayNames[weekdayNum];
 };
 

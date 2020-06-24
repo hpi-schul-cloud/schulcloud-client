@@ -286,5 +286,4 @@ const helpers = app => ({
 	},
 });
 
-
 module.exports = helpers;
