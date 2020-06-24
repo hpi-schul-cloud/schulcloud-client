@@ -754,7 +754,7 @@ const userIdtoAccountIdUpdate = (service) => function useIdtoAccountId(req, res,
 		.then((users) => {
 			api(req)
 				.patch(`/${service}/${users[0]._id}`, {
-					json: req.body,
+					json: { ...req.body, forceChangePassword: true },
 				})
 				.then(() => {
 					req.session.notification = {
