@@ -67,7 +67,8 @@
 		</div>
 	</div>
 
-	<p class="mt-1">Deine Klasse passt nicht ins klassische Schema? <a href="#" class="createcustom">Mehr Optionen</a>.
+	<p class="mt-1">Deine Klasse passt nicht ins klassische Schema? <a data-testId="classCreationExtraOptions" href="#"
+			class="createcustom">Mehr Optionen</a>.
 	</p>
 
 	<section id="createcustom" class="{{#unless isCustom}}hidden{{/unless}}">
@@ -75,8 +76,9 @@
 			Administrator <i>"versetzt"</i> werden, sondern müssen manuell aktualisiert werden.</p>
 		<div class="form-group">
 			<label>Klassenbezeichnung</label>
-			<input class="form-control linked" name="classcustom" type="text" placeholder="z.B. Froschklasse 3-4"
-				required value="{{class.customName}}" {{#unless isCustom}}disabled{{/unless}} />
+			<input data-testid="Klassenbezeichnung" class="form-control linked" name="classcustom" type="text"
+				placeholder="z.B. Froschklasse 3-4" required value="{{class.customName}}"
+				{{#unless isCustom}}disabled{{/unless}} />
 		</div>
 		<label class="my-1">
 			<input name="keepyear" type="checkbox" value="true"
@@ -107,7 +109,7 @@
 <div class="modal-footer mt-1">
 	<a class="btn btn-secondary btn-cancel">Abbrechen</a>
 	{{#ifeq mode "create"}}
-		<button class="btn btn-primary" type="submit" disabled>Klasse hinzufügen</button>
+	<button data-testId="confirmClassCreate" class="btn btn-primary" type="submit" disabled>Klasse hinzufügen</button>
 		{{#userHasPermission 'ADMIN_VIEW'}}
 			<p>Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.</p>
 		{{/userHasPermission}}
