@@ -15,6 +15,5 @@
 	},
 	"STUDENT_TEAM_CREATION": "opt-out",
 	"FEATURE_EXTENSION_PORTFOLIO_ENABLED": false,
-	"FEATURE_LERNSTORE_ENABLED": false,
-	"MATRIX_MESSENGER_EMBED_URI": "https://embed.staging.messenger.schule"
+	"FEATURE_LERNSTORE_ENABLED": false
 }
