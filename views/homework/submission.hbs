@@ -1,4 +1,4 @@
-<section id="submission" class="tab-content section-homeworkdetails">
+﻿<section id="submission" class="tab-content section-homeworkdetails">
     {{#if @root.submittable}}
     <div class="comment editor">
         <p class="submissionLabel"><i class="fa fa-folder-open"></i>Dateiabgabe</p>
@@ -13,7 +13,7 @@
 
       {{#if @root.submission}}
         {{#ifneq 0 (arrayLength @root.submission.fileIds)}}
-            {{#embed "homework/components/submission_uploaded_files"
+            {{#embed "homework/components/submission_files"
                 fileIds=@root.submission.fileIds
                 deletionAllowed=true
                 submission=@root.submission}}{{/embed}}
@@ -77,7 +77,7 @@
     {{else}}
     {{#if @root.submission}}
         {{#if @root.submission.hasFile}}
-            {{#embed "homework/components/submission_uploaded_files" fileIds=@root.submission.fileIds deletionAllowed=false submission=@root.submission}}{{/embed}}
+            {{#embed "homework/components/submission_files" fileIds=@root.submission.fileIds deletionAllowed=false submission=@root.submission}}{{/embed}}
         {{/if}}
     {{/if}}
     <div class="comment">

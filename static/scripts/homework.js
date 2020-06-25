@@ -207,7 +207,7 @@ $(document).ready(() => {
     //validate teamMembers
     var lastTeamMembers = null;
     const maxTeamMembers = parseInt($("#maxTeamMembers").html());
-    $('#teamMembers').change(function(event) {
+    $('select#teamMembers').change(function(event) {
         if ($(this).val().length > maxTeamMembers) {
             $(this).val(lastTeamMembers);
             $.showNotification($t('homework.text.maximumTeamSize', {maxMembers : maxTeamMembers}), "warning", 5000);
@@ -217,7 +217,7 @@ $(document).ready(() => {
         $(this).chosen().trigger("chosen:updated");
     });
 
-    $('#teamMembers').chosen().change(function(event, data) {
+    $('select#teamMembers').chosen().change(function(event, data) {
         if(data.deselected && data.deselected == $('.owner').val()){
             $(".owner").prop('selected', true);
             $('#teamMembers').trigger("chosen:updated");
