@@ -140,9 +140,10 @@ const editTeamHandler = (req, res, next) => {
 		res.render('teams/edit-team', {
 			action,
 			method,
-			title: req.params.teamId ? 'Team bearbeiten' : 'Team anlegen',
-			submitLabel: req.params.teamId ? 'Änderungen speichern' : 'Team anlegen',
-			closeLabel: 'Abbrechen',
+			title: req.params.teamId ? res.$t('teams.add.headline.editTeam') : res.$t('teams.add.headline.createTeam'),
+			submitLabel: req.params.teamId ? res.$t('teams.add.button.saveChanges')
+				: res.$t('teams.add.button.createTeam'),
+			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
 		});
@@ -232,9 +233,9 @@ const copyCourseHandler = (req, res, next) => {
 		res.render('teams/edit-course', {
 			action,
 			method,
-			title: 'Team duplizieren',
-			submitLabel: 'Team duplizieren',
-			closeLabel: 'Abbrechen',
+			title: res.$t('teams.headline.duplicateTeam'),
+			submitLabel: res.$t('teams.button.duplicateTeam'),
+			closeLabel: res.$t('global.button.cancel'),
 			course,
 			classes: classesOfCurrentSchool,
 			teachers: markSelected(
@@ -304,11 +305,11 @@ router.get('/', async (req, res, next) => {
 		res.json(teams);
 	} else if (teams.length !== 0 || teamInvitations.length !== 0) {
 		res.render('teams/overview', {
-			title: 'Meine Teams',
+			title: res.$t('teams.headline.myTeams'),
 			teams,
 			teamInvitations,
 			allowedCreateTeam,
-			searchLabel: 'Suche nach Teams',
+			searchLabel: res.$t('teams.placeholder.searchForTeams'),
 			searchAction: '/teams',
 			showSearch: true,
 			liveSearch: true,
@@ -454,6 +455,14 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
+function sortFunction(a, b) {
+	if (a.displayAt === b.displayAt) {
+		return 0;
+	}
+
+	return a.displayAt < b.displayAt ? 1 : -1;
+}
+
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
@@ -569,20 +578,33 @@ router.get('/:teamId', async (req, res, next) => {
 			})
 			.slice(0, 6);
 
-		let news = (await api(req).get('/news/', {
-			qs: {
-				target: req.params.teamId,
-				targetModel: 'teams',
-				$limit: 4,
-				$sort: '-displayAt',
-			},
-		})).data;
-
-		news = news.map((n) => {
-			n.url = `/teams/${req.params.teamId}/news/${n._id}`;
-			n.secondaryTitle = moment(n.displayAt).fromNow();
-			return n;
-		});
+		const news = await api(req)
+			.get('/news/', {
+				qs: {
+					target: req.params.teamId,
+					targetModel: 'teams',
+					displayAt: {
+						$lte: new Date().getTime(),
+					},
+				},
+			})
+			.then((newsres) => newsres.data
+				.map((n) => {
+					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
+					n.secondaryTitle = moment(n.displayAt).fromNow();
+					return n;
+				})
+				.sort(sortFunction)
+				.slice(0, 4))
+			.catch((err) => {
+				logger.error(
+					`
+						Can not fetch data from /news/ in router.get("/:teamId")
+						| message: ${err.message} | code: ${err.code}.
+					`,
+				);
+				return [];
+			});
 
 		let events = [];
 		try {
@@ -633,7 +655,7 @@ router.get('/:teamId', async (req, res, next) => {
 				activeTab: req.query.activeTab,
 				breadcrumb: [
 					{
-						title: 'Meine Teams',
+						title: res.$t('teams.headline.myTeams'),
 						url: '/teams',
 					},
 					{},
@@ -823,28 +845,43 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const method = 'patch';
 
 	const roleTranslations = {
-		teammember: 'Teilnehmer',
-		teamexpert: 'Externer Experte',
-		teamleader: 'Leiter',
-		teamadministrator: 'Administrator',
-		teamowner: 'Eigentümer',
+		teammember: res.$t('teams._team.members.text.member'),
+		teamexpert: res.$t('teams._team.members.text.expert'),
+		teamleader: res.$t('teams._team.members.text.leader'),
+		teamadministrator: res.$t('teams._team.members.text.admin'),
+		teamowner: res.$t('teams._team.members.text.owner'),
 	};
 
-	const head = ['Vorname', 'Nachname', 'Rolle', 'Schule', 'Aktionen'];
+	const head = [
+		res.$t('teams._team.members.headline.firstName'),
+		res.$t('teams._team.members.headline.surname'),
+		res.$t('teams._team.members.headline.role'),
+		res.$t('teams._team.members.headline.school'),
+		res.$t('teams._team.members.headline.actions'),
+	];
 
-	const headClasses = ['Name', 'Schüler', 'Aktionen'];
+	const headClasses = [
+		res.$t('teams._team.members.headline.name'),
+		res.$t('teams._team.members.headline.student'),
+		res.$t('teams._team.members.headline.actions'),
+	];
 
-	const headInvitations = ['E-Mail', 'Eingeladen am', 'Rolle', 'Aktionen'];
+	const headInvitations = [
+		res.$t('teams._team.members.headline.email'),
+		res.$t('teams._team.members.headline.invitedOn'),
+		res.$t('teams._team.members.headline.role'),
+		res.$t('teams._team.members.headline.actions'),
+	];
 
 	const invitationActions = [
 		{
 			class: 'btn-resend-invitation',
-			title: 'Einladung erneut versenden',
+			title: res.$t('teams._team.members.label.sendInvitationAgain'),
 			icon: 'envelope',
 		},
 		{
 			class: 'btn-delete-invitation',
-			title: 'Einladung löschen',
+			title: res.$t('teams._team.members.label.deleteInvitation'),
 			icon: 'trash',
 		},
 	];
@@ -946,12 +983,12 @@ router.get('/:teamId/members', async (req, res, next) => {
 		const rolesExternal = [
 			{
 				name: 'teamexpert',
-				label: 'externer Experte',
+				label: res.$t('teams._team.members.label.externExpert'),
 				_id: roles.find((role) => role.name === 'teamexpert'),
 			},
 			{
 				name: 'teamadministrator',
-				label: 'Lehrer anderer Schule (Team-Admin)',
+				label: res.$t('teams._team.members.label.externTeacher'),
 				_id: roles.find((role) => role.name === 'teamadministrator'),
 			},
 		];
@@ -960,7 +997,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			if (permissions.includes('CHANGE_TEAM_ROLES')) {
 				actions.push({
 					class: 'btn-edit-member',
-					title: 'Rolle bearbeiten',
+					title: res.$t('teams._team.members.label.editRole'),
 					icon: 'edit',
 				});
 			}
@@ -971,7 +1008,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
 					class: 'btn-delete-member',
-					title: 'Nutzer entfernen',
+					title: res.$t('teams._team.members.label.removeUser'),
 					icon: 'trash',
 				});
 			}
@@ -982,7 +1019,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
 					class: 'btn-delete-member disabled',
-					title: 'Das Verlassen des Teams erfordert einen anderen Eigentümer',
+					title: res.$t('teams._team.members.label.leavingTeamRequiresNewOwner'),
 					icon: 'trash',
 				});
 			}
@@ -993,7 +1030,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
 					class: 'btn-delete-class',
-					title: 'Klasse entfernen',
+					title: res.$t('teams._team.members.label.removeClass'),
 					icon: 'trash',
 				});
 			}
@@ -1069,7 +1106,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			'teams/members',
 			{
 				...team,
-				title: 'Team-Teilnehmer',
+				title: res.$t('teams._team.members.headline.teamMembers'),
 				action,
 				classes,
 				addMemberAction: `${uri}/members`,
@@ -1093,7 +1130,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				currentFederalState: currentFederalStateId,
 				breadcrumb: [
 					{
-						title: 'Meine Teams',
+						title: res.$t('teams.headline.myTeams'),
 						url: '/teams',
 					},
 					{
@@ -1219,14 +1256,13 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		.then(() => {
 			req.session.notification = {
 				type: 'success',
-				message: 'Teameinladung erfolgreich angenommen.',
+				message: res.$t('teams._team.text.invitationAcceptedSuccess'),
 			};
 			res.redirect(`/teams/${req.params.teamId}`);
 		})
 		.catch((err) => {
 			logger.warn(
-				`Fehler beim Annehmen einer Einladung,
-        der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. `,
+				res.$t('teams._team.text.invitationAcceptionFailed'),
 				err,
 			);
 			res.redirect(`/teams/${req.params.teamId}`);
@@ -1305,7 +1341,7 @@ router.get('/:teamId/topics', async (req, res, next) => {
 					courseGroups: courseGroupsData,
 					breadcrumb: [
 						{
-							title: 'Meine Teams',
+							title: res.$t('teams.headline.myTeams'),
 							url: '/teams',
 						},
 						{
@@ -1351,7 +1387,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: 'Es wurde kein Thema für diesen Code gefunden.',
+					message: res.$t('teams._team.text.noTopicFoundWithCode'),
 				};
 
 				redirectHelper.safeBackRedirect(req, res);
