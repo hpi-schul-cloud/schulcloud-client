@@ -21,8 +21,9 @@ describe('forcePasswordChange tests', () => {
 	after((done) => {
 		this.server.close(done);
 	});
-
-	it('GET /forcePasswordChange', () => new Promise((resolve) => {
+	it('GET /forcePasswordChange if the user was not forced to change password, '
+		+ 'he will be redirected to dashboard if he '
+		+ 'tries to visit forcePasswordChange page', () => new Promise((resolve) => {
 		this.agent
 			.get('/forcePasswordChange')
 			.end((err, res) => {
