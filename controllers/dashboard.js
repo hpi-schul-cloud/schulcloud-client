@@ -313,7 +313,7 @@ router.get('/', (req, res, next) => {
 				currentTime: moment(currentTime).format('HH:mm'),
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
-				displayDataprivacyAlert
+				displayDataprivacyAlert,
 			});
 		})
 		.catch(next);
