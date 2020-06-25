@@ -60,7 +60,7 @@ router.get('/', (req, res, next) => {
 				const eventStart = new Date(event.start);
 				const eventEnd = new Date(event.end);
 
-				return eventStart < end && eventEnd > start;
+				return eventStart > start && eventEnd < end;
 			});
 
 			return (events || []).map((event) => {
@@ -90,14 +90,14 @@ router.get('/', (req, res, next) => {
 						if (event.hasOwnProperty('x-sc-courseId')) {
 							// create course link
 							event.url = `/courses/${event['x-sc-courseId']}`;
-							event.alt = res.$t("dashboard.img_alt.showCourse");
+							event.alt = res.$t('dashboard.img_alt.showCourse');
 						} else if (event.hasOwnProperty('x-sc-teamId')) {
 							// create team link
 							event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
-							event.alt = res.$t("dashboard.img_alt.showAppointmentInTeam");
+							event.alt = res.$t('dashboard.img_alt.showAppointmentInTeam');
 						} else {
 							event.url = '/calendar';
-							event.alt = res.$t("dashboard.img_alt.showCalendar");
+							event.alt = res.$t('dashboard.img_alt.showCalendar');
 						}
 					} catch (err) {
 						error(err);
@@ -136,7 +136,7 @@ router.get('/', (req, res, next) => {
 		.then((data) => data.data.map((homeworks) => {
 			homeworks.secondaryTitle = homeworks.dueDate
 				? moment(homeworks.dueDate).fromNow()
-				: res.$t("dashboard.text.noDueDate");
+				: res.$t('dashboard.text.noDueDate');
 			if (homeworks.courseId != null) {
 				homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
 				homeworks.background = homeworks.courseId.color;
