@@ -79,7 +79,7 @@ router.get('/teams/', (req, res, next) => {
 	const isDiscoverable = res.locals.currentUser.discoverable;
 
 	res.render('account/teams', {
-		title: 'Team Einstellungen',
+		title: res.$t('account.teams.headline.teamSettings'),
 		userId: res.locals.currentUser._id,
 		isDiscoverable,
 	});
@@ -96,7 +96,7 @@ router.get('/thirdPartyProviders/', async (req, res, next) => {
 
 
 	res.render('account/thirdPartyProviders', {
-		title: 'Drittanbieter-Logins',
+		title: res.$t('account.thirdPartyProviders.headline.thirdPartyProviderLogin'),
 		userId: res.locals.currentUser._id,
 		session,
 	});
