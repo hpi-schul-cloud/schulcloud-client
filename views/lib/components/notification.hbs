@@ -10,5 +10,7 @@
     <button type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
-    <div class="notification-content" data-testid="notification">{{notification.message}}</div>
+	<div class="notification-content" data-testid="notification">
+		{{#if notification.title}}<div><i class="{{notification.iconClass}}"></i>&nbsp;{{notification.title}}</div>{{/if}}
+		{{notification.message}}</div>
 </div>
