@@ -224,6 +224,11 @@ aside.nav-sidebar {
                             margin-left: 10px;
                         }
                     }
+
+                .image {
+                    margin-left: 10px;
+                }
+
                 }
 
                 &.active {
@@ -238,6 +243,15 @@ aside.nav-sidebar {
                 }
 
                 i.fa {
+                    font-size: 20px;
+                    width: 20px;
+                    margin-right: 20px;
+                    display: inline-block;
+                    text-align: center;
+                    vertical-align: middle;
+                }
+
+                img.image {
                     font-size: 20px;
                     width: 20px;
                     margin-right: 20px;

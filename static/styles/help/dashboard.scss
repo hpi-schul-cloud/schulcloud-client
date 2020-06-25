@@ -1,0 +1,18 @@
+@import '../lib/colors';
+
+.teacher-option {
+	.h4 {
+		padding-top: 20px;
+		color: $primaryColor
+	}
+
+	text-align: center;
+	cursor: pointer;
+
+}
+
+a:visited,
+a:link,
+a:hover {
+	text-decoration: none;
+}

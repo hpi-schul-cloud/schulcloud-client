@@ -245,6 +245,32 @@ module.exports = (req, res, next) => {
 				});
 				*/
 	}
+	// helpArea view
+	res.locals.sidebarItems.push({
+		name: res.$t('global.sidebar.link.helpArea'),
+		icon: 'question-circle',
+		link: '/help',
+		children: [
+			{
+				name: 'Hilfeartikel',
+				icon: '/images/icons/Hilfearticle.svg',
+				link: '/help/articles',
+				isExternalIcon: true,
+			},
+			{
+				name: 'Fortbildungen',
+				icon: '/images/icons/Fortbildung.svg',
+				link: 'https://lernen.cloud/courses/schulcloud2019',
+				isExternalLink: true,
+				isExternalIcon: true,
+			},
+			{
+				name: 'Kontakt',
+				icon: 'comment',
+				link: '/help/contact',
+			},
+		],
+	});
 
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
