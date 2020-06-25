@@ -94,7 +94,6 @@ router.get('/thirdPartyProviders/', async (req, res, next) => {
 		session = null;
 	}
 
-
 	res.render('account/thirdPartyProviders', {
 		title: res.$t('account.thirdPartyProviders.headline.thirdPartyProviderLogin'),
 		userId: res.locals.currentUser._id,
