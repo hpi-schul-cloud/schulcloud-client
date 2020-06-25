@@ -107,7 +107,7 @@ router.get('/', (req, res, next) => {
 				return event;
 			});
 		})
-		.catch(() => []);
+		.catch((err) => error(err));
 
 	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req)
