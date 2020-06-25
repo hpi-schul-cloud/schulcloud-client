@@ -11,7 +11,10 @@ const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
 
-const { CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED, ROCKET_CHAT_URI, FEATURE_MATRIX_MESSENGER_ENABLED } = require('../config/global');
+const {
+	CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED,
+	ROCKET_CHAT_URI, FEATURE_MATRIX_MESSENGER_ENABLED,
+} = require('../config/global');
 
 const router = express.Router();
 moment.locale('de');
