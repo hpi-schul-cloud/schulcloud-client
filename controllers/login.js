@@ -155,40 +155,37 @@ const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
 router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 	if (res.locals.currentUser) {
 		const user = res.locals.currentUser;
-		api(req).get('/consents/', { qs: { userId: user._id } })
-			.then((consents) => {
-				if (consents.data.length === 0) {
-					// user has no consent; create one and try again to get the proper redirect.
-					return api(req).post('/consents/', { json: { userId: user._id } })
-						.then(() => {
-							res.redirect('/login/success');
-						});
-				}
-				const consent = consents.data[0];
-				const redirectUrl = determineRedirectUrl(req);
-				// check consent versions
-				return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
-					if (consent.access && !consentUpdates.haveBeenUpdated) {
-						return res.redirect(redirectUrl);
-					}
-					// make sure fistLogin flag is not set
-					return res.redirect('/firstLogin');
-				});
-			})
-			.catch(next);
-	} else {
-		// if this happens: SSO
-		const { accountId, systemId } = (res.locals.currentPayload || {});
 
-		ssoSchoolData(req, systemId).then((school) => {
-			if (school === undefined) {
-				const redirectUrl = determineRedirectUrl(req);
-				res.redirect(redirectUrl);
-			} else {
-				res.redirect(`/registration/${school._id}/sso/${accountId}`);
+		if (!({}).hasOwnProperty.call(user, 'consent')) {
+			// user has no consent; create one and try again to get the proper redirect.
+			// TODO: remove consent here, should done by server
+			return api(req).post('/consents/', { json: { userId: user._id } })
+				.then(() => {
+					res.redirect('/login/success');
+				});
+		}
+		const { consent } = user;
+		const redirectUrl = determineRedirectUrl(req);
+		// check consent versions
+		return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
+			if (consent.access && !consentUpdates.haveBeenUpdated) {
+				return res.redirect(redirectUrl);
 			}
+			// make sure fistLogin flag is not set
+			return res.redirect('/firstLogin');
 		});
 	}
+	// if this happens: SSO
+	const { accountId, systemId } = (res.locals.currentPayload || {});
+
+	ssoSchoolData(req, systemId).then((school) => {
+		if (school === undefined) {
+			const redirectUrl = determineRedirectUrl(req);
+			res.redirect(redirectUrl);
+		} else {
+			res.redirect(`/registration/${school._id}/sso/${accountId}`);
+		}
+	});
 });
 
 router.get('/login/systems/:schoolId', (req, res, next) => {

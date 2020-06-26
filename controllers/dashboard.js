@@ -53,7 +53,7 @@ router.get('/', (req, res, next) => {
 		.then((eve) => Promise.all(
 			eve.map((event) => recurringEventsHelper.mapEventProps(event, req)),
 		))
-		.then((evnts) => {
+		.then((events) => {
 			const mappedEvents = evnts.map(recurringEventsHelper.mapRecurringEvent);
 			const flatEvents = [].concat(...mappedEvents);
 			const events = flatEvents.filter((event) => {
