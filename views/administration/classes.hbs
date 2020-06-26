@@ -1,47 +1,43 @@
 {{#extend "administration/administration"}}
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/lib/filter/filter.css"/>
-    {{/content}}
-    {{#content "page" mode="prepend"}}
-        <div class="route-administration">
-            <section class="section-school section-default">
-                <div><feathers-filter id="filter"
-                                      filter='{{filterSettings}}'
-                                      add-label='Filter hinzufügen'
-                                      apply-label='Übernehmen'
-                                      cancle-label='Abbrechen'
-                                      handle-url='true'
-                                      save-state='true'
-                /></div>
-                <div class="container-fluid ajaxcontent">
-                    <div class="row">
-                        <div class="col-sm-12 no-padding">
-                            {{> "lib/components/table" head=head body=body limit=false}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        {{> "lib/components/pagination" settings=pagination }}
-                    </div>
-                    {{#userHasPermission 'CLASS_CREATE'}}
-                    <div class="row">
-                        <div class="col-sm-12 no-padding">
-                            <a href="/administration/classes/create" class="btn btn-primary btn-add">
-                                Klasse hinzufügen
-                            </a>
-                        </div>
-                    </div>
-                    {{else}}
-                        {{> "lib/no-create-info"}}
-                    {{/userHasPermission}}
-                </div>
-
-                {{#embed "lib/components/modal-form" body=body method="delete" class="delete-modal"}}
-                    {{#content "fields"}}
-                        {{> "administration/forms/form-delete-name"}}
-                    {{/content}}
-                {{/embed}}
-
-            </section>
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/lib/filter/filter.css" />
+{{/content}}
+{{#content "page" mode="prepend"}}
+<div class="route-administration">
+    <section class="section-school section-default">
+        <div>
+            <feathers-filter id="filter" filter='{{filterSettings}}' add-label='Filter hinzufügen'
+                apply-label='Übernehmen' cancle-label='Abbrechen' handle-url='true' save-state='true' />
         </div>
-    {{/content}}
+        <div class="container-fluid ajaxcontent">
+            <div class="row">
+                <div class="col-sm-12 no-padding">
+                    {{> "lib/components/table" head=head body=body limit=false}}
+                </div>
+            </div>
+            <div class="row">
+                {{> "lib/components/pagination" settings=pagination }}
+            </div>
+            {{#userHasPermission 'CLASS_CREATE'}}
+            <div class="row">
+                <div class="col-sm-12 no-padding">
+                    <a data-testid="createClass" href="/administration/classes/create" class="btn btn-primary btn-add">
+                        Klasse hinzufügen
+                    </a>
+                </div>
+            </div>
+            {{else}}
+            {{> "lib/no-create-info"}}
+            {{/userHasPermission}}
+        </div>
+
+        {{#embed "lib/components/modal-form" body=body method="delete" class="delete-modal"}}
+        {{#content "fields"}}
+        {{> "administration/forms/form-delete-name"}}
+        {{/content}}
+        {{/embed}}
+
+    </section>
+</div>
+{{/content}}
 {{/extend}}
