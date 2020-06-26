@@ -2548,7 +2548,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		delete req.body.videoconference;
 
 		// Toggle teacher's studentVisibility permission
-		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY');
+		const studentVisibilityFeature = Configuration.get('ADMIN_TOGGLE_STUDENT_VISIBILITY');
 		const isStudentVisibilityEnabled = (res.locals.currentSchoolData.features || []).includes(
 			'studentVisibility',
 		);
