@@ -60,7 +60,7 @@ router.get('/', (req, res, next) => {
 				const eventStart = new Date(event.start);
 				const eventEnd = new Date(event.end);
 
-				return eventStart < end && eventEnd > start;
+				return eventStart > start && eventEnd < end;
 			});
 
 			return (events || []).map((event) => {
@@ -90,14 +90,14 @@ router.get('/', (req, res, next) => {
 						if (event.hasOwnProperty('x-sc-courseId')) {
 							// create course link
 							event.url = `/courses/${event['x-sc-courseId']}`;
-							event.alt = res.$t("dashboard.img_alt.showCourse");
+							event.alt = res.$t('dashboard.img_alt.showCourse');
 						} else if (event.hasOwnProperty('x-sc-teamId')) {
 							// create team link
 							event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
-							event.alt = res.$t("dashboard.img_alt.showAppointmentInTeam");
+							event.alt = res.$t('dashboard.img_alt.showAppointmentInTeam');
 						} else {
 							event.url = '/calendar';
-							event.alt = res.$t("dashboard.img_alt.showCalendar");
+							event.alt = res.$t('dashboard.img_alt.showCalendar');
 						}
 					} catch (err) {
 						error(err);
@@ -107,7 +107,10 @@ router.get('/', (req, res, next) => {
 				return event;
 			});
 		})
-		.catch(() => []);
+		.catch((err) => {
+			error(err);
+			return [];
+		});
 
 	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req)
@@ -136,7 +139,7 @@ router.get('/', (req, res, next) => {
 		.then((data) => data.data.map((homeworks) => {
 			homeworks.secondaryTitle = homeworks.dueDate
 				? moment(homeworks.dueDate).fromNow()
-				: res.$t("dashboard.text.noDueDate");
+				: res.$t('dashboard.text.noDueDate');
 			if (homeworks.courseId != null) {
 				homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
 				homeworks.background = homeworks.courseId.color;
@@ -249,6 +252,19 @@ router.get('/', (req, res, next) => {
 					});
 			}
 
+			let displayDataprivacyAlert = false;
+			if (userPreferences.data_privacy_incident_note_2020_01_should_be_displayed
+				&& !userPreferences.data_privacy_incident_note_2020_01_was_displayed) {
+				api(req)
+					.patch(`/users/${user._id}`, {
+						json: { 'preferences.data_privacy_incident_note_2020_01_was_displayed': Date.now() },
+					})
+					.catch(() => {
+						warn('failed to update user preference releaseDate');
+					});
+				displayDataprivacyAlert = true;
+			}
+
 			if (hasRole(teacher)) {
 				homeworksFeedbackRequired = assignedHomeworks.filter(
 					(homework) => !homework.private
@@ -300,6 +316,7 @@ router.get('/', (req, res, next) => {
 				currentTime: moment(currentTime).format('HH:mm'),
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
+				displayDataprivacyAlert,
 			});
 		})
 		.catch(next);
