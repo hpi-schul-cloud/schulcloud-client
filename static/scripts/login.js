@@ -130,8 +130,8 @@ $(document).ready(() => {
         e.preventDefault();
         populateModalForm($pwRecoveryModal, {
             title: $t('login.popup_resetPw.headline.resetPassword'),
-            closeLabel: $t('login.popup_resetPw.button.cancel'),
-            submitLabel: $t('login.popup_resetPw.button.resetPassword')
+            closeLabel: $t('global.button.cancel'),
+            submitLabel: $t('login.popup_resetPw.button.resetPassword'),
         });
         $pwRecoveryModal.appendTo('body').modal('show');
     });
@@ -151,5 +151,5 @@ $(document).ready(() => {
 
     initAlerts('login');
     // remove duplicated login error
-    $( ".col-xs-12 > .notification" ).remove(); 
+    $( ".col-xs-12 > .notification" ).remove();
 });

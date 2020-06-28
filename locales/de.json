@@ -1094,7 +1094,6 @@
 		},
 		"popup_resetPw": {
 			"button": {
-				"cancel": "Abbrechen",
 				"resetPassword": "Passwort Zurücksetzen"
 			},
 			"headline": {
