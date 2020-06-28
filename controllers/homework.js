@@ -92,7 +92,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		if (req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
 			req.session.notification = {
 				type: 'danger',
-				message: res.$t('homework.text.startDateBeforeSubmissionDate'),
+				message: res.$t('homework._task.text.startDateBeforeSubmissionDate'),
 			};
 			redirectHelper.safeBackRedirect(req, res);
 			return;
@@ -118,9 +118,9 @@ const getCreateHandler = (service) => (req, res, next) => {
 			api(req).get(`/courses/${data.courseId}`)
 				.then((course) => {
 					sendNotification(data.courseId,
-						res.$t('homework.text.newHomeworkCourseNotification',
+						res.$t('homework._task.text.newHomeworkCourseNotification',
 							{ coursename: course.name }),
-						res.$t('homework.text.newHomeworkDueDateNotification',
+						res.$t('homework._task.text.newHomeworkDueDateNotification',
 							{ homeworkname: data.name, duedate: moment(data.dueDate).format('DD.MM.YYYY HH:mm') }),
 						data.teacherId,
 						req,
@@ -219,7 +219,7 @@ const patchFunction = function (service, req, res, next) {
 				api(req).get(`/homework/${data.homeworkId}`, { qs: { $populate: ['courseId'] } })
 					.then((homework) => {
 						sendNotification(data.studentId,
-							res.$t('homework.text.submissionGradedNotification', {
+							res.$t('homework._task.text.submissionGradedNotification', {
 								coursename: homework.courseId.name,
 							}),
 							' ',
@@ -279,7 +279,7 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 		if (req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
 			req.session.notification = {
 				type: 'danger',
-				message: res.$t('homework.text.startDateBeforeSubmissionDate'),
+				message: res.$t('homework._task.text.startDateBeforeSubmissionDate'),
 			};
 			if (req.body.referrer) {
 				referrer = req.body.referrer.replace('/edit', '');
@@ -609,9 +609,9 @@ router.get('/new', (req, res, next) => {
 		}
 		// Render overview
 		res.render('homework/edit', {
-			title: res.$t('homework.headline.addTask'),
-			submitLabel: res.$t('homework.button.submitNewTask'),
-			closeLabel: res.$t('homework.button.closeTask'),
+			title: res.$t('homework._task.headline.addTask'),
+			submitLabel: res.$t('global.button.add'),
+			closeLabel: res.$t('global.button.cancel'),
 			method: 'post',
 			action: '/homework/',
 			referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : '/homework/',
@@ -626,7 +626,7 @@ router.get('/:assignmentId/copy', (req, res, next) => {
 	api(req).get(`/homework/copy/${req.params.assignmentId}`)
 		.then((assignment) => {
 			if (!assignment || !assignment._id) {
-				const error = new Error(res.$t('homework.text.errorInvalidTaskId'));
+				const error = new Error(res.$t('homework._task.text.errorInvalidTaskId'));
 				error.status = 500;
 				return next(error);
 			}
@@ -669,9 +669,9 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 				Promise.resolve(lessonsPromise).then((lessons) => {
 					(lessons || []).sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 					res.render('homework/edit', {
-						title: res.$t('homework.headline.editTask'),
-						submitLabel: res.$t('homework.button.submitTask'),
-						closeLabel: res.$t('homework.button.closeTask'),
+						title: res.$t('homework._task.headline.editTask'),
+						submitLabel: res.$t('global.button.save'),
+						closeLabel: res.$t('global.button.cancel'),
 						method: 'patch',
 						action: `/homework/${req.params.assignmentId}`,
 						referrer: '/homework/',
@@ -683,9 +683,9 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 				});
 			} else {
 				res.render('homework/edit', {
-					title: res.$t('homework.headline.editTask'),
-					submitLabel: res.$t('homework.button.submitTask'),
-					closeLabel: res.$t('homework.button.closeTask'),
+					title: res.$t('homework._task.headline.editTask'),
+					submitLabel: res.$t('global.button.save'),
+					closeLabel: res.$t('global.button.cancel'),
 					method: 'patch',
 					action: `/homework/${req.params.assignmentId}`,
 					referrer: '/homework/',
