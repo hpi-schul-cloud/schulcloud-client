@@ -47,9 +47,9 @@ const editTopicHandler = (req, res, next) => {
 				? res.$t('topic._topic.headline.editTopic')
 				: res.$t('topic._topic.headline.createTopic'),
 			submitLabel: req.params.topicId
-				? res.$t('topic._topic.button.saveChanges')
+				? res.$t('global.button.saveChanges')
 				: res.$t('topic._topic.button.createTopic'),
-			closeLabel: res.$t('topic._topic.button.cancel'),
+			closeLabel: res.$t('global.button.cancel'),
 			lesson,
 			courseId: req.params.courseId,
 			topicId: req.params.topicId,
@@ -373,7 +373,7 @@ router.get('/:topicId', (req, res, next) => {
 			courseId: req.params.courseId,
 			isCourseGroupTopic: courseGroup._id !== undefined,
 			breadcrumb: [{
-				title: res.$t("courses.headline.myCourses"),
+				title: res.$t('courses.headline.myCourses'),
 				url: `/${context}`,
 			},
 			{

@@ -205,7 +205,6 @@
 				"button": {
 					"addLesson": "Neuen Stundentermin hinzufügen",
 					"deleteCourse": "Kurs löschen",
-					"saveChanges": "Änderungen speichern",
 					"showCourseDetail": "Kursdetails anzeigen"
 				},
 				"headline": {
@@ -674,7 +673,7 @@
 			"print": "Drucken",
 			"reload": "Neu laden",
 			"save": "Speichern",
-			"saveChanges": "Änderungen Speichern",
+			"saveChanges": "Änderungen speichern",
 			"send": "Abschicken",
 			"tryAgain": "Erneut Versuchen",
 			"ok": "Okay"
@@ -1651,8 +1650,7 @@
 		},
 		"add": {
 			"button": {
-				"createTeam": "Team anlegen",
-				"saveChanges": "Änderungen speichern"
+				"createTeam": "Team anlegen"
 			},
 			"headline": {
 				"createTeam": "Team anlegen",
@@ -1688,10 +1686,8 @@
 	"topic": {
 		"_topic": {
 			"button": {
-				"cancel": "Abbrechen",
 				"createTopic": "Thema anlegen",
-				"editTopic": "Thema bearbeiten",
-				"saveChanges": "Änderungen speichern"
+				"editTopic": "Thema bearbeiten"
 			},
 			"global": {
 				"button": {
