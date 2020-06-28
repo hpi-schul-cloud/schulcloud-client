@@ -1192,21 +1192,22 @@
 		}
 	},
 	"news": {
+		"_news": {
+			"headline": {
+				"createNews": "News erstellen",
+				"editNews": "News bearbeiten"
+			}
+		},
 		"button": {
-			"addNews": "News hinzufügen",
-			"closeNews": "Abbrechen",
-			"saveNews": "Speichern",
-			"submitNews": "Hinzufügen"
+			"addNews": "News hinzufügen"
 		},
 		"headline": {
-			"createNews": "News erstellen",
-			"editNews": "News bearbeiten",
 			"news": "Neuigkeiten",
 			"newsTeam": "Neuigkeiten aus dem Team"
 		},
 		"label": {
 			"content": "Inhalt",
-			"shceduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
+			"scheduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
 			"searchForNews": "Suche nach Neuigkeiten",
 			"title": "Titel"
 		},
