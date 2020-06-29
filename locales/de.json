@@ -696,6 +696,7 @@
 				"calendar": "Termine",
 				"courses": "Kurse",
 				"files": "Meine Dateien",
+				"helpArea": "Hilfebereich",
 				"lernstore": "Lern-Store",
 				"management": "Verwaltungsbereich",
 				"managementClasses": "Klassen",
@@ -1549,8 +1550,8 @@
 				"link": {
 					"showAllNews": "Alle Neuigkeiten anzeigen..."
 				},
-				"label" : {
-					"continueReading" : "Weiterlesen"
+				"label": {
+					"continueReading": "Weiterlesen"
 				}
 			},
 			"tab_label": {
