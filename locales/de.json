@@ -694,16 +694,11 @@
 			"toTeam": "Zum Team"
 		},
 		"headline": {
-			"files": "Dateien",
-			"myFiles": "Meine Dateien"
-		},
-		"input": {
-			"filename": "Name der Datei"
-		},
-		"headline": {
 			"attention": "Achtung",
 			"createNewFile": "Neue Datei erstellen",
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
+			"files": "Dateien",
+			"myFiles": "Meine Dateien",
 			"newFolder": "Neuer Ordner"
 		},
 		"input": {
