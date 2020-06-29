@@ -1146,6 +1146,23 @@
 			"unpublished": "Unveröffentlicht"
 		}
 	},
+	"partner": {
+		"headline": {
+			"advisoryBoard": "Fachbeirat",
+			"partner" : "Partner",
+			"pilotPartners": "Pilotpartner für Lerninhalte",
+			"projectExecution": "Projektdurchführung",
+			"supporters": "Unterstützer für Schulinfrastruktur <3"
+		},
+		"img-alt": {
+			"logo": "Logo"
+		},
+		"text": {
+			"advisoryBoardDescription": "Das Schul-Cloud Projekt wird von einem Fachbeirat unterstützt, der sich aus verschiedenen Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben technischen Aspekten, auch Themen wie Datenschutz und Pädagogik.",
+			"pilotPartnersDescription": "Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die HPI Schul-Cloud erfahrbar wird.",
+			"supportersDescription": "Wir danken unseren Unterstützern für Schulinfrastruktur."
+		}
+	},
 	"pwRecovery": {
 		"failed": {
 			"text": {
