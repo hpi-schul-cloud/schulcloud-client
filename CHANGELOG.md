@@ -17,6 +17,7 @@ privacy policy should be confirmed by every school user
 
 
 ### Fixed
+-  SC-4993 fixed video player issue in ckeditor
 
 ### Changed
 

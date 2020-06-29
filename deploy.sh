@@ -52,7 +52,7 @@ function deploytoprods {
 function deploytostaging {
   # copy config-file to server and execute mit travis_rsa
   chmod 600 travis_rsa
-  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@staging.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client-n21:$DOCKERTAG  staging_client
+  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@staging.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client:$DOCKERTAG  staging_client
 }
 
 function deploytohotfix {
