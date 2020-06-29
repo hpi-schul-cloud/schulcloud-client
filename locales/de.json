@@ -1483,10 +1483,37 @@
 				"role": "Rolle"
 			},
 			"members": {
+				"add" : {
+					"button" : {
+						"deleteInvitation" : "Einladung löschen",
+						"inviteMember" : "Teilnehmer einladen",
+						"sendInvitation" : "Einladung versenden" 
+					},
+					"headline": {
+						"deleteInvitation" : "Einladung löschen",
+						"inviteExternMember" : "Externen Teilnehmer einladen",
+						"sendInvitationAgain" : "Einladung erneut versenden"
+					},
+					"text" : {
+						"errorDuringInvitation" : "Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admins fragen.",
+						"errorWhileDeletingInvitation" : "Problem beim Löschen der Einladung",
+						"errorWhileLoadingSchools" : "Problem beim Auslesen der Schulen",
+						"errorWhileLoadingTeachers" : "Problem beim Auslesen der Lehrer",
+						"errorWhileSendingInvitation" : "Problem beim Versenden der Einladung",
+						"invitationSentIfMailInSys" : "Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.",
+						"noSchoolForThisFilter" : "Für die gewählte Auswahl ist keine Schule vorhanden",
+						"pleaseEnterValidEmail" : "Bitte gib eine gültige E-Mail an.",
+						"pleaseReloadThePage" : "Bitte lade die Seite neu.",
+						"providerBlockedTryOtherMail" : "Der Provider der eingeladenen E-Mail-Adresse ist geblockt! Bitte verwende eine andere Adresse und versuche es dann erneut.",
+						"teacherInvitedSuccess" : "Lehrer erfolgreich zum Team eingeladen"
+					}
+				},
 				"button": {
 					"addExternMembers": "Externe Teilnehmer einladen",
 					"addInternMembers": "Interne Teilnehmer hinzufügen",
 					"addPerson": "Person hinzufügen",
+					"deleteMember" : "Teilnehmer löschen",
+					"editMember" : "Teilnehmer bearbeiten",
 					"externExpert": "Externe Experten",
 					"inviteByMail": "per E-Mail einladen",
 					"selectFromIndex": "Aus Verzeichnis auswählen",
@@ -1497,6 +1524,8 @@
 					"addMember" : "Teilnehmer hinzufügen",
 					"class": "{{count}} Klasse",
 					"class_plural": "{{count}} Klassen",
+					"deleteMember" : "Teilnehmer löschen",
+					"editMember" : "Teilnehmer bearbeiten",
 					"email": "E-Mail",
 					"firstName": "Vorname",
 					"inviteExternExpert": "Externen Experten einladen",
@@ -1558,6 +1587,7 @@
 					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
 					"admin": "Administrator",
 					"changeRoleOfMember": "Ändere die Rolle des Nutzers:",
+					"errorWhileEditingMember" : "Problem beim Bearbeiten des Teilnehmers",
 					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers",
 					"expert": "Externer Experte",
 					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
@@ -1565,6 +1595,7 @@
 					"leader": "Leiter",
 					"member": "Teilnehmer",
 					"owner": "Eigentümer",
+					"pleaseSelectRole" : "Bitte wähle eine Rolle aus.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und Lehrer ihrer Schule zum Team hinzufügen.",
 					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
 					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
