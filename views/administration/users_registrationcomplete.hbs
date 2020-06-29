@@ -7,7 +7,7 @@
 <div class="row users-register-complete">
     <div class="col-xl-6">
         <p class="noprint">
-            Die Anmeldung an der {{@root.theme.short_title}} ist mit den folgenden Daten möglich.
+            {{$t "administration.users_registrationComplete.text.registrationAtThe" }} {{@root.theme.short_title}} {{$t "administration.global.text.isPossibleWithTheFollowingData" }}
         </p>
         <p class="noprint">
             <b>Achtung: </b>Du kannst diese Seite nicht erneut aufrufen. Drucke dir also die angezeigten Zugangsdaten
@@ -31,7 +31,7 @@
                 <tr>
                     <th>Name</th>
                     <th>E-Mail</th>
-                    <th>Passwort</th>
+                    <th>{{$t "administration.global.label.password" }}</th>
                 </tr>
                 {{#each users}}
                 <tr>
@@ -58,13 +58,11 @@
         <textarea disabled class="printable form-control" id="skipRegistrationCredentials">
 	{{fullname}}
 	E-Mail: {{email}}
-	Passwort: {{password}}
+	{{$t "administration.global.label.password" }} {{password}}
 		</textarea>
         {{/each}}
         <p class="noprint" style="margin-top: 1em">
-            Beim ersten Login muss ein neues Passwort gewählt werden. Schüler,
-            die mindestens 14 Jahre alt sind, müssen bei ihrem ersten Login 
-            die Einwilligungserklärung zusätzlich selbst erklären. </p>
+            {{$t "administration.users_registrationComplete.text.whenLoginForTheFirstTime" }} </p>
     </div>
 </div>
 <div class="row users-register-complete noprint">

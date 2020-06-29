@@ -61,26 +61,426 @@
 	},
 	"administration": {
 		"button": {
-			"changePassword": "Passwort ändern",
-			"consent": "Einwilligungen:",
-			"deleteUser": "Benutzer löschen",
-			"edit": "Bearbeiten",
-			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
-			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
-			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
-			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
+			"printListWithAccessData": "Liste mit Zugangsdaten drucken"
+		},
+		"classes": {
+			"button": {
+				"addClass": "Klasse hinzufügen",
+				"addStudentsFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
+				"classInSchoolYear": "Klasse in Schuljahr",
+				"copyLink": "Link kopieren",
+				"declareConsentOnBehalfOfTheStudents": "Einverständnis im Namen der Schüler erklären",
+				"printLinkWithQRCode": "Link mit QR-Code Drucken",
+				"transfer": "versetzen",
+				"transferClassToTheNextSchoolYear": "Klasse ins nächste Schuljahr versetzen"
+			},
+			"label": {
+				"addStudentFromPreviousYearClass": "Schüler:in aus Vorjahresklasse hinzufügen",
+				"className": "Klassenbezeichnung",
+				"filterBySchoolYear": "Nach Schuljahr filtern",
+				"grade": "Jahrgangsstufe",
+				"invitationLink": "Einladungslink",
+				"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
+				"moreOption": "Mehr Optionen",
+				"pleaseNote": "Bitte beachte:",
+				"renameClass": "Klasse umbenennen",
+				"selectElement": "keine Auswahl",
+				"selectTeacher": "Lehrer auswählen (auch später möglich)",
+				"termOfUse": "Nutzungsordnung",
+				"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur",
+				"yourStudentsAreNotYetInThe": "Deine Schüler:innen sind noch nicht in der"
+			},
+			"text": {
+				"andTo": "und zur",
+				"attentionIfYouChangeTheSchoolYear": "Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.",
+				"butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
+				"byClickingOn": "Durch den Klick auf",
+				"className": "Klassenname:",
+				"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
+				"forAllStudents": "Für alle Schüler",
+				"ifAllStudentsAndParentshaveGiven": "Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
+				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
+				"manageClass": "Klasse verwalten",
+				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler:innen erklären",
+				"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler:innen auszudrucken.",
+				"noLackOfInformedConsent": "In dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
+				"ofThe": "der",
+				"required": "erforderlich",
+				"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
+				"toExplain": "erklären.",
+				"transferred": "versetzt",
+				"withoutAFullDeclarationOfConsent": " ohne vollständige Einverständniserklärung:"
+			}
+		},
+		"dashboard": {
+			"heading": {
+				"manageClasses": "Klassen verwalten",
+				"manageCourses": "Kurse verwalten",
+				"manageSchool": "Schule verwalten",
+				"manageStudents": "Schüler:innen verwalten",
+				"manageTeachers": "Lehrer:innen verwalten",
+				"manageTeams": "Teams verwalten"
+			}
+		},
+		"form_DeleteRss": {
+			"text": {
+				"areYouSureYouWantToDeleteTheFollowingRSS": "Sind Sie sich sicher, dass Sie folgenden RSS-Feed löschen wollen?"
+			}
+		},
+		"form_DeleteUser": {
+			"text": {
+				"areYouSureYouWantTheFollowingUser": "Sind Sie sich sicher, dass Sie folgenden Nutzer wollen?"
+			}
+		},
+		"form_Import": {
+			"label": {
+				"selectCSVFile": "CSV-Datei auswählen",
+				"sendRegistrationLinkToUsers": "Registrierungslinks sofort nach Import an Nutzer senden"
+			},
+			"text": {
+				"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
+				"andSendYourUsersARegistrationLink": "und lass deinen Nutzern einen Registrierungslink zukommen.",
+				"example": "Beispiel",
+				"importUserData": "Importiere Nutzerdaten per .csv-Datei",
+				"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du"
+			}
+		},
+		"form_InvitationStudent": {
+			"text": {
+				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
+				"studentsFrom": "Schüler ab",
+				"theParents": "die Eltern",
+				"toTheStudentsThemselves": "an die Schüler selbst ",
+				"years": "Jahre:"
+			}
+		},
+		"form_InvitationTeacher": {
+			"label": {
+				"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:"
+			},
+			"text": {
+				"beforeUsingThe": "Bevor die Nutzung der",
+				"theTeacherMustHaveGoneThrough": "möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben."
+			}
+		},
+		"form_Problem": {
+			"label": {
+				"createdOn": "Erstellt am:",
+				"itsOn": "Ist-Zustand",
+				"remarks": "Anmerkungen",
+				"targetState": "Soll-Zustand",
+				"title": "Titel"
+			}
+		},
+		"form_Rss": {
+			"label": {
+				"briefdescription": "Kurzbeschreibung (optional)",
+				"urlOfTheRSSSystem": "URL des RSS-Feeds"
+			}
+		},
+		"form_System": {
+			"label": {
+				"clientSecret": "Client-Geheimnis",
+				"furtherInformation": "Weitere Informationen (OAuth)",
+				"systemName": "Name des Systems",
+				"systemType": "Typ des Systems",
+				"urlOfTheSystem": "Url des Systems"
+			}
+		},
+		"form_TerminateSchoolYear": {
+			"text": {
+				"TheSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data",
+				"isEndedAndTheTransferPhase": "wird beendet und die Transferphase zum neuen Schuljahr beginnt.",
+				"noClassesAndUsersCanBeCreated": "Es können in dieser Zeit keine Klassen und Nutzer angelegt oder geändert werden.",
+				"theSchoolYear": "Das Schuljahr",
+				"thisStepCannotBeUndone": "Dieser Schritt kann nicht rückgängig gemacht werden."
+			}
+		},
+		"global": {
+			"button": {
+				"addCourse": " Kurs hinzufügen",
+				"addNewAppoinment": "Neuen Termin hinzufügen",
+				"contactSupport": "Support kontaktieren",
+				"createLinkSheet": "Link-Druckbogen erstellen",
+				"edit": "Bearbeiten",
+				"filterAdd": "Filter hinzufügen",
+				"filterApply": "Übernehmen",
+				"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden"
+			},
+			"label": {
+				"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
+				"assignPassword": "Passwort vergeben:",
+				"birthdate": "Geburtsdatum:",
+				"chooseDate": "Termine auswählen",
+				"classes": "Klassen:",
+				"colorOfTheCourse": "Farbe des Kurses:",
+				"dataProtection": "Datenschutz",
+				"dateOfBirth": "Geburtsdatum (optional):",
+				"emailAddress": "E-Mail-Adresse:",
+				"firstName": "Vorname:",
+				"from": "Von",
+				"lastName": "Nachname:",
+				"lengthOfLesson": "Dauer der Schulstunde",
+				"nameOfTheCourse": "Name des Kurses",
+				"parents": "Eltern",
+				"password": "Passwort:",
+				"room": "Raum",
+				"schoolYear": "Schuljahr",
+				"startOfLesson": "Start der Schulstunde",
+				"student": "Schüler:in",
+				"studentParticipants": "Schüler / Teilnehmer",
+				"substituteTeacher": "Vertretungslehrer:in",
+				"teacher": "Lehrer:in",
+				"teachingTeacher": "Unterrichtenderlehrer:in",
+				"termsOfUse": "Nutzungsbedingungen",
+				"timeSpan": "Zeitraum (z.B. Schuljahr)",
+				"to": "Bis",
+				"type": "Typ",
+				"weekday": "Wochentag"
+			},
+			"text": {
+				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
+				"byConnectingToASchoolState": "Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der",
+				"chatIsActivated": "Chat ist aktiviert",
+				"dataProtection": "Datenschutzerklärung",
+				"forStudentsUnder": "Für Schüler unter",
+				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler:innen per Link ein, die Einverständniserklärung abzugeben",
+				"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
+				"loginAskYourStudents": "einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
+				"manuallyConsent": "Einverständnis manuell erklären",
+				"obtainADeclarationConsent": "Einverständniserklärung einholen",
+				"orSelectStudentFromTable": "Oder wähle Schüler:innen in der Tabelle aus.",
+				"provideYourStudentsAnd": "Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.",
+				"studentUnder": "Schüler unter",
+				"studentsLoginInThePresenceOfGuardian": "Schüler:innen loggen sich in Anwesenheit eines Erziehungberechtigten ein"
+			}
+		},
+		"helpdesk": {
+			"label": {
+				"tips": "Tipp:"
+			},
+			"text": {
+				"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
+				"youCanAlsoOpenEntries": "Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol"
+			}
 		},
 		"label": {
-			"assignPassword": "Passwort vergeben:",
-			"birthdate": "Geburtsdatum:",
-			"classes": "Klassen:",
-			"dataProtection": "Datenschutz",
-			"emailAddress": "E-Mail-Adresse:",
-			"firstName": "Vorname:",
-			"lastName": "Nachname:",
-			"parents": "Eltern",
-			"student": "Schüler:in",
-			"termsOfUse": "Nutzung"
+			"messageText": "Nachrichtentext:",
+			"toInviteToTheSchoolCloud": "Um in die Schul-Cloud einzuladen, verteile folgenden Link an:",
+			"use": "Nutzung"
+		},
+		"ldapEdit": {
+			"button": {
+				"verify": "Verifizieren"
+			},
+			"heading": {
+				"classAttributes": "Klassen-Attribute",
+				"importantNote": "Wichtiger Hinweis",
+				"roleAttributes": "Rollen-Attribute",
+				"userAttributes": "Nutzer-Attribute"
+			},
+			"input": {
+				"classes": "Klassen (optional)"
+			},
+			"label": {
+				"classPath": "Klassen-Pfad",
+				"classUsers": "Nutzer der Klasse",
+				"displayName": "Anzeige-Name",
+				"domainName": "Domain-Name",
+				"domainName_pathInLDAP": "Domainname (Pfad im LDAP)",
+				"fullPathClassUsers": "Nutzer der Klasse mit vollem Pfad",
+				"hide": "Ausblenden",
+				"noSchoolCloud": "keine Schul-Cloud",
+				"role": "Rolle",
+				"roleType": "Rollen-Typ",
+				"rootPath": "root-Pfad",
+				"seacrhUserpassword": "search-Nutzer Passwort",
+				"searchUsers": "search-Nutzer",
+				"urlIdapIsMandatory": "URL (ldaps ist verpflichtend)",
+				"userPath": "Nutzer-Pfad",
+				"users": "Nutzer:"
+			},
+			"placeholder": {
+				"LDAPGroup": "LDAP-Gruppe",
+				"general": "Allgemein",
+				"userAttribute": "Nutzer-Attribut"
+			},
+			"text": {
+				"anyChangesToTheFollowingConfigurationCanResult": "Jegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und alle Nutzer Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die Änderungen final zu speichern, wenn die Verifizierung erfolgreich war."
+			}
+		},
+		"ldapSchoolYearStart": {
+			"button": {
+				"closeTheWindow": "Fenster schließen"
+			},
+			"heading": {
+				"LDAPClasses": "LDAP-Klassen",
+				"LDAPUsers": "LDAP-Nutzer",
+				"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
+			},
+			"text": {
+				"fromYourLDAPPleaseCheck": "aus deinem LDAP übernehmen wird. Bitte überprüfe vor Übernahme der Daten durch Beenden der Transferphase diese Daten stichprobenartig auf ihre Richtigkeit.",
+				"onThisPageYouWillFindTheData": "Auf dieser Seite findest du die Daten aller Klassen und Nutzer, so wie sie die"
+			}
+		},
+		"school": {
+			"button": {
+				"addLDAPSystem": "LDAP System hinzufügen",
+				"addRSSFeed": "RSS-Feed hinzufügen",
+				"addSystem": "System hinzufügen",
+				"checkLDAPData": "LDAP-Daten überprüfen",
+				"chooseAFile": "Datei auswählen",
+				"endSchoolYear": "Schuljahr beenden",
+				"endTransferPhase": "Transferphase beenden",
+				"save": "Speichern",
+				"start": "starten"
+			},
+			"label": {
+				"activeChatFunction": "Chatfunktion aktivieren",
+				"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
+				"authentication": "Authentifizierung",
+				"changeOfClasses": "Änderung von Klassen/neue Klassen",
+				"changeOfUserData": "Änderung von Nutzerdaten/neue Nutzer",
+				"className": "Klassenname:",
+				"cloudStorageProvider": "Cloud-Storage Anbieter",
+				"currentSchoolYear": "Aktuelles Schuljahr:",
+				"duringTheSchoolYear": "Während des Schuljahres",
+				"duringTheTransferPhase": "Während der Transferphase",
+				"enableVideoConference": "Videokonferenzen für Kurse und Teams aktivieren",
+				"endOfTheTransferPhase": "Beenden der Transferphase",
+				"fileStorageSpaceUsedInCloud": "Genutzter Datei-Speicherplatz in der Cloud",
+				"inTheTransferPhase": "in der Transferphase:",
+				"loginFromExistingUsers": "Logins bestehender Nutzer",
+				"nameOfTheSchool": "Name der Schule",
+				"noteAvailableFunction": "Beachte verfügbare Funktionen",
+				"noteBeforeTheTransferPhase": "Beachte vor der Transferphase:",
+				"passwordChangesInLDAP": "Kennwortänderungen im LDAP",
+				"processedForTheNewSchoolYear": "für das neue Schuljahr sind bearbeitet.",
+				"schoolYear": "Schuljahr:",
+				"schoolYearChange": "Schuljahreswechsel",
+				"selectProvider": "Anbieter auswählen",
+				"startOfTheTransferPhase": "Start der Transferphase",
+				"transferPhase": "Transferphase",
+				"uploadSchoolLogo": "Schullogo hochladen",
+				"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP",
+				"youCantGoBack": "Du kannst nicht mehr zurück",
+				"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr"
+			},
+			"link": {
+				"moreInfo": "Mehr Infos"
+			},
+			"text": {
+				"allAboutTheSummerVacation": "Rund um die Sommerferien",
+				"allDataFromTheLDAP": "alle Daten aus dem LDAP werden wie gewohnt synchronisiert, neue Nutzer und Klassen können jederzeit dort angelegt werden",
+				"allDone": "Alles erledigt!",
+				"atTheEndOfTheSchoolYearWithLDAP": "Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
+				"atTheEndOfTheTransferPhase": "bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag synchronisiert",
+				"backgroundSoThatEveryStudentAndTeacher": "Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen (z.B. Klassenfahrtfotos) zugreifen kann, speichert die Schul-Cloud ab, in welchem Schuljahr ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
+				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
+				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
+				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.",
+				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team die Chatfunktion gezielt freischalten.",
+				"ifThereIsNoManualStart": "ist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch",
+				"ifVideoConferenceAreActivatedAtYourSchool": "Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer starten. Team-Administratoren können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
+				"loginViaLDAP": "der Login via LDAP ist für bestehende Nutzer weiterhin möglich",
+				"newSchoolYear": "Neues Schuljahr",
+				"newUsersClassAffiliationsAnd": "neue dazugekommen Nutzer, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden beständig synchronisiert",
+				"newUsersClassesAndChanges": "neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus dem LDAP synchronisiert",
+				"noFileSelected": "Keine Datei ausgewählt",
+				"noRssFeedsYet": "Es sind noch keine RSS-Feeds hinterlegt.",
+				"oldSchoolYear": "Altes Schuljahr",
+				"passwordChanges": "Passwortänderungen werden weiterhin synchronisiert",
+				"theNewClassesAreSavedInTheContext": "die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert",
+				"theNewClassesCanNowBeAssigned": "die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden",
+				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der",
+				"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
+				"useTheTransferPhaseAroundTheSchoolYear": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die Schul-Cloud.",
+				"withThePreparationTimeOneWeekBefore": "mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
+				"youCanStartTheTransferPhase": "ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten",
+				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule"
+			}
+		},
+		"students": {
+			"button": {
+				"addStudents": "Schüler hinzufügen",
+				"generateInvitationLink": "Einladungslink generieren",
+				"importStudents": "Schüler importieren"
+			},
+			"label": {
+				"sendRegistrationLinkToStudent": "Registrierungslink an Schüler:innen senden"
+			},
+			"text": {
+				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
+				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
+				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler:innen ohne vollständige Einverständniserklärung:",
+				"parentsAgreed": "Eltern haben zugestimmt",
+				"studentsStillNeedTheDecalaration": "Schüler benötigen noch die Einverständniserklärung zur Nutzung der",
+				"yearsFirstRequireTheConsent": "Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären."
+			}
+		},
+		"teachers": {
+			"button": {
+				"addTeacher": "Lehrer:in hinzufügen",
+				"importTeacher": "Lehrer:in importieren",
+				"sendLinksToTeacherEmail": "Links an E-Mail Adressen der Lehrer:innen senden"
+			},
+			"label": {
+				"inviteTeachersViaLink": "Lade Lehrer:innen per Link dazu ein, die Einverständniserklärung abzugeben.",
+				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
+				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden"
+			},
+			"text": {
+				"byConnectingToASchool": "Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der",
+				"forAllTeachersWithoutAFullConsentForm": "Für alle Lehrer ohne vollständige Einverständniserklärung:",
+				"loginWhenYouLogin": "einloggen.Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der",
+				"toExplain": "zu erklären ."
+			}
+		},
+		"teams": {
+			"button": {
+				"addAnotherOwner": "Weiteren Eigentümer hinzufügen"
+			},
+			"label": {
+				"selectAnAdditionalOwner": "Wähle hier einen zusätzlichen Eigentümer für das Team aus:",
+				"studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen."
+			},
+			"text": {
+				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
+				"legend": "Legende:",
+				"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
+				"teamHasOwners": "Team hat Eigentümer"
+			}
+		},
+		"text": {
+			"areYouSureYouWantToRemoveAllMembers": "Bist du sicher, dass du alle Mitglieder deiner Schule aus diesem Team entfernen willst?",
+			"registrationAtThe": "Die Anmeldung an der",
+			"yourClassDoesntFitInto": "Deine Klasse passt nicht ins klassische Schema?"
+		},
+		"users_edit": {
+			"button": {
+				"changePassword": "Passwort ändern",
+				"consent": "Einwilligungen:",
+				"deleteUser": "Benutzer löschen",
+				"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
+				"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
+				"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
+			},
+			"text": {
+				"thereIsStillNoDeclarationOfConsent": "Es liegt noch keine Einverständniserklärung für den Nutzer vor. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung und verteile ihn an den Nutzer oder seine Eltern. Während der Registrierung wird dann die Einverständniserklärung durch den Nutzer selbst erteilt. Wenn eine Einverständniserklärung in Papierform vorliegt, kann der Nutzer per Klick auf 'Einverständnis auf Papier erhalten' aktiviert und ein Startpasswort vergeben werden. Damit ist der Login dann freigeschaltet."
+			}
+		},
+		"users_registrationComplete": {
+			"text": {
+				"registrationAtThe": "Die Anmeldung an der",
+				"whenLoginForTheFirstTime": " Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen bei ihrem ersten Login die Einwilligungserklärung zusätzlich selbst erklären."
+			}
+		},
+		"users_skipRegistration": {
+			"text": {
+				"forStudentsAged14": "Für Schüler ab 14 Jahren: Einverständnis des Schülers",
+				"years_parentalConsent": "Jahren: Einverständnis der Eltern",
+				"youGiveTheFollowingConsent": "Du erteilst folgende Einwilligungen im Namen des Nutzers:"
+			}
 		}
 	},
 	"autologout": {
