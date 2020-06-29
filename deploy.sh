@@ -52,7 +52,14 @@ function deploytoprods {
 function deploytostaging {
   # copy config-file to server and execute mit travis_rsa
   chmod 600 travis_rsa
-  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@staging.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client-n21:$DOCKERTAG  staging_client
+  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@staging.schul-cloud.org /usr/bin/docker service update --force --image schulcloud/schulcloud-client:$DOCKERTAG  staging_client
+}
+
+function deploytohotfix {
+  # copy config-file to server and execute mit travis_rsa
+  chmod 600 travis_rsa
+  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@hotfix$1.schul-cloud.dev /usr/bin/docker service update --force --image schulcloud/schulcloud-client:$DOCKERTAG hotfix$1_client
+
 }
 
 function inform {
@@ -70,6 +77,13 @@ function inform_staging {
   fi
 }
 
+function inform_hotfix {
+  if [[ "$TRAVIS_EVENT_TYPE" != "cron" ]]
+  then
+    curl -X POST -H 'Content-Type: application/json' --data '{"text":":boom: Das Hotfix-'$1'-System wurde aktualisiert: Schul-Cloud Server! https://hotfix'$1'.schul-cloud.org/version (Dockertag: '$DOCKERTAG')"}' $WEBHOOK_URL_CHAT
+  fi
+}
+
 openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
 
 
@@ -79,10 +93,20 @@ then
 elif [ "$TRAVIS_BRANCH" = "develop" ]
 then
   deploytotest
-elif [[ $TRAVIS_BRANCH = release* || $TRAVIS_BRANCH = hotfix* ]]
+elif [[ $TRAVIS_BRANCH = release* ]]
 then
   deploytostaging
   inform_staging
+elif [[ $TRAVIS_BRANCH = hotfix* ]]
+then
+	TEAM="$(cut -d'/' -f2 <<< $TRAVIS_BRANCH)"
+	if [[ "$TEAM" -gt 0 && "$TEAM" -lt 6 ]]; then
+		deploytohotfix $TEAM
+		inform_hotfix $TEAM
+	else
+		echo "Hotfix branch name do not match requirements to deploy"
+	fi
+
 else
   echo "Nix wird deployt"
 fi

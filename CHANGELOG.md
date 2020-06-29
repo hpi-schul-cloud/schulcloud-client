@@ -17,11 +17,15 @@ privacy policy should be confirmed by every school user
 
 
 ### Fixed
+-  SC-4993 fixed video player issue in ckeditor
 
 ### Changed
 
 ### Removed
 
+## [23.4.4] - 2020-06-18
+
+- fix mocha tests on server
 
 ## [23.4.3] - 2020-06-17
 
