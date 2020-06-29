@@ -58,7 +58,6 @@
 			}
 		},
 		"text": {
-			"doYouReallyWantToRemoveDevice" : "",
 			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
 			"passwordsDoNotMatch" : "Passwörter stimmen nicht überein."
 		}
