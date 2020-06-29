@@ -27,6 +27,7 @@ const filterRequestInfos = (err) => {
 	}
 	delete err.cause;
 	delete err.response;
+	delete err.request;
 	return err;
 };
 
