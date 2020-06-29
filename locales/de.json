@@ -43,11 +43,23 @@
 				"thirdPartyLogins": "Drittanbieter-Logins"
 			}
 		},
+		"headline": {
+			"doYouWantToDeleteDevice" : "Bist du dir sicher, dass du {{device}} löschen möchtest?"
+		} ,
 		"label": {
 			"providers": "Anbieter"
 		},
+		"testNotification": {
+			"headline": {
+				"test": "Neue Test-Benachrichtigung"
+			},
+			"text": {
+				"youHaveANewMessage" : "Du hast eine neue Benachrichtigung"
+			}
+		},
 		"text": {
-			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
+			"passwordsDoNotMatch" : "Passwörter stimmen nicht überein."
 		}
 	},
 	"addons": {
@@ -83,11 +95,11 @@
 			"termsOfUse": "Nutzung"
 		}
 	},
-	"autologout" : {
-		"text" : {
-			"sessionAlreadyExpired" : "Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.",
-			"sessionCouldNotBeExtended" : "Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.",
-			"sessionExtended" : "Sitzung erfolgreich verlängert."
+	"autologout": {
+		"text": {
+			"sessionAlreadyExpired": "Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.",
+			"sessionCouldNotBeExtended": "Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.",
+			"sessionExtended": "Sitzung erfolgreich verlängert."
 		}
 	},
 	"calendar": {
@@ -137,7 +149,7 @@
 			"forGeneralQuestionsPleaseContact": "Bei allgemeinen Fragen kontaktieren Sie bitte folgende E-Mail-Adresse:",
 			"hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
 			"inBrandenburgTheAdmissionOfNewSchools": "In Brandenburg wird die Aufnahme neuer Schulen gemeinsam mit der DigitalAgentur Brandenburg (ILB) und dem MBJS koordiniert.",
-			"inMarch2020ZENSOSQueries": "Im März 2020 wurde über ZENSOS-Abfragen zuletzt die Notwendigkeit unserer Infrastruktur an den Schulen abgefragt.Die dadurch entstandenen Anmeldungen befinden sich aktuell in der Bearbeitung.",
+			"inMarch2020ZENSOSQueries": "Im März 2020 wurde über ZENSOS-Abfragen zuletzt die Notwendigkeit unserer Infrastruktur an den Schulen abgefragt. Die dadurch entstandenen Anmeldungen befinden sich aktuell in der Bearbeitung.",
 			"inNiedersachsenTheReferenceSchool": "In Niedersachsen ist das Referenzschulnetzwerk n-21 zuständig für die Aufnahme neuer Schulen.",
 			"inThuringiaTheThuringianInstitute": "In Thüringen ist das Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien (ThILLM) für die Aufnahme neuer Schulen zuständig.",
 			"justWriteAnEmailTo": "Schreiben Sie einfach eine E-Mail an",
@@ -254,7 +266,6 @@
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
 					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
 				},
-				"pop_up": {},
 				"text": {
 					"attentionDeletion": "Alle Daten werden unwiderruflich gelöscht.",
 					"courseWillDelete": "Dies löscht den Kurs auch für alle Schüler:innen.",
@@ -391,7 +402,8 @@
 					"text": {
 						"BBBDescriptionExplanation": "Führe Videokonferenzen mit anderen Nutzer:innen durch. Das Tool BigBlueButton ermöglicht dem ganzen Kurs die unkomplizierte, sichere Teilnahme mit euren {{short_title}}-Logins. Gute Audio- und Videoübertragungsqualität werden ergänzt durch ein zur Laufzeit nutzbares interaktives Whiteboard, Funktionen zum Bildschirm teilen und einen Chat.",
 						"errorWhileAddingTool": "Beim Hinzufügen des Tools ist ein Fehler aufgetreten.",
-						"toolCouldNotBeFound": "Das Tool konnte nicht gefunden werden."
+						"toolCouldNotBeFound": "Das Tool konnte nicht gefunden werden.",
+						"toolPortfolioCouldNotBeFound": "Das Tool konnte nicht gefunden werden. Das Portfolio ist temporär deaktiviert."
 					}
 				},
 				"button": {
@@ -470,6 +482,7 @@
 			},
 			"headline": {
 				"addCourse": "Kurs anlegen",
+				"addStudents": "Schüler:innen hinzufügen",
 				"almostDone": "Du hast es fast geschafft...",
 				"done": "Geschafft!",
 				"whatToDoCourses": "Was kannst du in einem Kurs machen?"
@@ -505,7 +518,8 @@
 				"doItNowOrLaterInSettings": "Dies kannst du jetzt oder später in den Kurseinstellungen machen.",
 				"giveExercisesAndGetResults": "Stelle deinen Kursteilnehmer:innen Aufgaben und sieh dir ihre Abgaben an.",
 				"groupsWorkTogether": "In einem Kurs wird gemeinsam mit den Teilnehmer:innen an Themen, Aufgaben und Dateien gearbeitet.",
-				"willAlsoDeleteForStudents": "Dies löscht den Kurs auch bei allen Schüler:innen."
+				"willAlsoDeleteForStudents": "Dies löscht den Kurs auch bei allen Schüler:innen.",
+				"addingStudentsForbidden": "Aus Datenschutzgründen ist es dir nicht gestattet, auf die Namensliste aller Schüler:innen deiner Schule zuzugreifen. Deshalb kannst du keine Schüler:innen und Klassen zum Kurs hinzufügen. Bitte einen Administrator deiner Schule, dem Kurs Schüler:innen oder ganze Klassen hinzuzufügen."
 			}
 		},
 		"button": {
@@ -612,6 +626,30 @@
 			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
+	"dataprivacy": {
+		"headline": {
+			"registrationInvalid": "Registrierung fehlerhaft"
+		},
+		"img_alt": {
+			"brokenPen": "zerbrochener Stift"
+		},
+		"text": {
+			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
+			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
+			"dataGivenByTeacherOrAdmin": "Diese Daten hat deine Lehrkraft oder dein Administrator für dich eingetragen.\n\t\t\tFalls Anpassungen notwendig sind wende dich bitte an ihn/sie. Du kannst deine Daten auch nach abgeschlossenem Registrierungsprozess selbst ändern.",
+			"differentEmailParentStudent": "Für den Schüler muss eine andere Mailadresse als für die Eltern angegeben werden.",
+			"errorGeneratingConfirmationCode": "Hoppla, es gab einen Fehler bei der Code-Erstellung! Bitte prüfe deine E-Mail-Adresse ({{ email }}) und versuche es dann erneut.",
+			"errorSubmittingForm": "Fehler: {{text}}",
+			"errorSubmittingFormUndefined": "Das Absenden des Formulars ist fehlgeschlagen. (unbekannter Fehler)",
+			"invalidForm": "Formular ungültig, bitte füllen Sie alle Felder korrekt aus.",
+			"providerBlocked": "Der Provider deiner E-Mail-Adresse ({{ email }}) ist geblockt! Bitte verwende eine andere Adresse und versuche es dann erneut.",
+			"registrationInvalid": "Deine Registrierung bzw. dieser Registrierungslink scheint nicht valide zu sein. Dies kann mehrere Gründe haben:",
+			"registrationInvalidAlreadyUsed": "Der Nutzer, dem dieser Registrierungslink gehört, hat sich bzw. wurde bereits registriert.",
+			"registrationInvalidContactAdvice": "Bitte kontaktiere einen verantwortlichen Lehrer oder Administrator und frage diesbezüglich nach. Dieser kann weiterhelfen oder auch einen neuen Registrierungslink erstellen, falls nötig.",
+			"registrationInvalidManualConsent": "Ein Lehrer oder Administrator hat für den entsprechenden Nutzer bereits die manuelle Einverständniserklärung durchgeführt.",
+			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem entsprechenden Nutzer verknüpft."
+		}
+	},
 	"files": {
 		"_file": {
 			"headline": {
@@ -639,13 +677,13 @@
 		},
 		"button": {
 			"ascending": "↑ aufsteigend",
-			"createNewFile" : "Datei erstellen", 
-			"createNewFolder" : "Ordner erstellen",
+			"createNewFile": "Datei erstellen",
+			"createNewFolder": "Ordner erstellen",
 			"createANewFile": "Neue Datei erstellen",
 			"createANewFolder": "Neuen Ordner erstellen",
 			"descending": "↓ absteigend",
-			"download" : "Runterladen",
-			"edit" : "Bearbeiten",
+			"download": "Runterladen",
+			"edit": "Bearbeiten",
 			"open": "Öffnen",
 			"presentation": "Präsentation (pptx)",
 			"search": "Suchen",
@@ -663,15 +701,15 @@
 			"filename": "Name der Datei"
 		},
 		"headline": {
-			"attention" : "Achtung",
-			"createNewFile" : "Neue Datei erstellen",
-			"doYouWantToOpenThisFile" : "Möchtest du diese Datei mit einem externen Dienst öffnen?",
-			"newFolder" : "Neuer Ordner"
+			"attention": "Achtung",
+			"createNewFile": "Neue Datei erstellen",
+			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
+			"newFolder": "Neuer Ordner"
 		},
-		"input" : {
-			"filename" : "Name der Datei",
-			"foldername" : "Name des Ordners",
-			"searchFiles" : "Dateien durchsuchen..."
+		"input": {
+			"filename": "Name der Datei",
+			"foldername": "Name des Ordners",
+			"searchFiles": "Dateien durchsuchen..."
 		},
 		"label": {
 			"chooseANewName": "Wähle einen neuen Namen aus:",
@@ -682,8 +720,8 @@
 			"deleteFile" : "Datei löschen",
 			"deleteFolder" : "Ordner löschen",
 			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten.",
-			"downloadFile" : "Datei herunterladen",
-			"editFilePermissions" : "Dateiberechtigungen bearbeiten",
+			"downloadFile": "Datei herunterladen",
+			"editFilePermissions": "Dateiberechtigungen bearbeiten",
 			"fileName": "Dateiname:",
 			"fileType": "Dateityp:",
 			"files": "Dateien",
@@ -696,10 +734,10 @@
 			"myPersonalData": "Meine persönlichen Dateien",
 			"name": "Dateiname",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
-			"read" : "Lesen",
-			"renameFile" : "Datei umbenennen",
-			"renameFolder" : "Ordner umbenennen",
-			"roleUser" : "Rolle/Benutzer",
+			"read": "Lesen",
+			"renameFile": "Datei umbenennen",
+			"renameFolder": "Ordner umbenennen",
+			"roleUser": "Rolle/Benutzer",
 			"selectAFolder": "Wähle einen Ordner aus",
 			"shareFile" : "Datei teilen",
 			"size": "Größe",
@@ -764,8 +802,8 @@
 			"yes": "Ja",
 			"ok": "Okay"
 		},
-		"error" : {
-			"requestTimeout" : "Zeitüberschreitung der Anfrage"
+		"error": {
+			"requestTimeout": "Zeitüberschreitung der Anfrage"
 		},
 		"label": {
 			"room": "Raum"
@@ -801,8 +839,9 @@
 				"filesPersonal": "persönliche Dateien",
 				"filesShared": "geteilte Dateien",
 				"helpDesk": "Helpdesk",
+				"helpArea": "Hilfebereich",
 				"lernstore": "Lern-Store",
-				"management": "Verwaltung",
+				"management": "Verwaltungsbereich",
 				"managementClasses": "Klassen",
 				"managementStudents": "Schüler:innen",
 				"managementTeachers": "Lehrer:innen",
@@ -828,6 +867,23 @@
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
+		}
+	},
+	"help": {
+		"contactForm": {
+			"text":{
+				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
+				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+				"typeNotAllowed" : "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
+			}
+		},
+		"search": {
+			"headline":{
+				"noSearchResults" : "Keine Ergebnisse gefunden 😪"
+			},
+			"text" : {
+				"tryAnotherQuery": "Probiere es mit anderen Suchbegriffen erneut"
+			}
 		}
 	},
 	"home": {
@@ -884,8 +940,8 @@
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
-			"importing" : "importiere",
-			"importSubmission" : "Abgabe des Schülers importieren",
+			"importing": "importiere",
+			"importSubmission": "Abgabe des Schülers importieren",
 			"print": "Drucken",
 			"save": "Speichern und Abschicken",
 			"toClass": "Zum Kurs",
@@ -932,13 +988,13 @@
 			"dontShowAgain": "Nicht mehr anzeigen"
 		},
 		"text": {
-			"activatingThisMakesSubmissionsPublic" : "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
-			"creatorCanNotBeRemoved" : "Du darfst den Ersteller der Aufgabe nicht entfernen!",
+			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
+			"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
-			"doYouReallyWantToDelete" : "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
-			"doYouReallyWantToReplaceSubmission" : "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
-			"fileAlreadyExists" : "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
-			"maximumTeamSize" : "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
+			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
+			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
+			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
+			"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
 			"noAssignment": "Keine Zuordnung",
 			"noDescriptionAvailable": "keine Beschreibung vorhanden",
 			"noEvaluationTextAvailable": "Noch kein Kommentar vorhanden.",
@@ -948,7 +1004,7 @@
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
-			"ratingHasBeenSaved" : "Bewertung wurde gespeichert!",
+			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 		}
 	},
@@ -1239,9 +1295,28 @@
 			"inTheCourse": "im Kurs",
 			"inTheTeam": "im Team",
 			"lastFrom": "(zuletzt von",
+			"newsNeedContent" : "News benötigen Inhalt!",
+			"newsNeedTitle" : "News benötigen einen Titel!",
 			"processed": "bearbeitet)",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
+		}
+	},
+	"partner": {
+		"headline": {
+			"advisoryBoard": "Fachbeirat",
+			"partner" : "Partner",
+			"pilotPartners": "Pilotpartner für Lerninhalte",
+			"projectExecution": "Projektdurchführung",
+			"supporters": "Unterstützer für Schulinfrastruktur <3"
+		},
+		"img-alt": {
+			"logo": "Logo"
+		},
+		"text": {
+			"advisoryBoardDescription": "Das Schul-Cloud Projekt wird von einem Fachbeirat unterstützt, der sich aus verschiedenen Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben technischen Aspekten, auch Themen wie Datenschutz und Pädagogik.",
+			"pilotPartnersDescription": "Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die HPI Schul-Cloud erfahrbar wird.",
+			"supportersDescription": "Wir danken unseren Unterstützern für Schulinfrastruktur."
 		}
 	},
 	"pwRecovery": {
@@ -1461,9 +1536,22 @@
 	},
 	"teams": {
 		"_team": {
+			"button": {
+				"leaveTeam": "Team verlassen"
+			},
+			"dropdown_menu": {
+				"link": {
+					"deleteTeam": "Team löschen",
+					"editTeam": "Team bearbeiten",
+					"leaveTeam": "Team verlassen",
+					"manageMembers": "Teammitglieder verwalten",
+					"seeMembers": "Teammitglieder ansehen"
+				}
+			},
 			"edit": {
 				"label": {
 					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
+					"activateMessengerForTeam": "Messenger für Team aktivieren",
 					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
 					"teamColor": "Farbe des Teams",
 					"teamDescription": "Beschreibung des Teams (optional)",
@@ -1476,13 +1564,191 @@
 					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
 				}
 			},
+			"events": {
+				"button": {
+					"add": "Hinzufügen",
+					"addDate": "Termin anlegen"
+				},
+				"headline": {
+					"addDate": "Termin hinzufügen",
+					"dateDetails": "Termin - Details"
+				}
+			},
+			"files": {
+				"button": {
+					"changeSharingSettings": "Freigabe-Einstellungen ändern",
+					"createFolder": "Ordner erstellen",
+					"deleteFolder": "Ordner löschen",
+					"renameFolder": "Ordner umbenennen",
+					"shareFolder": "Ordner-Freigabe",
+					"toTeamFiles": "Zu den Team-Dateien"
+				},
+				"headline": {
+					"changeFilePermissions": "Freigabe-Einstellungen ändern",
+					"fileActions": "Datei-Aktionen",
+					"files": "Dateien",
+					"folders": "Ordner"
+				},
+				"text": {
+					"changedFilePermissionsError": "Problem beim Ändern der Berechtigungen",
+					"changedFilePermissionsSuccess": "Standard-Berechtigungen erfolgreich geändert"
+				}
+			},
+			"headline": {
+				"leaveTeam": "Team verlassen",
+				"shareFilesSettings": "Dateifreigabe-Einstellungen"
+			},
+			"label": {
+				"accessToData": "Zugriff auf Dateien",
+				"emailHasBeenSentAlternativeLink": "Die eingeladene Person hat eine E-Mail bekommen. Alternativ kann dieser Link benutzt werden, der Nutzer muss dafür angemeldet sein:",
+				"externExperts": "Externe Experten",
+				"leadersAndAdmins": "Leiter und Team-Admins",
+				"members": "Teilnehmer",
+				"role": "Rolle"
+			},
 			"members": {
+				"button": {
+					"addExternMembers": "Externe Teilnehmer einladen",
+					"addInternMembers": "Interne Teilnehmer hinzufügen",
+					"addPerson": "Person hinzufügen",
+					"externExpert": "Externe Experten",
+					"inviteByMail": "per E-Mail einladen",
+					"selectFromIndex": "Aus Verzeichnis auswählen",
+					"teacherFromOtherSchool": "Lehrer anderer Schulen"
+				},
+				"headline": {
+					"actions": "Aktionen",
+					"class": "{{count}} Klasse",
+					"class_plural": "{{count}} Klassen",
+					"email": "E-Mail",
+					"firstName": "Vorname",
+					"inviteExternExpert": "Externen Experten einladen",
+					"inviteTeacherByEmail": "Lehrer per E-Mail einladen",
+					"inviteTeacherFromOtherSchool": "Lehrer anderer Schulen einladen",
+					"invitedOn": "Eingeladen am",
+					"member": "{{count}} Teilnehmer",
+					"member_plural": "{{count}} Teilnehmer",
+					"name": "Name",
+					"pendingInvitations": "Ausstehende Einladungen",
+					"requirements": "Voraussetzungen:",
+					"role": "Rolle",
+					"school": "Schule",
+					"selectAndAddTeacher": "Lehrer auswählen und hinzufügen",
+					"student": "Schüler",
+					"surname": "Nachname",
+					"teamMembers": "Team-Teilnehmer",
+					"whoDoYouWantToInvite": "Wen möchtest du ins Team einladen?"
+				},
+				"label": {
+					"addTeacherStudentsFromSchool": "Füge Lehrer und Schüler deiner Schule zum Team hinzu",
+					"deleteInvitation": "Einladung löschen",
+					"doYouReallyWantToLeaveTeam": "Möchtest du das Team wirklich verlassen?",
+					"doYouReallyWantToReSendEmail": "Möchtest du die Einladung wirklich noch einmal per E-Mail zuschicken?",
+					"editRole": "Rolle bearbeiten",
+					"externExpert": "externer Experte",
+					"externTeacher": "Lehrer anderer Schule (Team-Admin)",
+					"federalState": "Bundesland",
+					"insertEmailOfExpertToInvite": "Gebe die E-Mail des Experten ein, an welchen die Einladung verschickt wird.",
+					"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert einen anderen Eigentümer",
+					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
+					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
+					"reallyWantToRmUser": "Möchtest du diesen Teilnehmer wirklich entfernen?",
+					"removeClass": "Klasse entfernen",
+					"removeUser": "Nutzer entfernen",
+					"roleOfInvitedTeacher": "Rolle des eingeladenen Lehrers",
+					"school": "Schule",
+					"selectRoleForMember": "Gebe ein, welche Rolle der Teilnehmer erhalten soll.",
+					"sendInvitationAgain": "Einladung erneut versenden",
+					"teacher": "Lehrer"
+				},
 				"n21": {
 					"text": {
 						"inviteToTeamHint": "Die Einladung externer Experten ist vorübergehend bis zum 1.7. deaktiviert, um Probleme und Überschneidungen mit dem Onboarding neuer Schulen in der Niedersächsischen Bildungscloud zu vermeiden."
 					}
+				},
+				"placeholder": {
+					"insertEmail": "E-Mail eingeben",
+					"selectFederalState": "Bundesland auswählen",
+					"selectPersons": "Personen auswählen",
+					"selectRole": "Rolle angeben",
+					"selectSchool": "Schule auswählen",
+					"selectTeacher": "Lehrer auswählen",
+					"teamAdmin": "Team-Admin"
+				},
+				"text": {
+					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
+					"admin": "Administrator",
+					"changeRoleOfMember": "Ändere die Rolle des Nutzers:",
+					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers",
+					"expert": "Externer Experte",
+					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
+					"inviteTeachersAndExpertsByEmail": "Lade Lehrer anderer Schulen und Experten per E-Mail ein.",
+					"leader": "Leiter",
+					"member": "Teilnehmer",
+					"owner": "Eigentümer",
+					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und Lehrer ihrer Schule zum Team hinzufügen.",
+					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
+					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
 				}
+			},
+			"news": {
+				"button": {
+					"addNews": "Neuigkeit anlegen"
+				},
+				"link": {
+					"showAllNews": "Alle Neuigkeiten anzeigen..."
+				},
+				"label": {
+					"continueReading": "Weiterlesen"
+				}
+			},
+			"tab_label": {
+				"dates": "Termine",
+				"files": "Dateien",
+				"news": "Neuigkeiten"
+			},
+			"text": {
+				"invitationAcceptedSuccess": "Teameinladung erfolgreich angenommen.",
+				"invitationAcceptionFailed": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
+				"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
+				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
+				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
 			}
+		},
+		"add": {
+			"button": {
+				"createTeam": "Team anlegen",
+				"saveChanges": "Änderungen speichern"
+			},
+			"headline": {
+				"createTeam": "Team anlegen",
+				"editTeam": "Team bearbeiten"
+			}
+		},
+		"button": {
+			"accept": "Akzeptieren",
+			"createTeam": "Team anlegen",
+			"duplicateTeam": "Team duplizieren",
+			"foundATeam": "Gründe ein Team"
+		},
+		"headline": {
+			"duplicateTeam": "Team duplizieren",
+			"invitations": "Einladungen",
+			"myTeams": "Meine Teams",
+			"teamsConnectSchools": "Teams vernetzen Schule"
+		},
+		"img_alt": {
+			"teamOfTeachers": "Team von Lehrern"
+		},
+		"label": {
+			"more": "Weiteres"
+		},
+		"placeholder": {
+			"searchForTeams": "Suche nach Teams"
+		},
+		"text": {
+			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
+			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
 		}
 	},
 	"topic": {

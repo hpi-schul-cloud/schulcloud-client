@@ -365,6 +365,16 @@ const getLibreOfficeUrl = (fileId, accessToken) => {
 	return `${libreOfficeBaseUrl}/loleaflet/dist/loleaflet.html?WOPISrc=${wopiSrc}`;
 };
 
+/**
+ * generates saveName attribute with escaped quotes for an array of files
+ * @param {*} files, the array of files
+ * @returns The file array with saveName attribute
+ */
+const getFilesWithSaveName = (files) => files.map((file) => {
+	file.saveName = file.name.replace(/'/g, "\\'");
+	return file;
+});
+
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -572,10 +582,7 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 		breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
 	}
 
-	res.locals.files.files = res.locals.files.files.map((file) => {
-		file.saveName = file.name.replace(/'/g, "\\'");
-		return file;
-	});
+	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
 	res.render('files/files', Object.assign({
 		title: res.$t('files.headline.files'),
@@ -616,6 +623,8 @@ router.get('/shared/', (req, res) => {
 			files: checkIfOfficeFiles(data.filter(f => !f.isDirectory)),
 			directories: data.filter(f => f.isDirectory),
 		};
+
+		files.files = getFilesWithSaveName(files.files);
 
 		res.render('files/files', Object.assign({
 			title: res.$t('files.headline.files'),
@@ -686,6 +695,8 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		canCreateFile = false;
 	}
 
+	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
+
 	res.render('files/files', Object.assign({
 		title: res.$t('files.headline.files'),
 		canUploadFile: true,
@@ -749,6 +760,8 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 		breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
 	}
 
+	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
+
 	res.render('files/files', Object.assign({
 		title: res.$t('files.headline.files'),
 		canUploadFile: true,
@@ -810,6 +823,8 @@ router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 
 			breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
 		}
+
+		files.files = getFilesWithSaveName(files.files);
 
 		res.render('files/files', Object.assign({
 			title: res.$t('files.headline.files'),
