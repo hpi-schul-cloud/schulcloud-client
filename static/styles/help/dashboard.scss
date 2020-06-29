@@ -1,9 +1,9 @@
-@import '../lib/colors';
+@import "../lib/colors";
 
 .teacher-option {
 	.h4 {
 		padding-top: 20px;
-		color: $primaryColor
+		color: $primaryColor;
 	}
 
 	text-align: center;
@@ -12,10 +12,24 @@
 	img {
 		width: 30px;
 	}
+
+	.custom-icons {
+		display: inline-block;
+
+		svg {
+			font-size: inherit;
+			text-rendering: auto;
+			width: 30px;
+			fill: $primaryColor;
+		}
+	}
 }
 
 a:visited,
 a:link,
 a:hover {
 	text-decoration: none;
+}
+a::after {
+	content: none !important;
 }
