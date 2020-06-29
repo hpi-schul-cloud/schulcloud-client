@@ -46,50 +46,44 @@ export function createFileModel(params) {
 }
 
 /**
- * Associate a new file model with a submission, by updating the submission.
+ * Associate new file models with a submission, by updating the submission.
  * Then give read-access to all team-members of that submission.
  *
  * @param {Object} options
- * @param {ObjectID} options.submissionId The id of the submission that the file will be associated with
- * @param {ObjectId} options.fileId The id of the new file model. A result of `createFileModel`.signedUrl
+ * @param {ObjectId} options.submissionId The id of the submission that the file will be associated with
+ * @param {[ObjectId]} options.fileIds The ids of the new file models. Results of `createFileModel`.signedUrl
  * @param {enum} options.associationType The type of file association for the new file. One of ['files', 'grade-files']
  * @param {[ObjectId]} options.teamMembers A list of ids of users that should get read access to the file
  * @returns {Promise}
  */
-export function associateFileWithSubmission({
+export async function associateFilesWithSubmission({
 	submissionId,
-	fileId,
+	fileIds,
 	associationType = 'files',
 	teamMembers,
 }) {
 	return $.post(
 		`/homework/submit/${submissionId}/${associationType}`,
-		{ fileId, teamMembers },
-	).then(() => $.post(
+		{ fileIds, teamMembers },
+	).then(() => Promise.all(fileIds.map((fileId) => $.post(
 		`/homework/submit/${submissionId}/files/${fileId}/permissions`,
 		{ teamMembers },
-	));
+	))));
 }
 
 /**
- * Do the whole upload flow for a file
+ * Perform the upload flow for a file without association to a submission
  *
  * @param {Object} options
  * @param {File} options.file The file object taken from an input[type=file]s FileList
  * @param {string} options.owner An optional owner, if the signed in users should not be the owner of the new file
  * @param {ObjectID} options.parent Optional id of a parent file object (such as a folder)
- * @param {ObjectID} options.submissionId The id of the submission that the file will be associated with
- * @param {enum} options.associationType The type of file association for the new file. One of ['files', 'grade-files']
- * @param {[ObjectId]} options.teamMembers A list of ids of users that should get read access to the file
  * @returns {Promise}
  */
 export async function uploadSubmissionFile({
 	file,
 	owner,
 	parent,
-	submissionId,
-	associationType,
-	teamMembers,
 }) {
 	const { signedUrl } = await requestUploadUrl(file, parent);
 	await uploadFile(file, signedUrl);
@@ -104,11 +98,5 @@ export async function uploadSubmissionFile({
 		parent: parent || undefined, // JSON.stringify will remove the key
 	};
 
-	const fileModel = await createFileModel(fileModelParams);
-	await associateFileWithSubmission({
-		fileId: fileModel._id,
-		submissionId,
-		associationType,
-		teamMembers,
-	});
+	return createFileModel(fileModelParams);
 }

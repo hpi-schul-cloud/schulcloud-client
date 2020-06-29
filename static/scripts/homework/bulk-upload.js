@@ -1,4 +1,6 @@
-import { uploadSubmissionFile } from './api-requests';
+import { uploadSubmissionFile, associateFilesWithSubmission } from './api-requests';
+
+const _ = require('lodash');
 
 export default function (jQuery) {
 	const $ = jQuery;
@@ -33,23 +35,30 @@ export default function (jQuery) {
 			const knownFileNames = JSON.parse(this.dataset.knownFileNames);
 			const files = Array.from(this.files);
 
-			const unknown = files.filter((file) => !knownFileNames[file.name]);
+			const unknownUploadFiles = files.filter((file) => !knownFileNames[file.name]);
+			const knownUploadFiles = files.filter((file) => !!knownFileNames[file.name]);
+
 			Promise.all(
-				files
-					.filter((file) => !!knownFileNames[file.name])
-					.map((file) => {
-						const { submissionId, teamMembers } = knownFileNames[file.name];
-						return uploadSubmissionFile({
-							file,
-							owner,
-							parent,
-							submissionId,
-							teamMembers,
-							associationType: 'grade-files',
-						});
-					}),
+				knownUploadFiles.map((file) => uploadSubmissionFile({ file, owner, parent })),
 			).then(
-				() => provideFeedback(unknown),
+				(newFiles) => _.groupBy(newFiles, (fileModel) => knownFileNames[fileModel.name].submissionId),
+			).then(
+				(groupedFiles) => Promise.all(_.keys(groupedFiles).map((submissionId) => {
+					const fileIds = groupedFiles[submissionId].map((file) => file._id);
+					const teamMembers = new Set(_.flatten(groupedFiles[submissionId]
+						.map((file) => knownFileNames[file.name].teamMemberIds)));
+
+					return associateFilesWithSubmission(
+						{
+							fileIds,
+							submissionId,
+							associationType: 'grade-files',
+							teamMembers: [...teamMembers],
+						},
+					);
+				})),
+			).then(
+				() => provideFeedback(unknownUploadFiles),
 				(error) => $.showNotification(error.message, 'danger'),
 			);
 		});

@@ -3,7 +3,7 @@ import multiDownload from 'multi-download';
 
 import { softNavigate } from './helpers/navigation';
 import { getQueryParameters } from './helpers/queryStringParameter';
-import { requestUploadUrl, createFileModel, associateFileWithSubmission } from './homework/api-requests';
+import { requestUploadUrl, createFileModel, associateFilesWithSubmission } from './homework/api-requests';
 import extendWithBulkUpload from './homework/bulk-upload';
 
 function getDataValue(attr) {
@@ -357,7 +357,7 @@ $(document).ready(() => {
 					const teamMembers = getTeamMemberIds();
 					if (submissionId) {
 						const associationType = isSubmissionGradeUpload() ? 'grade-files' : 'files'
-						associateFileWithSubmission({ submissionId, fileId: data._id, associationType, teamMembers });
+						associateFilesWithSubmission({ submissionId, fileIds: [data._id], associationType, teamMembers });
 					} else {
 						addNewUploadedFile($('.js-file-list'), data);
 
