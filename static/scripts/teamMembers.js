@@ -53,9 +53,9 @@ $(document).ready(() => {
 		e.preventDefault();
 		const $addMemberModal = $('.add-member-modal');
 		populateModalForm($addMemberModal, {
-			title: 'Teilnehmer hinzufügen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Hinzufügen',
+			title: $t('teams._team.members.headline.addMember'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.add'),
 		});
 
 		// Needed? const $modalForm = $addMemberModal.find('.modal-form');
@@ -86,11 +86,11 @@ $(document).ready(() => {
 				classIds,
 			},
 		}).done(() => {
-			$.showNotification('Teilnehmer erfolgreich zum Team hinzugefügt', 'success', true);
+			$.showNotification($t('teams._team.members.text.addedMemberSuccess'), 'success', true);
 			// eslint-disable-next-line no-restricted-globals
 			location.reload();
 		}).fail(() => {
-			$.showNotification('Problem beim Hinzufügen der Teilnehmer', 'danger', true);
+			$.showNotification($t('teams._team.members.text.addedMemberFailure'), 'danger', true);
 		});
 
 		return false;

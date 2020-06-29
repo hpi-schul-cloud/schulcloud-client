@@ -1494,6 +1494,7 @@
 				},
 				"headline": {
 					"actions": "Aktionen",
+					"addMember" : "Teilnehmer hinzufügen",
 					"class": "{{count}} Klasse",
 					"class_plural": "{{count}} Klassen",
 					"email": "E-Mail",
@@ -1552,6 +1553,8 @@
 					"teamAdmin": "Team-Admin"
 				},
 				"text": {
+					"addedMemberFailure" : "Problem beim Hinzufügen der Teilnehmer",
+					"addedMemberSuccess" : "Teilnehmer erfolgreich zum Team hinzugefügt",
 					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
 					"admin": "Administrator",
 					"changeRoleOfMember": "Ändere die Rolle des Nutzers:",
@@ -1610,6 +1613,7 @@
 		"headline": {
 			"duplicateTeam": "Team duplizieren",
 			"invitations": "Einladungen",
+			"membersOfTeam" : "Mitglieder des Teams: {{teamName}}",
 			"myTeams": "Meine Teams",
 			"teamsConnectSchools": "Teams vernetzen Schule"
 		},
@@ -1624,6 +1628,7 @@
 		},
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
+			"noMembers" : "Keine Teilnehmer",
 			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
 		}
 	},
