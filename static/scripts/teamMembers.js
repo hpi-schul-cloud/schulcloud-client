@@ -447,9 +447,9 @@ $(document).ready(() => {
 		const classIdToRemove = $(this).parent().parent().find('[data-payload]')
 			.data('payload');
 		populateModalForm($deleteClassModal, {
-			title: 'Klasse löschen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Klasse löschen',
+			title: $t('teams._team.members.headline.deleteClass'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('teams._team.members.button.deleteClass'),
 			payload: classIdToRemove,
 		});
 
