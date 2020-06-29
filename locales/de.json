@@ -978,7 +978,8 @@
 			"link": {
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
 				"helpArea": "Hilfebereich",
-				"sendRequestOrProblem": "Wunsch oder Problem senden"
+				"sendRequestOrProblem": "Wunsch oder Problem senden",
+				"Fortbildungen": "Fortbildungen"
 			}
 		},
 		"ldap_info": {
@@ -1501,8 +1502,8 @@
 				"link": {
 					"showAllNews": "Alle Neuigkeiten anzeigen..."
 				},
-				"label" : {
-					"continueReading" : "Weiterlesen"
+				"label": {
+					"continueReading": "Weiterlesen"
 				}
 			},
 			"tab_label": {
