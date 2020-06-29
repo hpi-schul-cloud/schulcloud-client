@@ -43,11 +43,23 @@
 				"thirdPartyLogins": "Drittanbieter-Logins"
 			}
 		},
+		"headline": {
+			"doYouWantToDeleteDevice" : "Bist du dir sicher, dass du {{device}} löschen möchtest?"
+		} ,
 		"label": {
 			"providers": "Anbieter"
 		},
+		"testNotification": {
+			"headline": {
+				"test": "Neue Test-Benachrichtigung"
+			},
+			"text": {
+				"youHaveANewMessage" : "Du hast eine neue Benachrichtigung"
+			}
+		},
 		"text": {
-			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
+			"passwordsDoNotMatch" : "Passwörter stimmen nicht überein."
 		}
 	},
 	"addons": {
@@ -709,6 +721,23 @@
 			"wednesday": "Mittwoch"
 		}
 	},
+	"help": {
+		"contactForm": {
+			"text":{
+				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
+				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+				"typeNotAllowed" : "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
+			}
+		},
+		"search": {
+			"headline":{
+				"noSearchResults" : "Keine Ergebnisse gefunden 😪"
+			},
+			"text" : {
+				"tryAnotherQuery": "Probiere es mit anderen Suchbegriffen erneut"
+			}
+		}
+	},
 	"home": {
 		"button": {
 			"aboutTheProject": "Über das Projekt",
@@ -1118,6 +1147,8 @@
 			"inTheCourse": "im Kurs",
 			"inTheTeam": "im Team",
 			"lastFrom": "(zuletzt von",
+			"newsNeedContent" : "News benötigen Inhalt!",
+			"newsNeedTitle" : "News benötigen einen Titel!",
 			"processed": "bearbeitet)",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
