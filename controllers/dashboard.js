@@ -18,6 +18,18 @@ const { error, warn } = require('../helpers/logger');
 // secure routes
 router.use(authHelper.authChecker);
 
+const filterRequestInfos = (err) => {
+	if (!err) {
+		return err;
+	}
+	if (err.options && err.options.headers) {
+		delete err.options.headers.Authorization;
+	}
+	delete err.cause;
+	delete err.response;
+	return err;
+};
+
 router.get('/', (req, res, next) => {
 	// we display time from 7 a.m. to 5 p.m.
 	const timeStart = 7;
@@ -48,7 +60,6 @@ router.get('/', (req, res, next) => {
 				from: start.toLocalISOString(),
 				until: end.toLocalISOString(),
 			},
-			timeout: 1000,
 		})
 		.then((eve) => Promise.all(
 			eve.map((event) => recurringEventsHelper.mapEventProps(event, req)),
@@ -100,7 +111,7 @@ router.get('/', (req, res, next) => {
 							event.alt = res.$t('dashboard.img_alt.showCalendar');
 						}
 					} catch (err) {
-						error(err);
+						error(filterRequestInfos(err));
 					}
 				}
 
@@ -108,7 +119,7 @@ router.get('/', (req, res, next) => {
 			});
 		})
 		.catch((err) => {
-			error(err);
+			error(filterRequestInfos(err));
 			return [];
 		});
 
