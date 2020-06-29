@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const passwordGenerator = require('generate-password');
 
 const { Configuration } = require('@schul-cloud/commons');
 
@@ -7,7 +8,7 @@ const api = require('../api');
 const permissionsHelper = require('./permissions');
 const wordlist = require('../static/other/wordlist.js');
 
-const { SW_ENABLED } = require('../config/global');
+const { SW_ENABLED, MINIMAL_PASSWORD_LENGTH } = require('../config/global');
 const logger = require('./logger');
 
 const rolesDisplayName = {
@@ -34,6 +35,14 @@ const generatePassword = () => {
 	});
 	return passphraseParts.join(' ');
 };
+
+const generateConsentPassword = () => passwordGenerator.generate({
+	length: MINIMAL_PASSWORD_LENGTH,
+	numbers: true,
+	lowercase: true,
+	uppercase: true,
+	strict: true,
+});
 
 const clearCookie = async (req, res, options = { destroySession: false }) => {
 	if (options.destroySession && req.session && req.session.destroy) {
@@ -276,4 +285,5 @@ module.exports = {
 	login,
 	etherpadCookieHelper,
 	generatePassword,
+	generateConsentPassword,
 };
