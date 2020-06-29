@@ -14,13 +14,20 @@
 	}
 
 	.custom-icons {
-		display: inline-block;
+		display: flex;
+		justify-content: center;
 
-		svg {
-			font-size: inherit;
-			text-rendering: auto;
-			width: 30px;
-			fill: $primaryColor;
+		div {
+			display: flex;
+			padding-right: 0.375rem;
+
+			svg {
+				font-size: inherit;
+				text-rendering: auto;
+				width: 30px;
+				fill: $primaryColor;
+			}
+
 		}
 	}
 }
@@ -30,6 +37,7 @@ a:link,
 a:hover {
 	text-decoration: none;
 }
+
 a::after {
 	content: none !important;
 }
