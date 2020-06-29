@@ -320,7 +320,7 @@ $(document).ready(() => {
 		populateModalForm($deleteMemberModal, {
 			title: $t('teams._team.members.add.headline.deleteInvitation'),
 			closeLabel: $t('global.button.cancel'),
-			submitLabel:  $t('teams._team.members.add.button.deleteInvitation'),
+			submitLabel: $t('teams._team.members.add.button.deleteInvitation'),
 		});
 
 		$deleteMemberModal.appendTo('body').modal('show');

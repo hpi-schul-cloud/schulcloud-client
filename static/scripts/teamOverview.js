@@ -24,7 +24,7 @@ $(document).ready(() => {
                 teamMembers = teamMembers + '</ol>';
             }
 
-            populateModal($memberModal, '.modal-title', $t('teams.headline.membersOfTeam', { teamName : teamName }));
+            populateModal($memberModal, '.modal-title', $t('teams.headline.membersOfTeam', { teamName }));
             populateModal($memberModal, '#member-modal-body', teamMembers);
 
             $memberModal.appendTo('body').modal('show');
