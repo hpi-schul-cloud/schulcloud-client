@@ -587,6 +587,30 @@
 			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
+	"dataprivacy": {
+		"headline": {
+			"registrationInvalid": "Registrierung fehlerhaft"
+		},
+		"img_alt": {
+			"brokenPen": "zerbrochener Stift"
+		},
+		"text": {
+			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
+			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
+			"dataGivenByTeacherOrAdmin": "Diese Daten hat deine Lehrkraft oder dein Administrator für dich eingetragen.\n\t\t\tFalls Anpassungen notwendig sind wende dich bitte an ihn/sie. Du kannst deine Daten auch nach abgeschlossenem Registrierungsprozess selbst ändern.",
+			"differentEmailParentStudent": "Für den Schüler muss eine andere Mailadresse als für die Eltern angegeben werden.",
+			"errorGeneratingConfirmationCode": "Hoppla, es gab einen Fehler bei der Code-Erstellung! Bitte prüfe deine E-Mail-Adresse ({{ email }}) und versuche es dann erneut.",
+			"errorSubmittingForm": "Fehler: {{text}}",
+			"errorSubmittingFormUndefined": "Das Absenden des Formulars ist fehlgeschlagen. (unbekannter Fehler)",
+			"invalidForm": "Formular ungültig, bitte füllen Sie alle Felder korrekt aus.",
+			"providerBlocked": "Der Provider deiner E-Mail-Adresse ({{ email }}) ist geblockt! Bitte verwende eine andere Adresse und versuche es dann erneut.",
+			"registrationInvalid": "Deine Registrierung bzw. dieser Registrierungslink scheint nicht valide zu sein. Dies kann mehrere Gründe haben:",
+			"registrationInvalidAlreadyUsed": "Der Nutzer, dem dieser Registrierungslink gehört, hat sich bzw. wurde bereits registriert.",
+			"registrationInvalidContactAdvice": "Bitte kontaktiere einen verantwortlichen Lehrer oder Administrator und frage diesbezüglich nach. Dieser kann weiterhelfen oder auch einen neuen Registrierungslink erstellen, falls nötig.",
+			"registrationInvalidManualConsent": "Ein Lehrer oder Administrator hat für den entsprechenden Nutzer bereits die manuelle Einverständniserklärung durchgeführt.",
+			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem entsprechenden Nutzer verknüpft."
+		}
+	},
 	"files": {
 		"button": {
 			"ascending": "↑ aufsteigend",
