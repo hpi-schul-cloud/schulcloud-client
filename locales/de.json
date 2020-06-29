@@ -82,6 +82,30 @@
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
 		},
+		"classes": {
+			"headline":{
+				"importClass": "Klasse importieren"
+			},
+			"label": {
+				"class": "Klasse:"
+			},
+			"text": {
+				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
+				"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden"
+			}
+		},
+		"global": {
+			"button": {
+				"mailsAreBeingSent": "E-Mails werden gesendet...",
+				"printSheetIsBeingGenerated": "Druckbogen wird generiert..."
+			},
+			"text": {
+				"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
+				"errorSendingMails": "Fehler beim Senden der Erinnerungs-E-Mails",
+				"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
+				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet"
+			}
+		},
 		"label": {
 			"assignPassword": "Passwort vergeben:",
 			"birthdate": "Geburtsdatum:",
@@ -93,6 +117,70 @@
 			"parents": "Eltern",
 			"student": "Schüler:in",
 			"termsOfUse": "Nutzung"
+		},
+		"ldapEdit": {
+			"label": {
+				"hide": "Ausblenden",
+				"rolesAttributes": "Rollen-Attribute",
+				"rolesAttributesDescription": "Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
+				"rolesLDAPPaths": "Rollen-LDAP-Pfade",
+				"rolesLDAPPathsDescription": "Welche LDAP-Gruppe definiert die genannten Rolle? Geben Sie den vollen Pfad (inkl. root-Pfad) an",
+				"show": "Einblenden"
+			},
+			"text": {
+				"errorActivation": "Problem bei der Aktivierung",
+				"errorLDAPTimeout": "LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.",
+				"errorTimeout": "Zeitüberschreitung der Anwendung",
+				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!"
+			}
+		},
+		"school": {
+			"button": {
+				"yes": "Ja"
+			},
+			"headline": {
+				"add": "Hinzufügen",
+				"addPolicy": "Datenschutzerklärung hinzufügen",
+				"finishSchoolYear": "Das Schuljahr wirklich beenden?"
+			},
+			"text": {
+				"fileSelected": "Datei ausgewählt"
+			}
+		},
+		"teams": {
+			"button": {
+				"appointTeamOwner": "Ernennen",
+				"discardMessage": "Verwerfen",
+				"removeAllMembers": "Alle Mitglieder entfernen",
+				"sendMessage": "Absenden"
+			},
+			"headline": {
+				"deleteTeam": "Löschen",
+				"membersInOwnSchool": "Mitglieder an eigener Schule",
+				"messageToTeamOwners": "Neue Nachricht an den/die Team-Eigentümer senden",
+				"newTeamOwner": "Einen zusätzlichen Team-Eigentümer ernennen",
+				"removeSchoolFromTeam": "Schule aus Team entfernen",
+				"schools": "Schulen"
+			},
+			"text": {
+				"noParticipants": "Keine Teilnehmer",
+				"noSchools": "Keine Schulen"
+			}
+		},
+		"users_edit": {
+			"button": {
+				"mailIsBeingSent": "E-Mail wird gesendet..."
+			},
+			"headline": {
+				"changePassword": "Passwort ändern",
+				"completeRegistration": "Nutzerregistrierung abschließen",
+				"deleteUser": "Benutzer löschen?",
+				"generatedLink": "Einladungslink generiert!"
+			},
+			"text": {
+				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
+				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!"
+			}
 		}
 	},
 	"autologout": {
@@ -800,6 +888,10 @@
 		"error": {
 			"requestTimeout": "Zeitüberschreitung der Anfrage"
 		},
+		"headline": {
+			"delete": "Löschen",
+			"edit": "Bearbeiten"
+		},
 		"label": {
 			"room": "Raum"
 		},
@@ -836,7 +928,7 @@
 				"helpDesk": "Helpdesk",
 				"helpArea": "Hilfebereich",
 				"lernstore": "Lern-Store",
-				"management": "Verwaltungsbereich",
+				"management": "Verwaltung",
 				"managementClasses": "Klassen",
 				"managementStudents": "Schüler:innen",
 				"managementTeachers": "Lehrer:innen",
