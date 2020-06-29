@@ -48,6 +48,7 @@
 		"font-awesome": "^4.7.0",
 		"form-serializer": "^2.5.0",
 		"fullcalendar": "^3.9.0",
+		"generate-password": "^1.5.1",
 		"git-repo-info": "^2.1.0",
 		"handlebars": "^4.7.6",
 		"handlebars-layouts": "^3.1.4",
