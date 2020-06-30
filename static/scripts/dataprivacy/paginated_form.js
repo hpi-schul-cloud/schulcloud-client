@@ -175,15 +175,19 @@ function submitForm(event) {
 		})
 			.fail((response) => {
 				if (response.responseText !== undefined) {
-					$.showNotification(`Fehler: ${response.responseText}`, 'danger', true);
+					$.showNotification(
+						$t('dataprivacy.text.errorSubmittingForm', { text: response.responseText }),
+						'danger',
+						true,
+					);
 				} else {
-					const errorMessage = 'Das Absenden des Formulars ist fehlgeschlagen. (unbekannter Fehler)';
+					const errorMessage = $t('dataprivacy.text.errorSubmittingFormUndefined');
 					$.showNotification(errorMessage, 'danger', true);
 				}
 				formSubmitButton.disabled = false;
 			});
 	} else {
-		$.showNotification('Formular ungültig, bitte füllen Sie alle Felder korrekt aus.', 'danger', 6000);
+		$.showNotification($t('dataprivacy.text.invalidForm'), 'danger', 6000);
 	}
 }
 
