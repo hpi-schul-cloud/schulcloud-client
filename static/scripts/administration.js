@@ -53,9 +53,9 @@ $(document).ready(() => {
 	$('.btn-terminate-school-year').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($terminateSchoolYearModal, {
-			title: $t('administration.school.headline.finishSchoolYear'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('administration.school.button.yes'),
+			title: 'Das Schuljahr wirklich beenden?',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Ja',
 		});
 		$terminateSchoolYearModal.appendTo('body').modal('show');
 	});
@@ -104,9 +104,9 @@ $(document).ready(() => {
 	$('.btn-add-modal').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addSystemsModal, {
-			title: $t('administration.school.headline.add'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.add'),
+			title: 'Hinzufügen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Hinzufügen',
 		});
 		$addSystemsModal.appendTo('body').modal('show');
 	});
@@ -114,9 +114,9 @@ $(document).ready(() => {
 	$('.btn-add-modal--rss').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addRSSModal, {
-			title: $t('administration.school.headline.add'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.add'),
+			title: 'Hinzufügen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Hinzufügen',
 		});
 		$addRSSModal.appendTo('body').modal('show');
 	});
@@ -124,9 +124,9 @@ $(document).ready(() => {
 	$('.btn-add-modal--policy').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addPolicyModal, {
-			title: $t('administration.school.headline.addPolicy'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.add'),
+			title: 'Datenschutzerklärung hinzufügen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Hinzufügen',
 		});
 		$addPolicyModal.appendTo('body').modal('show');
 	});
@@ -138,9 +138,9 @@ $(document).ready(() => {
 			result.createdAt = new Date(result.createdAt).toLocaleString();
 			populateModalForm($editModal, {
 				action: entry,
-				title: $t('global.headline.edit'),
-				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('global.button.save'),
+				title: 'Bearbeiten',
+				closeLabel: 'Abbrechen',
+				submitLabel: 'Speichern',
 				fields: result,
 			});
 			// post-fill gradiation selection
@@ -199,9 +199,9 @@ $(document).ready(() => {
 		$.getJSON(entry, (result) => {
 			populateModalForm($deleteSystemsModal, {
 				action: entry,
-				title: $t('global.headline.delete'),
-				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('global.button.delete'),
+				title: 'Löschen',
+				closeLabel: 'Abbrechen',
+				submitLabel: 'Löschen',
 				fields: result,
 			});
 
@@ -219,9 +219,9 @@ $(document).ready(() => {
 			populateModalForm($deleteRSSModal, {
 				action,
 				fields: { url: result.url },
-				title: $t('global.headline.delete'),
-				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('global.button.delete'),
+				title: 'Löschen',
+				closeLabel: 'Abbrechen',
+				submitLabel: 'Löschen',
 			});
 
 			$deleteRSSModal.modal('show');
@@ -235,7 +235,7 @@ $(document).ready(() => {
 		const text = $this.html();
 		const role = $this.data('role');
 
-		$this.html($t('administration.global.button.mailsAreBeingSent'));
+		$this.html('E-Mails werden gesendet...');
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -249,7 +249,7 @@ $(document).ready(() => {
 		})
 			.done(() => {
 				$.showNotification(
-					$t('administration.global.text.successfullySentMails'),
+					'Erinnerungs-E-Mails erfolgreich versendet',
 					'success',
 					true,
 				);
@@ -258,7 +258,7 @@ $(document).ready(() => {
 			})
 			.fail(() => {
 				$.showNotification(
-					$t('administration.global.text.errorSendingMails'),
+					'Fehler beim senden der Erinnerungs-E-Mails',
 					'danger',
 					true,
 				);
@@ -273,7 +273,7 @@ $(document).ready(() => {
 		const text = $this.html();
 		const role = $this.data('role');
 
-		$this.html($t('administration.global.button.printSheetIsBeingGenerated'));
+		$this.html('Druckbogen wird generiert...');
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -296,7 +296,7 @@ $(document).ready(() => {
 					})),
 				);
 				$.showNotification(
-					$t('administration.global.text.successfullyGeneratedPrintSheet'),
+					'Druckbogen erfolgreich generiert',
 					'success',
 					true,
 				);
@@ -305,7 +305,7 @@ $(document).ready(() => {
 			})
 			.fail(() => {
 				$.showNotification(
-					$t('administration.global.text.errorGeneratingPrintSheet'),
+					'Problem beim Erstellen des Druckbogens',
 					'danger',
 					true,
 				);

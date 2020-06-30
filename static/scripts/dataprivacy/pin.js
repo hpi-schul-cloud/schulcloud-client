@@ -15,16 +15,18 @@ function sendPin(sendConfirm) {
 		data: { email: usermail, mailTextForRole: role },
 	}).done(() => {
 		if (sendConfirm) {
-			$.showNotification($t('dataprivacy.text.confirmationCodeSent', { email: usermail }),
+			$.showNotification(`Wir haben dir soeben einen Bestätigungscode an ${usermail} gesendet.`,
 				'success',
 				15000);
 		}
 	}).fail((err) => {
 		let errorMessage;
 		if (err.status === 400) {
-			errorMessage = $t('dataprivacy.text.providerBlocked', { email: usermail });
+			errorMessage = `Der Provider deiner E-Mail-Adresse (${usermail}) ist geblockt!
+			Bitte verwende eine andere Adresse und versuche es dann erneut.`;
 		} else {
-			errorMessage = $t('dataprivacy.text.errorGeneratingConfirmationCode', { email: usermail });
+			errorMessage = `Hoppla, es gab einen Fehler bei der Code-Erstellung!
+			Bitte prüfe deine E-Mail-Adresse (${usermail}) und versuche es dann erneut.`;
 		}
 
 		$.showNotification(errorMessage, 'danger', 7000);
@@ -47,8 +49,9 @@ $('#resend-pin').on('click', (e) => {
 			timeoutSend = false;
 		}, 60000);
 	} else {
-		$.showNotification($t('dataprivacy.text.confirmationCodeAlreadySent'),
-			'info',
-			7000);
+		$.showNotification(`Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,
+		ob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.`,
+		'info',
+		7000);
 	}
 });

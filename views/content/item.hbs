@@ -41,7 +41,7 @@
             </a>
         {{/userIsAllowedToViewContent}}
 
-        <span>{{{$t "content.text.viaProvider" (dict "provider" providerName)}}}</span>
+        <span>via {{{ providerName }}}</span>
         {{#if @root.isCourseGroupTopic}}
             <a class="add-to-lesson pull-right" href="{{{ _id }}}">
                 <i class="fa fa-plus-square"></i>
@@ -59,7 +59,7 @@
                         data-placement="bottom"
                         data-html="true"
                         data-animation="true"
-                        title="{{{$t "content.headline.contentCantBeAddedInDemo"}}}" ></i>
+                        title="<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>" ></i>
                     {{/userHasPermission}}
                 {{/userHasPermission}}
             {{/userHasPermission}}

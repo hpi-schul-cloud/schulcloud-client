@@ -15,27 +15,14 @@ const tutorials = require('../helpers/content/tutorials.json');
 // secure routes
 router.use(authHelper.authChecker);
 
-router.get('/articles', (req, res, next) => {
+router.get('/', (req, res, next) => {
 	res.render('help/help', {
-		title: 'Hilfeartikel',
+		title: 'Hilfebereich',
 		tutorials,
 		adminFormIsActive: req.query.activeForm === 'admin',
 		teamFormIsActive: req.query.activeForm === 'team',
 		formAttachmentsSize: (MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE / 1024 / 1024),
 		userEmail: res.locals.currentUser.source ? '' : res.locals.currentUser.email,
-	});
-});
-
-router.get('/', (req, res, next) => {
-	res.render('help/dashboard', {
-		title: 'Hilfebereich',
-	});
-});
-
-router.get('/contact', (req, res, next) => {
-	res.render('help/contact', {
-		title: 'Kontakt',
-		adminFormIsActive: true,
 	});
 });
 

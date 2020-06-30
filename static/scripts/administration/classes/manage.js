@@ -37,7 +37,7 @@ function copy(event) {
 	copySource.select();
 	document.execCommand('copy');
 	$.showNotification(
-		$t('administration.classes.text.linkCopiedToClipboard'),
+		'Der Link wurde in deine Zwischenablage kopiert',
 		'success',
 		3000,
 	);
@@ -54,7 +54,7 @@ function printInvitation(event) {
 	const invitationLink = document.querySelector('#invitationLink').value;
 	const invitation = {
 		href: invitationLink,
-		title: `${$t('administration.classes.label.class')} ${className}`,
+		title: `Klasse: ${className}`,
 		description: invitationLink,
 	};
 	const invitations = Array(25).fill(invitation);
@@ -86,9 +86,7 @@ window.addEventListener('load', () => {
 
 			// update items
 			if (classes.total === 0) {
-				classInput.innerHTML = `<option value="" disabled>
-					${$t('administration.classes.text.noClassesInYear')}
-				</option>`;
+				classInput.innerHTML = '<option value="" disabled>Keine Klassen in diesem Jahrgang vorhanden</option>';
 			} else {
 				classInput.innerHTML = `${classes.data
 					.map(
@@ -110,9 +108,9 @@ window.addEventListener('load', () => {
 			});
 		$('select[name="classes"]').trigger('chosen:updated');
 		populateModalForm($importModal, {
-			title: $t('administration.classes.headline.importClass'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.add'),
+			title: 'Klasse importieren',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Hinzufügen',
 		});
 		$importModal.appendTo('body').modal('show');
 	});
@@ -146,7 +144,7 @@ window.addEventListener('load', () => {
 		const classId = $this.data('class');
 		const role = $this.data('role');
 
-		$this.html($t('administration.global.button.mailsAreBeingSent'));
+		$this.html('E-Mails werden gesendet...');
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -159,7 +157,7 @@ window.addEventListener('load', () => {
 		})
 			.done(() => {
 				$.showNotification(
-					$t('administration.global.text.successfullySentMails'),
+					'Erinnerungs-E-Mails erfolgreich versendet',
 					'success',
 					true,
 				);
@@ -168,7 +166,7 @@ window.addEventListener('load', () => {
 			})
 			.fail(() => {
 				$.showNotification(
-					$t('administration.global.text.errorSendingMails'),
+					'Fehler beim senden der Erinnerungs-E-Mails',
 					'danger',
 					true,
 				);
@@ -176,7 +174,6 @@ window.addEventListener('load', () => {
 				$this.html(text);
 			});
 	}
-
 	$('.btn-send-links-emails').on('click', btnSendLinksEmailsHandler);
 
 	function btnPrintLinksHandler(e) {
@@ -186,7 +183,7 @@ window.addEventListener('load', () => {
 		const classId = $this.data('class');
 		const role = $this.data('role');
 
-		$this.html($t('administration.global.button.printSheetIsBeingGenerated'));
+		$this.html('Druckbogen wird generiert...');
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -206,7 +203,7 @@ window.addEventListener('load', () => {
 					})),
 				);
 				$.showNotification(
-					$t('administration.global.text.successfullyGeneratedPrintSheet'),
+					'Druckbogen erfolgreich generiert',
 					'success',
 					true,
 				);
@@ -215,7 +212,7 @@ window.addEventListener('load', () => {
 			})
 			.fail(() => {
 				$.showNotification(
-					$t('administration.global.text.errorGeneratingPrintSheet'),
+					'Problem beim Erstellen des Druckbogens',
 					'danger',
 					true,
 				);

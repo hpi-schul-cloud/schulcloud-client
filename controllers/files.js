@@ -19,11 +19,11 @@ const { LIBRE_OFFICE_CLIENT_URL, PUBLIC_BACKEND_URL, FEATURE_TEAMS_ENABLED } = r
 
 const router = express.Router();
 
-const filterOptions = (res) => [
-	{ key: 'pics', label: res.$t('files.search.label.pics') },
-	{ key: 'videos', label: res.$t('files.search.label.videos') },
-	{ key: 'pdfs', label: res.$t('files.search.label.pdfs') },
-	{ key: 'msoffice', label: res.$t('files.search.label.msoffice') },
+const filterOptions = [
+	{ key: 'pics', label: 'Bilder' },
+	{ key: 'videos', label: 'Videos' },
+	{ key: 'pdfs', label: 'PDF Dokumente' },
+	{ key: 'msoffice', label: 'Word/Excel/PowerPoint' },
 ];
 
 const filterQueries = {
@@ -239,19 +239,19 @@ const FileGetter = (req, res, next) => {
 		};
 		res.locals.sortOptions = [
 			{
-				label: res.$t('files.label.createdAt'),
+				label: 'Erstelldatum',
 				value: 'createdAt',
 			},
 			{
-				label: res.$t('files.label.updatedAt'),
+				label: 'Änderungsdatum',
 				value: 'updatedAt',
 			},
 			{
-				label: res.$t('files.label.name'),
+				label: 'Dateiname',
 				value: 'name',
 			},
 			{
-				label: res.$t('files.label.size'),
+				label: 'Größe',
 				value: 'size',
 			},
 		].map((option) => {
@@ -322,12 +322,12 @@ const getDirectoryTree = (set, directory) => {
  * @param fileId {String} - the file for which a new permission should be created
  * @param shareToken {String} - a token for verify enabled sharing
  */
-const registerSharedPermission = (userId, fileId, shareToken, req, res) => api(req)
+const registerSharedPermission = (userId, fileId, shareToken, req) => api(req)
 	// check whether sharing is enabled for given file
 	.get(`/files/${fileId}`, { qs: { shareToken } }).then((file) => {
 		if (!file) {
 			// owner permits sharing of given file
-			throw new Error(res.$t('files.text.noAccessToThisFile'));
+			throw new Error('Zu dieser Datei haben Sie keinen Zugriff!');
 		}
 		const permission = file.permissions.find(perm => perm.refId.toString() === userId);
 
@@ -454,7 +454,7 @@ router.get('/file', (req, res, next) => {
 	};
 
 	const sharedPromise = share && share !== 'undefined'
-		? registerSharedPermission(res.locals.currentUser._id, data.file, share, req, res)
+		? registerSharedPermission(res.locals.currentUser._id, data.file, share, req)
 		: Promise.resolve();
 
 	sharedPromise.then(() => {
@@ -495,14 +495,14 @@ router.post('/file/:id/move', (req, res) => {
 	}).then(() => {
 		req.session.notification = {
 			type: 'success',
-			message: res.$t('files._file.text.fileMoved'),
+			message: 'Verschieben der Datei war erfolgreich!',
 		};
 		res.sendStatus(200);
 	}).catch((e) => {
 		req.session.notification = {
 			type: 'danger',
 			message: e.error.message.indexOf('E11000 duplicate key error') >= 0
-				? res.$t('files._file.text.fileAlreadyExists')
+				? 'Es existiert bereits eine Datei mit diesem Namen im Zielordner!'
 				: e.error.message,
 		};
 		res.send(e);
@@ -518,7 +518,7 @@ router.post('/newFile', (req, res, next) => {
 		parent,
 	} = req.body;
 
-	const fileName = name || res.$t('files.text.newFile');
+	const fileName = name || 'Neue Datei';
 
 	api(req).post('fileStorage/files/new', {
 		json: {
@@ -535,7 +535,7 @@ router.post('/newFile', (req, res, next) => {
 router.post('/directory', (req, res, next) => {
 	const { name, owner, parent } = req.body;
 	const json = {
-		name: name || res.$t('files.text.newDir'),
+		name: name || 'Neuer Ordner',
 		owner,
 		parent,
 	};
@@ -569,7 +569,7 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 		.map(addThumbnails);
 
 	let breadcrumbs = [{
-		label: res.$t('files.label.myPersonalData'),
+		label: 'Meine persönlichen Dateien',
 		url: basePath,
 	}];
 
@@ -585,7 +585,7 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
 	res.render('files/files', Object.assign({
-		title: res.$t('files.headline.files'),
+		title: 'Dateien',
 		path: res.locals.files.path,
 		breadcrumbs,
 		canUploadFile: true,
@@ -627,10 +627,10 @@ router.get('/shared/', (req, res) => {
 		files.files = getFilesWithSaveName(files.files);
 
 		res.render('files/files', Object.assign({
-			title: res.$t('files.headline.files'),
+			title: 'Dateien',
 			path: '/',
 			breadcrumbs: [{
-				label: res.$t('files.label.filesSharedWithMe'),
+				label: 'Mit mir geteilte Dateien',
 				url: '/files/shared/',
 			}],
 			canUploadFile: false,
@@ -644,7 +644,7 @@ router.get('/shared/', (req, res) => {
 
 router.get('/', (req, res, next) => {
 	res.render('files/files-overview', Object.assign({
-		title: res.$t('files.headline.myFiles'),
+		title: 'Meine Dateien',
 		showSearch: false,
 	}));
 });
@@ -653,12 +653,12 @@ router.get('/courses/', (req, res, next) => {
 	const basePath = '/files/courses/';
 	getScopeDirs(req, res, 'courses').then(async (directories) => {
 		const breadcrumbs = [{
-			label: res.$t('files.label.filesFromMyCourse'),
+			label: 'Dateien aus meinen Kursen',
 			url: basePath,
 		}];
 
 		res.render('files/files', {
-			title: res.$t('files.headline.files'),
+			title: 'Dateien',
 			path: getStorageContext(req, res),
 			breadcrumbs,
 			files: [],
@@ -676,7 +676,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 	let canCreateFile = true;
 
 	let breadcrumbs = [{
-		label: res.$t('files.label.filesFromMyCourse'),
+		label: 'Dateien aus meinen Kursen',
 		url: basePath,
 	}, {
 		label: record.name,
@@ -698,7 +698,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
 	res.render('files/files', Object.assign({
-		title: res.$t('files.headline.files'),
+		title: 'Dateien',
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile,
@@ -709,7 +709,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		showSearch: false,
 		courseId: req.params.courseId,
 		ownerId: req.params.courseId,
-		toCourseText: res.$t('files.button.toCourse'),
+		toCourseText: 'Zum Kurs',
 		courseUrl: `/courses/${req.params.courseId}/`,
 		canEditPermissions: true,
 		parentId: req.params.folderId,
@@ -720,12 +720,12 @@ router.get('/teams/', (req, res, next) => {
 	const basePath = '/files/teams/';
 	getScopeDirs(req, res, 'teams').then(async (directories) => {
 		const breadcrumbs = [{
-			label: res.$t('files.label.filesFromMyTeam'),
+			label: 'Dateien aus meinen Teams',
 			url: basePath,
 		}];
 
 		res.render('files/files', {
-			title: res.$t('files.headline.files'),
+			title: 'Dateien',
 			path: getStorageContext(req, res),
 			breadcrumbs,
 			teamFiles: true,
@@ -744,7 +744,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 	res.locals.files.files = res.locals.files.files.map(addThumbnails);
 
 	let breadcrumbs = [{
-		label: res.$t('files.label.filesFromMyTeam'),
+		label: 'Dateien aus meinen Teams',
 		url: basePath,
 	}, {
 		label: team.name,
@@ -763,7 +763,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
 	res.render('files/files', Object.assign({
-		title: res.$t('files.headline.files'),
+		title: 'Dateien',
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile: true,
@@ -776,7 +776,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 		courseId: req.params.teamId,
 		ownerId: req.params.teamId,
 		canEditPermissions: team.user.permissions.includes('EDIT_ALL_FILES'),
-		toCourseText: res.$t('files.button.toTeam'),
+		toCourseText: 'Zum Team',
 		courseUrl: `/teams/${req.params.teamId}/`,
 		parentId: req.params.folderId,
 	}, res.locals.files));
@@ -786,12 +786,12 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 router.get('/classes/', (req, res, next) => {
 	getScopeDirs(req, res, 'classes').then(async (directories) => {
 		const breadcrumbs = [{
-			label: res.$t('files.label.filesFromMyClasses'),
+			label: 'Dateien aus meinen Klassen',
 			url: '/files/classes/',
 		}];
 
 		res.render('files/files', {
-			title: res.$t('files.headline.files'),
+			title: 'Dateien',
 			path: getStorageContext(req, res),
 			breadcrumbs,
 			files: [],
@@ -808,7 +808,7 @@ router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 		const files = res.locals.files.map(addThumbnails);
 
 		let breadcrumbs = [{
-			label: res.$t('files.label.filesFromMyClasses'),
+			label: 'Dateien aus meinen Klassen',
 			url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, { dir: '' }, basePath),
 		}, {
 			label: record.name,
@@ -827,7 +827,7 @@ router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 		files.files = getFilesWithSaveName(files.files);
 
 		res.render('files/files', Object.assign({
-			title: res.$t('files.headline.files'),
+			title: 'Dateien',
 			path: res.locals.files.path,
 			canUploadFile: true,
 			breadcrumbs,
@@ -914,10 +914,10 @@ router.get('/search/', (req, res, next) => {
 		qs: filterQuery,
 	}).then((result) => {
 		const files = result.data.map(addThumbnails);
-		const filterOption = filterOptions(res).filter((f) => f.key === filter)[0];
+		const filterOption = filterOptions.filter(f => f.key === filter)[0];
 
 		res.render('files/search', {
-			title: res.$t('files.search.headline.search'),
+			title: 'Dateisuche',
 			query: filterOption ? filterOption.label : q,
 			files,
 		});
@@ -997,7 +997,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
 		.then(() => {
 			req.session.notification = {
 				type: 'success',
-				message: res.$t('files._file.text.renameFileSuccess'),
+				message: 'Umbenennen der Datei war erfolgreich!',
 			};
 
 			redirectHelper.safeBackRedirect(req, res);
@@ -1006,7 +1006,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
 			req.session.notification = {
 				type: 'danger',
 				message: e.error.message.indexOf('E11000 duplicate key error') >= 0
-					? res.$t('files._file.text.fileAlreadyExistsInDir')
+					? 'Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!'
 					: e.error.message,
 			};
 
@@ -1024,7 +1024,7 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 		.then(() => {
 			req.session.notification = {
 				type: 'success',
-				message: res.$t('files._file.text.renameDirSuccess'),
+				message: 'Umbenennen des Ordners war erfolgreich!',
 			};
 
 			redirectHelper.safeBackRedirect(req, res);
@@ -1033,7 +1033,7 @@ router.post('/directoryModel/:id/rename', (req, res, next) => {
 			req.session.notification = {
 				type: 'danger',
 				message: e.error.message.indexOf('E11000 duplicate key error') >= 0
-					? res.$t('files._file.text.dirAlreadyExists')
+					? 'Es existiert bereits ein Ordner mit diesem Namen im gleichen Ordner!'
 					: e.error.message,
 			};
 

@@ -18,13 +18,13 @@ $(window).ready(() => {
 		$memberModal.appendTo('body').modal('show');
 	}
 
-	$('.btn-show-members').on('click', function showMembers(e) {
+	$('.btn-show-members').on('click', function showMemebers(e) {
 		e.preventDefault();
 
 		const parent = $(this).closest('tr');
 		const { members } = getPayload(parent);
 
-		let teamMembers = $t('administration.teams.text.noParticipants');
+		let teamMembers = 'Keine Teilnehmer';
 		if ((members || []).length !== 0) {
 			teamMembers = '<ol>';
 			members.forEach((member) => {
@@ -42,15 +42,15 @@ $(window).ready(() => {
 			teamMembers += '</ol>';
 		}
 
-		displayModalTeamMembers($t('administration.teams.headline.membersInOwnSchool'), teamMembers);
+		displayModalTeamMembers('Mitglieder an eigener Schule', teamMembers);
 	});
 
-	$('.btn-show-schools').on('click', function showMembers(e) {
+	$('.btn-show-schools').on('click', function showMemebers(e) {
 		e.preventDefault();
 		const parent = $(this).closest('tr');
 		const { schools } = getPayload(parent);
 
-		let teamSchools = $t('administration.teams.text.noSchools');
+		let teamSchools = 'Keine Schulen';
 		if ((schools || []).length !== 0) {
 			teamSchools = '<ol>';
 			schools.forEach((member) => {
@@ -59,7 +59,7 @@ $(window).ready(() => {
 			teamSchools += '</ol>';
 		}
 
-		displayModalTeamMembers($t('administration.teams.headline.schools'), teamSchools);
+		displayModalTeamMembers('Schulen', teamSchools);
 	});
 
 	$('.btn-write-owner').on('click', function writeOwner(e) {
@@ -73,9 +73,9 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($messageModal, {
 			action: entry,
-			title: $t('administration.teams.headline.messageToTeamOwners'),
-			closeLabel: $t('administration.teams.button.discardMessage'),
-			submitLabel: $t('administration.teams.button.sendMessage'),
+			title: 'Neue Nachricht an den/die Team-Eigentümer senden',
+			closeLabel: 'Verwerfen',
+			submitLabel: 'Absenden',
 		});
 
 		$messageModal.appendTo('body').modal('show');
@@ -92,9 +92,9 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($deleteModal, {
 			action: entry,
-			title: $t('administration.teams.headline.deleteTeam'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.delete'),
+			title: 'Löschen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Löschen',
 			fields: {
 				name,
 			},
@@ -114,9 +114,9 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($removeModal, {
 			action: entry,
-			title: $t('administration.teams.headline.removeSchoolFromTeam'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('administration.teams.button.removeAllMembers'),
+			title: 'Schule aus Team entfernen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Alle Mitglieder entfernen',
 			fields: {
 				name,
 			},
@@ -135,9 +135,9 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($removeModal, {
 			action: entry,
-			title: $t('administration.teams.headline.newTeamOwner'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('administration.teams.button.appointTeamOwner'),
+			title: 'Einen zusätzlichen Team-Eigentümer ernennen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Ernennen',
 		});
 
 		$removeModal.appendTo('body').modal('show');
