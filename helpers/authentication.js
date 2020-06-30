@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const passwordGenerator = require('generate-password');
 
 const { Configuration } = require('@schul-cloud/commons');
 
@@ -7,7 +8,7 @@ const api = require('../api');
 const permissionsHelper = require('./permissions');
 const wordlist = require('../static/other/wordlist.js');
 
-const { SW_ENABLED } = require('../config/global');
+const { SW_ENABLED, MINIMAL_PASSWORD_LENGTH } = require('../config/global');
 const logger = require('./logger');
 
 const rolesDisplayName = {
@@ -34,6 +35,14 @@ const generatePassword = () => {
 	});
 	return passphraseParts.join(' ');
 };
+
+const generateConsentPassword = () => passwordGenerator.generate({
+	length: MINIMAL_PASSWORD_LENGTH,
+	numbers: true,
+	lowercase: true,
+	uppercase: true,
+	strict: true,
+});
 
 const clearCookie = async (req, res, options = { destroySession: false }) => {
 	if (options.destroySession && req.session && req.session.destroy) {
@@ -70,7 +79,7 @@ const isAuthenticated = (req) => {
 	}).then(() => true).catch(() => false);
 };
 
-const populateCurrentUser = (req, res) => {
+const populateCurrentUser = async (req, res) => {
 	let payload = {};
 	if (isJWT(req)) {
 		try {
@@ -97,11 +106,18 @@ const populateCurrentUser = (req, res) => {
 	}
 
 	if (payload && payload.userId) {
-		return api(req).get(`/users/${payload.userId}`, {
-			qs: {
-				$populate: ['roles'],
-			},
-		}).then((data) => {
+		if (res.locals.currentUser && res.locals.currentSchoolData) {
+			return Promise.resolve(res.locals.currentSchoolData);
+		}
+		return Promise.all([
+			api(req).get(`/users/${payload.userId}`),
+			api(req).get(`/roles/user/${payload.userId}`),
+		]).then(([user, roles]) => {
+			const data = {
+				...user,
+				roles,
+				permissions: roles.reduce((acc, role) => [...new Set(acc.concat(role.permissions))], []),
+			};
 			res.locals.currentUser = data;
 			setTestGroup(res.locals.currentUser);
 			res.locals.currentRole = rolesDisplayName[data.roles[0].name];
@@ -160,8 +176,19 @@ const restrictSidebar = (req, res) => {
 		if (!item.permission) return true;
 
 		const hasRequiredPermission = permissionsHelper.userHasPermission(res.locals.currentUser, item.permission);
-		const hasExcludedPermission = permissionsHelper.userHasPermission(res.locals.currentUser,
-			item.excludedPermission);
+		let hasExcludedPermission = false;
+		if (Array.isArray(item.excludedPermission)) {
+			hasExcludedPermission = item.excludedPermission
+				.reduce((acc, perm) => {
+					if (acc === true) return true;
+					return permissionsHelper.userHasPermission(res.locals.currentUser, perm);
+				},
+				false);
+		} else {
+			hasExcludedPermission = permissionsHelper.userHasPermission(res.locals.currentUser,
+				item.excludedPermission);
+		}
+
 		return hasRequiredPermission && !hasExcludedPermission;
 		// excludedPermission is used to prevent the case that an Admin has both: Verwaltung and Administration
 	});
@@ -258,4 +285,5 @@ module.exports = {
 	login,
 	etherpadCookieHelper,
 	generatePassword,
+	generateConsentPassword,
 };

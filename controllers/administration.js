@@ -9,6 +9,7 @@ const moment = require('moment');
 const multer = require('multer');
 const encoding = require('encoding-japanese');
 const _ = require('lodash');
+const { Configuration } = require('@schul-cloud/commons');
 const queryString = require('querystring');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -715,6 +716,25 @@ const createBucket = (req, res, next) => {
 	}
 };
 
+const updatePolicy = (req, res, next) => {
+	const body = req.body;
+	// TODO: set correct API request
+	api(req).post('/consentVersions', {
+		json: {
+			title: body.consentTitle,
+			consentText: body.consentText,
+			publishedAt: new Date().toLocaleString(),
+			consentTypes: ['privacy'],
+			schoolId: body.schoolId,
+			consentData: body.consentData,
+		},
+	}).then(() => {
+		redirectHelper.safeBackRedirect(req, res);
+	}).catch((err) => {
+		next(err);
+	});
+};
+
 const returnAdminPrefix = (roles) => {
 	let prefix;
 	// eslint-disable-next-line array-callback-return
@@ -870,7 +890,7 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 // teacher admin permissions
 router.get(
 	'/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST', 'TEACHER_LIST'], 'or'),
 	(req, res, next) => {
 		const title = returnAdminPrefix(res.locals.currentUser.roles);
 		res.render('administration/dashboard', {
@@ -1061,7 +1081,7 @@ router.get(
 					&& hasEditPermission
 				) {
 					head.push('Erstellt am');
-					head.push('Einverständnis');
+					head.push('Registrierung');
 					head.push('');
 				}
 				const body = users.map((user) => {
@@ -1298,7 +1318,7 @@ router.get(
 					submitLabel: 'Einverständnis erklären',
 					closeLabel: 'Abbrechen',
 					user,
-					password: authHelper.generatePassword(),
+					password: authHelper.generateConsentPassword(),
 					referrer: req.header('Referer'),
 				});
 			})
@@ -1956,6 +1976,12 @@ router.get(
 						}
 					});
 
+					// checks for user's 'STUDENT_LIST' permission and filters selected students
+					const filterStudents = (ctx, s) => (
+						!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
+							? s.filter(({ selected }) => selected) : s
+					);
+
 					// importHash exists --> not signed up
 					const usersWithoutConsent = allUsersWithoutConsent.filter((obj) => {
 						if (obj.importHash) return true;
@@ -1967,7 +1993,7 @@ router.get(
 						class: currentClass,
 						classes,
 						teachers,
-						students,
+						students: filterStudents(res, students),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						schoolyears,
 						notes: [
@@ -2057,7 +2083,7 @@ router.get(
 			if (obj.importHash) return true;
 			return false;
 		});
-		const passwords = students.map(() => (authHelper.generatePassword()));
+		const passwords = students.map(() => (authHelper.generateConsentPassword()));
 		const renderUsers = students.map((student, i) => ({
 			fullname: `${student.firstName} ${student.lastName}`,
 			id: student._id,
@@ -2521,6 +2547,64 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		await updateSchoolFeature(req, currentFeatures, req.body.videoconference === 'true', 'videoconference');
 		delete req.body.videoconference;
 
+		// Toggle teacher's studentVisibility permission
+		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY');
+		const isStudentVisibilityEnabled = (res.locals.currentSchoolData.features || []).includes(
+			'studentVisibility',
+		);
+		if (studentVisibilityFeature !== 'disabled' && !isStudentVisibilityEnabled) {
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'studentVisibility',
+					},
+				},
+			});
+		} else if (studentVisibilityFeature === 'disabled' && isStudentVisibilityEnabled) {
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'studentVisibility',
+					},
+				},
+			});
+		}
+		if (isStudentVisibilityEnabled) {
+			await api(req)
+				.patch('school/teacher/studentvisibility', {
+					json: {
+						permission: {
+							isEnabled: !!req.body.studentVisibility,
+						},
+					},
+				});
+		}
+
+		delete req.body.studentVisibility;
+
+		// Update riot messenger feature in school
+		const messengerEnabled = (res.locals.currentSchoolData.features || []).includes(
+			'messenger',
+		);
+		if (!messengerEnabled && req.body.messenger === 'true') {
+			// enable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$push: {
+						features: 'messenger',
+					},
+				},
+			});
+		} else if (messengerEnabled && req.body.messenger !== 'true') {
+			// disable feature
+			await api(req).patch(`/schools/${req.params.id}`, {
+				json: {
+					$pull: {
+						features: 'messenger',
+					},
+				},
+			});
+		}
 		await updateSchoolFeature(req, currentFeatures, req.body.messenger === 'true', 'messenger');
 		delete req.body.messenger;
 
@@ -2537,6 +2621,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 router.patch('/schools/:id', schoolFeatureUpdateHandler);
 router.post('/schools/:id/bucket', createBucket);
+router.post('/schools/policy', updatePolicy);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch(
 	'/courses/:id',
@@ -2696,10 +2781,10 @@ const getTeamSchoolsButton = (counter) => `
 router.all('/teams', (req, res, next) => {
 	const path = '/administration/teams/';
 
-	let itemsPerPage = parseInt(req.query.limit, 10) || 25;
-	let filterQuery = {};
+	const itemsPerPage = parseInt(req.query.limit, 10) || 25;
+	const filterQuery = {};
 	const currentPage = parseInt(req.query.p, 10) || 1;
-	
+
 	let query = {
 		limit: itemsPerPage,
 		skip: itemsPerPage * (currentPage - 1),
@@ -2713,7 +2798,7 @@ router.all('/teams', (req, res, next) => {
 		'Erstellt am': 'createdAt',
 	*/
 
-	
+
 	api(req)
 		.get('/teams/manage/admin', {
 			qs: query,
@@ -2975,7 +3060,7 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage, schoolMaintanance] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance, studentVisibility, consentVersions] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
 					$populate: ['systems', 'currentYear'],
@@ -2984,6 +3069,17 @@ router.use(
 			}),
 			api(req).get('/fileStorage/total'),
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
+			api(req).get('/school/teacher/studentvisibility'),
+			api(req).get('/consentVersions', {
+				qs: {
+					$limit: 100,
+					schoolId: res.locals.currentSchool,
+					consentTypes: 'privacy',
+					$sort: {
+						publishedAt: -1,
+					},
+				},
+			}),
 		]);
 
 		// Maintanance - Show Menu depending on the state
@@ -2999,6 +3095,28 @@ router.use(
 		} else if (maintananceModeStarts && twoWeeksFromStart < currentTime) {
 			schoolMaintananceMode = 'standby';
 		}
+		// POLICIES
+		const policiesHead = ['Titel', 'Beschreibung', 'Hochgeladen am', 'Link'];
+		let policiesBody;
+		if (Array.isArray(consentVersions.data)) {
+			policiesBody = consentVersions.data.map((consentVersion) => {
+				const title = consentVersion.title;
+				const text = consentVersion.consentText;
+				const publishedAt = new Date(consentVersion.publishedAt).toLocaleString();
+				const linkToPolicy = consentVersion.consentDataId;
+				const links = [];
+				if (linkToPolicy) {
+					links.push({
+						link: `/base64Files/${linkToPolicy}`,
+						class: 'base64File-download-btn',
+						icon: 'file-o',
+						title: 'Datenschutzerklärung der Schule',
+					});
+				}
+				return [title, text, publishedAt, links];
+			});
+		}
+
 
 		// SYSTEMS
 		const systemsHead = ['Alias', 'Typ', ''];
@@ -3080,11 +3198,14 @@ router.use(
 			systems,
 			ldapAddable,
 			provider,
+			studentVisibility: studentVisibility.isEnabled,
 			availableSSOTypes: ssoTypes,
 			ssoTypes,
 			totalStorage,
 			systemsHead,
 			systemsBody,
+			policiesHead,
+			policiesBody,
 			rssHead,
 			rssBody,
 			hasRSS: rssBody && !!rssBody.length,
@@ -3092,6 +3213,18 @@ router.use(
 		});
 	},
 );
+
+router.get('/policies/:id', async (req, res, next) => {
+	try {
+		const base64File = await Promise.resolve(
+			api(req).get(`/base64Files/${req.params.id}`),
+		);
+		const fileData = base64File.data;
+		res.json(fileData);
+	} catch (err) {
+		next(err);
+	}
+});
 
 /*
 
@@ -3243,6 +3376,7 @@ router.post(
 				// eslint-disable-next-line no-shadow
 				.then((system) => {
 					api(req)
+						// TODO move to server. Should be one transaction
 						.patch(`/schools/${res.locals.currentSchool}`, {
 							json: {
 								$push: {
@@ -3292,9 +3426,10 @@ router.post(
 			classesPath = '';
 		}
 
-		let ldapURL = req.body.ldapurl;
+		// TODO potentielles Problem url: testSchule/ldap -> testSchule/ldaps
+		let ldapURL = req.body.ldapurl; // Better: let ldapURL = req.body.ldapurl.trim();
 		if (!ldapURL.startsWith('ldaps')) {
-			if (ldapURL.includes('ldap')) {
+			if (ldapURL.includes('ldap')) { // Better ldapURL.startsWith('ldap')
 				ldapURL = ldapURL.replace('ldap', 'ldaps');
 			} else {
 				ldapURL = `ldaps://${ldapURL}`;
@@ -3306,7 +3441,7 @@ router.post(
 				json: {
 					alias: req.body.ldapalias,
 					ldapConfig: {
-						active: false,
+						active: false, // Don't switch of by verify
 						url: ldapURL,
 						rootPath: req.body.rootpath,
 						searchUser: req.body.searchuser,
@@ -3373,16 +3508,11 @@ router.post(
 		);
 
 		api(req)
-			.patch(`/systems/${system[0]._id}`, {
+			.patch(`/ldap/${system[0]._id}`, {
 				json: {
 					'ldapConfig.active': true,
 				},
 			})
-			.then(() => api(req).patch(`/schools/${school._id}`, {
-				json: {
-					ldapSchoolIdentifier: system[0].ldapConfig.rootPath,
-				},
-			}))
 			.then(() => {
 				res.json('success');
 			})
