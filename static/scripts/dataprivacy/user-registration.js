@@ -13,9 +13,7 @@ function validateDifferent() {
 		&& studentMailInput.value
 		&& parentMailInput.value === studentMailInput.value
 	) {
-		parentMailInput.setCustomValidity(
-			'Für den Schüler muss eine andere Mailadresse als für die Eltern angegeben werden.',
-		);
+		parentMailInput.setCustomValidity($t('dataprivacy.text.differentEmailParentStudent'));
 		$(parentMailInput)
 			.closest('section')
 			.addClass('show-invalid');
@@ -61,9 +59,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	$('input[readonly]').click(() => {
 		/* eslint-disable-next-line max-len */
 		$.showNotification(
-			`Diese Daten hat deine Lehrkraft oder dein Administrator für dich eingetragen.
-			Falls Anpassungen notwendig sind wende dich bitte an ihn/sie.
-			Du kannst deine Daten auch nach abgeschlossenem Registrierungsprozess selbst ändern.`,
+			$t('dataprivacy.text.dataGivenByTeacherOrAdmin'),
 			'danger',
 			false,
 		);
