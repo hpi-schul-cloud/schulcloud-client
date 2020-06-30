@@ -1464,11 +1464,6 @@
 					"sendInvitationAgain": "Einladung erneut versenden",
 					"teacher": "Lehrer"
 				},
-				"n21": {
-					"text": {
-						"inviteToTeamHint": "Die Einladung externer Experten ist vorübergehend bis zum 1.7. deaktiviert, um Probleme und Überschneidungen mit dem Onboarding neuer Schulen in der Niedersächsischen Bildungscloud zu vermeiden."
-					}
-				},
 				"placeholder": {
 					"insertEmail": "E-Mail eingeben",
 					"selectFederalState": "Bundesland auswählen",
