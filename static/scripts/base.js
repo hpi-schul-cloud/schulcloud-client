@@ -257,9 +257,13 @@ $(document).ready(() => {
 	const $modals = $('.modal');
 	const $deleteModal = $('.delete-modal');
 
-	const nextPage = (href) => {
+	const nextPage = (href, blank = false) => {
 		if (href) {
-			window.location.href = href;
+			if (blank) {
+				window.open(href);
+			} else {
+				window.location.href = href;
+			}
 		} else {
 			window.location.reload();
 		}
@@ -337,7 +341,7 @@ $(document).ready(() => {
 
 	// Window Location Link
 	$('.locationlink').on('click', function locationLink() {
-		nextPage($(this).attr('data-loclink'));
+		nextPage($(this).attr('data-loclink'), !!$(this).attr('data-blank'));
 	});
 
 	// Print Button
