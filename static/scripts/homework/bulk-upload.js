@@ -1,6 +1,8 @@
-import { uploadSubmissionFile, associateFilesWithSubmission } from './api-requests';
+import groupBy from 'lodash/groupBy';
+import keys from 'lodash/keys';
+import flatten from 'lodash/flatten';
 
-const _ = require('lodash');
+import { uploadSubmissionFile, associateFilesWithSubmission } from './api-requests';
 
 export default function (jQuery) {
 	const $ = jQuery;
@@ -41,11 +43,11 @@ export default function (jQuery) {
 			Promise.all(
 				knownUploadFiles.map((file) => uploadSubmissionFile({ file, owner, parent })),
 			).then(
-				(newFiles) => _.groupBy(newFiles, (fileModel) => knownFileNames[fileModel.name].submissionId),
+				(newFiles) => groupBy(newFiles, (fileModel) => knownFileNames[fileModel.name].submissionId),
 			).then(
-				(groupedFiles) => Promise.all(_.keys(groupedFiles).map((submissionId) => {
+				(groupedFiles) => Promise.all(keys(groupedFiles).map((submissionId) => {
 					const fileIds = groupedFiles[submissionId].map((file) => file._id);
-					const teamMembers = new Set(_.flatten(groupedFiles[submissionId]
+					const teamMembers = new Set(flatten(groupedFiles[submissionId]
 						.map((file) => knownFileNames[file.name].teamMemberIds)));
 
 					return associateFilesWithSubmission(
