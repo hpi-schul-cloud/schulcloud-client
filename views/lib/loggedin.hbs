@@ -66,11 +66,14 @@
                                     <ul class="subitems">
                                         {{#each this.children}}
                                             <li>
-                                                <a class="subitem {{this.class}}" href="{{this.link}}"
-                                                    title="{{this.name}}">
-                                                    <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
-                                                    <span class="link-name">{{this.name}}</span>
-                                                </a>
+												<a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+													{{#if this.isExternalIcon}}
+														{{{this.icon}}}
+													{{else}}
+														<i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
+													{{/if}}
+													<span class="link-name">{{this.name}}</span>
+												</a>
                                             </li>
                                         {{/each}}
                                     </ul>
