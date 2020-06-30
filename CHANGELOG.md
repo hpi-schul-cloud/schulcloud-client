@@ -10,14 +10,33 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 ### Added
-SC-4151 hint for user when login failes
+- SC-4151 hint for user when login failes
+- SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists 
+it is shown to every school user by the registration, first login and in the footer of the page. If it was changed the
+privacy policy should be confirmed by every school user
+
 
 ### Fixed
+-  SC-4993 fixed video player issue in ckeditor
 
 ### Changed
 
+- SC-5327 removed 'bereich' suffix from navigation items
+
 ### Removed
 
+## [23.4.4] - 2020-06-18
+
+- fix mocha tests on server
+
+## [23.4.3] - 2020-06-17
+
+- SC-5048 Temporarily disables Portfolio for NBC by removal of link to portfolio in add-ons.
+
+## [23.1.2] - 2020-06-02
+
+### Changed
+- SC-4766 minor text changes for n21
 
 ## [23.1.0] - 2020-05-20
 

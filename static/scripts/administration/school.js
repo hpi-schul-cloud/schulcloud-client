@@ -17,7 +17,7 @@ function transformToBase64(imageSrc) {
 		ctx.drawImage(img, dx, dy, dw, dh);
 		document.getElementsByName('logo_dataUrl')[0].value = canvas.toDataURL('image/png');
 		document.querySelector('#preview-logo').src = canvas.toDataURL('image/png');
-		document.querySelector('#logo-filename').innerHTML = 'Datei ausgewählt';
+		document.querySelector('#logo-filename').innerHTML = $t('administration.school.text.fileSelected');
 	};
 	img.src = imageSrc;
 }
@@ -35,6 +35,47 @@ function loadFile() {
 
 document.querySelector('#logo-input')
 	.addEventListener('change', loadFile, false);
+
+const MAX_FILE_SIZE_MB = 4;
+
+const toBase64 = (file) => new Promise((resolve, reject) => {
+	const reader = new FileReader();
+	reader.readAsDataURL(file);
+	reader.onload = () => resolve(reader.result);
+	reader.onerror = (error) => reject(error);
+});
+
+const loadPolicyFile = async () => {
+	const file = document.querySelector('#policy-input').files[0];
+	const base64file = await toBase64(file);
+
+	const reader = new FileReader();
+	reader.addEventListener('load', (evt) => {
+		if (!file.type.match('application/pdf')) {
+			$.showNotification('nur PDF Dateien werden unterstützt', 'danger', true);
+			document.querySelector('#policy-input').value = '';
+			document.querySelector('#policy-file-name').innerHTML = '';
+			document.querySelector('#policy-file-data').value = '';
+			document.querySelector('#policy-file-logo').style.display = 'none';
+			return;
+		}
+		const filesize = ((file.size / 1024) / 1024).toFixed(4); // MB
+
+		if (filesize > MAX_FILE_SIZE_MB) {
+			$.showNotification('PDF Datei ist zu groß. Maximal 4MB', 'danger', true);
+			return;
+		}
+		document.querySelector('#policy-file-name').innerHTML = `${file.name} (${filesize}MB)`;
+		document.querySelector('#policy-file-logo').style.display = 'inline';
+		document.querySelector('#policy-file-data').value = base64file;
+	}, false);
+	if (file) {
+		reader.readAsDataURL(file);
+	}
+};
+
+document.querySelector('#policy-input')
+	.addEventListener('change', loadPolicyFile, false);
 
 // hide/show Messenger sub options
 const messengerInput = document.querySelector('#messenger');

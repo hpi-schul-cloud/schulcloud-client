@@ -8,9 +8,9 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
-        <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
-        <script src="/scripts/teamMembers.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/teamMembers.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -25,9 +25,9 @@
                 <div class="row">
                     {{#inArray "ADD_SCHOOL_MEMBERS" permissions}}
                         <div class="col-sm-6">
-                            <p>Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.</p>
+                            <p>{{$t "teams._team.members.text.addTeacherOrStudentFromYourSchool"}}</p>
                             <button data-testid="internal_team_members" class="btn btn-primary btn-add-member padding-bottom">
-                                Interne Teilnehmer hinzufügen
+                                {{$t "teams._team.members.button.addInternMembers"}}
                             </button>
                         </div>
                     {{/inArray}}
@@ -35,9 +35,9 @@
                     {{#inArray "INVITE_EXPERTS" permissions}}
                         {{#inArray "TEAM_INVITE_EXTERNAL" ../rolePermissions}}
                             <div class="col-sm-6">
-                                <p>Lade Lehrer anderer Schulen und Experten per E-Mail ein.</p>
+                                <p>{{$t "teams._team.members.text.inviteTeachersAndExpertsByEmail"}}</p>
                                 <button class="btn btn-primary btn-invite-external-member">
-                                    Externe Teilnehmer einladen
+                                    {{$t "teams._team.members.button.addExternMembers"}}
                                 </button>
                             </div>
                         {{/inArray}}
@@ -46,7 +46,7 @@
             </div>
 
             {{#ifCond (arrayLength bodyInvitations) '>' 0}}
-                <h2 class="h4" style="margin-top: 2rem" class="padding-top">Ausstehende Einladungen</h2>
+                <h2 class="h4" style="margin-top: 2rem" class="padding-top">{{$t "teams._team.members.headline.pendingInvitations"}}</h2>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
@@ -57,7 +57,7 @@
             {{/ifCond}}
 
             <h2 class="h4 padding-top">
-                {{arrayLength body}} Teilnehmer
+                {{$t "teams._team.members.headline.member" (dict "count" (arrayLength body))}}
             </h2>
             <div class="container-fluid">
                 <div class="row">
@@ -68,9 +68,9 @@
             </div>
 
             {{#if bodyClasses}}
-                <h2 class="h4 padding-top">{{arrayLength bodyClasses}}
-                    {{#ifCond (arrayLength bodyClasses) '==' 1}} Klasse {{/ifCond}}
-                    {{#ifCond (arrayLength bodyClasses) '>' 1}} Klassen {{/ifCond}}
+                <h2 class="h4 padding-top">
+                    {{$t "teams._team.members.headline.class" (dict "count" (arrayLength bodyClasses))}}
+
                 </h2>
                 <div class="container-fluid">
                     <div class="row">
