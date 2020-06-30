@@ -43,11 +43,23 @@
 				"thirdPartyLogins": "Drittanbieter-Logins"
 			}
 		},
+		"headline": {
+			"doYouWantToDeleteDevice" : "Bist du dir sicher, dass du {{device}} löschen möchtest?"
+		} ,
 		"label": {
 			"providers": "Anbieter"
 		},
+		"testNotification": {
+			"headline": {
+				"test": "Neue Test-Benachrichtigung"
+			},
+			"text": {
+				"youHaveANewMessage" : "Du hast eine neue Benachrichtigung"
+			}
+		},
 		"text": {
-			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
+			"passwordsDoNotMatch" : "Passwörter stimmen nicht überein."
 		}
 	},
 	"addons": {
@@ -70,6 +82,30 @@
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
 		},
+		"classes": {
+			"headline":{
+				"importClass": "Klasse importieren"
+			},
+			"label": {
+				"class": "Klasse:"
+			},
+			"text": {
+				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
+				"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden"
+			}
+		},
+		"global": {
+			"button": {
+				"mailsAreBeingSent": "E-Mails werden gesendet...",
+				"printSheetIsBeingGenerated": "Druckbogen wird generiert..."
+			},
+			"text": {
+				"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
+				"errorSendingMails": "Fehler beim Senden der Erinnerungs-E-Mails",
+				"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
+				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet"
+			}
+		},
 		"label": {
 			"assignPassword": "Passwort vergeben:",
 			"birthdate": "Geburtsdatum:",
@@ -81,6 +117,70 @@
 			"parents": "Eltern",
 			"student": "Schüler:in",
 			"termsOfUse": "Nutzung"
+		},
+		"ldapEdit": {
+			"label": {
+				"hide": "Ausblenden",
+				"rolesAttributes": "Rollen-Attribute",
+				"rolesAttributesDescription": "Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
+				"rolesLDAPPaths": "Rollen-LDAP-Pfade",
+				"rolesLDAPPathsDescription": "Welche LDAP-Gruppe definiert die genannten Rolle? Geben Sie den vollen Pfad (inkl. root-Pfad) an",
+				"show": "Einblenden"
+			},
+			"text": {
+				"errorActivation": "Problem bei der Aktivierung",
+				"errorLDAPTimeout": "LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.",
+				"errorTimeout": "Zeitüberschreitung der Anwendung",
+				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!"
+			}
+		},
+		"school": {
+			"button": {
+				"yes": "Ja"
+			},
+			"headline": {
+				"add": "Hinzufügen",
+				"addPolicy": "Datenschutzerklärung hinzufügen",
+				"finishSchoolYear": "Das Schuljahr wirklich beenden?"
+			},
+			"text": {
+				"fileSelected": "Datei ausgewählt"
+			}
+		},
+		"teams": {
+			"button": {
+				"appointTeamOwner": "Ernennen",
+				"discardMessage": "Verwerfen",
+				"removeAllMembers": "Alle Mitglieder entfernen",
+				"sendMessage": "Absenden"
+			},
+			"headline": {
+				"deleteTeam": "Löschen",
+				"membersInOwnSchool": "Mitglieder an eigener Schule",
+				"messageToTeamOwners": "Neue Nachricht an den/die Team-Eigentümer senden",
+				"newTeamOwner": "Einen zusätzlichen Team-Eigentümer ernennen",
+				"removeSchoolFromTeam": "Schule aus Team entfernen",
+				"schools": "Schulen"
+			},
+			"text": {
+				"noParticipants": "Keine Teilnehmer",
+				"noSchools": "Keine Schulen"
+			}
+		},
+		"users_edit": {
+			"button": {
+				"mailIsBeingSent": "E-Mail wird gesendet..."
+			},
+			"headline": {
+				"changePassword": "Passwort ändern",
+				"completeRegistration": "Nutzerregistrierung abschließen",
+				"deleteUser": "Benutzer löschen?",
+				"generatedLink": "Einladungslink generiert!"
+			},
+			"text": {
+				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
+				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!"
+			}
 		}
 	},
 	"autologout": {
@@ -575,6 +675,30 @@
 			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
+	"dataprivacy": {
+		"headline": {
+			"registrationInvalid": "Registrierung fehlerhaft"
+		},
+		"img_alt": {
+			"brokenPen": "zerbrochener Stift"
+		},
+		"text": {
+			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
+			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
+			"dataGivenByTeacherOrAdmin": "Diese Daten hat deine Lehrkraft oder dein Administrator für dich eingetragen.\n\t\t\tFalls Anpassungen notwendig sind wende dich bitte an ihn/sie. Du kannst deine Daten auch nach abgeschlossenem Registrierungsprozess selbst ändern.",
+			"differentEmailParentStudent": "Für den Schüler muss eine andere Mailadresse als für die Eltern angegeben werden.",
+			"errorGeneratingConfirmationCode": "Hoppla, es gab einen Fehler bei der Code-Erstellung! Bitte prüfe deine E-Mail-Adresse ({{ email }}) und versuche es dann erneut.",
+			"errorSubmittingForm": "Fehler: {{text}}",
+			"errorSubmittingFormUndefined": "Das Absenden des Formulars ist fehlgeschlagen. (unbekannter Fehler)",
+			"invalidForm": "Formular ungültig, bitte füllen Sie alle Felder korrekt aus.",
+			"providerBlocked": "Der Provider deiner E-Mail-Adresse ({{ email }}) ist geblockt! Bitte verwende eine andere Adresse und versuche es dann erneut.",
+			"registrationInvalid": "Deine Registrierung bzw. dieser Registrierungslink scheint nicht valide zu sein. Dies kann mehrere Gründe haben:",
+			"registrationInvalidAlreadyUsed": "Der Nutzer, dem dieser Registrierungslink gehört, hat sich bzw. wurde bereits registriert.",
+			"registrationInvalidContactAdvice": "Bitte kontaktiere einen verantwortlichen Lehrer oder Administrator und frage diesbezüglich nach. Dieser kann weiterhelfen oder auch einen neuen Registrierungslink erstellen, falls nötig.",
+			"registrationInvalidManualConsent": "Ein Lehrer oder Administrator hat für den entsprechenden Nutzer bereits die manuelle Einverständniserklärung durchgeführt.",
+			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem entsprechenden Nutzer verknüpft."
+		}
+	},
 	"files": {
 		"button": {
 			"ascending": "↑ aufsteigend",
@@ -672,6 +796,10 @@
 		"error": {
 			"requestTimeout": "Zeitüberschreitung der Anfrage"
 		},
+		"headline": {
+			"delete": "Löschen",
+			"edit": "Bearbeiten"
+		},
 		"label": {
 			"room": "Raum"
 		},
@@ -684,8 +812,9 @@
 				"calendar": "Termine",
 				"courses": "Kurse",
 				"files": "Meine Dateien",
+				"helpArea": "Hilfebereich",
 				"lernstore": "Lern-Store",
-				"management": "Verwaltungsbereich",
+				"management": "Verwaltung",
 				"managementClasses": "Klassen",
 				"managementStudents": "Schüler:innen",
 				"managementTeachers": "Lehrer:innen",
@@ -706,6 +835,23 @@
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
+		}
+	},
+	"help": {
+		"contactForm": {
+			"text":{
+				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
+				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+				"typeNotAllowed" : "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
+			}
+		},
+		"search": {
+			"headline":{
+				"noSearchResults" : "Keine Ergebnisse gefunden 😪"
+			},
+			"text" : {
+				"tryAnotherQuery": "Probiere es mit anderen Suchbegriffen erneut"
+			}
 		}
 	},
 	"home": {
@@ -1117,9 +1263,28 @@
 			"inTheCourse": "im Kurs",
 			"inTheTeam": "im Team",
 			"lastFrom": "(zuletzt von",
+			"newsNeedContent" : "News benötigen Inhalt!",
+			"newsNeedTitle" : "News benötigen einen Titel!",
 			"processed": "bearbeitet)",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
+		}
+	},
+	"partner": {
+		"headline": {
+			"advisoryBoard": "Fachbeirat",
+			"partner" : "Partner",
+			"pilotPartners": "Pilotpartner für Lerninhalte",
+			"projectExecution": "Projektdurchführung",
+			"supporters": "Unterstützer für Schulinfrastruktur <3"
+		},
+		"img-alt": {
+			"logo": "Logo"
+		},
+		"text": {
+			"advisoryBoardDescription": "Das Schul-Cloud Projekt wird von einem Fachbeirat unterstützt, der sich aus verschiedenen Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben technischen Aspekten, auch Themen wie Datenschutz und Pädagogik.",
+			"pilotPartnersDescription": "Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die HPI Schul-Cloud erfahrbar wird.",
+			"supportersDescription": "Wir danken unseren Unterstützern für Schulinfrastruktur."
 		}
 	},
 	"pwRecovery": {
@@ -1501,8 +1666,8 @@
 				"link": {
 					"showAllNews": "Alle Neuigkeiten anzeigen..."
 				},
-				"label" : {
-					"continueReading" : "Weiterlesen"
+				"label": {
+					"continueReading": "Weiterlesen"
 				}
 			},
 			"tab_label": {
