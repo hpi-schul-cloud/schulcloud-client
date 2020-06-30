@@ -2,23 +2,23 @@
 <input name="roles[]" type="hidden" data-force-value="true" value="{{roles}}" />
 
 <p>
-    {{$t "administration.form_Import.text.importUserData" }}
-    (<a href="#" id="csv-import-example">{{$t "administration.form_Import.text.example" }}</a>)
-    {{$t "administration.form_Import.text.andSendYourUsersARegistrationLink" }}
+    Importiere Nutzerdaten per .csv-Datei
+    (<a href="#" id="csv-import-example">Beispiel</a>)
+    und lass deinen Nutzern einen Registrierungslink zukommen.
 </p>
 <p>
-    {{$t "administration.form_Import.text.youCanFindMoreInformationOnTheStructure" }}
+    Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du
     <a href="https://docs.schul-cloud.org/x/NYBgAw" target="_blank">hier</a>.
 </p>
 <p>
     <img src="/images/csv_example.png" />
 </p>
 <div class="form-group">
-    <label>{{$t "administration.form_Import.label.selectCSVFile" }}</label>
+    <label>CSV-Datei auswählen</label>
     <input class="form-control" name="csvFile" type="file" required />
 </div>
 <div class="form-group">
-    <label>{{$t "administration.global.label.schoolYear" }}</label>
+    <label>Schuljahr</label>
     <select class="form-control" name="schoolYear" data-placeholder="Schuljahr auswählen" data-force-value="true">
         {{#each years}}
         <option {{#ifeq this._id ../schoolCurrentYear}}selected="selected" {{/ifeq}} value="{{this._id}}">{{this.name}}
@@ -29,10 +29,11 @@
 <div class="form-group">
     <label>
         <input name="sendRegistration" type="checkbox" value="true" checked="checked" />
-        {{$t "administration.form_Import.label.sendRegistrationLinkToUsers" }}
+        Registrierungslinks sofort nach Import an Nutzer senden
     </label>
     <p>
-        {{$t "administration.form_Import.text.alternativelyYouCanCallUpTheRegistration" }}
+        Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen
+        zukommen lassen.
     </p>
     <p class="lead">
         ⚠️ ACHTUNG: Beim Import großer Datensätze kommt es derzeit kurz nach dem Start zu einer Fehlermeldung. Im
