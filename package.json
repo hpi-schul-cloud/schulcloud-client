@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "23.4.2",
+	"version": "23.4.5",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -50,6 +50,7 @@
 		"feedr": "^2.13.5",
 		"font-awesome": "^4.7.0",
 		"form-serializer": "^2.5.0",
+		"generate-password": "^1.5.1",
 		"git-repo-info": "^2.1.0",
 		"gulp-rename": "^2.0.0",
 		"handlebars": "^4.7.6",
