@@ -1256,7 +1256,8 @@
 			"link": {
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
 				"helpArea": "Hilfebereich",
-				"sendRequestOrProblem": "Wunsch oder Problem senden"
+				"sendRequestOrProblem": "Wunsch oder Problem senden",
+				"Fortbildungen": "Fortbildungen"
 			}
 		},
 		"ldap_info": {
