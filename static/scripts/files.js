@@ -223,7 +223,7 @@ $(document).ready(() => {
 						err.responseJSON.error.code,
 						err.responseJSON.error.message,
 						`${err.responseJSON.error.name} - ${
-						err.responseJSON.error.message
+							err.responseJSON.error.message
 						}`,
 					);
 				});
@@ -366,9 +366,9 @@ $(document).ready(() => {
 		filterOptions.forEach((fo) => {
 			const $newFilterOption = $(
 				`<div data-key="${
-				fo.key
+					fo.key
 				}" class="filter-option" onClick="window.location.href = '/files/search?filter=${
-				fo.key
+					fo.key
 				}'"></div>`,
 			);
 			const $newFilterLabel = $(`<span>Nach <b>${fo.label}</b> filtern</span>`);
@@ -740,13 +740,13 @@ $(document).ready(() => {
 		dirTree.forEach((d) => {
 			const $dirElement = $(
 				`<div class="dir-element dir-${
-				isMainFolder ? 'main' : 'sub'
+					isMainFolder ? 'main' : 'sub'
 				}-element" id="${d._id}" data-href="${d._id}"></div>`,
 			);
 
 			const $dirHeader = $(
 				`<div class="dir-header dir-${
-				isMainFolder ? 'main' : 'sub'
+					isMainFolder ? 'main' : 'sub'
 				}-header"></div>`,
 			);
 			const $toggle = $(
