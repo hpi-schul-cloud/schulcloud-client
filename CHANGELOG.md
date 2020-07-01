@@ -21,6 +21,8 @@ privacy policy should be confirmed by every school user
 
 ### Changed
 
+- SC-5327 removed 'bereich' suffix from navigation items
+
 ### Removed
 
 ## [23.4.4] - 2020-06-18
