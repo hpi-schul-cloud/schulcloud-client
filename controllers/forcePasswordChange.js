@@ -7,28 +7,14 @@ const router = express.Router();
 router.use(authHelper.authChecker);
 
 router.get('/', async (req, res) => {
-	await api(req).get('/accounts/', {
-		qs: { userId: res.locals.currentUser._id },
-	}).then((accountResponse) => {
-		if (!accountResponse[0]) {
-			throw new Error('Der Nutzer wurde nicht gefunden!');
-		}
-		if (!accountResponse[0].forcePasswordChange) {
-			return res.redirect('dashboard');
-		}
-		const renderObject = {
-			title: 'Bitte ändern sie ihr passwort',
-			hideMenu: true,
-		};
-		return res.render('firstLogin/forcePasswordChange', renderObject);
-	})
-		.catch((err) => {
-			res.status(500)
-				.send(
-					(err.error || err).message
-					|| 'Ein Fehler ist bei der Verarbeitung der Force Change Password Daten aufgetreten.',
-				);
-		});
+	if (!res.locals.currentUser.forcePasswordChange) {
+		return res.redirect('dashboard');
+	}
+	const renderObject = {
+		title: 'Bitte ändern sie ihr passwort',
+		hideMenu: true,
+	};
+	return res.render('firstLogin/forcePasswordChange', renderObject);
 });
 
 router.post('/submit', async (req, res) => api(req)
