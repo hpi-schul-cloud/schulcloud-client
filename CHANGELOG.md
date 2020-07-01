@@ -17,8 +17,11 @@ privacy policy should be confirmed by every school user
 
 
 ### Fixed
+-  SC-4993 fixed video player issue in ckeditor
 
 ### Changed
+
+- SC-5327 removed 'bereich' suffix from navigation items
 
 ### Removed
 
