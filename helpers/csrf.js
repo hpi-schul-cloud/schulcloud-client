@@ -11,12 +11,12 @@ const duplicateTokenHandler = (req, res, next) => {
 		const allArrayItemsIdentical = req.body._csrf.every(token => token === req.body._csrf[0]);
 		if (!allArrayItemsIdentical) {
 			// eslint-disable-next-line max-len
-			const error = new Error(res.$t('global.text.severalSecurityTokens'));
+			const error = new Error('Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.');
 			error.status = 400;
 			logger.error(error);
 			return next(error);
 		}
-		logger.warn(res.$t('global.text.severalSecurityTokens'));
+		logger.warn('Die Anfrage enthält mehrere identische Sicherheitstokens (CSRF).');
 
 		req.body._csrf = req.body._csrf[0];
 	}
