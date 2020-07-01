@@ -211,7 +211,9 @@ const helpers = app => ({
 			return i18n.getInstance(data.data.local.currentUser)('global.error.oopsWeHaveAnInternalProblem');
 		}
 		if (statusCode >= 400) {
-			return i18n.getInstance(data.data.local.currentUser)('global.error.'.concat(statusCode.toString()));
+			if([400,401,402,403,404].includes(statusCode)){
+				return i18n.getInstance(data.data.local.currentUser)('global.error.'.concat(statusCode.toString()));
+			}
 		}
 		if (statusCode > 300) {
 			return i18n.getInstance(data.data.local.currentUser)('global.error.thisPageHasBeenMoved');
