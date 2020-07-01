@@ -186,46 +186,48 @@
             </section>
 
             <section data-panel="section-2" data-testid="section-2-area" class="submit-page course-submit-page">
-              <h2 class="h4">{{$t "courses.add.headline.almostDone"}}</h2>
-              <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
-              <div class="form-group" data-testid="class_container">
-                  <label>{{$t "courses.add.label.addClassesToCourse"}}</label>
+                {{#userHasPermission "STUDENT_LIST"}}
+                    <h2 class="h4">{{$t "courses.add.headline.almostDone"}}</h2>
+                    <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
+                    <div class="form-group" data-testid="class_container">
+                        <label>{{$t "courses.add.label.addClassesToCourse"}}</label>
+                        <select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
+                          {{#each classes}}
+                              <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                                  {{log this.year}}
+                                  {{#if this.name}}
+                                      {{this.displayName}}
+                                  {{else}}
+                                      {{this.name}}
+                                  {{/if}}
 
-                  <select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
-                      {{#each classes}}
-                          <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                              {{log this.year}}
-                              {{#if this.name}}
-                                  {{this.displayName}}
-                              {{else}}
-                                  {{this.name}}
-                              {{/if}}
+                                  {{#if this.year}}
+                                      ({{this.year.name}})
+                                  {{/if}}
+                              </option>
+                          {{/each}}
+                      </select>
+                  </div>
 
-                              {{#if this.year}}
-                                  ({{this.year.name}})
-                              {{/if}}
-                          </option>
-                      {{/each}}
-                  </select>
-              </div>
+                  <div class="form-group" data-testid="students_container">
+                      <label>{{$t "courses.add.label.addStudentsToCourse"}}</label>
 
-
-
-              <div class="form-group" data-testid="students_container">
-                  <label>{{$t "courses.add.label.addStudentsToCourse"}}</label>
-
-                  <select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
-                      {{#each students}}
-                          <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                              {{#if this.displayName}}
-                                  {{this.displayName}}
-                              {{else}}
-                                  {{this.firstName}} {{this.lastName}}
-                              {{/if}}
-                          </option>
-                      {{/each}}
-                  </select>
-              </div>
+                      <select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
+                          {{#each students}}
+                              <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                                  {{#if this.displayName}}
+                                      {{this.displayName}}
+                                  {{else}}
+                                      {{this.firstName}} {{this.lastName}}
+                                  {{/if}}
+                              </option>
+                          {{/each}}
+                      </select>
+                  </div>
+                {{else}}
+                    <h2 class="h4">{{$t "courses.add.headline.addStudents"}}</h2>
+                    <p class="text-muted">{{$t "courses.add.text.addingStudentsForbidden"}}
+                {{/userHasPermission}}
             </section>
 
             <section data-panel="section-3" data-testid="section-3-area">

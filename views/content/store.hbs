@@ -31,9 +31,11 @@
             <div class="ajaxcontent">
                 {{#if query}}
                     {{#if searchResults}}
-                        <h2 class="h5 mb-1">{{ searchResults.total }} {{$t "content.store.heading.searchResultFor" }} "{{ query }}"</h2>
+                        <h2 class="h5 mb-1">{{{$t "content.headline.nSearchResultsFoundWith" 
+                            (dict "searchResultsTotal" searchResults.total "query" (escapeHtml query))}}}</h2>
                     {{else}}
-                        <h2 class="h5 mb-1">{{$t "content.store.heading.noSearchResultsWere" }} "{{ query }}" {{$t "content.store.heading.found" }}</h2>
+                        <h2 class="h5 mb-1">{{{$t "content.headline.noResultsFoundWith" 
+                            (dict "query" (escapeHtml query))}}}</h2>
                     {{/if}}
                     <hr class="mt-0">
                 {{/if}}
