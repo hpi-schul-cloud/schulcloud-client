@@ -63,6 +63,32 @@
 			"passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
 			"preferencesUpdates": "Präferenzen wurden aktualisiert!",
 			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!"
+		},
+		"teams": {
+			"button": {
+				"changeTeamSettings": "Teameinstellungen ändern"
+			},
+			"headline": {
+				"teamSettings": "Team Einstellungen"
+			},
+			"label": {
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.",
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-in": "Sichtbarkeit im zentralen Verzeichnis aktivieren",
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
+			},
+			"text": {
+				"hint": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
+				"teamInvitationsdisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
+				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
+			}
+		},
+		"thirdPartyProviders": {
+			"headline": {
+				"thirdPartyProviderLogin": "Drittanbieter-Logins"
+			},
+			"text": {
+				"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
+			}
 		}
 	},
 	"addons": {
@@ -170,6 +196,9 @@
 				"noSchools": "Keine Schulen"
 			}
 		},
+		"text": {
+			"noEntriesToPrint": "Keine Einträge zu drucken."
+		},
 		"users_edit": {
 			"button": {
 				"mailIsBeingSent": "E-Mail wird gesendet..."
@@ -184,6 +213,12 @@
 				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
 				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!"
 			}
+		}
+	},
+	"alert": {
+		"text": {
+			"furtherCase": "+{{amount}} weiterer Vorfall",
+			"furtherCases": "+{{amount}} weitere Vorfälle"
 		}
 	},
 	"autologout": {
@@ -975,6 +1010,9 @@
 			"privacyCourse": "Datenschutzkurs",
 			"welcomeDocuments": "Willkommens-Dokumente zum Download"
 		},
+		"placeholder": {
+			"formBugText": "Ich als [Nutzerrolle] \nhabe auf der Seite [???]\ndie Funktion [???]\naufgrund des Fehlers/der Fehlermeldung \"[???]\"\nnicht benutzen können.\n\nTritt der Fehler auch bei anderen/ ähnlichen Bereichen (z.B. andere Kurse oder Nutzer) auf?\nWie genau äußert sich das Problem?\nWann trat der Fehler genau auf (Datum, Uhrzeit), damit wir gezielt in den Logs schauen können?\nWenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hier bitte so kurz und klar wie möglich beschreiben."
+		},
 		"search": {
 			"headline": {
 				"noSearchResults": "Keine Ergebnisse gefunden 😪"
@@ -1312,7 +1350,8 @@
 			"link": {
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
 				"helpArea": "Hilfebereich",
-				"sendRequestOrProblem": "Wunsch oder Problem senden"
+				"sendRequestOrProblem": "Wunsch oder Problem senden",
+				"Fortbildungen": "Fortbildungen"
 			}
 		},
 		"ldap_info": {
@@ -1446,6 +1485,11 @@
 			"andTakeTheOpportunityToDesign": "und nutzen Sie die Möglichkeit, das Feature nach ihren Wünschen zu gestalten.",
 			"blogArticle": "Blogartikel",
 			"hereYouWillSoonHaveTheOpportunity": "Hier werden Sie bald die Möglichkeit haben, eigene Inhalte zu erstellen, sich Inhalte anderer Lehrer*Innen anzuschauen und durch Bewerten und Kategorisieren dieser Punkte verdienen, um die erweiterten Suchfunktionen nutzen zu können. Interessiert, wie das funktionieren wird? Lesen Sie den"
+		}
+	},
+	"navigation": {
+		"text": {
+			"errorNavigation": "Fehler bei AJAX-Navigation"
 		}
 	},
 	"news": {
@@ -1943,6 +1987,8 @@
 					"continueReading": "Weiterlesen"
 				}
 			},
+			"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
+			"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
 			"tab_label": {
 				"dates": "Termine",
 				"files": "Dateien",

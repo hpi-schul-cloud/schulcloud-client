@@ -257,6 +257,17 @@
                 <main id="main-content" class="container-fluid">
                     {{#block "page"}}{{/block}}
                 </main>
+						{{#if messenger}}
+						{{>"lib/components/notification"
+							notification=notificationMessenger
+							style="position: sticky;
+							position: -webkit-sticky;
+							bottom: 1rem;
+							margin-right: 1rem;
+							z-index: 1;
+							margin-left: 40%;"
+							}}
+						{{/if}}
             </div>
             {{#unless inline}}
                 {{#embed "lib/footer"}}{{/embed}}

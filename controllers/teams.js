@@ -11,7 +11,10 @@ const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
 
-const { CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED, ROCKET_CHAT_URI } = require('../config/global');
+const {
+	CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED,
+	ROCKET_CHAT_URI, FEATURE_MATRIX_MESSENGER_ENABLED,
+} = require('../config/global');
 
 const router = express.Router();
 moment.locale('de');
@@ -508,7 +511,19 @@ router.get('/:teamId', async (req, res, next) => {
 				rocketChatCompleteURL = undefined;
 			}
 		}
-
+		const instanceUsesMatrixMessenger = FEATURE_MATRIX_MESSENGER_ENABLED;
+		const courseUsesMatrixMessenger = course.features.includes('messenger');
+		const schoolUsesMatrixMessenger = (res.locals.currentSchoolData.features || []).includes('messenger');
+		let matrixNotification;
+		let messenger = false;
+		if (instanceUsesMatrixMessenger && courseUsesMatrixMessenger && !schoolUsesMatrixMessenger) {
+			matrixNotification = res.$t('teams._team.messengerNotActivatedSchool');
+			messenger = true;
+		}
+		if (instanceUsesMatrixMessenger && schoolUsesMatrixMessenger && !courseUsesMatrixMessenger) {
+			matrixNotification = res.$t('teams._team.messengerNotActivatedCourse');
+			messenger = true;
+		}
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
 		const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
@@ -671,6 +686,13 @@ router.get('/:teamId', async (req, res, next) => {
 				userId: res.locals.currentUser._id,
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
+				notificationMessenger: {
+					message: matrixNotification,
+					type: 'info',
+					title: 'Hinweis',
+					iconClass: 'fa fa-info-circle',
+				},
+				messenger,
 			},
 		);
 	} catch (e) {
