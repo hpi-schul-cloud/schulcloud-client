@@ -19,22 +19,55 @@
   <div id="consentUpdateFields">
     {{#if @root.updatedConsents.haveBeenUpdated}}
 
-    {{#each @root.updatedConsents.all.data}}
-    <h2 class="h4">Zusammenfassung der Erweiterung in der {{this.visualType}}</a> zum
-      {{dateToPicker this.publishedAt}}</h2>
-    <div class='privacyStatement card'>
-      <div class="card-header">
-        <h3 class="h5" style="margin:0;">
-          {{this.title}}
-        </h3>
-      </div>
-      <div class="content card-block">
-        {{{this.consentHTML}}}
-      </div>
-    </div>
-    {{/each}}
+		{{#if @root.isN21}}
+			{{#if @root.lastUpdatedTermsOfUse}}
+				<h2 class="h4">Zusammenfassung der Erweiterung in der Nutzungsordnung</a> zum
+					{{dateToPicker @root.lastUpdatedTermsOfUse.publishedAt}}</h2>
+				<div class='privacyStatement card'>
+					<div class="card-header">
+						<h3 class="h5" style="margin:0;">
+							{{@root.lastUpdatedTermsOfUse.title}}
+						</h3>
+					</div>
+					<div class="content card-block">
+						{{{@root.lastUpdatedTermsOfUse.consentHTML}}}
+					</div>
+				</div>
+			{{/if}}
 
-    <div>
+		{{#if @root.lastUpdatedPrivacy}}
+			<h2 class="h4">Zusammenfassung der Erweiterung in der Datenschutzerklärung</a> zum
+				{{dateToPicker @root.lastUpdatedPrivacy.publishedAt}}</h2>
+			<div class='privacyStatement card'>
+				<div class="card-header">
+					<h3 class="h5" style="margin:0;">
+						{{@root.lastUpdatedPrivacy.title}}
+					</h3>
+				</div>
+				<div class="content card-block">
+					{{{@root.lastUpdatedPrivacy.consentHTML}}}
+				</div>
+			</div>
+		{{/if}}
+		{{else}}
+
+			{{#each @root.updatedConsents.all.data}}
+				<h2 class="h4">Zusammenfassung der Erweiterung in der {{this.visualType}}</a> zum
+					{{dateToPicker this.publishedAt}}</h2>
+				<div class='privacyStatement card'>
+					<div class="card-header">
+						<h3 class="h5" style="margin:0;">
+							{{this.title}}
+						</h3>
+					</div>
+					<div class="content card-block">
+						{{{this.consentHTML}}}
+					</div>
+				</div>
+			{{/each}}
+{{/if}}
+
+		<div>
       {{#if @root.updatedConsents.privacy.total}}
       <label>
         <input name="privacyConsentVersion" type="hidden" value="true" />

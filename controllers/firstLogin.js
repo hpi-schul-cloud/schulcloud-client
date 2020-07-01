@@ -1,14 +1,14 @@
 const { Configuration } = require('@schul-cloud/commons');
 const express = require('express');
 const showdown = require('showdown');
+const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const userConsentVersions = require('../helpers/consentVersions');
-const _ = require('lodash');
 
 const converter = new showdown.Converter();
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
+const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS, SC_THEME } = require('../config/global');
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.use(authHelper.authChecker);
 
 const consentFullfilled = (consent) => consent.privacyConsent && consent.termsOfUseConsent;
 const isStudent = (res) => {
-	const roles = res.locals.currentUser.roles.map(role => role.name);
+	const roles = res.locals.currentUser.roles.map((role) => role.name);
 	return roles.includes('student');
 };
 const hasAccount = (req, res) => api(req).get('/consents', {
@@ -25,6 +25,8 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 		userId: res.locals.currentUser._id,
 	},
 });
+
+const isN21 = (SC_THEME === 'n21');
 
 // firstLogin
 router.get('/', async (req, res, next) => {
@@ -62,25 +64,39 @@ router.get('/', async (req, res, next) => {
 	const parentConsent = consentFullfilled(((consent || {}).parentConsents || [undefined])[0] || {});
 	const consentVersions = await userConsentVersions(res.locals.currentUser, consent, req);
 	let updatedConsents = {};
+	let lastUpdatedPrivacy = {};
+	let lastUpdatedTermsOfUse = {};
 
 	// if there is already a user or parent consent it may have been updated
 	if (consentVersions.haveBeenUpdated) {
 		// UPDATED CONSENTS SINCE LAST FULLFILMENT DATE
 		updatedConsents = await userConsentVersions(res.locals.currentUser, consent, req, 100);
-		updatedConsents.all.data.map((version) => {
-			if (version.consentTypes.includes('privacy') && version.consentTypes.includes('termsOfUse')) {
-				version.visualType = 'Datenschutzerklärung und Nutzungsordnung';
-			} else {
-				if (version.consentTypes.includes('privacy')) {
-					version.visualType = 'Datenschutzerklärung';
-				}
-				if (version.consentTypes.includes('termsOfUse')) {
-					version.visualType = 'Nutzungsordnung';
-				}
+		lastUpdatedPrivacy = updatedConsents.privacy.data[0];
+		lastUpdatedTermsOfUse = updatedConsents.termsOfUse.data[0];
+
+		if (SC_THEME === 'n21') {
+			if (lastUpdatedPrivacy !== undefined) {
+				lastUpdatedPrivacy.consentHTML = converter.makeHtml(lastUpdatedPrivacy.consentText);
 			}
-			version.consentHTML = converter.makeHtml(version.consentText);
-			return version;
-		});
+			if (lastUpdatedTermsOfUse !== undefined) {
+				lastUpdatedTermsOfUse.consentHtml = converter.makeHtml(lastUpdatedTermsOfUse.consentText);
+			}
+		} else {
+			updatedConsents.all.data.map((version) => {
+				if (version.consentTypes.includes('privacy') && version.consentTypes.includes('termsOfUse')) {
+					version.visualType = 'Datenschutzerklärung und Nutzungsordnung';
+				} else {
+					if (version.consentTypes.includes('privacy')) {
+						version.visualType = 'Datenschutzerklärung';
+					}
+					if (version.consentTypes.includes('termsOfUse')) {
+						version.visualType = 'Nutzungsordnung';
+					}
+				}
+				version.consentHTML = converter.makeHtml(version.consentText);
+				return version;
+			});
+		}
 		submitPageIndex += 1;
 		sections.push('consent_updates');
 	} else {
@@ -158,7 +174,6 @@ router.get('/', async (req, res, next) => {
 			sections.push('pin');
 		}
 	}
-
 	// THANKS
 	sections.push('thanks');
 	const privacyData = _.get(updatedConsents, 'privacy.data');
@@ -170,11 +185,14 @@ router.get('/', async (req, res, next) => {
 		hideMenu: true,
 		sso: !!(res.locals.currentPayload || {}).systemId,
 		now: Date.now(),
-		sections: sections.map(name => `firstLogin/sections/${name}`),
+		sections: sections.map((name) => `firstLogin/sections/${name}`),
 		schoolPrivacyLink,
 		submitPageIndex,
 		userConsent,
 		updatedConsents,
+		lastUpdatedTermsOfUse,
+		lastUpdatedPrivacy,
+		isN21,
 		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 		roleNames: res.locals.roles,
 	};

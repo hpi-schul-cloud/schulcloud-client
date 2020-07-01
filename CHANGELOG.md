@@ -22,6 +22,7 @@ privacy policy should be confirmed by every school user
 ### Changed
 
 - SC-5327 removed 'bereich' suffix from navigation items
+- SC-4909 changed how personalized Datenschutzerklärung is shown for Niedersachsen
 
 ### Removed
 
