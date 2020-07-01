@@ -60,6 +60,32 @@
 		"text": {
 			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
 			"passwordsDoNotMatch" : "Passwörter stimmen nicht überein."
+		},
+		"teams": {
+			"button": {
+				"changeTeamSettings": "Teameinstellungen ändern"
+			},
+			"headline": {
+				"teamSettings": "Team Einstellungen"
+			},
+			"label": {
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.",
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-in": "Sichtbarkeit im zentralen Verzeichnis aktivieren",
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
+			},
+			"text": {
+				"hint": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
+				"teamInvitationsdisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
+				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
+			}
+		},
+		"thirdPartyProviders": {
+			"headline": {
+				"thirdPartyProviderLogin": "Drittanbieter-Logins"
+			},
+			"text": {
+				"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
+			}
 		}
 	},
 	"addons": {
@@ -1244,7 +1270,8 @@
 			"link": {
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
 				"helpArea": "Hilfebereich",
-				"sendRequestOrProblem": "Wunsch oder Problem senden"
+				"sendRequestOrProblem": "Wunsch oder Problem senden",
+				"Fortbildungen": "Fortbildungen"
 			}
 		},
 		"ldap_info": {
