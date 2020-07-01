@@ -75,6 +75,32 @@ router.get('/', (req, res, next) => {
 	});
 });
 
+router.get('/teams/', (req, res, next) => {
+	const isDiscoverable = res.locals.currentUser.discoverable;
+
+	res.render('account/teams', {
+		title: res.$t('account.teams.headline.teamSettings'),
+		userId: res.locals.currentUser._id,
+		isDiscoverable,
+	});
+});
+
+router.get('/thirdPartyProviders/', async (req, res, next) => {
+	let session;
+
+	try {
+		session = await api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`);
+	} catch (e) {
+		session = null;
+	}
+
+	res.render('account/thirdPartyProviders', {
+		title: res.$t('account.thirdPartyProviders.headline.thirdPartyProviderLogin'),
+		userId: res.locals.currentUser._id,
+		session,
+	});
+});
+
 // delete file
 router.delete('/settings/device', (req, res, next) => {
 	const { _id = '' } = req.body;
