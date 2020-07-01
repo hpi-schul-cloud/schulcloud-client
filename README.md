@@ -85,3 +85,7 @@ Default branch: develop
 5. Run the tests (see above)
 6. Commit with a meanigful commit message(!) even at 4 a.m. and not stuff like "dfsdfsf"
 7. Start a pull request (see above) to branch develop to merge your changes
+
+## Code rules
+
+[CSP rules](https://github.com/schul-cloud/schulcloud-client/tree/develop/docs/CSP_RULES_DEV.md)
