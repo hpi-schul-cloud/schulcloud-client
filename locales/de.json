@@ -193,6 +193,9 @@
 				"noSchools": "Keine Schulen"
 			}
 		},
+		"text": {
+			"noEntriesToPrint": "Keine Einträge zu drucken."
+		},
 		"users_edit": {
 			"button": {
 				"mailIsBeingSent": "E-Mail wird gesendet..."
@@ -207,6 +210,12 @@
 				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
 				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!"
 			}
+		}
+	},
+	"alert": {
+		"text": {
+			"furtherCase": "+{{amount}} weiterer Vorfall",
+			"furtherCases": "+{{amount}} weitere Vorfälle"
 		}
 	},
 	"autologout": {
@@ -991,6 +1000,9 @@
 				"typeNotAllowed" : "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
 			}
 		},
+		"placeholder": {
+			"formBugText": "Ich als [Nutzerrolle] \nhabe auf der Seite [???]\ndie Funktion [???]\naufgrund des Fehlers/der Fehlermeldung \"[???]\"\nnicht benutzen können.\n\nTritt der Fehler auch bei anderen/ ähnlichen Bereichen (z.B. andere Kurse oder Nutzer) auf?\nWie genau äußert sich das Problem?\nWann trat der Fehler genau auf (Datum, Uhrzeit), damit wir gezielt in den Logs schauen können?\nWenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hier bitte so kurz und klar wie möglich beschreiben."
+		},
 		"search": {
 			"headline":{
 				"noSearchResults" : "Keine Ergebnisse gefunden 😪"
@@ -1392,6 +1404,11 @@
 			"hereYouWillSoonHaveTheOpportunity": "Hier werden Sie bald die Möglichkeit haben, eigene Inhalte zu erstellen, sich Inhalte anderer Lehrer*Innen anzuschauen und durch Bewerten und Kategorisieren dieser Punkte verdienen, um die erweiterten Suchfunktionen nutzen zu können. Interessiert, wie das funktionieren wird? Lesen Sie den"
 		}
 	},
+	"navigation": {
+		"text": {
+			"errorNavigation": "Fehler bei AJAX-Navigation"
+		}
+	},
 	"news": {
 		"button": {
 			"addNews": "News hinzufügen"
@@ -1726,7 +1743,7 @@
 					"button" : {
 						"deleteInvitation" : "Einladung löschen",
 						"inviteMember" : "Teilnehmer einladen",
-						"sendInvitation" : "Einladung versenden" 
+						"sendInvitation" : "Einladung versenden"
 					},
 					"headline": {
 						"deleteInvitation" : "Einladung löschen",
