@@ -31,6 +31,7 @@ const {
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
 	ROCKETCHAT_SERVICE_ENABLED,
+	FEATURE_MATRIX_MESSENGER_ENABLED,
 } = require('./config/global');
 
 const app = express();
@@ -175,6 +176,7 @@ app.use(async (req, res, next) => {
 	res.locals.version = version;
 	res.locals.sha = sha;
 	res.locals.ROCKETCHAT_SERVICE_ENABLED = ROCKETCHAT_SERVICE_ENABLED;
+	res.locals.FEATURE_MATRIX_MESSENGER_ENABLED = FEATURE_MATRIX_MESSENGER_ENABLED;
 	delete req.session.notification;
 	try {
 		await authHelper.populateCurrentUser(req, res);
