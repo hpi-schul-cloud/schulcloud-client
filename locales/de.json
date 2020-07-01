@@ -541,7 +541,8 @@
 					"descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
 					"noTools": "Keine Tools.",
 					"videoConferenceBBB": "Videokonferenz BigBlueButton",
-					"videoConferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet"
+					"videoConferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
+					"opensInNewTab": "neuer Tab"
 				}
 			},
 			"topic": {
@@ -1269,7 +1270,8 @@
 			"link": {
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
 				"helpArea": "Hilfebereich",
-				"sendRequestOrProblem": "Wunsch oder Problem senden"
+				"sendRequestOrProblem": "Wunsch oder Problem senden",
+				"Fortbildungen": "Fortbildungen"
 			}
 		},
 		"ldap_info": {
