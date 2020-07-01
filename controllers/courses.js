@@ -399,7 +399,7 @@ router.use(authHelper.authChecker);
  * @returns [substitutions, others]
  */
 
-const enrichCourse = (course) => {
+const enrichCourse = (course, res) => {
 	course.url = `/courses/${course._id}`;
 	course.title = course.name;
 	course.content = (course.description || '').substr(0, 140);
@@ -408,7 +408,7 @@ const enrichCourse = (course) => {
 	course.memberAmount = course.userIds.length;
 	(course.times || []).forEach((time) => {
 		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
-		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
 		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 			time.room ? `| ${time.room}` : ''
 		}</div>`;
@@ -416,12 +416,12 @@ const enrichCourse = (course) => {
 	return course;
 };
 
-const filterSubstitutionCourses = (courses, userId) => {
+const filterSubstitutionCourses = (courses, userId, res) => {
 	const substitutions = [];
 	const others = [];
 
 	courses.data.forEach((course) => {
-		enrichCourse(course);
+		enrichCourse(course, res);
 
 		if ((course.substitutionIds || []).includes(userId)) {
 			substitutions.push(course);
@@ -461,11 +461,12 @@ router.get('/', (req, res, next) => {
 			[activeSubstitutions, activeCourses] = filterSubstitutionCourses(
 				active,
 				userId,
+				res,
 			);
 			[
 				archivedSubstitutions,
 				archivedCourses,
-			] = filterSubstitutionCourses(archived, userId);
+			] = filterSubstitutionCourses(archived, userId,res);
 
 			if (req.query.json) {
 				// used for populating some modals (e.g. calendar event creation)
