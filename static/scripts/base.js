@@ -257,9 +257,13 @@ $(document).ready(() => {
 	const $modals = $('.modal');
 	const $deleteModal = $('.delete-modal');
 
-	const nextPage = (href) => {
+	const nextPage = (href, blank = false) => {
 		if (href) {
-			window.location.href = href;
+			if (blank) {
+				window.open(href);
+			} else {
+				window.location.href = href;
+			}
 		} else {
 			window.location.reload();
 		}
@@ -315,6 +319,31 @@ $(document).ready(() => {
 
 	$modals.find('.close, .btn-close').on('click', () => {
 		$modals.modal('hide');
+	});
+
+	// Window Close
+	$('.windowclose').on('click', () => {
+		window.close();
+	});
+
+	// Window Print
+	$('.windowprint').on('click', () => {
+		window.print();
+	});
+
+	// Window History Back
+	$('.historyback').on('click', () => {
+		window.history.back();
+	});
+
+	// Window Local Storage Clear
+	$('.localstorageclear').on('click', () => {
+		localStorage.clear();
+	});
+
+	// Window Location Link
+	$('.locationlink').on('click', function locationLink() {
+		nextPage($(this).attr('data-loclink'), !!$(this).attr('data-blank'));
 	});
 
 	// Print Button

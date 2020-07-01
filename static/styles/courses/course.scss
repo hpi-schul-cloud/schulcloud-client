@@ -140,7 +140,6 @@
     color: rgb(55, 58, 60);
     float: right;
     cursor: pointer;
-    padding-top: 1.4em;
     font-size: 18px;
   }
 
@@ -542,4 +541,22 @@
 
 .alert-course-delete {
   color: $colorDanger;
+}
+
+.course-link{
+  color: $fontColor;
+  &:hover, &:focus{
+      text-decoration: none;
+  }
+}
+
+.card-tool > .card-title-directory {
+  line-height: 70px;
+}
+
+.card-tool img {
+  height: auto;
+  width: auto;
+  max-height: 70px;
+  max-width: 100px;
 }

@@ -1,41 +1,50 @@
 {{#extend "lib/simple"}}
 	{{#content "scripts" mode="append"}}
-		<script src="/scripts/dataprivacy/registration.js" type="text/javascript" defer></script>
+		<script src="/scripts/dataprivacy/registration.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 	{{#content "styles" mode="append"}}
 		<link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
 	{{/content}}
 	{{#content "page"}}
+		{{#unless this.correctID}}
+			{{> "lib/registration"}}
+		{{else}}
+		{{#unless this.secure}}
+			{{> "lib/registration"}}
+		{{else}}
 	<div id="welcome-screen">
-		<h2 class="h4">Willkommen zur Anmeldung in der {{theme.title}}!</h2>
-		<p>Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} sie selbst.</p>
-		<p>Bitte wähle das Alter des Schülers:</p>
+		<h2 class="h4">{{$t "registration._registration.heading.welcomeToTheRegistration" (dict "title" theme.title)}}</h2>
+		<p>{{$t "registration._registration.text.theRegistrationProcessChangesAccordingToAge" (dict "minAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "independentAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>
+		<p>{{$t "registration._registration.text.pleaseChooseTheAgeOfTheStudents"}} </p>
 		<div class="form-group">
 			<fieldset>
-				<input type="radio" id="reg-u16" name="student-age" value="u16"> <label for="reg-u16">unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahre alt</label><br>
-				<input type="radio" id="reg-16" name="student-age" value="16"> <label for="reg-16">ab {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahre alt</label>
+				<input type="radio" id="reg-u16" name="student-age" value="u16"> <label for="reg-u16">{{$t "registration._registration.label.bellowNYearsOld" (dict "years" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</label><br>
+				<input type="radio" id="reg-16" name="student-age" value="16"> <label for="reg-16">{{$t "registration._registration.label.overNYearsOld" (dict "years" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</label>
 			</fieldset>
 		</div>
 		<p></p>
 		<div id="infotext-u16" class="hidden">
-			<p>Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{theme.short_title}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.</p>
-			<p>Wir bitten Sie, Ihr Kind zunächst in der {{theme.short_title}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{theme.title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.</p>
+			<p>{{$t "registration._registration.text.letsTakeThisStepWithYouAndYourChild" (dict "shortTitle" theme.short_title)}}</p>
+			<p>{{$t "registration._registration.text.pleaseRegisterChildThenAgreeToTermsOfUse" (dict "shortTitle" theme.short_title "title" theme.title)}}</p>
 		</div>
 		<div id="infotext-16" class="hidden">
-			<p>Wir freuen uns, dass du die {{theme.title}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.</p>
-			<p>Bitte registriere dich zunächst in der {{theme.title}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.</p>
-			<p><strong>Achtung:</strong> Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern.</p>
+			<p>{{$t "registration._registration.text.thankYouForTakingThisStepWithUs" (dict "shortTitle" theme.title)}}</p>
+			<p>{{$t "registration._registration.text.pleaseRegisterFirstAndAgreeToTerms" (dict "themetitle" theme.title)}}</p>
+			<p><strong>{{$t "registration._registration.text.danger" }}</strong> {{$t "registration._registration.text.thefollowingRestrationMustBe" }}</p>
 		</div>
 
-		<button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>Weiter</button>
+		<button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>{{$t "global.button.next" }}</button>
 
-		<p class="mt-2 explanation nomargin">* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{theme.short_title}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{theme.short_title}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. 🌈🎉🦄 </p>
+		<p class="mt-2 explanation nomargin">{{$t "registration._registration.text.linguisticNoteWeUseMaleFormForReadability" (dict "shortTitle" theme.short_title)}} 🌈🎉🦄 </p>
+
 		{{#if importHash}}<input type="hidden" name="importHash" value="{{importHash}}" />{{/if}}
 		{{#if classOrSchoolId}}<input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />{{/if}}
 		{{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}
 		{{#if account}}<input type="hidden" name="account" value="{{account}}" />{{/if}}
 		{{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
-		
+
 	</div>
+		{{/unless}}
+	{{/unless}}
 	{{/content}}
 {{/extend}}

@@ -1,73 +1,39 @@
 @import "./colors";
 
-/* BASE */
+/* CUSTOM CKEDITOR STYLES */
 
-.cke_wysiwyg_frame::selection{
-    background-color: $secondaryColor;
-    color: #fff;
-}
 .cke_chrome{
-    border: 1px solid $primaryColor !important;
+	border: 0 !important;
 }
-.cke_top{
-    background-color: #fff !important;
+.cke_inner{
+	.cke_bottom{
+		display: none
+	}
 }
-.cke_bottom{
-    background-color: $primaryColor !important;
-    border-top: none !important;
-    a.cke_path_item{
-        color: #fff !important;
-        &:active, 
-        &:focus, 
-        &:hover{
-            background-color: lighten($primaryColor, 10%) !important;
-        }
-    }
-}
-.cke_resizer{
-    border-color: transparent #fff transparent transparent !important;
+.cke_editable {
+	img, video, iframe{
+		max-width: 100% !important;
+	}
 }
 
-/* DIALOG */
+.cke_dialog_image_ratiolock{
+	display: none;
+}
 
-a.cke_dialog_ui_button{
-    border:1px solid #ccc !important;
-    &:hover{
-        text-decoration: none !important;
-        filter: brightness(110%);
-    }
-    &:focus{
-        box-shadow: none !important;
-        text-decoration: none !important;
-        padding: 4px 1px !important;
-    }
+.cke_dialog_container{
+	a.cke_dialog_ui_button:hover,
+	a.cke_dialog_ui_button:focus,
+	a.cke_dialog_ui_button:active{
+		background-color: $primaryColor !important;
+		border-color: $primaryColor !important;
+	}
+	a.cke_dialog_ui_button:hover>span,
+	a.cke_dialog_ui_button:focus>span,
+	a.cke_dialog_ui_button:active>span{
+		background-color: transparent !important;
+	}
 }
-a.cke_dialog_ui_button_ok{
-    background: $primaryColor !important;
-    border: 1px solid $primaryColor !important;
-    color: #fff !important;
-}
-input.cke_dialog_ui_input_password, 
-input.cke_dialog_ui_input_text, 
-select.cke_dialog_ui_input_select, 
-textarea.cke_dialog_ui_input_textarea{
-    &:focus{
-        border-color: $primaryColor !important;
-    }
-}
-a.cke_dialog_tab:focus{
-    border-color: $primaryColor !important;
-    border-bottom-color: #d1d1d1 !important;
-}
-.cke_dialog_title{
-    color: #fff !important;
-    background-color: $primaryColor !important;
-}
-.cke_dialog_footer{
-    background-color: #fff !important;
-    border-top: none !important;
-}
-a.cke_dialog_close_button{
-    filter: brightness(0) invert(1);
-    opacity: 1 !important;
+
+.ckeditor-html5-video{
+	max-width: 500px;
 }

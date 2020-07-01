@@ -1,37 +1,8 @@
 <div class="pin-input {{class}}">
-  Bestätigungscode: <input class="combined-pin" type="text" name="{{name}}" pattern="{{pattern}}{ {{~digits~}} }" {{#if required}}required{{/if}} tabIndex="-1"/>
+  {{$t "registration.pin.input.verificationCode" }} <input class="combined-pin" type="text" name="{{name}}" pattern="{{pattern}}{ {{~digits~}} }" {{#if required}}required{{/if}} tabIndex="-1"/>
   {{#times digits}}
     <input class="digit" type="text" pattern="{{../pattern~}} {1}" maxlength="1" placeholder="·" {{#if ../required}}required{{/if}}>
   {{/times}}
 </div>
 
-<script src="/scripts/dataprivacy/pin_input.js" type="text/javascript" defer></script>
-
-<style>
-.pin-input input.combined-pin{
-  display: inline-block;
-  width: 0;
-  height:0;
-  border: none;
-  outline: none;
-}
-.pin-input .digit{
-  display: inline-block;
-  height: 2rem;
-  width: 2rem;
-  padding: .5rem;
-  border-radius: 50%;
-  text-align: center;
-  font-size: 1rem;
-  line-height: 1rem;
-  border: 1px solid #555;
-  margin: 0 .15rem;
-}
-.show-invalid .pin-input .digit:invalid{
-  border-color: #f55
-}
-.pin-input .digit:focus{
-  outline: none;
-  border-color: #b10438;
-}
-</style>
+<script src="/scripts/dataprivacy/pin_input.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>

@@ -6,9 +6,9 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
-        <script src="/scripts/files.js" type="text/javascript" defer></script>
-        <script src="/scripts/jquery.cookie.js" type="text/javascript" defer></script>
+        <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/jquery.cookie.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -20,7 +20,7 @@
                                name="q"
                                type="text"
                                class="form-control search-field file-search"
-                               placeholder="Dateien durchsuchen..."/>
+                               placeholder="{{$t "files.input.searchFiles"}}"/>
                     </div>
                 </div>
                 <button class="btn btn-primary float-right" type="submit">{{$t "files.button.search"}}</button>
@@ -30,7 +30,7 @@
 			{{#if query }}
 				{{#if files}}
 					<hr>
-					<h2 class="h5">{{$t "files.text.searchResultFor"}}{{ query }}"</h2>
+					<h2 class="h5">{{$t "files.text.searchResultFor"}} "{{ query }}"</h2>
 				{{/if}}
 			{{else}}
 				{{#if files}}

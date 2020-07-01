@@ -1,7 +1,7 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
-        <script type="text/javascript" defer src="/scripts/teamOverview.js"></script>
+        <script type="text/javascript" defer src="/scripts/teamOverview.js" nonce="{{nonceValue}}"></script>
     {{/content}}
     {{#content "styles" mode="append"}}
     {{/content}}
@@ -9,19 +9,19 @@
     {{#content "page"}}
         <section class="section-courses">
             {{#if teams}}
-                {{> 'dashboard/components/card_section' section-id="teams" title="" content=teams link-text="Öffnen" additionalInfoName="memberCount"}}
+                {{> 'dashboard/components/card_section' section-id="teams" title="" content=teams link-text=($t "global.button.open") additionalInfoName="memberCount"}}
             {{/if}}
 
             {{#if teamInvitations}}
-                <h2>Einladungen</h2>
-                {{> 'dashboard/components/card_section' section-id="teamInvitations" title="" content=teamInvitations link-text="Akzeptieren"}}
+                <h2>{{$t "teams.headline.invitations"}}</h2>
+                {{> 'dashboard/components/card_section' section-id="teamInvitations" title="" content=teamInvitations link-text=($t "teams.button.accept")}}
             {{/if}}
 
             {{#if allowedCreateTeam}}
             <div class="col-xs-12">
                 <div class="row padding-top">
                     <div class="col-sm-12">
-                        <a href="/teams/add" class="btn btn-add btn-primary pull-right">Team anlegen</a>
+                        <a href="/teams/add" class="btn btn-add btn-primary pull-right">{{$t "teams.button.createTeam"}}</a>
                     </div>
                 </div>
             </div>
@@ -31,8 +31,7 @@
                 <div class="row padding-top">
                     <div class="col-sm-12">
                         <p>
-                            Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht.
-                            Wende dich bitte an einen Lehrer oder Administrator wenn du ein Team anlegen möchtest.
+                            {{$t "teams.text.studentsCantCreateTeams"}}
                         </p>
                     </div>
                 </div>

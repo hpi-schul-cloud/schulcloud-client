@@ -1,61 +1,58 @@
 {{#if this.url}}
-<article class="sc-card" onclick="location.href='{{this.url}}'">
-{{else}}
-<article class="sc-card">
-{{/if}}
-    <div class="sc-card-header" {{#if this.background}} style="background:{{this.background}};"
-        {{/if}}>
-        {{#if this.isRSS}}
-        {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
-        <span class="rss-icon">RSS</span>
-        {{/userHasPermission}}
+    <article class="sc-card locationlink" data-loclink="{{this.url}}">
+    {{else}}
+    <article class="sc-card">
         {{/if}}
-        <span class="sc-card-title">
-            <div>
-                <span class="title">{{{ stripOnlyScript this.title }}}</span>
-            </div>
-            {{#if this.target.name}}
-            <div class="tag tag-default">{{this.target.name}}</div>
+        <div class="sc-card-header" data-testid="header-of-element" {{#if this.background}} style="background:{{this.background}};" {{/if}}>
+            {{#if this.isRSS}}
+            {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
+            <span class="rss-icon">RSS</span>
+            {{/userHasPermission}}
             {{/if}}
-            {{#if this.sourceDescription}}
-            <div class="tag tag-default">{{this.sourceDescription}}</div>
-            {{/if}}
-            {{#if this.secondaryTitle}}
-            <small class="d-block">{{{ stripOnlyScript this.secondaryTitle }}}</small>
-            {{/if}}
-        </span>
+            <span class="sc-card-title">
+                <div>
+                    <span class="title" data-testid="title_of_an_element">{{{ stripOnlyScript this.title }}}</span>
+                </div>
+                {{#if this.target.name}}
+                <div class="tag tag-default">{{this.target.name}}</div>
+                {{/if}}
+                {{#if this.sourceDescription}}
+                <div class="tag tag-default">{{this.sourceDescription}}</div>
+                {{/if}}
+                {{#if this.secondaryTitle}}
+                <small class="d-block">{{{ stripOnlyScript this.secondaryTitle }}}</small>
+                {{/if}}
+            </span>
 
-        <div class="sc-card-menu">
-            {{#each this.actions}}
+            <div class="sc-card-menu">
+                {{#each this.actions}}
                 {{#if this.method}}
-                    <a href="{{this.link}}" class="sc-card-menu-action {{this.class}}"
-                        data-method="{{this.method}}" data-name="{{../title}}"
-                        alt="'{{../../title}}' {{this.alt}}.">
-                        <i class="fa fa-{{this.icon}}"></i>
-                    </a>
+                <a href="{{this.link}}" class="sc-card-menu-action {{this.class}}" data-method="{{this.method}}"
+                    data-name="{{../title}}" alt="'{{../../title}}' {{this.alt}}.">
+                    <i class="fa fa-{{this.icon}}"></i>
+                </a>
                 {{else}}
-                    <a href="#" class="sc-card-menu-action {{this.class}}"
-                        onClick="window.open('{{this.link}}')"
+                    <a href="{{this.link}}" class="sc-card-menu-action {{this.class}}" target="_blank"
                         alt="'{{../../title}}' {{this.alt}}.">
-                        <i class="fa fa-{{this.icon}}"></i>
-                    </a>
+                    <i class="fa fa-{{this.icon}}"></i>
+                </a>
                 {{/if}}
-            {{else}}
+                {{else}}
                 {{#if this.menuInfo}}
-                    <small class="sc-card-menu-info">{{{this.menuInfo}}}</small>
+                <small class="sc-card-menu-info">{{{this.menuInfo}}}</small>
                 {{/if}}
-            {{/each}}
+                {{/each}}
+            </div>
         </div>
-    </div>
-    <div class="sc-card-body ckcontent">
-        {{truncateHTML (conflictFreeHtml this.content) 200}}
-    </div>
-    <div class="sc-card-footer">
-        <a href="{{url}}" rel="canonical">{{{link-text}}}</a>
-        {{#if additionalInfoName}}
-        <div class="additionalInfo">
-            {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName) }}
+        <div class="sc-card-body ckcontent">
+            {{truncateHTML (conflictFreeHtml this.content) 200}}
         </div>
-        {{/if}}
-    </div>
-</article>
+        <div class="sc-card-footer">
+            <a href="{{url}}" rel="canonical">{{{link-text}}}</a>
+            {{#if additionalInfoName}}
+            <div class="additionalInfo">
+                {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName) }}
+            </div>
+            {{/if}}
+        </div>
+    </article>

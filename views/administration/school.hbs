@@ -5,7 +5,7 @@
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-<script src="/scripts/administration/school.js" type="text/javascript" defer></script>
+<script src="/scripts/administration/school.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page" mode="prepend"}}
@@ -220,19 +220,70 @@
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
 
-						{{#if @root.FEATURE_MESSENGER_ENABLED}}
+						{{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY" "enabled"}}
+							<h2 class="h6 mt-2">Datenschutz-Einstellungen</h2>
 							<div class="form-group">
 								<label>
-									<input type="checkbox" name="messenger" value="true"
-										{{#inArray "messenger" ../school.features}}checked{{/inArray}}>
+									<input type="checkbox" name="studentVisibility" value="true"
+										{{#if ../studentVisibility}}checked{{/if}}>
+									Sichtbarkeit von Schüler:innen für Lehrkräfte aktivieren <i class="fa fa-eye"></i>
+									<p class="text-muted">
+										Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schülerinnen und Schüler der Schule für jeden Lehrer zu aktivieren, ist es erforderlich, dass jede Schülerin und jeder Schüler wirksam in diese Datenverarbeitung eingewilligt hat.
+									</p>
+								</label>
+							</div>
+						{{/ifConfig}}
+
+						{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}
+							<div class="form-group">
+								<label>
+									<input
+										id="messenger"
+										type="checkbox"
+										name="messenger"
+										value="true"
+										{{#inArray "messenger" ../school.features}}checked{{/inArray}}
+										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+											{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+												disabled
+											{{/userHasPermission}}
+										{{/userHasPermission}}
+                                    />
 									Chatfunktion aktivieren
 									<p class="text-muted">
-										Sind Chats an deiner Schule aktiviert, können Team-Administratoren 
+										Sind Chats an deiner Schule aktiviert, können Team-Administratoren
 										im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.
 									</p>
 								</label>
 							</div>
-						{{else}}
+
+							{{#ifConfig "FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED" true}}
+								<div id="messenger-sub-options">
+									<div class="form-group">
+										<label>
+											<input
+												type="checkbox"
+												name="messengerSchoolRoom"
+												value="true"
+												{{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}
+												{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+													{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+														disabled
+													{{/userHasPermission}}
+												{{/userHasPermission}}
+											/>
+											Chatraum für Ankündigungen an die gesamte Schule anlegen
+											<p class="text-muted">
+												Der Ankündigungs-Chatraum ermöglicht Schul-Administrator:innen, Nachrichten an die gesamte Schule zu senden.
+												Schüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.
+											</p>
+										</label>
+									</div>
+								</div>
+							{{/ifConfig}}
+						{{/ifConfig}}
+
+						{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}
 							{{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
 								<div class="form-group">
 									<label>
@@ -246,7 +297,7 @@
 									</label>
 								</div>
 							{{/if}}
-						{{/if}}
+						{{/ifConfig}}
 
 						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
 						<div class="form-group">
@@ -316,8 +367,27 @@
 		</div>
 	</section>
 	{{/unless}}
-
 	{{#userHasPermission 'SCHOOL_EDIT'}}
+		{{#ifConfig "FEATURE_SCHOOL_POLICY_ENABLED" true}}
+		<section class="section-school section-default">
+			<h2 class="h4">Datenschutzerklärung</h2>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-12 no-padding">
+						{{> "lib/components/table" head=../policiesHead body=../policiesBody}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 no-padding">
+						<button type="submit" class="btn btn-primary btn-add-modal--policy">
+							Datenschutzerklärung hinzufügen
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+		{{/ifConfig}}
+
 	<section class="section-school section-default">
 		<h2 class="h4">Authentifizierung</h2>
 		<div class="container-fluid">
@@ -362,6 +432,13 @@
 	{{#content "fields"}}
 	{{> "administration/forms/form-delete-alias"}}
 	{{/content}}
+	{{/embed}}
+
+	{{#embed "lib/components/modal-form" action="/administration/schools/policy" method="post" class="add-modal--policy"
+			 collapseId=3}}
+		{{#content "fields"}}
+			{{> "administration/forms/form-policy"}}
+		{{/content}}
 	{{/embed}}
 
 

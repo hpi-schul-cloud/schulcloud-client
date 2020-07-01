@@ -38,6 +38,7 @@ $(document).ready(() => {
 	const $terminateSchoolYearModal = $('.terminate-school-year-modal');
 	const $addSystemsModal = $('.add-modal');
 	const $addRSSModal = $('.add-modal--rss');
+	const $addPolicyModal = $('.add-modal--policy');
 	const $editModal = $('.edit-modal');
 	const $invitationModal = $('.invitation-modal');
 	const $importModal = $('.import-modal');
@@ -52,9 +53,9 @@ $(document).ready(() => {
 	$('.btn-terminate-school-year').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($terminateSchoolYearModal, {
-			title: 'Das Schuljahr wirklich beenden?',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Ja',
+			title: $t('administration.school.headline.finishSchoolYear'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('administration.school.button.yes'),
 		});
 		$terminateSchoolYearModal.appendTo('body').modal('show');
 	});
@@ -103,9 +104,9 @@ $(document).ready(() => {
 	$('.btn-add-modal').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addSystemsModal, {
-			title: 'Hinzufügen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Hinzufügen',
+			title: $t('administration.school.headline.add'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.add'),
 		});
 		$addSystemsModal.appendTo('body').modal('show');
 	});
@@ -113,11 +114,21 @@ $(document).ready(() => {
 	$('.btn-add-modal--rss').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addRSSModal, {
-			title: 'Hinzufügen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Hinzufügen',
+			title: $t('administration.school.headline.add'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.add'),
 		});
 		$addRSSModal.appendTo('body').modal('show');
+	});
+
+	$('.btn-add-modal--policy').on('click', (e) => {
+		e.preventDefault();
+		populateModalForm($addPolicyModal, {
+			title: $t('administration.school.headline.addPolicy'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.add'),
+		});
+		$addPolicyModal.appendTo('body').modal('show');
 	});
 
 	function handleEditClick(e) {
@@ -127,9 +138,9 @@ $(document).ready(() => {
 			result.createdAt = new Date(result.createdAt).toLocaleString();
 			populateModalForm($editModal, {
 				action: entry,
-				title: 'Bearbeiten',
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Speichern',
+				title: $t('global.headline.edit'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.save'),
 				fields: result,
 			});
 			// post-fill gradiation selection
@@ -150,40 +161,6 @@ $(document).ready(() => {
 	}
 	$('.btn-edit').on('click', handleEditClick);
 
-	function invitationLinkHandler(e) {
-		e.preventDefault();
-		const schoolId = $invitationModal.find("input[name='schoolId']").val();
-		let role = 'student';
-		if ($(this).hasClass('teacher')) role = 'teacher';
-		$.ajax({
-			type: 'POST',
-			url: `${window.location.origin}/administration/registrationlink`,
-			data: {
-				role,
-				save: true,
-				schoolId,
-				host: window.location.origin,
-			},
-			success(linkData) {
-				populateModalForm($invitationModal, {
-					title: 'Einladungslink generiert!',
-					closeLabel: 'Abbrechen',
-					submitLabel: 'Speichern',
-					fields: { invitation: linkData.shortLink },
-				});
-				$invitationModal.find('.btn-submit').remove();
-				$invitationModal
-					.find("input[name='invitation']")
-					// eslint-disable-next-line func-names
-					.click(function () {
-						$(this).select();
-					});
-
-				$invitationModal.appendTo('body').modal('show');
-			},
-		});
-	}
-	$('.btn-invitation-link').on('click', invitationLinkHandler);
 
 	function ssoSelectHandler(e) {
 		e.preventDefault();
@@ -222,9 +199,9 @@ $(document).ready(() => {
 		$.getJSON(entry, (result) => {
 			populateModalForm($deleteSystemsModal, {
 				action: entry,
-				title: 'Löschen',
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Löschen',
+				title: $t('global.headline.delete'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.delete'),
 				fields: result,
 			});
 
@@ -242,9 +219,9 @@ $(document).ready(() => {
 			populateModalForm($deleteRSSModal, {
 				action,
 				fields: { url: result.url },
-				title: 'Löschen',
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Löschen',
+				title: $t('global.headline.delete'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.delete'),
 			});
 
 			$deleteRSSModal.modal('show');
@@ -258,7 +235,7 @@ $(document).ready(() => {
 		const text = $this.html();
 		const role = $this.data('role');
 
-		$this.html('E-Mails werden gesendet...');
+		$this.html($t('administration.global.button.mailsAreBeingSent'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -272,7 +249,7 @@ $(document).ready(() => {
 		})
 			.done(() => {
 				$.showNotification(
-					'Erinnerungs-E-Mails erfolgreich versendet',
+					$t('administration.global.text.successfullySentMails'),
 					'success',
 					true,
 				);
@@ -281,7 +258,7 @@ $(document).ready(() => {
 			})
 			.fail(() => {
 				$.showNotification(
-					'Fehler beim senden der Erinnerungs-E-Mails',
+					$t('administration.global.text.errorSendingMails'),
 					'danger',
 					true,
 				);
@@ -296,7 +273,7 @@ $(document).ready(() => {
 		const text = $this.html();
 		const role = $this.data('role');
 
-		$this.html('Druckbogen wird generiert...');
+		$this.html($t('administration.global.button.printSheetIsBeingGenerated'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -310,7 +287,7 @@ $(document).ready(() => {
 		})
 			.done((users) => {
 				printQRs(
-					users.map(user => ({
+					users.map((user) => ({
 						href: user.registrationLink.shortLink,
 						title:
 							user.fullName
@@ -319,7 +296,7 @@ $(document).ready(() => {
 					})),
 				);
 				$.showNotification(
-					'Druckbogen erfolgreich generiert',
+					$t('administration.global.text.successfullyGeneratedPrintSheet'),
 					'success',
 					true,
 				);
@@ -328,7 +305,7 @@ $(document).ready(() => {
 			})
 			.fail(() => {
 				$.showNotification(
-					'Problem beim Erstellen des Druckbogens',
+					$t('administration.global.text.errorGeneratingPrintSheet'),
 					'danger',
 					true,
 				);
