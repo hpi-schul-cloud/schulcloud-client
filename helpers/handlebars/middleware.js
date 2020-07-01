@@ -5,6 +5,7 @@ const {
 	FEATURE_EXTENSIONS_ENABLED,
 	NOTIFICATION_SERVICE_ENABLED,
 	FEATURE_TEAMS_ENABLED,
+	SC_THEME,
 } = require('../../config/global');
 
 const { Configuration } = require('@schul-cloud/commons');
