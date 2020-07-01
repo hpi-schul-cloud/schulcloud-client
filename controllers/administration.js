@@ -1319,7 +1319,7 @@ router.get(
 					submitLabel: res.$t('administration.controller.link.toGiveConsent'),
 					closeLabel: $t('global.button.cancel'),
 					user,
-					password: authHelper.generatePassword(),
+					password: authHelper.generateConsentPassword(),
 					referrer: req.header('Referer'),
 				});
 			})
@@ -2084,7 +2084,7 @@ router.get(
 			if (obj.importHash) return true;
 			return false;
 		});
-		const passwords = students.map(() => (authHelper.generatePassword()));
+		const passwords = students.map(() => (authHelper.generateConsentPassword()));
 		const renderUsers = students.map((student, i) => ({
 			fullname: `${student.firstName} ${student.lastName}`,
 			id: student._id,
