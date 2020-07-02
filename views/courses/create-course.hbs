@@ -192,7 +192,7 @@
                     <div class="form-group" data-testid="class_container">
                         <label>{{$t "courses.add.label.addClassesToCourse"}}</label>
                         <select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
-                          {{#each classes}}
+                          {{#each ../classes}}
                               <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                   {{log this.year}}
                                   {{#if this.name}}
@@ -213,7 +213,7 @@
                       <label>{{$t "courses.add.label.addStudentsToCourse"}}</label>
 
                       <select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
-                          {{#each students}}
+                          {{#each ../students}}
                               <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                   {{#if this.displayName}}
                                       {{this.displayName}}
