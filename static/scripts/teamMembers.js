@@ -354,12 +354,12 @@ $(document).ready(() => {
 		const $editMemberModal = $('.edit-member-modal');
 		const payload = $(this).parent().parent().find('[data-payload]')
 			.data('payload');
-		if (payload.cantBeAdmin) {
-			$("#role option[data-name='teamadministrator']").hide();
-			$("#role option[data-name='teamowner']").hide();
-		} else {
+		if (payload.canBeAdmin) {
 			$("#role option[data-name='teamadministrator']").show();
 			$("#role option[data-name='teamowner']").show();
+		} else {
+			$("#role option[data-name='teamadministrator']").hide();
+			$("#role option[data-name='teamowner']").hide();
 		}
 		const { userId } = payload;
 		populateModalForm($editMemberModal, {

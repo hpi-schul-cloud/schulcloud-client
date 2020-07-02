@@ -1073,7 +1073,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				{
 					payload: {
 						userId: user.userId._id,
-						cantBeAdmin: userRolesContainsStudent,
+						canBeAdmin: !userRolesContainsStudent,
 					},
 				},
 				actions,
