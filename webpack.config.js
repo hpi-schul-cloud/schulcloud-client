@@ -10,7 +10,10 @@ const plugins = [
 	// This plugin forces moment to only load the German locale
 	new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de/),
 
-	new CKEditorWebpackPlugin({ language: 'de' }),
+	new CKEditorWebpackPlugin({
+		language: 'de',
+		addMainLanguageTranslationsToAllAssets: true,
+	}),
 ];
 
 const devPlugins = [
