@@ -31,6 +31,7 @@ const {
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
 	ROCKETCHAT_SERVICE_ENABLED,
+	FEATURE_MATRIX_MESSENGER_ENABLED,
 } = require('./config/global');
 
 const app = express();
@@ -175,6 +176,7 @@ app.use(async (req, res, next) => {
 	res.locals.version = version;
 	res.locals.sha = sha;
 	res.locals.ROCKETCHAT_SERVICE_ENABLED = ROCKETCHAT_SERVICE_ENABLED;
+	res.locals.FEATURE_MATRIX_MESSENGER_ENABLED = FEATURE_MATRIX_MESSENGER_ENABLED;
 	delete req.session.notification;
 	try {
 		await authHelper.populateCurrentUser(req, res);
@@ -233,7 +235,7 @@ if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
-	if (err.statusCode && err.error) {
+	if (err.statusCode && err.error && err.error.message) {
 		res.setHeader('error-message', err.error.message);
 		res.locals.message = err.error.message;
 	} else {
