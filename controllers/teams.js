@@ -1062,7 +1062,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			}
 			let userRolesContainsStudent;
 			if (FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR_ENABLED) {
-				const userRoles = roles.filter((r) => user.userId.roles.find((id) => id === r._id)).some(role => role.name === 'student');
+				const userRoles = roles.filter((r) => user.userId.roles.find((id) => id === r._id));
 				userRolesContainsStudent = userRoles.some((role) => role.name === 'student');
 			}
 			return [
