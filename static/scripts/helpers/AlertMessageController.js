@@ -68,9 +68,9 @@ class AlertMessageController {
 		let text = '';
 
 		if (length > 1) {
-			text = `+${length} weitere Vorfälle`;
+			text = $t('alert.text.furtherCases', { amount: length });
 		} else {
-			text = `+${length} weiterer Vorfall`;
+			text = $t('alert.text.furtherCase', { amount: length });
 		}
 
 		if (this.loggedin) {
