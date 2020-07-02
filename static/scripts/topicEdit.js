@@ -586,6 +586,18 @@ class TopicResources extends TopicBlock {
         return 'resources';
     }
 
+    getContextParams() {
+    	let contextParams = '';
+        const pathParts = window.location.pathname.split('/');
+        if (pathParts[1] === 'courses') {
+        	contextParams += `course=${pathParts[2]}`;
+        }
+        if (pathParts[3] === 'topics') {
+        	contextParams += `&topic=${pathParts[4]}`;
+        }
+        return contextParams;
+    }
+
     /**
      * Add new field into list of resources
      * @param {string} resource - ID of the resource
@@ -596,11 +608,11 @@ class TopicResources extends TopicBlock {
             resources.push(resource);
             this.updateResources(resources);
         };
-
+        const context = this.getContextParams();
         if(!resource) {
             let isCourseGroupTopic = $contentBlocksContainer.data('iscoursegroup') !== undefined;
             // open content search popup
-            const resourcePopup = window.open('/content/?inline=1&isCourseGroupTopic=' + isCourseGroupTopic, "content-search", "toolbar=no, location=no, directories=no, width=800,height=600,status=no,scrollbars=yes,resizable=yes");
+            const resourcePopup = window.open('/content/?inline=1&isCourseGroupTopic=' + isCourseGroupTopic + '&' + context, "content-search", "toolbar=no, location=no, directories=no, width=800,height=600,status=no,scrollbars=yes,resizable=yes");
             resourcePopup.focus();
         } else {
             window.addResource(resource);
