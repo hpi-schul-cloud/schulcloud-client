@@ -1065,7 +1065,7 @@ router.get(
 		};
 		query = Object.assign(query, filterQuery);
 
-		api(req,res)
+		api(req, res)
 			.get('users/admin/teachers', {
 				qs: query,
 			})
@@ -2215,7 +2215,7 @@ router.delete(
 	},
 );
 
-const classFilterSettings = ({ years, currentYear }) => {
+const classFilterSettings = ({ years, currentYear }, res) => {
 	const yearFilter = {
 		type: 'select',
 		title: res.$t('administration.controller.heading.schoolYear'),
@@ -2364,7 +2364,7 @@ router.get(
 					body,
 					pagination,
 					limit: true,
-					filterSettings: JSON.stringify(classFilterSettings({ years, currentYear })),
+					filterSettings: JSON.stringify(classFilterSettings({ years, currentYear }, res)),
 				});
 			});
 	},
@@ -2799,7 +2799,6 @@ router.all('/teams', (req, res, next) => {
 		'Erstellt am': 'createdAt',
 	*/
 
-	
 	api(req, res)
 		.get('/teams/manage/admin', {
 			qs: query,
@@ -3097,7 +3096,12 @@ router.use(
 			schoolMaintananceMode = 'standby';
 		}
 		// POLICIES
-		const policiesHead = [ res.$t('administration.controller.heading.title'), res.$t('administration.controller.heading.description'), res.$t('administration.controller.heading.uploadedOn'), 'Link'];
+		const policiesHead = [
+			res.$t('administration.controller.heading.title'),
+			res.$t('administration.controller.heading.description'),
+			res.$t('administration.controller.heading.uploadedOn'),
+			'Link',
+		];
 		let policiesBody;
 		if (Array.isArray(consentVersions.data)) {
 			policiesBody = consentVersions.data.map((consentVersion) => {
