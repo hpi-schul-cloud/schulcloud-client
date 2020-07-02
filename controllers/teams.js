@@ -1040,9 +1040,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 			} else {
 				actions = addButtonTrash(actions);
 			}
-			let userRole;
 			if (FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR_ENABLED) {
-				userRole = roles.find((r) => r._id === user.userId.roles[0]);
+				userRolesContainsStudent = roles.filter((r) => user.userId.roles.find(id => id === r._id)).some(role => role.name === 'student');
 			}
 			return [
 				user.userId.firstName || '',
@@ -1052,7 +1051,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				{
 					payload: {
 						userId: user.userId._id,
-						role: userRole && userRole.name,
+						cantBeAdmin: userRolesContainsStudent,
 					},
 				},
 				actions,
