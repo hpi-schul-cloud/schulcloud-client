@@ -5,7 +5,7 @@ const {
 	FEATURE_EXTENSIONS_ENABLED,
 	NOTIFICATION_SERVICE_ENABLED,
 	FEATURE_TEAMS_ENABLED,
-	CONFLUENCE_URL,
+	HELPAREA_URL,
 } = require('../../config/global');
 
 const { Configuration } = require('@schul-cloud/commons');
@@ -247,11 +247,11 @@ module.exports = (req, res, next) => {
 				*/
 	}
 	// helpArea view
-	if (CONFLUENCE_URL) {
+	if (HELPAREA_URL) {
 		res.locals.sidebarItems.push({
 			name: res.$t('global.sidebar.link.helpArea'),
 			icon: 'question-circle',
-			link: CONFLUENCE_URL,
+			link: HELPAREA_URL,
 			isExternalLink: true,
 		});
 	} else {

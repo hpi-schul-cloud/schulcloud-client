@@ -298,7 +298,7 @@
 			"default": false,
 			"description": "Enables Lern-Store (navigation, route) in app"
 		},
-		"CONFLUENCE_URL": {
+		"HELPAREA_URL": {
 			"type": "string",
 			"default": "",
 			"description": "The URL to Confluence. Without a link, there are subpages in the side menu and on the /help page. With the link the option from the Hilfebereich side menu leads to confluence."
