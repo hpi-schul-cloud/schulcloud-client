@@ -773,7 +773,7 @@ const userIdtoAccountIdUpdate = (service) => function useIdtoAccountId(req, res,
 		});
 };
 
-const userFilterSettings = (defaultOrder, isTeacherPage = false, res) => [
+const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	{
 		type: 'sort',
 		title: res.$t('administration.controller.heading.sorting'),
@@ -1129,7 +1129,7 @@ router.get(
 					head,
 					body,
 					pagination,
-					filterSettings: JSON.stringify(userFilterSettings('lastName', true)),
+					filterSettings: JSON.stringify(userFilterSettings(res, 'lastName', true)),
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					schoolCurrentYear: res.locals.currentSchoolData.currentYear,
 					years,
@@ -1382,7 +1382,7 @@ router.get(
 					head.push(''); // Add space for action buttons
 				}
 
-				const body = users.map((user, res) => {
+				const body = users.map((user) => {
 					const icon = getConsentStatusIcon(user.consentStatus);
 					const actions = [
 						{
@@ -1431,7 +1431,7 @@ router.get(
 						head,
 						body,
 						pagination,
-						filterSettings: JSON.stringify(userFilterSettings()),
+						filterSettings: JSON.stringify(userFilterSettings(res)),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						schoolCurrentYear: res.locals.currentSchoolData.currentYear,
 						studentsWithoutConsentCount,
