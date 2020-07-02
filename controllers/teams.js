@@ -1060,6 +1060,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			} else {
 				actions = addButtonTrash(actions);
 			}
+			let userRolesContainsStudent;
 			if (FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR_ENABLED) {
 				userRolesContainsStudent = roles.filter((r) => user.userId.roles.find(id => id === r._id)).some(role => role.name === 'student');
 			}
