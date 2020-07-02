@@ -3,16 +3,16 @@
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
-        "CORS": {
-            "type": "boolean",
-            "default": true,
-            "description": "If enabled, default content security policy (CSP) header will be set."
-        },
-        "SECURITY_HEADERS": {
-            "type": "boolean",
-            "default": true,
-            "description": "If enabled, additional security header will be set."
-        },
+		"CORS": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, default content security policy (CSP) header will be set."
+		},
+		"SECURITY_HEADERS": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, additional security header will be set."
+		},
 		"API_KEY": {
 			"type": "string",
 			"default": "example",
@@ -297,6 +297,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables Lern-Store (navigation, route) in app"
+		},
+		"CONFLUENCE_URL": {
+			"type": "string",
+			"default": "",
+			"description": "The URL to Confluence. Without a link, there are subpages in the side menu and on the /help page. With the link the option from the Hilfebereich side menu leads to confluence."
 		}
 	},
 	"allOf": [

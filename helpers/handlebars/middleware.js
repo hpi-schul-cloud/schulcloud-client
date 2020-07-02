@@ -5,7 +5,7 @@ const {
 	FEATURE_EXTENSIONS_ENABLED,
 	NOTIFICATION_SERVICE_ENABLED,
 	FEATURE_TEAMS_ENABLED,
-	SC_THEME,
+	CONFLUENCE_URL,
 } = require('../../config/global');
 
 const { Configuration } = require('@schul-cloud/commons');
@@ -247,11 +247,11 @@ module.exports = (req, res, next) => {
 				*/
 	}
 	// helpArea view
-	if (SC_THEME === 'n21') {
+	if (CONFLUENCE_URL) {
 		res.locals.sidebarItems.push({
 			name: res.$t('global.sidebar.link.helpArea'),
 			icon: 'question-circle',
-			link: 'https://docs.schul-cloud.org/x/CQCaB',
+			link: CONFLUENCE_URL,
 			isExternalLink: true,
 		});
 	} else {
