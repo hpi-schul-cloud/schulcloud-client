@@ -16,7 +16,7 @@ const {
 	ROCKETCHAT_SERVICE_ENABLED,
 	ROCKET_CHAT_URI,
 	FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR_ENABLED,
-  FEATURE_MATRIX_MESSENGER_ENABLED,
+	FEATURE_MATRIX_MESSENGER_ENABLED,
 } = require('../config/global');
 
 const router = express.Router();
@@ -1062,7 +1062,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 			}
 			let userRolesContainsStudent;
 			if (FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR_ENABLED) {
-				userRolesContainsStudent = roles.filter((r) => user.userId.roles.find(id => id === r._id)).some(role => role.name === 'student');
+				const userRoles = roles.filter((r) => user.userId.roles.find((id) => id === r._id)).some(role => role.name === 'student');
+				userRolesContainsStudent = userRoles.some((role) => role.name === 'student');
 			}
 			return [
 				user.userId.firstName || '',
