@@ -332,8 +332,7 @@ $(document).ready(() => {
 
 	const returnFileUrl = (fileId, fileName) => {
 		const fullUrl = `/files/file?file=${fileId}&name=${fileName}`;
-		const funcNum = getQueryParameterByName('CKEditorFuncNum');
-		window.opener.CKEDITOR.tools.callFunction(funcNum, fullUrl);
+		if (typeof (callbackFunctionFileUrl !== 'undefined')) callbackFunctionFileUrl(fullUrl);
 		window.close();
 	};
 
@@ -702,7 +701,6 @@ $(document).ready(() => {
 			});
 	});
 
-
 	const moveToDirectory = (modal, targetId) => {
 		const fileId = modal
 			.find('.modal-form')
@@ -803,7 +801,6 @@ $(document).ready(() => {
 				filePath: $context.attr('data-file-path'),
 			},
 		});
-
 
 		$moveModal.find('.modal-footer').empty();
 		$moveModal.appendTo('body').modal('show');
