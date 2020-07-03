@@ -20,31 +20,22 @@ class FileBrowserPlugin extends Plugin {
 			view.on('execute', async () => {
 
 				const dialog = bootbox.dialog({
-					message: '<label for="ffile">Image URL: </label><input type="text" id="ffile">',
-					size: 'large',
+					title: 'Image Properties',
+					message: '<label for="ffile">Image URL: </label><br><input type="text" id="ffile"><button type="button" id="browseServerButton">Browse Server</button><br><label for="falttext">Alternative Text: </label><br><input type="text" id="falttext">',
+					closeButton: false,
 					buttons: {
-						select: {
-							label: 'Select Image from Server',
-							className: 'btn-info',
-							callback: () => {
-								const dialogPageUrl = '/files/my?CKEditor=evaluation';
-								const dialogWindow = window.open(dialogPageUrl, '_blank', 'width=700, height=500');
-								dialogWindow.onload = () => {
-									dialogWindow.callbackFunctionFileUrl = (imageUrl) => {
-										document.getElementById('ffile').value = imageUrl;
-									};
-								};
-								return false;
-							},
+						cancel: {
+							label: 'Cancel',
 						},
-						insert: {
-							label: 'Insert Image',
-							className: 'btn-info',
+						ok: {
+							label: 'OK',
 							callback: () => {
 								const imageUrl = document.getElementById('ffile').value;
+								const imageAltText = document.getElementById('falttext').value;
 								editor.model.change((writer) => {
 									const imageElement = writer.createElement('image', {
 										src: imageUrl,
+										alt: imageAltText,
 									});
 
 									// Insert the image in the current selection location.
@@ -53,6 +44,18 @@ class FileBrowserPlugin extends Plugin {
 							},
 						},
 					},
+				});
+
+				dialog.on('shown.bs.modal', () => {
+					document.getElementById('browseServerButton').addEventListener('click', () => {
+						const dialogPageUrl = '/files/my?CKEditor=evaluation';
+						const dialogWindow = window.open(dialogPageUrl, '_blank', 'width=700, height=500');
+						dialogWindow.onload = () => {
+							dialogWindow.callbackFunctionFileUrl = (imageUrl) => {
+								document.getElementById('ffile').value = imageUrl;
+							};
+						};
+					});
 				});
 			});
 
