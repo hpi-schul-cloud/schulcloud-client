@@ -208,7 +208,7 @@ const helpers = app => ({
 	castStatusCodeToString: (statusCode, data) => {
 		console.log(statusCode);
 		if (statusCode >= 500) {
-			return i18n.getInstance(data.data.local.currentUser)('global.error.oopsWeHaveAnInternalProblem');
+			return i18n.getInstance(data.data.local.currentUser)('global.error.internalProblem');
 		}
 		if (statusCode >= 400) {
 			if ([400, 401, 402, 403, 404].includes(statusCode)) {
@@ -216,7 +216,7 @@ const helpers = app => ({
 			}
 		}
 		if (statusCode > 300) {
-			return i18n.getInstance(data.data.local.currentUser)('global.error.thisPageHasBeenMoved');
+			return i18n.getInstance(data.data.local.currentUser)('global.error.pageMoved');
 		}
 		return i18n.getInstance(data.data.local.currentUser)('global.error.somethingWentWrong');
 	},

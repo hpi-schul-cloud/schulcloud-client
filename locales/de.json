@@ -932,10 +932,10 @@
 			"402": "Diese Funktion musst du erst noch bezahlen.",
 			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
 			"404": "Ups, diese Seite gibt's wohl nicht.",
-			"oopsWeHaveAnInternalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
+			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
 			"requestTimeout" : "Zeitüberschreitung bei dir Anfrage",
 			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
-			"thisPageHasBeenMoved": "Diese Seite wurde verschoben."
+			"pageMoved": "Diese Seite wurde verschoben."
 		},
 		"headline": {
 			"delete": "Löschen",
