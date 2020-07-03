@@ -211,7 +211,7 @@ const helpers = app => ({
 			return i18n.getInstance(data.data.local.currentUser)('global.error.oopsWeHaveAnInternalProblem');
 		}
 		if (statusCode >= 400) {
-			if([400,401,402,403,404].includes(statusCode)){
+			if ([400, 401, 402, 403, 404].includes(statusCode)) {
 				return i18n.getInstance(data.data.local.currentUser)('global.error.'.concat(statusCode.toString()));
 			}
 		}

@@ -466,14 +466,14 @@ router.get('/', (req, res, next) => {
 			[
 				archivedSubstitutions,
 				archivedCourses,
-			] = filterSubstitutionCourses(archived, userId,res);
+			] = filterSubstitutionCourses(archived, userId, res);
 
 			if (req.query.json) {
 				// used for populating some modals (e.g. calendar event creation)
 				res.json(active.data);
 			} else if (active.total !== 0 || archived.total !== 0) {
 				res.render('courses/overview', {
-					title: res.$t("courses.headline.myCourses"),
+					title: res.$t('courses.headline.myCourses'),
 					activeTab: req.query.activeTab,
 					importToken,
 					activeCourses,
@@ -484,7 +484,7 @@ router.get('/', (req, res, next) => {
 						active: active.total,
 						archived: archived.total,
 					},
-					searchLabel: res.$t("courses.input.searchForCourses"),
+					searchLabel: res.$t('courses.input.searchForCourses'),
 					searchAction: '/courses',
 					showSearch: true,
 					liveSearch: true,
