@@ -116,7 +116,7 @@ module.exports = (req, res, next) => {
 	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
 	if (extensionsEnabled) {
 		res.locals.sidebarItems.push({
-			name: res.$t('global.sidebar.link.archive'),
+			name: res.$t('global.sidebar.link.addons'),
 			icon: 'puzzle-piece',
 			link: '/addons',
 		});
