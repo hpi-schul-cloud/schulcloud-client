@@ -213,6 +213,8 @@ const mapTimeProps = (req, res, next) => {
  * weekday {Number} - from 0 to 6, the weekday the course take place
  * @param data {object}
  * @param service {string}
+ * @param req
+ * @param res
  */
 const createEventsForData = (data, service, req, res) => {
 	// can just run if a calendar service is running on the environment and the course have a teacher
@@ -306,7 +308,7 @@ const generateRegistrationLink = (params, internalReturn) => function registrati
 			json: options,
 		});
 	}
-	return api(req, res)
+	return api(req)
 		.post('/registrationlink/', {
 			json: options,
 		})
@@ -346,7 +348,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 		&& user.schoolId
 		&& (user.shortLink || res.locals.linkData.shortLink)
 	) {
-		return api(req, res)
+		return api(req)
 			.post('/mails/', {
 				json: {
 					email: user.email,
@@ -522,7 +524,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			.map((err) => `${err.entity} (${err.message})`)
 			.join(', ');
 		if (errorText === '') {
-			errorText = res.$t('administration.controller.text.anUnknownErrorOccured');
+			errorText = res.$t('administration.controller.text.anUnknownErrorOccurred');
 		}
 		return errorText;
 	};
@@ -2278,7 +2280,7 @@ router.get(
 			query.teacherIds = res.locals.currentUser._id.toString();
 		}
 
-		api(req, res)
+		api(req)
 			.get('/classes', {
 				qs: query,
 			})
@@ -2642,7 +2644,7 @@ router.all('/courses', (req, res, next) => {
 	const itemsPerPage = req.query.limit || 10;
 	const currentPage = parseInt(req.query.p, 10) || 1;
 
-	api(req, res)
+	api(req)
 		.get('/courses', {
 			qs: {
 				$populate: ['classIds', 'teacherIds'],
@@ -2799,7 +2801,7 @@ router.all('/teams', (req, res, next) => {
 		'Erstellt am': 'createdAt',
 	*/
 
-	api(req, res)
+	api(req)
 		.get('/teams/manage/admin', {
 			qs: query,
 		})

@@ -172,7 +172,7 @@
 			"text": {
 				"active": "Aktiv",
 				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
-				"anUnknownErrorOccured": "Es ist ein unbekannter Fehler beim Importieren aufgetreten.",
+				"anUnknownErrorOccurred": "Es ist ein unbekannter Fehler beim Importieren aufgetreten.",
 				"anotherSchoolWasFounded": "einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst ",
 				"changesSuccessfullySaved": "Änderungen erfolgreich gespeichert.",
 				"checkingTheLDAPData": "Prüfung der LDAP-Daten für Schuljahreswechsel",
