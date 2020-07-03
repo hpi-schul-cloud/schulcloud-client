@@ -897,6 +897,9 @@
 		}
 	},
 	"global": {
+		"topMenu": {
+			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
+		},
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
