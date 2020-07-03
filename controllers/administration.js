@@ -57,11 +57,11 @@ const cutEditOffUrl = (url) => {
 const getTableActions = (
 	item,
 	path,
-	res,
 	isAdmin = true,
 	isTeacher = false,
 	isStudentAction = false,
 	category,
+	res,
 ) => {
 	let editButtonClass = 'btn-edit';
 	if (item.type === 'ldap') {
@@ -73,7 +73,7 @@ const getTableActions = (
 				item.type === 'ldap' ? `${path}ldap/edit/${item._id}` : path + item._id,
 			class: `${editButtonClass} ${isTeacher ? 'disabled' : ''}`,
 			icon: 'edit',
-			title: res.$t('administration.controller.link.toEditnAnEntry'),
+			title: res.$t('administration.controller.link.editEntry'),
 		},
 		{
 			link: path + item._id,
@@ -92,7 +92,7 @@ const getTableActions = (
 	];
 };
 
-const getTableActionsSend = (item, path, res, state) => {
+const getTableActionsSend = (item, path, state, res) => {
 	const actions = [];
 	if (state === 'submitted' || state === 'closed') {
 		actions.push(
@@ -100,7 +100,7 @@ const getTableActionsSend = (item, path, res, state) => {
 				link: path + item._id,
 				class: 'btn-edit',
 				icon: 'edit',
-				title: res.$t('administration.controller.link.toEditnAnEntry'),
+				title: res.$t('administration.controller.link.editEntry'),
 			},
 			{
 				class: 'disabled',
@@ -117,7 +117,7 @@ const getTableActionsSend = (item, path, res, state) => {
 				link: path + item._id,
 				class: 'btn-edit',
 				icon: 'edit',
-				title: res.$t('administration.controller.link.toEditnAnEntry'),
+				title: res.$t('administration.controller.link.editEntry'),
 			},
 			{
 				link: path + item._id,
@@ -2432,7 +2432,7 @@ router.all(
 		const currentPage = parseInt(req.query.p, 10) || 1;
 		const title = returnAdminPrefix(res.locals.currentUser.roles);
 
-		api(req, res)
+		api(req)
 			.get('/helpdesk', {
 				qs: {
 					$limit: itemsPerPage,
@@ -2459,7 +2459,7 @@ router.all(
 					dictionary[item.state],
 					moment(item.createdAt).format('DD.MM.YYYY'),
 					truncate(item.notes || ''),
-					getTableActionsSend(item, '/administration/helpdesk/', item.state),
+					getTableActionsSend(item, '/administration/helpdesk/', item.state, res),
 				]);
 
 				let sortQuery = '';
@@ -2684,7 +2684,7 @@ router.all('/courses', (req, res, next) => {
 						{
 							link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
 							icon: 'edit',
-							title: res.$t('administration.controller.link.toEditnAnEntry'),
+							title: res.$t('administration.controller.link.editEntry'),
 						},
 						{
 							link: `/administration/courses/${item._id}`,
@@ -3148,6 +3148,7 @@ router.use(
 						false,
 						false,
 						'systems',
+						res,
 					),
 				];
 			});
