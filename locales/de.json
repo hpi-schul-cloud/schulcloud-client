@@ -30,6 +30,7 @@
 			"talksThirdCloudForum": "Vorträge des 3. HPI Schul-Cloud-Forums (März 2019)"
 		},
 		"text": {
+			"browserNotSupported": "Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen:",
 			"moreInfo": "Mehr Informationen:",
 			"startA2019": "(Start August 2019)",
 			"startF2019": "(Start Februar 2019)",
@@ -719,6 +720,7 @@
 			"myMaterials": "Meine Materialien",
 			"news": "Neuigkeiten",
 			"openTasks": "Gestellte Aufgaben",
+			"poll2Title": "Befragung II im Projekt Schul-Cloud",
 			"privateTasks": "Private Aufgaben und Entwürfe",
 			"schedule": "Stundenplan",
 			"tasks": "Aufgaben",
@@ -898,6 +900,9 @@
 		}
 	},
 	"global": {
+		"topMenu": {
+			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
+		},
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
@@ -924,8 +929,16 @@
 			"yes": "Ja",
 			"ok": "Okay"
 		},
-		"error": {
-			"requestTimeout": "Zeitüberschreitung der Anfrage"
+		"error" : {
+			"400": "Diese Anfrage war fehlerhaft.",
+			"401": "Bitte authentifiziere dich zuerst.",
+			"402": "Diese Funktion musst du erst noch bezahlen.",
+			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
+			"404": "Ups, diese Seite gibt's wohl nicht.",
+			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
+			"requestTimeout" : "Zeitüberschreitung bei dir Anfrage",
+			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
+			"pageMoved": "Diese Seite wurde verschoben."
 		},
 		"headline": {
 			"delete": "Löschen",
@@ -958,6 +971,8 @@
 				"administrationStudents": "Schüler",
 				"administrationTeachers": "Lehrer",
 				"administrationTeams": "Teams",
+				"archive": "Archiv",
+				"assignedTasks": "Gestellte Aufgaben",
 				"calendar": "Termine",
 				"courses": "Kurse",
 				"files": "Meine Dateien",
@@ -971,12 +986,11 @@
 				"managementClasses": "Klassen",
 				"managementStudents": "Schüler:innen",
 				"managementTeachers": "Lehrer:innen",
-				"myMaterial": "Meine Materialien",
+				"myMaterials": "Meine Materialien",
 				"news": "Neuigkeiten",
 				"overview": "Übersicht",
 				"tasks": "Aufgaben",
 				"tasksArchive": "Archiv",
-				"tasksAsked": "Gestellte Aufgaben",
 				"tasksDrafts": "Entwürfe",
 				"teams": "Teams"
 			}
@@ -989,8 +1003,11 @@
 			"invalidRequest": "Ungültige Anfrage",
 			"monday": "Montag",
 			"saturday": "Samstag",
+			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
 			"sunday": "Sonntag",
+			"sureAboutDeleting": "Bist du dir sicher, dass du {{ name }} löschen möchtest?",
 			"sureAboutDiscardingChanges": "Bist du dir sicher, dass du die Änderungen verwerfen möchtest?",
+			"theRequestContains": "Die Anfrage enthält mehrere identische Sicherheitstokens (CSRF).",
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
@@ -1439,7 +1456,6 @@
 		},
 		"popup_resetPw": {
 			"button": {
-				"cancel": "Abbrechen",
 				"resetPassword": "Passwort Zurücksetzen"
 			},
 			"headline": {
@@ -1820,7 +1836,6 @@
 			},
 			"events": {
 				"button": {
-					"add": "Hinzufügen",
 					"addDate": "Termin anlegen"
 				},
 				"headline": {

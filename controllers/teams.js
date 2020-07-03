@@ -278,7 +278,7 @@ router.get('/', async (req, res, next) => {
 			time.startTime = moment(time.startTime, 'x')
 				.utc()
 				.format('HH:mm');
-			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
 			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 				time.room ? `| ${time.room}` : ''
 			}</div>`;
