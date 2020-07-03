@@ -906,7 +906,6 @@
 			}
 		},
 		"button": {
-			"continue": "Weiter",
 			"getStartedImmediately": "Sofort loslegen",
 			"signOutAndCancel": "Abmelden und abbrechen",
 			"takeALookAtTheFirstSteps": "Erste Schritte anschauen"
