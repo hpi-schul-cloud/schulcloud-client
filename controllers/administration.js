@@ -1065,7 +1065,7 @@ router.get(
 		};
 		query = Object.assign(query, filterQuery);
 
-		api(req, res)
+		api(req)
 			.get('users/admin/teachers', {
 				qs: query,
 			})
