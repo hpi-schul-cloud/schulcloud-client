@@ -30,24 +30,24 @@ const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${
 	qs: query,
 }).then((data) => data.data);
 
-const getActions = (item, path) => [{
+const getActions = (res, item, path) => [{
 	link: `${path + item._id}/edit`,
 	class: 'btn-edit',
 	icon: 'edit',
-	title: 'bearbeiten',
+	title: res.$t('homework.button.editSubmissionFromList'),
 },
 {
 	link: `${path + item._id}/copy`,
 	class: 'btn-copy',
 	icon: 'copy',
-	title: 'kopieren',
+	title: res.$t('homework.button.copySubmissionFromList'),
 },
 {
 	link: path + item._id,
 	class: 'btn-delete',
 	icon: 'trash-o',
 	method: 'DELETE',
-	title: 'löschen',
+	title: res.$t('homework.button.deleteSubmissionFromList'),
 },
 ];
 
@@ -92,7 +92,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		if (req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
 			req.session.notification = {
 				type: 'danger',
-				message: 'Das Beginndatum muss vor dem Abgabedatum liegen!',
+				message: res.$t('homework._task.text.startDateBeforeSubmissionDate'),
 			};
 			redirectHelper.safeBackRedirect(req, res);
 			return;
@@ -118,7 +118,10 @@ const getCreateHandler = (service) => (req, res, next) => {
 			api(req).get(`/courses/${data.courseId}`)
 				.then((course) => {
 					sendNotification(data.courseId,
-						`Sie haben eine neue Hausaufgabe im Fach ${course.name}`, `${data.name} ist bis zum ${moment(data.dueDate).format('DD.MM.YYYY HH:mm')} abzugeben.`,
+						res.$t('homework._task.text.newHomeworkCourseNotification',
+							{ coursename: course.name }),
+						res.$t('homework._task.text.newHomeworkDueDateNotification',
+							{ homeworkname: data.name, duedate: moment(data.dueDate).format('DD.MM.YYYY HH:mm') }),
 						data.teacherId,
 						req,
 						`${(req.headers.origin || HOST)}/homework/${data._id}`);
@@ -147,7 +150,6 @@ const getCreateHandler = (service) => (req, res, next) => {
 		next(err);
 	});
 };
-
 
 const sendNotification = (courseId, title, message, userId, req, link) => {
 	if (NOTIFICATION_SERVICE_ENABLED) {
@@ -217,8 +219,9 @@ const patchFunction = function (service, req, res, next) {
 				api(req).get(`/homework/${data.homeworkId}`, { qs: { $populate: ['courseId'] } })
 					.then((homework) => {
 						sendNotification(data.studentId,
-							`Deine Abgabe im Fach ${
-								homework.courseId.name} wurde bewertet`,
+							res.$t('homework._task.text.submissionGradedNotification', {
+								coursename: homework.courseId.name,
+							}),
 							' ',
 							data.studentId,
 							req,
@@ -276,7 +279,7 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 		if (req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
 			req.session.notification = {
 				type: 'danger',
-				message: 'Das Beginndatum muss vor dem Abgabedatum liegen!',
+				message: res.$t('homework._task.text.startDateBeforeSubmissionDate'),
 			};
 			if (req.body.referrer) {
 				referrer = req.body.referrer.replace('/edit', '');
@@ -413,7 +416,7 @@ const splitDate = function (date) {
 	};
 };
 
-const overview = (title = '') => (req, res, next) => {
+const overview = (titleKey) => (req, res, next) => {
 	const { _id: userId, schoolId } = res.locals.currentUser || {};
 	let query = {
 		$populate: ['courseId'],
@@ -480,7 +483,7 @@ const overview = (title = '') => (req, res, next) => {
 				assignment.isTeacher = assignment.isSubstitution
 						|| ((assignment.courseId || {}).teacherIds || []).includes(assignment.currentUser._id.toString())
 						|| assignment.teacherId == res.locals.currentUser._id;
-				assignment.actions = getActions(assignment, '/homework/');
+				assignment.actions = getActions(res, assignment, '/homework/');
 				if (!assignment.isTeacher) {
 					assignment.stats = undefined;
 				}
@@ -497,20 +500,20 @@ const overview = (title = '') => (req, res, next) => {
 				const courseList = courses.map((course) => [course._id, course.name]);
 				const filterSettings =						[{
 					type: 'sort',
-					title: 'Sortierung',
-					displayTemplate: 'Sortieren nach: %1',
+					title: res.$t('homework.headline.sorting'),
+					displayTemplate: res.$t('homework.label.sortBy'),
 					options: [
-						['createdAt', 'Erstelldatum'],
-						['updatedAt', 'letzte Aktualisierung'],
-						['availableDate', 'Verfügbarkeitsdatum'],
-						['dueDate', 'Abgabedatum'],
+						['createdAt', res.$t('homework.label.sortByCreationDate')],
+						['updatedAt', res.$t('homework.label.sortByLastUpdate')],
+						['availableDate', res.$t('homework.label.sortByAvailabilityDate')],
+						['dueDate', res.$t('homework.label.sortByDueDate')],
 					],
 					defaultSelection: 'dueDate',
 				},
 				{
 					type: 'select',
-					title: 'Kurse',
-					displayTemplate: 'Kurse: %1',
+					title: res.$t('homework.headline.courses'),
+					displayTemplate: res.$t('homework.label.filterCourses'),
 					property: 'courseId',
 					multiple: true,
 					expanded: true,
@@ -518,20 +521,20 @@ const overview = (title = '') => (req, res, next) => {
 				},
 				{
 					type: 'date',
-					title: 'Abgabedatum',
-					displayTemplate: 'Abgabe vom %1 bis %2',
+					title: res.$t('homework.headline.dueDate'),
+					displayTemplate: res.$t('homework.label.filterDueDate'),
 					property: 'dueDate',
 					mode: 'fromto',
-					fromLabel: 'vom',
-					toLabel: 'bis',
+					fromLabel: res.$t('homework.label.filterDueDateFrom'),
+					toLabel: res.$t('homework.label.filterDueDateTo'),
 				},
 				{
 					type: 'boolean',
-					title: 'Mehr',
+					title: res.$t('homework.headline.more'),
 					options: {
-						private: 'private Aufgabe',
-						publicSubmissions: 'Schüler können Abgaben untereinander sehen',
-						teamSubmissions: 'Teamabgaben',
+						private: res.$t('homework.label.filterMorePrivateTask'),
+						publicSubmissions: res.$t('homework.label.filterMorePublicSubmissions'),
+						teamSubmissions: res.$t('homework.label.filterMoreTeamSubmissions'),
 					},
 					defaultSelection: {
 						private: ((query.private !== undefined) ? ((query.private === true)) : undefined),
@@ -554,15 +557,15 @@ const overview = (title = '') => (req, res, next) => {
 				homeworks = homeworks.slice(end - itemsPerPage, end);
 				// Render overview
 				res.render('homework/overview', {
-					title,
+					title: titleKey ? res.$t(titleKey) : '',
 					pagination,
 					homeworks,
 					courses,
 					filterSettings: JSON.stringify(filterSettings),
 					addButton: (req._parsedUrl.pathname == '/'
-							|| req._parsedUrl.pathname.includes('private')
-							|| (req._parsedUrl.pathname.includes('asked')
-								&& !isStudent)
+						|| req._parsedUrl.pathname.includes('private')
+						|| (req._parsedUrl.pathname.includes('asked')
+							&& !isStudent)
 					),
 					createPrivate: req._parsedUrl.pathname.includes('private') || isStudent,
 				});
@@ -572,10 +575,11 @@ const overview = (title = '') => (req, res, next) => {
 		next(err);
 	});
 };
-router.get('/', overview('Aufgaben'));
-router.get('/asked', overview('Gestellte Aufgaben'));
-router.get('/private', overview('Entwürfe'));
-router.get('/archive', overview('Archivierte Aufgaben und ToDos'));
+
+router.get('/', overview('homework.headline.tasks'));
+router.get('/asked', overview('homework.headline.assignedTasks'));
+router.get('/private', overview('homework.headline.drafts'));
+router.get('/archive', overview('homework.headline.archivedTasks'));
 
 router.get('/new', (req, res, next) => {
 	const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
@@ -605,9 +609,9 @@ router.get('/new', (req, res, next) => {
 		}
 		// Render overview
 		res.render('homework/edit', {
-			title: 'Aufgabe hinzufügen',
-			submitLabel: 'Hinzufügen',
-			closeLabel: 'Abbrechen',
+			title: res.$t('homework._task.headline.addTask'),
+			submitLabel: res.$t('global.button.add'),
+			closeLabel: res.$t('global.button.cancel'),
 			method: 'post',
 			action: '/homework/',
 			referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : '/homework/',
@@ -622,7 +626,7 @@ router.get('/:assignmentId/copy', (req, res, next) => {
 	api(req).get(`/homework/copy/${req.params.assignmentId}`)
 		.then((assignment) => {
 			if (!assignment || !assignment._id) {
-				const error = new Error('Ungültige Aufgaben-ID');
+				const error = new Error(res.$t('homework._task.text.errorInvalidTaskId'));
 				error.status = 500;
 				return next(error);
 			}
@@ -665,9 +669,9 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 				Promise.resolve(lessonsPromise).then((lessons) => {
 					(lessons || []).sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 					res.render('homework/edit', {
-						title: 'Aufgabe bearbeiten',
-						submitLabel: 'Speichern',
-						closeLabel: 'Abbrechen',
+						title: res.$t('homework._task.headline.editTask'),
+						submitLabel: res.$t('global.button.save'),
+						closeLabel: res.$t('global.button.cancel'),
 						method: 'patch',
 						action: `/homework/${req.params.assignmentId}`,
 						referrer: '/homework/',
@@ -679,9 +683,9 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 				});
 			} else {
 				res.render('homework/edit', {
-					title: 'Aufgabe bearbeiten',
-					submitLabel: 'Speichern',
-					closeLabel: 'Abbrechen',
+					title: res.$t('homework._task.headline.editTask'),
+					submitLabel: res.$t('global.button.save'),
+					closeLabel: res.$t('global.button.cancel'),
 					method: 'patch',
 					action: `/homework/${req.params.assignmentId}`,
 					referrer: '/homework/',
@@ -741,10 +745,10 @@ router.get('/:assignmentId', (req, res, next) => {
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
 
 		const breadcrumbTitle = ((assignment.archived || []).includes(res.locals.currentUser._id))
-			? ('Archivierte')
+			? (res.$t('homework.headline.breadcrumbArchived'))
 			: ((assignment.private)
-				? ('Meine')
-				: ('Gestellte'));
+				? (res.$t('homework.headline.breadcrumbPrivate'))
+				: (res.$t('homework.headline.breadcrumbAssigned')));
 		const breadcrumbUrl = ((assignment.archived || []).includes(res.locals.currentUser._id))
 			? ('/homework/archive')
 			: ((assignment.private)
@@ -815,7 +819,7 @@ router.get('/:assignmentId', (req, res, next) => {
 					: (`${assignment.courseId.name} - ${assignment.name}`),
 				breadcrumb: [
 					{
-						title: `${breadcrumbTitle} Aufgaben`,
+						title: res.$t('homework.headline.breadcrumb', { breadcrumbtitle: breadcrumbTitle }),
 						url: breadcrumbUrl,
 					},
 				],
