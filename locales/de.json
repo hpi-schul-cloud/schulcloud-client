@@ -80,7 +80,8 @@
 			"passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
 			"preferencesUpdates": "Präferenzen wurden aktualisiert!",
 			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!",
-			"visibilityForTeamInvitation": "Sichtbarkeit für Teameinladungen"
+			"visibilityForTeamInvitation": "Sichtbarkeit für Teameinladungen",
+			"centralIdentityManagement": "Deine Nutzerdaten werden von einem zentralen Identitätsmanagement (IDM) synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver), das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Administrator deiner Schule, um Änderungen an deinen Nutzerdaten vorzunehmen."
 		},
 		"teams": {
 			"button": {

@@ -103,10 +103,7 @@
                     <input type="email" class="form-control" value="{{ currentUser.email }}" readonly>
                 </div>
                 <p class="warning">
-                    Deine Nutzerdaten werden von einem zentralen Identitätsmanagement (IDM)
-                    synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver),
-                    das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Administrator deiner Schule,
-                    um Änderungen an deinen Nutzerdaten vorzunehmen.
+					{{$t "account.text.centralIdentityManagement"}}
                 </p>
             </div>
             {{/unless}}
@@ -118,13 +115,13 @@
                     <h5>Teams</h5>
                     <div class="form-group">
                         {{$t "account.text.visibilityForTeamInvitation" }}
-                        <p class="text-muted">Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{theme.short_title}}bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.</p>
+                        <p class="text-muted">{{{$t "account.teams.text.hint" (dict "short_title" theme.short_title )}}}</p>
 
-                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.</label>{{/ifConfig}}
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>{{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled"}}</label>{{/ifConfig}}
 
-                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis aktivieren</label>{{/ifConfig}}
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> {{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-in"}}</label>{{/ifConfig}}
 
-                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> Sichtbarkeit im zentralen Verzeichnis deaktivieren</label>{{/ifConfig}}
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> {{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out"}}</label>{{/ifConfig}}
                     </div>
 
                     {{> "lib/components/csrfInput"}}
