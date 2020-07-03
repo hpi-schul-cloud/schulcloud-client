@@ -18,21 +18,21 @@ router.get('/:pwId', (req, res, next) => {
 		.then((result) => {
 			if (result.changed) {
 				const error = new Error(
-					'Ihr Passwort wurde bereits über diese URL geändert.',
+					res.$t('pwRecovery.text.errorPasswordAlreadyChanged'),
 				);
 				error.status = 400;
 				throw error;
 			}
 			if (Date.now() - Date.parse(result.createdAt) >= 86400000) {
-				const error = new Error('Zeit abgelaufen für Passwort Recovery.');
+				const error = new Error(res.$t('pwRecovery.text.errorTimeExpired'));
 				error.status = 400;
 				throw error;
 			}
 			return res.render('pwRecovery/pwrecovery', {
-				title: 'Passwort-Wiederherstellung',
+				title: res.$t('pwRecovery.headline.passwordRecovery'),
 				resetId: req.params.pwId,
 				action: '/pwrecovery/reset/',
-				buttonLabel: 'Neues Passwort anlegen',
+				buttonLabel: res.$t('pwRecovery.button.createNewPassword'),
 				inline: true,
 				hideMenu: true,
 			});

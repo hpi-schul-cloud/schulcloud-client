@@ -45,7 +45,8 @@
 			}
 		},
 		"headline": {
-			"doYouWantToDeleteDevice": "Bist du dir sicher, dass du {{device}} löschen möchtest?"
+			"doYouWantToDeleteDevice": "Bist du dir sicher, dass du {{device}} löschen möchtest?",
+			"yourAccount": "Dein Account"
 		},
 		"label": {
 			"providers": "Anbieter"
@@ -60,7 +61,9 @@
 		},
 		"text": {
 			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
-			"passwordsDoNotMatch": "Passwörter stimmen nicht überein."
+			"passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
+			"preferencesUpdates": "Präferenzen wurden aktualisiert!",
+			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!"
 		},
 		"teams": {
 			"button": {
@@ -369,7 +372,6 @@
 				"button": {
 					"addLesson": "Neuen Stundentermin hinzufügen",
 					"deleteCourse": "Kurs löschen",
-					"saveChanges": "Änderungen speichern",
 					"showCourseDetail": "Kursdetails anzeigen"
 				},
 				"headline": {
@@ -754,6 +756,7 @@
 	},
 	"dataprivacy": {
 		"headline": {
+			"privacyPolicy": "Datenschutzerklärung",
 			"registrationInvalid": "Registrierung fehlerhaft"
 		},
 		"img_alt": {
@@ -920,7 +923,7 @@
 			"print": "Drucken",
 			"reload": "Neu laden",
 			"save": "Speichern",
-			"saveChanges": "Änderungen Speichern",
+			"saveChanges": "Änderungen speichern",
 			"send": "Abschicken",
 			"tryAgain": "Erneut Versuchen",
 			"yes": "Ja",
@@ -997,6 +1000,7 @@
 			"attention": "Achtung:",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
 			"friday": "Freitag",
+			"invalidRequest": "Ungültige Anfrage",
 			"monday": "Montag",
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
@@ -1017,6 +1021,12 @@
 				"typeNotAllowed": "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
 			}
 		},
+		"headline": {
+			"contactDetails": "Ansprechpartner und Kontaktdaten",
+			"helpSection": "Hilfeartikel",
+			"privacyCourse": "Datenschutzkurs",
+			"welcomeDocuments": "Willkommens-Dokumente zum Download"
+		},
 		"placeholder": {
 			"formBugText": "Ich als [Nutzerrolle] \nhabe auf der Seite [???]\ndie Funktion [???]\naufgrund des Fehlers/der Fehlermeldung \"[???]\"\nnicht benutzen können.\n\nTritt der Fehler auch bei anderen/ ähnlichen Bereichen (z.B. andere Kurse oder Nutzer) auf?\nWie genau äußert sich das Problem?\nWann trat der Fehler genau auf (Datum, Uhrzeit), damit wir gezielt in den Logs schauen können?\nWenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hier bitte so kurz und klar wie möglich beschreiben."
 		},
@@ -1027,6 +1037,19 @@
 			"text": {
 				"tryAnotherQuery": "Probiere es mit anderen Suchbegriffen erneut"
 			}
+		},
+		"text": {
+			"noAccessDemoAccount": "Sie haben im Demo-Account keinen Zugriff auf diese Dokumente.",
+			"noWelcomeDocuments": "Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support."
+		}
+	},
+	"helpdesk": {
+		"text": {
+			"feedbackError": "Fehler beim Senden des Feedbacks.",
+			"feedbackSuccessful": "Feedback erfolgreich versendet!",
+			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
+			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+			"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!"
 		}
 	},
 	"home": {
@@ -1074,11 +1097,27 @@
 		}
 	},
 	"homework": {
+		"_task": {
+			"headline": {
+				"addTask": "Aufgabe hinzufügen",
+				"editTask": "Aufgabe bearbeiten"
+			},
+			"text": {
+				"errorInvalidTaskId": "Ungültige Aufgaben-ID",
+				"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
+				"newHomeworkDueDateNotification": "{{homeworkname}} ist bis zum {{duedate}} abzugeben.",
+				"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
+				"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet"
+			}
+		},
 		"button": {
 			"addTask": "Aufgabe hinzufügen",
 			"archive": "Archivieren",
 			"copy": "Kopieren",
+			"copySubmissionFromList": "kopieren",
+			"deleteSubmissionFromList": "löschen",
 			"downloadUngradedFiles": "Dateien unbewerteter Hausaufgaben herunterladen",
+			"editSubmissionFromList": "bearbeiten",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
@@ -1110,12 +1149,33 @@
 				"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer:innen dürfen den Kurs nicht ändern)"
 			}
 		},
+		"headline": {
+			"archivedTasks": "Archivierte Aufgaben und ToDos",
+			"assignedTasks": "Gestellte Aufgaben",
+			"breadcrumb": "{{breadcrumbtitle}} Aufgaben",
+			"breadcrumbArchived": "Archivierte",
+			"breadcrumbAssigned": "Gestellte",
+			"breadcrumbPrivate": "Meine",
+			"courses": "Kurse",
+			"drafts": "Entwürfe",
+			"dueDate": "Abgabedatum",
+			"more": "Mehr",
+			"sorting": "Sortierung",
+			"tasks": "Aufgaben"
+		},
 		"label": {
 			"comment": "Kommentar",
 			"courses": "Kurse",
 			"details": "Details",
 			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
+			"filterCourses": "Kurse: %1",
+			"filterDueDate": "Abgabe vom %1 bis %2",
+			"filterDueDateFrom": "vom",
+			"filterDueDateTo": "bis",
+			"filterMorePrivateTask": "private Aufgabe",
+			"filterMorePublicSubmissions": "Schüler können Abgaben untereinander sehen",
+			"filterMoreTeamSubmissions": "Teamabgaben",
 			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
 			"onTheSubject": "Zum Thema",
@@ -1124,6 +1184,11 @@
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schüler:innen-Gruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
+			"sortBy": "Sortieren nach: %1",
+			"sortByAvailabilityDate": "Verfügbarkeitsdatum",
+			"sortByCreationDate": "Erstelldatum",
+			"sortByDueDate": "Abgabedatum",
+			"sortByLastUpdate": "letzte Aktualisierung",
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
@@ -1156,6 +1221,9 @@
 			"heading": {
 				"imprint": "Impressum"
 			}
+		},
+		"headline": {
+			"imprint": "Impressum"
 		},
 		"imprint_infotext_below": {
 			"text": {
@@ -1328,6 +1396,11 @@
 			}
 		}
 	},
+	"link": {
+		"text": {
+			"invalidLink": "Der Link ist nicht gültig oder abgelaufen. Bitte überprüfe den Link oder lasse dir einen neuen Link erstellen."
+		}
+	},
 	"loggedin": {
 		"text": {
 			"newFeaturesAvailable": "Neue Features sind verfügbar",
@@ -1341,11 +1414,17 @@
 			"less": "Weniger",
 			"login": "Anmelden",
 			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
-			"moreOptions": "Mehr Optionen"
+			"moreOptions": "Mehr Optionen",
+			"submitPrivacyPolicy": "Gelesen"
 		},
 		"headline": {
+			"firstLogin": "Willkommen - Erster Login",
+			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
 			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
-			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung"
+			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
+			"onlyPrivacy": "Datenschutzerklärung",
+			"onlyTermsOfUse": "Nutzungsordnung",
+			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
 		},
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
@@ -1393,6 +1472,7 @@
 			}
 		},
 		"text": {
+			"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
 			"loginFailed": "Login fehlgeschlagen.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
 			"loginFailedFirstHintText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
@@ -1414,6 +1494,9 @@
 		}
 	},
 	"my_material": {
+		"headline": {
+			"myMaterial": "Meine Materialien"
+		},
 		"text": {
 			"andTakeTheOpportunityToDesign": "und nutzen Sie die Möglichkeit, das Feature nach ihren Wünschen zu gestalten.",
 			"blogArticle": "Blogartikel",
@@ -1426,12 +1509,23 @@
 		}
 	},
 	"news": {
+		"_news": {
+			"headline": {
+				"createNews": "News erstellen",
+				"editNews": "News bearbeiten"
+			}
+		},
 		"button": {
 			"addNews": "News hinzufügen"
 		},
+		"headline": {
+			"news": "Neuigkeiten",
+			"newsTeam": "Neuigkeiten aus dem Team"
+		},
 		"label": {
 			"content": "Inhalt",
-			"shceduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
+			"scheduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
+			"searchForNews": "Suche nach Neuigkeiten",
 			"title": "Titel"
 		},
 		"text": {
@@ -1468,6 +1562,9 @@
 		}
 	},
 	"pwRecovery": {
+		"button": {
+			"createNewPassword": "Neues Passwort anlegen"
+		},
 		"failed": {
 			"text": {
 				"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
@@ -1475,6 +1572,9 @@
 		},
 		"input": {
 			"hiddenPw": "***************"
+		},
+		"headline": {
+			"passwordRecovery": "Passwort-Wiederherstellung"
 		},
 		"label": {
 			"newPw": "Neues Passwort",
@@ -1493,12 +1593,20 @@
 			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
 			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
 			"allowedCharacters": "Erlaubte Sonderzeichen sind: ",
-			"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
+			"errorPasswordAlreadyChanged": "Ihr Passwort wurde bereits über diese URL geändert.",
+			"errorTimeExpired": "Zeit abgelaufen für Passwort Recovery.",
 			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
+			"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
 		}
 	},
 	"registration": {
+		"headline": {
+			"registrationEmployee": "Registrierung - {{role}}",
+			"registrationParents": "Registrierung - Eltern",
+			"registrationStudents": "Registrierung - Schüler*",
+			"welcomeToRegistration": "Herzlich willkommen bei der Registrierung"
+		},
 		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
 		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
 		"registationFailedContinue": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
@@ -1677,9 +1785,23 @@
 			}
 		},
 		"text": {
+			"acceptConsentWithoutParents": "Wenn du zwischen 14 und {{age}} Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die {{title}} nutzen kannst.",
+			"roleEmployee": "Lehrer*/Admins*",
+			"roleExpert": "Experte*",
+			"startPassword": "Startpasswort: {{password}}",
+			"studentsChooseNewPassword": "Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen.\n{{consentText}}",
+			"timeout": "Leider konnte deine Registrierung nicht abgeschlossen werden.\nBitte versuche es erneut.",
+			"unknownError": "Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.",
+			"welcomeMailSubject": "Willkommen in der {{title}}!",
+			"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team",
 			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
 			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
 			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu."
+		}
+	},
+	"team": {
+		"headline": {
+			"team": "Das HPI Schul-Cloud Team"
 		}
 	},
 	"teams": {
@@ -1897,8 +2019,7 @@
 		},
 		"add": {
 			"button": {
-				"createTeam": "Team anlegen",
-				"saveChanges": "Änderungen speichern"
+				"createTeam": "Team anlegen"
 			},
 			"headline": {
 				"createTeam": "Team anlegen",
@@ -1936,6 +2057,7 @@
 	"topic": {
 		"_topic": {
 			"button": {
+				"createTopic": "Thema anlegen",
 				"editTopic": "Thema bearbeiten"
 			},
 			"global": {
@@ -1952,6 +2074,10 @@
 				"assignedTasks": "Gestellte Aufgaben",
 				"privateTasks": "Private Aufgaben",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
+			},
+			"headline": {
+				"createTopic": "Thema anlegen",
+				"editTopic": "Thema bearbeiten"
 			},
 			"label": {
 				"content": "Inhalte",
