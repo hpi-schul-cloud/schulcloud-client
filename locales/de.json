@@ -30,6 +30,7 @@
 			"talksThirdCloudForum": "Vorträge des 3. HPI Schul-Cloud-Forums (März 2019)"
 		},
 		"text": {
+			"browserNotSupported": "Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen:",
 			"moreInfo": "Mehr Informationen:",
 			"startA2019": "(Start August 2019)",
 			"startF2019": "(Start Februar 2019)",
@@ -44,8 +45,8 @@
 			}
 		},
 		"headline": {
-			"doYouWantToDeleteDevice" : "Bist du dir sicher, dass du {{device}} löschen möchtest?"
-		} ,
+			"doYouWantToDeleteDevice": "Bist du dir sicher, dass du {{device}} löschen möchtest?"
+		},
 		"label": {
 			"providers": "Anbieter"
 		},
@@ -54,12 +55,12 @@
 				"test": "Neue Test-Benachrichtigung"
 			},
 			"text": {
-				"youHaveANewMessage" : "Du hast eine neue Benachrichtigung"
+				"youHaveANewMessage": "Du hast eine neue Benachrichtigung"
 			}
 		},
 		"text": {
 			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
-			"passwordsDoNotMatch" : "Passwörter stimmen nicht überein."
+			"passwordsDoNotMatch": "Passwörter stimmen nicht überein."
 		},
 		"teams": {
 			"button": {
@@ -109,7 +110,7 @@
 			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
 		},
 		"classes": {
-			"headline":{
+			"headline": {
 				"importClass": "Klasse importieren"
 			},
 			"label": {
@@ -431,7 +432,7 @@
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
 						"noTopics": "keine Themen.",
 						"responsibleTeachers": "Verantwortliche Lehrer:innen:",
-						"submittedOn" : "Abgabe: {{ddmmyy_hhmm}}",
+						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}",
 						"workOnTopic": "Thema bearbeiten"
 					}
 				},
@@ -717,6 +718,7 @@
 			"myMaterials": "Meine Materialien",
 			"news": "Neuigkeiten",
 			"openTasks": "Gestellte Aufgaben",
+			"poll2Title": "Befragung II im Projekt Schul-Cloud",
 			"privateTasks": "Private Aufgaben und Entwürfe",
 			"schedule": "Stundenplan",
 			"tasks": "Aufgaben",
@@ -835,9 +837,9 @@
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
 			"close": "Schließen",
 			"createdAt": "Erstelldatum",
-			"dangerousCode" : "Schädlicher Code",
-			"deleteFile" : "Datei löschen",
-			"deleteFolder" : "Ordner löschen",
+			"dangerousCode": "Schädlicher Code",
+			"deleteFile": "Datei löschen",
+			"deleteFolder": "Ordner löschen",
 			"distributeTheFollowingLink": "Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten.",
 			"downloadFile": "Datei herunterladen",
 			"editFilePermissions": "Dateiberechtigungen bearbeiten",
@@ -849,7 +851,7 @@
 			"filesFromMyTeam": "Dateien aus meinen Teams",
 			"filesSharedWithMe": "Mit mir geteilte Dateien",
 			"folder": "Ordner",
-			"moveFile" : "Datei verschieben - vorübergehend deaktiviert",
+			"moveFile": "Datei verschieben - vorübergehend deaktiviert",
 			"myPersonalData": "Meine persönlichen Dateien",
 			"name": "Dateiname",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
@@ -858,10 +860,10 @@
 			"renameFolder": "Ordner umbenennen",
 			"roleUser": "Rolle/Benutzer",
 			"selectAFolder": "Wähle einen Ordner aus",
-			"shareFile" : "Datei teilen",
+			"shareFile": "Datei teilen",
 			"size": "Größe",
 			"updatedAt": "Änderungsdatum",
-			"write" : "Schreiben"
+			"write": "Schreiben"
 		},
 		"search": {
 			"headline": {
@@ -880,7 +882,7 @@
 			"foundIn": "gefunden in:",
 			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
 			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
-			"movingCurrentlyDisabled" : "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
+			"movingCurrentlyDisabled": "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 			"newDir": "Neuer Ordner",
 			"newFile": "Neue Datei",
 			"noAccessToThisFile": "Zu dieser Datei haben Sie keinen Zugriff!",
@@ -996,6 +998,7 @@
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
 			"sunday": "Sonntag",
+			"sureAboutDeleting": "Bist du dir sicher, dass du {{ name }} löschen möchtest?",
 			"sureAboutDiscardingChanges": "Bist du dir sicher, dass du die Änderungen verwerfen möchtest?",
 			"theRequestContains": "Die Anfrage enthält mehrere identische Sicherheitstokens (CSRF).",
 			"thursday": "Donnerstag",
@@ -1005,20 +1008,20 @@
 	},
 	"help": {
 		"contactForm": {
-			"text":{
+			"text": {
 				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
-				"typeNotAllowed" : "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
+				"typeNotAllowed": "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
 			}
 		},
 		"placeholder": {
 			"formBugText": "Ich als [Nutzerrolle] \nhabe auf der Seite [???]\ndie Funktion [???]\naufgrund des Fehlers/der Fehlermeldung \"[???]\"\nnicht benutzen können.\n\nTritt der Fehler auch bei anderen/ ähnlichen Bereichen (z.B. andere Kurse oder Nutzer) auf?\nWie genau äußert sich das Problem?\nWann trat der Fehler genau auf (Datum, Uhrzeit), damit wir gezielt in den Logs schauen können?\nWenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hier bitte so kurz und klar wie möglich beschreiben."
 		},
 		"search": {
-			"headline":{
-				"noSearchResults" : "Keine Ergebnisse gefunden 😪"
+			"headline": {
+				"noSearchResults": "Keine Ergebnisse gefunden 😪"
 			},
-			"text" : {
+			"text": {
 				"tryAnotherQuery": "Probiere es mit anderen Suchbegriffen erneut"
 			}
 		}
@@ -1371,7 +1374,6 @@
 		},
 		"popup_resetPw": {
 			"button": {
-				"cancel": "Abbrechen",
 				"resetPassword": "Passwort Zurücksetzen"
 			},
 			"headline": {
@@ -1438,8 +1440,8 @@
 			"inTheCourse": "im Kurs",
 			"inTheTeam": "im Team",
 			"lastFrom": "(zuletzt von",
-			"newsNeedContent" : "News benötigen Inhalt!",
-			"newsNeedTitle" : "News benötigen einen Titel!",
+			"newsNeedContent": "News benötigen Inhalt!",
+			"newsNeedTitle": "News benötigen einen Titel!",
 			"processed": "bearbeitet)",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
@@ -1448,7 +1450,7 @@
 	"partner": {
 		"headline": {
 			"advisoryBoard": "Fachbeirat",
-			"partner" : "Partner",
+			"partner": "Partner",
 			"pilotPartners": "Pilotpartner für Lerninhalte",
 			"projectExecution": "Projektdurchführung",
 			"supporters": "Unterstützer für Schulinfrastruktur <3"
@@ -1709,7 +1711,6 @@
 			},
 			"events": {
 				"button": {
-					"add": "Hinzufügen",
 					"addDate": "Termin anlegen"
 				},
 				"headline": {
@@ -1750,38 +1751,38 @@
 				"role": "Rolle"
 			},
 			"members": {
-				"add" : {
-					"button" : {
-						"deleteInvitation" : "Einladung löschen",
-						"inviteMember" : "Teilnehmer einladen",
-						"sendInvitation" : "Einladung versenden"
+				"add": {
+					"button": {
+						"deleteInvitation": "Einladung löschen",
+						"inviteMember": "Teilnehmer einladen",
+						"sendInvitation": "Einladung versenden"
 					},
 					"headline": {
-						"deleteInvitation" : "Einladung löschen",
-						"inviteExternMember" : "Externen Teilnehmer einladen",
-						"sendInvitationAgain" : "Einladung erneut versenden"
+						"deleteInvitation": "Einladung löschen",
+						"inviteExternMember": "Externen Teilnehmer einladen",
+						"sendInvitationAgain": "Einladung erneut versenden"
 					},
-					"text" : {
-						"errorDuringInvitation" : "Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admins fragen.",
-						"errorWhileDeletingInvitation" : "Problem beim Löschen der Einladung",
-						"errorWhileLoadingSchools" : "Problem beim Auslesen der Schulen",
-						"errorWhileLoadingTeachers" : "Problem beim Auslesen der Lehrer",
-						"errorWhileSendingInvitation" : "Problem beim Versenden der Einladung",
-						"invitationSentIfMailInSys" : "Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.",
-						"noSchoolForThisFilter" : "Für die gewählte Auswahl ist keine Schule vorhanden",
-						"pleaseEnterValidEmail" : "Bitte gib eine gültige E-Mail an.",
-						"pleaseReloadThePage" : "Bitte lade die Seite neu.",
-						"providerBlockedTryOtherMail" : "Der Provider der eingeladenen E-Mail-Adresse ist geblockt! Bitte verwende eine andere Adresse und versuche es dann erneut.",
-						"teacherInvitedSuccess" : "Lehrer erfolgreich zum Team eingeladen"
+					"text": {
+						"errorDuringInvitation": "Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admins fragen.",
+						"errorWhileDeletingInvitation": "Problem beim Löschen der Einladung",
+						"errorWhileLoadingSchools": "Problem beim Auslesen der Schulen",
+						"errorWhileLoadingTeachers": "Problem beim Auslesen der Lehrer",
+						"errorWhileSendingInvitation": "Problem beim Versenden der Einladung",
+						"invitationSentIfMailInSys": "Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.",
+						"noSchoolForThisFilter": "Für die gewählte Auswahl ist keine Schule vorhanden",
+						"pleaseEnterValidEmail": "Bitte gib eine gültige E-Mail an.",
+						"pleaseReloadThePage": "Bitte lade die Seite neu.",
+						"providerBlockedTryOtherMail": "Der Provider der eingeladenen E-Mail-Adresse ist geblockt! Bitte verwende eine andere Adresse und versuche es dann erneut.",
+						"teacherInvitedSuccess": "Lehrer erfolgreich zum Team eingeladen"
 					}
 				},
 				"button": {
 					"addExternMembers": "Externe Teilnehmer einladen",
 					"addInternMembers": "Interne Teilnehmer hinzufügen",
 					"addPerson": "Person hinzufügen",
-					"deleteClass" : "Klasse löschen",
-					"deleteMember" : "Teilnehmer löschen",
-					"editMember" : "Teilnehmer bearbeiten",
+					"deleteClass": "Klasse löschen",
+					"deleteMember": "Teilnehmer löschen",
+					"editMember": "Teilnehmer bearbeiten",
 					"externExpert": "Externe Experten",
 					"inviteByMail": "per E-Mail einladen",
 					"selectFromIndex": "Aus Verzeichnis auswählen",
@@ -1789,12 +1790,12 @@
 				},
 				"headline": {
 					"actions": "Aktionen",
-					"addMember" : "Teilnehmer hinzufügen",
+					"addMember": "Teilnehmer hinzufügen",
 					"class": "{{count}} Klasse",
 					"class_plural": "{{count}} Klassen",
-					"deleteClass" : "Klasse löschen",
-					"deleteMember" : "Teilnehmer löschen",
-					"editMember" : "Teilnehmer bearbeiten",
+					"deleteClass": "Klasse löschen",
+					"deleteMember": "Teilnehmer löschen",
+					"editMember": "Teilnehmer bearbeiten",
 					"email": "E-Mail",
 					"firstName": "Vorname",
 					"inviteExternExpert": "Externen Experten einladen",
@@ -1846,12 +1847,12 @@
 					"teamAdmin": "Team-Admin"
 				},
 				"text": {
-					"addedMemberFailure" : "Problem beim Hinzufügen der Teilnehmer",
-					"addedMemberSuccess" : "Teilnehmer erfolgreich zum Team hinzugefügt",
+					"addedMemberFailure": "Problem beim Hinzufügen der Teilnehmer",
+					"addedMemberSuccess": "Teilnehmer erfolgreich zum Team hinzugefügt",
 					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
 					"admin": "Administrator",
 					"changeRoleOfMember": "Ändere die Rolle des Nutzers:",
-					"errorWhileEditingMember" : "Problem beim Bearbeiten des Teilnehmers",
+					"errorWhileEditingMember": "Problem beim Bearbeiten des Teilnehmers",
 					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers",
 					"expert": "Externer Experte",
 					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
@@ -1859,7 +1860,7 @@
 					"leader": "Leiter",
 					"member": "Teilnehmer",
 					"owner": "Eigentümer",
-					"pleaseSelectRole" : "Bitte wähle eine Rolle aus.",
+					"pleaseSelectRole": "Bitte wähle eine Rolle aus.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und Lehrer ihrer Schule zum Team hinzufügen.",
 					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
 					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
@@ -1910,7 +1911,7 @@
 		"headline": {
 			"duplicateTeam": "Team duplizieren",
 			"invitations": "Einladungen",
-			"membersOfTeam" : "Mitglieder des Teams: {{teamName}}",
+			"membersOfTeam": "Mitglieder des Teams: {{teamName}}",
 			"myTeams": "Meine Teams",
 			"teamsConnectSchools": "Teams vernetzen Schule"
 		},
@@ -1925,7 +1926,7 @@
 		},
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
-			"noMembers" : "Keine Teilnehmer",
+			"noMembers": "Keine Teilnehmer",
 			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
 		}
 	},
