@@ -1,41 +1,30 @@
-<div class="contact-form">
-  <p>Wen möchtest du kontaktieren?</p>
-  <fieldset class="switch_wrapper" id="message_target">
-    <div class="switch">
-      <input type="radio" id="admin" name="message_target" value="admin" {{#if adminFormIsActive}}checked{{/if}}>
-      <label for="admin" tabindex="0" role="button">Schul-Admin</label>
-      <input type="radio" id="team" name="message_target" value="team" {{#if teamFormIsActive}}checked{{/if}}>
-      <label for="team" tabindex="0" role="button"> {{theme.short_title}}-Team</label>
-    </div>
-  </fieldset>
+{{#extend "lib/loggedin"}}
 
-  <form class="admin_form {{#unless adminFormIsActive}}hidden{{/unless}}" action="/helpdesk" method="post">
-    {{> "help/forms/form_admin"}}
-    {{> "lib/components/csrfInput"}}
-    <button type="submit">Absenden</button>
-  </form>
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/help/help.css" />
+{{/content}}
 
-  <div class="team_form {{#unless teamFormIsActive}}hidden{{/unless}}">
-    <p>Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{theme.short_title}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.</p>
-    <p>Welche Art von Feedback möchtest du uns senden?</p>
-    <fieldset class="switch_wrapper" id="message_type">
-      <div class="switch">
-        <input type="radio" id="bug" name="message_type" value="bug" checked>
-        <label for="bug" tabindex="0" role="button">Problem</label>
-        <input type="radio" id="wish" name="message_type" value="wish">
-        <label for="wish" tabindex="0" role="button">Wunsch</label>
-      </div>
-    </fieldset>
+{{#content "scripts" mode="append"}}
+<script src="/scripts/help.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+{{/content}}
 
-    <form class="wish_form hidden" action={{concat "/helpdesk?_csrf=" @root.csrfToken}} method="post" enctype="multipart/form-data">
-      {{> "help/forms/form_wish"}}
-      {{> "lib/components/csrfInput"}}
-      <button type="submit">Absenden</button>
-    </form>
-    <form class="bug_form" action={{concat "/helpdesk?_csrf=" @root.csrfToken}} method="post" enctype="multipart/form-data">
-      {{> "help/forms/form_bug"}}
-      {{> "lib/components/csrfInput"}}
-      <button type="submit">Absenden</button>
-    </form>
+{{#content "page"}}
+
+{{> "help/search" class="md-2"}}
+
+<div class="container">
+  <div class="row">
+
+
+    {{#embed "help/partials/help_contact"}}{{/embed}}
+
+
+    {{#embed "help/icon-card" title="Sprachlicher Hinweis" icon="fa-magic" class="" id="sprachhinweis"}}
+    {{#content "card-body"}}
+    {{> "help/language-hint"}}
+    {{/content}}
+    {{/embed}}
   </div>
 </div>
+{{/content}}
+{{/extend}}
