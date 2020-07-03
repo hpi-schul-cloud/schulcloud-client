@@ -850,7 +850,7 @@ const skipRegistration = (req, res, next) => {
 	}).then(() => {
 		res.render('administration/users_registrationcomplete', {
 			title: res.$t('administration.controller.text.agreementSuccessfullyDeclared'),
-			submitLabel: $t('global.button.back'),
+			submitLabel: res.$t('global.button.back'),
 			users: [
 				{
 					email: req.body.email,
@@ -1169,8 +1169,8 @@ router.get(
 			res.render('administration/users_edit', {
 				title: 'Lehrer bearbeiten',
 				action: `/administration/teachers/${user._id}`,
-				submitLabel: $t('global.button.save'),
-				closeLabel: $t('global.button.cancel'),
+				submitLabel: res.$t('global.button.save'),
+				closeLabel: res.$t('global.button.cancel'),
 				user,
 				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
 				consent: user.consent,
@@ -1317,7 +1317,7 @@ router.get(
 					title: res.$t('administration.controller.link.toGiveConsent'),
 					action: `/administration/students/${user._id}/skipregistration`,
 					submitLabel: res.$t('administration.controller.link.toGiveConsent'),
-					closeLabel: $t('global.button.cancel'),
+					closeLabel: res.$t('global.button.cancel'),
 					user,
 					password: authHelper.generateConsentPassword(),
 					referrer: req.header('Referer'),
@@ -1633,8 +1633,8 @@ router.get(
 				res.render('administration/users_edit', {
 					title: res.$t('administration.controller.link.editingStudents'),
 					action: `/administration/students/${user._id}`,
-					submitLabel: $t('global.button.save'),
-					closeLabel:	$t('global.button.cancel'),
+					submitLabel: res.$t('global.button.save'),
+					closeLabel:	res.$t('global.button.cancel'),
 					user,
 					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
 					consent,
