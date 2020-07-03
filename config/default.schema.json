@@ -308,6 +308,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables to exclude the possibility of assigning the role of team administrator and team owner to a student in teams"
+    },
+		"HELPAREA_URL": {
+			"type": "string",
+			"default": "",
+			"description": "The URL to Confluence. Without a link, there are subpages in the side menu and on the /help page. With the link the option from the Hilfebereich side menu leads to confluence."
 		}
 	},
 	"allOf": [
