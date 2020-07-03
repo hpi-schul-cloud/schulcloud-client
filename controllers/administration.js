@@ -748,7 +748,7 @@ const returnAdminPrefix = (roles) => {
 };
 
 // with userId to accountId
-const userIdToAccountIdUpdate = (service) => async function useIdtoAccountId(req, res, next) {
+const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, next) {
 	try {
 		await api(req)
 			.patch(`/users/${req.params.id}`, {
@@ -760,10 +760,10 @@ const userIdToAccountIdUpdate = (service) => async function useIdtoAccountId(req
 	}
 
 	api(req)
-		.get(`/${service}/?userId=${req.params.id}`)
+		.get(`/accounts/?userId=${req.params.id}`)
 		.then((users) => {
 			api(req)
-				.patch(`/${service}/${users[0]._id}`, {
+				.patch(`/accounts/${users[0]._id}`, {
 					json: { ...req.body },
 				})
 				.then(() => {
