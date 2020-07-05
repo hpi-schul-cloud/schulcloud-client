@@ -2785,11 +2785,9 @@ router.all('/teams', async (req, res, next) => {
 	const filterQuery = {};
 	const currentPage = parseInt(req.query.p, 10) || 1;
 
-	const dataLength  = await api(req)
+	const dataLength = await api(req)
 		.get('/teams/manage/admin')
-		.then((dataResponse)=>{
-			return dataResponse.total;
-		});
+		.then((dataResponse) => dataResponse.total );
 
 	const exceedDataLimit = ((itemsPerPage * (currentPage - 1)) > dataLength) ? true : false;
 
@@ -2806,7 +2804,6 @@ router.all('/teams', async (req, res, next) => {
 		'Schule(n)': 'schoolIds',
 		'Erstellt am': 'createdAt',
 	*/
-
 
 	api(req)
 		.get('/teams/manage/admin', {
