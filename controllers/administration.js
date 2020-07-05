@@ -2778,17 +2778,26 @@ const getTeamMembersButton = (counter) => `
 const getTeamSchoolsButton = (counter) => `
   <div class="btn-show-schools" role="button">${counter}<i class="fa fa-building team-flags"></i></div>`;
 
-router.all('/teams', (req, res, next) => {
+router.all('/teams', async (req, res, next) => {
 	const path = '/administration/teams/';
 
 	const itemsPerPage = parseInt(req.query.limit, 10) || 25;
 	const filterQuery = {};
 	const currentPage = parseInt(req.query.p, 10) || 1;
 
+	const dataLength  = await api(req)
+		.get('/teams/manage/admin')
+		.then((dataResponse)=>{
+			return dataResponse.total;
+		});
+
+	const exceedDataLimit = ((itemsPerPage * (currentPage - 1)) > dataLength) ? true : false;
+
 	let query = {
 		limit: itemsPerPage,
-		skip: itemsPerPage * (currentPage - 1),
+		skip: (exceedDataLimit) ? 0 : itemsPerPage * (currentPage - 1),
 	};
+	
 	query = Object.assign(query, filterQuery);
 
 	// TODO: mapping sort
@@ -2929,7 +2938,7 @@ router.all('/teams', (req, res, next) => {
 				}
 
 				const pagination = {
-					currentPage,
+					currentPage: (exceedDataLimit) ? 1 : currentPage,
 					numPages: Math.ceil(data.total / itemsPerPage),
 					baseUrl: `/administration/teams/?p={{page}}${sortQuery}${limitQuery}`,
 				};
