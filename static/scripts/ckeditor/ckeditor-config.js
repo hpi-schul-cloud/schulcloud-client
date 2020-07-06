@@ -28,7 +28,7 @@ import TablePlugin from '@ckeditor/ckeditor5-table/src/table';
 import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline';
 // import UploadAdapterPlugin from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
 
-import FileBrowserPlugin from './plugins/filebrowser';
+import FileBrowserPlugin from './plugins/filebrowser/src/filebrowser';
 
 
 const ckeditorConfig = {
@@ -67,7 +67,7 @@ const ckeditorConfig = {
 	],
 	toolbar: [
 		'undo', 'redo', '|',
-		'imageUpload', 'mediaEmbed', /*'math',*/ 'insertImage', 'insertTable', 'horizontalLine', 'specialCharacters', 'link', '|',
+		'mediaEmbed', /*'math',*/ 'filebrowser', 'insertTable', 'horizontalLine', 'specialCharacters', 'link', '|',
 		'heading', '|',
 		'numberedList', 'bulletedList', '|',
 		'outdent', 'indent', '|',
@@ -81,8 +81,8 @@ const ckeditorConfig = {
 		forceOutputType: false,
 		enablePreview: true,
 	},
-	ckfinder: {
-		uploadUrl: '/files/upload/?path=/my',
+	filebrowser: {
+		browseUrl: '/files/my?CKEditor=evaluation',
 	},
 };
 

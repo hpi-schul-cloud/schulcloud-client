@@ -7,28 +7,33 @@ const bootbox = require('bootbox');
 class FileBrowserPlugin extends Plugin {
 	init() {
 		const { editor } = this;
-		editor.ui.componentFactory.add('insertImage', (locale) => {
+		const { t } = editor;
+
+		editor.ui.componentFactory.add('filebrowser', (locale) => {
 			const view = new ButtonView(locale);
 
 			view.set({
-				label: 'Insert image',
+				label: t('Insert Image'),
 				icon: imageIcon,
 				tooltip: true,
 			});
 
 			// Callback executed once the image is clicked.
 			view.on('execute', async () => {
-
 				const dialog = bootbox.dialog({
-					title: 'Image Properties',
-					message: '<label for="ffile">Image URL: </label><br><input type="text" id="ffile"><button type="button" id="browseServerButton">Browse Server</button><br><label for="falttext">Alternative Text: </label><br><input type="text" id="falttext">',
+					title: t('Image Properties'),
+					message: `<label for="ffile">${t('Image URL')}:</label><br>
+							  <input type="text" id="ffile">
+							  <button type="button" id="browseServerButton">${t('Browse Server')}</button><br>
+							  <label for="falttext">${t('Alternative Text')}: </label><br>
+							  <input type="text" id="falttext">`,
 					closeButton: false,
 					buttons: {
 						cancel: {
-							label: 'Cancel',
+							label: t('Cancel'),
 						},
 						ok: {
-							label: 'OK',
+							label: t('OK'),
 							callback: () => {
 								const imageUrl = document.getElementById('ffile').value;
 								const imageAltText = document.getElementById('falttext').value;
@@ -48,7 +53,7 @@ class FileBrowserPlugin extends Plugin {
 
 				dialog.on('shown.bs.modal', () => {
 					document.getElementById('browseServerButton').addEventListener('click', () => {
-						const dialogPageUrl = '/files/my?CKEditor=evaluation';
+						const dialogPageUrl = editor.config.get('filebrowser.browseUrl');
 						const dialogWindow = window.open(dialogPageUrl, '_blank', 'width=700, height=500');
 						dialogWindow.onload = () => {
 							dialogWindow.callbackFunctionFileUrl = (imageUrl) => {

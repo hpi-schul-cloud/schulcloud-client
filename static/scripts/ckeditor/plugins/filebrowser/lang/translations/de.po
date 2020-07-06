@@ -1,0 +1,33 @@
+msgid ""
+msgstr ""
+"Language-Team: German (https://www.transifex.com/ckeditor/teams/11143/de/)\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "Toolbar button tooltip for the image browse feature."
+msgid "Insert Image"
+msgstr "Bild einfügen"
+
+msgctxt "Title of the browser dialog window."
+msgid "Image Properties"
+msgstr "Bildeigenschaften"
+
+msgctxt "Label for the URL input field."
+msgid "URL"
+msgstr "URL"
+
+msgctxt "Label for the alternative text input field."
+msgid "Alternative Text"
+msgstr "Alternativer Text"
+
+msgctxt "Label for the image browse button."
+msgid "Browse Server"
+msgstr "Server durchsuchen"
+
+msgctxt "Label for the cancel button."
+msgid "Cancel"
+msgstr "abbrechen"
+
+msgctxt "Label for the confirmation button."
+msgid "OK"
+msgstr "OK"
