@@ -205,20 +205,29 @@ const helpers = app => ({
 	log: (data) => {
 		console.log(data);
 	},
-	castStatusCodeToString: (statusCode, data) => {
+	castStatusCodeToString: (statusCode) => {
 		console.log(statusCode);
 		if (statusCode >= 500) {
-			return i18n.getInstance(data.data.local.currentUser)('global.error.internalProblem');
+			return 'Ups, da haben wir wohl ein internes Problem. Probier es gleich nochmal.';
 		}
 		if (statusCode >= 400) {
-			if ([400, 401, 402, 403, 404].includes(statusCode)) {
-				return i18n.getInstance(data.data.local.currentUser)('global.error.'.concat(statusCode.toString()));
+			switch (statusCode) {
+				case 400:
+					return 'Diese Anfrage war fehlerhaft.';
+				case 401:
+					return 'Bitte Authentifiziere dich zunächst.';
+				case 402:
+					return 'Diese Funktion musst du erst noch bezahlen.';
+				case 403:
+					return 'Sorry, aber das dürfen wir dir wirklich nicht zeigen!';
+				case 404:
+					return "Ups, diese Seite gibt's wohl nicht.";
 			}
 		}
 		if (statusCode > 300) {
-			return i18n.getInstance(data.data.local.currentUser)('global.error.pageMoved');
+			return 'Diese Seite wurde verschoben.';
 		}
-		return i18n.getInstance(data.data.local.currentUser)('global.error.somethingWentWrong');
+		return 'Da ist wohl etwas schief gelaufen!';
 	},
 	writeFileSizePretty: (fileSize) => {
 		let unit;
@@ -287,5 +296,6 @@ const helpers = app => ({
 		return dict;
 	},
 });
+
 
 module.exports = helpers;

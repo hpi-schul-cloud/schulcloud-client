@@ -1081,7 +1081,7 @@ router.get(
 					&& hasEditPermission
 				) {
 					head.push('Erstellt am');
-					head.push('Registrierung');
+					head.push('Einverständnis');
 					head.push('');
 				}
 				const body = users.map((user) => {
@@ -1318,7 +1318,7 @@ router.get(
 					submitLabel: 'Einverständnis erklären',
 					closeLabel: 'Abbrechen',
 					user,
-					password: authHelper.generateConsentPassword(),
+					password: authHelper.generatePassword(),
 					referrer: req.header('Referer'),
 				});
 			})
@@ -2083,7 +2083,7 @@ router.get(
 			if (obj.importHash) return true;
 			return false;
 		});
-		const passwords = students.map(() => (authHelper.generateConsentPassword()));
+		const passwords = students.map(() => (authHelper.generatePassword()));
 		const renderUsers = students.map((student, i) => ({
 			fullname: `${student.firstName} ${student.lastName}`,
 			id: student._id,
@@ -3060,7 +3060,7 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage, schoolMaintanance, studentVisibility, consentVersions] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance, consentVersions, studentVisibility] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
 					$populate: ['systems', 'currentYear'],
@@ -3069,7 +3069,6 @@ router.use(
 			}),
 			api(req).get('/fileStorage/total'),
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
-			api(req).get('/school/teacher/studentvisibility'),
 			api(req).get('/consentVersions', {
 				qs: {
 					$limit: 100,
@@ -3080,6 +3079,7 @@ router.use(
 					},
 				},
 			}),
+			api(req).get('/school/teacher/studentvisibility'),
 		]);
 
 		// Maintanance - Show Menu depending on the state
@@ -3213,18 +3213,6 @@ router.use(
 		});
 	},
 );
-
-router.get('/policies/:id', async (req, res, next) => {
-	try {
-		const base64File = await Promise.resolve(
-			api(req).get(`/base64Files/${req.params.id}`),
-		);
-		const fileData = base64File.data;
-		res.json(fileData);
-	} catch (err) {
-		next(err);
-	}
-});
 
 /*
 
@@ -3376,7 +3364,6 @@ router.post(
 				// eslint-disable-next-line no-shadow
 				.then((system) => {
 					api(req)
-						// TODO move to server. Should be one transaction
 						.patch(`/schools/${res.locals.currentSchool}`, {
 							json: {
 								$push: {
@@ -3426,10 +3413,9 @@ router.post(
 			classesPath = '';
 		}
 
-		// TODO potentielles Problem url: testSchule/ldap -> testSchule/ldaps
-		let ldapURL = req.body.ldapurl; // Better: let ldapURL = req.body.ldapurl.trim();
+		let ldapURL = req.body.ldapurl;
 		if (!ldapURL.startsWith('ldaps')) {
-			if (ldapURL.includes('ldap')) { // Better ldapURL.startsWith('ldap')
+			if (ldapURL.includes('ldap')) {
 				ldapURL = ldapURL.replace('ldap', 'ldaps');
 			} else {
 				ldapURL = `ldaps://${ldapURL}`;
@@ -3441,7 +3427,7 @@ router.post(
 				json: {
 					alias: req.body.ldapalias,
 					ldapConfig: {
-						active: false, // Don't switch of by verify
+						active: false,
 						url: ldapURL,
 						rootPath: req.body.rootpath,
 						searchUser: req.body.searchuser,
@@ -3508,11 +3494,16 @@ router.post(
 		);
 
 		api(req)
-			.patch(`/ldap/${system[0]._id}`, {
+			.patch(`/systems/${system[0]._id}`, {
 				json: {
 					'ldapConfig.active': true,
 				},
 			})
+			.then(() => api(req).patch(`/schools/${school._id}`, {
+				json: {
+					ldapSchoolIdentifier: system[0].ldapConfig.rootPath,
+				},
+			}))
 			.then(() => {
 				res.json('success');
 			})

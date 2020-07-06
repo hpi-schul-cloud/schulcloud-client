@@ -54,11 +54,11 @@ router.post('/login/', (req, res, next) => {
 	if (system) {
 		const [systemId, strategy] = system.split('//');
 		return authHelper.login({
-			strategy, username, password, systemId, schoolId, redirect: validRedirect, privateDevice,
+			strategy, username, password, systemId, schoolId, validRedirect, privateDevice,
 		}, req, res, errorSink);
 	}
 	return authHelper.login({
-		strategy: 'local', username, password, redirect: validRedirect, privateDevice,
+		strategy: 'local', username, password, validRedirect, privateDevice,
 	}, req, res, errorSink);
 });
 
@@ -111,7 +111,6 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 		res.render('authentication/login', {
 			schools,
 			systems: [],
-			hideMenu: true,
 			redirect: redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : ''),
 		});
 	}));

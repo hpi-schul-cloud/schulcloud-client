@@ -17,21 +17,11 @@ privacy policy should be confirmed by every school user
 
 
 ### Fixed
--  SC-4993 fixed video player issue in ckeditor
 
 ### Changed
 
-- SC-5327 removed 'bereich' suffix from navigation items
-
 ### Removed
 
-## [23.4.4] - 2020-06-18
-
-- fix mocha tests on server
-
-## [23.4.3] - 2020-06-17
-
-- SC-5048 Temporarily disables Portfolio for NBC by removal of link to portfolio in add-ons.
 
 ## [23.1.2] - 2020-06-02
 

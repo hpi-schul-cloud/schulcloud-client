@@ -11,10 +11,7 @@ const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
 
-const {
-	CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED,
-	ROCKET_CHAT_URI, FEATURE_MATRIX_MESSENGER_ENABLED,
-} = require('../config/global');
+const { CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED, ROCKET_CHAT_URI } = require('../config/global');
 
 const router = express.Router();
 moment.locale('de');
@@ -140,10 +137,9 @@ const editTeamHandler = (req, res, next) => {
 		res.render('teams/edit-team', {
 			action,
 			method,
-			title: req.params.teamId ? res.$t('teams.add.headline.editTeam') : res.$t('teams.add.headline.createTeam'),
-			submitLabel: req.params.teamId ? res.$t('global.button.saveChanges')
-				: res.$t('teams.add.button.createTeam'),
-			closeLabel: res.$t('global.button.cancel'),
+			title: req.params.teamId ? 'Team bearbeiten' : 'Team anlegen',
+			submitLabel: req.params.teamId ? 'Änderungen speichern' : 'Team anlegen',
+			closeLabel: 'Abbrechen',
 			team,
 			schoolData: res.locals.currentSchoolData,
 		});
@@ -233,9 +229,9 @@ const copyCourseHandler = (req, res, next) => {
 		res.render('teams/edit-course', {
 			action,
 			method,
-			title: res.$t('teams.headline.duplicateTeam'),
-			submitLabel: res.$t('teams.button.duplicateTeam'),
-			closeLabel: res.$t('global.button.cancel'),
+			title: 'Team duplizieren',
+			submitLabel: 'Team duplizieren',
+			closeLabel: 'Abbrechen',
 			course,
 			classes: classesOfCurrentSchool,
 			teachers: markSelected(
@@ -278,7 +274,7 @@ router.get('/', async (req, res, next) => {
 			time.startTime = moment(time.startTime, 'x')
 				.utc()
 				.format('HH:mm');
-			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
+			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
 			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 				time.room ? `| ${time.room}` : ''
 			}</div>`;
@@ -305,11 +301,11 @@ router.get('/', async (req, res, next) => {
 		res.json(teams);
 	} else if (teams.length !== 0 || teamInvitations.length !== 0) {
 		res.render('teams/overview', {
-			title: res.$t('teams.headline.myTeams'),
+			title: 'Meine Teams',
 			teams,
 			teamInvitations,
 			allowedCreateTeam,
-			searchLabel: res.$t('teams.placeholder.searchForTeams'),
+			searchLabel: 'Suche nach Teams',
 			searchAction: '/teams',
 			showSearch: true,
 			liveSearch: true,
@@ -455,14 +451,6 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
-function sortFunction(a, b) {
-	if (a.displayAt === b.displayAt) {
-		return 0;
-	}
-
-	return a.displayAt < b.displayAt ? 1 : -1;
-}
-
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
@@ -511,19 +499,7 @@ router.get('/:teamId', async (req, res, next) => {
 				rocketChatCompleteURL = undefined;
 			}
 		}
-		const instanceUsesMatrixMessenger = FEATURE_MATRIX_MESSENGER_ENABLED;
-		const courseUsesMatrixMessenger = course.features.includes('messenger');
-		const schoolUsesMatrixMessenger = (res.locals.currentSchoolData.features || []).includes('messenger');
-		let matrixNotification;
-		let messenger = false;
-		if (instanceUsesMatrixMessenger && courseUsesMatrixMessenger && !schoolUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.messengerNotActivatedSchool');
-			messenger = true;
-		}
-		if (instanceUsesMatrixMessenger && schoolUsesMatrixMessenger && !courseUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.messengerNotActivatedCourse');
-			messenger = true;
-		}
+
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
 		const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
@@ -578,33 +554,20 @@ router.get('/:teamId', async (req, res, next) => {
 			})
 			.slice(0, 6);
 
-		const news = await api(req)
-			.get('/news/', {
-				qs: {
-					target: req.params.teamId,
-					targetModel: 'teams',
-					displayAt: {
-						$lte: new Date().getTime(),
-					},
-				},
-			})
-			.then((newsres) => newsres.data
-				.map((n) => {
-					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
-					n.secondaryTitle = moment(n.displayAt).fromNow();
-					return n;
-				})
-				.sort(sortFunction)
-				.slice(0, 4))
-			.catch((err) => {
-				logger.error(
-					`
-						Can not fetch data from /news/ in router.get("/:teamId")
-						| message: ${err.message} | code: ${err.code}.
-					`,
-				);
-				return [];
-			});
+		let news = (await api(req).get('/news/', {
+			qs: {
+				target: req.params.teamId,
+				targetModel: 'teams',
+				$limit: 4,
+				$sort: '-displayAt',
+			},
+		})).data;
+
+		news = news.map((n) => {
+			n.url = `/teams/${req.params.teamId}/news/${n._id}`;
+			n.secondaryTitle = moment(n.displayAt).fromNow();
+			return n;
+		});
 
 		let events = [];
 		try {
@@ -655,7 +618,7 @@ router.get('/:teamId', async (req, res, next) => {
 				activeTab: req.query.activeTab,
 				breadcrumb: [
 					{
-						title: res.$t('teams.headline.myTeams'),
+						title: 'Meine Teams',
 						url: '/teams',
 					},
 					{},
@@ -686,13 +649,6 @@ router.get('/:teamId', async (req, res, next) => {
 				userId: res.locals.currentUser._id,
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
-				notificationMessenger: {
-					message: matrixNotification,
-					type: 'info',
-					title: 'Hinweis',
-					iconClass: 'fa fa-info-circle',
-				},
-				messenger,
 			},
 		);
 	} catch (e) {
@@ -845,43 +801,28 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const method = 'patch';
 
 	const roleTranslations = {
-		teammember: res.$t('teams._team.members.text.member'),
-		teamexpert: res.$t('teams._team.members.text.expert'),
-		teamleader: res.$t('teams._team.members.text.leader'),
-		teamadministrator: res.$t('teams._team.members.text.admin'),
-		teamowner: res.$t('teams._team.members.text.owner'),
+		teammember: 'Teilnehmer',
+		teamexpert: 'Externer Experte',
+		teamleader: 'Leiter',
+		teamadministrator: 'Administrator',
+		teamowner: 'Eigentümer',
 	};
 
-	const head = [
-		res.$t('teams._team.members.headline.firstName'),
-		res.$t('teams._team.members.headline.surname'),
-		res.$t('teams._team.members.headline.role'),
-		res.$t('teams._team.members.headline.school'),
-		res.$t('teams._team.members.headline.actions'),
-	];
+	const head = ['Vorname', 'Nachname', 'Rolle', 'Schule', 'Aktionen'];
 
-	const headClasses = [
-		res.$t('teams._team.members.headline.name'),
-		res.$t('teams._team.members.headline.student'),
-		res.$t('teams._team.members.headline.actions'),
-	];
+	const headClasses = ['Name', 'Schüler', 'Aktionen'];
 
-	const headInvitations = [
-		res.$t('teams._team.members.headline.email'),
-		res.$t('teams._team.members.headline.invitedOn'),
-		res.$t('teams._team.members.headline.role'),
-		res.$t('teams._team.members.headline.actions'),
-	];
+	const headInvitations = ['E-Mail', 'Eingeladen am', 'Rolle', 'Aktionen'];
 
 	const invitationActions = [
 		{
 			class: 'btn-resend-invitation',
-			title: res.$t('teams._team.members.label.sendInvitationAgain'),
+			title: 'Einladung erneut versenden',
 			icon: 'envelope',
 		},
 		{
 			class: 'btn-delete-invitation',
-			title: res.$t('teams._team.members.label.deleteInvitation'),
+			title: 'Einladung löschen',
 			icon: 'trash',
 		},
 	];
@@ -983,12 +924,12 @@ router.get('/:teamId/members', async (req, res, next) => {
 		const rolesExternal = [
 			{
 				name: 'teamexpert',
-				label: res.$t('teams._team.members.label.externExpert'),
+				label: 'externer Experte',
 				_id: roles.find((role) => role.name === 'teamexpert'),
 			},
 			{
 				name: 'teamadministrator',
-				label: res.$t('teams._team.members.label.externTeacher'),
+				label: 'Lehrer anderer Schule (Team-Admin)',
 				_id: roles.find((role) => role.name === 'teamadministrator'),
 			},
 		];
@@ -997,7 +938,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			if (permissions.includes('CHANGE_TEAM_ROLES')) {
 				actions.push({
 					class: 'btn-edit-member',
-					title: res.$t('teams._team.members.label.editRole'),
+					title: 'Rolle bearbeiten',
 					icon: 'edit',
 				});
 			}
@@ -1008,7 +949,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
 					class: 'btn-delete-member',
-					title: res.$t('teams._team.members.label.removeUser'),
+					title: 'Nutzer entfernen',
 					icon: 'trash',
 				});
 			}
@@ -1019,7 +960,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
 					class: 'btn-delete-member disabled',
-					title: res.$t('teams._team.members.label.leavingTeamRequiresNewOwner'),
+					title: 'Das Verlassen des Teams erfordert einen anderen Eigentümer',
 					icon: 'trash',
 				});
 			}
@@ -1030,7 +971,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
 					class: 'btn-delete-class',
-					title: res.$t('teams._team.members.label.removeClass'),
+					title: 'Klasse entfernen',
 					icon: 'trash',
 				});
 			}
@@ -1106,7 +1047,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			'teams/members',
 			{
 				...team,
-				title: res.$t('teams._team.members.headline.teamMembers'),
+				title: 'Team-Teilnehmer',
 				action,
 				classes,
 				addMemberAction: `${uri}/members`,
@@ -1130,7 +1071,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				currentFederalState: currentFederalStateId,
 				breadcrumb: [
 					{
-						title: res.$t('teams.headline.myTeams'),
+						title: 'Meine Teams',
 						url: '/teams',
 					},
 					{
@@ -1256,13 +1197,14 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		.then(() => {
 			req.session.notification = {
 				type: 'success',
-				message: res.$t('teams._team.text.invitationAcceptedSuccess'),
+				message: 'Teameinladung erfolgreich angenommen.',
 			};
 			res.redirect(`/teams/${req.params.teamId}`);
 		})
 		.catch((err) => {
 			logger.warn(
-				res.$t('teams._team.text.invitationAcceptionFailed'),
+				`Fehler beim Annehmen einer Einladung,
+        der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. `,
 				err,
 			);
 			res.redirect(`/teams/${req.params.teamId}`);
@@ -1341,7 +1283,7 @@ router.get('/:teamId/topics', async (req, res, next) => {
 					courseGroups: courseGroupsData,
 					breadcrumb: [
 						{
-							title: res.$t('teams.headline.myTeams'),
+							title: 'Meine Teams',
 							url: '/teams',
 						},
 						{
@@ -1387,7 +1329,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t('teams._team.text.noTopicFoundWithCode'),
+					message: 'Es wurde kein Thema für diesen Code gefunden.',
 				};
 
 				redirectHelper.safeBackRedirect(req, res);

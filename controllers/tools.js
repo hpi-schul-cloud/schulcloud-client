@@ -4,7 +4,6 @@ const router = express.Router({ mergeParams: true });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
-const { Configuration } = require('@schul-cloud/commons');
 
 const createToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
@@ -114,14 +113,6 @@ const getDetailHandler = (req, res, next) => {
 
 const showToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
-	const { ltiToolId } = req.params;
-
-	if (ltiToolId && ltiToolId === 'portfolio' && Configuration.get('FEATURE_EXTENSION_PORTFOLIO_ENABLED') !== true) {
-		return res.render('lib/error', {
-			loggedin: res.locals.loggedin,
-			message: res.$t('courses._course.tools.add.text.toolPortfolioCouldNotBeFound'),
-		});
-	}
 
 	Promise.all((req.params.courseId
 		? [

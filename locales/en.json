@@ -19,9 +19,6 @@
 		}
 	},
 	"global": {
-		"topMenu": {
-			"qrHintText": "Navigate other users to this site"
-		},
 		"sidebar": {
 			"link": {
 				"administration": "Administration",

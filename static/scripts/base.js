@@ -257,13 +257,9 @@ $(document).ready(() => {
 	const $modals = $('.modal');
 	const $deleteModal = $('.delete-modal');
 
-	const nextPage = (href, blank = false) => {
+	const nextPage = (href) => {
 		if (href) {
-			if (blank) {
-				window.open(href);
-			} else {
-				window.location.href = href;
-			}
+			window.location.href = href;
 		} else {
 			window.location.reload();
 		}
@@ -272,7 +268,7 @@ $(document).ready(() => {
 	function showAJAXError(req, textStatus, errorThrown) {
 		$deleteModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification($t('global.error.requestTimeout'), 'warn', 30000);
+			$.showNotification('Zeitüberschreitung der Anfrage', 'warn', 30000);
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}
@@ -297,7 +293,9 @@ $(document).ready(() => {
 		$deleteModal
 			.find('.modal-title')
 			.text(
-				$t('global.text.sureAboutDeleting', { name: decodingHelper($buttonContext.data('name')) }),
+				`Bist du dir sicher, dass du '${
+					decodingHelper($buttonContext.data('name'))
+				}' löschen möchtest?`,
 			);
 		$deleteModal
 			.find('.btn-submit')
@@ -341,7 +339,7 @@ $(document).ready(() => {
 
 	// Window Location Link
 	$('.locationlink').on('click', function locationLink() {
-		nextPage($(this).attr('data-loclink'), !!$(this).attr('data-blank'));
+		nextPage($(this).attr('data-loclink'));
 	});
 
 	// Print Button
@@ -377,7 +375,7 @@ $(document).ready(() => {
 				+ `<iframe src="${
 					pdf
 				}" style="width:100%; height:700px; border: none;">\n`
-				+ `<p>${$t('about.text.browserNotSupported')} <a href="${
+				+ `<p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="${
 					pdf
 				}" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>\n`
 				+ '</iframe>\n'

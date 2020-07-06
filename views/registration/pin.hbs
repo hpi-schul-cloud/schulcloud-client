@@ -1,3 +1,7 @@
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/registration/pin.css" />
+{{/content}}
+
 <div class="pin-input {{class}}">
   {{$t "registration.pin.input.verificationCode" }} <input class="combined-pin" type="text" name="{{name}}" pattern="{{pattern}}{ {{~digits~}} }" {{#if required}}required{{/if}} tabIndex="-1"/>
   {{#times digits}}

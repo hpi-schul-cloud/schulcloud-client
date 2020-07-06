@@ -25,9 +25,9 @@
                 <div class="row">
                     {{#inArray "ADD_SCHOOL_MEMBERS" permissions}}
                         <div class="col-sm-6">
-                            <p>{{$t "teams._team.members.text.addTeacherOrStudentFromYourSchool"}}</p>
+                            <p>Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.</p>
                             <button data-testid="internal_team_members" class="btn btn-primary btn-add-member padding-bottom">
-                                {{$t "teams._team.members.button.addInternMembers"}}
+                                Interne Teilnehmer hinzufügen
                             </button>
                         </div>
                     {{/inArray}}
@@ -35,9 +35,9 @@
                     {{#inArray "INVITE_EXPERTS" permissions}}
                         {{#inArray "TEAM_INVITE_EXTERNAL" ../rolePermissions}}
                             <div class="col-sm-6">
-                                <p>{{$t "teams._team.members.text.inviteTeachersAndExpertsByEmail"}}</p>
+                                <p>Lade Lehrer anderer Schulen und Experten per E-Mail ein.</p>
                                 <button class="btn btn-primary btn-invite-external-member">
-                                    {{$t "teams._team.members.button.addExternMembers"}}
+                                    Externe Teilnehmer einladen
                                 </button>
                             </div>
                         {{/inArray}}
@@ -46,7 +46,7 @@
             </div>
 
             {{#ifCond (arrayLength bodyInvitations) '>' 0}}
-                <h2 class="h4" style="margin-top: 2rem" class="padding-top">{{$t "teams._team.members.headline.pendingInvitations"}}</h2>
+                <h2 class="h4" style="margin-top: 2rem" class="padding-top">Ausstehende Einladungen</h2>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
@@ -57,7 +57,7 @@
             {{/ifCond}}
 
             <h2 class="h4 padding-top">
-                {{$t "teams._team.members.headline.member" (dict "count" (arrayLength body))}}
+                {{arrayLength body}} Teilnehmer
             </h2>
             <div class="container-fluid">
                 <div class="row">
@@ -68,9 +68,9 @@
             </div>
 
             {{#if bodyClasses}}
-                <h2 class="h4 padding-top">
-                    {{$t "teams._team.members.headline.class" (dict "count" (arrayLength bodyClasses))}}
-
+                <h2 class="h4 padding-top">{{arrayLength bodyClasses}}
+                    {{#ifCond (arrayLength bodyClasses) '==' 1}} Klasse {{/ifCond}}
+                    {{#ifCond (arrayLength bodyClasses) '>' 1}} Klassen {{/ifCond}}
                 </h2>
                 <div class="container-fluid">
                     <div class="row">

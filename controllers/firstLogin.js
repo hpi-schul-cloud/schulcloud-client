@@ -69,13 +69,13 @@ router.get('/', async (req, res, next) => {
 		updatedConsents = await userConsentVersions(res.locals.currentUser, consent, req, 100);
 		updatedConsents.all.data.map((version) => {
 			if (version.consentTypes.includes('privacy') && version.consentTypes.includes('termsOfUse')) {
-				version.visualType = res.$t('login.headline.privacyAndTermsOfUse');
+				version.visualType = 'Datenschutzerklärung und Nutzungsordnung';
 			} else {
 				if (version.consentTypes.includes('privacy')) {
-					version.visualType = res.$t('login.headline.onlyPrivacy');
+					version.visualType = 'Datenschutzerklärung';
 				}
 				if (version.consentTypes.includes('termsOfUse')) {
-					version.visualType = res.$t('login.headline.onlyTermsOfUse');
+					version.visualType = 'Nutzungsordnung';
 				}
 			}
 			version.consentHTML = converter.makeHtml(version.consentText);
@@ -166,7 +166,7 @@ router.get('/', async (req, res, next) => {
 		? privacyData[0].consentDataId : undefined;
 	const schoolPrivacyLink = consentDataId ? `base64Files/${consentDataId}` : undefined;
 	const renderObject = {
-		title: res.$t('login.headline.firstLogin'),
+		title: 'Willkommen - Erster Login',
 		hideMenu: true,
 		sso: !!(res.locals.currentPayload || {}).systemId,
 		now: Date.now(),
@@ -181,7 +181,7 @@ router.get('/', async (req, res, next) => {
 
 	if (consentVersions.haveBeenUpdated) {
 		// default is 'Absenden'
-		renderObject.submitLabel = res.$t('login.button.submitPrivacyPolicy');
+		renderObject.submitLabel = 'Gelesen';
 	}
 
 	// redirect to dashboard if we have only email to request
@@ -193,7 +193,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/existing', (req, res, next) => {
 	res.render('firstLogin/firstLoginExistingUser', {
-		title: res.$t('login.headline.firstLoginExistingUser'),
+		title: 'Willkommen - Erster Login für bestehende Nutzer',
 		hideMenu: true,
 		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	});
@@ -211,7 +211,7 @@ router.post(['/submit', '/submit/sso'], async (req, res, next) => api(req).post(
 	.catch((err) => {
 		res.status(500).send(
 			(err.error || err).message
-			|| res.$t('login.text.errorFirstLogin'),
+			|| 'Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.',
 		);
 	}));
 

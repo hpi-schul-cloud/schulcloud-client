@@ -11,7 +11,7 @@ export default function printQRs(items) {
 	}
 	</style>`);
 	if (items.length === 0) {
-		w.document.write($t('administration.text.noEntriesToPrint'));
+		w.document.write('Keine Einträge zu drucken.');
 	} else {
 		items.forEach((item, index) => {
 			const image = kjua({ text: item.href, render: 'image' });

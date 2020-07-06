@@ -163,7 +163,11 @@ CKEDITOR.plugins.add( 'html5video', {
                         this.element.getChild( 0 ).removeAttribute( 'title' );
                     }
 
-                    this.element.getChild(0).setAttribute('controls', true);
+                    if (this.data.controls) {
+                        this.element.getChild(0).setAttribute('controls', 'controls');
+                    } else {
+                        this.element.getChild(0).removeAttribute('controls');
+                    }
                 }
             }
         } );

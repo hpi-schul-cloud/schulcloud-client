@@ -3,7 +3,7 @@
     {{else}}
     <article class="sc-card">
         {{/if}}
-        <div class="sc-card-header" data-testid="header-of-element" {{#if this.background}} style="background:{{this.background}};" {{/if}}>
+        <div class="sc-card-header" {{#if this.background}} style="background:{{this.background}};" {{/if}}>
             {{#if this.isRSS}}
             {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
             <span class="rss-icon">RSS</span>
@@ -11,7 +11,7 @@
             {{/if}}
             <span class="sc-card-title">
                 <div>
-                    <span class="title" data-testid="title_of_an_element">{{{ stripOnlyScript this.title }}}</span>
+                    <span class="title">{{{ stripOnlyScript this.title }}}</span>
                 </div>
                 {{#if this.target.name}}
                 <div class="tag tag-default">{{this.target.name}}</div>

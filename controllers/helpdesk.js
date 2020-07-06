@@ -49,15 +49,15 @@ router.post('/', fileUpload({
 		&& !element.mimetype.includes('video/')
 		&& !element.mimetype.includes('application/msword')
 		&& !element.mimetype.includes('application/pdf')) {
-			throw new Error(res.$t('helpdesk.text.fileWrongFormat', { filename: element.name }));
+			throw new Error(`"${element.name}" ist kein Bild, Video oder zulässige Datei!`);
 		}
 		fileSize += element.size;
 	});
 	if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE) {
 		if (files.length > 1) {
-			throw new Error(res.$t('helpdesk.text.filesTooLarge'));
+			throw new Error('Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!');
 		} else {
-			throw new Error(res.$t('helpdesk.text.fileTooLarge'));
+			throw new Error('Die angehängte Datei überschreitet die maximal zulässige Größe!');
 		}
 	}
 
@@ -91,14 +91,14 @@ router.post('/', fileUpload({
 			req.session.notification = {
 				type: 'success',
 				message:
-                res.$t('helpdesk.text.feedbackSuccessful'),
+                'Feedback erfolgreich versendet!',
 			};
 			redirectHelper.safeBackRedirect(req, res);
 		}).catch((err) => {
 			req.session.notification = {
 				type: 'danger',
 				message:
-					res.$t('helpdesk.text.feedbackError'),
+                'Fehler beim Senden des Feedbacks.',
 			};
 			logger.warn(err);
 			redirectHelper.safeBackRedirect(req, res);

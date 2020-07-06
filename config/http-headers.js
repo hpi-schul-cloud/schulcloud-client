@@ -5,17 +5,6 @@ if (Configuration.has('CORS') !== true) {
 	throw new Error('CORS missing in Configuration');
 }
 
-/*
-	The matrix based messenger loads its assets (scripts, styles, fonts, images) from a specified domain.
-	After initialization the chat protocol communicates with its home server.
- */
-let matrixMessengerEmbed = '';
-let matrixMessengerHomeserver = '';
-if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
-	matrixMessengerEmbed = Configuration.get('MATRIX_MESSENGER_EMBED_URI');
-	matrixMessengerHomeserver = Configuration.get('MATRIX_MESSENGER_HOMESERVER_URI');
-}
-
 const config = {
 	enabled: Configuration.get('CORS'),
 	// Settings for HTTP Content-Security-Policy Header
@@ -32,11 +21,11 @@ const config = {
 		// Default Content-Security-Policy Header for every site
 		// Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
 		corsDefault: {
-			defaultSrc: `'self' data: blob: https://api.schul-cloud.org https://scchat.schul-cloud.org https://s3.hidrive.strato.com https://libreoffice.schul-cloud.org https://docs.schul-cloud.org https://edtrio.schul-cloud.org https://etherpad.schul-cloud.org https://blog.schul-cloud.org https://sc-content-resources.schul-cloud.org https://sentry.schul-cloud.dev https://open.hpi.de https://upload.wikimedia.org https://user-images.githubusercontent.com https://dev-storage.schul-cloud.org:9001 https://hydra.test.schul-cloud.org ${matrixMessengerEmbed} ${matrixMessengerHomeserver}`,
-			fontSrc: `'self' data: ${matrixMessengerEmbed}`,
-			styleSrc: `'self' 'unsafe-inline' ${matrixMessengerEmbed}`,
+			defaultSrc: "'self' data: blob: https://api.schul-cloud.org https://scchat.schul-cloud.org https://s3.hidrive.strato.com https://libreoffice.schul-cloud.org https://docs.schul-cloud.org https://edtrio.schul-cloud.org https://etherpad.schul-cloud.org https://blog.schul-cloud.org https://sc-content-resources.schul-cloud.org https://sentry.schul-cloud.dev https://open.hpi.de https://upload.wikimedia.org https://user-images.githubusercontent.com",
+			fontSrc: "'self' data:",
+			styleSrc: "'self' 'unsafe-inline'",
 			// scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
-			scriptSrc: `'self' 'unsafe-eval' 'unsafe-inline' ${matrixMessengerEmbed}`,
+			scriptSrc: "'self' 'unsafe-eval' 'unsafe-inline'",
 			// Please activate for production
 			// upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
 			// blockAllMixedContentSrc: 'block-all-mixed-content',

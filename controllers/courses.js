@@ -235,7 +235,7 @@ const editCourseHandler = (req, res, next) => {
 				action,
 				method,
 				title: res.$t('courses._course.edit.headline.editCourse'),
-				submitLabel: res.$t('global.button.saveChanges'),
+				submitLabel: res.$t('courses._course.edit.button.saveChanges'),
 				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
@@ -399,7 +399,7 @@ router.use(authHelper.authChecker);
  * @returns [substitutions, others]
  */
 
-const enrichCourse = (course, res) => {
+const enrichCourse = (course) => {
 	course.url = `/courses/${course._id}`;
 	course.title = course.name;
 	course.content = (course.description || '').substr(0, 140);
@@ -408,7 +408,7 @@ const enrichCourse = (course, res) => {
 	course.memberAmount = course.userIds.length;
 	(course.times || []).forEach((time) => {
 		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
-		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
+		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
 		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 			time.room ? `| ${time.room}` : ''
 		}</div>`;
@@ -416,12 +416,12 @@ const enrichCourse = (course, res) => {
 	return course;
 };
 
-const filterSubstitutionCourses = (courses, userId, res) => {
+const filterSubstitutionCourses = (courses, userId) => {
 	const substitutions = [];
 	const others = [];
 
 	courses.data.forEach((course) => {
-		enrichCourse(course, res);
+		enrichCourse(course);
 
 		if ((course.substitutionIds || []).includes(userId)) {
 			substitutions.push(course);
@@ -461,19 +461,18 @@ router.get('/', (req, res, next) => {
 			[activeSubstitutions, activeCourses] = filterSubstitutionCourses(
 				active,
 				userId,
-				res,
 			);
 			[
 				archivedSubstitutions,
 				archivedCourses,
-			] = filterSubstitutionCourses(archived, userId, res);
+			] = filterSubstitutionCourses(archived, userId);
 
 			if (req.query.json) {
 				// used for populating some modals (e.g. calendar event creation)
 				res.json(active.data);
 			} else if (active.total !== 0 || archived.total !== 0) {
 				res.render('courses/overview', {
-					title: res.$t('courses.headline.myCourses'),
+					title: res.$t("courses.headline.myCourses"),
 					activeTab: req.query.activeTab,
 					importToken,
 					activeCourses,
@@ -484,7 +483,7 @@ router.get('/', (req, res, next) => {
 						active: active.total,
 						archived: archived.total,
 					},
-					searchLabel: res.$t('courses.input.searchForCourses'),
+					searchLabel: res.$t("courses.input.searchForCourses"),
 					searchAction: '/courses',
 					showSearch: true,
 					liveSearch: true,

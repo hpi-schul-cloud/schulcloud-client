@@ -45,9 +45,9 @@ $(document).ready(() => {
 		e.preventDefault();
 		populateModalForm($pwModal, {
 			action: 'pw',
-			title: $t('administration.users_edit.headline.changePassword'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.save'),
+			title: 'Passwort ändern',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Speichern',
 			fields: undefined,
 		});
 		$pwModal.appendTo('body').modal('show');
@@ -57,9 +57,9 @@ $(document).ready(() => {
 		e.preventDefault();
 		populateModalForm($deleteModal, {
 			action: '',
-			title: $t('administration.users_edit.headline.deleteUser'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.delete'),
+			title: 'Benutzer löschen?',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Löschen',
 			fields: {
 				displayName: $('input[name="displayName"]').val(),
 			},
@@ -71,9 +71,9 @@ $(document).ready(() => {
 		e.preventDefault();
 		populateModalForm($skipregModal, {
 			action: 'skipregistration',
-			title: $t('administration.users_edit.headline.completeRegistration'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.save'),
+			title: 'Nutzerregistrierung abschließen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Speichern',
 			fields: undefined,
 		});
 		$skipregModal.appendTo('body').modal('show');
@@ -91,7 +91,7 @@ $(document).ready(() => {
 		}
 		const email = $('input[name="email"]').val();
 
-		$this.html($t('administration.users_edit.button.mailIsBeingSent'));
+		$this.html('E-Mail wird gesendet...');
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -110,13 +110,13 @@ $(document).ready(() => {
 			.done((data) => {
 				if (data.status && data.status === 'ok') {
 					$.showNotification(
-						$t('administration.users_edit.text.successfullySentMail'),
+						'Die Einladungs-E-Mail wurde erfolgreich versendet!',
 						'success',
 						true,
 					);
 				} else {
 					$.showNotification(
-						$t('administration.users_edit.text.errorSendingMail'),
+						'Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!',
 						'danger',
 						true,
 					);
@@ -126,7 +126,7 @@ $(document).ready(() => {
 			})
 			.fail(() => {
 				$.showNotification(
-					$t('administration.users_edit.text.errorSendingMail'),
+					'Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!',
 					'danger',
 					true,
 				);
@@ -156,9 +156,9 @@ $(document).ready(() => {
 			},
 			success(linkData) {
 				populateModalForm($invitationModal, {
-					title: $t('administration.users_edit.headline.generatedLink'),
-					closeLabel: $t('global.button.cancel'),
-					submitLabel: $t('global.button.save'),
+					title: 'Einladungslink generiert!',
+					closeLabel: 'Abbrechen',
+					submitLabel: 'Speichern',
 					fields: { invitation: linkData.shortLink },
 				});
 				$invitationModal.find('.btn-submit').remove();

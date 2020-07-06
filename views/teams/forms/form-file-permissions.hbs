@@ -3,33 +3,33 @@
 {{/content}}
 
 <div class="form-group">
-    <h2 class="h4">{{$t "teams._team.headline.shareFilesSettings"}}</h2>
-    <strong>{{$t "teams._team.text.theseSettingsWillBeAppliedToNewFiles"}}</strong>
+    <h2 class="h4">Dateifreigabe-Einstellungen</h2>
+    <strong>Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:</strong>
     <br><br>
     <table class="team-file-permissions">
         <tr>
-            <th>{{$t "teams._team.label.role"}}</th>
-            <th>{{$t "teams._team.label.accessToData"}}</th>
+            <th>Rolle</th>
+            <th>Zugriff auf Dateien</th>
         </tr>
         <tr>
-            <td>{{$t "teams._team.label.externExperts"}}</td>
+            <td>Externe Experten</td>
             <td>
                 <input class="box" type="checkbox" name="externalExperts" data-force-value value="allowExternalExperts" {{allowExternalExperts}} />
             </td>
         </tr>
         <tr>
-            <td>{{$t "teams._team.label.members"}}</td>
+            <td>Teilnehmer</td>
             <td>
                 <input class="box" type="checkbox" name="teamMembers" data-force-value value="allowTeamMembers" {{allowTeamMembers}} />
             </td>
         </tr>
         <tr>
-            <td>{{$t "teams._team.label.leadersAndAdmins"}}</td>
+            <td>Leiter und Team-Admins</td>
             <td>
                 <input class="box" type="checkbox" data-force-value name="other" value="allowOthers" checked="checked" disabled />
             </td>
         </tr>
     </table>
     <br>
-    <i>{{$t "teams._team.text.youCanChangeSettingsForSingleFilesLater"}}</i>
+    <i>Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten.</i>
 </div>

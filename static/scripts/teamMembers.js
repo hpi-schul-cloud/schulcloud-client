@@ -53,9 +53,9 @@ $(document).ready(() => {
 		e.preventDefault();
 		const $addMemberModal = $('.add-member-modal');
 		populateModalForm($addMemberModal, {
-			title: $t('teams._team.members.headline.addMember'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.add'),
+			title: 'Teilnehmer hinzufügen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Hinzufügen',
 		});
 
 		// Needed? const $modalForm = $addMemberModal.find('.modal-form');
@@ -86,11 +86,11 @@ $(document).ready(() => {
 				classIds,
 			},
 		}).done(() => {
-			$.showNotification($t('teams._team.members.text.addedMemberSuccess'), 'success', true);
+			$.showNotification('Teilnehmer erfolgreich zum Team hinzugefügt', 'success', true);
 			// eslint-disable-next-line no-restricted-globals
 			location.reload();
 		}).fail(() => {
-			$.showNotification($t('teams._team.members.text.addedMemberFailure'), 'danger', true);
+			$.showNotification('Problem beim Hinzufügen der Teilnehmer', 'danger', true);
 		});
 
 		return false;
@@ -123,9 +123,9 @@ $(document).ready(() => {
 		e.stopPropagation();
 		e.preventDefault();
 		populateModalForm($inviteExternalMemberModal, {
-			title: $t('teams._team.members.add.headline.inviteExternMember'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('teams._team.members.add.button.inviteMember'),
+			title: 'Externen Teilnehmer einladen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Teilnehmer einladen',
 		});
 
 		$('#federalstate').trigger('change');
@@ -167,7 +167,7 @@ $(document).ready(() => {
 			schoolSelect.trigger('chosen:updated');
 			$('#school').trigger('change');
 		}).fail(() => {
-			$.showNotification($t('teams._team.members.add.text.errorWhileLoadingSchools'), 'danger', true);
+			$.showNotification('Problem beim Auslesen der Schulen', 'danger', true);
 			$('#teacher').find('option').remove();
 		});
 	};
@@ -193,10 +193,10 @@ $(document).ready(() => {
 				});
 				teacherSelect.trigger('chosen:updated');
 			}).fail(() => {
-				$.showNotification($t('teams._team.members.add.text.errorWhileLoadingTeachers'), 'danger', true);
+				$.showNotification('Problem beim Auslesen der Lehrer', 'danger', true);
 			});
 		} else {
-			$.showNotification($t('teams._team.members.add.text.noSchoolForThisFilter'), 'warning', true);
+			$.showNotification('Für die gewählte Auswahl ist keine Schule vorhanden.', 'warning', true);
 		}
 	};
 
@@ -218,7 +218,7 @@ $(document).ready(() => {
 		const teamId = $inviteExternalMemberModal.find('.modal-form .form-group').attr('data-teamId');
 
 		if (!teamId) {
-			$.showNotification($t('teams._team.members.add.text.pleaseReloadThePage'), 'danger', true);
+			$.showNotification('Bitte lade die Seite neu.', 'danger', true);
 			return false;
 		}
 
@@ -232,7 +232,7 @@ $(document).ready(() => {
 			email = $(this).find(`div[data-role="${state.role}"] #email`).val();
 
 			if (!validateEmail(email)) {
-				$.showNotification($t('teams._team.members.add.text.pleaseEnterValidEmail'), 'danger', true);
+				$.showNotification('Bitte gib eine gültige E-Mail an.', 'danger', true);
 				return false;
 			}
 		}
@@ -249,13 +249,13 @@ $(document).ready(() => {
 		}).done(() => {
 			if (state.method === 'email') {
 				$.showNotification(
-					$t('teams._team.members.add.text.invitationSentIfMailInSys'),
+					'Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.',
 					'info',
 					// eslint-disable-next-line comma-dangle
 					true
 				);
 			} else {
-				$.showNotification($t('teams._team.members.add.text.teacherInvitedSuccess'), 'success', true);
+				$.showNotification('Lehrer erfolgreich zum Team eingeladen', 'success', true);
 			}
 
 			$inviteExternalMemberModal.modal('hide');
@@ -264,9 +264,11 @@ $(document).ready(() => {
 		}).fail((err) => {
 			let errorMessage;
 			if (err.status === 400) {
-				errorMessage = $t('teams._team.members.add.text.providerBlockedTryOtherMail');
+				errorMessage = `Der Provider der eingeladenen E-Mail-Adresse ist geblockt!
+				Bitte verwende eine andere Adresse und versuche es dann erneut.`;
 			} else {
-				errorMessage = $t('teams._team.members.add.text.errorDuringInvitation');
+				errorMessage = `Möglicherweise gab es Probleme bei der Einladung.
+				Bitte eingeladenen Nutzer oder Admins fragen.`;
 			}
 
 			$.showNotification(errorMessage, 'danger', true);
@@ -283,9 +285,9 @@ $(document).ready(() => {
 		state.currentInvitationEmail = $(this).parents('tr').find('[data-payload]').data('payload').email;
 
 		populateModalForm($resendInvitationModal, {
-			title: $t('teams._team.members.add.headline.sendInvitationAgain'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('teams._team.members.add.button.sendInvitation'),
+			title: 'Einladung erneut versenden',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Einladung versenden',
 		});
 
 		$resendInvitationModal.appendTo('body').modal('show');
@@ -305,7 +307,7 @@ $(document).ready(() => {
 			// eslint-disable-next-line no-restricted-globals
 			location.reload();
 		}).fail(() => {
-			$.showNotification($t('teams._team.members.add.text.errorWhileSendingInvitation'), 'danger', true);
+			$.showNotification('Problem beim Versenden der Einladung', 'danger', true);
 		});
 
 		return false;
@@ -318,9 +320,9 @@ $(document).ready(() => {
 		state.currentInvitationEmail = $(this).parents('tr').find('[data-payload]').data('payload').email;
 
 		populateModalForm($deleteMemberModal, {
-			title: $t('teams._team.members.add.headline.deleteInvitation'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('teams._team.members.add.button.deleteInvitation'),
+			title: 'Einladung löschen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Einladung löschen',
 		});
 
 		$deleteMemberModal.appendTo('body').modal('show');
@@ -340,7 +342,7 @@ $(document).ready(() => {
 			// eslint-disable-next-line no-restricted-globals
 			location.reload();
 		}).fail(() => {
-			$.showNotification($t('teams._team.members.add.text.errorWhileDeletingInvitation'), 'danger', true);
+			$.showNotification('Problem beim Löschen der Einladung', 'danger', true);
 		});
 
 		return false;
@@ -356,9 +358,9 @@ $(document).ready(() => {
 		const userId = $(this).parent().parent().find('[data-payload]')
 			.data('payload');
 		populateModalForm($editMemberModal, {
-			title: $t('teams._team.members.headline.editMember'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('teams._team.members.button.editMember'),
+			title: 'Teilnehmer bearbeiten',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Teilnehmer bearbeiten',
 			payload: userId,
 		});
 
@@ -371,7 +373,7 @@ $(document).ready(() => {
 		e.preventDefault();
 
 		if (!$(this).find('#role').val()) {
-			$.showNotification($t('teams._team.members.text.pleaseSelectRole'), 'danger', true);
+			$.showNotification('Bitte wähle eine Rolle aus.', 'danger', true);
 			return false;
 		}
 
@@ -390,7 +392,7 @@ $(document).ready(() => {
 			// eslint-disable-next-line no-restricted-globals
 			location.reload();
 		}).fail(() => {
-			$.showNotification($t('teams._team.members.text.errorWhileEditingMember'), 'danger', true);
+			$.showNotification('Problem beim Bearbeiten des Teilnehmers', 'danger', true);
 		});
 
 		return false;
@@ -406,9 +408,9 @@ $(document).ready(() => {
 		const userIdToRemove = $(this).parent().parent().find('[data-payload]')
 			.data('payload');
 		populateModalForm($deleteMemberModal, {
-			title: $t('teams._team.members.headline.deleteMember'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('teams._team.members.button.deleteMember'),
+			title: 'Teilnehmer löschen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Teilnehmer löschen',
 			payload: userIdToRemove,
 		});
 
@@ -431,7 +433,7 @@ $(document).ready(() => {
 			// eslint-disable-next-line no-restricted-globals
 			location.reload();
 		}).fail(() => {
-			$.showNotification($t('teams._team.members.text.errorWhileRemovingMember'), 'danger', true);
+			$.showNotification('Problem beim Löschen des Teilnehmers', 'danger', true);
 		});
 
 		return false;
@@ -447,9 +449,9 @@ $(document).ready(() => {
 		const classIdToRemove = $(this).parent().parent().find('[data-payload]')
 			.data('payload');
 		populateModalForm($deleteClassModal, {
-			title: $t('teams._team.members.headline.deleteClass'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('teams._team.members.button.deleteClass'),
+			title: 'Klasse löschen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Klasse löschen',
 			payload: classIdToRemove,
 		});
 
@@ -472,7 +474,7 @@ $(document).ready(() => {
 			// eslint-disable-next-line no-restricted-globals
 			location.reload();
 		}).fail(() => {
-			$.showNotification($t('teams._team.members.text.errorWhileRemovingMember'), 'danger', true);
+			$.showNotification('Problem beim Löschen des Teilnehmers', 'danger', true);
 		});
 
 		return false;

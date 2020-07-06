@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
 	).includes('videoconference');
 	const showVideoconferenceOption = schoolUsesVideoconferencing;
 	res.render('calendar/calendar', {
-		title: res.$t('calendar.headline.calendar'),
+		title: 'Kalender',
 		userId: res.locals.currentUser._id,
 		showVideoconferenceOption,
 	});

@@ -3,6 +3,5 @@
 	"COOKIE": {
 		"HOST_ONLY": true,
 		"SECURE": true
-	},
-	"FEATURE_LERNSTORE_ENABLED": true
+	}
 }
