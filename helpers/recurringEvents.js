@@ -28,8 +28,17 @@ const getNumberForFullCalendarWeekday = (weekday) => {
  * @param weekdayNum {number}
  * @returns {string} - abbreviation of weekday
  */
-const getWeekdayForNumber = (weekdayNum) => {
-	const weekdayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+const getWeekdayForNumber = (weekdayNum, res) => {
+	const weekdayNames = [
+		res.$t('global.text.monday'),
+		res.$t('global.text.tuesday'),
+		res.$t('global.text.wednesday'),
+		res.$t('global.text.thursday'),
+		res.$t('global.text.friday'),
+		res.$t('global.text.saturday'),
+		res.$t('global.text.sunday'),
+	];
+
 	return weekdayNames[weekdayNum];
 };
 
@@ -38,8 +47,17 @@ const getWeekdayForNumber = (weekdayNum) => {
  * @param weekday {string}
  * @returns {number} - number of weekday
  */
-const getNumberForWeekday = (weekday) => {
-	const weekdayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+const getNumberForWeekday = (weekday, res) => {
+	const weekdayNames = [
+		res.$t('global.text.monday'),
+		res.$t('global.text.tuesday'),
+		res.$t('global.text.wednesday'),
+		res.$t('global.text.thursday'),
+		res.$t('global.text.friday'),
+		res.$t('global.text.saturday'),
+		res.$t('global.text.sunday'),
+	];
+
 	return weekdayNames.indexOf(weekday);
 };
 
