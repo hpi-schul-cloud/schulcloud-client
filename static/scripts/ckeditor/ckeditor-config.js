@@ -28,7 +28,7 @@ import TablePlugin from '@ckeditor/ckeditor5-table/src/table';
 import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline';
 // import UploadAdapterPlugin from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
 
-import FileBrowserPlugin from './plugins/filebrowser/src/filebrowser';
+import FileBrowserPlugin from './plugins/ckeditor5-filebrowser/src/filebrowser';
 
 
 const ckeditorConfig = {

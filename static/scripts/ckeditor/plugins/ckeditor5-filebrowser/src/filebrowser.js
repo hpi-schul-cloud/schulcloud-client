@@ -22,7 +22,7 @@ class FileBrowserPlugin extends Plugin {
 			view.on('execute', async () => {
 				const dialog = bootbox.dialog({
 					title: t('Image Properties'),
-					message: `<label for="ffile">${t('Image URL')}:</label><br>
+					message: `<label for="ffile">${t('URL')}:</label><br>
 							  <input type="text" id="ffile">
 							  <button type="button" id="browseServerButton">${t('Browse Server')}</button><br>
 							  <label for="falttext">${t('Alternative Text')}: </label><br>
