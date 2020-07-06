@@ -57,7 +57,7 @@ module.exports = (req, res, next) => {
 		link: '/homework/',
 		children: [
 			{
-				name: res.$t('global.sidebar.link.tasksAsked'),
+				name: res.$t('global.sidebar.link.assignedTasks'),
 				icon: 'bullhorn',
 				link: '/homework/asked/',
 			},
@@ -116,7 +116,7 @@ module.exports = (req, res, next) => {
 	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
 	if (extensionsEnabled) {
 		res.locals.sidebarItems.push({
-			name: res.$t('global.sidebar.link.archive'),
+			name: res.$t('global.sidebar.link.addons'),
 			icon: 'puzzle-piece',
 			link: '/addons',
 		});
@@ -219,7 +219,7 @@ module.exports = (req, res, next) => {
 
 	// beta user view
 	res.locals.sidebarItems.push({
-		name: res.$t('global.sidebar.link.myMaterial'),
+		name: res.$t('global.sidebar.link.myMaterials'),
 		icon: 'book',
 		link: '/my-material/',
 		permission: 'BETA_FEATURES',
