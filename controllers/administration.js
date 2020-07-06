@@ -1004,7 +1004,7 @@ router.get(
 		const years = getSelectableYears(res.locals.currentSchoolData);
 		const title = `${returnAdminPrefix(
 			res.locals.currentUser.roles,
-		)}Schüler`;
+		)}Lehrer`;
 		res.render('administration/import', {
 			title,
 			roles: 'teacher',
