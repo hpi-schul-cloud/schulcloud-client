@@ -2,9 +2,9 @@ import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import imageIcon from '@ckeditor/ckeditor5-core/theme/icons/image.svg';
 
-const bootbox = require('bootbox');
+import bootbox from 'bootbox';
 
-class FileBrowserPlugin extends Plugin {
+export default class FileBrowserPlugin extends Plugin {
 	init() {
 		const { editor } = this;
 		const { t } = editor;
@@ -18,15 +18,14 @@ class FileBrowserPlugin extends Plugin {
 				tooltip: true,
 			});
 
-			// Callback executed once the image is clicked.
 			view.on('execute', async () => {
 				const dialog = bootbox.dialog({
 					title: t('Image Properties'),
-					message: `<label for="ffile">${t('URL')}:</label><br>
-							  <input type="text" id="ffile">
+					message: `<label for="url-input">${t('URL')}:</label><br>
+							  <input type="text" id="url-input">
 							  <button type="button" id="browseServerButton">${t('Browse Server')}</button><br>
-							  <label for="falttext">${t('Alternative Text')}: </label><br>
-							  <input type="text" id="falttext">`,
+							  <label for="alt-text-input">${t('Alternative Text')}:</label><br>
+							  <input type="text" id="alt-text-input">`,
 					closeButton: false,
 					buttons: {
 						cancel: {
@@ -35,15 +34,14 @@ class FileBrowserPlugin extends Plugin {
 						ok: {
 							label: t('OK'),
 							callback: () => {
-								const imageUrl = document.getElementById('ffile').value;
-								const imageAltText = document.getElementById('falttext').value;
+								const imageUrl = document.getElementById('url-input').value;
+								const imageAltText = document.getElementById('alt-text-input').value;
 								editor.model.change((writer) => {
 									const imageElement = writer.createElement('image', {
 										src: imageUrl,
 										alt: imageAltText,
 									});
 
-									// Insert the image in the current selection location.
 									editor.model.insertContent(imageElement, editor.model.document.selection);
 								});
 							},
@@ -57,7 +55,7 @@ class FileBrowserPlugin extends Plugin {
 						const dialogWindow = window.open(dialogPageUrl, '_blank', 'width=700, height=500');
 						dialogWindow.onload = () => {
 							dialogWindow.callbackFunctionFileUrl = (imageUrl) => {
-								document.getElementById('ffile').value = imageUrl;
+								document.getElementById('url-input').value = imageUrl;
 							};
 						};
 					});
@@ -68,5 +66,3 @@ class FileBrowserPlugin extends Plugin {
 		});
 	}
 }
-
-export default FileBrowserPlugin;
