@@ -1103,6 +1103,13 @@
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
 			}
 		},
+		"language_hint": {
+			"text": {
+				"forBetterReadability": "Für bessere Lesbarkeit verwenden wir in der Benutzeroberfläche der ",
+				"isThereForEveryone": "ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
+				"theMailForm": "die männliche Form („Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die"
+			}
+		},
 		"lernNuggets": {
 			"heading": {
 				"instructionsForUse": "Hinweise zur Benutzung",
@@ -1119,16 +1126,27 @@
 				"licenseModelAndUsageRights": "Lizenzmodelle und Nutzungsrechte"
 			},
 			"text": {
+				"aLearningUnitLasts": "Eine Lerneinheit dauert höchstens 15 Minuten. Um den vollen Umfang der Inhalte zu erhalten, schaltet am besten Lautsprecher oder Kopfhörer an eurem Endgerät ein.",
+				"byTheWayYouWillAlways": "Übrigens erhaltet ihr immer am Ende eines Lern-Nuggets eine Teilnahmebescheinigung zum Nachweis eures Lernerfolgs.",
 				"clientAndLicensedFor": "Auftraggeber und lizenziert für: Verein MINT-EC®,",
 				"contentAndProduction": "Inhalte und Produktion:",
 				"createdAsPartOfThe": "Entstanden im Rahmen des Projekts HPI Schul-Cloud.",
-				"hereIsTheLearningNugget": "Hier geht's zum Lern-Nugget:"
+				"dealingWithPersonalDetails": "Der Umgang mit personenbezogenen Daten, die Anforderungen an eine Cloud-Lösung im Schulalltag sowie das digitale Teilen von Lehr- und Lernmaterialien rufen bei Schulleitungen und Lehrkräften immer wieder Verunsicherung hervor.",
+				"forThisReasonYouHaveTheOpportunity": "Aus diesem Grund habt ihr hier die Möglichkeit, alles Wissenswerte zu den Themen Datenschutz und Urheberrecht in kleinen Lerneinheiten kennenzulernen.",
+				"hereIsTheLearningNugget": "Hier geht's zum Lern-Nugget:",
+				"inTheLearningNuggetOnDataProtection": "Im Lern-Nugget zum Datenschutz im Schulalltag erfahrt ihr, welche datenschutzrechtlichen Vorschriften ihr im Kontext Schule beachten müsst. Außerdem zeigen wir hier ganz konkrete Datenschutzfälle aus dem Schulalltag.",
+				"inThisLessonYouWillLearnAllTheBasics": "In dieser Lerneinheit lernt ihr alle Grundlagen personenbezogener Daten kennen. Zudem bekommt ihr einen Überblick über die fünf Grundprinzipien, die im Umgang mit der DSGVO gelten.",
+				"learningNiggetsImproveTheLearningEffect": "Lern-Nuggets verbessern den Lerneffekt und machen nebenbei noch Spaß. Außerdem könnt ihr durch die modulare Struktur ganz frei entscheiden, welche Lerneinheit ihr zuerst durchführen möchtet. Klickt einfach auf das jeweilige Lern-Nugget, um das Training zu absolvieren.",
+				"whatAreTheAdvantagesAndDisadvantages": "Was sind die Vor- und Nachteile von Cloud-Lösungen beim Einsatz in der Schule? Was müsst ihr beim Einsatz an eurer Schule beachten? In dieser Lerneinheit stellen wir alles Wissenswerte zu Cloud-Lösungen wie der HPI Schul-Cloud vor.",
+				"withTheTopicsOfLicenseModels": "Bei den Themen Lizenzmodelle und Nutzungsrecht lernt ihr die Grundlagen des Urheberrechts und die Vorgaben zur Vervielfältigung von Materialien im analogen sowie digitalen Schulalltag kennen. Außerdem erfahrt ihr hier, was Open Educational Ressources sind und wie ihr Lizenzen adäquat kennzeichnet."
 			}
 		},
 		"text": {
 			"someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
 			"theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
-			"theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:"
+			"theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:",
+			"toMINTECWithQuestions": "an MINT-EC bei Fragen und Anregungen zur Einführung und Nutzung der HPI Schul-Cloud an deiner Schule.",
+			"toTheHpiForIdeas": "ans HPI für Ideen, Kritik und Wünsche rund um die Cloud selbst."
 		}
 	},
 	"home": {
