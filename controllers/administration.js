@@ -2787,7 +2787,7 @@ router.all('/teams', async (req, res, next) => {
 
 	const dataLength = await api(req)
 		.get('/teams/manage/admin')
-		.then((dataResponse) => dataResponse.total );
+		.then((dataResponse) => dataResponse.total);
 
 	const exceedDataLimit = ((itemsPerPage * (currentPage - 1)) > dataLength);
 
@@ -2797,7 +2797,6 @@ router.all('/teams', async (req, res, next) => {
 	};
 	
 	query = Object.assign(query, filterQuery);
-
 	// TODO: mapping sort
 	/*
 	    'Mitglieder': 'members',
