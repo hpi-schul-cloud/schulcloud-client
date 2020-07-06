@@ -355,8 +355,8 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 						text: `Einladung in die ${res.locals.theme.title}
 Hallo ${user.firstName} ${user.lastName}!
 \nDu wurdest eingeladen, der ${
-	res.locals.theme.title
-} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${user.shortLink
+							res.locals.theme.title
+							} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${user.shortLink
 							|| res.locals.linkData.shortLink}
 \nViel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`,
@@ -419,7 +419,7 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 		const birthday = req.body.birthday.split('.');
 		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
 			birthday[0]
-		}T00:00:00Z`;
+			}T00:00:00Z`;
 	}
 	return api(req)
 		.post('/users/', {
@@ -1193,7 +1193,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 		const birthday = req.body.birthday.split('.');
 		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
 			birthday[0]
-		}T00:00:00Z`;
+			}T00:00:00Z`;
 	}
 
 	const promises = [];
@@ -1548,8 +1548,8 @@ Melde dich bitte mit deinen Daten an,
 um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
 
 Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${
-	user.registrationLink.shortLink
-}</a>, und melde dich an.`,
+						user.registrationLink.shortLink
+						}</a>, und melde dich an.`,
 				};
 
 				const json = {
@@ -1557,7 +1557,7 @@ Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${
 					email: user.email,
 					subject: `Der letzte Schritt zur Aktivierung für die ${
 						res.locals.theme.short_title
-					}`,
+						}`,
 					content,
 				};
 
@@ -1789,9 +1789,9 @@ const renderClassEdit = (req, res, next) => {
 
 						if (currentClass.year) {
 							isUpgradable = (lastDefinedSchoolYearId !== (currentClass.year || {}))
-							&& currentClass.gradeLevel
-							&& currentClass.gradeLevel !== 13
-							&& !currentClass.successor;
+								&& currentClass.gradeLevel
+								&& currentClass.gradeLevel !== 13
+								&& !currentClass.successor;
 						}
 					}
 
@@ -2548,7 +2548,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		delete req.body.videoconference;
 
 		// Toggle teacher's studentVisibility permission
-		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY');
+		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
 		const isStudentVisibilityEnabled = (res.locals.currentSchoolData.features || []).includes(
 			'studentVisibility',
 		);
@@ -2853,7 +2853,7 @@ router.all('/teams', (req, res, next) => {
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'disabled' : 'btn-remove-members'
-							}`,
+								}`,
 							icon: 'user-times',
 							data: {
 								name: item.name,
@@ -2873,7 +2873,7 @@ router.all('/teams', (req, res, next) => {
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'btn-delete-team' : 'disabled'
-							}`,
+								}`,
 							icon: 'trash-o',
 							data: {
 								name: item.name,
@@ -3155,24 +3155,24 @@ router.use(
 			rssBody = school.rssFeeds.map(({
 				_id, url, status, description,
 			}) => [
-				url,
-				description,
-				// eslint-disable-next-line no-nested-ternary
-				status === 'success'
-					? 'Aktiv'
-					: status === 'error'
-						? 'Fehler beim Abrufen'
-						: 'In der Warteschlange',
-				[
-					{
-						link: `/administration/rss/${_id}`,
-						class: 'btn-delete--rss',
-						icon: 'trash-o',
-						method: 'delete',
-						title: 'Eintrag löschen',
-					},
-				],
-			]);
+					url,
+					description,
+					// eslint-disable-next-line no-nested-ternary
+					status === 'success'
+						? 'Aktiv'
+						: status === 'error'
+							? 'Fehler beim Abrufen'
+							: 'In der Warteschlange',
+					[
+						{
+							link: `/administration/rss/${_id}`,
+							class: 'btn-delete--rss',
+							icon: 'trash-o',
+							method: 'delete',
+							title: 'Eintrag löschen',
+						},
+					],
+				]);
 		}
 
 		// SCHOOL
