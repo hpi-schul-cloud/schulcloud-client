@@ -2795,7 +2795,6 @@ router.all('/teams', async (req, res, next) => {
 		limit: itemsPerPage,
 		skip: (exceedDataLimit) ? 0 : itemsPerPage * (currentPage - 1),
 	};
-	
 	query = Object.assign(query, filterQuery);
 	// TODO: mapping sort
 	/*
