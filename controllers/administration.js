@@ -2789,7 +2789,7 @@ router.all('/teams', async (req, res, next) => {
 		.get('/teams/manage/admin')
 		.then((dataResponse) => dataResponse.total );
 
-	const exceedDataLimit = ((itemsPerPage * (currentPage - 1)) > dataLength) ? true : false;
+	const exceedDataLimit = ((itemsPerPage * (currentPage - 1)) > dataLength);
 
 	let query = {
 		limit: itemsPerPage,
