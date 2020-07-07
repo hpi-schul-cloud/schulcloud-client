@@ -1004,7 +1004,7 @@ router.get(
 		const years = getSelectableYears(res.locals.currentSchoolData);
 		const title = `${returnAdminPrefix(
 			res.locals.currentUser.roles,
-		)}Schüler`;
+		)}Lehrer`;
 		res.render('administration/import', {
 			title,
 			roles: 'teacher',
@@ -1318,7 +1318,7 @@ router.get(
 					submitLabel: 'Einverständnis erklären',
 					closeLabel: 'Abbrechen',
 					user,
-					password: authHelper.generatePassword(),
+					password: authHelper.generateConsentPassword(),
 					referrer: req.header('Referer'),
 				});
 			})
@@ -2083,7 +2083,7 @@ router.get(
 			if (obj.importHash) return true;
 			return false;
 		});
-		const passwords = students.map(() => (authHelper.generatePassword()));
+		const passwords = students.map(() => (authHelper.generateConsentPassword()));
 		const renderUsers = students.map((student, i) => ({
 			fullname: `${student.firstName} ${student.lastName}`,
 			id: student._id,
@@ -2778,26 +2778,30 @@ const getTeamMembersButton = (counter) => `
 const getTeamSchoolsButton = (counter) => `
   <div class="btn-show-schools" role="button">${counter}<i class="fa fa-building team-flags"></i></div>`;
 
-router.all('/teams', (req, res, next) => {
+router.all('/teams', async (req, res, next) => {
 	const path = '/administration/teams/';
 
 	const itemsPerPage = parseInt(req.query.limit, 10) || 25;
 	const filterQuery = {};
 	const currentPage = parseInt(req.query.p, 10) || 1;
 
+	const dataLength = await api(req)
+		.get('/teams/manage/admin')
+		.then((dataResponse) => dataResponse.total);
+
+	const exceedDataLimit = ((itemsPerPage * (currentPage - 1)) > dataLength);
+
 	let query = {
 		limit: itemsPerPage,
-		skip: itemsPerPage * (currentPage - 1),
+		skip: (exceedDataLimit) ? 0 : itemsPerPage * (currentPage - 1),
 	};
 	query = Object.assign(query, filterQuery);
-
 	// TODO: mapping sort
 	/*
 	    'Mitglieder': 'members',
 		'Schule(n)': 'schoolIds',
 		'Erstellt am': 'createdAt',
 	*/
-
 
 	api(req)
 		.get('/teams/manage/admin', {
@@ -2929,7 +2933,7 @@ router.all('/teams', (req, res, next) => {
 				}
 
 				const pagination = {
-					currentPage,
+					currentPage: (exceedDataLimit) ? 1 : currentPage,
 					numPages: Math.ceil(data.total / itemsPerPage),
 					baseUrl: `/administration/teams/?p={{page}}${sortQuery}${limitQuery}`,
 				};

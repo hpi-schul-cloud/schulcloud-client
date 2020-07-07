@@ -17,7 +17,7 @@ function transformToBase64(imageSrc) {
 		ctx.drawImage(img, dx, dy, dw, dh);
 		document.getElementsByName('logo_dataUrl')[0].value = canvas.toDataURL('image/png');
 		document.querySelector('#preview-logo').src = canvas.toDataURL('image/png');
-		document.querySelector('#logo-filename').innerHTML = 'Datei ausgewählt';
+		document.querySelector('#logo-filename').innerHTML = $t('administration.school.text.fileSelected');
 	};
 	img.src = imageSrc;
 }
