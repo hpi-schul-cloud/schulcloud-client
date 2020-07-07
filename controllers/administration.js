@@ -2001,15 +2001,8 @@ router.get(
 						schoolyears,
 						notes: [
 							{
-								title: `Deine Schüler sind unter ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt?`,
-								content: `Gib den Registrierungslink zunächst an die Eltern weiter.
-                Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis.
-                Der Schüler ist dann in der ${res.locals.theme.short_title}
-                registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse
-                und dem individuellen Initial-Passwort einloggen.
-                Nach dem ersten Login muss jeder Schüler sein Passwort ändern.
-                Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären,
-                damit er die ${res.locals.theme.short_title} nutzen kann.`,
+								title: res.$t('administration.controller.text.yourStudentsAreUnder', {age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}),
+								content: res.$t('administration.controller.text.firstPassTheRegistrationLinkOnToTheParents', {title: res.locals.theme.short_title}),
 							},
 							{
 								title: `Deine Schüler sind mindestens ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}`
