@@ -9,6 +9,7 @@ import ImageCaptionPlugin from '@ckeditor/ckeditor5-image/src/imagecaption';
 import ImagePlugin from '@ckeditor/ckeditor5-image/src/image';
 import ImageStylePlugin from '@ckeditor/ckeditor5-image/src/imagestyle';
 import ImageToolbarPlugin from '@ckeditor/ckeditor5-image/src/imagetoolbar';
+import ImageResizePlugin from '@ckeditor/ckeditor5-image/src/imageresize';
 import IndentPlugin from '@ckeditor/ckeditor5-indent/src/indent';
 import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
 import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
@@ -26,6 +27,12 @@ import TablePlugin from '@ckeditor/ckeditor5-table/src/table';
 import TablePropertiesPlugin from '@ckeditor/ckeditor5-table/src/tableproperties';
 import TableToolbarPlugin from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline';
+import TodoListPlugin from '@ckeditor/ckeditor5-list/src/todolist';
+import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
+import HighlightPlugin from '@ckeditor/ckeditor5-highlight/src/highlight';
+import ExportPDFPlugin from '@ckeditor/ckeditor5-export-pdf/src/exportpdf';
+import ExportWordPlugin from '@ckeditor/ckeditor5-export-word/src/exportword';
+import MathTypePlugin from '@wiris/mathtype-ckeditor5/src/plugin';
 
 import FileBrowserPlugin from './plugins/ckeditor5-filebrowser/src/filebrowser';
 
@@ -43,6 +50,7 @@ const ckeditorConfig = {
 		ImagePlugin,
 		ImageStylePlugin,
 		ImageToolbarPlugin,
+		ImageResizePlugin,
 		IndentPlugin,
 		ItalicPlugin,
 		LinkPlugin,
@@ -62,19 +70,30 @@ const ckeditorConfig = {
 		UnderlinePlugin,
 		FileBrowserPlugin,
 		TableToolbarPlugin,
+		TodoListPlugin,
+		PasteFromOfficePlugin,
+		HighlightPlugin,
+		ExportPDFPlugin,
+		ExportWordPlugin,
+		MathTypePlugin,
 	],
 	toolbar: [
 		'undo', 'redo', '|',
-		'mediaEmbed', /*'math',*/ 'filebrowser', 'insertTable', 'horizontalLine', 'specialCharacters', 'link', '|',
+		'mediaEmbed', 'MathType', 'ChemType', 'filebrowser', 'insertTable', 'horizontalLine', 'specialCharacters', 'link', '|',
 		'heading', '|',
-		'numberedList', 'bulletedList', '|',
+		'numberedList', 'bulletedList', 'todoList', '|',
 		'outdent', 'indent', '|',
-		'blockQuote', 'fontColor', 'fontBackgroundColor',
+		'blockQuote', 'fontFamily', 'fontSize', 'fontColor', 'fontBackgroundColor', 'highlight',
 		'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|',
-		'removeFormat',
+		'removeFormat', '|',
+		'exportPdf', 'exportWord',
 	],
 	table: {
 		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'],
+	},
+	image: {
+		toolbar: ['imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight', '|', 'imageTextAlternative'],
+		styles: ['full', 'alignLeft', 'alignRight'],
 	},
 	math: {
 		engine: 'mathjax',
