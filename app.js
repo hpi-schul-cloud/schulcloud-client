@@ -15,6 +15,7 @@ const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
 const { Configuration } = require('@schul-cloud/commons');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
+const { nonceValueSet } = require('./helpers/csp');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
@@ -66,10 +67,18 @@ if (KEEP_ALIVE) {
 	});
 }
 
+// disable x-powered-by header
+app.disable('x-powered-by');
+
 // set security headers
 const securityHeaders = require('./middleware/security_headers');
 
 app.use(securityHeaders);
+
+// generate nonce value
+if (Configuration.get('CORS')) {
+	app.use(nonceValueSet);
+}
 
 // set cors headers
 app.use(require('./middleware/cors'));
@@ -224,7 +233,7 @@ if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
-	if (err.statusCode && err.error) {
+	if (err.statusCode && err.error && err.error.message) {
 		res.setHeader('error-message', err.error.message);
 		res.locals.message = err.error.message;
 	} else {

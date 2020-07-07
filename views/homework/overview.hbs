@@ -3,10 +3,10 @@
     <link rel="import" href="/vendor/m.e.i.n.e.l/m.e.i.n.e.l.min.html">
 {{/content}}
 {{#content "scripts" mode="append"}}
-    <script src="/vendor/webcomponents-lite.js" defer></script>
-    <script src="/scripts/moment/moment.js" defer></script>
-    <script src="/scripts/filter/custom-element-polyfill.js" defer></script>
-    <script src="/scripts/filter/feathers-filter.js" defer></script>
+    <script src="/vendor/webcomponents-lite.js" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/moment/moment.js" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/filter/custom-element-polyfill.js" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/filter/feathers-filter.js" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#extend "homework/homework"}}
     {{#content "page"}}

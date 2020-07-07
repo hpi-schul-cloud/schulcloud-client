@@ -1081,7 +1081,7 @@ router.get(
 					&& hasEditPermission
 				) {
 					head.push('Erstellt am');
-					head.push('Einverständnis');
+					head.push('Registrierung');
 					head.push('');
 				}
 				const body = users.map((user) => {
@@ -2801,12 +2801,7 @@ router.all('/teams', (req, res, next) => {
 
 	api(req)
 		.get('/teams/manage/admin', {
-			qs: {
-				$populate: ['userIds'],
-				$limit: itemsPerPage,
-				$skip: itemsPerPage * (currentPage - 1),
-				$sort: req.query.sort,
-			},
+			qs: query,
 		})
 		.then((data) => {
 			const head = [
@@ -2830,7 +2825,7 @@ router.all('/teams', (req, res, next) => {
 			};
 
 			Promise.all([classesPromise, usersPromise]).then(([classes, users]) => {
-				const body = data.map((item) => {
+				const body = data.data.map((item) => {
 					const actions = [
 						{
 							link: path + item._id,

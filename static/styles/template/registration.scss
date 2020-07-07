@@ -1,0 +1,9 @@
+@media only screen and (max-width: 480px) {
+    table {
+        display: block !important;
+        width: 100% !important;
+    }
+    td {
+        width: 480px !important;
+    }
+}
