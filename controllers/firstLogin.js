@@ -74,7 +74,7 @@ router.get('/', async (req, res, next) => {
 		lastUpdatedPrivacy = updatedConsents.privacy.data[0];
 		lastUpdatedTermsOfUse = updatedConsents.termsOfUse.data[0];
 
-		if (SC_THEME === 'n21') {
+		if (isN21) {
 			if (lastUpdatedPrivacy !== undefined) {
 				lastUpdatedPrivacy.consentHTML = converter.makeHtml(lastUpdatedPrivacy.consentText);
 			}
