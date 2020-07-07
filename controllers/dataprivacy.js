@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
 			return Promise.resolve(template, isAuthenticated);
 		}).then((template, isAuthenticated) => {
 			res.render(template, {
-				title: 'Datenschutzerklärung',
+				title: res.$t('dataprivacy.headline.privacyPolicy'),
 				inline: isAuthenticated,
 			});
 		}).catch(next);
