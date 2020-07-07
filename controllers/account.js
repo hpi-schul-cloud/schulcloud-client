@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
 		res.redirect('/account/');
 	})).catch((err) => {
 		res.render('account/settings', {
-			title: 'Dein Account',
+			title: res.$t('account.headline.yourAccount'),
 			notification: {
 				type: 'danger',
 				message: err.error.message,
@@ -58,7 +58,7 @@ router.get('/', (req, res, next) => {
 		}
 
 		res.render('account/settings', {
-			title: 'Dein Account',
+			title: res.$t('account.headline.yourAccount'),
 			device,
 			session,
 			userId: res.locals.currentUser._id,
@@ -67,11 +67,37 @@ router.get('/', (req, res, next) => {
 		});
 	}).catch(() => {
 		res.render('account/settings', {
-			title: 'Dein Account',
+			title: res.$t('account.headline.yourAccount'),
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
 			isDiscoverable,
 		});
+	});
+});
+
+router.get('/teams/', (req, res, next) => {
+	const isDiscoverable = res.locals.currentUser.discoverable;
+
+	res.render('account/teams', {
+		title: res.$t('account.teams.headline.teamSettings'),
+		userId: res.locals.currentUser._id,
+		isDiscoverable,
+	});
+});
+
+router.get('/thirdPartyProviders/', async (req, res, next) => {
+	let session;
+
+	try {
+		session = await api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`);
+	} catch (e) {
+		session = null;
+	}
+
+	res.render('account/thirdPartyProviders', {
+		title: res.$t('account.thirdPartyProviders.headline.thirdPartyProviderLogin'),
+		userId: res.locals.currentUser._id,
+		session,
 	});
 });
 
@@ -106,8 +132,8 @@ router.post('/preferences', (req, res, next) => {
 
 	return api(req).patch(`/users/${res.locals.currentUser._id}`, {
 		json: { [`preferences.${attribute.key}`]: attribute.value },
-	}).then(() => 'Präferenzen wurden aktualisiert!')
-		.catch(() => 'Es ist ein Fehler bei den Präferenzen aufgetreten!');
+	}).then(() => res.$t('account.text.preferencesUpdated'))
+		.catch(() => res.$t('account.text.preferencesUpdateError'));
 });
 
 router.post('/teamSettings', (req, res) => {
@@ -128,7 +154,7 @@ router.post('/teamSettings', (req, res) => {
 		})
 		.catch((err) => {
 			res.render('account/settings', {
-				title: 'Dein Account',
+				title: res.$t('account.headline.yourAccount'),
 				notification: {
 					type: 'danger',
 					message: err.error.message,

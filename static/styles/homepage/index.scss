@@ -62,7 +62,7 @@
     background: #fff;
     &:hover {
         box-shadow: var(--shadow-sm);
-          transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
+        transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
     }
 }
 
@@ -85,6 +85,10 @@
             text-align: left;
         }
     }
+	img.check {
+		width: 100% !important;
+		max-width: 40px !important;
+	}
 }
 
 .flex-container {
@@ -104,12 +108,19 @@
     }
     .teaser{
         font-size:24px;
+
+        @include media-breakpoint-down(sm) {
+            font-size:18px;
+        }
     }
 
     .section-img {
         @include media-breakpoint-down(sm) {
             width: 40vw;
         }
+    }
+    .check {
+        width: 40px;
     }
 }
 
@@ -126,10 +137,13 @@
 }
 
 .section-heading {
-    font-size: 45px;
+    font-size: 40px;
 
     @include media-breakpoint-down(sm) {
         font-size: 35px;
     }
 
+}
+.alert {
+	margin-top: 1rem !important;
 }

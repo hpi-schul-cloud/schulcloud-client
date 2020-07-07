@@ -1014,7 +1014,7 @@ router.get(
 		const years = getSelectableYears(res.locals.currentSchoolData);
 		const title = `${returnAdminPrefix(
 			res.locals.currentUser.roles,
-		)}Schüler`;
+		)}Lehrer`;
 		res.render('administration/import', {
 			title,
 			roles: 'teacher',
@@ -1091,7 +1091,7 @@ router.get(
 					&& hasEditPermission
 				) {
 					head.push('Erstellt am');
-					head.push('Einverständnis');
+					head.push('Registrierung');
 					head.push('');
 				}
 				const body = users.map((user) => {
@@ -1328,7 +1328,7 @@ router.get(
 					submitLabel: 'Einverständnis erklären',
 					closeLabel: 'Abbrechen',
 					user,
-					password: authHelper.generatePassword(),
+					password: authHelper.generateConsentPassword(),
 					referrer: req.header('Referer'),
 				});
 			})
@@ -2093,7 +2093,7 @@ router.get(
 			if (obj.importHash) return true;
 			return false;
 		});
-		const passwords = students.map(() => (authHelper.generatePassword()));
+		const passwords = students.map(() => (authHelper.generateConsentPassword()));
 		const renderUsers = students.map((student, i) => ({
 			fullname: `${student.firstName} ${student.lastName}`,
 			id: student._id,
@@ -2788,26 +2788,30 @@ const getTeamMembersButton = (counter) => `
 const getTeamSchoolsButton = (counter) => `
   <div class="btn-show-schools" role="button">${counter}<i class="fa fa-building team-flags"></i></div>`;
 
-router.all('/teams', (req, res, next) => {
+router.all('/teams', async (req, res, next) => {
 	const path = '/administration/teams/';
 
 	const itemsPerPage = parseInt(req.query.limit, 10) || 25;
 	const filterQuery = {};
 	const currentPage = parseInt(req.query.p, 10) || 1;
 
+	const dataLength = await api(req)
+		.get('/teams/manage/admin')
+		.then((dataResponse) => dataResponse.total);
+
+	const exceedDataLimit = ((itemsPerPage * (currentPage - 1)) > dataLength);
+
 	let query = {
 		limit: itemsPerPage,
-		skip: itemsPerPage * (currentPage - 1),
+		skip: (exceedDataLimit) ? 0 : itemsPerPage * (currentPage - 1),
 	};
 	query = Object.assign(query, filterQuery);
-
 	// TODO: mapping sort
 	/*
 	    'Mitglieder': 'members',
 		'Schule(n)': 'schoolIds',
 		'Erstellt am': 'createdAt',
 	*/
-
 
 	api(req)
 		.get('/teams/manage/admin', {
@@ -2939,7 +2943,7 @@ router.all('/teams', (req, res, next) => {
 				}
 
 				const pagination = {
-					currentPage,
+					currentPage: (exceedDataLimit) ? 1 : currentPage,
 					numPages: Math.ceil(data.total / itemsPerPage),
 					baseUrl: `/administration/teams/?p={{page}}${sortQuery}${limitQuery}`,
 				};
@@ -3386,6 +3390,7 @@ router.post(
 				// eslint-disable-next-line no-shadow
 				.then((system) => {
 					api(req)
+						// TODO move to server. Should be one transaction
 						.patch(`/schools/${res.locals.currentSchool}`, {
 							json: {
 								$push: {
@@ -3435,9 +3440,10 @@ router.post(
 			classesPath = '';
 		}
 
-		let ldapURL = req.body.ldapurl;
+		// TODO potentielles Problem url: testSchule/ldap -> testSchule/ldaps
+		let ldapURL = req.body.ldapurl; // Better: let ldapURL = req.body.ldapurl.trim();
 		if (!ldapURL.startsWith('ldaps')) {
-			if (ldapURL.includes('ldap')) {
+			if (ldapURL.includes('ldap')) { // Better ldapURL.startsWith('ldap')
 				ldapURL = ldapURL.replace('ldap', 'ldaps');
 			} else {
 				ldapURL = `ldaps://${ldapURL}`;
@@ -3449,7 +3455,7 @@ router.post(
 				json: {
 					alias: req.body.ldapalias,
 					ldapConfig: {
-						active: false,
+						active: false, // Don't switch of by verify
 						url: ldapURL,
 						rootPath: req.body.rootpath,
 						searchUser: req.body.searchuser,
@@ -3516,16 +3522,11 @@ router.post(
 		);
 
 		api(req)
-			.patch(`/systems/${system[0]._id}`, {
+			.patch(`/ldap/${system[0]._id}`, {
 				json: {
 					'ldapConfig.active': true,
 				},
 			})
-			.then(() => api(req).patch(`/schools/${school._id}`, {
-				json: {
-					ldapSchoolIdentifier: system[0].ldapConfig.rootPath,
-				},
-			}))
 			.then(() => {
 				res.json('success');
 			})
