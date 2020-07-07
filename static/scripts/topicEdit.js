@@ -599,9 +599,8 @@ class TopicResources extends TopicBlock {
 
         if(!resource) {
             let isCourseGroupTopic = $contentBlocksContainer.data('iscoursegroup') !== undefined;
-            // open content search popup
-			const resourcePopup = window.open('/content/?inline=1&isCourseGroupTopic=' + isCourseGroupTopic, '_self', "content-search", "toolbar=no, location=no, directories=no, width=800,height=600,status=no,scrollbars=yes,resizable=yes");
-            resourcePopup.focus();
+            // open content search in the same tab
+			window.open('/content/?inline=1&isCourseGroupTopic=' + isCourseGroupTopic, '_self', "content-search", "toolbar=no, location=no, directories=no, width=800,height=600,status=no,scrollbars=yes,resizable=yes");
         } else {
             window.addResource(resource);
         }
