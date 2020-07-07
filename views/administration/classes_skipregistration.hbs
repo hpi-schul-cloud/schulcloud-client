@@ -9,7 +9,7 @@
         href="{{@root.theme.documents.specificFiles.privacyExemplary}}"
         target="_blank">{{$t "administration.global.text.dataProtection" }}</a>
     {{$t "administration.classes.text.andTo" }} <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}"
-        target="_blank">{{$t "administration.classes.label.termOfUse" }}</a> {{$t "administration.classes.text.ofThe" }} {{@root.theme.short_title}} {{$t "administration.classes.text.toExplain" }} <br>
+        target="_blank">{{$t "administration.classes.label.termOfUse" }}</a> {{$t "administration.classes.text.toExplain" (dict "shortTitle" theme.short_title) }} <br>
     {{$t "administration.classes.text.byClickingOn" }} <i>{{$t "administration.classes.button.declareConsentOnBehalfOfTheStudents" }}</i> {{$t "administration.classes.text.consentConfirmation" }}
 </p>
 <p>

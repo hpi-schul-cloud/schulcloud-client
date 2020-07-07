@@ -1,7 +1,7 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 <div class="form-group">
     <p>
-        {{$t "administration.form_InvitationTeacher.text.beforeUsingThe" }} {{theme.title}} {{$t "administration.form_InvitationTeacher.text.theTeacherMustHaveGoneThrough" }}
+        {{$t "administration.form_InvitationTeacher.text.beforeUsingThe" (dict "shortTitle" theme.title) }} 
     </p>
     <label for="invitation-link">{{$t "administration.form_InvitationTeacher.label.distributeTheFollowingLinkToTheTeacher" }}</label>
     <input id="invitation-link" class="form-control" name="invitation" type="text" />

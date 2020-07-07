@@ -2,7 +2,7 @@
     {{#content "page" mode="prepend"}}
         <h1 class="h4" id="page-title">{{$t "administration.ldapSchoolYearStart.heading.checkTheSynchronizationOfTheDataAvailable" }}</h1>
         <div class="route-administration">
-            <p>{{$t "administration.ldapSchoolYearStart.text.onThisPageYouWillFindTheData" }} {{@root.theme.short_title}} {{$t "administration.ldapSchoolYearStart.text.fromYourLDAPPleaseCheck" }}</p>
+            <p>{{$t "administration.ldapSchoolYearStart.text.onThisPageYouWillFindTheData" (dict "shortTitle" theme.short_title) }} </p>
             <section class="section-school section-default">
                 <div class="container-fluid ajaxcontent">
                     <h5>{{$t "administration.ldapSchoolYearStart.heading.LDAPClasses" }}</h5>
