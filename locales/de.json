@@ -1057,7 +1057,9 @@
 			"aboutTheProject": "Über das Projekt",
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrer:in einloggen",
-			"subscribeNewsletter": "Newsletter abonnieren"
+			"subscribeNewsletter": "Newsletter abonnieren",
+			"login" : "Login",
+			"register" : "Registrieren"
 		},
 		"header": {
 			"link": {
@@ -1379,9 +1381,16 @@
 				"openGame": "Spiel öffnen",
 				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
+			"img_alt" : {
+				"learnCloud" : "Lern Cloud"
+			},
 			"input": {
 				"password": "Passwort:",
 				"userName": "Benutzername:"
+			},
+			"label" : {
+				"help" : "Hilfe",
+				"playEnterTheCloud" :"Enter The Cloud spielen"
 			},
 			"link": {
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
@@ -1397,6 +1406,19 @@
 			}
 		},
 		"loggedin": {
+			"img_alt" : {
+				"logoOfSchool" : "Logo von {{name}}"
+			},
+			"input" :{
+				"searchFor" : "Suche nach..."
+			},
+			"label" : {
+				"fullscreen" : "Fullscreen",
+				"thereIsAProblem" : "Es gibt ein Problem",
+				"qrCode" : "QR-Code",
+				"printQrCode" : "QR-Code drucken",
+				"notifications" : "Benachrichtigungen"
+			},
 			"tab_label": {
 				"settings": "Einstellungen",
 				"signOut": "Abmelden"
