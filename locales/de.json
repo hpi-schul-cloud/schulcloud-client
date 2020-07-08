@@ -51,20 +51,6 @@
 		"label": {
 			"providers": "Anbieter"
 		},
-		"testNotification": {
-			"headline": {
-				"test": "Neue Test-Benachrichtigung"
-			},
-			"text": {
-				"youHaveANewMessage": "Du hast eine neue Benachrichtigung"
-			}
-		},
-		"text": {
-			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
-			"passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
-			"preferencesUpdates": "Präferenzen wurden aktualisiert!",
-			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!"
-		},
 		"teams": {
 			"button": {
 				"changeTeamSettings": "Teameinstellungen ändern"
@@ -82,6 +68,20 @@
 				"teamInvitationsdisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
 				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
 			}
+		},
+		"testNotification": {
+			"headline": {
+				"test": "Neue Test-Benachrichtigung"
+			},
+			"text": {
+				"youHaveANewMessage": "Du hast eine neue Benachrichtigung"
+			}
+		},
+		"text": {
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
+			"passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
+			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!",
+			"preferencesUpdates": "Präferenzen wurden aktualisiert!"
 		},
 		"thirdPartyProviders": {
 			"headline": {
@@ -293,6 +293,15 @@
 		"button": {
 			"choose": "Wähle..."
 		},
+		"form_add_lesson": {
+			"button": {
+				"choose": "Wähle..."
+			},
+			"label": {
+				"chooseACourse": "Wähle einen Kurs / Fach",
+				"chooseALessonTopic": "Wähle ein Unterrichtsthema"
+			}
+		},
 		"headline": {
 			"addContentToTopic": "Material zu Thema hinzufügen",
 			"contentCantBeAddedInDemo": "<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>",
@@ -307,12 +316,24 @@
 		"input": {
 			"searchInSC": "In der Schul-Cloud suchen"
 		},
+		"item": {
+			"text": {
+				"contentNotAvailable": "Inhalt aus Lizenzgründen im Demomodus nicht verfügbar.",
+				"report": "melden"
+			}
+		},
 		"label": {
 			"chooseACourse": "Wähle einen Kurs / Fach",
 			"chooseALessonTopic": "Wähle ein Unterrichtsthema",
 			"entriesPerPage": "Einträge pro Seite: %1",
 			"fileType": "Dateitypen: %1",
 			"sortBy": "Sortieren nach: %1"
+		},
+		"store": {
+			"heading": {
+				"currentContent": "Aktuelle Inhalte",
+				"popularContent": "Beliebte Inhalte"
+			}
 		},
 		"text": {
 			"date": "Aktualität",
@@ -322,27 +343,6 @@
 			"viaProvider": "via {{provider}}",
 			"video": "Video",
 			"youAreRedirectedToProvider": "Sie werden auf die Seite von <span class=\"provider\">einem externen Anbieter</span> weitergeleitet."
-		},
-		"form_add_lesson": {
-			"button": {
-				"choose": "Wähle..."
-			},
-			"label": {
-				"chooseACourse": "Wähle einen Kurs / Fach",
-				"chooseALessonTopic": "Wähle ein Unterrichtsthema"
-			}
-		},
-		"item": {
-			"text": {
-				"contentNotAvailable": "Inhalt aus Lizenzgründen im Demomodus nicht verfügbar.",
-				"report": "melden"
-			}
-		},
-		"store": {
-			"heading": {
-				"currentContent": "Aktuelle Inhalte",
-				"popularContent": "Beliebte Inhalte"
-			}
 		}
 	},
 	"courses": {
@@ -552,9 +552,9 @@
 					"addNewTool": "Neues Tool hinzufügen",
 					"descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
 					"noTools": "Keine Tools.",
+					"opensInNewTab": "neuer Tab",
 					"videoConferenceBBB": "Videokonferenz BigBlueButton",
-					"videoConferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
-					"opensInNewTab": "neuer Tab"
+					"videoConferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet"
 				}
 			},
 			"topic": {
@@ -641,12 +641,12 @@
 			},
 			"text": {
 				"addStudentsOrClasses": "Füge Klassen oder einzelne Schüler:innen deinem Kurs hinzu.",
+				"addingStudentsForbidden": "Aus Datenschutzgründen ist es dir nicht gestattet, auf die Namensliste aller Schüler:innen deiner Schule zuzugreifen. Deshalb kannst du keine Schüler:innen und Klassen zum Kurs hinzufügen. Bitte einen Administrator deiner Schule, dem Kurs Schüler:innen oder ganze Klassen hinzuzufügen.",
 				"contentOfClass": "Lege die Inhalte deines Unterrichts an.",
 				"doItNowOrLaterInSettings": "Dies kannst du jetzt oder später in den Kurseinstellungen machen.",
 				"giveExercisesAndGetResults": "Stelle deinen Kursteilnehmer:innen Aufgaben und sieh dir ihre Abgaben an.",
 				"groupsWorkTogether": "In einem Kurs wird gemeinsam mit den Teilnehmer:innen an Themen, Aufgaben und Dateien gearbeitet.",
-				"willAlsoDeleteForStudents": "Dies löscht den Kurs auch bei allen Schüler:innen.",
-				"addingStudentsForbidden": "Aus Datenschutzgründen ist es dir nicht gestattet, auf die Namensliste aller Schüler:innen deiner Schule zuzugreifen. Deshalb kannst du keine Schüler:innen und Klassen zum Kurs hinzufügen. Bitte einen Administrator deiner Schule, dem Kurs Schüler:innen oder ganze Klassen hinzuzufügen."
+				"willAlsoDeleteForStudents": "Dies löscht den Kurs auch bei allen Schüler:innen."
 			}
 		},
 		"button": {
@@ -907,6 +907,7 @@
 		},
 		"button": {
 			"getStartedImmediately": "Sofort loslegen",
+			"logout": "Ausloggen",
 			"signOutAndCancel": "Abmelden und abbrechen",
 			"takeALookAtTheFirstSteps": "Erste Schritte anschauen"
 		},
@@ -996,7 +997,9 @@
 			}
 		},
 		"text": {
+			"between14And": "zwischen 14 und {{addConsent}} Jahre alt.",
 			"clickhereForFurtherTraining": "Hier gehts zur Fortbildung",
+			"fromYear": "ab {{age}} Jahre alt.",
 			"isThereForEveryone": "ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
 			"justHaveALook": "Schau einfach mal vorbei!",
 			"linguisticNote": "Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der",
@@ -1011,29 +1014,25 @@
 				"toYourCourses": "Zu deinen Kursen"
 			},
 			"heading": {
-				"congratulations": "Herzlichen Glückwunsch,",
+				"congratulations": "Herzlichen Glückwunsch, {{firstName}} {{lastName}}",
 				"welcomeToThe": "Herzlich willkommen in der "
 			},
 			"text": {
-				"canContinueToUse": "weiter nutzen kannst.",
 				"designLessonsDigitally": "Unterricht digital gestalten",
 				"dueToAChangeInTheLowerSaxony": "aufgrund einer Änderung des Niedersächsischen Schulgesetzes basiert die Verarbeitung personenbezogener Daten in der {{shortTitle}} nun grundsätzlich auf § 31 Abs. 5 NSchG in Verbindung mit Art. 6 Abs. 1 lit. c) DSGVO.",
-				"fromTheAgeOF14": " Ab 14 Jahren ist dies zusätzlich zum bereits erklärten Einverständnis deiner Eltern nötig, damit du die ",
 				"pleaseBrieflyFileSomeData": "Bitte gleiche kurz ein paar Daten ab, lege ein neues Passwort fest und dann kann es auch schon losgehen.",
 				"thankYouForTakingNoteOf": "Vielen Dank für die Kenntnisnahme.",
 				"wantToUse": "nutzen möchtest.",
 				"weArePleasedThatYou": "Wir freuen uns, dass du die",
+				"weArePleasedThatYouWantToUse": "Wir freuen uns, dass du die {{title}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform. Bitte überprüfe in den kommenden Schritten die für dich angegebene E-Mail-Adresse und stimme den Nutzungsbedingungen zu. Ein Erziehungsberechtigter hat der Nutzung bereits zugestimmt, jetzt bist du gefragt. Ändere anschließend dein Startpasswort, damit du die Vorteile der {{shortTitle}} nutzen kannst.",
 				"welcomeBackTothe": "Herzlich willkommen zurück in der",
 				"welcomeTo": "Willkommen in der",
 				"withThe": "Mit der",
-				"youAreNow14YearsOld": "Du bist jetzt 14 Jahre alt. Bitte erkläre im folgenden Schritt dein Einverständnis zur Nutzung der"
+				"youAreNow14YearsOld": "Du bist jetzt 14 Jahre alt. Bitte erkläre im folgenden Schritt dein Einverständnis zur Nutzung der {{title}}  Ab 14 Jahren ist dies zusätzlich zum bereits erklärten Einverständnis deiner Eltern nötig, damit du die {{shortTitle}} weiter nutzen kannst."
 			}
 		}
 	},
 	"global": {
-		"topMenu": {
-			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
-		},
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
@@ -1048,8 +1047,8 @@
 			"filterApply": "Übernehmen",
 			"import": "Importieren",
 			"next": "Weiter",
-			"ok": "Okay",
 			"no": "Nein",
+			"ok": "Okay",
 			"open": "Öffnen",
 			"openANewTab": "In neuem Tab öffnen",
 			"print": "Drucken",
@@ -1060,16 +1059,16 @@
 			"tryAgain": "Erneut Versuchen",
 			"yes": "Ja"
 		},
-		"error" : {
+		"error": {
 			"400": "Diese Anfrage war fehlerhaft.",
 			"401": "Bitte authentifiziere dich zuerst.",
 			"402": "Diese Funktion musst du erst noch bezahlen.",
 			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
 			"404": "Ups, diese Seite gibt's wohl nicht.",
 			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
-			"requestTimeout" : "Zeitüberschreitung bei dir Anfrage",
-			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
-			"pageMoved": "Diese Seite wurde verschoben."
+			"pageMoved": "Diese Seite wurde verschoben.",
+			"requestTimeout": "Zeitüberschreitung bei dir Anfrage",
+			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
 		},
 		"headline": {
 			"delete": "Löschen",
@@ -1110,8 +1109,8 @@
 				"filesCourse": "Kurse",
 				"filesPersonal": "persönliche Dateien",
 				"filesShared": "geteilte Dateien",
-				"helpDesk": "Helpdesk",
 				"helpArea": "Hilfebereich",
+				"helpDesk": "Helpdesk",
 				"lernstore": "Lern-Store",
 				"management": "Verwaltung",
 				"managementClasses": "Klassen",
@@ -1142,13 +1141,16 @@
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
+		},
+		"topMenu": {
+			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		}
 	},
 	"help": {
 		"contactForm": {
 			"text": {
-				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 				"typeNotAllowed": "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
 			}
 		},
@@ -1178,9 +1180,9 @@
 		"text": {
 			"feedbackError": "Fehler beim Senden des Feedbacks.",
 			"feedbackSuccessful": "Feedback erfolgreich versendet!",
-			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
-			"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!"
+			"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!",
+			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!"
 		}
 	},
 	"home": {
@@ -1496,10 +1498,10 @@
 				"userName": "Benutzername:"
 			},
 			"link": {
+				"Fortbildungen": "Fortbildungen",
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
 				"helpArea": "Hilfebereich",
-				"sendRequestOrProblem": "Wunsch oder Problem senden",
-				"Fortbildungen": "Fortbildungen"
+				"sendRequestOrProblem": "Wunsch oder Problem senden"
 			}
 		},
 		"ldap_info": {
@@ -1549,10 +1551,10 @@
 			"submitPrivacyPolicy": "Gelesen"
 		},
 		"headline": {
-			"firstLogin": "Willkommen - Erster Login",
-			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
 			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
 			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
+			"firstLogin": "Willkommen - Erster Login",
+			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
 			"onlyPrivacy": "Datenschutzerklärung",
 			"onlyTermsOfUse": "Nutzungsordnung",
 			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
@@ -1701,11 +1703,11 @@
 				"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
 			}
 		},
-		"input": {
-			"hiddenPw": "***************"
-		},
 		"headline": {
 			"passwordRecovery": "Passwort-Wiederherstellung"
+		},
+		"input": {
+			"hiddenPw": "***************"
 		},
 		"label": {
 			"newPw": "Neues Passwort",
@@ -1724,9 +1726,9 @@
 			"allowedCharacters": "Erlaubte Sonderzeichen sind: ",
 			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
 			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
+			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
 			"errorPasswordAlreadyChanged": "Ihr Passwort wurde bereits über diese URL geändert.",
 			"errorTimeExpired": "Zeit abgelaufen für Passwort Recovery.",
-			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
 			"specialCharacters": "!§$%&/()=?\\;:,.#+*~"
 		}
@@ -1917,6 +1919,9 @@
 		},
 		"text": {
 			"acceptConsentWithoutParents": "Wenn du zwischen 14 und {{age}} Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die {{title}} nutzen kannst.",
+			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
+			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
+			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu.",
 			"roleEmployee": "Lehrer*/Admins*",
 			"roleExpert": "Experte*",
 			"startPassword": "Startpasswort: {{password}}",
@@ -1924,10 +1929,7 @@
 			"timeout": "Leider konnte deine Registrierung nicht abgeschlossen werden.\nBitte versuche es erneut.",
 			"unknownError": "Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.",
 			"welcomeMailSubject": "Willkommen in der {{title}}!",
-			"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team",
-			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
-			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
-			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu."
+			"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team"
 		}
 	},
 	"team": {
@@ -2103,9 +2105,9 @@
 					"teamAdmin": "Team-Admin"
 				},
 				"text": {
+					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
 					"addedMemberFailure": "Problem beim Hinzufügen der Teilnehmer",
 					"addedMemberSuccess": "Teilnehmer erfolgreich zum Team hinzugefügt",
-					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
 					"admin": "Administrator",
 					"changeRoleOfMember": "Ändere die Rolle des Nutzers:",
 					"errorWhileEditingMember": "Problem beim Bearbeiten des Teilnehmers",
@@ -2122,6 +2124,8 @@
 					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
 				}
 			},
+			"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
+			"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
 			"news": {
 				"button": {
 					"addNews": "Neuigkeit anlegen"
@@ -2133,8 +2137,6 @@
 					"showAllNews": "Alle Neuigkeiten anzeigen..."
 				}
 			},
-			"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
-			"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
 			"tab_label": {
 				"dates": "Termine",
 				"files": "Dateien",
