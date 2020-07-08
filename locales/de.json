@@ -1105,6 +1105,9 @@
 				"addTask": "Aufgabe hinzufügen",
 				"editTask": "Aufgabe bearbeiten"
 			},
+			"label" : {
+				"printSubmission" : "Abgabe drucken"
+			},
 			"text": {
 				"errorInvalidTaskId": "Ungültige Aufgaben-ID",
 				"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
@@ -1168,6 +1171,11 @@
 			"more": "Mehr",
 			"sorting": "Sortierung",
 			"tasks": "Aufgaben"
+		},
+		"input" : {
+			"gradeComment" : "Bewertungskommentar",
+			"noAssignment" : "Keine Zuordnung",
+			"title" : "Titel"
 		},
 		"label": {
 			"comment": "Kommentar",
