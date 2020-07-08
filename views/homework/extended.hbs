@@ -47,7 +47,7 @@
 				{{#userHasPermission "HOMEWORK_EDIT"}}
 				<a class="btn btn-secondary btn-archive" href="{{this.url}}" target="_blank" data="archive=done"
 					data-toggle="tooltip" title="{{$t "homework._task.label.moveToArchive"}}"
-					alt-text="{{$t "homework._task.button.restoreAlt"}}">
+					alt-text="{{{$t "homework._task.button.restoreAlt"}}}">
 					<i class='fa fa-archive'></i> {{$t "homework.button.archive" }}
 				</a>
 				{{/userHasPermission}}
