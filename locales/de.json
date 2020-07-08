@@ -45,7 +45,6 @@
 			}
 		},
 		"headline": {
-			"doYouWantToDeleteDevice": "Bist du dir sicher, dass du {{device}} löschen möchtest?",
 			"yourAccount": "Dein Account"
 		},
 		"label": {
@@ -782,7 +781,6 @@
 	"files": {
 		"_file": {
 			"headline": {
-				"assertDeletion": "Bist du dir sicher, dass du '{{filename}}' löschen möchtest?",
 				"editPermissions": "Berechtigungen bearbeiten",
 				"moveFile": "Datei verschieben",
 				"renameDir": "Ordner umbenennen",
@@ -1005,7 +1003,7 @@
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
 			"sunday": "Sonntag",
-			"sureAboutDeleting": "Bist du dir sicher, dass du {{ name }} löschen möchtest?",
+			"sureAboutDeleting": "Bist du dir sicher, dass du '{{ name }}' löschen möchtest?",
 			"sureAboutDiscardingChanges": "Bist du dir sicher, dass du die Änderungen verwerfen möchtest?",
 			"theRequestContains": "Die Anfrage enthält mehrere identische Sicherheitstokens (CSRF).",
 			"thursday": "Donnerstag",
@@ -1199,7 +1197,6 @@
 			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
 			"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
-			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
 			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
 			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
 			"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
