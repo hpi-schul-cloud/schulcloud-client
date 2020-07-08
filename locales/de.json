@@ -1554,10 +1554,19 @@
 			"headline": {
 				"createNews": "News erstellen",
 				"editNews": "News bearbeiten"
+			},
+			"input" : {
+				"title" : "Titel"
+			},
+			"label" : {
+				"contentOfMessage" : "Inhalt der Nachricht..."
 			}
 		},
 		"button": {
-			"addNews": "News hinzufügen"
+			"addNews": "News hinzufügen",
+			"editNews" :"Bearbeiten",
+			"editNewsAlt" : "Artikel '{{title}}' bearbeiten.",
+			"deleteNewsAlt" : "Artikel '{{name}}' löschen"
 		},
 		"headline": {
 			"news": "Neuigkeiten",
