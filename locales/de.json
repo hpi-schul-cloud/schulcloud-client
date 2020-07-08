@@ -1101,15 +1101,26 @@
 	},
 	"homework": {
 		"_task": {
+			"button" : {
+				"restoreAlt" : "<i class='fa fa-mail-reply'></i> Wiederherstellen"
+			},
 			"headline": {
 				"addTask": "Aufgabe hinzufügen",
 				"editTask": "Aufgabe bearbeiten"
 			},
 			"label" : {
-				"printSubmission" : "Abgabe drucken"
+				"copyTask" : "Aufgabenstellung kopieren",
+				"copyTaskAlt" : "Aufgabe '{{title}}' kopieren.",
+				"deleteTaskAlt" : "Löschen der Aufgabe: '{{title}}'.",
+				"editTaskAlt" : "Aufgabe '{{title}}' bearbeiten.",
+				"moveFromArchive" : "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
+				"moveToArchive" : "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
+				"printSubmission" : "Abgabe drucken",
+				"printTask" : "Aufgabenstellung drucken"
 			},
 			"text": {
 				"errorInvalidTaskId": "Ungültige Aufgaben-ID",
+				"maxGroupSize" : "Maximale Gruppengröße: <b>{{maxTeamMembers}} Mitglieder </b>",
 				"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
 				"newHomeworkDueDateNotification": "{{homeworkname}} ist bis zum {{duedate}} abzugeben.",
 				"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
