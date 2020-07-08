@@ -1849,6 +1849,16 @@
 			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu."
 		}
 	},
+	"security" :{
+		"headline" : {
+			"security" : "Sicherheit",
+			"reportSecurityIssue" : "Sicherheitsproblem melden"
+		},
+		"text" : {
+			"scIsTestedRegularyWeValueSecurity" : "Die {{themeTitle}} wird regelmäßig Sicherheitsüberprüfungen und Penetrationstests unterzogen, da uns die Sicherheit der Daten unserer Nutzer:innen sehr wichtig ist.",
+			"youHaveFoundAWeakness" : "Du hast trotzdem ein Sicherheitsproblem gefunden? Schreib uns, damit wir die Lücke schnellstmöglich schließen können:"
+		}
+	},
 	"team": {
 		"headline": {
 			"team": "Das HPI Schul-Cloud Team"
