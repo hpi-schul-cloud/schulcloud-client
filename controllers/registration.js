@@ -54,6 +54,7 @@ const getSchoolPrivacy = async (req, res) => {
 		}
 	} catch (error) {
 		// invalid token
+		throw new Error('Invalid import hash!');
 	}
 	return undefined;
 };
