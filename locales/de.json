@@ -1108,16 +1108,24 @@
 				"addTask": "Aufgabe hinzufügen",
 				"editTask": "Aufgabe bearbeiten"
 			},
+			"input" : {
+				"chooseTeamMembers" : "Mitstreiter auswählen",
+				"createSubmission" : "Erstelle deine Abgabe..."
+			},
 			"label" : {
 				"copyTask" : "Aufgabenstellung kopieren",
 				"copyTaskAlt" : "Aufgabe '{{title}}' kopieren.",
 				"deleteTaskAlt" : "Löschen der Aufgabe: '{{title}}'.",
 				"editTaskAlt" : "Aufgabe '{{title}}' bearbeiten.",
+				"fileUpload" : "Dateiabgabe",
 				"moveFromArchive" : "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
 				"moveToArchive" : "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
 				"printGradeComment" : "Bewertung drucken",
 				"printSubmission" : "Abgabe drucken",
-				"printTask" : "Aufgabenstellung drucken"
+				"printTask" : "Aufgabenstellung drucken",
+				"teamSubmission" : "Teamabgabe",
+				"teamSubmissionMaxX" : "Teamabgabe (maximal <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> Personen)",
+				"textDelivery" : "Textabgabe"
 			},
 			"text": {
 				"errorInvalidTaskId": "Ungültige Aufgaben-ID",
