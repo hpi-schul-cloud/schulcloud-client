@@ -738,7 +738,7 @@ const updatePolicy = (req, res, next) => {
 	});
 };
 
-const returnAdminPrefix = (roles) => {
+const returnAdminPrefix = (roles, res) => {
 	let prefix;
 	// eslint-disable-next-line array-callback-return
 	roles.map((role) => {
@@ -895,7 +895,7 @@ router.get(
 	'/',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST', 'TEACHER_LIST'], 'or'),
 	(req, res, next) => {
-		const title = returnAdminPrefix(res.locals.currentUser.roles);
+		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
 		res.render('administration/dashboard', {
 			title: `${title}Allgemein`,
 		});
@@ -1007,6 +1007,7 @@ router.get(
 		const years = getSelectableYears(res.locals.currentSchoolData);
 		const title = `${returnAdminPrefix(
 			res.locals.currentUser.roles,
+			res,
 		)}Lehrer`;
 		res.render('administration/import', {
 			title,
@@ -1059,7 +1060,7 @@ router.get(
 		}
 
 		const currentPage = parseInt(req.query.p, 10) || 1;
-		const title = returnAdminPrefix(res.locals.currentUser.roles);
+		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
 
 		let query = {
 			$limit: itemsPerPage,
@@ -1076,7 +1077,12 @@ router.get(
 				const hasEditPermission = permissionsHelper.userHasPermission(currentUser, 'TEACHER_EDIT');
 				const users = teachersResponse.data;
 				const years = getSelectableYears(res.locals.currentSchoolData);
-				const head = [res.$t('administration.controller.global.label.firstName'), res.$t('administration.controller.global.label.lastName'), res.$t('administration.controller.global.label.email'), res.$t('administration.controller.global.label.classes')];
+				const head = [
+					res.$t('administration.controller.global.label.firstName'),
+					res.$t('administration.controller.global.label.lastName'),
+					res.$t('administration.controller.global.label.email'),
+					res.$t('administration.controller.global.label.classes'),
+				];
 				if (
 					res.locals.currentUser.roles
 						.map((role) => role.name)
@@ -1272,6 +1278,7 @@ router.get(
 		const years = getSelectableYears(res.locals.currentSchoolData);
 		const title = `${returnAdminPrefix(
 			res.locals.currentUser.roles,
+			res,
 		)}Schüler`;
 		res.render('administration/import', {
 			title,
@@ -1370,6 +1377,7 @@ router.get(
 				const years = getSelectableYears(res.locals.currentSchoolData);
 				const title = `${returnAdminPrefix(
 					res.locals.currentUser.roles,
+					res,
 				)}Schüler`;
 				let studentsWithoutConsentCount = 0;
 				const head = [
@@ -1543,7 +1551,10 @@ router.get(
 					? user.displayName
 					: `${user.firstName} ${user.lastName}`;
 				const content = {
-					text: res.$t('administration.controller.text.firstPassTheRegistrationLinkOnToTheParents', {name: name, shortLink: user.registrationLink.shortLink}),
+					text: res.$t('administration.controller.text.firstPassTheRegistrationLinkOnToTheParents', {
+						name,
+						shortLink: user.registrationLink.shortLink,
+					}),
 				};
 
 				const json = {
@@ -1992,11 +2003,17 @@ router.get(
 						schoolyears,
 						notes: [
 							{
-								title: res.$t('administration.controller.text.yourStudentsAreUnder', {age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}),
-								content: res.$t('administration.controller.text.firstPassTheRegistrationLinkOnToTheParents', {title: res.locals.theme.short_title}),
+								title: res.$t('administration.controller.text.yourStudentsAreUnder', {
+									age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+								}),
+								content: res.$t('administration.controller.text.firstPassTheRegistrationLinkOnToTheParents', {
+									title: res.locals.theme.short_title,
+								}),
 							},
 							{
-								title: res.$t('administration.controller.text.yourStudentsAreAtLeast', {age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}),
+								title: res.$t('administration.controller.text.yourStudentsAreAtLeast', {
+									age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+								}),
 								content:
 								res.$t('administration.controller.text.passTheRegistrationLinkDirectly')
 									+ res.$t('administration.controller.text.theStepsForTheParentsAreOmitted'),
@@ -2268,7 +2285,12 @@ router.get(
 				qs: query,
 			})
 			.then(async (data) => {
-				const head = [res.$t('administration.controller.global.label.class'), res.$t('administration.controller.global.label.teacher'), res.$t('administration.controller.global.label.schoolYear'), res.$t('administration.controller.global.label.student')];
+				const head = [
+					res.$t('administration.controller.global.label.class'),
+					res.$t('administration.controller.global.label.teacher'),
+					res.$t('administration.controller.global.label.schoolYear'),
+					res.$t('administration.controller.global.label.student'),
+				];
 				const hasEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT');
 				if (hasEditPermission) {
 					head.push(''); // action buttons head
@@ -2415,7 +2437,7 @@ router.all(
 	(req, res, next) => {
 		const itemsPerPage = req.query.limit || 10;
 		const currentPage = parseInt(req.query.p, 10) || 1;
-		const title = returnAdminPrefix(res.locals.currentUser.roles);
+		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
 
 		api(req)
 			.get('/helpdesk', {
@@ -3172,7 +3194,7 @@ router.use(
 		}
 
 		// SCHOOL
-		const title = returnAdminPrefix(res.locals.currentUser.roles);
+		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
 		let provider = getStorageProviders(res);
 		provider = (provider || []).map((prov) => {
 			// eslint-disable-next-line eqeqeq
@@ -3291,7 +3313,15 @@ router.get('/startldapschoolyear', async (req, res) => {
 		]);
 	});
 
-	const headUser = [ res.$t('administration.controller.global.label.firstName'), res.$t('administration.controller.global.label.lastName'), 'E-Mail', 'uid', 'Rolle(n)', 'Domainname', 'uuid'];
+	const headUser = [
+		res.$t('administration.controller.global.label.firstName'),
+		res.$t('administration.controller.global.label.lastName'),
+		'E-Mail',
+		'uid',
+		'Rolle(n)',
+		'Domainname',
+		'uuid',
+	];
 	const headClasses = ['Name', 'Domain', res.$t('administration.controller.global.label.classUsers')];
 
 	res.render('administration/ldap-schoolyear-start', {
