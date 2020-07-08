@@ -1290,15 +1290,10 @@
 				"contentProviders": "Inhalteanbieter:",
 				"devOps" : "DevOps",
 				"generalInquiries": "Allgemeine Anfragen:",
-				"github" : "GitHub",
 				"mobileApp" : "Mobile App",
-				"partner" : "Partner",
 				"privacy": "Datenschutz:",
-				"safety" : "Sicherheit",
-				"status" : "Status",
 				"subscribeTheNewsletter": "Newsletter abonnieren",
 				"support" : "Support:",
-				"team" : "Team",
 				"webDeveloper" : "Web Developer"
 			},
 			"text": {
@@ -1306,6 +1301,9 @@
 			}
 		},
 		"footer": {
+			"img_alt" :{
+				"providerLogo" : "Anbieterlogo"
+			},
 			"link": {
 				"contact": "Kontakt"
 			}
@@ -1363,7 +1361,12 @@
 				"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
 				"imprint": "Impressum",
 				"participate": "Mitmachen",
-				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud"
+				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud",
+				"team" : "Team",
+				"partner" : "Partner",
+				"github" :"GitHub",
+				"status" : "Status",
+				"safety" : "Sicherheit"
 			}
 		},
 		"header": {
