@@ -1,4 +1,3 @@
-import { getCookiesMap, pushManager } from './notificationService/index';
 import './pwd.js';
 
 $(document).ready(function() {
@@ -24,10 +23,6 @@ $(document).ready(function() {
         window.location.reload();
     };
 
-    var cookies = getCookiesMap(document.cookie);
-    if (cookies["notificationPermission"])
-        $(".btn-device").prop("disabled", true);
-
     $('a[data-method="delete"]').on('click', function(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -51,6 +46,10 @@ $(document).ready(function() {
         });
     });
 
+    $('button[data-method="requestpermission"]').on('click', function() {
+		pushManager.requestPermission();
+	});
+
     function delete_cookie(name) {
         document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
@@ -72,5 +71,3 @@ $(document).ready(function() {
     }
 
 });
-
-window.pushManager = pushManager;

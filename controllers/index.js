@@ -54,6 +54,7 @@ router.use('/version', require('./version'));
 router.use('/alerts', require('./alerts'));
 router.use('/ghost', require('./ghost'));
 router.use('/blog', require('./blog'));
+router.use('/security/', require('./security'));
 
 if (Configuration.get('FEATURE_LERNSTORE_ENABLED') === true) {
 	router.use('/content/', require('./content'));

@@ -3,6 +3,16 @@
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
+        "CORS": {
+            "type": "boolean",
+            "default": true,
+            "description": "If enabled, default content security policy (CSP) header will be set."
+        },
+        "SECURITY_HEADERS": {
+            "type": "boolean",
+            "default": true,
+            "description": "If enabled, additional security header will be set."
+        },
 		"API_KEY": {
 			"type": "string",
 			"default": "example",

@@ -5,7 +5,7 @@
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-<script src="/scripts/administration/school.js" type="text/javascript" defer></script>
+<script src="/scripts/administration/school.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page" mode="prepend"}}
@@ -221,15 +221,14 @@
 						</div>
 
 						{{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY" "enabled"}}
-							<h2 class="h6 mt-2">Datenschutz-Einstellugen</h2>
+							<h2 class="h6 mt-2">Datenschutz-Einstellungen</h2>
 							<div class="form-group">
 								<label>
 									<input type="checkbox" name="studentVisibility" value="true"
 										{{#if ../studentVisibility}}checked{{/if}}>
 									Sichtbarkeit von Schüler:innen für Lehrkräfte aktivieren <i class="fa fa-eye"></i>
 									<p class="text-muted">
-										Bei Aktivierung sehen Lehrkräfte auch Namen, Geburtsdaten und E-Mail-Adressen von Schüler:innen, mit denen sie bisher nicht in einer Klasse/Kurs/Team sind und können diese selbstständig zu ihren Klassen/Kursen/Teams hinzufügen. Bitte verwende den "Speichern"-Button nach Ändern der Checkbox, um die Einstellung zu übernehmen.
-										</br>ACHTUNG: Aktivierung auf eigene Verantwortung. Aus datenschutzrechtlicher Sicht ist es angeraten, diese Funktion nicht zu aktivieren und sämtliche Kurs-, Klassen - und Teamzuteilungen durch die Rolle Administrator zentral vornehmen zu lassen.
+										Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schülerinnen und Schüler der Schule für jeden Lehrer zu aktivieren, ist es erforderlich, dass jede Schülerin und jeder Schüler wirksam in diese Datenverarbeitung eingewilligt hat.
 									</p>
 								</label>
 							</div>
