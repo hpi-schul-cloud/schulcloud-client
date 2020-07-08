@@ -1115,6 +1115,7 @@
 				"editTaskAlt" : "Aufgabe '{{title}}' bearbeiten.",
 				"moveFromArchive" : "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
 				"moveToArchive" : "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
+				"printGradeComment" : "Bewertung drucken",
 				"printSubmission" : "Abgabe drucken",
 				"printTask" : "Aufgabenstellung drucken"
 			},
@@ -1124,7 +1125,8 @@
 				"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
 				"newHomeworkDueDateNotification": "{{homeworkname}} ist bis zum {{duedate}} abzugeben.",
 				"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
-				"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet"
+				"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet",
+				"youHaveSolvedXPercent" : "Du hast <b class=\"grade\">{{grade}}%</b> richtig gelöst."
 			}
 		},
 		"button": {
