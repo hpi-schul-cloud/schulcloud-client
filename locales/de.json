@@ -759,9 +759,6 @@
 			"privacyPolicy": "Datenschutzerklärung",
 			"registrationInvalid": "Registrierung fehlerhaft"
 		},
-		"img_alt": {
-			"brokenPen": "zerbrochener Stift"
-		},
 		"text": {
 			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
 			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
@@ -943,6 +940,9 @@
 		"headline": {
 			"delete": "Löschen",
 			"edit": "Bearbeiten"
+		},
+		"img_alt" : {
+			"brokenPen" :"zerbrochener Stift"
 		},
 		"label": {
 			"room": "Raum"
@@ -1261,6 +1261,9 @@
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
 				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
 			}
+		},
+		"default": {
+			"yourDigitalLearningEnvironment" : "Deine digitale Lernumgebung"
 		},
 		"error": {
 			"button": {
