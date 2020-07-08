@@ -1279,14 +1279,27 @@
 		},
 		"extended_footer": {
 			"heading": {
+				"links" : "Links",
 				"contact": "Kontakt",
 				"vacancies": "Stellenausschreibungen"
 			},
+			"img_alt" :{
+				"nowAtGooglePlay" : "Jetzt bei Google Play"
+			},
 			"link": {
 				"contentProviders": "Inhalteanbieter:",
+				"devOps" : "DevOps",
 				"generalInquiries": "Allgemeine Anfragen:",
+				"github" : "GitHub",
+				"mobileApp" : "Mobile App",
+				"partner" : "Partner",
 				"privacy": "Datenschutz:",
-				"subscribeTheNewsletter": "Newsletter abonnieren"
+				"safety" : "Sicherheit",
+				"status" : "Status",
+				"subscribeTheNewsletter": "Newsletter abonnieren",
+				"support" : "Support:",
+				"team" : "Team",
+				"webDeveloper" : "Web Developer"
 			},
 			"text": {
 				"weAreHiring": "Du möchtest gerne Mitglied in unserem <span style='white-space: nowrap;'>HPI Schul-Cloud</span> Team werden? Wir suchen:"
