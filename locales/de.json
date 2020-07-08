@@ -1127,10 +1127,13 @@
 			"hrefDataName": "deine Abgabe",
 			"importing": "importiere",
 			"importSubmission": "Abgabe des Schülers importieren",
+			"onTheSubject": "Zum Thema",
 			"print": "Drucken",
 			"save": "Speichern und Abschicken",
 			"toClass": "Zum Kurs",
-			"toTheCourseFiles": "Zu den Kursdateien"
+			"toCourseAlt" : "Zum Kurs der Aufgabe",
+			"toTheCourseFiles": "Zu den Kursdateien",
+			"toTopicAlt" : "Zum Thema der Aufgabe"
 		},
 		"global": {
 			"label": {
@@ -1181,7 +1184,6 @@
 			"filterMoreTeamSubmissions": "Teamabgaben",
 			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
-			"onTheSubject": "Zum Thema",
 			"rating": "Bewertung",
 			"rating_comment": "Kommentar/Bewertung",
 			"restore": "Wiederherstellen",
