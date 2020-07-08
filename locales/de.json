@@ -189,11 +189,11 @@
         },
         "form_InvitationStudent": {
             "text": {
+				"studentUnderYears": "Schüler unter {{age}} Jahre:",
                 "beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
-                "studentsFrom": "Schüler ab",
+                "studentsFromYears": "Schüler ab {{age}} Jahre:",
                 "theParents": "die Eltern",
-                "toTheStudentsThemselves": "an die Schüler selbst ",
-                "years": "Jahre:"
+                "toTheStudentsThemselves": "an die Schüler selbst "
             }
         },
         "form_InvitationTeacher": {
