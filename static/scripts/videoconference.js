@@ -29,7 +29,7 @@ const ModeratorInactiveState = Object.freeze({
 			const $createVideoconferenceModal = $('.create-videoconference-modal');
 
 			populateModalForm($createVideoconferenceModal, {
-				title: `Videokonferenzraum "${event.title}" erstellen`,
+				title: $t('videoconference.headline.createVideoConferenceRoom', { name: event.title }),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.create'),
 			});
@@ -162,7 +162,7 @@ export function initVideoconferencing() {
 		const $updateConferenceStatusModal = $('.reload-info-modal');
 		populateModalForm($updateConferenceStatusModal, {
 			title: '',
-			closeLabel: 'OK',
+			closeLabel: $t('global.button.ok'),
 		});
 
 		$updateConferenceStatusModal.appendTo('body').modal('show');
@@ -175,7 +175,7 @@ export function initVideoconferencing() {
 		const $forbiddenModal = $('.forbidden-info-modal');
 		populateModalForm($forbiddenModal, {
 			title: '',
-			closeLabel: 'OK',
+			closeLabel: $t('global.button.ok'),
 		});
 
 		$forbiddenModal.appendTo('body').modal('show');

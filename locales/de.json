@@ -2108,6 +2108,9 @@
 		}
 	},
 	"videoconference": {
+		"headline": {
+			"createVideoConferenceRoom": "Videokonferenzraum {{name}} erstellen"
+		},
 		"text": {
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
 			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
