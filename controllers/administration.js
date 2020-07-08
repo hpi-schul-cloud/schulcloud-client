@@ -744,7 +744,7 @@ const returnAdminPrefix = (roles) => {
 	roles.map((role) => {
 		// eslint-disable-next-line no-unused-expressions
 		role.name === 'teacher'
-			? (prefix = 'Verwaltung: ')
+			? (prefix = res.$t('administration.controller.heading.administration'))
 			: (prefix = 'Administration: ');
 	});
 	return prefix;
@@ -781,12 +781,12 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 		title: res.$t('administration.controller.heading.sorting'),
 		displayTemplate: res.$t('administration.controller.text.sortBy'),
 		options: [
-			['firstName', 'Vorname'],
-			['lastName', 'Nachname'],
-			['email', 'E-Mail-Adresse'],
-			['classes', 'Klasse(n)'],
-			['consentStatus', 'Registrierung'],
-			['createdAt', 'Erstelldatum'],
+			['firstName', res.$t('administration.controller.global.label.firstName')],
+			['lastName', res.$t('administration.controller.global.label.lastName')],
+			['email', res.$t('administration.controller.global.label.email')],
+			['classes', res.$t('administration.controller.global.label.classes')],
+			['consentStatus', res.$t('administration.controller.global.label.consentStatus')],
+			['createdAt', res.$t('administration.controller.global.label.createdAt')],
 		],
 		defaultSelection: defaultOrder || 'firstName',
 		defaultOrder: 'DESC',
@@ -807,16 +807,16 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 		expanded: true,
 		options: isTeacherPage
 			? [
-				['missing', 'Keine Einverständniserklärung vorhanden'],
-				['ok', 'Zur Registrierung benötigte Einverständniserklärungen vorhanden'],
+				['missing', res.$t('administration.controller.text.noDeclarationOfConsentAvailable')],
+				['ok', res.$t('administration.controller.text.declarationOfConsentAvailable')],
 			]
 			: [
-				['missing', 'Keine Einverständniserklärung vorhanden'],
+				['missing', res.$t('administration.controller.text.noDeclarationOfConsentAvailable')],
 				[
 					'parentsAgreed',
-					'Eltern haben zugestimmt, Schüler:in noch offen',
+					res.$t('administration.controller.text.parentsAgreed'),
 				],
-				['ok', 'Zur Registrierung benötigte Einverständniserklärungen vorhanden'],
+				['ok', res.$t('administration.controller.text.declarationOfConsentAvailable')],
 			],
 	},
 ];
@@ -1007,7 +1007,7 @@ router.get(
 		const years = getSelectableYears(res.locals.currentSchoolData);
 		const title = `${returnAdminPrefix(
 			res.locals.currentUser.roles,
-		)}Schüler`;
+		)}Lehrer`;
 		res.render('administration/import', {
 			title,
 			roles: 'teacher',
@@ -1076,15 +1076,15 @@ router.get(
 				const hasEditPermission = permissionsHelper.userHasPermission(currentUser, 'TEACHER_EDIT');
 				const users = teachersResponse.data;
 				const years = getSelectableYears(res.locals.currentSchoolData);
-				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
+				const head = [res.$t('administration.controller.global.label.firstName'), res.$t('administration.controller.global.label.lastName'), res.$t('administration.controller.global.label.email'), res.$t('administration.controller.global.label.classes')];
 				if (
 					res.locals.currentUser.roles
 						.map((role) => role.name)
 						.includes('administrator')
 					&& hasEditPermission
 				) {
-					head.push('Erstellt am');
-					head.push('Registrierung');
+					head.push(res.$t('administration.controller.global.label.createdOn'));
+					head.push(res.$t('administration.controller.global.label.consentStatus'));
 					head.push('');
 				}
 				const body = users.map((user) => {
@@ -1169,7 +1169,7 @@ router.get(
 				return c;
 			});
 			res.render('administration/users_edit', {
-				title: 'Lehrer bearbeiten',
+				title: res.$t('administration.controller.link.editTeacher'),
 				action: `/administration/teachers/${user._id}`,
 				submitLabel: res.$t('global.button.save'),
 				closeLabel: res.$t('global.button.cancel'),
@@ -1373,12 +1373,12 @@ router.get(
 				)}Schüler`;
 				let studentsWithoutConsentCount = 0;
 				const head = [
-					'Vorname',
-					'Nachname',
-					'E-Mail-Adresse',
-					'Klasse',
-					'Erstellt am',
-					'Registrierung',
+					res.$t('administration.controller.global.label.firstName'),
+					res.$t('administration.controller.global.label.lastName'),
+					res.$t('administration.controller.global.label.email'),
+					res.$t('administration.controller.global.label.class'),
+					res.$t('administration.controller.global.label.createdOn'),
+					res.$t('administration.controller.global.label.consentStatus'),
 				];
 				if (hasEditPermission) {
 					head.push(''); // Add space for action buttons
@@ -1543,16 +1543,7 @@ router.get(
 					? user.displayName
 					: `${user.firstName} ${user.lastName}`;
 				const content = {
-					text: `Hallo ${name},
-Leider fehlt uns von dir noch die Einverständniserklärung.
-Ohne diese kannst du die Schul-Cloud leider nicht nutzen.
-
-Melde dich bitte mit deinen Daten an,
-um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
-
-Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${
-	user.registrationLink.shortLink
-}</a>, und melde dich an.`,
+					text: res.$t('administration.controller.text.firstPassTheRegistrationLinkOnToTheParents', {name: name, shortLink: user.registrationLink.shortLink}),
 				};
 
 				const json = {
@@ -1709,7 +1700,7 @@ const skipRegistrationClass = async (req, res, next) => {
 		}));
 		res.render('administration/users_registrationcomplete', {
 			title: res.$t('administration.controller.text.consentGrantedSuccessfylly'),
-			submitLabel: 'Zurück',
+			submitLabel: res.$t('global.button.back'),
 			users: result,
 			linktarget: '/administration/classes',
 		});
@@ -2001,19 +1992,11 @@ router.get(
 						schoolyears,
 						notes: [
 							{
-								title: `Deine Schüler sind unter ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt?`,
-								content: `Gib den Registrierungslink zunächst an die Eltern weiter.
-                Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis.
-                Der Schüler ist dann in der ${res.locals.theme.short_title}
-                registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse
-                und dem individuellen Initial-Passwort einloggen.
-                Nach dem ersten Login muss jeder Schüler sein Passwort ändern.
-                Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären,
-                damit er die ${res.locals.theme.short_title} nutzen kann.`,
+								title: res.$t('administration.controller.text.yourStudentsAreUnder', {age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}),
+								content: res.$t('administration.controller.text.firstPassTheRegistrationLinkOnToTheParents', {title: res.locals.theme.short_title}),
 							},
 							{
-								title: `Deine Schüler sind mindestens ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}`
-									+ ' Jahre alt?',
+								title: res.$t('administration.controller.text.yourStudentsAreAtLeast', {age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}),
 								content:
 								res.$t('administration.controller.text.passTheRegistrationLinkDirectly')
 									+ res.$t('administration.controller.text.theStepsForTheParentsAreOmitted'),
@@ -2285,7 +2268,7 @@ router.get(
 				qs: query,
 			})
 			.then(async (data) => {
-				const head = ['Klasse', 'Lehrer', 'Schuljahr', 'Schüler'];
+				const head = [res.$t('administration.controller.global.label.class'), res.$t('administration.controller.global.label.teacher'), res.$t('administration.controller.global.label.schoolYear'), res.$t('administration.controller.global.label.student')];
 				const hasEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT');
 				if (hasEditPermission) {
 					head.push(''); // action buttons head
@@ -2781,19 +2764,24 @@ const getTeamMembersButton = (counter) => `
 const getTeamSchoolsButton = (counter) => `
   <div class="btn-show-schools" role="button">${counter}<i class="fa fa-building team-flags"></i></div>`;
 
-router.all('/teams', (req, res, next) => {
+router.all('/teams', async (req, res, next) => {
 	const path = '/administration/teams/';
 
 	const itemsPerPage = parseInt(req.query.limit, 10) || 25;
 	const filterQuery = {};
 	const currentPage = parseInt(req.query.p, 10) || 1;
 
+	const dataLength = await api(req)
+		.get('/teams/manage/admin')
+		.then((dataResponse) => dataResponse.total);
+
+	const exceedDataLimit = ((itemsPerPage * (currentPage - 1)) > dataLength);
+
 	let query = {
 		limit: itemsPerPage,
-		skip: itemsPerPage * (currentPage - 1),
+		skip: (exceedDataLimit) ? 0 : itemsPerPage * (currentPage - 1),
 	};
 	query = Object.assign(query, filterQuery);
-
 	// TODO: mapping sort
 	/*
 	    'Mitglieder': 'members',
@@ -2931,7 +2919,7 @@ router.all('/teams', (req, res, next) => {
 				}
 
 				const pagination = {
-					currentPage,
+					currentPage: (exceedDataLimit) ? 1 : currentPage,
 					numPages: Math.ceil(data.total / itemsPerPage),
 					baseUrl: `/administration/teams/?p={{page}}${sortQuery}${limitQuery}`,
 				};
@@ -3303,8 +3291,8 @@ router.get('/startldapschoolyear', async (req, res) => {
 		]);
 	});
 
-	const headUser = ['Vorname', 'Nachname', 'E-Mail', 'uid', 'Rolle(n)', 'Domainname', 'uuid'];
-	const headClasses = ['Name', 'Domain', 'Nutzer der Klasse'];
+	const headUser = [ res.$t('administration.controller.global.label.firstName'), res.$t('administration.controller.global.label.lastName'), 'E-Mail', 'uid', 'Rolle(n)', 'Domainname', 'uuid'];
+	const headClasses = ['Name', 'Domain', res.$t('administration.controller.global.label.classUsers')];
 
 	res.render('administration/ldap-schoolyear-start', {
 		title: res.$t('administration.controller.text.checkingTheLDAPData'),
