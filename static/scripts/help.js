@@ -6,7 +6,6 @@ import './help/contactForm';
 const MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = Number($('.form-control-file').data('maxAttachmentSizeMb')) * 1024 * 1024;
 
 $(document).ready(() => {
-	console.log($t('global.text.fileTooLarge'));
 	$('.btn-poll').on('click', (e) => {
 		e.preventDefault();
 
