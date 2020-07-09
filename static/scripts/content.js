@@ -102,7 +102,7 @@ $(document).ready(function () {
 
 	$('.external-link').on('click', function () {
 		populateModalForm($externalLinkModal, {
-				title: 'Sie verlassen jetzt die Schul-Cloud',
+				title: 'Sie verlassen jetzt die HPI Schul-Cloud',
 				closeLabel: 'Abbrechen',
 		});
 		$externalLinkModal.find('.external-link-btn').attr('href', $(this).data('external-link'));

@@ -9,7 +9,7 @@ $(document).ready(function () {
     $('.feature-modal').modal('show');
 
     populateModalForm($pollModal, {
-        title: 'Befragung II im Projekt Schul-Cloud',
+        title: 'Befragung II im Projekt HPI Schul-Cloud',
         closeLabel: 'Abbrechen'
     });
 

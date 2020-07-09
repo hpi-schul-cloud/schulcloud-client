@@ -3,7 +3,7 @@ version: \"3.7\"
 
 services:
 
-  ### Schul-Cloud Client
+  ### HPI Schul-Cloud Client
   ###
   client:
     image: schulcloud/schulcloud-client:$DOCKERTAG
