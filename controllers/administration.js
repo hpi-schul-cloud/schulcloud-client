@@ -404,7 +404,8 @@ ${res.locals.theme.short_title}-Team`,
             let content = {
                 "html": outputString,
                 "text": "Sehr geehrte/r " + user.firstName + " " + user.lastName + ",\n\n" +
-                    "Sie wurden in die HPI Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
+					"Sie wurden in die HPI Schul-Cloud eingeladen," +
+					" bitte registrieren Sie sich unter folgendem Link:\n" +
                     (req.headers.origin || HOST) + "/register/account/" + user._id + "\n\n" +
                     "Mit Freundlichen Grüßen" + "\nIhr HPI Schul-Cloud Team"
             };
