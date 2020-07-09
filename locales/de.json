@@ -997,6 +997,9 @@
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
+			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
+			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+			"fileWrongFormat": "'{{filename}}' ist kein Bild, Video oder zulässige Datei!",
 			"friday": "Freitag",
 			"invalidRequest": "Ungültige Anfrage",
 			"monday": "Montag",
@@ -1012,13 +1015,6 @@
 		}
 	},
 	"help": {
-		"contactForm": {
-			"text": {
-				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
-				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
-				"typeNotAllowed": "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
-			}
-		},
 		"headline": {
 			"contactDetails": "Ansprechpartner und Kontaktdaten",
 			"helpSection": "Hilfeartikel",
@@ -1044,10 +1040,7 @@
 	"helpdesk": {
 		"text": {
 			"feedbackError": "Fehler beim Senden des Feedbacks.",
-			"feedbackSuccessful": "Feedback erfolgreich versendet!",
-			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
-			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
-			"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!"
+			"feedbackSuccessful": "Feedback erfolgreich versendet!"
 		}
 	},
 	"home": {
