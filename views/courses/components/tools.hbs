@@ -3,8 +3,15 @@
 		<div class="list-group" data-courseId="{{@root/_id}}">
 			{{#if ltiToolIds}}
 			{{#each ltiToolIds}}
-			<div class="card card-block card-tool locationlink {{#if this.isBBB}} bbbTool {{/if}}" {{#unless this.isBBB}}
-				data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}" {{/unless}}>
+			<div class="card card-block card-tool locationlink {{#if this.isBBB}} bbbTool {{/if}}"
+			{{#unless this.isBBB}}
+				{{#if this.openNewTab}}
+					data-blank="true"
+					data-loclink="{{#if this.isLocal}}{{this.url}}{{else}}/courses/{{@root/_id}}/tools/run/{{this._id}}{{/if}}"
+				{{else}}
+					data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}"
+				{{/if}}
+			{{/unless}}>
 				{{#unless this.isBBB}}
 				<div class="card-title-directory">
 					{{#if logo_url}}
@@ -14,6 +21,10 @@
 					{{/if}}
 
 					<span>{{this.name}}</span>
+
+					{{#if this.openNewTab}}
+						<span style="font-size: 80%;" class="externalLink">({{$t "courses._course.tools.text.opensInNewTab"}})</span>
+					{{/if}}
 
 					{{#if this.isBBB}}
 					<a class="bbbTool-reload-icon">
