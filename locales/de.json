@@ -1115,7 +1115,6 @@
 			"hrefDataName": "deine Abgabe",
 			"importing": "importiere",
 			"importSubmission": "Abgabe des Schülers importieren",
-			"print": "Drucken",
 			"save": "Speichern und Abschicken",
 			"toClass": "Zum Kurs",
 			"toTheCourseFiles": "Zu den Kursdateien"
@@ -1626,8 +1625,7 @@
 			"global": {
 				"button": {
 					"openLogin": "Login öffnen",
-					"sendAndGetStarted": "Absenden & Loslegen",
-					"toPress": "Drucken"
+					"sendAndGetStarted": "Absenden & Loslegen"
 				},
 				"heading": {
 					"almostThere": "Fast geschafft!",
