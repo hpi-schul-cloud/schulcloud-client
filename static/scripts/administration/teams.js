@@ -92,7 +92,7 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($deleteModal, {
 			action: entry,
-			title: $t('administration.teams.headline.deleteTeam'),
+			title: $t('global.headline.delete'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.delete'),
 			fields: {

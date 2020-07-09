@@ -55,7 +55,7 @@ $(document).ready(() => {
 		populateModalForm($terminateSchoolYearModal, {
 			title: $t('administration.school.headline.finishSchoolYear'),
 			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('administration.school.button.yes'),
+			submitLabel: $t('global.button.yes'),
 		});
 		$terminateSchoolYearModal.appendTo('body').modal('show');
 	});

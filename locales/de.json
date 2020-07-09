@@ -105,7 +105,6 @@
 			"changePassword": "Passwort ändern",
 			"consent": "Einwilligungen:",
 			"deleteUser": "Benutzer löschen",
-			"edit": "Bearbeiten",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
@@ -164,9 +163,6 @@
 			}
 		},
 		"school": {
-			"button": {
-				"yes": "Ja"
-			},
 			"headline": {
 				"add": "Hinzufügen",
 				"addPolicy": "Datenschutzerklärung hinzufügen",
@@ -184,7 +180,6 @@
 				"sendMessage": "Absenden"
 			},
 			"headline": {
-				"deleteTeam": "Löschen",
 				"membersInOwnSchool": "Mitglieder an eigener Schule",
 				"messageToTeamOwners": "Neue Nachricht an den/die Team-Eigentümer senden",
 				"newTeamOwner": "Einen zusätzlichen Team-Eigentümer ernennen",
@@ -810,8 +805,6 @@
 			"createANewFolder": "Neuen Ordner erstellen",
 			"descending": "↓ absteigend",
 			"download": "Runterladen",
-			"edit": "Bearbeiten",
-			"open": "Öffnen",
 			"presentation": "Präsentation (pptx)",
 			"search": "Suchen",
 			"selectFormat": "Format auswählen",
@@ -836,7 +829,6 @@
 		"label": {
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
-			"close": "Schließen",
 			"createdAt": "Erstelldatum",
 			"dangerousCode": "Schädlicher Code",
 			"deleteFile": "Datei löschen",
@@ -911,13 +903,12 @@
 			"continue": "Weiter",
 			"create": "Erstellen",
 			"delete": "Löschen",
+			"edit": "Bearbeiten",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
 			"import": "Importieren",
-			"next": "Weiter",
 			"no": "Nein",
 			"open": "Öffnen",
-			"openANewTab": "In neuem Tab öffnen",
 			"print": "Drucken",
 			"reload": "Neu laden",
 			"save": "Speichern",
@@ -934,7 +925,7 @@
 			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
 			"404": "Ups, diese Seite gibt's wohl nicht.",
 			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
-			"requestTimeout" : "Zeitüberschreitung bei dir Anfrage",
+			"requestTimeout" : "Zeitüberschreitung bei der Anfrage",
 			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
 			"pageMoved": "Diese Seite wurde verschoben."
 		},
@@ -1109,8 +1100,6 @@
 			"deleteSubmissionFromList": "löschen",
 			"downloadUngradedFiles": "Dateien unbewerteter Hausaufgaben herunterladen",
 			"editSubmissionFromList": "bearbeiten",
-			"filterAdd": "Filter hinzufügen",
-			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
 			"importing": "importiere",
@@ -1157,7 +1146,6 @@
 			"comment": "Kommentar",
 			"courses": "Kurse",
 			"details": "Details",
-			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"filterCourses": "Kurse: %1",
 			"filterDueDate": "Abgabe vom %1 bis %2",
@@ -1258,9 +1246,6 @@
 			},
 			"heading": {
 				"errorDetails": "Fehler-Details:"
-			},
-			"text": {
-				"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
 			}
 		},
 		"extended_footer": {
@@ -1947,8 +1932,7 @@
 					"roleOfInvitedTeacher": "Rolle des eingeladenen Lehrers",
 					"school": "Schule",
 					"selectRoleForMember": "Gebe ein, welche Rolle der Teilnehmer erhalten soll.",
-					"sendInvitationAgain": "Einladung erneut versenden",
-					"teacher": "Lehrer"
+					"sendInvitationAgain": "Einladung erneut versenden"
 				},
 				"placeholder": {
 					"insertEmail": "E-Mail eingeben",
@@ -1963,16 +1947,13 @@
 					"addedMemberFailure": "Problem beim Hinzufügen der Teilnehmer",
 					"addedMemberSuccess": "Teilnehmer erfolgreich zum Team hinzugefügt",
 					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
-					"admin": "Administrator",
 					"changeRoleOfMember": "Ändere die Rolle des Nutzers:",
 					"errorWhileEditingMember": "Problem beim Bearbeiten des Teilnehmers",
 					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers",
 					"expert": "Externer Experte",
 					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
 					"inviteTeachersAndExpertsByEmail": "Lade Lehrer anderer Schulen und Experten per E-Mail ein.",
-					"leader": "Leiter",
 					"member": "Teilnehmer",
-					"owner": "Eigentümer",
 					"pleaseSelectRole": "Bitte wähle eine Rolle aus.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und Lehrer ihrer Schule zum Team hinzufügen.",
 					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
@@ -2015,7 +1996,6 @@
 			}
 		},
 		"button": {
-			"accept": "Akzeptieren",
 			"createTeam": "Team anlegen",
 			"duplicateTeam": "Team duplizieren",
 			"foundATeam": "Gründe ein Team"
@@ -2051,8 +2031,7 @@
 			"global": {
 				"button": {
 					"addPrivateTask": "private Aufgabe hinzufügen",
-					"addTask": "Aufgabe hinzufügen",
-					"toEdit": "Bearbeiten"
+					"addTask": "Aufgabe hinzufügen"
 				},
 				"heading": {
 					"task": "Aufgabe"

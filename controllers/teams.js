@@ -847,9 +847,9 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const roleTranslations = {
 		teammember: res.$t('teams._team.members.text.member'),
 		teamexpert: res.$t('teams._team.members.text.expert'),
-		teamleader: res.$t('teams._team.members.text.leader'),
-		teamadministrator: res.$t('teams._team.members.text.admin'),
-		teamowner: res.$t('teams._team.members.text.owner'),
+		teamleader: res.$t('global.role.text.leader'),
+		teamadministrator: res.$t('global.role.text.administrator'),
+		teamowner: res.$t('global.role.text.owner'),
 	};
 
 	const head = [
