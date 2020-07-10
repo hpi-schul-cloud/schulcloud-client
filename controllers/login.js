@@ -10,7 +10,6 @@ const { Configuration } = require('@schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
-const userConsentVersions = require('../helpers/consentVersions');
 
 const logger = require('../helpers/logger');
 
@@ -152,28 +151,23 @@ const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
 }).catch(() => undefined); // fixme this is a very bad error catch
 // so we can do proper redirecting and stuff :)
 
-router.get('/login/success', authHelper.authChecker, (req, res, next) => {
+router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 	if (res.locals.currentUser) {
 		const user = res.locals.currentUser;
-
-		if (!({}).hasOwnProperty.call(user, 'consent')) {
-			// user has no consent; create one and try again to get the proper redirect.
-			// TODO: remove consent here, should done by server
-			return api(req).post('/consents/', { json: { userId: user._id } })
-				.then(() => {
-					res.redirect('/login/success');
-				});
-		}
-		const { consent } = user;
 		const redirectUrl = determineRedirectUrl(req);
 		// check consent versions
-		return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
-			if (consent.access && !consentUpdates.haveBeenUpdated) {
-				return res.redirect(redirectUrl);
-			}
-			// make sure fistLogin flag is not set
-			return res.redirect('/firstLogin');
-		});
+		const { haveBeenUpdated, consentStatus } = await api(req)
+			.get(`/consents/${user._id}/check/`, {
+				qs: {
+					simple: true,
+				},
+			});
+
+		if (consentStatus === 'ok' && haveBeenUpdated === false) {
+			return res.redirect(redirectUrl);
+		}
+		// make sure fistLogin flag is not set
+		return res.redirect('/firstLogin');
 	}
 	// if this happens: SSO
 	const { accountId, systemId } = (res.locals.currentPayload || {});
