@@ -15,7 +15,6 @@ const {
 	CALENDAR_SERVICE_ENABLED,
 	ROCKETCHAT_SERVICE_ENABLED,
 	ROCKET_CHAT_URI,
-	FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR_ENABLED,
 	FEATURE_MATRIX_MESSENGER_ENABLED,
 } = require('../config/global');
 
@@ -935,7 +934,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 						'teamowner',
 						'student',
 						'teacher',
-						'administrator'
+						'administrator',
 					],
 				},
 			},
@@ -1063,7 +1062,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				actions = addButtonTrash(actions);
 			}
 			const userRoles = roles.filter((r) => user.userId.roles.find((id) => id === r._id));
-			const canBeTeamAdmin = userRoles.some((role) => role.permissions.some((permission) => permission === 'CAN_BE_TEAM_ADMIN'));
+			const canBeAdmin = userRoles.some((role) => role.permissions.some((perm) => perm === 'CAN_BE_TEAM_ADMIN'));
 			return [
 				user.userId.firstName || '',
 				user.userId.lastName || '',
@@ -1072,7 +1071,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				{
 					payload: {
 						userId: user.userId._id,
-						canBeAdmin: canBeTeamAdmin,
+						canBeAdmin: canBeAdmin,
 					},
 				},
 				actions,
