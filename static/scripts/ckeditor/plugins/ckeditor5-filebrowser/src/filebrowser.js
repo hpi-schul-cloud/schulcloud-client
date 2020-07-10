@@ -2,6 +2,9 @@ import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import imageIcon from '@ckeditor/ckeditor5-core/theme/icons/image.svg';
 
+import audioIcon from '../theme/icons/audio.svg';
+import videoIcon from '../theme/icons/video.svg';
+
 import bootbox from 'bootbox';
 
 export default class FileBrowserPlugin extends Plugin {
@@ -9,7 +12,7 @@ export default class FileBrowserPlugin extends Plugin {
 		const { editor } = this;
 		const { t } = editor;
 
-		editor.ui.componentFactory.add('filebrowser', (locale) => {
+		editor.ui.componentFactory.add('imagebrowser', (locale) => {
 			const view = new ButtonView(locale);
 
 			view.set({
@@ -60,6 +63,30 @@ export default class FileBrowserPlugin extends Plugin {
 						};
 					});
 				});
+			});
+
+			return view;
+		});
+
+		editor.ui.componentFactory.add('videobrowser', (locale) => {
+			const view = new ButtonView(locale);
+
+			view.set({
+				label: t('Insert Video'),
+				icon: videoIcon,
+				tooltip: true,
+			});
+
+			return view;
+		});
+
+		editor.ui.componentFactory.add('audiobrowser', (locale) => {
+			const view = new ButtonView(locale);
+
+			view.set({
+				label: t('Insert Audio'),
+				icon: audioIcon,
+				tooltip: true,
 			});
 
 			return view;

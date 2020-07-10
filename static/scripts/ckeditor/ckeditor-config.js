@@ -29,6 +29,7 @@ import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code';
 
 import FileBrowserPlugin from './plugins/ckeditor5-filebrowser/src/filebrowser';
+import HelpLinkPlugin from './plugins/ckeditor5-helplink/src/helplink';
 
 
 const ckeditorConfig = {
@@ -64,15 +65,19 @@ const ckeditorConfig = {
 		TablePropertiesPlugin,
 		TableToolbarPlugin,
 		UnderlinePlugin,
+		HelpLinkPlugin,
 	],
 	toolbar: [
 		'undo', 'redo', '|',
-		'mediaEmbed', 'filebrowser', 'insertTable', 'horizontalLine', 'specialCharacters', 'link', '|',
 		'heading', '|',
-		'numberedList', 'bulletedList', '|',
-		'blockQuote', 'fontColor', 'fontBackgroundColor',
-		'bold', 'italic', 'underline', 'strikethrough', 'code', 'subscript', 'superscript', '|',
+		'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript',
+		'fontColor', 'fontBackgroundColor',
 		'removeFormat', '|',
+		'blockQuote', 'code', 'horizontalLine', '|',
+		'numberedList', 'bulletedList', '|',
+		'specialCharacters', 'math', 'insertTable', '|',
+		'link', 'imagebrowser', 'videobrowser', 'audiobrowser', 'mediaEmbed', '|',
+		'helplink', '|',
 	],
 	table: {
 		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'],
