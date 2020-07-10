@@ -285,7 +285,7 @@
 			"pleaseContactEither": "Kontaktieren Sie bitte entweder Frau Julia Günther:",
 			"pleaseContactTheFollowingEmailAddress": "Bitte kontaktieren Sie folgende E-Mail-Adresse, um den Registrierungsvorgang zu starten:",
 			"theCentralOfficeForSchools": "Die Zentralstelle für das Auslandsschulwesen (ZfA) unterstützt Sie im Registrierungsprozess.",
-			"youCanGetSupport": "Unterstützung bei der Einarbeitung in die Schul-Cloud und Erstellung erster Inhalte erhalten Sie hier:",
+			"youCanGetSupport": "Unterstützung bei der Einarbeitung in die HPI Schul-Cloud und Erstellung erster Inhalte erhalten Sie hier:",
 			"youWillThenBeGiven": "Ihnen werden dann alle nötigen Infos mitgeteilt, sodass es bald losgehen kann."
 		}
 	},
@@ -1255,7 +1255,7 @@
 			},
 			"text": {
 				"ifYouDontWantToTakeAnyAction": "Solltest du keine Aktion ausführen wollen, schließe bitte diesen Tab in deinem Browser.",
-				"theSchoolCloudWasEmbedded": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren,",
+				"theSchoolCloudWasEmbedded": "Die HPI Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren,",
 				"unfortunatelyTheRequestFailedAgain": "Die Anfrage ist leider erneut fehlgeschlagen. Um mit der Nutzung fortzufahren, lade die Seite bitte neu.",
 				"weCouldNotMakeSureThat": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke auf den Button unten zum erneuten Laden der Seite.",
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
@@ -1442,7 +1442,7 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login mit Schul-Cloud"
+				"loginWithSchoolCloud": "Login mit HPI Schul-Cloud"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",
@@ -1451,7 +1451,7 @@
 				"yourName": "deinen Namen"
 			},
 			"text": {
-				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
+				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der HPI Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
 			}
 		},
 		"popup_resetPw": {
@@ -1483,7 +1483,7 @@
 			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
 			"loginFailedFithHintText": "Hier findest du alle HPI Schul-Could Instanzen:",
 			"loginFailedScreenshot": "Login fehlgeschlagen",
-			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
+			"loginFailedLogoSchulCloud": "Logo HPI Schul-Cloud",
 			"loginFailedLogoBrandenburg": "Logo Brandenburg",
 			"loginFailedLogoTühringen": "Logo Thüringen",
 			"loginFailedLogoNiedersachen": "Logo Niedersachsen",
@@ -1582,9 +1582,9 @@
 		},
 		"response": {
 			"text": {
-				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
+				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der HPI Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
 				"didYouRegisterCorrectly": "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einem Lehrer oder Schuladministrator bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
-				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der Schul-Cloud einzuloggen.",
+				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der HPI Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der HPI Schul-Cloud einzuloggen.",
 				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
 				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
 			}
@@ -1609,7 +1609,7 @@
 		},
 		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
 		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
-		"registationFailedContinue": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
+		"registationFailedContinue": "Die HPI Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
 		"registationFailedContinueLink": "Öffne diese Seite in einem eigenen Fenster",
 		"_registration": {
 			"employee": {
@@ -1726,7 +1726,7 @@
 				"text": {
 					"pleaseConfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{shortTitle}} nutzen kannst.",
 					"useThisDataToSignIn": "Mit folgenden Daten kannst du dich in der {{shortTitle}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.",
-					"youCanNowLogin": "Du kannst dich jetzt in der Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
+					"youCanNowLogin": "Du kannst dich jetzt in der HPI Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
 					"yourSSOAccountDetails": "Deine SSO-Accountdaten sind jetzt freigeschaltet."
 				}
 			},
