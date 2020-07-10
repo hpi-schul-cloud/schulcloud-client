@@ -25,6 +25,11 @@ privacy policy should be confirmed by every school user
 
 ### Removed
 
+## [23.5.3] - 2020-07-10
+
+- SC-5494 Changed link in navigation bar
+- SC-5529 update hpi school-cloud brand name
+
 ## [23.4.4] - 2020-06-18
 
 - fix mocha tests on server
