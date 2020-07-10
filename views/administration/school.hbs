@@ -38,14 +38,14 @@
 					{{#if schoolMaintanance.schoolUsesLdap}}
 					<p>Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit
 						und Personendaten anzupassen.
-						Übernimm abschließend alle Änderungen mit einem Mal in die Schul-Cloud.</p>
+						Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.</p>
 					<p><a class="ldapschoolyearadditionalinfotoggle" href="#">Mehr Infos ></a></p>
 					<div id="ldapschoolyearadditionalinfo">
 						<p>Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen
-							(z.B. Klassenfahrtfotos) zugreifen kann, speichert die Schul-Cloud ab, in welchem Schuljahr
+							(z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr
 							ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus
 							synchronisierten
-							Klassen funktioniert, stellt die Schul-Cloud eine Transferphase zur Verfügung. So ist der
+							Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der
 							Ablauf während eines Schuljahreswechsels:
 						</p>
 						<p class="font-weight-bold">Während des Schuljahres</p>
@@ -75,7 +75,7 @@
 							<li>beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind</li>
 							<li>bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag
 								synchronisiert</li>
-							<li>gleichzeitig läutest Du damit das neue Schuljahr in der Schul-Cloud ein</li>
+							<li>gleichzeitig läutest Du damit das neue Schuljahr in der HPI Schul-Cloud ein</li>
 							<li>die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen
 								im Kontext des alten Schuljahres archiviert</li>
 						</ul>
@@ -221,15 +221,14 @@
 						</div>
 
 						{{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY" "enabled"}}
-							<h2 class="h6 mt-2">Datenschutz-Einstellugen</h2>
+							<h2 class="h6 mt-2">Datenschutz-Einstellungen</h2>
 							<div class="form-group">
 								<label>
 									<input type="checkbox" name="studentVisibility" value="true"
 										{{#if ../studentVisibility}}checked{{/if}}>
 									Sichtbarkeit von Schüler:innen für Lehrkräfte aktivieren <i class="fa fa-eye"></i>
 									<p class="text-muted">
-										Bei Aktivierung sehen Lehrkräfte auch Namen, Geburtsdaten und E-Mail-Adressen von Schüler:innen, mit denen sie bisher nicht in einer Klasse/Kurs/Team sind und können diese selbstständig zu ihren Klassen/Kursen/Teams hinzufügen. Bitte verwende den "Speichern"-Button nach Ändern der Checkbox, um die Einstellung zu übernehmen.
-										</br>ACHTUNG: Aktivierung auf eigene Verantwortung. Aus datenschutzrechtlicher Sicht ist es angeraten, diese Funktion nicht zu aktivieren und sämtliche Kurs-, Klassen - und Teamzuteilungen durch die Rolle Administrator zentral vornehmen zu lassen.
+										Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schülerinnen und Schüler der Schule für jeden Lehrer zu aktivieren, ist es erforderlich, dass jede Schülerin und jeder Schüler wirksam in diese Datenverarbeitung eingewilligt hat.
 									</p>
 								</label>
 							</div>
