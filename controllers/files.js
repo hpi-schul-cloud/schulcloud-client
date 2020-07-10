@@ -585,7 +585,7 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
 	res.render('files/files', Object.assign({
-		title: res.$t('files.headline.files'),
+		title: res.$t('global.headline.files'),
 		path: res.locals.files.path,
 		breadcrumbs,
 		canUploadFile: true,
@@ -627,7 +627,7 @@ router.get('/shared/', (req, res) => {
 		files.files = getFilesWithSaveName(files.files);
 
 		res.render('files/files', Object.assign({
-			title: res.$t('files.headline.files'),
+			title: res.$t('global.headline.files'),
 			path: '/',
 			breadcrumbs: [{
 				label: res.$t('files.label.filesSharedWithMe'),
@@ -658,7 +658,7 @@ router.get('/courses/', (req, res, next) => {
 		}];
 
 		res.render('files/files', {
-			title: res.$t('files.headline.files'),
+			title: res.$t('global.headline.files'),
 			path: getStorageContext(req, res),
 			breadcrumbs,
 			files: [],
@@ -698,7 +698,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
 	res.render('files/files', Object.assign({
-		title: res.$t('files.headline.files'),
+		title: res.$t('global.headline.files'),
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile,
@@ -725,7 +725,7 @@ router.get('/teams/', (req, res, next) => {
 		}];
 
 		res.render('files/files', {
-			title: res.$t('files.headline.files'),
+			title: res.$t('global.headline.files'),
 			path: getStorageContext(req, res),
 			breadcrumbs,
 			teamFiles: true,
@@ -763,7 +763,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
 	res.render('files/files', Object.assign({
-		title: res.$t('files.headline.files'),
+		title: res.$t('global.headline.files'),
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile: true,
@@ -791,7 +791,7 @@ router.get('/classes/', (req, res, next) => {
 		}];
 
 		res.render('files/files', {
-			title: res.$t('files.headline.files'),
+			title: res.$t('global.headline.files'),
 			path: getStorageContext(req, res),
 			breadcrumbs,
 			files: [],
@@ -827,7 +827,7 @@ router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 		files.files = getFilesWithSaveName(files.files);
 
 		res.render('files/files', Object.assign({
-			title: res.$t('files.headline.files'),
+			title: res.$t('global.headline.files'),
 			path: res.locals.files.path,
 			canUploadFile: true,
 			breadcrumbs,

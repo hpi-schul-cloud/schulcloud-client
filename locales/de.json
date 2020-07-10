@@ -395,9 +395,6 @@
 			"global": {
 				"label": {
 					"studentParticipant": "Schüler:in / Teilnehmer:in"
-				},
-				"text": {
-					"more": "Weiteres"
 				}
 			},
 			"groups": {
@@ -479,8 +476,6 @@
 					"posedTasks": "Gestellte Aufgaben",
 					"privateTasks": "Private Aufgaben und Entwürfe",
 					"submittedTasks": "Bearbeitete Aufgaben",
-					"task": "Aufgabe",
-					"tasks": "Aufgaben",
 					"tasksWithSubmissions": "Aufgaben mit Abgaben",
 					"unsubmittedTasks": "Gestellte Aufgaben"
 				},
@@ -712,12 +707,10 @@
 	"dashboard": {
 		"headline": {
 			"myMaterials": "Meine Materialien",
-			"news": "Neuigkeiten",
 			"openTasks": "Gestellte Aufgaben",
 			"poll2Title": "Befragung II im Projekt Schul-Cloud",
 			"privateTasks": "Private Aufgaben und Entwürfe",
 			"schedule": "Stundenplan",
-			"tasks": "Aufgaben",
 			"title": "Übersicht",
 			"withFeedback": "Aufgaben mit Lehrer:innen-Kommentar",
 			"withRequiredFeedback": "Aufgaben mit unkommentierten Abgaben"
@@ -817,7 +810,6 @@
 			"attention": "Achtung",
 			"createNewFile": "Neue Datei erstellen",
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
-			"files": "Dateien",
 			"myFiles": "Meine Dateien",
 			"newFolder": "Neuer Ordner"
 		},
@@ -931,12 +923,21 @@
 		},
 		"headline": {
 			"delete": "Löschen",
-			"edit": "Bearbeiten"
+			"edit": "Bearbeiten",
+			"files": "Dateien",
+			"news": "Neuigkeiten",
+			"task": "Aufgabe",
+			"tasks": "Aufgaben"
+		},
+		"input": {
+			"password": "Passwort"
 		},
 		"label": {
+			"more": "Weiteres",
 			"room": "Raum"
 		},
 		"link": {
+			"imprint": "Impressum",
 			"openInNewTab": "in neuem Tab öffnen"
 		},
 		"role": {
@@ -1139,8 +1140,7 @@
 			"drafts": "Entwürfe",
 			"dueDate": "Abgabedatum",
 			"more": "Mehr",
-			"sorting": "Sortierung",
-			"tasks": "Aufgaben"
+			"sorting": "Sortierung"
 		},
 		"label": {
 			"comment": "Kommentar",
@@ -1194,11 +1194,6 @@
 		}
 	},
 	"imprint": {
-		"global": {
-			"heading": {
-				"imprint": "Impressum"
-			}
-		},
 		"headline": {
 			"imprint": "Impressum"
 		},
@@ -1319,7 +1314,6 @@
 			"link": {
 				"aboutTheProject": "Über das Projekt",
 				"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
-				"imprint": "Impressum",
 				"participate": "Mitmachen",
 				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud"
 			}
@@ -1404,7 +1398,6 @@
 			"emailUsername": "E-Mail / Nutzername",
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
 			"noSystemsAvailable": "Keine Systeme verfügbar",
-			"password": "Passwort",
 			"school": "Schule",
 			"system": "System"
 		},
@@ -1493,7 +1486,6 @@
 			"addNews": "News hinzufügen"
 		},
 		"headline": {
-			"news": "Neuigkeiten",
 			"newsTeam": "Neuigkeiten aus dem Team"
 		},
 		"label": {
@@ -1593,7 +1585,6 @@
 				"input": {
 					"firstName": "Ihren Vornamen hier eingeben",
 					"lastName": "Ihren Nachname hier eingeben",
-					"password": "Passwort",
 					"repeatPassword": "Passwort wiederholen",
 					"teacherEmail": "lehrer@schul-cloud.org",
 					"yourEmailAddress": "Deine E-Mail-Adresse:"
@@ -1739,8 +1730,7 @@
 				"invitationToThe": "Einladung in die"
 			},
 			"link": {
-				"toRegister": "Registrieren",
-				"imprint": "Impressum"
+				"toRegister": "Registrieren"
 			},
 			"text": {
 				"dear": "Sehr geehrte/r",
@@ -1828,7 +1818,6 @@
 				"headline": {
 					"changeFilePermissions": "Freigabe-Einstellungen ändern",
 					"fileActions": "Datei-Aktionen",
-					"files": "Dateien",
 					"folders": "Ordner"
 				},
 				"text": {
@@ -2010,9 +1999,6 @@
 		"img_alt": {
 			"teamOfTeachers": "Team von Lehrern"
 		},
-		"label": {
-			"more": "Weiteres"
-		},
 		"placeholder": {
 			"searchForTeams": "Suche nach Teams"
 		},
@@ -2032,9 +2018,6 @@
 				"button": {
 					"addPrivateTask": "private Aufgabe hinzufügen",
 					"addTask": "Aufgabe hinzufügen"
-				},
-				"heading": {
-					"task": "Aufgabe"
 				}
 			},
 			"heading": {
