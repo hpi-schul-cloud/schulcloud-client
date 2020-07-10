@@ -934,6 +934,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 						'teamadministrator',
 						'teamowner',
 						'student',
+						'teacher',
+						'administrator'
 					],
 				},
 			},
@@ -1060,11 +1062,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 			} else {
 				actions = addButtonTrash(actions);
 			}
-			let userRolesContainsStudent = false;
-			if (FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR_ENABLED) {
-				const userRoles = roles.filter((r) => user.userId.roles.find((id) => id === r._id));
-				userRolesContainsStudent = userRoles.some((role) => role.name === 'student');
-			}
+			const userRoles = roles.filter((r) => user.userId.roles.find((id) => id === r._id));
+			const canBeTeamAdmin = userRoles.some((role) => role.permissions.some((permission) => permission === 'CAN_BE_TEAM_ADMIN'));
 			return [
 				user.userId.firstName || '',
 				user.userId.lastName || '',
@@ -1073,7 +1072,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				{
 					payload: {
 						userId: user.userId._id,
-						canBeAdmin: !userRolesContainsStudent,
+						canBeAdmin: canBeTeamAdmin,
 					},
 				},
 				actions,

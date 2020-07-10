@@ -304,11 +304,6 @@
 			"default": false,
 			"description": "Enables Lern-Store (navigation, route) in app"
 		},
-		"FEATURE_STUDENTS_CANT_BE_TEAM_ADMINISTRATOR_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables to exclude the possibility of assigning the role of team administrator and team owner to a student in teams"
-    },
 		"HELPAREA_URL": {
 			"type": "string",
 			"default": "",
