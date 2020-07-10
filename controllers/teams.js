@@ -1062,7 +1062,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				actions = addButtonTrash(actions);
 			}
 			const userRoles = roles.filter((r) => user.userId.roles.find((id) => id === r._id));
-			const canBeAdmin = userRoles.some((role) => role.permissions.some((perm) => perm === 'CAN_BE_TEAM_ADMIN'));
+			const canBeTeamAdmin = userRoles.some((role) => role.permissions.some((perm) => perm === 'CAN_BE_TEAM_ADMIN'));
 			return [
 				user.userId.firstName || '',
 				user.userId.lastName || '',
@@ -1071,7 +1071,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				{
 					payload: {
 						userId: user.userId._id,
-						canBeAdmin: canBeAdmin,
+						canBeAdmin: canBeTeamAdmin,
 					},
 				},
 				actions,
