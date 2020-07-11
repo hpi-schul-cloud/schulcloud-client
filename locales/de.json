@@ -2080,6 +2080,9 @@
 				"createTopic": "Thema anlegen",
 				"editTopic": "Thema bearbeiten"
 			},
+			"input" : {
+				"countWithPrimeNumbers" : "z.B. Rechnen mit Primzahlen"
+			},
 			"label": {
 				"content": "Inhalte",
 				"titleOfTheTopic": "Titel des Themas"
