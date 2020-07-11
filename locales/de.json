@@ -579,6 +579,9 @@
 				"img_alt": {
 					"noTopics": "Leeres Thema"
 				},
+				"link" :{
+					"geoGebraMaterial" : "GeoGebra Material ({{materialId}}) auf geogebra.org jetzt öffnen"
+				},
 				"text": {
 					"addTopic": "Thema hinzufügen",
 					"addTopicWithNewEditor": "Thema mit neuem Editor hinzufügen (beta)",
@@ -590,6 +593,7 @@
 					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler:innen, um sie zum Kurs einzuladen. Die Schüler:innen müssen dafür angemeldet sein.",
 					"editSortDeleteShareTopicsHere": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-ellipsis-v\"></i>&nbsp;<i class=\"fa fa-ellipsis-v\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
 					"editTopic": "Thema bearbeiten",
+					"externalLinkToGeoGebra" : "Dies ist ein externer Inhalt des Anbieters GeoGebra. Er wird in einem neuen Fenster bzw. Tab geöffnet.",
 					"hideTopic": "Thema verstecken",
 					"importTopic": "Thema importieren",
 					"importTopicAdviseChangeData": "<strong>Achtung:</strong> Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",

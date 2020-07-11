@@ -7,6 +7,8 @@
   </iframe> 
 -->
 <div>
-    <a href="https://geogebra.org/m/{{{content.materialId}}}" class="button"  nofollow target="geogebra">GeoGebra Material ({{{content.materialId}}}) auf geogebra.org jetzt öffnen</a>
-    <p>Dies ist ein externer Inhalt des Anbieters GeoGebra. Er wird in einem neuen Fenster bzw. Tab geöffnet.</p>
+    <a href="https://geogebra.org/m/{{{content.materialId}}}" class="button"  nofollow target="geogebra">
+      {{$t "courses._course.topic.link.geoGebraMaterial" (dict "materialId" content.materialId)}}
+    </a>
+    <p>{{$t "courses._course.topic.text.externalLinkToGeoGebra"}}</p>
 </div>
