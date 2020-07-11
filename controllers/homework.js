@@ -500,7 +500,7 @@ const overview = (titleKey) => (req, res, next) => {
 				const courseList = courses.map((course) => [course._id, course.name]);
 				const filterSettings =						[{
 					type: 'sort',
-					title: res.$t('homework.headline.sorting'),
+					title: res.$t('global.headline.sorting'),
 					displayTemplate: res.$t('homework.label.sortBy'),
 					options: [
 						['createdAt', res.$t('global.label.creationDate')],

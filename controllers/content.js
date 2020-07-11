@@ -12,7 +12,7 @@ router.use(authHelper.authChecker);
 const contentFilterSettings = (res) => [
 	{
 		type: 'sort',
-		title: res.$t('content.headline.sortBy'),
+		title: res.$t('global.headline.sorting'),
 		displayTemplate: res.$t('content.label.sortBy'),
 		options: [
 			['updatedAt', res.$t('content.text.date')],
