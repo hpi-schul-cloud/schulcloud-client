@@ -244,7 +244,6 @@
 			"description": "Beschreibung",
 			"location": "Ort",
 			"of": "Von",
-			"title": "Titel",
 			"to": "Bis"
 		},
 		"text": {
@@ -821,7 +820,6 @@
 		"label": {
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
-			"createdAt": "Erstelldatum",
 			"dangerousCode": "Schädlicher Code",
 			"deleteFile": "Datei löschen",
 			"deleteFolder": "Ordner löschen",
@@ -933,12 +931,16 @@
 			"password": "Passwort"
 		},
 		"label": {
+			"creationDate": "Erstelldatum",
 			"more": "Weiteres",
-			"room": "Raum"
+			"room": "Raum",
+			"title": "Titel"
 		},
 		"link": {
+			"contact": "Kontakt",
 			"imprint": "Impressum",
-			"openInNewTab": "in neuem Tab öffnen"
+			"openInNewTab": "in neuem Tab öffnen",
+			"register": "Registrieren"
 		},
 		"role": {
 			"text": {
@@ -1048,8 +1050,7 @@
 				"blog": "Blog",
 				"faq": "FAQ",
 				"firstSteps": "Erste Schritte",
-				"login": "Login",
-				"register": "Registrieren"
+				"login": "Login"
 			}
 		},
 		"headline": {
@@ -1117,7 +1118,6 @@
 				"maximumGroupSize": "maximale Gruppengröße:",
 				"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
 				"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
-				"title": "Titel",
 				"topic": "Thema",
 				"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
 			},
@@ -1164,7 +1164,6 @@
 			"selectTeamMembers": "Teammitglieder auswählen",
 			"sortBy": "Sortieren nach: %1",
 			"sortByAvailabilityDate": "Verfügbarkeitsdatum",
-			"sortByCreationDate": "Erstelldatum",
 			"sortByDueDate": "Abgabedatum",
 			"sortByLastUpdate": "letzte Aktualisierung",
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
@@ -1256,11 +1255,6 @@
 			},
 			"text": {
 				"weAreHiring": "Du möchtest gerne Mitglied in unserem <span style='white-space: nowrap;'>HPI Schul-Cloud</span> Team werden? Wir suchen:"
-			}
-		},
-		"footer": {
-			"link": {
-				"contact": "Kontakt"
 			}
 		},
 		"form_auto_logout": {
@@ -1491,8 +1485,7 @@
 		"label": {
 			"content": "Inhalt",
 			"scheduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
-			"searchForNews": "Suche nach Neuigkeiten",
-			"title": "Titel"
+			"searchForNews": "Suche nach Neuigkeiten"
 		},
 		"text": {
 			"atSchool": "an der Schule",
@@ -1721,16 +1714,8 @@
 			}
 		},
 		"registration_template": {
-			"global": {
-				"link": {
-					"contact": "Kontakt"
-				}
-			},
 			"heading": {
 				"invitationToThe": "Einladung in die"
-			},
-			"link": {
-				"toRegister": "Registrieren"
 			},
 			"text": {
 				"dear": "Sehr geehrte/r",

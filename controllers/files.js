@@ -239,7 +239,7 @@ const FileGetter = (req, res, next) => {
 		};
 		res.locals.sortOptions = [
 			{
-				label: res.$t('files.label.createdAt'),
+				label: res.$t('global.label.creationDate'),
 				value: 'createdAt',
 			},
 			{

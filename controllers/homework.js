@@ -503,7 +503,7 @@ const overview = (titleKey) => (req, res, next) => {
 					title: res.$t('homework.headline.sorting'),
 					displayTemplate: res.$t('homework.label.sortBy'),
 					options: [
-						['createdAt', res.$t('homework.label.sortByCreationDate')],
+						['createdAt', res.$t('global.label.creationDate')],
 						['updatedAt', res.$t('homework.label.sortByLastUpdate')],
 						['availableDate', res.$t('homework.label.sortByAvailabilityDate')],
 						['dueDate', res.$t('homework.label.sortByDueDate')],
