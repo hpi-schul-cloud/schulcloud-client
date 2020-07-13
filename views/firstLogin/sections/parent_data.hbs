@@ -1,6 +1,6 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
   <h2 class="h4">{{$t "firstLogin.parent.heading.yourData" }}</h2>
-  <p>{{$t "firstLogin.parent.global.text.forStudentsUnder" }} {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} {{$t "firstLogin.parent.text.aParentOrLegalGuardianMystUse" }} {{@root.theme.short_title}} {{$t "firstLogin.parent.text.toConsent" }}</p>
+  <p>{{$t "firstLogin.parent.global.text.forStudentsUnder" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS, "shortTitle" @root.theme.short_title)}}</p>
   <p>{{$t "firstLogin.parent.text.forThisWeNeedTheFollowingInformationFromYou" }}</p>
   <div class="row">
     <div class="form-group col-md-6 col-sm-12">

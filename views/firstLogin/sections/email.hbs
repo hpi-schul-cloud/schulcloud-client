@@ -7,5 +7,5 @@
         <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" value="{{@root.currentUser.email}}" readonly required>
     </div>
   </div>
-  <p>{{$t "firstLogin.email.text.ifTheEmailAddressIsNotTheCorrectOne" }} {{@root.theme.short_title}}-Administrator.</p>
+  <p>{{$t "firstLogin.email.text.ifTheEmailAddressIsNotTheCorrectOne" (dict "shortTitle" @root.theme.short_title)}}</p>
 </section>
