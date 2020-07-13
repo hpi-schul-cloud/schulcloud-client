@@ -601,7 +601,7 @@ class TopicResources extends TopicBlock {
             let isCourseGroupTopic = $contentBlocksContainer.data('iscoursegroup') !== undefined;
             // open content search popup
             const resourcePopup = window.open('/content/?inline=1&isCourseGroupTopic=' + isCourseGroupTopic, "content-search",
-				`width=${screen.width}, height=${screen.height}, fullscreen=yes, toolbar=no, location=no, directories=no, status=no, scrollbars=yes, resizable=yes`);
+				`width=${screen.availWidth}, height=${screen.availHeight}, fullscreen=yes, toolbar=no, location=no, directories=no, status=no, scrollbars=yes, resizable=yes`);
             resourcePopup.focus();
         } else {
             window.addResource(resource);
