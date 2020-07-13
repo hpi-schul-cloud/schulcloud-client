@@ -1772,7 +1772,7 @@
 		},
 		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
 		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
-		"registationFailedContinue": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
+		"registationFailedContinue": "Die HPI Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
 		"registationFailedContinueLink": "Öffne diese Seite in einem eigenen Fenster",
 		"registration_template": {
 			"global": {
