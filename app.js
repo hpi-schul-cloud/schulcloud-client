@@ -144,6 +144,8 @@ app.use(session({
 	saveUninitialized: true,
 	resave: false,
 	secret: Configuration.get('COOKIE_SECRET'), // Secret used to sign the session ID cookie
+	sameSite: Configuration.get('COOKIE__SAME_SITE'), // restrict jwt access to our domain ressources only
+	secure: Configuration.get('COOKIE__SECURE'),
 }));
 
 // CSRF middlewares
