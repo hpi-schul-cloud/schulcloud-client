@@ -84,7 +84,7 @@ $(document).ready(() => {
 		populateModalForm($createEventModal, {
 			title: $t('teams._team.events.headline.addDate'),
 			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('teams._team.events.button.add'),
+			submitLabel: $t('global.button.add'),
 			fields: {
 				startDate,
 				endDate,

@@ -2,16 +2,16 @@ const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
 const Nexboard = require('nexboard-api-js');
+const { randomBytes } = require('crypto');
+const { Configuration } = require('@schul-cloud/commons');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
 const { EDTR_SOURCE } = require('../config/global');
-const { randomBytes } = require('crypto');
 
 const router = express.Router({ mergeParams: true });
 
-const { Configuration } = require('@schul-cloud/commons');
 const {
 	NEXBOARD_USER_ID,
 	NEXBOARD_API_KEY,
@@ -43,9 +43,13 @@ const editTopicHandler = (req, res, next) => {
 		res.render('topic/edit-topic', {
 			action,
 			method,
-			title: req.params.topicId ? 'Thema bearbeiten' : 'Thema anlegen',
-			submitLabel: req.params.topicId ? 'Änderungen speichern' : 'Thema anlegen',
-			closeLabel: 'Abbrechen',
+			title: req.params.topicId
+				? res.$t('topic._topic.headline.editTopic')
+				: res.$t('topic._topic.headline.createTopic'),
+			submitLabel: req.params.topicId
+				? res.$t('global.button.saveChanges')
+				: res.$t('topic._topic.button.createTopic'),
+			closeLabel: res.$t('global.button.cancel'),
 			lesson,
 			courseId: req.params.courseId,
 			topicId: req.params.topicId,
@@ -369,7 +373,7 @@ router.get('/:topicId', (req, res, next) => {
 			courseId: req.params.courseId,
 			isCourseGroupTopic: courseGroup._id !== undefined,
 			breadcrumb: [{
-				title: res.$t("courses.headline.myCourses"),
+				title: res.$t('courses.headline.myCourses'),
 				url: `/${context}`,
 			},
 			{
