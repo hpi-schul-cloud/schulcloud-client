@@ -22,6 +22,18 @@ privacy policy should be confirmed by every school user
 
 ### Removed
 
+## [23.5.3] - 2020-07-10
+
+- SC-5494 Changed link in navigation bar
+- SC-5529 update hpi school-cloud brand name
+
+## [23.4.4] - 2020-06-18
+
+- fix mocha tests on server
+
+## [23.4.3] - 2020-06-17
+
+- SC-5048 Temporarily disables Portfolio for NBC by removal of link to portfolio in add-ons.
 
 ## [23.1.2] - 2020-06-02
 
