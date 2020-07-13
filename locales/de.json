@@ -31,7 +31,7 @@
         },
         "text": {
             "browserNotSupported": "Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen:",
-            "moreInfo": "Mehr Informationen:",
+            "moreInfo": "Mehr Infos",
             "startA2019": "(Start August 2019)",
             "startF2019": "(Start Februar 2019)",
             "startM2017": "(Start März 2017)",
@@ -190,7 +190,7 @@
         "form_InvitationStudent": {
             "text": {
 				"studentUnderYears": "Schüler unter {{age}} Jahre:",
-                "beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
+                "beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der HPI Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
                 "studentsFromYears": "Schüler ab {{age}} Jahre:",
                 "theParents": "die Eltern",
                 "toTheStudentsThemselves": "an die Schüler selbst "
@@ -306,7 +306,7 @@
         },
         "label": {
             "messageText": "Nachrichtentext:",
-            "toInviteToTheSchoolCloud": "Um in die Schul-Cloud einzuladen, verteile folgenden Link an:",
+            "toInviteToTheSchoolCloud": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:",
             "use": "Nutzung"
         },
         "ldapEdit": {
@@ -330,7 +330,7 @@
                 "domainName_pathInLDAP": "Domainname (Pfad im LDAP)",
                 "fullPathClassUsers": "Nutzer der Klasse mit vollem Pfad",
                 "hide": "Ausblenden",
-                "noSchoolCloud": "keine Schul-Cloud",
+                "noSchoolCloud": "keine HPI Schul-Cloud",
                 "role": "Rolle",
                 "roleType": "Rollen-Typ",
                 "rolesAttributes": "Rollen-Attribute",
@@ -423,7 +423,7 @@
                 "allDone": "Alles erledigt!",
                 "atTheEndOfTheSchoolYearWithLDAP": "Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
                 "atTheEndOfTheTransferPhase": "bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag synchronisiert",
-                "backgroundSoThatEveryStudentAndTeacher": "Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen (z.B. Klassenfahrtfotos) zugreifen kann, speichert die Schul-Cloud ab, in welchem Schuljahr ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
+                "backgroundSoThatEveryStudentAndTeacher": "Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen(z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
                 "coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
                 "doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
                 "ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.",
@@ -442,7 +442,7 @@
                 "theNewClassesCanNowBeAssigned": "die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden",
                 "theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der",
                 "thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
-                "useTheTransferPhaseAroundTheSchoolYear": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die Schul-Cloud.",
+                "useTheTransferPhaseAroundTheSchoolYear": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.",
                 "withThePreparationTimeOneWeekBefore": "mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
                 "youCanStartTheTransferPhase": "ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten",
                 "yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule"
