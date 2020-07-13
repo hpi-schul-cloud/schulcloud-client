@@ -19,7 +19,7 @@
     {{#if @root.updatedConsents.haveBeenUpdated}}
 
     {{#each @root.updatedConsents.all.data}}
-    <h2 class="h4">{{$t "firstLogin.consent.heading.summaryOfTheExtension" }} {{this.visualType}}</a> {{$t "firstLogin.consent.heading.toThe" }}
+    <h2 class="h4">{{$t "firstLogin.consent.heading.summaryOfTheExtension" (dict "visualType" this.visualType)}}</a> {{$t "firstLogin.consent.heading.toThe" }}
       {{dateToPicker this.publishedAt}}</h2>
     <div class='privacyStatement card'>
       <div class="card-header">
