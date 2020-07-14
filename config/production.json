@@ -3,5 +3,6 @@
 	"COOKIE": {
 		"HOST_ONLY": true,
 		"SECURE": true
-	}
+	},
+	"LERNSTORE_MODE": "LEGACY"
 }

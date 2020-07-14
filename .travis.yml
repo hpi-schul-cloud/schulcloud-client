@@ -14,6 +14,7 @@ env:
     - BACKEND_URL=http://localhost:3030
     - PUBLIC_BACKEND_URL=http://localhost:3030
     - FEATURE_TEAMS_ENABLED=true
+    - LERNSTORE_MODE=LEGACY
     - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 stages:
   - name: Test
