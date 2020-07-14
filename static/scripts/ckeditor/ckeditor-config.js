@@ -31,6 +31,72 @@ import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import FileBrowserPlugin from './plugins/ckeditor5-filebrowser/src/filebrowser';
 import HelpLinkPlugin from './plugins/ckeditor5-helplink/src/helplink';
 
+// Material Design Colors: https://materialuicolors.co/
+const fontColors = [
+	{
+		color: '#F44336',
+	},
+	{
+		color: '#E91E63',
+	},
+	{
+		color: '#9C27B0',
+	},
+	{
+		color: '#673AB7',
+	},
+	{
+		color: '#3F51B5',
+	},
+	{
+		color: '#2196F3',
+	},
+	{
+		color: '#03A9F4',
+	},
+	{
+		color: '#00BCD4',
+	},
+	{
+		color: '#009688',
+	},
+	{
+		color: '#4CAF50',
+	},
+	{
+		color: '#8BC34A',
+	},
+	{
+		color: '#CDDC39',
+	},
+	{
+		color: '#FFEB3B',
+	},
+	{
+		color: '#FFC107',
+	},
+	{
+		color: '#FF9800',
+	},
+	{
+		color: '#FF5722',
+	},
+	{
+		color: '#795548',
+	},
+	{
+		color: '#9E9E9E',
+	},
+	{
+		color: '#607D8B',
+	},
+	{
+		color: '#000000',
+	},
+	{
+		color: '#FFFFFF',
+	},
+];
 
 const ckeditorConfig = {
 	language: 'de',
@@ -79,6 +145,12 @@ const ckeditorConfig = {
 		'link', 'imagebrowser', 'videobrowser', 'audiobrowser', 'mediaEmbed', '|',
 		'helplink', '|',
 	],
+	fontColor: {
+		colors: fontColors,
+	},
+	fontBackgroundColor: {
+		colors: fontColors,
+	},
 	table: {
 		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'],
 	},
