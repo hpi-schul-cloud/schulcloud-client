@@ -31,7 +31,7 @@
         },
         "text": {
             "browserNotSupported": "Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen:",
-            "moreInfo": "Mehr Infos",
+            "moreInfo": "Mehr Informationen:",
             "startA2019": "(Start August 2019)",
             "startF2019": "(Start Februar 2019)",
             "startM2017": "(Start März 2017)",
@@ -103,6 +103,13 @@
     },
     "administration": {
         "button": {
+			"changePassword": "Passwort ändern",
+			"consent": "Einwilligungen:",
+			"deleteUser": "Benutzer löschen",
+			"edit": "Bearbeiten",
+			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
+			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
+			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden",
             "printListWithAccessData": "Liste mit Zugangsdaten drucken"
         },
         "classes": {
@@ -115,8 +122,12 @@
                 "printLinkWithQRCode": "Link mit QR-Code Drucken",
                 "transfer": "versetzen",
                 "transferClassToTheNextSchoolYear": "Klasse ins nächste Schuljahr versetzen"
-            },
+			},
+			"headline": {
+				"importClass": "Klasse importieren"
+			},
             "label": {
+				"class": "Klasse:",
                 "addStudentFromPreviousYearClass": "Schüler:in aus Vorjahresklasse hinzufügen",
                 "className": "Klassenbezeichnung",
                 "filterBySchoolYear": "Nach Schuljahr filtern",
@@ -133,6 +144,8 @@
                 "yourStudentsAreNotYetInThe": "Deine Schüler:innen sind noch nicht in der"
             },
             "text": {
+				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
+				"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden",
                 "andTo": "und zur",
                 "attentionIfYouChangeTheSchoolYear": "Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.",
                 "butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
@@ -239,6 +252,8 @@
         },
         "global": {
             "button": {
+				"mailsAreBeingSent": "E-Mails werden gesendet...",
+				"printSheetIsBeingGenerated": "Druckbogen wird generiert...",
                 "addCourse": " Kurs hinzufügen",
                 "addNewAppoinment": "Neuen Termin hinzufügen",
                 "contactSupport": "Support kontaktieren",
@@ -280,6 +295,10 @@
                 "weekday": "Wochentag"
             },
             "text": {
+				"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
+				"errorSendingMails": "Fehler beim Senden der Erinnerungs-E-Mails",
+				"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
+				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet",
                 "areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
                 "byConnectingToASchoolState": "Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{shortTitle}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
                 "chatIsActivated": "Chat ist aktiviert",
@@ -380,7 +399,8 @@
                 "chooseAFile": "Datei auswählen",
                 "endSchoolYear": "Schuljahr beenden",
                 "endTransferPhase": "Transferphase beenden",
-                "save": "Speichern",
+				"save": "Speichern",
+				"yes": "Ja",
                 "start": "starten"
             },
             "label": {
@@ -493,13 +513,27 @@
         },
         "teams": {
             "button": {
-                "addAnotherOwner": "Weiteren Eigentümer hinzufügen"
-            },
+				"addAnotherOwner": "Weiteren Eigentümer hinzufügen",
+				"appointTeamOwner": "Ernennen",
+				"discardMessage": "Verwerfen",
+				"removeAllMembers": "Alle Mitglieder entfernen",
+				"sendMessage": "Absenden"
+			},
+			"headline": {
+				"deleteTeam": "Löschen",
+				"membersInOwnSchool": "Mitglieder an eigener Schule",
+				"messageToTeamOwners": "Neue Nachricht an den/die Team-Eigentümer senden",
+				"newTeamOwner": "Einen zusätzlichen Team-Eigentümer ernennen",
+				"removeSchoolFromTeam": "Schule aus Team entfernen",
+				"schools": "Schulen"
+			},
             "label": {
                 "selectAnAdditionalOwner": "Wähle hier einen zusätzlichen Eigentümer für das Team aus:",
                 "studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen."
             },
             "text": {
+				"noParticipants": "Keine Teilnehmer",
+				"noSchools": "Keine Schulen",
                 "includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
                 "legend": "Legende:",
                 "teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
@@ -2443,5 +2477,5 @@
                 "distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
             }
         }
-    }
+	}
 }
