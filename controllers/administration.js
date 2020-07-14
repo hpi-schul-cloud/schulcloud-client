@@ -320,9 +320,7 @@ const generateRegistrationLink = (params, internalReturn) => function registrati
 		.catch((err) => {
 			req.session.notification = {
 				type: 'danger',
-				message: `Fehler beim Erstellen des Registrierungslinks.
-          Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.
-          ${(err.error || {}).message || err.message || err || ''}`,
+				message: res.$t('administration.controller.text.errorCreatingRegistrationLink', {"errMessage": (err.error || {}).message || err.message || err || ''}),
 			};
 			redirectHelper.safeBackRedirect(req, res);
 		});
@@ -352,17 +350,10 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 			.post('/mails/', {
 				json: {
 					email: user.email,
-					subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
+					subject: res.$t('administration.controller.text.invitationToUseThe', {title: res.locals.theme.title}),
 					headers: {},
 					content: {
-						text: `Einladung in die ${res.locals.theme.title}
-Hallo ${user.firstName} ${user.lastName}!
-\nDu wurdest eingeladen, der ${
-	res.locals.theme.title
-} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${user.shortLink
-							|| res.locals.linkData.shortLink}
-\nViel Spaß und einen guten Start wünscht dir dein
-${res.locals.theme.short_title}-Team`,
+						text: res.$t('administration.controller.text.invitationToThe', {title: res.locals.theme.title, firstName: user.firstName, lastName: user.lastName, shortLink: user.shortLink || res.locals.linkData.shortLink, shortTitle: res.locals.theme.short_title}),
 					},
 				},
 			})
@@ -379,9 +370,7 @@ ${res.locals.theme.short_title}-Team`,
 				if (internalReturn) return false;
 				req.session.notification = {
 					type: 'danger',
-					message: `Nutzer erstellt. Fehler beim Versenden der E-Mail.
-            Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.
-            ${(err.error || {}).message || err.message || err || ''}`,
+					message: res.$t('administration.controller.text.userCreatedErrorSendingTheMail', {"errMessage": (err.error || {}).message || err.message || err || ''}),
 				};
 				return redirectHelper.safeBackRedirect(req, res);
 			});
@@ -452,8 +441,7 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 			if (internalReturn) return false;
 			req.session.notification = {
 				type: 'danger',
-				message: `Fehler beim Erstellen des Nutzers. ${err.error.message
-					|| ''}`,
+				message: res.$t('administration.controller.text.failedToCreateUser', {"error": err.error.message || ''}),
 			};
 			return redirectHelper.safeBackRedirect(req, res);
 		});
@@ -1559,9 +1547,7 @@ Ohne diese kannst du die HPI Schul-Cloud leider nicht nutzen.
 Melde dich bitte mit deinen Daten an,
 um die Einverständniserklärung zu akzeptieren um die HPI Schul-Cloud im vollen Umfang nutzen zu können.
 
-Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${
-	user.registrationLink.shortLink
-}</a>, und melde dich an.`,
+Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${user.registrationLink.shortLink}</a>, und melde dich an.`,
 				};
 
 				const json = {
