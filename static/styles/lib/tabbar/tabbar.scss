@@ -8,6 +8,7 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
+    border-bottom: 2px solid $colorLightGrey;
 
     .tab {
       display: block;
@@ -38,7 +39,7 @@
 
     .indicator {
       position: absolute;
-      bottom: 5px;
+      bottom: -2px;
       height: 3px;
       background: $primaryColor;
     }
