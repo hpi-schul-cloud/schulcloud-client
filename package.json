@@ -60,6 +60,7 @@
 		"acorn": "^6.4.1",
 		"body-parser": "^1.19.0",
 		"bootbox": "^5.4.0",
+		"ckeditor5-math": "^20.0.0",
 		"compression": "^1.6.2",
 		"connect-redis": "^4.0.3",
 		"cookie-parser": "~1.4.3",

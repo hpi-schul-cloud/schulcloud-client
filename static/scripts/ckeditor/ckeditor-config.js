@@ -1,7 +1,7 @@
-// import MathPlugin from 'ckeditor5-math/src/math';
 import AutoformatPlugin from '@ckeditor/ckeditor5-autoformat/src/autoformat';
 import BlockQuotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold';
+import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code';
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials';
 import FontPlugin from '@ckeditor/ckeditor5-font/src/font';
 import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading';
@@ -12,6 +12,7 @@ import IndentPlugin from '@ckeditor/ckeditor5-indent/src/indent';
 import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
 import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
 import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
+import MathPlugin from 'ckeditor5-math/src/math';
 import MediaEmbedPlugin from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
 import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
@@ -26,7 +27,6 @@ import TablePlugin from '@ckeditor/ckeditor5-table/src/table';
 import TablePropertiesPlugin from '@ckeditor/ckeditor5-table/src/tableproperties';
 import TableToolbarPlugin from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline';
-import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code';
 
 import FileBrowserPlugin from './plugins/ckeditor5-filebrowser/src/filebrowser';
 import HelpLinkPlugin from './plugins/ckeditor5-helplink/src/helplink';
@@ -35,7 +35,6 @@ import HelpLinkPlugin from './plugins/ckeditor5-helplink/src/helplink';
 const ckeditorConfig = {
 	language: 'de',
 	plugins: [
-		// MathPlugin,
 		AutoformatPlugin,
 		BlockQuotePlugin,
 		BoldPlugin,
@@ -44,6 +43,7 @@ const ckeditorConfig = {
 		FileBrowserPlugin,
 		FontPlugin,
 		HeadingPlugin,
+		HelpLinkPlugin,
 		HorizontalLinePlugin,
 		ImagePlugin,
 		ImageResizePlugin,
@@ -51,6 +51,7 @@ const ckeditorConfig = {
 		ItalicPlugin,
 		LinkPlugin,
 		ListPlugin,
+		MathPlugin,
 		MediaEmbedPlugin,
 		ParagraphPlugin,
 		PasteFromOfficePlugin,
@@ -65,7 +66,6 @@ const ckeditorConfig = {
 		TablePropertiesPlugin,
 		TableToolbarPlugin,
 		UnderlinePlugin,
-		HelpLinkPlugin,
 	],
 	toolbar: [
 		'undo', 'redo', '|',
@@ -84,7 +84,7 @@ const ckeditorConfig = {
 	},
 	math: {
 		engine: 'mathjax',
-		outputType: 'script',
+		outputType: 'span',
 		forceOutputType: false,
 		enablePreview: true,
 	},
