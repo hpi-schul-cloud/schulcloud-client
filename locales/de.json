@@ -78,7 +78,7 @@
 			},
 			"text": {
 				"hint": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
-				"teamInvitationsdisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
+				"teamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
 				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
 			}
 		},
@@ -136,7 +136,6 @@
 		},
 		"label": {
 			"assignPassword": "Passwort vergeben:",
-			"birthdate": "Geburtsdatum:",
 			"classes": "Klassen:",
 			"dataProtection": "Datenschutz",
 			"emailAddress": "E-Mail-Adresse:",
@@ -938,6 +937,7 @@
 		},
 		"label": {
 			"creationDate": "Erstelldatum",
+			"dateOfBirth": "Geburtsdatum:",
 			"more": "Weiteres",
 			"room": "Raum",
 			"title": "Titel"
@@ -1597,7 +1597,6 @@
 					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
 				},
 				"label": {
-					"birthDate": "Geburtsdatum:",
 					"eMail": "E-Mail:",
 					"emailAddress": "E-Mail-Adresse:",
 					"firstName": "Vorname:",
