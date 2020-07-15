@@ -1256,13 +1256,13 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		.then(() => {
 			req.session.notification = {
 				type: 'success',
-				message: res.$t('teams._team.text.invitationAcceptedSuccess'),
+				message: res.$t('teams._team.text.invitationSuccessfullyAccepted'),
 			};
 			res.redirect(`/teams/${req.params.teamId}`);
 		})
 		.catch((err) => {
 			logger.warn(
-				res.$t('teams._team.text.invitationAcceptionFailed'),
+				res.$t('teams._team.text.errorAcceptingInvitation'),
 				err,
 			);
 			res.redirect(`/teams/${req.params.teamId}`);

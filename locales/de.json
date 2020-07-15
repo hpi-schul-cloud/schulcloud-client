@@ -1950,8 +1950,8 @@
 				"news": "Neuigkeiten"
 			},
 			"text": {
-				"invitationAcceptedSuccess": "Teameinladung erfolgreich angenommen.",
-				"invitationAcceptionFailed": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
+				"errorAcceptingInvitation": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
+				"invitationSuccessfullyAccepted": "Teameinladung erfolgreich angenommen.",
 				"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
 				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
