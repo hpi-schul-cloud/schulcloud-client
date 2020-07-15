@@ -482,7 +482,6 @@
 				},
 				"text": {
 					"addPrivateTask": "private Aufgabe hinzufügen",
-					"addTasks": "Aufgabe hinzufügen",
 					"descriptionTasks": "Kursteilnehmer:innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
 					"moreArchivedLinkLabel": "mehr archivierte Aufgaben...",
 					"showPrivateTasks": "Private Aufgaben ein/ausklappen"
@@ -889,6 +888,7 @@
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
+			"addTask": "Aufgabe hinzufügen",
 			"back": "Zurück",
 			"cancel": "Abbrechen",
 			"clickHere": "Hier klicken",
@@ -1101,7 +1101,6 @@
 			}
 		},
 		"button": {
-			"addTask": "Aufgabe hinzufügen",
 			"archive": "Archivieren",
 			"copy": "Kopieren",
 			"copySubmissionFromList": "kopieren",
@@ -1149,7 +1148,6 @@
 		},
 		"label": {
 			"comment": "Kommentar",
-			"courses": "Kurse",
 			"details": "Details",
 			"dontShowAgain": "Nicht mehr anzeigen",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
@@ -2000,8 +1998,7 @@
 			},
 			"global": {
 				"button": {
-					"addPrivateTask": "private Aufgabe hinzufügen",
-					"addTask": "Aufgabe hinzufügen"
+					"addPrivateTask": "private Aufgabe hinzufügen"
 				}
 			},
 			"heading": {
@@ -2017,7 +2014,6 @@
 				"countWithPrimeNumbers": "z.B. Rechnen mit Primzahlen"
 			},
 			"label": {
-				"addTask": "Aufgabe hinzufügen",
 				"addPrivateTask": "private Aufgabe hinzufügen",
 				"expandTasks": "gestellte Aufgaben ein/ausklappen",
 				"expandPrivateTasks": "Private Aufgaben ein/ausklappen",
