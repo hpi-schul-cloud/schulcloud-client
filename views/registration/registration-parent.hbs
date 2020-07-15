@@ -26,12 +26,12 @@
         <p>{{$t "registration._registration.parent.text.weNeedFollowingDataOfChild" (dict "shortTitle" theme.short_title)}}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>{{$t "registration._registration.global.label.firstName" }} <sup>*</sup></label>
+            <label>{{$t "global.label.firstName" }} <sup>*</sup></label>
             <input class="form-control linked" name="firstName" type="text" placeholder="{{$t "registration._registration.parent.input.completeFirstName"}}"
               value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}} />
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>{{$t "registration._registration.global.label.lastName" }}<sup>*</sup></label>
+            <label>{{$t "global.label.lastName" }}<sup>*</sup></label>
             <input class="form-control linked" name="lastName" type="text"  placeholder="{{$t "registration._registration.parent.input.lastName"}}"
               value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
           </div>
@@ -62,11 +62,11 @@
         <p>{{$t "registration._registration.parent.text.forThisWeNeedFollowing" }}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>{{$t "registration._registration.global.label.firstName" }}<sup>*</sup></label>
+            <label>{{$t "global.label.firstName" }}<sup>*</sup></label>
             <input class="form-control linked" name="parent_firstName" type="text" placeholder="{{$t "registration._registration.parent.input.yourFirstName"}}" required/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>{{$t "registration._registration.global.label.lastName" }} <sup>*</sup></label>
+            <label>{{$t "global.label.lastName" }} <sup>*</sup></label>
             <input class="form-control linked" name="parent_lastName" type="text" placeholder="{{$t "registration._registration.parent.input.yourLastName"}}" required/>
           </div>
         </div>
@@ -115,8 +115,8 @@
             <div class="print">
               <div class="recap">
                 <!--<p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>-->
-                <p>{{$t "registration._registration.global.label.eMail"}} <i data-from="email"></i></p>
-                <p>{{$t "registration._registration.global.text.password" }} <i class="student-password">{{password}}</i></p>
+                <p>{{$t "global.label.emailAddress"}} <i data-from="email"></i></p>
+                <p>{{$t "global.label.password" }} <i class="student-password">{{password}}</i></p>
               </div>
               <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
                 <i class="fa fa-print"></i> {{$t "global.button.print" }}

@@ -138,9 +138,6 @@
 			"assignPassword": "Passwort vergeben:",
 			"classes": "Klassen:",
 			"dataProtection": "Datenschutz",
-			"emailAddress": "E-Mail-Adresse:",
-			"firstName": "Vorname:",
-			"lastName": "Nachname:",
 			"parents": "Eltern",
 			"student": "Schüler:in",
 			"termsOfUse": "Nutzung"
@@ -938,7 +935,11 @@
 		"label": {
 			"creationDate": "Erstelldatum",
 			"dateOfBirth": "Geburtsdatum:",
+			"emailAddress": "E-Mail-Adresse:",
+			"firstName": "Vorname:",
+			"lastName": "Nachname:",
 			"more": "Weiteres",
+			"password": "Passwort:",
 			"room": "Raum",
 			"title": "Titel"
 		},
@@ -1326,14 +1327,13 @@
 				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
 			"input": {
-				"password": "Passwort:",
 				"userName": "Benutzername:"
 			},
 			"link": {
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
 				"helpArea": "Hilfebereich",
 				"sendRequestOrProblem": "Wunsch oder Problem senden",
-				"Fortbildungen": "Fortbildungen"
+				"training": "Fortbildungen"
 			}
 		},
 		"ldap_info": {
@@ -1357,7 +1357,7 @@
 		},
 		"table": {
 			"option": {
-				"numberofEntries": "Anzahl der Einträge"
+				"numberOfEntries": "Anzahl der Einträge"
 			}
 		}
 	},
@@ -1576,7 +1576,6 @@
 					"yourEmailAddress": "Deine E-Mail-Adresse:"
 				},
 				"label": {
-					"password": "Passwort:",
 					"repeatPassword": "Passwort wiederholen:"
 				},
 				"text": {
@@ -1595,10 +1594,6 @@
 					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
 				},
 				"label": {
-					"eMail": "E-Mail:",
-					"emailAddress": "E-Mail-Adresse:",
-					"firstName": "Vorname:",
-					"lastName": "Nachname:",
 					"studentEmailAddress": "E-Mail-Adresse des Schülers:",
 					"studentsDateOfBirth": "Geburtsdatum des Schülers:",
 					"yourEmailAddress": "Ihre E-Mail-Adresse:"
@@ -1609,7 +1604,6 @@
 					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
 					"inCaseOfRevocationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a> entnehmen.",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
-					"password": "Passwort: ",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
 					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.",
