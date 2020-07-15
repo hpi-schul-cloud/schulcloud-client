@@ -538,7 +538,7 @@ class TopicResource extends React.Component {
                 <div className="card-footer">
                     <small className="text-muted">via {(this.props.resource || {}).client}</small>
                     <a className="btn-remove-resource" onClick={this.props.onRemove}><i
-                        className="fa fa-minus-square"></i></a>
+                        className="fa fa-trash-o"></i></a>
                 </div>
                 <input
                     type="hidden"
