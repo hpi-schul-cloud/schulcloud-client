@@ -299,10 +299,15 @@
 			"default": false,
 			"description": "Enables Portfolio (navigation, addons) in app"
 		},
-		"FEATURE_LERNSTORE_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables Lern-Store (navigation, route) in app"
+		"LERNSTORE_MODE": {
+			"type": "string",
+			"enum": [
+				"DISABLED",
+				"LEGACY",
+				"EDUSHARING"
+			],
+			"default": "DISABLED",
+			"description": "Defines the lernstore mode. Can be legacy, edusharing and disabled"
 		},
 		"HELPAREA_URL": {
 			"type": "string",
@@ -357,7 +362,6 @@
 		"COOKIE_SECRET",
 		"STUDENT_TEAM_CREATION",
 		"FEATURE_ETHERPAD_ENABLED",
-		"FEATURE_EXTENSION_PORTFOLIO_ENABLED",
-		"FEATURE_LERNSTORE_ENABLED"
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED"
 	]
 }
