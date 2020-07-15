@@ -27,7 +27,7 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 
 // firstLogin
 router.get('/', async (req, res, next) => {
-	const { currentUser } = req.locals;
+	const { currentUser } = res.locals;
 	if (
 		!currentUser.birthday && res.locals.currentRole === 'Schüler' // fixme identical to isStudent() here
 		&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
