@@ -19,6 +19,7 @@ $logoBackgroundTablet: url("../../images/logo/cloud-transparent-mono-48-48.svg")
 aside.nav-sidebar{
 	.sc-branding{
 		padding: 0 5px;
+		background: $secondaryColor;
 		.cloud-logo{
 			width: 100%;
 			margin: 0;
@@ -34,6 +35,22 @@ aside.nav-sidebar{
 			padding: 0;
 			.cloud-logo{
 				background: $logoBackgroundTablet;
+			}
+		}
+	}
+	ul {
+		li {
+			a:not(.sc-branding) {
+				&.active {
+					background: $secondaryColor;
+					color: white;
+					border-bottom: 1px solid transparent;
+
+					&[href]:hover {
+						background: $secondaryColor;
+						cursor: pointer;
+					}
+				}
 			}
 		}
 	}

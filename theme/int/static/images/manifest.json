@@ -3,7 +3,6 @@
 	"short_name": "Internationale Schul-Cloud",
 	"start_url": "/?homescreen=1&theme=int",
 	"scope": "/",
-	"theme_color": "#b10438",
 	"background_color": "#ffffff",
 	"display": "standalone"
 }
