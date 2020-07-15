@@ -42,14 +42,7 @@ aside.nav-sidebar{
 		li {
 			a:not(.sc-branding) {
 				&.active {
-					background: $secondaryColor;
-					color: white;
-					border-bottom: 1px solid transparent;
-
-					&[href]:hover {
-						background: $secondaryColor;
-						cursor: pointer;
-					}
+					color: $secondaryColor;
 				}
 			}
 		}
