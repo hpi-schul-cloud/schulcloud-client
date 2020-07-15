@@ -16,9 +16,17 @@ msgctxt "Toolbar button tooltip for the audio browse feature."
 msgid "Insert Audio"
 msgstr "Audio einfügen"
 
-msgctxt "Title of the browser dialog window."
+msgctxt "Title of the image browser dialog window."
 msgid "Image Properties"
 msgstr "Bildeigenschaften"
+
+msgctxt "Title of the video browser dialog window."
+msgid "Video Properties"
+msgstr "Videoeigenschaften"
+
+msgctxt "Title of the audio browser dialog window."
+msgid "Audio Properties"
+msgstr "Audioeigenschaften"
 
 msgctxt "Label for the URL input field."
 msgid "URL"
