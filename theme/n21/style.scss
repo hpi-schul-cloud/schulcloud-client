@@ -7,21 +7,28 @@ $logoGradient: linear-gradient(45deg, $primaryColor 30%, $primaryColor);
 $colorBeige: #e6e2e2;
 $colorGrey: rgba(232, 232, 232, 0.5);
 
-$logoBackground: url("../../images/logo/logo-wt.png") no-repeat center;
+$logoBackground: url("../../images/logo/cloud-transparent-mono.svg") no-repeat center;
+$logoBackgroundTablet: url("../../images/logo/cloud-transparent-mono-48-48.svg") center / contain no-repeat;
 
 aside.nav-sidebar{
     .sc-branding{
-        font-size: 18px;
-        max-width: 240px;
+        padding: 0 5px;
         .cloud-logo{
-            vertical-align: top;
+            width: 100%;
+            margin: 0;
+            padding: 30px;
         }
         .sc-title {
-            max-width: calc(100% - 54px) !important;
+            display: none;
         }
     }
-}
 
-body header #title .cloud-logo{
-    width: 4rem !important;
+    @media (max-width: 991px) {
+        .sc-branding{
+            padding: 0;
+            .cloud-logo{
+                background: $logoBackgroundTablet;
+            }
+        }
+    }
 }
