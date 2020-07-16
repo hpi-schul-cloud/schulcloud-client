@@ -41,4 +41,7 @@ aside.nav-sidebar {
 	ul li a:not(.sc-branding).active {
 		color: $secondaryColorDark;
 	}
+	ul li a:not(.sc-branding) {
+		color: $colorDarkGrey;
+	}
 }
