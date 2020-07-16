@@ -449,7 +449,10 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
-				$populate: ['userIds.userId'],
+				$populate: {
+					path: 'userIds.userId',
+					select: ['firstName', 'lastName', 'fullName'],
+				},
 			},
 		}),
 	]).then(([course]) => res.json({ course }));
