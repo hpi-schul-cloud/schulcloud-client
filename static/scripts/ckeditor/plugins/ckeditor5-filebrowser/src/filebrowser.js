@@ -49,7 +49,7 @@ export default class FileBrowserPlugin extends Plugin {
 			isBlock: true,
 			isObject: true,
 			isLimit: true,
-			allowAttributes: ['src', 'controls', 'controlslist'],
+			allowAttributes: ['source', 'controls', 'controlslist'],
 		});
 		conversion.elementToElement({ view: 'video', model: 'video' });
 
@@ -58,11 +58,11 @@ export default class FileBrowserPlugin extends Plugin {
 			isBlock: true,
 			isObject: true,
 			isLimit: true,
-			allowAttributes: ['src', 'controls', 'controlslist'],
+			allowAttributes: ['source', 'controls', 'controlslist'],
 		});
 		conversion.elementToElement({ view: 'audio', model: 'audio' });
 
-		conversion.attributeToAttribute({ view: 'src', model: 'src' });
+		conversion.attributeToAttribute({ view: 'src', model: 'source' });
 		conversion.attributeToAttribute({ view: 'controls', model: 'controls' });
 		conversion.attributeToAttribute({ view: 'controlslist', model: 'controlslist' });
 
@@ -82,6 +82,8 @@ export default class FileBrowserPlugin extends Plugin {
 				const onCreate = () => {
 					const imageUrl = document.getElementById('url-input').value;
 					const imageAltText = document.getElementById('alt-text-input').value;
+					console.log('imageUrl: ', imageUrl);
+					console.log('imageAltText: ', imageAltText);
 					editor.model.change((writer) => {
 						const imageElement = writer.createElement('image', {
 							src: imageUrl,
@@ -112,7 +114,7 @@ export default class FileBrowserPlugin extends Plugin {
 					const videoUrl = document.getElementById('url-input').value;
 					editor.model.change((writer) => {
 						const videoElement = writer.createElement('video', {
-							src: videoUrl,
+							source: videoUrl,
 							controls: 'true',
 							controlslist: 'nodownload',
 						});
@@ -141,7 +143,7 @@ export default class FileBrowserPlugin extends Plugin {
 					const audioUrl = document.getElementById('url-input').value;
 					editor.model.change((writer) => {
 						const audioElement = writer.createElement('audio', {
-							src: audioUrl,
+							source: audioUrl,
 							controls: 'true',
 							controlslist: 'nodownload',
 						});
