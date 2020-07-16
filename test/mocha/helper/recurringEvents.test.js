@@ -3,6 +3,8 @@
 const chai = require('chai');
 const expect = chai.expect;
 const recurringEventsHelper = require('../../../helpers/recurringEvents');
+const i18nHelper = require('../../../helpers/i18n');
+
 const recurringEvent = {
     "type": "event",
     "included": [
@@ -25,6 +27,8 @@ const recurringEvent = {
     "location": "Paul-Gerhardt-Gymnasium",
     "description": "Test"
 };
+// simple "res", so that translations can be loaded (with defaultLanguage German)
+const res = { $t: i18nHelper.getInstance({}) };
 
 describe('Recurring Event Helper tests', function () {
 
@@ -37,11 +41,11 @@ describe('Recurring Event Helper tests', function () {
     });
 
     it('getWeekdayForNumber', function () {
-        expect(recurringEventsHelper.getWeekdayForNumber(0)).to.equal('Montag');
+        expect(recurringEventsHelper.getWeekdayForNumber(0, res)).to.equal('Montag');
     });
 
     it('getNumberForWeekday', function () {
-        expect(recurringEventsHelper.getNumberForWeekday('Montag')).to.equal(0);
+        expect(recurringEventsHelper.getNumberForWeekday('Montag', res)).to.equal(0);
     });
 
     it('createRecurringEvents', function () {

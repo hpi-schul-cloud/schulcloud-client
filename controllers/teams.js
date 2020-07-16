@@ -141,7 +141,7 @@ const editTeamHandler = (req, res, next) => {
 			action,
 			method,
 			title: req.params.teamId ? res.$t('teams.add.headline.editTeam') : res.$t('teams.add.headline.createTeam'),
-			submitLabel: req.params.teamId ? res.$t('teams.add.button.saveChanges')
+			submitLabel: req.params.teamId ? res.$t('global.button.saveChanges')
 				: res.$t('teams.add.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
@@ -278,7 +278,7 @@ router.get('/', async (req, res, next) => {
 			time.startTime = moment(time.startTime, 'x')
 				.utc()
 				.format('HH:mm');
-			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
 			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 				time.room ? `| ${time.room}` : ''
 			}</div>`;
@@ -449,7 +449,10 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
-				$populate: ['userIds.userId'],
+				$populate: {
+					path: 'userIds.userId',
+					select: ['firstName', 'lastName', 'fullName'],
+				},
 			},
 		}),
 	]).then(([course]) => res.json({ course }));
