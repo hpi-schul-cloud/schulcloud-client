@@ -16,11 +16,11 @@ $colorGrey: rgba(232, 232, 232, 0.5);
 $logoBackground: url("../../images/logo/cloud-transparent-mono.svg") no-repeat center;
 $logoBackgroundTablet: url("../../images/logo/cloud-transparent-mono-48-48.svg") no-repeat center;
 
-aside.nav-sidebar{
-	.sc-branding{
+aside.nav-sidebar {
+	.sc-branding {
 		padding: 0 5px;
-		background: $secondaryColorDark;
-		.cloud-logo{
+		background: $secondaryColor;
+		.cloud-logo {
 			width: 100%;
 			margin: 0;
 			padding: 30px;
@@ -31,20 +31,14 @@ aside.nav-sidebar{
 	}
 
 	@media (max-width: 991px) {
-		.sc-branding{
+		.sc-branding {
 			padding: 0;
-			.cloud-logo{
+			.cloud-logo {
 				background: $logoBackgroundTablet;
 			}
 		}
 	}
-	ul {
-		li {
-			a:not(.sc-branding) {
-				&.active {
-					color: $secondaryColor;
-				}
-			}
-		}
+	ul li a:not(.sc-branding).active {
+		color: $secondaryColorDark;
 	}
 }
