@@ -682,6 +682,9 @@
 				"img_alt": {
 					"noTopics": "Leeres Thema"
 				},
+				"link" :{
+					"geoGebraMaterial" : "GeoGebra Material ({{materialId}}) auf geogebra.org jetzt öffnen"
+				},
 				"text": {
 					"addTopic": "Thema hinzufügen",
 					"addTopicWithNewEditor": "Thema mit neuem Editor hinzufügen (beta)",
@@ -693,6 +696,7 @@
 					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler:innen, um sie zum Kurs einzuladen. Die Schüler:innen müssen dafür angemeldet sein.",
 					"editSortDeleteShareTopicsHere": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-ellipsis-v\"></i>&nbsp;<i class=\"fa fa-ellipsis-v\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
 					"editTopic": "Thema bearbeiten",
+					"externalLinkToGeoGebra" : "Dies ist ein externer Inhalt des Anbieters GeoGebra. Er wird in einem neuen Fenster bzw. Tab geöffnet.",
 					"hideTopic": "Thema verstecken",
 					"importTopic": "Thema importieren",
 					"importTopicAdviseChangeData": "<strong>Achtung:</strong> Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
@@ -1023,6 +1027,7 @@
 			"openANewTab": "In neuem Tab öffnen",
 			"print": "Drucken",
 			"reload": "Neu laden",
+			"remove": "Entfernen",
 			"save": "Speichern",
 			"saveChanges": "Änderungen speichern",
 			"send": "Abschicken",
@@ -1339,7 +1344,7 @@
 				"legalNotice": "Rechtliche Hinweise:"
 			},
 			"text": {
-				"TheProjectIsANonCommercialPilotProject": "Die {{shortTitle}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT EC (<a href=''https://www.mint-ec.de/'' target='_blank' rel='noopener'>''https://www.mint-ec.de/''</a>) durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter: <a href=''https://hpi.de/schul-cloud'' target=''_blank'' rel=''noopener''>''https://hpi.de/schul-cloud''</a>).",
+				"TheProjectIsANonCommercialPilotProject": "Die {{shortTitle}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT EC ( <a href=\"https://www.mint-ec.de/\" target=\"_blank\" rel=\"noopener\">https://www.mint-ec.de/</a> ) durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter: <a href=\"https://hpi.de/open-campus/hpi-initiativen/hpi-schul-cloud.html\" target=\"_blank\" rel=\"noopener\">hpi-schul-cloud</a> ).",
 				"isCarriedOutAndFunded": "durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter:"
 			}
 		},
@@ -1521,10 +1526,10 @@
 			"submitPrivacyPolicy": "Gelesen"
 		},
 		"headline": {
-			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
-			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
 			"firstLogin": "Willkommen - Erster Login",
 			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
+			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
+			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
 			"onlyPrivacy": "Datenschutzerklärung",
 			"onlyTermsOfUse": "Nutzungsordnung",
 			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
@@ -1870,6 +1875,7 @@
 			},
 			"link": {
 				"imprint": "Impressum",
+				"partner" : "Partner",
 				"toRegister": "Registrieren"
 			},
 			"text": {
@@ -2182,12 +2188,27 @@
 				"createTopic": "Thema anlegen",
 				"editTopic": "Thema bearbeiten"
 			},
+			"input" : {
+				"countWithPrimeNumbers" : "z.B. Rechnen mit Primzahlen"
+			},
 			"label": {
+				"addTask" : "Aufgabe hinzufügen",
+				"addPrivateTask" :"private Aufgabe hinzufügen",
+				"expandTasks" : "gestellte Aufgaben ein/ausklappen",
+				"expandPrivateTasks" : "Private Aufgaben ein/ausklappen",
 				"content": "Inhalte",
 				"titleOfTheTopic": "Titel des Themas"
 			},
 			"text": {
 				"shareWithOthersTeachers": "mit anderen Lehrern teilen"
+			}
+		},
+		"topicEdit": {
+			"input": {
+				"sectionTitle": "Titel des Abschnitts"
+			},
+			"button": {
+				"geoGebraWorksheet": "GeoGebra Arbeitsblatt"
 			}
 		},
 		"content": {
@@ -2199,6 +2220,16 @@
 			"label": {
 				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
 			}
+		}
+	},
+	"videoconference": {
+		"headline": {
+			"createVideoConferenceRoom": "Videokonferenzraum {{name}} erstellen"
+		},
+		"text": {
+			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
+			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
+			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen."
 		}
 	}
 }
