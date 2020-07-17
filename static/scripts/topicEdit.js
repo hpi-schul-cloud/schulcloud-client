@@ -43,7 +43,6 @@ class TopicBlockWrapper extends React.Component {
 		});
 	}
 
-
 	addOnBeforeRemoveCallback(cb) {
 		const { onBeforeRemoveCallbacks } = this.state;
 		onBeforeRemoveCallbacks.push(cb);
@@ -111,7 +110,6 @@ class TopicBlockWrapper extends React.Component {
                                 name={`contents[${this.props.position}][user]`}
                             />
 
-
                             <div className="input-group-btn">
                                 <button className="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
                                     <i className="fa fa-cog"></i>
@@ -144,7 +142,6 @@ TopicBlockWrapper.defaultProps = {
 	index: 0,
 };
 
-
 /**
  * A wrapper/higher order component to make TopicBlockWrapper sortable
  * @extends SortableElement
@@ -160,7 +157,6 @@ const SortableItem = SortableElement(({
             {...value}
         />
 ));
-
 
 /**
  * A wrapper/higher order component to define the list of draggable items.
@@ -183,7 +179,6 @@ const SortableList = SortableContainer(({
             ))}
         </div>
 ));
-
 
 /**
  * Class representing a dynamic list of content blocks.
@@ -326,7 +321,6 @@ class TopicBlockList extends React.Component {
 	}
 }
 
-
 /**
  * Abstract class for topic blocks.
  * @extends React.Component
@@ -362,7 +356,6 @@ class TopicBlock extends React.Component {
 		}
 	}
 }
-
 
 /**
  * Class representing a dynamic list of resources
@@ -452,7 +445,6 @@ class TopicText extends TopicBlock {
 	}
 }
 
-
 /**
  * Class representing a resource in the list of resources.
  * @extends React.Component
@@ -484,7 +476,7 @@ class TopicResource extends React.Component {
                 <div className="card-footer">
                     <small className="text-muted">via {(this.props.resource || {}).client}</small>
                     <a className="btn-remove-resource" onClick={this.props.onRemove}><i
-                        className="fa fa-minus-square"></i></a>
+                        className="fa fa-trash-o"></i></a>
                 </div>
                 <input
                     type="hidden"
@@ -510,7 +502,6 @@ class TopicResource extends React.Component {
 		);
 	}
 }
-
 
 /**
  * Class representing a dynamic list of resources
@@ -546,7 +537,9 @@ class TopicResources extends TopicBlock {
 		if (!resource) {
 			const isCourseGroupTopic = $contentBlocksContainer.data('iscoursegroup') !== undefined;
 			// open content search popup
-			const resourcePopup = window.open(`/content/?inline=1&isCourseGroupTopic=${isCourseGroupTopic}`, 'content-search', 'toolbar=no, location=no, directories=no, width=800,height=600,status=no,scrollbars=yes,resizable=yes');
+			const resourcePopup = window.open(`/content/?inline=1&isCourseGroupTopic=${isCourseGroupTopic}`, 'content-search',
+				'width=1920, height=1080, fullscreen=yes, toolbar=no, location=no, directories=no, status=no, scrollbars=yes, resizable=yes');
+			resourcePopup.moveTo(0, 0);
 			resourcePopup.focus();
 		} else {
 			window.addResource(resource);
@@ -703,7 +696,6 @@ class TopicInternal extends TopicBlock {
 		};
 	}
 
-
 	componentDidMount() {
 		$('[data-toggle="tooltip"]').tooltip();
 	}
@@ -846,7 +838,6 @@ class TopicNexboard extends TopicBlock {
 		$(`select[id=${this.state.id}]`).chosen();
 		$(`select[id=${this.state.id}]`).on('change', this.handleChange);
 	}
-
 
 	componentDidUpdate() {
 		$('.chosen-select').trigger('chosen:updated');
