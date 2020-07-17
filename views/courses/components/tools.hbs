@@ -4,7 +4,7 @@
 			{{#if ltiToolIds}}
 			{{#each ltiToolIds}}
 			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}"
-					{{#unless}} data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}" {{/unless}}
+					{{#unless this.isBBB}} data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}" {{/unless}}
 				>
 				{{#unless this.isBBB}}
 				<div class="card-title-directory">
