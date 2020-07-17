@@ -982,7 +982,7 @@
 				"yourData": "Ihre Daten"
 			},
 			"text": {
-				"amLegalGuardianFor": "bin erziehungsberechtigt für",
+				"amLegalGuardianFor": "bin erziehungsberechtigt für {{firstName}} {{lastName}} und erkläre Folgendes:",
 				"andExplainTheFollowing": "und erkläre Folgendes:",
 				"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
 				"pleaseConfirmTheFollowingDeclaration": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der HPI Schul-Cloud nutzen kann:",
