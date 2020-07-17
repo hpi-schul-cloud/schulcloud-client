@@ -1559,22 +1559,18 @@ router.get(
 					? user.displayName
 					: `${user.firstName} ${user.lastName}`;
 				const content = {
-					text: `Hallo ${name},
-Leider fehlt uns von dir noch die Einverständniserklärung.
-Ohne diese kannst du die HPI Schul-Cloud leider nicht nutzen.
-
-Melde dich bitte mit deinen Daten an,
-um die Einverständniserklärung zu akzeptieren um die HPI Schul-Cloud im vollen Umfang nutzen zu können.
-
-Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${user.registrationLink.shortLink}</a>, und melde dich an.`,
+					text: res.$t('administration.controller.text.emailDeclarationOfConsent', {
+						name,
+						link: `<a href="${user.registrationLink.shortLink}">${user.registrationLink.shortLink}</a>`,
+					}),
 				};
 
 				const json = {
 					headers: {},
 					email: user.email,
-					subject: `Der letzte Schritt zur Aktivierung für die ${
-						res.locals.theme.short_title
-					}`,
+					subject: res.$t('administration.controller.text.emailDeclarationOfConsentSubject', {
+						title: res.locals.theme.short_title,
+					}),
 					content,
 				};
 
