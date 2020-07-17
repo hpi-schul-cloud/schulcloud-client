@@ -3,10 +3,8 @@
 		<div class="list-group" data-courseId="{{@root/_id}}">
 			{{#if ltiToolIds}}
 			{{#each ltiToolIds}}
-			<div class="card card-block card-tool
-					{{#if this.isBBB}} bbbTool
-					{{else}} locationlink data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}"
-					{{/if}}
+			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}"
+					{{#unless}} data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}" {{/unless}}
 				>
 				{{#unless this.isBBB}}
 				<div class="card-title-directory">
