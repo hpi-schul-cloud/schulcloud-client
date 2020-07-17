@@ -751,8 +751,8 @@ const returnAdminPrefix = (roles, res) => {
 	roles.map((role) => {
 		// eslint-disable-next-line no-unused-expressions
 		role.name === 'teacher'
-			? (prefix = res.$t('administration.controller.heading.management'))
-			: (prefix = res.$t('administration.controller.heading.administration'));
+			? (prefix = res.$t('administration.controller.headline.management'))
+			: (prefix = res.$t('administration.controller.headline.administration'));
 	});
 	return prefix;
 };
@@ -785,7 +785,7 @@ const userIdtoAccountIdUpdate = (service) => function useIdtoAccountId(req, res,
 const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	{
 		type: 'sort',
-		title: res.$t('administration.controller.heading.sorting'),
+		title: res.$t('administration.controller.headline.sorting'),
 		displayTemplate: res.$t('administration.controller.text.sortBy'),
 		options: [
 			['firstName', res.$t('administration.controller.global.label.firstName')],
@@ -800,14 +800,14 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	},
 	{
 		type: 'limit',
-		title: res.$t('administration.controller.heading.entriesPerPage'),
+		title: res.$t('administration.controller.headline.entriesPerPage'),
 		displayTemplate: res.$t('administration.controller.text.entriesPerPage'),
 		options: [25, 50, 100],
 		defaultSelection: 25,
 	},
 	{
 		type: 'select',
-		title: res.$t('administration.controller.heading.declarationOfConsentStatus'),
+		title: res.$t('administration.controller.headline.declarationOfConsentStatus'),
 		displayTemplate: res.$t('administration.controller.label.status'),
 		property: 'consentStatus',
 		multiple: true,
@@ -904,7 +904,7 @@ router.get(
 	(req, res, next) => {
 		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
 		res.render('administration/dashboard', {
-			title: res.$t('administration.controller.heading.general', { title }),
+			title: res.$t('administration.controller.headline.general', { title }),
 		});
 	},
 );
@@ -1012,7 +1012,7 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res, next) => {
 		const years = getSelectableYears(res.locals.currentSchoolData);
-		const title = res.$t('administration.controller.heading.teacher', {
+		const title = res.$t('administration.controller.headline.teacher', {
 			title: returnAdminPrefix(
 				res.locals.currentUser.roles,
 				res,
@@ -1142,7 +1142,7 @@ router.get(
 				};
 
 				res.render('administration/teachers', {
-					title: res.$t('administration.controller.heading.teacher', { title }),
+					title: res.$t('administration.controller.headline.teacher', { title }),
 					head,
 					body,
 					pagination,
@@ -1285,7 +1285,7 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	async (req, res, next) => {
 		const years = getSelectableYears(res.locals.currentSchoolData);
-		const title = res.$t('administration.controller.heading.students', {
+		const title = res.$t('administration.controller.headline.students', {
 			title: returnAdminPrefix(res.locals.currentUser.roles, res),
 		});
 		res.render('administration/import', {
@@ -1812,10 +1812,10 @@ const renderClassEdit = (req, res, next) => {
 					res.render('administration/classes-edit', {
 						title: {
 							create: res.$t('administration.controller.link.createANewClass'),
-							edit: res.$t('administration.controller.heading.editClass', {
+							edit: res.$t('administration.controller.headline.editClass', {
 								name: (currentClass || {}).displayName,
 							}),
-							upgrade: res.$t('administration.controller.heading.upgradeClass', {
+							upgrade: res.$t('administration.controller.headline.upgradeClass', {
 								name: (currentClass || {}).displayName,
 							}),
 						}[mode],
@@ -2006,7 +2006,7 @@ router.get(
 					});
 
 					res.render('administration/classes-manage', {
-						title: res.$t('administration.controller.heading.manageClass', {
+						title: res.$t('administration.controller.headline.manageClass', {
 							name: currentClass.displayName,
 						}),
 						class: currentClass,
@@ -2234,7 +2234,7 @@ router.delete(
 const classFilterSettings = ({ years, currentYear }, res) => {
 	const yearFilter = {
 		type: 'select',
-		title: res.$t('administration.controller.heading.schoolYear'),
+		title: res.$t('administration.controller.headline.schoolYear'),
 		displayTemplate: res.$t('administration.controller.text.schoolYearPercentage'),
 		property: 'year',
 		multiple: true,
@@ -2247,7 +2247,7 @@ const classFilterSettings = ({ years, currentYear }, res) => {
 	return [
 		{
 			type: 'sort',
-			title: res.$t('administration.controller.heading.sorting'),
+			title: res.$t('administration.controller.headline.sorting'),
 			displayTemplate: res.$t('administration.controller.text.sortBy'),
 			options: [['displayName', res.$t('administration.controller.global.label.class')]],
 			defaultSelection: 'displayName',
@@ -2256,7 +2256,7 @@ const classFilterSettings = ({ years, currentYear }, res) => {
 		yearFilter,
 		{
 			type: 'limit',
-			title: res.$t('administration.controller.heading.sorting'),
+			title: res.$t('administration.controller.headline.sorting'),
 			displayTemplate: res.$t('administration.controller.text.entriesPerPage'),
 			options: [25, 50, 100],
 			defaultSelection: 25,
@@ -2380,7 +2380,7 @@ router.get(
 				const currentYear = res.locals.currentSchoolData.currentYear;
 
 				res.render('administration/classes', {
-					title: res.$t('administration.controller.heading.classes', {
+					title: res.$t('administration.controller.headline.classes', {
 						title: returnAdminPrefix(res.locals.currentUser.roles, res),
 					}),
 					head,
@@ -2466,12 +2466,12 @@ router.all(
 			})
 			.then((data) => {
 				const head = [
-					res.$t('administration.controller.heading.title'),
-					res.$t('administration.controller.heading.itsOn'),
-					res.$t('administration.controller.heading.targetState'),
-					res.$t('administration.controller.heading.status'),
-					res.$t('administration.controller.heading.creationDate'),
-					res.$t('administration.controller.heading.remarks'),
+					res.$t('administration.controller.headline.title'),
+					res.$t('administration.controller.headline.itsOn'),
+					res.$t('administration.controller.headline.targetState'),
+					res.$t('administration.controller.headline.status'),
+					res.$t('administration.controller.headline.creationDate'),
+					res.$t('administration.controller.headline.remarks'),
 					'',
 				];
 
@@ -2502,7 +2502,7 @@ router.all(
 				};
 
 				res.render('administration/helpdesk', {
-					title: res.$t('administration.controller.heading.helpdesk', {
+					title: res.$t('administration.controller.headline.helpdesk', {
 						title,
 					}),
 					head,
@@ -2678,9 +2678,9 @@ router.all('/courses', (req, res, next) => {
 		})
 		.then((data) => {
 			const head = [
-				res.$t('administration.controller.heading.name'),
-				res.$t('administration.controller.heading.class'),
-				res.$t('administration.controller.heading.teachers'),
+				res.$t('administration.controller.headline.name'),
+				res.$t('administration.controller.headline.class'),
+				res.$t('administration.controller.headline.teachers'),
 				'',
 			];
 
@@ -2743,7 +2743,7 @@ router.all('/courses', (req, res, next) => {
 				};
 
 				res.render('administration/courses', {
-					title: res.$t('administration.controller.heading.courses', {
+					title: res.$t('administration.controller.headline.courses', {
 						title: returnAdminPrefix(res.locals.currentUser.roles, res),
 					}),
 					head,
@@ -2843,22 +2843,22 @@ router.all('/teams', async (req, res, next) => {
 		.then((data) => {
 			const head = [
 				'Name',
-				res.$t('administration.controller.heading.members'),
-				res.$t('administration.controller.heading.schools'),
-				res.$t('administration.controller.heading.createdOn'),
-				`${res.$t('administration.controller.heading.status')}*`,
-				res.$t('administration.controller.heading.actions'),
+				res.$t('administration.controller.headline.members'),
+				res.$t('administration.controller.headline.schools'),
+				res.$t('administration.controller.headline.createdOn'),
+				`${res.$t('administration.controller.headline.status')}*`,
+				res.$t('administration.controller.headline.actions'),
 			];
 
 			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 			const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
 
 			const roleTranslations = {
-				teammember: res.$t('administration.controller.heading.attendees'),
-				teamexpert: res.$t('administration.controller.heading.externalExpert'),
-				teamleader: res.$t('administration.controller.heading.leader'),
+				teammember: res.$t('administration.controller.headline.attendees'),
+				teamexpert: res.$t('administration.controller.headline.externalExpert'),
+				teamleader: res.$t('administration.controller.headline.leader'),
 				teamadministrator: 'Administrator',
-				teamowner: res.$t('administration.controller.heading.owner'),
+				teamowner: res.$t('administration.controller.headline.owner'),
 			};
 
 			Promise.all([classesPromise, usersPromise]).then(([classes, users]) => {
@@ -2972,7 +2972,7 @@ router.all('/teams', async (req, res, next) => {
 				};
 
 				res.render('administration/teams', {
-					title: res.$t('administration.controller.heading.teams', {
+					title: res.$t('administration.controller.headline.teams', {
 						title: returnAdminPrefix(res.locals.currentUser.roles, res),
 					}),
 					head,
@@ -3136,9 +3136,9 @@ router.use(
 		}
 		// POLICIES
 		const policiesHead = [
-			res.$t('administration.controller.heading.title'),
-			res.$t('administration.controller.heading.description'),
-			res.$t('administration.controller.heading.uploadedOn'),
+			res.$t('administration.controller.headline.title'),
+			res.$t('administration.controller.headline.description'),
+			res.$t('administration.controller.headline.uploadedOn'),
 			'Link',
 		];
 		let policiesBody;
@@ -3164,8 +3164,8 @@ router.use(
 
 		// SYSTEMS
 		const systemsHead = [
-			res.$t('administration.controller.heading.alias'),
-			res.$t('administration.controller.heading.type'),
+			res.$t('administration.controller.headline.alias'),
+			res.$t('administration.controller.headline.type'),
 			'',
 		];
 		let systemsBody;
@@ -3200,7 +3200,7 @@ router.use(
 		}
 
 		// RSS
-		const rssHead = ['URL', res.$t('administration.controller.heading.briefDescription'), 'Status', ''];
+		const rssHead = ['URL', res.$t('administration.controller.headline.briefDescription'), 'Status', ''];
 		let rssBody;
 		if (school.rssFeeds) {
 			rssBody = school.rssFeeds.map(({
@@ -3242,7 +3242,7 @@ router.use(
 		const ssoTypes = getSSOTypes();
 
 		res.render('administration/school', {
-			title: res.$t('administration.controller.heading.school', {
+			title: res.$t('administration.controller.headline.school', {
 				title,
 			}),
 			school,
@@ -3358,8 +3358,8 @@ router.get('/startldapschoolyear', async (req, res) => {
 		'uuid',
 	];
 	const headClasses = [
-		res.$t('administration.controller.heading.name'),
-		res.$t('administration.controller.heading.name'),
+		res.$t('administration.controller.headline.name'),
+		res.$t('administration.controller.headline.name'),
 		res.$t('administration.controller.global.label.classUsers'),
 	];
 
