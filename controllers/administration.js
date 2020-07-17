@@ -320,7 +320,9 @@ const generateRegistrationLink = (params, internalReturn) => function registrati
 		.catch((err) => {
 			req.session.notification = {
 				type: 'danger',
-				message: res.$t('administration.controller.text.errorCreatingRegistrationLink', {"errMessage": (err.error || {}).message || err.message || err || ''}),
+				message: res.$t('administration.controller.text.errorCreatingRegistrationLink', {
+					errMessage: (err.error || {}).message || err.message || err || '',
+				}),
 			};
 			redirectHelper.safeBackRedirect(req, res);
 		});
@@ -378,7 +380,9 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 				if (internalReturn) return false;
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t('administration.controller.text.userCreatedErrorSendingTheMail', {"errMessage": (err.error || {}).message || err.message || err || ''}),
+					message: res.$t('administration.controller.text.userCreatedErrorSendingTheMail', {
+						errMessage: (err.error || {}).message || err.message || err || '',
+					}),
 				};
 				return redirectHelper.safeBackRedirect(req, res);
 			});
@@ -449,7 +453,9 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 			if (internalReturn) return false;
 			req.session.notification = {
 				type: 'danger',
-				message: res.$t('administration.controller.text.failedToCreateUser', {"error": err.error.message || ''}),
+				message: res.$t('administration.controller.text.failedToCreateUser', {
+					error: err.error.message || '',
+				}),
 			};
 			return redirectHelper.safeBackRedirect(req, res);
 		});
@@ -509,9 +515,17 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 	const buildMessage = (stats) => {
 		const numberOfUsers = stats.users.successful + stats.users.failed;
 		return (
-			`${stats.users.successful} von ${numberOfUsers} `
-			+ `Nutzer${numberOfUsers > 1 ? 'n' : ''} erfolgreich importiert `
-			+ `(${stats.users.created} erstellt ${stats.users.updated} aktualisiert).`
+			res.$t(
+				(numberOfUsers > 1
+					? 'administration.controller.text.successfullyImportedUsers'
+					: 'administration.controller.text.successfullyImportedUser'),
+				{
+					amountImported: stats.users.successful,
+					amountTotal: numberOfUsers,
+					amountCreated: stats.users.created,
+					amountUpdated: stats.users.updated,
+				},
+			)
 		);
 	};
 	const buildErrorMessage = (stats) => {
@@ -543,7 +557,9 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		let message = buildMessage(stats);
 		if (!stats.success) {
 			messageType = 'warning';
-			message += ` Fehler:\n\n${buildErrorMessage(stats)}`;
+			message += ` ${res.$t('administration.controller.text.errorImportingUsers', {
+				errorMessage: buildErrorMessage(stats),
+			})}`;
 		}
 		req.session.notification = {
 			type: messageType,
