@@ -350,10 +350,18 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 			.post('/mails/', {
 				json: {
 					email: user.email,
-					subject: res.$t('administration.controller.text.invitationToUseThe', {title: res.locals.theme.title}),
+					subject: res.$t('administration.controller.text.invitationToUseThe', {
+						title: res.locals.theme.title,
+					}),
 					headers: {},
 					content: {
-						text: res.$t('administration.controller.text.invitationToThe', {title: res.locals.theme.title, firstName: user.firstName, lastName: user.lastName, shortLink: user.shortLink || res.locals.linkData.shortLink, shortTitle: res.locals.theme.short_title}),
+						text: res.$t('administration.controller.text.invitationToThe', {
+							title: res.locals.theme.title,
+							firstName: user.firstName,
+							lastName: user.lastName,
+							shortLink: user.shortLink || res.locals.linkData.shortLink,
+							shortTitle: res.locals.theme.short_title,
+						}),
 					},
 				},
 			})
