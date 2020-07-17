@@ -2249,7 +2249,7 @@ const classFilterSettings = ({ years, currentYear }, res) => {
 			type: 'sort',
 			title: res.$t('administration.controller.heading.sorting'),
 			displayTemplate: res.$t('administration.controller.text.sortBy'),
-			options: [['displayName', 'Klasse']],
+			options: [['displayName', res.$t('administration.controller.global.label.class')]],
 			defaultSelection: 'displayName',
 			defaultOrder: 'DESC',
 		},
@@ -2380,7 +2380,9 @@ router.get(
 				const currentYear = res.locals.currentSchoolData.currentYear;
 
 				res.render('administration/classes', {
-					title: 'Administration: Klassen',
+					title: res.$t('administration.controller.heading.classes', {
+						title: returnAdminPrefix(res.locals.currentUser.roles, res),
+					}),
 					head,
 					body,
 					pagination,
@@ -2467,7 +2469,7 @@ router.all(
 					res.$t('administration.controller.heading.title'),
 					res.$t('administration.controller.heading.itsOn'),
 					res.$t('administration.controller.heading.targetState'),
-					'Status',
+					res.$t('administration.controller.heading.status'),
 					res.$t('administration.controller.heading.creationDate'),
 					res.$t('administration.controller.heading.remarks'),
 					'',
@@ -2500,7 +2502,9 @@ router.all(
 				};
 
 				res.render('administration/helpdesk', {
-					title: `${title}Helpdesk`,
+					title: res.$t('administration.controller.heading.helpdesk', {
+						title,
+					}),
 					head,
 					body,
 					pagination,
@@ -2673,7 +2677,12 @@ router.all('/courses', (req, res, next) => {
 			},
 		})
 		.then((data) => {
-			const head = ['Name', 'Klasse(n)', 'Lehrer', ''];
+			const head = [
+				res.$t('administration.controller.heading.name'),
+				res.$t('administration.controller.heading.class'),
+				res.$t('administration.controller.heading.teachers'),
+				'',
+			];
 
 			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 			const teachersPromise = getSelectOptions(req, 'users', {
@@ -2734,7 +2743,9 @@ router.all('/courses', (req, res, next) => {
 				};
 
 				res.render('administration/courses', {
-					title: 'Administration: Kurse',
+					title: res.$t('administration.controller.heading.courses', {
+						title: returnAdminPrefix(res.locals.currentUser.roles, res),
+					}),
 					head,
 					body,
 					classes,
@@ -2752,15 +2763,15 @@ router.all('/courses', (req, res, next) => {
  *  Teams
  */
 
-const getTeamFlags = (team) => {
-	const createdAtOwnSchool = '<i class="fa fa-home team-flags" data-toggle="tooltip" '
-		+ 'data-placement="top" title="An eigener Schule gegründetes Team"></i>';
-	const hasMembersOfOtherSchools = '<i class="fa fa-bus team-flags" data-toggle="tooltip" '
-		+ 'data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
-	const hasOwner = '<i class="fa fa-briefcase team-flags" data-toggle="tooltip" '
-		+ 'data-placement="top" title="Team hat Eigentümer"></i>';
-	const hasRocketChat = '<i class="fa fa-comments team-flags" data-toggle="tooltip" '
-		+ 'data-placement="top" title="Chat ist aktiviert"></i>';
+const getTeamFlags = (team, res) => {
+	const createdAtOwnSchool = `<i class="fa fa-home team-flags" data-toggle="tooltip" '
+		+ 'data-placement="top" title="'${res.$t('administration.controller.label.teamFoundedAtOwnSchool')}"></i>`;
+	const hasMembersOfOtherSchools = `<i class="fa fa-bus team-flags" data-toggle="tooltip" '
+		+ 'data-placement="top" title="${res.$t('administration.controller.label.teamIncludesExternalMembers')}"></i>`;
+	const hasOwner = `<i class="fa fa-briefcase team-flags" data-toggle="tooltip" '
+		+ 'data-placement="top" title="${res.$t('administration.controller.label.teamHasOwner')}"></i>`;
+	const hasRocketChat = `<i class="fa fa-comments team-flags" data-toggle="tooltip" '
+		+ 'data-placement="top" title="${res.$t('administration.controller.label.teamChatActive')}"></i>`;
 
 	let combined = '';
 
@@ -2835,7 +2846,7 @@ router.all('/teams', async (req, res, next) => {
 				res.$t('administration.controller.heading.members'),
 				res.$t('administration.controller.heading.schools'),
 				res.$t('administration.controller.heading.createdOn'),
-				'Status*',
+				`${res.$t('administration.controller.heading.status')}*`,
 				res.$t('administration.controller.heading.actions'),
 			];
 
@@ -2929,7 +2940,7 @@ router.all('/teams', async (req, res, next) => {
 						moment(item.createdAt).format('DD.MM.YYYY'),
 						{
 							useHTML: true,
-							content: getTeamFlags(item),
+							content: getTeamFlags(item, res),
 						},
 						{
 							payload: Buffer.from(JSON.stringify({
@@ -2961,7 +2972,9 @@ router.all('/teams', async (req, res, next) => {
 				};
 
 				res.render('administration/teams', {
-					title: 'Administration: Teams',
+					title: res.$t('administration.controller.heading.teams', {
+						title: returnAdminPrefix(res.locals.currentUser.roles, res),
+					}),
 					head,
 					body,
 					classes,
@@ -3150,7 +3163,11 @@ router.use(
 
 
 		// SYSTEMS
-		const systemsHead = ['Alias', 'Typ', ''];
+		const systemsHead = [
+			res.$t('administration.controller.heading.alias'),
+			res.$t('administration.controller.heading.type'),
+			'',
+		];
 		let systemsBody;
 		let systems;
 		let ldapAddable = true;
@@ -3164,7 +3181,9 @@ router.use(
 				const name = getSSOTypes().filter((type) => item.type === type.value);
 				return [
 					item.type === 'ldap' && item.ldapConfig.active === false
-						? `${item.alias} (inaktiv)`
+						? res.$t('administration.controller.label.inactive', {
+							alias: item.alias,
+						})
 						: item.alias,
 					name,
 					getTableActions(
@@ -3223,7 +3242,9 @@ router.use(
 		const ssoTypes = getSSOTypes();
 
 		res.render('administration/school', {
-			title: `${title}Schule`,
+			title: res.$t('administration.controller.heading.school', {
+				title,
+			}),
 			school,
 			schoolMaintanance,
 			schoolMaintananceMode,
@@ -3330,13 +3351,17 @@ router.get('/startldapschoolyear', async (req, res) => {
 	const headUser = [
 		res.$t('administration.controller.global.label.firstName'),
 		res.$t('administration.controller.global.label.lastName'),
-		'E-Mail',
+		res.$t('administration.controller.label.email'),
 		'uid',
-		'Rolle(n)',
-		'Domainname',
+		res.$t('administration.controller.label.roles'),
+		res.$t('administration.controller.label.domainname'),
 		'uuid',
 	];
-	const headClasses = ['Name', 'Domain', res.$t('administration.controller.global.label.classUsers')];
+	const headClasses = [
+		res.$t('administration.controller.heading.name'),
+		res.$t('administration.controller.heading.name'),
+		res.$t('administration.controller.global.label.classUsers'),
+	];
 
 	res.render('administration/ldap-schoolyear-start', {
 		title: res.$t('administration.controller.text.checkingTheLDAPData'),
