@@ -1046,6 +1046,13 @@
 				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
 			}
 		},
+		"dashboard": {
+			"heading": {
+				"advancedTraining": "Fortbildungen",
+				"contact": "Kontakt",
+				"helpArticles": "Hilfeartikel"
+			}
+		},
 		"form_Wish": {
 			"label": {
 				"acceptanceCriteria": "Akzeptanzkriterien",
@@ -1110,9 +1117,7 @@
 		},
 		"language_hint": {
 			"text": {
-				"forBetterReadability": "Für bessere Lesbarkeit verwenden wir in der Benutzeroberfläche der ",
-				"isThereForEveryone": "ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
-				"theMailForm": "die männliche Form („Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die"
+				"forBetterReadability": "Für bessere Lesbarkeit verwenden wir in der Benutzeroberfläche der {{title}} die männliche Form („Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung."
 			}
 		},
 		"lernNuggets": {
