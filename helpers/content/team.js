@@ -1013,7 +1013,7 @@ module.exports = [
 			},
 		],
 	},
-].filter(t => t.team.length).map((t, i) => {
+].filter((t) => t.team.length).map((t, i) => {
 	t.style = sectionTypes[i % sectionTypes.length];
 	return t;
 });
