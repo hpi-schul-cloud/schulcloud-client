@@ -143,7 +143,8 @@
 			},
 			"heading": {
 				"actions": "Aktionen",
-				"administration": "Verwaltung: ",
+				"administration": "Administration: ",
+				"management": "Verwaltung: ",
 				"attendees": "Teilnehmer",
 				"briefDescription": "Kurzbeschreibung",
 				"createdOn": "Erstellt am",
@@ -152,6 +153,7 @@
 				"description": "Beschreibung",
 				"entriesPerPage": "Einträge pro Seite",
 				"externalExpert": "Externer Experte",
+				"general": "{{title}}Allgemein",
 				"itsOn": "Ist-Zustand",
 				"leader": "Leiter",
 				"members": "Mitglieder",
@@ -160,9 +162,14 @@
 				"schoolYear": "Schuljahr",
 				"schools": "'Schule(n)'",
 				"sorting": "Sortierung",
+				"students": "{{title}}Schüler",
 				"targetState": "Soll-Zustand",
+				"teacher": "{{title}}Lehrer",
 				"title": "Titel",
 				"uploadedOn": "Hochgeladen am"
+			},
+			"label": {
+				"status": "Status: %1"
 			},
 			"link": {
 				"addAnotherOwner": "Weiteren Eigentümer hinzufügen",
@@ -194,6 +201,7 @@
 				"anotherSchoolWasFounded": "einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst ",
 				"changesSuccessfullySaved": "Änderungen erfolgreich gespeichert.",
 				"checkingTheLDAPData": "Prüfung der LDAP-Daten für Schuljahreswechsel",
+				"closed": "Geschlossen",
 				"consentGrantedSuccessfylly": "Einwilligungen erfolgreich erteilt",
 				"createdOn": "Erstellt am",
 				"declarationOfConsentAvailable": "Zur Registrierung benötigte Einverständniserklärungen vorhanden",
@@ -208,6 +216,7 @@
 				"invitationToUseThe": "Einladung für die Nutzung der {{title}}!",
 				"noDeclarationOfConsentAvailable": "Keine Einverständniserklärung vorhanden",
 				"onlyAllMembers": "Es können nur alle Mitglieder der eigenen Schule aus dem Team entfernt werden",
+				"open": "Offen",
 				"orAssignAdminRights": "oder jemand anderem Admin-Rechte für das Team zuzuweisen.",
 				"parentsAgreed": "Eltern haben zugestimmt, Schüler:in noch offen",
 				"passTheRegistrationLinkDirectly": "Gib den Registrierungslink direkt an den Schüler weiter.",
@@ -217,6 +226,7 @@
 				"setupFailed": "Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ",
 				"sortBy": "Sortieren nach: %1",
 				"stillLackOfDeclaration": "Hallo {{name}} Leider fehlt uns von dir noch die Einverständniserklärung. Ohne diese kannst du die Schul-Cloud leider nicht nutzen. Melde dich bitte mit deinen Daten an, um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können. Gehe jetzt auf {{shortLink}} {{shortLink}} und melde dich an.",
+				"submitted": "Gesendet",
 				"successfullyImportedUser": "{{amountImported}} von {{amountTotal}} Nutzer erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
 				"successfullyImportedUsers": "{{amountImported}} von {{amountTotal}} Nutzern erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
 				"theStepsForTheParentsAreOmitted": "Die Schritte für die Eltern entfallen automatisch.",

@@ -585,12 +585,6 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 	}
 };
 
-const dictionary = {
-	open: 'Offen',
-	closed: 'Geschlossen',
-	submitted: 'Gesendet',
-};
-
 const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 	api(req)
 		.patch(`/${service}/${req.params.id}`, {
@@ -757,8 +751,8 @@ const returnAdminPrefix = (roles, res) => {
 	roles.map((role) => {
 		// eslint-disable-next-line no-unused-expressions
 		role.name === 'teacher'
-			? (prefix = res.$t('administration.controller.heading.administration'))
-			: (prefix = 'Administration: ');
+			? (prefix = res.$t('administration.controller.heading.management'))
+			: (prefix = res.$t('administration.controller.heading.administration'));
 	});
 	return prefix;
 };
@@ -814,7 +808,7 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	{
 		type: 'select',
 		title: res.$t('administration.controller.heading.declarationOfConsentStatus'),
-		displayTemplate: 'Status: %1',
+		displayTemplate: res.$t('administration.controller.label.status'),
 		property: 'consentStatus',
 		multiple: true,
 		expanded: true,
@@ -910,7 +904,7 @@ router.get(
 	(req, res, next) => {
 		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
 		res.render('administration/dashboard', {
-			title: `${title}Allgemein`,
+			title: res.$t('administration.controller.heading.general', { title }),
 		});
 	},
 );
@@ -1018,10 +1012,12 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res, next) => {
 		const years = getSelectableYears(res.locals.currentSchoolData);
-		const title = `${returnAdminPrefix(
-			res.locals.currentUser.roles,
-			res,
-		)}Lehrer`;
+		const title = res.$t('administration.controller.heading.teacher', {
+			title: returnAdminPrefix(
+				res.locals.currentUser.roles,
+				res,
+			),
+		});
 		res.render('administration/import', {
 			title,
 			roles: 'teacher',
@@ -1146,7 +1142,7 @@ router.get(
 				};
 
 				res.render('administration/teachers', {
-					title: `${title}Lehrer`,
+					title: res.$t('administration.controller.heading.teacher', { title }),
 					head,
 					body,
 					pagination,
@@ -1289,10 +1285,9 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	async (req, res, next) => {
 		const years = getSelectableYears(res.locals.currentSchoolData);
-		const title = `${returnAdminPrefix(
-			res.locals.currentUser.roles,
-			res,
-		)}Schüler`;
+		const title = res.$t('administration.controller.heading.students', {
+			title: returnAdminPrefix(res.locals.currentUser.roles, res)
+		});
 		res.render('administration/import', {
 			title,
 			roles: 'student',
@@ -2480,7 +2475,7 @@ router.all(
 					truncate(item.subject || ''),
 					truncate(item.currentState || ''),
 					truncate(item.targetState || ''),
-					dictionary[item.state],
+					res.$t(`administration.controller.text.${item.state}`),
 					moment(item.createdAt).format('DD.MM.YYYY'),
 					truncate(item.notes || ''),
 					getTableActionsSend(item, '/administration/helpdesk/', item.state, res),
