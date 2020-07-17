@@ -22,6 +22,10 @@ privacy policy should be confirmed by every school user
 
 ### Removed
 
+## [23.5.7] - 2020-07-17
+
+- SC-5653 update mint-ec email addresses
+
 ## [23.5.3] - 2020-07-10
 
 - SC-5494 Changed link in navigation bar
