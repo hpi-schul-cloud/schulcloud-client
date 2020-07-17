@@ -1286,7 +1286,7 @@ router.get(
 	async (req, res, next) => {
 		const years = getSelectableYears(res.locals.currentSchoolData);
 		const title = res.$t('administration.controller.heading.students', {
-			title: returnAdminPrefix(res.locals.currentUser.roles, res)
+			title: returnAdminPrefix(res.locals.currentUser.roles, res),
 		});
 		res.render('administration/import', {
 			title,
@@ -1812,8 +1812,12 @@ const renderClassEdit = (req, res, next) => {
 					res.render('administration/classes-edit', {
 						title: {
 							create: res.$t('administration.controller.link.createANewClass'),
-							edit: `Klasse '${(currentClass || {}).displayName}' bearbeiten`,
-							upgrade: `Klasse '${(currentClass || {}).displayName}' in neues Schuljahr bringen`,
+							edit: res.$t('administration.controller.heading.editClass', {
+								name: (currentClass || {}).displayName,
+							}),
+							upgrade: res.$t('administration.controller.heading.upgradeClass', {
+								name: (currentClass || {}).displayName,
+							}),
 						}[mode],
 						action: {
 							create: '/administration/classes/create',
@@ -2002,7 +2006,9 @@ router.get(
 					});
 
 					res.render('administration/classes-manage', {
-						title: `Klasse '${currentClass.displayName}' verwalten `,
+						title: res.$t('administration.controller.heading.manageClass', {
+							name: currentClass.displayName,
+						}),
 						class: currentClass,
 						classes,
 						teachers,
@@ -2014,7 +2020,7 @@ router.get(
 								title: res.$t('administration.controller.text.yourStudentsAreUnder', {
 									age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 								}),
-								content: res.$t('administration.controller.text.firstPassTheRegistrationLinkOnToTheParents', {
+								content: res.$t('administration.controller.text.registrationExplanation', {
 									title: res.locals.theme.short_title,
 								}),
 							},
