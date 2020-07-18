@@ -577,7 +577,7 @@ const overview = (titleKey) => (req, res, next) => {
 };
 
 router.get('/', overview('global.headline.tasks'));
-router.get('/asked', overview('homework.headline.assignedTasks'));
+router.get('/asked', overview('global.headline.assignedTasks'));
 router.get('/private', overview('homework.headline.drafts'));
 router.get('/archive', overview('homework.headline.archivedTasks'));
 

@@ -232,9 +232,7 @@
 			"createForCourse": "Für Kurs anlegen?",
 			"createForTeam": "Für Team anlegen?",
 			"description": "Beschreibung",
-			"location": "Ort",
-			"of": "Von",
-			"to": "Bis"
+			"location": "Ort"
 		},
 		"text": {
 			"noAuthorization": "Keine Berechtigung",
@@ -273,9 +271,6 @@
 		}
 	},
 	"content": {
-		"button": {
-			"choose": "Wähle..."
-		},
 		"headline": {
 			"addContentToTopic": "Material zu Thema hinzufügen",
 			"contentCantBeAddedInDemo": "<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>",
@@ -291,8 +286,6 @@
 			"searchInSC": "In der HPI Schul-Cloud suchen"
 		},
 		"label": {
-			"chooseACourse": "Wähle einen Kurs / Fach",
-			"chooseALessonTopic": "Wähle ein Unterrichtsthema",
 			"entriesPerPage": "Einträge pro Seite: %1",
 			"fileType": "Dateitypen: %1",
 			"sortBy": "Sortieren nach: %1"
@@ -368,10 +361,8 @@
 					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"chooseDate": "Termine auswählen",
 					"class": "Klasse(n)",
-					"from": "Von",
 					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 					"substitute": "Vertretungslehrer:innen",
-					"till": "Bis",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
 					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
 				},
@@ -462,11 +453,9 @@
 					"createFirstTask": "Erstelle die erste Aufgabe in deinem Kurs",
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
-					"posedTasks": "Gestellte Aufgaben",
 					"privateTasks": "Private Aufgaben und Entwürfe",
 					"submittedTasks": "Bearbeitete Aufgaben",
-					"tasksWithSubmissions": "Aufgaben mit Abgaben",
-					"unsubmittedTasks": "Gestellte Aufgaben"
+					"tasksWithSubmissions": "Aufgaben mit Abgaben"
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
@@ -699,7 +688,6 @@
 	"dashboard": {
 		"headline": {
 			"myMaterials": "Meine Materialien",
-			"openTasks": "Gestellte Aufgaben",
 			"poll2Title": "Befragung II im Projekt HPI Schul-Cloud",
 			"privateTasks": "Private Aufgaben und Entwürfe",
 			"schedule": "Stundenplan",
@@ -915,6 +903,7 @@
 			"pageMoved": "Diese Seite wurde verschoben."
 		},
 		"headline": {
+			"assignedTasks": "Gestellte Aufgaben",
 			"delete": "Löschen",
 			"edit": "Bearbeiten",
 			"files": "Dateien",
@@ -931,11 +920,13 @@
 			"dateOfBirth": "Geburtsdatum:",
 			"emailAddress": "E-Mail-Adresse:",
 			"firstName": "Vorname:",
+			"from": "Von",
 			"lastName": "Nachname:",
 			"more": "Weiteres",
 			"password": "Passwort:",
 			"room": "Raum",
-			"title": "Titel"
+			"title": "Titel",
+			"to": "Bis"
 		},
 		"link": {
 			"contact": "Kontakt",
@@ -1131,7 +1122,6 @@
 		},
 		"headline": {
 			"archivedTasks": "Archivierte Aufgaben und ToDos",
-			"assignedTasks": "Gestellte Aufgaben",
 			"breadcrumb": "{{breadcrumbtitle}} Aufgaben",
 			"breadcrumbArchived": "Archivierte",
 			"breadcrumbAssigned": "Gestellte",
@@ -1990,7 +1980,6 @@
 				}
 			},
 			"heading": {
-				"assignedTasks": "Gestellte Aufgaben",
 				"privateTasks": "Private Aufgaben",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
 			},
