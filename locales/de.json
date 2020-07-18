@@ -39,11 +39,6 @@
 		}
 	},
 	"account": {
-		"global": {
-			"label": {
-				"thirdPartyLogins": "Drittanbieter-Logins"
-			}
-		},
 		"headline": {
 			"yourAccount": "Dein Account"
 		},
@@ -59,7 +54,6 @@
 			}
 		},
 		"text": {
-			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
 			"passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
 			"preferencesUpdates": "Präferenzen wurden aktualisiert!",
 			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!"
