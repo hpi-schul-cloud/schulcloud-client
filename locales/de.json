@@ -191,8 +191,7 @@
 			"headline": {
 				"changePassword": "Passwort ändern",
 				"completeRegistration": "Nutzerregistrierung abschließen",
-				"deleteUser": "Benutzer löschen?",
-				"generatedLink": "Einladungslink generiert!"
+				"deleteUser": "Benutzer löschen?"
 			},
 			"text": {
 				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
@@ -239,8 +238,7 @@
 			"participateInVideoConference": "An Videokonferenz teilnehmen",
 			"startAVideoConference": "Videokonferenz starten",
 			"timedOut": "Zeitüberschreitung der Anfrage",
-			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen...",
-			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
+			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen..."
 		}
 	},
 	"community": {
@@ -519,7 +517,6 @@
 					"descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
 					"noTools": "Keine Tools.",
 					"videoConferenceBBB": "Videokonferenz BigBlueButton",
-					"videoConferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
 					"opensInNewTab": "neuer Tab"
 				}
 			},
@@ -536,7 +533,6 @@
 					"createFirstTopicWithNewEditor": "Erstelle das erste Thema mit dem neuen Themenwerkzeug",
 					"firstTopicSuccess": "Geschafft - Das erste Thema in deinem Kurs!",
 					"importTopic": "Thema importieren",
-					"invitationLinkGenerated": "Einladungslink generiert!",
 					"noTopic": "Es gibt keine Themen in diesem Kurs.",
 					"noTopicWithTool": "Es gibt keine Themen in diesem Kurs, die mit dem neuen Themenwerkzeug erstellt wurden.",
 					"noTopicWithToolYet": "Es gibt noch keine Themen in diesem Kurs, die mit dem neuen Themenwerkzeug erstellt wurden.",
@@ -907,6 +903,7 @@
 			"delete": "Löschen",
 			"edit": "Bearbeiten",
 			"files": "Dateien",
+			"invitationLinkGenerated": "Einladungslink generiert!",
 			"news": "Neuigkeiten",
 			"sorting": "Sortierung",
 			"task": "Aufgabe",
@@ -997,6 +994,7 @@
 			"theRequestContains": "Die Anfrage enthält mehrere identische Sicherheitstokens (CSRF).",
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
+			"videoconferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
 			"wednesday": "Mittwoch"
 		}
 	},

@@ -16,7 +16,7 @@
     </div>
     <div class="column event-details">
       <div class="title">{{event.title}}</div>
-        
+
       <div class="event-row">
         <div class="meta"><i class="fa fa-calendar-o" aria-hidden="true"></i>{{event.dayOfTheWeek}}</div>
         <div class="meta"><i class="fa fa-clock-o" aria-hidden="true"></i>{{event.fromTo}}</div>
@@ -37,10 +37,10 @@
               <a class="video-conference join-conference" href="/videoconference">{{$t "calendar.text.participateInVideoConference" }}</a>
               <!-- state: FINISHED || NOT_STARTED + permission: JOIN_MEETING -->
               <i class="fa fa-video-camera video-conference not-started" aria-hidden="true"></i>
-              <span class="muted video-conference not-started">{{$t "calendar.text.videoConferenceHasNotYetStarted" }}</span>
+              <span class="muted video-conference not-started">{{$t "global.text.videoconferenceNotStartedYet" }}</span>
               <i class="fa fa-info-circle video-conference not-started clickable"></i>
               <i class="fa fa-repeat video-conference not-started clickable reload"></i>
-              <!-- state: FINISHED || NOT_STARTED + permission: START_MEETING -->   
+              <!-- state: FINISHED || NOT_STARTED + permission: START_MEETING -->
               <i class="fa fa-video-camera video-conference start-conference" aria-hidden="true"></i>
               <a class="video-conference start-conference" href="#">{{$t "calendar.text.startAVideoConference" }}</a>
               <!-- no permission -->
