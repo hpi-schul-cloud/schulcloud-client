@@ -1383,10 +1383,12 @@ router.get(
 				const hasEditPermission = permissionsHelper.userHasPermission(currentUser, 'STUDENT_EDIT');
 				const users = studentsResponse.data;
 				const years = getSelectableYears(res.locals.currentSchoolData);
-				const title = `${returnAdminPrefix(
-					res.locals.currentUser.roles,
-					res,
-				)}Schüler`;
+				const title = res.$t('administration.controller.headline.students', {
+					title: returnAdminPrefix(
+						res.locals.currentUser.roles,
+						res,
+					),
+				});
 				let studentsWithoutConsentCount = 0;
 				const head = [
 					res.$t('administration.controller.global.label.firstName'),
@@ -1718,7 +1720,7 @@ const skipRegistrationClass = async (req, res, next) => {
 			fullname: fullnames[i],
 		}));
 		res.render('administration/users_registrationcomplete', {
-			title: res.$t('administration.controller.text.consentGrantedSuccessfylly'),
+			title: res.$t('administration.controller.text.consentGrantedSuccessfully'),
 			submitLabel: res.$t('global.button.back'),
 			users: result,
 			linktarget: '/administration/classes',
@@ -2764,14 +2766,14 @@ router.all('/courses', (req, res, next) => {
  */
 
 const getTeamFlags = (team, res) => {
-	const createdAtOwnSchool = `<i class="fa fa-home team-flags" data-toggle="tooltip" '
-		+ 'data-placement="top" title="'${res.$t('administration.controller.label.teamFoundedAtOwnSchool')}"></i>`;
-	const hasMembersOfOtherSchools = `<i class="fa fa-bus team-flags" data-toggle="tooltip" '
-		+ 'data-placement="top" title="${res.$t('administration.controller.label.teamIncludesExternalMembers')}"></i>`;
-	const hasOwner = `<i class="fa fa-briefcase team-flags" data-toggle="tooltip" '
-		+ 'data-placement="top" title="${res.$t('administration.controller.label.teamHasOwner')}"></i>`;
-	const hasRocketChat = `<i class="fa fa-comments team-flags" data-toggle="tooltip" '
-		+ 'data-placement="top" title="${res.$t('administration.controller.label.teamChatActive')}"></i>`;
+	const createdAtOwnSchool = `<i class="fa fa-home team-flags" data-toggle="tooltip"
+			data-placement="top" title="${res.$t('administration.controller.label.teamFoundedAtOwnSchool')}"></i>`;
+	const hasMembersOfOtherSchools = `<i class="fa fa-bus team-flags" data-toggle="tooltip"
+			data-placement="top" title="${res.$t('administration.controller.label.teamIncludesExternalMembers')}"></i>`;
+	const hasOwner = `<i class="fa fa-briefcase team-flags" data-toggle="tooltip"
+			data-placement="top" title="${res.$t('administration.controller.label.teamHasOwner')}"></i>`;
+	const hasRocketChat = `<i class="fa fa-comments team-flags" data-toggle="tooltip"
+			data-placement="top" title="${res.$t('administration.controller.label.teamChatActive')}"></i>`;
 
 	let combined = '';
 
@@ -2856,9 +2858,9 @@ router.all('/teams', async (req, res, next) => {
 			const roleTranslations = {
 				teammember: res.$t('administration.controller.headline.attendees'),
 				teamexpert: res.$t('administration.controller.headline.externalExpert'),
-				teamleader: res.$t('administration.controller.headline.leader'),
-				teamadministrator: 'Administrator',
-				teamowner: res.$t('administration.controller.headline.owner'),
+				teamleader: res.$t('global.role.text.leader'),
+				teamadministrator: res.$t('global.role.text.administrator'),
+				teamowner: res.$t('global.role.text.owner'),
 			};
 
 			Promise.all([classesPromise, usersPromise]).then(([classes, users]) => {
