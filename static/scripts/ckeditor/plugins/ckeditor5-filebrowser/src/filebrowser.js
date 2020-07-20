@@ -1,33 +1,33 @@
+import $ from 'jquery';
+
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import imageIcon from '@ckeditor/ckeditor5-core/theme/icons/image.svg';
-
-import bootbox from 'bootbox';
 
 import audioIcon from '../theme/icons/audio.svg';
 import videoIcon from '../theme/icons/video.svg';
 
 const createFilebrowserModal = (editor, t, dialogTitle, onCreate, additionalInput = '') => {
-	const dialog = bootbox.dialog({
+	const ckeditorFilebrowserDialog = $('.ckeditor-filebrowser-dialog');
+	populateModalForm(ckeditorFilebrowserDialog, {
 		title: dialogTitle,
-		message: `<label for="url-input">${t('URL')}:</label><br>
-				  <input type="text" id="url-input">
-				  <button type="button" id="browseServerButton">${t('Browse Server')}</button><br>${additionalInput}`,
-		closeButton: false,
-		buttons: {
-			cancel: {
-				label: t('Cancel'),
-			},
-			ok: {
-				label: t('OK'),
-				callback: onCreate,
-			},
-		},
+		closeLabel: t('Cancel'),
+		submitLabel: t('OK'),
 	});
-	dialog.on('shown.bs.modal', () => {
+
+	const dialogContent = `<label for="url-input">${t('URL')}:</label><br>
+		<input type="text" id="url-input">
+		<button type="button" id="browseServerButton">${t('Browse Server')}</button><br>${additionalInput}`;
+
+	ckeditorFilebrowserDialog.find('.modal-body').html(dialogContent);
+	ckeditorFilebrowserDialog.find('.btn-submit').click(() => { ckeditorFilebrowserDialog.modal('hide'); onCreate(); });
+	ckeditorFilebrowserDialog.appendTo('body').modal('show');
+
+	ckeditorFilebrowserDialog.on('shown.bs.modal', () => {
 		document.getElementById('browseServerButton').addEventListener('click', () => {
 			const dialogPageUrl = editor.config.get('filebrowser.browseUrl');
 			const dialogWindow = window.open(dialogPageUrl, '_blank', 'width=700, height=500');
+			console.log('DialogWinodow:', dialogWindow);
 			dialogWindow.onload = () => {
 				dialogWindow.callbackFunctionFileUrl = (imageUrl) => {
 					document.getElementById('url-input').value = imageUrl;
@@ -82,8 +82,6 @@ export default class FileBrowserPlugin extends Plugin {
 				const onCreate = () => {
 					const imageUrl = document.getElementById('url-input').value;
 					const imageAltText = document.getElementById('alt-text-input').value;
-					console.log('imageUrl: ', imageUrl);
-					console.log('imageAltText: ', imageAltText);
 					editor.model.change((writer) => {
 						const imageElement = writer.createElement('image', {
 							src: imageUrl,
