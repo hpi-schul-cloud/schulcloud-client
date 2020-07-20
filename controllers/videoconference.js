@@ -8,7 +8,7 @@ router.get('/:scopeName/:scopeId', (req, res, next) => {
 	const { scopeName, scopeId } = req.params;
 	return authHelper.isAuthenticated(req).then(() => api(req)
 		.get(`/videoconference/${scopeName}/${scopeId}`))
-		.then(response => res.send(response))
+		.then((response) => res.send(response))
 		.catch(next);
 });
 
@@ -20,7 +20,7 @@ router.post('/', (req, res, next) => {
 				scopeName, scopeId, options,
 			},
 		}))
-		.then(response => res.send(response))
+		.then((response) => res.send(response))
 		.catch(next);
 });
 

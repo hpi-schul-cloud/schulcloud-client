@@ -1,10 +1,10 @@
 const { Configuration } = require('@schul-cloud/commons');
 const express = require('express');
 const showdown = require('showdown');
+const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const userConsentVersions = require('../helpers/consentVersions');
-const _ = require('lodash');
 
 const converter = new showdown.Converter();
 
@@ -17,7 +17,7 @@ router.use(authHelper.authChecker);
 
 const consentFullfilled = (consent) => consent.privacyConsent && consent.termsOfUseConsent;
 const isStudent = (res) => {
-	const roles = res.locals.currentUser.roles.map(role => role.name);
+	const roles = res.locals.currentUser.roles.map((role) => role.name);
 	return roles.includes('student');
 };
 const hasAccount = (req, res) => api(req).get('/consents', {
@@ -170,7 +170,7 @@ router.get('/', async (req, res, next) => {
 		hideMenu: true,
 		sso: !!(res.locals.currentPayload || {}).systemId,
 		now: Date.now(),
-		sections: sections.map(name => `firstLogin/sections/${name}`),
+		sections: sections.map((name) => `firstLogin/sections/${name}`),
 		schoolPrivacyLink,
 		submitPageIndex,
 		userConsent,

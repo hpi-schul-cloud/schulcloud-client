@@ -101,8 +101,8 @@ router.get('/lernNuggets', (req, res, next) => {
 });
 
 router.get('/faq/documents', async (req, res, next) => {
-	const userRoles = res.locals.currentUser.roles.map(r => r.name);
-	const isDemoUser = userRoles.some(r => r.startsWith('demo'));
+	const userRoles = res.locals.currentUser.roles.map((r) => r.name);
+	const isDemoUser = userRoles.some((r) => r.startsWith('demo'));
 
 	if (isDemoUser) {
 		req.session.notification = {

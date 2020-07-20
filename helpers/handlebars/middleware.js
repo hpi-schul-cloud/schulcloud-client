@@ -1,4 +1,5 @@
 const url = require('url');
+const { Configuration } = require('@schul-cloud/commons');
 const api = require('../../api');
 const {
 	PUBLIC_BACKEND_URL,
@@ -8,7 +9,6 @@ const {
 	HELPAREA_URL,
 } = require('../../config/global');
 
-const { Configuration } = require('@schul-cloud/commons');
 
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';

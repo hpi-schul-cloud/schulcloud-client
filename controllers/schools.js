@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
 	try {
 		const schools = await api(req).get('/schools/', params);
 
-		const result = schools.data.map(school => ({
+		const result = schools.data.map((school) => ({
 			_id: school._id,
 			name: school.name,
 			purpose: school.purpose,

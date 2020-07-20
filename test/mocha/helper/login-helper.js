@@ -5,7 +5,7 @@ chai.use(chaiHttp);
 
 const { SC_DEMO_USER_NAME, SC_DEMO_USER_PASSWORD } = require('../../../config/global');
 
-const getLoginPage = agent => new Promise((resolve, reject) => {
+const getLoginPage = (agent) => new Promise((resolve, reject) => {
 	agent.get('/login/').end((err, res) => {
 		if (err) {
 			reject(err);
@@ -27,7 +27,7 @@ const extractCsrf = (string) => {
 	return result;
 };
 
-const getCsrfToken = agent => new Promise((resolve) => {
+const getCsrfToken = (agent) => new Promise((resolve) => {
 	getLoginPage(agent).then(({ res }) => {
 		const csrf = extractCsrf(res.text);
 		resolve({ csrf });
