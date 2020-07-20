@@ -905,7 +905,8 @@
     },
     "global": {
         "button": {
-            "accept": "Akzeptieren",
+			"accept": "Akzeptieren",
+			"submit": "Absenden",
             "add": "Hinzufügen",
             "back": "Zurück",
             "cancel": "Abbrechen",
@@ -1028,7 +1029,7 @@
                 "openInConfluence": "in Confluence öffnen"
             },
             "text": {
-                "ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können {{caseMobile}}, kannst du ihn auch",
+                "ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch",
                 "languageNote": "Sprachlicher Hinweis:"
             }
         },
@@ -1096,17 +1097,13 @@
                 "theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
             },
             "text": {
-                "iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen:"
+                "iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)</li> <li>Betriebssystem und Version (z.B: Windows 10)</li>"
             }
         },
         "global": {
             "label": {
                 "briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
                 "furtherInformation": "Weitere Informationen (optional):"
-            },
-            "text": {
-                "browserNameAndVersion": "Browser Name und Version (z.B: Firefox 69.0)",
-                "operatingSystemAndVersion": "Betriebssystem und Version (z.B: Windows 10)"
             }
         },
         "help_confluenceLinks": {
@@ -1152,7 +1149,7 @@
                 "aLearningUnitLasts": "Eine Lerneinheit dauert höchstens 15 Minuten. Um den vollen Umfang der Inhalte zu erhalten, schaltet am besten Lautsprecher oder Kopfhörer an eurem Endgerät ein.",
                 "byTheWayYouWillAlways": "Übrigens erhaltet ihr immer am Ende eines Lern-Nuggets eine Teilnahmebescheinigung zum Nachweis eures Lernerfolgs.",
                 "clientAndLicensedFor": "Auftraggeber und lizenziert für: Verein MINT-EC®,",
-                "contentAndProduction": "Inhalte und Produktion:",
+                "contentAndProduction": "Inhalte und Produktion: youknow GmbH, St.-Martin-Straße 57, 81669 München,",
                 "createdAsPartOfThe": "Entstanden im Rahmen des Projekts HPI Schul-Cloud.",
                 "dealingWithPersonalDetails": "Der Umgang mit personenbezogenen Daten, die Anforderungen an eine Cloud-Lösung im Schulalltag sowie das digitale Teilen von Lehr- und Lernmaterialien rufen bei Schulleitungen und Lehrkräften immer wieder Verunsicherung hervor.",
                 "forThisReasonYouHaveTheOpportunity": "Aus diesem Grund habt ihr hier die Möglichkeit, alles Wissenswerte zu den Themen Datenschutz und Urheberrecht in kleinen Lerneinheiten kennenzulernen.",
