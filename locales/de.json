@@ -1156,6 +1156,9 @@
 		},
 		"topMenu": {
 			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
+		},
+		"title": {
+			"landing": "Startseite"
 		}
 	},
 	"help": {
