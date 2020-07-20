@@ -1034,6 +1034,9 @@
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
+		},
+		"title": {
+			"landing": "Startseite"
 		}
 	},
 	"help": {
