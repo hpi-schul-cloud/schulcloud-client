@@ -763,9 +763,6 @@
 			"privacyPolicy": "Datenschutzerklärung",
 			"registrationInvalid": "Registrierung fehlerhaft"
 		},
-		"img_alt": {
-			"brokenPen": "zerbrochener Stift"
-		},
 		"text": {
 			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
 			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
@@ -967,6 +964,9 @@
 			"delete": "Löschen",
 			"edit": "Bearbeiten"
 		},
+		"img_alt" : {
+			"brokenPen" :"zerbrochener Stift"
+		},
 		"label": {
 			"room": "Raum"
 		},
@@ -1089,7 +1089,9 @@
 			"aboutTheProject": "Über das Projekt",
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrer:in einloggen",
-			"subscribeNewsletter": "Newsletter abonnieren"
+			"subscribeNewsletter": "Newsletter abonnieren",
+			"login" : "Login",
+			"register" : "Registrieren"
 		},
 		"header": {
 			"link": {
@@ -1294,6 +1296,9 @@
 				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
 			}
 		},
+		"default": {
+			"yourDigitalLearningEnvironment" : "Deine digitale Lernumgebung"
+		},
 		"error": {
 			"button": {
 				"hideDetails": "Details verstecken",
@@ -1308,20 +1313,30 @@
 		},
 		"extended_footer": {
 			"heading": {
+				"links" : "Links",
 				"contact": "Kontakt",
 				"vacancies": "Stellenausschreibungen"
 			},
+			"img_alt" :{
+				"nowAtGooglePlay" : "Jetzt bei Google Play"
+			},
 			"link": {
 				"contentProviders": "Inhalteanbieter:",
+				"devOps" : "DevOps",
 				"generalInquiries": "Allgemeine Anfragen:",
+				"mobileApp" : "Mobile App",
 				"privacy": "Datenschutz:",
-				"subscribeTheNewsletter": "Newsletter abonnieren"
+				"subscribeTheNewsletter": "Newsletter abonnieren",
+				"support" : "Support:"
 			},
 			"text": {
 				"weAreHiring": "Du möchtest gerne Mitglied in unserem <span style='white-space: nowrap;'>HPI Schul-Cloud</span> Team werden? Wir suchen:"
 			}
 		},
 		"footer": {
+			"img_alt" :{
+				"providerLogo" : "Anbieterlogo"
+			},
 			"link": {
 				"contact": "Kontakt"
 			}
@@ -1379,7 +1394,12 @@
 				"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
 				"imprint": "Impressum",
 				"participate": "Mitmachen",
-				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud"
+				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud",
+				"team" : "Team",
+				"partner" : "Partner",
+				"github" :"GitHub",
+				"status" : "Status",
+				"safety" : "Sicherheit"
 			}
 		},
 		"header": {
@@ -1392,9 +1412,16 @@
 				"openGame": "Spiel öffnen",
 				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
+			"img_alt" : {
+				"learnCloud" : "Lern Cloud"
+			},
 			"input": {
 				"password": "Passwort:",
 				"userName": "Benutzername:"
+			},
+			"label" : {
+				"help" : "Hilfe",
+				"playEnterTheCloud" :"Enter The Cloud spielen"
 			},
 			"link": {
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
@@ -1410,6 +1437,19 @@
 			}
 		},
 		"loggedin": {
+			"img_alt" : {
+				"logoOfSchool" : "Logo von {{name}}"
+			},
+			"input" :{
+				"searchFor" : "Suche nach..."
+			},
+			"label" : {
+				"fullscreen" : "Fullscreen",
+				"thereIsAProblem" : "Es gibt ein Problem",
+				"qrCode" : "QR-Code",
+				"printQrCode" : "QR-Code drucken",
+				"notifications" : "Benachrichtigungen"
+			},
 			"tab_label": {
 				"settings": "Einstellungen",
 				"signOut": "Abmelden"
@@ -1545,10 +1585,19 @@
 			"headline": {
 				"createNews": "News erstellen",
 				"editNews": "News bearbeiten"
+			},
+			"input" : {
+				"title" : "Titel"
+			},
+			"label" : {
+				"contentOfMessage" : "Inhalt der Nachricht..."
 			}
 		},
 		"button": {
-			"addNews": "News hinzufügen"
+			"addNews": "News hinzufügen",
+			"editNews" :"Bearbeiten",
+			"editNewsAlt" : "Artikel '{{title}}' bearbeiten.",
+			"deleteNewsAlt" : "Artikel '{{name}}' löschen"
 		},
 		"headline": {
 			"news": "Neuigkeiten",
@@ -1830,6 +1879,16 @@
 			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
 			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
 			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu."
+		}
+	},
+	"security" :{
+		"headline" : {
+			"security" : "Sicherheit",
+			"reportSecurityIssue" : "Sicherheitsproblem melden"
+		},
+		"text" : {
+			"scIsTestedRegularyWeValueSecurity" : "Die {{themeTitle}} wird regelmäßig Sicherheitsüberprüfungen und Penetrationstests unterzogen, da uns die Sicherheit der Daten unserer Nutzer:innen sehr wichtig ist.",
+			"youHaveFoundAWeakness" : "Du hast trotzdem ein Sicherheitsproblem gefunden? Schreib uns, damit wir die Lücke schnellstmöglich schließen können:"
 		}
 	},
 	"team": {
