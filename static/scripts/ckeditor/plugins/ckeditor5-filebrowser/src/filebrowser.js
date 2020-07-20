@@ -27,7 +27,6 @@ const createFilebrowserModal = (editor, t, dialogTitle, onCreate, additionalInpu
 		document.getElementById('browseServerButton').addEventListener('click', () => {
 			const dialogPageUrl = editor.config.get('filebrowser.browseUrl');
 			const dialogWindow = window.open(dialogPageUrl, '_blank', 'width=700, height=500');
-			console.log('DialogWinodow:', dialogWindow);
 			dialogWindow.onload = () => {
 				dialogWindow.callbackFunctionFileUrl = (imageUrl) => {
 					document.getElementById('url-input').value = imageUrl;

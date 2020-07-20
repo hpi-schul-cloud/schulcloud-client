@@ -330,7 +330,7 @@ $(document).ready(() => {
 
 	const returnFileUrl = (fileId, fileName) => {
 		const fullUrl = `/files/file?file=${fileId}&name=${fileName}`;
-		if (typeof (callbackFunctionFileUrl !== 'undefined')) callbackFunctionFileUrl(fullUrl);
+		if (typeof callbackFunctionFileUrl !== 'undefined') callbackFunctionFileUrl(fullUrl);
 		window.close();
 	};
 
