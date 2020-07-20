@@ -11,7 +11,7 @@
         {{> "help/search"}}
 
         <div class="mobile-warning mb-2">
-            <p>{{$t "help.confluence.text.ifYouCantReadTheArticle" }}
+            <p>{{$t "help.confluence.text.ifYouCantReadTheArticle" (dict "caseMobile" (häufig auf mobilen Geräten der Fall))}}
                 <a href="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}" target="_blank">
                     {{$t "help.confluence.link.openInConfluence" }}
                     <i class="fa fa-external-link"></i>

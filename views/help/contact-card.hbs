@@ -16,7 +16,7 @@
   </form>
 
   <div class="team_form {{#unless teamFormIsActive}}hidden{{/unless}}">
-    <p>{{$t "help.contact.text.thankYouForYourFeedbak" }} {{theme.short_title}} {{$t "help.contact.text.pleaseTakeCareNotToSent" }}</p>
+    <p>{{$t "help.contact.text.thankYouForYourFeedbak" (dict "shortTitle" theme.short_title)}}</p>
     <p>{{$t "help.contact.text.whatKindOfFeedbackDoYouWant" }}</p>
     <fieldset class="switch_wrapper" id="message_type">
       <div class="switch">

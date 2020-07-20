@@ -1025,7 +1025,7 @@
 				"openInConfluence": "in Confluence öffnen"
 			},
 			"text": {
-				"ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch",
+				"ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können {{caseMobile}}, kannst du ihn auch",
 				"languageNote": "Sprachlicher Hinweis:"
 			}
 		},
@@ -1040,8 +1040,7 @@
 				"wish": "Wunsch"
 			},
 			"text": {
-				"pleaseTakeCareNotToSent": "gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
-				"thankYouForYourFeedbak": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der",
+				"thankYouForYourFeedbak": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
 				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
 				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
 			}
@@ -1063,6 +1062,14 @@
 				"iWouldLikeTo": "möchte ich ...",
 				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
 			},
+			"placeholder": {
+				"afterLoggingOnToTheSystem": "z.B. Nach der Systemanmeldung gelange ich in maximal zwei Schritten zum Stundenkontext, kann die Schüleraufgabe dort mit einem Klick bearbeiten und die SchülerInnen bei Bedarf automatisch über die Änderung informieren.",
+				"briefDescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
+				"canEasilyFindAndChange": "z.B. eine im System angelegte Schüleraufgabe leicht auffinden und ändern können",
+				"email": "E-Mail-Adresse",
+				"exampleStudent": "z.B. Schüler, Lehrer, Administrator, Hausmeister usw.",
+				"toUpdateThem": "z.B. sie zu aktualisieren"
+			},
 			"text": {
 				"iAgreeThatTheFollowingInformation": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:"
 			}
@@ -1071,6 +1078,9 @@
 			"label": {
 				"currentStatus": "IST-Zustand: Was geschieht zur Zeit, nachdem ich welche Schritte durchgeführt habe?",
 				"targetState": "SOLL-Zustand: Was sollte stattdessen geschehen?"
+			},
+			"placeholder": {
+				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems"
 			},
 			"text": {
 				"hereYouCanContact": "Hier erreichst du den Administrator deiner Schule. Er kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über deinen Kontaktgesuch informiert."
