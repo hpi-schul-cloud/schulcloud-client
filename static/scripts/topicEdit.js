@@ -538,7 +538,7 @@ class TopicResource extends React.Component {
                 <div className="card-footer">
                     <small className="text-muted">via {(this.props.resource || {}).client}</small>
                     <a className="btn-remove-resource" onClick={this.props.onRemove}><i
-                        className="fa fa-minus-square"></i></a>
+                        className="fa fa-trash-o"></i></a>
                 </div>
                 <input
                     type="hidden"
@@ -600,7 +600,9 @@ class TopicResources extends TopicBlock {
         if(!resource) {
             let isCourseGroupTopic = $contentBlocksContainer.data('iscoursegroup') !== undefined;
             // open content search popup
-            const resourcePopup = window.open('/content/?inline=1&isCourseGroupTopic=' + isCourseGroupTopic, "content-search", "toolbar=no, location=no, directories=no, width=800,height=600,status=no,scrollbars=yes,resizable=yes");
+            const resourcePopup = window.open('/content/?inline=1&isCourseGroupTopic=' + isCourseGroupTopic, "content-search",
+				`width=1920, height=1080, fullscreen=yes, toolbar=no, location=no, directories=no, status=no, scrollbars=yes, resizable=yes`);
+			resourcePopup.moveTo(0, 0);
             resourcePopup.focus();
         } else {
             window.addResource(resource);

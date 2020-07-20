@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const message = `
 	<div class="error-container">
 		<div class="error-header-wrapper">
-			<img class="error-header-image" src="/images/broken-pen.svg" alt="zerbrochener Stift" />
+			<img class="error-header-image" src="/images/broken-pen.svg" alt="${$t('global.img_alt.brokenPen')}" />
 			<div class="text-container">
 				<h1 class="h2 error-header-code text-center">Registrierung fehlerhaft</h1>
 				<p class="error-header-text font-weight-bold">

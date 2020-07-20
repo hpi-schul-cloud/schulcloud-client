@@ -882,7 +882,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 			window.location.href = '#file-view';
 			$('#file-view').css('display', '');
 			// eslint-disable-next-line no-undef
-			videojs('my-video').ready(() => {
+			videojs('my-video').ready(function () {
 				this.src({ type, src: `/files/file?file=${id}` });
 			});
 			$('#my-video').css('display', '');
