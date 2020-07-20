@@ -404,9 +404,10 @@ ${res.locals.theme.short_title}-Team`,
             let content = {
                 "html": outputString,
                 "text": "Sehr geehrte/r " + user.firstName + " " + user.lastName + ",\n\n" +
-                    "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
+					"Sie wurden in die HPI Schul-Cloud eingeladen," +
+					" bitte registrieren Sie sich unter folgendem Link:\n" +
                     (req.headers.origin || HOST) + "/register/account/" + user._id + "\n\n" +
-                    "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
+                    "Mit Freundlichen Grüßen" + "\nIhr HPI Schul-Cloud Team"
             };
             req.body.content = content;
         }
@@ -1004,7 +1005,7 @@ router.get(
 		const years = getSelectableYears(res.locals.currentSchoolData);
 		const title = `${returnAdminPrefix(
 			res.locals.currentUser.roles,
-		)}Schüler`;
+		)}Lehrer`;
 		res.render('administration/import', {
 			title,
 			roles: 'teacher',
@@ -1542,10 +1543,10 @@ router.get(
 				const content = {
 					text: `Hallo ${name},
 Leider fehlt uns von dir noch die Einverständniserklärung.
-Ohne diese kannst du die Schul-Cloud leider nicht nutzen.
+Ohne diese kannst du die HPI Schul-Cloud leider nicht nutzen.
 
 Melde dich bitte mit deinen Daten an,
-um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
+um die Einverständniserklärung zu akzeptieren um die HPI Schul-Cloud im vollen Umfang nutzen zu können.
 
 Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${
 	user.registrationLink.shortLink
@@ -2778,26 +2779,30 @@ const getTeamMembersButton = (counter) => `
 const getTeamSchoolsButton = (counter) => `
   <div class="btn-show-schools" role="button">${counter}<i class="fa fa-building team-flags"></i></div>`;
 
-router.all('/teams', (req, res, next) => {
+router.all('/teams', async (req, res, next) => {
 	const path = '/administration/teams/';
 
 	const itemsPerPage = parseInt(req.query.limit, 10) || 25;
 	const filterQuery = {};
 	const currentPage = parseInt(req.query.p, 10) || 1;
 
+	const dataLength = await api(req)
+		.get('/teams/manage/admin')
+		.then((dataResponse) => dataResponse.total);
+
+	const exceedDataLimit = ((itemsPerPage * (currentPage - 1)) > dataLength);
+
 	let query = {
 		limit: itemsPerPage,
-		skip: itemsPerPage * (currentPage - 1),
+		skip: (exceedDataLimit) ? 0 : itemsPerPage * (currentPage - 1),
 	};
 	query = Object.assign(query, filterQuery);
-
 	// TODO: mapping sort
 	/*
 	    'Mitglieder': 'members',
 		'Schule(n)': 'schoolIds',
 		'Erstellt am': 'createdAt',
 	*/
-
 
 	api(req)
 		.get('/teams/manage/admin', {
@@ -2929,7 +2934,7 @@ router.all('/teams', (req, res, next) => {
 				}
 
 				const pagination = {
-					currentPage,
+					currentPage: (exceedDataLimit) ? 1 : currentPage,
 					numPages: Math.ceil(data.total / itemsPerPage),
 					baseUrl: `/administration/teams/?p={{page}}${sortQuery}${limitQuery}`,
 				};
