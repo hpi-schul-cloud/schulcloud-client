@@ -43,13 +43,13 @@
 {{#unless isRSS}}
 <div class="mt-1">
     {{#inArray 'NEWS_EDIT' ../news.permissions}}
-    <a class="btn btn-primary btn-edit" href="/news/{{../news._id}}/edit" alt="Artikel '{{../news.title}}' bearbeiten.">
-        Bearbeiten
+    <a class="btn btn-primary btn-edit" href="/news/{{../news._id}}/edit" alt="{{$t "news.button.editNewsAlt" (dict "title" ../news.title)}}">
+        {{$t "news.button.editNews"}}
     </a>
     {{/inArray}}
     {{#inArray 'NEWS_EDIT' ../news.permissions}}
     <a class="btn btn-secondary btn-delete" href="/news/{{../news._id}}" target="_blank" data-method="DELETE"
-        data-name="{{../news.title}}" alt="Artikel '{{../news.title}}' löschen" redirect="/news/">
+        data-name="{{../news.title}}" alt="{{$t "news.button.deleteNewsAlt" (dict "name" ../news.title)}}" redirect="/news/">
         {{$t "global.button.delete" }}
     </a>
     {{/inArray}}
