@@ -34,7 +34,7 @@
 					{{/ifEnv}}
 				</div>
 
-                <button  title="Mehr Optionen" class="btn btn-block btn-secondary btn-toggle-providers ">
+                <button  title={{$t "login.button.moreOptions"}} class="btn btn-block btn-secondary btn-toggle-providers ">
                     <i class="fa fa-chevron-down"></i> {{$t "login.button.moreOptions"}}
                 </button>
 
@@ -62,7 +62,7 @@
 						</select>
 					</div>
 					<div>
-					<button title="Weniger Anzeigen"class="btn toggle-btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-up"></i> {{$t "login.button.less"}}</button>
+					<button title={{$t "login.button.less"}} class="btn toggle-btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-up"></i>{{$t "login.button.less"}}</button>
 					</div>
 				</div>
 				{{> "lib/components/csrfInput"}}
