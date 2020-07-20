@@ -945,3 +945,23 @@ footer {
 .avatar-circle-lg {
 	@include avatar(100px);
 }
+
+.skipLinks a {
+	position: absolute;
+	left: -5rem;
+	width: 1px;
+	height: 1px;
+	top: auto;
+	&:focus {
+		left: 15rem;
+		width: auto;
+		height: auto;
+	}
+}
+@media (max-width: 425px) {
+	.skipLinks a:focus {
+		left: 5rem;
+		top: 6rem;
+		z-index: 1;
+	}
+}

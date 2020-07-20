@@ -901,6 +901,24 @@
 	},
 	"global": {
 		"topMenu": {
+			"ariaLabel": "topbar",
+			"dropdown": {
+				"alertButton": {
+					"title": "Es gibt ein Problem"
+				},
+				"fullscreenButton": {
+					"title": "Fullscreen"
+				},
+				"QRCode": {
+					"title": "QR-Code"
+				},
+				"notifications": {
+					"title": "Benachrichtigungen"
+				},
+				"currentUser": {
+					"ariaLabel": "Current user:"
+				}
+			},
 			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		},
 		"button": {
@@ -963,6 +981,7 @@
 			}
 		},
 		"sidebar": {
+			"ariaLabel": "sidebar",
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
@@ -1012,6 +1031,11 @@
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
+		},
+		"skipLinks": {
+			"mainContentSkipLink": "Skip to main content",
+			"topNavbarSkipLink": "Skip to top navbar",
+			"footerSkipLink": "Skip to footer"
 		}
 	},
 	"help": {
