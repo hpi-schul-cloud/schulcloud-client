@@ -3,14 +3,14 @@
 		<div class="assignment row">
 			<div class="description col-xl-12 print">
 				{{#if this.description}}
-					<div class="btn btn-secondary btn-print btn-sm pull-right" data-toggle="tooltip" title="Aufgabenstellung drucken">
+					<div class="btn btn-secondary btn-print btn-sm pull-right" data-toggle="tooltip" title="{{$t "homework._task.label.printTask"}}">
 						<i class='fa fa-print'></i>
 					</div>
 
 					<h1 class="print-only">{{{this.title}}}</h1>
 					{{#if this.teamSubmissions}}
 						{{#if this.maxTeamMembers}}
-							<div>Maximale Gruppengröße: <b>{{{this.maxTeamMembers}}} Mitglieder</b></div>
+							<div>{{{$t "homework._task.text.maxGroupSize" (dict "maxTeamMembers" this.maxTeamMembers)}}}</div>
 						{{/if}}
 					{{/if}}
 					<div>{{{this.description}}}</div>
@@ -24,21 +24,21 @@
 			{{#if isTeacher}}
 				{{#userHasPermission "HOMEWORK_EDIT"}}
 					<a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit"
-						alt="Aufgabe '{{../title}}' bearbeiten."> <i class='fa fa-edit'></i> {{$t "homework.label.edit" }}
+						alt="{{$t "homework._task.label.editTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-edit'></i> {{$t "homework.label.edit" }}
 					</a>
 					<a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/homework" target="_blank"
-						data-method="DELETE" data-name="{{../title}}" alt="Löschen der Aufgabe: '{{../title}}'.">
+						data-method="DELETE" data-name="{{../title}}" alt="{{$t "homework._task.label.deleteTaskAlt" (dict "title" ../title)}}">
 						<i class='fa fa-trash-o'></i> {{$t "global.button.delete" }}
 					</a>
-					<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="Aufgabenstellung kopieren" href="/homework/{{../_id}}/copy"
-						alt="Aufgabe '{{../title}}' kopieren."> <i class='fa fa-copy'></i> {{$t "homework.button.copy" }} </a>
+					<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="{{$t "homework._task.label.copyTask"}}" href="/homework/{{../_id}}/copy"
+						alt="{{$t "homework._task.label.copyTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-copy'></i> {{$t "homework.button.copy" }} </a>
 				{{/userHasPermission}}
 			{{/if}}
 
 			{{#inArray this.currentUser._id this.archived}}
 				{{#userHasPermission "HOMEWORK_CREATE"}}
 				<a class="btn btn-secondary btn-archive" href="{{this.url}}" target="_blank" data="archive=open"
-					data-toggle="tooltip" title="Verschiebe Aufgabe aus Archiv in die Übersichtsseite"
+					data-toggle="tooltip" title="{{$t "homework._task.label.moveFromArchive"}}"
 					alt-text="<i class='fa fa-archive'></i> Archivieren">
 					<i class='fa fa-mail-reply'></i> {{$t "homework.label.restore" }}
 				</a>
@@ -46,8 +46,8 @@
 			{{else}}
 				{{#userHasPermission "HOMEWORK_EDIT"}}
 				<a class="btn btn-secondary btn-archive" href="{{this.url}}" target="_blank" data="archive=done"
-					data-toggle="tooltip" title="Verschiebe Aufgabe von Übersichtsseite ins Archiv"
-					alt-text="<i class='fa fa-mail-reply'></i> Wiederherstellen">
+					data-toggle="tooltip" title="{{$t "homework._task.label.moveToArchive"}}"
+					alt-text="{{{$t "homework._task.button.restoreAlt"}}}">
 					<i class='fa fa-archive'></i> {{$t "homework.button.archive" }}
 				</a>
 				{{/userHasPermission}}
