@@ -1,47 +1,48 @@
 {{#extend "lib/default"}}
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
-        <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
-        <link rel="stylesheet" href="/styles/lib/forms/form-auto-logout-alert.css" />
-        {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/lib/loggedin.css"/>
+		<link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
+		<link rel="stylesheet" href="/styles/lib/forms/form-auto-logout-alert.css"/>
+		{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
 			{{#inArray "messenger" @root.currentSchoolData.features}}
 				<link rel="stylesheet" href="/styles/lib/chatLoggedin.css"/>
 			{{/inArray}}
 		{{/ifConfig}}
-        <noscript>
-            <style>
-                .section-title,
-                #main-content,
-                footer
-                {
-                    opacity: 1;
-                }
-            </style>
-        </noscript>
-    {{/content}}
+		<noscript>
+			<style>
+				.section-title,
+				#main-content,
+				footer {
+					opacity: 1;
+				}
+			</style>
+		</noscript>
+	{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/loggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/autologout.js" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
-        <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" nonce="{{nonceValue}}" defer></script>
-        <script type="text/javascript" src="/vendor/feathersjs/feathers.js" nonce="{{nonceValue}}" defer></script>
-        {{#if @root.currentUser.preferences.enterthecloud}}
-            <script type="text/javascript" src="/vendor/enterthecloud.min.js" nonce="{{nonceValue}}" defer></script>
-        {{/if}}
-        {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-            {{#inArray "messenger" @root.currentSchoolData.features}}
-                <script nonce="{{nonceValue}}">
-                    window.matrixAssetDomain = '{{getConfig "MATRIX_MESSENGER_EMBED_URI"}}';
-                    window.userLanguage = '{{ @root.userLanguage }}';
-                </script>
-                <script src="/scripts/chatLoggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-            {{/inArray}}
-        {{/ifConfig}}
-    {{/content}}
+	{{#content "scripts" mode="append"}}
+		<script src="/scripts/loggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="/scripts/autologout.js" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}"
+				nonce="{{nonceValue}}" defer></script>
+		<script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML"
+				nonce="{{nonceValue}}" defer></script>
+		<script type="text/javascript" src="/vendor/feathersjs/feathers.js" nonce="{{nonceValue}}" defer></script>
+		{{#if @root.currentUser.preferences.enterthecloud}}
+			<script type="text/javascript" src="/vendor/enterthecloud.min.js" nonce="{{nonceValue}}" defer></script>
+		{{/if}}
+		{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+			{{#inArray "messenger" @root.currentSchoolData.features}}
+				<script nonce="{{nonceValue}}">
+					window.matrixAssetDomain = '{{getConfig "MATRIX_MESSENGER_EMBED_URI"}}';
+					window.userLanguage = '{{ @root.userLanguage }}';
+				</script>
+				<script src="/scripts/chatLoggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+			{{/inArray}}
+		{{/ifConfig}}
+	{{/content}}
 
-    {{#content "body"}}
+	{{#content "body"}}
 
-        {{#if currentSchoolData.inMaintenance}}
+		{{#if currentSchoolData.inMaintenance}}
 			<input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
 		{{/if}}
 		<div class="navtooltips"></div>
@@ -129,11 +130,9 @@
 						<li class="nav-item alert-button">
 						<div class="dropdown minimal-button">
 								<a class="btn btn-secondary btn-thin dropdown-toggle btn-alert"
-								   href=""
-								aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
-								title="{{$t "lib.loggedin.label.thereIsAProblem"}}"
-								   data-toggle="dropdown"
-						>
+								   href="" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}" title="{{$t
+								"lib.loggedin.label.thereIsAProblem"}}"
+								   data-toggle="dropdown">
 							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
 						</a>
 
@@ -146,9 +145,8 @@
 						<li class="nav-item fullscreen-action">
 						<div class="dropdown minimal-button">
 								<a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen"
-								   href=""
-								aria-label="{{$t "lib.loggedin.label.fullscreen"}}"
-								title="{{$t "lib.loggedin.label.fullscreen"}}"
+								   href="" aria-label="{{$t "lib.loggedin.label.fullscreen"}}" title="{{$t
+								"lib.loggedin.label.fullscreen"}}"
 								   data-toggle="dropdown">
 							<i class="fa fa-expand" aria-hidden="true"></i>
 						</a>
@@ -157,11 +155,9 @@
 						<li class="nav-item qr-code-action">
 						<div class="dropdown minimal-button">
 								<a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr"
-								   href=""
-								aria-label="{{$t "lib.loggedin.label.qrCode"}}"
-								title="{{$t "lib.loggedin.label.qrCode"}}"
-								   data-toggle="dropdown"
-						>
+								   href="" aria-label="{{$t "lib.loggedin.label.qrCode"}}" title="{{$t
+								"lib.loggedin.label.qrCode"}}"
+								   data-toggle="dropdown">
 							<i class="fa fa-qrcode" aria-hidden="true"></i>
 						</a>
 						<div class="dropdown-menu print">
@@ -170,8 +166,8 @@
 						{{$t "global.topMenu.qrHintText"}}
 							</div>
 									<div class="btn btn-secondary btn-print mb-1 ml-1 mt-0"
-										 data-toggle="tooltip"
-									data-original-title="{{$t "lib.loggedin.label.printQrCode"}}">
+										 data-toggle="tooltip" data-original-title="{{$t
+									"lib.loggedin.label.printQrCode"}}">
 								<i class="fa fa-print" aria-hidden="true"></i> {{$t "global.button.print" }}
 								</div>
 								</div>
@@ -207,13 +203,13 @@
 										<span>{{$t "lib.loggedin.text.noNotificationsAtTheMoment" }}</span>
 										</div>
 										{{/if}}
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        {{/if}}
+										</div>
+										</div>
+										</div>
+										</li>
+									{{/if}}
 
-                        {{#embed "lib/help_menu"}}{{/embed}}
+									{{#embed "lib/help_menu"}}{{/embed}}
 
 									{{#if currentSchoolData}}
 										{{#unless currentSchoolData.isExpertSchool}}
@@ -262,74 +258,75 @@
 									<div class="row" id="titlebar">
 										<div class="col-sm-9">
 											{{#unless notitle}}
-                                  <div>
-                                      <h1 class="h4" id="page-title">{{{stripOnlyScript title}}}</h1>
-                                  </div>
-                                {{/unless}}
-                                <div>
-                                    {{subtitle}}
-                                </div>
-                            </div>
-                            {{#if showSearch}}
-								<div id="searchBar" class="col-sm-3 hide-inline">
-								{{#unless liveSearch}}
-									<form class="search-wrapper"
-										  action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}"
-										  method="get">{{/unless}}
-										<a href="" class="mobile-search-toggle" aria-label="{{$t
-										"global.mobileNavMenu"}}">
-								{{#unless liveSearch}}<i class="fa fa-search" aria-hidden="true"></i>{{/unless}}
-								</a>
-								<div class="input-group input-group-sm">
-								<label for="search-box">{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t
-										"lib.loggedin.input.searchFor"}}{{/if}}</label>
-										<input id="search-box" type="text" class="{{#if
-										liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if
-										searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t
-										"lib.loggedin.input.searchFor"}}{{/if}}" name="q"/>
-								{{> "lib/components/csrfInput"}}
-								<span class="input-group-btn">
-										<button type="submit" class="btn btn-secondary" aria-label="{{$t
-										"lib.loggedin.label.search"}}">
-									<i class="fa fa-search" aria-hidden="true"></i>
+												<div>
+													<h1 class="h4" id="page-title">{{{stripOnlyScript title}}}</h1>
+												</div>
+											{{/unless}}
+											<div>
+												{{subtitle}}
+											</div>
+										</div>
+									{{#if showSearch}}
+										<div id="searchBar" class="col-sm-3 hide-inline">
+										{{#unless liveSearch}}
+											<form class="search-wrapper"
+												  action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}"
+												  method="get">{{/unless}}
+												<a href="" class="mobile-search-toggle" aria-label="{{$t
+												"global.mobileNavMenu"}}">
+										{{#unless liveSearch}}<i class="fa fa-search" aria-hidden="true"></i>{{/unless}}
+										</a>
+										<div class="input-group input-group-sm">
+										<label for="search-box">{{#if searchLabel}}{{truncatePure searchLabel
+																								  21}}{{else}}{{$t
+												"lib.loggedin.input.searchFor"}}{{/if}}</label>
+												<input id="search-box" type="text" class="{{#if
+												liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if
+												searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t
+												"lib.loggedin.input.searchFor"}}{{/if}}" name="q"/>
+										{{> "lib/components/csrfInput"}}
+										<span class="input-group-btn">
+												<button type="submit" class="btn btn-secondary" aria-label="{{$t
+												"lib.loggedin.label.search"}}">
+											<i class="fa fa-search" aria-hidden="true"></i>
                                                 </button>
-								</span>
-								</div>
-								{{#unless liveSearch}}</form>{{/unless}}
-								</div>
-								{{/if}}
-								</div>
-								</div>
-								</section>
+										</span>
+										</div>
+										{{#unless liveSearch}}</form>{{/unless}}
+										</div>
+										{{/if}}
+										</div>
+										</div>
+										</section>
 
-									<p id="preferences" hidden>{{ json currentUser.preferences }}</p>
-									<p id="backendUrl" hidden>{{ backendUrl }}</p>
+											<p id="preferences" hidden>{{ json currentUser.preferences }}</p>
+											<p id="backendUrl" hidden>{{ backendUrl }}</p>
 
-									<main id="main-content" class="container-fluid">
-										{{#block "page"}}{{/block}}
-									</main>
-								{{#if messenger}}
-									{{>"lib/components/notification"
-											notification=notificationMessenger
-											style="position: sticky;
-							position: -webkit-sticky;
-							bottom: 1rem;
-							margin-right: 1rem;
-							z-index: 1;
-							margin-left: 40%;"
-							}}
-						{{/if}}
-            </div>
-            {{#unless inline}}
-                {{#embed "lib/footer"}}{{/embed}}
-            {{/unless}}
+											<main id="main-content" class="container-fluid">
+												{{#block "page"}}{{/block}}
+											</main>
+										{{#if messenger}}
+											{{>"lib/components/notification"
+													notification=notificationMessenger
+													style="position: sticky;
+													position: -webkit-sticky;
+													bottom: 1rem;
+													margin-right: 1rem;
+													z-index: 1;
+													margin-left: 40%;"
+											}}
+										{{/if}}
+										</div>
+										{{#unless inline}}
+											{{#embed "lib/footer"}}{{/embed}}
+										{{/unless}}
 
-        </section>
-    {{/content}}
-{{/extend}}
+										</section>
+										{{/content}}
+										{{/extend}}
 
-{{#embed "lib/components/modal" class="auto-logout-alert-modal"}}
-    {{#content "body"}}
-        {{> "lib/forms/form-auto-logout-alert"}}
-    {{/content}}
-{{/embed}}
+										{{#embed "lib/components/modal" class="auto-logout-alert-modal"}}
+											{{#content "body"}}
+												{{> "lib/forms/form-auto-logout-alert"}}
+											{{/content}}
+										{{/embed}}
