@@ -1182,7 +1182,7 @@
 		"skipLinks": {
 			"mainContentSkipLink": "Hauptbereich",
 			"topNavbarSkipLink": "Navigation",
-			"footerSkipLink": "Footerc"
+			"footerSkipLink": "Footer"
 		},
 		"title": {
 			"landing": "Startseite"
