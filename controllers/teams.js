@@ -1390,7 +1390,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t('teams._team.text.noTopicFoundWithCode'),
+					message: res.$t('global.text.noTopicFoundWithCode'),
 				};
 
 				redirectHelper.safeBackRedirect(req, res);

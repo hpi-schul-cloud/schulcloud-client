@@ -31,7 +31,6 @@
 		},
 		"text": {
 			"browserNotSupported": "Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen:",
-			"moreInfo": "Mehr Informationen:",
 			"startA2019": "(Start August 2019)",
 			"startF2019": "(Start Februar 2019)",
 			"startM2017": "(Start März 2017)",
@@ -575,7 +574,6 @@
 			},
 			"tasks": {
 				"button": {
-					"addPrivateTask": "private Aufgabe hinzufügen",
 					"createTask": "Erstelle eine Aufgabe",
 					"privateTasks": "Private Aufgaben"
 				},
@@ -692,7 +690,6 @@
 					"importTopicAdviseChangeData": "<strong>Achtung:</strong> Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
 					"insertCodeToImportTopic": "Füge einen Code ein, um Themen anderer Nutzer zu importieren. Im Thema enthaltene Dateien werden in deinem Kursordner abgelegt.",
 					"moveTopic": "Thema verschieben",
-					"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 					"revealTopic": "Thema wieder anzeigen",
 					"shareTopic": "Thema teilen"
 				}
@@ -908,7 +905,6 @@
 			"selectFormat": "Format auswählen",
 			"table": "Tabelle (xlsx)",
 			"textDocument": "Textdokument (docx)",
-			"toCourse": "Zum Kurs",
 			"toTeam": "Zum Team"
 		},
 		"headline": {
@@ -989,6 +985,7 @@
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
+			"addPrivateTask": "private Aufgabe hinzufügen",
 			"addTask": "Aufgabe hinzufügen",
 			"back": "Zurück",
 			"cancel": "Abbrechen",
@@ -1010,6 +1007,7 @@
 			"save": "Speichern",
 			"saveChanges": "Änderungen speichern",
 			"send": "Abschicken",
+			"toCourse": "Zum Kurs",
 			"tryAgain": "Erneut Versuchen",
 			"yes": "Ja"
 		},
@@ -1108,6 +1106,7 @@
 		"text": {
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
+			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
 			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
@@ -1115,6 +1114,7 @@
 			"friday": "Freitag",
 			"invalidRequest": "Ungültige Anfrage",
 			"monday": "Montag",
+			"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
 			"sunday": "Sonntag",
@@ -1202,7 +1202,6 @@
 			"advertisementForOurTeam": "Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs",
 			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) videoplayer.",
 			"downloadFile": "Datei herunterladen",
-			"moreInformation": "Mehr Informationen:",
 			"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
 			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
 		}
@@ -1264,7 +1263,6 @@
 			"importSubmission": "Abgabe des Schülers importieren",
 			"onTheSubject": "Zum Thema",
 			"save": "Speichern und Abschicken",
-			"toClass": "Zum Kurs",
 			"toCourseAlt": "Zum Kurs der Aufgabe",
 			"toTheCourseFiles": "Zu den Kursdateien",
 			"toTopicAlt": "Zum Thema der Aufgabe"
@@ -1583,7 +1581,6 @@
 			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
 			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
 			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
-			"onlyPrivacy": "Datenschutzerklärung",
 			"onlyTermsOfUse": "Nutzungsordnung",
 			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
 		},
@@ -1634,7 +1631,6 @@
 		"text": {
 			"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
 			"loginFailed": "Login fehlgeschlagen.",
-			"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
 			"loginFailedFirstHintText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
 			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
@@ -1731,11 +1727,6 @@
 	"pwRecovery": {
 		"button": {
 			"createNewPassword": "Neues Passwort anlegen"
-		},
-		"failed": {
-			"text": {
-				"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
-			}
 		},
 		"headline": {
 			"passwordRecovery": "Passwort-Wiederherstellung"
@@ -2161,7 +2152,6 @@
 			"text": {
 				"errorAcceptingInvitation": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
 				"invitationSuccessfullyAccepted": "Teameinladung erfolgreich angenommen.",
-				"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
 				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
 			}
@@ -2204,11 +2194,6 @@
 			"button": {
 				"createTopic": "Thema anlegen",
 				"editTopic": "Thema bearbeiten"
-			},
-			"global": {
-				"button": {
-					"addPrivateTask": "private Aufgabe hinzufügen"
-				}
 			},
 			"heading": {
 				"privateTasks": "Private Aufgaben",

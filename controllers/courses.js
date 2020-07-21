@@ -911,7 +911,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t('courses._course.topic.text.noTopicFoundWithCode'),
+					message: res.$t('global.text.noTopicFoundWithCode'),
 				};
 
 				redirectHelper.safeBackRedirect(req, res);
