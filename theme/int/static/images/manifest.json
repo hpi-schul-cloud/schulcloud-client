@@ -1,6 +1,6 @@
 {
-	"name": "HPI Schul-Cloud International",
-	"short_name": "Internationale Schul-Cloud",
+	"name": "Internationale Schul-Cloud",
+	"short_name": "HPI Schul-Cloud International oder Welt",
 	"start_url": "/?homescreen=1&theme=int",
 	"scope": "/",
 	"background_color": "#ffffff",
