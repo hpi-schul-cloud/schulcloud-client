@@ -479,7 +479,6 @@
 			"edit": {
 				"button": {
 					"addLesson": "Neuen Stundentermin hinzufügen",
-					"deleteCourse": "Kurs löschen",
 					"showCourseDetail": "Kursdetails anzeigen"
 				},
 				"headline": {
@@ -495,8 +494,7 @@
 					"class": "Klasse(n)",
 					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 					"substitute": "Vertretungslehrer:innen",
-					"timeSpan": "Zeitraum (z.B. Schuljahr)",
-					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
+					"timeSpan": "Zeitraum (z.B. Schuljahr)"
 				},
 				"text": {
 					"attentionDeletion": "Alle Daten werden unwiderruflich gelöscht.",
@@ -585,7 +583,6 @@
 					"createFirstTask": "Erstelle die erste Aufgabe in deinem Kurs",
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
-					"privateTasks": "Private Aufgaben und Entwürfe",
 					"submittedTasks": "Bearbeitete Aufgaben",
 					"tasksWithSubmissions": "Aufgaben mit Abgaben"
 				},
@@ -704,8 +701,7 @@
 		"add": {
 			"button": {
 				"addCourseAndContinue": "Kurs anlegen und Weiter",
-				"addLessonAppointment": "Schulstundentermin im Stundenplan anlegen (optional)",
-				"deleteCourse": "Kurs löschen"
+				"addLessonAppointment": "Schulstundentermin im Stundenplan anlegen (optional)"
 			},
 			"headline": {
 				"addCourse": "Kurs anlegen",
@@ -725,7 +721,6 @@
 				"addStudentsToCourse": "Schüler:innen / Teilnehmer:innen - Optional",
 				"courseSubstitute": "Vertretungslehrer:innen - Optional",
 				"timeSpan": "Zeitraum (z.B. Schuljahr) von - Optional",
-				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben",
 				"timeSpanUntil": "Bis - Optional"
 			},
 			"link": {
@@ -757,6 +752,9 @@
 			"nextStep": "Nächster Schritt"
 		},
 		"global": {
+			"button": {
+				"deleteCourse": "Kurs löschen"
+			},
 			"input": {
 				"chooseTeacher": "Lehrer:in auswählen",
 				"egRoom1-21": "z.B. R-1.21",
@@ -772,6 +770,7 @@
 				"courseTeacher": "Unterrichtende:r Lehrer:in",
 				"lengthOfLesson": "Dauer der Schulstunde",
 				"startOfLesson": "Start der Schulstunde",
+				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben",
 				"weekday": "Wochentag"
 			}
 		},
@@ -819,7 +818,6 @@
 		"headline": {
 			"myMaterials": "Meine Materialien",
 			"poll2Title": "Befragung II im Projekt HPI Schul-Cloud",
-			"privateTasks": "Private Aufgaben und Entwürfe",
 			"schedule": "Stundenplan",
 			"title": "Übersicht",
 			"withFeedback": "Aufgaben mit Lehrer:innen-Kommentar",
@@ -1033,6 +1031,7 @@
 			"files": "Dateien",
 			"invitationLinkGenerated": "Einladungslink generiert!",
 			"news": "Neuigkeiten",
+			"privateTasks": "Private Aufgaben und Entwürfe",
 			"sorting": "Sortierung",
 			"task": "Aufgabe",
 			"tasks": "Aufgaben"
