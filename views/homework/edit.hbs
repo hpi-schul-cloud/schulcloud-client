@@ -89,7 +89,7 @@
 
 			<div class="form-group">
 				<label>{{$t "homework.global.label.title" }}</label>
-				<input class="form-control" name="name" type="text" placeholder="Titel" required
+				<input class="form-control" name="name" type="text" placeholder="{{$t "homework.input.title"}}" required
 					value="{{{assignment.name}}}" data-testid="homework-name" />
 			</div>
 
@@ -99,7 +99,7 @@
 						<label>{{$t "homework.global.label.courses" }}</label>
 						{{#unless isSubstitution}}
 						<select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
-							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
+							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>{{$t "homework.input.noAssignment"}}</option>
 							{{#each courses}}
 							<option value="{{this._id}}"
 								{{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>
