@@ -3,7 +3,7 @@
 
 <label class="form-group">
 	<label class="control-label">{{$t "help.global.label.briefDescriptionOfTheProblem" }}</label>
-	<input class="form-control" type="text" name="title" placeholder="Kurzbeschreibung des Problems" required>
+	<input class="form-control" type="text" name="title" placeholder="{{$t "help.placeholder.briefDescriptionOfTheProblem" }}" required>
 </label>
 <label class="form-group">
 	<label class="control-label">{{$t "help.form_bug.label.problemDescription" }}</label>
@@ -17,7 +17,7 @@
 	<span class="control-label">
 		{{$t "help.form_bug.label.emailAddressForAnyQueries" }}
 	</span>
-	<input class="form-control" type="email" name="replyEmail" placeholder="E-Mail-Adresse" value="{{ userEmail }}" required>
+	<input class="form-control" type="email" name="replyEmail" placeholder="{{$t "help.placeholder.email"}}" value="{{ userEmail }}" required>
 </label>
 <hr>
 <p>{{$t "help.global.label.furtherInformation" }}</p>
