@@ -15,7 +15,7 @@ router.get('/teachersOfSchool', async (req, res, next) => {
 			},
 		});
 
-		const result = users.data.map((user) => ({
+		const result = users.data.map(user => ({
 			_id: user._id,
 			firstName: user.firstName,
 			lastName: user.lastName,

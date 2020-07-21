@@ -75,38 +75,40 @@ const checkInternalComponents = (data, baseUrl) => {
 	return data;
 };
 
-const getEtherpadPadForCourse = async (req, user, courseId, content, oldPadId) => api(req).post('/etherpad/pads', {
-	json: {
-		courseId,
-		padName: content.content.title,
-		text: content.description,
-		oldPadId,
-	},
-}).then((response) => response.data.padID);
+const getEtherpadPadForCourse = async (req, user, courseId, content, oldPadId) => {
+	return api(req).post('/etherpad/pads', {
+		json: {
+			courseId,
+			padName: content.content.title,
+			text: content.description,
+			oldPadId
+		},
+	}).then((response) => response.data.padID );
+};
 
 async function createNewEtherpad(req, res, contents = [], courseId) {
 	// eslint-disable-next-line no-return-await
 	return await Promise.all(contents.map(async (content) => {
 		if (!content
-			|| typeof (content.component) === 'undefined'
+			|| typeof(content.component) === 'undefined'
 			|| content.component !== 'Etherpad'
-			|| typeof (content.content) === 'undefined'
+			|| typeof(content.content) === 'undefined'
 		) {
 			return content;
 		}
 		let isOldPad;
 		let oldPadId;
 		try {
-			const parsedUrl = new URL(content.content.url);
+			let parsedUrl = new URL(content.content.url);
 			isOldPad = isPadDomainOld(parsedUrl);
-			if (isOldPad) {
+			if(isOldPad) {
 				oldPadId = getPadIdFromUrl(content.content.url);
 			}
 		} catch (err) {
 			logger.error(err.message);
-		}
+		};
 		// no pad name supplied, generate one
-		if (typeof (content.content.title) === 'undefined' || content.content.title === '') {
+		if (typeof(content.content.title) === 'undefined' || content.content.title === '') {
 			content.content.title = randomBytes(12).toString('hex');
 		}
 		const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
@@ -127,36 +129,38 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 	});
 }
 
-const getEtherpadSession = async (req, res, courseId) => await api(req).post(
-	'/etherpad/sessions', {
-		form: {
-			courseId,
+const getEtherpadSession = async (req, res, courseId) => {
+	return await api(req).post(
+		'/etherpad/sessions', {
+			form: {
+				courseId,
+			},
 		},
-	},
-).catch((err) => {
-	logger.error(err.message);
-	return undefined;
-});
+	).catch((err) => {
+		logger.error(err.message);
+		return undefined;
+	});
+};
 
 const isPadDomainOld = (url) => {
-	if (url.hostname === Configuration.get('ETHERPAD__OLD_DOMAIN')) {
+	if(url.hostname === Configuration.get('ETHERPAD__OLD_DOMAIN')) {
 		return true;
 	}
 	return false;
-};
+}
 
 const validatePadDomain = (url) => {
 	const whitelist = [
 		Configuration.get('ETHERPAD__OLD_DOMAIN'),
-		Configuration.get('ETHERPAD__NEW_DOMAIN'),
+		Configuration.get('ETHERPAD__NEW_DOMAIN')
 	];
-	if (whitelist.indexOf(url.hostname) === -1) {
+	if ( whitelist.indexOf(url.hostname) === -1 ) {
 		throw new Error(`not a valid etherpad hostname: ${url.hostname}`);
 	}
-};
+}
 
 const getPadIdFromUrl = (path) => {
-	path += '';
+	path += "";
 	let parsedUrl;
 	try {
 		parsedUrl = new URL(path);
@@ -164,10 +168,10 @@ const getPadIdFromUrl = (path) => {
 	} catch (err) {
 		logger.error(err.message);
 		return undefined;
-	}
+	};
 	path = parsedUrl.pathname;
 	return path.substring(path.lastIndexOf('/') + 1);
-};
+}
 
 const getNexBoardAPI = () => {
 	if (!NEXBOARD_USER_ID && !NEXBOARD_API_KEY) {
@@ -254,7 +258,7 @@ router.post('/', async (req, res, next) => {
 	// Check for neXboard compontent
 	data.contents = await createNewNexBoards(req, res, data.contents);
 
-	data.contents = data.contents.filter((c) => c !== undefined);
+	data.contents = data.contents.filter(c => c !== undefined);
 
 	data.time = moment(data.time || 0, 'HH:mm').toString();
 	data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
@@ -286,7 +290,7 @@ router.post('/:id/share', (req, res, next) => {
 	api(req).get(`/lessons/${req.params.id}`).then((topic) => {
 		topic.shareToken = topic.shareToken || shortId.generate();
 		api(req).patch(`/lessons/${req.params.id}`, { json: topic })
-			.then((result) => res.json(result))
+			.then(result => res.json(result))
 			.catch((err) => { res.err(err); });
 	});
 });
@@ -309,22 +313,22 @@ router.get('/:topicId', (req, res, next) => {
 			qs: {
 				$populate: ['materialIds'],
 			},
-		}).then((lesson) => {
-			const etherpadPads = [];
+		}).then(lesson => {
+			let etherpadPads = [];
 			if (typeof lesson.contents !== 'undefined') {
 				lesson.contents.forEach((element) => {
 					if (element.component === 'Etherpad') {
 						const { url } = element.content;
 						const padId = getPadIdFromUrl(url);
 						// set cookie for this pad
-						if (typeof (padId) !== 'undefined') {
+						if(typeof(padId) !== 'undefined') {
 							etherpadPads.push(padId);
 						}
 					}
 				});
 			}
 			if (typeof lesson.contents !== 'undefined') {
-				return getEtherpadSession(req, res, req.params.courseId).then((sessionInfo) => {
+				return getEtherpadSession(req, res, req.params.courseId).then(sessionInfo => {
 					etherpadPads.forEach((padId) => {
 						authHelper.etherpadCookieHelper(sessionInfo, padId, res);
 					});
@@ -361,12 +365,11 @@ router.get('/:topicId', (req, res, next) => {
 			return -1;
 		});
 		// return for consistent return
-		return res.render('topic/topic', {
-			...lesson,
+		return res.render('topic/topic', Object.assign({}, lesson, {
 			title: lesson.name,
 			context,
-			homeworks: homeworks.filter((task) => !task.private),
-			myhomeworks: homeworks.filter((task) => task.private),
+			homeworks: homeworks.filter(task => !task.private),
+			myhomeworks: homeworks.filter(task => task.private),
 			courseId: req.params.courseId,
 			isCourseGroupTopic: courseGroup._id !== undefined,
 			breadcrumb: [{
@@ -386,7 +389,7 @@ router.get('/:topicId', (req, res, next) => {
 				url: `/${context}/${course._id}/topics/${lesson._id}`,
 			},
 			],
-		}, (error, html) => {
+		}), (error, html) => {
 			if (error) {
 				throw new Error('error in GET /:topicId - res.render', error);
 			}
@@ -420,7 +423,7 @@ router.patch('/:topicId', async (req, res, next) => {
 	// create new Nexboard when necessary, if not simple hidden or position patch
 	if (data.contents) data.contents = await createNewNexBoards(req, res, data.contents);
 
-	if (data.contents) { data.contents = data.contents.filter((c) => c !== undefined); }
+	if (data.contents) { data.contents = data.contents.filter(c => c !== undefined); }
 
 	// recheck internal components by pattern
 	checkInternalComponents(data, req.headers.origin);
@@ -475,7 +478,7 @@ router.get('/add/neweditor', async (req, res, next) => {
 	res.redirect(`/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`);
 });
 
-const boolean = (v) => v === 1 || v === 'true' || v === true || v === '1';
+const boolean = v => v === 1 || v === 'true' || v === true || v === '1';
 router.patch('/:topicId/neweditor', (req, res, next) => {
 	if (req.body.hidden !== undefined) {
 		apiEditor(req).patch(`/helpers/setVisibility/${req.params.topicId}`, {

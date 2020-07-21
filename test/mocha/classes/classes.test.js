@@ -1,12 +1,11 @@
+'use strict';
 
 const assert = require('assert');
 const app = require('../../../app');
 const chai = require('chai');
-
-const { expect } = chai;
+const expect = chai.expect;
 const chaiHttp = require('chai-http');
 const loginHelper = require('../helper/login-helper');
-
 chai.use(chaiHttp);
 
 /* functionallity currently disabled

@@ -1,10 +1,10 @@
 const express = require('express');
 
 const router = express.Router({ mergeParams: true });
-const { Configuration } = require('@schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
+const { Configuration } = require('@schul-cloud/commons');
 
 const createToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
@@ -94,7 +94,7 @@ const runToolHandler = (req, res, next) => {
 				url: tool.url,
 				method: 'POST',
 				csrf: (formData.lti_version === '1.3.0'),
-				formData: Object.keys(formData).map((key) => ({ name: key, value: formData[key] })),
+				formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
 			});
 		});
 	});

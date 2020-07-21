@@ -35,7 +35,7 @@ router.post('/', (req, res, next) => {
 			account: {
 				id: res.locals.currentUser._id,
 				school_id: res.locals.currentSchool,
-				roles: res.locals.currentUser.roles.map((r) => r.name),
+				roles: res.locals.currentUser.roles.map(r => r.name),
 			},
 			objectType: 'Agent',
 		},

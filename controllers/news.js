@@ -41,7 +41,7 @@ const createActions = (item, path) => {
 
 const getActions = (isRSS, res, newsItem) => !isRSS && createActions(newsItem, '/news/');
 
-const getDeleteHandler = (service) => (req, res, next) => {
+const getDeleteHandler = service => (req, res, next) => {
 	api(req)
 		.delete(`/${service}/${req.params.id}`)
 		.then(() => {
@@ -138,7 +138,7 @@ router.all('/', async (req, res, next) => {
 	try {
 		const news = await api(req).get('/news/', { qs: queryObject });
 		const totalNews = news.total;
-		const mappedNews = news.data.map((newsItem) => decorateNews(newsItem));
+		const mappedNews = news.data.map(newsItem => decorateNews(newsItem));
 
 		const unpublishedNews = await api(req).get('/news/', {
 			qs: {
@@ -149,7 +149,7 @@ router.all('/', async (req, res, next) => {
 		});
 		const unpublishedMappedNews = {
 			...unpublishedNews,
-			data: unpublishedNews.data.map((item) => decorateNews(item)),
+			data: unpublishedNews.data.map(item => decorateNews(item)),
 		};
 
 		const pagination = {
