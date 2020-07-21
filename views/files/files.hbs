@@ -37,13 +37,13 @@
 			</section>
 
 			<div class="pull-right">
-				<select name="sortBy" class="form-control">
-					{{#each sortOptions}}
+				<!-- <select name="sortBy" class="form-control">
+					 {{#each sortOptions}}
 						<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
 							{{this.label}}
 						</option>
 					{{/each}}
-				</select>
+				</select> -->
 				<select name="sortOrder" class="form-control">
 					<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
 					<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending" }}</option>
@@ -64,7 +64,7 @@
 								<a href="/files/directory/"
 									target="_blank"
 									data-method="delete"
-									title="Ordner löschen"
+									title="{{$t "files.label.deleteFolder"}}"
 									data-file-id="{{../this._id}}"
 									data-file-name="{{{../this.name}}}">
 									<i class="fa fa-trash-o directory-icon pull-right"></i>
@@ -72,7 +72,7 @@
 								<a href="/directoryModel/{{../this._id}}/rename"
 									target="_blank"
 									data-method="dir-rename"
-								title="Ordner umbenennen"
+								title="{{$t "files.label.renameFolder"}}"
 								data-directory-id="{{../this._id}}"
 									data-directory-name="{{../this.name}}">
 									<i class="fa fa-edit directory-icon pull-right"></i>

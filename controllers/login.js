@@ -111,6 +111,7 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 		res.render('authentication/login', {
 			schools,
 			systems: [],
+			hideMenu: true,
 			redirect: redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : ''),
 		});
 	}));

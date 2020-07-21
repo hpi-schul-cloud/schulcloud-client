@@ -31,6 +31,7 @@ const {
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
 	ROCKETCHAT_SERVICE_ENABLED,
+	FEATURE_MATRIX_MESSENGER_ENABLED,
 } = require('./config/global');
 
 const app = express();
@@ -142,7 +143,9 @@ app.use(session({
 	store: sessionStore,
 	saveUninitialized: true,
 	resave: false,
-	secret: 'secret', // only used for cookie encryption; the cookie does only contain the session id though
+	secret: Configuration.get('COOKIE_SECRET'), // Secret used to sign the session ID cookie
+	sameSite: Configuration.get('COOKIE__SAME_SITE'), // restrict jwt access to our domain ressources only
+	secure: Configuration.get('COOKIE__SECURE'),
 }));
 
 // CSRF middlewares
@@ -175,6 +178,7 @@ app.use(async (req, res, next) => {
 	res.locals.version = version;
 	res.locals.sha = sha;
 	res.locals.ROCKETCHAT_SERVICE_ENABLED = ROCKETCHAT_SERVICE_ENABLED;
+	res.locals.FEATURE_MATRIX_MESSENGER_ENABLED = FEATURE_MATRIX_MESSENGER_ENABLED;
 	delete req.session.notification;
 	try {
 		await authHelper.populateCurrentUser(req, res);
@@ -250,6 +254,10 @@ app.use((err, req, res, next) => {
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 	if (err.error) logger.error(err.error);
 	if (res.locals.currentUser) res.locals.loggedin = true;
+
+	// keep sidebar restricted in error page
+	authHelper.restrictSidebar(req, res);
+
 	// render the error page
 	res.status(status).render('lib/error', {
 		loggedin: res.locals.loggedin,
