@@ -384,11 +384,11 @@
 	"community": {
 		"button": {
 			"allOtherSchools": "Alle anderen Schulen",
-			"brandenburg" : "Brandenburg",
+			"brandenburg": "Brandenburg",
 			"germanSchoolsAbroad": "Deutsche Auslandsschulen",
-			"lowerSaxony" : "Niedersachsen",
-			"mintECSchools" : "MINT-EC Schulen",
-			"thuringia" : "Thüringen"
+			"lowerSaxony": "Niedersachsen",
+			"mintECSchools": "MINT-EC Schulen",
+			"thuringia": "Thüringen"
 		},
 		"heading": {
 			"chooseYourState": "Wählen Sie Ihr Bundesland oder das Projekt dem Sie angehören.",
@@ -396,7 +396,7 @@
 		},
 		"text": {
 			"MINTECSchoolsAnd": "Hier können sich MINT-EC-Schulen und auch Schulen die keinem Länderprojekt angehören anmelden, die dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
-			"contactUsToRegister" : "Kontaktieren Sie bitte entweder Frau Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de</a> oder Herrn Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de</a>, um den Registrierungsprozess einzuleiten.",
+			"contactUsToRegister": "Kontaktieren Sie bitte entweder Frau Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de</a> oder Herrn Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de</a>, um den Registrierungsprozess einzuleiten.",
 			"forGeneralQuestionsPleaseContact": "Bei allgemeinen Fragen kontaktieren Sie bitte folgende E-Mail-Adresse:",
 			"hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
 			"inBrandenburgTheAdmissionOfNewSchools": "In Brandenburg wird die Aufnahme neuer Schulen gemeinsam mit der DigitalAgentur Brandenburg (ILB) und dem MBJS koordiniert.",
@@ -1039,8 +1039,8 @@
 		"input": {
 			"password": "Passwort"
 		},
-		"img_alt" : {
-			"brokenPen" :"zerbrochener Stift"
+		"img_alt": {
+			"brokenPen": "zerbrochener Stift"
 		},
 		"label": {
 			"creationDate": "Erstelldatum",
@@ -1168,8 +1168,8 @@
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrer:in einloggen",
 			"subscribeNewsletter": "Newsletter abonnieren",
-			"login" : "Login",
-			"register" : "Registrieren"
+			"login": "Login",
+			"register": "Registrieren"
 		},
 		"header": {
 			"link": {
@@ -1209,46 +1209,46 @@
 	},
 	"homework": {
 		"_task": {
-			"button" : {
-				"restoreAlt" : "<i class='fa fa-mail-reply'></i> Wiederherstellen"
+			"button": {
+				"restoreAlt": "<i class='fa fa-mail-reply'></i> Wiederherstellen"
 			},
 			"headline": {
 				"addTask": "Aufgabe hinzufügen",
 				"editTask": "Aufgabe bearbeiten"
 			},
-			"input" : {
-				"chooseTeamMembers" : "Mitstreiter auswählen",
-				"createSubmission" : "Erstelle deine Abgabe..."
+			"input": {
+				"chooseTeamMembers": "Mitstreiter auswählen",
+				"createSubmission": "Erstelle deine Abgabe..."
 			},
-			"label" : {
-				"copyTask" : "Aufgabenstellung kopieren",
-				"copyTaskAlt" : "Aufgabe '{{title}}' kopieren.",
-				"deleteTaskAlt" : "Löschen der Aufgabe: '{{title}}'.",
-				"editTaskAlt" : "Aufgabe '{{title}}' bearbeiten.",
-				"fileUpload" : "Dateiabgabe",
-				"firstName" : "Vorname",
-				"lastName" : "Nachname",
-				"moveFromArchive" : "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
-				"moveToArchive" : "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
-				"printGradeComment" : "Bewertung drucken",
-				"printSubmission" : "Abgabe drucken",
-				"printTask" : "Aufgabenstellung drucken",
-				"submitted" : "Abgegeben",
-				"team" : "Team",
-				"teamSubmission" : "Teamabgabe",
-				"teamSubmissionMaxX" : "Teamabgabe (maximal <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> Personen)",
-				"textDelivery" : "Textabgabe"
+			"label": {
+				"copyTask": "Aufgabenstellung kopieren",
+				"copyTaskAlt": "Aufgabe '{{title}}' kopieren.",
+				"deleteTaskAlt": "Löschen der Aufgabe: '{{title}}'.",
+				"editTaskAlt": "Aufgabe '{{title}}' bearbeiten.",
+				"fileUpload": "Dateiabgabe",
+				"firstName": "Vorname",
+				"lastName": "Nachname",
+				"moveFromArchive": "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
+				"moveToArchive": "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
+				"printGradeComment": "Bewertung drucken",
+				"printSubmission": "Abgabe drucken",
+				"printTask": "Aufgabenstellung drucken",
+				"submitted": "Abgegeben",
+				"team": "Team",
+				"teamSubmission": "Teamabgabe",
+				"teamSubmissionMaxX": "Teamabgabe (maximal <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> Personen)",
+				"textDelivery": "Textabgabe"
 			},
 			"text": {
 				"errorInvalidTaskId": "Ungültige Aufgaben-ID",
-				"maxGroupSize" : "Maximale Gruppengröße: <b>{{maxTeamMembers}} Mitglieder </b>",
+				"maxGroupSize": "Maximale Gruppengröße: <b>{{maxTeamMembers}} Mitglieder </b>",
 				"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
 				"newHomeworkDueDateNotification": "{{homeworkname}} ist bis zum {{duedate}} abzugeben.",
-				"noSubmissionsYet" : "Keine Abgaben vorhanden.",
-				"noSubmissionsYetFrom" : "Bisher keine Abgabe von:",
+				"noSubmissionsYet": "Keine Abgaben vorhanden.",
+				"noSubmissionsYetFrom": "Bisher keine Abgabe von:",
 				"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
 				"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet",
-				"youHaveSolvedXPercent" : "Du hast <b class=\"grade\">{{grade}}%</b> richtig gelöst."
+				"youHaveSolvedXPercent": "Du hast <b class=\"grade\">{{grade}}%</b> richtig gelöst."
 			}
 		},
 		"button": {
@@ -1265,9 +1265,9 @@
 			"onTheSubject": "Zum Thema",
 			"save": "Speichern und Abschicken",
 			"toClass": "Zum Kurs",
-			"toCourseAlt" : "Zum Kurs der Aufgabe",
+			"toCourseAlt": "Zum Kurs der Aufgabe",
 			"toTheCourseFiles": "Zu den Kursdateien",
-			"toTopicAlt" : "Zum Thema der Aufgabe"
+			"toTopicAlt": "Zum Thema der Aufgabe"
 		},
 		"global": {
 			"label": {
@@ -1299,10 +1299,10 @@
 			"dueDate": "Abgabedatum",
 			"more": "Mehr"
 		},
-		"input" : {
-			"gradeComment" : "Bewertungskommentar",
-			"noAssignment" : "Keine Zuordnung",
-			"title" : "Titel"
+		"input": {
+			"gradeComment": "Bewertungskommentar",
+			"noAssignment": "Keine Zuordnung",
+			"title": "Titel"
 		},
 		"label": {
 			"comment": "Kommentar",
@@ -1394,7 +1394,7 @@
 			}
 		},
 		"default": {
-			"yourDigitalLearningEnvironment" : "Deine digitale Lernumgebung"
+			"yourDigitalLearningEnvironment": "Deine digitale Lernumgebung"
 		},
 		"error": {
 			"button": {
@@ -1407,21 +1407,21 @@
 		},
 		"extended_footer": {
 			"heading": {
-				"links" : "Links",
+				"links": "Links",
 				"contact": "Kontakt",
 				"vacancies": "Stellenausschreibungen"
 			},
-			"img_alt" :{
-				"nowAtGooglePlay" : "Jetzt bei Google Play"
+			"img_alt": {
+				"nowAtGooglePlay": "Jetzt bei Google Play"
 			},
 			"link": {
 				"contentProviders": "Inhalteanbieter:",
-				"devOps" : "DevOps",
+				"devOps": "DevOps",
 				"generalInquiries": "Allgemeine Anfragen:",
-				"mobileApp" : "Mobile App",
+				"mobileApp": "Mobile App",
 				"privacy": "Datenschutz:",
 				"subscribeTheNewsletter": "Newsletter abonnieren",
-				"support" : "Support:"
+				"support": "Support:"
 			},
 			"text": {
 				"weAreHiring": "Du möchtest gerne Mitglied in unserem <span style='white-space: nowrap;'>HPI Schul-Cloud</span> Team werden? Wir suchen:"
@@ -1485,11 +1485,11 @@
 				"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
 				"participate": "Mitmachen",
 				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud",
-				"team" : "Team",
-				"partner" : "Partner",
-				"github" :"GitHub",
-				"status" : "Status",
-				"safety" : "Sicherheit"
+				"team": "Team",
+				"partner": "Partner",
+				"github": "GitHub",
+				"status": "Status",
+				"safety": "Sicherheit"
 			}
 		},
 		"header": {
@@ -1502,15 +1502,15 @@
 				"openGame": "Spiel öffnen",
 				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
-			"img_alt" : {
-				"learnCloud" : "Lern Cloud"
+			"img_alt": {
+				"learnCloud": "Lern Cloud"
 			},
 			"input": {
 				"userName": "Benutzername:"
 			},
-			"label" : {
-				"help" : "Hilfe",
-				"playEnterTheCloud" :"Enter The Cloud spielen"
+			"label": {
+				"help": "Hilfe",
+				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
 			"link": {
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
@@ -1526,18 +1526,18 @@
 			}
 		},
 		"loggedin": {
-			"img_alt" : {
-				"logoOfSchool" : "Logo von {{name}}"
+			"img_alt": {
+				"logoOfSchool": "Logo von {{name}}"
 			},
-			"input" :{
-				"searchFor" : "Suche nach..."
+			"input": {
+				"searchFor": "Suche nach..."
 			},
-			"label" : {
-				"fullscreen" : "Fullscreen",
-				"thereIsAProblem" : "Es gibt ein Problem",
-				"qrCode" : "QR-Code",
-				"printQrCode" : "QR-Code drucken",
-				"notifications" : "Benachrichtigungen"
+			"label": {
+				"fullscreen": "Fullscreen",
+				"thereIsAProblem": "Es gibt ein Problem",
+				"qrCode": "QR-Code",
+				"printQrCode": "QR-Code drucken",
+				"notifications": "Benachrichtigungen"
 			},
 			"tab_label": {
 				"settings": "Einstellungen",
@@ -1674,18 +1674,18 @@
 				"createNews": "News erstellen",
 				"editNews": "News bearbeiten"
 			},
-			"input" : {
-				"title" : "Titel"
+			"input": {
+				"title": "Titel"
 			},
-			"label" : {
-				"contentOfMessage" : "Inhalt der Nachricht..."
+			"label": {
+				"contentOfMessage": "Inhalt der Nachricht..."
 			}
 		},
 		"button": {
 			"addNews": "News hinzufügen",
-			"editNews" :"Bearbeiten",
-			"editNewsAlt" : "Artikel '{{title}}' bearbeiten.",
-			"deleteNewsAlt" : "Artikel '{{name}}' löschen"
+			"editNews": "Bearbeiten",
+			"editNewsAlt": "Artikel '{{title}}' bearbeiten.",
+			"deleteNewsAlt": "Artikel '{{name}}' löschen"
 		},
 		"headline": {
 			"newsTeam": "Neuigkeiten aus dem Team"
@@ -1943,14 +1943,14 @@
 			"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team"
 		}
 	},
-	"security" :{
-		"headline" : {
-			"security" : "Sicherheit",
-			"reportSecurityIssue" : "Sicherheitsproblem melden"
+	"security": {
+		"headline": {
+			"security": "Sicherheit",
+			"reportSecurityIssue": "Sicherheitsproblem melden"
 		},
-		"text" : {
-			"scIsTestedRegularyWeValueSecurity" : "Die {{themeTitle}} wird regelmäßig Sicherheitsüberprüfungen und Penetrationstests unterzogen, da uns die Sicherheit der Daten unserer Nutzer:innen sehr wichtig ist.",
-			"youHaveFoundAWeakness" : "Du hast trotzdem ein Sicherheitsproblem gefunden? Schreib uns, damit wir die Lücke schnellstmöglich schließen können:"
+		"text": {
+			"scIsTestedRegularyWeValueSecurity": "Die {{themeTitle}} wird regelmäßig Sicherheitsüberprüfungen und Penetrationstests unterzogen, da uns die Sicherheit der Daten unserer Nutzer:innen sehr wichtig ist.",
+			"youHaveFoundAWeakness": "Du hast trotzdem ein Sicherheitsproblem gefunden? Schreib uns, damit wir die Lücke schnellstmöglich schließen können:"
 		}
 	},
 	"team": {
@@ -2234,32 +2234,32 @@
 		},
 		"topicEdit": {
 			"input": {
-				"brainstormAboutXYZ" : "Brainstorming zum Thema XYZ",
-				"createNewNeXboard" : "Neues neXboard anlegen",
-				"createsListInEtherpad" : "Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC",
-				"createsListInNeXboard" : "Erstellt im nachfolgendem neXboard eine Pro-Contra-Liste zum Thema XYC",
-				"GeoGebraEnterId" : "GeoGebra Material-ID eingeben, z.B. kEBfU7AR",
-				"keepNeXboard" : "NexBoard beibehalten",
+				"brainstormAboutXYZ": "Brainstorming zum Thema XYZ",
+				"createNewNeXboard": "Neues neXboard anlegen",
+				"createsListInEtherpad": "Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC",
+				"createsListInNeXboard": "Erstellt im nachfolgendem neXboard eine Pro-Contra-Liste zum Thema XYC",
+				"GeoGebraEnterId": "GeoGebra Material-ID eingeben, z.B. kEBfU7AR",
+				"keepNeXboard": "NexBoard beibehalten",
 				"sectionTitle": "Titel des Abschnitts",
-				"selectNeXboard" : "neXboard auswählen"
+				"selectNeXboard": "neXboard auswählen"
 			},
 			"button": {
-				"text" : "Text",
+				"text": "Text",
 				"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
-				"material" : "Material",
-				"task" : "Aufgabe"
+				"material": "Material",
+				"task": "Aufgabe"
 			},
-			"label" :{
-				"addFile" : "Datei auswählen",
-				"descriptionEtherpad" : "Beschreibung des Etherpads",
-				"descriptionNeXboard" : "Beschreibung des neXboards",
-				"lockSection" : "Abschnitt sperren",
-				"nameOfEtherpad" : "Name des Etherpads",
-				"nameOfNeXboard" : "Name des neXboards",
-				"openSection" : "Abschnitt entsperren",
-				"selectNeXboard" : "neXboard auswählen",
-				"theLinkHasToBeginWith" : "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
-				"youllFindTheIdOn" : "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
+			"label": {
+				"addFile": "Datei auswählen",
+				"descriptionEtherpad": "Beschreibung des Etherpads",
+				"descriptionNeXboard": "Beschreibung des neXboards",
+				"lockSection": "Abschnitt sperren",
+				"nameOfEtherpad": "Name des Etherpads",
+				"nameOfNeXboard": "Name des neXboards",
+				"openSection": "Abschnitt entsperren",
+				"selectNeXboard": "neXboard auswählen",
+				"theLinkHasToBeginWith": "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
+				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
 			}
 		},
 		"content": {
