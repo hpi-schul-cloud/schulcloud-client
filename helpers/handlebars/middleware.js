@@ -179,7 +179,7 @@ module.exports = (req, res, next) => {
 
 	// admin views
 	res.locals.sidebarItems.push({
-		name: res.$t('global.sidebar.link.administration'),
+		name: res.$t('global.sidebar.link.management'),
 		icon: 'cogs',
 		link: '/administration/',
 		permission: 'ADMIN_VIEW',

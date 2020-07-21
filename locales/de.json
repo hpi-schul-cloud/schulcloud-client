@@ -51,20 +51,6 @@
 			"doYouWantToDeleteDevice": "Bist du dir sicher, dass du {{device}} löschen möchtest?",
 			"yourAccount": "Dein Account"
 		},
-		"testNotification": {
-			"headline": {
-				"test": "Neue Test-Benachrichtigung"
-			},
-			"text": {
-				"youHaveANewMessage": "Du hast eine neue Benachrichtigung"
-			}
-		},
-		"text": {
-			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
-			"passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
-			"preferencesUpdates": "Präferenzen wurden aktualisiert!",
-			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!"
-		},
 		"teams": {
 			"button": {
 				"changeTeamSettings": "Teameinstellungen ändern"
@@ -82,6 +68,20 @@
 				"teamInvitationsdisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
 				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
 			}
+		},
+		"testNotification": {
+			"headline": {
+				"test": "Neue Test-Benachrichtigung"
+			},
+			"text": {
+				"youHaveANewMessage": "Du hast eine neue Benachrichtigung"
+			}
+		},
+		"text": {
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
+			"passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
+			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!",
+			"preferencesUpdates": "Präferenzen wurden aktualisiert!"
 		},
 		"thirdPartyProviders": {
 			"headline": {
@@ -122,6 +122,146 @@
 			"text": {
 				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
 				"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden"
+			}
+		},
+		"controller": {
+			"global": {
+				"label": {
+					"class": "Klasse",
+					"classUsers": "Nutzer der Klasse",
+					"classes": "Klasse(n)",
+					"consentStatus": "Registrierung",
+					"createdAt": "Erstelldatum",
+					"createdOn": "Erstellt am",
+					"email": "E-Mail-Adresse",
+					"firstName": "Vorname",
+					"lastName": "Nachname",
+					"schoolYear": "Schuljahr",
+					"student": "Schüler",
+					"teacher": "Lehrer"
+				}
+			},
+			"headline": {
+				"actions": "Aktionen",
+				"administration": "Administration: ",
+				"alias": "Alias",
+				"attendees": "Teilnehmer",
+				"briefDescription": "Kurzbeschreibung",
+				"class": "Klasse(n)",
+				"classes": "{{title}}Klassen",
+				"courses": "{{title}}Kurse",
+				"createdOn": "Erstellt am",
+				"creationDate": "Erstellungsdatum",
+				"declarationOfConsentStatus": "Einverständniserklärung Status",
+				"description": "Beschreibung",
+				"domain": "Domain",
+				"editClass": "Klasse '{{name}}' bearbeiten",
+				"entriesPerPage": "Einträge pro Seite",
+				"externalExpert": "Externer Experte",
+				"general": "{{title}}Allgemein",
+				"helpdesk": "{{title}}Helpdesk",
+				"itsOn": "Ist-Zustand",
+				"manageClass": "Klasse '{{name}}' verwalten",
+				"management": "Verwaltung: ",
+				"members": "Mitglieder",
+				"name": "Name",
+				"owner": "Eigentümer",
+				"remarks": "Anmerkungen",
+				"schoolYear": "Schuljahr",
+				"school": "{{title}}Schule",
+				"schools": "'Schule(n)'",
+				"sorting": "Sortierung",
+				"status": "Status",
+				"students": "{{title}}Schüler",
+				"targetState": "Soll-Zustand",
+				"teacher": "{{title}}Lehrer",
+				"teachers": "Lehrer",
+				"teams": "{{title}}Teams",
+				"title": "Titel",
+				"type": "Typ",
+				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
+				"uploadedOn": "Hochgeladen am"
+			},
+			"label": {
+				"domainname": "Domainname",
+				"email": "E-Mail",
+				"inactive": "{{alias}} (inaktiv)",
+				"roles": "Rolle(n)",
+				"status": "Status: %1",
+				"teamChatActive": "Chat ist aktiviert",
+				"teamFoundedAtOwnSchool": "An eigener Schule gegründetes Team",
+				"teamHasOwner": "Team hat Eigentümer",
+				"teamIncludesExternalMembers": "Beinhaltet Schul-externe Mitglieder"
+			},
+			"link": {
+				"addAnotherOwner": "Weiteren Eigentümer hinzufügen",
+				"changePassword": "Passwort ändern",
+				"completeEntry": "Eintrag abschließen",
+				"createANewClass": "Erstelle eine neue Klasse",
+				"deleteClass": "Klasse löschen",
+				"deleteEntry": "Eintrag löschen",
+				"deleteTeam": "Team löschen",
+				"editClass": "Klasse bearbeiten",
+				"editEntry": "Eintrag bearbeiten",
+				"editLDAP": "LDAP bearbeiten",
+				"editTeacher": "Lehrer bearbeiten",
+				"editUsers": "Nutzer bearbeiten",
+				"editingStudents": "Schüler bearbeiten",
+				"manageClass": "Klasse verwalten",
+				"removeMembers": "Mitglieder eigener Schule aus Team entfernen",
+				"resetPassword": "Passwort zurücksetzen",
+				"schoolPrivacyPolicy": "Datenschutzerklärung der Schule",
+				"sendEntryToDevelopmentTeam": "Eintrag an Entwicklerteam senden",
+				"sendMessageToOwner": "Nachricht an Eigentümer senden",
+				"toGiveConsent": "Einverständnis erklären",
+				"transferClassToTheNextSchoolYear": "Klasse in das nächste Schuljahr versetzen"
+			},
+			"text": {
+				"active": "Aktiv",
+				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
+				"anUnknownErrorOccurred": "Es ist ein unbekannter Fehler beim Importieren aufgetreten.",
+				"anotherSchoolWasFounded": "einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst ",
+				"changesSuccessfullySaved": "Änderungen erfolgreich gespeichert.",
+				"checkingTheLDAPData": "Prüfung der LDAP-Daten für Schuljahreswechsel",
+				"closed": "Geschlossen",
+				"consentGrantedSuccessfully": "Einwilligungen erfolgreich erteilt",
+				"createdOn": "Erstellt am",
+				"declarationOfConsentAvailable": "Zur Registrierung benötigte Einverständniserklärungen vorhanden",
+				"emailDeclarationOfConsent": "Hallo {{name}},\nLeider fehlt uns von dir noch die Einverständniserklärung.\nOhne diese kannst du die HPI Schul-Cloud leider nicht nutzen.\n\nMelde dich bitte mit deinen Daten an,\num die Einverständniserklärung zu akzeptieren um die HPI Schul-Cloud im vollen Umfang nutzen zu können.\n\nGehe jetzt auf {{link}}, und melde dich an.",
+				"emailDeclarationOfConsentSubject": "Der letzte Schritt zur Aktivierung für die {{title}}",
+				"entriesPerPage": "Einträge pro Seite: %1",
+				"errorCreatingRegistrationLink": "Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben {{errMessage}}.",
+				"errorImportingUsers": "Fehler: {{errorMessage}}",
+				"failedToCreateUser": "Fehler beim Erstellen des Nutzers. {{error}}",
+				"registrationExplanation": "Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. Der Schüler ist dann in der {{title}} registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jeder Schüler sein Passwort ändern. Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, damit er die {{title}} nutzen kann.",
+				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
+				"inTheQueue": "In der Warteschlange",
+				"invitationToThe": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
+				"invitationToUseThe": "Einladung für die Nutzung der {{title}}!",
+				"noDeclarationOfConsentAvailable": "Keine Einverständniserklärung vorhanden",
+				"onlyAllMembers": "Es können nur alle Mitglieder der eigenen Schule aus dem Team entfernt werden",
+				"open": "Offen",
+				"orAssignAdminRights": "oder jemand anderem Admin-Rechte für das Team zuzuweisen.",
+				"parentsAgreed": "Eltern haben zugestimmt, Schüler:in noch offen",
+				"passTheRegistrationLinkDirectly": "Gib den Registrierungslink direkt an den Schüler weiter.",
+				"removeStudentsFromYourOwnSchool": "Schüler der eigenen Schule aus dem Team entfernen. Nur möglich, wenn das Team an ",
+				"retrieveFailed": "Fehler beim Abrufen",
+				"schoolYearPercentage": "Schuljahr: %1",
+				"setupFailed": "Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ",
+				"sortBy": "Sortieren nach: %1",
+				"stillLackOfDeclaration": "Hallo {{name}} Leider fehlt uns von dir noch die Einverständniserklärung. Ohne diese kannst du die Schul-Cloud leider nicht nutzen. Melde dich bitte mit deinen Daten an, um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können. Gehe jetzt auf {{shortLink}} {{shortLink}} und melde dich an.",
+				"submitted": "Gesendet",
+				"successfullyImportedUser": "{{amountImported}} von {{amountTotal}} Nutzer erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
+				"successfullyImportedUsers": "{{amountImported}} von {{amountTotal}} Nutzern erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
+				"theStepsForTheParentsAreOmitted": "Die Schritte für die Eltern entfallen automatisch.",
+				"theTeamCanOnlyBeDeleted": "Löschen des Teams nur bei Teams der eigenen Schul7he möglich",
+				"thereWasAnError": "Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ",
+				"userCreatedErrorSendingTheMail": "Nutzer erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. {{errMessage}}",
+				"userCreatedSuccessfully": "Nutzer erfolgreich erstellt.",
+				"userCreatedSuccessfullyAndRegistration": "Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.",
+				"whenLoggingInForTheFirstTime": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben.",
+				"yourStudentsAreAtLeast": "Deine Schüler sind mindestens {{age}} Jahre alt?",
+				"yourStudentsAreUnder": "Deine Schüler sind unter {{age}} Jahre alt?"
 			}
 		},
 		"global": {
@@ -244,6 +384,15 @@
 		"button": {
 			"choose": "Wähle..."
 		},
+		"form_add_lesson": {
+			"button": {
+				"choose": "Wähle..."
+			},
+			"label": {
+				"chooseACourse": "Wähle einen Kurs / Fach",
+				"chooseALessonTopic": "Wähle ein Unterrichtsthema"
+			}
+		},
 		"headline": {
 			"addContentToTopic": "Material zu Thema hinzufügen",
 			"contentCantBeAddedInDemo": "<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>",
@@ -258,12 +407,24 @@
 		"input": {
 			"searchInSC": "In der HPI Schul-Cloud suchen"
 		},
+		"item": {
+			"text": {
+				"contentNotAvailable": "Inhalt aus Lizenzgründen im Demomodus nicht verfügbar.",
+				"report": "melden"
+			}
+		},
 		"label": {
 			"chooseACourse": "Wähle einen Kurs / Fach",
 			"chooseALessonTopic": "Wähle ein Unterrichtsthema",
 			"entriesPerPage": "Einträge pro Seite: %1",
 			"fileType": "Dateitypen: %1",
 			"sortBy": "Sortieren nach: %1"
+		},
+		"store": {
+			"heading": {
+				"currentContent": "Aktuelle Inhalte",
+				"popularContent": "Beliebte Inhalte"
+			}
 		},
 		"text": {
 			"date": "Aktualität",
@@ -273,37 +434,6 @@
 			"viaProvider": "via {{provider}}",
 			"video": "Video",
 			"youAreRedirectedToProvider": "Sie werden auf die Seite von <span class=\"provider\">einem externen Anbieter</span> weitergeleitet."
-		},
-		"form_add_lesson": {
-			"button": {
-				"choose": "Wähle..."
-			},
-			"label": {
-				"chooseACourse": "Wähle einen Kurs / Fach",
-				"chooseALessonTopic": "Wähle ein Unterrichtsthema"
-			}
-		},
-		"form_external_link": {
-			"text": {
-				"anExternalProvider": "einem externen Anbieter",
-				"forwarded": "weitergeleitet.",
-				"youWillBeOnTheSide": "Sie werden auf die Seite von"
-			}
-		},
-		"item": {
-			"text": {
-				"contentNotAvailable": "Inhalt aus Lizenzgründen im Demomodus nicht verfügbar.",
-				"report": "melden"
-			}
-		},
-		"store": {
-			"heading": {
-				"currentContent": "Aktuelle Inhalte",
-				"found": "gefunden",
-				"noSearchResultsWere": "Es wurden keine Suchergebnisse für",
-				"popularContent": "Beliebte Inhalte",
-				"searchResultFor": "Suchergebnisse für"
-			}
 		}
 	},
 	"courses": {
@@ -508,9 +638,9 @@
 					"addNewTool": "Neues Tool hinzufügen",
 					"descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
 					"noTools": "Keine Tools.",
+					"opensInNewTab": "neuer Tab",
 					"videoConferenceBBB": "Videokonferenz BigBlueButton",
-					"videoConferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
-					"opensInNewTab": "neuer Tab"
+					"videoConferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet"
 				}
 			},
 			"topic": {
@@ -825,9 +955,6 @@
 		}
 	},
 	"global": {
-		"topMenu": {
-			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
-		},
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
@@ -862,9 +989,9 @@
 			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
 			"404": "Ups, diese Seite gibt's wohl nicht.",
 			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
+			"pageMoved": "Diese Seite wurde verschoben.",
 			"requestTimeout": "Zeitüberschreitung bei dir Anfrage",
-			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
-			"pageMoved": "Diese Seite wurde verschoben."
+			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
 		},
 		"headline": {
 			"delete": "Löschen",
@@ -881,7 +1008,7 @@
 		},
 		"sidebar": {
 			"link": {
-				"administration": "Administration",
+				"addons": "Add-ons",
 				"administrationClasses": "Klassen",
 				"administrationCourses": "Kurse",
 				"administrationSchools": "Schule",
@@ -893,6 +1020,11 @@
 				"calendar": "Termine",
 				"courses": "Kurse",
 				"files": "Meine Dateien",
+				"filesCourse": "Kurse",
+				"filesPersonal": "persönliche Dateien",
+				"filesShared": "geteilte Dateien",
+				"helpArea": "Hilfebereich",
+				"helpDesk": "Helpdesk",
 				"lernstore": "Lern-Store",
 				"management": "Verwaltungsbereich",
 				"managementClasses": "Klassen",
@@ -924,6 +1056,9 @@
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
 		},
+		"topMenu": {
+			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
+		},
 		"title": {
 			"landing": "Startseite"
 		}
@@ -931,8 +1066,8 @@
 	"help": {
 		"contactForm": {
 			"text": {
-				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 				"typeNotAllowed": "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
 			}
 		},
@@ -962,9 +1097,9 @@
 		"text": {
 			"feedbackError": "Fehler beim Senden des Feedbacks.",
 			"feedbackSuccessful": "Feedback erfolgreich versendet!",
-			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
-			"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!"
+			"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!",
+			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!"
 		}
 	},
 	"home": {
@@ -1344,10 +1479,10 @@
 				"playEnterTheCloud" :"Enter The Cloud spielen"
 			},
 			"link": {
+				"Fortbildungen": "Fortbildungen",
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
 				"helpArea": "Hilfebereich",
-				"sendRequestOrProblem": "Wunsch oder Problem senden",
-				"Fortbildungen": "Fortbildungen"
+				"sendRequestOrProblem": "Wunsch oder Problem senden"
 			}
 		},
 		"ldap_info": {
@@ -1571,11 +1706,11 @@
 				"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
 			}
 		},
-		"input": {
-			"hiddenPw": "***************"
-		},
 		"headline": {
 			"passwordRecovery": "Passwort-Wiederherstellung"
+		},
+		"input": {
+			"hiddenPw": "***************"
 		},
 		"label": {
 			"newPw": "Neues Passwort",
@@ -1594,9 +1729,9 @@
 			"allowedCharacters": "Erlaubte Sonderzeichen sind: ",
 			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
 			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
+			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
 			"errorPasswordAlreadyChanged": "Ihr Passwort wurde bereits über diese URL geändert.",
 			"errorTimeExpired": "Zeit abgelaufen für Passwort Recovery.",
-			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
 			"specialCharacters": "!§$%&/()=?\\;:,.#+*~"
 		}
@@ -1767,9 +1902,9 @@
 				"invitationToThe": "Einladung in die"
 			},
 			"link": {
+				"imprint": "Impressum",
 				"partner" : "Partner",
-				"toRegister": "Registrieren",
-				"imprint": "Impressum"
+				"toRegister": "Registrieren"
 			},
 			"text": {
 				"dear": "Sehr geehrte/r",
@@ -1788,6 +1923,9 @@
 		},
 		"text": {
 			"acceptConsentWithoutParents": "Wenn du zwischen 14 und {{age}} Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die {{title}} nutzen kannst.",
+			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
+			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
+			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu.",
 			"roleEmployee": "Lehrer*/Admins*",
 			"roleExpert": "Experte*",
 			"startPassword": "Startpasswort: {{password}}",
@@ -1795,10 +1933,7 @@
 			"timeout": "Leider konnte deine Registrierung nicht abgeschlossen werden.\nBitte versuche es erneut.",
 			"unknownError": "Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.",
 			"welcomeMailSubject": "Willkommen in der {{title}}!",
-			"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team",
-			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
-			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
-			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu."
+			"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team"
 		}
 	},
 	"security" :{
@@ -2008,6 +2143,8 @@
 					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
 				}
 			},
+			"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
+			"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
 			"news": {
 				"button": {
 					"addNews": "Neuigkeit anlegen"
@@ -2019,8 +2156,6 @@
 					"showAllNews": "Alle Neuigkeiten anzeigen..."
 				}
 			},
-			"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
-			"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
 			"tab_label": {
 				"dates": "Termine",
 				"files": "Dateien",
@@ -2113,10 +2248,32 @@
 		},
 		"topicEdit": {
 			"input": {
-				"sectionTitle": "Titel des Abschnitts"
+				"brainstormAboutXYZ" : "Brainstorming zum Thema XYZ",
+				"createNewNeXboard" : "Neues neXboard anlegen",
+				"createsListInEtherpad" : "Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC",
+				"createsListInNeXboard" : "Erstellt im nachfolgendem neXboard eine Pro-Contra-Liste zum Thema XYC",
+				"GeoGebraEnterId" : "GeoGebra Material-ID eingeben, z.B. kEBfU7AR",
+				"keepNeXboard" : "NexBoard beibehalten",
+				"sectionTitle": "Titel des Abschnitts",
+				"selectNeXboard" : "neXboard auswählen"
 			},
 			"button": {
-				"geoGebraWorksheet": "GeoGebra Arbeitsblatt"
+				"text" : "Text",
+				"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
+				"material" : "Material",
+				"task" : "Aufgabe"
+			},
+			"label" :{
+				"addFile" : "Datei auswählen",
+				"descriptionEtherpad" : "Beschreibung des Etherpads",
+				"descriptionNeXboard" : "Beschreibung des neXboards",
+				"lockSection" : "Abschnitt sperren",
+				"nameOfEtherpad" : "Name des Etherpads",
+				"nameOfNeXboard" : "Name des neXboards",
+				"openSection" : "Abschnitt entsperren",
+				"selectNeXboard" : "neXboard auswählen",
+				"theLinkHasToBeginWith" : "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
+				"youllFindTheIdOn" : "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
 			}
 		},
 		"content": {
