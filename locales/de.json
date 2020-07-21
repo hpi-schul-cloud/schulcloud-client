@@ -1086,8 +1086,8 @@
 			"delete": "Löschen",
 			"edit": "Bearbeiten"
 		},
-		"img_alt" : {
-			"brokenPen" :"zerbrochener Stift"
+		"img_alt": {
+			"brokenPen": "zerbrochener Stift"
 		},
 		"label": {
 			"room": "Raum"
@@ -1095,6 +1095,8 @@
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"
 		},
+		"mobileNavMenu": "mobile nav toggle",
+		"openInNewTabWarning": "Opens in new tab",
 		"role": {
 			"text": {
 				"administrator": "Administrator",
@@ -1107,6 +1109,7 @@
 			}
 		},
 		"sidebar": {
+			"ariaLabel": "sidebar",
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
@@ -1140,6 +1143,11 @@
 				"teams": "Teams"
 			}
 		},
+		"skipLinks": {
+			"mainContentSkipLink": "Hauptbereich",
+			"topNavbarSkipLink": "Navigation",
+			"footerSkipLink": "Footerc"
+		},
 		"text": {
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
@@ -1158,6 +1166,7 @@
 			"wednesday": "Mittwoch"
 		},
 		"topMenu": {
+			"ariaLabel": "topbar",
 			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		},
 		"title": {
@@ -1600,11 +1609,13 @@
 				"searchFor" : "Suche nach..."
 			},
 			"label" : {
-				"fullscreen" : "Fullscreen",
-				"thereIsAProblem" : "Es gibt ein Problem",
-				"qrCode" : "QR-Code",
-				"printQrCode" : "QR-Code drucken",
-				"notifications" : "Benachrichtigungen"
+				"currentUser": "aktueller Benutzer:",
+				"fullscreen": "Vollbildmodus",
+				"thereIsAProblem": "Es gibt ein Problem",
+				"qrCode": "QR-Code",
+				"printQrCode": "QR-Code drucken",
+				"notifications": "Benachrichtigungen",
+				"search": "search"
 			},
 			"tab_label": {
 				"settings": "Einstellungen",
