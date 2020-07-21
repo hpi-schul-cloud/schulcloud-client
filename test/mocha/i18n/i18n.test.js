@@ -1,5 +1,3 @@
-
-const assert = require('assert');
 const chai = require('chai');
 
 const { expect } = chai;
@@ -60,7 +58,9 @@ function getDuplicates(json) {
 
 describe('i18n test de.json', () => {
 	const json = {};
-	formatJson(deJson, '', json);
+	it('Load Json', () => {
+		formatJson(deJson, '', json);
+	});
 	it('Check for usage of right types', () => {
 		const wrongKeys = getWrongTypes(json);
 		expect(JSON.stringify(wrongKeys)).to.equal(JSON.stringify([]),
@@ -69,6 +69,6 @@ describe('i18n test de.json', () => {
 	it('Check for duplicates', () => {
 		const wrongKeys = getDuplicates(json);
 		expect(JSON.stringify(wrongKeys)).to.equal(JSON.stringify([]),
-			'There is already another key pointing to the same text.');
+			'There is already another key with the same text.');
 	});
 });
