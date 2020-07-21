@@ -1044,27 +1044,6 @@
 		}
 	},
 	"global": {
-		"topMenu": {
-			"ariaLabel": "topbar",
-			"dropdown": {
-				"alertButton": {
-					"title": "Es gibt ein Problem"
-				},
-				"fullscreenButton": {
-					"title": "Fullscreen"
-				},
-				"QRCode": {
-					"title": "QR-Code"
-				},
-				"notifications": {
-					"title": "Benachrichtigungen"
-				},
-				"currentUser": {
-					"ariaLabel": "Current user:"
-				}
-			},
-			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
-		},
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
@@ -1180,12 +1159,30 @@
 			"wednesday": "Mittwoch"
 		},
 		"topMenu": {
+			"ariaLabel": "topbar",
+			"dropdown": {
+				"alertButton": {
+					"title": "Es gibt ein Problem"
+				},
+				"currentUser": {
+					"ariaLabel": "aktueller Benutzer:"
+				},
+				"fullscreenButton": {
+					"title": "Vollbildmodus"
+				},
+				"notifications": {
+					"title": "Benachrichtigungen"
+				},
+				"QRCode": {
+					"title": "QR-Code"
+				}
+			},
 			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		},
 		"skipLinks": {
-			"mainContentSkipLink": "Skip to main content",
-			"topNavbarSkipLink": "Skip to top navbar",
-			"footerSkipLink": "Skip to footer"
+			"mainContentSkipLink": "Hauptbereich",
+			"topNavbarSkipLink": "Navigation",
+			"footerSkipLink": "Footerc"
 		},
 		"title": {
 			"landing": "Startseite"
