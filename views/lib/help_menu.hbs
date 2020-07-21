@@ -1,6 +1,6 @@
 <li class="nav-item help-drodown">
     <div class="dropdown minimal-button">
-        <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
+        <a class="btn btn-secondary btn-thin dropdown-toggle" title="{{$t "lib.help_menu.label.help"}}" data-toggle="dropdown">
             <i class="fa fa-question"></i>
         </a>
         <div class="dropdown-menu">
@@ -37,7 +37,7 @@
                 </li>
                 <li class="list-group-item list-group-item-action">
                     <span>
-                        <img style="width: 1em;" src="/images/logo/fortbildung.svg" alt="Lern Cloud" >
+                        <img style="width: 1em;" src="/images/logo/fortbildung.svg" alt="{{$t "lib.help_menu.img_alt.learnCloud"}}" >
                         <a href="https://lernen.cloud/" target="_blank" class="link">{{$t "lib.help_menu.link.Fortbildungen" }}</a>
                     </span>
                 </li>
@@ -48,7 +48,7 @@
 
 {{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
 {{#userHasPermission "ENTERTHECLOUD_START"}}
-{{#embed "lib/components/modal" class="enterthecloud-modal" title="Enter The Cloud spielen"}}
+{{#embed "lib/components/modal" class="enterthecloud-modal" title=($t "lib.help_menu.label.playEnterTheCloud")}}
     {{#content "body"}}
         <div class="modal-body">
             <p>{{$t "lib.help_menu.input.userName" }} <code>...</code></p>
