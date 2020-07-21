@@ -231,27 +231,31 @@ const editCourseHandler = (req, res, next) => {
 		);
 
 		if (req.params.courseId) {
-			res.render('courses/edit-course', {
-				action,
-				method,
-				title: res.$t('courses._course.edit.headline.editCourse'),
-				submitLabel: res.$t('global.button.saveChanges'),
-				closeLabel: res.$t('global.button.cancel'),
-				course,
-				colors,
-				classes: markSelected(classes, _.map(course.classIds, '_id')),
-				teachers: markSelected(
-					teachers,
-					_.map(course.teacherIds, '_id'),
-				),
-				substitutions: markSelected(
-					substitutions,
-					_.map(course.substitutionIds, '_id'),
-				),
-				students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
-				scopePermissions: _scopePermissions,
-				schoolData: res.locals.currentSchoolData,
-			});
+			if(!_scopePermissions.includes("COURSE_EDIT")){
+				next(new Error(res.$t('global.error.403')));
+			}else{
+				res.render('courses/edit-course', {
+					action,
+					method,
+					title: res.$t('courses._course.edit.headline.editCourse'),
+					submitLabel: res.$t('global.button.saveChanges'),
+					closeLabel: res.$t('global.button.cancel'),
+					course,
+					colors,
+					classes: markSelected(classes, _.map(course.classIds, '_id')),
+					teachers: markSelected(
+						teachers,
+						_.map(course.teacherIds, '_id'),
+					),
+					substitutions: markSelected(
+						substitutions,
+						_.map(course.substitutionIds, '_id'),
+					),
+					students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
+					scopePermissions: _scopePermissions,
+					schoolData: res.locals.currentSchoolData,
+				});
+			}
 		} else {
 			res.render('courses/create-course', {
 				action,
