@@ -2354,10 +2354,10 @@
 				"selectNeXboard" : "neXboard auswählen"
 			},
 			"button": {
-				"text" : "Text",
+				"text": "Text",
 				"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
-				"material" : "Material",
-				"task" : "Aufgabe"
+				"material": "Lern-Material",
+				"task": "Aufgabe"
 			},
 			"label" :{
 				"addFile" : "Datei auswählen",
