@@ -385,8 +385,8 @@ class TopicText extends TopicBlock {
 		const storageContext = this.getStorageContext();
 
 		const editorId = (this.props.content || {}).editorId || this.editorId;
+		ckeditorConfig.filebrowser.browseUrl = `/files/${storageContext}`;
 
-    ckeditorConfig['filebrowser']['browseUrl'= '/files/' + storageContext;
 		const editor = await ClassicEditor.create(document.querySelector(`#${editorId}`), ckeditorConfig);
 
 		editor.on('change:data', () => {
