@@ -12,7 +12,7 @@ export default class FileBrowserPlugin extends Plugin {
 			const view = new ButtonView(locale);
 
 			view.set({
-				label: 'Öffne Hilfeseite',
+				label: t('Open Help Page'),
 				icon: infoIcon,
 				tooltip: true,
 			});

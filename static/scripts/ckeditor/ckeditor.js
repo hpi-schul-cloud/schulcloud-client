@@ -1,7 +1,6 @@
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 import ckeditorConfig from './ckeditor-config';
 
-
 window.addEventListener('DOMContentLoaded', async () => {
 	document.querySelectorAll('.ckeditor').forEach(async (element) => {
 		const editor = await ClassicEditor.create(element, ckeditorConfig);

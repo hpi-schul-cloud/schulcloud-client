@@ -1,4 +1,3 @@
-/* global CKEDITOR */
 /**
  * HELPER - addEventListener
  * 1. allow multiple events "clicked input" ...
