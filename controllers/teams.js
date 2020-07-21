@@ -126,6 +126,7 @@ const editTeamHandler = async (req, res, next) => {
 	let teamPromise;
 	let action;
 	let method;
+	let permissions = [];
 	if (req.params.teamId) {
 		action = `/teams/${req.params.teamId}`;
 		method = 'patch';
@@ -136,10 +137,17 @@ const editTeamHandler = async (req, res, next) => {
 		teamPromise = Promise.resolve({});
 	}
 
-	const permissions = await api(req).get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
+	if (req.params.teamId) {
+		try {
+			permissions = await api(req)
+				.get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
+		} catch (error) {
+			logger.error(error);
+		}
+	}
 
 	teamPromise.then((team) => {
-		if (!permissions.includes('RENAME_TEAM')) {
+		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
 			next(new Error(res.$t('global.error.403')));
 		} else {
 			res.render('teams/edit-team', {
