@@ -231,9 +231,9 @@ const editCourseHandler = (req, res, next) => {
 		);
 
 		if (req.params.courseId) {
-			if(!_scopePermissions.includes("COURSE_EDIT")){
+			if (!_scopePermissions.includes('COURSE_EDIT')) {
 				next(new Error(res.$t('global.error.403')));
-			}else{
+			} else {
 				res.render('courses/edit-course', {
 					action,
 					method,

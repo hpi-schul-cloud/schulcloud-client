@@ -139,14 +139,17 @@ const editTeamHandler = async (req, res, next) => {
 	const permissions = await api(req).get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
 
 	teamPromise.then((team) => {
-		if(!permissions.includes("RENAME_TEAM")){
+		if (!permissions.includes('RENAME_TEAM')) {
 			next(new Error(res.$t('global.error.403')));
-		}else{
+		} else {
 			res.render('teams/edit-team', {
 				action,
 				method,
-				title: req.params.teamId ? res.$t('teams.add.headline.editTeam') : res.$t('teams.add.headline.createTeam'),
-				submitLabel: req.params.teamId ? res.$t('global.button.saveChanges')
+				title: req.params.teamId
+					? res.$t('teams.add.headline.editTeam')
+					: res.$t('teams.add.headline.createTeam'),
+				submitLabel: req.params.teamId
+					? res.$t('global.button.saveChanges')
 					: res.$t('teams.add.button.createTeam'),
 				closeLabel: res.$t('global.button.cancel'),
 				team,
