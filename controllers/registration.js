@@ -48,8 +48,8 @@ const getSchoolPrivacy = async (req, res) => {
 
 	try {
 		const consentVersion = await api(req).get(`/registration/consent/${importHash}`);
-		if (consentVersion && (consentVersion.data || []).length === 1) {
-			const { consentDataId } = consentVersion.data[0];
+		if (consentVersion) {
+			const { consentDataId } = consentVersion;
 			return consentDataId ? `/base64Files/${consentDataId}` : undefined;
 		}
 	} catch (error) {
