@@ -265,7 +265,11 @@
 	"community": {
 		"button": {
 			"allOtherSchools": "Alle anderen Schulen",
-			"germanSchoolsAbroad": "Deutsche Auslandsschulen"
+			"brandenburg" : "Brandenburg",
+			"germanSchoolsAbroad": "Deutsche Auslandsschulen",
+			"lowerSaxony" : "Niedersachsen",
+			"mintECSchools" : "MINT-EC Schulen",
+			"thuringia" : "Thüringen"
 		},
 		"heading": {
 			"chooseYourState": "Wählen Sie Ihr Bundesland oder das Projekt dem Sie angehören.",
@@ -273,16 +277,15 @@
 		},
 		"text": {
 			"MINTECSchoolsAnd": "Hier können sich MINT-EC-Schulen und auch Schulen die keinem Länderprojekt angehören anmelden, die dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
+			"contactUsToRegister" : "Kontaktieren Sie bitte entweder Frau Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de</a> oder Herrn Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de</a>, um den Registrierungsprozess einzuleiten.",
 			"forGeneralQuestionsPleaseContact": "Bei allgemeinen Fragen kontaktieren Sie bitte folgende E-Mail-Adresse:",
 			"hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
 			"inBrandenburgTheAdmissionOfNewSchools": "In Brandenburg wird die Aufnahme neuer Schulen gemeinsam mit der DigitalAgentur Brandenburg (ILB) und dem MBJS koordiniert.",
 			"inMarch2020ZENSOSQueries": "Im März 2020 wurde über ZENSOS-Abfragen zuletzt die Notwendigkeit unserer Infrastruktur an den Schulen abgefragt. Die dadurch entstandenen Anmeldungen befinden sich aktuell in der Bearbeitung.",
 			"inNiedersachsenTheReferenceSchool": "In Niedersachsen ist das Referenzschulnetzwerk n-21 zuständig für die Aufnahme neuer Schulen.",
 			"inThuringiaTheThuringianInstitute": "In Thüringen ist das Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien (ThILLM) für die Aufnahme neuer Schulen zuständig.",
-			"justWriteAnEmailTo": "Schreiben Sie einfach eine E-Mail an",
-			"orMr": "oder Herrn Jörg Becker:",
+			"justWriteAnEmailToZfa": "Schreiben Sie einfach eine E-Mail an <a href=\"mailto:schul-cloud-ZfA@bva.bund.de\">schul-cloud-ZfA@bva.bund.de</a>.",
 			"ourPartnerOfMINIECAlso": "Unser Partner der MINT-EC bietet zudem regelmäßig Webinare rund um die HPI Schul-Cloud an. Die neuen Termine finden Sie hier:",
-			"pleaseContactEither": "Kontaktieren Sie bitte entweder Frau Julia Günther:",
 			"pleaseContactTheFollowingEmailAddress": "Bitte kontaktieren Sie folgende E-Mail-Adresse, um den Registrierungsvorgang zu starten:",
 			"theCentralOfficeForSchools": "Die Zentralstelle für das Auslandsschulwesen (ZfA) unterstützt Sie im Registrierungsprozess.",
 			"youCanGetSupport": "Unterstützung bei der Einarbeitung in die HPI Schul-Cloud und Erstellung erster Inhalte erhalten Sie hier:",
@@ -763,9 +766,6 @@
 			"privacyPolicy": "Datenschutzerklärung",
 			"registrationInvalid": "Registrierung fehlerhaft"
 		},
-		"img_alt": {
-			"brokenPen": "zerbrochener Stift"
-		},
 		"text": {
 			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
 			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
@@ -949,6 +949,9 @@
 			"delete": "Löschen",
 			"edit": "Bearbeiten"
 		},
+		"img_alt" : {
+			"brokenPen" :"zerbrochener Stift"
+		},
 		"label": {
 			"room": "Raum"
 		},
@@ -1016,6 +1019,9 @@
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
+		},
+		"title": {
+			"landing": "Startseite"
 		}
 	},
 	"help": {
@@ -1062,7 +1068,9 @@
 			"aboutTheProject": "Über das Projekt",
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrer:in einloggen",
-			"subscribeNewsletter": "Newsletter abonnieren"
+			"subscribeNewsletter": "Newsletter abonnieren",
+			"login" : "Login",
+			"register" : "Registrieren"
 		},
 		"header": {
 			"link": {
@@ -1103,16 +1111,46 @@
 	},
 	"homework": {
 		"_task": {
+			"button" : {
+				"restoreAlt" : "<i class='fa fa-mail-reply'></i> Wiederherstellen"
+			},
 			"headline": {
 				"addTask": "Aufgabe hinzufügen",
 				"editTask": "Aufgabe bearbeiten"
 			},
+			"input" : {
+				"chooseTeamMembers" : "Mitstreiter auswählen",
+				"createSubmission" : "Erstelle deine Abgabe..."
+			},
+			"label" : {
+				"copyTask" : "Aufgabenstellung kopieren",
+				"copyTaskAlt" : "Aufgabe '{{title}}' kopieren.",
+				"deleteTaskAlt" : "Löschen der Aufgabe: '{{title}}'.",
+				"editTaskAlt" : "Aufgabe '{{title}}' bearbeiten.",
+				"fileUpload" : "Dateiabgabe",
+				"firstName" : "Vorname",
+				"lastName" : "Nachname",
+				"moveFromArchive" : "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
+				"moveToArchive" : "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
+				"printGradeComment" : "Bewertung drucken",
+				"printSubmission" : "Abgabe drucken",
+				"printTask" : "Aufgabenstellung drucken",
+				"submitted" : "Abgegeben",
+				"team" : "Team",
+				"teamSubmission" : "Teamabgabe",
+				"teamSubmissionMaxX" : "Teamabgabe (maximal <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> Personen)",
+				"textDelivery" : "Textabgabe"
+			},
 			"text": {
 				"errorInvalidTaskId": "Ungültige Aufgaben-ID",
+				"maxGroupSize" : "Maximale Gruppengröße: <b>{{maxTeamMembers}} Mitglieder </b>",
 				"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
 				"newHomeworkDueDateNotification": "{{homeworkname}} ist bis zum {{duedate}} abzugeben.",
+				"noSubmissionsYet" : "Keine Abgaben vorhanden.",
+				"noSubmissionsYetFrom" : "Bisher keine Abgabe von:",
 				"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
-				"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet"
+				"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet",
+				"youHaveSolvedXPercent" : "Du hast <b class=\"grade\">{{grade}}%</b> richtig gelöst."
 			}
 		},
 		"button": {
@@ -1128,11 +1166,14 @@
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
 			"importSubmission": "Abgabe des Schülers importieren",
+			"onTheSubject": "Zum Thema",
 			"importing": "importiere",
 			"print": "Drucken",
 			"save": "Speichern und Abschicken",
 			"toClass": "Zum Kurs",
-			"toTheCourseFiles": "Zu den Kursdateien"
+			"toCourseAlt" : "Zum Kurs der Aufgabe",
+			"toTheCourseFiles": "Zu den Kursdateien",
+			"toTopicAlt" : "Zum Thema der Aufgabe"
 		},
 		"global": {
 			"label": {
@@ -1168,6 +1209,11 @@
 			"sorting": "Sortierung",
 			"tasks": "Aufgaben"
 		},
+		"input" : {
+			"gradeComment" : "Bewertungskommentar",
+			"noAssignment" : "Keine Zuordnung",
+			"title" : "Titel"
+		},
 		"label": {
 			"comment": "Kommentar",
 			"courses": "Kurse",
@@ -1184,7 +1230,6 @@
 			"filterMoreTeamSubmissions": "Teamabgaben",
 			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
-			"onTheSubject": "Zum Thema",
 			"rating": "Bewertung",
 			"rating_comment": "Kommentar/Bewertung",
 			"restore": "Wiederherstellen",
@@ -1267,6 +1312,9 @@
 				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
 			}
 		},
+		"default": {
+			"yourDigitalLearningEnvironment" : "Deine digitale Lernumgebung"
+		},
 		"error": {
 			"button": {
 				"hideDetails": "Details verstecken",
@@ -1281,20 +1329,30 @@
 		},
 		"extended_footer": {
 			"heading": {
+				"links" : "Links",
 				"contact": "Kontakt",
 				"vacancies": "Stellenausschreibungen"
 			},
+			"img_alt" :{
+				"nowAtGooglePlay" : "Jetzt bei Google Play"
+			},
 			"link": {
 				"contentProviders": "Inhalteanbieter:",
+				"devOps" : "DevOps",
 				"generalInquiries": "Allgemeine Anfragen:",
+				"mobileApp" : "Mobile App",
 				"privacy": "Datenschutz:",
-				"subscribeTheNewsletter": "Newsletter abonnieren"
+				"subscribeTheNewsletter": "Newsletter abonnieren",
+				"support" : "Support:"
 			},
 			"text": {
 				"weAreHiring": "Du möchtest gerne Mitglied in unserem <span style='white-space: nowrap;'>HPI Schul-Cloud</span> Team werden? Wir suchen:"
 			}
 		},
 		"footer": {
+			"img_alt" :{
+				"providerLogo" : "Anbieterlogo"
+			},
 			"link": {
 				"contact": "Kontakt"
 			}
@@ -1352,7 +1410,12 @@
 				"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
 				"imprint": "Impressum",
 				"participate": "Mitmachen",
-				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud"
+				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud",
+				"team" : "Team",
+				"partner" : "Partner",
+				"github" :"GitHub",
+				"status" : "Status",
+				"safety" : "Sicherheit"
 			}
 		},
 		"header": {
@@ -1365,9 +1428,16 @@
 				"openGame": "Spiel öffnen",
 				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
+			"img_alt" : {
+				"learnCloud" : "Lern Cloud"
+			},
 			"input": {
 				"password": "Passwort:",
 				"userName": "Benutzername:"
+			},
+			"label" : {
+				"help" : "Hilfe",
+				"playEnterTheCloud" :"Enter The Cloud spielen"
 			},
 			"link": {
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
@@ -1383,6 +1453,19 @@
 			}
 		},
 		"loggedin": {
+			"img_alt" : {
+				"logoOfSchool" : "Logo von {{name}}"
+			},
+			"input" :{
+				"searchFor" : "Suche nach..."
+			},
+			"label" : {
+				"fullscreen" : "Fullscreen",
+				"thereIsAProblem" : "Es gibt ein Problem",
+				"qrCode" : "QR-Code",
+				"printQrCode" : "QR-Code drucken",
+				"notifications" : "Benachrichtigungen"
+			},
 			"tab_label": {
 				"settings": "Einstellungen",
 				"signOut": "Abmelden"
@@ -1518,10 +1601,19 @@
 			"headline": {
 				"createNews": "News erstellen",
 				"editNews": "News bearbeiten"
+			},
+			"input" : {
+				"title" : "Titel"
+			},
+			"label" : {
+				"contentOfMessage" : "Inhalt der Nachricht..."
 			}
 		},
 		"button": {
-			"addNews": "News hinzufügen"
+			"addNews": "News hinzufügen",
+			"editNews" :"Bearbeiten",
+			"editNewsAlt" : "Artikel '{{title}}' bearbeiten.",
+			"deleteNewsAlt" : "Artikel '{{name}}' löschen"
 		},
 		"headline": {
 			"news": "Neuigkeiten",
@@ -1803,6 +1895,16 @@
 			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
 			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
 			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu."
+		}
+	},
+	"security" :{
+		"headline" : {
+			"security" : "Sicherheit",
+			"reportSecurityIssue" : "Sicherheitsproblem melden"
+		},
+		"text" : {
+			"scIsTestedRegularyWeValueSecurity" : "Die {{themeTitle}} wird regelmäßig Sicherheitsüberprüfungen und Penetrationstests unterzogen, da uns die Sicherheit der Daten unserer Nutzer:innen sehr wichtig ist.",
+			"youHaveFoundAWeakness" : "Du hast trotzdem ein Sicherheitsproblem gefunden? Schreib uns, damit wir die Lücke schnellstmöglich schließen können:"
 		}
 	},
 	"team": {
