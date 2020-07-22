@@ -148,22 +148,21 @@ const editTeamHandler = async (req, res, next) => {
 
 	teamPromise.then((team) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
-			next(new Error(res.$t('global.error.403')));
-		} else {
-			res.render('teams/edit-team', {
-				action,
-				method,
-				title: req.params.teamId
-					? res.$t('teams.add.headline.editTeam')
-					: res.$t('teams.add.headline.createTeam'),
-				submitLabel: req.params.teamId
-					? res.$t('global.button.saveChanges')
-					: res.$t('teams.add.button.createTeam'),
-				closeLabel: res.$t('global.button.cancel'),
-				team,
-				schoolData: res.locals.currentSchoolData,
-			});
+			return next(new Error(res.$t('global.error.403')));
 		}
+		return res.render('teams/edit-team', {
+			action,
+			method,
+			title: req.params.teamId
+				? res.$t('teams.add.headline.editTeam')
+				: res.$t('teams.add.headline.createTeam'),
+			submitLabel: req.params.teamId
+				? res.$t('global.button.saveChanges')
+				: res.$t('teams.add.button.createTeam'),
+			closeLabel: res.$t('global.button.cancel'),
+			team,
+			schoolData: res.locals.currentSchoolData,
+		});
 	});
 };
 
