@@ -122,7 +122,7 @@
 			{{else}}
 			<div class="empty-state empty-state-courses">
 				<img src="/images/empty-states/topics.svg" alt="{{$t "courses._course.topic.img_alt.noTopics"}}"
-					class="image topic-image" />
+					class="image course-empty-content-image" />
 				{{#unless @root.isArchived}}
 				{{#userHasPermission "COURSE_EDIT"}}
 				<h2 class="h4">{{$t "courses._course.topic.headline.createFirstTopic"}}</h2>
@@ -234,7 +234,7 @@
 			{{else}}
 			<div class="empty-state empty-state-courses">
 				<img src="/images/empty-states/topics.svg" alt="{{$t "courses._course.topic.img_alt.noTopics"}}"
-					class="image topic-image" />
+					class="image course-empty-content-image" />
 				{{#unless @root.isArchived}}
 				{{#userHasPermission "COURSE_EDIT"}}
 				<h2 class="h4">{{$t "courses._course.topic.headline.createFirstTopicWithNewEditor"}}</h2>
