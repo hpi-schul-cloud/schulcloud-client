@@ -1108,7 +1108,8 @@
 			"brokenPen": "zerbrochener Stift"
 		},
 		"label": {
-			"room": "Raum"
+			"room": "Raum",
+			"skipLinks": "Skip links"
 		},
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"
@@ -1125,7 +1126,7 @@
 			}
 		},
 		"sidebar": {
-			"ariaLabel": "sidebar",
+			"ariaLabel": "Sidebar",
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",

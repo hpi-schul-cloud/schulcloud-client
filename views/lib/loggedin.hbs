@@ -46,7 +46,7 @@
         {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
-            <nav aria-label="{{$t "global.sidebar.ariaLabel"}}">
+            <nav id="sidebar" aria-label="{{$t "global.sidebar.ariaLabel"}}">
                 <ul class="sidebar-list">
                     <li>
                         <a class="sc-branding" href="/" title="{{$t "global.title.landing"}}">
@@ -256,7 +256,11 @@
 
                 <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
                 <p id="backendUrl" hidden>{{ backendUrl }}</p>
-
+				<dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.ariaLabel"}}">
+					<dd>
+						<a href="#sidebar">{{$t "global.sidebar.ariaLabel"}}</a>
+					</dd>
+				</dl>
                 <main id="main-content" class="container-fluid">
                     {{#block "page"}}{{/block}}
                 </main>
