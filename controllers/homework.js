@@ -342,7 +342,7 @@ router.delete('/:id/file', (req, res, next) => {
 		});
 	})
 		.then((result) => res.json(result))
-		.catch((err) => res.send(err));
+		.catch((err) => next(err));
 });
 
 router.get('/submit/:id/import', getImportHandler('submissions'));
@@ -363,7 +363,7 @@ router.post('/submit/:id/files', (req, res, next) => {
 		});
 	})
 		.then((result) => res.json(result))
-		.catch((err) => res.send(err));
+		.catch((err) => next(err));
 });
 
 router.post('/submit/:id/grade-files', (req, res, next) => {
@@ -379,7 +379,7 @@ router.post('/submit/:id/grade-files', (req, res, next) => {
 		});
 	})
 		.then((result) => res.json(result))
-		.catch((err) => res.send(err));
+		.catch((err) => next(err));
 });
 
 /* adds shared permission for teacher in the corresponding homework */
@@ -418,7 +418,7 @@ router.delete('/submit/:id/files', (req, res, next) => {
 		});
 	})
 		.then((result) => res.json(result))
-		.catch((err) => res.send(err));
+		.catch((err) => next(err));
 });
 
 router.post('/comment', getCreateHandler('comments'));
