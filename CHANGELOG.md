@@ -9,6 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-5540 changed default checkbox to unchecked for sending registration links.
+
 
 ## [23.6.0] - 2020-07-21
 
