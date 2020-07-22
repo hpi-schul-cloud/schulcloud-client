@@ -50,7 +50,7 @@
 				<nav aria-label="{{$t "global.sidebar.ariaLabel"}}">
 		<ul class="sidebar-list">
 			<li>
-				<a class="sc-branding" href="/">
+				<a class="sc-branding" href="/" title="{{theme.short_title}}">
 					<div class="cloud-logo"></div>
 					<div class="sc-title"><span>{{theme.short_title}}</span></div>
 				</a>
@@ -130,10 +130,11 @@
 						<li class="nav-item alert-button">
 						<div class="dropdown minimal-button">
 								<a class="btn btn-secondary btn-thin dropdown-toggle btn-alert"
-								   href="" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}" title="{{$t
+								   href="" title="{{$t
 								"lib.loggedin.label.thereIsAProblem"}}"
 								   data-toggle="dropdown">
-							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i><span class="hidden">{{$t
+								"lib.loggedin.label.thereIsAProblem"}}</span>
 						</a>
 
 							<div class="dropdown-menu">
@@ -145,20 +146,22 @@
 						<li class="nav-item fullscreen-action">
 						<div class="dropdown minimal-button">
 								<a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen"
-								   href="" aria-label="{{$t "lib.loggedin.label.fullscreen"}}" title="{{$t
+								   href="" title="{{$t
 								"lib.loggedin.label.fullscreen"}}"
 								   data-toggle="dropdown">
-							<i class="fa fa-expand" aria-hidden="true"></i>
+							<i class="fa fa-expand" aria-hidden="true"></i><span class="hidden">{{$t
+								"lib.loggedin.label.fullscreen"}}</span>
 						</a>
 						</div>
 						</li>
 						<li class="nav-item qr-code-action">
 						<div class="dropdown minimal-button">
 								<a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr"
-								   href="" aria-label="{{$t "lib.loggedin.label.qrCode"}}" title="{{$t
+								   href="" title="{{$t
 								"lib.loggedin.label.qrCode"}}"
 								   data-toggle="dropdown">
-							<i class="fa fa-qrcode" aria-hidden="true"></i>
+							<i class="fa fa-qrcode" aria-hidden="true"></i><span class="hidden">{{$t
+								"lib.loggedin.label.qrCode"}}</span>
 						</a>
 						<div class="dropdown-menu print">
 							<div class="content qr-show"></div>
@@ -180,7 +183,7 @@
 											class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
 													recentNotifications}}recent{{/if}}"
 											href=""
-											aria-label="{{$t "lib.loggedin.label.notifications"}}"
+											title="{{$t "lib.loggedin.label.notifications"}}"
 											data-toggle="dropdown">
 										<i class="fa fa-bell" aria-hidden="true"></i> {{#if recentNotifications}}
 											<span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
@@ -273,7 +276,7 @@
 												  action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}"
 												  method="get">{{/unless}}
 												<a href="" class="mobile-search-toggle" aria-label="{{$t
-												"global.mobileNavMenu"}}">
+												"global.lib.loggedin.label.search"}}">
 										{{#unless liveSearch}}<i class="fa fa-search" aria-hidden="true"></i>{{/unless}}
 										</a>
 										<div class="input-group input-group-sm">
