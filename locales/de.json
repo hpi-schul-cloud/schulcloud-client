@@ -1200,7 +1200,7 @@
 		},
 		"skipLinks": {
 			"mainContentSkipLink": "Hauptbereich",
-			"topNavbarSkipLink": "Navigation",
+			"topNavbarSkipLink": "Navigation oben",
 			"footerSkipLink": "Footer"
 		},
 		"title": {
