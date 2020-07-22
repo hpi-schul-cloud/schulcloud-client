@@ -1113,8 +1113,8 @@
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"
 		},
-		"mobileNavMenu": "mobile nav toggle",
-		"openInNewTabWarning": "Opens in new tab",
+		"mobileNavMenu": "Mobiles Navigations Menu",
+		"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 		"role": {
 			"text": {
 				"administrator": "Administrator",
