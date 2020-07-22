@@ -1164,7 +1164,7 @@
 		"skipLinks": {
 			"mainContentSkipLink": "Hauptbereich",
 			"topNavbarSkipLink": "Navigation",
-			"footerSkipLink": "Footerc"
+			"footerSkipLink": "Footer"
 		},
 		"text": {
 			"areYouSure": "Bist du dir sicher?",
