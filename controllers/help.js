@@ -17,7 +17,7 @@ router.use(authHelper.authChecker);
 
 router.get('/articles', (req, res, next) => {
 	res.render('help/help', {
-		title: 'Hilfeartikel',
+		title: res.$t('help.headline.helpSection'),
 		tutorials,
 		adminFormIsActive: req.query.activeForm === 'admin',
 		teamFormIsActive: req.query.activeForm === 'team',
@@ -55,7 +55,7 @@ router.get('/releases', (req, res, next) => {
 			res.render('help/releases', {
 				breadcrumb: [
 					{
-						title: 'Hilfebereich',
+						title: res.$t('help.headline.helpSection'),
 						url: '/help',
 					},
 				],
@@ -68,7 +68,7 @@ router.get('/confluence/:id', (req, res, next) => {
 	res.render('help/confluence', {
 		breadcrumb: [
 			{
-				title: 'Hilfebereich',
+				title: res.$t('help.headline.helpSection'),
 				url: '/help',
 			},
 		],
@@ -78,10 +78,10 @@ router.get('/confluence/:id', (req, res, next) => {
 
 router.get('/faq/people', (req, res, next) => {
 	res.render('help/people', {
-		title: 'Ansprechpartner und Kontaktdaten',
+		title: res.$t('help.headline.contactDetails'),
 		breadcrumb: [
 			{
-				title: 'Hilfebereich',
+				title: res.$t('help.headline.helpSection'),
 				url: '/help',
 			},
 		],
@@ -90,10 +90,10 @@ router.get('/faq/people', (req, res, next) => {
 
 router.get('/lernNuggets', (req, res, next) => {
 	res.render('help/lern-nuggets', {
-		title: 'Datenschutzkurs',
+		title: res.$t('help.headline.privacyCourse'),
 		breadcrumb: [
 			{
-				title: 'Hilfebereich',
+				title: res.$t('help.headline.helpSection'),
 				url: '/help',
 			},
 		],
@@ -107,7 +107,7 @@ router.get('/faq/documents', async (req, res, next) => {
 	if (isDemoUser) {
 		req.session.notification = {
 			type: 'danger',
-			message: 'Sie haben im Demo-Account keinen Zugriff auf diese Dokumente.',
+			message: res.$t('help.text.noAccessDemoAccount'),
 		};
 		return res.redirect('/help');
 	}
@@ -117,16 +117,16 @@ router.get('/faq/documents', async (req, res, next) => {
 		.catch(() => {
 			req.session.notification = {
 				type: 'danger',
-				message: 'Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support.',
+				message: res.$t('help.text.noWelcomeDocuments'),
 			};
 			return res.redirect('/help');
 		});
 
 	return res.render('help/accordion-sections', {
-		title: 'Willkommens-Dokumente zum Download',
+		title: res.$t('help.headline.welcomeDocuments'),
 		breadcrumb: [
 			{
-				title: 'Hilfebereich',
+				title: res.$t('help.headline.helpSection'),
 				url: '/help',
 			},
 		],

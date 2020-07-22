@@ -9,7 +9,7 @@ const {
 	SC_DOMAIN = 'localhost',
 	SC_THEME = 'default',
 	SC_TITLE = 'HPI Schul-Cloud',
-	SC_SHORT_TITLE = 'Schul-Cloud',
+	SC_SHORT_TITLE = 'HPI Schul-Cloud',
 	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/schul-cloud-hpi/',
 	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	REDIS_URI,
@@ -42,6 +42,7 @@ const {
 	SC_DEMO_USER_NAME = 'schueler@schul-cloud.org',
 	SC_SUPERHERO_USER_PASSWORD = 'Schulcloud1!',
 	SC_SUPERHERO_USER_NAME = 'superhero@schul-cloud.org',
+	HELPAREA_URL,
 	FEATURE_MATRIX_MESSENGER_ENABLED,
 	FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE,
 } = process.env;
@@ -88,6 +89,7 @@ const exp = {
 	SC_DEMO_USER_NAME,
 	SC_SUPERHERO_USER_PASSWORD,
 	SC_SUPERHERO_USER_NAME,
+	HELPAREA_URL,
 	FEATURE_MATRIX_MESSENGER_ENABLED,
 	FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE,
 };

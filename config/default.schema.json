@@ -3,16 +3,16 @@
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
-        "CORS": {
-            "type": "boolean",
-            "default": true,
-            "description": "If enabled, default content security policy (CSP) header will be set."
-        },
-        "SECURITY_HEADERS": {
-            "type": "boolean",
-            "default": true,
-            "description": "If enabled, additional security header will be set."
-        },
+		"CORS": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, default content security policy (CSP) header will be set."
+		},
+		"SECURITY_HEADERS": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, additional security header will be set."
+		},
 		"API_KEY": {
 			"type": "string",
 			"default": "example",
@@ -136,6 +136,12 @@
 			"format": "uri",
 			"pattern": ".*(?<!/)$",
 			"description": "Where to find the messenger dependencies."
+		},
+		"MATRIX_MESSENGER_HOMESERVER_URI": {
+			"type": "string",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
+			"description": "Where to find the messenger server."
 		},
 		"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
 			"type": "boolean",
@@ -293,15 +299,33 @@
 			"default": false,
 			"description": "Enables Portfolio (navigation, addons) in app"
 		},
-		"FEATURE_LERNSTORE_ENABLED": {
+		"LERNSTORE_MODE": {
+			"type": "string",
+			"enum": [
+				"DISABLED",
+				"LEGACY",
+				"EDUSHARING"
+			],
+			"default": "DISABLED",
+			"description": "Defines the lernstore mode. Can be legacy, edusharing and disabled"
+		},
+		"HELPAREA_URL": {
+			"type": "string",
+			"default": "",
+			"description": "The URL to Confluence. Without a link, there are subpages in the side menu and on the /help page. With the link the option from the Hilfebereich side menu leads to confluence."
+		},
+		"FEATURE_MULTI_LOGIN_INSTANCES": {
 			"type": "boolean",
 			"default": false,
-			"description": "Enables Lern-Store (navigation, route) in app"
+			"description": "Multi login instances tiles"
 		}
 	},
 	"allOf": [
 		{
 			"$ref": "#/definitions/ETHERPAD_ENABLED"
+		},
+		{
+			"$ref": "#/definitions/MESSENGER_ENABLED"
 		}
 	],
 	"definitions": {
@@ -309,13 +333,30 @@
 			"if": {
 				"properties": {
 					"FEATURE_ETHERPAD_ENABLED": {
-						"const": "true"
+						"const": true
 					}
 				}
 			},
 			"then": {
 				"required": [
 					"ETHERPAD"
+				]
+			}
+		},
+		"MESSENGER_ENABLED": {
+			"if": {
+				"properties": {
+					"FEATURE_MATRIX_MESSENGER_ENABLED": {
+						"const": true
+					}
+				}
+			},
+			"then": {
+				"required": [
+					"MATRIX_MESSENGER_EMBED_URI",
+					"MATRIX_MESSENGER_HOMESERVER_URI",
+					"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE",
+					"FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED"
 				]
 			}
 		}
@@ -326,7 +367,6 @@
 		"COOKIE_SECRET",
 		"STUDENT_TEAM_CREATION",
 		"FEATURE_ETHERPAD_ENABLED",
-		"FEATURE_EXTENSION_PORTFOLIO_ENABLED",
-		"FEATURE_LERNSTORE_ENABLED"
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED"
 	]
 }
