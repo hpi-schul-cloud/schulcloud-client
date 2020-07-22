@@ -9,27 +9,35 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-### Added
+
+## [23.6.0] - 2020-07-21
+
+### Added - 23.6.0
 - SC-4151 hint for user when login failes
 - SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists 
 it is shown to every school user by the registration, first login and in the footer of the page. If it was changed the
 privacy policy should be confirmed by every school user
 
 
-### Fixed
+### Fixed - 23.6.0
 -  SC-4993 fixed video player issue in ckeditor
 
-### Changed
+### Changed - 23.6.0
 
 - SC-5327 removed 'bereich' suffix from navigation items
 
-### Removed
+### Removed - 23.6.0
 
 ## [23.5.7] - 2020-07-17
 
 - SC-5653 update mint-ec email addresses
 
 ## [23.5.3] - 2020-07-10
+
+- SC-5494 Changed link in navigation bar
+- SC-5529 update hpi school-cloud brand name
+
+## [23.5.2] - 2020-07-09
 
 - SC-5494 Changed link in navigation bar
 - SC-5529 update hpi school-cloud brand name
