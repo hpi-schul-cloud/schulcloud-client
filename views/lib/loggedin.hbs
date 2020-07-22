@@ -50,14 +50,14 @@
 				<nav aria-label="{{$t "global.sidebar.ariaLabel"}}">
 		<ul class="sidebar-list">
 			<li>
-				<a class="sc-branding" href="/" title="{{theme.short_title}}">
+				<a class="sc-branding" href="/" title="{{theme.short_title}}" aria-label="{{theme.short_title}}">
 					<div class="cloud-logo"></div>
 					<div class="sc-title"><span>{{theme.short_title}}</span></div>
 				</a>
 			</li>
 		{{#each sidebarItems}}
 			<li>
-					<a class="{{this.class}}" href="{{this.link}}" aria-label="{{this.name}} {{#if
+					<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if
 					this.isExternalLink}}{{$t "global.openInNewTabWarning"}}{{/if}}" {{#if
 					this.isExternalLink}}target="_blank" {{/if}}>
 				<i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
@@ -69,7 +69,7 @@
 					<ul class="subitems">
 					{{#each this.children}}
 						<li>
-								<a class="subitem {{this.class}}" href="{{this.link}}" aria-label="{{this.name}} {{#if
+								<a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if
 								this.isExternalLink}}{{$t "global.openInNewTabWarning"}}{{/if}}" {{#if
 								this.isExternalLink}}target="_blank" {{/if}}>
 						{{#if this.isExternalIcon}}
@@ -131,10 +131,10 @@
 						<div class="dropdown minimal-button">
 								<a class="btn btn-secondary btn-thin dropdown-toggle btn-alert"
 								   href="" title="{{$t
+								"lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t
 								"lib.loggedin.label.thereIsAProblem"}}"
 								   data-toggle="dropdown">
-							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i><span class="hidden">{{$t
-								"lib.loggedin.label.thereIsAProblem"}}</span>
+							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
 						</a>
 
 							<div class="dropdown-menu">
@@ -147,10 +147,10 @@
 						<div class="dropdown minimal-button">
 								<a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen"
 								   href="" title="{{$t
+								"lib.loggedin.label.fullscreen"}}" aria-label="{{$t
 								"lib.loggedin.label.fullscreen"}}"
 								   data-toggle="dropdown">
-							<i class="fa fa-expand" aria-hidden="true"></i><span class="hidden">{{$t
-								"lib.loggedin.label.fullscreen"}}</span>
+							<i class="fa fa-expand" aria-hidden="true"></i>
 						</a>
 						</div>
 						</li>
@@ -158,10 +158,10 @@
 						<div class="dropdown minimal-button">
 								<a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr"
 								   href="" title="{{$t
+								"lib.loggedin.label.qrCode"}}" aria-label="{{$t
 								"lib.loggedin.label.qrCode"}}"
 								   data-toggle="dropdown">
-							<i class="fa fa-qrcode" aria-hidden="true"></i><span class="hidden">{{$t
-								"lib.loggedin.label.qrCode"}}</span>
+							<i class="fa fa-qrcode" aria-hidden="true"></i>
 						</a>
 						<div class="dropdown-menu print">
 							<div class="content qr-show"></div>
@@ -170,7 +170,7 @@
 							</div>
 									<div class="btn btn-secondary btn-print mb-1 ml-1 mt-0"
 										 data-toggle="tooltip" data-original-title="{{$t
-									"lib.loggedin.label.printQrCode"}}">
+									"lib.loggedin.label.printQrCode"}}" tabindex="0">
 								<i class="fa fa-print" aria-hidden="true"></i> {{$t "global.button.print" }}
 								</div>
 								</div>
@@ -184,6 +184,7 @@
 													recentNotifications}}recent{{/if}}"
 											href=""
 											title="{{$t "lib.loggedin.label.notifications"}}"
+											aria-label="{{$t "lib.loggedin.label.notifications"}}"
 											data-toggle="dropdown">
 										<i class="fa fa-bell" aria-hidden="true"></i> {{#if recentNotifications}}
 											<span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
