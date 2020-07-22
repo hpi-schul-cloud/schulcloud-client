@@ -89,6 +89,12 @@
 		width: 100% !important;
 		max-width: 40px !important;
 	}
+	@include media-breakpoint-down(lg) {
+		.btn-margin {
+			margin-top: 8px;
+		}
+	}
+
 }
 
 .flex-container {
