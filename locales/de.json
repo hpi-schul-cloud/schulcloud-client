@@ -1126,7 +1126,7 @@
 			}
 		},
 		"sidebar": {
-			"ariaLabel": "Sidebar",
+			"ariaLabel": "Seitenleiste",
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
