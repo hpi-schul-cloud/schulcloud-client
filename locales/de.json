@@ -1108,7 +1108,8 @@
 			"brokenPen": "zerbrochener Stift"
 		},
 		"label": {
-			"room": "Raum"
+			"room": "Raum",
+			"skipLinks": "Links Überspringen"
 		},
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"
@@ -1127,7 +1128,7 @@
 			}
 		},
 		"sidebar": {
-			"ariaLabel": "sidebar",
+			"ariaLabel": "Seitenleiste",
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
@@ -1161,11 +1162,6 @@
 				"teams": "Teams"
 			}
 		},
-		"skipLinks": {
-			"mainContentSkipLink": "Hauptbereich",
-			"topNavbarSkipLink": "Navigation",
-			"footerSkipLink": "Footer"
-		},
 		"text": {
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
@@ -1183,12 +1179,34 @@
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
 		},
+		"topMenu": {
+			"ariaLabel": "topbar",
+			"dropdown": {
+				"alertButton": {
+					"title": "Es gibt ein Problem"
+				},
+				"currentUser": {
+					"ariaLabel": "aktueller Benutzer:"
+				},
+				"fullscreenButton": {
+					"title": "Vollbildmodus"
+				},
+				"notifications": {
+					"title": "Benachrichtigungen"
+				},
+				"QRCode": {
+					"title": "QR-Code"
+				}
+			},
+			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
+		},
+		"skipLinks": {
+			"mainContentSkipLink": "Hauptbereich",
+			"topNavbarSkipLink": "Navigation oben",
+			"footerSkipLink": "Footer"
+		},
 		"title": {
 			"landing": "Startseite"
-		},
-		"topMenu": {
-      "ariaLabel": "topbar",
-			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		}
 	},
 	"help": {
