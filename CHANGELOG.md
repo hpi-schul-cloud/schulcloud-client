@@ -21,6 +21,8 @@ privacy policy should be confirmed by every school user
 
 ### Fixed - 23.6.0
 -  SC-4993 fixed video player issue in ckeditor
+-  SC-5686 :teamId/edit can only be accessed if the user has the team permission "RENAME_TEAM"; :courseId/edit can only 
+be accessed if the user has the permission "COURSE_EDIT
 
 ### Changed - 23.6.0
 
