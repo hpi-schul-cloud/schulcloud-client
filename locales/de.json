@@ -1634,7 +1634,7 @@
 				"printQrCode": "QR-Code drucken",
 				"qrCode": "QR-Code",
 				"search": "Suche",
-        		"thereIsAProblem": "Es gibt ein Problem",
+        		"thereIsAProblem": "Es gibt ein Problem"
 			},
 			"tab_label": {
 				"settings": "Einstellungen",
