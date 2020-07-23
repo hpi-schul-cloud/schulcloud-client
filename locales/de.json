@@ -405,7 +405,11 @@
 	"community": {
 		"button": {
 			"allOtherSchools": "Alle anderen Schulen",
-			"germanSchoolsAbroad": "Deutsche Auslandsschulen"
+			"brandenburg": "Brandenburg",
+			"germanSchoolsAbroad": "Deutsche Auslandsschulen",
+			"lowerSaxony": "Niedersachsen",
+			"mintECSchools": "MINT-EC Schulen",
+			"thuringia": "Thüringen"
 		},
 		"heading": {
 			"chooseYourState": "Wählen Sie Ihr Bundesland oder das Projekt dem Sie angehören.",
@@ -413,6 +417,7 @@
 		},
 		"text": {
 			"MINTECSchoolsAnd": "Hier können sich MINT-EC-Schulen und auch Schulen die keinem Länderprojekt angehören anmelden, die dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
+			"contactUsToRegister": "Kontaktieren Sie bitte entweder Frau Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de</a> oder Herrn Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de</a>, um den Registrierungsprozess einzuleiten.",
 			"forGeneralQuestionsPleaseContact": "Bei allgemeinen Fragen kontaktieren Sie bitte folgende E-Mail-Adresse:",
 			"hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
 			"inBrandenburgTheAdmissionOfNewSchools": "In Brandenburg wird die Aufnahme neuer Schulen gemeinsam mit der DigitalAgentur Brandenburg (ILB) und dem MBJS koordiniert.",
@@ -1087,6 +1092,9 @@
 			"delete": "Löschen",
 			"edit": "Bearbeiten"
 		},
+		"img_alt": {
+			"brokenPen": "zerbrochener Stift"
+		},
 		"label": {
 			"room": "Raum"
 		},
@@ -1159,9 +1167,6 @@
 		},
 		"title": {
 			"landing": "Startseite"
-		},
-		"topMenu": {
-			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		}
 	},
 	"help": {
@@ -1178,1261 +1183,1274 @@
 				"typeNotAllowed": "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
 			}
 		},
-		"contact": {
-			"label": {
-				"schoolAdmin": "Schul-Admin",
-				"wish": "Wunsch"
+		"headline": {
+			"contactDetails": "Ansprechpartner und Kontaktdaten",
+			"helpSection": "Hilfeartikel",
+			"privacyCourse": "Datenschutzkurs",
+			"welcomeDocuments": "Willkommens-Dokumente zum Download",
+			"contact": {
+				"label": {
+					"schoolAdmin": "Schul-Admin",
+					"wish": "Wunsch"
+				},
+				"text": {
+					"thankYouForYourFeedbak": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
+					"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
+					"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
+				}
 			},
-			"text": {
-				"thankYouForYourFeedbak": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
-				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
-				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
-			}
-		},
-		"dashboard": {
-			"heading": {
-				"advancedTraining": "Fortbildungen",
-				"contact": "Kontakt",
-				"helpArticles": "Hilfeartikel"
-			}
-		},
-		"form_Wish": {
-			"label": {
-				"acceptanceCriteria": "Akzeptanzkriterien",
-				"around": "um ...",
-				"as": "Als...",
-				"briefDescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
-				"device": "Gerät",
-				"iWouldLikeTo": "möchte ich ...",
-				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
+			"dashboard": {
+				"heading": {
+					"advancedTraining": "Fortbildungen",
+					"contact": "Kontakt",
+					"helpArticles": "Hilfeartikel"
+				}
+			},
+			"form_Wish": {
+				"label": {
+					"acceptanceCriteria": "Akzeptanzkriterien",
+					"around": "um ...",
+					"as": "Als...",
+					"briefDescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
+					"device": "Gerät",
+					"iWouldLikeTo": "möchte ich ...",
+					"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
+				},
+				"placeholder": {
+					"afterLoggingOnToTheSystem": "z.B. Nach der Systemanmeldung gelange ich in maximal zwei Schritten zum Stundenkontext, kann die Schüleraufgabe dort mit einem Klick bearbeiten und die SchülerInnen bei Bedarf automatisch über die Änderung informieren.",
+					"briefDescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
+					"canEasilyFindAndChange": "z.B. eine im System angelegte Schüleraufgabe leicht auffinden und ändern können",
+					"exampleStudent": "z.B. Schüler, Lehrer, Administrator, Hausmeister usw.",
+					"toUpdateThem": "z.B. sie zu aktualisieren"
+				},
+				"text": {
+					"iAgreeThatTheFollowingInformation": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:"
+				}
+			},
+			"form_admin": {
+				"label": {
+					"currentStatus": "IST-Zustand: Was geschieht zur Zeit, nachdem ich welche Schritte durchgeführt habe?",
+					"targetState": "SOLL-Zustand: Was sollte stattdessen geschehen?"
+				},
+				"text": {
+					"hereYouCanContact": "Hier erreichst du den Administrator deiner Schule. Er kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über deinen Kontaktgesuch informiert."
+				}
+			},
+			"form_bug": {
+				"label": {
+					"emailAddressForAnyQueries": "E-Mail-Adresse für eventuelle Rückfragen",
+					"problemDescription": "Problembeschreibung:",
+					"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
+				},
+				"text": {
+					"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)</li> <li>Betriebssystem und Version (z.B: Windows 10)</li>"
+				}
+			},
+			"global": {
+				"heading": {
+					"principal": "Schulleitung",
+					"student": "Schüler",
+					"teacher": "Lehrer"
+				},
+				"label": {
+					"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
+					"furtherInformation": "Weitere Informationen (optional):"
+				}
+			},
+			"help_confluenceLinks": {
+				"link": {
+					"aboutTheProject": "Über das Projekt",
+					"contactForm": "Kontaktformular",
+					"firstSteps": "Erste Schritte",
+					"linguisticNote": "Sprachlicher Hinweis",
+					"usageAids": "Nutzungshilfen",
+					"writeUsAnEmail": "Schreib uns eine E-Mail"
+				}
+			},
+			"help_fromInviteExternalMember": {
+				"button": {
+					"externalExpert": "External experts",
+					"teachersFromOtherSchool": "Teachers from other schools"
+				},
+				"heading": {
+					"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
+				}
+			},
+			"language_hint": {
+				"text": {
+					"forBetterReadability": "Für bessere Lesbarkeit verwenden wir in der Benutzeroberfläche der {{title}} die männliche Form („Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung."
+				}
+			},
+			"lernNuggets": {
+				"heading": {
+					"instructionsForUse": "Hinweise zur Benutzung",
+					"learningNuggetBasicOfGDPR": "Lern-Nugget: Grundlagen der DSGVO",
+					"learningNuggetDataProtectioin": "Lern-Nugget: Datenschutz im Schulalltag",
+					"learningNuggetDataProtectionAndCloud": "Lern-Nugget: Datenschutz und Cloud-Lösungen",
+					"learningNuggetLicenseModels": "Lern-Nugget: Lizenzmodelle und Nutzungsrechte",
+					"welcomeToTheOnlineCourse": "Willkommen beim Online-Kurs 'Datenschutz und Urheberrecht' "
+				},
+				"link": {
+					"basicsOfTheGDPR": "Grundlagen der DSGVO",
+					"dataProtectionAndCloudSolution": "Datenschutz und Cloud-Lösungen",
+					"dataProtectionInSchoolLife": "Datenschutz im Schulalltag",
+					"licenseModelAndUsageRights": "Lizenzmodelle und Nutzungsrechte"
+				},
+				"text": {
+					"aLearningUnitLasts": "Eine Lerneinheit dauert höchstens 15 Minuten. Um den vollen Umfang der Inhalte zu erhalten, schaltet am besten Lautsprecher oder Kopfhörer an eurem Endgerät ein.",
+					"byTheWayYouWillAlways": "Übrigens erhaltet ihr immer am Ende eines Lern-Nuggets eine Teilnahmebescheinigung zum Nachweis eures Lernerfolgs.",
+					"clientAndLicensedFor": "Auftraggeber und lizenziert für: Verein MINT-EC®,",
+					"contentAndProduction": "Inhalte und Produktion: youknow GmbH, St.-Martin-Straße 57, 81669 München,",
+					"createdAsPartOfThe": "Entstanden im Rahmen des Projekts HPI Schul-Cloud.",
+					"dealingWithPersonalDetails": "Der Umgang mit personenbezogenen Daten, die Anforderungen an eine Cloud-Lösung im Schulalltag sowie das digitale Teilen von Lehr- und Lernmaterialien rufen bei Schulleitungen und Lehrkräften immer wieder Verunsicherung hervor.",
+					"forThisReasonYouHaveTheOpportunity": "Aus diesem Grund habt ihr hier die Möglichkeit, alles Wissenswerte zu den Themen Datenschutz und Urheberrecht in kleinen Lerneinheiten kennenzulernen.",
+					"hereIsTheLearningNugget": "Hier geht's zum Lern-Nugget:",
+					"inTheLearningNuggetOnDataProtection": "Im Lern-Nugget zum Datenschutz im Schulalltag erfahrt ihr, welche datenschutzrechtlichen Vorschriften ihr im Kontext Schule beachten müsst. Außerdem zeigen wir hier ganz konkrete Datenschutzfälle aus dem Schulalltag.",
+					"inThisLessonYouWillLearnAllTheBasics": "In dieser Lerneinheit lernt ihr alle Grundlagen personenbezogener Daten kennen. Zudem bekommt ihr einen Überblick über die fünf Grundprinzipien, die im Umgang mit der DSGVO gelten.",
+					"learningNiggetsImproveTheLearningEffect": "Lern-Nuggets verbessern den Lerneffekt und machen nebenbei noch Spaß. Außerdem könnt ihr durch die modulare Struktur ganz frei entscheiden, welche Lerneinheit ihr zuerst durchführen möchtet. Klickt einfach auf das jeweilige Lern-Nugget, um das Training zu absolvieren.",
+					"tryAnotherQuery": "Probiere es mit anderen Suchbegriffen erneut",
+					"whatAreTheAdvantagesAndDisadvantages": "Was sind die Vor- und Nachteile von Cloud-Lösungen beim Einsatz in der Schule? Was müsst ihr beim Einsatz an eurer Schule beachten? In dieser Lerneinheit stellen wir alles Wissenswerte zu Cloud-Lösungen wie der HPI Schul-Cloud vor.",
+					"withTheTopicsOfLicenseModels": "Bei den Themen Lizenzmodelle und Nutzungsrecht lernt ihr die Grundlagen des Urheberrechts und die Vorgaben zur Vervielfältigung von Materialien im analogen sowie digitalen Schulalltag kennen. Außerdem erfahrt ihr hier, was Open Educational Ressources sind und wie ihr Lizenzen adäquat kennzeichnet."
+				}
+			},
+			"partials": {
+				"heading": {
+					"contactForm": "Kontaktformular",
+					"contactPerson": "Ansprechpartner",
+					"writeUsAnEmail": "Schreib uns eine E-Mail"
+				}
 			},
 			"placeholder": {
-				"afterLoggingOnToTheSystem": "z.B. Nach der Systemanmeldung gelange ich in maximal zwei Schritten zum Stundenkontext, kann die Schüleraufgabe dort mit einem Klick bearbeiten und die SchülerInnen bei Bedarf automatisch über die Änderung informieren.",
-				"briefDescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
-				"canEasilyFindAndChange": "z.B. eine im System angelegte Schüleraufgabe leicht auffinden und ändern können",
-				"exampleStudent": "z.B. Schüler, Lehrer, Administrator, Hausmeister usw.",
-				"toUpdateThem": "z.B. sie zu aktualisieren"
-			},
-			"text": {
-				"iAgreeThatTheFollowingInformation": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:"
-			}
-		},
-		"form_admin": {
-			"label": {
-				"currentStatus": "IST-Zustand: Was geschieht zur Zeit, nachdem ich welche Schritte durchgeführt habe?",
-				"targetState": "SOLL-Zustand: Was sollte stattdessen geschehen?"
-			},
-			"text": {
-				"hereYouCanContact": "Hier erreichst du den Administrator deiner Schule. Er kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über deinen Kontaktgesuch informiert."
-			}
-		},
-		"form_bug": {
-			"label": {
-				"emailAddressForAnyQueries": "E-Mail-Adresse für eventuelle Rückfragen",
-				"problemDescription": "Problembeschreibung:",
-				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
-			},
-			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)</li> <li>Betriebssystem und Version (z.B: Windows 10)</li>"
-			}
-		},
-		"global": {
-			"heading": {
-				"principal": "Schulleitung",
-				"student": "Schüler",
-				"teacher": "Lehrer"
-			},
-			"label": {
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
-				"furtherInformation": "Weitere Informationen (optional):"
+				"email": "E-Mail-Adresse",
+				"formBugText": "Ich als [Nutzerrolle] \nhabe auf der Seite [???]\ndie Funktion [???]\naufgrund des Fehlers/der Fehlermeldung \"[???]\"\nnicht benutzen können.\n\nTritt der Fehler auch bei anderen/ ähnlichen Bereichen (z.B. andere Kurse oder Nutzer) auf?\nWie genau äußert sich das Problem?\nWann trat der Fehler genau auf (Datum, Uhrzeit), damit wir gezielt in den Logs schauen können?\nWenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hier bitte so kurz und klar wie möglich beschreiben."
+			},
+			"text": {
+				"hereYouCanFindOut": "Hier findest du heraus wie du deine Cookies löschst.",
+				"someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
+				"theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der HPI Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
+				"theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:",
+				"toMINTECWithQuestions": "an MINT-EC bei Fragen und Anregungen zur Einführung und Nutzung der HPI Schul-Cloud an deiner Schule.",
+				"toTheHpiForIdeas": "ans HPI für Ideen, Kritik und Wünsche rund um die Cloud selbst."
 			}
 		},
-		"help_confluenceLinks": {
-			"link": {
-				"aboutTheProject": "Über das Projekt",
-				"contactForm": "Kontaktformular",
-				"firstSteps": "Erste Schritte",
-				"linguisticNote": "Sprachlicher Hinweis",
-				"usageAids": "Nutzungshilfen",
-				"writeUsAnEmail": "Schreib uns eine E-Mail"
+		"helpdesk": {
+			"text": {
+				"feedbackError": "Fehler beim Senden des Feedbacks.",
+				"feedbackSuccessful": "Feedback erfolgreich versendet!",
+				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+				"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!",
+				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!"
 			}
 		},
-		"help_fromInviteExternalMember": {
+		"home": {
 			"button": {
-				"externalExpert": "External experts",
-				"teachersFromOtherSchool": "Teachers from other schools"
+				"aboutTheProject": "Über das Projekt",
+				"loginAsStudentDemo": "als Schüler:in einloggen",
+				"loginAsTeacherDemo": "als Lehrer:in einloggen",
+				"subscribeNewsletter": "Newsletter abonnieren"
 			},
-			"heading": {
-				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
-			}
-		},
-		"language_hint": {
-			"text": {
-				"forBetterReadability": "Für bessere Lesbarkeit verwenden wir in der Benutzeroberfläche der {{title}} die männliche Form („Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung."
-			}
-		},
-		"lernNuggets": {
-			"heading": {
-				"instructionsForUse": "Hinweise zur Benutzung",
-				"learningNuggetBasicOfGDPR": "Lern-Nugget: Grundlagen der DSGVO",
-				"learningNuggetDataProtectioin": "Lern-Nugget: Datenschutz im Schulalltag",
-				"learningNuggetDataProtectionAndCloud": "Lern-Nugget: Datenschutz und Cloud-Lösungen",
-				"learningNuggetLicenseModels": "Lern-Nugget: Lizenzmodelle und Nutzungsrechte",
-				"welcomeToTheOnlineCourse": "Willkommen beim Online-Kurs 'Datenschutz und Urheberrecht' "
+			"header": {
+				"link": {
+					"aboutUs": "Über das Projekt",
+					"blog": "Blog",
+					"faq": "FAQ",
+					"firstSteps": "Erste Schritte",
+					"login": "Login",
+					"register": "Registrieren"
+				}
 			},
-			"link": {
-				"basicsOfTheGDPR": "Grundlagen der DSGVO",
-				"dataProtectionAndCloudSolution": "Datenschutz und Cloud-Lösungen",
-				"dataProtectionInSchoolLife": "Datenschutz im Schulalltag",
-				"licenseModelAndUsageRights": "Lizenzmodelle und Nutzungsrechte"
-			},
-			"text": {
-				"aLearningUnitLasts": "Eine Lerneinheit dauert höchstens 15 Minuten. Um den vollen Umfang der Inhalte zu erhalten, schaltet am besten Lautsprecher oder Kopfhörer an eurem Endgerät ein.",
-				"byTheWayYouWillAlways": "Übrigens erhaltet ihr immer am Ende eines Lern-Nuggets eine Teilnahmebescheinigung zum Nachweis eures Lernerfolgs.",
-				"clientAndLicensedFor": "Auftraggeber und lizenziert für: Verein MINT-EC®,",
-				"contentAndProduction": "Inhalte und Produktion: youknow GmbH, St.-Martin-Straße 57, 81669 München,",
-				"createdAsPartOfThe": "Entstanden im Rahmen des Projekts HPI Schul-Cloud.",
-				"dealingWithPersonalDetails": "Der Umgang mit personenbezogenen Daten, die Anforderungen an eine Cloud-Lösung im Schulalltag sowie das digitale Teilen von Lehr- und Lernmaterialien rufen bei Schulleitungen und Lehrkräften immer wieder Verunsicherung hervor.",
-				"forThisReasonYouHaveTheOpportunity": "Aus diesem Grund habt ihr hier die Möglichkeit, alles Wissenswerte zu den Themen Datenschutz und Urheberrecht in kleinen Lerneinheiten kennenzulernen.",
-				"hereIsTheLearningNugget": "Hier geht's zum Lern-Nugget:",
-				"inTheLearningNuggetOnDataProtection": "Im Lern-Nugget zum Datenschutz im Schulalltag erfahrt ihr, welche datenschutzrechtlichen Vorschriften ihr im Kontext Schule beachten müsst. Außerdem zeigen wir hier ganz konkrete Datenschutzfälle aus dem Schulalltag.",
-				"inThisLessonYouWillLearnAllTheBasics": "In dieser Lerneinheit lernt ihr alle Grundlagen personenbezogener Daten kennen. Zudem bekommt ihr einen Überblick über die fünf Grundprinzipien, die im Umgang mit der DSGVO gelten.",
-				"learningNiggetsImproveTheLearningEffect": "Lern-Nuggets verbessern den Lerneffekt und machen nebenbei noch Spaß. Außerdem könnt ihr durch die modulare Struktur ganz frei entscheiden, welche Lerneinheit ihr zuerst durchführen möchtet. Klickt einfach auf das jeweilige Lern-Nugget, um das Training zu absolvieren.",
-				"whatAreTheAdvantagesAndDisadvantages": "Was sind die Vor- und Nachteile von Cloud-Lösungen beim Einsatz in der Schule? Was müsst ihr beim Einsatz an eurer Schule beachten? In dieser Lerneinheit stellen wir alles Wissenswerte zu Cloud-Lösungen wie der HPI Schul-Cloud vor.",
-				"withTheTopicsOfLicenseModels": "Bei den Themen Lizenzmodelle und Nutzungsrecht lernt ihr die Grundlagen des Urheberrechts und die Vorgaben zur Vervielfältigung von Materialien im analogen sowie digitalen Schulalltag kennen. Außerdem erfahrt ihr hier, was Open Educational Ressources sind und wie ihr Lizenzen adäquat kennzeichnet."
-			}
-		},
-		"partials": {
-			"heading": {
-				"contactForm": "Kontaktformular",
-				"contactPerson": "Ansprechpartner",
-				"writeUsAnEmail": "Schreib uns eine E-Mail"
-			}
-		},
-		"placeholder": {
-			"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
-			"email": "E-Mail-Adresse"
-		},
-		"text": {
-			"hereYouCanFindOut": "Hier findest du heraus wie du deine Cookies löschst.",
-			"someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
-			"theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der HPI Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
-			"theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:",
-			"toMINTECWithQuestions": "an MINT-EC bei Fragen und Anregungen zur Einführung und Nutzung der HPI Schul-Cloud an deiner Schule.",
-			"toTheHpiForIdeas": "ans HPI für Ideen, Kritik und Wünsche rund um die Cloud selbst."
-		}
-	},
-	"helpdesk": {
-		"text": {
-			"feedbackError": "Fehler beim Senden des Feedbacks.",
-			"feedbackSuccessful": "Feedback erfolgreich versendet!",
-			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
-			"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!",
-			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!"
-		}
-	},
-	"home": {
-		"button": {
-			"aboutTheProject": "Über das Projekt",
-			"loginAsStudentDemo": "als Schüler:in einloggen",
-			"loginAsTeacherDemo": "als Lehrer:in einloggen",
-			"subscribeNewsletter": "Newsletter abonnieren"
-		},
-		"header": {
-			"link": {
-				"aboutUs": "Über das Projekt",
-				"blog": "Blog",
-				"faq": "FAQ",
-				"firstSteps": "Erste Schritte",
-				"login": "Login",
-				"register": "Registrieren"
-			}
-		},
-		"headline": {
-			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> Blog",
-			"allNewsOnHPINewsletter": "Alle Neuigkeiten rund um die <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> bequem in Ihrem Postfach:",
-			"explainationVideo": "Erklärvideo zur HPI Schul-Cloud",
-			"projectLeaders": "Projektdurchführung",
-			"theIdea": "Die Grundidee der <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span>",
-			"tryDemoVersion": "Jetzt Demoversion ausprobieren",
-			"welcomeToHPISchoolCloud": "Herzlich willkommen bei der <span style=\"white-space: nowrap;\">HPI Schul-Cloud!</span>"
-		},
-		"img_alt": {
-			"logoBMBF": "Logo BMBF",
-			"logoHPI": "Logo HPI",
-			"logoMINTEC": "Logo MINT-EC"
-		},
-		"link": {
-			"moreArticles": "weitere Artikel anzeigen",
-			"openArticle": "Artikel öffnen"
-		},
-		"text": {
-			"advertisementForOurTeam": "Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs",
-			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) videoplayer.",
-			"downloadFile": "Datei herunterladen",
-			"moreInformation": "Mehr Informationen:",
-			"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
-			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
-		}
-	},
-	"homework": {
-		"_task": {
 			"headline": {
+				"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> Blog",
+				"allNewsOnHPINewsletter": "Alle Neuigkeiten rund um die <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> bequem in Ihrem Postfach:",
+				"explainationVideo": "Erklärvideo zur HPI Schul-Cloud",
+				"projectLeaders": "Projektdurchführung",
+				"theIdea": "Die Grundidee der <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span>",
+				"tryDemoVersion": "Jetzt Demoversion ausprobieren",
+				"welcomeToHPISchoolCloud": "Herzlich willkommen bei der <span style=\"white-space: nowrap;\">HPI Schul-Cloud!</span>"
+			},
+			"img_alt": {
+				"logoBMBF": "Logo BMBF",
+				"logoHPI": "Logo HPI",
+				"logoMINTEC": "Logo MINT-EC"
+			},
+			"link": {
+				"moreArticles": "weitere Artikel anzeigen",
+				"openArticle": "Artikel öffnen"
+			},
+			"text": {
+				"advertisementForOurTeam": "Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs",
+				"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) videoplayer.",
+				"downloadFile": "Datei herunterladen",
+				"moreInformation": "Mehr Informationen:",
+				"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
+				"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
+			}
+		},
+		"homework": {
+			"_task": {
+				"headline": {
+					"addTask": "Aufgabe hinzufügen",
+					"editTask": "Aufgabe bearbeiten"
+				},
+				"text": {
+					"errorInvalidTaskId": "Ungültige Aufgaben-ID",
+					"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
+					"newHomeworkDueDateNotification": "{{homeworkname}} ist bis zum {{duedate}} abzugeben.",
+					"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
+					"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet"
+				}
+			},
+			"button": {
 				"addTask": "Aufgabe hinzufügen",
-				"editTask": "Aufgabe bearbeiten"
+				"archive": "Archivieren",
+				"copy": "Kopieren",
+				"copySubmissionFromList": "kopieren",
+				"deleteSubmissionFromList": "löschen",
+				"downloadUngradedFiles": "Dateien unbewerteter Hausaufgaben herunterladen",
+				"editSubmissionFromList": "bearbeiten",
+				"filterAdd": "Filter hinzufügen",
+				"filterApply": "Übernehmen",
+				"hrefAlt": "Abgabe löschen",
+				"hrefDataName": "deine Abgabe",
+				"importSubmission": "Abgabe des Schülers importieren",
+				"importing": "importiere",
+				"print": "Drucken",
+				"save": "Speichern und Abschicken",
+				"toClass": "Zum Kurs",
+				"toTheCourseFiles": "Zu den Kursdateien"
 			},
-			"text": {
-				"errorInvalidTaskId": "Ungültige Aufgaben-ID",
-				"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
-				"newHomeworkDueDateNotification": "{{homeworkname}} ist bis zum {{duedate}} abzugeben.",
-				"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
-				"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet"
-			}
-		},
-		"button": {
-			"addTask": "Aufgabe hinzufügen",
-			"archive": "Archivieren",
-			"copy": "Kopieren",
-			"copySubmissionFromList": "kopieren",
-			"deleteSubmissionFromList": "löschen",
-			"downloadUngradedFiles": "Dateien unbewerteter Hausaufgaben herunterladen",
-			"editSubmissionFromList": "bearbeiten",
-			"filterAdd": "Filter hinzufügen",
-			"filterApply": "Übernehmen",
-			"hrefAlt": "Abgabe löschen",
-			"hrefDataName": "deine Abgabe",
-			"importSubmission": "Abgabe des Schülers importieren",
-			"importing": "importiere",
-			"print": "Drucken",
-			"save": "Speichern und Abschicken",
-			"toClass": "Zum Kurs",
-			"toTheCourseFiles": "Zu den Kursdateien"
-		},
-		"global": {
-			"label": {
-				"allowGroupSubmission": "Gruppenabgabe ermöglichen",
+			"global": {
+				"label": {
+					"allowGroupSubmission": "Gruppenabgabe ermöglichen",
+					"courses": "Kurse",
+					"description": "Aufgabenstellung",
+					"maximumGroupSize": "maximale Gruppengröße:",
+					"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
+					"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
+					"title": "Titel",
+					"topic": "Thema",
+					"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
+				},
+				"placeholder": {
+					"description": "Finde heraus warum..."
+				},
+				"text": {
+					"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
+					"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer:innen dürfen den Kurs nicht ändern)"
+				}
+			},
+			"headline": {
+				"archivedTasks": "Archivierte Aufgaben und ToDos",
+				"assignedTasks": "Gestellte Aufgaben",
+				"breadcrumb": "{{breadcrumbtitle}} Aufgaben",
+				"breadcrumbArchived": "Archivierte",
+				"breadcrumbAssigned": "Gestellte",
+				"breadcrumbPrivate": "Meine",
 				"courses": "Kurse",
-				"description": "Aufgabenstellung",
-				"maximumGroupSize": "maximale Gruppengröße:",
-				"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
-				"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
-				"title": "Titel",
-				"topic": "Thema",
-				"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
+				"drafts": "Entwürfe",
+				"dueDate": "Abgabedatum",
+				"more": "Mehr",
+				"sorting": "Sortierung",
+				"tasks": "Aufgaben"
 			},
-			"placeholder": {
-				"description": "Finde heraus warum..."
+			"label": {
+				"comment": "Kommentar",
+				"courses": "Kurse",
+				"details": "Details",
+				"dontShowAgain": "Nicht mehr anzeigen",
+				"edit": "Bearbeiten",
+				"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
+				"filterCourses": "Kurse: %1",
+				"filterDueDate": "Abgabe vom %1 bis %2",
+				"filterDueDateFrom": "vom",
+				"filterDueDateTo": "bis",
+				"filterMorePrivateTask": "private Aufgabe",
+				"filterMorePublicSubmissions": "Schüler können Abgaben untereinander sehen",
+				"filterMoreTeamSubmissions": "Teamabgaben",
+				"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
+				"inPercent": "in Prozent",
+				"onTheSubject": "Zum Thema",
+				"rating": "Bewertung",
+				"rating_comment": "Kommentar/Bewertung",
+				"restore": "Wiederherstellen",
+				"selectStudentGroup": "Schüler:innen-Gruppe auswählen",
+				"selectTeamMembers": "Teammitglieder auswählen",
+				"sortBy": "Sortieren nach: %1",
+				"sortByAvailabilityDate": "Verfügbarkeitsdatum",
+				"sortByCreationDate": "Erstelldatum",
+				"sortByDueDate": "Abgabedatum",
+				"sortByLastUpdate": "letzte Aktualisierung",
+				"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
+				"submission": "Abgabe",
+				"submissions": "Abgaben",
+				"submissionsWithoutFeedback": "unkommentierte Abgaben"
 			},
 			"text": {
-				"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
-				"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrer:innen dürfen den Kurs nicht ändern)"
+				"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
+				"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
+				"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
+				"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
+				"done": "Super! Du hast deine Aufgabe erledigt!",
+				"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
+				"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
+				"noAssignment": "Keine Zuordnung",
+				"noDescriptionAvailable": "keine Beschreibung vorhanden",
+				"noEvaluationTextAvailable": "Noch kein Kommentar vorhanden.",
+				"noMoreStudentsInYourCourse": "keine weiteren Schüler:innen in deinem Kurs",
+				"noStudentGroupsInThisCourse": "keine Schüler:innengruppen in diesem Kurs",
+				"noSubmission": "Keine Abgabe",
+				"noSubmissionDateSet": "Ohne Abgabedatum",
+				"noTasks": "Keine Aufgaben",
+				"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
+				"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
+				"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 			}
 		},
-		"headline": {
-			"archivedTasks": "Archivierte Aufgaben und ToDos",
-			"assignedTasks": "Gestellte Aufgaben",
-			"breadcrumb": "{{breadcrumbtitle}} Aufgaben",
-			"breadcrumbArchived": "Archivierte",
-			"breadcrumbAssigned": "Gestellte",
-			"breadcrumbPrivate": "Meine",
-			"courses": "Kurse",
-			"drafts": "Entwürfe",
-			"dueDate": "Abgabedatum",
-			"more": "Mehr",
-			"sorting": "Sortierung",
-			"tasks": "Aufgaben"
-		},
-		"label": {
-			"comment": "Kommentar",
-			"courses": "Kurse",
-			"details": "Details",
-			"dontShowAgain": "Nicht mehr anzeigen",
-			"edit": "Bearbeiten",
-			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
-			"filterCourses": "Kurse: %1",
-			"filterDueDate": "Abgabe vom %1 bis %2",
-			"filterDueDateFrom": "vom",
-			"filterDueDateTo": "bis",
-			"filterMorePrivateTask": "private Aufgabe",
-			"filterMorePublicSubmissions": "Schüler können Abgaben untereinander sehen",
-			"filterMoreTeamSubmissions": "Teamabgaben",
-			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
-			"inPercent": "in Prozent",
-			"onTheSubject": "Zum Thema",
-			"rating": "Bewertung",
-			"rating_comment": "Kommentar/Bewertung",
-			"restore": "Wiederherstellen",
-			"selectStudentGroup": "Schüler:innen-Gruppe auswählen",
-			"selectTeamMembers": "Teammitglieder auswählen",
-			"sortBy": "Sortieren nach: %1",
-			"sortByAvailabilityDate": "Verfügbarkeitsdatum",
-			"sortByCreationDate": "Erstelldatum",
-			"sortByDueDate": "Abgabedatum",
-			"sortByLastUpdate": "letzte Aktualisierung",
-			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
-			"submission": "Abgabe",
-			"submissions": "Abgaben",
-			"submissionsWithoutFeedback": "unkommentierte Abgaben"
-		},
-		"text": {
-			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
-			"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
-			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
-			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
-			"done": "Super! Du hast deine Aufgabe erledigt!",
-			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
-			"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
-			"noAssignment": "Keine Zuordnung",
-			"noDescriptionAvailable": "keine Beschreibung vorhanden",
-			"noEvaluationTextAvailable": "Noch kein Kommentar vorhanden.",
-			"noMoreStudentsInYourCourse": "keine weiteren Schüler:innen in deinem Kurs",
-			"noStudentGroupsInThisCourse": "keine Schüler:innengruppen in diesem Kurs",
-			"noSubmission": "Keine Abgabe",
-			"noSubmissionDateSet": "Ohne Abgabedatum",
-			"noTasks": "Keine Aufgaben",
-			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
-			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
-			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
-		}
-	},
-	"imprint": {
-		"global": {
-			"heading": {
+		"imprint": {
+			"global": {
+				"heading": {
+					"imprint": "Impressum"
+				}
+			},
+			"headline": {
 				"imprint": "Impressum"
-			}
-		},
-		"headline": {
-			"imprint": "Impressum"
-		},
-		"imprint_infotext_below": {
-			"text": {
-				"theContentOfThe": "Die Inhalte der {{shortTitle}} stellen keine offiziellen Verlautbarungen des HPI dar. Für die Inhalte sind die jeweiligen Autor/innen selbst verantwortlich. Ohne vorherige schriftliche Genehmigung ist eine kommerzielle Verbreitung der über die {{shortTitle}} verfügbaren Inhalte ausdrücklich untersagt, außer diese sind ausdrücklich gekennzeichnet. Die redaktionelle Verantwortung für den Inhalt verlinkter Webseiten anderer Anbieter (einschließlich der dort verankerten Links zu Dritten), insbesondere die Verantwortung für die Beachtung der Bestimmungen des Jugendschutz- und Datenschutzrechts, trägt in jeder Hinsicht der jeweilige Anbieter allein.",
-				"theHassoPlattnerInstituteRegularlyChecks": "Das Hasso-Plattner-Institut (HPI) überprüft und aktualisiert regelmäßig die Inhalte seiner Websites. Trotz größtmöglicher Sorgfalt können wir nicht ausschließen, dass einzelne Informationen auf unseren Seiten veraltet oder nicht mehr zutreffend sind. Daher können wir keine Haftung für Aktualität, Genauigkeit und Vollständigkeit der publizierten Informationen übernehmen. Das Gleiche gilt für alle Websites, die von den HPI-Seiten über Hyperlinks erreichbar sind. Für alle diese Links gilt: Wir erklären ausdrücklich, dass wir keinen Einfluss auf die Gestaltung und die Inhalte der verlinkten Seite haben. Deshalb distanzieren wir uns hiermit von allen Inhalten aller verlinkten Seiten und machen uns ihre Inhalte nicht zu Eigen. Diese Erklärung gilt für alle auf unserer Seite angebrachten Links zu fremden Seiten. Für den Inhalt dieser verlinkten Seiten ist das HPI nicht verantwortlich. Weiterhin behält sich das HPI jederzeit Änderungen und Ergänzungen der angezeigten Informationen vor. Inhalt und Struktur der HPI-Website sind durch das Copyright geschützt. Die Weiterverwendung von Informationen und Daten ist nur nach unserer Zustimmung zulässig. Wir wünschen Ihnen einen informativen Aufenthalt auf unseren Websites und freuen uns über Vorschläge, Wünsche oder Kritik zur"
-			}
-		},
-		"imprint_platform_intro": {
-			"heading": {
-				"legalNotice": "Rechtliche Hinweise:"
 			},
-			"text": {
-				"TheProjectIsANonCommercialPilotProject": "Die {{shortTitle}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT EC ( <a href=\"https://www.mint-ec.de/\" target=\"_blank\" rel=\"noopener\">https://www.mint-ec.de/</a> ) durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter: <a href=\"https://hpi.de/open-campus/hpi-initiativen/hpi-schul-cloud.html\" target=\"_blank\" rel=\"noopener\">hpi-schul-cloud</a> ).",
-				"isCarriedOutAndFunded": "durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter:"
-			}
-		},
-		"imprint_rights": {
-			"heading": {
-				"editorialStuff": "Redaktion:",
-				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso-Plattner-Institut für Digital Engineering gGmbH",
-				"managingDirectorAuthorized": "Vertretungsberechtigter Geschäftsführer:"
-			}
-		}
-	},
-	"lib": {
-		"csrf_content": {
-			"link": {
-				"openThisPageInASeparateWindow": "Öffne diese Seite in einem neuen Tab"
+			"imprint_infotext_below": {
+				"text": {
+					"theContentOfThe": "Die Inhalte der {{shortTitle}} stellen keine offiziellen Verlautbarungen des HPI dar. Für die Inhalte sind die jeweiligen Autor/innen selbst verantwortlich. Ohne vorherige schriftliche Genehmigung ist eine kommerzielle Verbreitung der über die {{shortTitle}} verfügbaren Inhalte ausdrücklich untersagt, außer diese sind ausdrücklich gekennzeichnet. Die redaktionelle Verantwortung für den Inhalt verlinkter Webseiten anderer Anbieter (einschließlich der dort verankerten Links zu Dritten), insbesondere die Verantwortung für die Beachtung der Bestimmungen des Jugendschutz- und Datenschutzrechts, trägt in jeder Hinsicht der jeweilige Anbieter allein.",
+					"theHassoPlattnerInstituteRegularlyChecks": "Das Hasso-Plattner-Institut (HPI) überprüft und aktualisiert regelmäßig die Inhalte seiner Websites. Trotz größtmöglicher Sorgfalt können wir nicht ausschließen, dass einzelne Informationen auf unseren Seiten veraltet oder nicht mehr zutreffend sind. Daher können wir keine Haftung für Aktualität, Genauigkeit und Vollständigkeit der publizierten Informationen übernehmen. Das Gleiche gilt für alle Websites, die von den HPI-Seiten über Hyperlinks erreichbar sind. Für alle diese Links gilt: Wir erklären ausdrücklich, dass wir keinen Einfluss auf die Gestaltung und die Inhalte der verlinkten Seite haben. Deshalb distanzieren wir uns hiermit von allen Inhalten aller verlinkten Seiten und machen uns ihre Inhalte nicht zu Eigen. Diese Erklärung gilt für alle auf unserer Seite angebrachten Links zu fremden Seiten. Für den Inhalt dieser verlinkten Seiten ist das HPI nicht verantwortlich. Weiterhin behält sich das HPI jederzeit Änderungen und Ergänzungen der angezeigten Informationen vor. Inhalt und Struktur der HPI-Website sind durch das Copyright geschützt. Die Weiterverwendung von Informationen und Daten ist nur nach unserer Zustimmung zulässig. Wir wünschen Ihnen einen informativen Aufenthalt auf unseren Websites und freuen uns über Vorschläge, Wünsche oder Kritik zur"
+				}
 			},
-			"text": {
-				"ifYouDontWantToTakeAnyAction": "Solltest du keine Aktion ausführen wollen, schließe bitte diesen Tab in deinem Browser.",
-				"theSchoolCloudWasEmbedded": "Die HPI Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren,",
-				"unfortunatelyTheRequestFailedAgain": "Die Anfrage ist leider erneut fehlgeschlagen. Um mit der Nutzung fortzufahren, lade die Seite bitte neu.",
-				"weCouldNotMakeSureThat": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke auf den Button unten zum erneuten Laden der Seite.",
-				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
-				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
-			}
-		},
-		"error": {
-			"button": {
-				"hideDetails": "Details verstecken",
-				"viewDetails": "Details anzeigen"
+			"imprint_platform_intro": {
+				"heading": {
+					"legalNotice": "Rechtliche Hinweise:"
+				},
+				"text": {
+					"TheProjectIsANonCommercialPilotProject": "Die {{shortTitle}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT EC ( <a href=\"https://www.mint-ec.de/\" target=\"_blank\" rel=\"noopener\">https://www.mint-ec.de/</a> ) durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter: <a href=\"https://hpi.de/open-campus/hpi-initiativen/hpi-schul-cloud.html\" target=\"_blank\" rel=\"noopener\">hpi-schul-cloud</a> ).",
+					"isCarriedOutAndFunded": "durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter:"
+				}
 			},
-			"heading": {
-				"errorDetails": "Fehler-Details:"
+			"imprint_rights": {
+				"heading": {
+					"editorialStuff": "Redaktion:",
+					"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso-Plattner-Institut für Digital Engineering gGmbH",
+					"managingDirectorAuthorized": "Vertretungsberechtigter Geschäftsführer:"
+				}
+			}
+		},
+		"lib": {
+			"csrf_content": {
+				"link": {
+					"openThisPageInASeparateWindow": "Öffne diese Seite in einem neuen Tab"
+				},
+				"text": {
+					"ifYouDontWantToTakeAnyAction": "Solltest du keine Aktion ausführen wollen, schließe bitte diesen Tab in deinem Browser.",
+					"theSchoolCloudWasEmbedded": "Die HPI Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren,",
+					"unfortunatelyTheRequestFailedAgain": "Die Anfrage ist leider erneut fehlgeschlagen. Um mit der Nutzung fortzufahren, lade die Seite bitte neu.",
+					"weCouldNotMakeSureThat": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke auf den Button unten zum erneuten Laden der Seite.",
+					"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
+					"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
+				}
 			},
-			"text": {
-				"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
-			}
-		},
-		"extended_footer": {
-			"heading": {
-				"contact": "Kontakt",
-				"vacancies": "Stellenausschreibungen"
-			},
-			"link": {
-				"contentProviders": "Inhalteanbieter:",
-				"generalInquiries": "Allgemeine Anfragen:",
-				"privacy": "Datenschutz:",
-				"subscribeTheNewsletter": "Newsletter abonnieren"
-			},
-			"text": {
-				"weAreHiring": "Du möchtest gerne Mitglied in unserem <span style='white-space: nowrap;'>HPI Schul-Cloud</span> Team werden? Wir suchen:"
-			}
-		},
-		"footer": {
-			"link": {
-				"contact": "Kontakt"
-			}
-		},
-		"form_auto_logout": {
-			"button": {
-				"extendSession": "Sitzung verlängern"
-			},
-			"text": {
-				"loggedOutAutomatically": "automatisch ausgeloggt.",
-				"minutes": "Minuten",
-				"nowExtendYourSession": "Verlängere jetzt deine Sitzung auf zwei Stunden.",
-				"oopsThatShouldntHaveHappened": "Uups… das hätte nicht passieren dürfen!",
-				"warning": "Achtung: Du wirst in",
-				"yourSessionCouldntBeExtended": "Deine Sitzung konnte nicht verlängert werden. Bitte versuche es gleich noch einmal."
-			}
-		},
-		"form_bbb": {
-			"text": {
-				"refreshStatus": "Um den Status erneut abzufragen, klicke das Aktualisieren-Icon",
-				"theVideoConferenceHasNotYetStarted": "Die Videokonferenz wurde noch nicht gestartet.",
-				"youAreNotAuthorisedToAttend": "Du bist nicht berechtigt, an dieser Videokonferenz teilzunehmen. Kontaktiere zur Freigabe einen Team-Admin."
-			}
-		},
-		"form_create_videoConference": {
-			"text": {
-				"allUsersParticipate": "Alle Nutzer nehmen als Moderator teil",
-				"approvalByTheModerator": "Freigabe durch Moderator, bevor der Raum betreten werden kann",
-				"muteParticipants": "Teilnehmer beim Betreten stummschalten"
-			}
-		},
-		"form_features": {
-			"text": {
-				"forMoreInformationClickThisButton": "Für weitere Informationen klicken Sie doch bitte diesen Button",
-				"thereAreNewFeatures": "Es gibt neue Features in der {{shortTitle}}"
-			}
-		},
-		"form_poll": {
-			"global": {
+			"error": {
 				"button": {
-					"toTheSurvey": "Zur Umfrage"
-				}
-			},
-			"text": {
-				"thanksForYourSupport": "Vielen Dank für Ihre Unterstützung!",
-				"theNextQuestionnaireIsOnline": "Die nächste Befragung zum Projekt {{shortTitle}} ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen."
-			}
-		},
-		"global": {
-			"button": {
-				"discardChange": "Änderung verwerfen"
-			},
-			"link": {
-				"aboutTheProject": "Über das Projekt",
-				"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
-				"imprint": "Impressum",
-				"participate": "Mitmachen",
-				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud"
-			}
-		},
-		"header": {
-			"link": {
-				"firstSteps": "Erste Schritte"
-			}
-		},
-		"help_menu": {
-			"button": {
-				"openGame": "Spiel öffnen",
-				"playEnterTheCloud": "Enter The Cloud spielen"
-			},
-			"input": {
-				"password": "Passwort:",
-				"userName": "Benutzername:"
-			},
-			"link": {
-				"Fortbildungen": "Fortbildungen",
-				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
-				"helpArea": "Hilfebereich",
-				"sendRequestOrProblem": "Wunsch oder Problem senden"
-			}
-		},
-		"ldap_info": {
-			"text": {
-				"whyCantIEditEntries": "Warum kann ich keine Einträge bearbeiten?",
-				"yourSchoolIsLinkedToExternManagementSystem": "Your school in the {{shortTitle}} is synchronized with an identity management system (LDAP, country system or similar)."
-			}
-		},
-		"loggedin": {
-			"tab_label": {
-				"settings": "Einstellungen",
-				"signOut": "Abmelden"
-			},
-			"text": {
-				"allActionsThatCreate": "Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.",
-				"inOrderToShow": "Um dir trotzdem etwas anzuzeigen siehst du eventuell veraltete Inhalte.",
-				"noNotificationsAtTheMoment": "Derzeit keine Benachrichtigungen",
-				"thisIsADemoAccount": "Dies ist ein Demoaccount.",
-				"youAreOffline": "Du bist offline."
-			}
-		},
-		"table": {
-			"option": {
-				"numberofEntries": "Anzahl der Einträge"
-			}
-		}
-	},
-	"link": {
-		"text": {
-			"invalidLink": "Der Link ist nicht gültig oder abgelaufen. Bitte überprüfe den Link oder lasse dir einen neuen Link erstellen."
-		}
-	},
-	"loggedin": {
-		"text": {
-			"newFeaturesAvailable": "Neue Features sind verfügbar",
-			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte kontaktiere den Schul-Administrator!",
-			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
-			"timeout": "Zeitüberschreitung der Anfrage"
-		}
-	},
-	"login": {
-		"button": {
-			"less": "Weniger",
-			"login": "Anmelden",
-			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
-			"moreOptions": "Mehr Optionen",
-			"submitPrivacyPolicy": "Gelesen"
-		},
-		"headline": {
-			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
-			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
-			"firstLogin": "Willkommen - Erster Login",
-			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
-			"onlyPrivacy": "Datenschutzerklärung",
-			"onlyTermsOfUse": "Nutzungsordnung",
-			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
-		},
-		"input": {
-			"emailUsername": "E-Mail / Nutzername",
-			"noSchoolsAvailable": "Keine Schulen verfügbar",
-			"noSystemsAvailable": "Keine Systeme verfügbar",
-			"password": "Passwort",
-			"school": "Schule",
-			"system": "System"
-		},
-		"label": {
-			"thisIsAPrivateDevice": "Angemeldet bleiben"
-		},
-		"link": {
-			"forgotPassword": "Passwort vergessen?"
-		},
-		"oauth2": {
-			"headline": {
-				"loginWithSchoolCloud": "Login mit HPI Schul-Cloud"
-			},
-			"label": {
-				"email": "deine E-Mail-Adresse",
-				"openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt",
-				"weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-				"yourName": "deinen Namen"
-			},
-			"text": {
-				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der HPI Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
-			}
-		},
-		"popup_resetPw": {
-			"button": {
-				"resetPassword": "Passwort Zurücksetzen"
-			},
-			"headline": {
-				"resetPassword": "Passwort Zurücksetzen"
-			},
-			"input": {
-				"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
-			},
-			"label": {
-				"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
-			},
-			"text": {
-				"contactTeacherAdminForHelp": "Wenn du zusätzliche Hilfe beim Passwort zurücksetzen benötigst, wende dich bitte an deine betreuende Lehrkraft (als Schüler) oder an deinen Administrator (als Lehrkraft). </br>Diese können dein Passwort über die Nutzerverwaltung mit sofortiger Wirkung zurücksetzen."
-			}
-		},
-		"text": {
-			"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
-			"loginFailed": "Login fehlgeschlagen.",
-			"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
-			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
-			"loginFailedFirstHintText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
-			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
-			"loginFailedFithHintText": "Hier findest du alle HPI Schul-Could Instanzen:",
-			"loginFailedFourthHint": "4. Hast du deine Anmeldedaten schon überprüft?",
-			"loginFailedFourthHintText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
-			"loginFailedLogoBrandenburg": "Logo Brandenburg",
-			"loginFailedLogoNiedersachen": "Logo Niedersachsen",
-			"loginFailedLogoOpen": "Logo Open",
-			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
-			"loginFailedLogoTühringen": "Logo Thüringen",
-			"loginFailedScreenshot": "Login fehlgeschlagen",
-			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
-			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
-			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
-			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
-		}
-	},
-	"my_material": {
-		"headline": {
-			"myMaterial": "Meine Materialien"
-		},
-		"text": {
-			"andTakeTheOpportunityToDesign": "und nutzen Sie die Möglichkeit, das Feature nach ihren Wünschen zu gestalten.",
-			"blogArticle": "Blogartikel",
-			"hereYouWillSoonHaveTheOpportunity": "Hier werden Sie bald die Möglichkeit haben, eigene Inhalte zu erstellen, sich Inhalte anderer Lehrer*Innen anzuschauen und durch Bewerten und Kategorisieren dieser Punkte verdienen, um die erweiterten Suchfunktionen nutzen zu können. Interessiert, wie das funktionieren wird? Lesen Sie den"
-		}
-	},
-	"navigation": {
-		"text": {
-			"errorNavigation": "Fehler bei AJAX-Navigation"
-		}
-	},
-	"news": {
-		"_news": {
-			"headline": {
-				"createNews": "News erstellen",
-				"editNews": "News bearbeiten"
-			}
-		},
-		"button": {
-			"addNews": "News hinzufügen"
-		},
-		"headline": {
-			"news": "Neuigkeiten",
-			"newsTeam": "Neuigkeiten aus dem Team"
-		},
-		"label": {
-			"content": "Inhalt",
-			"scheduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
-			"searchForNews": "Suche nach Neuigkeiten",
-			"title": "Titel"
-		},
-		"text": {
-			"atSchool": "an der Schule",
-			"atYourSchool": "an deiner Schule ",
-			"created": "erstellt",
-			"from": "von",
-			"inTheClass": "in der Klasse",
-			"inTheCourse": "im Kurs",
-			"inTheTeam": "im Team",
-			"lastFrom": "(zuletzt von",
-			"newsNeedContent": "News benötigen Inhalt!",
-			"newsNeedTitle": "News benötigen einen Titel!",
-			"processed": "bearbeitet)",
-			"released": "Veröffentlicht",
-			"unpublished": "Unveröffentlicht"
-		}
-	},
-	"partner": {
-		"headline": {
-			"advisoryBoard": "Fachbeirat",
-			"partner": "Partner",
-			"pilotPartners": "Pilotpartner für Lerninhalte",
-			"projectExecution": "Projektdurchführung",
-			"supporters": "Unterstützer für Schulinfrastruktur <3"
-		},
-		"img-alt": {
-			"logo": "Logo"
-		},
-		"text": {
-			"advisoryBoardDescription": "Das HPI Schul-Cloud Projekt wird von einem Fachbeirat unterstützt, der sich aus verschiedenen Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben technischen Aspekten, auch Themen wie Datenschutz und Pädagogik.",
-			"pilotPartnersDescription": "Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die HPI Schul-Cloud erfahrbar wird.",
-			"supportersDescription": "Wir danken unseren Unterstützern für Schulinfrastruktur."
-		}
-	},
-	"pwRecovery": {
-		"button": {
-			"createNewPassword": "Neues Passwort anlegen"
-		},
-		"failed": {
-			"text": {
-				"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
-			}
-		},
-		"headline": {
-			"passwordRecovery": "Passwort-Wiederherstellung"
-		},
-		"input": {
-			"hiddenPw": "***************"
-		},
-		"label": {
-			"newPw": "Neues Passwort",
-			"repeatNewPw": "Neues Passwort wiederholen"
-		},
-		"response": {
-			"text": {
-				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der HPI Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
-				"didYouRegisterCorrectly": "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einem Lehrer oder Schuladministrator bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
-				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der HPI Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der HPI Schul-Cloud einzuloggen.",
-				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
-				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
-			}
-		},
-		"text": {
-			"allowedCharacters": "Erlaubte Sonderzeichen sind: ",
-			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
-			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
-			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
-			"errorPasswordAlreadyChanged": "Ihr Passwort wurde bereits über diese URL geändert.",
-			"errorTimeExpired": "Zeit abgelaufen für Passwort Recovery.",
-			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
-			"specialCharacters": "!§$%&/()=?\\;:,.#+*~"
-		}
-	},
-	"registration": {
-		"_registration": {
-			"employee": {
-				"heading": {
-					"yourData": "Deine Daten"
-				},
-				"input": {
-					"firstName": "Ihren Vornamen hier eingeben",
-					"lastName": "Ihren Nachname hier eingeben",
-					"password": "Passwort",
-					"repeatPassword": "Passwort wiederholen",
-					"teacherEmail": "lehrer@schul-cloud.org",
-					"yourEmailAddress": "Deine E-Mail-Adresse:"
-				},
-				"label": {
-					"password": "Passwort:",
-					"repeatPassword": "Passwort wiederholen:"
-				},
-				"text": {
-					"pleaseconfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die Vorteile der {{shortTitle}} nutzen kannst.",
-					"youCanNowSingIn": "Du kannst dich jetzt in der {{title}} anmelden."
-				}
-			},
-			"global": {
-				"button": {
-					"openLogin": "Login öffnen",
-					"sendAndGetStarted": "Absenden & Loslegen",
-					"toPress": "Drucken"
+					"hideDetails": "Details verstecken",
+					"viewDetails": "Details anzeigen"
 				},
 				"heading": {
-					"almostThere": "Fast geschafft!",
-					"declarationOfConsent": "Einwilligungserklärung",
-					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
-				},
-				"label": {
-					"birthDate": "Geburtsdatum:",
-					"eMail": "E-Mail:",
-					"emailAddress": "E-Mail-Adresse:",
-					"firstName": "Vorname:",
-					"lastName": "Nachname:",
-					"studentEmailAddress": "E-Mail-Adresse des Schülers:",
-					"studentsDateOfBirth": "Geburtsdatum des Schülers:",
-					"yourEmailAddress": "Ihre E-Mail-Adresse:"
+					"errorDetails": "Fehler-Details:"
 				},
 				"text": {
-					"agreementCanBeRevoked": "Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href=\"mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung\">widerruf@schul-cloud.org</a>.",
-					"agreementIsVoluntary": "Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{title}}, wird durch die Schule ermöglicht werden.",
-					"bellowNYearsOldConsantOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten",
-					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
-					"inCaseOfRevokationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a> entnehmen.",
-					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
-					"password": "Passwort: ",
-					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
-					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
-					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
+					"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
 				}
 			},
-			"heading": {
-				"welcomeToTheRegistration": "Willkommen zur Anmeldung in der {{title}}!"
-			},
-			"label": {
-				"bellowNYearsOld": "unter {{years}} Jahre alt",
-				"overNYearsOld": "ab {{years}} Jahre alt"
-			},
-			"parent": {
-				"global": {
-					"text": {
-						"inThe": "in der"
-					}
-				},
+			"extended_footer": {
 				"heading": {
-					"yourChildsData": "Daten Ihres Kindes",
-					"yourChildsSSO": "Der SSO-Account Ihres Kindes ist jetzt freigeschaltet.",
-					"yourData": "Ihre Daten"
+					"contact": "Kontakt",
+					"vacancies": "Stellenausschreibungen"
 				},
-				"input": {
-					"completeFirstName": "Vorname des Kindes in offizieller Schreibweise, keine Spitznamen",
-					"lastName": "Nachname des Kindes",
-					"parentEmail": "eltern@schul-cloud.org",
-					"studentEmail": "schueler@schul-cloud.org",
-					"yourFirstName": "Ihren Vornamen hier eingeben",
-					"yourLastName": "Ihren Nachname hier eingeben"
-				},
-				"label": {
-					"iAmLegalGuardianOfChild": "Ich, <b data-from=\"parent_firstName\"></b> <b data-from=\"parent_lastName\"></b>, bin erziehungsberechtigt für <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b> und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten."
+				"link": {
+					"contentProviders": "Inhalteanbieter:",
+					"generalInquiries": "Allgemeine Anfragen:",
+					"privacy": "Datenschutz:",
+					"subscribeTheNewsletter": "Newsletter abonnieren"
 				},
 				"text": {
-					"aParentOrLegalGuardian": "Jahren bedarf ein Erziehungsberechtigter in die Nutzung der",
-					"forThisWeNeedFollowing": "Dazu benötigen wir folgende Angaben von Ihnen:",
-					"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
-					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren bedarf ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen.",
-					"mustNotBeYourChildsEmail": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
-					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
-					"needFollowingInformationForChild": "benötigen wir folgende Angaben für Ihr Kind:",
-					"pleaseConfirmTheFollowing": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{shortTitle}} nutzen kann:",
-					"studentNeedTheirOwnEmail": "(Schüler benötigen eine eigene E-Mail-Adresse)",
-					"toConsent": "einwilligen.",
-					"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
-					"weNeedFollowingDataOfChild": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben für Ihr Kind:",
-					"whenLoggingInFor": "Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.",
-					"yourChildCan": "Ihr Kind kann sich nun einloggen:",
-					"yourSonCanLogInWithThisData": "Mit folgenden Daten kann sich <b data-from=\"firstName\"></b> <b data-from=\"secondName\"></b> in der {{shortTitle}} anmelden. Bitte geben Sie die Daten an Ihr Kind weiter. Zusätzlich haben Sie und Ihr Kind die Daten per E-Mail erhalten."
+					"weAreHiring": "Du möchtest gerne Mitglied in unserem <span style='white-space: nowrap;'>HPI Schul-Cloud</span> Team werden? Wir suchen:"
 				}
 			},
-			"student": {
-				"heading": {
-					"personalData": "Persönliche Daten"
-				},
-				"input": {
-					"studentEmail": "schueler@schul-cloud.org",
-					"yourOfficialFirstName": "Dein offizieller Vorname, kein Spitzname",
-					"yourOfficialLastName": "Dein offizieller Nachname"
-				},
-				"text": {
-					"pleaseConfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{shortTitle}} nutzen kannst.",
-					"useThisDataToSignIn": "Mit folgenden Daten kannst du dich in der {{shortTitle}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.",
-					"youCanNowLogin": "Du kannst dich jetzt in der HPI Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
-					"yourSSOAccountDetails": "Deine SSO-Accountdaten sind jetzt freigeschaltet."
-				}
-			},
-			"text": {
-				"agreeSoThatYourChild": "zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
-				"danger": "Achtung:",
-				"letsTakeThisStepWithYouAndYourChild": "Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{shortTitle}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
-				"linguisticNoteWeUseMaleFormForReadability": "* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} teilweise die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
-				"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers:",
-				"pleaseRegisterChildThenAgreeToTermsOfUse": "Wir bitten Sie, Ihr Kind zunächst in der {{shortTitle}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
-				"pleaseRegisterFirstAndAgreeToTerms": "Bitte registriere dich zunächst in der {{shortTitle}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
-				"thankYouForTakingThisStepWithUs": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
-				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über {{independentAge}} sie selbst.",
-				"thefollowingRestrationMustBe": "Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern."
-			}
-		},
-		"deprecatedWarning": {
-			"heading": {
-				"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt"
-			},
-			"text": {
-				"weHaveRevisedAndImprovedRegistration": "Wir haben die Registrierung in der HPI Schul-Cloud überarbeitet und verbessert. Leider sind deswegen alte Regisitrierungslinks nicht mehr gültig. Bitte kontaktiere deinen Lehrer oder Administrator, um einen neuen Registrierungslink zu erhalten."
-			}
-		},
-		"headline": {
-			"registrationEmployee": "Registrierung - {{role}}",
-			"registrationParents": "Registrierung - Eltern",
-			"registrationStudents": "Registrierung - Schüler*",
-			"welcomeToRegistration": "Herzlich willkommen bei der Registrierung"
-		},
-		"pin": {
-			"input": {
-				"verificationCode": "Bestätigungscode:"
-			}
-		},
-		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
-		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
-		"registationFailedContinue": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
-		"registationFailedContinueLink": "Öffne diese Seite in einem eigenen Fenster",
-		"registration_template": {
-			"global": {
+			"footer": {
 				"link": {
 					"contact": "Kontakt"
 				}
 			},
-			"heading": {
-				"invitationToThe": "Einladung in die"
-			},
-			"link": {
-				"imprint": "Impressum",
-				"partner" : "Partner",
-				"toRegister": "Registrieren"
-			},
-			"text": {
-				"dear": "Sehr geehrte/r",
-				"youWereInvitedToThe": "Sie wurden eingeladen, der {{shortTitle}} beizutreten, bitte vervollständigen Sie Ihre Einladung unter folgendem Link"
-			}
-		},
-		"requestPin": {
-			"button": {
-				"requestVerificationCode": "Bestätigungscode jetzt anfordern"
-			},
-			"text": {
-				"pleaseRequestAConfirmationCode": "Bitte fordere dazu einen Bestätigungscode an:",
-				"theCodeCanBeRequestedSeveralTimes": "Der Code kann mehrfach angefordert werden. Das erneute Zusenden macht bisher versendete Codes allerdings ungültig. Warte vor dem erneuten Anfordern lieber einen Moment länger und prüfe ggf. den Spam-Ordner in deinem E-Mail-Postfach.",
-				"weOnlyHaveToCheckWhether": "Wir müssen nur kurz prüfen, ob es deine E-Mail-Adresse wirklich gibt."
-			}
-		},
-		"text": {
-			"acceptConsentWithoutParents": "Wenn du zwischen 14 und {{age}} Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die {{title}} nutzen kannst.",
-			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
-			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
-			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu.",
-			"roleEmployee": "Lehrer*/Admins*",
-			"roleExpert": "Experte*",
-			"startPassword": "Startpasswort: {{password}}",
-			"studentsChooseNewPassword": "Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen.\n{{consentText}}",
-			"timeout": "Leider konnte deine Registrierung nicht abgeschlossen werden.\nBitte versuche es erneut.",
-			"unknownError": "Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.",
-			"welcomeMailSubject": "Willkommen in der {{title}}!",
-			"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team"
-		}
-	},
-	"security" :{
-		"headline" : {
-			"security" : "Sicherheit",
-			"reportSecurityIssue" : "Sicherheitsproblem melden"
-		},
-		"text" : {
-			"scIsTestedRegularyWeValueSecurity" : "Die {{themeTitle}} wird regelmäßig Sicherheitsüberprüfungen und Penetrationstests unterzogen, da uns die Sicherheit der Daten unserer Nutzer:innen sehr wichtig ist.",
-			"youHaveFoundAWeakness" : "Du hast trotzdem ein Sicherheitsproblem gefunden? Schreib uns, damit wir die Lücke schnellstmöglich schließen können:"
-		}
-	},
-	"team": {
-		"headline": {
-			"team": "Das HPI Schul-Cloud Team"
-		}
-	},
-	"teams": {
-		"_team": {
-			"button": {
-				"leaveTeam": "Team verlassen"
-			},
-			"dropdown_menu": {
-				"link": {
-					"deleteTeam": "Team löschen",
-					"editTeam": "Team bearbeiten",
-					"leaveTeam": "Team verlassen",
-					"manageMembers": "Teammitglieder verwalten",
-					"seeMembers": "Teammitglieder ansehen"
-				}
-			},
-			"edit": {
-				"label": {
-					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
-					"activateMessengerForTeam": "Messenger für Team aktivieren",
-					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
-					"teamName": "Name des Teams"
-				},
-				"placeholder": {
-					"teamName": "A-Team"
+			"form_auto_logout": {
+				"button": {
+					"extendSession": "Sitzung verlängern"
 				},
 				"text": {
-					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
+					"loggedOutAutomatically": "automatisch ausgeloggt.",
+					"minutes": "Minuten",
+					"nowExtendYourSession": "Verlängere jetzt deine Sitzung auf zwei Stunden.",
+					"oopsThatShouldntHaveHappened": "Uups… das hätte nicht passieren dürfen!",
+					"warning": "Achtung: Du wirst in",
+					"yourSessionCouldntBeExtended": "Deine Sitzung konnte nicht verlängert werden. Bitte versuche es gleich noch einmal."
 				}
 			},
-			"events": {
-				"button": {
-					"addDate": "Termin anlegen"
-				},
-				"headline": {
-					"addDate": "Termin hinzufügen",
-					"dateDetails": "Termin - Details"
-				}
-			},
-			"files": {
-				"button": {
-					"changeSharingSettings": "Freigabe-Einstellungen ändern",
-					"createFolder": "Ordner erstellen",
-					"deleteFolder": "Ordner löschen",
-					"renameFolder": "Ordner umbenennen",
-					"shareFolder": "Ordner-Freigabe",
-					"toTeamFiles": "Zu den Team-Dateien"
-				},
-				"headline": {
-					"changeFilePermissions": "Freigabe-Einstellungen ändern",
-					"fileActions": "Datei-Aktionen",
-					"files": "Dateien",
-					"folders": "Ordner"
-				},
+			"form_bbb": {
 				"text": {
-					"changedFilePermissionsError": "Problem beim Ändern der Berechtigungen",
-					"changedFilePermissionsSuccess": "Standard-Berechtigungen erfolgreich geändert"
+					"refreshStatus": "Um den Status erneut abzufragen, klicke das Aktualisieren-Icon",
+					"theVideoConferenceHasNotYetStarted": "Die Videokonferenz wurde noch nicht gestartet.",
+					"youAreNotAuthorisedToAttend": "Du bist nicht berechtigt, an dieser Videokonferenz teilzunehmen. Kontaktiere zur Freigabe einen Team-Admin."
 				}
 			},
-			"headline": {
-				"leaveTeam": "Team verlassen",
-				"shareFilesSettings": "Dateifreigabe-Einstellungen"
+			"form_create_videoConference": {
+				"text": {
+					"allUsersParticipate": "Alle Nutzer nehmen als Moderator teil",
+					"approvalByTheModerator": "Freigabe durch Moderator, bevor der Raum betreten werden kann",
+					"muteParticipants": "Teilnehmer beim Betreten stummschalten"
+				}
 			},
-			"label": {
-				"accessToData": "Zugriff auf Dateien",
-				"emailHasBeenSentAlternativeLink": "Die eingeladene Person hat eine E-Mail bekommen. Alternativ kann dieser Link benutzt werden, der Nutzer muss dafür angemeldet sein:",
-				"externExperts": "Externe Experten",
-				"leadersAndAdmins": "Leiter und Team-Admins",
-				"members": "Teilnehmer",
-				"role": "Rolle"
+			"form_features": {
+				"text": {
+					"forMoreInformationClickThisButton": "Für weitere Informationen klicken Sie doch bitte diesen Button",
+					"thereAreNewFeatures": "Es gibt neue Features in der {{shortTitle}}"
+				}
 			},
-			"members": {
-				"add": {
+			"form_poll": {
+				"global": {
 					"button": {
-						"deleteInvitation": "Einladung löschen",
-						"inviteMember": "Teilnehmer einladen",
-						"sendInvitation": "Einladung versenden"
-					},
-					"headline": {
-						"deleteInvitation": "Einladung löschen",
-						"inviteExternMember": "Externen Teilnehmer einladen",
-						"sendInvitationAgain": "Einladung erneut versenden"
-					},
-					"text": {
-						"errorDuringInvitation": "Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admins fragen.",
-						"errorWhileDeletingInvitation": "Problem beim Löschen der Einladung",
-						"errorWhileLoadingSchools": "Problem beim Auslesen der Schulen",
-						"errorWhileLoadingTeachers": "Problem beim Auslesen der Lehrer",
-						"errorWhileSendingInvitation": "Problem beim Versenden der Einladung",
-						"invitationSentIfMailInSys": "Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.",
-						"noSchoolForThisFilter": "Für die gewählte Auswahl ist keine Schule vorhanden",
-						"pleaseEnterValidEmail": "Bitte gib eine gültige E-Mail an.",
-						"pleaseReloadThePage": "Bitte lade die Seite neu.",
-						"providerBlockedTryOtherMail": "Der Provider der eingeladenen E-Mail-Adresse ist geblockt! Bitte verwende eine andere Adresse und versuche es dann erneut.",
-						"teacherInvitedSuccess": "Lehrer erfolgreich zum Team eingeladen"
+						"toTheSurvey": "Zur Umfrage"
 					}
 				},
-				"button": {
-					"addExternMembers": "Externe Teilnehmer einladen",
-					"addInternMembers": "Interne Teilnehmer hinzufügen",
-					"addPerson": "Person hinzufügen",
-					"deleteClass": "Klasse löschen",
-					"deleteMember": "Teilnehmer löschen",
-					"editMember": "Teilnehmer bearbeiten",
-					"externExpert": "Externe Experten",
-					"inviteByMail": "per E-Mail einladen",
-					"selectFromIndex": "Aus Verzeichnis auswählen",
-					"teacherFromOtherSchool": "Lehrer anderer Schulen"
-				},
-				"headline": {
-					"actions": "Aktionen",
-					"addMember": "Teilnehmer hinzufügen",
-					"class": "{{count}} Klasse",
-					"class_plural": "{{count}} Klassen",
-					"deleteClass": "Klasse löschen",
-					"deleteMember": "Teilnehmer löschen",
-					"editMember": "Teilnehmer bearbeiten",
-					"email": "E-Mail",
-					"firstName": "Vorname",
-					"inviteExternExpert": "Externen Experten einladen",
-					"inviteTeacherByEmail": "Lehrer per E-Mail einladen",
-					"inviteTeacherFromOtherSchool": "Lehrer anderer Schulen einladen",
-					"invitedOn": "Eingeladen am",
-					"member": "{{count}} Teilnehmer",
-					"member_plural": "{{count}} Teilnehmer",
-					"name": "Name",
-					"pendingInvitations": "Ausstehende Einladungen",
-					"requirements": "Voraussetzungen:",
-					"role": "Rolle",
-					"school": "Schule",
-					"selectAndAddTeacher": "Lehrer auswählen und hinzufügen",
-					"student": "Schüler",
-					"surname": "Nachname",
-					"teamMembers": "Team-Teilnehmer",
-					"whoDoYouWantToInvite": "Wen möchtest du ins Team einladen?"
-				},
-				"label": {
-					"addTeacherStudentsFromSchool": "Füge Lehrer und Schüler deiner Schule zum Team hinzu",
-					"deleteInvitation": "Einladung löschen",
-					"doYouReallyWantToLeaveTeam": "Möchtest du das Team wirklich verlassen?",
-					"doYouReallyWantToReSendEmail": "Möchtest du die Einladung wirklich noch einmal per E-Mail zuschicken?",
-					"editRole": "Rolle bearbeiten",
-					"externExpert": "externer Experte",
-					"externTeacher": "Lehrer anderer Schule (Team-Admin)",
-					"federalState": "Bundesland",
-					"insertEmailOfExpertToInvite": "Gebe die E-Mail des Experten ein, an welchen die Einladung verschickt wird.",
-					"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert einen anderen Eigentümer",
-					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
-					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
-					"reallyWantToRmUser": "Möchtest du diesen Teilnehmer wirklich entfernen?",
-					"removeClass": "Klasse entfernen",
-					"removeUser": "Nutzer entfernen",
-					"roleOfInvitedTeacher": "Rolle des eingeladenen Lehrers",
-					"school": "Schule",
-					"selectRoleForMember": "Gebe ein, welche Rolle der Teilnehmer erhalten soll.",
-					"sendInvitationAgain": "Einladung erneut versenden",
-					"teacher": "Lehrer"
-				},
-				"placeholder": {
-					"insertEmail": "E-Mail eingeben",
-					"selectFederalState": "Bundesland auswählen",
-					"selectPersons": "Personen auswählen",
-					"selectRole": "Rolle angeben",
-					"selectSchool": "Schule auswählen",
-					"selectTeacher": "Lehrer auswählen",
-					"teamAdmin": "Team-Admin"
-				},
 				"text": {
-					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
-					"addedMemberFailure": "Problem beim Hinzufügen der Teilnehmer",
-					"addedMemberSuccess": "Teilnehmer erfolgreich zum Team hinzugefügt",
-					"admin": "Administrator",
-					"changeRoleOfMember": "Ändere die Rolle des Nutzers:",
-					"errorWhileEditingMember": "Problem beim Bearbeiten des Teilnehmers",
-					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers",
-					"expert": "Externer Experte",
-					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
-					"inviteTeachersAndExpertsByEmail": "Lade Lehrer anderer Schulen und Experten per E-Mail ein.",
-					"leader": "Leiter",
-					"member": "Teilnehmer",
-					"owner": "Eigentümer",
-					"pleaseSelectRole": "Bitte wähle eine Rolle aus.",
-					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und Lehrer ihrer Schule zum Team hinzufügen.",
-					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
-					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
+					"thanksForYourSupport": "Vielen Dank für Ihre Unterstützung!",
+					"theNextQuestionnaireIsOnline": "Die nächste Befragung zum Projekt {{shortTitle}} ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen."
 				}
-			},
-			"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
-			"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
-			"news": {
-				"button": {
-					"addNews": "Neuigkeit anlegen"
-				},
-				"label": {
-					"continueReading": "Weiterlesen"
-				},
-				"link": {
-					"showAllNews": "Alle Neuigkeiten anzeigen..."
-				}
-			},
-			"tab_label": {
-				"dates": "Termine",
-				"files": "Dateien",
-				"news": "Neuigkeiten"
-			},
-			"text": {
-				"invitationAcceptedSuccess": "Teameinladung erfolgreich angenommen.",
-				"invitationAcceptionFailed": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
-				"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
-				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
-				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
-			}
-		},
-		"add": {
-			"button": {
-				"createTeam": "Team anlegen"
-			},
-			"headline": {
-				"createTeam": "Team anlegen",
-				"editTeam": "Team bearbeiten"
-			}
-		},
-		"button": {
-			"accept": "Akzeptieren",
-			"createTeam": "Team anlegen",
-			"duplicateTeam": "Team duplizieren",
-			"foundATeam": "Gründe ein Team"
-		},
-		"headline": {
-			"duplicateTeam": "Team duplizieren",
-			"invitations": "Einladungen",
-			"membersOfTeam": "Mitglieder des Teams: {{teamName}}",
-			"myTeams": "Meine Teams",
-			"teamsConnectSchools": "Teams vernetzen Schule"
-		},
-		"img_alt": {
-			"teamOfTeachers": "Team von Lehrern"
-		},
-		"label": {
-			"more": "Weiteres"
-		},
-		"placeholder": {
-			"searchForTeams": "Suche nach Teams"
-		},
-		"text": {
-			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
-			"noMembers": "Keine Teilnehmer",
-			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
-		}
-	},
-	"topic": {
-		"_topic": {
-			"button": {
-				"createTopic": "Thema anlegen",
-				"editTopic": "Thema bearbeiten"
 			},
 			"global": {
 				"button": {
-					"addPrivateTask": "private Aufgabe hinzufügen",
-					"addTask": "Aufgabe hinzufügen",
-					"toEdit": "Bearbeiten"
+					"discardChange": "Änderung verwerfen"
 				},
-				"heading": {
-					"task": "Aufgabe"
+				"link": {
+					"aboutTheProject": "Über das Projekt",
+					"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
+					"imprint": "Impressum",
+					"participate": "Mitmachen",
+					"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud"
 				}
 			},
-			"heading": {
-				"assignedTasks": "Gestellte Aufgaben",
-				"privateTasks": "Private Aufgaben",
-				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
+			"header": {
+				"link": {
+					"firstSteps": "Erste Schritte"
+				}
+			},
+			"help_menu": {
+				"button": {
+					"openGame": "Spiel öffnen",
+					"playEnterTheCloud": "Enter The Cloud spielen"
+				},
+				"input": {
+					"password": "Passwort:",
+					"userName": "Benutzername:"
+				},
+				"link": {
+					"Fortbildungen": "Fortbildungen",
+					"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
+					"helpArea": "Hilfebereich",
+					"sendRequestOrProblem": "Wunsch oder Problem senden"
+				}
+			},
+			"ldap_info": {
+				"text": {
+					"whyCantIEditEntries": "Warum kann ich keine Einträge bearbeiten?",
+					"yourSchoolIsLinkedToExternManagementSystem": "Your school in the {{shortTitle}} is synchronized with an identity management system (LDAP, country system or similar)."
+				}
+			},
+			"loggedin": {
+				"tab_label": {
+					"settings": "Einstellungen",
+					"signOut": "Abmelden"
+				},
+				"text": {
+					"allActionsThatCreate": "Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.",
+					"inOrderToShow": "Um dir trotzdem etwas anzuzeigen siehst du eventuell veraltete Inhalte.",
+					"noNotificationsAtTheMoment": "Derzeit keine Benachrichtigungen",
+					"thisIsADemoAccount": "Dies ist ein Demoaccount.",
+					"youAreOffline": "Du bist offline."
+				}
+			},
+			"table": {
+				"option": {
+					"numberofEntries": "Anzahl der Einträge"
+				}
+			}
+		},
+		"link": {
+			"text": {
+				"invalidLink": "Der Link ist nicht gültig oder abgelaufen. Bitte überprüfe den Link oder lasse dir einen neuen Link erstellen."
+			}
+		},
+		"loggedin": {
+			"text": {
+				"newFeaturesAvailable": "Neue Features sind verfügbar",
+				"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte kontaktiere den Schul-Administrator!",
+				"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
+				"timeout": "Zeitüberschreitung der Anfrage"
+			}
+		},
+		"login": {
+			"button": {
+				"less": "Weniger",
+				"login": "Anmelden",
+				"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
+				"moreOptions": "Mehr Optionen",
+				"submitPrivacyPolicy": "Gelesen"
 			},
 			"headline": {
-				"createTopic": "Thema anlegen",
-				"editTopic": "Thema bearbeiten"
+				"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
+				"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
+				"firstLogin": "Willkommen - Erster Login",
+				"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
+				"onlyPrivacy": "Datenschutzerklärung",
+				"onlyTermsOfUse": "Nutzungsordnung",
+				"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
 			},
 			"input": {
-				"countWithPrimeNumbers": "z.B. Rechnen mit Primzahlen"
+				"emailUsername": "E-Mail / Nutzername",
+				"noSchoolsAvailable": "Keine Schulen verfügbar",
+				"noSystemsAvailable": "Keine Systeme verfügbar",
+				"password": "Passwort",
+				"school": "Schule",
+				"system": "System"
 			},
 			"label": {
-				"addPrivateTask": "private Aufgabe hinzufügen",
-				"addTask": "Aufgabe hinzufügen",
-				"content": "Inhalte",
-				"expandPrivateTasks": "Private Aufgaben ein/ausklappen",
-				"expandTasks": "gestellte Aufgaben ein/ausklappen",
-				"titleOfTheTopic": "Titel des Themas"
+				"thisIsAPrivateDevice": "Angemeldet bleiben"
+			},
+			"link": {
+				"forgotPassword": "Passwort vergessen?"
+			},
+			"oauth2": {
+				"headline": {
+					"loginWithSchoolCloud": "Login mit HPI Schul-Cloud"
+				},
+				"label": {
+					"email": "deine E-Mail-Adresse",
+					"openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt",
+					"weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
+					"yourName": "deinen Namen"
+				},
+				"text": {
+					"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der HPI Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
+				}
+			},
+			"popup_resetPw": {
+				"button": {
+					"resetPassword": "Passwort Zurücksetzen"
+				},
+				"headline": {
+					"resetPassword": "Passwort Zurücksetzen"
+				},
+				"input": {
+					"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
+				},
+				"label": {
+					"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
+				},
+				"text": {
+					"contactTeacherAdminForHelp": "Wenn du zusätzliche Hilfe beim Passwort zurücksetzen benötigst, wende dich bitte an deine betreuende Lehrkraft (als Schüler) oder an deinen Administrator (als Lehrkraft). </br>Diese können dein Passwort über die Nutzerverwaltung mit sofortiger Wirkung zurücksetzen."
+				}
 			},
 			"text": {
-				"shareWithOthersTeachers": "mit anderen Lehrern teilen"
+				"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
+				"loginFailed": "Login fehlgeschlagen.",
+				"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
+				"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
+				"loginFailedFirstHintText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
+				"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
+				"loginFailedFithHintText": "Hier findest du alle HPI Schul-Could Instanzen:",
+				"loginFailedFourthHint": "4. Hast du deine Anmeldedaten schon überprüft?",
+				"loginFailedFourthHintText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
+				"loginFailedLogoBrandenburg": "Logo Brandenburg",
+				"loginFailedLogoNiedersachen": "Logo Niedersachsen",
+				"loginFailedLogoOpen": "Logo Open",
+				"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
+				"loginFailedLogoTühringen": "Logo Thüringen",
+				"loginFailedScreenshot": "Login fehlgeschlagen",
+				"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
+				"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
+				"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
+				"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 			}
 		},
-		"topicEdit": {
-			"input": {
-				"brainstormAboutXYZ" : "Brainstorming zum Thema XYZ",
-				"createNewNeXboard" : "Neues neXboard anlegen",
-				"createsListInEtherpad" : "Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC",
-				"createsListInNeXboard" : "Erstellt im nachfolgendem neXboard eine Pro-Contra-Liste zum Thema XYC",
-				"GeoGebraEnterId" : "GeoGebra Material-ID eingeben, z.B. kEBfU7AR",
-				"keepNeXboard" : "NexBoard beibehalten",
-				"sectionTitle": "Titel des Abschnitts",
-				"selectNeXboard" : "neXboard auswählen"
+		"my_material": {
+			"headline": {
+				"myMaterial": "Meine Materialien"
+			},
+			"text": {
+				"andTakeTheOpportunityToDesign": "und nutzen Sie die Möglichkeit, das Feature nach ihren Wünschen zu gestalten.",
+				"blogArticle": "Blogartikel",
+				"hereYouWillSoonHaveTheOpportunity": "Hier werden Sie bald die Möglichkeit haben, eigene Inhalte zu erstellen, sich Inhalte anderer Lehrer*Innen anzuschauen und durch Bewerten und Kategorisieren dieser Punkte verdienen, um die erweiterten Suchfunktionen nutzen zu können. Interessiert, wie das funktionieren wird? Lesen Sie den"
+			}
+		},
+		"navigation": {
+			"text": {
+				"errorNavigation": "Fehler bei AJAX-Navigation"
+			}
+		},
+		"news": {
+			"_news": {
+				"headline": {
+					"createNews": "News erstellen",
+					"editNews": "News bearbeiten"
+				}
 			},
 			"button": {
-				"text" : "Text",
-				"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
-				"material" : "Material",
-				"task" : "Aufgabe"
+				"addNews": "News hinzufügen"
 			},
-			"label" :{
-				"addFile" : "Datei auswählen",
-				"descriptionEtherpad" : "Beschreibung des Etherpads",
-				"descriptionNeXboard" : "Beschreibung des neXboards",
-				"lockSection" : "Abschnitt sperren",
-				"nameOfEtherpad" : "Name des Etherpads",
-				"nameOfNeXboard" : "Name des neXboards",
-				"openSection" : "Abschnitt entsperren",
-				"selectNeXboard" : "neXboard auswählen",
-				"theLinkHasToBeginWith" : "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
-				"youllFindTheIdOn" : "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
-			}
-		},
-		"content": {
-			"link": {
-				"openInNewTab": "in neuem Tab öffnen"
-			}
-		},
-		"form_share": {
+			"headline": {
+				"news": "Neuigkeiten",
+				"newsTeam": "Neuigkeiten aus dem Team"
+			},
 			"label": {
-				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
+				"content": "Inhalt",
+				"scheduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
+				"searchForNews": "Suche nach Neuigkeiten",
+				"title": "Titel"
+			},
+			"text": {
+				"atSchool": "an der Schule",
+				"atYourSchool": "an deiner Schule ",
+				"created": "erstellt",
+				"from": "von",
+				"inTheClass": "in der Klasse",
+				"inTheCourse": "im Kurs",
+				"inTheTeam": "im Team",
+				"lastFrom": "(zuletzt von",
+				"newsNeedContent": "News benötigen Inhalt!",
+				"newsNeedTitle": "News benötigen einen Titel!",
+				"processed": "bearbeitet)",
+				"released": "Veröffentlicht",
+				"unpublished": "Unveröffentlicht"
 			}
-		}
-	},
-	"videoconference": {
-		"headline": {
-			"createVideoConferenceRoom": "Videokonferenzraum {{name}} erstellen"
 		},
-		"text": {
-			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
-			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
-			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen."
+		"partner": {
+			"headline": {
+				"advisoryBoard": "Fachbeirat",
+				"partner": "Partner",
+				"pilotPartners": "Pilotpartner für Lerninhalte",
+				"projectExecution": "Projektdurchführung",
+				"supporters": "Unterstützer für Schulinfrastruktur <3"
+			},
+			"img-alt": {
+				"logo": "Logo"
+			},
+			"text": {
+				"advisoryBoardDescription": "Das HPI Schul-Cloud Projekt wird von einem Fachbeirat unterstützt, der sich aus verschiedenen Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben technischen Aspekten, auch Themen wie Datenschutz und Pädagogik.",
+				"pilotPartnersDescription": "Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die HPI Schul-Cloud erfahrbar wird.",
+				"supportersDescription": "Wir danken unseren Unterstützern für Schulinfrastruktur."
+			}
+		},
+		"pwRecovery": {
+			"button": {
+				"createNewPassword": "Neues Passwort anlegen"
+			},
+			"failed": {
+				"text": {
+					"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
+				}
+			},
+			"headline": {
+				"passwordRecovery": "Passwort-Wiederherstellung"
+			},
+			"input": {
+				"hiddenPw": "***************"
+			},
+			"label": {
+				"newPw": "Neues Passwort",
+				"repeatNewPw": "Neues Passwort wiederholen"
+			},
+			"response": {
+				"text": {
+					"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der HPI Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
+					"didYouRegisterCorrectly": "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einem Lehrer oder Schuladministrator bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
+					"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der HPI Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der HPI Schul-Cloud einzuloggen.",
+					"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
+					"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
+				}
+			},
+			"text": {
+				"allowedCharacters": "Erlaubte Sonderzeichen sind: ",
+				"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
+				"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
+				"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
+				"errorPasswordAlreadyChanged": "Ihr Passwort wurde bereits über diese URL geändert.",
+				"errorTimeExpired": "Zeit abgelaufen für Passwort Recovery.",
+				"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
+				"specialCharacters": "!§$%&/()=?\\;:,.#+*~"
+			}
+		},
+		"registration": {
+			"_registration": {
+				"employee": {
+					"heading": {
+						"yourData": "Deine Daten"
+					},
+					"input": {
+						"firstName": "Ihren Vornamen hier eingeben",
+						"lastName": "Ihren Nachname hier eingeben",
+						"password": "Passwort",
+						"repeatPassword": "Passwort wiederholen",
+						"teacherEmail": "lehrer@schul-cloud.org",
+						"yourEmailAddress": "Deine E-Mail-Adresse:"
+					},
+					"label": {
+						"password": "Passwort:",
+						"repeatPassword": "Passwort wiederholen:"
+					},
+					"text": {
+						"pleaseconfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die Vorteile der {{shortTitle}} nutzen kannst.",
+						"youCanNowSingIn": "Du kannst dich jetzt in der {{title}} anmelden."
+					}
+				},
+				"global": {
+					"button": {
+						"openLogin": "Login öffnen",
+						"sendAndGetStarted": "Absenden & Loslegen",
+						"toPress": "Drucken"
+					},
+					"heading": {
+						"almostThere": "Fast geschafft!",
+						"declarationOfConsent": "Einwilligungserklärung",
+						"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
+					},
+					"label": {
+						"birthDate": "Geburtsdatum:",
+						"eMail": "E-Mail:",
+						"emailAddress": "E-Mail-Adresse:",
+						"firstName": "Vorname:",
+						"lastName": "Nachname:",
+						"studentEmailAddress": "E-Mail-Adresse des Schülers:",
+						"studentsDateOfBirth": "Geburtsdatum des Schülers:",
+						"yourEmailAddress": "Ihre E-Mail-Adresse:"
+					},
+					"text": {
+						"agreementCanBeRevoked": "Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href=\"mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung\">widerruf@schul-cloud.org</a>.",
+						"agreementIsVoluntary": "Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{title}}, wird durch die Schule ermöglicht werden.",
+						"bellowNYearsOldConsantOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten",
+						"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
+						"inCaseOfRevokationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a> entnehmen.",
+						"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
+						"password": "Passwort: ",
+						"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
+						"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
+						"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
+					}
+				},
+				"heading": {
+					"welcomeToTheRegistration": "Willkommen zur Anmeldung in der {{title}}!"
+				},
+				"label": {
+					"bellowNYearsOld": "unter {{years}} Jahre alt",
+					"overNYearsOld": "ab {{years}} Jahre alt"
+				},
+				"parent": {
+					"global": {
+						"text": {
+							"inThe": "in der"
+						}
+					},
+					"heading": {
+						"yourChildsData": "Daten Ihres Kindes",
+						"yourChildsSSO": "Der SSO-Account Ihres Kindes ist jetzt freigeschaltet.",
+						"yourData": "Ihre Daten"
+					},
+					"input": {
+						"completeFirstName": "Vorname des Kindes in offizieller Schreibweise, keine Spitznamen",
+						"lastName": "Nachname des Kindes",
+						"parentEmail": "eltern@schul-cloud.org",
+						"studentEmail": "schueler@schul-cloud.org",
+						"yourFirstName": "Ihren Vornamen hier eingeben",
+						"yourLastName": "Ihren Nachname hier eingeben"
+					},
+					"label": {
+						"iAmLegalGuardianOfChild": "Ich, <b data-from=\"parent_firstName\"></b> <b data-from=\"parent_lastName\"></b>, bin erziehungsberechtigt für <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b> und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten."
+					},
+					"text": {
+						"aParentOrLegalGuardian": "Jahren bedarf ein Erziehungsberechtigter in die Nutzung der",
+						"forThisWeNeedFollowing": "Dazu benötigen wir folgende Angaben von Ihnen:",
+						"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
+						"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren bedarf ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen.",
+						"mustNotBeYourChildsEmail": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
+						"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
+						"needFollowingInformationForChild": "benötigen wir folgende Angaben für Ihr Kind:",
+						"pleaseConfirmTheFollowing": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{shortTitle}} nutzen kann:",
+						"studentNeedTheirOwnEmail": "(Schüler benötigen eine eigene E-Mail-Adresse)",
+						"toConsent": "einwilligen.",
+						"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
+						"weNeedFollowingDataOfChild": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben für Ihr Kind:",
+						"whenLoggingInFor": "Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.",
+						"yourChildCan": "Ihr Kind kann sich nun einloggen:",
+						"yourSonCanLogInWithThisData": "Mit folgenden Daten kann sich <b data-from=\"firstName\"></b> <b data-from=\"secondName\"></b> in der {{shortTitle}} anmelden. Bitte geben Sie die Daten an Ihr Kind weiter. Zusätzlich haben Sie und Ihr Kind die Daten per E-Mail erhalten."
+					}
+				},
+				"student": {
+					"heading": {
+						"personalData": "Persönliche Daten"
+					},
+					"input": {
+						"studentEmail": "schueler@schul-cloud.org",
+						"yourOfficialFirstName": "Dein offizieller Vorname, kein Spitzname",
+						"yourOfficialLastName": "Dein offizieller Nachname"
+					},
+					"text": {
+						"pleaseConfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{shortTitle}} nutzen kannst.",
+						"useThisDataToSignIn": "Mit folgenden Daten kannst du dich in der {{shortTitle}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.",
+						"youCanNowLogin": "Du kannst dich jetzt in der HPI Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
+						"yourSSOAccountDetails": "Deine SSO-Accountdaten sind jetzt freigeschaltet."
+					}
+				},
+				"text": {
+					"agreeSoThatYourChild": "zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
+					"danger": "Achtung:",
+					"letsTakeThisStepWithYouAndYourChild": "Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{shortTitle}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
+					"linguisticNoteWeUseMaleFormForReadability": "* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} teilweise die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
+					"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers:",
+					"pleaseRegisterChildThenAgreeToTermsOfUse": "Wir bitten Sie, Ihr Kind zunächst in der {{shortTitle}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
+					"pleaseRegisterFirstAndAgreeToTerms": "Bitte registriere dich zunächst in der {{shortTitle}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
+					"thankYouForTakingThisStepWithUs": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
+					"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über {{independentAge}} sie selbst.",
+					"thefollowingRestrationMustBe": "Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern."
+				}
+			},
+			"deprecatedWarning": {
+				"heading": {
+					"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt"
+				},
+				"text": {
+					"weHaveRevisedAndImprovedRegistration": "Wir haben die Registrierung in der HPI Schul-Cloud überarbeitet und verbessert. Leider sind deswegen alte Regisitrierungslinks nicht mehr gültig. Bitte kontaktiere deinen Lehrer oder Administrator, um einen neuen Registrierungslink zu erhalten."
+				}
+			},
+			"headline": {
+				"registrationEmployee": "Registrierung - {{role}}",
+				"registrationParents": "Registrierung - Eltern",
+				"registrationStudents": "Registrierung - Schüler*",
+				"welcomeToRegistration": "Herzlich willkommen bei der Registrierung"
+			},
+			"pin": {
+				"input": {
+					"verificationCode": "Bestätigungscode:"
+				}
+			},
+			"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
+			"registationFailedAuthTitle": "Ungültiger Registrierungslink",
+			"registationFailedContinue": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
+			"registationFailedContinueLink": "Öffne diese Seite in einem eigenen Fenster",
+			"registration_template": {
+				"global": {
+					"link": {
+						"contact": "Kontakt"
+					}
+				},
+				"heading": {
+					"invitationToThe": "Einladung in die"
+				},
+				"link": {
+					"imprint": "Impressum",
+					"partner": "Partner",
+					"toRegister": "Registrieren"
+				},
+				"text": {
+					"dear": "Sehr geehrte/r",
+					"youWereInvitedToThe": "Sie wurden eingeladen, der {{shortTitle}} beizutreten, bitte vervollständigen Sie Ihre Einladung unter folgendem Link"
+				}
+			},
+			"requestPin": {
+				"button": {
+					"requestVerificationCode": "Bestätigungscode jetzt anfordern"
+				},
+				"text": {
+					"pleaseRequestAConfirmationCode": "Bitte fordere dazu einen Bestätigungscode an:",
+					"theCodeCanBeRequestedSeveralTimes": "Der Code kann mehrfach angefordert werden. Das erneute Zusenden macht bisher versendete Codes allerdings ungültig. Warte vor dem erneuten Anfordern lieber einen Moment länger und prüfe ggf. den Spam-Ordner in deinem E-Mail-Postfach.",
+					"weOnlyHaveToCheckWhether": "Wir müssen nur kurz prüfen, ob es deine E-Mail-Adresse wirklich gibt."
+				}
+			},
+			"text": {
+				"acceptConsentWithoutParents": "Wenn du zwischen 14 und {{age}} Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die {{title}} nutzen kannst.",
+				"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
+				"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
+				"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu.",
+				"roleEmployee": "Lehrer*/Admins*",
+				"roleExpert": "Experte*",
+				"startPassword": "Startpasswort: {{password}}",
+				"studentsChooseNewPassword": "Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen.\n{{consentText}}",
+				"timeout": "Leider konnte deine Registrierung nicht abgeschlossen werden.\nBitte versuche es erneut.",
+				"unknownError": "Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.",
+				"welcomeMailSubject": "Willkommen in der {{title}}!",
+				"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team"
+			}
+		},
+		"search": {
+			"headline": {
+				"noSearchResults": "Keine Ergebnisse gefunden 😪"
+			}
+		},
+		"security": {
+			"headline": {
+				"security": "Sicherheit",
+				"reportSecurityIssue": "Sicherheitsproblem melden"
+			},
+			"text": {
+				"scIsTestedRegularyWeValueSecurity": "Die {{themeTitle}} wird regelmäßig Sicherheitsüberprüfungen und Penetrationstests unterzogen, da uns die Sicherheit der Daten unserer Nutzer:innen sehr wichtig ist.",
+				"youHaveFoundAWeakness": "Du hast trotzdem ein Sicherheitsproblem gefunden? Schreib uns, damit wir die Lücke schnellstmöglich schließen können:"
+			}
+		},
+		"team": {
+			"headline": {
+				"team": "Das HPI Schul-Cloud Team"
+			}
+		},
+		"teams": {
+			"_team": {
+				"button": {
+					"leaveTeam": "Team verlassen"
+				},
+				"dropdown_menu": {
+					"link": {
+						"deleteTeam": "Team löschen",
+						"editTeam": "Team bearbeiten",
+						"leaveTeam": "Team verlassen",
+						"manageMembers": "Teammitglieder verwalten",
+						"seeMembers": "Teammitglieder ansehen"
+					}
+				},
+				"edit": {
+					"label": {
+						"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
+						"activateMessengerForTeam": "Messenger für Team aktivieren",
+						"activateVideoConferences": "Videokonferenzen für Team aktivieren",
+						"teamColor": "Farbe des Teams",
+						"teamDescription": "Beschreibung des Teams (optional)",
+						"teamName": "Name des Teams"
+					},
+					"placeholder": {
+						"teamName": "A-Team"
+					},
+					"text": {
+						"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
+					}
+				},
+				"events": {
+					"button": {
+						"addDate": "Termin anlegen"
+					},
+					"headline": {
+						"addDate": "Termin hinzufügen",
+						"dateDetails": "Termin - Details"
+					}
+				},
+				"files": {
+					"button": {
+						"changeSharingSettings": "Freigabe-Einstellungen ändern",
+						"createFolder": "Ordner erstellen",
+						"deleteFolder": "Ordner löschen",
+						"renameFolder": "Ordner umbenennen",
+						"shareFolder": "Ordner-Freigabe",
+						"toTeamFiles": "Zu den Team-Dateien"
+					},
+					"headline": {
+						"changeFilePermissions": "Freigabe-Einstellungen ändern",
+						"fileActions": "Datei-Aktionen",
+						"files": "Dateien",
+						"folders": "Ordner"
+					},
+					"text": {
+						"changedFilePermissionsError": "Problem beim Ändern der Berechtigungen",
+						"changedFilePermissionsSuccess": "Standard-Berechtigungen erfolgreich geändert"
+					}
+				},
+				"headline": {
+					"leaveTeam": "Team verlassen",
+					"shareFilesSettings": "Dateifreigabe-Einstellungen"
+				},
+				"label": {
+					"accessToData": "Zugriff auf Dateien",
+					"emailHasBeenSentAlternativeLink": "Die eingeladene Person hat eine E-Mail bekommen. Alternativ kann dieser Link benutzt werden, der Nutzer muss dafür angemeldet sein:",
+					"externExperts": "Externe Experten",
+					"leadersAndAdmins": "Leiter und Team-Admins",
+					"members": "Teilnehmer",
+					"role": "Rolle"
+				},
+				"members": {
+					"add": {
+						"button": {
+							"deleteInvitation": "Einladung löschen",
+							"inviteMember": "Teilnehmer einladen",
+							"sendInvitation": "Einladung versenden"
+						},
+						"headline": {
+							"deleteInvitation": "Einladung löschen",
+							"inviteExternMember": "Externen Teilnehmer einladen",
+							"sendInvitationAgain": "Einladung erneut versenden"
+						},
+						"text": {
+							"errorDuringInvitation": "Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admins fragen.",
+							"errorWhileDeletingInvitation": "Problem beim Löschen der Einladung",
+							"errorWhileLoadingSchools": "Problem beim Auslesen der Schulen",
+							"errorWhileLoadingTeachers": "Problem beim Auslesen der Lehrer",
+							"errorWhileSendingInvitation": "Problem beim Versenden der Einladung",
+							"invitationSentIfMailInSys": "Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.",
+							"noSchoolForThisFilter": "Für die gewählte Auswahl ist keine Schule vorhanden",
+							"pleaseEnterValidEmail": "Bitte gib eine gültige E-Mail an.",
+							"pleaseReloadThePage": "Bitte lade die Seite neu.",
+							"providerBlockedTryOtherMail": "Der Provider der eingeladenen E-Mail-Adresse ist geblockt! Bitte verwende eine andere Adresse und versuche es dann erneut.",
+							"teacherInvitedSuccess": "Lehrer erfolgreich zum Team eingeladen"
+						}
+					},
+					"button": {
+						"addExternMembers": "Externe Teilnehmer einladen",
+						"addInternMembers": "Interne Teilnehmer hinzufügen",
+						"addPerson": "Person hinzufügen",
+						"deleteClass": "Klasse löschen",
+						"deleteMember": "Teilnehmer löschen",
+						"editMember": "Teilnehmer bearbeiten",
+						"externExpert": "Externe Experten",
+						"inviteByMail": "per E-Mail einladen",
+						"selectFromIndex": "Aus Verzeichnis auswählen",
+						"teacherFromOtherSchool": "Lehrer anderer Schulen"
+					},
+					"headline": {
+						"actions": "Aktionen",
+						"addMember": "Teilnehmer hinzufügen",
+						"class": "{{count}} Klasse",
+						"class_plural": "{{count}} Klassen",
+						"deleteClass": "Klasse löschen",
+						"deleteMember": "Teilnehmer löschen",
+						"editMember": "Teilnehmer bearbeiten",
+						"email": "E-Mail",
+						"firstName": "Vorname",
+						"inviteExternExpert": "Externen Experten einladen",
+						"inviteTeacherByEmail": "Lehrer per E-Mail einladen",
+						"inviteTeacherFromOtherSchool": "Lehrer anderer Schulen einladen",
+						"invitedOn": "Eingeladen am",
+						"member": "{{count}} Teilnehmer",
+						"member_plural": "{{count}} Teilnehmer",
+						"name": "Name",
+						"pendingInvitations": "Ausstehende Einladungen",
+						"requirements": "Voraussetzungen:",
+						"role": "Rolle",
+						"school": "Schule",
+						"selectAndAddTeacher": "Lehrer auswählen und hinzufügen",
+						"student": "Schüler",
+						"surname": "Nachname",
+						"teamMembers": "Team-Teilnehmer",
+						"whoDoYouWantToInvite": "Wen möchtest du ins Team einladen?"
+					},
+					"label": {
+						"addTeacherStudentsFromSchool": "Füge Lehrer und Schüler deiner Schule zum Team hinzu",
+						"deleteInvitation": "Einladung löschen",
+						"doYouReallyWantToLeaveTeam": "Möchtest du das Team wirklich verlassen?",
+						"doYouReallyWantToReSendEmail": "Möchtest du die Einladung wirklich noch einmal per E-Mail zuschicken?",
+						"editRole": "Rolle bearbeiten",
+						"externExpert": "externer Experte",
+						"externTeacher": "Lehrer anderer Schule (Team-Admin)",
+						"federalState": "Bundesland",
+						"insertEmailOfExpertToInvite": "Gebe die E-Mail des Experten ein, an welchen die Einladung verschickt wird.",
+						"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert einen anderen Eigentümer",
+						"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
+						"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
+						"reallyWantToRmUser": "Möchtest du diesen Teilnehmer wirklich entfernen?",
+						"removeClass": "Klasse entfernen",
+						"removeUser": "Nutzer entfernen",
+						"roleOfInvitedTeacher": "Rolle des eingeladenen Lehrers",
+						"school": "Schule",
+						"selectRoleForMember": "Gebe ein, welche Rolle der Teilnehmer erhalten soll.",
+						"sendInvitationAgain": "Einladung erneut versenden",
+						"teacher": "Lehrer"
+					},
+					"placeholder": {
+						"insertEmail": "E-Mail eingeben",
+						"selectFederalState": "Bundesland auswählen",
+						"selectPersons": "Personen auswählen",
+						"selectRole": "Rolle angeben",
+						"selectSchool": "Schule auswählen",
+						"selectTeacher": "Lehrer auswählen",
+						"teamAdmin": "Team-Admin"
+					},
+					"text": {
+						"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
+						"addedMemberFailure": "Problem beim Hinzufügen der Teilnehmer",
+						"addedMemberSuccess": "Teilnehmer erfolgreich zum Team hinzugefügt",
+						"admin": "Administrator",
+						"changeRoleOfMember": "Ändere die Rolle des Nutzers:",
+						"errorWhileEditingMember": "Problem beim Bearbeiten des Teilnehmers",
+						"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers",
+						"expert": "Externer Experte",
+						"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
+						"inviteTeachersAndExpertsByEmail": "Lade Lehrer anderer Schulen und Experten per E-Mail ein.",
+						"leader": "Leiter",
+						"member": "Teilnehmer",
+						"owner": "Eigentümer",
+						"pleaseSelectRole": "Bitte wähle eine Rolle aus.",
+						"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und Lehrer ihrer Schule zum Team hinzufügen.",
+						"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
+						"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
+					}
+				},
+				"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
+				"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
+				"news": {
+					"button": {
+						"addNews": "Neuigkeit anlegen"
+					},
+					"label": {
+						"continueReading": "Weiterlesen"
+					},
+					"link": {
+						"showAllNews": "Alle Neuigkeiten anzeigen..."
+					}
+				},
+				"tab_label": {
+					"dates": "Termine",
+					"files": "Dateien",
+					"news": "Neuigkeiten"
+				},
+				"text": {
+					"invitationAcceptedSuccess": "Teameinladung erfolgreich angenommen.",
+					"invitationAcceptionFailed": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
+					"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
+					"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
+					"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
+				}
+			},
+			"add": {
+				"button": {
+					"createTeam": "Team anlegen"
+				},
+				"headline": {
+					"createTeam": "Team anlegen",
+					"editTeam": "Team bearbeiten"
+				}
+			},
+			"button": {
+				"accept": "Akzeptieren",
+				"createTeam": "Team anlegen",
+				"duplicateTeam": "Team duplizieren",
+				"foundATeam": "Gründe ein Team"
+			},
+			"headline": {
+				"duplicateTeam": "Team duplizieren",
+				"invitations": "Einladungen",
+				"membersOfTeam": "Mitglieder des Teams: {{teamName}}",
+				"myTeams": "Meine Teams",
+				"teamsConnectSchools": "Teams vernetzen Schule"
+			},
+			"img_alt": {
+				"teamOfTeachers": "Team von Lehrern"
+			},
+			"label": {
+				"more": "Weiteres"
+			},
+			"placeholder": {
+				"searchForTeams": "Suche nach Teams"
+			},
+			"text": {
+				"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
+				"noMembers": "Keine Teilnehmer",
+				"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
+			}
+		},
+		"topic": {
+			"_topic": {
+				"button": {
+					"createTopic": "Thema anlegen",
+					"editTopic": "Thema bearbeiten"
+				},
+				"global": {
+					"button": {
+						"addPrivateTask": "private Aufgabe hinzufügen",
+						"addTask": "Aufgabe hinzufügen",
+						"toEdit": "Bearbeiten"
+					},
+					"heading": {
+						"task": "Aufgabe"
+					}
+				},
+				"heading": {
+					"assignedTasks": "Gestellte Aufgaben",
+					"privateTasks": "Private Aufgaben",
+					"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
+				},
+				"headline": {
+					"createTopic": "Thema anlegen",
+					"editTopic": "Thema bearbeiten"
+				},
+				"input": {
+					"countWithPrimeNumbers": "z.B. Rechnen mit Primzahlen"
+				},
+				"label": {
+					"addPrivateTask": "private Aufgabe hinzufügen",
+					"addTask": "Aufgabe hinzufügen",
+					"content": "Inhalte",
+					"expandPrivateTasks": "Private Aufgaben ein/ausklappen",
+					"expandTasks": "gestellte Aufgaben ein/ausklappen",
+					"titleOfTheTopic": "Titel des Themas"
+				},
+				"text": {
+					"shareWithOthersTeachers": "mit anderen Lehrern teilen"
+				}
+			},
+			"topicEdit": {
+				"input": {
+					"brainstormAboutXYZ": "Brainstorming zum Thema XYZ",
+					"createNewNeXboard": "Neues neXboard anlegen",
+					"createsListInEtherpad": "Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC",
+					"createsListInNeXboard": "Erstellt im nachfolgendem neXboard eine Pro-Contra-Liste zum Thema XYC",
+					"GeoGebraEnterId": "GeoGebra Material-ID eingeben, z.B. kEBfU7AR",
+					"keepNeXboard": "NexBoard beibehalten",
+					"sectionTitle": "Titel des Abschnitts",
+					"selectNeXboard": "neXboard auswählen"
+				},
+				"button": {
+					"text": "Text",
+					"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
+					"material": "Material",
+					"task": "Aufgabe"
+				},
+				"label": {
+					"addFile": "Datei auswählen",
+					"descriptionEtherpad": "Beschreibung des Etherpads",
+					"descriptionNeXboard": "Beschreibung des neXboards",
+					"lockSection": "Abschnitt sperren",
+					"nameOfEtherpad": "Name des Etherpads",
+					"nameOfNeXboard": "Name des neXboards",
+					"openSection": "Abschnitt entsperren",
+					"selectNeXboard": "neXboard auswählen",
+					"theLinkHasToBeginWith": "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
+					"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
+				}
+			},
+			"content": {
+				"link": {
+					"openInNewTab": "in neuem Tab öffnen"
+				}
+			},
+			"form_share": {
+				"label": {
+					"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
+				}
+			}
+		},
+		"videoconference": {
+			"headline": {
+				"createVideoConferenceRoom": "Videokonferenzraum {{name}} erstellen"
+			},
+			"text": {
+				"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
+				"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
+				"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen."
+			}
 		}
 	}
 }
