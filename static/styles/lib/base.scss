@@ -419,3 +419,29 @@ form.inline {
 	content: "  \f08e";
 	font-size: 0.7em;
 }
+
+.skipLinks a {
+	position: absolute;
+	left: -5rem;
+	width: 1px;
+	height: 1px;
+	top: auto;
+
+	&:focus {
+		left: auto;
+		display: block;
+		height: auto;
+		width: 100%;
+		text-align: center;
+		top: 5rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.skipLinks {
+		a:focus {
+			top: 8rem;
+			z-index: 1;
+		}
+	}
+}
