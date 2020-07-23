@@ -1686,6 +1686,11 @@
 		}
 	},
 	"login": {
+		"anchor": {
+			"title":{
+				"show_password":"Passwort anzeigen"
+			}
+		},
 		"button": {
 			"less": "Weniger",
 			"login": "Anmelden",
@@ -1707,11 +1712,13 @@
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
 			"noSystemsAvailable": "Keine Systeme verfügbar",
 			"password": "Passwort",
-			"school": "Schule",
-			"system": "System"
+			"school": "Schule auswählen",
+			"system": "System auswählen"
 		},
 		"label": {
-			"thisIsAPrivateDevice": "Angemeldet bleiben"
+			"thisIsAPrivateDevice": "Angemeldet bleiben",
+			"school": "Schule",
+			"system": "System"
 		},
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
