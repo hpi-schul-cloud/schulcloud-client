@@ -977,7 +977,7 @@
 			"edit": "Bearbeiten",
 			"open": "Öffnen",
 			"presentation": "Präsentation (pptx)",
-			"search": "Suchen",
+			"search": "Suche",
 			"selectFormat": "Format auswählen",
 			"table": "Tabelle (xlsx)",
 			"textDocument": "Textdokument (docx)",
@@ -1108,11 +1108,14 @@
 			"brokenPen": "zerbrochener Stift"
 		},
 		"label": {
-			"room": "Raum"
+			"room": "Raum",
+			"skipLinks": "Links Überspringen"
 		},
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"
 		},
+		"mobileNavMenu": "Mobiles Navigations Menu",
+		"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 		"role": {
 			"text": {
 				"administrator": "Administrator",
@@ -1125,6 +1128,7 @@
 			}
 		},
 		"sidebar": {
+			"ariaLabel": "Seitenleiste",
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
@@ -1175,11 +1179,34 @@
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
 		},
+		"topMenu": {
+			"ariaLabel": "topbar",
+			"dropdown": {
+				"alertButton": {
+					"title": "Es gibt ein Problem"
+				},
+				"currentUser": {
+					"ariaLabel": "aktueller Benutzer:"
+				},
+				"fullscreenButton": {
+					"title": "Vollbildmodus"
+				},
+				"notifications": {
+					"title": "Benachrichtigungen"
+				},
+				"QRCode": {
+					"title": "QR-Code"
+				}
+			},
+			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
+		},
+		"skipLinks": {
+			"mainContentSkipLink": "Hauptbereich",
+			"topNavbarSkipLink": "Navigation oben",
+			"footerSkipLink": "Footer"
+		},
 		"title": {
 			"landing": "Startseite"
-		},
-		"topMenu": {
-			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		}
 	},
 	"help": {
@@ -1617,12 +1644,15 @@
 			"input": {
 				"searchFor": "Suche nach..."
 			},
-			"label": {
-				"fullscreen": "Fullscreen",
-				"notifications": "Benachrichtigungen",
+
+			"label" : {
+				"currentUser": "aktueller Benutzer:",
+				"fullscreen": "Vollbildmodus",
+        		"notifications": "Benachrichtigungen",
 				"printQrCode": "QR-Code drucken",
 				"qrCode": "QR-Code",
-				"thereIsAProblem": "Es gibt ein Problem"
+				"search": "Suche",
+        		"thereIsAProblem": "Es gibt ein Problem"
 			},
 			"tab_label": {
 				"settings": "Einstellungen",
@@ -1656,6 +1686,11 @@
 		}
 	},
 	"login": {
+		"anchor": {
+			"title":{
+				"show_password":"Passwort anzeigen"
+			}
+		},
 		"button": {
 			"less": "Weniger",
 			"login": "Anmelden",
@@ -1677,11 +1712,13 @@
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
 			"noSystemsAvailable": "Keine Systeme verfügbar",
 			"password": "Passwort",
-			"school": "Schule",
-			"system": "System"
+			"school": "Schule auswählen",
+			"system": "System auswählen"
 		},
 		"label": {
-			"thisIsAPrivateDevice": "Angemeldet bleiben"
+			"thisIsAPrivateDevice": "Angemeldet bleiben",
+			"school": "Schule",
+			"system": "System"
 		},
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
