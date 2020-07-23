@@ -40,7 +40,7 @@ const ifCondBool = (v1, operator, v2) => {
 	}
 };
 
-const helpers = (app) => ({
+const helpers = () => ({
 	pagination: require('./pagination'),
 	ifArray: (item, options) => {
 		if (Array.isArray(item)) {
