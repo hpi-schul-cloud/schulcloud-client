@@ -91,6 +91,9 @@ fieldset.switch_wrapper {
       }
     }
   }
+  legend {
+    font-size: 1rem;
+  }
 }
 
 // (submit-) Button
@@ -219,6 +222,13 @@ fieldset.switch_wrapper {
         padding-right: 2rem;
         text-align: left;
       }
+
+      .control-legend {
+        font-size: 1rem;
+        text-align: left;
+        margin-top: .75rem;
+        margin-bottom: .25rem;
+    }
 
       .chosen-container {
         color: initial;

@@ -32,22 +32,24 @@
 	<input type="email" name="replyEmail" placeholder="E-Mail-Adresse" value="{{ userEmail }}" class="form-control" required>
 </label>
 <hr>
-<p>Weitere Informationen (optional):</p>
-<label>
-<div class="row">
-	<div class="col-xs-2">
-		<input type="checkbox" id="consent" name="consent" value="true" checked>
-	</div>
-	<div class="col-xs-10">
-		<span class="control-label" for="consent">
-			Ich bin damit einverstanden,
-			dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:
-			<li>Browser Name und Version (z.B: Firefox 69.0)</li>
-			<li>Betriebssystem und Version (z.B: Windows 10)</li>
-		</span>
-	</div>
-</div>
-</label>
+<fieldset>
+	<legend class="control-legend">Weitere Informationen (optional):</legend>
+	<label>
+		<div class="row">
+			<div class="col-xs-2">
+				<input type="checkbox" id="consentWish" name="consent" value="true" checked>
+			</div>
+			<div class="col-xs-10">
+				<span class="control-label" for="consentWish">
+					Ich bin damit einverstanden,
+					dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:
+					<li>Browser Name und Version (z.B: Firefox 69.0)</li>
+					<li>Betriebssystem und Version (z.B: Windows 10)</li>
+				</span>
+			</div>
+		</div>
+	</label>
+</fieldset>
 {{#ifEnv "FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED" "true"}}
 <br>
 <label class="form-group">
