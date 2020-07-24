@@ -1205,6 +1205,11 @@
 		}
 	},
 	"help": {
+		"anchor": {
+			"title": {
+				"section": "Gehen Sie zum {{section}} Abschnitt"
+			}
+		},
 		"contactForm": {
 			"text": {
 				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
@@ -1683,8 +1688,8 @@
 	},
 	"login": {
 		"anchor": {
-			"title":{
-				"show_password":"Passwort anzeigen"
+			"title": {
+				"show_password": "Passwort anzeigen"
 			}
 		},
 		"button": {
