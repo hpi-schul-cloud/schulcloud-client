@@ -88,6 +88,9 @@
       &:hover {
         transform: rotate(-7deg);
       }
+		#COLOR {
+			fill: $primaryColor;
+		}
     }
     .image.course-empty-content-image {
       max-width: 200px;
