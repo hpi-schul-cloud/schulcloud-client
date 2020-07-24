@@ -2063,8 +2063,8 @@
     },
     "login": {
         "anchor": {
-            "title": {
-                "show_password": "Passwort anzeigen"
+            "title":{
+                "show_password":"Passwort anzeigen"
             }
         },
         "button": {
@@ -2737,8 +2737,7 @@
         "_topic": {
             "button": {
                 "createTopic": "Thema anlegen",
-                "editTopic": "Thema bearbeiten",
-                "geoGebraWorksheet": "GeoGebra Arbeitsblatt"
+                "editTopic": "Thema bearbeiten"
             },
             "global": {
                 "button": {
