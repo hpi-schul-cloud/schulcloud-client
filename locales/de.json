@@ -1160,6 +1160,11 @@
 				"teams": "Teams"
 			}
 		},
+		"skipLinks": {
+			"footerSkipLink": "Footer",
+			"mainContentSkipLink": "Hauptbereich",
+			"topNavbarSkipLink": "Navigation oben"
+		},
 		"text": {
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
@@ -1177,9 +1182,15 @@
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
 		},
+		"title": {
+			"landing": "Startseite"
+		},
 		"topMenu": {
 			"ariaLabel": "topbar",
 			"dropdown": {
+				"QRCode": {
+					"title": "QR-Code"
+				},
 				"alertButton": {
 					"title": "Es gibt ein Problem"
 				},
@@ -1191,20 +1202,9 @@
 				},
 				"notifications": {
 					"title": "Benachrichtigungen"
-				},
-				"QRCode": {
-					"title": "QR-Code"
 				}
 			},
 			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
-		},
-		"skipLinks": {
-			"mainContentSkipLink": "Hauptbereich",
-			"topNavbarSkipLink": "Navigation oben",
-			"footerSkipLink": "Footer"
-		},
-		"title": {
-			"landing": "Startseite"
 		}
 	},
 	"help": {
@@ -1682,8 +1682,8 @@
 	},
 	"login": {
 		"anchor": {
-			"title":{
-				"show_password":"Passwort anzeigen"
+			"title": {
+				"show_password": "Passwort anzeigen"
 			}
 		},
 		"button": {
@@ -1711,9 +1711,9 @@
 			"system": "System auswählen"
 		},
 		"label": {
-			"thisIsAPrivateDevice": "Angemeldet bleiben",
 			"school": "Schule",
-			"system": "System"
+			"system": "System",
+			"thisIsAPrivateDevice": "Angemeldet bleiben"
 		},
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
