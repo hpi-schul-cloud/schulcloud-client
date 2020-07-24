@@ -1332,8 +1332,9 @@
 				"toMINTECWithQuestions": "an MINT-EC bei Fragen und Anregungen zur Einführung und Nutzung der HPI Schul-Cloud an deiner Schule.",
 				"toTheHpiForIdeas": "ans HPI für Ideen, Kritik und Wünsche rund um die Cloud selbst."
 			}
-		},
-		"helpdesk": {
+		}
+	},
+	"helpdesk": {
 			"text": {
 				"feedbackError": "Fehler beim Senden des Feedbacks.",
 				"feedbackSuccessful": "Feedback erfolgreich versendet!",
@@ -1342,13 +1343,13 @@
 				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!"
 			}
 		},
-		"home": {
+	"home": {
 			"button": {
 				"aboutTheProject": "Über das Projekt",
 				"loginAsStudentDemo": "als Schüler:in einloggen",
 				"loginAsTeacherDemo": "als Lehrer:in einloggen",
-				"login" : "Login",
-				"register" : "Registrieren",
+				"login": "Login",
+				"register": "Registrieren",
 				"subscribeNewsletter": "Newsletter abonnieren"
 			},
 			"header": {
@@ -1388,48 +1389,48 @@
 				"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
 			}
 		},
-		"homework": {
+	"homework": {
 			"_task": {
 				"button": {
-					"restoreAlt" : "<i class='fa fa-mail-reply'></i> Wiederherstellen"
+					"restoreAlt": "<i class='fa fa-mail-reply'></i> Wiederherstellen"
 				},
 				"headline": {
 					"addTask": "Aufgabe hinzufügen",
 					"editTask": "Aufgabe bearbeiten"
 				},
 				"input": {
-					"chooseTeamMembers" : "Mitstreiter auswählen",
-					"createSubmission" : "Erstelle deine Abgabe..."
+					"chooseTeamMembers": "Mitstreiter auswählen",
+					"createSubmission": "Erstelle deine Abgabe..."
 				},
 				"label": {
-					"copyTask" : "Aufgabenstellung kopieren",
-					"copyTaskAlt" : "Aufgabe '{{title}}' kopieren.",
-					"deleteTaskAlt" : "Löschen der Aufgabe: '{{title}}'.",
-					"editTaskAlt" : "Aufgabe '{{title}}' bearbeiten.",
-					"fileUpload" : "Dateiabgabe",
-					"firstName" : "Vorname",
-					"lastName" : "Nachname",
-					"moveFromArchive" : "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
-					"moveToArchive" : "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
-					"printGradeComment" : "Bewertung drucken",
-					"printSubmission" : "Abgabe drucken",
-					"printTask" : "Aufgabenstellung drucken",
-					"submitted" : "Abgegeben",
-					"team" : "Team",
-					"teamSubmission" : "Teamabgabe",
-					"teamSubmissionMaxX" : "Teamabgabe (maximal <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> Personen)",
-					"textDelivery" : "Textabgabe"
+					"copyTask": "Aufgabenstellung kopieren",
+					"copyTaskAlt": "Aufgabe '{{title}}' kopieren.",
+					"deleteTaskAlt": "Löschen der Aufgabe: '{{title}}'.",
+					"editTaskAlt": "Aufgabe '{{title}}' bearbeiten.",
+					"fileUpload": "Dateiabgabe",
+					"firstName": "Vorname",
+					"lastName": "Nachname",
+					"moveFromArchive": "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
+					"moveToArchive": "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
+					"printGradeComment": "Bewertung drucken",
+					"printSubmission": "Abgabe drucken",
+					"printTask": "Aufgabenstellung drucken",
+					"submitted": "Abgegeben",
+					"team": "Team",
+					"teamSubmission": "Teamabgabe",
+					"teamSubmissionMaxX": "Teamabgabe (maximal <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> Personen)",
+					"textDelivery": "Textabgabe"
 				},
 				"text": {
 					"errorInvalidTaskId": "Ungültige Aufgaben-ID",
-					"youHaveSolvedXPercent" : "Du hast <b class=\"grade\">{{grade}}%</b> richtig gelöst.",
-					"maxGroupSize" : "Maximale Gruppengröße: <b>{{maxTeamMembers}} Mitglieder </b>",
+					"youHaveSolvedXPercent": "Du hast <b class=\"grade\">{{grade}}%</b> richtig gelöst.",
+					"maxGroupSize": "Maximale Gruppengröße: <b>{{maxTeamMembers}} Mitglieder </b>",
 					"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
 					"newHomeworkDueDateNotification": "{{homeworkname}} ist bis zum {{duedate}} abzugeben.",
-					"noSubmissionsYet" : "Keine Abgaben vorhanden.",
-					"noSubmissionsYetFrom" : "Bisher keine Abgabe von:",
+					"noSubmissionsYet": "Keine Abgaben vorhanden.",
+					"noSubmissionsYetFrom": "Bisher keine Abgabe von:",
 					"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
-					"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet",
+					"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet"
 				}
 			},
 			"button": {
@@ -1449,9 +1450,9 @@
 				"print": "Drucken",
 				"save": "Speichern und Abschicken",
 				"toClass": "Zum Kurs",
-				"toCourseAlt" : "Zum Kurs der Aufgabe",
+				"toCourseAlt": "Zum Kurs der Aufgabe",
 				"toTheCourseFiles": "Zu den Kursdateien",
-				"toTopicAlt" : "Zum Thema der Aufgabe",
+				"toTopicAlt": "Zum Thema der Aufgabe",
 				"onTheSubject": "Zum Thema"
 			},
 			"global": {
@@ -1466,10 +1467,10 @@
 					"topic": "Thema",
 					"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
 				},
-				"input" : {
-					"gradeComment" : "Bewertungskommentar",
-					"noAssignment" : "Keine Zuordnung",
-					"title" : "Titel"
+				"input": {
+					"gradeComment": "Bewertungskommentar",
+					"noAssignment": "Keine Zuordnung",
+					"title": "Titel"
 				},
 				"placeholder": {
 					"description": "Finde heraus warum..."
@@ -1546,7 +1547,7 @@
 				"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 			}
 		},
-		"imprint": {
+	"imprint": {
 			"global": {
 				"heading": {
 					"imprint": "Impressum"
@@ -1578,7 +1579,7 @@
 				}
 			}
 		},
-		"lib": {
+	"lib": {
 			"csrf_content": {
 				"link": {
 					"openThisPageInASeparateWindow": "Öffne diese Seite in einem neuen Tab"
@@ -1593,7 +1594,7 @@
 				}
 			},
 			"default": {
-				"yourDigitalLearningEnvironment" : "Deine digitale Lernumgebung"
+				"yourDigitalLearningEnvironment": "Deine digitale Lernumgebung"
 			},
 			"error": {
 				"button": {
@@ -1610,28 +1611,28 @@
 			"extended_footer": {
 				"heading": {
 					"contact": "Kontakt",
-					"links" : "Links",
+					"links": "Links",
 					"vacancies": "Stellenausschreibungen"
 				},
-				"img_alt" :{
-					"nowAtGooglePlay" : "Jetzt bei Google Play"
+				"img_alt": {
+					"nowAtGooglePlay": "Jetzt bei Google Play"
 				},
 				"link": {
 					"contentProviders": "Inhalteanbieter:",
-					"devOps" : "DevOps",
+					"devOps": "DevOps",
 					"generalInquiries": "Allgemeine Anfragen:",
-					"mobileApp" : "Mobile App",
+					"mobileApp": "Mobile App",
 					"privacy": "Datenschutz:",
 					"subscribeTheNewsletter": "Newsletter abonnieren",
-					"support" : "Support:"
+					"support": "Support:"
 				},
 				"text": {
 					"weAreHiring": "Du möchtest gerne Mitglied in unserem <span style='white-space: nowrap;'>HPI Schul-Cloud</span> Team werden? Wir suchen:"
 				}
 			},
 			"footer": {
-				"img_alt" :{
-					"providerLogo" : "Anbieterlogo"
+				"img_alt": {
+					"providerLogo": "Anbieterlogo"
 				},
 				"link": {
 					"contact": "Kontakt"
@@ -1691,11 +1692,11 @@
 					"imprint": "Impressum",
 					"participate": "Mitmachen",
 					"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud",
-					"team" : "Team",
-					"partner" : "Partner",
-					"github" :"GitHub",
-					"status" : "Status",
-					"safety" : "Sicherheit"
+					"team": "Team",
+					"partner": "Partner",
+					"github": "GitHub",
+					"status": "Status",
+					"safety": "Sicherheit"
 				}
 			},
 			"header": {
@@ -1708,16 +1709,16 @@
 					"openGame": "Spiel öffnen",
 					"playEnterTheCloud": "Enter The Cloud spielen"
 				},
-				"img_alt" : {
-					"learnCloud" : "Lern Cloud"
+				"img_alt": {
+					"learnCloud": "Lern Cloud"
 				},
 				"input": {
 					"password": "Passwort:",
 					"userName": "Benutzername:"
 				},
-				"label" : {
-					"help" : "Hilfe",
-					"playEnterTheCloud" :"Enter The Cloud spielen"
+				"label": {
+					"help": "Hilfe",
+					"playEnterTheCloud": "Enter The Cloud spielen"
 				},
 				"link": {
 					"Fortbildungen": "Fortbildungen",
@@ -1733,18 +1734,18 @@
 				}
 			},
 			"loggedin": {
-				"img_alt" : {
-					"logoOfSchool" : "Logo von {{name}}"
+				"img_alt": {
+					"logoOfSchool": "Logo von {{name}}"
 				},
-				"input" :{
-					"searchFor" : "Suche nach..."
+				"input": {
+					"searchFor": "Suche nach..."
 				},
-				"label" : {
-					"fullscreen" : "Fullscreen",
-					"thereIsAProblem" : "Es gibt ein Problem",
-					"qrCode" : "QR-Code",
-					"printQrCode" : "QR-Code drucken",
-					"notifications" : "Benachrichtigungen"
+				"label": {
+					"fullscreen": "Fullscreen",
+					"thereIsAProblem": "Es gibt ein Problem",
+					"qrCode": "QR-Code",
+					"printQrCode": "QR-Code drucken",
+					"notifications": "Benachrichtigungen"
 				},
 				"tab_label": {
 					"settings": "Einstellungen",
@@ -1764,12 +1765,12 @@
 				}
 			}
 		},
-		"link": {
+	"link": {
 			"text": {
 				"invalidLink": "Der Link ist nicht gültig oder abgelaufen. Bitte überprüfe den Link oder lasse dir einen neuen Link erstellen."
 			}
 		},
-		"loggedin": {
+	"loggedin": {
 			"text": {
 				"newFeaturesAvailable": "Neue Features sind verfügbar",
 				"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte kontaktiere den Schul-Administrator!",
@@ -1777,7 +1778,7 @@
 				"timeout": "Zeitüberschreitung der Anfrage"
 			}
 		},
-		"login": {
+	"login": {
 			"button": {
 				"less": "Weniger",
 				"login": "Anmelden",
@@ -1861,7 +1862,7 @@
 				"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 			}
 		},
-		"my_material": {
+	"my_material": {
 			"headline": {
 				"myMaterial": "Meine Materialien"
 			},
@@ -1871,29 +1872,29 @@
 				"hereYouWillSoonHaveTheOpportunity": "Hier werden Sie bald die Möglichkeit haben, eigene Inhalte zu erstellen, sich Inhalte anderer Lehrer*Innen anzuschauen und durch Bewerten und Kategorisieren dieser Punkte verdienen, um die erweiterten Suchfunktionen nutzen zu können. Interessiert, wie das funktionieren wird? Lesen Sie den"
 			}
 		},
-		"navigation": {
+	"navigation": {
 			"text": {
 				"errorNavigation": "Fehler bei AJAX-Navigation"
 			}
 		},
-		"news": {
+	"news": {
 			"_news": {
 				"headline": {
 					"createNews": "News erstellen",
 					"editNews": "News bearbeiten"
 				},
-				"input" : {
-					"title" : "Titel"
+				"input": {
+					"title": "Titel"
 				},
-				"label" : {
-					"contentOfMessage" : "Inhalt der Nachricht..."
+				"label": {
+					"contentOfMessage": "Inhalt der Nachricht..."
 				}
 			},
 			"button": {
 				"addNews": "News hinzufügen",
-				"editNews" :"Bearbeiten",
-				"editNewsAlt" : "Artikel '{{title}}' bearbeiten.",
-				"deleteNewsAlt" : "Artikel '{{name}}' löschen"
+				"editNews": "Bearbeiten",
+				"editNewsAlt": "Artikel '{{title}}' bearbeiten.",
+				"deleteNewsAlt": "Artikel '{{name}}' löschen"
 			},
 			"headline": {
 				"news": "Neuigkeiten",
@@ -1921,7 +1922,7 @@
 				"unpublished": "Unveröffentlicht"
 			}
 		},
-		"partner": {
+	"partner": {
 			"headline": {
 				"advisoryBoard": "Fachbeirat",
 				"partner": "Partner",
@@ -1938,7 +1939,7 @@
 				"supportersDescription": "Wir danken unseren Unterstützern für Schulinfrastruktur."
 			}
 		},
-		"pwRecovery": {
+	"pwRecovery": {
 			"button": {
 				"createNewPassword": "Neues Passwort anlegen"
 			},
@@ -1977,7 +1978,7 @@
 				"specialCharacters": "!§$%&/()=?\\;:,.#+*~"
 			}
 		},
-		"registration": {
+	"registration": {
 			"_registration": {
 				"employee": {
 					"heading": {
@@ -2177,12 +2178,12 @@
 				"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team"
 			}
 		},
-		"search": {
+	"search": {
 			"headline": {
 				"noSearchResults": "Keine Ergebnisse gefunden 😪"
 			}
 		},
-		"security": {
+	"security": {
 			"headline": {
 				"security": "Sicherheit",
 				"reportSecurityIssue": "Sicherheitsproblem melden"
@@ -2192,12 +2193,12 @@
 				"youHaveFoundAWeakness": "Du hast trotzdem ein Sicherheitsproblem gefunden? Schreib uns, damit wir die Lücke schnellstmöglich schließen können:"
 			}
 		},
-		"team": {
+	"team": {
 			"headline": {
 				"team": "Das HPI Schul-Cloud Team"
 			}
 		},
-		"teams": {
+	"teams": {
 			"_team": {
 				"button": {
 					"leaveTeam": "Team verlassen"
@@ -2447,7 +2448,7 @@
 				"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
 			}
 		},
-		"topic": {
+	"topic": {
 			"_topic": {
 				"button": {
 					"createTopic": "Thema anlegen",
@@ -2501,7 +2502,7 @@
 				"button": {
 					"text": "Text",
 					"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
-					"material": "Material",
+					"material": "Lern-Material",
 					"task": "Aufgabe"
 				},
 				"label": {
@@ -2528,7 +2529,7 @@
 				}
 			}
 		},
-		"videoconference": {
+	"videoconference": {
 			"headline": {
 				"createVideoConferenceRoom": "Videokonferenzraum {{name}} erstellen"
 			},
@@ -2538,5 +2539,4 @@
 				"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen."
 			}
 		}
-	}
 }
