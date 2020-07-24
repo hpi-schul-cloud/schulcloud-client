@@ -1,6 +1,6 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
   <h2 class="h4">{{$t "firstLogin.parent.heading.yourData" }}</h2>
-  <p>{{$t "firstLogin.parent.global.text.forStudentsUnder" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS, "shortTitle" @root.theme.short_title)}}</p>
+  <p>{{$t "firstLogin.parent.global.text.forStudentsUnder" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "shortTitle" @root.theme.short_title)}}</p>
   <p>{{$t "firstLogin.parent.text.forThisWeNeedTheFollowingInformationFromYou" }}</p>
   <div class="row">
     <div class="form-group col-md-6 col-sm-12">
@@ -8,7 +8,7 @@
       <input class="form-control linked" name="parent_firstName" type="text" placeholder= '{{$t "firstLogin.placeholder.enterYourFirstNameHere" }}' required/>
     </div>
     <div class="form-group col-md-6 col-sm-12">
-      <label>{{$t "firstLogin.parent.global.label.lasttName" }} *</label>
+      <label>{{$t "firstLogin.parent.global.label.lastName" }} *</label>
       <input class="form-control linked" name="parent_lastName" type="text" placeholder='{{$t "firstLogin.placeholder.enterYourLastNameHere" }}' required/>
     </div>
   </div>
