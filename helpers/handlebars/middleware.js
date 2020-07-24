@@ -104,6 +104,15 @@ module.exports = (req, res, next) => {
 		link: '/content/',
 	}];
 
+	// Lern-Store Feature Toggle
+	if (Configuration.get('LERNSTORE_MODE') !== 'DISABLED') {
+		res.locals.sidebarItems.push({
+			name: res.$t('global.sidebar.link.lernstore'),
+			icon: 'search',
+			link: '/content/',
+		});
+	}
+
 	// Extensions Feature Toggle
 	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
 	if (extensionsEnabled) {
