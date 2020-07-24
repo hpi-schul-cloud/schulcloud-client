@@ -1,16 +1,22 @@
 <div class="form-group section-uploaded-files">
-    <label>{{$t "homework.label.forSubmissionUploadedFiles"}}</label>
+    <label>
+        {{#if this.grading}}
+            {{$t "homework.label.forGradingUploadedFiles"}}
+        {{else}}
+            {{$t "homework.label.forSubmissionUploadedFiles"}}
+        {{/if}}
+    </label>
     <br>
     <ul class="list-group-files js-file-list d-flex flex-row">
-        {{#each this.submission.fileIds}}
+        {{#each this.fileIds}}
             <li class="list-group-item">
                 <i class="fa fa-file" aria-hidden="true"></i>
-				<a href="/files/file?file={{this._id}}" {{#ifeq this.securityCheck.status "blocked"}}class="btn-file-danger"{{/ifeq}}  target="_blank">
+                <a href="/files/file?file={{this._id}}" {{#ifeq this.securityCheck.status "blocked"}}class="btn-file-danger"{{/ifeq}}  target="_blank">
                     {{#if this.clearName}}
-						{{this.clearName}}
-					{{else}}
-						{{this.name}}
-					{{/if}}
+                        {{this.clearName}}
+                    {{else}}
+                        {{this.name}}
+                    {{/if}}
                 </a>
                 <span class="fa-active">
                     {{#ifeq this.securityCheck.status "blocked"}}
