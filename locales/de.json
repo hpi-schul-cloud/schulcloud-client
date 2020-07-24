@@ -1105,7 +1105,8 @@
 			"edit": "Bearbeiten"
 		},
 		"label": {
-			"room": "Raum"
+			"room": "Raum",
+			"skipLinks": "Links Überspringen"
 		},
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"
@@ -1122,6 +1123,7 @@
 			}
 		},
 		"sidebar": {
+			"ariaLabel": "Seitenleiste",
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
@@ -1172,11 +1174,34 @@
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
 		},
+		"topMenu": {
+			"ariaLabel": "topbar",
+			"dropdown": {
+				"alertButton": {
+					"title": "Es gibt ein Problem"
+				},
+				"currentUser": {
+					"ariaLabel": "aktueller Benutzer:"
+				},
+				"fullscreenButton": {
+					"title": "Vollbildmodus"
+				},
+				"notifications": {
+					"title": "Benachrichtigungen"
+				},
+				"QRCode": {
+					"title": "QR-Code"
+				}
+			},
+			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
+		},
+		"skipLinks": {
+			"mainContentSkipLink": "Hauptbereich",
+			"topNavbarSkipLink": "Navigation oben",
+			"footerSkipLink": "Footer"
+		},
 		"title": {
 			"landing": "Startseite"
-		},
-		"topMenu": {
-			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		}
 	},
 	"help": {
@@ -1384,6 +1409,7 @@
 			"filterMorePublicSubmissions": "Schüler können Abgaben untereinander sehen",
 			"filterMoreTeamSubmissions": "Teamabgaben",
 			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
+			"forGradingUploadedFiles": "Als Kommentar/Bewertung hochgeladene Dateien",
 			"inPercent": "in Prozent",
 			"rating": "Bewertung",
 			"rating_comment": "Kommentar/Bewertung",
@@ -1398,6 +1424,7 @@
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
+			"uploadGradeFiles": "Korrigierte Dateien hochladen",
 			"submissionsWithoutFeedback": "unkommentierte Abgaben"
 		},
 		"text": {
@@ -1416,6 +1443,8 @@
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
+			"bulkGradingSuccess": "Alle Dateien konnten Hausaufgaben zugeordnet werden. Bitte Seite neu laden.",
+			"bulkGradingError": "Nicht alle Dateien konnten Hausaufgaben zugeordnet werden. Folgende Dateien müssen von Hand zugewiesen werden:",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
@@ -1653,6 +1682,11 @@
 		}
 	},
 	"login": {
+		"anchor": {
+			"title":{
+				"show_password":"Passwort anzeigen"
+			}
+		},
 		"button": {
 			"less": "Weniger",
 			"login": "Anmelden",
@@ -1674,11 +1708,13 @@
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
 			"noSystemsAvailable": "Keine Systeme verfügbar",
 			"password": "Passwort",
-			"school": "Schule",
-			"system": "System"
+			"school": "Schule auswählen",
+			"system": "System auswählen"
 		},
 		"label": {
-			"thisIsAPrivateDevice": "Angemeldet bleiben"
+			"thisIsAPrivateDevice": "Angemeldet bleiben",
+			"school": "Schule",
+			"system": "System"
 		},
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
