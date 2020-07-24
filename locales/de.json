@@ -433,6 +433,15 @@
 		}
 	},
 	"content": {
+		"form_add_lesson": {
+			"button": {
+				"choose": "Wähle..."
+			},
+			"label": {
+				"chooseACourse": "Wähle einen Kurs / Fach",
+				"chooseALessonTopic": "Wähle ein Unterrichtsthema"
+			}
+		},
 		"headline": {
 			"addContentToTopic": "Material zu Thema hinzufügen",
 			"contentCantBeAddedInDemo": "<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>",
@@ -1215,8 +1224,7 @@
 			"login": "Login",
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrer:in einloggen",
-			"subscribeNewsletter": "Newsletter abonnieren",
-			"register": "Registrieren"
+			"subscribeNewsletter": "Newsletter abonnieren"
 		},
 		"header": {
 			"link": {
@@ -1477,6 +1485,9 @@
 			}
 		},
 		"footer": {
+			"img_alt": {
+				"providerLogo": "Anbieterlogo"
+			},
 			"link": {
 				"contact": "Kontakt"
 			}
