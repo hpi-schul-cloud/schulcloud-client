@@ -461,8 +461,8 @@ $(document).ready(() => {
 		});
 	});
 
-	// typeset all MathJAX formulas displayed
-	MathJax.Hub.Typeset();
+    // typeset all MathJAX formulas displayed
+	MathJax.Hub.Typeset() // eslint-disable-line no-undef
 
 	// allow muti-download
 	$('button.multi-download').on('click', function () {
