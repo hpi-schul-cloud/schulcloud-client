@@ -10,9 +10,7 @@
             Die Anmeldung an der {{@root.theme.short_title}} ist mit den folgenden Daten möglich.
         </p>
         <p class="noprint">
-            <b>Achtung: </b>Du kannst diese Seite nicht erneut aufrufen. Drucke dir also die angezeigten Zugangsdaten
-            unbedingt aus oder speichere sie anderweitig.
-            Sollte ein Schüler sein Passwort vergessen, kannst du es nur in der Benutzerverwaltung ändern.
+            <b>{{$t "administration.longText.text.caution" }} </b>{{$t "administration.longText.text.canNotGoBackToThisPage" }}
         </p>
         <center class="form-group">
             <a href="/administration/students" class="windowprint noprint">
@@ -23,10 +21,8 @@
         </center>
         {{#unless single}}
         <div class="printonly">
-            <p>Auf dieser Seite findest du eine Übersicht über alle erfolgten Einwilligungen und generierten
-                Zugangsdaten. <br>
-                Die folgenden Seiten dieses Dokuments beinhalten jeweils die Zugangsdaten eines Kindes und eine
-                Anleitung zur ersten Anmeldung. </p>
+            <p>{{$t "administration.longText.text.overviewOfAllConsent" }} <br>
+                {{$t "administration.longText.text.theFollowingPagesOfThisDocument" }} </p>
             <table class="table">
                 <tr>
                     <th>Name</th>
@@ -62,9 +58,7 @@
 		</textarea>
         {{/each}}
         <p class="noprint" style="margin-top: 1em">
-            Beim ersten Login muss ein neues Passwort gewählt werden. Schüler,
-            die mindestens 14 Jahre alt sind, müssen bei ihrem ersten Login 
-            die Einwilligungserklärung zusätzlich selbst erklären. </p>
+            {{$t "administration.longText.text.whenLogginInForTheFirstTime" }} </p>
     </div>
 </div>
 <div class="row users-register-complete noprint">
