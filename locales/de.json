@@ -908,9 +908,6 @@
 			"privacyPolicy": "Datenschutzerklärung",
 			"registrationInvalid": "Registrierung fehlerhaft"
 		},
-		"img_alt": {
-			"brokenPen": "zerbrochener Stift"
-		},
 		"text": {
 			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
 			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
@@ -1327,6 +1324,8 @@
 			},
 			"text": {
 				"hereYouCanFindOut": "Hier findest du heraus wie du deine Cookies löschst.",
+				"noAccessDemoAccount": "Sie haben im Demo-Account keinen Zugriff auf diese Dokumente.",
+				"noWelcomeDocuments": "Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support.",
 				"someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
 				"theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der HPI Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
 				"theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:",
@@ -1348,6 +1347,8 @@
 				"aboutTheProject": "Über das Projekt",
 				"loginAsStudentDemo": "als Schüler:in einloggen",
 				"loginAsTeacherDemo": "als Lehrer:in einloggen",
+				"login" : "Login",
+				"register" : "Registrieren",
 				"subscribeNewsletter": "Newsletter abonnieren"
 			},
 			"header": {
@@ -1389,16 +1390,46 @@
 		},
 		"homework": {
 			"_task": {
+				"button": {
+					"restoreAlt" : "<i class='fa fa-mail-reply'></i> Wiederherstellen"
+				},
 				"headline": {
 					"addTask": "Aufgabe hinzufügen",
 					"editTask": "Aufgabe bearbeiten"
 				},
+				"input": {
+					"chooseTeamMembers" : "Mitstreiter auswählen",
+					"createSubmission" : "Erstelle deine Abgabe..."
+				},
+				"label": {
+					"copyTask" : "Aufgabenstellung kopieren",
+					"copyTaskAlt" : "Aufgabe '{{title}}' kopieren.",
+					"deleteTaskAlt" : "Löschen der Aufgabe: '{{title}}'.",
+					"editTaskAlt" : "Aufgabe '{{title}}' bearbeiten.",
+					"fileUpload" : "Dateiabgabe",
+					"firstName" : "Vorname",
+					"lastName" : "Nachname",
+					"moveFromArchive" : "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
+					"moveToArchive" : "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
+					"printGradeComment" : "Bewertung drucken",
+					"printSubmission" : "Abgabe drucken",
+					"printTask" : "Aufgabenstellung drucken",
+					"submitted" : "Abgegeben",
+					"team" : "Team",
+					"teamSubmission" : "Teamabgabe",
+					"teamSubmissionMaxX" : "Teamabgabe (maximal <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> Personen)",
+					"textDelivery" : "Textabgabe"
+				},
 				"text": {
 					"errorInvalidTaskId": "Ungültige Aufgaben-ID",
+					"youHaveSolvedXPercent" : "Du hast <b class=\"grade\">{{grade}}%</b> richtig gelöst.",
+					"maxGroupSize" : "Maximale Gruppengröße: <b>{{maxTeamMembers}} Mitglieder </b>",
 					"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
 					"newHomeworkDueDateNotification": "{{homeworkname}} ist bis zum {{duedate}} abzugeben.",
+					"noSubmissionsYet" : "Keine Abgaben vorhanden.",
+					"noSubmissionsYetFrom" : "Bisher keine Abgabe von:",
 					"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
-					"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet"
+					"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet",
 				}
 			},
 			"button": {
@@ -1418,7 +1449,10 @@
 				"print": "Drucken",
 				"save": "Speichern und Abschicken",
 				"toClass": "Zum Kurs",
-				"toTheCourseFiles": "Zu den Kursdateien"
+				"toCourseAlt" : "Zum Kurs der Aufgabe",
+				"toTheCourseFiles": "Zu den Kursdateien",
+				"toTopicAlt" : "Zum Thema der Aufgabe",
+				"onTheSubject": "Zum Thema"
 			},
 			"global": {
 				"label": {
@@ -1431,6 +1465,11 @@
 					"title": "Titel",
 					"topic": "Thema",
 					"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
+				},
+				"input" : {
+					"gradeComment" : "Bewertungskommentar",
+					"noAssignment" : "Keine Zuordnung",
+					"title" : "Titel"
 				},
 				"placeholder": {
 					"description": "Finde heraus warum..."
@@ -1553,6 +1592,9 @@
 					"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
 				}
 			},
+			"default": {
+				"yourDigitalLearningEnvironment" : "Deine digitale Lernumgebung"
+			},
 			"error": {
 				"button": {
 					"hideDetails": "Details verstecken",
@@ -1568,19 +1610,29 @@
 			"extended_footer": {
 				"heading": {
 					"contact": "Kontakt",
+					"links" : "Links",
 					"vacancies": "Stellenausschreibungen"
+				},
+				"img_alt" :{
+					"nowAtGooglePlay" : "Jetzt bei Google Play"
 				},
 				"link": {
 					"contentProviders": "Inhalteanbieter:",
+					"devOps" : "DevOps",
 					"generalInquiries": "Allgemeine Anfragen:",
+					"mobileApp" : "Mobile App",
 					"privacy": "Datenschutz:",
-					"subscribeTheNewsletter": "Newsletter abonnieren"
+					"subscribeTheNewsletter": "Newsletter abonnieren",
+					"support" : "Support:"
 				},
 				"text": {
 					"weAreHiring": "Du möchtest gerne Mitglied in unserem <span style='white-space: nowrap;'>HPI Schul-Cloud</span> Team werden? Wir suchen:"
 				}
 			},
 			"footer": {
+				"img_alt" :{
+					"providerLogo" : "Anbieterlogo"
+				},
 				"link": {
 					"contact": "Kontakt"
 				}
@@ -1638,7 +1690,12 @@
 					"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
 					"imprint": "Impressum",
 					"participate": "Mitmachen",
-					"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud"
+					"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud",
+					"team" : "Team",
+					"partner" : "Partner",
+					"github" :"GitHub",
+					"status" : "Status",
+					"safety" : "Sicherheit"
 				}
 			},
 			"header": {
@@ -1651,9 +1708,16 @@
 					"openGame": "Spiel öffnen",
 					"playEnterTheCloud": "Enter The Cloud spielen"
 				},
+				"img_alt" : {
+					"learnCloud" : "Lern Cloud"
+				},
 				"input": {
 					"password": "Passwort:",
 					"userName": "Benutzername:"
+				},
+				"label" : {
+					"help" : "Hilfe",
+					"playEnterTheCloud" :"Enter The Cloud spielen"
 				},
 				"link": {
 					"Fortbildungen": "Fortbildungen",
@@ -1669,6 +1733,19 @@
 				}
 			},
 			"loggedin": {
+				"img_alt" : {
+					"logoOfSchool" : "Logo von {{name}}"
+				},
+				"input" :{
+					"searchFor" : "Suche nach..."
+				},
+				"label" : {
+					"fullscreen" : "Fullscreen",
+					"thereIsAProblem" : "Es gibt ein Problem",
+					"qrCode" : "QR-Code",
+					"printQrCode" : "QR-Code drucken",
+					"notifications" : "Benachrichtigungen"
+				},
 				"tab_label": {
 					"settings": "Einstellungen",
 					"signOut": "Abmelden"
@@ -1804,10 +1881,19 @@
 				"headline": {
 					"createNews": "News erstellen",
 					"editNews": "News bearbeiten"
+				},
+				"input" : {
+					"title" : "Titel"
+				},
+				"label" : {
+					"contentOfMessage" : "Inhalt der Nachricht..."
 				}
 			},
 			"button": {
-				"addNews": "News hinzufügen"
+				"addNews": "News hinzufügen",
+				"editNews" :"Bearbeiten",
+				"editNewsAlt" : "Artikel '{{title}}' bearbeiten.",
+				"deleteNewsAlt" : "Artikel '{{name}}' löschen"
 			},
 			"headline": {
 				"news": "Neuigkeiten",
@@ -2392,9 +2478,9 @@
 				"label": {
 					"addPrivateTask": "private Aufgabe hinzufügen",
 					"addTask": "Aufgabe hinzufügen",
+					"expandTasks" : "gestellte Aufgaben ein/ausklappen",
+					"expandPrivateTasks" : "Private Aufgaben ein/ausklappen",
 					"content": "Inhalte",
-					"expandPrivateTasks": "Private Aufgaben ein/ausklappen",
-					"expandTasks": "gestellte Aufgaben ein/ausklappen",
 					"titleOfTheTopic": "Titel des Themas"
 				},
 				"text": {
