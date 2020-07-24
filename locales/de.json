@@ -1208,11 +1208,6 @@
 		}
 	},
 	"help": {
-		"anchor": {
-			"title": {
-				"section": "Go to {{section}} section"
-			}
-		},
 		"contactForm": {
 			"text": {
 				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
