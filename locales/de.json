@@ -83,11 +83,11 @@
 			"termsOfUse": "Nutzung"
 		}
 	},
-	"autologout" : {
-		"text" : {
-			"sessionAlreadyExpired" : "Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.",
-			"sessionCouldNotBeExtended" : "Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.",
-			"sessionExtended" : "Sitzung erfolgreich verlängert."
+	"autologout": {
+		"text": {
+			"sessionAlreadyExpired": "Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.",
+			"sessionCouldNotBeExtended": "Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.",
+			"sessionExtended": "Sitzung erfolgreich verlängert."
 		}
 	},
 	"calendar": {
@@ -136,11 +136,44 @@
 			"pleaseContactEither": "Kontaktieren Sie bitte entweder Frau Julia Günther:",
 			"pleaseContactTheFollowingEmailAddress": "Bitte kontaktieren Sie folgende E-Mail-Adresse, um den Registrierungsvorgang zu starten:",
 			"theCentralOfficeForSchools": "Die Zentralstelle für das Auslandsschulwesen (ZfA) unterstützt Sie im Registrierungsprozess.",
-			"youCanGetSupport": "Unterstützung bei der Einarbeitung in die Schul-Cloud und Erstellung erster Inhalte erhalten Sie hier:",
+			"youCanGetSupport": "Unterstützung bei der Einarbeitung in die HPI Schul-Cloud und Erstellung erster Inhalte erhalten Sie hier:",
 			"youWillThenBeGiven": "Ihnen werden dann alle nötigen Infos mitgeteilt, sodass es bald losgehen kann."
 		}
 	},
 	"content": {
+		"button": {
+			"choose": "Wähle..."
+		},
+		"headline": {
+			"addContentToTopic": "Material zu Thema hinzufügen",
+			"contentCantBeAddedInDemo": "<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>",
+			"contentStore": "Lern-Store",
+			"entriesPerPage": "Einträge pro Seite",
+			"fileType": "Dateityp",
+			"nSearchResultsFoundWith": "{{ searchResultsTotal }} Suchergebnisse für \"{{ query }}\"",
+			"noResultsFoundWith": "Es wurden keine Suchergebnisse für \"{{ query }}\" gefunden",
+			"sortBy": "Sortierung",
+			"youAreLeavingSC": "Sie verlassen jetzt die HPI Schul-Cloud"
+		},
+		"input": {
+			"searchInSC": "In der HPI Schul-Cloud suchen"
+		},
+		"label": {
+			"chooseACourse": "Wähle einen Kurs / Fach",
+			"chooseALessonTopic": "Wähle ein Unterrichtsthema",
+			"entriesPerPage": "Einträge pro Seite: %1",
+			"fileType": "Dateitypen: %1",
+			"sortBy": "Sortieren nach: %1"
+		},
+		"text": {
+			"date": "Aktualität",
+			"popularity": "Beliebtheit",
+			"provider": "Anbieter",
+			"text": "Text",
+			"viaProvider": "via {{provider}}",
+			"video": "Video",
+			"youAreRedirectedToProvider": "Sie werden auf die Seite von <span class=\"provider\">einem externen Anbieter</span> weitergeleitet."
+		},
 		"form_add_lesson": {
 			"button": {
 				"choose": "Wähle..."
@@ -540,6 +573,7 @@
 			"myMaterials": "Meine Materialien",
 			"news": "Neuigkeiten",
 			"openTasks": "Gestellte Aufgaben",
+			"poll2Title": "Befragung II im Projekt HPI Schul-Cloud",
 			"privateTasks": "Private Aufgaben und Entwürfe",
 			"schedule": "Stundenplan",
 			"tasks": "Aufgaben",
@@ -637,8 +671,8 @@
 			"saveChanges": "Änderungen Speichern",
 			"tryAgain": "Erneut Versuchen"
 		},
-		"error" : {
-			"requestTimeout" : "Zeitüberschreitung der Anfrage"
+		"error": {
+			"requestTimeout": "Zeitüberschreitung der Anfrage"
 		},
 		"label": {
 			"room": "Raum"
@@ -866,8 +900,8 @@
 			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
-			"importing" : "importiere",
-			"importSubmission" : "Abgabe des Schülers importieren",
+			"importing": "importiere",
+			"importSubmission": "Abgabe des Schülers importieren",
 			"print": "Drucken",
 			"save": "Speichern und Abschicken",
 			"toClass": "Zum Kurs",
@@ -914,13 +948,13 @@
 			"submissionsWithoutFeedback": "unkommentierte Abgaben"
 		},
 		"text": {
-			"activatingThisMakesSubmissionsPublic" : "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
-			"creatorCanNotBeRemoved" : "Du darfst den Ersteller der Aufgabe nicht entfernen!",
+			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
+			"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
-			"doYouReallyWantToDelete" : "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
-			"doYouReallyWantToReplaceSubmission" : "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
-			"fileAlreadyExists" : "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
-			"maximumTeamSize" : "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
+			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
+			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
+			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
+			"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
 			"noAssignment": "Keine Zuordnung",
 			"noDescriptionAvailable": "keine Beschreibung vorhanden",
 			"noEvaluationTextAvailable": "Noch kein Kommentar vorhanden.",
@@ -930,7 +964,7 @@
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
-			"ratingHasBeenSaved" : "Bewertung wurde gespeichert!",
+			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 		}
 	},
@@ -970,7 +1004,7 @@
 			},
 			"text": {
 				"ifYouDontWantToTakeAnyAction": "Solltest du keine Aktion ausführen wollen, schließe bitte diesen Tab in deinem Browser.",
-				"theSchoolCloudWasEmbedded": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren,",
+				"theSchoolCloudWasEmbedded": "Die HPI Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren,",
 				"unfortunatelyTheRequestFailedAgain": "Die Anfrage ist leider erneut fehlgeschlagen. Um mit der Nutzung fortzufahren, lade die Seite bitte neu.",
 				"weCouldNotMakeSureThat": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke auf den Button unten zum erneuten Laden der Seite.",
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
@@ -1145,7 +1179,7 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login mit Schul-Cloud"
+				"loginWithSchoolCloud": "Login mit HPI Schul-Cloud"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",
@@ -1154,7 +1188,7 @@
 				"yourName": "deinen Namen"
 			},
 			"text": {
-				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
+				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der HPI Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
 			}
 		},
 		"popup_resetPw": {
@@ -1187,7 +1221,7 @@
 			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
 			"loginFailedFithHintText": "Hier findest du alle HPI Schul-Could Instanzen:",
 			"loginFailedScreenshot": "Login fehlgeschlagen",
-			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
+			"loginFailedLogoSchulCloud": "Logo HPI Schul-Cloud",
 			"loginFailedLogoBrandenburg": "Logo Brandenburg",
 			"loginFailedLogoNiedersachen": "Logo Niedersachsen",
 			"loginFailedLogoOpen": "Logo Open",
@@ -1226,6 +1260,23 @@
 			"unpublished": "Unveröffentlicht"
 		}
 	},
+	"partner": {
+		"headline": {
+			"advisoryBoard": "Fachbeirat",
+			"partner": "Partner",
+			"pilotPartners": "Pilotpartner für Lerninhalte",
+			"projectExecution": "Projektdurchführung",
+			"supporters": "Unterstützer für Schulinfrastruktur <3"
+		},
+		"img-alt": {
+			"logo": "Logo"
+		},
+		"text": {
+			"advisoryBoardDescription": "Das HPI Schul-Cloud Projekt wird von einem Fachbeirat unterstützt, der sich aus verschiedenen Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben technischen Aspekten, auch Themen wie Datenschutz und Pädagogik.",
+			"pilotPartnersDescription": "Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die HPI Schul-Cloud erfahrbar wird.",
+			"supportersDescription": "Wir danken unseren Unterstützern für Schulinfrastruktur."
+		}
+	},
 	"pwRecovery": {
 		"failed": {
 			"text": {
@@ -1241,9 +1292,9 @@
 		},
 		"response": {
 			"text": {
-				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
+				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der HPI Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
 				"didYouRegisterCorrectly": "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einem Lehrer oder Schuladministrator bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
-				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der Schul-Cloud einzuloggen.",
+				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der HPI Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der HPI Schul-Cloud einzuloggen.",
 				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
 				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
 			}
@@ -1258,6 +1309,12 @@
 		}
 	},
 	"registration": {
+		"headline": {
+			"registrationEmployee": "Registrierung - {{role}}",
+			"registrationParents": "Registrierung - Eltern",
+			"registrationStudents": "Registrierung - Schüler*",
+			"welcomeToRegistration": "Herzlich willkommen bei der Registrierung"
+		},
 		"_registration": {
 			"employee": {
 				"heading": {
@@ -1373,7 +1430,7 @@
 				"text": {
 					"pleaseConfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{shortTitle}} nutzen kannst.",
 					"useThisDataToSignIn": "Mit folgenden Daten kannst du dich in der {{shortTitle}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.",
-					"youCanNowLogin": "Du kannst dich jetzt in der Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
+					"youCanNowLogin": "Du kannst dich jetzt in der HPI Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
 					"yourSSOAccountDetails": "Deine SSO-Accountdaten sind jetzt freigeschaltet."
 				}
 			},
