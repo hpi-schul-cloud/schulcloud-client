@@ -915,7 +915,6 @@
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileMoved": "Verschieben der Datei war erfolgreich!",
-				"permissionsChangedFail": "Problem beim Ändern der Berechtigungen",
 				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
 				"pleaseSelectFileType": "Bitte wähle einen Dateityp aus.",
 				"renameDirSuccess": "Umbenennen des Ordners war erfolgreich!",
@@ -1048,6 +1047,7 @@
 			"402": "Diese Funktion musst du erst noch bezahlen.",
 			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
 			"404": "Ups, diese Seite gibt's wohl nicht.",
+			"changingFilePermissions": "Problem beim Ändern der Berechtigungen",
 			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
 			"pageMoved": "Diese Seite wurde verschoben.",
 			"requestTimeout": "Zeitüberschreitung bei der Anfrage",
@@ -2073,7 +2073,6 @@
 					"folders": "Ordner"
 				},
 				"text": {
-					"changedFilePermissionsError": "Problem beim Ändern der Berechtigungen",
 					"changedFilePermissionsSuccess": "Standard-Berechtigungen erfolgreich geändert"
 				}
 			},
