@@ -379,9 +379,7 @@
 			"chooseATeam": "Wähle eine Team"
 		},
 		"headline": {
-			"addDate": "Termin hinzufügen",
-			"calendar": "Kalender",
-			"dateDetails": "Termin - Details"
+			"calendar": "Kalender"
 		},
 		"input": {
 			"egGym": "z.B. Turnhalle",
@@ -1054,7 +1052,9 @@
 			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
 		},
 		"headline": {
+			"addDate": "Termin hinzufügen",
 			"assignedTasks": "Gestellte Aufgaben",
+			"dateDetails": "Termin - Details",
 			"delete": "Löschen",
 			"edit": "Bearbeiten",
 			"files": "Dateien",
@@ -2052,10 +2052,6 @@
 			"events": {
 				"button": {
 					"addDate": "Termin anlegen"
-				},
-				"headline": {
-					"addDate": "Termin hinzufügen",
-					"dateDetails": "Termin - Details"
 				}
 			},
 			"files": {
