@@ -1,6 +1,6 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
-  <h2 class="h4">Einwilligungserklärung</h2>
-  <p>Bitte bestätige folgende Einwilligungserklärungen, damit du die {{@root.theme.title}} nutzen kannst.</p>
-  <p>Ich, <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, erkläre folgendes:</p>
+  <h2 class="h4">{{$t "firstLogin.global.heading.declarationOfConsent" }}</h2>
+  <p>{{$t "firstLogin.consent.text.pleaseConfirmTheFollowingDeclarationOfConsent" (dict "title" @root.theme.title)}}</p>
+  <p>{{$t "firstLogin.consent.text.i" }} <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, {{$t "firstLogin.consent.text.explainTheFollowing" }}</p>
   {{> "registration/forms/einwilligungserklaerung"}}
 </section>
