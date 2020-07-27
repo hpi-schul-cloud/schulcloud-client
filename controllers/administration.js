@@ -424,7 +424,7 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 		const birthday = req.body.birthday.split('.');
 		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
 			birthday[0]
-		}T00:00:00Z`;
+			}T00:00:00Z`;
 	}
 	return api(req)
 		.post('/users/', {
@@ -1211,7 +1211,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 		const birthday = req.body.birthday.split('.');
 		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
 			birthday[0]
-		}T00:00:00Z`;
+			}T00:00:00Z`;
 	}
 
 	const promises = [];
@@ -1804,9 +1804,9 @@ const renderClassEdit = (req, res, next) => {
 
 						if (currentClass.year) {
 							isUpgradable = (lastDefinedSchoolYearId !== (currentClass.year || {}))
-							&& currentClass.gradeLevel
-							&& currentClass.gradeLevel !== 13
-							&& !currentClass.successor;
+								&& currentClass.gradeLevel
+								&& currentClass.gradeLevel !== 13
+								&& !currentClass.successor;
 						}
 					}
 
@@ -2576,7 +2576,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		delete req.body.videoconference;
 
 		// Toggle teacher's studentVisibility permission
-		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY');
+		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
 		const isStudentVisibilityEnabled = (res.locals.currentSchoolData.features || []).includes(
 			'studentVisibility',
 		);
@@ -2892,7 +2892,7 @@ router.all('/teams', async (req, res, next) => {
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'disabled' : 'btn-remove-members'
-							}`,
+								}`,
 							icon: 'user-times',
 							data: {
 								name: item.name,
@@ -2912,7 +2912,7 @@ router.all('/teams', async (req, res, next) => {
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'btn-delete-team' : 'disabled'
-							}`,
+								}`,
 							icon: 'trash-o',
 							data: {
 								name: item.name,

@@ -61,7 +61,7 @@ module.exports = [
 		team: [
 			{
 				subheader_before: 'Hasso-Plattner-Institut',
-				title: '',
+				title: 'Dr.',
 				firstName: 'Jan',
 				lastName: 'Renz',
 				position: 'Technischer Leiter, HPI',

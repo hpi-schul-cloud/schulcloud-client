@@ -15,5 +15,12 @@
                 <p>{{$t "homework.text.noEvaluationTextAvailable" }}</p>
             {{/if}}
         </div>
+        {{#ifneq 0 (arrayLength @root.submission.gradeFileIds)}}
+            {{#embed "homework/components/submission_files"
+                fileIds=../submission.gradeFileIds
+                grading=true
+                deletionAllowed=false
+                submission=../submission}}{{/embed}}
+        {{/ifneq}}
     </div>
 </section>
