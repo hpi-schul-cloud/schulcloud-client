@@ -1277,6 +1277,7 @@
 		"form_bug": {
 			"label": {
 				"emailAddressForAnyQueries": "E-Mail-Adresse für eventuelle Rückfragen",
+				"maxSizeFiles": "Bilder, Videos und Dateien",
 				"problemDescription": "Problembeschreibung:",
 				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
 			},

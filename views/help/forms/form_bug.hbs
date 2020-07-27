@@ -36,7 +36,7 @@
 {{#ifEnv "FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED" "true"}}
 <br>
 <label class="form-group">
-    <span class="control-label">Bilder, Videos und Dateien (max. {{ ../formAttachmentsSize }}MB):</span>
+    <span class="control-label">{{$t "help.form_bug.label.maxSizeFiles" }} (max. {{ ../formAttachmentsSize }}MB):</span>
     <input type="file" class="form-control-file" name="file" multiple="multiple" accept="image/*,video/*,application/msword,application/pdf"
 		data-max-attachment-size-mb="{{ ../formAttachmentsSize }}">
 </label>
