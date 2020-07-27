@@ -1,25 +1,25 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
-  <h2 class="h4">Ihre Daten</h2>
-  <p>Für Schüler unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahren bedarf ein Erziehungsberechtigter in die Nutzung der {{@root.theme.short_title}} einwilligen.</p>
-  <p>Dazu benötigen wir folgende Angaben von Ihnen:</p>
+  <h2 class="h4">{{$t "firstLogin.parent.heading.yourData" }}</h2>
+  <p>{{$t "firstLogin.parent.global.text.forStudentsUnder" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "shortTitle" @root.theme.short_title)}}</p>
+  <p>{{$t "firstLogin.parent.text.forThisWeNeedTheFollowingInformationFromYou" }}</p>
   <div class="row">
     <div class="form-group col-md-6 col-sm-12">
-      <label>Vorname: *</label>
-      <input class="form-control linked" name="parent_firstName" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
+      <label>{{$t "firstLogin.parent.global.label.firstName" }} *</label>
+      <input class="form-control linked" name="parent_firstName" type="text" placeholder= '{{$t "firstLogin.placeholder.enterYourFirstNameHere" }}' required/>
     </div>
     <div class="form-group col-md-6 col-sm-12">
-      <label>Nachname: *</label>
-      <input class="form-control linked" name="parent_lastName" type="text" placeholder="Ihren Nachname hier eingeben" required/>
+      <label>{{$t "firstLogin.parent.global.label.lastName" }} *</label>
+      <input class="form-control linked" name="parent_lastName" type="text" placeholder='{{$t "firstLogin.placeholder.enterYourLastNameHere" }}' required/>
     </div>
   </div>
 
   <div class="form-group">
-    <label>Ihre E-Mail-Adresse * <small>(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)</small></label>
+    <label>{{$t "firstLogin.parent.global.label.yourEmailAddress" }} * <small>{{$t "firstLogin.parent.global.label.mustNotBeYourChildsEmailAddress" }}</small></label>
     <input class="form-control" type="email" name="parent_email" required placeholder="eltern@schul-cloud.org" autocomplete />
   </div>
   <p class="explanation nomargin">
-    Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{@root.theme.short_title}} rechtlich gültig ist. Die {{@root.theme.short_title}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.
+    {{$t "firstLogin.parent.text.weNeedAnEmailAddress" (dict "shortTitle" @root.theme.short_title)}}
     <br/>
-    Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.
+    {{$t "firstLogin.text.inAdditionWeArePlanningToDevelop" }}
   </p>
 </section>

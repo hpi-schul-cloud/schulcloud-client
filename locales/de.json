@@ -1065,6 +1065,168 @@
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern"
 		}
 	},
+	"firstLogin": {
+		"birthdate": {
+			"text": {
+				"weNeedYourDateOfBirth": "Zur Vervollständigung deines Accounts benötigen wir noch dein Geburtsdatum:"
+			}
+		},
+		"button": {
+			"getStartedImmediately": "Sofort loslegen",
+			"logout": "Ausloggen",
+			"signOutAndCancel": "Abmelden und abbrechen",
+			"takeALookAtTheFirstSteps": "Erste Schritte anschauen"
+		},
+		"consent": {
+			"heading": {
+				"importantInformation": "Wichtige Information",
+				"summaryOfTheExtension": "Zusammenfassung der Erweiterung in der {{visualType}}",
+				"toThe": "zum"
+			},
+			"text": {
+				"and": "und",
+				"constantlyEvolving": "stetig weiterentwickelt. Im Zuge dessen hat sich",
+				"expanded": "erweitert oder spezifisch für deine Schule angepasst.",
+				"explainTheFollowing": "erkläre folgendes:",
+				"forAnEvenBetterLearningExperience": "Für ein noch besseres Lernerlebnis wird die {{title}} stetig weiterentwickelt. Im Zuge dessen hat sich",
+				"i": "Ich,",
+				"pleaseClickOnRead": "Bitte nimm mit Klick auf »Gelesen« diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
+				"pleaseConfirmTheFollowingDeclarationOfConsent": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{title}} nutzen kannst.",
+				"termsOfUse": "Nutzungsordnung",
+				"the": "die"
+			}
+		},
+		"email": {
+			"heading": {
+				"howCanWeContactYou": "Wie können wir dich erreichen?"
+			},
+			"text": {
+				"ifTheEmailAddressIsNotTheCorrectOne": "Sollte die E-Mail-Adresse nicht die richtige sein, wende dich bitte an deinen {{shortTitle}} -Administrator.",
+				"pleaseCheckYourEmail": "Bitte überprüfe deine E-Mail-Adresse:"
+			}
+		},
+		"global": {
+			"heading": {
+				"birthdate": "Geburtsdatum",
+				"declarationOfConsent": "Einwilligungserklärung"
+			},
+			"label": {
+				"birthdate": "Geburtsdatum:"
+			},
+			"text": {
+				"canUse": "nutzen kannst.",
+				"dataProtection": "Datenschutzerklärung"
+			}
+		},
+		"heading": {
+			"almostThere": "Fast geschafft!",
+			"sorryItDidnotWork": "Entschuldige, das hat nicht geklappt",
+			"youAlmostMadeIt": "Du hast es fast geschafft..."
+		},
+		"label": {
+			"newPassword": "Neues Passwort: ",
+			"repeatYourNewPassword": "Wiederhole dein neues Passwort:",
+			"under14YearsOld": "unter 14 Jahre alt."
+		},
+		"parent": {
+			"button": {
+				"exitAndContinueLater": "Beenden und später fortfahren"
+			},
+			"global": {
+				"label": {
+					"firstName": "Vorname:",
+					"lastName": "Nachname:",
+					"mustNotBeYourChildsEmailAddress": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
+					"yourEmailAddress": "Ihre E-Mail-Adresse "
+				},
+				"text": {
+					"forStudentsUnder": "Für Schüler unter {{age}} Jahren muss ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen."
+				}
+			},
+			"heading": {
+				"declarationOfConsentFromALegalGuardian": "Einverständniserklärung eines Erziehungsberechtigten benötigt",
+				"yourData": "Ihre Daten"
+			},
+			"label": {
+				"continueAsLegalGuardian": "als Erziehungsberechtigter fortfahren"
+			},
+			"text": {
+				"amLegalGuardianFor": "bin erziehungsberechtigt für {{firstName}} {{lastName}} und erkläre Folgendes:",
+				"andExplainTheFollowing": "und erkläre Folgendes:",
+				"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
+				"pleaseConfirmTheFollowingDeclaration": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der HPI Schul-Cloud nutzen kann:",
+				"sinsceYouAreUnder": "Da du unter {{age}} Jahre alt bist, wird die Einverständniserklärung eines Elternteils benötigt, damit du die {{shortTitle}} nutzen kannst.",
+				"theNextStepMustBeCarriedOut": "Die nächsten Schritte müssen von einem Erziehungsberechtigten durchgeführt werden.",
+				"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails."
+			}
+		},
+		"password": {
+			"text": {
+				"afterClickingThe": "Nach klicken des",
+				"allowedSpecialCharactersAre": "Erlaubte Sonderzeichen sind:",
+				"atlist8characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
+				"buttonsCanBeUsedAsUsual": "-Buttons kannst du dich wie gewohnt über das System deiner Schule (Moodle, iServ, ItsLearning etc.) in der {{title}} einloggen.",
+				"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
+				"submit": "Absenden"
+			}
+		},
+		"placeholder": {
+			"atList8CharactersWithUpperAndLower": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen.",
+			"enterYourFirstNameHere": "Ihren Vornamen hier eingeben",
+			"enterYourLastNameHere": "Ihren Nachname hier eingeben",
+			"newPassword": "Neues Passwort",
+			"repeatNewPassword": "Neues Passwort wiederholen"
+		},
+		"text": {
+			"between14And": "zwischen 14 und {{addConsent}} Jahre alt.",
+			"clickhereForFurtherTraining": "Hier gehts zur Fortbildung",
+			"fromYear": "ab {{age}} Jahre alt.",
+			"inAdditionWeArePlanningToDevelop": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
+			"justHaveALook": "Schau einfach mal vorbei!",
+			"linguisticNote": "Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
+			"pleaseChangeTheStartPassword": "Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!",
+			"pleaseChoose": "Bitte wähle: Ich bin...",
+			"yourLoginWorksButThereIsAProblem": "Dein Login funktioniert, allerdings gibt es ein Problem mit deinen Einverständniserklärungen. Bitte wende dich an deinen Lehrer oder einen Administrator."
+		},
+		"thanks": {
+			"img_alt": {
+				"onlineTraining": "Online-Fortbildung",
+				"questionMark": "Fragezeichen"
+			},
+			"text": {
+				"andLearnEverythingYouNeed": "und erfahre dort in anschaulichen Erklärvideos alles was du als Admin wissen musst!",
+				"forVividAndPracticalVideos": "für anschauliche und praxisnahe Videos und finde es heraus!",
+				"inTheTopRightOfOur": "oben rechts in unseren",
+				"nowTeachersCanInviteToCoursesAndAccess": "Nun kannst du von deinen Lehrkräften in Kurse eingeladen werden und dort auf Unterrichtsmaterialien und Aufgaben zugreifen. Du hast auch einen eigenen Dateibereich, wo du wichtige Dokumente und Ordner ablegen kannst. Viel Spaß beim Erkunden!",
+				"overEveryPageInThe": "Über jede Seite in der {{shortTitle}} kommst du mit Klick auf das",
+				"thereYouWillFindDetailedInstructions": "Dort findest du zu beinahe jedem Thema ausführliche Anleitungen und Bilderstrecken.",
+				"whatCanActuallydo": "Was kann die {{shortTitle}} eigentlich? Und wie kann ich meinen Unterricht damit organisieren, gestalten und durchführen? Besuche unsere",
+				"youAreAdminAndHaveTheHonorable": "Du bist Admin und hast die ehrenvolle Aufgabe, die {{title}} für deine Schule einzurichten? Wir lassen dich mit dieser wichtigen Aufgabe nicht allein. Besuche unsere"
+			}
+		},
+		"welcome": {
+			"button": {
+				"createYourFirstCourse": "Erstelle deinen ersten Kurs",
+				"toYourCourses": "Zu deinen Kursen"
+			},
+			"heading": {
+				"congratulations": "Herzlichen Glückwunsch, {{firstName}} {{lastName}}",
+				"welcomeToThe": "Herzlich willkommen in der {{shortTitle}} {{firstName}} {{lastName}}"
+			},
+			"text": {
+				"dueToAChangeInTheLowerSaxony": "aufgrund einer Änderung des Niedersächsischen Schulgesetzes basiert die Verarbeitung personenbezogener Daten in der {{shortTitle}} nun grundsätzlich auf § 31 Abs. 5 NSchG in Verbindung mit Art. 6 Abs. 1 lit. c) DSGVO.",
+				"pleaseBrieflyFileSomeData": "Bitte gleiche kurz ein paar Daten ab, lege ein neues Passwort fest und dann kann es auch schon losgehen.",
+				"thankYouForTakingNoteOf": "Vielen Dank für die Kenntnisnahme.",
+				"weArePleasedThatYou": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest.",
+				"weArePleasedThatYouWantToUse": "Wir freuen uns, dass du die {{title}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform. Bitte überprüfe in den kommenden Schritten die für dich angegebene E-Mail-Adresse und stimme den Nutzungsbedingungen zu. Ein Erziehungsberechtigter hat der Nutzung bereits zugestimmt, jetzt bist du gefragt. Ändere anschließend dein Startpasswort, damit du die Vorteile der {{shortTitle}} nutzen kannst.",
+				"welcomeBackTothe": "Herzlich willkommen zurück in der {{shortTitle}} {{firstName}} {{lastName}}",
+				"welcomeTo": "Willkommen in der {{title}} {{displayName}}",
+				"welcomeToTh": "Willkommen in der {{shortTitle}}",
+				"withThe": "Mit der {{shortTitle}} Unterricht digital gestalten",
+				"youAreNow14YearsOld": "Du bist jetzt 14 Jahre alt. Bitte erkläre im folgenden Schritt dein Einverständnis zur Nutzung der {{title}}  Ab 14 Jahren ist dies zusätzlich zum bereits erklärten Einverständnis deiner Eltern nötig, damit du die {{shortTitle}} weiter nutzen kannst."
+			}
+		}
+	},
 	"global": {
 		"button": {
 			"accept": "Akzeptieren",
