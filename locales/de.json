@@ -325,80 +325,6 @@
 				"yourStudentsAreUnder": "Deine Schüler sind unter {{age}} Jahre alt?"
 			}
 		},
-		"label": {
-			"assignPassword": "Passwort vergeben:",
-			"birthdate": "Geburtsdatum:",
-			"classes": "Klassen:",
-			"dataProtection": "Datenschutz",
-			"emailAddress": "E-Mail-Adresse:",
-			"firstName": "Vorname:",
-			"lastName": "Nachname:",
-			"parents": "Eltern",
-			"student": "Schüler:in",
-			"termsOfUse": "Nutzung"
-		},
-		"ldapSchoolYearStart": {
-			"button": {
-				"closeTheWindow": "Fenster schließen"
-			},
-			"heading": {
-				"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr",
-				"LDAPClasses": "LDAP-Klassen",
-				"LDAPUsers": "LDAP-Nutzer"
-			},
-			"text": {
-				"onThisPageYouWillFindTheData": "Auf dieser Seite findest du die Daten aller Klassen und Nutzer, so wie sie die {{shortTitle}} aus deinem LDAP übernehmen wird. Bitte überprüfe vor Übernahme der Daten durch Beenden der Transferphase diese Daten stichprobenartig auf ihre Richtigkeit."
-			}
-		},
-		"ldapEdit": {
-			"button": {
-				"verify": "Verifizieren"
-			},
-			"heading": {
-				"classAttributes": "Klassen-Attribute",
-				"importantNote": "Wichtiger Hinweis",
-				"roleAttributes": "Rollen-Attribute",
-				"userAttributes": "Nutzer-Attribute"
-			},
-			"input": {
-				"classes": "Klassen (optional)"
-			},
-			"label": {
-				"classPath": "Klassen-Pfad",
-				"classUsers": "Nutzer der Klasse",
-				"displayName": "Anzeige-Name",
-				"domainName": "Domain-Name",
-				"domainName_pathInLDAP": "Domainname (Pfad im LDAP)",
-				"fullPathClassUsers": "Nutzer der Klasse mit vollem Pfad",
-				"hide": "Ausblenden",
-				"noSchoolCloud": "keine HPI Schul-Cloud",
-				"role": "Rolle",
-				"rolesAttributes": "Rollen-Attribute",
-				"rolesAttributesDescription": "Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
-				"rolesLDAPPaths": "Rollen-LDAP-Pfade",
-				"rolesLDAPPathsDescription": "Welche LDAP-Gruppe definiert die genannten Rolle? Geben Sie den vollen Pfad (inkl. root-Pfad) an",
-				"roleType": "Rollen-Typ",
-				"rootPath": "root-Pfad",
-				"seacrhUserpassword": "search-Nutzer Passwort",
-				"searchUsers": "search-Nutzer",
-				"show": "Einblenden",
-				"urlIdapIsMandatory": "URL (ldaps ist verpflichtend)",
-				"userPath": "Nutzer-Pfad",
-				"users": "Nutzer:"
-			},
-			"placeholder": {
-				"general": "Allgemein",
-				"LDAPGroup": "LDAP-Gruppe",
-				"userAttribute": "Nutzer-Attribut"
-			},
-			"text": {
-				"anyChangesToTheFollowingConfigurationCanResult": "Jegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und alle Nutzer Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die Änderungen final zu speichern, wenn die Verifizierung erfolgreich war.",
-				"errorActivation": "Problem bei der Aktivierung",
-				"errorLDAPTimeout": "LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.",
-				"errorTimeout": "Zeitüberschreitung der Anwendung",
-				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!"
-			}
-		},
 		"dashboard": {
 			"heading": {
 				"manageClasses": "Klassen verwalten",
@@ -440,8 +366,8 @@
 		"form_InvitationStudent": {
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der HPI Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
-				"studentsFromYears": "Schüler ab {{age}} Jahre:",
 				"studentUnderYears": "Schüler unter {{age}} Jahre:",
+				"studentsFromYears": "Schüler ab {{age}} Jahre:",
 				"theParents": "die Eltern",
 				"toTheStudentsThemselves": "an die Schüler selbst "
 			}
@@ -480,10 +406,10 @@
 		},
 		"form_TerminateSchoolYear": {
 			"text": {
+				"TheSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data",
 				"isEndedAndTheTransferPhase": "wird beendet und die Transferphase zum neuen Schuljahr beginnt.",
 				"noClassesAndUsersCanBeCreated": "Es können in dieser Zeit keine Klassen und Nutzer angelegt oder geändert werden.",
 				"theSchoolYear": "Das Schuljahr",
-				"TheSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data",
 				"thisStepCannotBeUndone": "Dieser Schritt kann nicht rückgängig gemacht werden."
 			}
 		},
@@ -501,10 +427,16 @@
 				"printSheetIsBeingGenerated": "Druckbogen wird generiert...",
 				"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden"
 			},
+			"helpdesk": {
+				"label": {
+					"tips": "Tipp:"
+				},
+				"text": {
+					"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
+					"youCanAlsoOpenEntries": "Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol"
+				}
+			},
 			"label": {
-				"messageText": "Nachrichtentext:",
-				"toInviteToTheSchoolCloud": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:",
-				"use": "Nutzung",
 				"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 				"assignPassword": "Passwort vergeben:",
 				"birthdate": "Geburtsdatum:",
@@ -518,6 +450,7 @@
 				"from": "Von",
 				"lastName": "Nachname:",
 				"lengthOfLesson": "Dauer der Schulstunde",
+				"messageText": "Nachrichtentext:",
 				"nameOfTheCourse": "Name des Kurses",
 				"parents": "Eltern",
 				"password": "Passwort:",
@@ -532,17 +465,10 @@
 				"termsOfUse": "Nutzungsbedingungen",
 				"timeSpan": "Zeitraum (z.B. Schuljahr)",
 				"to": "Bis",
+				"toInviteToTheSchoolCloud": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:",
 				"type": "Typ",
+				"use": "Nutzung",
 				"weekday": "Wochentag"
-			},
-			"helpdesk": {
-				"label": {
-					"tips": "Tipp:"
-				},
-				"text": {
-					"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
-					"youCanAlsoOpenEntries": "Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol"
-				}
 			},
 			"text": {
 				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
@@ -558,10 +484,84 @@
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
 				"orSelectStudentFromTable": "Oder wähle Schüler:innen in der Tabelle aus.",
 				"provideYourStudentsAnd": "Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.",
-				"studentsLoginInThePresenceOfGuardian": "Schüler:innen loggen sich in Anwesenheit eines Erziehungberechtigten ein",
 				"studentUnder": "Schüler unter",
+				"studentsLoginInThePresenceOfGuardian": "Schüler:innen loggen sich in Anwesenheit eines Erziehungberechtigten ein",
 				"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
 				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet"
+			}
+		},
+		"label": {
+			"assignPassword": "Passwort vergeben:",
+			"birthdate": "Geburtsdatum:",
+			"classes": "Klassen:",
+			"dataProtection": "Datenschutz",
+			"emailAddress": "E-Mail-Adresse:",
+			"firstName": "Vorname:",
+			"lastName": "Nachname:",
+			"parents": "Eltern",
+			"student": "Schüler:in",
+			"termsOfUse": "Nutzung"
+		},
+		"ldapEdit": {
+			"button": {
+				"verify": "Verifizieren"
+			},
+			"heading": {
+				"classAttributes": "Klassen-Attribute",
+				"importantNote": "Wichtiger Hinweis",
+				"roleAttributes": "Rollen-Attribute",
+				"userAttributes": "Nutzer-Attribute"
+			},
+			"input": {
+				"classes": "Klassen (optional)"
+			},
+			"label": {
+				"classPath": "Klassen-Pfad",
+				"classUsers": "Nutzer der Klasse",
+				"displayName": "Anzeige-Name",
+				"domainName": "Domain-Name",
+				"domainName_pathInLDAP": "Domainname (Pfad im LDAP)",
+				"fullPathClassUsers": "Nutzer der Klasse mit vollem Pfad",
+				"hide": "Ausblenden",
+				"noSchoolCloud": "keine HPI Schul-Cloud",
+				"role": "Rolle",
+				"roleType": "Rollen-Typ",
+				"rolesAttributes": "Rollen-Attribute",
+				"rolesAttributesDescription": "Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
+				"rolesLDAPPaths": "Rollen-LDAP-Pfade",
+				"rolesLDAPPathsDescription": "Welche LDAP-Gruppe definiert die genannten Rolle? Geben Sie den vollen Pfad (inkl. root-Pfad) an",
+				"rootPath": "root-Pfad",
+				"seacrhUserpassword": "search-Nutzer Passwort",
+				"searchUsers": "search-Nutzer",
+				"show": "Einblenden",
+				"urlIdapIsMandatory": "URL (ldaps ist verpflichtend)",
+				"userPath": "Nutzer-Pfad",
+				"users": "Nutzer:"
+			},
+			"placeholder": {
+				"LDAPGroup": "LDAP-Gruppe",
+				"general": "Allgemein",
+				"userAttribute": "Nutzer-Attribut"
+			},
+			"text": {
+				"anyChangesToTheFollowingConfigurationCanResult": "Jegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und alle Nutzer Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die Änderungen final zu speichern, wenn die Verifizierung erfolgreich war.",
+				"errorActivation": "Problem bei der Aktivierung",
+				"errorLDAPTimeout": "LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.",
+				"errorTimeout": "Zeitüberschreitung der Anwendung",
+				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!"
+			}
+		},
+		"ldapSchoolYearStart": {
+			"button": {
+				"closeTheWindow": "Fenster schließen"
+			},
+			"heading": {
+				"LDAPClasses": "LDAP-Klassen",
+				"LDAPUsers": "LDAP-Nutzer",
+				"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
+			},
+			"text": {
+				"onThisPageYouWillFindTheData": "Auf dieser Seite findest du die Daten aller Klassen und Nutzer, so wie sie die {{shortTitle}} aus deinem LDAP übernehmen wird. Bitte überprüfe vor Übernahme der Daten durch Beenden der Transferphase diese Daten stichprobenartig auf ihre Richtigkeit."
 			}
 		},
 		"school": {
@@ -625,13 +625,13 @@
 				"backgroundSoThatEveryStudentAndTeacher": "Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen(z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
 				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
 				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
+				"fileSelected": "Datei ausgewählt",
 				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team die Chatfunktion gezielt freischalten.",
 				"ifThereIsNoManualStart": "ist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch",
 				"ifVideoConferenceAreActivatedAtYourSchool": "Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer starten. Team-Administratoren können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
 				"loginViaLDAP": "der Login via LDAP ist für bestehende Nutzer weiterhin möglich",
 				"newSchoolYear": "Neues Schuljahr",
-				"fileSelected": "Datei ausgewählt",
 				"newUsersClassAffiliationsAnd": "neue dazugekommen Nutzer, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden beständig synchronisiert",
 				"newUsersClassesAndChanges": "neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus dem LDAP synchronisiert",
 				"noFileSelected": "Keine Datei ausgewählt",
@@ -658,9 +658,9 @@
 				"sendRegistrationLinkToStudent": "Registrierungslink an Schüler:innen senden"
 			},
 			"text": {
+				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
 				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler:innen ohne vollständige Einverständniserklärung:",
-				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
 				"parentsAgreed": "Eltern haben zugestimmt",
 				"studentsStillNeedTheDecalaration": "Schüler benötigen noch die Einverständniserklärung zur Nutzung der",
 				"yearsFirstRequireTheConsent": "Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären."
@@ -717,7 +717,7 @@
 				"noParticipants": "Keine Teilnehmer",
 				"noSchools": "Keine Schulen",
 				"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
-				"teamHasOwners": "Team hat Eigentümer",
+				"teamHasOwners": "Team hat Eigentümer"
 			}
 		},
 		"text": {
@@ -1562,6 +1562,11 @@
 				"teams": "Teams"
 			}
 		},
+		"skipLinks": {
+			"footerSkipLink": "Footer",
+			"mainContentSkipLink": "Hauptbereich",
+			"topNavbarSkipLink": "Navigation oben"
+		},
 		"text": {
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
@@ -1579,9 +1584,15 @@
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
 		},
+		"title": {
+			"landing": "Startseite"
+		},
 		"topMenu": {
 			"ariaLabel": "topbar",
 			"dropdown": {
+				"QRCode": {
+					"title": "QR-Code"
+				},
 				"alertButton": {
 					"title": "Es gibt ein Problem"
 				},
@@ -1593,20 +1604,9 @@
 				},
 				"notifications": {
 					"title": "Benachrichtigungen"
-				},
-				"QRCode": {
-					"title": "QR-Code"
 				}
 			},
 			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
-		},
-		"skipLinks": {
-			"mainContentSkipLink": "Hauptbereich",
-			"topNavbarSkipLink": "Navigation oben",
-			"footerSkipLink": "Footer"
-		},
-		"title": {
-			"landing": "Startseite"
 		}
 	},
 	"help": {
@@ -1813,8 +1813,8 @@
 			"filterMorePrivateTask": "private Aufgabe",
 			"filterMorePublicSubmissions": "Schüler können Abgaben untereinander sehen",
 			"filterMoreTeamSubmissions": "Teamabgaben",
-			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"forGradingUploadedFiles": "Als Kommentar/Bewertung hochgeladene Dateien",
+			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
 			"rating": "Bewertung",
 			"rating_comment": "Kommentar/Bewertung",
@@ -1829,11 +1829,13 @@
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
-			"uploadGradeFiles": "Korrigierte Dateien hochladen",
-			"submissionsWithoutFeedback": "unkommentierte Abgaben"
+			"submissionsWithoutFeedback": "unkommentierte Abgaben",
+			"uploadGradeFiles": "Korrigierte Dateien hochladen"
 		},
 		"text": {
 			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
+			"bulkGradingError": "Nicht alle Dateien konnten Hausaufgaben zugeordnet werden. Folgende Dateien müssen von Hand zugewiesen werden:",
+			"bulkGradingSuccess": "Alle Dateien konnten Hausaufgaben zugeordnet werden. Bitte Seite neu laden.",
 			"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
 			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
 			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
@@ -1848,8 +1850,6 @@
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
-			"bulkGradingSuccess": "Alle Dateien konnten Hausaufgaben zugeordnet werden. Bitte Seite neu laden.",
-			"bulkGradingError": "Nicht alle Dateien konnten Hausaufgaben zugeordnet werden. Folgende Dateien müssen von Hand zugewiesen werden:",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
@@ -2088,8 +2088,8 @@
 	},
 	"login": {
 		"anchor": {
-			"title":{
-				"show_password":"Passwort anzeigen"
+			"title": {
+				"show_password": "Passwort anzeigen"
 			}
 		},
 		"button": {
@@ -2117,9 +2117,9 @@
 			"system": "System auswählen"
 		},
 		"label": {
-			"thisIsAPrivateDevice": "Angemeldet bleiben",
 			"school": "Schule",
-			"system": "System"
+			"system": "System",
+			"thisIsAPrivateDevice": "Angemeldet bleiben"
 		},
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
