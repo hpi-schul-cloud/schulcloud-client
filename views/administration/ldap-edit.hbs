@@ -26,12 +26,10 @@ Probably delete it.--}}
                 {{$t "administration.ldapEdit.text.anyChangesToTheFollowingConfigurationCanResult" }}
             </p>
             <p>
-                Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene
-                Inhalte werden nicht übernommen, da bei dem Nutzer der Vorname, der Nachname und/oder die E-Mail-Adresse
-                nicht im LDAP verfügbar ist.
+            {{$t "administration.ldapEdit.text.verification" }}
             </p>
             <p>
-                Weitere Informationen zur LDAP-Konfiguration finden Sie in unserem <a href="/help/confluence/55902270">Hilfebereich</a>.
+            {{$t "administration.ldapEdit.text.info" }} <a href="/help/confluence/55902270">{{$t "administration.ldapEdit.text.help" }}</a>.
             </p>
         </div>
     </div>
@@ -50,8 +48,8 @@ Probably delete it.--}}
             <th>{{$t "administration.global.label.lastName" }}</th>
             <th>E-Mail</th>
             <th>uid</th>
-            <th>Rolle(n)</th>
-            <th>Domainname</th>
+            <th>{{$t "administration.ldapEdit.label.roles" }}</th>
+            <th>{{$t "administration.ldapEdit.label.domainName" }}</th>
             <th>uuid</th>
         </tr>
     </table>

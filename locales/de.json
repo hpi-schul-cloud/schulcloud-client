@@ -168,6 +168,7 @@
 				"byClickingOn": "Durch den Klick auf",
 				"className": "Klassenname:",
 				"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
+				"createClass": "Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Administrator ",
 				"forAllStudents": "Für alle Schüler",
 				"ifAllStudentsAndParentshaveGiven": "Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
 				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
@@ -358,6 +359,7 @@
 			"text": {
 				"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
 				"andSendYourUsersARegistrationLink": "und lass deinen Nutzern einen Registrierungslink zukommen.",
+				"attention": "⚠️ ACHTUNG: Beim Import großer Datensätze kommt es derzeit kurz nach dem Start zu einer Fehlermeldung. Im\n        Hintergrund läuft der Importprozess trotzdem unsichtbar weiter. Zeitdauer: circa 4 Minuten pro 1000\n        Nutzer:innen. Bitte warte die entsprechende Zeit ab und aktualisiere dann dein Browserfenster, um die\n        aktualisierte Schüler:innen-Übersicht überprüfen zu können.",
 				"example": "Beispiel",
 				"importUserData": "Importiere Nutzerdaten per .csv-Datei",
 				"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du"
@@ -417,6 +419,7 @@
 			"button": {
 				"addCourse": " Kurs hinzufügen",
 				"addNewAppoinment": "Neuen Termin hinzufügen",
+				"bug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}?\n                    Sende Wünsche oder Probleme direkt an den {{short_title}}-Nutzer-Support.",
 				"contactSupport": "Support kontaktieren",
 				"createLinkSheet": "Link-Druckbogen erstellen",
 				"edit": "Bearbeiten",
@@ -526,6 +529,7 @@
 				"noSchoolCloud": "keine HPI Schul-Cloud",
 				"role": "Rolle",
 				"roleType": "Rollen-Typ",
+				"roles": "Rolle(n)",
 				"rolesAttributes": "Rollen-Attribute",
 				"rolesAttributesDescription": "Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
 				"rolesLDAPPaths": "Rollen-LDAP-Pfade",
@@ -548,7 +552,10 @@
 				"errorActivation": "Problem bei der Aktivierung",
 				"errorLDAPTimeout": "LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.",
 				"errorTimeout": "Zeitüberschreitung der Anwendung",
-				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!"
+				"help": "Hilfebereich",
+				"info": "Weitere Informationen zur LDAP-Konfiguration finden Sie in unserem",
+				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!",
+				"verification": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene\n                Inhalte werden nicht übernommen, da bei dem Nutzer der Vorname, der Nachname und/oder die E-Mail-Adresse\n                nicht im LDAP verfügbar ist."
 			}
 		},
 		"ldapSchoolYearStart": {

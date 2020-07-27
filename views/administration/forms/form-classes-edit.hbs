@@ -71,8 +71,7 @@
 	</p>
 
 	<section id="createcustom" class="{{#unless isCustom}}hidden{{/unless}}">
-		<p>Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom
-			Administrator <i>{{$t "administration.classes.text.transferred" }}</i> {{$t "administration.classes.text.butMustBeUpdatedManually" }}</p>
+		<p>{{$t "administration.classes.text.createClass" }} <i>{{$t "administration.classes.text.transferred" }}</i> {{$t "administration.classes.text.butMustBeUpdatedManually" }}</p>
 		<div class="form-group">
 			<label>{{$t "administration.classes.label.className" }}</label>
 			<input data-testid="Klassenbezeichnung" class="form-control linked" name="classcustom" type="text" placeholder="z.B. Froschklasse 3-4"
