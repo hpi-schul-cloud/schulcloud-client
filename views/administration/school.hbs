@@ -26,64 +26,47 @@
 			Aktuelles Schuljahr: {{../school.currentYear.name}}
 			{{/ifeq}}
 			{{else}}
-			Das neue Schuljahr beginnt in der {{theme.title}} mit der Vorbereitungszeit eine Woche vor Ende der
-			Sommerferien.
-			Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden
-			Schuljahres vornehmen.
+			{{$t "administration.longText.text.provideStudentsAndTheirParents" (dict "title" theme.title)}}
 			{{/if}}
 		</p>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12 no-padding">
 					{{#if schoolMaintanance.schoolUsesLdap}}
-					<p>Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit
-						und Personendaten anzupassen.
-						Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.</p>
+					<p>{{$t "administration.longText.text.useTheTransferPhaseAroundTheSchool" }}</p>
 					<p><a class="ldapschoolyearadditionalinfotoggle" href="#">Mehr Infos ></a></p>
 					<div id="ldapschoolyearadditionalinfo">
-						<p>Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen
-							(z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr
-							ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus
-							synchronisierten
-							Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der
-							Ablauf während eines Schuljahreswechsels:
+						<p>{{$t "administration.longText.text.backroundSoThatEveryStudentAndTeacher" }}
 						</p>
 						<p class="font-weight-bold">Während des Schuljahres</p>
 						<ul>
-							<li>neue dazugekommen Nutzer, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden
-								beständig synchronisiert</li>
+							<li>{{$t "administration.longText.text.newUsersClassAffiliations" }}t</li>
 						</ul>
 						<p class="font-weight-bold">Start der Transferphase</p>
 						<ul>
-							<li>ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten</li>
-							<li>ist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch
+							<li>{{$t "administration.longText.text.canStartTheTransferPhase" }}</li>
+							<li>{{$t "administration.longText.text.ifThereIsNoManualStart" }}
 							</li>
 						</ul>
 						<p class="font-weight-bold">Während der Transferphase</p>
 						<ul>
-							<li>neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus
-								dem LDAP synchronisiert</li>
-							<li class="font-weight-bold">du kannst die notwendigen Änderungen für das neue Schuljahr im
-								LDAP vornehmen (neue Nutzer, Update der Klassen)</li>
-							<li>der Login via LDAP ist für bestehende Nutzer weiterhin möglich</li>
-							<li>Passwortänderungen werden weiterhin synchronisiert</li>
-							<li>Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase
-								angelegt werden (ohne Klassenzuordnung)</li>
+							<li>{{$t "administration.longText.text.newUsersClassesAndChanges" }}</li>
+							<li class="font-weight-bold">{{$t "administration.longText.text.canMakeTheNecessaryChange" }}</li>
+							<li>{{$t "administration.longText.text.loginViaLDAPIsStillPossible" }}</li>
+							<li>{{$t "administration.longText.text.passwordChangesAreStillSyncronized" }}</li>
+							<li>{{$t "administration.longText.text.coursesWithLearningContent" }}</li>
 						</ul>
 						<p class="font-weight-bold">Beenden der Transferphase</p>
 						<ul>
-							<li>beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind</li>
-							<li>bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag
-								synchronisiert</li>
-							<li>gleichzeitig läutest Du damit das neue Schuljahr in der HPI Schul-Cloud ein</li>
-							<li>die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen
-								im Kontext des alten Schuljahres archiviert</li>
+							<li>{{$t "administration.longText.text.doNotEndTheTransferPhase" }}</li>
+							<li>{{$t "administration.longText.text.atTheEndOfTheTransferPhase" }}</li>
+							<li>{{$t "administration.longText.text.atTheSameTimeHerald" }}</li>
+							<li>{{$t "administration.longText.text.theNewClassesAreSavedInTheContext" }}</li>
 						</ul>
 						<p class="font-weight-bold">Nach Beenden der Transferphase</p>
 						<ul>
-							<li>die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden</li>
-							<li>alle Daten aus dem LDAP werden wie gewohnt synchronisiert, neue Nutzer und Klassen
-								können jederzeit dort angelegt werden</li>
+							<li>{{$t "administration.longText.text.theNewClassesCanNowBeAssigned" }}</li>
+							<li>{{$t "administration.longText.text.allDataFromTheLDAPAreSynchronized" }}</li>
 						</ul>
 					</div>
 					{{#ifeq schoolMaintananceMode "idle"}}
@@ -228,7 +211,7 @@
 										{{#if ../studentVisibility}}checked{{/if}}>
 									Sichtbarkeit von Schüler:innen für Lehrkräfte aktivieren <i class="fa fa-eye"></i>
 									<p class="text-muted">
-										Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schülerinnen und Schüler der Schule für jeden Lehrer zu aktivieren, ist es erforderlich, dass jede Schülerin und jeder Schüler wirksam in diese Datenverarbeitung eingewilligt hat.
+										{{$t "administration.longText.text.activatingThisOptionHasAHighThreshold" }}
 									</p>
 								</label>
 							</div>
@@ -306,12 +289,7 @@
 									{{#inArray "videoconference" ../../school.features}}checked{{/inArray}}>
 								Videokonferenzen für Kurse und Teams aktivieren
 								<p class="text-muted">
-									Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte
-									ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und
-									dann von dort aus Videokonferenzen für alle Kursteilnehmer starten.
-									Team-Administratoren können die Videokonferenzfunktion im jeweiligen
-									Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen
-									zu Terminen hinzufügen und starten.
+									{{$t "administration.longText.text.ifVideoConferenceAreActivated" }}
 								</p>
 							</label>
 						</div>
