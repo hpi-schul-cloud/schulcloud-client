@@ -9,23 +9,37 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-### Added
+
+## [23.6.0] - 2020-07-21
+
+### Added - 23.6.0
 - SC-4151 hint for user when login failes
 - SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists 
 it is shown to every school user by the registration, first login and in the footer of the page. If it was changed the
 privacy policy should be confirmed by every school user
 
 
-### Fixed
+### Fixed - 23.6.0
 -  SC-4993 fixed video player issue in ckeditor
+-  SC-5686 :teamId/edit can only be accessed if the user has the team permission "RENAME_TEAM"; :courseId/edit can only 
+be accessed if the user has the permission "COURSE_EDIT
 
-### Changed
+### Changed - 23.6.0
 
 - SC-5327 removed 'bereich' suffix from navigation items
 
-### Removed
+### Removed - 23.6.0
+
+## [23.5.7] - 2020-07-17
+
+- SC-5653 update mint-ec email addresses
 
 ## [23.5.3] - 2020-07-10
+
+- SC-5494 Changed link in navigation bar
+- SC-5529 update hpi school-cloud brand name
+
+## [23.5.2] - 2020-07-09
 
 - SC-5494 Changed link in navigation bar
 - SC-5529 update hpi school-cloud brand name
@@ -85,7 +99,9 @@ In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the 
 - SC-438 on logout button click localStorge will be deleted
 - SC-3801 added generic filepicker url to ckeditor
 - SC-4260 added sentry sampling
+- SC-4064 allow to append files to submission feedback
 - SC-4064 allow for bulk download of ungraded homework files
+- SC-4064 allow for bulk upload of graded homework files
 
 ### Changed in 22.10.0
 
