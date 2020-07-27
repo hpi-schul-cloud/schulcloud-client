@@ -1165,6 +1165,11 @@
 				"teams": "Teams"
 			}
 		},
+		"skipLinks": {
+			"footerSkipLink": "Footer",
+			"mainContentSkipLink": "Hauptbereich",
+			"topNavbarSkipLink": "Navigation oben"
+		},
 		"text": {
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
@@ -1182,9 +1187,15 @@
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
 		},
+		"title": {
+			"landing": "Startseite"
+		},
 		"topMenu": {
 			"ariaLabel": "topbar",
 			"dropdown": {
+				"QRCode": {
+					"title": "QR-Code"
+				},
 				"alertButton": {
 					"title": "Es gibt ein Problem"
 				},
@@ -1196,20 +1207,9 @@
 				},
 				"notifications": {
 					"title": "Benachrichtigungen"
-				},
-				"QRCode": {
-					"title": "QR-Code"
 				}
 			},
 			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
-		},
-		"skipLinks": {
-			"mainContentSkipLink": "Hauptbereich",
-			"topNavbarSkipLink": "Navigation oben",
-			"footerSkipLink": "Footer"
-		},
-		"title": {
-			"landing": "Startseite"
 		}
 	},
 	"help": {
@@ -1219,10 +1219,10 @@
 				"openInConfluence": "in Confluence öffnen"
 			},
 			"text": {
-				"ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch",
-				"languageNote": "Sprachlicher Hinweis:",
 				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
 				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
+				"ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch",
+				"languageNote": "Sprachlicher Hinweis:",
 				"typeNotAllowed": "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
 			}
 		},
@@ -1295,6 +1295,12 @@
 				"furtherInformation": "Weitere Informationen (optional):"
 			}
 		},
+		"headline": {
+			"contactDetails": "Ansprechpartner und Kontaktdaten",
+			"helpSection": "Hilfeartikel",
+			"privacyCourse": "Datenschutzkurs",
+			"welcomeDocuments": "Willkommens-Dokumente zum Download"
+		},
 		"help_confluenceLinks": {
 			"link": {
 				"aboutTheProject": "Über das Projekt",
@@ -1357,22 +1363,6 @@
 				"writeUsAnEmail": "Schreib uns eine E-Mail"
 			}
 		},
-		"text": {
-			"hereYouCanFindOut": "Hier findest du heraus wie du deine Cookies löschst.",
-			"someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
-			"theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der HPI Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
-			"theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:",
-			"toMINTECWithQuestions": "an MINT-EC bei Fragen und Anregungen zur Einführung und Nutzung der HPI Schul-Cloud an deiner Schule.",
-			"toTheHpiForIdeas": "ans HPI für Ideen, Kritik und Wünsche rund um die Cloud selbst.",
-			"noAccessDemoAccount": "Sie haben im Demo-Account keinen Zugriff auf diese Dokumente.",
-			"noWelcomeDocuments": "Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support."
-		},
-		"headline": {
-			"contactDetails": "Ansprechpartner und Kontaktdaten",
-			"helpSection": "Hilfeartikel",
-			"privacyCourse": "Datenschutzkurs",
-			"welcomeDocuments": "Willkommens-Dokumente zum Download"
-		},
 		"placeholder": {
 			"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
 			"email": "E-Mail-Adresse",
@@ -1385,6 +1375,16 @@
 			"text": {
 				"tryAnotherQuery": "Probiere es mit anderen Suchbegriffen erneut"
 			}
+		},
+		"text": {
+			"hereYouCanFindOut": "Hier findest du heraus wie du deine Cookies löschst.",
+			"noAccessDemoAccount": "Sie haben im Demo-Account keinen Zugriff auf diese Dokumente.",
+			"noWelcomeDocuments": "Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support.",
+			"someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
+			"theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der HPI Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
+			"theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:",
+			"toMINTECWithQuestions": "an MINT-EC bei Fragen und Anregungen zur Einführung und Nutzung der HPI Schul-Cloud an deiner Schule.",
+			"toTheHpiForIdeas": "ans HPI für Ideen, Kritik und Wünsche rund um die Cloud selbst."
 		}
 	},
 	"helpdesk": {
@@ -1561,8 +1561,8 @@
 			"filterMorePrivateTask": "private Aufgabe",
 			"filterMorePublicSubmissions": "Schüler können Abgaben untereinander sehen",
 			"filterMoreTeamSubmissions": "Teamabgaben",
-			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"forGradingUploadedFiles": "Als Kommentar/Bewertung hochgeladene Dateien",
+			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
 			"onTheSubject": "Zum Thema",
 			"rating": "Bewertung",
@@ -1578,11 +1578,13 @@
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
-			"uploadGradeFiles": "Korrigierte Dateien hochladen",
-			"submissionsWithoutFeedback": "unkommentierte Abgaben"
+			"submissionsWithoutFeedback": "unkommentierte Abgaben",
+			"uploadGradeFiles": "Korrigierte Dateien hochladen"
 		},
 		"text": {
 			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
+			"bulkGradingError": "Nicht alle Dateien konnten Hausaufgaben zugeordnet werden. Folgende Dateien müssen von Hand zugewiesen werden:",
+			"bulkGradingSuccess": "Alle Dateien konnten Hausaufgaben zugeordnet werden. Bitte Seite neu laden.",
 			"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
 			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
 			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
@@ -1597,8 +1599,6 @@
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
-			"bulkGradingSuccess": "Alle Dateien konnten Hausaufgaben zugeordnet werden. Bitte Seite neu laden.",
-			"bulkGradingError": "Nicht alle Dateien konnten Hausaufgaben zugeordnet werden. Folgende Dateien müssen von Hand zugewiesen werden:",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
@@ -1837,8 +1837,8 @@
 	},
 	"login": {
 		"anchor": {
-			"title":{
-				"show_password":"Passwort anzeigen"
+			"title": {
+				"show_password": "Passwort anzeigen"
 			}
 		},
 		"button": {
@@ -1866,9 +1866,9 @@
 			"system": "System auswählen"
 		},
 		"label": {
-			"thisIsAPrivateDevice": "Angemeldet bleiben",
 			"school": "Schule",
-			"system": "System"
+			"system": "System",
+			"thisIsAPrivateDevice": "Angemeldet bleiben"
 		},
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
