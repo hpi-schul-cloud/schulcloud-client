@@ -1110,7 +1110,8 @@
 				"declarationOfConsent": "Einwilligungserklärung"
 			},
 			"label": {
-				"birthdate": "Geburtsdatum:"
+				"birthdate": "Geburtsdatum:",
+				"repeatNewPassword":"Neues Passwort wiederholen:"
 			},
 			"text": {
 				"canUse": "nutzen kannst.",
