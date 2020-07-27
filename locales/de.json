@@ -333,8 +333,13 @@
                 "manageStudents": "Schüler:innen verwalten",
                 "manageTeachers": "Lehrer:innen verwalten",
                 "manageTeams": "Teams verwalten"
-            }
-        },
+            },
+			"help": {
+				"helpArticle": "Hilfeartikel",
+				"training": "Fortbildungen",
+				"contact": "Kontakt"
+			}
+		},
         "form_DeleteRss": {
             "text": {
                 "areYouSureYouWantToDeleteTheFollowingRSS": "Sind Sie sich sicher, dass Sie folgenden RSS-Feed löschen wollen?"
