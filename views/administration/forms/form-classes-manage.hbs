@@ -68,11 +68,11 @@
         {{#if schoolUsesLdap}}
             <strong>Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein</strong>
 
-            <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
+            <p> {{$t "administration.longText.text.provideStudentsAndTheirParents" (dict "shortTitle" theme.short_title)}}</p>
         {{else}}
             <strong>Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben</strong>
             <p>
-                Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.
+                {{$t "administration.longText.text.provideStudentsAndTheirParents" }}
             </p>
             <p>Für alle Schüler</strong> ohne vollständige Einverständniserklärung:</p>
             <p>
@@ -95,7 +95,7 @@
                 Einverständnis manuell erklären
             </h2>
             <p>
-            Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.
+            {{$t "administration.longText.text.ifAllStudentsAndParentsHaveGiven" }}
             </p>
 
                 <a href="skipregistration" class="btn btn-primary btn-skip-consent">
