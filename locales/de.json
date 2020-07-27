@@ -1108,6 +1108,7 @@
 			"brokenPen": "zerbrochener Stift"
 		},
 		"label": {
+			"emailAddress":"E-Mail-Adresse:",
 			"room": "Raum",
 			"skipLinks": "Links Überspringen"
 		},
@@ -1678,6 +1679,11 @@
 			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte kontaktiere den Schul-Administrator!",
 			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
 			"timeout": "Zeitüberschreitung der Anfrage"
+		}
+	},
+	"first_login":{
+		"img_alt":{
+			"wavingStudents":"Two students waving"
 		}
 	},
 	"login": {
