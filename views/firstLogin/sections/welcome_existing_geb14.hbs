@@ -1,4 +1,4 @@
 <section data-panel="section-{{section-nr}}" class="confetti-wrapper{{#if submit-page}} submit-page{{/if}}">
-  <h2 class="h4">Herzlichen Glückwunsch, {{@root.currentUser.firstName}} {{@root.currentUser.lastName}}! 🎉🎈</h2>
-  <p>Du bist jetzt 14 Jahre alt. Bitte erkläre im folgenden Schritt dein Einverständnis zur Nutzung der {{@root.theme.title}}. Ab 14 Jahren ist dies zusätzlich zum bereits erklärten Einverständnis deiner Eltern nötig, damit du die {{@root.theme.short_title}} weiter nutzen kannst.</p>
+  <h2 class="h4">{{$t "firstLogin.welcome.heading.congratulations" (dict "firstName" @root.currentUser.firstName "lastName"  @root.currentUser.lastName)}}! 🎉🎈</h2>
+  <p>{{$t "firstLogin.welcome.text.youAreNow14YearsOld" (dict "title" @root.theme.title "shortTitle" @root.theme.short_title )}}</p>
 </section>
