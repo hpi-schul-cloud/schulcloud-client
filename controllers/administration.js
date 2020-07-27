@@ -1650,6 +1650,7 @@ router.get(
 					submitLabel: res.$t('global.button.save'),
 					closeLabel:	res.$t('global.button.cancel'),
 					user,
+					isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
 					consent,
 					canSkipConsent: canSkip,
