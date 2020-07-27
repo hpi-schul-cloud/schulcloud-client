@@ -99,7 +99,9 @@ In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the 
 - SC-438 on logout button click localStorge will be deleted
 - SC-3801 added generic filepicker url to ckeditor
 - SC-4260 added sentry sampling
+- SC-4064 allow to append files to submission feedback
 - SC-4064 allow for bulk download of ungraded homework files
+- SC-4064 allow for bulk upload of graded homework files
 
 ### Changed in 22.10.0
 
