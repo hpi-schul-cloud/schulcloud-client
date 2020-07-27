@@ -83,11 +83,6 @@
       @include media-breakpoint-up(xs) {
         max-width: 500px;
       }
-
-      transition: all 0.3s ease-in;
-      &:hover {
-        transform: rotate(-7deg);
-      }
 		#COLOR {
 			fill: $primaryColor;
 		}
