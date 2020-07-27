@@ -1325,6 +1325,11 @@
 				"teams": "Teams"
 			}
 		},
+		"skipLinks": {
+			"footerSkipLink": "Footer",
+			"mainContentSkipLink": "Hauptbereich",
+			"topNavbarSkipLink": "Navigation oben"
+		},
 		"text": {
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
@@ -1342,9 +1347,15 @@
 			"tuesday": "Dienstag",
 			"wednesday": "Mittwoch"
 		},
+		"title": {
+			"landing": "Startseite"
+		},
 		"topMenu": {
 			"ariaLabel": "topbar",
 			"dropdown": {
+				"QRCode": {
+					"title": "QR-Code"
+				},
 				"alertButton": {
 					"title": "Es gibt ein Problem"
 				},
@@ -1356,20 +1367,9 @@
 				},
 				"notifications": {
 					"title": "Benachrichtigungen"
-				},
-				"QRCode": {
-					"title": "QR-Code"
 				}
 			},
 			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
-		},
-		"skipLinks": {
-			"mainContentSkipLink": "Hauptbereich",
-			"topNavbarSkipLink": "Navigation oben",
-			"footerSkipLink": "Footer"
-		},
-		"title": {
-			"landing": "Startseite"
 		}
 	},
 	"help": {
@@ -1576,8 +1576,8 @@
 			"filterMorePrivateTask": "private Aufgabe",
 			"filterMorePublicSubmissions": "Schüler können Abgaben untereinander sehen",
 			"filterMoreTeamSubmissions": "Teamabgaben",
-			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"forGradingUploadedFiles": "Als Kommentar/Bewertung hochgeladene Dateien",
+			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
 			"rating": "Bewertung",
 			"rating_comment": "Kommentar/Bewertung",
@@ -1592,11 +1592,13 @@
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
-			"uploadGradeFiles": "Korrigierte Dateien hochladen",
-			"submissionsWithoutFeedback": "unkommentierte Abgaben"
+			"submissionsWithoutFeedback": "unkommentierte Abgaben",
+			"uploadGradeFiles": "Korrigierte Dateien hochladen"
 		},
 		"text": {
 			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
+			"bulkGradingError": "Nicht alle Dateien konnten Hausaufgaben zugeordnet werden. Folgende Dateien müssen von Hand zugewiesen werden:",
+			"bulkGradingSuccess": "Alle Dateien konnten Hausaufgaben zugeordnet werden. Bitte Seite neu laden.",
 			"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
 			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
 			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
@@ -1611,8 +1613,6 @@
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"noTasks": "Keine Aufgaben",
-			"bulkGradingSuccess": "Alle Dateien konnten Hausaufgaben zugeordnet werden. Bitte Seite neu laden.",
-			"bulkGradingError": "Nicht alle Dateien konnten Hausaufgaben zugeordnet werden. Folgende Dateien müssen von Hand zugewiesen werden:",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
@@ -1851,8 +1851,8 @@
 	},
 	"login": {
 		"anchor": {
-			"title":{
-				"show_password":"Passwort anzeigen"
+			"title": {
+				"show_password": "Passwort anzeigen"
 			}
 		},
 		"button": {
@@ -1880,9 +1880,9 @@
 			"system": "System auswählen"
 		},
 		"label": {
-			"thisIsAPrivateDevice": "Angemeldet bleiben",
 			"school": "Schule",
-			"system": "System"
+			"system": "System",
+			"thisIsAPrivateDevice": "Angemeldet bleiben"
 		},
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
