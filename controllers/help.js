@@ -107,7 +107,7 @@ router.get('/faq/documents', async (req, res, next) => {
 	if (isDemoUser) {
 		req.session.notification = {
 			type: 'danger',
-			message: res.$t('help.headline.text.noAccessDemoAccount'),
+			message: res.$t('help.text.noAccessDemoAccount'),
 		};
 		return res.redirect('/help');
 	}

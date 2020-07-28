@@ -2,7 +2,7 @@
 	{{#content "card-body"}}
 		{{> "help/icon-link-group" links=(jsonParse '[
 			{
-				"title": "Überblick",
+			    "title": `''.concat({{$t "help.partials.heading.overview" }}`,
 				"icon": "fa-info",
 				"src": "/about"
 			},
