@@ -45,7 +45,7 @@
         {{/unless}}
         <div class="printonly">
             <h1>{{fullname}}</h1>
-            <p>{{$t "administration.users_registrationComplete.text.loginWithPassword" (dict "shortTitle" @root.theme.short_title)}}</p>
+            <p>{{{$t "administration.users_registrationComplete.text.loginWithPassword" (dict "shortTitle" @root.theme.short_title)}}}</p>
         </div>
         <textarea disabled class="printable form-control" id="skipRegistrationCredentials">
 	{{fullname}}
