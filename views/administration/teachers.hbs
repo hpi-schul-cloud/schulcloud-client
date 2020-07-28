@@ -34,13 +34,13 @@
                                 <strong>{{$t "administration.teachers.label.passwordsAndDeclarationOfConsent" }}</strong>
 
                                 <p>
-                                    {{$t "administration.teachers.text.byConnectingToASchool" }} {{../theme.short_title}} {{$t "administration.teachers.text.loginWhenYouLogin" }} {{../theme.short_title}} {{$t "administration.teachers.text.toExplain" }}
+                                    {{$t "administration.teachers.text.connectToASchool" (dict "shortTitle" @root.theme.short_title)}}
                                 </p>
                             {{else}}
                                 <strong>{{$t "administration.teachers.label.inviteTeachersViaLink" }}</strong>
                                 <p>
-                                    Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses per E-Mail zukommen oder nutze den QR-Code-Druckbogen, um die Links physisch zu verteilen.<br/>
-                                    So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{../theme.short_title}} erklären.
+                                {{{$t "administration.teachers.label.linksDistribution" (dict "shortTitle" @root.theme.short_title)}}}
+
                                 </p>
                                 <p>{{$t "administration.teachers.text.forAllTeachersWithoutAFullConsentForm" }}</p>
                                 <p>
@@ -53,7 +53,7 @@
                                 </p>
                                 {{#userHasPermission "TEACHER_CREATE"}}
                                 <p>
-                                    Alternativ kannst du auch im "Nutzer bearbeiten"-Dialog jedes Nutzers einzeln individuelle Registrierungslinks generieren.
+                                {{$t "administration.teachers.text.alternativRegistration" }}
                                 </p>
                                 {{/userHasPermission}}
                             {{/if}}

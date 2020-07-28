@@ -696,14 +696,14 @@
 			"label": {
 				"inviteTeachersViaLink": "Lade Lehrer:innen per Link dazu ein, die Einverständniserklärung abzugeben.",
 				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
-				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden"
+				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden",
+				"linksDistribution": "Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses per E-Mail zukommen oder nutze den QR-Code-Druckbogen, um die Links physisch zu verteilen. <br/>So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{shortTitle}} erklären."
 			},
 			"text": {
-				"byConnectingToASchool": "Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der",
+				"alternativRegistration": "Alternativ kannst du auch im \"Nutzer bearbeiten\"-Dialog jedes Nutzers einzeln individuelle Registrierungslinks generieren.",
+				"connectToASchool": "Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der {{shortTitle}} einloggen.Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der {{shortTitle}} zu erklären .",
 				"fileSelected": "Datei ausgewählt",
 				"forAllTeachersWithoutAFullConsentForm": "Für alle Lehrer ohne vollständige Einverständniserklärung:",
-				"loginWhenYouLogin": "einloggen.Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der",
-				"toExplain": "zu erklären .",
 				"yes": "Ja"
 			}
 		},
