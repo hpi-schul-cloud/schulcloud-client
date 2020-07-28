@@ -770,6 +770,7 @@
 		},
 		"users_registrationComplete": {
 			"text": {
+				"cannotCallPageAgain": "<b>Achtung: </b>Du kannst diese Seite nicht erneut aufrufen. Drucke dir also die angezeigten Zugangsdaten\n            unbedingt aus oder speichere sie anderweitig.\n            Sollte ein Schüler sein Passwort vergessen, kannst du es nur in der Benutzerverwaltung ändern.",
 				"registrationAtThe": "Die Anmeldung an der",
 				"whenLoginForTheFirstTime": " Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen bei ihrem ersten Login die Einwilligungserklärung zusätzlich selbst erklären."
 			}

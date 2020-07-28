@@ -10,16 +10,14 @@
             {{$t "administration.users_registrationComplete.text.registrationAtThe" }} {{@root.theme.short_title}} {{$t "administration.global.text.isPossibleWithTheFollowingData" }}
         </p>
         <p class="noprint">
-            <b>Achtung: </b>Du kannst diese Seite nicht erneut aufrufen. Drucke dir also die angezeigten Zugangsdaten
-            unbedingt aus oder speichere sie anderweitig.
-            Sollte ein Schüler sein Passwort vergessen, kannst du es nur in der Benutzerverwaltung ändern.
+        {{$t "administration.users_registrationComplete.text.cannotCallPageAgain" }}
         </p>
         <center class="form-group">
             <a href="/administration/students" class="windowprint noprint">
                 <button type="button" class="btn btn-primary">
                     <i class="fa fa-print"></i> {{$t "administration.button.printListWithAccessData" }}
                 </button>
-            </a>   
+            </a>
         </center>
         {{#unless single}}
         <div class="printonly">
