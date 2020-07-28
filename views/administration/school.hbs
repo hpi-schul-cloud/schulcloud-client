@@ -51,8 +51,7 @@
 						<p class="font-weight-bold">{{$t "administration.school.label.duringTheTransferPhase" }}</p>
 						<ul>
 							<li>{{$t "administration.school.text.newUsersClassesAndChanges" }}</li>
-							<li class="font-weight-bold">du kannst die notwendigen Änderungen für das neue Schuljahr im
-								LDAP vornehmen (neue Nutzer, Update der Klassen)</li>
+							<li class="font-weight-bold">{{$t "administration.school.text.LDAPChanges" }}</li>
 							<li>{{$t "administration.school.text.loginViaLDAP" }}</li>
 							<li>{{$t "administration.school.text.passwordChanges" }}</li>
 							<li>{{$t "administration.school.text.coursesWithLearningContent" }}</li>
@@ -61,7 +60,7 @@
 						<ul>
 							<li>{{$t "administration.school.text.doNotEndTheTransferPhase" }}</li>
 							<li>{{$t "administration.school.text.atTheEndOfTheTransferPhase" }}</li>
-							<li>gleichzeitig läutest Du damit das neue Schuljahr in der HPI Schul-Cloud ein</li>
+							<li>{{$t "administration.school.text.atTheSameTime" }}</li>
 							<li>{{$t "administration.school.text.theNewClassesAreSavedInTheContext" }}</li>
 						</ul>
 						<p class="font-weight-bold">{{$t "administration.school.label.afterTheTransferPhaseEnded" }}</p>
@@ -203,15 +202,13 @@
 						</div>
 
 						{{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
-							<h2 class="h6 mt-2">Datenschutz-Einstellungen</h2>
+							<h2 class="h6 mt-2">{{$t "administration.school.label.privacySettings" }}</h2>
 							<div class="form-group">
 								<label>
 									<input type="checkbox" name="studentVisibility" value="true"
 										{{#if ../studentVisibility}}checked{{/if}}>
-									Sichtbarkeit von Schüler:innen für Lehrkräfte aktivieren <i class="fa fa-eye"></i>
-									<p class="text-muted">
-										Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schülerinnen und Schüler der Schule für jeden Lehrer zu aktivieren, ist es erforderlich, dass jede Schülerin und jeder Schüler wirksam in diese Datenverarbeitung eingewilligt hat.
-									</p>
+                            {{$t "administration.school.label.studentVisibility" }} <i class="fa fa-eye"></i>
+									<p class="text-muted">{{$t "administration.school.label.allStudentsVisibility" }}</p>
 								</label>
 							</div>
 						{{/ifConfig}}
@@ -253,10 +250,9 @@
 													{{/userHasPermission}}
 												{{/userHasPermission}}
 											/>
-											Chatraum für Ankündigungen an die gesamte Schule anlegen
+                                            {{$t "administration.school.label.createChatRoom" }}
 											<p class="text-muted">
-												Der Ankündigungs-Chatraum ermöglicht Schul-Administrator:innen, Nachrichten an die gesamte Schule zu senden.
-												Schüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.
+                                            {{$t "administration.school.text.chatRoomPermissions" }}
 											</p>
 										</label>
 									</div>
@@ -345,7 +341,7 @@
 	{{#userHasPermission 'SCHOOL_EDIT'}}
 		{{#ifConfig "FEATURE_SCHOOL_POLICY_ENABLED" true}}
 		<section class="section-school section-default">
-			<h2 class="h4">Datenschutzerklärung</h2>
+			<h2 class="h4">{{$t "administration.school.label.dataProtection" }}</h2>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-sm-12 no-padding">
@@ -355,7 +351,7 @@
 				<div class="row">
 					<div class="col-sm-12 no-padding">
 						<button type="submit" class="btn btn-primary btn-add-modal--policy">
-							Datenschutzerklärung hinzufügen
+                             {{$t "administration.school.label.dataProtectionAdd" }}
 						</button>
 					</div>
 				</div>
