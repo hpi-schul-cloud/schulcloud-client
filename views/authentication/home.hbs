@@ -1,122 +1,85 @@
 {{#extend "lib/loggedout"}}
 
-{{#content "styles" mode="append"}}
-	<link rel="stylesheet" href="/styles/homepage/index.css" />
-{{/content}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/homepage/index.css" />
+    {{/content}}
 
-{{#content "scripts" mode="append"}}
-	<script src="/scripts/login.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-	<script nonce="{{nonceValue}}">
-    window.production = '{{ @root.production }}';
-  </script>
-  <script src="/scripts/sc-blog.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-	<script src="/scripts/blog-fetch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-{{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/login.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script nonce="{{nonceValue}}">
+            window.production = '{{ @root.production }}';
+        </script>
+        <script src="/scripts/sc-blog.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/blog-fetch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    {{/content}}
 
-{{#content "page"}}
+    {{#content "page"}}
 
-	<!-- GLOBAL_ANNOUNCEMENT -->
-	<div class="container container-content">
-		{{#hasConfig "GLOBAL_ANNOUNCEMENT"}}
-			<div class="notification alert alert-info">
-				<div class="notification-content">
-					{{{getConfig "GLOBAL_ANNOUNCEMENT"}}}
-				</div>
-			</div>
-		{{/hasConfig}}
-	</div>
-
-	<!-- GHOST (will be replaced by js) -->
-    <div class="sc-blog">
-
-        <div class="content" style="opacity: 1; transition: opacity 0.7s ease-in 0s;">
-            <div class="container">
-                <h2 class="mb-3 section-heading">Das macht die HPI Schul-Cloud aus</h2>
-                <div class="row section flex-container section-landing">
-                    <div class="col-sm-12 col-md-6">
-                        <img class="mb-3 mb-md-0" src="https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/product.png" alt="">
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="pull-right">
-                            <div class="flex-container mb-1">
-                                <img class="check" src="https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/check-icon-1.svg">
-                                <p class="ml-1 teaser">Gemeinsam lernen in digitalen Räumen</p>
-                            </div>
-                            <div class="flex-container mb-1">
-                                <img class="check" src="https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/check-icon-1.svg">
-                                <p class="ml-1 teaser">Lernmaterial, Aufgaben, Chat, Videokonferenzen und mehr</p>
-                            </div>
-                            <div class="flex-container mb-1">
-                                <img class="check" src="https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/check-icon-1.svg">
-                                <p class="ml-1 teaser">Kostenlos für alle Schulen</p>
-                            </div>
-                            <div class="text-center text-xl-left px-2">
-                                <a class="btn btn-outline btn-primary prototype-button" target="_blank" href="https://xd.adobe.com/view/516f63e1-4fdb-4027-9ec3-631d05a39db5-043c/?fullscreen">
-                                    Vorschau ansehen
-                                </a>
-                                <a class="btn btn-primary btn-margin prototype-button" href="mailto:info@schul-cloud.org?subject=Test-Account für die HPI Schul-Cloud
-								&body=Liebes HPI Schul-Cloud-Team,%0D%0Abitte senden Sie mir einen 14 Tage gültigen Testaccount kostenlos und unverbindlich zu.%0D%0A %0D%0A(bitte ausfüllen):%0D%0AVorname und Nachname:%0D%0AE-Mail-Adresse:%0D%0ASchule oder Organisation:%0D%0A %0D%0ARolle in dieser Schule oder Organisation:%0D%0A___________________________________________%0D%0A %0D%0AWas ist der HPI Schul-Cloud Testaccount?%0D%0A %0D%0AMit der HPI Schul-Cloud können Sie Ihren Unterricht datenschutzkonform in einem virtuellen Klassenzimmer gestalten. Sie können beispielsweise Videokonferenzen abhalten, Hausaufgaben digital aufgeben und abgeben, interaktive Unterrichtstools einbinden oder Lernmaterialien sicher recherchieren.%0D%0ADer 14 Tage gültige, anonymisierte Testaccount gibt Ihnen Gelegenheit, die HPI Schul-Cloud selbst zu erkunden. Ihnen werden die Zugangsdaten werktags so schnell wie möglich an die angegebene E-Mail-Adresse zugesandt. Nach 14 Tagen wird Ihr Testaccount und alle darin enthaltenden Daten automatisch gelöscht, weitere Schritte von Ihrer Seite sind nicht erforderlich.%0D%0AVielen Dank!">
-                                    Demozugang anfordern
-                                </a>
-                            </div>
-                        </div>
+        <!-- GLOBAL_ANNOUNCEMENT -->
+        <div class="container container-content">
+            {{#hasConfig "GLOBAL_ANNOUNCEMENT"}}
+                <div class="notification alert alert-info">
+                    <div class="notification-content">
+                        {{{getConfig "GLOBAL_ANNOUNCEMENT"}}}
                     </div>
                 </div>
+            {{/hasConfig}}
+        </div>
+
+        <!-- GHOST (will be replaced by js) -->
+        <div class="sc-blog">
+
+            <div class="content" style="opacity: 0; transition: opacity 0.7s ease-in;"></div>
+        <div class="loading text-center mb-3" style="min-height: 70vh; margin-top: 100px;">
+            <i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
+               style="font-size: 25px;"></i>
+        <div class="placeholder" style="display: none;">
+            <img src="/images/repair.png" width="350px">
+        <p class="text-muted">{{$t "global.text.errorWhileLoadingPage"}}</p>
+        <button type="button" class="btn btn-primary mt-2">{{$t "global.button.tryAgain"}}</button>
+        </div>
+        </div>
+        </div>
+
+        <!-- BLOG -->
+        <script id="blog-card" type="text/x-handlebars-template">
+        <a target="_blank" rel="noopener" href="\{{article.url}}" class="blog-card-wrapper">
+        <article class="blog-card">
+            <img class="thumbnail" alt="\{{article.img.title}}" src="\{{article.img.src}}">
+            <div class="body">
+                <h2 class="heading">
+                    <div class="title">
+                        \{{article.title}}
+                    </div>
+                    <small class="pub-date text-muted">\{{article.pubDate}}</small>
+                </h2>
+                <p class="description text-dark">\{{truncatePure (stripHTMLTags article.description) 200}}</p>
             </div>
-        </div>
-    </div>
-
-		<div class="content" style="opacity: 0; transition: opacity 0.7s ease-in;"></div>
-		<div class="loading text-center mb-3" style="min-height: 70vh; margin-top: 100px;">
-			<i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
-				style="font-size: 25px;"></i>
-			<div class="placeholder" style="display: none;">
-				<img src="/images/repair.png" width="350px">
-				<p class="text-muted">{{$t "global.text.errorWhileLoadingPage"}}</p>
-				<button type="button" class="btn btn-primary mt-2">{{$t "global.button.tryAgain"}}</button>
-			</div>
-		</div>
-	</div>
-
-	<!-- BLOG -->
-  <script id="blog-card" type="text/x-handlebars-template">
-    <a target="_blank" rel="noopener" href="\{{article.url}}" class="blog-card-wrapper">
-    <article class="blog-card">
-      <img class="thumbnail" alt="\{{article.img.title}}" src="\{{article.img.src}}">
-      <div class="body">
-        <h2 class="heading">
-          <div class="title">
-            \{{article.title}}
-          </div>
-          <small class="pub-date text-muted">\{{article.pubDate}}</small>
-        </h2>
-        <p class="description text-dark">\{{truncatePure (stripHTMLTags article.description) 200}}</p>
-      </div>
-      <div class="mb-1 text-center">
+        <div class="mb-1 text-center">
         <span class="open-link">{{$t "home.link.openArticle"}}</span>
-      </div>
-    </article>
-  </a>
-  </script>
-
-  <script id="blog-entries" type="text/x-handlebars-template">
-    \{{#each blogFeed}}
-      \{{> "blog-card" article=this}}
-    \{{/each}}
-  </script>
-
-
-  {{#embed "authentication/section" style="" class=""}}
-    {{#content "body"}}
-      <h2 class="h3 section-title center">{{{$t "home.headline.HPISchoolCloudBlog"}}}</h2>
-        <div class="blog-cards">
-          <i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
-            style="font-size: 25px;"></i>
         </div>
-      <a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">{{$t "home.link.moreArticles"}}</a>
-    {{/content}}
-  {{/embed}}
+        </article>
+        </a>
+        </script>
+
+        <script id="blog-entries" type="text/x-handlebars-template">
+            \{{#each blogFeed}}
+            \{{> "blog-card" article=this}}
+            \{{/each}}
+        </script>
 
 
-	{{/content}}
-{{/extend}}
+        {{#embed "authentication/section" style="" class=""}}
+            {{#content "body"}}
+                <h2 class="h3 section-title center">{{{$t "home.headline.HPISchoolCloudBlog"}}}</h2>
+                <div class="blog-cards">
+                    <i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
+                       style="font-size: 25px;"></i>
+                </div>
+                <a href="https://blog.schul-cloud.org" target="scblog" class="blog-link">{{$t "home.link.moreArticles"}}</a>
+                {{/content}}
+            {{/embed}}
+
+
+        {{/content}}
+        {{/extend}}
