@@ -695,9 +695,9 @@
 			},
 			"label": {
 				"inviteTeachersViaLink": "Lade Lehrer:innen per Link dazu ein, die Einverständniserklärung abzugeben.",
+				"linksDistribution": "Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses per E-Mail zukommen oder nutze den QR-Code-Druckbogen, um die Links physisch zu verteilen. <br/>So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{shortTitle}} erklären.",
 				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
-				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden",
-				"linksDistribution": "Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses per E-Mail zukommen oder nutze den QR-Code-Druckbogen, um die Links physisch zu verteilen. <br/>So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{shortTitle}} erklären."
+				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden"
 			},
 			"text": {
 				"alternativRegistration": "Alternativ kannst du auch im \"Nutzer bearbeiten\"-Dialog jedes Nutzers einzeln individuelle Registrierungslinks generieren.",
@@ -724,10 +724,14 @@
 				"schools": "Schulen"
 			},
 			"label": {
+				"canCreateTeam": "Schüler:innen können Teams anlegen.",
+				"cannotCreateTeam": "Schüler:innen können keine Teams anlegen.",
 				"selectAnAdditionalOwner": "Wähle hier einen zusätzlichen Eigentümer für das Team aus:",
-				"studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen."
+				"studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen.",
+				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter Administrator kannst du diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren/aktiveren."
 			},
 			"text": {
+				"functionality": "Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
 				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 				"legend": "Legende:",
 				"noParticipants": "Keine Teilnehmer",

@@ -11,13 +11,13 @@
     {{/content}}
     {{#content "page" mode="prepend"}}
 			{{#ifConfig "STUDENT_TEAM_CREATION" "disabled"}}
-			<label>Schüler:innen können keine Teams anlegen.
-				<p class="text-muted">Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.</p>
+			<label>{{$t "administration.teams.label.cannotCreateTeam" }}
+				<p class="text-muted">{{$t "administration.teams.label.functionality" }}</p>
 			</label>
 			{{else}}
 			{{#ifConfig "STUDENT_TEAM_CREATION" "enabled"}}
-				<label>Schüler:innen können Teams anlegen.
-					<p class="text-muted">Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.</p>
+				<label>{{$t "administration.teams.label.canCreateTeam" }}
+					<p class="text-muted">{{$t "administration.teams.label.functionality" }}</p>
 				</label>
 			{{else}}
 				<form action="/administration/teams/enablestudents/{{@root.school._id}}" method="post" class="edit-form-school">
@@ -38,9 +38,7 @@
 						{{/ifConfig}}
 					>
 					{{$t "administration.teams.label.studentsAreAllowedToCreateTeam" }}
-					<p class="text-muted">Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,
-						ohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter Administrator kannst du diese Funktion zentral für die
-						gesamte Schule deaktivieren/aktiveren.</p>
+					<p class="text-muted">{{$t "administration.teams.label.whenFunctionIsActivated" }}</p>
 				</label>
             </div>
             {{> "lib/components/csrfInput"}}
