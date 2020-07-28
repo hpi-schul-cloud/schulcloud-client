@@ -2,7 +2,7 @@
 	{{#content "card-body"}}
 		{{> "help/icon-link-group" links=(jsonParse '[
 			{
-			    "title": `''.concat({{$t "help.partials.heading.overview" }}`,
+			    "title": "' ($t "help.partials.heading.overview") '",
 				"icon": "fa-info",
 				"src": "/about"
 			},
@@ -12,7 +12,7 @@
 				"src": "/help/confluence/23232533"
 			},
 			{
-				"title": "{{$t "help.partials.heading.contactPerson" }}",
+				"title": "' ($t "help.partials.heading.contactPerson") '",
 				"icon": "fa-user",
 				"src": "/help/faq/people"
 			},
