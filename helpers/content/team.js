@@ -61,7 +61,7 @@ module.exports = [
 		team: [
 			{
 				subheader_before: 'Hasso-Plattner-Institut',
-				title: '',
+				title: 'Dr.',
 				firstName: 'Jan',
 				lastName: 'Renz',
 				position: 'Technischer Leiter, HPI',
@@ -140,7 +140,7 @@ module.exports = [
 				firstName: 'Dominik',
 				lastName: 'Brüchner',
 				position: 'Wissenschaftlicher Mitarbeiter, HPI',
-				description: 'Dominik war vor seinem BSc in Medieninformatik an der Technischen Hochschule Nürnberg in der Softwareentwicklung bei der Datev eG in Nürnberg tätig. Nach seinem Bachelorstudium führte ihn seine Leidenschaft für Bildung und E-Learning an das Berliner MOOC Startup Iversity.org. Seine Leidenschaft für nutzerzentrierte Produkte und digitale Bildungstechnologien führte ihn während seines Masterstudiums Computer Science & HCI an der TU Berlin an die School of Design Thinking des HPI, bei der er auch erstmals konzeptionell an der Schul-Cloud mitwirken konnte. Im Team arbeitet er an Strategien zur Erhöhung der Nutzerakzeptanz und Verbesserung des Lernerlebnisses. Weiterhin koordiniert er die Weiterentwicklung der UX. In seiner Freizeit trifft man ihn auf Reisen, beim Klettern, Wassersport oder Parkour im urbanen Dschungel.',
+				description: 'Dominik war vor seinem BSc in Medieninformatik an der Technischen Hochschule Nürnberg in der Softwareentwicklung bei der Datev eG in Nürnberg tätig. Nach seinem Bachelorstudium führte ihn seine Leidenschaft für Bildung und E-Learning an das Berliner MOOC Startup Iversity.org. Seine Leidenschaft für nutzerzentrierte Produkte und digitale Bildungstechnologien führte ihn während seines Masterstudiums Computer Science & HCI an der TU Berlin an die School of Design Thinking des HPI, bei der er auch erstmals konzeptionell an der HPI Schul-Cloud mitwirken konnte. Im Team arbeitet er an Strategien zur Erhöhung der Nutzerakzeptanz und Verbesserung des Lernerlebnisses. Weiterhin koordiniert er die Weiterentwicklung der UX. In seiner Freizeit trifft man ihn auf Reisen, beim Klettern, Wassersport oder Parkour im urbanen Dschungel.',
 				pictureUrl: '/images/team/Dominik_Brüchner.jpg',
 				social: {
 					facebook: '',
@@ -229,7 +229,7 @@ module.exports = [
 				firstName: 'Adrian',
 				lastName: 'Jost',
 				position: 'Wissenschaftlicher Mitarbeiter, HPI',
-				description: 'Adrian hat am Hasso-Plattner-Institut IT-Systems Engineering studiert und ist im Projekt HPI Schul-Cloud unter anderem für Architekturfragen aber auch für UI und die UX zuständig. Zudem war er Teil des Bachelorprojekts 2018/2019 der Schul-Cloud. Privat hat er seinen Ausgleich im Rennrad fahren und Mountainbiken gefunden.',
+				description: 'Adrian hat am Hasso-Plattner-Institut IT-Systems Engineering studiert und ist im Projekt HPI Schul-Cloud unter anderem für Architekturfragen aber auch für UI und die UX zuständig. Zudem war er Teil des Bachelorprojekts 2018/2019 der HPI Schul-Cloud. Privat hat er seinen Ausgleich im Rennrad fahren und Mountainbiken gefunden.',
 				pictureUrl: '/images/team/Adrian_Jost.jpg',
 				priority: 0,
 				social: {
@@ -539,7 +539,7 @@ module.exports = [
 				firstName: 'Marcel',
 				lastName: 'Garus',
 				position: 'Studentische Hilfskraft',
-				description: 'Marcel Garus studiert Bachelor IT-Systems Engineering am HPI und entwickelt seit Mitte 2019 die Flutter-Version der Schul-Cloud-App. Privat entwickelt er gerne OpenSource-Projekte, spielt Klavier und schaut mit anderen zusammen Serien auf Netflix.',
+				description: 'Marcel Garus studiert Bachelor IT-Systems Engineering am HPI und entwickelt seit Mitte 2019 die Flutter-Version der HPI Schul-Cloud-App. Privat entwickelt er gerne OpenSource-Projekte, spielt Klavier und schaut mit anderen zusammen Serien auf Netflix.',
 				pictureUrl: '/images/team/marcel_garus.jpg',
 				priority: 0,
 				social: {
@@ -1013,7 +1013,7 @@ module.exports = [
 			},
 		],
 	},
-].filter(t => t.team.length).map((t, i) => {
+].filter((t) => t.team.length).map((t, i) => {
 	t.style = sectionTypes[i % sectionTypes.length];
 	return t;
 });

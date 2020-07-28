@@ -18,7 +18,7 @@ const { CALENDAR_SERVICE_ENABLED, HOST } = require('../config/global');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
-}).then(data => data.data);
+}).then((data) => data.data);
 
 
 const markSelected = (options, values = []) => options.map((option) => {
@@ -38,7 +38,7 @@ const createEventsForCourse = (req, res, course) => {
 	// can just run if a calendar service is running on the environment
 	if (CALENDAR_SERVICE_ENABLED) {
 		return Promise.all(
-			course.times.map(time => api(req).post('/calendar', {
+			course.times.map((time) => api(req).post('/calendar', {
 				json: {
 					summary: course.name,
 					location: time.room,
@@ -82,7 +82,7 @@ const deleteEventsForCourse = (req, res, courseId) => {
 	if (CALENDAR_SERVICE_ENABLED) {
 		return api(req)
 			.get(`courses/${courseId}`)
-			.then(course => Promise.all(
+			.then((course) => Promise.all(
 				(course.times || []).map((t) => {
 					if (t.eventId) {
 						return api(req).delete(`calendar/${t.eventId}`);
@@ -168,13 +168,13 @@ const editCourseHandler = (req, res, next) => {
 	]).then(([course, _classes, _teachers, _students, _scopePermissions]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		const classes = _classes.filter(
-			c => c.schoolId === res.locals.currentSchool,
+			(c) => c.schoolId === res.locals.currentSchool,
 		);
 		const teachers = _teachers.filter(
-			t => t.schoolId === res.locals.currentSchool,
+			(t) => t.schoolId === res.locals.currentSchool,
 		);
 		const students = _students.filter(
-			s => s.schoolId === res.locals.currentSchool,
+			(s) => s.schoolId === res.locals.currentSchool,
 		);
 		const substitutions = _.cloneDeep(
 			teachers,
@@ -231,7 +231,8 @@ const editCourseHandler = (req, res, next) => {
 		);
 
 		if (req.params.courseId) {
-			res.render('courses/edit-course', {
+			if (!_scopePermissions.includes('COURSE_EDIT')) return next(new Error(res.$t('global.error.403')));
+			return res.render('courses/edit-course', {
 				action,
 				method,
 				title: res.$t('courses._course.edit.headline.editCourse'),
@@ -252,28 +253,27 @@ const editCourseHandler = (req, res, next) => {
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
 			});
-		} else {
-			res.render('courses/create-course', {
-				action,
-				method,
-				sectionTitle: res.$t('courses.add.headline.addCourse'),
-				submitLabel: res.$t('courses.add.button.addCourseAndContinue'),
-				closeLabel: res.$t('global.button.cancel'),
-				course,
-				colors,
-				classes: markSelected(classes, _.map(course.classIds, '_id')),
-				teachers: markSelected(
-					teachers,
-					_.map(course.teacherIds, '_id'),
-				),
-				substitutions: markSelected(
-					substitutions,
-					_.map(course.substitutionIds, '_id'),
-				),
-				students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
-				redirectUrl: req.query.redirectUrl || '/courses',
-			});
 		}
+		return res.render('courses/create-course', {
+			action,
+			method,
+			sectionTitle: res.$t('courses.add.headline.addCourse'),
+			submitLabel: res.$t('courses.add.button.addCourseAndContinue'),
+			closeLabel: res.$t('global.button.cancel'),
+			course,
+			colors,
+			classes: markSelected(classes, _.map(course.classIds, '_id')),
+			teachers: markSelected(
+				teachers,
+				_.map(course.teacherIds, '_id'),
+			),
+			substitutions: markSelected(
+				substitutions,
+				_.map(course.substitutionIds, '_id'),
+			),
+			students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
+			redirectUrl: req.query.redirectUrl || '/courses',
+		});
 	}).catch(next);
 };
 
@@ -319,9 +319,9 @@ const copyCourseHandler = (req, res, next) => {
 		teachersPromise,
 		studentsPromise,
 	]).then(([course, _classes, _teachers, _students]) => {
-		const classes = _classes.filter(c => sameId(c.schoolId, res.locals.currentSchool));
-		const teachers = _teachers.filter(t => sameId(t.schoolId, res.locals.currentSchool));
-		const students = _students.filter(s => sameId(s.schoolId, res.locals.currentSchool));
+		const classes = _classes.filter((c) => sameId(c.schoolId, res.locals.currentSchool));
+		const teachers = _teachers.filter((t) => sameId(t.schoolId, res.locals.currentSchool));
+		const students = _students.filter((s) => sameId(s.schoolId, res.locals.currentSchool));
 		const substitutions = _.cloneDeep(teachers);
 
 		// map course times to fit into UI
@@ -601,7 +601,10 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/courses/${req.params.courseId}`, {
 			qs: {
-				$populate: ['userIds'],
+				$populate: {
+					path: 'userIds',
+					select: ['firstName', 'lastName', 'fullName'],
+				},
 			},
 		}),
 	])
@@ -681,12 +684,12 @@ router.get('/:courseId/', async (req, res, next) => {
 		// ################################ end new Editor check ##################################
 
 		const ltiToolIds = (course.ltiToolIds || []).filter(
-			ltiTool => ltiTool.isTemplate !== 'true',
+			(ltiTool) => ltiTool.isTemplate !== 'true',
 		).map((tool) => {
 			tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
 			return tool;
 		});
-		const lessons = (_lessons.data || []).map(lesson => Object.assign(lesson, {
+		const lessons = (_lessons.data || []).map((lesson) => Object.assign(lesson, {
 			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
 		}));
 
@@ -708,14 +711,14 @@ router.get('/:courseId/', async (req, res, next) => {
 			'COURSE_EDIT',
 		)
 			? _courseGroups.data || []
-			: (_courseGroups.data || []).filter(cg => cg.userIds.some(
-				user => user._id === res.locals.currentUser._id,
+			: (_courseGroups.data || []).filter((cg) => cg.userIds.some(
+				(user) => user._id === res.locals.currentUser._id,
 			));
 
 		// ###################### start of code for new Editor ################################
 		let newLessons;
 		if (isNewEdtrioActivated) {
-			newLessons = (_newLessons.data || []).map(lesson => ({
+			newLessons = (_newLessons.data || []).map((lesson) => ({
 				...lesson,
 				url: `/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`,
 				hidden: !lesson.visible,
@@ -731,7 +734,8 @@ router.get('/:courseId/', async (req, res, next) => {
 
 		res.render(
 			'courses/course',
-			Object.assign({}, course, {
+			{
+				...course,
 				title: course.isArchived
 					? `${course.name} (archiviert)`
 					: course.name,
@@ -750,7 +754,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				baseUrl,
 				breadcrumb: [
 					{
-						title: res.$t("courses.headline.myCourses"),
+						title: res.$t('courses.headline.myCourses'),
 						url: '/courses',
 					},
 					{
@@ -768,7 +772,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				scopedCoursePermission: scopedPermissions[res.locals.currentUser._id],
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
-			}),
+			},
 		);
 	} catch (err) {
 		logger.warn(err);
@@ -858,10 +862,10 @@ router.delete('/:courseId', async (req, res, next) => {
 router.get('/:courseId/addStudent', (req, res, next) => {
 	const { currentUser } = res.locals;
 	// if currentUser isn't a student don't add to course-students
-	if (currentUser.roles.filter(r => r.name === 'student').length <= 0) {
+	if (currentUser.roles.filter((r) => r.name === 'student').length <= 0) {
 		req.session.notification = {
 			type: 'danger',
-			message: res.$t("courses._course.addStudent.text.youAreNoStudent"),
+			message: res.$t('courses._course.addStudent.text.youAreNoStudent'),
 		};
 		res.redirect(`/courses/${req.params.courseId}`);
 		return;
@@ -874,7 +878,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 			if (_.includes(course.userIds, currentUser._id)) {
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t("courses._course.text.youAreAlreadyMember", {coursename : course.name}),
+					message: res.$t('courses._course.text.youAreAlreadyMember', { coursename: course.name }),
 				};
 				res.redirect(`/courses/${req.params.courseId}`);
 				return;
@@ -890,7 +894,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 				.then(() => {
 					req.session.notification = {
 						type: 'success',
-						message: res.$t("courses._course.text.youHaveBeenAdded", {coursename : course.name}),
+						message: res.$t('courses._course.text.youHaveBeenAdded', { coursename: course.name }),
 					};
 					res.redirect(`/courses/${req.params.courseId}`);
 				});
@@ -907,7 +911,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t("courses._course.topic.text.noTopicFoundWithCode"),
+					message: res.$t('courses._course.topic.text.noTopicFoundWithCode'),
 				};
 
 				redirectHelper.safeBackRedirect(req, res);
@@ -925,7 +929,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 					redirectHelper.safeBackRedirect(req, res);
 				});
 		})
-		.catch(err => res.status(err.statusCode || 500).send(err));
+		.catch((err) => res.status(err.statusCode || 500).send(err));
 });
 
 router.get('/:courseId/edit', editCourseHandler);
@@ -935,12 +939,12 @@ router.get('/:courseId/copy', copyCourseHandler);
 // return shareToken
 router.get('/:id/share', (req, res, next) => api(req)
 	.get(`/courses/share/${req.params.id}`)
-	.then(course => res.json(course)));
+	.then((course) => res.json(course)));
 
 // return course Name for given shareToken
 router.get('/share/:id', (req, res, next) => api(req)
 	.get('/courses/share', { qs: { shareToken: req.params.id } })
-	.then(name => res.json({ msg: name, status: 'success' }))
+	.then((name) => res.json({ msg: name, status: 'success' }))
 	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
 router.post('/import', (req, res, next) => {

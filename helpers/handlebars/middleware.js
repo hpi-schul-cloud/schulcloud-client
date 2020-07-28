@@ -104,7 +104,7 @@ module.exports = (req, res, next) => {
 	}];
 
 	// Lern-Store Feature Toggle
-	if (Configuration.get('FEATURE_LERNSTORE_ENABLED') === true) {
+	if (Configuration.get('LERNSTORE_MODE') !== 'DISABLED') {
 		res.locals.sidebarItems.push({
 			name: res.$t('global.sidebar.link.lernstore'),
 			icon: 'search',
@@ -179,7 +179,7 @@ module.exports = (req, res, next) => {
 
 	// admin views
 	res.locals.sidebarItems.push({
-		name: res.$t('global.sidebar.link.administration'),
+		name: res.$t('global.sidebar.link.management'),
 		icon: 'cogs',
 		link: '/administration/',
 		permission: 'ADMIN_VIEW',

@@ -57,7 +57,7 @@ router.use('/ghost', require('./ghost'));
 router.use('/blog', require('./blog'));
 router.use('/security/', require('./security'));
 
-if (Configuration.get('FEATURE_LERNSTORE_ENABLED') === true) {
+if (Configuration.get('LERNSTORE_MODE') === 'LEGACY') {
 	router.use('/content/', require('./content'));
 }
 

@@ -11,6 +11,8 @@ const authHelper = require('../helpers/authentication');
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
 
+const getImportHash = (req) => req.query.importHash;
+
 const resetThemeForPrivacyDocuments = async (req, res) => {
 	try {
 		res.locals.currentSchoolData = await api(req).get(
@@ -42,21 +44,19 @@ const checkValidRegistration = async (req) => {
 router.get(['/register', '/register/*'], (req, res, next) => res.render('registration/deprecated_warning'));
 
 const getSchoolPrivacy = async (req, res) => {
-	const consentVersion = await api(req).get('/consentVersions', {
-		qs: {
-			$limit: 1,
-			schoolId: res.locals.currentSchool,
-			consentTypes: 'privacy',
-			$sort: {
-				updatedAt: -1,
-			},
-		},
-	});
-	let consentDataId;
-	if (consentVersion && (consentVersion.data || []).length === 1) {
-		consentDataId = consentVersion.data[0].consentDataId;
+	const importHash = getImportHash(req);
+
+	try {
+		const consentVersion = await api(req).get(`/registration/consent/${importHash}`);
+		if (consentVersion) {
+			const { consentDataId } = consentVersion;
+			return consentDataId ? `/base64Files/${consentDataId}` : undefined;
+		}
+	} catch (error) {
+		// invalid token
+		throw new Error('Invalid import hash!');
 	}
-	return consentDataId ? `/base64Files/${consentDataId}` : undefined;
+	return undefined;
 };
 
 /*

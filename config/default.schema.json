@@ -169,15 +169,9 @@
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
 		},
-		"FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY": {
-			"type": "string",
-			"default": "disabled",
-			"enum": [
-				"disabled",
-				"opt-in",
-				"opt-out",
-				"enabled"
-			],
+		"FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED": {
+			"type": "boolean",
+			"default": "false",
 			"description": "Allows school admin to toggle teacher's STUDENT_LIST permission."
 		},
 		"SENTRY_DSN": {
@@ -299,15 +293,25 @@
 			"default": false,
 			"description": "Enables Portfolio (navigation, addons) in app"
 		},
-		"FEATURE_LERNSTORE_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables Lern-Store (navigation, route) in app"
+		"LERNSTORE_MODE": {
+			"type": "string",
+			"enum": [
+				"DISABLED",
+				"LEGACY",
+				"EDUSHARING"
+			],
+			"default": "DISABLED",
+			"description": "Defines the lernstore mode. Can be legacy, edusharing and disabled"
 		},
 		"HELPAREA_URL": {
 			"type": "string",
 			"default": "",
 			"description": "The URL to Confluence. Without a link, there are subpages in the side menu and on the /help page. With the link the option from the Hilfebereich side menu leads to confluence."
+		},
+		"FEATURE_MULTI_LOGIN_INSTANCES": {
+			"type": "boolean",
+			"default": false,
+			"description": "Multi login instances tiles"
 		}
 	},
 	"allOf": [
@@ -357,7 +361,6 @@
 		"COOKIE_SECRET",
 		"STUDENT_TEAM_CREATION",
 		"FEATURE_ETHERPAD_ENABLED",
-		"FEATURE_EXTENSION_PORTFOLIO_ENABLED",
-		"FEATURE_LERNSTORE_ENABLED"
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED"
 	]
 }
