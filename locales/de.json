@@ -771,7 +771,9 @@
 		"users_registrationComplete": {
 			"text": {
 				"cannotCallPageAgain": "<b>Achtung: </b>Du kannst diese Seite nicht erneut aufrufen. Drucke dir also die angezeigten Zugangsdaten\n            unbedingt aus oder speichere sie anderweitig.\n            Sollte ein Schüler sein Passwort vergessen, kannst du es nur in der Benutzerverwaltung ändern.",
+				"loginWithPassword": "Du kannst dich nun in der {{shortTitle}} mit deinem Startpasswort einloggen.\n Gehe dazu auf <a href=\"https://schul-cloud.org\">\n                    <script nonce=\"{{nonceValue}}\">document.write(window.location.origin)</script></a>\n                und logge dich dort mit den folgenden Zugansdaten ein:",
 				"registrationAtThe": "Die Anmeldung an der",
+				"whatYouCanFind": "Auf dieser Seite findest du eine Übersicht über alle erfolgten Einwilligungen und generierten Zugangsdaten. <br>Die folgenden Seiten dieses Dokuments beinhalten jeweils die Zugangsdaten eines Kindes und eine Anleitung zur ersten Anmeldung. ",
 				"whenLoginForTheFirstTime": " Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen bei ihrem ersten Login die Einwilligungserklärung zusätzlich selbst erklären."
 			}
 		},

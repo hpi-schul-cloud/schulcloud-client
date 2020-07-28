@@ -10,7 +10,7 @@
             {{$t "administration.users_registrationComplete.text.registrationAtThe" }} {{@root.theme.short_title}} {{$t "administration.global.text.isPossibleWithTheFollowingData" }}
         </p>
         <p class="noprint">
-        {{$t "administration.users_registrationComplete.text.cannotCallPageAgain" }}
+        {{{$t "administration.users_registrationComplete.text.cannotCallPageAgain" }}}
         </p>
         <center class="form-group">
             <a href="/administration/students" class="windowprint noprint">
@@ -21,10 +21,7 @@
         </center>
         {{#unless single}}
         <div class="printonly">
-            <p>Auf dieser Seite findest du eine Übersicht über alle erfolgten Einwilligungen und generierten
-                Zugangsdaten. <br>
-                Die folgenden Seiten dieses Dokuments beinhalten jeweils die Zugangsdaten eines Kindes und eine
-                Anleitung zur ersten Anmeldung. </p>
+            <p>{{{$t "administration.users_registrationComplete.text.whatYouCanFind" }}}</p>
             <table class="table">
                 <tr>
                     <th>Name</th>
@@ -48,10 +45,7 @@
         {{/unless}}
         <div class="printonly">
             <h1>{{fullname}}</h1>
-            <p>Du kannst dich nun in der {{@root.theme.short_title}} mit deinem Startpasswort einloggen.
-                Gehe dazu auf <a href="https://schul-cloud.org">
-                    <script nonce="{{nonceValue}}">document.write(window.location.origin)</script></a>
-                und logge dich dort mit den folgenden Zugansdaten ein:</p>
+            <p>{{$t "administration.users_registrationComplete.text.loginWithPassword" (dict "shortTitle" @root.theme.short_title)}}</p>
         </div>
         <textarea disabled class="printable form-control" id="skipRegistrationCredentials">
 	{{fullname}}
