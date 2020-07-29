@@ -32,22 +32,8 @@
 	<input type="email" name="replyEmail" placeholder={{$t "help.placeholder.email"}} value="{{ userEmail }}" class="form-control" required>
 </label>
 <hr>
-    <fieldset>
-        <legend class="control-legend">{{$t "help.global.label.furtherInformation" }}</legend>
-    <label for="consentWish">
-<div class="row">
-	<div class="col-xs-2">
-		<input type="checkbox" id="consent" name="consent" value="true" checked>
-	</div>
-	<div class="col-xs-10">
-		<span class="control-label">
-            {{$t "help.form_Wish.text.iAgreeThatTheFollowingInformation" }}
-		</span>
-	</div>
-</div>
-</label>
 <fieldset>
-	<legend class="control-legend">Weitere Informationen (optional):</legend>
+	<legend class="control-legend">{{$t "help.global.label.furtherInformation" }}</legend>
 	<label for="consentWish">
 		<div class="row">
 			<div class="col-xs-2">
@@ -55,10 +41,7 @@
 			</div>
 			<div class="col-xs-10">
 				<span class="control-label">
-					Ich bin damit einverstanden,
-					dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:
-					<li>Browser Name und Version (z.B: Firefox 69.0)</li>
-					<li>Betriebssystem und Version (z.B: Windows 10)</li>
+				  {{$t "help.form_Wish.text.iAgreeThatTheFollowingInformation" }}
 				</span>
 			</div>
 		</div>
