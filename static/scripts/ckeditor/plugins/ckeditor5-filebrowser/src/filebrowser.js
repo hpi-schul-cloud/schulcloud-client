@@ -23,15 +23,14 @@ const createFilebrowserModal = (editor, t, dialogTitle, onCreate, additionalInpu
 	ckeditorFilebrowserDialog.find('.btn-submit').click(() => { ckeditorFilebrowserDialog.modal('hide'); onCreate(); });
 	ckeditorFilebrowserDialog.appendTo('body').modal('show');
 
+	window.addEventListener('message', (e) => {
+		document.getElementById('url-input').value = e.data;
+	});
+
 	ckeditorFilebrowserDialog.on('shown.bs.modal', () => {
 		document.getElementById('browseServerButton').addEventListener('click', () => {
 			const dialogPageUrl = editor.config.get('filebrowser.browseUrl');
-			const dialogWindow = window.open(dialogPageUrl, '_blank', 'width=700, height=500');
-			dialogWindow.onload = () => {
-				dialogWindow.callbackFunctionFileUrl = (imageUrl) => {
-					document.getElementById('url-input').value = imageUrl;
-				};
-			};
+			window.open(dialogPageUrl, '_blank', 'width=700, height=500');
 		});
 	});
 };

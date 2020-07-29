@@ -329,8 +329,10 @@ $(document).ready(() => {
 	});
 
 	const returnFileUrl = (fileId, fileName) => {
-		const fullUrl = `/files/file?file=${fileId}&name=${fileName}`;
-		if (typeof callbackFunctionFileUrl !== 'undefined') callbackFunctionFileUrl(fullUrl);
+		if (window.opener) {
+			const fullUrl = `/files/file?file=${fileId}&name=${fileName}`;
+			window.opener.postMessage(fullUrl, '*');
+		}
 		window.close();
 	};
 
