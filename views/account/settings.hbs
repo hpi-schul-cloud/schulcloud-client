@@ -96,16 +96,16 @@
 				{{else}}
 					<div>
 						<div class="form-group">
-							<label for="firstName">{{$t "account.global.label.firstName"}}</label>
-							<input id="firstName" type="text" class="form-control" value="{{ currentUser.firstName }}" readonly>
+							<label for="fName">{{$t "account.global.label.firstName"}}</label>
+							<input id="fName" type="text" class="form-control" value="{{ currentUser.firstName }}" readonly>
 						</div>
 						<div class="form-group">
-							<label for="lasName">{{$t "account.global.label.lastName"}}</label>
-							<input id="lastName" type="text" class="form-control" value="{{ currentUser.lastName }}" readonly>
+							<label for="lName">{{$t "account.global.label.lastName"}}</label>
+							<input id="lName" type="text" class="form-control" value="{{ currentUser.lastName }}" readonly>
 						</div>
 						<div class="form-group">
-							<label for="email" >{{$t "account.global.label.emailAddress"}}</label>
-							<input id="email" type="email" class="form-control" value="{{ currentUser.email }}" readonly>
+							<label for="emailAddress" >{{$t "account.global.label.emailAddress"}}</label>
+							<input id="emailAddress" type="email" class="form-control" value="{{ currentUser.email }}" readonly>
 						</div>
 						<p class="warning">
 						{{$t "account.text.centralIdentityManagement" }}
