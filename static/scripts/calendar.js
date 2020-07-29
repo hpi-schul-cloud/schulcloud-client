@@ -82,6 +82,7 @@ $(document).ready(() => {
 				element.addClass('fc-event-cancelled');
 			}
 		},
+		// eslint-disable-next-line consistent-return
 		eventClick(event) {
 			if (event.url) {
 				window.location.href = event.url;
@@ -101,7 +102,7 @@ $(document).ready(() => {
 
 			if (!event['x-sc-teamId']) { // course or non-course event
 				transformCourseOrTeamEvent($editEventModal, event);
-				$editEventModal.find('.btn-delete').click((e) => {
+				$editEventModal.find('.btn-delete').click(() => {
 					$.ajax({
 						url: `/calendar/events/${event.attributes.uid}`,
 						type: 'DELETE',
@@ -119,18 +120,18 @@ $(document).ready(() => {
 				window.location.assign(`/teams/${teamId}?activeTab=events`);
 			}
 		},
-		dayClick(date, jsEvent, view) {
+		dayClick(date) {
 			// open create event modal
-			const _startDate = date.format('DD.MM.YYYY HH:mm');
-			const _endDate = date.add(1, 'hour').format('DD.MM.YYYY HH:mm');
+			const startDate = date.format('DD.MM.YYYY HH:mm');
+			const endDate = date.add(1, 'hour').format('DD.MM.YYYY HH:mm');
 
 			populateModalForm($createEventModal, {
 				title: $t('global.headline.addDate'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.add'),
 				fields: {
-					startDate: _startDate,
-					endDate: _endDate,
+					startDate,
+					endDate,
 				},
 			});
 			$createEventModal.appendTo('body').modal('show');
@@ -140,7 +141,8 @@ $(document).ready(() => {
 			right: 'month,agendaWeek,agendaDay prev,today,next',
 		},
 		locale: 'de',
-		viewRender(view, element) {
+		viewRender() {
+			// eslint-disable-next-line no-restricted-globals
 			location.hash = view.name;
 		},
 	});
@@ -157,7 +159,7 @@ $(document).ready(() => {
 		.addClass('btn-group btn-group-sm');
 
 
-	$("input[name='isCourseEvent']").change(function (e) {
+	$("input[name='isCourseEvent']").change(() => {
 		const isChecked = $(this).is(':checked');
 		const ref = $(this).attr('data-collapseRef');
 		const $collapse = $(`#${ref}`);
@@ -170,7 +172,7 @@ $(document).ready(() => {
 			// fetch all courses for teacher and show selection
 			$.getJSON('/courses?json=true', (courses) => {
 				$collapse.collapse('show');
-				const $toggleTeam = $(`#toggle${parseInt(ref.substr(ref.length - 1, ref.length)) + 1}`);
+				const $toggleTeam = $(`#toggle${parseInt(ref.substr(ref.length - 1, ref.length), 10) + 1}`);
 				$toggleTeam.bootstrapToggle('off');
 
 				courses.forEach((course) => {
@@ -186,7 +188,7 @@ $(document).ready(() => {
 		}
 	});
 
-	$("input[name='isTeamEvent']").change(function (e) {
+	$("input[name='isTeamEvent']").change(() => {
 		const isChecked = $(this).is(':checked');
 		const ref = $(this).attr('data-collapseRef');
 		const $collapse = $(`#${$(this).attr('data-collapseRef')}`);
@@ -200,7 +202,7 @@ $(document).ready(() => {
 			// fetch all courses for teacher and show selection
 			$.getJSON('/teams?json=true', (teams) => {
 				$collapse.collapse('show');
-				const $toggleTCourse = $(`#toggle${parseInt(ref.substr(ref.length - 1, ref.length)) - 1}`);
+				const $toggleTCourse = $(`#toggle${parseInt(ref.substr(ref.length - 1, ref.length), 10) - 1}`);
 				$toggleTCourse.bootstrapToggle('off');
 				teams.forEach((team) => {
 					const option = document.createElement('option');
