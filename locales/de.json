@@ -48,6 +48,7 @@
 		"global": {
 			"label": {
 				"currentPassword": "Aktuelles Passwort:",
+				"emailAddress": "E-Mail-Adresse:",
 				"firstName": "Vorname:",
 				"lastName": "Nachname:",
 				"newPassword": "Neues Passwort:",
@@ -55,10 +56,6 @@
 				"repeatNewPassword": "Neues Passwort wiederholen:",
 				"thirdPartyLogins": "Drittanbieter-Logins",
 				"type": "Typ"
-			},
-			"text": {
-				"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
-				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
 			}
 		},
 		"headline": {
@@ -84,6 +81,7 @@
 			"text": {
 				"hint": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
 				"teamInvitationsdisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
+				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
 			}
 		},
 		"testNotification": {
@@ -97,13 +95,18 @@
 		"text": {
 			"centralIdentityManagement": "Deine Nutzerdaten werden von einem zentralen Identitätsmanagement (IDM) synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver), das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Administrator deiner Schule, um Änderungen an deinen Nutzerdaten vorzunehmen.",
 			"noDeviceEntered": "Keine Geräte eingetragen",
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
 			"passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
 			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!",
-			"preferencesUpdates": "Präferenzen wurden aktualisiert!"
+			"preferencesUpdates": "Präferenzen wurden aktualisiert!",
+			"visibilityForTeamInvitation": "Sichtbarkeit für Teameinladungen"
 		},
 		"thirdPartyProviders": {
 			"headline": {
 				"thirdPartyProviderLogin": "Drittanbieter-Logins"
+			},
+			"text": {
+				"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
 			}
 		}
 	},
@@ -121,6 +124,7 @@
 			"changePassword": "Passwort ändern",
 			"consent": "Einwilligungen:",
 			"deleteUser": "Benutzer löschen",
+			"edit": "Bearbeiten",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
@@ -494,6 +498,7 @@
 			"birthdate": "Geburtsdatum:",
 			"classes": "Klassen:",
 			"dataProtection": "Datenschutz",
+			"emailAddress": "E-Mail-Adresse:",
 			"firstName": "Vorname:",
 			"lastName": "Nachname:",
 			"parents": "Eltern",
@@ -1398,6 +1403,7 @@
 			"createNewFolder": "Ordner erstellen",
 			"descending": "↓ absteigend",
 			"download": "Runterladen",
+			"edit": "Bearbeiten",
 			"open": "Öffnen",
 			"presentation": "Präsentation (pptx)",
 			"search": "Suchen",
@@ -1687,7 +1693,8 @@
 			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
 		},
 		"headline": {
-			"delete": "Löschen"
+			"delete": "Löschen",
+			"edit": "Bearbeiten"
 		},
 		"img_alt": {
 			"brokenPen": "zerbrochener Stift"
@@ -2134,6 +2141,7 @@
 			"courses": "Kurse",
 			"details": "Details",
 			"dontShowAgain": "Nicht mehr anzeigen",
+			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"filterCourses": "Kurse: %1",
 			"filterDueDate": "Abgabe vom %1 bis %2",
@@ -2538,6 +2546,7 @@
 		"button": {
 			"addNews": "News hinzufügen",
 			"deleteNewsAlt": "Artikel '{{name}}' löschen",
+			"editNews": "Bearbeiten",
 			"editNewsAlt": "Artikel '{{title}}' bearbeiten."
 		},
 		"headline": {
@@ -2659,6 +2668,7 @@
 				"label": {
 					"birthDate": "Geburtsdatum:",
 					"eMail": "E-Mail:",
+					"emailAddress": "E-Mail-Adresse:",
 					"firstName": "Vorname:",
 					"lastName": "Nachname:",
 					"studentEmailAddress": "E-Mail-Adresse des Schülers:",
@@ -3095,7 +3105,8 @@
 			"global": {
 				"button": {
 					"addPrivateTask": "private Aufgabe hinzufügen",
-					"addTask": "Aufgabe hinzufügen"
+					"addTask": "Aufgabe hinzufügen",
+					"toEdit": "Bearbeiten"
 				},
 				"heading": {
 					"task": "Aufgabe"
