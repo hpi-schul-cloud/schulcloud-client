@@ -16,7 +16,7 @@
                 {{#userHasPermission "ENTERTHECLOUD_START"}}
                     <li class="list-group-item list-group-item-action enterthecloud-btn">
                         <span>
-                            <i class="fa fa-gamepad"aria-hidden="true"></i>
+                            <i class="fa fa-gamepad" aria-hidden="true"></i>
                             <button type="button" class="link btn-link enterthecloud-btn" style="line-height: initial">{{$t "lib.help_menu.button.playEnterTheCloud" }}</button>
                         </span>
                     </li>
@@ -38,7 +38,7 @@
                 <li class="list-group-item list-group-item-action">
                     <span>
                         <img style="width: 1em;" src="/images/logo/fortbildung.svg" alt="{{$t "lib.help_menu.img_alt.learnCloud"}}" >
-                        <a href="https://lernen.cloud/" target="_blank" class="link">{{$t "lib.help_menu.link.Fortbildungen" }}</a>
+                        <a href="https://lernen.cloud/" target="_blank" class="link" aria-label="{{$t "lib.help_menu.link.Fortbildungen" }} {{$t "global.openInNewTabWarning"}}">{{$t "lib.help_menu.link.Fortbildungen" }}</a>
                     </span>
                 </li>
             </ul>

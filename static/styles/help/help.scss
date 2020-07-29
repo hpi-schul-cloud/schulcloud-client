@@ -185,6 +185,9 @@ fieldset.switch_wrapper {
         padding-left: 8px;
         font-size: inherit;
       }
+		.collapsable-headline:last-of-type {
+			padding-left: 0;
+		}
 
       &.single {
         color: $primaryColor;
