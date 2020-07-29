@@ -38,14 +38,14 @@
 					{{#if schoolMaintanance.schoolUsesLdap}}
 					<p>Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit
 						und Personendaten anzupassen.
-						Übernimm abschließend alle Änderungen mit einem Mal in die Schul-Cloud.</p>
+						Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.</p>
 					<p><a class="ldapschoolyearadditionalinfotoggle" href="#">Mehr Infos ></a></p>
 					<div id="ldapschoolyearadditionalinfo">
 						<p>Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen
-							(z.B. Klassenfahrtfotos) zugreifen kann, speichert die Schul-Cloud ab, in welchem Schuljahr
+							(z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr
 							ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus
 							synchronisierten
-							Klassen funktioniert, stellt die Schul-Cloud eine Transferphase zur Verfügung. So ist der
+							Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der
 							Ablauf während eines Schuljahreswechsels:
 						</p>
 						<p class="font-weight-bold">Während des Schuljahres</p>
@@ -75,7 +75,7 @@
 							<li>beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind</li>
 							<li>bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag
 								synchronisiert</li>
-							<li>gleichzeitig läutest Du damit das neue Schuljahr in der Schul-Cloud ein</li>
+							<li>gleichzeitig läutest Du damit das neue Schuljahr in der HPI Schul-Cloud ein</li>
 							<li>die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen
 								im Kontext des alten Schuljahres archiviert</li>
 						</ul>
@@ -220,7 +220,7 @@
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
 
-						{{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY" "enabled"}}
+						{{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
 							<h2 class="h6 mt-2">Datenschutz-Einstellungen</h2>
 							<div class="form-group">
 								<label>

@@ -11,7 +11,10 @@ const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
 
-const { CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED, ROCKET_CHAT_URI } = require('../config/global');
+const {
+	CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED,
+	ROCKET_CHAT_URI, FEATURE_MATRIX_MESSENGER_ENABLED,
+} = require('../config/global');
 
 const router = express.Router();
 moment.locale('de');
@@ -119,10 +122,11 @@ const markSelected = (options, values = []) => options.map((option) => {
 	return option;
 });
 
-const editTeamHandler = (req, res, next) => {
+const editTeamHandler = async (req, res, next) => {
 	let teamPromise;
 	let action;
 	let method;
+	let permissions = [];
 	if (req.params.teamId) {
 		action = `/teams/${req.params.teamId}`;
 		method = 'patch';
@@ -133,12 +137,27 @@ const editTeamHandler = (req, res, next) => {
 		teamPromise = Promise.resolve({});
 	}
 
+	if (req.params.teamId) {
+		try {
+			permissions = await api(req)
+				.get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
+		} catch (error) {
+			logger.error(error);
+		}
+	}
+
 	teamPromise.then((team) => {
-		res.render('teams/edit-team', {
+		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
+			return next(new Error(res.$t('global.error.403')));
+		}
+		return res.render('teams/edit-team', {
 			action,
 			method,
-			title: req.params.teamId ? res.$t('teams.add.headline.editTeam') : res.$t('teams.add.headline.createTeam'),
-			submitLabel: req.params.teamId ? res.$t('teams.add.button.saveChanges')
+			title: req.params.teamId
+				? res.$t('teams.add.headline.editTeam')
+				: res.$t('teams.add.headline.createTeam'),
+			submitLabel: req.params.teamId
+				? res.$t('global.button.saveChanges')
 				: res.$t('teams.add.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
@@ -275,7 +294,7 @@ router.get('/', async (req, res, next) => {
 			time.startTime = moment(time.startTime, 'x')
 				.utc()
 				.format('HH:mm');
-			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
 			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 				time.room ? `| ${time.room}` : ''
 			}</div>`;
@@ -446,7 +465,10 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
-				$populate: ['userIds.userId'],
+				$populate: {
+					path: 'userIds.userId',
+					select: ['firstName', 'lastName', 'fullName'],
+				},
 			},
 		}),
 	]).then(([course]) => res.json({ course }));
@@ -508,7 +530,19 @@ router.get('/:teamId', async (req, res, next) => {
 				rocketChatCompleteURL = undefined;
 			}
 		}
-
+		const instanceUsesMatrixMessenger = FEATURE_MATRIX_MESSENGER_ENABLED;
+		const courseUsesMatrixMessenger = course.features.includes('messenger');
+		const schoolUsesMatrixMessenger = (res.locals.currentSchoolData.features || []).includes('messenger');
+		let matrixNotification;
+		let messenger = false;
+		if (instanceUsesMatrixMessenger && courseUsesMatrixMessenger && !schoolUsesMatrixMessenger) {
+			matrixNotification = res.$t('teams._team.messengerNotActivatedSchool');
+			messenger = true;
+		}
+		if (instanceUsesMatrixMessenger && schoolUsesMatrixMessenger && !courseUsesMatrixMessenger) {
+			matrixNotification = res.$t('teams._team.messengerNotActivatedCourse');
+			messenger = true;
+		}
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
 		const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
@@ -671,6 +705,13 @@ router.get('/:teamId', async (req, res, next) => {
 				userId: res.locals.currentUser._id,
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
+				notificationMessenger: {
+					message: matrixNotification,
+					type: 'info',
+					title: 'Hinweis',
+					iconClass: 'fa fa-info-circle',
+				},
+				messenger,
 			},
 		);
 	} catch (e) {
@@ -716,15 +757,14 @@ router.patch('/:teamId', async (req, res, next) => {
 	});
 	req.body.features = Array.from(features);
 
-	await api(req).patch(`/teams/${req.params.teamId}`, {
-		json: req.body, // TODO: sanitize
-	});
-
-	res.redirect(`/teams/${req.params.teamId}`);
-
-	// }).catch(error => {
-	//     res.sendStatus(500);
-	// });
+	try {
+		await api(req).patch(`/teams/${req.params.teamId}`, {
+			json: req.body, // TODO: sanitize
+		});
+		res.redirect(`/teams/${req.params.teamId}`);
+	} catch (error) {
+		next(error);
+	}
 });
 
 router.patch('/:teamId/permissions', (req, res) => {

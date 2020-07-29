@@ -14,11 +14,13 @@
 				<input type="hidden" name="redirect" value={{redirect}} />
 
 				<div class="form-group">
-					<input type="text" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" data-testid="username" required>
-					<div class="input-group mt-1" id="show_hide_password">
-						<input type="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg" placeholder="{{$t "login.input.password"}}" data-testid="password" required>
+					<label for="name">{{$t "login.input.emailUsername"}}</label>
+					<input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" style="margin-bottom: 0.5rem" data-testid="username" required >
+						<label for="password">{{$t "login.input.password"}}</label>
+					<div class="input-group mt-1" id="show_hide_password" style="margin-top: 0rem !important">
+						<input type="password" id="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg"  placeholder="{{$t "login.input.password"}}" data-testid="password" required>
 						<div class="input-group-addon">
-							<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+							<a href="" title="{{$t "login.anchor.title.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
 						</div>
 					</div>
 					{{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}
@@ -32,15 +34,15 @@
 					{{/ifEnv}}
 				</div>
 
-				<div class="form-group toggle-providers">
-					<a class="btn btn-block btn-secondary btn-toggle-providers">
-						<i class="fa fa-chevron-down"></i> {{$t "login.button.moreOptions"}}
-					</a>
-				</div>
+                <button  title={{$t "login.button.moreOptions"}} class="btn toggle-btn btn-block btn-secondary btn-toggle-providers ">
+                    <i class="fa fa-chevron-down"></i> {{$t "login.button.moreOptions"}}
+                </button>
+
 
 				<div class="login-providers">
 					<div class="form-group ">
-						<select name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
+						<label for="school">{{$t "login.label.school"}}</label>
+						<select tab-index="0" id="school" name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
 							<option selected value="">{{$t "login.input.noSchoolsSelection"}}</option>
 							{{#each schools}}
 								<option value="{{this._id}}">{{this.name}}</option>
@@ -49,8 +51,9 @@
 							{{/each}}
 						</select>
 					</div>
-					<div class="form-group ">
-						<select name="system" class="system" data-placeholder="{{$t "login.input.system"}}">
+					<div class="form-group">
+						<label for="system">{{$t "login.label.system"}}</label>
+						<select id="system" name="system" class="system" data-placeholder="{{$t "login.input.system"}}">
 							{{#each systems}}
 								<option value="{{this._id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
 							{{else}}
@@ -58,9 +61,8 @@
 							{{/each}}
 						</select>
 					</div>
-
-					<div class="form-group ">
-						<a class="btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-up"></i> {{$t "login.button.less"}}</a>
+					<div>
+					<button title={{$t "login.button.less"}} class="btn toggle-btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-up"></i>{{$t "login.button.less"}}</button>
 					</div>
 				</div>
 				{{> "lib/components/csrfInput"}}
@@ -81,6 +83,6 @@
 <div class="alert-section"></div>
 <div>
     {{#if notification.statusCode}}
-   		{{#embed "help/partials/login_failed_hint"}}{{/embed}}
+		{{#embed "help/partials/login_failed_hint"}}{{/embed}}
     {{/if}}
 </div>

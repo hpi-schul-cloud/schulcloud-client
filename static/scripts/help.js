@@ -1,7 +1,6 @@
 import livesearch from './helpers/livesearch';
 import { resizeIframes } from './helpers/iFrameResize';
 import './help/contactForm';
-import text from './helpers/form_bug_text';
 
 /* eslint-disable max-len */
 const MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = Number($('.form-control-file').data('maxAttachmentSizeMb')) * 1024 * 1024;
@@ -15,7 +14,7 @@ $(document).ready(() => {
 
 	// only fill textarea if empty
 	if (!$('textarea[name= problemDescription]').val()) {
-		$('textarea[name= problemDescription]').text(text);
+		$('textarea[name= problemDescription]').text($t('help.placeholder.formBugText'));
 	}
 
 	$('.form-control-file').change(function x() {
@@ -30,7 +29,7 @@ $(document).ready(() => {
 					form.find('.file-alert').html('');
 					form.find(':submit').prop('disabled', false);
 				} else {
-					form.find('.file-alert').html('<i class="fa fa-exclamation"></i> '.concat($t('help.contactForm.text.typeNotAllowed', { filename: this.files.item(i).name })));
+					form.find('.file-alert').html('<i class="fa fa-exclamation"></i> '.concat($t('help.confluence.text.typeNotAllowed', { filename: this.files.item(i).name })));
 					form.find(':submit').prop('disabled', true);
 					return;
 				}
@@ -39,9 +38,9 @@ $(document).ready(() => {
 		}
 		if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE) {
 			if (this.files.length > 1) {
-				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> '.concat($t('help.contactForm.text.filesTooLarge')));
+				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> '.concat($t('help.confluence.text.filesTooLarge')));
 			} else {
-				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> '.concat($t('help.contactForm.text.fileTooLarge')));
+				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> '.concat($t('help.confluence.text.fileTooLarge')));
 			}
 			form.find(':submit').prop('disabled', true);
 		} else {
@@ -109,7 +108,7 @@ function parseData(result) {
 		class: 'disabled',
 		link: '#',
 		title: $t('help.search.headline.noSearchResults'),
-		short_description: $t('help.search.text.tryAnotherQuery'),
+		short_description: $t('help.headline.lernNuggets.text.tryAnotherQuery'),
 	};
 }
 const config = {
