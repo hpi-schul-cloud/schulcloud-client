@@ -257,11 +257,11 @@
                 <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
                 <p id="backendUrl" hidden>{{ backendUrl }}</p>
                 <main id="main-content" class="container-fluid">
-				<dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.ariaLabel"}}">
-					<dd>
-						<a href="#sidebar">{{$t "global.sidebar.ariaLabel"}}</a>
-					</dd>
-				</dl>
+				    <dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.ariaLabel"}}">
+					    <dd>
+						    <a href="#sidebar">{{$t "global.sidebar.ariaLabel"}}</a>
+					    </dd>
+				    </dl>
                     {{#block "page"}}{{/block}}
                 </main>
 						{{#if messenger}}
