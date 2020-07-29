@@ -31,7 +31,7 @@
                 {{/ifneq}}
 
                 <div class="form-group">
-                    <label>{{$t "account.global.label.emailAddress" }}</label>
+                    <label>{{$t "administration.global.label.emailAddress" }}</label>
                     <input type="email" class="form-control" name="email" value="{{ currentUser.email }}">
                 </div>
 
@@ -99,7 +99,7 @@
                     <input type="text" class="form-control" value="{{ currentUser.lastName }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label>{{$t "account.global.label.emailAddress" }}</label>
+                    <label>{{$t "administration.global.label.emailAddress" }}</label>
                     <input type="email" class="form-control" value="{{ currentUser.email }}" readonly>
                 </div>
                 <p class="warning">
@@ -114,7 +114,7 @@
                 <form method="post" action="/account/teamSettings">
                     <h5>Teams</h5>
                     <div class="form-group">
-                        {{$t "account.text.visibilityForTeamInvitation" }}
+                        {{$t "account.global.text.visibilityTeamInvitations" }}
                         <p class="text-muted">{{{$t "account.teams.text.hint" (dict "short_title" theme.short_title )}}}</p>
 
                         {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>{{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled"}}</label>{{/ifConfig}}
@@ -238,7 +238,7 @@
 							</table>
 						{{else}}
 							<h3 class=" h5 text-muted text-center">
-								<span>{{$t "account.text.noThirdPartyProvidersUsed"}}</span>
+								<span>{{$t "account.global.text.noThirdPartyProvidersUsed"}}</span>
 							</h3>
 						{{/if}}
 					</div>
