@@ -758,13 +758,23 @@ const returnAdminPrefix = (roles, res) => {
 };
 
 // with userId to accountId
-const userIdtoAccountIdUpdate = (service) => function useIdtoAccountId(req, res, next) {
+const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, next) {
+	try {
+		await api(req)
+			.patch(`/users/${req.params.id}`, {
+				json: { forcePasswordChange: true },
+			});
+	} catch (err) {
+		next(err);
+		return;
+	}
+
 	api(req)
-		.get(`/${service}/?userId=${req.params.id}`)
+		.get(`/accounts/?userId=${req.params.id}`)
 		.then((users) => {
 			api(req)
-				.patch(`/${service}/${users[0]._id}`, {
-					json: req.body,
+				.patch(`/accounts/${users[0]._id}`, {
+					json: { ...req.body },
 				})
 				.then(() => {
 					req.session.notification = {
@@ -1036,7 +1046,7 @@ router.post(
 router.patch(
 	'/teachers/:id/pw',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
-	userIdtoAccountIdUpdate('accounts'),
+	userIdToAccountIdUpdate('accounts'),
 );
 router.get(
 	'/teachers/:id',
@@ -1301,7 +1311,7 @@ router.get(
 router.patch(
 	'/students/:id/pw',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
-	userIdtoAccountIdUpdate('accounts'),
+	userIdToAccountIdUpdate('accounts'),
 );
 router.post(
 	'/students/:id',
