@@ -798,8 +798,8 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 		title: res.$t('global.headline.sorting'),
 		displayTemplate: res.$t('global.label.sortBy'),
 		options: [
-			['firstName', res.$t('administration.controller.global.label.firstName')],
-			['lastName', res.$t('administration.controller.global.label.lastName')],
+			['firstName', res.$t('global.label.firstName')],
+			['lastName', res.$t('global.label.lastName')],
 			['email', res.$t('administration.controller.global.label.email')],
 			['classes', res.$t('administration.controller.global.label.classes')],
 			['consentStatus', res.$t('administration.controller.global.label.consentStatus')],
@@ -1097,8 +1097,8 @@ router.get(
 				const users = teachersResponse.data;
 				const years = getSelectableYears(res.locals.currentSchoolData);
 				const head = [
-					res.$t('administration.controller.global.label.firstName'),
-					res.$t('administration.controller.global.label.lastName'),
+					res.$t('global.label.firstName'),
+					res.$t('global.label.lastName'),
 					res.$t('administration.controller.global.label.email'),
 					res.$t('administration.controller.global.label.classes'),
 				];
@@ -1401,8 +1401,8 @@ router.get(
 				});
 				let studentsWithoutConsentCount = 0;
 				const head = [
-					res.$t('administration.controller.global.label.firstName'),
-					res.$t('administration.controller.global.label.lastName'),
+					res.$t('global.label.firstName'),
+					res.$t('global.label.lastName'),
 					res.$t('administration.controller.global.label.email'),
 					res.$t('administration.controller.global.label.class'),
 					res.$t('administration.controller.global.label.createdOn'),
@@ -3361,8 +3361,8 @@ router.get('/startldapschoolyear', async (req, res) => {
 	});
 
 	const headUser = [
-		res.$t('administration.controller.global.label.firstName'),
-		res.$t('administration.controller.global.label.lastName'),
+		res.$t('global.label.firstName'),
+		res.$t('global.label.lastName'),
 		res.$t('administration.controller.label.email'),
 		'uid',
 		res.$t('administration.controller.label.roles'),

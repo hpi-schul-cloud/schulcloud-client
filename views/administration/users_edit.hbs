@@ -17,14 +17,14 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{$t "global.label.firstName" }}  <sup>*</sup></label>
+                                <label>{{$t "global.label.firstNameColon" }}  <sup>*</sup></label>
                                 <input class="form-control" name="firstName" type="text" required {{#if schoolUsesLdap}}readonly{{/if}} value="{{user.firstName}}"/>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{$t "global.label.lastName" }} <sup>*</sup></label>
+                                <label>{{$t "global.label.lastNameColon" }} <sup>*</sup></label>
                                 <input class="form-control" name="lastName" type="text" required {{#if schoolUsesLdap}}readonly{{/if}} value="{{user.lastName}}"/>
                             </div>
                         </div>
