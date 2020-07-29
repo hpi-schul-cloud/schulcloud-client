@@ -2691,7 +2691,7 @@ router.all('/courses', (req, res, next) => {
 		.then((data) => {
 			const head = [
 				res.$t('administration.controller.headline.name'),
-				res.$t('administration.controller.headline.class'),
+				res.$t('global.headline.classes'),
 				res.$t('administration.controller.headline.teachers'),
 				'',
 			];

@@ -48,8 +48,6 @@
 			"label": {
 				"currentPassword": "Aktuelles Passwort:",
 				"emailAddress": "E-Mail-Adresse:",
-				"firstName": "Vorname:",
-				"lastName": "Nachname:",
 				"newPassword": "Neues Passwort:",
 				"operatingSystem": "Betriebssystem",
 				"repeatNewPassword": "Neues Passwort wiederholen:",
@@ -143,7 +141,6 @@
 				"label": {
 					"class": "Klasse",
 					"classUsers": "Nutzer der Klasse",
-					"classes": "Klasse(n)",
 					"consentStatus": "Registrierung",
 					"createdAt": "Erstelldatum",
 					"createdOn": "Erstellt am",
@@ -161,7 +158,6 @@
 				"alias": "Alias",
 				"attendees": "Teilnehmer",
 				"briefDescription": "Kurzbeschreibung",
-				"class": "Klasse(n)",
 				"classes": "{{title}}Klassen",
 				"courses": "{{title}}Kurse",
 				"createdOn": "Erstellt am",
@@ -183,7 +179,6 @@
 				"school": "{{title}}Schule",
 				"schoolYear": "Schuljahr",
 				"schools": "'Schule(n)'",
-				"sorting": "Sortierung",
 				"status": "Status",
 				"students": "{{title}}Schüler",
 				"targetState": "Soll-Zustand",
@@ -326,7 +321,6 @@
 				"appointTeamOwner": "Ernennen",
 				"discardMessage": "Verwerfen",
 				"removeAllMembers": "Alle Mitglieder entfernen",
-				"sendMessage": "Absenden"
 			},
 			"headline": {
 				"membersInOwnSchool": "Mitglieder an eigener Schule",
@@ -458,7 +452,7 @@
 			}
 		},
 		"label": {
-			"fileType": "Dateitypen: %1",
+			"fileType": "Dateitypen: %1"
 		},
 		"store": {
 			"heading": {
@@ -514,7 +508,6 @@
 				"label": {
 					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"chooseDate": "Termine auswählen",
-					"class": "Klasse(n)",
 					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 					"substitute": "Vertretungslehrer:innen",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)"
@@ -558,8 +551,7 @@
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
 						"noTopics": "keine Themen.",
 						"responsibleTeachers": "Verantwortliche Lehrer:innen:",
-						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}",
-						"workOnTopic": "Thema bearbeiten"
+						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}"
 					}
 				},
 				"button": {
@@ -707,7 +699,6 @@
 					"descriptionTopic": "Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu. Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses.",
 					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler:innen, um sie zum Kurs einzuladen. Die Schüler:innen müssen dafür angemeldet sein.",
 					"editSortDeleteShareTopicsHere": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-ellipsis-v\"></i>&nbsp;<i class=\"fa fa-ellipsis-v\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
-					"editTopic": "Thema bearbeiten",
 					"externalLinkToGeoGebra": "Dies ist ein externer Inhalt des Anbieters GeoGebra. Er wird in einem neuen Fenster bzw. Tab geöffnet.",
 					"hideTopic": "Thema verstecken",
 					"importTopic": "Thema importieren",
@@ -767,7 +758,6 @@
 		},
 		"button": {
 			"createCourse": "Erstelle einen neuen Kurs",
-			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"editCourse": "Kurs bearbeiten",
 			"importCourse": "Importiere einen Kurs",
 			"nextStep": "Nächster Schritt"
@@ -1075,8 +1065,6 @@
 			},
 			"global": {
 				"label": {
-					"firstName": "Vorname:",
-					"lastName": "Nachname:",
 					"mustNotBeYourChildsEmailAddress": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
 					"yourEmailAddress": "Ihre E-Mail-Adresse "
 				},
@@ -1108,7 +1096,6 @@
 				"atlist8characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
 				"buttonsCanBeUsedAsUsual": "-Buttons kannst du dich wie gewohnt über das System deiner Schule (Moodle, iServ, ItsLearning etc.) in der {{title}} einloggen.",
 				"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
-				"submit": "Absenden"
 			}
 		},
 		"placeholder": {
@@ -1147,7 +1134,6 @@
 		},
 		"welcome": {
 			"button": {
-				"createYourFirstCourse": "Erstelle deinen ersten Kurs",
 				"toYourCourses": "Zu deinen Kursen"
 			},
 			"heading": {
@@ -1171,6 +1157,7 @@
 	"global": {
 		"button": {
 			"accept": "Akzeptieren",
+			"createYourFirstCourse": "Erstelle deinen ersten Kurs",
 			"add": "Hinzufügen",
 			"addPrivateTask": "private Aufgabe hinzufügen",
 			"addTask": "Aufgabe hinzufügen",
@@ -1212,6 +1199,7 @@
 			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
 		},
 		"headline": {
+			"classes": "Klasse(n)",
 			"addDate": "Termin hinzufügen",
 			"assignedTasks": "Gestellte Aufgaben",
 			"dateDetails": "Termin - Details",
@@ -1306,6 +1294,7 @@
 		"text": {
 			"entriesPerPage": "Einträge pro Seite",
 			"entriesPerPageProcent": "Einträge pro Seite: %1",
+			"editTopic": "Thema bearbeiten",
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
@@ -2573,16 +2562,14 @@
 	"topic": {
 		"_topic": {
 			"button": {
-				"createTopic": "Thema anlegen",
-				"editTopic": "Thema bearbeiten"
+				"createTopic": "Thema anlegen"
 			},
 			"heading": {
 				"privateTasks": "Private Aufgaben",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
 			},
 			"headline": {
-				"createTopic": "Thema anlegen",
-				"editTopic": "Thema bearbeiten"
+				"createTopic": "Thema anlegen"
 			},
 			"input": {
 				"countWithPrimeNumbers": "z.B. Rechnen mit Primzahlen"

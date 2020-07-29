@@ -75,7 +75,7 @@ $(window).ready(() => {
 			action: entry,
 			title: $t('administration.teams.headline.messageToTeamOwners'),
 			closeLabel: $t('administration.teams.button.discardMessage'),
-			submitLabel: $t('administration.teams.button.sendMessage'),
+			submitLabel: $t('global.button.submit'),
 		});
 
 		$messageModal.appendTo('body').modal('show');
