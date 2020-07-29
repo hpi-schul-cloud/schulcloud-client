@@ -442,8 +442,9 @@
 			"inMarch2020ZENSOSQueries": "Im März 2020 wurde über ZENSOS-Abfragen zuletzt die Notwendigkeit unserer Infrastruktur an den Schulen abgefragt. Die dadurch entstandenen Anmeldungen befinden sich aktuell in der Bearbeitung.",
 			"inNiedersachsenTheReferenceSchool": "In Niedersachsen ist das Referenzschulnetzwerk n-21 zuständig für die Aufnahme neuer Schulen.",
 			"inThuringiaTheThuringianInstitute": "In Thüringen ist das Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien (ThILLM) für die Aufnahme neuer Schulen zuständig.",
-			"justWriteAnEmailToZfa": "Schreiben Sie einfach eine E-Mail an <a href=\"mailto:schul-cloud-ZfA@bva.bund.de\">schul-cloud-ZfA@bva.bund.de</a>.",
+			"justWriteAnEmailTo": "Schreiben Sie einfach eine E-Mail an  <a href=\"mailto:schul-cloud-ZfA@bva.bund.de\">schul-cloud-ZfA@bva.bund.de</a>.",
 			"ourPartnerOfMINIECAlso": "Unser Partner der MINT-EC bietet zudem regelmäßig Webinare rund um die HPI Schul-Cloud an. Die neuen Termine finden Sie hier:",
+			"pleaseContactEither": "Kontaktieren Sie bitte entweder Frau Julia Günther:",
 			"pleaseContactTheFollowingEmailAddress": "Bitte kontaktieren Sie folgende E-Mail-Adresse, um den Registrierungsvorgang zu starten:",
 			"theCentralOfficeForSchools": "Die Zentralstelle für das Auslandsschulwesen (ZfA) unterstützt Sie im Registrierungsprozess.",
 			"youCanGetSupport": "Unterstützung bei der Einarbeitung in die HPI Schul-Cloud und Erstellung erster Inhalte erhalten Sie hier:",
@@ -1251,6 +1252,7 @@
 			"save": "Speichern",
 			"saveChanges": "Änderungen speichern",
 			"send": "Abschicken",
+			"submit": "Absenden",
 			"tryAgain": "Erneut Versuchen",
 			"yes": "Ja"
 		},
@@ -1370,11 +1372,87 @@
 		}
 	},
 	"help": {
-		"contactForm": {
+		"confluence": {
+			"link": {
+				"openArticleInConfluence": "Artikel in Confluence öffnen",
+				"openInConfluence": "in Confluence öffnen"
+			},
 			"text": {
 				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
 				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
+				"ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch",
+				"languageNote": "Sprachlicher Hinweis:",
 				"typeNotAllowed": "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
+			}
+		},
+		"contact": {
+			"label": {
+				"schoolAdmin": "Schul-Admin",
+				"wish": "Wunsch"
+			},
+			"text": {
+				"thankYouForYourFeedbak": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
+				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
+				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
+			}
+		},
+		"dashboard": {
+			"heading": {
+				"advancedTraining": "Fortbildungen",
+				"contact": "Kontakt",
+				"helpArticles": "Hilfeartikel"
+			}
+		},
+		"form_Wish": {
+			"label": {
+				"acceptanceCriteria": "Akzeptanzkriterien",
+				"around": "um ...",
+				"as": "Als...",
+				"briefDescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
+				"device": "Gerät",
+				"iWouldLikeTo": "möchte ich ...",
+				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
+			},
+			"placeholder": {
+				"afterLoggingOnToTheSystem": "z.B. Nach der Systemanmeldung gelange ich in maximal zwei Schritten zum Stundenkontext, kann die Schüleraufgabe dort mit einem Klick bearbeiten und die SchülerInnen bei Bedarf automatisch über die Änderung informieren.",
+				"briefDescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
+				"canEasilyFindAndChange": "z.B. eine im System angelegte Schüleraufgabe leicht auffinden und ändern können",
+				"exampleStudent": "z.B. Schüler, Lehrer, Administrator, Hausmeister usw.",
+				"toUpdateThem": "z.B. sie zu aktualisieren"
+			},
+			"text": {
+				"iAgreeThatTheFollowingInformation": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)</li> <li>Betriebssystem und Version (z.B: Windows 10)</li>"
+			}
+		},
+		"form_admin": {
+			"label": {
+				"currentStatus": "IST-Zustand: Was geschieht zur Zeit, nachdem ich welche Schritte durchgeführt habe?",
+				"targetState": "SOLL-Zustand: Was sollte stattdessen geschehen?"
+			},
+			"text": {
+				"hereYouCanContact": "Hier erreichst du den Administrator deiner Schule. Er kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über deinen Kontaktgesuch informiert."
+			}
+		},
+		"form_bug": {
+			"label": {
+				"emailAddressForAnyQueries": "E-Mail-Adresse für eventuelle Rückfragen",
+				"maxSizeFiles": "Bilder, Videos und Dateien",
+				"problemDescription": "Problembeschreibung:",
+				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
+			},
+			"text": {
+				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)</li> <li>Betriebssystem und Version (z.B: Windows 10)</li>"
+			}
+		},
+		"global": {
+			"heading": {
+				"principal": "Schulleitung",
+				"student": "Schüler",
+				"teacher": "Lehrer"
+			},
+			"label": {
+				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
+				"furtherInformation": "Weitere Informationen (optional):"
 			}
 		},
 		"headline": {
@@ -1383,7 +1461,72 @@
 			"privacyCourse": "Datenschutzkurs",
 			"welcomeDocuments": "Willkommens-Dokumente zum Download"
 		},
+		"help_confluenceLinks": {
+			"link": {
+				"aboutTheProject": "Über das Projekt",
+				"contactForm": "Kontaktformular",
+				"firstSteps": "Erste Schritte",
+				"linguisticNote": "Sprachlicher Hinweis",
+				"usageAids": "Nutzungshilfen",
+				"writeUsAnEmail": "Schreib uns eine E-Mail"
+			}
+		},
+		"help_fromInviteExternalMember": {
+			"button": {
+				"externalExpert": "External experts",
+				"teachersFromOtherSchool": "Teachers from other schools"
+			},
+			"heading": {
+				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
+			}
+		},
+		"language_hint": {
+			"text": {
+				"forBetterReadability": "Für bessere Lesbarkeit verwenden wir in der Benutzeroberfläche der {{title}} die männliche Form („Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung."
+			}
+		},
+		"lernNuggets": {
+			"heading": {
+				"instructionsForUse": "Hinweise zur Benutzung",
+				"learningNuggetBasicOfGDPR": "Lern-Nugget: Grundlagen der DSGVO",
+				"learningNuggetDataProtectioin": "Lern-Nugget: Datenschutz im Schulalltag",
+				"learningNuggetDataProtectionAndCloud": "Lern-Nugget: Datenschutz und Cloud-Lösungen",
+				"learningNuggetLicenseModels": "Lern-Nugget: Lizenzmodelle und Nutzungsrechte",
+				"welcomeToTheOnlineCourse": "Willkommen beim Online-Kurs 'Datenschutz und Urheberrecht' "
+			},
+			"link": {
+				"basicsOfTheGDPR": "Grundlagen der DSGVO",
+				"dataProtectionAndCloudSolution": "Datenschutz und Cloud-Lösungen",
+				"dataProtectionInSchoolLife": "Datenschutz im Schulalltag",
+				"licenseModelAndUsageRights": "Lizenzmodelle und Nutzungsrechte"
+			},
+			"text": {
+				"aLearningUnitLasts": "Eine Lerneinheit dauert höchstens 15 Minuten. Um den vollen Umfang der Inhalte zu erhalten, schaltet am besten Lautsprecher oder Kopfhörer an eurem Endgerät ein.",
+				"byTheWayYouWillAlways": "Übrigens erhaltet ihr immer am Ende eines Lern-Nuggets eine Teilnahmebescheinigung zum Nachweis eures Lernerfolgs.",
+				"clientAndLicensedFor": "Auftraggeber und lizenziert für: Verein MINT-EC®,",
+				"contentAndProduction": "Inhalte und Produktion: youknow GmbH, St.-Martin-Straße 57, 81669 München,",
+				"createdAsPartOfThe": "Entstanden im Rahmen des Projekts HPI Schul-Cloud.",
+				"dealingWithPersonalDetails": "Der Umgang mit personenbezogenen Daten, die Anforderungen an eine Cloud-Lösung im Schulalltag sowie das digitale Teilen von Lehr- und Lernmaterialien rufen bei Schulleitungen und Lehrkräften immer wieder Verunsicherung hervor.",
+				"forThisReasonYouHaveTheOpportunity": "Aus diesem Grund habt ihr hier die Möglichkeit, alles Wissenswerte zu den Themen Datenschutz und Urheberrecht in kleinen Lerneinheiten kennenzulernen.",
+				"hereIsTheLearningNugget": "Hier geht's zum Lern-Nugget:",
+				"inTheLearningNuggetOnDataProtection": "Im Lern-Nugget zum Datenschutz im Schulalltag erfahrt ihr, welche datenschutzrechtlichen Vorschriften ihr im Kontext Schule beachten müsst. Außerdem zeigen wir hier ganz konkrete Datenschutzfälle aus dem Schulalltag.",
+				"inThisLessonYouWillLearnAllTheBasics": "In dieser Lerneinheit lernt ihr alle Grundlagen personenbezogener Daten kennen. Zudem bekommt ihr einen Überblick über die fünf Grundprinzipien, die im Umgang mit der DSGVO gelten.",
+				"learningNiggetsImproveTheLearningEffect": "Lern-Nuggets verbessern den Lerneffekt und machen nebenbei noch Spaß. Außerdem könnt ihr durch die modulare Struktur ganz frei entscheiden, welche Lerneinheit ihr zuerst durchführen möchtet. Klickt einfach auf das jeweilige Lern-Nugget, um das Training zu absolvieren.",
+				"whatAreTheAdvantagesAndDisadvantages": "Was sind die Vor- und Nachteile von Cloud-Lösungen beim Einsatz in der Schule? Was müsst ihr beim Einsatz an eurer Schule beachten? In dieser Lerneinheit stellen wir alles Wissenswerte zu Cloud-Lösungen wie der HPI Schul-Cloud vor.",
+				"withTheTopicsOfLicenseModels": "Bei den Themen Lizenzmodelle und Nutzungsrecht lernt ihr die Grundlagen des Urheberrechts und die Vorgaben zur Vervielfältigung von Materialien im analogen sowie digitalen Schulalltag kennen. Außerdem erfahrt ihr hier, was Open Educational Ressources sind und wie ihr Lizenzen adäquat kennzeichnet."
+			}
+		},
+		"partials": {
+			"heading": {
+				"contactForm": "Kontaktformular",
+				"contactPerson": "Ansprechpartner",
+				"overview": "Überblick",
+				"writeUsAnEmail": "Schreib uns eine E-Mail"
+			}
+		},
 		"placeholder": {
+			"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
+			"email": "E-Mail-Adresse",
 			"formBugText": "Ich als [Nutzerrolle] \nhabe auf der Seite [???]\ndie Funktion [???]\naufgrund des Fehlers/der Fehlermeldung \"[???]\"\nnicht benutzen können.\n\nTritt der Fehler auch bei anderen/ ähnlichen Bereichen (z.B. andere Kurse oder Nutzer) auf?\nWie genau äußert sich das Problem?\nWann trat der Fehler genau auf (Datum, Uhrzeit), damit wir gezielt in den Logs schauen können?\nWenn mehrere Schritte notwendig sind, um das Problem nachzuvollziehen, diese hier bitte so kurz und klar wie möglich beschreiben."
 		},
 		"search": {
@@ -1395,8 +1538,14 @@
 			}
 		},
 		"text": {
+			"hereYouCanFindOut": "Hier findest du heraus wie du deine Cookies löschst.",
 			"noAccessDemoAccount": "Sie haben im Demo-Account keinen Zugriff auf diese Dokumente.",
-			"noWelcomeDocuments": "Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support."
+			"noWelcomeDocuments": "Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support.",
+			"someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
+			"theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der HPI Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
+			"theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:",
+			"toMINTECWithQuestions": "an MINT-EC bei Fragen und Anregungen zur Einführung und Nutzung der HPI Schul-Cloud an deiner Schule.",
+			"toTheHpiForIdeas": "ans HPI für Ideen, Kritik und Wünsche rund um die Cloud selbst."
 		}
 	},
 	"helpdesk": {
@@ -1576,6 +1725,7 @@
 			"forGradingUploadedFiles": "Als Kommentar/Bewertung hochgeladene Dateien",
 			"forSubmissionUploadedFiles": "Zur Abgabe hochgeladene Dateien",
 			"inPercent": "in Prozent",
+			"onTheSubject": "Zum Thema",
 			"rating": "Bewertung",
 			"rating_comment": "Kommentar/Bewertung",
 			"restore": "Wiederherstellen",
