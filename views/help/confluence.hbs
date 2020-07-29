@@ -11,9 +11,9 @@
         {{> "help/search"}}
 
         <div class="mobile-warning mb-2">
-            <p>Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch
+            <p>{{$t "help.confluence.text.ifYouCantReadTheArticle"}}
                 <a href="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}" target="_blank">
-                    in Confluence öffnen
+                    {{$t "help.confluence.link.openInConfluence" }}
                     <i class="fa fa-external-link"></i>
                 </a>
             </p>
@@ -22,12 +22,12 @@
         <iframe class="full" src="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}&frameable=true" frameborder="0" scrolling="yes"></iframe>
 
         <a href="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}" target="_blank" class="pull-right">
-            Artikel in Confluence öffnen
+             {{$t "help.confluence.link.openArticleInConfluence" }}
             <i class="fa fa-external-link"></i>
         </a>
 
         <div class="py-1">
-            Sprachlicher Hinweis: {{> "help/language-hint"}}
+            {{$t "help.confluence.text.languageNote" }} {{> "help/language-hint"}}
         </div>
 
     {{/content}}
