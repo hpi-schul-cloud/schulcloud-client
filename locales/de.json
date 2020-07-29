@@ -1364,8 +1364,6 @@
 				"openInConfluence": "in Confluence öffnen"
 			},
 			"text": {
-				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
-				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 				"ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch",
 				"languageNote": "Sprachlicher Hinweis:",
 				"typeNotAllowed": "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
