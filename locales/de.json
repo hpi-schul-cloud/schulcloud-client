@@ -318,7 +318,7 @@
 			"button": {
 				"appointTeamOwner": "Ernennen",
 				"discardMessage": "Verwerfen",
-				"removeAllMembers": "Alle Mitglieder entfernen",
+				"removeAllMembers": "Alle Mitglieder entfernen"
 			},
 			"headline": {
 				"membersInOwnSchool": "Mitglieder an eigener Schule",
@@ -1090,7 +1090,7 @@
 				"allowedSpecialCharactersAre": "Erlaubte Sonderzeichen sind:",
 				"atlist8characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
 				"buttonsCanBeUsedAsUsual": "-Buttons kannst du dich wie gewohnt über das System deiner Schule (Moodle, iServ, ItsLearning etc.) in der {{title}} einloggen.",
-				"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
+				"specialCharacters": "!§$%&/()=?\\;:,.#+*~"
 			}
 		},
 		"placeholder": {
@@ -1152,7 +1152,6 @@
 	"global": {
 		"button": {
 			"accept": "Akzeptieren",
-			"createYourFirstCourse": "Erstelle deinen ersten Kurs",
 			"add": "Hinzufügen",
 			"addPrivateTask": "private Aufgabe hinzufügen",
 			"addTask": "Aufgabe hinzufügen",
@@ -1162,6 +1161,7 @@
 			"close": "Schließen",
 			"continue": "Weiter",
 			"create": "Erstellen",
+			"createYourFirstCourse": "Erstelle deinen ersten Kurs",
 			"delete": "Löschen",
 			"edit": "Bearbeiten",
 			"filterAdd": "Filter hinzufügen",
@@ -1194,9 +1194,9 @@
 			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
 		},
 		"headline": {
-			"classes": "Klasse(n)",
 			"addDate": "Termin hinzufügen",
 			"assignedTasks": "Gestellte Aufgaben",
+			"classes": "Klasse(n)",
 			"dateDetails": "Termin - Details",
 			"delete": "Löschen",
 			"edit": "Bearbeiten",
@@ -1215,7 +1215,6 @@
 			"password": "Passwort"
 		},
 		"label": {
-			"sortBy": "Sortieren nach: %1",
 			"creationDate": "Erstelldatum",
 			"dateOfBirth": "Geburtsdatum:",
 			"emailAddress": "E-Mail-Adresse:",
@@ -1226,6 +1225,7 @@
 			"password": "Passwort:",
 			"room": "Raum",
 			"skipLinks": "Links Überspringen",
+			"sortBy": "Sortieren nach: %1",
 			"title": "Titel",
 			"to": "Bis"
 		},
@@ -1282,12 +1282,12 @@
 			"topNavbarSkipLink": "Navigation oben"
 		},
 		"text": {
-			"entriesPerPage": "Einträge pro Seite",
-			"entriesPerPageProcent": "Einträge pro Seite: %1",
-			"editTopic": "Thema bearbeiten",
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
+			"editTopic": "Thema bearbeiten",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
+			"entriesPerPage": "Einträge pro Seite",
+			"entriesPerPageProcent": "Einträge pro Seite: %1",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
 			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
 			"fileWrongFormat": "'{{filename}}' ist kein Bild, Video oder zulässige Datei!",
@@ -1409,9 +1409,9 @@
 				"teacher": "Lehrer"
 			},
 			"label": {
-				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen",
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
-				"furtherInformation": "Weitere Informationen (optional):"
+				"furtherInformation": "Weitere Informationen (optional):",
+				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
 			}
 		},
 		"headline": {
