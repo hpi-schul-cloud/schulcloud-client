@@ -117,7 +117,7 @@ router.get('/', (req, res, next) => {
 				}
 
 				return event;
-			});
+			}).sort((a, b) => a.style.left - b.style.left);
 		})
 		.catch((err) => {
 			error(filterRequestInfos(err));
@@ -241,7 +241,7 @@ router.get('/', (req, res, next) => {
 			const newestRelease = newestReleases[0] || {};
 			const newRelease = !!(
 				Date.parse(userPreferences.releaseDate)
-			< Date.parse(newestRelease.createdAt)
+				< Date.parse(newestRelease.createdAt)
 			);
 			const roles = user.roles.map((role) => role.name);
 			let homeworksFeedbackRequired = [];
@@ -280,20 +280,20 @@ router.get('/', (req, res, next) => {
 			if (hasRole(teacher)) {
 				homeworksFeedbackRequired = assignedHomeworks.filter(
 					(homework) => !homework.private
-					&& homework.stats
-					&& (
-						(homework.dueDate
-						&& new Date(homework.dueDate) < new Date().getTime()
-						&& homework.stats.submissionCount > homework.stats.gradeCount
-						) || (
-							!homework.dueDate && homework.stats.submissionCount > 0
+						&& homework.stats
+						&& (
+							(homework.dueDate
+								&& new Date(homework.dueDate) < new Date().getTime()
+								&& homework.stats.submissionCount > homework.stats.gradeCount
+							) || (
+								!homework.dueDate && homework.stats.submissionCount > 0
+							)
 						)
-					)
-					&& homework.stats.userCount > homework.stats.gradeCount,
+						&& homework.stats.userCount > homework.stats.gradeCount,
 				);
 				filteredAssignedHomeworks = assignedHomeworks.filter(
 					(homework) => homework.stats
-				&& homework.stats.submissionCount < homework.stats.userCount,
+						&& homework.stats.submissionCount < homework.stats.userCount,
 				);
 			}
 
@@ -303,7 +303,7 @@ router.get('/', (req, res, next) => {
 				);
 				studentHomeworks = assignedHomeworks.filter(
 					(homework) => (!homework.submissions || homework.submissions === 0)
-				&& !homework.hasEvaluation,
+						&& !homework.hasEvaluation,
 				);
 			}
 
@@ -314,7 +314,7 @@ router.get('/', (req, res, next) => {
 				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
 						(task) => !task.private
-					&& (new Date(task.dueDate) >= new Date().getTime() || !task.dueDate),
+							&& (new Date(task.dueDate) >= new Date().getTime() || !task.dueDate),
 					).slice(0, 10),
 				privateHomeworks: assignedHomeworks
 					.filter((task) => task.private)
