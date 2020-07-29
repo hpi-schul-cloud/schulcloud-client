@@ -67,7 +67,7 @@ module.exports = (req, res, next) => {
 				link: '/homework/private/',
 			},
 			{
-				name: res.$t('global.sidebar.link.tasksArchive'),
+				name: res.$t('global.sidebar.link.archive'),
 				icon: 'archive',
 				link: '/homework/archive/',
 			},
@@ -83,7 +83,7 @@ module.exports = (req, res, next) => {
 				link: '/files/my/',
 			},
 			{
-				name: res.$t('global.sidebar.link.filesCourse'),
+				name: res.$t('global.sidebar.link.courses'),
 				icon: 'folder-open-o',
 				link: '/files/courses/',
 			},
@@ -141,7 +141,7 @@ module.exports = (req, res, next) => {
 				link: '/administration/teachers/',
 			},
 			{
-				name: res.$t('global.sidebar.link.managementClasses'),
+				name: res.$t('global.sidebar.link.administrationClasses'),
 				icon: 'users',
 				link: '/administration/classes/',
 			},
@@ -162,7 +162,7 @@ module.exports = (req, res, next) => {
 				link: '/administration/teachers/',
 			},
 			{
-				name: res.$t('global.sidebar.link.managementClasses'),
+				name: res.$t('global.sidebar.link.administrationClasses'),
 				icon: 'users',
 				link: '/administration/classes/',
 			},
@@ -195,7 +195,7 @@ module.exports = (req, res, next) => {
 				link: '/administration/teachers/',
 			},
 			{
-				name: res.$t('global.sidebar.link.administrationCourses'),
+				name: res.$t('global.sidebar.link.courses'),
 				icon: 'graduation-cap',
 				link: '/administration/courses/',
 			},
@@ -205,7 +205,7 @@ module.exports = (req, res, next) => {
 				link: '/administration/classes/',
 			},
 			{
-				name: res.$t('global.sidebar.link.administrationTeams'),
+				name: res.$t('global.sidebar.link.teams'),
 				icon: 'users',
 				link: '/administration/teams/',
 			},

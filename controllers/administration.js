@@ -803,7 +803,7 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 			['email', res.$t('administration.controller.global.label.email')],
 			['classes', res.$t('administration.controller.global.label.classes')],
 			['consentStatus', res.$t('administration.controller.global.label.consentStatus')],
-			['createdAt', res.$t('administration.controller.global.label.createdAt')],
+			['createdAt', res.$t('global.label.creationDate')],
 		],
 		defaultSelection: defaultOrder || 'firstName',
 		defaultOrder: 'DESC',

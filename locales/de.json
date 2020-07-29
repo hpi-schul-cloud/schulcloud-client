@@ -47,7 +47,6 @@
 		"global": {
 			"label": {
 				"currentPassword": "Aktuelles Passwort:",
-				"emailAddress": "E-Mail-Adresse:",
 				"newPassword": "Neues Passwort:",
 				"operatingSystem": "Betriebssystem",
 				"repeatNewPassword": "Neues Passwort wiederholen:",
@@ -142,7 +141,6 @@
 					"class": "Klasse",
 					"classUsers": "Nutzer der Klasse",
 					"consentStatus": "Registrierung",
-					"createdAt": "Erstelldatum",
 					"createdOn": "Erstellt am",
 					"email": "E-Mail-Adresse",
 					"firstName": "Vorname",
@@ -864,9 +862,6 @@
 			"privacyPolicy": "Datenschutzerklärung",
 			"registrationInvalid": "Registrierung fehlerhaft"
 		},
-		"img_alt": {
-			"brokenPen": "zerbrochener Stift"
-		},
 		"text": {
 			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
 			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
@@ -1257,31 +1252,26 @@
 				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationClasses": "Klassen",
-				"administrationCourses": "Kurse",
 				"administrationSchools": "Schule",
 				"administrationStudents": "Schüler",
 				"administrationTeachers": "Lehrer",
-				"administrationTeams": "Teams",
 				"archive": "Archiv",
 				"assignedTasks": "Gestellte Aufgaben",
 				"calendar": "Termine",
 				"courses": "Kurse",
 				"files": "Meine Dateien",
-				"filesCourse": "Kurse",
 				"filesPersonal": "persönliche Dateien",
 				"filesShared": "geteilte Dateien",
 				"helpArea": "Hilfebereich",
 				"helpDesk": "Helpdesk",
 				"lernstore": "Lern-Store",
 				"management": "Verwaltung",
-				"managementClasses": "Klassen",
 				"managementStudents": "Schüler:innen",
 				"managementTeachers": "Lehrer:innen",
 				"myMaterials": "Meine Materialien",
 				"news": "Neuigkeiten",
 				"overview": "Übersicht",
 				"tasks": "Aufgaben",
-				"tasksArchive": "Archiv",
 				"tasksDrafts": "Entwürfe",
 				"teams": "Teams"
 			}
@@ -1380,8 +1370,7 @@
 				"as": "Als...",
 				"briefDescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
 				"device": "Gerät",
-				"iWouldLikeTo": "möchte ich ...",
-				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
+				"iWouldLikeTo": "möchte ich ..."
 			},
 			"placeholder": {
 				"afterLoggingOnToTheSystem": "z.B. Nach der Systemanmeldung gelange ich in maximal zwei Schritten zum Stundenkontext, kann die Schüleraufgabe dort mit einem Klick bearbeiten und die SchülerInnen bei Bedarf automatisch über die Änderung informieren.",
@@ -1405,7 +1394,6 @@
 		},
 		"form_bug": {
 			"label": {
-				"emailAddressForAnyQueries": "E-Mail-Adresse für eventuelle Rückfragen",
 				"maxSizeFiles": "Bilder, Videos und Dateien",
 				"problemDescription": "Problembeschreibung:",
 				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
@@ -1421,6 +1409,7 @@
 				"teacher": "Lehrer"
 			},
 			"label": {
+				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen",
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
 				"furtherInformation": "Weitere Informationen (optional):"
 			}
@@ -1630,7 +1619,6 @@
 		"global": {
 			"label": {
 				"allowGroupSubmission": "Gruppenabgabe ermöglichen",
-				"courses": "Kurse",
 				"description": "Aufgabenstellung",
 				"maximumGroupSize": "maximale Gruppengröße:",
 				"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
@@ -1652,7 +1640,6 @@
 			"breadcrumbArchived": "Archivierte",
 			"breadcrumbAssigned": "Gestellte",
 			"breadcrumbPrivate": "Meine",
-			"courses": "Kurse",
 			"drafts": "Entwürfe",
 			"dueDate": "Abgabedatum",
 			"more": "Mehr"
