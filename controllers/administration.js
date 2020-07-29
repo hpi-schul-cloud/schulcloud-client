@@ -2478,7 +2478,7 @@ router.all(
 			})
 			.then((data) => {
 				const head = [
-					res.$t('administration.controller.headline.title'),
+					res.$t('global.label.title'),
 					res.$t('administration.controller.headline.itsOn'),
 					res.$t('administration.controller.headline.targetState'),
 					res.$t('administration.controller.headline.status'),
@@ -2690,7 +2690,7 @@ router.all('/courses', (req, res, next) => {
 		})
 		.then((data) => {
 			const head = [
-				res.$t('administration.controller.headline.name'),
+				res.$t('global.headline.name'),
 				res.$t('global.headline.classes'),
 				res.$t('administration.controller.headline.teachers'),
 				'',
@@ -2859,7 +2859,7 @@ router.all('/teams', async (req, res, next) => {
 				res.$t('administration.controller.headline.schools'),
 				res.$t('administration.controller.headline.createdOn'),
 				`${res.$t('administration.controller.headline.status')}*`,
-				res.$t('administration.controller.headline.actions'),
+				res.$t('global.headline.actions'),
 			];
 
 			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
@@ -2927,14 +2927,14 @@ router.all('/teams', async (req, res, next) => {
 							data: {
 								name: item.name,
 								'original-title': item.createdAtMySchool
-									? res.$t('administration.controller.link.deleteTeam')
+									? res.$t('global.link.deleteTeam')
 									: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
 								placement: 'top',
 								toggle: 'tooltip',
 							},
 							// lmethod: `${item.hasMembersOfOtherSchools ? '' : 'delete'}`,
 							title: item.createdAtMySchool
-								? res.$t('administration.controller.link.deleteTeam')
+								? res.$t('global.link.deleteTeam')
 								: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
 						},
 					];
@@ -3148,7 +3148,7 @@ router.use(
 		}
 		// POLICIES
 		const policiesHead = [
-			res.$t('administration.controller.headline.title'),
+			res.$t('global.label.title'),
 			res.$t('administration.controller.headline.description'),
 			res.$t('administration.controller.headline.uploadedOn'),
 			'Link',
@@ -3370,8 +3370,8 @@ router.get('/startldapschoolyear', async (req, res) => {
 		'uuid',
 	];
 	const headClasses = [
-		res.$t('administration.controller.headline.name'),
-		res.$t('administration.controller.headline.name'),
+		res.$t('global.headline.name'),
+		res.$t('global.headline.name'),
 		res.$t('administration.controller.global.label.classUsers'),
 	];
 

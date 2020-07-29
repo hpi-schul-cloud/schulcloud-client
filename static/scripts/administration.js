@@ -138,7 +138,7 @@ $(document).ready(() => {
 			result.createdAt = new Date(result.createdAt).toLocaleString();
 			populateModalForm($editModal, {
 				action: entry,
-				title: $t('global.headline.edit'),
+				title: $t('global.button.edit'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.save'),
 				fields: result,

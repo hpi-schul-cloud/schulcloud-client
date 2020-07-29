@@ -210,7 +210,7 @@ module.exports = (req, res, next) => {
 				link: '/administration/teams/',
 			},
 			{
-				name: res.$t('global.sidebar.link.administrationSchools'),
+				name: res.$t('global.label.school'),
 				icon: 'building',
 				link: '/administration/school/',
 			},
@@ -219,7 +219,7 @@ module.exports = (req, res, next) => {
 
 	// beta user view
 	res.locals.sidebarItems.push({
-		name: res.$t('global.sidebar.link.myMaterials'),
+		name: res.$t('global.headline.myMaterial'),
 		icon: 'book',
 		link: '/my-material/',
 		permission: 'BETA_FEATURES',
@@ -249,14 +249,14 @@ module.exports = (req, res, next) => {
 	// helpArea view
 	if (HELPAREA_URL) {
 		res.locals.sidebarItems.push({
-			name: res.$t('global.sidebar.link.helpArea'),
+			name: res.$t('global.link.helpArea'),
 			icon: 'question-circle',
 			link: HELPAREA_URL,
 			isExternalLink: true,
 		});
 	} else {
 		res.locals.sidebarItems.push({
-			name: res.$t('global.sidebar.link.helpArea'),
+			name: res.$t('global.link.helpArea'),
 			icon: 'question-circle',
 			link: '/help',
 			children: [

@@ -24,7 +24,7 @@ $(window).ready(() => {
 		const parent = $(this).closest('tr');
 		const { members } = getPayload(parent);
 
-		let teamMembers = $t('administration.teams.text.noParticipants');
+		let teamMembers = $t('global.text.noMembers');
 		if ((members || []).length !== 0) {
 			teamMembers = '<ol>';
 			members.forEach((member) => {

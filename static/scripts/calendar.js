@@ -18,7 +18,7 @@ $(document).ready(() => {
 	function showAJAXError(req, textStatus, errorThrown) {
 		$editEventModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification($t('calendar.text.timedOut'), 'warn');
+			$.showNotification($t('global.text.timeout'), 'warn');
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}

@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     function validatePassword(){
         if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity($t('account.text.passwordsDoNotMatch'));
+            confirm_password.setCustomValidity($t('global.text.passwordsAreDifferent'));
         } else {
             confirm_password.setCustomValidity('');
         }

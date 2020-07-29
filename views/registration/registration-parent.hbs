@@ -57,17 +57,17 @@
 
       {{#if needConsent}}
       <section data-panel="section-2">
-        <h2 class="h4">{{$t "registration._registration.parent.heading.yourData" }}</h2>
+        <h2 class="h4">{{$t "global.heading.yourData" }}</h2>
         <p>{{$t "registration._registration.parent.text.legalGuardingHasToAgreeToTermsOfUse" (dict "years" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "shortTitle" theme.short_title)}}</p>
-        <p>{{$t "registration._registration.parent.text.forThisWeNeedFollowing" }}</p>
+        <p>{{$t "global.text.forThisWeNeedTheFollowingInformationFromYou" }}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <label>{{$t "global.label.firstName" }}<sup>*</sup></label>
-            <input class="form-control linked" name="parent_firstName" type="text" placeholder="{{$t "registration._registration.parent.input.yourFirstName"}}" required/>
+            <input class="form-control linked" name="parent_firstName" type="text" placeholder="{{$t "global.input.firstName"}}" required/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
             <label>{{$t "global.label.lastName" }} <sup>*</sup></label>
-            <input class="form-control linked" name="parent_lastName" type="text" placeholder="{{$t "registration._registration.parent.input.yourLastName"}}" required/>
+            <input class="form-control linked" name="parent_lastName" type="text" placeholder="{{$t "global.input.lastName"}}" required/>
           </div>
         </div>
 
@@ -76,15 +76,15 @@
           <input class="form-control" type="email" name="parent_email" required placeholder="{{$t "registration._registration.parent.input.parentEmail"}}" autocomplete />
         </div>
         <p class="explanation nomargin">
-          {{$t "registration._registration.parent.text.weNeedAnEmailAddress" (dict "shortTitle" theme.short_title)}}
+          {{$t "global.text.weNeedAnEmailAddress" (dict "shortTitle" theme.short_title)}}
           <br/>
-          {{$t "registration._registration.parent.text.inAdditionWeArePlanning"}}
+          {{$t "global.text.inAdditionWeArePlanning"}}
         </p>
       </section>
 
 
       <section data-panel="section-3">
-        <h2 class="h4">{{$t "registration._registration.global.heading.declarationOfConsent" }}</h2>
+        <h2 class="h4">{{$t "global.heading.declarationOfConsent" }}</h2>
         <p>{{$t "registration._registration.parent.text.pleaseConfirmTheFollowing" (dict "shortTitle" theme.short_title)}}</p>
           {{#embed "registration/forms/einwilligungserklaerung" prefix="parent_"}}{{/embed}}
       </section>
@@ -93,7 +93,7 @@
 
 
       <section data-panel="section-4" class="submit-page" data-feature="pin">
-        <h2 class="h4">{{$t "registration._registration.global.heading.almostThere"}}</h2>
+        <h2 class="h4">{{$t "global.heading.almostThere"}}</h2>
         {{#embed "registration/request-pin"}}{{/embed}}
         <div id="pinverification">
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}

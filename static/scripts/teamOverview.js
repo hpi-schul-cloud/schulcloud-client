@@ -9,7 +9,7 @@ $(document).ready(() => {
             url: "/teams/" + teamId + "/usersJson"
         }).done(function (res) {
             let $memberModal = $('.member-modal');
-            let teamMembers = $t('teams.text.noMembers');
+            let teamMembers = $t('global.text.noMembers');
             let teamName = res.course.name;
             if(res.course.userIds.length != 0) {
                 teamMembers = '<ol>';

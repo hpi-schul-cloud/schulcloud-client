@@ -46,7 +46,7 @@
                 {{#inArray "DELETE_TEAM" ../permissions}}
                 <a href="/teams/{{../_id}}/" class="dropdown-item" target="_blank" data-method="DELETE"
                     data-name="{{../name}}" redirect="/teams/">
-                    <i class="fa fa-trash" aria-hidden="true"></i> {{$t "teams._team.dropdown_menu.link.deleteTeam"}}
+                    <i class="fa fa-trash" aria-hidden="true"></i> {{$t "global.link.deleteTeam"}}
                 </a>
                 {{/inArray}}
                 {{/userHasPermission}}
@@ -151,7 +151,7 @@
                             {{/inArray}}
                             {{#if ../canCreateDir}}
                             <span class="btn btn-primary create-directory">
-                                <i class="fa fa-folder" aria-hidden="true"></i> {{$t "teams._team.files.button.createFolder"}}
+                                <i class="fa fa-folder" aria-hidden="true"></i> {{$t "global.button.createFolder"}}
                             </span>
                             {{/if}}
                             {{!-- {{#if ../canCreateFile}}

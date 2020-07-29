@@ -155,10 +155,10 @@ const editTeamHandler = async (req, res, next) => {
 			method,
 			title: req.params.teamId
 				? res.$t('teams.add.headline.editTeam')
-				: res.$t('teams.add.headline.createTeam'),
+				: res.$t('global.button.createTeam'),
 			submitLabel: req.params.teamId
 				? res.$t('global.button.saveChanges')
-				: res.$t('teams.add.button.createTeam'),
+				: res.$t('global.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
@@ -874,21 +874,21 @@ router.get('/:teamId/members', async (req, res, next) => {
 		res.$t('teams._team.members.headline.firstName'),
 		res.$t('teams._team.members.headline.surname'),
 		res.$t('teams._team.members.headline.role'),
-		res.$t('teams._team.members.headline.school'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.label.school'),
+		res.$t('global.headline.actions'),
 	];
 
 	const headClasses = [
-		res.$t('teams._team.members.headline.name'),
+		res.$t('global.headline.name'),
 		res.$t('teams._team.members.headline.student'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.headline.actions'),
 	];
 
 	const headInvitations = [
 		res.$t('teams._team.members.headline.email'),
 		res.$t('teams._team.members.headline.invitedOn'),
 		res.$t('teams._team.members.headline.role'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.headline.actions'),
 	];
 
 	const invitationActions = [
