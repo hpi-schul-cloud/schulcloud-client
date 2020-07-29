@@ -54,6 +54,9 @@
 				"operatingSystem": "Betriebssystem",
 				"repeatNewPassword": "Neues Passwort wiederholen:",
 				"type": "Typ"
+			},
+			"text": {
+				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
 			}
 		},
 		"headline": {
@@ -77,8 +80,7 @@
 			},
 			"text": {
 				"hint": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
-				"teamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
-				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
+				"teamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert"
 			}
 		},
 		"testNotification": {
@@ -94,8 +96,7 @@
 			"noDeviceEntered": "Keine Geräte eingetragen",
 			"passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
 			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!",
-			"preferencesUpdates": "Präferenzen wurden aktualisiert!",
-			"visibilityForTeamInvitation": "Sichtbarkeit für Teameinladungen"
+			"preferencesUpdates": "Präferenzen wurden aktualisiert!"
 		},
 		"thirdPartyProviders": {
 			"headline": {
@@ -169,7 +170,6 @@
 				"description": "Beschreibung",
 				"domain": "Domain",
 				"editClass": "Klasse '{{name}}' bearbeiten",
-				"entriesPerPage": "Einträge pro Seite",
 				"externalExpert": "Externer Experte",
 				"general": "{{title}}Allgemein",
 				"helpdesk": "{{title}}Helpdesk",
@@ -242,7 +242,6 @@
 				"declarationOfConsentAvailable": "Zur Registrierung benötigte Einverständniserklärungen vorhanden",
 				"emailDeclarationOfConsent": "Hallo {{name}},\nLeider fehlt uns von dir noch die Einverständniserklärung.\nOhne diese kannst du die HPI Schul-Cloud leider nicht nutzen.\n\nMelde dich bitte mit deinen Daten an,\num die Einverständniserklärung zu akzeptieren um die HPI Schul-Cloud im vollen Umfang nutzen zu können.\n\nGehe jetzt auf {{link}}, und melde dich an.",
 				"emailDeclarationOfConsentSubject": "Der letzte Schritt zur Aktivierung für die {{title}}",
-				"entriesPerPage": "Einträge pro Seite: %1",
 				"errorCreatingRegistrationLink": "Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben {{errMessage}}.",
 				"errorImportingUsers": "Fehler: {{errorMessage}}",
 				"failedToCreateUser": "Fehler beim Erstellen des Nutzers. {{error}}",
@@ -261,7 +260,6 @@
 				"retrieveFailed": "Fehler beim Abrufen",
 				"schoolYearPercentage": "Schuljahr: %1",
 				"setupFailed": "Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ",
-				"sortBy": "Sortieren nach: %1",
 				"stillLackOfDeclaration": "Hallo {{name}} Leider fehlt uns von dir noch die Einverständniserklärung. Ohne diese kannst du die Schul-Cloud leider nicht nutzen. Melde dich bitte mit deinen Daten an, um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können. Gehe jetzt auf {{shortLink}} {{shortLink}} und melde dich an.",
 				"submitted": "Gesendet",
 				"successfullyImportedUser": "{{amountImported}} von {{amountTotal}} Nutzer erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
@@ -445,11 +443,9 @@
 			"addContentToTopic": "Material zu Thema hinzufügen",
 			"contentCantBeAddedInDemo": "<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>",
 			"contentStore": "Lern-Store",
-			"entriesPerPage": "Einträge pro Seite",
 			"fileType": "Dateityp",
 			"nSearchResultsFoundWith": "{{ searchResultsTotal }} Suchergebnisse für \"{{ query }}\"",
 			"noResultsFoundWith": "Es wurden keine Suchergebnisse für \"{{ query }}\" gefunden",
-			"sortBy": "Sortierung",
 			"youAreLeavingSC": "Sie verlassen jetzt die HPI Schul-Cloud"
 		},
 		"input": {
@@ -462,9 +458,7 @@
 			}
 		},
 		"label": {
-			"entriesPerPage": "Einträge pro Seite: %1",
 			"fileType": "Dateitypen: %1",
-			"sortBy": "Sortieren nach: %1"
 		},
 		"store": {
 			"heading": {
@@ -1200,8 +1194,8 @@
 			"save": "Speichern",
 			"saveChanges": "Änderungen speichern",
 			"send": "Abschicken",
-			"toCourse": "Zum Kurs",
 			"submit": "Absenden",
+			"toCourse": "Zum Kurs",
 			"tryAgain": "Erneut Versuchen",
 			"yes": "Ja"
 		},
@@ -1231,13 +1225,14 @@
 			"task": "Aufgabe",
 			"tasks": "Aufgaben"
 		},
-		"input": {
-			"password": "Passwort"
-		},
 		"img_alt": {
 			"brokenPen": "zerbrochener Stift"
 		},
+		"input": {
+			"password": "Passwort"
+		},
 		"label": {
+			"sortBy": "Sortieren nach: %1",
 			"creationDate": "Erstelldatum",
 			"dateOfBirth": "Geburtsdatum:",
 			"emailAddress": "E-Mail-Adresse:",
@@ -1309,13 +1304,15 @@
 			"topNavbarSkipLink": "Navigation oben"
 		},
 		"text": {
+			"entriesPerPage": "Einträge pro Seite",
+			"entriesPerPageProcent": "Einträge pro Seite: %1",
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
-			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
 			"fileWrongFormat": "'{{filename}}' ist kein Bild, Video oder zulässige Datei!",
+			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 			"friday": "Freitag",
 			"invalidRequest": "Ungültige Anfrage",
 			"monday": "Montag",
@@ -1633,8 +1630,8 @@
 			"editSubmissionFromList": "bearbeiten",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
-			"importing": "importiere",
 			"importSubmission": "Abgabe des Schülers importieren",
+			"importing": "importiere",
 			"onTheSubject": "Zum Thema",
 			"save": "Speichern und Abschicken",
 			"toCourseAlt": "Zum Kurs der Aufgabe",
@@ -1697,7 +1694,6 @@
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schüler:innen-Gruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
-			"sortBy": "Sortieren nach: %1",
 			"sortByAvailabilityDate": "Verfügbarkeitsdatum",
 			"sortByDueDate": "Abgabedatum",
 			"sortByLastUpdate": "letzte Aktualisierung",
@@ -1712,8 +1708,8 @@
 			"bulkGradingError": "Nicht alle Dateien konnten Hausaufgaben zugeordnet werden. Folgende Dateien müssen von Hand zugewiesen werden:",
 			"bulkGradingSuccess": "Alle Dateien konnten Hausaufgaben zugeordnet werden. Bitte Seite neu laden.",
 			"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
-			"done": "Super! Du hast deine Aufgabe erledigt!",
 			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
+			"done": "Super! Du hast deine Aufgabe erledigt!",
 			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
 			"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
 			"noAssignment": "Keine Zuordnung",
@@ -1965,10 +1961,10 @@
 			"submitPrivacyPolicy": "Gelesen"
 		},
 		"headline": {
-			"firstLogin": "Willkommen - Erster Login",
-			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
 			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
 			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
+			"firstLogin": "Willkommen - Erster Login",
+			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
 			"onlyTermsOfUse": "Nutzungsordnung",
 			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
 		},
@@ -2187,13 +2183,13 @@
 				"text": {
 					"agreementCanBeRevoked": "Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href=\"mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung\">widerruf@schul-cloud.org</a>.",
 					"agreementIsVoluntary": "Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{title}}, wird durch die Schule ermöglicht werden.",
+					"bellowNYearsOldConsentOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten",
 					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
 					"inCaseOfRevocationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a> entnehmen.",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
-					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.",
-					"bellowNYearsOldConsentOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten"
+					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
 				}
 			},
 			"heading": {
@@ -2500,9 +2496,9 @@
 					"teamAdmin": "Team-Admin"
 				},
 				"text": {
+					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
 					"addedMemberFailure": "Problem beim Hinzufügen der Teilnehmer",
 					"addedMemberSuccess": "Teilnehmer erfolgreich zum Team hinzugefügt",
-					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
 					"changeRoleOfMember": "Ändere die Rolle des Nutzers:",
 					"errorWhileEditingMember": "Problem beim Bearbeiten des Teilnehmers",
 					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers",

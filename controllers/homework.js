@@ -518,7 +518,7 @@ const overview = (titleKey) => (req, res, next) => {
 				const filterSettings =						[{
 					type: 'sort',
 					title: res.$t('global.headline.sorting'),
-					displayTemplate: res.$t('homework.label.sortBy'),
+					displayTemplate: res.$t('global.label.sortBy'),
 					options: [
 						['createdAt', res.$t('global.label.creationDate')],
 						['updatedAt', res.$t('homework.label.sortByLastUpdate')],

@@ -795,8 +795,8 @@ const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, 
 const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	{
 		type: 'sort',
-		title: res.$t('administration.controller.headline.sorting'),
-		displayTemplate: res.$t('administration.controller.text.sortBy'),
+		title: res.$t('global.headline.sorting'),
+		displayTemplate: res.$t('global.label.sortBy'),
 		options: [
 			['firstName', res.$t('administration.controller.global.label.firstName')],
 			['lastName', res.$t('administration.controller.global.label.lastName')],
@@ -810,8 +810,8 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	},
 	{
 		type: 'limit',
-		title: res.$t('administration.controller.headline.entriesPerPage'),
-		displayTemplate: res.$t('administration.controller.text.entriesPerPage'),
+		title: res.$t('global.text.entriesPerPage'),
+		displayTemplate: res.$t('global.text.entriesPerPageProcent'),
 		options: [25, 50, 100],
 		defaultSelection: 25,
 	},
@@ -2259,8 +2259,8 @@ const classFilterSettings = ({ years, currentYear }, res) => {
 	return [
 		{
 			type: 'sort',
-			title: res.$t('administration.controller.headline.sorting'),
-			displayTemplate: res.$t('administration.controller.text.sortBy'),
+			title: res.$t('global.headline.sorting'),
+			displayTemplate: res.$t('global.label.sortBy'),
 			options: [['displayName', res.$t('administration.controller.global.label.class')]],
 			defaultSelection: 'displayName',
 			defaultOrder: 'DESC',
@@ -2268,8 +2268,8 @@ const classFilterSettings = ({ years, currentYear }, res) => {
 		yearFilter,
 		{
 			type: 'limit',
-			title: res.$t('administration.controller.headline.sorting'),
-			displayTemplate: res.$t('administration.controller.text.entriesPerPage'),
+			title: res.$t('global.headline.sorting'),
+			displayTemplate: res.$t('global.text.entriesPerPage'),
 			options: [25, 50, 100],
 			defaultSelection: 25,
 		},

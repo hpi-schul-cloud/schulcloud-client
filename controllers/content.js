@@ -13,7 +13,7 @@ const contentFilterSettings = (res) => [
 	{
 		type: 'sort',
 		title: res.$t('global.headline.sorting'),
-		displayTemplate: res.$t('content.label.sortBy'),
+		displayTemplate: res.$t('global.label.sortBy'),
 		options: [
 			['updatedAt', res.$t('content.text.date')],
 			['providerName', res.$t('content.text.provider')],
@@ -23,8 +23,8 @@ const contentFilterSettings = (res) => [
 	},
 	{
 		type: 'limit',
-		title: res.$t('content.headline.entriesPerPage'),
-		displayTemplate: res.$t('content.label.entriesPerPage'),
+		title: res.$t('global.text.entriesPerPage'),
+		displayTemplate: res.$t('global.text.entriesPerPageProcent'),
 		options: [9, 18, 24, 48, 99],
 		defaultSelection: 9,
 	},
