@@ -3177,7 +3177,7 @@ router.use(
 		// SYSTEMS
 		const systemsHead = [
 			res.$t('administration.controller.headline.alias'),
-			res.$t('administration.controller.headline.type'),
+			res.$t('global.text.type'),
 			'',
 		];
 		let systemsBody;
