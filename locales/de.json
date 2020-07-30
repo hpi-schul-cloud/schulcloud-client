@@ -55,7 +55,8 @@
 				"operatingSystem": "Betriebssystem",
 				"repeatNewPassword": "Neues Passwort wiederholen:",
 				"thirdPartyLogins": "Drittanbieter-Logins",
-				"type": "Typ"
+				"type": "Typ",
+				"name":"Name"
 			}
 		},
 		"headline": {
@@ -71,7 +72,8 @@
 				"changeTeamSettings": "Teameinstellungen ändern"
 			},
 			"headline": {
-				"teamSettings": "Team Einstellungen"
+				"teamSettings": "Team Einstellungen",
+				"teams": "Teams"
 			},
 			"label": {
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.",
@@ -1276,7 +1278,8 @@
 		},
 		"label": {
 			"room": "Raum",
-			"skipLinks": "Links Überspringen"
+			"skipLinks": "Links Überspringen",
+			"newTab": "Öffnet in neuem Tab"
 		},
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"
@@ -1832,6 +1835,7 @@
 			}
 		},
 		"extended_footer": {
+			"ariaLabel": "footer",
 			"heading": {
 				"contact": "Kontakt",
 				"links": "Links",
@@ -1854,6 +1858,7 @@
 			}
 		},
 		"footer": {
+			"ariaLabel": "footer",
 			"img_alt": {
 				"providerLogo": "Anbieterlogo"
 			},
