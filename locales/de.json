@@ -54,7 +54,10 @@
 			},
 			"text": {
 				"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
-				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
+				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen",
+				"thirdPartyLogins": "Drittanbieter-Logins",
+				"type": "Typ",
+				"name": "Name"
 			}
 		},
 		"headline": {
@@ -69,7 +72,8 @@
 				"changeTeamSettings": "Teameinstellungen ändern"
 			},
 			"headline": {
-				"teamSettings": "Team Einstellungen"
+				"teamSettings": "Team Einstellungen",
+				"teams": "Teams"
 			},
 			"label": {
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.",
@@ -1204,10 +1208,11 @@
 			"password": "Passwort:",
 			"room": "Raum",
 			"school": "Schule",
-			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
 			"title": "Titel",
-			"to": "Bis"
+			"to": "Bis",
+			"skipLinks": "Links Überspringen",
+			"newTab": "Öffnet in neuem Tab"
 		},
 		"link": {
 			"contact": "Kontakt",
@@ -1245,6 +1250,7 @@
 			"tasksDrafts": "Entwürfe",
 			"teams": "Teams"
 		},
+		"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 		"role": {
 			"text": {
 				"administrator": "Administrator",
@@ -1709,6 +1715,7 @@
 			}
 		},
 		"extended_footer": {
+			"ariaLabel": "footer",
 			"heading": {
 				"links": "Links",
 				"vacancies": "Stellenausschreibungen"
@@ -1730,6 +1737,7 @@
 			}
 		},
 		"footer": {
+			"ariaLabel": "footer",
 			"img_alt": {
 				"providerLogo": "Anbieterlogo"
 			}
