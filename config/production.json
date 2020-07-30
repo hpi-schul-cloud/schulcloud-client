@@ -4,5 +4,5 @@
 		"HOST_ONLY": true,
 		"SECURE": true
 	},
-	"FEATURE_LERNSTORE_ENABLED": true
+	"LERNSTORE_MODE": "LEGACY"
 }

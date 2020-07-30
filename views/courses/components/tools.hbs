@@ -4,14 +4,15 @@
 			{{#if ltiToolIds}}
 			{{#each ltiToolIds}}
 			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}"
-			{{#unless this.isBBB}}
-				{{#if this.openNewTab}}
-					data-blank="true"
-					data-loclink="{{#if this.isLocal}}{{this.url}}{{else}}/courses/{{@root/_id}}/tools/run/{{this._id}}{{/if}}"
-				{{else}}
-					data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}"
-				{{/if}}
-			{{/unless}}>
+				{{#unless this.isBBB}}
+					{{#if this.openNewTab}}
+						data-blank="true"
+						data-loclink="{{#if this.isLocal}}{{this.url}}{{else}}/courses/{{@root/_id}}/tools/run/{{this._id}}{{/if}}"
+					{{else}}
+						data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}"
+					{{/if}}
+				{{/unless}}
+			>
 				{{#unless this.isBBB}}
 				<div class="card-title-directory">
 					{{#if logo_url}}
