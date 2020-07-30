@@ -148,7 +148,7 @@ const editTeamHandler = async (req, res, next) => {
 
 	teamPromise.then((team) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
-			return next(new Error(res.$t('global.error.403')));
+			return next(new Error(res.$t('global.text.403')));
 		}
 		return res.render('teams/edit-team', {
 			action,

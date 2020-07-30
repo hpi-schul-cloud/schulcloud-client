@@ -118,7 +118,7 @@ $(document).ready(() => {
 		$deleteModal.modal('hide');
 		$moveModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification($t('global.error.requestTimeout'), 'warn');
+			$.showNotification($t('global.text.requestTimeout'), 'warn');
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}
@@ -696,7 +696,7 @@ $(document).ready(() => {
 				$('.permissions-modal').modal('hide');
 			})
 			.fail(() => {
-				$.showNotification($t('global.error.changingFilePermissions'), 'danger', true);
+				$.showNotification($t('global.text.changingFilePermissions'), 'danger', true);
 			});
 	});
 

@@ -13,7 +13,7 @@ $(document).ready(function() {
     function showAJAXError(req, textStatus, errorThrown) {
         $deleteModal.modal('hide');
         if(textStatus==="timeout") {
-            $.showNotification($t('global.error.requestTimeout'), "warn");
+            $.showNotification($t('global.text.requestTimeout'), "warn");
         } else {
             $.showNotification(errorThrown, "danger");
         }

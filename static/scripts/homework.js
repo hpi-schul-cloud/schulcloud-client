@@ -135,7 +135,7 @@ $(document).ready(() => {
 
     function showAJAXError(req, textStatus, errorThrown) {
         if (textStatus === "timeout") {
-            $.showNotification($t('global.error.requestTimeout'), "danger");
+            $.showNotification($t('global.text.requestTimeout'), "danger");
         } else if (errorThrown === "Conflict") {
             $.showNotification($t('homework.text.fileAlreadyExists'), "danger");
         } else {

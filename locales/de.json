@@ -793,7 +793,7 @@
 		"input": {
 			"searchForCourses": "Suche nach Kursen"
 		},
-		"tab_labels": {
+		"tab_label": {
 			"archievedCourses": "Archivierte Kurse",
 			"currentCourses": "Aktuelle Kurse"
 		},
@@ -820,11 +820,6 @@
 			"withFeedback": "Aufgaben mit Lehrer:innen-Kommentar",
 			"withRequiredFeedback": "Aufgaben mit unkommentierten Abgaben"
 		},
-		"homeworkTile": {
-			"graded": "Bewertet",
-			"handedIn": "Abgegeben",
-			"moreTasks": "Weitere Aufgaben..."
-		},
 		"img_alt": {
 			"showAppointmentInTeam": "Termine im Team anzeigen",
 			"showCalendar": "Kalender anzeigen",
@@ -832,6 +827,7 @@
 		},
 		"link": {
 			"continueReading": "Weiterlesen",
+			"moreTasks": "Weitere Aufgaben...",
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
@@ -839,6 +835,8 @@
 			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich.",
 			"emptyTimetable": "Leerer Stundenplan",
 			"empytTimetableInfo": "Hier siehst du normalerweise deinen aktuellen Stundenplan. Du findest deine Lerninhalte im Kursbereich.",
+			"graded": "Bewertet",
+			"handedIn": "Abgegeben",
 			"noDueDate": "Kein Abgabedatum festgelegt",
 			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
@@ -1156,18 +1154,6 @@
 			"tryAgain": "Erneut Versuchen",
 			"yes": "Ja"
 		},
-		"error": {
-			"400": "Diese Anfrage war fehlerhaft.",
-			"401": "Bitte authentifiziere dich zuerst.",
-			"402": "Diese Funktion musst du erst noch bezahlen.",
-			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
-			"404": "Ups, diese Seite gibt's wohl nicht.",
-			"changingFilePermissions": "Problem beim Ändern der Berechtigungen",
-			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
-			"pageMoved": "Diese Seite wurde verschoben.",
-			"requestTimeout": "Zeitüberschreitung bei der Anfrage",
-			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
-		},
 		"heading": {
 			"almostThere": "Fast geschafft!",
 			"declarationOfConsent": "Einwilligungserklärung",
@@ -1223,11 +1209,15 @@
 			"contact": "Kontakt",
 			"deleteTeam": "Team löschen",
 			"firstSteps": "Erste Schritte",
+			"footerSkipLink": "Footer",
 			"helpArea": "Hilfebereich",
 			"imprint": "Impressum",
+			"landing": "Startseite",
+			"mainContentSkipLink": "Hauptbereich",
 			"openInNewTab": "in neuem Tab öffnen",
 			"partner": "Partner",
-			"register": "Registrieren"
+			"register": "Registrieren",
+			"topNavbarSkipLink": "Navigation oben"
 		},
 		"role": {
 			"text": {
@@ -1241,7 +1231,7 @@
 			}
 		},
 		"sidebar": {
-			"ariaLabel": "Seitenleiste",
+			"aria_label": "Seitenleiste",
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
@@ -1267,14 +1257,15 @@
 				"teams": "Teams"
 			}
 		},
-		"skipLinks": {
-			"footerSkipLink": "Footer",
-			"mainContentSkipLink": "Hauptbereich",
-			"topNavbarSkipLink": "Navigation oben"
-		},
 		"text": {
+			"400": "Diese Anfrage war fehlerhaft.",
+			"401": "Bitte authentifiziere dich zuerst.",
+			"402": "Diese Funktion musst du erst noch bezahlen.",
+			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
+			"404": "Ups, diese Seite gibt's wohl nicht.",
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
+			"changingFilePermissions": "Problem beim Ändern der Berechtigungen",
 			"editTopic": "Thema bearbeiten",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
 			"entriesPerPage": "Einträge pro Seite",
@@ -1286,15 +1277,19 @@
 			"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
 			"friday": "Freitag",
 			"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
+			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
 			"invalidRequest": "Ungültige Anfrage",
 			"min8characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
 			"monday": "Montag",
 			"noMembers": "Keine Teilnehmer",
 			"noTasks": "Keine Aufgaben",
 			"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
+			"pageMoved": "Diese Seite wurde verschoben.",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
+			"requestTimeout": "Zeitüberschreitung bei der Anfrage",
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
+			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
 			"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
 			"sunday": "Sonntag",
 			"sureAboutDeleting": "Bist du dir sicher, dass du '{{ name }}' löschen möchtest?",
@@ -1307,11 +1302,8 @@
 			"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 			"wednesday": "Mittwoch"
 		},
-		"title": {
-			"landing": "Startseite"
-		},
 		"topMenu": {
-			"ariaLabel": "topbar",
+			"aria_label": "topbar",
 			"dropdown": {
 				"QRCode": {
 					"title": "QR-Code"

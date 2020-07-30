@@ -201,11 +201,11 @@ $(document).ready(() => {
 						$('.file-permissions-modal').modal('hide');
 					})
 					.fail(() => {
-						$.showNotification($t('global.error.changingFilePermissions'), 'danger', true);
+						$.showNotification($t('global.text.changingFilePermissions'), 'danger', true);
 					});
 			})
 			.fail(() => {
-				$.showNotification($t('global.error.changingFilePermissions'), 'danger', true);
+				$.showNotification($t('global.text.changingFilePermissions'), 'danger', true);
 			});
 	});
 
