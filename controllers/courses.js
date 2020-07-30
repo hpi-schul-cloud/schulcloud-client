@@ -592,11 +592,7 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 
 router.get('/:courseId/', async (req, res, next) => {
 	const promises = [
-		api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: ['ltiToolIds'],
-			},
-		}),
+		api(req).get(`/courses/${req.params.courseId}`),
 		api(req).get('/lessons/', {
 			qs: {
 				courseId: req.params.courseId,
@@ -659,12 +655,18 @@ router.get('/:courseId/', async (req, res, next) => {
 		const isNewEdtrioActivated = editorBackendIsAlive && (courseHasNewEditorLessons || userHasEditorEnabled);
 		// ################################ end new Editor check ##################################
 
-		const ltiToolIds = (course.ltiToolIds || []).filter(
+		let ltiToolIds = await api(req).get('ltiTools', {
+			qs: {
+				_id: { $in: course.ltiToolIds || [] },
+			},
+		});
+		ltiToolIds = (ltiToolIds.data || []).filter(
 			(ltiTool) => ltiTool.isTemplate !== 'true',
 		).map((tool) => {
 			tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
 			return tool;
 		});
+
 		const lessons = (_lessons.data || []).map((lesson) => Object.assign(lesson, {
 			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
 		}));
