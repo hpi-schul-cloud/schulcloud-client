@@ -1437,7 +1437,7 @@
 				"targetState": "SOLL-Zustand: Was sollte stattdessen geschehen?"
 			},
 			"text": {
-				"hereYouCanContact": "Hier erreichst du den Administrator deiner Schule. Er kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über deinen Kontaktgesuch informiert."
+				"hereYouCanContact": "Hier erreichst du den Administrator deiner Schule. Er kann dir z.B. bei Problemen mit deinen Kursen helfen und wird per E-Mail über dein Kontaktgesuch informiert."
 			}
 		},
 		"form_bug": {
@@ -2674,7 +2674,7 @@
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
 			"noMembers": "Keine Teilnehmer",
-			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
+			"studentsCantCreateTeams": "Leider ist das das Anlegen von Teams durch Schüler:innen nicht erlaubt."
 		}
 	},
 	"topic": {
