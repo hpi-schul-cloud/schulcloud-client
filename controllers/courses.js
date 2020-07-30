@@ -111,17 +111,7 @@ const editCourseHandler = (req, res, next) => {
 	if (req.params.courseId) {
 		action = `/courses/${req.params.courseId}`;
 		method = 'patch';
-		coursePromise = api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: [
-					'ltiToolIds',
-					'classIds',
-					'teacherIds',
-					'userIds',
-					'substitutionIds',
-				],
-			},
-		});
+		coursePromise = api(req).get(`/courses/${req.params.courseId}`);
 	} else {
 		action = '/courses/';
 		method = 'post';
@@ -208,7 +198,7 @@ const editCourseHandler = (req, res, next) => {
 		// preselect current teacher when creating new course
 		if (!req.params.courseId) {
 			course.teacherIds = [];
-			course.teacherIds.push(res.locals.currentUser);
+			course.teacherIds.push(res.locals.currentUser._id);
 		}
 
 		// populate course colors - to be replaced system scope
@@ -240,16 +230,16 @@ const editCourseHandler = (req, res, next) => {
 				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
-				classes: markSelected(classes, _.map(course.classIds, '_id')),
+				classes: markSelected(classes, course.classIds),
 				teachers: markSelected(
 					teachers,
-					_.map(course.teacherIds, '_id'),
+					course.teacherIds,
 				),
 				substitutions: markSelected(
 					substitutions,
-					_.map(course.substitutionIds, '_id'),
+					course.substitutionIds,
 				),
-				students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
+				students: filterStudents(res, markSelected(students, course.userIds)),
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
 			});
@@ -262,16 +252,16 @@ const editCourseHandler = (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			course,
 			colors,
-			classes: markSelected(classes, _.map(course.classIds, '_id')),
+			classes: markSelected(classes, course.classIds),
 			teachers: markSelected(
 				teachers,
-				_.map(course.teacherIds, '_id'),
+				course.teacherIds,
 			),
 			substitutions: markSelected(
 				substitutions,
-				_.map(course.substitutionIds, '_id'),
+				course.substitutionIds,
 			),
-			students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
+			students: filterStudents(res, markSelected(students, course.userIds)),
 			redirectUrl: req.query.redirectUrl || '/courses',
 		});
 	}).catch(next);
@@ -286,17 +276,7 @@ const copyCourseHandler = (req, res, next) => {
 	if (req.params.courseId) {
 		action = `/courses/copy/${req.params.courseId}`;
 		method = 'post';
-		coursePromise = api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: [
-					'ltiToolIds',
-					'classIds',
-					'teacherIds',
-					'userIds',
-					'substitutionIds',
-				],
-			},
-		});
+		coursePromise = api(req).get(`/courses/${req.params.courseId}`);
 	} else {
 		action = '/courses/copy';
 		method = 'post';
@@ -347,7 +327,7 @@ const copyCourseHandler = (req, res, next) => {
 		// preselect current teacher when creating new course
 		if (!req.params.courseId) {
 			course.teacherIds = [];
-			course.teacherIds.push(res.locals.currentUser);
+			course.teacherIds.push(res.locals.currentUser._id);
 		}
 
 		// populate course colors - to be replaced system scope
@@ -382,7 +362,7 @@ const copyCourseHandler = (req, res, next) => {
 			course,
 			classes,
 			colors,
-			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+			teachers: markSelected(teachers, course.teacherIds),
 			substitutions,
 			students: filterStudents(res, students),
 			schoolData: res.locals.currentSchoolData,
@@ -582,11 +562,7 @@ router.get('/add/', editCourseHandler);
 
 router.get('/:courseId/json', (req, res, next) => {
 	Promise.all([
-		api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: ['ltiToolIds'],
-			},
-		}),
+		api(req).get(`/courses/${req.params.courseId}`),
 		api(req).get('/lessons/', {
 			qs: {
 				courseId: req.params.courseId,
