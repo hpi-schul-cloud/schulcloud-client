@@ -168,6 +168,25 @@ label,
 footer {
 	display: block;
 
+	nav {
+		ul {
+			list-style: none;
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+
+			li {
+				display: flex;
+
+				a, span {
+					align-items: center;
+					padding: 0 0.1rem;
+					width: max-content;
+				}
+			}
+		}
+	}
+
 	.mobile-app {
 
 		img {
