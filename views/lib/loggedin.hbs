@@ -46,7 +46,7 @@
         {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
-            <nav id="sidebar" aria-label="{{$t "global.sidebar.ariaLabel"}}">
+            <nav id="sidebar" aria-label="{{$t "global.sidebar.ariaLabel"}}" tabindex="0">
                 <ul class="sidebar-list">
                     <li>
                         <a class="sc-branding" aria-label="{{$t "global.title.landing"}}" href="/">
@@ -105,7 +105,7 @@
                 {{/ifeq}}
 
                 {{> "lib/components/notification"}}
-				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.topMenu.ariaLabel"}}">
+				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.topMenu.ariaLabel"}}" tabindex="0">
 
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
@@ -256,13 +256,14 @@
 
                 <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
                 <p id="backendUrl" hidden>{{ backendUrl }}</p>
-				<dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.ariaLabel"}}">
-					<dd>
-						<a href="#sidebar">{{$t "global.sidebar.ariaLabel"}}</a>
-					</dd>
-				</dl>
-                <main id="main-content" class="container-fluid">
-                    {{#block "page"}}{{/block}}
+
+                <main id="main-content" class="container-fluid" tabindex="0">
+					<dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.ariaLabel"}}">
+						<dd>
+							<a href="#sidebar">{{$t "global.sidebar.ariaLabel"}}</a>
+						</dd>
+					</dl>
+					{{#block "page"}}{{/block}}
                 </main>
 						{{#if messenger}}
 						{{>"lib/components/notification"
