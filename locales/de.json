@@ -1284,6 +1284,7 @@
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"
 		},
+		"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 		"role": {
 			"text": {
 				"administrator": "Administrator",
@@ -1833,6 +1834,7 @@
 			}
 		},
 		"extended_footer": {
+			"ariaLabel": "footer",
 			"heading": {
 				"contact": "Kontakt",
 				"links": "Links",
@@ -1855,6 +1857,7 @@
 			}
 		},
 		"footer": {
+			"ariaLabel": "footer",
 			"img_alt": {
 				"providerLogo": "Anbieterlogo"
 			},
