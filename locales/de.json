@@ -51,12 +51,12 @@
 				"emailAddress": "E-Mail-Adresse:",
 				"firstName": "Vorname:",
 				"lastName": "Nachname:",
+				"name": "Name",
 				"newPassword": "Neues Passwort:",
 				"operatingSystem": "Betriebssystem",
 				"repeatNewPassword": "Neues Passwort wiederholen:",
 				"thirdPartyLogins": "Drittanbieter-Logins",
-				"type": "Typ",
-				"name":"Name"
+				"type": "Typ"
 			}
 		},
 		"headline": {
@@ -136,7 +136,7 @@
 			"button": {
 				"addClass": "Klasse hinzufügen",
 				"addStudentsFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
-				"classInSchoolYear": "Klasse in Schuljahr",
+				"classInSchoolYear": "Klasse in Schuljahr <span data-from=\"schoolyear\"></span> versetzen",
 				"copyLink": "Link kopieren",
 				"declareConsentOnBehalfOfTheStudents": "Einverständnis im Namen der Schüler erklären",
 				"printLinkWithQRCode": "Link mit QR-Code Drucken",
@@ -163,6 +163,9 @@
 				"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur",
 				"yourStudentsAreNotYetInThe": "Deine Schüler:innen sind noch nicht in der"
 			},
+			"placeholder": {
+				"example": "z.B. Froschklasse 3-4"
+			},
 			"text": {
 				"andTo": "und zur",
 				"attentionIfYouChangeTheSchoolYear": "Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.",
@@ -170,7 +173,7 @@
 				"byClickingOn": "Durch den Klick auf",
 				"className": "Klassenname:",
 				"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
-				"createClass": "Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Administrator ",
+				"createClass": "Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Administrator <i>versetzt</i> werden, sondern müssen manuell aktualisiert werden.",
 				"forAllStudents": "Für alle Schüler",
 				"ifAllStudentsAndParentshaveGiven": "Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
 				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
@@ -182,6 +185,7 @@
 				"noLackOfInformedConsent": "In dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
 				"ofThe": "der",
 				"required": "erforderlich",
+				"signAgreement": "Du kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Datenschutzerklärung</a> und zur <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Nutzungsordnung</a> der {{shortTitle}} erklären. <br>Durch den Klick auf <i>Einverständnis im Namen der Schüler erklären</i> bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
 				"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
 				"toExplain": "der {{shortTitle}} erklären.",
 				"transferred": "versetzt",
@@ -446,6 +450,7 @@
 				"assignPassword": "Passwort vergeben:",
 				"birthdate": "Geburtsdatum:",
 				"chooseDate": "Termine auswählen",
+				"chooseSchoolYear": "Schuljahr auswählen",
 				"classes": "Klassen:",
 				"colorOfTheCourse": "Farbe des Kurses:",
 				"dataProtection": "Datenschutz",
@@ -744,6 +749,7 @@
 		},
 		"text": {
 			"areYouSureYouWantToRemoveAllMembers": "Bist du sicher, dass du alle Mitglieder deiner Schule aus diesem Team entfernen willst?",
+			"moreOptions": "Mehr Optionen",
 			"noEntriesToPrint": "Keine Einträge zu drucken.",
 			"registrationAtThe": "Die Anmeldung an der",
 			"yourClassDoesntFitInto": "Deine Klasse passt nicht ins klassische Schema?"
@@ -1702,9 +1708,9 @@
 			"brokenPen": "zerbrochener Stift"
 		},
 		"label": {
+			"newTab": "Öffnet in neuem Tab",
 			"room": "Raum",
-			"skipLinks": "Links Überspringen",
-			"newTab": "Öffnet in neuem Tab"
+			"skipLinks": "Links Überspringen"
 		},
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"

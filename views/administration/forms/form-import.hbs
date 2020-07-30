@@ -19,7 +19,7 @@
 </div>
 <div class="form-group">
     <label>{{$t "administration.global.label.schoolYear" }}</label>
-    <select class="form-control" name="schoolYear" data-placeholder="Schuljahr auswählen" data-force-value="true">
+    <select class="form-control" name="schoolYear" data-placeholder="{{$t "administration.global.label.chooseSchoolYear" }}" data-force-value="true">
         {{#each years}}
         <option {{#ifeq this._id ../schoolCurrentYear}}selected="selected" {{/ifeq}} value="{{this._id}}">{{this.name}}
         </option>

@@ -67,14 +67,14 @@
 		</div>
 	</div>
 
-	<p class="mt-1">{{$t "administration.text.yourClassDoesntFitInto" }} <a data-testId="classCreationExtraOptions" href="#" class="createcustom">Mehr Optionen</a>.
+	<p class="mt-1">{{$t "administration.text.yourClassDoesntFitInto" }} <a data-testId="classCreationExtraOptions" href="#" class="createcustom">{{$t "administration.text.moreOptions" }}</a>.
 	</p>
 
 	<section id="createcustom" class="{{#unless isCustom}}hidden{{/unless}}">
-		<p>{{$t "administration.classes.text.createClass" }} <i>{{$t "administration.classes.text.transferred" }}</i> {{$t "administration.classes.text.butMustBeUpdatedManually" }}</p>
+		<p>{{{$t "administration.classes.text.createClass" }}}</p>
 		<div class="form-group">
 			<label>{{$t "administration.classes.label.className" }}</label>
-			<input data-testid="Klassenbezeichnung" class="form-control linked" name="classcustom" type="text" placeholder="z.B. Froschklasse 3-4"
+			<input data-testid="Klassenbezeichnung" class="form-control linked" name="classcustom" type="text" placeholder="{{$t "administration.classes.placeholder.exampe" }}"
 				required value="{{class.customName}}" {{#unless isCustom}}disabled{{/unless}} />
 		</div>
 		<label class="my-1">
@@ -118,8 +118,7 @@
 		{{/if}}
 	{{/ifeq}}
 	{{#ifeq mode "upgrade"}}
-		<button class="btn btn-primary" type="submit">{{$t "administration.classes.button.classInSchoolYear" }} <span data-from="schoolyear"></span>
-			{{$t "administration.classes.button.transfer" }}</button>
+		<button class="btn btn-primary" type="submit">{{{$t "administration.classes.button.classInSchoolYear" }}}</button>
 	{{/ifeq}}
 </div>
 
