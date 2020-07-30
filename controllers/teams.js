@@ -536,11 +536,11 @@ router.get('/:teamId', async (req, res, next) => {
 		let matrixNotification;
 		let messenger = false;
 		if (instanceUsesMatrixMessenger && courseUsesMatrixMessenger && !schoolUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.messengerNotActivatedSchool');
+			matrixNotification = res.$t('teams._team.text.messengerNotActivatedSchool');
 			messenger = true;
 		}
 		if (instanceUsesMatrixMessenger && schoolUsesMatrixMessenger && !courseUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.messengerNotActivatedCourse');
+			matrixNotification = res.$t('teams._team.text.messengerNotActivatedCourse');
 			messenger = true;
 		}
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);

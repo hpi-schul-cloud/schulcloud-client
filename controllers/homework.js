@@ -529,7 +529,7 @@ const overview = (titleKey) => (req, res, next) => {
 				},
 				{
 					type: 'select',
-					title: res.$t('global.sidebar.link.courses'),
+					title: res.$t('globa.link.courses'),
 					displayTemplate: res.$t('homework.label.filterCourses'),
 					property: 'courseId',
 					multiple: true,

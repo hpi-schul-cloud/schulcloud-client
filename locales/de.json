@@ -1121,6 +1121,10 @@
 		}
 	},
 	"global": {
+		"aria_label": {
+			"sidebar": "Seitenleiste",
+			"topMenu": "topbar"
+		},
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
@@ -1217,7 +1221,29 @@
 			"openInNewTab": "in neuem Tab öffnen",
 			"partner": "Partner",
 			"register": "Registrieren",
-			"topNavbarSkipLink": "Navigation oben"
+			"topNavbarSkipLink": "Navigation oben",
+			"addons": "Add-ons",
+			"administration": "Administration",
+			"administrationClasses": "Klassen",
+			"administrationStudents": "Schüler",
+			"administrationTeachers": "Lehrer",
+			"archive": "Archiv",
+			"assignedTasks": "Gestellte Aufgaben",
+			"calendar": "Termine",
+			"courses": "Kurse",
+			"files": "Meine Dateien",
+			"filesPersonal": "persönliche Dateien",
+			"filesShared": "geteilte Dateien",
+			"helpDesk": "Helpdesk",
+			"lernstore": "Lern-Store",
+			"management": "Verwaltung",
+			"managementStudents": "Schüler:innen",
+			"managementTeachers": "Lehrer:innen",
+			"news": "Neuigkeiten",
+			"overview": "Übersicht",
+			"tasks": "Aufgaben",
+			"tasksDrafts": "Entwürfe",
+			"teams": "Teams"
 		},
 		"role": {
 			"text": {
@@ -1230,33 +1256,6 @@
 				"teacher": "Lehrer"
 			}
 		},
-		"sidebar": {
-			"aria_label": "Seitenleiste",
-			"link": {
-				"addons": "Add-ons",
-				"administration": "Administration",
-				"administrationClasses": "Klassen",
-				"administrationStudents": "Schüler",
-				"administrationTeachers": "Lehrer",
-				"archive": "Archiv",
-				"assignedTasks": "Gestellte Aufgaben",
-				"calendar": "Termine",
-				"courses": "Kurse",
-				"files": "Meine Dateien",
-				"filesPersonal": "persönliche Dateien",
-				"filesShared": "geteilte Dateien",
-				"helpDesk": "Helpdesk",
-				"lernstore": "Lern-Store",
-				"management": "Verwaltung",
-				"managementStudents": "Schüler:innen",
-				"managementTeachers": "Lehrer:innen",
-				"news": "Neuigkeiten",
-				"overview": "Übersicht",
-				"tasks": "Aufgaben",
-				"tasksDrafts": "Entwürfe",
-				"teams": "Teams"
-			}
-		},
 		"text": {
 			"400": "Diese Anfrage war fehlerhaft.",
 			"401": "Bitte authentifiziere dich zuerst.",
@@ -1265,6 +1264,7 @@
 			"404": "Ups, diese Seite gibt's wohl nicht.",
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
+			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite",
 			"changingFilePermissions": "Problem beim Ändern der Berechtigungen",
 			"editTopic": "Thema bearbeiten",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
@@ -1301,27 +1301,6 @@
 			"videoconferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
 			"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 			"wednesday": "Mittwoch"
-		},
-		"topMenu": {
-			"aria_label": "topbar",
-			"dropdown": {
-				"QRCode": {
-					"title": "QR-Code"
-				},
-				"alertButton": {
-					"title": "Es gibt ein Problem"
-				},
-				"currentUser": {
-					"ariaLabel": "aktueller Benutzer:"
-				},
-				"fullscreenButton": {
-					"title": "Vollbildmodus"
-				},
-				"notifications": {
-					"title": "Benachrichtigungen"
-				}
-			},
-			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		}
 	},
 	"help": {
@@ -1720,9 +1699,6 @@
 				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
 			}
 		},
-		"default": {
-			"yourDigitalLearningEnvironment": "Deine digitale Lernumgebung"
-		},
 		"error": {
 			"button": {
 				"hideDetails": "Details verstecken",
@@ -1870,9 +1846,12 @@
 			}
 		},
 		"table": {
-			"option": {
+			"placeholder": {
 				"numberOfEntries": "Anzahl der Einträge"
 			}
+		},
+		"text": {
+			"yourDigitalLearningEnvironment": "Deine digitale Lernumgebung"
 		}
 	},
 	"link": {
@@ -1888,14 +1867,10 @@
 		}
 	},
 	"login": {
-		"anchor": {
-			"title": {
-				"show_password": "Passwort anzeigen"
-			}
-		},
 		"button": {
 			"less": "Weniger",
 			"login": "Anmelden",
+			"show_password": "Passwort anzeigen",
 			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
 			"moreOptions": "Mehr Optionen",
 			"submitPrivacyPolicy": "Gelesen"
@@ -2031,7 +2006,7 @@
 			"pilotPartners": "Pilotpartner für Lerninhalte",
 			"supporters": "Unterstützer für Schulinfrastruktur <3"
 		},
-		"img-alt": {
+		"img_alt": {
 			"logo": "Logo"
 		},
 		"text": {
@@ -2412,8 +2387,6 @@
 					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
 				}
 			},
-			"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
-			"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
 			"news": {
 				"button": {
 					"addNews": "Neuigkeit anlegen"
@@ -2431,6 +2404,8 @@
 				"news": "Neuigkeiten"
 			},
 			"text": {
+				"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
+				"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
 				"errorAcceptingInvitation": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
 				"invitationSuccessfullyAccepted": "Teameinladung erfolgreich angenommen.",
 				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
