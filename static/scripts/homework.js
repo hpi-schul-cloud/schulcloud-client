@@ -87,6 +87,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	/* FEATHERS FILTER MODULE */
 	const filterModule = document.getElementById('filter');
 	const sortingModal = document.querySelector('.md-chip.md-theme-default');
+	const closingButton = document.querySelector('.md-icon-button');
+	closingButton.setAttribute('aria-label', 'Abbrechen');
 
 	if (!filterModule) { return; }
 	filterModule.addEventListener('newFilter', (e) => {
