@@ -210,7 +210,7 @@ module.exports = (req, res, next) => {
 				link: '/administration/teams/',
 			},
 			{
-				name: res.$t('global.label.school'),
+				name: res.$t('global.link.school'),
 				icon: 'building',
 				link: '/administration/school/',
 			},
@@ -219,7 +219,7 @@ module.exports = (req, res, next) => {
 
 	// beta user view
 	res.locals.sidebarItems.push({
-		name: res.$t('global.headline.myMaterial'),
+		name: res.$t('global.link.myMaterial'),
 		icon: 'book',
 		link: '/my-material/',
 		permission: 'BETA_FEATURES',

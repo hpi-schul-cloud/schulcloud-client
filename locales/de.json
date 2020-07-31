@@ -171,7 +171,7 @@
 				"remarks": "Anmerkungen",
 				"school": "{{title}}Schule",
 				"schoolYear": "Schuljahr",
-				"schools": "'Schule(n)'",
+				"schools": "Schule(n)",
 				"status": "Status",
 				"students": "{{title}}Schüler",
 				"targetState": "Soll-Zustand",
@@ -1143,6 +1143,7 @@
 			"delete": "Löschen",
 			"deleteTeam": "Team löschen",
 			"edit": "Bearbeiten",
+			"editTopic": "Thema bearbeiten",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
 			"import": "Importieren",
@@ -1215,7 +1216,6 @@
 		},
 		"link": {
 			"addons": "Add-ons",
-			"administration": "Administration",
 			"administrationClasses": "Klassen",
 			"administrationStudents": "Schüler",
 			"administrationTeachers": "Lehrer",
@@ -1239,12 +1239,14 @@
 			"managementStudents": "Schüler:innen",
 			"managementTeachers": "Lehrer:innen",
 			"mobileNavMenu": "Mobiles Navigations Menu",
+			"myMaterial": "Meine Materialien",
 			"news": "Neuigkeiten",
 			"openInNewTab": "in neuem Tab öffnen",
 			"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 			"overview": "Übersicht",
 			"partner": "Partner",
 			"register": "Registrieren",
+			"school": "Schule",
 			"tasks": "Aufgaben",
 			"tasksDrafts": "Entwürfe",
 			"teams": "Teams",
@@ -1270,7 +1272,6 @@
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
 			"changingFilePermissions": "Problem beim Ändern der Berechtigungen",
-			"editTopic": "Thema bearbeiten",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
 			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
@@ -1666,6 +1667,9 @@
 		}
 	},
 	"imprint": {
+		"headline": {
+			"imprint": "Impressum"
+		},
 		"imprint_infotext_below": {
 			"text": {
 				"theContentOfThe": "Die Inhalte der {{shortTitle}} stellen keine offiziellen Verlautbarungen des HPI dar. Für die Inhalte sind die jeweiligen Autor/innen selbst verantwortlich. Ohne vorherige schriftliche Genehmigung ist eine kommerzielle Verbreitung der über die {{shortTitle}} verfügbaren Inhalte ausdrücklich untersagt, außer diese sind ausdrücklich gekennzeichnet. Die redaktionelle Verantwortung für den Inhalt verlinkter Webseiten anderer Anbieter (einschließlich der dort verankerten Links zu Dritten), insbesondere die Verantwortung für die Beachtung der Bestimmungen des Jugendschutz- und Datenschutzrechts, trägt in jeder Hinsicht der jeweilige Anbieter allein.",
@@ -2012,6 +2016,7 @@
 	"partner": {
 		"headline": {
 			"advisoryBoard": "Fachbeirat",
+			"partner": "Partner",
 			"pilotPartners": "Pilotpartner für Lerninhalte",
 			"supporters": "Unterstützer für Schulinfrastruktur <3"
 		},
@@ -2431,6 +2436,7 @@
 			"foundATeam": "Gründe ein Team"
 		},
 		"headline": {
+			"createTeam": "Team anlegen",
 			"duplicateTeam": "Team duplizieren",
 			"invitations": "Einladungen",
 			"membersOfTeam": "Mitglieder des Teams: {{teamName}}",
@@ -2458,7 +2464,8 @@
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
 			},
 			"headline": {
-				"createTopic": "Thema anlegen"
+				"createTopic": "Thema anlegen",
+				"editTopic": "Thema bearbeiten"
 			},
 			"input": {
 				"countWithPrimeNumbers": "z.B. Rechnen mit Primzahlen"

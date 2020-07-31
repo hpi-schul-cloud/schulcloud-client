@@ -155,7 +155,7 @@ const editTeamHandler = async (req, res, next) => {
 			method,
 			title: req.params.teamId
 				? res.$t('teams.add.headline.editTeam')
-				: res.$t('global.button.createTeam'),
+				: res.$t('teams.headline.createTeam'),
 			submitLabel: req.params.teamId
 				? res.$t('global.button.saveChanges')
 				: res.$t('global.button.createTeam'),
