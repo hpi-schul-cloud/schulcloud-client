@@ -17,7 +17,7 @@
                         <span class="text">{{$t "courses.tab_label.currentCourses"}} <span class="count-badge" data-badge="{{ total.active }}"/></span>
                     </button>
                     <button class="tab" data-tab="js-archived">
-                        <span class="text">{{$t "courses.tab_label.archievedCourses"}} <span class="count-badge" data-badge="{{ total.archived }}"/></span>
+                        <span class="text">{{$t "courses.tab_label.archivedCourses"}} <span class="count-badge" data-badge="{{ total.archived }}"/></span>
                     </button>
                 </div>
                 <div class="sectionsContainer">
@@ -72,11 +72,11 @@
                                 {{> 'dashboard/components/card_section' section-id="archievedCourses" title="" content=archivedCourses link-text= ($t "global.button.open") additionalInfoName="memberCount"}}
                             {{else}}
                                 <div class="empty-state">
-                                    <img src="/images/empty-states/books_empty.svg" alt="{{$t "courses.img_alt.noArchievedCourses"}}" class="image"/>
+                                    <img src="/images/empty-states/books_empty.svg" alt="{{$t "courses.img_alt.noArchivedCourses"}}" class="image"/>
 
-                                    <h2 class="h4">{{$t "courses.headline.noArchievedCourses"}}</h2>
+                                    <h2 class="h4">{{$t "courses.headline.noArchivedCourses"}}</h2>
                                     <p class="text-muted">
-                                      {{$t "courses.text.descriptionArchievedCourses"}}
+                                      {{$t "courses.text.descriptionArchivedCourses"}}
                                     </p>
                                 </div>
                             {{/if}}

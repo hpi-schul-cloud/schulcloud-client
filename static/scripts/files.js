@@ -696,7 +696,7 @@ $(document).ready(() => {
 				$('.permissions-modal').modal('hide');
 			})
 			.fail(() => {
-				$.showNotification($t('global.text.changingFilePermissions'), 'danger', true);
+				$.showNotification($t('global.text.errorChangingFilePermissions'), 'danger', true);
 			});
 	});
 

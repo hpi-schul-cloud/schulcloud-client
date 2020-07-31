@@ -29,7 +29,7 @@ $(document).ready(() => {
 					form.find('.file-alert').html('');
 					form.find(':submit').prop('disabled', false);
 				} else {
-					form.find('.file-alert').html('<i class="fa fa-exclamation"></i> '.concat($t('help.confluence.text.typeNotAllowed', { filename: this.files.item(i).name })));
+					form.find('.file-alert').html('<i class="fa fa-exclamation"></i> '.concat($t('global.text.fileWrongFormat', { filename: this.files.item(i).name })));
 					form.find(':submit').prop('disabled', true);
 					return;
 				}

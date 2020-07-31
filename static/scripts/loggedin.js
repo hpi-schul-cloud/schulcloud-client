@@ -159,7 +159,7 @@ $(document).ready(function () {
 
 function showAJAXError(req, textStatus, errorThrown) {
     if (textStatus === "timeout") {
-        $.showNotification($t('global.text.timeout'), "warn", true);
+        $.showNotification($t('global.text.requestTimeout'), "warn", true);
     } else {
         $.showNotification(errorThrown, "danger", true);
     }
