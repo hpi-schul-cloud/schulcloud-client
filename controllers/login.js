@@ -7,7 +7,6 @@ const feedr = require('feedr').create();
 
 const router = express.Router();
 const { Configuration } = require('@schul-cloud/commons');
-const { FEATURE_MULTI_LOGIN_INSTANCES } = require('../config/global');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
@@ -121,7 +120,7 @@ router.get('/loginRedirect', (req, res, next) => {
 		if (isAuthenticated) {
 			return redirectAuthenticated(req, res);
 		}
-		if (FEATURE_MULTI_LOGIN_INSTANCES) {
+		if (Configuration.get('FEATURE_MULTI_LOGIN_INSTANCES')) {
 			return res.redirect('/login-instances');
 		}
 		return res.redirect('/login');
@@ -170,6 +169,10 @@ const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
 
 router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 	if (res.locals.currentUser) {
+		if (res.locals.currentPayload.forcePasswordChange) {
+			return res.redirect('/forcePasswordChange');
+		}
+
 		const user = res.locals.currentUser;
 		const redirectUrl = determineRedirectUrl(req);
 		// check consent versions
