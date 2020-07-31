@@ -2,8 +2,7 @@
 <div class="form-group">
     <label for="invitation-link">{{$t "administration.label.toInviteToTheSchoolCloud" }} </label>
     <p>
-        <b>{{$t "administration.global.text.studentUnderYears" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}} </b> {{$t "administration.form_InvitationStudent.text.theParents" }} <br/>
-        <b>{{$t "administration.form_InvitationStudent.text.studentsFromYears" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS) }} </b> {{$t "administration.form_InvitationStudent.text.toTheStudentsThemselves" }} <br/>
+        {{{$t "administration.global.text.studentUnderYears" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}}
     </p>
     <p>{{$t "administration.form_InvitationStudent.text.beforeTheSchoolCloudCanBeUsed" }}</p>
     <input id="invitation-link" class="form-control" name="invitation" type="text" />

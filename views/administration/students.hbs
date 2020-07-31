@@ -45,8 +45,7 @@
                     </div>
                     <div class="row mt-3 mb-1">
                         <p>
-                            <strong>{{ studentsWithoutConsentCount }} von {{ allStudentsCount }}</strong> {{$t "administration.students.text.studentsStillNeedTheDecalaration" }} {{theme.short_title}}.
-                            {{$t "administration.global.text.studentUnder" }} {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} {{$t "administration.students.text.yearsFirstRequireTheConsent" }}
+                            {{{$t "administration.students.text.studentsStillNeedTheDecalaration" (dict "studentsWithoutConsentCount" studentsWithoutConsentCount "allStudentsCount" allStudentsCount "shortTitle" theme.short_title "minAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}}
                         </p>
                     </div>
 

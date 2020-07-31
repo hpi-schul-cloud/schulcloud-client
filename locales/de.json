@@ -364,20 +364,15 @@
 			},
 			"text": {
 				"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
-				"andSendYourUsersARegistrationLink": "und lass deinen Nutzern einen Registrierungslink zukommen.",
 				"attention": "⚠️ ACHTUNG: Beim Import großer Datensätze kommt es derzeit kurz nach dem Start zu einer Fehlermeldung. Im\n        Hintergrund läuft der Importprozess trotzdem unsichtbar weiter. Zeitdauer: circa 4 Minuten pro 1000\n        Nutzer:innen. Bitte warte die entsprechende Zeit ab und aktualisiere dann dein Browserfenster, um die\n        aktualisierte Schüler:innen-Übersicht überprüfen zu können.",
-				"example": "Beispiel",
-				"importUserData": "Importiere Nutzerdaten per .csv-Datei",
+				"importUserData": "Importiere Nutzerdaten per .csv-Datei (<a href=\"#\" id=\"csv-import-example\">Beispiel</a>) und lass deinen Nutzern einen Registrierungslink zukommen.",
 				"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du"
 			}
 		},
 		"form_InvitationStudent": {
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der HPI Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
-				"studentUnderYears": "Schüler unter {{age}} Jahre:",
-				"studentsFromYears": "Schüler ab {{age}} Jahre:",
-				"theParents": "die Eltern",
-				"toTheStudentsThemselves": "an die Schüler selbst "
+				"studentUnderYears": "<b>Schüler unter {{age}} Jahre: </b> die Eltern <br/> <b>Schüler ab {{age}} Jahre: </b> an die Schüler selbst <br/>"
 			}
 		},
 		"form_InvitationTeacher": {
@@ -414,11 +409,7 @@
 		},
 		"form_TerminateSchoolYear": {
 			"text": {
-				"TheSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data",
-				"isEndedAndTheTransferPhase": "wird beendet und die Transferphase zum neuen Schuljahr beginnt.",
-				"noClassesAndUsersCanBeCreated": "Es können in dieser Zeit keine Klassen und Nutzer angelegt oder geändert werden.",
-				"theSchoolYear": "Das Schuljahr",
-				"thisStepCannotBeUndone": "Dieser Schritt kann nicht rückgängig gemacht werden."
+				"theSchoolYear": "Das Schuljahr {{currentYear}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.</strong> Es können in dieser Zeit keine Klassen und Nutzer angelegt oder geändert werden.</p>\n<p>The synchronization of LDAP master data"
 			}
 		},
 		"global": {
@@ -438,11 +429,7 @@
 			},
 			"helpdesk": {
 				"label": {
-					"tips": "Tipp:"
-				},
-				"text": {
-					"forwardToUserSupport": "an den Nutzer-Support weiterleiten.",
-					"youCanAlsoOpenEntries": "Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol"
+					"tips": "<b>Tipp: </b>Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol \n <i class=\"fa fa-paper-plane\"></i> an den Nutzer-Support weiterleiten."
 				}
 			},
 			"label": {
@@ -487,14 +474,12 @@
 				"dataProtection": "Datenschutzerklärung",
 				"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
 				"errorSendingMails": "Fehler beim Senden der Erinnerungs-E-Mails",
-				"forStudentsUnder": "Für Schüler unter",
+				"forStudentsUnder": "Für Schüler unter {{minAge}} Jahren: Einverständnis der Eltern",
 				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler:innen per Link ein, die Einverständniserklärung abzugeben",
-				"isPossibleWithTheFollowingData": "ist mit den folgenden Daten möglich.",
 				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
 				"orSelectStudentFromTable": "Oder wähle Schüler:innen in der Tabelle aus.",
 				"provideYourStudentsAnd": "Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.",
-				"studentUnder": "Schüler unter",
 				"studentsLoginInThePresenceOfGuardian": "Schüler:innen loggen sich in Anwesenheit eines Erziehungberechtigten ein",
 				"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
 				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet"
@@ -518,15 +503,19 @@
 			},
 			"heading": {
 				"classAttributes": "Klassen-Attribute",
+				"classAttributesTitle": "Geben Sie das Klassenattribut an, in dem die folgenden Informationen in Ihrem LDAP verfügbar sind",
 				"importantNote": "Wichtiger Hinweis",
 				"roleAttributes": "Rollen-Attribute",
-				"userAttributes": "Nutzer-Attribute"
+				"roleAttributesTitle": "Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
+				"userAttributes": "Nutzer-Attribute",
+				"userAttributesTitle": "Geben Sie das Nutzerattribut an, in dem die folgenden Informationen in Ihrem LDAP verfügbar sind"
 			},
 			"input": {
 				"classes": "Klassen (optional)"
 			},
 			"label": {
 				"classPath": "Klassen-Pfad",
+				"classPathTitle": "Relativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Klassen erreichbar sind",
 				"classUsers": "Nutzer der Klasse",
 				"displayName": "Anzeige-Name",
 				"domainName": "Domain-Name",
@@ -534,24 +523,32 @@
 				"fullPathClassUsers": "Nutzer der Klasse mit vollem Pfad",
 				"hide": "Ausblenden",
 				"noSchoolCloud": "keine HPI Schul-Cloud",
+				"noSchoolCloudTitle": "Dies ermöglicht es Ihnen, dass Nutzer aus Ihrem LDAP nicht in die HPI Schul-Cloud übertragen werden",
 				"role": "Rolle",
 				"roleType": "Rollen-Typ",
+				"roleTypeTitle": "Ist die Nutzerrolle (Lehrer, Schüler) im Nutzerattribut textuell gespeichert oder gibt es eine LDAP-Gruppe für die jeweiligen Nutzerrolle?",
 				"roles": "Rolle(n)",
 				"rolesAttributes": "Rollen-Attribute",
 				"rolesAttributesDescription": "Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
 				"rolesLDAPPaths": "Rollen-LDAP-Pfade",
 				"rolesLDAPPathsDescription": "Welche LDAP-Gruppe definiert die genannten Rolle? Geben Sie den vollen Pfad (inkl. root-Pfad) an",
 				"rootPath": "root-Pfad",
+				"rootPathTitle": "Hauptpfad, des LDAPs. Normalerweise DC=Domain,DC=Top-Level-Domain",
 				"seacrhUserpassword": "search-Nutzer Passwort",
 				"searchUsers": "search-Nutzer",
+				"searchUsersTitle": "Voller Benutzername (inkl. root-Pfad) des Nutzers der Zugriff auf alle Nutzerinformationen hat",
 				"show": "Einblenden",
+				"uidTitle": "Der spätere Loginname. Muss in ihrem LDAP zur selben Zeit nur einmal vorkommen",
 				"urlIdapIsMandatory": "URL (ldaps ist verpflichtend)",
 				"userPath": "Nutzer-Pfad",
-				"users": "Nutzer:"
+				"userPathTitle": "Relativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Nutzer erreichbar sind. Mit der Trennung durch zwei Semikolons (;;) können auch mehrer relative Pfade zu LDAP-Nutzern angegeben werden.",
+				"users": "Nutzer:",
+				"uuidTitle": "Eindeutige nicht veränderbare Nutzer-ID. Darf sich nicht wie die uid (z.B. durch Heirat) ändern"
 			},
 			"placeholder": {
 				"LDAPGroup": "LDAP-Gruppe",
 				"general": "Allgemein",
+				"roleTypePlaceholder": "LDAP-Typ auswählen",
 				"userAttribute": "Nutzer-Attribut"
 			},
 			"text": {
@@ -663,10 +660,9 @@
 				"passwordChanges": "Passwortänderungen werden weiterhin synchronisiert",
 				"theNewClassesAreSavedInTheContext": "die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert",
 				"theNewClassesCanNowBeAssigned": "die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden",
-				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der",
+				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
 				"useTheTransferPhaseAroundTheSchoolYear": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.",
-				"withThePreparationTimeOneWeekBefore": "mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"youCanStartTheTransferPhase": "ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten",
 				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule"
 			}
@@ -685,8 +681,7 @@
 				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
 				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler:innen ohne vollständige Einverständniserklärung:",
 				"parentsAgreed": "Eltern haben zugestimmt",
-				"studentsStillNeedTheDecalaration": "Schüler benötigen noch die Einverständniserklärung zur Nutzung der",
-				"yearsFirstRequireTheConsent": "Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären."
+				"studentsStillNeedTheDecalaration": "<strong>{{studentsWithoutConsentCount}} von {{allStudentsCount}}</strong> Schüler benötigen noch die Einverständniserklärung zur Nutzung der {{shortTitle}}. \n Schüler unter {{minAge}} Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären."
 			}
 		},
 		"teachers": {
@@ -751,7 +746,7 @@
 			"areYouSureYouWantToRemoveAllMembers": "Bist du sicher, dass du alle Mitglieder deiner Schule aus diesem Team entfernen willst?",
 			"moreOptions": "Mehr Optionen",
 			"noEntriesToPrint": "Keine Einträge zu drucken.",
-			"registrationAtThe": "Die Anmeldung an der",
+			"registrationAtThe": "Die Anmeldung an der {{shortTitle}} ist mit den folgenden Daten möglich.",
 			"yourClassDoesntFitInto": "Deine Klasse passt nicht ins klassische Schema?"
 		},
 		"users_edit": {
@@ -802,7 +797,6 @@
 				"noSchools": "Keine Schulen",
 				"removeAllMembers": "Alle Mitglieder entfernen",
 				"sendMessage": "Absenden",
-				"years_parentalConsent": "Jahren: Einverständnis der Eltern",
 				"youGiveTheFollowingConsent": "Du erteilst folgende Einwilligungen im Namen des Nutzers:"
 			}
 		}
