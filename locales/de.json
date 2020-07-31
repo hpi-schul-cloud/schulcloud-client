@@ -1408,7 +1408,7 @@
 			"edit": "Bearbeiten",
 			"open": "Öffnen",
 			"presentation": "Präsentation (pptx)",
-			"search": "Suchen",
+			"search": "Suche",
 			"selectFormat": "Format auswählen",
 			"table": "Tabelle (xlsx)",
 			"textDocument": "Textdokument (docx)",
@@ -1709,6 +1709,7 @@
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"
 		},
+		"mobileNavMenu": "Mobiles Navigations Menu",
 		"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 		"role": {
 			"text": {
@@ -2392,12 +2393,15 @@
 			"input": {
 				"searchFor": "Suche nach..."
 			},
-			"label": {
-				"fullscreen": "Fullscreen",
-				"notifications": "Benachrichtigungen",
+
+			"label" : {
+				"currentUser": "aktueller Benutzer:",
+				"fullscreen": "Vollbildmodus",
+        		"notifications": "Benachrichtigungen",
 				"printQrCode": "QR-Code drucken",
 				"qrCode": "QR-Code",
-				"thereIsAProblem": "Es gibt ein Problem"
+				"search": "Suche",
+        		"thereIsAProblem": "Es gibt ein Problem"
 			},
 			"tab_label": {
 				"settings": "Einstellungen",
