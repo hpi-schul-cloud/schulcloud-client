@@ -62,9 +62,8 @@
   .empty-state {
     text-align: center;
     max-width: 60%;
-    margin: 0 auto;
-    margin-top: 20px;
-    @include media-breakpoint-down(xs) {
+	margin: 20px auto 0;
+	@include media-breakpoint-down(xs) {
       max-width: 90%;
     }
     @include media-breakpoint-up(xs) {
@@ -75,7 +74,7 @@
     }
     .image {
       width: auto;
-      height: auto;
+		height: auto;
       margin-bottom: 30px;
       @include media-breakpoint-down(xs) {
         max-width: 300px;
