@@ -1141,6 +1141,7 @@
 			"createTeam": "Team anlegen",
 			"createYourFirstCourse": "Erstelle deinen ersten Kurs",
 			"delete": "Löschen",
+			"deleteTeam": "Team löschen",
 			"edit": "Bearbeiten",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
@@ -1172,6 +1173,7 @@
 			"classes": "Klasse(n)",
 			"dateDetails": "Termin - Details",
 			"delete": "Löschen",
+			"entriesPerPage": "Einträge pro Seite",
 			"files": "Dateien",
 			"invitationLinkGenerated": "Einladungslink generiert!",
 			"myMaterial": "Meine Materialien",
@@ -1196,6 +1198,7 @@
 			"creationDate": "Erstelldatum",
 			"dateOfBirth": "Geburtsdatum:",
 			"emailAddress": "E-Mail-Adresse:",
+			"entriesPerPage": "Einträge pro Seite: %1",
 			"firstName": "Vorname",
 			"firstNameColon": "Vorname:",
 			"from": "Von",
@@ -1209,6 +1212,7 @@
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
 			"title": "Titel",
+			"type": "Typ",
 			"to": "Bis"
 		},
 		"link": {
@@ -1222,7 +1226,6 @@
 			"calendar": "Termine",
 			"contact": "Kontakt",
 			"courses": "Kurse",
-			"deleteTeam": "Team löschen",
 			"files": "Meine Dateien",
 			"filesPersonal": "persönliche Dateien",
 			"filesShared": "geteilte Dateien",
@@ -1271,8 +1274,6 @@
 			"changingFilePermissions": "Problem beim Ändern der Berechtigungen",
 			"editTopic": "Thema bearbeiten",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
-			"entriesPerPage": "Einträge pro Seite",
-			"entriesPerPageProcent": "Einträge pro Seite: %1",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
 			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
 			"fileWrongFormat": "'{{filename}}' ist kein Bild, Video oder zulässige Datei!",
@@ -1302,7 +1303,6 @@
 			"thursday": "Donnerstag",
 			"timeout": "Zeitüberschreitung der Anfrage",
 			"tuesday": "Dienstag",
-			"type": "Typ",
 			"videoconferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
 			"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 			"wednesday": "Mittwoch"
@@ -1540,6 +1540,7 @@
 			"label": {
 				"copyTask": "Aufgabenstellung kopieren",
 				"copyTaskAlt": "Aufgabe '{{title}}' kopieren.",
+				"courses": "Kurse",
 				"deleteTaskAlt": "Löschen der Aufgabe: '{{title}}'.",
 				"editTaskAlt": "Aufgabe '{{title}}' bearbeiten.",
 				"fileUpload": "Dateiabgabe",
@@ -1886,10 +1887,10 @@
 			"submitPrivacyPolicy": "Gelesen"
 		},
 		"headline": {
-			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
-			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
 			"firstLogin": "Willkommen - Erster Login",
 			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
+			"loginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
+			"loginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
 			"onlyTermsOfUse": "Nutzungsordnung",
 			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
 		},

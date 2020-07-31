@@ -46,7 +46,7 @@
                 {{#inArray "DELETE_TEAM" ../permissions}}
                 <a href="/teams/{{../_id}}/" class="dropdown-item" target="_blank" data-method="DELETE"
                     data-name="{{../name}}" redirect="/teams/">
-                    <i class="fa fa-trash" aria-hidden="true"></i> {{$t "global.link.deleteTeam"}}
+                    <i class="fa fa-trash" aria-hidden="true"></i> {{$t "global.button.deleteTeam"}}
                 </a>
                 {{/inArray}}
                 {{/userHasPermission}}

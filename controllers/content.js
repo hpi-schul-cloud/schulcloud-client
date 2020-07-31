@@ -23,8 +23,8 @@ const contentFilterSettings = (res) => [
 	},
 	{
 		type: 'limit',
-		title: res.$t('global.text.entriesPerPage'),
-		displayTemplate: res.$t('global.text.entriesPerPageProcent'),
+		title: res.$t('global.headline.entriesPerPage'),
+		displayTemplate: res.$t('global.label.entriesPerPage'),
 		options: [9, 18, 24, 48, 99],
 		defaultSelection: 9,
 	},

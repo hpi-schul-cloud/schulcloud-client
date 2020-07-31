@@ -810,8 +810,8 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	},
 	{
 		type: 'limit',
-		title: res.$t('global.text.entriesPerPage'),
-		displayTemplate: res.$t('global.text.entriesPerPageProcent'),
+		title: res.$t('global.headline.entriesPerPage'),
+		displayTemplate: res.$t('global.label.entriesPerPage'),
 		options: [25, 50, 100],
 		defaultSelection: 25,
 	},
@@ -2269,7 +2269,7 @@ const classFilterSettings = ({ years, currentYear }, res) => {
 		{
 			type: 'limit',
 			title: res.$t('global.headline.sorting'),
-			displayTemplate: res.$t('global.text.entriesPerPage'),
+			displayTemplate: res.$t('global.label.entriesPerPage'),
 			options: [25, 50, 100],
 			defaultSelection: 25,
 		},
@@ -2927,14 +2927,14 @@ router.all('/teams', async (req, res, next) => {
 							data: {
 								name: item.name,
 								'original-title': item.createdAtMySchool
-									? res.$t('global.link.deleteTeam')
+									? res.$t('global.button.deleteTeam')
 									: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
 								placement: 'top',
 								toggle: 'tooltip',
 							},
 							// lmethod: `${item.hasMembersOfOtherSchools ? '' : 'delete'}`,
 							title: item.createdAtMySchool
-								? res.$t('global.link.deleteTeam')
+								? res.$t('global.button.deleteTeam')
 								: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
 						},
 					];
@@ -3177,7 +3177,7 @@ router.use(
 		// SYSTEMS
 		const systemsHead = [
 			res.$t('administration.controller.headline.alias'),
-			res.$t('global.text.type'),
+			res.$t('global.label.type'),
 			'',
 		];
 		let systemsBody;
