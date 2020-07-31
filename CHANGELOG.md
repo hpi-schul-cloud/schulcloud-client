@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [24.0.1] - 2020-07-31
+### Fixed - 24.0.1
+-  SC-5917 Fix activation of LDAP system
+
 ## [24.0.0] - 2020-07-30
 
 ### Added - 24.0.0
