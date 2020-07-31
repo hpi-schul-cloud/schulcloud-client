@@ -54,8 +54,7 @@
 			"text": {
 				"name": "Name",
 				"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
-				"thirdPartyLogins": "Drittanbieter-Logins",
-				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
+				"thirdPartyLogins": "Drittanbieter-Logins"
 			}
 		},
 		"headline": {
@@ -1238,6 +1237,7 @@
 			"management": "Verwaltung",
 			"managementStudents": "Schüler:innen",
 			"managementTeachers": "Lehrer:innen",
+			"mobileNavMenu": "Mobiles Navigations Menu",
 			"news": "Neuigkeiten",
 			"openInNewTab": "in neuem Tab öffnen",
 			"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
@@ -1249,8 +1249,6 @@
 			"teams": "Teams",
 			"topNavbarSkipLink": "Navigation oben"
 		},
-		"mobileNavMenu": "Mobiles Navigations Menu",
-		"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 		"role": {
 			"text": {
 				"administrator": "Administrator",
