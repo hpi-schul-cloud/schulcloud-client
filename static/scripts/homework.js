@@ -15,7 +15,13 @@ function getDataValue(attr) {
 
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
+let lastFocusedElement;
 
+window.addEventListener('keydown', (e) => {
+	if (e.keyCode === 27) {
+		lastFocusedElement.focus();
+	}
+});
 function getTeamMemberIds() {
 	const domValue = $('#teamMembers').val();
 	return $.isArray(domValue) ? domValue : (domValue || '').split(',');
@@ -80,6 +86,8 @@ extendWithBulkUpload($);
 window.addEventListener('DOMContentLoaded', () => {
 	/* FEATHERS FILTER MODULE */
 	const filterModule = document.getElementById('filter');
+	const sortingModal = document.querySelector('.md-chip.md-theme-default');
+
 	if (!filterModule) { return; }
 	filterModule.addEventListener('newFilter', (e) => {
 		const filter = e.detail;
@@ -89,6 +97,13 @@ window.addEventListener('DOMContentLoaded', () => {
 			newurl += `&p=${params.p}`;
 		}
 		softNavigate(newurl, '.homework', '.pagination');
+	});
+	if (!sortingModal) { return; }
+	sortingModal.addEventListener('keydown', (e) => {
+		if (e.keyCode === 13 || e.keyCode === 32) {
+			lastFocusedElement = sortingModal;
+			sortingModal.click();
+		}
 	});
 	document.querySelector('.filter').dispatchEvent(new CustomEvent('getFilter'));
 });
@@ -510,14 +525,14 @@ $(document).ready(() => {
     });
 
     function checkVideoElements(){
-        let vids = $("video"); 
+        let vids = $("video");
         if(vids.length>0){
             $.each(vids, function(){
-                this.controls = true; 
-            }); 
+                this.controls = true;
+            });
         }
-    } 
-    
+    }
+
     checkVideoElements();
-    
+
 });
