@@ -57,7 +57,7 @@
 
       {{#if needConsent}}
       <section data-panel="section-2">
-        <h2 class="h4">{{$t "global.heading.yourData" }}</h2>
+        <h2 class="h4">{{$t "global.headline.yourData" }}</h2>
         <p>{{$t "registration._registration.parent.text.legalGuardingHasToAgreeToTermsOfUse" (dict "years" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "shortTitle" theme.short_title)}}</p>
         <p>{{$t "global.text.forThisWeNeedTheFollowingInformationFromYou" }}</p>
         <div class="row">
@@ -84,7 +84,7 @@
 
 
       <section data-panel="section-3">
-        <h2 class="h4">{{$t "global.heading.declarationOfConsent" }}</h2>
+        <h2 class="h4">{{$t "global.headline.declarationOfConsent" }}</h2>
         <p>{{$t "registration._registration.parent.text.pleaseConfirmTheFollowing" (dict "shortTitle" theme.short_title)}}</p>
           {{#embed "registration/forms/einwilligungserklaerung" prefix="parent_"}}{{/embed}}
       </section>
@@ -93,7 +93,7 @@
 
 
       <section data-panel="section-4" class="submit-page" data-feature="pin">
-        <h2 class="h4">{{$t "global.heading.almostThere"}}</h2>
+        <h2 class="h4">{{$t "global.headline.almostThere"}}</h2>
         {{#embed "registration/request-pin"}}{{/embed}}
         <div id="pinverification">
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}

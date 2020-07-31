@@ -1160,18 +1160,14 @@
 			"tryAgain": "Erneut Versuchen",
 			"yes": "Ja"
 		},
-		"heading": {
-			"almostThere": "Fast geschafft!",
-			"declarationOfConsent": "Einwilligungserklärung",
-			"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt",
-			"yourData": "Ihre Daten"
-		},
 		"headline": {
 			"actions": "Aktionen",
 			"addDate": "Termin hinzufügen",
+			"almostThere": "Fast geschafft!",
 			"assignedTasks": "Gestellte Aufgaben",
 			"classes": "Klasse(n)",
 			"dateDetails": "Termin - Details",
+			"declarationOfConsent": "Einwilligungserklärung",
 			"delete": "Löschen",
 			"entriesPerPage": "Einträge pro Seite",
 			"files": "Dateien",
@@ -1181,9 +1177,11 @@
 			"news": "Neuigkeiten",
 			"privateTasks": "Private Aufgaben und Entwürfe",
 			"projectExecution": "Projektdurchführung",
+			"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt",
 			"sorting": "Sortierung",
 			"task": "Aufgabe",
-			"tasks": "Aufgaben"
+			"tasks": "Aufgaben",
+			"yourData": "Ihre Daten"
 		},
 		"img_alt": {
 			"brokenPen": "zerbrochener Stift"
