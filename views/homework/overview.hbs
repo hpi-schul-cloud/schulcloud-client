@@ -23,7 +23,7 @@
             {{#userHasPermission "HOMEWORK_CREATE"}}
                 <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}" class="btn btn-primary btn-add create">
                     <i class="fa fa-plus" aria-hidden="true"></i>
-                <p>{{$t "homework.button.addTask" }}</p>
+                <span>{{$t "homework.button.addTask" }}</span>
                 </a>
                 {{/userHasPermission}}
             {{/if}}
