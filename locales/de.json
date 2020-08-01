@@ -746,7 +746,6 @@
 		},
 		"button": {
 			"createCourse": "Erstelle einen neuen Kurs",
-			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"editCourse": "Kurs bearbeiten",
 			"importCourse": "Importiere einen Kurs",
 			"nextStep": "Nächster Schritt"
@@ -1138,6 +1137,7 @@
 			"close": "Schließen",
 			"continue": "Weiter",
 			"create": "Erstellen",
+			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"createFolder": "Ordner erstellen",
 			"createTeam": "Team anlegen",
 			"delete": "Löschen",
@@ -1167,6 +1167,7 @@
 			"almostThere": "Fast geschafft!",
 			"assignedTasks": "Gestellte Aufgaben",
 			"classes": "Klasse(n)",
+			"contact": "Kontakt",
 			"dateDetails": "Termin - Details",
 			"declarationOfConsent": "Einwilligungserklärung",
 			"delete": "Löschen",
