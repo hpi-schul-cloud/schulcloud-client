@@ -158,7 +158,7 @@ const editTeamHandler = async (req, res, next) => {
 				: res.$t('teams.headline.createTeam'),
 			submitLabel: req.params.teamId
 				? res.$t('global.button.saveChanges')
-				: res.$t('global.button.createTeam'),
+				: res.$t('teams.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,

@@ -1139,7 +1139,6 @@
 			"create": "Erstellen",
 			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"createFolder": "Ordner erstellen",
-			"createTeam": "Team anlegen",
 			"delete": "Löschen",
 			"deleteTeam": "Team löschen",
 			"edit": "Bearbeiten",
@@ -1179,7 +1178,6 @@
 			"name": "Name",
 			"news": "Neuigkeiten",
 			"privateTasks": "Private Aufgaben und Entwürfe",
-			"projectExecution": "Projektdurchführung",
 			"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt",
 			"sorting": "Sortierung",
 			"task": "Aufgabe",
@@ -1238,7 +1236,6 @@
 			"management": "Verwaltung",
 			"managementStudents": "Schüler:innen",
 			"managementTeachers": "Lehrer:innen",
-			"mobileNavMenu": "Mobiles Navigations Menu",
 			"myMaterial": "Meine Materialien",
 			"news": "Neuigkeiten",
 			"openInNewTab": "in neuem Tab öffnen",
@@ -1834,6 +1831,9 @@
 			}
 		},
 		"loggedin": {
+			"aria_label": {
+				"mobileNavMenu": "Mobiles Navigations Menu"
+			},
 			"img_alt": {
 				"logoOfSchool": "Logo von {{name}}"
 			},
@@ -2018,6 +2018,7 @@
 			"advisoryBoard": "Fachbeirat",
 			"partner": "Partner",
 			"pilotPartners": "Pilotpartner für Lerninhalte",
+			"projectExecution": "Projektdurchführung",
 			"supporters": "Unterstützer für Schulinfrastruktur <3"
 		},
 		"img_alt": {
@@ -2092,6 +2093,9 @@
 					"studentsDateOfBirth": "Geburtsdatum des Schülers:",
 					"yourEmailAddress": "Ihre E-Mail-Adresse:"
 				},
+				"placeholder": {
+					"studentEmail": "schueler@schul-cloud.org"
+				},
 				"text": {
 					"agreementCanBeRevoked": "Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href=\"mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung\">widerruf@schul-cloud.org</a>.",
 					"agreementIsVoluntary": "Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{title}}, wird durch die Schule ermöglicht werden.",
@@ -2116,14 +2120,13 @@
 					"yourChildsData": "Daten Ihres Kindes",
 					"yourChildsSSO": "Der SSO-Account Ihres Kindes ist jetzt freigeschaltet."
 				},
-				"input": {
-					"completeFirstName": "Vorname des Kindes in offizieller Schreibweise, keine Spitznamen",
-					"lastName": "Nachname des Kindes",
-					"parentEmail": "eltern@schul-cloud.org",
-					"studentEmail": "schueler@schul-cloud.org"
-				},
 				"label": {
 					"iAmLegalGuardianOfChild": "Ich, <b data-from=\"parent_firstName\"></b> <b data-from=\"parent_lastName\"></b>, bin erziehungsberechtigt für <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b> und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten."
+				},
+				"placeholder": {
+					"completeFirstName": "Vorname des Kindes in offizieller Schreibweise, keine Spitznamen",
+					"lastName": "Nachname des Kindes",
+					"parentEmail": "eltern@schul-cloud.org"
 				},
 				"text": {
 					"aParentOrLegalGuardian": "Jahren bedarf ein Erziehungsberechtigter in die Nutzung der",
@@ -2432,6 +2435,7 @@
 			}
 		},
 		"button": {
+			"createTeam": "Team anlegen",
 			"duplicateTeam": "Team duplizieren",
 			"foundATeam": "Gründe ein Team"
 		},
