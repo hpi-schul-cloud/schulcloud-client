@@ -1189,8 +1189,6 @@
 			"brokenPen": "zerbrochener Stift"
 		},
 		"input": {
-			"firstName": "Ihren Vornamen hier eingeben",
-			"lastName": "Ihren Nachname hier eingeben",
 			"password": "Passwort"
 		},
 		"label": {
@@ -1252,6 +1250,10 @@
 			"tasksDrafts": "Entwürfe",
 			"teams": "Teams",
 			"topNavbarSkipLink": "Navigation oben"
+		},
+		"placeholder": {
+			"firstName": "Ihren Vornamen hier eingeben",
+			"lastName": "Ihren Nachname hier eingeben"
 		},
 		"role": {
 			"text": {
