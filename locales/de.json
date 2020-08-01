@@ -1193,7 +1193,6 @@
 			"password": "Passwort"
 		},
 		"label": {
-			"aboutTheProject": "Über das Projekt",
 			"creationDate": "Erstelldatum",
 			"dateOfBirth": "Geburtsdatum:",
 			"emailAddress": "E-Mail-Adresse:",
@@ -1215,6 +1214,7 @@
 			"to": "Bis"
 		},
 		"link": {
+			"aboutTheProject": "Über das Projekt",
 			"addons": "Add-ons",
 			"administrationClasses": "Klassen",
 			"administrationStudents": "Schüler",
@@ -1803,7 +1803,8 @@
 			}
 		},
 		"headline": {
-			"aria_label": "footer"
+			"aria_label": "footer",
+			"yourDigitalLearningEnvironment": "Deine digitale Lernumgebung"
 		},
 		"help_menu": {
 			"button": {
@@ -1861,12 +1862,9 @@
 			}
 		},
 		"table": {
-			"placeholder": {
+			"label": {
 				"numberOfEntries": "Anzahl der Einträge"
 			}
-		},
-		"text": {
-			"yourDigitalLearningEnvironment": "Deine digitale Lernumgebung"
 		}
 	},
 	"link": {
