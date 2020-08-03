@@ -174,7 +174,6 @@
 				"className": "Klassenname:",
 				"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
 				"createClass": "Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Administrator <i>versetzt</i> werden, sondern müssen manuell aktualisiert werden.",
-				"forAllStudents": "Für alle Schüler",
 				"ifAllStudentsAndParentshaveGiven": "Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
 				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
 				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
@@ -188,8 +187,7 @@
 				"signAgreement": "Du kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Datenschutzerklärung</a> und zur <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Nutzungsordnung</a> der {{shortTitle}} erklären. <br>Durch den Klick auf <i>Einverständnis im Namen der Schüler erklären</i> bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
 				"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
 				"toExplain": "der {{shortTitle}} erklären.",
-				"transferred": "versetzt",
-				"withoutAFullDeclarationOfConsent": " ohne vollständige Einverständniserklärung:"
+				"transferred": "versetzt"
 			}
 		},
 		"controller": {
