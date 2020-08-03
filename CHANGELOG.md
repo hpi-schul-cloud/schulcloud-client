@@ -9,11 +9,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-- SC-5540 changed default checkbox to unchecked for sending registration links.
+## [24.0.1] - 2020-07-31
+### Fixed - 24.0.1
+   SC-5917 Fix activation of LDAP system
 
 ## [24.0.0] - 2020-07-30
 
 ### Added - 24.0.0
+- SC-5540 changed default checkbox to unchecked for sending registration links.
 - SC-4151 hint for user when login failes
 - SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists 
 it is shown to every school user by the registration, first login and in the footer of the page. If it was changed the
