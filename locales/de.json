@@ -1056,8 +1056,8 @@
 			"text": {
 				"amLegalGuardianFor": "bin erziehungsberechtigt für {{firstName}} {{lastName}} und erkläre Folgendes:",
 				"andExplainTheFollowing": "und erkläre Folgendes:",
-				"pleaseConfirmTheFollowingDeclaration": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der HPI Schul-Cloud nutzen kann:",
 				"needConsentOfParents": "Da du unter {{age}} Jahre alt bist, wird die Einverständniserklärung eines Elternteils benötigt, damit du die {{shortTitle}} nutzen kannst.",
+				"pleaseConfirmTheFollowingDeclaration": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der HPI Schul-Cloud nutzen kann:",
 				"theNextStepMustBeCarriedOut": "Die nächsten Schritte müssen von einem Erziehungsberechtigten durchgeführt werden."
 			}
 		},
@@ -1208,8 +1208,8 @@
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
 			"title": "Titel",
-			"type": "Typ",
-			"to": "Bis"
+			"to": "Bis",
+			"type": "Typ"
 		},
 		"link": {
 			"aboutTheProject": "Über das Projekt",
