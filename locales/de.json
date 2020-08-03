@@ -364,7 +364,7 @@
 				"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
 				"attention": "⚠️ ACHTUNG: Beim Import großer Datensätze kommt es derzeit kurz nach dem Start zu einer Fehlermeldung. Im\n        Hintergrund läuft der Importprozess trotzdem unsichtbar weiter. Zeitdauer: circa 4 Minuten pro 1000\n        Nutzer:innen. Bitte warte die entsprechende Zeit ab und aktualisiere dann dein Browserfenster, um die\n        aktualisierte Schüler:innen-Übersicht überprüfen zu können.",
 				"importUserData": "Importiere Nutzerdaten per .csv-Datei (<a href=\"#\" id=\"csv-import-example\">Beispiel</a>) und lass deinen Nutzern einen Registrierungslink zukommen.",
-				"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du"
+				"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du <a href=\"https://docs.schul-cloud.org/x/NYBgAw\" target=\"_blank\">hier</a>."
 			}
 		},
 		"form_InvitationStudent": {
@@ -413,7 +413,7 @@
 		"global": {
 			"button": {
 				"addCourse": " Kurs hinzufügen",
-				"addNewAppoinment": "Neuen Termin hinzufügen",
+				"addNewAppointment": "Neuen Termin hinzufügen",
 				"bug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}?\n                    Sende Wünsche oder Probleme direkt an den {{short_title}}-Nutzer-Support.",
 				"contactSupport": "Support kontaktieren",
 				"createLinkSheet": "Link-Druckbogen erstellen",
@@ -554,8 +554,7 @@
 				"errorActivation": "Problem bei der Aktivierung",
 				"errorLDAPTimeout": "LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.",
 				"errorTimeout": "Zeitüberschreitung der Anwendung",
-				"help": "Hilfebereich",
-				"info": "Weitere Informationen zur LDAP-Konfiguration finden Sie in unserem",
+				"furtherInfoHere": "Weitere Informationen zur LDAP-Konfiguration finden Sie in unserem <a href=\"/help/confluence/55902270\">Hilfebereich</a>.",
 				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!",
 				"verification": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene\n                Inhalte werden nicht übernommen, da bei dem Nutzer der Vorname, der Nachname und/oder die E-Mail-Adresse\n                nicht im LDAP verfügbar ist."
 			}
