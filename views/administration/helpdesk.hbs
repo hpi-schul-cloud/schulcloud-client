@@ -20,15 +20,13 @@
                 {{/embed}}
 
                 <p>
-                    Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{theme.title}}?
-                    Sende Wünsche oder Probleme direkt an den {{theme.short_title}}-Nutzer-Support.
+                    {{{$t "administration.global.button.bug" (dict "title" theme.title "short_title" theme.short_title) }}}
                     <p>
                         <a href="/help?activeForm=team#contact-form" class="btn btn-primary">
-                        Support kontaktieren
+                        {{$t "administration.global.button.contactSupport" }}
                         </a>
                     </p>
-                    <b>Tipp:</b> Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol
-                     <i class="fa fa-paper-plane"></i> an den Nutzer-Support weiterleiten.
+                    {{{$t "administration.global.helpdesk.label.tips" }}}
                 </p>
             </section>
         </div>
