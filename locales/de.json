@@ -55,7 +55,8 @@
 				"operatingSystem": "Betriebssystem",
 				"repeatNewPassword": "Neues Passwort wiederholen:",
 				"thirdPartyLogins": "Drittanbieter-Logins",
-				"type": "Typ"
+				"type": "Typ",
+				"name":"Name"
 			}
 		},
 		"headline": {
@@ -71,7 +72,8 @@
 				"changeTeamSettings": "Teameinstellungen ändern"
 			},
 			"headline": {
-				"teamSettings": "Team Einstellungen"
+				"teamSettings": "Team Einstellungen",
+				"teams": "Teams"
 			},
 			"label": {
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.",
@@ -981,7 +983,7 @@
 			"edit": "Bearbeiten",
 			"open": "Öffnen",
 			"presentation": "Präsentation (pptx)",
-			"search": "Suchen",
+			"search": "Suche",
 			"selectFormat": "Format auswählen",
 			"table": "Tabelle (xlsx)",
 			"textDocument": "Textdokument (docx)",
@@ -1278,11 +1280,14 @@
 		"label": {
 			"emailAddress":"E-Mail-Adresse:",
 			"room": "Raum",
-			"skipLinks": "Links Überspringen"
+			"skipLinks": "Links Überspringen",
+			"newTab": "Öffnet in neuem Tab"
 		},
 		"link": {
 			"openInNewTab": "in neuem Tab öffnen"
 		},
+		"mobileNavMenu": "Mobiles Navigations Menu",
+		"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 		"role": {
 			"text": {
 				"administrator": "Administrator",
@@ -1832,6 +1837,7 @@
 			}
 		},
 		"extended_footer": {
+			"ariaLabel": "footer",
 			"heading": {
 				"contact": "Kontakt",
 				"links": "Links",
@@ -1854,6 +1860,7 @@
 			}
 		},
 		"footer": {
+			"ariaLabel": "footer",
 			"img_alt": {
 				"providerLogo": "Anbieterlogo"
 			},
@@ -1963,12 +1970,15 @@
 			"input": {
 				"searchFor": "Suche nach..."
 			},
-			"label": {
-				"fullscreen": "Fullscreen",
-				"notifications": "Benachrichtigungen",
+
+			"label" : {
+				"currentUser": "aktueller Benutzer:",
+				"fullscreen": "Vollbildmodus",
+        		"notifications": "Benachrichtigungen",
 				"printQrCode": "QR-Code drucken",
 				"qrCode": "QR-Code",
-				"thereIsAProblem": "Es gibt ein Problem"
+				"search": "Suche",
+        		"thereIsAProblem": "Es gibt ein Problem"
 			},
 			"tab_label": {
 				"settings": "Einstellungen",
