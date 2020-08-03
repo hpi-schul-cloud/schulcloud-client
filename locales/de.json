@@ -1858,7 +1858,10 @@
 			}
 		},
 		"footer": {
-			"ariaLabel": "footer",
+			"ariaLabel": {
+				"footer":"footer",
+				"love": "love"
+			},
 			"img_alt": {
 				"providerLogo": "Anbieterlogo"
 			},
