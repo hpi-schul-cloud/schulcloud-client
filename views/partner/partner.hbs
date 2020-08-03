@@ -10,7 +10,7 @@
 					{{#each partners.project_partners}}
 					<div class="partner-box-wrapper col-md-4">
 						<div class="partner-box">
-							<a href="{{{url}}}" target="_blank">
+							<a href="{{{url}}}" target="_blank" aria-label="{{$t "global.openInNewTabWarning"}}">
 								<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 									{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 							</a>
@@ -37,7 +37,7 @@
 				{{#each partners.advisers}}
 					<div class="partner-box-wrapper col-xs-6 col-md-3">
 						<div class="partner-box">
-							{{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
+							{{#if url}}<a href="{{{url}}}" target="_blank" aria-label="{{$t "global.openInNewTabWarning"}}">{{/if}}
 								<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 									{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 							{{#if url}}</a>{{/if}}
@@ -49,8 +49,8 @@
 						{{#each hiddenAdvisers}}
 							<div class="partner-box-wrapper col-xs-6 col-md-3">
 								<div class="partner-box">
-									{{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
-										<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
+									{{#if url}}<a tabindex="0" href="{{{url}}}" target="_blank" aria-label="{{$t "global.openInNewTabWarning"}}">{{/if}}
+										<img  src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 											{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 									{{#if url}}</a>{{/if}}
 								</div>
@@ -59,9 +59,9 @@
 					</div>
 				</div>
 				<div class="buttonWrapper">
-					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">
+					<a href="#0" tabindex="0" class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">
 						{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i></div>
-				</div>
+					</a>
 			</div>
 		{{/content}}
 	{{/embed}}
@@ -78,7 +78,7 @@
 					{{#each partners.content_partners}}
 						<div class="partner-box-wrapper col-xs-6 col-md-3">
 							<div class="partner-box">
-								<a href="{{{url}}}" target="_blank">
+								<a href="{{{url}}}" target="_blank" aria-label="{{$t "global.openInNewTabWarning"}}">
 									<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 								</a>
@@ -90,7 +90,7 @@
 							{{#each hiddenContentPartners}}
 								<div class="partner-box-wrapper col-xs-6 col-md-3">
 									<div class="partner-box">
-										<a href="{{{url}}}" target="_blank">
+										<a href="{{{url}}}" target="_blank" aria-label="{{$t "global.openInNewTabWarning"}}">
 											<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 												{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 										</a>
@@ -100,8 +100,8 @@
 						</div>
 					</div>
 					<div class="buttonWrapper">
-						<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenContentPartner">
-							{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+						<a href="#0" tabindex="0" class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenContentPartner">
+							{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 					</div>
 				</div>
 			</div>
@@ -120,7 +120,7 @@
 					{{#each partners.sponsors}}
 						<div class="partner-box-wrapper col-xs-6 col-md-6">
 							<div class="partner-box">
-								<a href="{{{url}}}" target="_blank">
+								<a href="{{{url}}}" target="_blank" aria-label="{{$t "global.openInNewTabWarning"}}">
 									<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 								</a>
