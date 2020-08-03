@@ -31,8 +31,8 @@
                 {{/ifneq}}
 
                 <div class="form-group">
-                    <label>{{$t "global.label.emailAddress" }}</label>
-                    <input type="email" class="form-control" name="email" value="{{ currentUser.email }}">
+                    <label for="email">{{$t "global.label.emailAddress" }}</label>
+                    <input id="email" type="email" class="form-control" name="email" value="{{ currentUser.email }}">
                 </div>
 
                 <div class="form-group">
@@ -55,19 +55,19 @@
                             pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
                             title="{{> "lib/forms/password-hint" plaintext=true}}">
                         <div class="input-group-addon">
-                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            <a href="" title="{{$t "login.anchor.title.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>{{$t "account.global.label.repeatNewPassword" }}</label>
+                    <label for="password_control">{{$t "account.global.label.repeatNewPassword" }}</label>
                     <div class="input-group" id="show_hide_password">
                         <input type="password" autocomplete="new-password" name="password_control" id="password_control" data-testid="settings_password_control"
                         class="form-control" placeholder="***************"
                         title="{{> "lib/forms/password-hint" plaintext=true}}">
                         <div class="input-group-addon">
-                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            <a href="" title="{{$t "login.anchor.title.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
@@ -85,17 +85,17 @@
             <input type="hidden" name="userId" value="{{userId}}"/>
 
             <span class="hint">
-                <span class="star-reference">*</span>
+                <span class="star-reference text-muted">*</span>
                 {{> "lib/forms/password-hint" plaintext=false style="display: inline;"}}
             </span>
             {{else}}
             <div>
                 <div class="form-group">
-                    <label>{{$t "global.label.firstNameColon" }}</label>
-                    <input type="text" class="form-control" value="{{ currentUser.firstName }}" readonly>
+                    <label for="fName">{{$t "global.label.firstNameColon" }}</label>
+                    <input id="fName" type="text" class="form-control" value="{{ currentUser.firstName }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label>{{$t "global.label.lastNameColon" }}</label>
+                    <label for="lName">{{$t "global.label.lastNameColon" }}</label>
                     <input type="text" class="form-control" value="{{ currentUser.lastName }}" readonly>
                 </div>
                 <div class="form-group">
@@ -151,14 +151,14 @@
                                 <table width="100%" cellpadding="5px">
                                     <thead>
                                     <th></th>
-                                    <th><label>Name</label></th>
+                                    <th><label>{{$t "account.global.text.name" }}</label></th>
                                     <th><label>{{$t "global.label.type" }}</label></th>
                                     <th><label>{{$t "account.global.label.operatingSystem" }}</label></th>
                                     </thead>
                                     <tbody>
                                     {{#each device}}
                                         <tr id="{{this._id}}">
-                                            <td>{{#if this.selected}}<a href="/account/settings/device"
+                                            <td aria-label="{{$ "global.label.newTab"}}">{{#if this.selected}}<a href="/account/settings/device"
                                                                         target="_blank"
                                                                         data-method="delete"
                                                                         data-device-name="{{this.name}}"
@@ -214,7 +214,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h2 class="h4 panel-title">
-						<a data-toggle="collapse" href="#collapse2" class="collapse-toggle"><label>{{$t "account.thirdPartyProviders.headline.thirdPartyProviderLogin"}}</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+						<a data-toggle="collapse" href="#collapse2" class="collapse-toggle">{{$t "account.global.text.thirdPartyLogins"}}{{/t}}<i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
 					</h2>
 				</div>
 				<div id="collapse2" class="panel-collapse collapse">
