@@ -1400,7 +1400,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 	const { shareToken } = req.body;
 	// try to find topic for given shareToken
 	api(req)
-		.get('/lessons/', { qs: { shareToken, $populate: ['teamId'] } })
+		.get('/lessons/', { qs: { shareToken } })
 		.then((lessons) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
