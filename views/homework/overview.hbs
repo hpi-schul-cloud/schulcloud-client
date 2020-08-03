@@ -27,20 +27,24 @@
                 </a>
                 {{/userHasPermission}}
             {{/if}}
-                <ol class="homework">
-                    <div class="row"><div class="col-xl-12">
+                <div class="homework">
+                    <div class="row">
+                        <ol class="col-xl-12">
                         {{#each homeworks}}
                             {{> 'homework/components/overview_card_template'}}
                         {{else}}
-                            <p class="text-muted text-center">
-                                <span>{{$t "homework.text.noTasks" }}.</span>
-                            </p>
+                            <li>
+                                <p class="text-muted text-center">
+                                    <span>{{$t "homework.text.noTasks" }}.</span>
+                                </p>
+                            </li>
                         {{/each}}
-                    </div></div>
+                        </ol>
+                    </div>
                     <div class="row">
                         {{> "lib/components/pagination" settings=pagination }}
                     </div>
-                </ol>
+                </div>
                 {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
                     {{#content "body"}}
                         <div class="modal-footer">
