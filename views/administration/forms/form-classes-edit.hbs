@@ -49,7 +49,7 @@
 	<div class="row">
 		<div class="form-group col-sm-6 col-xs-12">
 			<label>{{$t "administration.classes.label.grade" }}<sup>*</sup></label>
-			<select class="linked" name="grade" data-linktext data-placeholder="Jahrgangsstufe wählen" required
+			<select class="linked" name="grade" data-linktext data-placeholder="{{$t "administration.global.placeholder.selectGrade" }}" required
 				{{#if isCustom}}disabled{{/if}}>
 				<option disabled value>{{$t "administration.classes.label.selectElement" }}</option>
 				{{#each gradeLevels}}

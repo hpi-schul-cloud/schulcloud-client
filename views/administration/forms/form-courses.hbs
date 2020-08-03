@@ -13,7 +13,7 @@
 <div class="form-group">
     <label>{{$t "administration.global.label.classes" }} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded" }}</small></label>
 
-    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
+    <select name="classIds[]" multiple data-placeholder="{{$t "administration.global.placeholder.selectClasses" }}">
         {{#each classes}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
         {{/each}}
@@ -50,7 +50,7 @@
 <div class="form-group">
     <label>{{$t "administration.global.label.studentParticipants" }}</label>
 
-    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
+    <select name="userIds[]" multiple data-placeholder="{{$t "administration.global.placeholder.selectStudent" }}">
         {{#each students}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                 {{#if this.displayName}}

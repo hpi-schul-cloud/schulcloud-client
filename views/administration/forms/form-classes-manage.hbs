@@ -33,7 +33,7 @@
         <div style="width: 100%" class="form-group">
             <label>{{$t "administration.global.label.student" }}</label>
             <button type="button" class="btn-link pull-right btn-import-class">{{$t "administration.classes.button.addStudentsFromPreviousYearClass" }}</button>
-            <select name="userIds" multiple data-placeholder="Schüler auswählen">
+            <select name="userIds" multiple data-placeholder="{{$t "administration.global.placeholder.selectStudent" }}">
                 {{#each students}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} class="red" data-first-name="{{this.firstName}}" data-last-name="{{this.lastName}}">
                         {{#if this.displayName}}
@@ -143,7 +143,7 @@
 
         <div class="form-group">
             <label for="filter_schoolyear">{{$t "administration.classes.label.filterBySchoolYear" }}</label>
-            <select id="filter_schoolyear" name="classes" data-placeholder="Nach Schuljahr filtern">
+            <select id="filter_schoolyear" name="classes" data-placeholder="{{$t "administration.global.placeholder.filterBySchoolYear" }}">
                 <option value="" selected>Alle</option>
                 {{#each schoolyears}}
                     <option value="{{this._id}}">
@@ -155,7 +155,7 @@
         </div>
         <div class="form-group">
             <label for="student_from_class_import">{{$t "administration.classes.label.addStudentFromPreviousYearClass" }}</label>
-            <select id="student_from_class_import" name="classes" multiple data-placeholder="Alte Klasse(n) auswählen">
+            <select id="student_from_class_import" name="classes" multiple data-placeholder="{{$t "administration.global.placeholder.selectOldClasses" }}">
                 {{#each classes}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                         {{this.displayName}}
