@@ -138,7 +138,7 @@ $(document).ready(() => {
 			result.createdAt = new Date(result.createdAt).toLocaleString();
 			populateModalForm($editModal, {
 				action: entry,
-				title: $t('global.headline.edit'),
+				title: $t('global.button.edit'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.save'),
 				fields: result,
@@ -201,7 +201,7 @@ $(document).ready(() => {
 				action: entry,
 				title: $t('global.headline.delete'),
 				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('global.button.delete'),
+				submitLabel: $t('global.headline.delete'),
 				fields: result,
 			});
 
@@ -221,7 +221,7 @@ $(document).ready(() => {
 				fields: { url: result.url },
 				title: $t('global.headline.delete'),
 				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('global.button.delete'),
+				submitLabel: $t('global.headline.delete'),
 			});
 
 			$deleteRSSModal.modal('show');

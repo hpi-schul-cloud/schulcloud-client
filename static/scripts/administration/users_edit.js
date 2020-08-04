@@ -59,7 +59,7 @@ $(document).ready(() => {
 			action: '',
 			title: $t('administration.users_edit.headline.deleteUser'),
 			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.delete'),
+			submitLabel: $t('global.headline.delete'),
 			fields: {
 				displayName: $('input[name="displayName"]').val(),
 			},

@@ -57,7 +57,7 @@ module.exports = (req, res, next) => {
 		link: '/homework/',
 		children: [
 			{
-				name: res.$t('global.link.assignedTasks'),
+				name: res.$t('global.headline.assignedTasks'),
 				icon: 'bullhorn',
 				link: '/homework/asked/',
 			},
@@ -94,7 +94,7 @@ module.exports = (req, res, next) => {
 			},
 		],
 	}, {
-		name: res.$t('global.link.news'),
+		name: res.$t('global.headline.news'),
 		icon: 'newspaper-o',
 		link: '/news/',
 	}, {
@@ -219,7 +219,7 @@ module.exports = (req, res, next) => {
 
 	// beta user view
 	res.locals.sidebarItems.push({
-		name: res.$t('global.link.myMaterial'),
+		name: res.$t('global.headline.myMaterial'),
 		icon: 'book',
 		link: '/my-material/',
 		permission: 'BETA_FEATURES',

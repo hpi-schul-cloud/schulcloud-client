@@ -149,7 +149,7 @@
                         {{#userHasPermission "HOMEWORK_CREATE"}}
                             <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&private=true"
                                 class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
-                                title="{{$t "topic._topic.label.addPrivateTask"}}">
+                                title="{{$t "global.button.addPrivateTask"}}">
                                 <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addPrivateTask" }}</span>
                             </a>
                         {{/userHasPermission}}
@@ -184,7 +184,7 @@
                     </button>
 
                     <button type="submit" class="btn btn-primary btn-submit">
-                        {{$t "global.button.delete" }}
+                        {{$t "global.headline.delete" }}
                     </button>
                 </div>
             {{/content}}

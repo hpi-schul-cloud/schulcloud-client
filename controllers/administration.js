@@ -801,7 +801,7 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 			['firstName', res.$t('global.label.firstName')],
 			['lastName', res.$t('global.label.lastName')],
 			['email', res.$t('administration.controller.global.label.email')],
-			['classes', res.$t('administration.controller.global.label.classes')],
+			['classes', res.$t('global.headline.classes')],
 			['consentStatus', res.$t('administration.controller.global.label.consentStatus')],
 			['createdAt', res.$t('global.label.creationDate')],
 		],
@@ -1100,7 +1100,7 @@ router.get(
 					res.$t('global.label.firstName'),
 					res.$t('global.label.lastName'),
 					res.$t('administration.controller.global.label.email'),
-					res.$t('administration.controller.global.label.classes'),
+					res.$t('global.headline.classes'),
 				];
 				if (
 					res.locals.currentUser.roles

@@ -94,7 +94,7 @@ $(window).ready(() => {
 			action: entry,
 			title: $t('global.headline.delete'),
 			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.delete'),
+			submitLabel: $t('global.headline.delete'),
 			fields: {
 				name,
 			},

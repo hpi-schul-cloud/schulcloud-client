@@ -171,7 +171,6 @@
 				"label": {
 					"class": "Klasse",
 					"classUsers": "Nutzer der Klasse",
-					"classes": "Klasse(n)",
 					"consentStatus": "Registrierung",
 					"createdOn": "Erstellt am",
 					"email": "E-Mail-Adresse",
@@ -184,7 +183,6 @@
 				"alias": "Alias",
 				"attendees": "Teilnehmer",
 				"briefDescription": "Kurzbeschreibung",
-				"class": "Klasse(n)",
 				"classes": "{{title}}Klassen",
 				"courses": "{{title}}Kurse",
 				"createdOn": "Erstellt am",
@@ -373,8 +371,6 @@
 				"bug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}?\n                    Sende Wünsche oder Probleme direkt an den {{short_title}}-Nutzer-Support.",
 				"contactSupport": "Support kontaktieren",
 				"createLinkSheet": "Link-Druckbogen erstellen",
-				"filterAdd": "Filter hinzufügen",
-				"filterApply": "Übernehmen",
 				"mailsAreBeingSent": "E-Mails werden gesendet...",
 				"printSheetIsBeingGenerated": "Druckbogen wird generiert...",
 				"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden"
@@ -526,10 +522,8 @@
 				"chooseAFile": "Datei auswählen",
 				"endSchoolYear": "Schuljahr beenden",
 				"endTransferPhase": "Transferphase beenden",
-				"save": "Speichern",
 				"start": "starten",
-				"startTransferPhase": "Transferphase starten",
-				"yes": "Ja"
+				"startTransferPhase": "Transferphase starten"
 			},
 			"headline": {
 				"addPolicy": "Datenschutzerklärung hinzufügen",
@@ -641,8 +635,7 @@
 			"text": {
 				"alternativRegistration": "Alternativ kannst du auch im \"Nutzer bearbeiten\"-Dialog jedes Nutzers einzeln individuelle Registrierungslinks generieren.",
 				"connectToASchool": "Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der {{shortTitle}} einloggen.Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der {{shortTitle}} zu erklären .",
-				"forAllTeachersWithoutAFullConsentForm": "Für alle Lehrer ohne vollständige Einverständniserklärung:",
-				"yes": "Ja"
+				"forAllTeachersWithoutAFullConsentForm": "Für alle Lehrer ohne vollständige Einverständniserklärung:"
 			}
 		},
 		"teams": {
@@ -653,7 +646,6 @@
 				"removeAllMembers": "Alle Mitglieder entfernen"
 			},
 			"headline": {
-				"deleteTeam": "Löschen",
 				"membersInOwnSchool": "Mitglieder an eigener Schule",
 				"messageToTeamOwners": "Neue Nachricht an den/die Team-Eigentümer senden",
 				"newTeamOwner": "Einen zusätzlichen Team-Eigentümer ernennen",
@@ -691,8 +683,7 @@
 			"headline": {
 				"changePassword": "Passwort ändern",
 				"completeRegistration": "Nutzerregistrierung abschließen",
-				"deleteUser": "Benutzer löschen?",
-				"generatedLink": "Einladungslink generiert!"
+				"deleteUser": "Benutzer löschen?"
 			},
 			"text": {
 				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
@@ -739,9 +730,7 @@
 			"chooseATeam": "Wähle eine Team"
 		},
 		"headline": {
-			"addDate": "Termin hinzufügen",
-			"calendar": "Kalender",
-			"dateDetails": "Termin - Details"
+			"calendar": "Kalender"
 		},
 		"input": {
 			"egGym": "z.B. Turnhalle",
@@ -808,11 +797,9 @@
 			"addContentToTopic": "Material zu Thema hinzufügen",
 			"contentCantBeAddedInDemo": "<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>",
 			"contentStore": "Lern-Store",
-			"entriesPerPage": "Einträge pro Seite",
 			"fileType": "Dateityp",
 			"nSearchResultsFoundWith": "{{ searchResultsTotal }} Suchergebnisse für \"{{ query }}\"",
 			"noResultsFoundWith": "Es wurden keine Suchergebnisse für \"{{ query }}\" gefunden",
-			"sortBy": "Sortierung",
 			"youAreLeavingSC": "Sie verlassen jetzt die HPI Schul-Cloud"
 		},
 		"input": {
@@ -966,7 +953,6 @@
 			},
 			"tasks": {
 				"button": {
-					"addPrivateTask": "private Aufgabe hinzufügen",
 					"createTask": "Erstelle eine Aufgabe",
 					"privateTasks": "Private Aufgaben"
 				},
@@ -974,8 +960,6 @@
 					"createFirstTask": "Erstelle die erste Aufgabe in deinem Kurs",
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
-					"posedTasks": "Gestellte Aufgaben",
-					"privateTasks": "Private Aufgaben und Entwürfe",
 					"submittedTasks": "Bearbeitete Aufgaben",
 					"task": "Aufgabe",
 					"tasks": "Aufgaben",
@@ -985,7 +969,6 @@
 					"noPosedTasks": "Keine gestellten Aufgaben"
 				},
 				"text": {
-					"addPrivateTask": "private Aufgabe hinzufügen",
 					"addTasks": "Aufgabe hinzufügen",
 					"descriptionTasks": "Kursteilnehmer:innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
 					"moreArchivedLinkLabel": "mehr archivierte Aufgaben...",
@@ -1141,7 +1124,6 @@
 		},
 		"button": {
 			"createCourse": "Erstelle einen neuen Kurs",
-			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"editCourse": "Kurs bearbeiten",
 			"importCourse": "Importiere einen Kurs",
 			"nextStep": "Nächster Schritt"
@@ -1207,8 +1189,6 @@
 	},
 	"dashboard": {
 		"headline": {
-			"myMaterials": "Meine Materialien",
-			"news": "Neuigkeiten",
 			"poll2Title": "Befragung II im Projekt HPI Schul-Cloud",
 			"schedule": "Stundenplan",
 			"title": "Übersicht",
@@ -1294,24 +1274,19 @@
 			"createANewFile": "Neue Datei erstellen",
 			"createANewFolder": "Neuen Ordner erstellen",
 			"createNewFile": "Datei erstellen",
-			"createNewFolder": "Ordner erstellen",
 			"descending": "↓ absteigend",
 			"download": "Runterladen",
-			"edit": "Bearbeiten",
-			"open": "Öffnen",
 			"presentation": "Präsentation (pptx)",
 			"search": "Suche",
 			"selectFormat": "Format auswählen",
 			"table": "Tabelle (xlsx)",
 			"textDocument": "Textdokument (docx)",
-			"toCourse": "Zum Kurs",
 			"toTeam": "Zum Team"
 		},
 		"headline": {
 			"attention": "Achtung",
 			"createNewFile": "Neue Datei erstellen",
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
-			"files": "Dateien",
 			"myFiles": "Meine Dateien",
 			"newFolder": "Neuer Ordner"
 		},
@@ -1333,7 +1308,6 @@
 			"editFilePermissions": "Dateiberechtigungen bearbeiten",
 			"fileName": "Dateiname:",
 			"fileType": "Dateityp:",
-			"files": "Dateien",
 			"filesFromMyClasses": "Dateien aus meinen Klassen",
 			"filesFromMyCourse": "Dateien aus meinen Kursen",
 			"filesFromMyTeam": "Dateien aus meinen Teams",
@@ -1519,7 +1493,6 @@
 		},
 		"welcome": {
 			"button": {
-				"createYourFirstCourse": "Erstelle deinen ersten Kurs",
 				"toYourCourses": "Zu deinen Kursen"
 			},
 			"heading": {
@@ -1554,11 +1527,9 @@
 			"cancel": "Abbrechen",
 			"clickHere": "Hier klicken",
 			"close": "Schließen",
-			"continue": "Weiter",
 			"create": "Erstellen",
 			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"createFolder": "Ordner erstellen",
-			"delete": "Löschen",
 			"deleteTeam": "Team löschen",
 			"edit": "Bearbeiten",
 			"editTopic": "Thema bearbeiten",
@@ -1602,7 +1573,6 @@
 			"dateDetails": "Termin - Details",
 			"declarationOfConsent": "Einwilligungserklärung",
 			"delete": "Löschen",
-			"edit": "Bearbeiten",
 			"entriesPerPage": "Einträge pro Seite",
 			"files": "Dateien",
 			"invitationLinkGenerated": "Einladungslink generiert!",
@@ -1650,7 +1620,6 @@
 			"administrationStudents": "Schüler",
 			"administrationTeachers": "Lehrer",
 			"archive": "Archiv",
-			"assignedTasks": "Gestellte Aufgaben",
 			"calendar": "Termine",
 			"contact": "Kontakt",
 			"courses": "Kurse",
@@ -1668,8 +1637,6 @@
 			"management": "Verwaltung",
 			"managementStudents": "Schüler:innen",
 			"managementTeachers": "Lehrer:innen",
-			"myMaterial": "Meine Materialien",
-			"news": "Neuigkeiten",
 			"openInNewTab": "in neuem Tab öffnen",
 			"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 			"overview": "Übersicht",
@@ -1710,7 +1677,6 @@
 				"administrationTeachers": "Lehrer",
 				"administrationTeams": "Teams",
 				"archive": "Archiv",
-				"assignedTasks": "Gestellte Aufgaben",
 				"calendar": "Termine",
 				"courses": "Kurse",
 				"files": "Meine Dateien",
@@ -1724,8 +1690,6 @@
 				"managementClasses": "Klassen",
 				"managementStudents": "Schüler:innen",
 				"managementTeachers": "Lehrer:innen",
-				"myMaterials": "Meine Materialien",
-				"news": "Neuigkeiten",
 				"overview": "Übersicht",
 				"tasks": "Aufgaben",
 				"tasksArchive": "Archiv",
@@ -2088,8 +2052,6 @@
 			"deleteSubmissionFromList": "löschen",
 			"downloadUngradedFiles": "Dateien unbewerteter Hausaufgaben herunterladen",
 			"editSubmissionFromList": "bearbeiten",
-			"filterAdd": "Filter hinzufügen",
-			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
 			"importSubmission": "Abgabe des Schülers importieren",
@@ -2097,7 +2059,6 @@
 			"onTheSubject": "Zum Thema",
 			"print": "Drucken",
 			"save": "Speichern und Abschicken",
-			"toClass": "Zum Kurs",
 			"toCourseAlt": "Zum Kurs der Aufgabe",
 			"toTheCourseFiles": "Zu den Kursdateien",
 			"toTopicAlt": "Zum Thema der Aufgabe"
@@ -2124,7 +2085,6 @@
 		},
 		"headline": {
 			"archivedTasks": "Archivierte Aufgaben und ToDos",
-			"assignedTasks": "Gestellte Aufgaben",
 			"breadcrumb": "{{breadcrumbtitle}} Aufgaben",
 			"breadcrumbArchived": "Archivierte",
 			"breadcrumbAssigned": "Gestellte",
@@ -2133,7 +2093,6 @@
 			"drafts": "Entwürfe",
 			"dueDate": "Abgabedatum",
 			"more": "Mehr",
-			"sorting": "Sortierung",
 			"tasks": "Aufgaben"
 		},
 		"input": {
@@ -2146,7 +2105,6 @@
 			"courses": "Kurse",
 			"details": "Details",
 			"dontShowAgain": "Nicht mehr anzeigen",
-			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"filterCourses": "Kurse: %1",
 			"filterDueDate": "Abgabe vom %1 bis %2",
@@ -2537,9 +2495,6 @@
 		}
 	},
 	"my_material": {
-		"headline": {
-			"myMaterial": "Meine Materialien"
-		},
 		"text": {
 			"andTakeTheOpportunityToDesign": "und nutzen Sie die Möglichkeit, das Feature nach ihren Wünschen zu gestalten.",
 			"blogArticle": "Blogartikel",
@@ -2567,11 +2522,9 @@
 		"button": {
 			"addNews": "News hinzufügen",
 			"deleteNewsAlt": "Artikel '{{name}}' löschen",
-			"editNews": "Bearbeiten",
 			"editNewsAlt": "Artikel '{{title}}' bearbeiten."
 		},
 		"headline": {
-			"news": "Neuigkeiten",
 			"newsTeam": "Neuigkeiten aus dem Team"
 		},
 		"label": {
@@ -2919,16 +2872,11 @@
 			"events": {
 				"button": {
 					"addDate": "Termin anlegen"
-				},
-				"headline": {
-					"addDate": "Termin hinzufügen",
-					"dateDetails": "Termin - Details"
 				}
 			},
 			"files": {
 				"button": {
 					"changeSharingSettings": "Freigabe-Einstellungen ändern",
-					"createFolder": "Ordner erstellen",
 					"deleteFolder": "Ordner löschen",
 					"renameFolder": "Ordner umbenennen",
 					"shareFolder": "Ordner-Freigabe",
@@ -2937,7 +2885,6 @@
 				"headline": {
 					"changeFilePermissions": "Freigabe-Einstellungen ändern",
 					"fileActions": "Datei-Aktionen",
-					"files": "Dateien",
 					"folders": "Ordner"
 				},
 				"text": {
@@ -3087,9 +3034,7 @@
 				}
 			},
 			"tab_label": {
-				"dates": "Termine",
-				"files": "Dateien",
-				"news": "Neuigkeiten"
+				"dates": "Termine"
 			},
 			"text": {
 				"errorAcceptingInvitation": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
@@ -3149,16 +3094,13 @@
 			},
 			"global": {
 				"button": {
-					"addPrivateTask": "private Aufgabe hinzufügen",
-					"addTask": "Aufgabe hinzufügen",
-					"toEdit": "Bearbeiten"
+					"addTask": "Aufgabe hinzufügen"
 				},
 				"heading": {
 					"task": "Aufgabe"
 				}
 			},
 			"heading": {
-				"assignedTasks": "Gestellte Aufgaben",
 				"privateTasks": "Private Aufgaben",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
 			},
@@ -3170,7 +3112,6 @@
 				"countWithPrimeNumbers": "z.B. Rechnen mit Primzahlen"
 			},
 			"label": {
-				"addPrivateTask": "private Aufgabe hinzufügen",
 				"addTask": "Aufgabe hinzufügen",
 				"content": "Inhalte",
 				"expandPrivateTasks": "Private Aufgaben ein/ausklappen",
