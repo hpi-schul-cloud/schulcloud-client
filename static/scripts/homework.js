@@ -355,95 +355,27 @@ $(document).ready(() => {
 					}
                 }).fail(showAJAXError);
 
-			this.on('sending', (file, xhr, formData) => {
-				const _send = xhr.send;
-				xhr.send = function () {
-					_send.call(xhr, file);
-				};
-			});
+                this.removeFile(file);
 
-			this.on('totaluploadprogress', (progress, total, uploaded) => {
-				const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
+            });
 
-				$progress.stop().animate({ width: `${realProgress}%` }, {
-					step(now) {
-						$percentage.html(`${Math.ceil(now)}%`);
-					},
-				});
-			});
+            this.on("dragover", function (file, response) {
+                $uploadForm.addClass('focus');
+            });
 
-			this.on('queuecomplete', (file, response) => {
-				progressBarActive = false;
-				finishedFilesSize = 0;
+            this.on("dragleave", function () {
+                $uploadForm.removeClass('focus');
+            });
 
-				$progressBar.fadeOut(50, () => {
-					$uploadForm.fadeIn(50);
-					// delay for error messages
-					setTimeout(() => {
-						// just reload if submission already exists
-						$("input[name='submissionId']").val() ? window.location.reload() : '';
-					}, 1500);
-				});
-			});
+            this.on("dragend", function (file, response) {
+                $uploadForm.removeClass('focus');
+            });
 
-			this.on('success', function (file, response) {
-				finishedFilesSize += file.size;
-
-				const parentId = getCurrentParent();
-				const params = {
-					name: file.name,
-					owner: getOwnerId(),
-					type: file.type,
-					size: file.size,
-					storageFileName: file.signedUrl.header['x-amz-meta-flat-name'],
-					thumbnail: file.signedUrl.header['x-amz-meta-thumbnail'],
-				};
-
-				if (parentId) {
-					params.parent = parentId;
-				}
-
-				// post file meta to proxy file service for persisting data
-				$.post('/files/fileModel', params, (data) => {
-					// add submitted file reference to submission
-					// hint: this only runs when an submission is already existing. if not, the file submission will be
-					// only saved when hitting the save button in the corresponding submission form
-					const submissionId = $("input[name='submissionId']").val();
-					const homeworkId = $("input[name='homeworkId']").val();
-
-					const teamMembers = $('#teamMembers').val();
-					if (submissionId) {
-						$.post(`/homework/submit/${submissionId}/files`, { fileId: data._id, teamMembers }, (_) => {
-							$.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`, { teamMembers });
-						});
-					} else {
-						addNewUploadedFile($('.js-file-list'), data);
-
-						// 'empty' submissionId is ok because the route takes the homeworkId first
-						$.post(`/homework/submit/0/files/${data._id}/permissions`, { homeworkId });
-					}
-				}).fail(showAJAXError);
-
-				this.removeFile(file);
-			});
-
-			this.on('dragover', (file, response) => {
-				$uploadForm.addClass('focus');
-			});
-
-			this.on('dragleave', () => {
-				$uploadForm.removeClass('focus');
-			});
-
-			this.on('dragend', (file, response) => {
-				$uploadForm.removeClass('focus');
-			});
-
-			this.on('drop', (file, response) => {
-				$uploadForm.removeClass('focus');
-			});
-		},
-	}) : '';
+            this.on("drop", function (file, response) {
+                $uploadForm.removeClass('focus');
+            });
+        }
+    }) : '';
 
 	/**
      * deletes a) the file itself, b) the reference to the submission
