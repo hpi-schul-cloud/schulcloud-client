@@ -1,4 +1,4 @@
-<footer>
+<footer id="footer">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
@@ -8,15 +8,15 @@
 				</ul>
 			</div>
 			<div class="col-md-4">
-				<h4>Links</h4>
+				<h4>{{$t "lib.extended_footer.heading.links"}}</h4>
 				<ul>
-					<li><a href="/impressum">Impressum</a></li>
+					<li><a href="/impressum">{{$t "lib.global.link.imprint" }}</a></li>
 					<li><a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank"
-							rel="noopener">Nutzungsordnung Open Schul-Cloud</a></li>
+							rel="noopener" aria-label="{{$t "lib.global.link.onlyTermsOfUse"}} PDF {{$t "global.openInNewTabWarning"}}">{{$t "lib.global.link.onlyTermsOfUse"}} Open Schul-Cloud</a></li>
 					<li><a href="{{@root.theme.documents.specificFiles.privacy}}" target="_blank"
-							rel="noopener">Datenschutzerklärung Open Schul-Cloud</a></li>
-					<li><a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener">GitHub</a></li>
-					<li><a href="https://status.schul-cloud.org" target="_blank" rel="noopener">Status</a></li>
+							rel="noopener" aria-label="{{$t "lib.global.link.onlyPrivacy"}} PDF {{$t "global.openInNewTabWarning"}}">{{$t "lib.global.link.onlyPrivacy"}} Open Schul-Cloud</a></li>
+					<li><a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a></li>
+					<li><a href="https://status.schul-cloud.org" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a></li>
 				</ul>
 			</div>
 		</div>
