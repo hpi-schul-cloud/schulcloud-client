@@ -1,6 +1,7 @@
 @import '../lib/colors';
 
 .color-picker {
+  display: flex;
   font-size: 0;
 
   &__item {
