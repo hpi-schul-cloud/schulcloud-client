@@ -382,6 +382,9 @@
 			}
 		},
 		"form_Policy": {
+            "input": {
+                "schoolsPrivacyPolicy": "Datenschutzerklärung der Schule"
+            },
 			"label": {
 				"chooseAFile": "Datei auswählen",
 				"description": "Beschreibung",
@@ -391,7 +394,6 @@
 			"text": {
 				"important": "Wichtig:",
 				"noFileSelected": "Keine Datei ausgewählt",
-				"schoolsPrivacyPolicy": "Datenschutzerklärung der Schule",
 				"whenANewPrivacyPolicyUpdated": "Wenn eine neue Datenschutzerklärung hochgeladen wird, wird sie allen Nutzern aus dieser Schule zur Zustimmung gegeben."
 			}
 		},
