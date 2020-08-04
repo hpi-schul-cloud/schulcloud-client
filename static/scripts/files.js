@@ -250,6 +250,7 @@ $(document).ready(() => {
 						{
 							step(now) {
 								$percentage.html(`${Math.ceil(now)}%`);
+								$percentage.setAttribute('aria-valuenow', `${Math.ceil(now)}%`);
 							},
 						},
 					);
