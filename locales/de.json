@@ -649,7 +649,6 @@
 				"functionality": "Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
 				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 				"legend": "Legende:",
-				"noParticipants": "Keine Teilnehmer",
 				"noSchools": "Keine Schulen",
 				"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
 				"teamHasOwners": "Team hat Eigentümer"
@@ -734,8 +733,7 @@
 			"participateInVideoConference": "An Videokonferenz teilnehmen",
 			"startAVideoConference": "Videokonferenz starten",
 			"timedOut": "Zeitüberschreitung der Anfrage",
-			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen...",
-			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
+			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen..."
 		}
 	},
 	"community": {
@@ -1051,7 +1049,6 @@
 					"importTopicAdviseChangeData": "<strong>Achtung:</strong> Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
 					"insertCodeToImportTopic": "Füge einen Code ein, um Themen anderer Nutzer zu importieren. Im Thema enthaltene Dateien werden in deinem Kursordner abgelegt.",
 					"moveTopic": "Thema verschieben",
-					"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 					"revealTopic": "Thema wieder anzeigen",
 					"shareTopic": "Thema teilen"
 				}
@@ -1196,7 +1193,6 @@
 			"noDueDate": "Kein Abgabedatum festgelegt",
 			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
-			"noTasks": "Keine Aufgaben",
 			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
@@ -1239,7 +1235,6 @@
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileMoved": "Verschieben der Datei war erfolgreich!",
-				"permissionsChangedFail": "Problem beim Ändern der Berechtigungen",
 				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
 				"pleaseSelectFileType": "Bitte wähle einen Dateityp aus.",
 				"renameDirSuccess": "Umbenennen des Ordners war erfolgreich!",
@@ -1265,7 +1260,6 @@
 			"attention": "Achtung",
 			"createNewFile": "Neue Datei erstellen",
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
-			"myFiles": "Meine Dateien",
 			"newFolder": "Neuer Ordner"
 		},
 		"input": {
@@ -1418,20 +1412,16 @@
 			"text": {
 				"amLegalGuardianFor": "bin erziehungsberechtigt für {{firstName}} {{lastName}} und erkläre Folgendes:",
 				"andExplainTheFollowing": "und erkläre Folgendes:",
-				"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
 				"needConsentOfParents": "Da du unter {{age}} Jahre alt bist, wird die Einverständniserklärung eines Elternteils benötigt, damit du die {{shortTitle}} nutzen kannst.",
 				"pleaseConfirmTheFollowingDeclaration": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der HPI Schul-Cloud nutzen kann:",
-				"theNextStepMustBeCarriedOut": "Die nächsten Schritte müssen von einem Erziehungsberechtigten durchgeführt werden.",
-				"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails."
+				"theNextStepMustBeCarriedOut": "Die nächsten Schritte müssen von einem Erziehungsberechtigten durchgeführt werden."
 			}
 		},
 		"password": {
 			"text": {
 				"afterClickingThe": "Nach klicken des",
 				"allowedSpecialCharactersAre": "Erlaubte Sonderzeichen sind:",
-				"atlist8characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
-				"buttonsCanBeUsedAsUsual": "-Buttons kannst du dich wie gewohnt über das System deiner Schule (Moodle, iServ, ItsLearning etc.) in der {{title}} einloggen.",
-				"specialCharacters": "!§$%&/()=?\\;:,.#+*~"
+				"buttonsCanBeUsedAsUsual": "-Buttons kannst du dich wie gewohnt über das System deiner Schule (Moodle, iServ, ItsLearning etc.) in der {{title}} einloggen."
 			}
 		},
 		"placeholder": {
@@ -1443,7 +1433,6 @@
 			"between14And": "zwischen 14 und {{addConsent}} Jahre alt.",
 			"clickhereForFurtherTraining": "Hier gehts zur Fortbildung",
 			"fromYear": "ab {{age}} Jahre alt.",
-			"inAdditionWeArePlanningToDevelop": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
 			"justHaveALook": "Schau einfach mal vorbei!",
 			"linguisticNote": "Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
 			"pleaseChangeTheStartPassword": "Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!",
@@ -1640,21 +1629,7 @@
 				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationClasses": "Klassen",
-				"administrationCourses": "Kurse",
-				"archive": "Archiv",
-				"calendar": "Termine",
-				"files": "Meine Dateien",
-				"filesPersonal": "persönliche Dateien",
-				"filesShared": "geteilte Dateien",
-				"helpArea": "Hilfebereich",
-				"helpDesk": "Helpdesk",
-				"lernstore": "Lern-Store",
-				"management": "Verwaltung",
-				"managementStudents": "Schüler:innen",
-				"managementTeachers": "Lehrer:innen",
-				"overview": "Übersicht",
-				"tasksArchive": "Archiv",
-				"tasksDrafts": "Entwürfe"
+				"administrationCourses": "Kurse"
 			}
 		},
 		"skipLinks": {
@@ -1736,8 +1711,6 @@
 				"openInConfluence": "in Confluence öffnen"
 			},
 			"text": {
-				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
-				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 				"ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch",
 				"languageNote": "Sprachlicher Hinweis:",
 				"typeNotAllowed": "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
@@ -1790,7 +1763,6 @@
 		},
 		"form_bug": {
 			"label": {
-				"emailAddressForAnyQueries": "E-Mail-Adresse für eventuelle Rückfragen",
 				"maxSizeFiles": "Bilder, Videos und Dateien",
 				"problemDescription": "Problembeschreibung:",
 				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
@@ -1818,9 +1790,7 @@
 		},
 		"help_confluenceLinks": {
 			"link": {
-				"aboutTheProject": "Über das Projekt",
 				"contactForm": "Kontaktformular",
-				"firstSteps": "Erste Schritte",
 				"linguisticNote": "Sprachlicher Hinweis",
 				"usageAids": "Nutzungshilfen",
 				"writeUsAnEmail": "Schreib uns eine E-Mail"
@@ -1907,14 +1877,11 @@
 		"text": {
 			"feedbackError": "Fehler beim Senden des Feedbacks.",
 			"feedbackSuccessful": "Feedback erfolgreich versendet!",
-			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
-			"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!",
-			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!"
+			"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!"
 		}
 	},
 	"home": {
 		"button": {
-			"aboutTheProject": "Über das Projekt",
 			"login": "Login",
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrer:in einloggen",
@@ -1923,7 +1890,6 @@
 		},
 		"header": {
 			"link": {
-				"aboutUs": "Über das Projekt",
 				"blog": "Blog",
 				"faq": "FAQ",
 				"firstSteps": "Erste Schritte",
@@ -2100,7 +2066,6 @@
 			"noStudentGroupsInThisCourse": "keine Schüler:innengruppen in diesem Kurs",
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
-			"noTasks": "Keine Aufgaben",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
@@ -2248,7 +2213,6 @@
 				"discardChange": "Änderung verwerfen"
 			},
 			"link": {
-				"aboutTheProject": "Über das Projekt",
 				"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
 				"github": "GitHub",
 				"imprint": "Impressum",
@@ -2258,11 +2222,6 @@
 				"status": "Status",
 				"team": "Team",
 				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud"
-			}
-		},
-		"header": {
-			"link": {
-				"firstSteps": "Erste Schritte"
 			}
 		},
 		"headline": {
@@ -2544,12 +2503,10 @@
 		"text": {
 			"allowedCharacters": "Erlaubte Sonderzeichen sind: ",
 			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
-			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
 			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
 			"errorPasswordAlreadyChanged": "Ihr Passwort wurde bereits über diese URL geändert.",
 			"errorTimeExpired": "Zeit abgelaufen für Passwort Recovery.",
-			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
-			"specialCharacters": "!§$%&/()=?\\;:,.#+*~"
+			"passwordsAreDifferent": "Passwörter stimmen nicht überein."
 		}
 	},
 	"registration": {
@@ -2642,7 +2599,6 @@
 				"text": {
 					"aParentOrLegalGuardian": "Jahren bedarf ein Erziehungsberechtigter in die Nutzung der",
 					"forThisWeNeedFollowing": "Dazu benötigen wir folgende Angaben von Ihnen:",
-					"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
 					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren bedarf ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen.",
 					"mustNotBeYourChildsEmail": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
@@ -2650,7 +2606,6 @@
 					"pleaseConfirmTheFollowing": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{shortTitle}} nutzen kann:",
 					"studentNeedTheirOwnEmail": "(Schüler benötigen eine eigene E-Mail-Adresse)",
 					"toConsent": "einwilligen.",
-					"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 					"weNeedFollowingDataOfChild": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben für Ihr Kind:",
 					"whenLoggingInFor": "Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.",
 					"yourChildCan": "Ihr Kind kann sich nun einloggen:",
@@ -2823,7 +2778,6 @@
 					"folders": "Ordner"
 				},
 				"text": {
-					"changedFilePermissionsError": "Problem beim Ändern der Berechtigungen",
 					"changedFilePermissionsSuccess": "Standard-Berechtigungen erfolgreich geändert"
 				}
 			},
@@ -2965,9 +2919,6 @@
 					"showAllNews": "Alle Neuigkeiten anzeigen..."
 				}
 			},
-			"tab_label": {
-				"dates": "Termine"
-			},
 			"text": {
 				"errorAcceptingInvitation": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
 				"invitationAcceptedSuccess": "Teameinladung erfolgreich angenommen.",
@@ -2975,7 +2926,6 @@
 				"invitationSuccessfullyAccepted": "Teameinladung erfolgreich angenommen.",
 				"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
 				"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
-				"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
 				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
 			}
@@ -3014,7 +2964,6 @@
 		},
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
-			"noMembers": "Keine Teilnehmer",
 			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
 		}
 	},

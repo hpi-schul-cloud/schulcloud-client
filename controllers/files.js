@@ -644,7 +644,7 @@ router.get('/shared/', (req, res) => {
 
 router.get('/', (req, res, next) => {
 	res.render('files/files-overview', Object.assign({
-		title: res.$t('files.headline.myFiles'),
+		title: res.$t('global.link.files'),
 		showSearch: false,
 	}));
 });
