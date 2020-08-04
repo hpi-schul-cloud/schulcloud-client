@@ -85,6 +85,7 @@ $(document).ready(() => {
 		$.getJSON(entry, (result) => {
 			const tool = result.tool[0];
 			tool.originTool = tool._id;
+			tool.openNewTab = (tool.openNewTab ? 'true' : 'false');
 			if (tool.isLocal) {
 				if (tool.name === 'Video-Konferenz mit BigBlueButton') {
 					const $addBbbToolModal = $('.add-bbb-modal');
