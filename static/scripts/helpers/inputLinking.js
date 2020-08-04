@@ -1,3 +1,5 @@
+const sanitizeHtml = require('sanitize-html');
+
 /**
  * INPUT LINKING
  * usage: add the class ".linked" to the input field
@@ -5,13 +7,12 @@
  * that should be updated with the value from the input field.
  * {inputname} is the value of the name attribute of the input field.
  */
-
 function updateLinkedElements(event) {
 	const source = event.target;
 	let newValue;
 	switch (source.tagName) {
 		case 'INPUT':
-			newValue = source.value;
+			newValue = sanitizeHtml(source.value);
 			break;
 		case 'SELECT':
 			if (source.selectedIndex < 0) {

@@ -8,17 +8,16 @@
 				<link rel="stylesheet" href="/styles/lib/chatLoggedin.css"/>
 			{{/inArray}}
 		{{/ifConfig}}
-        <noscript>
-            <style>
-                .section-title,
-                #main-content,
-                footer
-                {
-                    opacity: 1;
-                }
-            </style>
-        </noscript>
-    {{/content}}
+		<noscript>
+			<style>
+				.section-title,
+				#main-content,
+				footer {
+					opacity: 1;
+				}
+			</style>
+		</noscript>
+	{{/content}}
 
     {{#content "scripts" mode="append"}}
         <script src="/scripts/loggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
@@ -46,6 +45,7 @@
         {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
+
             <nav id="sidebar" aria-label="{{$t "global.sidebar.ariaLabel"}}" tabindex="0">
                 <ul class="sidebar-list">
                     <li>
@@ -56,7 +56,7 @@
                     </li>
                     {{#each sidebarItems}}
                         <li>
-                            <a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
                                 <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
                                 <span class="link-name">{{this.name}}</span>
                             </a>
@@ -66,7 +66,7 @@
                                     <ul class="subitems">
                                         {{#each this.children}}
                                             <li>
-												<a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+												<a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
 													{{#if this.isExternalIcon}}
 														{{{this.icon}}}
 													{{else}}
@@ -86,25 +86,30 @@
             </nav>
         </aside>
 
-        <section class="content-wrapper">
-            <a class="mobile-nav-toggle">
-                <i class="fa fa-bars"></i>
-            </a>
-            <div class="content-min-height">
-                <section class="demo" id="offlineAlert" style="display:none;">
-                    <div class="alert alert-warning" role="alert">
-                        <p>{{$t "lib.loggedin.text.youAreOffline" }} <span class="hidden-md-down">{{$t "lib.loggedin.text.inOrderToShow" }}</span></p>
-                    </div>
-                </section>
-                {{#ifeq currentRole "Demo"}}
-                    <section class="demo">
-                        <div class="alert alert-warning" role="alert">
-                            <p>{{$t "lib.loggedin.text.thisIsADemoAccount" }} <span class="hidden-md-down">{{$t "lib.loggedin.text.allActionsThatCreate" }}</span></p>
-                        </div>
-                    </section>
-                {{/ifeq}}
+		<section class="content-wrapper">
+					<a class="mobile-nav-toggle" aria-label="{{$t "global.mobileNavMenu.ariaLabel"}}">
+						<i class="fa fa-bars" aria-hidden="true"></i>
+					</a>
+				<div class="content-min-height">
+					<section class="demo" id="offlineAlert" style="display:none;">
+						<div class="alert alert-warning" role="alert">
+							<p>{{$t "lib.loggedin.text.youAreOffline" }}
+								<span class="hidden-md-down">{{$t "lib.loggedin.text.inOrderToShow" }}</span>
+							</p>
+						</div>
+					</section>
+				{{#ifeq currentRole "Demo"}}
+					<section class="demo">
+						<div class="alert alert-warning" role="alert">
+							<p>{{$t "lib.loggedin.text.thisIsADemoAccount" }}
+								<span class="hidden-md-down">{{$t "lib.loggedin.text.allActionsThatCreate" }}</span>
+							</p>
+						</div>
+					</section>
+				{{/ifeq}}
 
                 {{> "lib/components/notification"}}
+
 				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.topMenu.ariaLabel"}}" tabindex="0">
 
                     {{#if breadcrumb}}
@@ -122,8 +127,9 @@
                     <ul class="nav navbar-nav float-xs-none dropdowns">
                         <li class="nav-item alert-button">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" data-toggle="dropdown">
-                                    <i class="fa fa-exclamation-triangle"></i>
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
+								   data-toggle="dropdown">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                 </a>
 
                                 <div class="dropdown-menu">
@@ -134,23 +140,23 @@
                         </li>
                         <li class="nav-item fullscreen-action">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="{{$t "lib.loggedin.label.fullscreen"}}" data-toggle="dropdown">
-                                    <i class="fa fa-expand"></i>
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" href="" title="{{$t "lib.loggedin.label.fullscreen"}}" aria-label="{{$t "lib.loggedin.label.fullscreen"}}" data-toggle="dropdown">
+                                    <i class="fa fa-expand" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </li>
                         <li class="nav-item qr-code-action">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" title="{{$t "lib.loggedin.label.qrCode"}}" data-toggle="dropdown">
-                                    <i class="fa fa-qrcode"></i>
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" href="" title="{{$t "lib.loggedin.label.qrCode"}}" aria-label="{{$t "lib.loggedin.label.qrCode"}}" data-toggle="dropdown">
+                                    <i class="fa fa-qrcode" aria-hidden="true"></i>
                                 </a>
                                 <div class="dropdown-menu print">
                                     <div class="content qr-show"></div>
 										<div class="qr-hint-text">
 											{{$t "global.topMenu.qrHintText"}}
 										</div>
-                                    <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="{{$t "lib.loggedin.label.printQrCode"}}">
-                                        <i class="fa fa-print"></i> {{$t "global.button.print" }}
+                                    <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="{{$t "lib.loggedin.label.printQrCode"}}" tabindex="0">
+                                        <i class="fa fa-print" aria-hidden="true"></i> {{$t "global.button.print" }}
                                     </div>
                                 </div>
                             </div>
@@ -159,8 +165,8 @@
                         <li class="nav-item notification-dropdown">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
-                                        recentNotifications}}recent{{/if}}" title="{{$t "lib.loggedin.label.notifications"}}" data-toggle="dropdown">
-                                    <i class="fa fa-bell"></i> {{#if recentNotifications}}
+                                        recentNotifications}}recent{{/if}}" href="" title="{{$t "lib.loggedin.label.notifications"}}" aria-label="{{$t "lib.loggedin.label.notifications"}}" data-toggle="dropdown">
+                                    <i class="fa fa-bell" aria-hidden="true"></i> {{#if recentNotifications}}
                                     <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
                                 </a>
 
@@ -201,8 +207,8 @@
                         <li class="nav-item">
                             <div class="btn-group" data-matomo-mask>
                               <div class="dropdown btn-avatar">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle"
-                                   title='{{ currentUser.displayName }} ({{ currentRole }})' data-toggle="dropdown">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle" href=""
+                                   title='{{ currentUser.displayName }} ({{ currentRole }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{ currentRole }}' data-toggle="dropdown">
                                   <div data-testid="initials" class="avatar-circle" >
                                       <span class="initials">{{ currentUser.avatarInitials }}</span>
                                   </div>
@@ -235,15 +241,16 @@
                             {{#if showSearch}}
                                 <div id="searchBar" class="col-sm-3 hide-inline">
                                     {{#unless liveSearch}}<form class="search-wrapper" action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}" method="get">{{/unless}}
-                                        <a class="mobile-search-toggle">
+                                        <a href="" class="mobile-search-toggle" aria-label="{{$t "global.lib.loggedin.label.search"}}">
                                             {{#unless liveSearch}}<i class="fa fa-search"></i>{{/unless}}
                                         </a>
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}" name="q" />
+								<label for="search-box">{{#if searchLabel}}{{truncatePure searchLabel21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}</label>
+											<input id="search-box" type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}" name="q" />
                                             {{> "lib/components/csrfInput"}}
                                             <span class="input-group-btn">
                                                 <button type="submit" class="btn btn-secondary">
-                                                    <i class="fa fa-search"></i>
+                                                    <i class="fa fa-search" aria-hidden="true"></i>
                                                 </button>
                                             </span>
                                         </div>
@@ -258,12 +265,12 @@
                 <p id="backendUrl" hidden>{{ backendUrl }}</p>
 
                 <main id="main-content" class="container-fluid" tabindex="0">
-					<dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.ariaLabel"}}">
-						<dd>
-							<a href="#sidebar">{{$t "global.sidebar.ariaLabel"}}</a>
-						</dd>
-					</dl>
-					{{#block "page"}}{{/block}}
+					        <dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.ariaLabel"}}">
+					        	<dd>
+					        		<a href="#sidebar">{{$t "global.sidebar.ariaLabel"}}</a>
+					        	</dd>
+					        </dl>
+                  {{#block "page"}}{{/block}}
                 </main>
 						{{#if messenger}}
 						{{>"lib/components/notification"
