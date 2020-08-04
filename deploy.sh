@@ -1,11 +1,19 @@
 #! /bin/bash
 
+#
+# set -e : "... Exit immediately if a pipeline [...], which may consist of a single simple command [...], 
+# a list [...], or a compound command [...] returns a non-zero status. ..." 
+# [From: https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html]
+#
+# trap [action] [signal] : Trap calls catch on every EXIT with:
+# - status code = 0: Successful run
+# - status code != 0: Error
+#
 set -e
 trap 'catch $? $LINENO' EXIT
 catch() {
-  echo "kabummm!!!"
   if [ "$1" != "0" ]; then
-    echo "War wohl nicht so gut. Fehler $1, guckst du $2"
+    echo "An issue occured in line $2. Status code: $1"
   fi
 }
 
@@ -86,29 +94,39 @@ function inform_hotfix {
 
 openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
 
-
 if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
 then
+  # If an event occurs on branch master make sure it's 
+  # no pull request and call inform. Discard if event 
+  # is related to a pull request.
+  echo "Event detected on branch master. Event is no Pull Request. Informing team."
   inform
 elif [ "$TRAVIS_BRANCH" = "develop" ]
 then
+  # If an event occurs on branch develop deploy to test
+  echo "Event detected on branch develop. Attempting to deploy to development (test) environment..."
   deploytotest
 elif [[ $TRAVIS_BRANCH = release* ]]
 then
+  # If an event occurs on branch release* deploy to staging
+  echo "Event detected on branch release*. Attempting to deploy to staging environment..."
   deploytostaging
   inform_staging
 elif [[ $TRAVIS_BRANCH = hotfix* ]]
 then
-	TEAM="$(cut -d'/' -f2 <<< $TRAVIS_BRANCH)"
-	if [[ "$TEAM" -gt 0 && "$TEAM" -lt 6 ]]; then
-		deploytohotfix $TEAM
-		inform_hotfix $TEAM
-	else
-		echo "Hotfix branch name do not match requirements to deploy"
-	fi
-
+  # If an event occurs on branch hotfix* parse team id 
+  # and deploy to according hotfix environment
+  TEAM="$(cut -d'/' -f2 <<< $TRAVIS_BRANCH)"
+  if [[ "$TEAM" -gt 0 && "$TEAM" -lt 8 ]]; then
+    echo "Event detected on branch hotfix/$TEAM/... . Attempting to deploy to hotfix environment $TEAM..."
+    deploytohotfix $TEAM
+    inform_hotfix $TEAM
+  else
+    echo "Event detected on branch hotfix*. However, branch name pattern does not match requirements to deploy. Expected hotfix/<team_number>/XX.XX.XX but got $TRAVIS_BRANCH"
+  fi
 else
-  echo "Nix wird deployt"
+  # If no condition is met, nothing will be deployed.
+  echo "Event detected which does not meet any conditions. Deployment will be skipped."
 fi
 
 exit 0

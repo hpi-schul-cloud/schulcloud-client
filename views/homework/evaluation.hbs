@@ -10,7 +10,10 @@
             <div class="comment">
                 {{#if this.submission}}
                     {{#ifneq 0 (arrayLength this.submission.fileIds)}}
-                        {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false submission=../submission}}{{/embed}}
+                        {{#embed "homework/components/submission_files"
+                            fileIds=../submission.fileIds
+                            deletionAllowed=false
+                            submission=../submission}}{{/embed}}
                         <hr>
                     {{/ifneq}}
                     <div class="ckcontent print">
@@ -28,8 +31,20 @@
         <div id="comment" class="tab-content">
             {{#if @root.isTeacher}}
                 {{#if this.submission}}
+                    {{#embed "files/file-upload"}}{{/embed}}
+                    <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
+                    <input name="teamMembers" id="teamMembers" type="hidden" data-force-value="true" value="{{userIds this.submission.teamMembers}}" />
+                    {{#ifneq 0 (arrayLength this.submission.gradeFileIds)}}
+                        {{#embed "homework/components/submission_files"
+                            fileIds=../submission.gradeFileIds
+                            grading=true
+                            deletionAllowed=false
+                            submission=../submission}}{{/embed}}
+                    {{/ifneq}}
+
                     <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
                         <input type="hidden" name="_method" data-force-value="true" value="patch" />
+
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
                         {{#if this.submission.courseGroupId}}
                             <input name="courseGroupId" type="hidden" value="{{this.submission.courseGroupId._id}}"/>
@@ -64,6 +79,13 @@
                         <p>{{$t "homework.text.noEvaluationTextAvailable" }}</p>
                     {{/if}}
                 </div>
+                {{#ifneq 0 (arrayLength this.submission.gradeFileIds)}}
+                    {{#embed "homework/components/submission_files"
+                        fileIds=../submission.gradeFileIds
+                        grading=true
+                        deletionAllowed=false
+                        submission=../submission}}{{/embed}}
+                {{/ifneq}}
             {{/if}}
         </div>
         {{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}

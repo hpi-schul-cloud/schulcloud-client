@@ -1,4 +1,4 @@
-﻿<section id="submission" class="tab-content section-homeworkdetails">
+<section id="submission" class="tab-content section-homeworkdetails">
   {{#if @root.submittable}}
     <div class="comment editor">
       <p class="submissionLabel"><i class="fa fa-folder-open"></i>{{$t "homework._task.label.fileUpload"}}</p>
@@ -12,8 +12,13 @@
       {{/if}}
 
       {{#if @root.submission}}
-        {{#embed "homework/components/submission_uploaded_files" deletionAllowed=true submission=@root.submission}}{{/embed}}
-         <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+        {{#ifneq 0 (arrayLength @root.submission.fileIds)}}
+            {{#embed "homework/components/submission_files"
+                fileIds=@root.submission.fileIds
+                deletionAllowed=true
+                submission=@root.submission}}{{/embed}}
+            <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+        {{/ifneq}}
       {{else}}
         <div class="form-group section-uploaded-files">
             <label>{{$t "homework.label.filesUploadedForDelivery" }}</label>
@@ -78,7 +83,7 @@
   {{else}}
     {{#if @root.submission}}
         {{#if @root.submission.hasFile}}
-            {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false submission=@root.submission}}{{/embed}}
+            {{#embed "homework/components/submission_files" fileIds=@root.submission.fileIds deletionAllowed=false submission=@root.submission}}{{/embed}}
         {{/if}}
     {{/if}}
     <div class="comment">
@@ -130,7 +135,6 @@
 		    {{> "files/forms/form-virus-danger"}}
 	    {{/content}}
     {{/embed}}
-
 	{{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}
 	{{/embed}}
 </section>

@@ -424,7 +424,7 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 		const birthday = req.body.birthday.split('.');
 		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
 			birthday[0]
-		}T00:00:00Z`;
+			}T00:00:00Z`;
 	}
 	return api(req)
 		.post('/users/', {
@@ -758,13 +758,23 @@ const returnAdminPrefix = (roles, res) => {
 };
 
 // with userId to accountId
-const userIdtoAccountIdUpdate = (service) => function useIdtoAccountId(req, res, next) {
+const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, next) {
+	try {
+		await api(req)
+			.patch(`/users/${req.params.id}`, {
+				json: { forcePasswordChange: true },
+			});
+	} catch (err) {
+		next(err);
+		return;
+	}
+
 	api(req)
-		.get(`/${service}/?userId=${req.params.id}`)
+		.get(`/accounts/?userId=${req.params.id}`)
 		.then((users) => {
 			api(req)
-				.patch(`/${service}/${users[0]._id}`, {
-					json: req.body,
+				.patch(`/accounts/${users[0]._id}`, {
+					json: { ...req.body },
 				})
 				.then(() => {
 					req.session.notification = {
@@ -1036,7 +1046,7 @@ router.post(
 router.patch(
 	'/teachers/:id/pw',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
-	userIdtoAccountIdUpdate('accounts'),
+	userIdToAccountIdUpdate('accounts'),
 );
 router.get(
 	'/teachers/:id',
@@ -1211,7 +1221,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 		const birthday = req.body.birthday.split('.');
 		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
 			birthday[0]
-		}T00:00:00Z`;
+			}T00:00:00Z`;
 	}
 
 	const promises = [];
@@ -1301,7 +1311,7 @@ router.get(
 router.patch(
 	'/students/:id/pw',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
-	userIdtoAccountIdUpdate('accounts'),
+	userIdToAccountIdUpdate('accounts'),
 );
 router.post(
 	'/students/:id',
@@ -1804,9 +1814,9 @@ const renderClassEdit = (req, res, next) => {
 
 						if (currentClass.year) {
 							isUpgradable = (lastDefinedSchoolYearId !== (currentClass.year || {}))
-							&& currentClass.gradeLevel
-							&& currentClass.gradeLevel !== 13
-							&& !currentClass.successor;
+								&& currentClass.gradeLevel
+								&& currentClass.gradeLevel !== 13
+								&& !currentClass.successor;
 						}
 					}
 
@@ -2576,7 +2586,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		delete req.body.videoconference;
 
 		// Toggle teacher's studentVisibility permission
-		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY');
+		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
 		const isStudentVisibilityEnabled = (res.locals.currentSchoolData.features || []).includes(
 			'studentVisibility',
 		);
@@ -2892,7 +2902,7 @@ router.all('/teams', async (req, res, next) => {
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'disabled' : 'btn-remove-members'
-							}`,
+								}`,
 							icon: 'user-times',
 							data: {
 								name: item.name,
@@ -2912,7 +2922,7 @@ router.all('/teams', async (req, res, next) => {
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'btn-delete-team' : 'disabled'
-							}`,
+								}`,
 							icon: 'trash-o',
 							data: {
 								name: item.name,
