@@ -21,9 +21,9 @@
 		<section class="section-course">
 			{{#if course.isArchived}}
 				<div class="empty-state">
-					<img src="/images/empty-states/books_empty.svg" alt= "{{$t "courses._course.edit.img_alt.courseIsArchived"}}" class="image" />
+					<img src="/images/empty-states/books_empty.svg" alt= "{{$t "courses._course.edit.img_alt.courseIsArchieved"}}" class="image" />
 
-					<h2 class="h4">{{$t "courses._course.edit.headline.courseIsArchived" (dict "coursename" course.name )}}</h2>
+					<h2 class="h4">{{$t "courses._course.edit.headline.courseIsArchieved" (dict "coursename" course.name )}}</h2>
 					<p class="text-muted text-center">
 						{{$t "courses._course.edit.text.toEditChangeDate"}}
 					</p>
@@ -33,7 +33,7 @@
 						{{/if}}
 						<input type="hidden" name="unarchive" data-force-value="true" value="true" />
 						<div class="times" id="timesContainer">
-							<label>{{$t "courses._course.edit.label.timeSpan"}}</label>
+							<label>{{$t "administration.global.label.timeSpan"}}</label>
 							<div class="row">
 								<div class="form-group col-md-6">
 									<label>{{$t "global.label.from"}}</label>
@@ -88,7 +88,7 @@
 					{{#if course.isArchived}}disabled{{/if}} />
 
 				<div class="form-group">
-					<label>{{$t "courses.global.label.courseName"}}</label>
+					<label>{{$t "administration.global.label.nameOfTheCourse"}}</label>
 					<input class="form-control" name="name" type="text" placeholder="{{$t "courses.global.input.mathsClass"}}" value="{{course.name}}"
 						{{#if course.isArchived}}disabled{{/if}} required autofocus />
 				</div>
@@ -156,7 +156,7 @@
 				</div>
 
 				<div class="form-group">
-					<label>{{$t "global.headline.classes"}} <small>{{$t "courses._course.edit.label.studentsWillBeAdded"}}</small></label>
+					<label>{{$t "global.headline.classes"}} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded"}}</small></label>
 
 					<select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
@@ -206,9 +206,9 @@
 				{{/ifConfig}}
 
 
-				<label>{{$t "courses._course.edit.label.chooseDate"}}</label>
+				<label>{{$t "administration.global.label.chooseDate"}}</label>
 				<div class="times" id="timesContainer">
-					<label>{{$t "courses._course.edit.label.timeSpan"}}</label>
+					<label>{{$t "administration.global.label.timeSpan"}}</label>
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label>{{$t "global.label.from"}}</label>
@@ -228,9 +228,9 @@
 					<table width="100%" cellpadding="5px">
 						<thead>
 							<th></th>
-							<th><label>{{$t "courses.global.label.weekday"}}</label></th>
-							<th><label>{{$t "courses.global.label.startOfLesson"}}</label></th>
-							<th><label>{{$t "courses.global.label.lengthOfLesson"}}</label></th>
+							<th><label>{{$t "administration.global.label.weekday"}}</label></th>
+							<th><label>{{$t "administration.global.label.startOfLesson"}}</label></th>
+							<th><label>{{$t "administration.global.label.lengthOfLesson"}}</label></th>
 							<th><label>{{$t "global.label.room"}}</label></th>
 						</thead>
 						<tbody class="add-course-times">

@@ -2246,7 +2246,7 @@ router.delete(
 const classFilterSettings = ({ years, currentYear }, res) => {
 	const yearFilter = {
 		type: 'select',
-		title: res.$t('administration.controller.headline.schoolYear'),
+		title: res.$t('administration.global.label.schoolYear'),
 		displayTemplate: res.$t('administration.controller.text.schoolYearPercentage'),
 		property: 'year',
 		multiple: true,
@@ -2314,7 +2314,7 @@ router.get(
 				const head = [
 					res.$t('administration.controller.global.label.class'),
 					res.$t('administration.controller.global.label.teacher'),
-					res.$t('administration.controller.global.label.schoolYear'),
+					res.$t('administration.global.label.schoolYear'),
 					res.$t('administration.controller.global.label.student'),
 				];
 				const hasEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT');

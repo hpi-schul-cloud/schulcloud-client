@@ -104,7 +104,7 @@ $(document).ready(() => {
 	$('.btn-add-modal').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addSystemsModal, {
-			title: $t('administration.school.headline.add'),
+			title: $t('global.button.add'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
 		});
@@ -114,7 +114,7 @@ $(document).ready(() => {
 	$('.btn-add-modal--rss').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addRSSModal, {
-			title: $t('administration.school.headline.add'),
+			title: $t('global.button.add'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
 		});

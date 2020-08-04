@@ -114,15 +114,15 @@
                                 {{#unless schoolUsesLdap}}
                                     {{#ifCond isAdmin '|| !' editTeacher}}
                                         <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled title="Der Nutzer muss zuerst die Einverständniserklärung digital abschließen"{{/if}}>{{$t "administration.users_edit.button.changePassword" }}</button>
-                                        <button class="btn btn-secondary btn-delete">{{$t "administration.users_edit.button.deleteUser" }}</button>
+                                        <button class="btn btn-secondary btn-delete">{{$t "administration.users_edit.headline.deleteUser" }}</button>
                                     {{/ifCond}}
                                     <button class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}"
                                     {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="Der Nutzer ist bereits registriert"{{/ifeq}}>
-                                        {{$t "administration.users_edit.button.generatePersonalInvitationLink" }}
+                                        {{$t "administration.button.generatePersonalInvitationLink" }}
                                     </button>
                                     <button class="btn btn-secondary btn-send-link-email {{#if editTeacher}}teacher{{else}}student{{/if}}"
                                     {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="Der Nutzer ist bereits registriert"{{/ifeq}}>
-                                        {{$t "administration.users_edit.button.sendTheInvitationLinkByMail" }}
+                                        {{$t "administration.button.sendTheInvitationLinkByMail" }}
                                     </button>
                                 {{/unless}}
                             </div>
