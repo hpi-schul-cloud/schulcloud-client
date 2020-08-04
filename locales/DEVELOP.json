@@ -19,7 +19,7 @@
 			"awardWinnerIdea": "Ernennung zum „Ausgezeichneten Ort“ im bundesweiten Wettbewerb „Land der Ideen“",
 			"awardWinnerInnovation": "Preisträger im \"Innovationspreis Berlin Brandenburg 2018\"",
 			"cloudGermanyConcept": "Die Cloud für Schulen in Deutschland: Konzept und Pilotierung der HPI Schul-Cloud",
-			"cloudImportanceStakeholder": "Schulrechner wandern in die Cloud – Was bedeutet das für die unterschiedlichen Stakeholder?",
+			"cloudImpotanceStakeholder": "Schulrechner wandern in die Cloud – Was bedeutet das für die unterschiedlichen Stakeholder?",
 			"hpiCloudDuringLesson": "Die HPI Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien und Methoden",
 			"hpiCloudInDayLife": "Die HPI Schul-Cloud in Unterricht und Schulalltag - Mehrwert und Voraussetzungen",
 			"hpiCloudLearning": "HPI Schul-Cloud und Lernen 4.0 - Best-Practice-Unterrichtsbeispiele für die Sekundarstufe",
@@ -27,16 +27,15 @@
 			"shortDescription": "Kurzbeschreibung \"Die HPI Schul-Cloud\" (.pdf)",
 			"talksFirstCloudForum": "Vorträge des 1. HPI Schul-Cloud-Forums (April 2017)",
 			"talksSecondCloudForum": "Vorträge des 2. HPI Schul-Cloud-Forums (März 2018)",
-			"talksThirdCloudForum": "Vorträge des 3. HPI Schul-Cloud-Forums (März 2019)",
-			"cloudImpotanceStakeholder": "MISSSchulrechner wandern in die Cloud – Was bedeutet das für die unterschiedlichen Stakeholder?"
+			"talksThirdCloudForum": "Vorträge des 3. HPI Schul-Cloud-Forums (März 2019)"
 		},
 		"text": {
 			"browserNotSupported": "Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen:",
+			"moreInfo": "Mehr Informationen:",
 			"startA2019": "(Start August 2019)",
 			"startF2019": "(Start Februar 2019)",
 			"startM2017": "(Start März 2017)",
-			"startM2018": "(Start Mai 2018)",
-			"moreInfo": "MISSMehr Informationen:"
+			"startM2018": "(Start Mai 2018)"
 		}
 	},
 	"account": {
@@ -49,25 +48,20 @@
 		"global": {
 			"label": {
 				"currentPassword": "Aktuelles Passwort:",
+				"emailAddress": "E-Mail-Adresse:",
+				"firstName": "Vorname:",
+				"lastName": "Nachname:",
+				"name": "Name",
 				"newPassword": "Neues Passwort:",
 				"operatingSystem": "Betriebssystem",
 				"repeatNewPassword": "Neues Passwort wiederholen:",
-				"emailAddress": "MISSE-Mail-Adresse:",
-				"firstName": "MISSVorname:",
-				"lastName": "MISSNachname:",
-				"name": "MISSName",
-				"thirdPartyLogins": "MISSDrittanbieter-Logins",
-				"type": "MISSTyp"
-			},
-			"text": {
-				"name": "Name",
-				"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
-				"thirdPartyLogins": "Drittanbieter-Logins"
+				"thirdPartyLogins": "Drittanbieter-Logins",
+				"type": "Typ"
 			}
 		},
 		"headline": {
-			"yourAccount": "Dein Account",
-			"doYouWantToDeleteDevice": "MISSBist du dir sicher, dass du {{device}} löschen möchtest?"
+			"doYouWantToDeleteDevice": "Bist du dir sicher, dass du {{device}} löschen möchtest?",
+			"yourAccount": "Dein Account"
 		},
 		"label": {
 			"notificationsettings": "Benachrichtigungseinstellungen",
@@ -88,9 +82,8 @@
 			},
 			"text": {
 				"hint": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
-				"teamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
-				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen",
-				"teamInvitationsdisabled": "MISSSichtbarkeit für Teameinladungen ist deaktiviert"
+				"teamInvitationsdisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
+				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
 			}
 		},
 		"testNotification": {
@@ -104,18 +97,18 @@
 		"text": {
 			"centralIdentityManagement": "Deine Nutzerdaten werden von einem zentralen Identitätsmanagement (IDM) synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver), das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Administrator deiner Schule, um Änderungen an deinen Nutzerdaten vorzunehmen.",
 			"noDeviceEntered": "Keine Geräte eingetragen",
+			"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
+			"passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
 			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!",
 			"preferencesUpdates": "Präferenzen wurden aktualisiert!",
-			"noThirdPartyProvidersUsed": "MISSKeine Drittanbieter genutzt",
-			"passwordsDoNotMatch": "MISSPasswörter stimmen nicht überein.",
-			"visibilityForTeamInvitation": "MISSSichtbarkeit für Teameinladungen"
+			"visibilityForTeamInvitation": "Sichtbarkeit für Teameinladungen"
 		},
 		"thirdPartyProviders": {
 			"headline": {
 				"thirdPartyProviderLogin": "Drittanbieter-Logins"
 			},
 			"text": {
-				"noThirdPartyProvidersUsed": "MISSKeine Drittanbieter genutzt"
+				"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt"
 			}
 		}
 	},
@@ -133,68 +126,68 @@
 			"changePassword": "Passwort ändern",
 			"consent": "Einwilligungen:",
 			"deleteUser": "Benutzer löschen",
+			"edit": "Bearbeiten",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
-			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden",
-			"edit": "MISSBearbeiten"
+			"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
 		},
 		"classes": {
+			"button": {
+				"addClass": "Klasse hinzufügen",
+				"addStudentsFromPreviousYearClass": "Schüler aus Vorjahresklasse hinzufügen",
+				"classInSchoolYear": "Klasse in Schuljahr <span data-from=\"schoolyear\"></span> versetzen",
+				"copyLink": "Link kopieren",
+				"declareConsentOnBehalfOfTheStudents": "Einverständnis im Namen der Schüler erklären",
+				"printLinkWithQRCode": "Link mit QR-Code Drucken",
+				"transfer": "versetzen",
+				"transferClassToTheNextSchoolYear": "Klasse ins nächste Schuljahr versetzen"
+			},
 			"headline": {
 				"importClass": "Klasse importieren"
 			},
 			"label": {
+				"addStudentFromPreviousYearClass": "Schüler:in aus Vorjahresklasse hinzufügen",
 				"class": "Klasse:",
-				"addStudentFromPreviousYearClass": "MISSSchüler:in aus Vorjahresklasse hinzufügen",
-				"className": "MISSKlassenbezeichnung",
-				"filterBySchoolYear": "MISSNach Schuljahr filtern",
-				"grade": "MISSJahrgangsstufe",
-				"invitationLink": "MISSEinladungslink",
-				"mantainSchoolYearAssignment": "MISSSchuljahreszuordnung beibehalten",
-				"moreOption": "MISSMehr Optionen",
-				"pleaseNote": "MISSBitte beachte:",
-				"renameClass": "MISSKlasse umbenennen",
-				"selectElement": "MISSkeine Auswahl",
-				"selectTeacher": "MISSLehrer auswählen (auch später möglich)",
-				"termOfUse": "MISSNutzungsordnung",
-				"youCanConsentToThisOnBehalfOfYourStudent": "MISSDu kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur",
-				"yourStudentsAreNotYetInThe": "MISSDeine Schüler:innen sind noch nicht in der"
-			},
-			"text": {
-				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
-				"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden",
-				"andTo": "MISSund zur",
-				"attentionIfYouChangeTheSchoolYear": "MISSAchtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.",
-				"butMustBeUpdatedManually": "MISS werden, sondern müssen manuell aktualisiert werden.",
-				"byClickingOn": "MISSDurch den Klick auf",
-				"className": "MISSKlassenname:",
-				"consentConfirmation": "MISSbestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
-				"createClass": "MISSDu kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Administrator <i>versetzt</i> werden, sondern müssen manuell aktualisiert werden.",
-				"ifAllStudentsAndParentshaveGiven": "MISSWenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
-				"inviteTheParentsViaLink": "MISS Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
-				"manageClass": "MISSKlasse verwalten",
-				"manuallyGiveConsentForAllStudent": "MISSEinverständnis manuell für alle Schüler:innen erklären",
-				"nextPageYouWillReceiveConfirmation": "MISSAuf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler:innen auszudrucken.",
-				"noLackOfInformedConsent": "MISSIn dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
-				"ofThe": "MISSder",
-				"required": "MISSerforderlich",
-				"signAgreement": "MISSDu kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Datenschutzerklärung</a> und zur <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Nutzungsordnung</a> der {{shortTitle}} erklären. <br>Durch den Klick auf <i>Einverständnis im Namen der Schüler erklären</i> bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
-				"theNextStepIstoInviteOrAdd": "MISSIm nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
-				"toExplain": "MISSder {{shortTitle}} erklären.",
-				"transferred": "MISSversetzt"
-			},
-			"button": {
-				"addClass": "MISSKlasse hinzufügen",
-				"addStudentsFromPreviousYearClass": "MISSSchüler aus Vorjahresklasse hinzufügen",
-				"classInSchoolYear": "MISSKlasse in Schuljahr <span data-from=\"schoolyear\"></span> versetzen",
-				"copyLink": "MISSLink kopieren",
-				"declareConsentOnBehalfOfTheStudents": "MISSEinverständnis im Namen der Schüler erklären",
-				"printLinkWithQRCode": "MISSLink mit QR-Code Drucken",
-				"transfer": "MISSversetzen",
-				"transferClassToTheNextSchoolYear": "MISSKlasse ins nächste Schuljahr versetzen"
+				"className": "Klassenbezeichnung",
+				"filterBySchoolYear": "Nach Schuljahr filtern",
+				"grade": "Jahrgangsstufe",
+				"invitationLink": "Einladungslink",
+				"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
+				"moreOption": "Mehr Optionen",
+				"pleaseNote": "Bitte beachte:",
+				"renameClass": "Klasse umbenennen",
+				"selectElement": "keine Auswahl",
+				"selectTeacher": "Lehrer auswählen (auch später möglich)",
+				"termOfUse": "Nutzungsordnung",
+				"youCanConsentToThisOnBehalfOfYourStudent": "Du kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur",
+				"yourStudentsAreNotYetInThe": "Deine Schüler:innen sind noch nicht in der"
 			},
 			"placeholder": {
-				"example": "MISSz.B. Froschklasse 3-4"
+				"example": "z.B. Froschklasse 3-4"
+			},
+			"text": {
+				"andTo": "und zur",
+				"attentionIfYouChangeTheSchoolYear": "Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.",
+				"butMustBeUpdatedManually": " werden, sondern müssen manuell aktualisiert werden.",
+				"byClickingOn": "Durch den Klick auf",
+				"className": "Klassenname:",
+				"consentConfirmation": "bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
+				"createClass": "Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Administrator <i>versetzt</i> werden, sondern müssen manuell aktualisiert werden.",
+				"ifAllStudentsAndParentshaveGiven": "Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
+				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
+				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
+				"manageClass": "Klasse verwalten",
+				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler:innen erklären",
+				"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler:innen auszudrucken.",
+				"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden",
+				"noLackOfInformedConsent": "In dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
+				"ofThe": "der",
+				"required": "erforderlich",
+				"signAgreement": "Du kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Datenschutzerklärung</a> und zur <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Nutzungsordnung</a> der {{shortTitle}} erklären. <br>Durch den Klick auf <i>Einverständnis im Namen der Schüler erklären</i> bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
+				"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.",
+				"toExplain": "der {{shortTitle}} erklären.",
+				"transferred": "versetzt"
 			}
 		},
 		"controller": {
@@ -202,23 +195,25 @@
 				"label": {
 					"class": "Klasse",
 					"classUsers": "Nutzer der Klasse",
+					"classes": "Klasse(n)",
 					"consentStatus": "Registrierung",
+					"createdAt": "Erstelldatum",
 					"createdOn": "Erstellt am",
 					"email": "E-Mail-Adresse",
+					"firstName": "Vorname",
+					"lastName": "Nachname",
 					"schoolYear": "Schuljahr",
 					"student": "Schüler",
-					"teacher": "Lehrer",
-					"classes": "MISSKlasse(n)",
-					"createdAt": "MISSErstelldatum",
-					"firstName": "MISSVorname",
-					"lastName": "MISSNachname"
+					"teacher": "Lehrer"
 				}
 			},
 			"headline": {
+				"actions": "Aktionen",
 				"administration": "Administration: ",
 				"alias": "Alias",
 				"attendees": "Teilnehmer",
 				"briefDescription": "Kurzbeschreibung",
+				"class": "Klasse(n)",
 				"classes": "{{title}}Klassen",
 				"courses": "{{title}}Kurse",
 				"createdOn": "Erstellt am",
@@ -227,6 +222,7 @@
 				"description": "Beschreibung",
 				"domain": "Domain",
 				"editClass": "Klasse '{{name}}' bearbeiten",
+				"entriesPerPage": "Einträge pro Seite",
 				"externalExpert": "Externer Experte",
 				"general": "{{title}}Allgemein",
 				"helpdesk": "{{title}}Helpdesk",
@@ -234,26 +230,23 @@
 				"manageClass": "Klasse '{{name}}' verwalten",
 				"management": "Verwaltung: ",
 				"members": "Mitglieder",
+				"name": "Name",
 				"owner": "Eigentümer",
 				"remarks": "Anmerkungen",
 				"school": "{{title}}Schule",
 				"schoolYear": "Schuljahr",
-				"schools": "Schule(n)",
+				"schools": "'Schule(n)'",
+				"sorting": "Sortierung",
 				"status": "Status",
 				"students": "{{title}}Schüler",
 				"targetState": "Soll-Zustand",
 				"teacher": "{{title}}Lehrer",
 				"teachers": "Lehrer",
 				"teams": "{{title}}Teams",
+				"title": "Titel",
+				"type": "Typ",
 				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
-				"uploadedOn": "Hochgeladen am",
-				"actions": "MISSAktionen",
-				"class": "MISSKlasse(n)",
-				"entriesPerPage": "MISSEinträge pro Seite",
-				"name": "MISSName",
-				"sorting": "MISSSortierung",
-				"title": "MISSTitel",
-				"type": "MISSTyp"
+				"uploadedOn": "Hochgeladen am"
 			},
 			"label": {
 				"domainname": "Domainname",
@@ -273,6 +266,7 @@
 				"createANewClass": "Erstelle eine neue Klasse",
 				"deleteClass": "Klasse löschen",
 				"deleteEntry": "Eintrag löschen",
+				"deleteTeam": "Team löschen",
 				"editClass": "Klasse bearbeiten",
 				"editEntry": "Eintrag bearbeiten",
 				"editLDAP": "LDAP bearbeiten",
@@ -286,8 +280,7 @@
 				"sendEntryToDevelopmentTeam": "Eintrag an Entwicklerteam senden",
 				"sendMessageToOwner": "Nachricht an Eigentümer senden",
 				"toGiveConsent": "Einverständnis erklären",
-				"transferClassToTheNextSchoolYear": "Klasse in das nächste Schuljahr versetzen",
-				"deleteTeam": "MISSTeam löschen"
+				"transferClassToTheNextSchoolYear": "Klasse in das nächste Schuljahr versetzen"
 			},
 			"text": {
 				"active": "Aktiv",
@@ -302,6 +295,7 @@
 				"declarationOfConsentAvailable": "Zur Registrierung benötigte Einverständniserklärungen vorhanden",
 				"emailDeclarationOfConsent": "Hallo {{name}},\nLeider fehlt uns von dir noch die Einverständniserklärung.\nOhne diese kannst du die HPI Schul-Cloud leider nicht nutzen.\n\nMelde dich bitte mit deinen Daten an,\num die Einverständniserklärung zu akzeptieren um die HPI Schul-Cloud im vollen Umfang nutzen zu können.\n\nGehe jetzt auf {{link}}, und melde dich an.",
 				"emailDeclarationOfConsentSubject": "Der letzte Schritt zur Aktivierung für die {{title}}",
+				"entriesPerPage": "Einträge pro Seite: %1",
 				"errorCreatingRegistrationLink": "Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben {{errMessage}}.",
 				"errorImportingUsers": "Fehler: {{errorMessage}}",
 				"failedToCreateUser": "Fehler beim Erstellen des Nutzers. {{error}}",
@@ -320,6 +314,7 @@
 				"retrieveFailed": "Fehler beim Abrufen",
 				"schoolYearPercentage": "Schuljahr: %1",
 				"setupFailed": "Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ",
+				"sortBy": "Sortieren nach: %1",
 				"stillLackOfDeclaration": "Hallo {{name}} Leider fehlt uns von dir noch die Einverständniserklärung. Ohne diese kannst du die Schul-Cloud leider nicht nutzen. Melde dich bitte mit deinen Daten an, um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können. Gehe jetzt auf {{shortLink}} {{shortLink}} und melde dich an.",
 				"submitted": "Gesendet",
 				"successfullyImportedUser": "{{amountImported}} von {{amountTotal}} Nutzer erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
@@ -332,486 +327,484 @@
 				"userCreatedSuccessfullyAndRegistration": "Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.",
 				"whenLoggingInForTheFirstTime": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben.",
 				"yourStudentsAreAtLeast": "Deine Schüler sind mindestens {{age}} Jahre alt?",
-				"yourStudentsAreUnder": "Deine Schüler sind unter {{age}} Jahre alt?",
-				"entriesPerPage": "MISSEinträge pro Seite: %1",
-				"sortBy": "MISSSortieren nach: %1"
+				"yourStudentsAreUnder": "Deine Schüler sind unter {{age}} Jahre alt?"
+			}
+		},
+		"dashboard": {
+			"heading": {
+				"manageClasses": "Klassen verwalten",
+				"manageCourses": "Kurse verwalten",
+				"manageSchool": "Schule verwalten",
+				"manageStudents": "Schüler:innen verwalten",
+				"manageTeachers": "Lehrer:innen verwalten",
+				"manageTeams": "Teams verwalten"
+			},
+			"help": {
+				"contact": "Kontakt",
+				"helpArticle": "Hilfeartikel",
+				"training": "Fortbildungen"
+			}
+		},
+		"form_DeleteRss": {
+			"text": {
+				"areYouSureYouWantToDeleteTheFollowingRSS": "Sind Sie sich sicher, dass Sie folgenden RSS-Feed löschen wollen?"
+			}
+		},
+		"form_DeleteUser": {
+			"text": {
+				"areYouSureYouWantTheFollowingUser": "Sind Sie sich sicher, dass Sie folgenden Nutzer wollen?"
+			}
+		},
+		"form_Import": {
+			"label": {
+				"selectCSVFile": "CSV-Datei auswählen",
+				"sendRegistrationLinkToUsers": "Registrierungslinks sofort nach Import an Nutzer senden"
+			},
+			"text": {
+				"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
+				"attention": "⚠️ ACHTUNG: Beim Import großer Datensätze kommt es derzeit kurz nach dem Start zu einer Fehlermeldung. Im\n        Hintergrund läuft der Importprozess trotzdem unsichtbar weiter. Zeitdauer: circa 4 Minuten pro 1000\n        Nutzer:innen. Bitte warte die entsprechende Zeit ab und aktualisiere dann dein Browserfenster, um die\n        aktualisierte Schüler:innen-Übersicht überprüfen zu können.",
+				"importUserData": "Importiere Nutzerdaten per .csv-Datei (<a href=\"#\" id=\"csv-import-example\">Beispiel</a>) und lass deinen Nutzern einen Registrierungslink zukommen.",
+				"youCanFindMoreInformationOnTheStructure": "Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du <a href=\"https://docs.schul-cloud.org/x/NYBgAw\" target=\"_blank\">hier</a>."
+			}
+		},
+		"form_InvitationStudent": {
+			"text": {
+				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der HPI Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
+				"studentUnderYears": "<b>Schüler unter {{age}} Jahre: </b> die Eltern <br/> <b>Schüler ab {{age}} Jahre: </b> an die Schüler selbst <br/>"
+			}
+		},
+		"form_InvitationTeacher": {
+			"label": {
+				"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:"
+			},
+			"text": {
+				"beforeUsingThe": "Bevor die Nutzung der {{title}} möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben."
+			}
+		},
+		"form_Problem": {
+			"label": {
+				"createdOn": "Erstellt am:",
+				"itsOn": "Ist-Zustand",
+				"remarks": "Anmerkungen",
+				"targetState": "Soll-Zustand",
+				"title": "Titel"
+			}
+		},
+		"form_Rss": {
+			"label": {
+				"briefdescription": "Kurzbeschreibung (optional)",
+				"urlOfTheRSSSystem": "URL des RSS-Feeds"
+			}
+		},
+		"form_System": {
+			"label": {
+				"clientSecret": "Client-Geheimnis",
+				"furtherInformation": "Weitere Informationen (OAuth)",
+				"systemName": "Name des Systems",
+				"systemType": "Typ des Systems",
+				"urlOfTheSystem": "Url des Systems"
+			}
+		},
+		"form_TerminateSchoolYear": {
+			"text": {
+				"theSchoolYear": "Das Schuljahr {{currentYear}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.</strong> Es können in dieser Zeit keine Klassen und Nutzer angelegt oder geändert werden.</p>\n<p>The synchronization of LDAP master data"
 			}
 		},
 		"global": {
 			"button": {
+				"addCourse": " Kurs hinzufügen",
+				"addNewAppoinment": "Neuen Termin hinzufügen",
+				"bug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}?\n                    Sende Wünsche oder Probleme direkt an den {{short_title}}-Nutzer-Support.",
+				"contactSupport": "Support kontaktieren",
+				"createLinkSheet": "Link-Druckbogen erstellen",
+				"edit": "Bearbeiten",
+				"filterAdd": "Filter hinzufügen",
+				"filterApply": "Übernehmen",
 				"mailsAreBeingSent": "E-Mails werden gesendet...",
+				"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden",
 				"printSheetIsBeingGenerated": "Druckbogen wird generiert...",
-				"addCourse": "MISS Kurs hinzufügen",
-				"addNewAppoinment": "MISSNeuen Termin hinzufügen",
-				"bug": "MISSDu möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}?\n                    Sende Wünsche oder Probleme direkt an den {{short_title}}-Nutzer-Support.",
-				"contactSupport": "MISSSupport kontaktieren",
-				"createLinkSheet": "MISSLink-Druckbogen erstellen",
-				"edit": "MISSBearbeiten",
-				"filterAdd": "MISSFilter hinzufügen",
-				"filterApply": "MISSÜbernehmen",
-				"noClassesInYear": "MISSKeine Klassen in diesem Jahrgang vorhanden",
-				"sendLinksToStudentEmailAddresses": "MISSLinks an Schüler E-Mail Adressen senden"
-			},
-			"text": {
-				"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
-				"errorSendingMails": "Fehler beim Senden der Erinnerungs-E-Mails",
-				"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
-				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet",
-				"areYouSureYouWantToDeleteTheFollowingItem": "MISSSind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
-				"byConnectingToASchoolState": "MISSDurch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{shortTitle}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
-				"chatIsActivated": "MISSChat ist aktiviert",
-				"dataProtection": "MISSDatenschutzerklärung",
-				"forStudentsUnder": "MISSFür Schüler unter {{minAge}} Jahren: Einverständnis der Eltern",
-				"inviteparentsAndStudentViaLink": "MISSLade Eltern und Schüler:innen per Link ein, die Einverständniserklärung abzugeben",
-				"manuallyConsent": "MISSEinverständnis manuell erklären",
-				"obtainADeclarationConsent": "MISSEinverständniserklärung einholen",
-				"orSelectStudentFromTable": "MISSOder wähle Schüler:innen in der Tabelle aus.",
-				"provideYourStudentsAnd": "MISSLass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.",
-				"studentsLoginInThePresenceOfGuardian": "MISSSchüler:innen loggen sich in Anwesenheit eines Erziehungberechtigten ein"
+				"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden"
 			},
 			"helpdesk": {
 				"label": {
-					"tips": "MISS<b>Tipp: </b>Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol \n <i class=\"fa fa-paper-plane\"></i> an den Nutzer-Support weiterleiten."
+					"tips": "<b>Tipp: </b>Du kannst auch offene Einträge aus dem dem Helpdesk über das Symbol \n <i class=\"fa fa-paper-plane\"></i> an den Nutzer-Support weiterleiten."
 				}
 			},
 			"label": {
-				"afterSavingAllStudentsAdded": "MISS(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
-				"assignPassword": "MISSPasswort vergeben:",
-				"birthdate": "MISSGeburtsdatum:",
-				"chooseDate": "MISSTermine auswählen",
-				"chooseSchoolYear": "MISSSchuljahr auswählen",
-				"classes": "MISSKlassen:",
-				"colorOfTheCourse": "MISSFarbe des Kurses:",
-				"dataProtection": "MISSDatenschutz",
-				"dateOfBirth": "MISSGeburtsdatum (optional):",
-				"emailAddress": "MISSE-Mail-Adresse:",
-				"firstName": "MISSVorname:",
-				"from": "MISSVon",
-				"lastName": "MISSNachname:",
-				"lengthOfLesson": "MISSDauer der Schulstunde",
-				"messageText": "MISSNachrichtentext:",
-				"nameOfTheCourse": "MISSName des Kurses",
-				"parents": "MISSEltern",
-				"password": "MISSPasswort:",
-				"room": "MISSRaum",
-				"schoolYear": "MISSSchuljahr",
-				"startOfLesson": "MISSStart der Schulstunde",
-				"student": "MISSSchüler:in",
-				"studentParticipants": "MISSSchüler / Teilnehmer",
-				"substituteTeacher": "MISSVertretungslehrer:in",
-				"teacher": "MISSLehrer:in",
-				"teachingTeacher": "MISSUnterrichtenderlehrer:in",
-				"termsOfUse": "MISSNutzungsbedingungen",
-				"timeSpan": "MISSZeitraum (z.B. Schuljahr)",
-				"to": "MISSBis",
-				"toInviteToTheSchoolCloud": "MISSUm in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:",
-				"type": "MISSTyp",
-				"use": "MISSNutzung",
-				"weekday": "MISSWochentag"
+				"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
+				"assignPassword": "Passwort vergeben:",
+				"birthdate": "Geburtsdatum:",
+				"chooseDate": "Termine auswählen",
+				"chooseSchoolYear": "Schuljahr auswählen",
+				"classes": "Klassen:",
+				"colorOfTheCourse": "Farbe des Kurses:",
+				"dataProtection": "Datenschutz",
+				"dateOfBirth": "Geburtsdatum (optional):",
+				"emailAddress": "E-Mail-Adresse:",
+				"firstName": "Vorname:",
+				"from": "Von",
+				"lastName": "Nachname:",
+				"lengthOfLesson": "Dauer der Schulstunde",
+				"messageText": "Nachrichtentext:",
+				"nameOfTheCourse": "Name des Kurses",
+				"parents": "Eltern",
+				"password": "Passwort:",
+				"room": "Raum",
+				"schoolYear": "Schuljahr",
+				"startOfLesson": "Start der Schulstunde",
+				"student": "Schüler:in",
+				"studentParticipants": "Schüler / Teilnehmer",
+				"substituteTeacher": "Vertretungslehrer:in",
+				"teacher": "Lehrer:in",
+				"teachingTeacher": "Unterrichtenderlehrer:in",
+				"termsOfUse": "Nutzungsbedingungen",
+				"timeSpan": "Zeitraum (z.B. Schuljahr)",
+				"to": "Bis",
+				"toInviteToTheSchoolCloud": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:",
+				"type": "Typ",
+				"use": "Nutzung",
+				"weekday": "Wochentag"
 			},
 			"placeholder": {
-				"filterBySchoolYear": "MISSNach Schuljahr filtern",
-				"modelMan": "MISSMustermann",
-				"selectClasses": "MISSKlasse(n) auswählen",
-				"selectGrade": "MISSJahrgangsstufe wählen",
-				"selectOldClasses": "MISSAlte Klasse(n) auswählen",
-				"selectStudent": "MISSSchüler auswählen"
+				"filterBySchoolYear": "Nach Schuljahr filtern",
+				"modelMan": "Mustermann",
+				"selectClasses": "Klasse(n) auswählen",
+				"selectGrade": "Jahrgangsstufe wählen",
+				"selectOldClasses": "Alte Klasse(n) auswählen",
+				"selectStudent": "Schüler auswählen"
+			},
+			"text": {
+				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
+				"byConnectingToASchoolState": "Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{shortTitle}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
+				"chatIsActivated": "Chat ist aktiviert",
+				"dataProtection": "Datenschutzerklärung",
+				"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
+				"errorSendingMails": "Fehler beim Senden der Erinnerungs-E-Mails",
+				"forStudentsUnder": "Für Schüler unter {{minAge}} Jahren: Einverständnis der Eltern",
+				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler:innen per Link ein, die Einverständniserklärung abzugeben",
+				"manuallyConsent": "Einverständnis manuell erklären",
+				"obtainADeclarationConsent": "Einverständniserklärung einholen",
+				"orSelectStudentFromTable": "Oder wähle Schüler:innen in der Tabelle aus.",
+				"provideYourStudentsAnd": "Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.",
+				"studentsLoginInThePresenceOfGuardian": "Schüler:innen loggen sich in Anwesenheit eines Erziehungberechtigten ein",
+				"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
+				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet"
 			}
 		},
 		"label": {
 			"assignPassword": "Passwort vergeben:",
+			"birthdate": "Geburtsdatum:",
 			"classes": "Klassen:",
 			"dataProtection": "Datenschutz",
+			"emailAddress": "E-Mail-Adresse:",
+			"firstName": "Vorname:",
+			"lastName": "Nachname:",
 			"parents": "Eltern",
 			"student": "Schüler:in",
-			"termsOfUse": "Nutzung",
-			"birthdate": "MISSGeburtsdatum:",
-			"emailAddress": "MISSE-Mail-Adresse:",
-			"firstName": "MISSVorname:",
-			"lastName": "MISSNachname:"
+			"termsOfUse": "Nutzung"
 		},
 		"ldapEdit": {
+			"button": {
+				"verify": "Verifizieren"
+			},
+			"heading": {
+				"classAttributes": "Klassen-Attribute",
+				"classAttributesTitle": "Geben Sie das Klassenattribut an, in dem die folgenden Informationen in Ihrem LDAP verfügbar sind",
+				"importantNote": "Wichtiger Hinweis",
+				"roleAttributes": "Rollen-Attribute",
+				"roleAttributesTitle": "Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
+				"userAttributes": "Nutzer-Attribute",
+				"userAttributesTitle": "Geben Sie das Nutzerattribut an, in dem die folgenden Informationen in Ihrem LDAP verfügbar sind"
+			},
+			"input": {
+				"classes": "Klassen (optional)"
+			},
 			"label": {
+				"classPath": "Klassen-Pfad",
+				"classPathTitle": "Relativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Klassen erreichbar sind",
+				"classUsers": "Nutzer der Klasse",
+				"displayName": "Anzeige-Name",
+				"domainName": "Domain-Name",
+				"domainName_pathInLDAP": "Domainname (Pfad im LDAP)",
+				"fullPathClassUsers": "Nutzer der Klasse mit vollem Pfad",
 				"hide": "Ausblenden",
+				"noSchoolCloud": "keine HPI Schul-Cloud",
+				"noSchoolCloudTitle": "Dies ermöglicht es Ihnen, dass Nutzer aus Ihrem LDAP nicht in die HPI Schul-Cloud übertragen werden",
+				"role": "Rolle",
+				"roleType": "Rollen-Typ",
+				"roleTypeTitle": "Ist die Nutzerrolle (Lehrer, Schüler) im Nutzerattribut textuell gespeichert oder gibt es eine LDAP-Gruppe für die jeweiligen Nutzerrolle?",
+				"roles": "Rolle(n)",
 				"rolesAttributes": "Rollen-Attribute",
 				"rolesAttributesDescription": "Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
 				"rolesLDAPPaths": "Rollen-LDAP-Pfade",
 				"rolesLDAPPathsDescription": "Welche LDAP-Gruppe definiert die genannten Rolle? Geben Sie den vollen Pfad (inkl. root-Pfad) an",
+				"rootPath": "root-Pfad",
+				"rootPathTitle": "Hauptpfad, des LDAPs. Normalerweise DC=Domain,DC=Top-Level-Domain",
+				"seacrhUserpassword": "search-Nutzer Passwort",
+				"searchUsers": "search-Nutzer",
+				"searchUsersTitle": "Voller Benutzername (inkl. root-Pfad) des Nutzers der Zugriff auf alle Nutzerinformationen hat",
 				"show": "Einblenden",
-				"classPath": "MISSKlassen-Pfad",
-				"classPathTitle": "MISSRelativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Klassen erreichbar sind",
-				"classUsers": "MISSNutzer der Klasse",
-				"displayName": "MISSAnzeige-Name",
-				"domainName": "MISSDomain-Name",
-				"domainName_pathInLDAP": "MISSDomainname (Pfad im LDAP)",
-				"fullPathClassUsers": "MISSNutzer der Klasse mit vollem Pfad",
-				"noSchoolCloud": "MISSkeine HPI Schul-Cloud",
-				"noSchoolCloudTitle": "MISSDies ermöglicht es Ihnen, dass Nutzer aus Ihrem LDAP nicht in die HPI Schul-Cloud übertragen werden",
-				"role": "MISSRolle",
-				"roleType": "MISSRollen-Typ",
-				"roleTypeTitle": "MISSIst die Nutzerrolle (Lehrer, Schüler) im Nutzerattribut textuell gespeichert oder gibt es eine LDAP-Gruppe für die jeweiligen Nutzerrolle?",
-				"roles": "MISSRolle(n)",
-				"rootPath": "MISSroot-Pfad",
-				"rootPathTitle": "MISSHauptpfad, des LDAPs. Normalerweise DC=Domain,DC=Top-Level-Domain",
-				"seacrhUserpassword": "MISSsearch-Nutzer Passwort",
-				"searchUsers": "MISSsearch-Nutzer",
-				"searchUsersTitle": "MISSVoller Benutzername (inkl. root-Pfad) des Nutzers der Zugriff auf alle Nutzerinformationen hat",
-				"uidTitle": "MISSDer spätere Loginname. Muss in ihrem LDAP zur selben Zeit nur einmal vorkommen",
-				"urlIdapIsMandatory": "MISSURL (ldaps ist verpflichtend)",
-				"userPath": "MISSNutzer-Pfad",
-				"userPathTitle": "MISSRelativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Nutzer erreichbar sind. Mit der Trennung durch zwei Semikolons (;;) können auch mehrer relative Pfade zu LDAP-Nutzern angegeben werden.",
-				"users": "MISSNutzer:",
-				"uuidTitle": "MISSEindeutige nicht veränderbare Nutzer-ID. Darf sich nicht wie die uid (z.B. durch Heirat) ändern"
+				"uidTitle": "Der spätere Loginname. Muss in ihrem LDAP zur selben Zeit nur einmal vorkommen",
+				"urlIdapIsMandatory": "URL (ldaps ist verpflichtend)",
+				"userPath": "Nutzer-Pfad",
+				"userPathTitle": "Relativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Nutzer erreichbar sind. Mit der Trennung durch zwei Semikolons (;;) können auch mehrer relative Pfade zu LDAP-Nutzern angegeben werden.",
+				"users": "Nutzer:",
+				"uuidTitle": "Eindeutige nicht veränderbare Nutzer-ID. Darf sich nicht wie die uid (z.B. durch Heirat) ändern"
+			},
+			"placeholder": {
+				"LDAPGroup": "LDAP-Gruppe",
+				"general": "Allgemein",
+				"roleTypePlaceholder": "LDAP-Typ auswählen",
+				"userAttribute": "Nutzer-Attribut"
 			},
 			"text": {
+				"anyChangesToTheFollowingConfigurationCanResult": "Jegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und alle Nutzer Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die Änderungen final zu speichern, wenn die Verifizierung erfolgreich war.",
 				"errorActivation": "Problem bei der Aktivierung",
 				"errorLDAPTimeout": "LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.",
 				"errorTimeout": "Zeitüberschreitung der Anwendung",
+				"furtherInfoHere": "Weitere Informationen zur LDAP-Konfiguration finden Sie in unserem <a href=\"/help/confluence/55902270\">Hilfebereich</a>.",
 				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!",
-				"anyChangesToTheFollowingConfigurationCanResult": "MISSJegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und alle Nutzer Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die Änderungen final zu speichern, wenn die Verifizierung erfolgreich war.",
-				"furtherInfoHere": "MISSWeitere Informationen zur LDAP-Konfiguration finden Sie in unserem <a href=\"/help/confluence/55902270\">Hilfebereich</a>.",
-				"verification": "MISSNach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene\n                Inhalte werden nicht übernommen, da bei dem Nutzer der Vorname, der Nachname und/oder die E-Mail-Adresse\n                nicht im LDAP verfügbar ist."
-			},
+				"verification": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene\n                Inhalte werden nicht übernommen, da bei dem Nutzer der Vorname, der Nachname und/oder die E-Mail-Adresse\n                nicht im LDAP verfügbar ist."
+			}
+		},
+		"ldapSchoolYearStart": {
 			"button": {
-				"verify": "MISSVerifizieren"
+				"closeTheWindow": "Fenster schließen"
 			},
 			"heading": {
-				"classAttributes": "MISSKlassen-Attribute",
-				"classAttributesTitle": "MISSGeben Sie das Klassenattribut an, in dem die folgenden Informationen in Ihrem LDAP verfügbar sind",
-				"importantNote": "MISSWichtiger Hinweis",
-				"roleAttributes": "MISSRollen-Attribute",
-				"roleAttributesTitle": "MISSWelcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
-				"userAttributes": "MISSNutzer-Attribute",
-				"userAttributesTitle": "MISSGeben Sie das Nutzerattribut an, in dem die folgenden Informationen in Ihrem LDAP verfügbar sind"
+				"LDAPClasses": "LDAP-Klassen",
+				"LDAPUsers": "LDAP-Nutzer",
+				"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
 			},
-			"input": {
-				"classes": "MISSKlassen (optional)"
-			},
-			"placeholder": {
-				"LDAPGroup": "MISSLDAP-Gruppe",
-				"general": "MISSAllgemein",
-				"roleTypePlaceholder": "MISSLDAP-Typ auswählen",
-				"userAttribute": "MISSNutzer-Attribut"
+			"text": {
+				"onThisPageYouWillFindTheData": "Auf dieser Seite findest du die Daten aller Klassen und Nutzer, so wie sie die {{shortTitle}} aus deinem LDAP übernehmen wird. Bitte überprüfe vor Übernahme der Daten durch Beenden der Transferphase diese Daten stichprobenartig auf ihre Richtigkeit."
 			}
 		},
 		"school": {
+			"button": {
+				"addLDAPSystem": "LDAP System hinzufügen",
+				"addRSSFeed": "RSS-Feed hinzufügen",
+				"addSystem": "System hinzufügen",
+				"checkLDAPData": "LDAP-Daten überprüfen",
+				"chooseAFile": "Datei auswählen",
+				"endSchoolYear": "Schuljahr beenden",
+				"endTransferPhase": "Transferphase beenden",
+				"save": "Speichern",
+				"start": "starten",
+				"startTransferPhase" : "Transferphase starten",
+				"yes": "Ja"
+			},
 			"headline": {
 				"add": "Hinzufügen",
 				"addPolicy": "Datenschutzerklärung hinzufügen",
 				"finishSchoolYear": "Das Schuljahr wirklich beenden?"
 			},
-			"text": {
-				"fileSelected": "Datei ausgewählt",
-				"LDAPChanges": "MISSdu kannst die notwendigen Änderungen für das neue Schuljahr im\nLDAP vornehmen (neue Nutzer, Update der Klassen)",
-				"allAboutTheSummerVacation": "MISSRund um die Sommerferien",
-				"allDataFromTheLDAP": "MISSalle Daten aus dem LDAP werden wie gewohnt synchronisiert, neue Nutzer und Klassen können jederzeit dort angelegt werden",
-				"allDone": "MISSAlles erledigt!",
-				"atTheEndOfTheSchoolYearWithLDAP": "MISSZum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
-				"atTheEndOfTheTransferPhase": "MISSbei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag synchronisiert",
-				"atTheSameTime": "MISSgleichzeitig läutest Du damit das neue Schuljahr in der HPI Schul-Cloud ein",
-				"backgroundSoThatEveryStudentAndTeacher": "MISSHintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen(z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
-				"chatRoomPermissions": "MISSDer Ankündigungs-Chatraum ermöglicht Schul-Administrator:innen, Nachrichten an die gesamte Schule zu senden.\nSchüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.",
-				"coursesWithLearningContent": "MISSKurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
-				"doNotEndTheTransferPhase": "MISSbeende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
-				"iAmAuthorizedAdmin": "MISSMit allen Änderungen und Einstellungen im Verwaltungsbereich bestätigen Sie, dass Sie weisungsberechtigter Schul-Administrator sind und befugt sind, Anpassungen an der Schule in der HPI Schul-Cloud vorzunehmen. Ihr Klick gilt insofern als Weisung der Schule gegenüber dem HPI.",
-				"ifChatsAreActivatedAtYourSchool": "MISSSind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.",
-				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "MISSSind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team die Chatfunktion gezielt freischalten.",
-				"ifThereIsNoManualStart": "MISSist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch",
-				"ifVideoConferenceAreActivatedAtYourSchool": "MISSSind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer starten. Team-Administratoren können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
-				"loginViaLDAP": "MISSder Login via LDAP ist für bestehende Nutzer weiterhin möglich",
-				"newSchoolYear": "MISSNeues Schuljahr",
-				"newUsersClassAffiliationsAnd": "MISSneue dazugekommen Nutzer, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden beständig synchronisiert",
-				"newUsersClassesAndChanges": "MISSneu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus dem LDAP synchronisiert",
-				"noFileSelected": "MISSKeine Datei ausgewählt",
-				"noRssFeedsYet": "MISSEs sind noch keine RSS-Feeds hinterlegt.",
-				"oldSchoolYear": "MISSAltes Schuljahr",
-				"passwordChanges": "MISSPasswortänderungen werden weiterhin synchronisiert",
-				"theNewClassesAreSavedInTheContext": "MISSdie neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert",
-				"theNewClassesCanNowBeAssigned": "MISSdie neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden",
-				"theNewSchoolYearStartsInThe": "MISSDas neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
-				"thisOptionIsAvailable": "MISSDiese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
-				"useTheTransferPhaseAroundTheSchoolYear": "MISSNutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.",
-				"youCanStartTheTransferPhase": "MISSab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten",
-				"yourSchoolIsCurrentlyDrawing": "MISSDerzeit bezieht Ihre Schule"
-			},
-			"button": {
-				"addLDAPSystem": "MISSLDAP System hinzufügen",
-				"addRSSFeed": "MISSRSS-Feed hinzufügen",
-				"addSystem": "MISSSystem hinzufügen",
-				"checkLDAPData": "MISSLDAP-Daten überprüfen",
-				"chooseAFile": "MISSDatei auswählen",
-				"endSchoolYear": "MISSSchuljahr beenden",
-				"endTransferPhase": "MISSTransferphase beenden",
-				"save": "MISSSpeichern",
-				"start": "MISSstarten",
-				"startTransferPhase": "MISSTransferphase starten",
-				"yes": "MISSJa"
-			},
 			"label": {
-				"activeChatFunction": "MISSChatfunktion aktivieren",
-				"afterTheTransferPhaseEnded": "MISSNach Beenden der Transferphase",
-				"allStudentsVisibility": "MISSDie Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schülerinnen und Schüler der Schule für jeden Lehrer zu aktivieren, ist es erforderlich, dass jede Schülerin und jeder Schüler wirksam in diese Datenverarbeitung eingewilligt hat.",
-				"authentication": "MISSAuthentifizierung",
-				"changeOfClasses": "MISSÄnderung von Klassen/neue Klassen",
-				"changeOfUserData": "MISSÄnderung von Nutzerdaten/neue Nutzer",
-				"className": "MISSKlassenname:",
-				"cloudStorageProvider": "MISSCloud-Storage Anbieter",
-				"createChatRoom": "MISSChatraum für Ankündigungen an die gesamte Schule anlegen",
-				"currentSchoolYear": "MISSAktuelles Schuljahr:",
-				"dataProtection": "MISSDatenschutzerklärung",
-				"dataProtectionAdd": "MISSDatenschutzerklärung hinzufügen",
-				"duringTheSchoolYear": "MISSWährend des Schuljahres",
-				"duringTheTransferPhase": "MISSWährend der Transferphase",
-				"enableVideoConference": "MISSVideokonferenzen für Kurse und Teams aktivieren",
-				"endOfTheTransferPhase": "MISSBeenden der Transferphase",
-				"fileStorageSpaceUsedInCloud": "MISSGenutzter Datei-Speicherplatz in der Cloud",
-				"inTheTransferPhase": "MISSin der Transferphase:",
-				"loginFromExistingUsers": "MISSLogins bestehender Nutzer",
-				"nameOfTheSchool": "MISSName der Schule",
-				"noteAvailableFunction": "MISSBeachte verfügbare Funktionen",
-				"noteBeforeTheTransferPhase": "MISSBeachte vor der Transferphase:",
-				"passwordChangesInLDAP": "MISSKennwortänderungen im LDAP",
-				"privacySettings": "MISSDatenschutz-Einstellungen",
-				"processedForTheNewSchoolYear": "MISSfür das neue Schuljahr sind bearbeitet.",
-				"schoolYear": "MISSSchuljahr:",
-				"schoolYearChange": "MISSSchuljahreswechsel",
-				"selectProvider": "MISSAnbieter auswählen",
-				"startOfTheTransferPhase": "MISSStart der Transferphase",
-				"studentVisibility": "MISSSichtbarkeit von Schüler:innen für Lehrkräfte aktivieren",
-				"transferPhase": "MISSTransferphase",
-				"uploadSchoolLogo": "MISSSchullogo hochladen",
-				"userAndClassDataInLDAP": "MISSNutzer- und Klassendaten im LDAP",
-				"youCantGoBack": "MISSDu kannst nicht mehr zurück",
-				"yourSchoolCanStartNewSchool": "MISSkann deine Schule ins neue Schuljahr"
+				"activeChatFunction": "Chatfunktion aktivieren",
+				"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
+				"allStudentsVisibility": "Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schülerinnen und Schüler der Schule für jeden Lehrer zu aktivieren, ist es erforderlich, dass jede Schülerin und jeder Schüler wirksam in diese Datenverarbeitung eingewilligt hat.",
+				"authentication": "Authentifizierung",
+				"changeOfClasses": "Änderung von Klassen/neue Klassen",
+				"changeOfUserData": "Änderung von Nutzerdaten/neue Nutzer",
+				"className": "Klassenname:",
+				"cloudStorageProvider": "Cloud-Storage Anbieter",
+				"createChatRoom": "Chatraum für Ankündigungen an die gesamte Schule anlegen",
+				"currentSchoolYear": "Aktuelles Schuljahr:",
+				"dataProtection": "Datenschutzerklärung",
+				"dataProtectionAdd": "Datenschutzerklärung hinzufügen",
+				"duringTheSchoolYear": "Während des Schuljahres",
+				"duringTheTransferPhase": "Während der Transferphase",
+				"enableVideoConference": "Videokonferenzen für Kurse und Teams aktivieren",
+				"endOfTheTransferPhase": "Beenden der Transferphase",
+				"fileStorageSpaceUsedInCloud": "Genutzter Datei-Speicherplatz in der Cloud",
+				"inTheTransferPhase": "in der Transferphase:",
+				"loginFromExistingUsers": "Logins bestehender Nutzer",
+				"nameOfTheSchool": "Name der Schule",
+				"noteAvailableFunction": "Beachte verfügbare Funktionen",
+				"noteBeforeTheTransferPhase": "Beachte vor der Transferphase:",
+				"passwordChangesInLDAP": "Kennwortänderungen im LDAP",
+				"privacySettings": "Datenschutz-Einstellungen",
+				"processedForTheNewSchoolYear": "für das neue Schuljahr sind bearbeitet.",
+				"schoolYear": "Schuljahr:",
+				"schoolYearChange": "Schuljahreswechsel",
+				"selectProvider": "Anbieter auswählen",
+				"startOfTheTransferPhase": "Start der Transferphase",
+				"studentVisibility": "Sichtbarkeit von Schüler:innen für Lehrkräfte aktivieren",
+				"transferPhase": "Transferphase",
+				"uploadSchoolLogo": "Schullogo hochladen",
+				"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP",
+				"youCantGoBack": "Du kannst nicht mehr zurück",
+				"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr"
 			},
 			"link": {
-				"moreInfo": "MISSMehr Infos"
+				"moreInfo": "Mehr Infos"
+			},
+			"text": {
+				"LDAPChanges": "du kannst die notwendigen Änderungen für das neue Schuljahr im\nLDAP vornehmen (neue Nutzer, Update der Klassen)",
+				"allAboutTheSummerVacation": "Rund um die Sommerferien",
+				"allDataFromTheLDAP": "alle Daten aus dem LDAP werden wie gewohnt synchronisiert, neue Nutzer und Klassen können jederzeit dort angelegt werden",
+				"allDone": "Alles erledigt!",
+				"atTheEndOfTheSchoolYearWithLDAP": "Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
+				"atTheEndOfTheTransferPhase": "bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag synchronisiert",
+				"atTheSameTime": "gleichzeitig läutest Du damit das neue Schuljahr in der HPI Schul-Cloud ein",
+				"backgroundSoThatEveryStudentAndTeacher": "Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen(z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
+				"chatRoomPermissions": "Der Ankündigungs-Chatraum ermöglicht Schul-Administrator:innen, Nachrichten an die gesamte Schule zu senden.\nSchüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.",
+				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
+				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
+				"fileSelected": "Datei ausgewählt",
+				"iAmAuthorizedAdmin" : "Mit allen Änderungen und Einstellungen im Verwaltungsbereich bestätigen Sie, dass Sie weisungsberechtigter Schul-Administrator sind und befugt sind, Anpassungen an der Schule in der HPI Schul-Cloud vorzunehmen. Ihr Klick gilt insofern als Weisung der Schule gegenüber dem HPI.",
+				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.",
+				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team die Chatfunktion gezielt freischalten.",
+				"ifThereIsNoManualStart": "ist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch",
+				"ifVideoConferenceAreActivatedAtYourSchool": "Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer starten. Team-Administratoren können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
+				"loginViaLDAP": "der Login via LDAP ist für bestehende Nutzer weiterhin möglich",
+				"newSchoolYear": "Neues Schuljahr",
+				"newUsersClassAffiliationsAnd": "neue dazugekommen Nutzer, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden beständig synchronisiert",
+				"newUsersClassesAndChanges": "neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus dem LDAP synchronisiert",
+				"noFileSelected": "Keine Datei ausgewählt",
+				"noRssFeedsYet": "Es sind noch keine RSS-Feeds hinterlegt.",
+				"oldSchoolYear": "Altes Schuljahr",
+				"passwordChanges": "Passwortänderungen werden weiterhin synchronisiert",
+				"theNewClassesAreSavedInTheContext": "die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert",
+				"theNewClassesCanNowBeAssigned": "die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden",
+				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
+				"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
+				"useTheTransferPhaseAroundTheSchoolYear": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.",
+				"youCanStartTheTransferPhase": "ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten",
+				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule"
+			}
+		},
+		"students": {
+			"button": {
+				"addStudents": "Schüler hinzufügen",
+				"generateInvitationLink": "Einladungslink generieren",
+				"importStudents": "Schüler importieren"
+			},
+			"label": {
+				"sendRegistrationLinkToStudent": "Registrierungslink an Schüler:innen senden"
+			},
+			"text": {
+				"NodeclarationOfConsentTable": "Keine Einverständniserklärung vorhanden",
+				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",
+				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler:innen ohne vollständige Einverständniserklärung:",
+				"parentsAgreed": "Eltern haben zugestimmt",
+				"studentsStillNeedTheDecalaration": "<strong>{{studentsWithoutConsentCount}} von {{allStudentsCount}}</strong> Schüler benötigen noch die Einverständniserklärung zur Nutzung der {{shortTitle}}. \n Schüler unter {{minAge}} Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären."
+			}
+		},
+		"teachers": {
+			"button": {
+				"addTeacher": "Lehrer:in hinzufügen",
+				"importTeacher": "Lehrer:in importieren",
+				"sendLinksToTeacherEmail": "Links an E-Mail Adressen der Lehrer:innen senden"
+			},
+			"headline": {
+				"add": "Hinzufügen",
+				"addPolicy": "Datenschutzerklärung hinzufügen",
+				"finishSchoolYear": "Das Schuljahr wirklich beenden?"
+			},
+			"label": {
+				"inviteTeachersViaLink": "Lade Lehrer:innen per Link dazu ein, die Einverständniserklärung abzugeben.",
+				"linksDistribution": "Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses per E-Mail zukommen oder nutze den QR-Code-Druckbogen, um die Links physisch zu verteilen. <br/>So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{shortTitle}} erklären.",
+				"passwordsAndDeclarationOfConsent": "Passwörter und Einverständniserklärung",
+				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrer senden"
+			},
+			"text": {
+				"alternativRegistration": "Alternativ kannst du auch im \"Nutzer bearbeiten\"-Dialog jedes Nutzers einzeln individuelle Registrierungslinks generieren.",
+				"connectToASchool": "Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der {{shortTitle}} einloggen.Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der {{shortTitle}} zu erklären .",
+				"fileSelected": "Datei ausgewählt",
+				"forAllTeachersWithoutAFullConsentForm": "Für alle Lehrer ohne vollständige Einverständniserklärung:",
+				"yes": "Ja"
 			}
 		},
 		"teams": {
 			"button": {
+				"addAnotherOwner": "Weiteren Eigentümer hinzufügen",
 				"appointTeamOwner": "Ernennen",
 				"discardMessage": "Verwerfen",
 				"removeAllMembers": "Alle Mitglieder entfernen",
-				"addAnotherOwner": "MISSWeiteren Eigentümer hinzufügen",
-				"sendMessage": "MISSAbsenden"
+				"sendMessage": "Absenden"
 			},
 			"headline": {
+				"deleteTeam": "Löschen",
 				"membersInOwnSchool": "Mitglieder an eigener Schule",
 				"messageToTeamOwners": "Neue Nachricht an den/die Team-Eigentümer senden",
 				"newTeamOwner": "Einen zusätzlichen Team-Eigentümer ernennen",
 				"removeSchoolFromTeam": "Schule aus Team entfernen",
-				"schools": "Schulen",
-				"deleteTeam": "MISSLöschen"
-			},
-			"text": {
-				"noSchools": "Keine Schulen",
-				"functionality": "MISSDiese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
-				"includesOutsideSchoolMembers": "MISSBeinhaltet Schul-externe Mitglieder",
-				"legend": "MISSLegende:",
-				"noParticipants": "MISSKeine Teilnehmer",
-				"teamFoundedInOwnSchool": "MISSAn eigener Schule gegründetes Team",
-				"teamHasOwners": "MISSTeam hat Eigentümer"
+				"schools": "Schulen"
 			},
 			"label": {
-				"canCreateTeam": "MISSSchüler:innen können Teams anlegen.",
-				"cannotCreateTeam": "MISSSchüler:innen können keine Teams anlegen.",
-				"selectAnAdditionalOwner": "MISSWähle hier einen zusätzlichen Eigentümer für das Team aus:",
-				"studentsAreAllowedToCreateTeam": "MISSSchüler:innen dürfen Teams anlegen.",
-				"whenFunctionIsActivated": "MISSIst diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter Administrator kannst du diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren/aktiveren."
+				"canCreateTeam": "Schüler:innen können Teams anlegen.",
+				"cannotCreateTeam": "Schüler:innen können keine Teams anlegen.",
+				"selectAnAdditionalOwner": "Wähle hier einen zusätzlichen Eigentümer für das Team aus:",
+				"studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen.",
+				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter Administrator kannst du diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren/aktiveren."
+			},
+			"text": {
+				"functionality": "Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
+				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
+				"legend": "Legende:",
+				"noParticipants": "Keine Teilnehmer",
+				"noSchools": "Keine Schulen",
+				"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
+				"teamHasOwners": "Team hat Eigentümer"
 			}
 		},
 		"text": {
+			"areYouSureYouWantToRemoveAllMembers": "Bist du sicher, dass du alle Mitglieder deiner Schule aus diesem Team entfernen willst?",
+			"moreOptions": "Mehr Optionen",
 			"noEntriesToPrint": "Keine Einträge zu drucken.",
-			"areYouSureYouWantToRemoveAllMembers": "MISSBist du sicher, dass du alle Mitglieder deiner Schule aus diesem Team entfernen willst?",
-			"moreOptions": "MISSMehr Optionen",
-			"registrationAtThe": "MISSDie Anmeldung an der {{shortTitle}} ist mit den folgenden Daten möglich.",
-			"yourClassDoesntFitInto": "MISSDeine Klasse passt nicht ins klassische Schema?"
+			"registrationAtThe": "Die Anmeldung an der {{shortTitle}} ist mit den folgenden Daten möglich.",
+			"yourClassDoesntFitInto": "Deine Klasse passt nicht ins klassische Schema?"
 		},
 		"users_edit": {
 			"button": {
+				"changePassword": "Passwort ändern",
+				"consent": "Einwilligungen:",
+				"deleteUser": "Benutzer löschen",
+				"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
 				"mailIsBeingSent": "E-Mail wird gesendet...",
-				"changePassword": "MISSPasswort ändern",
-				"consent": "MISSEinwilligungen:",
-				"deleteUser": "MISSBenutzer löschen",
-				"generatePersonalInvitationLink": "MISSPersönlichen Einladungslink generieren",
-				"receivedConsentOnPaper": "MISSEinverständnis auf Papier erhalten",
-				"sendTheInvitationLinkByMail": "MISSEinladungslink per E-Mail versenden"
+				"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
+				"sendTheInvitationLinkByMail": "Einladungslink per E-Mail versenden"
 			},
 			"headline": {
 				"changePassword": "Passwort ändern",
 				"completeRegistration": "Nutzerregistrierung abschließen",
 				"deleteUser": "Benutzer löschen?",
-				"generatedLink": "MISSEinladungslink generiert!"
+				"generatedLink": "Einladungslink generiert!"
 			},
 			"text": {
 				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
 				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!",
-				"thereIsStillNoDeclarationOfConsent": "MISSEs liegt noch keine Einverständniserklärung für den Nutzer vor. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung und verteile ihn an den Nutzer oder seine Eltern. Während der Registrierung wird dann die Einverständniserklärung durch den Nutzer selbst erteilt. Wenn eine Einverständniserklärung in Papierform vorliegt, kann der Nutzer per Klick auf 'Einverständnis auf Papier erhalten' aktiviert und ein Startpasswort vergeben werden. Damit ist der Login dann freigeschaltet."
-			}
-		},
-		"dashboard": {
-			"heading": {
-				"manageClasses": "MISSKlassen verwalten",
-				"manageCourses": "MISSKurse verwalten",
-				"manageSchool": "MISSSchule verwalten",
-				"manageStudents": "MISSSchüler:innen verwalten",
-				"manageTeachers": "MISSLehrer:innen verwalten",
-				"manageTeams": "MISSTeams verwalten"
-			},
-			"help": {
-				"contact": "MISSKontakt",
-				"helpArticle": "MISSHilfeartikel",
-				"training": "MISSFortbildungen"
-			}
-		},
-		"form_DeleteRss": {
-			"text": {
-				"areYouSureYouWantToDeleteTheFollowingRSS": "MISSSind Sie sich sicher, dass Sie folgenden RSS-Feed löschen wollen?"
-			}
-		},
-		"form_DeleteUser": {
-			"text": {
-				"areYouSureYouWantTheFollowingUser": "MISSSind Sie sich sicher, dass Sie folgenden Nutzer wollen?"
-			}
-		},
-		"form_Import": {
-			"label": {
-				"selectCSVFile": "MISSCSV-Datei auswählen",
-				"sendRegistrationLinkToUsers": "MISSRegistrierungslinks sofort nach Import an Nutzer senden"
-			},
-			"text": {
-				"alternativelyYouCanCallUpTheRegistration": "MISSAlternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
-				"attention": "MISS⚠️ ACHTUNG: Beim Import großer Datensätze kommt es derzeit kurz nach dem Start zu einer Fehlermeldung. Im\n        Hintergrund läuft der Importprozess trotzdem unsichtbar weiter. Zeitdauer: circa 4 Minuten pro 1000\n        Nutzer:innen. Bitte warte die entsprechende Zeit ab und aktualisiere dann dein Browserfenster, um die\n        aktualisierte Schüler:innen-Übersicht überprüfen zu können.",
-				"importUserData": "MISSImportiere Nutzerdaten per .csv-Datei (<a href=\"#\" id=\"csv-import-example\">Beispiel</a>) und lass deinen Nutzern einen Registrierungslink zukommen.",
-				"youCanFindMoreInformationOnTheStructure": "MISSMehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du <a href=\"https://docs.schul-cloud.org/x/NYBgAw\" target=\"_blank\">hier</a>."
-			}
-		},
-		"form_InvitationStudent": {
-			"text": {
-				"beforeTheSchoolCloudCanBeUsed": "MISSBevor die Nutzung der HPI Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
-				"studentUnderYears": "MISS<b>Schüler unter {{age}} Jahre: </b> die Eltern <br/> <b>Schüler ab {{age}} Jahre: </b> an die Schüler selbst <br/>"
-			}
-		},
-		"form_InvitationTeacher": {
-			"label": {
-				"distributeTheFollowingLinkToTheTeacher": "MISSVerteile folgenden Link an die Lehrkraft:"
-			},
-			"text": {
-				"beforeUsingThe": "MISSBevor die Nutzung der {{title}} möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben."
-			}
-		},
-		"form_Problem": {
-			"label": {
-				"createdOn": "MISSErstellt am:",
-				"itsOn": "MISSIst-Zustand",
-				"remarks": "MISSAnmerkungen",
-				"targetState": "MISSSoll-Zustand",
-				"title": "MISSTitel"
-			}
-		},
-		"form_Rss": {
-			"label": {
-				"briefdescription": "MISSKurzbeschreibung (optional)",
-				"urlOfTheRSSSystem": "MISSURL des RSS-Feeds"
-			}
-		},
-		"form_System": {
-			"label": {
-				"clientSecret": "MISSClient-Geheimnis",
-				"furtherInformation": "MISSWeitere Informationen (OAuth)",
-				"systemName": "MISSName des Systems",
-				"systemType": "MISSTyp des Systems",
-				"urlOfTheSystem": "MISSUrl des Systems"
-			}
-		},
-		"form_TerminateSchoolYear": {
-			"text": {
-				"theSchoolYear": "MISSDas Schuljahr {{currentYear}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.</strong> Es können in dieser Zeit keine Klassen und Nutzer angelegt oder geändert werden.</p>\n<p>The synchronization of LDAP master data"
-			}
-		},
-		"ldapSchoolYearStart": {
-			"button": {
-				"closeTheWindow": "MISSFenster schließen"
-			},
-			"heading": {
-				"LDAPClasses": "MISSLDAP-Klassen",
-				"LDAPUsers": "MISSLDAP-Nutzer",
-				"checkTheSynchronizationOfTheDataAvailable": "MISSÜberprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
-			},
-			"text": {
-				"onThisPageYouWillFindTheData": "MISSAuf dieser Seite findest du die Daten aller Klassen und Nutzer, so wie sie die {{shortTitle}} aus deinem LDAP übernehmen wird. Bitte überprüfe vor Übernahme der Daten durch Beenden der Transferphase diese Daten stichprobenartig auf ihre Richtigkeit."
-			}
-		},
-		"students": {
-			"button": {
-				"addStudents": "MISSSchüler hinzufügen",
-				"generateInvitationLink": "MISSEinladungslink generieren",
-				"importStudents": "MISSSchüler importieren"
-			},
-			"label": {
-				"sendRegistrationLinkToStudent": "MISSRegistrierungslink an Schüler:innen senden"
-			},
-			"text": {
-				"NodeclarationOfConsentTable": "MISSKeine Einverständniserklärung vorhanden",
-				"allApprovalsAvailable": "MISSAlle Zustimmungen vorhanden",
-				"forAllStudentsWithoutAFullConsentForm": "MISSFür alle Schüler:innen ohne vollständige Einverständniserklärung:",
-				"parentsAgreed": "MISSEltern haben zugestimmt",
-				"studentsStillNeedTheDecalaration": "MISS<strong>{{studentsWithoutConsentCount}} von {{allStudentsCount}}</strong> Schüler benötigen noch die Einverständniserklärung zur Nutzung der {{shortTitle}}. \n Schüler unter {{minAge}} Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären."
-			}
-		},
-		"teachers": {
-			"button": {
-				"addTeacher": "MISSLehrer:in hinzufügen",
-				"importTeacher": "MISSLehrer:in importieren",
-				"sendLinksToTeacherEmail": "MISSLinks an E-Mail Adressen der Lehrer:innen senden"
-			},
-			"headline": {
-				"add": "MISSHinzufügen",
-				"addPolicy": "MISSDatenschutzerklärung hinzufügen",
-				"finishSchoolYear": "MISSDas Schuljahr wirklich beenden?"
-			},
-			"label": {
-				"inviteTeachersViaLink": "MISSLade Lehrer:innen per Link dazu ein, die Einverständniserklärung abzugeben.",
-				"linksDistribution": "MISSLass deinen Lehrern individuelle Links zum Erklären des Einverständnisses per E-Mail zukommen oder nutze den QR-Code-Druckbogen, um die Links physisch zu verteilen. <br/>So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{shortTitle}} erklären.",
-				"passwordsAndDeclarationOfConsent": "MISSPasswörter und Einverständniserklärung",
-				"sendRegistrationLinkToTeachers": "MISSRegistrierungslink an Lehrer senden"
-			},
-			"text": {
-				"alternativRegistration": "MISSAlternativ kannst du auch im \"Nutzer bearbeiten\"-Dialog jedes Nutzers einzeln individuelle Registrierungslinks generieren.",
-				"connectToASchool": "MISSDurch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der {{shortTitle}} einloggen.Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der {{shortTitle}} zu erklären .",
-				"fileSelected": "MISSDatei ausgewählt",
-				"forAllTeachersWithoutAFullConsentForm": "MISSFür alle Lehrer ohne vollständige Einverständniserklärung:",
-				"yes": "MISSJa"
+				"thereIsStillNoDeclarationOfConsent": "Es liegt noch keine Einverständniserklärung für den Nutzer vor. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung und verteile ihn an den Nutzer oder seine Eltern. Während der Registrierung wird dann die Einverständniserklärung durch den Nutzer selbst erteilt. Wenn eine Einverständniserklärung in Papierform vorliegt, kann der Nutzer per Klick auf 'Einverständnis auf Papier erhalten' aktiviert und ein Startpasswort vergeben werden. Damit ist der Login dann freigeschaltet."
 			}
 		},
 		"users_registrationComplete": {
 			"text": {
-				"cannotCallPageAgain": "MISS<b>Achtung: </b>Du kannst diese Seite nicht erneut aufrufen. Drucke dir also die angezeigten Zugangsdaten\n            unbedingt aus oder speichere sie anderweitig.\n            Sollte ein Schüler sein Passwort vergessen, kannst du es nur in der Benutzerverwaltung ändern.",
-				"loginWithPassword": "MISSDu kannst dich nun in der {{shortTitle}} mit deinem Startpasswort einloggen.\n Gehe dazu auf <a href=\"https://schul-cloud.org\">\n                    <script nonce=\"{{nonceValue}}\">document.write(window.location.origin)</script></a>\n                und logge dich dort mit den folgenden Zugansdaten ein:",
-				"registrationAtThe": "MISSDie Anmeldung an der",
-				"whatYouCanFind": "MISSAuf dieser Seite findest du eine Übersicht über alle erfolgten Einwilligungen und generierten Zugangsdaten. <br>Die folgenden Seiten dieses Dokuments beinhalten jeweils die Zugangsdaten eines Kindes und eine Anleitung zur ersten Anmeldung. ",
-				"whenLoginForTheFirstTime": "MISS Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen bei ihrem ersten Login die Einwilligungserklärung zusätzlich selbst erklären."
+				"cannotCallPageAgain": "<b>Achtung: </b>Du kannst diese Seite nicht erneut aufrufen. Drucke dir also die angezeigten Zugangsdaten\n            unbedingt aus oder speichere sie anderweitig.\n            Sollte ein Schüler sein Passwort vergessen, kannst du es nur in der Benutzerverwaltung ändern.",
+				"loginWithPassword": "Du kannst dich nun in der {{shortTitle}} mit deinem Startpasswort einloggen.\n Gehe dazu auf <a href=\"https://schul-cloud.org\">\n                    <script nonce=\"{{nonceValue}}\">document.write(window.location.origin)</script></a>\n                und logge dich dort mit den folgenden Zugansdaten ein:",
+				"registrationAtThe": "Die Anmeldung an der",
+				"whatYouCanFind": "Auf dieser Seite findest du eine Übersicht über alle erfolgten Einwilligungen und generierten Zugangsdaten. <br>Die folgenden Seiten dieses Dokuments beinhalten jeweils die Zugangsdaten eines Kindes und eine Anleitung zur ersten Anmeldung. ",
+				"whenLoginForTheFirstTime": " Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen bei ihrem ersten Login die Einwilligungserklärung zusätzlich selbst erklären."
 			}
 		},
 		"users_skipRegistration": {
 			"headline": {
-				"deleteTeam": "MISSLöschen",
-				"membersInOwnSchool": "MISSMitglieder an eigener Schule",
-				"messageToTeamOwners": "MISSNeue Nachricht an den/die Team-Eigentümer senden",
-				"newTeamOwner": "MISSEinen zusätzlichen Team-Eigentümer ernennen",
-				"removeSchoolFromTeam": "MISSSchule aus Team entfernen",
-				"schools": "MISSSchulen"
+				"deleteTeam": "Löschen",
+				"membersInOwnSchool": "Mitglieder an eigener Schule",
+				"messageToTeamOwners": "Neue Nachricht an den/die Team-Eigentümer senden",
+				"newTeamOwner": "Einen zusätzlichen Team-Eigentümer ernennen",
+				"removeSchoolFromTeam": "Schule aus Team entfernen",
+				"schools": "Schulen"
 			},
 			"text": {
-				"appointTeamOwner": "MISSErnennen",
-				"discardMessage": "MISSVerwerfen",
-				"forStudentsAged14": "MISSFür Schüler ab 14 Jahren: Einverständnis des Schülers",
-				"noParticipants": "MISSKeine Teilnehmer",
-				"noSchools": "MISSKeine Schulen",
-				"removeAllMembers": "MISSAlle Mitglieder entfernen",
-				"sendMessage": "MISSAbsenden",
-				"youGiveTheFollowingConsent": "MISSDu erteilst folgende Einwilligungen im Namen des Nutzers:"
+				"appointTeamOwner": "Ernennen",
+				"discardMessage": "Verwerfen",
+				"forStudentsAged14": "Für Schüler ab 14 Jahren: Einverständnis des Schülers",
+				"noParticipants": "Keine Teilnehmer",
+				"noSchools": "Keine Schulen",
+				"removeAllMembers": "Alle Mitglieder entfernen",
+				"sendMessage": "Absenden",
+				"youGiveTheFollowingConsent": "Du erteilst folgende Einwilligungen im Namen des Nutzers:"
 			}
 		}
 	},
@@ -834,9 +827,9 @@
 			"chooseATeam": "Wähle eine Team"
 		},
 		"headline": {
+			"addDate": "Termin hinzufügen",
 			"calendar": "Kalender",
-			"addDate": "MISSTermin hinzufügen",
-			"dateDetails": "MISSTermin - Details"
+			"dateDetails": "Termin - Details"
 		},
 		"input": {
 			"egGym": "z.B. Turnhalle",
@@ -848,17 +841,17 @@
 			"createForTeam": "Für Team anlegen?",
 			"description": "Beschreibung",
 			"location": "Ort",
-			"of": "MISSVon",
-			"title": "MISSTitel",
-			"to": "MISSBis"
+			"of": "Von",
+			"title": "Titel",
+			"to": "Bis"
 		},
 		"text": {
 			"noAuthorization": "Keine Berechtigung",
 			"participateInVideoConference": "An Videokonferenz teilnehmen",
 			"startAVideoConference": "Videokonferenz starten",
+			"timedOut": "Zeitüberschreitung der Anfrage",
 			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen...",
-			"timedOut": "MISSZeitüberschreitung der Anfrage",
-			"videoConferenceHasNotYetStarted": "MISSVideokonferenz wurde noch nicht gestartet"
+			"videoConferenceHasNotYetStarted": "Videokonferenz wurde noch nicht gestartet"
 		}
 	},
 	"community": {
@@ -893,6 +886,9 @@
 		}
 	},
 	"content": {
+		"button": {
+			"choose": "Wähle..."
+		},
 		"form_add_lesson": {
 			"button": {
 				"choose": "Wähle..."
@@ -906,12 +902,12 @@
 			"addContentToTopic": "Material zu Thema hinzufügen",
 			"contentCantBeAddedInDemo": "<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>",
 			"contentStore": "Lern-Store",
+			"entriesPerPage": "Einträge pro Seite",
 			"fileType": "Dateityp",
 			"nSearchResultsFoundWith": "{{ searchResultsTotal }} Suchergebnisse für \"{{ query }}\"",
 			"noResultsFoundWith": "Es wurden keine Suchergebnisse für \"{{ query }}\" gefunden",
-			"youAreLeavingSC": "Sie verlassen jetzt die HPI Schul-Cloud",
-			"entriesPerPage": "MISSEinträge pro Seite",
-			"sortBy": "MISSSortierung"
+			"sortBy": "Sortierung",
+			"youAreLeavingSC": "Sie verlassen jetzt die HPI Schul-Cloud"
 		},
 		"input": {
 			"searchInSC": "In der HPI Schul-Cloud suchen"
@@ -923,11 +919,11 @@
 			}
 		},
 		"label": {
+			"chooseACourse": "Wähle einen Kurs / Fach",
+			"chooseALessonTopic": "Wähle ein Unterrichtsthema",
+			"entriesPerPage": "Einträge pro Seite: %1",
 			"fileType": "Dateitypen: %1",
-			"chooseACourse": "MISSWähle einen Kurs / Fach",
-			"chooseALessonTopic": "MISSWähle ein Unterrichtsthema",
-			"entriesPerPage": "MISSEinträge pro Seite: %1",
-			"sortBy": "MISSSortieren nach: %1"
+			"sortBy": "Sortieren nach: %1"
 		},
 		"store": {
 			"heading": {
@@ -943,9 +939,6 @@
 			"viaProvider": "via {{provider}}",
 			"video": "Video",
 			"youAreRedirectedToProvider": "Sie werden auf die Seite von <span class=\"provider\">einem externen Anbieter</span> weitergeleitet."
-		},
-		"button": {
-			"choose": "MISSWähle..."
 		}
 	},
 	"courses": {
@@ -974,28 +967,26 @@
 			"edit": {
 				"button": {
 					"addLesson": "Neuen Stundentermin hinzufügen",
-					"showCourseDetail": "Kursdetails anzeigen",
-					"deleteCourse": "MISSKurs löschen"
+					"deleteCourse": "Kurs löschen",
+					"showCourseDetail": "Kursdetails anzeigen"
 				},
 				"headline": {
-					"courseIsArchived": "Der Kurs {{coursename}} ist archiviert.",
-					"editCourse": "Kurs bearbeiten",
-					"courseIsArchieved": "MISSDer Kurs {{coursename}} ist archiviert."
+					"courseIsArchieved": "Der Kurs {{coursename}} ist archiviert.",
+					"editCourse": "Kurs bearbeiten"
 				},
 				"img_alt": {
-					"courseIsArchived": "Kurs ist archiviert",
-					"courseIsArchieved": "MISSKurs ist archiviert"
+					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
 					"chooseDate": "Termine auswählen",
+					"class": "Klasse(n)",
+					"from": "Von",
 					"studentsWillBeAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 					"substitute": "Vertretungslehrer:innen",
+					"till": "Bis",
 					"timeSpan": "Zeitraum (z.B. Schuljahr)",
-					"class": "MISSKlasse(n)",
-					"from": "MISSVon",
-					"till": "MISSBis",
-					"timeSpanFormat": "MISSBitte Datum im Format TT.MM.JJJJ eingeben"
+					"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
 				},
 				"text": {
 					"attentionDeletion": "Alle Daten werden unwiderruflich gelöscht.",
@@ -1008,7 +999,7 @@
 					"studentParticipant": "Schüler:in / Teilnehmer:in"
 				},
 				"text": {
-					"more": "MISSWeiteres"
+					"more": "Weiteres"
 				}
 			},
 			"groups": {
@@ -1040,7 +1031,7 @@
 						"noTopics": "keine Themen.",
 						"responsibleTeachers": "Verantwortliche Lehrer:innen:",
 						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}",
-						"workOnTopic": "MISSThema bearbeiten"
+						"workOnTopic": "Thema bearbeiten"
 					}
 				},
 				"button": {
@@ -1079,43 +1070,42 @@
 			},
 			"tasks": {
 				"button": {
+					"addPrivateTask": "private Aufgabe hinzufügen",
 					"createTask": "Erstelle eine Aufgabe",
-					"privateTasks": "Private Aufgaben",
-					"addPrivateTask": "MISSprivate Aufgabe hinzufügen"
+					"privateTasks": "Private Aufgaben"
 				},
 				"headline": {
 					"createFirstTask": "Erstelle die erste Aufgabe in deinem Kurs",
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
+					"posedTasks": "Gestellte Aufgaben",
+					"privateTasks": "Private Aufgaben und Entwürfe",
 					"submittedTasks": "Bearbeitete Aufgaben",
+					"task": "Aufgabe",
+					"tasks": "Aufgaben",
 					"tasksWithSubmissions": "Aufgaben mit Abgaben",
-					"posedTasks": "MISSGestellte Aufgaben",
-					"privateTasks": "MISSPrivate Aufgaben und Entwürfe",
-					"task": "MISSAufgabe",
-					"tasks": "MISSAufgaben",
-					"unsubmittedTasks": "MISSGestellte Aufgaben"
+					"unsubmittedTasks": "Gestellte Aufgaben"
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
 				},
 				"text": {
 					"addPrivateTask": "private Aufgabe hinzufügen",
+					"addTasks": "Aufgabe hinzufügen",
 					"descriptionTasks": "Kursteilnehmer:innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
 					"moreArchivedLinkLabel": "mehr archivierte Aufgaben...",
-					"showPrivateTasks": "Private Aufgaben ein/ausklappen",
-					"addTasks": "MISSAufgabe hinzufügen"
+					"showPrivateTasks": "Private Aufgaben ein/ausklappen"
 				}
 			},
 			"text": {
 				"QRCodeAlternative": "Alternativ kannst du deinen Lehrer:innen-Kollegen auch folgenden QR-Code zeigen.",
-				"courseDescription": "Kursbeschreibung:",
+				"coursedescription": "Kursbeschreibung:",
 				"etherpadCouldNotBeAdded": "Es konnte kein Etherpad in den Kurs hinzugefügt werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.",
 				"eventCouldNotBeSavedContactSupport": "Die Kurszeiten konnten eventuell nicht richtig gespeichert werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den Support.",
 				"nextClass": "Nächste Unterrichtsstunde:",
 				"shareCodeExplanation": "Verteile folgenden Code an einen Lehrer:innen-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.",
 				"youAreAlreadyMember": "Du bist bereits Teilnehmer:in des Kurses {{coursename}}.",
-				"youHaveBeenAdded": "Du wurdest erfolgreich zum Kurs {{coursename}} hinzugefügt",
-				"coursedescription": "MISSKursbeschreibung:"
+				"youHaveBeenAdded": "Du wurdest erfolgreich zum Kurs {{coursename}} hinzugefügt"
 			},
 			"tools": {
 				"add": {
@@ -1160,7 +1150,7 @@
 					"noTools": "Keine Tools.",
 					"opensInNewTab": "neuer Tab",
 					"videoConferenceBBB": "Videokonferenz BigBlueButton",
-					"videoConferenceNotStartedYet": "MISSVideokonferenz wurde noch nicht gestartet"
+					"videoConferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet"
 				}
 			},
 			"topic": {
@@ -1176,11 +1166,11 @@
 					"createFirstTopicWithNewEditor": "Erstelle das erste Thema mit dem neuen Themenwerkzeug",
 					"firstTopicSuccess": "Geschafft - Das erste Thema in deinem Kurs!",
 					"importTopic": "Thema importieren",
+					"invitationLinkGenerated": "Einladungslink generiert!",
 					"noTopic": "Es gibt keine Themen in diesem Kurs.",
 					"noTopicWithTool": "Es gibt keine Themen in diesem Kurs, die mit dem neuen Themenwerkzeug erstellt wurden.",
 					"noTopicWithToolYet": "Es gibt noch keine Themen in diesem Kurs, die mit dem neuen Themenwerkzeug erstellt wurden.",
-					"noTopicYet": "Es gibt noch keine Themen in diesem Kurs.",
-					"invitationLinkGenerated": "MISSEinladungslink generiert!"
+					"noTopicYet": "Es gibt noch keine Themen in diesem Kurs."
 				},
 				"img_alt": {
 					"noTopics": "Leeres Thema"
@@ -1198,16 +1188,16 @@
 					"descriptionTopic": "Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu. Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses.",
 					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler:innen, um sie zum Kurs einzuladen. Die Schüler:innen müssen dafür angemeldet sein.",
 					"editSortDeleteShareTopicsHere": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-ellipsis-v\"></i>&nbsp;<i class=\"fa fa-ellipsis-v\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
+					"editTopic": "Thema bearbeiten",
 					"externalLinkToGeoGebra": "Dies ist ein externer Inhalt des Anbieters GeoGebra. Er wird in einem neuen Fenster bzw. Tab geöffnet.",
 					"hideTopic": "Thema verstecken",
 					"importTopic": "Thema importieren",
 					"importTopicAdviseChangeData": "<strong>Achtung:</strong> Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
 					"insertCodeToImportTopic": "Füge einen Code ein, um Themen anderer Nutzer zu importieren. Im Thema enthaltene Dateien werden in deinem Kursordner abgelegt.",
 					"moveTopic": "Thema verschieben",
+					"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 					"revealTopic": "Thema wieder anzeigen",
-					"shareTopic": "Thema teilen",
-					"editTopic": "MISSThema bearbeiten",
-					"noTopicFoundWithCode": "MISSEs wurde kein Thema für diesen Code gefunden."
+					"shareTopic": "Thema teilen"
 				}
 			}
 		},
@@ -1215,7 +1205,7 @@
 			"button": {
 				"addCourseAndContinue": "Kurs anlegen und Weiter",
 				"addLessonAppointment": "Schulstundentermin im Stundenplan anlegen (optional)",
-				"deleteCourse": "MISSKurs löschen"
+				"deleteCourse": "Kurs löschen"
 			},
 			"headline": {
 				"addCourse": "Kurs anlegen",
@@ -1235,8 +1225,8 @@
 				"addStudentsToCourse": "Schüler:innen / Teilnehmer:innen - Optional",
 				"courseSubstitute": "Vertretungslehrer:innen - Optional",
 				"timeSpan": "Zeitraum (z.B. Schuljahr) von - Optional",
-				"timeSpanUntil": "Bis - Optional",
-				"timeSpanFormat": "MISSBitte Datum im Format TT.MM.JJJJ eingeben"
+				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben",
+				"timeSpanUntil": "Bis - Optional"
 			},
 			"link": {
 				"addAnotherCourse": "Einen weiteren Kurs anlegen",
@@ -1261,15 +1251,12 @@
 		},
 		"button": {
 			"createCourse": "Erstelle einen neuen Kurs",
+			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"editCourse": "Kurs bearbeiten",
 			"importCourse": "Importiere einen Kurs",
-			"nextStep": "Nächster Schritt",
-			"createFirstCourse": "MISSErstelle deinen ersten Kurs"
+			"nextStep": "Nächster Schritt"
 		},
 		"global": {
-			"button": {
-				"deleteCourse": "Kurs löschen"
-			},
 			"input": {
 				"chooseTeacher": "Lehrer:in auswählen",
 				"egRoom1-21": "z.B. R-1.21",
@@ -1285,7 +1272,6 @@
 				"courseTeacher": "Unterrichtende:r Lehrer:in",
 				"lengthOfLesson": "Dauer der Schulstunde",
 				"startOfLesson": "Start der Schulstunde",
-				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben",
 				"weekday": "Wochentag"
 			}
 		},
@@ -1298,27 +1284,25 @@
 			"makeTeachingDigital": "Mit der {{themetitle}} Unterricht digital gestalten",
 			"myCourses": "Meine Kurse",
 			"mySubstitutes": "Meine Vertretungen",
-			"noArchivedCourses": "Du hast noch keine archivierten Kurse",
+			"noArchievedCourses": "Du hast noch keine archivierten Kurse",
 			"noCourse": "Es gibt aktuell keine Kurse",
-			"noCoursesYet": "Es gibt noch keine Kurse. Ein Kurs in der {{short_title}} bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen.",
-			"noArchievedCourses": "MISSDu hast noch keine archivierten Kurse"
+			"noCoursesYet": "Es gibt noch keine Kurse. Ein Kurs in der {{short_title}} bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen."
 		},
 		"img_alt": {
-			"noArchivedCourses": "Keine archivierten Kurse",
+			"noArchievedCourses": "Keine archivierten Kurse",
 			"noCourses": "Keine Kurse vorhanden",
-			"teacherWithClass": "Lehrer mit Klasse",
-			"noArchievedCourses": "MISSKeine archivierten Kurse"
+			"teacherWithClass": "Lehrer mit Klasse"
 		},
 		"input": {
 			"searchForCourses": "Suche nach Kursen"
 		},
-		"tab_label": {
-			"archivedCourses": "Archivierte Kurse",
+		"tab_labels": {
+			"archievedCourses": "Archivierte Kurse",
 			"currentCourses": "Aktuelle Kurse"
 		},
 		"text": {
 			"courseNoAccess": "Der Bereich Kurse steht nur Lehrkräften und Schüler:innen zur Verfügung.",
-			"descriptionArchivedCourses": "Kurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
+			"descriptionArchievedCourses": "Kurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
 			"descriptionCourseManagement": "Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
 			"finishImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler:innen hinzu.",
 			"importCourseAttentionTools": "Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
@@ -1328,26 +1312,26 @@
 			"noAttendees": "Keine Teilnehmer:innen",
 			"noCourseGetInvited": "Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen.",
 			"renameCourse": "Benenne den Kurs um.",
-			"shareTokenNotInUse": "Dieser shareToken scheint nicht in Verwendung zu sein!",
-			"descriptionArchievedCourses": "MISSKurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen."
-		},
-		"tab_labels": {
-			"archievedCourses": "MISSArchivierte Kurse",
-			"currentCourses": "MISSAktuelle Kurse"
+			"shareTokenNotInUse": "Dieser shareToken scheint nicht in Verwendung zu sein!"
 		}
 	},
 	"dashboard": {
 		"headline": {
+			"myMaterials": "Meine Materialien",
+			"news": "Neuigkeiten",
+			"openTasks": "Gestellte Aufgaben",
 			"poll2Title": "Befragung II im Projekt HPI Schul-Cloud",
+			"privateTasks": "Private Aufgaben und Entwürfe",
 			"schedule": "Stundenplan",
+			"tasks": "Aufgaben",
 			"title": "Übersicht",
 			"withFeedback": "Aufgaben mit Lehrer:innen-Kommentar",
-			"withRequiredFeedback": "Aufgaben mit unkommentierten Abgaben",
-			"myMaterials": "MISSMeine Materialien",
-			"news": "MISSNeuigkeiten",
-			"openTasks": "MISSGestellte Aufgaben",
-			"privateTasks": "MISSPrivate Aufgaben und Entwürfe",
-			"tasks": "MISSAufgaben"
+			"withRequiredFeedback": "Aufgaben mit unkommentierten Abgaben"
+		},
+		"homeworkTile": {
+			"graded": "Bewertet",
+			"handedIn": "Abgegeben",
+			"moreTasks": "Weitere Aufgaben..."
 		},
 		"img_alt": {
 			"showAppointmentInTeam": "Termine im Team anzeigen",
@@ -1356,7 +1340,6 @@
 		},
 		"link": {
 			"continueReading": "Weiterlesen",
-			"moreTasks": "Weitere Aufgaben...",
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
@@ -1364,24 +1347,20 @@
 			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich.",
 			"emptyTimetable": "Leerer Stundenplan",
 			"empytTimetableInfo": "Hier siehst du normalerweise deinen aktuellen Stundenplan. Du findest deine Lerninhalte im Kursbereich.",
-			"graded": "Bewertet",
-			"handedIn": "Abgegeben",
 			"noDueDate": "Kein Abgabedatum festgelegt",
 			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
-			"notFound": "Keine aktuellen Einträge vorhanden.",
-			"noTasks": "MISSKeine Aufgaben"
-		},
-		"homeworkTile": {
-			"graded": "MISSBewertet",
-			"handedIn": "MISSAbgegeben",
-			"moreTasks": "MISSWeitere Aufgaben..."
+			"noTasks": "Keine Aufgaben",
+			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
 	"dataprivacy": {
 		"headline": {
 			"privacyPolicy": "Datenschutzerklärung",
 			"registrationInvalid": "Registrierung fehlerhaft"
+		},
+		"img_alt": {
+			"brokenPen": "zerbrochener Stift"
 		},
 		"text": {
 			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
@@ -1398,19 +1377,16 @@
 			"registrationInvalidContactAdvice": "Bitte kontaktiere einen verantwortlichen Lehrer oder Administrator und frage diesbezüglich nach. Dieser kann weiterhelfen oder auch einen neuen Registrierungslink erstellen, falls nötig.",
 			"registrationInvalidManualConsent": "Ein Lehrer oder Administrator hat für den entsprechenden Nutzer bereits die manuelle Einverständniserklärung durchgeführt.",
 			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem entsprechenden Nutzer verknüpft."
-		},
-		"img_alt": {
-			"brokenPen": "MISSzerbrochener Stift"
 		}
 	},
 	"files": {
 		"_file": {
 			"headline": {
+				"assertDeletion": "Bist du dir sicher, dass du '{{filename}}' löschen möchtest?",
 				"editPermissions": "Berechtigungen bearbeiten",
 				"moveFile": "Datei verschieben",
 				"renameDir": "Ordner umbenennen",
-				"shareLink": "Freigabe-Link",
-				"assertDeletion": "MISSBist du dir sicher, dass du '{{filename}}' löschen möchtest?"
+				"shareLink": "Freigabe-Link"
 			},
 			"text": {
 				"dirAlreadyExists": "Es existiert bereits ein Ordner mit diesem Namen im gleichen Ordner!",
@@ -1420,12 +1396,12 @@
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileMoved": "Verschieben der Datei war erfolgreich!",
+				"permissionsChangedFail": "Problem beim Ändern der Berechtigungen",
 				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
 				"pleaseSelectFileType": "Bitte wähle einen Dateityp aus.",
 				"renameDirSuccess": "Umbenennen des Ordners war erfolgreich!",
 				"renameFileSuccess": "Umbenennen der Datei war erfolgreich!",
-				"thereAreNoPermissionsToEdit": "Keine Berechtigungen zum Bearbeiten vorhanden.",
-				"permissionsChangedFail": "MISSProblem beim Ändern der Berechtigungen"
+				"thereAreNoPermissionsToEdit": "Keine Berechtigungen zum Bearbeiten vorhanden."
 			}
 		},
 		"button": {
@@ -1433,26 +1409,26 @@
 			"createANewFile": "Neue Datei erstellen",
 			"createANewFolder": "Neuen Ordner erstellen",
 			"createNewFile": "Datei erstellen",
+			"createNewFolder": "Ordner erstellen",
 			"descending": "↓ absteigend",
 			"download": "Runterladen",
+			"edit": "Bearbeiten",
+			"open": "Öffnen",
 			"presentation": "Präsentation (pptx)",
 			"search": "Suche",
 			"selectFormat": "Format auswählen",
 			"table": "Tabelle (xlsx)",
 			"textDocument": "Textdokument (docx)",
-			"toTeam": "Zum Team",
-			"createNewFolder": "MISSOrdner erstellen",
-			"edit": "MISSBearbeiten",
-			"open": "MISSÖffnen",
-			"toCourse": "MISSZum Kurs"
+			"toCourse": "Zum Kurs",
+			"toTeam": "Zum Team"
 		},
 		"headline": {
 			"attention": "Achtung",
 			"createNewFile": "Neue Datei erstellen",
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
+			"files": "Dateien",
 			"myFiles": "Meine Dateien",
-			"newFolder": "Neuer Ordner",
-			"files": "MISSDateien"
+			"newFolder": "Neuer Ordner"
 		},
 		"input": {
 			"filename": "Name der Datei",
@@ -1462,6 +1438,8 @@
 		"label": {
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
+			"close": "Schließen",
+			"createdAt": "Erstelldatum",
 			"dangerousCode": "Schädlicher Code",
 			"deleteFile": "Datei löschen",
 			"deleteFolder": "Ordner löschen",
@@ -1488,9 +1466,7 @@
 			"shareFile": "Datei teilen",
 			"size": "Größe",
 			"updatedAt": "Änderungsdatum",
-			"write": "Schreiben",
-			"close": "MISSSchließen",
-			"createdAt": "MISSErstelldatum"
+			"write": "Schreiben"
 		},
 		"search": {
 			"headline": {
@@ -1566,20 +1542,20 @@
 		"global": {
 			"heading": {
 				"birthdate": "Geburtsdatum",
-				"declarationOfConsent": "MISSEinwilligungserklärung"
+				"declarationOfConsent": "Einwilligungserklärung"
+			},
+			"label": {
+				"birthdate": "Geburtsdatum:"
 			},
 			"text": {
 				"canUse": "nutzen kannst.",
 				"dataProtection": "Datenschutzerklärung"
-			},
-			"label": {
-				"birthdate": "MISSGeburtsdatum:"
 			}
 		},
 		"heading": {
-			"youAlmostMadeIt": "Du hast es fast geschafft...",
-			"almostThere": "MISSFast geschafft!",
-			"sorryItDidnotWork": "MISSEntschuldige, das hat nicht geklappt"
+			"almostThere": "Fast geschafft!",
+			"sorryItDidnotWork": "Entschuldige, das hat nicht geklappt",
+			"youAlmostMadeIt": "Du hast es fast geschafft..."
 		},
 		"label": {
 			"newPassword": "Neues Passwort: ",
@@ -1592,10 +1568,10 @@
 			},
 			"global": {
 				"label": {
+					"firstName": "Vorname:",
+					"lastName": "Nachname:",
 					"mustNotBeYourChildsEmailAddress": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
-					"yourEmailAddress": "Ihre E-Mail-Adresse ",
-					"firstName": "MISSVorname:",
-					"lastName": "MISSNachname:"
+					"yourEmailAddress": "Ihre E-Mail-Adresse "
 				},
 				"text": {
 					"forStudentsUnder": "Für Schüler unter {{age}} Jahren muss ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen."
@@ -1603,7 +1579,7 @@
 			},
 			"heading": {
 				"declarationOfConsentFromALegalGuardian": "Einverständniserklärung eines Erziehungsberechtigten benötigt",
-				"yourData": "MISSIhre Daten"
+				"yourData": "Ihre Daten"
 			},
 			"label": {
 				"continueAsLegalGuardian": "als Erziehungsberechtigter fortfahren"
@@ -1611,41 +1587,40 @@
 			"text": {
 				"amLegalGuardianFor": "bin erziehungsberechtigt für {{firstName}} {{lastName}} und erkläre Folgendes:",
 				"andExplainTheFollowing": "und erkläre Folgendes:",
-				"needConsentOfParents": "Da du unter {{age}} Jahre alt bist, wird die Einverständniserklärung eines Elternteils benötigt, damit du die {{shortTitle}} nutzen kannst.",
+				"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
 				"pleaseConfirmTheFollowingDeclaration": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der HPI Schul-Cloud nutzen kann:",
+				"sinsceYouAreUnder": "Da du unter {{age}} Jahre alt bist, wird die Einverständniserklärung eines Elternteils benötigt, damit du die {{shortTitle}} nutzen kannst.",
 				"theNextStepMustBeCarriedOut": "Die nächsten Schritte müssen von einem Erziehungsberechtigten durchgeführt werden.",
-				"forThisWeNeedTheFollowingInformationFromYou": "MISSDazu benötigen wir folgende Angaben von Ihnen:",
-				"sinsceYouAreUnder": "MISSDa du unter {{age}} Jahre alt bist, wird die Einverständniserklärung eines Elternteils benötigt, damit du die {{shortTitle}} nutzen kannst.",
-				"weNeedAnEmailAddress": "MISSWir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails."
+				"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails."
 			}
 		},
 		"password": {
 			"text": {
 				"afterClickingThe": "Nach klicken des",
 				"allowedSpecialCharactersAre": "Erlaubte Sonderzeichen sind:",
+				"atlist8characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
 				"buttonsCanBeUsedAsUsual": "-Buttons kannst du dich wie gewohnt über das System deiner Schule (Moodle, iServ, ItsLearning etc.) in der {{title}} einloggen.",
-				"atlist8characters": "MISSMindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
-				"specialCharacters": "MISS!§$%&/()=?\\;:,.#+*~",
-				"submit": "MISSAbsenden"
+				"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
+				"submit": "Absenden"
 			}
 		},
 		"placeholder": {
 			"atList8CharactersWithUpperAndLower": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen.",
+			"enterYourFirstNameHere": "Ihren Vornamen hier eingeben",
+			"enterYourLastNameHere": "Ihren Nachname hier eingeben",
 			"newPassword": "Neues Passwort",
-			"repeatNewPassword": "Neues Passwort wiederholen",
-			"enterYourFirstNameHere": "MISSIhren Vornamen hier eingeben",
-			"enterYourLastNameHere": "MISSIhren Nachname hier eingeben"
+			"repeatNewPassword": "Neues Passwort wiederholen"
 		},
 		"text": {
 			"between14And": "zwischen 14 und {{addConsent}} Jahre alt.",
 			"clickhereForFurtherTraining": "Hier gehts zur Fortbildung",
 			"fromYear": "ab {{age}} Jahre alt.",
+			"inAdditionWeArePlanningToDevelop": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
 			"justHaveALook": "Schau einfach mal vorbei!",
 			"linguisticNote": "Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
 			"pleaseChangeTheStartPassword": "Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!",
 			"pleaseChoose": "Bitte wähle: Ich bin...",
-			"yourLoginWorksButThereIsAProblem": "Dein Login funktioniert, allerdings gibt es ein Problem mit deinen Einverständniserklärungen. Bitte wende dich an deinen Lehrer oder einen Administrator.",
-			"inAdditionWeArePlanningToDevelop": "MISSZusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen."
+			"yourLoginWorksButThereIsAProblem": "Dein Login funktioniert, allerdings gibt es ein Problem mit deinen Einverständniserklärungen. Bitte wende dich an deinen Lehrer oder einen Administrator."
 		},
 		"thanks": {
 			"img_alt": {
@@ -1665,8 +1640,8 @@
 		},
 		"welcome": {
 			"button": {
-				"toYourCourses": "Zu deinen Kursen",
-				"createYourFirstCourse": "MISSErstelle deinen ersten Kurs"
+				"createYourFirstCourse": "Erstelle deinen ersten Kurs",
+				"toYourCourses": "Zu deinen Kursen"
 			},
 			"heading": {
 				"congratulations": "Herzlichen Glückwunsch, {{firstName}} {{lastName}}",
@@ -1687,33 +1662,24 @@
 		}
 	},
 	"global": {
-		"aria_label": {
-			"sidebar": "Seitenleiste",
-			"topMenu": "topbar"
-		},
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
-			"addPrivateTask": "private Aufgabe hinzufügen",
-			"addTask": "Aufgabe hinzufügen",
 			"back": "Zurück",
 			"cancel": "Abbrechen",
 			"clickHere": "Hier klicken",
 			"close": "Schließen",
 			"continue": "Weiter",
 			"create": "Erstellen",
-			"createFirstCourse": "Erstelle deinen ersten Kurs",
-			"createFolder": "Ordner erstellen",
 			"delete": "Löschen",
-			"deleteTeam": "Team löschen",
-			"edit": "Bearbeiten",
-			"editTopic": "Thema bearbeiten",
 			"filterAdd": "Filter hinzufügen",
 			"filterApply": "Übernehmen",
 			"import": "Importieren",
+			"next": "Weiter",
 			"no": "Nein",
 			"ok": "Okay",
 			"open": "Öffnen",
+			"openANewTab": "In neuem Tab öffnen",
 			"print": "Drucken",
 			"reload": "Neu laden",
 			"remove": "Entfernen",
@@ -1721,105 +1687,37 @@
 			"saveChanges": "Änderungen speichern",
 			"send": "Abschicken",
 			"submit": "Absenden",
-			"toCourse": "Zum Kurs",
 			"tryAgain": "Erneut Versuchen",
-			"yes": "Ja",
-			"next": "MISSWeiter",
-			"openANewTab": "MISSIn neuem Tab öffnen"
+			"yes": "Ja"
+		},
+		"error": {
+			"400": "Diese Anfrage war fehlerhaft.",
+			"401": "Bitte authentifiziere dich zuerst.",
+			"402": "Diese Funktion musst du erst noch bezahlen.",
+			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
+			"404": "Ups, diese Seite gibt's wohl nicht.",
+			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
+			"pageMoved": "Diese Seite wurde verschoben.",
+			"requestTimeout": "Zeitüberschreitung bei dir Anfrage",
+			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
 		},
 		"headline": {
-			"actions": "Aktionen",
-			"addDate": "Termin hinzufügen",
-			"almostThere": "Fast geschafft!",
-			"assignedTasks": "Gestellte Aufgaben",
-			"classes": "Klasse(n)",
-			"contact": "Kontakt",
-			"dateDetails": "Termin - Details",
-			"declarationOfConsent": "Einwilligungserklärung",
 			"delete": "Löschen",
-			"edit": "Bearbeiten",
-			"entriesPerPage": "Einträge pro Seite",
-			"files": "Dateien",
-			"invitationLinkGenerated": "Einladungslink generiert!",
-			"myMaterial": "Meine Materialien",
-			"name": "Name",
-			"news": "Neuigkeiten",
-			"privateTasks": "Private Aufgaben und Entwürfe",
-			"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt",
-			"sorting": "Sortierung",
-			"task": "Aufgabe",
-			"tasks": "Aufgaben",
-			"yourData": "Ihre Daten"
+			"edit": "Bearbeiten"
 		},
 		"img_alt": {
 			"brokenPen": "zerbrochener Stift"
 		},
-		"input": {
-			"password": "Passwort"
-		},
 		"label": {
-			"creationDate": "Erstelldatum",
-			"dateOfBirth": "Geburtsdatum:",
-			"emailAddress": "E-Mail-Adresse:",
-			"entriesPerPage": "Einträge pro Seite: %1",
-			"firstName": "Vorname",
-			"firstNameColon": "Vorname:",
-			"from": "Von",
-			"lastName": "Nachname",
-			"lastNameColon": "Nachname:",
-			"more": "Weiteres",
 			"newTab": "Öffnet in neuem Tab",
-			"password": "Passwort:",
 			"room": "Raum",
-			"school": "Schule",
-			"skipLinks": "Links Überspringen",
-			"sortBy": "Sortieren nach: %1",
-			"title": "Titel",
-			"to": "Bis",
-			"type": "Typ"
+			"skipLinks": "Links Überspringen"
 		},
 		"link": {
-			"aboutTheProject": "Über das Projekt",
-			"addons": "Add-ons",
-			"administrationClasses": "Klassen",
-			"administrationStudents": "Schüler",
-			"administrationTeachers": "Lehrer",
-			"archive": "Archiv",
-			"assignedTasks": "Gestellte Aufgaben",
-			"calendar": "Termine",
-			"contact": "Kontakt",
-			"courses": "Kurse",
-			"files": "Meine Dateien",
-			"filesPersonal": "persönliche Dateien",
-			"filesShared": "geteilte Dateien",
-			"firstSteps": "Erste Schritte",
-			"footerSkipLink": "Footer",
-			"helpArea": "Hilfebereich",
-			"helpDesk": "Helpdesk",
-			"imprint": "Impressum",
-			"landing": "Startseite",
-			"lernstore": "Lern-Store",
-			"mainContentSkipLink": "Hauptbereich",
-			"management": "Verwaltung",
-			"managementStudents": "Schüler:innen",
-			"managementTeachers": "Lehrer:innen",
-			"myMaterial": "Meine Materialien",
-			"news": "Neuigkeiten",
-			"openInNewTab": "in neuem Tab öffnen",
-			"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
-			"overview": "Übersicht",
-			"partner": "Partner",
-			"register": "Registrieren",
-			"school": "Schule",
-			"tasks": "Aufgaben",
-			"tasksDrafts": "Entwürfe",
-			"teams": "Teams",
-			"topNavbarSkipLink": "Navigation oben"
+			"openInNewTab": "in neuem Tab öffnen"
 		},
-		"placeholder": {
-			"firstName": "Ihren Vornamen hier eingeben",
-			"lastName": "Ihren Nachname hier eingeben"
-		},
+		"mobileNavMenu": "Mobiles Navigations Menu",
+		"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 		"role": {
 			"text": {
 				"administrator": "Administrator",
@@ -1831,124 +1729,86 @@
 				"teacher": "Lehrer"
 			}
 		},
+		"sidebar": {
+			"ariaLabel": "Seitenleiste",
+			"link": {
+				"addons": "Add-ons",
+				"administration": "Administration",
+				"administrationClasses": "Klassen",
+				"administrationCourses": "Kurse",
+				"administrationSchools": "Schule",
+				"administrationStudents": "Schüler",
+				"administrationTeachers": "Lehrer",
+				"administrationTeams": "Teams",
+				"archive": "Archiv",
+				"assignedTasks": "Gestellte Aufgaben",
+				"calendar": "Termine",
+				"courses": "Kurse",
+				"files": "Meine Dateien",
+				"filesCourse": "Kurse",
+				"filesPersonal": "persönliche Dateien",
+				"filesShared": "geteilte Dateien",
+				"helpArea": "Hilfebereich",
+				"helpDesk": "Helpdesk",
+				"lernstore": "Lern-Store",
+				"management": "Verwaltung",
+				"managementClasses": "Klassen",
+				"managementStudents": "Schüler:innen",
+				"managementTeachers": "Lehrer:innen",
+				"myMaterials": "Meine Materialien",
+				"news": "Neuigkeiten",
+				"overview": "Übersicht",
+				"tasks": "Aufgaben",
+				"tasksArchive": "Archiv",
+				"tasksDrafts": "Entwürfe",
+				"teams": "Teams"
+			}
+		},
+		"skipLinks": {
+			"footerSkipLink": "Footer",
+			"mainContentSkipLink": "Hauptbereich",
+			"topNavbarSkipLink": "Navigation oben"
+		},
 		"text": {
-			"400": "Diese Anfrage war fehlerhaft.",
-			"401": "Bitte authentifiziere dich zuerst.",
-			"402": "Diese Funktion musst du erst noch bezahlen.",
-			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
-			"404": "Ups, diese Seite gibt's wohl nicht.",
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
-			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
-			"errorChangingFilePermissions": "Problem beim Ändern der Berechtigungen",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
-			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
-			"fileWrongFormat": "'{{filename}}' ist kein Bild, Video oder zulässige Datei!",
-			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
-			"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
 			"friday": "Freitag",
-			"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
-			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
 			"invalidRequest": "Ungültige Anfrage",
-			"min8characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
 			"monday": "Montag",
-			"noMembers": "Keine Teilnehmer",
-			"noTasks": "Keine Aufgaben",
-			"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
-			"pageMoved": "Diese Seite wurde verschoben.",
-			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
-			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite",
-			"requestTimeout": "Zeitüberschreitung bei der Anfrage",
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
-			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
-			"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
 			"sunday": "Sonntag",
-			"sureAboutDeleting": "Bist du dir sicher, dass du '{{ name }}' löschen möchtest?",
+			"sureAboutDeleting": "Bist du dir sicher, dass du {{ name }} löschen möchtest?",
 			"sureAboutDiscardingChanges": "Bist du dir sicher, dass du die Änderungen verwerfen möchtest?",
 			"theRequestContains": "Die Anfrage enthält mehrere identische Sicherheitstokens (CSRF).",
 			"thursday": "Donnerstag",
 			"tuesday": "Dienstag",
-			"videoconferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
-			"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 			"wednesday": "Mittwoch"
 		},
-		"error": {
-			"400": "MISSDiese Anfrage war fehlerhaft.",
-			"401": "MISSBitte authentifiziere dich zuerst.",
-			"402": "MISSDiese Funktion musst du erst noch bezahlen.",
-			"403": "MISSSorry, aber das dürfen wir dir wirklich nicht zeigen!",
-			"404": "MISSUps, diese Seite gibt's wohl nicht.",
-			"internalProblem": "MISSUps, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
-			"pageMoved": "MISSDiese Seite wurde verschoben.",
-			"requestTimeout": "MISSZeitüberschreitung bei dir Anfrage",
-			"somethingWentWrong": "MISSDa ist wohl etwas schief gelaufen!"
-		},
-		"mobileNavMenu": "MISSMobiles Navigations Menu",
-		"openInNewTabWarning": "MISSWird in einem neuem Tab geöffnet",
-		"sidebar": {
-			"ariaLabel": "MISSSeitenleiste",
-			"link": {
-				"addons": "MISSAdd-ons",
-				"administration": "MISSAdministration",
-				"administrationClasses": "MISSKlassen",
-				"administrationCourses": "MISSKurse",
-				"administrationSchools": "MISSSchule",
-				"administrationStudents": "MISSSchüler",
-				"administrationTeachers": "MISSLehrer",
-				"administrationTeams": "MISSTeams",
-				"archive": "MISSArchiv",
-				"assignedTasks": "MISSGestellte Aufgaben",
-				"calendar": "MISSTermine",
-				"courses": "MISSKurse",
-				"files": "MISSMeine Dateien",
-				"filesCourse": "MISSKurse",
-				"filesPersonal": "MISSpersönliche Dateien",
-				"filesShared": "MISSgeteilte Dateien",
-				"helpArea": "MISSHilfebereich",
-				"helpDesk": "MISSHelpdesk",
-				"lernstore": "MISSLern-Store",
-				"management": "MISSVerwaltung",
-				"managementClasses": "MISSKlassen",
-				"managementStudents": "MISSSchüler:innen",
-				"managementTeachers": "MISSLehrer:innen",
-				"myMaterials": "MISSMeine Materialien",
-				"news": "MISSNeuigkeiten",
-				"overview": "MISSÜbersicht",
-				"tasks": "MISSAufgaben",
-				"tasksArchive": "MISSArchiv",
-				"tasksDrafts": "MISSEntwürfe",
-				"teams": "MISSTeams"
-			}
-		},
-		"skipLinks": {
-			"footerSkipLink": "MISSFooter",
-			"mainContentSkipLink": "MISSHauptbereich",
-			"topNavbarSkipLink": "MISSNavigation oben"
-		},
 		"title": {
-			"landing": "MISSStartseite"
+			"landing": "Startseite"
 		},
 		"topMenu": {
-			"ariaLabel": "MISStopbar",
+			"ariaLabel": "topbar",
 			"dropdown": {
 				"QRCode": {
-					"title": "MISSQR-Code"
+					"title": "QR-Code"
 				},
 				"alertButton": {
-					"title": "MISSEs gibt ein Problem"
+					"title": "Es gibt ein Problem"
 				},
 				"currentUser": {
-					"ariaLabel": "MISSaktueller Benutzer:"
+					"ariaLabel": "aktueller Benutzer:"
 				},
 				"fullscreenButton": {
-					"title": "MISSVollbildmodus"
+					"title": "Vollbildmodus"
 				},
 				"notifications": {
-					"title": "MISSBenachrichtigungen"
+					"title": "Benachrichtigungen"
 				}
 			},
-			"qrHintText": "MISSLotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
+			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		}
 	},
 	"help": {
@@ -1958,11 +1818,11 @@
 				"openInConfluence": "in Confluence öffnen"
 			},
 			"text": {
+				"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+				"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 				"ifYouCantReadTheArticle": "Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch",
 				"languageNote": "Sprachlicher Hinweis:",
-				"fileTooLarge": "MISSDie angehängte Datei überschreitet die maximal zulässige Größe!",
-				"filesTooLarge": "MISSDie angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
-				"typeNotAllowed": "MISS\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
+				"typeNotAllowed": "\"{{filename}}\" ist kein Bild, Video oder zulässige Datei"
 			}
 		},
 		"contact": {
@@ -1979,8 +1839,8 @@
 		"dashboard": {
 			"heading": {
 				"advancedTraining": "Fortbildungen",
-				"helpArticles": "Hilfeartikel",
-				"contact": "MISSKontakt"
+				"contact": "Kontakt",
+				"helpArticles": "Hilfeartikel"
 			}
 		},
 		"form_Wish": {
@@ -1991,7 +1851,7 @@
 				"briefDescriptionOfTheRequest": "Kurzbeschreibung des Wunsches",
 				"device": "Gerät",
 				"iWouldLikeTo": "möchte ich ...",
-				"replyEmail": "MISSE-Mail-Adresse für eventuelle Rückfragen"
+				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
 			},
 			"placeholder": {
 				"afterLoggingOnToTheSystem": "z.B. Nach der Systemanmeldung gelange ich in maximal zwei Schritten zum Stundenkontext, kann die Schüleraufgabe dort mit einem Klick bearbeiten und die SchülerInnen bei Bedarf automatisch über die Änderung informieren.",
@@ -2015,10 +1875,10 @@
 		},
 		"form_bug": {
 			"label": {
+				"emailAddressForAnyQueries": "E-Mail-Adresse für eventuelle Rückfragen",
 				"maxSizeFiles": "Bilder, Videos und Dateien",
 				"problemDescription": "Problembeschreibung:",
-				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf",
-				"emailAddressForAnyQueries": "MISSE-Mail-Adresse für eventuelle Rückfragen"
+				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
 			},
 			"text": {
 				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)</li> <li>Betriebssystem und Version (z.B: Windows 10)</li>"
@@ -2032,8 +1892,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
-				"furtherInformation": "Weitere Informationen (optional):",
-				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
+				"furtherInformation": "Weitere Informationen (optional):"
 			}
 		},
 		"headline": {
@@ -2044,12 +1903,12 @@
 		},
 		"help_confluenceLinks": {
 			"link": {
+				"aboutTheProject": "Über das Projekt",
 				"contactForm": "Kontaktformular",
+				"firstSteps": "Erste Schritte",
 				"linguisticNote": "Sprachlicher Hinweis",
 				"usageAids": "Nutzungshilfen",
-				"writeUsAnEmail": "Schreib uns eine E-Mail",
-				"aboutTheProject": "MISSÜber das Projekt",
-				"firstSteps": "MISSErste Schritte"
+				"writeUsAnEmail": "Schreib uns eine E-Mail"
 			}
 		},
 		"help_fromInviteExternalMember": {
@@ -2133,38 +1992,38 @@
 		"text": {
 			"feedbackError": "Fehler beim Senden des Feedbacks.",
 			"feedbackSuccessful": "Feedback erfolgreich versendet!",
-			"fileTooLarge": "MISSDie angehängte Datei überschreitet die maximal zulässige Größe!",
-			"fileWrongFormat": "MISS{{filename}} ist kein Bild, Video oder zulässige Datei!",
-			"filesTooLarge": "MISSDie angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!"
+			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+			"fileWrongFormat": "{{filename}} ist kein Bild, Video oder zulässige Datei!",
+			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!"
 		}
 	},
 	"home": {
 		"button": {
+			"aboutTheProject": "Über das Projekt",
 			"login": "Login",
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrer:in einloggen",
-			"subscribeNewsletter": "Newsletter abonnieren",
-			"aboutTheProject": "MISSÜber das Projekt",
-			"register": "MISSRegistrieren"
+			"register": "Registrieren",
+			"subscribeNewsletter": "Newsletter abonnieren"
 		},
 		"header": {
 			"link": {
+				"aboutUs": "Über das Projekt",
 				"blog": "Blog",
 				"faq": "FAQ",
+				"firstSteps": "Erste Schritte",
 				"login": "Login",
-				"aboutUs": "MISSÜber das Projekt",
-				"firstSteps": "MISSErste Schritte",
-				"register": "MISSRegistrieren"
+				"register": "Registrieren"
 			}
 		},
 		"headline": {
 			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> Blog",
 			"allNewsOnHPINewsletter": "Alle Neuigkeiten rund um die <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> bequem in Ihrem Postfach:",
 			"explainationVideo": "Erklärvideo zur HPI Schul-Cloud",
+			"projectLeaders": "Projektdurchführung",
 			"theIdea": "Die Grundidee der <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span>",
 			"tryDemoVersion": "Jetzt Demoversion ausprobieren",
-			"welcomeToHPISchoolCloud": "Herzlich willkommen bei der <span style=\"white-space: nowrap;\">HPI Schul-Cloud!</span>",
-			"projectLeaders": "MISSProjektdurchführung"
+			"welcomeToHPISchoolCloud": "Herzlich willkommen bei der <span style=\"white-space: nowrap;\">HPI Schul-Cloud!</span>"
 		},
 		"img_alt": {
 			"logoBMBF": "Logo BMBF",
@@ -2179,9 +2038,9 @@
 			"advertisementForOurTeam": "Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs",
 			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) videoplayer.",
 			"downloadFile": "Datei herunterladen",
+			"moreInformation": "Mehr Informationen:",
 			"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
-			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari.",
-			"moreInformation": "MISSMehr Informationen:"
+			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
 		}
 	},
 	"homework": {
@@ -2200,10 +2059,11 @@
 			"label": {
 				"copyTask": "Aufgabenstellung kopieren",
 				"copyTaskAlt": "Aufgabe '{{title}}' kopieren.",
-				"courses": "Kurse",
 				"deleteTaskAlt": "Löschen der Aufgabe: '{{title}}'.",
 				"editTaskAlt": "Aufgabe '{{title}}' bearbeiten.",
 				"fileUpload": "Dateiabgabe",
+				"firstName": "Vorname",
+				"lastName": "Nachname",
 				"moveFromArchive": "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
 				"moveToArchive": "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
 				"printGradeComment": "Bewertung drucken",
@@ -2213,9 +2073,7 @@
 				"team": "Team",
 				"teamSubmission": "Teamabgabe",
 				"teamSubmissionMaxX": "Teamabgabe (maximal <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> Personen)",
-				"textDelivery": "Textabgabe",
-				"firstName": "MISSVorname",
-				"lastName": "MISSNachname"
+				"textDelivery": "Textabgabe"
 			},
 			"text": {
 				"errorInvalidTaskId": "Ungültige Aufgaben-ID",
@@ -2230,38 +2088,38 @@
 			}
 		},
 		"button": {
+			"addTask": "Aufgabe hinzufügen",
 			"archive": "Archivieren",
 			"copy": "Kopieren",
 			"copySubmissionFromList": "kopieren",
 			"deleteSubmissionFromList": "löschen",
 			"downloadUngradedFiles": "Dateien unbewerteter Hausaufgaben herunterladen",
 			"editSubmissionFromList": "bearbeiten",
+			"filterAdd": "Filter hinzufügen",
+			"filterApply": "Übernehmen",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
 			"importSubmission": "Abgabe des Schülers importieren",
 			"importing": "importiere",
 			"onTheSubject": "Zum Thema",
+			"print": "Drucken",
 			"save": "Speichern und Abschicken",
+			"toClass": "Zum Kurs",
 			"toCourseAlt": "Zum Kurs der Aufgabe",
 			"toTheCourseFiles": "Zu den Kursdateien",
-			"toTopicAlt": "Zum Thema der Aufgabe",
-			"addTask": "MISSAufgabe hinzufügen",
-			"filterAdd": "MISSFilter hinzufügen",
-			"filterApply": "MISSÜbernehmen",
-			"print": "MISSDrucken",
-			"toClass": "MISSZum Kurs"
+			"toTopicAlt": "Zum Thema der Aufgabe"
 		},
 		"global": {
 			"label": {
 				"allowGroupSubmission": "Gruppenabgabe ermöglichen",
+				"courses": "Kurse",
 				"description": "Aufgabenstellung",
 				"maximumGroupSize": "maximale Gruppengröße:",
 				"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
 				"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
+				"title": "Titel",
 				"topic": "Thema",
-				"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:",
-				"courses": "MISSKurse",
-				"title": "MISSTitel"
+				"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
 			},
 			"placeholder": {
 				"description": "Finde heraus warum..."
@@ -2273,27 +2131,29 @@
 		},
 		"headline": {
 			"archivedTasks": "Archivierte Aufgaben und ToDos",
+			"assignedTasks": "Gestellte Aufgaben",
 			"breadcrumb": "{{breadcrumbtitle}} Aufgaben",
 			"breadcrumbArchived": "Archivierte",
 			"breadcrumbAssigned": "Gestellte",
 			"breadcrumbPrivate": "Meine",
+			"courses": "Kurse",
 			"drafts": "Entwürfe",
 			"dueDate": "Abgabedatum",
 			"more": "Mehr",
-			"assignedTasks": "MISSGestellte Aufgaben",
-			"courses": "MISSKurse",
-			"sorting": "MISSSortierung",
-			"tasks": "MISSAufgaben"
+			"sorting": "Sortierung",
+			"tasks": "Aufgaben"
 		},
 		"input": {
 			"gradeComment": "Bewertungskommentar",
 			"noAssignment": "Keine Zuordnung",
-			"title": "MISSTitel"
+			"title": "Titel"
 		},
 		"label": {
 			"comment": "Kommentar",
+			"courses": "Kurse",
 			"details": "Details",
 			"dontShowAgain": "Nicht mehr anzeigen",
+			"edit": "Bearbeiten",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
 			"filterCourses": "Kurse: %1",
 			"filterDueDate": "Abgabe vom %1 bis %2",
@@ -2311,24 +2171,23 @@
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schüler:innen-Gruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
+			"sortBy": "Sortieren nach: %1",
 			"sortByAvailabilityDate": "Verfügbarkeitsdatum",
+			"sortByCreationDate": "Erstelldatum",
 			"sortByDueDate": "Abgabedatum",
 			"sortByLastUpdate": "letzte Aktualisierung",
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
 			"submissionsWithoutFeedback": "unkommentierte Abgaben",
-			"uploadGradeFiles": "Korrigierte Dateien hochladen",
-			"courses": "MISSKurse",
-			"edit": "MISSBearbeiten",
-			"sortBy": "MISSSortieren nach: %1",
-			"sortByCreationDate": "MISSErstelldatum"
+			"uploadGradeFiles": "Korrigierte Dateien hochladen"
 		},
 		"text": {
 			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
 			"bulkGradingError": "Nicht alle Dateien konnten Hausaufgaben zugeordnet werden. Folgende Dateien müssen von Hand zugewiesen werden:",
 			"bulkGradingSuccess": "Alle Dateien konnten Hausaufgaben zugeordnet werden. Bitte Seite neu laden.",
 			"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
+			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
 			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
 			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
@@ -2340,14 +2199,18 @@
 			"noStudentGroupsInThisCourse": "keine Schüler:innengruppen in diesem Kurs",
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
+			"noTasks": "Keine Aufgaben",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
-			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit.",
-			"doYouReallyWantToDelete": "MISSBist du dir sicher, dass du '{{name}}' löschen möchtest?",
-			"noTasks": "MISSKeine Aufgaben"
+			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 		}
 	},
 	"imprint": {
+		"global": {
+			"heading": {
+				"imprint": "Impressum"
+			}
+		},
 		"headline": {
 			"imprint": "Impressum"
 		},
@@ -2372,11 +2235,6 @@
 				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso-Plattner-Institut für Digital Engineering gGmbH",
 				"managingDirectorAuthorized": "Vertretungsberechtigter Geschäftsführer:"
 			}
-		},
-		"global": {
-			"heading": {
-				"imprint": "MISSImpressum"
-			}
 		}
 	},
 	"lib": {
@@ -2393,6 +2251,9 @@
 				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
 			}
 		},
+		"default": {
+			"yourDigitalLearningEnvironment": "Deine digitale Lernumgebung"
+		},
 		"error": {
 			"button": {
 				"hideDetails": "Details verstecken",
@@ -2402,14 +2263,15 @@
 				"errorDetails": "Fehler-Details:"
 			},
 			"text": {
-				"somethingWentWrong": "MISSDa ist wohl etwas schief gelaufen!"
+				"somethingWentWrong": "Da ist wohl etwas schief gelaufen!"
 			}
 		},
 		"extended_footer": {
+			"ariaLabel": "footer",
 			"heading": {
+				"contact": "Kontakt",
 				"links": "Links",
-				"vacancies": "Stellenausschreibungen",
-				"contact": "MISSKontakt"
+				"vacancies": "Stellenausschreibungen"
 			},
 			"img_alt": {
 				"nowAtGooglePlay": "Jetzt bei Google Play"
@@ -2425,16 +2287,15 @@
 			},
 			"text": {
 				"weAreHiring": "Du möchtest gerne Mitglied in unserem <span style='white-space: nowrap;'>HPI Schul-Cloud</span> Team werden? Wir suchen:"
-			},
-			"ariaLabel": "MISSfooter"
+			}
 		},
 		"footer": {
+			"ariaLabel": "footer",
 			"img_alt": {
 				"providerLogo": "Anbieterlogo"
 			},
-			"ariaLabel": "MISSfooter",
 			"link": {
-				"contact": "MISSKontakt"
+				"contact": "Kontakt"
 			}
 		},
 		"form_auto_logout": {
@@ -2486,21 +2347,22 @@
 				"discardChange": "Änderung verwerfen"
 			},
 			"link": {
+				"aboutTheProject": "Über das Projekt",
 				"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
 				"github": "GitHub",
+				"imprint": "Impressum",
 				"participate": "Mitmachen",
+				"partner": "Partner",
 				"safety": "Sicherheit",
 				"status": "Status",
 				"team": "Team",
-				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud",
-				"aboutTheProject": "MISSÜber das Projekt",
-				"imprint": "MISSImpressum",
-				"partner": "MISSPartner"
+				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud"
 			}
 		},
-		"headline": {
-			"aria_label": "footer",
-			"yourDigitalLearningEnvironment": "Deine digitale Lernumgebung"
+		"header": {
+			"link": {
+				"firstSteps": "Erste Schritte"
+			}
 		},
 		"help_menu": {
 			"button": {
@@ -2511,19 +2373,18 @@
 				"learnCloud": "Lern Cloud"
 			},
 			"input": {
-				"userName": "Benutzername:",
-				"password": "MISSPasswort:"
+				"password": "Passwort:",
+				"userName": "Benutzername:"
 			},
 			"label": {
 				"help": "Hilfe",
 				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
 			"link": {
+				"Fortbildungen": "Fortbildungen",
 				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
-				"sendRequestOrProblem": "Wunsch oder Problem senden",
-				"training": "Fortbildungen",
-				"Fortbildungen": "MISSFortbildungen",
-				"helpArea": "MISSHilfebereich"
+				"helpArea": "Hilfebereich",
+				"sendRequestOrProblem": "Wunsch oder Problem senden"
 			}
 		},
 		"ldap_info": {
@@ -2533,9 +2394,6 @@
 			}
 		},
 		"loggedin": {
-			"aria_label": {
-				"mobileNavMenu": "Mobiles Navigations Menu"
-			},
 			"img_alt": {
 				"logoOfSchool": "Logo von {{name}}"
 			},
@@ -2564,19 +2422,8 @@
 			}
 		},
 		"table": {
-			"label": {
-				"numberOfEntries": "Anzahl der Einträge"
-			},
 			"option": {
-				"numberofEntries": "MISSAnzahl der Einträge"
-			}
-		},
-		"default": {
-			"yourDigitalLearningEnvironment": "MISSDeine digitale Lernumgebung"
-		},
-		"header": {
-			"link": {
-				"firstSteps": "MISSErste Schritte"
+				"numberofEntries": "Anzahl der Einträge"
 			}
 		}
 	},
@@ -2590,41 +2437,43 @@
 			"newFeaturesAvailable": "Neue Features sind verfügbar",
 			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte kontaktiere den Schul-Administrator!",
 			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
-			"timeout": "MISSZeitüberschreitung der Anfrage"
+			"timeout": "Zeitüberschreitung der Anfrage"
 		}
 	},
 	"login": {
+		"anchor": {
+			"title": {
+				"show_password": "Passwort anzeigen"
+			}
+		},
 		"button": {
 			"less": "Weniger",
 			"login": "Anmelden",
 			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
 			"moreOptions": "Mehr Optionen",
-			"show_password": "Passwort anzeigen",
 			"submitPrivacyPolicy": "Gelesen"
 		},
 		"headline": {
+			"LoginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
+			"LoginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
 			"firstLogin": "Willkommen - Erster Login",
 			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
-			"loginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
-			"loginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
+			"onlyPrivacy": "Datenschutzerklärung",
 			"onlyTermsOfUse": "Nutzungsordnung",
-			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung",
-			"LoginFailedHint": "MISSDeine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
-			"LoginForRegisteredUsers": "MISSAnmeldung für registrierte Nutzer",
-			"onlyPrivacy": "MISSDatenschutzerklärung"
+			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
 		},
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
 			"noSystemsAvailable": "Keine Systeme verfügbar",
+			"password": "Passwort",
 			"school": "Schule auswählen",
-			"system": "System auswählen",
-			"password": "MISSPasswort"
+			"system": "System auswählen"
 		},
 		"label": {
+			"school": "Schule",
 			"system": "System",
-			"thisIsAPrivateDevice": "Angemeldet bleiben",
-			"school": "MISSSchule"
+			"thisIsAPrivateDevice": "Angemeldet bleiben"
 		},
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
@@ -2663,6 +2512,7 @@
 		"text": {
 			"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
 			"loginFailed": "Login fehlgeschlagen.",
+			"loginFailedBlockedEmailDomain": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
 			"loginFailedFirstHintText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
 			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
@@ -2678,23 +2528,17 @@
 			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
 			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
-			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
-			"loginFailedBlockedEmailDomain": "MISSDieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
-		},
-		"anchor": {
-			"title": {
-				"show_password": "MISSPasswort anzeigen"
-			}
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
 		}
 	},
 	"my_material": {
+		"headline": {
+			"myMaterial": "Meine Materialien"
+		},
 		"text": {
 			"andTakeTheOpportunityToDesign": "und nutzen Sie die Möglichkeit, das Feature nach ihren Wünschen zu gestalten.",
 			"blogArticle": "Blogartikel",
 			"hereYouWillSoonHaveTheOpportunity": "Hier werden Sie bald die Möglichkeit haben, eigene Inhalte zu erstellen, sich Inhalte anderer Lehrer*Innen anzuschauen und durch Bewerten und Kategorisieren dieser Punkte verdienen, um die erweiterten Suchfunktionen nutzen zu können. Interessiert, wie das funktionieren wird? Lesen Sie den"
-		},
-		"headline": {
-			"myMaterial": "MISSMeine Materialien"
 		}
 	},
 	"navigation": {
@@ -2708,28 +2552,28 @@
 				"createNews": "News erstellen",
 				"editNews": "News bearbeiten"
 			},
+			"input": {
+				"title": "Titel"
+			},
 			"label": {
 				"contentOfMessage": "Inhalt der Nachricht..."
-			},
-			"input": {
-				"title": "MISSTitel"
 			}
 		},
 		"button": {
 			"addNews": "News hinzufügen",
 			"deleteNewsAlt": "Artikel '{{name}}' löschen",
-			"editNewsAlt": "Artikel '{{title}}' bearbeiten.",
-			"editNews": "MISSBearbeiten"
+			"editNews": "Bearbeiten",
+			"editNewsAlt": "Artikel '{{title}}' bearbeiten."
 		},
 		"headline": {
-			"newsTeam": "Neuigkeiten aus dem Team",
-			"news": "MISSNeuigkeiten"
+			"news": "Neuigkeiten",
+			"newsTeam": "Neuigkeiten aus dem Team"
 		},
 		"label": {
 			"content": "Inhalt",
 			"scheduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
 			"searchForNews": "Suche nach Neuigkeiten",
-			"title": "MISSTitel"
+			"title": "Titel"
 		},
 		"text": {
 			"atSchool": "an der Schule",
@@ -2755,21 +2599,23 @@
 			"projectExecution": "Projektdurchführung",
 			"supporters": "Unterstützer für Schulinfrastruktur <3"
 		},
-		"img_alt": {
+		"img-alt": {
 			"logo": "Logo"
 		},
 		"text": {
 			"advisoryBoardDescription": "Das HPI Schul-Cloud Projekt wird von einem Fachbeirat unterstützt, der sich aus verschiedenen Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben technischen Aspekten, auch Themen wie Datenschutz und Pädagogik.",
 			"pilotPartnersDescription": "Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die HPI Schul-Cloud erfahrbar wird.",
 			"supportersDescription": "Wir danken unseren Unterstützern für Schulinfrastruktur."
-		},
-		"img-alt": {
-			"logo": "MISSLogo"
 		}
 	},
 	"pwRecovery": {
 		"button": {
 			"createNewPassword": "Neues Passwort anlegen"
+		},
+		"failed": {
+			"text": {
+				"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
+			}
 		},
 		"headline": {
 			"passwordRecovery": "Passwort-Wiederherstellung"
@@ -2793,17 +2639,12 @@
 		"text": {
 			"allowedCharacters": "Erlaubte Sonderzeichen sind: ",
 			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
+			"allowedPasswordsWithTags": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
 			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
 			"errorPasswordAlreadyChanged": "Ihr Passwort wurde bereits über diese URL geändert.",
 			"errorTimeExpired": "Zeit abgelaufen für Passwort Recovery.",
-			"allowedPasswordsWithTags": "MISSMindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
-			"passwordsAreDifferent": "MISSPasswörter stimmen nicht überein.",
-			"specialCharacters": "MISS!§$%&/()=?\\;:,.#+*~"
-		},
-		"failed": {
-			"text": {
-				"emailDomainBlocked": "MISSDieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator."
-			}
+			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
+			"specialCharacters": "!§$%&/()=?\\;:,.#+*~"
 		}
 	},
 	"registration": {
@@ -2813,16 +2654,16 @@
 					"yourData": "Deine Daten"
 				},
 				"input": {
+					"firstName": "Ihren Vornamen hier eingeben",
+					"lastName": "Ihren Nachname hier eingeben",
+					"password": "Passwort",
 					"repeatPassword": "Passwort wiederholen",
 					"teacherEmail": "lehrer@schul-cloud.org",
-					"yourEmailAddress": "Deine E-Mail-Adresse:",
-					"firstName": "MISSIhren Vornamen hier eingeben",
-					"lastName": "MISSIhren Nachname hier eingeben",
-					"password": "MISSPasswort"
+					"yourEmailAddress": "Deine E-Mail-Adresse:"
 				},
 				"label": {
-					"repeatPassword": "Passwort wiederholen:",
-					"password": "MISSPasswort:"
+					"password": "Passwort:",
+					"repeatPassword": "Passwort wiederholen:"
 				},
 				"text": {
 					"pleaseconfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die Vorteile der {{shortTitle}} nutzen kannst.",
@@ -2833,39 +2674,34 @@
 				"button": {
 					"openLogin": "Login öffnen",
 					"sendAndGetStarted": "Absenden & Loslegen",
-					"toPress": "MISSDrucken"
+					"toPress": "Drucken"
 				},
 				"heading": {
-					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!",
-					"almostThere": "MISSFast geschafft!",
-					"declarationOfConsent": "MISSEinwilligungserklärung"
+					"almostThere": "Fast geschafft!",
+					"declarationOfConsent": "Einwilligungserklärung",
+					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
 				},
 				"label": {
+					"birthDate": "Geburtsdatum:",
+					"eMail": "E-Mail:",
+					"emailAddress": "E-Mail-Adresse:",
+					"firstName": "Vorname:",
+					"lastName": "Nachname:",
 					"studentEmailAddress": "E-Mail-Adresse des Schülers:",
 					"studentsDateOfBirth": "Geburtsdatum des Schülers:",
-					"yourEmailAddress": "Ihre E-Mail-Adresse:",
-					"birthDate": "MISSGeburtsdatum:",
-					"eMail": "MISSE-Mail:",
-					"emailAddress": "MISSE-Mail-Adresse:",
-					"firstName": "MISSVorname:",
-					"lastName": "MISSNachname:"
-				},
-				"placeholder": {
-					"studentEmail": "schueler@schul-cloud.org"
+					"yourEmailAddress": "Ihre E-Mail-Adresse:"
 				},
 				"text": {
 					"agreementCanBeRevoked": "Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href=\"mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung\">widerruf@schul-cloud.org</a>.",
 					"agreementIsVoluntary": "Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{title}}, wird durch die Schule ermöglicht werden.",
-					"bellowNYearsOldConsentOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten",
+					"bellowNYearsOldConsantOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten",
 					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
-					"inCaseOfRevocationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a> entnehmen.",
+					"inCaseOfRevokationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a> entnehmen.",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
+					"password": "Passwort: ",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
-					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.",
-					"bellowNYearsOldConsantOfLegalGuardian": "MISSFür die Nutzung der {{shortTitle}} bedarf es für Schüler unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten",
-					"inCaseOfRevokationDataDeletion": "MISSIm Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a> entnehmen.",
-					"password": "MISSPasswort: "
+					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
 				}
 			},
 			"heading": {
@@ -2876,21 +2712,31 @@
 				"overNYearsOld": "ab {{years}} Jahre alt"
 			},
 			"parent": {
+				"global": {
+					"text": {
+						"inThe": "in der"
+					}
+				},
 				"heading": {
 					"yourChildsData": "Daten Ihres Kindes",
 					"yourChildsSSO": "Der SSO-Account Ihres Kindes ist jetzt freigeschaltet.",
-					"yourData": "MISSIhre Daten"
+					"yourData": "Ihre Daten"
+				},
+				"input": {
+					"completeFirstName": "Vorname des Kindes in offizieller Schreibweise, keine Spitznamen",
+					"lastName": "Nachname des Kindes",
+					"parentEmail": "eltern@schul-cloud.org",
+					"studentEmail": "schueler@schul-cloud.org",
+					"yourFirstName": "Ihren Vornamen hier eingeben",
+					"yourLastName": "Ihren Nachname hier eingeben"
 				},
 				"label": {
 					"iAmLegalGuardianOfChild": "Ich, <b data-from=\"parent_firstName\"></b> <b data-from=\"parent_lastName\"></b>, bin erziehungsberechtigt für <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b> und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten."
 				},
-				"placeholder": {
-					"completeFirstName": "Vorname des Kindes in offizieller Schreibweise, keine Spitznamen",
-					"lastName": "Nachname des Kindes",
-					"parentEmail": "eltern@schul-cloud.org"
-				},
 				"text": {
 					"aParentOrLegalGuardian": "Jahren bedarf ein Erziehungsberechtigter in die Nutzung der",
+					"forThisWeNeedFollowing": "Dazu benötigen wir folgende Angaben von Ihnen:",
+					"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
 					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren bedarf ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen.",
 					"mustNotBeYourChildsEmail": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
@@ -2898,26 +2744,11 @@
 					"pleaseConfirmTheFollowing": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{shortTitle}} nutzen kann:",
 					"studentNeedTheirOwnEmail": "(Schüler benötigen eine eigene E-Mail-Adresse)",
 					"toConsent": "einwilligen.",
+					"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 					"weNeedFollowingDataOfChild": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben für Ihr Kind:",
 					"whenLoggingInFor": "Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.",
 					"yourChildCan": "Ihr Kind kann sich nun einloggen:",
-					"yourSonCanLogInWithThisData": "Mit folgenden Daten kann sich <b data-from=\"firstName\"></b> <b data-from=\"secondName\"></b> in der {{shortTitle}} anmelden. Bitte geben Sie die Daten an Ihr Kind weiter. Zusätzlich haben Sie und Ihr Kind die Daten per E-Mail erhalten.",
-					"forThisWeNeedFollowing": "MISSDazu benötigen wir folgende Angaben von Ihnen:",
-					"inAdditionWeArePlanning": "MISSZusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
-					"weNeedAnEmailAddress": "MISSWir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails."
-				},
-				"global": {
-					"text": {
-						"inThe": "MISSin der"
-					}
-				},
-				"input": {
-					"completeFirstName": "MISSVorname des Kindes in offizieller Schreibweise, keine Spitznamen",
-					"lastName": "MISSNachname des Kindes",
-					"parentEmail": "MISSeltern@schul-cloud.org",
-					"studentEmail": "MISSschueler@schul-cloud.org",
-					"yourFirstName": "MISSIhren Vornamen hier eingeben",
-					"yourLastName": "MISSIhren Nachname hier eingeben"
+					"yourSonCanLogInWithThisData": "Mit folgenden Daten kann sich <b data-from=\"firstName\"></b> <b data-from=\"secondName\"></b> in der {{shortTitle}} anmelden. Bitte geben Sie die Daten an Ihr Kind weiter. Zusätzlich haben Sie und Ihr Kind die Daten per E-Mail erhalten."
 				}
 			},
 			"student": {
@@ -2925,9 +2756,9 @@
 					"personalData": "Persönliche Daten"
 				},
 				"input": {
+					"studentEmail": "schueler@schul-cloud.org",
 					"yourOfficialFirstName": "Dein offizieller Vorname, kein Spitzname",
-					"yourOfficialLastName": "Dein offizieller Nachname",
-					"studentEmail": "MISSschueler@schul-cloud.org"
+					"yourOfficialLastName": "Dein offizieller Nachname"
 				},
 				"text": {
 					"pleaseConfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{shortTitle}} nutzen kannst.",
@@ -2937,29 +2768,27 @@
 				}
 			},
 			"text": {
+				"agreeSoThatYourChild": "zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
+				"danger": "Achtung:",
 				"letsTakeThisStepWithYouAndYourChild": "Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{shortTitle}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
 				"linguisticNoteWeUseMaleFormForReadability": "* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} teilweise die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
 				"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers:",
 				"pleaseRegisterChildThenAgreeToTermsOfUse": "Wir bitten Sie, Ihr Kind zunächst in der {{shortTitle}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
 				"pleaseRegisterFirstAndAgreeToTerms": "Bitte registriere dich zunächst in der {{shortTitle}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
-				"registrationMustBeDoneByYou": "Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern.",
 				"thankYouForTakingThisStepWithUs": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
 				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über {{independentAge}} sie selbst.",
-				"agreeSoThatYourChild": "MISSzuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
-				"danger": "MISSAchtung:",
-				"thefollowingRestrationMustBe": "MISSDie folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern."
+				"thefollowingRestrationMustBe": "Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern."
 			}
 		},
 		"deprecatedWarning": {
+			"heading": {
+				"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt"
+			},
 			"text": {
 				"weHaveRevisedAndImprovedRegistration": "Wir haben die Registrierung in der HPI Schul-Cloud überarbeitet und verbessert. Leider sind deswegen alte Regisitrierungslinks nicht mehr gültig. Bitte kontaktiere deinen Lehrer oder Administrator, um einen neuen Registrierungslink zu erhalten."
-			},
-			"heading": {
-				"sorryItDidNotWork": "MISSEntschuldige, das hat nicht geklappt"
 			}
 		},
 		"headline": {
-			"invalidLink": "Ungültiger Registrierungslink",
 			"registrationEmployee": "Registrierung - {{role}}",
 			"registrationParents": "Registrierung - Eltern",
 			"registrationStudents": "Registrierung - Schüler*",
@@ -2970,23 +2799,27 @@
 				"verificationCode": "Bestätigungscode:"
 			}
 		},
+		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
+		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
+		"registationFailedContinue": "Die HPI Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
+		"registationFailedContinueLink": "Öffne diese Seite in einem eigenen Fenster",
 		"registration_template": {
+			"global": {
+				"link": {
+					"contact": "Kontakt"
+				}
+			},
 			"heading": {
 				"invitationToThe": "Einladung in die"
+			},
+			"link": {
+				"imprint": "Impressum",
+				"partner": "Partner",
+				"toRegister": "Registrieren"
 			},
 			"text": {
 				"dear": "Sehr geehrte/r",
 				"youWereInvitedToThe": "Sie wurden eingeladen, der {{shortTitle}} beizutreten, bitte vervollständigen Sie Ihre Einladung unter folgendem Link"
-			},
-			"global": {
-				"link": {
-					"contact": "MISSKontakt"
-				}
-			},
-			"link": {
-				"imprint": "MISSImpressum",
-				"partner": "MISSPartner",
-				"toRegister": "MISSRegistrieren"
 			}
 		},
 		"requestPin": {
@@ -3001,10 +2834,9 @@
 		},
 		"text": {
 			"acceptConsentWithoutParents": "Wenn du zwischen 14 und {{age}} Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die {{title}} nutzen kannst.",
-			"agreeTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu.",
-			"invalidLink": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
-			"invalidLinkEmbeddedWebsite": "Die Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
-			"invalidLinkOpenWebsite": "Öffne diese Seite in einem eigenen Fenster",
+			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
+			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
+			"iReadAndAgreeWithTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu.",
 			"roleEmployee": "Lehrer*/Admins*",
 			"roleExpert": "Experte*",
 			"startPassword": "Startpasswort: {{password}}",
@@ -3012,15 +2844,8 @@
 			"timeout": "Leider konnte deine Registrierung nicht abgeschlossen werden.\nBitte versuche es erneut.",
 			"unknownError": "Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.",
 			"welcomeMailSubject": "Willkommen in der {{title}}!",
-			"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team",
-			"andAuthorisedToRepresent": "MISSund berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
-			"iAgreeThatThepersonalData": "MISSIch erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
-			"iReadAndAgreeWithTermsOfUse": "MISSIch habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu."
-		},
-		"registationFailedAuthParagraph": "MISSDer Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
-		"registationFailedAuthTitle": "MISSUngültiger Registrierungslink",
-		"registationFailedContinue": "MISSDie HPI Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
-		"registationFailedContinueLink": "MISSÖffne diese Seite in einem eigenen Fenster"
+			"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team"
+		}
 	},
 	"security": {
 		"headline": {
@@ -3044,11 +2869,11 @@
 			},
 			"dropdown_menu": {
 				"link": {
+					"deleteTeam": "Team löschen",
 					"editTeam": "Team bearbeiten",
 					"leaveTeam": "Team verlassen",
 					"manageMembers": "Teammitglieder verwalten",
-					"seeMembers": "Teammitglieder ansehen",
-					"deleteTeam": "MISSTeam löschen"
+					"seeMembers": "Teammitglieder ansehen"
 				}
 			},
 			"edit": {
@@ -3072,28 +2897,28 @@
 					"addDate": "Termin anlegen"
 				},
 				"headline": {
-					"addDate": "MISSTermin hinzufügen",
-					"dateDetails": "MISSTermin - Details"
+					"addDate": "Termin hinzufügen",
+					"dateDetails": "Termin - Details"
 				}
 			},
 			"files": {
 				"button": {
 					"changeSharingSettings": "Freigabe-Einstellungen ändern",
+					"createFolder": "Ordner erstellen",
 					"deleteFolder": "Ordner löschen",
 					"renameFolder": "Ordner umbenennen",
 					"shareFolder": "Ordner-Freigabe",
-					"toTeamFiles": "Zu den Team-Dateien",
-					"createFolder": "MISSOrdner erstellen"
+					"toTeamFiles": "Zu den Team-Dateien"
 				},
 				"headline": {
 					"changeFilePermissions": "Freigabe-Einstellungen ändern",
 					"fileActions": "Datei-Aktionen",
-					"folders": "Ordner",
-					"files": "MISSDateien"
+					"files": "Dateien",
+					"folders": "Ordner"
 				},
 				"text": {
-					"changedFilePermissionsSuccess": "Standard-Berechtigungen erfolgreich geändert",
-					"changedFilePermissionsError": "MISSProblem beim Ändern der Berechtigungen"
+					"changedFilePermissionsError": "Problem beim Ändern der Berechtigungen",
+					"changedFilePermissionsSuccess": "Standard-Berechtigungen erfolgreich geändert"
 				}
 			},
 			"headline": {
@@ -3147,6 +2972,7 @@
 					"teacherFromOtherSchool": "Lehrer anderer Schulen"
 				},
 				"headline": {
+					"actions": "Aktionen",
 					"addMember": "Teilnehmer hinzufügen",
 					"class": "{{count}} Klasse",
 					"class_plural": "{{count}} Klassen",
@@ -3154,24 +2980,23 @@
 					"deleteMember": "Teilnehmer löschen",
 					"editMember": "Teilnehmer bearbeiten",
 					"email": "E-Mail",
+					"firstName": "Vorname",
 					"inviteExternExpert": "Externen Experten einladen",
 					"inviteTeacherByEmail": "Lehrer per E-Mail einladen",
 					"inviteTeacherFromOtherSchool": "Lehrer anderer Schulen einladen",
 					"invitedOn": "Eingeladen am",
 					"member": "{{count}} Teilnehmer",
+					"member_plural": "{{count}} Teilnehmer",
+					"name": "Name",
 					"pendingInvitations": "Ausstehende Einladungen",
 					"requirements": "Voraussetzungen:",
 					"role": "Rolle",
+					"school": "Schule",
 					"selectAndAddTeacher": "Lehrer auswählen und hinzufügen",
 					"student": "Schüler",
+					"surname": "Nachname",
 					"teamMembers": "Team-Teilnehmer",
-					"whoDoYouWantToInvite": "Wen möchtest du ins Team einladen?",
-					"actions": "MISSAktionen",
-					"firstName": "MISSVorname",
-					"member_plural": "MISS{{count}} Teilnehmer",
-					"name": "MISSName",
-					"school": "MISSSchule",
-					"surname": "MISSNachname"
+					"whoDoYouWantToInvite": "Wen möchtest du ins Team einladen?"
 				},
 				"label": {
 					"addTeacherStudentsFromSchool": "Füge Lehrer und Schüler deiner Schule zum Team hinzu",
@@ -3190,10 +3015,10 @@
 					"removeClass": "Klasse entfernen",
 					"removeUser": "Nutzer entfernen",
 					"roleOfInvitedTeacher": "Rolle des eingeladenen Lehrers",
+					"school": "Schule",
 					"selectRoleForMember": "Gebe ein, welche Rolle der Teilnehmer erhalten soll.",
 					"sendInvitationAgain": "Einladung erneut versenden",
-					"school": "MISSSchule",
-					"teacher": "MISSLehrer"
+					"teacher": "Lehrer"
 				},
 				"placeholder": {
 					"insertEmail": "E-Mail eingeben",
@@ -3208,22 +3033,24 @@
 					"addTeacherOrStudentFromYourSchool": "Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.",
 					"addedMemberFailure": "Problem beim Hinzufügen der Teilnehmer",
 					"addedMemberSuccess": "Teilnehmer erfolgreich zum Team hinzugefügt",
+					"admin": "Administrator",
 					"changeRoleOfMember": "Ändere die Rolle des Nutzers:",
 					"errorWhileEditingMember": "Problem beim Bearbeiten des Teilnehmers",
 					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers",
 					"expert": "Externer Experte",
 					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
 					"inviteTeachersAndExpertsByEmail": "Lade Lehrer anderer Schulen und Experten per E-Mail ein.",
+					"leader": "Leiter",
 					"member": "Teilnehmer",
+					"owner": "Eigentümer",
 					"pleaseSelectRole": "Bitte wähle eine Rolle aus.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und Lehrer ihrer Schule zum Team hinzufügen.",
 					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
-					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen",
-					"admin": "MISSAdministrator",
-					"leader": "MISSLeiter",
-					"owner": "MISSEigentümer"
+					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
 				}
 			},
+			"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
+			"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
 			"news": {
 				"button": {
 					"addNews": "Neuigkeit anlegen"
@@ -3241,36 +3068,29 @@
 				"news": "Neuigkeiten"
 			},
 			"text": {
-				"errorAcceptingInvitation": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
-				"invitationSuccessfullyAccepted": "Teameinladung erfolgreich angenommen.",
-				"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
-				"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
+				"invitationAcceptedSuccess": "Teameinladung erfolgreich angenommen.",
+				"invitationAcceptionFailed": "Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
+				"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
-				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten.",
-				"invitationAcceptedSuccess": "MISSTeameinladung erfolgreich angenommen.",
-				"invitationAcceptionFailed": "MISSFehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
-				"noTopicFoundWithCode": "MISSEs wurde kein Thema für diesen Code gefunden."
-			},
-			"messengerNotActivatedCourse": "MISSNicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
-			"messengerNotActivatedSchool": "MISSDieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde."
+				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
+			}
 		},
 		"add": {
-			"headline": {
-				"editTeam": "Team bearbeiten",
-				"createTeam": "MISSTeam anlegen"
-			},
 			"button": {
-				"createTeam": "MISSTeam anlegen"
+				"createTeam": "Team anlegen"
+			},
+			"headline": {
+				"createTeam": "Team anlegen",
+				"editTeam": "Team bearbeiten"
 			}
 		},
 		"button": {
+			"accept": "Akzeptieren",
 			"createTeam": "Team anlegen",
 			"duplicateTeam": "Team duplizieren",
-			"foundATeam": "Gründe ein Team",
-			"accept": "MISSAkzeptieren"
+			"foundATeam": "Gründe ein Team"
 		},
 		"headline": {
-			"createTeam": "Team anlegen",
 			"duplicateTeam": "Team duplizieren",
 			"invitations": "Einladungen",
 			"membersOfTeam": "Mitglieder des Teams: {{teamName}}",
@@ -3280,28 +3100,38 @@
 		"img_alt": {
 			"teamOfTeachers": "Team von Lehrern"
 		},
+		"label": {
+			"more": "Weiteres"
+		},
 		"placeholder": {
 			"searchForTeams": "Suche nach Teams"
 		},
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
-			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator.",
-			"noMembers": "MISSKeine Teilnehmer"
-		},
-		"label": {
-			"more": "MISSWeiteres"
+			"noMembers": "Keine Teilnehmer",
+			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
 		}
 	},
 	"topic": {
 		"_topic": {
 			"button": {
 				"createTopic": "Thema anlegen",
-				"editTopic": "MISSThema bearbeiten"
+				"editTopic": "Thema bearbeiten"
+			},
+			"global": {
+				"button": {
+					"addPrivateTask": "private Aufgabe hinzufügen",
+					"addTask": "Aufgabe hinzufügen",
+					"toEdit": "Bearbeiten"
+				},
+				"heading": {
+					"task": "Aufgabe"
+				}
 			},
 			"heading": {
+				"assignedTasks": "Gestellte Aufgaben",
 				"privateTasks": "Private Aufgaben",
-				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen",
-				"assignedTasks": "MISSGestellte Aufgaben"
+				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
 			},
 			"headline": {
 				"createTopic": "Thema anlegen",
@@ -3312,24 +3142,19 @@
 			},
 			"label": {
 				"addPrivateTask": "private Aufgabe hinzufügen",
+				"addTask": "Aufgabe hinzufügen",
 				"content": "Inhalte",
 				"expandPrivateTasks": "Private Aufgaben ein/ausklappen",
 				"expandTasks": "gestellte Aufgaben ein/ausklappen",
-				"titleOfTheTopic": "Titel des Themas",
-				"addTask": "MISSAufgabe hinzufügen"
+				"titleOfTheTopic": "Titel des Themas"
 			},
 			"text": {
 				"shareWithOthersTeachers": "mit anderen Lehrern teilen"
-			},
-			"global": {
-				"button": {
-					"addPrivateTask": "MISSprivate Aufgabe hinzufügen",
-					"addTask": "MISSAufgabe hinzufügen",
-					"toEdit": "MISSBearbeiten"
-				},
-				"heading": {
-					"task": "MISSAufgabe"
-				}
+			}
+		},
+		"content": {
+			"link": {
+				"openInNewTab": "in neuem Tab öffnen"
 			}
 		},
 		"form_share": {
@@ -3365,11 +3190,6 @@
 				"selectNeXboard": "neXboard auswählen",
 				"theLinkHasToBeginWith": "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
 				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
-			}
-		},
-		"content": {
-			"link": {
-				"openInNewTab": "MISSin neuem Tab öffnen"
 			}
 		}
 	},
