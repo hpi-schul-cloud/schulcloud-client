@@ -626,7 +626,7 @@ router.get('/new', (req, res, next) => {
 		}
 		// Render overview
 		res.render('homework/edit', {
-			title: res.$t('homework._task.headline.addTask'),
+			title: res.$t('global.button.addTask'),
 			submitLabel: res.$t('global.button.add'),
 			closeLabel: res.$t('global.button.cancel'),
 			method: 'post',

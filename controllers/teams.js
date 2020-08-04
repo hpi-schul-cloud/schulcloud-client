@@ -155,7 +155,7 @@ const editTeamHandler = async (req, res, next) => {
 			method,
 			title: req.params.teamId
 				? res.$t('teams.add.headline.editTeam')
-				: res.$t('teams.headline.createTeam'),
+				: res.$t('teams.button.createTeam'),
 			submitLabel: req.params.teamId
 				? res.$t('global.button.saveChanges')
 				: res.$t('teams.button.createTeam'),
@@ -873,7 +873,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const head = [
 		res.$t('global.label.firstName'),
 		res.$t('global.label.lastName'),
-		res.$t('teams._team.members.headline.role'),
+		res.$t('global.label.role'),
 		res.$t('global.link.school'),
 		res.$t('global.headline.actions'),
 	];
@@ -887,7 +887,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const headInvitations = [
 		res.$t('teams._team.members.headline.email'),
 		res.$t('teams._team.members.headline.invitedOn'),
-		res.$t('teams._team.members.headline.role'),
+		res.$t('global.label.role'),
 		res.$t('global.headline.actions'),
 	];
 
