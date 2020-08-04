@@ -8,7 +8,7 @@ router.use(authHelper.authChecker);
 
 router.get('/', (req, res, next) => {
 	res.render('addons/addons', {
-		title: res.$t("addons.headline.addons"),
+		title: res.$t("global.sidebar.link.addons"),
 	});
 });
 

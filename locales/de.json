@@ -69,8 +69,7 @@
 				"changeTeamSettings": "Teameinstellungen ändern"
 			},
 			"headline": {
-				"teamSettings": "Team Einstellungen",
-				"teams": "Teams"
+				"teamSettings": "Team Einstellungen"
 			},
 			"label": {
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert werden.",
@@ -105,7 +104,6 @@
 	},
 	"addons": {
 		"headline": {
-			"addons": "Add-ons",
 			"portfolio": "Portfolio"
 		},
 		"text": {
@@ -174,7 +172,6 @@
 					"consentStatus": "Registrierung",
 					"createdOn": "Erstellt am",
 					"email": "E-Mail-Adresse",
-					"student": "Schüler",
 					"teacher": "Lehrer"
 				}
 			},
@@ -341,8 +338,7 @@
 				"createdOn": "Erstellt am:",
 				"itsOn": "Ist-Zustand",
 				"remarks": "Anmerkungen",
-				"targetState": "Soll-Zustand",
-				"title": "Titel"
+				"targetState": "Soll-Zustand"
 			}
 		},
 		"form_Rss": {
@@ -383,22 +379,14 @@
 			"label": {
 				"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
 				"assignPassword": "Passwort vergeben:",
-				"birthdate": "Geburtsdatum:",
 				"chooseDate": "Termine auswählen",
 				"chooseSchoolYear": "Schuljahr auswählen",
 				"classes": "Klassen:",
 				"colorOfTheCourse": "Farbe des Kurses:",
 				"dataProtection": "Datenschutz",
-				"dateOfBirth": "Geburtsdatum (optional):",
-				"emailAddress": "E-Mail-Adresse:",
-				"firstName": "Vorname:",
-				"from": "Von",
-				"lastName": "Nachname:",
 				"lengthOfLesson": "Dauer der Schulstunde",
 				"nameOfTheCourse": "Name des Kurses",
 				"parents": "Eltern",
-				"password": "Passwort:",
-				"room": "Raum",
 				"schoolYear": "Schuljahr",
 				"startOfLesson": "Start der Schulstunde",
 				"student": "Schüler:in",
@@ -408,9 +396,7 @@
 				"teachingTeacher": "Unterrichtenderlehrer:in",
 				"termsOfUse": "Nutzungsbedingungen",
 				"timeSpan": "Zeitraum (z.B. Schuljahr)",
-				"to": "Bis",
 				"toInviteToTheSchoolCloud": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:",
-				"type": "Typ",
 				"use": "Nutzung",
 				"weekday": "Wochentag"
 			},
@@ -812,9 +798,7 @@
 			}
 		},
 		"label": {
-			"entriesPerPage": "Einträge pro Seite: %1",
-			"fileType": "Dateitypen: %1",
-			"sortBy": "Sortieren nach: %1"
+			"fileType": "Dateitypen: %1"
 		},
 		"store": {
 			"heading": {
@@ -947,7 +931,6 @@
 			},
 			"tab_label": {
 				"groups": "Gruppen",
-				"tasks": "Aufgaben",
 				"tools": "Tools",
 				"topics": "Themen"
 			},
@@ -961,8 +944,6 @@
 					"noTasksPosed": "Es gibt keine gestellten Aufgaben in diesem Kurs.",
 					"noTasksPosedYet": "Es gibt noch keine gestellten Aufgaben in diesem Kurs.",
 					"submittedTasks": "Bearbeitete Aufgaben",
-					"task": "Aufgabe",
-					"tasks": "Aufgaben",
 					"tasksWithSubmissions": "Aufgaben mit Abgaben"
 				},
 				"img_alt": {
@@ -1224,9 +1205,6 @@
 			"privacyPolicy": "Datenschutzerklärung",
 			"registrationInvalid": "Registrierung fehlerhaft"
 		},
-		"img_alt": {
-			"brokenPen": "zerbrochener Stift"
-		},
 		"text": {
 			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
 			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
@@ -1299,7 +1277,6 @@
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
 			"close": "Schließen",
-			"createdAt": "Erstelldatum",
 			"dangerousCode": "Schädlicher Code",
 			"deleteFile": "Datei löschen",
 			"deleteFolder": "Ordner löschen",
@@ -1459,8 +1436,6 @@
 		},
 		"placeholder": {
 			"atList8CharactersWithUpperAndLower": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen.",
-			"enterYourFirstNameHere": "Ihren Vornamen hier eingeben",
-			"enterYourLastNameHere": "Ihren Nachname hier eingeben",
 			"newPassword": "Neues Passwort",
 			"repeatNewPassword": "Neues Passwort wiederholen"
 		},
@@ -1606,7 +1581,6 @@
 			"newTab": "Öffnet in neuem Tab",
 			"password": "Passwort:",
 			"room": "Raum",
-			"school": "Schule",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
 			"title": "Titel",
@@ -1615,14 +1589,11 @@
 		},
 		"link": {
 			"aboutTheProject": "Über das Projekt",
-			"addons": "Add-ons",
-			"administrationClasses": "Klassen",
 			"administrationStudents": "Schüler",
 			"administrationTeachers": "Lehrer",
 			"archive": "Archiv",
 			"calendar": "Termine",
 			"contact": "Kontakt",
-			"courses": "Kurse",
 			"files": "Meine Dateien",
 			"filesPersonal": "persönliche Dateien",
 			"filesShared": "geteilte Dateien",
@@ -1643,7 +1614,6 @@
 			"partner": "Partner",
 			"register": "Registrieren",
 			"school": "Schule",
-			"tasks": "Aufgaben",
 			"tasksDrafts": "Entwürfe",
 			"teams": "Teams",
 			"topNavbarSkipLink": "Navigation oben"
@@ -1661,7 +1631,6 @@
 				"leader": "Leiter",
 				"member": "Mitglied",
 				"owner": "Eigentümer",
-				"student": "Schüler",
 				"teacher": "Lehrer"
 			}
 		},
@@ -1672,29 +1641,20 @@
 				"administration": "Administration",
 				"administrationClasses": "Klassen",
 				"administrationCourses": "Kurse",
-				"administrationSchools": "Schule",
-				"administrationStudents": "Schüler",
-				"administrationTeachers": "Lehrer",
-				"administrationTeams": "Teams",
 				"archive": "Archiv",
 				"calendar": "Termine",
-				"courses": "Kurse",
 				"files": "Meine Dateien",
-				"filesCourse": "Kurse",
 				"filesPersonal": "persönliche Dateien",
 				"filesShared": "geteilte Dateien",
 				"helpArea": "Hilfebereich",
 				"helpDesk": "Helpdesk",
 				"lernstore": "Lern-Store",
 				"management": "Verwaltung",
-				"managementClasses": "Klassen",
 				"managementStudents": "Schüler:innen",
 				"managementTeachers": "Lehrer:innen",
 				"overview": "Übersicht",
-				"tasks": "Aufgaben",
 				"tasksArchive": "Archiv",
-				"tasksDrafts": "Entwürfe",
-				"teams": "Teams"
+				"tasksDrafts": "Entwürfe"
 			}
 		},
 		"skipLinks": {
@@ -1842,7 +1802,6 @@
 		"global": {
 			"heading": {
 				"principal": "Schulleitung",
-				"student": "Schüler",
 				"teacher": "Lehrer"
 			},
 			"label": {
@@ -2015,7 +1974,6 @@
 			"label": {
 				"copyTask": "Aufgabenstellung kopieren",
 				"copyTaskAlt": "Aufgabe '{{title}}' kopieren.",
-				"courses": "Kurse",
 				"deleteTaskAlt": "Löschen der Aufgabe: '{{title}}'.",
 				"editTaskAlt": "Aufgabe '{{title}}' bearbeiten.",
 				"fileUpload": "Dateiabgabe",
@@ -2066,12 +2024,10 @@
 		"global": {
 			"label": {
 				"allowGroupSubmission": "Gruppenabgabe ermöglichen",
-				"courses": "Kurse",
 				"description": "Aufgabenstellung",
 				"maximumGroupSize": "maximale Gruppengröße:",
 				"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
 				"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
-				"title": "Titel",
 				"topic": "Thema",
 				"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
 			},
@@ -2089,20 +2045,16 @@
 			"breadcrumbArchived": "Archivierte",
 			"breadcrumbAssigned": "Gestellte",
 			"breadcrumbPrivate": "Meine",
-			"courses": "Kurse",
 			"drafts": "Entwürfe",
 			"dueDate": "Abgabedatum",
-			"more": "Mehr",
-			"tasks": "Aufgaben"
+			"more": "Mehr"
 		},
 		"input": {
 			"gradeComment": "Bewertungskommentar",
-			"noAssignment": "Keine Zuordnung",
-			"title": "Titel"
+			"noAssignment": "Keine Zuordnung"
 		},
 		"label": {
 			"comment": "Kommentar",
-			"courses": "Kurse",
 			"details": "Details",
 			"dontShowAgain": "Nicht mehr anzeigen",
 			"filesUploadedForDelivery": "Zur Abgabe hochgeladene Dateien (ungespeichert!)",
@@ -2122,9 +2074,7 @@
 			"restore": "Wiederherstellen",
 			"selectStudentGroup": "Schüler:innen-Gruppe auswählen",
 			"selectTeamMembers": "Teammitglieder auswählen",
-			"sortBy": "Sortieren nach: %1",
 			"sortByAvailabilityDate": "Verfügbarkeitsdatum",
-			"sortByCreationDate": "Erstelldatum",
 			"sortByDueDate": "Abgabedatum",
 			"sortByLastUpdate": "letzte Aktualisierung",
 			"studentSolutionVisibleToEachOthers": "Schüler:innenabgaben untereinander sichtbar",
@@ -2328,7 +2278,6 @@
 				"learnCloud": "Lern Cloud"
 			},
 			"input": {
-				"password": "Passwort:",
 				"userName": "Benutzername:"
 			},
 			"label": {
@@ -2434,7 +2383,6 @@
 			"system": "System auswählen"
 		},
 		"label": {
-			"school": "Schule",
 			"system": "System",
 			"thisIsAPrivateDevice": "Angemeldet bleiben"
 		},
@@ -2512,9 +2460,6 @@
 				"createNews": "News erstellen",
 				"editNews": "News bearbeiten"
 			},
-			"input": {
-				"title": "Titel"
-			},
 			"label": {
 				"contentOfMessage": "Inhalt der Nachricht..."
 			}
@@ -2530,8 +2475,7 @@
 		"label": {
 			"content": "Inhalt",
 			"scheduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
-			"searchForNews": "Suche nach Neuigkeiten",
-			"title": "Titel"
+			"searchForNews": "Suche nach Neuigkeiten"
 		},
 		"text": {
 			"atSchool": "an der Schule",
@@ -2615,15 +2559,12 @@
 					"yourData": "Deine Daten"
 				},
 				"input": {
-					"firstName": "Ihren Vornamen hier eingeben",
-					"lastName": "Ihren Nachname hier eingeben",
 					"password": "Passwort",
 					"repeatPassword": "Passwort wiederholen",
 					"teacherEmail": "lehrer@schul-cloud.org",
 					"yourEmailAddress": "Deine E-Mail-Adresse:"
 				},
 				"label": {
-					"password": "Passwort:",
 					"repeatPassword": "Passwort wiederholen:"
 				},
 				"text": {
@@ -2643,11 +2584,7 @@
 					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
 				},
 				"label": {
-					"birthDate": "Geburtsdatum:",
 					"eMail": "E-Mail:",
-					"emailAddress": "E-Mail-Adresse:",
-					"firstName": "Vorname:",
-					"lastName": "Nachname:",
 					"studentEmailAddress": "E-Mail-Adresse des Schülers:",
 					"studentsDateOfBirth": "Geburtsdatum des Schülers:",
 					"yourEmailAddress": "Ihre E-Mail-Adresse:"
@@ -2692,9 +2629,7 @@
 					"completeFirstName": "Vorname des Kindes in offizieller Schreibweise, keine Spitznamen",
 					"lastName": "Nachname des Kindes",
 					"parentEmail": "eltern@schul-cloud.org",
-					"studentEmail": "schueler@schul-cloud.org",
-					"yourFirstName": "Ihren Vornamen hier eingeben",
-					"yourLastName": "Ihren Nachname hier eingeben"
+					"studentEmail": "schueler@schul-cloud.org"
 				},
 				"label": {
 					"iAmLegalGuardianOfChild": "Ich, <b data-from=\"parent_firstName\"></b> <b data-from=\"parent_lastName\"></b>, bin erziehungsberechtigt für <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b> und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten."
@@ -2962,9 +2897,7 @@
 					"pendingInvitations": "Ausstehende Einladungen",
 					"requirements": "Voraussetzungen:",
 					"role": "Rolle",
-					"school": "Schule",
 					"selectAndAddTeacher": "Lehrer auswählen und hinzufügen",
-					"student": "Schüler",
 					"surname": "Nachname",
 					"teamMembers": "Team-Teilnehmer",
 					"whoDoYouWantToInvite": "Wen möchtest du ins Team einladen?"
@@ -2986,7 +2919,6 @@
 					"removeClass": "Klasse entfernen",
 					"removeUser": "Nutzer entfernen",
 					"roleOfInvitedTeacher": "Rolle des eingeladenen Lehrers",
-					"school": "Schule",
 					"selectRoleForMember": "Gebe ein, welche Rolle der Teilnehmer erhalten soll.",
 					"sendInvitationAgain": "Einladung erneut versenden",
 					"teacher": "Lehrer"
@@ -3095,9 +3027,6 @@
 			"global": {
 				"button": {
 					"addTask": "Aufgabe hinzufügen"
-				},
-				"heading": {
-					"task": "Aufgabe"
 				}
 			},
 			"heading": {
@@ -3131,7 +3060,6 @@
 			"button": {
 				"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
 				"material": "Lern-Material",
-				"task": "Aufgabe",
 				"text": "Text"
 			},
 			"input": {

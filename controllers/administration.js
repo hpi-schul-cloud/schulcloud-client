@@ -2315,7 +2315,7 @@ router.get(
 					res.$t('administration.controller.global.label.class'),
 					res.$t('administration.controller.global.label.teacher'),
 					res.$t('administration.global.label.schoolYear'),
-					res.$t('administration.controller.global.label.student'),
+					res.$t('global.link.administrationStudents'),
 				];
 				const hasEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT');
 				if (hasEditPermission) {

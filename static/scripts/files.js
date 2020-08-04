@@ -569,7 +569,7 @@ $(document).ready(() => {
 			.then((permissions) => {
 				const nameMap = {
 					teacher: $t('global.role.text.teacher'),
-					student: $t('global.role.text.student'),
+					student: $t('global.link.administrationStudents'),
 					teammember: $t('global.role.text.member'),
 					teamexpert: $t('global.role.text.expert'),
 					teamleader: $t('global.role.text.leader'),

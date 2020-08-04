@@ -48,11 +48,11 @@ module.exports = (req, res, next) => {
 		icon: 'th-large',
 		link: '/dashboard/',
 	}, {
-		name: res.$t('global.link.courses'),
+		name: res.$t('global.sidebar.link.administrationCourses'),
 		icon: 'graduation-cap',
 		link: '/courses/',
 	}, {
-		name: res.$t('global.link.tasks'),
+		name: res.$t('global.headline.tasks'),
 		icon: 'tasks',
 		link: '/homework/',
 		children: [
@@ -83,7 +83,7 @@ module.exports = (req, res, next) => {
 				link: '/files/my/',
 			},
 			{
-				name: res.$t('global.link.courses'),
+				name: res.$t('global.sidebar.link.administrationCourses'),
 				icon: 'folder-open-o',
 				link: '/files/courses/',
 			},
@@ -116,7 +116,7 @@ module.exports = (req, res, next) => {
 	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
 	if (extensionsEnabled) {
 		res.locals.sidebarItems.push({
-			name: res.$t('global.link.addons'),
+			name: res.$t('global.sidebar.link.addons'),
 			icon: 'puzzle-piece',
 			link: '/addons',
 		});
@@ -141,7 +141,7 @@ module.exports = (req, res, next) => {
 				link: '/administration/teachers/',
 			},
 			{
-				name: res.$t('global.link.administrationClasses'),
+				name: res.$t('global.sidebar.link.administrationClasses'),
 				icon: 'users',
 				link: '/administration/classes/',
 			},
@@ -162,7 +162,7 @@ module.exports = (req, res, next) => {
 				link: '/administration/teachers/',
 			},
 			{
-				name: res.$t('global.link.administrationClasses'),
+				name: res.$t('global.sidebar.link.administrationClasses'),
 				icon: 'users',
 				link: '/administration/classes/',
 			},
@@ -195,12 +195,12 @@ module.exports = (req, res, next) => {
 				link: '/administration/teachers/',
 			},
 			{
-				name: res.$t('global.link.courses'),
+				name: res.$t('global.sidebar.link.administrationCourses'),
 				icon: 'graduation-cap',
 				link: '/administration/courses/',
 			},
 			{
-				name: res.$t('global.link.administrationClasses'),
+				name: res.$t('global.sidebar.link.administrationClasses'),
 				icon: 'users',
 				link: '/administration/classes/',
 			},

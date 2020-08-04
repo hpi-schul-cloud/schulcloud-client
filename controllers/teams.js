@@ -874,13 +874,13 @@ router.get('/:teamId/members', async (req, res, next) => {
 		res.$t('global.label.firstName'),
 		res.$t('global.label.lastName'),
 		res.$t('teams._team.members.headline.role'),
-		res.$t('global.label.school'),
+		res.$t('global.link.school'),
 		res.$t('global.headline.actions'),
 	];
 
 	const headClasses = [
 		res.$t('global.headline.name'),
-		res.$t('teams._team.members.headline.student'),
+		res.$t('global.link.administrationStudents'),
 		res.$t('global.headline.actions'),
 	];
 
