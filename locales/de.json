@@ -1506,16 +1506,6 @@
 			"tryAgain": "Erneut Versuchen",
 			"yes": "Ja"
 		},
-		"error": {
-			"400": "Diese Anfrage war fehlerhaft.",
-			"401": "Bitte authentifiziere dich zuerst.",
-			"402": "Diese Funktion musst du erst noch bezahlen.",
-			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
-			"404": "Ups, diese Seite gibt's wohl nicht.",
-			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
-			"pageMoved": "Diese Seite wurde verschoben.",
-			"requestTimeout": "Zeitüberschreitung bei dir Anfrage"
-		},
 		"headline": {
 			"actions": "Aktionen",
 			"addDate": "Termin hinzufügen",
@@ -1597,8 +1587,6 @@
 			"teams": "Teams",
 			"topNavbarSkipLink": "Navigation oben"
 		},
-		"mobileNavMenu": "Mobiles Navigations Menu",
-		"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 		"placeholder": {
 			"firstName": "Ihren Vornamen hier eingeben",
 			"lastName": "Ihren Nachname hier eingeben"
@@ -1614,18 +1602,12 @@
 			}
 		},
 		"sidebar": {
-			"ariaLabel": "Seitenleiste",
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationClasses": "Klassen",
 				"administrationCourses": "Kurse"
 			}
-		},
-		"skipLinks": {
-			"footerSkipLink": "Footer",
-			"mainContentSkipLink": "Hauptbereich",
-			"topNavbarSkipLink": "Navigation oben"
 		},
 		"text": {
 			"400": "Diese Anfrage war fehlerhaft.",
@@ -1669,30 +1651,6 @@
 			"videoconferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
 			"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 			"wednesday": "Mittwoch"
-		},
-		"title": {
-			"landing": "Startseite"
-		},
-		"topMenu": {
-			"ariaLabel": "topbar",
-			"dropdown": {
-				"QRCode": {
-					"title": "QR-Code"
-				},
-				"alertButton": {
-					"title": "Es gibt ein Problem"
-				},
-				"currentUser": {
-					"ariaLabel": "aktueller Benutzer:"
-				},
-				"fullscreenButton": {
-					"title": "Vollbildmodus"
-				},
-				"notifications": {
-					"title": "Benachrichtigungen"
-				}
-			},
-			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		}
 	},
 	"help": {
@@ -2091,9 +2049,6 @@
 				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
 			}
 		},
-		"default": {
-			"yourDigitalLearningEnvironment": "Deine digitale Lernumgebung"
-		},
 		"error": {
 			"button": {
 				"hideDetails": "Details verstecken",
@@ -2104,7 +2059,6 @@
 			}
 		},
 		"extended_footer": {
-			"ariaLabel": "footer",
 			"heading": {
 				"links": "Links",
 				"vacancies": "Stellenausschreibungen"
@@ -2126,7 +2080,6 @@
 			}
 		},
 		"footer": {
-			"ariaLabel": "footer",
 			"img_alt": {
 				"providerLogo": "Anbieterlogo"
 			}
@@ -2254,9 +2207,6 @@
 		"table": {
 			"label": {
 				"numberOfEntries": "Anzahl der Einträge"
-			},
-			"option": {
-				"numberofEntries": "Anzahl der Einträge"
 			}
 		}
 	},
@@ -2273,11 +2223,6 @@
 		}
 	},
 	"login": {
-		"anchor": {
-			"title": {
-				"show_password": "Passwort anzeigen"
-			}
-		},
 		"button": {
 			"less": "Weniger",
 			"login": "Anmelden",
@@ -2416,9 +2361,6 @@
 			"advisoryBoard": "Fachbeirat",
 			"pilotPartners": "Pilotpartner für Lerninhalte",
 			"supporters": "Unterstützer für Schulinfrastruktur <3"
-		},
-		"img-alt": {
-			"logo": "Logo"
 		},
 		"img_alt": {
 			"logo": "Logo"
@@ -2599,10 +2541,6 @@
 				"verificationCode": "Bestätigungscode:"
 			}
 		},
-		"registationFailedAuthParagraph": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deinem Lehrer oder Schul-Administrator an.",
-		"registationFailedAuthTitle": "Ungültiger Registrierungslink",
-		"registationFailedContinue": "Die HPI Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren ",
-		"registationFailedContinueLink": "Öffne diese Seite in einem eigenen Fenster",
 		"registration_template": {
 			"heading": {
 				"invitationToThe": "Einladung in die"
@@ -2821,8 +2759,6 @@
 					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
 				}
 			},
-			"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
-			"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
 			"news": {
 				"button": {
 					"addNews": "Neuigkeit anlegen"
