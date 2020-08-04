@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>{{$t "administration.label.firstName" }} <sup>*</sup></label>
+                        <label>{{$t "administration.global.label.firstName" }} <sup>*</sup></label>
                         <input class="form-control" name="firstName" type="text" required readonly
                             value="{{user.firstName}}" />
                     </div>
@@ -25,7 +25,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>{{$t "administration.label.lastName" }} <sup>*</sup></label>
+                        <label>{{$t "administration.global.label.lastName" }} <sup>*</sup></label>
                         <input class="form-control" name="lastName" type="text" required readonly
                             value="{{user.lastName}}" />
                     </div>
@@ -34,30 +34,30 @@
 
 
             <div class="form-group">
-                <label>{{$t "administration.label.emailAddress" }} <sup>*</sup></label>
+                <label>{{$t "administration.global.label.emailAddress" }} <sup>*</sup></label>
                 <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org"
                     value="{{user.email}}" required readonly>
             </div>
             {{#unless editTeacher}}
             <div class="form-group">
-                <label>{{$t "administration.label.birthdate" }}<sup>*</sup></label>
+                <label>{{$t "administration.global.label.birthdate" }}<sup>*</sup></label>
                 <input class="form-control linked" id="birthday" data-date
                     data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}"
                     name="birthday" type="text" required value="{{dateToPicker user.birthday "DD.MM.YYYY"}}" />
             </div>
             {{/unless}}
             <div class="form-group">
-                <label for="password">{{$t "administration.label.assignPassword" }} <sup>*</sup></label>
+                <label for="password">{{$t "administration.global.label.assignPassword" }} <sup>*</sup></label>
                 <input id="passwd" type="text" name="passwd" value="{{password}}" class="form-control linked"
                     placeholder="***************" required>
             </div>
             <div class="form-group">
-                <b>Du erteilst folgende Einwilligungen im Namen des Nutzers: </b><br>
+                <b>{{$t "administration.users_skipRegistration.text.youGiveTheFollowingConsent" }} </b><br>
                 <div class="row" id="consents-overview">
 
                     {{#unless editTeacher}}
                     <div class="col-md-6">
-                        Für Schüler unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahren: Einverständnis der Eltern<br />
+                        {{$t "administration.global.text.forStudentsUnder" (dict "minAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS )}}<br />
                         <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" readonly />
 
                         <label><input name="parent_form" value="analog" type="radio" checked /> Analog</label>
@@ -65,15 +65,15 @@
                         <br />
                         <label>
 							<input name="parent_privacyConsent" type="checkbox" value="true" checked />
-                            {{$t "administration.label.dataProtection" }}
+                            {{$t "administration.global.label.dataProtection" }}
 						</label><br />
                         <label>
 							<input name="parent_termsOfUseConsent" type="checkbox" value="true" checked />
-                            {{$t "administration.label.termsOfUse" }}
+                            {{$t "administration.global.label.termsOfUse" }}
 						</label><br />
                     </div>
                     <div class="col-md-6">
-                        Für Schüler ab 14 Jahren: Einverständnis des Schülers<br />
+                        {{$t "administration.users_skipRegistration.text.forStudentsAged14" }}<br />
                         <input name="student_consentId" type="hidden" value="{{consent._id}}" readonly />
 
                         <label><input name="student_form" value="analog" type="radio" checked /> Analog</label>
@@ -81,11 +81,11 @@
                         <br />
                         <label>
 							<input name="privacyConsent" type="checkbox" value="true" data-force-value="true" checked />
-                            {{$t "administration.label.dataProtection" }}
+                            {{$t "administration.global.label.dataProtection" }}
 						</label><br />
                         <label>
 							<input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true" checked />
-                            {{$t "administration.label.termsOfUse" }}
+                            {{$t "administration.global.label.termsOfUse" }}
 						</label><br />
                     </div>
                     {{else}}
@@ -97,11 +97,11 @@
                         <br />
                         <label>
 							<input name="privacyConsent" type="checkbox" data-force-value="true" checked />
-                            {{$t "administration.label.dataProtection" }}
+                            {{$t "administration.global.label.dataProtection" }}
 						</label><br />
                         <label>
 							<input name="termsOfUseConsent" type="checkbox" value="true" data-force-value="true" checked />
-                            {{$t "administration.label.termsOfUse" }}
+                            {{$t "administration.global.label.termsOfUse" }}
 						</label><br />
                     </div>
                     {{/unless}}
