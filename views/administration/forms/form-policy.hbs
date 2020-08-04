@@ -1,0 +1,27 @@
+<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
+
+<div class="form-group">
+	<label>Titel</label>
+	<input class="form-control" name="consentTitle" type="text" data-force-value="true" value="Datenschutzerklärung der Schule" readonly>
+</div>
+<div class="form-group">
+	<label>Beschreibung</label>
+	<textarea class="form-control" name="consentText" value="{{consentText}}" required></textarea>
+</div>
+<div class="form-group">
+	<label>Datei hochladen (nur PDF, max 4MB)</label><br/>
+	<input type="hidden" id="policy-file-data" name="consentData" value="{{consentData}}">
+	<input type="file" id="policy-input" accept="application/pdf">
+	<label for="policy-input" class="btn btn-secondary">Datei auswählen</label>
+</div>
+<div class="form-group">
+	<div class="policy-file-upload">
+		<img id="policy-file-logo" src="/images/thumbs/pdfs.png" width="25px">
+		<span id="policy-file-name">Keine Datei ausgewählt</span>
+	</div>
+</div>
+<div class="form-group">
+	<b>Wichtig: </b><p class="text-muted">Wenn eine neue Datenschutzerklärung hochgeladen wird, wird sie allen Nutzern aus dieser Schule zur
+		Zustimmung gegeben.</p>
+</div>
+

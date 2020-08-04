@@ -1,4 +1,5 @@
 const express = require('express');
+const { Configuration } = require('@schul-cloud/commons');
 
 const router = express.Router();
 
@@ -12,7 +13,6 @@ router.use(require('./registration'));
 
 router.use('/account/', require('./account'));
 router.use('/calendar/', require('./calendar'));
-router.use('/content/', require('./content'));
 router.use('/courses/', require('./courses'));
 router.use('/courses/:courseId/topics/', require('./topics'));
 router.use('/courses/:courseId/tools/', require('./tools'));
@@ -38,8 +38,10 @@ router.use('/impressum/', require('./imprint'));
 router.use('/datenschutz/', require('./dataprivacy'));
 router.use('/team', require('./team'));
 router.use('/my-material', require('./my-material'));
+router.use('/base64Files', require('./base64Files'));
 router.use('/logs', require('./logs'));
 router.use('/firstLogin', require('./firstLogin'));
+router.use('/forcePasswordChange', require('./forcePasswordChange'));
 router.use('/oauth2', require('./oauth2'));
 router.use('/welcome', require('./welcome'));
 router.use('/schools/', require('./schools'));
@@ -52,5 +54,11 @@ router.use('/administration/', require('./administration'));
 router.use('/version', require('./version'));
 router.use('/alerts', require('./alerts'));
 router.use('/ghost', require('./ghost'));
+router.use('/blog', require('./blog'));
+router.use('/security/', require('./security'));
+
+if (Configuration.get('LERNSTORE_MODE') !== 'DISABLED') {
+	router.use('/content/', require('./content'));
+}
 
 module.exports = router;

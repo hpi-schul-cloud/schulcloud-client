@@ -5,56 +5,74 @@
         <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
     {{/content}}
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
-        <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
-        <script src="/scripts/administration/teams.js" type="text/javascript" defer></script>
+        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/administration/teams.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "page" mode="prepend"}}
-        <form action="/administration/teams/disablestudents/{{school._id}}" method="post" class="edit-form-school">
+			{{#ifConfig "STUDENT_TEAM_CREATION" "disabled"}}
+			<label>{{$t "administration.teams.label.cannotCreateTeam" }}
+				<p class="text-muted">{{$t "administration.teams.label.functionality" }}</p>
+			</label>
+			{{else}}
+			{{#ifConfig "STUDENT_TEAM_CREATION" "enabled"}}
+				<label>{{$t "administration.teams.label.canCreateTeam" }}
+					<p class="text-muted">{{$t "administration.teams.label.functionality" }}</p>
+				</label>
+			{{else}}
+				<form action="/administration/teams/enablestudents/{{@root.school._id}}" method="post" class="edit-form-school">
             <input type="hidden" name="_method" value="patch" />
             <div class="form-group" id="enableStudentsTeamsCreate">
-                <label>
-                    <input type="checkbox" name="enablestudentteamcreation" value="true"
-                    {{#inArray "disableStudentTeamCreation" school.features}}
-                    {{else}}
-                    checked
-                    {{/inArray}}>
-                    Schülern ist erlaubt Teams anzulegen
-                    <p class="text-muted">Ist diese Funktion aktiviert, können Schüler selbstständig die Teams-Funktion 
-                    nutzen und Teams gründen, ohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter 
-                    Administrator kannst du diese Funktion zentral für die gesamte Schule deaktivieren/aktiveren.</p>
-                </label>
+				<label>
+					<input type="checkbox" name="enablestudentteamcreation"
+						   value="true"
+						{{#ifConfig "STUDENT_TEAM_CREATION" "opt-in"}}
+						   {{#ifeq ../school.enableStudentTeamCreation true}}
+						   			checked
+						   {{/ifeq}}
+						{{/ifConfig}}
+						{{#ifConfig "STUDENT_TEAM_CREATION" "opt-out"}}
+							{{#ifneq ../school.enableStudentTeamCreation false}}
+						   			checked
+							{{/ifneq}}
+						{{/ifConfig}}
+					>
+					{{$t "administration.teams.label.studentsAreAllowedToCreateTeam" }}
+					<p class="text-muted">{{$t "administration.teams.label.whenFunctionIsActivated" }}</p>
+				</label>
             </div>
             {{> "lib/components/csrfInput"}}
-            <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+            <button type="submit" class="btn btn-primary btn-submit">{{$t "global.button.save" }}</button>
         </form>
+			{{/ifConfig}}
+		{{/ifConfig}}
         <div class="route-administration">
             <section class="section-school section-default">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            {{> "lib/components/table" head=head body=body limit=false}}
+                            {{> "lib/components/table" head=head body=body }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
                             <center>
-                                <b>*Legende:</b>
+                                <b>*{{$t "administration.teams.text.teamHasOwners" }}</b>
                                 <i class="fa fa-home team-flags"></i>
-                                An eigener Schule gegründetes Team &emsp;
+                                {{$t "administration.teams.text.teamFoundedInOwnSchool" }} &emsp;
                                 <i class="fa fa-bus team-flags"></i>
-                                Beinhaltet Schul-externe Mitglieder &emsp;
+                                {{$t "administration.teams.text.includesOutsideSchoolMembers" }} &emsp;
                                 <i class="fa fa-briefcase team-flags"></i>
-                                Team hat Eigentümer &emsp;
+                                {{$t "administration.teams.text.teamHasOwners" }}  &emsp;
                                 <i class="fa fa-comments team-flags"></i>
-                                Chat ist aktiviert
+                                {{$t "administration.global.text.chatIsActivated" }}
                             </center>
                         </div>
                     </div>
                     {{!-- TODO --}}
-                    {{!-- <div class="row">
+                    <div class="row">
                         {{> "lib/components/pagination" settings=pagination }}
-                    </div> --}}
+                    </div>
                     {{!-- <div class="row">
                         <div class="col-sm-12 no-padding">
                             <button type="submit" class="btn btn-primary btn-add-modal">

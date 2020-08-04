@@ -8,15 +8,15 @@ const defaultLanguage = 'de';
 const localeDir = path.join(__dirname, '../locales');
 
 const availableLanuages = fs.readdirSync(localeDir)
-	.filter(filename => filename.endsWith('.json'))
-	.map(filename => filename.replace('.json', ''));
+	.filter((filename) => filename.endsWith('.json'))
+	.map((filename) => filename.replace('.json', ''));
 
 i18next
 	.use(Backend)
 	.init({
 		initImmediate: false,
 		lng: defaultLanguage,
-		fallbackLng: availableLanuages.filter(lng => lng !== defaultLanguage),
+		fallbackLng: availableLanuages.filter((lng) => lng !== defaultLanguage),
 		backend: {
 			loadPath: `${localeDir}/{{lng}}.json`,
 		},
@@ -39,7 +39,7 @@ const getInstance = (user) => {
 
 	return (key, options = {}) => i18next.t(key, {
 		lng: userLng,
-		fallbackLng: availableLanuages.filter(lng => lng !== userLng),
+		fallbackLng: availableLanuages.filter((lng) => lng !== userLng),
 		...options,
 	});
 };

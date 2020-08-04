@@ -9,13 +9,13 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" defer></script>
-        <script src="/scripts/moment/moment.js" type="text/javascript" defer></script>
-        <script src="/scripts/courses.js" type="text/javascript" defer></script>
-        <script src="/scripts/coursesTimes.js" type="text/javascript" defer></script>
-        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
-        <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
-        <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/moment/moment.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/courses.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/coursesTimes.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
 
@@ -23,7 +23,7 @@
         <section class="section-course">
           <div class="wizard-header">
             <div class="header-icon">
-              <img src="/images/empty-states/shuttle.svg" alt="Space Shuttle Start" class="hidden-xs-down"/>
+              <img src="/images/empty-states/shuttle.svg" alt="{{$t "courses.add.img_alt.spaceShuttleStart"}}" class="hidden-xs-down"/>
             </div>
             <div class="headlines">
               <h2 class="h3">{{sectionTitle}}</h2>
@@ -48,7 +48,7 @@
           {{#embed "lib/forms/paginatedForm" sections=3 action=action method=method submit-label=submitLabel}}
             {{#content "panels"}}
 
-            <section data-panel="section-1">
+            <section data-panel="section-1" data-testid= "section-1-area">
               {{#if method}}
                   <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
               {{/if}}
@@ -84,7 +84,7 @@
               </div>
 
               <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-6" data-testid="teachers_container">
                     <label>{{$t "courses.global.label.courseTeacher"}}</label>
 
                     <select name="teacherIds[]" required multiple data-placeholder= "{{$t "courses.global.input.chooseTeacher"}}"data-testid="teachersearch" autocomplete="off">
@@ -100,7 +100,7 @@
                     </select>
                 </div>
 
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-6" data-testid="courseSubstitute_container">
                     <label>{{$t "courses.add.label.courseSubstitute"}}</label>
                     <select name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"  autocomplete="off" data-testid="substituent">
                         {{#each substitutions}}
@@ -185,50 +185,52 @@
 
             </section>
 
-            <section data-panel="section-2" class="submit-page course-submit-page">
-              <h2 class="h4">{{$t "courses.add.headline.almostDone"}}</h2>
-              <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
-              <div class="form-group">
-                  <label>{{$t "courses.add.label.addClassesToCourse"}}</label>
+            <section data-panel="section-2" data-testid="section-2-area" class="submit-page course-submit-page">
+                {{#userHasPermission "STUDENT_LIST"}}
+                    <h2 class="h4">{{$t "courses.add.headline.almostDone"}}</h2>
+                    <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
+                    <div class="form-group" data-testid="class_container">
+                        <label>{{$t "courses.add.label.addClassesToCourse"}}</label>
+                        <select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
+                          {{#each ../classes}}
+                              <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                                  {{log this.year}}
+                                  {{#if this.name}}
+                                      {{this.displayName}}
+                                  {{else}}
+                                      {{this.name}}
+                                  {{/if}}
 
-                  <select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
-                      {{#each classes}}
-                          <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                              {{log this.year}}
-                              {{#if this.name}}
-                                  {{this.displayName}}
-                              {{else}}
-                                  {{this.name}}
-                              {{/if}}
+                                  {{#if this.year}}
+                                      ({{this.year.name}})
+                                  {{/if}}
+                              </option>
+                          {{/each}}
+                      </select>
+                  </div>
 
-                              {{#if this.year}}
-                                  ({{this.year.name}})
-                              {{/if}}
-                          </option>
-                      {{/each}}
-                  </select>
-              </div>
+                  <div class="form-group" data-testid="students_container">
+                      <label>{{$t "courses.add.label.addStudentsToCourse"}}</label>
 
-
-
-              <div class="form-group">
-                  <label>{{$t "courses.add.label.addStudentsToCourse"}}</label>
-
-                  <select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
-                      {{#each students}}
-                          <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                              {{#if this.displayName}}
-                                  {{this.displayName}}
-                              {{else}}
-                                  {{this.firstName}} {{this.lastName}}
-                              {{/if}}
-                          </option>
-                      {{/each}}
-                  </select>
-              </div>
+                      <select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
+                          {{#each ../students}}
+                              <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                                  {{#if this.displayName}}
+                                      {{this.displayName}}
+                                  {{else}}
+                                      {{this.firstName}} {{this.lastName}}
+                                  {{/if}}
+                              </option>
+                          {{/each}}
+                      </select>
+                  </div>
+                {{else}}
+                    <h2 class="h4">{{$t "courses.add.headline.addStudents"}}</h2>
+                    <p class="text-muted">{{$t "courses.add.text.addingStudentsForbidden"}}
+                {{/userHasPermission}}
             </section>
 
-            <section data-panel="section-3">
+            <section data-panel="section-3" data-testid="section-3-area">
               <div class="final-step">
                 <div class="image-wrapper hidden-xs-down">
                   <img class="image" src="/images/empty-states/add_people.svg"/>
@@ -251,9 +253,9 @@
               </div>
 
               <div class="pull-right">
-                <a class="btn btn-secondary" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
+                <a class="btn btn-secondary" data-testid="einen-weiteren-kurs-anlegen-btn" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
                 
-                <a class="btn btn-primary" href="{{../redirectUrl}}">
+                <a class="btn btn-primary" data-testid="zur-uebersicht-btn" href="{{../redirectUrl}}">
                    {{#ifeq redirectUrl "/courses"}}
                       {{$t "courses.add.link.courseOverview"}}
                    {{else}}

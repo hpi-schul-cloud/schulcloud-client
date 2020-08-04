@@ -1,18 +1,17 @@
 @import '../lib/colors';
-
-.consent-status{
-    &.fa-check{
+.consent-status {
+    &.fa-check {
         color: orange;
     }
-    &.fa-check.double-check{
+    &.fa-check.double-check {
         color: green;
     }
-    &.fa-check.double-check{
-        position: relative; 
+    &.fa-check.double-check {
+        position: relative;
         left: 3px;
     }
-    &.fa-check.double-check:last-child{
-        position: relative; 
+    &.fa-check.double-check:last-child {
+        position: relative;
         left: -3px;
     }
     // Legacy
@@ -20,14 +19,39 @@
     //     color: orange;
     //     font-weight: bold;
     // }
-    &.fa-times{
+    &.fa-times {
         color: red;
     }
 }
 
 #skipRegistrationCredentials {
-	resize: none; 
-	height: 87px; 
-	overflow: hidden;
-	margin-bottom: 3px;
+    resize: none;
+    height: 87px;
+    overflow: hidden;
+    margin-bottom: 3px;
+}
+
+.users-register-complete .printonly {
+    display: none;
+}
+
+@media print {
+    .users-register-complete .aside,
+    .users-register-complete footer,
+    .users-register-complete .mobile-nav-toggle {
+        display: none !important;
+    }
+    .users-register-complete .printonly {
+        display: block;
+    }
+    .users-register-complete .noprint,
+    .users-register-complete.noprint {
+        display: none;
+    }
+    .users-register-complete .pagebreak {
+        page-break-before: always;
+    }
+    .users-register-complete table {
+        width: 100%
+    }
 }

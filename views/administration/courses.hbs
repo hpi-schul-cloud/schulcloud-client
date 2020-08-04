@@ -4,9 +4,9 @@
         <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
     {{/content}}
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/coursesTimes.js" type="text/javascript" defer></script>
-        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
-        <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
+        <script src="/scripts/coursesTimes.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "page" mode="prepend"}}
         <div class="route-administration">
@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="col-sm-12 no-padding">
                             <a href="/courses/add?redirectUrl=/administration/courses" class="btn btn-primary">
-                                Kurs hinzufügen
+                                {{$t "administration.global.button.addCourse" }}
                             </a>
                         </div>
                     </div>

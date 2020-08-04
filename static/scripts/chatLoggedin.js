@@ -1,67 +1,127 @@
-function loadChatClient(session = null) {
-	let roomId = '';
-	const matches = RegExp('/courses/([^/]+).*').exec(window.location.pathname);
-	if (matches && matches.length >= 2) {
-		roomId = matches[1];
-	}
+const AUTO_SELECT_ROOM_SCOPES = [
+	'course',
+	'team',
+];
 
-	// create chat tag
-	const riotBox = document.createElement('section');
-	riotBox.id = 'matrixchat';
-	riotBox.dataset.vectorIndexeddbWorkerScript = '/indexeddb-worker.js';
-	riotBox.dataset.vectorConfig = '/riot_config.json';
-	riotBox.dataset.vectorDefaultToggled = 'true';
-	riotBox.dataset.matrixLang = 'de';
-
-	if (session && roomId) {
-		const servername = session.userId.substr(session.userId.indexOf(':') + 1);
-		riotBox.dataset.matrixRoomId = `#course_${roomId}:${servername}`;
-	}
+function findMatrixUserId(session = null) {
 	if (session) {
-		riotBox.dataset.matrixHomeserverUrl = session.homeserverUrl;
-		riotBox.dataset.matrixUserId = session.userId;
-		riotBox.dataset.matrixAccessToken = session.accessToken;
+		return session.userId;
 	}
-	document.body.appendChild(riotBox);
 
-	// load javascript
-	const bundle = window.matrixBundle;
-	if (!bundle) {
-		throw new Error('window.matrixBundle has to be defined.');
+	return window.localStorage.getItem('mx_user_id');
+}
+
+function extractRoomTypeAndIdFromPath(path) {
+	const scopes = AUTO_SELECT_ROOM_SCOPES.join('|');
+	const matches = RegExp(`^/(${scopes})s/([0-9a-f]{24})`)
+		.exec(path);
+	if (matches && matches.length >= 3) {
+		return {
+			roomType: matches[1],
+			roomId: matches[2],
+		};
 	}
+
+	return {
+		roomType: null,
+		roomId: null,
+	};
+}
+
+function extractServernameFromMatrixUserId(matrixUserId) {
+	if (!matrixUserId) {
+		return null;
+	}
+	return matrixUserId.substr(matrixUserId.indexOf(':') + 1);
+}
+
+function composeMatrixRoomId(roomType, roomId, servername) {
+	if (!roomId || !roomType || !servername) {
+		return null;
+	}
+
+	// build matrix room id
+	return `#${roomType}_${roomId}:${servername}`;
+}
+
+function addMatrixchatElement(session) {
+	const matrixUserId = findMatrixUserId(session);
+	const { roomType, roomId } = extractRoomTypeAndIdFromPath(window.location.pathname);
+	const servername = extractServernameFromMatrixUserId(matrixUserId);
+	const matrixRoomId = composeMatrixRoomId(roomType, roomId, servername);
+
+	// base options
+	const options = {
+		riotConfig: '/riot_config.json',
+		indexeddbWorkerScript: '/indexeddb-worker.js',
+		assetDomain: `${window.matrixAssetDomain}/`,
+		language: window.userLanguage || 'de',
+		forceToggled: true,
+	};
+
+	// force the selection of a specific room
+	if (matrixRoomId) {
+		options.roomId = matrixRoomId;
+	}
+
+	// apply session
+	if (session) {
+		options.homeserverUrl = session.homeserverUrl;
+		options.userId = session.userId;
+		options.accessToken = session.accessToken;
+		options.deviceId = session.deviceId;
+	}
+
+	window.Matrix = window.Matrix || [];
+	window.Matrix.push(['setup', options]);
+}
+
+function loadMessengerEmbed() {
+	// load javascript
 	const riotScript = document.createElement('script');
-	riotScript.src = bundle;
+	riotScript.src = `${window.matrixAssetDomain}/embed.js`;
 	riotScript.type = 'text/javascript';
 	document.head.appendChild(riotScript);
+}
+
+function hasActiveSessionInLocalStorage() {
+	return window.localStorage
+		&& window.localStorage.getItem('mx_hs_url')
+		&& window.localStorage.getItem('mx_access_token')
+		&& window.localStorage.getItem('mx_user_id');
 }
 
 function requestSession() {
 	return $.getJSON('/messenger/token');
 }
 
-function ready() {
-	if (window.innerWidth < 768) { // breakpoint: md
-		return; // screen to small to use embedded messenger
+async function initializeMessenger() {
+	// Find Matrix Session
+	let session;
+	if (hasActiveSessionInLocalStorage()) {
+		// session available, the messenger will access it itself
+		session = null;
+	} else {
+		// get new session from Server
+		session = await requestSession();
 	}
 
-	// Find Matrix Session
-	// > in localstorage?
-	if (window.localStorage
-		&& window.localStorage.getItem('mx_hs_url')
-		&& window.localStorage.getItem('mx_access_token')
-		&& window.localStorage.getItem('mx_user_id')
-	) {
-		// session available, the chat will access it itself
-		loadChatClient();
-	} else {
-		// > get new Session from Server and pass it to the chat
-		requestSession()
-			.then(loadChatClient)
-			.catch((error) => {
-				/* eslint-disable-next-line no-console */
-				console.error('Failed to request Messenger Session.', error);
-			});
-	}
+	addMatrixchatElement(session);
+	loadMessengerEmbed();
 }
 
-$(document).ready(ready);
+let onReadyTriggered = false;
+
+async function onDocumentReady() {
+	// ensure that the initialization is only triggered once
+	if (onReadyTriggered) {
+		return false;
+	}
+	onReadyTriggered = true;
+
+	await initializeMessenger();
+	return true;
+}
+
+$(document)
+	.ready(onDocumentReady);

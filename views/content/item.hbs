@@ -22,7 +22,7 @@
         {{#userIsAllowedToViewContent nonOer}}
         {{else}}
             <div class="alert alert-info" role="alert">
-                Inhalt aus Lizenzgründen im Demomodus nicht verfügbar.
+                {{$t "content.item.text.contentNotAvailable" }}
             </div>
         {{/userIsAllowedToViewContent}}
 
@@ -32,16 +32,16 @@
         {{#userIsAllowedToViewContent nonOer}}
             <a class="pull-right report-link"
                 href="mailto:inhalte@schul-cloud.org?Subject=Melden%20des%20Inhaltes%20mit%20der%20ID%20{{{ ../_id }}}&body=Liebes%20{{theme.short_title}}%20Team%2C%0Ahiermit%20m%C3%B6chte%20ich%20den%20im%20Betreff%20genannten%20Inhalt%20melden%2C%20da%3A%0A%5Bhier%20bitte%20Ihre%20Gr%C3%BCnde%5D" target="_blank" rel="noopener">
-                melden <i class="fa fa-flag" aria-hidden="true"></i>
+                {{$t "content.item.text.report" }} <i class="fa fa-flag" aria-hidden="true"></i>
             </a>
         {{else}}
             <a class="pull-right report-link"
                 href="mailto:inhalte@schul-cloud.org?Subject=Melden%20des%20Inhaltes%20mit%20dem%20Titel%20{{{ ../title }}}&body=Liebes%20{{theme.short_title}}%20Team%2C%0Ahiermit%20m%C3%B6chte%20ich%20den%20im%20Betreff%20genannten%20Inhalt%20melden%2C%20da%3A%0A%5Bhier%20bitte%20Ihre%20Gr%C3%BCnde%5D" target="_blank" rel="noopener">
-                melden <i class="fa fa-flag" aria-hidden="true"></i>
+                {{$t "content.item.text.report" }} <i class="fa fa-flag" aria-hidden="true"></i>
             </a>
         {{/userIsAllowedToViewContent}}
 
-        <span>via {{{ providerName }}}</span>
+        <span>{{{$t "content.text.viaProvider" (dict "provider" providerName)}}}</span>
         {{#if @root.isCourseGroupTopic}}
             <a class="add-to-lesson pull-right" href="{{{ _id }}}">
                 <i class="fa fa-plus-square"></i>
@@ -59,7 +59,7 @@
                         data-placement="bottom"
                         data-html="true"
                         data-animation="true"
-                        title="<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>" ></i>
+                        title="{{{$t "content.headline.contentCantBeAddedInDemo"}}}" ></i>
                     {{/userHasPermission}}
                 {{/userHasPermission}}
             {{/userHasPermission}}

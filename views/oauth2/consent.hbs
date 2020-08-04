@@ -20,7 +20,7 @@
                                 <form method="post" class="registration-form" action={{action}}>
 									{{> "lib/components/csrfInput"}}
                                     <div class="form-group">
-                                        <label>Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:</label>
+                                        <label>{{$t "login.oauth2.label.weNeedToSendThisData" (dict "client" client)}}</label>
                                         <ul>
                                             {{#each scopes}}
                                                 <li>{{this.display}}</li>

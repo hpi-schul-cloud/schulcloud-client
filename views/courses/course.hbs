@@ -7,11 +7,11 @@
   {{/content}}
 
   {{#content "scripts" mode="append"}}
-    <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
-    <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
-    <script src="/scripts/courses.js" type="text/javascript" defer></script>
-    <script src="/scripts/topic.js" type="text/javascript" defer></script>
-    <script src="/scripts/tabbar.js" type="text/javascript" defer></script>
+    <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/courses.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/topic.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
   {{/content}}
 
   {{#content "page"}}
@@ -40,7 +40,7 @@
             <i class="fa fa-envelope" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.inviteToCourse"}}
           </a>
           <a class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
-            <i class="fa fa-share" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.shareCourse"}}
+            <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.shareCourse"}}
           </a>
 		  {{/unless}}
           <a href="/courses/{{../_id}}/copy" class="dropdown-item">
@@ -68,8 +68,12 @@
           <button class="tab" data-testid="topics" data-tab="js-topics">
             <span class="text">{{$t "courses._course.tab_label.topics"}}
           </button>
-          <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
-            <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}"/></span>
+            <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
+            {{#if isTeacher}}
+              <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../privateHomeworks) ( add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) ) }}"/></span>
+            {{else}}
+              <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) }}"/></span>
+            {{/if}}
           </button>
           <button class="tab" data-testid="tools" data-tab="js-tools">
             <span class="text">{{$t "courses._course.tab_label.tools"}} <span class="count-badge" data-badge="{{../ltiToolIds.length}}"/></span>

@@ -127,6 +127,7 @@ describe('Homework tests', function () {
             this.agent
                 .get('/homework/59cce2c61113d1132c98dc06/edit')
                 .end((err, res) => {
+                    if(err) reject(err);
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Aufgabe bearbeiten');
                     resolve();

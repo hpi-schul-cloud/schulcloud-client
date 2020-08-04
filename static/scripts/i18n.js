@@ -7,13 +7,14 @@ import pkg from '../../package.json';
 const userLanguage = document.querySelector('html').getAttribute('lang');
 
 // mock method. used until language keys are loaded. (not perfect, but at least it works for now)
-window.$t = key => key;
+window.$t = (key) => key;
 
 i18next
 	.use(Backend)
 	.init({
+		initImmediate: false,
 		lng: userLanguage,
-		fallbackLng: ['de', 'en'].filter(lng => lng !== userLanguage),
+		fallbackLng: ['de', 'en'].filter((lng) => lng !== userLanguage),
 		backend: {
 			backends: [
 				LocalStorageBackend, // primary

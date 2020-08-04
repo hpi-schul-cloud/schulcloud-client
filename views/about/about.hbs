@@ -1,81 +1,43 @@
 <section class="section-about">
 	{{#embed "authentication/section" class="content-width-max"}}
 	{{#content "body"}}
-		{{#unless loggedin}}
-			<h1 class="h2 section-title center">{{title}}</h1>
-		{{/unless}}
-		<h2 class="h3 section-title center">{{$t "about.headline.title"}}</h2>
-		<p>Das <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt
-			unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/"
-				target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von 325 Schulen bundesweit und
-			unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische
-			Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und
-			Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
-		<ul>
-			<li>{{$t "about.text.moreInfo"}}
-				<a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/publikationen/projekte/schul-cloud_beschreibung_website.pdf"
-					title="Initiates file download" target="_blank">{{$t "about.link.shortDescription"}}<a>
-			</li>
-		</ul>
-		<br />
-		<p>Das Projekt HPI Schul-Cloud ist im September 2016 in die 5-monatige Konzeptphase gestartet. Ab Mai 2017
-			startete die Pilotphase, in der zunächst 27 MINT-EC-Schulen die HPI Schul-Cloud testen und nutzen konnten.
-			Im Mai 2018 begann die Roll-Out-Phase, in der die Nutzung der HPI Schul-Cloud stufenweise auf alle 325
-			Schulen aus dem nationalen Excellence-Schulnetzwerk MINT-EC ausgeweitet wird. Derzeit können 128 MINT-EC
-			Pilotschulen bundesweit und im Ausland die HPI Schul-Cloud im Unterricht nutzen. <br />
-			Als Niedersächsische Bildungscloud, Schul-Cloud Brandenburg und Thüringer Schulcloud werden landesweite Lösungen an jeweils
-			mehr als 40 Schulen aller Schulformen und Bildungseinrichtungen im Unterrichtseinsatz erprobt. Weitere Pilotprojekte mit Schulträgern
-			und einzelnen Schulen starten derzeit in ganz Deutschland. (Stand Februar 2020) <br />
-			Auch unser <a href="/team">Team</a> wächst stetig!
-		</p>
-		<video controls preload="metadata"
-			poster="https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg">
-			<source src="https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hd/video.mp4"
-				type="video/mp4">
-			Your browser does not support this (HTML5) videoplayer.
-		</video>
+	{{#unless loggedin}}
+	<h1 class="h2 section-title center">{{title}}</h1>
+	{{/unless}}
+
+	<!-- GHOST (will be replaced by js) -->
+	<div class="ghost">
+		<div class="content" style="opacity: 0; transition: opacity 0.7s ease-in;"></div>
+		<div class="loading text-center mt-3 mb-3" style="min-height: 70vh;">
+			<i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true" style="font-size: 25px;"></i>
+			<div class="placeholder" style="display: none;">
+				<img src="/images/repair.png" width="350px" alt="" role="presentation">
+				<p class="text-muted">{{$t "global.text.errorWhileLoadingPage"}}</p>
+				<button type="button" class="btn btn-primary mt-2">{{$t "global.button.tryAgain"}}</button>
+			</div>
+		</div>
+	</div>
 	{{/content}}
 	{{/embed}}
 	{{#embed "authentication/section" style="primary" class="content-width-max"}}
 	{{#content "body"}}
-		<div class="section-partner">
-			<h2 class="h3 section-title center">{{$t "about.headline.pilotSchool"}}</h2>
-			<h3 class="h4">{{$t "about.headline.bestPractice"}}</h3>
-			<div class="row">
-				{{#each schools.bp}}
-					<div class="partner-box-wrapper col-xs-6 col-md-3">
-						<div class="partner-box">
-							<a href="{{{url}}}" target="_blank">
-								<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
-									style="padding: {{{padding}}};" {{/if}}>
-							</a>
-						</div>
-					</div>
-				{{/each}}
-				<div class="col-xs-12">
-					<div id="hiddenBPSchools" class="collapse row">
-						{{#each hiddenBPSchools}}
-							<div class="partner-box-wrapper col-xs-6 col-md-3">
-								<div class="partner-box">
-									<a href="{{{url}}}" target="_blank">
-										<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
-											style="padding: {{{padding}}};" {{/if}}>
-									</a>
-								</div>
-							</div>
-						{{/each}}
-					</div>
-				</div>
-				<div class="buttonWrapper">
-					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-						data-target="#hiddenBPSchools">{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i>
-					</div>
+	<div class="section-partner">
+		<h2 class="h3 section-title center">{{$t "about.headline.pilotSchool"}}</h2>
+		<h3 class="h4">{{$t "about.headline.bestPractice"}}</h3>
+		<div class="row">
+			{{#each schools.bp}}
+			<div class="partner-box-wrapper col-xs-6 col-md-3">
+				<div class="partner-box">
+					<a href="{{{url}}}" target="_blank">
+						<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+							style="padding: {{{padding}}};" {{/if}}>
+					</a>
 				</div>
 			</div>
-
-			<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span style="font-size: 12px;">{{$t "about.text.startM2017"}}</span></h3>
-			<div class="row">
-				{{#each schools.march2017}}
+			{{/each}}
+			<div class="col-xs-12">
+				<div id="hiddenBPSchools" class="collapse row">
+					{{#each hiddenBPSchools}}
 					<div class="partner-box-wrapper col-xs-6 col-md-3">
 						<div class="partner-box">
 							<a href="{{{url}}}" target="_blank">
@@ -84,64 +46,33 @@
 							</a>
 						</div>
 					</div>
-				{{/each}}
-				<div class="col-xs-12">
-					<div id="hiddenSchoolsMarch2017" class="collapse row">
-						{{#each hiddenSchoolsMarch2017}}
-							<div class="partner-box-wrapper col-xs-6 col-md-3">
-								<div class="partner-box">
-									<a href="{{{url}}}" target="_blank">
-										<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
-											style="padding: {{{padding}}};" {{/if}}>
-									</a>
-								</div>
-							</div>
-						{{/each}}
-					</div>
-				</div>
-				<div class="buttonWrapper">
-					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-						data-target="#hiddenSchoolsMarch2017">{{$t "about.button.showMore"}}<i class="fa fa-angle-down"
-							aria-hidden="true"></i></div>
+					{{/each}}
 				</div>
 			</div>
-
-			<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span style="font-size: 12px;">{{$t "about.text.startM2018"}}</span></h3>
-			<div class="row">
-				{{#each schools.may2018}}
-					<div class="partner-box-wrapper col-xs-6 col-md-3">
-						<div class="partner-box">
-							<a href="{{{url}}}" target="_blank">
-								<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
-									style="padding: {{{padding}}};" {{/if}}>
-							</a>
-						</div>
-					</div>
-				{{/each}}
-				<div class="col-xs-12">
-					<div id="hiddenSchoolsMay2018" class="collapse row">
-						{{#each hiddenSchoolsMay2018}}
-							<div class="partner-box-wrapper col-xs-6 col-md-3">
-								<div class="partner-box">
-									<a href="{{{url}}}" target="_blank">
-										<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
-											style="padding: {{{padding}}};" {{/if}}>
-									</a>
-								</div>
-							</div>
-						{{/each}}
-					</div>
-				</div>
-				<div class="buttonWrapper">
-					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-						data-target="#hiddenSchoolsMay2018">{{$t "about.button.showMore"}}<i class="fa fa-angle-down"
-							aria-hidden="true"></i></div>
+			<div class="buttonWrapper">
+				<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
+					data-target="#hiddenBPSchools">{{$t "about.button.showMore"}}<i class="fa fa-angle-down"
+						aria-hidden="true"></i>
 				</div>
 			</div>
+		</div>
 
-			<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span style="font-size: 12px;">{{$t "about.text.startF2019"}}</span></h3>
-			<div class="row">
-				{{#each schools.feb2019}}
+		<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span
+				style="font-size: 12px;">{{$t "about.text.startM2017"}}</span></h3>
+		<div class="row">
+			{{#each schools.march2017}}
+			<div class="partner-box-wrapper col-xs-6 col-md-3">
+				<div class="partner-box">
+					<a href="{{{url}}}" target="_blank">
+						<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+							style="padding: {{{padding}}};" {{/if}}>
+					</a>
+				</div>
+			</div>
+			{{/each}}
+			<div class="col-xs-12">
+				<div id="hiddenSchoolsMarch2017" class="collapse row">
+					{{#each hiddenSchoolsMarch2017}}
 					<div class="partner-box-wrapper col-xs-6 col-md-3">
 						<div class="partner-box">
 							<a href="{{{url}}}" target="_blank">
@@ -150,30 +81,99 @@
 							</a>
 						</div>
 					</div>
-				{{/each}}
-				<div class="col-xs-12">
-					<div id="hiddenSchoolsFeb2019" class="collapse row">
-						{{#each hiddenSchoolsFeb2019}}
-							<div class="partner-box-wrapper col-xs-6 col-md-3">
-								<div class="partner-box">
-									<a href="{{{url}}}" target="_blank">
-										<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
-											style="padding: {{{padding}}};" {{/if}}>
-									</a>
-								</div>
-							</div>
-						{{/each}}
+					{{/each}}
+				</div>
+			</div>
+			<div class="buttonWrapper">
+				<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
+					data-target="#hiddenSchoolsMarch2017">{{$t "about.button.showMore"}}<i class="fa fa-angle-down"
+						aria-hidden="true"></i></div>
+			</div>
+		</div>
+
+		<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span
+				style="font-size: 12px;">{{$t "about.text.startM2018"}}</span></h3>
+		<div class="row">
+			{{#each schools.may2018}}
+			<div class="partner-box-wrapper col-xs-6 col-md-3">
+				<div class="partner-box">
+					<a href="{{{url}}}" target="_blank">
+						<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+							style="padding: {{{padding}}};" {{/if}}>
+					</a>
+				</div>
+			</div>
+			{{/each}}
+			<div class="col-xs-12">
+				<div id="hiddenSchoolsMay2018" class="collapse row">
+					{{#each hiddenSchoolsMay2018}}
+					<div class="partner-box-wrapper col-xs-6 col-md-3">
+						<div class="partner-box">
+							<a href="{{{url}}}" target="_blank">
+								<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+									style="padding: {{{padding}}};" {{/if}}>
+							</a>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+			<div class="buttonWrapper">
+				<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
+					data-target="#hiddenSchoolsMay2018">{{$t "about.button.showMore"}}<i class="fa fa-angle-down"
+						aria-hidden="true"></i></div>
+			</div>
+		</div>
+
+		<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span
+				style="font-size: 12px;">{{$t "about.text.startF2019"}}</span></h3>
+		<div class="row">
+			{{#each schools.feb2019}}
+			<div class="partner-box-wrapper col-xs-6 col-md-3">
+				<div class="partner-box">
+					<a href="{{{url}}}" target="_blank">
+						<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+							style="padding: {{{padding}}};" {{/if}}>
+					</a>
+				</div>
+			</div>
+			{{/each}}
+			<div class="col-xs-12">
+				<div id="hiddenSchoolsFeb2019" class="collapse row">
+					{{#each hiddenSchoolsFeb2019}}
+					<div class="partner-box-wrapper col-xs-6 col-md-3">
+						<div class="partner-box">
+							<a href="{{{url}}}" target="_blank">
+								<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+									style="padding: {{{padding}}};" {{/if}}>
+							</a>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+			<div class="buttonWrapper">
+				<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
+					data-target="#hiddenSchoolsFeb2019">{{$t "about.button.showMore"}}<i class="fa fa-angle-down"
+						aria-hidden="true"></i></div>
+			</div>
+
+			<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span
+					style="font-size: 12px;">{{$t "about.text.startA2019"}}</span></h3>
+			<div class="row">
+				{{#each schools.august2019}}
+				<div class="partner-box-wrapper col-xs-6 col-md-3">
+					<div class="partner-box">
+						<a href="{{{url}}}" target="_blank">
+							<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+								style="padding: {{{padding}}};" {{/if}}>
+						</a>
 					</div>
 				</div>
-				<div class="buttonWrapper">
-					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-						data-target="#hiddenSchoolsFeb2019">{{$t "about.button.showMore"}}<i class="fa fa-angle-down"
-							aria-hidden="true"></i></div>
-				</div>
-
-				<h3 class="h4">{{$t "about.headline.pilotSchool"}} <span style="font-size: 12px;">{{$t "about.text.startA2019"}}</span></h3>
-				<div class="row">
-					{{#each schools.august2019}}
+				{{/each}}
+				<div class="col-xs-12">
+					<div id="hiddenSchoolsAugust2019" class="collapse row">
+						{{#each hiddenSchoolsAugust2019}}
 						<div class="partner-box-wrapper col-xs-6 col-md-3">
 							<div class="partner-box">
 								<a href="{{{url}}}" target="_blank">
@@ -182,51 +182,39 @@
 								</a>
 							</div>
 						</div>
-					{{/each}}
-					<div class="col-xs-12">
-						<div id="hiddenSchoolsAugust2019" class="collapse row">
-							{{#each hiddenSchoolsAugust2019}}
-								<div class="partner-box-wrapper col-xs-6 col-md-3">
-									<div class="partner-box">
-										<a href="{{{url}}}" target="_blank">
-											<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
-												style="padding: {{{padding}}};" {{/if}}>
-										</a>
-									</div>
-								</div>
-							{{/each}}
-						</div>
-					</div>
-					<div class="buttonWrapper">
-						<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-							data-target="#hiddenSchoolsAugust2019">{{$t "about.button.showMore"}}<i class="fa fa-angle-down"
-								aria-hidden="true"></i></div>
+						{{/each}}
 					</div>
 				</div>
-			</div> <!-- .row -->
-			<br />
-			<p>Im Rahmen des Projekts wird die HPI Schul-Cloud durch vier Arbeitsgruppen des MINT-EC-Themenclusters HPI
-				Schul-Cloud
-				unterstützt: AG IT, Schulleitung, Unterricht und regionale Netzwerke. <a
-					href="https://www.mint-ec.de/fileadmin/content/schulcloud/Info_Kit.pdf" target="_blank">Hier</a>
-				finden Sie die Ergebnisse aus den verschiedenen Arbeitsgruppen der Pilotphase, die in Form eines Info
-				Kits zusammengefasst sind.</p><br />
-			<p>Wir möchten uns ganz herzlich für die tolle Zusammenarbeit und das große Engagement unserer
-				Pilotschullehrkräfte
-				bedanken!</p>
-			<p>Best Practice: Auf dem Digitalgipfel 2019 in Nürnberg konnten alle Beteiligten digitalgestützen
-				Unterricht mit der HPI Schul-Cloud live miterleben.</p>
+				<div class="buttonWrapper">
+					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
+						data-target="#hiddenSchoolsAugust2019">{{$t "about.button.showMore"}}<i class="fa fa-angle-down"
+							aria-hidden="true"></i></div>
+				</div>
+			</div>
+		</div> <!-- .row -->
+		<br />
+		<p>Im Rahmen des Projekts wird die HPI Schul-Cloud durch vier Arbeitsgruppen des MINT-EC-Themenclusters HPI
+			HPI Schul-Cloud
+			unterstützt: AG IT, Schulleitung, Unterricht und regionale Netzwerke. <a
+				href="https://www.mint-ec.de/fileadmin/content/schulcloud/Info_Kit.pdf" target="_blank">Hier</a>
+			finden Sie die Ergebnisse aus den verschiedenen Arbeitsgruppen der Pilotphase, die in Form eines Info
+			Kits zusammengefasst sind.</p><br />
+		<p>Wir möchten uns ganz herzlich für die tolle Zusammenarbeit und das große Engagement unserer
+			Pilotschullehrkräfte
+			bedanken!</p>
+		<p>Best Practice: Auf dem Digitalgipfel 2019 in Nürnberg konnten alle Beteiligten digitalgestützen
+			Unterricht mit der HPI Schul-Cloud live miterleben.</p>
 
-			<video controls preload="metadata"
-				poster="https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/thumbnails/video-00-34-40.png">
-				<source src="https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hd/video.mp4"
-					type="video/mp4">
-				Your browser does not support this (HTML5) videoplayer.
-			</video>
-	{{/content}}
-	{{/embed}}
-	{{#embed "authentication/section" class="content-width-max"}}
-	{{#content "body"}}
+		<video controls preload="metadata"
+			poster="https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/thumbnails/video-00-34-40.png">
+			<source src="https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hd/video.mp4"
+				type="video/mp4">
+			Your browser does not support this (HTML5) videoplayer.
+		</video>
+		{{/content}}
+		{{/embed}}
+		{{#embed "authentication/section" class="content-width-max"}}
+		{{#content "body"}}
 
 		<h2 class="h3 section-title center">{{$t "about.headline.educSupp"}}</h2>
 		<p>Zur pädagogisch-didaktischen Unterstützung des Projekts im Sinne der Entwicklung von Beispielen für die
@@ -236,12 +224,13 @@
 			mit der HPI Schul-Cloud ist eine externe bildungswissenschaftliche Begleitung beauftragt. Zum einen führt
 			die
 			<a href="https://osf.io/bzu4t/?view_only=14ad7519b5a24af7a83cf40b43377142" target="_blank">Universität
-			Tübingen</a> eine wissenschaftliche
+				Tübingen</a> eine wissenschaftliche
 			Befragung der Pilotschulen zu Potenzialen der HPI Schul-Cloud durch. Zum anderen gestaltet das
 			<a href="http://www.gei.de/home.html" target="_blank">Georg-Eckert-Institut</a>
 			aufbauend auf den Ergebnissen von Unterrichtsbeobachtungen und Workshops mit den Pilotschulen ein
 			Nutzungskonzept für die pädagogisch-didaktisch sinnvolle Anwendung der HPI Schul-Cloud. Außerdem hat das HPI
-			zusammen mit der <a href="https://www.philso.uni-augsburg.de/lehrstuehle/schulpaed/Projekte/Digitalisierung/Lernen-4_0-in-der-Praxis/"
+			zusammen mit der <a
+				href="https://www.philso.uni-augsburg.de/lehrstuehle/schulpaed/Projekte/Digitalisierung/Lernen-4_0-in-der-Praxis/"
 				target="_blank">Universität Augsburg</a>
 			einen MOOC zu dem Thema <a href="https://lernen.cloud/courses/schulcloud2019" target="_blank">Lernen 4.0 -
 				Möglichkeiten und Grenzen einer Digitalisierung im Bildungsbereich</a> durchgeführt.</p>
@@ -254,7 +243,8 @@
 							<b class="single-pdf-title">{{$t "about.link.hpiCloudDuringLesson"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien.jpg" />
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien.jpg"
+								alt="" role="presentation" />
 						</div>
 					</a>
 				</div>
@@ -264,7 +254,8 @@
 							<b class="single-pdf-title">{{$t "about.link.hpiCloudInDayLife"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schul-Cloud-in-Unterricht-und-Schulalltag.jpg" />
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schul-Cloud-in-Unterricht-und-Schulalltag.jpg"
+								alt="" role="presentation" />
 						</div>
 					</a>
 				</div>
@@ -274,17 +265,18 @@
 							<b class="single-pdf-title">{{$t "about.link.hpiCloudLearning"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-HPI-Schul-Cloud-und-Lernen-4.0.jpg" />
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-HPI-Schul-Cloud-und-Lernen-4.0.jpg"
+								alt="" role="presentation" />
 						</div>
 					</a>
 				</div>
 			</div> <!-- .row.embed-pdf-row -->
 		</div> <!-- .container.embed-pdf -->
 
-	{{/content}}
-	{{/embed}}
-	{{#embed "authentication/section" style="accent" class="content-width-max"}}
-	{{#content "body"}}
+		{{/content}}
+		{{/embed}}
+		{{#embed "authentication/section" style="accent" class="content-width-max"}}
+		{{#content "body"}}
 		<h2 class="h3 section-title center">{{$t "about.headline.publications"}}</h2>
 		<div class="embed-pdf">
 			<div class="row embed-pdf-row">
@@ -294,7 +286,8 @@
 							<b class="single-pdf-title">{{$t "about.link.hpiCloudTechnicalReport"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="{{encodeURI "https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.jpg"}}" />
+								src="{{encodeURI "https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.jpg"}}"
+								alt="" role="presentation" />
 						</a>
 					</div>
 				</div>
@@ -304,7 +297,8 @@
 							<b class="single-pdf-title">{{$t "about.link.cloudImpotanceStakeholder"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schulrechner-wandern-in-die-Cloud.jpg" />
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schulrechner-wandern-in-die-Cloud.jpg"
+								alt="" role="presentation" />
 						</a>
 					</div>
 				</div>
@@ -314,7 +308,8 @@
 							<b class="single-pdf-title">{{$t "about.link.cloudGermanyConcept"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Konzept-und-Pilotierung-der-Schul-Cloud-2017.jpg" />
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Konzept-und-Pilotierung-der-Schul-Cloud-2017.jpg"
+								alt="" role="presentation" />
 						</a>
 					</div>
 				</div>
@@ -323,29 +318,30 @@
 		<div class="content-width-max">
 
 			<h3 class="h4">{{$t "about.headline.morePublications"}}</h3>
-			<ul>
-				<br />
+			<ul class="more-publishments">
 				<li>Malyska, V., Renz, J. & Meinel, C. (2018). Eine Innovation für Deutschlands Bildungslandschaft –
 					Projekt
-					Schul-Cloud . In Scheiter, K. & Riecke-Baulecke, T. (Hrsg.), Schulmanagement-Handbuch 165: Schule
+					HPI Schul-Cloud . In Scheiter, K. & Riecke-Baulecke, T. (Hrsg.), Schulmanagement-Handbuch 165: Schule
 					4.0 (Vol.
 					37, S. 75–83). München: Oldenbourg.
 				</li>
-				<br />
 				<li>Malyska, V. & Meinel, C. (2018). Lernen in Wolken. didacta DIGITAL, 1/18, S. 16–17</li>
 			</ul>
 			<br />
 			<h3 class="h4">{{$t "about.headline.recordingsLecture"}}</h3>
 			<ul>
-				<li><a href="https://www.tele-task.de/series/1149/" target="_blank">{{$t "about.link.talksFirstCloudForum"}}</a></li>
-				<li><a href="https://www.tele-task.de/series/1196/" target="_blank">{{$t "about.link.talksSecondCloudForum"}}</a></li>
-				<li><a href="https://www.tele-task.de/series/1251/" target="_blank">{{$t "about.link.talksThirdCloudForum"}}</a></li>
+				<li><a href="https://www.tele-task.de/series/1149/" target="_blank">{{$t "about.link.talksFirstCloudForum"}}</a>
+				</li>
+				<li><a href="https://www.tele-task.de/series/1196/"
+						target="_blank">{{$t "about.link.talksSecondCloudForum"}}</a></li>
+				<li><a href="https://www.tele-task.de/series/1251/" target="_blank">{{$t "about.link.talksThirdCloudForum"}}</a>
+				</li>
 			</ul>
 		</div>
-	{{/content}}
-	{{/embed}}
-	{{#embed "authentication/section" class="content-width-max"}}
-	{{#content "body"}}
+		{{/content}}
+		{{/embed}}
+		{{#embed "authentication/section" class="content-width-max"}}
+		{{#content "body"}}
 		<h2 class="h3 section-title center">{{$t "about.headline.ourAwards"}}</h2>
 		<div class="embed-award">
 			<div class="row">
@@ -356,7 +352,7 @@
 							<div class="row">
 								<div class="col-md-6"><b class="single-award-title">{{$t "about.link.awardWinnerInnovation"}}</b></div>
 								<div class="col-md-6"><img class="single-award-thumbnail"
-										src="/images/awards/Innovationspreisträger-180208.jpg" /></div>
+										src="/images/awards/Innovationspreisträger-180208.jpg" alt="" role="presentation" /></div>
 							</div>
 						</a>
 					</div>
@@ -367,14 +363,14 @@
 							target="_blank">
 							<div class="row">
 								<div class="col-md-6"><b class="single-award-title">{{$t "about.link.awardWinnerIdea"}}</b></div>
-								<div class="col-md-6"><img class="single-award-thumbnail"
-										src="/images/awards/Land-der-Ideen-2017.jpg" /></div>
+								<div class="col-md-6"><img class="single-award-thumbnail" src="/images/awards/Land-der-Ideen-2017.jpg"
+										alt="" role="presentation" /></div>
 							</div>
 						</a>
 					</div>
 				</div>
 			</div>
 		</div>
-	{{/content}}
-	{{/embed}}
+		{{/content}}
+		{{/embed}}
 </section>

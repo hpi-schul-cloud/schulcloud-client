@@ -13,8 +13,26 @@ body {
 	min-width: 300px;
 }
 main {
-	margin-top: 6rem;
+	margin-top: 2.75rem;
 	flex-grow: 1;
+}
+
+@include media-breakpoint-down(md) {
+	main {
+		margin-top: 4.7rem;
+	}
+}
+
+@include media-breakpoint-down(sm) {
+	main {
+		margin-top: 5.20rem;
+	}
+}
+
+@include media-breakpoint-down(xs) {
+	main {
+		margin-top: 8rem;
+	}
 }
 
 ul {

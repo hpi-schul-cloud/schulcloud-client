@@ -1,10 +1,10 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/vendor-react.js" defer></script>
-        <script src="/vendor/ckeditor/ckeditor.js" defer></script>
-        <script src="/scripts/topicEdit.js" defer></script>
-        <script src="/scripts/courses.js" defer></script>
+        <script src="/scripts/vendor-react.js" nonce="{{nonceValue}}" defer></script>
+        <script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/topicEdit.js" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/courses.js" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "styles" mode="append"}}
@@ -34,13 +34,13 @@
                 <input name="position" type="hidden" data-force-value="true" value="{{lesson.position}}" />
 
                 <div class="form-group">
-                    <label>Titel des Themas</label>
-                    <input class="form-control" name="name" type="text" placeholder="z.B. Rechnen mit Primzahlen"
+                    <label>{{$t "topic._topic.label.titleOfTheTopic" }}</label>
+                    <input class="form-control" name="name" type="text" placeholder="{{$t "topic._topic.input.countWithPrimeNumbers"}}"
                         value="{{{lesson.name}}}" required />
                 </div>
 
                 <div class="form-group">
-                    <label>Inhalte</label>
+                    <label>{{$t "topic._topic.label.content" }}</label>
 
                     <!-- React Magic -->
                     <div id="content-blocks" data-value="{{lesson.contents}}" data-etherpadbaseurl="{{etherpadBaseUrl}}"
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close" onclick="window.history.back();">
+                    <button type="button" class="btn btn-secondary btn-close historyback">
                         {{closeLabel}}
                     </button>
 

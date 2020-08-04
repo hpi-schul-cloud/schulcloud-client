@@ -1,21 +1,13 @@
 <h2 class="h4">{{title}}</h2>
-{{! app embedding tutorial: https://wiki.geogebra.org/en/Reference:GeoGebra_Apps_Embedding }}
-{{! configuration settings: https://wiki.geogebra.org/en/Reference:GeoGebra_App_Parameters }}
-<div id="applet_error_{{this._id}}">
-    <div class="notification alert alert-info hidden"></div>
+<!--
+  <iframe scrolling="no"
+  src="https://www.geogebra.org/material/iframe/id/{{content.materialId}}/width/1600/height/715/sri/true"
+  style="width: 100%; height: 715px; resize: vertical; overflow: auto; border: 1px solid #b10438;" allowfullscreen>
+  </iframe> 
+-->
+<div>
+    <a href="https://geogebra.org/m/{{{content.materialId}}}" class="button"  nofollow target="geogebra">
+      {{$t "courses._course.topic.link.geoGebraMaterial" (dict "materialId" content.materialId)}}
+    </a>
+    <p>{{$t "courses._course.topic.text.externalLinkToGeoGebra"}}</p>
 </div>
-<div id="applet_container_{{this._id}}"></div>
-<script>
-    var applet1 = new GGBApplet({
-        material_id: "{{content.materialId}}",
-        borderColor: "#b10438",
-        showResetIcon: true,
-        onError: function (err) {
-            $('#applet_error_{{this._id}} .alert').removeClass('hidden');
-            $('#applet_error_{{this._id}} .alert')
-                .text(`Fehler beim Abrufen des Materials von GeoGebra. `
-                    + `Bitte prüfe, ob das Material öffentlich freigegeben und die eingegebene Material-ID korrekt ist.`);
-        }
-    }, true);
-    applet1.inject('applet_container_{{this._id}}');
-</script>

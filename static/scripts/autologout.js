@@ -64,7 +64,7 @@ $(document).ready(() => {
 				processing = false;
 				totalRetry = 0;
 				retry = 0;
-				$.showNotification('Sitzung erfolgreich verlängert.', 'success', true);
+				$.showNotification($t('autologout.text.sessionExtended'), 'success', true);
 				timeOnStart = Date.now();
 				// check if decRst needs to be restarted
 				if (rst < 60) {
@@ -84,7 +84,7 @@ $(document).ready(() => {
 						retry = 0;
 						if (totalRetry === maxTotalRetrys) {
 							/* eslint-disable-next-line max-len */
-							$.showNotification('Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.', 'danger', false);
+							$.showNotification($t('autologout.text.sessionCouldNotBeExtended'), 'danger', false);
 						} else {
 							showAutoLogoutModal('error');
 						}
@@ -94,7 +94,7 @@ $(document).ready(() => {
 					// Session was expired due to inactivity - autologout
 					window.location.href = '/login';
 					/* eslint-disable-next-line max-len */
-					$.showNotification('Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.', 'danger', false);
+					$.showNotification($t('autologout.text.sessionAlreadyExpired'), 'danger', false);
 				}
 			});
 	});

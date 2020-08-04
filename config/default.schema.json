@@ -1,7 +1,23 @@
 {
 	"title": "HPI Schul-Cloud Configuration",
 	"type": "object",
+	"additionalProperties": false,
 	"properties": {
+		"CORS": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, default content security policy (CSP) header will be set."
+		},
+		"SECURITY_HEADERS": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, additional security header will be set."
+		},
+		"API_KEY": {
+			"type": "string",
+			"default": "example",
+			"description": "The API Key of the Client for authentication towards the server. required for sending mails."
+		},
 		"REQUEST_TIMEOUT_MS": {
 			"type": "integer",
 			"default": 5000,
@@ -79,6 +95,17 @@
 			],
 			"description": "Defines wether external team invitation shows teachers from different schools or not. if enabled system wide there are options general enabled or opt-in/-out by user required."
 		},
+		"STUDENT_TEAM_CREATION": {
+			"type": "string",
+			"default": "opt-out",
+			"enum": [
+				"disabled",
+				"opt-in",
+				"opt-out",
+				"enabled"
+			],
+			"description": "defines wether students may create teams or not. if enabled system wide there are options general enabled or opt-in/-out by school admin required."
+		},
 		"FEATURE_VIDEOCONFERENCE_ENABLED": {
 			"type": "boolean",
 			"default": false,
@@ -104,10 +131,27 @@
 			"default": false,
 			"description": "If enabled, adds support for matrix messenger"
 		},
-		"MATRIX_MESSENGER_BUNDLE": {
+		"MATRIX_MESSENGER_EMBED_URI": {
 			"type": "string",
-			"default": "https://embed.stomt.com/bundles/bbf7f874b7f3891917fb/bundle.js",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
 			"description": "Where to find the messenger dependencies."
+		},
+		"MATRIX_MESSENGER_HOMESERVER_URI": {
+			"type": "string",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
+			"description": "Where to find the messenger server."
+		},
+		"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
+			"type": "boolean",
+			"default": false,
+			"description": "Only if enabled, school admins can activate the messenger in their school setting"
+		},
+		"FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, school admins can choose to create a room for all students and teachers of the school"
 		},
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
@@ -124,9 +168,199 @@
 			"format": "uri",
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
+		},
+		"FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED": {
+			"type": "boolean",
+			"default": "false",
+			"description": "Allows school admin to toggle teacher's STUDENT_LIST permission."
+		},
+		"SENTRY_DSN": {
+			"type": "string",
+			"format": "uri",
+			"description": "Sentry DSN (uri), if defined, increase SENTRY_SAMPLE_RATE to desired value to get errors reported."
+		},
+		"SENTRY_SAMPLE_RATE": {
+			"type": "number",
+			"default": 1.0,
+			"minimum": 0.0,
+			"maximum": 1.0,
+			"description": "This is the % count (0.00 to 1.00) of how many of the errors send to the backend. This filter go over all errors, maybe some lost by low user counts."
+		},
+		"FEATURE_ETHERPAD_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Etherpad "
+		},
+		"FEATURE_SCHOOL_POLICY_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Custom School Policy can be uploaded by the school admin "
+		},
+		"ETHERPAD": {
+			"type": "object",
+			"description": "Cookie properties, required always to be defined",
+			"required": [
+				"PAD_PATH",
+				"PAD_URI",
+				"OLD_DOMAIN",
+				"NEW_DOMAIN"
+			],
+			"properties": {
+				"PAD_PATH": {
+					"type": "string",
+					"default": "/etherpad/p",
+					"pattern": ".*(?<!/)$",
+					"description": ""
+				},
+				"PAD_URI": {
+					"type": "string",
+					"format": "uri",
+					"default": "https://schul-cloud.org/etherpad/p",
+					"pattern": ".*(?<!/)$",
+					"description": "The etherpad pad uri"
+				},
+				"OLD_DOMAIN": {
+					"type": "string",
+					"default": "etherpad.schul-cloud.org",
+					"description": "The old etherpad domain"
+				},
+				"NEW_DOMAIN": {
+					"type": "string",
+					"default": "schul-cloud.org",
+					"description": "The new etherpad domain"
+				}
+			}
+		},
+		"SKIP_CONDITIONS_CONSENT": {
+			"type": "string",
+			"default": "",
+			"description": "A string with concatenated user types (student, employee) that don't need to explicitly state their consent with the terms and conditions. \"employee\" means teachers and admins"
+		},
+		"COOKIE": {
+			"type": "object",
+			"description": "Cookie properties, required always to be defined",
+			"properties": {
+				"SAME_SITE": {
+					"type": "string",
+					"default": "None",
+					"enum": [
+						"None",
+						"Lax",
+						"Strict"
+					],
+					"description": "Value for cookies sameSite property"
+				},
+				"HTTP_ONLY": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies httpOnly property"
+				},
+				"HOST_ONLY": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies hostOnly property"
+				},
+				"SECURE": {
+					"type": "boolean",
+					"default": false,
+					"description": "Value for cookies httpOnly property"
+				},
+				"EXPIRES_SECONDS": {
+					"type": "integer",
+					"default": 2592000000,
+					"description": "Expiration in seconds from now"
+				}
+			},
+			"required": [
+				"SAME_SITE",
+				"HTTP_ONLY",
+				"HOST_ONLY",
+				"SECURE",
+				"EXPIRES_SECONDS"
+			]
+		},
+		"COOKIE_SECRET": {
+			"type": "string",
+			"description": "Secret used to sign the session ID cookie"
+		},
+		"LOGIN_BLOCK_TIME": {
+			"type": "integer",
+			"default": 15,
+			"description": "Number of second the user will be blocked before logging in again"
+		},
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables Portfolio (navigation, addons) in app"
+		},
+		"LERNSTORE_MODE": {
+			"type": "string",
+			"enum": [
+				"DISABLED",
+				"LEGACY",
+				"EDUSHARING"
+			],
+			"default": "DISABLED",
+			"description": "Defines the lernstore mode. Can be legacy, edusharing and disabled"
+		},
+		"HELPAREA_URL": {
+			"type": "string",
+			"default": "",
+			"description": "The URL to Confluence. Without a link, there are subpages in the side menu and on the /help page. With the link the option from the Hilfebereich side menu leads to confluence."
+		},
+		"FEATURE_MULTI_LOGIN_INSTANCES": {
+			"type": "boolean",
+			"default": false,
+			"description": "Multi login instances tiles"
+		}
+	},
+	"allOf": [
+		{
+			"$ref": "#/definitions/ETHERPAD_ENABLED"
+		},
+		{
+			"$ref": "#/definitions/MESSENGER_ENABLED"
+		}
+	],
+	"definitions": {
+		"ETHERPAD_ENABLED": {
+			"if": {
+				"properties": {
+					"FEATURE_ETHERPAD_ENABLED": {
+						"const": true
+					}
+				}
+			},
+			"then": {
+				"required": [
+					"ETHERPAD"
+				]
+			}
+		},
+		"MESSENGER_ENABLED": {
+			"if": {
+				"properties": {
+					"FEATURE_MATRIX_MESSENGER_ENABLED": {
+						"const": true
+					}
+				}
+			},
+			"then": {
+				"required": [
+					"MATRIX_MESSENGER_EMBED_URI",
+					"MATRIX_MESSENGER_HOMESERVER_URI",
+					"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE",
+					"FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED"
+				]
+			}
 		}
 	},
 	"required": [
-		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION"
+		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
+		"COOKIE",
+		"COOKIE_SECRET",
+		"STUDENT_TEAM_CREATION",
+		"FEATURE_ETHERPAD_ENABLED",
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED"
 	]
 }

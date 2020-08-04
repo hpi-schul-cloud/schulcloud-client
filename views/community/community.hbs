@@ -1,92 +1,136 @@
 <section class="section-community">
+
 	{{#embed "authentication/section" class="content-width-max"}}
 	{{#content "body"}}
 
-		{{#unless loggedin}}
-			<h2 class="section-title center">{{title}}</h2>
-		{{/unless}}
-		<h3 class="h4">Jetzt für die HPI Schul-Cloud registrieren!</h3>
+	{{#unless loggedin}}
+	<h1 class="h2 section-title center">{{$t "community.heading.joinNow"}}</h1>
+	{{/unless}}
 
-		<img src="/images/community.jpg" role="presentation" class="mb-2 w-100"
-			style="height: auto; border-radius: 4px;" width="1000" height="667" loading="lazy">
-		<p>
-			Wir freuen uns, dass die Bundesbildungsministerin Anja Karliczek in dieser Situation heute die Freigabe der
-			HPI Schul-Cloud für alle Schulen, die kein vergleichbares Angebot des Landes oder Schulträgers nutzen
-			können, freigegeben hat.
-		</p>
-		<p>
-			Die HPI Schul-Cloud bietet Ihnen und Ihrer Schule eine schnelle Unterstützung während der Schulschließungen
-			als die zentrale digitale Lernumgebung. Dabei können sich Lehrpersonen und Schüler/innen sowie Lehrerteams
-			oder Schülerlerngruppen bilden und Lernmaterialien kollaborativ erarbeiten, teilen, weiterentwickeln,
-			feedbacken und auch für externe Teammitglieder (z.B. schulübergreifend) freigeben. Die digitale Lehr- und
-			Lernumgebung ist intuitiv bedienbar, von jedem Ort, zu jeder Zeit und unabhängig vom Endgerät aufrufbar. Sie
-			bietet Lehrenden und Lernenden einen digitalen Lernraum, in dem ihre (personenbezogenen) Daten und
-			Materialien sicher vor unberechtigten Zugriffen sind.
-		</p>
-		<p>
-			<b> Die Anmeldung zur HPI Schul-Cloud ist ganz einfach: </b>
-			<ol>
-				<li>
-					Schulen, die sich für die HPI Schul-Cloud registrieren möchten, melden sich hier an:
-					<a href="https://hpi.de/das-hpi/registrierung/anmeldung-fuer-die-schul-cloud/" target="_blank"
-						rel="noopener">
-						Anmeldeformular für interessierte Schulleiter:innen .
-					</a>
-				</li>
-				<li>
-					Sie erhalten eine Begrüßungsmail und Datenschutzdokumente.
-				</li>
-				<li>
-					Nutzen Sie unsere Einführungs- und Fortbildungsangebote!
-				</li>
-			</ol>
-		</p>
-		<p>
-			Unterstützung bei der Einarbeitung in die Schul-Cloud und Erstellung erster Inhalte erhalten Sie hier
-			<a href="https://lernen.cloud/courses/schulcloud2019" target="_blank"
-				rel="noopener">https://lernen.cloud/courses/schulcloud2019</a>
-		</p>
-		<p>
-			Unser Partner der MINT-EC bietet zudem regelmäßig Webinare rund um die HPI Schul-Cloud an. Die neuen Termine
-			finden Sie hier
-			<a href="https://blog.schul-cloud.org/webinare/" target="_blank"
-				rel="noopener">https://blog.schul-cloud.org/webinare/</a>
-		</p>
-		<div class="notification alert alert-info">
-			<div class="notification-content">
-				Hinweis: Sollten Sie einem der folgenden Bundesländer angehören wenden Sie sich bitte an die
-				entsprechenden Ansprechpartner:innen
-				<ul>
-					<li>
-						Niedersachsen: Landesinitiative n-21:
-						<a href="mailto:info@n-21.de" target="_blank" rel="noopener">info@n-21.de</a>
-					</li>
-					<li>
-						Brandenburg: Schul-Cloud Brandenburg:
-						<a href="mailto:brandenburg@schul-cloud.org" target="_blank"
-							rel="noopener">brandenburg@schul-cloud.org</a>
-					</li>
-					<li>
-						Thüringen: Thüringer Schulcloud:
-						<a href="mailto:tsc@thillm.de" target="_blank"
-							rel="noopener">tsc@thillm.de</a>
-					</li>
-				</ul>
+	<img src="/images/community.svg" role="presentation" class="mb-2 w-100"
+		style="height: auto; border-radius: 4px; opacity: 0.8;" width="1000" height="667" loading="lazy" alt="">
+
+	<h2 class="h5 mb-2">{{$t "community.heading.chooseYourState"}}</h2>
+	<div class="accordion" id="accordionRegistration">
+		<div class="card">
+			<div class="" id="niAccordion" data-toggle="collapse" data-target="#collapseNi" aria-expanded="true"
+				aria-controls="collapseNi">
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">{{$t "community.button.lowerSaxony"}}</div>
+					<img src="/images/logo/n21-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px"
+						height="33px" class="registration-logo" alt="">
+				</button>
+			</div>
+
+			<div id="collapseNi" class="collapse show" aria-labelledby="niAccordion" data-parent="#accordionRegistration">
+				<div class="card-body p-1">
+					{{$t "community.text.inNiedersachsenTheReferenceSchool"}}<br>
+					{{$t "community.text.pleaseContactTheFollowingEmailAddress"}} <a
+						href="mailto:nbc-support@netz-21.de">nbc-support@netz-21.de</a>
+				</div>
 			</div>
 		</div>
-		<p>
-			Wir geben uns viel Mühe und sind gut darauf vorbereitet schnell neue Schulen einzurichten, aber bitte
-			beachten Sie, dass eine Bearbeitung einige Tage in Anspruch nehmen kann.
-			<br />
-			Bei Rückfragen wenden sie sich bitte an
-			<a href="mailto:sc-anmeldung@schul-cloud.org" target="_blank"
-				rel="noopener">sc-anmeldung@schul-cloud.org</a>.
-		</p>
-		<p>
-			Wir freuen uns Sie als neue Schule willkommen zu heißen!
-			<br />
-			Ihr HPI Schul-Cloud Team
-		</p>
+		<div class="card">
+			<div class="" id="brbAccordion" data-toggle="collapse" data-target="#collapseBrb" aria-expanded="true"
+				aria-controls="collapseBrb">
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">{{$t "community.button.brandenburg"}}</div>
+					<img src="/images/logo/brb-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px"
+						height="35px" class="registration-logo" alt="">
+				</button>
+			</div>
+			<div id="collapseBrb" class="collapse" aria-labelledby="brbAccordion" data-parent="#accordionRegistration">
+				<div class="card-body p-1">
+					{{$t "community.text.inBrandenburgTheAdmissionOfNewSchools"}}<br>
+					{{$t "community.text.inMarch2020ZENSOSQueries"}}<br><br>
+					{{$t "community.text.forGeneralQuestionsPleaseContact"}} <a
+						href="mailto:brandenburg@schul-cloud.org">brandenburg@schul-cloud.org</a>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="" id="thAccordion" data-toggle="collapse" data-target="#collapseTh" aria-expanded="true"
+				aria-controls="collapseTh">
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">{{$t "community.button.thuringia"}}</div>
+					<img src="/images/logo/th-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px" height="35px"
+						class="registration-logo" alt="">
+				</button>
+			</div>
+			<div id="collapseTh" class="collapse" aria-labelledby="thAccordion" data-parent="#accordionRegistration">
+				<div class="card-body p-1">
+					{{$t "community.text.inThuringiaTheThuringianInstitute"}}<br><br>
+					{{{$t "community.text.contactUsToRegister"}}}
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="" id="mintAccordion" data-toggle="collapse" data-target="#collapseMint" aria-expanded="true"
+				aria-controls="collapseMint">
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">{{$t "community.button.mintECSchools"}}</div>
+					<img src="/images/logo/mint-ec-logo.svg" role="presentation" loading="lazy" height="35px"
+						class="registration-logo" alt="">
+				</button>
+			</div>
+			<div id="collapseMint" class="collapse" aria-labelledby="mintAccordion" data-parent="#accordionRegistration">
+				<div class="card-body p-1">
+					{{$t "community.text.MINTECSchoolsAnd"}}<br><br>
+
+					{{$t "community.text.hereIsOurRegistrationForm"}}<br>
+					<a
+						href="https://hpi.de/das-hpi/registrierung/anmeldung-fuer-die-schul-cloud">https://hpi.de/das-hpi/registrierung/anmeldung-fuer-die-schul-cloud</a>.
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="" id="foreignAccordion" data-toggle="collapse" data-target="#collapseForeign" aria-expanded="true"
+				aria-controls="collapseForeign">
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">{{$t "community.button.germanSchoolsAbroad"}}</div>
+					<img src="/images/logo/globe.svg" role="presentation" loading="lazy" width="35px" height="35px"
+						class="registration-logo" alt="">
+				</button>
+			</div>
+			<div id="collapseForeign" class="collapse" aria-labelledby="foreignAccordion"
+				data-parent="#accordionRegistration">
+				<div class="card-body p-1">
+					{{$t "community.text.theCentralOfficeForSchools"}}<br><br>
+					{{{$t "community.text.justWriteAnEmailTo"}}}
+					{{$t "community.text.youWillThenBeGiven"}}
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="" id="otherSchoolsAccordion" data-toggle="collapse" data-target="#collapseOtherSchools"
+				aria-expanded="true" aria-controls="collapseOtherSchools">
+				<button class="btn btn-link registration-button" type="button">
+					<div class="registration-label">{{$t "community.button.allOtherSchools"}}</div>
+					<img src="/images/logo/hand-in-hand.svg" role="presentation" loading="lazy" width="35px" height="35px"
+						class="registration-logo" alt="">
+				</button>
+			</div>
+			<div id="collapseOtherSchools" class="collapse" aria-labelledby="otherSchoolsAccordion"
+				data-parent="#accordionRegistration">
+				<div class="card-body p-1">
+					{{$t "community.text.MINTECSchoolsAnd"}}<br><br>
+
+					{{$t "community.text.hereIsOurRegistrationForm"}}<br>
+					<a
+						href="https://hpi.de/das-hpi/registrierung/anmeldung-fuer-die-schul-cloud">https://hpi.de/das-hpi/registrierung/anmeldung-fuer-die-schul-cloud</a>.
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<p class="mt-3">
+		{{$t "community.text.youCanGetSupport"}} <a href="https://lernen.cloud/courses/schulcloud2019"
+			target="_blank">https://lernen.cloud/courses/schulcloud2019</a>.
+	</p>
+	<p>
+		{{$t "community.text.ourPartnerOfMINIECAlso"}} <a href="https://blog.schul-cloud.org/webinare/"
+			target="_blank">https://blog.schul-cloud.org/webinare/</a>.
+	</p>
 	{{/content}}
 	{{/embed}}
 </section>

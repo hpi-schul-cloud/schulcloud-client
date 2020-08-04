@@ -1,18 +1,16 @@
 <section class="file-viewer">
-    <a href="#" class="lightbox" id="file-view" onclick="videojs('my-video').ready(function () {this.pause();});
-                                                                      $('#link').html('');
-                                                                      $('#picture').attr('src', '');
-                                                                      $('#file-view').css('display','none');">
-        <video id="my-video" class="video-js vjs-default-skin" onclick="videoClick(event);" autoplay controls preload="auto" data-setup='{"fluid": true}'></video>
-        <script src="/vendor/video.js"></script>
-        <img id="picture">
+    <a href="#" class="lightbox videostop" id="file-view">
+      <video id="my-video" class="video-js vjs-default-skin videoclick" autoplay controls preload="auto" data-setup='{"fluid": true}'></video>
+		  <script src="/vendor-optimized/video.js/dist/video.min.js" nonce="{{nonceValue}}"></script>
+		  <script src="/vendor-optimized/video.js/dist/lang/{{ @root.userLanguage }}.js" nonce="{{nonceValue}}"></script>
+      <img id="picture">
     </a>
 </section>
 
-{{#embed "lib/components/modal" class="open-modal" title="Möchtest du diese Datei mit einem externen Dienst öffnen?"}}
+{{#embed "lib/components/modal" class="open-modal" title=($t "files.headline.doYouWantToOpenThisFile")}}
     {{#content "body"}}
         <div class="modal-body">
-            <input class="box" type="checkbox" name="allowExternalViewers" value="save">{{$t files.text.rememberThisSelection}}<br>
+            <input class="box" type="checkbox" name="allowExternalViewers" value="save">{{$t "files.text.rememberThisSelection"}}<br>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary btn-close">{{$t "global.button.cancel" }}</button>

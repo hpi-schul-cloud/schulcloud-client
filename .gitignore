@@ -93,3 +93,6 @@ selenium-debug.log
 #version info
 version
 *.icloud
+
+# patch files
+*.patch

@@ -1,14 +1,14 @@
 {{#content "scripts" mode="append"}}
-    <script src="/vendor/ckeditor/ckeditor.js" defer></script>
-    <script src="/scripts/mousetrap/mousetrap.js" defer></script>
-    <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" defer></script>
-    <script src="/scripts/news.js" defer></script>
-    <script>
+    <script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/mousetrap/mousetrap.js" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/news.js" nonce="{{nonceValue}}" defer></script>
+    <script nonce="{{nonceValue}}">
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
-          
+
             Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
                 document.getElementById('news-form').submit();
                 return false;
@@ -36,16 +36,16 @@
 
             <div class="form-group">
                 <label>{{$t "news.label.title" }}</label>
-                <input data-testid="news_title" class="form-control" name="title" type="text" placeholder="Titel" value="{{news.title}}" required />
+                <input data-testid="news_title" class="form-control" name="title" type="text" placeholder="{{$t "news._news.input.title"}}" value="{{news.title}}" required />
             </div>
 
             <div class="form-group">
                 <label>{{$t "news.label.content" }}</label>
-                <textarea type="text" class="form-control customckeditor" name="content" placeholder="Inhalt der Nachricht..." required>{{news.content}}</textarea>
+                <textarea type="text" class="form-control customckeditor" name="content" placeholder="{{$t "news._news.label.contentOfMessage"}}" required>{{news.content}}</textarea>
             </div>
 
             <div class="form-group">
-                <label>{{$t "news.label.shceduleAutomaticPublication" }}</label>
+                <label>{{$t "news.label.scheduleAutomaticPublication" }}</label>
                 <input class="form-control" data-datetime data-min-date="0" data-testid="news_date_to_be_displayed" name="displayAt" type="text" value="{{news.displayAt}}"/>
             </div>
 

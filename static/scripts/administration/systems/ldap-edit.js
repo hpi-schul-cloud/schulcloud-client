@@ -26,11 +26,11 @@ function toggleFieldClass(clicked, fieldClass) {
 function toggleTableClass(clicked, tableID) {
 	clicked.preventDefault();
 	// Change viewing status of table
-	if (clicked.target.innerText === 'Ausblenden') {
-		clicked.target.innerText = 'Einblenden';
+	if (clicked.target.innerText === $t('administration.ldapEdit.label.hide')) {
+		clicked.target.innerText = $t('administration.ldapEdit.label.show');
 		document.querySelector(tableID).style.display = 'none';
 	} else {
-		clicked.target.innerText = 'Ausblenden';
+		clicked.target.innerText = $t('administration.ldapEdit.label.hide');
 		document.querySelector(tableID).style.display = 'block';
 	}
 }
@@ -54,14 +54,14 @@ function activateLDAP(event) {
 		timeout: 10000, // sets timeout to 10 seconds
 		error: function(){
 			// will fire when timeout is reached
-			$.showNotification('Zeitüberschreitung der Anwendung', 'danger');
+			$.showNotification($t('administration.ldapEdit.text.errorTimeout'), 'danger');
 		},
 		success: function (data) {
 			if(data === 'success')
 			{
 				window.location.replace(window.location.origin + '/administration/school');
 			} else {
-				$.showNotification('Problem bei der Aktivierung', 'danger');
+				$.showNotification($t('administration.ldapEdit.text.errorActivation'), 'danger');
 			}
 		},
 	});
@@ -72,7 +72,7 @@ function verifyLDAPData(event) {
 
 	// Check for ldaps
 	if (!document.querySelector('[name="ldapurl"]').value.startsWith('ldaps')) {
-		return $.showNotification('LDAP ist nur über das sichere Protokoll ldaps möglich!', 'danger');
+		return $.showNotification($t('administration.ldapEdit.text.onlyProtocolLDAP'), 'danger');
 	}
 
 	$('#verify-icon').addClass('fa fa-spinner fa-spin fa-fw');
@@ -85,7 +85,7 @@ function verifyLDAPData(event) {
 		timeout: 10000, // sets timeout to 10 seconds
 		error: function(){
 			// will fire when timeout is reached
-			$.showNotification('LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.', 'danger');
+			$.showNotification($t('administration.ldapEdit.errorLDAPTimeout'), 'danger');
 
 			// Make save button deactive
 			document.querySelector('#savesubmit').disabled = true;
@@ -103,7 +103,7 @@ function verifyLDAPData(event) {
 				const row = userTable.insertRow(userTable.rows.length);
 
 				if (
-					typeof user.firstName === 'undefined' || 
+					typeof user.firstName === 'undefined' ||
 					typeof user.lastName === 'undefined' ||
 					typeof user.email === 'undefined'
 				) {
@@ -186,12 +186,20 @@ window.addEventListener('DOMContentLoaded', () => {
 	document.querySelector('#select-roletype').onchange = function (e) {
 		if (e.target.options[e.target.selectedIndex].value === 'group') {
 			document.querySelector('#role-name').style.display = 'none';
-			document.querySelector('#headline-role-type').innerHTML = 'Rollen-LDAP-Pfade';
-			document.querySelector('#description-role-attribute').setAttribute('data-original-title', 'Welche LDAP-Gruppe definiert die genannten Rolle? Geben Sie den vollen Pfad (inkl. root-Pfad) an');
+			document.querySelector('#headline-role-type')
+				.innerHTML	= $t('administration.ldapEdit.label.rolesLDAPPaths');
+			document.querySelector('#description-role-attribute').setAttribute(
+				'data-original-title',
+				$t('administration.ldapEdit.label.rolesLDAPPathsDescription'),
+			);
 		} else {
 			document.querySelector('#role-name').style.display = 'block';
-			document.querySelector('#headline-role-type').innerHTML = 'Rollen-Attribute';
-			document.querySelector('#description-role-attribute').setAttribute('data-original-title', 'Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?');
+			document.querySelector('#headline-role-type')
+				.innerHTML = $t('administration.ldapEdit.label.rolesAttributes');
+			document.querySelector('#description-role-attribute').setAttribute(
+				'data-original-title',
+				$t('administration.ldapEdit.label.rolesAttributesDescription'),
+			);
 		}
 	};
 

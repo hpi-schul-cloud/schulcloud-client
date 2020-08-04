@@ -1,22 +1,25 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page" {{/if}}>
 
-  <h2 class="h4">Wichtige Information{{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}}</h2>
-  <a style="margin-bottom: 20px;">Für ein noch besseres Lernerlebnis wird die {{@root.theme.title}} stetig
-    weiterentwickelt. Im Zuge dessen hat sich
-    {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}die <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}" target="_blank">Nutzungsordnung</a>{{/ifCond}}
+  <h2 class="h4">{{$t "firstLogin.consent.heading.importantInformation" }} {{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}}</h2>
+  <a style="margin-bottom: 20px;">{{$t "firstLogin.consent.text.forAnEvenBetterLearningExperience" (dict "title" @root.theme.title)}}
+    {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}} {{$t "firstLogin.consent.text.the" }} <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}" target="_blank">{{$t "firstLogin.consent.text.termsOfUse" }}</a>{{/ifCond}}
     {{#ifCond @root.updatedConsents.privacy.total '>' 0}}
     {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}
-    und
+    {{$t "firstLogin.consent.text.and" }}
     {{/ifCond}}
-    die <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank">Datenschutzerklärung</a>
+		{{#if @root.schoolPrivacyLink}}
+			{{$t "firstLogin.consent.text.the" }} <a href="{{@root.schoolPrivacyLink}}" class="base64File-download-btn" id="privacy-link" target="_blank">{{$t "consent.global.text.dataProtection" }}</a>
+		{{else}}
+			{{$t "firstLogin.consent.text.the" }} <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank">{{$t "consent.global.text.dataProtection" }}</a>
+		{{/if}}
     {{/ifCond}}
-    erweitert.
+    {{$t "firstLogin.consent.text.expanded" }}
   </p>
   <div id="consentUpdateFields">
     {{#if @root.updatedConsents.haveBeenUpdated}}
 
     {{#each @root.updatedConsents.all.data}}
-    <h2 class="h4">Zusammenfassung der Erweiterung in der {{this.visualType}}</a> zum
+    <h2 class="h4">{{$t "firstLogin.consent.heading.summaryOfTheExtension" (dict "visualType" this.visualType)}}</a> {{$t "firstLogin.consent.heading.toThe" }}
       {{dateToPicker this.publishedAt}}</h2>
     <div class='privacyStatement card'>
       <div class="card-header">
@@ -42,7 +45,7 @@
       </label>
       {{/if}}
     </div>
-    <p>Bitte nimm mit Klick auf »Gelesen« diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.</p>
+    <p>{{$t "firstLogin.consent.text.pleaseClickOnRead" }}</p>
 
 
   </div>

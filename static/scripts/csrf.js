@@ -7,7 +7,7 @@ function inIframe() {
 }
 $('document').ready(() => {
 	const retrybtn = $('#retrybtn');
-	retrybtn.html('Erneut versuchen');
+	retrybtn.html($t('global.button.tryAgain'));
 	if (inIframe()) {
 		$('.iframe').removeClass('hidden');
 		$('.noiframe').addClass('hidden');

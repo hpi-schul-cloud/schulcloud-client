@@ -1,2 +1,5 @@
-<p>Herzlich willkommen zurück in der {{@root.theme.short_title}}, {{@root.currentUser.firstName}} {{@root.currentUser.lastName}},</p>
-<p>mit dem Schuljahr 2018/2019 haben wir die Registrierung in der {{@root.theme.short_title}} von Papier auf Digital umgestellt. Das macht es notwendig, dass wir dein Einverständnis zur Nutzung der {{@root.theme.short_title}} erneut elektronisch erfassen.</p>
+<p>{{$t "firstLogin.welcome.text.welcomeBackTothe" (dict "shortTitle" @root.theme.short_title "firstName" @root.currentUser.firstName "lastName" @root.currentUser.lastName)}},</p>
+
+<p>{{$t "firstLogin.welcome.text.dueToAChangeInTheLowerSaxony" (dict "shortTitle" @root.theme.short_title) }}</p>
+
+<p>{{$t "firstLogin.welcome.text.thankYouForTakingNoteOf" }}</p>

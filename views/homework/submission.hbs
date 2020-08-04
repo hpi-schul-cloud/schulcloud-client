@@ -1,19 +1,24 @@
 <section id="submission" class="tab-content section-homeworkdetails">
   {{#if @root.submittable}}
     <div class="comment editor">
-      <p class="submissionLabel"><i class="fa fa-folder-open"></i>Dateiabgabe</p>
+      <p class="submissionLabel"><i class="fa fa-folder-open"></i>{{$t "homework._task.label.fileUpload"}}</p>
       {{#embed "files/file-upload" path=@root.path}}{{/embed}}
 
       {{#if @root.submission}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{@root.submission._id}}">
         <input name="submissionId" type="hidden" data-force-value="true" value="{{@root.submission._id}}"/>
       {{else}}
-        <form class="form submissionForm" method="post" action="/homework/submit">
+        <form class="form submissionForm ajaxForm" method="post" action="/homework/submit">
       {{/if}}
 
       {{#if @root.submission}}
-        {{#embed "homework/components/submission_uploaded_files" deletionAllowed=true submission=@root.submission}}{{/embed}}
-         <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+        {{#ifneq 0 (arrayLength @root.submission.fileIds)}}
+            {{#embed "homework/components/submission_files"
+                fileIds=@root.submission.fileIds
+                deletionAllowed=true
+                submission=@root.submission}}{{/embed}}
+            <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+        {{/ifneq}}
       {{else}}
         <div class="form-group section-uploaded-files">
             <label>{{$t "homework.label.filesUploadedForDelivery" }}</label>
@@ -26,11 +31,17 @@
 
       {{#if @root.teamSubmissions}}
         <hr>
-        <p class="submissionLabel"><i class="fa fa-users"></i>Teamabgabe {{#if maxTeamMembers}}(maximal <span id="maxTeamMembers">{{@root.maxTeamMembers}}</span> Personen){{/if}}</p>
+        <p class="submissionLabel"><i class="fa fa-users"></i>
+        {{#if maxTeamMembers}}
+            {{{$t "homework._task.label.teamSubmissionMaxX" (dict "maxTeamMembers" @root.maxTeamMembers)}}}
+        {{else}} 
+            {{$t "homework._task.label.teamSubmission"}} 
+        {{/if}}
+        </p>
         <div class="form-group">
             <input name="teamSubmissionOptions" value="teamMembers" type="radio" id="teamMembers1" {{#unless @root.courseGroupSelected}}checked{{/unless}}/>
             <label for="teamMembers1">{{$t "homework.label.selectTeamMembers" }}</label>
-            <select name="teamMembers" id="teamMembers" multiple data-placeholder="Mitstreiter auswählen">
+            <select name="teamMembers" id="teamMembers" multiple data-placeholder="{{$t "homework._task.input.chooseTeamMembers"}}">
                 {{#each @root.students}}
                     <option value="{{this._id}}" 
                         {{#if @root.submission}}
@@ -52,7 +63,7 @@
         <div class="form-group">
             <input name="teamSubmissionOptions" value="courseGroup" type="radio" id="courseGroup1" {{#if @root.courseGroupSelected}}checked{{/if}}/>
             <label for="courseGroup1">{{$t "homework.label.selectStudentGroup" }}</label>
-            <select name="courseGroupId" id="courseGroupId" data-placeholder="Mitstreiter auswählen">
+            <select name="courseGroupId" id="courseGroupId" data-placeholder="{{$t "homework._task.input.chooseTeamMembers"}}">
                 {{#each @root.courseGroups}}
                     <option value="{{this._id}}" {{#ifeq this._id @root.submission.courseGroupId._id}}selected{{/ifeq}}>{{this.name}}</option>
                 {{else}}
@@ -62,14 +73,19 @@
         </div>
         <hr>
       {{/if}}
-        <p class="submissionLabel"><i class="fa fa-text-width"></i>Textabgabe</p>
+        <p class="submissionLabel"><i class="fa fa-text-width"></i>{{$t "homework._task.label.textDelivery"}}</p>
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}"/>
 
         <div class="form-group">
             <textarea id="evaluation" name="comment" class="form-control customckeditor"
-                  placeholder="Erstelle deine Abgabe...">{{@root.submission.comment}}</textarea>
+                  placeholder="{{$t "homework._task.input.createSubmission"}}">{{@root.submission.comment}}</textarea>
         </div>
   {{else}}
+    {{#if @root.submission}}
+        {{#if @root.submission.hasFile}}
+            {{#embed "homework/components/submission_files" fileIds=@root.submission.fileIds deletionAllowed=false submission=@root.submission}}{{/embed}}
+        {{/if}}
+    {{/if}}
     <div class="comment">
         {{#if @root.submission.comment}}
             {{{@root.submission.comment}}}

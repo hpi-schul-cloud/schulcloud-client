@@ -1,5 +1,6 @@
 {{#content "scripts" mode="append"}}
-    <script defer>
+    <script src="/scripts/tools.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script nonce="{{nonceValue}}" defer>
         setHeight = function() {
             // dirty fix for digitalgipfel
             $('.lti-frame').css({
@@ -15,6 +16,7 @@
     {{/content}}
 
     {{#content "page"}}
+        <p id="safari-workaround">Falls das Tool nicht funktioniert, <a href="/courses/{{course._id}}/tools/run/{{tool._id}}" target="_blank">{{$t "global.link.openInNewTab"}}</a>.</p>
         <iframe class="lti-frame" src="{{tool.url}}" frameborder="0" onload="setHeight()"></iframe>
         <a href="{{tool.url}}" target="_blank" class="pull-right">{{$t "global.link.openInNewTab"}}</a>
     {{/content}}

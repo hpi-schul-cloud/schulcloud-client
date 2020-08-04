@@ -40,7 +40,7 @@ const ifCondBool = (v1, operator, v2) => {
 	}
 };
 
-const helpers = app => ({
+const helpers = () => ({
 	pagination: require('./pagination'),
 	ifArray: (item, options) => {
 		if (Array.isArray(item)) {
@@ -60,7 +60,7 @@ const helpers = app => ({
 		}
 		return opts.inverse(this);
 	},
-	arrayLength: array => array.length,
+	arrayLength: (array) => (array && array.length) || 0,
 	truncate: (text = '', { length = 140 } = {}) => {
 		if (text.length <= length) {
 			return text;
@@ -173,6 +173,7 @@ const helpers = app => ({
 		}
 		return options.inverse(this);
 	},
+	userIds: (users) => (users || []).map((user) => user._id).join(','),
 	timeFromNow: (date, opts) => moment(date).fromNow(),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
@@ -205,29 +206,20 @@ const helpers = app => ({
 	log: (data) => {
 		console.log(data);
 	},
-	castStatusCodeToString: (statusCode) => {
+	castStatusCodeToString: (statusCode, data) => {
 		console.log(statusCode);
 		if (statusCode >= 500) {
-			return 'Ups, da haben wir wohl ein internes Problem. Probier es gleich nochmal.';
+			return i18n.getInstance(data.data.local.currentUser)('global.error.internalProblem');
 		}
 		if (statusCode >= 400) {
-			switch (statusCode) {
-				case 400:
-					return 'Diese Anfrage war fehlerhaft.';
-				case 401:
-					return 'Bitte Authentifiziere dich zunächst.';
-				case 402:
-					return 'Diese Funktion musst du erst noch bezahlen.';
-				case 403:
-					return 'Sorry, aber das dürfen wir dir wirklich nicht zeigen!';
-				case 404:
-					return "Ups, diese Seite gibt's wohl nicht.";
+			if ([400, 401, 402, 403, 404].includes(statusCode)) {
+				return i18n.getInstance(data.data.local.currentUser)('global.error.'.concat(statusCode.toString()));
 			}
 		}
 		if (statusCode > 300) {
-			return 'Diese Seite wurde verschoben.';
+			return i18n.getInstance(data.data.local.currentUser)('global.error.pageMoved');
 		}
-		return 'Da ist wohl etwas schief gelaufen!';
+		return i18n.getInstance(data.data.local.currentUser)('global.error.somethingWentWrong');
 	},
 	writeFileSizePretty: (fileSize) => {
 		let unit;
@@ -286,7 +278,15 @@ const helpers = app => ({
 		}
 		return i18n.getInstance(opts.data.local.currentUser)(key, data);
 	},
+	dict: (...keyValues) => {
+		const dict = {};
+		keyValues.forEach((keyValue, index) => {
+			if (!(index % 2)) {
+				dict[keyValue] = keyValues[index + 1];
+			}
+		});
+		return dict;
+	},
 });
-
 
 module.exports = helpers;

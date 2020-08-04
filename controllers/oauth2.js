@@ -44,14 +44,14 @@ const acceptConsent = (r, w, challenge, grantScopes, remember = false) => {
 		.then(consentRequest => w.redirect(consentRequest.redirect_to));
 };
 
-const displayScope = (scope) => {
+const displayScope = (scope, w) => {
 	switch (scope) {
 		case 'openid':
-			return 'eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt';
+			return w.$t('login.oauth2.label.openId');
 		case 'profile':
-			return 'deinen Namen'
+			return w.$t('login.oauth2.label.yourName');
 		case 'email':
-			return 'deine E-Mail-Adresse'
+			return w.$t('login.oauth2.label.email');
 		default:
 			return scope;
 	}
@@ -70,13 +70,13 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
 			}
 			return w.render('oauth2/consent', {
 				inline: true,
-				title: 'Login mit Schul-Cloud',
+				title: w.$t('login.oauth2.headline.loginWithSchoolCloud'),
 				subtitle: '',
 				client: consentRequest.client.client_name,
 				action: `/oauth2/consent?challenge=${r.query.consent_challenge}`,
-				buttonLabel: 'Akzeptieren',
+				buttonLabel: w.$t('global.button.accept'),
 				scopes: consentRequest.requested_scope.map(scope => ({
-					display: displayScope(scope),
+					display: displayScope(scope, w),
 					value: scope,
 				})),
 			});
@@ -104,9 +104,7 @@ router.get('/username/:pseudonym', (req, res, next) => {
 		res.render('oauth2/username', {
 			completeName,
 			shortName,
-			infoText: 'Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus'
-				+ ' der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver'
-				+ ' anzeigen kann.',
+			infoText: res.$t('login.oauth2.text.yourNameIsProtected'),
 		});
 	});
 });

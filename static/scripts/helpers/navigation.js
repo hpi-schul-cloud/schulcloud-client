@@ -38,7 +38,7 @@ export function softNavigate(newurl, selector = 'html', listener, callback) {
             }
         } catch (e) {
             console.error(e);
-            $.showNotification("Fehler bei AJAX-Navigation", "danger", true);
+            $.showNotification($t('navigation.text.errorNavigation'), 'danger', true);
         }
     });
 }

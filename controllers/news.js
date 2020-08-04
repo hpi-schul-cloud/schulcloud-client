@@ -158,10 +158,10 @@ router.all('/', async (req, res, next) => {
 			baseUrl: '/news/?p={{page}}',
 		};
 
-		let title = 'Neuigkeiten';
+		let title = res.$t('news.headline.news');
 		// ToDo: Hier kommen noch News für Kurse und Klassen rein.
 		if (context === 'teams') {
-			title = 'Neuigkeiten aus dem Team';
+			title = res.$t('news.headline.newsTeam');
 		}
 
 		res.render('news/overview', {
@@ -169,7 +169,7 @@ router.all('/', async (req, res, next) => {
 			unpublishedNews: unpublishedMappedNews,
 			news: mappedNews,
 			pagination,
-			searchLabel: 'Suche nach Neuigkeiten',
+			searchLabel: res.$t('news.label.searchForNews'),
 			searchAction: '/news/',
 			showSearch: true,
 		});
@@ -182,9 +182,9 @@ router.get('/new', (req, res, next) => {
 	const context = req.query.context || '';
 	const contextId = req.query.contextId || '';
 	res.render('news/edit', {
-		title: 'News erstellen',
-		submitLabel: 'Hinzufügen',
-		closeLabel: 'Abbrechen',
+		title: res.$t('news._news.headline.createNews'),
+		submitLabel: res.$t('global.button.add'),
+		closeLabel: res.$t('global.button.cancel'),
 		method: 'post',
 		action: '/news/',
 		context,
@@ -216,9 +216,9 @@ router.get('/:newsId/edit', (req, res, next) => {
 		.then((news) => {
 			news.displayAt = moment(news.displayAt).format('DD.MM.YYYY HH:mm');
 			res.render('news/edit', {
-				title: 'News bearbeiten',
-				submitLabel: 'Speichern',
-				closeLabel: 'Abbrechen',
+				title: res.$t('news._news.headline.editNews'),
+				submitLabel: res.$t('global.button.save'),
+				closeLabel: res.$t('global.button.cancel'),
 				method: 'patch',
 				action: `/news/${req.params.newsId}`,
 				news,

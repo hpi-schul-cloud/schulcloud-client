@@ -5,6 +5,8 @@ if (Configuration.has('REQUEST_TIMEOUT_MS') !== true) {
 	throw new Error('REQUEST_TIMEOUT_MS missing in Configuration');
 }
 
+const xApiKey = Configuration.get('API_KEY');
+const timeout = Configuration.get('REQUEST_TIMEOUT_MS');
 const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true } = {}) => {
 	const headers = {};
 	if (req && req.cookies && req.cookies.jwt) {
@@ -13,10 +15,13 @@ const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true } = {})
 	if (keepAlive) {
 		headers.Connection = 'Keep-Alive';
 	}
-
+	headers['x-api-key'] = xApiKey; // TODO: move to api.js that is no part that should send to the editor
+	if (json === true) {
+		headers['Content-Type'] = 'application/json';
+	}
 	return rp.defaults({
 		baseUrl,
-		timeout: Configuration.get('REQUEST_TIMEOUT_MS'),
+		timeout,
 		json,
 		headers,
 	});

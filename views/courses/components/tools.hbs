@@ -3,17 +3,29 @@
 		<div class="list-group" data-courseId="{{@root/_id}}">
 			{{#if ltiToolIds}}
 			{{#each ltiToolIds}}
-			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{/if}}" {{#unless this.isBBB}}
-				onclick="location.href='/courses/{{../_id}}/tools/show/{{this._id}}'" {{/unless}}>
+			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}"
+				{{#unless this.isBBB}}
+					{{#if this.openNewTab}}
+						data-blank="true"
+						data-loclink="{{#if this.isLocal}}{{this.url}}{{else}}/courses/{{@root/_id}}/tools/run/{{this._id}}{{/if}}"
+					{{else}}
+						data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}"
+					{{/if}}
+				{{/unless}}
+			>
 				{{#unless this.isBBB}}
 				<div class="card-title-directory">
 					{{#if logo_url}}
-					<img src={{this.logo_url}} class="float-left" style="width:auto; height:75px;" />
+					<img src={{this.logo_url}} class="float-left" />
 					{{else}}
-					<img src="/images/cloud.png" class="float-left" style="width:auto; height:75px;" />
+					<img src="/images/cloud.png" class="float-left" />
 					{{/if}}
 
 					<span>{{this.name}}</span>
+
+					{{#if this.openNewTab}}
+						<span style="font-size: 80%;" class="externalLink">({{$t "courses._course.tools.text.opensInNewTab"}})</span>
+					{{/if}}
 
 					{{#if this.isBBB}}
 					<a class="bbbTool-reload-icon">
@@ -82,18 +94,19 @@
 			{{/each}}
 			{{else}}
 			<div class="empty-state">
-				<img src="/images/empty-states/tools.svg" alt="Keine hinzufügten Tools" class="image" />
+				<img src="/images/empty-states/tools.svg" alt="{{$t "courses._course.tools.img_alt.noAddedTools"}}"
+					class="image" />
 				{{#unless @root.isArchived}}
-					{{#userHasPermission "TOOL_CREATE" }}
-						<h2 class="h4">{{$t "courses._course.tools.headline.addToolToCourse"}}</h2>
-						<p class="text-muted">
-						{{$t "courses._course.tools.text.descriptionAddToolToCourse"}}
-						</p>
-					{{else}}
-						<h2 class="h4 text-muted">{{$t "courses._course.tools.headline.noToolsYet"}}</h2>
-					{{/userHasPermission}}
+				{{#userHasPermission "TOOL_CREATE" }}
+				<h2 class="h4">{{$t "courses._course.tools.headline.addToolToCourse"}}</h2>
+				<p class="text-muted">
+					{{$t "courses._course.tools.text.descriptionAddToolToCourse"}}
+				</p>
 				{{else}}
-					<h2 class="h4 text-muted">{{$t "courses._course.tools.headline.noTools"}}</h2>
+				<h2 class="h4 text-muted">{{$t "courses._course.tools.headline.noToolsYet"}}</h2>
+				{{/userHasPermission}}
+				{{else}}
+				<h2 class="h4 text-muted">{{$t "courses._course.tools.headline.noTools"}}</h2>
 				{{/unless}}
 			</div>
 			{{/if}}

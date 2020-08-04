@@ -1,13 +1,13 @@
 <div class="form-group">
     <div class="poll">
         <div>
-            <p>Die nächste Befragung zum Projekt {{theme.short_title}} ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen.</p>
-            <p>Vielen Dank für Ihre Unterstützung!</p>
+            <p>{{$t "lib.form_poll.text.theNextQuestionnaireIsOnline" (dict "shortTitle" theme.short_title) }}</p>
+            <p>{{$t "lib.form_poll.text.thanksForYourSupport" }}</p>
         </div>
     </div>
     <div style="text-align: center; padding-top: 8px;">
         <button type="button" class="btn btn-primary btn-poll" style="width: 95%;">
-            Zur Umfrage
+            {{$t "lib.form_poll.global.button.toTheSurvey" }}
         </button>
     </div>
 </div>

@@ -34,10 +34,11 @@ function getMaxSelectionIndex() {
 }
 function getSelectionIndex() {
 	const radioButtons = document.querySelectorAll('.form input[type=radio]');
-	return radioButtons.indexOf(radioButtons.filter(node => node.checked)[0]) + 1;
+	const currentSelection = radioButtons.indexOf(radioButtons.filter((node) => node.checked)[0]) + 1;
+	return currentSelection < 1 ? 1 : currentSelection;
 }
 function showInvalid(sectionNr) {
-	document.querySelector(`section[data-panel="section-${sectionNr}"]`).classList.add('show-invalid');
+	document.querySelectorAll('form .panels > section[data-panel]')[sectionNr - 1].classList.add('show-invalid');
 	window.scrollTo(0, 0);
 }
 function getSubmitPageIndex() {
@@ -50,7 +51,7 @@ function isSubmitted() {
 }
 
 function updateButton(selectedIndex) {
-	const currentPage = document.querySelector(`section[data-panel="section-${selectedIndex}"]`);
+	const currentPage = document.querySelectorAll('form .panels > section[data-panel]')[selectedIndex - 1];
 	const submitPage = currentPage.classList.contains('submit-page');
 	let { nextLabel } = currentPage.dataset;
 	if (!nextLabel) {
@@ -102,11 +103,12 @@ function setSelectionByIndex(index, event) {
 				sectionIndex: getSelectionIndex(),
 			},
 		});
-		document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`).dispatchEvent(hideEvent);
+		document.querySelectorAll('form .panels > section[data-panel]')[getSelectionIndex() - 1]
+			.dispatchEvent(hideEvent);
 
 		document.querySelector(`.form input[type="radio"]:nth-of-type(${newIndex})`).checked = true;
 		// set keyboard focus to first focusable element in the opened section.
-		const nextSectionNode = document.querySelector(`section[data-panel="section-${newIndex}"]`);
+		const nextSectionNode = document.querySelectorAll('form .panels > section[data-panel]')[newIndex - 1];
 		const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 		const firstInput = nextSectionNode.querySelectorAll(focusableElements)[0];
 		if (firstInput) {
@@ -115,13 +117,10 @@ function setSelectionByIndex(index, event) {
 
 		updateButton(newIndex);
 
-		const eventData = {
+		const showEvent = new CustomEvent('showSection', {
 			detail: { sectionIndex: newIndex },
-		};
-		const newSectionSelector = `section[data-panel="section-${newIndex}"]`;
-		// const showEvent = new CustomEvent('showSection', eventData);
-		// document.querySelector(newSectionSelector).dispatchEvent(showEvent);
-		$(newSectionSelector).trigger('showSection', [eventData]);
+		});
+		nextSectionNode.dispatchEvent(showEvent);
 	}
 
 	function findLatestInvalid(to) {
@@ -176,21 +175,25 @@ function submitForm(event) {
 		})
 			.fail((response) => {
 				if (response.responseText !== undefined) {
-					$.showNotification(`Fehler: ${response.responseText}`, 'danger', true);
+					$.showNotification(
+						$t('dataprivacy.text.errorSubmittingForm', { text: response.responseText }),
+						'danger',
+						true,
+					);
 				} else {
-					const errorMessage = 'Das Absenden des Formulars ist fehlgeschlagen. (unbekannter Fehler)';
+					const errorMessage = $t('dataprivacy.text.errorSubmittingFormUndefined');
 					$.showNotification(errorMessage, 'danger', true);
 				}
 				formSubmitButton.disabled = false;
 			});
 	} else {
-		$.showNotification('Formular ungültig, bitte füllen Sie alle Felder korrekt aus.', 'danger', 6000);
+		$.showNotification($t('dataprivacy.text.invalidForm'), 'danger', 6000);
 	}
 }
 
 function nextSection(event) {
 	// ValidationEnabled is for testing only
-	const currentSection = document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`);
+	const currentSection = document.querySelectorAll('form .panels > section[data-panel]')[getSelectionIndex() - 1];
 	const isSubmitPage = ValidationDisabled ? false : currentSection.classList.contains('submit-page');
 	if (ValidationDisabled) { document.querySelector('.form').classList.add('form-submitted'); }
 

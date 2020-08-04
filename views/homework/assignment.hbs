@@ -1,8 +1,8 @@
 ﻿{{#content "scripts" mode="append"}}
-    <script src="/vendor/ckeditor/ckeditor.js" defer></script>
-    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
-    <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
-    <script type="text/javascript">
+    <script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script type="text/javascript" nonce="{{nonceValue}}">
         window.addEventListener('load', function () {
             $('.userinfo').click(function () {
                 $(this).parent('.usersubmission.active').addClass('clicked');
@@ -40,14 +40,14 @@
             }
         });
     </script>
-    <script>
+    <script nonce="{{nonceValue}}">
         window.addEventListener('DOMContentLoaded', function () {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
         });
     </script>
-    <script src="/scripts/lessons.js" type="text/javascript" defer></script>
+    <script src="/scripts/lessons.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
     <link rel="stylesheet" href="/styles/homework/homework.css" />
@@ -74,12 +74,28 @@
     {{#content "page"}}
         <section class="section-homework">
             <div class="dates text-muted">
+				{{#if (userHasRole "student")}}
+				<i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
+				{{/if}}
                 {{availableDateF}} ({{availableTimeF}}) |
                 {{#if dueDate}}
                     bis: {{dueDateF}} ({{dueTimeF}})
                 {{else}}
                     {{$t "homework.text.noSubmissionDateSet"}}
                 {{/if}}
+				{{#if (userHasRole "student")}}
+				<div>
+					{{#if submissions}}
+					{{$t "homework.text.done"}}
+					{{else if warning}}
+					{{$t "homework.text.toBeDoneWithin24Hours"}}
+					{{else}}
+					{{#unless submittable}}
+					{{$t "homework.text.notDone"}}
+					{{/unless}}
+				{{/if}}
+			</div>
+        {{/if}}
             </div>
             {{#if courseId._id}}
                 <div class="col-sm-12">
@@ -88,13 +104,13 @@
                             <i class="fa fa-folder-open"></i>
                             {{$t "homework.button.toTheCourseFiles" }}
                         </a>
-                        <a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="Zum Kurs der Aufgabe">
+                        <a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="{{$t "homework.button.toCourseAlt"}}">
                             <i class="fa fa-graduation-cap"></i>
                             {{$t "homework.button.toClass" }}
                         </a>
                         {{#if lessonId}}
                             <a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
-                                alt="Zum Thema der Aufgabe">{{$t "homework.label.onTheSubject" }}</a>
+                                alt="{{$t "homework.button.toTopicAlt"}}">{{$t "homework.button.onTheSubject" }}</a>
                         {{/if}}
                     </div>
                 </div>

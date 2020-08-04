@@ -2,15 +2,15 @@
 <div style="text-align: center">
     <img src="/images/surprise.gif" style="width: 50%; height: auto"/>
     <div>
-        Es gibt neue Features in der {{theme.short_title}}.
+         {{$t "lib.form_features.text.thereAreNewFeatures" (dict "shortTitle" theme.short_title) }}.
         <br>
-        Für weitere Informationen klicken Sie doch bitte diesen Button
+        {{$t "lib.form_features.text.forMoreInformationClickThisButton" }}
     </div>
 </div>
 <div style="text-align: center; padding-top: 8px;">
     <a href="/help/releases">
     <button class="btn btn-primary btn-add" style="width: 95%;">
-        Hier klicken
+        {{$t "global.button.clickHere" }}
     </button>
     </a>
 </div>

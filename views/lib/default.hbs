@@ -3,7 +3,7 @@
 
 <head>
 	{{#embed "lib/sentry"}}{{/embed}}
-	<title>{{#if title}}{{title}} - {{/if}}{{theme.title}} - Deine digitale Lernumgebung</title>
+	<title>{{#if title}}{{title}} - {{/if}}{{theme.title}} - {{$t "lib.default.yourDigitalLearningEnvironment"}}</title>
 	<!--
 		01001000 01010000 01001001  01010011 01100011 01101000 01110101 01101100 00101101 01000011 01101100 01101111 01110101 01100100
 		 __  __  ____    ______      _____           __               ___            _____   ___                       __
@@ -18,7 +18,8 @@
 	-->
 	{{#block "meta"}}
 	<meta name="csrfToken" content="{{csrfToken}}">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="#b10438">
 	<meta name="apple-mobile-web-app-title" content="{{theme.title}}">
@@ -52,14 +53,19 @@
 	{{#block "scripts"}}
 	{{#embed "lib/sw-metrix"}}{{/embed}}
 	{{! make window.$t() available. Must be executed before all other scripts! }}
-	<script src="/scripts/i18n.js" type="text/javascript"></script>
+	<script src="/scripts/i18n.js" type="text/javascript" nonce="{{nonceValue}}"></script>
 
-	<script src="/scripts/all.js" type="text/javascript" defer></script>
+	<script src="/scripts/all.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/block}}
 
 </head>
 
 <body class="{{#if inline}}window-inline{{/if}}">
+<dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}}">
+	<dd><a href="#main-content">{{ $t "global.skipLinks.mainContentSkipLink" }}</a></dd>
+	<dd><a href="#top-navbar">{{ $t "global.skipLinks.topNavbarSkipLink" }}</a></dd>
+	<dd><a href="#footer">{{ $t "global.skipLinks.footerSkipLink" }}</a></dd>
+</dl>
 	{{#block "body"}}{{/block}}
 
 </body>

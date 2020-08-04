@@ -27,7 +27,7 @@ router.get('/', async (req, res, next) => {
 
 		return res.json(result);
 	} catch (e) {
-		const error = new Error('Ungültige Anfrage');
+		const error = new Error(res.$t('global.text.invalidRequest'));
 		error.status = 400;
 		return next(error);
 	}

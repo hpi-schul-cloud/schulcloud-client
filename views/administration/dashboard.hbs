@@ -16,10 +16,10 @@
 						<div class="row card-deck-row">
 							{{#userHasPermission 'STUDENT_LIST'}}
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<div class="card h-100 teacher-option" data-testid="administrate_students" onclick="location.href='/administration/students'">
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/students" data-testid="administrate_students">
 										<div class="card-block homework">
 											<div class="card-text">
-												<h2 class="h4"><i class="fa fa-odnoklassniki"></i> Schüler verwalten</h2>
+												<h2 class="h4"><i class="fa fa-odnoklassniki"></i>{{$t "administration.dashboard.heading.manageStudents" }}</h2>
 											</div>
 										</div>
 									</div>
@@ -27,10 +27,10 @@
 							{{/userHasPermission}}
 							{{#userHasPermission 'TEACHER_LIST'}}
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<div class="card h-100 teacher-option" data-testid="administrate_teachers" onclick="location.href='/administration/teachers/'">
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/teachers" data-testid="administrate_teachers">
 										<div class="card-block homework">
 											<div class="card-text">
-												<h2 class="h4"><i class="fa fa-user"></i> Lehrer verwalten</h2>
+												<h2 class="h4"><i class="fa fa-user"></i> {{$t "administration.dashboard.heading.manageTeachers" }}</h2>
 											</div>
 										</div>
 									</div>
@@ -38,10 +38,10 @@
 							{{/userHasPermission}}
 							{{#userHasPermission 'ADMIN_VIEW'}}
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<div class="card h-100 teacher-option" onclick="location.href='/administration/courses/'">
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/courses">
 										<div class="card-block homework">
 											<div class="card-text">
-												<h2 class="h4"><i class="fa fa-graduation-cap"></i> Kurse verwalten</h2>
+												<h2 class="h4"><i class="fa fa-graduation-cap"></i> {{$t "administration.dashboard.heading.manageCourses" }}</h2>
 											</div>
 										</div>
 									</div>
@@ -49,10 +49,10 @@
 							{{/userHasPermission}}
 							{{#userHasPermission 'CLASS_LIST'}}
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class="card h-100 teacher-option" data-testid="administrate_classes" onclick="location.href='/administration/classes/'">
+								<div class="card h-100 teacher-option locationlink" data-loclink="/administration/classes" data-testid="administrate_classes">
 									<div class="card-block homework">
 										<div class="card-text">
-											<h2 class="h4"><i class="fa fa-users"></i> Klassen verwalten</h2>
+											<h2 class="h4"><i class="fa fa-users"></i> {{$t "administration.dashboard.heading.manageClasses" }}</h2>
 										</div>
 									</div>
 								</div>
@@ -60,19 +60,19 @@
 							{{/userHasPermission}}
 							{{#userHasPermission 'ADMIN_VIEW'}}
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<div class="card h-100 teacher-option" onclick="location.href='/administration/teams/'">
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/teams">
 										<div class="card-block homework">
 											<div class="card-text">
-												<h2 class="h4"><i class="fa fa-users"></i> Teams verwalten</h2>
+												<h2 class="h4"><i class="fa fa-users"></i> {{$t "administration.dashboard.heading.manageTeams" }}</h2>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<div class="card h-100 teacher-option" onclick="location.href='/administration/school/'">
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/school">
 										<div class="card-block homework">
 											<div class="card-text">
-												<h2 class="h4"><i class="fa fa-building"></i> Schule verwalten</h2>
+												<h2 class="h4"><i class="fa fa-building"></i> {{$t "administration.dashboard.heading.manageSchool" }}</h2>
 											</div>
 										</div>
 									</div>

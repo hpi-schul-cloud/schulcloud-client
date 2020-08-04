@@ -1,15 +1,19 @@
-<footer class="hide-inline small-footer">
+<footer id="footer" class="hide-inline small-footer" tabindex="0">
 	<div class="imprint">
 		<div class="center">
-			<a>&copy; {{currentYear}} </a>
+			<span>&copy; {{currentYear}} </span>
 
-			<div>
-				<a href="/impressum">Impressum</a>
-				<span> - </span>
-				<a href="/datenschutz">Datenschutzerklärung NBC</a>
-				<span> - </span>
-				<a href="{{theme.documents.specificFiles.privacyExemplary}}" target="_blank" rel="noopener">Datenschutzerklärung: Muster Schulen</a>
-			</div>
+			<nav aria-label="{{$t "lib.footer.ariaLabel"}}">
+				<ul>
+					<li>
+						<a href="/impressum">{{$t "imprint.global.heading.imprint"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="/termsofuse">{{$t "login.headline.privacyAndTermsOfUse"}}</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
 	</div>
 </footer>

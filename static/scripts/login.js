@@ -23,7 +23,7 @@ $(document).ready(() => {
 	  \\ \\_\\ \\_\\ \\_\\    /\\_____\\   \\ \`\\____\\ \\____\\\\ \\_\\ \\_\\ \\____/ /\\____\\/_____/ \\ \\____//\\____\\ \\____/\\ \\____/\\ \\___,_\\
 	   \\/_/\\/_/\\/_/    \\/_____/    \\/_____/\\/____/ \\/_/\\/_/\\/___/  \\/____/         \\/___/ \\/____/\\/___/  \\/___/  \\/__,_ /
 	`);
-		console.log('Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs');
+		console.log($t('home.text.advertisementForOurTeam'));
 	} catch (e) {
 		// no log
 	}
@@ -54,10 +54,10 @@ $(document).ready(() => {
         setTimeout (function(){
             if(countdownNum != 1){
                 countdownNum--;
-                $submitButton.val($t("login.text.pleaseWaitXSeconds",{seconds : countdownNum}));
+                $submitButton.val($t('login.text.pleaseWaitXSeconds',{seconds : countdownNum}));
                 incTimer();
             } else {
-                $submitButton.val($t("login.button.login"));
+                $submitButton.val($t('login.button.login'));
             }
         },1000);
     };
@@ -129,9 +129,9 @@ $(document).ready(() => {
     $('.submit-pwrecovery').on('click', function(e) {
         e.preventDefault();
         populateModalForm($pwRecoveryModal, {
-            title: $t("login.popup_resetPw.headline.resetPassword"),
-            closeLabel: $t("login.popup_resetPw.button.cancel"),
-            submitLabel: $t("login.popup_resetPw.button.resetPassword")
+            title: $t('login.popup_resetPw.headline.resetPassword'),
+            closeLabel: $t('global.button.cancel'),
+            submitLabel: $t('login.popup_resetPw.button.resetPassword'),
         });
         $pwRecoveryModal.appendTo('body').modal('show');
     });
@@ -151,5 +151,5 @@ $(document).ready(() => {
 
     initAlerts('login');
     // remove duplicated login error
-    $( ".col-xs-12 > .notification" ).remove(); 
+    $( ".col-xs-12 > .notification" ).remove();
 });

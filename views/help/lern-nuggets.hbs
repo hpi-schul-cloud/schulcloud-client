@@ -1,141 +1,112 @@
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/help/lern-nuggets.css" />
+{{/content}}
+
 {{#extend "lib/loggedin"}}
-
-	{{#content "styles" mode="append"}}
-		<style>
-            .nugget img{
-                    max-width: 200px;
-            }
-            @media (max-width: 576px) {
-                .nugget img{
-                    max-width: 100%;
-                }
-            }
-        </style>
-	{{/content}}
-
-	{{#content "scripts" mode="append"}}
-	{{/content}}
 
 	{{#content "page"}}
 		<div class="container-fluid">
 			<div class="row nugget">
-                <h1 class="h4">Willkommen beim Online-Kurs "Datenschutz und Urheberrecht"</h1>
+                <h1 class="h4">{{$t "help.lernNuggets.heading.welcomeToTheOnlineCourse" }}</h1>
                 <p>
-                    Der Umgang mit personenbezogenen Daten, die Anforderungen an eine Cloud-Lösung
-                    im Schulalltag sowie das digitale Teilen von Lehr- und Lernmaterialien rufen bei
-                    Schulleitungen und Lehrkräften immer wieder Verunsicherung hervor. <br>
+                    {{$t "help.lernNuggets.text.dealingWithPersonalDetails" }} <br>
                 
-                    Aus diesem Grund habt ihr hier die Möglichkeit, alles Wissenswerte zu den Themen
-                    Datenschutz und Urheberrecht in kleinen Lerneinheiten kennenzulernen.
+                    {{$t "help.lernNuggets.text.forThisReasonYouHaveTheOpportunity" }}
                 </p>
 
-                <h2 class="h5">Hinweise zur Benutzung</h2>
+                <h2 class="h5">{{$t "help.lernNuggets.heading.instructionsForUse" }}</h2>
                 <p>
-                    Lern-Nuggets verbessern den Lerneffekt und machen nebenbei noch Spaß. Außerdem
-                    könnt ihr durch die modulare Struktur ganz frei entscheiden, welche Lerneinheit
-                    ihr zuerst durchführen möchtet. Klickt einfach auf das jeweilige Lern-Nugget, um
-                    das Training zu absolvieren. <br>
+                    {{$t "help.lernNuggets.text.learningNiggetsImproveTheLearningEffect" }} <br>
 
-                    Eine Lerneinheit dauert höchstens 15 Minuten. Um den vollen Umfang der Inhalte
-                    zu erhalten, schaltet am besten Lautsprecher oder Kopfhörer an eurem Endgerät ein. <br>
+                    {{$t "help.lernNuggets.text.aLearningUnitLasts" }} <br>
 
-                    Übrigens erhaltet ihr immer am Ende eines Lern-Nuggets eine Teilnahmebescheinigung
-                    zum Nachweis eures Lernerfolgs. <br>
+                    {{$t "help.lernNuggets.text.byTheWayYouWillAlways" }} <br>
                 </p>
 
                 <div class="col mt-3">
-                    <h3 class="h6 font-weight-bold">Lern-Nugget: Grundlagen der DSGVO</h3>
+                    <h3 class="h6 font-weight-bold">{{$t "help.lernNuggets.heading.learningNuggetBasicOfGDPR" }}</h3>
                     <p>
                         <img 
                             src="https://s3.hidrive.strato.com/schul-cloud-hpi/global/Medien/Lern-Nuggets/images/GrundlagenDSGVO.png"
                             style="float: left;"
                             class="mr-2">
-                        In dieser Lerneinheit lernt ihr alle Grundlagen personenbezogener Daten kennen.
-                        Zudem bekommt ihr einen Überblick über die fünf Grundprinzipien, die im Umgang mit
-                        der DSGVO gelten. <br>
+                        {{$t "help.lernNuggets.text.inThisLessonYouWillLearnAllTheBasics" }} <br>
                         <br>
-                        Hier geht's zum Lern-Nugget:
+                        {{$t "help.lernNuggets.text.hereIsTheLearningNugget" }}
                         <a 
                             class="text-nowrap"
                             href="https://s3.hidrive.strato.com/schul-cloud-hpi/global/Medien/Lern-Nuggets/DSGVO/story.html?frameable=true"
                             target="_blank"
                             rel="noopener">
-                            Grundlagen der DSGVO
+                            {{$t "help.lernNuggets.link.basicsOfTheGDPR" }}
                         </a>
                     </p>
                 </div>
 
                 <div class="col mt-2">
-                    <h3 class="h6 font-weight-bold">Lern-Nugget: Datenschutz im Schulalltag</h3>
+                    <h3 class="h6 font-weight-bold">{{$t "help.lernNuggets.heading.learningNuggetDataProtectioin" }}</h3>
                     <p>
                         <img 
                             src="https://s3.hidrive.strato.com/schul-cloud-hpi/global/Medien/Lern-Nuggets/images/DatenschutzSchulalltag.png"
                             style="float: left;"
                             class="mr-2">
-                        Im Lern-Nugget zum Datenschutz im Schulalltag erfahrt ihr, welche datenschutzrechtlichen
-                        Vorschriften ihr im Kontext Schule beachten müsst. Außerdem zeigen wir hier ganz
-                        konkrete Datenschutzfälle aus dem Schulalltag. <br>
+                        {{$t "help.lernNuggets.text.inTheLearningNuggetOnDataProtection" }} <br>
                         <br>
-                        Hier geht's zum Lern-Nugget:
+                        {{$t "help.lernNuggets.text.hereIsTheLearningNugget" }}
                         <a 
                             class="text-nowrap"
                             href="https://s3.hidrive.strato.com/schul-cloud-hpi/global/Medien/Lern-Nuggets/Schul-DS/story.html?frameable=true"
                             target="_blank"
                             rel="noopener">
-                            Datenschutz im Schulalltag
+                            {{$t "help.lernNuggets.link.dataProtectionInSchoolLife" }}
                         </a>
                     </p>
                 </div>
 
                 <div class="col mt-2">
-                    <h3 class="h6 font-weight-bold">Lern-Nugget: Datenschutz und Cloud-Lösungen</h3>
+                    <h3 class="h6 font-weight-bold">{{$t "help.lernNuggets.heading.learningNuggetDataProtectionAndCloud" }}</h3>
                     <p>
                         <img 
                             src="https://s3.hidrive.strato.com/schul-cloud-hpi/global/Medien/Lern-Nuggets/images/DatenschutzCloudLoesungen.png"
                             style="float: left;"
                             class="mr-2">
-                        Was sind die Vor- und Nachteile von Cloud-Lösungen beim Einsatz in der Schule?
-                        Was müsst ihr beim Einsatz an eurer Schule beachten? In dieser Lerneinheit stellen
-                        wir alles Wissenswerte zu Cloud-Lösungen wie der HPI Schul-Cloud vor. <br>
+                        {{$t "help.lernNuggets.text.whatAreTheAdvantagesAndDisadvantages" }} <br>
                         <br>
-                        Hier geht's zum Lern-Nugget:
+                       {{$t "help.lernNuggets.text.hereIsTheLearningNugget" }}
                         <a 
                             class="text-nowrap"
                             href="https://s3.hidrive.strato.com/schul-cloud-hpi/global/Medien/Lern-Nuggets/Cloud-DS/story.html?frameable=true"
                             target="_blank"
                             rel="noopener">
-                            Datenschutz und Cloud-Lösungen
+                            {{$t "help.lernNuggets.link.dataProtectionAndCloudSolution" }}
                         </a>
                     </p>
                 </div>
 
                 <div class="col mt-2">
-                    <h3 class="h6 font-weight-bold">Lern-Nugget: Lizenzmodelle und Nutzungsrechte</h3>
+                    <h3 class="h6 font-weight-bold">{{$t "help.lernNuggets.heading.learningNuggetLicenseModels" }}</h3>
                     <p>
                         <img 
                             src="https://s3.hidrive.strato.com/schul-cloud-hpi/global/Medien/Lern-Nuggets/images/LizenzmodelleNutzungsrechte.png"
                             style="float: left;"
                             class="mr-2">
-                        Bei den Themen Lizenzmodelle und Nutzungsrecht lernt ihr die Grundlagen des
-                        Urheberrechts und die Vorgaben zur Vervielfältigung von Materialien im analogen
-                        sowie digitalen Schulalltag kennen. Außerdem erfahrt ihr hier, was Open Educational
-                        Ressources sind und wie ihr Lizenzen adäquat kennzeichnet.  <br>
+                        {{$t "help.lernNuggets.text.withTheTopicsOfLicenseModels" }}  <br>
                         <br>
-                        Lizenzmodelle und Nutzungsrechte:
+                        {{$t "help.lernNuggets.link.licenseModelAndUsageRights" }}
                         <a 
                             class="text-nowrap"
                             href="https://s3.hidrive.strato.com/schul-cloud-hpi/global/Medien/Lern-Nuggets/Lizenzen/story.html?frameable=true"
                             target="_blank"
                             rel="noopener">
-                            Lizenzmodelle und Nutzungsrechte
+                            {{$t "help.lernNuggets.link.licenseModelAndUsageRights" }}
                         </a>
                     </p>
                 </div>
                 <p class="mt-3 mb-2 text-muted">
-                    Entstanden im Rahmen des Projekts HPI Schul-Cloud. <br>
-                    Auftraggeber und lizenziert für: Verein MINT-EC®, 
+                    {{$t "help.lernNuggets.text.createdAsPartOfThe" }} <br>
+                    {{$t "help.lernNuggets.text.clientAndLicensedFor" }}
                         <a href="https://www.mint-ec.de" target="_blank" rel="noopener">www.mint-ec.de </a> <br>
-                    Inhalte und Produktion: youknow GmbH, St.-Martin-Straße 57, 81669 München,
+                    {{$t "help.lernNuggets.text.contentAndProduction" }}
                         <a href="https://www.you-know.de" target="_blank" rel="noopener">www.you-know.de</a>
                 </p>
 			</div>

@@ -4,10 +4,13 @@
 </div>
 {{/hasConfig}}
 
-<div class="notification alert alert-dismissible {{#if notification}}alert-{{notification.type}}{{else}}hidden{{/if}}"
-    role="alert">
+<div class="notification alert alert-dismissible {{#if notification}}alert-{{notification.type}}{{else}}hidden{{/if}} "
+	 style="{{style}}"
+	 role="alert">
     <button type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
-    <div class="notification-content" data-testid="notification">{{notification.message}}</div>
+	<div class="notification-content" data-testid="notification">
+		{{#if notification.title}}<div class="pb-1"><i class="{{notification.iconClass}}"></i>&nbsp;{{notification.title}}</div>{{/if}}
+		{{notification.message}}</div>
 </div>

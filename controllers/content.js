@@ -9,35 +9,35 @@ const api = require('../api');
 // secure routes
 router.use(authHelper.authChecker);
 
-const contentFilterSettings = () => [
+const contentFilterSettings = (res) => [
 	{
 		type: 'sort',
-		title: 'Sortierung',
-		displayTemplate: 'Sortieren nach: %1',
+		title: res.$t('content.headline.sortBy'),
+		displayTemplate: res.$t('content.label.sortBy'),
 		options: [
-			['updatedAt', 'Aktualität'],
-			['providerName', 'Anbieter'],
-			['clickCount', 'Beliebtheit'],
+			['updatedAt', res.$t('content.text.date')],
+			['providerName', res.$t('content.text.provider')],
+			['clickCount', res.$t('content.text.popularity')],
 		],
 		defaultOrder: 'DESC',
 	},
 	{
 		type: 'limit',
-		title: 'Einträge pro Seite',
-		displayTemplate: 'Einträge pro Seite: %1',
+		title: res.$t('content.headline.entriesPerPage'),
+		displayTemplate: res.$t('content.label.entriesPerPage'),
 		options: [9, 18, 24, 48, 99],
 		defaultSelection: 9,
 	},
 	{
 		type: 'select',
-		title: 'Dateityp',
-		displayTemplate: 'Dateitypen: %1',
+		title: res.$t('content.headline.fileType'),
+		displayTemplate: res.$t('content.label.fileType'),
 		property: 'mimeType',
 		multiple: true,
 		expanded: true,
 		options: [
-			['text/html', 'Text'],
-			['video', 'Video'],
+			['text/html', res.$t('content.text.text')],
+			['video', res.$t('content.text.video')],
 		],
 	},
 ];
@@ -69,7 +69,7 @@ router.get('/', (req, res, next) => {
 				json: true,
 			}),
 		]).then(([featured, trending]) => res.render('content/store', {
-			title: 'Lern-Store',
+			title: res.$t('content.headline.contentStore'),
 			featuredContent: featured.data,
 			trendingContent: trending.data,
 			totalCount: trending.total,
@@ -111,13 +111,13 @@ router.get('/', (req, res, next) => {
 			baseUrl: `${req.baseUrl}/?q=${query}&p={{page}}&${filterQueryString}`,
 		};
 		return res.render('content/store', {
-			title: 'Lern-Store',
+			title: res.$t('content.headline.contentStore'),
 			query,
 			searchResults: (searchResults.total) ? searchResults : undefined,
 			pagination,
 			isCourseGroupTopic: req.query.isCourseGroupTopic,
 			action,
-			filterSettings: JSON.stringify(contentFilterSettings()),
+			filterSettings: JSON.stringify(contentFilterSettings(res)),
 		});
 	}).catch(next);
 });

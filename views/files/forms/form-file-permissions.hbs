@@ -1,25 +1,15 @@
-<style>
-#permission-files table {
-	width: 100%;
-}
-
-#permission-files th,
-#permission-files td {
-    text-align: left;
-    padding: 11px;
-    text-align: center;
-    border: 1px solid grey
-}
-</style>
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/files/forms/form-file-permissions.css" />
+{{/content}}
 
 <div id="permission-files" class="form-group">
 	<input name="fileId" type="hidden" />
 	<table>
 		<thead>
 			<tr>
-				<th>Rolle/Benutzer</th>
-				<th>Lesen</th>
-				<th>Schreiben</th>
+				<th>{{$t "files.label.roleUser"}}</th>
+				<th>{{$t "files.label.read"}}</th>
+				<th>{{$t "files.label.write"}}</th>
 			</tr>
 		</thead>
 		<tbody>

@@ -1,7 +1,7 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/helpers/lazyload.js" type="text/javascript" defer></script>
+        <script src="/scripts/helpers/lazyload.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -40,7 +40,7 @@
                                             {{#ifneq @index 0}}</noscript>{{/ifneq}}
                                         </div>
                                         <div class="card-footer">
-                                            <a href="{{this.url}}" target="_blank">Weiterlesen</a>
+                                            <a href="{{this.url}}" target="_blank">{{$t "help.global.link.continueReading" }}</a>
                                             <span class="pull-right">
                                                 <i class="fa fa-user"></i>
                                                 <a href="{{this.authorUrl}}" target="_blank">{{this.author}}</a>

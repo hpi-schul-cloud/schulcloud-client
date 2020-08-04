@@ -6,7 +6,7 @@ function connectConfirmPassword(){
 
     function validatePassword(){
         if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwörter stimmen nicht überein.");
+            confirm_password.setCustomValidity($t('pwRecovery.text.passwordsAreDifferent'));
         } else {
             confirm_password.setCustomValidity('');
         }

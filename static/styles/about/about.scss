@@ -15,6 +15,17 @@
   }
 }
 
+.btn-primary.btn-outline{
+    &:hover {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+        color: var(--color-white);
+    }
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    background: transparent;
+}
+
 .embed-pdf {
   padding-left: 0;
 
@@ -82,5 +93,18 @@
 				align-items: center;
 			}
 		}
+	}
+}
+.nav-link {
+	font-size: 16px;
+	line-height: 19.2px;
+	&:hover, &:focus{
+		background-color: rgb(238, 238, 238) !important;
+	}
+}
+
+.more-publishments {
+	li {
+		padding-top: 10px;
 	}
 }

@@ -18,6 +18,19 @@ const { error, warn } = require('../helpers/logger');
 // secure routes
 router.use(authHelper.authChecker);
 
+const filterRequestInfos = (err) => {
+	if (!err) {
+		return err;
+	}
+	if (err.options && err.options.headers) {
+		delete err.options.headers.Authorization;
+	}
+	delete err.cause;
+	delete err.response;
+	delete err.request;
+	return err;
+};
+
 router.get('/', (req, res, next) => {
 	// we display time from 7 a.m. to 5 p.m.
 	const timeStart = 7;
@@ -36,37 +49,31 @@ router.get('/', (req, res, next) => {
 
 	const currentTime = new Date();
 	// eslint-disable-next-line max-len
-	let currentTimePercentage = 100 * (((currentTime.getHours() - timeStart) * 60) + currentTime.getMinutes()) / numMinutes;
+	const currentTotalMinutes = ((currentTime.getHours() - timeStart) * 60) + currentTime.getMinutes();
+	let currentTimePercentage = 100 * (currentTotalMinutes / numMinutes);
 	if (currentTimePercentage < 0) currentTimePercentage = 0;
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
-	// TODO: remove this Promise.resolve to enable the calendar again
-	const eventsPromise = Promise.resolve([])/* api(req).get('/calendar/', {
-		qs: {
-			all: 'false',
-			from: start.toLocalISOString(),
-			until: end.toLocalISOString(),
-		},
-	}) */.then(eve => Promise.all(
-			eve.map(event => recurringEventsHelper.mapEventProps(event, req)),
-		).then((evnts) => {
-			// because the calender service is *§$" and is not
-			// returning recurring events for a given time period
-			// now we have to load all events from the beginning of time
-			// until end of the current day, map recurring events and
-			// display only the correct ones.
-			// I'm not happy with the solution but don't see any other less
-			// crappy way for this without changing the
-			// calendar service in it's core.
+	const eventsPromise = api(req)
+		.get('/calendar/', {
+			qs: {
+				all: 'true', // lets show all dates in dashboard
+				from: start.toLocalISOString(),
+				until: end.toLocalISOString(),
+			},
+		})
+		.then((eve) => Promise.all(
+			eve.map((event) => recurringEventsHelper.mapEventProps(event, req)),
+		))
+		.then((evnts) => {
 			const mappedEvents = evnts.map(recurringEventsHelper.mapRecurringEvent);
 			const flatEvents = [].concat(...mappedEvents);
 			const events = flatEvents.filter((event) => {
 				const eventStart = new Date(event.start);
 				const eventEnd = new Date(event.end);
 
-				return eventStart < end && eventEnd > start;
+				return eventStart > start && eventEnd < end;
 			});
-
 
 			return (events || []).map((event) => {
 				const eventStart = new Date(event.start);
@@ -90,28 +97,32 @@ router.get('/', (req, res, next) => {
 				};
 
 				if (event && (!event.url || event.url === '')) {
-				// add team or course url to event, otherwise just link to the calendar
+					// add team or course url to event, otherwise just link to the calendar
 					try {
 						if (event.hasOwnProperty('x-sc-courseId')) {
-						// create course link
+							// create course link
 							event.url = `/courses/${event['x-sc-courseId']}`;
-							event.alt = res.$t("dashboard.img_alt.showCourse");
+							event.alt = res.$t('dashboard.img_alt.showCourse');
 						} else if (event.hasOwnProperty('x-sc-teamId')) {
-						// create team link
+							// create team link
 							event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
-							event.alt = res.$t("dashboard.img_alt.showAppointmentInTeam");
+							event.alt = res.$t('dashboard.img_alt.showAppointmentInTeam');
 						} else {
 							event.url = '/calendar';
-							event.alt = res.$t("dashboard.img_alt.showCalendar");
+							event.alt = res.$t('dashboard.img_alt.showCalendar');
 						}
 					} catch (err) {
-						error(err);
+						error(filterRequestInfos(err));
 					}
 				}
 
 				return event;
 			});
-		})).catch(() => []);
+		})
+		.catch((err) => {
+			error(filterRequestInfos(err));
+			return [];
+		});
 
 	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req)
@@ -137,10 +148,10 @@ router.get('/', (req, res, next) => {
 				],
 			},
 		})
-		.then(data => data.data.map((homeworks) => {
+		.then((data) => data.data.map((homeworks) => {
 			homeworks.secondaryTitle = homeworks.dueDate
 				? moment(homeworks.dueDate).fromNow()
-				: res.$t("dashboard.text.noDueDate");
+				: res.$t('dashboard.text.noDueDate');
 			if (homeworks.courseId != null) {
 				homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
 				homeworks.background = homeworks.courseId.color;
@@ -177,7 +188,7 @@ router.get('/', (req, res, next) => {
 				},
 			},
 		})
-		.then(news => news.data
+		.then((news) => news.data
 			.map((n) => {
 				n.url = `/news/${n._id}`;
 				n.secondaryTitle = moment(n.displayAt).fromNow();
@@ -232,7 +243,7 @@ router.get('/', (req, res, next) => {
 				Date.parse(userPreferences.releaseDate)
 			< Date.parse(newestRelease.createdAt)
 			);
-			const roles = user.roles.map(role => role.name);
+			const roles = user.roles.map((role) => role.name);
 			let homeworksFeedbackRequired = [];
 			let homeworksWithFeedback = [];
 			let studentHomeworks;
@@ -241,7 +252,7 @@ router.get('/', (req, res, next) => {
 			const teacher = ['teacher', 'demoTeacher'];
 			const student = ['student', 'demoStudent'];
 
-			const hasRole = allowedRoles => roles.some(role => (allowedRoles || []).includes(role));
+			const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
 
 			if (newRelease || !userPreferences.releaseDate) {
 				api(req)
@@ -253,9 +264,22 @@ router.get('/', (req, res, next) => {
 					});
 			}
 
+			let displayDataprivacyAlert = false;
+			if (userPreferences.data_privacy_incident_note_2020_01_should_be_displayed
+				&& !userPreferences.data_privacy_incident_note_2020_01_was_displayed) {
+				api(req)
+					.patch(`/users/${user._id}`, {
+						json: { 'preferences.data_privacy_incident_note_2020_01_was_displayed': Date.now() },
+					})
+					.catch(() => {
+						warn('failed to update user preference releaseDate');
+					});
+				displayDataprivacyAlert = true;
+			}
+
 			if (hasRole(teacher)) {
 				homeworksFeedbackRequired = assignedHomeworks.filter(
-					homework => !homework.private
+					(homework) => !homework.private
 					&& homework.stats
 					&& (
 						(homework.dueDate
@@ -268,17 +292,17 @@ router.get('/', (req, res, next) => {
 					&& homework.stats.userCount > homework.stats.gradeCount,
 				);
 				filteredAssignedHomeworks = assignedHomeworks.filter(
-					homework => homework.stats
+					(homework) => homework.stats
 				&& homework.stats.submissionCount < homework.stats.userCount,
 				);
 			}
 
 			if (hasRole(student)) {
 				homeworksWithFeedback = assignedHomeworks.filter(
-					homework => !homework.private && homework.hasEvaluation,
+					(homework) => !homework.private && homework.hasEvaluation,
 				);
 				studentHomeworks = assignedHomeworks.filter(
-					homework => (!homework.submissions || homework.submissions === 0)
+					(homework) => (!homework.submissions || homework.submissions === 0)
 				&& !homework.hasEvaluation,
 				);
 			}
@@ -289,11 +313,11 @@ router.get('/', (req, res, next) => {
 				eventsDate: moment().format('dddd, DD. MMMM YYYY'),
 				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
-						task => !task.private
+						(task) => !task.private
 					&& (new Date(task.dueDate) >= new Date().getTime() || !task.dueDate),
 					).slice(0, 10),
 				privateHomeworks: assignedHomeworks
-					.filter(task => task.private)
+					.filter((task) => task.private)
 					.slice(0, 10),
 				homeworksFeedbackRequired: homeworksFeedbackRequired.slice(0, 10),
 				homeworksWithFeedback: homeworksWithFeedback.slice(0, 10),
@@ -304,6 +328,7 @@ router.get('/', (req, res, next) => {
 				currentTime: moment(currentTime).format('HH:mm'),
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
+				displayDataprivacyAlert,
 			});
 		})
 		.catch(next);

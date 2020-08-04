@@ -8,14 +8,18 @@ function clearLocalstorage() {
 		});
 	}
 
-	// delete all indexedDB databases
+	// delete matrix indexedDB databases
 	if (window.indexedDB) {
-		window.indexedDB.databases()
-			.then((r) => {
-				for (let i = 0; i < r.length; i += 1) {
-					window.indexedDB.deleteDatabase(r[i].name);
-				}
-			});
+		// window.indexedDB.databases() is not available in all browsers
+		const databases = [
+			'logs',
+			'matrix-js-sdk:crypto',
+			'matrix-js-sdk:riot-web-sync',
+		];
+
+		for (let i = 0; i < databases.length; i += 1) {
+			window.indexedDB.deleteDatabase(databases[i]);
+		}
 	}
 }
 

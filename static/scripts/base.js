@@ -130,17 +130,17 @@ function populateModalForm(modal, data) {
 }
 window.populateModalForm = populateModalForm;
 
-function printPart() {
-	$(this).hide();
+function printPart(event) {
+	$(event.target).hide();
 	const w = window.open();
 	w.document.write(
-		$(this)
+		$(event.target)
 			.parent('.print')
 			.html(),
 	);
 	w.print();
 	w.close();
-	$(this).show();
+	$(event.target).show();
 }
 
 // const originalReady = jQuery.fn.ready;
@@ -257,9 +257,13 @@ $(document).ready(() => {
 	const $modals = $('.modal');
 	const $deleteModal = $('.delete-modal');
 
-	const nextPage = (href) => {
+	const nextPage = (href, blank = false) => {
 		if (href) {
-			window.location.href = href;
+			if (blank) {
+				window.open(href);
+			} else {
+				window.location.href = href;
+			}
 		} else {
 			window.location.reload();
 		}
@@ -268,7 +272,7 @@ $(document).ready(() => {
 	function showAJAXError(req, textStatus, errorThrown) {
 		$deleteModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification('Zeitüberschreitung der Anfrage', 'warn', 30000);
+			$.showNotification($t('global.error.requestTimeout'), 'warn', 30000);
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}
@@ -293,9 +297,7 @@ $(document).ready(() => {
 		$deleteModal
 			.find('.modal-title')
 			.text(
-				`Bist du dir sicher, dass du '${
-					decodingHelper($buttonContext.data('name'))
-				}' löschen möchtest?`,
+				$t('global.text.sureAboutDeleting', { name: decodingHelper($buttonContext.data('name')) }),
 			);
 		$deleteModal
 			.find('.btn-submit')
@@ -317,9 +319,39 @@ $(document).ready(() => {
 		$modals.modal('hide');
 	});
 
+	// Window Close
+	$('.windowclose').on('click', () => {
+		window.close();
+	});
+
+	// Window Print
+	$('.windowprint').on('click', () => {
+		window.print();
+	});
+
+	// Window History Back
+	$('.historyback').on('click', () => {
+		window.history.back();
+	});
+
+	// Window Local Storage Clear
+	$('.localstorageclear').on('click', () => {
+		localStorage.clear();
+	});
+
+	// Window Location Link
+	$('.locationlink').on('click', function locationLink() {
+		nextPage($(this).attr('data-loclink'), !!$(this).attr('data-blank'));
+	});
+
 	// Print Button
 	document.querySelectorAll('.print .btn-print').forEach((btn) => {
-		btn.addEventListener('click', printPart);
+		btn.addEventListener('click', (evt) => printPart(evt));
+		btn.addEventListener('keyup', (evt) => {
+			if (evt.keyCode === 13) {
+				printPart(evt);
+			}
+		});
 	});
 
 	// from: https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript
@@ -350,7 +382,7 @@ $(document).ready(() => {
 				+ `<iframe src="${
 					pdf
 				}" style="width:100%; height:700px; border: none;">\n`
-				+ `<p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="${
+				+ `<p>${$t('about.text.browserNotSupported')} <a href="${
 					pdf
 				}" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>\n`
 				+ '</iframe>\n'

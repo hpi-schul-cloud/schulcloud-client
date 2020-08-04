@@ -18,8 +18,10 @@ const userConsentVersions = async (user, consent, req, limit = 0) => {
 				$gt: new Date(dateOfPrivacyConsent),
 				$lt: new Date(),
 			},
+			schoolId: user.schoolId,
 			consentTypes: 'privacy',
 			$limit: limit,
+			$sort: { publishedAt: -1 },
 		},
 	});
 	const newTermsOfUseVersions = await api(req).get('/consentVersions', {

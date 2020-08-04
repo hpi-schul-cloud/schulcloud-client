@@ -1,4 +1,3 @@
-import { getCookiesMap, pushManager } from './notificationService/index';
 import './pwd.js';
 
 $(document).ready(function() {
@@ -9,7 +8,7 @@ $(document).ready(function() {
 
     function validatePassword(){
         if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwörter stimmen nicht überein.");
+            confirm_password.setCustomValidity($t('account.text.passwordsDoNotMatch'));
         } else {
             confirm_password.setCustomValidity('');
         }
@@ -24,17 +23,13 @@ $(document).ready(function() {
         window.location.reload();
     };
 
-    var cookies = getCookiesMap(document.cookie);
-    if (cookies["notificationPermission"])
-        $(".btn-device").prop("disabled", true);
-
     $('a[data-method="delete"]').on('click', function(e) {
         e.stopPropagation();
         e.preventDefault();
         var $buttonContext = $(this);
 
         $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('device-name') + "' löschen möchtest?");
+        $deleteModal.find('.modal-title').text($t('account.headline.doYouWantToDeleteDevice', { device: $buttonContext.data('device-name') }));
 
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
             $.ajax({
@@ -51,14 +46,18 @@ $(document).ready(function() {
         });
     });
 
+    $('button[data-method="requestpermission"]').on('click', function() {
+		pushManager.requestPermission();
+	});
+
     function delete_cookie(name) {
         document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 
     $(".send-test-notification").on('click', function () {
         $.post('/notification/message', {
-            "title": "Neue Test-Benachrichtigung",
-            "body": "Du hast eine neue Benachrichtigung",
+            "title": $t('account.testNotification.headline.test'),
+            "body": $t('account.testNotification.text.youHaveANewMessage'),
             "action": document.location.origin + '/dashboard/',
             "token": $("[name='userId']").val(),
             "scopeIds": [
@@ -72,5 +71,3 @@ $(document).ready(function() {
     }
 
 });
-
-window.pushManager = pushManager;

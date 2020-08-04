@@ -1,0 +1,54 @@
+{{#extend "lib/loggedin"}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/account/settings.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/settings.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    {{/content}}
+
+    {{#content "page"}}
+        <div class="route-account">
+            {{#unless (userHasRole "student")}}
+				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
+                    <p>
+                        {{$t "account.teams.text.teamInvitationsdisabled"}}
+                    </p>
+                    <a href="/account" class="btn btn-secondary">
+                        {{$t "global.button.back"}}
+                    </a>
+				{{else}}
+                <form method="post" action="/account/teamSettings">
+                    <div class="form-group">
+                        {{$t "account.teams.text.visibilityTeamInvitations"}}
+                        <p class="text-muted">
+                            {{{$t "account.teams.text.hint" (dict "short_title" @root.theme.short_title )}}}
+                        </p>
+
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>{{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled"}}</label>{{/ifConfig}}
+
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> {{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-in"}}</label>{{/ifConfig}}
+
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> {{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out"}}</label>{{/ifConfig}}
+                    </div>
+
+                    {{> "lib/components/csrfInput"}}
+
+                    <div class="form-group">
+                        <a href="/account" class="btn btn-secondary">
+                            {{$t "global.button.cancel"}}
+                        </a>
+                        <button type="submit" class="btn btn-primary pull-right">
+                            {{$t "account.teams.button.changeTeamSettings"}}
+                        </button>
+                    </div>
+                </form>
+				{{/ifConfig}}
+            {{else}}
+            <a href="/account" class="btn btn-secondary">
+                {{$t "global.button.back"}}
+            </a>
+            {{/unless}}
+        </div>
+    {{/content}}
+{{/extend}}

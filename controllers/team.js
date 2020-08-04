@@ -18,7 +18,7 @@ router.get('/', function (req, res, next) {
         return Promise.resolve(template);
     }).then( template =>
         res.render(template, {
-            title: 'Das HPI Schul-Cloud Team',
+			titlePage: res.$t('team.headline.team'),
             inline: !!template.includes('guest'),
             teams: team,
             teamLength

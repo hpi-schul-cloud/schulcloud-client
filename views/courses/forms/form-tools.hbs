@@ -20,8 +20,8 @@
     <div class="custom-fields">
     </div>
     <div class="new-custom-field">
-        <input class="new-custom-field-key" type="text" placeholder="Key">
-        <input class="new-custom-field-value" type="text" placeholder="Value" >
+        <input class="new-custom-field-key" type="text" placeholder="{{$t "courses._course.tools.add.placeholder.key"}}">
+        <input class="new-custom-field-value" type="text" placeholder="{{$t "courses._course.tools.add.placeholder.value"}}" >
         <i class="fa fa-plus new-custom-field-add" ></i>
     </div>
 </div>
@@ -36,3 +36,4 @@
 <input type="hidden" name="oAuthClientId" value="{{oAuthClientId}}" />
 <input type="hidden" name="originTool" />
 <input type="hidden" name="privacy_permission" value="{{privacy_permission}}" />
+<input type="hidden" name="openNewTab" value="{{openNewTab}}" />

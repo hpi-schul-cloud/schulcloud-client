@@ -2,7 +2,10 @@
 // eslint-disable-next-line func-names
 $(window).ready(() => {
 	function getPayload(tableRow) {
-		const json = tableRow.find('td[data-payload]').data('payload');
+		const data = tableRow.find('td[data-payload]').data('payload');
+		const json = JSON.parse(decodeURIComponent(atob(data).split('').map((value) => {
+			const germanLetter = `00${value.charCodeAt(0).toString(16)}`;
+			return `%${(germanLetter).slice(-2)}`}).join('')));
 		return json;
 	}
 
@@ -15,13 +18,13 @@ $(window).ready(() => {
 		$memberModal.appendTo('body').modal('show');
 	}
 
-	$('.btn-show-members').on('click', function showMemebers(e) {
+	$('.btn-show-members').on('click', function showMembers(e) {
 		e.preventDefault();
 
 		const parent = $(this).closest('tr');
 		const { members } = getPayload(parent);
 
-		let teamMembers = 'Keine Teilnehmer';
+		let teamMembers = $t('administration.teams.text.noParticipants');
 		if ((members || []).length !== 0) {
 			teamMembers = '<ol>';
 			members.forEach((member) => {
@@ -39,15 +42,15 @@ $(window).ready(() => {
 			teamMembers += '</ol>';
 		}
 
-		displayModalTeamMembers('Mitglieder an eigener Schule', teamMembers);
+		displayModalTeamMembers($t('administration.teams.headline.membersInOwnSchool'), teamMembers);
 	});
 
-	$('.btn-show-schools').on('click', function showMemebers(e) {
+	$('.btn-show-schools').on('click', function showMembers(e) {
 		e.preventDefault();
 		const parent = $(this).closest('tr');
 		const { schools } = getPayload(parent);
 
-		let teamSchools = 'Keine Schulen';
+		let teamSchools = $t('administration.teams.text.noSchools');
 		if ((schools || []).length !== 0) {
 			teamSchools = '<ol>';
 			schools.forEach((member) => {
@@ -56,7 +59,7 @@ $(window).ready(() => {
 			teamSchools += '</ol>';
 		}
 
-		displayModalTeamMembers('Schulen', teamSchools);
+		displayModalTeamMembers($t('administration.teams.headline.schools'), teamSchools);
 	});
 
 	$('.btn-write-owner').on('click', function writeOwner(e) {
@@ -70,9 +73,9 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($messageModal, {
 			action: entry,
-			title: 'Neue Nachricht an den/die Team-Eigentümer senden',
-			closeLabel: 'Verwerfen',
-			submitLabel: 'Absenden',
+			title: $t('administration.teams.headline.messageToTeamOwners'),
+			closeLabel: $t('administration.teams.button.discardMessage'),
+			submitLabel: $t('administration.teams.button.sendMessage'),
 		});
 
 		$messageModal.appendTo('body').modal('show');
@@ -89,9 +92,9 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($deleteModal, {
 			action: entry,
-			title: 'Löschen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Löschen',
+			title: $t('administration.teams.headline.deleteTeam'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.delete'),
 			fields: {
 				name,
 			},
@@ -111,9 +114,9 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($removeModal, {
 			action: entry,
-			title: 'Schule aus Team entfernen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Alle Mitglieder entfernen',
+			title: $t('administration.teams.headline.removeSchoolFromTeam'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('administration.teams.button.removeAllMembers'),
 			fields: {
 				name,
 			},
@@ -132,9 +135,9 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($removeModal, {
 			action: entry,
-			title: 'Einen zusätzlichen Team-Eigentümer ernennen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Ernennen',
+			title: $t('administration.teams.headline.newTeamOwner'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('administration.teams.button.appointTeamOwner'),
 		});
 
 		$removeModal.appendTo('body').modal('show');

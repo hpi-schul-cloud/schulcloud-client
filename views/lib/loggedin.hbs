@@ -2,35 +2,38 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
+        <link rel="stylesheet" href="/styles/lib/forms/form-auto-logout-alert.css" />
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
 			{{#inArray "messenger" @root.currentSchoolData.features}}
 				<link rel="stylesheet" href="/styles/lib/chatLoggedin.css"/>
 			{{/inArray}}
 		{{/ifConfig}}
-        <noscript><style>
-            .section-title,
-            #main-content,
-            footer
-            {
-                opacity: 1;
-            }
-        </style></noscript>
-    {{/content}}
+		<noscript>
+			<style>
+				.section-title,
+				#main-content,
+				footer {
+					opacity: 1;
+				}
+			</style>
+		</noscript>
+	{{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
-        <script src="/scripts/autologout.js" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" defer></script>
-        <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" defer></script>
-        <script type="text/javascript" src="/vendor/feathersjs/feathers.js" defer></script>
+        <script src="/scripts/loggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/autologout.js" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
+        <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" nonce="{{nonceValue}}" defer></script>
+        <script type="text/javascript" src="/vendor/feathersjs/feathers.js" nonce="{{nonceValue}}" defer></script>
         {{#if @root.currentUser.preferences.enterthecloud}}
-            <script type="text/javascript" src="/vendor/enterthecloud.min.js" defer></script>
+            <script type="text/javascript" src="/vendor/enterthecloud.min.js" nonce="{{nonceValue}}" defer></script>
         {{/if}}
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
             {{#inArray "messenger" @root.currentSchoolData.features}}
-                <script>
-                    window.matrixBundle = '{{getConfig "MATRIX_MESSENGER_BUNDLE"}}';
+                <script nonce="{{nonceValue}}">
+                    window.matrixAssetDomain = '{{getConfig "MATRIX_MESSENGER_EMBED_URI"}}';
+                    window.userLanguage = '{{ @root.userLanguage }}';
                 </script>
-                <script src="/scripts/chatLoggedin.js" type="text/javascript" defer></script>
+                <script src="/scripts/chatLoggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
             {{/inArray}}
         {{/ifConfig}}
     {{/content}}
@@ -42,17 +45,18 @@
         {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
-            <nav>
+
+            <nav id="sidebar" aria-label="{{$t "global.sidebar.ariaLabel"}}" tabindex="0">
                 <ul class="sidebar-list">
                     <li>
-                        <a class="sc-branding" href="/">
+                        <a class="sc-branding" href="/" title="{{$t "global.title.landing"}}">
                             <div class="cloud-logo"></div>
                             <div class="sc-title"><span>{{theme.short_title}}</span></div>
                         </a>
                     </li>
                     {{#each sidebarItems}}
                         <li>
-                            <a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}">
+								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
                                 <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
                                 <span class="link-name">{{this.name}}</span>
                             </a>
@@ -62,11 +66,14 @@
                                     <ul class="subitems">
                                         {{#each this.children}}
                                             <li>
-                                                <a class="subitem {{this.class}}" href="{{this.link}}"
-                                                    title="{{this.name}}">
-                                                    <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
-                                                    <span class="link-name">{{this.name}}</span>
-                                                </a>
+												<a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+													{{#if this.isExternalIcon}}
+														{{{this.icon}}}
+													{{else}}
+														<i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
+													{{/if}}
+													<span class="link-name">{{this.name}}</span>
+												</a>
                                             </li>
                                         {{/each}}
                                     </ul>
@@ -79,26 +86,31 @@
             </nav>
         </aside>
 
-        <section class="content-wrapper">
-            <a class="mobile-nav-toggle">
-                <i class="fa fa-bars"></i>
-            </a>
-            <div class="content-min-height">
-                <section class="demo" id="offlineAlert" style="display:none;">
-                    <div class="alert alert-warning" role="alert">
-                        <p>Du bist offline. <span class="hidden-md-down">Um dir trotzdem etwas anzuzeigen siehst du eventuell veraltete Inhalte.</span></p>
-                    </div>
-                </section>
-                {{#ifeq currentRole "Demo"}}
-                    <section class="demo">
-                        <div class="alert alert-warning" role="alert">
-                            <p>Dies ist ein Demoaccount. <span class="hidden-md-down">Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.</span></p>
-                        </div>
-                    </section>
-                {{/ifeq}}
+		<section class="content-wrapper">
+					<a class="mobile-nav-toggle" aria-label="{{$t "global.mobileNavMenu.ariaLabel"}}">
+						<i class="fa fa-bars" aria-hidden="true"></i>
+					</a>
+				<div class="content-min-height">
+					<section class="demo" id="offlineAlert" style="display:none;">
+						<div class="alert alert-warning" role="alert">
+							<p>{{$t "lib.loggedin.text.youAreOffline" }}
+								<span class="hidden-md-down">{{$t "lib.loggedin.text.inOrderToShow" }}</span>
+							</p>
+						</div>
+					</section>
+				{{#ifeq currentRole "Demo"}}
+					<section class="demo">
+						<div class="alert alert-warning" role="alert">
+							<p>{{$t "lib.loggedin.text.thisIsADemoAccount" }}
+								<span class="hidden-md-down">{{$t "lib.loggedin.text.allActionsThatCreate" }}</span>
+							</p>
+						</div>
+					</section>
+				{{/ifeq}}
 
                 {{> "lib/components/notification"}}
-                <nav class="topbar navbar hide-inline">
+
+				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.topMenu.ariaLabel"}}" tabindex="0">
 
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
@@ -115,8 +127,9 @@
                     <ul class="nav navbar-nav float-xs-none dropdowns">
                         <li class="nav-item alert-button">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" title="Es gibt ein Problem" data-toggle="dropdown">
-                                    <i class="fa fa-exclamation-triangle"></i>
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
+								   data-toggle="dropdown">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                 </a>
 
                                 <div class="dropdown-menu">
@@ -127,20 +140,23 @@
                         </li>
                         <li class="nav-item fullscreen-action">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="Fullscreen" data-toggle="dropdown">
-                                    <i class="fa fa-expand"></i>
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" href="" title="{{$t "lib.loggedin.label.fullscreen"}}" aria-label="{{$t "lib.loggedin.label.fullscreen"}}" data-toggle="dropdown">
+                                    <i class="fa fa-expand" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </li>
                         <li class="nav-item qr-code-action">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" title="QR-Code" data-toggle="dropdown">
-                                    <i class="fa fa-qrcode"></i>
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" href="" title="{{$t "lib.loggedin.label.qrCode"}}" aria-label="{{$t "lib.loggedin.label.qrCode"}}" data-toggle="dropdown">
+                                    <i class="fa fa-qrcode" aria-hidden="true"></i>
                                 </a>
                                 <div class="dropdown-menu print">
                                     <div class="content qr-show"></div>
-                                    <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="QR-Code drucken">
-                                        <i class="fa fa-print"></i> Drucken
+										<div class="qr-hint-text">
+											{{$t "global.topMenu.qrHintText"}}
+										</div>
+                                    <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="{{$t "lib.loggedin.label.printQrCode"}}" tabindex="0">
+                                        <i class="fa fa-print" aria-hidden="true"></i> {{$t "global.button.print" }}
                                     </div>
                                 </div>
                             </div>
@@ -149,8 +165,8 @@
                         <li class="nav-item notification-dropdown">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
-                                        recentNotifications}}recent{{/if}}" title="Benachrichtigungen" data-toggle="dropdown">
-                                    <i class="fa fa-bell"></i> {{#if recentNotifications}}
+                                        recentNotifications}}recent{{/if}}" href="" title="{{$t "lib.loggedin.label.notifications"}}" aria-label="{{$t "lib.loggedin.label.notifications"}}" data-toggle="dropdown">
+                                    <i class="fa fa-bell" aria-hidden="true"></i> {{#if recentNotifications}}
                                     <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
                                 </a>
 
@@ -168,7 +184,7 @@
                                             {{/each}}
                                         {{else}}
                                             <div class="notification-item" data-notification-id="0">
-                                                <span>Derzeit keine Benachrichtigungen</span>
+                                                <span>{{$t "lib.loggedin.text.noNotificationsAtTheMoment" }}</span>
                                             </div>
                                         {{/if}}
                                     </div>
@@ -183,7 +199,7 @@
                             {{#unless currentSchoolData.isExpertSchool}}
                                 <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
                                 {{#if currentSchoolData.logo_dataUrl}}
-                                    <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="Logo von {{currentSchoolData.name}}">
+                                    <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="{{$t "lib.loggedin.img_alt.logoOfSchool" (dict "name" currentSchoolData.name)}}">
                                 {{/if}}
                             {{/unless}}
                         {{/if}}
@@ -191,8 +207,8 @@
                         <li class="nav-item">
                             <div class="btn-group" data-matomo-mask>
                               <div class="dropdown btn-avatar">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle"
-                                   title='{{ currentUser.displayName }} ({{ currentRole }})' data-toggle="dropdown">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle" href=""
+                                   title='{{ currentUser.displayName }} ({{ currentRole }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{ currentRole }}' data-toggle="dropdown">
                                   <div data-testid="initials" class="avatar-circle" >
                                       <span class="initials">{{ currentUser.avatarInitials }}</span>
                                   </div>
@@ -200,8 +216,8 @@
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
                                 <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
                                     <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{ currentRole }})</div>
-                                    <a class="dropdown-item" data-testid="settings" href="/account/">Einstellungen</a>
-                                    <a class="dropdown-item" data-testid="logout" href="/logout/">Abmelden</a>
+                                    <a class="dropdown-item" data-testid="settings" href="/account/">{{$t "lib.loggedin.tab_label.settings" }}</a>
+                                    <a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/">{{$t "lib.loggedin.tab_label.signOut"}}</a>
                                 </div>
                               </div>
                             </div>
@@ -225,15 +241,16 @@
                             {{#if showSearch}}
                                 <div id="searchBar" class="col-sm-3 hide-inline">
                                     {{#unless liveSearch}}<form class="search-wrapper" action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}" method="get">{{/unless}}
-                                        <a class="mobile-search-toggle">
+                                        <a href="" class="mobile-search-toggle" aria-label="{{$t "global.lib.loggedin.label.search"}}">
                                             {{#unless liveSearch}}<i class="fa fa-search"></i>{{/unless}}
                                         </a>
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}Suche nach...{{/if}}" name="q" />
+								<label for="search-box">{{#if searchLabel}}{{truncatePure searchLabel21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}</label>
+											<input id="search-box" type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}" name="q" />
                                             {{> "lib/components/csrfInput"}}
                                             <span class="input-group-btn">
                                                 <button type="submit" class="btn btn-secondary">
-                                                    <i class="fa fa-search"></i>
+                                                    <i class="fa fa-search" aria-hidden="true"></i>
                                                 </button>
                                             </span>
                                         </div>
@@ -247,9 +264,25 @@
                 <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
                 <p id="backendUrl" hidden>{{ backendUrl }}</p>
 
-                <main id="main-content" class="container-fluid">
-                    {{#block "page"}}{{/block}}
+                <main id="main-content" class="container-fluid" tabindex="0">
+					        <dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.ariaLabel"}}">
+					        	<dd>
+					        		<a href="#sidebar">{{$t "global.sidebar.ariaLabel"}}</a>
+					        	</dd>
+					        </dl>
+                  {{#block "page"}}{{/block}}
                 </main>
+						{{#if messenger}}
+						{{>"lib/components/notification"
+							notification=notificationMessenger
+							style="position: sticky;
+							position: -webkit-sticky;
+							bottom: 1rem;
+							margin-right: 1rem;
+							z-index: 1;
+							margin-left: 40%;"
+							}}
+						{{/if}}
             </div>
             {{#unless inline}}
                 {{#embed "lib/footer"}}{{/embed}}

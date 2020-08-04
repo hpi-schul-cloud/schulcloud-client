@@ -1,5 +1,5 @@
 {{#content "scripts" mode="append"}}
-        <script src="/scripts/csrf.js" type="text/javascript" defer></script>
+        <script src="/scripts/csrf.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#if loggedin}}
     {{#extend "lib/loggedin"}}
@@ -19,7 +19,7 @@
         {{#content "page"}}
 			{{#embed "authentication/section"}}
 				{{#content "body"}}
-					<main class="container pt-3 mt-5">
+					<main id="main-content" class="container pt-3 mt-5">
 						{{#embed "lib/csrf_content"}}{{/embed}}
 					</main>
 				{{/content}}

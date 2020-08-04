@@ -1,4 +1,4 @@
 {{#ifEnv "FEATURE_INSIGHTS_ENABLED" "true"}}
-<script>!function(){if('PerformanceLongTaskTiming' in window){var g=window.__tti={e:[]};g.o=new PerformanceObserver(function(l){g.e=g.e.concat(l.getEntries())});g.o.observe({entryTypes:['longtask']})}}();</script>
-<script src="/scripts/sw/metrix.js" type="text/javascript" defer></script>
+<script nonce="{{nonceValue}}">!function(){if('PerformanceLongTaskTiming' in window){var g=window.__tti={e:[]};g.o=new PerformanceObserver(function(l){g.e=g.e.concat(l.getEntries())});g.o.observe({entryTypes:['longtask']})}}();</script>
+<script src="/scripts/sw/metrix.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/ifEnv}}

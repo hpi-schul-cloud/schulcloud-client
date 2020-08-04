@@ -5,9 +5,7 @@
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-	<script src="/scripts/login.js" type="text/javascript" defer></script>
-
-	<script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
+	<script src="/scripts/login.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page"}}

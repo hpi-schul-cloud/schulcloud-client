@@ -42,7 +42,7 @@ $(document).ready(function () {
         populateModalForm($importModal, {
             title: $t('courses.headline.importCourse'),
             closeLabel: $t('global.button.cancel'),
-            submitLabel: $t('global.button.send')
+            submitLabel: $t('global.button.import')
         });
 
         let $modalForm = $importModal.find(".modal-form");

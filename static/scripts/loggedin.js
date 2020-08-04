@@ -1,4 +1,3 @@
-import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 import './cleanup'; // see login.js for loggedout users
 import initAlerts from './alerts';
@@ -85,9 +84,6 @@ $(document).ready(function () {
 
         $('.notification-dropdown .notification-item.unread').each(function () {
             if ($(this).data('read') == true) return;
-
-            sendShownCallback({notificationId: $(this).data('notification-id')});
-            sendReadCallback($(this).data('notification-id'));
             $(this).data('read', true);
         });
     });
@@ -121,14 +117,14 @@ $(document).ready(function () {
         e.preventDefault();
         let $cancelModal = $('.cancel-modal');
         populateModalForm($cancelModal, {
-            title: 'Bist du dir sicher, dass du die Änderungen verwerfen möchtest?',
+            title: $t('global.text.sureAboutDiscardingChanges'),
         });
         $cancelModal.appendTo('body').modal('show');
     });
 
     populateModalForm($featureModal, {
-        title: 'Neue Features sind verfügbar',
-        closeLabel: 'Abbrechen'
+        title: $t('loggedin.text.newFeaturesAvailable'),
+        closeLabel: $t('global.button.cancel')
     });
 
     // from: https://stackoverflow.com/a/187557
@@ -152,13 +148,9 @@ $(document).ready(function () {
 	// check for LDAP Transfer Mode
 	if ($('#schuljahrtransfer').length) {
 		if ($('#schuljahrtransfer').val() === 'Lehrer') {
-			$.showNotification(`Die Schule befindet sich in der Transferphase zum neuen Schuljahr.
-			Es können keine Klassen und Nutzer angelegt werden.
-			Bitte kontaktiere den Schul-Administrator!`, 'warning');
+			$.showNotification($t('loggedin.text.schoolInTransferPhaseContactAdmin'), 'warning');
 		} else if ($('#schuljahrtransfer').val() === 'Administrator') {
-			$.showNotification(`Die Schule befindet sich in der Transferphase zum neuen Schuljahr.
-			Es können keine Klassen und Nutzer angelegt werden.
-			Bitte läute <a href="/administration/school/"> hier das neue Schuljahr ein!</a>`, 'warning');
+			$.showNotification($t('loggedin.text.schoolInTransferPhaseStartNew'), 'warning');
 		}
     }
 
@@ -167,7 +159,7 @@ $(document).ready(function () {
 
 function showAJAXError(req, textStatus, errorThrown) {
     if (textStatus === "timeout") {
-        $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
+        $.showNotification($t('loggedin.text.timeout'), "warn", true);
     } else {
         $.showNotification(errorThrown, "danger", true);
     }

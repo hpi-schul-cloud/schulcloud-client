@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require('assert');
+const { Configuration } = require('@schul-cloud/commons');
 const app = require('../../../app');
 const chai = require('chai');
 const expect = chai.expect;
@@ -24,28 +25,30 @@ describe('Content tests', function () {
     });
 
     it('GET /content', function () {
-        return new Promise((resolve, reject) => {
-            this.agent
-                .get('/content/')
-                .end((err, res) => {
-                    expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Lern-Store');
-                    resolve();
-                });
-        });
+		expect(Configuration.get('LERNSTORE_MODE'), 'LERNSTORE_MODE not set!').to.be.not.equal('DISABLED');
+            return new Promise((resolve, reject) => {
+                this.agent
+                    .get('/content/')
+                    .end((err, res) => {
+                        expect(res.statusCode).to.equal(200);
+                        expect(res.text).to.contain('Lern-Store');
+                        resolve();
+                    });
+            });
     });
 
     it('GET /content/?q=Mathe', function () {
-        return new Promise((resolve, reject) => {
-            this.agent
-                .get('/content/?q=Mathe')
-                .end((err, res) => {
-                    expect(res.statusCode).to.equal(200);
-					expect(res.text).to.contain('Lern-Store');
-                    expect(res.text).to.contain('Suchergebnisse für "Mathe"');
-                    expect(res.text).not.to.contain('keine Ergebnisse');
-                    resolve();
-                });
-        });
+		expect(Configuration.get('LERNSTORE_MODE'), 'LERNSTORE_MODE not set!').to.be.not.equal('DISABLED');
+            return new Promise((resolve, reject) => {
+                this.agent
+                    .get('/content/?q=Mathe')
+                    .end((err, res) => {
+                        expect(res.statusCode).to.equal(200);
+                        expect(res.text).to.contain('Lern-Store');
+                        expect(res.text).to.contain('Suchergebnisse für "Mathe"');
+                        expect(res.text).not.to.contain('keine Ergebnisse');
+                        resolve();
+                    });
+            });
     });
 });

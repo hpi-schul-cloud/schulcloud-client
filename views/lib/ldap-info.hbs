@@ -1,6 +1,4 @@
 <div class="col-sm-12 alert alert-info">
-	<strong>Warum kann ich keine Einträge bearbeiten?</strong><br>
-	Deine Schule in der {{theme.short_title}} ist mit einem Identitätsmanagement (LDAP, Landessystem o.ä.) synchronisiert. 
-	Die Daten von Lehrkräften und Schülern werden dort zentral verwaltet und können nur dort geändert werden. 
-	Das schließt auch Passwortänderungen mit ein.
+	<strong>{{$t "lib.ldap_info.text.whyCantIEditEntries" }}</strong><br>
+	{{$t "lib.ldap_info.text.yourSchoolIsLinkedToExternManagementSystem" (dict "shortTitle" theme.short_title)}}
 </div>

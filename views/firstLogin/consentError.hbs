@@ -1,8 +1,8 @@
 {{#extend "lib/simple"}}
   {{#content "page"}}
-    <h1>🙀 Entschuldige, das hat nicht geklappt</h1>
-    <p>Dein Login funktioniert, allerdings gibt es ein Problem mit deinen Einverständniserklärungen. Bitte wende dich an deinen Lehrer oder einen Administrator.
+    <h1>🙀 {{$t "firstLogin.heading.sorryItDidnotWork" }}</h1>
+    <p>{{$t "firstLogin.text.yourLoginWorksButThereIsAProblem" }}
     </p>
-     <a class="btn btn-primary" href="/logout">Ausloggen</a>
+     <a class="btn btn-primary" href="/logout">{{$t "firstLogin.button.logout" }}</a>
   {{/content}}
 {{/extend}}

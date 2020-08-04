@@ -12,13 +12,16 @@
 			"emptyHomeworksInfo": "All homeworks are shown in the homeworks section.",
 			"emptyNewsInfo": "No recent news. Check the news section to stay informed.",
 			"emptyTimetable": "Empty timetable",
-			"empytTimetableInfo": "The timetable is not shown. You can find your learning content in the course section.",
+			"empytTimetableInfo": "Normally we display here your current timetable. You can find your learning content in the course section.",
 			"noNews": "No news",
 			"noTasks": "No tasks",
 			"notFound": "No active entries found."
 		}
 	},
 	"global": {
+		"topMenu": {
+			"qrHintText": "Navigate other users to this site"
+		},
 		"sidebar": {
 			"link": {
 				"administration": "Administration",
@@ -34,6 +37,22 @@
 				"overview": "Dashboard",
 				"tasks": "Tasks"
 			}
+		}
+	},
+	"homework": {
+		"button": {
+			"downloadUngradedFiles": "Download files of ungraded homework"
+		}
+	},
+	"registration": {
+		"registationFailedAuthTitle": "Invalid registration link",
+		"registationFailedAuthParagraph": "Unfortunately the link is no longer valid. Request a new link from your teacher or school administrator.",
+		"registationFailedContinue": "The school cloud was embedded in a website. To continue ",
+		"registationFailedContinueLink": "open this page in a separate window"
+	},
+	"login": {
+		"text": {
+			"superheroForbidden": "You are trying log in with a superhero account. Please use another account"
 		}
 	}
 }

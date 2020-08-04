@@ -1,7 +1,7 @@
 {{#extend "lib/loggedin" hideSearch="true"}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/partners.js" type="text/javascript" defer></script>
+        <script src="/scripts/partners.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "styles" mode="append"}}

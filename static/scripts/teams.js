@@ -82,9 +82,9 @@ $(document).ready(() => {
 		$createEventModal.find('.create-videoconference').show();
 
 		populateModalForm($createEventModal, {
-			title: 'Termin hinzufügen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Hinzufügen',
+			title: $t('teams._team.events.headline.addDate'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.add'),
 			fields: {
 				startDate,
 				endDate,
@@ -117,9 +117,9 @@ $(document).ready(() => {
 		event.endDate = (event.end || event.start).format('DD.MM.YYYY HH:mm');
 		event.featureVideoConference = event.attributes['x-sc-featurevideoconference'];
 		populateModalForm($editEventModal, {
-			title: 'Termin - Details',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Speichern',
+			title: $t('teams._team.events.headline.dateDetails'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.save'),
 			fields: event,
 			action: `/teams/calendar/events/${event.attributes.uid}`,
 		});
@@ -157,9 +157,9 @@ $(document).ready(() => {
 
 	$('.btn-file-permissions').click(() => {
 		populateModalForm($filePermissionsModal, {
-			title: 'Freigabe-Einstellungen ändern',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Speichern',
+			title: $t('teams._team.files.headline.changeFilePermissions'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.save'),
 		});
 		$filePermissionsModal.appendTo('body').modal('show');
 	});
@@ -197,15 +197,15 @@ $(document).ready(() => {
 					data: { filePermission: Object.assign(filePermission, newPermission) },
 				})
 					.done(() => {
-						$.showNotification('Standard-Berechtigungen erfolgreich geändert', 'success', true);
+						$.showNotification($t('teams._team.files.changedFilePermissionsSuccess'), 'success', true);
 						$('.file-permissions-modal').modal('hide');
 					})
 					.fail(() => {
-						$.showNotification('Problem beim Ändern der Berechtigungen', 'danger', true);
+						$.showNotification($t('teams._team.files.changedFilePermissionsError'), 'danger', true);
 					});
 			})
 			.fail(() => {
-				$.showNotification('Problem beim Ändern der Berechtigungen', 'danger', true);
+				$.showNotification($t('teams._team.files.changedFilePermissionsError'), 'danger', true);
 			});
 	});
 
@@ -219,9 +219,9 @@ $(document).ready(() => {
 		const $leaveTeamModal = $('.leave-team-modal');
 		const userId = $(this).data('user-id');
 		populateModalForm($leaveTeamModal, {
-			title: 'Team verlassen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Team verlassen',
+			title: $t('teams._team.headline.leaveTeam'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('teams._team.button.leaveTeam'),
 			payload: { userId },
 		});
 
@@ -242,7 +242,7 @@ $(document).ready(() => {
 		}).done(() => {
 			window.location.replace('/teams');
 		}).fail(() => {
-			$.showNotification('Problem beim Löschen des Teilnehmers', 'danger', true);
+			$.showNotification($t('teams._team.members.text.errorWhileRemovingMember'), 'danger', true);
 		});
 
 		return false;

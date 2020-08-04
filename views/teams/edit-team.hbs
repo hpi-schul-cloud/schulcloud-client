@@ -5,8 +5,8 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
-        <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
+        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
 
@@ -20,56 +20,58 @@
                 {{/if}}
 
                 <div class="form-group">
-                    <label>Name des Teams</label>
-                    <input class="form-control" data-testid="team_name" name="name" type="text" placeholder="A-Team" value="{{team.name}}"
-                           required/>
+                    <label>{{$t "teams._team.edit.label.teamName"}}</label>
+                    <input class="form-control" data-testid="team_name" name="name" type="text"
+                           placeholder="{{$t "teams._team.edit.placeholder.teamName"}}" value="{{team.name}}" required/>
                 </div>
 
                 <div class="form-group">
-                    <label>Beschreibung des Teams (optional)</label>
+                    <label>{{$t "teams._team.edit.label.teamDescription"}}</label>
                     <textarea class="form-control" data-testid="description_team" name="description">{{team.description}}</textarea>
                 </div>
 
-                {{#if @root.FEATURE_MESSENGER_ENABLED}}
-                    {{#inArray "messenger" schoolData.features}}
+                {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+                    {{#inArray "messenger" @root.schoolData.features}}
                         <div class="form-group">
                             <label>
                                 <input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../team.features}}checked{{/inArray}}>
-                                Messenger für Team aktivieren
+                                {{$t "teams._team.edit.label.activateBidirectionalMessenger"}}
                             </label>
                         </div>
                     {{/inArray}}
-                {{else}}
+                {{/ifConfig}}
+
+               {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
                     {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
-                        {{#inArray "rocketChat" schoolData.features}}
+                        {{#inArray "rocketChat" @root.schoolData.features}}
                             <div class="form-group">
                                 <label>
                                     <input type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
-                                    Messenger für Team aktivieren
+                                    {{$t "teams._team.edit.label.activateMessengerForTeam"}}
                                 </label>
                             </div>
                         {{/inArray}}
                     {{/if}}
-                {{/if}}
+                {{/ifConfig}}
 
                 {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                     <div class="form-group">
                         <label>
                             <input type="checkbox" name="videoconference" value="true" {{#inArray "videoconference" @root.team.features}}checked{{/inArray}}
                                 {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
-                            Videokonferenzen für Team aktivieren
+                            {{$t "teams._team.edit.label.activateVideoConferences"}}
                         </label>
                         {{#inArray "videoconference" @root.schoolData.features}}
-                        {{else}} 
+                        {{else}}
                         <small class="form-text text-muted">
-                            Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen.
+	                        {{$t "teams._team.edit.text.videoConferencesNotAllowedBySchool"}}
                         </small>
                         {{/inArray}}
                     </div>
                 {{/ifConfig}}
 
                 <div class="form-group">
-                    <label>Farbe des Teams:</label>
+                    <label>{{$t "teams._team.edit.label.teamColor"}}</label>
                     <input name="color" type="color"
                            value="{{#if team.color}}{{team.color}}{{else}}#d32f2f{{/if}}" required/>
                 </div>

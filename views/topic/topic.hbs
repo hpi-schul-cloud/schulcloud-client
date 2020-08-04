@@ -1,5 +1,3 @@
-<script src="https://www.geogebra.org/apps/deployggb.js"></script>
-
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
@@ -8,7 +6,7 @@
         <link rel="stylesheet" href="/styles/topics/topics.css" />
     {{/content}}
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/topic.js" defer></script>
+        <script src="/scripts/topic.js" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -17,8 +15,8 @@
                 <div class="col-sm-12">
                     <div class="pull-right">
                         <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit?courseGroup={{../courseGroupId}}"
-                            class="btn btn-sm btn-add btn-primary">Thema
-                            bearbeiten</a>
+                            class="btn btn-sm btn-add btn-primary"> {{$t "topic._topic.button.editTopic" }}
+                            </a>
                     </div>
                 </div>
             </div>
@@ -55,7 +53,7 @@
 
             {{#if materialIds}}
                 <div class="materials">
-                    <h2 class="h5">Gespeicherte Unterrichtsmaterialen</h2>
+                    <h2 class="h5">{{$t "topic._topic.heading.savedTeachingMaterials" }}</h2>
                     <div class="card-columns">
                         {{#each materialIds}}
                             <div class="card">
@@ -95,7 +93,7 @@
                     <div class="col-sm-12">
                         <div class="pull-right">
                             <a href="/{{context}}/{{../courseId}}/topics/{{../_id}}/edit?courseGroup={{../courseGroupId}}"
-                                class="btn btn-add btn-primary">Thema bearbeiten</a>
+                                class="btn btn-add btn-primary">{{$t "topic._topic.button.editTopic" }}</a>
                         </div>
                     </div>
                 </div>
@@ -107,10 +105,10 @@
                                 <a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
                                     class="btn btn-add btn-secondary btn-create-share">
                                     <i class="fa fa-share-alt"></i>
-                                    mit anderen Lehrern teilen
+                                    {{$t "topic._topic.text.shareWithOthersTeachers" }}
                                 </a>
                                 <a href="/{{../context}}/{{../courseId}}/topics/{{../_id}}/edit"
-                                    class="btn btn-add btn-primary">Bearbeiten</a>
+                                    class="btn btn-add btn-primary">{{$t "topic._topic.global.button.toEdit" }}</a>
                             </div>
                         </div>
                     </div>
@@ -124,18 +122,17 @@
                         {{#userHasPermission "HOMEWORK_CREATE"}}
                             <a href="/homework/new?course={{../courseId}}&topic={{../_id}}"
                                 class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
-                                title="Aufgabe hinzufügen">
-                                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Aufgabe
-                                    hinzufügen</span>
+                                title="{{$t "topic._topic.label.addTask"}}">
+                                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "topic._topic.global.button.addTask" }}</span>
                             </a>
                         {{/userHasPermission}}
                         <a data-toggle="collapse" class="collapse-toggle" href="#homeworks">
                             <h2 class="h4">
-                                <small data-toggle="tooltip" title="gestellte Aufgaben ein/ausklappen"><i
+                                <small data-toggle="tooltip" title="{{$t "topic._topic.label.expandTasks"}}"><i
                                         class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-                                Gestellte Aufgaben
+                                {{$t "topic._topic.heading.assignedTasks" }}
                                 <small>({{arrayLength homeworks}}
-                                    Aufgabe{{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
+                                    {{$t "topic._topic.global.heading.task" }} {{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
                             </h2>
                         </a>
                         <div id="homeworks" class="container-fluid collapse">
@@ -152,18 +149,17 @@
                         {{#userHasPermission "HOMEWORK_CREATE"}}
                             <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&private=true"
                                 class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
-                                title="private Aufgabe hinzufügen">
-                                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private
-                                    Aufgabe hinzufügen</span>
+                                title="{{$t "topic._topic.label.addPrivateTask"}}">
+                                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "topic._topic.global.button.addPrivateTask" }}</span>
                             </a>
                         {{/userHasPermission}}
                         <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
                             <h2 class="h4">
-                                <small data-toggle="tooltip" title="Private Aufgaben ein/ausklappen"><i
+                                <small data-toggle="tooltip" title="{{$t "topic._topic.label.expandPrivateTasks" }}"><i
                                         class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-                                Private Aufgaben
+                                {{$t "topic._topic.heading.privateTasks" }}
                                 <small>({{arrayLength myhomeworks}}
-                                    Aufgabe{{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
+                                    {{$t "topic._topic.global.heading.task" }} {{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
                             </h2>
                         </a>
                         <div id="myhomeworks" class="container-fluid collapse">
@@ -184,11 +180,11 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-close">
-                        Abbrechen
+                        {{$t "global.button.cancel" }}
                     </button>
 
                     <button type="submit" class="btn btn-primary btn-submit">
-                        Löschen
+                        {{$t "global.button.delete" }}
                     </button>
                 </div>
             {{/content}}

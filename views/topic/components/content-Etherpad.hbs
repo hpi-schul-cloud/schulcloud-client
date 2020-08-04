@@ -1,5 +1,7 @@
 <h2 class="h4">{{title}}</h2>
 <p>{{content.description}}</p>
+{{#if content.url}}
 <iframe src="{{content.url}}"
 	style="width: 100%; height: 400px; resize: vertical; overflow: auto;"></iframe>
-<a href="{{content.url}}" target="_blank" class="pull-right">in neuem Tab öffnen</a>
+<a href="{{content.url}}" target="_blank" class="pull-right">{{$t "topic.content.link.openInNewTab" }}</a>
+{{/if}}

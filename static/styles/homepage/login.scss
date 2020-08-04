@@ -1,5 +1,5 @@
 @import "./variables";
-
+@import '../lib/bootstrap/scss/bootstrap';
 // legacy css for login form
 #loginarea{
 	&:not(.demo-login){
@@ -11,7 +11,10 @@
         word-wrap: break-word;
 		white-space: normal;
 		min-width: 22ch;
-    }
+	}
+	.toggle-btn{
+		margin-bottom: 1rem;
+	}
     input:not(.chosen-search-input) {
         font-size: 1rem;
         padding: .5rem;
@@ -23,5 +26,50 @@
 	}
     .login-providers {
         display:none;
-    }
+	}
+}
+
+.login-failed-container{
+	margin-top: 30px;
+	max-width: 900px;
+
+	li {
+		list-style: none;
+		font-weight: 800;
+		margin-bottom: 10px;
+		font-size: 20px;
+		&::before{
+			display: none;
+		}
+	}
+	.screenshot{
+		width: 60%;
+
+		@include media-breakpoint-down(md) {
+			width: 80%;
+		}
+		@include media-breakpoint-down(xs) {
+			width: 100%;
+		}
+	}
+
+	.steps{
+		margin-bottom: 30px;
+		margin-top: 10px;
+	}
+	.browser{
+		margin-left: 10px 0px 0px 10px;
+	}
+
+
+	.logo-container{
+		display: flex;
+		flex-direction:	column;
+
+		.sc-logo{
+			cursor:pointer;
+			margin-left: 10px;
+			margin-bottom: 15px;
+		}
+	}
 }

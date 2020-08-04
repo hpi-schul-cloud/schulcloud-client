@@ -2,6 +2,9 @@
     style="border-left:10px solid {{this.color}}">
     <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">
         <div class="dates">
+		 {{#if (userHasRole "student")}}
+            <i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
+            {{/if}}
             {{#if this.availableDate}}{{timeToString availableDate}}<br />{{/if}}
             {{#if this.dueDate}}
             bis {{timeToString dueDate}}
@@ -27,17 +30,30 @@
         </div>
     </a>
     {{/if}}
-    {{#if this.grade}}
-    <a class="content" href="{{this.url}}#activetabid=feedback"
-        title="Bewertung der Aufgabe: '{{{escapeHtml this.name}}}'">
-        <div class="state">
+   <div class="state">
+        <div>
+            {{#if (userHasRole "student")}}
+            {{#if submissions}}
+            {{$t "homework.text.done"}}
+            {{else if warning}}
+            {{$t "homework.text.toBeDoneWithin24Hours"}}
+            {{else}}
+            {{#unless submittable}}
+            {{$t "homework.text.notDone"}}
+            {{/unless}}
+            {{/if}}
+            {{/if}}
+        </div>
+        {{#if this.grade}}
+        <a class="content" href="{{this.url}}#activetabid=feedback"
+            title="Bewertung der Aufgabe: '{{{escapeHtml this.name}}}'">
             <circular-progress class="meinel-progress" primarycolor="#009688" accentcolor="lightgrey"
                 data="{{this.grade}}" width="70" height="70" data-toggle="tooltip" data-placement="left"
                 data-original-title="{{this.grade}}% richtig gelöst">
             </circular-progress>
-        </div>
-    </a>
-    {{/if}}
+        </a>
+        {{/if}}
+    </div>
     <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{escapeHtml this.name}}}'">
         <h2 class="h6 title">
             {{#if this.courseId}}

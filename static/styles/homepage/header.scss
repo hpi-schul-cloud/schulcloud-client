@@ -34,7 +34,7 @@
             padding: var(--space-xs);
             margin-left: var(--space-xxs);
             &:hover, &:focus{
-                background-color: var(--color-gray-light);
+                background-color: rgb(238, 238, 238);
             }
             &.active{
                 font-weight: bold;
@@ -43,6 +43,65 @@
             }
         }
     }
+	ul.nav > li {
+		margin-right: 8px;
+	}
+	ul.nav > li > a {
+		margin: 0!important;
+	}
+	ul.nav > li.nav-link-login > a > .fa {
+		margin-right: 8px!important;
+	}
+	.btn-primary-nuxt {
+		display: inline-flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: center;
+		text-decoration: none !important;
+		font-size: 16px;
+		font-weight: 700;
+		font-family: "PT Sans Narrow", "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		line-height: 19.2px;
+		min-width: 136px;
+		min-height: 35.2px;
+		color: var(--color-white);
+		border: 1px solid var(--color-primary);
+		padding: 8px 12px 6px 12px;
+		background-color: var(--color-primary);
+		border-color: var(--color-primary);
+		border-radius: 0.25rem;
+		transition-property: background, box-shadow;
+		transition-duration: 0.3s;
+		&:hover {
+			color: var(--color-white);
+			background-color: rgb(158, 6, 52);
+		}
+	}
+	.btn-primary-nuxt-outline {
+		display: inline-flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: center;
+		text-decoration: none !important;
+		font-size: 16px;
+		font-weight: 700;
+		font-family: "PT Sans Narrow", "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		line-height: 19.2px;
+		min-width: 136px;
+		min-height: 35.2px;
+		color: var(--color-primary);
+		border: 1px solid var(--color-primary);
+		padding: 8px 12px 6px 12px;
+		background-color: transparent;
+		border-color: var(--color-primary);
+		border-radius: 0.25rem;
+		transition-property: background, box-shadow;
+		transition-duration: 0.3s;
+		&:hover {
+			border-color: rgb(133, 5, 44);
+			box-shadow: 0 0 0 1px rgb(133, 5, 44);
+		}
+	}
     @include media-breakpoint-down(md) {
         .container{
             flex-wrap: wrap;
@@ -53,12 +112,15 @@
             height: 2.25rem;
         }
         .nav{
-            text-align: center;
-            display: block;
-            white-space: nowrap;
-            overflow-x: auto;
-            > li{
+            display: flex;
+			flex-flow: row wrap;
+			text-align: center;
+			justify-content: center;
+			white-space: nowrap;
+			padding-top: 2px;
+            > li {
                 display: inline-block;
+				margin-right: 0 !important;
             }
             .nav-link{
                 margin: 0;
@@ -67,3 +129,5 @@
         }
     }
 }
+
+

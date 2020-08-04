@@ -1,7 +1,8 @@
 {{#content "scripts" mode="append"}}
-  <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
-  <script src="/scripts/confetti/confetti.js" type="text/javascript" defer></script>
-  <script src="/scripts/firstLogin.js" type="text/javascript" defer></script>
+  <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+  <script src="/scripts/confetti/confetti.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+  <script src="/scripts/firstLogin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+  <script src="/scripts/base64files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
   <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>

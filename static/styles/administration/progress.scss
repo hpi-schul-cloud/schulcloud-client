@@ -70,7 +70,7 @@
     }
   }
   /* show content */
-  #section-#{$i}:checked ~ .panels [data-panel="section-#{$i}"] {
+  #section-#{$i}:checked ~ .panels [data-panel="section-#{$i}"], #section-#{$i}:checked ~ .panels > section:nth-of-type(#{$i}) {
     display: block;
   }
 }

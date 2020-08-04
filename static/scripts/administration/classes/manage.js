@@ -37,7 +37,7 @@ function copy(event) {
 	copySource.select();
 	document.execCommand('copy');
 	$.showNotification(
-		'Der Link wurde in deine Zwischenablage kopiert',
+		$t('administration.classes.text.linkCopiedToClipboard'),
 		'success',
 		3000,
 	);
@@ -54,36 +54,19 @@ function printInvitation(event) {
 	const invitationLink = document.querySelector('#invitationLink').value;
 	const invitation = {
 		href: invitationLink,
-		title: `Klasse: ${className}`,
+		title: `${$t('administration.classes.label.class')} ${className}`,
 		description: invitationLink,
 	};
 	const invitations = Array(25).fill(invitation);
 	printQRs(invitations);
 }
 
-function createInvitationLink() {
-	const target = `registration/${$("input[name='classid']").val()}`;
-	$.ajax({
-		type: 'POST',
-		url: '/link/',
-		beforeSend(xhr) {
-			xhr.setRequestHeader('Csrf-Token', csrftoken);
-		},
-		data: {
-			target,
-		},
-		success(data) {
-			$('#invitationLink').val(data.newUrl);
-		},
-	});
-}
 
 window.addEventListener('DOMContentLoaded', () => {
 	initializeCopy();
 	document
 		.querySelector('#printInvitation')
 		.addEventListener('click', printInvitation);
-	createInvitationLink();
 });
 
 window.addEventListener('load', () => {
@@ -103,7 +86,9 @@ window.addEventListener('load', () => {
 
 			// update items
 			if (classes.total === 0) {
-				classInput.innerHTML = '<option value="" disabled>Keine Klassen in diesem Jahrgang vorhanden</option>';
+				classInput.innerHTML = `<option value="" disabled>
+					${$t('administration.classes.text.noClassesInYear')}
+				</option>`;
 			} else {
 				classInput.innerHTML = `${classes.data
 					.map(
@@ -125,9 +110,9 @@ window.addEventListener('load', () => {
 			});
 		$('select[name="classes"]').trigger('chosen:updated');
 		populateModalForm($importModal, {
-			title: 'Klasse importieren',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Hinzufügen',
+			title: $t('administration.classes.headline.importClass'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.add'),
 		});
 		$importModal.appendTo('body').modal('show');
 	});
@@ -161,7 +146,7 @@ window.addEventListener('load', () => {
 		const classId = $this.data('class');
 		const role = $this.data('role');
 
-		$this.html('E-Mails werden gesendet...');
+		$this.html($t('administration.global.button.mailsAreBeingSent'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -174,7 +159,7 @@ window.addEventListener('load', () => {
 		})
 			.done(() => {
 				$.showNotification(
-					'Erinnerungs-E-Mails erfolgreich versendet',
+					$t('administration.global.text.successfullySentMails'),
 					'success',
 					true,
 				);
@@ -183,7 +168,7 @@ window.addEventListener('load', () => {
 			})
 			.fail(() => {
 				$.showNotification(
-					'Fehler beim senden der Erinnerungs-E-Mails',
+					$t('administration.global.text.errorSendingMails'),
 					'danger',
 					true,
 				);
@@ -191,6 +176,7 @@ window.addEventListener('load', () => {
 				$this.html(text);
 			});
 	}
+
 	$('.btn-send-links-emails').on('click', btnSendLinksEmailsHandler);
 
 	function btnPrintLinksHandler(e) {
@@ -200,7 +186,7 @@ window.addEventListener('load', () => {
 		const classId = $this.data('class');
 		const role = $this.data('role');
 
-		$this.html('Druckbogen wird generiert...');
+		$this.html($t('administration.global.button.printSheetIsBeingGenerated'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -220,7 +206,7 @@ window.addEventListener('load', () => {
 					})),
 				);
 				$.showNotification(
-					'Druckbogen erfolgreich generiert',
+					$t('administration.global.text.successfullyGeneratedPrintSheet'),
 					'success',
 					true,
 				);
@@ -229,7 +215,7 @@ window.addEventListener('load', () => {
 			})
 			.fail(() => {
 				$.showNotification(
-					'Problem beim Erstellen des Druckbogens',
+					$t('administration.global.text.errorGeneratingPrintSheet'),
 					'danger',
 					true,
 				);

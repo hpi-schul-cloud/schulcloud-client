@@ -10,11 +10,11 @@
                 <div class="list-group">
                     {{#if ltiTools}}
                         {{#each ltiTools}}
-                            <a class="list-group-item list-group-item-action flex-column align-items-start template_tool" href="{{this._id}}">
+                            <a class="list-group-item list-group-item-action flex-column align-items-start template_tool card-tool" href="{{this._id}}">
                             {{#if logo_url}}
-                                <img src={{this.logo_url}} class="float-left" style="width:100px; height:auto;"/>
+                                <img src={{this.logo_url}} class="float-left"/>
                             {{else}}
-                                <img src="/images/cloud.png" class="float-left" style="width:100px; height:auto;"/>
+                                <img src="/images/cloud.png" class="float-left"/>
                             {{/if}}
                                 <span>{{this.name}}</span>
                             </a>
@@ -59,6 +59,6 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/tools.js" type="text/javascript" defer></script>
+        <script src="/scripts/tools.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 {{/extend}}

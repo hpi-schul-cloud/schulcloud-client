@@ -8,8 +8,13 @@
   visibility: hidden;
 }
 
+#policy-input,
 #logo-input{
   display: none;
+}
+
+#policy-file-logo{
+	display: none;
 }
 
 #logo-filename{

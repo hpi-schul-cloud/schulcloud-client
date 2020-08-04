@@ -9,7 +9,7 @@ $(document).ready(() => {
             url: "/teams/" + teamId + "/usersJson"
         }).done(function (res) {
             let $memberModal = $('.member-modal');
-            let teamMembers = 'Keine Teilnehmer';
+            let teamMembers = $t('teams.text.noMembers');
             let teamName = res.course.name;
             if(res.course.userIds.length != 0) {
                 teamMembers = '<ol>';
@@ -24,7 +24,7 @@ $(document).ready(() => {
                 teamMembers = teamMembers + '</ol>';
             }
 
-            populateModal($memberModal, '.modal-title', 'Mitglieder des Teams: '.concat(teamName));
+            populateModal($memberModal, '.modal-title', $t('teams.headline.membersOfTeam', { teamName }));
             populateModal($memberModal, '#member-modal-body', teamMembers);
 
             $memberModal.appendTo('body').modal('show');

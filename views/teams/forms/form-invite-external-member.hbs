@@ -1,13 +1,6 @@
-<style>
-.btn-toggle[data-state=inactive] {
-  display: none;
-  background: blue;
-}
-.menu[data-state=active] {
-  display: inherit;
-  background: red;
-}
-</style>
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/teams/forms/form-invite-external-member.css" />
+{{/content}}
 
 <div class="form-group" data-teamId="{{teamId}}">
     <!--<p>Lade Lehrer anderer Schulen als Team-Admin ein, damit diese Lehrer und Schüler ihrer Schule hinzufügen können.
@@ -15,69 +8,73 @@
     {{!-- <p>Lade externe Experten ein, sich in der {{theme.short_title}} zu registrieren deinem Team beizutreten.</p> --}}
 
     {{!-- <h3>Externe einladen</h3> --}}
-    <h2 class="h3 mt-2">Wen möchtest du ins Team einladen?</h2>
-    <button type="button" data-role="teacher" class="btn btn-set-role" >Lehrer anderer Schulen</button>
-    <button type="button" data-role="expert" class="btn btn-set-role">Externe Experten</button>
+
+    {{> "help/partials/help_form_invite_external_members"}}
 
     <div class="form-group mt-3" data-role="teacher">
-        <h2 class="h3">Lehrer anderer Schulen einladen</h2>
-        <p>
-            Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit
-            der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und
-            Lehrer ihrer Schule zum Team hinzufügen.
-        </p>
+        <h2 class="h3">{{$t "teams._team.members.headline.inviteTeacherFromOtherSchool"}}</h2>
+        <p>{{$t "teams._team.members.text.selectTeacherFromRegisterOrInvitePerEmail"}}</p>
+     <button type="button" data-method="directory" class="btn btn-set-method">{{$t "teams._team.members.button.selectFromIndex"}}</button>
+        <button type="button" data-method="email" class="btn btn-set-method" >{{$t "teams._team.members.button.inviteByMail"}}</button>
 
-        <button type="button" data-method="directory" class="btn btn-set-method">Aus Verzeichnis auswählen</button>
-        <button type="button" data-method="email" class="btn btn-set-method" >per E-Mail einladen</button>
 
         <div class="form-group mt-3" data-method="directory">
-            <h2 class="h3">Lehrer auswählen und hinzufügen</h2>
+            <h2 class="h3">{{$t "teams._team.members.headline.selectAndAddTeacher"}}</h2>
             <div class="form-group">
-                <label for="federalstate">Bundesland</label>
-                <select class="search-enabled" placeholder="Bundesland auswählen" data-force-value="true" data-placeholder="Bundesland auswählen" name="federalstate" id="federalstate">
+                <label for="federalstate">{{$t "teams._team.members.label.federalState"}}</label>
+                <select class="search-enabled" placeholder="{{$t "teams._team.members.placeholder.selectFederalState"}}" data-force-value="true" 
+                data-placeholder="{{$t "teams._team.members.placeholder.selectFederalState"}}" name="federalstate" id="federalstate">
                     {{#each federalStates}}
                         <option value="{{this._id}}" data-id="{{this._id}}" {{#ifeq @root.currentFederalState this._id}}selected="selected"{{/ifeq}}>{{this.name}}</option>
                     {{/each}}
                 </select>
             </div>
             <div class="form-group">
-                <label for="school">Schule</label>
-                <select class="search-enabled" placeholder="Schule auswählen"  data-placeholder="Schule auswählen" name="school" id="school">
+                <label for="school">{{$t "teams._team.members.label.school"}}</label>
+                <select class="search-enabled" placeholder="{{$t "teams._team.members.placeholder.selectSchool"}}"  
+                data-placeholder="{{$t "teams._team.members.placeholder.selectSchool"}}" name="school" id="school">
                     {{#each schools}}
                         <option value="{{this._id.name}}" data-id="{{this._id._id}}">{{this.label}}</option>
                     {{/each}}
                 </select>
             </div>
             <div class="form-group">
-                <label for="teacher">Lehrer</label>
-                <select class="search-enabled" placeholder="Lehrer auswählen"  data-placeholder="Lehrer auswählen" name="teacher" id="teacher">
+                <label for="teacher">{{$t "teams._team.members.label.teacher"}}</label>
+                <select class="search-enabled" placeholder="{{$t "teams._team.members.placeholder.selectTeacher"}}"  
+                data-placeholder="{{$t "teams._team.members.placeholder.selectTeacher"}}" name="teacher" id="teacher">
                     {{#each teachers}}
                         <option value="{{this._id.name}}" data-id="{{this._id._id}}">{{this.label}}</option>
                     {{/each}}
                 </select>
             </div>
             <div style="margin-bottom: 6rem" class="form-group padding-bottom">
-                <label for="role">Rolle des eingeladenen Lehrers</label>
+                <label for="role">{{$t "teams._team.members.label.roleOfInvitedTeacher"}}</label>
                 <select name="role" id="role" data-force-value="true" disabled="disabled">
-                        <option value="teamadministrator" selected="selected">Team-Admin</option>
+                        <option value="teamadministrator" selected="selected">{{$t "teams._team.members.placeholder.teamAdmin"}}</option>
                 </select>
             </div>
-        </div>    
+        </div>
 
         <div class="form-group mt-3" data-method="email">
-            <h2 class="h3">Lehrer per E-Mail einladen</h2>
+            <h2 class="h3">{{$t "teams._team.members.headline.inviteTeacherByEmail"}}</h2>
             <div class="form-group">
-                <label for="email">Gebe die E-Mail des Lehrers ein, an welchen die Einladung verschickt wird.</label>
-                <input class="form-control" type="text" name="email" id="email" placeholder="E-Mail eingeben">
-            </div>      
-        </div>        
+                <label for="email">{{$t "teams._team.members.headline.requirements"}}
+                    <ul>
+                        <li>{{$t "teams._team.members.text.teacherIsFromOtherSchool"}}</li>
+                        <li>{{$t "teams._team.members.text.teachersRegisterProcessFinished" (dict "rootThemeShortTitle" @root.theme.short_title)}}</li>
+                        <li>{{$t "teams._team.members.text.invitationEmailIsEqualToRegisterEmail" (dict "rootThemeShortTitle" @root.theme.short_title)}}</li>
+                    </ul>
+                </label>
+                <input class="form-control" type="text" name="email" id="email" placeholder="{{$t "teams._team.members.placeholder.insertEmail"}}">
+            </div>
+        </div>
     </div>
 
     <div class="form-group mt-3" data-role="expert">
-        <h2 class="h3">Externen Experten einladen</h2>
+        <h2 class="h3">{{$t "teams._team.members.headline.inviteExternExpert"}}</h2>
         <div class="form-group">
-            <label for="email">Gebe die E-Mail des Experten ein, an welchen die Einladung verschickt wird.</label>
-            <input class="form-control" type="text" name="email" id="email" placeholder="E-Mail eingeben">
+            <label for="email">{{$t "teams._team.members.label.insertEmailOfExpertToInvite"}}</label>
+            <input class="form-control" type="text" name="email" id="email" placeholder="{{$t "teams._team.members.placeholder.insertEmail"}}">
         </div>      
     </div>
 </div>

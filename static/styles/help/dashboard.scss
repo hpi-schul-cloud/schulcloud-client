@@ -1,0 +1,43 @@
+@import "../lib/colors";
+
+.teacher-option {
+	.h4 {
+		padding-top: 20px;
+		color: $primaryColor;
+	}
+
+	text-align: center;
+	cursor: pointer;
+
+	img {
+		width: 30px;
+	}
+
+	.custom-icons {
+		display: flex;
+		justify-content: center;
+
+		div {
+			display: flex;
+			padding-right: 0.375rem;
+
+			svg {
+				font-size: inherit;
+				text-rendering: auto;
+				width: 30px;
+				fill: $primaryColor;
+			}
+
+		}
+	}
+}
+
+a:visited,
+a:link,
+a:hover {
+	text-decoration: none;
+}
+
+a::after {
+	content: none !important;
+}

@@ -2,16 +2,16 @@
 	{{#embed "authentication/section" class="content-width-max"}}
 		{{#content "body"}}
 			{{#unless loggedin}}
-				<h2 class="section-title center">Partner</h2>
+				<h2 class="section-title center">{{$t "partner.headline.partner"}}</h2>
 			{{/unless}}
-			<h3 class="section-title center">Projektdurchführung</h3>
+			<h3 class="section-title center">{{$t "partner.headline.projectExecution"}}</h3>
 			<div class="container">
 				<div class="row">
 					{{#each partners.project_partners}}
 					<div class="partner-box-wrapper col-md-4">
 						<div class="partner-box">
 							<a href="{{{url}}}" target="_blank">
-								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+								<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 									{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 							</a>
 						</div>
@@ -23,14 +23,12 @@
 	{{/embed}}
 	{{#embed "authentication/section" style="primary" class="content-width-max"}}
 		{{#content "body"}}
-			<h3 class="section-title center">Fachbeirat</h3>
+			<h3 class="section-title center">{{$t "partner.headline.advisoryBoard"}}</h3>
 			<div class="container">
 				<div class="row">
 					<div class="intro-box col-sm-12">
 						<p>
-							Das Schul-Cloud Projekt wird von einem Fachbeirat unterstützt, der sich aus verschiedenen
-							Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben
-							technischen Aspekten, auch Themen wie Datenschutz und Pädagogik.
+							{{$t "partner.text.advisoryBoardDescription"}}
 						</p>
 					</div>
 				</div>
@@ -40,7 +38,7 @@
 					<div class="partner-box-wrapper col-xs-6 col-md-3">
 						<div class="partner-box">
 							{{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
-								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+								<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 									{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 							{{#if url}}</a>{{/if}}
 						</div>
@@ -52,7 +50,7 @@
 							<div class="partner-box-wrapper col-xs-6 col-md-3">
 								<div class="partner-box">
 									{{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
-										<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+										<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 											{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 									{{#if url}}</a>{{/if}}
 								</div>
@@ -61,18 +59,19 @@
 					</div>
 				</div>
 				<div class="buttonWrapper">
-					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">
+						{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i></div>
 				</div>
 			</div>
 		{{/content}}
 	{{/embed}}
 	{{#embed "authentication/section" class="content-width-max"}}
 		{{#content "body"}}
-			<h3 class="section-title center">Pilotpartner für Lerninhalte</h3>
+			<h3 class="section-title center">{{$t "partner.headline.pilotPartners"}}</h3>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<p>Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die HPI Schul-Cloud erfahrbar wird.</p>
+						<p>{{$t "partner.text.pilotPartnersDescription"}}</p>
 					</div>
 				</div>
 				<div class="row">
@@ -80,7 +79,7 @@
 						<div class="partner-box-wrapper col-xs-6 col-md-3">
 							<div class="partner-box">
 								<a href="{{{url}}}" target="_blank">
-									<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+									<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 								</a>
 							</div>
@@ -92,7 +91,7 @@
 								<div class="partner-box-wrapper col-xs-6 col-md-3">
 									<div class="partner-box">
 										<a href="{{{url}}}" target="_blank">
-											<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+											<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 												{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 										</a>
 									</div>
@@ -101,7 +100,8 @@
 						</div>
 					</div>
 					<div class="buttonWrapper">
-						<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenContentPartner">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+						<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenContentPartner">
+							{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i></div>
 					</div>
 				</div>
 			</div>
@@ -109,11 +109,11 @@
 	{{/embed}}
 	{{#embed "authentication/section" style="accent" class="content-width-max"}}
 		{{#content "body"}}
-			<h3 class="section-title center">Unterstützer für Schulinfrastruktur</h3>
+			<h3 class="section-title center">{{$t "partner.headline.supporters"}}</h3>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<p>Wir danken unseren Unterstützern für Schulinfrastruktur.</p>
+						<p>{{$t "partner.text.supportersDescription"}}</p>
 					</div>
 				</div>
 				<div class="row">
@@ -121,7 +121,7 @@
 						<div class="partner-box-wrapper col-xs-6 col-md-6">
 							<div class="partner-box">
 								<a href="{{{url}}}" target="_blank">
-									<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+									<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
 								</a>
 							</div>

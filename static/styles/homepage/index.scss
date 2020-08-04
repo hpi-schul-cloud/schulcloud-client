@@ -14,16 +14,24 @@
             }
         }
     }
-    .btn-primary.btn-outline{
-        &:hover {
-            background-color: var(--color-primary);
-            border-color: var(--color-primary);
-            color: var(--color-white);
-        }
-        border: 1px solid var(--color-primary);
-        color: var(--color-primary);
-        background: transparent;
+}
+
+.btn-primary.btn-outline{
+    &:hover {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+        color: var(--color-white);
     }
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    background: transparent;
+}
+.nav-link {
+	font-size: 16px;
+	line-height: 19.2px;
+	&:hover, &:focus{
+		background-color: rgb(238, 238, 238) !important;
+	}
 }
 
 .section a.btn.btn-white-outlined{
@@ -54,6 +62,96 @@
     background: #fff;
     &:hover {
         box-shadow: var(--shadow-sm);
-          transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
+        transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
     }
+}
+
+.sc-blog {
+    thead {
+        border-bottom: 2px solid #455b6a;
+
+        th {
+            background-color: transparent;
+            border: none;
+        }
+    }
+
+    td {
+        text-align: center;
+        vertical-align: middle;
+        font-size: 0.85em;
+
+        &:first-child{
+            text-align: left;
+        }
+    }
+	img.check {
+		width: 100% !important;
+		max-width: 40px !important;
+	}
+	@include media-breakpoint-down(lg) {
+		.btn-margin {
+			margin-top: 8px;
+		}
+		.prototype-button {
+			width: 100% !important;
+		}
+	}
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+
+    h1{
+        font-size: 50px;
+
+        @include media-breakpoint-down(sm) {
+        font-size: 40px;
+        }
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+    .teaser{
+        font-size:24px;
+
+        @include media-breakpoint-down(sm) {
+            font-size:18px;
+        }
+    }
+
+    .section-img {
+        @include media-breakpoint-down(sm) {
+            width: 40vw;
+        }
+    }
+    .check {
+        width: 40px;
+    }
+}
+
+.section-landing{
+    margin-bottom: 100px;
+
+    @include media-breakpoint-down(sm) {
+        margin-bottom: 60px;
+    }
+}
+
+.heading{
+    font-size: 29px;
+}
+
+.section-heading {
+    font-size: 40px;
+
+    @include media-breakpoint-down(sm) {
+        font-size: 35px;
+    }
+
+}
+.alert {
+	margin-top: 1rem !important;
 }

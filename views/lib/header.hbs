@@ -1,28 +1,35 @@
 <header class="header">
 	<nav class="container">
-		<a id="title" href="/">
+		<a id="title" href="/" aria-label="{{$t "global.title.landing"}}">
 			<img class="logo" alt="{{theme.title}}" src="/images/logo/HPI-Schul-Cloud_Wort-Bildmarke-Banner_transparent.svg" />
 		</a>
 		{{#unless hideMenu}}
 			<ul class="nav">
-				{{#ifEnv "FEATURE_MINT_PAGES_ENABLED" "true"}}
 				<li>
-					<a class="nav-link" href="/mint-ec/willkommenspaket">Erste Schritte</a>
+					<a class="nav-link" href="/about">{{$t "home.header.link.aboutUs"}}</a>
 				</li>
-				{{/ifEnv}}
+                <li>
+                	<a class="nav-link" href="https://blog.schul-cloud.org/erste-schritte/" target="_blank">{{$t "home.header.link.firstSteps"}}</a>
+                </li>
 				<li>
-					<a class="nav-link" href="/about">Über das Projekt</a>
-				</li>
-				<li>
-					<a class="nav-link" href="/community">Mitmachen</a>
+					<a class="nav-link" href="https://blog.schul-cloud.org/" target="_blank">{{$t "home.header.link.blog"}}</a>
 				</li>
 				<li>
-					<a class="nav-link" href="https://blog.schul-cloud.org/" target="scblog">Blog</a>
+					<a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank" rel="noopener">{{$t "home.header.link.faq"}}</a>
 				</li>
-				<li>
-					<a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank" rel="noopener">FAQ</a>
+				<li class="hidden-xs-down nav-link-login">
+					<a class="btn-primary-nuxt-outline" href="/loginRedirect" style="margin-left: 10px;" data-testid="login-btn">
+						<i class="fa fa-sign-in" aria-hidden="true"></i> {{$t "home.header.link.login"}}
+					</a>
+				</li>
+				<li class="hidden-xs-down">
+					<a class="btn-primary-nuxt" href="/community" style="margin-left: 8px;">{{$t "home.header.link.register"}}</a>
 				</li>
 			</ul>
 		{{/unless}}
 	</nav>
+	<div class="text-center hidden-sm-up" style="margin-bottom: 10px;">
+		<a class="btn btn-sm btn-outline btn-primary" href="/loginRedirect"><i class="fa fa-sign-in" aria-hidden="true"></i> {{$t "home.header.link.login"}}</a>
+		<a class="btn btn-sm btn-primary" href="/community">{{$t "home.header.link.register"}}</a>
+	</div>
 </header>

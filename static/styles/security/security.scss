@@ -1,0 +1,19 @@
+@import '../homepage/layouts';
+
+.section-title {
+    width: 100%;
+    line-height: 1.75rem;
+    margin-bottom: var(--space-md);
+}
+
+.section-title.loggedout {
+  color: #b1063a;
+  margin-bottom: var(--space-lg);
+
+}
+
+.section-link.loggedin {
+  color:#E98404;
+}
+
+

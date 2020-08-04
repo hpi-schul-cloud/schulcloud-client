@@ -2,7 +2,7 @@
 
 <div class="form-group">
     <label class="control-label" for="title">{{$t "calendar.label.title" }}</label>
-    <input data-testid="team_event_name" class="form-control" name="summary" required placeholder="z.B. Handball-Training">
+    <input data-testid="team_event_name" class="form-control" name="summary" required placeholder="{{$t "calendar.input.egHandballTraining"}}">
 </div>
 <div class="form-group row">
     <div class="form-group col-md-6">
@@ -21,13 +21,13 @@
 </div>
 <div class="form-group">
     <label class="control-label" for="location">{{$t "calendar.label.location" }}</label>
-    <input data-testid="team_event_location" class="form-control" name="location" placeholder="z.B. Turnhalle">
+    <input data-testid="team_event_location" class="form-control" name="location" placeholder="{{$t "calendar.input.egGym"}}">
 </div>
 {{#if addCourse}}
     {{#userHasPermission "COURSE_EDIT"}}
     <div class="form-group create-course-event">
         <div class="checkbox disabled">
-            <input id="toggle{{../collapseIdCourse}}" name="isCourseEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdCourse}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
+            <input id="toggle{{../collapseIdCourse}}" name="isCourseEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdCourse}}" data-toggle="toggle" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
             <label>
                {{$t "calendar.label.createForCourse" }}
             </label>
@@ -47,7 +47,7 @@
     {{#userHasPermission "COURSE_EDIT"}}
     <div class="form-group create-team-event">
         <div class="checkbox disabled">
-            <input id="toggle{{../collapseIdTeam}}" name="isTeamEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdTeam}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
+            <input id="toggle{{../collapseIdTeam}}" name="isTeamEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdTeam}}" data-toggle="toggle" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
             <label>
                {{$t "calendar.label.createForTeam" }}
             </label>
@@ -68,7 +68,7 @@
     {{#if ../showVideoconferenceOption}}
     <div class="form-group create-videoconference hidden">
         <div class="checkbox disabled">
-            <input name="featureVideoConference" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
+            <input name="featureVideoConference" type="checkbox" data-toggle="toggle" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
             <label>
                 {{$t "calendar.label.addVideoConference" }}
             </label>

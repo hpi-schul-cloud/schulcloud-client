@@ -1,9 +1,9 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/coursesOverview.js" type="text/javascript" defer></script>
-        <script src="/scripts/tabbar.js" type="text/javascript" defer></script>
-        <script src="/scripts/topic.js" type="text/javascript" defer></script>
+        <script src="/scripts/coursesOverview.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/topic.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
@@ -39,7 +39,7 @@
                                 <div class="col-xs-12">
                                     <p class="text-muted text-center">
                                         <i class="fa fa-frown-o"></i>
-                                        <span>Kurse, deren Enddatum erreicht ist, findest du <a href="?activeTab=archived">im Archiv</a>.
+                                        <span>{{{$t "courses.headline.expiredCoursesInArchive"}}}</a>.
 										<br/>{{$t "courses.text.descriptionCourseManagement"}}</span>
                                     </p>
                                 </div>
@@ -57,8 +57,8 @@
                                     <div class="row padding-top">
                                         <div class="col-sm-12">
                                             <div class="pull-right">
-                                            <a class="btn btn-secondary btn-import-course">{{$t "courses.button.importCourse"}}</a>
-                                            <a href="/courses/add" class="btn btn-primary btn-add">{{$t "courses.button.createCourse"}}</a>
+                                            <a class="btn btn-secondary btn-import-course" data-testid="import-course-btn">{{$t "courses.button.importCourse"}}</a>
+                                            <a href="/courses/add" data-testid="create-course-btn" class="btn btn-primary btn-add">{{$t "courses.button.createCourse"}}</a>
                                         </div>
                                         </div>
                                     </div>

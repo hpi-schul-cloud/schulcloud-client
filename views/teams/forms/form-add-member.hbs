@@ -1,12 +1,12 @@
 <div class="mb-2">
-    <button type="button" data-tab="person" class="btn btn-set-tab" >Person hinzufügen</button>
+    <!-- <button type="button" data-tab="person" class="btn btn-set-tab" >{{$t "teams._team.members.button.addPerson"}}</button> -->
     <!-- <button type="button" data-tab="class" class="btn btn-set-tab">Klasse hinzufügen</button> -->
 </div>
 
 <div style="margin-bottom: 12rem" class="form-group form-users" data-tab="person">
-    <label for="invitation">Füge Lehrer und Schüler deiner Schule zum Team hinzu</label>
+    <label for="invitation">{{$t "teams._team.members.label.addTeacherStudentsFromSchool"}}</label>
 
-    <select data-testid="select_team_members_add" name="userIds[]" multiple data-placeholder="Personen auswählen">
+    <select data-testid="select_team_members_add" name="userIds[]" multiple data-placeholder="{{$t "teams._team.members.placeholder.selectPersons"}}">
         {{#each users}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                     {{this.lastName}}, {{this.firstName}}

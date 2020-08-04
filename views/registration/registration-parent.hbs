@@ -1,12 +1,14 @@
 {{#extend "lib/simple"}}
   {{#content "scripts" mode="append"}}
-      <script src="/scripts/dataprivacy/user-registration.js" type="text/javascript" defer></script>
+      <script src="/scripts/dataprivacy/user-registration.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	  <script src="/scripts/base64files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
   {{/content}}
   {{#content "styles" mode="append"}}
       <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
+      <link rel="stylesheet" href="/styles/registration/pin.css" />
   {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=5 action="/registration/submit" method="post" class="registration-form parent" submit-label="Absenden & Loslegen"}}
+    {{#embed "lib/forms/paginatedForm" sections=sectionNumber action="/registration/submit" method="post" class="registration-form parent" submit-label=($t "registration._registration.global.button.sendAndGetStarted")}}
       {{#content "panels"}}
       <input type="hidden" name="classOrSchoolId" value="{{user.classOrSchoolId}}"/>
       <input type="hidden" name="roles" value="student"/>
@@ -19,118 +21,115 @@
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
       <section data-panel="section-1">
-        <h2 class="h4">Daten Ihres Kindes</h2>
-        <p>Die {{theme.short_title}} bewahrt Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.</p>
-        <p>Für die Nutzung der {{theme.short_title}} benötigen wir folgende Angaben für Ihr Kind:</p>
+        <h2 class="h4">{{$t "registration._registration.parent.heading.yourChildsData" }}</h2>
+      <p>{{$t "registration._registration.global.text.bellowNYearsOldConsantOfLegalGuardian" (dict "shortTitle" theme.short_title "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>
+        <p>{{$t "registration._registration.parent.text.weNeedFollowingDataOfChild" (dict "shortTitle" theme.short_title)}}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>Vorname: <sup>*</sup></label>
-            <input class="form-control linked" name="firstName" type="text" placeholder="Vorname des Kindes in offizieller Schreibweise, keine Spitznamen"
+            <label>{{$t "registration._registration.global.label.firstName" }} <sup>*</sup></label>
+            <input class="form-control linked" name="firstName" type="text" placeholder="{{$t "registration._registration.parent.input.completeFirstName"}}"
               value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}} />
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>Nachname: <sup>*</sup></label>
-            <input class="form-control linked" name="lastName" type="text"  placeholder="Nachname des Kindes"
+            <label>{{$t "registration._registration.global.label.lastName" }}<sup>*</sup></label>
+            <input class="form-control linked" name="lastName" type="text"  placeholder="{{$t "registration._registration.parent.input.lastName"}}"
               value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Geburtsdatum des Schülers: <sup>*</sup></label>
+          <label>{{$t "registration._registration.global.label.studentsDateOfBirth" }} <sup>*</sup></label>
           <input class="form-control linked" name="birthDate" type="text"
             data-date data-min-date="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 -1}}" data-max-date="{{datePickerTodayMinus 4 0 0}}"
             value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{/if}}" autocomplete="off" required {{#if user.birthday}}readonly{{/if}}/>
         </div>
 
         <div class="form-group">
-          <label>E-Mail-Adresse des Schülers: * <small>(Schüler benötigen eine eigene E-Mail-Adresse)</small></label>
-          <input class="form-control linked" name="email" type="email" placeholder="schueler@schul-cloud.org"
+          <label>{{$t "registration._registration.global.label.studentEmailAddress" }} <sup>*</sup><small>{{$t "registration._registration.parent.text.studentNeedTheirOwnEmail" }}</small></label>
+          <input class="form-control linked" name="email" type="email" placeholder="{{$t "registration._registration.parent.input.studentEmail"}}"
             value="{{user.email}}" required {{#if user.email}}readonly{{/if}} />
         </div>
         <p class="explanation nomargin">
-            Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.
+            {{$t "registration._registration.global.text.theEmailAddressEnables" }}
         </p>
       </section>
 
 
-
+      {{#if needConsent}}
       <section data-panel="section-2">
-        <h2 class="h4">Ihre Daten</h2>
-        <p>Für Schüler unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahren muss ein Erziehungsberechtigter in die Nutzung der {{theme.short_title}} einwilligen.</p>
-        <p>Dazu benötigen wir folgende Angaben von Ihnen:</p>
+        <h2 class="h4">{{$t "registration._registration.parent.heading.yourData" }}</h2>
+        <p>{{$t "registration._registration.parent.text.legalGuardingHasToAgreeToTermsOfUse" (dict "years" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "shortTitle" theme.short_title)}}</p>
+        <p>{{$t "registration._registration.parent.text.forThisWeNeedFollowing" }}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>Vorname: <sup>*</sup></label>
-            <input class="form-control linked" name="parent_firstName" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
+            <label>{{$t "registration._registration.global.label.firstName" }}<sup>*</sup></label>
+            <input class="form-control linked" name="parent_firstName" type="text" placeholder="{{$t "registration._registration.parent.input.yourFirstName"}}" required/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>Nachname: <sup>*</sup></label>
-            <input class="form-control linked" name="parent_lastName" type="text" placeholder="Ihren Nachname hier eingeben" required/>
+            <label>{{$t "registration._registration.global.label.lastName" }} <sup>*</sup></label>
+            <input class="form-control linked" name="parent_lastName" type="text" placeholder="{{$t "registration._registration.parent.input.yourLastName"}}" required/>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Ihre E-Mail-Adresse: <sup>*</sup> <small>(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)</small></label>
-          <input class="form-control" type="email" name="parent_email" required placeholder="eltern@schul-cloud.org" autocomplete />
+          <label>{{$t "registration._registration.global.label.yourEmailAddress" }} <sup>*</sup> <small>{{$t "registration._registration.parent.text.mustNotBeYourChildsEmail" }}</small></label>
+          <input class="form-control" type="email" name="parent_email" required placeholder="{{$t "registration._registration.parent.input.parentEmail"}}" autocomplete />
         </div>
         <p class="explanation nomargin">
-          Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{theme.short_title}} rechtlich gültig ist. Die {{theme.short_title}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.
+          {{$t "registration._registration.parent.text.weNeedAnEmailAddress" (dict "shortTitle" theme.short_title)}}
           <br/>
-          Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.
+          {{$t "registration._registration.parent.text.inAdditionWeArePlanning"}}
         </p>
       </section>
 
 
-
       <section data-panel="section-3">
-        <h2 class="h4">Einwilligungserklärung</h2>
-        <p>Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{theme.short_title}} nutzen kann:</p>
+        <h2 class="h4">{{$t "registration._registration.global.heading.declarationOfConsent" }}</h2>
+        <p>{{$t "registration._registration.parent.text.pleaseConfirmTheFollowing" (dict "shortTitle" theme.short_title)}}</p>
           {{#embed "registration/forms/einwilligungserklaerung" prefix="parent_"}}{{/embed}}
       </section>
+      {{/if}}
 
 
 
       <section data-panel="section-4" class="submit-page" data-feature="pin">
-        <h2 class="h4">Fast geschafft!</h2>
+        <h2 class="h4">{{$t "registration._registration.global.heading.almostThere"}}</h2>
         {{#embed "registration/request-pin"}}{{/embed}}
         <div id="pinverification">
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
         </div>
-        <input type="hidden" name="password_1" class="student-password-input" />
-        <input type="hidden" name="password_2" class="student-password-input" />
+        <input type="hidden" value="{{password}}" name="password_1" class="student-password-input" />
+        <input type="hidden" value="{{password}}" name="password_2" class="student-password-input" />
       </section>
 
 
 
       <section data-panel="section-5">
-        <h2 class="h4">Vielen Dank für die Registrierung in der {{theme.short_title}}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.heading.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
       {{#if user.sso}}
-              <p>Der SSO-Account Ihres Kindes ist jetzt freigeschaltet.</p>
+              <p>{{$t "registration._registration.parent.heading.yourChildsSSO" }}</p>
       {{else}}
         <div>
           <p>
-            Mit folgenden Daten kann sich
-            <b data-from="firstName"></b>
-            <b data-from="secondName"></b>
-            in der {{theme.short_title}} anmelden. Bitte geben Sie die Daten an Ihr Kind weiter. Zusätzlich haben Sie und Ihr Kind die Daten per E-Mail erhalten.
+            {{{$t "registration._registration.parent.text.yourSonCanLogInWithThisData" (dict "shortTitle" theme.short_title)}}}
             <div class="print">
               <div class="recap">
                 <!--<p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>-->
-                <p>E-Mail: <i data-from="email"></i></p>
-                <p>Passwort: <i class="student-password">********</i></p>
+                <p>{{$t "registration._registration.global.label.eMail"}} <i data-from="email"></i></p>
+                <p>{{$t "registration._registration.global.text.password" }} <i class="student-password">{{password}}</i></p>
               </div>
               <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
-                <i class="fa fa-print"></i> Drucken
+                <i class="fa fa-print"></i> {{$t "registration._registration.global.button.toPress" }}
               </div>
             </div>
           </p>
 
-          <p>Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.</p>
+          <p>{{$t "registration._registration.parent.text.whenLoggingInFor" }}</p>
         </div>
       {{/if}}
-        <p>Ihr Kind kann sich nun einloggen:</p>
+        <p>{{$t "registration._registration.parent.text.yourChildCan" }}</p>
 
-        <a class="btn btn-primary" href="/logout">Login öffnen</a>
+        <a class="btn btn-primary" href="/logout">{{$t "registration._registration.global.button.openLogin" }}</a>
       </section>
       {{/content}}
     {{/embed}}

@@ -45,9 +45,9 @@ $(document).ready(() => {
 		e.preventDefault();
 		populateModalForm($pwModal, {
 			action: 'pw',
-			title: 'Passwort ändern',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Speichern',
+			title: $t('administration.users_edit.headline.changePassword'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.save'),
 			fields: undefined,
 		});
 		$pwModal.appendTo('body').modal('show');
@@ -57,9 +57,9 @@ $(document).ready(() => {
 		e.preventDefault();
 		populateModalForm($deleteModal, {
 			action: '',
-			title: 'Benutzer löschen?',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Löschen',
+			title: $t('administration.users_edit.headline.deleteUser'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.delete'),
 			fields: {
 				displayName: $('input[name="displayName"]').val(),
 			},
@@ -71,24 +71,27 @@ $(document).ready(() => {
 		e.preventDefault();
 		populateModalForm($skipregModal, {
 			action: 'skipregistration',
-			title: 'Nutzerregistrierung abschließen',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Speichern',
+			title: $t('administration.users_edit.headline.completeRegistration'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.save'),
 			fields: undefined,
 		});
 		$skipregModal.appendTo('body').modal('show');
 	});
-	$('.btn-send-link-email').on('click', (e) => {
+
+	function sendLinkEmailClickHandler(e) {
 		e.preventDefault();
 		const $this = $(this);
 		const text = $this.html();
 		const $invitationModal = $('.invitation-modal');
 		const schoolId = $invitationModal.find("input[name='schoolId']").val();
 		let role = 'student';
-		if ($(this).hasClass('teacher')) role = 'teacher';
+		if ($this.hasClass('teacher')) {
+			role = 'teacher';
+		}
 		const email = $('input[name="email"]').val();
 
-		$this.html('E-Mail wird gesendet...');
+		$this.html($t('administration.users_edit.button.mailIsBeingSent'));
 		$this.attr('disabled', 'disabled');
 
 		$.ajax({
@@ -107,13 +110,13 @@ $(document).ready(() => {
 			.done((data) => {
 				if (data.status && data.status === 'ok') {
 					$.showNotification(
-						'Die Einladungs-E-Mail wurde erfolgreich versendet!',
+						$t('administration.users_edit.text.successfullySentMail'),
 						'success',
 						true,
 					);
 				} else {
 					$.showNotification(
-						'Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!',
+						$t('administration.users_edit.text.errorSendingMail'),
 						'danger',
 						true,
 					);
@@ -123,14 +126,15 @@ $(document).ready(() => {
 			})
 			.fail(() => {
 				$.showNotification(
-					'Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!',
+					$t('administration.users_edit.text.errorSendingMail'),
 					'danger',
 					true,
 				);
 				$this.attr('disabled', false);
 				$this.html(text);
 			});
-	});
+	}
+	$('.btn-send-link-email').on('click', sendLinkEmailClickHandler);
 
 	function createInvitationHashHandler(e) {
 		e.preventDefault();
@@ -152,9 +156,9 @@ $(document).ready(() => {
 			},
 			success(linkData) {
 				populateModalForm($invitationModal, {
-					title: 'Einladungslink generiert!',
-					closeLabel: 'Abbrechen',
-					submitLabel: 'Speichern',
+					title: $t('administration.users_edit.headline.generatedLink'),
+					closeLabel: $t('global.button.cancel'),
+					submitLabel: $t('global.button.save'),
 					fields: { invitation: linkData.shortLink },
 				});
 				$invitationModal.find('.btn-submit').remove();

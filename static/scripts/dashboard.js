@@ -9,8 +9,8 @@ $(document).ready(function () {
     $('.feature-modal').modal('show');
 
     populateModalForm($pollModal, {
-        title: 'Befragung II im Projekt Schul-Cloud',
-        closeLabel: 'Abbrechen'
+        title: $t('dashboard.headline.poll2Title'),
+        closeLabel: $t('global.button.cancel')
     });
 
     let prefs = $('#preferences').html();
@@ -18,7 +18,7 @@ $(document).ready(function () {
     let parsedPrefs = prefs === "" ? {} : JSON.parse($('#preferences').html());
 
     if (!parsedPrefs.pollSeen2)
-        $pollModal.appendTo('body').modal('show');
+		$pollModal.appendTo('body').modal('show');
 
     $('.btn-poll').on('click', function (e) {
         e.preventDefault();

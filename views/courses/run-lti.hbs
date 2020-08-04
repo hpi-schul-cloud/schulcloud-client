@@ -1,5 +1,5 @@
 {{#content "scripts" mode="append"}}
-    <script defer>
+    <script nonce="{{nonceValue}}" defer>
         setHeight = function() {
             // dirty fix for digitalgipfel
             $('.lti-frame').css({

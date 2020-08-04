@@ -8,13 +8,137 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+- SC-5644 navigation and the general structure of pages made more accessible (a11y)
+- SC-2483 support LTI 1.3
+
+## [24.0.1] - 2020-07-31
+### Fixed - 24.0.1
+   SC-5917 Fix activation of LDAP system
+
+## [24.0.0] - 2020-07-30
+
+### Added - 24.0.0
+- SC-4151 hint for user when login failes
+- SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists 
+it is shown to every school user by the registration, first login and in the footer of the page. If it was changed the
+privacy policy should be confirmed by every school user
+
+
+### Fixed - 24.0.0
+-  SC-4993 fixed video player issue in ckeditor
+-  SC-5686 :teamId/edit can only be accessed if the user has the team permission "RENAME_TEAM"; :courseId/edit can only 
+be accessed if the user has the permission "COURSE_EDIT
+
+### Changed - 24.0.0
+
+- SC-5327 removed 'bereich' suffix from navigation items
+
+### Removed - 23.6.0
+
+## [23.5.7] - 2020-07-17
+
+- SC-5653 update mint-ec email addresses
+
+## [23.5.3] - 2020-07-10
+
+- SC-5494 Changed link in navigation bar
+- SC-5529 update hpi school-cloud brand name
+
+## [23.5.2] - 2020-07-09
+
+- SC-5494 Changed link in navigation bar
+- SC-5529 update hpi school-cloud brand name
+
+## [23.4.4] - 2020-06-18
+
+- fix mocha tests on server
+
+## [23.4.3] - 2020-06-17
+
+- SC-5048 Temporarily disables Portfolio for NBC by removal of link to portfolio in add-ons.
+
+## [23.1.2] - 2020-06-02
 
 ### Changed
+- SC-4766 minor text changes for n21
+
+## [23.1.0] - 2020-05-20
+
+### Added
+
+- SC-4250, SC-4135, SC-4252, loading new landing page content and theme from ghost. About page partly loaded from ghost. Login form removed from front page and replaced by button in navbar. Demo-Login removed from front page.
+
+### Fixed
+
+### Changed
+
+### Security
+- SC-4506 Secure User Route. Removed not used /users route from view team members. 
+
+### Removed
+
+
+## [23.0.0] - 2020-05-19
+
+### Changed in 23.0.0
+
+- SC-4392 add/edit link dialog in ckeditor could not be opened
+- SC-4075 Teams creation by students logic was changed. New environment enumeration variable `STUDENT_TEAM_CREATION` 
+with possible values `disabled`, `enabled`, `opt-in`, `opt-out` was introduced. The feature value is set by instance deployment. 
+In case of `disabled`, `enabled` it is valid for all schools of the instance and cannot be changed by the admin. 
+In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the school admin.
+
+### Fixed
+
+- SC-4392 add/edit link dialog in ckeditor could not be opened
+
+## [22.10.0] - 2020-05-11
+
+### Security in 22.10.0
+- SC-3990 generation of first login passwords
+
+### Added in 22.10.0
+- SC-3664 query toast-type and toast-message
+- SC-3892 Task sorting on the course side
+- SC-3757 the LDAP config page now contains a link to the docs
+- SC-438 on logout button click localStorge will be deleted
+- SC-3801 added generic filepicker url to ckeditor
+- SC-4260 added sentry sampling
+- SC-4064 allow to append files to submission feedback
+- SC-4064 allow for bulk download of ungraded homework files
+- SC-4064 allow for bulk upload of graded homework files
+
+### Changed in 22.10.0
 
 - SC-3607 CSV import now suggests the new birthday field (sample file + image)
 - SC-3607 the student/teacher import page now displays a warning for large imports
 - updated airbnb linter from 13.1 to 14.1
-- SC-2483 support LTI 1.3
+- SC-3801 updated CKEDITOR to 4.14
+- SC-3801 changes CKEDITOR theme to a more maintained one (n1theme)
+
+### Fixed in 22.10.0
+
+- SC-3945 Courses are now again unarchiveable
+
+
+## [22.9.12] - 2020-05-06
+
+### Changed in 22.9.12
+
+- Moved the Cookie parameters into the configuration
+- Cookie property sameSite changed from strict to none as default
+
+## [22.9.8] - 2020-04-23
+
+### Added in 22.9.8
+
+- add support for API-Key
+
+## [22.9.7] - 2020-04-21
+
+### Added in 22.9.7
+
+- part of frontpage now loading content from sc blog.
 
 ## [22.9.2] - 2020-04-09
 

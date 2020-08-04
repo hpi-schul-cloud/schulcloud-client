@@ -5,9 +5,9 @@
 	{{/content}}
 
 	{{#content "scripts" mode="append"}}
-		<script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
-		<script src="/scripts/files.js" type="text/javascript" defer></script>
-		<script src="/scripts/jquery.cookie.js" type="text/javascript" defer></script>
+		<script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="/scripts/files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="/scripts/jquery.cookie.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 
 	{{#content "page"}}
@@ -37,13 +37,13 @@
 			</section>
 
 			<div class="pull-right">
-				<select name="sortBy" class="form-control">
-					{{#each sortOptions}}
+				<!-- <select name="sortBy" class="form-control">
+					 {{#each sortOptions}}
 						<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
 							{{this.label}}
 						</option>
 					{{/each}}
-				</select>
+				</select> -->
 				<select name="sortOrder" class="form-control">
 					<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
 					<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending" }}</option>
@@ -55,32 +55,31 @@
 			<section class="directories">
 				<div class="row">
 					{{#each directories}}
-									<div class="col-xs-12">
-						  <div class="card card-block folder" onclick="location.href = openFolder('{{this._id}}');">
-											<strong class="card-title-directory">
-												<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
-											</strong>
-											{{#userHasPermission "FOLDER_DELETE"}}
-											<a href="/files/directory/"
-											   target="_blank"
-											   data-method="delete"
-							   title="Ordner löschen"
-											   data-file-id="{{../this._id}}"
-											   data-file-name="{{{../this.name}}}">
-												<i class="fa fa-trash-o directory-icon pull-right"></i>
-											</a>
-
-							<a href="/directoryModel/{{../this._id}}/rename"
-											   target="_blank"
-											   data-method="dir-rename"
-							   title="Ordner umbenennen"
-							   data-directory-id="{{../this._id}}"
-											   data-directory-name="{{../this.name}}">
-												<i class="fa fa-edit directory-icon pull-right"></i>
-											</a>
-							{{/userHasPermission}}
-										</div>
-									</div>
+						<div class="col-xs-12">
+						  <div class="card card-block folder openfolder" data-folder-id="{{this._id}}">
+								<strong class="card-title-directory">
+									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
+								</strong>
+								{{#userHasPermission "FOLDER_DELETE"}}
+								<a href="/files/directory/"
+									target="_blank"
+									data-method="delete"
+									title="{{$t "files.label.deleteFolder"}}"
+									data-file-id="{{../this._id}}"
+									data-file-name="{{{../this.name}}}">
+									<i class="fa fa-trash-o directory-icon pull-right"></i>
+								</a>
+								<a href="/directoryModel/{{../this._id}}/rename"
+									target="_blank"
+									data-method="dir-rename"
+								title="{{$t "files.label.renameFolder"}}"
+								data-directory-id="{{../this._id}}"
+									data-directory-name="{{../this.name}}">
+									<i class="fa fa-edit directory-icon pull-right"></i>
+								</a>
+								{{/userHasPermission}}
+							</div>
+						</div>
 					{{/each}}
 				</div>
 			</section>

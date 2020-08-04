@@ -75,7 +75,7 @@
 // Modal header
 // Top section of the modal w/ title and dismiss
 .modal-header {
-  padding: $modal-title-padding;
+  padding: $pagination-padding-x-lg;
   border-bottom: $modal-header-border-width solid $modal-header-border-color;
   @include clearfix;
 }
@@ -94,7 +94,29 @@
 // Where all modal content resides (sibling of .modal-header and .modal-footer)
 .modal-body {
   position: relative;
-  padding: $modal-inner-padding;
+  padding: $pagination-padding-x-lg;
+
+  ol {
+    padding-inline-start: initial !important;
+    counter-reset: counter;
+    li {
+      display:block;
+    }
+    li:before {
+      counter-increment: counter;
+      content: counter(counter) ". ";
+    }
+  }
+}
+
+.modal-body-text {
+  
+  div {
+    display:inline;
+  }
+  .modal-danger {
+    color: #ff1134;
+  }
 }
 
 // Footer (for actions)
@@ -103,6 +125,21 @@
   text-align: right; // right align buttons
   border-top: $modal-footer-border-width solid $modal-footer-border-color;
   @include clearfix(); // clear it in case folks use .pull-* classes on buttons
+}
+
+// For Footer containing checkbox
+.modal-checkbox {
+  display:flex;
+  padding: $pagination-padding-x-lg;
+
+  div {
+    margin-left: auto;
+  }
+
+  label {
+    align-self: center;
+  }
+
 }
 
 // Measure scrollbar width for padding body during modal show/hide

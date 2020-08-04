@@ -6,15 +6,17 @@ const express = require('express');
 const feedr = require('feedr').create();
 
 const router = express.Router();
+const { Configuration } = require('@schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const redirectHelper = require('../helpers/redirect');
 const userConsentVersions = require('../helpers/consentVersions');
 
 const logger = require('../helpers/logger');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
-}).then(data => data.data);
+}).then((data) => data.data);
 
 // SSO Login
 
@@ -23,7 +25,7 @@ router.get('/tsp-login/', (req, res, next) => {
 	let redirect = '/dashboard';
 	if (redirectParam) {
 		if (Array.isArray(redirectParam)) {
-			const redirects = redirectParam.filter(v => v !== 'true');
+			const redirects = redirectParam.filter((v) => v !== 'true');
 			if (redirects.length > 0) {
 				redirect = redirects[0];
 			}
@@ -31,6 +33,7 @@ router.get('/tsp-login/', (req, res, next) => {
 			redirect = redirectParam;
 		}
 	}
+	redirect = redirectHelper.getValidRedirect(redirect);
 	return authHelper.login({ strategy: 'tsp', ticket, redirect }, req, res, next);
 });
 
@@ -44,17 +47,18 @@ router.post('/login/', (req, res, next) => {
 		schoolId,
 		redirect,
 	} = req.body;
+	const validRedirect = redirectHelper.getValidRedirect(redirect);
 	const privateDevice = req.body.privateDevice === 'true';
 	const errorSink = () => next();
 
 	if (system) {
-		const [ systemId, strategy ] = system.split('//');
+		const [systemId, strategy] = system.split('//');
 		return authHelper.login({
-			strategy, username, password, systemId, schoolId, redirect, privateDevice,
+			strategy, username, password, systemId, schoolId, redirect: validRedirect, privateDevice,
 		}, req, res, errorSink);
 	}
 	return authHelper.login({
-		strategy: 'local', username, password, redirect, privateDevice,
+		strategy: 'local', username, password, redirect: validRedirect, privateDevice,
 	}, req, res, errorSink);
 });
 
@@ -63,12 +67,12 @@ const redirectAuthenticated = (req, res) => {
 	if (req.query && req.query.redirect) {
 		redirectUrl = `${redirectUrl}?redirect=${req.query.redirect}`;
 	}
-	return res.redirect(redirectUrl);
+	return res.redirect(redirectHelper.getValidRedirect(redirectUrl));
 };
 
 const determineRedirectUrl = (req) => {
 	if (req.query && req.query.redirect) {
-		return req.query.redirect;
+		return redirectHelper.getValidRedirect(req.query.redirect);
 	}
 	if (req.session.login_challenge) {
 		return '/oauth2/login/success';
@@ -90,56 +94,40 @@ router.all('/', (req, res, next) => {
 				$sort: 'name',
 			},
 		);
-		return schoolsPromise.then(schools => res.render('authentication/home', {
+		return schoolsPromise.then((schools) => res.render('authentication/home', {
 			schools,
-			blogFeed: [],
 			inline: true,
 			systems: [],
 		}));
-		/*
-		return new Promise((resolve) => {
-			feedr.readFeed('https://blog.schul-cloud.org/rss', {
-				requestOptions: { timeout: 2000 },
-			}, (err, data) => {
-				let blogFeed;
-				try {
-					blogFeed = data.rss.channel[0].item
-						.filter(item => (item['media:content'] || []).length && (item.link || []).length)
-						.slice(0, 3)
-						.map((e) => {
-							const date = new Date(e.pubDate);
-							const locale = 'en-us';
-							const month = date.toLocaleString(locale, { month: 'long' });
-							e.pubDate = `${date.getDate()}. ${month}`;
-							e.description = e.description.join(' ');
-							e.url = e.link[0];
-							e.img = {
-								src: e['media:content'][0].$.url,
-								alt: e.title,
-							};
-							return e;
-						});
-				} catch (e) {
-					// just catching the blog-error
-					blogFeed = [];
-				}
-				const schoolsPromise = getSelectOptions(
-					req, 'schools',
-					{
-						purpose: { $ne: 'expert' },
-						$limit: false,
-						$sort: 'name',
-					},
-				);
-				resolve(schoolsPromise.then(schools => res.render('authentication/home', {
-					schools,
-					blogFeed,
-					inline: true,
-					systems: [],
-				})));
-			});
+	});
+});
+
+const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
+	.then(() => getSelectOptions(req, 'schools', {
+		purpose: { $ne: 'expert' },
+		$limit: false,
+		$sort: 'name',
+	}).then((schools) => {
+		res.render('authentication/login', {
+			schools,
+			systems: [],
+			hideMenu: true,
+			redirect: redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : ''),
 		});
-		*/
+	}));
+
+router.get('/loginRedirect', (req, res, next) => {
+	authHelper.isAuthenticated(req).then((isAuthenticated) => {
+		if (isAuthenticated) {
+			return redirectAuthenticated(req, res);
+		}
+		if (Configuration.get('FEATURE_MULTI_LOGIN_INSTANCES')) {
+			return res.redirect('/login-instances');
+		}
+		return res.redirect('/login');
+	}).catch((error) => {
+		logger.error('Error during login', { error: error.toString() });
+		return next(error);
 	});
 });
 
@@ -148,21 +136,21 @@ router.all('/login/', (req, res, next) => {
 		if (isAuthenticated) {
 			return redirectAuthenticated(req, res);
 		}
-		return authHelper.clearCookie(req, res)
-			.then(() => getSelectOptions(req,
-				'schools', {
-					purpose: { $ne: 'expert' },
-					$limit: false,
-					$sort: 'name',
-				})
-				.then((schools) => {
-					res.render('authentication/login', {
-						schools,
-						systems: [],
-						redirect: req.query && req.query.redirect ? req.query.redirect : '',
-					});
-				}));
+		return handleLoginFailed(req, res);
 	}).catch((error) => {
+		logger.error('Error during login', { error: error.toString() });
+		return next(error);
+	});
+});
+
+router.all('/login/superhero/', (req, res, next) => {
+	res.locals.notification = {
+		type: 'danger',
+		message: res.$t('login.text.superheroForbidden'),
+		statusCode: 401,
+		timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
+	};
+	handleLoginFailed(req, res).catch((error) => {
 		logger.error('Error during login', { error: error.toString() });
 		return next(error);
 	});
@@ -183,6 +171,9 @@ const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
 router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 	if (res.locals.currentUser) {
 		const user = res.locals.currentUser;
+		if (res.locals.currentPayload.forcePasswordChange) {
+			return res.redirect('/forcePasswordChange');
+		}
 		api(req).get('/consents/', { qs: { userId: user._id } })
 			.then((consents) => {
 				if (consents.data.length === 0) {
@@ -222,7 +213,7 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 router.get('/login/systems/:schoolId', (req, res, next) => {
 	api(req).get(`/schools/${req.params.schoolId}`, { qs: { $populate: ['systems'] } })
 		.then((data) => {
-			const systems = data.systems.filter(value => value.type !== 'ldap' || value.ldapConfig.active === true);
+			const systems = data.systems.filter((value) => value.type !== 'ldap' || value.ldapConfig.active === true);
 			return res.send(systems);
 		})
 		.catch(next);

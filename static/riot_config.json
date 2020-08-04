@@ -1,36 +1,33 @@
 {
-    "default_server_config": {
-        "m.homeserver": {
-            "base_url": "https://matrix.messenger.schule",
-            "server_name": "SC"
-        },
-        "m.identity_server": false
-    },
-    "disable_custom_urls": false,
-    "disable_guests": true,
-    "disable_login_language_selector": false,
-    "disable_3pid_login": true,
-    "brand": "Schul-Cloud Embedded Client",
-    "integrations_ui_url": false,
-    "integrations_rest_url": null,
-    "integrations_widgets_urls": [],
-    "integrations_jitsi_widget_url": false,
-    "bug_report_endpoint_url": false,
-    "defaultCountryCode": "DE",
-    "showLabsSettings": false,
-    "features": {
-        "feature_pinning": "labs",
-        "feature_custom_status": "labs",
-        "feature_custom_tags": "labs",
-        "feature_state_counters": "labs"
-    },
-    "default_federate": false,
-    "default_theme": "light",
-    "roomDirectory": {
-    },
-    "enable_presence_by_hs_url": {
-    },
-    "settingDefaults": {
-        "breadcrumbs": true
-    }
+	"disable_custom_urls": false,
+	"disable_guests": true,
+	"disable_login_language_selector": false,
+	"disable_3pid_login": true,
+	"brand": "Schul-Cloud Embedded Client",
+	"integrations_ui_url": false,
+	"integrations_rest_url": null,
+	"integrations_widgets_urls": [],
+	"integrations_jitsi_widget_url": false,
+	"bug_report_endpoint_url": false,
+	"defaultCountryCode": "DE",
+	"showLabsSettings": false,
+	"features": {
+	},
+	"default_federate": false,
+	"default_theme": "schul-cloud",
+	"roomDirectory": {
+	},
+	"enable_presence_by_hs_url": {
+	},
+	"settingDefaults": {
+		"feature_cross_signing": false,
+		"showAvatarChanges": false,
+		"showJoinLeaves": false,
+		"showRedactions": false,
+		"showDisplaynameChanges": false,
+		"showRoomRecoveryReminder": false,
+		"TagPanel.enableTagPanel": false,
+		"showCookieBar": false,
+		"breadcrumbs": false
+	}
 }

@@ -3,10 +3,12 @@
 		<link rel="stylesheet" href="/styles/addons/addons.css" />
 	{{/content}}
 	{{#content "page"}}
-		<a class="card card-block card-tool" href="/tools/show/portfolio">
-			<h2 class="h5">{{$t "addons.headline.portfolio"}}</h2>
-			<img src="/images/cloud.png" class="card-img" style="width:auto; height:75px;" />
-			<span>{{$t "addons.text.portfolioDescription"}}</span>
-		</a>
+		{{#ifConfig "FEATURE_EXTENSION_PORTFOLIO_ENABLED" true}}
+			<a class="card card-block card-tool" href="/tools/show/portfolio">
+				<h2 class="h5">{{$t "addons.headline.portfolio"}}</h2>
+				<img src="/images/cloud.png" class="card-img" style="width:auto; height:75px;" alt="" roles="presentation" />
+				<span>{{$t "addons.text.portfolioDescription"}}</span>
+			</a>
+		{{/ifConfig}}
 	{{/content}}
 {{/extend}}

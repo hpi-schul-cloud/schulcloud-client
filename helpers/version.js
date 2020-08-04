@@ -48,7 +48,7 @@ try {
 	branch = getLines(versionFileLines, 1);
 	message = getLines(versionFileLines, 2, versionFileLines.length);
 } catch (error) {
-	logger.error('version file missing', error);
+	logger.info('version file does not exist (/version exists only in production)');
 }
 
 module.exports = {

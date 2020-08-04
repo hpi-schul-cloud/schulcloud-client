@@ -1,24 +1,32 @@
 {{#if prefix}}
 	<label>
 		<input name="{{prefix}}parentalAuthConsent" type="checkbox" value="true" required/>
-		<span>Ich, <b data-from="parent_firstName"></b> <b data-from="parent_lastName"></b>, bin erziehungsberechtigt für <b data-from="firstName"></b> <b data-from="lastName"></b> und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.</span>
+		<span>{{{$t "registration._registration.parent.label.iAmLegalGuardianOfChild"}}} </span>
 	</label>
 	<p style="font-size: 8px;margin: 0;">&nbsp;</p>
 
 	<label>
 		<input name="{{prefix}}privacyConsent" type="checkbox" value="true" required/>
-		<span>Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank" rel="noopener">Datenschutzerklärung</a> der Schule in der {{@root.theme.title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.</span>
+		{{#if @root.schoolPrivacyLink}}
+			<span>{{{$t "registration._registration.parent.text.myDataMayBeProcessed" (dict "link" @root.schoolPrivacyLink "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
+		{{else}}
+			<span>{{{$t "registration._registration.parent.text.myDataMayBeProcessed" (dict "link" @root.theme.documents.specificFiles.privacyExemplary "title" @root.theme.title)}}} </span>
+		{{/if}}
 	</label>
-	<p class="explanation">Die Einwilligung ist freiwillig, das heißt, wenn Sie Ihre Einwilligung nicht erteilen, führt diesfür Ihr Kind nicht zu Nachteilen im Unterricht. Die Einwilligung kann jederzeit von Ihnen widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens des Elternteils und des Kindes, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung">widerruf@schul-cloud.org</a>. Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder Sie oder Ihr Kind wollen vorher noch auf die gespeicherten Daten zugreifen.</p>
+
+	<p class="explanation">{{{$t "registration._registration.global.text.agreementIsVoluntary" (dict "title" @root.theme.title)}}} {{{$t "registration._registration.global.text.agreementCanBeRevoked"}}} {{{$t "registration._registration.global.text.inCaseOfRevokationDataDeletion"}}}</p>
 {{else}}
 	<label>
 		<input name="{{prefix}}privacyConsent" type="checkbox" value="true" required/>
-		<span>Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank" rel="noopener">Datenschutzerklärung</a> der Schule in der {{@root.theme.title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.</span>
-	</label>
-	<p class="explanation">Die Einwilligung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung">widerruf@schul-cloud.org</a>. Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen.</p>
+		{{#if @root.schoolPrivacyLink}}
+			<span>{{{$t "registration._registration.global.text.myDataMayBeProcessed" (dict "link" @root.schoolPrivacyLink "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
+		{{else}}
+			<span>{{{$t "registration._registration.global.text.myDataMayBeProcessed" (dict "link" @root.theme.documents.specificFiles.privacyExemplary "title" @root.theme.title)}}} </span>
+		{{/if}}	</label>
+	<p class="explanation">{{{$t "registration._registration.global.text.agreementIsVoluntary" (dict "title" @root.theme.title)}}} {{{$t "registration._registration.global.text.agreementCanBeRevoked"}}} {{{$t "registration._registration.global.text.inCaseOfRevokationDataDeletion"}}}</p>
 {{/if}}
 
 <label>
     <input name="{{prefix}}termsOfUseConsent" type="checkbox" value="true" required/>
-    <span>Ich habe die <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}" target="_blank" rel="noopener">Nutzungsordnung der {{@root.theme.title}}</a> gelesen und stimme ihr zu.</span>
+    <span>{{{$t "registration.text.iReadAndAgreeWithTermsOfUse" (dict "link" @root.theme.documents.specificFiles.termsOfUseExemplary "title" @root.theme.title)}}}</span>
 </label>

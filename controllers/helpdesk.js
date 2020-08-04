@@ -4,6 +4,7 @@ const router = express.Router();
 const logger = require('winston');
 const fileUpload = require('express-fileupload');
 const UAParser = require('ua-parser-js');
+const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
 
@@ -48,15 +49,15 @@ router.post('/', fileUpload({
 		&& !element.mimetype.includes('video/')
 		&& !element.mimetype.includes('application/msword')
 		&& !element.mimetype.includes('application/pdf')) {
-			throw new Error(`"${element.name}" ist kein Bild, Video oder zulässige Datei!`);
+			throw new Error(res.$t('helpdesk.text.fileWrongFormat', { filename: element.name }));
 		}
 		fileSize += element.size;
 	});
 	if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE) {
 		if (files.length > 1) {
-			throw new Error('Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!');
+			throw new Error(res.$t('helpdesk.text.filesTooLarge'));
 		} else {
-			throw new Error('Die angehängte Datei überschreitet die maximal zulässige Größe!');
+			throw new Error(res.$t('helpdesk.text.fileTooLarge'));
 		}
 	}
 
@@ -90,17 +91,17 @@ router.post('/', fileUpload({
 			req.session.notification = {
 				type: 'success',
 				message:
-                'Feedback erfolgreich versendet!',
+                res.$t('helpdesk.text.feedbackSuccessful'),
 			};
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		}).catch((err) => {
 			req.session.notification = {
 				type: 'danger',
 				message:
-                'Fehler beim Senden des Feedbacks.',
+					res.$t('helpdesk.text.feedbackError'),
 			};
 			logger.warn(err);
-			res.redirect(req.header('Referer'));
+			redirectHelper.safeBackRedirect(req, res);
 		});
 });
 

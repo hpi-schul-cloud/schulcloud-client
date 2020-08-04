@@ -1,57 +1,20 @@
-<style>
-	.create-videoconference-option {
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.create-videoconference-option-text {
-		width: 80%;
-		font-weight: bold;
-		margin-right: 10px;
-	}
-
-	.create-videoconference label {
-		margin-right: 0.5rem;
-	}
-
-	.create-videoconference .toggle {
-		height: 2rem !important;
-		width: 7rem !important;
-	}
-
-	.create-videoconference .toggle .toggle-handle {
-		width: 0.3rem !important;
-		background: whitesmoke !important;
-	}
-
-	.create-videoconference .off {
-		background: grey !important;
-	}
-
-	.create-videoconference .off label {
-		color: whitesmoke !important;
-		padding-left: 48px !important;
-	}
-
-	.create-videoconference .on label {
-		padding-right: 48px !important;
-	}
-</style>
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/lib/forms/form-create-videoconference.css" />
+{{/content}}
 
 <div class="form-group">
 	<div class="create-videoconference">
 		<div class="checkbox create-videoconference-option">
-			<p class="create-videoconference-option-text">Teilnehmer beim Betreten stummschalten</p>
+			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.muteParticipants" }}</p>
 			<input name="startMuted" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
 		</div>
 		<div class="checkbox create-videoconference-option" style="display:none;">
 			<!-- feature currently not supported in bbb -->
-			<p class="create-videoconference-option-text">Freigabe durch Moderator, bevor der Raum betreten werden kann</p>
+			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.approvalByTheModerator" }}</p>
 			<input name="requestModerator" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
 		</div>
 		<div class="checkbox create-videoconference-option">
-			<p class="create-videoconference-option-text">Alle Nutzer nehmen als Moderator teil</p>
+			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.allUsersParticipate" }}</p>
 			<input name="everyoneIsModerator" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
 		</div>
 	</div>

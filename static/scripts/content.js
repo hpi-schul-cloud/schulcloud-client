@@ -82,9 +82,9 @@ $(document).ready(function () {
 			}
 
 			populateModalForm($editModal, {
-				title: 'Material zu Thema hinzufügen',
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Senden',
+				title: $t('content.headline.addContentToTopic'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.send'),
 				fields: fields
 			});
 			populateCourseSelection($editModal, result.courses);
@@ -102,8 +102,8 @@ $(document).ready(function () {
 
 	$('.external-link').on('click', function () {
 		populateModalForm($externalLinkModal, {
-				title: 'Sie verlassen jetzt die Schul-Cloud',
-				closeLabel: 'Abbrechen',
+				title: $t('content.headline.youAreLeavingSC'),
+				closeLabel: $t('global.button.cancel')
 		});
 		$externalLinkModal.find('.external-link-btn').attr('href', $(this).data('external-link'));
 		var provider = $externalLinkModal.find('.provider');
