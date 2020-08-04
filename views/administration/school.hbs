@@ -213,67 +213,64 @@
 							</div>
 						{{/ifConfig}}
 
-						{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}
-							<div class="form-group">
-								<label>
-									<input
-										id="messenger"
-										type="checkbox"
-										name="messenger"
-										value="true"
-										{{#inArray "messenger" ../school.features}}checked{{/inArray}}
-										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-											{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-												disabled
-											{{/userHasPermission}}
-										{{/userHasPermission}}
+                        {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
+                        <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}}">
+                            <label>
+                                <input
+                                    id="messenger"
+                                    type="checkbox"
+                                    name="messenger"
+                                    value="true"
+                                    {{#inArray "messenger" ../school.features}}checked{{/inArray}}
+                                    {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+                                        {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+                                            disabled
+                                        {{/userHasPermission}}
+                                    {{/userHasPermission}}
+                                />
+                                {{$t "administration.school.label.activeChatFunction" }}
+                                <p class="text-muted">
+                                    {{$t "administration.school.text.ifChatsAreActivatedAtYourSchool" }}
+                                </p>
+                            </label>
+                        </div>
+
+                        {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}
+                        <div id="messenger-sub-options">
+                            {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
+                            <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED" false}}hidden{{/ifConfig}}">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="messengerSchoolRoom"
+                                        value="true"
+                                        {{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}
+                                        {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+                                            {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+                                                disabled
+                                            {{/userHasPermission}}
+                                        {{/userHasPermission}}
                                     />
-									{{$t "administration.school.label.activeChatFunction" }}
-									<p class="text-muted">
-										{{$t "administration.school.text.ifChatsAreActivatedAtYourSchool" }}
-									</p>
-								</label>
-							</div>
+                                    {{$t "administration.school.label.createChatRoom" }}
+                                    <p class="text-muted">
+                                    {{$t "administration.school.text.chatRoomPermissions" }}
+                                    </p>
+                                </label>
+                            </div>
+                        </div>
 
-							{{#ifConfig "FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED" true}}
-								<div id="messenger-sub-options">
-									<div class="form-group">
-										<label>
-											<input
-												type="checkbox"
-												name="messengerSchoolRoom"
-												value="true"
-												{{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}
-												{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-													{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-														disabled
-													{{/userHasPermission}}
-												{{/userHasPermission}}
-											/>
-                                            {{$t "administration.school.label.createChatRoom" }}
-											<p class="text-muted">
-                                            {{$t "administration.school.text.chatRoomPermissions" }}
-											</p>
-										</label>
-									</div>
-								</div>
-							{{/ifConfig}}
-						{{/ifConfig}}
-
-						{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}
-							{{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
-								<div class="form-group">
-									<label>
-										<input type="checkbox" name="rocketchat" value="true"
-											{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
-										{{$t "administration.school.label.activeChatFunction" }}
-										<p class="text-muted">
-											{{$t "administration.school.text.ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan" }}
-										</p>
-									</label>
-								</div>
-							{{/if}}
-						{{/ifConfig}}
+                        {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
+                            <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}hidden{{/ifConfig}}">
+                                <label>
+                                    <input type="checkbox" name="rocketchat" value="true"
+                                        {{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
+                                    {{$t "administration.school.label.activeChatFunction" }}
+                                    <p class="text-muted">
+                                        {{$t "administration.school.text.ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan" }}
+                                    </p>
+                                </label>
+                            </div>
+                        {{/if}}
 
 						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
 						<div class="form-group">
