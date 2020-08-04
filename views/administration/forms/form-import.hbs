@@ -1,25 +1,20 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 <input name="roles[]" type="hidden" data-force-value="true" value="{{roles}}" />
 
+<p>{{{$t "administration.form_Import.text.importUserData" }}}</p>
 <p>
-    Importiere Nutzerdaten per .csv-Datei
-    (<a href="#" id="csv-import-example">Beispiel</a>)
-    und lass deinen Nutzern einen Registrierungslink zukommen.
-</p>
-<p>
-    Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du
-    <a href="https://docs.schul-cloud.org/x/NYBgAw" target="_blank">hier</a>.
+    {{{$t "administration.form_Import.text.youCanFindMoreInformationOnTheStructure" }}}
 </p>
 <p>
     <img src="/images/csv_example.png" />
 </p>
 <div class="form-group">
-    <label>CSV-Datei auswählen</label>
+    <label>{{$t "administration.form_Import.label.selectCSVFile" }}</label>
     <input class="form-control" name="csvFile" type="file" required />
 </div>
 <div class="form-group">
-    <label>Schuljahr</label>
-    <select class="form-control" name="schoolYear" data-placeholder="Schuljahr auswählen" data-force-value="true">
+    <label>{{$t "administration.global.label.schoolYear" }}</label>
+    <select class="form-control" name="schoolYear" data-placeholder="{{$t "administration.global.label.chooseSchoolYear" }}" data-force-value="true">
         {{#each years}}
         <option {{#ifeq this._id ../schoolCurrentYear}}selected="selected" {{/ifeq}} value="{{this._id}}">{{this.name}}
         </option>
@@ -28,18 +23,15 @@
 </div>
 <div class="form-group">
     <label>
-        <input name="sendRegistration" type="checkbox" value="true" checked="checked" />
-        Registrierungslinks sofort nach Import an Nutzer senden
+        <input name="sendRegistration" type="checkbox" value="false" />
+        {{$t "administration.form_Import.label.sendRegistrationLinkToUsers" }}
     </label>
     <p>
-        Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen
-        zukommen lassen.
+        {{$t "administration.form_Import.text.alternativelyYouCanCallUpTheRegistration" }}
     </p>
     <p class="lead">
-        ⚠️ ACHTUNG: Beim Import großer Datensätze kommt es derzeit kurz nach dem Start zu einer Fehlermeldung. Im
-        Hintergrund läuft der Importprozess trotzdem unsichtbar weiter. Zeitdauer: circa 4 Minuten pro 1000
-        Nutzer:innen. Bitte warte die entsprechende Zeit ab und aktualisiere dann dein Browserfenster, um die
-        aktualisierte Schüler:innen-Übersicht überprüfen zu können.
+        {{$t "administration.form_Import.text.attention" }}
+
 
     </p>
 </div>
