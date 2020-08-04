@@ -681,12 +681,12 @@ router.get('/:courseId/', async (req, res, next) => {
 		// ################################ end new Editor check ##################################
 
 		const ltiToolIds = (course.ltiToolIds || []).filter(
-			ltiTool => ltiTool.isTemplate !== 'true',
+			(ltiTool) => ltiTool.isTemplate !== 'true',
 		).map((tool) => {
 			tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
 			return tool;
 		});
-		const lessons = (_lessons.data || []).map(lesson => Object.assign(lesson, {
+		const lessons = (_lessons.data || []).map((lesson) => Object.assign(lesson, {
 			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
 		}));
 
@@ -708,14 +708,14 @@ router.get('/:courseId/', async (req, res, next) => {
 			'COURSE_EDIT',
 		)
 			? _courseGroups.data || []
-			: (_courseGroups.data || []).filter(cg => cg.userIds.some(
-				user => user._id === res.locals.currentUser._id,
+			: (_courseGroups.data || []).filter((cg) => cg.userIds.some(
+				(user) => user._id === res.locals.currentUser._id,
 			));
 
 		// ###################### start of code for new Editor ################################
 		let newLessons;
 		if (isNewEdtrioActivated) {
-			newLessons = (_newLessons.data || []).map(lesson => ({
+			newLessons = (_newLessons.data || []).map((lesson) => ({
 				...lesson,
 				url: `/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`,
 				hidden: !lesson.visible,
