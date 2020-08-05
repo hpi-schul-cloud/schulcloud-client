@@ -58,53 +58,53 @@
                     </div>
                 {{/unless}}
 
-                {{#unless hasImportHash}}<button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">{{$t "administration.button.edit" }}<i class="fa fa-edit"></i></button>{{/unless}}
+                {{#unless hasImportHash}}<button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">{{$t "global.button.edit" }}<i class="fa fa-edit"></i></button>{{/unless}}
                 <h2 class="h5">{{$t "administration.button.consent" }} {{{consentStatusIcon}}}</h2>
                 <div class="row" id="consents-overview">
                     {{#unless editTeacher}}
                         {{#unless hasImportHash}}
                             <div class="col-md-6">
-                                <b>{{$t "administration.label.parents" }}</b><br/>
-                                <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}"/>
+                                <b>{{$t "administration.global.label.parents" }}</b><br/>
+                                <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" disabled/>
 
-                                <label><input name="parent_form" value="analog" type="radio" {{#ifeq consent.parentConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
-                                <label><input name="parent_form" value="digital" type="radio" {{#ifeq consent.parentConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
+                                <label><input name="parent_form" value="analog" type="radio" disabled {{#ifeq consent.parentConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                                <label><input name="parent_form" value="digital" type="radio" disabled {{#ifeq consent.parentConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
                                 <br/>
-                                <label><input name="parent_privacyConsent" type="checkbox" value="true" {{#if consent.parentConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
-                                <label><input name="parent_termsOfUseConsent" type="checkbox" value="true" {{#if consent.parentConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
+                                <label><input name="parent_privacyConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
+                                <label><input name="parent_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
                             </div>
                             <div class="col-md-6">
-                                <b>{{$t "administration.label.student" }}</b><br/>
-                                <input name="student_consentId" type="hidden" value="{{consent._id}}"/>
+                                <b>{{$t "administration.global.label.student" }}</b><br/>
+                                <input name="student_consentId" type="hidden" value="{{consent._id}}" disabled/>
 
-                                <label><input name="student_form" value="analog" type="radio" {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
-                                <label><input name="student_form" value="digital" type="radio" {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
+                                <label><input name="student_form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                                <label><input name="student_form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
                                 <br/>
-                                <label><input name="student_privacyConsent" type="checkbox" value="true" {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
-                                <label><input name="student_termsOfUseConsent" type="checkbox" value="true" {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
+                                <label><input name="student_privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
+                                <label><input name="student_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
                             </div>
                         {{else}}
                             <div class="col-md-6">
                                 <p>
-                                    Es liegt noch keine Einverständniserklärung für den Nutzer vor. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung und verteile ihn an den Nutzer oder seine Eltern. Während der Registrierung wird dann die Einverständniserklärung durch den Nutzer selbst erteilt. Wenn eine Einverständniserklärung in Papierform vorliegt, kann der Nutzer per Klick auf "Einverständnis auf Papier erhalten" aktiviert und ein Startpasswort vergeben werden. Damit ist der Login dann freigeschaltet.
+                                    {{$t "administration.users_edit.text.thereIsStillNoDeclarationOfConsent" }}
                                 </p>
                                 <p>
                                     <a class="btn btn-secondary" href="/administration/students/{{user._id}}/skipregistration">
                                         <i class="fa fa-check-square-o"></i>
-                                        {{$t "administration.button.receivedConsentOnPaper" }} 
+                                        {{$t "administration.button.receivedConsentOnPaper" }}
                                     </a>
                                 </p>
                             </div>
                         {{/unless}}
                     {{else}}
                         <div class="col-md-6">
-                            <input name="consentId" type="hidden" value="{{consent._id}}"/>
+                            <input name="consentId" type="hidden" value="{{consent._id}}" disabled/>
 
-                            <label><input name="form" value="analog" type="radio" {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
-                            <label><input name="form" value="digital" type="radio" {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
+                            <label><input name="form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                            <label><input name="form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
                             <br/>
-                            <label><input name="privacyConsent" type="checkbox" value="true" {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.label.dataProtection" }}</label><br/>
-                            <label><input name="termsOfUseConsent" type="checkbox" value="true" {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> {{$t "administration.label.termsOfUse" }}</label><br/>
+                            <label><input name="privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.global.label.dataProtection" }}</label><br/>
+                            <label><input name="termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> {{$t "administration.global.label.termsOfUse" }}</label><br/>
                         </div>
                     {{/unless}}
                     </div>
