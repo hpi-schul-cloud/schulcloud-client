@@ -148,6 +148,7 @@
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Schüler:in aus Vorjahresklasse hinzufügen",
+				"all": "Alle",
 				"class": "Klasse:",
 				"className": "Klassenbezeichnung",
 				"filterBySchoolYear": "Nach Schuljahr filtern",
@@ -164,6 +165,8 @@
 				"yourStudentsAreNotYetInThe": "Deine Schüler:innen sind noch nicht in der"
 			},
 			"placeholder": {
+				"change": "Klasse '{{name}}' bearbeiten.",
+				"choseTeacher": "Lehrer auswählen",
 				"example": "z.B. Froschklasse 3-4"
 			},
 			"text": {
@@ -382,9 +385,9 @@
 			}
 		},
 		"form_Policy": {
-            "input": {
-                "schoolsPrivacyPolicy": "Datenschutzerklärung der Schule"
-            },
+			"input": {
+				"schoolsPrivacyPolicy": "Datenschutzerklärung der Schule"
+			},
 			"label": {
 				"chooseAFile": "Datei auswählen",
 				"description": "Beschreibung",
@@ -508,10 +511,12 @@
 			}
 		},
 		"label": {
+			"analog": "Analog",
 			"assignPassword": "Passwort vergeben:",
 			"birthdate": "Geburtsdatum:",
 			"classes": "Klassen:",
 			"dataProtection": "Datenschutz",
+			"digital": "Digital",
 			"emailAddress": "E-Mail-Adresse:",
 			"firstName": "Vorname:",
 			"lastName": "Nachname:",
@@ -662,7 +667,6 @@
 				"noteBeforeTheTransferPhase": "Beachte vor der Transferphase:",
 				"passwordChangesInLDAP": "Kennwortänderungen im LDAP",
 				"privacySettings": "Datenschutz-Einstellungen",
-				"processedForTheNewSchoolYear": "für das neue Schuljahr sind bearbeitet.",
 				"schoolYear": "Schuljahr:",
 				"schoolYearChange": "Schuljahreswechsel",
 				"selectProvider": "Anbieter auswählen",
@@ -670,7 +674,7 @@
 				"studentVisibility": "Sichtbarkeit von Schüler:innen für Lehrkräfte aktivieren",
 				"transferPhase": "Transferphase",
 				"uploadSchoolLogo": "Schullogo hochladen",
-				"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP",
+				"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP  <br> für das neue Schuljahr sind bearbeitet.",
 				"youCantGoBack": "Du kannst nicht mehr zurück",
 				"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr"
 			},
@@ -811,7 +815,10 @@
 				"generatedLink": "Einladungslink generiert!"
 			},
 			"text": {
+				"alreadyRegistered": "Der Nutzer ist bereits registriert",
+				"class": "Klassen des Nutzers",
 				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
+				"firstClose": "Der Nutzer muss zuerst die Einverständniserklärung digital abschließen",
 				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!",
 				"thereIsStillNoDeclarationOfConsent": "Es liegt noch keine Einverständniserklärung für den Nutzer vor. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung und verteile ihn an den Nutzer oder seine Eltern. Während der Registrierung wird dann die Einverständniserklärung durch den Nutzer selbst erteilt. Wenn eine Einverständniserklärung in Papierform vorliegt, kann der Nutzer per Klick auf 'Einverständnis auf Papier erhalten' aktiviert und ein Startpasswort vergeben werden. Damit ist der Login dann freigeschaltet."
 			}

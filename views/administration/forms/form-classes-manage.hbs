@@ -6,7 +6,7 @@
     <div class="row">
         <a class="d-block mb-1"
             href="/administration/classes/{{@root.class/_id}}/edit"
-            title="Klasse '{{@root.class.name}}' bearbeiten.">
+            title="{{$t "administration.classes.placeholer.change" (dict "name" @root.class.name)}}">
             <i class="fa fa-pencil"></i> {{$t "administration.classes.label.renameClass" }}
         </a>
     </div>
@@ -15,7 +15,7 @@
         <div style="width: 100%" class="form-group">
             <label>{{$t "administration.global.label.teacher" }} {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
 
-            <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
+            <select name="teacherIds[]" multiple data-placeholder="{{$t "administration.classes.placeholer.choseTeacher"}}" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
                 {{#each teachers}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
                         {{#if this.displayName}}
@@ -144,7 +144,7 @@
         <div class="form-group">
             <label for="filter_schoolyear">{{$t "administration.classes.label.filterBySchoolYear" }}</label>
             <select id="filter_schoolyear" name="classes" data-placeholder="{{$t "administration.global.placeholder.filterBySchoolYear" }}">
-                <option value="" selected>Alle</option>
+                <option value="" selected>{{$t "administration.classes.label.all" }}</option>
                 {{#each schoolyears}}
                     <option value="{{this._id}}">
                         {{this.name}}
