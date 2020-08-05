@@ -45,17 +45,17 @@
         {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
-            <nav id="sidebar" aria-label="{{$t "global.sidebar.ariaLabel"}}">
+            <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
                 <ul class="sidebar-list">
                     <li>
-                        <a class="sc-branding" aria-label="{{$t "global.title.landing"}}" href="/">
+                        <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}">
                             <div class="cloud-logo"></div>
                             <div class="sc-title"><span>{{theme.short_title}}</span></div>
                         </a>
                     </li>
                     {{#each sidebarItems}}
                         <li>
-								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
                                 <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
                                 <span class="link-name">{{this.name}}</span>
                             </a>
@@ -65,7 +65,7 @@
                                     <ul class="subitems">
                                         {{#each this.children}}
                                             <li>
-												<a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+												<a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
 													{{#if this.isExternalIcon}}
 														{{{this.icon}}}
 													{{else}}
@@ -86,7 +86,7 @@
         </aside>
 
 		<section class="content-wrapper">
-					<a class="mobile-nav-toggle" aria-label="{{$t "global.mobileNavMenu.ariaLabel"}}">
+					<a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">
 						<i class="fa fa-bars" aria-hidden="true"></i>
 					</a>
 				<div class="content-min-height">
@@ -108,8 +108,7 @@
 				{{/ifeq}}
 
                 {{> "lib/components/notification"}}
-				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.topMenu.ariaLabel"}}">
-
+				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.aria_label.topMenu"}}">
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
@@ -151,7 +150,7 @@
                                 <div class="dropdown-menu print">
                                     <div class="content qr-show"></div>
 										<div class="qr-hint-text">
-											{{$t "global.topMenu.qrHintText"}}
+											{{$t "global.text.qrHintText"}}
 										</div>
                                     <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="{{$t "lib.loggedin.label.printQrCode"}}" tabindex="0">
                                         <i class="fa fa-print" aria-hidden="true"></i> {{$t "global.button.print" }}
@@ -261,11 +260,10 @@
 
                 <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
                 <p id="backendUrl" hidden>{{ backendUrl }}</p>
-
                 <main id="main-content" class="container-fluid">
-					<dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.ariaLabel"}}">
+					<dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.aria_label.sidebar"}}">
 						<dd>
-							<a href="#sidebar">{{$t "global.sidebar.ariaLabel"}}</a>
+							<a href="#sidebar">{{$t "global.aria_label.sidebar"}}</a>
 						</dd>
 					</dl>
 					{{#block "page"}}{{/block}}
