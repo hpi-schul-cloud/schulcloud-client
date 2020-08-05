@@ -108,7 +108,8 @@
 							{{/each}}
 						</select>
 						{{else}}
-						<input name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" aria-describedby="substitutionWarning" />
+                        <label for="courseId" class="hidden">{{assignment.courseId.name}}</label>
+						<input id="courseId" name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" aria-describedby="substitutionWarning" />
 						<div><i>{{assignment.courseId.name}}</i> <small class="text-secondary" id="substitutionWarning">{{$t "homework.global.text.substitutionTeachersMayNotChangeTheCourse"}}</small></div>
 						{{/unless}}
 					</div>
