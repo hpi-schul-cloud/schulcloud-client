@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>{{$t "administration.global.label.firstName" }} <sup>*</sup></label>
+                        <label>{{$t "global.label.firstNameColon" }} <sup>*</sup></label>
                         <input class="form-control" name="firstName" type="text" required readonly
                             value="{{user.firstName}}" />
                     </div>
@@ -25,7 +25,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>{{$t "administration.global.label.lastName" }} <sup>*</sup></label>
+                        <label>{{$t "global.label.lastNameColon" }} <sup>*</sup></label>
                         <input class="form-control" name="lastName" type="text" required readonly
                             value="{{user.lastName}}" />
                     </div>
@@ -34,13 +34,13 @@
 
 
             <div class="form-group">
-                <label>{{$t "administration.global.label.emailAddress" }} <sup>*</sup></label>
+                <label>{{$t "global.label.emailAddress" }} <sup>*</sup></label>
                 <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org"
                     value="{{user.email}}" required readonly>
             </div>
             {{#unless editTeacher}}
             <div class="form-group">
-                <label>{{$t "administration.global.label.birthdate" }}<sup>*</sup></label>
+                <label>{{$t "global.label.dateOfBirth" }}<sup>*</sup></label>
                 <input class="form-control linked" id="birthday" data-date
                     data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}"
                     name="birthday" type="text" required value="{{dateToPicker user.birthday "DD.MM.YYYY"}}" />
