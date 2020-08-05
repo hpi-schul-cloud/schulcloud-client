@@ -264,7 +264,7 @@ const login = (payload = {}, req, res, next) => {
 
 		// Email Domain Blocked
 		if (e.statusCode === 400 && e.error.message === 'EMAIL_DOMAIN_BLOCKED') {
-			res.locals.notification.message = res.$t('login.text.loginFailedBlockedEmailDomain');
+			res.locals.notification.message = res.$t('global.text.emailDomainBlocked');
 		}
 
 		// Too Many Requests
