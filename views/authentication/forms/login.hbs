@@ -1,6 +1,6 @@
 <section id="loginarea" class="card mt-3">
 	<div class="card-block">
-		<h2 class="h4 card-title">{{$t "login.headline.loginForRegisteredUsers"}}</h2>
+		<h1 class="h4 card-title">{{$t "login.headline.loginForRegisteredUsers"}}</h1>
 		<div class="card-text form-wrapper">
 			{{> "lib/components/notification"}}
 
@@ -28,14 +28,14 @@
 						<input type="checkbox" id="privateDevice" name="privateDevice" value="true">
 						<label for="privateDevice">{{$t "login.label.thisIsAPrivateDevice"}}</label>
 						<button type="button" data-toggle="tooltip" data-placement="left" title="{{$t "login.button.longerLoggedInWhenActivated"}}" class="btn-link px-1">
-							<i class="fa fa-info"></i>
+							<i aria-hidden="true" class="fa fa-info"></i>
 						</button>
 					</div>
 					{{/ifEnv}}
 				</div>
 
                 <button  title={{$t "login.button.moreOptions"}} class="btn toggle-btn btn-block btn-secondary btn-toggle-providers ">
-                    <i class="fa fa-chevron-down"></i> {{$t "login.button.moreOptions"}}
+                    <i aria-hidden="true" class="fa fa-chevron-down"></i> {{$t "login.button.moreOptions"}}
                 </button>
 
 
@@ -68,9 +68,9 @@
 				{{> "lib/components/csrfInput"}}
 				<div class="form-group">
 					{{#if notification.statusCode}}
-						<input type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
 					{{else}}
-						<input type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" />
+						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" />
 					{{/if}}
 				</div>
 			</form>
