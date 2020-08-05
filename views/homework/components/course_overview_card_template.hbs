@@ -1,12 +1,12 @@
 <li class="card assignment">
-    <a href="{{this.url}}" aria-label="Details der Aufgabe: '{{escapeHtml this.name}}'">
+    <a href="{{this.url}}" aria-label="{{$t "homework.label.taskDetails"}} '{{escapeHtml this.name}}'">
         <div class="dates">
             {{#if availableDate}}
-              Veröffentlicht {{timeFromNow availableDate}}<br />
+              {{$t "homework.text.published"}} {{timeFromNow availableDate}}<br />
             {{/if}}
             {{#if dueDate}}
             {{!-- TODO  Color by distance --}}
-              Fällig {{timeFromNow dueDate}}
+              {{$t "homework.text.due"}} {{timeFromNow dueDate}}
             {{else}}
                {{$t "homework.text.noSubmissionDateSet"}}
             {{/if}}
