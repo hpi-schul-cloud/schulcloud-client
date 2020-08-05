@@ -3587,7 +3587,9 @@ router.post(
 		api(req)
 			.patch(`/ldap/${system[0]._id}`, {
 				json: {
-					'ldapConfig.active': true,
+					ldapConfig: {
+						active: true,
+					},
 				},
 			})
 			.then(() => {
