@@ -180,7 +180,7 @@ router.get('/', (req, res, next) => {
 					$lte: new Date().getTime(),
 				},
 				$sort: {
-					displayAt: 1,
+					displayAt: -1,
 				},
 				$limit: 3,
 			},

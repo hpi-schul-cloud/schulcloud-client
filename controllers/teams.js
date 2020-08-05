@@ -474,14 +474,6 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
-function sortFunction(a, b) {
-	if (a.displayAt === b.displayAt) {
-		return 0;
-	}
-
-	return a.displayAt < b.displayAt ? 1 : -1;
-}
-
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
@@ -605,6 +597,10 @@ router.get('/:teamId', async (req, res, next) => {
 					displayAt: {
 						$lte: new Date().getTime(),
 					},
+					$sort: {
+						displayAt: -1,
+					},
+					$limit: 3,
 				},
 			})
 			.then((newsres) => newsres.data
@@ -612,9 +608,7 @@ router.get('/:teamId', async (req, res, next) => {
 					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
 					n.secondaryTitle = moment(n.displayAt).fromNow();
 					return n;
-				})
-				.sort(sortFunction)
-				.slice(0, 4))
+				}))
 			.catch((err) => {
 				logger.error(
 					`
