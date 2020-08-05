@@ -1,2 +1,1 @@
-<p>Das Schuljahr {{school.currentYear.name}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.</strong> Es können in dieser Zeit keine Klassen und Nutzer angelegt oder geändert werden.</p>
-<p>Die Synchronisierung von LDAP-Stammdaten wird während der Transferphase unterbrochen. Somit werden Nutzerdaten und Klassen (sofern verwendet) nicht mehr über LDAP aktualisiert. Der Login mit bereits synchronisierten Login-Daten ist weiterhin möglich. Passwortänderungen im LDAP während des Logins werden ebenfalls berücksichtigt.</p>
+<p>{{{$t "administration.form_TerminateSchoolYear.text.theSchoolYear" (dict "currentYear" school.currentYear.name)}}}</p>

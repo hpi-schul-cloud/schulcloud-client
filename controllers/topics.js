@@ -313,7 +313,7 @@ router.get('/:topicId', (req, res, next) => {
 			qs: {
 				$populate: ['materialIds'],
 			},
-		}).then(lesson => {
+		}).then((lesson) => {
 			let etherpadPads = [];
 			if (typeof lesson.contents !== 'undefined') {
 				lesson.contents.forEach((element) => {
