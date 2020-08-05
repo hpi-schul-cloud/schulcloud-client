@@ -28,7 +28,7 @@ router.get('/', (req, res, next) => {
 		}
 		return Promise.resolve(template);
 	}).then(template => res.render(template, {
-		title: res.$t('partner.headline.partner'),
+		title: res.$t('global.link.partner'),
 		inline: !!template.includes('guest'),
 		partners,
 		hiddenAdvisers,

@@ -1,19 +1,19 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
 <div class="form-group">
-    <label>Name des Kurses</label>
+    <label>{{$t "administration.global.label.nameOfTheCourse" }}</label>
     <input class="form-control" name="name" type="text" placeholder="Mathe 10a" required />
 </div>
 
 <div class="form-group">
-    <label>Farbe des Kurses:</label>
+    <label>{{$t "administration.global.label.colorOfTheCourse" }}</label>
     <input name="color" type="color" value="{{#if course.color}}{{course.color}}{{else}}#d32f2f{{/if}}" required/>
 </div>
 
 <div class="form-group">
-    <label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)</small></label>
+    <label>{{$t "administration.global.label.classes" }} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded" }}</small></label>
 
-    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
+    <select name="classIds[]" multiple data-placeholder="{{$t "administration.global.placeholder.selectClasses" }}">
         {{#each classes}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
         {{/each}}
@@ -21,7 +21,7 @@
 </div>
 
 <div class="form-group">
-    <label>Unterrichtender Lehrer</label>
+    <label>{{$t "administration.global.label.teachingTeacher" }} </label>
 
     <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
         {{#each teachers}}
@@ -37,7 +37,7 @@
 </div>
 
 <div class="form-group">
-    <label>Vertretungs Lehrer</label>
+    <label>{{$t "administration.global.label.substituteTeacher" }}</label>
     <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
         {{#each substitutions}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -48,9 +48,9 @@
 </div>
 
 <div class="form-group">
-    <label>Schüler / Teilnehmer</label>
+    <label>{{$t "administration.global.label.studentParticipants" }}</label>
 
-    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
+    <select name="userIds[]" multiple data-placeholder="{{$t "administration.global.placeholder.selectStudent" }}">
         {{#each students}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                 {{#if this.displayName}}
@@ -66,19 +66,19 @@
 <div class="panel-group">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a data-toggle="collapse" href="#collapse{{collapseId}}" class="collapse-toggle"><label>Termine auswählen</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+            <a data-toggle="collapse" href="#collapse{{collapseId}}" class="collapse-toggle"><label>{{$t "administration.global.label.chooseDate" }}</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
         </div>
         <div id="collapse{{collapseId}}" class="panel-collapse collapse">
             <div class="times">
-                <label>Zeitraum (z.B. Schuljahr)</label>
+                <label>{{$t "administration.global.label.timeSpan" }}</label>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Von</label>
+                        <label>{{$t "global.label.from" }}</label>
                         <input name="startDate" id="startDate" type="date" class="form-control" value="{{course.startDate}}"/>
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label>Bis</label>
+                        <label>{{$t "global.label.to" }}</label>
                         <input name="untilDate" id="untilDate" type="date" class="form-control" value="{{course.untilDate}}"/>
                     </div>
                 </div>
@@ -86,17 +86,17 @@
                 <table width="100%" cellpadding="5px" class="course-times">
                     <thead>
                     <th></th>
-                    <th><label>Wochentag</label></th>
-                    <th><label>Start der Schulstunde</label></th>
-                    <th><label>Dauer der Schulstunde</label></th>
-                    <th><label>Raum</label></th>
+                    <th><label>{{$t "administration.global.label.weekday" }}</label></th>
+                    <th><label>{{$t "administration.global.label.startOfLesson" }}</label></th>
+                    <th><label>{{$t "administration.global.label.lengthOfLesson" }}</label></th>
+                    <th><label>{{$t "global.label.room" }}</label></th>
                     </thead>
                     <tbody class="add-course-times">
                         {{#embed "courses/components/template-new-course-time"}}{{/embed}}
                     </tbody>
                 </table>
                 <button class="new-course-time-add btn-link" data-timesref="#collapse1" type="button">
-                    <i class="fa fa-plus-circle fa-6"></i> Neuen Termin hinzufügen
+                    <i class="fa fa-plus-circle fa-6"></i> {{$t "administration.global.button.addNewAppointment" }}
                 </button>
             </div>
         </div>
