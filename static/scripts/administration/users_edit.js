@@ -59,7 +59,7 @@ $(document).ready(() => {
 			action: '',
 			title: $t('administration.users_edit.headline.deleteUser'),
 			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.delete'),
+			submitLabel: $t('global.headline.delete'),
 			fields: {
 				displayName: $('input[name="displayName"]').val(),
 			},
@@ -156,7 +156,7 @@ $(document).ready(() => {
 			},
 			success(linkData) {
 				populateModalForm($invitationModal, {
-					title: $t('administration.users_edit.headline.generatedLink'),
+					title: $t('global.headline.invitationLinkGenerated'),
 					closeLabel: $t('global.button.cancel'),
 					submitLabel: $t('global.button.save'),
 					fields: { invitation: linkData.shortLink },
