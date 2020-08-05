@@ -10,7 +10,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 ## [24.0.3] - 2020-08-05
 ### Fixed - 24.0.3
-    SC-5948 Fix login for international cloud
+
+  - SC-5948 Fix login for international cloud
 
 ## [24.0.2] - 2020-08-05
 ### Fixed - 24.0.2
