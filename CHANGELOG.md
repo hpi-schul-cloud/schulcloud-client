@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+   SC-5954 Fix messenger settings in teams
 
 ## [24.0.1] - 2020-07-31
 ### Fixed - 24.0.1
