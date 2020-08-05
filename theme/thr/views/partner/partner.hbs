@@ -9,12 +9,12 @@
 				<div class="row">
 					{{#each partners.project_partners_thr}}
 					<div class="partner-box-wrapper col-md-4">
-						<div class="partner-box">
-							<a href="{{{url}}}" target="_blank">
+						<a href="{{{url}}}" target="_blank">
+							<div class="partner-box">
 								<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
 									{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-							</a>
-						</div>
+							</div>
+						</a>
 					</div>
 					{{/each}}
 				</div>
@@ -61,7 +61,7 @@
 					</div>
 				</div>
 				<div class="buttonWrapper">
-					<a href="#0"class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+					<button tabindex="4" class="btn toggle-partner transparent" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i></button>
 				</div>
 			</div>
 		{{/content}}
@@ -78,30 +78,30 @@
 				<div class="row">
 					{{#each partners.content_partners}}
 						<div class="partner-box-wrapper col-xs-6 col-md-3">
-							<div class="partner-box">
-								<a href="{{{url}}}" target="_blank">
+							<a href="{{{url}}}" target="_blank">
+								<div class="partner-box">
 									<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
 										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-								</a>
-							</div>
+								</div>
+							</a>
 						</div>
 					{{/each}}
 					<div class="col-xs-12">
 						<div id="hiddenContentPartner" class="collapse row">
 							{{#each hiddenContentPartners}}
 								<div class="partner-box-wrapper col-xs-6 col-md-3">
-									<div class="partner-box">
-										<a href="{{{url}}}" target="_blank">
+									<a href="{{{url}}}" target="_blank">
+										<div class="partner-box">
 											<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
 												{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-										</a>
-									</div>
+										</div>
+									</a>
 								</div>
 							{{/each}}
 						</div>
 					</div>
 					<div class="buttonWrapper">
-						<div tabindex="0" class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenContentPartner">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+						<button class="btn toggle-partner transparent" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenContentPartner">{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i></button>
 					</div>
 				</div>
 			</div>
@@ -119,12 +119,12 @@
 				<div class="row">
 					{{#each partners.sponsors}}
 						<div class="partner-box-wrapper col-xs-6 col-md-6">
-							<div class="partner-box">
-								<a href="{{{url}}}" target="_blank">
+							<a href="{{{url}}}" target="_blank">
+								<div class="partner-box">
 									<img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
 										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-								</a>
-							</div>
+								</div>
+							</a>
 						</div>
 					{{/each}}
 				</div>
