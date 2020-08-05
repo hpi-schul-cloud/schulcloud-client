@@ -2011,11 +2011,6 @@
 			"timeout": "Zeitüberschreitung der Anfrage"
 		}
 	},
-	"first_login":{
-		"img_alt":{
-			"wavingStudents":"Two students waving"
-		}
-	},
 	"login": {
 		"anchor": {
 			"title": {
