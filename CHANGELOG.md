@@ -10,6 +10,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 - SC-5644 navigation and the general structure of pages made more accessible (a11y)
 
+## [24.0.3] - 2020-08-05
+### Fixed - 24.0.3
+
+  - SC-5948 Fix login for international cloud
+
 ## [24.0.2] - 2020-08-05
 ### Fixed - 24.0.2
    SC-5954 Fix messenger settings in teams
