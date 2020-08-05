@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [24.0.2] - 2020-08-05
+### Fixed - 24.0.2
+   SC-5954 Fix messenger settings in teams
+
 ## [24.0.1] - 2020-07-31
 ### Fixed - 24.0.1
    SC-5917 Fix activation of LDAP system
