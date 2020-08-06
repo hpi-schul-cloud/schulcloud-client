@@ -655,7 +655,7 @@ router.get('/:courseId/', async (req, res, next) => {
 		const isNewEdtrioActivated = editorBackendIsAlive && (courseHasNewEditorLessons || userHasEditorEnabled);
 		// ################################ end new Editor check ##################################
 
-		let ltiToolIds = await api(req).get('ltiTools', {
+		let ltiToolIds = await api(req).get('/ltiTools', {
 			qs: {
 				_id: { $in: course.ltiToolIds || [] },
 			},
