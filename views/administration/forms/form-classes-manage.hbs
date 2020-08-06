@@ -143,7 +143,7 @@
 
         <div class="form-group">
             <label for="filter_schoolyear">{{$t "administration.classes.label.filterBySchoolYear" }}</label>
-            <select id="filter_schoolyear" name="classes" data-placeholder="{{$t "administration.global.placeholder.filterBySchoolYear" }}">
+            <select id="filter_schoolyear" name="classes" data-placeholder="{{$t "administration.classes.label.filterBySchoolYear" }}">
                 <option value="" selected>Alle</option>
                 {{#each schoolyears}}
                     <option value="{{this._id}}">
