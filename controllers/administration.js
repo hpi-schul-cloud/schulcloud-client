@@ -795,23 +795,23 @@ const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, 
 const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	{
 		type: 'sort',
-		title: res.$t('administration.controller.headline.sorting'),
-		displayTemplate: res.$t('administration.controller.text.sortBy'),
+		title: res.$t('global.headline.sorting'),
+		displayTemplate: res.$t('global.label.sortBy'),
 		options: [
-			['firstName', res.$t('administration.controller.global.label.firstName')],
-			['lastName', res.$t('administration.controller.global.label.lastName')],
+			['firstName', res.$t('global.label.firstName')],
+			['lastName', res.$t('global.label.lastName')],
 			['email', res.$t('administration.controller.global.label.email')],
-			['classes', res.$t('administration.controller.global.label.classes')],
+			['classes', res.$t('global.headline.classes')],
 			['consentStatus', res.$t('administration.controller.global.label.consentStatus')],
-			['createdAt', res.$t('administration.controller.global.label.createdAt')],
+			['createdAt', res.$t('global.label.creationDate')],
 		],
 		defaultSelection: defaultOrder || 'firstName',
 		defaultOrder: 'DESC',
 	},
 	{
 		type: 'limit',
-		title: res.$t('administration.controller.headline.entriesPerPage'),
-		displayTemplate: res.$t('administration.controller.text.entriesPerPage'),
+		title: res.$t('global.headline.entriesPerPage'),
+		displayTemplate: res.$t('global.label.entriesPerPage'),
 		options: [25, 50, 100],
 		defaultSelection: 25,
 	},
@@ -1097,10 +1097,10 @@ router.get(
 				const users = teachersResponse.data;
 				const years = getSelectableYears(res.locals.currentSchoolData);
 				const head = [
-					res.$t('administration.controller.global.label.firstName'),
-					res.$t('administration.controller.global.label.lastName'),
+					res.$t('global.label.firstName'),
+					res.$t('global.label.lastName'),
 					res.$t('administration.controller.global.label.email'),
-					res.$t('administration.controller.global.label.classes'),
+					res.$t('global.headline.classes'),
 				];
 				if (
 					res.locals.currentUser.roles
@@ -1401,8 +1401,8 @@ router.get(
 				});
 				let studentsWithoutConsentCount = 0;
 				const head = [
-					res.$t('administration.controller.global.label.firstName'),
-					res.$t('administration.controller.global.label.lastName'),
+					res.$t('global.label.firstName'),
+					res.$t('global.label.lastName'),
 					res.$t('administration.controller.global.label.email'),
 					res.$t('administration.controller.global.label.class'),
 					res.$t('administration.controller.global.label.createdOn'),
@@ -2247,7 +2247,7 @@ router.delete(
 const classFilterSettings = ({ years, currentYear }, res) => {
 	const yearFilter = {
 		type: 'select',
-		title: res.$t('administration.controller.headline.schoolYear'),
+		title: res.$t('administration.global.label.schoolYear'),
 		displayTemplate: res.$t('administration.controller.text.schoolYearPercentage'),
 		property: 'year',
 		multiple: true,
@@ -2260,8 +2260,8 @@ const classFilterSettings = ({ years, currentYear }, res) => {
 	return [
 		{
 			type: 'sort',
-			title: res.$t('administration.controller.headline.sorting'),
-			displayTemplate: res.$t('administration.controller.text.sortBy'),
+			title: res.$t('global.headline.sorting'),
+			displayTemplate: res.$t('global.label.sortBy'),
 			options: [['displayName', res.$t('administration.controller.global.label.class')]],
 			defaultSelection: 'displayName',
 			defaultOrder: 'DESC',
@@ -2269,8 +2269,8 @@ const classFilterSettings = ({ years, currentYear }, res) => {
 		yearFilter,
 		{
 			type: 'limit',
-			title: res.$t('administration.controller.headline.sorting'),
-			displayTemplate: res.$t('administration.controller.text.entriesPerPage'),
+			title: res.$t('global.headline.sorting'),
+			displayTemplate: res.$t('global.label.entriesPerPage'),
 			options: [25, 50, 100],
 			defaultSelection: 25,
 		},
@@ -2315,8 +2315,8 @@ router.get(
 				const head = [
 					res.$t('administration.controller.global.label.class'),
 					res.$t('administration.controller.global.label.teacher'),
-					res.$t('administration.controller.global.label.schoolYear'),
-					res.$t('administration.controller.global.label.student'),
+					res.$t('administration.global.label.schoolYear'),
+					res.$t('global.link.administrationStudents'),
 				];
 				const hasEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT');
 				if (hasEditPermission) {
@@ -2479,7 +2479,7 @@ router.all(
 			})
 			.then((data) => {
 				const head = [
-					res.$t('administration.controller.headline.title'),
+					res.$t('global.label.title'),
 					res.$t('administration.controller.headline.itsOn'),
 					res.$t('administration.controller.headline.targetState'),
 					res.$t('administration.controller.headline.status'),
@@ -2691,8 +2691,8 @@ router.all('/courses', (req, res, next) => {
 		})
 		.then((data) => {
 			const head = [
-				res.$t('administration.controller.headline.name'),
-				res.$t('administration.controller.headline.class'),
+				res.$t('global.headline.name'),
+				res.$t('global.headline.classes'),
 				res.$t('administration.controller.headline.teachers'),
 				'',
 			];
@@ -2860,7 +2860,7 @@ router.all('/teams', async (req, res, next) => {
 				res.$t('administration.controller.headline.schools'),
 				res.$t('administration.controller.headline.createdOn'),
 				`${res.$t('administration.controller.headline.status')}*`,
-				res.$t('administration.controller.headline.actions'),
+				res.$t('global.headline.actions'),
 			];
 
 			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
@@ -2928,14 +2928,14 @@ router.all('/teams', async (req, res, next) => {
 							data: {
 								name: item.name,
 								'original-title': item.createdAtMySchool
-									? res.$t('administration.controller.link.deleteTeam')
+									? res.$t('global.button.deleteTeam')
 									: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
 								placement: 'top',
 								toggle: 'tooltip',
 							},
 							// lmethod: `${item.hasMembersOfOtherSchools ? '' : 'delete'}`,
 							title: item.createdAtMySchool
-								? res.$t('administration.controller.link.deleteTeam')
+								? res.$t('global.button.deleteTeam')
 								: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
 						},
 					];
@@ -3149,7 +3149,7 @@ router.use(
 		}
 		// POLICIES
 		const policiesHead = [
-			res.$t('administration.controller.headline.title'),
+			res.$t('global.label.title'),
 			res.$t('administration.controller.headline.description'),
 			res.$t('administration.controller.headline.uploadedOn'),
 			'Link',
@@ -3178,7 +3178,7 @@ router.use(
 		// SYSTEMS
 		const systemsHead = [
 			res.$t('administration.controller.headline.alias'),
-			res.$t('administration.controller.headline.type'),
+			res.$t('global.label.type'),
 			'',
 		];
 		let systemsBody;
@@ -3362,8 +3362,8 @@ router.get('/startldapschoolyear', async (req, res) => {
 	});
 
 	const headUser = [
-		res.$t('administration.controller.global.label.firstName'),
-		res.$t('administration.controller.global.label.lastName'),
+		res.$t('global.label.firstName'),
+		res.$t('global.label.lastName'),
 		res.$t('administration.controller.label.email'),
 		'uid',
 		res.$t('administration.controller.label.roles'),
@@ -3371,8 +3371,8 @@ router.get('/startldapschoolyear', async (req, res) => {
 		'uuid',
 	];
 	const headClasses = [
-		res.$t('administration.controller.headline.name'),
-		res.$t('administration.controller.headline.name'),
+		res.$t('global.headline.name'),
+		res.$t('global.headline.name'),
 		res.$t('administration.controller.global.label.classUsers'),
 	];
 
@@ -3588,7 +3588,9 @@ router.post(
 		api(req)
 			.patch(`/ldap/${system[0]._id}`, {
 				json: {
-					'ldapConfig.active': true,
+					ldapConfig: {
+						active: true,
+					},
 				},
 			})
 			.then(() => {

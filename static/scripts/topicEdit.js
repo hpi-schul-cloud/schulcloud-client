@@ -318,7 +318,7 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>{`+ ${$t('topic.topicEdit.button.material')}`}</button>
                         {neXboardEnabled ? <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button> : '' }
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>{`+ ${$t('topic.topicEdit.button.task')}`}</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>{`+ ${$t('global.headline.task')}`}</button>
                     </div>
                 </div>
             </div>

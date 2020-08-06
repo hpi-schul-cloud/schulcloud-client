@@ -20,23 +20,16 @@ Probably delete it.--}}
         <a class="icon-card__icon" tabindex="-1">
             <i class="fa fa-fw fa-lightbulb-o" aria-hidden="true"></i>
         </a>
-        <h2 class="h4 icon-card__title">Wichtiger Hinweis</h2>
+        <h2 class="h4 icon-card__title">{{$t "administration.ldapEdit.heading.importantNote" }}</h2>
         <div class="icon-card__body">
             <p>
-                Jegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und
-                alle Nutzer Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die
-                Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings
-                editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung
-                wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die
-                Änderungen final zu speichern, wenn die Verifizierung erfolgreich war.
+                {{$t "administration.ldapEdit.text.anyChangesToTheFollowingConfigurationCanResult" }}
             </p>
             <p>
-                Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene
-                Inhalte werden nicht übernommen, da bei dem Nutzer der Vorname, der Nachname und/oder die E-Mail-Adresse
-                nicht im LDAP verfügbar ist.
+            {{$t "administration.ldapEdit.text.verification" }}
             </p>
             <p>
-                Weitere Informationen zur LDAP-Konfiguration finden Sie in unserem <a href="/help/confluence/55902270">Hilfebereich</a>.
+            {{{$t "administration.ldapEdit.text.furtherInfoHere" }}}
             </p>
         </div>
     </div>
@@ -48,24 +41,24 @@ Probably delete it.--}}
     </form>
 </section>
 <section id="verifyarea" style="display:none;">
-    <h3 class="h5">Nutzer: <a href="#" id="usertoggle">Ausblenden</a></h3>
+    <h3 class="h5">{{$t "administration.ldapEdit.label.users" }} <a href="#" id="usertoggle">{{$t "administration.ldapEdit.label.hide" }}</a></h3>
     <table class="table table-hover table-bordered" id="userTable" border="1">
         <tr>
-            <th>Vorname</th>
-            <th>Nachname</th>
+            <th>{{$t "global.label.firstNameColon" }}</th>
+            <th>{{$t "global.label.lastName" }}</th>
             <th>E-Mail</th>
             <th>uid</th>
-            <th>Rolle(n)</th>
-            <th>Domainname</th>
+            <th>{{$t "administration.controller.label.roles" }}</th>
+            <th>{{$t "administration.ldapEdit.label.domainName" }}</th>
             <th>uuid</th>
         </tr>
     </table>
-    <h3 class="h5">Klassen: <a href="#" id="classtoggle">Ausblenden</a></h3>
+    <h3 class="h5">{{$t "administration.global.label.classes" }} <a href="#" id="classtoggle">{{$t "administration.ldapEdit.label.hide" }}</a></h3>
     <table class="table table-hover table-bordered" id="classTable" border="1">
         <tr>
             <th>Name</th>
             <th>Domain</th>
-            <th>Nutzer der Klasse</th>
+            <th>{{$t "administration.controller.global.label.classUsers" }}</th>
         </tr>
     </table>
 </section>

@@ -13,97 +13,80 @@
 	<section class="section-school section-default">
 		<h2 class="h4">
 			{{#if schoolMaintanance.schoolUsesLdap}}
-			Schuljahreswechsel
+			{{$t "administration.school.label.schoolYearChange" }}
 			{{else}}
-			Schuljahr: {{../school.currentYear.name}}
+			{{$t "administration.school.label.schoolYear" }} {{../school.currentYear.name}}
 			{{/if}}
 		</h2>
 		<p>
 			{{#if schoolMaintanance.schoolUsesLdap}}
 			{{#ifeq schoolMaintananceMode "active"}}
-			Transferphase
+			{{$t "administration.school.label.transferPhase" }}
 			{{else}}
-			Aktuelles Schuljahr: {{../school.currentYear.name}}
+			{{$t "administration.school.label.currentSchoolYear" }} {{../school.currentYear.name}}
 			{{/ifeq}}
 			{{else}}
-			Das neue Schuljahr beginnt in der {{theme.title}} mit der Vorbereitungszeit eine Woche vor Ende der
-			Sommerferien.
-			Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden
-			Schuljahres vornehmen.
+			{{$t "administration.school.text.theNewSchoolYearStartsInThe" (dict "themeTitle" theme.title)}}
 			{{/if}}
 		</p>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12 no-padding">
 					{{#if schoolMaintanance.schoolUsesLdap}}
-					<p>Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit
-						und Personendaten anzupassen.
-						Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.</p>
-					<p><a class="ldapschoolyearadditionalinfotoggle" href="#">Mehr Infos ></a></p>
+					<p>{{$t "administration.school.text.useTheTransferPhaseAroundTheSchoolYear" }}</p>
+					<p><a class="ldapschoolyearadditionalinfotoggle" href="#">{{$t "administration.school.link.moreInfo" }} ></a></p>
 					<div id="ldapschoolyearadditionalinfo">
-						<p>Hintergrund: Damit jeder Schüler und jede Lehrkraft auf Inhalte aus vergangenen Klassen
-							(z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr
-							ein Nutzer in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus
-							synchronisierten
-							Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der
-							Ablauf während eines Schuljahreswechsels:
+						<p>{{$t "administration.school.text.backgroundSoThatEveryStudentAndTeacher" }}
 						</p>
-						<p class="font-weight-bold">Während des Schuljahres</p>
+						<p class="font-weight-bold">{{$t "administration.school.label.duringTheSchoolYear" }}</p>
 						<ul>
-							<li>neue dazugekommen Nutzer, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden
-								beständig synchronisiert</li>
+							<li>{{$t "administration.school.text.newUsersClassAffiliationsAnd" }}</li>
 						</ul>
-						<p class="font-weight-bold">Start der Transferphase</p>
+						<p class="font-weight-bold">{{$t "administration.school.label.startOfTheTransferPhase" }}</p>
 						<ul>
-							<li>ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten</li>
-							<li>ist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch
+							<li>{{$t "administration.school.text.youCanStartTheTransferPhase" }}</li>
+							<li>{{$t "administration.school.text.ifThereIsNoManualStart" }}
 							</li>
 						</ul>
-						<p class="font-weight-bold">Während der Transferphase</p>
+						<p class="font-weight-bold">{{$t "administration.school.label.duringTheTransferPhase" }}</p>
 						<ul>
-							<li>neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus
-								dem LDAP synchronisiert</li>
-							<li class="font-weight-bold">du kannst die notwendigen Änderungen für das neue Schuljahr im
-								LDAP vornehmen (neue Nutzer, Update der Klassen)</li>
-							<li>der Login via LDAP ist für bestehende Nutzer weiterhin möglich</li>
-							<li>Passwortänderungen werden weiterhin synchronisiert</li>
-							<li>Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase
-								angelegt werden (ohne Klassenzuordnung)</li>
+							<li>{{$t "administration.school.text.newUsersClassesAndChanges" }}</li>
+							<li class="font-weight-bold">{{$t "administration.school.text.LDAPChanges" }}</li>
+							<li>{{$t "administration.school.text.loginViaLDAP" }}</li>
+							<li>{{$t "administration.school.text.passwordChanges" }}</li>
+							<li>{{$t "administration.school.text.coursesWithLearningContent" }}</li>
 						</ul>
-						<p class="font-weight-bold">Beenden der Transferphase</p>
+						<p class="font-weight-bold">{{$t "administration.school.label.endOfTheTransferPhase" }}</p>
 						<ul>
-							<li>beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind</li>
-							<li>bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag
-								synchronisiert</li>
-							<li>gleichzeitig läutest Du damit das neue Schuljahr in der HPI Schul-Cloud ein</li>
-							<li>die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen
-								im Kontext des alten Schuljahres archiviert</li>
+							<li>{{$t "administration.school.text.doNotEndTheTransferPhase" }}</li>
+							<li>{{$t "administration.school.text.atTheEndOfTheTransferPhase" }}</li>
+							<li>{{$t "administration.school.text.atTheSameTime" }}</li>
+							<li>{{$t "administration.school.text.theNewClassesAreSavedInTheContext" }}</li>
 						</ul>
-						<p class="font-weight-bold">Nach Beenden der Transferphase</p>
+						<p class="font-weight-bold">{{$t "administration.school.label.afterTheTransferPhaseEnded" }}</p>
 						<ul>
-							<li>die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden</li>
-							<li>alle Daten aus dem LDAP werden wie gewohnt synchronisiert, neue Nutzer und Klassen
-								können jederzeit dort angelegt werden</li>
+							<li>{{$t "administration.school.text.theNewClassesCanNowBeAssignedt" }}</li>
+							<li>{{$t "administration.school.text.allDataFromTheLDAP" }}</li>
 						</ul>
 					</div>
 					{{#ifeq schoolMaintananceMode "idle"}}
 					<button type="submit" class="btn btn-primary disabled">
-						Schuljahr beenden
+						{{$t "administration.school.button.endSchoolYear" }}
 					</button>
-					<p>Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.</p>
+					<p>{{$t "administration.school.text.thisOptionIsAvailable" }}</p>
 					{{else}}
-					<p class="font-weight-bold">Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:</p>
+					<p class="font-weight-bold">{{$t "administration.school.text.atTheEndOfTheSchoolYearWithLDAP" }}</p>
 					<section class="section-course">
 						<div class="wizard-card">
 							<div class="row">
 								<div class="col-xs-4 text-center">
-									Altes Schuljahr
+									{{$t "administration.school.text.oldSchoolYear" }}
 								</div>
 								<div class="col-xs-4 text-center">
-									Rund um die Sommerferien
+									{{$t "administration.school.text.allAboutTheSummerVacation" }}
 								</div>
 								<div class="col-xs-4 text-center">
-									Neues Schuljahr
+									{{$t "administration.school.text.newSchoolYear" }}
 								</div>
 							</div>
 
@@ -127,30 +110,30 @@
 							<span class="progressbar"></span>
 							<div class="row head">
 								<div class="col-xs-4">
-									<p>Beachte vor der Transferphase:</p>
+									<p>{{$t "administration.school.label.noteBeforeTheTransferPhase" }}</p>
 								</div>
 								<div class="col-xs-4">
-									<p>Beachte verfügbare Funktionen <br> in der Transferphase:</p>
+									<p>{{$t "administration.school.label.noteAvailableFunction" }} <br> {{$t "administration.school.label.inTheTransferPhase" }}</p>
 								</div>
 								<div class="col-xs-4">
-									<p>Nach Beendung der Transferphase <br> kann deine Schule ins neue Schuljahr
-										starten.</p>
+									<p>{{$t "administration.school.label.afterTheTransferPhaseEnded" }}<br> {{$t "administration.school.label.yourSchoolCanStartNewSchool" }}
+										{{$t "administration.school.button.start" }}</p>
 								</div>
 							</div>
 							<div class="row body">
 								<div class="col-xs-4">
-									<p><i class="fa fa-arrow-right"></i> Du kannst nicht mehr zurück</p>
+									<p><i class="fa fa-arrow-right"></i>{{$t "administration.school.label.youCantGoBack" }}</p>
 								</div>
 								<div class="col-xs-4">
 									<div class="d-flex justify-content-center">
-										<p><i class="fa fa-check green"></i> Logins bestehender Nutzer</p>
-										<p><i class="fa fa-check green"></i> Kennwortänderungen im LDAP</p>
-										<p><i class="fa fa-times red"></i> Änderung von Klassen/neue Klassen</p>
-										<p><i class="fa fa-times red"></i> Änderung von Nutzerdaten/neue Nutzer</p>
+										<p><i class="fa fa-check green"></i> {{$t "administration.school.label.loginFromExistingUsers" }}</p>
+										<p><i class="fa fa-check green"></i> {{$t "administration.school.label.passwordChangesInLDAP" }}</p>
+										<p><i class="fa fa-times red"></i> {{$t "administration.school.label.changeOfClasses" }}</p>
+										<p><i class="fa fa-times red"></i> {{$t "administration.school.label.changeOfUserData" }}</p>
 									</div>
 								</div>
 								<div class="col-xs-4">
-									<p><i class="fa fa-smile-o"></i> Alles erledigt!</p>
+									<p><i class="fa fa-smile-o"></i> {{$t "administration.school.text.allDone" }}</p>
 								</div>
 							</div>
 							<form action="/administration/startschoolyear" type="post">
@@ -158,22 +141,20 @@
 								<div class="row">
 									<div class="col-xs-12 col-md-4 text-center">
 										<button {{#ifeq ../schoolMaintananceMode "standby"}}{{else}}disabled{{/ifeq}}
-											class="btn btn-primary btn-terminate-school-year">Transferphase
-											starten</button>
+											class="btn btn-primary btn-terminate-school-year">
+											{{$t "administration.school.button.startTransferPhase" }}</button>
 									</div>
 									<div class="col-xs-12 col-md-4 text-center">
 										<p><a href="#" id="checkldapdata"
-												class="btn btn-primary {{#ifeq ../schoolMaintananceMode "active"}}{{else}}disabled{{/ifeq}}">LDAP-Daten
-												überprüfen</a></p>
+												class="btn btn-primary {{#ifeq ../schoolMaintananceMode "active"}}{{else}}disabled{{/ifeq}}">{{$t "administration.school.button.checkLDAPData" }}</a></p>
 										<label>
 											<input required disabled type="checkbox" id="startldapschoolyear">
-											Nutzer- und Klassendaten im LDAP <br> für das neue Schuljahr sind
-											bearbeitet.
+											{{$t "administration.school.label.userAndClassDataInLDAP" }} <br> {{$t "administration.school.label.processedForTheNewSchoolYear" }}
 										</label>
 									</div>
 									<div class="col-xs-12 col-md-4 text-center">
 										<button disabled id="buttonstartldapschoolyear"
-											class="btn btn-primary">Transferphase beenden</button>
+											class="btn btn-primary">{{$t "administration.school.button.endTransferPhase" }}</button>
 									</div>
 								</div>
 							</form>
@@ -203,7 +184,7 @@
 					<form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
 						<input type="hidden" name="_method" value="patch" />
 						<div class="form-group">
-							<label>Name der Schule</label>
+							<label>{{$t "administration.school.label.nameOfTheSchool" }}</label>
 							<input value="{{../school.name}}" type="text" class="form-control" name="name"
 								placeholder="Einhorn Gymnasium" {{#if ../schoolUsesLdap}} readonly{{/if}}
 								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
@@ -211,114 +192,101 @@
 						</div>
 
 						<div class="form-group">
-							<label>Schullogo hochladen</label><br />
+							<label>{{$t "administration.school.label.uploadSchoolLogo" }}</label><br />
 							<input type="hidden" name="logo_dataUrl">
 							<input type="file" id="logo-input">
-							<label for="logo-input" class="btn btn-secondary">Datei auswählen</label>
-							<span id="logo-filename">Keine Datei ausgewählt</span>
+							<label for="logo-input" class="btn btn-secondary">{{$t "administration.school.button.chooseAFile" }}</label>
+							<span id="logo-filename">{{$t "administration.school.text.noFileSelected" }}</span>
 							<img id="preview-logo" src="">
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
 
 						{{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
-							<h2 class="h6 mt-2">Datenschutz-Einstellungen</h2>
+							<h2 class="h6 mt-2">{{$t "administration.school.label.privacySettings" }}</h2>
 							<div class="form-group">
 								<label>
 									<input type="checkbox" name="studentVisibility" value="true"
 										{{#if ../studentVisibility}}checked{{/if}}>
-									Sichtbarkeit von Schüler:innen für Lehrkräfte aktivieren <i class="fa fa-eye"></i>
-									<p class="text-muted">
-										Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schülerinnen und Schüler der Schule für jeden Lehrer zu aktivieren, ist es erforderlich, dass jede Schülerin und jeder Schüler wirksam in diese Datenverarbeitung eingewilligt hat.
-									</p>
+                            {{$t "administration.school.label.studentVisibility" }} <i class="fa fa-eye"></i>
+									<p class="text-muted">{{$t "administration.school.label.allStudentsVisibility" }}</p>
 								</label>
 							</div>
 						{{/ifConfig}}
 
-						{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}
-							<div class="form-group">
-								<label>
-									<input
-										id="messenger"
-										type="checkbox"
-										name="messenger"
-										value="true"
-										{{#inArray "messenger" ../school.features}}checked{{/inArray}}
-										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-											{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-												disabled
-											{{/userHasPermission}}
-										{{/userHasPermission}}
+                        {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
+                        <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}}">
+                            <label>
+                                <input
+                                    id="messenger"
+                                    type="checkbox"
+                                    name="messenger"
+                                    value="true"
+                                    {{#inArray "messenger" ../school.features}}checked{{/inArray}}
+                                    {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+                                        {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+                                            disabled
+                                        {{/userHasPermission}}
+                                    {{/userHasPermission}}
+                                />
+                                {{$t "administration.school.label.activeChatFunction" }}
+                                <p class="text-muted">
+                                    {{$t "administration.school.text.ifChatsAreActivatedAtYourSchool" }}
+                                </p>
+                            </label>
+                        </div>
+
+                        {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}
+                        <div id="messenger-sub-options">
+                            {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
+                            <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED" false}}hidden{{/ifConfig}}">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="messengerSchoolRoom"
+                                        value="true"
+                                        {{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}
+                                        {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+                                            {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+                                                disabled
+                                            {{/userHasPermission}}
+                                        {{/userHasPermission}}
                                     />
-									Chatfunktion aktivieren
-									<p class="text-muted">
-										Sind Chats an deiner Schule aktiviert, können Team-Administratoren
-										im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.
-									</p>
-								</label>
-							</div>
+                                    {{$t "administration.school.label.createChatRoom" }}
+                                    <p class="text-muted">
+                                    {{$t "administration.school.text.chatRoomPermissions" }}
+                                    </p>
+                                </label>
+                            </div>
+                        </div>
 
-							{{#ifConfig "FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED" true}}
-								<div id="messenger-sub-options">
-									<div class="form-group">
-										<label>
-											<input
-												type="checkbox"
-												name="messengerSchoolRoom"
-												value="true"
-												{{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}
-												{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-													{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-														disabled
-													{{/userHasPermission}}
-												{{/userHasPermission}}
-											/>
-											Chatraum für Ankündigungen an die gesamte Schule anlegen
-											<p class="text-muted">
-												Der Ankündigungs-Chatraum ermöglicht Schul-Administrator:innen, Nachrichten an die gesamte Schule zu senden.
-												Schüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.
-											</p>
-										</label>
-									</div>
-								</div>
-							{{/ifConfig}}
-						{{/ifConfig}}
-
-						{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}
-							{{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
-								<div class="form-group">
-									<label>
-										<input type="checkbox" name="rocketchat" value="true"
-											{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
-										Chatfunktion aktivieren
-										<p class="text-muted">
-											Sind Chats an deiner Schule aktiviert, können Team-Administratoren
-											im jeweiligen Team die Chatfunktion gezielt freischalten.
-										</p>
-									</label>
-								</div>
-							{{/if}}
-						{{/ifConfig}}
+                        {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
+                            <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}hidden{{/ifConfig}}">
+                                <label>
+                                    <input type="checkbox" name="rocketchat" value="true"
+                                        {{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
+                                    {{$t "administration.school.label.activeChatFunction" }}
+                                    <p class="text-muted">
+                                        {{$t "administration.school.text.ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan" }}
+                                    </p>
+                                </label>
+                            </div>
+                        {{/if}}
 
 						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
 						<div class="form-group">
 							<label>
 								<input type="checkbox" name="videoconference" value="true"
 									{{#inArray "videoconference" ../../school.features}}checked{{/inArray}}>
-								Videokonferenzen für Kurse und Teams aktivieren
+								{{$t "administration.school.label.enableVideoConference" }}
 								<p class="text-muted">
-									Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte
-									ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und
-									dann von dort aus Videokonferenzen für alle Kursteilnehmer starten.
-									Team-Administratoren können die Videokonferenzfunktion im jeweiligen
-									Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen
-									zu Terminen hinzufügen und starten.
+									{{$t "administration.school.text.ifVideoConferenceAreActivatedAtYourSchool" }}
 								</p>
 							</label>
 						</div>
 						{{/ifConfig}}
 						{{#if ../school.fileStorageType}}
 						<div class="form-group">
-							<label>Cloud-Storage Anbieter</label>
+							<label>{{$t "administration.school.label.cloudStorageProvider" }}</label>
 							<select name="fileStorageType" type="text" {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
 								disabled{{/userHasPermission}}>
 								{{#each ../provider}}
@@ -326,13 +294,13 @@
 								</option>
 								{{/each}} </select> </div> {{/if}}
 						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+						<button type="submit" class="btn btn-primary btn-submit">{{$t "global.button.save" }}</button>
 					</form>
 
 					{{#if ../school.fileStorageType}}
 					<div style="padding-top: 20px">
-						<label>Genutzter Datei-Speicherplatz in der Cloud</label>
-						<p>Derzeit bezieht Ihre Schule {{writeFileSizePretty ../totalStorage.totalSize}}.</p>
+						<label>{{$t "administration.school.label.fileStorageSpaceUsedInCloud" }}</label>
+						<p>{{$t "administration.school.text.yourSchoolIsCurrentlyDrawing" }} {{writeFileSizePretty ../totalStorage.totalSize}}.</p>
 					</div>
 					{{/if}}
 					{{/userHasPermission}}
@@ -349,9 +317,9 @@
 						class="edit-form-school">
 
 						<div class="form-group">
-							<label>Cloud-Storage Anbieter</label>
+							<label>{{$t "administration.school.label.cloudStorageProvider" }}</label>
 							<select name="fileStorageType" type="text">
-								<option disabled="disabled" selected="selected">Anbieter auswählen</option>
+								<option disabled="disabled" selected="selected">{{$t "administration.school.label.selectProvider" }}</option>
 								{{#each provider}}
 								<option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}}
 								</option>
@@ -359,7 +327,7 @@
 							</select> </div>
 
 						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+						<button type="submit" class="btn btn-primary btn-submit">{{$t "global.button.save" }}</button>
 
 					</form>
 				</div>
@@ -370,7 +338,7 @@
 	{{#userHasPermission 'SCHOOL_EDIT'}}
 		{{#ifConfig "FEATURE_SCHOOL_POLICY_ENABLED" true}}
 		<section class="section-school section-default">
-			<h2 class="h4">Datenschutzerklärung</h2>
+			<h2 class="h4">{{$t "global.text.dataProtection" }}</h2>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-sm-12 no-padding">
@@ -380,7 +348,7 @@
 				<div class="row">
 					<div class="col-sm-12 no-padding">
 						<button type="submit" class="btn btn-primary btn-add-modal--policy">
-							Datenschutzerklärung hinzufügen
+                             {{$t "administration.school.label.dataProtectionAdd" }}
 						</button>
 					</div>
 				</div>
@@ -389,7 +357,7 @@
 		{{/ifConfig}}
 
 	<section class="section-school section-default">
-		<h2 class="h4">Authentifizierung</h2>
+		<h2 class="h4">{{$t "administration.school.label.authentication" }}</h2>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12 no-padding">
@@ -401,11 +369,11 @@
 					<form action="/administration/systems/ldap/add" method="POST">
 						{{> "lib/components/csrfInput"}}
 						<button type="submit" class="btn btn-primary btn-add-modal ">
-							System hinzufügen
+							{{$t "administration.school.button.addSystem" }}
 						</button>
 						{{#if ../ldapAddable}}
 						<button type="submit" class="btn btn-primary">
-							LDAP System hinzufügen
+							{{$t "administration.school.button.addLDAPSystem" }}
 						</button>
 						{{/if}}
 					</form>
@@ -451,13 +419,13 @@
 					{{> "lib/components/table" head=rssHead body=rssBody}}
 				</div>
 				{{else}}
-				<p>Es sind noch keine RSS-Feeds hinterlegt.</p>
+				<p>{{$t "administration.school.text.noRssFeedsYet" }}</p>
 				{{/if}}
 			</div>
 			<div class="row">
 				<div class="col-sm-12 no-padding">
 					<button type="submit" class="btn btn-primary btn-add-modal--rss">
-						RSS-Feed hinzufügen
+						{{$t "administration.school.button.addRSSFeed" }}
 					</button>
 				</div>
 			</div>
