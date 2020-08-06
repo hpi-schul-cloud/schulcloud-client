@@ -1730,7 +1730,7 @@
 			}
 		},
 		"sidebar": {
-			"ariaLabel": "Seitenleiste",
+			"aria_label": "Seitenleiste",
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
@@ -1790,7 +1790,7 @@
 			"landing": "Startseite"
 		},
 		"topMenu": {
-			"ariaLabel": "topbar",
+			"aria_label": "topbar",
 			"dropdown": {
 				"QRCode": {
 					"title": "QR-Code"
@@ -1799,7 +1799,7 @@
 					"title": "Es gibt ein Problem"
 				},
 				"currentUser": {
-					"ariaLabel": "aktueller Benutzer:"
+					"aria_label": "aktueller Benutzer:"
 				},
 				"fullscreenButton": {
 					"title": "Vollbildmodus"
@@ -2267,7 +2267,7 @@
 			}
 		},
 		"extended_footer": {
-			"ariaLabel": "footer",
+			"aria_label": "footer",
 			"heading": {
 				"contact": "Kontakt",
 				"links": "Links",
@@ -2290,7 +2290,7 @@
 			}
 		},
 		"footer": {
-			"ariaLabel": {
+			"aria_label": {
 				"footer":"footer",
 				"love": "love"
 			},
