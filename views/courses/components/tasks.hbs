@@ -3,7 +3,9 @@
 		{{#if homeworksCount}}
 			{{else}}
 				<div class="empty-state">
-					<img src="/images/empty-states/assignments.svg" alt="{{$t "courses._course.tasks.img_alt.noPosedTasks"}}" class="image" />
+					{{> courses/components/svg_tasks}}
+					<!--<img src="/images/empty-states/tasks.svg" alt="{{$t "courses._course.tasks.img_alt.noPosedTasks"}}" class="image course-empty-content-image" />-->
+
 					{{#unless @root.isArchived}}
 						{{#userHasPermission "COURSE_EDIT" }}
 							<h2 class="h4">{{$t "courses._course.tasks.headline.createFirstTask"}}</h2>
