@@ -49,7 +49,8 @@
                     {{#inArray 'student' ../roleNames}}
                         <div class="row mt-3">
                             <div class="col-xs-12 col-sm-3 text-center">
-                                <img src="/images/firstLogin/welcome-1-student.svg" alt="{{$t "firstLogin.thanks.img_alt.text.onlineTraining"}}" width="150px">
+                                {{> 'firstLogin/partials/svg_onboarding_student'}}
+                                <!--<img src="/images/firstLogin/welcome-1-student.svg" alt="{{$t "firstLogin.thanks.img_alt.text.onlineTraining"}}" width="150px">-->
                             </div>
                             <div class="col-xs-12 col-sm-9">
                                 {{$t "firstLogin.thanks.text.nowTeachersCanInviteToCoursesAndAccess"}}
@@ -61,9 +62,10 @@
 
             <div class="row mt-3">
                 <div class="col-xs-12 col-sm-3 text-center">
-                    <img src="/images/firstLogin/welcome-2-help.svg" alt="Help" width="150px">
+                    {{> 'firstLogin/partials/svg_onboarding_help'}}
+                    <!--<img src="/images/firstLogin/welcome-2-help.svg" alt="Help" width="150px">-->
                 </div>
-                <div class="col-xs-12 col-sm-9 mt-2">
+                <div class="col-xs-12 col-sm-9">
                     <p>
                         {{$t "firstLogin.thanks.text.overEveryPageInThe" (dict "shortTitle" @root.theme.short_title)}} <b>{{$t "firstLogin.thanks.img_alt.text.questionMark"}}</b> {{$t "firstLogin.thanks.text.inTheTopRightOfOur"}} <b>{{$t "global.link.helpArea"}}</b>.
                         {{$t "firstLogin.thanks.text.thereYouWillFindDetailedInstructions"}}
