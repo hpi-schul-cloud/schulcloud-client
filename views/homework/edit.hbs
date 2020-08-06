@@ -88,15 +88,15 @@
 		<form class="modal-form" id="homework-form" method="post" action="{{action}}">
 
 			<div class="form-group">
-				<label>{{$t "homework.global.label.title" }}</label>
-				<input class="form-control" name="name" type="text" placeholder="{{$t "homework.input.title"}}" required
+				<label>{{$t "global.label.title" }}</label>
+				<input class="form-control" name="name" type="text" placeholder="{{$t "global.label.title"}}" required
 					value="{{{assignment.name}}}" data-testid="homework-name" />
 			</div>
 
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>{{$t "homework.global.label.courses" }}</label>
+						<label>{{$t "global.sidebar.link.administrationCourses" }}</label>
 						{{#unless isSubstitution}}
 						<select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
 							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>{{$t "homework.input.noAssignment"}}</option>
@@ -238,7 +238,7 @@
 				{{$t "global.button.cancel" }}
 			</button>
 			<button type="submit" class="btn btn-primary btn-submit">
-				{{$t "global.button.delete" }}
+				{{$t "global.headline.delete" }}
 			</button>
 		</div>
 		{{/content}}

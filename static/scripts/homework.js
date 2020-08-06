@@ -135,7 +135,7 @@ $(document).ready(() => {
 
     function showAJAXError(req, textStatus, errorThrown) {
         if (textStatus === "timeout") {
-            $.showNotification($t('global.error.requestTimeout'), "danger");
+            $.showNotification($t('global.text.requestTimeout'), "danger");
         } else if (errorThrown === "Conflict") {
             $.showNotification($t('homework.text.fileAlreadyExists'), "danger");
         } else {
@@ -198,7 +198,7 @@ $(document).ready(() => {
         var $buttonContext = $(this);
         let $deleteModal = $('.delete-modal');
         $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('homework.text.doYouReallyWantToDelete', {name : $buttonContext.data('name')}));
+        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('name')}));
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
             window.location.href = $buttonContext.attr('href');
         });
@@ -399,7 +399,7 @@ $(document).ready(() => {
         let fileId = $buttonContext.data('file-id');
 
         $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('homework.text.doYouReallyWantToDelete', {name : $buttonContext.data('file-name')}));
+        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('file-name')}));
 
         $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
             $.ajax({
@@ -434,7 +434,7 @@ $(document).ready(() => {
         let fileId = $buttonContext.data('file-id');
 
         $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('homework.text.doYouReallyWantToDelete', {name : $buttonContext.data('file-name')}));
+        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('file-name')}));
 
         $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
             $.ajax({
@@ -510,14 +510,14 @@ $(document).ready(() => {
     });
 
     function checkVideoElements(){
-        let vids = $("video"); 
+        let vids = $("video");
         if(vids.length>0){
             $.each(vids, function(){
-                this.controls = true; 
-            }); 
+                this.controls = true;
+            });
         }
-    } 
-    
+    }
+
     checkVideoElements();
-    
+
 });

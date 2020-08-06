@@ -6,7 +6,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{$t "administration.global.label.type" }}</label>
+    <label>{{$t "global.label.type" }}</label>
     <select class="linked" name="ldaptype" data-linktext data-placeholder="LDAP-Typ auswählen">
             <option value="general">
                 {{$t "administration.ldapEdit.placeholder.general" }}
@@ -62,11 +62,11 @@
 </div>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
-        <label>{{$t "administration.global.label.firstName" }}</label>
+        <label>{{$t "global.label.firstNameColon" }}</label>
         <input class="form-control linked user-attribute" readonly name="givenName" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.givenName}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
-        <label>{{$t "administration.global.label.lastName" }}</label>
+        <label>{{$t "global.label.lastName" }}</label>
         <input class="form-control linked user-attribute" readonly name="sn" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.sn}}"/>
     </div>
 </div>
@@ -92,7 +92,7 @@
 </div>
 <div class="row" id="role-name">
     <div class="form-group col-sm-6 col-xs-12">
-        <label>{{$t "administration.ldapEdit.label.role" }} <i class="fa fa-question-circle"></i></label>
+        <label>{{$t "global.label.role" }} <i class="fa fa-question-circle"></i></label>
         <input class="form-control linked user-attribute" readonly name="role" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.role}}"/>
     </div>
 </div>

@@ -15,7 +15,7 @@ $(document).ready(() => {
 	function showAJAXError(req, textStatus, errorThrown) {
 		$editEventModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification('Zeitüberschreitung der Anfrage', 'warn');
+			$.showNotification($t('global.text.requestTimeout'), 'warn');
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}
@@ -97,9 +97,9 @@ $(document).ready(() => {
 			event.endDate = (event.end || event.start).format('DD.MM.YYYY HH:mm');
 
 			populateModalForm($editEventModal, {
-				title: 'Termin - Details',
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Speichern',
+				title: $t('calendar.headline.dateDetails'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.save'),
 				fields: event,
 				action: `/calendar/events/${event.attributes.uid}`,
 			});
@@ -134,9 +134,9 @@ $(document).ready(() => {
 			const endDate = moment(date).add(1, 'hour').format('DD.MM.YYYY HH:mm');
 
 			populateModalForm($createEventModal, {
-				title: 'Termin hinzufügen',
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Hinzufügen',
+				title: $t('calendar.headline.addDate'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.add'),
 				fields: {
 					startDate,
 					endDate,
