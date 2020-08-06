@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "24.0.1",
+	"version": "24.0.3",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -30,7 +30,6 @@
 		"@ckeditor/ckeditor5-basic-styles": "^20.0.0",
 		"@ckeditor/ckeditor5-block-quote": "^20.0.0",
 		"@ckeditor/ckeditor5-ckfinder": "^20.0.0",
-		"@ckeditor/ckeditor5-comments": "^20.0.1",
 		"@ckeditor/ckeditor5-core": "^20.0.0",
 		"@ckeditor/ckeditor5-dev-utils": "^20.0.0",
 		"@ckeditor/ckeditor5-dev-webpack-plugin": "^20.0.0",

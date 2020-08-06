@@ -123,7 +123,7 @@ $(document).ready(() => {
 
     function showAJAXError(req, textStatus, errorThrown) {
         if (textStatus === "timeout") {
-            $.showNotification($t('global.error.requestTimeout'), "danger");
+            $.showNotification($t('global.text.requestTimeout'), "danger");
         } else if (errorThrown === "Conflict") {
             $.showNotification($t('homework.text.fileAlreadyExists'), "danger");
         } else {
@@ -176,6 +176,51 @@ $(document).ready(() => {
 		$dangerModal.appendTo('body').modal('show');
     });
 
+    // Abgabe löschen
+    $('a[data-method="delete-submission"]').on('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var $buttonContext = $(this);
+        let $deleteModal = $('.delete-modal');
+        $deleteModal.appendTo('body').modal('show');
+        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('name')}));
+        $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
+            window.location.href = $buttonContext.attr('href');
+        });
+    });
+
+    //validate teamMembers
+    var lastTeamMembers = null;
+    const maxTeamMembers = parseInt($("#maxTeamMembers").html());
+    $('select#teamMembers').change(function(event) {
+        if ($(this).val().length > maxTeamMembers) {
+            $(this).val(lastTeamMembers);
+            $.showNotification($t('homework.text.maximumTeamSize', {maxMembers : maxTeamMembers}), "warning", 5000);
+        } else {
+            lastTeamMembers = $(this).val();
+        }
+        $(this).chosen().trigger("chosen:updated");
+    });
+
+    $('select#teamMembers').chosen().change(function(event, data) {
+        if(data.deselected && data.deselected == $('.owner').val()){
+            $(".owner").prop('selected', true);
+            $('#teamMembers').trigger("chosen:updated");
+            $.showNotification(t('homework.text.creatorCanNotBeRemoved'), "warning", 5000);
+        }
+    });
+
+    // Bewertung speichern
+    $('.evaluation #comment form').on("submit",function(e){
+        if(e) e.preventDefault();
+        ajaxForm($(this),function(c){
+            $.showNotification($t('homework.text.ratingHasBeenSaved'), "success", 5000);
+        },function(c){
+            return (c.grade || c.gradeComment);
+        });
+        return false;
+    });
+
     document.querySelectorAll('.btn-archive').forEach(btn => {btn.addEventListener("click", archiveTask);});
 
     function updateSearchParameter(key, value) {
@@ -183,49 +228,6 @@ $(document).ready(() => {
         let reg = new RegExp('('+key+'=)[^\&]+');
         window.location.search = (url.indexOf(key) !== -1)?(url.replace(reg, '$1' + value)):(url + ((url.indexOf('?') == -1)? "?" : "&") + key + "=" + value);
     }
-
-	// Abgabe löschen
-	$('a[data-method="delete-submission"]').on('click', function (e) {
-		e.stopPropagation();
-		e.preventDefault();
-		const $buttonContext = $(this);
-		const $deleteModal = $('.delete-modal');
-		$deleteModal.appendTo('body').modal('show');
-		$deleteModal.find('.modal-title').text($t('homework.text.doYouReallyWantToDelete', { name: $buttonContext.data('name') }));
-		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
-			window.location.href = $buttonContext.attr('href');
-		});
-	});
-
-	// validate teamMembers
-	let lastTeamMembers = null;
-	const maxTeamMembers = parseInt($('#maxTeamMembers').html());
-	$('#teamMembers').change(function (event) {
-		if ($(this).val().length > maxTeamMembers) {
-			$(this).val(lastTeamMembers);
-			$.showNotification($t('homework.text.maximumTeamSize', { maxMembers: maxTeamMembers }), 'warning', 5000);
-		} else {
-			lastTeamMembers = $(this).val();
-		}
-		$(this).chosen().trigger('chosen:updated');
-	});
-
-	$('#teamMembers').chosen().change((event, data) => {
-		if (data.deselected && data.deselected == $('.owner').val()) {
-			$('.owner').prop('selected', true);
-			$('#teamMembers').trigger('chosen:updated');
-			$.showNotification(t('homework.text.creatorCanNotBeRemoved'), 'warning', 5000);
-		}
-	});
-
-	// Bewertung speichern
-	$('.evaluation #comment form').on('submit', function (e) {
-		if (e) e.preventDefault();
-		ajaxForm($(this), (c) => {
-			$.showNotification($t('homework.text.ratingHasBeenSaved'), 'success', 5000);
-		}, (c) => (c.grade || c.gradeComment));
-		return false;
-	});
 
 	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
 
@@ -388,7 +390,7 @@ $(document).ready(() => {
         let fileId = $buttonContext.data('file-id');
 
         $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('homework.text.doYouReallyWantToDelete', {name : $buttonContext.data('file-name')}));
+        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('file-name')}));
 
         $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
             $.ajax({
@@ -423,7 +425,7 @@ $(document).ready(() => {
         let fileId = $buttonContext.data('file-id');
 
         $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('homework.text.doYouReallyWantToDelete', {name : $buttonContext.data('file-name')}));
+        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('file-name')}));
 
         $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
             $.ajax({
@@ -492,21 +494,21 @@ $(document).ready(() => {
         }
     }
 
-	$('#publicSubmissionsCheckbox').on('change', function (e) {
-		e.preventDefault();
-		const content = $t('homework.text.activatingThisMakesSubmissionsPublic');
-	  modalCheckboxHandler($t('global.text.areYouSure'), content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
-	});
-  
-  function checkVideoElements(){
-    let vids = $("video"); 
-    if(vids.length>0){
-      $.each(vids, function(){
-        this.controls = true; 
-      }); 
+    $('#publicSubmissionsCheckbox').on('change', function (e) {
+        e.preventDefault();
+        const content = $t('homework.text.activatingThisMakesSubmissionsPublic');
+        modalCheckboxHandler($t('global.text.areYouSure'), content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
+    });
+
+    function checkVideoElements(){
+        let vids = $("video");
+        if(vids.length>0){
+            $.each(vids, function(){
+                this.controls = true;
+            });
+        }
     }
-  } 
-    
-  checkVideoElements();
-    
+
+    checkVideoElements();
+
 });

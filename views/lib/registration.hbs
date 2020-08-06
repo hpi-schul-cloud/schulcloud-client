@@ -1,15 +1,15 @@
 <main id="main-content" class="container pt-3 mt-5 text-center>
 			<div class="error-header-wrapper">
 			<img class="error-header-image w-100 h-100" src="/images/broken-pen.svg" alt="{{$t "global.img_alt.brokenPen"}}" />
-			<h1 class="h1 error-header-code text-center">{{{$t "registration.registationFailedAuthTitle"}}}</h1>
+			<h1 class="h1 error-header-code text-center">{{{$t "registration.headline.invalidLink"}}}</h1>
 			<p class="error-header-text text-center">
-				{{{$t "registration.registationFailedAuthParagraph"}}}
+				{{{$t "registration.text.invalidLink"}}}
 			</p>
 
 				<div class="hidden iframe">
 					<p>
-						{{{$t "registration.registationFailedContinue"}}}<a href="{{baseUrl}}"
-																												rel="noopener noreferrer" target="_blank">{{{$t "registration.registationFailedContinueLink"}}} </a>.
+						{{{$t "registration.text.invalidLinkEmbeddedWebsite"}}}<a href="{{baseUrl}}"
+																												rel="noopener noreferrer" target="_blank">{{{$t "registration.text.invalidLinkOpenWebsite"}}} </a>.
 					</p>
 				</div>
 			</div>
