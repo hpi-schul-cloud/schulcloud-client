@@ -1031,7 +1031,14 @@
 						"noTopics": "keine Themen.",
 						"responsibleTeachers": "Verantwortliche Lehrer:innen:",
 						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}",
-						"workOnTopic": "Thema bearbeiten"
+						"workOnTopic": "Thema bearbeiten",
+						"archivedTask": "Die Aufgabe ist archiviert",
+						"draftTask": "Die Aufgabe entwürfe",
+						"doneTask": "Die Aufgabe ist gestellt",
+						"feedbackTask": "Die Aufgabe hat Feedback",
+						"moveTask": "Verschiebe Aufgabe zwischen Übersichtsseite und Archiv",
+						"task": "Die Aufgabe: ",
+						"taskDetails": "Details der Aufgabe: "
 					}
 				},
 				"button": {
