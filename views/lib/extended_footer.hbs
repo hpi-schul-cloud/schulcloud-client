@@ -1,30 +1,33 @@
 {{#embed "authentication/section" style="dark footer" class=""}}
 {{#content "body"}}
-<footer id="footer" tabindex="0">
+<footer id="footer">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
-				<h2 class="h4">{{$t "lib.extended_footer.heading.contact" }}</h2>
+				<h2 class="h4">{{$t "global.link.contact" }}</h2>
 				<ul>
 					{{> "lib/extended_footer_links"}}
-					<li><a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank" rel="noopener" aria-label="{{$t "lib.extended_footer.link.subscribeTheNewsletter" }} {{$t "global.openInNewTabWarning"}}">
-					<span class="text-nowrap">{{$t "lib.extended_footer.link.subscribeTheNewsletter" }}</span></a></li>
+					<li aria-label="{{$t "lib.extended_footer.link.subscribeTheNewsletter" }} {{$t "global.link.openInNewTabWarning"}}">
+                        <a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank" rel="noopener">
+                            <span class="text-nowrap">{{$t "lib.extended_footer.link.subscribeTheNewsletter" }}</span>
+                        </a>
+                    </li>
 				</ul>
 			</div>
 			<div class="col-md-4">
 				<h2 class="h4">{{$t "lib.extended_footer.heading.links"}}</h2>
 				<ul>
-					<li><a href="/impressum">{{$t "lib.global.link.imprint" }}</a></li>
-					<li><a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" aria-label="{{$t "lib.global.link.termsOfUseHPI"}} PDF {{$t "global.openInNewTabWarning"}}"
-						   rel="noopener">{{$t "lib.global.link.termsOfUseHPI" }}</a>
+					<li><a href="/impressum">{{$t "global.link.imprint" }}</a></li>
+					<li><a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" aria-label="{{$t "lib.global.link.termsOfUseHPI"}} PDF {{$t "global.link.openInNewTabWarning"}}"
+							rel="noopener">{{$t "lib.global.link.termsOfUseHPI" }}</a>
 					</li>
-					<li><a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank"
-							rel="noopener" aria-label="{{$t "lib.login.headline.onlyPrivacy"}} PDF {{$t "global.openInNewTabWarning"}}">{{$t "lib.global.link.dataProtectionDeclaration" }}</a>
+					<li><a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank" aria-label="{{$t "lib.login.headline.onlyPrivacy"}} PDF {{$t "global.link.openInNewTabWarning"}}"
+							rel="noopener">{{$t "lib.global.link.dataProtectionDeclaration" }}</a>
 					</li>
 					<li><a href="/team">{{$t "lib.global.link.team"}}</a></li>
-					<li><a href="/partner">{{$t "lib.global.link.partner"}}</a></li>
-					<li><a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a></li>
-					<li><a href="https://status.schul-cloud.org" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a></li>
+					<li><a href="/partner">{{$t "global.link.partner"}}</a></li>
+					<li><a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a></li>
+					<li><a href="https://status.schul-cloud.org" target="_blank" rel="noopener"  aria-label="{{$t "lib.global.link.status"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a></li>
 					<li><a href="/security">{{$t "lib.global.link.safety"}}</a></li>
 				</ul>
 			</div>
@@ -53,7 +56,7 @@
 					{{{$t "lib.extended_footer.text.weAreHiring"}}}
 				</div>
 				<a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/system-engineer-dev-ops-mw.html"
-					rel="noopener" target="_blank" aria-label="{{$t "lib.extended_footer.link.devOps"}} {{$t "global.openInNewTabWarning"}}">{{$t "lib.extended_footer.link.devOps"}}</a>
+					rel="noopener" target="_blank" aria-label="{{$t "lib.extended_footer.link.devOps"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.extended_footer.link.devOps"}}</a>
 			</div>
 		</div>
 	</div>
