@@ -179,9 +179,7 @@ router.get('/', (req, res, next) => {
 				displayAt: {
 					$lte: new Date().getTime(),
 				},
-				$sort: {
-					displayAt: -1,
-				},
+				sort: '-displayAt',
 				$limit: 3,
 			},
 		})

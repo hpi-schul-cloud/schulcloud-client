@@ -597,9 +597,7 @@ router.get('/:teamId', async (req, res, next) => {
 					displayAt: {
 						$lte: new Date().getTime(),
 					},
-					$sort: {
-						displayAt: -1,
-					},
+					sort: '-displayAt',
 					$limit: 3,
 				},
 			})
