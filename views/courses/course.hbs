@@ -70,9 +70,9 @@
           </button>
             <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
             {{#if isTeacher}}
-              <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../privateHomeworks) ( add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) ) }}"/></span>
+              <span class="text">{{$t "global.headline.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../privateHomeworks) ( add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) ) }}"/></span>
             {{else}}
-              <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) }}"/></span>
+              <span class="text">{{$t "global.headline.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) }}"/></span>
             {{/if}}
           </button>
           <button class="tab" data-testid="tools" data-tab="js-tools">
