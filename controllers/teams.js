@@ -148,17 +148,17 @@ const editTeamHandler = async (req, res, next) => {
 
 	teamPromise.then((team) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
-			return next(new Error(res.$t('global.error.403')));
+			return next(new Error(res.$t('global.text.403')));
 		}
 		return res.render('teams/edit-team', {
 			action,
 			method,
 			title: req.params.teamId
 				? res.$t('teams.add.headline.editTeam')
-				: res.$t('teams.add.headline.createTeam'),
+				: res.$t('teams.button.createTeam'),
 			submitLabel: req.params.teamId
 				? res.$t('global.button.saveChanges')
-				: res.$t('teams.add.button.createTeam'),
+				: res.$t('teams.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
@@ -528,11 +528,11 @@ router.get('/:teamId', async (req, res, next) => {
 		let matrixNotification;
 		let messenger = false;
 		if (instanceUsesMatrixMessenger && courseUsesMatrixMessenger && !schoolUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.messengerNotActivatedSchool');
+			matrixNotification = res.$t('teams._team.text.messengerNotActivatedSchool');
 			messenger = true;
 		}
 		if (instanceUsesMatrixMessenger && schoolUsesMatrixMessenger && !courseUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.messengerNotActivatedCourse');
+			matrixNotification = res.$t('teams._team.text.messengerNotActivatedCourse');
 			messenger = true;
 		}
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);
@@ -857,30 +857,30 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const roleTranslations = {
 		teammember: res.$t('teams._team.members.text.member'),
 		teamexpert: res.$t('teams._team.members.text.expert'),
-		teamleader: res.$t('teams._team.members.text.leader'),
-		teamadministrator: res.$t('teams._team.members.text.admin'),
-		teamowner: res.$t('teams._team.members.text.owner'),
+		teamleader: res.$t('global.role.text.leader'),
+		teamadministrator: res.$t('global.role.text.administrator'),
+		teamowner: res.$t('global.role.text.owner'),
 	};
 
 	const head = [
-		res.$t('teams._team.members.headline.firstName'),
-		res.$t('teams._team.members.headline.surname'),
-		res.$t('teams._team.members.headline.role'),
-		res.$t('teams._team.members.headline.school'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.label.firstName'),
+		res.$t('global.label.lastName'),
+		res.$t('global.label.role'),
+		res.$t('global.link.school'),
+		res.$t('global.headline.actions'),
 	];
 
 	const headClasses = [
-		res.$t('teams._team.members.headline.name'),
-		res.$t('teams._team.members.headline.student'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.headline.name'),
+		res.$t('global.link.administrationStudents'),
+		res.$t('global.headline.actions'),
 	];
 
 	const headInvitations = [
 		res.$t('teams._team.members.headline.email'),
 		res.$t('teams._team.members.headline.invitedOn'),
-		res.$t('teams._team.members.headline.role'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.label.role'),
+		res.$t('global.headline.actions'),
 	];
 
 	const invitationActions = [
@@ -1266,13 +1266,13 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		.then(() => {
 			req.session.notification = {
 				type: 'success',
-				message: res.$t('teams._team.text.invitationAcceptedSuccess'),
+				message: res.$t('teams._team.text.invitationSuccessfullyAccepted'),
 			};
 			res.redirect(`/teams/${req.params.teamId}`);
 		})
 		.catch((err) => {
 			logger.warn(
-				res.$t('teams._team.text.invitationAcceptionFailed'),
+				res.$t('teams._team.text.errorAcceptingInvitation'),
 				err,
 			);
 			res.redirect(`/teams/${req.params.teamId}`);
@@ -1397,7 +1397,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t('teams._team.text.noTopicFoundWithCode'),
+					message: res.$t('global.text.noTopicFoundWithCode'),
 				};
 
 				redirectHelper.safeBackRedirect(req, res);
