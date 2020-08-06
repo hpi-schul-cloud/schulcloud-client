@@ -153,13 +153,13 @@ $(document).ready(() => {
 		element.submit();
 	}
 	// Abgabe speichern
-	$('form.submissionForm.ajaxForm').on('submit', function (e) {
+	$('form.submissionForm.ajaxForm').on('submit', (e) => {
 		if (e) e.preventDefault();
 		ajaxForm($(this), (element, content) => {
 			const teamMembers = [];
-			content.forEach((e) => {
-				if (e.name == 'teamMembers') {
-					teamMembers.push(e.value);
+			content.forEach((c) => {
+				if (c.name === 'teamMembers') {
+					teamMembers.push(c.value);
 				}
 			});
 			if(teamMembers != [] && $(".me").val() && !teamMembers.includes($(".me").val())){
@@ -233,8 +233,10 @@ $(document).ready(() => {
 
 	function updateSearchParameter(key, value) {
 		const url = window.location.search;
-		const reg = new RegExp(`(${key}=)[^\&]+`);
-		window.location.search = (url.indexOf(key) !== -1) ? (url.replace(reg, `$1${value}`)) : (`${url + ((url.indexOf('?') == -1) ? '?' : '&') + key}=${value}`);
+		const reg = new RegExp(`(${key}=)[^&]+`);
+		window.location.search = (url.indexOf(key) !== -1)
+			? (url.replace(reg, `$1${value}`))
+			: (`${url + ((url.indexOf('?') === -1) ? '?' : '&') + key}=${value}`);
 	}
 
 	// file upload stuff, todo: maybe move or make it more flexible when also uploading to homework-assignment
@@ -253,7 +255,10 @@ $(document).ready(() => {
      */
 	function addNewUploadedFile(section, file) {
 		const filesCount = section.children().length === 0 ? -1 : section.children().length;
-		const $fileListItem = $(`<li class="list-group-item"><i class="fa fa-file" aria-hidden="true"></i><a href="/files/file?file=${file._id}" target="_blank">${file.name}</a></li>`)
+		const $fileListItem = $(`<li class="list-group-item">
+				<i class="fa fa-file" aria-hidden="true"></i>
+				<a href="/files/file?file=${file._id}" target="_blank">${file.name}</a>
+			</li>`)
 			.append(`<input type="hidden" name="fileIds[${filesCount + 1}]" value="${file._id}" />`);
 		section.append($fileListItem);
 	}
