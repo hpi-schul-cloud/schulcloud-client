@@ -11,7 +11,7 @@
 		<div class="loading text-center mt-3 mb-3" style="min-height: 70vh;">
 			<i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true" style="font-size: 25px;"></i>
 			<div class="placeholder" style="display: none;">
-				<img src="/images/repair.png" width="350px">
+				<img src="/images/repair.png" width="350px" alt="" role="presentation">
 				<p class="text-muted">{{$t "global.text.errorWhileLoadingPage"}}</p>
 				<button type="button" class="btn btn-primary mt-2">{{$t "global.button.tryAgain"}}</button>
 			</div>
@@ -177,8 +177,8 @@
 						<div class="partner-box-wrapper col-xs-6 col-md-3">
 							<div class="partner-box">
 								<a href="{{{url}}}" target="_blank">
-									<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid"
-										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+									<img src="{{encodeURI logo}}" alt="Logo {{{name}}}" class="img-fluid" {{#if padding}}
+										style="padding: {{{padding}}};" {{/if}}>
 								</a>
 							</div>
 						</div>
@@ -243,7 +243,8 @@
 							<b class="single-pdf-title">{{$t "about.link.hpiCloudDuringLesson"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien.jpg" />
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien.jpg"
+								alt="" role="presentation" />
 						</div>
 					</a>
 				</div>
@@ -253,7 +254,8 @@
 							<b class="single-pdf-title">{{$t "about.link.hpiCloudInDayLife"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schul-Cloud-in-Unterricht-und-Schulalltag.jpg" />
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schul-Cloud-in-Unterricht-und-Schulalltag.jpg"
+								alt="" role="presentation" />
 						</div>
 					</a>
 				</div>
@@ -263,7 +265,8 @@
 							<b class="single-pdf-title">{{$t "about.link.hpiCloudLearning"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-HPI-Schul-Cloud-und-Lernen-4.0.jpg" />
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-HPI-Schul-Cloud-und-Lernen-4.0.jpg"
+								alt="" role="presentation" />
 						</div>
 					</a>
 				</div>
@@ -283,7 +286,8 @@
 							<b class="single-pdf-title">{{$t "about.link.hpiCloudTechnicalReport"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="{{encodeURI "https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.jpg"}}" />
+								src="{{encodeURI "https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.jpg"}}"
+								alt="" role="presentation" />
 						</a>
 					</div>
 				</div>
@@ -293,7 +297,8 @@
 							<b class="single-pdf-title">{{$t "about.link.cloudImpotanceStakeholder"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schulrechner-wandern-in-die-Cloud.jpg" />
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Schulrechner-wandern-in-die-Cloud.jpg"
+								alt="" role="presentation" />
 						</a>
 					</div>
 				</div>
@@ -303,7 +308,8 @@
 							<b class="single-pdf-title">{{$t "about.link.cloudGermanyConcept"}}</b>
 							<br />
 							<img class="single-pdf-thumbnail"
-								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Konzept-und-Pilotierung-der-Schul-Cloud-2017.jpg" />
+								src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/pdf/pdf-thumbnail-Konzept-und-Pilotierung-der-Schul-Cloud-2017.jpg"
+								alt="" role="presentation" />
 						</a>
 					</div>
 				</div>
@@ -312,26 +318,24 @@
 		<div class="content-width-max">
 
 			<h3 class="h4">{{$t "about.headline.morePublications"}}</h3>
-			<ul>
-				<br />
+			<ul class="more-publishments">
 				<li>Malyska, V., Renz, J. & Meinel, C. (2018). Eine Innovation für Deutschlands Bildungslandschaft –
 					Projekt
 					HPI Schul-Cloud . In Scheiter, K. & Riecke-Baulecke, T. (Hrsg.), Schulmanagement-Handbuch 165: Schule
 					4.0 (Vol.
 					37, S. 75–83). München: Oldenbourg.
 				</li>
-				<br />
 				<li>Malyska, V. & Meinel, C. (2018). Lernen in Wolken. didacta DIGITAL, 1/18, S. 16–17</li>
 			</ul>
 			<br />
 			<h3 class="h4">{{$t "about.headline.recordingsLecture"}}</h3>
 			<ul>
-				<li><a href="https://www.tele-task.de/series/1149/"
-						target="_blank">{{$t "about.link.talksFirstCloudForum"}}</a></li>
+				<li><a href="https://www.tele-task.de/series/1149/" target="_blank">{{$t "about.link.talksFirstCloudForum"}}</a>
+				</li>
 				<li><a href="https://www.tele-task.de/series/1196/"
 						target="_blank">{{$t "about.link.talksSecondCloudForum"}}</a></li>
-				<li><a href="https://www.tele-task.de/series/1251/"
-						target="_blank">{{$t "about.link.talksThirdCloudForum"}}</a></li>
+				<li><a href="https://www.tele-task.de/series/1251/" target="_blank">{{$t "about.link.talksThirdCloudForum"}}</a>
+				</li>
 			</ul>
 		</div>
 		{{/content}}
@@ -346,10 +350,9 @@
 						<a href="{{encodeURI "https://www.innovationspreis.de/preisträger-und-finalisten/preisträger/2018/"}}"
 							target="_blank">
 							<div class="row">
-								<div class="col-md-6"><b
-										class="single-award-title">{{$t "about.link.awardWinnerInnovation"}}</b></div>
+								<div class="col-md-6"><b class="single-award-title">{{$t "about.link.awardWinnerInnovation"}}</b></div>
 								<div class="col-md-6"><img class="single-award-thumbnail"
-										src="/images/awards/Innovationspreisträger-180208.jpg" /></div>
+										src="/images/awards/Innovationspreisträger-180208.jpg" alt="" role="presentation" /></div>
 							</div>
 						</a>
 					</div>
@@ -359,10 +362,9 @@
 						<a href="https://hpi.de/pressemitteilungen/2017/schul-cloud-als-ausgezeichneter-ort-2017-praemiert.html"
 							target="_blank">
 							<div class="row">
-								<div class="col-md-6"><b
-										class="single-award-title">{{$t "about.link.awardWinnerIdea"}}</b></div>
-								<div class="col-md-6"><img class="single-award-thumbnail"
-										src="/images/awards/Land-der-Ideen-2017.jpg" /></div>
+								<div class="col-md-6"><b class="single-award-title">{{$t "about.link.awardWinnerIdea"}}</b></div>
+								<div class="col-md-6"><img class="single-award-thumbnail" src="/images/awards/Land-der-Ideen-2017.jpg"
+										alt="" role="presentation" /></div>
 							</div>
 						</a>
 					</div>

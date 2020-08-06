@@ -3,15 +3,16 @@
 		<div class="list-group" data-courseId="{{@root/_id}}">
 			{{#if ltiToolIds}}
 			{{#each ltiToolIds}}
-			<div class="card card-block card-tool locationlink {{#if this.isBBB}} bbbTool {{/if}}"
-			{{#unless this.isBBB}}
-				{{#if this.openNewTab}}
-					data-blank="true"
-					data-loclink="{{#if this.isLocal}}{{this.url}}{{else}}/courses/{{@root/_id}}/tools/run/{{this._id}}{{/if}}"
-				{{else}}
-					data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}"
-				{{/if}}
-			{{/unless}}>
+			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}"
+				{{#unless this.isBBB}}
+					{{#if this.openNewTab}}
+						data-blank="true"
+						data-loclink="{{#if this.isLocal}}{{this.url}}{{else}}/courses/{{@root/_id}}/tools/run/{{this._id}}{{/if}}"
+					{{else}}
+						data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}"
+					{{/if}}
+				{{/unless}}
+			>
 				{{#unless this.isBBB}}
 				<div class="card-title-directory">
 					{{#if logo_url}}
@@ -114,8 +115,7 @@
 	<div class="col-sm-12 add-button">
 		{{#userHasPermission "TOOL_CREATE" }}
 		{{#unless @root.isArchived}}
-		<a href="/courses/{{../_id}}/tools/add"
-			class="btn btn-primary {{#if ../ltiToolIds}}w-100{{else}}btn-empty{{/if}}"
+		<a href="/courses/{{../_id}}/tools/add" class="btn btn-primary {{#if ../ltiToolIds}}w-100{{else}}btn-empty{{/if}}"
 			title="{{$t "courses._course.tools.text.addNewTool"}}">
 			<span>{{$t "courses._course.tools.button.addNewTool"}}</span></a>
 		{{/unless}}

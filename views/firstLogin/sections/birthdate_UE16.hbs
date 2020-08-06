@@ -1,9 +1,9 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
-  <h2 class="h4">Geburtsdatum</h2>
-  <p>Zur Vervollständigung deines Accounts benötigen wir noch dein Geburtsdatum:</p>
+  <h2 class="h4">{{$t "firstLogin.global.heading.birthdate" }}</h2>
+  <p>{{$t "firstLogin.birthdate.text.weNeedYourDateOfBirth" }}</p>
   <div class="row">
     <div class="form-group col-md-6 col-sm-12">
-      <label>Geburtsdatum: *</label>
+      <label>{{$t "firstLogin.global.label.birthdate" }} *</label>
       <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 0}}" name="studentBirthdate" type="text" required autocomplete="off" />
     </div>
   </div>

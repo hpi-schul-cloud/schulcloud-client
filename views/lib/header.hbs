@@ -1,6 +1,6 @@
 <header class="header">
 	<nav class="container">
-		<a id="title" href="/">
+		<a id="title" href="/" aria-label="{{$t "global.title.landing"}}">
 			<img class="logo" alt="{{theme.title}}" src="/images/logo/HPI-Schul-Cloud_Wort-Bildmarke-Banner_transparent.svg" />
 		</a>
 		{{#unless hideMenu}}
@@ -19,7 +19,7 @@
 				</li>
 				<li class="hidden-xs-down nav-link-login">
 					<a class="btn-primary-nuxt-outline" href="/loginRedirect" style="margin-left: 10px;" data-testid="login-btn">
-						<i class="fa fa-sign-in"></i> {{$t "home.header.link.login"}}
+						<i class="fa fa-sign-in" aria-hidden="true"></i> {{$t "home.header.link.login"}}
 					</a>
 				</li>
 				<li class="hidden-xs-down">
@@ -29,7 +29,7 @@
 		{{/unless}}
 	</nav>
 	<div class="text-center hidden-sm-up" style="margin-bottom: 10px;">
-		<a class="btn btn-sm btn-outline btn-primary" href="/loginRedirect"><i class="fa fa-sign-in"></i> Login</a>
-		<a class="btn btn-sm btn-primary" href="/community">Registrieren</a>
+		<a class="btn btn-sm btn-outline btn-primary" href="/loginRedirect"><i class="fa fa-sign-in" aria-hidden="true"></i> {{$t "home.header.link.login"}}</a>
+		<a class="btn btn-sm btn-primary" href="/community">{{$t "home.header.link.register"}}</a>
 	</div>
 </header>

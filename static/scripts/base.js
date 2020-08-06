@@ -130,17 +130,17 @@ function populateModalForm(modal, data) {
 }
 window.populateModalForm = populateModalForm;
 
-function printPart() {
-	$(this).hide();
+function printPart(event) {
+	$(event.target).hide();
 	const w = window.open();
 	w.document.write(
-		$(this)
+		$(event.target)
 			.parent('.print')
 			.html(),
 	);
 	w.print();
 	w.close();
-	$(this).show();
+	$(event.target).show();
 }
 
 // const originalReady = jQuery.fn.ready;
@@ -346,7 +346,12 @@ $(document).ready(() => {
 
 	// Print Button
 	document.querySelectorAll('.print .btn-print').forEach((btn) => {
-		btn.addEventListener('click', printPart);
+		btn.addEventListener('click', (evt) => printPart(evt));
+		btn.addEventListener('keyup', (evt) => {
+			if (evt.keyCode === 13) {
+				printPart(evt);
+			}
+		});
 	});
 
 	// from: https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript

@@ -61,7 +61,7 @@ module.exports = [
 		team: [
 			{
 				subheader_before: 'Hasso-Plattner-Institut',
-				title: '',
+				title: 'Dr.',
 				firstName: 'Jan',
 				lastName: 'Renz',
 				position: 'Technischer Leiter, HPI',
@@ -1013,7 +1013,7 @@ module.exports = [
 			},
 		],
 	},
-].filter(t => t.team.length).map((t, i) => {
+].filter((t) => t.team.length).map((t, i) => {
 	t.style = sectionTypes[i % sectionTypes.length];
 	return t;
 });
