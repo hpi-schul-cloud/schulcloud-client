@@ -410,7 +410,7 @@ class TopicText extends TopicBlock {
                 infoTab.remove( 'txtVSpace' );
                 infoTab.remove( 'cmbAlign' );
 
-                infoTab.elements[0].children[0].children[1].label = $t('topic.topicEdit.label.addFile');
+                infoTab.elements[0].children[0].children[1].label = $t('global.label.chooseAFile');
             }
         });
 
