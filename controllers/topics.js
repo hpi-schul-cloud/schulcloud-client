@@ -44,7 +44,7 @@ const editTopicHandler = (req, res, next) => {
 			action,
 			method,
 			title: req.params.topicId
-				? res.$t('topic._topic.headline.editTopic')
+				? res.$t('global.button.editTopic')
 				: res.$t('topic._topic.headline.createTopic'),
 			submitLabel: req.params.topicId
 				? res.$t('global.button.saveChanges')

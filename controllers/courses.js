@@ -221,7 +221,7 @@ const editCourseHandler = (req, res, next) => {
 		);
 
 		if (req.params.courseId) {
-			if (!_scopePermissions.includes('COURSE_EDIT')) return next(new Error(res.$t('global.error.403')));
+			if (!_scopePermissions.includes('COURSE_EDIT')) return next(new Error(res.$t('global.text.403')));
 			return res.render('courses/edit-course', {
 				action,
 				method,
@@ -889,7 +889,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t('courses._course.topic.text.noTopicFoundWithCode'),
+					message: res.$t('global.text.noTopicFoundWithCode'),
 				};
 
 				redirectHelper.safeBackRedirect(req, res);
