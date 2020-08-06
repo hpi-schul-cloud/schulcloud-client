@@ -26,26 +26,26 @@
 			{{$t "administration.school.label.currentSchoolYear" }} {{../school.currentYear.name}}
 			{{/ifeq}}
 			{{else}}
-			{{$t "administration.school.text.theNewSchoolYearStartsInThe" (dict "themeTitle" theme.title)}}
+			{{$t "administration.longText.text.provideStudentsAndTheirParents" (dict "title" theme.title)}}
 			{{/if}}
 		</p>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12 no-padding">
 					{{#if schoolMaintanance.schoolUsesLdap}}
-					<p>{{$t "administration.school.text.useTheTransferPhaseAroundTheSchoolYear" }}</p>
+					<p>{{$t "administration.longText.text.useTheTransferPhaseAroundTheSchool" }}</p>
 					<p><a class="ldapschoolyearadditionalinfotoggle" href="#">{{$t "administration.school.link.moreInfo" }} ></a></p>
 					<div id="ldapschoolyearadditionalinfo">
-						<p>{{$t "administration.school.text.backgroundSoThatEveryStudentAndTeacher" }}
+						<p>{{$t "administration.longText.text.backroundSoThatEveryStudentAndTeacher" }}
 						</p>
 						<p class="font-weight-bold">{{$t "administration.school.label.duringTheSchoolYear" }}</p>
 						<ul>
-							<li>{{$t "administration.school.text.newUsersClassAffiliationsAnd" }}</li>
+							<li>{{$t "administration.longText.text.newUsersClassAffiliations" }}</li>
 						</ul>
 						<p class="font-weight-bold">{{$t "administration.school.label.startOfTheTransferPhase" }}</p>
 						<ul>
-							<li>{{$t "administration.school.text.youCanStartTheTransferPhase" }}</li>
-							<li>{{$t "administration.school.text.ifThereIsNoManualStart" }}
+							<li>{{$t "administration.longText.text.canStartTheTransferPhase" }}</li>
+							<li>{{$t "administration.longText.text.ifThereIsNoManualStart" }}
 							</li>
 						</ul>
 						<p class="font-weight-bold">{{$t "administration.school.label.duringTheTransferPhase" }}</p>
@@ -149,7 +149,7 @@
 												class="btn btn-primary {{#ifeq ../schoolMaintananceMode "active"}}{{else}}disabled{{/ifeq}}">{{$t "administration.school.button.checkLDAPData" }}</a></p>
 										<label>
 											<input required disabled type="checkbox" id="startldapschoolyear">
-											{{$t "administration.school.label.userAndClassDataInLDAP" }} <br> {{$t "administration.school.label.processedForTheNewSchoolYear" }}
+                                            {{{$t "administration.school.label.userAndClassDataInLDAP" }}}
 										</label>
 									</div>
 									<div class="col-xs-12 col-md-4 text-center">
@@ -195,7 +195,7 @@
 							<label>{{$t "administration.school.label.uploadSchoolLogo" }}</label><br />
 							<input type="hidden" name="logo_dataUrl">
 							<input type="file" id="logo-input">
-							<label for="logo-input" class="btn btn-secondary">{{$t "administration.school.button.chooseAFile" }}</label>
+							<label for="logo-input" class="btn btn-secondary">{{$t "global.label.chooseAFile" }}</label>
 							<span id="logo-filename">{{$t "administration.school.text.noFileSelected" }}</span>
 							<img id="preview-logo" src="">
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>

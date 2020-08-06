@@ -3150,7 +3150,7 @@ router.use(
 		// POLICIES
 		const policiesHead = [
 			res.$t('global.label.title'),
-			res.$t('administration.controller.headline.description'),
+			res.$t('global.label.description'),
 			res.$t('administration.controller.headline.uploadedOn'),
 			'Link',
 		];
