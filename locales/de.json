@@ -485,7 +485,6 @@
 				"weekday": "Wochentag"
 			},
 			"placeholder": {
-				"filterBySchoolYear": "Nach Schuljahr filtern",
 				"modelMan": "Mustermann",
 				"selectClasses": "Klasse(n) auswählen",
 				"selectGrade": "Jahrgangsstufe wählen",
