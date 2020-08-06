@@ -1,15 +1,15 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
-  <h2 class="h4">{{$t "firstLogin.parent.heading.yourData" }}</h2>
+  <h2 class="h4">{{$t "global.headline.yourData" }}</h2>
   <p>{{$t "firstLogin.parent.global.text.forStudentsUnder" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "shortTitle" @root.theme.short_title)}}</p>
-  <p>{{$t "firstLogin.parent.text.forThisWeNeedTheFollowingInformationFromYou" }}</p>
+  <p>{{$t "global.text.forThisWeNeedTheFollowingInformationFromYou" }}</p>
   <div class="row">
     <div class="form-group col-md-6 col-sm-12">
-      <label>{{$t "firstLogin.parent.global.label.firstName" }} *</label>
-      <input class="form-control linked" name="parent_firstName" type="text" placeholder= '{{$t "firstLogin.placeholder.enterYourFirstNameHere" }}' required/>
+      <label>{{$t "global.label.firstNameColon" }} *</label>
+      <input class="form-control linked" name="parent_firstName" type="text" placeholder= '{{$t "global.placeholder.firstName" }}' required/>
     </div>
     <div class="form-group col-md-6 col-sm-12">
-      <label>{{$t "firstLogin.parent.global.label.lastName" }} *</label>
-      <input class="form-control linked" name="parent_lastName" type="text" placeholder='{{$t "firstLogin.placeholder.enterYourLastNameHere" }}' required/>
+      <label>{{$t "global.label.lastNameColon" }} *</label>
+      <input class="form-control linked" name="parent_lastName" type="text" placeholder='{{$t "global.placeholder.lastName" }}' required/>
     </div>
   </div>
 
@@ -18,8 +18,8 @@
     <input class="form-control" type="email" name="parent_email" required placeholder="eltern@schul-cloud.org" autocomplete />
   </div>
   <p class="explanation nomargin">
-    {{$t "firstLogin.parent.text.weNeedAnEmailAddress" (dict "shortTitle" @root.theme.short_title)}}
+    {{$t "global.text.weNeedAnEmailAddress" (dict "shortTitle" @root.theme.short_title)}}
     <br/>
-    {{$t "firstLogin.text.inAdditionWeArePlanningToDevelop" }}
+    {{$t "global.text.inAdditionWeArePlanning" }}
   </p>
 </section>
