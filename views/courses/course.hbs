@@ -18,7 +18,7 @@
   <meta name="baseUrl" content={{baseUrl}}>
       <div class="dropdown dropdown-course minimal-button">
         {{#inArray "COURSE_EDIT" scopedCoursePermission}}
-        <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="{{$t "courses._course.global.text.more"}}" data-toggle="dropdown">
+        <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="{{$t "global.label.more"}}" data-toggle="dropdown">
 			<h1 class="h4" id="page-title" class="course-headline">
 				{{{stripOnlyScript ../name}}}
             	<i class="fa fa-cog i-cog"></i>
@@ -51,7 +51,7 @@
     <div class="row description">
       <div class="col-sm-12">
         {{#if description}}
-        <p class="lead">{{$t "courses._course.text.coursedescription"}} {{{stripOnlyScript description}}}</p>
+        <p class="lead">{{$t "courses._course.text.courseDescription"}} {{{stripOnlyScript description}}}</p>
         {{/if}}
 		{{#unless ../isArchived}}{{#if nextEvent}}
           <p class="text-muted">{{$t "courses._course.text.nextClass"}} {{nextEvent}}</p>
@@ -112,7 +112,7 @@
 			</button>
 
 			<button type="submit" class="btn btn-primary btn-submit">
-				{{$t "global.button.delete"}}
+				{{$t "global.headline.delete"}}
 			</button>
 			</div>
 		{{/content}}

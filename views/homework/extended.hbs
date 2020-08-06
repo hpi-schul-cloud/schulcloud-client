@@ -24,11 +24,11 @@
 			{{#if isTeacher}}
 				{{#userHasPermission "HOMEWORK_EDIT"}}
 					<a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit"
-						alt="{{$t "homework._task.label.editTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-edit'></i> {{$t "homework.label.edit" }}
+						alt="{{$t "homework._task.label.editTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-edit'></i> {{$t "global.button.edit" }}
 					</a>
 					<a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/homework" target="_blank"
 						data-method="DELETE" data-name="{{../title}}" alt="{{$t "homework._task.label.deleteTaskAlt" (dict "title" ../title)}}">
-						<i class='fa fa-trash-o'></i> {{$t "global.button.delete" }}
+						<i class='fa fa-trash-o'></i> {{$t "global.headline.delete" }}
 					</a>
 					<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="{{$t "homework._task.label.copyTask"}}" href="/homework/{{../_id}}/copy"
 						alt="{{$t "homework._task.label.copyTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-copy'></i> {{$t "homework.button.copy" }} </a>
@@ -61,7 +61,7 @@
 			{{$t "global.button.cancel" }}
 		</button>
 		<button type="submit" class="btn btn-primary btn-submit">
-			{{$t "global.button.delete" }}
+			{{$t "global.headline.delete" }}
 		</button>
 	</div>
 	{{/content}}
