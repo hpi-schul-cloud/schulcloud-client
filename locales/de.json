@@ -1566,57 +1566,6 @@
 			"to": "Bis",
 			"type": "Typ"
 		},
-		"mobileNavMenu": "Mobiles Navigations Menu",
-		"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
-		"role": {
-			"text": {
-				"administrator": "Administrator",
-				"expert": "Experte",
-				"leader": "Leiter",
-				"member": "Mitglied",
-				"owner": "Eigentümer",
-				"student": "Schüler",
-				"teacher": "Lehrer"
-			}
-		},
-		"sidebar": {
-			"aria_label": "Seitenleiste",
-			"link": {
-				"addons": "Add-ons",
-				"administration": "Administration",
-				"administrationClasses": "Klassen",
-				"administrationCourses": "Kurse",
-				"administrationSchools": "Schule",
-				"administrationStudents": "Schüler",
-				"administrationTeachers": "Lehrer",
-				"administrationTeams": "Teams",
-				"archive": "Archiv",
-				"assignedTasks": "Gestellte Aufgaben",
-				"calendar": "Termine",
-				"courses": "Kurse",
-				"files": "Meine Dateien",
-				"filesCourse": "Kurse",
-				"filesPersonal": "persönliche Dateien",
-				"filesShared": "geteilte Dateien",
-				"helpArea": "Hilfebereich",
-				"helpDesk": "Helpdesk",
-				"lernstore": "Lern-Store",
-				"management": "Verwaltung",
-				"managementClasses": "Klassen",
-				"managementStudents": "Schüler:innen",
-				"managementTeachers": "Lehrer:innen",
-				"myMaterials": "Meine Materialien",
-				"news": "Neuigkeiten",
-				"overview": "Übersicht",
-				"tasks": "Aufgaben",
-				"tasksArchive": "Archiv",
-				"tasksDrafts": "Entwürfe",
-				"teams": "Teams"
-			}
-		},
-		"skipLinks": {
-			"footerSkipLink": "Footer",
-			"mainContentSkipLink": "Hauptbereich",
 		"link": {
 			"aboutTheProject": "Über das Projekt",
 			"administrationStudents": "Schüler",
@@ -1712,30 +1661,6 @@
 			"videoconferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
 			"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 			"wednesday": "Mittwoch"
-		},
-		"title": {
-			"landing": "Startseite"
-		},
-		"topMenu": {
-			"aria_label": "topbar",
-			"dropdown": {
-				"QRCode": {
-					"title": "QR-Code"
-				},
-				"alertButton": {
-					"title": "Es gibt ein Problem"
-				},
-				"currentUser": {
-					"aria_label": "aktueller Benutzer:"
-				},
-				"fullscreenButton": {
-					"title": "Vollbildmodus"
-				},
-				"notifications": {
-					"title": "Benachrichtigungen"
-				}
-			},
-			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
 		},
 		"pagination": {
 			"aria_label": {
