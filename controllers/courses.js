@@ -654,12 +654,14 @@ router.get('/:courseId/', async (req, res, next) => {
 
 		const isNewEdtrioActivated = editorBackendIsAlive && (courseHasNewEditorLessons || userHasEditorEnabled);
 		// ################################ end new Editor check ##################################
-
-		let ltiToolIds = await api(req).get('/ltiTools', {
-			qs: {
-				_id: { $in: course.ltiToolIds || [] },
-			},
-		});
+		let ltiToolIds = [];
+		if (course.ltiToolIds && course.ltiToolIds.length > 0) {
+			ltiToolIds = await api(req).get('/ltiTools', {
+				qs: {
+					_id: { $in: course.ltiToolIds },
+				},
+			});
+		}
 		ltiToolIds = (ltiToolIds.data || []).filter(
 			(ltiTool) => ltiTool.isTemplate !== 'true',
 		).map((tool) => {
