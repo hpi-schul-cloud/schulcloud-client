@@ -5,14 +5,14 @@
                 {{#if first}}
                     <li class="page-item{{#if disabled}} disabled {{/if}}">
                         <a class="page-link" href="{{url}}">
-                            <span class="{{#if disabled}} text-muted{{/if}}" role="img" aria-label="first page">&laquo;</span>
+                            <span class="{{#if disabled}} text-muted{{/if}}" role="img" aria-label="{{$t "global.pagination.aria_label.firstPage"}}">&laquo;</span>
                         </a>
                     </li>
                 {{/if}}
                 {{#if previous}}
                     <li class="page-item{{#if disabled}} disabled{{/if}}">
                         <a class="page-link" href="{{url}}">
-                            <span class="{{#if disabled}} text-muted{{/if}}" role="img" aria-label="previous page">&lsaquo;</span>
+                            <span class="{{#if disabled}} text-muted{{/if}}" role="img" aria-label="{{$t "global.pagination.aria_label.previousPage"}}">&lsaquo;</span>
                         </a>
                     </li>
                 {{/if}}
@@ -24,14 +24,14 @@
                 {{#if next}}
                     <li class="page-item{{#if disabled}} disabled {{/if}}">
                         <a class="page-link" href="{{url}}">
-                            <span class="{{#if disabled}} text-muted{{/if}}" role="img" aria-label="next page">&rsaquo;</span>
+                            <span class="{{#if disabled}} text-muted{{/if}}" role="img" aria-label="{{$t "global.pagination.aria_label.nextPage"}}">&rsaquo;</span>
                         </a>
                     </li>
                 {{/if}}
                 {{#if last}}
                     <li class="page-item{{#if disabled}} disabled {{/if}}">
                         <a class="page-link" href="{{url}}">
-                            <span class="{{#if disabled}} text-muted{{/if}}" role="img" aria-label="last page">&raquo;</span>
+                            <span class="{{#if disabled}} text-muted{{/if}}" role="img" aria-label="{{$t "global.pagination.aria_label.lastPage"}}">&raquo;</span>
                         </a>
                     </li>
                 {{/if}}

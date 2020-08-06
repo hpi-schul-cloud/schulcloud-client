@@ -1816,6 +1816,14 @@
 				}
 			},
 			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite"
+		},
+		"pagination": {
+			"aria_label": {
+				"firstPage": "Erste Seite",
+				"previousPage": "Vorherige Seite",
+				"lastPage": "Letzte Seite",
+				"nextPage": "nächste Seite"
+			}
 		}
 	},
 	"help": {
