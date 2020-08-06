@@ -1,23 +1,23 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
 
 <div class="form-group">
-	<label>{{$t "administration.form_Policy.label.title" }}</label>
+	<label>{{$t "global.label.title" }}</label>
 	<input class="form-control" name="consentTitle" type="text" data-force-value="true" value="{{$t "administration.form_Policy.input.schoolsPrivacyPolicy" }}" readonly>
 </div>
 <div class="form-group">
-	<label>{{$t "administration.form_Policy.label.description" }}</label>
+	<label>{{$t "global.label.description" }}</label>
 	<textarea class="form-control" name="consentText" value="{{consentText}}" required></textarea>
 </div>
 <div class="form-group">
 	<label>{{$t "administration.form_Policy.label.uploadFile" }}</label><br/>
 	<input type="hidden" id="policy-file-data" name="consentData" value="{{consentData}}">
 	<input type="file" id="policy-input" accept="application/pdf">
-	<label for="policy-input" class="btn btn-secondary">{{$t "administration.form_Policy.label.chooseAFile" }}</label>
+	<label for="policy-input" class="btn btn-secondary">{{$t "global.label.chooseAFile" }}</label>
 </div>
 <div class="form-group">
 	<div class="policy-file-upload">
 		<img id="policy-file-logo" src="/images/thumbs/pdfs.png" width="25px">
-		<span id="policy-file-name">{{$t "administration.form_Policy.text.noFileSelected" }}</span>
+		<span id="policy-file-name">{{$t "administration.school.text.noFileSelected" }}</span>
 	</div>
 </div>
 <div class="form-group">

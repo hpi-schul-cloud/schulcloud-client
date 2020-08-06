@@ -15,7 +15,7 @@
         <div style="width: 100%" class="form-group">
             <label>{{$t "administration.global.label.teacher" }} {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
 
-            <select name="teacherIds[]" multiple data-placeholder="{{$t "administration.classes.placeholer.choseTeacher"}}" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
+            <select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher"}}" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
                 {{#each teachers}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
                         {{#if this.displayName}}
@@ -68,7 +68,7 @@
         {{#if schoolUsesLdap}}
             <strong>{{$t "administration.global.text.studentsLoginInThePresenceOfGuardian" }}</strong>
 
-            <p> {{$t "administration.longText.text.byConnectingToAStateOrSchoolSystem" (dict "shortTitle" theme.short_title)}}</p>
+            <p> {{$t "administration.global.text.byConnectingToASchoolState" (dict "shortTitle" theme.short_title)}}</p>
         {{else}}
             <strong>{{$t "administration.global.text.inviteparentsAndStudentViaLink" }}</strong>
             <p>

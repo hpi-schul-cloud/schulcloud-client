@@ -70,7 +70,7 @@
                                 <label><input name="parent_form" value="analog" type="radio" disabled {{#ifeq consent.parentConsent.form 'analog'}}checked{{/ifeq}}/> {{$t "administration.label.analog" }}</label>
                                 <label><input name="parent_form" value="digital" type="radio" disabled {{#ifeq consent.parentConsent.form 'digital'}}checked{{/ifeq}}/> {{$t "administration.label.digital" }}</label>
                                 <br/>
-                                <label><input name="parent_privacyConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.label.dataProtection" }}</label><br/>
+                                <label><input name="parent_privacyConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.global.label.dataProtection" }}</label><br/>
                                 <label><input name="parent_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.termsOfUseConsent}}checked{{/if}}/> {{$t "administration.label.termsOfUse" }}</label><br/>
                             </div>
                             <div class="col-md-6">
@@ -80,7 +80,7 @@
                                 <label><input name="student_form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> {{$t "administration.label.analog" }}</label>
                                 <label><input name="student_form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> {{$t "administration.label.digital" }}</label>
                                 <br/>
-                                <label><input name="student_privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.label.dataProtection" }}</label><br/>
+                                <label><input name="student_privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.global.label.dataProtection" }}</label><br/>
                                 <label><input name="student_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> {{$t "administration.label.termsOfUse" }}</label><br/>
                             </div>
                         {{else}}
