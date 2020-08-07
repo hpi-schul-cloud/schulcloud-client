@@ -2,7 +2,6 @@
 
     {{#content "scripts" mode="append"}}
         <script src="/scripts/vendor-react.js" nonce="{{nonceValue}}" defer></script>
-        <script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
         <script src="/scripts/topicEdit.js" nonce="{{nonceValue}}" defer></script>
         <script src="/scripts/courses.js" nonce="{{nonceValue}}" defer></script>
     {{/content}}
@@ -61,5 +60,7 @@
 
             </form>
         </section>
+        {{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}
+		{{/embed}}
     {{/content}}
 {{/extend}}
