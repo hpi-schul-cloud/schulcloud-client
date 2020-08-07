@@ -1,5 +1,5 @@
 ﻿{{#content "scripts" mode="append"}}
-    <script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     <script type="text/javascript" nonce="{{nonceValue}}">
@@ -38,13 +38,6 @@
                 range.find(">.tab-links" + ">#" + id + "-tab-link").addClass('active');
                 $('#' + id).addClass('active');
             }
-        });
-    </script>
-    <script nonce="{{nonceValue}}">
-        window.addEventListener('DOMContentLoaded', function () {
-            CKEDITOR.replaceAll(function (textarea, config) {
-                if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
-            });
         });
     </script>
     <script src="/scripts/lessons.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
@@ -162,5 +155,8 @@
                 </div>
             </div>
         </section>
+
+		{{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}
+		{{/embed}}
     {{/content}}
 {{/extend}}
