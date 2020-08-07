@@ -1,4 +1,3 @@
-/* global CKEDITOR */
 /**
  * HELPER - addEventListener
  * 1. allow multiple events "clicked input" ...
@@ -110,13 +109,9 @@ function populateModalForm(modal, data) {
 				break;
 			default:
 				if (
-					$(this).prop('nodeName') === 'TEXTAREA'
-					&& $(this).hasClass('customckeditor')
+					$(this).prop('nodeName') !== 'TEXTAREA'
+					|| !$(this).hasClass('customckeditor')
 				) {
-					if (CKEDITOR.instances.description) {
-						CKEDITOR.instances.description.setData(value);
-					}
-				} else {
 					$(this)
 						.val(value)
 						.trigger('chosen:updated');
