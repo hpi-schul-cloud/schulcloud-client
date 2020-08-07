@@ -8,6 +8,16 @@ $(document).ready(() => {
 	const newVersion = 1;
 	const currentVersion = parseInt(storage.local.getItem('homepageVersion') || '0', 10);
 
+    const language = navigator.language;
+    let isEnglish = false;
+    const englishBrowsers = ["en", "en-US", "en-EG", "en-AU", "en-GB", "en-CA", "en-NZ", "en-IE", "en-ZA", "en-JM", "en-BZ", "en-TT"];
+    for (const element of englishBrowsers) {
+        if (language === element || language === element.toLowerCase()) {
+            isEnglish = true;
+        }
+    }
+    console.log(isEnglish, language);
+
 	if (currentVersion < newVersion) {
 		storage.local.clear();
 		storage.local.setItem('homepageVersion', newVersion.toString());
