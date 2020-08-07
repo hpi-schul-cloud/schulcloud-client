@@ -424,7 +424,7 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 		const birthday = req.body.birthday.split('.');
 		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
 			birthday[0]
-			}T00:00:00Z`;
+		}T00:00:00Z`;
 	}
 	return api(req)
 		.post('/users/', {
@@ -1221,7 +1221,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 		const birthday = req.body.birthday.split('.');
 		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
 			birthday[0]
-			}T00:00:00Z`;
+		}T00:00:00Z`;
 	}
 
 	const promises = [];
@@ -1597,12 +1597,29 @@ router.get(
 	},
 );
 
+const currentUserHasPermissionsForRole = (req, res, next) => {
+	const role = req.query.role;
+	const currentUser = res.locals.currentUser;
+
+	let hasPermissions = false;
+
+	if (role === 'student') {
+		hasPermissions = permissionsHelper.userHasPermission(currentUser, ['ADMIN_VIEW', 'STUDENT_LIST'], 'or');
+	} else if (role === 'teacher') {
+		hasPermissions = permissionsHelper.userHasPermission(currentUser, ['ADMIN_VIEW', 'TEACHER_LIST'], 'or');
+	}
+
+	if (!hasPermissions) {
+		return res.status(401).send(`You are not authorized to list ${role}s`);
+	}
+	return next();
+};
+
 router.get(
 	'/users-without-consent/get-json',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
+	currentUserHasPermissionsForRole,
 	async (req, res, next) => {
 		const role = req.query.role;
-
 		try {
 			let usersWithoutConsent = await getUsersWithoutConsent(
 				req,
@@ -2902,7 +2919,7 @@ router.all('/teams', async (req, res, next) => {
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'disabled' : 'btn-remove-members'
-								}`,
+							}`,
 							icon: 'user-times',
 							data: {
 								name: item.name,
@@ -2922,7 +2939,7 @@ router.all('/teams', async (req, res, next) => {
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'btn-delete-team' : 'disabled'
-								}`,
+							}`,
 							icon: 'trash-o',
 							data: {
 								name: item.name,
