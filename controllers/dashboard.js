@@ -117,7 +117,7 @@ router.get('/', (req, res, next) => {
 				}
 
 				return event;
-			}).sort((a, b) => a.style.left - b.style.left);
+			}).sort((a, b) => b.style.left - a.style.left);
 		})
 		.catch((err) => {
 			error(filterRequestInfos(err));

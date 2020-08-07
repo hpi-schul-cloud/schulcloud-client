@@ -40,7 +40,7 @@
             <div class="row lesson-cards">
                 <div>
                     {{#each events}}
-                    <a tabindex="{{style.left}}" class="lesson-card" aria-label="{{title}}" {{#if url}}href="{{url}}" {{else}} href="{{"#0"}}" {{/if}} {{#if alt}}title="{{alt}}" {{/if}}
+                    <a class="lesson-card" aria-label="{{title}}" {{#if url}}href="{{url}}" {{else}} href="{{"#0"}}" {{/if}} {{#if alt}}title="{{alt}}" {{/if}}
                         style="width: {{style.width}}%; left: {{style.left}}%;">
                         <div class="card card-block" style="{{#if color}}background-color: {{color}};
                                             border-color: {{color}};{{/if}}">
