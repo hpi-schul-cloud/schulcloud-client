@@ -19,7 +19,8 @@
             {{#inArray 'administrator' roleNames}}
                 <div class="row mt-3">
                     <div class="col-xs-12 col-sm-3 text-center">
-                        <img src="/images/firstLogin/welcome-1-fobi.svg" alt="{{$t "firstLogin.thanks.img_alt.text.onlineTraining"}}" width="150px">
+                        {{> 'firstLogin/partials/svg_onboarding_teacher'}}
+                        <!--<img src="/images/firstLogin/welcome-1-fobi.svg" alt="{{$t "firstLogin.thanks.img_alt.text.onlineTraining"}}" width="150px">-->
                     </div>
                     <div class="col-xs-12 col-sm-9">
                         <p>
@@ -34,7 +35,8 @@
                 {{#inArray 'teacher' ../roleNames}}
                     <div class="row mt-3">
                         <div class="col-xs-12 col-sm-3 text-center">
-                            <img src="/images/firstLogin/welcome-1-fobi.svg" alt="{{$t "firstLogin.thanks.img_alt.text.onlineTraining"}}" width="150px">
+                            {{> 'firstLogin/partials/svg_onboarding_teacher'}}
+                            <!--<img src="/images/firstLogin/welcome-1-fobi.svg" alt="{{$t "firstLogin.thanks.img_alt.text.onlineTraining"}}" width="150px">-->
                         </div>
                         <div class="col-xs-12 col-sm-9">
                             <p>
