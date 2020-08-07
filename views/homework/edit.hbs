@@ -1,15 +1,11 @@
 {{#content "scripts" mode="append"}}
-<script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
 <script src="/scripts/mousetrap/mousetrap.js" nonce="{{nonceValue}}" defer></script>
 <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 
 <script nonce="{{nonceValue}}">
 	window.addEventListener('DOMContentLoaded', function () {
-		CKEDITOR.replaceAll(function (textarea, config) {
-			if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
-		});
-
 		$.datetimepicker.setLocale('de');
 		$('input[data-datetime]').datetimepicker({
 			format: 'd.m.Y H:i',
@@ -158,6 +154,7 @@
 			{{/unless}}
 
 			<div class="form-group">
+
 				<label for="homeworkDescription">{{$t "homework.global.label.description" }}</label>
 				<textarea id="homeworkDescription" name="description" type="text" class="form-control customckeditor"
 					placeholder="{{$t "homework.global.placeholder.description" }}">{{assignment.description}}</textarea>
@@ -274,6 +271,9 @@
 			</div>
 		</div>
 		{{/content}}
+		{{/embed}}
+
+		{{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}
 		{{/embed}}
 	</div>
 	{{/content}}
