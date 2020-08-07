@@ -57,7 +57,7 @@ $(document).ready(() => {
                 $submitButton.val($t('login.text.pleaseWaitXSeconds',{seconds : countdownNum}));
                 incTimer();
             } else {
-                $submitButton.val($t('login.button.login'));
+                $submitButton.val($t('home.header.link.login'));
             }
         },1000);
     };
