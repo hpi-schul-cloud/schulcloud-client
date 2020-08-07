@@ -2,7 +2,8 @@
     <div class="welcomeGreeting">
         <div class="welcomeGreetingImage text-center" id="welcome">
             <div class="content">
-                <img src="/images/firstLogin/welcome_screen.svg">
+                {{> 'firstLogin/partials/svg_onboarding_welcome'}}
+                <!--<img src="/images/firstLogin/welcome_screen.svg">-->
                 <hr class="mt-0">
                     <h1 class="h2">{{$t "firstLogin.welcome.text.welcomeTo" (dict "shortTitle" @root.theme.short_title)}}</h1>
                 <hr>

@@ -4,6 +4,10 @@
 .welcomeGreeting {
     max-width: 750px;
     margin: auto auto;
+
+	#COLOR {
+		fill: $primaryColor;
+	}
 }
 
 .welcomeGreetingImage {
@@ -43,7 +47,7 @@
         border-radius: 100px;
         background-color: $primaryColor;
         cursor: pointer;
-    
+
         .arrow {
             border: solid white;
             border-width: 0 3px 3px 0;
@@ -64,7 +68,7 @@
             45%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
             100%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
         }
-          
+
         @keyframes example {
             0%   {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
             20%  {border-color: rgba(255, 255, 255, 1); top: 8px;}
