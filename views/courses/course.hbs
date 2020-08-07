@@ -109,49 +109,63 @@
     </div>
   </div>
 
-  {{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
-  {{#content "body"}}
-  <div class="modal-footer">
+  <<<<<<< HEAD {{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
+    {{#content "body"}} <div class="modal-footer">
     <button type="button" class="btn btn-secondary btn-close">
       {{$t "global.button.cancel"}}
     </button>
+    =======
+    {{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
+    {{#content "body"}}
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary btn-close">
+        {{$t "global.button.cancel"}}
+      </button>
+
+      <button type="submit" class="btn btn-primary btn-submit">
+        {{$t "global.headline.delete"}}
+      </button>
+    </div>
+    {{/content}}
+    {{/embed}}
+    >>>>>>> develop
 
     <button type="submit" class="btn btn-primary btn-submit">
       {{$t "global.button.delete"}}
     </button>
-  </div>
-  {{/content}}
-  {{/embed}}
+    </div>
+    {{/content}}
+    {{/embed}}
 
-  {{#embed "lib/components/modal-form" class="invitation-modal"}}
-  {{#content "fields"}}
-  {{> "courses/forms/form-invitation"}}
-  {{/content}}
-  {{/embed}}
+    {{#embed "lib/components/modal-form" class="invitation-modal"}}
+    {{#content "fields"}}
+    {{> "courses/forms/form-invitation"}}
+    {{/content}}
+    {{/embed}}
 
-  {{#embed "lib/components/modal-form" class="import-modal"}}
-  {{#content "fields"}}
-  {{> "courses/forms/form-import-topic"}}
-  {{/content}}
-  {{/embed}}
+    {{#embed "lib/components/modal-form" class="import-modal"}}
+    {{#content "fields"}}
+    {{> "courses/forms/form-import-topic"}}
+    {{/content}}
+    {{/embed}}
 
-  {{#embed "lib/components/modal-form" class="share-modal"}}
-  {{#content "fields"}}
-  {{> "topic/forms/form-share"}}
-  {{/content}}
-  {{/embed}}
+    {{#embed "lib/components/modal-form" class="share-modal"}}
+    {{#content "fields"}}
+    {{> "topic/forms/form-share"}}
+    {{/content}}
+    {{/embed}}
 
-  {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
-  {{#content "fields"}}
-  {{> "lib/forms/form-create-videoconference"}}
-  {{/content}}
-  {{/embed}}
+    {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
+    {{#content "fields"}}
+    {{> "lib/forms/form-create-videoconference"}}
+    {{/content}}
+    {{/embed}}
 
-  {{#embed "lib/components/modal-form" class="reload-info-modal"}}
-  {{#content "fields"}}
-  {{> "lib/forms/form-bbb-reload-info"}}
-  {{/content}}
-  {{/embed}}
+    {{#embed "lib/components/modal-form" class="reload-info-modal"}}
+    {{#content "fields"}}
+    {{> "lib/forms/form-bbb-reload-info"}}
+    {{/content}}
+    {{/embed}}
 
 </section>
 {{/content}}

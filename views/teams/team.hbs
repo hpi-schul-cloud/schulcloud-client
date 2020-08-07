@@ -19,7 +19,7 @@
 <div id="team-wrapper">
     <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
         <div class="dropdown dropdown-title minimal-button">
-            <a class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" title="{{$t "teams.label.more"}}"
+            <a class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" title="{{$t "global.label.more"}}"
                 data-toggle="dropdown">
                 <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
                 <i class="fa fa-ellipsis-v i-cog"></i>
@@ -46,7 +46,7 @@
                 {{#inArray "DELETE_TEAM" ../permissions}}
                 <a href="/teams/{{../_id}}/" class="dropdown-item" target="_blank" data-method="DELETE"
                     data-name="{{../name}}" redirect="/teams/">
-                    <i class="fa fa-trash" aria-hidden="true"></i> {{$t "teams._team.dropdown_menu.link.deleteTeam"}}
+                    <i class="fa fa-trash" aria-hidden="true"></i> {{$t "global.button.deleteTeam"}}
                 </a>
                 {{/inArray}}
                 {{/userHasPermission}}
@@ -78,7 +78,7 @@
                         <span class="text">{{$t "teams._team.tab_label.news"}}</span>
                     </button>
                     <button class="tab" data-tab="js-events">
-                        <span class="text">{{$t "teams._team.tab_label.dates"}}</span>
+                        <span class="text">{{$t "global.link.calendar"}}</span>
                     </button>
                 </div>
             </div>
@@ -133,7 +133,7 @@
                         <section style="padding-top: 2rem; clear: both" class="row">
                             <div class="col-sm-12">
                                 {{#ifneq 0 (arrayLength files)}}
-                                <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.files"}}</h5>
+                                <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
                                 {{/ifneq}}
                                 {{#embed "files/file-viewer"}}{{/embed}}
                                 {{#embed "files/files-grid" files=files teamFiles=true canEditPermissions=canEditPermissions teamId=../_id}}{{/embed}}
@@ -153,8 +153,7 @@
                             {{/inArray}}
                             {{#if ../canCreateDir}}
                             <span class="btn btn-primary create-directory">
-                                <i class="fa fa-folder" aria-hidden="true"></i>
-                                {{$t "teams._team.files.button.createFolder"}}
+                                <i class="fa fa-folder" aria-hidden="true"></i> {{$t "global.button.createFolder"}}
                             </span>
                             {{/if}}
                             {{!-- {{#if ../canCreateFile}}
@@ -217,12 +216,20 @@
         {{$t "global.button.cancel"}}
     </button>
 
-    <button type="submit" class="btn btn-primary btn-submit">
+    <<<<<<< HEAD <button type="submit" class="btn btn-primary btn-submit">
         {{$t "global.button.delete"}}
-    </button>
+        </button>
 </div>
 {{/content}}
 {{/embed}}
+=======
+<button type="submit" class="btn btn-primary btn-submit">
+    {{$t "global.headline.delete"}}
+</button>
+</div>
+{{/content}}
+{{/embed}}
+>>>>>>> develop
 
 {{#embed "lib/components/modal-form" class="file-permissions-modal" title=($t "teams._team.files.button.changeSharingSettings")}}
 {{#content "fields"}}
@@ -242,40 +249,51 @@
 {{/content}}
 {{/embed}}
 
-{{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
-{{#content "fields"}}
-{{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
-{{/content}}
-{{#content "additional-actions"}}
-<button type="button" class="btn btn-primary btn-danger btn-delete pull-left">
+<<<<<<< HEAD {{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
+    {{#content "fields"}}
+    {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
+    {{/content}} {{#content "additional-actions"}} <button type="button"
+    class="btn btn-primary btn-danger btn-delete pull-left">
     <i class="fa fa-trash-o"></i> {{$t "global.button.delete"}}
-</button>
-{{/content}}
-{{/embed}}
+    </button>
+    {{/content}}
+    {{/embed}}
+    =======
+    {{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
+    {{#content "fields"}}
+    {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
+    {{/content}}
+    {{#content "additional-actions"}}
+    <button type="button" class="btn btn-primary btn-danger btn-delete pull-left">
+        <i class="fa fa-trash-o"></i> {{$t "global.headline.delete"}}
+    </button>
+    {{/content}}
+    {{/embed}}
+    >>>>>>> develop
 
-{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
-{{#if ../showVideoconferenceOption}}
-{{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
-{{#content "fields"}}
-{{> "lib/forms/form-create-videoconference"}}
-{{/content}}
-{{/embed}}
+    {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+    {{#if ../showVideoconferenceOption}}
+    {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
+    {{#content "fields"}}
+    {{> "lib/forms/form-create-videoconference"}}
+    {{/content}}
+    {{/embed}}
 
-{{#embed "lib/components/modal-form" class="reload-info-modal"}}
-{{#content "fields"}}
-{{> "lib/forms/form-bbb-reload-info"}}
-{{/content}}
-{{/embed}}
+    {{#embed "lib/components/modal-form" class="reload-info-modal"}}
+    {{#content "fields"}}
+    {{> "lib/forms/form-bbb-reload-info"}}
+    {{/content}}
+    {{/embed}}
 
-{{#embed "lib/components/modal-form" class="forbidden-info-modal"}}
-{{#content "fields"}}
-{{> "lib/forms/form-bbb-forbidden-info"}}
-{{/content}}
-{{/embed}}
-{{/if}}
-{{/ifConfig}}
-</section>
-</div>
+    {{#embed "lib/components/modal-form" class="forbidden-info-modal"}}
+    {{#content "fields"}}
+    {{> "lib/forms/form-bbb-forbidden-info"}}
+    {{/content}}
+    {{/embed}}
+    {{/if}}
+    {{/ifConfig}}
+    </section>
+    </div>
 
-{{/content}}
-{{/extend}}
+    {{/content}}
+    {{/extend}}
