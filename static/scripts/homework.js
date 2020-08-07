@@ -173,7 +173,7 @@ $(document).ready(() => {
 	// Abgabe speichern
 	$('form.submissionForm.ajaxForm').on('submit', (e) => {
 		if (e) e.preventDefault();
-		ajaxForm($(this), (element, content) => {
+		ajaxForm($(e.currentTarget), (element, content) => {
 			const teamMembers = [];
 			content.forEach((c) => {
 				if (c.name === 'teamMembers') {
@@ -231,7 +231,7 @@ $(document).ready(() => {
     // Bewertung speichern
     $('.evaluation #comment form').on("submit",function(e){
         if(e) e.preventDefault();
-        ajaxForm($(this),function(c){
+        ajaxForm($(e.currentTarget),function(c){
             $.showNotification($t('homework.text.ratingHasBeenSaved'), "success", 5000);
         },function(c){
             return (c.grade || c.gradeComment);
