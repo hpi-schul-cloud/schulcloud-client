@@ -1,22 +1,22 @@
 <input name="scopeId" type="hidden" data-force-value="true" value="{{userId}}" />
 
 <div class="form-group">
-    <label class="control-label" for="title">{{$t "calendar.label.title" }}</label>
+    <label class="control-label" for="title">{{$t "global.label.title" }}</label>
     <input data-testid="team_event_name" class="form-control" name="summary" required placeholder="{{$t "calendar.input.egHandballTraining"}}">
 </div>
 <div class="form-group row">
     <div class="form-group col-md-6">
-        <label>{{$t "calendar.label.of" }}</label>
+        <label>{{$t "global.label.from" }}</label>
         <input name="startDate" id="startDate" type="text" class="form-control" data-datetime/>
     </div>
 
     <div class="form-group col-md-6">
-        <label>{{$t "calendar.label.to" }}</label>
+        <label>{{$t "global.label.to" }}</label>
         <input name="endDate" id="endDate" type="text" class="form-control" data-datetime/>
     </div>
 </div>
 <div class="form-group">
-    <label data-testid="description_team_event" class="control-label" for="description">{{$t "calendar.label.description" }}</label>
+    <label data-testid="description_team_event" class="control-label" for="description">{{$t "global.label.description" }}</label>
     <textarea class="form-control" name="description" placeholder=""></textarea>
 </div>
 <div class="form-group">

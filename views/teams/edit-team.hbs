@@ -30,7 +30,9 @@
                     <textarea class="form-control" data-testid="description_team" name="description">{{team.description}}</textarea>
                 </div>
 
+                {{! Messenger is activated for instace !}}
                 {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+                    {{! Messenger is activated for current school }}
                     {{#inArray "messenger" @root.schoolData.features}}
                         <div class="form-group">
                             <label>
@@ -41,19 +43,20 @@
                     {{/inArray}}
                 {{/ifConfig}}
 
-               {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
-                    {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
-                        {{#inArray "rocketChat" @root.schoolData.features}}
-                            <div class="form-group">
-                                <label>
-                                    <input type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
-                                    {{$t "teams._team.edit.label.activateMessengerForTeam"}}
-                                </label>
-                            </div>
-                        {{/inArray}}
-                    {{/if}}
-                {{/ifConfig}}
+                {{! Rocketchat is activated for instace }}
+                {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
+                    {{! Rocketchat is activated for current school }}
+                    {{#inArray "rocketChat" @root.schoolData.features}}
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
+                                {{$t "teams._team.edit.label.activateMessengerForTeam"}}
+                            </label>
+                        </div>
+                    {{/inArray}}
+                {{/if}}
 
+                {{! Videoconferences are activated for instace }}
                 {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                     <div class="form-group">
                         <label>
@@ -64,7 +67,7 @@
                         {{#inArray "videoconference" @root.schoolData.features}}
                         {{else}}
                         <small class="form-text text-muted">
-	                        {{$t "teams._team.edit.text.videoConferencesNotAllowedBySchool"}}
+                            {{$t "teams._team.edit.text.videoConferencesNotAllowedBySchool"}}
                         </small>
                         {{/inArray}}
                     </div>
