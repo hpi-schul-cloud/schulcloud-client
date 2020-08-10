@@ -15,6 +15,7 @@ catch() {
   if [ "$1" != "0" ]; then
     echo "An issue occured in line $2. Status code: $1"
   fi
+  rm -rf .build
 }
 
 if [ "$TRAVIS_BRANCH" = "master" ]
@@ -130,5 +131,4 @@ else
   echo "Event detected which does not meet any conditions. Deployment will be skipped."
 fi
 
-rm -rf .build
 exit 0
