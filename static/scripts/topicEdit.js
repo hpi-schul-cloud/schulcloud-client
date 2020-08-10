@@ -869,7 +869,7 @@ class TopicEtherpad extends TopicBlock {
                         placeholder="Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC ">
                         {this.props.content.description}
                     </textarea>
-                </div>c
+                </div>
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
                        value={this.props.content.url} />
             </div>
