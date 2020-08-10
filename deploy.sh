@@ -93,7 +93,7 @@ function inform_hotfix {
   fi
 }
 
-mkdir .build
+mkdir -p .build
 openssl aes-256-cbc -K $encrypted_bce910623bb2_key -iv $encrypted_bce910623bb2_iv -in travis_rsa.enc -out .build/travis_rsa -d
 
 if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
