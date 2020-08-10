@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "Toolbar button tooltip for the image browse feature."
+msgid "Insert Image"
+msgstr "Bild einfügen"
+
+msgctxt "Toolbar button tooltip for the video browse feature."
+msgid "Insert Video"
+msgstr "Video einfügen"
+
+msgctxt "Toolbar button tooltip for the audio browse feature."
+msgid "Insert Audio"
+msgstr "Audio einfügen"
+
+msgctxt "Title of the image browser dialog window."
+msgid "Image Properties"
+msgstr "Bildeigenschaften"
+
+msgctxt "Title of the video browser dialog window."
+msgid "Video Properties"
+msgstr "Videoeigenschaften"
+
+msgctxt "Title of the audio browser dialog window."
+msgid "Audio Properties"
+msgstr "Audioeigenschaften"
+
+msgctxt "Label for the URL input field."
+msgid "URL"
+msgstr "URL"
+
+msgctxt "Label for the alternative text input field."
+msgid "Alternative Text"
+msgstr "Alternativer Text"
+
+msgctxt "Label for the image browse button."
+msgid "Browse Server"
+msgstr "Server durchsuchen"
+
+msgctxt "Label for the cancel button."
+msgid "Cancel"
+msgstr "abbrechen"
+
+msgctxt "Label for the confirmation button."
+msgid "OK"
+msgstr "OK"

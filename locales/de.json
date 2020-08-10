@@ -397,7 +397,6 @@
 				"colorOfTheCourse": "Farbe des Kurses:",
 				"dataProtection": "Datenschutz",
 				"lengthOfLesson": "Dauer der Schulstunde",
-				"nameOfTheCourse": "Name des Kurses",
 				"parents": "Eltern",
 				"schoolYear": "Schuljahr",
 				"startOfLesson": "Start der Schulstunde",
@@ -951,6 +950,7 @@
 			},
 			"tab_label": {
 				"groups": "Gruppen",
+				"tasks": "Aufgaben",
 				"tools": "Tools",
 				"topics": "Themen"
 			},
@@ -1577,6 +1577,7 @@
 			"lastName": "Nachname",
 			"lastNameColon": "Nachname:",
 			"more": "Weiteres",
+			"nameOfTheCourse": "Name des Kurses",
 			"newTab": "Öffnet in neuem Tab",
 			"password": "Passwort:",
 			"role": "Rolle",
