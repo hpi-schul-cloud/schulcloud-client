@@ -34,8 +34,8 @@
         <p class="submissionLabel"><i class="fa fa-users"></i>
         {{#if maxTeamMembers}}
             {{{$t "homework._task.label.teamSubmissionMaxX" (dict "maxTeamMembers" @root.maxTeamMembers)}}}
-        {{else}} 
-            {{$t "homework._task.label.teamSubmission"}} 
+        {{else}}
+            {{$t "homework._task.label.teamSubmission"}}
         {{/if}}
         </p>
         <div class="form-group">
@@ -43,7 +43,7 @@
             <label for="teamMembers1">{{$t "homework.label.selectTeamMembers" }}</label>
             <select name="teamMembers" id="teamMembers" multiple data-placeholder="{{$t "homework._task.input.chooseTeamMembers"}}">
                 {{#each @root.students}}
-                    <option value="{{this._id}}" 
+                    <option value="{{this._id}}"
                         {{#if @root.submission}}
                             {{#inArray this._id @root.submission.teamMemberIds}}selected{{/inArray}}
                             {{#ifeq this._id @root.submission.studentId._id}} selected{{/ifeq}}
@@ -77,7 +77,7 @@
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}"/>
 
         <div class="form-group">
-            <textarea id="evaluation" name="comment" class="form-control customckeditor"
+            <textarea id="evaluation" name="comment" class="form-control ckeditor customckeditor"
                   placeholder="{{$t "homework._task.input.createSubmission"}}">{{@root.submission.comment}}</textarea>
         </div>
   {{else}}
@@ -98,7 +98,7 @@
     {{#if @root.submittable}}
         {{> "lib/components/csrfInput"}}
         {{#userHasPermission "SUBMISSIONS_CREATE"}}
-            <button type="submit" class="btn btn-primary btn-submit" disabled="true">{{$t "homework.button.save" }}</button>
+            <button type="submit" class="ckeditor-submit btn btn-primary btn-submit" disabled="true">{{$t "homework.button.save" }}</button>
         {{/userHasPermission}}
 
         {{#if @root.submission}}
@@ -109,7 +109,7 @@
 						data-method="delete-submission"
 						data-name="{{$t "homework.button.hrefDataName" }}"
 						alt="{{$t "homework.button.hrefAlt" }}"
-					><i class="fa fa-trash-o"></i> {{$t "global.button.delete" }}</a>
+					><i class="fa fa-trash-o"></i> {{$t "global.headline.delete" }}</a>
 				{{/ifeq}}
 			{{/userHasPermission}}
 		{{/if}}
@@ -124,7 +124,7 @@
                     {{$t "global.button.cancel" }}
                 </button>
                 <button type="submit" class="btn btn-primary btn-submit">
-                   {{$t "global.button.delete" }}
+                   {{$t "global.headline.delete" }}
                 </button>
             </div>
         {{/content}}
@@ -135,4 +135,6 @@
 		    {{> "files/forms/form-virus-danger"}}
 	    {{/content}}
     {{/embed}}
+	{{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}
+	{{/embed}}
 </section>
