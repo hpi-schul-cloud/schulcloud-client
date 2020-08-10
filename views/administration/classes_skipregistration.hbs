@@ -5,17 +5,10 @@
 
 {{#content "page"}}
 <p>
-    Du kannst auf dieser Seite im Namen deiner Schüler das Einverständnis zur <a
-        href="{{@root.theme.documents.specificFiles.privacyExemplary}}"
-        target="_blank">Datenschutzerklärung</a>
-    und zur <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}"
-        target="_blank">Nutzungsordnung</a> der {{@root.theme.short_title}} erklären. <br>
-    Durch den Klick auf <i>"Einverständnis im Namen der Schüler erklären"</i> bestätigst du, dass du das Einverständnis
-    der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.
+{{{$t "administration.classes.text.signAgreement" (dict "shortTitle" theme.short_title)}}}
 </p>
 <p>
-    Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit
-    einer Anleitung für deine Schüler auszudrucken.
+    {{$t "administration.classes.text.nextPageYouWillReceiveConfirmation" }}
 </p>
 <form method="POST">
     {{#if students}}
@@ -23,8 +16,8 @@
         <tr>
             <th>Name</th>
             <th>E-Mail</th>
-            <th>Geburtsdatum <sup>*</sup></th>
-            <th>Passwort vergeben <sup>*</sup></th>
+            <th>{{$t "global.label.dateOfBirth" }}<sup>*</sup></th>
+            <th>{{$t "administration.global.label.assignPassword" }} <sup>*</sup></th>
         </tr>
         {{#each students}}
         <tr>
@@ -49,18 +42,18 @@
         </tr>
         {{/each}}
     </table>
-    <sup>*</sup> erforderlich
+    <sup>*</sup> {{$t "administration.classes.text.required" }}
     {{else}}
-    <b>In dieser Klasse gibt es keine fehlenden Einverständniserklärungen. </b>
+    <b>{{$t "administration.classes.text.noLackOfInformedConsent" }} </b>
     {{/if}}
     <div class="modal-footer w-100">
         <button class="btn btn-secondary btn-cancel">
-            Abbrechen
+            {{$t "global.button.cancel" }}
         </button>
         {{#if students}}
         {{> "lib/components/csrfInput"}}
         <button type="submit" class="btn btn-primary btn-submit">
-            Einverständnis im Namen der Schüler erklären
+            {{$t "administration.classes.button.declareConsentOnBehalfOfTheStudents" }}
         </button>
         {{/if}}
     </div>

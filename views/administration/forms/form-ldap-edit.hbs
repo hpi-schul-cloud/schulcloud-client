@@ -6,47 +6,47 @@
 </div>
 
 <div class="form-group">
-    <label>Typ</label>
+    <label>{{$t "global.label.type" }}</label>
     <select class="linked" name="ldaptype" data-linktext data-placeholder="LDAP-Typ auswählen">
             <option value="general">
-                Allgemein
+                {{$t "administration.ldapEdit.placeholder.general" }}
             </option>
     </select>
 </div>
 
 <div class="form-group">
-    <label>URL (ldaps ist verpflichtend)</label>
+    <label>{{$t "administration.ldapEdit.label.urlIdapIsMandatory" }}</label>
     <input class="form-control linked" name="ldapurl" type="text" placeholder="ldaps://" value="{{system.ldapConfig.url}}"/>
 </div>
 
 <div class="form-group">
-    <label>root-Pfad <i class="fa fa-question-circle" data-toggle="tooltip" title="Hauptpfad des LDAPs. Normalerweise DC=Domain,DC=Top-Level-Domain"></i></label>
+    <label>{{$t "administration.ldapEdit.label.rootPath" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.label.rootPathTitle" }}"></i></label>
     <input class="form-control linked" name="rootpath" type="text" value="{{system.ldapConfig.rootPath}}"/>
 </div>
 
 <div class="form-group">
-    <label>search-Nutzer <i class="fa fa-question-circle" data-toggle="tooltip" title="Voller Benutzername (inkl. root-Pfad) des Nutzers der Zugriff auf alle Nutzerinformationen hat"></i></label>
+    <label>{{$t "administration.ldapEdit.label.searchUsers" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.label.searchUsersTitle" }}"></i></label>
     <input class="form-control linked" name="searchuser" type="text" value="{{system.ldapConfig.searchUser}}"/>
 </div>
 
 <div class="form-group">
-    <label>search-Nutzer Passwort</label>
+    <label>{{$t "administration.ldapEdit.label.seacrhUserpassword" }}</label>
     <input class="form-control linked" name="searchuserpassword" type="password" value="{{system.ldapConfig.searchUserPassword}}"/>
 </div>
 
 <div class="form-group">
-    <label>Nutzer-Pfad <i class="fa fa-question-circle" data-toggle="tooltip" title="Relativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Nutzer erreichbar sind. Mit der Trennung durch zwei Semikolons (;;) können auch mehrere relative Pfade zu LDAP-Nutzern angegeben werden."></i></label>
+    <label>{{$t "administration.ldapEdit.label.userPath" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.label.userPathTitle" }}"></i></label>
     <input class="form-control linked" name="userpath" type="text" value="{{system.ldapConfig.providerOptions.userPathAdditions}}"/>
 </div>
 
 <div class="form-group">
-    <label>Rollen-Typ <i class="fa fa-question-circle" data-toggle="tooltip" title="Ist die Nutzerrolle (Lehrer, Schüler) im Nutzerattribut textuell gespeichert oder gibt es eine LDAP-Gruppe für die jeweiligen Nutzerrolle?"></i></label>
-    <select class="linked" id="select-roletype" name="roletype" data-linktext data-placeholder="LDAP-Typ auswählen">
+    <label>{{$t "administration.ldapEdit.label.roleType" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.label.roleTypeTitle" }}"></i></label>
+    <select class="linked" id="select-roletype" name="roletype" data-linktext data-placeholder="{{$t "administration.ldapEdit.placeholder.roleTypePlaceholder" }}">
             <option value="text" {{#ifeq system.ldapConfig.providerOptions.roleType "text"}}selected="selected"{{/ifeq}}>
-                Nutzer-Attribut
+                {{$t "administration.ldapEdit.placeholder.userAttribute" }}
             </option>
             <option value="group" {{#ifeq system.ldapConfig.providerOptions.roleType "group"}}selected="selected"{{/ifeq}}>
-                LDAP-Gruppe
+                {{$t "administration.ldapEdit.placeholder.LDAPGroup" }}
             </option>
     </select>
 </div>
@@ -54,7 +54,7 @@
 <hr>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
-        <h2 class="h5">Nutzer-Attribute <i class="fa fa-question-circle" data-toggle="tooltip" title="Geben Sie das Nutzerattribut an, in dem die folgenden Informationen in Ihrem LDAP verfügbar sind"></i></h2>
+        <h2 class="h5">{{$t "administration.ldapEdit.heading.userAttributes" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.heading.userAttributesTitle" }}"></i></h2>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
         <i id="user-section-toggle" class="fa fa-lock fa-3x"></i>
@@ -62,27 +62,27 @@
 </div>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
-        <label>Vorname</label>
+        <label>{{$t "global.label.firstNameColon" }}</label>
         <input class="form-control linked user-attribute" readonly name="givenName" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.givenName}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
-        <label>Nachname</label>
+        <label>{{$t "global.label.lastName" }}</label>
         <input class="form-control linked user-attribute" readonly name="sn" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.sn}}"/>
     </div>
 </div>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
-        <label>Domainname (Pfad im LDAP)</label>
+        <label>{{$t "administration.ldapEdit.label.domainName_pathInLDAP" }}</label>
         <input class="form-control linked user-attribute" readonly name="dn" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.dn}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
-        <label>uid <i class="fa fa-question-circle" data-toggle="tooltip" title="Der spätere Loginname. Muss in ihrem LDAP zur selben Zeit nur einmal vorkommen"></i></label>
+        <label>uid <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.label.uidTitle" }}"></i></label>
         <input class="form-control linked user-attribute" readonly name="uid" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.uid}}"/>
     </div>
 </div>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
-        <label>uuid <i class="fa fa-question-circle" data-toggle="tooltip" title="Eindeutige nicht veränderbare Nutzer-ID. Darf sich nicht wie die uid (z.B. durch Heirat) ändern"></i></label>
+        <label>uuid <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.label.uuidTitle" }}"></i></label>
         <input class="form-control linked user-attribute" readonly name="uuid" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.uuid}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
@@ -92,7 +92,7 @@
 </div>
 <div class="row" id="role-name">
     <div class="form-group col-sm-6 col-xs-12">
-        <label>Rolle <i class="fa fa-question-circle"></i></label>
+        <label>{{$t "global.label.role" }} <i class="fa fa-question-circle"></i></label>
         <input class="form-control linked user-attribute" readonly name="role" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.role}}"/>
     </div>
 </div>
@@ -100,8 +100,8 @@
 <hr>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
-        <h2 class="h5" id="headline-role-type">Rollen-Attribute</h2>
-        <i id="description-role-attribute" class="fa fa-question-circle" data-toggle="tooltip" data-original-title="Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?"></i>
+        <h2 class="h5" id="headline-role-type">{{$t "administration.ldapEdit.heading.roleAttributes" }}</h2>
+        <i id="description-role-attribute" class="fa fa-question-circle" data-toggle="tooltip" data-original-title="{{$t "administration.ldapEdit.heading.roleAttributesTitle" }}"></i>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
         <i id="role-section-toggle" class="fa fa-lock fa-3x"></i>
@@ -113,7 +113,7 @@
         <input class="form-control linked role-attribute" readonly name="studentrole" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleStudent}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
-        <label>Lehrer</label>
+        <label>{{$t "administration.global.label.teacher" }}</label>
         <input class="form-control linked role-attribute" readonly name="teacherrole" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleTeacher}}"/>
     </div>
 </div>
@@ -123,7 +123,7 @@
         <input class="form-control linked role-attribute" readonly name="adminrole" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleAdmin}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
-        <label>keine HPI Schul-Cloud <i class="fa fa-question-circle" data-toggle="tooltip" title="Dies ermöglicht es Ihnen, dass Nutzer aus Ihrem LDAP nicht in die HPI Schul-Cloud übertragen werden"></i></label>
+        <label>{{$t "administration.ldapEdit.label.noSchoolCloud" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.label.noSchoolCloudTitle" }}"></i></label>
         <input class="form-control linked role-attribute" readonly name="noscrole" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleNoSc}}"/>
     </div>
 </div>
@@ -131,16 +131,16 @@
 <hr>
 <label>
     <input name="activateclasses" id="select-classes" type="checkbox" {{#ifneq system.ldapConfig.providerOptions.classPathAdditions ""}}checked="checked"{{/ifneq}} />
-    Klassen (optional)
+    {{$t "administration.ldapEdit.input.classes" }}
 </label>
 <div class="class-settings">
     <div class="form-group">
-        <label>Klassen-Pfad <i class="fa fa-question-circle" data-toggle="tooltip" title="Relativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Klassen erreichbar sind"></i></label>
+        <label>{{$t "administration.ldapEdit.label.classPath" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.label.classPathTitle" }}"></i></label>
         <input class="form-control linked" name="classpath" type="text" value="{{system.ldapConfig.providerOptions.classPathAdditions}}"/>
     </div>
     <div class="row">
         <div class="form-group col-sm-6 col-xs-12">
-            <h2 class="h5">Klassen-Attribute <i class="fa fa-question-circle" data-toggle="tooltip" title="Geben Sie das Klassenattribut an, in dem die folgenden Informationen in Ihrem LDAP verfügbar sind"></i></h2>
+            <h2 class="h5">{{$t "administration.ldapEdit.heading.classAttributes" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.heading.classAttributesTitle" }}"></i></h2>
         </div>
         <div class="form-group col-sm-6 col-xs-12">
             <i id="class-section-toggle" class="fa fa-lock fa-3x"></i>
@@ -148,27 +148,27 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-6 col-xs-12">
-            <label>Anzeige-Name</label>
+            <label>{{$t "administration.ldapEdit.label.displayName" }}</label>
             <input class="form-control linked class-attribute" readonly name="classdescription" type="text" value="{{system.ldapConfig.providerOptions.classAttributeNameMapping.description}}"/>
         </div>
         <div class="form-group col-sm-6 col-xs-12">
-            <label>Domain-Name</label>
+            <label>{{$t "administration.ldapEdit.label.domainName" }}</label>
             <input class="form-control linked class-attribute" readonly name="classdn" type="text" value="{{system.ldapConfig.providerOptions.classAttributeNameMapping.dn}}"/>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-6 col-xs-12">
-            <label>Nutzer der Klasse mit vollem Pfad</label>
+            <label>{{$t "administration.ldapEdit.label.fullPathClassUsers" }}</label>
             <input class="form-control linked class-attribute" readonly name="classuniquemember" type="text" value="{{system.ldapConfig.providerOptions.classAttributeNameMapping.uniqueMember}}"/>
         </div>
     </div>
 </div>
 
 <div class="modal-footer mt-1">
-    <a href="/administration/school" class="btn btn-secondary">Abbrechen</a>
+    <a href="/administration/school" class="btn btn-secondary">{{$t "global.button.cancel" }}</a>
     <button id="verify" class="btn btn-primary">
         <i id="verify-icon"></i>
-        Verifizieren
+        {{$t "administration.ldapEdit.button.verify" }}
     </button>
-    <button id="savesubmit" class="btn btn-secondary" disabled>Änderungen speichern</button>
+    <button id="savesubmit" class="btn btn-secondary" disabled>{{$t "global.button.saveChanges" }}</button>
 </div>

@@ -4,6 +4,7 @@
 .webpack-changed-plugin-cache
 .gulp-changed-smart.json
 .idea
+.build
 .travis.yml*
 Dockerfile*
 README.md
@@ -12,4 +13,4 @@ build
 compose-client-test.dummy
 deploy.sh
 node_modules
-travis_rsa.enc
+travis*

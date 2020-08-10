@@ -1,40 +1,61 @@
-<footer class="hide-inline small-footer" id="footer">
+<footer id="footer" class="hide-inline small-footer">
 	<div class="imprint">
 		<div class="center">
-			<a href="https://hpi.de" target="_blank" rel="noopener">
+			<a href="https://hpi.de" target="_blank" rel="noopener" aria-label="{{$t "lib.footer.img_alt.providerLogo"}} {{$t "global.link.openInNewTabWarning"}}">
 				<img id="footer-logo" src="/images/footer-logo.png" alt="{{$t "lib.footer.img_alt.providerLogo"}}" />
 			</a>
 			<span>&copy; {{currentYear}} {{theme.short_title}} </span>
 
+			<nav aria-label="{{$t "lib.headline.aria_label"}}">
+				<ul>
+					<li>
+						<a href="/impressum">{{$t "global.link.imprint" }}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.termsOfUseHPI"}} PDF {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.termsOfUseHPI"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.dataProtectionDeclaration"}} PDF {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.dataProtectionDeclaration"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="mailto:{{getConfig "SC_CONTACT_EMAIL"}}?subject=Schul_Cloud%20Anfrage" target="_blank" rel="noopener" aria-label="{{$t "global.link.contact"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "global.link.contact"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="/team">{{$t "lib.global.link.team"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="/about">{{$t "global.link.aboutTheProject"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="/community">{{$t "lib.global.link.participate"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="/partner">{{$t "global.link.partner"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="https://status.schul-cloud.org" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="/security">{{$t "lib.global.link.safety"}}</a>
+					</li>
+				</ul>
+			</nav>
 			<div>
-				<a href="/impressum">{{$t "lib.global.link.imprint" }}</a>
-				<span> - </span>
-				<a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank"
-				   rel="noopener">{{$t "lib.global.link.termsOfUseHPI"}}</a>
-				<span> - </span>
-				<a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank"
-				   rel="noopener">{{$t "lib.global.link.dataProtectionDeclaration"}}</a>
-				<span> - </span>
-				<a href="mailto:{{getConfig "SC_CONTACT_EMAIL"}}?subject=Schul_Cloud%20Anfrage" target="_blank"
-					rel="noopener">{{$t "lib.footer.link.contact" }}</a>
-				<span> - </span>
-				<a href="/team">{{$t "lib.global.link.team"}}</a>
-				<span> - </span>
-				<a href="/about">{{$t "lib.global.link.aboutTheProject"}}</a>
-				<span> - </span>
-				<a href="/community">{{$t "lib.global.link.participate"}}</a>
-				<span> - </span>
-				<a href="/partner">{{$t "lib.global.link.partner"}}</a>
-				<span> - </span>
-				<a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener">{{$t "lib.global.link.github"}}</a>
-				<span> - </span>
-				<a href="https://status.schul-cloud.org" target="_blank" rel="noopener">{{$t "lib.global.link.status"}}</a>
-				<span> - </span>
-				<a href="/security">{{$t "lib.global.link.safety"}}</a>
-			</div>
-			<div>
-				<p class="made-with-love">Made with <span class="heart">❤</span> in Potsdam | Translated by <a
-						href="https://lokalise.com" target="_"><img class="poweredby-logo" alt="lokalise.com Logo"
+				<p lang="en" class="made-with-love">Made with <span class="heart" aria-label="love">❤</span> in Potsdam | Translated by <a
+						href="https://lokalise.com" target="_blank" aria-label="https://lokalise.com {{$t "global.link.openInNewTabWarning"}}"><img class="poweredby-logo" alt="lokalise.com Logo"
 																	src="/images/logo/lokalise_logo.svg"></a></p>
 			</div>
 		</div>

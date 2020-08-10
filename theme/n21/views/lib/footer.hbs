@@ -1,13 +1,19 @@
-<footer class="hide-inline small-footer" id="footer">
+<footer id="footer" class="hide-inline small-footer">
 	<div class="imprint">
 		<div class="center">
-			<a>&copy; {{currentYear}} </a>
+			<span>&copy; {{currentYear}} </span>
 
-			<div>
-				<a href="/impressum">Impressum</a>
-				<span> - </span>
-				<a href="/termsofuse">Nutzungsordnung und Datenschutzerklärung</a>
-			</div>
+			<nav aria-label="{{$t "lib.headline.aria_label"}}">
+				<ul>
+					<li>
+						<a href="/impressum">{{$t "global.link.imprint"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="/termsofuse">{{$t "login.headline.privacyAndTermsOfUse"}}</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
 	</div>
 </footer>
