@@ -7,12 +7,12 @@
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-    <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/teams.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/teams.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page"}}
@@ -22,7 +22,7 @@
             <a class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" title="{{$t "global.label.more"}}"
                 data-toggle="dropdown">
                 <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
-                <i class="fa fa-cog i-cog"></i>
+                <i class="fa fa-ellipsis-v i-cog"></i>
             </a>
             <div class="dropdown-menu dropdown-menu dropdown-menu-team">
                 <a data-testid="administrate_team_members" href="/teams/{{_id}}/members" class="dropdown-item">
@@ -103,19 +103,21 @@
                                         </strong>
                                         {{#userHasPermission "FOLDER_DELETE"}}
                                         <a href="/files/directory/" target="_blank" data-method="delete"
-                                            title="{{$t "teams._team.files.button.deleteFolder"}}" data-file-name="{{../this.name}}"
-                                            data-file-id="{{../this._id}}">
+                                            title="{{$t "teams._team.files.button.deleteFolder"}}"
+                                            data-file-name="{{../this.name}}" data-file-id="{{../this._id}}">
                                             <i class="fa fa-trash-o pull-right"></i>
                                         </a>
 
                                         <a href="/directoryModel/{{../this._id}}/rename" target="_blank"
-                                            data-method="dir-rename" title="{{$t "teams._team.files.button.renameFolder"}}"
+                                            data-method="dir-rename"
+                                            title="{{$t "teams._team.files.button.renameFolder"}}"
                                             data-directory-id="{{../this._id}}" data-directory-name="{{../this.name}}">
                                             <i class="fa fa-edit pull-right"></i>
                                         </a>
                                         {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
                                         <a href="/directoryModel/{{../this._id}}/share" target="_blank"
-                                            class="btn-file-share" data-method="dir-share" title="{{$t "teams._team.files.button.shareFolder"}}"
+                                            class="btn-file-share" data-method="dir-share"
+                                            title="{{$t "teams._team.files.button.shareFolder"}}"
                                             data-file-id="{{../this._id}}" data-file-name="{{../this.name}}">
                                             <i class="fa fa-share-alt pull-right"></i>
                                         </a>
@@ -162,39 +164,40 @@
                         </section>
 
                     </div>
-                        <!--- Neuigkeiten -->
-                        <div class="section" data-section="js-news">
-                            {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text=($t "teams._team.news.label.continueReading")}}
-                            <a href="/teams/{{../_id}}/news" class="">
-                                {{$t "teams._team.news.link.showAllNews"}}
-                            </a>
-                            {{#inArray "NEWS_CREATE" permissions}}
-                            <a href="/teams/{{../_id}}/news/new" data-testid="create_a_team" class="btn btn-add btn-primary pull-right">
-                                <i class="fa fa-plus" aria-hidden="true"></i> {{$t "teams._team.news.button.addNews"}}
-                            </a>
-                            {{/inArray}}
+                    <!--- Neuigkeiten -->
+                    <div class="section" data-section="js-news">
+                        {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text=($t "teams._team.news.label.continueReading")}}
+                        <a href="/teams/{{../_id}}/news" class="">
+                            {{$t "teams._team.news.link.showAllNews"}}
+                        </a>
+                        {{#inArray "NEWS_CREATE" permissions}}
+                        <a href="/teams/{{../_id}}/news/new" data-testid="create_a_team"
+                            class="btn btn-add btn-primary pull-right">
+                            <i class="fa fa-plus" aria-hidden="true"></i> {{$t "teams._team.news.button.addNews"}}
+                        </a>
+                        {{/inArray}}
+                    </div>
+                    <!-- Termine -->
+                    <div class="section" data-testid="team_events" data-section="js-events">
+                        <div class="row">
+                            {{#each ../events}}
+                            {{> 'calendar/card' event=this canEdit=../canEditEvents showVideoconferenceOption=@root.showVideoconferenceOption}}
+                            {{/each}}
                         </div>
-                        <!-- Termine -->
-                        <div class="section" data-testid="team_events" data-section="js-events">
-                            <div class="row">
-                                {{#each ../events}}
-                                    {{> 'calendar/card' event=this canEdit=../canEditEvents showVideoconferenceOption=@root.showVideoconferenceOption}}
-                                {{/each}}
-                            </div>
-                            <div style="margin-top: .5rem">
-                                {{#inArray "CALENDAR_CREATE" permissions}}
-                                <button class="btn btn-add btn-primary btn-create-event pull-right">
-                                    {{$t "teams._team.events.button.addDate"}}
-                                </button>
-                                {{/inArray}}
-                            </div>
+                        <div style="margin-top: .5rem">
+                            {{#inArray "CALENDAR_CREATE" permissions}}
+                            <button class="btn btn-add btn-primary btn-create-event pull-right">
+                                {{$t "teams._team.events.button.addDate"}}
+                            </button>
+                            {{/inArray}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+</div>
 
-        <!-- Vorerst ausblenden, bis wir Themen in Teams wieder unterstützen
+<!-- Vorerst ausblenden, bis wir Themen in Teams wieder unterstützen
 			<section class="row">
                 <div class="col-sm-12">
                     <h4>Themen & Aufgaben</h4>
@@ -205,72 +208,72 @@
                 </div>
             </section> -->
 
-        {{#embed "lib/components/modal" class="delete-modal" title=($t "global.text.areYouSure")}}
-        {{#content "body"}}
+{{#embed "lib/components/modal" class="delete-modal" title=($t "global.text.areYouSure")}}
+{{#content "body"}}
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-close">
-                {{$t "global.button.cancel"}}
-            </button>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-close">
+        {{$t "global.button.cancel"}}
+    </button>
 
-            <button type="submit" class="btn btn-primary btn-submit">
-                {{$t "global.headline.delete"}}
-            </button>
-        </div>
-        {{/content}}
-        {{/embed}}
+    <button type="submit" class="btn btn-primary btn-submit">
+        {{$t "global.headline.delete"}}
+    </button>
+</div>
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" class="file-permissions-modal" title=($t "teams._team.files.button.changeSharingSettings")}}
-        {{#content "fields"}}
-        {{> "teams/forms/form-file-permissions" teamFiles=true}}
-        {{/content}}
-        {{/embed}}
+{{#embed "lib/components/modal-form" class="file-permissions-modal" title=($t "teams._team.files.button.changeSharingSettings")}}
+{{#content "fields"}}
+{{> "teams/forms/form-file-permissions" teamFiles=true}}
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" action=leaveTeamAction class="leave-team-modal"}}
-        {{#content "fields"}}
-        {{> "teams/forms/form-leave-team"}}
-        {{/content}}
-        {{/embed}}
+{{#embed "lib/components/modal-form" action=leaveTeamAction class="leave-team-modal"}}
+{{#content "fields"}}
+{{> "teams/forms/form-leave-team"}}
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1 userId=../userId teamId=../teamId}}
-        {{#content "fields"}}
-        {{> "calendar/forms/form-create-event" showVideoconferenceOption=@root.showVideoconferenceOption}}
-        {{/content}}
-        {{/embed}}
+{{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1 userId=../userId teamId=../teamId}}
+{{#content "fields"}}
+{{> "calendar/forms/form-create-event" showVideoconferenceOption=@root.showVideoconferenceOption}}
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
-        {{#content "fields"}}
-        {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
-        {{/content}}
-        {{#content "additional-actions"}}
-        <button type="button" class="btn btn-primary btn-danger btn-delete pull-left">
-            <i class="fa fa-trash-o"></i> {{$t "global.headline.delete"}}
-        </button>
-        {{/content}}
-        {{/embed}}
+{{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
+{{#content "fields"}}
+{{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
+{{/content}}
+{{#content "additional-actions"}}
+<button type="button" class="btn btn-primary btn-danger btn-delete pull-left">
+    <i class="fa fa-trash-o"></i> {{$t "global.headline.delete"}}
+</button>
+{{/content}}
+{{/embed}}
 
-        {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
-        {{#if ../showVideoconferenceOption}}
-        {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
-        {{#content "fields"}}
-        {{> "lib/forms/form-create-videoconference"}}
-        {{/content}}
-        {{/embed}}
+{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+{{#if ../showVideoconferenceOption}}
+{{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
+{{#content "fields"}}
+{{> "lib/forms/form-create-videoconference"}}
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" class="reload-info-modal"}}
-        {{#content "fields"}}
-        {{> "lib/forms/form-bbb-reload-info"}}
-        {{/content}}
-        {{/embed}}
+{{#embed "lib/components/modal-form" class="reload-info-modal"}}
+{{#content "fields"}}
+{{> "lib/forms/form-bbb-reload-info"}}
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" class="forbidden-info-modal"}}
-        {{#content "fields"}}
-        {{> "lib/forms/form-bbb-forbidden-info"}}
-        {{/content}}
-        {{/embed}}
-        {{/if}}
-        {{/ifConfig}}
-    </section>
+{{#embed "lib/components/modal-form" class="forbidden-info-modal"}}
+{{#content "fields"}}
+{{> "lib/forms/form-bbb-forbidden-info"}}
+{{/content}}
+{{/embed}}
+{{/if}}
+{{/ifConfig}}
+</section>
 </div>
 
 {{/content}}
