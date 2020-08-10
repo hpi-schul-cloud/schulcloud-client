@@ -1,7 +1,14 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page" {{/if}}>
-  <h2 class="h4">{{$t "firstLogin.welcome.heading.welcomeToThe" (dict  "shortTitle" @root.theme.short_title "firstName" @root.currentUser.firstName "lastName" @root.currentUser.lastName )}}</h2>
-  <p>{{$t "firstLogin.welcome.text.weArePleasedThatYou" (dict "shortTitle" @root.theme.short_title )}}</p>
-  <p>{{$t "firstLogin.welcome.text.pleaseBrieflyFileSomeData" }}😊</p>
-  {{> "firstLogin/partials/language-hint"}}
-  {{#if @root.sso}}<input type="hidden" name="sso" value="{{@root.sso}}" />{{/if}}
+<div class="row">
+<div class="col-md-4">
+    {{> 'firstLogin/partials/svg_onboarding_1st_step'}}
+</div>
+<div class="col-md-8">
+    <h2 class="h4">{{$t "firstLogin.welcome.heading.welcomeToThe" (dict  "shortTitle" @root.theme.short_title "firstName" @root.currentUser.firstName "lastName" @root.currentUser.lastName )}}</h2>
+    <p>{{$t "firstLogin.welcome.text.weArePleasedThatYou" (dict "shortTitle" @root.theme.short_title )}}</p>
+    <p>{{$t "firstLogin.welcome.text.pleaseBrieflyFileSomeData" }}😊</p>
+    {{> "firstLogin/partials/language-hint"}}
+    {{#if @root.sso}}<input type="hidden" name="sso" value="{{@root.sso}}" />{{/if}}
+</div>
+</div>
 </section>

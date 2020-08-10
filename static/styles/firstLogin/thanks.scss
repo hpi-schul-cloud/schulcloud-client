@@ -14,8 +14,8 @@
     height: 80vh;
     width: 100%;
 
-    img {
-        max-height: 250px;
+    svg {
+        max-height: 400px;
     }
 
     @include media-breakpoint-down(xs) {
@@ -23,8 +23,8 @@
         h1 {
             font-size: 7.5vw;
         }
-        img {
-            max-height: 40vw;
+        svg {
+            max-height: 50vw;
         }
     }
     @media (min-width: 850px){
