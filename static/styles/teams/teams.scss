@@ -1,102 +1,104 @@
 @import "../lib/colors";
 
 .section-teams {
-    .dropdown-title {
-        display: flex;
-        margin-top: 5px;
-        .btn-title-dropdown{
-          padding:0;
-          cursor: pointer;
-          .i-cog{
-              font-size: medium;
-              color: $secondaryColor;
-          }
-        }
-        .title-headline {
-          display: inline-block;
-          margin-right: 10px;
-        }
-        .dropdown-toggle:hover {
-          color: $primaryColor !important;
-        }
-        .dropdown-toggle:after {
-            display: none;
-        }
-        .dropdown-menu-team {
-          .dropdown-item {
-            padding: 10px 1.5rem;
-            > i {
-                padding: 5px;
-            }
-          }
-        }
-    }
-    .section-news .container-fluid {
-        padding: 0;
-    }
-    > section {
-        margin-top: 3rem
-    }
+	.dropdown-title {
+		display: flex;
+		margin-top: 5px;
+		.btn-title-dropdown {
+			padding: 0;
+			cursor: pointer;
+			.i-cog {
+				font-size: medium;
+				color: $fontColor;
+			}
+		}
+		.title-headline {
+			display: inline-block;
+			margin-right: 10px;
+		}
+		.dropdown-toggle:hover {
+			color: $primaryColor !important;
+		}
+		.dropdown-toggle:after {
+			display: none;
+		}
+		.dropdown-menu-team {
+			.dropdown-item {
+				padding: 10px 1.5rem;
+				> i {
+					padding: 5px;
+				}
+			}
+		}
+	}
+	.section-news .container-fluid {
+		padding: 0;
+	}
+	> section {
+		margin-top: 3rem;
+	}
 
-    .section-description{
-        margin-top: 1rem
-    }
+	.section-description {
+		margin-top: 1rem;
+	}
 
-    h4 {
-        margin-bottom: 1rem;
-    }
-    .lead:empty {
-        margin-bottom: 0
-    }
-    .section-upload {
-        margin-top: 1rem;
-    }
-    .files {
-        margin-bottom: 10px;
-    }
-    .btn {
-        margin-bottom: 0.5rem;
-    }
+	h4 {
+		margin-bottom: 1rem;
+	}
+	.lead:empty {
+		margin-bottom: 0;
+	}
+	.section-upload {
+		margin-top: 1rem;
+	}
+	.files {
+		margin-bottom: 10px;
+	}
+	.btn {
+		margin-bottom: 0.5rem;
+	}
 
-    .btn-member{
-        text-decoration: none;
-        color: $colorDarkerGrey;
-    }
-    .btn-member:hover{
-        color: $primaryColor;
-    }
+	.btn-member {
+		text-decoration: none;
+		color: $colorDarkerGrey;
+	}
+	.btn-member:hover {
+		color: $primaryColor;
+	}
 }
 
-.create-course-event, .create-team-event, .create-videoconference {
-    label {
-        margin-left: 0.5rem;
-    }
-    .toggle {
-        height: 2rem !important;
-        width: 7rem !important;
-        .toggle-handle {
-            width: 0.3rem !important;
-            background: whitesmoke !important;
-        }
-    }
+.create-course-event,
+.create-team-event,
+.create-videoconference {
+	label {
+		margin-left: 0.5rem;
+	}
+	.toggle {
+		height: 2rem !important;
+		width: 7rem !important;
+		.toggle-handle {
+			width: 0.3rem !important;
+			background: whitesmoke !important;
+		}
+	}
 
-    .off {
-        background: grey !important;
-        label {
-            color: whitesmoke !important;
-            padding-left: 48px !important;
-        }
-    }
+	.off {
+		background: grey !important;
+		label {
+			color: whitesmoke !important;
+			padding-left: 48px !important;
+		}
+	}
 
-    .on {
-        label {
-            padding-right: 48px !important;
-        }
-    }
+	.on {
+		label {
+			padding-right: 48px !important;
+		}
+	}
 }
 
 .section-team-members {
-    a.btn.disabled{
-      pointer-events: auto;
-    }
-  }
+	a.btn.disabled {
+		pointer-events: auto;
+	}
+}
