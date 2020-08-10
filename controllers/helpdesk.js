@@ -104,5 +104,4 @@ router.post('/', fileUpload({
 			redirectHelper.safeBackRedirect(req, res);
 		});
 });
-
 module.exports = router;
