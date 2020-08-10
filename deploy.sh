@@ -15,6 +15,7 @@ catch() {
   if [ "$1" != "0" ]; then
     echo "An issue occured in line $2. Status code: $1"
   fi
+  rm -rf .build
 }
 
 if [ "$TRAVIS_BRANCH" = "master" ]
@@ -92,7 +93,7 @@ function inform_hotfix {
   fi
 }
 
-mkdir .build
+mkdir -p .build
 openssl aes-256-cbc -K $encrypted_bce910623bb2_key -iv $encrypted_bce910623bb2_iv -in travis_rsa.enc -out .build/travis_rsa -d
 
 if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
@@ -130,5 +131,4 @@ else
   echo "Event detected which does not meet any conditions. Deployment will be skipped."
 fi
 
-rm -rf .build
 exit 0
