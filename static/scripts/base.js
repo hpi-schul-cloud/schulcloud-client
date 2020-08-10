@@ -1,4 +1,3 @@
-/* global CKEDITOR */
 /**
  * HELPER - addEventListener
  * 1. allow multiple events "clicked input" ...
@@ -110,13 +109,9 @@ function populateModalForm(modal, data) {
 				break;
 			default:
 				if (
-					$(this).prop('nodeName') === 'TEXTAREA'
-					&& $(this).hasClass('customckeditor')
+					$(this).prop('nodeName') !== 'TEXTAREA'
+					|| !$(this).hasClass('customckeditor')
 				) {
-					if (CKEDITOR.instances.description) {
-						CKEDITOR.instances.description.setData(value);
-					}
-				} else {
 					$(this)
 						.val(value)
 						.trigger('chosen:updated');
@@ -130,17 +125,17 @@ function populateModalForm(modal, data) {
 }
 window.populateModalForm = populateModalForm;
 
-function printPart() {
-	$(this).hide();
+function printPart(event) {
+	$(event.target).hide();
 	const w = window.open();
 	w.document.write(
-		$(this)
+		$(event.target)
 			.parent('.print')
 			.html(),
 	);
 	w.print();
 	w.close();
-	$(this).show();
+	$(event.target).show();
 }
 
 // const originalReady = jQuery.fn.ready;
@@ -272,7 +267,7 @@ $(document).ready(() => {
 	function showAJAXError(req, textStatus, errorThrown) {
 		$deleteModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification($t('global.error.requestTimeout'), 'warn', 30000);
+			$.showNotification($t('global.text.requestTimeout'), 'warn', 30000);
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}
@@ -346,7 +341,12 @@ $(document).ready(() => {
 
 	// Print Button
 	document.querySelectorAll('.print .btn-print').forEach((btn) => {
-		btn.addEventListener('click', printPart);
+		btn.addEventListener('click', (evt) => printPart(evt));
+		btn.addEventListener('keyup', (evt) => {
+			if (evt.keyCode === 13) {
+				printPart(evt);
+			}
+		});
 	});
 
 	// from: https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript

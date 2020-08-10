@@ -1,14 +1,10 @@
 {{#content "scripts" mode="append"}}
-    <script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
     <script src="/scripts/mousetrap/mousetrap.js" nonce="{{nonceValue}}" defer></script>
     <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     <script src="/scripts/news.js" nonce="{{nonceValue}}" defer></script>
     <script nonce="{{nonceValue}}">
         window.addEventListener('DOMContentLoaded', function() {
-            CKEDITOR.replaceAll(function (textarea, config) {
-                if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
-            });
-
             Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
                 document.getElementById('news-form').submit();
                 return false;
@@ -35,13 +31,13 @@
             <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
             <div class="form-group">
-                <label>{{$t "news.label.title" }}</label>
-                <input data-testid="news_title" class="form-control" name="title" type="text" placeholder="Titel" value="{{news.title}}" required />
+                <label>{{$t "global.label.title" }}</label>
+                <input data-testid="news_title" class="form-control" name="title" type="text" placeholder="{{$t "global.label.title"}}" value="{{news.title}}" required />
             </div>
 
             <div class="form-group">
                 <label>{{$t "news.label.content" }}</label>
-                <textarea type="text" class="form-control customckeditor" name="content" placeholder="Inhalt der Nachricht..." required>{{news.content}}</textarea>
+                <textarea type="text" class="form-control ckeditor customckeditor" name="content" placeholder="{{$t "news._news.label.contentOfMessage"}}" required>{{news.content}}</textarea>
             </div>
 
             <div class="form-group">
@@ -63,6 +59,9 @@
         {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
 
         {{/embed}}
+
+        {{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}
+		{{/embed}}
 
     {{/content}}
 {{/extend}}

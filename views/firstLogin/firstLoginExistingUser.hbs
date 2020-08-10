@@ -9,16 +9,16 @@
     <div id="welcome-screen">
       {{> "firstLogin/partials/welcome_existing"}}
 
-      <p>Bitte wähle: Ich bin...</p>
+      <p>{{$t "firstLogin.text.pleaseChoose" }}</p>
       <div class="form-group">
           <fieldset>
-              <input type="radio" id="reg-u14" name="student-age" value="u14"> <label for="reg-u14">unter 14 Jahre alt.</label><br/>
-              <input type="radio" id="reg-1415" name="student-age" value="1415"> <label for="reg-1415">zwischen 14 und {{ add CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS -1 }} Jahre alt.</label><br>
-              <input type="radio" id="reg-16" name="student-age" value="16"> <label for="reg-16">ab {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahre alt.</label>
+              <input type="radio" id="reg-u14" name="student-age" value="u14"> <label for="reg-u14">{{$t "firstLogin.label.under14YearsOld" }}</label><br/>
+              <input type="radio" id="reg-1415" name="student-age" value="1415"> <label for="reg-1415">{{$t "firstLogin.text.between14And" (dict "addConsent" add CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS -1 )}}</label><br>
+              <input type="radio" id="reg-16" name="student-age" value="16"> <label for="reg-16">{{$t "firstLogin.text.fromYear" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS )}}</label>
           </fieldset>
       </div>
 
-      <button id="showExistingLoginForm" class="btn btn-primary" style="margin-top:6px;" disabled>Weiter</button>
+      <button id="showExistingLoginForm" class="btn btn-primary" style="margin-top:6px;" disabled>{{$t "global.button.next" }}</button>
       {{> "firstLogin/partials/language-hint"}}
     </div>
   {{/content}}

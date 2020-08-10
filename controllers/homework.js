@@ -14,6 +14,7 @@ const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
 const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
+const { getGradingFileDownloadPath, getGradingFileName, isGraded } = require('../helpers/homework');
 
 const router = express.Router();
 
@@ -341,7 +342,7 @@ router.delete('/:id/file', (req, res, next) => {
 		});
 	})
 		.then((result) => res.json(result))
-		.catch((err) => res.send(err));
+		.catch((err) => next(err));
 });
 
 router.get('/submit/:id/import', getImportHandler('submissions'));
@@ -362,7 +363,23 @@ router.post('/submit/:id/files', (req, res, next) => {
 		});
 	})
 		.then((result) => res.json(result))
-		.catch((err) => res.send(err));
+		.catch((err) => next(err));
+});
+
+router.post('/submit/:id/grade-files', (req, res, next) => {
+	const submissionId = req.params.id;
+	api(req).get(`/submissions/${submissionId}`).then((submission) => {
+		if ('fileId' in req.body) {
+			submission.gradeFileIds.push(req.body.fileId);
+		} else if ('fileIds' in req.body) {
+			submission.gradeFileIds = submission.gradeFileIds.concat(req.body.fileIds);
+		}
+		return api(req).patch(`/submissions/${submissionId}`, {
+			json: submission,
+		});
+	})
+		.then((result) => res.json(result))
+		.catch((err) => next(err));
 });
 
 /* adds shared permission for teacher in the corresponding homework */
@@ -401,7 +418,7 @@ router.delete('/submit/:id/files', (req, res, next) => {
 		});
 	})
 		.then((result) => res.json(result))
-		.catch((err) => res.send(err));
+		.catch((err) => next(err));
 });
 
 router.post('/comment', getCreateHandler('comments'));
@@ -500,10 +517,10 @@ const overview = (titleKey) => (req, res, next) => {
 				const courseList = courses.map((course) => [course._id, course.name]);
 				const filterSettings =						[{
 					type: 'sort',
-					title: res.$t('homework.headline.sorting'),
-					displayTemplate: res.$t('homework.label.sortBy'),
+					title: res.$t('global.headline.sorting'),
+					displayTemplate: res.$t('global.label.sortBy'),
 					options: [
-						['createdAt', res.$t('homework.label.sortByCreationDate')],
+						['createdAt', res.$t('global.label.creationDate')],
 						['updatedAt', res.$t('homework.label.sortByLastUpdate')],
 						['availableDate', res.$t('homework.label.sortByAvailabilityDate')],
 						['dueDate', res.$t('homework.label.sortByDueDate')],
@@ -512,7 +529,7 @@ const overview = (titleKey) => (req, res, next) => {
 				},
 				{
 					type: 'select',
-					title: res.$t('homework.headline.courses'),
+					title: res.$t('global.sidebar.link.administrationCourses'),
 					displayTemplate: res.$t('homework.label.filterCourses'),
 					property: 'courseId',
 					multiple: true,
@@ -576,8 +593,8 @@ const overview = (titleKey) => (req, res, next) => {
 	});
 };
 
-router.get('/', overview('homework.headline.tasks'));
-router.get('/asked', overview('homework.headline.assignedTasks'));
+router.get('/', overview('global.headline.tasks'));
+router.get('/asked', overview('global.headline.assignedTasks'));
 router.get('/private', overview('homework.headline.drafts'));
 router.get('/archive', overview('homework.headline.archivedTasks'));
 
@@ -609,7 +626,7 @@ router.get('/new', (req, res, next) => {
 		}
 		// Render overview
 		res.render('homework/edit', {
-			title: res.$t('homework._task.headline.addTask'),
+			title: res.$t('global.button.addTask'),
 			submitLabel: res.$t('global.button.add'),
 			closeLabel: res.$t('global.button.cancel'),
 			method: 'post',
@@ -759,7 +776,7 @@ router.get('/:assignmentId', (req, res, next) => {
 			api(req).get('/submissions/', {
 				qs: {
 					homeworkId: assignment._id,
-					$populate: ['homeworkId', 'fileIds', 'teamMembers', 'studentId', 'courseGroupId'],
+					$populate: ['homeworkId', 'fileIds', 'gradeFileIds', 'teamMembers', 'studentId', 'courseGroupId'],
 				},
 			}),
 		];
@@ -900,15 +917,21 @@ router.get('/:assignmentId', (req, res, next) => {
 });
 
 function collectUngradedFiles(submissions) {
-	const isGraded = (submission) => typeof submission.grade === 'number' || submission.gradeComment || !_.isEmpty(submission.gradeFileIds);
+	const ungradedSubmissionsWithFiles = submissions.filter(
+		(submission) => !isGraded(submission) && !_.isEmpty(submission.fileIds),
+	);
+	const ungradedFiles = ungradedSubmissionsWithFiles.flatMap((submission) => submission.fileIds);
+	const fileNames = _.fromPairs(
+		submissions.flatMap((submission) => submission.fileIds.map((file) => [
+			getGradingFileName(file),
+			{ submissionId: submission._id, teamMemberIds: submission.teamMemberIds },
+		])),
+	);
 
-	const ungradedFiles = submissions
-		.filter((submission) => !isGraded(submission))
-		.flatMap((submission) => submission.fileIds);
-	console.log(ungradedFiles);
 	return {
-		length: ungradedFiles.length,
-		urls: ungradedFiles.map((file) => `/files/file?download=true&file=${file._id}`).join(' '),
+		empty: _.isEmpty(ungradedFiles),
+		urls: ungradedFiles.map(getGradingFileDownloadPath).join(' '),
+		fileNames,
 	};
 }
 

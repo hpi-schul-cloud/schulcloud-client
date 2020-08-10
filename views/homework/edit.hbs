@@ -1,15 +1,11 @@
 {{#content "scripts" mode="append"}}
-<script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
 <script src="/scripts/mousetrap/mousetrap.js" nonce="{{nonceValue}}" defer></script>
 <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 
 <script nonce="{{nonceValue}}">
 	window.addEventListener('DOMContentLoaded', function () {
-		CKEDITOR.replaceAll(function (textarea, config) {
-			if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
-		});
-
 		$.datetimepicker.setLocale('de');
 		$('input[data-datetime]').datetimepicker({
 			format: 'd.m.Y H:i',
@@ -88,18 +84,18 @@
 		<form class="modal-form" id="homework-form" method="post" action="{{action}}">
 
 			<div class="form-group">
-				<label>{{$t "homework.global.label.title" }}</label>
-				<input class="form-control" name="name" type="text" placeholder="Titel" required
+				<label>{{$t "global.label.title" }}</label>
+				<input class="form-control" name="name" type="text" placeholder="{{$t "global.label.title"}}" required
 					value="{{{assignment.name}}}" data-testid="homework-name" />
 			</div>
 
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>{{$t "homework.global.label.courses" }}</label>
+						<label>{{$t "global.sidebar.link.administrationCourses" }}</label>
 						{{#unless isSubstitution}}
 						<select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
-							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
+							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>{{$t "homework.input.noAssignment"}}</option>
 							{{#each courses}}
 							<option value="{{this._id}}"
 								{{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>
@@ -157,7 +153,7 @@
 
 			<div class="form-group">
 				<label>{{$t "homework.global.label.description" }}</label>
-				<textarea name="description" type="text" class="form-control customckeditor"
+				<textarea name="description" type="text" class="form-control ckeditor customckeditor"
 					placeholder="{{$t "homework.global.placeholder.description" }}">{{assignment.description}}</textarea>
 			</div>
 
@@ -238,7 +234,7 @@
 				{{$t "global.button.cancel" }}
 			</button>
 			<button type="submit" class="btn btn-primary btn-submit">
-				{{$t "global.button.delete" }}
+				{{$t "global.headline.delete" }}
 			</button>
 		</div>
 		{{/content}}
@@ -272,6 +268,9 @@
 			</div>
 		</div>
 		{{/content}}
+		{{/embed}}
+
+		{{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}
 		{{/embed}}
 	</div>
 	{{/content}}

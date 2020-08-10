@@ -1,5 +1,5 @@
 <div class="error-header-wrapper pb-3">
-    <img class="error-header-image" src="/images/broken-pen.svg" alt="zerbrochener Stift" />
+    <img class="error-header-image" src="/images/broken-pen.svg" alt="{{$t "global.img_alt.brokenPen"}}" />
     <h1 class="h2 error-header-code">CSRF</h1>
     <p class="error-header-text">
         {{$t "lib.csrf_content.text.yourRequestCouldNotBeVerified" }}
@@ -36,7 +36,7 @@
                             <input type="hidden" name="{{../this.name}}" value="{{../this.value}}">
                         {{/ifneq}}
                     {{/each}}
-                    <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" target="_blank" id="retrybtn">{{$t "global.button.openANewTab" }}</a>
+                    <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" target="_blank" id="retrybtn">{{$t "global.link.openInNewTab" }}</a>
                 </form>
             {{/if}}
         {{/if}}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="{{userLanguage}}">
 
 <head>
 	<title>{{#if title}}{{title}} - {{/if}}{{theme.title}}</title>
@@ -17,14 +17,15 @@
 	-->
 	{{#block "meta"}}
 	<meta name="csrfToken" content="{{csrfToken}}">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="#E4032E">
 	<meta name="apple-mobile-web-app-title" content="{{theme.title}}">
 	<meta name="theme-color" content="#E4032E">
 	<meta name="application-name" content="{{theme.title}}">
 	<meta name="X-Recruiting"
-		content="Das Entwickler-Team der Schul-Cloud sucht nach Verstärkung! Schaut doch mal nach unseren Stellen: http://localhost:3100/community#jobs">
+		content="Das Entwickler-Team der HPI Schul-Cloud sucht nach Verstärkung! Schaut doch mal nach unseren Stellen: http://localhost:3100/community#jobs">
 	<link rel="mask-icon" href="/images/logo/safari-pinned-tab.svg" color="#E4032E">
 	<link rel="apple-touch-icon" href="/images/logo/app-icon-512.png">
 	<link rel="apple-touch-icon" sizes="120x120" href="/images/logo/app-icon-120.png">
@@ -60,6 +61,11 @@
 </head>
 
 <body class="{{#if inline}}window-inline{{/if}}">
+<dl class="skipLinks" role="navigation" aria-label="skip links">
+	<dd><a href="#main-content">{{ $t "global.link.mainContentSkipLink" }}</a></dd>
+	<dd><a href="#top-navbar">{{ $t "global.link.topNavbarSkipLink" }}</a></dd>
+	<dd><a href="#footer">{{ $t "global.link.footerSkipLink" }}</a></dd>
+</dl>
 	{{#block "body"}}{{/block}}
 </body>
 

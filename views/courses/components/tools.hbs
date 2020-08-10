@@ -3,15 +3,16 @@
 		<div class="list-group" data-courseId="{{@root/_id}}">
 			{{#if ltiToolIds}}
 			{{#each ltiToolIds}}
-			<div class="card card-block card-tool locationlink {{#if this.isBBB}} bbbTool {{/if}}"
-			{{#unless this.isBBB}}
-				{{#if this.openNewTab}}
-					data-blank="true"
-					data-loclink="{{#if this.isLocal}}{{this.url}}{{else}}/courses/{{@root/_id}}/tools/run/{{this._id}}{{/if}}"
-				{{else}}
-					data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}"
-				{{/if}}
-			{{/unless}}>
+			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}"
+				{{#unless this.isBBB}}
+					{{#if this.openNewTab}}
+						data-blank="true"
+						data-loclink="{{#if this.isLocal}}{{this.url}}{{else}}/courses/{{@root/_id}}/tools/run/{{this._id}}{{/if}}"
+					{{else}}
+						data-loclink="/courses/{{../_id}}/tools/show/{{this._id}}"
+					{{/if}}
+				{{/unless}}
+			>
 				{{#unless this.isBBB}}
 				<div class="card-title-directory">
 					{{#if logo_url}}
@@ -47,7 +48,7 @@
 				{{#if this.isBBB}}
 				<div class="card-title-directory bbb-state bbb-guest-inactive-state">
 					<img src="/images/tools/bbb/not_started.png" class="float-left" style="width:auto; height:75px;" />
-					<span>{{$t "courses._course.tools.text.videoConferenceNotStartedYet"}}</span>
+					<span>{{$t "global.text.videoconferenceNotStartedYet"}}</span>
 					<a class="bbbTool-info-icon">
 						<i class="fa fa-info-circle"></i>
 					</a>
@@ -93,8 +94,10 @@
 			{{/each}}
 			{{else}}
 			<div class="empty-state">
-				<img src="/images/empty-states/tools.svg" alt="{{$t "courses._course.tools.img_alt.noAddedTools"}}"
-					class="image" />
+				{{> courses/components/svg_tools}}
+				<!--<img src="/images/empty-states/tools.svg" alt="{{$t "courses._course.tools.img_alt.noAddedTools"}}"
+					class="image course-empty-content-image" />-->
+
 				{{#unless @root.isArchived}}
 				{{#userHasPermission "TOOL_CREATE" }}
 				<h2 class="h4">{{$t "courses._course.tools.headline.addToolToCourse"}}</h2>
@@ -114,8 +117,7 @@
 	<div class="col-sm-12 add-button">
 		{{#userHasPermission "TOOL_CREATE" }}
 		{{#unless @root.isArchived}}
-		<a href="/courses/{{../_id}}/tools/add"
-			class="btn btn-primary {{#if ../ltiToolIds}}w-100{{else}}btn-empty{{/if}}"
+		<a href="/courses/{{../_id}}/tools/add" class="btn btn-primary {{#if ../ltiToolIds}}w-100{{else}}btn-empty{{/if}}"
 			title="{{$t "courses._course.tools.text.addNewTool"}}">
 			<span>{{$t "courses._course.tools.button.addNewTool"}}</span></a>
 		{{/unless}}

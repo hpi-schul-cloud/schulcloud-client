@@ -3,9 +3,9 @@
         {{#if teamSubmissions}}
             <thead>
                 <tr>
-                    <th>Team</th>
+                    <th>{{$t "homework._task.label.team"}}</th>
                     <th></th>
-                    <th>Abgegeben <span>{{@root.stats.submissionCount}}/{{@root.stats.userCount}}</span></th>
+                    <th>{{$t "homework._task.label.submitted"}} <span>{{@root.stats.submissionCount}}/{{@root.stats.userCount}}</span></th>
                     <th>{{$t "homework.label.rating_comment" }} {{#if @root.stats.averageGrade}}<span>{{@root.stats.averageGrade}}%</span>{{/if}}</th>
                     <th/>
                 </tr>
@@ -54,9 +54,9 @@
         {{else}}
             <thead>
                 <tr>
-                    <th>Vorname</th>
-                    <th>Nachname</th>
-                    <th>Abgegeben <span>{{@root.stats.submissionCount}}/{{@root.stats.userCount}}</span></th>
+                    <th>{{$t "global.label.firstName"}}</th>
+                    <th>{{$t "global.label.lastName"}}</th>
+                    <th>{{$t "homework._task.label.submitted"}} <span>{{@root.stats.submissionCount}}/{{@root.stats.userCount}}</span></th>
                     <th>{{$t "homework.label.rating_comment" }} {{#if @root.stats.averageGrade}}<span>{{@root.stats.averageGrade}}%</span>{{/if}}</th>
                     <th/>
                 </tr>
@@ -103,14 +103,14 @@
         {{#ifArray @root.submissions}}
             {{#unless (arrayLength @root.submissions)}}
                 <div class="alert alert-info">
-                    <strong>Keine Abgaben vorhanden.</strong>
+                    <strong>{{$t "homework._task.text.noSubmissionsYet"}}</strong>
                 </div>
             {{/unless}}
         {{/ifArray}}
         {{#ifArray @root.studentsWithoutSubmission}}
             <hr>
             <div class="alert alert-warning">
-                <strong>Bisher keine Abgabe von:</strong></br>
+                <strong>{{$t "homework._task.text.noSubmissionsYetFrom"}}</strong></br>
                 <div class="groupNames">
                     {{#each @root.studentsWithoutSubmission}}
                         <span>{{this.firstName}} {{this.lastName}}</span>
@@ -120,16 +120,5 @@
         {{/ifArray}}
     {{/if}}
 
-    <div class="text-xs-right">
-        <button
-            type="button"
-            class="btn btn-secondary multi-download"
-            id="submissions-download-ungraded-files"
-            {{#ifeq 0 @root.ungradedFileSubmissions.length}}disabled="disabled"{{/ifeq}}
-
-            data-files="{{@root.ungradedFileSubmissions.urls}}"
-        >
-            {{$t "homework.button.downloadUngradedFiles"}}
-        </button>
-    </div>
+	{{> 'homework/components/bulk-grading'}}
 </section>

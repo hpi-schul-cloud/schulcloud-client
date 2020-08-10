@@ -1,6 +1,6 @@
-<section data-panel="section-{{section-nr}}" class="parent_intro" data-next-label="als Erziehungsberechtigter fortfahren">
-  <h2 class="h4">Einverständniserklärung eines Erziehungsberechtigten benötigt</h2>
-  <p>Da du unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahre alt bist, wird die Einverständniserklärung eines Elternteils benötigt, damit du die {{@root.theme.short_title}} nutzen kannst.
-    Die nächsten Schritte müssen von einem Erziehungsberechtigten durchgeführt werden.</p>
-  <a href="/logout" class="btn btn-secondary">Beenden und später fortfahren</a>
+<section data-panel="section-{{section-nr}}" class="parent_intro" data-next-label="{{$t "firstLogin.parent.label.continueAsLegalGuardian" }}">
+  <h2 class="h4">{{$t "firstLogin.parent.heading.declarationOfConsentFromALegalGuardian" }}</h2>
+  <p>{{$t "firstLogin.parent.text.needConsentOfParents" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "shortTitle" @root.theme.short_title)}}
+    {{$t "firstLogin.parent.text.theNextStepMustBeCarriedOut" }}</p>
+  <a href="/logout" class="btn btn-secondary">{{$t "firstLogin.parent.button.exitAndContinueLater" }}</a>
 </section>
