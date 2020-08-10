@@ -855,7 +855,7 @@ class TopicEtherpad extends TopicBlock {
     render() {
         return (
             <div>
-                <div type="hidden" className="form-group" style="display: none">
+                <div type="hidden" className="form-group" style={{display: 'none'}}>
                     <label>Name des Etherpads</label>
                     <input className="form-control"
                         name={`contents[${this.props.position}][content][title]`}
