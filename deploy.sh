@@ -92,7 +92,7 @@ function inform_hotfix {
   fi
 }
 
-mkdir -f .build
+mkdir .build
 openssl aes-256-cbc -K $encrypted_bce910623bb2_key -iv $encrypted_bce910623bb2_iv -in travis_rsa.enc -out .build/travis_rsa -d
 
 if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
@@ -130,4 +130,5 @@ else
   echo "Event detected which does not meet any conditions. Deployment will be skipped."
 fi
 
+rm -rf .build
 exit 0
