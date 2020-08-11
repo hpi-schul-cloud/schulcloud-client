@@ -121,16 +121,6 @@ $(document).ready(() => {
 		}
 	}
 
-	function showAJAXError(req, textStatus, errorThrown) {
-		if (textStatus === 'timeout') {
-			$.showNotification($t('global.text.requestTimeout'), 'danger');
-		} else if (errorThrown === 'Conflict') {
-			$.showNotification($t('homework.text.fileAlreadyExists'), 'danger');
-		} else {
-			$.showNotification(errorThrown, 'danger', 15000);
-		}
-	}
-
 	function ajaxForm(element, after, contentTest) {
 		const submitButton = element.find('[type=submit]')[0];
 		let submitButtonText = submitButton.innerHTML || submitButton.value;
