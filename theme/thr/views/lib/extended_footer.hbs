@@ -1,30 +1,30 @@
 {{#embed "authentication/section" style="dark footer" class=""}}
 {{#content "body"}}
-<footer>
+<footer id="footer">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
-				<h2 class="h4">Kontakt</h2>
+				<h2 class="h4">{{$t "global.link.contact" }}</h2>
 				<ul>
 					{{> "lib/extended_footer_links"}}
 					<li><a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank"
-							rel="noopener">
-							<span class="text-nowrap">Newsletter abonnieren</span></a></li>
+							rel="noopener" aria-label="{{$t "lib.extended_footer.link.subscribeTheNewsletter" }} {{$t "global.link.openInNewTabWarning"}}">
+							<span class="text-nowrap">{{$t "lib.extended_footer.link.subscribeTheNewsletter" }}</span></a></li>
 				</ul>
 			</div>
 			<div class="col-md-4">
-				<h2 class="h4">Links</h2>
+				<h2 class="h4">{{$t "lib.extended_footer.heading.links"}}</h2>
 				<ul>
-					<li><a href="/impressum">Impressum</a></li>
+					<li><a href="/impressum">{{$t "global.link.imprint" }}</a></li>
 					<li><a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank"
-							rel="noopener">Nutzungsordnung Thüringer Schulcloud</a>
+							rel="noopener" aria-label="{{$t "lib.global.link.onlyTermsOfUse"}} Thüringer Schulcloud PDF {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.onlyTermsOfUse"}} Thüringer Schulcloud</a>
 					</li>
 					<li><a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank"
-							rel="noopener">Datenschutzerklärung Thüringer Schulcloud</a>
+							rel="noopener" aria-label="{{$t "lib.login.headline.onlyPrivacy"}} Thüringer Schulcloud PDF {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.login.headline.onlyPrivacy"}} Thüringer Schulcloud</a>
 					</li>
 					<li><a href="/about">Über die Thüringer Schulcloud</a></li>
-					<li><a href="https://github.com/schul-cloud/" target="_blank" rel="noopener">GitHub</a></li>
-					<li><a href="https://status.schul-cloud.org" target="_blank" rel="noopener">Status</a></li>
+					<li><a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a></li>
+					<li><a href="https://status.schul-cloud.org" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a></li>
 				</ul>
 			</div>
 			<div class="col-md-4">
@@ -33,11 +33,8 @@
 					Du möchtest gerne Mitglied in unserem <span style="white-space: nowrap;">HPI Schul-Cloud</span> Team werden?
 					Wir suchen:
 				</div>
-				<a class="mr-2"
-					href="https://hpi.de/das-hpi/organisation/jobs/web-developer-m/w/d-im-projekt-hpi-schul-cloud.html"
-					rel="noopener" target="_blank">Web Developer</a>
 				<a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/system-engineer-dev-ops-mw.html"
-					rel="noopener" target="_blank">DevOps</a>
+					rel="noopener" target="_blank" aria-label="DevOps {{$t "global.link.openInNewTabWarning"}}">DevOps</a>
 			</div>
 		</div>
 	</div>

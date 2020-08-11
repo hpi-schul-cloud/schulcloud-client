@@ -3,7 +3,7 @@ version: \"3.7\"
 
 services:
 
-  ### Schul-Cloud Client
+  ### HPI Schul-Cloud Client
   ###
   client:
     image: schulcloud/schulcloud-client:$DOCKERTAG
@@ -23,8 +23,8 @@ services:
       # Theme and Titles
       - SC_THEME=default
       - SC_TITLE=HPI Schul-Cloud
-      - SC_SHORT_TITLE=Schul-Cloud
-      - SC_PRODUCTNAME=Schul-Cloud
+      - SC_SHORT_TITLE=HPI Schul-Cloud
+      - SC_PRODUCTNAME=HPI Schul-Cloud
       # Nexboard
       - NEXBOARD_API_KEY=$NEXBOARD_API_KEY
       - NEXBOARD_USER_ID=$NEXBOARD_USER_ID

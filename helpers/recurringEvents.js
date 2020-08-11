@@ -4,7 +4,7 @@ const _ = require('lodash');
 const api = require('../api');
 
 /**
- * Generates the iso-weekday abbreviation for a given number, e.g. for the Schul-Cloud Calendar-Service
+ * Generates the iso-weekday abbreviation for a given number, e.g. for the HPI Schul-Cloud Calendar-Service
  * @param weekdayNum {number}
  * @returns {string} - abbreviation of weekday
  */

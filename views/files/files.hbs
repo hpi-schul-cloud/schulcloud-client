@@ -37,13 +37,13 @@
 			</section>
 
 			<div class="pull-right">
-				<select name="sortBy" class="form-control">
-					{{#each sortOptions}}
+				<!-- <select name="sortBy" class="form-control">
+					 {{#each sortOptions}}
 						<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
 							{{this.label}}
 						</option>
 					{{/each}}
-				</select>
+				</select> -->
 				<select name="sortOrder" class="form-control">
 					<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
 					<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending" }}</option>
@@ -84,7 +84,7 @@
 				</div>
 			</section>
 			{{/if}}
-			<h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "files.label.files"}}</h3>
+			<h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "global.headline.files"}}</h3>
 			{{#embed "files/file-viewer"}}{{/embed}}
 			{{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
 

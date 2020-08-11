@@ -25,7 +25,7 @@ describe('Content tests', function () {
     });
 
     it('GET /content', function () {
-		expect(Configuration.get('FEATURE_LERNSTORE_ENABLED'), 'FEATURE_LERNSTORE_ENABLED not set!').to.be.true;
+		expect(Configuration.get('LERNSTORE_MODE'), 'LERNSTORE_MODE not set!').to.be.not.equal('DISABLED');
             return new Promise((resolve, reject) => {
                 this.agent
                     .get('/content/')
@@ -38,7 +38,7 @@ describe('Content tests', function () {
     });
 
     it('GET /content/?q=Mathe', function () {
-		expect(Configuration.get('FEATURE_LERNSTORE_ENABLED'), 'FEATURE_LERNSTORE_ENABLED not set!').to.be.true;
+		expect(Configuration.get('LERNSTORE_MODE'), 'LERNSTORE_MODE not set!').to.be.not.equal('DISABLED');
             return new Promise((resolve, reject) => {
                 this.agent
                     .get('/content/?q=Mathe')

@@ -2,14 +2,13 @@
     <div class="welcomeGreeting">
         <div class="welcomeGreetingImage text-center" id="welcome">
             <div class="content">
-                <img src="/images/firstLogin/welcome_screen.svg">
+                <img role="presentation" src="/images/firstLogin/welcome_screen.svg">
                 <hr class="mt-0">
-                    <h1 class="h2">Willkommen in der {{@root.theme.short_title}}</h1>
+                    <h1 class="h2">{{$t "firstLogin.welcome.text.welcomeTo" (dict "shortTitle" @root.theme.short_title)}}</h1>
                 <hr>
                 <!-- fokus here -->
-                <a href=""></a> 
                 <div class="welcomeGreetingScroll">
-                    <div class="btn-scroll text-center mt-2">
+                    <div aria-hidden="true" class="btn-scroll text-center mt-2">
                         <div class="arrow"></div>
                     </div>
                 </div>
@@ -19,16 +18,14 @@
             {{#inArray 'administrator' roleNames}}
                 <div class="row mt-3">
                     <div class="col-xs-12 col-sm-3 text-center">
-                        <img src="/images/firstLogin/welcome-1-fobi.svg" alt="Online-Fortbildung" width="150px">
+                        <img src="/images/firstLogin/welcome-1-fobi.svg" alt="{{$t "firstLogin.thanks.img_alt.text.onlineTraining"}}" width="150px">
                     </div>
                     <div class="col-xs-12 col-sm-9">
                         <p>
-                            Du bist Admin und hast die ehrenvolle Aufgabe, die {{@root.theme.title}} für deine Schule einzurichten?
-                            Wir lassen dich mit dieser wichtigen Aufgabe nicht allein.
-                            Besuche unsere <b>Online-Fortbildung</b> und erfahre dort in anschaulichen Erklärvideos alles was du als Admin wissen musst! 
+                            {{$t "firstLogin.thanks.text.youAreAdminAndHaveTheHonorable" (dict "title" @root.theme.title)}} <b>{{$t "firstLogin.thanks.img_alt.text.onlineTraining"}}</b> {{$t "firstLogin.thanks.text.andLearnEverythingYouNeed"}}
                         </p>
                         <div class="text-xs-center text-sm-right">
-                            <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/courses/schulcloud2019">Hier gehts zur Fortbildung</a>
+                            <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/courses/schulcloud2019">{{$t "firstLogin.text.clickhereForFurtherTraining" }}</a>
                         </div>
                     </div>
                 </div>
@@ -36,16 +33,14 @@
                 {{#inArray 'teacher' ../roleNames}}
                     <div class="row mt-3">
                         <div class="col-xs-12 col-sm-3 text-center">
-                            <img src="/images/firstLogin/welcome-1-fobi.svg" alt="Online-Fortbildung" width="150px">
+                            <img src="/images/firstLogin/welcome-1-fobi.svg" alt="{{$t "firstLogin.thanks.img_alt.text.onlineTraining"}}" width="150px">
                         </div>
                         <div class="col-xs-12 col-sm-9">
                             <p>
-                                Was kann die {{@root.theme.short_title}} eigentlich?
-                                Und wie kann ich meinen Unterricht damit organisieren, gestalten und durchführen?
-                                Besuche unsere <b>Online-Fortbildung</b> für anschauliche und praxisnahe Videos und finde es heraus! 
+                               {{$t "firstLogin.thanks.text.whatCanActuallydo" (dict "shortTitle" @root.theme.short_title)}} <b>{{$t "firstLogin.thanks.img_alt.text.onlineTraining"}}</b> {{$t "firstLogin.thanks.text.forVividAndPracticalVideos"}}
                             </p>
                             <div class="text-xs-center text-sm-right">
-                                <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/courses/schulcloud2019">Hier gehts zur Fortbildung</a>
+                                <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/courses/schulcloud2019">{{$t "firstLogin.text.clickhereForFurtherTraining" }}</a>
                             </div>
                         </div>
                     </div>
@@ -53,42 +48,40 @@
                     {{#inArray 'student' ../roleNames}}
                         <div class="row mt-3">
                             <div class="col-xs-12 col-sm-3 text-center">
-                                <img src="/images/firstLogin/welcome-1-student.svg" alt="Online-Fortbildung" width="150px">
+                                <img src="/images/firstLogin/welcome-1-student.svg" alt="{{$t "firstLogin.thanks.img_alt.text.onlineTraining"}}" width="150px">
                             </div>
                             <div class="col-xs-12 col-sm-9">
-                                Nun kannst du von deinen Lehrkräften in Kurse eingeladen werden und dort auf Unterrichtsmaterialien und Aufgaben zugreifen.
-                                Du hast auch einen eigenen Dateibereich, wo du wichtige Dokumente und Ordner ablegen kannst.
-                                Viel Spaß beim Erkunden! 
+                                {{$t "firstLogin.thanks.text.nowTeachersCanInviteToCoursesAndAccess"}}
                             </div>
                         </div>
                     {{/inArray}}
                 {{/inArray}}
             {{/inArray}}
-            
+
             <div class="row mt-3">
                 <div class="col-xs-12 col-sm-3 text-center">
                     <img src="/images/firstLogin/welcome-2-help.svg" alt="Help" width="150px">
                 </div>
                 <div class="col-xs-12 col-sm-9 mt-2">
                     <p>
-                        Über jede Seite in der {{@root.theme.short_title}} kommst du mit Klick auf das <b>Fragezeichen</b> oben rechts in unseren <b>Hilfebereich</b>.
-                        Dort findest du zu beinahe jedem Thema ausführliche Anleitungen und Bilderstrecken.
+                        {{$t "firstLogin.thanks.text.overEveryPageInThe" (dict "shortTitle" @root.theme.short_title)}} <b>{{$t "firstLogin.thanks.img_alt.text.questionMark"}}</b> {{$t "firstLogin.thanks.text.inTheTopRightOfOur"}} <b>{{$t "global.link.helpArea"}}</b>.
+                        {{$t "firstLogin.thanks.text.thereYouWillFindDetailedInstructions"}}
                     </p>
                     <p>
-                        Schau einfach mal vorbei!
+                       {{$t "firstLogin.text.justHaveALook" }}
                     </p>
                 </div>
             </div>
             <div class="text-xs-center text-sm-right mt-2 mb-3">
-                <a class="btn btn-secondary mt-1" data-testid="btn_schul-cloud_erkunden" href="/dashboard">Sofort loslegen</a>
+                <a class="btn btn-secondary mt-1" data-testid="btn_schul-cloud_erkunden" href="/dashboard">{{$t "firstLogin.button.getStartedImmediately" }}</a>
                 {{#inArray 'administrator' roleNames}}
-                    <a class="btn btn-primary mt-1" href="/help/confluence/40304667">Erste Schritte anschauen</a>
+                    <a class="btn btn-primary mt-1" href="/help/confluence/40304667">{{$t "firstLogin.button.takeALookAtTheFirstSteps" }}</a>
                 {{else}}
                     {{#inArray 'teacher' ../roleNames}}
-                        <a class="btn btn-primary mt-1" href="/help/confluence/40304726">Erste Schritte anschauen</a>
+                        <a class="btn btn-primary mt-1" href="/help/confluence/40304726">{{$t "firstLogin.button.takeALookAtTheFirstSteps" }}</a>
                     {{else}}
                         {{#inArray 'student' ../roleNames}}
-                            <a class="btn btn-primary mt-1" href="/help/confluence/40304731">Erste Schritte anschauen</a>
+                            <a class="btn btn-primary mt-1" href="/help/confluence/40304731">{{$t "firstLogin.button.takeALookAtTheFirstSteps" }}</a>
                         {{/inArray}}
                     {{/inArray}}
                 {{/inArray}}

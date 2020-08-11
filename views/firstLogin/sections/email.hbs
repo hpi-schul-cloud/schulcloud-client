@@ -1,11 +1,11 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
-  <h2 class="h4">Wie können wir dich erreichen?</h2>
-  <p>Bitte überprüfe deine E-Mail-Adresse:</p>
+  <h2 class="h4">{{$t "firstLogin.email.heading.howCanWeContactYou" }}</h2>
+  <p>{{$t "firstLogin.email.text.pleaseCheckYourEmail" }}</p>
   <div class="row">
     <div class="form-group col-md-6 col-sm-12">
-        <label>E-Mail:</label>
-        <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" value="{{@root.currentUser.email}}" readonly required>
+        <label for="email">{{$t "global.label.emailAddress"}}</label>
+        <input id="email" class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" value="{{@root.currentUser.email}}" readonly required>
     </div>
   </div>
-  <p>Sollte die E-Mail-Adresse nicht die richtige sein, wende dich bitte an deinen {{@root.theme.short_title}}-Administrator.</p>
+  <p>{{$t "firstLogin.email.text.ifTheEmailAddressIsNotTheCorrectOne" (dict "shortTitle" @root.theme.short_title)}}</p>
 </section>

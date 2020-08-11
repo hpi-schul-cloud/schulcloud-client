@@ -1,5 +1,5 @@
-# Schul-Cloud Client  
-_An implementation of the Schul-Cloud client with NodeJS and Express._  
+# HPI Schul-Cloud Client  
+_An implementation of the HPI Schul-Cloud client with NodeJS and Express._  
 
 Dev: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/schul-cloud/schulcloud-client)
 Master: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/schul-cloud/schulcloud-client)
@@ -15,7 +15,7 @@ Master: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg
 
 ## Requirements  
   
-* node.js 8.7 or later
+* node.js 12 or later
 
 You might take a look at the [Dockerfile](https://github.com/schul-cloud/schulcloud-client/blob/master/Dockerfile) to see some more dependencies and latest version informations.
 
@@ -34,7 +34,7 @@ Short version:
 1. Start the [schul-cloud server](https://github.com/schulcloud/schulcloud-server)  
 2. Go into project folder
 3. Run `gulp watch` to run gulp
-4. Set the ENV-variable `TZ=Europe/Berlin` (for windows use `set TZ=Europe/Berlin`). You can also set the variables `SC_TITLE=HPI Schul-Cloud` and `SC_SHORT_TITLE=Schul-Cloud` if you want.
+4. Set the ENV-variable `TZ=Europe/Berlin` (for windows use `set TZ=Europe/Berlin`). You can also set the variables `SC_TITLE=HPI Schul-Cloud` and `SC_SHORT_TITLE=HPI Schul-Cloud` if you want.
 5. run `npm run watch` to boot the application
 6. go to `http://localhost:3100`
 

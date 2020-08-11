@@ -3,7 +3,9 @@
 		{{#if homeworksCount}}
 			{{else}}
 				<div class="empty-state">
-					<img src="/images/empty-states/assignments.svg" alt="{{$t "courses._course.tasks.img_alt.noPosedTasks"}}" class="image" />
+					{{> courses/components/svg_tasks}}
+					<!--<img src="/images/empty-states/tasks.svg" alt="{{$t "courses._course.tasks.img_alt.noPosedTasks"}}" class="image course-empty-content-image" />-->
+
 					{{#unless @root.isArchived}}
 						{{#userHasPermission "COURSE_EDIT" }}
 							<h2 class="h4">{{$t "courses._course.tasks.headline.createFirstTask"}}</h2>
@@ -23,7 +25,7 @@
 				<section class="section mb-2">
 					<div class="row">
 						<div class="col-sm-12">
-							<h2 class="h5 mb-1 mt-2"><a class="course-link" href="/homework/asked">{{$t "courses._course.tasks.headline.unsubmittedTasks"}}</a></h2>
+							<h2 class="h5 mb-1 mt-2"><a class="course-link" href="/homework/asked">{{$t "global.headline.assignedTasks"}}</a></h2>
 						</div>
 					</div>
 					<div id="homeworks" class="container-fluid">
@@ -62,7 +64,7 @@
 				<section class="section mb-2">
 					<div class="row">
 						<div class="col-sm-12">
-							<h2 class="h5 mb-1 mt-2"><a class="course-link" href="/homework/asked">{{$t "courses._course.tasks.headline.unsubmittedTasks"}}</a></h2>
+							<h2 class="h5 mb-1 mt-2"><a class="course-link" href="/homework/asked">{{$t "global.headline.assignedTasks"}}</a></h2>
 						</div>
 					</div>
 					<div id="homeworks" class="container-fluid">
@@ -103,7 +105,7 @@
 			{{#unless @root.isArchived}}
 				<a href="/homework/new?course={{../_id}}"
 					class="btn btn-primary {{#if ../assignedHomeworks}}w-100{{else}}btn-empty{{/if}}"
-					title="{{$t "courses._course.tasks.text.addTasks"}}">
+					title="{{$t "global.button.addTask"}}">
 					<span>{{$t "courses._course.tasks.button.createTask"}}</span>
 				</a>
 			{{/unless}}
@@ -117,14 +119,14 @@
 				{{#userHasPermission "HOMEWORK_CREATE" }}
 					{{#unless @root.isArchived}}
 						<a href="/homework/new?course={{../_id}}&private=true"
-							class="btn btn-secondary btn-sm pull-right ml-1 mt-2" title="{{$t "courses._course.tasks.text.addPrivateTask"}}">
+							class="btn btn-secondary btn-sm pull-right ml-1 mt-2" title="{{$t "global.button.addPrivateTask"}}">
 							<i class="fa fa-plus" aria-hidden="true"></i>
-							<span class="hidden-md-down"> {{$t "courses._course.tasks.button.addPrivateTask"}}</span>
+							<span class="hidden-md-down"> {{$t "global.button.addPrivateTask"}}</span>
 						</a>
 					{{/unless}}
 				{{/userHasPermission}}
 				{{#ifneq 0 (arrayLength privateHomeworks)}}
-					<h2 class="h5 mb-1 mt-2"><a class="course-link" href="/homework/private">{{$t "courses._course.tasks.headline.privateTasks"}}</a></h2>
+					<h2 class="h5 mb-1 mt-2"><a class="course-link" href="/homework/private">{{$t "global.headline.privateTasks"}}</a></h2>
 					<div id="myhomeworks" class="container-fluid">
 						<ol class="homework">
 							<div class="row">

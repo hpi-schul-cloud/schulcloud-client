@@ -14,10 +14,10 @@
             <div class="tabContainer" data-active-tab={{activeTab}}>
                 <div class="tabs" data-max-width="1024">
                     <button class="tab" data-tab="js-active">
-                        <span class="text">{{$t "courses.tab_labels.currentCourses"}} <span class="count-badge" data-badge="{{ total.active }}"/></span>
+                        <span class="text">{{$t "courses.tab_label.currentCourses"}} <span class="count-badge" data-badge="{{ total.active }}"/></span>
                     </button>
                     <button class="tab" data-tab="js-archived">
-                        <span class="text">{{$t "courses.tab_labels.archievedCourses"}} <span class="count-badge" data-badge="{{ total.archived }}"/></span>
+                        <span class="text">{{$t "courses.tab_label.archivedCourses"}} <span class="count-badge" data-badge="{{ total.archived }}"/></span>
                     </button>
                 </div>
                 <div class="sectionsContainer">
@@ -28,8 +28,10 @@
                                 {{> 'dashboard/components/card_section' section-id="activeCourses" title="" content=activeCourses link-text= ($t "global.button.open") additionalInfoName="memberCount"}}
                             {{else}}
                                 <div class="empty-state">
-                                    <img src="/images/empty-states/books.svg" alt="{{$t "courses.img_alt.noCourses"}}" class="image"/>
-                                    {{#userHasPermission "COURSE_EDIT"}}
+									{{> 'courses/components/svg_active_courses'}}
+                                    <!--<img src="/images/empty-states/active_courses.svg" alt="{{$t "courses.img_alt.noCourses"}}" class="image"/>-->
+
+									{{#userHasPermission "COURSE_EDIT"}}
                                         <h2 class="h4">{{$t "courses.headline.createDuplicateImport"}}</h2>
                                     {{else}}
                                         <h2 class="h4 text-muted">{{$t "courses.headline.noCourse"}}</h2>
@@ -72,7 +74,8 @@
                                 {{> 'dashboard/components/card_section' section-id="archievedCourses" title="" content=archivedCourses link-text= ($t "global.button.open") additionalInfoName="memberCount"}}
                             {{else}}
                                 <div class="empty-state">
-                                    <img src="/images/empty-states/books_empty.svg" alt="{{$t "courses.img_alt.noArchievedCourses"}}" class="image"/>
+									{{> 'courses/components/svg_archived_courses'}}
+                                    <!--<img src="/images/empty-states/archived_courses.svg" alt="{{$t "courses.img_alt.noArchievedCourses"}}" class="image"/>-->
 
                                     <h2 class="h4">{{$t "courses.headline.noArchievedCourses"}}</h2>
                                     <p class="text-muted">

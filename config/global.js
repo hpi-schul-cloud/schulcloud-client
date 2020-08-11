@@ -9,7 +9,7 @@ const {
 	SC_DOMAIN = 'localhost',
 	SC_THEME = 'default',
 	SC_TITLE = 'HPI Schul-Cloud',
-	SC_SHORT_TITLE = 'Schul-Cloud',
+	SC_SHORT_TITLE = 'HPI Schul-Cloud',
 	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/schul-cloud-hpi/',
 	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	REDIS_URI,
@@ -45,7 +45,6 @@ const {
 	HELPAREA_URL,
 	FEATURE_MATRIX_MESSENGER_ENABLED,
 	FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE,
-	FEATURE_MULTI_LOGIN_INSTANCES,
 } = process.env;
 
 const exp = {
@@ -93,7 +92,6 @@ const exp = {
 	HELPAREA_URL,
 	FEATURE_MATRIX_MESSENGER_ENABLED,
 	FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE,
-	FEATURE_MULTI_LOGIN_INSTANCES,
 };
 
 // eslint-disable-next-line no-console

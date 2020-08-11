@@ -1,9 +1,9 @@
 /* eslint-disable no-use-before-define */
 
 export const ERROR_MESSAGES = {
-	NOT_STARTED_OR_FINISHED: 'Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.',
-	NO_PERMISSION: 'Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen.',
-	GENERAL_ERROR: 'Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.',
+	NOT_STARTED_OR_FINISHED: $t('videoconference.text.theVideoConferenceHasEither'),
+	NO_PERMISSION: $t('videoconference.text.youDoNotHaveTheNecessaryAuthorization'),
+	GENERAL_ERROR: $t('videoconference.text.thereWasAProblemWithTheVideo'),
 };
 
 const GuestInactiveState = Object.freeze({
@@ -29,9 +29,9 @@ const ModeratorInactiveState = Object.freeze({
 			const $createVideoconferenceModal = $('.create-videoconference-modal');
 
 			populateModalForm($createVideoconferenceModal, {
-				title: `Videokonferenzraum "${event.title}" erstellen`,
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Erstellen',
+				title: $t('videoconference.headline.createVideoConferenceRoom', { name: event.title }),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.create'),
 			});
 
 			$createVideoconferenceModal.appendTo('body').modal('show');
@@ -162,7 +162,7 @@ export function initVideoconferencing() {
 		const $updateConferenceStatusModal = $('.reload-info-modal');
 		populateModalForm($updateConferenceStatusModal, {
 			title: '',
-			closeLabel: 'OK',
+			closeLabel: $t('global.button.ok'),
 		});
 
 		$updateConferenceStatusModal.appendTo('body').modal('show');
@@ -175,7 +175,7 @@ export function initVideoconferencing() {
 		const $forbiddenModal = $('.forbidden-info-modal');
 		populateModalForm($forbiddenModal, {
 			title: '',
-			closeLabel: 'OK',
+			closeLabel: $t('global.button.ok'),
 		});
 
 		$forbiddenModal.appendTo('body').modal('show');
