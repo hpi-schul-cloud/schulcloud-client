@@ -121,27 +121,27 @@ $(document).ready(() => {
 		}
 	}
 
-    function showAJAXError(req, textStatus, errorThrown) {
-        if (textStatus === "timeout") {
-            $.showNotification($t('global.text.requestTimeout'), "danger");
-        } else if (errorThrown === "Conflict") {
-            $.showNotification($t('homework.text.fileAlreadyExists'), "danger");
-        } else {
-            $.showNotification(errorThrown, "danger", 15000);
-        }
-    }
+	function showAJAXError(req, textStatus, errorThrown) {
+		if (textStatus === 'timeout') {
+			$.showNotification($t('global.text.requestTimeout'), 'danger');
+		} else if (errorThrown === 'Conflict') {
+			$.showNotification($t('homework.text.fileAlreadyExists'), 'danger');
+		} else {
+			$.showNotification(errorThrown, 'danger', 15000);
+		}
+	}
 
-    function ajaxForm(element, after, contentTest){
-        const submitButton = element.find('[type=submit]')[0];
-        let submitButtonText = submitButton.innerHTML || submitButton.value;
-        submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)',"");
-        submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
-        submitButton.disabled = true;
-        const submitButtonStyleDisplay = submitButton.getAttribute("style");
-        submitButton.style["display"]="inline-block";
+	function ajaxForm(element, after, contentTest) {
+		const submitButton = element.find('[type=submit]')[0];
+		let submitButtonText = submitButton.innerHTML || submitButton.value;
+		submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)', '');
+		submitButton.innerHTML = `${submitButtonText} <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>`;
+		submitButton.disabled = true;
+		const submitButtonStyleDisplay = submitButton.getAttribute('style');
+		submitButton.style.display = 'inline-block';
 
-        const url     = element.attr("action");
-        const method  = element.attr("method");
+		const url = element.attr('action');
+		const method = element.attr('method');
 		const content = element.serialize();
 		if (contentTest) {
 			if (contentTest(content) == false) {
@@ -160,7 +160,6 @@ $(document).ready(() => {
 			content.forEach((c) => {
 				if (c.name === 'teamMembers') {
 					teamMembers.push(c.value);
-
 				}
 			});
 			if (teamMembers != [] && $('.me').val() && !teamMembers.includes($('.me').val())) {
@@ -175,54 +174,54 @@ $(document).ready(() => {
 		e.preventDefault();
 		const $dangerModal = $('.danger-modal');
 		$dangerModal.appendTo('body').modal('show');
-    });
+	});
 
-    // Abgabe löschen
-    $('a[data-method="delete-submission"]').on('click', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        var $buttonContext = $(this);
-        let $deleteModal = $('.delete-modal');
-        $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('name')}));
-        $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
-            window.location.href = $buttonContext.attr('href');
-        });
-    });
+	// Abgabe löschen
+	$('a[data-method="delete-submission"]').on('click', function action(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const $buttonContext = $(this);
+		const $deleteModal = $('.delete-modal');
+		$deleteModal.appendTo('body').modal('show');
+		$deleteModal.find('.modal-title').text(
+			$t('global.text.sureAboutDeleting', { name: $buttonContext.data('name') })
+		);
+		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
+			window.location.href = $buttonContext.attr('href');
+		});
+	});
 
-    //validate teamMembers
-    var lastTeamMembers = null;
-    const maxTeamMembers = parseInt($("#maxTeamMembers").html());
-    $('select#teamMembers').change(function(event) {
-        if ($(this).val().length > maxTeamMembers) {
-            $(this).val(lastTeamMembers);
-            $.showNotification($t('homework.text.maximumTeamSize', {maxMembers : maxTeamMembers}), "warning", 5000);
-        } else {
-            lastTeamMembers = $(this).val();
-        }
-        $(this).chosen().trigger("chosen:updated");
-    });
+	// validate teamMembers
+	let lastTeamMembers = null;
+	const maxTeamMembers = parseInt($('#maxTeamMembers').html());
+	$('select#teamMembers').change(function action(event) {
+		if ($(this).val().length > maxTeamMembers) {
+			$(this).val(lastTeamMembers);
+			$.showNotification($t('homework.text.maximumTeamSize', { maxMembers: maxTeamMembers }), 'warning', 5000);
+		} else {
+			lastTeamMembers = $(this).val();
+		}
+		$(this).chosen().trigger('chosen:updated');
+	});
 
-    $('select#teamMembers').chosen().change(function(event, data) {
-        if(data.deselected && data.deselected == $('.owner').val()){
-            $(".owner").prop('selected', true);
-            $('#teamMembers').trigger("chosen:updated");
-            $.showNotification(t('homework.text.creatorCanNotBeRemoved'), "warning", 5000);
-        }
-    });
+	$('select#teamMembers').chosen().change((event, data) => {
+		if (data.deselected && data.deselected == $('.owner').val()) {
+			$('.owner').prop('selected', true);
+			$('#teamMembers').trigger('chosen:updated');
+			$.showNotification(t('homework.text.creatorCanNotBeRemoved'), 'warning', 5000);
+		}
+	});
 
-    // Bewertung speichern
-    $('.evaluation #comment form').on("submit",function(e){
-        if(e) e.preventDefault();
-        ajaxForm($(e.currentTarget),function(c){
-            $.showNotification($t('homework.text.ratingHasBeenSaved'), "success", 5000);
-        },function(c){
-            return (c.grade || c.gradeComment);
-        });
-        return false;
-    });
+	// Bewertung speichern
+	$('.evaluation #comment form').on('submit', (e) => {
+		if (e) e.preventDefault();
+		ajaxForm($(e.currentTarget), (c) => {
+			$.showNotification($t('homework.text.ratingHasBeenSaved'), 'success', 5000);
+		}, (c) => (c.grade || c.gradeComment));
+		return false;
+	});
 
-    document.querySelectorAll('.btn-archive').forEach(btn => {btn.addEventListener("click", archiveTask);});
+	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
 
 	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
 
@@ -288,9 +287,9 @@ $(document).ready(() => {
 				});
 
 				this.on('sending', (file, xhr, formData) => {
-					const _send = xhr.send;
+					const xhrSend = xhr.send;
 					xhr.send = function sendFile() {
-						_send.call(xhr, file);
+						xhrSend.call(xhr, file);
 					};
 				});
 
@@ -385,62 +384,62 @@ $(document).ready(() => {
 	/**
      * deletes a) the file itself, b) the reference to the submission
      */
-    $('a[data-method="delete-file"]').on('click', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        let $buttonContext = $(this);
-        let $deleteModal = $('.delete-modal');
-        let fileId = $buttonContext.data('file-id');
+	$('a[data-method="delete-file"]').on('click', function action(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const $buttonContext = $(this);
+		const $deleteModal = $('.delete-modal');
+		const fileId = $buttonContext.data('file-id');
 
-        $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('file-name')}));
+		$deleteModal.appendTo('body').modal('show');
+		$deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }));
 
-        $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
-            $.ajax({
-                url: $buttonContext.attr('href'),
-                type: 'DELETE',
-                data: {
-                    key: $buttonContext.data('file-key')
-                },
-                success: function (_) {
-                    // delete reference in submission
-                    let submissionId = $("input[name='submissionId']").val();
-					let teamMembers = $('#teamMembers').val();
-                    $.ajax({
-                        url: `/homework/submit/${submissionId}/files`,
-                        data: {fileId, teamMembers},
-                        type: 'DELETE',
-                        success: function (_) {
-                            window.location.reload();
-                        }
-                    });
-                },
-                error: showAJAXError
-            });
-        });
-    });
+		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
+			$.ajax({
+				url: $buttonContext.attr('href'),
+				type: 'DELETE',
+				data: {
+					key: $buttonContext.data('file-key'),
+				},
+				success(_) {
+					// delete reference in submission
+					const submissionId = $("input[name='submissionId']").val();
+					const teamMembers = $('#teamMembers').val();
+					$.ajax({
+						url: `/homework/submit/${submissionId}/files`,
+						data: { fileId, teamMembers },
+						type: 'DELETE',
+						success(_) {
+							window.location.reload();
+						},
+					});
+				},
+				error: showAJAXError,
+			});
+		});
+	});
 
-    $('a[data-method="delete-file-homework-edit"]').on('click', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        let $buttonContext = $(this);
-        let $deleteModal = $('.delete-modal');
-        let fileId = $buttonContext.data('file-id');
+	$('a[data-method="delete-file-homework-edit"]').on('click', function action(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const $buttonContext = $(this);
+		const $deleteModal = $('.delete-modal');
+		const fileId = $buttonContext.data('file-id');
 
-        $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('file-name')}));
+		$deleteModal.appendTo('body').modal('show');
+		$deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }));
 
-        $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
-            $.ajax({
-                url: $buttonContext.attr('href'),
-                type: 'DELETE',
-                data: {
-                    key: $buttonContext.data('file-key')
-                },
-                success: function () {
-                    // delete reference in homework
-                    let homeworkId = $("input[name='homeworkId']").val();
-					let teamMembers = $('#teamMembers').val();
+		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
+			$.ajax({
+				url: $buttonContext.attr('href'),
+				type: 'DELETE',
+				data: {
+					key: $buttonContext.data('file-key'),
+				},
+				success() {
+					// delete reference in homework
+					const homeworkId = $("input[name='homeworkId']").val();
+					const teamMembers = $('#teamMembers').val();
 					$.ajax({
 						url: `/homework/${homeworkId}/file`,
 						data: { fileId },
@@ -459,7 +458,7 @@ $(document).ready(() => {
 	MathJax.Hub.Typeset(); // eslint-disable-line no-undef
 
 	// allow muti-download
-	$('button.multi-download').on('click', function () {
+	$('button.multi-download').on('click', function action() {
 		const files = $(this).data('files').split(' ');
 
 		// renaming here does not work, because the files are all served from a different origin
