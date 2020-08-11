@@ -1558,6 +1558,9 @@
 			"tasks": "Aufgaben",
 			"yourData": "Ihre Daten"
 		},
+		"input": {
+			"password": "Passwort"
+		},
 		"label": {
 			"chooseAFile": "Datei auswählen",
 			"creationDate": "Erstelldatum",

@@ -4,17 +4,18 @@
 			{{#unless loggedin}}
 				<h2 class="section-title center">{{$t "global.link.partner"}}</h2>
 			{{/unless}}
-			<h3 class="section-title center">{{$t "global.headline.projectExecution"}}</h3>
+
+			<h2 class="section-title center h3">{{$t "partner.headline.projectExecution"}}</h2>
 			<div class="container">
 				<div class="row">
 					{{#each partners.project_partners}}
 					<div class="partner-box-wrapper col-md-4">
-						<div class="partner-box">
-							<a href="{{{url}}}" target="_blank">
+						<a href="{{{url}}}" target="_blank">
+							<div class="partner-box">
 								<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 									{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-							</a>
-						</div>
+							</div>
+						</a>
 					</div>
 					{{/each}}
 				</div>
@@ -23,7 +24,7 @@
 	{{/embed}}
 	{{#embed "authentication/section" style="primary" class="content-width-max"}}
 		{{#content "body"}}
-			<h3 class="section-title center">{{$t "partner.headline.advisoryBoard"}}</h3>
+			<h2 class="section-title center h3">{{$t "partner.headline.advisoryBoard"}}</h2>
 			<div class="container">
 				<div class="row">
 					<div class="intro-box col-sm-12">
@@ -40,7 +41,8 @@
 							{{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
 								<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 									{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-							{{#if url}}</a>{{/if}}
+							{{#if url}}
+							</a>{{/if}}
 						</div>
 					</div>
 				{{/each}}
@@ -50,24 +52,25 @@
 							<div class="partner-box-wrapper col-xs-6 col-md-3">
 								<div class="partner-box">
 									{{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
-										<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
+										<img  src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 											{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-									{{#if url}}</a>{{/if}}
+									{{#if url}}
+									</a>{{/if}}
 								</div>
 							</div>
 					{{/each}}
 					</div>
 				</div>
 				<div class="buttonWrapper">
-					<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">
+					<button class="btn toggle-partner transparent" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">
 						{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i></div>
-				</div>
+					</button>
 			</div>
 		{{/content}}
 	{{/embed}}
 	{{#embed "authentication/section" class="content-width-max"}}
 		{{#content "body"}}
-			<h3 class="section-title center">{{$t "partner.headline.pilotPartners"}}</h3>
+			<h2 class="section-title center h3">{{$t "partner.headline.pilotPartners"}}</h2>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -77,31 +80,31 @@
 				<div class="row">
 					{{#each partners.content_partners}}
 						<div class="partner-box-wrapper col-xs-6 col-md-3">
-							<div class="partner-box">
-								<a href="{{{url}}}" target="_blank">
+							<a href="{{{url}}}" target="_blank" >
+								<div class="partner-box">
 									<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-								</a>
-							</div>
+								</div>
+							</a>
 						</div>
 					{{/each}}
 					<div class="col-xs-12">
 						<div id="hiddenContentPartner" class="collapse row">
 							{{#each hiddenContentPartners}}
 								<div class="partner-box-wrapper col-xs-6 col-md-3">
-									<div class="partner-box">
-										<a href="{{{url}}}" target="_blank">
+									<a href="{{{url}}}" target="_blank">
+										<div class="partner-box">
 											<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 												{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-										</a>
-									</div>
+										</div>
+									</a>
 								</div>
 							{{/each}}
 						</div>
 					</div>
 					<div class="buttonWrapper">
-						<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenContentPartner">
-							{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+						<button class="btn toggle-partner transparent" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenContentPartner">
+							{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i></button>
 					</div>
 				</div>
 			</div>
@@ -109,7 +112,7 @@
 	{{/embed}}
 	{{#embed "authentication/section" style="accent" class="content-width-max"}}
 		{{#content "body"}}
-			<h3 class="section-title center">{{$t "partner.headline.supporters"}}</h3>
+			<h2 class="section-title center h3">{{$t "partner.headline.supporters"}}</h2>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -119,12 +122,12 @@
 				<div class="row">
 					{{#each partners.sponsors}}
 						<div class="partner-box-wrapper col-xs-6 col-md-6">
-							<div class="partner-box">
-								<a href="{{{url}}}" target="_blank">
+							<a href="{{{url}}}" target="_blank">
+								<div class="partner-box">
 									<img src="{{{logo}}}" alt="{{$t "partner.img_alt.logo"}} {{{name}}}" class="img-fluid"
 										{{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-								</a>
-							</div>
+								</div>
+							</a>
 						</div>
 					{{/each}}
 				</div>
