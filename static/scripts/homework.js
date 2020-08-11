@@ -43,9 +43,10 @@ function archiveTask(e) {
 		url: this.getAttribute('href'),
 		data: this.getAttribute('data'),
 		context: this,
+		/* !!! @important it is NOT defined !!! */
 		error() { showAJAXError(); this.innerHTML = btntext; },
 	});
-	request.done(function (r) {
+	request.done(function action() {
 		// switch text (innerHTML <--> alt-text)
 		const temp = $(this).attr('alt-text');
 		$(this).attr('alt-text', btntext);
@@ -57,16 +58,22 @@ function archiveTask(e) {
 	});
 	return false;
 }
+
 function importSubmission(e) {
 	e.preventDefault();
 	const submissionid = this.getAttribute('data');
 	this.disabled = true;
-	this.innerHTML = `${$t('homework.button.importing')} <style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>`;
+
+	const bounce = '<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
+	const loadingspinner = '<style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner">';
+	this.innerHTML = `${$t('homework.button.importing')} ${loadingspinner}${bounce}`;
+	/* unexpected use */
 	if (confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))) {
 		$.ajax({
 			url: `/homework/submit/${submissionid}/import`,
 			context: this,
-		}).done(function (r) {
+		}).done(function action(r) {
+			/* !!! @important it is NOT defined !!! */
 			CKEDITOR.instances[`evaluation ${submissionid}`].setData(r.comment);
 			this.disabled = false;
 			this.innerHTML = $t('homework.button.importSubmission');
@@ -125,13 +132,14 @@ $(document).ready(() => {
 		const submitButton = element.find('[type=submit]')[0];
 		let submitButtonText = submitButton.innerHTML || submitButton.value;
 		submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)', '');
-		submitButton.innerHTML = `${submitButtonText} <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>`;
+
+		const bounces = '<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
+		const loadingspinner = '<div class="loadingspinner">';
+		submitButton.innerHTML = `${submitButtonText}${loadingspinner}${bounces}`;
 		submitButton.disabled = true;
-		const submitButtonStyleDisplay = submitButton.getAttribute('style');
+
 		submitButton.style.display = 'inline-block';
 
-		const url = element.attr('action');
-		const method = element.attr('method');
 		const content = element.serialize();
 		if (contentTest) {
 			if (contentTest(content) == false) {
@@ -153,6 +161,7 @@ $(document).ready(() => {
 				}
 			});
 			if (teamMembers != [] && $('.me').val() && !teamMembers.includes($('.me').val())) {
+				/* unexpected use */
 				location.reload();
 			}
 		});
@@ -174,7 +183,7 @@ $(document).ready(() => {
 		const $deleteModal = $('.delete-modal');
 		$deleteModal.appendTo('body').modal('show');
 		$deleteModal.find('.modal-title').text(
-			$t('global.text.sureAboutDeleting', { name: $buttonContext.data('name') })
+			$t('global.text.sureAboutDeleting', { name: $buttonContext.data('name') }),
 		);
 		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
 			window.location.href = $buttonContext.attr('href');
@@ -183,7 +192,7 @@ $(document).ready(() => {
 
 	// validate teamMembers
 	let lastTeamMembers = null;
-	const maxTeamMembers = parseInt($('#maxTeamMembers').html());
+	const maxTeamMembers = parseInt($('#maxTeamMembers').html(), 10);
 	$('select#teamMembers').change(function action(event) {
 		if ($(this).val().length > maxTeamMembers) {
 			$(this).val(lastTeamMembers);
@@ -382,7 +391,9 @@ $(document).ready(() => {
 		const fileId = $buttonContext.data('file-id');
 
 		$deleteModal.appendTo('body').modal('show');
-		$deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }));
+		$deleteModal.find('.modal-title').text(
+			$t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }),
+		);
 
 		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
 			$.ajax({
@@ -399,7 +410,7 @@ $(document).ready(() => {
 						url: `/homework/submit/${submissionId}/files`,
 						data: { fileId, teamMembers },
 						type: 'DELETE',
-						success(_) {
+						success() {
 							window.location.reload();
 						},
 					});
@@ -417,7 +428,9 @@ $(document).ready(() => {
 		const fileId = $buttonContext.data('file-id');
 
 		$deleteModal.appendTo('body').modal('show');
-		$deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }));
+		$deleteModal.find('.modal-title').text(
+			$t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }),
+		);
 
 		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
 			$.ajax({
@@ -429,7 +442,6 @@ $(document).ready(() => {
 				success() {
 					// delete reference in homework
 					const homeworkId = $("input[name='homeworkId']").val();
-					const teamMembers = $('#teamMembers').val();
 					$.ajax({
 						url: `/homework/${homeworkId}/file`,
 						data: { fileId },
@@ -472,7 +484,9 @@ $(document).ready(() => {
 		modal.appendTo('body').modal('show');
 	}
 	function modalCheckboxHandler(headline, content, modal, localStorageItem, checkbox) {
-		const isPrivateAlertTrue = localStorage.getItem(localStorageItem) ? JSON.parse(localStorage.getItem(localStorageItem)) : false;
+		const isPrivateAlertTrue = localStorage.getItem(localStorageItem)
+			? JSON.parse(localStorage.getItem(localStorageItem)) : false;
+
 		if (!isPrivateAlertTrue && $(checkbox).prop('checked')) {
 			modal.find('.dontShowAgain-checkbox').prop('checked', false);
 			displayModal(headline, content, modal);
@@ -486,16 +500,18 @@ $(document).ready(() => {
 		}
 	}
 
-	$('#publicSubmissionsCheckbox').on('change', function (e) {
+	$('#publicSubmissionsCheckbox').on('change', function action(e) {
 		e.preventDefault();
 		const content = $t('homework.text.activatingThisMakesSubmissionsPublic');
-		modalCheckboxHandler($t('global.text.areYouSure'), content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
+		modalCheckboxHandler(
+			$t('global.text.areYouSure'), content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this,
+		);
 	});
 
 	function checkVideoElements() {
 		const vids = $('video');
 		if (vids.length > 0) {
-			$.each(vids, function () {
+			$.each(vids, function action() {
 				this.controls = true;
 			});
 		}
