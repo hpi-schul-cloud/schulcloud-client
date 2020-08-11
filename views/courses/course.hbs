@@ -65,10 +65,10 @@
 <section class="section-course">
   <div class="tabContainer" data-active-tab={{activeTab}}>
     <div class="tabs" data-max-width="1024">
-      <button class="tab" data-testid="topics" data-tab="js-topics">
+      <button class="tab" aria-label="{{$t "courses._course.tab_label.topics"}}" data-testid="topics" data-tab="js-topics">
         <span class="text">{{$t "courses._course.tab_label.topics"}}
       </button>
-      <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
+      <button class="tab" aria-label="{{$t "courses._course.tab_label.tasks"}}" data-testid="hometasks" data-tab="js-homeworks">
         {{#if isTeacher}}
         <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge"
             data-badge="{{ add (arrayLength ../privateHomeworks) ( add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) ) }}" /></span>
@@ -77,11 +77,11 @@
             data-badge="{{ add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) }}" /></span>
         {{/if}}
       </button>
-      <button class="tab" data-testid="tools" data-tab="js-tools">
+      <button class="tab" aria-label="{{$t "courses._course.tab_label.tools"}}" data-testid="tools" data-tab="js-tools">
         <span class="text">{{$t "courses._course.tab_label.tools"}} <span class="count-badge"
             data-badge="{{../ltiToolIds.length}}" /></span>
       </button>
-      <button class="tab" data-testid="groups" data-tab="js-groups">
+      <button class="tab" aria-label="{{$t "courses._course.tab_label.groups"}}" data-testid="groups" data-tab="js-groups">
         <span class="text">{{$t "courses._course.tab_label.groups"}} <span class="count-badge"
             data-badge="{{../courseGroups.length}}" /></span>
       </button>
