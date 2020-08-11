@@ -566,6 +566,10 @@ router.get('/:teamId', async (req, res, next) => {
 		files = files.filter((file) => file);
 
 		files = files.map((file) => {
+
+			// set saveName attribute with escaped quotes
+			file.saveName = file.name.replace(/'/g, "\\'");
+
 			if (file && file.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
