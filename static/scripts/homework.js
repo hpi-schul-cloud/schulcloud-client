@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import multiDownload from 'multi-download';
 
 import { softNavigate } from './helpers/navigation';
@@ -67,7 +68,7 @@ function archiveTask(e) {
 	});
 	return false;
 }
-
+/*
 function importSubmission(e) {
 	e.preventDefault();
 	const submissionid = this.getAttribute('data');
@@ -76,21 +77,19 @@ function importSubmission(e) {
 	const bounce = '<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
 	const loadingspinner = '<style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner">';
 	this.innerHTML = `${$t('homework.button.importing')} ${loadingspinner}${bounce}`;
-	/* unexpected use */
-	// eslint-disable-next-line no-restricted-globals
+
 	if (confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))) {
 		$.ajax({
 			url: `/homework/submit/${submissionid}/import`,
 			context: this,
 		}).done(function action(r) {
-			/* !!! @important it is NOT defined !!! */
 			CKEDITOR.instances[`evaluation ${submissionid}`].setData(r.comment);
 			this.disabled = false;
 			this.innerHTML = $t('homework.button.importSubmission');
 		});
 	}
 }
-
+*/
 extendWithBulkUpload($);
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -194,7 +193,7 @@ $(document).ready(() => {
 	// validate teamMembers
 	let lastTeamMembers = null;
 	const maxTeamMembers = parseInt($('#maxTeamMembers').html(), 10);
-	$('select#teamMembers').change(function action(event) {
+	$('select#teamMembers').change(function action() {
 		if ($(this).val().length > maxTeamMembers) {
 			$(this).val(lastTeamMembers);
 			$.showNotification($t('homework.text.maximumTeamSize', { maxMembers: maxTeamMembers }), 'warning', 5000);
@@ -215,7 +214,7 @@ $(document).ready(() => {
 	// Bewertung speichern
 	$('.evaluation #comment form').on('submit', (e) => {
 		if (e) e.preventDefault();
-		ajaxForm($(e.currentTarget), (c) => {
+		ajaxForm($(e.currentTarget), () => {
 			$.showNotification($t('homework.text.ratingHasBeenSaved'), 'success', 5000);
 		}, (c) => (c.grade || c.gradeComment));
 		return false;
@@ -224,11 +223,11 @@ $(document).ready(() => {
 	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
 
 	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
-
+	/*
 	document.querySelectorAll('.importsubmission').forEach(
 		(btn) => { btn.addEventListener('click', importSubmission); },
 	);
-
+		*/
 	// file upload stuff, todo: maybe move or make it more flexible when also uploading to homework-assignment
 	const $uploadForm = $('.form-upload');
 	const $progressBar = $('.progress-bar');
@@ -384,7 +383,7 @@ $(document).ready(() => {
 	/**
      * deletes a) the file itself, b) the reference to the submission
      */
-	$('a[data-method="delete-file"]').on('click', function action(e) {
+	$('a[data-method="delete-file"]').on('click', function actionDeleteFile(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const $buttonContext = $(this);
@@ -421,7 +420,7 @@ $(document).ready(() => {
 		});
 	});
 
-	$('a[data-method="delete-file-homework-edit"]').on('click', function action(e) {
+	$('a[data-method="delete-file-homework-edit"]').on('click', function actionDeleteFileHomeworkEdit(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const $buttonContext = $(this);
