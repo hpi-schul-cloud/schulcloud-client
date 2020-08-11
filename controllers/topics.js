@@ -328,7 +328,7 @@ router.get('/:topicId', (req, res, next) => {
 				});
 			}
 			if (typeof lesson.contents !== 'undefined') {
-				return getEtherpadSession(req, res, req.params.courseId).then(sessionInfo => {
+				return getEtherpadSession(req, res, req.params.courseId).then((sessionInfo) => {
 					etherpadPads.forEach((padId) => {
 						authHelper.etherpadCookieHelper(sessionInfo, padId, res);
 					});
