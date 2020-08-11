@@ -224,21 +224,7 @@ $(document).ready(() => {
 
     document.querySelectorAll('.btn-archive').forEach(btn => {btn.addEventListener("click", archiveTask);});
 
-    function updateSearchParameter(key, value) {
-        let url = window.location.search;
-        let reg = new RegExp('('+key+'=)[^\&]+');
-        window.location.search = (url.indexOf(key) !== -1)?(url.replace(reg, '$1' + value)):(url + ((url.indexOf('?') == -1)? "?" : "&") + key + "=" + value);
-    }
-
 	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
-
-	function updateSearchParameter(key, value) {
-		const url = window.location.search;
-		const reg = new RegExp(`(${key}=)[^&]+`);
-		window.location.search = (url.indexOf(key) !== -1)
-			? (url.replace(reg, `$1${value}`))
-			: (`${url + ((url.indexOf('?') === -1) ? '?' : '&') + key}=${value}`);
-	}
 
 	document.querySelectorAll('.importsubmission').forEach(
 		(btn) => { btn.addEventListener('click', importSubmission); },
