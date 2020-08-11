@@ -46,7 +46,7 @@
         {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
-            <nav>
+            <nav id="sidebar" aria-label="{{$t "global.sidebar.ariaLabel"}}">
                 <ul class="sidebar-list">
                     <li>
                         <a class="sc-branding" href="/" title="{{$t "global.title.landing"}}">
@@ -105,7 +105,7 @@
                 {{/ifeq}}
 
                 {{> "lib/components/notification"}}
-                <nav class="topbar navbar hide-inline">
+				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.topMenu.ariaLabel"}}">
 
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
@@ -122,7 +122,7 @@
                     <ul class="nav navbar-nav float-xs-none dropdowns">
                         <li class="nav-item alert-button">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" title="Es gibt ein Problem" data-toggle="dropdown">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" data-toggle="dropdown">
                                     <i class="fa fa-exclamation-triangle"></i>
                                 </a>
 
@@ -134,14 +134,14 @@
                         </li>
                         <li class="nav-item fullscreen-action">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="Fullscreen" data-toggle="dropdown">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="{{$t "lib.loggedin.label.fullscreen"}}" data-toggle="dropdown">
                                     <i class="fa fa-expand"></i>
                                 </a>
                             </div>
                         </li>
                         <li class="nav-item qr-code-action">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" title="QR-Code" data-toggle="dropdown">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" title="{{$t "lib.loggedin.label.qrCode"}}" data-toggle="dropdown">
                                     <i class="fa fa-qrcode"></i>
                                 </a>
                                 <div class="dropdown-menu print">
@@ -149,7 +149,7 @@
 										<div class="qr-hint-text">
 											{{$t "global.topMenu.qrHintText"}}
 										</div>
-                                    <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="QR-Code drucken">
+                                    <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="{{$t "lib.loggedin.label.printQrCode"}}">
                                         <i class="fa fa-print"></i> {{$t "global.button.print" }}
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@
                         <li class="nav-item notification-dropdown">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
-                                        recentNotifications}}recent{{/if}}" title="Benachrichtigungen" data-toggle="dropdown">
+                                        recentNotifications}}recent{{/if}}" title="{{$t "lib.loggedin.label.notifications"}}" data-toggle="dropdown">
                                     <i class="fa fa-bell"></i> {{#if recentNotifications}}
                                     <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
                                 </a>
@@ -193,7 +193,7 @@
                             {{#unless currentSchoolData.isExpertSchool}}
                                 <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
                                 {{#if currentSchoolData.logo_dataUrl}}
-                                    <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="Logo von {{currentSchoolData.name}}">
+                                    <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="{{$t "lib.loggedin.img_alt.logoOfSchool" (dict "name" currentSchoolData.name)}}">
                                 {{/if}}
                             {{/unless}}
                         {{/if}}
@@ -211,7 +211,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
                                     <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{ currentRole }})</div>
                                     <a class="dropdown-item" data-testid="settings" href="/account/">{{$t "lib.loggedin.tab_label.settings" }}</a>
-                                    <a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/">{{$t "lib.loggedin.tab_label.signOut" }}</a>
+                                    <a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/">{{$t "lib.loggedin.tab_label.signOut"}}</a>
                                 </div>
                               </div>
                             </div>
@@ -239,7 +239,7 @@
                                             {{#unless liveSearch}}<i class="fa fa-search"></i>{{/unless}}
                                         </a>
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}Suche nach...{{/if}}" name="q" />
+                                            <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}" name="q" />
                                             {{> "lib/components/csrfInput"}}
                                             <span class="input-group-btn">
                                                 <button type="submit" class="btn btn-secondary">
@@ -258,7 +258,12 @@
                 <p id="backendUrl" hidden>{{ backendUrl }}</p>
 
                 <main id="main-content" class="container-fluid">
-                    {{#block "page"}}{{/block}}
+					<dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.ariaLabel"}}">
+						<dd>
+							<a href="#sidebar">{{$t "global.sidebar.ariaLabel"}}</a>
+						</dd>
+					</dl>
+					{{#block "page"}}{{/block}}
                 </main>
 						{{#if messenger}}
 						{{>"lib/components/notification"

@@ -231,7 +231,8 @@ const editCourseHandler = (req, res, next) => {
 		);
 
 		if (req.params.courseId) {
-			res.render('courses/edit-course', {
+			if (!_scopePermissions.includes('COURSE_EDIT')) return next(new Error(res.$t('global.error.403')));
+			return res.render('courses/edit-course', {
 				action,
 				method,
 				title: res.$t('courses._course.edit.headline.editCourse'),
@@ -252,28 +253,27 @@ const editCourseHandler = (req, res, next) => {
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
 			});
-		} else {
-			res.render('courses/create-course', {
-				action,
-				method,
-				sectionTitle: res.$t('courses.add.headline.addCourse'),
-				submitLabel: res.$t('courses.add.button.addCourseAndContinue'),
-				closeLabel: res.$t('global.button.cancel'),
-				course,
-				colors,
-				classes: markSelected(classes, _.map(course.classIds, '_id')),
-				teachers: markSelected(
-					teachers,
-					_.map(course.teacherIds, '_id'),
-				),
-				substitutions: markSelected(
-					substitutions,
-					_.map(course.substitutionIds, '_id'),
-				),
-				students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
-				redirectUrl: req.query.redirectUrl || '/courses',
-			});
 		}
+		return res.render('courses/create-course', {
+			action,
+			method,
+			sectionTitle: res.$t('courses.add.headline.addCourse'),
+			submitLabel: res.$t('courses.add.button.addCourseAndContinue'),
+			closeLabel: res.$t('global.button.cancel'),
+			course,
+			colors,
+			classes: markSelected(classes, _.map(course.classIds, '_id')),
+			teachers: markSelected(
+				teachers,
+				_.map(course.teacherIds, '_id'),
+			),
+			substitutions: markSelected(
+				substitutions,
+				_.map(course.substitutionIds, '_id'),
+			),
+			students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
+			redirectUrl: req.query.redirectUrl || '/courses',
+		});
 	}).catch(next);
 };
 

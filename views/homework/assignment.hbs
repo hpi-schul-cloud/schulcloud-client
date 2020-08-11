@@ -104,13 +104,13 @@
                             <i class="fa fa-folder-open"></i>
                             {{$t "homework.button.toTheCourseFiles" }}
                         </a>
-                        <a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="Zum Kurs der Aufgabe">
+                        <a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="{{$t "homework.button.toCourseAlt"}}">
                             <i class="fa fa-graduation-cap"></i>
                             {{$t "homework.button.toClass" }}
                         </a>
                         {{#if lessonId}}
                             <a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
-                                alt="Zum Thema der Aufgabe">{{$t "homework.label.onTheSubject" }}</a>
+                                alt="{{$t "homework.button.toTopicAlt"}}">{{$t "homework.button.onTheSubject" }}</a>
                         {{/if}}
                     </div>
                 </div>
