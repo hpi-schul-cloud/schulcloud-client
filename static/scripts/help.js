@@ -108,7 +108,7 @@ function parseData(result) {
 		class: 'disabled',
 		link: '#',
 		title: $t('help.search.headline.noSearchResults'),
-		short_description: $t('help.headline.lernNuggets.search.text.tryAnotherQuery'),
+		short_description: $t('help.search.text.tryAnotherQuery'),
 	};
 }
 const config = {
