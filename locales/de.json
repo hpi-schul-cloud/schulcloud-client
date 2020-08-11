@@ -1684,7 +1684,7 @@
 	},
 	"help": {
 		"anchor": {
-			"title": {
+			"aria_label": {
 				"section": "Gehen Sie zum {{section}} Abschnitt"
 			}
 		},
