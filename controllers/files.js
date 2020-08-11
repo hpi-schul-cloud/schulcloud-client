@@ -433,7 +433,10 @@ router.delete('/file', (req, res, next) => {
 		qs: data,
 	}).then(() => {
 		res.sendStatus(200);
-	}).catch(next);
+	}).catch((err) => {
+		logger.error('Can not delete file', err);
+		next();
+	});
 });
 
 // get file
