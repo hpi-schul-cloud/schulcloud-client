@@ -952,6 +952,7 @@
 			"tab_label": {
 				"groups": "Gruppen",
 				"tools": "Tools",
+				"tasks": "Aufgaben",
 				"topics": "Themen"
 			},
 			"tasks": {
@@ -1558,9 +1559,6 @@
 			"tasks": "Aufgaben",
 			"yourData": "Ihre Daten"
 		},
-		"img_alt": {
-			"brokenPen": "zerbrochener Stift"
-		},
 		"input": {
 			"password": "Passwort"
 		},
@@ -1580,6 +1578,7 @@
 			"newTab": "Öffnet in neuem Tab",
 			"password": "Passwort:",
 			"role": "Rolle",
+			"emailAddress":"E-Mail-Adresse:",
 			"room": "Raum",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
@@ -1947,7 +1946,7 @@
 			"copy": "Kopieren",
 			"copySubmissionFromList": "kopieren",
 			"deleteSubmissionFromList": "löschen",
-			"downloadUngradedFiles": "Dateien unbewerteter Hausaufgaben herunterladen",
+			"downloadUngradedFiles": "Alle Dateien unbewerteter Hausaufgaben herunterladen",
 			"editSubmissionFromList": "bearbeiten",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
@@ -2019,11 +2018,11 @@
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
 			"submissionsWithoutFeedback": "unkommentierte Abgaben",
-			"uploadGradeFiles": "Korrigierte Dateien hochladen"
+			"uploadGradeFiles": "Alle korrigierten Dateien hochladen"
 		},
 		"text": {
 			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
-			"bulkGradingError": "Nicht alle Dateien konnten Hausaufgaben zugeordnet werden. Folgende Dateien müssen von Hand zugewiesen werden:",
+			"bulkGradingError": "Nicht alle Dateien konnten anhand der Benennung Abgaben zugeordnet werden. Gehe zu Kommentar/Bewertung, um folgende Dateien zur jeweiligen Abgabe zuzuordnen:",
 			"bulkGradingSuccess": "Alle Dateien konnten Hausaufgaben zugeordnet werden. Bitte Seite neu laden.",
 			"creatorCanNotBeRemoved": "Du darfst den Ersteller der Aufgabe nicht entfernen!",
 			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
