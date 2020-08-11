@@ -41,43 +41,43 @@ function archiveTask(e) {
 	e.preventDefault();
 	e.stopPropagation();
 	// loading animation
-	let btntext = this.innerHTML;
-	$(this).find("i").attr("class", "fa fa-spinner fa-spin");
+	const btntext = this.innerHTML;
+	$(this).find('i').attr('class', 'fa fa-spinner fa-spin');
 	// send request to server
-	let request = $.ajax({
-		type: "PATCH",
-		url: this.getAttribute("href"),
-		data: this.getAttribute("data"),
+	const request = $.ajax({
+		type: 'PATCH',
+		url: this.getAttribute('href'),
+		data: this.getAttribute('data'),
 		context: this,
-		error: function(){showAJAXError(); this.innerHTML = btntext;}
+		error() { showAJAXError(); this.innerHTML = btntext; },
 	});
-	request.done(function(r) {
+	request.done(function (r) {
 		// switch text (innerHTML <--> alt-text)
-		const temp = $(this).attr("alt-text");
-		$(this).attr("alt-text", btntext);
+		const temp = $(this).attr('alt-text');
+		$(this).attr('alt-text', btntext);
 		this.innerHTML = temp;
 		// grey out if removed from list
-		$(this).parents(".disableable").toggleClass("disabled");
+		$(this).parents('.disableable').toggleClass('disabled');
 		// change data
-		$(this).attr("data",(this.getAttribute("data")=="archive=done")?"archive=open":"archive=done");
+		$(this).attr('data', (this.getAttribute('data') == 'archive=done') ? 'archive=open' : 'archive=done');
 	});
 	return false;
 }
-function importSubmission(e){
-    e.preventDefault();
-    const submissionid = this.getAttribute("data");
-    this.disabled = true;
-    this.innerHTML = $t('homework.button.importing')+' <style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
-    if(confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))){
-        $.ajax({
-            url: "/homework/submit/"+submissionid+"/import",
-            context: this
-        }).done(function(r) {
-            CKEDITOR.instances["evaluation "+submissionid].setData( r.comment );
-            this.disabled = false;
-            this.innerHTML = $t('homework.button.importSubmission');
-        });
-    }
+function importSubmission(e) {
+	e.preventDefault();
+	const submissionid = this.getAttribute('data');
+	this.disabled = true;
+	this.innerHTML = `${$t('homework.button.importing')} <style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>`;
+	if (confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))) {
+		$.ajax({
+			url: `/homework/submit/${submissionid}/import`,
+			context: this,
+		}).done(function (r) {
+			CKEDITOR.instances[`evaluation ${submissionid}`].setData(r.comment);
+			this.disabled = false;
+			this.innerHTML = $t('homework.button.importSubmission');
+		});
+	}
 }
 
 extendWithBulkUpload($);
@@ -178,9 +178,10 @@ $(document).ready(() => {
 			content.forEach((c) => {
 				if (c.name === 'teamMembers') {
 					teamMembers.push(c.value);
+
 				}
 			});
-			if(teamMembers != [] && $(".me").val() && !teamMembers.includes($(".me").val())){
+			if (teamMembers != [] && $('.me').val() && !teamMembers.includes($('.me').val())) {
 				location.reload();
 			}
 		});
@@ -257,6 +258,10 @@ $(document).ready(() => {
 			: (`${url + ((url.indexOf('?') === -1) ? '?' : '&') + key}=${value}`);
 	}
 
+	document.querySelectorAll('.importsubmission').forEach(
+		(btn) => { btn.addEventListener('click', importSubmission); },
+	);
+
 	// file upload stuff, todo: maybe move or make it more flexible when also uploading to homework-assignment
 	const $uploadForm = $('.form-upload');
 	const $progressBar = $('.progress-bar');
@@ -281,126 +286,133 @@ $(document).ready(() => {
 		section.append($fileListItem);
 	}
 
-	$uploadForm.dropzone ? $uploadForm.dropzone({
-		accept: function accept(file, done) {
-			// get signed url before processing the file
-			// this is called on per-file basis
-			requestUploadUrl(file, getCurrentParent())
-				.then((data) => {
-					file.signedUrl = data.signedUrl;
-					done();
-				})
-				.fail(showAJAXError);
-		},
-		createImageThumbnails: false,
-		maxFilesize: 1024,
-		method: 'put',
-		init: function () {
-			// this is called on per-file basis
-			this.on("processing", function (file) {
-				if(!progressBarActive) {
-					$progress.css('width', '0%');
+	if ($uploadForm.dropzone) {
+		$uploadForm.dropzone({
+			accept: function accept(file, done) {
+				// get signed url before processing the file
+				// this is called on per-file basis
+				file.submissionId = $(this.element).parents('.usersubmission').find('[name="submissionId"]').val();
+				requestUploadUrl(file, getCurrentParent())
+					.then((data) => {
+						file.signedUrl = data.signedUrl;
+						done();
+					})
+					.fail(showAJAXError);
+			},
+			createImageThumbnails: false,
+			maxFilesize: 1024,
+			method: 'put',
+			init() {
+				// this is called on per-file basis
+				this.on('processing', function processFile(file) {
+					if (!progressBarActive) {
+						$progress.css('width', '0%');
 
-					$uploadForm.fadeOut(50, function () {
-						$progressBar.fadeIn(50);
+						$uploadForm.fadeOut(50, () => {
+							$progressBar.fadeIn(50);
+						});
+
+						progressBarActive = true;
+					}
+
+					this.options.url = file.signedUrl.url;
+					this.options.headers = file.signedUrl.header;
+				});
+
+				this.on('sending', (file, xhr, formData) => {
+					const _send = xhr.send;
+					xhr.send = function sendFile() {
+						_send.call(xhr, file);
+					};
+				});
+
+				this.on('totaluploadprogress', (progress, total, uploaded) => {
+					const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
+
+					$progress.stop().animate({ width: `${realProgress}%` }, {
+						step(now) {
+							$percentage.html(`${Math.ceil(now)}%`);
+						},
 					});
-
-					progressBarActive = true;
-				}
-
-				this.options.url = file.signedUrl.url;
-				this.options.headers = file.signedUrl.header;
-			});
-
-			this.on("sending", function (file, xhr, formData) {
-				let _send = xhr.send;
-				xhr.send = function () {
-					_send.call(xhr, file);
-				};
-			});
-
-			this.on("totaluploadprogress", function (progress, total, uploaded) {
-				const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
-
-				$progress.stop().animate({'width': realProgress + '%'}, {
-					step: function (now) {
-						$percentage.html(Math.ceil(now) + '%');
-					}
 				});
-			});
 
-			this.on("queuecomplete", function (file, response) {
-				progressBarActive = false;
-				finishedFilesSize = 0;
+				this.on('queuecomplete', () => {
+					progressBarActive = false;
+					finishedFilesSize = 0;
 
-				$progressBar.fadeOut(50, function () {
-					$uploadForm.fadeIn(50);
-					// delay for error messages
-					setTimeout(function() {
-						// just reload if submission already exists
-						$("input[name='submissionId']").val() ? window.location.reload() : '';
-					}, 1500);
+					$progressBar.fadeOut(50, () => {
+						$uploadForm.fadeIn(50);
+						// delay for error messages
+						setTimeout(() => {
+							// just reload if submission already exists
+							if ($("input[name='submissionId']").val()) {
+								window.location.reload();
+							}
+						}, 1500);
+					});
 				});
-			});
 
-			this.on("success", function (file, response) {
-				finishedFilesSize += file.size;
+				this.on('success', function onSuccessfulUpload(file) {
+					finishedFilesSize += file.size;
 
-				const parentId = getCurrentParent();
-				const params = {
-					name: file.name,
-					owner: getOwnerId(),
-					type: file.type,
-					size: file.size,
-					storageFileName: file.signedUrl.header['x-amz-meta-flat-name'],
-					thumbnail: file.signedUrl.header['x-amz-meta-thumbnail']
-				};
+					const parentId = getCurrentParent();
+					const params = {
+						name: file.name,
+						owner: getOwnerId(),
+						type: file.type,
+						size: file.size,
+						storageFileName: file.signedUrl.header['x-amz-meta-flat-name'],
+						thumbnail: file.signedUrl.header['x-amz-meta-thumbnail'],
+					};
 
-				if( parentId ) {
-					params.parent = parentId;
-				}
-
-				// post file meta to proxy file service for persisting data
-				createFileModel(params).then((data) => {
-					// add submitted file reference to submission
-					// hint: this only runs when an submission is already existing. if not, the file submission will be
-					// only saved when hitting the save button in the corresponding submission form
-					const submissionId = $("input[name='submissionId']").val();
-					const homeworkId = $("input[name='homeworkId']").val();
-
-					const teamMembers = getTeamMemberIds();
-					if (submissionId) {
-						const associationType = isSubmissionGradeUpload() ? 'grade-files' : 'files'
-						associateFilesWithSubmission({ submissionId, fileIds: [data._id], associationType, teamMembers });
-					} else {
-						addNewUploadedFile($('.js-file-list'), data);
-
-						// 'empty' submissionId is ok because the route takes the homeworkId first
-						$.post(`/homework/submit/0/files/${data._id}/permissions`, {homeworkId: homeworkId});
+					if (parentId) {
+						params.parent = parentId;
 					}
-                }).fail(showAJAXError);
+					const { submissionId } = file;
 
-                this.removeFile(file);
+					// post file meta to proxy file service for persisting data
+					createFileModel(params).then((data) => {
+						// add submitted file reference to submission
+						// hint: this only runs when an submission is already existing. if not, the file submission will
+						// be only saved when hitting the save button in the corresponding submission form
+						// const submissionId = $("input[name='submissionId']").val();
+						const homeworkId = $("input[name='homeworkId']").val();
 
-            });
+						const teamMembers = getTeamMemberIds();
+						if (submissionId) {
+							const associationType = isSubmissionGradeUpload() ? 'grade-files' : 'files';
+							associateFilesWithSubmission({
+								submissionId, fileIds: [data._id], associationType, teamMembers,
+							});
+						} else {
+							addNewUploadedFile($('.js-file-list'), data);
 
-            this.on("dragover", function (file, response) {
-                $uploadForm.addClass('focus');
-            });
+							// 'empty' submissionId is ok because the route takes the homeworkId first
+							$.post(`/homework/submit/0/files/${data._id}/permissions`, { homeworkId });
+						}
+					}).fail(showAJAXError);
 
-            this.on("dragleave", function () {
-                $uploadForm.removeClass('focus');
-            });
+					this.removeFile(file);
+				});
 
-            this.on("dragend", function (file, response) {
-                $uploadForm.removeClass('focus');
-            });
+				this.on('dragover', (file, response) => {
+					$uploadForm.addClass('focus');
+				});
 
-            this.on("drop", function (file, response) {
-                $uploadForm.removeClass('focus');
-            });
-        }
-    }) : '';
+				this.on('dragleave', () => {
+					$uploadForm.removeClass('focus');
+				});
+
+				this.on('dragend', (file, response) => {
+					$uploadForm.removeClass('focus');
+				});
+
+				this.on('drop', (file, response) => {
+					$uploadForm.removeClass('focus');
+				});
+			},
+		});
+	}
 
 	/**
      * deletes a) the file itself, b) the reference to the submission
@@ -428,7 +440,7 @@ $(document).ready(() => {
 					let teamMembers = $('#teamMembers').val();
                     $.ajax({
                         url: `/homework/submit/${submissionId}/files`,
-                        data: {fileId: fileId, teamMembers: teamMembers},
+                        data: {fileId, teamMembers},
                         type: 'DELETE',
                         success: function (_) {
                             window.location.reload();
@@ -463,20 +475,20 @@ $(document).ready(() => {
 					let teamMembers = $('#teamMembers').val();
 					$.ajax({
 						url: `/homework/${homeworkId}/file`,
-						data: {fileId: fileId},
+						data: { fileId },
 						type: 'DELETE',
-						success: function () {
+						success() {
 							window.location.reload();
-						}
+						},
 					});
 				},
-				error: showAJAXError
+				error: showAJAXError,
 			});
 		});
 	});
 
-    // typeset all MathJAX formulas displayed
-	MathJax.Hub.Typeset() // eslint-disable-line no-undef
+	// typeset all MathJAX formulas displayed
+	MathJax.Hub.Typeset(); // eslint-disable-line no-undef
 
 	// allow muti-download
 	$('button.multi-download').on('click', function () {
@@ -496,42 +508,41 @@ $(document).ready(() => {
 		owner: getOwnerId(),
 	});
 
-    const $dontShowAgainAlertModal = $('.dontShowAgainAlert-modal');
-    function displayModal(headline, content, modal) {
-        populateModal(modal, '.modal-title', headline);
-        populateModal(modal, '#member-modal-body', content);
-        modal.appendTo('body').modal('show');
-    }
-    function modalCheckboxHandler(headline, content, modal, localStorageItem, checkbox) {
-        const isPrivateAlertTrue = localStorage.getItem(localStorageItem) ? JSON.parse(localStorage.getItem(localStorageItem)) : false;
-        if (!isPrivateAlertTrue && $(checkbox).prop('checked')) {
-            modal.find('.dontShowAgain-checkbox').prop('checked', false);
-            displayModal(headline, content, modal);
+	const $dontShowAgainAlertModal = $('.dontShowAgainAlert-modal');
+	function displayModal(headline, content, modal) {
+		populateModal(modal, '.modal-title', headline);
+		populateModal(modal, '#member-modal-body', content);
+		modal.appendTo('body').modal('show');
+	}
+	function modalCheckboxHandler(headline, content, modal, localStorageItem, checkbox) {
+		const isPrivateAlertTrue = localStorage.getItem(localStorageItem) ? JSON.parse(localStorage.getItem(localStorageItem)) : false;
+		if (!isPrivateAlertTrue && $(checkbox).prop('checked')) {
+			modal.find('.dontShowAgain-checkbox').prop('checked', false);
+			displayModal(headline, content, modal);
 
-            modal.find('.btn-submit').unbind('click').on('click', function (e) {
-                e.preventDefault();
-                const checkboxValue = modal.find('.dontShowAgain-checkbox').prop('checked');
-                localStorage.setItem(localStorageItem, checkboxValue);
-                modal.appendTo('body').modal('hide');
-            });
-        }
-    }
+			modal.find('.btn-submit').unbind('click').on('click', (e) => {
+				e.preventDefault();
+				const checkboxValue = modal.find('.dontShowAgain-checkbox').prop('checked');
+				localStorage.setItem(localStorageItem, checkboxValue);
+				modal.appendTo('body').modal('hide');
+			});
+		}
+	}
 
-    $('#publicSubmissionsCheckbox').on('change', function (e) {
-        e.preventDefault();
-        const content = $t('homework.text.activatingThisMakesSubmissionsPublic');
-        modalCheckboxHandler($t('global.text.areYouSure'), content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
-    });
+	$('#publicSubmissionsCheckbox').on('change', function (e) {
+		e.preventDefault();
+		const content = $t('homework.text.activatingThisMakesSubmissionsPublic');
+		modalCheckboxHandler($t('global.text.areYouSure'), content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
+	});
 
-    function checkVideoElements(){
-        let vids = $("video");
-        if(vids.length>0){
-            $.each(vids, function(){
-                this.controls = true;
-            });
-        }
-    }
+	function checkVideoElements() {
+		const vids = $('video');
+		if (vids.length > 0) {
+			$.each(vids, function () {
+				this.controls = true;
+			});
+		}
+	}
 
-    checkVideoElements();
-
+	checkVideoElements();
 });
