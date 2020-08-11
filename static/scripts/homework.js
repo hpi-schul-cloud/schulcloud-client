@@ -27,6 +27,16 @@ function isSubmissionGradeUpload() {
 	return $('#comment .section-upload').length > 0;
 }
 
+function showAJAXError(req, textStatus, errorThrown) {
+	if (textStatus === 'timeout') {
+		$.showNotification($t('global.text.requestTimeout'), 'danger');
+	} else if (errorThrown === 'Conflict') {
+		$.showNotification($t('homework.text.fileAlreadyExists'), 'danger');
+	} else {
+		$.showNotification(errorThrown, 'danger', 15000);
+	}
+}
+
 $(document).on('pageload', () => {
 	MathJax.Hub.Queue(['Typeset', MathJax.Hub]); // eslint-disable-line no-undef
 });
@@ -43,7 +53,6 @@ function archiveTask(e) {
 		url: this.getAttribute('href'),
 		data: this.getAttribute('data'),
 		context: this,
-		/* !!! @important it is NOT defined !!! */
 		error() { showAJAXError(); this.innerHTML = btntext; },
 	});
 	request.done(function action() {
@@ -54,7 +63,7 @@ function archiveTask(e) {
 		// grey out if removed from list
 		$(this).parents('.disableable').toggleClass('disabled');
 		// change data
-		$(this).attr('data', (this.getAttribute('data') == 'archive=done') ? 'archive=open' : 'archive=done');
+		$(this).attr('data', (this.getAttribute('data') === 'archive=done') ? 'archive=open' : 'archive=done');
 	});
 	return false;
 }
@@ -68,6 +77,7 @@ function importSubmission(e) {
 	const loadingspinner = '<style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner">';
 	this.innerHTML = `${$t('homework.button.importing')} ${loadingspinner}${bounce}`;
 	/* unexpected use */
+	// eslint-disable-next-line no-restricted-globals
 	if (confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))) {
 		$.ajax({
 			url: `/homework/submit/${submissionid}/import`,
@@ -118,16 +128,6 @@ $(document).ready(() => {
 		enableSubmissionWhenFileIsUploaded();
 	});
 
-	function showAJAXError(req, textStatus, errorThrown) {
-		if (textStatus === 'timeout') {
-			$.showNotification($t('global.error.requestTimeout'), 'danger');
-		} else if (errorThrown === 'Conflict') {
-			$.showNotification($t('homework.text.fileAlreadyExists'), 'danger');
-		} else {
-			$.showNotification(errorThrown, 'danger', 15000);
-		}
-	}
-
 	function ajaxForm(element, after, contentTest) {
 		const submitButton = element.find('[type=submit]')[0];
 		let submitButtonText = submitButton.innerHTML || submitButton.value;
@@ -142,7 +142,7 @@ $(document).ready(() => {
 
 		const content = element.serialize();
 		if (contentTest) {
-			if (contentTest(content) == false) {
+			if (contentTest(content) === false) {
 				$.showNotification('Form validation failed', 'danger', 15000);
 				return;
 			}
@@ -160,8 +160,9 @@ $(document).ready(() => {
 					teamMembers.push(c.value);
 				}
 			});
-			if (teamMembers != [] && $('.me').val() && !teamMembers.includes($('.me').val())) {
+			if (teamMembers !== [] && $('.me').val() && !teamMembers.includes($('.me').val())) {
 				/* unexpected use */
+				// eslint-disable-next-line no-restricted-globals
 				location.reload();
 			}
 		});
@@ -204,7 +205,7 @@ $(document).ready(() => {
 	});
 
 	$('select#teamMembers').chosen().change((event, data) => {
-		if (data.deselected && data.deselected == $('.owner').val()) {
+		if (data.deselected && data.deselected === $('.owner').val()) {
 			$('.owner').prop('selected', true);
 			$('#teamMembers').trigger('chosen:updated');
 			$.showNotification($t('homework.text.creatorCanNotBeRemoved'), 'warning', 5000);
