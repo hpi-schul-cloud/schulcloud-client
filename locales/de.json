@@ -1558,9 +1558,6 @@
 			"tasks": "Aufgaben",
 			"yourData": "Ihre Daten"
 		},
-		"img_alt": {
-			"brokenPen": "zerbrochener Stift"
-		},
 		"input": {
 			"password": "Passwort"
 		},
@@ -1580,6 +1577,7 @@
 			"newTab": "Öffnet in neuem Tab",
 			"password": "Passwort:",
 			"role": "Rolle",
+			"emailAddress":"E-Mail-Adresse:",
 			"room": "Raum",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
