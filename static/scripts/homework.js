@@ -1,4 +1,3 @@
-/* global CKEDITOR */
 import multiDownload from 'multi-download';
 
 import { softNavigate } from './helpers/navigation';
@@ -94,15 +93,14 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 $(document).ready(() => {
-	let fileIsUploaded = false;
-	let editorContainsText = false;
-
 	function enableSubmissionWhenFileIsUploaded() {
 		const fileList = $('.list-group-files');
 		const filesCount = fileList.children().length;
-		fileIsUploaded = !!filesCount;
-		const submitButton = fileList.closest('form').find('button[type="submit"]')[0];
+		const fileIsUploaded = !!filesCount;
+		const submitButton = document.querySelector('.ckeditor-submit');
 		if (submitButton) {
+			submitButton.setAttribute('fileIsUploaded', fileIsUploaded);
+			const editorContainsText = submitButton.getAttribute('editorContainsText');
 			submitButton.disabled = !editorContainsText && !fileIsUploaded;
 		}
 	}
@@ -113,25 +111,15 @@ $(document).ready(() => {
 		enableSubmissionWhenFileIsUploaded();
 	});
 
-	function enableSubmissionWhenEditorContainsText(editor) {
-		// find the closest submit button and disable it if no content is given and no file is uploaded
-		const submitButton = $(editor.element.$.closest('form')).find('button[type="submit"]')[0];
-		const content = editor.document.getBody().getText();
-		editorContainsText = !!content.trim();
-		if (submitButton) {
-			submitButton.disabled = !editorContainsText && !fileIsUploaded;
+	function showAJAXError(req, textStatus, errorThrown) {
+		if (textStatus === 'timeout') {
+			$.showNotification($t('global.error.requestTimeout'), 'danger');
+		} else if (errorThrown === 'Conflict') {
+			$.showNotification($t('homework.text.fileAlreadyExists'), 'danger');
+		} else {
+			$.showNotification(errorThrown, 'danger', 15000);
 		}
 	}
-
-	// enable submit button when editor contains text
-	const editorInstanceNames = Object.keys((window.CKEDITOR || {}).instances || {});
-	editorInstanceNames
-		.filter((name) => name.startsWith('evaluation'))
-		.forEach((name) => {
-			const editor = window.CKEDITOR.instances[name];
-			editor.on('instanceReady', () => { enableSubmissionWhenEditorContainsText(editor); });
-			editor.on('change', () => { enableSubmissionWhenEditorContainsText(editor); });
-		});
 
     function showAJAXError(req, textStatus, errorThrown) {
         if (textStatus === "timeout") {
@@ -154,28 +142,25 @@ $(document).ready(() => {
 
         const url     = element.attr("action");
         const method  = element.attr("method");
-        // update value of ckeditor instances
-        let ckeditorInstance = element.find('textarea.customckeditor').attr("id");
-		if (ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement();
 		const content = element.serialize();
-        if(contentTest){
-            if(contentTest(content) == false){
-                $.showNotification("Form validation failed", "danger", 15000);
-                return;
-            }
-        }
-        element.unbind('submit');
-        element.submit();
-    }
-    // Abgabe speichern
-    $('form.submissionForm.ajaxForm').on("submit",function(e){
-        if(e) e.preventDefault();
-        ajaxForm($(this), function(element, content){
-            let teamMembers = [];
-            content.forEach(e => {
-                if(e.name == "teamMembers"){
-                    teamMembers.push(e.value);
-                }
+		if (contentTest) {
+			if (contentTest(content) == false) {
+				$.showNotification('Form validation failed', 'danger', 15000);
+				return;
+			}
+		}
+		element.unbind('submit');
+		element.submit();
+	}
+	// Abgabe speichern
+	$('form.submissionForm.ajaxForm').on('submit', (e) => {
+		if (e) e.preventDefault();
+		ajaxForm($(e.currentTarget), (element, content) => {
+			const teamMembers = [];
+			content.forEach((c) => {
+				if (c.name === 'teamMembers') {
+					teamMembers.push(c.value);
+				}
 			});
 			if(teamMembers != [] && $(".me").val() && !teamMembers.includes($(".me").val())){
 				location.reload();
@@ -184,7 +169,7 @@ $(document).ready(() => {
 		return false;
 	});
 
-	$('.btn-file-danger').on('click', function(e) {
+	$('.btn-file-danger').on('click', (e) => {
 		e.stopPropagation();
 		e.preventDefault();
 		const $dangerModal = $('.danger-modal');
@@ -228,7 +213,7 @@ $(document).ready(() => {
     // Bewertung speichern
     $('.evaluation #comment form').on("submit",function(e){
         if(e) e.preventDefault();
-        ajaxForm($(this),function(c){
+        ajaxForm($(e.currentTarget),function(c){
             $.showNotification($t('homework.text.ratingHasBeenSaved'), "success", 5000);
         },function(c){
             return (c.grade || c.gradeComment);
@@ -244,26 +229,37 @@ $(document).ready(() => {
         window.location.search = (url.indexOf(key) !== -1)?(url.replace(reg, '$1' + value)):(url + ((url.indexOf('?') == -1)? "?" : "&") + key + "=" + value);
     }
 
-    document.querySelectorAll('.importsubmission').forEach(btn => {btn.addEventListener("click", importSubmission);});
+	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
 
-    // file upload stuff, todo: maybe move or make it more flexible when also uploading to homework-assignment
-    let $uploadForm = $(".form-upload");
-    let $progressBar = $('.progress-bar');
-    let $progress = $progressBar.find('.bar');
-    let $percentage = $progressBar.find('.percent');
+	function updateSearchParameter(key, value) {
+		const url = window.location.search;
+		const reg = new RegExp(`(${key}=)[^&]+`);
+		window.location.search = (url.indexOf(key) !== -1)
+			? (url.replace(reg, `$1${value}`))
+			: (`${url + ((url.indexOf('?') === -1) ? '?' : '&') + key}=${value}`);
+	}
 
-    let progressBarActive = false;
-    let finishedFilesSize = 0;
+	// file upload stuff, todo: maybe move or make it more flexible when also uploading to homework-assignment
+	const $uploadForm = $('.form-upload');
+	const $progressBar = $('.progress-bar');
+	const $progress = $progressBar.find('.bar');
+	const $percentage = $progressBar.find('.percent');
 
-    /**
+	let progressBarActive = false;
+	let finishedFilesSize = 0;
+
+	/**
      * adds a new file item in the uploaded file section without reload, when no submission exists
      * @param section - the major file list
      * @param file - the new file
      */
-    function addNewUploadedFile(section, file) {
-        let filesCount = section.children().length === 0 ? -1 : section.children().length;
-        let $fileListItem = $(`<li class="list-group-item"><i class="fa fa-file" aria-hidden="true"></i><a href="/files/file?file=${file._id}" target="_blank">${file.name}</a></li>`)
-            .append(`<input type="hidden" name="fileIds[${filesCount + 1}]" value="${file._id}" />`);
+	function addNewUploadedFile(section, file) {
+		const filesCount = section.children().length === 0 ? -1 : section.children().length;
+		const $fileListItem = $(`<li class="list-group-item">
+				<i class="fa fa-file" aria-hidden="true"></i>
+				<a href="/files/file?file=${file._id}" target="_blank">${file.name}</a>
+			</li>`)
+			.append(`<input type="hidden" name="fileIds[${filesCount + 1}]" value="${file._id}" />`);
 		section.append($fileListItem);
 	}
 
@@ -388,7 +384,7 @@ $(document).ready(() => {
         }
     }) : '';
 
-    /**
+	/**
      * deletes a) the file itself, b) the reference to the submission
      */
     $('a[data-method="delete-file"]').on('click', function (e) {
