@@ -207,7 +207,7 @@ $(document).ready(() => {
 		if (data.deselected && data.deselected == $('.owner').val()) {
 			$('.owner').prop('selected', true);
 			$('#teamMembers').trigger('chosen:updated');
-			$.showNotification(t('homework.text.creatorCanNotBeRemoved'), 'warning', 5000);
+			$.showNotification($t('homework.text.creatorCanNotBeRemoved'), 'warning', 5000);
 		}
 	});
 
