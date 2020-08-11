@@ -173,7 +173,7 @@ module.exports = (req, res, next) => {
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.helpDesk'),
 		icon: 'ticket',
-		link: '/administration/helpdesk/',
+		link: '/helpdesk/',
 		permission: 'HELPDESK_VIEW',
 	});
 
