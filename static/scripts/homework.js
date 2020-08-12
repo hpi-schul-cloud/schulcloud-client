@@ -162,7 +162,7 @@ $(document).ready(() => {
 			if (teamMembers !== [] && $('.me').val() && !teamMembers.includes($('.me').val())) {
 				/* unexpected use */
 				// eslint-disable-next-line no-restricted-globals
-				location.reload();
+				window.location.reload();
 			}
 		});
 		return false;
@@ -257,7 +257,7 @@ $(document).ready(() => {
 			accept: function accept(file, done) {
 				// get signed url before processing the file
 				// this is called on per-file basis
-				file.submissionId = $(this.element).parents('.usersubmission').find('[name="submissionId"]').val();
+				file.submissionId = $(this.element).parents('.submission-editor').find('[name="submissionId"]').val();
 				requestUploadUrl(file, getCurrentParent())
 					.then((data) => {
 						file.signedUrl = data.signedUrl;
