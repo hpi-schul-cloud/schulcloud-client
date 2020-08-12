@@ -200,6 +200,7 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 			res.redirect(`/registration/${school._id}/sso/${accountId}`);
 		}
 	});
+	return null;
 });
 
 router.get('/login/systems/:schoolId', (req, res, next) => {
