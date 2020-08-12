@@ -1,4 +1,5 @@
 @import '../lib/colors';
+@import '../lib/bootstrap/scss/bootstrap.scss';
 
 .route-calendar {
     .fullcalendar {
@@ -46,46 +47,50 @@
                 }
             }
         }
-    }
+        .fc-toolbar {
+            .fc-button-group {
+                all: revert;
 
-    .fc-state-default {
-        text-shadow: none;
-        box-shadow: none;
-        color: #292b2c;
-        background: #fff;
-        border-color: #ccc;
-    }
+                @extend .btn-group;
+                @extend .btn-group-sm;
+            }
 
-    .fc-state-hover,
-    .fc-state-down,
-    .fc-state-active,
-    .fc-state-disabled {
-        color: #292b2c;
-        background-color: #e6e6e6;
-    }
+            .fc-button {
+                @extend .btn;
+                @extend .btn-secondary;
 
-    .fc-state-hover {
-        color: #292b2c;
-        background: #e6e6e6;
-        -webkit-transition: background-position 0.1s linear;
-        -moz-transition: background-position 0.1s linear;
-        -o-transition: background-position 0.1s linear;
-        transition: none;
-    }
+                text-shadow: none;
+                box-shadow: none;
+                color: #292b2c;
+                background: #fff;
+                border-color: #ccc;
 
-    .fc-state-down,
-    .fc-state-active {
-        color: #292b2c;
-        background: #e6e6e6;
-        border-color: #adadad;
-    }
+                &:hover, &:disabled, &.fc-button-active {
+                    color: #292b2c;
+                    background-color: #e6e6e6;
+                }
 
-    .fc-state-disabled {
-        cursor: default;
-        opacity: 1;
-        box-shadow: none;
-        background: #fff;
-        border-color: #ccc;
+                &:hover {
+                    color: #292b2c;
+                    background: #e6e6e6;
+                    transition: background-position 0.1s linear;
+                }
+
+                &:disabled {
+                    cursor: default;
+                    opacity: 1;
+                    box-shadow: none;
+                    background: #fff;
+                    border-color: #ccc;
+                }
+
+                &.fc-button-active {
+                    color: #292b2c;
+                    background: #e6e6e6;
+                    border-color: #adadad;
+                }
+            }
+        }
     }
 }
 
