@@ -1,6 +1,6 @@
 <section id="submission" class="tab-content section-homeworkdetails">
   {{#if @root.submittable}}
-    <div class="comment editor">
+    <div class="comment editor submission-editor">
       <p class="submissionLabel"><i class="fa fa-folder-open"></i>{{$t "homework._task.label.fileUpload"}}</p>
       {{#embed "files/file-upload" path=@root.path}}{{/embed}}
 
