@@ -61,12 +61,11 @@ router.get('/', async (req, res, next) => {
 	const userConsent = consentFullfilled((consent || {}).userConsent || {});
 	const parentConsent = consentFullfilled(((consent || {}).parentConsents || [undefined])[0] || {});
 	const {
-		privacy, termsOfUse, haveBeenUpdated,
+		privacy = [], termsOfUse = [], haveBeenUpdated,
 	} = await api(req).get(`/consents/${currentUser._id}/check/`);
 	let updatedConsents = {};
 
 	// if there is already a user or parent consent it may have been updated
-	console.log('-----------------------update ', haveBeenUpdated);
 	if (haveBeenUpdated) {
 		// UPDATED CONSENTS SINCE LAST FULLFILMENT DATE
 		updatedConsents = {
@@ -79,12 +78,11 @@ router.get('/', async (req, res, next) => {
 				total: termsOfUse.length,
 			},
 			all: {
-				data: privacy.concat(privacy),
+				data: privacy.concat(termsOfUse),
 				total: termsOfUse.length + privacy.length,
 			},
 			haveBeenUpdated,
 		};
-		console.log('updated consents--------------', updatedConsents);
 		updatedConsents.all.data.forEach((version) => {
 			if (version.consentTypes.includes('privacy') && version.consentTypes.includes('termsOfUse')) {
 				version.visualType = res.$t('login.headline.privacyAndTermsOfUse');
