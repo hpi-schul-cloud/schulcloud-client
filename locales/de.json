@@ -188,7 +188,6 @@
 				"description": "Beschreibung",
 				"domain": "Domain",
 				"editClass": "Klasse '{{name}}' bearbeiten",
-				"entriesPerPage": "Einträge pro Seite",
 				"externalExpert": "Externer Experte",
 				"general": "{{title}}Allgemein",
 				"helpdesk": "{{title}}Helpdesk",
@@ -2077,7 +2076,6 @@
 			}
 		},
 		"extended_footer": {
-			"aria_label": "footer",
 			"heading": {
 				"links": "Links",
 				"vacancies": "Stellenausschreibungen"
