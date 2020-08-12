@@ -40,8 +40,8 @@
             </div>
             <div class="form-group">
                 <label for="teacher">{{$t "global.role.text.teacher"}}</label>
-                <select class="search-enabled" placeholder="{{$t "teams._team.members.placeholder.selectTeacher"}}"
-                data-placeholder="{{$t "teams._team.members.placeholder.selectTeacher"}}" name="teacher" id="teacher">
+                <select class="search-enabled" placeholder="{{$t "global.placeholder.selectTeacher"}}"
+                data-placeholder="{{$t "global.placeholder.selectTeacher"}}" name="teacher" id="teacher">
                     {{#each teachers}}
                         <option value="{{this._id.name}}" data-id="{{this._id._id}}">{{this.label}}</option>
                     {{/each}}
