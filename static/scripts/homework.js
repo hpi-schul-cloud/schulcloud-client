@@ -78,7 +78,9 @@ function importSubmission(e) {
 	const loadingspinner = '<style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner">';
 	this.innerHTML = `${$t('homework.button.importing')} ${loadingspinner}${bounce}`;
 
-	if (confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))) {
+	// the line with if make no sense ...
+	// eslint-disable-next-line no-alert
+	if (window.confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))) {
 		$.ajax({
 			url: `/homework/submit/${submissionid}/import`,
 			context: this,
