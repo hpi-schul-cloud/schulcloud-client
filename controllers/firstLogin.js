@@ -63,6 +63,11 @@ router.get('/', async (req, res, next) => {
 	const consentVersions = await userConsentVersions(res.locals.currentUser, consent, req);
 	let updatedConsents = {};
 
+	const isTspUser = res.locals.currentUser.source === 'tsp';
+	if (isTspUser) {
+		return res.render('firstLogin/firstLoginShortened');
+	}
+
 	// if there is already a user or parent consent it may have been updated
 	if (consentVersions.haveBeenUpdated) {
 		// UPDATED CONSENTS SINCE LAST FULLFILMENT DATE
