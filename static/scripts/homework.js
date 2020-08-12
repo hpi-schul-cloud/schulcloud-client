@@ -68,7 +68,7 @@ function archiveTask(e) {
 	});
 	return false;
 }
-/*
+
 function importSubmission(e) {
 	e.preventDefault();
 	const submissionid = this.getAttribute('data');
@@ -83,13 +83,13 @@ function importSubmission(e) {
 			url: `/homework/submit/${submissionid}/import`,
 			context: this,
 		}).done(function action(r) {
-			CKEDITOR.instances[`evaluation ${submissionid}`].setData(r.comment);
+			// CKEDITOR.instances[`evaluation ${submissionid}`].setData(r.comment);
 			this.disabled = false;
 			this.innerHTML = $t('homework.button.importSubmission');
 		});
 	}
 }
-*/
+
 extendWithBulkUpload($);
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -223,11 +223,11 @@ $(document).ready(() => {
 	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
 
 	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
-	/*
+
 	document.querySelectorAll('.importsubmission').forEach(
 		(btn) => { btn.addEventListener('click', importSubmission); },
 	);
-		*/
+
 	// file upload stuff, todo: maybe move or make it more flexible when also uploading to homework-assignment
 	const $uploadForm = $('.form-upload');
 	const $progressBar = $('.progress-bar');
