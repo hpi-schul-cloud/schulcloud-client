@@ -435,7 +435,7 @@ router.delete('/file', (req, res, next) => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		logger.error('Can not delete file', err);
-		next();
+		next(err);
 	});
 });
 
