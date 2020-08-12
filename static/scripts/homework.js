@@ -401,6 +401,7 @@ $(document).ready(() => {
 				type: 'DELETE',
 				data: {
 					key: $buttonContext.data('file-key'),
+					id: fileId,
 				},
 				success(_) {
 					// delete reference in submission
