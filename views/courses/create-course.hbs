@@ -75,7 +75,7 @@
                       {{#ifneq this ../course.color}}
                         <div class="color-picker__item">
                           <input id="input{{../this}}" type="radio" class="color-picker__input" name="color" value="{{../this}}" {{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked"{{/unless}}{{/ifeq}}/>
-                          <label for="input{{../this}}" class="color-picker__color" style="background: {{../this}}"></label>
+                          <label for="input{{../this}}" class="color-picker__color" style="background: {{../this}}">input{{../this}}</label>
                         </div>
                       {{/ifneq}}
                     {{/each}}
