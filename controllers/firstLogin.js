@@ -78,7 +78,7 @@ router.get('/', async (req, res, next) => {
 				total: termsOfUse.length,
 			},
 			all: {
-				data: Array.concat(termsOfUse, privacy),
+				data: privacy.concat(privacy),
 				total: termsOfUse.length + privacy.length,
 			},
 			haveBeenUpdated,
