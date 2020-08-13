@@ -312,6 +312,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Multi login instances tiles"
+		},
+		"FEATURE_TSP_AUTO_CONSENT_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Feature toggle for automatic consent during TSP sync."
 		}
 	},
 	"allOf": [

@@ -63,6 +63,26 @@ router.get('/', async (req, res, next) => {
 	const consentVersions = await userConsentVersions(res.locals.currentUser, consent, req);
 	let updatedConsents = {};
 
+	if (Configuration.get('FEATURE_TSP_AUTO_CONSENT_ENABLED')) {
+		const isNewTspUser = res.locals.currentUser.source === 'tsp' && res.locals.currentUser.birthday;
+		if (isNewTspUser) {
+			return api(req).post('/firstLogin/', { json: req.body })
+				.then(() => res.render('firstLogin/firstLoginShortened', {
+					title: res.$t('login.headline.firstLogin'),
+					hideMenu: true,
+					sso: !!(res.locals.currentPayload || {}).systemId,
+					now: Date.now(),
+					roleNames: res.locals.roles,
+				}))
+				.catch((err) => {
+					res.status(500).send(
+						(err.error || err).message
+						|| res.$t('login.text.errorFirstLogin'),
+					);
+				});
+		}
+	}
+
 	// if there is already a user or parent consent it may have been updated
 	if (consentVersions.haveBeenUpdated) {
 		// UPDATED CONSENTS SINCE LAST FULLFILMENT DATE
