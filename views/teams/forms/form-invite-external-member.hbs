@@ -58,13 +58,14 @@
         <div class="form-group mt-3" data-method="email">
             <h2 class="h3">{{$t "teams._team.members.headline.inviteTeacherByEmail"}}</h2>
             <div class="form-group">
-                <label for="email">{{$t "teams._team.members.headline.requirements"}}
+                <div>{{$t "teams._team.members.headline.requirements"}}
                     <ul>
                         <li>{{$t "teams._team.members.text.teacherIsFromOtherSchool"}}</li>
                         <li>{{$t "teams._team.members.text.teachersRegisterProcessFinished" (dict "rootThemeShortTitle" @root.theme.short_title)}}</li>
                         <li>{{$t "teams._team.members.text.invitationEmailIsEqualToRegisterEmail" (dict "rootThemeShortTitle" @root.theme.short_title)}}</li>
                     </ul>
-                </label>
+                </div>
+                    <label for="email">A label needed</label>
                 <input class="form-control" type="text" name="email" id="email" placeholder="{{$t "teams._team.members.placeholder.insertEmail"}}">
             </div>
         </div>
@@ -73,8 +74,8 @@
     <div class="form-group mt-3" data-role="expert">
         <h2 class="h3">{{$t "teams._team.members.headline.inviteExternExpert"}}</h2>
         <div class="form-group">
-            <label for="email">{{$t "teams._team.members.label.insertEmailOfExpertToInvite"}}</label>
-            <input class="form-control" type="text" name="email" id="email" placeholder="{{$t "teams._team.members.placeholder.insertEmail"}}">
+            <label for="emailExpert">{{$t "teams._team.members.label.insertEmailOfExpertToInvite"}}</label>
+            <input class="form-control" type="text" name="email" id="emailExpert" placeholder="{{$t "teams._team.members.placeholder.insertEmail"}}">
         </div>
     </div>
 </div>
