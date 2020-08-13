@@ -8,9 +8,9 @@
             <section class="section-teachers section-default">
                 <div><feathers-filter id="filter"
                                       filter='{{filterSettings}}'
-                                      add-label='Filter hinzufügen'
-                                      apply-label='Übernehmen'
-                                      cancle-label='Abbrechen'
+                                      add-label='{{$t "global.button.filterAdd" }}'
+                                      apply-label='{{$t "global.button.filterApply" }}'
+                                      cancle-label='{{$t "global.button.cancel" }}'
                                       handle-url='true'
                                       save-state='true'
                 /></div>
@@ -28,33 +28,32 @@
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
                             <h2 class="h4">
-                                Einverständniserklärung einholen
+                                {{$t "administration.global.text.obtainADeclarationConsent" }}
                             </h2>
                             {{#if ../schoolUsesLdap}}
-                                <strong>Passwörter und Einverständniserklärung</strong>
+                                <strong>{{$t "administration.teachers.label.passwordsAndDeclarationOfConsent" }}</strong>
 
                                 <p>
-                                    Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrer bereits ein Passwort und können sich in der {{../theme.short_title}} einloggen.
-                                    Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der {{../theme.short_title}} zu erklären .
+                                    {{$t "administration.teachers.text.connectToASchool" (dict "shortTitle" @root.theme.short_title)}}
                                 </p>
                             {{else}}
-                                <strong>Lade Lehrer per Link dazu ein, die Einverständniserklärung abzugeben.</strong>
+                                <strong>{{$t "administration.teachers.label.inviteTeachersViaLink" }}</strong>
                                 <p>
-                                    Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses per E-Mail zukommen oder nutze den QR-Code-Druckbogen, um die Links physisch zu verteilen.<br/>
-                                    So können sie sich ein Passwort erstellen und ihr Einverständnis zur Nutzung der {{../theme.short_title}} erklären.
+                                {{{$t "administration.teachers.label.linksDistribution" (dict "shortTitle" @root.theme.short_title)}}}
+
                                 </p>
-                                <p>Für alle Lehrer ohne vollständige Einverständniserklärung:</p>
+                                <p>{{$t "administration.teachers.text.forAllTeachersWithoutAFullConsentForm" }}</p>
                                 <p>
                                     <button data-role="teacher" class="btn btn-secondary btn-send-links-emails">
-                                        Links an Lehrer E-Mail Adressen senden
+                                        {{$t "administration.teachers.button.sendLinksToTeacherEmail" }}
                                     </button>
                                     <button data-role="teacher" class="btn btn-secondary btn-print-links">
-                                        Link-Druckbogen erstellen
+                                        {{$t "administration.global.button.createLinkSheet" }}
                                     </button>
                                 </p>
                                 {{#userHasPermission "TEACHER_CREATE"}}
                                 <p>
-                                    Alternativ kannst du auch im "Nutzer bearbeiten"-Dialog jedes Nutzers einzeln individuelle Registrierungslinks generieren.
+                                    {{$t "administration.longText.text.alternativelyAlsoCanGenerate" }}
                                 </p>
                                 {{/userHasPermission}}
                             {{/if}}
@@ -69,11 +68,11 @@
                             {{else}}
                                 {{#userHasPermission "TEACHER_CREATE"}}
                                     <button type="submit" class="btn btn-primary btn-add-modal">
-                                        Lehrer hinzufügen
+                                        {{$t "administration.teachers.button.addTeacher" }}
                                     </button>
                                     {{#inArray "Administrator" ../roleNames}}
                                          <a href="/administration/teachers/import" class="btn btn-secondary btn-import">
-                                            Lehrer importieren
+                                            {{$t "administration.teachers.button.importTeacher" }}
                                         </a>
                                     {{/inArray}}
                                 {{else}}

@@ -6,7 +6,7 @@
 
 	<a class="d-block mb-1" href="/administration/classes/{{../class/_id}}/manage"
 		title="Klasse '{{../class.name}}' verwalten.">
-		<i class="fa fa-users"></i> Klasse verwalten
+		<i class="fa fa-users"></i> {{$t "administration.classes.text.manageClass" }}
 	</a>
 {{/ifeq}}
 
@@ -18,7 +18,7 @@
 {{/ifeq}}
 
 <div class="form-group">
-	<label>Schuljahr <sup>*</sup></label>
+	<label>{{$t "administration.global.label.schoolYear" }} <sup>*</sup></label>
 	<select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen"
 		{{#ifCond edit '&&' isCustom}}{{#unless @root.class.keepYear}}disabled {{/unless}}{{/ifCond}}>
 		{{#each schoolyears}}
@@ -30,7 +30,7 @@
 </div>
 
 <div class="form-group">
-	<label>Lehrer auswählen (auch später möglich)</label>
+	<label>{{$t "administration.classes.label.selectTeacher" }}</label>
 
 	<select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
 		{{#each teachers}}
@@ -48,10 +48,10 @@
 <section id="createnew">
 	<div class="row">
 		<div class="form-group col-sm-6 col-xs-12">
-			<label>Jahrgangsstufe <sup>*</sup></label>
-			<select class="linked" name="grade" data-linktext data-placeholder="Jahrgangsstufe wählen" required
+			<label>{{$t "administration.classes.label.grade" }}<sup>*</sup></label>
+			<select class="linked" name="grade" data-linktext data-placeholder="{{$t "administration.global.placeholder.selectGrade" }}" required
 				{{#if isCustom}}disabled{{/if}}>
-				<option disabled value>keine Auswahl</option>
+				<option disabled value>{{$t "administration.classes.label.selectElement" }}</option>
 				{{#each gradeLevels}}
 					<option value="{{this.grade}}" {{#if this.selected}}selected{{/if}}>
 						{{this.grade}}
@@ -60,69 +60,65 @@
 			</select>
 		</div>
 		<div class="form-group col-sm-6 col-xs-12">
-			<label>Klassenbezeichnung</label>
+			<label>{{$t "administration.classes.label.className" }}</label>
 			<input class="form-control linked" name="classsuffix" type="text"
 				placeholder="a, b, c, ..., I, II, III, ..., etc." value="{{class.classsuffix}}"
 				{{#if isCustom}}disabled{{/if}} />
 		</div>
 	</div>
 
-	<p class="mt-1">Deine Klasse passt nicht ins klassische Schema? <a data-testId="classCreationExtraOptions" href="#" class="createcustom">Mehr Optionen</a>.
+	<p class="mt-1">{{$t "administration.text.yourClassDoesntFitInto" }} <a data-testId="classCreationExtraOptions" href="#" class="createcustom">{{$t "administration.text.moreOptions" }}</a>.
 	</p>
 
 	<section id="createcustom" class="{{#unless isCustom}}hidden{{/unless}}">
-		<p>Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom
-			Administrator <i>"versetzt"</i> werden, sondern müssen manuell aktualisiert werden.</p>
+		<p>{{$t "administration.longText.text.canCreateYearIndependentClasses" }}</p>
 		<div class="form-group">
-			<label>Klassenbezeichnung</label>
-			<input data-testid="Klassenbezeichnung" class="form-control linked" name="classcustom" type="text" placeholder="z.B. Froschklasse 3-4"
+			<label>{{$t "administration.classes.label.className" }}</label>
+			<input data-testid="Klassenbezeichnung" class="form-control linked" name="classcustom" type="text" placeholder="{{$t "administration.classes.placeholder.example" }}"
 				required value="{{class.customName}}" {{#unless isCustom}}disabled{{/unless}} />
 		</div>
 		<label class="my-1">
 			<input name="keepyear" type="checkbox" value="true"
 				{{#ifCond edit '&&' isCustom}}{{#if @root.class.keepYear}}checked{{/if}}{{else}}checked{{/ifCond}}
 				{{#unless isCustom}}disabled{{/unless}} />
-			<span>Schuljahreszuordnung beibehalten</span>
+			<span>{{$t "administration.classes.label.mantainSchoolYearAssignment" }}</span>
 		</label>
 	</section>
 
 	<div class="recap">
 		<div class="class-default {{#if isCustom}}hidden{{/if}}">
-			<p>Klassenname:
+			<p>{{$t "administration.classes.text.className" }}
 				<span data-from="grade"></span><span data-from="classsuffix"></span>
 			</p>
-			<p>Schuljahr: <span data-from="schoolyear" /></p>
+			<p>{{$t "administration.global.label.schoolYear" }}:  <span data-from="schoolyear" /></p>
 		</div>
 		<div class="class-custom {{#unless isCustom}}hidden{{/unless}}">
-			<p>Klassenname:
+			<p>{{$t "administration.classes.text.className" }}
 				<span data-from="classcustom"></span>
 			</p>
 			<p id="recap-keepyear"
 				{{#ifCond edit '&&' isCustom}}class="{{#unless @root.class.keepYear}}hidden{{/unless}}" {{/ifCond}}>
-				Schuljahr: <span data-from="schoolyear" /></p>
+				{{$t "administration.global.label.schoolYear" }}: <span data-from="schoolyear" /></p>
 		</div>
 	</div>
 </section>
 
 <div class="modal-footer mt-1">
-	<a class="btn btn-secondary btn-cancel">Abbrechen</a>
+	<a class="btn btn-secondary btn-cancel">{{$t "global.button.cancel" }}</a>
 	{{#ifeq mode "create"}}
-		<button data-testId="confirmClassCreate" class="btn btn-primary" type="submit" disabled>Klasse hinzufügen</button>
+		<button data-testId="confirmClassCreate" class="btn btn-primary" type="submit" disabled>{{$t "administration.classes.button.addClass" }}</button>
 		{{#userHasPermission 'ADMIN_VIEW'}}
-			<p>Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.</p>
+			<p>{{$t "administration.classes.text.theNextStepIstoInviteOrAdd" }}</p>
 		{{/userHasPermission}}
 	{{/ifeq}}
 	{{#ifeq mode "edit"}}
-		<button class="btn btn-primary" type="submit" disabled>Änderungen speichern</button>
+		<button class="btn btn-primary" type="submit" disabled>{{$t "global.button.saveChanges" }}</button>
 		{{#if ../isUpgradable}}
-			<a class="btn btn-outline-primary" href="/administration/classes/{{@root.class.id}}/createSuccessor">Klasse
-				ins
-				nächste Schuljahr versetzen</a>
+			<a class="btn btn-outline-primary" href="/administration/classes/{{@root.class.id}}/createSuccessor">{{$t "administration.classes.button.transferClassToTheNextSchoolYear" }}</a>
 		{{/if}}
 	{{/ifeq}}
 	{{#ifeq mode "upgrade"}}
-		<button class="btn btn-primary" type="submit">Klasse in Schuljahr <span data-from="schoolyear"></span>
-			versetzen</button>
+		<button class="btn btn-primary" type="submit">{{{$t "administration.classes.button.classInSchoolYear" }}}</button>
 	{{/ifeq}}
 </div>
 

@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+- SC-5644 navigation and the general structure of pages made more accessible (a11y)
+
 ## [24.0.3] - 2020-08-05
 ### Fixed - 24.0.3
 
@@ -32,6 +34,8 @@ privacy policy should be confirmed by every school user
 
 ### Fixed - 24.0.0
 -  SC-4993 fixed video player issue in ckeditor
+-  SC-5686 :teamId/edit can only be accessed if the user has the team permission "RENAME_TEAM"; :courseId/edit can only 
+be accessed if the user has the permission "COURSE_EDIT
 
 ### Changed - 24.0.0
 
@@ -108,7 +112,9 @@ In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the 
 - SC-438 on logout button click localStorge will be deleted
 - SC-3801 added generic filepicker url to ckeditor
 - SC-4260 added sentry sampling
+- SC-4064 allow to append files to submission feedback
 - SC-4064 allow for bulk download of ungraded homework files
+- SC-4064 allow for bulk upload of graded homework files
 
 ### Changed in 22.10.0
 

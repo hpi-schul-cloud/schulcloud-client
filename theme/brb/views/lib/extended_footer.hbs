@@ -1,31 +1,31 @@
-<footer>
+<footer id="footer">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
-				<h4>Kontakt</h4>
+				<h4>{{$t "global.link.contact" }}</h4>
 				<ul>
-					<li><a href="mailto:feedback@schul-cloud.org" target="_blank" rel="noopener">Support: <span
+					<li><a href="mailto:feedback@schul-cloud.org" target="_blank" rel="noopener" aria-label="Support {{$t "global.link.openInNewTabWarning"}}">Support: <span
 								class="text-nowrap">feedback@schul-cloud.org</span></a></li>
-					<li><a href="mailto:brandenburg@schul-cloud.org" target="_blank" rel="noopener">Allgemeine Anfragen: <span
+					<li><a href="mailto:brandenburg@schul-cloud.org" target="_blank" rel="noopener" aria-label="Allgemeine Anfragen {{$t "global.link.openInNewTabWarning"}}">Allgemeine Anfragen: <span
 								class="text-nowrap">brandenburg@schul-cloud.org</span></a></li>
-					<li><a href="mailto:inhalte@schul-cloud.org" target="_blank" rel="noopener">Inhalteanbieter: <span
+					<li><a href="mailto:inhalte@schul-cloud.org" target="_blank" rel="noopener" aria-label="Inhalteanbieter {{$t "global.link.openInNewTabWarning"}}">Inhalteanbieter: <span
 								class="text-nowrap">inhalte@schul-cloud.org</span></a></li>
-					<li><a href="mailto:datenschutz@schul-cloud.org" target="_blank" rel="noopener">Datenschutz: <span
+					<li><a href="mailto:datenschutz@schul-cloud.org" target="_blank" rel="noopener" aria-label="Datenschutz {{$t "global.link.openInNewTabWarning"}}">Datenschutz: <span
 								class="text-nowrap">datenschutz@schul-cloud.org</span></a></li>
 				</ul>
 			</div>
 			<div class="col-md-4">
 				<h4>Links</h4>
 				<ul>
-					<li><a href="/impressum">Impressum</a></li>
-					<li><a href="{{theme.documents.specificFiles.termsOfUseSchool}}" target="_blank"
-							rel="noopener">Nutzungsordnung
+					<li><a href="/impressum">{{$t "lib.global.link.imprint" }}</a></li>
+					<li><a href="{{theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" aria-label="{{$t "login.headline.onlyTermsOfUse"}} PDF {{$t "global.openInNewTabWarning"}}"
+							rel="noopener">{{$t "login.headline.onlyTermsOfUse"}}
 							Schul-Cloud Brandenburg</a></li>
-					<li><a href="{{theme.documents.specificFiles.privacyExemplary}}" target="_blank"
-							rel="noopener">Datenschutzerklärung
+					<li><a href="{{theme.documents.specificFiles.privacyExemplary}}" target="_blank" aria-label="{{$t "login.headline.onlyPrivacy"}} Schul-Cloud Brandenburg PDF {{$t "global.openInNewTabWarning"}}"
+							rel="noopener">{{$t "login.headline.onlyPrivacy"}}
 							Schul-Cloud Brandenburg</a></li>
-					<li><a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener">GitHub</a></li>
-					<li><a href="https://status.schul-cloud.org" target="_blank" rel="noopener">Status</a></li>
+					<li><a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a></li>
+					<li><a href="https://status.schul-cloud.org" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a></li>
 				</ul>
 			</div>
 		</div>

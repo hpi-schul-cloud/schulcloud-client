@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="{{userLanguage}}">
 
 <head>
 	<title>{{#if title}}{{title}} - {{/if}}{{theme.title}}</title>
@@ -17,7 +17,8 @@
 	-->
 	{{#block "meta"}}
 	<meta name="csrfToken" content="{{csrfToken}}">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="#E4032E">
 	<meta name="apple-mobile-web-app-title" content="{{theme.title}}">
@@ -60,6 +61,11 @@
 </head>
 
 <body class="{{#if inline}}window-inline{{/if}}">
+<dl class="skipLinks" role="navigation" aria-label="skip links">
+	<dd><a href="#main-content">{{ $t "global.link.mainContentSkipLink" }}</a></dd>
+	<dd><a href="#top-navbar">{{ $t "global.link.topNavbarSkipLink" }}</a></dd>
+	<dd><a href="#footer">{{ $t "global.link.footerSkipLink" }}</a></dd>
+</dl>
 	{{#block "body"}}{{/block}}
 </body>
 
