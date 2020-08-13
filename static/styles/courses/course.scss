@@ -318,12 +318,12 @@
 			align-items: center;
 			justify-content: center;
 			margin-bottom: 30px;
-			.image-wrapper {
-				padding: 30px;
-				opacity: 0.8;
-			}
 			.image {
-				width: 250px;
+				width: 300px;
+
+				#COLOR {
+					fill: $primaryColor;
+				}
 			}
 			.course-features {
 				margin-top: 15px;
