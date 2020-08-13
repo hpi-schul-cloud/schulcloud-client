@@ -1,11 +1,11 @@
 <div class="error-header-wrapper pb-3">
-    <img class="error-header-image" src="/images/broken-pen.svg" alt="{{$t "global.img_alt.brokenPen"}}" />
+    <img class="error-header-image" src="/images/broken-pen.svg" alt="zerbrochener Stift" />
     <h2 class="error-header-code">{{error.statusCode}}</h2>
     <p class="error-header-text">
         {{#if error.statusCode}}
         {{castStatusCodeToString error.statusCode}}
         {{else}}
-        {{$t "global.text.somethingWentWrong" }}
+        {{$t "lib.error.text.somethingWentWrong" }}
         {{/if}}
     </p>
     <button class="btn btn-primary historyback"><i class="fa fa-arrow-left"></i> {{$t "global.button.back" }}</button>

@@ -21,9 +21,7 @@
 			</div>
 		{{else}}
 			<div class="empty-state">
-				{{> courses/components/svg_groups}}
-				<!--<img src="/images/empty-states/groups.svg" alt="{{$t "courses._course.groups.img_alt.noCreatedGroups"}}" class="image course-empty-content-image" />-->
-
+				<img src="/images/empty-states/groups.svg" alt="{{$t "courses._course.groups.img_alt.noCreatedGroups"}}" class="image" />
 				{{#unless @root.isArchived}}
 					{{#userHasPermission "COURSEGROUP_CREATE"}}
 						<h2 class="h4">{{$t "courses._course.groups.headline.createGroup"}}</h2>

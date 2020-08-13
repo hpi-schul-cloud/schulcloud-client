@@ -55,7 +55,7 @@ $(document).ready(() => {
 		populateModalForm($terminateSchoolYearModal, {
 			title: $t('administration.school.headline.finishSchoolYear'),
 			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.yes'),
+			submitLabel: $t('administration.school.button.yes'),
 		});
 		$terminateSchoolYearModal.appendTo('body').modal('show');
 	});
@@ -104,7 +104,7 @@ $(document).ready(() => {
 	$('.btn-add-modal').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addSystemsModal, {
-			title: $t('global.button.add'),
+			title: $t('administration.school.headline.add'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
 		});
@@ -114,7 +114,7 @@ $(document).ready(() => {
 	$('.btn-add-modal--rss').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addRSSModal, {
-			title: $t('global.button.add'),
+			title: $t('administration.school.headline.add'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
 		});
@@ -138,7 +138,7 @@ $(document).ready(() => {
 			result.createdAt = new Date(result.createdAt).toLocaleString();
 			populateModalForm($editModal, {
 				action: entry,
-				title: $t('global.button.edit'),
+				title: $t('global.headline.edit'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.save'),
 				fields: result,
@@ -201,7 +201,7 @@ $(document).ready(() => {
 				action: entry,
 				title: $t('global.headline.delete'),
 				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('global.headline.delete'),
+				submitLabel: $t('global.button.delete'),
 				fields: result,
 			});
 
@@ -221,7 +221,7 @@ $(document).ready(() => {
 				fields: { url: result.url },
 				title: $t('global.headline.delete'),
 				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('global.headline.delete'),
+				submitLabel: $t('global.button.delete'),
 			});
 
 			$deleteRSSModal.modal('show');

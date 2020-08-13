@@ -1,10 +1,10 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
 <div class="form-group">
-    <label>{{$t "administration.teams.label.selectAnAdditionalOwner" }}</label>
+    <label>Wähle hier einen zusätzlichen Eigentümer für das Team aus:</label>
     {{{course.name}}}
     <select class="form-control form-control-lg" type="text" name="userId">
-        <option value="">{{$t "administration.teams.button.addAnotherOwner" }}</option>
+        <option value="">Weiteren Eigentümer hinzufügen</option>
         {{#each users}}
             <option value="{{{this._id}}}">{{{this.firstName}}} {{{this.lastName}}}</option>
         {{/each}}

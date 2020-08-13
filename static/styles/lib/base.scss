@@ -3,7 +3,6 @@
 
 @import "./tether/tether.min.css";
 @import "./bootstrap/scss/bootstrap-flex";
-
 $fa-font-path: "/vendor-optimized/font-awesome/fonts";
 @import "font-awesome/scss/font-awesome.scss";
 @import "./chosen/bootstrap-chosen";
@@ -31,7 +30,6 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
 		width: 100%;
 		display: block;
 	}
-
 	h5 {
 		font-style: italic;
 		margin: 30px 0px 20px 0px;
@@ -52,7 +50,6 @@ body h4:not(:first-of-type) {
 
 a {
 	text-decoration: none;
-
 	&:hover {
 		text-decoration: none;
 	}
@@ -159,7 +156,6 @@ label,
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 	margin-bottom: 1rem;
-
 	table {
 		margin-bottom: 0;
 	}
@@ -167,26 +163,6 @@ label,
 
 footer {
 	display: block;
-
-	nav {
-		ul {
-			list-style: none;
-			display: flex;
-			justify-content: center;
-			flex-wrap: wrap;
-
-			li {
-				display: flex;
-
-				a, span {
-					align-items: center;
-					padding: 0 0.1rem;
-					width: max-content;
-				}
-			}
-		}
-	}
-
 	.mobile-app {
 
 		img {
@@ -199,7 +175,6 @@ footer {
 			}
 		}
 	}
-
 	&.small-footer {
 		@include media-breakpoint-down(xs) {
 			background: $colorBeige;
@@ -216,16 +191,13 @@ footer {
 			.center {
 				text-align: center;
 				align-items: center;
-
 				.made-with-love {
 					margin-top: 8px;
-
 					.heart {
 						color: $primaryColor;
 					}
 				}
 			}
-
 			#footer-logo {
 				width: auto;
 				max-width: 175px;
@@ -287,7 +259,6 @@ form.inline {
 	padding-left: 15px !important;
 	padding-right: 15px !important;
 }
-
 .btn.hidden {
 	display: none;
 }
@@ -344,7 +315,6 @@ form.inline {
 .print-only {
 	display: none;
 }
-
 @media print {
 	.print-only {
 		display: initial;
@@ -355,44 +325,36 @@ form.inline {
 	margin: 10px 0;
 	color: #373a3c;
 	text-decoration: none;
-
 	&:hover {
 		text-decoration: none;
 	}
-
 	h1 {
 		font-size: 1.3rem;
 		font-weight: bold;
 	}
-
 	h2 {
 		font-size: 1.2rem;
 		font-weight: bold;
 		font-style: italic;
 	}
-
 	h3 {
 		font-size: 1.1rem;
 		font-style: italic;
 		text-decoration: underline;
 	}
-
 	p {
 		font-size: 1rem;
 		margin-bottom: 0.25rem;
 	}
-
 	img,
 	video {
 		max-width: 100%;
 	}
-
 	table {
 		display: table;
 		max-width: 100%;
 		overflow: auto;
 	}
-
 	blockquote {
 		color: grey;
 		margin-left: 1rem;
@@ -418,30 +380,4 @@ form.inline {
 	font-family: "FontAwesome";
 	content: "  \f08e";
 	font-size: 0.7em;
-}
-
-.skipLinks a {
-	position: absolute;
-	left: -50rem;
-	width: 1px;
-	height: 1px;
-	top: auto;
-
-	&:focus {
-		left: auto;
-		display: block;
-		height: auto;
-		width: 100%;
-		text-align: center;
-		top: 5rem;
-	}
-}
-
-@media (max-width: 768px) {
-	.skipLinks {
-		a:focus {
-			top: 8rem;
-			z-index: 1;
-		}
-	}
 }

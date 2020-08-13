@@ -42,7 +42,7 @@ const editCourseGroupHandler = (req, res, next) => {
 		courseGroupPromise,
 		coursePromise,
 	]).then(([courseGroup, course]) => {
-		const students = course.userIds;
+		const students = course.userIds.filter(s => s.schoolId === res.locals.currentSchool);
 		_.each(students, s => s.displayName = `${s.firstName} ${s.lastName}`);
 
 		// if not a teacher, automatically add student to group, just when adding courseGroups

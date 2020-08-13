@@ -169,9 +169,15 @@
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
 		},
-		"FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED": {
-			"type": "boolean",
-			"default": "false",
+		"FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY": {
+			"type": "string",
+			"default": "disabled",
+			"enum": [
+				"disabled",
+				"opt-in",
+				"opt-out",
+				"enabled"
+			],
 			"description": "Allows school admin to toggle teacher's STUDENT_LIST permission."
 		},
 		"SENTRY_DSN": {

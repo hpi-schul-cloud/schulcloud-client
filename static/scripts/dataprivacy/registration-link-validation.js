@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const message = `
 	<div class="error-container">
 		<div class="error-header-wrapper">
-			<img class="error-header-image" src="/images/broken-pen.svg" alt="" role="presentation"/>
+			<img class="error-header-image" src="/images/broken-pen.svg" alt="${$t('dataprivacy.img_alt.brokenPen')}" />
 			<div class="text-container">
 				<h1 class="h2 error-header-code text-center">${$t('dataprivacy.headline.registrationInvalid')}</h1>
 				<p class="error-header-text font-weight-bold">${$t('dataprivacy.text.registrationInvalid')}</p>

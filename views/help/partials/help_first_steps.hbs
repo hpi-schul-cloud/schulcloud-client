@@ -1,13 +1,13 @@
 {{#embed "help/icon-card" title="Erste Schritte" icon="fa-child" class="first-steps-card col-xs-12" id="erste_schritte"}}
 	{{#content "card-body"}}
-		{{> "help/icon-link-group" link-class="col-sm-3" links=(jsonParse (concat '[
+		{{> "help/icon-link-group" link-class="col-sm-3" links=(jsonParse '[
 			{
-				"title": "' ($t "global.link.administrationStudents") '",
+				"title": "Schüler",
 				"img-src": "/images/help/schueler-icon.png",
 				"src": "/help/confluence/40304731"
 			},
 			{
-				"title": "' ($t "help.global.heading.teacher") '",
+				"title": "Lehrer",
 				"img-src": "/images/help/lehrer-icon.png",
 				"src": "/help/confluence/40304726"
 			},
@@ -17,10 +17,10 @@
 				"src": "/help/confluence/40304667"
 			},
 			{
-				"title": "' ($t "help.global.heading.principal") '",
+				"title": "Schulleitung",
 				"img-src": "/images/help/schulleitung-icon.png",
 				"src": "/help/confluence/40304728"
 			}
-		]')) }}
+		]') }}
 	{{/content}}
 {{/embed}}

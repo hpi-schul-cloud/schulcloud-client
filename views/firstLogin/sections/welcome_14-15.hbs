@@ -1,7 +1,8 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
-  <h2 class="h4">{{$t "firstLogin.welcome.heading.welcomeToThe" (dict  "shortTitle" @root.theme.short_title "firstName" @root.currentUser.firstName "lastName" @root.currentUser.lastName )}}</h2>
+  <h2 class="h4">Herzlich willkommen in der {{@root.theme.short_title}}, {{@root.currentUser.firstName}} {{@root.currentUser.lastName}} </h2>
   <p>
-      {{$t "firstLogin.welcome.text.weArePleasedThatYouWantToUse" (dict "title" @root.theme.title "shortTitle" @root.theme.short_title )}} 
+      Wir freuen uns, dass du die {{@root.theme.title}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.
+      Bitte überprüfe in den kommenden Schritten die für dich angegebene E-Mail-Adresse und stimme den Nutzungsbedingungen zu. Ein Erziehungsberechtigter hat der Nutzung bereits zugestimmt, jetzt bist du gefragt. Ändere anschließend dein Startpasswort, damit du die Vorteile der {{@root.theme.short_title}} nutzen kannst.
   </p>
   {{> "firstLogin/partials/language-hint"}}
   {{#if @root.sso}}<input type="hidden" name="sso" value="{{@root.sso}}" />{{/if}}

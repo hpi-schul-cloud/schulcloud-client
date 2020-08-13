@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
 		return Promise.resolve(template, isAuthenticated);
 	}).then((template, isAuthenticated) => {
 		res.render(template, {
-			title: res.$t('global.link.imprint'),
+			title: res.$t('imprint.headline.imprint'),
 			inline: isAuthenticated,
 		});
 	});

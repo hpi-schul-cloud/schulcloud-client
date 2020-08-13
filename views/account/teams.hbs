@@ -12,7 +12,7 @@
             {{#unless (userHasRole "student")}}
 				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
                     <p>
-                        {{$t "account.teams.text.teamInvitationsDisabled"}}
+                        {{$t "account.teams.text.teamInvitationsdisabled"}}
                     </p>
                     <a href="/account" class="btn btn-secondary">
                         {{$t "global.button.back"}}

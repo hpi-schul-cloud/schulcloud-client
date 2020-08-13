@@ -3,21 +3,21 @@
 <input name="roles[]" type="hidden" data-force-value="true" value="teacher" />
 
 <div class="form-group">
-    <label>{{$t "global.label.firstNameColon" }}</label>
+    <label>Vorname</label>
     <input class="form-control" name="firstName" type="text" placeholder="Max" required />
 </div>
 
 <div class="form-group">
-    <label>{{$t "global.label.lastName" }}</label>
-    <input class="form-control" name="lastName" type="text" placeholder="{{$t "administration.global.placeholder.modelMan" }}" required />
+    <label>Nachname</label>
+    <input class="form-control" name="lastName" type="text" placeholder="Mustermann" required />
 </div>
 
 <div class="form-group">
-    <label>{{$t "global.label.emailAddress" }}</label>
+    <label>E-Mail-Adresse</label>
     <input class="form-control" name="email" type="text" placeholder="test@test.org" required />
 </div>
 
 <label>
     <input name="sendRegistration" type="checkbox" value="sendRegistration"/>
-    {{$t "administration.teachers.label.sendRegistrationLinkToTeachers" }}
+    Registrierungslink an Lehrer senden
 </label>

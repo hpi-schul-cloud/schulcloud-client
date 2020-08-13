@@ -1,8 +1,8 @@
 {{#embed "help/icon-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card col-xs-12" id="ueber_das_projekt"}}
 	{{#content "card-body"}}
-		{{> "help/icon-link-group" links=(jsonParse (concat '[
+		{{> "help/icon-link-group" links=(jsonParse '[
 			{
-			    "title": "' ($t "help.partials.heading.overview") '",
+				"title": "Überblick",
 				"icon": "fa-info",
 				"src": "/about"
 			},
@@ -12,7 +12,7 @@
 				"src": "/help/confluence/23232533"
 			},
 			{
-				"title": "' ($t "help.partials.heading.contactPerson") '",
+				"title": "Ansprechpartner",
 				"icon": "fa-user",
 				"src": "/help/faq/people"
 			},
@@ -26,6 +26,6 @@
 				"icon": "fa-globe",
 				"src": "/logout"
 			}
-		]')) link-class="col-sm-4"}}
+		]') link-class="col-sm-4"}}
 	{{/content}}
 {{/embed}}

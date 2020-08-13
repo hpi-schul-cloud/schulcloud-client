@@ -8,9 +8,9 @@
             <section class="section-students section-default">
                 <div><feathers-filter id="filter"
                                       filter='{{filterSettings}}'
-                                      add-label='{{$t "global.button.filterAdd" }}'
-                                      apply-label='{{$t "global.button.filterApply" }}'
-                                      cancle-label='{{$t "global.button.cancel" }}'
+                                      add-label='Filter hinzufügen'
+                                      apply-label='Übernehmen'
+                                      cancle-label='Abbrechen'
                                       handle-url='true'
                                       save-state='true'
                 /></div>
@@ -24,18 +24,18 @@
                         <div class="col-sm-12 no-padding">
                             <center>
                                 <i class="fa fa-times consent-status"></i>
-                                {{$t "administration.controller.text.noDeclarationOfConsentAvailable" }} &emsp;
+                                Keine Einverständniserklärung vorhanden &emsp;
                                 <i class="fa fa-check consent-status"></i>
-                                {{$t "administration.students.text.parentsAgreed" }} &emsp;
+                                Eltern haben zugestimmt &emsp;
                                 <div>
                                     <span>
                                         <i class="fa fa-check double-check consent-status"></i>
                                         <i class="fa fa-check double-check consent-status"></i>
                                     </span>
-                                    <span>{{$t "administration.students.text.allApprovalsAvailable" }}</span>
+                                    <span>Alle Zustimmungen vorhanden</span>
                                 </div>
                                 <i class="fa fa-check-square-o"></i>
-                               {{$t "administration.global.text.manuallyConsent" }}
+                                Einverständnis manuell erklären
                                 <div>
                             </center>
                         </div>
@@ -45,7 +45,8 @@
                     </div>
                     <div class="row mt-3 mb-1">
                         <p>
-                            {{{$t "administration.students.text.studentsStillNeedTheDecalaration" (dict "studentsWithoutConsentCount" studentsWithoutConsentCount "allStudentsCount" allStudentsCount "shortTitle" theme.short_title "minAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}}
+                            <strong>{{ studentsWithoutConsentCount }} von {{ allStudentsCount }}</strong> Schüler benötigen noch die Einverständniserklärung zur Nutzung der {{theme.short_title}}.
+                            Schüler unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären.
                         </p>
                     </div>
 
@@ -53,28 +54,28 @@
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
                             <h2 class="h4">
-                                {{$t "administration.global.text.obtainADeclarationConsent" }}
+                                Einverständniserklärung einholen
                             </h2>
                             {{#if ../schoolUsesLdap}}
-                                <strong>{{$t "administration.global.text.studentsLoginInThePresenceOfGuardian" }}</strong>
+                                <strong>Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein</strong>
 
-                                <p>{{$t "administration.global.text.byConnectingToASchoolState" (dict "shortTitle" theme.short_title) }}</p>
+                                <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{../theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
                             {{else}}
-                                <strong>{{$t "administration.global.text.inviteparentsAndStudentViaLink" }}</strong>
+                                <strong>Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben</strong>
                                 <p>
-                                    {{$t "administration.longText.text.provideStudentsAndTheirParents" }}
+                                    Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.
                                 </p>
-                                <p>{{$t "administration.students.text.forAllStudentsWithoutAFullConsentForm" }}</p>
+                                <p>Für alle Schüler ohne vollständige Einverständniserklärung:</p>
                                 <p>
                                     <button data-role="student" class="btn btn-secondary btn-send-links-emails">
-                                        {{$t "administration.global.button.sendLinksToStudentEmailAddresses" }}
+                                        Links an Schüler E-Mail Adressen senden
                                     </button>
                                     <button data-role="student" class="btn btn-secondary btn-print-links">
-                                        {{$t "administration.global.button.createLinkSheet" }}
+                                        Link-Druckbogen erstellen
                                     </button>
                                 </p>
                                 <p>
-                                    {{$t "administration.global.text.orSelectStudentFromTable" }}
+                                    Oder wähle Schüler in der Tabelle aus.
                                 </p>
                             {{/if}}
                         </div>
@@ -88,12 +89,12 @@
                             <div class="col-sm-12 no-padding">
                                 {{#userHasPermission "STUDENT_CREATE"}}
                                     <button type="submit" data-testid="btn_add_student" class="btn btn-primary btn-add-modal">
-                                        {{$t "administration.students.button.addStudents" }}
+                                        Schüler hinzufügen
                                     </button>
 
                                     {{#inArray "Administrator" ../roleNames}}
                                         <a href="/administration/students/import" class="btn btn-secondary btn-import">
-                                            {{$t "administration.students.button.importStudents" }}
+                                            Schüler importieren
                                         </a>
                                     {{/inArray}}
                                 {{else}}

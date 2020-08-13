@@ -1,9 +1,9 @@
 <div class="contact-form">
-  <p>{{$t "help.contact.text.whoDoYouWantToContact" }}</p>
+  <p>Wen möchtest du kontaktieren?</p>
   <fieldset class="switch_wrapper" id="message_target">
     <div class="switch">
       <input type="radio" id="admin" name="message_target" value="admin" {{#if adminFormIsActive}}checked{{/if}}>
-      <label for="admin" tabindex="0" role="button">{{$t "help.contact.label.schoolAdmin" }}</label>
+      <label for="admin" tabindex="0" role="button">Schul-Admin</label>
       <input type="radio" id="team" name="message_target" value="team" {{#if teamFormIsActive}}checked{{/if}}>
       <label for="team" tabindex="0" role="button"> {{theme.short_title}}-Team</label>
     </div>
@@ -12,30 +12,33 @@
   <form class="admin_form {{#unless adminFormIsActive}}hidden{{/unless}}" action="/helpdesk" method="post">
     {{> "help/forms/form_admin"}}
     {{> "lib/components/csrfInput"}}
-    <button type="submit">{{$t "global.button.submit" }}</button>
+    <button type="submit">Absenden</button>
   </form>
 
   <div class="team_form {{#unless teamFormIsActive}}hidden{{/unless}}">
-    <p>{{$t "help.contact.text.thankYouForYourFeedbak" (dict "shortTitle" theme.short_title)}}</p>
-    <p>{{$t "help.contact.text.whatKindOfFeedbackDoYouWant" }}</p>
+    <p>Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{theme.short_title}} gesendet. Bitte achte
+      darauf, keine Passwörter und andere sensible Daten mitzusenden.</p>
+    <p>Welche Art von Feedback möchtest du uns senden?</p>
     <fieldset class="switch_wrapper" id="message_type">
       <div class="switch">
         <input type="radio" id="bug" name="message_type" value="bug" checked>
         <label for="bug" tabindex="0" role="button">Problem</label>
         <input type="radio" id="wish" name="message_type" value="wish">
-        <label for="wish" tabindex="0" role="button">{{$t "help.contact.label.schoolAdmin" }}</label>
+        <label for="wish" tabindex="0" role="button">Wunsch</label>
       </div>
     </fieldset>
 
-    <form class="wish_form hidden" action={{concat "/helpdesk?_csrf=" @root.csrfToken}} method="post" enctype="multipart/form-data">
+    <form class="wish_form hidden" action={{concat "/helpdesk?_csrf=" @root.csrfToken}} method="post"
+      enctype="multipart/form-data">
       {{> "help/forms/form_wish"}}
       {{> "lib/components/csrfInput"}}
-      <button type="submit">{{$t "global.button.submit" }}</button>
+      <button type="submit">Absenden</button>
     </form>
-    <form class="bug_form" action={{concat "/helpdesk?_csrf=" @root.csrfToken}} method="post" enctype="multipart/form-data">
+    <form class="bug_form" action={{concat "/helpdesk?_csrf=" @root.csrfToken}} method="post"
+      enctype="multipart/form-data">
       {{> "help/forms/form_bug"}}
       {{> "lib/components/csrfInput"}}
-      <button type="submit">{{$t "global.button.submit" }}</button>
+      <button type="submit">Absenden</button>
     </form>
   </div>
 </div>

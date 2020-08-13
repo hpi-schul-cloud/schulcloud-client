@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     function validatePassword(){
         if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity($t('global.text.passwordsAreDifferent'));
+            confirm_password.setCustomValidity($t('account.text.passwordsDoNotMatch'));
         } else {
             confirm_password.setCustomValidity('');
         }
@@ -29,7 +29,7 @@ $(document).ready(function() {
         var $buttonContext = $(this);
 
         $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', { name: $buttonContext.data('device-name') }));
+        $deleteModal.find('.modal-title').text($t('account.headline.doYouWantToDeleteDevice', { device: $buttonContext.data('device-name') }));
 
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
             $.ajax({

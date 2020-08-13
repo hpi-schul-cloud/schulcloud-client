@@ -82,7 +82,7 @@ $(document).ready(() => {
 		$createEventModal.find('.create-videoconference').show();
 
 		populateModalForm($createEventModal, {
-			title: $t('global.headline.addDate'),
+			title: $t('teams._team.events.headline.addDate'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
 			fields: {
@@ -117,7 +117,7 @@ $(document).ready(() => {
 		event.endDate = (event.end || event.start).format('DD.MM.YYYY HH:mm');
 		event.featureVideoConference = event.attributes['x-sc-featurevideoconference'];
 		populateModalForm($editEventModal, {
-			title: $t('global.headline.dateDetails'),
+			title: $t('teams._team.events.headline.dateDetails'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.save'),
 			fields: event,
@@ -201,11 +201,11 @@ $(document).ready(() => {
 						$('.file-permissions-modal').modal('hide');
 					})
 					.fail(() => {
-						$.showNotification($t('global.text.errorChangingFilePermissions'), 'danger', true);
+						$.showNotification($t('teams._team.files.changedFilePermissionsError'), 'danger', true);
 					});
 			})
 			.fail(() => {
-				$.showNotification($t('global.text.errorChangingFilePermissions'), 'danger', true);
+				$.showNotification($t('teams._team.files.changedFilePermissionsError'), 'danger', true);
 			});
 	});
 

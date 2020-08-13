@@ -64,7 +64,7 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
 		return w.send(`${r.query.error}<br />${r.query.error_description}`);
 	}
 	return api(r).get(`/oauth2/consentRequest/${r.query.consent_challenge}`).then((consentRequest) => {
-		return api(r).get(`/ltiTools/?oAuthClientId=${consentRequest.client.client_id}&isLocal=true`).then((tool) => {
+		return api(r).get(`/ltitools/?oAuthClientId=${consentRequest.client.client_id}&isLocal=true`).then((tool) => {
 			if (consentRequest.skip || tool.data[0].skipConsent) {
 				return acceptConsent(r, w, r.query.consent_challenge, consentRequest.requested_scope);
 			}

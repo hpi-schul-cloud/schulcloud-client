@@ -7,26 +7,31 @@
 <div class="row users-register-complete">
     <div class="col-xl-6">
         <p class="noprint">
-            {{$t "administration.users_registrationComplete.text.registrationAtThe" (dict "shortTitle" @root.theme.short_title )}}
+            Die Anmeldung an der {{@root.theme.short_title}} ist mit den folgenden Daten möglich.
         </p>
         <p class="noprint">
-        {{{$t "administration.users_registrationComplete.text.cannotCallPageAgain" }}}
+            <b>Achtung: </b>Du kannst diese Seite nicht erneut aufrufen. Drucke dir also die angezeigten Zugangsdaten
+            unbedingt aus oder speichere sie anderweitig.
+            Sollte ein Schüler sein Passwort vergessen, kannst du es nur in der Benutzerverwaltung ändern.
         </p>
         <center class="form-group">
             <a href="/administration/students" class="windowprint noprint">
                 <button type="button" class="btn btn-primary">
                     <i class="fa fa-print"></i> {{$t "administration.button.printListWithAccessData" }}
                 </button>
-            </a>
+            </a>   
         </center>
         {{#unless single}}
         <div class="printonly">
-            <p>{{{$t "administration.users_registrationComplete.text.whatYouCanFind" }}}</p>
+            <p>Auf dieser Seite findest du eine Übersicht über alle erfolgten Einwilligungen und generierten
+                Zugangsdaten. <br>
+                Die folgenden Seiten dieses Dokuments beinhalten jeweils die Zugangsdaten eines Kindes und eine
+                Anleitung zur ersten Anmeldung. </p>
             <table class="table">
                 <tr>
                     <th>Name</th>
                     <th>E-Mail</th>
-                    <th>{{$t "global.label.password" }}</th>
+                    <th>Passwort</th>
                 </tr>
                 {{#each users}}
                 <tr>
@@ -45,16 +50,21 @@
         {{/unless}}
         <div class="printonly">
             <h1>{{fullname}}</h1>
-            <p>{{{$t "administration.users_registrationComplete.text.loginWithPassword" (dict "shortTitle" @root.theme.short_title)}}}</p>
+            <p>Du kannst dich nun in der {{@root.theme.short_title}} mit deinem Startpasswort einloggen.
+                Gehe dazu auf <a href="https://schul-cloud.org">
+                    <script nonce="{{nonceValue}}">document.write(window.location.origin)</script></a>
+                und logge dich dort mit den folgenden Zugansdaten ein:</p>
         </div>
         <textarea disabled class="printable form-control" id="skipRegistrationCredentials">
 	{{fullname}}
 	E-Mail: {{email}}
-	{{$t "global.label.password" }} {{password}}
+	Passwort: {{password}}
 		</textarea>
         {{/each}}
         <p class="noprint" style="margin-top: 1em">
-            {{$t "administration.users_registrationComplete.text.whenLoginForTheFirstTime" }} </p>
+            Beim ersten Login muss ein neues Passwort gewählt werden. Schüler,
+            die mindestens 14 Jahre alt sind, müssen bei ihrem ersten Login 
+            die Einwilligungserklärung zusätzlich selbst erklären. </p>
     </div>
 </div>
 <div class="row users-register-complete noprint">

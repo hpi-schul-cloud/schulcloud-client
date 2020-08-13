@@ -171,9 +171,6 @@ const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
 router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 	if (res.locals.currentUser) {
 		const user = res.locals.currentUser;
-		if (res.locals.currentPayload.forcePasswordChange) {
-			return res.redirect('/forcePasswordChange');
-		}
 		api(req).get('/consents/', { qs: { userId: user._id } })
 			.then((consents) => {
 				if (consents.data.length === 0) {

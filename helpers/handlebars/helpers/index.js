@@ -40,7 +40,7 @@ const ifCondBool = (v1, operator, v2) => {
 	}
 };
 
-const helpers = () => ({
+const helpers = app => ({
 	pagination: require('./pagination'),
 	ifArray: (item, options) => {
 		if (Array.isArray(item)) {
@@ -60,7 +60,7 @@ const helpers = () => ({
 		}
 		return opts.inverse(this);
 	},
-	arrayLength: (array) => (array && array.length) || 0,
+	arrayLength: array => array.length,
 	truncate: (text = '', { length = 140 } = {}) => {
 		if (text.length <= length) {
 			return text;
@@ -173,7 +173,6 @@ const helpers = () => ({
 		}
 		return options.inverse(this);
 	},
-	userIds: (users) => (users || []).map((user) => user._id).join(','),
 	timeFromNow: (date, opts) => moment(date).fromNow(),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
@@ -209,17 +208,17 @@ const helpers = () => ({
 	castStatusCodeToString: (statusCode, data) => {
 		console.log(statusCode);
 		if (statusCode >= 500) {
-			return i18n.getInstance(data.data.local.currentUser)('global.text.internalProblem');
+			return i18n.getInstance(data.data.local.currentUser)('global.error.internalProblem');
 		}
 		if (statusCode >= 400) {
 			if ([400, 401, 402, 403, 404].includes(statusCode)) {
-				return i18n.getInstance(data.data.local.currentUser)('global.text.'.concat(statusCode.toString()));
+				return i18n.getInstance(data.data.local.currentUser)('global.error.'.concat(statusCode.toString()));
 			}
 		}
 		if (statusCode > 300) {
-			return i18n.getInstance(data.data.local.currentUser)('global.text.pageMoved');
+			return i18n.getInstance(data.data.local.currentUser)('global.error.pageMoved');
 		}
-		return i18n.getInstance(data.data.local.currentUser)('global.text.somethingWentWrong');
+		return i18n.getInstance(data.data.local.currentUser)('global.error.somethingWentWrong');
 	},
 	writeFileSizePretty: (fileSize) => {
 		let unit;

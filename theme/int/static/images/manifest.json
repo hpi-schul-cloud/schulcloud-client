@@ -1,8 +1,0 @@
-{
-	"name": "HPI Schul-Cloud International",
-	"short_name": "HPI Schul-Cloud International",
-	"start_url": "/?homescreen=1&theme=int",
-	"scope": "/",
-	"background_color": "#ffffff",
-	"display": "standalone"
-}

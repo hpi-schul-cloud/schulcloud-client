@@ -118,7 +118,7 @@ $(document).ready(() => {
 		$deleteModal.modal('hide');
 		$moveModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification($t('global.text.requestTimeout'), 'warn');
+			$.showNotification($t('global.error.requestTimeout'), 'warn');
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}
@@ -293,7 +293,7 @@ $(document).ready(() => {
 		$deleteModal
 			.find('.modal-title')
 			.text(
-				$t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }),
+				$t('files._file.headline.assertDeletion', { filename: $buttonContext.data('file-name') }),
 			);
 
 		$deleteModal
@@ -329,10 +329,9 @@ $(document).ready(() => {
 	});
 
 	const returnFileUrl = (fileId, fileName) => {
-		if (window.opener) {
-			const fullUrl = `/files/file?file=${fileId}&name=${fileName}`;
-			window.opener.postMessage(fullUrl, '*');
-		}
+		const fullUrl = `/files/file?file=${fileId}&name=${fileName}`;
+		const funcNum = getQueryParameterByName('CKEditorFuncNum');
+		window.opener.CKEDITOR.tools.callFunction(funcNum, fullUrl);
 		window.close();
 	};
 
@@ -570,7 +569,7 @@ $(document).ready(() => {
 			.then((permissions) => {
 				const nameMap = {
 					teacher: $t('global.role.text.teacher'),
-					student: $t('global.link.administrationStudents'),
+					student: $t('global.role.text.student'),
 					teammember: $t('global.role.text.member'),
 					teamexpert: $t('global.role.text.expert'),
 					teamleader: $t('global.role.text.leader'),
@@ -697,9 +696,10 @@ $(document).ready(() => {
 				$('.permissions-modal').modal('hide');
 			})
 			.fail(() => {
-				$.showNotification($t('global.text.errorChangingFilePermissions'), 'danger', true);
+				$.showNotification($t('files._file.text.permissionsChangedFail'), 'danger', true);
 			});
 	});
+
 
 	const moveToDirectory = (modal, targetId) => {
 		const fileId = modal
@@ -801,6 +801,7 @@ $(document).ready(() => {
 				filePath: $context.attr('data-file-path'),
 			},
 		});
+
 
 		$moveModal.find('.modal-footer').empty();
 		$moveModal.appendTo('body').modal('show');

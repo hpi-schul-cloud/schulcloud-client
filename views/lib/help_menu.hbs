@@ -1,65 +1,61 @@
 <li class="nav-item help-drodown">
-<div class="dropdown minimal-button">
-        <a class="btn btn-secondary btn-thin dropdown-toggle"
-               href="" title="{{$t "lib.help_menu.label.help"}}" aria-label="{{$t "lib.help_menu.label.help"}}"
-               data-toggle="dropdown">
-        <i class="fa fa-question" aria-hidden="true"></i>
+    <div class="dropdown minimal-button">
+        <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
+            <i class="fa fa-question"></i>
         </a>
-    <div class="dropdown-menu">
-        <ul class="content list-group">
-            <li class="list-group-item list-group-item-action">
-                <span>
-                    <i class="fa fa-question-circle" aria-hidden="true"></i>
-                <a href="/help" class="link">{{$t "global.link.helpArea" }}</a>
-                </span>
-            </li>
+        <div class="dropdown-menu">
+            <ul class="content list-group">
+                <li class="list-group-item list-group-item-action">
+                    <span>
+                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        <a href="/help" class="link">{{$t "lib.help_menu.link.helpArea" }}</a>
+                    </span>
+                </li>
 
-            {{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
+				{{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
                 {{#userHasPermission "ENTERTHECLOUD_START"}}
                     <li class="list-group-item list-group-item-action enterthecloud-btn">
                         <span>
-                            <i class="fa fa-gamepad" aria-hidden="true"></i>
-                        <button type="button" class="link btn-link enterthecloud-btn" style="line-height: initial">{{$t "lib.help_menu.button.playEnterTheCloud"}}</button>
+                            <i class="fa fa-gamepad"aria-hidden="true"></i>
+                            <button type="button" class="link btn-link enterthecloud-btn" style="line-height: initial">{{$t "lib.help_menu.button.playEnterTheCloud" }}</button>
                         </span>
                     </li>
-                    {{/userHasPermission}}
-                {{/ifEnv}}
+                {{/userHasPermission}}
+				{{/ifEnv}}
 
                 <li class="list-group-item list-group-item-action">
                     <span>
                         <i class="fa fa-pencil" aria-hidden="true"></i>
-                        <a href="/help?activeForm=team#contact-form" class="link">{{$t "lib.help_menu.link.sendRequestOrProblem"}}</a>
+                        <a href="/help?activeForm=team#contact-form" class="link">{{$t "lib.help_menu.link.sendRequestOrProblem" }}</a>
                     </span>
                 </li>
                 <li class="list-group-item list-group-item-action">
                     <span>
                         <i class="fa fa-comment" aria-hidden="true"></i>
-                        <a href="/help?activeForm=admin#contact-form" class="link">{{$t "lib.help_menu.link.contactYourSchoolAdmin"}}</a>
+                        <a href="/help?activeForm=admin#contact-form" class="link">{{$t "lib.help_menu.link.contactYourSchoolAdmin" }}</a>
                     </span>
                 </li>
                 <li class="list-group-item list-group-item-action">
                     <span>
-                        <img style="width: 1em;" src="/images/logo/fortbildung.svg" alt="" role="presentation">
-                            <a href="https://lernen.cloud/"  aria-label="{{$t "lib.help_menu.link.training" }} {{$t "global.link.openInNewTabWarning"}}" target="_blank" class="link">
-                            {{$t "lib.help_menu.link.training" }}</a>
+                        <img style="width: 1em;" src="/images/logo/fortbildung.svg" alt="Lern Cloud" >
+                        <a href="https://lernen.cloud/" target="_blank" class="link">{{$t "lib.help_menu.link.Fortbildungen" }}</a>
                     </span>
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
 </li>
 
-    {{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
-        {{#userHasPermission "ENTERTHECLOUD_START"}}
-            {{#embed "lib/components/modal" class="enterthecloud-modal"
-                     title=($t "lib.help_menu.label.playEnterTheCloud")}}
-                {{#content "body"}}
-                    <div class="modal-body">
-                    <p>{{$t "lib.help_menu.input.userName" }} <code>...</code></p>
-                    <p>{{$t "global.label.password" }} <code>...</code></p>
-                    <a class="btn btn-primary" href="TODO">{{$t "lib.help_menu.button.openGame" }}</a>
-                    </div>
-                    {{/content}}
-                    {{/embed}}
-                    {{/userHasPermission}}
-                {{/ifEnv}}
+{{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
+{{#userHasPermission "ENTERTHECLOUD_START"}}
+{{#embed "lib/components/modal" class="enterthecloud-modal" title="Enter The Cloud spielen"}}
+    {{#content "body"}}
+        <div class="modal-body">
+            <p>{{$t "lib.help_menu.input.userName" }} <code>...</code></p>
+            <p>{{$t "lib.help_menu.input.password" }} <code>...</code></p>
+            <a class="btn btn-primary" href="TODO">{{$t "lib.help_menu.button.openGame" }}</a>
+        </div>
+    {{/content}}
+{{/embed}}
+{{/userHasPermission}}
+{{/ifEnv}}

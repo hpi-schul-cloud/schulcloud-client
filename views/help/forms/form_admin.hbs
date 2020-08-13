@@ -1,15 +1,15 @@
 <input type="hidden" name="target" value="Admin">
 
-<p>{{$t "help.form_admin.text.hereYouCanContact" }}</p>
+<p>Hier erreichst du den Administrator deiner Schule. Er kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über deinen Kontaktgesuch informiert.</p>
 <label class="form-group">
-    <span class="control-label">{{$t "help.global.label.briefDescriptionOfTheProblem" }}</span>
-    <input type="text" name="subject" placeholder="{{$t "help.placeholder.briefDescriptionOfTheProblem" }}" class="form-control" required>
+    <span class="control-label">Kurzbeschreibung des Problems</span>
+    <input type="text" name="subject" placeholder="Kurzbeschreibung des Problems" class="form-control" required>
 </label>
 <label class="form-group">
-    <span class="control-label">{{$t "help.form_admin.label.currentStatus" }}</span>
+    <span class="control-label">IST-Zustand: Was geschieht zur Zeit, nachdem ich welche Schritte durchgeführt habe?</span>
     <textarea class="form-control" cols="50" name="currentState" rows="6" required></textarea>
 </label>
 <label class="form-group">
-    <span class="control-label" for="supposedToHappen">{{$t "help.form_admin.label.targetState" }}</span>
+    <span class="control-label" for="supposedToHappen">SOLL-Zustand: Was sollte stattdessen geschehen?</span>
     <textarea class="form-control" cols="50" name="targetState" rows="6" required></textarea>
 </label>

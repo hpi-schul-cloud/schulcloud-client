@@ -54,7 +54,7 @@
                     {{/each}}
                 </div>
             </div>
-
+            
             <div class="row">
                 <div class="timeline">
                     <table style="width:100%">
@@ -86,7 +86,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5">{{$t "global.headline.myMaterial"}}</h2>
+                <h2 class="h5">{{$t "dashboard.headline.myMaterials"}}</h2>
             </div>
         </div>
         <div class="row tasks card-deck-row" data-testid="courses">
@@ -112,16 +112,16 @@
     {{/if}}
 
     {{#if assignedHomeworks}}
-        {{> 'dashboard/components/homework_tiles' title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/homework/asked/"}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
     {{else}}
     <section class="section mb-2">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "global.headline.tasks"}}</a></h2>
+                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
             </div>
         </div>
         <div class="row d-block text-center">
-            <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "global.text.noTasks"}}" />
+            <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
             <p class="text-muted dashboard-empty-info">
                 {{$t "dashboard.text.emptyHomeworksInfo"}}
             </p>
@@ -130,21 +130,21 @@
     {{/if}}
 
     {{#if privateHomeworks}}
-        {{> 'dashboard/components/homework_tiles' title=($t "global.headline.privateTasks") content=privateHomeworks href="/homework/private/"}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.privateTasks") content=privateHomeworks href="/homework/private/"}}
     {{/if}}
 
 {{else if isStudent}}
     {{#if assignedHomeworks}}
-        {{> 'dashboard/components/homework_tiles' title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/homework/asked/"}}
+        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
     {{else}}
         <section class="section mb-2">
             <div class="row">
                 <div class="col-sm-12">
-                    <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "global.headline.tasks"}}</a></h2>
+                    <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
                 </div>
             </div>
             <div class="row d-block text-center">
-                <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "global.text.noTasks"}}" />
+                <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
                 <p class="text-muted dashboard-empty-info">
                     {{$t "dashboard.text.emptyHomeworksInfo"}}
                 </p>
@@ -162,12 +162,12 @@
 
 
 {{#if news}}
-{{>  'dashboard/components/card_section' section-id="news" title=($t "global.headline.news") content=news link-text=($t "dashboard.link.continueReading") href="/news/"}}
+{{>  'dashboard/components/card_section' section-id="news" title=($t "dashboard.headline.news") content=news link-text=($t "dashboard.link.continueReading") href="/news/"}}
 {{else}}
 <section class="section mb-2">
     <div class="row">
         <div class="col-sm-12">
-            <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/news/">{{$t "global.headline.news"}}</a></h2>
+            <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/news/">{{$t "dashboard.headline.news"}}</a></h2>
         </div>
     </div>
     <div class="row d-block text-center">

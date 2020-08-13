@@ -122,11 +122,10 @@ const markSelected = (options, values = []) => options.map((option) => {
 	return option;
 });
 
-const editTeamHandler = async (req, res, next) => {
+const editTeamHandler = (req, res, next) => {
 	let teamPromise;
 	let action;
 	let method;
-	let permissions = [];
 	if (req.params.teamId) {
 		action = `/teams/${req.params.teamId}`;
 		method = 'patch';
@@ -137,28 +136,13 @@ const editTeamHandler = async (req, res, next) => {
 		teamPromise = Promise.resolve({});
 	}
 
-	if (req.params.teamId) {
-		try {
-			permissions = await api(req)
-				.get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
-		} catch (error) {
-			logger.error(error);
-		}
-	}
-
 	teamPromise.then((team) => {
-		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
-			return next(new Error(res.$t('global.text.403')));
-		}
-		return res.render('teams/edit-team', {
+		res.render('teams/edit-team', {
 			action,
 			method,
-			title: req.params.teamId
-				? res.$t('teams.add.headline.editTeam')
-				: res.$t('teams.button.createTeam'),
-			submitLabel: req.params.teamId
-				? res.$t('global.button.saveChanges')
-				: res.$t('teams.button.createTeam'),
+			title: req.params.teamId ? res.$t('teams.add.headline.editTeam') : res.$t('teams.add.headline.createTeam'),
+			submitLabel: req.params.teamId ? res.$t('global.button.saveChanges')
+				: res.$t('teams.add.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
@@ -536,11 +520,11 @@ router.get('/:teamId', async (req, res, next) => {
 		let matrixNotification;
 		let messenger = false;
 		if (instanceUsesMatrixMessenger && courseUsesMatrixMessenger && !schoolUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.text.messengerNotActivatedSchool');
+			matrixNotification = res.$t('teams._team.messengerNotActivatedSchool');
 			messenger = true;
 		}
 		if (instanceUsesMatrixMessenger && schoolUsesMatrixMessenger && !courseUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.text.messengerNotActivatedCourse');
+			matrixNotification = res.$t('teams._team.messengerNotActivatedCourse');
 			messenger = true;
 		}
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);
@@ -566,10 +550,6 @@ router.get('/:teamId', async (req, res, next) => {
 		files = files.filter((file) => file);
 
 		files = files.map((file) => {
-
-			// set saveName attribute with escaped quotes
-			file.saveName = file.name.replace(/'/g, "\\'");
-
 			if (file && file.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
@@ -761,14 +741,15 @@ router.patch('/:teamId', async (req, res, next) => {
 	});
 	req.body.features = Array.from(features);
 
-	try {
-		await api(req).patch(`/teams/${req.params.teamId}`, {
-			json: req.body, // TODO: sanitize
-		});
-		res.redirect(`/teams/${req.params.teamId}`);
-	} catch (error) {
-		next(error);
-	}
+	await api(req).patch(`/teams/${req.params.teamId}`, {
+		json: req.body, // TODO: sanitize
+	});
+
+	res.redirect(`/teams/${req.params.teamId}`);
+
+	// }).catch(error => {
+	//     res.sendStatus(500);
+	// });
 });
 
 router.patch('/:teamId/permissions', (req, res) => {
@@ -869,30 +850,30 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const roleTranslations = {
 		teammember: res.$t('teams._team.members.text.member'),
 		teamexpert: res.$t('teams._team.members.text.expert'),
-		teamleader: res.$t('global.role.text.leader'),
-		teamadministrator: res.$t('global.role.text.administrator'),
-		teamowner: res.$t('global.role.text.owner'),
+		teamleader: res.$t('teams._team.members.text.leader'),
+		teamadministrator: res.$t('teams._team.members.text.admin'),
+		teamowner: res.$t('teams._team.members.text.owner'),
 	};
 
 	const head = [
-		res.$t('global.label.firstName'),
-		res.$t('global.label.lastName'),
-		res.$t('global.label.role'),
-		res.$t('global.link.school'),
-		res.$t('global.headline.actions'),
+		res.$t('teams._team.members.headline.firstName'),
+		res.$t('teams._team.members.headline.surname'),
+		res.$t('teams._team.members.headline.role'),
+		res.$t('teams._team.members.headline.school'),
+		res.$t('teams._team.members.headline.actions'),
 	];
 
 	const headClasses = [
-		res.$t('global.headline.name'),
-		res.$t('global.link.administrationStudents'),
-		res.$t('global.headline.actions'),
+		res.$t('teams._team.members.headline.name'),
+		res.$t('teams._team.members.headline.student'),
+		res.$t('teams._team.members.headline.actions'),
 	];
 
 	const headInvitations = [
 		res.$t('teams._team.members.headline.email'),
 		res.$t('teams._team.members.headline.invitedOn'),
-		res.$t('global.label.role'),
-		res.$t('global.headline.actions'),
+		res.$t('teams._team.members.headline.role'),
+		res.$t('teams._team.members.headline.actions'),
 	];
 
 	const invitationActions = [
@@ -1278,13 +1259,13 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		.then(() => {
 			req.session.notification = {
 				type: 'success',
-				message: res.$t('teams._team.text.invitationSuccessfullyAccepted'),
+				message: res.$t('teams._team.text.invitationAcceptedSuccess'),
 			};
 			res.redirect(`/teams/${req.params.teamId}`);
 		})
 		.catch((err) => {
 			logger.warn(
-				res.$t('teams._team.text.errorAcceptingInvitation'),
+				res.$t('teams._team.text.invitationAcceptionFailed'),
 				err,
 			);
 			res.redirect(`/teams/${req.params.teamId}`);
@@ -1404,12 +1385,12 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 	const { shareToken } = req.body;
 	// try to find topic for given shareToken
 	api(req)
-		.get('/lessons/', { qs: { shareToken } })
+		.get('/lessons/', { qs: { shareToken, $populate: ['teamId'] } })
 		.then((lessons) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t('global.text.noTopicFoundWithCode'),
+					message: res.$t('teams._team.text.noTopicFoundWithCode'),
 				};
 
 				redirectHelper.safeBackRedirect(req, res);

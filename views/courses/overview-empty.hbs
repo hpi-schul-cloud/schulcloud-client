@@ -9,32 +9,32 @@
 
     {{#content "page"}}
         <section class="section-courses empty-state">
-            <div class="sections">
-                <div class="empty-state">
-                    {{> 'courses/components/svg_active_courses'}}
-                    <!--<img src="/images/empty-states/lehrer_klasse.svg" alt="{{$t "courses.img_alt.teacherWithClass"}}" class="image mx-auto d-block"/>-->
-                </div>
-
-                <div class="text-wrapper mx-auto d-block">
-                    {{#if (userHasRole "student")}}
-                        <h2 class="text-center">{{$t "courses.headline.SCMakesTeachingDigital" (dict "themetitle" theme.title)}}</h2>
-                        <h3 class="h5 text-muted text-center">{{$t "courses.text.noCourseGetInvited"}}</h3>
+            <img src="/images/empty-states/lehrer_klasse.svg" alt="{{$t "courses.img_alt.teacherWithClass"}}" class="image mx-auto d-block"/>
+            <div class="text-wrapper mx-auto d-block">
+				{{#if (userHasRole "student")}}
+                <h2 class="text-center">{{$t "courses.headline.SCMakesTeachingDigital" (dict "themetitle" theme.title)}}</h2>
+                <h3 class="h5 text-muted text-center">
+                  {{$t "courses.text.noCourseGetInvited"}}
+                </h3>
+                {{else}}
+                <h2 class="text-center">{{$t "courses.headline.makeTeachingDigital" (dict "themetitle" theme.title)}}</h2>
+                    {{#if (userHasRole "expert")}}
+                    <h3 class="h5 text-muted text-center">
+                        {{$t "courses.text.courseNoAccess"}}
+                    </h3>
                     {{else}}
-                        <h2 class="text-center">{{$t "courses.headline.makeTeachingDigital" (dict "themetitle" theme.title)}}</h2>
-                        {{#if (userHasRole "expert")}}
-                            <h3 class="h5 text-muted text-center">{{$t "courses.text.courseNoAccess"}}</h3>
-                        {{else}}
-                            <h3 class="h5 text-muted text-center">{{$t "courses.headline.noCoursesYet" (dict "short_title" theme.short_title)}}</h3>
-                        {{/if}}
-                    {{/if}}
-                </div>
+                    <h3 class="h5 text-muted text-center">
+                        {{$t "courses.headline.noCoursesYet" (dict "short_title" theme.short_title)}}
+                    </h3>
+                {{/if}}
+              {{/if}}
             </div>
 
             {{#userHasPermission "COURSE_EDIT"}}
               <div class="row">
                   <div class="center buttons">
                       <button class="btn btn-secondary btn-lg btn-import-course btn-first">{{$t "courses.button.importCourse"}}</button>
-                      <a href="/courses/add" class="btn btn-primary btn-lg btn-add">{{$t "global.button.createFirstCourse"}}</a>
+                      <a href="/courses/add" class="btn btn-primary btn-lg btn-add">{{$t "courses.button.createFirstCourse"}}</a>
                   </div>
               </div>
             {{/userHasPermission}}

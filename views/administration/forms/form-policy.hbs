@@ -1,26 +1,27 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
 
 <div class="form-group">
-	<label>{{$t "global.label.title" }}</label>
-	<input class="form-control" name="consentTitle" type="text" data-force-value="true" value="{{$t "administration.form_Policy.input.schoolsPrivacyPolicy" }}" readonly>
+	<label>Titel</label>
+	<input class="form-control" name="consentTitle" type="text" data-force-value="true" value="Datenschutzerklärung der Schule" readonly>
 </div>
 <div class="form-group">
-	<label>{{$t "global.label.description" }}</label>
+	<label>Beschreibung</label>
 	<textarea class="form-control" name="consentText" value="{{consentText}}" required></textarea>
 </div>
 <div class="form-group">
-	<label>{{$t "administration.form_Policy.label.uploadFile" }}</label><br/>
+	<label>Datei hochladen (nur PDF, max 4MB)</label><br/>
 	<input type="hidden" id="policy-file-data" name="consentData" value="{{consentData}}">
 	<input type="file" id="policy-input" accept="application/pdf">
-	<label for="policy-input" class="btn btn-secondary">{{$t "global.label.chooseAFile" }}</label>
+	<label for="policy-input" class="btn btn-secondary">Datei auswählen</label>
 </div>
 <div class="form-group">
 	<div class="policy-file-upload">
 		<img id="policy-file-logo" src="/images/thumbs/pdfs.png" width="25px">
-		<span id="policy-file-name">{{$t "administration.school.text.noFileSelected" }}</span>
+		<span id="policy-file-name">Keine Datei ausgewählt</span>
 	</div>
 </div>
 <div class="form-group">
-	<b>{{$t "administration.form_Policy.text.important" }} </b><p class="text-muted">{{$t "administration.form_Policy.text.whenANewPrivacyPolicyUpdated" }}</p>
+	<b>Wichtig: </b><p class="text-muted">Wenn eine neue Datenschutzerklärung hochgeladen wird, wird sie allen Nutzern aus dieser Schule zur
+		Zustimmung gegeben.</p>
 </div>
 

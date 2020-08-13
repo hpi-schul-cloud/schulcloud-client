@@ -24,7 +24,7 @@ $(window).ready(() => {
 		const parent = $(this).closest('tr');
 		const { members } = getPayload(parent);
 
-		let teamMembers = $t('global.text.noMembers');
+		let teamMembers = $t('administration.teams.text.noParticipants');
 		if ((members || []).length !== 0) {
 			teamMembers = '<ol>';
 			members.forEach((member) => {
@@ -75,7 +75,7 @@ $(window).ready(() => {
 			action: entry,
 			title: $t('administration.teams.headline.messageToTeamOwners'),
 			closeLabel: $t('administration.teams.button.discardMessage'),
-			submitLabel: $t('global.button.submit'),
+			submitLabel: $t('administration.teams.button.sendMessage'),
 		});
 
 		$messageModal.appendTo('body').modal('show');
@@ -92,9 +92,9 @@ $(window).ready(() => {
 		// eslint-disable-next-line no-undef
 		populateModalForm($deleteModal, {
 			action: entry,
-			title: $t('global.headline.delete'),
+			title: $t('administration.teams.headline.deleteTeam'),
 			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.headline.delete'),
+			submitLabel: $t('global.button.delete'),
 			fields: {
 				name,
 			},

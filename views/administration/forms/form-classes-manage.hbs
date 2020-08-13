@@ -6,16 +6,16 @@
     <div class="row">
         <a class="d-block mb-1"
             href="/administration/classes/{{@root.class/_id}}/edit"
-            title="{{$t "administration.classes.placeholer.change" (dict "name" @root.class.name)}}">
-            <i class="fa fa-pencil"></i> {{$t "administration.classes.label.renameClass" }}
+            title="Klasse '{{@root.class.name}}' bearbeiten.">
+            <i class="fa fa-pencil"></i> Klasse umbenennen
         </a>
     </div>
 
     <div class="row">
         <div style="width: 100%" class="form-group">
-            <label>{{$t "administration.global.label.teacher" }} {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
+            <label>Lehrer {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
 
-            <select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher"}}" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
+            <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
                 {{#each teachers}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
                         {{#if this.displayName}}
@@ -31,9 +31,9 @@
 
     <div class="row">
         <div style="width: 100%" class="form-group">
-            <label>{{$t "administration.global.label.student" }}</label>
-            <button type="button" class="btn-link pull-right btn-import-class">{{$t "administration.classes.button.addStudentsFromPreviousYearClass" }}</button>
-            <select name="userIds" multiple data-placeholder="{{$t "administration.global.placeholder.selectStudent" }}">
+            <label>Schüler</label>
+            <button type="button" class="btn-link pull-right btn-import-class">Schüler aus Vorjahresklasse hinzufügen</button>
+            <select name="userIds" multiple data-placeholder="Schüler auswählen">
                 {{#each students}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} class="red" data-first-name="{{this.firstName}}" data-last-name="{{this.lastName}}">
                         {{#if this.displayName}}
@@ -48,43 +48,43 @@
     </div>
 
     <div class="modal-footer mt-1">
-        <a class="btn btn-secondary btn-cancel">{{$t "global.button.cancel" }}</a>
-        <button type="submit" class="btn btn-primary">{{$t "global.button.saveChanges" }}</button>
+        <a class="btn btn-secondary btn-cancel">Abbrechen</a>
+        <button type="submit" class="btn btn-primary">Änderungen speichern</button>
     </div>
 
     <hr class="my-2"/>
 
     <div class="mb-3">
-        <h2 class="h4">{{$t "administration.classes.label.yourStudentsAreNotYetInThe" }} {{theme.short_title}}?</h2>
+        <h2 class="h4">Deine Schüler sind noch nicht in der {{theme.short_title}}?</h2>
         <p>
-           {{$t "administration.classes.text.inviteTheParentsViaLink" }}
+            Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.
         </p>
     </div>
 
     <div class="mb-3">
         <h2 class="h4">
-            {{$t "administration.global.text.obtainADeclarationConsent" }}
+            Einverständniserklärung einholen
         </h2>
         {{#if schoolUsesLdap}}
-            <strong>{{$t "administration.global.text.studentsLoginInThePresenceOfGuardian" }}</strong>
+            <strong>Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein</strong>
 
-            <p> {{$t "administration.global.text.byConnectingToASchoolState" (dict "shortTitle" theme.short_title)}}</p>
+            <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
         {{else}}
-            <strong>{{$t "administration.global.text.inviteparentsAndStudentViaLink" }}</strong>
+            <strong>Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben</strong>
             <p>
-                {{$t "administration.longText.text.provideStudentsAndTheirParents" }}
+                Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.
             </p>
-            <p>{{$t "administration.students.text.forAllStudentsWithoutAFullConsentForm" }}</p>
+            <p>Für alle Schüler</strong> ohne vollständige Einverständniserklärung:</p>
             <p>
                 <button data-class="{{class._id}}" data-role="student" class="btn btn-secondary btn-send-links-emails">
-                    {{$t "administration.global.button.sendLinksToStudentEmailAddresses" }}
+                    Links an Schüler E-Mail Adressen senden
                 </button>
                 <button data-class="{{class._id}}" data-role="student" class="btn btn-secondary btn-print-links">
-                    {{$t "administration.global.button.createLinkSheet" }}
+                    Link-Druckbogen erstellen
                 </button>
             </p>
             <p>
-                {{$t "administration.global.text.orSelectStudentFromTable" }}
+                Oder wähle Schüler in der Tabelle aus.
             </p>
         {{/if}}
     </div>
@@ -92,14 +92,14 @@
     {{#if consentsMissing}}
         <div class="mb-3">
             <h2 class="h4">
-                {{$t "administration.global.text.manuallyConsent" }}
+                Einverständnis manuell erklären
             </h2>
             <p>
-            {{$t "administration.longText.text.ifAllStudentsAndParentsHaveGiven" }}
+            Wenn die Einverständniserklärung von allen Schülern und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.
             </p>
 
                 <a href="skipregistration" class="btn btn-primary btn-skip-consent">
-                        <i class="fa fa-exclamation-triangle"></i> {{$t "administration.classes.text.manuallyGiveConsentForAllStudent" }}
+                        <i class="fa fa-exclamation-triangle"></i> Einverständnis manuell für alle Schüler erklären
                 </a>
 
 
@@ -107,7 +107,7 @@
     {{/if}}
 
     <div>
-        <h2 class="h4 mt-1">{{$t "administration.classes.label.pleaseNote" }}</h2>
+        <h2 class="h4 mt-1">Bitte beachte:</h2>
         <div class="row">
             <div class="col-sm-12">
                 <div id="accordion" role="tablist" aria-multiselectable="true">
@@ -142,20 +142,20 @@
     {{#content "fields"}}
 
         <div class="form-group">
-            <label for="filter_schoolyear">{{$t "administration.classes.label.filterBySchoolYear" }}</label>
-            <select id="filter_schoolyear" name="classes" data-placeholder="{{$t "administration.classes.label.filterBySchoolYear" }}">
-                <option value="" selected>{{$t "administration.classes.label.all" }}</option>
+            <label for="filter_schoolyear">Nach Schuljahr filtern</label>
+            <select id="filter_schoolyear" name="classes" data-placeholder="Nach Schuljahr filtern">
+                <option value="" selected>Alle</option>
                 {{#each schoolyears}}
                     <option value="{{this._id}}">
                         {{this.name}}
                     </option>
                 {{/each}}
             </select>
-            <p>{{$t "administration.classes.text.attentionIfYouChangeTheSchoolYear" }}</p>
+            <p>Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.</p>
         </div>
         <div class="form-group">
-            <label for="student_from_class_import">{{$t "administration.classes.label.addStudentFromPreviousYearClass" }}</label>
-            <select id="student_from_class_import" name="classes" multiple data-placeholder="{{$t "administration.global.placeholder.selectOldClasses" }}">
+            <label for="student_from_class_import">Schüler aus Vorjahres-Klasse hinzufügen</label>
+            <select id="student_from_class_import" name="classes" multiple data-placeholder="Alte Klasse(n) auswählen">
                 {{#each classes}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                         {{this.displayName}}

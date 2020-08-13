@@ -15,7 +15,7 @@ Master: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg
 
 ## Requirements  
   
-* node.js 12 or later
+* node.js 8.7 or later
 
 You might take a look at the [Dockerfile](https://github.com/schul-cloud/schulcloud-client/blob/master/Dockerfile) to see some more dependencies and latest version informations.
 

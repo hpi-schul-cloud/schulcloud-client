@@ -22,7 +22,7 @@
             <h2 class="h3">{{$t "teams._team.members.headline.selectAndAddTeacher"}}</h2>
             <div class="form-group">
                 <label for="federalstate">{{$t "teams._team.members.label.federalState"}}</label>
-                <select class="search-enabled" placeholder="{{$t "teams._team.members.placeholder.selectFederalState"}}" data-force-value="true"
+                <select class="search-enabled" placeholder="{{$t "teams._team.members.placeholder.selectFederalState"}}" data-force-value="true" 
                 data-placeholder="{{$t "teams._team.members.placeholder.selectFederalState"}}" name="federalstate" id="federalstate">
                     {{#each federalStates}}
                         <option value="{{this._id}}" data-id="{{this._id}}" {{#ifeq @root.currentFederalState this._id}}selected="selected"{{/ifeq}}>{{this.name}}</option>
@@ -30,8 +30,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="school">{{$t "global.link.school"}}</label>
-                <select class="search-enabled" placeholder="{{$t "teams._team.members.placeholder.selectSchool"}}"
+                <label for="school">{{$t "teams._team.members.label.school"}}</label>
+                <select class="search-enabled" placeholder="{{$t "teams._team.members.placeholder.selectSchool"}}"  
                 data-placeholder="{{$t "teams._team.members.placeholder.selectSchool"}}" name="school" id="school">
                     {{#each schools}}
                         <option value="{{this._id.name}}" data-id="{{this._id._id}}">{{this.label}}</option>
@@ -39,9 +39,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="teacher">{{$t "global.role.text.teacher"}}</label>
-                <select class="search-enabled" placeholder="{{$t "global.placeholder.selectTeacher"}}"
-                data-placeholder="{{$t "global.placeholder.selectTeacher"}}" name="teacher" id="teacher">
+                <label for="teacher">{{$t "teams._team.members.label.teacher"}}</label>
+                <select class="search-enabled" placeholder="{{$t "teams._team.members.placeholder.selectTeacher"}}"  
+                data-placeholder="{{$t "teams._team.members.placeholder.selectTeacher"}}" name="teacher" id="teacher">
                     {{#each teachers}}
                         <option value="{{this._id.name}}" data-id="{{this._id._id}}">{{this.label}}</option>
                     {{/each}}
@@ -75,6 +75,6 @@
         <div class="form-group">
             <label for="email">{{$t "teams._team.members.label.insertEmailOfExpertToInvite"}}</label>
             <input class="form-control" type="text" name="email" id="email" placeholder="{{$t "teams._team.members.placeholder.insertEmail"}}">
-        </div>
+        </div>      
     </div>
 </div>

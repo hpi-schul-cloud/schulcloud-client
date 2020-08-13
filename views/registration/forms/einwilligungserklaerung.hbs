@@ -14,7 +14,7 @@
 		{{/if}}
 	</label>
 
-	<p class="explanation">{{{$t "registration._registration.global.text.agreementIsVoluntary" (dict "title" @root.theme.title)}}} {{{$t "registration._registration.global.text.agreementCanBeRevoked"}}} {{{$t "registration._registration.global.text.inCaseOfRevocationDataDeletion"}}}</p>
+	<p class="explanation">{{{$t "registration._registration.global.text.agreementIsVoluntary" (dict "title" @root.theme.title)}}} {{{$t "registration._registration.global.text.agreementCanBeRevoked"}}} {{{$t "registration._registration.global.text.inCaseOfRevokationDataDeletion"}}}</p>
 {{else}}
 	<label>
 		<input name="{{prefix}}privacyConsent" type="checkbox" value="true" required/>
@@ -23,10 +23,10 @@
 		{{else}}
 			<span>{{{$t "registration._registration.global.text.myDataMayBeProcessed" (dict "link" @root.theme.documents.specificFiles.privacyExemplary "title" @root.theme.title)}}} </span>
 		{{/if}}	</label>
-	<p class="explanation">{{{$t "registration._registration.global.text.agreementIsVoluntary" (dict "title" @root.theme.title)}}} {{{$t "registration._registration.global.text.agreementCanBeRevoked"}}} {{{$t "registration._registration.global.text.inCaseOfRevocationDataDeletion"}}}</p>
+	<p class="explanation">{{{$t "registration._registration.global.text.agreementIsVoluntary" (dict "title" @root.theme.title)}}} {{{$t "registration._registration.global.text.agreementCanBeRevoked"}}} {{{$t "registration._registration.global.text.inCaseOfRevokationDataDeletion"}}}</p>
 {{/if}}
 
 <label>
     <input name="{{prefix}}termsOfUseConsent" type="checkbox" value="true" required/>
-    <span>{{{$t "registration.text.agreeTermsOfUse" (dict "link" @root.theme.documents.specificFiles.termsOfUseExemplary "title" @root.theme.title)}}}</span>
+    <span>{{{$t "registration.text.iReadAndAgreeWithTermsOfUse" (dict "link" @root.theme.documents.specificFiles.termsOfUseExemplary "title" @root.theme.title)}}}</span>
 </label>

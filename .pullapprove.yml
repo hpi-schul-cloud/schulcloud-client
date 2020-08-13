@@ -55,7 +55,6 @@ groups:
     reviewers:
       teams:
       - client-core
-      - client-team
     reviews:
       required: 1  # number of approvals required from this group
       request: 1  # number of review requests sent at a time

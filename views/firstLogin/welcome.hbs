@@ -6,19 +6,19 @@
 		<section class="empty-state">
 		  <img src="/images/empty-states/lehrer_klasse.svg" alt="Lehrer mit Klasse" class="image mx-auto d-block"/>
 		  <div class="text-wrapper mx-auto d-block">
-			<h2 class="text-center">{{$t "firstLogin.welcome.text.welcomeTo" (dict "title" theme.title "displayName" currentUser.displayName)}}</h2>
+			<h2 class="text-center">Willkommen in der {{theme.title}}, {{currentUser.displayName}}</h2>
 			{{#unless (userHasRole "student")}}
 			  <h2 class="h5 text-muted text-center">
-				  {{$t "firstLogin.welcome.text.withThe" (dict "shortTitle" theme.short_title)}}
+				  Mit der {{theme.short_title}} Unterricht digital gestalten
 			  </h2>
 			{{/unless}}
 			</div>
 			<div class="row">
 				<div class="center buttons">
 					{{#if (userHasRole "student")}}
-						<a href="/courses/" class="btn btn-primary btn-lg btn-add">{{$t "firstLogin.welcome.button.toYourCourses" }}</a>
+						<a href="/courses/" class="btn btn-primary btn-lg btn-add">Zu deinen Kursen</a>
 					{{else}}
-						<a href="/courses/add" class="btn btn-primary btn-lg btn-add">{{$t "global.button.createFirstCourse" }}</a>
+						<a href="/courses/add" class="btn btn-primary btn-lg btn-add">Erstelle deinen ersten Kurs</a>
 					{{/if}}
 				</div>
 			</div>

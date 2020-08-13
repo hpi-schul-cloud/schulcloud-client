@@ -1,11 +1,11 @@
 <section id="feedback" class="tab-content section-homeworkdetails">
     <div class="homework print">
         <div class="btn btn-secondary btn-print btn-sm pull-right mb-1"
-            data-toggle="tooltip" title="{{$t "homework._task.label.printGradeComment"}}">
+            data-toggle="tooltip" title="Bewertung drucken">
                 <i class='fa fa-print'></i>
         </div>
         {{#if @root.submission.grade}}
-           {{{$t "homework._task.text.youHaveSolvedXPercent" (dict "grade" @root.submission.grade)}}}
+           Du hast <b class="grade">{{@root.submission.grade}}%</b> richtig gelöst.
         {{/if}}
 
         <div class="comment ckcontent">
@@ -15,12 +15,5 @@
                 <p>{{$t "homework.text.noEvaluationTextAvailable" }}</p>
             {{/if}}
         </div>
-        {{#ifneq 0 (arrayLength @root.submission.gradeFileIds)}}
-            {{#embed "homework/components/submission_files"
-                fileIds=../submission.gradeFileIds
-                grading=true
-                deletionAllowed=false
-                submission=../submission}}{{/embed}}
-        {{/ifneq}}
     </div>
 </section>

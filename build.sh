@@ -47,15 +47,10 @@ function buildandpush {
   docker push schulcloud/schulcloud-client-brb:$DOCKERTAG
   docker push schulcloud/schulcloud-client-brb:$GIT_SHA
 
-  # build container thr theme
+    # build container thr theme
   docker build -t schulcloud/schulcloud-client-thr:$DOCKERTAG -t schulcloud/schulcloud-client-thr:$GIT_SHA -f Dockerfile.thr .
   docker push schulcloud/schulcloud-client-thr:$DOCKERTAG
   docker push schulcloud/schulcloud-client-thr:$GIT_SHA
-
-  # build container int theme
-  docker build -t schulcloud/schulcloud-client-int:$DOCKERTAG -t schulcloud/schulcloud-client-int:$GIT_SHA -f Dockerfile.int .
-  docker push schulcloud/schulcloud-client-int:$DOCKERTAG
-  docker push schulcloud/schulcloud-client-int:$GIT_SHA
   fi
 }
 

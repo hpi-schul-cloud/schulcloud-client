@@ -62,7 +62,7 @@
 								</a>
 								<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
 									class="btn btn-secondary btn-sm btn-icon-card"
-									title="{{$t "global.button.editTopic"}}">
+									title="{{$t "courses._course.topic.text.editTopic"}}">
 									<i class="fa fa-pencil"></i>
 								</a>
 								{{/unless}}
@@ -102,7 +102,7 @@
 								</a>
 								<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
 									class="btn btn-secondary btn-sm btn-icon-card"
-									title="{{$t "global.button.editTopic"}}">
+									title="{{$t "courses._course.topic.text.editTopic"}}">
 									<i class="fa fa-pencil"></i>
 								</a>
 								{{/unless}}
@@ -121,10 +121,8 @@
 			</div>
 			{{else}}
 			<div class="empty-state empty-state-courses">
-				{{> courses/components/svg_topics}}
-				<!--<img src="/images/empty-states/topics.svg" alt="{{$t "courses._course.topic.img_alt.noTopics"}}"
-					class="image course-empty-content-image" />-->
-
+				<img src="/images/empty-states/topics.svg" alt="{{$t "courses._course.topic.img_alt.noTopics"}}"
+					class="image topic-image" />
 				{{#unless @root.isArchived}}
 				{{#userHasPermission "COURSE_EDIT"}}
 				<h2 class="h4">{{$t "courses._course.topic.headline.createFirstTopic"}}</h2>
@@ -235,9 +233,8 @@
 			</div>
 			{{else}}
 			<div class="empty-state empty-state-courses">
-				{{> courses/components/svg_topics}}
-				<!--<img src="/images/empty-states/topics.svg" alt="{{$t "courses._course.topic.img_alt.noTopics"}}" class="image course-empty-content-image" />-->
-
+				<img src="/images/empty-states/topics.svg" alt="{{$t "courses._course.topic.img_alt.noTopics"}}"
+					class="image topic-image" />
 				{{#unless @root.isArchived}}
 				{{#userHasPermission "COURSE_EDIT"}}
 				<h2 class="h4">{{$t "courses._course.topic.headline.createFirstTopicWithNewEditor"}}</h2>

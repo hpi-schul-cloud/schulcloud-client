@@ -12,8 +12,8 @@ router.use(authHelper.authChecker);
 const contentFilterSettings = (res) => [
 	{
 		type: 'sort',
-		title: res.$t('global.headline.sorting'),
-		displayTemplate: res.$t('global.label.sortBy'),
+		title: res.$t('content.headline.sortBy'),
+		displayTemplate: res.$t('content.label.sortBy'),
 		options: [
 			['updatedAt', res.$t('content.text.date')],
 			['providerName', res.$t('content.text.provider')],
@@ -23,8 +23,8 @@ const contentFilterSettings = (res) => [
 	},
 	{
 		type: 'limit',
-		title: res.$t('global.headline.entriesPerPage'),
-		displayTemplate: res.$t('global.label.entriesPerPage'),
+		title: res.$t('content.headline.entriesPerPage'),
+		displayTemplate: res.$t('content.label.entriesPerPage'),
 		options: [9, 18, 24, 48, 99],
 		defaultSelection: 9,
 	},

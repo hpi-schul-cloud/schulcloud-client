@@ -1,10 +1,12 @@
 <div class="section {{#if loggedin}}container container-content{{/if}}">
   {{#embed "authentication/section"}}
 	  {{#content "body"}}
-			<h2 class="section-title {{#unless loggedin}}loggedout{{/unless}}">{{$t "security.headline.security"}}</h2>
-			<h3>{{$t "security.headline.reportSecurityIssue"}}</h3>
-			<p>{{$t "security.text.scIsTestedRegularyWeValueSecurity" (dict "themeTitle" theme.title)}} 
-				{{$t "security.text.youHaveFoundAWeakness"}} 
+			<h2 class="section-title {{#unless loggedin}}loggedout{{/unless}}">Sicherheit</h2>
+			<h3>Sicherheitsproblem melden</h3>
+			<p>Die {{theme.title}} wird regelmäßig Sicherheitsüberprüfungen und Penetrationstests unterzogen, da
+			uns die Sicherheit der
+			Daten unserer Nutzer:innen sehr wichtig ist. Du hast trotzdem ein Sicherheitsproblem gefunden? Schreib uns, damit
+			wir die Lücke schnellstmöglich schließen können: 
 				<a class="section-link {{#if loggedin}}loggedin{{/if}}" href="mailto:security@schul-cloud.org" target="_blank" rel="noopener">security@schul-cloud.org</a>
 			</p>
 	  {{/content}}

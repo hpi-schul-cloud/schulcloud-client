@@ -92,7 +92,7 @@ router.get('/', async (req, res, next) => {
 				version.visualType = res.$t('login.headline.privacyAndTermsOfUse');
 			} else {
 				if (version.consentTypes.includes('privacy')) {
-					version.visualType = res.$t('global.text.dataProtection');
+					version.visualType = res.$t('login.headline.onlyPrivacy');
 				}
 				if (version.consentTypes.includes('termsOfUse')) {
 					version.visualType = res.$t('login.headline.onlyTermsOfUse');

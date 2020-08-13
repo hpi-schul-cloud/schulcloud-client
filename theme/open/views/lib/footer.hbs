@@ -1,41 +1,29 @@
-<footer id="footer" class="hide-inline small-footer">
+<footer class="hide-inline small-footer">
 	<div class="imprint">
 		<div class="center">
-			<img src="/images/footer-logo.png" alt="" role="presentation"/>
+			<img src="/images/footer-logo.png" alt="Anbieterlogo" />
 			<span>&copy; {{currentYear}} {{theme.short_title}} </span>
 
-			<nav aria-label="{{$t "lib.headline.aria_label"}}">
-				<ul>
-					<li>
-						<a href="/impressum">{{$t "global.link.imprint"}}</a>
-						<span> - </span>
-					</li>
-					<li>
-						<a href="{{theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" aria-label="{{$t "login.headline.onlyTermsOfUse"}} Open Schul-Cloud PDF {{$t "global.link.openInNewTabWarning"}}" rel="noopener">{{$t "login.headline.onlyTermsOfUse"}} Open Schul-Cloud</a>
-						<span> - </span>
-					</li>
-					<li>
-						<a href="{{theme.documents.specificFiles.privacy}}" target="_blank" aria-label="{{$t "login.headline.onlyPrivacy"}} Open Schul-Cloud PDF {{$t "global.link.openInNewTabWarning"}}" rel="noopener">{{$t "login.headline.onlyPrivacy"}} Open Schul-Cloud</a>
-						<span> - </span>
-					</li>
-					<li>
-						<a href="{{theme.documents.specificFiles.privacy}}" target="_blank" aria-label="{{$t "global.text.dataProtection"}} Open Schul-Cloud PDF {{$t "global.link.openInNewTabWarning"}}" rel="noopener">{{$t "global.text.dataProtection"}} Open Schul-Cloud</a>
-						<span> - </span>
-					</li>
-					<li>
-						<a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a>
-						<span> - </span>
-					</li>
-					<li>
-						<a href="https://status.schul-cloud.org" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a>
-					</li>
-				</ul>
-			</nav>
 			<div>
-				<p lang="en" class="made-with-love">Made with <span class="heart" aria-label="love">❤</span> in Potsdam | Translated by <a
-				href="https://lokalise.com" target="_" aria-label="https://lokalise.com {{$t "global.link.openInNewTabWarning"}}"><img class="poweredby-logo" alt="lokalise.com Logo"
-																																  src="/images/logo/lokalise_logo.svg"></a>
-				</p>
+				<a href="/impressum">Impressum</a>
+				<span> - </span>
+				<a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank"
+					rel="noopener">Nutzungsordnung Open Schul-Cloud</a>
+				<span> - </span>
+				<a href="{{@root.theme.documents.specificFiles.privacy}}" target="_blank"
+					rel="noopener">Datenschutzerklärung Open Schul-Cloud</a>
+				<span> - </span>
+				<a href="{{@root.theme.documents.specificFiles.privacy}}" target="_blank" rel="noopener">Datenschutzerklärung
+					Schule</a>
+				<span> - </span>
+				<a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener">GitHub</a>
+				<span> - </span>
+				<a href="https://status.schul-cloud.org" target="_blank" rel="noopener">Status</a>
+			</div>
+			<div>
+				<p class="made-with-love">Made with <span class="heart">❤</span> in Potsdam | Translated by <a
+						href="https://lokalise.com" target="_"><img class="poweredby-logo" alt="lokalise.com Logo"
+							src="/images/logo/lokalise_logo.svg"></a></p>
 			</div>
 		</div>
 	</div>

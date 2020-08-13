@@ -17,14 +17,14 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{$t "global.label.firstNameColon" }}  <sup>*</sup></label>
+                                <label>{{$t "administration.label.firstName" }}  <sup>*</sup></label>
                                 <input class="form-control" name="firstName" type="text" required {{#if schoolUsesLdap}}readonly{{/if}} value="{{user.firstName}}"/>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{$t "global.label.lastNameColon" }} <sup>*</sup></label>
+                                <label>{{$t "administration.label.lastName" }} <sup>*</sup></label>
                                 <input class="form-control" name="lastName" type="text" required {{#if schoolUsesLdap}}readonly{{/if}} value="{{user.lastName}}"/>
                             </div>
                         </div>
@@ -35,12 +35,12 @@
                     </div>-->
 
                     <div class="form-group">
-                        <label>{{$t "global.label.emailAddress" }} <sup>*</sup></label>
+                        <label>{{$t "administration.label.emailAddress" }} <sup>*</sup></label>
                         <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org" value="{{user.email}}" required {{#if schoolUsesLdap}}readonly{{/if}}>
                     </div>
                 {{#unless editTeacher}}
                     <div class="form-group">
-                        <label>{{$t "global.label.dateOfBirth" }}<sup>*</sup></label>
+                        <label>{{$t "administration.label.birthdate" }}<sup>*</sup></label>
                         <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required
                         {{#if user.birthday }}
                         value="{{dateToPicker user.birthday}}"
@@ -49,8 +49,8 @@
                     </div>
                 {{else}}
                     <div class="form-group mb-2">
-                        <Label>{{$t "administration.global.label.classes" }}</Label>
-                        <select class="form-control form-control-lg" type="text" name="classes" multiple="true" placeholder="{{$t "administration.users_edit.text.class" }}">
+                        <Label>{{$t "administration.label.classes" }}</Label>
+                        <select class="form-control form-control-lg" type="text" name="classes" multiple="true" placeholder="Klassen des Nutzers">
                             {{#each classes}}
                                 <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.displayName}} ({{this.year.name}})</option>
                             {{/each}}
@@ -58,40 +58,40 @@
                     </div>
                 {{/unless}}
 
-                {{#unless hasImportHash}}<button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">{{$t "global.button.edit" }}<i class="fa fa-edit"></i></button>{{/unless}}
+                {{#unless hasImportHash}}<button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">{{$t "administration.button.edit" }}<i class="fa fa-edit"></i></button>{{/unless}}
                 <h2 class="h5">{{$t "administration.button.consent" }} {{{consentStatusIcon}}}</h2>
                 <div class="row" id="consents-overview">
                     {{#unless editTeacher}}
                         {{#unless hasImportHash}}
                             <div class="col-md-6">
-                                <b>{{$t "administration.global.label.parents" }}</b><br/>
+                                <b>{{$t "administration.label.parents" }}</b><br/>
                                 <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" disabled/>
 
-                                <label><input name="parent_form" value="analog" type="radio" disabled {{#ifeq consent.parentConsent.form 'analog'}}checked{{/ifeq}}/> {{$t "administration.label.analog" }}</label>
-                                <label><input name="parent_form" value="digital" type="radio" disabled {{#ifeq consent.parentConsent.form 'digital'}}checked{{/ifeq}}/> {{$t "administration.label.digital" }}</label>
+                                <label><input name="parent_form" value="analog" type="radio" disabled {{#ifeq consent.parentConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                                <label><input name="parent_form" value="digital" type="radio" disabled {{#ifeq consent.parentConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
                                 <br/>
-                                <label><input name="parent_privacyConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.global.label.dataProtection" }}</label><br/>
-                                <label><input name="parent_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.termsOfUseConsent}}checked{{/if}}/> {{$t "administration.label.termsOfUse" }}</label><br/>
+                                <label><input name="parent_privacyConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
+                                <label><input name="parent_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
                             </div>
                             <div class="col-md-6">
-                                <b>{{$t "administration.global.label.student" }}</b><br/>
+                                <b>{{$t "administration.label.student" }}</b><br/>
                                 <input name="student_consentId" type="hidden" value="{{consent._id}}" disabled/>
 
-                                <label><input name="student_form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> {{$t "administration.label.analog" }}</label>
-                                <label><input name="student_form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> {{$t "administration.label.digital" }}</label>
+                                <label><input name="student_form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                                <label><input name="student_form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
                                 <br/>
-                                <label><input name="student_privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.global.label.dataProtection" }}</label><br/>
-                                <label><input name="student_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> {{$t "administration.label.termsOfUse" }}</label><br/>
+                                <label><input name="student_privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
+                                <label><input name="student_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
                             </div>
                         {{else}}
                             <div class="col-md-6">
                                 <p>
-                                    {{$t "administration.longText.text.thereIsNoDeclarationOfConsent" }}
+                                    Es liegt noch keine Einverständniserklärung für den Nutzer vor. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung und verteile ihn an den Nutzer oder seine Eltern. Während der Registrierung wird dann die Einverständniserklärung durch den Nutzer selbst erteilt. Wenn eine Einverständniserklärung in Papierform vorliegt, kann der Nutzer per Klick auf "Einverständnis auf Papier erhalten" aktiviert und ein Startpasswort vergeben werden. Damit ist der Login dann freigeschaltet.
                                 </p>
                                 <p>
                                     <a class="btn btn-secondary" href="/administration/students/{{user._id}}/skipregistration">
                                         <i class="fa fa-check-square-o"></i>
-                                        {{$t "administration.button.receivedConsentOnPaper" }}
+                                        {{$t "administration.button.receivedConsentOnPaper" }} 
                                     </a>
                                 </p>
                             </div>
@@ -100,11 +100,11 @@
                         <div class="col-md-6">
                             <input name="consentId" type="hidden" value="{{consent._id}}" disabled/>
 
-                            <label><input name="form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> {{$t "administration.label.analog" }}</label>
-                            <label><input name="form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> {{$t "administration.label.digital" }}</label>
+                            <label><input name="form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                            <label><input name="form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label>
                             <br/>
-                            <label><input name="privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.global.label.dataProtection" }}</label><br/>
-                            <label><input name="termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> {{$t "administration.global.label.termsOfUse" }}</label><br/>
+                            <label><input name="privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> {{$t "administration.label.dataProtection" }}</label><br/>
+                            <label><input name="termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> {{$t "administration.label.termsOfUse" }}</label><br/>
                         </div>
                     {{/unless}}
                     </div>
@@ -113,15 +113,15 @@
                             <div class="pull-left">
                                 {{#unless schoolUsesLdap}}
                                     {{#ifCond isAdmin '|| !' editTeacher}}
-                                        <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled title="{{$t "administration.users_edit.text.firstClose" }}"{{/if}}>{{$t "administration.users_edit.button.changePassword" }}</button>
+                                        <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled title="Der Nutzer muss zuerst die Einverständniserklärung digital abschließen"{{/if}}>{{$t "administration.button.changePassword" }}</button>
                                         <button class="btn btn-secondary btn-delete">{{$t "administration.button.deleteUser" }}</button>
                                     {{/ifCond}}
                                     <button class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}"
-                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="{{$t "administration.users_edit.button.alreadyRegistered" }}"{{/ifeq}}>
+                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="Der Nutzer ist bereits registriert"{{/ifeq}}>
                                         {{$t "administration.button.generatePersonalInvitationLink" }}
                                     </button>
                                     <button class="btn btn-secondary btn-send-link-email {{#if editTeacher}}teacher{{else}}student{{/if}}"
-                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="{{$t "administration.users_edit.button.alreadyRegistered" }}"{{/ifeq}}>
+                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="Der Nutzer ist bereits registriert"{{/ifeq}}>
                                         {{$t "administration.button.sendTheInvitationLinkByMail" }}
                                     </button>
                                 {{/unless}}

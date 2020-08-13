@@ -61,7 +61,6 @@ const getTableActions = (
 	isTeacher = false,
 	isStudentAction = false,
 	category,
-	res,
 ) => {
 	let editButtonClass = 'btn-edit';
 	if (item.type === 'ldap') {
@@ -73,7 +72,7 @@ const getTableActions = (
 				item.type === 'ldap' ? `${path}ldap/edit/${item._id}` : path + item._id,
 			class: `${editButtonClass} ${isTeacher ? 'disabled' : ''}`,
 			icon: 'edit',
-			title: res.$t('administration.controller.link.editEntry'),
+			title: 'Eintrag bearbeiten',
 		},
 		{
 			link: path + item._id,
@@ -81,18 +80,18 @@ const getTableActions = (
 				&& 'btn-delete--systems'}`,
 			icon: 'trash-o',
 			method: `${isAdmin ? 'delete' : ''}`,
-			title: res.$t('administration.controller.link.deleteEntry'),
+			title: 'Eintrag löschen',
 		},
 		{
 			link: isStudentAction ? `${path}pw/${item._id}` : '',
 			class: isStudentAction ? 'btn-pw' : 'invisible',
 			icon: isStudentAction ? 'key' : '',
-			title: res.$t('administration.controller.link.resetPassword'),
+			title: 'Passwort zurücksetzen',
 		},
 	];
 };
 
-const getTableActionsSend = (item, path, state, res) => {
+const getTableActionsSend = (item, path, state) => {
 	const actions = [];
 	if (state === 'submitted' || state === 'closed') {
 		actions.push(
@@ -100,7 +99,7 @@ const getTableActionsSend = (item, path, state, res) => {
 				link: path + item._id,
 				class: 'btn-edit',
 				icon: 'edit',
-				title: res.$t('administration.controller.link.editEntry'),
+				title: 'Eintrag bearbeiten',
 			},
 			{
 				class: 'disabled',
@@ -117,21 +116,21 @@ const getTableActionsSend = (item, path, state, res) => {
 				link: path + item._id,
 				class: 'btn-edit',
 				icon: 'edit',
-				title: res.$t('administration.controller.link.editEntry'),
+				title: 'Eintrag bearbeiten',
 			},
 			{
 				link: path + item._id,
 				class: 'btn-disable',
 				icon: 'archive',
 				method: 'delete',
-				title: res.$t('administration.controller.link.completeEntry'),
+				title: 'Eintrag abschließen',
 			},
 			{
 				link: path + item._id,
 				class: 'btn',
 				icon: 'paper-plane',
 				method: 'post',
-				title: res.$t('administration.controller.link.sendEntryToDevelopmentTeam'),
+				title: 'Eintrag an Entwicklerteam senden',
 			},
 		);
 	}
@@ -213,8 +212,6 @@ const mapTimeProps = (req, res, next) => {
  * weekday {Number} - from 0 to 6, the weekday the course take place
  * @param data {object}
  * @param service {string}
- * @param req
- * @param res
  */
 const createEventsForData = (data, service, req, res) => {
 	// can just run if a calendar service is running on the environment and the course have a teacher
@@ -320,9 +317,9 @@ const generateRegistrationLink = (params, internalReturn) => function registrati
 		.catch((err) => {
 			req.session.notification = {
 				type: 'danger',
-				message: res.$t('administration.controller.text.errorCreatingRegistrationLink', {
-					errMessage: (err.error || {}).message || err.message || err || '',
-				}),
+				message: `Fehler beim Erstellen des Registrierungslinks.
+          Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.
+          ${(err.error || {}).message || err.message || err || ''}`,
 			};
 			redirectHelper.safeBackRedirect(req, res);
 		});
@@ -352,18 +349,17 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 			.post('/mails/', {
 				json: {
 					email: user.email,
-					subject: res.$t('administration.controller.text.invitationToUseThe', {
-						title: res.locals.theme.title,
-					}),
+					subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
 					headers: {},
 					content: {
-						text: res.$t('administration.controller.text.invitationToThe', {
-							title: res.locals.theme.title,
-							firstName: user.firstName,
-							lastName: user.lastName,
-							shortLink: user.shortLink || res.locals.linkData.shortLink,
-							shortTitle: res.locals.theme.short_title,
-						}),
+						text: `Einladung in die ${res.locals.theme.title}
+Hallo ${user.firstName} ${user.lastName}!
+\nDu wurdest eingeladen, der ${
+	res.locals.theme.title
+} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${user.shortLink
+							|| res.locals.linkData.shortLink}
+\nViel Spaß und einen guten Start wünscht dir dein
+${res.locals.theme.short_title}-Team`,
 					},
 				},
 			})
@@ -372,7 +368,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 				req.session.notification = {
 					type: 'success',
 					message:
-					res.$t('administration.controller.text.userCreatedSuccessfullyAndRegistration'),
+						'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.',
 				};
 				return redirectHelper.safeBackRedirect(req, res);
 			})
@@ -380,9 +376,9 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 				if (internalReturn) return false;
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t('administration.controller.text.userCreatedErrorSendingTheMail', {
-						errMessage: (err.error || {}).message || err.message || err || '',
-					}),
+					message: `Nutzer erstellt. Fehler beim Versenden der E-Mail.
+            Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.
+            ${(err.error || {}).message || err.message || err || ''}`,
 				};
 				return redirectHelper.safeBackRedirect(req, res);
 			});
@@ -390,7 +386,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 	if (internalReturn) return true;
 	req.session.notification = {
 		type: 'success',
-		message: res.$t('administration.controller.text.userCreatedSuccessfully'),
+		message: 'Nutzer erfolgreich erstellt.',
 	};
 	return redirectHelper.safeBackRedirect(req, res);
 
@@ -424,7 +420,7 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 		const birthday = req.body.birthday.split('.');
 		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
 			birthday[0]
-			}T00:00:00Z`;
+		}T00:00:00Z`;
 	}
 	return api(req)
 		.post('/users/', {
@@ -439,7 +435,7 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 			if (internalReturn) return true;
 			req.session.notification = {
 				type: 'success',
-				message: res.$t('administration.controller.text.userCreatedSuccessfully'),
+				message: 'Nutzer erfolgreich erstellt.',
 			};
 			return redirectHelper.safeBackRedirect(req, res);
 
@@ -453,9 +449,8 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 			if (internalReturn) return false;
 			req.session.notification = {
 				type: 'danger',
-				message: res.$t('administration.controller.text.failedToCreateUser', {
-					error: err.error.message || '',
-				}),
+				message: `Fehler beim Erstellen des Nutzers. ${err.error.message
+					|| ''}`,
 			};
 			return redirectHelper.safeBackRedirect(req, res);
 		});
@@ -515,17 +510,9 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 	const buildMessage = (stats) => {
 		const numberOfUsers = stats.users.successful + stats.users.failed;
 		return (
-			res.$t(
-				(numberOfUsers > 1
-					? 'administration.controller.text.successfullyImportedUsers'
-					: 'administration.controller.text.successfullyImportedUser'),
-				{
-					amountImported: stats.users.successful,
-					amountTotal: numberOfUsers,
-					amountCreated: stats.users.created,
-					amountUpdated: stats.users.updated,
-				},
-			)
+			`${stats.users.successful} von ${numberOfUsers} `
+			+ `Nutzer${numberOfUsers > 1 ? 'n' : ''} erfolgreich importiert `
+			+ `(${stats.users.created} erstellt ${stats.users.updated} aktualisiert).`
 		);
 	};
 	const buildErrorMessage = (stats) => {
@@ -535,7 +522,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			.map((err) => `${err.entity} (${err.message})`)
 			.join(', ');
 		if (errorText === '') {
-			errorText = res.$t('administration.controller.text.anUnknownErrorOccurred');
+			errorText = 'Es ist ein unbekannter Fehler beim Importieren aufgetreten.';
 		}
 		return errorText;
 	};
@@ -557,9 +544,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		let message = buildMessage(stats);
 		if (!stats.success) {
 			messageType = 'warning';
-			message += ` ${res.$t('administration.controller.text.errorImportingUsers', {
-				errorMessage: buildErrorMessage(stats),
-			})}`;
+			message += ` Fehler:\n\n${buildErrorMessage(stats)}`;
 		}
 		req.session.notification = {
 			type: messageType,
@@ -572,7 +557,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 		return;
 	} catch (err) {
-		const message = res.$t('administration.controller.text.importFailed');
+		const message = 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.';
 		req.session.notification = {
 			type: 'danger',
 			message,
@@ -583,6 +568,12 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		});
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 	}
+};
+
+const dictionary = {
+	open: 'Offen',
+	closed: 'Geschlossen',
+	submitted: 'Gesendet',
 };
 
 const getUpdateHandler = (service) => function updateHandler(req, res, next) {
@@ -745,41 +736,31 @@ const updatePolicy = (req, res, next) => {
 	});
 };
 
-const returnAdminPrefix = (roles, res) => {
+const returnAdminPrefix = (roles) => {
 	let prefix;
 	// eslint-disable-next-line array-callback-return
 	roles.map((role) => {
 		// eslint-disable-next-line no-unused-expressions
 		role.name === 'teacher'
-			? (prefix = res.$t('administration.controller.headline.management'))
-			: (prefix = res.$t('administration.controller.headline.administration'));
+			? (prefix = 'Verwaltung: ')
+			: (prefix = 'Administration: ');
 	});
 	return prefix;
 };
 
 // with userId to accountId
-const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, next) {
-	try {
-		await api(req)
-			.patch(`/users/${req.params.id}`, {
-				json: { forcePasswordChange: true },
-			});
-	} catch (err) {
-		next(err);
-		return;
-	}
-
+const userIdtoAccountIdUpdate = (service) => function useIdtoAccountId(req, res, next) {
 	api(req)
-		.get(`/accounts/?userId=${req.params.id}`)
+		.get(`/${service}/?userId=${req.params.id}`)
 		.then((users) => {
 			api(req)
-				.patch(`/accounts/${users[0]._id}`, {
-					json: { ...req.body },
+				.patch(`/${service}/${users[0]._id}`, {
+					json: req.body,
 				})
 				.then(() => {
 					req.session.notification = {
 						type: 'success',
-						message: res.$t('administration.controller.text.changesSuccessfullySaved'),
+						message: 'Änderungen erfolgreich gespeichert.',
 					};
 					redirectHelper.safeBackRedirect(req, res);
 				})
@@ -792,48 +773,48 @@ const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, 
 		});
 };
 
-const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
+const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 	{
 		type: 'sort',
-		title: res.$t('global.headline.sorting'),
-		displayTemplate: res.$t('global.label.sortBy'),
+		title: 'Sortierung',
+		displayTemplate: 'Sortieren nach: %1',
 		options: [
-			['firstName', res.$t('global.label.firstName')],
-			['lastName', res.$t('global.label.lastName')],
-			['email', res.$t('administration.controller.global.label.email')],
-			['classes', res.$t('global.headline.classes')],
-			['consentStatus', res.$t('administration.controller.global.label.consentStatus')],
-			['createdAt', res.$t('global.label.creationDate')],
+			['firstName', 'Vorname'],
+			['lastName', 'Nachname'],
+			['email', 'E-Mail-Adresse'],
+			['classes', 'Klasse(n)'],
+			['consentStatus', 'Registrierung'],
+			['createdAt', 'Erstelldatum'],
 		],
 		defaultSelection: defaultOrder || 'firstName',
 		defaultOrder: 'DESC',
 	},
 	{
 		type: 'limit',
-		title: res.$t('global.headline.entriesPerPage'),
-		displayTemplate: res.$t('global.label.entriesPerPage'),
+		title: 'Einträge pro Seite',
+		displayTemplate: 'Einträge pro Seite: %1',
 		options: [25, 50, 100],
 		defaultSelection: 25,
 	},
 	{
 		type: 'select',
-		title: res.$t('administration.controller.headline.declarationOfConsentStatus'),
-		displayTemplate: res.$t('administration.controller.label.status'),
+		title: 'Einverständniserklärung Status',
+		displayTemplate: 'Status: %1',
 		property: 'consentStatus',
 		multiple: true,
 		expanded: true,
 		options: isTeacherPage
 			? [
-				['missing', res.$t('administration.controller.text.noDeclarationOfConsentAvailable')],
-				['ok', res.$t('administration.controller.text.declarationOfConsentAvailable')],
+				['missing', 'Keine Einverständniserklärung vorhanden'],
+				['ok', 'Zur Registrierung benötigte Einverständniserklärungen vorhanden'],
 			]
 			: [
-				['missing', res.$t('administration.controller.text.noDeclarationOfConsentAvailable')],
+				['missing', 'Keine Einverständniserklärung vorhanden'],
 				[
 					'parentsAgreed',
-					res.$t('administration.controller.text.parentsAgreed'),
+					'Eltern haben zugestimmt, Schüler:in noch offen',
 				],
-				['ok', res.$t('administration.controller.text.declarationOfConsentAvailable')],
+				['ok', 'Zur Registrierung benötigte Einverständniserklärungen vorhanden'],
 			],
 	},
 ];
@@ -868,8 +849,8 @@ const skipRegistration = (req, res, next) => {
 		},
 	}).then(() => {
 		res.render('administration/users_registrationcomplete', {
-			title: res.$t('administration.controller.text.agreementSuccessfullyDeclared'),
-			submitLabel: res.$t('global.button.back'),
+			title: 'Einverständnis erfolgreich erklärt',
+			submitLabel: 'Zurück',
 			users: [
 				{
 					email: req.body.email,
@@ -883,7 +864,7 @@ const skipRegistration = (req, res, next) => {
 	}).catch(() => {
 		req.session.notification = {
 			type: 'danger',
-			message: res.$t('administration.controller.text.setupFailed'),
+			message: 'Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ',
 		};
 		redirectHelper.safeBackRedirect(req, res);
 	});
@@ -912,9 +893,9 @@ router.get(
 	'/',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST', 'TEACHER_LIST'], 'or'),
 	(req, res, next) => {
-		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
+		const title = returnAdminPrefix(res.locals.currentUser.roles);
 		res.render('administration/dashboard', {
-			title: res.$t('administration.controller.headline.general', { title }),
+			title: `${title}Allgemein`,
 		});
 	},
 );
@@ -1022,12 +1003,9 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res, next) => {
 		const years = getSelectableYears(res.locals.currentSchoolData);
-		const title = res.$t('administration.controller.headline.teacher', {
-			title: returnAdminPrefix(
-				res.locals.currentUser.roles,
-				res,
-			),
-		});
+		const title = `${returnAdminPrefix(
+			res.locals.currentUser.roles,
+		)}Lehrer`;
 		res.render('administration/import', {
 			title,
 			roles: 'teacher',
@@ -1046,7 +1024,7 @@ router.post(
 router.patch(
 	'/teachers/:id/pw',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
-	userIdToAccountIdUpdate('accounts'),
+	userIdtoAccountIdUpdate('accounts'),
 );
 router.get(
 	'/teachers/:id',
@@ -1079,7 +1057,7 @@ router.get(
 		}
 
 		const currentPage = parseInt(req.query.p, 10) || 1;
-		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
+		const title = returnAdminPrefix(res.locals.currentUser.roles);
 
 		let query = {
 			$limit: itemsPerPage,
@@ -1096,20 +1074,15 @@ router.get(
 				const hasEditPermission = permissionsHelper.userHasPermission(currentUser, 'TEACHER_EDIT');
 				const users = teachersResponse.data;
 				const years = getSelectableYears(res.locals.currentSchoolData);
-				const head = [
-					res.$t('global.label.firstName'),
-					res.$t('global.label.lastName'),
-					res.$t('administration.controller.global.label.email'),
-					res.$t('global.headline.classes'),
-				];
+				const head = ['Vorname', 'Nachname', 'E-Mail-Adresse', 'Klasse(n)'];
 				if (
 					res.locals.currentUser.roles
 						.map((role) => role.name)
 						.includes('administrator')
 					&& hasEditPermission
 				) {
-					head.push(res.$t('administration.controller.global.label.createdOn'));
-					head.push(res.$t('administration.controller.global.label.consentStatus'));
+					head.push('Erstellt am');
+					head.push('Registrierung');
 					head.push('');
 				}
 				const body = users.map((user) => {
@@ -1137,7 +1110,7 @@ router.get(
 						row.push([
 							{
 								link: `/administration/teachers/${user._id}/edit`,
-								title: res.$t('administration.controller.link.editUsers'),
+								title: 'Nutzer bearbeiten',
 								icon: 'edit',
 							},
 						]);
@@ -1152,11 +1125,11 @@ router.get(
 				};
 
 				res.render('administration/teachers', {
-					title: res.$t('administration.controller.headline.teacher', { title }),
+					title: `${title}Lehrer`,
 					head,
 					body,
 					pagination,
-					filterSettings: JSON.stringify(userFilterSettings(res, 'lastName', true)),
+					filterSettings: JSON.stringify(userFilterSettings('lastName', true)),
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					schoolCurrentYear: res.locals.currentSchoolData.currentYear,
 					years,
@@ -1194,10 +1167,10 @@ router.get(
 				return c;
 			});
 			res.render('administration/users_edit', {
-				title: res.$t('administration.controller.link.editTeacher'),
+				title: 'Lehrer bearbeiten',
 				action: `/administration/teachers/${user._id}`,
-				submitLabel: res.$t('global.button.save'),
-				closeLabel: res.$t('global.button.cancel'),
+				submitLabel: 'Speichern',
+				closeLabel: 'Abbrechen',
 				user,
 				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
 				consent: user.consent,
@@ -1221,7 +1194,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 		const birthday = req.body.birthday.split('.');
 		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
 			birthday[0]
-			}T00:00:00Z`;
+		}T00:00:00Z`;
 	}
 
 	const promises = [];
@@ -1295,9 +1268,9 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	async (req, res, next) => {
 		const years = getSelectableYears(res.locals.currentSchoolData);
-		const title = res.$t('administration.controller.headline.students', {
-			title: returnAdminPrefix(res.locals.currentUser.roles, res),
-		});
+		const title = `${returnAdminPrefix(
+			res.locals.currentUser.roles,
+		)}Schüler`;
 		res.render('administration/import', {
 			title,
 			roles: 'student',
@@ -1311,7 +1284,7 @@ router.get(
 router.patch(
 	'/students/:id/pw',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
-	userIdToAccountIdUpdate('accounts'),
+	userIdtoAccountIdUpdate('accounts'),
 );
 router.post(
 	'/students/:id',
@@ -1341,10 +1314,10 @@ router.get(
 		api(req).get(`/users/${req.params.id}`)
 			.then((user) => {
 				res.render('administration/users_skipregistration', {
-					title: res.$t('administration.controller.link.toGiveConsent'),
+					title: 'Einverständnis erklären',
 					action: `/administration/students/${user._id}/skipregistration`,
-					submitLabel: res.$t('administration.controller.link.toGiveConsent'),
-					closeLabel: res.$t('global.button.cancel'),
+					submitLabel: 'Einverständnis erklären',
+					closeLabel: 'Abbrechen',
 					user,
 					password: authHelper.generateConsentPassword(),
 					referrer: req.header('Referer'),
@@ -1393,20 +1366,17 @@ router.get(
 				const hasEditPermission = permissionsHelper.userHasPermission(currentUser, 'STUDENT_EDIT');
 				const users = studentsResponse.data;
 				const years = getSelectableYears(res.locals.currentSchoolData);
-				const title = res.$t('administration.controller.headline.students', {
-					title: returnAdminPrefix(
-						res.locals.currentUser.roles,
-						res,
-					),
-				});
+				const title = `${returnAdminPrefix(
+					res.locals.currentUser.roles,
+				)}Schüler`;
 				let studentsWithoutConsentCount = 0;
 				const head = [
-					res.$t('global.label.firstName'),
-					res.$t('global.label.lastName'),
-					res.$t('administration.controller.global.label.email'),
-					res.$t('administration.controller.global.label.class'),
-					res.$t('administration.controller.global.label.createdOn'),
-					res.$t('administration.controller.global.label.consentStatus'),
+					'Vorname',
+					'Nachname',
+					'E-Mail-Adresse',
+					'Klasse',
+					'Erstellt am',
+					'Registrierung',
 				];
 				if (hasEditPermission) {
 					head.push(''); // Add space for action buttons
@@ -1417,14 +1387,14 @@ router.get(
 					const actions = [
 						{
 							link: `/administration/students/${user._id}/edit`,
-							title: res.$t('administration.controller.link.editUsers'),
+							title: 'Nutzer bearbeiten',
 							icon: 'edit',
 						},
 					];
 					if (user.importHash && canSkip) {
 						actions.push({
 							link: `/administration/students/${user._id}/skipregistration`,
-							title: res.$t('administration.controller.link.toGiveConsent'),
+							title: 'Einverständnis erklären',
 							icon: 'check-square-o',
 						});
 					}
@@ -1461,7 +1431,7 @@ router.get(
 						head,
 						body,
 						pagination,
-						filterSettings: JSON.stringify(userFilterSettings(res)),
+						filterSettings: JSON.stringify(userFilterSettings()),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						schoolCurrentYear: res.locals.currentSchoolData.currentYear,
 						studentsWithoutConsentCount,
@@ -1571,18 +1541,24 @@ router.get(
 					? user.displayName
 					: `${user.firstName} ${user.lastName}`;
 				const content = {
-					text: res.$t('administration.controller.text.emailDeclarationOfConsent', {
-						name,
-						link: `<a href="${user.registrationLink.shortLink}">${user.registrationLink.shortLink}</a>`,
-					}),
+					text: `Hallo ${name},
+Leider fehlt uns von dir noch die Einverständniserklärung.
+Ohne diese kannst du die HPI Schul-Cloud leider nicht nutzen.
+
+Melde dich bitte mit deinen Daten an,
+um die Einverständniserklärung zu akzeptieren um die HPI Schul-Cloud im vollen Umfang nutzen zu können.
+
+Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${
+	user.registrationLink.shortLink
+}</a>, und melde dich an.`,
 				};
 
 				const json = {
 					headers: {},
 					email: user.email,
-					subject: res.$t('administration.controller.text.emailDeclarationOfConsentSubject', {
-						title: res.locals.theme.short_title,
-					}),
+					subject: `Der letzte Schritt zur Aktivierung für die ${
+						res.locals.theme.short_title
+					}`,
 					content,
 				};
 
@@ -1655,10 +1631,10 @@ router.get(
 				}
 				const hidePwChangeButton = !account;
 				res.render('administration/users_edit', {
-					title: res.$t('administration.controller.link.editingStudents'),
+					title: 'Schüler bearbeiten',
 					action: `/administration/students/${user._id}`,
-					submitLabel: res.$t('global.button.save'),
-					closeLabel:	res.$t('global.button.cancel'),
+					submitLabel: 'Speichern',
+					closeLabel: 'Abbrechen',
 					user,
 					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
 					consent,
@@ -1690,7 +1666,7 @@ const skipRegistrationClass = async (req, res, next) => {
 	if (!(userids && birthdays && passwords && emails && fullnames)) {
 		req.session.notification = {
 			type: 'danger',
-			message: res.$t('administration.controller.text.thereWasAnError'),
+			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
 		};
 		redirectHelper.safeBackRedirect(req, res);
 		return;
@@ -1706,7 +1682,7 @@ const skipRegistrationClass = async (req, res, next) => {
 	if (!((userids.length === birthdays.length) && (birthdays.length === passwords.length))) {
 		req.session.notification = {
 			type: 'danger',
-			message: res.$t('administration.controller.text.thereWasAnError'),
+			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
 		};
 		redirectHelper.safeBackRedirect(req, res);
 		return;
@@ -1730,15 +1706,15 @@ const skipRegistrationClass = async (req, res, next) => {
 			fullname: fullnames[i],
 		}));
 		res.render('administration/users_registrationcomplete', {
-			title: res.$t('administration.controller.text.consentGrantedSuccessfully'),
-			submitLabel: res.$t('global.button.back'),
+			title: 'Einwilligungen erfolgreich erteilt',
+			submitLabel: 'Zurück',
 			users: result,
 			linktarget: '/administration/classes',
 		});
 	}).catch(() => {
 		req.session.notification = {
 			type: 'danger',
-			message: res.$t('administration.controller.text.thereWasAnError'),
+			message: 'Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ',
 		};
 		redirectHelper.safeBackRedirect(req, res);
 	});
@@ -1814,22 +1790,18 @@ const renderClassEdit = (req, res, next) => {
 
 						if (currentClass.year) {
 							isUpgradable = (lastDefinedSchoolYearId !== (currentClass.year || {}))
-								&& currentClass.gradeLevel
-								&& currentClass.gradeLevel !== 13
-								&& !currentClass.successor;
+							&& currentClass.gradeLevel
+							&& currentClass.gradeLevel !== 13
+							&& !currentClass.successor;
 						}
 					}
 
 
 					res.render('administration/classes-edit', {
 						title: {
-							create: res.$t('administration.controller.link.createANewClass'),
-							edit: res.$t('administration.controller.headline.editClass', {
-								name: (currentClass || {}).displayName,
-							}),
-							upgrade: res.$t('administration.controller.headline.upgradeClass', {
-								name: (currentClass || {}).displayName,
-							}),
+							create: 'Erstelle eine neue Klasse',
+							edit: `Klasse '${(currentClass || {}).displayName}' bearbeiten`,
+							upgrade: `Klasse '${(currentClass || {}).displayName}' in neues Schuljahr bringen`,
 						}[mode],
 						action: {
 							create: '/administration/classes/create',
@@ -2018,9 +1990,7 @@ router.get(
 					});
 
 					res.render('administration/classes-manage', {
-						title: res.$t('administration.controller.headline.manageClass', {
-							name: currentClass.displayName,
-						}),
+						title: `Klasse '${currentClass.displayName}' verwalten `,
 						class: currentClass,
 						classes,
 						teachers,
@@ -2029,20 +1999,22 @@ router.get(
 						schoolyears,
 						notes: [
 							{
-								title: res.$t('administration.controller.text.yourStudentsAreUnder', {
-									age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
-								}),
-								content: res.$t('administration.controller.text.registrationExplanation', {
-									title: res.locals.theme.short_title,
-								}),
+								title: `Deine Schüler sind unter ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS} Jahre alt?`,
+								content: `Gib den Registrierungslink zunächst an die Eltern weiter.
+                Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis.
+                Der Schüler ist dann in der ${res.locals.theme.short_title}
+                registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse
+                und dem individuellen Initial-Passwort einloggen.
+                Nach dem ersten Login muss jeder Schüler sein Passwort ändern.
+                Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären,
+                damit er die ${res.locals.theme.short_title} nutzen kann.`,
 							},
 							{
-								title: res.$t('administration.controller.text.yourStudentsAreAtLeast', {
-									age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
-								}),
+								title: `Deine Schüler sind mindestens ${CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}`
+									+ ' Jahre alt?',
 								content:
-								res.$t('administration.controller.text.passTheRegistrationLinkDirectly')
-									+ res.$t('administration.controller.text.theStepsForTheParentsAreOmitted'),
+									'Gib den Registrierungslink direkt an den Schüler weiter. '
+									+ 'Die Schritte für die Eltern entfallen automatisch.',
 							},
 							/* { // TODO - Feature not implemented
                             "title":"Deine Schüler sind in der Schülerliste rot?",
@@ -2060,10 +2032,10 @@ router.get(
                             isi anim magna tempor laborum in sit esse nostrud consequat."
                         }, */
 							{
-								title: res.$t('administration.controller.link.changePassword'),
+								title: 'Passwort ändern',
 								content:
 									// eslint-disable-next-line max-len
-									res.$t('administration.controller.text.whenLoggingInForTheFirstTime'),
+									'Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben.',
 							},
 						],
 						referrer: '/administration/classes/',
@@ -2121,7 +2093,7 @@ router.get(
 			password: passwords[i],
 		}));
 		res.render('administration/classes_skipregistration', {
-			title: res.$t('administration.controller.link.toGiveConsent'),
+			title: 'Einverständnis erklären',
 			students: renderUsers,
 		});
 	},
@@ -2243,11 +2215,11 @@ router.delete(
 	},
 );
 
-const classFilterSettings = ({ years, currentYear }, res) => {
+const classFilterSettings = ({ years, currentYear }) => {
 	const yearFilter = {
 		type: 'select',
-		title: res.$t('administration.global.label.schoolYear'),
-		displayTemplate: res.$t('administration.controller.text.schoolYearPercentage'),
+		title: 'Schuljahr',
+		displayTemplate: 'Schuljahr: %1',
 		property: 'year',
 		multiple: true,
 		expanded: true,
@@ -2259,17 +2231,17 @@ const classFilterSettings = ({ years, currentYear }, res) => {
 	return [
 		{
 			type: 'sort',
-			title: res.$t('global.headline.sorting'),
-			displayTemplate: res.$t('global.label.sortBy'),
-			options: [['displayName', res.$t('administration.controller.global.label.class')]],
+			title: 'Sortierung',
+			displayTemplate: 'Sortieren nach: %1',
+			options: [['displayName', 'Klasse']],
 			defaultSelection: 'displayName',
 			defaultOrder: 'DESC',
 		},
 		yearFilter,
 		{
 			type: 'limit',
-			title: res.$t('global.headline.sorting'),
-			displayTemplate: res.$t('global.label.entriesPerPage'),
+			title: 'Einträge pro Seite',
+			displayTemplate: 'Einträge pro Seite: %1',
 			options: [25, 50, 100],
 			defaultSelection: 25,
 		},
@@ -2311,12 +2283,7 @@ router.get(
 				qs: query,
 			})
 			.then(async (data) => {
-				const head = [
-					res.$t('administration.controller.global.label.class'),
-					res.$t('administration.controller.global.label.teacher'),
-					res.$t('administration.global.label.schoolYear'),
-					res.$t('global.link.administrationStudents'),
-				];
+				const head = ['Klasse', 'Lehrer', 'Schuljahr', 'Schüler'];
 				const hasEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT');
 				if (hasEditPermission) {
 					head.push(''); // action buttons head
@@ -2331,19 +2298,19 @@ router.get(
 						{
 							link: `${basePath + item._id}/manage`,
 							icon: 'users',
-							title: res.$t('administration.controller.link.manageClass'),
+							title: 'Klasse verwalten',
 						},
 						{
 							link: `${basePath + item._id}/edit`,
 							icon: 'edit',
-							title: res.$t('administration.controller.link.editClass'),
+							title: 'Klasse bearbeiten',
 						},
 						{
 							link: basePath + item._id,
 							class: 'btn-delete',
 							icon: 'trash-o',
 							method: 'delete',
-							title: res.$t('administration.controller.link.deleteClass'),
+							title: 'Klasse löschen',
 						},
 					];
 					if (lastDefinedSchoolYear !== (item.year || {})._id
@@ -2353,7 +2320,7 @@ router.get(
 							link: `${basePath + item._id}/createSuccessor`,
 							icon: 'arrow-up',
 							class: item.successor || item.gradeLevel === 13 ? 'disabled' : '',
-							title: res.$t('administration.controller.link.transferClassToTheNextSchoolYear'),
+							title: 'Klasse in das nächste Schuljahr versetzen',
 						});
 					}
 					return baseActions;
@@ -2392,14 +2359,12 @@ router.get(
 				const currentYear = res.locals.currentSchoolData.currentYear;
 
 				res.render('administration/classes', {
-					title: res.$t('administration.controller.headline.classes', {
-						title: returnAdminPrefix(res.locals.currentUser.roles, res),
-					}),
+					title: 'Administration: Klassen',
 					head,
 					body,
 					pagination,
 					limit: true,
-					filterSettings: JSON.stringify(classFilterSettings({ years, currentYear }, res)),
+					filterSettings: JSON.stringify(classFilterSettings({ years, currentYear })),
 				});
 			});
 	},
@@ -2465,7 +2430,7 @@ router.all(
 	(req, res, next) => {
 		const itemsPerPage = req.query.limit || 10;
 		const currentPage = parseInt(req.query.p, 10) || 1;
-		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
+		const title = returnAdminPrefix(res.locals.currentUser.roles);
 
 		api(req)
 			.get('/helpdesk', {
@@ -2478,12 +2443,12 @@ router.all(
 			})
 			.then((data) => {
 				const head = [
-					res.$t('global.label.title'),
-					res.$t('administration.controller.headline.itsOn'),
-					res.$t('administration.controller.headline.targetState'),
-					res.$t('administration.controller.headline.status'),
-					res.$t('administration.controller.headline.creationDate'),
-					res.$t('administration.controller.headline.remarks'),
+					'Titel',
+					'Ist-Zustand',
+					'Soll-Zustand',
+					'Status',
+					'Erstellungsdatum',
+					'Anmerkungen',
 					'',
 				];
 
@@ -2491,10 +2456,10 @@ router.all(
 					truncate(item.subject || ''),
 					truncate(item.currentState || ''),
 					truncate(item.targetState || ''),
-					res.$t(`administration.controller.text.${item.state}`),
+					dictionary[item.state],
 					moment(item.createdAt).format('DD.MM.YYYY'),
 					truncate(item.notes || ''),
-					getTableActionsSend(item, '/administration/helpdesk/', item.state, res),
+					getTableActionsSend(item, '/administration/helpdesk/', item.state),
 				]);
 
 				let sortQuery = '';
@@ -2514,9 +2479,7 @@ router.all(
 				};
 
 				res.render('administration/helpdesk', {
-					title: res.$t('administration.controller.headline.helpdesk', {
-						title,
-					}),
+					title: `${title}Helpdesk`,
 					head,
 					body,
 					pagination,
@@ -2586,7 +2549,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		delete req.body.videoconference;
 
 		// Toggle teacher's studentVisibility permission
-		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
+		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY');
 		const isStudentVisibilityEnabled = (res.locals.currentSchoolData.features || []).includes(
 			'studentVisibility',
 		);
@@ -2689,12 +2652,7 @@ router.all('/courses', (req, res, next) => {
 			},
 		})
 		.then((data) => {
-			const head = [
-				res.$t('global.headline.name'),
-				res.$t('global.headline.classes'),
-				res.$t('administration.controller.headline.teachers'),
-				'',
-			];
+			const head = ['Name', 'Klasse(n)', 'Lehrer', ''];
 
 			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 			const teachersPromise = getSelectOptions(req, 'users', {
@@ -2726,14 +2684,14 @@ router.all('/courses', (req, res, next) => {
 						{
 							link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
 							icon: 'edit',
-							title: res.$t('administration.controller.link.editEntry'),
+							title: 'Eintrag bearbeiten',
 						},
 						{
 							link: `/administration/courses/${item._id}`,
 							class: 'btn-delete',
 							icon: 'trash-o',
 							method: 'delete',
-							title: res.$t('administration.controller.link.deleteEntry'),
+							title: 'Eintrag löschen',
 						},
 					],
 				]);
@@ -2755,9 +2713,7 @@ router.all('/courses', (req, res, next) => {
 				};
 
 				res.render('administration/courses', {
-					title: res.$t('administration.controller.headline.courses', {
-						title: returnAdminPrefix(res.locals.currentUser.roles, res),
-					}),
+					title: 'Administration: Kurse',
 					head,
 					body,
 					classes,
@@ -2775,15 +2731,15 @@ router.all('/courses', (req, res, next) => {
  *  Teams
  */
 
-const getTeamFlags = (team, res) => {
-	const createdAtOwnSchool = `<i class="fa fa-home team-flags" data-toggle="tooltip"
-			data-placement="top" title="${res.$t('administration.controller.label.teamFoundedAtOwnSchool')}"></i>`;
-	const hasMembersOfOtherSchools = `<i class="fa fa-bus team-flags" data-toggle="tooltip"
-			data-placement="top" title="${res.$t('administration.controller.label.teamIncludesExternalMembers')}"></i>`;
-	const hasOwner = `<i class="fa fa-briefcase team-flags" data-toggle="tooltip"
-			data-placement="top" title="${res.$t('administration.controller.label.teamHasOwner')}"></i>`;
-	const hasRocketChat = `<i class="fa fa-comments team-flags" data-toggle="tooltip"
-			data-placement="top" title="${res.$t('administration.controller.label.teamChatActive')}"></i>`;
+const getTeamFlags = (team) => {
+	const createdAtOwnSchool = '<i class="fa fa-home team-flags" data-toggle="tooltip" '
+		+ 'data-placement="top" title="An eigener Schule gegründetes Team"></i>';
+	const hasMembersOfOtherSchools = '<i class="fa fa-bus team-flags" data-toggle="tooltip" '
+		+ 'data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
+	const hasOwner = '<i class="fa fa-briefcase team-flags" data-toggle="tooltip" '
+		+ 'data-placement="top" title="Team hat Eigentümer"></i>';
+	const hasRocketChat = '<i class="fa fa-comments team-flags" data-toggle="tooltip" '
+		+ 'data-placement="top" title="Chat ist aktiviert"></i>';
 
 	let combined = '';
 
@@ -2855,22 +2811,22 @@ router.all('/teams', async (req, res, next) => {
 		.then((data) => {
 			const head = [
 				'Name',
-				res.$t('administration.controller.headline.members'),
-				res.$t('administration.controller.headline.schools'),
-				res.$t('administration.controller.headline.createdOn'),
-				`${res.$t('administration.controller.headline.status')}*`,
-				res.$t('global.headline.actions'),
+				'Mitglieder',
+				'Schule(n)',
+				'Erstellt am',
+				'Status*',
+				'Aktionen',
 			];
 
 			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 			const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
 
 			const roleTranslations = {
-				teammember: res.$t('administration.controller.headline.attendees'),
-				teamexpert: res.$t('administration.controller.headline.externalExpert'),
-				teamleader: res.$t('global.role.text.leader'),
-				teamadministrator: res.$t('global.role.text.administrator'),
-				teamowner: res.$t('global.role.text.owner'),
+				teammember: 'Teilnehmer',
+				teamexpert: 'Externer Experte',
+				teamleader: 'Leiter',
+				teamadministrator: 'Administrator',
+				teamowner: 'Eigentümer',
 			};
 
 			Promise.all([classesPromise, usersPromise]).then(([classes, users]) => {
@@ -2880,9 +2836,9 @@ router.all('/teams', async (req, res, next) => {
 							link: path + item._id,
 							class: 'btn-write-owner',
 							icon: 'envelope-o',
-							title: res.$t('administration.controller.link.sendMessageToOwner'),
+							title: 'Nachricht an Eigentümer senden',
 							data: {
-								'original-title': res.$t('administration.controller.link.sendMessageToOwner'),
+								'original-title': 'Nachricht an Eigentümer senden',
 								placement: 'top',
 								toggle: 'tooltip',
 							},
@@ -2891,9 +2847,9 @@ router.all('/teams', async (req, res, next) => {
 							link: path + item._id,
 							class: item.createdAtMySchool ? 'btn-set-teamowner' : 'disabled',
 							icon: 'user-plus',
-							title: res.$t('administration.controller.link.addAnotherOwner'),
+							title: 'Weiteren Eigentümer hinzufügen',
 							data: {
-								'original-title': res.$t('administration.controller.link.addAnotherOwner'),
+								'original-title': 'Weiteren Eigentümer hinzufügen',
 								placement: 'top',
 								toggle: 'tooltip',
 							},
@@ -2902,40 +2858,40 @@ router.all('/teams', async (req, res, next) => {
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'disabled' : 'btn-remove-members'
-								}`,
+							}`,
 							icon: 'user-times',
 							data: {
 								name: item.name,
 								'original-title': item.createdAtMySchool
-									? res.$t('administration.controller.text.onlyAllMembers')
-									: res.$t('administration.controller.link.removeMembers'),
+									? 'Es können nur alle Mitglieder der eigenen Schule aus dem Team entfernt werden'
+									: 'Mitglieder eigener Schule aus Team entfernen',
 								placement: 'top',
 								toggle: 'tooltip',
 							},
 							title: item.createdAtMySchool
-								? res.$t('administration.controller.text.removeStudentsFromYourOwnSchool')
-								+ res.$t('administration.controller.text.anotherSchoolWasFounded')
-								+ res.$t('administration.controller.text.orAssignAdminRights')
-								: res.$t('administration.controller.link.removeMembers'),
+								? 'Schüler der eigenen Schule aus dem Team entfernen. Nur möglich, wenn das Team an '
+								+ 'einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst '
+								+ 'oder jemand anderem Admin-Rechte für das Team zuzuweisen.'
+								: 'Mitglieder eigener Schule aus Team entfernen',
 						},
 						{
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'btn-delete-team' : 'disabled'
-								}`,
+							}`,
 							icon: 'trash-o',
 							data: {
 								name: item.name,
 								'original-title': item.createdAtMySchool
-									? res.$t('global.button.deleteTeam')
-									: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
+									? 'Team löschen'
+									: 'Löschen des Teams nur bei Teams der eigenen Schule möglich',
 								placement: 'top',
 								toggle: 'tooltip',
 							},
 							// lmethod: `${item.hasMembersOfOtherSchools ? '' : 'delete'}`,
 							title: item.createdAtMySchool
-								? res.$t('global.button.deleteTeam')
-								: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
+								? 'Team löschen'
+								: 'Löschen des Teams nur bei Teams der eigenen Schule möglich',
 						},
 					];
 
@@ -2952,7 +2908,7 @@ router.all('/teams', async (req, res, next) => {
 						moment(item.createdAt).format('DD.MM.YYYY'),
 						{
 							useHTML: true,
-							content: getTeamFlags(item, res),
+							content: getTeamFlags(item),
 						},
 						{
 							payload: Buffer.from(JSON.stringify({
@@ -2984,9 +2940,7 @@ router.all('/teams', async (req, res, next) => {
 				};
 
 				res.render('administration/teams', {
-					title: res.$t('administration.controller.headline.teams', {
-						title: returnAdminPrefix(res.locals.currentUser.roles, res),
-					}),
+					title: 'Administration: Teams',
 					head,
 					body,
 					classes,
@@ -3147,12 +3101,7 @@ router.use(
 			schoolMaintananceMode = 'standby';
 		}
 		// POLICIES
-		const policiesHead = [
-			res.$t('global.label.title'),
-			res.$t('global.label.description'),
-			res.$t('administration.controller.headline.uploadedOn'),
-			'Link',
-		];
+		const policiesHead = ['Titel', 'Beschreibung', 'Hochgeladen am', 'Link'];
 		let policiesBody;
 		if (Array.isArray(consentVersions.data)) {
 			policiesBody = consentVersions.data.map((consentVersion) => {
@@ -3166,7 +3115,7 @@ router.use(
 						link: `/base64Files/${linkToPolicy}`,
 						class: 'base64File-download-btn',
 						icon: 'file-o',
-						title: res.$t('administration.controller.link.schoolPrivacyPolicy'),
+						title: 'Datenschutzerklärung der Schule',
 					});
 				}
 				return [title, text, publishedAt, links];
@@ -3175,11 +3124,7 @@ router.use(
 
 
 		// SYSTEMS
-		const systemsHead = [
-			res.$t('administration.controller.headline.alias'),
-			res.$t('global.label.type'),
-			'',
-		];
+		const systemsHead = ['Alias', 'Typ', ''];
 		let systemsBody;
 		let systems;
 		let ldapAddable = true;
@@ -3193,9 +3138,7 @@ router.use(
 				const name = getSSOTypes().filter((type) => item.type === type.value);
 				return [
 					item.type === 'ldap' && item.ldapConfig.active === false
-						? res.$t('administration.controller.label.inactive', {
-							alias: item.alias,
-						})
+						? `${item.alias} (inaktiv)`
 						: item.alias,
 					name,
 					getTableActions(
@@ -3205,14 +3148,13 @@ router.use(
 						false,
 						false,
 						'systems',
-						res,
 					),
 				];
 			});
 		}
 
 		// RSS
-		const rssHead = ['URL', res.$t('administration.controller.headline.briefDescription'), 'Status', ''];
+		const rssHead = ['URL', 'Kurzbeschreibung', 'Status', ''];
 		let rssBody;
 		if (school.rssFeeds) {
 			rssBody = school.rssFeeds.map(({
@@ -3222,24 +3164,24 @@ router.use(
 				description,
 				// eslint-disable-next-line no-nested-ternary
 				status === 'success'
-					? res.$t('administration.controller.text.active')
+					? 'Aktiv'
 					: status === 'error'
-						? res.$t('administration.controller.text.retrieveFailed')
-						: res.$t('administration.controller.text.inTheQueue'),
+						? 'Fehler beim Abrufen'
+						: 'In der Warteschlange',
 				[
 					{
 						link: `/administration/rss/${_id}`,
 						class: 'btn-delete--rss',
 						icon: 'trash-o',
 						method: 'delete',
-						title: res.$t('administration.controller.link.deleteEntry'),
+						title: 'Eintrag löschen',
 					},
 				],
 			]);
 		}
 
 		// SCHOOL
-		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
+		const title = returnAdminPrefix(res.locals.currentUser.roles);
 		let provider = getStorageProviders(res);
 		provider = (provider || []).map((prov) => {
 			// eslint-disable-next-line eqeqeq
@@ -3254,9 +3196,7 @@ router.use(
 		const ssoTypes = getSSOTypes();
 
 		res.render('administration/school', {
-			title: res.$t('administration.controller.headline.school', {
-				title,
-			}),
+			title: `${title}Schule`,
 			school,
 			schoolMaintanance,
 			schoolMaintananceMode,
@@ -3360,23 +3300,11 @@ router.get('/startldapschoolyear', async (req, res) => {
 		]);
 	});
 
-	const headUser = [
-		res.$t('global.label.firstName'),
-		res.$t('global.label.lastName'),
-		res.$t('administration.controller.label.email'),
-		'uid',
-		res.$t('administration.controller.label.roles'),
-		res.$t('administration.controller.label.domainname'),
-		'uuid',
-	];
-	const headClasses = [
-		res.$t('global.headline.name'),
-		res.$t('global.headline.name'),
-		res.$t('administration.controller.global.label.classUsers'),
-	];
+	const headUser = ['Vorname', 'Nachname', 'E-Mail', 'uid', 'Rolle(n)', 'Domainname', 'uuid'];
+	const headClasses = ['Name', 'Domain', 'Nutzer der Klasse'];
 
 	res.render('administration/ldap-schoolyear-start', {
-		title: res.$t('administration.controller.text.checkingTheLDAPData'),
+		title: 'Prüfung der LDAP-Daten für Schuljahreswechsel',
 		headUser,
 		bodyUsers,
 		headClasses,
@@ -3480,7 +3408,7 @@ router.get(
 				api(req).get(`/systems/${req.params.id}`),
 			);
 			res.render('administration/ldap-edit', {
-				title: res.$t('administration.controller.link.editLDAP'),
+				title: 'LDAP bearbeiten',
 				system,
 			});
 		} catch (err) {

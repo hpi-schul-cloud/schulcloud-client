@@ -16,19 +16,19 @@
 						{{/if}}
 						<span class="pull-right">{{{ stripOnlyScript this.secondaryTitle }}}
 							{{#if this.stats.userCount}}
-								<span class="hidden-xs-down">| {{$t "dashboard.text.handedIn"}} {{this.stats.submissionCount}}/{{this.stats.userCount}}</span>
+								<span class="hidden-xs-down">| {{$t "dashboard.homeworkTile.handedIn"}} {{this.stats.submissionCount}}/{{this.stats.userCount}}</span>
 							{{/if}}
 						</span>
 					</div>
 					<div class="title-row">
 						{{#if this.stats.userCount}}
-							<span class="pull-right pl-2 text-muted hidden-xs-down">{{$t "dashboard.text.graded"}} {{this.stats.gradeCount}}/{{this.stats.submissionCount}}</span>
+							<span class="pull-right pl-2 text-muted hidden-xs-down">{{$t "dashboard.homeworkTile.graded"}} {{this.stats.gradeCount}}/{{this.stats.submissionCount}}</span>
 						{{/if}}
 						<span class="title w-100">{{{ stripOnlyScript this.name }}}</span>
 					</div>
 				</div>
 			</a>
 		{{/each}}
-		<a class="pull-right" href="{{href}}">{{$t "dashboard.link.moreTasks"}}</a>
+		<a class="pull-right" href="{{href}}">{{$t "dashboard.homeworkTile.moreTasks"}}</a>
 	</div>
 </section>

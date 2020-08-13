@@ -1,8 +1,9 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 <div class="form-group">
     <p>
-        {{$t "administration.form_InvitationTeacher.text.beforeUsingThe" (dict "shortTitle" theme.title) }} 
+        Bevor die Nutzung der {{theme.title}} möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen
+        haben.
     </p>
-    <label for="invitation-link">{{$t "administration.form_InvitationTeacher.label.distributeTheFollowingLinkToTheTeacher" }}</label>
+    <label for="invitation-link">Verteile folgenden Link an die Lehrkraft:</label>
     <input id="invitation-link" class="form-control" name="invitation" type="text" />
 </div>
