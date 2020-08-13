@@ -242,11 +242,11 @@
                                             {{#unless liveSearch}}<i class="fa fa-search"></i>{{/unless}}
                                         </a>
                                         <div class="input-group input-group-sm">
-								<label for="search-box">{{#if searchLabel}}{{truncatePure searchLabel21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}</label>
+								            <label for="search-box" hidden>{{#if searchLabel}}{{truncatePure searchLabel21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}</label>
 											<input id="search-box" type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}" name="q" />
                                             {{> "lib/components/csrfInput"}}
                                             <span class="input-group-btn">
-                                                <button type="submit" class="btn btn-secondary">
+                                                <button type="submit" class="btn btn-secondary" aria-label="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}">
                                                     <i class="fa fa-search" aria-hidden="true"></i>
                                                 </button>
                                             </span>
