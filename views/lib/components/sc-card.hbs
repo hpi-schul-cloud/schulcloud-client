@@ -50,7 +50,7 @@
         <div class="sc-card-footer">
             {{#if additionalInfoName}}
                 <div class="additionalInfo">
-                    {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName) }}
+                    {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName title=this.title) }}
                 </div>
             {{/if}}
             <a href="{{url}}" rel="canonical" aria-label="{{{link-text}}} {{{ stripOnlyScript this.title }}}">{{{link-text}}}</a>
