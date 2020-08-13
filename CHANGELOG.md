@@ -8,10 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
-## [24.2.1]
+## [24.2.1] - 2020-08-13
 ## Fixed - 24.2.1
 
   - SC-6012 Etherpad authorization error due to unique name problem
+  - SC-6125 fix broken link
 
 ## [24.0.3] - 2020-08-05
 ### Fixed - 24.0.3
