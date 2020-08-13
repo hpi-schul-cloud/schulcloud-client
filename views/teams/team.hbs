@@ -19,7 +19,7 @@
 <div id="team-wrapper">
     <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
         <div class="dropdown dropdown-title minimal-button">
-            <a class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" title="{{$t "global.label.more"}}"
+            <a  href="#0" class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" aria-label="{{$t "global.label.more"}}"
                 data-toggle="dropdown">
                 <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
                 <i class="fa fa-ellipsis-v i-cog"></i>
@@ -71,13 +71,13 @@
         <div class="course-card">
             <div class="tabContainer" data-active-tab={{activeTab}}>
                 <div class="tabs" data-max-width="1024">
-                    <button class="tab" data-tab="js-files">
+                    <button type="button" class="tab" data-tab="js-files">
                         <span class="text">{{$t "teams._team.tab_label.files"}}</span>
                     </button>
-                    <button class="tab" data-tab="js-news">
+                    <button type="button" class="tab" data-tab="js-news">
                         <span class="text">{{$t "teams._team.tab_label.news"}}</span>
                     </button>
-                    <button class="tab" data-tab="js-events">
+                    <button type="button" class="tab" data-tab="js-events">
                         <span class="text">{{$t "global.link.calendar"}}</span>
                     </button>
                 </div>
@@ -103,23 +103,23 @@
                                         </strong>
                                         {{#userHasPermission "FOLDER_DELETE"}}
                                         <a href="/files/directory/" target="_blank" data-method="delete"
-                                            title="{{$t "teams._team.files.button.deleteFolder"}}"
+                                            aria-label="{{$t "teams._team.files.button.deleteFolder"}}"
                                             data-file-name="{{../this.name}}" data-file-id="{{../this._id}}">
-                                            <i class="fa fa-trash-o pull-right"></i>
+                                            <i class="fa fa-trash-o pull-right" aria-hidden="true"></i>
                                         </a>
 
                                         <a href="/directoryModel/{{../this._id}}/rename" target="_blank"
                                             data-method="dir-rename"
-                                            title="{{$t "teams._team.files.button.renameFolder"}}"
+                                            aria-label="{{$t "teams._team.files.button.renameFolder"}}"
                                             data-directory-id="{{../this._id}}" data-directory-name="{{../this.name}}">
-                                            <i class="fa fa-edit pull-right"></i>
+                                            <i class="fa fa-edit pull-right" aria-hidden="true"></i>
                                         </a>
                                         {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
                                         <a href="/directoryModel/{{../this._id}}/share" target="_blank"
                                             class="btn-file-share" data-method="dir-share"
                                             title="{{$t "teams._team.files.button.shareFolder"}}"
                                             data-file-id="{{../this._id}}" data-file-name="{{../this.name}}">
-                                            <i class="fa fa-share-alt pull-right"></i>
+                                            <i class="fa fa-share-alt pull-right" aria-hidden="true"></i>
                                         </a>
                                         {{/inArray}}
                                         {{/userHasPermission}}
@@ -144,11 +144,11 @@
                             <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
 
                             <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
-                                <i class="fa fa-folder-open"></i> {{$t "teams._team.files.button.toTeamFiles"}}
+                                <i class="fa fa-folder-open" aria-hidden="true"></i> {{$t "teams._team.files.button.toTeamFiles"}}
                             </a>
                             {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
                             <button class="btn btn-add btn-secondary btn-file-permissions">
-                                <i class="fa fa-share-alt"></i> {{$t "teams._team.files.button.changeSharingSettings"}}
+                                <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t "teams._team.files.button.changeSharingSettings"}}
                             </button>
                             {{/inArray}}
                             {{#if ../canCreateDir}}
@@ -186,7 +186,7 @@
                         </div>
                         <div style="margin-top: .5rem">
                             {{#inArray "CALENDAR_CREATE" permissions}}
-                            <button class="btn btn-add btn-primary btn-create-event pull-right">
+                            <button type="button" class="btn btn-add btn-primary btn-create-event pull-right">
                                 {{$t "teams._team.events.button.addDate"}}
                             </button>
                             {{/inArray}}
@@ -247,7 +247,7 @@
 {{/content}}
 {{#content "additional-actions"}}
 <button type="button" class="btn btn-primary btn-danger btn-delete pull-left">
-    <i class="fa fa-trash-o"></i> {{$t "global.headline.delete"}}
+    <i class="fa fa-trash-o" aria-hidden="true"></i> {{$t "global.headline.delete"}}
 </button>
 {{/content}}
 {{/embed}}
