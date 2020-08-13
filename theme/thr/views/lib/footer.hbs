@@ -1,34 +1,41 @@
-<footer class="hide-inline small-footer">
-    <div class="imprint">
-        <div class="center">
-            <img src="/images/footer-logo.png" alt="Anbieterlogo" />
-            <span>&copy; {{currentYear}} {{theme.short_title}} </span>
+<footer id="footer" class="hide-inline small-footer">
+	<div class="imprint">
+		<div class="center">
+			<img src="/images/footer-logo.png" alt="" role="presentation"/>
+			<span>&copy; {{currentYear}} {{theme.short_title}} </span>
 
-            <div>
-                <a href="/impressum">Impressum</a>
-                <span> - </span>
-                <a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank"
-                    rel="noopener">Nutzungsordnung Thüringer Schulcloud</a>
-                <span> - </span>
-                <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank"
-                    rel="noopener">Datenschutzerklärung Thüringer Schulcloud</a>
-                <span> - </span>
-                <a href="mailto:{{getConfig "SC_CONTACT_EMAIL"}}?subject=Schul_Cloud%20Anfrage" target="_blank"
-                    rel="noopener">Kontakt</a>
-                <span> - </span>
-                <a href="/about">Über das Projekt</a>
-                <span> - </span>
-                <a href="/partner">Partner</a>
-                <span> - </span>
-                <a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener">GitHub</a>
-                <span> - </span>
-                <a href="https://status.schul-cloud.org" target="_blank" rel="noopener">Status</a>
-            </div>
-            <div>
-                <p class="made-with-love">Made with <span class="heart">❤</span> in Potsdam | Translated by <a
-                        href="https://lokalise.com" target="_"><img class="poweredby-logo" alt="lokalise.com Logo"
-                            src="/images/logo/lokalise_logo.svg"></a></p>
-            </div>
-        </div>
-    </div>
+			<nav aria-label="{{$t "lib.footer.ariaLabel"}}">
+				<ul>
+					<li>
+						<a href="/impressum">{{$t "imprint.global.heading.imprint"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="{{theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" aria-label="{{$t "login.headline.onlyTermsOfUse"}} Thüringer Schulcloud PDF {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "login.headline.onlyTermsOfUse"}} Thüringer Schulcloud</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="{{theme.documents.specificFiles.privacyExemplary}}" target="_blank" aria-label="{{$t "login.headline.onlyPrivacy"}} Thüringer Schulcloud PDF {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "login.headline.onlyPrivacy"}} Thüringer Schulcloud</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="mailto:{{getConfig "SC_CONTACT_EMAIL"}}?subject=Schul_Cloud%20Anfrage" target="_blank" aria-label="{{$t "lib.footer.link.contact"}} {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "lib.footer.link.contact"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="https://status.schul-cloud.org" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a>
+					</li>
+				</ul>
+			</nav>
+			<div>
+				<p lang="en" class="made-with-love">Made with <span class="heart" aria-label="love">❤</span> in Potsdam | Translated by <a
+				href="https://lokalise.com" target="_" aria-label="https://lokalise.com {{$t "global.openInNewTabWarning"}}"><img class="poweredby-logo" alt="lokalise.com Logo"
+																																  src="/images/logo/lokalise_logo.svg"></a></p>
+			</div>
+		</div>
+	</div>
 </footer>

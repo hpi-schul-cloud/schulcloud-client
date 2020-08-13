@@ -122,10 +122,11 @@ const markSelected = (options, values = []) => options.map((option) => {
 	return option;
 });
 
-const editTeamHandler = (req, res, next) => {
+const editTeamHandler = async (req, res, next) => {
 	let teamPromise;
 	let action;
 	let method;
+	let permissions = [];
 	if (req.params.teamId) {
 		action = `/teams/${req.params.teamId}`;
 		method = 'patch';
@@ -136,12 +137,27 @@ const editTeamHandler = (req, res, next) => {
 		teamPromise = Promise.resolve({});
 	}
 
+	if (req.params.teamId) {
+		try {
+			permissions = await api(req)
+				.get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
+		} catch (error) {
+			logger.error(error);
+		}
+	}
+
 	teamPromise.then((team) => {
-		res.render('teams/edit-team', {
+		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
+			return next(new Error(res.$t('global.error.403')));
+		}
+		return res.render('teams/edit-team', {
 			action,
 			method,
-			title: req.params.teamId ? res.$t('teams.add.headline.editTeam') : res.$t('teams.add.headline.createTeam'),
-			submitLabel: req.params.teamId ? res.$t('global.button.saveChanges')
+			title: req.params.teamId
+				? res.$t('teams.add.headline.editTeam')
+				: res.$t('teams.add.headline.createTeam'),
+			submitLabel: req.params.teamId
+				? res.$t('global.button.saveChanges')
 				: res.$t('teams.add.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
@@ -741,15 +757,14 @@ router.patch('/:teamId', async (req, res, next) => {
 	});
 	req.body.features = Array.from(features);
 
-	await api(req).patch(`/teams/${req.params.teamId}`, {
-		json: req.body, // TODO: sanitize
-	});
-
-	res.redirect(`/teams/${req.params.teamId}`);
-
-	// }).catch(error => {
-	//     res.sendStatus(500);
-	// });
+	try {
+		await api(req).patch(`/teams/${req.params.teamId}`, {
+			json: req.body, // TODO: sanitize
+		});
+		res.redirect(`/teams/${req.params.teamId}`);
+	} catch (error) {
+		next(error);
+	}
 });
 
 router.patch('/:teamId/permissions', (req, res) => {
@@ -1385,7 +1400,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 	const { shareToken } = req.body;
 	// try to find topic for given shareToken
 	api(req)
-		.get('/lessons/', { qs: { shareToken, $populate: ['teamId'] } })
+		.get('/lessons/', { qs: { shareToken } })
 		.then((lessons) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {

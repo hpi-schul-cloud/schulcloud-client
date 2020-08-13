@@ -16,7 +16,7 @@
 			<div class="" id="niAccordion" data-toggle="collapse" data-target="#collapseNi" aria-expanded="true"
 				aria-controls="collapseNi">
 				<button class="btn btn-link registration-button" type="button">
-					<div class="registration-label">Niedersachsen</div>
+					<div class="registration-label">{{$t "community.button.lowerSaxony"}}</div>
 					<img src="/images/logo/n21-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px"
 						height="33px" class="registration-logo" alt="">
 				</button>
@@ -34,7 +34,7 @@
 			<div class="" id="brbAccordion" data-toggle="collapse" data-target="#collapseBrb" aria-expanded="true"
 				aria-controls="collapseBrb">
 				<button class="btn btn-link registration-button" type="button">
-					<div class="registration-label">Brandenburg</div>
+					<div class="registration-label">{{$t "community.button.brandenburg"}}</div>
 					<img src="/images/logo/brb-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px"
 						height="35px" class="registration-logo" alt="">
 				</button>
@@ -52,7 +52,7 @@
 			<div class="" id="thAccordion" data-toggle="collapse" data-target="#collapseTh" aria-expanded="true"
 				aria-controls="collapseTh">
 				<button class="btn btn-link registration-button" type="button">
-					<div class="registration-label">Thüringen</div>
+					<div class="registration-label">{{$t "community.button.thuringia"}}</div>
 					<img src="/images/logo/th-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px" height="35px"
 						class="registration-logo" alt="">
 				</button>
@@ -60,9 +60,7 @@
 			<div id="collapseTh" class="collapse" aria-labelledby="thAccordion" data-parent="#accordionRegistration">
 				<div class="card-body p-1">
 					{{$t "community.text.inThuringiaTheThuringianInstitute"}}<br><br>
-					{{$t "community.text.pleaseContactEither"}} <a
-						href="mailto:julia.guenther@thillm.de">julia.guenther@thillm.de</a> {{$t "community.text.orMr"}} <a
-						href="mailto:joerg.becker@thillm.de">joerg.becker@thillm.de</a>, um den Registrierungsprozess einzuleiten.
+					{{{$t "community.text.contactUsToRegister"}}}
 				</div>
 			</div>
 		</div>
@@ -70,7 +68,7 @@
 			<div class="" id="mintAccordion" data-toggle="collapse" data-target="#collapseMint" aria-expanded="true"
 				aria-controls="collapseMint">
 				<button class="btn btn-link registration-button" type="button">
-					<div class="registration-label">MINT-EC Schulen</div>
+					<div class="registration-label">{{$t "community.button.mintECSchools"}}</div>
 					<img src="/images/logo/mint-ec-logo.svg" role="presentation" loading="lazy" height="35px"
 						class="registration-logo" alt="">
 				</button>
@@ -98,8 +96,7 @@
 				data-parent="#accordionRegistration">
 				<div class="card-body p-1">
 					{{$t "community.text.theCentralOfficeForSchools"}}<br><br>
-					{{$t "community.text.justWriteAnEmailTo"}} <a
-						href="mailto:schul-cloud-ZfA@bva.bund.de">schul-cloud-ZfA@bva.bund.de</a>.
+					{{{$t "community.text.justWriteAnEmailTo"}}}
 					{{$t "community.text.youWillThenBeGiven"}}
 				</div>
 			</div>

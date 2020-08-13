@@ -10,12 +10,15 @@
             <div class="comment">
                 {{#if this.submission}}
                     {{#ifneq 0 (arrayLength this.submission.fileIds)}}
-                        {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false submission=../submission}}{{/embed}}
+                        {{#embed "homework/components/submission_files"
+                            fileIds=../submission.fileIds
+                            deletionAllowed=false
+                            submission=../submission}}{{/embed}}
                         <hr>
                     {{/ifneq}}
                     <div class="ckcontent print">
                         <div class="btn btn-secondary btn-print mb-1"
-                            data-toggle="tooltip" title="Abgabe drucken">
+                            data-toggle="tooltip" title="{{$t "homework._task.label.printSubmission"}}">
                                 <i class='fa fa-print'></i> {{$t "homework.button.print" }}
                         </div>
                         {{{this.submission.comment}}}
@@ -25,11 +28,23 @@
                 {{/if}}
             </div>
         </div>
-        <div id="comment" class="tab-content">
+        <div id="comment" class="tab-content submission-editor">
             {{#if @root.isTeacher}}
                 {{#if this.submission}}
+                    {{#embed "files/file-upload"}}{{/embed}}
+                    <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
+                    <input name="teamMembers" id="teamMembers" type="hidden" data-force-value="true" value="{{userIds this.submission.teamMembers}}" />
+                    {{#ifneq 0 (arrayLength this.submission.gradeFileIds)}}
+                        {{#embed "homework/components/submission_files"
+                            fileIds=../submission.gradeFileIds
+                            grading=true
+                            deletionAllowed=true
+                            submission=../submission}}{{/embed}}
+                    {{/ifneq}}
+
                     <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
                         <input type="hidden" name="_method" data-force-value="true" value="patch" />
+
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
                         {{#if this.submission.courseGroupId}}
                             <input name="courseGroupId" type="hidden" value="{{this.submission.courseGroupId._id}}"/>
@@ -48,7 +63,7 @@
                                 <input data-testid="evaluation_procent" type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}" />
                             </div>
                             <label>{{$t "homework.label.comment" }}</label>
-                            <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
+                            <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="{{$t "homework.input.gradeComment"}}">{{this.submission.gradeComment}}</textarea>
                         </div>
                         {{#userHasPermission "HOMEWORK_CREATE"}}
                             {{> "lib/components/csrfInput"}}
@@ -64,6 +79,13 @@
                         <p>{{$t "homework.text.noEvaluationTextAvailable" }}</p>
                     {{/if}}
                 </div>
+                {{#ifneq 0 (arrayLength this.submission.gradeFileIds)}}
+                    {{#embed "homework/components/submission_files"
+                        fileIds=../submission.gradeFileIds
+                        grading=true
+                        deletionAllowed=false
+                        submission=../submission}}{{/embed}}
+                {{/ifneq}}
             {{/if}}
         </div>
     </div>

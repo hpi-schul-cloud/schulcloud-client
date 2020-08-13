@@ -79,15 +79,15 @@ class TopicBlockWrapper extends React.Component {
                                    onClick={this.toggleHidden.bind(this)}
                                    data-toggle="tooltip"
                                    data-placement="top"
-                                   title={`Abschnitt ${this.props.hidden ? 'entsperren' : 'sperren'}`}
-                                   data-original-title={`Abschnitt ${this.props.hidden ? 'entsperren' : 'sperren'}`}
+                                   title={this.props.hidden ? $t('topic.topicEdit.label.openSection') : $t('topic.topicEdit.label.lockSection')}
+                                   data-original-title={this.props.hidden ? $t('topic.topicEdit.label.openSection') : $t('topic.topicEdit.label.lockSection')}
                                 >
                                     <i className={`fa fa-eye${this.props.hidden ? '-slash' : ''}`} />
                                 </a>
                             </span>
 
                             <input
-                                placeholder="Titel des Abschnitts"
+                                placeholder={$t('topic.topicEdit.input.sectionTitle')}
                                 value={this.props.title}
                                 className="form-control"
                                 onChange={this.updateTitle.bind(this)}
@@ -116,7 +116,7 @@ class TopicBlockWrapper extends React.Component {
                                 </button>
                                 <div className="dropdown-menu dropdown-menu-right">
                                     <a className="dropdown-item text-danger" onClick={this.onRemoveWithCallback.bind(this)}>
-                                        <span><i className="fa fa-trash" /> Entfernen</span>
+                                        <span><i className="fa fa-trash" /> {$t('global.button.remove')}</span>
                                     </a>
                                 </div>
                             </div>
@@ -313,12 +313,12 @@ class TopicBlockList extends React.Component {
 
                 <div className="form-group">
                     <div className="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicText)}>+ Text</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}>+ GeoGebra Arbeitsblatt</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicText)}>{`+ ${$t('topic.topicEdit.button.text')}`}</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}>{`+ ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>{`+ ${$t('topic.topicEdit.button.material')}`}</button>
                         {neXboardEnabled ? <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button> : '' }
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>+ Aufgabe</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>{`+ ${$t('topic.topicEdit.button.task')}`}</button>
                     </div>
                 </div>
             </div>
@@ -410,7 +410,7 @@ class TopicText extends TopicBlock {
                 infoTab.remove( 'txtVSpace' );
                 infoTab.remove( 'cmbAlign' );
 
-                infoTab.elements[0].children[0].children[1].label = 'Datei auswählen';
+                infoTab.elements[0].children[0].children[1].label = $t('topic.topicEdit.label.addFile');
             }
         });
 
@@ -663,7 +663,7 @@ class TopicResources extends TopicBlock {
                 </div>
 
                 <div className="btn-group" role="group" >
-                    <button type="button" className="btn btn-secondary btn-add" onClick={this.addResource.bind(this, '')}>+ Material</button>
+                    <button type="button" className="btn btn-secondary btn-add" onClick={this.addResource.bind(this, '')}>{`+ ${$t('topic.topicEdit.button.material')}`}</button>
                 </div>
             </div>
         );
@@ -720,14 +720,14 @@ class TopicGeoGebra extends TopicBlock {
                         href="#"
                         data-toggle="tooltip"
                         data-placement="top"
-                        title="Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"><i className="fa fa-info-circle" /></a>
+                        title={$t('topic.topicEdit.label.youllFindTheIdOn')}><i className="fa fa-info-circle" /></a>
                 </span>
                 <input
                     className="form-control"
                     id={this.editorId}
                     onChange={this.updateMaterialId.bind(this)}
                     value={(this.props.content || {}).materialId}
-                    placeholder="GeoGebra Material-ID eingeben, z.B. kEBfU7AR"
+                    placeholder={$t('topic.topicEdit.input.GeoGebraEnterId')}
                     name={`contents[${this.props.position}][content][materialId]`}
                 />
             </div>
@@ -806,7 +806,7 @@ class TopicInternal extends TopicBlock {
                             href="#"
                             data-toggle="tooltip"
                             data-placement="top"
-                            title={`Der Link muss mit '${this.state.baseUrl}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.`}><i className="fa fa-info-circle" /></a>
+                            title={$t('topic.topicEdit.label.theLinkHasToBeginWith', {'baseUrl' : this.state.baseUrl})}><i className="fa fa-info-circle" /></a>
                     </span>
                     <input
                         className="form-control"
@@ -856,17 +856,17 @@ class TopicEtherpad extends TopicBlock {
         return (
             <div>
                 <div type="hidden" className="form-group" style={{ display: 'none' }}>
-                    <label>Name des Etherpads</label>
+                    <label>{$t('topic.topicEdit.label.nameOfEtherpad')}</label>
                     <input className="form-control"
                         name={`contents[${this.props.position}][content][title]`}
-                        type="text" placeholder="Brainstorming zum Thema XYZ"
+                        type="text" placeholder={$t('topic.topicEdit.input.brainstormAboutXYZ')}
                         value={this.props.content.title}/>
                 </div>
                 <div className="form-group">
-                    <label>Beschreibung des Etherpads</label>
+                    <label>{$t('topic.topicEdit.label.descriptionEtherpad')}</label>
                     <textarea className="form-control"
                         name={`contents[${this.props.position}][content][description]`}
-                        placeholder="Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC ">
+                        placeholder={$t('topic.topicEdit.input.createsListInEtherpad')}>
                         {this.props.content.description}
                     </textarea>
                 </div>
@@ -947,26 +947,26 @@ class TopicNexboard extends TopicBlock {
         return (
             <div>
                 <div type="hidden" className="form-group">
-                    <label>Name des neXboards</label>
+                    <label>{$t('topic.topicEdit.label.nameOfNeXboard')}</label>
                     <input required className="form-control" name={`contents[${this.props.position}][content][title]`}
-                           type="text" placeholder="Brainstorming zum Thema XYZ" value={(this.props.content || {}).title}/>
+                           type="text" placeholder={$t('topic.topicEdit.input.brainstormAboutXYZ')} value={(this.props.content || {}).title}/>
                 </div>
                 <div className="form-group">
-                    <label>Beschreibung des neXboards</label>
+                    <label>{$t('topic.topicEdit.label.descriptionNeXboard')}</label>
                     <textarea className="form-control" name={`contents[${this.props.position}][content][description]`}
-                              placeholder="Erstellt im nachfolgendem neXboard eine Pro-Contra-Liste zum Thema XYC ">
+                              placeholder={$t('topic.topicEdit.input.createsListInNeXboard')}>
                         {(this.props.content || {}).description}
                     </textarea>
                 </div>
 				<div className="form-group">
-                    <label>neXboard auswählen</label>
+                    <label>{$t('topic.topicEdit.label.selectNeXboard')}</label>
                     <select name={`contents[${this.props.position}][content][board]`}
                             className="chosen-select"
-                            data-placeholder="neXboard auswählen"
+                            data-placeholder={$t('topic.topicEdit.input.selectNeXboard')}
                             id={(this.state.id)}
                             value={(this.props.content || {}).board}>
-                        {(this.props.content || {}).board ? <option value={this.props.content.board}>NexBoard beibehalten</option> : ''}
-                        <option value={this.state.newBoard} >Neues neXboard anlegen</option>
+                        {(this.props.content || {}).board ? <option value={this.props.content.board}>{$t('topic.topicEdit.input.keepNeXboard')}</option> : ''}
+                        <option value={this.state.newBoard} >{$t('topic.topicEdit.input.createNewNeXboard')}</option>
                     </select>
 				</div>
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
