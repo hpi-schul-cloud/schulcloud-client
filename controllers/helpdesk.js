@@ -49,15 +49,15 @@ router.post('/', fileUpload({
 		&& !element.mimetype.includes('video/')
 		&& !element.mimetype.includes('application/msword')
 		&& !element.mimetype.includes('application/pdf')) {
-			throw new Error(res.$t('helpdesk.text.fileWrongFormat', { filename: element.name }));
+			throw new Error(res.$t('global.text.fileWrongFormat', { filename: element.name }));
 		}
 		fileSize += element.size;
 	});
 	if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE) {
 		if (files.length > 1) {
-			throw new Error(res.$t('helpdesk.text.filesTooLarge'));
+			throw new Error(res.$t('global.text.filesTooLarge'));
 		} else {
-			throw new Error(res.$t('helpdesk.text.fileTooLarge'));
+			throw new Error(res.$t('global.text.fileTooLarge'));
 		}
 	}
 

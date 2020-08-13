@@ -24,6 +24,8 @@ const rolesDisplayName = {
 	expert: 'Experte',
 };
 
+const USER_FORCED_TO_CHANGE_PASSWORD_REJECT = 'USER_FORCED_TO_CHANGE_PASSWORD_REJECT';
+
 const generatePassword = () => {
 	const passphraseParts = [];
 
@@ -171,6 +173,15 @@ const checkSuperhero = (req, res) => {
 };
 
 
+const checkIfUserIsForcedToChangePassword = (req, res) => {
+	if (!res.locals.currentUser.forcePasswordChange || req.baseUrl.startsWith('/forcePasswordChange')) {
+		return Promise.resolve();
+	}
+	// eslint-disable-next-line prefer-promise-reject-errors
+	return Promise.reject(USER_FORCED_TO_CHANGE_PASSWORD_REJECT);
+};
+
+
 const restrictSidebar = (req, res) => {
 	res.locals.sidebarItems = res.locals.sidebarItems.filter((item) => {
 		if (!item.permission) return true;
@@ -204,6 +215,7 @@ const authChecker = (req, res, next) => {
 					.then(() => checkSuperhero(req, res))
 					.then(() => checkConsent(req, res))
 					.then(() => restrictSidebar(req, res))
+					.then(() => checkIfUserIsForcedToChangePassword(req, res))
 					.then(() => {
 						next();
 						return null;
@@ -214,6 +226,8 @@ const authChecker = (req, res, next) => {
 							res.redirect('/firstLogin');
 						} else if (err === 'superhero access forbidden, redirecting...') {
 							res.redirect('/login/superhero');
+						} else if (err === USER_FORCED_TO_CHANGE_PASSWORD_REJECT) {
+							res.redirect('/forcePasswordChange');
 						} else {
 							res.redirect(redirectUrl);
 						}
@@ -250,7 +264,7 @@ const login = (payload = {}, req, res, next) => {
 
 		// Email Domain Blocked
 		if (e.statusCode === 400 && e.error.message === 'EMAIL_DOMAIN_BLOCKED') {
-			res.locals.notification.message = res.$t('login.text.loginFailedBlockedEmailDomain');
+			res.locals.notification.message = res.$t('global.text.emailDomainBlocked');
 		}
 
 		// Too Many Requests

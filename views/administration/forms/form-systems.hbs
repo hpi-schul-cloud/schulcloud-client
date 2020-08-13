@@ -1,12 +1,12 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
 <div class="form-group">
-    <label>Name des Systems</label>
+    <label>{{$t "administration.form_System.label.systemName" }}</label>
     <input class="form-control" name="alias" type="text" value="{{alias}}" />
 </div>
 
 <div class="form-group">
-    <label>Typ des Systems</label>
+    <label>{{$t "administration.form_System.label.systemType" }}</label>
     <select name="type" required data-placeholder="Anbieter auswählen" class="sso-type-selection" >
         {{#each @root.availableSSOTypes}}
             {{#unless this.hidden}}
@@ -16,14 +16,14 @@
     </select>
 </div>
 <div class="form-group">
-    <label>Url des Systems</label>
+    <label>{{$t "administration.form_System.label.urlOfTheSystem" }}</label>
     <input class="form-control" name="url" type="text" value="{{url}}" />
 </div>
 <hr>
 <div class="panel-group collapsePanel">
     <div class="panel panel-default" id="panel-oauth">
         <div class="panel-heading">
-            <a data-toggle="collapse" href="#collapse{{collapseId}}" class="collapse-toggle"><label>Weitere Informationen (OAuth)</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+            <a data-toggle="collapse" href="#collapse{{collapseId}}" class="collapse-toggle"><label>{{$t "administration.form_System.label.furtherInformation" }}</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
         </div>
         <div id="collapse{{collapseId}}" class="panel-collapse collapse">
             <div class="form-group">
@@ -31,7 +31,7 @@
                 <input class="form-control" name="oaClientId" type="text">
             </div>
             <div class="form-group">
-                <label>Client-Geheimnis</label>
+                <label>{{$t "administration.form_System.label.clientSecret" }}</label>
                 <input class="form-control" name="oaClientSecret" type="text">
             </div>
         </div>

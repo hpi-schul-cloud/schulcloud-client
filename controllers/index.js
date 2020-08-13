@@ -41,6 +41,7 @@ router.use('/my-material', require('./my-material'));
 router.use('/base64Files', require('./base64Files'));
 router.use('/logs', require('./logs'));
 router.use('/firstLogin', require('./firstLogin'));
+router.use('/forcePasswordChange', require('./forcePasswordChange'));
 router.use('/oauth2', require('./oauth2'));
 router.use('/welcome', require('./welcome'));
 router.use('/schools/', require('./schools'));
@@ -56,7 +57,7 @@ router.use('/ghost', require('./ghost'));
 router.use('/blog', require('./blog'));
 router.use('/security/', require('./security'));
 
-if (Configuration.get('LERNSTORE_MODE') === 'LEGACY') {
+if (Configuration.get('LERNSTORE_MODE') !== 'DISABLED') {
 	router.use('/content/', require('./content'));
 }
 

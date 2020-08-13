@@ -13,7 +13,7 @@
                             {{#each release}}
                                 <div class="card">
                                     <div class="card-header" role="tab" id="heading-{{@index}}">
-                                        <h3 class="h5 mb-0">
+                                        <h2 class="h5 mb-0">
                                             <a data-toggle="collapse" data-parent="#accordion"
                                                 href="#collapse-{{@index}}"
                                                 {{#ifeq @index 0}}
@@ -29,7 +29,7 @@
                                                     </span>
                                                 </div>
                                             </a>
-                                        </h3>
+                                        </h2>
                                     </div>
                                     <div id="collapse-{{@index}}" class="collapse {{#ifeq @index 0}}in{{/ifeq}}"
                                             role="tabpanel" aria-labelledby="heading-{{@index}}"
@@ -40,7 +40,7 @@
                                             {{#ifneq @index 0}}</noscript>{{/ifneq}}
                                         </div>
                                         <div class="card-footer">
-                                            <a href="{{this.url}}" target="_blank">Weiterlesen</a>
+                                            <a href="{{this.url}}" target="_blank">{{$t "help.global.link.continueReading" }}</a>
                                             <span class="pull-right">
                                                 <i class="fa fa-user"></i>
                                                 <a href="{{this.authorUrl}}" target="_blank">{{this.author}}</a>

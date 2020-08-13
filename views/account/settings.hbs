@@ -17,13 +17,13 @@
             <form method="post">
                 {{#ifneq currentRole "Schüler"}}
                 <div class="form-group">
-                    <label>{{$t "account.global.label.firstName" }}</label>
-                    <input type="text" class="form-control" name="firstName" value="{{ ../currentUser.firstName }}">
+                    <label for="firstName">{{$t "global.label.firstNameColon" }}</label>
+                    <input id="firstName" type="text" class="form-control" name="firstName" value="{{ ../currentUser.firstName }}">
                 </div>
 
                 <div class="form-group">
-                    <label>{{$t "account.global.label.lastName" }}</label>
-                    <input type="text" class="form-control" name="lastName" value="{{ ../currentUser.lastName }}">
+                    <label for="lastName">{{$t "global.label.lastNameColon" }}</label>
+                    <input id="lastName" type="text" class="form-control" name="lastName" value="{{ ../currentUser.lastName }}">
                 </div>
 				{{else}}
 					<input type="hidden" disabled name="firstName" value="{{ ../currentUser.firstName }}">
@@ -31,43 +31,43 @@
                 {{/ifneq}}
 
                 <div class="form-group">
-                    <label>{{$t "account.global.label.emailAddress" }}</label>
-                    <input type="email" class="form-control" name="email" value="{{ currentUser.email }}">
+                    <label for="email">{{$t "global.label.emailAddress" }}</label>
+                    <input id="email" type="email" class="form-control" name="email" value="{{ currentUser.email }}">
                 </div>
 
                 <div class="form-group">
-                    <label>{{$t "account.global.label.currentPassword" }} <sup>*</sup></label>
+                    <label for="settings_current_password">{{$t "account.global.label.currentPassword" }} <sup>*</sup></label>
                     <div class="input-group" id="show_hide_password">
                         <input type="password" autocomplete="current-password" id="settings_current_password" data-testid="settings_password_current" name="password" class="form-control"
                         placeholder="***************" required>
                         <div class="input-group-addon">
-                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            <a href="" title="{{$t "login.anchor.title.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
 
                 {{#userHasPermission "PASSWORD_EDIT"}}
                 <div class="form-group">
-                    <label>{{$t "account.global.label.newPassword" }}</label>
+                    <label for="passwordNew">{{$t "account.global.label.newPassword" }}</label>
                     <div class="input-group" id="show_hide_password">
                         <input type="password" autocomplete="new-password" name="passwordNew" id="passwordNew" data-testid="settings_password_new" class="form-control"
                             placeholder="***************"
                             pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
                             title="{{> "lib/forms/password-hint" plaintext=true}}">
                         <div class="input-group-addon">
-                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            <a href="" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>{{$t "account.global.label.repeatNewPassword" }}</label>
+                    <label for="password_control">{{$t "account.global.label.repeatNewPassword" }}</label>
                     <div class="input-group" id="show_hide_password">
                         <input type="password" autocomplete="new-password" name="password_control" id="password_control" data-testid="settings_password_control"
                         class="form-control" placeholder="***************"
                         title="{{> "lib/forms/password-hint" plaintext=true}}">
                         <div class="input-group-addon">
-                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            <a href="" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
@@ -85,22 +85,22 @@
             <input type="hidden" name="userId" value="{{userId}}"/>
 
             <span class="hint">
-                <span class="star-reference">*</span>
-                {{> "lib/forms/password-hint" plaintext=false style="display: inline;"}}
+                <span class="star-reference text-muted">*</span>
+                {{> "lib/forms/password-hint" plaintext=false style="display: inline;" class="text-muted"}}
             </span>
             {{else}}
             <div>
                 <div class="form-group">
-                    <label>{{$t "account.global.label.firstName" }}</label>
-                    <input type="text" class="form-control" value="{{ currentUser.firstName }}" readonly>
+                    <label for="fName">{{$t "global.label.firstNameColon" }}</label>
+                    <input id="fName" type="text" class="form-control" value="{{ currentUser.firstName }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label>{{$t "account.global.label.lastName" }}</label>
-                    <input type="text" class="form-control" value="{{ currentUser.lastName }}" readonly>
+                    <label for="lName">{{$t "global.label.lastNameColon" }}</label>
+                    <input id="lName" type="text" class="form-control" value="{{ currentUser.lastName }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label>{{$t "account.global.label.emailAddress" }}</label>
-                    <input type="email" class="form-control" value="{{ currentUser.email }}" readonly>
+                    <label for="emailAddress">{{$t "global.label.emailAddress" }}</label>
+                    <input id="emailAddress" type="email" class="form-control" value="{{ currentUser.email }}" readonly>
                 </div>
                 <p class="warning">
 					{{$t "account.text.centralIdentityManagement"}}
@@ -112,9 +112,9 @@
 				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
 				{{else}}
                 <form method="post" action="/account/teamSettings">
-                    <h5>Teams</h5>
+                <h2 class="h5">{{$t "global.link.teams"}}</h2>
                     <div class="form-group">
-                        {{$t "account.text.visibilityForTeamInvitation" }}
+                        {{$t "account.teams.text.visibilityTeamInvitations" }}
                         <p class="text-muted">{{{$t "account.teams.text.hint" (dict "short_title" theme.short_title )}}}</p>
 
                         {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>{{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled"}}</label>{{/ifConfig}}
@@ -151,19 +151,16 @@
                                 <table width="100%" cellpadding="5px">
                                     <thead>
                                     <th></th>
-                                    <th><label>Name</label></th>
-                                    <th><label>{{$t "account.global.label.type" }}</label></th>
+                                    <th><label>{{$t "account.global.text.name" }}</label></th>
+                                    <th><label>{{$t "global.label.type" }}</label></th>
                                     <th><label>{{$t "account.global.label.operatingSystem" }}</label></th>
                                     </thead>
                                     <tbody>
                                     {{#each device}}
                                         <tr id="{{this._id}}">
-                                            <td>{{#if this.selected}}<a href="/account/settings/device"
-                                                                        target="_blank"
-                                                                        data-method="delete"
-                                                                        data-device-name="{{this.name}}"
-                                                                        data-device-id="{{this.token}}">
-                                                <i class="fa fa-trash-o"></i></a>
+                                        {{#if this.selected}}<a href="/account/settings/device" target="_blank" aria-label="{{$ "global.label.newTab"}}" data-device-id="{{this.token}}">
+                                                <i aria-hidden="true" class="fa fa-trash-o"></i>
+                                        </a>
                                             {{/if}}</td>
                                             <td class="form-group">{{this.name}}</td>
                                             <td class="form-group">{{this.type}}</td>
@@ -204,7 +201,7 @@
 					</button>
 
 					<button type="submit" class="btn btn-primary btn-submit">
-						{{$t "global.button.delete" }}
+						{{$t "global.headline.delete" }}
 					</button>
 				</div>
 			{{/content}}
@@ -214,7 +211,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h2 class="h4 panel-title">
-						<a data-toggle="collapse" href="#collapse2" class="collapse-toggle"><label>{{$t "account.global.label.thirdPartyLogins"}}</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+						<a data-toggle="collapse" href="#collapse2" class="collapse-toggle">{{$t "account.global.text.thirdPartyLogins"}}<i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
 					</h2>
 				</div>
 				<div id="collapse2" class="panel-collapse collapse">
@@ -230,7 +227,7 @@
 								{{#each session}}
 									<tr id="{{this.consent_request.client.client_id}}">
 										<td><a href="/account/oauth2/revoke/{{this.consent_request.client.client_id}}">
-											<i class="fa fa-trash-o"></i></a></td>
+											<i aria-hidden="true" class="fa fa-trash-o"></i></a></td>
 										<td class="form-group">{{this.consent_request.client.client_name}}</td>
 									</tr>
 								{{/each}}
@@ -238,7 +235,7 @@
 							</table>
 						{{else}}
 							<h3 class=" h5 text-muted text-center">
-								<span>{{$t "account.text.noThirdPartyProvidersUsed"}}</span>
+								<span>{{$t "account.global.text.noThirdPartyProvidersUsed"}}</span>
 							</h3>
 						{{/if}}
 					</div>

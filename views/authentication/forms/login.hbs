@@ -1,6 +1,6 @@
 <section id="loginarea" class="card mt-3">
 	<div class="card-block">
-		<h2 class="h4 card-title">{{$t "login.headline.LoginForRegisteredUsers"}}</h2>
+		<h1 class="h4 card-title">{{$t "login.headline.loginForRegisteredUsers"}}</h1>
 		<div class="card-text form-wrapper">
 			{{> "lib/components/notification"}}
 
@@ -16,11 +16,11 @@
 				<div class="form-group">
 					<label for="name">{{$t "login.input.emailUsername"}}</label>
 					<input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" style="margin-bottom: 0.5rem" data-testid="username" required >
-						<label for="password">{{$t "login.input.password"}}</label>
+						<label for="password">{{$t "global.input.password"}}</label>
 					<div class="input-group mt-1" id="show_hide_password" style="margin-top: 0rem !important">
-						<input type="password" id="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg"  placeholder="{{$t "login.input.password"}}" data-testid="password" required>
+						<input type="password" id="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg"  placeholder="{{$t "global.input.password"}}" data-testid="password" required>
 						<div class="input-group-addon">
-							<a href="" title="{{$t "login.anchor.title.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+							<a href="" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
 						</div>
 					</div>
 					{{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}
@@ -28,20 +28,20 @@
 						<input type="checkbox" id="privateDevice" name="privateDevice" value="true">
 						<label for="privateDevice">{{$t "login.label.thisIsAPrivateDevice"}}</label>
 						<button type="button" data-toggle="tooltip" data-placement="left" title="{{$t "login.button.longerLoggedInWhenActivated"}}" class="btn-link px-1">
-							<i class="fa fa-info"></i>
+							<i aria-hidden="true" class="fa fa-info"></i>
 						</button>
 					</div>
 					{{/ifEnv}}
 				</div>
 
                 <button  title={{$t "login.button.moreOptions"}} class="btn toggle-btn btn-block btn-secondary btn-toggle-providers ">
-                    <i class="fa fa-chevron-down"></i> {{$t "login.button.moreOptions"}}
+                    <i aria-hidden="true" class="fa fa-chevron-down"></i> {{$t "login.button.moreOptions"}}
                 </button>
 
 
 				<div class="login-providers">
 					<div class="form-group">
-						<label for="school">{{$t "login.label.school"}}</label>
+						<label for="school">{{$t "global.link.school"}}</label>
 						<select tab-index="0"id="school" name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
 							<option selected disabled></option>
 							{{#each schools}}
@@ -68,9 +68,9 @@
 				{{> "lib/components/csrfInput"}}
 				<div class="form-group">
 					{{#if notification.statusCode}}
-						<input type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
 					{{else}}
-						<input type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" />
+						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" />
 					{{/if}}
 				</div>
 			</form>

@@ -13,7 +13,6 @@
 					{{/if}}
 				{{/unless}}
 			>
-
 				{{#unless this.isBBB}}
 				<div class="card-title-directory">
 					{{#if logo_url}}
@@ -49,7 +48,7 @@
 				{{#if this.isBBB}}
 				<div class="card-title-directory bbb-state bbb-guest-inactive-state">
 					<img src="/images/tools/bbb/not_started.png" class="float-left" style="width:auto; height:75px;" />
-					<span>{{$t "courses._course.tools.text.videoConferenceNotStartedYet"}}</span>
+					<span>{{$t "global.text.videoconferenceNotStartedYet"}}</span>
 					<a class="bbbTool-info-icon">
 						<i class="fa fa-info-circle"></i>
 					</a>
@@ -95,8 +94,10 @@
 			{{/each}}
 			{{else}}
 			<div class="empty-state">
-				<img src="/images/empty-states/tools.svg" alt="{{$t "courses._course.tools.img_alt.noAddedTools"}}"
-					class="image" />
+				{{> courses/components/svg_tools}}
+				<!--<img src="/images/empty-states/tools.svg" alt="{{$t "courses._course.tools.img_alt.noAddedTools"}}"
+					class="image course-empty-content-image" />-->
+
 				{{#unless @root.isArchived}}
 				{{#userHasPermission "TOOL_CREATE" }}
 				<h2 class="h4">{{$t "courses._course.tools.headline.addToolToCourse"}}</h2>

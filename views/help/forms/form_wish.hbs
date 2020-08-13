@@ -2,56 +2,55 @@
 <input type="hidden" name="type" value="wish">
 
 <label class="form-group">
-	<span class="control-label" for="title">Kurzbeschreibung des Wunsches</span>
-	<input type="text" name="title" id="wishTitle" placeholder="Kurzbeschreibung des Wunsches" class="form-control" required>
+	<span class="control-label" for="title">{{$t "help.form_Wish.label.briefDescriptionOfTheRequest" }}</span>
+	<input type="text" name="title" id="wishTitle" placeholder="{{$t "help.form_Wish.placeholder.briefDescriptionOfTheRequest" }}" class="form-control" required>
 </label>
 <label class="form-group">
-	<span class="control-label">Als...</span>
-	<input type="text" name="role" placeholder="z.B. Schüler, Lehrer, Administrator, Hausmeister usw." class="form-control" required>
+	<span class="control-label">{{$t "help.form_Wish.label.as" }}</span>
+	<input type="text" name="role" placeholder="{{$t "help.form_Wish.placeholder.exampleStudent" }}" class="form-control" required>
 </label>
 <label class="form-group">
-	<span class="control-label">möchte ich ...</span>
-	<textarea class="form-control" cols="50" name="desire" rows="6" placeholder="z.B. eine im System angelegte Schüleraufgabe leicht auffinden und ändern können" required></textarea>
+	<span class="control-label">{{$t "help.form_Wish.label.iWouldLikeTo" }}</span>
+	<textarea class="form-control" cols="50" name="desire" rows="6" placeholder="{{$t "help.form_Wish.placeholder.canEasilyFindAndChange" }}" required></textarea>
 </label>
 <label class="form-group">
-	<span class="control-label">um ...</span>
-	<textarea class="form-control" cols="50" name="benefit" rows="6" placeholder="z.B. sie zu aktualisieren" required></textarea>
+	<span class="control-label">{{$t "help.form_Wish.label.around" }}</span>
+	<textarea class="form-control" cols="50" name="benefit" rows="6" placeholder="{{$t "help.form_Wish.placeholder.toUpdateThem" }}" required></textarea>
 </label>
 <label class="form-group">
-	<span class="control-label optional">Akzeptanzkriterien</span>
-	<textarea class="form-control" cols="50" name="acceptanceCriteria" rows="6" placeholder="z.B. Nach der Systemanmeldung gelange ich in maximal zwei Schritten zum Stundenkontext, kann die Schüleraufgabe dort mit einem Klick bearbeiten und die SchülerInnen bei Bedarf automatisch über die Änderung informieren."></textarea>
+	<span class="control-label optional">{{$t "help.form_Wish.label.acceptanceCriteria" }}</span>
+	<textarea class="form-control" cols="50" name="acceptanceCriteria" rows="6" placeholder="{{$t "help.form_Wish.placeholder.afterLoggingOnToTheSystem" }}"></textarea>
 </label>
 <label class="form-group">
-	<span class="control-label optional">Gerät</span>
+	<span class="control-label optional">{{$t "help.form_Wish.label.device" }}</span>
 	<input type="text" name="device" placeholder="z.B. iPhone X, Samsung Galaxy S10" class="form-control">
 </label>
 <label class="form-group">
 	<span class="control-label" for="email">
-		E-Mail-Adresse für eventuelle Rückfragen
+		{{$t "help.global.label.replyEmail" }}
 	</span>
-	<input type="email" name="replyEmail" placeholder="E-Mail-Adresse" value="{{ userEmail }}" class="form-control" required>
+	<input type="email" name="replyEmail" placeholder={{$t "help.placeholder.email"}} value="{{ userEmail }}" class="form-control" required>
 </label>
 <hr>
-<p>Weitere Informationen (optional):</p>
-<label>
-<div class="row">
-	<div class="col-xs-2">
-		<input type="checkbox" id="consent" name="consent" value="true" checked>
-	</div>
-	<div class="col-xs-10">
-		<span class="control-label" for="consent">
-			Ich bin damit einverstanden,
-			dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen:
-			<li>Browser Name und Version (z.B: Firefox 69.0)</li>
-			<li>Betriebssystem und Version (z.B: Windows 10)</li>
-		</span>
-	</div>
-</div>
-</label>
+<fieldset>
+	<legend class="control-legend">{{$t "help.global.label.furtherInformation" }}</legend>
+	<label for="consentWish">
+		<div class="row">
+			<div class="col-xs-2">
+				<input type="checkbox" id="consentWish" name="consent" value="true" checked>
+			</div>
+			<div class="col-xs-10">
+				<span class="control-label">
+				  {{{$t "help.form_Wish.text.iAgreeThatTheFollowingInformation" }}}
+				</span>
+			</div>
+		</div>
+	</label>
+</fieldset>
 {{#ifEnv "FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED" "true"}}
 <br>
 <label class="form-group">
-    <span class="control-label">Bilder, Videos und Dateien (max. {{ ../formAttachmentsSize }}MB):</span>
+    <span class="control-label">{{$t "help.form_bug.label.maxSizeFiles" }} (max. {{ ../formAttachmentsSize }}MB):</span>
     <input type="file" class="form-control-file" name="file" multiple="multiple" accept="image/*,video/*,application/msword,application/pdf"
 		data-max-attachment-size-mb="{{ ../formAttachmentsSize }}">
 </label>

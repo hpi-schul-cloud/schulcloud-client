@@ -8,23 +8,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+- SC-5644 navigation and the general structure of pages made more accessible (a11y)
 
+## [24.0.3] - 2020-08-05
+### Fixed - 24.0.3
 
-## [23.6.0] - 2020-07-21
+  - SC-5948 Fix login for international cloud
 
-### Added - 23.6.0
+## [24.0.2] - 2020-08-05
+### Fixed - 24.0.2
+   SC-5954 Fix messenger settings in teams
+
+## [24.0.1] - 2020-07-31
+### Fixed - 24.0.1
+   SC-5917 Fix activation of LDAP system
+
+## [24.0.0] - 2020-07-30
+
+### Added - 24.0.0
 - SC-4151 hint for user when login failes
 - SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists 
 it is shown to every school user by the registration, first login and in the footer of the page. If it was changed the
 privacy policy should be confirmed by every school user
 
 
-### Fixed - 23.6.0
+### Fixed - 24.0.0
 -  SC-4993 fixed video player issue in ckeditor
 -  SC-5686 :teamId/edit can only be accessed if the user has the team permission "RENAME_TEAM"; :courseId/edit can only 
 be accessed if the user has the permission "COURSE_EDIT
 
-### Changed - 23.6.0
+### Changed - 24.0.0
 
 - SC-5327 removed 'bereich' suffix from navigation items
 
