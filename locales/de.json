@@ -1687,6 +1687,11 @@
 		}
 	},
 	"help": {
+		"anchor": {
+			"aria_label": {
+				"section": "Gehen Sie zum {{section}} Abschnitt"
+			}
+		},
 		"confluence": {
 			"link": {
 				"openArticleInConfluence": "Artikel in Confluence öffnen",
