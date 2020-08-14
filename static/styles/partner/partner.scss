@@ -42,7 +42,7 @@ hgroup {
 		&:hover {
 			box-shadow: var(--shadow-sm);
 			transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
-		}
+        }
     }
     .partner-box img {
         max-height: 100%;
@@ -60,6 +60,9 @@ hgroup {
             display: block;
             pointer-events: none;
         }
+    }
+    .transparent{
+        background-color: transparent;
     }
     .buttonWrapper {
         width: 100%;
