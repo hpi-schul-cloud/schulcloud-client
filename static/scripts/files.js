@@ -29,6 +29,12 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
+window.addEventListener('keydown', (e) => {
+	if (e.keyCode === 13) {
+		document.activeElement.click();
+	}
+});
+
 const getDataValue = (attr) => () => {
 	const value = $('.section-upload').data(attr);
 	return value || undefined;
