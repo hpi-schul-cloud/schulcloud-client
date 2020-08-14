@@ -14,7 +14,19 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            {{> "lib/components/table" head=head body=body}}
+                            <div class="tabContainer">
+                                <div class="tabs">
+                                    <a class="tab {{#unless archiveSelected}}active{{/unless}}" href="/administration/courses/?status=active">
+                                        <span class="text">{{$t "courses.tab_label.currentCourses"}}</span>
+                                    </a>
+                                    <a class="tab {{#if archiveSelected}}active{{/if}}" href="/administration/courses/?status=archived">
+                                        <span class="text">{{$t "courses.tab_label.archivedCourses"}}</span>
+                                    </a>
+                                </div>
+                                <div class="col-sm-12 no-padding">
+                                    {{> "lib/components/table" head=head body=body}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
