@@ -72,17 +72,22 @@ router.get('/', (req, res, next) => {
 				const eventStart = new Date(event.start);
 				const eventEnd = new Date(event.end);
 
-				return eventStart > start && eventEnd < end;
+				return eventStart < end && eventEnd > start;
 			});
 
 			return (events || []).map((event) => {
-				const eventStart = new Date(event.start);
+				let eventStart = new Date(event.start);
 				let eventEnd = new Date(event.end);
 
 				// cur events that are too long
 				if (eventEnd > end) {
 					eventEnd = end;
 					event.end = eventEnd.toLocalISOString();
+				}
+
+				if (eventStart < start) {
+					eventStart = start;
+					event.start = eventEnd.toLocalISOString();
 				}
 
 				// subtract timeStart so we can use these values for left alignment
