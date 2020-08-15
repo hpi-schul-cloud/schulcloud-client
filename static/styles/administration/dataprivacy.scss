@@ -61,10 +61,14 @@ input[type="radio"]{
 	line-height: var(--line-height-sm) !important;
 }
 .error-header-image {
-	width: 50% !important;
+	width: 30% !important;
 	margin-left: 25%;
 	margin-right: 25%;
 	margin-bottom: 54px;
+
+	#COLOR {
+		fill: $primaryColor;
+	}
 }
 .error-header-wrapper {
 	margin-top: 80px;
