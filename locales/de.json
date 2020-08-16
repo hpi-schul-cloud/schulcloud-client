@@ -408,7 +408,6 @@
 				"teachingTeacher": "Unterrichtenderlehrer:in",
 				"termsOfUse": "Nutzungsbedingungen",
 				"timeSpan": "Zeitraum (z.B. Schuljahr)",
-				"toInviteToTheSchoolCloud": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:",
 				"weekday": "Wochentag"
 			},
 			"placeholder": {
@@ -623,7 +622,8 @@
 				"importStudents": "Schüler importieren"
 			},
 			"label": {
-				"sendRegistrationLinkToStudent": "Registrierungslink an Schüler:innen senden"
+				"sendRegistrationLinkToStudent": "Registrierungslink an Schüler:innen senden",
+				"distributeLinkToInvite": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:"
 			},
 			"text": {
 				"allApprovalsAvailable": "Alle Zustimmungen vorhanden",

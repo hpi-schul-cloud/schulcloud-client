@@ -1,8 +1,8 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 <div class="form-group">
-    <label for="invitation-link">{{$t "administration.label.toInviteToTheSchoolCloud" }} </label>
+    <label for="invitation-link">{{$t "administration.students.label.distributeLinkToInvite" }} </label>
     <p>
-        {{{$t "administration.global.text.studentUnderYears" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}}
+        {{{$t "administration.form_InvitationStudent.text.studentUnderYears" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}}
     </p>
     <p>{{$t "administration.form_InvitationStudent.text.beforeTheSchoolCloudCanBeUsed" }}</p>
     <input id="invitation-link" class="form-control" name="invitation" type="text" />
