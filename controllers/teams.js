@@ -543,13 +543,9 @@ router.get('/:teamId', async (req, res, next) => {
 			const usersSchoolHasMessengerEnabled = (res.locals.currentSchoolData.features || []).includes('messenger');
 			// Are there members of other schools in the team which have not activated the messenger?
 			// > Filter team schoolIds to only include schools which really have students in the team
-			const filteredSchoolIds = course.schoolIds.filter((school) => {
-				return !!course.userIds.find((user) => user.schoolId === school.id);
-			});
+			const filteredSchoolIds = course.schoolIds.filter((school) => !!course.userIds.find((user) => user.schoolId === school.id));
 			// > Find if at least one participating school hasn't activated the messenger
-			const otherUsersSchoolsHaveNotMessengerEnabled = !!filteredSchoolIds.find((school) => {
-				return !(school.features || []).includes('messenger');
-			});
+			const otherUsersSchoolsHaveNotMessengerEnabled = !!filteredSchoolIds.find((school) => !(school.features || []).includes('messenger'));
 
 			if (!teamsSchoolHasMessengerEnabled && usersSchoolHasMessengerEnabled) {
 				matrixNotification = res.$t('teams._team.text.messengerNotActiveInTeam');
