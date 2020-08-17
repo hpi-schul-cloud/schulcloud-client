@@ -2679,21 +2679,21 @@ const getCourses = (req, params = {}) => {
 	};
 
 	return api(req).get('courses', { qs: query });
-}
+};
 
 router.all('/courses', (req, res, next) => {
 	const itemsPerPage = req.query.limit || 10;
 	const currentPage = parseInt(req.query.p, 10) || 1;
-	const courseStatus = req.query.status || 'active';
+	const activeTab = req.query.activeTab || 'active';
 
-	const head = [
+	const head = [ 
 		res.$t('global.headline.name'),
 		res.$t('global.headline.classes'),
 		res.$t('administration.controller.headline.teachers'),
 		'',
 	];
 
-	const coursesPromise = getCourses(req, { itemsPerPage, currentPage, courseStatus });
+	const coursesPromise = getCourses(req, { itemsPerPage, currentPage, courseStatus: activeTab });
 	const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher'],
@@ -2715,7 +2715,7 @@ router.all('/courses', (req, res, next) => {
 		substitutionPromise,
 		studentsPromise,
 	]).then(([courses, classes, teachers, substitutions, students]) => {
-		const body = courses.data.map((item) => [
+		const coursesBody = courses.data.map((item) => [
 			item.name,
 			// eslint-disable-next-line no-shadow
 			(item.classIds || []).map((item) => item.displayName).join(', '),
@@ -2737,8 +2737,6 @@ router.all('/courses', (req, res, next) => {
 			],
 		]);
 
-		const statusQuery = req.query.status ? `&status=${req.query.status}` : '';
-
 		let sortQuery = '';
 		if (req.query.sort) {
 			sortQuery = `&sort=${req.query.sort}`;
@@ -2752,7 +2750,7 @@ router.all('/courses', (req, res, next) => {
 		const pagination = {
 			currentPage,
 			numPages: Math.ceil(courses.total / itemsPerPage),
-			baseUrl: `/administration/courses/?p={{page}}${sortQuery}${limitQuery}${statusQuery}`,
+			baseUrl: `/administration/courses/?p={{page}}&activeTab=${activeTab}${sortQuery}${limitQuery}`,
 		};
 
 		res.render('administration/courses', {
@@ -2760,14 +2758,14 @@ router.all('/courses', (req, res, next) => {
 				title: returnAdminPrefix(res.locals.currentUser.roles, res),
 			}),
 			head,
-			body,
+			coursesBody,
 			classes,
 			teachers,
 			substitutions,
 			students,
 			pagination,
 			limit: true,
-			archiveSelected: courseStatus === 'archived',
+			activeTab,
 		});
 	});
 });

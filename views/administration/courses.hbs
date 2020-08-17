@@ -6,6 +6,7 @@
     {{#content "scripts" mode="append"}}
         <script src="/scripts/coursesTimes.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "page" mode="prepend"}}
@@ -14,23 +15,28 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            <div class="tabContainer">
+                            <div class="tabContainer" data-active-tab={{activeTab}}>
                                 <div class="tabs">
-                                    <a class="tab {{#unless archiveSelected}}active{{/unless}}" href="/administration/courses/?status=active">
+                                    <a class="tab" data-tab="js-active" href="/administration/courses/?activeTab=active">
                                         <span class="text">{{$t "courses.tab_label.currentCourses"}}</span>
                                     </a>
-                                    <a class="tab {{#if archiveSelected}}active{{/if}}" href="/administration/courses/?status=archived">
+                                    <a class="tab" data-tab="js-archived" href="/administration/courses/?activeTab=archived">
                                         <span class="text">{{$t "courses.tab_label.archivedCourses"}}</span>
                                     </a>
                                 </div>
-                                <div class="col-sm-12 no-padding">
-                                    {{> "lib/components/table" head=head body=body}}
-                                </div>
                             </div>
+                            <div class="sectionsContainer"><div class="sections"><div class="section section-course" data-section="js-{{activeTab}}"></div></div></div>
                         </div>
                     </div>
                     <div class="row">
-                        {{> "lib/components/pagination" settings=pagination }}
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/table" head=head limit=true body=coursesBody}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/pagination" settings=pagination }}
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
