@@ -443,7 +443,7 @@
 			"button": {
 				"verify": "Verifizieren"
 			},
-			"heading": {
+			"headline": {
 				"classAttributes": "Klassen-Attribute",
 				"classAttributesTitle": "Geben Sie das Klassenattribut an, in dem die folgenden Informationen in Ihrem LDAP verfügbar sind",
 				"importantNote": "Wichtiger Hinweis",
@@ -503,7 +503,7 @@
 			"button": {
 				"closeTheWindow": "Fenster schließen"
 			},
-			"heading": {
+			"headline": {
 				"LDAPClasses": "LDAP-Klassen",
 				"LDAPUsers": "LDAP-Nutzer",
 				"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
@@ -771,7 +771,7 @@
 			"mintECSchools": "MINT-EC Schulen",
 			"thuringia": "Thüringen"
 		},
-		"heading": {
+		"headline": {
 			"chooseYourState": "Wählen Sie Ihr Bundesland oder das Projekt dem Sie angehören.",
 			"joinNow": "Jetzt mitmachen!"
 		},
