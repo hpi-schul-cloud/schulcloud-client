@@ -203,7 +203,6 @@
 				"students": "{{title}}Schüler",
 				"targetState": "Soll-Zustand",
 				"teacher": "{{title}}Lehrer",
-				"teachers": "Lehrer",
 				"teams": "{{title}}Teams",
 				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
 				"uploadedOn": "Hochgeladen am"
@@ -1084,7 +1083,6 @@
 			"headline": {
 				"addCourse": "Kurs anlegen",
 				"addStudents": "Schüler:innen hinzufügen",
-				"almostDone": "Du hast es fast geschafft...",
 				"done": "Geschafft!",
 				"whatToDoCourses": "Was kannst du in einem Kurs machen?"
 			},
@@ -1392,15 +1390,11 @@
 		},
 		"global": {
 			"headline": {
-				"birthdate": "Geburtsdatum",
-				"declarationOfConsent": "Einwilligungserklärung"
+				"birthdate": "Geburtsdatum"
 			},
 			"text": {
 				"canUse": "nutzen kannst."
 			}
-		},
-		"headline": {
-			"youAlmostMadeIt": "Du hast es fast geschafft..."
 		},
 		"label": {
 			"newPassword": "Neues Passwort: ",
@@ -1554,6 +1548,8 @@
 			"sorting": "Sortierung",
 			"task": "Aufgabe",
 			"tasks": "Aufgaben",
+			"teachers": "Lehrer",
+			"youAlmostMadeIt": "Du hast es fast geschafft...",
 			"yourData": "Ihre Daten"
 		},
 		"input": {
@@ -1708,11 +1704,6 @@
 				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
 			}
 		},
-		"dashboard": {
-			"headline": {
-				"helpArticles": "Hilfeartikel"
-			}
-		},
 		"form_Wish": {
 			"label": {
 				"acceptanceCriteria": "Akzeptanzkriterien",
@@ -1754,8 +1745,7 @@
 		},
 		"global": {
 			"headline": {
-				"principal": "Schulleitung",
-				"teacher": "Lehrer"
+				"principal": "Schulleitung"
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
@@ -2741,8 +2731,7 @@
 					"pendingInvitations": "Ausstehende Einladungen",
 					"requirements": "Voraussetzungen:",
 					"selectAndAddTeacher": "Lehrer auswählen und hinzufügen",
-					"teamMembers": "Team-Teilnehmer",
-					"whoDoYouWantToInvite": "Wen möchtest du ins Team einladen?"
+					"teamMembers": "Team-Teilnehmer"
 				},
 				"label": {
 					"addTeacherStudentsFromSchool": "Füge Lehrer und Schüler deiner Schule zum Team hinzu",
