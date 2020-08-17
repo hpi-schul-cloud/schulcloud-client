@@ -951,8 +951,8 @@
 			},
 			"tab_label": {
 				"groups": "Gruppen",
-				"tools": "Tools",
 				"tasks": "Aufgaben",
+				"tools": "Tools",
 				"topics": "Themen"
 			},
 			"tasks": {
@@ -2276,8 +2276,8 @@
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
-			"noSystemsAvailable": "Keine Systeme verfügbar",
 			"noSchoolsSelection": "Wähle deine Schule",
+			"noSystemsAvailable": "Keine Systeme verfügbar",
 			"school": "Schule auswählen",
 			"system": "System auswählen"
 		},
@@ -2839,6 +2839,35 @@
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
 			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
+		},
+		"topics": {
+			"button": {
+				"addGroup": "Gruppe hinzufügen",
+				"addNewTool": "Neues Tool hinzufügen",
+				"addTopic": "Thema hinzufügen",
+				"deleteTopic": "Thema löschen",
+				"displayTopicAgain": "Thema wieder anzeigen",
+				"hideTopic": "Thema verstecken",
+				"importTopic": "Thema importieren",
+				"moveTopic": "Thema verschieben",
+				"shareTopic": "Thema teilen"
+			},
+			"headline": {
+				"collapse/ExpandMyTasks": "Meine Aufgaben ein/ausklappen",
+				"collapse/ExpandStudentGroups": "Schülergruppen ein/ausklappen",
+				"homework": "({{homeworkLength}} Aufgabe{{#ifneq 1 {{homeworkLength}}}}n{{/ifneq}})",
+				"myHomework": "({{myHomeworkLength}} Aufgabe{{#ifneq 1 {{myHomeworkLength}}}}n{{/ifneq}})",
+				"myTasks": "Meine Aufgaben",
+				"show/HideTask": "gestellte Aufgaben ein/ausklappen",
+				"subjects": "Themen"
+			},
+			"text": {
+				"group": "({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
+				"nextLesson": "Nächste Unterrichtsstunde: {{nextEvent}}",
+				"noIssues": "Keine Themen.",
+				"noTools": "Keine Tools.",
+				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}Schülergruppen{{else}}Meine Schülergruppen {{/userHasPermission}}"
+			}
 		}
 	},
 	"topic": {
