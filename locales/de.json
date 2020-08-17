@@ -1685,6 +1685,11 @@
 		}
 	},
 	"help": {
+		"anchor": {
+			"aria_label": {
+				"section": "Gehen Sie zum {{section}} Abschnitt"
+			}
+		},
 		"confluence": {
 			"link": {
 				"openArticleInConfluence": "Artikel in Confluence öffnen",
@@ -2273,6 +2278,7 @@
 			"emailUsername": "E-Mail / Nutzername",
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
 			"noSystemsAvailable": "Keine Systeme verfügbar",
+			"noSchoolsSelection": "Wähle deine Schule",
 			"school": "Schule auswählen",
 			"system": "System auswählen"
 		},
