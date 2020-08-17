@@ -2844,11 +2844,9 @@
 				"createTopic": "Thema anlegen"
 			},
 			"headline": {
+				"createTopic": "Thema anlegen",
 				"privateTasks": "Private Aufgaben",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
-			},
-			"headline": {
-				"createTopic": "Thema anlegen"
 			},
 			"input": {
 				"countWithPrimeNumbers": "z.B. Rechnen mit Primzahlen"
