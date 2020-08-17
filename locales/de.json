@@ -2282,7 +2282,6 @@
 	"login": {
 		"button": {
 			"less": "Weniger",
-			"login": "Anmelden",
 			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
 			"moreOptions": "Mehr Optionen",
 			"show_password": "Passwort anzeigen",
@@ -2292,7 +2291,7 @@
 			"firstLogin": "Willkommen - Erster Login",
 			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
 			"loginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
-			"loginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
+			"loginForRegisteredUsers": "Login für registrierte Nutzer:innen",
 			"onlyTermsOfUse": "Nutzungsordnung",
 			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
 		},
