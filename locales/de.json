@@ -825,7 +825,7 @@
 			"fileType": "Dateitypen: %1"
 		},
 		"store": {
-			"heading": {
+			"headline": {
 				"currentContent": "Aktuelle Inhalte",
 				"popularContent": "Beliebte Inhalte"
 			}
@@ -1363,7 +1363,7 @@
 			"takeALookAtTheFirstSteps": "Erste Schritte anschauen"
 		},
 		"consent": {
-			"heading": {
+			"headline": {
 				"importantInformation": "Wichtige Information",
 				"summaryOfTheExtension": "Zusammenfassung der Erweiterung in der {{visualType}}",
 				"toThe": "zum"
@@ -1382,7 +1382,7 @@
 			}
 		},
 		"email": {
-			"heading": {
+			"headline": {
 				"howCanWeContactYou": "Wie können wir dich erreichen?"
 			},
 			"text": {
@@ -1391,7 +1391,7 @@
 			}
 		},
 		"global": {
-			"heading": {
+			"headline": {
 				"birthdate": "Geburtsdatum",
 				"declarationOfConsent": "Einwilligungserklärung"
 			},
@@ -1399,9 +1399,7 @@
 				"canUse": "nutzen kannst."
 			}
 		},
-		"heading": {
-			"almostThere": "Fast geschafft!",
-			"sorryItDidnotWork": "Entschuldige, das hat nicht geklappt",
+		"headline": {
 			"youAlmostMadeIt": "Du hast es fast geschafft..."
 		},
 		"label": {
