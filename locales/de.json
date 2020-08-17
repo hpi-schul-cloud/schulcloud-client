@@ -288,7 +288,7 @@
 			}
 		},
 		"dashboard": {
-			"heading": {
+			"headline": {
 				"manageClasses": "Klassen verwalten",
 				"manageCourses": "Kurse verwalten",
 				"manageSchool": "Schule verwalten",
