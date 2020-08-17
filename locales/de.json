@@ -1420,9 +1420,8 @@
 					"forStudentsUnder": "Für Schüler unter {{age}} Jahren muss ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen."
 				}
 			},
-			"heading": {
-				"declarationOfConsentFromALegalGuardian": "Einverständniserklärung eines Erziehungsberechtigten benötigt",
-				"yourData": "Ihre Daten"
+			"headline": {
+				"declarationOfConsentFromALegalGuardian": "Einverständniserklärung eines Erziehungsberechtigten benötigt"
 			},
 			"label": {
 				"continueAsLegalGuardian": "als Erziehungsberechtigter fortfahren"
@@ -1477,7 +1476,7 @@
 			"button": {
 				"toYourCourses": "Zu deinen Kursen"
 			},
-			"heading": {
+			"headline": {
 				"congratulations": "Herzlichen Glückwunsch, {{firstName}} {{lastName}}",
 				"welcomeToThe": "Herzlich willkommen in der {{shortTitle}} {{firstName}} {{lastName}}"
 			},
@@ -1711,7 +1710,7 @@
 			}
 		},
 		"dashboard": {
-			"heading": {
+			"headline": {
 				"helpArticles": "Hilfeartikel"
 			}
 		},
@@ -1755,7 +1754,7 @@
 			}
 		},
 		"global": {
-			"heading": {
+			"headline": {
 				"principal": "Schulleitung",
 				"teacher": "Lehrer"
 			},
@@ -1784,7 +1783,7 @@
 				"externalExpert": "External experts",
 				"teachersFromOtherSchool": "Teachers from other schools"
 			},
-			"heading": {
+			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
 			}
 		},
@@ -1794,7 +1793,7 @@
 			}
 		},
 		"lernNuggets": {
-			"heading": {
+			"headline": {
 				"instructionsForUse": "Hinweise zur Benutzung",
 				"learningNuggetBasicOfGDPR": "Lern-Nugget: Grundlagen der DSGVO",
 				"learningNuggetDataProtectioin": "Lern-Nugget: Datenschutz im Schulalltag",
@@ -1825,7 +1824,7 @@
 			}
 		},
 		"partials": {
-			"heading": {
+			"headline": {
 				"contactForm": "Kontaktformular",
 				"contactPerson": "Ansprechpartner",
 				"overview": "Überblick",
@@ -2053,16 +2052,15 @@
 			}
 		},
 		"imprint_platform_intro": {
-			"heading": {
+			"headline": {
 				"legalNotice": "Rechtliche Hinweise:"
 			},
 			"text": {
-				"TheProjectIsANonCommercialPilotProject": "Die {{shortTitle}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT EC ( <a href=\"https://www.mint-ec.de/\" target=\"_blank\" rel=\"noopener\">https://www.mint-ec.de/</a> ) durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter: <a href=\"https://hpi.de/open-campus/hpi-initiativen/hpi-schul-cloud.html\" target=\"_blank\" rel=\"noopener\">hpi-schul-cloud</a> ).",
-				"isCarriedOutAndFunded": "durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter:"
+				"TheProjectIsANonCommercialPilotProject": "Die {{shortTitle}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT EC ( <a href=\"https://www.mint-ec.de/\" target=\"_blank\" rel=\"noopener\">https://www.mint-ec.de/</a> ) durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter: <a href=\"https://hpi.de/open-campus/hpi-initiativen/hpi-schul-cloud.html\" target=\"_blank\" rel=\"noopener\">hpi-schul-cloud</a> )."
 			}
 		},
 		"imprint_rights": {
-			"heading": {
+			"headline": {
 				"editorialStuff": "Redaktion:",
 				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso-Plattner-Institut für Digital Engineering gGmbH",
 				"managingDirectorAuthorized": "Vertretungsberechtigter Geschäftsführer:"
@@ -2088,12 +2086,12 @@
 				"hideDetails": "Details verstecken",
 				"viewDetails": "Details anzeigen"
 			},
-			"heading": {
+			"headline": {
 				"errorDetails": "Fehler-Details:"
 			}
 		},
 		"extended_footer": {
-			"heading": {
+			"headline": {
 				"links": "Links",
 				"vacancies": "Stellenausschreibungen"
 			},
@@ -2439,7 +2437,7 @@
 	"registration": {
 		"_registration": {
 			"employee": {
-				"heading": {
+				"headline": {
 					"yourData": "Deine Daten"
 				},
 				"input": {
@@ -2460,7 +2458,7 @@
 					"openLogin": "Login öffnen",
 					"sendAndGetStarted": "Absenden & Loslegen"
 				},
-				"heading": {
+				"headline": {
 					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
 				},
 				"label": {
@@ -2485,7 +2483,7 @@
 					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
 				}
 			},
-			"heading": {
+			"headline": {
 				"welcomeToTheRegistration": "Willkommen zur Anmeldung in der {{title}}!"
 			},
 			"label": {
@@ -2498,7 +2496,7 @@
 						"inThe": "in der"
 					}
 				},
-				"heading": {
+				"headline": {
 					"yourChildsData": "Daten Ihres Kindes",
 					"yourChildsSSO": "Der SSO-Account Ihres Kindes ist jetzt freigeschaltet."
 				},
@@ -2532,7 +2530,7 @@
 				}
 			},
 			"student": {
-				"heading": {
+				"headline": {
 					"personalData": "Persönliche Daten"
 				},
 				"input": {
@@ -2576,7 +2574,7 @@
 			}
 		},
 		"registration_template": {
-			"heading": {
+			"headline": {
 				"invitationToThe": "Einladung in die"
 			},
 			"text": {
@@ -2845,7 +2843,7 @@
 			"button": {
 				"createTopic": "Thema anlegen"
 			},
-			"heading": {
+			"headline": {
 				"privateTasks": "Private Aufgaben",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
 			},

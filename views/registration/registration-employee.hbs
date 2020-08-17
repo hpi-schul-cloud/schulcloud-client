@@ -22,7 +22,7 @@
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
       <section data-panel="section-1" class="noback">
-        <h2 class="h4">{{$t "registration._registration.heading.welcomeToTheRegistration" (dict "title" theme.title) }}</h2>
+        <h2 class="h4">{{$t "registration._registration.headline.welcomeToTheRegistration" (dict "title" theme.title) }}</h2>
         <p>{{$t "registration._registration.text.thankYouForTakingThisStepWithUs" (dict "shortTitle" theme.title)}}</p>
         <p>{{$t "registration._registration.text.pleaseRegisterFirstAndAgreeToTerms" (dict "shortTitle" theme.title)}}</p>
 
@@ -33,7 +33,7 @@
 
 
       <section data-panel="section-2">
-        <h2 class="h4">{{$t "registration._registration.employee.heading.yourData" }}</h2>
+        <h2 class="h4">{{$t "registration._registration.employee.headline.yourData" }}</h2>
         <p>{{$t "registration._registration.global.text.weStoreUserDataSafely" (dict "shortTitle" theme.short_title)}}</p>
 
         <p>{{$t "registration._registration.global.text.weNeedFollowingDataForRegistration" (dict "shortTitle" theme.short_title)}}</p>
@@ -110,7 +110,7 @@
 
 
       <section data-panel="section-5">
-        <h2 class="h4">{{$t "registration._registration.global.heading.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
         <p>{{$t "registration._registration.employee.text.youCanNowSingIn" (dict "title" theme.title)}}</p>
 
         <a class="btn btn-primary" href="/logout">{{$t "registration._registration.global.button.openLogin" }}</a>
