@@ -86,7 +86,7 @@
         {{#userHasPermission "HOMEWORK_CREATE"}}
             {{#inArray ../this.currentUser._id ../this.archived}}
                 <a class="btn btn-secondary btn-sm btn-archive" href="{{../url}}" target="_blank" data="archive=open"
-                        aria-label="{{$t "courses._course.groups._group.text.moveTask"}} {{$t "global.openInNewTabWarning"}}" alt-text="<i class='fa fa-archive' aria-hidden="true"></i>">
+                        aria-label="{{$t "courses._course.groups._group.text.moveTask"}} {{$t "global.openInNewTabWarning"}}" alt-text="<i class='fa fa-archive' aria-hidden='true'>"></i>
                     <i class='fa fa-mail-reply' aria-hidden="true"></i>
                 </a>
             {{/inArray}}
