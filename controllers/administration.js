@@ -2686,7 +2686,7 @@ router.all('/courses', (req, res, next) => {
 	const currentPage = parseInt(req.query.p, 10) || 1;
 	const activeTab = req.query.activeTab || 'active';
 
-	const head = [ 
+	const head = [
 		res.$t('global.headline.name'),
 		res.$t('global.headline.classes'),
 		res.$t('administration.controller.headline.teachers'),
