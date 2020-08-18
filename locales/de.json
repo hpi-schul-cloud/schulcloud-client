@@ -419,7 +419,7 @@
 				"selectStudent": "Schüler auswählen"
 			},
 			"text": {
-				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
+				"areYouSureYouWantToDeleteTheFollowingItem": "Bist du sicher, dass du folgendes Element löschen willst?",
 				"byConnectingToASchoolState": "Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{shortTitle}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
 				"chatIsActivated": "Chat ist aktiviert",
 				"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
