@@ -35,10 +35,8 @@
                     {{! Messenger is activated for current school }}
                     {{#inArray "messenger" @root.schoolData.features}}
                         <div class="form-group">
-                            <label for="activateMessenger">
+                            <label for="activateMessenger">{{$t "teams._team.edit.label.activateBidirectionalMessenger"}}</label>
                                 <input id="activateMessenger" type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../team.features}}checked{{/inArray}}>
-                                {{$t "teams._team.edit.label.activateBidirectionalMessenger"}}
-                            </label>
                         </div>
                     {{/inArray}}
                 {{/ifConfig}}
@@ -48,10 +46,8 @@
                     {{! Rocketchat is activated for current school }}
                     {{#inArray "rocketChat" @root.schoolData.features}}
                         <div class="form-group">
-                            <label for="activateRC">
+                            <label for="activateRC">{{$t "teams._team.edit.label.activateMessengerForTeam"}}</label>
                                 <input id="activateRC" type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
-                                {{$t "teams._team.edit.label.activateMessengerForTeam"}}
-                            </label>
                         </div>
                     {{/inArray}}
                 {{/if}}
@@ -59,11 +55,9 @@
                 {{! Videoconferences are activated for instace }}
                 {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                     <div class="form-group">
-                        <label for="activateConf">
+                        <label for="activateConf">{{$t "teams._team.edit.label.activateVideoConferences"}}</label>
                             <input id="activateConf" type="checkbox" name="videoconference" value="true" {{#inArray "videoconference" @root.team.features}}checked{{/inArray}}
                                 {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
-                            {{$t "teams._team.edit.label.activateVideoConferences"}}
-                        </label>
                         {{#inArray "videoconference" @root.schoolData.features}}
                         {{else}}
                         <small class="form-text text-muted">
