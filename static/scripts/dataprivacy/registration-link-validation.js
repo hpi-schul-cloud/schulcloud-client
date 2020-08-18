@@ -2,6 +2,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	/*
 	// invalid registration detected
 	*/
+
+	/* eslint-disable */
+
 	const message = `
 	<div class="error-container">
 		<div class="error-header-wrapper">
@@ -60,6 +63,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		</div>
 	</div>
 `;
+
+	/* eslint-enable */
 
 	if ($("input[name='invalid']").val() === 'true') {
 		$('#welcome-screen').replaceWith(message);
