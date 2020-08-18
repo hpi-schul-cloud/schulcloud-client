@@ -8,10 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## [24.2.3] - 2020-08-18
+### Changed - 24.2.3
+
   - SC-6239 Changed default email domains in many different places from @schul-cloud.org to @hpi-schul-cloud.de
   - SC-6239 Changed links to blog to blog.hpi-schul-cloud.de
 
-## Unreleased
 ## [24.2.1] - 2020-08-13
 ## Fixed - 24.2.1
 
