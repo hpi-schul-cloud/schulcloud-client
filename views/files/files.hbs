@@ -56,7 +56,7 @@
 				<div class="row">
 					{{#each directories}}
 						<div class="col-xs-12">
-						  <div class="card card-block folder openfolder" data-folder-id="{{this._id}}" tabindex="0">
+						  <div class="card card-block folder openfolder" data-folder-id="{{this._id}}" tabindex="0" role="button">
 								<strong class="card-title-directory">
 									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
 								</strong>
@@ -66,7 +66,8 @@
 									data-method="delete"
 									title="{{$t "files.label.deleteFolder"}}"
 									data-file-id="{{../this._id}}"
-									data-file-name="{{{../this.name}}}">
+									data-file-name="{{{../this.name}}}"
+									role="button">
 									<i class="fa fa-trash-o directory-icon pull-right"></i>
 								</a>
 								<a href="/directoryModel/{{../this._id}}/rename"
@@ -74,7 +75,8 @@
 									data-method="dir-rename"
 								title="{{$t "files.label.renameFolder"}}"
 								data-directory-id="{{../this._id}}"
-									data-directory-name="{{../this.name}}">
+									data-directory-name="{{../this.name}}"
+									role="button">
 									<i class="fa fa-edit directory-icon pull-right"></i>
 								</a>
 								{{/userHasPermission}}

@@ -115,7 +115,8 @@
 
 {{#embed "lib/components/modal-form" class="edit-modal" title=($t "files.headline.newFolder") closeLabel=($t "global.button.cancel") submitLabel=($t "global.button.createFolder")}}
 	{{#content "fields"}}
-		<input type="text" class="form-control" name="new-dir-name" placeholder="{{$t "files.input.foldername"}}" required />
+		<label for="new-dir-name" hidden>{{$t "files.input.foldername"}}</label>
+		<input id="new-dir-name" type="text" class="form-control" name="new-dir-name" placeholder="{{$t "files.input.foldername"}}" required />
 	{{/content}}
 {{/embed}}
 
