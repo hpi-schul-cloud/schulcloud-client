@@ -2823,6 +2823,12 @@
 			"duplicateTeam": "Team duplizieren",
 			"foundATeam": "Gründe ein Team"
 		},
+		"form_tools": {
+			"label": {
+				"nameMandatoryField": "Name (Pflichtfeld):",
+				"otherSettings": "Sonstige Einstellungen:"
+			}
+		},
 		"headline": {
 			"duplicateTeam": "Team duplizieren",
 			"invitations": "Einladungen",
