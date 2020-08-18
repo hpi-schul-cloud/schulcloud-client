@@ -2,7 +2,7 @@
 	<div class="row">
 		{{#each files}}
 			<div class="col-sm-12">
-				<div class="card file {{#ifeq this.securityCheck.status "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
+				<div role="button" class="card file {{#ifeq this.securityCheck.status "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}" tabindex="0">
 					<div class="openFile">
 						<div class="card-block
 							{{#ifneq this.securityCheck.status "blocked"}} fileviewer{{/ifneq}}"
@@ -33,17 +33,20 @@
 									<a href="/files/file?download=true&file={{../this._id}}&name={{../this.storageFileName}}"
 										target="_blank"
 										data-method="download"
-										title="{{$t "files.label.downloadFile"}}">
+										title="{{$t "files.label.downloadFile"}}"
+										role="button">
 										<i class="fa fa-cloud-download"></i>
 									</a>
 								{{/ifeq}}
 
-								<i  data-file-id="{{this._id}}"
+								<a  href="#"	
+								    data-file-id="{{this._id}}"
 									data-file-name="{{this.name}}"
 									data-file-path="{{this.path}}"
 									title="{{$t "files.label.renameFile"}}"
-									class="fa fa-edit file-name-edit">
-								</i>
+									class="fa fa-edit file-name-edit"
+									role="button">
+								</a>	
 
 								{{#ifneq this.context 'geteilte Datei'}}
 								{{#userHasPermission "FILE_DELETE"}}
@@ -53,7 +56,8 @@
 								   title="{{$t "files.label.deleteFile"}}"
 								   data-file-id="{{../this._id}}"
 								   data-file-name="{{../this.name}}"
-									<i class="fa fa-trash-o"></i>
+									<i class="fa fa-trash-o"
+									role="button"></i>
 								</a>
 								{{/userHasPermission}}
 
@@ -62,7 +66,8 @@
 								title="{{$t "files.label.shareFile"}}"
 								data-file-id="{{../this._id}}"
 								data-file-name="{{../this.name}}"
-								id="{{@index}}">
+								id="{{@index}}"
+								role="button">
 									<i class="fa fa-share-alt"></i>
 								</a>
 
@@ -83,6 +88,7 @@
 										data-file-path="{{../path}}"
 										data-file-id="{{../_id}}"
 										data-file-name="{{../name}}"
+										role="button"
 										disabled>
 											<i class="fa fa-folder-open"></i>
 										</a>
@@ -94,6 +100,7 @@
 									class="btn-file-settings"
 									title="{{$t "files.label.editFilePermissions"}}"
 									data-file-id="{{this._id}}"
+									role="button"
 								>
 									<i class="fa fa-cogs"></i>
 								</a>

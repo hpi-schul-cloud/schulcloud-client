@@ -29,6 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
+// a11y: make focusable elements 'clickable' by key 'enter'
 window.addEventListener('keydown', (e) => {
 	if (e.keyCode === 13) {
 		document.activeElement.click();
