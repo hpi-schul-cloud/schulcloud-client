@@ -536,6 +536,7 @@ router.get('/:teamId', async (req, res, next) => {
 		}
 		let notificationMessage;
 		if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
+			/* eslint-disable max-len */
 			let matrixNotification;
 			// Is messenger feature flag set in the school which created this team?
 			const teamsSchoolHasMessengerEnabled = (course.schoolIds[0].features || []).includes('messenger');
@@ -586,7 +587,6 @@ router.get('/:teamId', async (req, res, next) => {
 		files = files.filter((file) => file);
 
 		files = files.map((file) => {
-
 			// set saveName attribute with escaped quotes
 			file.saveName = file.name.replace(/'/g, "\\'");
 
