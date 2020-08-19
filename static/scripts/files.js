@@ -603,7 +603,7 @@ $(document).ready(() => {
 							.map(({
 								name, write, read, refId,
 							}) => `<tr>
-									<td>${nameMap[name] || name}</td>
+									<th scope="row">${nameMap[name] || name}</th>
 									<td>
 										<input
 											type="checkbox"
