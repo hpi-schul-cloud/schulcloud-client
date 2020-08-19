@@ -2216,7 +2216,7 @@ router.delete(
 );
 
 const classFilterSettings = ({ years, showTab }, res) => {
-	const filterSettings = []
+	const filterSettings = [];
 	filterSettings.push({
 		type: 'sort',
 		title: res.$t('global.headline.sorting'),
@@ -2284,7 +2284,7 @@ router.get(
 		const lastDefinedSchoolYear = (schoolYears[0] || {})._id;
 		const currentYear = res.locals.currentSchoolData.currentYear;
 
-		const currentYearObj = schoolYears.filter((year) => year._id === currentYear).pop()
+		const currentYearObj = schoolYears.filter((year) => year._id === currentYear).pop();
 
 		const showTab = (req.query || {}).showTab || 'current';
 
@@ -2397,7 +2397,7 @@ router.get(
 
 				const years = schoolYears
 					.filter((year) => year.endDate < currentYearObj.startDate)
-					.map((year) =>  [
+					.map((year) => [
 						year._id,
 						year.name,
 					]);
