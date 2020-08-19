@@ -10,7 +10,7 @@
 {{#embed "lib/components/modal" class="open-modal" title=($t "files.headline.doYouWantToOpenThisFile")}}
     {{#content "body"}}
         <div class="modal-body">
-            <input class="box" type="checkbox" name="allowExternalViewers" value="save">{{$t "files.text.rememberThisSelection"}}<br>
+            <input class="box" type="checkbox" name="allowExternalViewers" value="save" aria-label="{{$t "files.text.rememberThisSelection"}}">{{$t "files.text.rememberThisSelection"}}<br>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary btn-close">{{$t "global.button.cancel" }}</button>
