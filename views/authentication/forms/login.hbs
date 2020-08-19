@@ -34,7 +34,7 @@
 					{{/ifEnv}}
 				</div>
 
-                <button  title={{$t "login.button.moreOptions"}} class="btn toggle-btn btn-block btn-secondary btn-toggle-providers ">
+                <button title={{$t "login.button.moreOptions"}} class="btn form-group toggle-btn btn-block btn-secondary btn-toggle-providers ">
                     <i aria-hidden="true" class="fa fa-chevron-down"></i> {{$t "login.button.moreOptions"}}
                 </button>
 
@@ -42,8 +42,8 @@
 				<div class="login-providers">
 					<div class="form-group">
 						<label for="school">{{$t "global.link.school"}}</label>
-						<select tab-index="0"id="school" name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
-							<option selected disabled></option>
+						<select tab-index="0" id="school" name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
+								<option selected value="">{{$t "login.input.noSchoolsSelection"}}</option>
 							{{#each schools}}
 								<option value="{{this._id}}">{{this.name}}</option>
 							{{else}}
@@ -62,15 +62,15 @@
 						</select>
 					</div>
 					<div>
-					<button title={{$t "login.button.less"}} class="btn toggle-btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-up"></i>{{$t "login.button.less"}}</button>
+					<button title={{$t "login.button.less"}} class="btn form-group toggle-btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-up"></i>{{$t "login.button.less"}}</button>
 					</div>
 				</div>
 				{{> "lib/components/csrfInput"}}
 				<div class="form-group">
 					{{#if notification.statusCode}}
-						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
 					{{else}}
-						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" />
+						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
 					{{/if}}
 				</div>
 			</form>

@@ -768,7 +768,7 @@
 			"brandenburg": "Brandenburg",
 			"germanSchoolsAbroad": "Deutsche Auslandsschulen",
 			"lowerSaxony": "Niedersachsen",
-			"mintECSchools": "MINT-EC Schulen",
+			"mintECSchools": "MINT-EC-Schulen",
 			"thuringia": "Thüringen"
 		},
 		"heading": {
@@ -776,10 +776,12 @@
 			"joinNow": "Jetzt mitmachen!"
 		},
 		"text": {
-			"MINTECSchoolsAnd": "Hier können sich MINT-EC-Schulen und auch Schulen die keinem Länderprojekt angehören anmelden, die dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
+			"MINTECSchoolsAnd": "<a href='https://www.mint-ec.de' target='_blank'>MINT-EC</a> ist das nationale Excellence-Netzwerk von Schulen mit Sekundarstufe II und ausgeprägtem Profil in Mathematik, Informatik, Naturwissenschaften und Technik (MINT). Seit 2017 nehmen Schulen aus dem Netzwerk am Projekt HPI Schul-Cloud teil.",
+            "MINTECSchoolsAndOther": "Hier können sich MINT-EC-Schulen und auch Schulen die keinem Länderprojekt angehören anmelden, die dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
 			"contactUsToRegister": "Kontaktieren Sie bitte entweder Frau Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de</a> oder Herrn Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de</a>, um den Registrierungsprozess einzuleiten.",
 			"forGeneralQuestionsPleaseContact": "Bei allgemeinen Fragen kontaktieren Sie bitte folgende E-Mail-Adresse:",
-			"hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
+            "hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
+            "hereIsOurRegistrationFormMINT": "Neue MINT-EC-Schulen können sich hier anmelden:",
 			"inBrandenburgTheAdmissionOfNewSchools": "In Brandenburg wird die Aufnahme neuer Schulen gemeinsam mit der DigitalAgentur Brandenburg (ILB) und dem MBJS koordiniert.",
 			"inMarch2020ZENSOSQueries": "Im März 2020 wurde über ZENSOS-Abfragen zuletzt die Notwendigkeit unserer Infrastruktur an den Schulen abgefragt. Die dadurch entstandenen Anmeldungen befinden sich aktuell in der Bearbeitung.",
 			"inNiedersachsenTheReferenceSchool": "In Niedersachsen ist das Referenzschulnetzwerk n-21 zuständig für die Aufnahme neuer Schulen.",
@@ -1491,7 +1493,7 @@
 				"weArePleasedThatYouWantToUse": "Wir freuen uns, dass du die {{title}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform. Bitte überprüfe in den kommenden Schritten die für dich angegebene E-Mail-Adresse und stimme den Nutzungsbedingungen zu. Ein Erziehungsberechtigter hat der Nutzung bereits zugestimmt, jetzt bist du gefragt. Ändere anschließend dein Startpasswort, damit du die Vorteile der {{shortTitle}} nutzen kannst.",
 				"welcomeBackTothe": "Herzlich willkommen zurück in der {{shortTitle}} {{firstName}} {{lastName}}",
 				"welcomeTo": "Willkommen in der {{title}} {{displayName}}",
-				"welcomeToTh": "Willkommen in der {{shortTitle}}",
+				"welcomeToShort": "Willkommen in der {{shortTitle}}",
 				"withThe": "Mit der {{shortTitle}} Unterricht digital gestalten",
 				"youAreNow14YearsOld": "Du bist jetzt 14 Jahre alt. Bitte erkläre im folgenden Schritt dein Einverständnis zur Nutzung der {{title}}  Ab 14 Jahren ist dies zusätzlich zum bereits erklärten Einverständnis deiner Eltern nötig, damit du die {{shortTitle}} weiter nutzen kannst."
 			}
@@ -1685,6 +1687,11 @@
 		}
 	},
 	"help": {
+		"anchor": {
+			"aria_label": {
+				"section": "Gehen Sie zum {{section}} Abschnitt"
+			}
+		},
 		"confluence": {
 			"link": {
 				"openArticleInConfluence": "Artikel in Confluence öffnen",
@@ -2256,7 +2263,6 @@
 	"login": {
 		"button": {
 			"less": "Weniger",
-			"login": "Anmelden",
 			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
 			"moreOptions": "Mehr Optionen",
 			"show_password": "Passwort anzeigen",
@@ -2266,7 +2272,7 @@
 			"firstLogin": "Willkommen - Erster Login",
 			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
 			"loginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
-			"loginForRegisteredUsers": "Anmeldung für registrierte Nutzer",
+			"loginForRegisteredUsers": "Login für registrierte Nutzer:innen",
 			"onlyTermsOfUse": "Nutzungsordnung",
 			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
 		},
@@ -2274,6 +2280,7 @@
 			"emailUsername": "E-Mail / Nutzername",
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
 			"noSystemsAvailable": "Keine Systeme verfügbar",
+			"noSchoolsSelection": "Wähle deine Schule",
 			"school": "Schule auswählen",
 			"system": "System auswählen"
 		},
@@ -2805,6 +2812,8 @@
 				"invitationSuccessfullyAccepted": "Teameinladung erfolgreich angenommen.",
 				"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
 				"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
+				"messengerNotActiveInTeam": "Dieses schulübergreifende Team beinhaltet keinen Teamchat. Im Gegensatz zu deiner Schule ist in der Schule die das Team erstellt hat Chatten noch nicht durch den Administrator aktiviert.",
+				"messengerNotActivatedTitle": "Hinweis",
 				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
 				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
 			}

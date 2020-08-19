@@ -143,7 +143,7 @@ const checkIfOfficeFiles = (files) => {
 		'application/msword', // .doc
 	];
 
-	return files.map(f => ({
+	return files.map((f) => ({
 		isOfficeFile: officeFileTypes.indexOf(f.type) > -1,
 		...f,
 	}));
@@ -153,7 +153,7 @@ const checkIfOfficeFiles = (files) => {
  * generates the correct file's or directory's storage context for further requests
  */
 const getStorageContext = (req, res) => {
-	const key = Object.keys(req.params).find(k => ['courseId', 'teamId', 'classId'].indexOf(k) > -1);
+	const key = Object.keys(req.params).find((k) => ['courseId', 'teamId', 'classId'].indexOf(k) > -1);
 	return req.params[key] || res.locals.currentUser._id;
 };
 
@@ -224,7 +224,7 @@ const FileGetter = (req, res, next) => {
 			return;
 		}
 
-		const files = result.filter(f => f).map((file) => {
+		const files = result.filter((f) => f).map((file) => {
 			if (file.permissions[0].refId === userId) {
 				Object.assign(file, {
 					userIsOwner: true,
@@ -264,12 +264,12 @@ const FileGetter = (req, res, next) => {
 
 		res.locals.files = {
 			files: dataSort(
-				checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
+				checkIfOfficeFiles(files.filter((f) => !f.isDirectory)),
 				res.locals.fileSort.sortBy,
 				res.locals.fileSort.sortOrder,
 			),
 			directories: dataSort(
-				files.filter(f => f.isDirectory),
+				files.filter((f) => f.isDirectory),
 				res.locals.fileSort.sortBy,
 				res.locals.fileSort.sortOrder,
 			),
@@ -297,7 +297,7 @@ const getScopeDirs = (req, res, scope) => {
 			},
 		};
 	}
-	return api(req).get(`/${scope}/`, { qs }).then(records => records.data.map(record => Object.assign(record, {
+	return api(req).get(`/${scope}/`, { qs }).then((records) => records.data.map((record) => Object.assign(record, {
 		url: `/files/${scope}/${record._id}`,
 	})));
 };
@@ -307,10 +307,10 @@ const getScopeDirs = (req, res, scope) => {
  * @param rootPath
  */
 const getDirectoryTree = (set, directory) => {
-	const children = set.filter(dir => dir.parent && dir.parent === directory._id);
+	const children = set.filter((dir) => dir.parent && dir.parent === directory._id);
 
 	if (children.length) {
-		directory.children = children.map(child => getDirectoryTree(set, child));
+		directory.children = children.map((child) => getDirectoryTree(set, child));
 	}
 
 	return directory;
@@ -329,7 +329,7 @@ const registerSharedPermission = (userId, fileId, shareToken, req, res) => api(r
 			// owner permits sharing of given file
 			throw new Error(res.$t('files.text.noAccessToThisFile'));
 		}
-		const permission = file.permissions.find(perm => perm.refId.toString() === userId);
+		const permission = file.permissions.find((perm) => perm.refId.toString() === userId);
 
 		if (!permission) {
 			file.permissions.push({
@@ -414,9 +414,7 @@ router.post('/file', getSignedUrl);
 router.post('/upload', upload.single('upload'), (req, res, next) => getSignedUrl(req, null, next)
 	.then(({ signedUrl }) => rp.put({
 		url: signedUrl.url,
-		headers: Object.assign({}, signedUrl.header, {
-			'content-type': req.file.mimetype,
-		}),
+		headers: { ...signedUrl.header, 'content-type': req.file.mimetype },
 		body: req.file.buffer,
 	})).then(() => {
 		res.json({
@@ -435,7 +433,10 @@ router.delete('/file', (req, res, next) => {
 		qs: data,
 	}).then(() => {
 		res.sendStatus(200);
-	}).catch(next);
+	}).catch((err) => {
+		logger.error('Can not delete file', err);
+		next(err);
+	});
 });
 
 // get file
@@ -564,8 +565,8 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 	const parentId = req.params.subFolderId || req.params.folderId;
 
 	res.locals.files.files = res.locals.files.files
-		.filter(f => Boolean(f))
-		.filter(file => file.owner === userId)
+		.filter((f) => Boolean(f))
+		.filter((file) => file.owner === userId)
 		.map(addThumbnails);
 
 	let breadcrumbs = [{
@@ -584,7 +585,7 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
-	res.render('files/files', Object.assign({
+	res.render('files/files', {
 		title: res.$t('global.headline.files'),
 		path: res.locals.files.path,
 		breadcrumbs,
@@ -596,7 +597,8 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 		CKEditor: req.query.CKEditor,
 		parentId,
 		canEditPermissions: true,
-	}, res.locals.files));
+		...res.locals.files,
+	});
 });
 
 router.get('/shared/', (req, res) => {
@@ -614,19 +616,19 @@ router.get('/shared/', (req, res) => {
 		data = data
 			.filter((file) => {
 				if (!file || !Array.isArray(file.permissions)) return false;
-				const permission = file.permissions.find(perm => perm.refId === userId);
+				const permission = file.permissions.find((perm) => perm.refId === userId);
 				return permission ? !permission.write : false;
 			})
 			.map(addThumbnails);
 
 		const files = {
-			files: checkIfOfficeFiles(data.filter(f => !f.isDirectory)),
-			directories: data.filter(f => f.isDirectory),
+			files: checkIfOfficeFiles(data.filter((f) => !f.isDirectory)),
+			directories: data.filter((f) => f.isDirectory),
 		};
 
 		files.files = getFilesWithSaveName(files.files);
 
-		res.render('files/files', Object.assign({
+		res.render('files/files', {
 			title: res.$t('global.headline.files'),
 			path: '/',
 			breadcrumbs: [{
@@ -638,15 +640,16 @@ router.get('/shared/', (req, res) => {
 			showSearch: false,
 			inline: req.query.inline || req.query.CKEditor,
 			CKEditor: req.query.CKEditor,
-		}, files));
+			...files,
+		});
 	});
 });
 
 router.get('/', (req, res, next) => {
-	res.render('files/files-overview', Object.assign({
+	res.render('files/files-overview', {
 		title: res.$t('global.link.files'),
 		showSearch: false,
-	}));
+	});
 });
 
 router.get('/courses/', (req, res, next) => {
@@ -697,7 +700,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
-	res.render('files/files', Object.assign({
+	res.render('files/files', {
 		title: res.$t('global.headline.files'),
 		canUploadFile: true,
 		canCreateDir: true,
@@ -713,7 +716,8 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		courseUrl: `/courses/${req.params.courseId}/`,
 		canEditPermissions: true,
 		parentId: req.params.folderId,
-	}, res.locals.files));
+		...res.locals.files,
+	});
 });
 
 router.get('/teams/', (req, res, next) => {
@@ -762,7 +766,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
-	res.render('files/files', Object.assign({
+	res.render('files/files', {
 		title: res.$t('global.headline.files'),
 		canUploadFile: true,
 		canCreateDir: true,
@@ -779,7 +783,8 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 		toCourseText: res.$t('files.button.toTeam'),
 		courseUrl: `/teams/${req.params.teamId}/`,
 		parentId: req.params.folderId,
-	}, res.locals.files));
+		...res.locals.files,
+	});
 });
 
 
@@ -826,7 +831,7 @@ router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 
 		files.files = getFilesWithSaveName(files.files);
 
-		res.render('files/files', Object.assign({
+		res.render('files/files', {
 			title: res.$t('global.headline.files'),
 			path: res.locals.files.path,
 			canUploadFile: true,
@@ -835,7 +840,8 @@ router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 			inline: req.query.inline || req.query.CKEditor,
 			CKEditor: req.query.CKEditor,
 			parentId: req.params.folderId,
-		}, files));
+			...files,
+		});
 	});
 });
 
@@ -860,7 +866,7 @@ router.post('/permissions/', (req, res) => {
 		file.shareToken = file.shareToken || shortid.generate();
 		api(req).patch(`/files/${file._id}`, { json: file }).then((patchedFile) => {
 			patchedFile.permissions = patchedFile.permissions.map((permission) => {
-				const role = roles.find(_role => _role._id === permission.refId);
+				const role = roles.find((_role) => _role._id === permission.refId);
 				permission.roleName = role ? role.name : '';
 				return permission;
 			});
@@ -882,7 +888,7 @@ router.get('/share/', (req, res) => api(req).get(`/files/${req.query.file}`)
 
 		return Promise.resolve(shareToken);
 	})
-	.then(shareToken => res.json({ shareToken }))
+	.then((shareToken) => res.json({ shareToken }))
 	.catch(() => res.sendStatus(500)));
 
 router.get('/permissions/', (req, res) => {
@@ -891,7 +897,7 @@ router.get('/permissions/', (req, res) => {
 	return api(req).get('/fileStorage/permission/', {
 		qs: { file },
 	})
-		.then(json => res.json(json))
+		.then((json) => res.json(json))
 		.catch(() => res.sendStatus(500));
 });
 
@@ -955,13 +961,13 @@ router.get('/permittedDirectories/', async (req, res) => {
 			if (directories.code === 404) {
 				return Promise.resolve([]);
 			}
-			return directories.filter(dir => !dir.parent).map(dir => getDirectoryTree(directories, dir));
+			return directories.filter((dir) => !dir.parent).map((dir) => getDirectoryTree(directories, dir));
 		})
 		.then((directories) => {
 			directoryTree.forEach((tree) => {
 				tree.children.forEach((child) => {
 					child.children = directories.filter(
-						dir => dir.owner === child._id && dir.refOwnerModel === tree.model,
+						(dir) => dir.owner === child._id && dir.refOwnerModel === tree.model,
 					);
 				});
 			});
@@ -973,7 +979,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 /** File and Directory proxy models */
 router.post('/fileModel', (req, res, next) => {
 	// req.body.schoolId = res.locals.currentSchool;
-	api(req).post('/fileStorage/', { json: req.body }).then(file => res.json(file)).catch(err => next(err));
+	api(req).post('/fileStorage/', { json: req.body }).then((file) => res.json(file)).catch((err) => next(err));
 });
 
 // get file by proxy id
