@@ -2796,6 +2796,8 @@
 				"invitationSuccessfullyAccepted": "Teameinladung erfolgreich angenommen.",
 				"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
 				"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
+				"messengerNotActiveInTeam": "Dieses schulübergreifende Team beinhaltet keinen Teamchat. Im Gegensatz zu deiner Schule ist in der Schule die das Team erstellt hat Chatten noch nicht durch den Administrator aktiviert.",
+				"messengerNotActivatedTitle": "Hinweis",
 				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
 				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
 			}
