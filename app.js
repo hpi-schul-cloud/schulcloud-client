@@ -137,6 +137,11 @@ if (redisUrl) {
 	sessionStore = new session.MemoryStore();
 }
 
+if (!Configuration.get('COOKIE__SECURE') && Configuration.get('COOKIE__SAME_SITE') === 'None') {
+	Configuration.set('COOKIE__SAME_SITE', 'Lax');
+	logger.warn('Setting COOKIE.SAME_SITE="None" requires COOKIE.SECURE=true. Changed to COOKIE.SAME_SITE="Lax"');
+}
+
 app.use(session({
 	cookie: { maxAge: 1000 * 60 * 60 * 6 },
 	rolling: true, // refresh session with every request within maxAge
