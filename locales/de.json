@@ -320,6 +320,9 @@
 			}
 		},
 		"form_InvitationStudent": {
+			"label": {
+				"distributeLinkToInvite": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:"
+			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der HPI Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
 				"studentUnderYears": "<b>Schüler unter {{age}} Jahre: </b> die Eltern <br/> <b>Schüler ab {{age}} Jahre: </b> an die Schüler selbst <br/>"
@@ -397,7 +400,6 @@
 				"colorOfTheCourse": "Farbe des Kurses:",
 				"dataProtection": "Datenschutz",
 				"lengthOfLesson": "Dauer der Schulstunde",
-				"nameOfTheCourse": "Name des Kurses",
 				"parents": "Eltern",
 				"schoolYear": "Schuljahr",
 				"startOfLesson": "Start der Schulstunde",
@@ -408,7 +410,6 @@
 				"teachingTeacher": "Unterrichtenderlehrer:in",
 				"termsOfUse": "Nutzungsbedingungen",
 				"timeSpan": "Zeitraum (z.B. Schuljahr)",
-				"toInviteToTheSchoolCloud": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:",
 				"weekday": "Wochentag"
 			},
 			"placeholder": {
@@ -1577,8 +1578,8 @@
 			"more": "Weiteres",
 			"newTab": "Öffnet in neuem Tab",
 			"password": "Passwort:",
+			"nameOfTheCourse": "Name des Kurses",
 			"role": "Rolle",
-			"emailAddress":"E-Mail-Adresse:",
 			"room": "Raum",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
