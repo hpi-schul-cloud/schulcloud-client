@@ -952,8 +952,8 @@
 			},
 			"tab_label": {
 				"groups": "Gruppen",
-				"tools": "Tools",
 				"tasks": "Aufgaben",
+				"tools": "Tools",
 				"topics": "Themen"
 			},
 			"tasks": {
@@ -1576,9 +1576,9 @@
 			"lastName": "Nachname",
 			"lastNameColon": "Nachname:",
 			"more": "Weiteres",
+			"nameOfTheCourse": "Name des Kurses",
 			"newTab": "Öffnet in neuem Tab",
 			"password": "Passwort:",
-			"nameOfTheCourse": "Name des Kurses",
 			"role": "Rolle",
 			"room": "Raum",
 			"skipLinks": "Links Überspringen",
@@ -2279,8 +2279,8 @@
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
-			"noSystemsAvailable": "Keine Systeme verfügbar",
 			"noSchoolsSelection": "Wähle deine Schule",
+			"noSystemsAvailable": "Keine Systeme verfügbar",
 			"school": "Schule auswählen",
 			"system": "System auswählen"
 		},
