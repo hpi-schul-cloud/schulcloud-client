@@ -14,7 +14,9 @@ const app = {
 
 					for (let ii = 0, ll = tabs.length; ii < ll; ii += 1) {
 						tabs[ii].addEventListener('click', function tabClickEvent() {
-							app.tabs.setActiveTab.call(this);
+							if (!$(this).attr('href')) {
+								app.tabs.setActiveTab.call(this);
+							}
 						}, false);
 						tabs[ii].addEventListener('mousedown', (event) => {
 							event.preventDefault();
