@@ -1,7 +1,7 @@
 <div class="icon-card {{class}}" id="{{id}}">
     <div class="icon-card__content">
         {{#if icon}}
-            <a href="#{{id}}" class="icon-card__icon" tabindex="-1">
+            <a href="#{{id}}" class="icon-card__icon" tabindex="-1" aria-label="{{{$t "help.anchor.aria_label.section" (dict "section" id)}}}">
                 <i class="fa fa-fw {{icon}}" aria-hidden="true"></i>
             </a>
         {{/if}}
