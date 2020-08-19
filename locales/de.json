@@ -272,6 +272,7 @@
 				"retrieveFailed": "Fehler beim Abrufen",
 				"schoolYearPercentage": "Schuljahr: %1",
 				"setupFailed": "Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ",
+				"sortBy": "Sortieren nach: %1",
 				"stillLackOfDeclaration": "Hallo {{name}} Leider fehlt uns von dir noch die Einverständniserklärung. Ohne diese kannst du die Schul-Cloud leider nicht nutzen. Melde dich bitte mit deinen Daten an, um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können. Gehe jetzt auf {{shortLink}} {{shortLink}} und melde dich an.",
 				"submitted": "Gesendet",
 				"successfullyImportedUser": "{{amountImported}} von {{amountTotal}} Nutzer erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
@@ -920,7 +921,15 @@
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
 						"noTopics": "keine Themen.",
 						"responsibleTeachers": "Verantwortliche Lehrer:innen:",
-						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}"
+						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}",
+						"workOnTopic": "Thema bearbeiten",
+						"archivedTask": "Die Aufgabe ist archiviert",
+						"draftTask": "Die Aufgabe entwürfe",
+						"doneTask": "Die Aufgabe ist gestellt",
+						"feedbackTask": "Die Aufgabe hat Feedback",
+						"moveTask": "Verschiebe Aufgabe zwischen Übersichtsseite und Archiv",
+						"task": "Die Aufgabe: ",
+						"taskDetails": "Details der Aufgabe: "
 					}
 				},
 				"button": {
@@ -1684,6 +1693,14 @@
 			"videoconferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
 			"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 			"wednesday": "Mittwoch"
+		},
+		"pagination": {
+			"aria_label": {
+				"firstPage": "Erste Seite",
+				"previousPage": "Vorherige Seite",
+				"lastPage": "Letzte Seite",
+				"nextPage": "nächste Seite"
+			}
 		}
 	},
 	"help": {
@@ -2118,6 +2135,10 @@
 			}
 		},
 		"footer": {
+			"aria_label": {
+				"footer":"footer",
+				"love": "love"
+			},
 			"img_alt": {
 				"providerLogo": "Anbieterlogo"
 			}
