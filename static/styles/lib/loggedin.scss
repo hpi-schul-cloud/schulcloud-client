@@ -952,6 +952,10 @@ footer {
 	z-index: 1;
 }
 
+.main a:focus {
+	top: -1rem;
+}
+
 @media (max-width: 425px) {
 	.skipLinks a:focus {
 		top: 4.5rem;

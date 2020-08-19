@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import multiDownload from 'multi-download';
 
 import { softNavigate } from './helpers/navigation';
@@ -14,7 +15,13 @@ function getDataValue(attr) {
 
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
+let lastFocusedElement;
 
+window.addEventListener('keydown', (e) => {
+	if (e.keyCode === 27) {
+		lastFocusedElement.focus();
+	}
+});
 function getTeamMemberIds() {
 	const domValue = $('#teamMembers').val();
 	return $.isArray(domValue) ? domValue : (domValue || '').split(',');
@@ -25,6 +32,16 @@ function isSubmissionGradeUpload() {
 	// either nested in the submission or the comment tab. And if it is in the
 	// comment tab, then it is the submission grade upload
 	return $('#comment .section-upload').length > 0;
+}
+
+function showAJAXError(req, textStatus, errorThrown) {
+	if (textStatus === 'timeout') {
+		$.showNotification($t('global.text.requestTimeout'), 'danger');
+	} else if (errorThrown === 'Conflict') {
+		$.showNotification($t('homework.text.fileAlreadyExists'), 'danger');
+	} else {
+		$.showNotification(errorThrown, 'danger', 15000);
+	}
 }
 
 $(document).on('pageload', () => {
@@ -45,7 +62,7 @@ function archiveTask(e) {
 		context: this,
 		error() { showAJAXError(); this.innerHTML = btntext; },
 	});
-	request.done(function (r) {
+	request.done(function action() {
 		// switch text (innerHTML <--> alt-text)
 		const temp = $(this).attr('alt-text');
 		$(this).attr('alt-text', btntext);
@@ -53,21 +70,28 @@ function archiveTask(e) {
 		// grey out if removed from list
 		$(this).parents('.disableable').toggleClass('disabled');
 		// change data
-		$(this).attr('data', (this.getAttribute('data') == 'archive=done') ? 'archive=open' : 'archive=done');
+		$(this).attr('data', (this.getAttribute('data') === 'archive=done') ? 'archive=open' : 'archive=done');
 	});
 	return false;
 }
+
 function importSubmission(e) {
 	e.preventDefault();
 	const submissionid = this.getAttribute('data');
 	this.disabled = true;
-	this.innerHTML = `${$t('homework.button.importing')} <style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>`;
-	if (confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))) {
+
+	const bounce = '<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
+	const loadingspinner = '<style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner">';
+	this.innerHTML = `${$t('homework.button.importing')} ${loadingspinner}${bounce}`;
+
+	// the line with if make no sense ...
+	// eslint-disable-next-line no-alert
+	if (window.confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))) {
 		$.ajax({
 			url: `/homework/submit/${submissionid}/import`,
 			context: this,
-		}).done(function (r) {
-			CKEDITOR.instances[`evaluation ${submissionid}`].setData(r.comment);
+		}).done(function action(r) {
+			// CKEDITOR.instances[`evaluation ${submissionid}`].setData(r.comment);
 			this.disabled = false;
 			this.innerHTML = $t('homework.button.importSubmission');
 		});
@@ -79,6 +103,11 @@ extendWithBulkUpload($);
 window.addEventListener('DOMContentLoaded', () => {
 	/* FEATHERS FILTER MODULE */
 	const filterModule = document.getElementById('filter');
+	const sortingModal = document.querySelector('.md-chip.md-theme-default');
+	const closingButton = document.querySelector('.md-icon-button');
+	closingButton.setAttribute('aria-label', 'Abbrechen');
+	closingButton.setAttribute('tabindex', '0');
+
 	if (!filterModule) { return; }
 	filterModule.addEventListener('newFilter', (e) => {
 		const filter = e.detail;
@@ -88,6 +117,13 @@ window.addEventListener('DOMContentLoaded', () => {
 			newurl += `&p=${params.p}`;
 		}
 		softNavigate(newurl, '.homework', '.pagination');
+	});
+	if (!sortingModal) { return; }
+	sortingModal.addEventListener('keydown', (e) => {
+		if (e.keyCode === 13 || e.keyCode === 32) {
+			lastFocusedElement = sortingModal;
+			sortingModal.click();
+		}
 	});
 	document.querySelector('.filter').dispatchEvent(new CustomEvent('getFilter'));
 });
@@ -111,40 +147,21 @@ $(document).ready(() => {
 		enableSubmissionWhenFileIsUploaded();
 	});
 
-	function showAJAXError(req, textStatus, errorThrown) {
-		if (textStatus === 'timeout') {
-			$.showNotification($t('global.error.requestTimeout'), 'danger');
-		} else if (errorThrown === 'Conflict') {
-			$.showNotification($t('homework.text.fileAlreadyExists'), 'danger');
-		} else {
-			$.showNotification(errorThrown, 'danger', 15000);
-		}
-	}
+	function ajaxForm(element, after, contentTest) {
+		const submitButton = element.find('[type=submit]')[0];
+		let submitButtonText = submitButton.innerHTML || submitButton.value;
+		submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)', '');
 
-    function showAJAXError(req, textStatus, errorThrown) {
-        if (textStatus === "timeout") {
-            $.showNotification($t('global.text.requestTimeout'), "danger");
-        } else if (errorThrown === "Conflict") {
-            $.showNotification($t('homework.text.fileAlreadyExists'), "danger");
-        } else {
-            $.showNotification(errorThrown, "danger", 15000);
-        }
-    }
+		const bounces = '<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
+		const loadingspinner = '<div class="loadingspinner">';
+		submitButton.innerHTML = `${submitButtonText}${loadingspinner}${bounces}`;
+		submitButton.disabled = true;
 
-    function ajaxForm(element, after, contentTest){
-        const submitButton = element.find('[type=submit]')[0];
-        let submitButtonText = submitButton.innerHTML || submitButton.value;
-        submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)',"");
-        submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
-        submitButton.disabled = true;
-        const submitButtonStyleDisplay = submitButton.getAttribute("style");
-        submitButton.style["display"]="inline-block";
+		submitButton.style.display = 'inline-block';
 
-        const url     = element.attr("action");
-        const method  = element.attr("method");
 		const content = element.serialize();
 		if (contentTest) {
-			if (contentTest(content) == false) {
+			if (contentTest(content) === false) {
 				$.showNotification('Form validation failed', 'danger', 15000);
 				return;
 			}
@@ -160,11 +177,12 @@ $(document).ready(() => {
 			content.forEach((c) => {
 				if (c.name === 'teamMembers') {
 					teamMembers.push(c.value);
-
 				}
 			});
-			if (teamMembers != [] && $('.me').val() && !teamMembers.includes($('.me').val())) {
-				location.reload();
+			if (teamMembers !== [] && $('.me').val() && !teamMembers.includes($('.me').val())) {
+				/* unexpected use */
+				// eslint-disable-next-line no-restricted-globals
+				window.location.reload();
 			}
 		});
 		return false;
@@ -175,70 +193,56 @@ $(document).ready(() => {
 		e.preventDefault();
 		const $dangerModal = $('.danger-modal');
 		$dangerModal.appendTo('body').modal('show');
-    });
+	});
 
-    // Abgabe löschen
-    $('a[data-method="delete-submission"]').on('click', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        var $buttonContext = $(this);
-        let $deleteModal = $('.delete-modal');
-        $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('name')}));
-        $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
-            window.location.href = $buttonContext.attr('href');
-        });
-    });
+	// Abgabe löschen
+	$('a[data-method="delete-submission"]').on('click', function action(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const $buttonContext = $(this);
+		const $deleteModal = $('.delete-modal');
+		$deleteModal.appendTo('body').modal('show');
+		$deleteModal.find('.modal-title').text(
+			$t('global.text.sureAboutDeleting', { name: $buttonContext.data('name') }),
+		);
+		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
+			window.location.href = $buttonContext.attr('href');
+		});
+	});
 
-    //validate teamMembers
-    var lastTeamMembers = null;
-    const maxTeamMembers = parseInt($("#maxTeamMembers").html());
-    $('select#teamMembers').change(function(event) {
-        if ($(this).val().length > maxTeamMembers) {
-            $(this).val(lastTeamMembers);
-            $.showNotification($t('homework.text.maximumTeamSize', {maxMembers : maxTeamMembers}), "warning", 5000);
-        } else {
-            lastTeamMembers = $(this).val();
-        }
-        $(this).chosen().trigger("chosen:updated");
-    });
+	// validate teamMembers
+	let lastTeamMembers = null;
+	const maxTeamMembers = parseInt($('#maxTeamMembers').html(), 10);
+	$('select#teamMembers').change(function action() {
+		if ($(this).val().length > maxTeamMembers) {
+			$(this).val(lastTeamMembers);
+			$.showNotification($t('homework.text.maximumTeamSize', { maxMembers: maxTeamMembers }), 'warning', 5000);
+		} else {
+			lastTeamMembers = $(this).val();
+		}
+		$(this).chosen().trigger('chosen:updated');
+	});
 
-    $('select#teamMembers').chosen().change(function(event, data) {
-        if(data.deselected && data.deselected == $('.owner').val()){
-            $(".owner").prop('selected', true);
-            $('#teamMembers').trigger("chosen:updated");
-            $.showNotification(t('homework.text.creatorCanNotBeRemoved'), "warning", 5000);
-        }
-    });
+	$('select#teamMembers').chosen().change((event, data) => {
+		if (data.deselected && data.deselected === $('.owner').val()) {
+			$('.owner').prop('selected', true);
+			$('#teamMembers').trigger('chosen:updated');
+			$.showNotification($t('homework.text.creatorCanNotBeRemoved'), 'warning', 5000);
+		}
+	});
 
-    // Bewertung speichern
-    $('.evaluation #comment form').on("submit",function(e){
-        if(e) e.preventDefault();
-        ajaxForm($(e.currentTarget),function(c){
-            $.showNotification($t('homework.text.ratingHasBeenSaved'), "success", 5000);
-        },function(c){
-            return (c.grade || c.gradeComment);
-        });
-        return false;
-    });
-
-    document.querySelectorAll('.btn-archive').forEach(btn => {btn.addEventListener("click", archiveTask);});
-
-    function updateSearchParameter(key, value) {
-        let url = window.location.search;
-        let reg = new RegExp('('+key+'=)[^\&]+');
-        window.location.search = (url.indexOf(key) !== -1)?(url.replace(reg, '$1' + value)):(url + ((url.indexOf('?') == -1)? "?" : "&") + key + "=" + value);
-    }
+	// Bewertung speichern
+	$('.evaluation #comment form').on('submit', (e) => {
+		if (e) e.preventDefault();
+		ajaxForm($(e.currentTarget), () => {
+			$.showNotification($t('homework.text.ratingHasBeenSaved'), 'success', 5000);
+		}, (c) => (c.grade || c.gradeComment));
+		return false;
+	});
 
 	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
 
-	function updateSearchParameter(key, value) {
-		const url = window.location.search;
-		const reg = new RegExp(`(${key}=)[^&]+`);
-		window.location.search = (url.indexOf(key) !== -1)
-			? (url.replace(reg, `$1${value}`))
-			: (`${url + ((url.indexOf('?') === -1) ? '?' : '&') + key}=${value}`);
-	}
+	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
 
 	document.querySelectorAll('.importsubmission').forEach(
 		(btn) => { btn.addEventListener('click', importSubmission); },
@@ -273,7 +277,7 @@ $(document).ready(() => {
 			accept: function accept(file, done) {
 				// get signed url before processing the file
 				// this is called on per-file basis
-				file.submissionId = $(this.element).parents('.usersubmission').find('[name="submissionId"]').val();
+				file.submissionId = $(this.element).parents('.submission-editor').find('[name="submissionId"]').val();
 				requestUploadUrl(file, getCurrentParent())
 					.then((data) => {
 						file.signedUrl = data.signedUrl;
@@ -302,9 +306,9 @@ $(document).ready(() => {
 				});
 
 				this.on('sending', (file, xhr, formData) => {
-					const _send = xhr.send;
+					const xhrSend = xhr.send;
 					xhr.send = function sendFile() {
-						_send.call(xhr, file);
+						xhrSend.call(xhr, file);
 					};
 				});
 
@@ -399,62 +403,66 @@ $(document).ready(() => {
 	/**
      * deletes a) the file itself, b) the reference to the submission
      */
-    $('a[data-method="delete-file"]').on('click', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        let $buttonContext = $(this);
-        let $deleteModal = $('.delete-modal');
-        let fileId = $buttonContext.data('file-id');
+	$('a[data-method="delete-file"]').on('click', function actionDeleteFile(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const $buttonContext = $(this);
+		const $deleteModal = $('.delete-modal');
+		const fileId = $buttonContext.data('file-id');
 
-        $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('file-name')}));
+		$deleteModal.appendTo('body').modal('show');
+		$deleteModal.find('.modal-title').text(
+			$t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }),
+		);
 
-        $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
-            $.ajax({
-                url: $buttonContext.attr('href'),
-                type: 'DELETE',
-                data: {
-                    key: $buttonContext.data('file-key')
-                },
-                success: function (_) {
-                    // delete reference in submission
-                    let submissionId = $("input[name='submissionId']").val();
-					let teamMembers = $('#teamMembers').val();
-                    $.ajax({
-                        url: `/homework/submit/${submissionId}/files`,
-                        data: {fileId, teamMembers},
-                        type: 'DELETE',
-                        success: function (_) {
-                            window.location.reload();
-                        }
-                    });
-                },
-                error: showAJAXError
-            });
-        });
-    });
+		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
+			$.ajax({
+				url: $buttonContext.attr('href'),
+				type: 'DELETE',
+				data: {
+					key: $buttonContext.data('file-key'),
+					id: fileId,
+				},
+				success(_) {
+					// delete reference in submission
+					const submissionId = $("input[name='submissionId']").val();
+					const teamMembers = $('#teamMembers').val();
+					$.ajax({
+						url: `/homework/submit/${submissionId}/files`,
+						data: { fileId, teamMembers },
+						type: 'DELETE',
+						success() {
+							window.location.reload();
+						},
+					});
+				},
+				error: showAJAXError,
+			});
+		});
+	});
 
-    $('a[data-method="delete-file-homework-edit"]').on('click', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        let $buttonContext = $(this);
-        let $deleteModal = $('.delete-modal');
-        let fileId = $buttonContext.data('file-id');
+	$('a[data-method="delete-file-homework-edit"]').on('click', function actionDeleteFileHomeworkEdit(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const $buttonContext = $(this);
+		const $deleteModal = $('.delete-modal');
+		const fileId = $buttonContext.data('file-id');
 
-        $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text($t('global.text.sureAboutDeleting', {name : $buttonContext.data('file-name')}));
+		$deleteModal.appendTo('body').modal('show');
+		$deleteModal.find('.modal-title').text(
+			$t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }),
+		);
 
-        $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
-            $.ajax({
-                url: $buttonContext.attr('href'),
-                type: 'DELETE',
-                data: {
-                    key: $buttonContext.data('file-key')
-                },
-                success: function () {
-                    // delete reference in homework
-                    let homeworkId = $("input[name='homeworkId']").val();
-					let teamMembers = $('#teamMembers').val();
+		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
+			$.ajax({
+				url: $buttonContext.attr('href'),
+				type: 'DELETE',
+				data: {
+					key: $buttonContext.data('file-key'),
+				},
+				success() {
+					// delete reference in homework
+					const homeworkId = $("input[name='homeworkId']").val();
 					$.ajax({
 						url: `/homework/${homeworkId}/file`,
 						data: { fileId },
@@ -473,7 +481,7 @@ $(document).ready(() => {
 	MathJax.Hub.Typeset(); // eslint-disable-line no-undef
 
 	// allow muti-download
-	$('button.multi-download').on('click', function () {
+	$('button.multi-download').on('click', function action() {
 		const files = $(this).data('files').split(' ');
 
 		// renaming here does not work, because the files are all served from a different origin
@@ -497,7 +505,9 @@ $(document).ready(() => {
 		modal.appendTo('body').modal('show');
 	}
 	function modalCheckboxHandler(headline, content, modal, localStorageItem, checkbox) {
-		const isPrivateAlertTrue = localStorage.getItem(localStorageItem) ? JSON.parse(localStorage.getItem(localStorageItem)) : false;
+		const isPrivateAlertTrue = localStorage.getItem(localStorageItem)
+			? JSON.parse(localStorage.getItem(localStorageItem)) : false;
+
 		if (!isPrivateAlertTrue && $(checkbox).prop('checked')) {
 			modal.find('.dontShowAgain-checkbox').prop('checked', false);
 			displayModal(headline, content, modal);
@@ -511,16 +521,18 @@ $(document).ready(() => {
 		}
 	}
 
-	$('#publicSubmissionsCheckbox').on('change', function (e) {
+	$('#publicSubmissionsCheckbox').on('change', function action(e) {
 		e.preventDefault();
 		const content = $t('homework.text.activatingThisMakesSubmissionsPublic');
-		modalCheckboxHandler($t('global.text.areYouSure'), content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
+		modalCheckboxHandler(
+			$t('global.text.areYouSure'), content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this,
+		);
 	});
 
 	function checkVideoElements() {
 		const vids = $('video');
 		if (vids.length > 0) {
-			$.each(vids, function () {
+			$.each(vids, function action() {
 				this.controls = true;
 			});
 		}
