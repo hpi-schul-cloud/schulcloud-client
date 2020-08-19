@@ -269,17 +269,18 @@
 					</dl>
 					{{#block "page"}}{{/block}}
                 </main>
-						{{#if messenger}}
-						{{>"lib/components/notification"
-							notification=notificationMessenger
-							style="position: sticky;
-							position: -webkit-sticky;
-							bottom: 1rem;
-							margin-right: 1rem;
-							z-index: 1;
-							margin-left: 40%;"
-							}}
-						{{/if}}
+
+                {{#if notificationMessage}}
+                    {{>"lib/components/notification"
+                        notification=notificationMessage
+                        style="position: sticky;
+                        position: -webkit-sticky;
+                        bottom: 1rem;
+                        margin-right: 1rem;
+                        z-index: 1;
+                        margin-left: 40%;"
+                    }}
+                {{/if}}
             </div>
             {{#unless inline}}
                 {{#embed "lib/footer"}}{{/embed}}
