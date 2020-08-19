@@ -102,18 +102,19 @@
                                             <i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
                                         </strong>
                                         {{#userHasPermission "FOLDER_DELETE"}}
+                                        <a href="/directoryModel/{{../this._id}}/rename" target="_blank"
+                                               data-method="dir-rename"
+                                                    aria-label="{{$t "teams._team.files.button.renameFolder"}}"
+                                               data-directory-id="{{../this._id}}" data-directory-name="{{../this.name}}">
+                                            <i class="fa fa-edit pull-right" aria-hidden="true"></i>
+                                        </a>
+
                                         <a href="/files/directory/" target="_blank" data-method="delete"
                                             aria-label="{{$t "teams._team.files.button.deleteFolder"}}"
                                             data-file-name="{{../this.name}}" data-file-id="{{../this._id}}">
                                             <i class="fa fa-trash-o pull-right" aria-hidden="true"></i>
                                         </a>
 
-                                        <a href="/directoryModel/{{../this._id}}/rename" target="_blank"
-                                            data-method="dir-rename"
-                                            aria-label="{{$t "teams._team.files.button.renameFolder"}}"
-                                            data-directory-id="{{../this._id}}" data-directory-name="{{../this.name}}">
-                                            <i class="fa fa-edit pull-right" aria-hidden="true"></i>
-                                        </a>
                                         {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
                                         <a href="/directoryModel/{{../this._id}}/share" target="_blank"
                                             class="btn-file-share" data-method="dir-share"
