@@ -2288,14 +2288,14 @@ router.get(
 
 		const showTab = (req.query || {}).showTab || 'current';
 
-		const upcommingYears = schoolYears
+		const upcomingYears = schoolYears
 			.filter((year) => year.startDate > currentYearObj.endDate);
 		const archivedYears = schoolYears
 			.filter((year) => year.endDate < currentYearObj.startDate);
 
 		switch (showTab) {
-			case 'upcomming':
-				query['year[$in]'] = upcommingYears.map((year) => year._id);
+			case 'upcoming':
+				query['year[$in]'] = upcomingYears.map((year) => year._id);
 				break;
 			case 'archive':
 				query['year[$in]'] = archivedYears.map((year) => year._id);
@@ -2311,9 +2311,9 @@ router.get(
 
 		const classesTabs = [
 			{
-				key: 'upcomming',
-				title: `${upcommingYears.pop().name}`,
-				link: `/administration/classes/?showTab=upcomming${filterQueryString}`,
+				key: 'upcoming',
+				title: `${upcomingYears.pop().name}`,
+				link: `/administration/classes/?showTab=upcoming${filterQueryString}`,
 			},
 			{
 				key: 'current',
