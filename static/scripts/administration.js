@@ -15,10 +15,17 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (filterModule) {
 		filterModule.addEventListener('newFilter', (e) => {
 			const filter = e.detail;
+
+			const page = getQueryParameterByName('p');
+			const showTab = getQueryParameterByName('showTab');
+
 			const newurl = `?filterQuery=${
 				escape(JSON.stringify(filter[0]))
-			}&p=${
-				getQueryParameterByName('p')}`;
+			}${
+				page ? `&p=${page}` : ''
+			}${
+				showTab ? `&showTab=${showTab}` : ''
+			}`;
 			softNavigate(newurl, '.ajaxcontent', '.pagination');
 		});
 		document
@@ -29,8 +36,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('softNavigate', (event) => {
 	const { target_url: targetUrl } = event.detail;
-	const param = getQueryParameterByName('p', targetUrl);
-	updateQueryStringParameter('p', param);
+
+	const page = getQueryParameterByName('p', targetUrl);
+	updateQueryStringParameter('p', page);
+
+	const showTab = getQueryParameterByName('showTab', targetUrl);
+	updateQueryStringParameter('showTab', showTab);
 });
 
 $(document).ready(() => {

@@ -2215,37 +2215,39 @@ router.delete(
 	},
 );
 
-const classFilterSettings = ({ years, currentYear }, res) => {
-	const yearFilter = {
-		type: 'select',
-		title: res.$t('administration.global.label.schoolYear'),
-		displayTemplate: res.$t('administration.controller.text.schoolYearPercentage'),
-		property: 'year',
-		multiple: true,
-		expanded: true,
-		options: years,
-	};
-	if (currentYear) {
-		yearFilter.defaultSelection = currentYear;
+const classFilterSettings = ({ years, showTab }, res) => {
+	const filterSettings = []
+	filterSettings.push({
+		type: 'sort',
+		title: res.$t('global.headline.sorting'),
+		displayTemplate: res.$t('global.label.sortBy'),
+		options: [['displayName', res.$t('administration.controller.global.label.class')]],
+		defaultSelection: 'displayName',
+		defaultOrder: 'DESC',
+	});
+
+	if (showTab === 'archive') {
+		const yearFilter = {
+			type: 'select',
+			title: res.$t('administration.global.label.schoolYear'),
+			displayTemplate: res.$t('administration.controller.text.schoolYearPercentage'),
+			property: 'year',
+			multiple: true,
+			expanded: true,
+			options: years,
+		};
+		filterSettings.push(yearFilter);
 	}
-	return [
-		{
-			type: 'sort',
-			title: res.$t('global.headline.sorting'),
-			displayTemplate: res.$t('global.label.sortBy'),
-			options: [['displayName', res.$t('administration.controller.global.label.class')]],
-			defaultSelection: 'displayName',
-			defaultOrder: 'DESC',
-		},
-		yearFilter,
-		{
-			type: 'limit',
-			title: res.$t('global.headline.sorting'),
-			displayTemplate: res.$t('global.label.entriesPerPage'),
-			options: [25, 50, 100],
-			defaultSelection: 25,
-		},
-	];
+
+	filterSettings.push({
+		type: 'limit',
+		title: res.$t('global.headline.sorting'),
+		displayTemplate: res.$t('global.label.entriesPerPage'),
+		options: [25, 50, 100],
+		defaultSelection: 25,
+	});
+
+	return filterSettings;
 };
 
 router.get(
@@ -2272,11 +2274,57 @@ router.get(
 			$limit: itemsPerPage,
 			$skip: itemsPerPage * (currentPage - 1),
 		};
-		query = Object.assign(query, filterQuery);
 
 		if (!res.locals.currentUser.permissions.includes('CLASS_FULL_ADMIN')) {
 			query.teacherIds = res.locals.currentUser._id.toString();
 		}
+
+		const schoolYears = res.locals.currentSchoolData.years.schoolYears
+			.sort((a, b) => b.startDate.localeCompare(a.startDate));
+		const lastDefinedSchoolYear = (schoolYears[0] || {})._id;
+		const currentYear = res.locals.currentSchoolData.currentYear;
+
+		const currentYearObj = schoolYears.filter((year) => year._id === currentYear).pop()
+
+		const showTab = (req.query || {}).showTab || 'current';
+
+		const upcommingYears = schoolYears
+			.filter((year) => year.startDate > currentYearObj.endDate);
+		const archivedYears = schoolYears
+			.filter((year) => year.endDate < currentYearObj.startDate);
+
+		switch (showTab) {
+			case 'upcomming':
+				query['year[$in]'] = upcommingYears.map((year) => year._id);
+				break;
+			case 'archive':
+				query['year[$in]'] = archivedYears.map((year) => year._id);
+				break;
+			case 'current':
+			default:
+				query['year[$in]'] = [currentYear];
+				break;
+		}
+
+		// apply criterias defined by filter
+		query = Object.assign(query, filterQuery);
+
+		const classesTabs = [
+			{
+				key: 'upcomming',
+				title: `${upcommingYears.pop().name}`,
+				link: `/administration/classes/?showTab=upcomming${filterQueryString}`,
+			},
+			{
+				key: 'current',
+				title: `${currentYearObj.name}`,
+				link: `/administration/classes/?showTab=current${filterQueryString}`,
+			},			{
+				key: 'archive',
+				title: res.$t('administration.controller.tab_label.archivedClasses'),
+				link: `/administration/classes/?showTab=archive${filterQueryString}`,
+			},
+		];
 
 		api(req)
 			.get('/classes', {
@@ -2294,9 +2342,6 @@ router.get(
 					head.push(''); // action buttons head
 				}
 
-				const schoolYears = res.locals.currentSchoolData.years.schoolYears
-					.sort((a, b) => b.startDate.localeCompare(a.startDate));
-				const lastDefinedSchoolYear = (schoolYears[0] || {})._id;
 
 				const createActionButtons = (item, basePath) => {
 					const baseActions = [
@@ -2347,21 +2392,15 @@ router.get(
 				const pagination = {
 					currentPage,
 					numPages: Math.ceil(data.total / itemsPerPage),
-					baseUrl: `/administration/classes/?p={{page}}${filterQueryString}`,
+					baseUrl: `/administration/classes/?p={{page}}&showTab=${showTab}${filterQueryString}`,
 				};
 
-				const years = (await api(req).get('/years', {
-					qs: {
-						$sort: {
-							name: -1,
-						},
-					},
-				})).data.map((year) => [
-					year._id,
-					year.name,
-				]);
-
-				const currentYear = res.locals.currentSchoolData.currentYear;
+				const years = schoolYears
+					.filter((year) => year.endDate < currentYearObj.startDate)
+					.map((year) =>  [
+						year._id,
+						year.name,
+					]);
 
 				res.render('administration/classes', {
 					title: res.$t('administration.controller.headline.classes', {
@@ -2371,7 +2410,9 @@ router.get(
 					body,
 					pagination,
 					limit: true,
-					filterSettings: JSON.stringify(classFilterSettings({ years, currentYear }, res)),
+					filterSettings: JSON.stringify(classFilterSettings({ years, showTab }, res)),
+					classesTabs,
+					showTab,
 				});
 			});
 	},
