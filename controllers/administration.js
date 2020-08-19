@@ -2369,6 +2369,7 @@ router.get(
 					}),
 					head,
 					body,
+					classNumber: class,
 					pagination,
 					limit: true,
 					filterSettings: JSON.stringify(classFilterSettings({ years, currentYear }, res)),
