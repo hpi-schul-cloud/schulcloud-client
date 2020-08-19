@@ -37,7 +37,8 @@
 
                 {{#embed "lib/components/modal-form" body=body method="delete" class="delete-modal"}}
                     {{#content "fields"}}
-                        {{> "administration/forms/form-delete-class"}}
+                        <p>{{$t "administration.global.text.areYouSureYouWantToDeleteTheFollowingClass" }}</p>
+                        <input class="form-control" name="displayName" type="text" disabled />
                     {{/content}}
                 {{/embed}}
 

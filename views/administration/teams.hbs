@@ -114,8 +114,9 @@
 
                 {{#embed "lib/components/modal-form" action="/administration/teams/" method="delete" class="delete-team-modal" collapseId=2}}
                     {{#content "fields"}}
-                        {{> "administration/forms/form-delete-team"}}
-                    {{/content}}
+                        <p>{{$t "administration.global.text.areYouSureYouWantToDeleteTheFollowingTeam" }}</p>
+                        <input class="form-control" name="name" type="text" disabled />
+                        {{/content}}
                 {{/embed}}
 
 
