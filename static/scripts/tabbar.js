@@ -75,9 +75,13 @@ const app = {
 			}
 
 			oldTab.classList.remove('active');
-			oldSection.classList.remove('active');
+			if (oldSection) {
+				oldSection.classList.remove('active');
+			}
 			this.classList.add('active');
-			newSection.classList.add('active');
+			if (newSection) {
+				newSection.classList.add('active');
+			}
 
 			if (setHistory) {
 				const params = new URLSearchParams(window.location.search);
@@ -115,7 +119,7 @@ window.addEventListener('popstate', () => {
 }, false);
 
 document.addEventListener('DOMContentLoaded', () => {
-	if (document.querySelectorAll('.tabContainer').length && document.querySelectorAll('.sectionsContainer').length) {
+	if (document.querySelectorAll('.tabContainer').length) {
 		let activeTabName = document.querySelector('.tabContainer').getAttribute('data-active-tab');
 		let activeTab;
 		let activeSection;
@@ -129,8 +133,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			activeSection = document.querySelector('.sectionsContainer')
 				.querySelector('.sections .section:first-child');
 		}
-		activeTab.classList.add('active');
-		activeSection.classList.add('active');
+		if (activeTab) {
+			activeTab.classList.add('active');
+		}
+		if (activeSection) {
+			activeSection.classList.add('active');
+		}
 	}
 	setTimeout(() => app.tabs.initialize(), 0);
 }, false);
