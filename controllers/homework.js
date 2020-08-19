@@ -357,7 +357,10 @@ router.post('/submit/:id/files', (req, res, next) => {
 		delete submission.grade;
 		delete submission.gradeComment;
 		delete submission.comment;
-		submission.fileIds.push(req.body.fileId);
+
+		const files = req.body.fileId || req.body.fileIds;
+		submission.fileIds = submission.fileIds.concat(files);
+
 		return api(req).patch(`/submissions/${submissionId}`, {
 			json: submission,
 		});
