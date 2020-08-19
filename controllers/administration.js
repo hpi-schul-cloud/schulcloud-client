@@ -2215,7 +2215,7 @@ router.delete(
 	},
 );
 
-const classFilterSettings = ({ years, showTab }, res) => {
+const classFilterSettings = ({ years, defaultYear, showTab }, res) => {
 	const filterSettings = [];
 	filterSettings.push({
 		type: 'sort',
@@ -2236,6 +2236,9 @@ const classFilterSettings = ({ years, showTab }, res) => {
 			expanded: true,
 			options: years,
 		};
+		if (defaultYear) {
+			yearFilter.defaultSelection = defaultYear;
+		}
 		filterSettings.push(yearFilter);
 	}
 
@@ -2293,12 +2296,14 @@ router.get(
 		const archivedYears = schoolYears
 			.filter((year) => year.endDate < currentYearObj.startDate);
 
+		let defaultYear;
 		switch (showTab) {
 			case 'upcoming':
 				query['year[$in]'] = upcomingYears.map((year) => year._id);
 				break;
 			case 'archive':
 				query['year[$in]'] = archivedYears.map((year) => year._id);
+				defaultYear = archivedYears && archivedYears.length ? archivedYears[0]._id : null;
 				break;
 			case 'current':
 			default:
@@ -2410,7 +2415,7 @@ router.get(
 					body,
 					pagination,
 					limit: true,
-					filterSettings: JSON.stringify(classFilterSettings({ years, showTab }, res)),
+					filterSettings: JSON.stringify(classFilterSettings({ years, defaultYear, showTab }, res)),
 					classesTabs,
 					showTab,
 				});
