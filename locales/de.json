@@ -272,6 +272,7 @@
 				"retrieveFailed": "Fehler beim Abrufen",
 				"schoolYearPercentage": "Schuljahr: %1",
 				"setupFailed": "Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ",
+				"sortBy": "Sortieren nach: %1",
 				"stillLackOfDeclaration": "Hallo {{name}} Leider fehlt uns von dir noch die Einverständniserklärung. Ohne diese kannst du die Schul-Cloud leider nicht nutzen. Melde dich bitte mit deinen Daten an, um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können. Gehe jetzt auf {{shortLink}} {{shortLink}} und melde dich an.",
 				"submitted": "Gesendet",
 				"successfullyImportedUser": "{{amountImported}} von {{amountTotal}} Nutzer erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
@@ -320,6 +321,9 @@
 			}
 		},
 		"form_InvitationStudent": {
+			"label": {
+				"distributeLinkToInvite": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:"
+			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der HPI Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
 				"studentUnderYears": "<b>Schüler unter {{age}} Jahre: </b> die Eltern <br/> <b>Schüler ab {{age}} Jahre: </b> an die Schüler selbst <br/>"
@@ -397,7 +401,6 @@
 				"colorOfTheCourse": "Farbe des Kurses:",
 				"dataProtection": "Datenschutz",
 				"lengthOfLesson": "Dauer der Schulstunde",
-				"nameOfTheCourse": "Name des Kurses",
 				"parents": "Eltern",
 				"schoolYear": "Schuljahr",
 				"startOfLesson": "Start der Schulstunde",
@@ -408,7 +411,6 @@
 				"teachingTeacher": "Unterrichtenderlehrer:in",
 				"termsOfUse": "Nutzungsbedingungen",
 				"timeSpan": "Zeitraum (z.B. Schuljahr)",
-				"toInviteToTheSchoolCloud": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:",
 				"weekday": "Wochentag"
 			},
 			"placeholder": {
@@ -920,7 +922,15 @@
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
 						"noTopics": "keine Themen.",
 						"responsibleTeachers": "Verantwortliche Lehrer:innen:",
-						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}"
+						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}",
+						"workOnTopic": "Thema bearbeiten",
+						"archivedTask": "Die Aufgabe ist archiviert",
+						"draftTask": "Die Aufgabe entwürfe",
+						"doneTask": "Die Aufgabe ist gestellt",
+						"feedbackTask": "Die Aufgabe hat Feedback",
+						"moveTask": "Verschiebe Aufgabe zwischen Übersichtsseite und Archiv",
+						"task": "Die Aufgabe: ",
+						"taskDetails": "Details der Aufgabe: "
 					}
 				},
 				"button": {
@@ -953,8 +963,8 @@
 			},
 			"tab_label": {
 				"groups": "Gruppen",
-				"tools": "Tools",
 				"tasks": "Aufgaben",
+				"tools": "Tools",
 				"topics": "Themen"
 			},
 			"tasks": {
@@ -1577,10 +1587,10 @@
 			"lastName": "Nachname",
 			"lastNameColon": "Nachname:",
 			"more": "Weiteres",
+			"nameOfTheCourse": "Name des Kurses",
 			"newTab": "Öffnet in neuem Tab",
 			"password": "Passwort:",
 			"role": "Rolle",
-			"emailAddress":"E-Mail-Adresse:",
 			"room": "Raum",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
@@ -1684,6 +1694,14 @@
 			"videoconferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
 			"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 			"wednesday": "Mittwoch"
+		},
+		"pagination": {
+			"aria_label": {
+				"firstPage": "Erste Seite",
+				"previousPage": "Vorherige Seite",
+				"lastPage": "Letzte Seite",
+				"nextPage": "nächste Seite"
+			}
 		}
 	},
 	"help": {
@@ -2118,6 +2136,10 @@
 			}
 		},
 		"footer": {
+			"aria_label": {
+				"footer":"footer",
+				"love": "love"
+			},
 			"img_alt": {
 				"providerLogo": "Anbieterlogo"
 			}
@@ -2279,8 +2301,8 @@
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
-			"noSystemsAvailable": "Keine Systeme verfügbar",
 			"noSchoolsSelection": "Wähle deine Schule",
+			"noSystemsAvailable": "Keine Systeme verfügbar",
 			"school": "Schule auswählen",
 			"system": "System auswählen"
 		},
