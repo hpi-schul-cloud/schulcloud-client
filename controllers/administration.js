@@ -1475,37 +1475,24 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 		users = (await api(req).get('/users', { qs, $limit: false })).data;
 	}
 
-	let consents = [];
+	let usersWithMissingConsents = [];
 	const batchSize = 50;
 	let slice = 0;
 	while (users.length !== 0 && slice * batchSize < users.length) {
-		consents = consents.concat(
-			(await api(req).get('/consents', {
+		usersWithMissingConsents = usersWithMissingConsents.concat(
+			(await api(req).get('/users/admin/students', {
 				qs: {
-					userId: {
-						$in: users
-							.slice(slice * batchSize, (slice + 1) * batchSize)
-							.map((u) => u._id),
-					},
-					$populate: 'userId',
-					$limit: false,
+					users: users
+						.slice(slice * batchSize, (slice + 1) * batchSize)
+						.map((u) => u._id),
+					consentStatus: ['missing', 'parentsAgreed'],
 				},
 			})).data,
 		);
 		slice += 1;
 	}
 
-	const consentMissing = (user) => !consents.some(
-		(consent) => consent.userId._id.toString() === (user._id || user).toString(),
-	);
-	const consentIncomplete = (consent) => !consent.access;
-
-	const usersWithoutConsent = users.filter(consentMissing);
-	const usersWithIncompleteConsent = consents
-		.filter(consentIncomplete)
-		// get full user object from users list
-		.map((c) => users.find((user) => user._id.toString() === c.userId._id.toString()));
-	return usersWithoutConsent.concat(usersWithIncompleteConsent);
+	return usersWithMissingConsents;
 };
 
 router.get(
