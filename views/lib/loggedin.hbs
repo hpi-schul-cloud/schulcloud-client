@@ -45,7 +45,7 @@
         {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
-            <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
+            <nav id="sidebar" aria-label="{{$t "global.sidebar.aria_label"}}">
                 <ul class="sidebar-list">
                     <li>
                         <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}">
@@ -86,7 +86,7 @@
         </aside>
 
 		<section class="content-wrapper">
-					<a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">
+					<a class="mobile-nav-toggle" aria-label="{{$t "global.mobileNavMenu.aria_label"}}">
 						<i class="fa fa-bars" aria-hidden="true"></i>
 					</a>
 				<div class="content-min-height">
@@ -108,7 +108,8 @@
 				{{/ifeq}}
 
                 {{> "lib/components/notification"}}
-				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.aria_label.topMenu"}}">
+				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.topMenu.aria_label"}}">
+
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
@@ -263,24 +264,25 @@
                 <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
                 <p id="backendUrl" hidden>{{ backendUrl }}</p>
                 <main id="main-content" class="container-fluid">
-					<dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.aria_label.sidebar"}}">
+					<dl class="skipLinks main" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.aria_label"}}">
 						<dd>
 							<a href="#sidebar">{{$t "global.aria_label.sidebar"}}</a>
 						</dd>
 					</dl>
 					{{#block "page"}}{{/block}}
                 </main>
-						{{#if messenger}}
-						{{>"lib/components/notification"
-							notification=notificationMessenger
-							style="position: sticky;
-							position: -webkit-sticky;
-							bottom: 1rem;
-							margin-right: 1rem;
-							z-index: 1;
-							margin-left: 40%;"
-							}}
-						{{/if}}
+
+                {{#if notificationMessage}}
+                    {{>"lib/components/notification"
+                        notification=notificationMessage
+                        style="position: sticky;
+                        position: -webkit-sticky;
+                        bottom: 1rem;
+                        margin-right: 1rem;
+                        z-index: 1;
+                        margin-left: 40%;"
+                    }}
+                {{/if}}
             </div>
             {{#unless inline}}
                 {{#embed "lib/footer"}}{{/embed}}
