@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## [24.2.5] - 2020-08-20
+### Fixed - 24.2.5
+
+  - SC-6296 Only show edit and delete button for eligible systems
+
+## [24.2.4] - 2020-08-20
+
 ## [24.2.3] - 2020-08-18
 ### Changed - 24.2.3
 
