@@ -4,7 +4,7 @@ const feedr = require('feedr').create();
 const router = express.Router();
 
 router.get('/', (req, res) => {
-	feedr.readFeed('https://blog.schul-cloud.org/rss', {
+	feedr.readFeed('https://blog.hpi-schul-cloud.de/rss', {
 		requestOptions: { timeout: 2000 },
 	}, (err, data) => {
 		let blogFeed;
