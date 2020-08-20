@@ -5,16 +5,15 @@
                 <a href="{{this.src}}" class="icon-link"
                     {{#ifneq (indexOf this.src "/") 0}}
                         {{#ifneq (indexOf ../this.src "#") 0}}
-                            target="_blank"
+                            target="_blank" aria-label="{{../this.title}} {{$t "global.openInNewTabWarning"}} "
                         {{/ifneq}}
-                    {{/ifneq}}
-                    title="{{this.title}}">
+                    {{/ifneq}}>
                     <div class="item-wrapper">
                         {{#if this.img-src}}
                             <img src="{{this.img-src}}" alt="{{this.img-alt}}">
                         {{/if}}
                         {{#if this.icon}}
-                            <i class="fa {{this.icon}}"></i>
+                            <i class="fa {{this.icon}}" aria-hidden="true"></i>
                         {{/if}}
                         <span>{{this.title}}</span>
                     </div>
