@@ -262,7 +262,7 @@
 				},
 				"SECURE": {
 					"type": "boolean",
-					"default": false,
+					"default": true,
 					"description": "Value for cookies httpOnly property"
 				},
 				"EXPIRES_SECONDS": {
