@@ -118,7 +118,7 @@ module.exports = (req, res, next) => {
 		res.locals.sidebarItems.push({
 			name: res.$t('global.sidebar.link.addons'),
 			icon: 'puzzle-piece',
-			link: '/addons',
+			link: '/addons/',
 		});
 	}
 
@@ -173,7 +173,7 @@ module.exports = (req, res, next) => {
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.helpDesk'),
 		icon: 'ticket',
-		link: '/administration/helpdesk/',
+		link: '/helpdesk/',
 		permission: 'HELPDESK_VIEW',
 	});
 
@@ -258,13 +258,13 @@ module.exports = (req, res, next) => {
 		res.locals.sidebarItems.push({
 			name: res.$t('global.link.helpArea'),
 			icon: 'question-circle',
-			link: '/help',
+			link: '/help/',
 			children: [
 				{
 					name: 'Hilfeartikel',
 					icon:
 						'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path fill="none" d="M0 0h24v24H0z" /><rect class="cls-2" x="8.9" y="2.6" width="2.1" height="8.4" rx=".5" transform="rotate(-90 9.95 6.8)" /><path d="M16.77 11a5.78 5.78 0 105.78 5.77A5.77 5.77 0 0016.77 11zm.58 9.78H16.2v-1.14h1.15zm1.18-4.44l-.51.53a1.93 1.93 0 00-.67 1.62H16.2v-.29a2.32 2.32 0 01.67-1.62l.71-.72a1.11 1.11 0 00.34-.8 1.15 1.15 0 10-2.29 0h-1.15a2.29 2.29 0 114.58 0 1.78 1.78 0 01-.53 1.28z" /><path d="M9.81 20.45H3.65V3.65h12.6v5.27h.52a7.5 7.5 0 011.58.16V3.65a2.72 2.72 0 000-.42 2.2 2.2 0 00-.23-.59 2.1 2.1 0 00-.6-.69l-.22-.13a2 2 0 00-.59-.23 2 2 0 00-.42 0h-3a1 1 0 00-.17 0H3.65a1.87 1.87 0 00-.42 0 1.91 1.91 0 00-.59.23 2.08 2.08 0 00-.48.34 2.08 2.08 0 00-.34.48 1.91 1.91 0 00-.23.59 1.87 1.87 0 000 .42v16.8a2 2 0 000 .42 2 2 0 00.23.59 2.25 2.25 0 00.34.47 2.12 2.12 0 00.48.35 2.2 2.2 0 00.59.23 2.72 2.72 0 00.42 0h7.78a7.92 7.92 0 01-1.62-2.06z" /><path d="M5.75 10.47v1a.52.52 0 00.52.53h4.21a7.86 7.86 0 012.38-2H6.27a.52.52 0 00-.52.47zm0 4.2v1.05a.52.52 0 00.52.53h2.65a7.7 7.7 0 01.44-2.1H6.27a.52.52 0 00-.52.52z" /></g></svg>',
-					link: '/help/articles',
+					link: '/help/articles/',
 					isExternalIcon: true,
 				},
 				{
@@ -278,7 +278,7 @@ module.exports = (req, res, next) => {
 				{
 					name: 'Kontakt',
 					icon: 'comment',
-					link: '/help/contact',
+					link: '/help/contact/',
 				},
 			],
 		});
