@@ -697,7 +697,7 @@
 			"headline": {
 				"changePassword": "Passwort ändern",
 				"completeRegistration": "Nutzerregistrierung abschließen",
-				"deleteUser": "Benutzer löschen?"
+				"deleteUser": "Benutzer:in löschen?"
 			},
 			"text": {
 				"alreadyRegistered": "Der Nutzer ist bereits registriert",
