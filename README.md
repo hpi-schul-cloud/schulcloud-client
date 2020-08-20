@@ -1,6 +1,7 @@
 # HPI Schul-Cloud Client  
 _An implementation of the HPI Schul-Cloud client with NodeJS and Express._  
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3653670a50574377bf3b8a7e94c7dfa0)](https://app.codacy.com/gh/hpi-schul-cloud/schulcloud-client?utm_source=github.com&utm_medium=referral&utm_content=hpi-schul-cloud/schulcloud-client&utm_campaign=Badge_Grade_Settings)
 Dev: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/schul-cloud/schulcloud-client)
 Master: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/schul-cloud/schulcloud-client)
 
