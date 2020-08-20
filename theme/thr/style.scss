@@ -30,7 +30,7 @@ aside.nav-sidebar {
     ul li a:not(.sc-branding) {
         color: $primaryColor;
 	}
-	
+
 	ul li a:not(.sc-branding).active {
         color: $primaryColorDark;
         background: $primaryColorTransparent;
@@ -39,6 +39,10 @@ aside.nav-sidebar {
     ul li a:not(.sc-branding):hover {
         background: $primaryColorTransparent!important;
     }
+}
+
+header.top-margin {
+  margin-top: -1rem;
 }
 
 .timetable {
