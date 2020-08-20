@@ -32,3 +32,31 @@ aside.nav-sidebar{
         }
     }
 }
+body {
+    header.top-margin {
+        margin-top: -1rem;
+    }
+    header {
+
+
+        .navbar-light {
+            #title {
+                padding: 0 !important;
+            }
+
+            .cloud-logo {
+                margin-right: 0 !important;
+                margin-left: -5rem !important;
+                height: 3.5rem !important;
+                width: 21.5rem !important;
+            }
+
+            @media (max-width: 991px) {
+                .cloud-logo {
+                    width: 100% !important;
+                    margin-left: 0 !important;
+                }
+            }
+        }
+    }
+}
