@@ -9,8 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-- SC-5955 Changed links to Lernen.cloud
-- SC-5644 navigation and the general structure of pages made more accessible (a11y)
+  - SC-5955 Changed links to Lernen.cloud
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
 
 ## [24.2.1] - 2020-08-13
 ## Fixed - 24.2.1
