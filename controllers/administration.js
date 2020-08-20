@@ -920,32 +920,20 @@ router.get(
 );
 
 const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, res, next) {
-	const promises = [
-		api(req).patch(`/users/${req.params.id}`, { json: req.body }),
-	]; // TODO: sanitize
-
 	// extract consent
 	if (req.body.form) {
-		const consent = {
-			_id: req.body.consentId,
+		req.body.consent = {
 			userConsent: {
 				form: req.body.form || 'analog',
 				privacyConsent: req.body.privacyConsent || false,
 				termsOfUseConsent: req.body.termsOfUseConsent || false,
 			},
 		};
-		if (consent._id) {
-			// update exisiting consent
-			promises.push(
-				api(req).patch(`/consents/${consent._id}`, { json: consent }),
-			);
-		} else {
-			// create new consent entry
-			delete consent._id;
-			consent.userId = req.params.id;
-			promises.push(api(req).post('/consents/', { json: consent }));
-		}
 	}
+
+	const promises = [
+		api(req).patch(`/users/admin/teachers/${req.params.id}`, { json: req.body }),
+	]; // TODO: sanitize
 
 	// extract class information
 	if (req.body.classes && !Array.isArray(req.body.classes)) {
@@ -1169,10 +1157,7 @@ router.get(
 	'/teachers/:id/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
 	(req, res, next) => {
-		const userPromise = api(req).get(`/users/${req.params.id}`);
-		const consentPromise = getSelectOptions(req, 'consents', {
-			userId: req.params.id,
-		});
+		const userPromise = api(req).get(`users/admin/teachers/${req.params.id}`);
 		const classesPromise = getSelectOptions(req, 'classes', {
 			$populate: ['year'],
 			$sort: 'displayName',
@@ -1227,36 +1212,23 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 	const promises = [];
 
 	// Consents
-	if (req.body.student_form || req.body.parent_form) {
-		const newConsent = {};
-		if (req.body.student_form) {
-			newConsent.userConsent = {
-				form: req.body.student_form || 'analog',
-				privacyConsent: req.body.student_privacyConsent === 'true',
-				termsOfUseConsent: req.body.student_termsOfUseConsent === 'true',
-			};
-		}
-		if (req.body.parent_form) {
-			newConsent.parentConsents = [];
-			newConsent.parentConsents[0] = {
-				form: req.body.parent_form || 'analog',
-				privacyConsent: req.body.parent_privacyConsent === 'true',
-				termsOfUseConsent: req.body.parent_termsOfUseConsent === 'true',
-			};
-		}
-		if (req.body.student_consentId) {
-			// update exisiting consent
-			promises.push(
-				api(req).patch(`/consents/${req.body.student_consentId}`, {
-					json: newConsent,
-				}),
-			);
-		} else {
-			// create new consent entry
-			newConsent.userId = req.params.id;
-			promises.push(api(req).post('/consents/', { json: newConsent }));
-		}
+	req.body.consent = req.body.consent || {};
+	if (req.body.student_form) {
+		req.body.consent.userConsent = {
+			form: req.body.student_form || 'analog',
+			privacyConsent: req.body.student_privacyConsent === 'true',
+			termsOfUseConsent: req.body.student_termsOfUseConsent === 'true',
+		};
 	}
+	if (req.body.parent_form) {
+		req.body.consent.parentConsents = [];
+		req.body.consent.parentConsents[0] = {
+			form: req.body.parent_form || 'analog',
+			privacyConsent: req.body.parent_privacyConsent === 'true',
+			termsOfUseConsent: req.body.parent_termsOfUseConsent === 'true',
+		};
+	}
+
 
 	// remove all consent infos from user post
 	Object.keys(req.body).forEach((key) => {
@@ -1266,7 +1238,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 	});
 
 	promises.push(
-		api(req).patch(`/users/${req.params.id}`, { json: req.body }),
+		api(req).patch(`/users/admin/students/${req.params.id}`, { json: req.body }),
 	); // TODO: sanitize
 
 	Promise.all(promises)
@@ -1503,37 +1475,24 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 		users = (await api(req).get('/users', { qs, $limit: false })).data;
 	}
 
-	let consents = [];
+	let usersWithMissingConsents = [];
 	const batchSize = 50;
 	let slice = 0;
 	while (users.length !== 0 && slice * batchSize < users.length) {
-		consents = consents.concat(
-			(await api(req).get('/consents', {
+		usersWithMissingConsents = usersWithMissingConsents.concat(
+			(await api(req).get('/users/admin/students', {
 				qs: {
-					userId: {
-						$in: users
-							.slice(slice * batchSize, (slice + 1) * batchSize)
-							.map((u) => u._id),
-					},
-					$populate: 'userId',
-					$limit: false,
+					users: users
+						.slice(slice * batchSize, (slice + 1) * batchSize)
+						.map((u) => u._id),
+					consentStatus: ['missing', 'parentsAgreed'],
 				},
 			})).data,
 		);
 		slice += 1;
 	}
 
-	const consentMissing = (user) => !consents.some(
-		(consent) => consent.userId._id.toString() === (user._id || user).toString(),
-	);
-	const consentIncomplete = (consent) => !consent.access;
-
-	const usersWithoutConsent = users.filter(consentMissing);
-	const usersWithIncompleteConsent = consents
-		.filter(consentIncomplete)
-		// get full user object from users list
-		.map((c) => users.find((user) => user._id.toString() === c.userId._id.toString()));
-	return usersWithoutConsent.concat(usersWithIncompleteConsent);
+	return usersWithMissingConsents;
 };
 
 router.get(
@@ -1656,7 +1615,7 @@ router.get(
 	'/students/:id/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
 	(req, res, next) => {
-		const userPromise = api(req).get(`/users/${req.params.id}`);
+		const userPromise = api(req).get(`/users/admin/students/${req.params.id}`);
 		const accountPromise = api(req).get('/accounts/', {
 			qs: { userId: req.params.id },
 		});

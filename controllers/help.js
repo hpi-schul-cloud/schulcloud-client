@@ -56,7 +56,7 @@ router.get('/releases', (req, res, next) => {
 				breadcrumb: [
 					{
 						title: res.$t('help.headline.helpSection'),
-						url: '/help',
+						url: '/help/articles',
 					},
 				],
 				release: releases.data,
@@ -69,7 +69,7 @@ router.get('/confluence/:id', (req, res, next) => {
 		breadcrumb: [
 			{
 				title: res.$t('help.headline.helpSection'),
-				url: '/help',
+				url: '/help/articles',
 			},
 		],
 		articleId: req.params.id,
@@ -82,7 +82,7 @@ router.get('/faq/people', (req, res, next) => {
 		breadcrumb: [
 			{
 				title: res.$t('help.headline.helpSection'),
-				url: '/help',
+				url: '/help/articles',
 			},
 		],
 	});
@@ -94,7 +94,7 @@ router.get('/lernNuggets', (req, res, next) => {
 		breadcrumb: [
 			{
 				title: res.$t('help.headline.helpSection'),
-				url: '/help',
+				url: '/help/articles',
 			},
 		],
 	});
@@ -127,7 +127,7 @@ router.get('/faq/documents', async (req, res, next) => {
 		breadcrumb: [
 			{
 				title: res.$t('help.headline.helpSection'),
-				url: '/help',
+				url: '/help/articles',
 			},
 		],
 		sections: documents,
