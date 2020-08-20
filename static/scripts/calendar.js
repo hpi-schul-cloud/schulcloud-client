@@ -134,7 +134,7 @@ $(document).ready(() => {
 			const endDate = moment(date).add(1, 'hour').format('DD.MM.YYYY HH:mm');
 
 			populateModalForm($createEventModal, {
-				title: $t('calendar.headline.addDate'),
+				title: $t('global.headline.addDate'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.add'),
 				fields: {
