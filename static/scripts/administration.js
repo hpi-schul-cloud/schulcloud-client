@@ -16,17 +16,15 @@ window.addEventListener('DOMContentLoaded', () => {
 		filterModule.addEventListener('newFilter', (e) => {
 			const filter = e.detail;
 
-			const page = getQueryParameterByName('p');
-			const showTab = getQueryParameterByName('showTab');
+			const filterQuery = ` ?filterQuery=${escape(JSON.stringify(filter[0]))}`;
 
-			const newurl = `?filterQuery=${
-				escape(JSON.stringify(filter[0]))
-			}${
-				page ? `&p=${page}` : ''
-			}${
-				showTab ? `&showTab=${showTab}` : ''
-			}`;
-			softNavigate(newurl, '.ajaxcontent', '.pagination');
+			let page = getQueryParameterByName('p');
+			page = page ? `&p=${page}` : '';
+
+			let showTab = getQueryParameterByName('showTab');
+			showTab = showTab ? `&showTab=${showTab}` : '';
+
+			softNavigate(`${filterQuery}${page}${showTab}`, '.ajaxcontent', '.pagination');
 		});
 		document
 			.querySelector('.filter')
