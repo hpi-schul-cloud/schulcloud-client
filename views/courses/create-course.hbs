@@ -85,7 +85,7 @@
 
               <div class="row">
                 <div class="form-group col-md-6" data-testid="teachers_container">
-                    <label>{{$t "courses.global.label.courseTeacher"}}</label>
+                    <label for="teacherIds[]">{{$t "courses.global.label.courseTeacher"}}</label>
 
                     <select name="teacherIds[]" required multiple data-placeholder= "{{$t "courses.global.input.chooseTeacher"}}"data-testid="teachersearch" autocomplete="off">
                         {{#each teachers}}
