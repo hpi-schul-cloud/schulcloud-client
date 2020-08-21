@@ -99,31 +99,35 @@
                                 <div class="col-sm-6 col-xs-12 col-md-4">
                                     <div class="card card-block folder locationlink"
                                         data-loclink="/files/teams/{{../../_id}}/{{this._id}}">
-                                        <strong class="card-title-directory">
-                                            <i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
-                                        </strong>
+                                        <button type="button" class="button-transparent">
+                                            <strong class="card-title-directory">
+                                                <i class="fa fa-folder text-muted" aria-hidden="true"></i> {{this.name}}
+                                            </strong>
+                                        </button>
                                         {{#userHasPermission "FOLDER_DELETE"}}
-                                        <a href="/directoryModel/{{../this._id}}/rename" target="_blank"
-                                               data-method="dir-rename"
+                                            <div class="pull-right">
+                                                <a href="/directoryModel/{{../this._id}}/rename" target="_blank"
+                                                    data-method="dir-rename"
                                                     aria-label="{{$t "teams._team.files.button.renameFolder"}}"
-                                               data-directory-id="{{../this._id}}" data-directory-name="{{../this.name}}">
-                                            <i class="fa fa-edit pull-right" aria-hidden="true"></i>
-                                        </a>
+                                                    data-directory-id="{{../this._id}}" data-directory-name="{{../this.name}}">
+                                                    <i class="fa fa-edit text-muted" aria-hidden="true"></i>
+                                                </a>
 
-                                        <a href="/files/directory/" target="_blank" data-method="delete"
-                                            aria-label="{{$t "teams._team.files.button.deleteFolder"}}"
-                                            data-file-name="{{../this.name}}" data-file-id="{{../this._id}}">
-                                            <i class="fa fa-trash-o pull-right" aria-hidden="true"></i>
-                                        </a>
+                                                <a href="/files/directory/" target="_blank" data-method="delete"
+                                                    aria-label="{{$t "teams._team.files.button.deleteFolder"}}"
+                                                    data-file-name="{{../this.name}}" data-file-id="{{../this._id}}">
+                                                    <i class="fa fa-trash-o text-muted" aria-hidden="true"></i>
+                                                </a>
 
                                         {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
-                                        <a href="/directoryModel/{{../this._id}}/share" target="_blank"
-                                            class="btn-file-share" data-method="dir-share"
-                                            title="{{$t "teams._team.files.button.shareFolder"}}"
-                                            data-file-id="{{../this._id}}" data-file-name="{{../this.name}}">
-                                            <i class="fa fa-share-alt pull-right" aria-hidden="true"></i>
-                                        </a>
+                                            <a href="/directoryModel/{{../this._id}}/share" target="_blank"
+                                                class="btn-file-share" data-method="dir-share"
+                                                title="{{$t "teams._team.files.button.shareFolder"}}"
+                                                data-file-id="{{../this._id}}" data-file-name="{{../this.name}}">
+                                                <i class="fa fa-share-alt text-muted" aria-hidden="true"></i>
+                                            </a>
                                         {{/inArray}}
+                                        </div>
                                         {{/userHasPermission}}
                                     </div>
                                 </div>
