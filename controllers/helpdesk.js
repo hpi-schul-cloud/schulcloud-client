@@ -213,7 +213,6 @@ const getDisableHandler = (service) => function diasableHandler(req, res, next) 
 		});
 };
 
-
 /**
  * send out problem to the sc helpdesk
  * @param service currently only used for helpdesk
@@ -263,7 +262,6 @@ const getSendHelper = (service) => function send(req, res, next) {
 			redirectHelper.safeBackRedirect(req, res);
 		});
 };
-
 
 /*
     HELPDESK

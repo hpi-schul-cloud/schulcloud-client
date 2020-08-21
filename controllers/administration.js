@@ -54,44 +54,6 @@ const cutEditOffUrl = (url) => {
 	return workingURL;
 };
 
-const getTableActions = (
-	item,
-	path,
-	isAdmin = true,
-	isTeacher = false,
-	isStudentAction = false,
-	category,
-	res,
-) => {
-	let editButtonClass = 'btn-edit';
-	if (item.type === 'ldap') {
-		editButtonClass = 'btn-edit-ldap';
-	}
-	return [
-		{
-			link:
-				item.type === 'ldap' ? `${path}ldap/edit/${item._id}` : path + item._id,
-			class: `${editButtonClass} ${isTeacher ? 'disabled' : ''}`,
-			icon: 'edit',
-			title: res.$t('administration.controller.link.editEntry'),
-		},
-		{
-			link: path + item._id,
-			class: `${isAdmin ? 'btn-delete' : 'disabled'} ${category === 'systems'
-				&& 'btn-delete--systems'}`,
-			icon: 'trash-o',
-			method: `${isAdmin ? 'delete' : ''}`,
-			title: res.$t('administration.controller.link.deleteEntry'),
-		},
-		{
-			link: isStudentAction ? `${path}pw/${item._id}` : '',
-			class: isStudentAction ? 'btn-pw' : 'invisible',
-			icon: isStudentAction ? 'key' : '',
-			title: res.$t('administration.controller.link.resetPassword'),
-		},
-	];
-};
-
 /**
  * maps the event props from the server to fit the ui components, e.g. date and time
  * @param data {object} - the plain data object
