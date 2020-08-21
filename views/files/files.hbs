@@ -67,6 +67,7 @@
 									title="{{$t "files.label.deleteFolder"}}"
 									data-file-id="{{../this._id}}"
 									data-file-name="{{{../this.name}}}"
+									aria-label="{{$t "files.label.deleteFolder"}}"
 									role="button">
 									<i class="fa fa-trash-o directory-icon pull-right"></i>
 								</a>
@@ -76,7 +77,8 @@
 								title="{{$t "files.label.renameFolder"}}"
 								data-directory-id="{{../this._id}}"
 									data-directory-name="{{../this.name}}"
-									role="button">
+									role="button"
+									aria-label="{{$t "files.label.renameFolder"}}">
 									<i class="fa fa-edit directory-icon pull-right"></i>
 								</a>
 								{{/userHasPermission}}

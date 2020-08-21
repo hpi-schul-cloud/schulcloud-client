@@ -28,7 +28,8 @@
 								{{#ifeq this.securityCheck.status "blocked"}}
 									<a href="#"
 									class="btn-file-danger"
-									title="{{$t "files.label.dangerousCode"}}">
+									title="{{$t "files.label.dangerousCode"}}"
+									aria-label="{{$t "files.label.dangerousCode"}}">
 										<i class="fa fa-exclamation-triangle"></i>
 									</a>
 								{{else}}
@@ -36,6 +37,7 @@
 										target="_blank"
 										data-method="download"
 										title="{{$t "files.label.downloadFile"}}"
+										aria-label="{{$t "files.label.downloadFile"}}"
 										role="button">
 										<i class="fa fa-cloud-download"></i>
 									</a>
@@ -46,6 +48,7 @@
 									data-file-name="{{this.name}}"
 									data-file-path="{{this.path}}"
 									title="{{$t "files.label.renameFile"}}"
+									aria-label="{{$t "files.label.renameFile"}}"
 									class="fa fa-edit file-name-edit"
 									role="button">
 								</a>	
@@ -56,6 +59,7 @@
 								   target="_blank"
 								   data-method="delete"
 								   title="{{$t "files.label.deleteFile"}}"
+								   aria-label="{{$t "files.label.deleteFile"}}"
 								   data-file-id="{{../this._id}}"
 								   data-file-name="{{../this.name}}"
 								   role="button"
@@ -66,6 +70,7 @@
 								<a href="#"
 								class="btn-file-share"
 								title="{{$t "files.label.shareFile"}}"
+								aria-label="{{$t "files.label.shareFile"}}"
 								data-file-id="{{../this._id}}"
 								data-file-name="{{../this.name}}"
 								id="{{@index}}"
@@ -87,6 +92,7 @@
 										href=""
 										class="btn-file-move"
 										title="{{$t "files.label.moveFile"}}"
+										aria-label="{{$t "files.label.moveFile"}}"
 										data-file-path="{{../path}}"
 										data-file-id="{{../_id}}"
 										data-file-name="{{../name}}"
@@ -101,6 +107,7 @@
 									href="#"
 									class="btn-file-settings"
 									title="{{$t "files.label.editFilePermissions"}}"
+									aria-label="{{$t "files.label.editFilePermissions"}}"
 									data-file-id="{{this._id}}"
 									role="button"
 								>
