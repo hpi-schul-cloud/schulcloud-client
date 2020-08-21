@@ -7,26 +7,26 @@
     <strong>{{$t "teams._team.text.theseSettingsWillBeAppliedToNewFiles"}}</strong>
     <br><br>
     <table class="team-file-permissions">
-<caption class="h4"><h2 class="h4">{{$t "teams._team.headline.shareFilesSettings"}}</h2>
-<strong>{{$t "teams._team.text.theseSettingsWillBeAppliedToNewFiles"}}</strong></caption>
+    <caption class="h4"><h2 class="h4">{{$t "teams._team.headline.shareFilesSettings"}}</h2>
+    <strong>{{$t "teams._team.text.theseSettingsWillBeAppliedToNewFiles"}}</strong></caption>
         <tr>
             <th scope="col">{{$t "global.label.role"}}</th>
             <th scope="col">{{$t "teams._team.label.accessToData"}}</th>
         </tr>
         <tr>
-<td><label for="externalExperts">{{$t "teams._team.label.externExperts"}}</label></td>
+            <td><label for="externalExperts">{{$t "teams._team.label.externExperts"}}</label></td>
             <td>
                 <input class="box" type="checkbox" id="externalExperts" data-force-value value="allowExternalExperts" {{allowExternalExperts}} />
             </td>
         </tr>
         <tr>
-<td><label for="teamMembers">{{$t "teams._team.label.members"}}</label></td>
+            <td><label for="teamMembers">{{$t "teams._team.label.members"}}</label></td>
             <td>
                 <input class="box" type="checkbox" id="teamMembers" data-force-value value="allowTeamMembers" {{allowTeamMembers}} />
             </td>
         </tr>
         <tr>
-<td><label for="other">{{$t "teams._team.label.leadersAndAdmins"}}</label></td>
+            <td><label for="other">{{$t "teams._team.label.leadersAndAdmins"}}</label></td>
             <td>
                 <input class="box" type="checkbox" data-force-value id="other" value="allowOthers" checked="checked" disabled />
             </td>
