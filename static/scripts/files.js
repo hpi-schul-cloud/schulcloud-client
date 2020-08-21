@@ -487,7 +487,7 @@ $(document).ready(() => {
 		populateRenameModal(
 			oldName,
 			`/files/fileModel/${fileId}/rename`,
-			'Datei umbenennen',
+			$t('files.label.renameFile'),
 		);
 	}
 	$('.file-name-edit').click(fileNameEditClickHandler);
@@ -879,6 +879,8 @@ window.fileViewer = function fileViewer(type, name, id) {
 			window.location.href = '#file-view';
 			$('#file-view').css('display', '');
 			$('#picture').attr('src', `/files/file?file=${id}&name=${name}`);
+			$('#picture').attr('alt', $t('files.img_alt.theImageX', { imgName: name }));
+			$('.videostop').focus();
 			break;
 
 		case `audio/${type.substr(6)}`:
@@ -890,6 +892,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 				this.src({ type, src: `/files/file?file=${id}` });
 			});
 			$('#my-video').css('display', '');
+			$('.videostop').focus();
 			break;
 
 		case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': // .docx

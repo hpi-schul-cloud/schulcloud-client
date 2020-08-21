@@ -2,13 +2,15 @@
 	<div class="row">
 		{{#each files}}
 			<div class="col-sm-12">
-				<div role="button" class="card file {{#ifeq this.securityCheck.status "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}" tabindex="0">
+				<div class="card file {{#ifeq this.securityCheck.status "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
 					<div class="openFile">
 						<div class="card-block
 							{{#ifneq this.securityCheck.status "blocked"}} fileviewer{{/ifneq}}"
 							{{#ifneq this.securityCheck.status "blocked"}} data-file-viewer-type="{{../this.type}}"{{/ifneq}}
 							{{#ifneq this.securityCheck.status "blocked"}} data-file-viewer-savename="{{../this.saveName}}"{{/ifneq}}
-							{{#ifneq this.securityCheck.status "blocked"}} data-file-viewer-id="{{../this._id}}"{{/ifneq}}>
+							{{#ifneq this.securityCheck.status "blocked"}} data-file-viewer-id="{{../this._id}}"{{/ifneq}}
+							tabindex="0" aria-label="{{$t "files.label.clickToOpenFile" (dict "name" this.name)}}"
+							role="button">
 							<div class="card-title">
 								<div class="file-preview-wrapper col-sm-1 no-padding hidden-xs-down">
 									<div class="file-preview"

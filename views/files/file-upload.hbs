@@ -1,7 +1,7 @@
 <section class="section-upload" data-owner="{{ownerId}}" data-parent="{{parentId}}">
     <div class="container-fluid">
         <div class="row">
-            <div class="form-upload dz-clickable" {{#userHasPermission "FILE_CREATE"}}action="/files/upload/"
+            <div class="form-upload dz-clickable" role="button" {{#userHasPermission "FILE_CREATE"}}action="/files/upload/" tabindex="0"
                 {{/userHasPermission}}>
                 <div class="dz-default dz-message" data-dz-message="">
                     <span><i class="fa fa-cloud-upload dz-clickable"></i> {{$t "files.text.storeFilesForUpload"}}</span>

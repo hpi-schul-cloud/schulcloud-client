@@ -1295,14 +1295,20 @@
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
 			"newFolder": "Neuer Ordner"
 		},
+		"img_alt":{
+			"theImageX" : "Das Bild {{imgName}}"
+		},
 		"input": {
 			"filename": "Name der Datei",
 			"foldername": "Name des Ordners",
 			"searchFiles": "Dateien durchsuchen..."
 		},
 		"label": {
+			"backToFiles" : "Zurück zur Dateien-Übersicht",
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
+			"clickToOpenDir" : "Ordner {{name}} öffnen",
+			"clickToOpenFile" : "Datei {{name}} öffnen",
 			"close": "Schließen",
 			"dangerousCode": "Schädlicher Code",
 			"deleteFile": "Datei löschen",
