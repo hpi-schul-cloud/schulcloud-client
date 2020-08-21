@@ -450,5 +450,4 @@ router.all(
 	},
 );
 
-
 module.exports = router;
