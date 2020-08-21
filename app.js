@@ -242,6 +242,26 @@ app.use((req, res, next) => {
 if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 	app.use(csrfErrorHandler);
 }
+
+const handleTimeouts = (err, res) => {
+	if (!err.options) {
+		err.options = {};
+	}
+
+	const baseRoute = typeof err.options.baseUrl === 'string' ? err.options.baseUrl.slice(0, -1) : '';
+	const route = baseRoute + err.options.uri;
+
+	// no statusCode exist for this cases
+	if (err.message.includes('ESOCKETTIMEDOUT') || err.message.includes('ECONNREFUSED')) {
+		logger.warn(`${err.message} by route: ${route}`);
+		Sentry.captureException(err);
+		if (res.locals) {
+			const routeMessage = res.locals.production ? '' : ` beim Aufruf der Route ${route}`;
+			res.locals.message = `Es ist ein Fehler aufgetreten${routeMessage}. Bitte versuche es erneut.`;
+		}
+	}
+};
+
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
@@ -252,12 +272,7 @@ app.use((err, req, res, next) => {
 		res.locals.message = err.message;
 	}
 
-	if (res.locals && res.locals.message && res.locals.message.includes('ESOCKETTIMEDOUT') && err.options) {
-		const message = `ESOCKETTIMEDOUT by route: ${err.options.baseUrl + err.options.uri}`;
-		logger.warn(message);
-		Sentry.captureMessage(message);
-		res.locals.message = 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.';
-	}
+	handleTimeouts(err, res);
 
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 	if (err.error) logger.error(err.error);
