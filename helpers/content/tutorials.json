@@ -32,7 +32,7 @@
 					},
 					{
 						"id": "21921821",
-						"title": "Kurse klonen",
+						"title": "Kurse duplizieren (klonen)",
 						"type": "article"
 					},
 					{
@@ -43,6 +43,11 @@
 					{
 						"id": "102204000",
 						"title": "Kurs löschen",
+						"type": "article"
+					},
+					{
+						"id": "113645033",
+						"title": "Kurse archivieren",
 						"type": "article"
 					},
 					{
@@ -69,7 +74,7 @@
 					},
 					{
 						"id": "13828893",
-						"title": "Themen teilen (in einen Kurs importieren)",
+						"title": "Themen teilen und importieren",
 						"type": "article"
 					}
 				]
@@ -91,7 +96,7 @@
 					},
 					{
 						"id": "13829061",
-						"title": "Aufgaben abgeben (Schüler*innenansicht)",
+						"title": "Aufgaben abgeben (Schüler:innenansicht)",
 						"type": "article"
 					},
 					{
@@ -107,6 +112,11 @@
 					{
 						"id": "13829035",
 						"title": "Aufgabe archivieren",
+						"type": "article"
+					},
+					{
+						"id": "123409350",
+						"title": "Formatierungsmöglichkeiten in Aufgaben und Themen-Textblöcken",
 						"type": "article"
 					}
 				]
@@ -149,13 +159,65 @@
 						"type": "article"
 					},
 					{
-						"id": "13828554",
-						"title": "Dateisuche",
+						"id": "73531403",
+						"title": "Dateien mit LibreOffice Online erstellen",
 						"type": "article"
 					},
 					{
-						"id": "73531403",
-						"title": "Dateien mit LibreOffice Online erstellen",
+						"id": "113646064",
+						"title": "Datei herunterladen",
+						"type": "article"
+					},
+					{
+						"id": "113646168",
+						"title": "Datei umbenennen",
+						"type": "article"
+					},
+					{
+						"id": "113646477",
+						"title": "Datei löschen",
+						"type": "article"
+					},
+					{
+						"id": "113646529",
+						"title": "Datei teilen",
+						"type": "article"
+					},
+					{
+						"id": "113646579",
+						"title": "Datei verschieben (derzeit deaktiviert)",
+						"type": "article"
+					},
+					{
+						"id": "113646631",
+						"title": "Dateiberechtigung bearbeiten",
+						"type": "article"
+					}
+				]
+			},
+			{
+				"id": "113651065",
+				"title": "Videokonferenzen (Einführungsvideo)",
+				"type": "category",
+				"articles": [
+					{
+						"id": "113653222",
+						"title": "Moderation von Videokonferenzen",
+						"type": "article"
+					},
+					{
+						"id": "113652569",
+						"title": "\"Schaubild\" - einfache Zeichensprache für effektive Videokonferenzen",
+						"type": "article"
+					},
+					{
+						"id": "123409850",
+						"title": "Umfragen in Videokonferenzen durchführen",
+						"type": "article"
+					},
+					{
+						"id": "113652165",
+						"title": "Videokonferenzen freischalten",
 						"type": "article"
 					}
 				]
@@ -200,7 +262,7 @@
 					},
 					{
 						"id": "13828806",
-						"title": "Passwörter von Schüler*innen zurücksetzen",
+						"title": "Passwörter von Schüler:innen zurücksetzen",
 						"type": "article"
 					}
 				]
@@ -222,7 +284,12 @@
 					},
 					{
 						"id": "113641993",
-						"title": "Fehlende Einverständniserklärungen einholen",
+						"title": "Fehlende Einverständniserklärungen manuell erklären (klassenweit)",
+						"type": "article"
+					},
+					{
+						"id": "123407339",
+						"title": "Klassen in neues Schuljahr versetzen",
 						"type": "article"
 					}
 				]
@@ -276,12 +343,12 @@
 			},
 			{
 				"id": "44073009",
-				"title": "Hinweise für Administrator*innen",
+				"title": "Hinweise für Administrator:innen",
 				"type": "category",
 				"articles": [
 					{
 						"id": "56655925",
-						"title": "Nutzer per .csv importieren",
+						"title": "Nutzer per .csv-Datei importieren",
 						"type": "article"
 					},
 					{
@@ -313,20 +380,19 @@
 						"id": "113640783",
 						"title": "Moodle-Hinweise für Schulen",
 						"type": "article"
+					},
+					{
+						"id": "123407528",
+						"title": "LDAP-Schuljahreswechsel",
+						"type": "article"
 					}
 				]
 			},
 			{
 				"id": "69664812",
-				"title": "Kolleg*innen schulen",
+				"title": "Kolleg:innen schulen",
 				"type": "category",
-				"articles": [
-					{
-						"id": "39387143",
-						"title": "Testschüler für Schulungszwecke anlegen",
-						"type": "article"
-					}
-				]
+				"articles": []
 			},
 			{
 				"id": "17170476",
@@ -367,6 +433,11 @@
 						"id": "15106089",
 						"title": "Hilfebereich",
 						"type": "article"
+					},
+					{
+						"id": "113646967",
+						"title": "Automatisiertes Ausloggen",
+						"type": "article"
 					}
 				]
 			},
@@ -375,6 +446,24 @@
 				"title": "Presse- und Öffentlichkeitsarbeit für Schulen",
 				"type": "category",
 				"articles": []
+			},
+			{
+				"id": "123407337",
+				"title": "Schuljahreswechsel",
+				"type": "category",
+				"articles": []
+			},
+			{
+				"id": "123407609",
+				"title": "E-Mail-Adressen bei Schulwechsel ungültig machen (Admin)",
+				"type": "category",
+				"articles": [
+					{
+						"id": "123407871",
+						"title": "Spezielle Anleitung zum Schulwechsel für Schulen mit LDAP-System",
+						"type": "article"
+					}
+				]
 			}
 		]
 	}
