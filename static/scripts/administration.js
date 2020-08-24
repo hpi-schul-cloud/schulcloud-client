@@ -15,11 +15,16 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (filterModule) {
 		filterModule.addEventListener('newFilter', (e) => {
 			const filter = e.detail;
-			const newurl = `?filterQuery=${
-				escape(JSON.stringify(filter[0]))
-			}&p=${
-				getQueryParameterByName('p')}`;
-			softNavigate(newurl, '.ajaxcontent', '.pagination');
+
+			const filterQuery = ` ?filterQuery=${escape(JSON.stringify(filter[0]))}`;
+
+			let page = getQueryParameterByName('p');
+			page = page ? `&p=${page}` : '';
+
+			let showTab = getQueryParameterByName('showTab');
+			showTab = showTab ? `&showTab=${showTab}` : '';
+
+			softNavigate(`${filterQuery}${page}${showTab}`, '.ajaxcontent', '.pagination');
 		});
 		document
 			.querySelector('.filter')
@@ -29,8 +34,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('softNavigate', (event) => {
 	const { target_url: targetUrl } = event.detail;
-	const param = getQueryParameterByName('p', targetUrl);
-	updateQueryStringParameter('p', param);
+
+	const page = getQueryParameterByName('p', targetUrl);
+	updateQueryStringParameter('p', page);
+
+	const showTab = getQueryParameterByName('showTab', targetUrl);
+	updateQueryStringParameter('showTab', showTab);
 });
 
 $(document).ready(() => {
