@@ -183,6 +183,11 @@ const checkIfUserIsForcedToChangePassword = (req, res) => {
 
 
 const restrictSidebar = (req, res) => {
+	// If sidebarItems do not exist, render without avaible menü points.
+	// It do not affect authentication logins and so on.
+	if (!res.locals.sidebarItems) {
+		res.locals.sidebarItems = [];
+	}
 	res.locals.sidebarItems = res.locals.sidebarItems.filter((item) => {
 		if (!item.permission) return true;
 
