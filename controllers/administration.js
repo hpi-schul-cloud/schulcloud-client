@@ -2329,7 +2329,7 @@ router.get(
 					}
 					return baseActions;
 				};
-
+				let displayName;
 				const body = data.data.map((item) => {
 					const cells = [
 						item.displayName || '',
@@ -2337,6 +2337,7 @@ router.get(
 						(item.year || {}).name || '',
 						item.userIds.length || '0',
 					];
+					displayName = item.displayName;
 					if (hasEditPermission) {
 						cells.push(createActionButtons(item, '/administration/classes/'));
 					}
@@ -2362,6 +2363,7 @@ router.get(
 					}),
 					head,
 					body,
+					displayName,
 					pagination,
 					limit: true,
 					filterSettings: JSON.stringify(classFilterSettings({ years, defaultYear, showTab }, res)),
