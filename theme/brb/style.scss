@@ -53,6 +53,9 @@ aside.nav-sidebar{
 
 
 body {
+    header.top-margin {
+        margin-top: -1rem;
+    }
     header {
         background: $secondaryColor !important;
 

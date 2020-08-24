@@ -3,9 +3,9 @@
 	  {{#content "body"}}
 			<h2 class="section-title {{#unless loggedin}}loggedout{{/unless}}">{{$t "security.headline.security"}}</h2>
 			<h3>{{$t "security.headline.reportSecurityIssue"}}</h3>
-			<p>{{$t "security.text.scIsTestedRegularyWeValueSecurity" (dict "themeTitle" theme.title)}} 
-				{{$t "security.text.youHaveFoundAWeakness"}} 
-				<a class="section-link {{#if loggedin}}loggedin{{/if}}" href="mailto:security@schul-cloud.org" target="_blank" rel="noopener">security@schul-cloud.org</a>
+			<p>{{$t "security.text.scIsTestedRegularyWeValueSecurity" (dict "themeTitle" theme.title)}}
+				{{$t "security.text.youHaveFoundAWeakness"}}
+				<a class="section-link {{#if loggedin}}loggedin{{/if}}" href="mailto:security@hpi-schul-cloud.de" target="_blank" rel="noopener">security@hpi-schul-cloud.de</a>
 			</p>
 	  {{/content}}
   {{/embed}}
