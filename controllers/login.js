@@ -187,7 +187,7 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 				const redirectUrl = determineRedirectUrl(req);
 				// check consent versions
 				return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
-					if (consent.access && !consentUpdates.haveBeenUpdated || req.session.login_challenge) {
+					if ((consent.access && !consentUpdates.haveBeenUpdated) || req.session.login_challenge) {
 						return res.redirect(redirectUrl);
 					}
 					// make sure fistLogin flag is not set
