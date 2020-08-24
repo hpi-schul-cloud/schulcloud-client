@@ -85,15 +85,15 @@
 		<form class="modal-form" id="homework-form" method="post" action="{{action}}">
 
 			<div class="form-group">
-				<label for="name">{{$t "homework.global.label.title" }}</label>
-				<input id="name" class="form-control" name="name" type="text" placeholder="{{$t "homework.input.title"}}" required
+				<label for="name">{{$t "global.label.title" }}</label>
+				<input id="name" class="form-control" name="name" type="text" placeholder="{{$t "global.label.title"}}" required
 					value="{{{assignment.name}}}" data-testid="homework-name" />
 			</div>
 
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="coursePicker">{{$t "homework.global.label.courses" }}</label>
+						<label for="coursePicker">{{$t "global.sidebar.link.administrationCourses" }}</label>
 						{{#unless isSubstitution}}
 						<select id="coursePicker" class="" name="courseId" data-placeholder="Kurs auswählen">
 							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>{{$t "homework.input.noAssignment"}}</option>
@@ -156,7 +156,7 @@
 			<div class="form-group">
 
 				<label for="homeworkDescription">{{$t "homework.global.label.description" }}</label>
-				<textarea id="homeworkDescription" name="description" type="text" class="form-control customckeditor"
+				<textarea id="homeworkDescription" name="description" type="text" class="form-control ckeditor customckeditor"
 					placeholder="{{$t "homework.global.placeholder.description" }}">{{assignment.description}}</textarea>
 			</div>
 
