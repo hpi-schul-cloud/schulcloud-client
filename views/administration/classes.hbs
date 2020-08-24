@@ -2,16 +2,30 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/lib/filter/filter.css"/>
     {{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    {{/content}}
     {{#content "page" mode="prepend"}}
         <div class="route-administration">
             <section class="section-school section-default">
+                <div>
+                    <div class="tabContainer mb-1" data-active-tab={{showTab}}>
+                        <div class="tabs">
+                            {{#each classesTabs}}
+                                <a class="tab" data-tab="js-{{this.key}}" href="{{this.link}}">
+                                    <span class="text">{{this.title}}</span>
+                                </a>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
                 <div><feathers-filter id="filter"
                                       filter='{{filterSettings}}'
                                       add-label='{{$t "global.button.filterAdd" }}'
                                       apply-label='{{$t "global.button.filterApply" }}'
                                       cancle-label='{{$t "global.button.cancel" }}'
-                                      handle-url='true'
-                                      save-state='true'
+                                      handle-url='false'
+                                      save-state='false'
                 /></div>
                 <div class="container-fluid ajaxcontent">
                     <div class="row">
