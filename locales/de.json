@@ -114,7 +114,7 @@
 		"button": {
 			"changePassword": "Passwort ändern",
 			"consent": "Einwilligungen:",
-			"deleteUser": "Benutzer löschen",
+			"deleteUser": "Benutzer:in löschen?",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
