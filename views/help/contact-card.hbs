@@ -9,7 +9,7 @@
     </div>
   </fieldset>
 
-  <form class="admin_form {{#unless adminFormIsActive}}hidden{{/unless}}" action="/helpdesk" method="post">
+  <form class="admin_form {{#unless adminFormIsActive}}hidden{{/unless}}" action="/helpdesk/" method="post">
     {{> "help/forms/form_admin"}}
     {{> "lib/components/csrfInput"}}
     <button type="submit">{{$t "global.button.submit" }}</button>
