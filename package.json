@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "24.0.3",
+	"version": "24.2.6",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -26,6 +26,10 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.6.3",
+		"@fullcalendar/core": "^4.4.2",
+		"@fullcalendar/daygrid": "^4.4.2",
+		"@fullcalendar/interaction": "^4.4.2",
+		"@fullcalendar/timegrid": "^4.4.2",
 		"@ckeditor/ckeditor5-autoformat": "^20.0.0",
 		"@ckeditor/ckeditor5-basic-styles": "^20.0.0",
 		"@ckeditor/ckeditor5-block-quote": "^20.0.0",
@@ -73,9 +77,9 @@
 		"feedr": "^2.13.5",
 		"font-awesome": "^4.7.0",
 		"form-serializer": "^2.5.0",
-		"fullcalendar": "^3.9.0",
 		"generate-password": "^1.5.1",
 		"git-repo-info": "^2.1.0",
+		"gulp-rename": "^2.0.0",
 		"handlebars": "^4.7.6",
 		"handlebars-layouts": "^3.1.4",
 		"handlebars-wax": "^5.1.1",
@@ -91,6 +95,7 @@
 		"lodash": "^4.17.19",
 		"marked": "^0.7.0",
 		"mathjax": "2.7.4",
+		"merge-stream": "^2.0.0",
 		"method-override": "^2.3.7",
 		"minimist": "^1.2.5",
 		"moment": "^2.22.2",

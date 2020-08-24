@@ -28,7 +28,7 @@
                 {{/if}}
             </div>
         </div>
-        <div id="comment" class="tab-content">
+        <div id="comment" class="tab-content submission-editor">
             {{#if @root.isTeacher}}
                 {{#if this.submission}}
                     {{#embed "files/file-upload"}}{{/embed}}
@@ -38,7 +38,7 @@
                         {{#embed "homework/components/submission_files"
                             fileIds=../submission.gradeFileIds
                             grading=true
-                            deletionAllowed=false
+                            deletionAllowed=true
                             submission=../submission}}{{/embed}}
                     {{/ifneq}}
 

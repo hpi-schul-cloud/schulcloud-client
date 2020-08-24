@@ -1,6 +1,6 @@
 <div class="contact-form">
-  <p>{{$t "help.contact.text.whoDoYouWantToContact" }}</p>
   <fieldset class="switch_wrapper" id="message_target">
+    <legend>{{$t "help.contact.text.whoDoYouWantToContact" }}</legend>
     <div class="switch">
       <input type="radio" id="admin" name="message_target" value="admin" {{#if adminFormIsActive}}checked{{/if}}>
       <label for="admin" tabindex="0" role="button">{{$t "help.contact.label.schoolAdmin" }}</label>
@@ -17,8 +17,8 @@
 
   <div class="team_form {{#unless teamFormIsActive}}hidden{{/unless}}">
     <p>{{$t "help.contact.text.thankYouForYourFeedbak" (dict "shortTitle" theme.short_title)}}</p>
-    <p>{{$t "help.contact.text.whatKindOfFeedbackDoYouWant" }}</p>
     <fieldset class="switch_wrapper" id="message_type">
+      <legend>{{$t "help.contact.text.whatKindOfFeedbackDoYouWant" }}</legend>
       <div class="switch">
         <input type="radio" id="bug" name="message_type" value="bug" checked>
         <label for="bug" tabindex="0" role="button">Problem</label>

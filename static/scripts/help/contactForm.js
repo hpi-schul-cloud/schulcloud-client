@@ -50,7 +50,8 @@ document.querySelectorAll('label').forEach((label) => {
 		if (input.getAttribute('disabled') !== null || input.getAttribute('readonly') !== null) {
 			return true;
 		}
-		if (event.keyCode !== 32) { // other than spacebar
+		// other than spacebar and enter see: https://webaim.org/techniques/keyboard/
+		if (event.keyCode !== 32 && event.keyCode !== 13) {
 			return true;
 		}
 		// check input
