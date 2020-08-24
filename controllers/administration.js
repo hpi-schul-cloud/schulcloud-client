@@ -54,52 +54,6 @@ const cutEditOffUrl = (url) => {
 	return workingURL;
 };
 
-const getTableActionsSend = (item, path, state, res) => {
-	const actions = [];
-	if (state === 'submitted' || state === 'closed') {
-		actions.push(
-			{
-				link: path + item._id,
-				class: 'btn-edit',
-				icon: 'edit',
-				title: res.$t('administration.controller.link.editEntry'),
-			},
-			{
-				class: 'disabled',
-				icon: 'archive',
-			},
-			{
-				class: 'disabled',
-				icon: 'paper-plane',
-			},
-		);
-	} else {
-		actions.push(
-			{
-				link: path + item._id,
-				class: 'btn-edit',
-				icon: 'edit',
-				title: res.$t('administration.controller.link.editEntry'),
-			},
-			{
-				link: path + item._id,
-				class: 'btn-disable',
-				icon: 'archive',
-				method: 'delete',
-				title: res.$t('administration.controller.link.completeEntry'),
-			},
-			{
-				link: path + item._id,
-				class: 'btn',
-				icon: 'paper-plane',
-				method: 'post',
-				title: res.$t('administration.controller.link.sendEntryToDevelopmentTeam'),
-			},
-		);
-	}
-	return actions;
-};
-
 /**
  * maps the event props from the server to fit the ui components, e.g. date and time
  * @param data {object} - the plain data object
@@ -420,56 +374,6 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 				}),
 			};
 			return redirectHelper.safeBackRedirect(req, res);
-		});
-};
-
-/**
- * send out problem to the sc helpdesk
- * @param service currently only used for helpdesk
- * @returns {Function}
- */
-const getSendHelper = (service) => function send(req, res, next) {
-	api(req)
-		.get(`/${service}/${req.params.id}`)
-		.then((data) => {
-			const user = res.locals.currentUser;
-
-			api(req)
-				.post('/helpdesk', {
-					json: {
-						type: 'contactHPI',
-						subject: data.subject,
-						role: '',
-						desire: '',
-						benefit: '',
-						acceptanceCriteria: '',
-						currentState: data.currentState,
-						targetState: data.targetState,
-						notes: data.notes,
-						schoolName: res.locals.currentSchoolData.name,
-						userId: user._id,
-						email: user.email ? user.email : '',
-						schoolId: res.locals.currentSchoolData._id,
-						cloud: res.locals.theme.title,
-						browserName: '',
-						browserVersion: '',
-						os: '',
-						device: '',
-						deviceUserAgent: '',
-					},
-				})
-				.then(() => {
-					api(req).patch(`/${service}/${req.params.id}`, {
-						json: {
-							state: 'submitted',
-							order: 1,
-						},
-					});
-				})
-				.catch((err) => {
-					res.status(err.statusCode || 500).send(err);
-				});
-			redirectHelper.safeBackRedirect(req, res);
 		});
 };
 
@@ -2346,7 +2250,7 @@ router.get(
 					}
 					return baseActions;
 				};
-
+				let displayName;
 				const body = data.data.map((item) => {
 					const cells = [
 						item.displayName || '',
@@ -2354,6 +2258,7 @@ router.get(
 						(item.year || {}).name || '',
 						item.userIds.length || '0',
 					];
+					displayName = item.displayName;
 					if (hasEditPermission) {
 						cells.push(createActionButtons(item, '/administration/classes/'));
 					}
@@ -2379,132 +2284,12 @@ router.get(
 					}),
 					head,
 					body,
+					displayName,
 					pagination,
 					limit: true,
 					filterSettings: JSON.stringify(classFilterSettings({ years, defaultYear, showTab }, res)),
 					classesTabs,
 					showTab,
-				});
-			});
-	},
-);
-
-/**
- * Set state to closed of helpdesk problem
- * @param service usually helpdesk, to disable instead of delete entry
- * @returns {Function}
- */
-const getDisableHandler = (service) => function diasableHandler(req, res, next) {
-	api(req)
-		.patch(`/${service}/${req.params.id}`, {
-			json: {
-				state: 'closed',
-				order: 2,
-			},
-		})
-		.then(() => {
-			redirectHelper.safeBackRedirect(req, res);
-		});
-};
-
-/**
- * Truncates string to 25 chars
- * @param string given string to truncate
- * @returns {string}
- */
-const truncate = (string) => {
-	if ((string || {}).length > 25) {
-		return `${string.substring(0, 25)}...`;
-	}
-	return string;
-};
-
-/*
-    HELPDESK
-*/
-
-router.patch(
-	'/helpdesk/:id',
-	permissionsHelper.permissionsChecker('HELPDESK_VIEW'),
-	getUpdateHandler('helpdesk'),
-);
-router.get(
-	'/helpdesk/:id',
-	permissionsHelper.permissionsChecker('HELPDESK_VIEW'),
-	getDetailHandler('helpdesk'),
-);
-router.delete(
-	'/helpdesk/:id',
-	permissionsHelper.permissionsChecker('HELPDESK_VIEW'),
-	getDisableHandler('helpdesk'),
-);
-router.post(
-	'/helpdesk/:id',
-	permissionsHelper.permissionsChecker('HELPDESK_VIEW'),
-	getSendHelper('helpdesk'),
-);
-router.all(
-	'/helpdesk',
-	permissionsHelper.permissionsChecker('HELPDESK_VIEW'),
-	(req, res, next) => {
-		const itemsPerPage = req.query.limit || 10;
-		const currentPage = parseInt(req.query.p, 10) || 1;
-		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
-
-		api(req)
-			.get('/helpdesk', {
-				qs: {
-					$limit: itemsPerPage,
-					$skip: itemsPerPage * (currentPage - 1),
-					$sort: req.query.sort ? req.query.sort : { order: 1 },
-					schoolId: res.locals.currentSchool,
-				},
-			})
-			.then((data) => {
-				const head = [
-					res.$t('global.label.title'),
-					res.$t('administration.controller.headline.itsOn'),
-					res.$t('administration.controller.headline.targetState'),
-					res.$t('administration.controller.headline.status'),
-					res.$t('administration.controller.headline.creationDate'),
-					res.$t('administration.controller.headline.remarks'),
-					'',
-				];
-
-				const body = data.data.map((item) => [
-					truncate(item.subject || ''),
-					truncate(item.currentState || ''),
-					truncate(item.targetState || ''),
-					res.$t(`administration.controller.text.${item.state}`),
-					moment(item.createdAt).format('DD.MM.YYYY'),
-					truncate(item.notes || ''),
-					getTableActionsSend(item, '/administration/helpdesk/', item.state, res),
-				]);
-
-				let sortQuery = '';
-				if (req.query.sort) {
-					sortQuery = `&sort=${req.query.sort}`;
-				}
-
-				let limitQuery = '';
-				if (req.query.limit) {
-					limitQuery = `&limit=${req.query.limit}`;
-				}
-
-				const pagination = {
-					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
-					baseUrl: `/administration/helpdesk/?p={{page}}${sortQuery}${limitQuery}`,
-				};
-
-				res.render('administration/helpdesk', {
-					title: res.$t('administration.controller.headline.helpdesk', {
-						title,
-					}),
-					head,
-					body,
-					pagination,
-					limit: true,
 				});
 			});
 	},
@@ -2659,100 +2444,127 @@ router.delete(
 	deleteEventsForData('courses'),
 );
 
+const buildArchiveQuery = (courseStatus) => {
+	const yesterday = new Date();
+	yesterday.setDate(yesterday.getDate() - 1);
+	let archiveQuery = {};
+	if (courseStatus === 'active') {
+		archiveQuery = {
+			$or: [
+				{ untilDate: { $exists: false } },
+				{ untilDate: null },
+				{ untilDate: { $gte: yesterday } },
+			],
+		};
+	}
+	if (courseStatus === 'archived') {
+		archiveQuery = { untilDate: { $lt: yesterday } };
+	}
+	return archiveQuery;
+};
+
+const getCourses = (req, params = {}) => {
+	const { courseStatus = 'active', itemsPerPage = 10, currentPage = 1 } = params;
+	const archiveQuery = buildArchiveQuery(courseStatus);
+
+	const query = {
+		$and: [archiveQuery],
+		$populate: ['classIds', 'teacherIds'],
+		$limit: itemsPerPage,
+		$skip: itemsPerPage * (currentPage - 1),
+		$sort: req.query.sort,
+	};
+
+	return api(req).get('courses', { qs: query });
+};
+
 router.all('/courses', (req, res, next) => {
 	const itemsPerPage = req.query.limit || 10;
 	const currentPage = parseInt(req.query.p, 10) || 1;
+	const activeTab = req.query.activeTab || 'active';
 
-	api(req)
-		.get('/courses', {
-			qs: {
-				$populate: ['classIds', 'teacherIds'],
-				$limit: itemsPerPage,
-				$skip: itemsPerPage * (currentPage - 1),
-				$sort: req.query.sort,
-			},
-		})
-		.then((data) => {
-			const head = [
-				res.$t('global.headline.name'),
-				res.$t('global.headline.classes'),
-				res.$t('administration.controller.headline.teachers'),
-				'',
-			];
+	const head = [
+		res.$t('global.headline.name'),
+		res.$t('global.headline.classes'),
+		res.$t('administration.controller.headline.teachers'),
+		'',
+	];
 
-			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-			const teachersPromise = getSelectOptions(req, 'users', {
-				roles: ['teacher'],
-				$limit: 1000,
-			});
-			const substitutionPromise = getSelectOptions(req, 'users', {
-				roles: ['teacher'],
-				$limit: 1000,
-			});
-			const studentsPromise = getSelectOptions(req, 'users', {
-				roles: ['student'],
-				$limit: 1000,
-			});
+	const coursesPromise = getCourses(req, { itemsPerPage, currentPage, courseStatus: activeTab });
+	const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+	const teachersPromise = getSelectOptions(req, 'users', {
+		roles: ['teacher'],
+		$limit: 1000,
+	});
+	const substitutionPromise = getSelectOptions(req, 'users', {
+		roles: ['teacher'],
+		$limit: 1000,
+	});
+	const studentsPromise = getSelectOptions(req, 'users', {
+		roles: ['student'],
+		$limit: 1000,
+	});
 
-			Promise.all([
-				classesPromise,
-				teachersPromise,
-				substitutionPromise,
-				studentsPromise,
-			]).then(([classes, teachers, substitutions, students]) => {
-				const body = data.data.map((item) => [
-					item.name,
-					// eslint-disable-next-line no-shadow
-					(item.classIds || []).map((item) => item.displayName).join(', '),
-					// eslint-disable-next-line no-shadow
-					(item.teacherIds || []).map((item) => item.lastName).join(', '),
-					[
-						{
-							link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
-							icon: 'edit',
-							title: res.$t('administration.controller.link.editEntry'),
-						},
-						{
-							link: `/administration/courses/${item._id}`,
-							class: 'btn-delete',
-							icon: 'trash-o',
-							method: 'delete',
-							title: res.$t('administration.controller.link.deleteEntry'),
-						},
-					],
-				]);
+	Promise.all([
+		coursesPromise,
+		classesPromise,
+		teachersPromise,
+		substitutionPromise,
+		studentsPromise,
+	]).then(([courses, classes, teachers, substitutions, students]) => {
+		const coursesBody = courses.data.map((item) => [
+			item.name,
+			// eslint-disable-next-line no-shadow
+			(item.classIds || []).map((item) => item.displayName).join(', '),
+			// eslint-disable-next-line no-shadow
+			(item.teacherIds || []).map((item) => item.lastName).join(', '),
+			[
+				{
+					link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
+					icon: 'edit',
+					title: res.$t('administration.controller.link.editEntry'),
+				},
+				{
+					link: `/administration/courses/${item._id}`,
+					class: 'btn-delete',
+					icon: 'trash-o',
+					method: 'delete',
+					title: res.$t('administration.controller.link.deleteEntry'),
+				},
+			],
+		]);
 
-				let sortQuery = '';
-				if (req.query.sort) {
-					sortQuery = `&sort=${req.query.sort}`;
-				}
+		let sortQuery = '';
+		if (req.query.sort) {
+			sortQuery = `&sort=${req.query.sort}`;
+		}
 
-				let limitQuery = '';
-				if (req.query.limit) {
-					limitQuery = `&limit=${req.query.limit}`;
-				}
+		let limitQuery = '';
+		if (req.query.limit) {
+			limitQuery = `&limit=${req.query.limit}`;
+		}
 
-				const pagination = {
-					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
-					baseUrl: `/administration/courses/?p={{page}}${sortQuery}${limitQuery}`,
-				};
+		const pagination = {
+			currentPage,
+			numPages: Math.ceil(courses.total / itemsPerPage),
+			baseUrl: `/administration/courses/?p={{page}}&activeTab=${activeTab}${sortQuery}${limitQuery}`,
+		};
 
-				res.render('administration/courses', {
-					title: res.$t('administration.controller.headline.courses', {
-						title: returnAdminPrefix(res.locals.currentUser.roles, res),
-					}),
-					head,
-					body,
-					classes,
-					teachers,
-					substitutions,
-					students,
-					pagination,
-					limit: true,
-				});
-			});
+		res.render('administration/courses', {
+			title: res.$t('administration.controller.headline.courses', {
+				title: returnAdminPrefix(res.locals.currentUser.roles, res),
+			}),
+			head,
+			coursesBody,
+			classes,
+			teachers,
+			substitutions,
+			students,
+			pagination,
+			limit: true,
+			activeTab,
 		});
+	});
 });
 
 /**
