@@ -2549,27 +2549,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		// Toggle teacher's studentVisibility permission
 		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
-		const isStudentVisibilityEnabled = (res.locals.currentSchoolData.features || []).includes(
-			'studentVisibility',
-		);
-		if (studentVisibilityFeature !== 'disabled' && !isStudentVisibilityEnabled) {
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: 'studentVisibility',
-					},
-				},
-			});
-		} else if (studentVisibilityFeature === 'disabled' && isStudentVisibilityEnabled) {
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: 'studentVisibility',
-					},
-				},
-			});
-		}
-		if (isStudentVisibilityEnabled) {
+		if (studentVisibilityFeature) {
 			await api(req)
 				.patch('school/teacher/studentvisibility', {
 					json: {
