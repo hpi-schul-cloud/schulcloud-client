@@ -2599,9 +2599,9 @@ router.delete(
 const buildArchiveQuery = (courseStatus) => {
 	const yesterday = new Date();
 	yesterday.setDate(yesterday.getDate() - 1);
-	let untilQuery = {};
+	let archiveQuery = {};
 	if (courseStatus === 'active') {
-		untilQuery = {
+		archiveQuery = {
 			$or: [
 				{ untilDate: { $exists: false } },
 				{ untilDate: null },
@@ -2610,17 +2610,17 @@ const buildArchiveQuery = (courseStatus) => {
 		};
 	}
 	if (courseStatus === 'archived') {
-		untilQuery = { untilDate: { $lt: yesterday } };
+		archiveQuery = { untilDate: { $lt: yesterday } };
 	}
-	return untilQuery;
+	return archiveQuery;
 };
 
 const getCourses = (req, params = {}) => {
 	const { courseStatus = 'active', itemsPerPage = 10, currentPage = 1 } = params;
-	const archivedQuery = buildArchiveQuery(courseStatus);
+	const archiveQuery = buildArchiveQuery(courseStatus);
 
 	const query = {
-		$and: [archivedQuery],
+		$and: [archiveQuery],
 		$populate: ['classIds', 'teacherIds'],
 		$limit: itemsPerPage,
 		$skip: itemsPerPage * (currentPage - 1),
