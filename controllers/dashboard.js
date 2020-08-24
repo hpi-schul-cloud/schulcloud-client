@@ -57,7 +57,7 @@ router.get('/', (req, res, next) => {
 	const eventsPromise = api(req)
 		.get('/calendar/', {
 			qs: {
-				all: 'true', // lets show all dates in dashboard
+				all: 'false', // must set to false to use from and until request
 				from: start.toLocalISOString(),
 				until: end.toLocalISOString(),
 			},

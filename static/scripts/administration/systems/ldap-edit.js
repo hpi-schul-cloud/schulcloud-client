@@ -52,14 +52,13 @@ function activateLDAP(event) {
 		type: 'POST',
 		url: activeURL,
 		timeout: 10000, // sets timeout to 10 seconds
-		error: function(){
+		error() {
 			// will fire when timeout is reached
 			$.showNotification($t('administration.ldapEdit.text.errorTimeout'), 'danger');
 		},
-		success: function (data) {
-			if(data === 'success')
-			{
-				window.location.replace(window.location.origin + '/administration/school');
+		success(data) {
+			if (data === 'success') {
+				window.location.replace(`${window.location.origin}/administration/school`);
 			} else {
 				$.showNotification($t('administration.ldapEdit.text.errorActivation'), 'danger');
 			}
@@ -83,17 +82,17 @@ function verifyLDAPData(event) {
 		data: $('#ldap-form').serialize(),
 		dataType: 'json',
 		timeout: 10000, // sets timeout to 10 seconds
-		error: function(){
+		error() {
 			// will fire when timeout is reached
-			$.showNotification($t('administration.ldapEdit.errorLDAPTimeout'), 'danger');
+			$.showNotification($t('administration.ldapEdit.text.errorLDAPTimeout'), 'danger');
 
 			// Make save button deactive
 			document.querySelector('#savesubmit').disabled = true;
 
-			//Remove Loading Icon
+			// Remove Loading Icon
 			$('#verify-icon').removeClass('fa fa-spinner fa-spin fa-fw');
 		},
-		success: function (response) {
+		success(response) {
 			// Find user table and empty all data
 			const userTable = document.querySelector('#userTable');
 			deleteTableRows(userTable);
@@ -103,9 +102,9 @@ function verifyLDAPData(event) {
 				const row = userTable.insertRow(userTable.rows.length);
 
 				if (
-					typeof user.firstName === 'undefined' ||
-					typeof user.lastName === 'undefined' ||
-					typeof user.email === 'undefined'
+					typeof user.firstName === 'undefined'
+					|| typeof user.lastName === 'undefined'
+					|| typeof user.email === 'undefined'
 				) {
 					row.className = 'ldap-strike-incomplete-user';
 				}
@@ -137,7 +136,7 @@ function verifyLDAPData(event) {
 			deleteTableRows(classTable);
 
 			// Add user data to Verify table
-			response.classes.forEach(singleClass => {
+			response.classes.forEach((singleClass) => {
 				if (singleClass.uniqueMembers && singleClass.uniqueMembers.length) {
 					const row = classTable.insertRow(classTable.rows.length);
 
@@ -158,7 +157,7 @@ function verifyLDAPData(event) {
 			// Make save button active
 			document.querySelector('#savesubmit').disabled = false;
 
-			//Remove Loading Icon
+			// Remove Loading Icon
 			$('#verify-icon').removeClass('fa fa-spinner fa-spin fa-fw');
 		},
 	});
@@ -204,12 +203,12 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 
 	document.querySelector('#select-classes').onchange = function (e) {
-		if(e.target.checked) {
+		if (e.target.checked) {
 			document.querySelector('.class-settings').style.display = 'block';
 		} else {
 			document.querySelector('.class-settings').style.display = 'none';
 		}
-	}
+	};
 
 	document.querySelector('#select-roletype').dispatchEvent(new Event('change'));
 	document.querySelector('#select-classes').dispatchEvent(new Event('change'));

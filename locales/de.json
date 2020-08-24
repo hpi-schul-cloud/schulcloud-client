@@ -114,7 +114,6 @@
 		"button": {
 			"changePassword": "Passwort ändern",
 			"consent": "Einwilligungen:",
-			"deleteUser": "Benutzer löschen",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
@@ -286,6 +285,9 @@
 				"whenLoggingInForTheFirstTime": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben.",
 				"yourStudentsAreAtLeast": "Deine Schüler sind mindestens {{age}} Jahre alt?",
 				"yourStudentsAreUnder": "Deine Schüler sind unter {{age}} Jahre alt?"
+			},
+			"tab_label": {
+				"archivedClasses": "Archiv"
 			}
 		},
 		"dashboard": {
@@ -305,7 +307,7 @@
 		},
 		"form_DeleteUser": {
 			"text": {
-				"areYouSureYouWantTheFollowingUser": "Sind Sie sich sicher, dass Sie folgenden Nutzer wollen?"
+				"areYouSureYouWantTheFollowingUser": "Bist du sicher, dass du folgende:n Nutzer:in löschen möchtest?"
 			}
 		},
 		"form_Import": {
@@ -321,6 +323,9 @@
 			}
 		},
 		"form_InvitationStudent": {
+			"label": {
+				"distributeLinkToInvite": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:"
+			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der HPI Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.",
 				"studentUnderYears": "<b>Schüler unter {{age}} Jahre: </b> die Eltern <br/> <b>Schüler ab {{age}} Jahre: </b> an die Schüler selbst <br/>"
@@ -398,7 +403,6 @@
 				"colorOfTheCourse": "Farbe des Kurses:",
 				"dataProtection": "Datenschutz",
 				"lengthOfLesson": "Dauer der Schulstunde",
-				"nameOfTheCourse": "Name des Kurses",
 				"parents": "Eltern",
 				"schoolYear": "Schuljahr",
 				"startOfLesson": "Start der Schulstunde",
@@ -409,7 +413,6 @@
 				"teachingTeacher": "Unterrichtenderlehrer:in",
 				"termsOfUse": "Nutzungsbedingungen",
 				"timeSpan": "Zeitraum (z.B. Schuljahr)",
-				"toInviteToTheSchoolCloud": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:",
 				"weekday": "Wochentag"
 			},
 			"placeholder": {
@@ -420,7 +423,10 @@
 				"selectStudent": "Schüler auswählen"
 			},
 			"text": {
-				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
+				"areYouSureYouWantToDeleteTheFollowingClass": "Bist du sicher, dass du folgende Klasse löschen möchtest?",
+				"areYouSureYouWantToDeleteTheFollowingCourse": "Bist du sicher, dass du folgenden Kurs löschen möchtest?",
+				"areYouSureYouWantToDeleteTheFollowingItem": "Bist du sicher, dass du folgendes Element löschen willst?",
+				"areYouSureYouWantToDeleteTheFollowingTeam": "Bist du sicher, dass du folgendes Team löschen möchtest?",
 				"byConnectingToASchoolState": "Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{shortTitle}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
 				"chatIsActivated": "Chat ist aktiviert",
 				"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
@@ -695,7 +701,7 @@
 			"headline": {
 				"changePassword": "Passwort ändern",
 				"completeRegistration": "Nutzerregistrierung abschließen",
-				"deleteUser": "Benutzer löschen?"
+				"deleteUser": "Benutzer:in löschen"
 			},
 			"text": {
 				"alreadyRegistered": "Der Nutzer ist bereits registriert",
@@ -778,11 +784,11 @@
 		},
 		"text": {
 			"MINTECSchoolsAnd": "<a href='https://www.mint-ec.de' target='_blank'>MINT-EC</a> ist das nationale Excellence-Netzwerk von Schulen mit Sekundarstufe II und ausgeprägtem Profil in Mathematik, Informatik, Naturwissenschaften und Technik (MINT). Seit 2017 nehmen Schulen aus dem Netzwerk am Projekt HPI Schul-Cloud teil.",
-            "MINTECSchoolsAndOther": "Hier können sich MINT-EC-Schulen und auch Schulen die keinem Länderprojekt angehören anmelden, die dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
+			"MINTECSchoolsAndOther": "Hier können sich MINT-EC-Schulen und auch Schulen die keinem Länderprojekt angehören anmelden, die dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
 			"contactUsToRegister": "Kontaktieren Sie bitte entweder Frau Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de</a> oder Herrn Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de</a>, um den Registrierungsprozess einzuleiten.",
 			"forGeneralQuestionsPleaseContact": "Bei allgemeinen Fragen kontaktieren Sie bitte folgende E-Mail-Adresse:",
-            "hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
-            "hereIsOurRegistrationFormMINT": "Neue MINT-EC-Schulen können sich hier anmelden:",
+			"hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
+			"hereIsOurRegistrationFormMINT": "Neue MINT-EC-Schulen können sich hier anmelden:",
 			"inBrandenburgTheAdmissionOfNewSchools": "In Brandenburg wird die Aufnahme neuer Schulen gemeinsam mit der DigitalAgentur Brandenburg (ILB) und dem MBJS koordiniert.",
 			"inMarch2020ZENSOSQueries": "Im März 2020 wurde über ZENSOS-Abfragen zuletzt die Notwendigkeit unserer Infrastruktur an den Schulen abgefragt. Die dadurch entstandenen Anmeldungen befinden sich aktuell in der Bearbeitung.",
 			"inNiedersachsenTheReferenceSchool": "In Niedersachsen ist das Referenzschulnetzwerk n-21 zuständig für die Aufnahme neuer Schulen.",
@@ -962,8 +968,8 @@
 			},
 			"tab_label": {
 				"groups": "Gruppen",
-				"tools": "Tools",
 				"tasks": "Aufgaben",
+				"tools": "Tools",
 				"topics": "Themen"
 			},
 			"tasks": {
@@ -1586,10 +1592,10 @@
 			"lastName": "Nachname",
 			"lastNameColon": "Nachname:",
 			"more": "Weiteres",
+			"nameOfTheCourse": "Name des Kurses",
 			"newTab": "Öffnet in neuem Tab",
 			"password": "Passwort:",
 			"role": "Rolle",
-			"emailAddress":"E-Mail-Adresse:",
 			"room": "Raum",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
@@ -2300,8 +2306,8 @@
 		"input": {
 			"emailUsername": "E-Mail / Nutzername",
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
-			"noSystemsAvailable": "Keine Systeme verfügbar",
 			"noSchoolsSelection": "Wähle deine Schule",
+			"noSystemsAvailable": "Keine Systeme verfügbar",
 			"school": "Schule auswählen",
 			"system": "System auswählen"
 		},
@@ -2498,7 +2504,7 @@
 					"studentEmail": "schueler@schul-cloud.org"
 				},
 				"text": {
-					"agreementCanBeRevoked": "Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href=\"mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung\">widerruf@schul-cloud.org</a>.",
+					"agreementCanBeRevoked": "Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href=\"mailto:widerruf@hpi-schul-cloud.de?subject=Widerruf der Einwilligung\">widerruf@hpi-schul-cloud.de</a>.",
 					"agreementIsVoluntary": "Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{title}}, wird durch die Schule ermöglicht werden.",
 					"bellowNYearsOldConsentOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten",
 					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
