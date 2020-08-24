@@ -47,6 +47,7 @@ router.post('/login/', (req, res, next) => {
 		schoolId,
 		redirect,
 	} = req.body;
+	const validRedirect = redirectHelper.getValidRedirect(redirect);
 	const privateDevice = req.body.privateDevice === 'true';
 	const errorSink = () => next();
 
