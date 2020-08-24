@@ -2644,100 +2644,127 @@ router.delete(
 	deleteEventsForData('courses'),
 );
 
+const buildArchiveQuery = (courseStatus) => {
+	const yesterday = new Date();
+	yesterday.setDate(yesterday.getDate() - 1);
+	let archiveQuery = {};
+	if (courseStatus === 'active') {
+		archiveQuery = {
+			$or: [
+				{ untilDate: { $exists: false } },
+				{ untilDate: null },
+				{ untilDate: { $gte: yesterday } },
+			],
+		};
+	}
+	if (courseStatus === 'archived') {
+		archiveQuery = { untilDate: { $lt: yesterday } };
+	}
+	return archiveQuery;
+};
+
+const getCourses = (req, params = {}) => {
+	const { courseStatus = 'active', itemsPerPage = 10, currentPage = 1 } = params;
+	const archiveQuery = buildArchiveQuery(courseStatus);
+
+	const query = {
+		$and: [archiveQuery],
+		$populate: ['classIds', 'teacherIds'],
+		$limit: itemsPerPage,
+		$skip: itemsPerPage * (currentPage - 1),
+		$sort: req.query.sort,
+	};
+
+	return api(req).get('courses', { qs: query });
+};
+
 router.all('/courses', (req, res, next) => {
 	const itemsPerPage = req.query.limit || 10;
 	const currentPage = parseInt(req.query.p, 10) || 1;
+	const activeTab = req.query.activeTab || 'active';
 
-	api(req)
-		.get('/courses', {
-			qs: {
-				$populate: ['classIds', 'teacherIds'],
-				$limit: itemsPerPage,
-				$skip: itemsPerPage * (currentPage - 1),
-				$sort: req.query.sort,
-			},
-		})
-		.then((data) => {
-			const head = [
-				res.$t('global.headline.name'),
-				res.$t('global.headline.classes'),
-				res.$t('administration.controller.headline.teachers'),
-				'',
-			];
+	const head = [
+		res.$t('global.headline.name'),
+		res.$t('global.headline.classes'),
+		res.$t('administration.controller.headline.teachers'),
+		'',
+	];
 
-			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-			const teachersPromise = getSelectOptions(req, 'users', {
-				roles: ['teacher'],
-				$limit: 1000,
-			});
-			const substitutionPromise = getSelectOptions(req, 'users', {
-				roles: ['teacher'],
-				$limit: 1000,
-			});
-			const studentsPromise = getSelectOptions(req, 'users', {
-				roles: ['student'],
-				$limit: 1000,
-			});
+	const coursesPromise = getCourses(req, { itemsPerPage, currentPage, courseStatus: activeTab });
+	const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+	const teachersPromise = getSelectOptions(req, 'users', {
+		roles: ['teacher'],
+		$limit: 1000,
+	});
+	const substitutionPromise = getSelectOptions(req, 'users', {
+		roles: ['teacher'],
+		$limit: 1000,
+	});
+	const studentsPromise = getSelectOptions(req, 'users', {
+		roles: ['student'],
+		$limit: 1000,
+	});
 
-			Promise.all([
-				classesPromise,
-				teachersPromise,
-				substitutionPromise,
-				studentsPromise,
-			]).then(([classes, teachers, substitutions, students]) => {
-				const body = data.data.map((item) => [
-					item.name,
-					// eslint-disable-next-line no-shadow
-					(item.classIds || []).map((item) => item.displayName).join(', '),
-					// eslint-disable-next-line no-shadow
-					(item.teacherIds || []).map((item) => item.lastName).join(', '),
-					[
-						{
-							link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
-							icon: 'edit',
-							title: res.$t('administration.controller.link.editEntry'),
-						},
-						{
-							link: `/administration/courses/${item._id}`,
-							class: 'btn-delete',
-							icon: 'trash-o',
-							method: 'delete',
-							title: res.$t('administration.controller.link.deleteEntry'),
-						},
-					],
-				]);
+	Promise.all([
+		coursesPromise,
+		classesPromise,
+		teachersPromise,
+		substitutionPromise,
+		studentsPromise,
+	]).then(([courses, classes, teachers, substitutions, students]) => {
+		const coursesBody = courses.data.map((item) => [
+			item.name,
+			// eslint-disable-next-line no-shadow
+			(item.classIds || []).map((item) => item.displayName).join(', '),
+			// eslint-disable-next-line no-shadow
+			(item.teacherIds || []).map((item) => item.lastName).join(', '),
+			[
+				{
+					link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
+					icon: 'edit',
+					title: res.$t('administration.controller.link.editEntry'),
+				},
+				{
+					link: `/administration/courses/${item._id}`,
+					class: 'btn-delete',
+					icon: 'trash-o',
+					method: 'delete',
+					title: res.$t('administration.controller.link.deleteEntry'),
+				},
+			],
+		]);
 
-				let sortQuery = '';
-				if (req.query.sort) {
-					sortQuery = `&sort=${req.query.sort}`;
-				}
+		let sortQuery = '';
+		if (req.query.sort) {
+			sortQuery = `&sort=${req.query.sort}`;
+		}
 
-				let limitQuery = '';
-				if (req.query.limit) {
-					limitQuery = `&limit=${req.query.limit}`;
-				}
+		let limitQuery = '';
+		if (req.query.limit) {
+			limitQuery = `&limit=${req.query.limit}`;
+		}
 
-				const pagination = {
-					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
-					baseUrl: `/administration/courses/?p={{page}}${sortQuery}${limitQuery}`,
-				};
+		const pagination = {
+			currentPage,
+			numPages: Math.ceil(courses.total / itemsPerPage),
+			baseUrl: `/administration/courses/?p={{page}}&activeTab=${activeTab}${sortQuery}${limitQuery}`,
+		};
 
-				res.render('administration/courses', {
-					title: res.$t('administration.controller.headline.courses', {
-						title: returnAdminPrefix(res.locals.currentUser.roles, res),
-					}),
-					head,
-					body,
-					classes,
-					teachers,
-					substitutions,
-					students,
-					pagination,
-					limit: true,
-				});
-			});
+		res.render('administration/courses', {
+			title: res.$t('administration.controller.headline.courses', {
+				title: returnAdminPrefix(res.locals.currentUser.roles, res),
+			}),
+			head,
+			coursesBody,
+			classes,
+			teachers,
+			substitutions,
+			students,
+			pagination,
+			limit: true,
+			activeTab,
 		});
+	});
 });
 
 /**
