@@ -8,7 +8,7 @@
 	{{/if}}
 	<div data-testid="courses">
 		{{#each content}}
-			<a class="homework-link" href="{{this.url}}{{#if ../redirectToTab}}#activetabid={{../redirectToTab}}{{/if}}">
+			<a class="homework-link" aria-label="{{this.courseId.name}} - {{this.title}} (Es wird im neuen Fenster geöffnet)" href="{{this.url}}{{#if ../redirectToTab}}#activetabid={{../redirectToTab}}{{/if}}">
 				<div class="card card-block homework-tile" style="border-left: 10px solid {{this.background}};">
 					<div class="text-muted">
 						{{#if this.courseId}}
