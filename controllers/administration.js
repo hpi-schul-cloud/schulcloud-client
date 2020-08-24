@@ -54,44 +54,6 @@ const cutEditOffUrl = (url) => {
 	return workingURL;
 };
 
-const getTableActions = (
-	item,
-	path,
-	isAdmin = true,
-	isTeacher = false,
-	isStudentAction = false,
-	category,
-	res,
-) => {
-	let editButtonClass = 'btn-edit';
-	if (item.type === 'ldap') {
-		editButtonClass = 'btn-edit-ldap';
-	}
-	return [
-		{
-			link:
-				item.type === 'ldap' ? `${path}ldap/edit/${item._id}` : path + item._id,
-			class: `${editButtonClass} ${isTeacher ? 'disabled' : ''}`,
-			icon: 'edit',
-			title: res.$t('administration.controller.link.editEntry'),
-		},
-		{
-			link: path + item._id,
-			class: `${isAdmin ? 'btn-delete' : 'disabled'} ${category === 'systems'
-				&& 'btn-delete--systems'}`,
-			icon: 'trash-o',
-			method: `${isAdmin ? 'delete' : ''}`,
-			title: res.$t('administration.controller.link.deleteEntry'),
-		},
-		{
-			link: isStudentAction ? `${path}pw/${item._id}` : '',
-			class: isStudentAction ? 'btn-pw' : 'invisible',
-			icon: isStudentAction ? 'key' : '',
-			title: res.$t('administration.controller.link.resetPassword'),
-		},
-	];
-};
-
 const getTableActionsSend = (item, path, state, res) => {
 	const actions = [];
 	if (state === 'submitted' || state === 'closed') {
@@ -3151,6 +3113,40 @@ router.use(
 
 
 		// SYSTEMS
+		const getSystemsBody = (systems) => systems.map((item) => {
+			const name = getSSOTypes().filter((type) => item.type === type.value);
+			let tableActions = [];
+			const editable = (item.type === 'ldap' && item.ldapConfig.provider === 'general')
+					|| item.type === 'moodle' || item.type === 'iserv';
+			if (editable) {
+				tableActions = tableActions.concat([
+					{
+						link: item.type === 'ldap' ? `/administration/systems/ldap/edit/${item._id}`
+							: `/administration/systems/${item._id}`,
+						class: item.type === 'ldap' ? 'btn-edit-ldap' : 'btn-edit',
+						icon: 'edit',
+						title: res.$t('administration.controller.link.editEntry'),
+					},
+					{
+						link: `/administration/systems/${item._id}`,
+						class: 'btn-delete--systems',
+						icon: 'trash-o',
+						method: 'delete',
+						title: res.$t('administration.controller.link.deleteEntry'),
+					},
+				]);
+			}
+			return [
+				item.type === 'ldap' && item.ldapConfig.active === false
+					? res.$t('administration.controller.label.inactive', {
+						alias: item.alias,
+					})
+					: item.alias,
+				name,
+				tableActions,
+			];
+		});
+
 		const systemsHead = [
 			res.$t('administration.controller.headline.alias'),
 			res.$t('global.label.type'),
@@ -3161,30 +3157,9 @@ router.use(
 		let ldapAddable = true;
 		if (Array.isArray(school.systems)) {
 			school.systems = _.orderBy(school.systems, req.query.sort, 'desc');
-			// eslint-disable-next-line eqeqeq
-			systems = school.systems.filter((system) => system.type != 'local');
+			systems = school.systems.filter((system) => system.type !== 'local');
 			ldapAddable = !systems.some((e) => e.type === 'ldap');
-
-			systemsBody = systems.map((item) => {
-				const name = getSSOTypes().filter((type) => item.type === type.value);
-				return [
-					item.type === 'ldap' && item.ldapConfig.active === false
-						? res.$t('administration.controller.label.inactive', {
-							alias: item.alias,
-						})
-						: item.alias,
-					name,
-					getTableActions(
-						item,
-						'/administration/systems/',
-						true,
-						false,
-						false,
-						'systems',
-						res,
-					),
-				];
-			});
+			systemsBody = getSystemsBody(systems);
 		}
 
 		// RSS
@@ -3473,16 +3448,15 @@ router.post(
 			api(req).get(`/systems/${req.params.id}`),
 		);
 
-		// Classes acitve
+		// Classes active
 		let classesPath = req.body.classpath;
 		if (req.body.activateclasses !== 'on') {
 			classesPath = '';
 		}
 
-		// TODO potentielles Problem url: testSchule/ldap -> testSchule/ldaps
-		let ldapURL = req.body.ldapurl; // Better: let ldapURL = req.body.ldapurl.trim();
+		let ldapURL = req.body.ldapurl.trim();
 		if (!ldapURL.startsWith('ldaps')) {
-			if (ldapURL.includes('ldap')) { // Better ldapURL.startsWith('ldap')
+			if (ldapURL.startsWith('ldap')) {
 				ldapURL = ldapURL.replace('ldap', 'ldaps');
 			} else {
 				ldapURL = `ldaps://${ldapURL}`;

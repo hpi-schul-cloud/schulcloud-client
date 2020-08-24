@@ -66,8 +66,4 @@ $(document).ready(function() {
         });
     });
 
-    function sendTestNotification () {
-
-    }
-
 });
