@@ -153,10 +153,9 @@
 	}
 
 	.more {
-		position: absolute;
-		right: 10px;
-		bottom: 5px;
-		padding: 5px 0 5px 10px;
+		position: relative;
+		float: right;
+		padding: 5px 5px 5px 10px;
 		clear: both;
 		text-align: right;
 		color: $primaryColor;
