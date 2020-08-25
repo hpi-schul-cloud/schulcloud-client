@@ -136,9 +136,9 @@
                     data-loclink="/teams/{{../_id}}/tools/show/{{this._id}}">
                     <p class="card-title-directory">
                         {{#if logo_url}}
-                        <img src={{this.logo_url}} class="float-left" alt="logo" />
+                        <img src={{this.logo_url}} class="float-left" alt="{{$t "partner.img_alt.logo"}}" />
                         {{else}}
-                        <img src="/images/cloud.png" class="float-left" alt="logo" />
+                        <img src="/images/cloud.png" class="float-left" alt="{{$t "partner.img_alt.logo"}}" />
                         {{/if}}
                         <span>{{this.name}}</span>
 
