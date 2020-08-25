@@ -1422,12 +1422,29 @@ router.get(
 	},
 );
 
+const currentUserHasPermissionsForRole = (req, res, next) => {
+	const role = req.query.role;
+	const currentUser = res.locals.currentUser;
+
+	let hasPermissions = false;
+
+	if (role === 'student') {
+		hasPermissions = permissionsHelper.userHasPermission(currentUser, ['ADMIN_VIEW', 'STUDENT_LIST'], 'or');
+	} else if (role === 'teacher') {
+		hasPermissions = permissionsHelper.userHasPermission(currentUser, ['ADMIN_VIEW', 'TEACHER_LIST'], 'or');
+	}
+
+	if (!hasPermissions) {
+		return res.status(401).send(`You are not authorized to list ${role}s`);
+	}
+	return next();
+};
+
 router.get(
 	'/users-without-consent/get-json',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
+	currentUserHasPermissionsForRole,
 	async (req, res, next) => {
 		const role = req.query.role;
-
 		try {
 			let usersWithoutConsent = await getUsersWithoutConsent(
 				req,
