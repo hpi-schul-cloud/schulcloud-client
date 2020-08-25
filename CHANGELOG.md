@@ -9,7 +9,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+  - SC-6019 Added tabbar to classes administration
   - SC-5955 Changed links to Lernen.cloud
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
+
+## [24.3.0] - 2020-08-25
+### Changed - 24.3.0
+
   - SC-5644 navigation and the general structure of pages made more accessible (a11y)
 
 ## [24.2.5] - 2020-08-20
