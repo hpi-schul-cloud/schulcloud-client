@@ -1,14 +1,14 @@
 {{#embed "help/icon-card" title="Inhaltsverzeichnis" icon="fa-list" class="table-of-contents-card hidden-sm-up col-xs-12" id="inhaltsverzeichnis"}}
 	{{#content "card-body"}}
 	<ul class="white-links">
-		{{#if false}}<li><a href="#erste_schritte">{{$t "help.help_confluenceLinks.link.firstSteps" }}</a></li>{{/if}}
+		{{#if false}}<li><a href="#erste_schritte">{{$t "global.link.firstSteps" }}</a></li>{{/if}}
 		{{#each tutorials}}
 			<li><a href="#{{this.title}}">{{this.title}}</a></li>
 		{{/each}}
 		<li><a href="#nutzungshilfen">{{$t "help.help_confluenceLinks.link.usageAids" }}</a></li>
 		<li><a href="#kontakt">{{$t "help.help_confluenceLinks.link.contactForm" }}</a></li>
 		<li><a href="#email">{{$t "help.help_confluenceLinks.link.writeUsAnEmail" }}</a></li>
-		<li><a href="#ueber_das_projekt">{{$t "help.help_confluenceLinks.link.aboutTheProject" }}</a></li>
+		<li><a href="#ueber_das_projekt">{{$t "global.link.aboutTheProject" }}</a></li>
 		<li><a href="#sprachhinweis">{{$t "help.help_confluenceLinks.link.linguisticNote" }}</a></li>
 	</ul>
 	{{/content}}
@@ -42,7 +42,6 @@
 					{{else}}
 						<div class="collapse__item">
 							<div class="collapse__title single">
-								<i class="fa fa-fw" aria-hidden="true"></i>
 								<a href="/help/confluence/{{this.id}}">
 									<h3 class="h5 collapsable-headline">
 										{{this.title}}

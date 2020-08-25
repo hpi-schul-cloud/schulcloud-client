@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## Unreleased
+
+## [24.3.0] - 2020-08-25
+### Changed - 24.3.0
+
+- SC-5644 navigation and the general structure of pages made more accessible (a11y)
+
 ## [24.2.5] - 2020-08-20
 ### Fixed - 24.2.5
 

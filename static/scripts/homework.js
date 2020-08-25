@@ -1,4 +1,4 @@
-/* global CKEDITOR */
+/* eslint-disable no-unused-vars */
 import multiDownload from 'multi-download';
 
 import { softNavigate } from './helpers/navigation';
@@ -28,6 +28,16 @@ function isSubmissionGradeUpload() {
 	return $('#comment .section-upload').length > 0;
 }
 
+function showAJAXError(req, textStatus, errorThrown) {
+	if (textStatus === 'timeout') {
+		$.showNotification($t('global.text.requestTimeout'), 'danger');
+	} else if (errorThrown === 'Conflict') {
+		$.showNotification($t('homework.text.fileAlreadyExists'), 'danger');
+	} else {
+		$.showNotification(errorThrown, 'danger', 15000);
+	}
+}
+
 $(document).on('pageload', () => {
 	MathJax.Hub.Queue(['Typeset', MathJax.Hub]); // eslint-disable-line no-undef
 });
@@ -46,7 +56,7 @@ function archiveTask(e) {
 		context: this,
 		error() { showAJAXError(); this.innerHTML = btntext; },
 	});
-	request.done(function (r) {
+	request.done(function action() {
 		// switch text (innerHTML <--> alt-text)
 		const temp = $(this).attr('alt-text');
 		$(this).attr('alt-text', btntext);
@@ -54,21 +64,28 @@ function archiveTask(e) {
 		// grey out if removed from list
 		$(this).parents('.disableable').toggleClass('disabled');
 		// change data
-		$(this).attr('data', (this.getAttribute('data') == 'archive=done') ? 'archive=open' : 'archive=done');
+		$(this).attr('data', (this.getAttribute('data') === 'archive=done') ? 'archive=open' : 'archive=done');
 	});
 	return false;
 }
+
 function importSubmission(e) {
 	e.preventDefault();
 	const submissionid = this.getAttribute('data');
 	this.disabled = true;
-	this.innerHTML = `${$t('homework.button.importing')} <style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>`;
-	if (confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))) {
+
+	const bounce = '<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
+	const loadingspinner = '<style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner">';
+	this.innerHTML = `${$t('homework.button.importing')} ${loadingspinner}${bounce}`;
+
+	// the line with if make no sense ...
+	// eslint-disable-next-line no-alert
+	if (window.confirm($t('homework.text.doYouReallyWantToReplaceSubmission'))) {
 		$.ajax({
 			url: `/homework/submit/${submissionid}/import`,
 			context: this,
-		}).done(function (r) {
-			CKEDITOR.instances[`evaluation ${submissionid}`].setData(r.comment);
+		}).done(function action(r) {
+			// CKEDITOR.instances[`evaluation ${submissionid}`].setData(r.comment);
 			this.disabled = false;
 			this.innerHTML = $t('homework.button.importSubmission');
 		});
@@ -94,15 +111,14 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 $(document).ready(() => {
-	let fileIsUploaded = false;
-	let editorContainsText = false;
-
 	function enableSubmissionWhenFileIsUploaded() {
 		const fileList = $('.list-group-files');
 		const filesCount = fileList.children().length;
-		fileIsUploaded = !!filesCount;
-		const submitButton = fileList.closest('form').find('button[type="submit"]')[0];
+		const fileIsUploaded = !!filesCount;
+		const submitButton = document.querySelector('.ckeditor-submit');
 		if (submitButton) {
+			submitButton.setAttribute('fileIsUploaded', fileIsUploaded);
+			const editorContainsText = submitButton.getAttribute('editorContainsText');
 			submitButton.disabled = !editorContainsText && !fileIsUploaded;
 		}
 	}
@@ -113,53 +129,21 @@ $(document).ready(() => {
 		enableSubmissionWhenFileIsUploaded();
 	});
 
-	function enableSubmissionWhenEditorContainsText(editor) {
-		// find the closest submit button and disable it if no content is given and no file is uploaded
-		const submitButton = $(editor.element.$.closest('form')).find('button[type="submit"]')[0];
-		const content = editor.document.getBody().getText();
-		editorContainsText = !!content.trim();
-		if (submitButton) {
-			submitButton.disabled = !editorContainsText && !fileIsUploaded;
-		}
-	}
-
-	// enable submit button when editor contains text
-	const editorInstanceNames = Object.keys((window.CKEDITOR || {}).instances || {});
-	editorInstanceNames
-		.filter((name) => name.startsWith('evaluation'))
-		.forEach((name) => {
-			const editor = window.CKEDITOR.instances[name];
-			editor.on('instanceReady', () => { enableSubmissionWhenEditorContainsText(editor); });
-			editor.on('change', () => { enableSubmissionWhenEditorContainsText(editor); });
-		});
-
-	function showAJAXError(req, textStatus, errorThrown) {
-		if (textStatus === 'timeout') {
-			$.showNotification($t('global.error.requestTimeout'), 'danger');
-		} else if (errorThrown === 'Conflict') {
-			$.showNotification($t('homework.text.fileAlreadyExists'), 'danger');
-		} else {
-			$.showNotification(errorThrown, 'danger', 15000);
-		}
-	}
-
 	function ajaxForm(element, after, contentTest) {
 		const submitButton = element.find('[type=submit]')[0];
 		let submitButtonText = submitButton.innerHTML || submitButton.value;
 		submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)', '');
-		submitButton.innerHTML = `${submitButtonText} <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>`;
+
+		const bounces = '<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
+		const loadingspinner = '<div class="loadingspinner">';
+		submitButton.innerHTML = `${submitButtonText}${loadingspinner}${bounces}`;
 		submitButton.disabled = true;
-		const submitButtonStyleDisplay = submitButton.getAttribute('style');
+
 		submitButton.style.display = 'inline-block';
 
-		const url = element.attr('action');
-		const method = element.attr('method');
-		// update value of ckeditor instances
-		const ckeditorInstance = element.find('textarea.customckeditor').attr('id');
-		if (ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement();
 		const content = element.serialize();
 		if (contentTest) {
-			if (contentTest(content) == false) {
+			if (contentTest(content) === false) {
 				$.showNotification('Form validation failed', 'danger', 15000);
 				return;
 			}
@@ -168,16 +152,18 @@ $(document).ready(() => {
 		element.submit();
 	}
 	// Abgabe speichern
-	$('form.submissionForm.ajaxForm').on('submit', function (e) {
+	$('form.submissionForm.ajaxForm').on('submit', (e) => {
 		if (e) e.preventDefault();
-		ajaxForm($(this), (element, content) => {
+		ajaxForm($(e.currentTarget), (element, content) => {
 			const teamMembers = [];
-			content.forEach((e) => {
-				if (e.name == 'teamMembers') {
-					teamMembers.push(e.value);
+			content.forEach((c) => {
+				if (c.name === 'teamMembers') {
+					teamMembers.push(c.value);
 				}
 			});
-			if (teamMembers != [] && $('.me').val() && !teamMembers.includes($('.me').val())) {
+			if (teamMembers !== [] && $('.me').val() && !teamMembers.includes($('.me').val())) {
+				/* unexpected use */
+				// eslint-disable-next-line no-restricted-globals
 				window.location.reload();
 			}
 		});
@@ -192,13 +178,15 @@ $(document).ready(() => {
 	});
 
 	// Abgabe löschen
-	$('a[data-method="delete-submission"]').on('click', function (e) {
+	$('a[data-method="delete-submission"]').on('click', function action(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const $buttonContext = $(this);
 		const $deleteModal = $('.delete-modal');
 		$deleteModal.appendTo('body').modal('show');
-		$deleteModal.find('.modal-title').text($t('homework.text.doYouReallyWantToDelete', { name: $buttonContext.data('name') }));
+		$deleteModal.find('.modal-title').text(
+			$t('global.text.sureAboutDeleting', { name: $buttonContext.data('name') }),
+		);
 		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
 			window.location.href = $buttonContext.attr('href');
 		});
@@ -206,8 +194,8 @@ $(document).ready(() => {
 
 	// validate teamMembers
 	let lastTeamMembers = null;
-	const maxTeamMembers = parseInt($('#maxTeamMembers').html());
-	$('select#teamMembers').change(function (event) {
+	const maxTeamMembers = parseInt($('#maxTeamMembers').html(), 10);
+	$('select#teamMembers').change(function action() {
 		if ($(this).val().length > maxTeamMembers) {
 			$(this).val(lastTeamMembers);
 			$.showNotification($t('homework.text.maximumTeamSize', { maxMembers: maxTeamMembers }), 'warning', 5000);
@@ -218,17 +206,17 @@ $(document).ready(() => {
 	});
 
 	$('select#teamMembers').chosen().change((event, data) => {
-		if (data.deselected && data.deselected == $('.owner').val()) {
+		if (data.deselected && data.deselected === $('.owner').val()) {
 			$('.owner').prop('selected', true);
 			$('#teamMembers').trigger('chosen:updated');
-			$.showNotification(t('homework.text.creatorCanNotBeRemoved'), 'warning', 5000);
+			$.showNotification($t('homework.text.creatorCanNotBeRemoved'), 'warning', 5000);
 		}
 	});
 
 	// Bewertung speichern
-	$('.evaluation #comment form').on('submit', function (e) {
+	$('.evaluation #comment form').on('submit', (e) => {
 		if (e) e.preventDefault();
-		ajaxForm($(this), (c) => {
+		ajaxForm($(e.currentTarget), () => {
 			$.showNotification($t('homework.text.ratingHasBeenSaved'), 'success', 5000);
 		}, (c) => (c.grade || c.gradeComment));
 		return false;
@@ -236,13 +224,7 @@ $(document).ready(() => {
 
 	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
 
-	function updateSearchParameter(key, value) {
-		const url = window.location.search;
-		const reg = new RegExp(`(${key}=)[^\&]+`);
-		window.location.search = (url.indexOf(key) !== -1)
-			? (url.replace(reg, `$1${value}`))
-			: (`${url + ((url.indexOf('?') === -1) ? '?' : '&') + key}=${value}`);
-	}
+	document.querySelectorAll('.btn-archive').forEach((btn) => { btn.addEventListener('click', archiveTask); });
 
 	document.querySelectorAll('.importsubmission').forEach(
 		(btn) => { btn.addEventListener('click', importSubmission); },
@@ -264,7 +246,10 @@ $(document).ready(() => {
      */
 	function addNewUploadedFile(section, file) {
 		const filesCount = section.children().length === 0 ? -1 : section.children().length;
-		const $fileListItem = $(`<li class="list-group-item"><i class="fa fa-file" aria-hidden="true"></i><a href="/files/file?file=${file._id}" target="_blank">${file.name}</a></li>`)
+		const $fileListItem = $(`<li class="list-group-item">
+				<i class="fa fa-file" aria-hidden="true"></i>
+				<a href="/files/file?file=${file._id}" target="_blank">${file.name}</a>
+			</li>`)
 			.append(`<input type="hidden" name="fileIds[${filesCount + 1}]" value="${file._id}" />`);
 		section.append($fileListItem);
 	}
@@ -303,9 +288,9 @@ $(document).ready(() => {
 				});
 
 				this.on('sending', (file, xhr, formData) => {
-					const _send = xhr.send;
+					const xhrSend = xhr.send;
 					xhr.send = function sendFile() {
-						_send.call(xhr, file);
+						xhrSend.call(xhr, file);
 					};
 				});
 
@@ -400,7 +385,7 @@ $(document).ready(() => {
 	/**
      * deletes a) the file itself, b) the reference to the submission
      */
-	$('a[data-method="delete-file"]').on('click', function (e) {
+	$('a[data-method="delete-file"]').on('click', function actionDeleteFile(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const $buttonContext = $(this);
@@ -408,7 +393,9 @@ $(document).ready(() => {
 		const fileId = $buttonContext.data('file-id');
 
 		$deleteModal.appendTo('body').modal('show');
-		$deleteModal.find('.modal-title').text($t('homework.text.doYouReallyWantToDelete', { name: $buttonContext.data('file-name') }));
+		$deleteModal.find('.modal-title').text(
+			$t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }),
+		);
 
 		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
 			$.ajax({
@@ -416,6 +403,7 @@ $(document).ready(() => {
 				type: 'DELETE',
 				data: {
 					key: $buttonContext.data('file-key'),
+					id: fileId,
 				},
 				success(_) {
 					// delete reference in submission
@@ -425,7 +413,7 @@ $(document).ready(() => {
 						url: `/homework/submit/${submissionId}/files`,
 						data: { fileId, teamMembers },
 						type: 'DELETE',
-						success(_) {
+						success() {
 							window.location.reload();
 						},
 					});
@@ -435,7 +423,7 @@ $(document).ready(() => {
 		});
 	});
 
-	$('a[data-method="delete-file-homework-edit"]').on('click', function (e) {
+	$('a[data-method="delete-file-homework-edit"]').on('click', function actionDeleteFileHomeworkEdit(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const $buttonContext = $(this);
@@ -443,7 +431,9 @@ $(document).ready(() => {
 		const fileId = $buttonContext.data('file-id');
 
 		$deleteModal.appendTo('body').modal('show');
-		$deleteModal.find('.modal-title').text($t('homework.text.doYouReallyWantToDelete', { name: $buttonContext.data('file-name') }));
+		$deleteModal.find('.modal-title').text(
+			$t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }),
+		);
 
 		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
 			$.ajax({
@@ -455,7 +445,6 @@ $(document).ready(() => {
 				success() {
 					// delete reference in homework
 					const homeworkId = $("input[name='homeworkId']").val();
-					const teamMembers = $('#teamMembers').val();
 					$.ajax({
 						url: `/homework/${homeworkId}/file`,
 						data: { fileId },
@@ -474,7 +463,7 @@ $(document).ready(() => {
 	MathJax.Hub.Typeset(); // eslint-disable-line no-undef
 
 	// allow muti-download
-	$('button.multi-download').on('click', function () {
+	$('button.multi-download').on('click', function action() {
 		const files = $(this).data('files').split(' ');
 
 		// renaming here does not work, because the files are all served from a different origin
@@ -498,7 +487,9 @@ $(document).ready(() => {
 		modal.appendTo('body').modal('show');
 	}
 	function modalCheckboxHandler(headline, content, modal, localStorageItem, checkbox) {
-		const isPrivateAlertTrue = localStorage.getItem(localStorageItem) ? JSON.parse(localStorage.getItem(localStorageItem)) : false;
+		const isPrivateAlertTrue = localStorage.getItem(localStorageItem)
+			? JSON.parse(localStorage.getItem(localStorageItem)) : false;
+
 		if (!isPrivateAlertTrue && $(checkbox).prop('checked')) {
 			modal.find('.dontShowAgain-checkbox').prop('checked', false);
 			displayModal(headline, content, modal);
@@ -512,16 +503,18 @@ $(document).ready(() => {
 		}
 	}
 
-	$('#publicSubmissionsCheckbox').on('change', function (e) {
+	$('#publicSubmissionsCheckbox').on('change', function action(e) {
 		e.preventDefault();
 		const content = $t('homework.text.activatingThisMakesSubmissionsPublic');
-		modalCheckboxHandler($t('global.text.areYouSure'), content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this);
+		modalCheckboxHandler(
+			$t('global.text.areYouSure'), content, $dontShowAgainAlertModal, 'PublicSubmissions-Alert', this,
+		);
 	});
 
 	function checkVideoElements() {
 		const vids = $('video');
 		if (vids.length > 0) {
-			$.each(vids, function () {
+			$.each(vids, function action() {
 				this.controls = true;
 			});
 		}

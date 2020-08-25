@@ -1,10 +1,9 @@
 const { Configuration } = require('@schul-cloud/commons');
 const express = require('express');
 const showdown = require('showdown');
+const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
-const userConsentVersions = require('../helpers/consentVersions');
-const _ = require('lodash');
 
 const converter = new showdown.Converter();
 
@@ -17,7 +16,7 @@ router.use(authHelper.authChecker);
 
 const consentFullfilled = (consent) => consent.privacyConsent && consent.termsOfUseConsent;
 const isStudent = (res) => {
-	const roles = res.locals.currentUser.roles.map(role => role.name);
+	const roles = res.locals.currentUser.roles.map((role) => role.name);
 	return roles.includes('student');
 };
 const hasAccount = (req, res) => api(req).get('/consents', {
@@ -28,8 +27,9 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 
 // firstLogin
 router.get('/', async (req, res, next) => {
+	const { currentUser } = res.locals;
 	if (
-		!res.locals.currentUser.birthday && res.locals.currentRole === 'Schüler' // fixme identical to isStudent() here
+		!currentUser.birthday && res.locals.currentRole === 'Schüler' // fixme identical to isStudent() here
 		&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
 	) {
 		return res.redirect('firstLogin/existing');
@@ -38,9 +38,9 @@ router.get('/', async (req, res, next) => {
 	const sections = [];
 	let submitPageIndex = 0;
 
-	let skipConsent = res.locals.currentUser.roles.length > 0;
-	if (res.locals.currentUser.roles.length > 0) {
-		res.locals.currentUser.roles.forEach((role) => {
+	let skipConsent = currentUser.roles.length > 0;
+	if (currentUser.roles.length > 0) {
+		currentUser.roles.forEach((role) => {
 			let roleName = role.name;
 			if (roleName === 'teacher' || roleName === 'administrator') {
 				roleName = 'employee';
@@ -51,7 +51,7 @@ router.get('/', async (req, res, next) => {
 
 	let consent = await api(req).get('/consents', {
 		qs: {
-			userId: res.locals.currentUser._id,
+			userId: currentUser._id,
 		},
 	});
 	if (consent.data.length < 1) { consent = undefined; } else {
@@ -60,7 +60,9 @@ router.get('/', async (req, res, next) => {
 
 	const userConsent = consentFullfilled((consent || {}).userConsent || {});
 	const parentConsent = consentFullfilled(((consent || {}).parentConsents || [undefined])[0] || {});
-	const consentVersions = await userConsentVersions(res.locals.currentUser, consent, req);
+	const {
+		privacy = [], termsOfUse = [], haveBeenUpdated,
+	} = await api(req).get(`/consents/${currentUser._id}/check/`);
 	let updatedConsents = {};
 
 	if (Configuration.get('FEATURE_TSP_AUTO_CONSENT_ENABLED')) {
@@ -84,22 +86,35 @@ router.get('/', async (req, res, next) => {
 	}
 
 	// if there is already a user or parent consent it may have been updated
-	if (consentVersions.haveBeenUpdated) {
+	if (haveBeenUpdated) {
 		// UPDATED CONSENTS SINCE LAST FULLFILMENT DATE
-		updatedConsents = await userConsentVersions(res.locals.currentUser, consent, req, 100);
-		updatedConsents.all.data.map((version) => {
+		updatedConsents = {
+			privacy: {
+				data: privacy,
+				total: privacy.length,
+			},
+			termsOfUse: {
+				data: termsOfUse,
+				total: termsOfUse.length,
+			},
+			all: {
+				data: privacy.concat(termsOfUse),
+				total: termsOfUse.length + privacy.length,
+			},
+			haveBeenUpdated,
+		};
+		updatedConsents.all.data.forEach((version) => {
 			if (version.consentTypes.includes('privacy') && version.consentTypes.includes('termsOfUse')) {
 				version.visualType = res.$t('login.headline.privacyAndTermsOfUse');
 			} else {
 				if (version.consentTypes.includes('privacy')) {
-					version.visualType = res.$t('login.headline.onlyPrivacy');
+					version.visualType = res.$t('global.text.dataProtection');
 				}
 				if (version.consentTypes.includes('termsOfUse')) {
 					version.visualType = res.$t('login.headline.onlyTermsOfUse');
 				}
 			}
 			version.consentHTML = converter.makeHtml(version.consentText);
-			return version;
 		});
 		submitPageIndex += 1;
 		sections.push('consent_updates');
@@ -110,7 +125,7 @@ router.get('/', async (req, res, next) => {
 			if (res.locals.currentUser.age < 14) {
 				// U14
 				sections.push('welcome');
-			} else if (res.locals.currentUser.age < CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS
+			} else if (consent.requiresParentConsent
 				&& !(res.locals.currentUser.preferences || {}).firstLogin) {
 				// 14-15
 				sections.push('welcome_14-15');
@@ -190,7 +205,7 @@ router.get('/', async (req, res, next) => {
 		hideMenu: true,
 		sso: !!(res.locals.currentPayload || {}).systemId,
 		now: Date.now(),
-		sections: sections.map(name => `firstLogin/sections/${name}`),
+		sections: sections.map((name) => `firstLogin/sections/${name}`),
 		schoolPrivacyLink,
 		submitPageIndex,
 		userConsent,
@@ -199,7 +214,7 @@ router.get('/', async (req, res, next) => {
 		roleNames: res.locals.roles,
 	};
 
-	if (consentVersions.haveBeenUpdated) {
+	if (haveBeenUpdated) {
 		// default is 'Absenden'
 		renderObject.submitLabel = res.$t('login.button.submitPrivacyPolicy');
 	}
