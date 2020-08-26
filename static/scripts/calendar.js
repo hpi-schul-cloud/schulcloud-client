@@ -72,7 +72,7 @@ $(document).ready(() => {
 		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
 		defaultView: view || 'dayGridMonth',
 		editable: false,
-		timezone: 'UTC',
+		timeZone: 'UTC',
 		locale: deLocale,
 		header: {
 			left: 'title',
