@@ -1571,9 +1571,6 @@
 			"tasks": "Aufgaben",
 			"yourData": "Ihre Daten"
 		},
-		"img_alt":{
-			"brokenPen" : "zerbrochener Stift"
-		},
 		"input": {
 			"password": "Passwort"
 		},
