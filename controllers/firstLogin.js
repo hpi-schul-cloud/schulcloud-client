@@ -220,7 +220,8 @@ router.get('/', async (req, res, next) => {
 	}
 
 	// redirect to dashboard if we have only email to request
-	if (sections.length === 3 && sections[1] === 'email' && (res.locals.currentUser.preferences || {}).firstLogin) {
+	if ((sections.length < 3 || (sections.length === 3 && sections[1] === 'email'))
+			&& (res.locals.currentUser.preferences || {}).firstLogin) {
 		return res.redirect('/dashboard');
 	}
 	return res.render('firstLogin/firstLogin', renderObject);
