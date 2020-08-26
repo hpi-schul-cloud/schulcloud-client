@@ -369,4 +369,10 @@ $(document).ready(() => {
 
 		$bbbReloadInfoModal.appendTo('body').modal('show');
 	});
+
+	$('.locationlink').on('keypress', (e) => {
+		if (e.key === 'Enter') {
+			document.activeElement.click();
+		}
+	});
 });
