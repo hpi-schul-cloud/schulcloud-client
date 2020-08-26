@@ -2193,6 +2193,11 @@
 				"theNextQuestionnaireIsOnline": "Die nächste Befragung zum Projekt {{shortTitle}} ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen."
 			}
 		},
+		"form_ChangeLanguage" : {
+			"label": {
+				"changeDefaultLanguage": "Standardsprache ändern"
+			}
+		},
 		"global": {
 			"button": {
 				"discardChange": "Änderung verwerfen"
