@@ -62,6 +62,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
   - SC-6932 added translation keys instead of hardcoded strings for sidebar items
 
+  - SC-6293 - adds premission to view the Learn-Store
+
 ## [24.5.7] - 2020-09-22
 
 ### Fixed

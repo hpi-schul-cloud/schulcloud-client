@@ -109,6 +109,8 @@ module.exports = (req, res, next) => {
 			name: res.$t('global.link.lernstore'),
 			icon: 'search',
 			link: '/content/',
+			permission: 'LERNSTORE_VIEW',
+			excludedPermission: 'LERNSTORE_HIDE',
 		});
 	}
 
