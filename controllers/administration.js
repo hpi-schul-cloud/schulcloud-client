@@ -1422,12 +1422,29 @@ router.get(
 	},
 );
 
+const currentUserHasPermissionsForRole = (req, res, next) => {
+	const role = req.query.role;
+	const currentUser = res.locals.currentUser;
+
+	let hasPermissions = false;
+
+	if (role === 'student') {
+		hasPermissions = permissionsHelper.userHasPermission(currentUser, ['ADMIN_VIEW', 'STUDENT_LIST'], 'or');
+	} else if (role === 'teacher') {
+		hasPermissions = permissionsHelper.userHasPermission(currentUser, ['ADMIN_VIEW', 'TEACHER_LIST'], 'or');
+	}
+
+	if (!hasPermissions) {
+		return res.status(401).send(`You are not authorized to list ${role}s`);
+	}
+	return next();
+};
+
 router.get(
 	'/users-without-consent/get-json',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
+	currentUserHasPermissionsForRole,
 	async (req, res, next) => {
 		const role = req.query.role;
-
 		try {
 			let usersWithoutConsent = await getUsersWithoutConsent(
 				req,
@@ -2339,27 +2356,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		// Toggle teacher's studentVisibility permission
 		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
-		const isStudentVisibilityEnabled = (res.locals.currentSchoolData.features || []).includes(
-			'studentVisibility',
-		);
-		if (studentVisibilityFeature !== 'disabled' && !isStudentVisibilityEnabled) {
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: 'studentVisibility',
-					},
-				},
-			});
-		} else if (studentVisibilityFeature === 'disabled' && isStudentVisibilityEnabled) {
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: 'studentVisibility',
-					},
-				},
-			});
-		}
-		if (isStudentVisibilityEnabled) {
+		if (studentVisibilityFeature) {
 			await api(req)
 				.patch('school/teacher/studentvisibility', {
 					json: {
