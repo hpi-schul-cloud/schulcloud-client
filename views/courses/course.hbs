@@ -18,7 +18,7 @@
 <meta name="baseUrl" content={{baseUrl}}>
 <div class="dropdown dropdown-course minimal-button">
   {{#inArray "COURSE_EDIT" scopedCoursePermission}}
-  <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="{{$t "global.label.more"}}" data-toggle="dropdown">
+  <button class="btn btn-sm dropdown-toggle btn-course-dropdown" title="{{$t "global.label.more"}}" data-toggle="dropdown">
     {{#if ../name}}
     <h1 class="h4" id="page-title" class="course-headline">
       {{{stripOnlyScript ../name}}}
@@ -26,7 +26,7 @@
       {{#if ../isArchived}}<small class="count-badge" data-badge="Archiv" /></small>{{/if}}
     </h1>
     {{/if}}
-  </a>
+  </button>
   {{else}}
   {{#if ../name}}
   <h1 class="h4" id="page-title" class="course-headline">
