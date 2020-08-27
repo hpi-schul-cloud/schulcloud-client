@@ -1280,6 +1280,12 @@
 				"thereAreNoPermissionsToEdit": "Keine Berechtigungen zum Bearbeiten vorhanden."
 			}
 		},
+		"aria_label" :{
+			"openCourseFiles": "Kurs-Dateien öffnen",
+			"openPersonalFiles" : "persönlichen Dateien öffnen",
+			"openSharedFiles": "geteilte Dateien öffnen",
+			"openTeamFiles" : "Team-Dateien öffnen"
+		},
 		"button": {
 			"ascending": "↑ aufsteigend",
 			"createANewFile": "Neue Datei erstellen",

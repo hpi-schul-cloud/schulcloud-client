@@ -53,6 +53,10 @@
                     {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName title=this.title) }}
                 </div>
             {{/if}}
-            <a href="{{url}}" rel="canonical" aria-label="{{{link-text}}} {{this.title}}">{{{link-text}}}</a>
+            {{#if linkAriaDescription}}
+                <a href="{{url}}" rel="canonical" aria-label="{{linkAriaDescription}}">{{{link-text}}}</a>
+            {{else}}
+                <a href="{{url}}" rel="canonical" aria-label="{{{link-text}}} {{{stripOnlyScript this.title}}}">{{{link-text}}}</a>
+            {{/if}}
         </div>
     </article>
