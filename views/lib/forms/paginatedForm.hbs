@@ -7,7 +7,9 @@
 
 	<div class="stages">
 		{{#for 1 (add sections 1) 1}}
-			<label for="section-{{this}}" data-testid="section-{{this}}">{{this}}</label>
+		<button type="button" class="">
+			<label role="button" aria-pressed="false" for="section-{{this}}" data-testid="section-{{this}}">{{this}}</label>
+		</button>
 		{{/for}}
 	</div>
 

@@ -882,7 +882,8 @@
 					"editCourse": "Kurs bearbeiten"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Kurs ist archiviert"
+					"courseIsArchieved": "Kurs ist archiviert",
+					"addPeople": "Person hinzufügen"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
@@ -896,7 +897,8 @@
 			},
 			"global": {
 				"label": {
-					"studentParticipant": "Schüler:in / Teilnehmer:in"
+					"studentParticipant": "Schüler:in / Teilnehmer:in",
+					"courseName": "Name des Kurses"
 				}
 			},
 			"groups": {
@@ -2142,7 +2144,7 @@
 		},
 		"footer": {
 			"aria_label": {
-				"footer":"footer",
+				"footer": "footer",
 				"love": "love"
 			},
 			"img_alt": {
