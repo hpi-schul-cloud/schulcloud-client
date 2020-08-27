@@ -307,7 +307,7 @@ class TopicBlockList extends React.Component {
                 />
 
                 <div className="form-group">
-                    <div className="btn-group" role="group" aria-label={$t('topic.topicEdit.aria_label.chooseContentType')}>
+                    <div className="btn-group" role="group" aria-label={$t('topic.topicEdit.aria_label.chooseContent')}>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicText)}><i aria-label={$t('global.button.add')}>+</i>{` ${$t('topic.topicEdit.button.text')}`}</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}><i aria-label={$t('global.button.add')}>+</i>{` ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}><i aria-label={$t('global.button.add')}>+</i>{` ${$t('topic.topicEdit.button.material')}`}</button>

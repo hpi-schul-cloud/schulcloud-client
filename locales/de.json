@@ -2911,7 +2911,7 @@
 		},
 		"topicEdit": {
 			"aria_label":{
-				"chooseContentType" : "Wählen Sie Inhaltstypen des Themas aus"
+				"chooseContent" : "Wählen Sie Inhaltstypen des Themas aus"
 			},
 			"button": {
 				"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
