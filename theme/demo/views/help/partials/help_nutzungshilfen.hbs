@@ -1,0 +1,50 @@
+{{#if (userHasRole "student" "demoStudent" "demoTeacher")}}
+	{{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12" id="nutzungshilfen"}}
+		{{#content "card-body"}}
+			{{> "help/icon-link-group" links=(jsonParse '[
+				{
+					"title": "Online-Videokurse",
+					"icon": "fa-video-camera",
+					"src": "https://lernen.cloud/"
+				},
+				{
+					"title": "Webinare",
+					"icon": "fa-desktop",
+					"src": "https://docs.schul-cloud.org/display/SCDOK/Live-Schulungen"
+				},
+				{
+					"title": "Schnellstart-PDF",
+					"icon": "fa-file-pdf-o",
+					"src": "https://docs.schul-cloud.org/download/attachments/13828239/HPI%20Schul-Cloud%20-%20Schnellstart%20f%C3%BCr%20Lehrkr%C3%A4fte.pdf"
+				}
+			]') link-class="col-sm-4"}}
+		{{/content}}
+	{{/embed}}
+{{else}}
+	{{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12" id="nutzungshilfen"}}
+		{{#content "card-body"}}
+			{{> "help/icon-link-group" links=(jsonParse '[
+				{
+					"title": "Online-Videokurse",
+					"icon": "fa-video-camera",
+					"src": "https://lernen.cloud/"
+				},
+				{
+					"title": "Datenschutzkurs",
+					"icon": "fa-cubes",
+					"src": "/help/lernNuggets"
+				},
+				{
+					"title": "Webinare",
+					"icon": "fa-desktop",
+					"src": "https://docs.schul-cloud.org/display/SCDOK/Live-Schulungen"
+				},
+				{
+					"title": "Schnellstart-PDF",
+					"icon": "fa-file-pdf-o",
+					"src": "https://docs.schul-cloud.org/download/attachments/13828239/HPI%20Schul-Cloud%20-%20Schnellstart%20f%C3%BCr%20Lehrkr%C3%A4fte.pdf"
+				}
+			]') link-class="col-sm-4"}}
+		{{/content}}
+	{{/embed}}
+{{/if}}
