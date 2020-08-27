@@ -79,7 +79,7 @@ class TopicBlockWrapper extends React.Component {
                                 <button className="btn btn-secondary hidden-toggle"
                                    onClick={this.toggleHidden.bind(this)}
                                    data-toggle="tooltip"
-								   data-placement="top"
+                                   data-placement="top"
                                    title={this.props.hidden ? $t('topic.topicEdit.label.openSection') : $t('topic.topicEdit.label.lockSection')}
                                    data-original-title={this.props.hidden ? $t('topic.topicEdit.label.openSection') : $t('topic.topicEdit.label.lockSection')}
                                 >
@@ -112,11 +112,17 @@ class TopicBlockWrapper extends React.Component {
                             />
 
                             <div className="input-group-btn">
-                                <button aria-label={$t('global.label.settings')} className="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+								<button
+									aria-label={$t('global.label.settings')}
+									className="btn btn-secondary dropdown-toggle"
+									type="button"
+									data-toggle="dropdown">
                                     <i className="fa fa-cog"></i>
                                 </button>
                                 <div className="dropdown-menu dropdown-menu-right">
-                                    <button className="dropdown-item text-danger" onClick={this.onRemoveWithCallback.bind(this)}>
+                                    <button
+										className="dropdown-item text-danger"
+										onClick={this.onRemoveWithCallback.bind(this)}>
                                         <span><i className="fa fa-trash" /> {$t('global.button.remove')}</span>
                                     </button>
                                 </div>
@@ -309,12 +315,46 @@ class TopicBlockList extends React.Component {
 
                 <div className="form-group">
                     <div className="btn-group" role="group" aria-label={$t('topic.topicEdit.aria_label.chooseContent')}>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicText)}><i aria-label={$t('global.button.add')}>+</i>{` ${$t('topic.topicEdit.button.text')}`}</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}><i aria-label={$t('global.button.add')}>+</i>{` ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}><i aria-label={$t('global.button.add')}>+</i>{` ${$t('topic.topicEdit.button.material')}`}</button>
-                        {neXboardEnabled ? <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}><i aria-label={$t('global.button.add')}>+</i> neXboard</button> : '' }
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}><i aria-label={$t('global.button.add')}>+</i> Etherpad</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}><i aria-label={$t('global.button.add')}>+</i>{` ${$t('global.headline.task')}`}</button>
+						<button
+							type="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicText)}>
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('topic.topicEdit.button.text')}`}
+						</button>
+						<button
+							type="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicGeoGebra)}>
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
+						</button>
+                        <button
+							type="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicResources)}>
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('topic.topicEdit.button.material')}`}
+						</button>
+						{neXboardEnabled ? <button
+							type="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicNexboard)}>
+								<i aria-label={$t('global.button.add')}>+</i> neXboard
+							</button> : '' }
+						<button
+							ype="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicEtherpad)}>
+								<i aria-label={$t('global.button.add')}>+</i> Etherpad
+						</button>
+                        <button
+							type="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicInternal)}>
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('global.headline.task')}`}
+						</button>
                     </div>
                 </div>
             </div>
