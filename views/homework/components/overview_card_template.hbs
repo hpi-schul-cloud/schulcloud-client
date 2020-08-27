@@ -86,7 +86,7 @@
         {{#userHasPermission "HOMEWORK_CREATE"}}
             {{#inArray ../this.currentUser._id ../this.archived}}
                 <a class="btn btn-secondary btn-sm btn-archive" href="{{../url}}" target="_blank" data="archive=open"
-                        aria-label="{{$t "courses._course.groups._group.text.moveTask"}} {{$t "global.openInNewTabWarning"}}" alt-text="<i class='fa fa-archive' aria-hidden='true'>"></i>
+                        aria-label="{{$t "courses._course.groups._group.text.moveTask"}} {{$t "global.link.openInNewTabWarning"}}" alt-text="<i class='fa fa-archive' aria-hidden='true'>"></i>
                     <i class='fa fa-mail-reply' aria-hidden="true"></i>
                 </a>
             {{/inArray}}
@@ -94,7 +94,7 @@
             {{#if ../this.isTeacher}}
                 {{#notInArray ../this.currentUser._id ../this.archived}}
                     <a class="btn btn-secondary btn-sm btn-archive" href="{{../url}}" target="_blank" data="archive=done"
-                            aria-label="{{$t "courses._course.groups._group.text.moveTask"}} {{$t "global.openInNewTabWarning"}}" alt-text="<i class='fa fa-mail-reply'></i>">
+                            aria-label="{{$t "courses._course.groups._group.text.moveTask"}} {{$t "global.link.openInNewTabWarning"}}" alt-text="<i class='fa fa-mail-reply'></i>">
                         <i class='fa fa-archive' aria-hidden="true"></i>
                     </a>
                 {{/notInArray}}
@@ -102,12 +102,12 @@
                     {{#if this.method}}
                         <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}"
                             redirect="?p={{@root.pagination.currentPage}}" target="_blank" data-method="{{this.method}}"
-                            data-name="{{../../name}}" aria-label="{{$t "courses._course.groups._group.text.task"}} '{{{escapeHtml ../../name}}}' {{{escapeHtml this.title}}}. {{$t "global.openInNewTabWarning"}}">
+                            data-name="{{../../name}}" aria-label="{{$t "courses._course.groups._group.text.task"}} '{{{escapeHtml ../../name}}}' {{{escapeHtml this.title}}}. {{$t "global.link.openInNewTabWarning"}}">
                             <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
                         </a>
                     {{else}}
                         <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}"
-                            aria-label="{{$t "courses._course.groups._group.text.task"}} '{{{escapeHtml ../../name}}}' {{this.title}} {{$t "global.openInNewTabWarning"}}"">
+                            aria-label="{{$t "courses._course.groups._group.text.task"}} '{{{escapeHtml ../../name}}}' {{this.title}} {{$t "global.link.openInNewTabWarning"}}">
                             <i class="fa fa-{{this.icon}}" aria-hidden="true"></i> {{this.label}}
                         </a>
                     {{/if}}
