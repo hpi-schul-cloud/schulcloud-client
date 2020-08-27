@@ -12,6 +12,7 @@
 	"LERNSTORE_MODE": "DISABLED",
 	"I18N": {
 		"DEFAULT_LANGUAGE": "de",
+		"FALLBACK_LANGUAGE": "de",
 		"DEBUG": false
 	}
 }
