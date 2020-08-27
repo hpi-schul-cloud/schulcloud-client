@@ -76,18 +76,19 @@ class TopicBlockWrapper extends React.Component {
 
                             <span className="input-group-btn">
                                 <i className="fa fa-arrows move-handle" />
-                                <a className="btn btn-secondary hidden-toggle"
+                                <button className="btn btn-secondary hidden-toggle"
                                    onClick={this.toggleHidden.bind(this)}
                                    data-toggle="tooltip"
-                                   data-placement="top"
+								   data-placement="top"
                                    title={this.props.hidden ? $t('topic.topicEdit.label.openSection') : $t('topic.topicEdit.label.lockSection')}
                                    data-original-title={this.props.hidden ? $t('topic.topicEdit.label.openSection') : $t('topic.topicEdit.label.lockSection')}
                                 >
                                     <i className={`fa fa-eye${this.props.hidden ? '-slash' : ''}`} />
-                                </a>
+                                </button>
                             </span>
 
                             <input
+								aria-label={$t('topic.topicEdit.input.sectionTitle')}
                                 placeholder={$t('topic.topicEdit.input.sectionTitle')}
                                 value={this.props.title}
                                 className="form-control"
@@ -111,13 +112,13 @@ class TopicBlockWrapper extends React.Component {
                             />
 
                             <div className="input-group-btn">
-                                <button className="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                                <button aria-label={$t('global.label.settings')} className="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
                                     <i className="fa fa-cog"></i>
                                 </button>
                                 <div className="dropdown-menu dropdown-menu-right">
-                                    <a className="dropdown-item text-danger" onClick={this.onRemoveWithCallback.bind(this)}>
+                                    <button className="dropdown-item text-danger" onClick={this.onRemoveWithCallback.bind(this)}>
                                         <span><i className="fa fa-trash" /> {$t('global.button.remove')}</span>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
 
@@ -660,7 +661,8 @@ class TopicGeoGebra extends TopicBlock {
                         title={$t('topic.topicEdit.label.youllFindTheIdOn')}><i className="fa fa-info-circle" /></a>
                 </span>
                 <input
-                    className="form-control"
+					className="form-control"
+					aria-label="GeoGebra ID"
                     id={this.editorId}
                     onChange={this.updateMaterialId.bind(this)}
                     value={(this.props.content || {}).materialId}
@@ -733,7 +735,9 @@ class TopicInternal extends TopicBlock {
 	render() {
 		return (
             <div>
-                <label>Interner Link</label><br/>
+                <label for={`internLinkInput${this.props.position}`}>
+					{$t('topic.topicEdit.label.internLink')}
+				</label><br/>
                 <div className="input-group">
                     <span className="input-group-btn">
                         <a
@@ -744,6 +748,7 @@ class TopicInternal extends TopicBlock {
                             title={$t('topic.topicEdit.label.theLinkHasToBeginWith', {'baseUrl' : this.state.baseUrl})}><i className="fa fa-info-circle" /></a>
                     </span>
                     <input
+						id={`internLinkInput${this.props.position}`}
                         className="form-control"
                         name={`contents[${this.props.position}][content][url]`}
                         pattern={this.state.pattern}
@@ -797,8 +802,11 @@ class TopicEtherpad extends TopicBlock {
                         value={this.props.content.title}/>
                 </div>
                 <div className="form-group">
-                    <label>{$t('topic.topicEdit.label.descriptionEtherpad')}</label>
-                    <textarea className="form-control"
+                    <label for={`EtherpadDescInput${this.props.position}`}>
+						{$t('topic.topicEdit.label.descriptionEtherpad')}
+					</label>
+					<textarea className="form-control"
+						id={`EtherpadDescInput${this.props.position}`}
                         name={`contents[${this.props.position}][content][description]`}
                         placeholder={$t('topic.topicEdit.input.createsListInEtherpad')}>
                         {this.props.content.description}

@@ -1597,6 +1597,7 @@
 			"password": "Passwort:",
 			"role": "Rolle",
 			"room": "Raum",
+			"settings" :"Einstellungen",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
 			"title": "Titel",
@@ -2261,7 +2262,6 @@
 				"thereIsAProblem": "Es gibt ein Problem"
 			},
 			"tab_label": {
-				"settings": "Einstellungen",
 				"signOut": "Abmelden"
 			},
 			"text": {
@@ -2931,6 +2931,7 @@
 			"label": {
 				"descriptionEtherpad": "Beschreibung des Etherpads",
 				"descriptionNeXboard": "Beschreibung des neXboards",
+				"internLink" : "Interner Link",
 				"lockSection": "Abschnitt sperren",
 				"nameOfEtherpad": "Name des Etherpads",
 				"nameOfNeXboard": "Name des neXboards",
