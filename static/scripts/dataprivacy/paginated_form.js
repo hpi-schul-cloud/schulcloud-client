@@ -215,16 +215,17 @@ function goToSection(event) {
 	const selectedIndex = document.querySelectorAll('.form .stages label').indexOf(this) + 1;
 	setSelectionByIndex(selectedIndex, event);
 }
+function handleKeyPress(event) {
+	if (event.keyCode === 13) {
+		$(this).click();
+	}
+}
 window.addEventListener('DOMContentLoaded', () => {
 	// Stepper
 	// document.querySelectorAll('.form .stages label').addEventListener("click", goToSection);
 
 	$('.form .stages label').on('click', goToSection);
-	$('.form .stages label').on('keypress', function (e) {
-		if (e.keyCode === 13) {
-			$(this).click();
-		}
-	});
+	$('.form .stages label').on('keypress', handleKeyPress);
 	const form = document.querySelector('.form');
 	if (!form) {
 		// eslint-disable-next-line no-console
