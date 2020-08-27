@@ -32,21 +32,10 @@ i18next
 	.catch(logger.error);
 
 const getCurrentLanguage = (req, res) => {
-	const { currentUser, currentSchoolData } = (res || {}).locals;
+	const { currentUser } = (res || {}).locals;
 	// get language by user
 	if (currentUser && currentUser.defaultLanguage) {
 		return currentUser.defaultLanguage;
-	}
-
-	// get language by school
-	if (currentSchoolData && currentSchoolData.defaultLanguage) {
-		return currentSchoolData.defaultLanguage;
-	}
-
-	// get language by query
-	const { lng } = (req || {}).query || {};
-	if (lng) {
-		return lng;
 	}
 
 	// get language by cookie
