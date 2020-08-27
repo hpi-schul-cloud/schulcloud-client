@@ -220,6 +220,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	// document.querySelectorAll('.form .stages label').addEventListener("click", goToSection);
 
 	$('.form .stages label').on('click', goToSection);
+	$('.form .stages label').on('keypress', function(e) {
+		e.keyCode === 13 && $(this).click()
+	});
 	const form = document.querySelector('.form');
 	if (!form) {
 		// eslint-disable-next-line no-console
