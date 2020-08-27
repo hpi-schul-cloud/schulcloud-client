@@ -1,5 +1,5 @@
 {{#if this.url}}
-    <article class="sc-card locationlink" data-loclink="{{this.url}}" tabindex="0">
+    <article class="sc-card locationlink" data-loclink="{{this.url}}">
     {{else}}
     <article class="sc-card">
         {{/if}}
@@ -53,6 +53,6 @@
                     {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName title=this.title) }}
                 </div>
             {{/if}}
-            <a href="{{url}}" rel="canonical" aria-label="{{{link-text}}} {{{ stripOnlyScript this.title }}}">{{{link-text}}}</a>
+            <a href="{{url}}" rel="canonical" aria-label="{{{link-text}}} {{this.title}}">{{{link-text}}}</a>
         </div>
     </article>
