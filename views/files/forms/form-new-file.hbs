@@ -18,7 +18,8 @@
 
     {{#userHasPermission "COURSE_EDIT"}}
     <div id="student-can-edit-div">
-        <input type="checkbox" id="student-can-edit" aria-label="{{$t "files.text.studentCanEdit" }}"> {{$t "files.text.studentCanEdit" }}
+    <label for="student-can-edit">{{$t "files.text.studentCanEdit" }}</label>
+        <input type="checkbox" id="student-can-edit">
     </div>
     {{/userHasPermission}}
 

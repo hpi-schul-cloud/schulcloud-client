@@ -44,7 +44,8 @@
 						</option>
 					{{/each}}
 				</select> -->
-				<select name="sortOrder" class="form-control">
+				<label for="sortOrder" class="hidden">{{$t "global.headline.sorting"}}</label>
+				<select id="sortOrder" name="sortOrder" class="form-control">
 					<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
 					<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending" }}</option>
 				</select>
@@ -60,27 +61,26 @@
 								<strong class="card-title-directory">
 									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
 								</strong>
+                              </button>
 								{{#userHasPermission "FOLDER_DELETE"}}
-								<a href="/files/directory/"
-									target="_blank"
-									data-method="delete"
-									title="{{$t "files.label.deleteFolder"}}"
-									data-file-id="{{../this._id}}"
-									data-file-name="{{{../this.name}}}"
-									aria-label="{{$t "files.label.deleteFolder"}}"
-									role="button">
-									<i class="fa fa-trash-o directory-icon pull-right"></i>
-								</a>
-								<a href="/directoryModel/{{../this._id}}/rename"
-									target="_blank"
-									data-method="dir-rename"
-								title="{{$t "files.label.renameFolder"}}"
-								data-directory-id="{{../this._id}}"
-									data-directory-name="{{../this.name}}"
-									role="button"
-									aria-label="{{$t "files.label.renameFolder"}}">
-									<i class="fa fa-edit directory-icon pull-right"></i>
-								</a>
+                              <div class="pull-right">
+                                    <a href="/directoryModel/{{../this._id}}/rename"
+                                       target="_blank"
+                                       data-method="dir-rename"
+                                       title="{{$t "files.label.renameFolder"}}"
+                                       data-directory-id="{{../this._id}}"
+                                       data-directory-name="{{../this.name}}">
+                                        <i class="fa fa-edit directory-icon" aria-hidden="true"></i>
+                                    </a>
+								    <a href="/files/directory/"
+									    target="_blank"
+									    data-method="delete"
+									    title="{{$t "files.label.deleteFolder"}}"
+									    data-file-id="{{../this._id}}"
+									    data-file-name="{{{../this.name}}}">
+									    <i class="fa fa-trash-o directory-icon" aria-hidden="true"></i>
+								    </a>
+                              </div>
 								{{/userHasPermission}}
 							</div>
 						</div>

@@ -45,7 +45,7 @@
         {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
-            <nav id="sidebar" aria-label="{{$t "global.sidebar.aria_label"}}">
+            <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
                 <ul class="sidebar-list">
                     <li>
                         <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}">
@@ -86,7 +86,7 @@
         </aside>
 
 		<section class="content-wrapper">
-					<a class="mobile-nav-toggle" aria-label="{{$t "global.mobileNavMenu.aria_label"}}">
+					<a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">
 						<i class="fa fa-bars" aria-hidden="true"></i>
 					</a>
 				<div class="content-min-height">
@@ -108,7 +108,7 @@
 				{{/ifeq}}
 
                 {{> "lib/components/notification"}}
-				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.topMenu.aria_label"}}">
+				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.aria_label.topMenu"}}">
 
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
@@ -243,11 +243,11 @@
                                             {{#unless liveSearch}}<i class="fa fa-search"></i>{{/unless}}
                                         </a>
                                         <div class="input-group input-group-sm">
-								<label for="search-box">{{#if searchLabel}}{{truncatePure searchLabel21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}</label>
+								            <label for="search-box" hidden>{{#if searchLabel}}{{truncatePure searchLabel21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}</label>
 											<input id="search-box" type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}" name="q" />
                                             {{> "lib/components/csrfInput"}}
                                             <span class="input-group-btn">
-                                                <button type="submit" class="btn btn-secondary">
+                                                <button type="submit" class="btn btn-secondary" aria-label="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}">
                                                     <i class="fa fa-search" aria-hidden="true"></i>
                                                 </button>
                                             </span>
@@ -262,7 +262,7 @@
                 <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
                 <p id="backendUrl" hidden>{{ backendUrl }}</p>
                 <main id="main-content" class="container-fluid">
-					<dl class="skipLinks main" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.sidebar.aria_label"}}">
+					<dl class="skipLinks main" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.aria_label.sidebar"}}">
 						<dd>
 							<a href="#sidebar">{{$t "global.aria_label.sidebar"}}</a>
 						</dd>
