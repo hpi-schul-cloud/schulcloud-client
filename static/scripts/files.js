@@ -29,13 +29,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
-// a11y: make focusable elements 'clickable' by key 'enter'
-window.addEventListener('keydown', (e) => {
-	if (e.keyCode === 13) {
-		document.activeElement.click();
-	}
-});
-
 const getDataValue = (attr) => () => {
 	const value = $('.section-upload').data(attr);
 	return value || undefined;
@@ -59,6 +52,13 @@ $('.openfolder').on('click', function determineFolder() {
 	const folderid = this.getAttribute('data-folder-id');
 	if (folderid) {
 		window.location.href = window.openFolder(folderid);
+	}
+});
+
+$('.openfolder').on('keypress', (e) => {
+	if (e.key === 'Enter') {
+		document.activeElement.click();
+		$(this).closest('.card.file').click();
 	}
 });
 
@@ -348,7 +348,13 @@ $(document).ready(() => {
 		if (isCKEditor) { returnFileUrl($(this).data('file-id'), $(this).data('file-name')); }
 	}
 	$('.card.file').on('click', cardFileClickHandler);
-
+	
+	$('.fileviewer').on('keypress', (e) => {
+		if (e.key === 'Enter') {
+			document.activeElement.click();
+			$(this).closest('.card.file').click();
+		}
+	});
 	function cardFileTitleClickHandler(e) {
 		if (isCKEditor) {
 			e.preventDefault();
@@ -848,6 +854,12 @@ $('.videostop').on('click', () => {
 	$('#link').html('');
 	$('#picture').attr('src', '');
 	$('#file-view').css('display', 'none');
+});
+
+$('.videostop').on('keypress', (e) => {
+	if (e.key === 'Enter') {
+		document.activeElement.click();
+	}
 });
 
 const fileTypes = {
