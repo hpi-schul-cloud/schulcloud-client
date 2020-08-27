@@ -148,7 +148,7 @@
                           {{#each course.times}}
                               <tr class="course-time" id="{{this._id}}">
 								<td>
-									<button aria-label="delete course" class="btn-link course-time-delete" type="button" data-id="{{this._id}}"
+									<button aria-label="{{$t "courses.global.button.deleteCourse"}}" class="btn-link course-time-delete" type="button" data-id="{{this._id}}"
 										{{#if @root.course.isArchived}}disabled{{/if}}>
 										<i class="fa fa-trash-o"></i>
 									</button>
