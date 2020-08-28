@@ -44,6 +44,18 @@
 			"downloadUngradedFiles": "Download files of ungraded homework"
 		}
 	},
+	"lib": {
+		"form_ChangeLanguage" : {
+			"label": {
+				"changeDefaultLanguage": "Change default language"
+			},
+			"select": {
+				"text": "Please select...",
+				"german": "German",
+				"english": "English"
+			}
+		}
+	},
 	"registration": {
 		"registationFailedAuthTitle": "Invalid registration link",
 		"registationFailedAuthParagraph": "Unfortunately the link is no longer valid. Request a new link from your teacher or school administrator.",

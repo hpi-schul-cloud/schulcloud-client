@@ -2199,6 +2199,11 @@
 		"form_ChangeLanguage" : {
 			"label": {
 				"changeDefaultLanguage": "Standardsprache ändern"
+			},
+			"select": {
+				"text": "Bitte wählen...",
+				"german": "Deutsch",
+				"english": "Englisch"
 			}
 		},
 		"global": {
