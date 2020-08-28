@@ -43,6 +43,12 @@ const getCurrentLanguage = (req, res) => {
 		return currentSchoolData.defaultLanguage;
 	}
 
+	// get language by query
+	const { lng } = (req || {}).query || {};
+	if (lng) {
+		return lng;
+	}
+
 	// get language by cookie
 	if (req && req.cookies && req.cookies.USER_LANG) {
 		return req.cookies.USER_LANG;
