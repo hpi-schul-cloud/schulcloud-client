@@ -1,4 +1,4 @@
-{{#extend "lib/loggedin"}}
+{{#extend "lib/loggedin" notitle="true"}}
 
     {{#content "scripts" mode="append"}}
         <script type="text/javascript" defer src="/scripts/teamOverview.js" nonce="{{nonceValue}}"></script>
@@ -11,10 +11,10 @@
         <section class="empty-state">
             {{> 'teams/svg_empty_teams'}}
             <div class="text-wrapper mx-auto d-block">
-                <h2 class="text-center">{{$t "teams.headline.teamsConnectSchools"}}</h2>
-                <h3 class="h5 text-muted text-center">
+                <h2 class="h2 text-center">{{$t "teams.headline.teamsConnectSchools"}}</h2>
+                <h2 class="h5 text-muted text-center">
                     {{$t "teams.text.descriptionTeams"}}
-                </h3>
+                </h2>
             </div>
             {{#if allowedCreateTeam}}
             <div class="row">
@@ -25,9 +25,9 @@
             {{else}}
             {{#unless (userHasRole "expert")}}
             <div class="text-wrapper mx-auto d-block">
-                <h3 class="h5 text-muted text-center">
+                <h2 class="h5 text-muted text-center">
                     {{$t "teams.text.studentsCantCreateTeams"}}
-                </h3>
+                </h2>
             </div>
             {{/unless}}
             {{/if}}
