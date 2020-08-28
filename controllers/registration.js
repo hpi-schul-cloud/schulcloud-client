@@ -363,14 +363,14 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 	}
 
 	let needConsent = true;
-	let sectionNumber = 5;
+	let sectionNumber = 6;
 
 	let roleText;
 	if (req.params.byRole === 'byemployee') {
 		roleText = res.$t('registration.text.roleEmployee');
 		if (Configuration.get('SKIP_CONDITIONS_CONSENT').includes('employee')) {
 			needConsent = false;
-			sectionNumber = 4;
+			sectionNumber = 5;
 		}
 	} else {
 		delete user.firstName;
