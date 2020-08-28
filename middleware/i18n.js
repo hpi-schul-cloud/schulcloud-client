@@ -1,7 +1,7 @@
 const { getInstance, changeLanguage, getCurrentLanguage } = require('../helpers/i18n');
 
-const middleware = (req, res, next) => {
-	const currentLanguage = getCurrentLanguage(req, res);
+const middleware = async (req, res, next) => {
+	const currentLanguage = await getCurrentLanguage(req, res);
 	if (currentLanguage) {
 		changeLanguage(currentLanguage);
 		res.cookie('USER_LANG', currentLanguage);

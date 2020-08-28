@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { Configuration } = require('@schul-cloud/commons');
 const logger = require('./logger');
+const api = require('../api');
 
 const i18nDebug = Configuration.get('I18N__DEBUG');
 const i18nFallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
@@ -31,8 +32,23 @@ i18next
 	})
 	.catch(logger.error);
 
-const getCurrentLanguage = (req, res) => {
+const getSchoolLanguage = async (req, schoolId) => {
+	try {
+		const school = await api(req).get(`/registrationSchool/${schoolId}`);
+		return school.defaultLanguage;
+	} catch (e) {
+		return undefined;
+	}
+};
+
+const getCurrentLanguage = async (req, res) => {
 	const { currentUser, currentSchoolData } = (res || {}).locals;
+
+	// get language by cookie
+	if (req && req.cookies && req.cookies.USER_LANG) {
+		return req.cookies.USER_LANG;
+	}
+
 	// get language by user
 	if (currentUser && currentUser.defaultLanguage) {
 		return currentUser.defaultLanguage;
@@ -42,10 +58,10 @@ const getCurrentLanguage = (req, res) => {
 	if (currentSchoolData && currentSchoolData.defaultLanguage) {
 		return currentSchoolData.defaultLanguage;
 	}
-
-	// get language by cookie
-	if (req && req.cookies && req.cookies.USER_LANG) {
-		return req.cookies.USER_LANG;
+	// get language by registration school
+	if (req.url.startsWith('/registration/')) {
+		const match = req.url.match('/registration/(.*)\\?');
+		return match.length > 1 ? getSchoolLanguage(req, match[1]) : undefined;
 	}
 	return null;
 };
