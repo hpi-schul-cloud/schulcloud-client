@@ -17,7 +17,7 @@
 					<label for="name">{{$t "login.input.emailUsername"}}</label>
 					<input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" style="margin-bottom: 0.5rem" data-testid="username" required >
 						<label for="password">{{$t "global.input.password"}}</label>
-					<div class="input-group mt-1" id="show_hide_password" style="margin-top: 0rem !important">
+					<div class="input-group mt-1 show_hide_password" style="margin-top: 0rem !important">
 						<input type="password" id="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg"  placeholder="{{$t "global.input.password"}}" data-testid="password" required>
 						<div class="input-group-addon">
 							<a href="" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
@@ -34,7 +34,7 @@
 					{{/ifEnv}}
 				</div>
 
-                <button  title={{$t "login.button.moreOptions"}} class="btn toggle-btn btn-block btn-secondary btn-toggle-providers ">
+                <button title={{$t "login.button.moreOptions"}} class="btn form-group toggle-btn btn-block btn-secondary btn-toggle-providers ">
                     <i aria-hidden="true" class="fa fa-chevron-down"></i> {{$t "login.button.moreOptions"}}
                 </button>
 
@@ -62,15 +62,15 @@
 						</select>
 					</div>
 					<div>
-					<button title={{$t "login.button.less"}} class="btn toggle-btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-up"></i>{{$t "login.button.less"}}</button>
+					<button title={{$t "login.button.less"}} class="btn form-group toggle-btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-up"></i>{{$t "login.button.less"}}</button>
 					</div>
 				</div>
 				{{> "lib/components/csrfInput"}}
 				<div class="form-group">
 					{{#if notification.statusCode}}
-						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
 					{{else}}
-						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "login.button.login"}}" data-testid="submit-login" />
+						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
 					{{/if}}
 				</div>
 			</form>

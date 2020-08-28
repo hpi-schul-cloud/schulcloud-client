@@ -37,11 +37,11 @@
 
                 <div class="form-group">
                     <label for="settings_current_password">{{$t "account.global.label.currentPassword" }} <sup>*</sup></label>
-                    <div class="input-group" id="show_hide_password">
+                    <div class="input-group show_hide_password">
                         <input type="password" autocomplete="current-password" id="settings_current_password" data-testid="settings_password_current" name="password" class="form-control"
                         placeholder="***************" required>
                         <div class="input-group-addon">
-                            <a href="" title="{{$t "login.anchor.title.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            <a href="" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 {{#userHasPermission "PASSWORD_EDIT"}}
                 <div class="form-group">
                     <label for="passwordNew">{{$t "account.global.label.newPassword" }}</label>
-                    <div class="input-group" id="show_hide_password">
+                    <div class="input-group show_hide_password">
                         <input type="password" autocomplete="new-password" name="passwordNew" id="passwordNew" data-testid="settings_password_new" class="form-control"
                             placeholder="***************"
                             pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
@@ -62,7 +62,7 @@
 
                 <div class="form-group">
                     <label for="password_control">{{$t "account.global.label.repeatNewPassword" }}</label>
-                    <div class="input-group" id="show_hide_password">
+                    <div class="input-group show_hide_password">
                         <input type="password" autocomplete="new-password" name="password_control" id="password_control" data-testid="settings_password_control"
                         class="form-control" placeholder="***************"
                         title="{{> "lib/forms/password-hint" plaintext=true}}">
