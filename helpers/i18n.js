@@ -60,9 +60,8 @@ const getCurrentLanguage = async (req, res) => {
 	}
 
 	// get language by query
-	const { lng } = (req || {}).query || {};
-	if (lng) {
-		return lng;
+	if (req && req.query && req.query.lng) {
+		return req.query.lng;
 	}
 
 	// get language by registration school

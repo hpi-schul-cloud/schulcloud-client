@@ -65,3 +65,13 @@ window.addEventListener('DOMContentLoaded', () => {
 		);
 	});
 });
+
+$('#defaultLanguage').change(() => {
+	const selectedLanguage = $('#defaultLanguage option:selected').val();
+	if (selectedLanguage) {
+		document.cookie = `USER_LANG=${selectedLanguage}`;
+		window.location.reload();
+		return false;
+	}
+	return true;
+});

@@ -1,5 +1,6 @@
 const express = require('express');
 const { Configuration } = require('@schul-cloud/commons');
+const i18next = require('i18next');
 
 const router = express.Router();
 const api = require('../api');
@@ -376,6 +377,11 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		delete user.firstName;
 		delete user.lastName;
 		roleText = res.$t('registration.text.roleExpert');
+	}
+
+	const currentLanguage = i18next.language;
+	if (!user.defaultLanguage) {
+		user.defaultLanguage = currentLanguage;
 	}
 
 	return res.render('registration/registration-employee', {
