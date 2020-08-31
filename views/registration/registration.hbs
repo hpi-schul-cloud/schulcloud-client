@@ -20,7 +20,7 @@
                 {{> "lib/forms/form-change-language" }}
             </div>
         </div>
-        <button id="showAgeSelection" class="btn btn-primary" style="margin-top:6px;" >{{$t "global.button.next" }}</button>
+        <button id="showAgeSelection" class="btn btn-primary pull-right" style="margin-top:6px;" >{{$t "global.button.next" }}</button>
     </div>
 	<div id="welcome-screen" style="display: none;">
 		<h2 class="h4">{{$t "registration._registration.heading.welcomeToTheRegistration" (dict "title" theme.title)}}</h2>
@@ -43,7 +43,8 @@
 			<p><strong>{{$t "global.text.attention" }}</strong> {{$t "registration._registration.text.registrationMustBeDoneByYou" }}</p>
 		</div>
 
-		<button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>{{$t "global.button.next" }}</button>
+        <button id="prevSection" class="btn btn-secondary" type="button">{{$t "global.button.back" }}</button>
+		<button id="showRegistrationForm" class="btn btn-primary pull-right" disabled>{{$t "global.button.next" }}</button>
 
 		<p class="mt-2 explanation nomargin">{{$t "registration._registration.text.linguisticNoteWeUseMaleFormForReadability" (dict "shortTitle" theme.short_title)}} 🌈🎉🦄 </p>
 

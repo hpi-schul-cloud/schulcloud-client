@@ -1,16 +1,8 @@
 import './registration-link-validation';
+import { getCookie } from '../helpers/cookieHelper';
 
 const USER_LANG_KEY = 'USER_LANG';
 const USER_LANG_SET_KEY = 'USER_LANG_SET';
-
-const getCookie = (name) => {
-	const value = `; ${document.cookie}`;
-	const parts = value.split(`; ${name}=`);
-	if (parts.length === 2) {
-		return parts.pop().split(';').shift();
-	}
-	return undefined;
-};
 
 window.addEventListener('DOMContentLoaded', () => {
 	// show language settings if not set
@@ -77,6 +69,11 @@ window.addEventListener('DOMContentLoaded', () => {
 					'showRegistrationForm',
 				).disabled = false;
 			}
+		});
+
+		$('#prevSection').on('click', () => {
+			document.cookie = `${USER_LANG_SET_KEY}=false; path=/`;
+			window.location.reload();
 		});
 	}
 });
