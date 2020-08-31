@@ -1,6 +1,5 @@
 const express = require('express');
 const { Configuration } = require('@schul-cloud/commons');
-const i18next = require('i18next');
 
 const router = express.Router();
 const api = require('../api');
@@ -8,6 +7,7 @@ const api = require('../api');
 const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
+const { getCurrentLanguage } = require('../helpers/i18n');
 
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
@@ -379,9 +379,8 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		roleText = res.$t('registration.text.roleExpert');
 	}
 
-	const currentLanguage = i18next.language;
 	if (!user.defaultLanguage) {
-		user.defaultLanguage = currentLanguage;
+		user.defaultLanguage = await getCurrentLanguage(req, res);
 	}
 
 	return res.render('registration/registration-employee', {
