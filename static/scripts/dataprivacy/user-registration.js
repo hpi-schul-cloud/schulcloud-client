@@ -78,7 +78,7 @@ window.addEventListener('DOMContentLoaded', () => {
 $('#defaultLanguage').change(() => {
 	const selectedLanguage = $('#defaultLanguage option:selected').val();
 	if (selectedLanguage) {
-		document.cookie = `USER_LANG=${selectedLanguage}`;
+		document.cookie = `${USER_LANG_KEY}=${selectedLanguage}; path=/`;
 		window.location.reload();
 		return false;
 	}
