@@ -9,7 +9,7 @@
       <link rel="stylesheet" href="/styles/registration/pin.css" />
   {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=sectionNumber action="/registration/submit" method="post" class="registration-form parent" submit-label=($t "registration._registration.global.button.sendAndGetStarted")}}
+      {{#embed "lib/forms/paginatedForm" sections=sectionNumber action="/registration/submit" method="post" class="registration-form parent" submit-label=($t "registration._registration.global.button.sendAndGetStarted")}}
       {{#content "panels"}}
       <input type="hidden" name="classOrSchoolId" value="{{user.classOrSchoolId}}"/>
       <input type="hidden" name="roles" value="employee"/>
@@ -21,7 +21,16 @@
       {{#if user.userId}}<input type="hidden" name="userId" value="{{user.userId}}"/>{{/if}}
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
-      <section data-panel="section-1" class="noback">
+      <section data-panel="section-1">
+      <h2 class="h4">{{$t "registration._registration.global.heading.language" }}</h2>
+          <div class="row">
+              <div class="form-group col-md-6 col-sm-12">
+                  {{> "lib/forms/form-change-language" langParent=user }}
+              </div>
+          </div>
+      </section>
+
+      <section data-panel="section-2" class="noback">
         <h2 class="h4">{{$t "registration._registration.heading.welcomeToTheRegistration" (dict "title" theme.title) }}</h2>
         <p>{{$t "registration._registration.text.thankYouForTakingThisStepWithUs" (dict "shortTitle" theme.title)}}</p>
         <p>{{$t "registration._registration.text.pleaseRegisterFirstAndAgreeToTerms" (dict "shortTitle" theme.title)}}</p>
@@ -32,7 +41,7 @@
 
 
 
-      <section data-panel="section-2">
+      <section data-panel="section-3">
         <h2 class="h4">{{$t "registration._registration.employee.heading.yourData" }}</h2>
         <p>{{$t "registration._registration.global.text.weStoreUserDataSafely" (dict "shortTitle" theme.short_title)}}</p>
 
@@ -89,7 +98,7 @@
 
 
       {{#if needConsent}}
-      <section data-panel="section-3">
+      <section data-panel="section-4">
         <h2 class="h4">{{$t "global.headline.declarationOfConsent" }}</h2>
         <p>{{$t "registration._registration.employee.text.pleaseconfirmTheFollowingDeclarations" (dict "shortTitle" theme.title)}}</p>
         <p>{{{$t "registration._registration.global.text.iDeclareTheFollowing"}}}</p>
@@ -99,7 +108,7 @@
 
 
 
-      <section data-panel="section-4" class="submit-page" data-feature="pin">
+      <section data-panel="section-5" class="submit-page" data-feature="pin">
         <h2 class="h4">{{$t "global.headline.almostThere"}}</h2>
         {{#embed "registration/request-pin"}}{{/embed}}
         <div id="pinverification">
@@ -109,7 +118,7 @@
 
 
 
-      <section data-panel="section-5">
+      <section data-panel="section-6">
         <h2 class="h4">{{$t "registration._registration.global.heading.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
         <p>{{$t "registration._registration.employee.text.youCanNowSingIn" (dict "title" theme.title)}}</p>
 

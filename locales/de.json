@@ -2505,7 +2505,8 @@
 					"sendAndGetStarted": "Absenden & Loslegen"
 				},
 				"heading": {
-					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
+					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!",
+					"language": "Bitte wähle deine Sprache"
 				},
 				"label": {
 					"eMail": "E-Mail:",
