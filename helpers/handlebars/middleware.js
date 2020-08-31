@@ -103,7 +103,6 @@ module.exports = (req, res, next) => {
 		link: '/calendar/',
 	}];
 
-	// Lern-Store Feature Toggle
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.lernstore'),
 		icon: 'search',
