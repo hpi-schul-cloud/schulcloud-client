@@ -44,11 +44,6 @@ const getSchoolLanguage = async (req, schoolId) => {
 const getCurrentLanguage = async (req, res) => {
 	const { currentUser, currentSchoolData } = (res || {}).locals;
 
-	// get language by cookie
-	if (req && req.cookies && req.cookies.USER_LANG) {
-		return req.cookies.USER_LANG;
-	}
-
 	// get language by user
 	if (currentUser && currentUser.defaultLanguage) {
 		return currentUser.defaultLanguage;
@@ -64,16 +59,17 @@ const getCurrentLanguage = async (req, res) => {
 		return req.query.lng;
 	}
 
-	// get language by registration school
-	if (req.url.startsWith('/registration/')) {
-		const match = req.url.match('/registration/(.*)\\?');
-		return match.length > 1 ? getSchoolLanguage(req, match[1]) : undefined;
-	}
-
 	// get language by cookie
 	if (req && req.cookies && req.cookies.USER_LANG) {
 		return req.cookies.USER_LANG;
 	}
+
+	// get language by registration school
+	if (req.url.startsWith('/registration/')) {
+		const matchSchoolId = req.url.match('/registration/(.*)\\?');
+		return matchSchoolId.length > 1 ? getSchoolLanguage(req, matchSchoolId[1]) : undefined;
+	}
+
 	return null;
 };
 
