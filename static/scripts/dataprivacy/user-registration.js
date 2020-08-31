@@ -1,5 +1,8 @@
 import './dataprivacy';
 import './registration-link-validation';
+import { getCookie } from '../helpers/cookieHelper';
+
+const USER_LANG_KEY = 'USER_LANG';
 
 function validateDifferent() {
 	const parentMailInput = document.querySelector(
@@ -54,6 +57,12 @@ window.addEventListener('DOMContentLoaded', () => {
 			const backButton = document.getElementById('prevSection');
 			backButton.removeEventListener('click', goBack);
 		});
+	}
+
+	const selectedLanguage = getCookie(USER_LANG_KEY);
+	if ($('form.registration-form input[name="defaultLanguage"]').length === 0) {
+		$('form.registration-form')
+			.append(`<input type="hidden" name="defaultLanguage" value="${selectedLanguage}">`);
 	}
 
 	$('input[readonly]').click(() => {
