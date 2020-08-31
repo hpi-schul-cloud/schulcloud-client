@@ -2790,7 +2790,7 @@
 					"externExpert": "externer Experte",
 					"externTeacher": "Lehrer anderer Schule (Team-Admin)",
 					"federalState": "Bundesland",
-					"insertEmailOfExpertToInvite": "Gebe die E-Mail des Experten ein, an welchen die Einladung verschickt wird.",
+					"insertEmailOfExpertToInvite": "Gib die E-Mail des Experten ein, an welchen die Einladung verschickt wird.",
 					"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert einen anderen Eigentümer",
 					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
 					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
@@ -2798,7 +2798,7 @@
 					"removeClass": "Klasse entfernen",
 					"removeUser": "Nutzer entfernen",
 					"roleOfInvitedTeacher": "Rolle des eingeladenen Lehrers",
-					"selectRoleForMember": "Gebe ein, welche Rolle der Teilnehmer erhalten soll.",
+					"selectRoleForMember": "Gib ein, welche Rolle der Teilnehmer erhalten soll.",
 					"sendInvitationAgain": "Einladung erneut versenden"
 				},
 				"placeholder": {
