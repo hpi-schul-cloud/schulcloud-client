@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [24.4.1] - 2020-8-31
+
+- SC-6293 - adds premission to view the Learn-Store
+
 ## [24.4.0] - 2020-8-31
 
   - SC-6019 Added tabbar to classes administration
