@@ -1,6 +1,7 @@
 <!-- just for copying, add input names programmatically! -->
 <tr class="new-course-time-template">
-    <td><button aria-label="delete course" class="btn-link course-time-delete" type="button"><i class="fa fa-trash-o course-time-delete"></i></button></td>
+    <td><button aria-label="{{$t "global.aria_label.deleteCourse"}}" class="btn-link course-time-delete"
+            type="button"><i class="fa fa-trash-o course-time-delete"></i></button></td>
     <td>
         <select class="form-control new-course-time-template-weekday" type="text">
             <option value="0">{{$t "global.text.monday"}}</option>
@@ -13,12 +14,14 @@
         </select>
     </td>
     <td>
-        <input class="form-control new-course-time-template-startTime" data-time type="text"/>
+        <input class="form-control new-course-time-template-startTime" data-time type="text" />
     </td>
     <td>
-        <input class="form-control new-course-time-template-duration"  type="number" placeholder="{{$t "courses.global.input.inMinutes"}}"/>
+        <input class="form-control new-course-time-template-duration" type="number"
+            placeholder="{{$t "courses.global.input.inMinutes"}}" />
     </td>
     <td>
-        <input class="form-control new-course-time-template-room" type="text" placeholder="{{$t "courses.global.input.egRoom1-21"}}"/>
+        <input class="form-control new-course-time-template-room" type="text"
+            placeholder="{{$t "courses.global.input.egRoom1-21"}}" />
     </td>
 </tr>

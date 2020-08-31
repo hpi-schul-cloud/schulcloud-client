@@ -1519,7 +1519,8 @@
 	"global": {
 		"aria_label": {
 			"sidebar": "Seitenleiste",
-			"topMenu": "topbar"
+			"topMenu": "topbar",
+			"deleteCourse": "Kurs löschen"
 		},
 		"button": {
 			"accept": "Akzeptieren",
