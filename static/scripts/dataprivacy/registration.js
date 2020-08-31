@@ -10,6 +10,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		document.querySelector('#language-screen').style.display = 'none';
 		document.querySelector('#welcome-screen').style.display = 'block';
 	} else {
+		document.querySelector('#language-screen').style.display = 'block';
+		document.querySelector('#welcome-screen').style.display = 'none';
 		const langFromCookie = getCookie(USER_LANG_KEY);
 		$('#defaultLanguage').val(langFromCookie);
 		$('select').trigger('chosen:updated');
