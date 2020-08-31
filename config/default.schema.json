@@ -333,7 +333,7 @@
 				},
 				"FALLBACK_LANGUAGE": {
 					"type": "string",
-					"default": "",
+					"default": "de",
 					"description": "Value for the fallback language if translation key is not found"
 				},
 				"DEBUG": {
