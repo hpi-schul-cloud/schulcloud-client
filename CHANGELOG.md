@@ -9,9 +9,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+  - SC-5706 Added language selection within teacher registration
   - SC-6019 Added tabbar to classes administration
   - SC-5955 Changed links to Lernen.cloud
   - SC-5644 navigation and the general structure of pages made more accessible (a11y)
+
 ## [24.3.2] - 2020-08-26
 
 - SC-6382 fix first login shown on every login in tsp
