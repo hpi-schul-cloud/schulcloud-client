@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const selectedLanguage = getCookie(USER_LANG_KEY);
 	if ($('form.registration-form [name="defaultLanguage"]').length === 0) {
 		$('form.registration-form')
-			.append(`<input type="hidden" name="defaultLanguage" value="${selectedLanguage}">`);
+			.append(`<input type="hidden" aria-hidden="true" name="defaultLanguage" value="${selectedLanguage}">`);
 	}
 
 	$('input[readonly]').click(() => {
