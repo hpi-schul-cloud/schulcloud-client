@@ -1,26 +1,24 @@
 const i18next = require('i18next');
 const Backend = require('i18next-sync-fs-backend');
-const fs = require('fs');
 const path = require('path');
 const { Configuration } = require('@schul-cloud/commons');
 const logger = require('./logger');
+const api = require('../api');
 
 const i18nDebug = Configuration.get('I18N__DEBUG');
-const i18nFallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
-const i18nDefaultLanguage = Configuration.get('I18N__DEFAULT_LANGUAGE');
+const fallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
+const defaultLanguage = Configuration.get('I18N__DEFAULT_LANGUAGE');
+const availableLanuages = (Configuration.get('I18N__AVAILABLE_LANUAGES') || '').split(',').map((value) => value.trim());
 
 const localeDir = path.join(__dirname, '../locales');
-const availableLanuages = fs.readdirSync(localeDir)
-	.filter((filename) => filename.endsWith('.json'))
-	.map((filename) => filename.replace('.json', ''));
 
 i18next
 	.use(Backend)
 	.init({
 		debug: i18nDebug,
 		initImmediate: false,
-		lng: i18nDefaultLanguage,
-		fallbackLng: i18nFallbackLanguage,
+		lng: defaultLanguage,
+		fallbackLng: fallbackLanguage,
 		supportedLngs: availableLanuages || false,
 		backend: {
 			loadPath: `${localeDir}/{{lng}}.json`,
@@ -31,8 +29,23 @@ i18next
 	})
 	.catch(logger.error);
 
-const getCurrentLanguage = (req, res) => {
+const getSchoolLanguage = async (req, schoolId) => {
+	try {
+		const school = await api(req).get(`/registrationSchool/${schoolId}`);
+		return school.defaultLanguage;
+	} catch (e) {
+		return undefined;
+	}
+};
+
+const getCurrentLanguage = async (req, res) => {
+	// get language by query
+	if (req && req.query && req.query.lng) {
+		return req.query.lng;
+	}
+
 	const { currentUser, currentSchoolData } = (res || {}).locals;
+
 	// get language by user
 	if (currentUser && currentUser.defaultLanguage) {
 		return currentUser.defaultLanguage;
@@ -47,6 +60,13 @@ const getCurrentLanguage = (req, res) => {
 	if (req && req.cookies && req.cookies.USER_LANG) {
 		return req.cookies.USER_LANG;
 	}
+
+	// get language by registration school
+	if (req.url.startsWith('/registration/')) {
+		const matchSchoolId = req.url.match('/registration/(.*)\\?');
+		return matchSchoolId.length > 1 ? getSchoolLanguage(req, matchSchoolId[1]) : undefined;
+	}
+
 	return null;
 };
 
@@ -62,7 +82,7 @@ const changeLanguage = (lng) => {
 };
 
 module.exports = {
-	defaultLanguage: i18nDefaultLanguage,
+	defaultLanguage,
 	availableLanuages,
 	getInstance,
 	changeLanguage,

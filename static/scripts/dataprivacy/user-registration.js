@@ -1,5 +1,8 @@
 import './dataprivacy';
 import './registration-link-validation';
+import { getCookie } from '../helpers/cookieHelper';
+
+const USER_LANG_KEY = 'USER_LANG';
 
 function validateDifferent() {
 	const parentMailInput = document.querySelector(
@@ -56,6 +59,12 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
+	const selectedLanguage = getCookie(USER_LANG_KEY);
+	if ($('form.registration-form [name="defaultLanguage"]').length === 0) {
+		$('form.registration-form')
+			.append(`<input type="hidden" name="defaultLanguage" value="${selectedLanguage}">`);
+	}
+
 	$('input[readonly]').click(() => {
 		/* eslint-disable-next-line max-len */
 		$.showNotification(
@@ -64,4 +73,16 @@ window.addEventListener('DOMContentLoaded', () => {
 			false,
 		);
 	});
+});
+
+$('#defaultLanguage').change(() => {
+	const selectedLanguage = $('#defaultLanguage option:selected').val();
+	if (selectedLanguage) {
+		const currentURL = new URL(window.location.href);
+		currentURL.searchParams.set('lng', selectedLanguage);
+		document.cookie = `${USER_LANG_KEY}=${selectedLanguage}; path=/`;
+		window.location.href = currentURL.toString();
+		return false;
+	}
+	return true;
 });

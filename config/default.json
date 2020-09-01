@@ -13,6 +13,7 @@
 	"I18N": {
 		"DEFAULT_LANGUAGE": "de",
 		"FALLBACK_LANGUAGE": "de",
-		"DEBUG": false
+		"DEBUG": false,
+		"AVAILABLE_LANUAGES": "de,en"
 	}
 }

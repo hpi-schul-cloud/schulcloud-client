@@ -1,6 +1,33 @@
 import './registration-link-validation';
+import { getCookie } from '../helpers/cookieHelper';
+
+const USER_LANG_KEY = 'USER_LANG';
+const USER_LANG_SET_KEY = 'USER_LANG_SET';
 
 window.addEventListener('DOMContentLoaded', () => {
+	// show language settings if not set
+	if (getCookie(USER_LANG_SET_KEY) === 'true') {
+		document.querySelector('#language-screen').style.display = 'none';
+		document.querySelector('#welcome-screen').style.display = 'block';
+	} else {
+		document.querySelector('#language-screen').style.display = 'block';
+		document.querySelector('#welcome-screen').style.display = 'none';
+		const langFromCookie = getCookie(USER_LANG_KEY);
+		$('#defaultLanguage').val(langFromCookie);
+		$('select').trigger('chosen:updated');
+	}
+
+	if (document.querySelector('#showAgeSelection')) {
+		document
+			.querySelector('#showAgeSelection')
+			.addEventListener('click', () => {
+				const selectedLanguage = $('#defaultLanguage').val();
+				document.cookie = `${USER_LANG_KEY}=${selectedLanguage}; path=/`;
+				document.cookie = `${USER_LANG_SET_KEY}=true; path=/`;
+				window.location.reload();
+			});
+	}
+
 	// show steppers depending on age of student
 	const radiou16 = document.getElementById('reg-u16');
 	const radio16 = document.getElementById('reg-16');
@@ -44,6 +71,11 @@ window.addEventListener('DOMContentLoaded', () => {
 					'showRegistrationForm',
 				).disabled = false;
 			}
+		});
+
+		$('#prevSection').on('click', () => {
+			document.cookie = `${USER_LANG_SET_KEY}=false; path=/`;
+			window.location.reload();
 		});
 	}
 });
