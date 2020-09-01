@@ -24,7 +24,11 @@ window.addEventListener('DOMContentLoaded', () => {
 				const selectedLanguage = $('#defaultLanguage').val();
 				document.cookie = `${USER_LANG_KEY}=${selectedLanguage}; path=/`;
 				document.cookie = `${USER_LANG_SET_KEY}=true; path=/`;
-				window.location.reload();
+				const currentURL = new URL(window.location.href);
+				currentURL.searchParams.set('lng', selectedLanguage);
+				document.cookie = `${USER_LANG_KEY}=${selectedLanguage}; path=/`;
+				window.location.href = currentURL.toString();
+				return false;
 			});
 	}
 
