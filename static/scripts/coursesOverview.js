@@ -15,7 +15,7 @@ $(document).ready(function () {
             let courseMembers = $t('courses.text.noAttendees');
             let courseName = res.course.name;
             if(res.course.userIds.length != 0) {
-                courseMembers = '<ol>';
+                courseMembers = '<ul>';
                 res.course.userIds.forEach(member => {
                     if (member.displayName) {
                         courseMembers = courseMembers + '<li>' + member.displayName + '</li>';
@@ -23,7 +23,7 @@ $(document).ready(function () {
                         courseMembers = courseMembers + '<li>' + member.firstName + ' ' + member.lastName + '</li>';
                     }
                 });
-                courseMembers = courseMembers + '</ol>';
+                courseMembers = courseMembers + '</ul>';
             }
 
             populateModal($memberModal, '.modal-title', `${$t('courses.headline.courseAttendees')} ${courseName}`);
