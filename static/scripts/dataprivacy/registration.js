@@ -1,5 +1,5 @@
 import './registration-link-validation';
-import { getCookie } from '../helpers/cookieHelper';
+import getCookie from '../helpers/cookieManager';
 
 const USER_LANG_KEY = 'USER_LANG';
 const USER_LANG_SET_KEY = 'USER_LANG_SET';

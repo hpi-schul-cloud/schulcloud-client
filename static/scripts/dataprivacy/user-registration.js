@@ -1,6 +1,6 @@
 import './dataprivacy';
 import './registration-link-validation';
-import { getCookie } from '../helpers/cookieHelper';
+import getCookie from '../helpers/cookieManager';
 
 const USER_LANG_KEY = 'USER_LANG';
 
