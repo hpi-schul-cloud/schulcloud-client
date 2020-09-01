@@ -78,8 +78,10 @@ window.addEventListener('DOMContentLoaded', () => {
 $('#defaultLanguage').change(() => {
 	const selectedLanguage = $('#defaultLanguage option:selected').val();
 	if (selectedLanguage) {
+		const currentURL = new URL(window.location.href);
+		currentURL.searchParams.set('lng', selectedLanguage);
 		document.cookie = `${USER_LANG_KEY}=${selectedLanguage}; path=/`;
-		window.location.reload();
+		window.location.href = currentURL.toString();
 		return false;
 	}
 	return true;

@@ -39,6 +39,11 @@ const getSchoolLanguage = async (req, schoolId) => {
 };
 
 const getCurrentLanguage = async (req, res) => {
+	// get language by query
+	if (req && req.query && req.query.lng) {
+		return req.query.lng;
+	}
+
 	const { currentUser, currentSchoolData } = (res || {}).locals;
 
 	// get language by user
@@ -49,11 +54,6 @@ const getCurrentLanguage = async (req, res) => {
 	// get language by school
 	if (currentSchoolData && currentSchoolData.defaultLanguage) {
 		return currentSchoolData.defaultLanguage;
-	}
-
-	// get language by query
-	if (req && req.query && req.query.lng) {
-		return req.query.lng;
 	}
 
 	// get language by cookie
