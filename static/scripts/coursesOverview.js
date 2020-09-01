@@ -15,15 +15,15 @@ $(document).ready(function () {
             let courseMembers = $t('courses.text.noAttendees');
             let courseName = res.course.name;
             if(res.course.userIds.length != 0) {
-                courseMembers = '<ul>';
+                courseMembers = '<ol>';
                 res.course.userIds.forEach(member => {
                     if (member.displayName) {
                         courseMembers = courseMembers + '<li>' + member.displayName + '</li>';
                     } else {
-                        courseMembers = courseMembers + '<li>' + member.firstName + ' ' + member.lastName + '</li>';
+                        courseMembers = courseMembers + '<li>' + member.firstName + '<br>' + '&nbsp;&nbsp;&nbsp;&nbsp;' + member.lastName + '</li>';
                     }
                 });
-                courseMembers = courseMembers + '</ul>';
+                courseMembers = courseMembers + '</ol>';
             }
 
             populateModal($memberModal, '.modal-title', `${$t('courses.headline.courseAttendees')} ${courseName}`);
