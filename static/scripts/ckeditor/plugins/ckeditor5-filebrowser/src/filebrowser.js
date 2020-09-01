@@ -15,8 +15,8 @@ const createFilebrowserModal = (editor, t, dialogTitle, onCreate, additionalInpu
 		submitLabel: t('OK'),
 	});
 
-	const dialogContent = `<label for="url-input">${t('URL')}:</label><br>
-		<input type="text" id="url-input">
+	const dialogContent = `
+		<input type="hidden" id="url-input">
 		<button type="button" id="browseServerButton">${t('Browse Server')}</button><br>${additionalInput}`;
 
 	ckeditorFilebrowserDialog.find('.modal-body').html(dialogContent);
@@ -74,11 +74,12 @@ export default class FileBrowserPlugin extends Plugin {
 			});
 
 			view.on('execute', async () => {
-				const additionalInput = `<label for="alt-text-input">${t('Alternative Text')}:</label><br>
+				const additionalInput = `<br><label for="alt-text-input">${t('Alternative Text')}:</label>
 				  <input type="text" id="alt-text-input">`;
 				const dialogTitle = t('Image Properties');
 				const onCreate = () => {
 					const imageUrl = document.getElementById('url-input').value;
+					if (!imageUrl) return;
 					const imageAltText = document.getElementById('alt-text-input').value;
 					editor.model.change((writer) => {
 						const imageElement = writer.createElement('image', {
@@ -108,6 +109,7 @@ export default class FileBrowserPlugin extends Plugin {
 				const dialogTitle = t('Video Properties');
 				const onCreate = () => {
 					const videoUrl = document.getElementById('url-input').value;
+					if (!videoUrl) return;
 					editor.model.change((writer) => {
 						const videoElement = writer.createElement('video', {
 							source: videoUrl,
@@ -137,6 +139,7 @@ export default class FileBrowserPlugin extends Plugin {
 				const dialogTitle = t('Audio Properties');
 				const onCreate = () => {
 					const audioUrl = document.getElementById('url-input').value;
+					if (!audioUrl) return;
 					editor.model.change((writer) => {
 						const audioElement = writer.createElement('audio', {
 							source: audioUrl,
