@@ -37,6 +37,10 @@
 				"overview": "Dashboard",
 				"tasks": "Tasks"
 			}
+		},
+		"language": {
+			"de": "Deutsch",
+			"en": "English"
 		}
 	},
 	"homework": {
@@ -50,9 +54,7 @@
 				"changeDefaultLanguage": "Change default language"
 			},
 			"select": {
-				"text": "Please select...",
-				"german": "German",
-				"english": "English"
+				"text": "Please select..."
 			}
 		}
 	},

@@ -1707,6 +1707,10 @@
 				"lastPage": "Letzte Seite",
 				"nextPage": "nächste Seite"
 			}
+		},
+		"language": {
+			"de": "Deutsch",
+			"en": "English"
 		}
 	},
 	"help": {
@@ -2201,9 +2205,7 @@
 				"changeDefaultLanguage": "Standardsprache ändern"
 			},
 			"select": {
-				"text": "Bitte wählen...",
-				"german": "Deutsch",
-				"english": "Englisch"
+				"text": "Bitte wählen..."
 			}
 		},
 		"global": {
