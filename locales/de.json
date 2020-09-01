@@ -1254,6 +1254,15 @@
 			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem entsprechenden Nutzer verknüpft."
 		}
 	},
+	"demo": {
+		"lib": {
+			"global": {
+				"link": {
+					"dataProtectionDeclaration": "Datenschutzerklärung Testaccount"
+				}
+			}
+		}
+	},
 	"files": {
 		"_file": {
 			"headline": {
