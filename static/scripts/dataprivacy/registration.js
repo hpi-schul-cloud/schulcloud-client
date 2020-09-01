@@ -22,6 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			.querySelector('#showAgeSelection')
 			.addEventListener('click', () => {
 				const selectedLanguage = $('#defaultLanguage').val();
+			//  deepcode ignore OverwriteAssignment: this is the syntax for the new cookie
 				document.cookie = `${USER_LANG_KEY}=${selectedLanguage}; path=/`;
 				document.cookie = `${USER_LANG_SET_KEY}=true; path=/`;
 				const currentURL = new URL(window.location.href);
