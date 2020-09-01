@@ -1808,8 +1808,8 @@
 		},
 		"help_fromInviteExternalMember": {
 			"button": {
-				"externalExpert": "External experts",
-				"teachersFromOtherSchool": "Teachers from other schools"
+				"externalExperts": "Externe Experten",
+				"teachersFromOtherSchool": "Lehrer von anderen Schulen"
 			},
 			"heading": {
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
