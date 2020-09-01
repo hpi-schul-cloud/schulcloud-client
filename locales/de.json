@@ -1709,8 +1709,10 @@
 			}
 		},
 		"language": {
-			"de": "Deutsch",
-			"en": "English"
+			"label": {
+				"de": "Deutsch",
+				"en": "English"
+			}
 		}
 	},
 	"help": {
@@ -2204,7 +2206,7 @@
 			"label": {
 				"changeDefaultLanguage": "Standardsprache ändern"
 			},
-			"select": {
+			"placeholder": {
 				"text": "Bitte wählen..."
 			}
 		},

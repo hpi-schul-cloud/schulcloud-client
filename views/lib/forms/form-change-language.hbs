@@ -6,8 +6,8 @@
         name="defaultLanguage"
         required
     >
-        <option value="" disabled>{{$t "lib.form_ChangeLanguage.select.text" }}</option>
-        <option value="de" {{#ifeq langParent.defaultLanguage 'de'}}selected{{/ifeq}}>{{$t "global.language.de" }}</option>
-        <option value="en" {{#ifeq langParent.defaultLanguage 'en'}}selected{{/ifeq}}>{{$t "global.language.en" }}</option>
+        <option value="" disabled>{{$t "lib.form_ChangeLanguage.placeholder.text" }}</option>
+        <option value="de" {{#ifeq langParent.defaultLanguage 'de'}}selected{{/ifeq}}>{{$t "global.language.label.de" }}</option>
+        <option value="en" {{#ifeq langParent.defaultLanguage 'en'}}selected{{/ifeq}}>{{$t "global.language.label.en" }}</option>
     </select>
 </div>

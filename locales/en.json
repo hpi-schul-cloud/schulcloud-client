@@ -39,8 +39,10 @@
 			}
 		},
 		"language": {
-			"de": "Deutsch",
-			"en": "English"
+			"label": {
+				"de": "Deutsch",
+				"en": "English"
+			}
 		}
 	},
 	"homework": {
@@ -53,7 +55,7 @@
 			"label": {
 				"changeDefaultLanguage": "Change default language"
 			},
-			"select": {
+			"placeholder": {
 				"text": "Please select..."
 			}
 		}
