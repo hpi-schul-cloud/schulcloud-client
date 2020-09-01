@@ -1,5 +1,5 @@
 {
-	"name": "schulcloud-client",
+	"name": "hpi-schulcloud-client",
 	"version": "24.3.2",
 	"private": true,
 	"scripts": {
