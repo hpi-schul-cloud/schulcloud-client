@@ -339,10 +339,18 @@
 				"DEBUG": {
 					"type": "boolean",
 					"default": false,
-					"description": "Enable logging"
+					"description": "Enable i18n logging to console, e.g. missing translation keys"
+				},
+				"AVAILABLE_LANUAGES": {
+					"type": "string",
+					"default": "de,en",
+					"description": "Available languages"
 				}
 			},
-			"required": []
+			"required": [
+				"DEFAULT_LANGUAGE",
+				"AVAILABLE_LANUAGES"
+			]
 		}
 	},
 	"allOf": [

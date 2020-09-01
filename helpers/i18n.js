@@ -1,27 +1,24 @@
 const i18next = require('i18next');
 const Backend = require('i18next-sync-fs-backend');
-const fs = require('fs');
 const path = require('path');
 const { Configuration } = require('@schul-cloud/commons');
 const logger = require('./logger');
 const api = require('../api');
 
 const i18nDebug = Configuration.get('I18N__DEBUG');
-const i18nFallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
-const i18nDefaultLanguage = Configuration.get('I18N__DEFAULT_LANGUAGE');
+const fallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
+const defaultLanguage = Configuration.get('I18N__DEFAULT_LANGUAGE');
+const availableLanuages = (Configuration.get('I18N__AVAILABLE_LANUAGES') || '').split(',').map((value) => value.trim());
 
 const localeDir = path.join(__dirname, '../locales');
-const availableLanuages = fs.readdirSync(localeDir)
-	.filter((filename) => filename.endsWith('.json'))
-	.map((filename) => filename.replace('.json', ''));
 
 i18next
 	.use(Backend)
 	.init({
 		debug: i18nDebug,
 		initImmediate: false,
-		lng: i18nDefaultLanguage,
-		fallbackLng: i18nFallbackLanguage,
+		lng: defaultLanguage,
+		fallbackLng: fallbackLanguage,
 		supportedLngs: availableLanuages || false,
 		backend: {
 			loadPath: `${localeDir}/{{lng}}.json`,
@@ -85,7 +82,7 @@ const changeLanguage = (lng) => {
 };
 
 module.exports = {
-	defaultLanguage: i18nDefaultLanguage,
+	defaultLanguage,
 	availableLanuages,
 	getInstance,
 	changeLanguage,
