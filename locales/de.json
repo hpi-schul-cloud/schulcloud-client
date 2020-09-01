@@ -2262,7 +2262,7 @@
 			},
 			"tab_label": {
 				"settings": "Einstellungen",
-				"signOut": "Abmelden"
+				"signOut": "Logout"
 			},
 			"text": {
 				"allActionsThatCreate": "Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.",
