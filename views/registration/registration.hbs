@@ -20,7 +20,10 @@
                 {{> "lib/forms/form-change-language" }}
             </div>
         </div>
+        <p class="mt-2 explanation nomargin">{{$t "registration._registration.global.text.languageHint"}}</p>
+
         <button id="showAgeSelection" class="btn btn-primary pull-right" style="margin-top:6px;" >{{$t "global.button.next" }}</button>
+
     </div>
 	<div id="welcome-screen" style="display: none;">
 		<h2 class="h4">{{$t "registration._registration.heading.welcomeToTheRegistration" (dict "title" theme.title)}}</h2>

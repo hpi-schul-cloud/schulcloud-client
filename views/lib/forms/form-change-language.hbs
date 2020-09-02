@@ -1,13 +1,13 @@
 <div class="form-group">
-    <label for="defaultLanguage">{{$t "lib.form_ChangeLanguage.label.changeDefaultLanguage" }}</label>
+    <label for="language">{{$t "lib.form_ChangeLanguage.label" }}</label>
     <select
-        id="defaultLanguage"
+        id="language"
         class="form-control"
-        name="defaultLanguage"
+        name="language"
         data-placeholder="{{$t "lib.form_ChangeLanguage.placeholder.text" }}"
         required
     >
-        <option value="de" {{#ifeq langParent.defaultLanguage 'de'}}selected{{/ifeq}}>{{$t "global.language.label.de" }}</option>
-        <option value="en" {{#ifeq langParent.defaultLanguage 'en'}}selected{{/ifeq}}>{{$t "global.language.label.en" }}</option>
+        <option value="de" {{#ifeq langParent.language 'de'}}selected{{/ifeq}}>{{$t "global.language.label.de" }}</option>
+        <option value="en" {{#ifeq langParent.language 'en'}}selected{{/ifeq}}>{{$t "global.language.label.en" }}</option>
     </select>
 </div>

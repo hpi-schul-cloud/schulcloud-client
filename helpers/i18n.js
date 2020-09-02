@@ -7,7 +7,7 @@ const api = require('../api');
 
 const i18nDebug = Configuration.get('I18N__DEBUG');
 const fallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
-const defaultLanguage = Configuration.get('I18N__DEFAULT_LANGUAGE');
+const language = Configuration.get('I18N__DEFAULT_LANGUAGE');
 const availableLanuages = (Configuration.get('I18N__AVAILABLE_LANUAGES') || '').split(',').map((value) => value.trim());
 
 const localeDir = path.join(__dirname, '../locales');
@@ -17,7 +17,7 @@ i18next
 	.init({
 		debug: i18nDebug,
 		initImmediate: false,
-		lng: defaultLanguage,
+		lng: language,
 		fallbackLng: fallbackLanguage,
 		supportedLngs: availableLanuages || false,
 		backend: {
@@ -32,7 +32,7 @@ i18next
 const getSchoolLanguage = async (req, schoolId) => {
 	try {
 		const school = await api(req).get(`/registrationSchool/${schoolId}`);
-		return school.defaultLanguage;
+		return school.language;
 	} catch (e) {
 		return undefined;
 	}
@@ -47,13 +47,13 @@ const getCurrentLanguage = async (req, res) => {
 	const { currentUser, currentSchoolData } = (res || {}).locals;
 
 	// get language by user
-	if (currentUser && currentUser.defaultLanguage) {
-		return currentUser.defaultLanguage;
+	if (currentUser && currentUser.language) {
+		return currentUser.language;
 	}
 
 	// get language by school
-	if (currentSchoolData && currentSchoolData.defaultLanguage) {
-		return currentSchoolData.defaultLanguage;
+	if (currentSchoolData && currentSchoolData.language) {
+		return currentSchoolData.language;
 	}
 
 	// get language by cookie
@@ -82,7 +82,7 @@ const changeLanguage = (lng) => {
 };
 
 module.exports = {
-	defaultLanguage,
+	language,
 	availableLanuages,
 	getInstance,
 	changeLanguage,

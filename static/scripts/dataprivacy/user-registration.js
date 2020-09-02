@@ -60,9 +60,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 
 	const selectedLanguage = getCookie(USER_LANG_KEY);
-	if ($('form.registration-form [name="defaultLanguage"]').length === 0) {
+	if ($('form.registration-form [name="language"]').length === 0) {
 		$('form.registration-form')
-			.append(`<input type="hidden" aria-hidden="true" name="defaultLanguage" value="${selectedLanguage}">`);
+			.append(`<input type="hidden" aria-hidden="true" name="language" value="${selectedLanguage}">`);
 	}
 
 	$('input[readonly]').click(() => {
@@ -75,8 +75,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
-$('#defaultLanguage').change(() => {
-	const selectedLanguage = $('#defaultLanguage option:selected').val();
+$('#language').change(() => {
+	const selectedLanguage = $('#language option:selected').val();
 	if (selectedLanguage) {
 		const currentURL = new URL(window.location.href);
 		currentURL.searchParams.set('lng', selectedLanguage);

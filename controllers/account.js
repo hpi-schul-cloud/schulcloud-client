@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
 		email,
 		password,
 		passwordNew,
-		defaultLanguage,
+		language,
 	} = req.body;
 	return api(req).patch(`/accounts/${res.locals.currentPayload.accountId}`, {
 		json: {
@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
 			firstName,
 			lastName,
 			email,
-			defaultLanguage,
+			language,
 		},
 	}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
 		res.redirect('/account/');

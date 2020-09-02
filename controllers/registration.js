@@ -379,8 +379,8 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		roleText = res.$t('registration.text.roleExpert');
 	}
 
-	if (!user.defaultLanguage) {
-		user.defaultLanguage = await getCurrentLanguage(req, res);
+	if (!user.language) {
+		user.language = await getCurrentLanguage(req, res);
 	}
 
 	return res.render('registration/registration-employee', {

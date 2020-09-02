@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		document.querySelector('#language-screen').style.display = 'block';
 		document.querySelector('#welcome-screen').style.display = 'none';
 		const langFromCookie = getCookie(USER_LANG_KEY);
-		$('#defaultLanguage').val(langFromCookie);
+		$('#language').val(langFromCookie);
 		$('select').trigger('chosen:updated');
 	}
 
@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		document
 			.querySelector('#showAgeSelection')
 			.addEventListener('click', () => {
-				const selectedLanguage = $('#defaultLanguage').val();
+				const selectedLanguage = $('#language').val();
 				// deepcode ignore OverwriteAssignment: this is the syntax for the new cookie
 				document.cookie = `${USER_LANG_KEY}=${selectedLanguage}; path=/`;
 				document.cookie = `${USER_LANG_SET_KEY}=true; path=/`;

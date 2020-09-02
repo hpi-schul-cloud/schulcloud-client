@@ -52,9 +52,7 @@
 	},
 	"lib": {
 		"form_ChangeLanguage" : {
-			"label": {
-				"changeDefaultLanguage": "Change default language"
-			},
+			"label": "Language",
 			"placeholder": {
 				"text": "Please select..."
 			}
@@ -64,7 +62,34 @@
 		"registationFailedAuthTitle": "Invalid registration link",
 		"registationFailedAuthParagraph": "Unfortunately the link is no longer valid. Request a new link from your teacher or school administrator.",
 		"registationFailedContinue": "The school cloud was embedded in a website. To continue ",
-		"registationFailedContinueLink": "open this page in a separate window"
+		"registationFailedContinueLink": "open this page in a separate window",
+		"_registration": {
+			"employee": {
+				"heading": {
+					"yourData": "Your Data"
+				},
+				"input": {
+					"repeatPassword": "Reset Password",
+					"teacherEmail": "lehrer@schul-cloud.org",
+					"yourEmailAddress": "Your E-Mail Address:"
+				},
+				"label": {
+					"repeatPassword": "Repeat Password:"
+				},
+				"text": {
+				}
+			},
+			"global": {
+				"button": {
+					"openLogin": "Open Login",
+					"sendAndGetStarted": "Send & Get Started"
+				},
+				"heading": {
+					"thankYouForRegistering": "Thank you for registering to {{shortTitle}}!",
+					"language": "Please select your language"
+				}
+			}
+		}
 	},
 	"login": {
 		"text": {
