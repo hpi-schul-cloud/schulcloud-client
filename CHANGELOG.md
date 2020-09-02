@@ -14,6 +14,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
   - SC-5955 Changed links to Lernen.cloud
   - SC-5644 navigation and the general structure of pages made more accessible (a11y)
 
+## [24.4.1] - 2020-9-01
+
+  - SC-6526 Fixed inserting files in CKEditor for topics
+
 ## [24.4.0] - 2020-8-31
 
   - SC-6019 Added tabbar to classes administration
