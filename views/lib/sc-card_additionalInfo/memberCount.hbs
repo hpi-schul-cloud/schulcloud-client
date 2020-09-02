@@ -1,5 +1,5 @@
 {{#if this.memberAmount includeZero=true}}
-    <a href="" class="btn-member" data-id="{{this._id}}" title="Teilnehmer">
+    <a href="" class="btn-member" data-id="{{this._id}}" title="Teilnehmer" aria-label="{{{ stripOnlyScript this.title }}} Teilnehmer {{this.memberAmount}}">
         {{this.memberAmount}}
         <i class="fa fa-user"></i>
     </a>
