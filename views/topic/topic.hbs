@@ -26,11 +26,15 @@
                     <div class="col-sm-12">
                         <div class="pull-right">
                             <a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
-                                class="btn btn-sm btn-add btn-secondary btn-create-share">
+                                class="btn btn-sm btn-add btn-secondary btn-create-share"
+                                role="button"
+                                aria-label="{{$t "topic._topic.text.shareWithOthersTeachers" }}">
                                 <i class="fa fa-share-alt"></i>
                             </a>
                             <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
-                                class="btn btn-secondary btn-sm btn-add">
+                                class="btn btn-secondary btn-sm btn-add"
+                                role="button"
+                                aria-label="{{$t "global.button.edit" }}">
                                 <i class="fa fa-pencil"></i>
                             </a>
                         </div>
