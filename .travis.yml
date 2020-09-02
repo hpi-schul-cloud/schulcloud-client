@@ -59,6 +59,8 @@ jobs:
         - IT_CLIENT_PORT=4000
       install:
         - echo "skipping install"
+      after_failure:
+        - cat /home/travis/.npm/_logs/*debug.log
     - stage: Build
       name: Build All Instances
       language: generic
