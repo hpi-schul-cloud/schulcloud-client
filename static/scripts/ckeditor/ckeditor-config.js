@@ -161,7 +161,7 @@ const ckeditorConfig = {
 		enablePreview: true,
 	},
 	filebrowser: {
-		browseUrl: '/files/my?CKEditor=evaluation',
+		browseUrl: '/files/my',
 	},
 };
 
