@@ -27,24 +27,26 @@
 </label>
 <label class="form-group">
 	<span class="control-label" for="email">
-		{{$t "help.form_Wish.label.replyEmail" }}
+		{{$t "help.global.label.replyEmail" }}
 	</span>
 	<input type="email" name="replyEmail" placeholder={{$t "help.placeholder.email"}} value="{{ userEmail }}" class="form-control" required>
 </label>
 <hr>
-<p>{{$t "help.global.label.furtherInformation" }}</p>
-<label>
-<div class="row">
-	<div class="col-xs-2">
-		<input type="checkbox" id="consent" name="consent" value="true" checked>
-	</div>
-	<div class="col-xs-10">
-		<span class="control-label" for="consent">
-            {{$t "help.form_Wish.text.iAgreeThatTheFollowingInformation" }}
-		</span>
-	</div>
-</div>
-</label>
+<fieldset>
+	<legend class="control-legend">{{$t "help.global.label.furtherInformation" }}</legend>
+	<label for="consentWish">
+		<div class="row">
+			<div class="col-xs-2">
+				<input type="checkbox" id="consentWish" name="consent" value="true" checked>
+			</div>
+			<div class="col-xs-10">
+				<span class="control-label">
+				  {{{$t "help.form_Wish.text.iAgreeThatTheFollowingInformation" }}}
+				</span>
+			</div>
+		</div>
+	</label>
+</fieldset>
 {{#ifEnv "FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED" "true"}}
 <br>
 <label class="form-group">

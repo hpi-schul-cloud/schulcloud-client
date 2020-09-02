@@ -6,6 +6,7 @@
     {{#content "scripts" mode="append"}}
         <script src="/scripts/coursesTimes.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "page" mode="prepend"}}
@@ -14,16 +15,32 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            {{> "lib/components/table" head=head body=body}}
+                            <div class="tabContainer mb-1" data-active-tab={{activeTab}}>
+                                <div class="tabs">
+                                    <a class="tab" data-tab="js-active" href="/administration/courses/?activeTab=active">
+                                        <span class="text">{{$t "courses.tab_label.currentCourses"}}</span>
+                                    </a>
+                                    <a class="tab" data-tab="js-archived" href="/administration/courses/?activeTab=archived">
+                                        <span class="text">{{$t "courses.tab_label.archivedCourses"}}</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        {{> "lib/components/pagination" settings=pagination }}
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/table" head=head limit=true body=coursesBody}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/pagination" settings=pagination }}
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
                             <a href="/courses/add?redirectUrl=/administration/courses" class="btn btn-primary">
-                                Kurs hinzufügen
+                                {{$t "administration.global.button.addCourse" }}
                             </a>
                         </div>
                     </div>
@@ -31,7 +48,8 @@
 
                 {{#embed "lib/components/modal-form" body=body method="delete" class="delete-modal"}}
                     {{#content "fields"}}
-                        {{> "administration/forms/form-delete-name"}}
+                        <p>{{$t "administration.global.text.areYouSureYouWantToDeleteTheFollowingCourse" }}</p>
+                        <input class="form-control" name="name" type="text" disabled />
                     {{/content}}
                 {{/embed}}
 

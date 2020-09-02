@@ -1,261 +1,247 @@
 {{#extend "lib/loggedin"}}
-	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="/styles/account/settings.css" />
-	{{/content}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/account/settings.css"/>
+    {{/content}}
 
-	{{#content "scripts" mode="append"}}
-		<script src="/scripts/settings.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-	{{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/settings.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    {{/content}}
 
-	{{#content "page"}}
+    {{#content "page"}}
 
-		{{message}}
-		{{error}}
-		<div class="route-account">
-			{{#unless sso}}
-				<form method="post">
-					{{#ifneq currentRole "Schüler"}}
-						<div class="form-group">
-							<label for="firstName">{{$t "account.global.label.firstName"}}</label>
-							<input id="firstName" type="text" class="form-control" name="firstName"
-								value="{{ ../currentUser.firstName }}">
-						</div>
+        {{message}}
+        {{error}}
 
-						<div class="form-group">
-							<label for="lastName">{{$t "account.global.label.lastName"}}</label>
-							<input id="lastName" type="text" class="form-control" name="lastName" value="{{ ../currentUser.lastName }}">
-						</div>
-					{{else}}
-						<input type="hidden" disabled name="firstName" value="{{ ../currentUser.firstName }}">
-						<input type="hidden" disabled name="lastName" value="{{ ../currentUser.lastName }}">
-					{{/ifneq}}
+        <div class="route-account">
+            {{#unless sso}}
+            <form method="post">
+                {{#ifneq currentRole "Schüler"}}
+                <div class="form-group">
+                    <label for="firstName">{{$t "global.label.firstNameColon" }}</label>
+                    <input id="firstName" type="text" class="form-control" name="firstName" value="{{ ../currentUser.firstName }}">
+                </div>
 
-					<div class="form-group">
-						<label for="email">{{$t "account.global.label.emailAddress" }}</label>
-						<input id="email" type="email" class="form-control" name="email" value="{{ currentUser.email }}">
-					</div>
-
-					<div class="form-group">
-						<label for="settings_current_password">{{$t "account.global.label.currentPassword" }} <sup>*</sup></label>
-						<div class="input-group show_hide_password">
-							<input type="password" autocomplete="current-password" id="settings_current_password"
-								data-testid="settings_password_current" name="password" class="form-control"
-								placeholder="***************" required>
-							<div class="input-group-addon">
-								<a href="" title="{{$t "login.anchor.title.show_password"}}" style="cursor: pointer;">
-									<i class="fa fa-eye-slash"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{{#userHasPermission "PASSWORD_EDIT"}}
-						<div class="form-group">
-							<label for="passwordNew">{{$t "account.global.label.newPassword"}}</label>
-							<div class="input-group show_hide_password">
-								<input type="password" autocomplete="new-password" name="passwordNew" id="passwordNew"
-									data-testid="settings_password_new" class="form-control" placeholder="***************"
-									pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-									title="{{> "lib/forms/password-hint" plaintext=true}}">
-								<div class="input-group-addon">
-									<a href="" title="{{$t "login.anchor.title.show_password"}}" style="cursor: pointer;"><i
-											class="fa fa-eye-slash" aria-hidden="true"></i></a>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="password_control">{{$t "account.global.label.repeatNewPassword"}}</label>
-							<div class="input-group show_hide_password">
-								<input type="password" autocomplete="new-password" name="password_control" id="password_control"
-									data-testid="settings_password_control" class="form-control" placeholder="***************"
-									title="{{> "lib/forms/password-hint" plaintext=true}}">
-								<div class="input-group-addon">
-									<a href="" title="{{$t "login.anchor.title.show_password"}}" style="cursor: pointer;"><i
-											class="fa fa-eye-slash" aria-hidden="true"></i></a>
-								</div>
-							</div>
-						</div>
-					{{/userHasPermission}}
-
-					{{> "lib/components/csrfInput"}}
-
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary" data-testid="submit_new_password_btn">
-							{{$t "account.button.saveAccountSettings"}}
-						</button>
-					</div>
-				</form>
-
-				<input type="hidden" name="userId" value="{{userId}}" />
-
-				<span class="hint">
-					<span class="star-reference text-muted">*</span>
-					{{> "lib/forms/password-hint" plaintext=false style="display: inline;" class="text-muted"}}
-				</span>
+                <div class="form-group">
+                    <label for="lastName">{{$t "global.label.lastNameColon" }}</label>
+                    <input id="lastName" type="text" class="form-control" name="lastName" value="{{ ../currentUser.lastName }}">
+                </div>
 				{{else}}
-					<div>
-						<div class="form-group">
-							<label for="fName">{{$t "account.global.label.firstName"}}</label>
-							<input id="fName" type="text" class="form-control" value="{{ currentUser.firstName }}" readonly>
-						</div>
-						<div class="form-group">
-							<label for="lName">{{$t "account.global.label.lastName"}}</label>
-							<input id="lName" type="text" class="form-control" value="{{ currentUser.lastName }}" readonly>
-						</div>
-						<div class="form-group">
-							<label for="emailAddress" >{{$t "account.global.label.emailAddress"}}</label>
-							<input id="emailAddress" type="email" class="form-control" value="{{ currentUser.email }}" readonly>
-						</div>
-						<p class="warning">
-						{{$t "account.text.centralIdentityManagement" }}
-						</p>
-					</div>
-			{{/unless}}
+					<input type="hidden" disabled name="firstName" value="{{ ../currentUser.firstName }}">
+					<input type="hidden" disabled name="lastName" value="{{ ../currentUser.lastName }}">
+                {{/ifneq}}
 
-			{{#unless (userHasRole "student")}}
+                <div class="form-group">
+                    <label for="email">{{$t "global.label.emailAddress" }}</label>
+                    <input id="email" type="email" class="form-control" name="email" value="{{ currentUser.email }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="settings_current_password">{{$t "account.global.label.currentPassword" }} <sup>*</sup></label>
+                    <div class="input-group show_hide_password">
+                        <input type="password" autocomplete="current-password" id="settings_current_password" data-testid="settings_password_current" name="password" class="form-control"
+                        placeholder="***************" required>
+                        <div class="input-group-addon">
+                            <a href="" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                {{#userHasPermission "PASSWORD_EDIT"}}
+                <div class="form-group">
+                    <label for="passwordNew">{{$t "account.global.label.newPassword" }}</label>
+                    <div class="input-group show_hide_password">
+                        <input type="password" autocomplete="new-password" name="passwordNew" id="passwordNew" data-testid="settings_password_new" class="form-control"
+                            placeholder="***************"
+                            pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+                            title="{{> "lib/forms/password-hint" plaintext=true}}">
+                        <div class="input-group-addon">
+                            <a href="" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password_control">{{$t "account.global.label.repeatNewPassword" }}</label>
+                    <div class="input-group show_hide_password">
+                        <input type="password" autocomplete="new-password" name="password_control" id="password_control" data-testid="settings_password_control"
+                        class="form-control" placeholder="***************"
+                        title="{{> "lib/forms/password-hint" plaintext=true}}">
+                        <div class="input-group-addon">
+                            <a href="" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {{/userHasPermission}}
+
+                {{> "lib/components/csrfInput"}}
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" data-testid="submit_new_password_btn">
+                        {{$t "account.button.saveAccountSettings" }}
+                    </button>
+                </div>
+            </form>
+
+            <input type="hidden" name="userId" value="{{userId}}"/>
+
+            <span class="hint">
+                <span class="star-reference text-muted">*</span>
+                {{> "lib/forms/password-hint" plaintext=false style="display: inline;" class="text-muted"}}
+            </span>
+            {{else}}
+            <div>
+                <div class="form-group">
+                    <label for="fName">{{$t "global.label.firstNameColon" }}</label>
+                    <input id="fName" type="text" class="form-control" value="{{ currentUser.firstName }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="lName">{{$t "global.label.lastNameColon" }}</label>
+                    <input id="lName" type="text" class="form-control" value="{{ currentUser.lastName }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="emailAddress">{{$t "global.label.emailAddress" }}</label>
+                    <input id="emailAddress" type="email" class="form-control" value="{{ currentUser.email }}" readonly>
+                </div>
+                <p class="warning">
+					{{$t "account.text.centralIdentityManagement"}}
+                </p>
+            </div>
+            {{/unless}}
+
+            {{#unless (userHasRole "student")}}
 				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
-					{{else}}
-					<form method="post" action="/account/teamSettings">
-						<h2 class="h5">{{$t "account.teams.headline.teams"}}</h2>
-						<div class="form-group">
-							{{$t "account.teams.text.visibilityTeamInvitations"}}
-							<p class="text-muted">Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{theme.short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.</p>
+				{{else}}
+                <form method="post" action="/account/teamSettings">
+                <h2 class="h5">{{$t "global.link.teams"}}</h2>
+                    <div class="form-group">
+                        {{$t "account.teams.text.visibilityTeamInvitations" }}
+                        <p class="text-muted">{{{$t "account.teams.text.hint" (dict "short_title" theme.short_title )}}}</p>
 
-							{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>Die Sichtbarkeit im
-								zentralen Verzeichnis ist systemweit für alle Lehrer aktiviert und kann nicht deaktiviert
-								werden.</label>{{/ifConfig}}
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>{{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled"}}</label>{{/ifConfig}}
 
-							{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox"
-									name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> Sichtbarkeit
-								im zentralen Verzeichnis aktivieren</label>{{/ifConfig}}
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> {{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-in"}}</label>{{/ifConfig}}
 
-							{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox"
-									name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> Sichtbarkeit
-								im zentralen Verzeichnis deaktivieren</label>{{/ifConfig}}
-						</div>
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> {{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out"}}</label>{{/ifConfig}}
+                    </div>
 
-						{{> "lib/components/csrfInput"}}
+                    {{> "lib/components/csrfInput"}}
 
-						<div class="form-group">
-							<button type="submit" class="btn btn-primary">
-								{{$t "account.button.saveTeamSettings"}}
-							</button>
-						</div>
-					</form>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            {{$t "account.button.saveTeamSettings" }}
+                        </button>
+                    </div>
+                </form>
 				{{/ifConfig}}
-			{{/unless}}
-		</div>
+            {{/unless}}
+        </div>
 
-		{{#if false}}
-			<!-- the following is hidden until the feature is fixed -->
-			<div class="panel-group notification-div">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h2 class="h4 panel-title">
-							<a data-toggle="collapse" href="#collapse1"
-								class="collapse-toggle"><label>{{$t "account.label.notificationsettings"}}</label><i
-									class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
-						</h2>
-					</div>
-					<div id="collapse1" class="panel-collapse collapse">
+        {{#if false}} <!-- the following is hidden until the feature is fixed -->
+            <div class="panel-group notification-div">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="h4 panel-title">
+                            <a data-toggle="collapse" href="#collapse1" class="collapse-toggle"><label>{{$t "account.label.notificationsettings" }}</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+                    </h2>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
 
-						<div class="notification">
-							{{#if device}}
-								<table width="100%" cellpadding="5px">
-									<thead>
-										<th></th>
-										<th><label>{{$t "account.global.label.name"}}</label></th>
-										<th><label>{{$t "account.global.label.type"}}</label></th>
-										<th><label>{{$t "account.global.label.operatingSystem"}}</label></th>
-									</thead>
-									<tbody>
-										{{#each device}}
-											<tr id="{{this._id}}">
-												<td>{{#if this.selected}}<a href="/account/settings/device" target="_blank" aria-label="{{$ "global.label.newTab"}}"
-														data-method="delete" data-device-name="{{this.name}}"
-														data-device-id="{{this.token}}">
-														<i aria-hidden="true" class="fa fa-trash-o"></i></a>
-													{{/if}}</td>
-												<td class="form-group">{{this.name}}</td>
-												<td class="form-group">{{this.type}}</td>
-												<td class="form-group">{{this.OS}}</td>
-											</tr>
-										{{/each}}
-									</tbody>
-								</table>
-							{{else}}
-								<h3 class="h5 text-muted text-center">
-									<span>{{$t "account.text.noDeviceEntered"}}</span>
-								</h3>
-							{{/if}}
-							<div class="panel-footer">
-								<button type="button" class="btn btn-default btn-device" data-method="requestpermission">
-									<i class="fa fa-bell" aria-hidden="true"></i>
-									{{$t "account.button.activateNotifications"}}
-								</button>
+                        <div class="notification">
+                            {{#if device}}
+                                <table width="100%" cellpadding="5px">
+                                    <thead>
+                                    <th></th>
+                                    <th><label>{{$t "account.global.text.name" }}</label></th>
+                                    <th><label>{{$t "global.label.type" }}</label></th>
+                                    <th><label>{{$t "account.global.label.operatingSystem" }}</label></th>
+                                    </thead>
+                                    <tbody>
+                                    {{#each device}}
+                                        <tr id="{{this._id}}">
+                                        {{#if this.selected}}<a href="/account/settings/device" target="_blank" aria-label="{{$ "global.label.newTab"}}" data-device-id="{{this.token}}">
+                                                <i aria-hidden="true" class="fa fa-trash-o"></i>
+                                        </a>
+                                            {{/if}}</td>
+                                            <td class="form-group">{{this.name}}</td>
+                                            <td class="form-group">{{this.type}}</td>
+                                            <td class="form-group">{{this.OS}}</td>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                            {{else}}
+                                <h3 class="h5 text-muted text-center">
+                                    <span>{{$t "account.text.noDeviceEntered" }}</span>
+                                </h3>
+                            {{/if}}
+                            <div class="panel-footer">
+                                <button type="button" class="btn btn-default btn-device"
+                                        data-method="requestpermission">
+                                    <i class="fa fa-bell" aria-hidden="true"></i>
+                                    {{$t "account.button.activateNotifications" }}
+                                </button>
 
-								<button type="button" class="btn btn-default send-test-notification">
-									<i class="fa fa-paper-plane" aria-hidden="true"></i>
-									{{$t "account.button.sendTestNotification"}}
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		{{/if}}
+                                <button type="button" class="btn btn-default send-test-notification">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    {{$t "account.button.sendTestNotification" }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
 
 		{{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
 			{{#content "body"}}
+
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary btn-close">
 						{{$t "global.button.cancel" }}
 					</button>
 
 					<button type="submit" class="btn btn-primary btn-submit">
-						{{$t "global.button.delete" }}
+						{{$t "global.headline.delete" }}
 					</button>
 				</div>
 			{{/content}}
 		{{/embed}}
-	<br />
-	<div class="panel-group oauth2-consents">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h2 class="h4 panel-title">
-					<a data-toggle="collapse" href="#collapse2"
-						class="collapse-toggle">{{$t "account.global.label.thirdPartyLogins"}}<i
-							class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
-				</h2>
-			</div>
-			<div id="collapse2" class="panel-collapse collapse">
-				<div class="notification">
-					{{#if session}}
-						<table width="100%" cellpadding="5px">
-							<thead>
+		<br />
+		<div class="panel-group oauth2-consents">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="h4 panel-title">
+						<a data-toggle="collapse" href="#collapse2" class="collapse-toggle">{{$t "account.global.text.thirdPartyLogins"}}<i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+					</h2>
+				</div>
+				<div id="collapse2" class="panel-collapse collapse">
+
+					<div class="notification">
+						{{#if session}}
+							<table width="100%" cellpadding="5px">
+								<thead>
 								<th></th>
 								<th><label>{{$t "account.label.providers"}}</label></th>
-							</thead>
-							<tbody>
+								</thead>
+								<tbody>
 								{{#each session}}
 									<tr id="{{this.consent_request.client.client_id}}">
 										<td><a href="/account/oauth2/revoke/{{this.consent_request.client.client_id}}">
-												<i aria-hidden="true" class="fa fa-trash-o"></i></a></td>
+											<i aria-hidden="true" class="fa fa-trash-o"></i></a></td>
 										<td class="form-group">{{this.consent_request.client.client_name}}</td>
 									</tr>
 								{{/each}}
-							</tbody>
-						</table>
-					{{else}}
-						<h3 class=" h5 text-muted text-center">
-							<span>{{$t "account.text.noThirdPartyProvidersUsed"}}</span>
-						</h3>
-					{{/if}}
+								</tbody>
+							</table>
+						{{else}}
+							<h3 class=" h5 text-muted text-center">
+								<span>{{$t "account.global.text.noThirdPartyProvidersUsed"}}</span>
+							</h3>
+						{{/if}}
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	{{/content}}
+    {{/content}}
 {{/extend}}

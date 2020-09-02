@@ -1,10 +1,9 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 <div class="form-group">
-    <label for="invitation-link">Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an: </label>
+    <label for="invitation-link">{{$t "administration.form_InvitationStudent.label.distributeLinkToInvite" }} </label>
     <p>
-        <b>Schüler unter {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahre:</b> die Eltern <br/>
-        <b>Schüler ab {{CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS}} Jahre:</b> an die Schüler selbst <br/>
+        {{{$t "administration.form_InvitationStudent.text.studentUnderYears" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}}
     </p>
-    <p>Bevor die Nutzung der HPI Schul-Cloud möglich ist, müssen Eltern und/oder Schüler den elektronischen Einwilligungsprozess durchlaufen haben.</p>
+    <p>{{$t "administration.form_InvitationStudent.text.beforeTheSchoolCloudCanBeUsed" }}</p>
     <input id="invitation-link" class="form-control" name="invitation" type="text" />
 </div>

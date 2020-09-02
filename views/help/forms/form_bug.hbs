@@ -2,11 +2,11 @@
 <input type="hidden" name="type" value="problem">
 
 <label class="form-group">
-	<label class="control-label">{{$t "help.global.label.briefDescriptionOfTheProblem" }}</label>
+	<span class="control-label">{{$t "help.global.label.briefDescriptionOfTheProblem" }}</span>
 	<input class="form-control" type="text" name="title" placeholder="{{$t "help.placeholder.briefDescriptionOfTheProblem" }}" required>
 </label>
 <label class="form-group">
-	<label class="control-label">{{$t "help.form_bug.label.problemDescription" }}</label>
+	<span class="control-label">{{$t "help.form_bug.label.problemDescription" }}</span>
 <textarea class="form-control" cols="50" name="problemDescription" rows="14" required></textarea>
 </label>
 <label class="form-group">
@@ -15,24 +15,26 @@
 </label>
 <label class="form-group">
 	<span class="control-label">
-		{{$t "help.form_bug.label.emailAddressForAnyQueries" }}
+		{{$t "help.global.label.replyEmail" }}
 	</span>
 	<input class="form-control" type="email" name="replyEmail" placeholder="{{$t "help.placeholder.email"}}" value="{{ userEmail }}" required>
 </label>
 <hr>
-<p>{{$t "help.global.label.furtherInformation" }}</p>
-<label>
-<div class="row">
-	<div class="col-xs-2">
-		<input type="checkbox" id="consent" name="consent" value="true" checked>
-	</div>
-	<div class="col-xs-10">
-		<span class="control-label" for="consent">
-			{{{$t "help.form_bug.text.iAgreeThatTheFollowingInformationMayBe" }}}
-		</span>
-	</div>
-</div>
-</label>
+<fieldset>
+	<legend class="control-legend">{{$t "help.global.label.furtherInformation" }}</legend>
+    <label for="consent">
+        <div class="row">
+	        <div class="col-xs-2">
+		        <input type="checkbox" id="consent" name="consent" value="true" checked>
+	        </div>
+	        <div class="col-xs-10">
+		        <span class="control-label">
+			    {{{$t "help.form_bug.text.iAgreeThatTheFollowingInformationMayBe" }}}
+		        </span>
+	        </div>
+        </div>
+    </label>
+</fieldset>
 {{#ifEnv "FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED" "true"}}
 <br>
 <label class="form-group">

@@ -158,7 +158,7 @@ router.all('/', async (req, res, next) => {
 			baseUrl: '/news/?p={{page}}',
 		};
 
-		let title = res.$t('news.headline.news');
+		let title = res.$t('global.headline.news');
 		// ToDo: Hier kommen noch News für Kurse und Klassen rein.
 		if (context === 'teams') {
 			title = res.$t('news.headline.newsTeam');

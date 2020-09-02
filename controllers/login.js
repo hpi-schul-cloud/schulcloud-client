@@ -10,7 +10,6 @@ const { Configuration } = require('@schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
-const userConsentVersions = require('../helpers/consentVersions');
 
 const logger = require('../helpers/logger');
 
@@ -168,46 +167,40 @@ const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
 }).catch(() => undefined); // fixme this is a very bad error catch
 // so we can do proper redirecting and stuff :)
 
-router.get('/login/success', authHelper.authChecker, (req, res, next) => {
+router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 	if (res.locals.currentUser) {
-		const user = res.locals.currentUser;
 		if (res.locals.currentPayload.forcePasswordChange) {
 			return res.redirect('/forcePasswordChange');
 		}
-		api(req).get('/consents/', { qs: { userId: user._id } })
-			.then((consents) => {
-				if (consents.data.length === 0) {
-					// user has no consent; create one and try again to get the proper redirect.
-					return api(req).post('/consents/', { json: { userId: user._id } })
-						.then(() => {
-							res.redirect('/login/success');
-						});
-				}
-				const consent = consents.data[0];
-				const redirectUrl = determineRedirectUrl(req);
-				// check consent versions
-				return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
-					if ((consent.access && !consentUpdates.haveBeenUpdated) || req.session.login_challenge) {
-						return res.redirect(redirectUrl);
-					}
-					// make sure fistLogin flag is not set
-					return res.redirect('/firstLogin');
-				});
-			})
-			.catch(next);
-	} else {
-		// if this happens: SSO
-		const { accountId, systemId } = (res.locals.currentPayload || {});
 
-		ssoSchoolData(req, systemId).then((school) => {
-			if (school === undefined) {
-				const redirectUrl = determineRedirectUrl(req);
-				res.redirect(redirectUrl);
-			} else {
-				res.redirect(`/registration/${school._id}/sso/${accountId}`);
-			}
-		});
+		const user = res.locals.currentUser;
+		const redirectUrl = determineRedirectUrl(req);
+		// check consent versions
+		const { haveBeenUpdated, consentStatus } = await api(req)
+			.get(`/consents/${user._id}/check/`, {
+				qs: {
+					simple: true,
+				},
+			});
+
+		if ((consentStatus === 'ok' && haveBeenUpdated === false) || req.session.login_challenge) {
+			return res.redirect(redirectUrl);
+		}
+		// make sure fistLogin flag is not set
+		return res.redirect('/firstLogin');
 	}
+	// if this happens: SSO
+	const { accountId, systemId } = (res.locals.currentPayload || {});
+
+	ssoSchoolData(req, systemId).then((school) => {
+		if (school === undefined) {
+			const redirectUrl = determineRedirectUrl(req);
+			res.redirect(redirectUrl);
+		} else {
+			res.redirect(`/registration/${school._id}/sso/${accountId}`);
+		}
+	});
+	return null;
 });
 
 router.get('/login/systems/:schoolId', (req, res, next) => {

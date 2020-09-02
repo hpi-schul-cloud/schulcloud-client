@@ -1,15 +1,15 @@
 <header class="header">
 	<nav class="container">
-		<a id="title" href="/" aria-label="{{$t "global.title.landing"}}">
+		<a id="title" href="/" aria-label="{{$t "global.link.landing"}}">
 			<img class="logo" alt="{{theme.title}}" src="/images/logo/HPI-Schul-Cloud_Wort-Bildmarke-Banner_transparent.svg" />
 		</a>
 		{{#unless hideMenu}}
 			<ul class="nav">
 				<li>
-					<a class="nav-link" href="/about">{{$t "home.header.link.aboutUs"}}</a>
+					<a class="nav-link" href="/about">{{$t "global.link.aboutTheProject"}}</a>
 				</li>
                 <li>
-                	<a class="nav-link" href="https://blog.hpi-schul-cloud.de/erste-schritte/" target="_blank">{{$t "home.header.link.firstSteps"}}</a>
+                	<a class="nav-link" href="https://blog.hpi-schul-cloud.de/erste-schritte/" target="_blank">{{$t "global.link.firstSteps"}}</a>
                 </li>
 				<li>
 					<a class="nav-link" href="https://blog.hpi-schul-cloud.de/" target="_blank">{{$t "home.header.link.blog"}}</a>
@@ -23,13 +23,13 @@
 					</a>
 				</li>
 				<li class="hidden-xs-down">
-					<a class="btn-primary-nuxt" href="/community" style="margin-left: 8px;">{{$t "home.header.link.register"}}</a>
+					<a class="btn-primary-nuxt" href="/community" style="margin-left: 8px;">{{$t "global.link.register"}}</a>
 				</li>
 			</ul>
 		{{/unless}}
 	</nav>
 	<div class="text-center hidden-sm-up" style="margin-bottom: 10px;">
 		<a class="btn btn-sm btn-outline btn-primary" href="/loginRedirect"><i class="fa fa-sign-in" aria-hidden="true"></i> {{$t "home.header.link.login"}}</a>
-		<a class="btn btn-sm btn-primary" href="/community">{{$t "home.header.link.register"}}</a>
+		<a class="btn btn-sm btn-primary" href="/community">{{$t "global.link.register"}}</a>
 	</div>
 </header>

@@ -15,11 +15,16 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (filterModule) {
 		filterModule.addEventListener('newFilter', (e) => {
 			const filter = e.detail;
-			const newurl = `?filterQuery=${
-				escape(JSON.stringify(filter[0]))
-			}&p=${
-				getQueryParameterByName('p')}`;
-			softNavigate(newurl, '.ajaxcontent', '.pagination');
+
+			const filterQuery = ` ?filterQuery=${escape(JSON.stringify(filter[0]))}`;
+
+			let page = getQueryParameterByName('p');
+			page = page ? `&p=${page}` : '';
+
+			let showTab = getQueryParameterByName('showTab');
+			showTab = showTab ? `&showTab=${showTab}` : '';
+
+			softNavigate(`${filterQuery}${page}${showTab}`, '.ajaxcontent', '.pagination');
 		});
 		document
 			.querySelector('.filter')
@@ -29,8 +34,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('softNavigate', (event) => {
 	const { target_url: targetUrl } = event.detail;
-	const param = getQueryParameterByName('p', targetUrl);
-	updateQueryStringParameter('p', param);
+
+	const page = getQueryParameterByName('p', targetUrl);
+	updateQueryStringParameter('p', page);
+
+	const showTab = getQueryParameterByName('showTab', targetUrl);
+	updateQueryStringParameter('showTab', showTab);
 });
 
 $(document).ready(() => {
@@ -55,7 +64,7 @@ $(document).ready(() => {
 		populateModalForm($terminateSchoolYearModal, {
 			title: $t('administration.school.headline.finishSchoolYear'),
 			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('administration.school.button.yes'),
+			submitLabel: $t('global.button.yes'),
 		});
 		$terminateSchoolYearModal.appendTo('body').modal('show');
 	});
@@ -104,7 +113,7 @@ $(document).ready(() => {
 	$('.btn-add-modal').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addSystemsModal, {
-			title: $t('administration.school.headline.add'),
+			title: $t('global.button.add'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
 		});
@@ -114,7 +123,7 @@ $(document).ready(() => {
 	$('.btn-add-modal--rss').on('click', (e) => {
 		e.preventDefault();
 		populateModalForm($addRSSModal, {
-			title: $t('administration.school.headline.add'),
+			title: $t('global.button.add'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
 		});
@@ -138,7 +147,7 @@ $(document).ready(() => {
 			result.createdAt = new Date(result.createdAt).toLocaleString();
 			populateModalForm($editModal, {
 				action: entry,
-				title: $t('global.headline.edit'),
+				title: $t('global.button.edit'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.save'),
 				fields: result,
@@ -201,7 +210,7 @@ $(document).ready(() => {
 				action: entry,
 				title: $t('global.headline.delete'),
 				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('global.button.delete'),
+				submitLabel: $t('global.headline.delete'),
 				fields: result,
 			});
 
@@ -221,7 +230,7 @@ $(document).ready(() => {
 				fields: { url: result.url },
 				title: $t('global.headline.delete'),
 				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('global.button.delete'),
+				submitLabel: $t('global.headline.delete'),
 			});
 
 			$deleteRSSModal.modal('show');

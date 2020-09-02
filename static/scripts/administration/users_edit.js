@@ -55,13 +55,14 @@ $(document).ready(() => {
 
 	$('.btn-delete').on('click', (e) => {
 		e.preventDefault();
+		const displayName = `${$('input[name="firstName"]').val()} ${$('input[name="lastName"]').val()}`;
 		populateModalForm($deleteModal, {
 			action: '',
 			title: $t('administration.users_edit.headline.deleteUser'),
 			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.delete'),
+			submitLabel: $t('global.headline.delete'),
 			fields: {
-				displayName: $('input[name="displayName"]').val(),
+				displayName,
 			},
 		});
 		$deleteModal.appendTo('body').modal('show');
@@ -156,7 +157,7 @@ $(document).ready(() => {
 			},
 			success(linkData) {
 				populateModalForm($invitationModal, {
-					title: $t('administration.users_edit.headline.generatedLink'),
+					title: $t('global.headline.invitationLinkGenerated'),
 					closeLabel: $t('global.button.cancel'),
 					submitLabel: $t('global.button.save'),
 					fields: { invitation: linkData.shortLink },

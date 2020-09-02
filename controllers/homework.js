@@ -520,10 +520,10 @@ const overview = (titleKey) => (req, res, next) => {
 				const courseList = courses.map((course) => [course._id, course.name]);
 				const filterSettings =						[{
 					type: 'sort',
-					title: res.$t('homework.headline.sorting'),
-					displayTemplate: res.$t('homework.label.sortBy'),
+					title: res.$t('global.headline.sorting'),
+					displayTemplate: res.$t('global.label.sortBy'),
 					options: [
-						['createdAt', res.$t('homework.label.sortByCreationDate')],
+						['createdAt', res.$t('global.label.creationDate')],
 						['updatedAt', res.$t('homework.label.sortByLastUpdate')],
 						['availableDate', res.$t('homework.label.sortByAvailabilityDate')],
 						['dueDate', res.$t('homework.label.sortByDueDate')],
@@ -532,7 +532,7 @@ const overview = (titleKey) => (req, res, next) => {
 				},
 				{
 					type: 'select',
-					title: res.$t('homework.headline.courses'),
+					title: res.$t('global.sidebar.link.administrationCourses'),
 					displayTemplate: res.$t('homework.label.filterCourses'),
 					property: 'courseId',
 					multiple: true,
@@ -596,8 +596,8 @@ const overview = (titleKey) => (req, res, next) => {
 	});
 };
 
-router.get('/', overview('homework.headline.tasks'));
-router.get('/asked', overview('homework.headline.assignedTasks'));
+router.get('/', overview('global.headline.tasks'));
+router.get('/asked', overview('global.headline.assignedTasks'));
 router.get('/private', overview('homework.headline.drafts'));
 router.get('/archive', overview('homework.headline.archivedTasks'));
 
@@ -629,7 +629,7 @@ router.get('/new', (req, res, next) => {
 		}
 		// Render overview
 		res.render('homework/edit', {
-			title: res.$t('homework._task.headline.addTask'),
+			title: res.$t('global.button.addTask'),
 			submitLabel: res.$t('global.button.add'),
 			closeLabel: res.$t('global.button.cancel'),
 			method: 'post',
