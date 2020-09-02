@@ -29,7 +29,7 @@ const createFilebrowserModal = (editor, t, dialogTitle, onCreate, additionalInpu
 
 	ckeditorFilebrowserDialog.on('shown.bs.modal', () => {
 		document.getElementById('browseServerButton').addEventListener('click', () => {
-			const dialogPageUrl = `${editor.config.get('filebrowser.browseUrl')}?CKEditor=evaluation`;
+			const dialogPageUrl = `${editor.config.get('filebrowser.browseUrl')}?CKEditor=true`;
 			window.open(dialogPageUrl, '_blank', 'width=700, height=500');
 		});
 	});
