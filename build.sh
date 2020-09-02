@@ -57,6 +57,13 @@ function buildandpush {
   docker push schulcloud/schulcloud-client-int:$DOCKERTAG
   docker push schulcloud/schulcloud-client-int:$GIT_SHA
   fi
+
+  # If branch is develop, add and push additional docker tags
+	if [[ "$TRAVIS_BRANCH" = "develop" ]]
+	then
+		docker tag schulcloud/schulcloud-client:$DOCKERTAG schulcloud/schulcloud-client:develop_latest
+		docker push schulcloud/schulcloud-client:develop_latest
+	fi
 }
 
 # write version file
