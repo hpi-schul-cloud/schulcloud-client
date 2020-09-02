@@ -15,7 +15,7 @@ const createFilebrowserModal = (editor, t, dialogTitle, onCreate, additionalInpu
 		submitLabel: t('OK'),
 	});
 
-	const dialogContent = `
+	const dialogContent = `<label for="url-input" style="display: none">${t('URL')}:</label>
 		<input type="hidden" id="url-input">
 		<button type="button" id="browseServerButton">${t('Browse Server')}</button><br>${additionalInput}`;
 
