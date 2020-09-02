@@ -481,7 +481,7 @@ $(document).ready(() => {
 		populateRenameModal(
 			oldName,
 			`/files/fileModel/${fileId}/rename`,
-			'Datei umbenennen',
+			$t('files.label.renameFile'),
 		);
 	}
 	$('.file-name-edit').click(fileNameEditClickHandler);

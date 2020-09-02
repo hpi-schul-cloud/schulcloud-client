@@ -2952,6 +2952,7 @@
 			"label": {
 				"descriptionEtherpad": "Beschreibung des Etherpads",
 				"descriptionNeXboard": "Beschreibung des neXboards",
+				"internLink" : "Interner Link",
 				"lockSection": "Abschnitt sperren",
 				"nameOfEtherpad": "Name des Etherpads",
 				"nameOfNeXboard": "Name des neXboards",
