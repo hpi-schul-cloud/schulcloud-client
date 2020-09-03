@@ -8,7 +8,9 @@ const api = require('../api');
 const i18nDebug = Configuration.get('I18N__DEBUG');
 const fallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
 const language = Configuration.get('I18N__DEFAULT_LANGUAGE');
-const availableLanuages = (Configuration.get('I18N__AVAILABLE_LANGUAGES') || '').split(',').map((value) => value.trim());
+const availableLanguages = (Configuration.get('I18N__AVAILABLE_LANGUAGES') || '')
+	.split(',')
+	.map((value) => value.trim());
 
 const localeDir = path.join(__dirname, '../locales');
 
@@ -19,7 +21,7 @@ i18next
 		initImmediate: false,
 		lng: language,
 		fallbackLng: fallbackLanguage,
-		supportedLngs: availableLanuages || false,
+		supportedLngs: availableLanguages || false,
 		backend: {
 			loadPath: `${localeDir}/{{lng}}.json`,
 		},
@@ -75,7 +77,7 @@ const getInstance = () => (key, options = {}) => i18next.t(key, {
 });
 
 const changeLanguage = (lng) => {
-	if (availableLanuages.includes(lng)) {
+	if (availableLanguages.includes(lng)) {
 		return i18next.changeLanguage(lng);
 	}
 	return false;
@@ -83,7 +85,7 @@ const changeLanguage = (lng) => {
 
 module.exports = {
 	language,
-	availableLanuages,
+	availableLanguages,
 	getInstance,
 	changeLanguage,
 	getCurrentLanguage,
