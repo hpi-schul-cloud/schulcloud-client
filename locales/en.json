@@ -52,7 +52,9 @@
 	},
 	"lib": {
 		"form_ChangeLanguage" : {
-			"label": "Language",
+			"label": {
+				"language": "Language"
+			},
 			"placeholder": {
 				"text": "Please select..."
 			}

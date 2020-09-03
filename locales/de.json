@@ -2212,7 +2212,9 @@
 			}
 		},
 		"form_ChangeLanguage" : {
-			"label": "Sprache",
+			"label": {
+				"language": "Sprache"
+			},
 			"placeholder": {
 				"text": "Bitte wählen..."
 			}
