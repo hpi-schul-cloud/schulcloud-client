@@ -69,9 +69,9 @@
 								<div class="popup-overlay" id="{{@index}}">
 
 									<div class="popup-content" id="{{@index}}">
-										<a class="btn btn-secondary btn-file-share-view" data-file-id="{{../this._id}}" data-file-attribute="view" style="width: 100%">{{$t "files.button.edit"}}</a>
+										<a class="btn btn-secondary btn-file-share-view" data-file-id="{{../this._id}}" data-file-attribute="view" style="width: 100%">{{$t "global.button.edit"}}</a>
 										<a class="btn btn-secondary btn-file-share-download" data-file-id="{{../this._id}}" data-file-attribute="download" style="width: 100%">{{$t "files.button.download"}}</a>
-										<a class="btn btn-secondary btn-file-share-close" style="width: 100%">{{$t "files.label.close"}}</a>
+										<a class="btn btn-secondary btn-file-share-close" style="width: 100%">{{$t "global.button.close"}}</a>
 									</div>
 								</div>
 
@@ -106,9 +106,10 @@
 	</div>
 </section>
 
-{{#embed "lib/components/modal-form" class="edit-modal" title=($t "files.headline.newFolder") closeLabel=($t "global.button.cancel") submitLabel=($t "files.button.createNewFolder")}}
+{{#embed "lib/components/modal-form" class="edit-modal" title=($t "files.headline.newFolder") closeLabel=($t "global.button.cancel") submitLabel=($t "global.button.createFolder")}}
 	{{#content "fields"}}
-		<input type="text" class="form-control" name="new-dir-name" placeholder="{{$t "files.input.foldername"}}" required />
+        <label for="newDirName" hidden>{{$t "files.input.foldername"}}</label>
+		<input id="newDirName" type="text" class="form-control" name="new-dir-name" placeholder="{{$t "files.input.foldername"}}" required />
 	{{/content}}
 {{/embed}}
 
@@ -121,7 +122,7 @@
 			</button>
 
 			<button type="submit" class="btn btn-primary btn-submit">
-				{{$t "global.button.delete" }}
+				{{$t "global.headline.delete" }}
 			</button>
 		</div>
 	{{/content}}

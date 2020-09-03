@@ -183,6 +183,11 @@ const checkIfUserIsForcedToChangePassword = (req, res) => {
 
 
 const restrictSidebar = (req, res) => {
+	// If sidebarItems do not exist, render without avaible menü points.
+	// It do not affect authentication logins and so on.
+	if (!res.locals.sidebarItems) {
+		res.locals.sidebarItems = [];
+	}
 	res.locals.sidebarItems = res.locals.sidebarItems.filter((item) => {
 		if (!item.permission) return true;
 
@@ -264,7 +269,7 @@ const login = (payload = {}, req, res, next) => {
 
 		// Email Domain Blocked
 		if (e.statusCode === 400 && e.error.message === 'EMAIL_DOMAIN_BLOCKED') {
-			res.locals.notification.message = res.$t('login.text.loginFailedBlockedEmailDomain');
+			res.locals.notification.message = res.$t('global.text.emailDomainBlocked');
 		}
 
 		// Too Many Requests

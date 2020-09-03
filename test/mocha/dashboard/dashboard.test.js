@@ -44,7 +44,7 @@ describe('Dashboard tests', function () {
                 .end((err, res) => {
                     expect(res).to.redirect;
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Anmelden');
+                    expect(res.text).to.contain('Login');
                     expect(res.text).to.contain('Mehr Optionen');
                     resolve();
                 });

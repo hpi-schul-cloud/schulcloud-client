@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
+const { Configuration } = require('@schul-cloud/commons');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -13,7 +14,7 @@ const logger = require('../helpers/logger');
 
 const {
 	CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED,
-	ROCKET_CHAT_URI, FEATURE_MATRIX_MESSENGER_ENABLED,
+	ROCKET_CHAT_URI,
 } = require('../config/global');
 
 const router = express.Router();
@@ -148,17 +149,17 @@ const editTeamHandler = async (req, res, next) => {
 
 	teamPromise.then((team) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
-			return next(new Error(res.$t('global.error.403')));
+			return next(new Error(res.$t('global.text.403')));
 		}
 		return res.render('teams/edit-team', {
 			action,
 			method,
 			title: req.params.teamId
 				? res.$t('teams.add.headline.editTeam')
-				: res.$t('teams.add.headline.createTeam'),
+				: res.$t('teams.button.createTeam'),
 			submitLabel: req.params.teamId
 				? res.$t('global.button.saveChanges')
-				: res.$t('teams.add.button.createTeam'),
+				: res.$t('teams.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
@@ -500,7 +501,10 @@ router.get('/:teamId', async (req, res, next) => {
 
 		const course = await api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
-				$populate: ['ltiToolIds'],
+				$populate: [
+					'ltiToolIds',
+					{ path: 'schoolIds' },
+				],
 			},
 		});
 
@@ -530,18 +534,35 @@ router.get('/:teamId', async (req, res, next) => {
 				rocketChatCompleteURL = undefined;
 			}
 		}
-		const instanceUsesMatrixMessenger = FEATURE_MATRIX_MESSENGER_ENABLED;
-		const courseUsesMatrixMessenger = course.features.includes('messenger');
-		const schoolUsesMatrixMessenger = (res.locals.currentSchoolData.features || []).includes('messenger');
-		let matrixNotification;
-		let messenger = false;
-		if (instanceUsesMatrixMessenger && courseUsesMatrixMessenger && !schoolUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.messengerNotActivatedSchool');
-			messenger = true;
-		}
-		if (instanceUsesMatrixMessenger && schoolUsesMatrixMessenger && !courseUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.messengerNotActivatedCourse');
-			messenger = true;
+		let notificationMessage;
+		if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
+			/* eslint-disable max-len */
+			let matrixNotification;
+			// Is messenger feature flag set in the school which created this team?
+			const teamsSchoolHasMessengerEnabled = (course.schoolIds[0].features || []).includes('messenger');
+			// Is the messenger in the current users school activated?
+			const usersSchoolHasMessengerEnabled = (res.locals.currentSchoolData.features || []).includes('messenger');
+			// Are there members of other schools in the team which have not activated the messenger?
+			// > Filter team schoolIds to only include schools which really have students in the team
+			const filteredSchoolIds = course.schoolIds.filter((school) => !!course.userIds.find((user) => user.schoolId === school.id));
+			// > Find if at least one participating school hasn't activated the messenger
+			const otherUsersSchoolsHaveNotMessengerEnabled = !!filteredSchoolIds.find((school) => !(school.features || []).includes('messenger'));
+
+			if (!teamsSchoolHasMessengerEnabled && usersSchoolHasMessengerEnabled) {
+				matrixNotification = res.$t('teams._team.text.messengerNotActiveInTeam');
+			} else if (teamsSchoolHasMessengerEnabled && !usersSchoolHasMessengerEnabled) {
+				matrixNotification = res.$t('teams._team.text.messengerNotActivatedSchool');
+			} else if (teamsSchoolHasMessengerEnabled && otherUsersSchoolsHaveNotMessengerEnabled) {
+				matrixNotification = res.$t('teams._team.text.messengerNotActivatedCourse');
+			}
+			if (matrixNotification) {
+				notificationMessage = {
+					message: matrixNotification,
+					type: 'info',
+					title: res.$t('teams._team.text.messengerNotActivatedTitle'),
+					iconClass: 'fa fa-info-circle',
+				};
+			}
 		}
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
@@ -566,6 +587,9 @@ router.get('/:teamId', async (req, res, next) => {
 		files = files.filter((file) => file);
 
 		files = files.map((file) => {
+			// set saveName attribute with escaped quotes
+			file.saveName = file.name.replace(/'/g, "\\'");
+
 			if (file && file.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
@@ -705,13 +729,7 @@ router.get('/:teamId', async (req, res, next) => {
 				userId: res.locals.currentUser._id,
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
-				notificationMessenger: {
-					message: matrixNotification,
-					type: 'info',
-					title: 'Hinweis',
-					iconClass: 'fa fa-info-circle',
-				},
-				messenger,
+				notificationMessage,
 			},
 		);
 	} catch (e) {
@@ -865,30 +883,30 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const roleTranslations = {
 		teammember: res.$t('teams._team.members.text.member'),
 		teamexpert: res.$t('teams._team.members.text.expert'),
-		teamleader: res.$t('teams._team.members.text.leader'),
-		teamadministrator: res.$t('teams._team.members.text.admin'),
-		teamowner: res.$t('teams._team.members.text.owner'),
+		teamleader: res.$t('global.role.text.leader'),
+		teamadministrator: res.$t('global.role.text.administrator'),
+		teamowner: res.$t('global.role.text.owner'),
 	};
 
 	const head = [
-		res.$t('teams._team.members.headline.firstName'),
-		res.$t('teams._team.members.headline.surname'),
-		res.$t('teams._team.members.headline.role'),
-		res.$t('teams._team.members.headline.school'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.label.firstName'),
+		res.$t('global.label.lastName'),
+		res.$t('global.label.role'),
+		res.$t('global.link.school'),
+		res.$t('global.headline.actions'),
 	];
 
 	const headClasses = [
-		res.$t('teams._team.members.headline.name'),
-		res.$t('teams._team.members.headline.student'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.headline.name'),
+		res.$t('global.link.administrationStudents'),
+		res.$t('global.headline.actions'),
 	];
 
 	const headInvitations = [
 		res.$t('teams._team.members.headline.email'),
 		res.$t('teams._team.members.headline.invitedOn'),
-		res.$t('teams._team.members.headline.role'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.label.role'),
+		res.$t('global.headline.actions'),
 	];
 
 	const invitationActions = [
@@ -1274,13 +1292,13 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		.then(() => {
 			req.session.notification = {
 				type: 'success',
-				message: res.$t('teams._team.text.invitationAcceptedSuccess'),
+				message: res.$t('teams._team.text.invitationSuccessfullyAccepted'),
 			};
 			res.redirect(`/teams/${req.params.teamId}`);
 		})
 		.catch((err) => {
 			logger.warn(
-				res.$t('teams._team.text.invitationAcceptionFailed'),
+				res.$t('teams._team.text.errorAcceptingInvitation'),
 				err,
 			);
 			res.redirect(`/teams/${req.params.teamId}`);
@@ -1405,7 +1423,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t('teams._team.text.noTopicFoundWithCode'),
+					message: res.$t('global.text.noTopicFoundWithCode'),
 				};
 
 				redirectHelper.safeBackRedirect(req, res);

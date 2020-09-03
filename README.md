@@ -1,12 +1,12 @@
 # HPI Schul-Cloud Client  
 _An implementation of the HPI Schul-Cloud client with NodeJS and Express._  
 
-Dev: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/schul-cloud/schulcloud-client)
-Master: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/schul-cloud/schulcloud-client)
+Dev: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/schul-cloud/schulcloud-client)
+Master: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/schul-cloud/schulcloud-client)
 
 ## Powered By
 
-[![Mergify Status](https://gh.mergify.io/badges/schul-cloud/nuxt-client.png?style=cut)](https://mergify.io)
+[![Mergify Status](https://gh.mergify.io/badges/hpi-schul-cloud/nuxt-client.png?style=cut)](https://mergify.io)
 <a href="https://lokalise.com/" ><img height="18px" src="https://lokalise.com/img/lokalise_logo_black.png" style="padding: 2px 8px; border: 1px solid lightgrey; border-radius: 4px;" alt="Lokalise Logo"></a>
 
 > # Deprecation Warning
@@ -15,7 +15,7 @@ Master: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg
 
 ## Requirements  
   
-* node.js 8.7 or later
+* node.js 12 or later
 
 You might take a look at the [Dockerfile](https://github.com/schul-cloud/schulcloud-client/blob/master/Dockerfile) to see some more dependencies and latest version informations.
 

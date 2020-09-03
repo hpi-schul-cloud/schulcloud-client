@@ -12,36 +12,39 @@
     {{#content "page"}}
         <div class="route-homework">
             <section class="section-homework">
-                {{#if addButton}}
-                    {{#userHasPermission "HOMEWORK_CREATE"}}
-                    <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}" class="btn btn-primary btn-add create">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                        <p>{{$t "homework.button.addTask" }}</p>
-                    </a>
-                    {{/userHasPermission}}
-                {{/if}}
                 <div><feathers-filter id="filter"
                         filter='{{@root.filterSettings}}'
-                        add-label='{{$t "homework.button.filterAdd" }}'
-                        apply-label='{{$t "homework.button.filterApply" }}'
+                        add-label='{{$t "global.button.filterAdd" }}'
+                        apply-label='{{$t "global.button.filterApply" }}'
                         cancle-label='{{$t "global.button.cancel" }}'
                         handle-url='true'
                 /></div>
-
-                <ol class="homework">
-                    <div class="row"><div class="col-xl-12">
+        {{#if addButton}}
+            {{#userHasPermission "HOMEWORK_CREATE"}}
+                <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}" class="btn btn-primary btn-add create">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                <span>{{$t "global.button.addTask" }}</span>
+                </a>
+                {{/userHasPermission}}
+            {{/if}}
+                <div class="homework">
+                    <div class="row">
+                        <ol class="col-xl-12">
                         {{#each homeworks}}
                             {{> 'homework/components/overview_card_template'}}
                         {{else}}
-                            <p class="text-muted text-center">
-                                <span>{{$t "homework.text.noTasks" }}.</span>
-                            </p>
+                            <li>
+                                <p class="text-muted text-center">
+                                    <span>{{$t "global.text.noTasks" }}.</span>
+                                </p>
+                            </li>
                         {{/each}}
-                    </div></div>
+                        </ol>
+                    </div>
                     <div class="row">
                         {{> "lib/components/pagination" settings=pagination }}
                     </div>
-                </ol>
+                </div>
                 {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
                     {{#content "body"}}
                         <div class="modal-footer">
@@ -49,7 +52,7 @@
                                 {{$t "global.button.cancel" }}
                             </button>
                             <button type="submit" class="btn btn-primary btn-submit">
-                               {{$t "global.button.delete" }}
+                               {{$t "global.headline.delete" }}
                             </button>
                         </div>
                     {{/content}}
