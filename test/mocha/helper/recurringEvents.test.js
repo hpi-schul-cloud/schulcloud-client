@@ -27,7 +27,7 @@ const recurringEvent = {
     "location": "Paul-Gerhardt-Gymnasium",
     "description": "Test"
 };
-// simple "res", so that translations can be loaded (with defaultLanguage German)
+// simple "res", so that translations can be loaded (with language German)
 const res = { $t: i18nHelper.getInstance({}) };
 
 describe('Recurring Event Helper tests', function () {
