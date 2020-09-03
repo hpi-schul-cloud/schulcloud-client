@@ -8,7 +8,7 @@ const api = require('../api');
 const i18nDebug = Configuration.get('I18N__DEBUG');
 const fallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
 const language = Configuration.get('I18N__DEFAULT_LANGUAGE');
-const availableLanuages = (Configuration.get('I18N__AVAILABLE_LANUAGES') || '').split(',').map((value) => value.trim());
+const availableLanuages = (Configuration.get('I18N__AVAILABLE_LANGUAGES') || '').split(',').map((value) => value.trim());
 
 const localeDir = path.join(__dirname, '../locales');
 
