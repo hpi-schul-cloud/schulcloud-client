@@ -57,10 +57,10 @@ function buildandpush {
   docker push schulcloud/schulcloud-client-int:$DOCKERTAG
   docker push schulcloud/schulcloud-client-int:$GIT_SHA
 
-  # build container int demo
-  docker build -t schulcloud/schulcloud-client-int:$DOCKERTAG -t schulcloud/schulcloud-client-int:$GIT_SHA -f Dockerfile.demo .
-  docker push schulcloud/schulcloud-client-int:$DOCKERTAG
-  docker push schulcloud/schulcloud-client-int:$GIT_SHA
+  # build container demo theme
+  docker build -t schulcloud/schulcloud-client-demo:$DOCKERTAG -t schulcloud/schulcloud-client-demo:$GIT_SHA -f Dockerfile.demo .
+  docker push schulcloud/schulcloud-client-demo:$DOCKERTAG
+  docker push schulcloud/schulcloud-client-demo:$GIT_SHA
   fi
 
   # If branch is develop, add and push additional docker tags
