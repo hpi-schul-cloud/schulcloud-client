@@ -1736,6 +1736,12 @@
 				"lastPage": "Letzte Seite",
 				"nextPage": "nächste Seite"
 			}
+		},
+		"language": {
+			"label": {
+				"de": "Deutsch",
+				"en": "English"
+			}
 		}
 	},
 	"help": {
@@ -2225,6 +2231,14 @@
 				"theNextQuestionnaireIsOnline": "Die nächste Befragung zum Projekt {{shortTitle}} ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen."
 			}
 		},
+		"form_ChangeLanguage" : {
+			"label": {
+				"language": "Sprache"
+			},
+			"placeholder": {
+				"text": "Bitte wählen..."
+			}
+		},
 		"global": {
 			"button": {
 				"discardChange": "Änderung verwerfen"
@@ -2524,7 +2538,8 @@
 					"sendAndGetStarted": "Absenden & Loslegen"
 				},
 				"heading": {
-					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
+					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!",
+					"language": "Bitte wähle deine Sprache"
 				},
 				"label": {
 					"eMail": "E-Mail:",
@@ -2545,7 +2560,8 @@
 					"password": "Passwort: ",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
-					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
+					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.",
+					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf Deinen Avatar tippst."
 				}
 			},
 			"heading": {
