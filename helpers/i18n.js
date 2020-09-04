@@ -7,7 +7,7 @@ const api = require('../api');
 
 const i18nDebug = Configuration.get('I18N__DEBUG');
 const fallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
-const language = Configuration.get('I18N__DEFAULT_LANGUAGE');
+const defaultLanguage = Configuration.get('I18N__DEFAULT_LANGUAGE');
 const availableLanguages = (Configuration.get('I18N__AVAILABLE_LANGUAGES') || '')
 	.split(',')
 	.map((value) => value.trim());
@@ -19,7 +19,7 @@ i18next
 	.init({
 		debug: i18nDebug,
 		initImmediate: false,
-		lng: language,
+		lng: defaultLanguage,
 		fallbackLng: fallbackLanguage,
 		supportedLngs: availableLanguages || false,
 		backend: {
@@ -68,11 +68,6 @@ const getCurrentLanguage = async (req, res) => {
 		return currentSchoolData.language;
 	}
 
-	const browserLanguage = getBrowserLanguage(req);
-	if (browserLanguage) {
-		return browserLanguage;
-	}
-
 	// get language by cookie
 	if (req && req.cookies && req.cookies.USER_LANG) {
 		return req.cookies.USER_LANG;
@@ -99,7 +94,7 @@ const changeLanguage = (lng) => {
 };
 
 module.exports = {
-	language,
+	defaultLanguage,
 	availableLanguages,
 	getInstance,
 	changeLanguage,
