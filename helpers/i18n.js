@@ -94,7 +94,9 @@ const changeLanguage = (lng) => {
 };
 
 module.exports = {
+	i18next,
 	defaultLanguage,
+	fallbackLanguage,
 	availableLanguages,
 	getInstance,
 	changeLanguage,
