@@ -1716,6 +1716,12 @@
 				"lastPage": "Letzte Seite",
 				"nextPage": "nächste Seite"
 			}
+		},
+		"language": {
+			"label": {
+				"de": "Deutsch",
+				"en": "English"
+			}
 		}
 	},
 	"help": {
@@ -1985,7 +1991,7 @@
 			"copy": "Kopieren",
 			"copySubmissionFromList": "kopieren",
 			"deleteSubmissionFromList": "löschen",
-			"downloadUngradedFiles": "Alle Dateien unbewerteter Hausaufgaben herunterladen",
+			"downloadUngradedFiles": "Unbewertete Hausaufgaben",
 			"editSubmissionFromList": "bearbeiten",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
@@ -2203,6 +2209,14 @@
 			"text": {
 				"thanksForYourSupport": "Vielen Dank für Ihre Unterstützung!",
 				"theNextQuestionnaireIsOnline": "Die nächste Befragung zum Projekt {{shortTitle}} ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen."
+			}
+		},
+		"form_ChangeLanguage" : {
+			"label": {
+				"language": "Sprache"
+			},
+			"placeholder": {
+				"text": "Bitte wählen..."
 			}
 		},
 		"global": {
@@ -2504,7 +2518,8 @@
 					"sendAndGetStarted": "Absenden & Loslegen"
 				},
 				"heading": {
-					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
+					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!",
+					"language": "Bitte wähle deine Sprache"
 				},
 				"label": {
 					"eMail": "E-Mail:",
@@ -2525,7 +2540,8 @@
 					"password": "Passwort: ",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
-					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
+					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.",
+					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf Deinen Avatar tippst."
 				}
 			},
 			"heading": {
