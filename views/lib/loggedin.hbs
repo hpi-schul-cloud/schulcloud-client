@@ -109,6 +109,7 @@
 
                 {{> "lib/components/notification"}}
 				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.aria_label.topMenu"}}">
+
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
@@ -242,11 +243,11 @@
                                             {{#unless liveSearch}}<i class="fa fa-search"></i>{{/unless}}
                                         </a>
                                         <div class="input-group input-group-sm">
-								<label for="search-box">{{#if searchLabel}}{{truncatePure searchLabel21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}</label>
+								            <label for="search-box" hidden>{{#if searchLabel}}{{truncatePure searchLabel21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}</label>
 											<input id="search-box" type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}" name="q" />
                                             {{> "lib/components/csrfInput"}}
                                             <span class="input-group-btn">
-                                                <button type="submit" class="btn btn-secondary">
+                                                <button type="submit" class="btn btn-secondary" aria-label="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}{{$t "lib.loggedin.input.searchFor"}}{{/if}}">
                                                     <i class="fa fa-search" aria-hidden="true"></i>
                                                 </button>
                                             </span>
@@ -261,24 +262,25 @@
                 <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
                 <p id="backendUrl" hidden>{{ backendUrl }}</p>
                 <main id="main-content" class="container-fluid">
-					<dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.aria_label.sidebar"}}">
+					<dl class="skipLinks main" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.aria_label.sidebar"}}">
 						<dd>
 							<a href="#sidebar">{{$t "global.aria_label.sidebar"}}</a>
 						</dd>
 					</dl>
 					{{#block "page"}}{{/block}}
                 </main>
-						{{#if messenger}}
-						{{>"lib/components/notification"
-							notification=notificationMessenger
-							style="position: sticky;
-							position: -webkit-sticky;
-							bottom: 1rem;
-							margin-right: 1rem;
-							z-index: 1;
-							margin-left: 40%;"
-							}}
-						{{/if}}
+
+                {{#if notificationMessage}}
+                    {{>"lib/components/notification"
+                        notification=notificationMessage
+                        style="position: sticky;
+                        position: -webkit-sticky;
+                        bottom: 1rem;
+                        margin-right: 1rem;
+                        z-index: 1;
+                        margin-left: 40%;"
+                    }}
+                {{/if}}
             </div>
             {{#unless inline}}
                 {{#embed "lib/footer"}}{{/embed}}

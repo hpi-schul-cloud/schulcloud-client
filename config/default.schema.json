@@ -123,7 +123,7 @@
 		},
 		"SC_CONTACT_EMAIL": {
 			"type": "string",
-			"default": "feedback@schul-cloud.org",
+			"default": "feedback@hpi-schul-cloud.de",
 			"description": "Contact E-Mail Adress to The HPI School-Cloud team."
 		},
 		"FEATURE_MATRIX_MESSENGER_ENABLED": {
@@ -262,7 +262,7 @@
 				},
 				"SECURE": {
 					"type": "boolean",
-					"default": false,
+					"default": true,
 					"description": "Value for cookies httpOnly property"
 				},
 				"EXPIRES_SECONDS": {
@@ -312,6 +312,45 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Multi login instances tiles"
+		},
+		"FEATURE_TSP_AUTO_CONSENT_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Feature toggle for automatic consent during TSP sync."
+		},
+		"I18N": {
+			"type": "object",
+			"description": "Configuration of I18N",
+			"properties": {
+				"DEFAULT_LANGUAGE": {
+					"type": "string",
+					"default": "de",
+					"enum": [
+						"de",
+						"en"
+					],
+					"description": "Value for the default language"
+				},
+				"FALLBACK_LANGUAGE": {
+					"type": "string",
+					"default": "de",
+					"description": "Value for the fallback language if translation key is not found"
+				},
+				"DEBUG": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable i18n logging to console, e.g. missing translation keys"
+				},
+				"AVAILABLE_LANGUAGES": {
+					"type": "string",
+					"default": "de,en",
+					"description": "Available languages"
+				}
+			},
+			"required": [
+				"DEFAULT_LANGUAGE",
+				"AVAILABLE_LANGUAGES"
+			]
 		}
 	},
 	"allOf": [

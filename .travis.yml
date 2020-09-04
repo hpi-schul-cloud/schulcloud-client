@@ -52,13 +52,15 @@ jobs:
         # seed database
         - cd schulcloud-server && npm install && npm run setup && npm run seed && cd ..
       script: cd schulcloud-client && npm run mocha && cd ..
-    - script: curl "https://raw.githubusercontent.com/schul-cloud/integration-tests/master/scripts/ci/fetch.travis.sh" | bash
+    - script: curl "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/master/scripts/ci/fetch.travis.sh" | bash
       name: Integration
       env:
         - IT_CLIENT_HOST=nuxtclient
         - IT_CLIENT_PORT=4000
       install:
         - echo "skipping install"
+      after_failure:
+        - cat /home/travis/.npm/_logs/*debug.log
     - stage: Build
       name: Build All Instances
       language: generic

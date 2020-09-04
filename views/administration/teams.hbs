@@ -12,12 +12,12 @@
     {{#content "page" mode="prepend"}}
 			{{#ifConfig "STUDENT_TEAM_CREATION" "disabled"}}
 			<label>{{$t "administration.teams.label.cannotCreateTeam" }}
-				<p class="text-muted">{{$t "administration.teams.label.functionality" }}</p>
+				<p class="text-muted">{{$t "administration.teams.text.functionality" }}</p>
 			</label>
 			{{else}}
 			{{#ifConfig "STUDENT_TEAM_CREATION" "enabled"}}
 				<label>{{$t "administration.teams.label.canCreateTeam" }}
-					<p class="text-muted">{{$t "administration.teams.label.functionality" }}</p>
+					<p class="text-muted">{{$t "administration.teams.text.functionality" }}</p>
 				</label>
 			{{else}}
 				<form action="/administration/teams/enablestudents/{{@root.school._id}}" method="post" class="edit-form-school">
@@ -114,8 +114,9 @@
 
                 {{#embed "lib/components/modal-form" action="/administration/teams/" method="delete" class="delete-team-modal" collapseId=2}}
                     {{#content "fields"}}
-                        {{> "administration/forms/form-delete-name"}}
-                    {{/content}}
+                        <p>{{$t "administration.global.text.areYouSureYouWantToDeleteTheFollowingTeam" }}</p>
+                        <input class="form-control" name="name" type="text" disabled />
+                        {{/content}}
                 {{/embed}}
 
 

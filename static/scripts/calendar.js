@@ -72,7 +72,7 @@ $(document).ready(() => {
 		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
 		defaultView: view || 'dayGridMonth',
 		editable: false,
-		timezone: 'UTC',
+		timeZone: 'UTC',
 		locale: deLocale,
 		header: {
 			left: 'title',
@@ -134,7 +134,7 @@ $(document).ready(() => {
 			const endDate = moment(date).add(1, 'hour').format('DD.MM.YYYY HH:mm');
 
 			populateModalForm($createEventModal, {
-				title: $t('calendar.headline.addDate'),
+				title: $t('global.headline.addDate'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.add'),
 				fields: {

@@ -65,6 +65,26 @@ router.get('/', async (req, res, next) => {
 	} = await api(req).get(`/consents/${currentUser._id}/check/`);
 	let updatedConsents = {};
 
+	if (Configuration.get('FEATURE_TSP_AUTO_CONSENT_ENABLED')) {
+		const isNewTspUser = res.locals.currentUser.source === 'tsp' && res.locals.currentUser.birthday;
+		if (isNewTspUser) {
+			return api(req).post('/firstLogin/', { json: req.body })
+				.then(() => res.render('firstLogin/firstLoginShortened', {
+					title: res.$t('login.headline.firstLogin'),
+					hideMenu: true,
+					sso: !!(res.locals.currentPayload || {}).systemId,
+					now: Date.now(),
+					roleNames: res.locals.roles,
+				}))
+				.catch((err) => {
+					res.status(500).send(
+						(err.error || err).message
+						|| res.$t('login.text.errorFirstLogin'),
+					);
+				});
+		}
+	}
+
 	// if there is already a user or parent consent it may have been updated
 	if (haveBeenUpdated) {
 		// UPDATED CONSENTS SINCE LAST FULLFILMENT DATE
@@ -200,7 +220,8 @@ router.get('/', async (req, res, next) => {
 	}
 
 	// redirect to dashboard if we have only email to request
-	if (sections.length === 3 && sections[1] === 'email' && (res.locals.currentUser.preferences || {}).firstLogin) {
+	if ((sections.length < 3 || (sections.length === 3 && sections[1] === 'email'))
+			&& (res.locals.currentUser.preferences || {}).firstLogin) {
 		return res.redirect('/dashboard');
 	}
 	return res.render('firstLogin/firstLogin', renderObject);

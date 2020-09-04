@@ -9,8 +9,47 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-- SC-5644 navigation and the general structure of pages made more accessible (a11y)
+  - SC-5706 Added language selection within teacher registration
+  - SC-6019 Added tabbar to classes administration
+  - SC-5955 Changed links to Lernen.cloud
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
+  - SC-6245 If students can create teams, they can also invite other students to teams
 
+## [24.4.1] - 2020-9-01
+
+  - SC-6526 Fixed inserting files in CKEditor for topics
+
+## [24.4.0] - 2020-8-31
+
+  - SC-6019 Added tabbar to classes administration
+  - SC-5955 Changed links to Lernen.cloud
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
+
+## [24.3.2] - 2020-08-26
+
+- SC-6382 fix first login shown on every login in tsp
+
+## [24.3.1] - 2020-08-26
+
+- SC-6382 fix default  wellcome text for tsp 
+
+## [24.3.0] - 2020-08-25
+### Changed - 24.3.0
+
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
+
+## [24.2.5] - 2020-08-20
+### Fixed - 24.2.5
+
+  - SC-6296 Only show edit and delete button for eligible systems
+
+## [24.2.4] - 2020-08-20
+
+## [24.2.3] - 2020-08-18
+### Changed - 24.2.3
+
+  - SC-6239 Changed default email domains in many different places from @schul-cloud.org to @hpi-schul-cloud.de
+  - SC-6239 Changed links to blog to blog.hpi-schul-cloud.de
 
 ## [24.2.1] - 2020-08-13
 ## Fixed - 24.2.1
