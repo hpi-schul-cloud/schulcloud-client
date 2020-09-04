@@ -40,6 +40,16 @@ const getSchoolLanguage = async (req, schoolId) => {
 	}
 };
 
+const getBrowserLanguage = (req) => {
+	const headersAcceptLanguages = (((req || {}).headers || {})['accept-language'] || '')
+		.split(',')
+		.map((value) => value.split(';').shift())
+		.map((value) => value.split('-').shift())
+		.reduce((unique, item) => (unique.includes(item) ? unique : [...unique, item]), [])
+		.filter((value) => availableLanguages.includes(value));
+	return headersAcceptLanguages.shift() || null;
+};
+
 const getCurrentLanguage = async (req, res) => {
 	// get language by query
 	if (req && req.query && req.query.lng) {
@@ -56,6 +66,11 @@ const getCurrentLanguage = async (req, res) => {
 	// get language by school
 	if (currentSchoolData && currentSchoolData.language) {
 		return currentSchoolData.language;
+	}
+
+	const browserLanguage = getBrowserLanguage(req);
+	if (browserLanguage) {
+		return browserLanguage;
 	}
 
 	// get language by cookie
@@ -89,4 +104,5 @@ module.exports = {
 	getInstance,
 	changeLanguage,
 	getCurrentLanguage,
+	getBrowserLanguage,
 };
