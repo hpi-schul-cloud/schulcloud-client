@@ -24,11 +24,11 @@ $(document).ready(() => {
 	const showAutoLogoutModal = ((status) => {
 		// switching between  to texts inlcuded in the modal
 		if (status === 'error') {
-			$autoLoggoutAlertModal.find('.sloth-default').hide();
-			$autoLoggoutAlertModal.find('.sloth-error').show();
+			$autoLoggoutAlertModal.find('.parrot-default').hide();
+			$autoLoggoutAlertModal.find('.parrot-error').show();
 		} else {
-			$autoLoggoutAlertModal.find('.sloth-default').show();
-			$autoLoggoutAlertModal.find('.sloth-error').hide();
+			$autoLoggoutAlertModal.find('.parrot-default').show();
+			$autoLoggoutAlertModal.find('.parrot-error').hide();
 		}
 		$autoLoggoutAlertModal.find('.modal-header').remove();
 		$autoLoggoutAlertModal.modal('show');
