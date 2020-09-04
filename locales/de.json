@@ -1353,8 +1353,6 @@
 			},
 			"headline":{
 				"myCourseFiles" : "Meine Kurs-Dateien",
-				"myPersonalFiles" : "Meine persönlichen Dateien",
-				"mySharedFiles" : "Mit mir geteilte Dateien",
 				"myTeamFiles" : "Meine Team-Dateien"
 			},
 			"text" : {

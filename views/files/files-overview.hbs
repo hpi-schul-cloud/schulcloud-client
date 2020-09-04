@@ -14,7 +14,7 @@
             <div class="row card-deck-row">
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
-                        title=(concat '<i class="fa fa-user"></i> ' ($t 'files.overview.headline.myPersonalFiles'))
+                        title=(concat '<i class="fa fa-user"></i> ' ($t 'files.label.myPersonalData'))
                         secondaryTitle="<br />"
                         url='/files/my/'
                         link-text=($t 'files.overview.button.openFiles')
@@ -46,7 +46,7 @@
                 {{/ifEnv}}
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
-                        title=(concat '<i class="fa fa-share-alt"></i> '($t 'files.overview.headline.mySharedFiles'))
+                        title=(concat '<i class="fa fa-share-alt"></i> '($t 'files.label.filesSharedWithMe'))
                         secondaryTitle="<br />"
                         url='/files/shared/'
                         link-text=($t 'files.overview.button.openFiles')
