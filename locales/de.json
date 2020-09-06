@@ -500,7 +500,7 @@
 		},
 		"ldapSchoolYearStart": {
 			"button": {
-				"closeTheWindow": "Fenster schließen"
+				"closeWindow": "Fenster schließen"
 			},
 			"heading": {
 				"LDAPClasses": "LDAP-Klassen",
