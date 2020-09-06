@@ -61,7 +61,7 @@
 			"yourAccount": "Dein Account"
 		},
 		"label": {
-			"notificationsettings": "Benachrichtigungseinstellungen",
+			"notificationSettings": "Benachrichtigungseinstellungen",
 			"providers": "Anbieter"
 		},
 		"teams": {
@@ -77,17 +77,17 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
 			},
 			"text": {
-				"hint": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
-				"teamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
+				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
+				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
 				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
 			}
 		},
 		"testNotification": {
 			"headline": {
-				"test": "Neue Test-Benachrichtigung"
+				"newTestNotification": "Neue Test-Benachrichtigung"
 			},
 			"text": {
-				"youHaveANewMessage": "Du hast eine neue Benachrichtigung"
+				"youHaveANewNotification": "Du hast eine neue Benachrichtigung"
 			}
 		},
 		"text": {
@@ -128,7 +128,8 @@
 				"transferClassToTheNextSchoolYear": "Klasse ins nächste Schuljahr versetzen"
 			},
 			"headline": {
-				"importClass": "Klasse importieren"
+				"importClass": "Klasse importieren",
+				"questionStudentsNotInSystem": "Deine Schüler:innen sind noch nicht in der {{shortTitle}}?"
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Schüler:in aus Vorjahresklasse hinzufügen",
@@ -137,16 +138,14 @@
 				"className": "Klassenbezeichnung",
 				"filterBySchoolYear": "Nach Schuljahr filtern",
 				"grade": "Jahrgangsstufe",
-				"mantainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
+				"maintainSchoolYearAssignment": "Schuljahreszuordnung beibehalten",
 				"pleaseNote": "Bitte beachte:",
 				"renameClass": "Klasse umbenennen",
 				"selectElement": "keine Auswahl",
-				"selectTeacher": "Lehrer auswählen (auch später möglich)",
-				"yourStudentsAreNotYetInThe": "Deine Schüler:innen sind noch nicht in der"
+				"selectTeacher": "Lehrer auswählen (auch später möglich)"
 			},
 			"placeholder": {
-				"change": "Klasse '{{name}}' bearbeiten.",
-				"example": "z.B. Froschklasse 3-4"
+				"exampleName": "z.B. Froschklasse 3-4"
 			},
 			"text": {
 				"attentionIfYouChangeTheSchoolYear": "Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.",
@@ -160,8 +159,8 @@
 				"noClassesInYear": "Keine Klassen in diesem Jahrgang vorhanden",
 				"noLackOfInformedConsent": "In dieser Klasse gibt es keine fehlenden Einverständniserklärungen.",
 				"required": "erforderlich",
-				"signAgreement": "Du kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Datenschutzerklärung</a> und zur <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Nutzungsordnung</a> der {{shortTitle}} erklären. <br>Durch den Klick auf <i>Einverständnis im Namen der Schüler erklären</i> bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
-				"theNextStepIstoInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen."
+				"signAgreement": "Du kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur {{linkPrivacyPolicy}} und zur {{linkTermsOfUse}} der {{shortTitle}} erklären. <br>Durch den Klick auf <i>Einverständnis im Namen der Schüler erklären</i> bestätigst du, dass du das Einverständnis der Schüler bzw. deren Eltern auf anderem Wege erhalten hast.",
+				"theNextStepIsToInviteOrAdd": "Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen."
 			}
 		},
 		"controller": {
@@ -208,7 +207,7 @@
 				"uploadedOn": "Hochgeladen am"
 			},
 			"label": {
-				"domainname": "Domainname",
+				"domainName": "Domainname",
 				"email": "E-Mail",
 				"inactive": "{{alias}} (inaktiv)",
 				"roles": "Rolle(n)",
@@ -244,7 +243,6 @@
 				"active": "Aktiv",
 				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
 				"anUnknownErrorOccurred": "Es ist ein unbekannter Fehler beim Importieren aufgetreten.",
-				"anotherSchoolWasFounded": "einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst ",
 				"changesSuccessfullySaved": "Änderungen erfolgreich gespeichert.",
 				"checkingTheLDAPData": "Prüfung der LDAP-Daten für Schuljahreswechsel",
 				"closed": "Geschlossen",
@@ -258,16 +256,15 @@
 				"failedToCreateUser": "Fehler beim Erstellen des Nutzers. {{error}}",
 				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
 				"inTheQueue": "In der Warteschlange",
-				"invitationToThe": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
-				"invitationToUseThe": "Einladung für die Nutzung der {{title}}!",
+				"invitationEmailContent": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
+				"invitationEmailSubject": "Einladung für die Nutzung der {{title}}!",
 				"noDeclarationOfConsentAvailable": "Keine Einverständniserklärung vorhanden",
 				"onlyAllMembers": "Es können nur alle Mitglieder der eigenen Schule aus dem Team entfernt werden",
 				"open": "Offen",
-				"orAssignAdminRights": "oder jemand anderem Admin-Rechte für das Team zuzuweisen.",
 				"parentsAgreed": "Eltern haben zugestimmt, Schüler:in noch offen",
 				"passTheRegistrationLinkDirectly": "Gib den Registrierungslink direkt an den Schüler weiter.",
 				"registrationExplanation": "Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. Der Schüler ist dann in der {{title}} registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jeder Schüler sein Passwort ändern. Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, damit er die {{title}} nutzen kann.",
-				"removeStudentsFromYourOwnSchool": "Schüler der eigenen Schule aus dem Team entfernen. Nur möglich, wenn das Team an ",
+				"removeStudentsFromYourOwnSchool": "Schüler der eigenen Schule aus dem Team entfernen. Nur möglich, wenn das Team an einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst oder jemand anderem Admin-Rechte für das Team zuzuweisen.",
 				"retrieveFailed": "Fehler beim Abrufen",
 				"schoolYearPercentage": "Schuljahr: %1",
 				"setupFailed": "Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ",
@@ -359,9 +356,9 @@
 				"targetState": "Soll-Zustand"
 			}
 		},
-		"form_Rss": {
+		"form_rss": {
 			"label": {
-				"briefdescription": "Kurzbeschreibung (optional)",
+				"briefDescription": "Kurzbeschreibung (optional)",
 				"urlOfTheRSSSystem": "URL des RSS-Feeds"
 			}
 		},
@@ -2636,7 +2633,7 @@
 		},
 		"registration_template": {
 			"heading": {
-				"invitationToThe": "Einladung in die"
+				"invitation": "Einladung in die {{shortTitle}}"
 			},
 			"text": {
 				"dear": "Sehr geehrte/r",
