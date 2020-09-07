@@ -22,20 +22,29 @@ describe('i18n helpers test', () => {
 	it('Check for defaultLanguage', () => {
 		chai
 			.expect(i18n.defaultLanguage)
-			.to.equal(config.defaultLanguage, `The default language should be ${config.defaultLanguage}`);
+			.to.equal(
+				config.defaultLanguage,
+				`The default language should be ${config.defaultLanguage}`,
+			);
 	});
 
 	it('Check for fallbackLanguage', () => {
 		chai
 			.expect(i18n.fallbackLanguage)
-			.to.equal(config.fallbackLanguage, `The fallback language should be ${config.fallbackLanguage}`);
+			.to.equal(
+				config.fallbackLanguage,
+				`The fallback language should be ${config.fallbackLanguage}`,
+			);
 	});
 
 	it('Check for availableLanguages', () => {
 		const testAvailableLanguages = config.availableLanguages.split(',');
 		chai
 			.expect(i18n.availableLanguages)
-			.to.eql(testAvailableLanguages, `The available languages should be ${JSON.stringify(testAvailableLanguages)}`);
+			.to.eql(
+				testAvailableLanguages,
+				`The available languages should be ${JSON.stringify(testAvailableLanguages)}`,
+			);
 	});
 
 	it('Check changeLanguage(en)', async () => {
@@ -58,6 +67,9 @@ describe('i18n helpers test', () => {
 		const browserLanguage = i18n.getBrowserLanguage(mockReq);
 		chai
 			.expect(browserLanguage)
-			.to.eql(testBrowserLanguage, `The available languages should be ${JSON.stringify(testBrowserLanguage)}`);
+			.to.eql(
+				testBrowserLanguage,
+				`The available languages should be ${JSON.stringify(testBrowserLanguage)}`,
+			);
 	});
 });
