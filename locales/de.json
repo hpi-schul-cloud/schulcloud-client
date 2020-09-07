@@ -2922,13 +2922,7 @@
 			"button": {
 				"addGroup": "Gruppe hinzufügen",
 				"addNewTool": "Neues Tool hinzufügen",
-				"addTopic": "Thema hinzufügen",
-				"deleteTopic": "Thema löschen",
-				"displayTopicAgain": "Thema wieder anzeigen",
-				"hideTopic": "Thema verstecken",
-				"importTopic": "Thema importieren",
-				"moveTopic": "Thema verschieben",
-				"shareTopic": "Thema teilen"
+				"displayTopicAgain": "Thema wieder anzeigen"
 			},
 			"headline": {
 				"collapse/ExpandMyTasks": "Meine Aufgaben ein/ausklappen",
