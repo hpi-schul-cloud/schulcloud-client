@@ -20,7 +20,7 @@ $(document).ready(function () {
                     if (member.displayName) {
                         courseMembers = courseMembers + '<li>' + member.displayName + '</li>';
                     } else {
-                        courseMembers = courseMembers + '<li>' + member.firstName + '<br>' + '&nbsp;&nbsp;&nbsp;&nbsp;' + member.lastName + '</li>';
+                        courseMembers = courseMembers + '<li>' + member.firstName + ' ' + member.lastName + '</li>';
                     }
                 });
                 courseMembers = courseMembers + '</ol>';
