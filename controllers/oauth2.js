@@ -52,6 +52,10 @@ const displayScope = (scope, w) => {
 			return w.$t('login.oauth2.label.yourName');
 		case 'email':
 			return w.$t('login.oauth2.label.email');
+		case 'homework':
+			return w.$t('login.oauth2.label.homework');
+		case 'calendar':
+			return w.$t('login.oauth2.label.calendar');
 		default:
 			return scope;
 	}
