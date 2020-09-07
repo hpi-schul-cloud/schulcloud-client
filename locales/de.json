@@ -114,7 +114,6 @@
 		"button": {
 			"changePassword": "Passwort ändern",
 			"consent": "Einwilligungen:",
-			"deleteUser": "Benutzer löschen",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
@@ -286,6 +285,9 @@
 				"whenLoggingInForTheFirstTime": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben.",
 				"yourStudentsAreAtLeast": "Deine Schüler sind mindestens {{age}} Jahre alt?",
 				"yourStudentsAreUnder": "Deine Schüler sind unter {{age}} Jahre alt?"
+			},
+			"tab_label": {
+				"archivedClasses": "Archiv"
 			}
 		},
 		"dashboard": {
@@ -305,7 +307,7 @@
 		},
 		"form_DeleteUser": {
 			"text": {
-				"areYouSureYouWantTheFollowingUser": "Sind Sie sich sicher, dass Sie folgenden Nutzer wollen?"
+				"areYouSureYouWantTheFollowingUser": "Bist du sicher, dass du folgende:n Nutzer:in löschen möchtest?"
 			}
 		},
 		"form_Import": {
@@ -421,7 +423,10 @@
 				"selectStudent": "Schüler auswählen"
 			},
 			"text": {
-				"areYouSureYouWantToDeleteTheFollowingItem": "Sind Sie sich sicher, dass Sie folgendes Element löschen wollen?",
+				"areYouSureYouWantToDeleteTheFollowingClass": "Bist du sicher, dass du folgende Klasse löschen möchtest?",
+				"areYouSureYouWantToDeleteTheFollowingCourse": "Bist du sicher, dass du folgenden Kurs löschen möchtest?",
+				"areYouSureYouWantToDeleteTheFollowingItem": "Bist du sicher, dass du folgendes Element löschen willst?",
+				"areYouSureYouWantToDeleteTheFollowingTeam": "Bist du sicher, dass du folgendes Team löschen möchtest?",
 				"byConnectingToASchoolState": "Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{shortTitle}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
 				"chatIsActivated": "Chat ist aktiviert",
 				"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
@@ -696,7 +701,7 @@
 			"headline": {
 				"changePassword": "Passwort ändern",
 				"completeRegistration": "Nutzerregistrierung abschließen",
-				"deleteUser": "Benutzer löschen?"
+				"deleteUser": "Benutzer:in löschen"
 			},
 			"text": {
 				"alreadyRegistered": "Der Nutzer ist bereits registriert",
@@ -1251,6 +1256,15 @@
 			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem entsprechenden Nutzer verknüpft."
 		}
 	},
+	"demo": {
+		"lib": {
+			"global": {
+				"link": {
+					"dataProtectionDeclaration": "Datenschutzerklärung Testaccount"
+				}
+			}
+		}
+	},
 	"files": {
 		"_file": {
 			"headline": {
@@ -1545,7 +1559,7 @@
 			"send": "Abschicken",
 			"submit": "Absenden",
 			"toCourse": "Zum Kurs",
-			"tryAgain": "Erneut Versuchen",
+			"tryAgain": "Erneut versuchen",
 			"yes": "Ja"
 		},
 		"headline": {
@@ -1702,6 +1716,12 @@
 				"lastPage": "Letzte Seite",
 				"nextPage": "nächste Seite"
 			}
+		},
+		"language": {
+			"label": {
+				"de": "Deutsch",
+				"en": "English"
+			}
 		}
 	},
 	"help": {
@@ -1803,8 +1823,8 @@
 		},
 		"help_fromInviteExternalMember": {
 			"button": {
-				"externalExpert": "External experts",
-				"teachersFromOtherSchool": "Teachers from other schools"
+				"externalExperts": "Externe Experten",
+				"teachersFromOtherSchools": "Lehrer von anderen Schulen"
 			},
 			"heading": {
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
@@ -1971,7 +1991,7 @@
 			"copy": "Kopieren",
 			"copySubmissionFromList": "kopieren",
 			"deleteSubmissionFromList": "löschen",
-			"downloadUngradedFiles": "Alle Dateien unbewerteter Hausaufgaben herunterladen",
+			"downloadUngradedFiles": "Unbewertete Hausaufgaben",
 			"editSubmissionFromList": "bearbeiten",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
@@ -2043,7 +2063,8 @@
 			"submission": "Abgabe",
 			"submissions": "Abgaben",
 			"submissionsWithoutFeedback": "unkommentierte Abgaben",
-			"uploadGradeFiles": "Alle korrigierten Dateien hochladen"
+			"taskDetails": "Details der Aufgabe:",
+			"uploadGradeFiles": "Korrigierte Dateien hochladen"
 		},
 		"text": {
 			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
@@ -2053,6 +2074,7 @@
 			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
 			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
+			"due": "Fällig",
 			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
 			"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
 			"noAssignment": "Keine Zuordnung",
@@ -2063,6 +2085,7 @@
 			"noSubmission": "Keine Abgabe",
 			"noSubmissionDateSet": "Ohne Abgabedatum",
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
+			"published": "Veröffentlicht:",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 		}
@@ -2188,6 +2211,14 @@
 				"theNextQuestionnaireIsOnline": "Die nächste Befragung zum Projekt {{shortTitle}} ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen."
 			}
 		},
+		"form_ChangeLanguage" : {
+			"label": {
+				"language": "Sprache"
+			},
+			"placeholder": {
+				"text": "Bitte wählen..."
+			}
+		},
 		"global": {
 			"button": {
 				"discardChange": "Änderung verwerfen"
@@ -2254,7 +2285,7 @@
 			},
 			"tab_label": {
 				"settings": "Einstellungen",
-				"signOut": "Abmelden"
+				"signOut": "Logout"
 			},
 			"text": {
 				"allActionsThatCreate": "Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.",
@@ -2487,7 +2518,8 @@
 					"sendAndGetStarted": "Absenden & Loslegen"
 				},
 				"heading": {
-					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
+					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!",
+					"language": "Bitte wähle deine Sprache"
 				},
 				"label": {
 					"eMail": "E-Mail:",
@@ -2508,7 +2540,8 @@
 					"password": "Passwort: ",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
-					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
+					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.",
+					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf Deinen Avatar tippst."
 				}
 			},
 			"heading": {
@@ -2749,8 +2782,7 @@
 					"deleteClass": "Klasse löschen",
 					"deleteMember": "Teilnehmer löschen",
 					"editMember": "Teilnehmer bearbeiten",
-					"externExpert": "Externe Experten",
-					"inviteByMail": "per E-Mail einladen",
+					"inviteByMail": "Via E-Mail einladen",
 					"selectFromIndex": "Aus Verzeichnis auswählen",
 					"teacherFromOtherSchool": "Lehrer anderer Schulen"
 				},

@@ -74,6 +74,8 @@
                 {{/userHasPermission}}
 
                 {{> "lib/components/csrfInput"}}
+                {{> "lib/forms/form-change-language" langParent=../currentUser }}
+
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary" data-testid="submit_new_password_btn">

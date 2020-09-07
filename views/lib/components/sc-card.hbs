@@ -48,11 +48,11 @@
             {{truncateHTML (conflictFreeHtml this.content) 200}}
         </div>
         <div class="sc-card-footer">
-            <a href="{{url}}" rel="canonical">{{{link-text}}}</a>
             {{#if additionalInfoName}}
-            <div class="additionalInfo">
-                {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName) }}
-            </div>
+                <div class="additionalInfo">
+                    {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName title=this.title) }}
+                </div>
             {{/if}}
+            <a href="{{url}}" rel="canonical" aria-label="{{{link-text}}}">{{{ stripHTMLTags this.title }}}&gt;{{{link-text}}}</a>
         </div>
     </article>
