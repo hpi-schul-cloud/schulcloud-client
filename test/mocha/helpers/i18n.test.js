@@ -4,7 +4,7 @@ const { Configuration } = require('@schul-cloud/commons');
 const config = {
 	defaultLanguage: 'de',
 	fallbackLanguage: 'de',
-	availableLanguages: 'de,en,fr',
+	availableLanguages: 'de,en',
 };
 
 const mockReq = {
@@ -38,7 +38,9 @@ describe('i18n helpers test', () => {
 	});
 
 	it('Check for availableLanguages', () => {
-		const testAvailableLanguages = config.availableLanguages.split(',');
+		const testAvailableLanguages = config.availableLanguages
+			.split(',')
+			.map((value) => value.trim());
 		chai
 			.expect(i18n.availableLanguages)
 			.to.eql(
