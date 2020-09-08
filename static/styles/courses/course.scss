@@ -111,11 +111,6 @@
 		.sectionsContainer {
 			padding: 10px 0;
 		}
-
-		#member-modal-body {
-			columns: 1;
-			word-break: break-all;
-		}
 	}
 
 	.files {
@@ -521,6 +516,10 @@
 			overflow: hidden !important;
 			white-space: nowrap;
 		}
+	}
+	@include media-breakpoint-down(sm) {
+		columns: 1;
+		word-break: break-all;
 	}
 }
 
