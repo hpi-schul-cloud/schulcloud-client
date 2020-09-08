@@ -68,9 +68,9 @@
 				{{> "lib/components/csrfInput"}}
 				<div class="form-group">
 					{{#if notification.statusCode}}
-						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+						<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
 					{{else}}
-						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
+						<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
 					{{/if}}
 				</div>
 			</form>
