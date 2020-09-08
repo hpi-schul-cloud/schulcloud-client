@@ -112,14 +112,5 @@
     </div>
 </div>
 
-{{#embed "authentication/section" style="" class=""}}
-    {{#content "body"}}
-        <div class="blog-cards">
-            <i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
-               style="font-size: 25px;"></i>
-        </div>
-    {{/content}}
-{{/embed}}
-
 {{#embed "lib/extended_footer"}}{{/embed}} {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
 {{#content "fields"}} {{> "authentication/forms/pwrecovery"}} {{/content}} {{/embed}} {{/content}} {{/extend}}
