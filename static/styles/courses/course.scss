@@ -510,7 +510,13 @@
 
 #member-modal-body {
 	columns: 2;
-	word-break: break-all;
+	ol {
+		li {
+			text-overflow: ellipsis;
+			overflow: hidden !important;
+			white-space: nowrap;
+		}
+	}
 }
 
 #member-list {
