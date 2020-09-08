@@ -64,7 +64,7 @@
                                 {{#if this.children}}
                                     <ul class="subitems">
                                         {{#each this.children}}
-                                            <li>
+                                            <li data-testid="sidebar-{{this.name}}">
 												<a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
 													{{#if this.isExternalIcon}}
 														{{{this.icon}}}
