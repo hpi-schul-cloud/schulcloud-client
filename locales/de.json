@@ -2882,7 +2882,7 @@
 			"duplicateTeam": "Team duplizieren",
 			"foundATeam": "Gründe ein Team"
 		},
-		"form_import": {
+		"form_importTopic": {
 			"label": {
 				"insertACodeToImport": "Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.",
 				"renameTheCourse": "Benenne den Kurs um."
