@@ -57,7 +57,7 @@
 
             {{#if materialIds}}
                 <div class="materials">
-                    <h2 class="h5">{{$t "topic._topic.heading.savedTeachingMaterials" }}</h2>
+                    <h2 class="h5">{{$t "topic._topic.headline.savedTeachingMaterials" }}</h2>
                     <div class="card-columns">
                         {{#each materialIds}}
                             <div class="card">
@@ -166,7 +166,7 @@
                             <h2 class="h4">
                                 <small data-toggle="tooltip" title="{{$t "topic._topic.label.expandPrivateTasks" }}"><i
                                         class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-                                {{$t "topic._topic.heading.privateTasks" }}
+                                {{$t "topic._topic.headline.privateTasks" }}
                                 <small>({{arrayLength myhomeworks}}
                                     {{#ifneq 1 (arrayLength myhomeworks)}}
                                         {{$t "global.headline.tasks"}}
