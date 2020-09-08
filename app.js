@@ -86,7 +86,7 @@ app.use(require('./middleware/cors'));
 
 app.use(compression());
 app.set('trust proxy', true);
-const themeName = SC_THEME;
+const themeName = 'n21';
 // view engine setup
 const handlebarsHelper = require('./helpers/handlebars');
 
