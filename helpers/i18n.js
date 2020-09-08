@@ -7,7 +7,7 @@ const api = require('../api');
 
 const i18nDebug = Configuration.get('I18N__DEBUG');
 const fallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
-const language = Configuration.get('I18N__DEFAULT_LANGUAGE');
+const defaultLanguage = Configuration.get('I18N__DEFAULT_LANGUAGE');
 const availableLanguages = (Configuration.get('I18N__AVAILABLE_LANGUAGES') || '')
 	.split(',')
 	.map((value) => value.trim());
@@ -19,7 +19,7 @@ i18next
 	.init({
 		debug: i18nDebug,
 		initImmediate: false,
-		lng: language,
+		lng: defaultLanguage,
 		fallbackLng: fallbackLanguage,
 		supportedLngs: availableLanguages || false,
 		backend: {
@@ -38,6 +38,16 @@ const getSchoolLanguage = async (req, schoolId) => {
 	} catch (e) {
 		return undefined;
 	}
+};
+
+const getBrowserLanguage = (req) => {
+	const headersAcceptLanguages = (((req || {}).headers || {})['accept-language'] || '')
+		.split(',')
+		.map((value) => value.split(';').shift())
+		.map((value) => value.split('-').shift())
+		.reduce((unique, item) => (unique.includes(item) ? unique : [...unique, item]), [])
+		.filter((value) => availableLanguages.includes(value));
+	return headersAcceptLanguages.shift() || null;
 };
 
 const getCurrentLanguage = async (req, res) => {
@@ -84,9 +94,12 @@ const changeLanguage = (lng) => {
 };
 
 module.exports = {
-	language,
+	i18next,
+	defaultLanguage,
+	fallbackLanguage,
 	availableLanguages,
 	getInstance,
 	changeLanguage,
 	getCurrentLanguage,
+	getBrowserLanguage,
 };
