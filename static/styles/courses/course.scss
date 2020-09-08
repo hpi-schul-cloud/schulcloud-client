@@ -517,9 +517,8 @@
 			white-space: nowrap;
 		}
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(xs) {
 		columns: 1;
-		word-break: break-all;
 	}
 }
 
