@@ -1,7 +1,6 @@
 const stripHtml = require('string-strip-html');
-const { SC_THEME } = require('../../config/global');
 
-const ghostTheme = SC_THEME;
+const ghostTheme = $('#SC_THEME').text();
 
 function fetchContent() {
 	$(`.${ghostTheme}-blog .spinner`).show();

@@ -11,7 +11,7 @@ const setTheme = (res) => {
 	const baseDir = (res.locals.currentSchoolData || {}).documentBaseDir || documents.documentBaseDir;
 
 	res.locals.theme = {
-		name: 'n21',
+		name: SC_THEME,
 		title: SC_TITLE,
 		short_title: SC_SHORT_TITLE,
 		documents: {
