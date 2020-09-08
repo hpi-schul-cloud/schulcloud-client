@@ -1495,6 +1495,7 @@ router.get(
 						? consent.parentConsents[0]
 						: {};
 				}
+				const canDeleteStudent = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
 				const hidePwChangeButton = !account;
 				res.render('administration/users_edit', {
 					title: res.$t('administration.controller.link.editingStudents'),
@@ -1502,6 +1503,8 @@ router.get(
 					submitLabel: res.$t('global.button.save'),
 					closeLabel:	res.$t('global.button.cancel'),
 					user,
+					canDeleteStudent,
+					isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
 					consent,
 					canSkipConsent: canSkip,
@@ -2466,7 +2469,7 @@ router.all('/courses', (req, res, next) => {
 	const head = [
 		res.$t('global.headline.name'),
 		res.$t('global.headline.classes'),
-		res.$t('administration.controller.headline.teachers'),
+		res.$t('global.headline.teachers'),
 		'',
 	];
 
