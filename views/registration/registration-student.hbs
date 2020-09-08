@@ -21,7 +21,7 @@
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
       <section data-panel="section-1">
-        <h2 class="h4">{{$t "registration._registration.student.heading.personalData" }}</h2>
+        <h2 class="h4">{{$t "registration._registration.student.headline.personalData" }}</h2>
         <p>{{$t "registration._registration.global.text.weStoreUserDataSafely" (dict "shortTitle" theme.short_title)}}</p>
 	  <p>{{$t "registration._registration.global.text.weNeedFollowingDataForRegistration" (dict "shortTitle" theme.short_title)}}</p>
         <div class="row">
@@ -80,7 +80,7 @@
 
 
       <section data-panel="section-4">
-        <h2 class="h4">{{$t "registration._registration.global.heading.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
 
         {{#if user.sso}}
             <p>{{$t "registration._registration.student.text.yourSSOAccountDetails" }}</p>
