@@ -1,35 +1,39 @@
 @import "./variables";
-@import '../lib/bootstrap/scss/bootstrap';
+@import "../lib/bootstrap/scss/bootstrap";
 // legacy css for login form
-#loginarea{
-	&:not(.demo-login){
+#loginarea {
+	&:not(.demo-login) {
 		border-radius: 0;
 		border: 1px solid var(--color-gray-light);
 		box-shadow: var(--shadow-sm);
 	}
-    .btn{
-        word-wrap: break-word;
+	.btn {
+		word-wrap: break-word;
 		white-space: normal;
 		min-width: 22ch;
 	}
-	.toggle-btn{
+	.toggle-btn {
 		margin-bottom: 1rem;
 	}
-    input:not(.chosen-search-input) {
-        font-size: 1rem;
-        padding: .5rem;
+	input:not(.chosen-search-input),
+	input:not(.chosen-search-input):-webkit-autofill::first-line,
+	input:not(.chosen-search-input):-webkit-autofill:focus,
+	input:not(.chosen-search-input):-webkit-autofill:hover {
+		font-size: 1rem;
+		padding: 0.5rem;
+		font-family: $font-family-base;
 	}
-	select{
+	select {
 		width: 100%;
-		padding: .25rem .5rem;
+		padding: 0.25rem 0.5rem;
 		border-radius: 4px;
 	}
-    .login-providers {
-        display:none;
+	.login-providers {
+		display: none;
 	}
 }
 
-.login-failed-container{
+.login-failed-container {
 	margin-top: 30px;
 	max-width: 900px;
 
@@ -38,11 +42,11 @@
 		font-weight: 800;
 		margin-bottom: 10px;
 		font-size: 20px;
-		&::before{
+		&::before {
 			display: none;
 		}
 	}
-	.screenshot{
+	.screenshot {
 		width: 60%;
 
 		@include media-breakpoint-down(md) {
@@ -53,21 +57,20 @@
 		}
 	}
 
-	.steps{
+	.steps {
 		margin-bottom: 30px;
 		margin-top: 10px;
 	}
-	.browser{
+	.browser {
 		margin-left: 10px 0px 0px 10px;
 	}
 
-
-	.logo-container{
+	.logo-container {
 		display: flex;
-		flex-direction:	column;
+		flex-direction: column;
 
-		.sc-logo{
-			cursor:pointer;
+		.sc-logo {
+			cursor: pointer;
 			margin-left: 10px;
 			margin-bottom: 15px;
 		}

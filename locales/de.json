@@ -1559,7 +1559,7 @@
 			"send": "Abschicken",
 			"submit": "Absenden",
 			"toCourse": "Zum Kurs",
-			"tryAgain": "Erneut Versuchen",
+			"tryAgain": "Erneut versuchen",
 			"yes": "Ja"
 		},
 		"headline": {
@@ -1716,6 +1716,12 @@
 				"lastPage": "Letzte Seite",
 				"nextPage": "nächste Seite"
 			}
+		},
+		"language": {
+			"label": {
+				"de": "Deutsch",
+				"en": "English"
+			}
 		}
 	},
 	"help": {
@@ -1817,8 +1823,8 @@
 		},
 		"help_fromInviteExternalMember": {
 			"button": {
-				"externalExpert": "External experts",
-				"teachersFromOtherSchool": "Teachers from other schools"
+				"externalExperts": "Externe Experten",
+				"teachersFromOtherSchools": "Lehrer von anderen Schulen"
 			},
 			"heading": {
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
@@ -1985,7 +1991,7 @@
 			"copy": "Kopieren",
 			"copySubmissionFromList": "kopieren",
 			"deleteSubmissionFromList": "löschen",
-			"downloadUngradedFiles": "Alle Dateien unbewerteter Hausaufgaben herunterladen",
+			"downloadUngradedFiles": "Unbewertete Hausaufgaben",
 			"editSubmissionFromList": "bearbeiten",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
@@ -2154,7 +2160,7 @@
 		},
 		"footer": {
 			"aria_label": {
-				"footer":"footer",
+				"footer": "footer",
 				"love": "love"
 			},
 			"img_alt": {
@@ -2203,6 +2209,14 @@
 			"text": {
 				"thanksForYourSupport": "Vielen Dank für Ihre Unterstützung!",
 				"theNextQuestionnaireIsOnline": "Die nächste Befragung zum Projekt {{shortTitle}} ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen."
+			}
+		},
+		"form_ChangeLanguage" : {
+			"label": {
+				"language": "Sprache"
+			},
+			"placeholder": {
+				"text": "Bitte wählen..."
 			}
 		},
 		"global": {
@@ -2504,12 +2518,13 @@
 					"sendAndGetStarted": "Absenden & Loslegen"
 				},
 				"heading": {
-					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
+					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!",
+					"language": "Bitte wähle deine Sprache"
 				},
 				"label": {
 					"eMail": "E-Mail:",
-					"studentEmailAddress": "E-Mail-Adresse des Schülers:",
-					"studentsDateOfBirth": "Geburtsdatum des Schülers:",
+					"studentEmailAddress": "E-Mail-Adresse des Schülers/der Schülerin:",
+					"studentsDateOfBirth": "Geburtsdatum des Schülers/der Schülerin:",
 					"yourEmailAddress": "Ihre E-Mail-Adresse:"
 				},
 				"placeholder": {
@@ -2525,7 +2540,8 @@
 					"password": "Passwort: ",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
-					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
+					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.",
+					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf Deinen Avatar tippst."
 				}
 			},
 			"heading": {
@@ -2593,12 +2609,12 @@
 				"agreeSoThatYourChild": "zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
 				"letsTakeThisStepWithYouAndYourChild": "Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{shortTitle}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
 				"linguisticNoteWeUseMaleFormForReadability": "* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} teilweise die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
-				"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers:",
+				"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers/der Schülerin:",
 				"pleaseRegisterChildThenAgreeToTermsOfUse": "Wir bitten Sie, Ihr Kind zunächst in der {{shortTitle}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
 				"pleaseRegisterFirstAndAgreeToTerms": "Bitte registriere dich zunächst in der {{shortTitle}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
-				"registrationMustBeDoneByYou": "Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern.",
+				"registrationMustBeDoneByYou": "Die folgende Anmeldung muss von dir als Schüler:in selbst vorgenommen werden, nicht von deinen Eltern.",
 				"thankYouForTakingThisStepWithUs": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
-				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über {{independentAge}} sie selbst."
+				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers/der Schülerin* verändert sich der Anmeldeprozess. Bei Schülern:innen unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern:innen über {{independentAge}} sie selbst."
 			}
 		},
 		"deprecatedWarning": {
@@ -2766,8 +2782,7 @@
 					"deleteClass": "Klasse löschen",
 					"deleteMember": "Teilnehmer löschen",
 					"editMember": "Teilnehmer bearbeiten",
-					"externExpert": "Externe Experten",
-					"inviteByMail": "per E-Mail einladen",
+					"inviteByMail": "Via E-Mail einladen",
 					"selectFromIndex": "Aus Verzeichnis auswählen",
 					"teacherFromOtherSchool": "Lehrer anderer Schulen"
 				},
