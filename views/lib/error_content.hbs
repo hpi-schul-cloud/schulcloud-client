@@ -18,7 +18,7 @@
         <span class="hide">{{$t "lib.error.button.hideDetails" }}</span>
     </button>
     <div id="error-details" class="collapse card error-card">
-        <div class="card-header">{{$t "lib.error.heading.errorDetails" }} <br />
+        <div class="card-header">{{$t "lib.error.headline.errorDetails" }} <br />
             <code style="padding:0 0 0 0;">{{message}}</code>
         </div>
         {{#unlessEnv "NODE_ENV" "production"}}
