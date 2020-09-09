@@ -510,7 +510,9 @@
 
 #member-modal-body {
 	columns: 2;
+	margin-bottom: 1rem;
 	ol {
+		margin: 0;
 		li {
 			text-overflow: ellipsis;
 			overflow: hidden !important;
