@@ -249,8 +249,10 @@ $(document).ready(() => {
 						{ width: `${realProgress}%` },
 						{
 							step(now) {
-								$percentage.html(`${Math.ceil(now)}%`);
-								$percentage.setAttribute('aria-valuenow', `${Math.ceil(now)}%`);
+								if ($percentage) {
+									$percentage.html(`${Math.ceil(now)}%`);
+									$percentage.setAttribute('aria-valuenow', `${Math.ceil(now)}%`);
+								}
 							},
 						},
 					);
