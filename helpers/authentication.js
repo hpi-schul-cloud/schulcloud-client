@@ -174,7 +174,9 @@ const checkSuperhero = (req, res) => {
 
 
 const checkIfUserIsForcedToChangePassword = (req, res) => {
-	if (!res.locals.currentUser.forcePasswordChange || req.baseUrl.startsWith('/forcePasswordChange')) {
+	if (!res.locals.currentUser.forcePasswordChange
+		|| req.baseUrl.startsWith('/forcePasswordChange')
+		|| !((res.locals.currentUser || {}).preferences || {}).firstLogin) {
 		return Promise.resolve();
 	}
 	// eslint-disable-next-line prefer-promise-reject-errors
