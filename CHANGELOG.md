@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+## [24.4.2] - 2020-09-09
+
+### Fixed
+- SC-6533 - Login not possible if admin reset password
 
   - SC-5707 Added detection of browser language
   - SC-5706 Added language selection within teacher registration
