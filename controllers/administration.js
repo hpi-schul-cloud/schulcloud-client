@@ -2643,7 +2643,6 @@ router.all('/teams', async (req, res, next) => {
 
 			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 			const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
-
 			const roleTranslations = {
 				teammember: res.$t('administration.controller.headline.attendees'),
 				teamexpert: res.$t('administration.controller.headline.externalExpert'),
