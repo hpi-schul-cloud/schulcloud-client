@@ -3,6 +3,7 @@
     <meta name="referrer" content="unsafe-url">
 </head>
 <body>
+<p id="depseudo">Depseudo</p>
 <script>
     var is_safari = navigator.userAgent.indexOf("Safari") > -1;
     // Chrome has Safari in the user agent so we need to filter (https://stackoverflow.com/a/7768006/1502448)
@@ -13,8 +14,14 @@
         if (!document.cookie.match(/^(.*;)?\s*fixed\s*=\s*[^;]+(.*)?$/)) {
             // Set cookie to maximum (https://stackoverflow.com/a/33106316/1502448)
             document.cookie = 'fixed=fixed; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/';
-            window.location.replace('{{fixUrl}}');
+            // window.location.replace('{{fixUrl}}');
         }
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+        document.getElementById('depseudo').innerText = getCookie('username');
     }
 </script>
 </body>
