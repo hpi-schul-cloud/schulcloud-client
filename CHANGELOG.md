@@ -8,11 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+## [24.4.2] - 2020-09-09
+
+### Fixed
 
   - SC-5287 Fixed OAuth2 login
+  - SC-6533 - Login not possible if admin reset password
+  - SC-5707 Added detection of browser language
+  - SC-5706 Added language selection within teacher registration
   - SC-6019 Added tabbar to classes administration
   - SC-5955 Changed links to Lernen.cloud
   - SC-5644 navigation and the general structure of pages made more accessible (a11y)
+  - SC-6245 If students can create teams, they can also invite other students to teams
 
 ## [24.4.1] - 2020-9-01
 
