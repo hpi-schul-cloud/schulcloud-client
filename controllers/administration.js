@@ -837,7 +837,11 @@ const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, r
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
-			next(err);
+			req.session.notification = {
+				type: 'danger',
+				message: err.error.message,
+			};
+			res.redirect(`${req.originalUrl}/edit`);
 		});
 };
 
@@ -1112,7 +1116,11 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
-			next(err);
+			req.session.notification = {
+				type: 'danger',
+				message: err.error.message,
+			};
+			res.redirect(`${req.originalUrl}/edit`);
 		});
 };
 
