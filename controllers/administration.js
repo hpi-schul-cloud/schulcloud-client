@@ -1176,7 +1176,7 @@ router.get(
 	'/students/:id/skipregistration',
 	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
 	(req, res, next) => {
-		api(req).get(`/users/${req.params.id}`)
+		api(req).get(`/users/admin/students/${req.params.id}`)
 			.then((user) => {
 				res.render('administration/users_skipregistration', {
 					title: res.$t('administration.controller.link.toGiveConsent'),
@@ -2643,7 +2643,6 @@ router.all('/teams', async (req, res, next) => {
 
 			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 			const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
-
 			const roleTranslations = {
 				teammember: res.$t('administration.controller.headline.attendees'),
 				teamexpert: res.$t('administration.controller.headline.externalExpert'),
