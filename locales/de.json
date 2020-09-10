@@ -201,7 +201,6 @@
 				"students": "{{title}}Schüler",
 				"targetState": "Soll-Zustand",
 				"teacher": "{{title}}Lehrer",
-				"teachers": "Lehrer",
 				"teams": "{{title}}Teams",
 				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
 				"uploadedOn": "Hochgeladen am"
@@ -288,7 +287,7 @@
 			}
 		},
 		"dashboard": {
-			"heading": {
+			"headline": {
 				"manageClasses": "Klassen verwalten",
 				"manageCourses": "Kurse verwalten",
 				"manageSchool": "Schule verwalten",
@@ -442,7 +441,7 @@
 			"button": {
 				"verify": "Verifizieren"
 			},
-			"heading": {
+			"headline": {
 				"classAttributes": "Klassen-Attribute",
 				"classAttributesTitle": "Geben Sie das Klassenattribut an, in dem die folgenden Informationen in Ihrem LDAP verfügbar sind",
 				"importantNote": "Wichtiger Hinweis",
@@ -502,7 +501,7 @@
 			"button": {
 				"closeWindow": "Fenster schließen"
 			},
-			"heading": {
+			"headline": {
 				"LDAPClasses": "LDAP-Klassen",
 				"LDAPUsers": "LDAP-Nutzer",
 				"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
@@ -769,7 +768,7 @@
 			"mintECSchools": "MINT-EC-Schulen",
 			"thuringia": "Thüringen"
 		},
-		"heading": {
+		"headline": {
 			"chooseYourState": "Wählen Sie Ihr Bundesland oder das Projekt dem Sie angehören.",
 			"joinNow": "Jetzt mitmachen!"
 		},
@@ -825,7 +824,7 @@
 			"fileType": "Dateitypen: %1"
 		},
 		"store": {
-			"heading": {
+			"headline": {
 				"currentContent": "Aktuelle Inhalte",
 				"popularContent": "Beliebte Inhalte"
 			}
@@ -1092,7 +1091,6 @@
 			"headline": {
 				"addCourse": "Kurs anlegen",
 				"addStudents": "Schüler:innen hinzufügen",
-				"almostDone": "Du hast es fast geschafft...",
 				"done": "Geschafft!",
 				"whatToDoCourses": "Was kannst du in einem Kurs machen?"
 			},
@@ -1380,7 +1378,7 @@
 			"takeALookAtTheFirstSteps": "Erste Schritte anschauen"
 		},
 		"consent": {
-			"heading": {
+			"headline": {
 				"importantInformation": "Wichtige Information",
 				"summaryOfTheExtension": "Zusammenfassung der Erweiterung in der {{visualType}}",
 				"toThe": "zum"
@@ -1399,7 +1397,7 @@
 			}
 		},
 		"email": {
-			"heading": {
+			"headline": {
 				"howCanWeContactYou": "Wie können wir dich erreichen?"
 			},
 			"text": {
@@ -1408,18 +1406,12 @@
 			}
 		},
 		"global": {
-			"heading": {
-				"birthdate": "Geburtsdatum",
-				"declarationOfConsent": "Einwilligungserklärung"
+			"headline": {
+				"birthdate": "Geburtsdatum"
 			},
 			"text": {
 				"canUse": "nutzen kannst."
 			}
-		},
-		"heading": {
-			"almostThere": "Fast geschafft!",
-			"sorryItDidnotWork": "Entschuldige, das hat nicht geklappt",
-			"youAlmostMadeIt": "Du hast es fast geschafft..."
 		},
 		"label": {
 			"newPassword": "Neues Passwort: ",
@@ -1439,9 +1431,8 @@
 					"forStudentsUnder": "Für Schüler unter {{age}} Jahren muss ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen."
 				}
 			},
-			"heading": {
-				"declarationOfConsentFromALegalGuardian": "Einverständniserklärung eines Erziehungsberechtigten benötigt",
-				"yourData": "Ihre Daten"
+			"headline": {
+				"declarationOfConsentFromALegalGuardian": "Einverständniserklärung eines Erziehungsberechtigten benötigt"
 			},
 			"label": {
 				"continueAsLegalGuardian": "als Erziehungsberechtigter fortfahren"
@@ -1496,7 +1487,7 @@
 			"button": {
 				"toYourCourses": "Zu deinen Kursen"
 			},
-			"heading": {
+			"headline": {
 				"congratulations": "Herzlichen Glückwunsch, {{firstName}} {{lastName}}",
 				"welcomeToThe": "Herzlich willkommen in der {{shortTitle}} {{firstName}} {{lastName}}"
 			},
@@ -1574,6 +1565,8 @@
 			"sorting": "Sortierung",
 			"task": "Aufgabe",
 			"tasks": "Aufgaben",
+			"teachers": "Lehrer",
+			"youAlmostMadeIt": "Du hast es fast geschafft...",
 			"yourData": "Ihre Daten"
 		},
 		"input": {
@@ -1743,11 +1736,6 @@
 				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
 			}
 		},
-		"dashboard": {
-			"heading": {
-				"helpArticles": "Hilfeartikel"
-			}
-		},
 		"form_Wish": {
 			"label": {
 				"acceptanceCriteria": "Akzeptanzkriterien",
@@ -1788,9 +1776,8 @@
 			}
 		},
 		"global": {
-			"heading": {
-				"principal": "Schulleitung",
-				"teacher": "Lehrer"
+			"headline": {
+				"principal": "Schulleitung"
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
@@ -1817,7 +1804,7 @@
 				"externalExperts": "Externe Experten",
 				"teachersFromOtherSchools": "Lehrer von anderen Schulen"
 			},
-			"heading": {
+			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
 			}
 		},
@@ -1827,7 +1814,7 @@
 			}
 		},
 		"lernNuggets": {
-			"heading": {
+			"headline": {
 				"instructionsForUse": "Hinweise zur Benutzung",
 				"learningNuggetBasicOfGDPR": "Lern-Nugget: Grundlagen der DSGVO",
 				"learningNuggetDataProtectioin": "Lern-Nugget: Datenschutz im Schulalltag",
@@ -1858,7 +1845,7 @@
 			}
 		},
 		"partials": {
-			"heading": {
+			"headline": {
 				"contactForm": "Kontaktformular",
 				"contactPerson": "Ansprechpartner",
 				"overview": "Überblick",
@@ -2089,16 +2076,15 @@
 			}
 		},
 		"imprint_platform_intro": {
-			"heading": {
+			"headline": {
 				"legalNotice": "Rechtliche Hinweise:"
 			},
 			"text": {
-				"TheProjectIsANonCommercialPilotProject": "Die {{shortTitle}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT EC ( <a href=\"https://www.mint-ec.de/\" target=\"_blank\" rel=\"noopener\">https://www.mint-ec.de/</a> ) durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter: <a href=\"https://hpi.de/open-campus/hpi-initiativen/hpi-schul-cloud.html\" target=\"_blank\" rel=\"noopener\">hpi-schul-cloud</a> ).",
-				"isCarriedOutAndFunded": "durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter:"
+				"TheProjectIsANonCommercialPilotProject": "Die {{shortTitle}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT EC ( <a href=\"https://www.mint-ec.de/\" target=\"_blank\" rel=\"noopener\">https://www.mint-ec.de/</a> ) durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter: <a href=\"https://hpi.de/open-campus/hpi-initiativen/hpi-schul-cloud.html\" target=\"_blank\" rel=\"noopener\">hpi-schul-cloud</a> )."
 			}
 		},
 		"imprint_rights": {
-			"heading": {
+			"headline": {
 				"editorialStuff": "Redaktion:",
 				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso-Plattner-Institut für Digital Engineering gGmbH",
 				"managingDirectorAuthorized": "Vertretungsberechtigter Geschäftsführer:"
@@ -2124,12 +2110,12 @@
 				"hideDetails": "Details verstecken",
 				"viewDetails": "Details anzeigen"
 			},
-			"heading": {
+			"headline": {
 				"errorDetails": "Fehler-Details:"
 			}
 		},
 		"extended_footer": {
-			"heading": {
+			"headline": {
 				"links": "Links",
 				"vacancies": "Stellenausschreibungen"
 			},
@@ -2487,7 +2473,7 @@
 	"registration": {
 		"_registration": {
 			"employee": {
-				"heading": {
+				"headline": {
 					"yourData": "Deine Daten"
 				},
 				"input": {
@@ -2508,7 +2494,7 @@
 					"openLogin": "Login öffnen",
 					"sendAndGetStarted": "Absenden & Loslegen"
 				},
-				"heading": {
+				"headline": {
 					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!",
 					"language": "Bitte wähle deine Sprache"
 				},
@@ -2535,7 +2521,7 @@
 					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf Deinen Avatar tippst."
 				}
 			},
-			"heading": {
+			"headline": {
 				"welcomeToTheRegistration": "Willkommen zur Anmeldung in der {{title}}!"
 			},
 			"label": {
@@ -2548,7 +2534,7 @@
 						"inThe": "in der"
 					}
 				},
-				"heading": {
+				"headline": {
 					"yourChildsData": "Daten Ihres Kindes",
 					"yourChildsSSO": "Der SSO-Account Ihres Kindes ist jetzt freigeschaltet."
 				},
@@ -2582,7 +2568,7 @@
 				}
 			},
 			"student": {
-				"heading": {
+				"headline": {
 					"personalData": "Persönliche Daten"
 				},
 				"input": {
@@ -2626,7 +2612,7 @@
 			}
 		},
 		"registration_template": {
-			"heading": {
+			"headline": {
 				"invitation": "Einladung in die {{shortTitle}}"
 			},
 			"text": {
@@ -2793,8 +2779,7 @@
 					"pendingInvitations": "Ausstehende Einladungen",
 					"requirements": "Voraussetzungen:",
 					"selectAndAddTeacher": "Lehrer auswählen und hinzufügen",
-					"teamMembers": "Team-Teilnehmer",
-					"whoDoYouWantToInvite": "Wen möchtest du ins Team einladen?"
+					"teamMembers": "Team-Teilnehmer"
 				},
 				"label": {
 					"addTeacherStudentsFromSchool": "Füge Lehrer und Schüler deiner Schule zum Team hinzu",
@@ -2896,12 +2881,10 @@
 			"button": {
 				"createTopic": "Thema anlegen"
 			},
-			"heading": {
+			"headline": {
+				"createTopic": "Thema anlegen",
 				"privateTasks": "Private Aufgaben",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
-			},
-			"headline": {
-				"createTopic": "Thema anlegen"
 			},
 			"input": {
 				"countWithPrimeNumbers": "z.B. Rechnen mit Primzahlen"
