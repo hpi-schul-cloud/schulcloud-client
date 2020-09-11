@@ -1176,7 +1176,7 @@ router.get(
 	'/students/:id/skipregistration',
 	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
 	(req, res, next) => {
-		api(req).get(`/users/${req.params.id}`)
+		api(req).get(`/users/admin/students/${req.params.id}`)
 			.then((user) => {
 				res.render('administration/users_skipregistration', {
 					title: res.$t('administration.controller.link.toGiveConsent'),
