@@ -13,6 +13,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 - SC-6533 - Login not possible if admin reset password
 
+  - SC-6245 If students can create teams, they can also invite other students to teams
+
 ## [24.4.1] - 2020-9-01
 
   - SC-6526 Fixed inserting files in CKEditor for topics
