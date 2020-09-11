@@ -28,7 +28,7 @@
                 {{/if}}
             </div>
         </div>
-        <div id="comment" class="tab-content">
+        <div id="comment" class="tab-content submission-editor">
             {{#if @root.isTeacher}}
                 {{#if this.submission}}
                     {{#embed "files/file-upload"}}{{/embed}}
@@ -38,7 +38,7 @@
                         {{#embed "homework/components/submission_files"
                             fileIds=../submission.gradeFileIds
                             grading=true
-                            deletionAllowed=false
+                            deletionAllowed=true
                             submission=../submission}}{{/embed}}
                     {{/ifneq}}
 
@@ -63,11 +63,11 @@
                                 <input data-testid="evaluation_procent" type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}" />
                             </div>
                             <label>{{$t "homework.label.comment" }}</label>
-                            <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="{{$t "homework.input.gradeComment"}}">{{this.submission.gradeComment}}</textarea>
+                            <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control ckeditor customckeditor" placeholder="{{$t "homework.input.gradeComment"}}">{{this.submission.gradeComment}}</textarea>
                         </div>
                         {{#userHasPermission "HOMEWORK_CREATE"}}
                             {{> "lib/components/csrfInput"}}
-                            <button type="submit" class="btn btn-primary">{{$t "homework.button.save" }}</button>
+                            <button type="submit" class="ckeditor-submit btn btn-primary">{{$t "homework.button.save" }}</button>
                         {{/userHasPermission}}
                     </form>
             {{else}}
@@ -88,5 +88,7 @@
                 {{/ifneq}}
             {{/if}}
         </div>
+        {{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}
+		{{/embed}}
     </div>
 </section>

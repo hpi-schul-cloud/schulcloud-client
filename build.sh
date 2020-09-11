@@ -56,15 +56,23 @@ function buildandpush {
   docker build -t schulcloud/schulcloud-client-int:$DOCKERTAG -t schulcloud/schulcloud-client-int:$GIT_SHA -f Dockerfile.int .
   docker push schulcloud/schulcloud-client-int:$DOCKERTAG
   docker push schulcloud/schulcloud-client-int:$GIT_SHA
+
+  # build container demo theme
+  docker build -t "schulcloud/schulcloud-client-demo:$DOCKERTAG" -t "schulcloud/schulcloud-client-demo:$GIT_SHA" -f Dockerfile.demo .
+  docker push "schulcloud/schulcloud-client-demo:$DOCKERTAG"
+  docker push "schulcloud/schulcloud-client-demo:$GIT_SHA"
   fi
+
+  # If branch is develop, add and push additional docker tags
+	if [[ "$TRAVIS_BRANCH" = "develop" ]]
+	then
+		docker tag schulcloud/schulcloud-client:$DOCKERTAG schulcloud/schulcloud-client:develop_latest
+		docker push schulcloud/schulcloud-client:develop_latest
+	fi
 }
 
 # write version file
 printf "%s\n%s\n%s" $TRAVIS_COMMIT $TRAVIS_BRANCH $TRAVIS_COMMIT_MESSAGE > ./version
-
-
-openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
-
 
 if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
 then

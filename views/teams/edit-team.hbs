@@ -20,14 +20,14 @@
                 {{/if}}
 
                 <div class="form-group">
-                    <label>{{$t "teams._team.edit.label.teamName"}}</label>
-                    <input class="form-control" data-testid="team_name" name="name" type="text"
+                    <label for="teamName">{{$t "teams._team.edit.label.teamName"}}</label>
+                    <input id="teamName" class="form-control" data-testid="team_name" name="name" type="text"
                            placeholder="{{$t "teams._team.edit.placeholder.teamName"}}" value="{{team.name}}" required/>
                 </div>
 
                 <div class="form-group">
-                    <label>{{$t "teams._team.edit.label.teamDescription"}}</label>
-                    <textarea class="form-control" data-testid="description_team" name="description">{{team.description}}</textarea>
+                    <label for="teamDesc">{{$t "teams._team.edit.label.teamDescription"}}</label>
+                    <textarea id="teamDesc" class="form-control" data-testid="description_team" name="description">{{team.description}}</textarea>
                 </div>
 
                 {{! Messenger is activated for instace !}}
@@ -35,10 +35,8 @@
                     {{! Messenger is activated for current school }}
                     {{#inArray "messenger" @root.schoolData.features}}
                         <div class="form-group">
-                            <label>
-                                <input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../team.features}}checked{{/inArray}}>
-                                {{$t "teams._team.edit.label.activateBidirectionalMessenger"}}
-                            </label>
+                            <label for="activateMessenger">{{$t "teams._team.edit.label.activateBidirectionalMessenger"}}</label>
+                                <input id="activateMessenger" type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../team.features}}checked{{/inArray}}>
                         </div>
                     {{/inArray}}
                 {{/ifConfig}}
@@ -48,10 +46,8 @@
                     {{! Rocketchat is activated for current school }}
                     {{#inArray "rocketChat" @root.schoolData.features}}
                         <div class="form-group">
-                            <label>
-                                <input type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
-                                {{$t "teams._team.edit.label.activateMessengerForTeam"}}
-                            </label>
+                            <label for="activateRC">{{$t "teams._team.edit.label.activateMessengerForTeam"}}</label>
+                                <input id="activateRC" type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
                         </div>
                     {{/inArray}}
                 {{/if}}
@@ -59,11 +55,9 @@
                 {{! Videoconferences are activated for instace }}
                 {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                     <div class="form-group">
-                        <label>
-                            <input type="checkbox" name="videoconference" value="true" {{#inArray "videoconference" @root.team.features}}checked{{/inArray}}
+                        <label for="activateConf">{{$t "teams._team.edit.label.activateVideoConferences"}}</label>
+                            <input id="activateConf" type="checkbox" name="videoconference" value="true" {{#inArray "videoconference" @root.team.features}}checked{{/inArray}}
                                 {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
-                            {{$t "teams._team.edit.label.activateVideoConferences"}}
-                        </label>
                         {{#inArray "videoconference" @root.schoolData.features}}
                         {{else}}
                         <small class="form-text text-muted">
@@ -74,8 +68,8 @@
                 {{/ifConfig}}
 
                 <div class="form-group">
-                    <label>{{$t "teams._team.edit.label.teamColor"}}</label>
-                    <input name="color" type="color"
+                    <label for="selectColor">{{$t "teams._team.edit.label.teamColor"}}</label>
+                    <input id="selectColor" name="color" type="color"
                            value="{{#if team.color}}{{team.color}}{{else}}#d32f2f{{/if}}" required/>
                 </div>
 

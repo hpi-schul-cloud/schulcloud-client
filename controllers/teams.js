@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
+const { Configuration } = require('@schul-cloud/commons');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -13,7 +14,7 @@ const logger = require('../helpers/logger');
 
 const {
 	CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED,
-	ROCKET_CHAT_URI, FEATURE_MATRIX_MESSENGER_ENABLED,
+	ROCKET_CHAT_URI,
 } = require('../config/global');
 
 const router = express.Router();
@@ -500,7 +501,10 @@ router.get('/:teamId', async (req, res, next) => {
 
 		const course = await api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
-				$populate: ['ltiToolIds'],
+				$populate: [
+					'ltiToolIds',
+					{ path: 'schoolIds' },
+				],
 			},
 		});
 
@@ -530,18 +534,35 @@ router.get('/:teamId', async (req, res, next) => {
 				rocketChatCompleteURL = undefined;
 			}
 		}
-		const instanceUsesMatrixMessenger = FEATURE_MATRIX_MESSENGER_ENABLED;
-		const courseUsesMatrixMessenger = course.features.includes('messenger');
-		const schoolUsesMatrixMessenger = (res.locals.currentSchoolData.features || []).includes('messenger');
-		let matrixNotification;
-		let messenger = false;
-		if (instanceUsesMatrixMessenger && courseUsesMatrixMessenger && !schoolUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.text.messengerNotActivatedSchool');
-			messenger = true;
-		}
-		if (instanceUsesMatrixMessenger && schoolUsesMatrixMessenger && !courseUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.text.messengerNotActivatedCourse');
-			messenger = true;
+		let notificationMessage;
+		if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
+			/* eslint-disable max-len */
+			let matrixNotification;
+			// Is messenger feature flag set in the school which created this team?
+			const teamsSchoolHasMessengerEnabled = (course.schoolIds[0].features || []).includes('messenger');
+			// Is the messenger in the current users school activated?
+			const usersSchoolHasMessengerEnabled = (res.locals.currentSchoolData.features || []).includes('messenger');
+			// Are there members of other schools in the team which have not activated the messenger?
+			// > Filter team schoolIds to only include schools which really have students in the team
+			const filteredSchoolIds = course.schoolIds.filter((school) => !!course.userIds.find((user) => user.schoolId === school.id));
+			// > Find if at least one participating school hasn't activated the messenger
+			const otherUsersSchoolsHaveNotMessengerEnabled = !!filteredSchoolIds.find((school) => !(school.features || []).includes('messenger'));
+
+			if (!teamsSchoolHasMessengerEnabled && usersSchoolHasMessengerEnabled) {
+				matrixNotification = res.$t('teams._team.text.messengerNotActiveInTeam');
+			} else if (teamsSchoolHasMessengerEnabled && !usersSchoolHasMessengerEnabled) {
+				matrixNotification = res.$t('teams._team.text.messengerNotActivatedSchool');
+			} else if (teamsSchoolHasMessengerEnabled && otherUsersSchoolsHaveNotMessengerEnabled) {
+				matrixNotification = res.$t('teams._team.text.messengerNotActivatedCourse');
+			}
+			if (matrixNotification) {
+				notificationMessage = {
+					message: matrixNotification,
+					type: 'info',
+					title: res.$t('teams._team.text.messengerNotActivatedTitle'),
+					iconClass: 'fa fa-info-circle',
+				};
+			}
 		}
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
@@ -566,6 +587,9 @@ router.get('/:teamId', async (req, res, next) => {
 		files = files.filter((file) => file);
 
 		files = files.map((file) => {
+			// set saveName attribute with escaped quotes
+			file.saveName = file.name.replace(/'/g, "\\'");
+
 			if (file && file.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
@@ -705,13 +729,7 @@ router.get('/:teamId', async (req, res, next) => {
 				userId: res.locals.currentUser._id,
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
-				notificationMessenger: {
-					message: matrixNotification,
-					type: 'info',
-					title: 'Hinweis',
-					iconClass: 'fa fa-info-circle',
-				},
-				messenger,
+				notificationMessage,
 			},
 		);
 	} catch (e) {
@@ -1113,11 +1131,11 @@ router.get('/:teamId/members', async (req, res, next) => {
 			invitationActions,
 		]);
 
-		// checks for user's 'STUDENT_LIST' permission and filters student users
 		const filteredUsers = users.filter((user) => {
-			const { _id } = roles.filter((role) => role.name === 'student')[0];
-			return !res.locals.currentUser.permissions.includes('STUDENT_LIST')
-				? !user.roles.includes(_id) : user;
+			const { _id: studentRoleId } = roles.find((role) => role.name === 'student');
+			return res.locals.currentUser.permissions.includes('STUDENT_LIST')
+				|| !user.roles.includes(studentRoleId)
+				|| res.locals.currentSchoolData.isTeamCreationByStudentsEnabled;
 		});
 
 		res.render(
@@ -1400,7 +1418,7 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 	const { shareToken } = req.body;
 	// try to find topic for given shareToken
 	api(req)
-		.get('/lessons/', { qs: { shareToken, $populate: ['teamId'] } })
+		.get('/lessons/', { qs: { shareToken } })
 		.then((lessons) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
