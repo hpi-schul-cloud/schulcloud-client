@@ -106,8 +106,9 @@ then
 elif [ "$TRAVIS_BRANCH" = "develop" ]
 then
   # If an event occurs on branch develop deploy to test
-  echo "Event detected on branch develop. Attempting to deploy to development (test) environment..."
-  deploytotest
+  echo "Event detected on branch develop. Intentionally no deployment on event."
+  # ops-1109: Deployment now in sc-app-ci  
+  # deploytotest
 elif [[ $TRAVIS_BRANCH = release* ]]
 then
   # If an event occurs on branch release* deploy to staging
