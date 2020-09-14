@@ -1,0 +1,61 @@
+{{#embed "authentication/section" style="dark footer" class=""}}
+{{#content "body"}}
+<footer id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<h2 class="h4">{{$t "global.link.contact" }}</h2>
+				<ul>
+					{{> "lib/extended_footer_links"}}
+					<li aria-label="{{$t "lib.extended_footer.link.subscribeTheNewsletter" }} {{$t "global.link.openInNewTabWarning"}}">
+                        <a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank" rel="noopener">
+                            <span class="text-nowrap">{{$t "lib.extended_footer.link.subscribeTheNewsletter" }}</span>
+                        </a>
+                    </li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<h2 class="h4">{{$t "lib.extended_footer.headline.links"}}</h2>
+				<ul>
+					<li><a href="/impressum">{{$t "global.link.imprint" }}</a></li>
+					<li><a href="{{@root.theme.documents.specificFiles.privacy}}" target="_blank" rel="noopener" aria-label="{{$t "demo.lib.global.link.dataProtectionDeclaration"}} PDF {{$t "global.link.openInNewTabWarning"}}">{{$t "demo.lib.global.link.dataProtectionDeclaration"}}</a>
+					</li>
+					<li><a href="/team">{{$t "lib.global.link.team"}}</a></li>
+					<li><a href="/partner">{{$t "global.link.partner"}}</a></li>
+					<li><a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a></li>
+					<li><a href="https://status.schul-cloud.org" target="_blank" rel="noopener"  aria-label="{{$t "lib.global.link.status"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a></li>
+					<li><a href="/security">{{$t "lib.global.link.safety"}}</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<!--
+				<h2 class="h4">{{$t "lib.extended_footer.link.mobileApp"}}</h2>
+				<div class="row mobile-app">
+					<div class="col-6 android-app">
+						<a href='https://play.google.com/store/apps/details?id=org.schulcloud.android&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'
+							target="_blank" rel="noopener">
+							<img alt="{{$t "lib.extended_footer.img_alt.nowAtGooglePlay"}}"
+								src='https://s3.hidrive.strato.com/schul-cloud-hpi/images/google-play-badge.png' />
+						</a>
+					</div>
+					<div class="col-6 ios-app">
+						<a
+							href='https://testflight.apple.com/join/7i2xN7hH' target="_blank" rel="noopener">
+							<img alt='Laden im App Store'
+								src='https://s3.hidrive.strato.com/schul-cloud-hpi/images/apple-app-store-badge.svg'/>
+						</a>
+					</div>
+				</div>
+				-->
+				<h2 class="h4 card-title">{{$t "lib.extended_footer.headline.vacancies" }}</h2>
+				<div class="form-group">
+					{{{$t "lib.extended_footer.text.weAreHiring"}}}
+				</div>
+				<a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/system-engineer-dev-ops-mw.html"
+					rel="noopener" target="_blank" aria-label="{{$t "lib.extended_footer.link.devOps"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.extended_footer.link.devOps"}}</a>
+			</div>
+		</div>
+	</div>
+</footer>
+{{/content}}
+{{/embed}}
