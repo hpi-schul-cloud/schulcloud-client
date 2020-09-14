@@ -105,8 +105,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	const filterModule = document.getElementById('filter');
 	const sortingModal = document.querySelector('.md-chip.md-theme-default');
 	const closingButton = document.querySelector('.md-icon-button');
-	closingButton.setAttribute('aria-label', 'Abbrechen');
-	closingButton.setAttribute('tabindex', '0');
+	if (closingButton) {
+		closingButton.setAttribute('aria-label', 'Abbrechen');
+		closingButton.setAttribute('tabindex', '0');
+	}
 
 	if (!filterModule) { return; }
 	filterModule.addEventListener('newFilter', (e) => {

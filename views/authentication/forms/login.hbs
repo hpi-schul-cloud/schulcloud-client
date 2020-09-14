@@ -27,9 +27,9 @@
 					<div class="form-check" style="margin-top: 10px;">
 						<input type="checkbox" id="privateDevice" name="privateDevice" value="true">
 						<label for="privateDevice">{{$t "login.label.thisIsAPrivateDevice"}}</label>
-						<button type="button" data-toggle="tooltip" data-placement="left" title="{{$t "login.button.longerLoggedInWhenActivated"}}" class="btn-link px-1">
+						<a data-toggle="tooltip" data-placement="left" title="{{$t "login.button.longerLoggedInWhenActivated"}}" class="btn-link px-1">
 							<i aria-hidden="true" class="fa fa-info"></i>
-						</button>
+						</a>
 					</div>
 					{{/ifEnv}}
 				</div>
@@ -68,9 +68,9 @@
 				{{> "lib/components/csrfInput"}}
 				<div class="form-group">
 					{{#if notification.statusCode}}
-						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+						<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
 					{{else}}
-						<input aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
+						<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
 					{{/if}}
 				</div>
 			</form>
