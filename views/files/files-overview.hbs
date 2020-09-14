@@ -20,7 +20,6 @@
                         link-text='Dateien öffnen'
                         content='Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.'
                         background="#283E56"
-                        linkAriaDescription=($t "files.aria_label.openPersonalFiles")
                     }}
                 </div>
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
@@ -31,7 +30,6 @@
                         link-text='Dateien öffnen'
                         content='Hier findest du alle Dateien, die in den jeweiligen Kursen im Unterricht verwendet werden. Alle Teilnehmer des Kurses, also der Lehrer und die Schüler, haben auf diese Dateien Zugriff.'
                         background="#1989AC"
-                        linkAriaDescription=($t "files.aria_label.openCourseFiles")
                     }}
                 </div>
                 {{#ifEnv "FEATURE_TEAMS_ENABLED" "true"}}
@@ -43,7 +41,6 @@
                         link-text='Dateien öffnen'
                         content='Hier findest du alle Dateien, die in den jeweiligen Teams verwendet werden. Alle Teilnehmer des Teams haben auf diese Dateien Zugriff.'
                         background="#1989AC"
-                        linkAriaDescription=($t "files.aria_label.openTeamFiles")
                     }}
                 </div>
                 {{/ifEnv}}
@@ -55,7 +52,6 @@
                         link-text='Dateien öffnen'
                         content='Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzern zur Verfügung gestellt worden sind.'
                         background="#00B8A9"
-                        linkAriaDescription=($t "files.aria_label.openSharedFiles")
                     }}
                 </div>
             </div>
