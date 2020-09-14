@@ -18,6 +18,16 @@
 			"notFound": "No active entries found."
 		}
 	},
+	"files" : {
+		"img_alt" :{
+			"theImageX" : "the image {{imgName}}"
+		},
+		"label":{
+			"backToFiles" : "back to the files overview",
+			"clickToOpenDir" : "open folder {{name}}",
+			"clickToOpenFile" : "open file {{name}}"
+		}
+	},
 	"global": {
 		"topMenu": {
 			"qrHintText": "Navigate other users to this site"
