@@ -1,4 +1,12 @@
 {
+	"administration": {
+		"school": {
+			"text": {
+				"fileTooLarge" : "PDF file is too large. It can be at max {{size}}MB large.",
+				"onlyPDFSupport" : "Only PDF files are supported."
+			}
+		}
+	},
 	"dashboard": {
 		"headline": {
 			"news": "News",
@@ -16,6 +24,23 @@
 			"noNews": "No news",
 			"noTasks": "No tasks",
 			"notFound": "No active entries found."
+		}
+	},
+	"files": {
+		"overview": {
+			"button": {
+				"openFiles" : "Open files"
+			},
+			"headline": {
+				"myCourseFiles" : "My Course Files",
+				"myTeamFiles" : "My Team Files"
+			},
+			"text": {
+				"CourseFilesDesc" : "Here you will find all files used in the respective courses in class. All participants of the course, the teacher and the students, have access to these files.",
+				"PersonalFilesDesc" : "Here you can find all your personal files. Only you have access to these files, but you can also share them with other users.",
+				"SharedFilesDesc" : "Here you can find all the files you have shared with you. These are files that have been provided by other users.",
+				"TeamFilesDesc" : "Here you will find all files used in the respective courses in class. All participants of the team have access to these files."
+			}
 		}
 	},
 	"global": {
@@ -90,6 +115,13 @@
 					"thankYouForRegistering": "Thank you for registering to {{shortTitle}}!",
 					"language": "Please select your language"
 				}
+			}
+		}
+	},
+	"topic": {
+		"topicEdit": {
+			"label": {
+				"internLink": "intern link"
 			}
 		}
 	},
