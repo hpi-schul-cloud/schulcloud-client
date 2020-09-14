@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [24.5.1] - 2020-09-14
+
+### Fixed
+
   - SC-6761 Fixed individual registration emails
 
 ## [24.4.2] - 2020-09-09
