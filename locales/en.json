@@ -1206,12 +1206,8 @@
 	},
 	"dashboard": {
 		"headline": {
-			"news": "News",
-			"openTasks": "Open Tasks",
 			"poll2Title": "Survey II in the school cloud project",
-			"privateTasks": "Drafts",
 			"schedule": "Schedule",
-			"tasks": "Tasks",
 			"title": "Dashboard",
 			"withFeedback": "Submissions with teacher's comments",
 			"withRequiredFeedback": "Tasks with submissions without comments yet"
@@ -1236,7 +1232,6 @@
 			"noDueDate": "No submission date set",
 			"noMaterialsYetLookAtOthers": "You have not yet created your own materials. But you can also get inspiration from your colleagues' materials. Check out the <a href=\"/my-material\">\"My Materials\" section</a> .",
 			"noNews": "No news",
-			"noTasks": "No tasks",
 			"notFound": "No active entries found."
 		}
 	},
@@ -1692,18 +1687,7 @@
 				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationClasses": "Classes",
-				"administrationCourses": "Courses",
-				"calendar": "Events",
-				"courses": "Courses",
-				"files": "My Files",
-				"lernstore": "Lern-Store",
-				"management": "Management",
-				"managementClasses": "Classes",
-				"managementStudents": "Students",
-				"managementTeachers": "Teacher",
-				"news": "News",
-				"overview": "Dashboard",
-				"tasks": "Tasks"
+				"administrationCourses": "Courses"
 			}
 		},
 		"text": {
@@ -1748,9 +1732,6 @@
 			"videoconferenceNotStartedYet": "Video conference has not yet started",
 			"wednesday": "Wednesday",
 			"weNeedAnEmailAddress": "We need an e-mail address so that your consent to use the {{shortTitle}} is legally valid. The {{shortTitle}} does not pass on the address. You will not receive unsolicited e-mails."
-		},
-		"topMenu": {
-			"qrHintText": "Navigate other users to this site"
 		}
 	},
 	"help": {
@@ -2518,9 +2499,6 @@
 	"registration": {
 		"_registration": {
 			"employee": {
-				"heading": {
-					"yourData": "Your Data"
-				},
 				"headline": {
 					"yourData": "Your data"
 				},
@@ -2541,10 +2519,6 @@
 				"button": {
 					"openLogin": "Open Login",
 					"sendAndGetStarted": "Send & Get Started"
-				},
-				"heading": {
-					"language": "Please select your language",
-					"thankYouForRegistering": "Thank you for registering to {{shortTitle}}!"
 				},
 				"headline": {
 					"language": "Please select your language",
@@ -2663,10 +2637,6 @@
 				"verificationCode": "Confirmation code:"
 			}
 		},
-		"registationFailedAuthParagraph": "Unfortunately the link is no longer valid. Request a new link from your teacher or school administrator.",
-		"registationFailedAuthTitle": "Invalid registration link",
-		"registationFailedContinue": "The school cloud was embedded in a website. To continue ",
-		"registationFailedContinueLink": "open this page in a separate window",
 		"registration_template": {
 			"headline": {
 				"invitationToThe": "Invitation to the"
