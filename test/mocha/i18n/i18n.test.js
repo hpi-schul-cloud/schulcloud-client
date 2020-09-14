@@ -81,7 +81,6 @@ describe('i18n test de.json', () => {
 			'There is already another key with the same text.');
 	});
 
-
 	it('Check if de.json and en.json are in sync', () => {
 		const deKeys = Object.getOwnPropertyNames(DEjson);
 		const enKeys = Object.getOwnPropertyNames(ENjson);
