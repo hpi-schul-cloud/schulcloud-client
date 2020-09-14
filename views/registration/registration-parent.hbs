@@ -21,7 +21,7 @@
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
       <section data-panel="section-1">
-        <h2 class="h4">{{$t "registration._registration.parent.heading.yourChildsData" }}</h2>
+        <h2 class="h4">{{$t "registration._registration.parent.headline.yourChildsData" }}</h2>
       <p>{{$t "registration._registration.global.text.bellowNYearsOldConsentOfLegalGuardian" (dict "shortTitle" theme.short_title "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>
         <p>{{$t "registration._registration.parent.text.weNeedFollowingDataOfChild" (dict "shortTitle" theme.short_title)}}</p>
         <div class="row">
@@ -105,9 +105,9 @@
 
 
       <section data-panel="section-5">
-        <h2 class="h4">{{$t "registration._registration.global.heading.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
       {{#if user.sso}}
-              <p>{{$t "registration._registration.parent.heading.yourChildsSSO" }}</p>
+              <p>{{$t "registration._registration.parent.headline.yourChildsSSO" }}</p>
       {{else}}
         <div>
           <p>
