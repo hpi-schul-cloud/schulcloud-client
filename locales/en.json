@@ -38,6 +38,9 @@
 				"tasks": "Tasks"
 			}
 		},
+		"label": {
+			"settings" : "Settings"
+		},
 		"language": {
 			"label": {
 				"de": "Deutsch",
@@ -90,6 +93,19 @@
 					"thankYouForRegistering": "Thank you for registering to {{shortTitle}}!",
 					"language": "Please select your language"
 				}
+			}
+		}
+	},
+	"topic":{
+		"aria_label": {
+			"openTopicX" : "Open topic {{name}}"
+		},
+		"topicEdit": {
+			"aria_label":{
+				"chooseContent" : "Choose the types of contents for your topic"
+			},
+			"label": {
+				"internLink" : "Intern Link"
 			}
 		}
 	},
