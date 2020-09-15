@@ -1513,6 +1513,7 @@ router.get(
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+					alreadyHasAccount: !!account,
 				});
 			})
 			.catch((err) => {
