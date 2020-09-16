@@ -2951,5 +2951,10 @@
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
 			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen."
 		}
+	},
+	"messenger": {
+		"info": {
+			"rocketChatDeprecation": "Die Chat-Funktion im Teams-Bereich wird am DD/MM/JJJJ automatisch abgeschaltet und die dazugehörigen Inhalte gelöscht. Bitte sorge dafür, dass du wichtige Inhalte kopierst und speicherst."
+		}
 	}
 }
