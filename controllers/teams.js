@@ -13,8 +13,7 @@ const api = require('../api');
 const logger = require('../helpers/logger');
 
 const {
-	CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED,
-	ROCKET_CHAT_URI,
+	CALENDAR_SERVICE_ENABLED,
 } = require('../config/global');
 
 const router = express.Router();
@@ -508,7 +507,7 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		});
 
-		const instanceUsesRocketChat = ROCKETCHAT_SERVICE_ENABLED;
+		const instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (
 			res.locals.currentSchoolData.features || []
@@ -525,7 +524,7 @@ router.get('/:teamId', async (req, res, next) => {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
 				);
-				const rocketChatURL = ROCKET_CHAT_URI;
+				const rocketChatURL = Configuration.get('ROCKET_CHAT_URI');
 				rocketChatCompleteURL = `${rocketChatURL}/group/${
 					rocketChatChannel.channelName
 				}`;
