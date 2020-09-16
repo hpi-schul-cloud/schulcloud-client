@@ -1,9 +1,9 @@
 const localStorageKey = 'rc-deprecation-info';
 
 $(document).ready(() => {
-    const deprecationInfoRocketChatModal = $('.deprecation-info-rocket-chat');
+	const deprecationInfoRocketChatModal = $('.deprecation-info-rocket-chat');
 
-    if (deprecationInfoRocketChatModal.length === 0) return;
+	if (deprecationInfoRocketChatModal.length === 0) return;
 
 	if (localStorage.getItem(localStorageKey) !== 'true') deprecationInfoRocketChatModal.modal('show');
 
