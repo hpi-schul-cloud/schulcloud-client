@@ -61,7 +61,7 @@
 			"yourAccount": "Your account"
 		},
 		"label": {
-			"notificationsettings": "Notification settings",
+			"notificationSettings": "Notification settings",
 			"providers": "Provider"
 		},
 		"teams": {
@@ -77,17 +77,17 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Deactivate visibility in the central directory"
 			},
 			"text": {
-				"hint": "Teachers from other schools who are team administrators can easily invite you to a cross-school team via the central directory service of {{short_title}}. Your name is assigned to your school and it is accessible in the directory structure under <i> Name of your state &raquo; Name of your school &raquo; Your name </i>.",
-				"teamInvitationsDisabled": "Visibility for team invitations is disabled",
+				"hintVisibility": "Teachers from other schools who are team administrators can easily invite you to a cross-school team via the central directory service of {{short_title}}. Your name is assigned to your school and it is accessible in the directory structure under <i> Name of your state &raquo; Name of your school &raquo; Your name </i>.",
+				"visibilityTeamInvitationsDisabled": "Visibility for team invitations is disabled",
 				"visibilityTeamInvitations": "Visibility for team invitations"
 			}
 		},
 		"testNotification": {
 			"headline": {
-				"test": "New test notification"
+				"newTestNotification": "New test notification"
 			},
 			"text": {
-				"youHaveANewMessage": "You have a new notification"
+				"youHaveANewNotification": "You have a new notification"
 			}
 		},
 		"text": {
@@ -128,7 +128,8 @@
 				"transferClassToTheNextSchoolYear": "Move class to next school year"
 			},
 			"headline": {
-				"importClass": "Import class"
+				"importClass": "Import class",
+				"questionStudentsNotInSystem": "Your students are not yet in the {{shortTitle}}?"
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Add students from previous year's class",
@@ -137,16 +138,14 @@
 				"className": "Class name",
 				"filterBySchoolYear": "Filter by school year",
 				"grade": "Grade",
-				"mantainSchoolYearAssignment": "Maintain school year assignment",
+				"maintainSchoolYearAssignment": "Maintain school year assignment",
 				"pleaseNote": "Please note:",
 				"renameClass": "Rename class",
 				"selectElement": "No selection",
-				"selectTeacher": "Select teacher (also possible later)",
-				"yourStudentsAreNotYetInThe": "Your students are not yet"
+				"selectTeacher": "Select teacher (also possible later)"
 			},
 			"placeholder": {
-				"change": "Edit class '{{name}}'.",
-				"example": "e.g. frog class 3-4"
+				"exampleName": "e.g. frog class 3-4"
 			},
 			"text": {
 				"attentionIfYouChangeTheSchoolYear": "Attention! If you change the school year, your selection of previous year's classes will be reset.",
@@ -161,7 +160,7 @@
 				"noLackOfInformedConsent": "There are no missing declarations of consent in this class.",
 				"required": "required",
 				"signAgreement": "On this page. you can declare consent to the <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Privacy policy</a> and to <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Terms of use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
-				"theNextStepIstoInviteOrAdd": "In the next step you can invite or add students to the class."
+				"theNextStepIsToInviteOrAdd": "In the next step you can invite or add students to the class."
 			}
 		},
 		"controller": {
@@ -207,7 +206,7 @@
 				"uploadedOn": "Uploaded on"
 			},
 			"label": {
-				"domainname": "Domain name",
+				"domainName": "Domain name",
 				"email": "E-mail",
 				"inactive": "{{alias}} (inactive)",
 				"roles": "Role(s)",
@@ -245,7 +244,6 @@
 			"text": {
 				"active": "Active",
 				"agreementSuccessfullyDeclared": "Consent successfully declared",
-				"anotherSchoolWasFounded": "was founded in another school and therefore it is not possible to ",
 				"anUnknownErrorOccurred": "There was an unknown error while importing.",
 				"changesSuccessfullySaved": "Changes saved successfully.",
 				"checkingTheLDAPData": "Checking the LDAP data for the new school year",
@@ -260,16 +258,15 @@
 				"failedToCreateUser": "Error when creating the user. {{error}}",
 				"importFailed": "Import failed. Please check your input data and try again.",
 				"inTheQueue": "In the queue",
-				"invitationToThe": "Invitation to the {{title}} Hello {{firstName}} {{lastName}}!\nYou are invited to join the {{title}}, please complete your registration at the following link: {{shortLink}} \nYour {{shortTitle}} team wishes you fun and a good start",
-				"invitationToUseThe": "Invitation to use the {{title}} !",
+				"invitationEmailContent": "Invitation to the {{title}} Hello {{firstName}} {{lastName}}!\nYou are invited to join the {{title}}, please complete your registration at the following link: {{shortLink}} \nYour {{shortTitle}} team wishes you fun and a good start",
+				"invitationEmailSubject": "Invitation to use the {{title}} !",
 				"noDeclarationOfConsentAvailable": "Consent form not available",
 				"onlyAllMembers": "Only all members of your own school can be removed from the team",
 				"open": "Open",
-				"orAssignAdminRights": "or give someone else admin rights for the team.",
 				"parentsAgreed": "Parents have agreed, student still open",
 				"passTheRegistrationLinkDirectly": "Send the registration link directly to the student.",
 				"registrationExplanation": "First give the registration link to the parents. They create the student data and electronically declare their consent. The student is then registered in the {{title}} and you can see him in your class list. The student can log in with his e-mail address and his individual initial password. After logging in for the first time, every student must change his password. If the student is over 14 years old, he must also give his electronic consent so that he can use the {{title}} .",
-				"removeStudentsFromYourOwnSchool": "Remove students of your own school from the team. Only possible, if the team",
+				"removeStudentsFromYourOwnSchool": "Remove students of your own school from the team. Only possible, if the team was founded in another school and therefore it is not possible to or give someone else admin rights for the team.",
 				"retrieveFailed": "Error during retrieval",
 				"schoolYearPercentage": "School year:% 1",
 				"setupFailed": "Setup failed. Please try again later. ",
@@ -306,7 +303,7 @@
 		},
 		"form_DeleteUser": {
 			"text": {
-				"areYouSureYouWantTheFollowingUser": "Are you sure you want to remove the following users?"
+				"areYouSureYouWantToDeleteTheFollowingUser": "Are you sure you want to remove the following users?"
 			}
 		},
 		"form_Import": {
@@ -358,9 +355,9 @@
 				"targetState": "Target state"
 			}
 		},
-		"form_Rss": {
+		"form_rss": {
 			"label": {
-				"briefdescription": "Brief description (optional)",
+				"briefDescription": "Brief description (optional)",
 				"urlOfTheRSSSystem": "URL of the RSS feed"
 			}
 		},
@@ -371,11 +368,6 @@
 				"systemName": "Name of the system",
 				"systemType": "Type of system",
 				"urlOfTheSystem": "Url of the system"
-			}
-		},
-		"form_TerminateSchoolYear": {
-			"text": {
-				"theSchoolYear": "The {{currentYear}} school year ends and the transfer phase to the new school year begins. <strong> his step cannot be undone.</strong> No classes and users can be created or changed during this time. </p> \n <p> The synchronization of LDAP master data"
 			}
 		},
 		"global": {
@@ -507,7 +499,7 @@
 		},
 		"ldapSchoolYearStart": {
 			"button": {
-				"closeTheWindow": "Close window"
+				"closeWindow": "Close window"
 			},
 			"headline": {
 				"checkTheSynchronizationOfTheDataAvailable": "Check the synchronization of the data in the LDAP for the new school year",
@@ -523,7 +515,7 @@
 				"afterVerificationCanPreviewTheReadContent": "After verification, you can preview the contents that have been read out. Deleted contents are not transferred because the user's first name, surname and / or email address is not available in the LDAP.",
 				"alternativelyAlsoCanGenerate": "Alternatively, you can also generate individual registration links in the 'Edit User' dialog of each user individually.",
 				"anyChangesToTheFollowingConfiguration": "Any changes to the following configuration may result in the login no longer working for you and all users in your school. Therefore, only make changes if you are aware of the consequences. Some sections are read-only. However, you can enable editing of the information by clicking on the lock in the respective section. After each verification, your system will be updated and initially set to deactivated. Do not forget to finally save the changes if the verification was successful.",
-				"backroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the HPI school cloud saves which school year a user was in which class. The HPI school cloud provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
+				"backgroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the HPI school cloud saves which school year a user was in which class. The HPI school cloud provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
 				"canCreateYearIndependentClasses": "You can create independent classes with free names. These classes cannot be <i> 'moved' </i> by the administrator, but must be updated manually.",
 				"canStartTheTransferPhase": "You can start the transfer phase manually from two weeks before the start of the holidays",
 				"ifAllStudentsAndParentsHaveGiven": "If the consent has been given by all students and parents in paper form, the consent for the whole class can be declared manually here.",
@@ -599,7 +591,6 @@
 				"atTheEndOfTheSchoolYearWithLDAP": "When the school year changes, carry out the following actions with LDAP:",
 				"atTheEndOfTheTransferPhase": "When the transfer phase ends, all changes made in the LDAP are synchronized in one go",
 				"atTheSameTime": "At the same time, you ring in the new school year in the HPI school cloud",
-				"backgroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the HPI school cloud saves which school year a user was in which class. The HPI school cloud provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
 				"chatRoomPermissions": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
 				"coursesWithLearningContent": "Courses with learning content for the coming school year can also be created during the transfer phase (without class assignment)",
 				"doNotEndTheTransferPhase": "Do not end the transfer phase until the users are assigned to the new classes",
@@ -2652,7 +2643,7 @@
 		"registationFailedContinueLink": "open this page in a separate window",
 		"registration_template": {
 			"headline": {
-				"invitationToThe": "Invitation to the"
+				"invitation": "Invitation to the {{shortTitle}}"
 			},
 			"text": {
 				"dear": "Dear Sir or Madam",
