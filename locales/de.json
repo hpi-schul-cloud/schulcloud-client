@@ -2699,7 +2699,8 @@
 					"teamName": "A-Team"
 				},
 				"text": {
-					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen."
+					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen.",
+					"rocketChatDepricated": "Rocketchat wird nicht mehr unterstützt, und am DD/MM/JJJ automatisch abgeschaltet."
 				}
 			},
 			"events": {

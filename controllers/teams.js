@@ -146,6 +146,13 @@ const editTeamHandler = async (req, res, next) => {
 		}
 	}
 
+	let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
+	const rocketChatDepricated = Configuration.has('ROCKET_CHAT_DEPRICATION_DATE');
+	if (rocketChatDepricated) {
+		const depricationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRICATION_DATE'));
+		if (depricationDate < Date.now()) instanceUsesRocketChat = false;
+	}
+
 	teamPromise.then((team) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
 			return next(new Error(res.$t('global.text.403')));
@@ -162,6 +169,8 @@ const editTeamHandler = async (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
+			instanceUsesRocketChat,
+			rocketChatDepricated,
 		});
 	});
 };
