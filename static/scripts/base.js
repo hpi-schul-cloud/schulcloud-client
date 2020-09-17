@@ -189,24 +189,6 @@ $(document).ready(() => {
 		}
 	});
 
-	// Initialize bootstrap-select
-	function dispatchInputEvent() {
-		this.dispatchEvent(new CustomEvent('input'));
-	}
-
-	$('select:not(.no-bootstrap):not(.search-enabled)')
-		.chosen({
-			width: '100%',
-			disable_search: true,
-		})
-		.change(dispatchInputEvent);
-	$('select.search-enabled:not(.no-bootstrap)')
-		.chosen({
-			width: '100%',
-			disable_search: false,
-		})
-		.change(dispatchInputEvent);
-
 	// collapse toggle
 	function toggleCollapse() {
 		const $collapseToggle = $(this);
