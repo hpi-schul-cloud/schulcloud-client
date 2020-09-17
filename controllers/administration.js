@@ -1078,8 +1078,8 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 	const promises = [];
 
 	// Consents
-	req.body.consent = req.body.consent || {};
 	if (req.body.student_form) {
+		req.body.consent = req.body.consent || {};
 		req.body.consent.userConsent = {
 			form: req.body.student_form || 'analog',
 			privacyConsent: req.body.student_privacyConsent === 'true',
@@ -1087,6 +1087,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 		};
 	}
 	if (req.body.parent_form) {
+		req.body.consent = req.body.consent || {};
 		req.body.consent.parentConsents = [];
 		req.body.consent.parentConsents[0] = {
 			form: req.body.parent_form || 'analog',
