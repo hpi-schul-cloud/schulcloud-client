@@ -52,7 +52,7 @@ const baseStyles = [
 ];
 
 function themeName() {
-	return process.env.SC_THEME || 'default';
+	return 'demo';
 }
 
 const EXIT_ON_ERROR = process.env.GULP_EXIT_ON_ERROR
