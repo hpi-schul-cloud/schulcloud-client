@@ -9,6 +9,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [24.5.3] - 2020-09-17
+
+### Fixed
+  - SC-6823 - Fixed inserting media in comments for homework correction
+
 ## [24.5.1] - 2020-09-14
 
 ### Fixed
