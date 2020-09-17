@@ -3,11 +3,11 @@ export default function printQRs(items) {
 	const w = window.open();
 	w.document.write(`<style>
 	@page {size: A4; margin: 16px;}
-	.part{ border: 1px solid #999; width: 110px; float: left; padding: 8px; margin: 4px;}
+	.part{ border: 1px solid #999; width: 110px; float: left; padding: 8px; margin: 8px;}
 	img{width: 100% !important; height: auto !important;}
 	.title{font-size: 14px;margin: 0 0 10px 0;overflow: hidden;text-overflow: ellipsis;height: 32px;padding:0;}
 	.description{
-		font-size: 10px; color: #555; min-height: 26px; margin: 8px 0 0; text-align: center; word-break: break-all;
+		font-size: 10px; color: #555; min-height: 90px; margin: 8px 0 0; text-align: center; word-break: break-all;
 	}
 	</style>`);
 	if (items.length === 0) {
