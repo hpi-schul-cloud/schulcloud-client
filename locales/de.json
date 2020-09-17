@@ -2951,5 +2951,14 @@
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
 			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen."
 		}
+	},
+	"messenger": {
+		"headline": {
+			"welcomeMatrixAdmin": "Der Matrix Messenger ist da!! "
+		},
+		"text": {
+			"welcomeMatrixAdmin": "Nutzer:innen deiner Schule können sich ab sofort bequem über den Matrix Messenger direkt innerhalb der HPI Schul-Cloud austauschen.",
+			"howToActivateMatrix": "Dafür musst Du als Schul-Admin den Matrix Messenger aktivieren unter: Verwaltung > Schule > Matrix Messenger aktivieren."
+		}
 	}
 }

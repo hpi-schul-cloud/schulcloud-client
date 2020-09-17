@@ -22,6 +22,7 @@
     {{#content "scripts" mode="append"}}
         <script src="/scripts/loggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="/scripts/autologout.js" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/messenger/welcome.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="/vendor/feathersjs/feathers.js" nonce="{{nonceValue}}" defer></script>
         {{#if @root.currentUser.preferences.enterthecloud}}
@@ -295,3 +296,35 @@
         {{> "lib/forms/form-auto-logout-alert"}}
     {{/content}}
 {{/embed}}
+
+{{#inArray 'Administrator' roleNames}}
+{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}} {{#notInArray "messenger" @root.currentSchoolData.features}}
+    {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrixAdmin")}}
+    {{#content "body"}}
+    <div class="modal-body">
+        <div class="modal-body-text">
+            <div id="member-modal-body">
+                <div class="text-center">
+                    {{$t "messenger.text.welcomeMatrixAdmin" }}
+                </div>
+                <img src="/images/messenger-info.svg" class="img-fluid" role="presentation"/>
+                <div class="text-center">
+                    {{$t "messenger.text.howToActivateMatrix" }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer modal-checkbox">
+        <label>
+            <input class="dontShowAgain-checkbox" type="checkbox" value="false" />
+            {{$t "homework.label.dontShowAgain" }}
+        </label>
+        <div>
+            <button type="button" class="btn btn-secondary btn-close">{{$t "global.button.cancel" }}</button>
+            <button type="button" class="btn btn-primary btn-submit">{{$t "global.button.ok" }}</button>
+        </div>
+    </div>
+    {{/content}}
+    {{/embed}}
+{{/notInArray}} {{/ifConfig}}
+{{/inArray}}
