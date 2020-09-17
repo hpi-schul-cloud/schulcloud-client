@@ -1343,20 +1343,18 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 
 	const usersWithMissingConsents = [];
 	const batchSize = 50;
-	let slice = 0;
-	while (users.length !== 0 && slice * batchSize < users.length) {
+	while (users.length > 0) {
 		usersWithMissingConsents.push(
 			...(await api(req).get('/users/admin/students', {
 				qs: {
 					users: users
-						.slice(slice * batchSize, (slice + 1) * batchSize)
+						.splice(0, batchSize)
 						.map((u) => u._id),
 					consentStatus: ['missing', 'parentsAgreed'],
 					$limit: batchSize,
 				},
 			})).data,
 		);
-		slice += 1;
 	}
 
 	return usersWithMissingConsents;
