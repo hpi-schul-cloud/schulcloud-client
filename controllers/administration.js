@@ -1323,13 +1323,8 @@ router.get(
 );
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
-	const role = await api(req).get('/roles', {
-		qs: { name: roleName },
-		$limit: false,
-	});
-	const qs = { roles: role.data[0]._id, $limit: false };
-	let users = [];
 
+	let users = [];
 	if (classId) {
 		const klass = await api(req).get(`/classes/${classId}`, {
 			qs: {
@@ -1337,28 +1332,34 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 			},
 		});
 		users = klass.userIds;
-	} else {
-		users = (await api(req).get('/users', { qs, $limit: false })).data;
+
+		const usersWithMissingConsents = [];
+		const batchSize = 50;
+		while (users.length > 0) {
+			usersWithMissingConsents.push(
+				...(await api(req).get('/users/admin/students', {
+					qs: {
+						users: users
+							.splice(0, batchSize)
+							.map((u) => u._id),
+						consentStatus: ['missing', 'parentsAgreed'],
+					},
+				})).data,
+			);
+		}
+		return usersWithMissingConsents;
 	}
 
-	let usersWithMissingConsents = [];
-	const batchSize = 50;
-	let slice = 0;
-	while (users.length !== 0 && slice * batchSize < users.length) {
-		usersWithMissingConsents = usersWithMissingConsents.concat(
-			(await api(req).get('/users/admin/students', {
-				qs: {
-					users: users
-						.slice(slice * batchSize, (slice + 1) * batchSize)
-						.map((u) => u._id),
-					consentStatus: ['missing', 'parentsAgreed'],
-				},
-			})).data,
-		);
-		slice += 1;
-	}
+	const role = await api(req).get('/roles', {
+		qs: { name: roleName },
+		$limit: false,
+	});
+	const qs = {
+		roles: role.data[0]._id,
+		consentStatus: ['missing', 'parentsAgreed'],
+	};
 
-	return usersWithMissingConsents;
+	return (await api(req).get('/users/admin/students', { qs })).data;
 };
 
 router.get(
