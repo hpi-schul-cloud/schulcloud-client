@@ -330,6 +330,12 @@
 			"pattern": ".*(?<!/)$",
 			"description": "uri of the rocketchat server."
 		},
+		"ROCKET_CHAT_DEPRICATION_DATE": {
+			"type": "string",
+			"format": "date-time",
+			"examples": ["2020-11-01T20:20:00+00:00"],
+			"description": "if this is set, rocketchat will be treated as disabled after this date."
+		},
 		"I18N": {
 			"type": "object",
 			"description": "Configuration of I18N",
