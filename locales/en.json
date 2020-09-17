@@ -934,6 +934,7 @@
 						"submittedOn": "Submission: {{ddmmyy_hhmm}}",
 						"task": "The task:",
 						"taskDetails": "Details of the task:",
+						"taskOpen": "Task open >",
 						"workOnTopic": "Work on Topic"
 					}
 				},
@@ -1623,6 +1624,7 @@
 			"archive": "Archive",
 			"calendar": "Calendar",
 			"contact": "Contact",
+			"courseData": "My course files",
 			"files": "My Files",
 			"filesPersonal": "personal files",
 			"filesShared": "shared files",
@@ -1644,6 +1646,7 @@
 			"register": "Register",
 			"school": "School",
 			"tasksDrafts": "Drafts",
+			"teamData": "My team files",
 			"teams": "Teams",
 			"topNavbarSkipLink": "Navigation above"
 		},

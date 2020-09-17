@@ -934,6 +934,7 @@
 						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}",
 						"task": "Die Aufgabe: ",
 						"taskDetails": "Details der Aufgabe: ",
+						"taskOpen": "Aufgabe öffnen >",
 						"workOnTopic": "Thema bearbeiten"
 					}
 				},
@@ -1618,6 +1619,7 @@
 			"archive": "Archiv",
 			"calendar": "Termine",
 			"contact": "Kontakt",
+			"courseData": "Meine Kurs-Dateien",
 			"files": "Meine Dateien",
 			"filesPersonal": "persönliche Dateien",
 			"filesShared": "geteilte Dateien",
@@ -1639,6 +1641,7 @@
 			"register": "Registrieren",
 			"school": "Schule",
 			"tasksDrafts": "Entwürfe",
+			"teamData": "Meine Team-Dateien",
 			"teams": "Teams",
 			"topNavbarSkipLink": "Navigation oben"
 		},
