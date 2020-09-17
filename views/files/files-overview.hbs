@@ -14,43 +14,43 @@
             <div class="row card-deck-row">
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
-                        title='<i class="fa fa-user"></i> Meine persönlichen Dateien'
+                        title=(concat '<i class="fa fa-user"></i> '($t 'files.label.myPersonalData'))
                         secondaryTitle="<br />"
                         url='/files/my/'
                         link-text='Dateien öffnen'
-                        content='Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.'
+                        content=($t 'files.label.myPersonalDataContent')
                         background="#283E56"
                     }}
                 </div>
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
-                        title='<i class="fa fa-graduation-cap"></i> Meine Kurs-Dateien'
+                        title=(concat '<i class="fa fa-graduation-cap"></i> '($t 'global.link.courseData'))
                         secondaryTitle="<br />"
                         url='/files/courses/'
                         link-text='Dateien öffnen'
-                        content='Hier findest du alle Dateien, die in den jeweiligen Kursen im Unterricht verwendet werden. Alle Teilnehmer des Kurses, also der Lehrer und die Schüler, haben auf diese Dateien Zugriff.'
+                        content=($t 'global.link.courseDataContent')
                         background="#1989AC"
                     }}
                 </div>
                 {{#ifEnv "FEATURE_TEAMS_ENABLED" "true"}}
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
-                        title='<i class="fa fa-users"></i> Meine Team-Dateien'
+                        title=(concat '<i class="fa fa-users"></i> '($t 'global.link.files'))
                         secondaryTitle="<br />"
                         url='/files/teams/'
                         link-text='Dateien öffnen'
-                        content='Hier findest du alle Dateien, die in den jeweiligen Teams verwendet werden. Alle Teilnehmer des Teams haben auf diese Dateien Zugriff.'
+                        content=($t 'global.link.filesContent')
                         background="#1989AC"
                     }}
                 </div>
                 {{/ifEnv}}
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
-                        title='<i class="fa fa-share-alt"></i> Mit mir geteilte Dateien'
+                        title=(concat '<i class="fa fa-share-alt"></i> '($t 'files.label.filesSharedWithMe'))
                         secondaryTitle="<br />"
                         url='/files/shared/'
                         link-text='Dateien öffnen'
-                        content='Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzern zur Verfügung gestellt worden sind.'
+                        content=($t 'files.label.filesSharedWithMeContent')
                         background="#00B8A9"
                     }}
                 </div>
