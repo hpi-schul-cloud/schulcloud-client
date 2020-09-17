@@ -1,15 +1,17 @@
-.sloth {
+.parrot {
     width: 35%;
-    margin-bottom: -50px;
     height: auto;
-    opacity: 0.6;
+
+	#COLOR {
+		fill: $primaryColor;
+	}
 }
 
-.sloth-text {
+.parrot-text {
     text-align: center;
     padding: 15px;
 }
-.sloth-text-important {
+.parrot-text-important {
     color: red;
     font-size: larger;
 }
@@ -24,13 +26,11 @@
 }
 
 @media (min-width: 575.98px) {
-    .sloth {
+    .parrot {
         float: right;
-        margin-top: -12px;
-        margin-bottom: -20px;
         text-align: center;
     }
-    .sloth-text {
+    .parrot-text {
         text-align: left;
         padding: 35px 0 10px 28px;
     }
