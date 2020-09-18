@@ -3,12 +3,14 @@
  */
 
 const express = require('express');
+const moment = require('moment');
 const logger = require('../helpers/logger');
 
 const router = express.Router();
-const moment = require('moment');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
+
+const { i18nMoment } = require('../helpers/i18n');
 
 moment.locale('de');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -315,7 +317,7 @@ router.get('/', (req, res, next) => {
 			res.render('dashboard/dashboard', {
 				title: res.$t('dashboard.headline.title'),
 				events: events.reverse(),
-				eventsDate: moment().format('dddd, DD. MMMM YYYY'),
+				eventsDate: i18nMoment().format('dddd, DD. MMMM YYYY'),
 				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
 						(task) => !task.private
@@ -330,7 +332,7 @@ router.get('/', (req, res, next) => {
 				hours,
 				currentTimePercentage,
 				showNewReleaseModal: newRelease,
-				currentTime: moment(currentTime).format('HH:mm'),
+				currentTime: i18nMoment(currentTime).format('HH:mm'),
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
 				displayDataprivacyAlert,
