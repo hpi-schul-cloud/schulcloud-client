@@ -935,6 +935,7 @@
 						"task": "Die Aufgabe: ",
 						"taskDetails": "Details der Aufgabe: ",
 						"taskOpen": "Aufgabe öffnen >",
+						"toTask": "Zur Aufgabe",
 						"workOnTopic": "Thema bearbeiten"
 					}
 				},
@@ -1329,6 +1330,7 @@
 			"filesFromMyTeam": "Dateien aus meinen Teams",
 			"filesSharedWithMe": "Mit mir geteilte Dateien",
 			"filesSharedWithMeContent": "Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzern zur Verfügung gestellt worden sind.",
+			"filesOpen": "Dateien öffnen",
 			"fileType": "Dateityp:",
 			"folder": "Ordner",
 			"moveFile": "Datei verschieben - vorübergehend deaktiviert",

@@ -935,6 +935,7 @@
 						"task": "The task:",
 						"taskDetails": "Details of the task:",
 						"taskOpen": "Task open >",
+						"toTask": "To the task",
 						"workOnTopic": "Work on Topic"
 					}
 				},
@@ -1334,6 +1335,7 @@
 			"filesFromMyTeam": "Files from my teams",
 			"filesSharedWithMe": "Files shared with me",
 			"filesSharedWithMeContent": "Here you can find all the files you have shared with you. These are files that have been made available by other users.",
+			"filesOpen": "Open files",
 			"fileType": "File type:",
 			"folder": "Folder",
 			"moveFile": "Move file - temporarily deactivated",
