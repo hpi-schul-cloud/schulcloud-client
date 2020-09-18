@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [24.5.3] - 2020-09-18
+
+### Fixed
+
+  - SC-6761 Fixed messenger activation in courses
+
 ## [24.5.2] - 2020-09-16
 
 ### Fixed
