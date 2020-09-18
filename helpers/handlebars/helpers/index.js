@@ -187,6 +187,9 @@ const helpers = () => ({
 	},
 	dateToPicker: (date, opts) => moment(date).format('DD.MM.YYYY'),
 	dateTimeToPicker: (date, opts) => moment(date).format('DD.MM.YYYY HH:mm'),
+	i18nDate: (date, opts) => i18n.i18nMoment(date).format('DD.MM.YYYY'),
+	i18nDateTime: (date, opts) => i18n.i18nMoment(date).format('DD.MM.YYYY HH:mm'),
+	i18nDateString: (date, opts) => i18n.i18nMoment(date).format('dddd, DD. MMMM YYYY'),
 	timeToString: (date, opts) => {
 		const now = moment();
 		const d = moment(date);
