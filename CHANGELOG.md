@@ -9,6 +9,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [24.5.3] - 2020-09-18
+
+### Fixed
+
+  - SC-6761 Fixed messenger activation in courses
+
+## [24.5.2] - 2020-09-16
+
+### Fixed
+
+  - SC-6637 Updated CSS of QR codes to avoid broken print layout
+
 ## [24.5.1] - 2020-09-14
 
 ### Fixed
