@@ -1,5 +1,5 @@
 <div class="error-header-wrapper pb-3">
-    <img class="error-header-image" src="/images/broken-pen.svg" alt="{{$t "global.img_alt.brokenPen"}}" />
+    {{> 'lib/components/svg_error_content'}}
     <h1 class="h2 error-header-code">CSRF</h1>
     <p class="error-header-text">
         {{$t "lib.csrf_content.text.yourRequestCouldNotBeVerified" }}
