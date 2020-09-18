@@ -9,10 +9,17 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-## [24.5.3] - 2020-09-17
+## [24.5.4] - 2020-09-18
 
 ### Fixed
+
   - SC-6823 - Fixed inserting media in comments for homework correction
+
+## [24.5.3] - 2020-09-18
+
+### Fixed
+
+  - SC-6761 Fixed messenger activation in courses
 
 ## [24.5.2] - 2020-09-16
 
