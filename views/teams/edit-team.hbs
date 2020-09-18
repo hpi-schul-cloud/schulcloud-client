@@ -42,12 +42,18 @@
                 {{/ifConfig}}
 
                 {{! Rocketchat is activated for instace }}
-                {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
+                {{#if @root.instanceUsesRocketChat}}
                     {{! Rocketchat is activated for current school }}
                     {{#inArray "rocketChat" @root.schoolData.features}}
                         <div class="form-group">
+                            {{#if @root.rocketChatDepricated}}
+                            <p class="text-muted">
+                                {{$t "teams._team.edit.text.rocketChatDepricated" }}
+                            </p>
+                            {{else}}
                             <label for="activateRC">{{$t "teams._team.edit.label.activateMessengerForTeam"}}</label>
                                 <input id="activateRC" type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
+                            {{/if}}
                         </div>
                     {{/inArray}}
                 {{/if}}

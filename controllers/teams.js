@@ -13,8 +13,7 @@ const api = require('../api');
 const logger = require('../helpers/logger');
 
 const {
-	CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED,
-	ROCKET_CHAT_URI,
+	CALENDAR_SERVICE_ENABLED,
 } = require('../config/global');
 
 const router = express.Router();
@@ -147,6 +146,13 @@ const editTeamHandler = async (req, res, next) => {
 		}
 	}
 
+	let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
+	const rocketChatDepricated = Configuration.has('ROCKET_CHAT_DEPRICATION_DATE');
+	if (rocketChatDepricated) {
+		const depricationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRICATION_DATE'));
+		if (depricationDate < Date.now()) instanceUsesRocketChat = false;
+	}
+
 	teamPromise.then((team) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
 			return next(new Error(res.$t('global.text.403')));
@@ -163,6 +169,8 @@ const editTeamHandler = async (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
+			instanceUsesRocketChat,
+			rocketChatDepricated,
 		});
 	});
 };
@@ -508,7 +516,11 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		});
 
-		const instanceUsesRocketChat = ROCKETCHAT_SERVICE_ENABLED;
+		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
+		if (Configuration.has('ROCKET_CHAT_DEPRICATION_DATE')) {
+			const depricationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRICATION_DATE'));
+			if (depricationDate < Date.now()) instanceUsesRocketChat = false;
+		}
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (
 			res.locals.currentSchoolData.features || []
@@ -525,7 +537,7 @@ router.get('/:teamId', async (req, res, next) => {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
 				);
-				const rocketChatURL = ROCKET_CHAT_URI;
+				const rocketChatURL = Configuration.get('ROCKET_CHAT_URI');
 				rocketChatCompleteURL = `${rocketChatURL}/group/${
 					rocketChatChannel.channelName
 				}`;

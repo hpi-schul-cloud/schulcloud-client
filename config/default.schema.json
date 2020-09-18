@@ -318,6 +318,24 @@
 			"default": false,
 			"description": "Feature toggle for automatic consent during TSP sync."
 		},
+		"ROCKETCHAT_SERVICE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "feature toggle to activate rocketchat for the instance."
+		},
+		"ROCKET_CHAT_URI": {
+			"type": "string",
+			"format": "uri",
+			"default": "http://localhost:15000",
+			"pattern": ".*(?<!/)$",
+			"description": "uri of the rocketchat server."
+		},
+		"ROCKET_CHAT_DEPRICATION_DATE": {
+			"type": "string",
+			"format": "date-time",
+			"examples": ["2020-11-01T20:20:00+00:00"],
+			"description": "if this is set, rocketchat will be treated as disabled after this date."
+		},
 		"I18N": {
 			"type": "object",
 			"description": "Configuration of I18N",
