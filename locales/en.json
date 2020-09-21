@@ -2289,8 +2289,8 @@
 					"Administrator": "Administrator",
 					"Superhero": "Schul-Cloud Admin",
 					"Demo": "Demo",
-					"DemoTeacher": "Demo",
-					"DemoStudent": "Demo",
+					"DemoTeacher": "Demo Teacher",
+					"DemoStudent": "Demo Student",
 					"Helpdesk": "Helpdesk",
 					"BetaTeacher": "Beta",
 					"Expert": "Expert"
