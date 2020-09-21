@@ -1,9 +1,12 @@
 
+const { Configuration } = require('@schul-cloud/commons');
 const express = require('express');
+
 const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
-const { ROCKET_CHAT_URI } = require('../config/global');
+
+const ROCKET_CHAT_URI = Configuration.get('ROCKET_CHAT_URI');
 
 router.use(authHelper.authChecker);
 
