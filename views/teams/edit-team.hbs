@@ -46,7 +46,7 @@
                     {{! Rocketchat is activated for current school }}
                     {{#inArray "rocketChat" @root.schoolData.features}}
                         <div class="form-group">
-                            <div {{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
+                            <div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
                                 <label for="activateRC">{{$t "teams._team.edit.label.activateMessengerForTeam"}}</label>
                                     <input
                                         id="activateRC"
@@ -54,12 +54,12 @@
                                         name="rocketChat"
                                         value="true"
                                         {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}
-                                        {{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}disabled{{/hasConfig}}>
+                                        {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}disabled{{/hasConfig}}>
                             </div>
-                            {{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}
+                            {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
                                 <p class="alert alert-info">
                                     <strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
-                                    {{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRICATION_DATE")))}}
+                                    {{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRECATION_DATE")))}}
                                 </p>
 							{{/hasConfig}}
                         </div>

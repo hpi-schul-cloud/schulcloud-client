@@ -330,7 +330,7 @@
 			"pattern": ".*(?<!/)$",
 			"description": "uri of the rocketchat server."
 		},
-		"ROCKET_CHAT_DEPRICATION_DATE": {
+		"ROCKET_CHAT_DEPRECATION_DATE": {
 			"type": "string",
 			"format": "date-time",
 			"examples": ["2020-11-01T20:20:00+00:00"],

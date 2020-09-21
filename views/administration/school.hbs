@@ -215,7 +215,7 @@
 
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
                         <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}}">
-							<div {{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
+							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
 								<label for="messenger">{{$t "administration.school.label.activeChatFunction" }}</label>
 								<input
 									id="messenger"
@@ -228,7 +228,7 @@
 												disabled
 										{{/userHasPermission}}
 									{{/userHasPermission}}
-									{{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}
+									{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
 										disabled
 									{{/hasConfig}}
 								/>
@@ -236,10 +236,10 @@
 									{{$t "administration.school.text.ifChatsAreActivatedAtYourSchool" }}
 								</p>
 							</div>
-							{{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}
+							{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
 								<p class="alert alert-info">
 									<strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
-									{{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRICATION_DATE")))}}
+									{{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRECATION_DATE")))}}
 								</p>
 							{{/hasConfig}}
                         </div>

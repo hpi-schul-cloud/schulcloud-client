@@ -147,10 +147,10 @@ const editTeamHandler = async (req, res, next) => {
 	}
 
 	let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
-	const rocketChatDepricated = Configuration.has('ROCKET_CHAT_DEPRICATION_DATE');
-	if (rocketChatDepricated) {
-		const depricationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRICATION_DATE'));
-		if (depricationDate < Date.now()) instanceUsesRocketChat = false;
+	const rocketChatDeprecated = Configuration.has('ROCKET_CHAT_DEPRECATION_DATE');
+	if (rocketChatDeprecated) {
+		const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
+		if (deprecationDate < Date.now()) instanceUsesRocketChat = false;
 	}
 
 	teamPromise.then((team) => {
@@ -170,7 +170,7 @@ const editTeamHandler = async (req, res, next) => {
 			team,
 			schoolData: res.locals.currentSchoolData,
 			instanceUsesRocketChat,
-			rocketChatDepricated,
+			rocketChatDeprecated,
 		});
 	});
 };
@@ -517,9 +517,9 @@ router.get('/:teamId', async (req, res, next) => {
 		});
 
 		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
-		if (Configuration.has('ROCKET_CHAT_DEPRICATION_DATE')) {
-			const depricationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRICATION_DATE'));
-			if (depricationDate < Date.now()) instanceUsesRocketChat = false;
+		if (Configuration.has('ROCKET_CHAT_DEPRECATION_DATE')) {
+			const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
+			if (deprecationDate < Date.now()) instanceUsesRocketChat = false;
 		}
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (

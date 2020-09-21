@@ -299,7 +299,7 @@
 {{/embed}}
 
 {{! Rocketchat is enabled for the instance and the current school and set as deprecated}}
-{{#if @root.ROCKETCHAT_SERVICE_ENABLED}} {{#inArray "rocketChat" @root.schoolData.features}} {{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}
+{{#if @root.ROCKETCHAT_SERVICE_ENABLED}} {{#inArray "rocketChat" @root.schoolData.features}} {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
     {{#embed "lib/components/modal" class="deprecation-info-rocket-chat" title=($t "messenger.headline.welcomeMatrixAdmin")}}
     {{#content "body"}}
     <div class="modal-body">
@@ -311,7 +311,7 @@
             </div>
             <div id="member-modal-body">
                 <div class="text-center">
-                    {{$t "messenger.text.rocketChatDeprecation" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRICATION_DATE"))) }}
+                    {{$t "messenger.text.rocketChatDeprecation" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRECATION_DATE"))) }}
                 </div>
             </div>
         </div>
