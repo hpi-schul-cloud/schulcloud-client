@@ -226,10 +226,10 @@
 				"deleteEntry": "Delete entry",
 				"editClass": "Edit class",
 				"editEntry": "Edit entry",
-				"editingStudents": "Edit students",
 				"editLDAP": "Edit LDAP",
 				"editTeacher": "Edit teacher",
 				"editUsers": "Edit users",
+				"editingStudents": "Edit students",
 				"manageClass": "Manage class",
 				"removeMembers": "Remove members of your own school from the team",
 				"resetPassword": "Reset Password",
@@ -245,8 +245,8 @@
 			"text": {
 				"active": "Active",
 				"agreementSuccessfullyDeclared": "Consent successfully declared",
-				"anotherSchoolWasFounded": "was founded in another school and therefore it is not possible to ",
 				"anUnknownErrorOccurred": "There was an unknown error while importing.",
+				"anotherSchoolWasFounded": "was founded in another school and therefore it is not possible to ",
 				"changesSuccessfullySaved": "Changes saved successfully.",
 				"checkingTheLDAPData": "Checking the LDAP data for the new school year",
 				"closed": "Closed",
@@ -278,9 +278,9 @@
 				"submitted": "Sent",
 				"successfullyImportedUser": "{{amountImported}} out of {{amountTotal}} users imported successfully ({{amountCreated}} created {{amountUpdated}} updated).",
 				"successfullyImportedUsers": "{{amountImported}} out of {{amountTotal}} users imported successfully ({{amountCreated}} created {{amountUpdated}} updated).",
-				"thereWasAnError": "An error occurred while giving consent.",
 				"theStepsForTheParentsAreOmitted": "The steps for the parents are omitted automatically.",
 				"theTeamCanOnlyBeDeleted": "Deletion of the team only possible for teams of your own school",
+				"thereWasAnError": "An error occurred while giving consent.",
 				"userCreatedErrorSendingTheMail": "User created. Error while sending the email. Please generate and share the registration link in the user profile independently. {{errMessage}}",
 				"userCreatedSuccessfully": "User created successfully.",
 				"userCreatedSuccessfullyAndRegistration": "User successfully registered and registration link sent successfully by e-mail.",
@@ -471,12 +471,12 @@
 				"hide": "Hide",
 				"noSchoolCloud": "No HPI school cloud",
 				"noSchoolCloudTitle": "This allows you to prevent users from your LDAP from being transferred to the HPI school cloud",
+				"roleType": "Role type",
+				"roleTypeTitle": "Is the user role (teacher, student) stored textually in the user attribute or is there an LDAP group for the respective user role?",
 				"rolesAttributes": "Role attributes",
 				"rolesAttributesDescription": "Which value in your previously defined role field corresponds to the role mentioned?",
 				"rolesLDAPPaths": "Role-LDAP paths",
 				"rolesLDAPPathsDescription": "Which LDAP group defines the named role? Enter the full path (including the root path)",
-				"roleType": "Role type",
-				"roleTypeTitle": "Is the user role (teacher, student) stored textually in the user attribute or is there an LDAP group for the respective user role?",
 				"rootPath": "root path",
 				"rootPathTitle": "Main path of the LDAP. Usually DC=Domain,DC=Top-level domain",
 				"seacrhUserpassword": "search-user password",
@@ -491,8 +491,8 @@
 				"uuidTitle": "Unique, non-changeable user ID. May not change like the uid (e.g. through marriage)"
 			},
 			"placeholder": {
-				"general": "General",
 				"LDAPGroup": "LDAP group",
+				"general": "General",
 				"roleTypePlaceholder": "Select LDAP type",
 				"userAttribute": "User attribute"
 			},
@@ -510,9 +510,9 @@
 				"closeTheWindow": "Close window"
 			},
 			"headline": {
-				"checkTheSynchronizationOfTheDataAvailable": "Check the synchronization of the data in the LDAP for the new school year",
 				"LDAPClasses": "LDAP classes",
-				"LDAPUsers": "LDAP users"
+				"LDAPUsers": "LDAP users",
+				"checkTheSynchronizationOfTheDataAvailable": "Check the synchronization of the data in the LDAP for the new school year"
 			},
 			"text": {
 				"onThisPageYouWillFindTheData": "On this page you will find the data of all classes and users, as {{shortTitle}} takes it over from your LDAP. Please check the data on a random basis for its correctness before transferring it by ending the transfer phase."
@@ -531,9 +531,9 @@
 				"newUsersClassAffiliations": "new added users, class memberships and changes to user data are constantly synchronized",
 				"provideStudentsAndTheirParents": "Provide your students and their parents with individual links to give their consent in digital or analog form. When registration is complete, a login password will be created for the student.",
 				"theNewSchoolYearStartsInThe": "The new school year begins in the {{title}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
-				"thereIsNoDeclarationOfConsent": "There is no consent form for the user yet. Call a personal invitation link to complete the registration and distribute it to the user or his parents. During registration, the consent is then granted by the user himself. If a declaration of consent is available in paper form, the user can be activated by clicking on 'Received consent on paper' and a start password can be assigned. This will unlock the login.",
 				"theSchoolYearEndsAnd": "The school year {{schoolName}} is ended and the transfer phase  to the new school year begins. <strong>This step cannot be undone.</strong> No classes and users can be created or changed during this time.",
 				"theSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data is interrupted during the transfer phase. This means that user data and classes (if used) are no longer updated via LDAP. It is still possible to log in with login data that has already been synchronized. Password changes in the LDAP during login are also taken into account.",
+				"thereIsNoDeclarationOfConsent": "There is no consent form for the user yet. Call a personal invitation link to complete the registration and distribute it to the user or his parents. During registration, the consent is then granted by the user himself. If a declaration of consent is available in paper form, the user can be activated by clicking on 'Received consent on paper' and a start password can be assigned. This will unlock the login.",
 				"useTheTransferPhaseAroundTheSchool": "Use the transfer phase around the change of school year to adjust class affiliation and personal data in the LDAP. Finally, transfer all changes to the HPI school cloud at once.",
 				"withAllChangesAndSettings": "With all modifications and settings in the administration area, you confirm that you are an authorized school administrator and you are authorized to make modifications in the school in the HPI school cloud. Your click is insofar considered as instruction of the school to the HPI.",
 				"wouldYouLikeReportABug": "Would you like to report an error or do you have an idea to improve the {{title}} ? Send requests or problems directly to the {{shortTitle}} user support."
@@ -593,6 +593,7 @@
 				"moreInfo": "More information"
 			},
 			"text": {
+				"LDAPChanges": "you can make the necessary changes for the new school year in the\nLDAP (new users, update classes)",
 				"allAboutTheSummerVacation": "Around the summer holidays",
 				"allDataFromTheLDAP": "All data from the LDAP will be synchronized as usual, new users and classes can be created there at any time",
 				"allDone": "All done!",
@@ -607,7 +608,6 @@
 				"ifChatsAreActivatedAtYourSchool": "If chats are enabled at your school, team administrators and teachers can selectively unlock the chat function respectively for their team or courses.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
-				"LDAPChanges": "you can make the necessary changes for the new school year in the\nLDAP (new users, update classes)",
 				"loginViaLDAP": "Login via LDAP is still possible for existing users",
 				"newSchoolYear": "New school year",
 				"newUsersClassesAndChanges": "Newly added users, classes and changes to existing data are not synchronized from the LDAP",
@@ -782,6 +782,8 @@
 			"joinNow": "Join us now!"
 		},
 		"text": {
+			"MINTECSchoolsAnd": "<a href='https://www.mint-ec.de' target='_blank'> MINT-EC </a> is the national excellence network of schools with upper secondary level and a distinctive profile in mathematics, computer science and natural sciences and technology (MINT). Schools from the network have been participating in the HPI School Cloud project since 2017.",
+			"MINTECSchoolsAndOther": "MINT-EC schools and schools that do not belong to a state project can register here. Thanks to the project extension by the BMBF, they can now use the HPI school cloud.",
 			"contactUsToRegister": "Please contact either Ms. Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de</a> or Mr. Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de</a> to start the registration process.",
 			"forGeneralQuestionsPleaseContact": "If you have any general questions, please contact the following e-mail address:",
 			"hereIsOurRegistrationForm": "Click here for our registration form:",
@@ -791,8 +793,6 @@
 			"inNiedersachsenTheReferenceSchool": "In Lower Saxony, the reference school network n-21 is responsible for the admission of new schools.",
 			"inThuringiaTheThuringianInstitute": "In Thuringia, the Thuringian Institute for Teacher Training, Curriculum Development and Media (ThILLM) is responsible for the admission of new schools.",
 			"justWriteAnEmailTo": "Simply write an email to <a href=\"mailto:schul-cloud-ZfA@bva.bund.de\">schul-cloud-ZfA@bva.bund.de</a> .",
-			"MINTECSchoolsAnd": "<a href='https://www.mint-ec.de' target='_blank'> MINT-EC </a> is the national excellence network of schools with upper secondary level and a distinctive profile in mathematics, computer science and natural sciences and technology (MINT). Schools from the network have been participating in the HPI School Cloud project since 2017.",
-			"MINTECSchoolsAndOther": "MINT-EC schools and schools that do not belong to a state project can register here. Thanks to the project extension by the BMBF, they can now use the HPI school cloud.",
 			"ourPartnerOfMINIECAlso": "Our partner of MINT-EC also offers regular webinars on the HPI school cloud. The new dates can be found here:",
 			"pleaseContactEither": "Please contact either Ms. Julia Günther:",
 			"pleaseContactTheFollowingEmailAddress": "Please contact the following e-mail address to start the registration process:",
@@ -816,8 +816,8 @@
 			"contentCantBeAddedInDemo": "<h5>Content cannot be added to courses in demo mode.</h5>",
 			"contentStore": "Learning store",
 			"fileType": "File type",
-			"noResultsFoundWith": "No search results were found for \"{{ query }}\"",
 			"nSearchResultsFoundWith": "{{ searchResultsTotal }} search results for \"{{ query }}\"",
+			"noResultsFoundWith": "No search results were found for \"{{ query }}\"",
 			"youAreLeavingSC": "You are now leaving the school cloud"
 		},
 		"input": {
@@ -995,11 +995,11 @@
 				}
 			},
 			"text": {
+				"QRCodeAlternative": "Alternatively, you can show your teacher colleagues the following QR code.",
 				"courseDescription": "Course description:",
 				"etherpadCouldNotBeAdded": "No Etherpad could be added to the course. If you see this message again, please contact support.",
 				"eventCouldNotBeSavedContactSupport": "The course times may not have been saved correctly. If you see this message again, please contact support.",
 				"nextClass": "Next lesson: ",
-				"QRCodeAlternative": "Alternatively, you can show your teacher colleagues the following QR code.",
 				"shareCodeExplanation": "Distribute the following code to teacher-colleagues to share the course with them. The function is located on the overview page for courses.",
 				"youAreAlreadyMember": "You are already a participant in the course {{coursename}} .",
 				"youHaveBeenAdded": "You have been successfully added to the course {{coursename}}"
@@ -1130,8 +1130,8 @@
 				"finish": "Finish"
 			},
 			"text": {
-				"addingStudentsForbidden": "For privacy reasons, you are not permitted to access the list of names of all students of your school. Therefore you cannot add students or classes to the course. Please request an administrator of your school to add students or entire classes to the course.",
 				"addStudentsOrClasses": "Add classes or individual students to your course.",
+				"addingStudentsForbidden": "For privacy reasons, you are not permitted to access the list of names of all students of your school. Therefore you cannot add students or classes to the course. Please request an administrator of your school to add students or entire classes to the course.",
 				"contentOfClass": "Create the content of your lessons.",
 				"doItNowOrLaterInSettings": "You can do this now or later in the course settings.",
 				"giveExercisesAndGetResults": "Assign tasks to your students and view their submissions.",
@@ -1165,6 +1165,7 @@
 			}
 		},
 		"headline": {
+			"SCMakesTeachingDigital": "With the {{themetitle}} teaching becomes digital",
 			"courseAttendees": "Participants of the course:",
 			"createDuplicateImport": "Create, duplicate or import a course",
 			"expiredCoursesInArchive": "Courses whose end date has been reached can be found <a href=\"?activeTab=archived\"> in the archive",
@@ -1174,8 +1175,7 @@
 			"mySubstitutes": "My Substitutes",
 			"noArchievedCourses": "You have no archived courses yet",
 			"noCourse": "There are currently no courses",
-			"noCoursesYet": "There are no courses yet. A course in the {{short_title}} is the basis for managing topics, tasks, tools etc. for digital learning.",
-			"SCMakesTeachingDigital": "With the {{themetitle}} teaching becomes digital"
+			"noCoursesYet": "There are no courses yet. A course in the {{short_title}} is the basis for managing topics, tasks, tools etc. for digital learning."
 		},
 		"img_alt": {
 			"noArchievedCourses": "No archived courses",
@@ -1330,13 +1330,13 @@
 			"downloadFile": "Download file",
 			"editFilePermissions": "Edit file permissions",
 			"fileName": "Filename:",
+			"fileType": "File type:",
 			"filesFromMyClasses": "Files from my classes",
 			"filesFromMyCourse": "Files from my courses",
 			"filesFromMyTeam": "Files from my teams",
+			"filesOpen": "Open files",
 			"filesSharedWithMe": "Files shared with me",
 			"filesSharedWithMeContent": "Here you can find all the files you have shared with you. These are files that have been made available by other users.",
-			"filesOpen": "Open files",
-			"fileType": "File type:",
 			"folder": "Folder",
 			"moveFile": "Move file - temporarily deactivated",
 			"myPersonalData": "My personal files",
@@ -1665,6 +1665,16 @@
 			}
 		},
 		"placeholder": {
+			"Administrator": "Administrator",
+			"BetaTeacher": "Beta",
+			"Demo": "Demo",
+			"DemoStudent": "Demo Student",
+			"DemoTeacher": "Demo Teacher",
+			"Expert": "Expert",
+			"Helpdesk": "Helpdesk",
+			"Lehrer": "Teacher",
+			"Schüler": "Student",
+			"Superhero": "Schul-Cloud Admin",
 			"firstName": "Enter your first name here",
 			"lastName": "Enter your last name here",
 			"selectTeacher": "Select teacher"
@@ -1710,9 +1720,9 @@
 			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
 			"errorChangingFilePermissions": "Problem changing permissions",
 			"errorWhileLoadingPage": "This page could not be loaded",
-			"filesTooLarge": "The attached files exceed the maximum permitted total size!",
 			"fileTooLarge": "The attached files exceed the maximum permitted size!",
 			"fileWrongFormat": "'{{filename}}' is not an image, video or valid file!",
+			"filesTooLarge": "The attached files exceed the maximum permitted total size!",
 			"forThisWeNeedTheFollowingInformationFromYou": "For this we need the following information from you:",
 			"friday": "Friday",
 			"inAdditionWeArePlanning": "In addition, we plan to develop a parental access point through which you can communicate with the class teacher and track your child's learning progress. As soon as these functions are available, we will ask you whether we may use your e-mail address for this purpose.",
@@ -1738,8 +1748,8 @@
 			"thursday": "Thursday",
 			"tuesday": "Tuesday",
 			"videoconferenceNotStartedYet": "Video conference has not yet started",
-			"wednesday": "Wednesday",
-			"weNeedAnEmailAddress": "We need an e-mail address so that your consent to use the {{shortTitle}} is legally valid. The {{shortTitle}} does not pass on the address. You will not receive unsolicited e-mails."
+			"weNeedAnEmailAddress": "We need an e-mail address so that your consent to use the {{shortTitle}} is legally valid. The {{shortTitle}} does not pass on the address. You will not receive unsolicited e-mails.",
+			"wednesday": "Wednesday"
 		},
 		"topMenu": {
 			"qrHintText": "Navigate other users to this site"
@@ -1773,25 +1783,6 @@
 				"whoDoYouWantToContact": "Who do you want to contact?"
 			}
 		},
-		"form_admin": {
-			"label": {
-				"currentStatus": "CURRENT state: What is happening at the moment after I have carried out which steps?",
-				"targetState": "TARGET state: What should happen instead?"
-			},
-			"text": {
-				"hereYouCanContact": "Here you can reach the administrator of your school. He can help you with login problems, for example, and will be informed of your contact request by e-mail."
-			}
-		},
-		"form_bug": {
-			"label": {
-				"maxSizeFiles": "Images, videos and files",
-				"problemDescription": "Problem description:",
-				"theProblemOccursOnTheDevice": "The problem occurs on this device"
-			},
-			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)</li> <li> Operating system and version (e.g. Windows 10)</li>"
-			}
-		},
 		"form_Wish": {
 			"label": {
 				"acceptanceCriteria": "Acceptance criteria",
@@ -1810,6 +1801,25 @@
 			},
 			"text": {
 				"iAgreeThatTheFollowingInformation": "I agree that the following information may be transferred for better handling of my request: <li>Browser name and version (e.g. Firefox 69.0) </li> <li> Operating system and version (e.g. Windows 10)</li>"
+			}
+		},
+		"form_admin": {
+			"label": {
+				"currentStatus": "CURRENT state: What is happening at the moment after I have carried out which steps?",
+				"targetState": "TARGET state: What should happen instead?"
+			},
+			"text": {
+				"hereYouCanContact": "Here you can reach the administrator of your school. He can help you with login problems, for example, and will be informed of your contact request by e-mail."
+			}
+		},
+		"form_bug": {
+			"label": {
+				"maxSizeFiles": "Images, videos and files",
+				"problemDescription": "Problem description:",
+				"theProblemOccursOnTheDevice": "The problem occurs on this device"
+			},
+			"text": {
+				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)</li> <li> Operating system and version (e.g. Windows 10)</li>"
 			}
 		},
 		"global": {
@@ -1935,9 +1945,9 @@
 			}
 		},
 		"headline": {
+			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI school cloud</span> Blog",
 			"allNewsOnHPINewsletter": "All news about the <span style=\"white-space: nowrap;\">HPI school cloud</span> conveniently sent to your mailbox:",
 			"explainationVideo": "Explanatory video about the HPI school cloud",
-			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI school cloud</span> Blog",
 			"theIdea": "The basic idea of the <span style=\"white-space: nowrap;\">HPI school cloud</span>",
 			"tryDemoVersion": "Try the demo version now",
 			"welcomeToHPISchoolCloud": "Welcome to the <span style=\"white-space: nowrap;\">HPI school cloud!</span>"
@@ -2010,8 +2020,8 @@
 			"editSubmissionFromList": "Edit",
 			"hrefAlt": "Delete submission",
 			"hrefDataName": "Your submission",
-			"importing": "import",
 			"importSubmission": "Import student submission",
+			"importing": "import",
 			"onTheSubject": "On the subject",
 			"save": "Save and send",
 			"toCourseAlt": "To the course of the task",
@@ -2086,9 +2096,9 @@
 			"bulkGradingError": "Submissions could not be assigned to all files based on the name. Go to comments/grading to assign the following files to the respective submission:",
 			"bulkGradingSuccess": "Homework could be assigned to all files. Please reload page.",
 			"creatorCanNotBeRemoved": "You cannot remove the creator of the task!",
-			"done": "Great! You've completed your task!",
 			"doYouReallyWantToDelete": "Are you sure you want to delete '{{name}}'?",
 			"doYouReallyWantToReplaceSubmission": "Are you sure you want to replace your assessment with the student's submission?",
+			"done": "Great! You've completed your task!",
 			"due": "Due",
 			"fileAlreadyExists": "This file name already exists in your files. Please rename the file.",
 			"maximumTeamSize": "The maximum team size is {{maxMembers}} members",
@@ -2181,6 +2191,14 @@
 				"providerLogo": "Provider logo"
 			}
 		},
+		"form_ChangeLanguage": {
+			"label": {
+				"language": "Language"
+			},
+			"placeholder": {
+				"text": "Please select..."
+			}
+		},
 		"form_auto_logout": {
 			"button": {
 				"extendSession": "Extend session"
@@ -2199,14 +2217,6 @@
 				"refreshStatus": "To refresh status again, click the update icon",
 				"theVideoConferenceHasNotYetStarted": "The video conference has not yet started.",
 				"youAreNotAuthorisedToAttend": "You are not authorized to participate in this video conference. Contact a Team Admin for approval."
-			}
-		},
-		"form_ChangeLanguage": {
-			"label": {
-				"language": "Language"
-			},
-			"placeholder": {
-				"text": "Please select..."
 			}
 		},
 		"form_create_videoConference": {
@@ -2281,20 +2291,6 @@
 		"loggedin": {
 			"aria_label": {
 				"mobileNavMenu": "Mobile Navigation Menu"
-			},
-			"currentRole": {
-				"label": {
-					"Schüler": "Student",
-					"Lehrer": "Teacher",
-					"Administrator": "Administrator",
-					"Superhero": "Schul-Cloud Admin",
-					"Demo": "Demo",
-					"DemoTeacher": "Demo Teacher",
-					"DemoStudent": "Demo Student",
-					"Helpdesk": "Helpdesk",
-					"BetaTeacher": "Beta",
-					"Expert": "Expert"
-				}
 			},
 			"img_alt": {
 				"logoOfSchool": "Logo of {{name}}"
@@ -2833,10 +2829,10 @@
 					"deleteMember": "Delete attendee",
 					"editMember": "Edit attendee",
 					"email": "E-mail",
-					"invitedOn": "Invited on",
 					"inviteExternExpert": "Invite external experts",
 					"inviteTeacherByEmail": "Invite teacher by e-mail",
 					"inviteTeacherFromOtherSchool": "Invite teachers from other schools",
+					"invitedOn": "Invited on",
 					"member": "{{count}} attendees",
 					"pendingInvitations": "Pending invitations",
 					"requirements": "Requirements:",
@@ -2872,9 +2868,9 @@
 					"teamAdmin": "Team admin"
 				},
 				"text": {
+					"addTeacherOrStudentFromYourSchool": "Add teachers and students from your school to the team.",
 					"addedMemberFailure": "Problem while adding attendee",
 					"addedMemberSuccess": "Attendee successfully added to the team",
-					"addTeacherOrStudentFromYourSchool": "Add teachers and students from your school to the team.",
 					"changeRoleOfMember": "Change the role of the user:",
 					"errorWhileEditingMember": "Problem while editing attendee",
 					"errorWhileRemovingMember": "Problem while removing attendee",
@@ -2973,11 +2969,11 @@
 				"text": "Text"
 			},
 			"input": {
+				"GeoGebraEnterId": "Enter GeoGebra Material ID, e.g. kEBfU7AR",
 				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",
 				"createNewNeXboard": "Create new neXboard",
 				"createsListInEtherpad": "Creates in the following Etherpad a Pro-Contra list on the topic XYC",
 				"createsListInNeXboard": "Creates in the following neXboard a Pro-Contra-list on the topic XYC",
-				"GeoGebraEnterId": "Enter GeoGebra Material ID, e.g. kEBfU7AR",
 				"keepNeXboard": "Maintain NexBoard",
 				"sectionTitle": "Title of the section",
 				"selectNeXboard": "Select neXboard"
@@ -3000,8 +2996,8 @@
 			"createVideoConferenceRoom": "Create video conference room {{name}}"
 		},
 		"text": {
-			"thereWasAProblemWithTheVideo": "There was a problem with the video conference. Please try again.",
 			"theVideoConferenceHasEither": "The video conference has either not started yet or has already ended.",
+			"thereWasAProblemWithTheVideo": "There was a problem with the video conference. Please try again.",
 			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference."
 		}
 	}
