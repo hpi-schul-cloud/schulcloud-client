@@ -7,6 +7,7 @@ const expect = chai.expect;
 const chaiHttp = require('chai-http');
 const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
+const { i18next } = require('../../../helpers/i18n');
 
 describe('Homework tests', function () {
     before(function (done) {
@@ -30,7 +31,7 @@ describe('Homework tests', function () {
                 .get('/homework/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Aufgaben');
+                    expect(res.text).to.contain(i18next.t('courses._course.tab_label.tasks'));
                     expect(res.text).to.contain('Mathe');
                     resolve();
                 });
@@ -42,7 +43,7 @@ describe('Homework tests', function () {
                 .get('/homework/asked')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Gestellte Aufgaben');
+                    expect(res.text).to.contain(i18next.t('global.headline.assignedTasks'));
                     expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-edit');
                     expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-delete');
                     resolve();
@@ -55,7 +56,7 @@ describe('Homework tests', function () {
                 .get('/homework/private')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Entwürfe');
+                    expect(res.text).to.contain(i18next.t('global.link.tasksDrafts'));
                     expect(res.text).to.contain('btn btn-secondary btn-sm btn-edit');
                     expect(res.text).to.contain('btn btn-secondary btn-sm btn-delete');
                     resolve();
@@ -68,8 +69,8 @@ describe('Homework tests', function () {
                 .get('/homework/archive')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Archivierte Aufgaben');
-                    expect(res.text).to.contain('Keine Aufgaben.');
+                    expect(res.text).to.contain(i18next.t('homework.headline.archivedTasks'));
+                    expect(res.text).to.contain(i18next.t('global.text.noTasks'));
                     resolve();
                 });
         });
@@ -116,7 +117,7 @@ describe('Homework tests', function () {
                 .get('/homework/new')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Aufgabe hinzufügen');
+                    expect(res.text).to.contain(i18next.t('global.button.addTask'));
                     resolve();
                 });
         });
@@ -129,7 +130,7 @@ describe('Homework tests', function () {
                 .end((err, res) => {
                     if(err) reject(err);
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Aufgabe bearbeiten');
+                    expect(res.text).to.contain(i18next.t('homework._task.headline.editTask'));
                     resolve();
                 });
         });
@@ -141,7 +142,7 @@ describe('Homework tests', function () {
                 .get('/homework/59cce3f6c6abf042248e888d/edit')
                 .end((err, res) => {
                     expect(res.statusCode).to.not.equal(200);
-                    expect(res.text).to.not.contain('Aufgabe bearbeiten');
+                    expect(res.text).to.not.contain(i18next.t('homework._task.headline.editTask'));
                     resolve();
                 });
         });
