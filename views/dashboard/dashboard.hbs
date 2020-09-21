@@ -180,7 +180,7 @@
 {{/if}}
 
 {{#if this.currentSchoolData.pilot}}
-{{#ifneq (userHasRole "student")}}
+{{#ifneq this.currentRole "Schüler"}}
 {{#ifneq ../this.currentRole "Demo"}}
 {{#embed "lib/components/modal" class="poll-modal"}}
 {{#content "body"}}

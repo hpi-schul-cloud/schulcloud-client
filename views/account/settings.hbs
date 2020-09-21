@@ -15,7 +15,7 @@
         <div class="route-account">
             {{#unless sso}}
             <form method="post">
-                {{#ifneq currentRole (userHasRole "student") }}
+                {{#ifneq currentRole "Schüler"}}
                 <div class="form-group">
                     <label for="firstName">{{$t "global.label.firstNameColon" }}</label>
                     <input id="firstName" type="text" class="form-control" name="firstName" value="{{ ../currentUser.firstName }}">

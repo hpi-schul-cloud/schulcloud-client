@@ -694,7 +694,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
 	}
 
-	if (['Schüler', 'Student', 'Demo'].includes(res.locals.currentRole)) {
+	if (['Schüler', 'Demo'].includes(res.locals.currentRole)) {
 		canCreateFile = false;
 	}
 
