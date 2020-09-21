@@ -1668,8 +1668,8 @@
 			"Administrator": "Administrator",
 			"BetaTeacher": "Beta",
 			"Demo": "Demo",
-			"DemoStudent": "Demo",
-			"DemoTeacher": "Demo",
+			"DemoStudent": "Demo Student",
+			"DemoTeacher": "Demo Teacher",
 			"Expert": "Expert",
 			"Helpdesk": "Helpdesk",
 			"Lehrer": "Teacher",
@@ -2292,6 +2292,23 @@
 			"aria_label": {
 				"mobileNavMenu": "Mobile Navigation Menu"
 			},
+<<<<<<< HEAD
+=======
+			"currentRole": {
+				"label": {
+					"Schüler": "Student",
+					"Lehrer": "Teacher",
+					"Administrator": "Administrator",
+					"Superhero": "Schul-Cloud Admin",
+					"Demo": "Demo",
+					"DemoTeacher": "Demo Teacher",
+					"DemoStudent": "Demo Student",
+					"Helpdesk": "Helpdesk",
+					"BetaTeacher": "Beta",
+					"Expert": "Expert"
+				}
+			},
+>>>>>>> b72cc41691bb0a625efe368db0b87fb29700dc29
 			"img_alt": {
 				"logoOfSchool": "Logo of {{name}}"
 			},

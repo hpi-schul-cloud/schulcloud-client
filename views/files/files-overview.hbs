@@ -35,7 +35,7 @@
                 {{#ifEnv "FEATURE_TEAMS_ENABLED" "true"}}
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
-                        title=(concat '<i class="fa fa-users"></i> '($t 'global.link.files'))
+                        title=(concat '<i class="fa fa-users"></i> '($t 'global.link.teamData'))
                         secondaryTitle="<br />"
                         url='/files/teams/'
                         link-text=($t 'files.label.filesOpen')

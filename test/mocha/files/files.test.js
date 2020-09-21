@@ -26,7 +26,7 @@ describe('Files tests', function () {
     it('GET /files/', function () {
         return new Promise((resolve, reject) => {
             this.agent
-                .get('/files/')
+                .get('/files/?lng=de')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Meine Dateien');
@@ -41,7 +41,7 @@ describe('Files tests', function () {
     it('GET /files/my/', function () {
         return new Promise((resolve, reject) => {
             this.agent
-                .get('/files/my/')
+                .get('/files/my/?lng=de')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Dateien');
@@ -55,7 +55,7 @@ describe('Files tests', function () {
     it('GET /files/courses', function () {
         return new Promise((resolve, reject) => {
             this.agent
-                .get('/files/courses/')
+                .get('/files/courses/?lng=de')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Dateien aus meinen Kursen');
@@ -67,7 +67,7 @@ describe('Files tests', function () {
     it('GET /files/classes', function () {
         return new Promise((resolve, reject) => {
             this.agent
-                .get('/files/classes/')
+                .get('/files/classes/?lng=de')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Dateien aus meinen Klassen');
