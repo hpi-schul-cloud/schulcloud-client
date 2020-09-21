@@ -340,7 +340,7 @@ $(document).ready(() => {
 					});
 				});
 
-				this.on('success', function onSuccessfulUpload(file) {
+				this.on('success', async function onSuccessfulUpload(file) {
 					finishedFilesSize += file.size;
 
 					const parentId = getCurrentParent();
@@ -359,7 +359,7 @@ $(document).ready(() => {
 					const { submissionId } = file;
 
 					// post file meta to proxy file service for persisting data
-					createFileModel(params).then((data) => {
+					await createFileModel(params).then(async (data) => {
 						// add submitted file reference to submission
 						// hint: this only runs when an submission is already existing. if not, the file submission will
 						// be only saved when hitting the save button in the corresponding submission form
@@ -369,7 +369,7 @@ $(document).ready(() => {
 						const teamMembers = getTeamMemberIds();
 						if (submissionId) {
 							const associationType = isSubmissionGradeUpload() ? 'grade-files' : 'files';
-							associateFilesWithSubmission({
+							await associateFilesWithSubmission({
 								submissionId, fileIds: [data._id], associationType, teamMembers,
 							});
 						} else {
