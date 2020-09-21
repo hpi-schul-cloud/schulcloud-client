@@ -22,10 +22,6 @@ window.addEventListener('keydown', (e) => {
 		lastFocusedElement.focus();
 	}
 });
-function getTeamMemberIds() {
-	const domValue = $('#teamMembers').val();
-	return $.isArray(domValue) ? domValue : (domValue || '').split(',');
-}
 
 function isSubmissionGradeUpload() {
 	// Uses the fact that the page can only ever contain one file upload form,
@@ -280,6 +276,10 @@ $(document).ready(() => {
 				// get signed url before processing the file
 				// this is called on per-file basis
 				file.submissionId = $(this.element).parents('.submission-editor').find('[name="submissionId"]').val();
+				file.teamMemberIds = $(this.element).parents('.submission-editor').find('[name="teamMembers"]').val();
+				if (!Array.isArray(file.teamMemberIds)) {
+					file.teamMemberIds = (file.teamMemberIds || '').split(',');
+				}
 				requestUploadUrl(file, getCurrentParent())
 					.then((data) => {
 						file.signedUrl = data.signedUrl;
@@ -356,7 +356,7 @@ $(document).ready(() => {
 					if (parentId) {
 						params.parent = parentId;
 					}
-					const { submissionId } = file;
+					const { submissionId, teamMemberIds } = file;
 
 					// post file meta to proxy file service for persisting data
 					await createFileModel(params).then(async (data) => {
@@ -365,12 +365,10 @@ $(document).ready(() => {
 						// be only saved when hitting the save button in the corresponding submission form
 						// const submissionId = $("input[name='submissionId']").val();
 						const homeworkId = $("input[name='homeworkId']").val();
-
-						const teamMembers = getTeamMemberIds();
 						if (submissionId) {
 							const associationType = isSubmissionGradeUpload() ? 'grade-files' : 'files';
 							await associateFilesWithSubmission({
-								submissionId, fileIds: [data._id], associationType, teamMembers,
+								submissionId, fileIds: [data._id], associationType, teamMembers: teamMemberIds,
 							});
 						} else {
 							addNewUploadedFile($('.js-file-list'), data);
