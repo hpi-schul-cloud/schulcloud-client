@@ -2719,7 +2719,6 @@
 				},
 				"text": {
 					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen.",
-					"rocketChatDeprecated": "Rocketchat wird nicht mehr unterstützt, und am {{date}} automatisch abgeschaltet."
 				}
 			},
 			"events": {

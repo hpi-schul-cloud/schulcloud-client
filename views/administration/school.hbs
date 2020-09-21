@@ -215,35 +215,33 @@
 
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
                         <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}}">
-                            <label>
-								<div {{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
-									<input
-										id="messenger"
-										type="checkbox"
-										name="messenger"
-										value="true"
-										{{#inArray "messenger" ../school.features}}checked{{/inArray}}
-										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-											{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-													disabled
-											{{/userHasPermission}}
+							<div {{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
+								<label for="messenger">{{$t "administration.school.label.activeChatFunction" }}</label>
+								<input
+									id="messenger"
+									type="checkbox"
+									name="messenger"
+									value="true"
+									{{#inArray "messenger" ../school.features}}checked{{/inArray}}
+									{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+										{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+												disabled
 										{{/userHasPermission}}
-										{{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}
-											disabled
-										{{/hasConfig}}
-									/>
-									{{$t "administration.school.label.activeChatFunction" }}
-									<p class="text-muted">
-										{{$t "administration.school.text.ifChatsAreActivatedAtYourSchool" }}
-									</p>
-								</div>
-								{{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}
-									<p class="alert alert-info">
-										<strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
-										{{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRICATION_DATE")))}}
-									</p>
-								{{/hasConfig}}
-                            </label>
+									{{/userHasPermission}}
+									{{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}
+										disabled
+									{{/hasConfig}}
+								/>
+								<p class="text-muted">
+									{{$t "administration.school.text.ifChatsAreActivatedAtYourSchool" }}
+								</p>
+							</div>
+							{{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}
+								<p class="alert alert-info">
+									<strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
+									{{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRICATION_DATE")))}}
+								</p>
+							{{/hasConfig}}
                         </div>
 
                         {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}
@@ -279,9 +277,6 @@
                                     <p class="text-muted">
                                         {{$t "administration.school.text.ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan" }}
                                     </p>
-									<div class="alert alert-info" role="alert">
-										This is a info alert—check it out!
-									</div>
                                 </label>
                             </div>
                         {{/if}}
