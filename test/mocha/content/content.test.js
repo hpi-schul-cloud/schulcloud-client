@@ -9,6 +9,8 @@ const chaiHttp = require('chai-http');
 const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
 
+const { i18next } = require('../../../helpers/i18n');
+
 describe('Content tests', function () {
     before(function (done) {
         this.server = app.listen(3031);
@@ -31,7 +33,7 @@ describe('Content tests', function () {
                     .get('/content/')
                     .end((err, res) => {
                         expect(res.statusCode).to.equal(200);
-                        expect(res.text).to.contain('Lern-Store');
+                        expect(res.text).to.contain(i18next.t('content.headline.contentStore'));
                         resolve();
                     });
             });
@@ -44,9 +46,9 @@ describe('Content tests', function () {
                     .get('/content/?q=Mathe')
                     .end((err, res) => {
                         expect(res.statusCode).to.equal(200);
-                        expect(res.text).to.contain('Lern-Store');
-                        expect(res.text).to.contain('Suchergebnisse für "Mathe"');
-                        expect(res.text).not.to.contain('keine Ergebnisse');
+                        expect(res.text).to.contain(i18next.t('content.headline.contentStore'));
+                        expect(res.text).to.contain(i18next.t('content.headline.nSearchResultsFoundWith', {searchResultsTotal: '', query: 'Mathe'}).trim());
+                        expect(res.text).not.to.contain(i18next.t('content.headline.noResultsFoundWith', {query: 'Mathe'}));
                         resolve();
                     });
             });
