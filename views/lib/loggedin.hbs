@@ -298,8 +298,8 @@
     {{/content}}
 {{/embed}}
 
-{{! Rocketchat and Matrix messenger are enabled for the instance and the current school}}
-{{!-- {{#if @root.ROCKETCHAT_SERVICE_ENABLED}} {{#inArray "rocketChat" @root.schoolData.features}} {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}} {{#inArray "messenger" @root.currentSchoolData.features}} --}}
+{{! Rocketchat is enabled for the instance and the current school and set as deprecated}}
+{{#if @root.ROCKETCHAT_SERVICE_ENABLED}} {{#inArray "rocketChat" @root.schoolData.features}} {{#hasConfig "ROCKET_CHAT_DEPRICATION_DATE"}}
     {{#embed "lib/components/modal" class="deprecation-info-rocket-chat" title=($t "messenger.headline.welcomeMatrixAdmin")}}
     {{#content "body"}}
     <div class="modal-body">
@@ -328,7 +328,7 @@
     </div>
     {{/content}}
     {{/embed}}
-{{!-- {{/inArray}} {{/ifConfig}} {{/inArray}} {{/if}} --}}
+{{/hasConfig}} {{/inArray}} {{/if}}
 
 {{#inArray 'Administrator' roleNames}}
 {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}} {{#notInArray "messenger" @root.currentSchoolData.features}}
