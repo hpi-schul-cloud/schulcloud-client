@@ -57,7 +57,7 @@
 
               <div class="row">
                 <div class="form-group col-md-6">
-                    <label>{{$t "courses.global.label.courseName"}}</label>
+                    <label>{{$t "global.label.nameOfTheCourse"}}</label>
                     <input class="form-control js-course-name-input" name="name" type="text" placeholder="{{$t "courses.add.input.egMaths"}}" value="{{course.name}}" autocomplete="off"
                            required autofocus data-testid="coursename"/>
                 </div>
@@ -187,7 +187,7 @@
 
             <section data-panel="section-2" data-testid="section-2-area" class="submit-page course-submit-page">
                 {{#userHasPermission "STUDENT_LIST"}}
-                    <h2 class="h4">{{$t "courses.add.headline.almostDone"}}</h2>
+                    <h2 class="h4">{{$t "global.headline.youAlmostMadeIt"}}</h2>
                     <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
                     <div class="form-group" data-testid="class_container">
                         <label>{{$t "courses.add.label.addClassesToCourse"}}</label>
@@ -232,9 +232,7 @@
 
             <section data-panel="section-3" data-testid="section-3-area">
               <div class="final-step">
-                <div class="image-wrapper hidden-xs-down">
-                  <img class="image" src="/images/empty-states/add_people.svg"/>
-                </div>
+                {{> 'courses/components/svg_create_course'}}
                 <div>
                   <h2 class="h4">{{$t "courses.add.headline.done"}}</h2>
                   <h3 class="h5 text-muted">{{$t "courses.add.headline.whatToDoCourses"}}</h3>

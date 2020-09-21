@@ -1,19 +1,16 @@
+import './jquery/datetimepicker-easy';
 import moment from 'moment';
-import './jquery/datetimepicker-easy.js';
-import 'script-loader!fullcalendar/dist/fullcalendar.min.js';
-import 'script-loader!fullcalendar/dist/locale/de.js';
+import { Calendar } from '@fullcalendar/core';
+import deLocale from '@fullcalendar/core/locales/de';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 $(document).ready(() => {
-	const $calendar = $('#calendar');
-
-	const view = location.hash.substring(1);
-
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
 
-	const reloadCalendar = function () {
-		window.location.reload();
-	};
+	const reloadCalendar = window.location.reload;
 
 	function showAJAXError(req, textStatus, errorThrown) {
 		$editEventModal.modal('hide');
@@ -25,10 +22,10 @@ $(document).ready(() => {
 	}
 
 	/**
-     * Transforms an event modal-form for course/team events
-     * @param modal {DOM-Element} - the given modal which will be transformed
-     * @param event {object} - an event, might be a course/team event
-     */
+	 * Transforms an event modal-form for course/team events
+	 * @param modal {DOM-Element} - the given modal which will be transformed
+	 * @param event {object} - an event, might be a course/team event
+	 */
 	function transformCourseOrTeamEvent(modal, event) {
 		if (event['x-sc-courseId']) {
 			const courseId = event['x-sc-courseId'];
@@ -67,23 +64,30 @@ $(document).ready(() => {
 		}
 	}
 
-	$calendar.fullCalendar({
-		defaultView: view || 'agendaWeek',
+	const calendarElement = document.getElementById('calendar');
+
+	const view = window.location.hash.substring(1);
+
+	const calendar = new Calendar(calendarElement, {
+		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+		defaultView: view || 'dayGridMonth',
 		editable: false,
-		timezone: 'UTC',
-		events(start, end, timezone, callback) {
-			$.getJSON('/calendar/events/',
-				(events) => {
-					callback(events);
-				});
+		timeZone: 'UTC',
+		locale: deLocale,
+		header: {
+			left: 'title',
+			right: 'dayGridMonth,timeGridWeek,timeGridDay prev,today,next',
 		},
-		eventRender(event, element) {
-			if (event.cancelled) {
-				element.addClass('fc-event-cancelled');
+		events: (info, successCallback) => {
+			$.getJSON('/calendar/events', (events) => successCallback(events));
+		},
+		eventRender(info) {
+			if (info.event.cancelled) {
+				info.element.addClass('fc-event-cancelled');
 			}
 		},
-		// eslint-disable-next-line consistent-return
-		eventClick(event) {
+		eventClick: (info) => {
+			const { event } = info;
 			if (event.url) {
 				window.location.href = event.url;
 				return false;
@@ -93,7 +97,7 @@ $(document).ready(() => {
 			event.endDate = (event.end || event.start).format('DD.MM.YYYY HH:mm');
 
 			populateModalForm($editEventModal, {
-				title: $t('global.headline.dateDetails'),
+				title: $t('calendar.headline.dateDetails'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.save'),
 				fields: event,
@@ -119,11 +123,15 @@ $(document).ready(() => {
 				const teamId = event['x-sc-teamId'];
 				window.location.assign(`/teams/${teamId}?activeTab=events`);
 			}
+
+			return true;
 		},
-		dayClick(date) {
+		dateClick: (info) => {
+			const { date } = info;
+
 			// open create event modal
-			const startDate = date.format('DD.MM.YYYY HH:mm');
-			const endDate = date.add(1, 'hour').format('DD.MM.YYYY HH:mm');
+			const startDate = moment(date).format('DD.MM.YYYY HH:mm');
+			const endDate = moment(date).add(1, 'hour').format('DD.MM.YYYY HH:mm');
 
 			populateModalForm($createEventModal, {
 				title: $t('global.headline.addDate'),
@@ -136,28 +144,12 @@ $(document).ready(() => {
 			});
 			$createEventModal.appendTo('body').modal('show');
 		},
-		header: {
-			left: 'title',
-			right: 'month,agendaWeek,agendaDay prev,today,next',
-		},
-		locale: 'de',
-		viewRender() {
-			// eslint-disable-next-line no-restricted-globals
-			location.hash = view.name;
+		viewRender(info) {
+			window.location.hash = info.view.name;
 		},
 	});
 
-	$('.fc-left > button')
-		.wrap('<div class="fc-button-group"></div>');
-
-	$('.fc-button')
-		.removeClass('fc-button fc-corner-left fc-corner-right')
-		.addClass('btn btn-secondary');
-
-	$('.fc-button-group')
-		.removeClass()
-		.addClass('btn-group btn-group-sm');
-
+	calendar.render();
 
 	$("input[name='isCourseEvent']").change(() => {
 		const isChecked = $(this).is(':checked');
@@ -218,8 +210,4 @@ $(document).ready(() => {
 			$videoconferenceToggle.hide();
 		}
 	});
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-	moment().format();
 });

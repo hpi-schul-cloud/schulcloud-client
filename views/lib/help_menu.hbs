@@ -14,39 +14,38 @@
                 </span>
             </li>
 
-            {{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
-                {{#userHasPermission "ENTERTHECLOUD_START"}}
-                    <li class="list-group-item list-group-item-action enterthecloud-btn">
-                        <span>
-                            <i class="fa fa-gamepad" aria-hidden="true"></i>
-                        <button type="button" class="link btn-link enterthecloud-btn" style="line-height: initial">{{$t "lib.help_menu.button.playEnterTheCloud"}}</button>
-                        </span>
-                    </li>
-                    {{/userHasPermission}}
-                {{/ifEnv}}
+				{{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
+           {{#userHasPermission "ENTERTHECLOUD_START"}}
+              <li class="list-group-item list-group-item-action enterthecloud-btn">
+                <span>
+                  <i class="fa fa-gamepad" aria-hidden="true"></i>
+                    <button type="button" class="link btn-link enterthecloud-btn" style="line-height: initial">{{$t "lib.help_menu.button.playEnterTheCloud" }}</button>
+                  </span>
+              </li>
+           {{/userHasPermission}}
+				{{/ifEnv}}
 
-                <li class="list-group-item list-group-item-action">
-                    <span>
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                        <a href="/help?activeForm=team#contact-form" class="link">{{$t "lib.help_menu.link.sendRequestOrProblem"}}</a>
-                    </span>
-                </li>
-                <li class="list-group-item list-group-item-action">
-                    <span>
-                        <i class="fa fa-comment" aria-hidden="true"></i>
-                        <a href="/help?activeForm=admin#contact-form" class="link">{{$t "lib.help_menu.link.contactYourSchoolAdmin"}}</a>
-                    </span>
-                </li>
-                <li class="list-group-item list-group-item-action">
-                    <span>
-                        <img style="width: 1em;" src="/images/logo/fortbildung.svg" alt="" role="presentation">
-                            <a href="https://lernen.cloud/"  aria-label="{{$t "lib.help_menu.link.training" }} {{$t "global.link.openInNewTabWarning"}}" target="_blank" class="link">
-                            {{$t "lib.help_menu.link.training" }}</a>
-                    </span>
-            </li>
-        </ul>
+              <li class="list-group-item list-group-item-action">
+                <span>
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <a href="/help?activeForm=team#contact-form" class="link">{{$t "lib.help_menu.link.sendRequestOrProblem" }}</a>
+                </span>
+              </li>
+              <li class="list-group-item list-group-item-action">
+                <span>
+                  <i class="fa fa-comment" aria-hidden="true"></i>
+                    <a href="/help?activeForm=admin#contact-form" class="link">{{$t "lib.help_menu.link.contactYourSchoolAdmin" }}</a>
+                </span>
+              </li>
+              <li class="list-group-item list-group-item-action">
+                <span>
+                  <img style="width: 1em;" src="/images/logo/fortbildung.svg" alt="{{$t "lib.help_menu.img_alt.learnCloud"}}" >
+                    <a href="https://lernen.cloud/" target="_blank" class="link" data-testid="fortbildungen" aria-label="{{$t "lib.help_menu.link.training" }} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.help_menu.link.training" }}</a>
+                </span>
+              </li>
+            </ul>
+        </div>
     </div>
-</div>
 </li>
 
     {{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}

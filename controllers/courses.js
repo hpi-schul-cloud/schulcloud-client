@@ -111,17 +111,7 @@ const editCourseHandler = (req, res, next) => {
 	if (req.params.courseId) {
 		action = `/courses/${req.params.courseId}`;
 		method = 'patch';
-		coursePromise = api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: [
-					'ltiToolIds',
-					'classIds',
-					'teacherIds',
-					'userIds',
-					'substitutionIds',
-				],
-			},
-		});
+		coursePromise = api(req).get(`/courses/${req.params.courseId}`);
 	} else {
 		action = '/courses/';
 		method = 'post';
@@ -208,7 +198,7 @@ const editCourseHandler = (req, res, next) => {
 		// preselect current teacher when creating new course
 		if (!req.params.courseId) {
 			course.teacherIds = [];
-			course.teacherIds.push(res.locals.currentUser);
+			course.teacherIds.push(res.locals.currentUser._id);
 		}
 
 		// populate course colors - to be replaced system scope
@@ -240,16 +230,16 @@ const editCourseHandler = (req, res, next) => {
 				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
-				classes: markSelected(classes, _.map(course.classIds, '_id')),
+				classes: markSelected(classes, course.classIds),
 				teachers: markSelected(
 					teachers,
-					_.map(course.teacherIds, '_id'),
+					course.teacherIds,
 				),
 				substitutions: markSelected(
 					substitutions,
-					_.map(course.substitutionIds, '_id'),
+					course.substitutionIds,
 				),
-				students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
+				students: filterStudents(res, markSelected(students, course.userIds)),
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
 			});
@@ -262,16 +252,16 @@ const editCourseHandler = (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			course,
 			colors,
-			classes: markSelected(classes, _.map(course.classIds, '_id')),
+			classes: markSelected(classes, course.classIds),
 			teachers: markSelected(
 				teachers,
-				_.map(course.teacherIds, '_id'),
+				course.teacherIds,
 			),
 			substitutions: markSelected(
 				substitutions,
-				_.map(course.substitutionIds, '_id'),
+				course.substitutionIds,
 			),
-			students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
+			students: filterStudents(res, markSelected(students, course.userIds)),
 			redirectUrl: req.query.redirectUrl || '/courses',
 		});
 	}).catch(next);
@@ -286,17 +276,7 @@ const copyCourseHandler = (req, res, next) => {
 	if (req.params.courseId) {
 		action = `/courses/copy/${req.params.courseId}`;
 		method = 'post';
-		coursePromise = api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: [
-					'ltiToolIds',
-					'classIds',
-					'teacherIds',
-					'userIds',
-					'substitutionIds',
-				],
-			},
-		});
+		coursePromise = api(req).get(`/courses/${req.params.courseId}`);
 	} else {
 		action = '/courses/copy';
 		method = 'post';
@@ -347,7 +327,7 @@ const copyCourseHandler = (req, res, next) => {
 		// preselect current teacher when creating new course
 		if (!req.params.courseId) {
 			course.teacherIds = [];
-			course.teacherIds.push(res.locals.currentUser);
+			course.teacherIds.push(res.locals.currentUser._id);
 		}
 
 		// populate course colors - to be replaced system scope
@@ -382,7 +362,7 @@ const copyCourseHandler = (req, res, next) => {
 			course,
 			classes,
 			colors,
-			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+			teachers: markSelected(teachers, course.teacherIds),
 			substitutions,
 			students: filterStudents(res, students),
 			schoolData: res.locals.currentSchoolData,
@@ -409,9 +389,7 @@ const enrichCourse = (course, res) => {
 	(course.times || []).forEach((time) => {
 		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
-		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
-			time.room ? `| ${time.room}` : ''
-		}</div>`;
+		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''}</div>`;
 	});
 	return course;
 };
@@ -582,11 +560,7 @@ router.get('/add/', editCourseHandler);
 
 router.get('/:courseId/json', (req, res, next) => {
 	Promise.all([
-		api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: ['ltiToolIds'],
-			},
-		}),
+		api(req).get(`/courses/${req.params.courseId}`),
 		api(req).get('/lessons/', {
 			qs: {
 				courseId: req.params.courseId,
@@ -616,11 +590,7 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 
 router.get('/:courseId/', async (req, res, next) => {
 	const promises = [
-		api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: ['ltiToolIds'],
-			},
-		}),
+		api(req).get(`/courses/${req.params.courseId}`),
 		api(req).get('/lessons/', {
 			qs: {
 				courseId: req.params.courseId,
@@ -682,13 +652,21 @@ router.get('/:courseId/', async (req, res, next) => {
 
 		const isNewEdtrioActivated = editorBackendIsAlive && (courseHasNewEditorLessons || userHasEditorEnabled);
 		// ################################ end new Editor check ##################################
-
-		const ltiToolIds = (course.ltiToolIds || []).filter(
+		let ltiToolIds = [];
+		if (course.ltiToolIds && course.ltiToolIds.length > 0) {
+			ltiToolIds = await api(req).get('/ltiTools', {
+				qs: {
+					_id: { $in: course.ltiToolIds },
+				},
+			});
+		}
+		ltiToolIds = (ltiToolIds.data || []).filter(
 			(ltiTool) => ltiTool.isTemplate !== 'true',
 		).map((tool) => {
 			tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
 			return tool;
 		});
+
 		const lessons = (_lessons.data || []).map((lesson) => Object.assign(lesson, {
 			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
 		}));
@@ -810,7 +788,8 @@ router.patch('/:courseId', (req, res, next) => {
 		delete req.body.untilDate;
 	}
 
-	if (req.body.unarchive !== 'true' && req.body.untilDate < new Date()) {
+	// unarchive client request do not contain information about feature flags
+	if (req.body.unarchive !== 'true') {
 		req.body.features = [];
 		OPTIONAL_COURSE_FEATURES.forEach((feature) => {
 			if (req.body[feature] === 'true') {
@@ -906,7 +885,7 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 	const { shareToken } = req.body;
 	// try to find topic for given shareToken
 	api(req)
-		.get('/lessons/', { qs: { shareToken, $populate: ['courseId'] } })
+		.get('/lessons/', { qs: { shareToken } })
 		.then((lessons) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {

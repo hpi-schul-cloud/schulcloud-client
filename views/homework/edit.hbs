@@ -1,15 +1,11 @@
 {{#content "scripts" mode="append"}}
-<script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
 <script src="/scripts/mousetrap/mousetrap.js" nonce="{{nonceValue}}" defer></script>
 <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 
 <script nonce="{{nonceValue}}">
 	window.addEventListener('DOMContentLoaded', function () {
-		CKEDITOR.replaceAll(function (textarea, config) {
-			if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
-		});
-
 		$.datetimepicker.setLocale('de');
 		$('input[data-datetime]').datetimepicker({
 			format: 'd.m.Y H:i',
@@ -85,20 +81,21 @@
 
 <div class="row">
 	<div class="col-xl-12">
+    <fieldset><legend class="hidden">Homework form field</legend>
 		<form class="modal-form" id="homework-form" method="post" action="{{action}}">
 
 			<div class="form-group">
-				<label>{{$t "global.label.title" }}</label>
-				<input class="form-control" name="name" type="text" placeholder="{{$t "global.label.title"}}" required
+				<label for="name">{{$t "global.label.title" }}</label>
+				<input id="name" class="form-control" name="name" type="text" placeholder="{{$t "global.label.title"}}" required
 					value="{{{assignment.name}}}" data-testid="homework-name" />
 			</div>
 
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>{{$t "global.sidebar.link.administrationCourses" }}</label>
+						<label for="coursePicker">{{$t "global.sidebar.link.administrationCourses" }}</label>
 						{{#unless isSubstitution}}
-						<select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
+						<select id="coursePicker" class="" name="courseId" data-placeholder="Kurs auswählen">
 							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>{{$t "homework.input.noAssignment"}}</option>
 							{{#each courses}}
 							<option value="{{this._id}}"
@@ -107,16 +104,17 @@
 							{{/each}}
 						</select>
 						{{else}}
-						<input name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" />
-						<div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">{{$t "homework.global.text.substitutionTeachersMayNotChangeTheCourse"}}</small></div>
+                        <label for="courseId" class="hidden">{{assignment.courseId.name}}</label>
+						<input id="courseId" name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" aria-describedby="substitutionWarning" />
+						<div><i>{{assignment.courseId.name}}</i> <small class="text-secondary" id="substitutionWarning">{{$t "homework.global.text.substitutionTeachersMayNotChangeTheCourse"}}</small></div>
 						{{/unless}}
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>{{$t "homework.global.label.topic"}}</label>
-						<select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen"
-							{{#unless lessons}}disabled="true" {{/unless}}>
+						<label for="lessonPicker">{{$t "homework.global.label.topic"}}</label>
+						<select id="lessonPicker" name="lessonId" data-placeholder="Thema auswählen"
+							{{#unless lessons}}disabled="true" aria-disabled="true" {{/unless}}>
 							{{#if assignment.courseId}}
 							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>{{$t "homework.text.noAssignment"}}</option>
 							{{#each lessons}}
@@ -137,16 +135,16 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label>
+							<label for="teamSubmissions">
 								<input id="teamSubmissions" name="teamSubmissions" type="checkbox" value="true"
-									{{#if assignment.teamSubmissions}}checked="checked" {{/if}} />
+									{{#if assignment.teamSubmissions}}checked="checked" aria-checked="true" {{/if}} />
 								{{$t "homework.global.label.allowGroupSubmission"}}
 							</label>
 						</div>
 					</div>
 					<div class="col-md-6 {{#unless assignment.teamSubmissions}}hidden-xl-down{{/unless}}" id="teamsize">
 						<div class="form-group">
-							<label>{{$t "homework.global.label.maximumGroupSize"}}</label>
+							<label for="maxTeamMembers">{{$t "homework.global.label.maximumGroupSize"}}</label>
 							<input class="form-control" name="maxTeamMembers" id="maxTeamMembers" type="number" min="2"
 								placeholder="5" value="{{assignment.maxTeamMembers}}" />
 						</div>
@@ -156,8 +154,9 @@
 			{{/unless}}
 
 			<div class="form-group">
-				<label>{{$t "homework.global.label.description" }}</label>
-				<textarea name="description" type="text" class="form-control customckeditor"
+
+				<label for="homeworkDescription">{{$t "homework.global.label.description" }}</label>
+				<textarea id="homeworkDescription" name="description" type="text" class="form-control ckeditor customckeditor"
 					placeholder="{{$t "homework.global.placeholder.description" }}">{{assignment.description}}</textarea>
 			</div>
 
@@ -184,14 +183,14 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>{{$t "homework.global.label.visibleAndEditableForStudentsFrom" }}</label>
+						<label for="availableDate">{{$t "homework.global.label.visibleAndEditableForStudentsFrom" }}</label>
 						<input class="form-control" data-datetime name="availableDate" autocomplete="off" id="availableDate"
 							type="text" value="{{assignment.availableDate}}" />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>{{$t "homework.global.label.processingPeriodEndsOn" }}</label>
+						<label for="dueDate">{{$t "homework.global.label.processingPeriodEndsOn" }}</label>
 						<input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate" type="text"
 							value="{{assignment.dueDate}}" />
 					</div>
@@ -200,11 +199,11 @@
 
 			{{#unless (userHasRole "student")}}
 			<div class="form-group">
-				<label>
-					<input name="private" type="checkbox" value="true" data-testid="private-checkbox" {{#if assignment.private}}checked="checked" {{/if}} />
+				<label for="privateTaskVisible">
+					<input id="privateTaskVisible" name="private" type="checkbox" value="true" data-testid="private-checkbox" {{#if assignment.private}}checked="checked" aria-checked="true" {{/if}} />
 					{{$t "homework.global.label.privateTaskOnlyVisibleToMe"}}
 				</label></br>
-				<label>
+				<label for="publicSubmissionsCheckbox">
 					<input id="publicSubmissionsCheckbox" name="publicSubmissions" type="checkbox" value="public"
 						{{#if assignment.publicSubmissions}}checked="checked" {{/if}} />
 					{{$t "homework.label.studentSolutionVisibleToEachOthers" }}
@@ -226,7 +225,7 @@
 				</button>
 			</div>
 		</form>
-
+                </fieldset>
 		{{#embed "lib/components/modal-cancel" class="cancel-modal"}}
 
 		{{/embed}}
@@ -254,7 +253,7 @@
 		<div class="modal-body">
 			<div class="modal-body-text">
 				<div class="modal-danger">
-					<i class="fa fa-exclamation-triangle"></i>
+					<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
 					{{$t "global.text.attention" }}
 				</div>
 				<div id="member-modal-body">
@@ -262,8 +261,8 @@
 			</div>
 		</div>
 		<div class="modal-footer modal-checkbox">
-			<label>
-				<input class="dontShowAgain-checkbox" name="public" type="checkbox" value="false" />
+			<label for="dontShow">
+				<input id="dontShow" class="dontShowAgain-checkbox" name="public" type="checkbox" value="false" />
 				{{$t "homework.label.dontShowAgain" }}
 			</label>
 			<div>
@@ -272,6 +271,9 @@
 			</div>
 		</div>
 		{{/content}}
+		{{/embed}}
+
+		{{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}
 		{{/embed}}
 	</div>
 	{{/content}}

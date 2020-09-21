@@ -21,7 +21,8 @@
 		<section class="section-course">
 			{{#if course.isArchived}}
 				<div class="empty-state">
-					<img src="/images/empty-states/books_empty.svg" alt= "{{$t "courses._course.edit.img_alt.courseIsArchieved"}}" class="image" />
+                    {{> 'courses/components/svg_archived_courses'}}
+					<!--<img src="/images/empty-states/archived_courses.svg" alt= "{{$t "courses._course.edit.img_alt.courseIsArchieved"}}" class="image course-empty-content-image" />-->
 
 					<h2 class="h4">{{$t "courses._course.edit.headline.courseIsArchieved" (dict "coursename" course.name )}}</h2>
 					<p class="text-muted text-center">
@@ -88,7 +89,7 @@
 					{{#if course.isArchived}}disabled{{/if}} />
 
 				<div class="form-group">
-					<label>{{$t "administration.global.label.nameOfTheCourse"}}</label>
+					<label>{{$t "global.label.nameOfTheCourse"}}</label>
 					<input class="form-control" name="name" type="text" placeholder="{{$t "courses.global.input.mathsClass"}}" value="{{course.name}}"
 						{{#if course.isArchived}}disabled{{/if}} required autofocus />
 				</div>

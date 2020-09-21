@@ -8,7 +8,78 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
-- SC-5644 navigation and the general structure of pages made more accessible (a11y)
+
+## [24.5.3] - 2020-09-18
+
+### Fixed
+
+  - SC-6761 Fixed messenger activation in courses
+
+## [24.5.2] - 2020-09-16
+
+### Fixed
+
+  - SC-6637 Updated CSS of QR codes to avoid broken print layout
+
+## [24.5.1] - 2020-09-14
+
+### Fixed
+
+  - SC-6761 Fixed individual registration emails
+
+## [24.4.2] - 2020-09-09
+
+### Fixed
+- SC-6533 - Login not possible if admin reset password
+
+  - SC-5707 Added detection of browser language
+  - SC-5706 Added language selection within teacher registration
+  - SC-6019 Added tabbar to classes administration
+  - SC-5955 Changed links to Lernen.cloud
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
+  - SC-6245 If students can create teams, they can also invite other students to teams
+
+## [24.4.1] - 2020-9-01
+
+  - SC-6526 Fixed inserting files in CKEditor for topics
+
+## [24.4.0] - 2020-8-31
+
+  - SC-6019 Added tabbar to classes administration
+  - SC-5955 Changed links to Lernen.cloud
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
+
+## [24.3.2] - 2020-08-26
+
+- SC-6382 fix first login shown on every login in tsp
+
+## [24.3.1] - 2020-08-26
+
+- SC-6382 fix default  wellcome text for tsp 
+
+## [24.3.0] - 2020-08-25
+### Changed - 24.3.0
+
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
+
+## [24.2.5] - 2020-08-20
+### Fixed - 24.2.5
+
+  - SC-6296 Only show edit and delete button for eligible systems
+
+## [24.2.4] - 2020-08-20
+
+## [24.2.3] - 2020-08-18
+### Changed - 24.2.3
+
+  - SC-6239 Changed default email domains in many different places from @schul-cloud.org to @hpi-schul-cloud.de
+  - SC-6239 Changed links to blog to blog.hpi-schul-cloud.de
+
+## [24.2.1] - 2020-08-13
+## Fixed - 24.2.1
+
+  - SC-6012 Etherpad authorization error due to unique name problem
+  - SC-6125 fix broken link
 
 ## [24.0.3] - 2020-08-05
 ### Fixed - 24.0.3

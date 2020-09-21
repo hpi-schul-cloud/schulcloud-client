@@ -6,7 +6,7 @@
 
 {{#content "scripts" mode="append"}}
 <script src="/scripts/login.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/n21-blog.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/theme-blog.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "body"}}
@@ -20,6 +20,7 @@
 
             <section class="card">
                 <div class="card-block">
+                    <div class="hidden" id="SC_THEME">n21</div>
                     <div class="n21-blog">
                         <h4 class="title">Herzlich willkommen bei der Niedersächsischen Bildungscloud!</h4>
                         <div class="content">
@@ -28,7 +29,7 @@
                                     style="postion: absolute; top: 40%; font-size: 25px; position: absolute;"></i>
                                 <div class="placeholder" style="display: none;">
                                     Beim Laden des Inhalts der Startseite ist ein Fehler aufgetreten.
-                                    <button type="button" class="btn btn-primary mt-1">Erneut Versuchen</button>
+                                    <button type="button" class="btn btn-primary mt-1">Erneut versuchen</button>
                                 </div>
                             </div>
                         </div>
@@ -43,6 +44,7 @@
         </aside>
     </div>
 </div>
+
 {{#embed "lib/extended_footer"}}{{/embed}}
 {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
 {{#content "fields"}} {{> "authentication/forms/pwrecovery"}} {{/content}} {{/embed}} {{/content}} {{/extend}}

@@ -1,153 +1,157 @@
 {{#extend "lib/loggedin" notitle="true"}}
 
-  {{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/courses/course.css" />
-    <link rel="stylesheet" href="/styles/homework/homework.css" />
-    <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css" />
-  {{/content}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/courses/course.css" />
+<link rel="stylesheet" href="/styles/homework/homework.css" />
+<link rel="stylesheet" href="/vendor/jquery/jquery-ui.css" />
+{{/content}}
 
-  {{#content "scripts" mode="append"}}
-    <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/courses.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/topic.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-  {{/content}}
+{{#content "scripts" mode="append"}}
+<script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/courses.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/topic.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+{{/content}}
 
-  {{#content "page"}}
-  <meta name="baseUrl" content={{baseUrl}}>
-      <div class="dropdown dropdown-course minimal-button">
-        {{#inArray "COURSE_EDIT" scopedCoursePermission}}
-        <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="{{$t "global.label.more"}}" data-toggle="dropdown">
-			<h1 class="h4" id="page-title" class="course-headline">
-				{{{stripOnlyScript ../name}}}
-            	<i class="fa fa-cog i-cog"></i>
-		  	    {{#if ../isArchived}}<small class="count-badge" data-badge="Archiv"/></small>{{/if}}
-			</h1>
+{{#content "page"}}
+<meta name="baseUrl" content={{baseUrl}}>
+<div class="dropdown dropdown-course minimal-button">
+  {{#inArray "COURSE_EDIT" scopedCoursePermission}}
+  <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="{{$t "global.label.more"}}" data-toggle="dropdown">
+    <h1 class="h4" id="page-title" class="course-headline">
+      {{{stripOnlyScript ../name}}}
+      <i class="fa fa-ellipsis-v i-cog"></i>
+      {{#if ../isArchived}}<small class="count-badge" data-badge="Archiv" /></small>{{/if}}
+    </h1>
+  </a>
+  {{else}}
+  <h1 class="h4" id="page-title" class="course-headline">
+    {{{stripOnlyScript ../name}}}
+    {{#if ../isArchived}}<small class="count-badge" data-badge="Archiv" /></small>{{/if}}
+    <h1>
+      {{/inArray}}
+      <div class="dropdown-menu dropdown-menu dropdown-menu-course">
+        <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
+          <i class="fa fa-edit" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.editDeleteCourse"}}
         </a>
-        {{else}}
-			<h1 class="h4" id="page-title" class="course-headline">
-				{{{stripOnlyScript ../name}}}
-				{{#if ../isArchived}}<small class="count-badge" data-badge="Archiv"/></small>{{/if}}
-			<h1>
-        {{/inArray}}
-        <div class="dropdown-menu dropdown-menu dropdown-menu-course">
-          <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
-            <i class="fa fa-edit" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.editDeleteCourse"}}
-          </a>
-		  {{#unless ../isArchived}}
-          <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
-            <i class="fa fa-envelope" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.inviteToCourse"}}
-          </a>
-          <a class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
-            <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.shareCourse"}}
-          </a>
-		  {{/unless}}
-          <a href="/courses/{{../_id}}/copy" class="dropdown-item">
-            <i class="fa fa-clone" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.duplicateCourse"}}
-          </a>
-        </div>
+        {{#unless ../isArchived}}
+        <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
+          <i class="fa fa-envelope" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.inviteToCourse"}}
+        </a>
+        <a class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
+          <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.shareCourse"}}
+        </a>
+        {{/unless}}
+        <a href="/courses/{{../_id}}/copy" class="dropdown-item">
+          <i class="fa fa-clone" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.duplicateCourse"}}
+        </a>
       </div>
-    <div class="row description">
-      <div class="col-sm-12">
-        {{#if description}}
-        <p class="lead">{{$t "courses._course.text.courseDescription"}} {{{stripOnlyScript description}}}</p>
+</div>
+<div class="row description">
+  <div class="col-sm-12">
+    {{#if description}}
+    <p class="lead">{{$t "courses._course.text.courseDescription"}} {{{stripOnlyScript description}}}</p>
+    {{/if}}
+    {{#unless ../isArchived}}{{#if nextEvent}}
+    <p class="text-muted">{{$t "courses._course.text.nextClass"}} {{nextEvent}}</p>
+    {{/if}}{{/unless}}
+    <a href="{{filesUrl}}" class="btn btn-add btn-secondary pull-right">
+      <i class="fa fa-folder-open"></i>
+      {{$t "courses._course.link.toCourseFiles"}}
+    </a>
+  </div>
+</div>
+<section class="section-course">
+  <div class="tabContainer" data-active-tab={{activeTab}}>
+    <div class="tabs" data-max-width="1024">
+      <button class="tab" data-testid="topics" data-tab="js-topics">
+        <span class="text">{{$t "courses._course.tab_label.topics"}}
+      </button>
+      <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
+        {{#if isTeacher}}
+        <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge"
+            data-badge="{{ add (arrayLength ../privateHomeworks) ( add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) ) }}" /></span>
+        {{else}}
+        <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge"
+            data-badge="{{ add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) }}" /></span>
         {{/if}}
-		{{#unless ../isArchived}}{{#if nextEvent}}
-          <p class="text-muted">{{$t "courses._course.text.nextClass"}} {{nextEvent}}</p>
-        {{/if}}{{/unless}}
-        <a href="{{filesUrl}}" class="btn btn-add btn-secondary pull-right">
-          <i class="fa fa-folder-open"></i>
-          {{$t "courses._course.link.toCourseFiles"}}
-        </a>
+      </button>
+      <button class="tab" data-testid="tools" data-tab="js-tools">
+        <span class="text">{{$t "courses._course.tab_label.tools"}} <span class="count-badge"
+            data-badge="{{../ltiToolIds.length}}" /></span>
+      </button>
+      <button class="tab" data-testid="groups" data-tab="js-groups">
+        <span class="text">{{$t "courses._course.tab_label.groups"}} <span class="count-badge"
+            data-badge="{{../courseGroups.length}}" /></span>
+      </button>
+    </div>
+  </div>
+  <div class="sectionsContainer">
+    <div class="sections">
+      <!-- Themen -->
+      <div class="section" data-section="js-topics">
+        {{> "courses/components/topics" archived=@root.isArchived}}
+      </div>
+      <!--- Aufgaben -->
+      <div class="section" data-section="js-homeworks">
+        {{> "courses/components/tasks" archived=@root.isArchived}}
+      </div>
+      <!-- Tools -->
+      <div name="js-tools-section" name="js-tools" class="section" data-section="js-tools">
+        {{> "courses/components/tools" archived=@root.isArchived}}
+      </div>
+      <!-- Gruppen -->
+      <div class="section" data-section="js-groups">
+        {{> "courses/components/groups" id=../_id archived=@root.isArchived}}
       </div>
     </div>
-    <section class="section-course">
-      <div class="tabContainer" data-active-tab={{activeTab}}>
-        <div class="tabs" data-max-width="1024">
-          <button class="tab" data-testid="topics" data-tab="js-topics">
-            <span class="text">{{$t "courses._course.tab_label.topics"}}
-          </button>
-            <button class="tab" data-testid="hometasks" data-tab="js-homeworks">
-            {{#if isTeacher}}
-              <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../privateHomeworks) ( add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) ) }}"/></span>
-            {{else}}
-              <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge" data-badge="{{ add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) }}"/></span>
-            {{/if}}
-          </button>
-          <button class="tab" data-testid="tools" data-tab="js-tools">
-            <span class="text">{{$t "courses._course.tab_label.tools"}} <span class="count-badge" data-badge="{{../ltiToolIds.length}}"/></span>
-          </button>
-          <button class="tab" data-testid="groups" data-tab="js-groups">
-            <span class="text">{{$t "courses._course.tab_label.groups"}} <span class="count-badge" data-badge="{{../courseGroups.length}}"/></span>
-          </button>
-        </div>
-      </div>
-      <div class="sectionsContainer">
-        <div class="sections">
-          <!-- Themen -->
-          <div class="section" data-section="js-topics">
-            {{> "courses/components/topics" archived=@root.isArchived}}
-          </div>
-          <!--- Aufgaben -->
-          <div class="section" data-section="js-homeworks">
-            {{> "courses/components/tasks" archived=@root.isArchived}}
-          </div>
-          <!-- Tools -->
-          <div name="js-tools-section" name="js-tools" class="section" data-section="js-tools">
-            {{> "courses/components/tools" archived=@root.isArchived}}
-          </div>
-          <!-- Gruppen -->
-          <div class="section" data-section="js-groups">
-            {{> "courses/components/groups" id=../_id archived=@root.isArchived}}
-          </div>
-        </div>
-      </div>
+  </div>
 
-      {{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
-		{{#content "body"}}
-			<div class="modal-footer">
-			<button type="button" class="btn btn-secondary btn-close">
-				{{$t "global.button.cancel"}}
-			</button>
+  {{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
+  {{#content "body"}}
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-close">
+      {{$t "global.button.cancel"}}
+    </button>
 
-			<button type="submit" class="btn btn-primary btn-submit">
-				{{$t "global.headline.delete"}}
-			</button>
-			</div>
-		{{/content}}
-      {{/embed}}
-
-      {{#embed "lib/components/modal-form" class="invitation-modal"}}
-      {{#content "fields"}}
-        {{> "courses/forms/form-invitation"}}
-      {{/content}}
-      {{/embed}}
-
-      {{#embed "lib/components/modal-form" class="import-modal"}}
-      {{#content "fields"}}
-        {{> "courses/forms/form-import-topic"}}
-      {{/content}}
-      {{/embed}}
-
-      {{#embed "lib/components/modal-form" class="share-modal"}}
-      {{#content "fields"}}
-        {{> "topic/forms/form-share"}}
-      {{/content}}
-      {{/embed}}
-
-    {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
-      {{#content "fields"}}
-      {{> "lib/forms/form-create-videoconference"}}
-      {{/content}}
-    {{/embed}}
-
-    {{#embed "lib/components/modal-form" class="reload-info-modal"}}
-      {{#content "fields"}}
-      {{> "lib/forms/form-bbb-reload-info"}}
-      {{/content}}
-    {{/embed}}
-
-    </section>
+    <button type="submit" class="btn btn-primary btn-submit">
+      {{$t "global.headline.delete"}}
+    </button>
+  </div>
   {{/content}}
+  {{/embed}}
+
+  {{#embed "lib/components/modal-form" class="invitation-modal"}}
+  {{#content "fields"}}
+  {{> "courses/forms/form-invitation"}}
+  {{/content}}
+  {{/embed}}
+
+  {{#embed "lib/components/modal-form" class="import-modal"}}
+  {{#content "fields"}}
+  {{> "courses/forms/form-import-topic"}}
+  {{/content}}
+  {{/embed}}
+
+  {{#embed "lib/components/modal-form" class="share-modal"}}
+  {{#content "fields"}}
+  {{> "topic/forms/form-share"}}
+  {{/content}}
+  {{/embed}}
+
+  {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
+  {{#content "fields"}}
+  {{> "lib/forms/form-create-videoconference"}}
+  {{/content}}
+  {{/embed}}
+
+  {{#embed "lib/components/modal-form" class="reload-info-modal"}}
+  {{#content "fields"}}
+  {{> "lib/forms/form-bbb-reload-info"}}
+  {{/content}}
+  {{/embed}}
+
+</section>
+{{/content}}
 {{/extend}}

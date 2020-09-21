@@ -29,10 +29,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div class="form-group">
-                        <label>Username: <sup>*</sup></label>
-                        <input class="form-control" disabled="true" placeholder="Benutzername" name="displayName" type="text" value="{{user.displayName}}"/>
-                    </div>-->
 
                     <div class="form-group">
                         <label>{{$t "global.label.emailAddress" }} <sup>*</sup></label>
@@ -113,9 +109,11 @@
                             <div class="pull-left">
                                 {{#unless schoolUsesLdap}}
                                     {{#ifCond isAdmin '|| !' editTeacher}}
-                                        <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled title="{{$t "administration.users_edit.text.firstClose" }}"{{/if}}>{{$t "administration.users_edit.button.changePassword" }}</button>
-                                        <button class="btn btn-secondary btn-delete">{{$t "administration.button.deleteUser" }}</button>
+                                        <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled title="{{$t "administration.users_edit.text.firstClose" }}"{{/if}}>{{$t "administration.users_edit.headline.changePassword" }}</button>
                                     {{/ifCond}}
+                                    {{#if canDeleteStudent}}
+                                        <button class="btn btn-secondary btn-delete">{{$t "administration.users_edit.headline.deleteUser" }}</button>
+                                    {{/if}}
                                     <button class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}"
                                     {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="{{$t "administration.users_edit.button.alreadyRegistered" }}"{{/ifeq}}>
                                         {{$t "administration.button.generatePersonalInvitationLink" }}

@@ -174,7 +174,9 @@ const checkSuperhero = (req, res) => {
 
 
 const checkIfUserIsForcedToChangePassword = (req, res) => {
-	if (!res.locals.currentUser.forcePasswordChange || req.baseUrl.startsWith('/forcePasswordChange')) {
+	if (!res.locals.currentUser.forcePasswordChange
+		|| req.baseUrl.startsWith('/forcePasswordChange')
+		|| !((res.locals.currentUser || {}).preferences || {}).firstLogin) {
 		return Promise.resolve();
 	}
 	// eslint-disable-next-line prefer-promise-reject-errors
@@ -183,6 +185,11 @@ const checkIfUserIsForcedToChangePassword = (req, res) => {
 
 
 const restrictSidebar = (req, res) => {
+	// If sidebarItems do not exist, render without avaible menü points.
+	// It do not affect authentication logins and so on.
+	if (!res.locals.sidebarItems) {
+		res.locals.sidebarItems = [];
+	}
 	res.locals.sidebarItems = res.locals.sidebarItems.filter((item) => {
 		if (!item.permission) return true;
 

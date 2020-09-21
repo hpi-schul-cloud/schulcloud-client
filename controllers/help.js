@@ -4,8 +4,6 @@ const { Converter } = require('showdown');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 
-const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
-
 const router = express.Router();
 const converter = new Converter();
 
@@ -21,7 +19,6 @@ router.get('/articles', (req, res, next) => {
 		tutorials,
 		adminFormIsActive: req.query.activeForm === 'admin',
 		teamFormIsActive: req.query.activeForm === 'team',
-		formAttachmentsSize: (MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE / 1024 / 1024),
 		userEmail: res.locals.currentUser.source ? '' : res.locals.currentUser.email,
 	});
 });
@@ -56,7 +53,7 @@ router.get('/releases', (req, res, next) => {
 				breadcrumb: [
 					{
 						title: res.$t('help.headline.helpSection'),
-						url: '/help',
+						url: '/help/articles',
 					},
 				],
 				release: releases.data,
@@ -69,7 +66,7 @@ router.get('/confluence/:id', (req, res, next) => {
 		breadcrumb: [
 			{
 				title: res.$t('help.headline.helpSection'),
-				url: '/help',
+				url: '/help/articles',
 			},
 		],
 		articleId: req.params.id,
@@ -82,7 +79,7 @@ router.get('/faq/people', (req, res, next) => {
 		breadcrumb: [
 			{
 				title: res.$t('help.headline.helpSection'),
-				url: '/help',
+				url: '/help/articles',
 			},
 		],
 	});
@@ -94,7 +91,7 @@ router.get('/lernNuggets', (req, res, next) => {
 		breadcrumb: [
 			{
 				title: res.$t('help.headline.helpSection'),
-				url: '/help',
+				url: '/help/articles',
 			},
 		],
 	});
@@ -127,7 +124,7 @@ router.get('/faq/documents', async (req, res, next) => {
 		breadcrumb: [
 			{
 				title: res.$t('help.headline.helpSection'),
-				url: '/help',
+				url: '/help/articles',
 			},
 		],
 		sections: documents,
