@@ -24,7 +24,7 @@ describe('News tests', () => {
 
 	it('GET /news', () => new Promise((resolve) => {
 		this.agent
-			.get('/news/')
+			.get('/news/?lng=de')
 			.end((err, res) => {
 				expect(res.statusCode).to.equal(200);
 				expect(res.text).to.contain('Neuigkeiten');
