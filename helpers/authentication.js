@@ -11,18 +11,6 @@ const wordlist = require('../static/other/wordlist.js');
 const { SW_ENABLED, MINIMAL_PASSWORD_LENGTH } = require('../config/global');
 const logger = require('./logger');
 
-const rolesDisplayName = {
-	teacher: 'Lehrer',
-	student: 'Schüler',
-	administrator: 'Administrator',
-	superhero: 'Schul-Cloud Admin',
-	demo: 'Demo',
-	demoTeacher: 'Demo',
-	demoStudent: 'Demo',
-	helpdesk: 'Helpdesk',
-	betaTeacher: 'Beta',
-	expert: 'Experte',
-};
 
 const USER_FORCED_TO_CHANGE_PASSWORD_REJECT = 'USER_FORCED_TO_CHANGE_PASSWORD_REJECT';
 
@@ -115,6 +103,19 @@ const populateCurrentUser = async (req, res) => {
 			api(req).get(`/users/${payload.userId}`),
 			api(req).get(`/roles/user/${payload.userId}`),
 		]).then(([user, roles]) => {
+			const rolesDisplayName = {
+				teacher: res.$t('administration.global.label.teacher'),
+				student: res.$t('administration.global.label.student'),
+				administrator: 'Administrator',
+				superhero: 'Schul-Cloud Admin',
+				demo: 'Demo',
+				demoTeacher: 'Demo',
+				demoStudent: 'Demo',
+				helpdesk: 'Helpdesk',
+				betaTeacher: 'Beta',
+				expert: res.$t('global.role.text.expert'),
+			};
+
 			const data = {
 				...user,
 				roles,
