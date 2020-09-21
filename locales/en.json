@@ -2282,6 +2282,20 @@
 			"aria_label": {
 				"mobileNavMenu": "Mobile Navigation Menu"
 			},
+			"currentRole": {
+				"label": {
+					"Schüler": "Student",
+					"Lehrer": "Teacher",
+					"Administrator": "Administrator",
+					"Superhero": "Schul-Cloud Admin",
+					"Demo": "Demo",
+					"DemoTeacher": "Demo",
+					"DemoStudent": "Demo",
+					"Helpdesk": "Helpdesk",
+					"BetaTeacher": "Beta",
+					"Expert": "Expert"
+				}
+			},
 			"img_alt": {
 				"logoOfSchool": "Logo of {{name}}"
 			},
