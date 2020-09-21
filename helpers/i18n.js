@@ -90,7 +90,7 @@ const getInstance = () => (key, options = {}) => i18next.t(key, {
 
 const changeLanguage = (lng) => {
 	if (availableLanguages.includes(lng)) {
-		i18nMoment.locale(lng)
+		i18nMoment.locale(lng);
 		return i18next.changeLanguage(lng);
 	}
 	return false;
