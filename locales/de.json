@@ -622,7 +622,7 @@
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
 				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule",
-				"rocketChatDeprecationInfo": "Hinweis: Die alte Chat-Funktion im Teams-Bereich wird am DD/MM/JJJJ automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen."
+				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen."
 			}
 		},
 		"students": {
@@ -2719,7 +2719,7 @@
 				},
 				"text": {
 					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Administrator, um diese Option zu ermöglichen.",
-					"rocketChatDepricated": "Rocketchat wird nicht mehr unterstützt, und am DD/MM/JJJ automatisch abgeschaltet."
+					"rocketChatDeprecated": "Rocketchat wird nicht mehr unterstützt, und am {{date}} automatisch abgeschaltet."
 				}
 			},
 			"events": {
@@ -2978,7 +2978,7 @@
 			"welcomeMatrixAdmin": "Der Matrix Messenger ist da!! "
 		},
 		"text": {
-			"rocketChatDeprecation": "Die Chat-Funktion im Teams-Bereich wird am DD/MM/JJJJ automatisch abgeschaltet und die dazugehörigen Inhalte gelöscht. Bitte sorge dafür, dass du wichtige Inhalte kopierst und speicherst.",
+			"rocketChatDeprecation": "Die Chat-Funktion im Teams-Bereich wird am {{date}} automatisch abgeschaltet und die dazugehörigen Inhalte gelöscht. Bitte sorge dafür, dass du wichtige Inhalte kopierst und speicherst.",
 			"welcomeMatrixAdmin": "Nutzer:innen deiner Schule können sich ab sofort bequem über den Matrix Messenger direkt innerhalb der HPI Schul-Cloud austauschen.",
 			"howToActivateMatrix": "Dafür musst Du als Schul-Admin den Matrix Messenger aktivieren unter: Verwaltung > Schule > Matrix Messenger aktivieren."
 		}

@@ -300,7 +300,7 @@
 
 {{! Rocketchat and Matrix messenger are enabled for the instance and the current school}}
 {{!-- {{#if @root.ROCKETCHAT_SERVICE_ENABLED}} {{#inArray "rocketChat" @root.schoolData.features}} {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}} {{#inArray "messenger" @root.currentSchoolData.features}} --}}
-    {{#embed "lib/components/modal" class="deprecation-info-rocket-chat" title=($t "global.text.attention")}}
+    {{#embed "lib/components/modal" class="deprecation-info-rocket-chat" title=($t "messenger.headline.welcomeMatrixAdmin")}}
     {{#content "body"}}
     <div class="modal-body">
         <img src="/images/messenger-info.svg" class="img-fluid" role="presentation"/>
@@ -311,7 +311,7 @@
             </div>
             <div id="member-modal-body">
                 <div class="text-center">
-                    {{$t "messenger.text.rocketChatDeprecation" }}
+                    {{$t "messenger.text.rocketChatDeprecation" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRICATION_DATE"))) }}
                 </div>
             </div>
         </div>
