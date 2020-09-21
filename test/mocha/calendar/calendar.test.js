@@ -8,6 +8,8 @@ const chaiHttp = require('chai-http');
 const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
 
+const { i18next } = require('../../../helpers/i18n');
+
 describe('Calendar tests', function () {
     before(function (done) {
         this.server = app.listen(3031);
@@ -29,7 +31,7 @@ describe('Calendar tests', function () {
                 .get('/calendar/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Kalender');
+                    expect(res.text).to.contain(i18next.t('calendar.headline.calendar'));
                     resolve();
                 });
         });
