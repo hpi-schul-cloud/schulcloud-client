@@ -176,6 +176,13 @@ router.get('/', (req, res, next) => {
 			return [];
 		});
 
+	function sortFunction(a, b) {
+		if (a.displayAt === b.displayAt) {
+			return 0;
+		}
+
+		return a.displayAt < b.displayAt ? 1 : -1;
+	}
 	// Somehow $lte doesn't work in normal query so I manually put it into a request
 	const newsPromise = api(req)
 		.get('/news/', {
@@ -184,8 +191,6 @@ router.get('/', (req, res, next) => {
 				displayAt: {
 					$lte: new Date().getTime(),
 				},
-				sort: '-displayAt',
-				$limit: 3,
 			},
 		})
 		.then((news) => news.data
@@ -193,7 +198,9 @@ router.get('/', (req, res, next) => {
 				n.url = `/news/${n._id}`;
 				n.secondaryTitle = moment(n.displayAt).fromNow();
 				return n;
-			}))
+			})
+			.sort(sortFunction)
+			.slice(0, 3))
 		.catch((err) => {
 			/* eslint-disable-next-line max-len */
 			logger.error(
