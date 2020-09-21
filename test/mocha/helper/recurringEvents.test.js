@@ -4,6 +4,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const recurringEventsHelper = require('../../../helpers/recurringEvents');
 const i18nHelper = require('../../../helpers/i18n');
+const { i18next } = require('../../../helpers/i18n');
 
 const recurringEvent = {
     "type": "event",
@@ -41,11 +42,11 @@ describe('Recurring Event Helper tests', function () {
     });
 
     it('getWeekdayForNumber', function () {
-        expect(recurringEventsHelper.getWeekdayForNumber(0, res)).to.equal('Montag');
+        expect(recurringEventsHelper.getWeekdayForNumber(0, res)).to.equal(i18next.t('global.text.monday'));
     });
 
     it('getNumberForWeekday', function () {
-        expect(recurringEventsHelper.getNumberForWeekday('Montag', res)).to.equal(0);
+        expect(recurringEventsHelper.getNumberForWeekday(i18next.t('global.text.monday'), res)).to.equal(0);
     });
 
     it('createRecurringEvents', function () {
