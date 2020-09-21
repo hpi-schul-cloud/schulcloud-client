@@ -29,7 +29,7 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 router.get('/', async (req, res, next) => {
 	const { currentUser } = res.locals;
 	if (
-		!currentUser.birthday && res.locals.currentRole === 'Schüler' // fixme identical to isStudent() here
+		!currentUser.birthday && res.locals.currentRole === res.$t('administration.global.label.student')
 		&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
 	) {
 		return res.redirect('firstLogin/existing');

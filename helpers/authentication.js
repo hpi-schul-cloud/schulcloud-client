@@ -10,19 +10,8 @@ const wordlist = require('../static/other/wordlist.js');
 
 const { SW_ENABLED, MINIMAL_PASSWORD_LENGTH } = require('../config/global');
 const logger = require('./logger');
+const { getCurrentLanguage } = require('../helpers/i18n');
 
-const rolesDisplayName = {
-	teacher: 'Lehrer',
-	student: 'Schüler',
-	administrator: 'Administrator',
-	superhero: 'Schul-Cloud Admin',
-	demo: 'Demo',
-	demoTeacher: 'Demo',
-	demoStudent: 'Demo',
-	helpdesk: 'Helpdesk',
-	betaTeacher: 'Beta',
-	expert: 'Experte',
-};
 
 const USER_FORCED_TO_CHANGE_PASSWORD_REJECT = 'USER_FORCED_TO_CHANGE_PASSWORD_REJECT';
 
@@ -82,6 +71,21 @@ const isAuthenticated = (req) => {
 };
 
 const populateCurrentUser = async (req, res) => {
+	const lang = await getCurrentLanguage(req, res);
+
+	const rolesDisplayName = {
+		teacher: lang === 'de' ? 'Lehrer' : 'Teacher',
+		student: lang === 'de' ? 'Schüler' : 'Student',
+		administrator: 'Administrator',
+		superhero: 'Schul-Cloud Admin',
+		demo: 'Demo',
+		demoTeacher: 'Demo',
+		demoStudent: 'Demo',
+		helpdesk: 'Helpdesk',
+		betaTeacher: 'Beta',
+		expert: lang === 'de' ? 'Experte' : 'Expert',
+	};
+
 	let payload = {};
 	if (isJWT(req)) {
 		try {
