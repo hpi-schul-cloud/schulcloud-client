@@ -7,6 +7,7 @@ const api = require('../api');
 const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
+const { getCurrentLanguage } = require('../helpers/i18n');
 
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
@@ -363,19 +364,23 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 	}
 
 	let needConsent = true;
-	let sectionNumber = 5;
+	let sectionNumber = 6;
 
 	let roleText;
 	if (req.params.byRole === 'byemployee') {
 		roleText = res.$t('registration.text.roleEmployee');
 		if (Configuration.get('SKIP_CONDITIONS_CONSENT').includes('employee')) {
 			needConsent = false;
-			sectionNumber = 4;
+			sectionNumber = 5;
 		}
 	} else {
 		delete user.firstName;
 		delete user.lastName;
 		roleText = res.$t('registration.text.roleExpert');
+	}
+
+	if (!user.language) {
+		user.language = await getCurrentLanguage(req, res);
 	}
 
 	return res.render('registration/registration-employee', {

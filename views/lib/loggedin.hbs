@@ -64,7 +64,7 @@
                                 {{#if this.children}}
                                     <ul class="subitems">
                                         {{#each this.children}}
-                                            <li>
+                                            <li data-testid="{{this.name}}">
 												<a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
 													{{#if this.isExternalIcon}}
 														{{{this.icon}}}
@@ -139,7 +139,7 @@
                         <li class="nav-item fullscreen-action">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" href="" title="{{$t "lib.loggedin.label.fullscreen"}}" aria-label="{{$t "lib.loggedin.label.fullscreen"}}" data-toggle="dropdown">
-                                    <i class="fa fa-expand" aria-hidden="true"></i>
+                                    <i class="fa fa-expand" data-testid="fullscreen-mode" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </li>

@@ -9,6 +9,34 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [24.5.3] - 2020-09-18
+
+### Fixed
+
+  - SC-6761 Fixed messenger activation in courses
+
+## [24.5.2] - 2020-09-16
+
+### Fixed
+
+  - SC-6637 Updated CSS of QR codes to avoid broken print layout
+
+## [24.5.1] - 2020-09-14
+
+### Fixed
+
+  - SC-6761 Fixed individual registration emails
+
+## [24.4.2] - 2020-09-09
+
+### Fixed
+- SC-6533 - Login not possible if admin reset password
+
+  - SC-5707 Added detection of browser language
+  - SC-5706 Added language selection within teacher registration
+  - SC-6019 Added tabbar to classes administration
+  - SC-5955 Changed links to Lernen.cloud
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
   - SC-6245 If students can create teams, they can also invite other students to teams
 
 ## [24.4.1] - 2020-9-01
