@@ -472,7 +472,7 @@ const overview = (titleKey) => (req, res, next) => {
 		// ist der aktuelle Benutzer ein Schueler? -> Für Sichtbarkeit von Daten benötigt
 		api(req).get(`/users/${userId}`, {
 			qs: {
-				$populate: ['roles', 'courseId'],
+				$populate: ['roles'],
 			},
 		}).then((user) => {
 			const isStudent = (user.roles.map((role) => role.name).indexOf('student') != -1);
