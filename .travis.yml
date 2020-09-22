@@ -39,6 +39,7 @@ jobs:
         # clone other required repositories and try to switch to branch with same name as current one
         - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
         - bash switch_branch.sh "schulcloud-server" "$BRANCH_NAME"
+        - cd schulcloud-server && git checkout "$BRANCH_NAME" && cd ..
         - cd schulcloud-server && git show-branch && cd ..
         - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
         - bash switch_branch.sh "docker-compose" "$BRANCH_NAME"
