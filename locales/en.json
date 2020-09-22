@@ -936,6 +936,8 @@
 						"submittedOn": "Submission: {{ddmmyy_hhmm}}",
 						"task": "The task:",
 						"taskDetails": "Details of the task:",
+						"taskOpen": "Task open >",
+						"toTask": "To the task",
 						"workOnTopic": "Work on Topic"
 					}
 				},
@@ -1329,10 +1331,13 @@
 			"filesFromMyClasses": "Files from my classes",
 			"filesFromMyCourse": "Files from my courses",
 			"filesFromMyTeam": "Files from my teams",
+			"filesOpen": "Open files",
 			"filesSharedWithMe": "Files shared with me",
+			"filesSharedWithMeContent": "Here you can find all the files you have shared with you. These are files that have been made available by other users.",
 			"folder": "Folder",
 			"moveFile": "Move file - temporarily deactivated",
 			"myPersonalData": "My personal files",
+			"myPersonalDataContent": "Here you can find all your personal files. Only you have access to these files, but you can also share them with other users.",
 			"name": "File name",
 			"openDocumentInNewWindow": "Open document in new window",
 			"read": "Read",
@@ -1635,7 +1640,10 @@
 			"archive": "Archive",
 			"calendar": "Calendar",
 			"contact": "Contact",
+			"courseData": "My course files",
+			"courseDataContent": "Here you will find all files used in the respective courses in class. All participants of the course, i.e. the teacher and the students, have access to these files.",
 			"files": "My Files",
+			"filesContent": "Here you can find all files used in the respective teams. All participants of the team have access to these files.",
 			"filesPersonal": "personal files",
 			"filesShared": "shared files",
 			"firstSteps": "First steps",
@@ -1656,6 +1664,7 @@
 			"register": "Register",
 			"school": "School",
 			"tasksDrafts": "Drafts",
+			"teamData": "My team files",
 			"teams": "Teams",
 			"topNavbarSkipLink": "Navigation above"
 		},
@@ -1668,6 +1677,16 @@
 			}
 		},
 		"placeholder": {
+			"Administrator": "Administrator",
+			"BetaTeacher": "Beta",
+			"Demo": "Demo",
+			"DemoStudent": "Demo Student",
+			"DemoTeacher": "Demo Teacher",
+			"Expert": "Expert",
+			"Helpdesk": "Helpdesk",
+			"Lehrer": "Teacher",
+			"Schüler": "Student",
+			"Superhero": "Schul-Cloud Admin",
 			"firstName": "Enter your first name here",
 			"lastName": "Enter your last name here",
 			"selectTeacher": "Select teacher"
@@ -2399,7 +2418,8 @@
 			"loginFailedSecondHint": "2. Have you deleted your cookies and website data?",
 			"loginFailedThirdHint": "3. Have you tried to log in on another device (e.g. laptop instead of mobile phone) ?",
 			"pleaseWaitXSeconds": "Please wait for {{seconds}} seconds",
-			"superheroForbidden": "You are trying log in with a superhero account. Please use another account"
+			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",
+			"superheroText": "You are trying log in with a superhero account."
 		}
 	},
 	"my_material": {
