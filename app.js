@@ -27,10 +27,10 @@ const {
 	SC_THEME,
 	REDIS_URI,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
+	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
 	JWT_TIMEOUT_SECONDS,
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
-	ROCKETCHAT_SERVICE_ENABLED,
 	FEATURE_MATRIX_MESSENGER_ENABLED,
 } = require('./config/global');
 
@@ -181,11 +181,14 @@ app.use(async (req, res, next) => {
 	res.locals.production = req.app.get('env') === 'production';
 	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
 	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
+	res.locals.MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = Number(MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE);
+	// eslint-disable-next-line max-len
+	res.locals.MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_MEGABYTE = (MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE / 1024 / 1024);
 	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
 	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
 	res.locals.version = version;
 	res.locals.sha = sha;
-	res.locals.ROCKETCHAT_SERVICE_ENABLED = ROCKETCHAT_SERVICE_ENABLED;
+	res.locals.ROCKETCHAT_SERVICE_ENABLED = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 	res.locals.FEATURE_MATRIX_MESSENGER_ENABLED = FEATURE_MATRIX_MESSENGER_ENABLED;
 	delete req.session.notification;
 	try {
@@ -222,7 +225,7 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 app.use(require('./middleware/i18n'));
 
 // Initialize the modules and their routes
-app.use(require('./controllers/'));
+app.use(require('./controllers'));
 
 app.get('/', (req, res, next) => {
 	res.redirect('/login/');
