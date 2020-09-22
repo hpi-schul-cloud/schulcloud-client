@@ -17,7 +17,7 @@ describe('Application tests', () => {
 		this.server.close(done);
 	});
 
-	it('starts and shows the index page', () => new Promise((resolve, reject) => {
+	it('starts and shows the index page', () => new Promise((resolve) => {
 		chai.request(app)
 			.get('/')
 			.end((err, res) => {

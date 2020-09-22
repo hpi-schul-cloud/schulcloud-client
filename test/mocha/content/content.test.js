@@ -27,30 +27,47 @@ describe('Content tests', () => {
 	});
 
 	it('GET /content', function () {
-		expect(Configuration.get('LERNSTORE_MODE'), 'LERNSTORE_MODE not set!').to.be.not.equal('DISABLED');
+		expect(
+			Configuration.get('LERNSTORE_MODE'),
+			'LERNSTORE_MODE not set!',
+		).to.be.not.equal('DISABLED');
 		return new Promise((resolve, reject) => {
-			this.agent
-				.get('/content/')
-				.end((err, res) => {
-					expect(res.statusCode).to.equal(200);
-					expect(res.text).to.contain(i18next.t('content.headline.contentStore'));
-					resolve();
-				});
+			this.agent.get('/content/').end((err, res) => {
+				expect(res.statusCode).to.equal(200);
+				expect(res.text).to.contain(
+					i18next.t('content.headline.contentStore'),
+				);
+				resolve();
+			});
 		});
 	});
 
 	it('GET /content/?q=Mathe', function () {
-		expect(Configuration.get('LERNSTORE_MODE'), 'LERNSTORE_MODE not set!').to.be.not.equal('DISABLED');
-		return new Promise((resolve, reject) => {
-			this.agent
-				.get('/content/?q=Mathe')
-				.end((err, res) => {
-					expect(res.statusCode).to.equal(200);
-					expect(res.text).to.contain(i18next.t('content.headline.contentStore'));
-					expect(res.text).to.contain(i18next.t('content.headline.nSearchResultsFoundWith', { searchResultsTotal: '', query: 'Mathe' }).trim());
-					expect(res.text).not.to.contain(i18next.t('content.headline.noResultsFoundWith', { query: 'Mathe' }));
-					resolve();
-				});
+		expect(
+			Configuration.get('LERNSTORE_MODE'),
+			'LERNSTORE_MODE not set!',
+		).to.be.not.equal('DISABLED');
+		return new Promise((resolve) => {
+			this.agent.get('/content/?q=Mathe').end((err, res) => {
+				expect(res.statusCode).to.equal(200);
+				expect(res.text).to.contain(
+					i18next.t('content.headline.contentStore'),
+				);
+				expect(res.text).to.contain(
+					i18next
+						.t('content.headline.nSearchResultsFoundWith', {
+							searchResultsTotal: '',
+							query: 'Mathe',
+						})
+						.trim(),
+				);
+				expect(res.text).not.to.contain(
+					i18next.t('content.headline.noResultsFoundWith', {
+						query: 'Mathe',
+					}),
+				);
+				resolve();
+			});
 		});
 	});
 });
