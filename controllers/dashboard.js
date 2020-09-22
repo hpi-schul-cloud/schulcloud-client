@@ -3,10 +3,10 @@
  */
 
 const express = require('express');
+const moment = require('moment');
 const logger = require('../helpers/logger');
 
 const router = express.Router();
-const moment = require('moment');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 
