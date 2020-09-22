@@ -35,11 +35,14 @@ jobs:
         # fetch switch_branch script
         - curl https://gist.github.com/schul-cloud-bot/a849c38804174f99ca7818782bf03c00/raw/switch_branch.sh > switch_branch.sh
         - chmod 700 switch_branch.sh
+        - cat switch_branch.sh
         # clone other required repositories and try to switch to branch with same name as current one
         - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
         - bash switch_branch.sh "schulcloud-server" "$BRANCH_NAME"
+        - cd schulcloud-server && git show-branch && cd ..
         - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
         - bash switch_branch.sh "docker-compose" "$BRANCH_NAME"
+        - cd docker-compose && git show-branch && cd ..
       install:
         # boot server
         - cd docker-compose
