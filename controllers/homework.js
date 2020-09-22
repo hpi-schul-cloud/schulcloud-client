@@ -404,7 +404,9 @@ router.post('/submit/:id/files/:fileId/permissions', async (req, res) => {
 		if (teamMembers) {
 			// wait for result now
 			// todo move logic to backend
-			await addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId]);
+			await addFilePermissionsForTeamMembers(
+				req, teamMembers, homework.courseGroupId, [fileId],
+			);
 		}
 		res.json(file);
 	} catch (err) {
