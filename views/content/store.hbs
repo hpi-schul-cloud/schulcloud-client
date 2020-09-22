@@ -31,17 +31,17 @@
             <div class="ajaxcontent">
                 {{#if query}}
                     {{#if searchResults}}
-                        <h2 class="h5 mb-1">{{{$t "content.headline.nSearchResultsFoundWith" 
+                        <h2 class="h5 mb-1">{{{$t "content.headline.nSearchResultsFoundWith"
                             (dict "searchResultsTotal" searchResults.total "query" (escapeHtml query))}}}</h2>
                     {{else}}
-                        <h2 class="h5 mb-1">{{{$t "content.headline.noResultsFoundWith" 
+                        <h2 class="h5 mb-1">{{{$t "content.headline.noResultsFoundWith"
                             (dict "query" (escapeHtml query))}}}</h2>
                     {{/if}}
                     <hr class="mt-0">
                 {{/if}}
                 {{#unless query }}
                     {{#with featuredContent}}
-                    <h2 class="h3">{{$t "content.store.heading.currentContent" }}</h2>
+                    <h2 class="h3">{{$t "content.store.headline.currentContent" }}</h2>
                     <div class="row equal-height">
                         {{#each this}}
                             <div class="col-md-6 col-lg-4">
@@ -52,7 +52,7 @@
                     {{/with}}
 
                     {{#with trendingContent}}
-                    <h2 class="h3">{{$t "content.store.heading.popularContent" }}</h2>
+                    <h2 class="h3">{{$t "content.store.headline.popularContent" }}</h2>
                     <div class="row equal-height">
                         {{#each this}}
                             <div class="col-md-6 col-lg-4">

@@ -4,8 +4,6 @@ const { Converter } = require('showdown');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 
-const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
-
 const router = express.Router();
 const converter = new Converter();
 
@@ -21,7 +19,6 @@ router.get('/articles', (req, res, next) => {
 		tutorials,
 		adminFormIsActive: req.query.activeForm === 'admin',
 		teamFormIsActive: req.query.activeForm === 'team',
-		formAttachmentsSize: (MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE / 1024 / 1024),
 		userEmail: res.locals.currentUser.source ? '' : res.locals.currentUser.email,
 	});
 });

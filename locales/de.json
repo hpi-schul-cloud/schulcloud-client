@@ -202,7 +202,6 @@
 				"students": "{{title}}Schüler",
 				"targetState": "Soll-Zustand",
 				"teacher": "{{title}}Lehrer",
-				"teachers": "Lehrer",
 				"teams": "{{title}}Teams",
 				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
 				"uploadedOn": "Hochgeladen am"
@@ -239,6 +238,9 @@
 				"sendMessageToOwner": "Nachricht an Eigentümer senden",
 				"toGiveConsent": "Einverständnis erklären",
 				"transferClassToTheNextSchoolYear": "Klasse in das nächste Schuljahr versetzen"
+			},
+			"tab_label": {
+				"archivedClasses": "Archiv"
 			},
 			"text": {
 				"active": "Aktiv",
@@ -285,13 +287,10 @@
 				"whenLoggingInForTheFirstTime": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben.",
 				"yourStudentsAreAtLeast": "Deine Schüler sind mindestens {{age}} Jahre alt?",
 				"yourStudentsAreUnder": "Deine Schüler sind unter {{age}} Jahre alt?"
-			},
-			"tab_label": {
-				"archivedClasses": "Archiv"
 			}
 		},
 		"dashboard": {
-			"heading": {
+			"headline": {
 				"manageClasses": "Klassen verwalten",
 				"manageCourses": "Kurse verwalten",
 				"manageSchool": "Schule verwalten",
@@ -450,7 +449,7 @@
 			"button": {
 				"verify": "Verifizieren"
 			},
-			"heading": {
+			"headline": {
 				"classAttributes": "Klassen-Attribute",
 				"classAttributesTitle": "Geben Sie das Klassenattribut an, in dem die folgenden Informationen in Ihrem LDAP verfügbar sind",
 				"importantNote": "Wichtiger Hinweis",
@@ -510,7 +509,7 @@
 			"button": {
 				"closeTheWindow": "Fenster schließen"
 			},
-			"heading": {
+			"headline": {
 				"LDAPClasses": "LDAP-Klassen",
 				"LDAPUsers": "LDAP-Nutzer",
 				"checkTheSynchronizationOfTheDataAvailable": "Überprüfe die Synchronisation der im LDAP vorliegenden Daten für das neue Schuljahr"
@@ -778,7 +777,7 @@
 			"mintECSchools": "MINT-EC-Schulen",
 			"thuringia": "Thüringen"
 		},
-		"heading": {
+		"headline": {
 			"chooseYourState": "Wählen Sie Ihr Bundesland oder das Projekt dem Sie angehören.",
 			"joinNow": "Jetzt mitmachen!"
 		},
@@ -834,7 +833,7 @@
 			"fileType": "Dateitypen: %1"
 		},
 		"store": {
-			"heading": {
+			"headline": {
 				"currentContent": "Aktuelle Inhalte",
 				"popularContent": "Beliebte Inhalte"
 			}
@@ -921,21 +920,23 @@
 						"editGroup": "Gruppe bearbeiten"
 					},
 					"text": {
+						"archivedTask": "Die Aufgabe ist archiviert",
+						"doneTask": "Die Aufgabe ist gestellt",
+						"draftTask": "Die Aufgabe entwürfe",
 						"dueTo": "bis zum: {{date}}",
+						"feedbackTask": "Die Aufgabe hat Feedback",
 						"groupMembers": "Gruppenteilnehmer:innen:",
+						"moveTask": "Verschiebe Aufgabe zwischen Übersichtsseite und Archiv",
 						"noOpenGroupTasks": "Keine weiteren Gruppenabgaben möglich.",
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
 						"noTopics": "keine Themen.",
 						"responsibleTeachers": "Verantwortliche Lehrer:innen:",
 						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}",
-						"workOnTopic": "Thema bearbeiten",
-						"archivedTask": "Die Aufgabe ist archiviert",
-						"draftTask": "Die Aufgabe entwürfe",
-						"doneTask": "Die Aufgabe ist gestellt",
-						"feedbackTask": "Die Aufgabe hat Feedback",
-						"moveTask": "Verschiebe Aufgabe zwischen Übersichtsseite und Archiv",
 						"task": "Die Aufgabe: ",
-						"taskDetails": "Details der Aufgabe: "
+						"taskDetails": "Details der Aufgabe: ",
+						"taskOpen": "Aufgabe öffnen >",
+						"toTask": "Zur Aufgabe",
+						"workOnTopic": "Thema bearbeiten"
 					}
 				},
 				"button": {
@@ -1101,7 +1102,6 @@
 			"headline": {
 				"addCourse": "Kurs anlegen",
 				"addStudents": "Schüler:innen hinzufügen",
-				"almostDone": "Du hast es fast geschafft...",
 				"done": "Geschafft!",
 				"whatToDoCourses": "Was kannst du in einem Kurs machen?"
 			},
@@ -1329,10 +1329,13 @@
 			"filesFromMyClasses": "Dateien aus meinen Klassen",
 			"filesFromMyCourse": "Dateien aus meinen Kursen",
 			"filesFromMyTeam": "Dateien aus meinen Teams",
+			"filesOpen": "Dateien öffnen",
 			"filesSharedWithMe": "Mit mir geteilte Dateien",
+			"filesSharedWithMeContent": "Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzern zur Verfügung gestellt worden sind.",
 			"folder": "Ordner",
 			"moveFile": "Datei verschieben - vorübergehend deaktiviert",
 			"myPersonalData": "Meine persönlichen Dateien",
+			"myPersonalDataContent": "Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.",
 			"name": "Dateiname",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
 			"read": "Lesen",
@@ -1389,7 +1392,7 @@
 			"takeALookAtTheFirstSteps": "Erste Schritte anschauen"
 		},
 		"consent": {
-			"heading": {
+			"headline": {
 				"importantInformation": "Wichtige Information",
 				"summaryOfTheExtension": "Zusammenfassung der Erweiterung in der {{visualType}}",
 				"toThe": "zum"
@@ -1408,7 +1411,7 @@
 			}
 		},
 		"email": {
-			"heading": {
+			"headline": {
 				"howCanWeContactYou": "Wie können wir dich erreichen?"
 			},
 			"text": {
@@ -1417,18 +1420,12 @@
 			}
 		},
 		"global": {
-			"heading": {
-				"birthdate": "Geburtsdatum",
-				"declarationOfConsent": "Einwilligungserklärung"
+			"headline": {
+				"birthdate": "Geburtsdatum"
 			},
 			"text": {
 				"canUse": "nutzen kannst."
 			}
-		},
-		"heading": {
-			"almostThere": "Fast geschafft!",
-			"sorryItDidnotWork": "Entschuldige, das hat nicht geklappt",
-			"youAlmostMadeIt": "Du hast es fast geschafft..."
 		},
 		"label": {
 			"newPassword": "Neues Passwort: ",
@@ -1448,9 +1445,8 @@
 					"forStudentsUnder": "Für Schüler unter {{age}} Jahren muss ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen."
 				}
 			},
-			"heading": {
-				"declarationOfConsentFromALegalGuardian": "Einverständniserklärung eines Erziehungsberechtigten benötigt",
-				"yourData": "Ihre Daten"
+			"headline": {
+				"declarationOfConsentFromALegalGuardian": "Einverständniserklärung eines Erziehungsberechtigten benötigt"
 			},
 			"label": {
 				"continueAsLegalGuardian": "als Erziehungsberechtigter fortfahren"
@@ -1505,7 +1501,7 @@
 			"button": {
 				"toYourCourses": "Zu deinen Kursen"
 			},
-			"heading": {
+			"headline": {
 				"congratulations": "Herzlichen Glückwunsch, {{firstName}} {{lastName}}",
 				"welcomeToThe": "Herzlich willkommen in der {{shortTitle}} {{firstName}} {{lastName}}"
 			},
@@ -1559,7 +1555,7 @@
 			"send": "Abschicken",
 			"submit": "Absenden",
 			"toCourse": "Zum Kurs",
-			"tryAgain": "Erneut Versuchen",
+			"tryAgain": "Erneut versuchen",
 			"yes": "Ja"
 		},
 		"headline": {
@@ -1583,6 +1579,8 @@
 			"sorting": "Sortierung",
 			"task": "Aufgabe",
 			"tasks": "Aufgaben",
+			"teachers": "Lehrer",
+			"youAlmostMadeIt": "Du hast es fast geschafft...",
 			"yourData": "Ihre Daten"
 		},
 		"input": {
@@ -1612,6 +1610,12 @@
 			"to": "Bis",
 			"type": "Typ"
 		},
+		"language": {
+			"label": {
+				"de": "Deutsch",
+				"en": "English"
+			}
+		},
 		"link": {
 			"aboutTheProject": "Über das Projekt",
 			"administrationStudents": "Schüler",
@@ -1619,7 +1623,10 @@
 			"archive": "Archiv",
 			"calendar": "Termine",
 			"contact": "Kontakt",
+			"courseData": "Meine Kurs-Dateien",
+			"courseDataContent": "Hier findest du alle Dateien, die in den jeweiligen Kursen im Unterricht verwendet werden. Alle Teilnehmer des Kurses, also der Lehrer und die Schüler, haben auf diese Dateien Zugriff.",
 			"files": "Meine Dateien",
+			"filesContent": "Hier findest du alle Dateien, die in den jeweiligen Teams verwendet werden. Alle Teilnehmer des Teams haben auf diese Dateien Zugriff.",
 			"filesPersonal": "persönliche Dateien",
 			"filesShared": "geteilte Dateien",
 			"firstSteps": "Erste Schritte",
@@ -1640,10 +1647,29 @@
 			"register": "Registrieren",
 			"school": "Schule",
 			"tasksDrafts": "Entwürfe",
+			"teamData": "Meine Team-Dateien",
 			"teams": "Teams",
 			"topNavbarSkipLink": "Navigation oben"
 		},
+		"pagination": {
+			"aria_label": {
+				"firstPage": "Erste Seite",
+				"lastPage": "Letzte Seite",
+				"nextPage": "nächste Seite",
+				"previousPage": "Vorherige Seite"
+			}
+		},
 		"placeholder": {
+			"Administrator": "Administrator",
+			"BetaTeacher": "Beta",
+			"Demo": "Demo",
+			"DemoStudent": "Demo Schüler",
+			"DemoTeacher": "Demo Lehrer",
+			"Expert": "Experte",
+			"Helpdesk": "Helpdesk",
+			"Lehrer": "Lehrer",
+			"Schüler": "Schüler",
+			"Superhero": "Schul-Cloud Admin",
 			"firstName": "Ihren Vornamen hier eingeben",
 			"lastName": "Ihren Nachname hier eingeben",
 			"selectTeacher": "Lehrer auswählen"
@@ -1708,14 +1734,6 @@
 			"videoconferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
 			"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 			"wednesday": "Mittwoch"
-		},
-		"pagination": {
-			"aria_label": {
-				"firstPage": "Erste Seite",
-				"previousPage": "Vorherige Seite",
-				"lastPage": "Letzte Seite",
-				"nextPage": "nächste Seite"
-			}
 		}
 	},
 	"help": {
@@ -1744,11 +1762,6 @@
 				"thankYouForYourFeedbak": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
 				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
 				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
-			}
-		},
-		"dashboard": {
-			"heading": {
-				"helpArticles": "Hilfeartikel"
 			}
 		},
 		"form_Wish": {
@@ -1791,9 +1804,8 @@
 			}
 		},
 		"global": {
-			"heading": {
-				"principal": "Schulleitung",
-				"teacher": "Lehrer"
+			"headline": {
+				"principal": "Schulleitung"
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
@@ -1817,10 +1829,10 @@
 		},
 		"help_fromInviteExternalMember": {
 			"button": {
-				"externalExpert": "External experts",
-				"teachersFromOtherSchool": "Teachers from other schools"
+				"externalExperts": "Externe Experten",
+				"teachersFromOtherSchools": "Lehrer von anderen Schulen"
 			},
-			"heading": {
+			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
 			}
 		},
@@ -1830,7 +1842,7 @@
 			}
 		},
 		"lernNuggets": {
-			"heading": {
+			"headline": {
 				"instructionsForUse": "Hinweise zur Benutzung",
 				"learningNuggetBasicOfGDPR": "Lern-Nugget: Grundlagen der DSGVO",
 				"learningNuggetDataProtectioin": "Lern-Nugget: Datenschutz im Schulalltag",
@@ -1861,7 +1873,7 @@
 			}
 		},
 		"partials": {
-			"heading": {
+			"headline": {
 				"contactForm": "Kontaktformular",
 				"contactPerson": "Ansprechpartner",
 				"overview": "Überblick",
@@ -1985,7 +1997,7 @@
 			"copy": "Kopieren",
 			"copySubmissionFromList": "kopieren",
 			"deleteSubmissionFromList": "löschen",
-			"downloadUngradedFiles": "Alle Dateien unbewerteter Hausaufgaben herunterladen",
+			"downloadUngradedFiles": "Unbewertete Hausaufgaben",
 			"editSubmissionFromList": "bearbeiten",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
@@ -2092,16 +2104,15 @@
 			}
 		},
 		"imprint_platform_intro": {
-			"heading": {
+			"headline": {
 				"legalNotice": "Rechtliche Hinweise:"
 			},
 			"text": {
-				"TheProjectIsANonCommercialPilotProject": "Die {{shortTitle}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT EC ( <a href=\"https://www.mint-ec.de/\" target=\"_blank\" rel=\"noopener\">https://www.mint-ec.de/</a> ) durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter: <a href=\"https://hpi.de/open-campus/hpi-initiativen/hpi-schul-cloud.html\" target=\"_blank\" rel=\"noopener\">hpi-schul-cloud</a> ).",
-				"isCarriedOutAndFunded": "durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter:"
+				"TheProjectIsANonCommercialPilotProject": "Die {{shortTitle}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT EC ( <a href=\"https://www.mint-ec.de/\" target=\"_blank\" rel=\"noopener\">https://www.mint-ec.de/</a> ) durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter: <a href=\"https://hpi.de/open-campus/hpi-initiativen/hpi-schul-cloud.html\" target=\"_blank\" rel=\"noopener\">hpi-schul-cloud</a> )."
 			}
 		},
 		"imprint_rights": {
-			"heading": {
+			"headline": {
 				"editorialStuff": "Redaktion:",
 				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso-Plattner-Institut für Digital Engineering gGmbH",
 				"managingDirectorAuthorized": "Vertretungsberechtigter Geschäftsführer:"
@@ -2127,12 +2138,12 @@
 				"hideDetails": "Details verstecken",
 				"viewDetails": "Details anzeigen"
 			},
-			"heading": {
+			"headline": {
 				"errorDetails": "Fehler-Details:"
 			}
 		},
 		"extended_footer": {
-			"heading": {
+			"headline": {
 				"links": "Links",
 				"vacancies": "Stellenausschreibungen"
 			},
@@ -2154,11 +2165,19 @@
 		},
 		"footer": {
 			"aria_label": {
-				"footer":"footer",
+				"footer": "footer",
 				"love": "love"
 			},
 			"img_alt": {
 				"providerLogo": "Anbieterlogo"
+			}
+		},
+		"form_ChangeLanguage": {
+			"label": {
+				"language": "Sprache"
+			},
+			"placeholder": {
+				"text": "Bitte wählen..."
 			}
 		},
 		"form_auto_logout": {
@@ -2379,7 +2398,8 @@
 			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
 			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
-			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
+			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden."
 		}
 	},
 	"my_material": {
@@ -2482,7 +2502,7 @@
 	"registration": {
 		"_registration": {
 			"employee": {
-				"heading": {
+				"headline": {
 					"yourData": "Deine Daten"
 				},
 				"input": {
@@ -2503,13 +2523,14 @@
 					"openLogin": "Login öffnen",
 					"sendAndGetStarted": "Absenden & Loslegen"
 				},
-				"heading": {
+				"headline": {
+					"language": "Bitte wähle deine Sprache",
 					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
 				},
 				"label": {
 					"eMail": "E-Mail:",
-					"studentEmailAddress": "E-Mail-Adresse des Schülers:",
-					"studentsDateOfBirth": "Geburtsdatum des Schülers:",
+					"studentEmailAddress": "E-Mail-Adresse des Schülers/der Schülerin:",
+					"studentsDateOfBirth": "Geburtsdatum des Schülers/der Schülerin:",
 					"yourEmailAddress": "Ihre E-Mail-Adresse:"
 				},
 				"placeholder": {
@@ -2521,6 +2542,7 @@
 					"bellowNYearsOldConsentOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten",
 					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
 					"inCaseOfRevocationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a> entnehmen.",
+					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf Deinen Avatar tippst.",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
 					"password": "Passwort: ",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
@@ -2528,7 +2550,7 @@
 					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
 				}
 			},
-			"heading": {
+			"headline": {
 				"welcomeToTheRegistration": "Willkommen zur Anmeldung in der {{title}}!"
 			},
 			"label": {
@@ -2541,7 +2563,7 @@
 						"inThe": "in der"
 					}
 				},
-				"heading": {
+				"headline": {
 					"yourChildsData": "Daten Ihres Kindes",
 					"yourChildsSSO": "Der SSO-Account Ihres Kindes ist jetzt freigeschaltet."
 				},
@@ -2575,7 +2597,7 @@
 				}
 			},
 			"student": {
-				"heading": {
+				"headline": {
 					"personalData": "Persönliche Daten"
 				},
 				"input": {
@@ -2593,12 +2615,12 @@
 				"agreeSoThatYourChild": "zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
 				"letsTakeThisStepWithYouAndYourChild": "Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{shortTitle}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
 				"linguisticNoteWeUseMaleFormForReadability": "* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} teilweise die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
-				"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers:",
+				"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers/der Schülerin:",
 				"pleaseRegisterChildThenAgreeToTermsOfUse": "Wir bitten Sie, Ihr Kind zunächst in der {{shortTitle}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
 				"pleaseRegisterFirstAndAgreeToTerms": "Bitte registriere dich zunächst in der {{shortTitle}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
-				"registrationMustBeDoneByYou": "Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern.",
+				"registrationMustBeDoneByYou": "Die folgende Anmeldung muss von dir als Schüler:in selbst vorgenommen werden, nicht von deinen Eltern.",
 				"thankYouForTakingThisStepWithUs": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
-				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über {{independentAge}} sie selbst."
+				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers/der Schülerin* verändert sich der Anmeldeprozess. Bei Schülern:innen unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern:innen über {{independentAge}} sie selbst."
 			}
 		},
 		"deprecatedWarning": {
@@ -2619,7 +2641,7 @@
 			}
 		},
 		"registration_template": {
-			"heading": {
+			"headline": {
 				"invitationToThe": "Einladung in die"
 			},
 			"text": {
@@ -2766,8 +2788,7 @@
 					"deleteClass": "Klasse löschen",
 					"deleteMember": "Teilnehmer löschen",
 					"editMember": "Teilnehmer bearbeiten",
-					"externExpert": "Externe Experten",
-					"inviteByMail": "per E-Mail einladen",
+					"inviteByMail": "Via E-Mail einladen",
 					"selectFromIndex": "Aus Verzeichnis auswählen",
 					"teacherFromOtherSchool": "Lehrer anderer Schulen"
 				},
@@ -2783,12 +2804,11 @@
 					"inviteTeacherByEmail": "Lehrer per E-Mail einladen",
 					"inviteTeacherFromOtherSchool": "Lehrer anderer Schulen einladen",
 					"invitedOn": "Eingeladen am",
-					"member": "{{count}} Teilnehmer",
+					"member": "{{count}} Teilnehmer:innen",
 					"pendingInvitations": "Ausstehende Einladungen",
 					"requirements": "Voraussetzungen:",
 					"selectAndAddTeacher": "Lehrer auswählen und hinzufügen",
-					"teamMembers": "Team-Teilnehmer",
-					"whoDoYouWantToInvite": "Wen möchtest du ins Team einladen?"
+					"teamMembers": "Team-Teilnehmer:innen"
 				},
 				"label": {
 					"addTeacherStudentsFromSchool": "Füge Lehrer und Schüler deiner Schule zum Team hinzu",
@@ -2829,7 +2849,7 @@
 					"expert": "Externer Experte",
 					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
 					"inviteTeachersAndExpertsByEmail": "Lade Lehrer anderer Schulen und Experten per E-Mail ein.",
-					"member": "Teilnehmer",
+					"member": "Teilnehmer:innen",
 					"pleaseSelectRole": "Bitte wähle eine Rolle aus.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und Lehrer ihrer Schule zum Team hinzufügen.",
 					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
@@ -2852,8 +2872,8 @@
 				"invitationSuccessfullyAccepted": "Teameinladung erfolgreich angenommen.",
 				"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
 				"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
-				"messengerNotActiveInTeam": "Dieses schulübergreifende Team beinhaltet keinen Teamchat. Im Gegensatz zu deiner Schule ist in der Schule die das Team erstellt hat Chatten noch nicht durch den Administrator aktiviert.",
 				"messengerNotActivatedTitle": "Hinweis",
+				"messengerNotActiveInTeam": "Dieses schulübergreifende Team beinhaltet keinen Teamchat. Im Gegensatz zu deiner Schule ist in der Schule die das Team erstellt hat Chatten noch nicht durch den Administrator aktiviert.",
 				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
 				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
 			}
@@ -2891,12 +2911,10 @@
 			"button": {
 				"createTopic": "Thema anlegen"
 			},
-			"heading": {
+			"headline": {
+				"createTopic": "Thema anlegen",
 				"privateTasks": "Private Aufgaben",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialen"
-			},
-			"headline": {
-				"createTopic": "Thema anlegen"
 			},
 			"input": {
 				"countWithPrimeNumbers": "z.B. Rechnen mit Primzahlen"

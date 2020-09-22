@@ -179,7 +179,7 @@
 				<div class="col-sm-12 no-padding">
 					<!-- Admin View -->
 					{{#userHasPermission 'ADMIN_VIEW'}}
-					<h2 class="h4">Schule</h2>
+					<h2 class="h4">{{ $t "global.link.school" }}</h2>
 
 					<form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
 						<input type="hidden" name="_method" value="patch" />
@@ -200,8 +200,8 @@
 							<img id="preview-logo" src="">
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
-
-						{{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
+                        {{> "lib/forms/form-change-language" langParent=../school }}
+                        {{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
 							<h2 class="h6 mt-2">{{$t "administration.school.label.privacySettings" }}</h2>
 							<div class="form-group">
 								<label>
