@@ -185,9 +185,12 @@ const helpers = () => ({
 			.subtract(days, 'days')
 			.format(format);
 	},
-	dateToPicker: (date, opts) => moment(date).format('DD.MM.YYYY'),
-	dateTimeToPicker: (date, opts) => moment(date).format('DD.MM.YYYY HH:mm'),
-	timeToString: (date, opts) => {
+	dateToPicker: (date) => moment(date).format('DD.MM.YYYY'),
+	dateTimeToPicker: (date) => moment(date).format('DD.MM.YYYY HH:mm'),
+	i18nDate: (date) => i18n.i18nMoment(date).format('DD.MM.YYYY'),
+	i18nDateTime: (date) => i18n.i18nMoment(date).format('DD.MM.YYYY HH:mm'),
+	i18nDateString: (date) => i18n.i18nMoment(date).format('dddd, DD. MMMM YYYY'),
+	timeToString: (date) => {
 		const now = moment();
 		const d = moment(date);
 		if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
