@@ -9,6 +9,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [24.5.5] - 2020-09-22
+
+### Fixed
+
+  - SC-6630 Fixed email validation using an undefined value when inviting experts to a team.
+
+## [24.5.4] - 2020-09-21
+
+### Fixed
+
+  - SC-6762 Fix file upload permissions for evaluation
+
 ## [24.5.3] - 2020-09-18
 
 ### Fixed
