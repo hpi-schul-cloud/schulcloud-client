@@ -33,11 +33,11 @@
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 <span class="hidden-lg-down">Thema hinzufügen</span>
             </a>
-            <a href="#" data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic"
+            <button data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic"
                 title="Thema importieren">
                 <i class="fa fa-exchange" aria-hidden="true"></i>
                 <span class="hidden-lg-down">Thema importieren</span>
-            </a>
+            </button>
             {{/userHasPermission}}
             <h2 class="h4">Themen</h2>
 
@@ -54,7 +54,7 @@
                                 {{#userHasPermission "COURSE_EDIT"}}
                                 <a class="btn btn-secondary btn-sm btn-hidden-toggle" href="{{../_id}}"
                                     title="Thema verstecken">
-                                    <i class="fa fa-eye"></i>
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
                                 </a>
                                 {{/userHasPermission}}
                                 <p class="topic-label ml-1">{{this.name}}</p>
@@ -64,14 +64,14 @@
                                         href="/teams/{{../courseId}}/topics/{{../_id}}" target="_blank"
                                         data-method="DELETE" data-name="{{../name}}" redirect="/teams/{{../courseId}}"
                                         title="Thema löschen">
-                                        <i class="fa fa-trash-o"></i>
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                     <a class="btn btn-secondary btn-sm move-handle" title="Thema verschieben">
-                                        <i class="fa fa-arrows"></i>
+                                        <i class="fa fa-arrows" aria-hidden="true"></i>
                                     </a>
                                     <a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
                                         class="btn btn-secondary btn-sm btn-create-share" title="Thema teilen">
-                                        <i class="fa fa-share-alt"></i>
+                                        <i class="fa fa-share-alt" aria-hidden="true"></i>
                                     </a>
                                 </div>
                                 {{/userHasPermission}}
@@ -86,7 +86,7 @@
                             <div class="input-group">
                                 <a class="btn btn-secondary btn-sm btn-hidden-toggle" href="{{../_id}}"
                                     title="Thema wieder anzeigen">
-                                    <i class="fa fa-eye-slash"></i>
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </a>
                                 <p class="topic-label ml-1">{{../name}}</p>
                                 <div class="right-btn-group">
@@ -94,14 +94,14 @@
                                         href="/teams/{{../courseId}}/topics/{{../_id}}" target="_blank"
                                         data-method="DELETE" data-name="{{../name}}" redirect="/teams/{{../courseId}}"
                                         title="Thema löschen">
-                                        <i class="fa fa-trash-o"></i>
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
-                                    <a class="btn btn-secondary btn-sm move-handle" title="Thema verschieben">
-                                        <i class="fa fa-arrows"></i>
-                                    </a>
-                                    <a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
+                                    <button class="btn btn-secondary btn-sm move-handle" title="Thema verschieben">
+                                        <i class="fa fa-arrows" aria-hidden="true"></i>
+                                    </button>
+                                    <a href="#0" data-href="{{../_id}}" data-courseId="{{../courseId}}"
                                         class="btn btn-secondary btn-sm btn-create-share" title="Thema teilen">
-                                        <i class="fa fa-share-alt"></i>
+                                        <i class="fa fa-share-alt" aria-hidden="true"></i>
                                     </a>
                                 </div>
                             </div>
@@ -136,16 +136,16 @@
                     data-loclink="/teams/{{../_id}}/tools/show/{{this._id}}">
                     <p class="card-title-directory">
                         {{#if logo_url}}
-                        <img src={{this.logo_url}} class="float-left" />
+                        <img src={{this.logo_url}} class="float-left" alt="{{$t "partner.img_alt.logo"}}" />
                         {{else}}
-                        <img src="/images/cloud.png" class="float-left" />
+                        <img src="/images/cloud.png" class="float-left" alt="{{$t "partner.img_alt.logo"}}" />
                         {{/if}}
                         <span>{{this.name}}</span>
 
                         {{#userHasPermission "TOOL_CREATE" }}
                         <a class="delete-tool" href="/teams/{{../../_id}}/tools/delete/{{../_id}}" target="_blank"
                             data-method="DELETE" data-name="{{../name}}">
-                            <i class="fa fa-trash-o"></i>
+                            <i class="fa fa-trash-o" aria-label="{{$t "courses._course.topic.text.deleteTopic"}}"></i>
                         </a>
                         {{/userHasPermission}}
                     </p>
@@ -212,13 +212,13 @@
                 </h2>
             </a>
             <div id="homeworks" class="container-fluid collapse">
-                <ol class="homework">
-                    <div class="row">
+                <div class="homework">
+                    <ol class="row">
                         {{#each homeworks}}
                         {{> 'homework/components/course_overview_card_template'}}
                         {{/each}}
-                    </div>
-                </ol>
+                    </ol>
+                </div>
             </div>
         </div>
         <div class="col-sm-6">
@@ -239,13 +239,13 @@
                 </h2>
             </a>
             <div id="myhomeworks" class="container-fluid collapse">
-                <ol class="homework">
-                    <div class="row">
+                <div class="homework">
+                    <ol class="row">
                         {{#each myhomeworks}}
                         {{> 'homework/components/course_overview_card_template'}}
                         {{/each}}
-                    </div>
-                </ol>
+                    </ol>
+                </div>
             </div>
         </div>
     </div>

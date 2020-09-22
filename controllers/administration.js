@@ -850,7 +850,7 @@ router.post(
 		api(req).get('/users', { qs: { email }, $limit: 1 })
 			.then((users) => {
 				if (users.total === 1) {
-					sendMailHandler(users.data[0], req, res, true);
+					sendMailHandler({ ...users.data[0], email }, req, res, true);
 					res.status(200).json({ status: 'ok' });
 				} else {
 					res.status(500).send();
@@ -1176,7 +1176,7 @@ router.get(
 	'/students/:id/skipregistration',
 	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
 	(req, res, next) => {
-		api(req).get(`/users/${req.params.id}`)
+		api(req).get(`/users/admin/students/${req.params.id}`)
 			.then((user) => {
 				res.render('administration/users_skipregistration', {
 					title: res.$t('administration.controller.link.toGiveConsent'),
@@ -1323,11 +1323,6 @@ router.get(
 );
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
-	const role = await api(req).get('/roles', {
-		qs: { name: roleName },
-		$limit: false,
-	});
-	const qs = { roles: role.data[0]._id, $limit: false };
 	let users = [];
 
 	if (classId) {
@@ -1338,24 +1333,28 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 		});
 		users = klass.userIds;
 	} else {
+		const role = await api(req).get('/roles', {
+			qs: { name: roleName },
+			$limit: false,
+		});
+		const qs = { roles: role.data[0]._id, $limit: false };
 		users = (await api(req).get('/users', { qs, $limit: false })).data;
 	}
 
-	let usersWithMissingConsents = [];
+	const usersWithMissingConsents = [];
 	const batchSize = 50;
-	let slice = 0;
-	while (users.length !== 0 && slice * batchSize < users.length) {
-		usersWithMissingConsents = usersWithMissingConsents.concat(
-			(await api(req).get('/users/admin/students', {
+	while (users.length > 0) {
+		usersWithMissingConsents.push(
+			...(await api(req).get('/users/admin/students', {
 				qs: {
 					users: users
-						.slice(slice * batchSize, (slice + 1) * batchSize)
+						.splice(0, batchSize)
 						.map((u) => u._id),
 					consentStatus: ['missing', 'parentsAgreed'],
+					$limit: batchSize,
 				},
 			})).data,
 		);
-		slice += 1;
 	}
 
 	return usersWithMissingConsents;
