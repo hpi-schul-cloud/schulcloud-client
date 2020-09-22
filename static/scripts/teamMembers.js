@@ -229,7 +229,7 @@ $(document).ready(() => {
 		let email;
 
 		if (state.method === 'email') {
-			email = $(this).find(`div[data-role="${state.role}"] #email`).val();
+			email = $(this).find(`div[data-role="${state.role}"] input[name=email]`).val();
 
 			if (!validateEmail(email)) {
 				$.showNotification($t('teams._team.members.add.text.pleaseEnterValidEmail'), 'danger', true);
