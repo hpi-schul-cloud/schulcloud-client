@@ -1,7 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../../app');
-
+const { i18next } = require('../../../helpers/i18n');
 
 const { expect } = chai;
 const loginHelper = require('../helper/login-helper');
@@ -28,10 +28,10 @@ describe('Account tests', () => {
 			.get('/account/')
 			.end((err, res) => {
 				expect(res.statusCode).to.equal(200);
-				expect(res.text).to.contain('Dein Account');
-				expect(res.text).to.not.contain('Vorname');
+				expect(res.text).to.contain(i18next.t('account.headline.yourAccount'));
+				expect(res.text).to.not.contain(i18next.t('global.label.firstName'));
 				expect(res.text).to.contain('Marla');
-				expect(res.text).to.not.contain('Nachname');
+				expect(res.text).to.not.contain(i18next.t('global.label.lastName'));
 				expect(res.text).to.contain('Mathe');
 				resolve();
 			});
