@@ -14,32 +14,32 @@
             <div class="row card-deck-row">
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
-                        title=(concat '<i class="fa fa-user"></i> ' ($t 'files.label.myPersonalData'))
+                        title=(concat '<i class="fa fa-user"></i> '($t 'files.label.myPersonalData'))
                         secondaryTitle="<br />"
                         url='/files/my/'
-                        link-text=($t 'files.overview.button.openFiles')
-                        content=($t 'files.overview.text.PersonalFilesDesc')
+                        link-text=($t 'files.label.filesOpen')
+                        content=($t 'files.label.myPersonalDataContent')
                         background="#283E56"
                     }}
                 </div>
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
-                        title=(concat '<i class="fa fa-graduation-cap"></i> ' ($t 'files.overview.headline.myCourseFiles'))
+                        title=(concat '<i class="fa fa-graduation-cap"></i> '($t 'global.link.courseData'))
                         secondaryTitle="<br />"
                         url='/files/courses/'
-                        link-text=($t 'files.overview.button.openFiles')
-                        content=($t 'files.overview.text.CourseFilesDesc')
+                        link-text=($t 'files.label.filesOpen')
+                        content=($t 'global.link.courseDataContent')
                         background="#1989AC"
                     }}
                 </div>
                 {{#ifEnv "FEATURE_TEAMS_ENABLED" "true"}}
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
-                        title=(concat '<i class="fa fa-users"></i> ' ($t 'files.overview.headline.myTeamFiles'))
+                        title=(concat '<i class="fa fa-users"></i> '($t 'global.link.teamData'))
                         secondaryTitle="<br />"
                         url='/files/teams/'
-                        link-text=($t 'files.overview.button.openFiles')
-                        content=($t 'files.overview.text.TeamFilesDesc')
+                        link-text=($t 'files.label.filesOpen')
+                        content=($t 'global.link.filesContent')
                         background="#1989AC"
                     }}
                 </div>
@@ -49,8 +49,8 @@
                         title=(concat '<i class="fa fa-share-alt"></i> '($t 'files.label.filesSharedWithMe'))
                         secondaryTitle="<br />"
                         url='/files/shared/'
-                        link-text=($t 'files.overview.button.openFiles')
-                        content=($t 'files.overview.text.SharedFilesDesc')
+                        link-text=($t 'files.label.filesOpen')
+                        content=($t 'files.label.filesSharedWithMeContent')
                         background="#00B8A9"
                     }}
                 </div>
