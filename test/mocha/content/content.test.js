@@ -13,7 +13,7 @@ const { i18next } = require('../../../helpers/i18n');
 const expectedStringContentStore = i18next.t('content.headline.contentStore');
 const expectedStringResultsFound = i18next.t(
 	'content.headline.nSearchResultsFoundWith',
-	{ searchResultsTotal: '', query: 'Mathe' }
+	{ searchResultsTotal: '', query: 'Mathe' },
 ).trim();
 const expectedStringNoResultsFound = i18next.t('content.headline.noResultsFoundWith', { query: 'Mathe' });
 
