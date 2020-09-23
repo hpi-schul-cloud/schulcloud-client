@@ -179,7 +179,7 @@
 				<div class="col-sm-12 no-padding">
 					<!-- Admin View -->
 					{{#userHasPermission 'ADMIN_VIEW'}}
-					<h2 class="h4">Schule</h2>
+					<h2 class="h4">{{ $t "global.link.school" }}</h2>
 
 					<form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
 						<input type="hidden" name="_method" value="patch" />
