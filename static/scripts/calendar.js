@@ -100,7 +100,7 @@ $(document).ready(() => {
 			const { attributes } = event.extendedProps || {};
 
 			populateModalForm($editEventModal, {
-				title: $t('calendar.headline.dateDetails'),
+				title: $t('global.headline.dateDetails'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.save'),
 				fields: {
