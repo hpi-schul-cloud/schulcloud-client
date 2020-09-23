@@ -32,7 +32,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
   - SC-5287 Fixed OAuth2 login
-  - SC-6533 - Login not possible if admin reset password
   - SC-5707 Added detection of browser language
   - SC-5706 Added language selection within teacher registration
   - SC-6019 Added tabbar to classes administration
