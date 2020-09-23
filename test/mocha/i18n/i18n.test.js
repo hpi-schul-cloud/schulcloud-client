@@ -25,9 +25,7 @@ function getWrongTypes(json) {
 	for (const key in json) {
 		if (Object.prototype.hasOwnProperty.call(json, key)) {
 			const path = key.split('.');
-			if (path.length < 2) {
-				foundViolations.push(key);
-			} else if (!allowedTypes.includes(path[path.length - 2])) {
+			if (path.length < 2 || !allowedTypes.includes(path[path.length - 2])) {
 				foundViolations.push(key);
 			}
 		}
