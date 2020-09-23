@@ -97,7 +97,7 @@ $(document).ready(() => {
 			const startDate = moment(event.start).format('DD.MM.YYYY HH:mm');
 			const endDate = moment(event.end || event.start).format('DD.MM.YYYY HH:mm');
 
-			const {attributes} = event.extendedProps || {}
+			const { attributes } = event.extendedProps || {};
 
 			populateModalForm($editEventModal, {
 				title: $t('calendar.headline.dateDetails'),
