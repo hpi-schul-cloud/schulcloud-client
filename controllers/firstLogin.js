@@ -198,7 +198,7 @@ router.get('/', async (req, res, next) => {
 
 
 		// PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
-		const userHasAccount = await hasAccount(req, res, next);
+		const userHasAccount = await hasAccount(req, res);
 		if (!userHasAccount
 				|| (!(res.locals.currentUser.preferences || {}).firstLogin && isStudent(res))) {
 			submitPageIndex += 1;
