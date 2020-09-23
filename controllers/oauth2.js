@@ -86,30 +86,28 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
 
 router.post('/consent', auth.authChecker, (r, w) => acceptConsent(r, w, r.query.challenge, r.body.grantScopes, true));
 
-router.get('/username/:pseudonym', (req, res, next) => {
-	if(req.query.token) {
-		api(req).get('/pseudonym', {
-			qs: {
-				pseudonym: req.params.pseudonym,
-				token: req.query.token,
-			},
-		}).then((pseudonym) => {
-			let shortName;
-			let completeName;
-			const anonymousName = '???';
-			completeName = anonymousName;
-			shortName = completeName;
-			if (pseudonym.data.length) {
-				completeName = `${pseudonym.data[0].user.firstName} ${pseudonym.data[0].user.lastName}`;
-				shortName = `${pseudonym.data[0].user.firstName} ${pseudonym.data[0].user.lastName.charAt(0)}.`;
-			}
-			res.render('oauth2/username', {
-				completeName,
-				shortName,
-				infoText: res.$t('login.oauth2.text.yourNameIsProtected'),
-			});
+router.get('/username/:pseudonym', (req, res) => {
+	api(req).get('/pseudonym', {
+		qs: {
+			pseudonym: req.params.pseudonym,
+			token: req.query.token,
+		},
+	}).then((pseudonym) => {
+		let shortName;
+		let completeName;
+		const anonymousName = '???';
+		completeName = anonymousName;
+		shortName = completeName;
+		if (pseudonym.data.length) {
+			completeName = `${pseudonym.data[0].user.firstName} ${pseudonym.data[0].user.lastName}`;
+			shortName = `${pseudonym.data[0].user.firstName} ${pseudonym.data[0].user.lastName.charAt(0)}.`;
+		}
+		res.render('oauth2/username', {
+			completeName,
+			shortName,
+			infoText: res.$t('login.oauth2.text.yourNameIsProtected'),
 		});
-	}
+	});
 });
 
 module.exports = router;

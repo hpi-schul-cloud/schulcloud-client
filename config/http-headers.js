@@ -61,7 +61,7 @@ const config = {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://schul-cloud-hpi.s3.hidrive.strato.com',
 			},
 			'^/courses': {
-				defaultSrc: 'https://oauth.hotfix7.schul-cloud.dev https://nexboard.nexenio.com https://www.geogebra.org https://lti.tools https://codeocean.openhpi.de https://acc.bettermarks.com https://moodle.schul-cloud.org',
+				defaultSrc: 'https://nexboard.nexenio.com https://www.geogebra.org https://lti.tools https://codeocean.openhpi.de https://acc.bettermarks.com https://moodle.schul-cloud.org',
 				fontSrc: 'https://vjs.zencdn.net https://fonts.googleapis.com https://cdn.jsdelivr.net',
 				styleSrc: 'https://vjs.zencdn.net',
 			},
@@ -129,7 +129,6 @@ const config = {
 		'Access-Control-Allow-Credentials': 'true',
 		'Referrer-Policy': 'same-origin',
 		'Feature-Policy': "vibrate 'self'; speaker *; fullscreen *; sync-xhr *; notifications 'self'; push 'self'; geolocation 'self'; midi 'self'; microphone 'self'; camera 'self'; magnetometer 'self'; gyroscope 'self'; payment 'none';",
-		'X-Frame-Options': 'allow-from https://acc.bettermarks.com/',
 	},
 };
 
