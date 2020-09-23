@@ -7,7 +7,7 @@ const authHelper = require('../helpers/authentication');
 
 const converter = new showdown.Converter();
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS, SC_THEME } = require('../config/global');
+const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 
 const router = express.Router();
 

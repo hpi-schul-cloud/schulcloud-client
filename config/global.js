@@ -7,7 +7,7 @@ const {
 	EDTR_SOURCE = undefined,
 	EDITOR_URL = undefined,
 	SC_DOMAIN = 'localhost',
-	SC_THEME = 'demo',
+	SC_THEME = 'default',
 	SC_TITLE = 'HPI Schul-Cloud',
 	SC_SHORT_TITLE = 'HPI Schul-Cloud',
 	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/schul-cloud-hpi/',
