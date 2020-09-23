@@ -28,6 +28,20 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 // firstLogin
 router.get('/', async (req, res, next) => {
 	const { currentUser } = res.locals;
+
+	if (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED') === true) {
+		return api(req)
+			.post('/firstLogin/', { json: req.body })
+			.then(() => res.redirect('/dashboard'))
+			.catch((err) => {
+				res.status(500)
+					.send(
+						(err.error || err).message
+							|| res.$t('login.text.errorFirstLogin'),
+					);
+			});
+	}
+
 	if (
 		!currentUser.birthday && res.locals.currentRole === 'Schüler' // fixme identical to isStudent() here
 			&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
@@ -69,19 +83,6 @@ router.get('/', async (req, res, next) => {
 	} = await api(req)
 		.get(`/consents/${currentUser._id}/check/`);
 	let updatedConsents = {};
-
-	if (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED')) {
-		return api(req)
-			.post('/firstLogin/', { json: req.body })
-			.then(() => res.redirect('/dashboard'))
-			.catch((err) => {
-				res.status(500)
-					.send(
-						(err.error || err).message
-							|| res.$t('login.text.errorFirstLogin'),
-					);
-			});
-	}
 
 	if (Configuration.get('FEATURE_TSP_AUTO_CONSENT_ENABLED')) {
 		const isNewTspUser = res.locals.currentUser.source === 'tsp' && res.locals.currentUser.birthday;
