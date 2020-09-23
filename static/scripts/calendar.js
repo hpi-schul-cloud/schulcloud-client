@@ -11,8 +11,6 @@ $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
 
-	const reloadCalendar = window.location.reload;
-
 	function showAJAXError(req, textStatus, errorThrown) {
 		$editEventModal.modal('hide');
 		if (textStatus === 'timeout') {
@@ -96,26 +94,34 @@ $(document).ready(() => {
 				return false;
 			}
 			// personal event
-			event.startDate = moment(event.start).format('DD.MM.YYYY HH:mm');
-			event.endDate = moment(event.end || event.start).format('DD.MM.YYYY HH:mm');
+			const startDate = moment(event.start).format('DD.MM.YYYY HH:mm');
+			const endDate = moment(event.end || event.start).format('DD.MM.YYYY HH:mm');
+
+			const {attributes} = event.extendedProps || {}
 
 			populateModalForm($editEventModal, {
 				title: $t('calendar.headline.dateDetails'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.save'),
-				fields: event,
-				action: `/calendar/events/${event.attributes.uid}`,
+				fields: {
+					summary: attributes.summary,
+					startDate,
+					endDate,
+					description: attributes.description,
+					location: attributes.location,
+				},
+				action: `/calendar/events/${attributes.uid}`,
 			});
 
 			if (!event['x-sc-teamId']) { // course or non-course event
 				transformCourseOrTeamEvent($editEventModal, event);
 				$editEventModal.find('.btn-delete').click(() => {
 					$.ajax({
-						url: `/calendar/events/${event.attributes.uid}`,
+						url: `/calendar/events/${attributes.uid}`,
 						type: 'DELETE',
 						error: showAJAXError,
 						success(result) {
-							reloadCalendar();
+							window.location.reload();
 						},
 					});
 				});
