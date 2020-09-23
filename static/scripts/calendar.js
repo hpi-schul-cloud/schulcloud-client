@@ -22,8 +22,8 @@ $(document).ready(() => {
 
 	/**
 	 * Transforms an event modal-form for course/team events
-	 * @param modal {DOM-Element} - the given modal which will be transformed
-	 * @param event {object} - an event, might be a course/team event
+	 * @param modal {HTMLElement} - the given modal which will be transformed
+	 * @param event {Object} - an event, might be a course/team event
 	 */
 	function transformCourseOrTeamEvent(modal, event) {
 		if (event['x-sc-courseId']) {
