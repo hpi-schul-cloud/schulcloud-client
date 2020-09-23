@@ -34,13 +34,13 @@ jobs:
         - mv !(schulcloud-client) schulcloud-client
         # clone other required repositories and try to switch to branch with same name as current one
         - |
-          git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
+          git clone https://github.com/hpi-schul-cloud/schulcloud-server.git schulcloud-server
           cd schulcloud-server
           git checkout "$TRAVIS_BRANCH"
           echo "Currently active branch for schulcloud-server: $(git branch | grep \* | cut -d ' ' -f2)"
           cd ..
         - |
-          git clone https://github.com/schul-cloud/docker-compose.git docker-compose
+          git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
           cd docker-compose
           git checkout "$TRAVIS_BRANCH"
           echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
