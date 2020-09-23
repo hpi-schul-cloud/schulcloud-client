@@ -96,8 +96,8 @@ $(document).ready(() => {
 				return false;
 			}
 			// personal event
-			event.startDate = event.start.format('DD.MM.YYYY HH:mm');
-			event.endDate = (event.end || event.start).format('DD.MM.YYYY HH:mm');
+			event.startDate = moment(event.start).format('DD.MM.YYYY HH:mm');
+			event.endDate = moment(event.end || event.start).format('DD.MM.YYYY HH:mm');
 
 			populateModalForm($editEventModal, {
 				title: $t('calendar.headline.dateDetails'),
