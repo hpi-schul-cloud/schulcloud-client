@@ -37,12 +37,12 @@ jobs:
         - |
           git clone https://github.com/hpi-schul-cloud/schulcloud-server.git schulcloud-server
           cd schulcloud-server
-          if [[ $BRANCH_NAME = hotfix* ]]
+          if [[ $TRAVIS_PULL_REQUEST_BRANCH = hotfix* ]]
           then
-            echo "Originating branch hotfix detected. Tests will run against Server master."
+            echo "Originating branch hotfix detected. Force testing against Server master."
             git checkout master
           else
-            git checkout "$BRANCH_NAME"
+            git checkout "$TRAVIS_PULL_REQUEST_BRANCH" || git checkout "$TRAVIS_BRANCH"
           fi
           echo "Currently active branch for schulcloud-server: $(git branch | grep \* | cut -d ' ' -f2)"
           cd ..
