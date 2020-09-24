@@ -15,7 +15,6 @@ env:
     - PUBLIC_BACKEND_URL=http://localhost:3030
     - FEATURE_TEAMS_ENABLED=true
     - LERNSTORE_MODE=LEGACY
-    - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 stages:
   - name: Test
     if: NOT (commit_message =~ /(skip-test-stage)/)
@@ -49,7 +48,13 @@ jobs:
         - |
           git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
           cd docker-compose
-          git checkout "$BRANCH_NAME"
+          if [[ $TRAVIS_PULL_REQUEST_BRANCH = hotfix* ]]
+          then
+            echo "Originating branch hotfix detected. Force testing against Server master."
+            git checkout master
+          else
+            git checkout "$TRAVIS_PULL_REQUEST_BRANCH" || git checkout "$TRAVIS_BRANCH"
+          fi
           echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
           cd ..
       install:
