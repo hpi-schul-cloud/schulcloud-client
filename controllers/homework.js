@@ -404,7 +404,9 @@ router.post('/submit/:id/files/:fileId/permissions', async (req, res) => {
 		if (teamMembers) {
 			// wait for result now
 			// todo move logic to backend
-			await addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId]);
+			await addFilePermissionsForTeamMembers(
+				req, teamMembers, homework.courseGroupId, [fileId],
+			);
 		}
 		res.json(file);
 	} catch (err) {
@@ -472,7 +474,7 @@ const overview = (titleKey) => (req, res, next) => {
 		// ist der aktuelle Benutzer ein Schueler? -> Für Sichtbarkeit von Daten benötigt
 		api(req).get(`/users/${userId}`, {
 			qs: {
-				$populate: ['roles', 'courseId'],
+				$populate: ['roles'],
 			},
 		}).then((user) => {
 			const isStudent = (user.roles.map((role) => role.name).indexOf('student') != -1);

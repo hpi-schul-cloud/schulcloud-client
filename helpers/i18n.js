@@ -1,4 +1,6 @@
 const i18next = require('i18next');
+const i18nMoment = require('moment');
+
 const Backend = require('i18next-sync-fs-backend');
 const path = require('path');
 const { Configuration } = require('@schul-cloud/commons');
@@ -88,6 +90,7 @@ const getInstance = () => (key, options = {}) => i18next.t(key, {
 
 const changeLanguage = (lng) => {
 	if (availableLanguages.includes(lng)) {
+		i18nMoment.locale(lng);
 		return i18next.changeLanguage(lng);
 	}
 	return false;
@@ -102,4 +105,5 @@ module.exports = {
 	changeLanguage,
 	getCurrentLanguage,
 	getBrowserLanguage,
+	i18nMoment,
 };
