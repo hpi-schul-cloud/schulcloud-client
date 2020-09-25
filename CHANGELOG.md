@@ -9,6 +9,30 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [24.5.7] - 2020-09-22
+
+### Fixed
+
+  - SC-6845 Fixed reset of consent property if inputs disabled
+
+## [24.5.6] - 2020-09-22
+
+### Fixed
+
+  - SC-6823 - Fixed inserting media in comments for homework correction
+
+## [24.5.5] - 2020-09-22
+
+### Fixed
+
+  - SC-6630 Fixed email validation using an undefined value when inviting experts to a team.
+
+## [24.5.4] - 2020-09-21
+
+### Fixed
+
+  - SC-6762 Fix file upload permissions for evaluation
+
 ## [24.5.3] - 2020-09-18
 
 ### Fixed
@@ -32,6 +56,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 - SC-6533 - Login not possible if admin reset password
 
+  - SC-5707 Added detection of browser language
+  - SC-5706 Added language selection within teacher registration
+  - SC-6019 Added tabbar to classes administration
+  - SC-5955 Changed links to Lernen.cloud
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
   - SC-6245 If students can create teams, they can also invite other students to teams
 
 ## [24.4.1] - 2020-9-01

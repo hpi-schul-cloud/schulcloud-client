@@ -27,6 +27,7 @@ const {
 	SC_THEME,
 	REDIS_URI,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
+	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
 	JWT_TIMEOUT_SECONDS,
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
@@ -181,6 +182,9 @@ app.use(async (req, res, next) => {
 	res.locals.production = req.app.get('env') === 'production';
 	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
 	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
+	res.locals.MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = Number(MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE);
+	// eslint-disable-next-line max-len
+	res.locals.MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_MEGABYTE = (MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE / 1024 / 1024);
 	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
 	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
 	res.locals.version = version;
@@ -222,7 +226,7 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 app.use(require('./middleware/i18n'));
 
 // Initialize the modules and their routes
-app.use(require('./controllers/'));
+app.use(require('./controllers'));
 
 app.get('/', (req, res, next) => {
 	res.redirect('/login/');
@@ -233,7 +237,15 @@ app.use(Sentry.Handlers.errorHandler());
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-	const err = new Error('Not Found');
+	const reqInfo = {
+		location: 'Page Not Found express catcher',
+		url: req.originalUrl || req.url,
+		method: req.originalMethod || req.method,
+		params: req.params,
+		body: req.body,
+	};
+	logger.error(reqInfo);
+	const err = new Error(`Page Not Found ${reqInfo.url}`);
 	err.status = 404;
 	next(err);
 });
