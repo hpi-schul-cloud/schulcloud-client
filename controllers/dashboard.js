@@ -3,14 +3,13 @@
  */
 
 const express = require('express');
-const moment = require('moment');
+const i18n = require('../helpers/i18n');
 const logger = require('../helpers/logger');
 
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 
-moment.locale('de');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 
 const { error, warn } = require('../helpers/logger');
@@ -95,7 +94,7 @@ router.get('/', (req, res, next) => {
 				const eventEndRelativeMinutes = ((eventEnd.getUTCHours() - timeStart) * 60) + eventEnd.getMinutes();
 				const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
 
-				event.comment = `${moment.utc(eventStart).format('kk:mm')} - ${moment.utc(eventEnd).format('kk:mm')}`;
+				event.comment = `${i18n.i18nMoment.utc(eventStart).format('kk:mm')} - ${i18n.i18nMoment.utc(eventEnd).format('kk:mm')}`;
 				event.style = {
 					left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
 					width: 100 * (eventDuration / numMinutes), // percent
@@ -155,7 +154,7 @@ router.get('/', (req, res, next) => {
 		})
 		.then((data) => data.data.map((homeworks) => {
 			homeworks.secondaryTitle = homeworks.dueDate
-				? moment(homeworks.dueDate).fromNow()
+				? i18n.i18nMoment(homeworks.dueDate).fromNow()
 				: res.$t('dashboard.text.noDueDate');
 			if (homeworks.courseId != null) {
 				homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
@@ -196,7 +195,7 @@ router.get('/', (req, res, next) => {
 		.then((news) => news.data
 			.map((n) => {
 				n.url = `/news/${n._id}`;
-				n.secondaryTitle = moment(n.displayAt).fromNow();
+				n.secondaryTitle = i18n.i18nMoment(n.displayAt).fromNow();
 				return n;
 			})
 			.sort(sortFunction)
@@ -315,7 +314,7 @@ router.get('/', (req, res, next) => {
 			res.render('dashboard/dashboard', {
 				title: res.$t('dashboard.headline.title'),
 				events: events.reverse(),
-				eventsDate: moment().format('dddd, DD. MMMM YYYY'),
+				eventsDate: i18n.i18nMoment().format('dddd, DD. MMMM YYYY'),
 				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
 						(task) => !task.private
@@ -330,7 +329,7 @@ router.get('/', (req, res, next) => {
 				hours,
 				currentTimePercentage,
 				showNewReleaseModal: newRelease,
-				currentTime: moment(currentTime).format('HH:mm'),
+				currentTime: i18n.i18nMoment(currentTime).format('HH:mm'),
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
 				displayDataprivacyAlert,

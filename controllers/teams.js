@@ -2,8 +2,8 @@
 
 const _ = require('lodash');
 const express = require('express');
-const moment = require('moment');
 const { Configuration } = require('@schul-cloud/commons');
+const i18n = require('../helpers/i18n');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -18,7 +18,6 @@ const {
 } = require('../config/global');
 
 const router = express.Router();
-moment.locale('de');
 
 const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference', 'messenger'];
 
@@ -222,7 +221,7 @@ const copyCourseHandler = (req, res, next) => {
 		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
-			const duration = moment.duration(time.startTime);
+			const duration = i18n.i18nMoment.duration(time.startTime);
 			time.startTime = `${`00${duration.hours()}`.slice(
 				-2,
 			)}:${`00${duration.minutes()}`.slice(-2)}`;
@@ -231,10 +230,10 @@ const copyCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = moment(new Date(course.startDate).getTime()).format(
+			course.startDate = i18n.i18nMoment(new Date(course.startDate).getTime()).format(
 				'DD.MM.YYYY',
 			);
-			course.untilDate = moment(new Date(course.untilDate).getTime()).format(
+			course.untilDate = i18n.i18nMoment(new Date(course.untilDate).getTime()).format(
 				'DD.MM.YYYY',
 			);
 		}
@@ -292,7 +291,7 @@ router.get('/', async (req, res, next) => {
 		team.background = team.color;
 		team.memberAmount = team.userIds.length;
 		(team.times || []).forEach((time) => {
-			time.startTime = moment(time.startTime, 'x')
+			time.startTime = i18n.i18nMoment(time.startTime, 'x')
 				.utc()
 				.format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
@@ -341,19 +340,19 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
 	// map course times to fit model
 	(req.body.times || []).forEach((time) => {
-		time.startTime = moment.duration(time.startTime, 'HH:mm').asMilliseconds();
+		time.startTime = i18n.i18nMoment.duration(time.startTime, 'HH:mm').asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	req.body.startDate = i18n.i18nMoment(req.body.startDate, 'DD:MM:YYYY')._d;
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	req.body.untilDate = i18n.i18nMoment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
+	if (!i18n.i18nMoment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
+	if (!i18n.i18nMoment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
 
@@ -381,19 +380,19 @@ router.post('/', async (req, res, next) => {
 router.post('/copy/:teamId', (req, res, next) => {
 	// map course times to fit model
 	(req.body.times || []).forEach((time) => {
-		time.startTime = moment.duration(time.startTime, 'HH:mm').asMilliseconds();
+		time.startTime = i18n.i18nMoment.duration(time.startTime, 'HH:mm').asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	req.body.startDate = i18n.i18nMoment(req.body.startDate, 'DD:MM:YYYY')._d;
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	req.body.untilDate = i18n.i18nMoment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
+	if (!i18n.i18nMoment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
+	if (!i18n.i18nMoment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
 
@@ -634,7 +633,7 @@ router.get('/:teamId', async (req, res, next) => {
 			.then((newsres) => newsres.data
 				.map((n) => {
 					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
-					n.secondaryTitle = moment(n.displayAt).fromNow();
+					n.secondaryTitle = i18n.i18nMoment(n.displayAt).fromNow();
 					return n;
 				})
 				.sort(sortFunction)
@@ -659,8 +658,8 @@ router.get('/:teamId', async (req, res, next) => {
 			});
 			events = events
 				.map((event) => {
-					const start = moment(event.start).utc();
-					const end = moment(event.end).utc();
+					const start = i18n.i18nMoment(event.start).utc();
+					const end = i18n.i18nMoment(event.end).utc();
 					event.day = start.format('D');
 					event.month = start
 						.format('MMM')
@@ -745,19 +744,19 @@ router.patch('/:teamId', async (req, res, next) => {
 	// map course times to fit model
 	req.body.times = req.body.times || [];
 	req.body.times.forEach((time) => {
-		time.startTime = moment.duration(time.startTime).asMilliseconds();
+		time.startTime = i18n.i18nMoment.duration(time.startTime).asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	req.body.startDate = i18n.i18nMoment(req.body.startDate, 'DD:MM:YYYY')._d;
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	req.body.untilDate = i18n.i18nMoment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
+	if (!i18n.i18nMoment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
+	if (!i18n.i18nMoment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
 
@@ -819,12 +818,12 @@ router.delete('/:teamId', async (req, res, next) => {
 
 router.post('/:teamId/events/', (req, res, next) => {
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(
+	req.body.startDate = i18n.i18nMoment(
 		req.body.startDate,
 		'DD.MM.YYYY HH:mm',
 	)._d.toLocalISOString();
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = moment(
+	req.body.endDate = i18n.i18nMoment(
 		req.body.endDate,
 		'DD.MM.YYYY HH:mm',
 	)._d.toLocalISOString();
@@ -842,12 +841,12 @@ router.post('/:teamId/events/', (req, res, next) => {
 
 router.put('/events/:eventId', (req, res, next) => {
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(
+	req.body.startDate = i18n.i18nMoment(
 		req.body.startDate,
 		'DD.MM.YYYY HH:mm',
 	)._d.toLocalISOString();
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = moment(
+	req.body.endDate = i18n.i18nMoment(
 		req.body.endDate,
 		'DD.MM.YYYY HH:mm',
 	)._d.toLocalISOString();
@@ -1121,7 +1120,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 		const bodyInvitations = team.invitedUserIds.map((invitation) => [
 			invitation.email,
-			moment(invitation.createdAt).format('DD.MM.YYYY'),
+			i18n.i18nMoment(invitation.createdAt).format('DD.MM.YYYY'),
 			roleTranslations[invitation.role],
 			{
 				payload: {

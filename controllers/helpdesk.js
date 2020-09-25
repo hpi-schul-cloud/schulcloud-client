@@ -4,11 +4,11 @@ const router = express.Router();
 const logger = require('winston');
 const fileUpload = require('express-fileupload');
 const UAParser = require('ua-parser-js');
-const moment = require('moment');
 const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
 const recurringEventsHelper = require('../helpers/recurringEvents');
+const i18n = require('../helpers/i18n');
 
 const { CALENDAR_SERVICE_ENABLED } = require('../config/global');
 
@@ -39,16 +39,16 @@ const mapEventProps = (data, service) => {
 		// map course times to fit into UI
 		(data.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
-			time.startTime = moment(time.startTime, 'x').format('HH:mm');
+			time.startTime = i18n.i18nMoment(time.startTime, 'x').format('HH:mm');
 			time.count = count;
 		});
 
 		// format course start end until date
 		if (data.startDate) {
-			data.startDate = moment(new Date(data.startDate).getTime()).format(
+			data.startDate = i18n.i18nMoment(new Date(data.startDate).getTime()).format(
 				'YYYY-MM-DD',
 			);
-			data.untilDate = moment(new Date(data.untilDate).getTime()).format(
+			data.untilDate = i18n.i18nMoment(new Date(data.untilDate).getTime()).format(
 				'YYYY-MM-DD',
 			);
 		}
@@ -414,7 +414,7 @@ router.all(
 					truncate(item.currentState || ''),
 					truncate(item.targetState || ''),
 					res.$t(`administration.controller.text.${item.state}`),
-					moment(item.createdAt).format('DD.MM.YYYY'),
+					i18n.i18nMoment(item.createdAt).format('DD.MM.YYYY'),
 					truncate(item.notes || ''),
 					getTableActionsSend(item, '/helpdesk/', item.state, res),
 				]);

@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const express = require('express');
-const moment = require('moment');
+const i18n = require('../helpers/i18n');
 
 const router = express.Router({ mergeParams: true });
 const api = require('../api');
@@ -127,7 +127,7 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			s.title = res.$t('courses._course.groups._group.headline.homework', { name: s.homeworkId.name });
 			s.content = s.homeworkId.description.substr(0, 140);
 			// eslint-disable-next-line max-len
-			s.secondaryTitle = res.$t('courses._course.groups._group.text.submittedOn', { ddmmyy_hhmm: moment(s.updatedAt).format('DD.MM.YY HH:mm') });
+			s.secondaryTitle = res.$t('courses._course.groups._group.text.submittedOn', { ddmmyy_hhmm: i18n.i18nMoment(s.updatedAt).format('DD.MM.YY HH:mm') });
 			s.background = course.color;
 			s.url = `/homework/${s.homeworkId._id}/#activetabid=submission`;
 			return s;
@@ -145,7 +145,7 @@ router.get('/:courseGroupId/', (req, res, next) => {
 				os.title = res.$t('courses._course.groups._group.headline.homework', { name: os.name });
 				os.content = os.description.substr(0, 140);
 				// eslint-disable-next-line max-len
-				os.secondaryTitle = res.$t('courses._course.groups._group.text.dueTo', { date: moment(os.dueDate).format('DD.MM.YY HH:mm') });
+				os.secondaryTitle = res.$t('courses._course.groups._group.text.dueTo', { date: i18n.i18nMoment(os.dueDate).format('DD.MM.YY HH:mm') });
 				os.background = course.color;
 				os.url = `/homework/${os._id}`;
 				return os;

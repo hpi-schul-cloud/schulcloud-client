@@ -5,7 +5,6 @@
 
 const express = require('express');
 const logger = require('winston');
-const moment = require('moment');
 const multer = require('multer');
 const encoding = require('encoding-japanese');
 const _ = require('lodash');
@@ -16,13 +15,13 @@ const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const redirectHelper = require('../helpers/redirect');
+const i18n = require('../helpers/i18n');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 const { CALENDAR_SERVICE_ENABLED, HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 
-moment.locale('de');
 
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
@@ -64,16 +63,16 @@ const mapEventProps = (data, service) => {
 		// map course times to fit into UI
 		(data.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
-			time.startTime = moment(time.startTime, 'x').format('HH:mm');
+			time.startTime = i18n.i18nMoment(time.startTime, 'x').format('HH:mm');
 			time.count = count;
 		});
 
 		// format course start end until date
 		if (data.startDate) {
-			data.startDate = moment(new Date(data.startDate).getTime()).format(
+			data.startDate = i18n.i18nMoment(new Date(data.startDate).getTime()).format(
 				'YYYY-MM-DD',
 			);
-			data.untilDate = moment(new Date(data.untilDate).getTime()).format(
+			data.untilDate = i18n.i18nMoment(new Date(data.untilDate).getTime()).format(
 				'YYYY-MM-DD',
 			);
 		}
@@ -114,7 +113,7 @@ const mapTimeProps = (req, res, next) => {
 	// map course times to fit model
 	req.body.times = req.body.times || [];
 	(req.body.times || []).forEach((time) => {
-		time.startTime = moment.duration(time.startTime, 'HH:mm').asMilliseconds();
+		time.startTime = i18n.i18nMoment.duration(time.startTime, 'HH:mm').asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
@@ -983,7 +982,7 @@ router.get(
 						classesString,
 					];
 					if (hasEditPermission) {
-						row.push(moment(user.createdAt).format('DD.MM.YYYY'));
+						row.push(i18n.i18nMoment(user.createdAt).format('DD.MM.YYYY'));
 						row.push({
 							useHTML: true,
 							content: icon,
@@ -1276,7 +1275,7 @@ router.get(
 						user.lastName || '',
 						user.email || '',
 						user.classes.join(', ') || '',
-						moment(user.createdAt).format('DD.MM.YYYY'),
+						i18n.i18nMoment(user.createdAt).format('DD.MM.YYYY'),
 						{
 							useHTML: true,
 							content: `<p class="text-center m-0">${icon}</p>`,
@@ -2727,7 +2726,7 @@ router.all('/teams', async (req, res, next) => {
 							useHTML: true,
 							content: getTeamSchoolsButton(item.schools.length),
 						},
-						moment(item.createdAt).format('DD.MM.YYYY'),
+						i18n.i18nMoment(item.createdAt).format('DD.MM.YYYY'),
 						{
 							useHTML: true,
 							content: getTeamFlags(item, res),

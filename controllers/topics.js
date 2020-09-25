@@ -1,4 +1,3 @@
-const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
 const Nexboard = require('nexboard-api-js');
@@ -9,6 +8,7 @@ const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const logger = require('../helpers/logger');
 const { EDTR_SOURCE } = require('../config/global');
+const i18n = require('../helpers/i18n');
 
 const router = express.Router({ mergeParams: true });
 
@@ -260,8 +260,8 @@ router.post('/', async (req, res, next) => {
 
 	data.contents = data.contents.filter(c => c !== undefined);
 
-	data.time = moment(data.time || 0, 'HH:mm').toString();
-	data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
+	data.time = i18n.i18nMoment(data.time || 0, 'HH:mm').toString();
+	data.date = i18n.i18nMoment(data.date || 0, 'YYYY-MM-DD').toString();
 
 	// what? req.query.courseGroup ? '' : delete data.courseGroupId;
 	if (!req.query.courseGroup) {
@@ -404,8 +404,8 @@ router.patch('/:topicId', async (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	const data = req.body;
 
-	data.time = moment(data.time || 0, 'HH:mm').toString();
-	data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
+	data.time = i18n.i18nMoment(data.time || 0, 'HH:mm').toString();
+	data.date = i18n.i18nMoment(data.date || 0, 'YYYY-MM-DD').toString();
 
 	if (!data.courseId && !req.query.courseGroup) {
 		data.courseId = req.params.courseId;
