@@ -704,7 +704,7 @@ class TopicGeoGebra extends TopicBlock {
                 </span>
                 <input
 					className="form-control"
-					aria-label="GeoGebra ID"
+					aria-label={$t('topic.topicEdit.aria_label.geoGebraID')}
                     id={this.editorId}
                     onChange={this.updateMaterialId.bind(this)}
                     value={(this.props.content || {}).materialId}

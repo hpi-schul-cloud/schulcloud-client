@@ -2959,7 +2959,8 @@
 		},
 		"topicEdit": {
 			"aria_label":{
-				"chooseContent" : "Choose the types of contents for your topic"
+				"chooseContent" : "Choose the types of contents for your topic",
+				"geoGebraID": "GeoGebra ID"
 			},
 			"button": {
 				"etherpad": "Etherpad",
