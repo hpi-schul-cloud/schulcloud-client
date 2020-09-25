@@ -5,9 +5,9 @@
 const express = require('express');
 
 const router = express.Router();
+const moment = require('moment');
 const api = require('../api');
 const recurringEventsHelper = require('../helpers/recurringEvents');
-const i18n = require('../helpers/i18n');
 
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
@@ -43,9 +43,9 @@ router.get('/events/', (req, res, next) => {
 
 router.post('/events/', (req, res, next) => {
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = i18n.i18nMoment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+	req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = i18n.i18nMoment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+	req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 
 	if (req.body.courseId && req.body.courseId !== '') {
 		req.body.scopeId = req.body.courseId;
@@ -72,9 +72,9 @@ router.delete('/events/:eventId', (req, res, next) => {
 
 router.put('/events/:eventId', (req, res, next) => {
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = i18n.i18nMoment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+	req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = i18n.i18nMoment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+	req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 
 	api(req).put(`/calendar/${req.params.eventId}`, {
 		json: req.body,

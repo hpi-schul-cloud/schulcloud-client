@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 const _ = require('lodash');
 const express = require('express');
+const moment = require('moment');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const { EDITOR_URL } = require('../config/global');
@@ -9,7 +10,6 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
-const i18n = require('../helpers/i18n');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger'];
 
@@ -172,7 +172,7 @@ const editCourseHandler = (req, res, next) => {
 
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
-			const duration = i18n.i18nMoment.duration(time.startTime);
+			const duration = moment.duration(time.startTime);
 			const hoursString = `00${duration.hours()}`.slice(-2);
 			const minutsString = `00${duration.minutes()}`.slice(-2);
 			time.startTime = `${hoursString}:${minutsString}`;
@@ -187,10 +187,10 @@ const editCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = i18n.i18nMoment(
+			course.startDate = moment(
 				new Date(course.startDate).getTime(),
 			).format('DD.MM.YYYY');
-			course.untilDate = i18n.i18nMoment(
+			course.untilDate = moment(
 				new Date(course.untilDate).getTime(),
 			).format('DD.MM.YYYY');
 		}
@@ -307,7 +307,7 @@ const copyCourseHandler = (req, res, next) => {
 		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
-			const duration = i18n.i18nMoment.duration(time.startTime);
+			const duration = moment.duration(time.startTime);
 			const hoursString = `00${duration.hours()}`.slice(-2);
 			const minutsString = `00${duration.minutes()}`.slice(-2);
 			time.startTime = `${hoursString}:${minutsString}`;
@@ -316,10 +316,10 @@ const copyCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = i18n.i18nMoment(
+			course.startDate = moment(
 				new Date(course.startDate).getTime(),
 			).format('DD.MM.YYYY');
-			course.untilDate = i18n.i18nMoment(
+			course.untilDate = moment(
 				new Date(course.untilDate).getTime(),
 			).format('DD.MM.YYYY');
 		}
@@ -387,7 +387,7 @@ const enrichCourse = (course, res) => {
 	course.background = course.color;
 	course.memberAmount = course.userIds.length;
 	(course.times || []).forEach((time) => {
-		time.startTime = i18n.i18nMoment(time.startTime, 'x').utc().format('HH:mm');
+		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
 		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''}</div>`;
 	});
@@ -481,19 +481,19 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
 	// map course times to fit model
 	(req.body.times || []).forEach((time) => {
-		time.startTime = i18n.i18nMoment
+		time.startTime = moment
 			.duration(time.startTime, 'HH:mm')
 			.asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = i18n.i18nMoment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = i18n.i18nMoment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!i18n.i18nMoment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
+	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
 	}
-	if (!i18n.i18nMoment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
+	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
 
@@ -514,19 +514,19 @@ router.post('/', (req, res, next) => {
 router.post('/copy/:courseId', (req, res, next) => {
 	// map course times to fit model
 	(req.body.times || []).forEach((time) => {
-		time.startTime = i18n.i18nMoment
+		time.startTime = moment
 			.duration(time.startTime, 'HH:mm')
 			.asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = i18n.i18nMoment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = i18n.i18nMoment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!i18n.i18nMoment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
+	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
 	}
-	if (!i18n.i18nMoment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
+	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
 
@@ -764,12 +764,12 @@ router.patch('/:courseId', (req, res, next) => {
 	// map course times to fit model
 	req.body.times = req.body.times || [];
 	req.body.times.forEach((time) => {
-		time.startTime = i18n.i18nMoment.duration(time.startTime).asMilliseconds();
+		time.startTime = moment.duration(time.startTime).asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = i18n.i18nMoment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = i18n.i18nMoment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
 	if (!req.body.classIds) {
 		req.body.classIds = [];
@@ -781,10 +781,10 @@ router.patch('/:courseId', (req, res, next) => {
 		req.body.substitutionIds = [];
 	}
 
-	if (!i18n.i18nMoment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
+	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
 	}
-	if (!i18n.i18nMoment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
+	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
 

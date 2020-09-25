@@ -8,7 +8,6 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
 $(document).ready(() => {
-	const calendarLanguage = document.querySelector('html').getAttribute('lang') === 'de' ? deLocale : enLocale;
 
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
@@ -71,6 +70,7 @@ $(document).ready(() => {
 
 	const view = window.location.hash.substring(1);
 
+	const calendarLanguage = document.querySelector('html').getAttribute('lang') === 'de' ? deLocale : enLocale;
 
 	const calendar = new Calendar(calendarElement, {
 		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],

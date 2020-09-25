@@ -3,11 +3,12 @@
  */
 
 const express = require('express');
+const moment = require('moment');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
-const i18n = require('../helpers/i18n');
 
 const router = express.Router();
+moment.locale('de');
 
 router.use(authHelper.authChecker);
 
@@ -55,12 +56,12 @@ router.post('/', (req, res, next) => {
 	const { body } = req;
 	if (body.displayAt && body.displayAt !== '__.__.____ __:__') {
 		// rewrite german format to ISO
-		body.displayAt = i18n.i18nMoment(body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+		body.displayAt = moment(body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
 	} else {
 		body.displayAt = undefined;
 	}
 	body.creatorId = res.locals.currentUser._id;
-	body.createdAt = i18n.i18nMoment().toISOString();
+	body.createdAt = moment().toISOString();
 
 	if (body.context) {
 		body.target = body.contextId;
@@ -85,11 +86,11 @@ router.post('/', (req, res, next) => {
 });
 
 router.patch('/:newsId', (req, res, next) => {
-	req.body.displayAt = i18n.i18nMoment(
+	req.body.displayAt = moment(
 		req.body.displayAt,
 		'DD.MM.YYYY HH:mm',
 	).toISOString();
-	req.body.updatedAt = i18n.i18nMoment().toISOString();
+	req.body.updatedAt = moment().toISOString();
 	req.body.updaterId = res.locals.currentUser._id;
 
 	api(req)
@@ -129,7 +130,7 @@ router.all('/', async (req, res, next) => {
 			...newsItem,
 			isRSS,
 			url: `/news/${newsItem._id}`,
-			secondaryTitle: i18n.i18nMoment(newsItem.displayAt).fromNow(),
+			secondaryTitle: moment(newsItem.displayAt).fromNow(),
 			actions: getActions(isRSS, res, newsItem),
 		};
 	};
@@ -213,7 +214,7 @@ router.get('/:newsId/edit', (req, res, next) => {
 	api(req)
 		.get(`/news/${req.params.newsId}`, {})
 		.then((news) => {
-			news.displayAt = i18n.i18nMoment(news.displayAt).format('DD.MM.YYYY HH:mm');
+			news.displayAt = moment(news.displayAt).format('DD.MM.YYYY HH:mm');
 			res.render('news/edit', {
 				title: res.$t('news._news.headline.editNews'),
 				submitLabel: res.$t('global.button.save'),

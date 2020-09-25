@@ -1,8 +1,8 @@
 const express = require('express');
+const moment = require('moment');
 const { Converter } = require('showdown');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
-const i18n = require('../helpers/i18n');
 
 const router = express.Router();
 const converter = new Converter();
@@ -46,7 +46,7 @@ router.get('/releases', (req, res, next) => {
 			// eslint-disable-next-line array-callback-return
 			releases.data.map((release) => {
 				release.body = converter.makeHtml(release.body);
-				release.publishedAt = i18n.i18nMoment(release.publishedAt).format('ddd, ll');
+				release.publishedAt = moment(release.publishedAt).format('ddd, ll');
 			});
 
 			res.render('help/releases', {

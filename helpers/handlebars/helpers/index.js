@@ -1,10 +1,13 @@
 /* eslint-disable no-console */
+const moment = require('moment');
 const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
 const { Configuration } = require('@schul-cloud/commons');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
+
+moment.locale('de');
 
 const ifCondBool = (v1, operator, v2) => {
 	switch (operator) {
@@ -171,29 +174,29 @@ const helpers = () => ({
 		return options.inverse(this);
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
-	timeFromNow: (date, opts) => i18n.i18nMoment(date).fromNow(),
+	timeFromNow: (date, opts) => moment(date).fromNow(),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
 			format = 'YYYY.MM.DD';
 		}
-		return i18n.i18nMoment()
+		return moment()
 			.subtract(years, 'years')
 			.subtract(months, 'months')
 			.subtract(days, 'days')
 			.format(format);
 	},
-	dateToPicker: (date) => i18n.i18nMoment(date).format('DD.MM.YYYY'),
-	dateTimeToPicker: (date) => i18n.i18nMoment(date).format('DD.MM.YYYY HH:mm'),
+	dateToPicker: (date) => moment(date).format('DD.MM.YYYY'),
+	dateTimeToPicker: (date) => moment(date).format('DD.MM.YYYY HH:mm'),
 	i18nDate: (date) => i18n.i18nMoment(date).format('DD.MM.YYYY'),
 	i18nDateTime: (date) => i18n.i18nMoment(date).format('DD.MM.YYYY HH:mm'),
 	i18nDateString: (date) => i18n.i18nMoment(date).format('dddd, DD. MMMM YYYY'),
 	timeToString: (date) => {
-		const now = i18n.i18nMoment();
-		const d = i18n.i18nMoment(date);
+		const now = moment();
+		const d = moment(date);
 		if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
-			return `${i18n.i18nMoment(date).format('DD.MM.YYYY')}(${i18n.i18nMoment(date).format('HH:mm')})`;
+			return `${moment(date).format('DD.MM.YYYY')}(${moment(date).format('HH:mm')})`;
 		}
-		return i18n.i18nMoment(date).fromNow();
+		return moment(date).fromNow();
 	},
 	currentYear() {
 		return new Date().getFullYear();
