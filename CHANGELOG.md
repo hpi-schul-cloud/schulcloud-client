@@ -9,6 +9,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [24.5.7] - 2020-09-22
+
+### Fixed
+
+  - SC-6845 Fixed reset of consent property if inputs disabled
+
+## [24.5.6] - 2020-09-22
+
+### Fixed
+
+  - SC-6823 - Fixed inserting media in comments for homework correction
+
 ## [24.5.5] - 2020-09-22
 
 ### Fixed
