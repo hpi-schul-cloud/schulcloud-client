@@ -7,6 +7,7 @@ const express = require('express');
 const marked = require('marked');
 const handlebars = require('handlebars');
 const moment = require('moment');
+const momentTZ = require('moment-timezone');
 const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -670,6 +671,10 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			return next(error);
 		}
 
+		// TODO: remove this here and in the template, is just for testing
+		const timezone = momentTZ.tz.guess();
+		const timeOffset =  moment().utcOffset();
+
 		assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
 		assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
 
@@ -699,6 +704,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 						courses,
 						lessons,
 						isSubstitution,
+						timezone,
+						timeOffset
 					});
 				});
 			} else {
@@ -713,6 +720,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					courses,
 					lessons: false,
 					isSubstitution,
+					timezone,
+					timeOffset
 				});
 			}
 		});

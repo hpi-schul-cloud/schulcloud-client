@@ -178,21 +178,29 @@
 			<input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
 			{{/unless}}
 
-
-
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="availableDate">{{$t "homework.global.label.visibleAndEditableForStudentsFrom" }}</label>
+                        <div class="input-group mb-3">
 						<input class="form-control" data-datetime name="availableDate" autocomplete="off" id="availableDate"
 							type="text" value="{{assignment.availableDate}}" />
+                            <div class="input-group-addon">
+                                <span class="input-group-text" id="basic-addon2">{{ timezone }} ({{timeOffset}})</span>
+                            </div>
+                        </div>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="dueDate">{{$t "homework.global.label.processingPeriodEndsOn" }}</label>
-						<input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate" type="text"
-							value="{{assignment.dueDate}}" />
+                        <div class="input-group mb-3">
+                            <input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate" type="text"
+                                value="{{assignment.dueDate}}" />
+                            <div class="input-group-addon">
+                                <span class="input-group-text" id="basic-addon2">{{ timezone }} ({{timeOffset}})</span>
+                            </div>
+                        </div>
 					</div>
 				</div>
 			</div>
