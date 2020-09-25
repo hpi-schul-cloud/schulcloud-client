@@ -179,7 +179,7 @@
 				<div class="col-sm-12 no-padding">
 					<!-- Admin View -->
 					{{#userHasPermission 'ADMIN_VIEW'}}
-					<h2 class="h4">Schule</h2>
+					<h2 class="h4">{{ $t "global.link.school" }}</h2>
 
 					<form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
 						<input type="hidden" name="_method" value="patch" />
@@ -200,8 +200,8 @@
 							<img id="preview-logo" src="">
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
-
-						{{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
+                        {{> "lib/forms/form-change-language" langParent=../school }}
+                        {{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
 							<h2 class="h6 mt-2">{{$t "administration.school.label.privacySettings" }}</h2>
 							<div class="form-group">
 								<label>
@@ -215,24 +215,33 @@
 
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
                         <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}}">
-                            <label>
-                                <input
-                                    id="messenger"
-                                    type="checkbox"
-                                    name="messenger"
-                                    value="true"
-                                    {{#inArray "messenger" ../school.features}}checked{{/inArray}}
-                                    {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-                                        {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-                                            disabled
-                                        {{/userHasPermission}}
-                                    {{/userHasPermission}}
-                                />
-                                {{$t "administration.school.label.activeChatFunction" }}
-                                <p class="text-muted">
-                                    {{$t "administration.school.text.ifChatsAreActivatedAtYourSchool" }}
-                                </p>
-                            </label>
+							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
+								<label for="messenger">{{$t "administration.school.label.activeChatFunction" }}</label>
+								<input
+									id="messenger"
+									type="checkbox"
+									name="messenger"
+									value="true"
+									{{#inArray "messenger" ../school.features}}checked{{/inArray}}
+									{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+										{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+												disabled
+										{{/userHasPermission}}
+									{{/userHasPermission}}
+									{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
+										disabled
+									{{/hasConfig}}
+								/>
+								<p class="text-muted">
+									{{$t "administration.school.text.ifChatsAreActivatedAtYourSchool" }}
+								</p>
+							</div>
+							{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
+								<p class="alert alert-info">
+									<strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
+									{{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRECATION_DATE")))}}
+								</p>
+							{{/hasConfig}}
                         </div>
 
                         {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}

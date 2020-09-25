@@ -1,6 +1,6 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page" {{/if}}>
 
-  <h2 class="h4">{{$t "firstLogin.consent.heading.importantInformation" }} {{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}}</h2>
+  <h2 class="h4">{{$t "firstLogin.consent.headline.importantInformation" }} {{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}}</h2>
   <a style="margin-bottom: 20px;">{{$t "firstLogin.consent.text.forAnEvenBetterLearningExperience" (dict "title" @root.theme.title)}}
     {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}} {{$t "firstLogin.consent.text.the" }} <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}" target="_blank">{{$t "firstLogin.consent.text.termsOfUse" }}</a>{{/ifCond}}
     {{#ifCond @root.updatedConsents.privacy.total '>' 0}}
@@ -8,9 +8,9 @@
     {{$t "firstLogin.consent.text.and" }}
     {{/ifCond}}
 		{{#if @root.schoolPrivacyLink}}
-			{{$t "firstLogin.consent.text.the" }} <a href="{{@root.schoolPrivacyLink}}" class="base64File-download-btn" id="privacy-link" target="_blank">{{$t "consent.global.text.dataProtection" }}</a>
+			{{$t "firstLogin.consent.text.the" }} <a href="{{@root.schoolPrivacyLink}}" class="base64File-download-btn" id="privacy-link" target="_blank">{{$t "global.text.dataProtection" }}</a>
 		{{else}}
-			{{$t "firstLogin.consent.text.the" }} <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank">{{$t "consent.global.text.dataProtection" }}</a>
+			{{$t "firstLogin.consent.text.the" }} <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank">{{$t "global.text.dataProtection" }}</a>
 		{{/if}}
     {{/ifCond}}
     {{$t "firstLogin.consent.text.expanded" }}
@@ -19,7 +19,7 @@
     {{#if @root.updatedConsents.haveBeenUpdated}}
 
     {{#each @root.updatedConsents.all.data}}
-    <h2 class="h4">{{$t "firstLogin.consent.heading.summaryOfTheExtension" (dict "visualType" this.visualType)}}</a> {{$t "firstLogin.consent.heading.toThe" }}
+    <h2 class="h4">{{$t "firstLogin.consent.headline.summaryOfTheExtension" (dict "visualType" this.visualType)}}</a> {{$t "firstLogin.consent.headline.toThe" }}
       {{dateToPicker this.publishedAt}}</h2>
     <div class='privacyStatement card'>
       <div class="card-header">
