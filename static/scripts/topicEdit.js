@@ -80,7 +80,7 @@ class TopicBlockWrapper extends React.Component {
                                    onClick={this.toggleHidden.bind(this)}
                                    data-toggle="tooltip"
                                    data-placement="top"
-                                   title={this.props.hidden ? $t('topic.topicEdit.label.openSection') : $t('topic.topicEdit.label.lockSection')}
+                                   aria-label={this.props.hidden ? $t('topic.topicEdit.label.openSection') : $t('topic.topicEdit.label.lockSection')}
                                    data-original-title={this.props.hidden ? $t('topic.topicEdit.label.openSection') : $t('topic.topicEdit.label.lockSection')}
                                 >
                                     <i className={`fa fa-eye${this.props.hidden ? '-slash' : ''}`} />
