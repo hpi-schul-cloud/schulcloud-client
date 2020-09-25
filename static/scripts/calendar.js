@@ -9,7 +9,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 
 $(document).ready(() => {
 	const calendarLanguage = document.querySelector('html').getAttribute('lang') === 'de' ? deLocale : enLocale;
-	moment.i18nMoment.locale(calendarLanguage);
 
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
