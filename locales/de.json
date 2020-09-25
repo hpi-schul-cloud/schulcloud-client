@@ -2962,8 +2962,10 @@
 				"chooseContent" : "Wählen Sie Inhaltstypen des Themas aus"
 			},
 			"button": {
+				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
 				"material": "Lern-Material",
+				"neXboard": "neXboard",
 				"text": "Text"
 			},
 			"input": {

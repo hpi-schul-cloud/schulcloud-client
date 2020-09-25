@@ -2962,8 +2962,10 @@
 				"chooseContent" : "Choose the types of contents for your topic"
 			},
 			"button": {
+				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
+				"neXboard": "neXboard",
 				"text": "Text"
 			},
 			"input": {
@@ -2979,7 +2981,7 @@
 			"label": {
 				"descriptionEtherpad": "Description of the Etherpad",
 				"descriptionNeXboard": "Description of the neXboard",
-				"internLink" : "Intern Link",
+				"internLink": "Intern Link",
 				"lockSection": "Lock section",
 				"nameOfEtherpad": "Name of the Etherpad",
 				"nameOfNeXboard": "Name of the neXboard",

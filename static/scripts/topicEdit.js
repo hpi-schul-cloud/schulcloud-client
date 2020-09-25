@@ -123,7 +123,7 @@ class TopicBlockWrapper extends React.Component {
                                     <button
 										className="dropdown-item text-danger"
 										onClick={this.onRemoveWithCallback.bind(this)}>
-                                        <span><i className="fa fa-trash" /> {$t('global.button.remove')}</span>
+                                        <span><i className="fa fa-trash" aria-hidden="true"/> {$t('global.button.remove')}</span>
                                     </button>
                                 </div>
                             </div>
@@ -340,13 +340,15 @@ class TopicBlockList extends React.Component {
 							type="button"
 							className="btn btn-secondary"
 							onClick={this.addBlock.bind(this, TopicNexboard)}>
-								<i aria-label={$t('global.button.add')}>+</i> neXboard
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('topic.topicEdit.button.neXboard')}`}
 							</button> : '' }
 						<button
-							ype="button"
+							type="button"
 							className="btn btn-secondary"
 							onClick={this.addBlock.bind(this, TopicEtherpad)}>
-								<i aria-label={$t('global.button.add')}>+</i> Etherpad
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('topic.topicEdit.button.etherpad')}`}
 						</button>
                         <button
 							type="button"
