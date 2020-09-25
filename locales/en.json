@@ -1592,6 +1592,7 @@
 			"news": "News",
 			"privateTasks": "Private tasks and drafts",
 			"projectExecution": "Project execution",
+			"settings" : "Settings",
 			"sorryItDidNotWork": "Sorry, that didn't work.",
 			"sorting": "Sorting",
 			"task": "Task",
@@ -2948,12 +2949,18 @@
 				"shareWithOthersTeachers": "share with other teachers"
 			}
 		},
+		"aria_label": {
+			"openTopicX" : "Open topic {{name}}"
+		},
 		"form_share": {
 			"label": {
 				"distributeTheFollowingCode": "Share the following code with a teacher colleague to add the topic to a course. This function is located on the course page."
 			}
 		},
 		"topicEdit": {
+			"aria_label":{
+				"chooseContent" : "Choose the types of contents for your topic"
+			},
 			"button": {
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
@@ -2972,7 +2979,7 @@
 			"label": {
 				"descriptionEtherpad": "Description of the Etherpad",
 				"descriptionNeXboard": "Description of the neXboard",
-				"internLink": "intern link",
+				"internLink" : "Intern Link",
 				"lockSection": "Lock section",
 				"nameOfEtherpad": "Name of the Etherpad",
 				"nameOfNeXboard": "Name of the neXboard",
