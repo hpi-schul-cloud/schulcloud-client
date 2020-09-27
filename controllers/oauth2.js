@@ -56,6 +56,8 @@ const displayScope = (scope, w) => {
 			return w.$t('login.oauth2.label.homework');
 		case 'calendar':
 			return w.$t('login.oauth2.label.calendar');
+		case 'edusharing':
+			return w.$t('login.oauth2.label.edusharing');
 		default:
 			return scope;
 	}
