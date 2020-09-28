@@ -25,7 +25,8 @@ if (!window.datetimepicker) {
 		}
 
 		// https://xdsoft.net/jqplugins/datetimepicker/
-		$.datetimepicker.setLocale('de');
+		const lang = $('html').attr('lang');
+		$.datetimepicker.setLocale(lang || 'de');
 		document.querySelectorAll('input[data-date], input[data-datetime]').forEach((input) => {
 			$(input).datetimepicker(readPickerConfig(input));
 			$(input).datetimepicker('setOptions', {
