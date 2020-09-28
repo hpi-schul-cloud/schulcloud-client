@@ -70,16 +70,16 @@
     </div>
     <div>
         {{#inArray this.currentUser._id this.archived}}
-        <span class="count-badge" data-badge="Archiviert" aria-label="{{$t "courses._course.groups._group.text.archivedTask"}}" role="img" /></span>
+        <span class="count-badge" data-badge="{{$t "courses._course.tasks.label.archived"}}" aria-label="{{$t "courses._course.groups._group.text.archivedTask"}}" role="img" /></span>
         {{else}}
             {{#if ../this.private}}
-            <span class="count-badge" data-badge="Entwürfe" aria-label="{{$t "courses._course.groups._group.text.draftTask"}}" role="img" /></span>
+            <span class="count-badge" data-badge="{{$t "courses._course.tasks.label.drafts"}}" aria-label="{{$t "courses._course.groups._group.text.draftTask"}}" role="img" /></span>
             {{else}}
-            <span class="count-badge" data-badge="Gestellt" aria-label="{{$t "courses._course.groups._group.text.doneTask"}}" role="img" /></span>
+            <span class="count-badge" data-badge="{{$t "courses._course.tasks.label.provided"}}" aria-label="{{$t "courses._course.groups._group.text.doneTask"}}" role="img" /></span>
             {{/if}}
         {{/inArray}}
         {{#if this.grade}}
-            <span class="count-badge" data-badge="Feedback" aria-label="{{$t "courses._course.groups._group.text.feedbackTask"}}" role="img" /></span>
+            <span class="count-badge" data-badge="{{$t "courses._course.tasks.label.feedback"}}" aria-label="{{$t "courses._course.groups._group.text.feedbackTask"}}" role="img" /></span>
         {{/if}}
     </div>
     <div class="action-group">
