@@ -20,7 +20,7 @@
     <div class="row description">
         <div class="col-sm-12">
             <p class="lead">{{description}}</p>
-            {{#if nextEvent}}<p class="text-muted">Nächste Unterrichtsstunde: {{nextEvent}}</p>{{/if}}
+            {{#if nextEvent}}<p class="text-muted">{{{$t "teams.topics.text.nextLesson"}}}</p>{{/if}}
         </div>
     </div>
 
@@ -29,17 +29,17 @@
         <div class="col-sm-6">
             {{#userHasPermission "COURSE_EDIT"}}
             <a href="/teams/{{../_id}}/topics/add" class="btn btn-secondary btn-sm pull-right ml-1"
-                title="Thema hinzufügen">
+                title="{{$t "courses._course.topic.text.addTopic"}}">
                 <i class="fa fa-plus" aria-hidden="true"></i>
-                <span class="hidden-lg-down">Thema hinzufügen</span>
+                <span class="hidden-lg-down">{{$t "courses._course.topic.text.addTopic"}}</span>
             </a>
             <button data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic"
-                title="Thema importieren">
+                title="{{$t "courses._course.topic.button.importTopic"}}">
                 <i class="fa fa-exchange" aria-hidden="true"></i>
-                <span class="hidden-lg-down">Thema importieren</span>
+                <span class="hidden-lg-down">{{$t "courses._course.topic.text.importTopic"}}</span>
             </button>
             {{/userHasPermission}}
-            <h2 class="h4">Themen</h2>
+            <h2 class="h4">{{$t "global.headline.topics"}}</h2>
 
             <div class="list-group">
                 {{#if lessons}}
@@ -53,7 +53,7 @@
                             <div class="input-group">
                                 {{#userHasPermission "COURSE_EDIT"}}
                                 <a class="btn btn-secondary btn-sm btn-hidden-toggle" href="{{../_id}}"
-                                    title="Thema verstecken">
+                                    title="{{$t "courses._course.topic.text.hideTopic"}}">
                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                 </a>
                                 {{/userHasPermission}}
@@ -63,7 +63,7 @@
                                     <a class="delete-topic btn btn-secondary btn-secondary btn-sm"
                                         href="/teams/{{../courseId}}/topics/{{../_id}}" target="_blank"
                                         data-method="DELETE" data-name="{{../name}}" redirect="/teams/{{../courseId}}"
-                                        title="Thema löschen">
+                                        title="{{$t "courses._course.topic.text.deleteTopic"}}">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                     <a class="btn btn-secondary btn-sm move-handle" title="Thema verschieben">
@@ -85,7 +85,7 @@
                         <div class="card-header">
                             <div class="input-group">
                                 <a class="btn btn-secondary btn-sm btn-hidden-toggle" href="{{../_id}}"
-                                    title="Thema wieder anzeigen">
+                                    title="{{$t "teams.topics.button.displayTopicAgain"}}">
                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </a>
                                 <p class="topic-label ml-1">{{../name}}</p>
@@ -93,14 +93,14 @@
                                     <a class="delete-topic btn btn-secondary btn-secondary btn-sm"
                                         href="/teams/{{../courseId}}/topics/{{../_id}}" target="_blank"
                                         data-method="DELETE" data-name="{{../name}}" redirect="/teams/{{../courseId}}"
-                                        title="Thema löschen">
+                                        title="{{$t "courses._course.topic.text.deleteTopic"}}">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
-                                    <button class="btn btn-secondary btn-sm move-handle" title="Thema verschieben">
+                                    <button class="btn btn-secondary btn-sm move-handle" title="{{$t "courses._course.topic.text.moveTopic"}}">
                                         <i class="fa fa-arrows" aria-hidden="true"></i>
                                     </button>
                                     <a href="#0" data-href="{{../_id}}" data-courseId="{{../courseId}}"
-                                        class="btn btn-secondary btn-sm btn-create-share" title="Thema teilen">
+                                        class="btn btn-secondary btn-sm btn-create-share" title="{{$t "courses._course.topic.text.shareTopic"}}">
                                         <i class="fa fa-share-alt" aria-hidden="true"></i>
                                     </a>
                                 </div>
@@ -113,7 +113,7 @@
                 </div>
                 {{else}}
                 <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-                    <span>Keine Themen.</span>
+                    <span>{{$t "teams.topics.text.noIssues"}}</span>
                 </p>
                 {{/if}}
             </div>
@@ -123,9 +123,8 @@
         <div class="col-sm-6">
             {{#userHasPermission "TOOL_CREATE" }}
             <a href="/teams/{{../_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1"
-                title="Neues Tool hinzufügen">
-                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Neues Tool
-                    hinzufügen</span></a>
+                title="{{$t "teams.topics.button.addNewTool"}}">
+                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "teams.topics.button.addNewTool"}}</span></a>
             {{/userHasPermission}}
             <h2 class="h4">Tools</h2>
 
@@ -153,7 +152,7 @@
                 {{/each}}
                 {{else}}
                 <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-                    <span>Keine Tools.</span>
+                    <span>{{$t "courses._course.tools.text.noTools"}}</span>
                 </p>
                 {{/if}}
             </div>
@@ -166,18 +165,16 @@
         <div class="col-sm-12">
             {{#userHasPermission "COURSEGROUP_CREATE"}}
             <a href="/teams/{{../../_id}}/groups/add" class="btn btn-secondary btn-sm pull-right ml-1"
-                title="Gruppe hinzufügen">
-                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Gruppe hinzufügen</span>
+                title="{{$t "teams.topics.button.addGroup"}}">
+                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "teams.topics.button.addGroup"}}</span>
             </a>
             {{/userHasPermission}}
             <a data-toggle="collapse" class="collapse-toggle" href="#courseGroups">
                 <h2 class="h4">
-                    <small title="Schülergruppen ein/ausklappen"><i class="fa fa-chevron-right collapse-icon"
+                    <small title="{{$t "teams.topics.headline.collapse/ExpandStudentGroups"}}"><i class="fa fa-chevron-right collapse-icon"
                             aria-hidden="true"></i></small>
-                    {{#userHasPermission "COURSE_EDIT" }}Schülergruppen{{else}}Meine
-                    Schülergruppen{{/userHasPermission}}
-                    <small>({{arrayLength courseGroups}}
-                        Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})</small>
+                    {{{$t "teams.topics.text.schoolGroups"}}} 
+                    <small>{{$t "teams.topics.text.group"}}</small>
                 </h2>
             </a>
             {{!-- <div id="courseGroups" class="container-fluid collapse">
@@ -199,16 +196,16 @@
         <div class="col-sm-6 container">
             {{#userHasPermission "COURSE_EDIT" }}
             <a href="/homework/new?course={{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1"
-                title="Aufgabe hinzufügen">
-                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Aufgabe hinzufügen</span>
+                title="{{$t "global.button.addTask"}}">
+                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addTask"}}</span>
             </a>
             {{/userHasPermission}}
             <a data-toggle="collapse" class="collapse-toggle" href="#homeworks">
                 <h2 class="h4">
-                    <small title="gestellte Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon"
+                    <small title="{{$t "teams.topics.headline.show/HideTask"}}"><i class="fa fa-chevron-right collapse-icon"
                             aria-hidden="true"></i></small>
-                    Gestellte Aufgaben
-                    <small>({{arrayLength homeworks}} Aufgabe{{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
+                    {{$t "global.headline.assignedTasks"}}
+                    <small>{{{$t "teams.topics.headline.homework" (dict "homeworkLength" arrayLength homeworks)}}}</small>
                 </h2>
             </a>
             <div id="homeworks" class="container-fluid collapse">
@@ -224,18 +221,16 @@
         <div class="col-sm-6">
             {{#userHasPermission "HOMEWORK_CREATE" }}
             <a href="/homework/new?course={{../_id}}&private=true" class="btn btn-secondary btn-sm pull-right ml-1"
-                title="private Aufgabe hinzufügen">
-                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private Aufgabe
-                    hinzufügen</span>
+                title="{{$t "global.button.addPrivateTask"}}">
+                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addPrivateTask"}}</span>
             </a>
             {{/userHasPermission}}
             <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
                 <h2 class="h4">
-                    <small title="Meine Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon"
+                    <small title="{{$t "teams.topics.headline.collapse/ExpandMyTasks"}}"><i class="fa fa-chevron-right collapse-icon"
                             aria-hidden="true"></i></small>
-                    Meine Aufgaben
-                    <small>({{arrayLength myhomeworks}}
-                        Aufgabe{{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
+                    {{$t "teams.topics.headline.myTasks"}}
+                    <small>{{{$t "teams.topics.headline.myHomework" (dict "myHomeworkLength" arrayLength myhomeworks)}}}</small>
                 </h2>
             </a>
             <div id="myhomeworks" class="container-fluid collapse">
@@ -255,11 +250,11 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-close">
-            Abbrechen
+            {{$t "global.button.cancel"}}
         </button>
 
         <button type="submit" class="btn btn-primary btn-submit">
-            Löschen
+            {{$t "global.headline.delete"}}
         </button>
     </div>
     {{/content}}
