@@ -621,7 +621,8 @@
 				"theNewClassesCanNowBeAssigned": "the new classes can now be assigned to prepared courses",
 				"theNewSchoolYearStartsInThe": "The new school year begins in the {{themeTitle}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
 				"thisOptionIsAvailable": "This option is available 2 weeks before the end of the current school year.",
-				"yourSchoolIsCurrentlyDrawing": "Your school is currently getting"
+				"yourSchoolIsCurrentlyDrawing": "Your school is currently getting",
+				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes."
 			}
 		},
 		"students": {
@@ -1717,6 +1718,7 @@
 			"404": "Oops, this site doesn't exist.",
 			"areYouSure": "Are you sure?",
 			"attention": "Attention:",
+			"info": "Note:",
 			"dataProtection": "Privacy policy",
 			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
 			"errorChangingFilePermissions": "Problem changing permissions",
@@ -1749,11 +1751,8 @@
 			"thursday": "Thursday",
 			"tuesday": "Tuesday",
 			"videoconferenceNotStartedYet": "Video conference has not yet started",
-			"wednesday": "Wednesday",
-			"weNeedAnEmailAddress": "We need an e-mail address so that your consent to use the {{shortTitle}} is legally valid. The {{shortTitle}} does not pass on the address. You will not receive unsolicited e-mails."
-		},
-		"topMenu": {
-			"qrHintText": "Navigate other users to this site"
+			"weNeedAnEmailAddress": "We need an e-mail address so that your consent to use the {{shortTitle}} is legally valid. The {{shortTitle}} does not pass on the address. You will not receive unsolicited e-mails.",
+			"wednesday": "Wednesday"
 		}
 	},
 	"help": {
@@ -2836,6 +2835,7 @@
 					"doYouReallyWantToLeaveTeam": "Do you really want to leave the team?",
 					"doYouReallyWantToReSendEmail": "Do you really want to send the invitation again by e-mail?",
 					"editRole": "Edit role",
+					"email": "Send invitation to this e-mail:",
 					"externExpert": "External expert",
 					"externTeacher": "Teacher of other school (Team admin)",
 					"federalState": "State",
@@ -3033,6 +3033,16 @@
 			"theVideoConferenceHasEither": "The video conference has either not started yet or has already ended.",
 			"thereWasAProblemWithTheVideo": "There was a problem with the video conference. Please try again.",
 			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference."
+		}
+	},
+	"messenger": {
+		"headline": {
+			"welcomeMatrixAdmin": "The Matrix Messenger is here! "
+		},
+		"text": {
+			"rocketChatDeprecation": "The chat function in the teams area is automatically switched off on {{date}} and the corresponding content is deleted. Please make sure you copy and save any important content.",
+			"welcomeMatrixAdmin": "Users Your school can now easily communicate directly within the HPI School Cloud using the Matrix Messenger.",
+			"howToActivateMatrix": "To do this you have to activate the Matrix Messenger as school admin under: Administration > School > Activate Matrix Messenger."
 		}
 	}
 }
