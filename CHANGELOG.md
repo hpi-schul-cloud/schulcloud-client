@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.0.1] - 2020-09-28
+### Fixed
+  - SC-6927 Admins can delete teachers again
+
 ## [24.5.7] - 2020-09-22
 
 ### Fixed
