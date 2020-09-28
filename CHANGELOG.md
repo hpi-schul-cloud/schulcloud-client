@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.1.0] - 2020-09-28
+
+### Fixed
+
+  - SC-6932 added translation keys instead of hardcoded strings for sidebar items
+
 ## [24.5.7] - 2020-09-22
 
 ### Fixed
