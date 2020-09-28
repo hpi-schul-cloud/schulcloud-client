@@ -914,8 +914,7 @@
 					"headline": {
 						"doneGroupTasks": "getätigte Gruppenabgaben",
 						"homework": "Hausaufgabe: {{name}}",
-						"openGroupTasks": "offene (mögliche) Gruppenabgaben",
-						"topics": "Themen"
+						"openGroupTasks": "offene (mögliche) Gruppenabgaben"
 					},
 					"link": {
 						"addTopic": "Thema hinzufügen",
@@ -1577,6 +1576,7 @@
 			"yes": "Ja"
 		},
 		"headline": {
+			"topics": "Themen",
 			"actions": "Aktionen",
 			"addDate": "Termin hinzufügen",
 			"almostThere": "Fast geschafft!",
@@ -2909,21 +2909,12 @@
 		},
 		"form_importTopic": {
 			"label": {
-				"insertACodeToImport": "Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.",
+				"insertACodeToImportCourse": "Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.",
 				"renameTheCourse": "Benenne den Kurs um."
 			},
 			"text": {
 				"aCourseFolderIsAutomaticallyCreated": "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schülerbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler hinzu und vergib einen Termin für den Kurs.",
-				"attentionNotice": "<strong>Achtung:</strong> Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
-				"attentionReplaceTheTools": "Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
-				"completeTheImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler hinzu.",
-				"insertACodeToImportTopic": "Füge einen Code ein, um Themen anderer Nutzer zu importieren. Im Thema enthaltene Dateien werden in deinem Kursordner abgelegt."
-			}
-		},
-		"form_tools": {
-			"label": {
-				"nameMandatoryField": "Name (Pflichtfeld):",
-				"otherSettings": "Sonstige Einstellungen:"
+				"completeTheImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler hinzu."
 			}
 		},
 		"headline": {
@@ -2955,14 +2946,12 @@
 				"homework": "({{homeworkLength}} Aufgabe{{#ifneq 1 {{homeworkLength}}}}n{{/ifneq}})",
 				"myHomework": "({{myHomeworkLength}} Aufgabe{{#ifneq 1 {{myHomeworkLength}}}}n{{/ifneq}})",
 				"myTasks": "Meine Aufgaben",
-				"show/HideTask": "gestellte Aufgaben ein/ausklappen",
-				"subjects": "Themen"
+				"show/HideTask": "gestellte Aufgaben ein/ausklappen"
 			},
 			"text": {
 				"group": "({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
 				"nextLesson": "Nächste Unterrichtsstunde: {{nextEvent}}",
 				"noIssues": "Keine Themen.",
-				"noTools": "Keine Tools.",
 				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}Schülergruppen{{else}}Meine Schülergruppen {{/userHasPermission}}"
 			}
 		}

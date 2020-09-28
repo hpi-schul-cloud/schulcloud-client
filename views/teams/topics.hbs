@@ -39,7 +39,7 @@
                 <span class="hidden-lg-down">{{$t "courses._course.topic.text.importTopic"}}</span>
             </button>
             {{/userHasPermission}}
-            <h2 class="h4">{{$t "teams.topics.headline.subjects"}}</h2>
+            <h2 class="h4">{{$t "global.headline.topics"}}</h2>
 
             <div class="list-group">
                 {{#if lessons}}
@@ -152,7 +152,7 @@
                 {{/each}}
                 {{else}}
                 <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-                    <span>{{$t "teams.topics.text.noTools"}}</span>
+                    <span>{{$t "courses._course.tools.text.noTools"}}</span>
                 </p>
                 {{/if}}
             </div>

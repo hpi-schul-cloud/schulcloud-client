@@ -914,8 +914,7 @@
 					"headline": {
 						"doneGroupTasks": "finished group submissions",
 						"homework": "Homework: {{name}}",
-						"openGroupTasks": "open (possible) group submissions",
-						"topics": "Topics"
+						"openGroupTasks": "open (possible) group submissions"
 					},
 					"link": {
 						"addTopic": "Add a topic",
@@ -1577,6 +1576,7 @@
 			"yes": "Yes"
 		},
 		"headline": {
+			"topics": "Topics",
 			"actions": "Actions",
 			"addDate": "Add date",
 			"almostThere": "Almost there!",
@@ -2909,21 +2909,12 @@
 		},
 		"form_importTopic": {
 			"label": {
-				"insertACodeToImport": "Insert a code to import course content from other users.",
+				"insertACodeToImportCourse": "Insert a code to import course content from other users.",
 				"renameTheCourse": "Rename the course."
 			},
 			"text": {
 				"aCourseFolderIsAutomaticallyCreated": "A course folder is automatically created for the imported course. Student-related data from the original course will be removed. Then add students and make an appointment for the course.",
-				"attentionNotice": "<strong>Achtung:</strong> Replace the tools included in the topic and filled with user data (e.g. nexBoard, Etherpad, GeoGebra) manually afterwards, as changes to them will otherwise affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
-				"attentionReplaceTheTools": "Attention: Replace the tools contained in the topic and filled with user data (e.g. nexBoard, Etherpad, GeoGebra) manually afterwards, otherwise changes to them will affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
-				"completeTheImport": "Complete the import. In the next step, set a new course date and add students.",
-				"insertACodeToImportTopic": "Insert a code to import topics from other users. Files contained in the topic are placed in your course folder."
-			}
-		},
-		"form_tools": {
-			"label": {
-				"nameMandatoryField": "Name (mandatory field):",
-				"otherSettings": "Other settings:"
+				"completeTheImport": "Complete the import. In the next step, set a new course date and add students."
 			}
 		},
 		"headline": {
@@ -2955,14 +2946,12 @@
 				"homework": "({{homeworkLength}} Task{{#ifneq 1 {{homeworkLength}}}}n{{/ifneq}})",
 				"myHomework": "({{myHomeworkLength}} Task{{#ifneq 1 {{myHomeworkLength}}}}n{{/ifneq}})",
 				"myTasks": "My Tasks",
-				"show/HideTask": "show / hide tasks",
-				"subjects": "Subjects"
+				"show/HideTask": "show / hide tasks"
 			},
 			"text": {
 				"group": "({{arrayLength courseGroups}} Group{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
 				"nextLesson": "Next Lesson: {{nextEvent}}",
 				"noIssues": "No Issues.",
-				"noTools": "No Tools.",
 				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}School Groups{{else}}My student groups {{/userHasPermission}}"
 			}
 		}
