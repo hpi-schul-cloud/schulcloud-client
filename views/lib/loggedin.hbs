@@ -312,12 +312,14 @@
             <div id="member-modal-body">
                 <div class="text-center">
                     {{$t "messenger.text.rocketChatDeprecation" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE"))) }}
-                    {{#inArray 'Administrator' roleNames}}
-                        {{#if @root.ROCKETCHAT_SERVICE_ENABLED}} {{#inArray "rocketChat" @root.schoolData.features}}
+                    {{#inArray 'administrator' ../roleNames}}
+                        {{#inArray "messenger" @root.schoolData.features}}
                             {{$t "messenger.text.howToDeactivateMatrix"}}
-                        {{/inArray}} {{/if}}
+                        {{else}}
+                            {{$t "messenger.text.howToActivateMatrix"}}
+                        {{/inArray}}
                     {{else}}
-                            {{$t "messenger.text.callToCopyMessages" }}
+                            {{$t "messenger.text.callToCopyMessages"}}
                     {{/inArray}}
                 </div>
             </div>
