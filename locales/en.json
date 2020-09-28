@@ -990,6 +990,12 @@
 				"img_alt": {
 					"noPosedTasks": "No given tasks"
 				},
+				"label": {
+					"archived": "Archived",
+					"drafts": "Drafts",
+					"feedback": "Feedback",
+					"provided": "Provided"
+				},
 				"text": {
 					"descriptionTasks": "Course participants can easily complete tasks by a set deadline and submit results digitally. Tasks can be set for an entire course or a single topic.",
 					"moreArchivedLinkLabel": "More archived tasks...",
