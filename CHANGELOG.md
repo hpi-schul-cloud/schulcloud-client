@@ -9,7 +9,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-## [25.1.0] - 2020-09-28
+## [25.0.1] - 2020-09-28
 
 ### Fixed
 
