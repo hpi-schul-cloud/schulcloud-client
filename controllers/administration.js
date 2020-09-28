@@ -1082,8 +1082,8 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 	const promises = [];
 
 	// Consents
-	req.body.consent = req.body.consent || {};
 	if (req.body.student_form) {
+		req.body.consent = req.body.consent || {};
 		req.body.consent.userConsent = {
 			form: req.body.student_form || 'analog',
 			privacyConsent: req.body.student_privacyConsent === 'true',
@@ -1091,6 +1091,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 		};
 	}
 	if (req.body.parent_form) {
+		req.body.consent = req.body.consent || {};
 		req.body.consent.parentConsents = [];
 		req.body.consent.parentConsents[0] = {
 			form: req.body.parent_form || 'analog',
@@ -1331,11 +1332,6 @@ router.get(
 );
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
-	const role = await api(req).get('/roles', {
-		qs: { name: roleName },
-		$limit: false,
-	});
-	const qs = { roles: role.data[0]._id, $limit: false };
 	let users = [];
 
 	if (classId) {
@@ -1346,24 +1342,28 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 		});
 		users = klass.userIds;
 	} else {
+		const role = await api(req).get('/roles', {
+			qs: { name: roleName },
+			$limit: false,
+		});
+		const qs = { roles: role.data[0]._id, $limit: false };
 		users = (await api(req).get('/users', { qs, $limit: false })).data;
 	}
 
-	let usersWithMissingConsents = [];
+	const usersWithMissingConsents = [];
 	const batchSize = 50;
-	let slice = 0;
-	while (users.length !== 0 && slice * batchSize < users.length) {
-		usersWithMissingConsents = usersWithMissingConsents.concat(
-			(await api(req).get('/users/admin/students', {
+	while (users.length > 0) {
+		usersWithMissingConsents.push(
+			...(await api(req).get('/users/admin/students', {
 				qs: {
 					users: users
-						.slice(slice * batchSize, (slice + 1) * batchSize)
+						.splice(0, batchSize)
 						.map((u) => u._id),
 					consentStatus: ['missing', 'parentsAgreed'],
+					$limit: batchSize,
 				},
 			})).data,
 		);
-		slice += 1;
 	}
 
 	return usersWithMissingConsents;
