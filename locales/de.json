@@ -991,6 +991,12 @@
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
 				},
+				"label": {
+					"archived": "Archiviert",
+					"drafts": "Entwürfe",
+					"feedback": "Feedback",
+					"provided": "Gestellt"
+				},
 				"text": {
 					"descriptionTasks": "Kursteilnehmer:innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
 					"moreArchivedLinkLabel": "mehr archivierte Aufgaben...",
