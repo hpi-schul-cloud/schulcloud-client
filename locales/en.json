@@ -605,6 +605,7 @@
 				"coursesWithLearningContent": "Courses with learning content for the coming school year can also be created during the transfer phase (without class assignment)",
 				"doNotEndTheTransferPhase": "Do not end the transfer phase until the users are assigned to the new classes",
 				"fileSelected": "File selected",
+				"fileTooLarge" : "PDF file is too large. It can be at max {{size}}MB large.",
 				"ifChatsAreActivatedAtYourSchool": "If chats are enabled at your school, team administrators and teachers can selectively unlock the chat function respectively for their team or courses.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
@@ -613,13 +614,15 @@
 				"newUsersClassesAndChanges": "Newly added users, classes and changes to existing data are not synchronized from the LDAP",
 				"noFileSelected": "No file selected",
 				"noRssFeedsYet": "There are no RSS feeds yet.",
+				"onlyPDFSupport" : "Only PDF files are supported.",
 				"oldSchoolYear": "Old school year",
 				"passwordChanges": "Password changes are still synchronized",
 				"theNewClassesAreSavedInTheContext": "the new classes are saved in the context of the new school year, the old classes are archived in the context of the old school year",
 				"theNewClassesCanNowBeAssigned": "the new classes can now be assigned to prepared courses",
 				"theNewSchoolYearStartsInThe": "The new school year begins in the {{themeTitle}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
 				"thisOptionIsAvailable": "This option is available 2 weeks before the end of the current school year.",
-				"yourSchoolIsCurrentlyDrawing": "Your school is currently getting"
+				"yourSchoolIsCurrentlyDrawing": "Your school is currently getting",
+				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes."
 			}
 		},
 		"students": {
@@ -1212,12 +1215,8 @@
 	},
 	"dashboard": {
 		"headline": {
-			"news": "News",
-			"openTasks": "Open Tasks",
 			"poll2Title": "Survey II in the school cloud project",
-			"privateTasks": "Drafts",
 			"schedule": "Schedule",
-			"tasks": "Tasks",
 			"title": "Dashboard",
 			"withFeedback": "Submissions with teacher's comments",
 			"withRequiredFeedback": "Tasks with submissions without comments yet"
@@ -1242,7 +1241,6 @@
 			"noDueDate": "No submission date set",
 			"noMaterialsYetLookAtOthers": "You have not yet created your own materials. But you can also get inspiration from your colleagues' materials. Check out the <a href=\"/my-material\">\"My Materials\" section</a> .",
 			"noNews": "No news",
-			"noTasks": "No tasks",
 			"notFound": "No active entries found."
 		}
 	},
@@ -1358,6 +1356,21 @@
 			"size": "Size",
 			"updatedAt": "Modification date",
 			"write": "Write"
+		},
+		"overview": {
+			"button": {
+				"openFiles" : "Open files"
+			},
+			"headline": {
+				"myCourseFiles" : "My Course Files",
+				"myTeamFiles" : "My Team Files"
+			},
+			"text": {
+				"CourseFilesDesc" : "Here you will find all files used in the respective courses in class. All participants of the course, the teacher and the students, have access to these files.",
+				"PersonalFilesDesc" : "Here you can find all your personal files. Only you have access to these files, but you can also share them with other users.",
+				"SharedFilesDesc" : "Here you can find all the files you have shared with you. These are files that have been provided by other users.",
+				"TeamFilesDesc" : "Here you will find all files used in the respective courses in class. All participants of the team have access to these files."
+			}
 		},
 		"search": {
 			"headline": {
@@ -1700,18 +1713,7 @@
 				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationClasses": "Classes",
-				"administrationCourses": "Courses",
-				"calendar": "Events",
-				"courses": "Courses",
-				"files": "My Files",
-				"lernstore": "Lern-Store",
-				"management": "Management",
-				"managementClasses": "Classes",
-				"managementStudents": "Students",
-				"managementTeachers": "Teacher",
-				"news": "News",
-				"overview": "Dashboard",
-				"tasks": "Tasks"
+				"administrationCourses": "Courses"
 			}
 		},
 		"text": {
@@ -1722,6 +1724,7 @@
 			"404": "Oops, this site doesn't exist.",
 			"areYouSure": "Are you sure?",
 			"attention": "Attention:",
+			"info": "Note:",
 			"dataProtection": "Privacy policy",
 			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
 			"errorChangingFilePermissions": "Problem changing permissions",
@@ -1756,9 +1759,6 @@
 			"videoconferenceNotStartedYet": "Video conference has not yet started",
 			"weNeedAnEmailAddress": "We need an e-mail address so that your consent to use the {{shortTitle}} is legally valid. The {{shortTitle}} does not pass on the address. You will not receive unsolicited e-mails.",
 			"wednesday": "Wednesday"
-		},
-		"topMenu": {
-			"qrHintText": "Navigate other users to this site"
 		}
 	},
 	"help": {
@@ -2527,9 +2527,6 @@
 	"registration": {
 		"_registration": {
 			"employee": {
-				"heading": {
-					"yourData": "Your Data"
-				},
 				"headline": {
 					"yourData": "Your data"
 				},
@@ -2550,10 +2547,6 @@
 				"button": {
 					"openLogin": "Open Login",
 					"sendAndGetStarted": "Send & Get Started"
-				},
-				"heading": {
-					"language": "Please select your language",
-					"thankYouForRegistering": "Thank you for registering to {{shortTitle}}!"
 				},
 				"headline": {
 					"language": "Please select your language",
@@ -2672,10 +2665,6 @@
 				"verificationCode": "Confirmation code:"
 			}
 		},
-		"registationFailedAuthParagraph": "Unfortunately the link is no longer valid. Request a new link from your teacher or school administrator.",
-		"registationFailedAuthTitle": "Invalid registration link",
-		"registationFailedContinue": "The school cloud was embedded in a website. To continue ",
-		"registationFailedContinueLink": "open this page in a separate window",
 		"registration_template": {
 			"headline": {
 				"invitationToThe": "Invitation to the"
@@ -2852,6 +2841,7 @@
 					"doYouReallyWantToLeaveTeam": "Do you really want to leave the team?",
 					"doYouReallyWantToReSendEmail": "Do you really want to send the invitation again by e-mail?",
 					"editRole": "Edit role",
+					"email": "Send invitation to this e-mail:",
 					"externExpert": "External expert",
 					"externTeacher": "Teacher of other school (Team admin)",
 					"federalState": "State",
@@ -2988,6 +2978,7 @@
 			"label": {
 				"descriptionEtherpad": "Description of the Etherpad",
 				"descriptionNeXboard": "Description of the neXboard",
+				"internLink": "intern link",
 				"lockSection": "Lock section",
 				"nameOfEtherpad": "Name of the Etherpad",
 				"nameOfNeXboard": "Name of the neXboard",
@@ -3006,6 +2997,16 @@
 			"theVideoConferenceHasEither": "The video conference has either not started yet or has already ended.",
 			"thereWasAProblemWithTheVideo": "There was a problem with the video conference. Please try again.",
 			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference."
+		}
+	},
+	"messenger": {
+		"headline": {
+			"welcomeMatrixAdmin": "The Matrix Messenger is here! "
+		},
+		"text": {
+			"rocketChatDeprecation": "The chat function in the teams area is automatically switched off on {{date}} and the corresponding content is deleted. Please make sure you copy and save any important content.",
+			"welcomeMatrixAdmin": "Users Your school can now easily communicate directly within the HPI School Cloud using the Matrix Messenger.",
+			"howToActivateMatrix": "To do this you have to activate the Matrix Messenger as school admin under: Administration > School > Activate Matrix Messenger."
 		}
 	}
 }
