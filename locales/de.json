@@ -2995,12 +2995,14 @@
 	},
 	"messenger": {
 		"headline": {
-			"welcomeMatrixAdmin": "Der Matrix Messenger ist da!! "
+			"welcomeMatrix": "Neue Messenger-Funktion"
 		},
 		"text": {
-			"rocketChatDeprecation": "Die Chat-Funktion im Teams-Bereich wird am {{date}} automatisch abgeschaltet und die dazugehörigen Inhalte gelöscht. Bitte sorge dafür, dass du wichtige Inhalte kopierst und speicherst.",
-			"welcomeMatrixAdmin": "Nutzer:innen deiner Schule können sich ab sofort bequem über den Matrix Messenger direkt innerhalb der HPI Schul-Cloud austauschen.",
-			"howToActivateMatrix": "Dafür musst Du als Schul-Admin den Matrix Messenger aktivieren unter: Verwaltung > Schule > Matrix Messenger aktivieren."
+			"welcomeMatrix": "Ab sofort ist unser neuer Messenger verfügbar, mit dem sich alle Nutzer:innen deiner Schule Direkt- oder Gruppennachrichten schicken können, wie aus sozialen Plattformen gewohnt.",
+			"rocketChatDeprecation": "Die alte Team-Chatfunktion wird am {{date}} abgeschaltet. Alte Chatnachrichten werden nicht automatisch in den neuen Messenger übertragen.",
+			"callToCopyMessages": "Bitte kopiere selber alle Nachrichten, die dir wichtig sind.",
+			"howToDeactivateMatrix": "Den Messenger kannst du jeder Zeit deaktivieren unter: Verwaltung > Schule > Matrix Messenger deaktivieren.",
+			"howToActivateMatrix": "Den Messenger kannst du jeder Zeit aktivieren unter: Verwaltung > Schule > Matrix Messenger aktivieren."
 		}
 	}
 }

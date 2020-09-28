@@ -22,7 +22,6 @@
     {{#content "scripts" mode="append"}}
         <script src="/scripts/loggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="/scripts/autologout.js" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/deprecationInfoRocketChat.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="/scripts/messenger/welcome.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="/vendor/feathersjs/feathers.js" nonce="{{nonceValue}}" defer></script>
@@ -299,22 +298,27 @@
 {{/embed}}
 
 
-{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}
-
-{{! Rocketchat is enabled for the instance and the current school and set as deprecated}}
-{{#if @root.ROCKETCHAT_SERVICE_ENABLED}} {{#inArray "rocketChat" @root.schoolData.features}} {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
-    {{#embed "lib/components/modal" class="deprecation-info-rocket-chat" title=($t "messenger.headline.welcomeMatrixAdmin")}}
+{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}} {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
+    {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
     {{#content "body"}}
     <div class="modal-body">
         <img src="/images/messenger-info.svg" class="img-fluid" role="presentation"/>
         <div class="modal-body-text">
+            <p>{{$t "messenger.text.welcomeMatrix" }}</p>
             <div class="modal-danger">
                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                 {{$t "global.text.attention" }}
             </div>
             <div id="member-modal-body">
                 <div class="text-center">
-                    {{$t "messenger.text.rocketChatDeprecation" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRECATION_DATE"))) }}
+                    {{$t "messenger.text.rocketChatDeprecation" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE"))) }}
+                    {{#inArray 'Administrator' roleNames}}
+                        {{#if @root.ROCKETCHAT_SERVICE_ENABLED}} {{#inArray "rocketChat" @root.schoolData.features}}
+                            {{$t "messenger.text.howToDeactivateMatrix"}}
+                        {{/inArray}} {{/if}}
+                    {{else}}
+                            {{$t "messenger.text.callToCopyMessages" }}
+                    {{/inArray}}
                 </div>
             </div>
         </div>
@@ -331,38 +335,4 @@
     </div>
     {{/content}}
     {{/embed}}
-{{/hasConfig}} {{/inArray}} {{/if}}
-
-{{#inArray 'Administrator' roleNames}}
-{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}} {{#notInArray "messenger" @root.currentSchoolData.features}}
-    {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrixAdmin")}}
-    {{#content "body"}}
-    <div class="modal-body">
-        <div class="modal-body-text">
-            <div id="member-modal-body">
-                <div class="text-center">
-                    {{$t "messenger.text.welcomeMatrixAdmin" }}
-                </div>
-                <img src="/images/messenger-info.svg" class="img-fluid" role="presentation"/>
-                <div class="text-center">
-                    {{$t "messenger.text.howToActivateMatrix" }}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer modal-checkbox">
-        <label>
-            <input class="dontShowAgain-checkbox" type="checkbox" value="false" />
-            {{$t "homework.label.dontShowAgain" }}
-        </label>
-        <div>
-            <button type="button" class="btn btn-secondary btn-close">{{$t "global.button.cancel" }}</button>
-            <button type="button" class="btn btn-primary btn-submit">{{$t "global.button.ok" }}</button>
-        </div>
-    </div>
-    {{/content}}
-    {{/embed}}
-{{/notInArray}} {{/ifConfig}}
-{{/inArray}}
-
-{{/ifConfig}}
+{{/hasConfig}} {{/ifConfig}}
