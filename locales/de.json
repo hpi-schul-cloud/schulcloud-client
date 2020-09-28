@@ -914,8 +914,7 @@
 					"headline": {
 						"doneGroupTasks": "getätigte Gruppenabgaben",
 						"homework": "Hausaufgabe: {{name}}",
-						"openGroupTasks": "offene (mögliche) Gruppenabgaben",
-						"topics": "Themen"
+						"openGroupTasks": "offene (mögliche) Gruppenabgaben"
 					},
 					"link": {
 						"addTopic": "Thema hinzufügen",
@@ -1577,6 +1576,7 @@
 			"yes": "Ja"
 		},
 		"headline": {
+			"topics": "Themen",
 			"actions": "Aktionen",
 			"addDate": "Termin hinzufügen",
 			"almostThere": "Fast geschafft!",
@@ -2908,6 +2908,16 @@
 			"duplicateTeam": "Team duplizieren",
 			"foundATeam": "Gründe ein Team"
 		},
+		"form_importTopic": {
+			"label": {
+				"insertACodeToImportCourse": "Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.",
+				"renameTheCourse": "Benenne den Kurs um."
+			},
+			"text": {
+				"aCourseFolderIsAutomaticallyCreated": "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schülerbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler hinzu und vergib einen Termin für den Kurs.",
+				"completeTheImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler hinzu."
+			}
+		},
 		"headline": {
 			"duplicateTeam": "Team duplizieren",
 			"invitations": "Einladungen",
@@ -2924,6 +2934,27 @@
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
 			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
+		},
+		"topics": {
+			"button": {
+				"addGroup": "Gruppe hinzufügen",
+				"addNewTool": "Neues Tool hinzufügen",
+				"displayTopicAgain": "Thema wieder anzeigen"
+			},
+			"headline": {
+				"collapse/ExpandMyTasks": "Meine Aufgaben ein/ausklappen",
+				"collapse/ExpandStudentGroups": "Schülergruppen ein/ausklappen",
+				"homework": "({{homeworkLength}} Aufgabe{{#ifneq 1 {{homeworkLength}}}}n{{/ifneq}})",
+				"myHomework": "({{myHomeworkLength}} Aufgabe{{#ifneq 1 {{myHomeworkLength}}}}n{{/ifneq}})",
+				"myTasks": "Meine Aufgaben",
+				"show/HideTask": "gestellte Aufgaben ein/ausklappen"
+			},
+			"text": {
+				"group": "({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
+				"nextLesson": "Nächste Unterrichtsstunde: {{nextEvent}}",
+				"noIssues": "Keine Themen.",
+				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}Schülergruppen{{else}}Meine Schülergruppen {{/userHasPermission}}"
+			}
 		}
 	},
 	"topic": {
