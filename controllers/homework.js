@@ -14,6 +14,7 @@ const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
 const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
 const { getGradingFileDownloadPath, getGradingFileName, isGraded } = require('../helpers/homework');
+const timesHelper = require('../helpers/timesHelper');
 
 const router = express.Router();
 
@@ -74,7 +75,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		}
 		if (dueDate) {
 			// rewrite german format to ISO
-			req.body.dueDate = res.$TimesHelper.createFromString(dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.dueDate = timesHelper.createFromString(dueDate, 'DD.MM.YYYY HH:mm').toISOString();
 		}
 
 		if (publicSubmissions === 'public') {
@@ -82,9 +83,9 @@ const getCreateHandler = (service) => (req, res, next) => {
 		}
 
 		if (availableDate && availableDate !== '__.__.____ __:__') {
-			req.body.availableDate = res.$TimesHelper.createFromString(availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.availableDate = timesHelper.createFromString(availableDate, 'DD.MM.YYYY HH:mm').toISOString();
 		} else {
-			req.body.availableDate = res.$TimesHelper.currentDate().toISOString();
+			req.body.availableDate = timesHelper.currentDate().toISOString();
 		}
 
 		// after set dates, finaly test...
@@ -120,7 +121,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 						res.$t('homework._task.text.newHomeworkCourseNotification',
 							{ coursename: course.name }),
 						res.$t('homework._task.text.newHomeworkDueDateNotification',
-							{ homeworkname: data.name, duedate: res.$TimesHelper.fromUTC(data.dueDate).format('DD.MM.YYYY HH:mm') }),
+							{ homeworkname: data.name, duedate: timesHelper.fromUTC(data.dueDate).format('DD.MM.YYYY HH:mm') }),
 						data.teacherId,
 						req,
 						`${(req.headers.origin || HOST)}/homework/${data._id}`);
@@ -270,10 +271,10 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 
 		// rewrite german format to ISO
 		if (req.body.availableDate) {
-			req.body.availableDate = res.$TimesHelper.createFromString(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.availableDate = timesHelper.createFromString(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
 		}
 		if (req.body.dueDate) {
-			req.body.dueDate = res.$TimesHelper.createFromString(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.dueDate = timesHelper.createFromString(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
 		}
 		if (req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
 			req.session.notification = {
@@ -500,15 +501,15 @@ const overview = (titleKey) => (req, res, next) => {
 
 				// convert UTC dates to current timezone
 				if (assignment.availableDate) {
-					assignment.availableDate = res.$TimesHelper.fromUTC(assignment.availableDate);
+					assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
 				}
 				if (assignment.dueDate) {
-					assignment.dueDate = res.$TimesHelper.fromUTC(assignment.dueDate);
+					assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
 				}
 
-				const dueDateArray = res.$TimesHelper.splitDate(assignment.dueDate);
-				assignment.submittable = dueDateArray.timestamp >= res.$TimesHelper.now() || !assignment.dueDate;
-				assignment.warning = ((dueDateArray.timestamp <= (res.$TimesHelper.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
+				const dueDateArray = timesHelper.splitDate(assignment.dueDate);
+				assignment.submittable = dueDateArray.timestamp >= timesHelper.now() || !assignment.dueDate;
+				assignment.warning = ((dueDateArray.timestamp <= (timesHelper.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
 				return assignment;
 			});
 
@@ -669,8 +670,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			return next(error);
 		}
 
-		assignment.availableDate = res.$TimesHelper.fromUTC(assignment.availableDate).format('DD.MM.YYYY HH:mm');
-		assignment.dueDate = res.$TimesHelper.fromUTC(assignment.dueDate).format('DD.MM.YYYY HH:mm');
+		assignment.availableDate = timesHelper.fromUTC(assignment.availableDate).format('DD.MM.YYYY HH:mm');
+		assignment.dueDate = timesHelper.fromUTC(assignment.dueDate).format('DD.MM.YYYY HH:mm');
 
 		addClearNameForFileIds(assignment);
 		// assignment.submissions = assignment.submissions.map((s) => { return { submission: s }; });
@@ -699,7 +700,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 						lessons,
 						isSubstitution,
 						timezone: res.locals.currentTimezone,
-						timezoneOffset: res.$TimesHelper.getUtcOffset(),
+						timezoneOffset: timesHelper.getUtcOffset(),
 					});
 				});
 			} else {
@@ -714,8 +715,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					courses,
 					lessons: false,
 					isSubstitution,
-					timezone: res.$TimesHelper.timezone,
-					timezoneOffset: res.$TimesHelper.getUtcOffset(),
+					timezone: timesHelper.timezone,
+					timezoneOffset: timesHelper.getUtcOffset(),
 				});
 			}
 		});
@@ -753,24 +754,24 @@ router.get('/:assignmentId', (req, res, next) => {
 
 		// convert UTC dates to current timezone
 		if (assignment.availableDate) {
-			assignment.availableDate = res.$TimesHelper.fromUTC(assignment.availableDate);
+			assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
 		}
 		if (assignment.dueDate) {
-			assignment.dueDate = res.$TimesHelper.fromUTC(assignment.dueDate);
+			assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
 		}
 
 		// Datum aufbereiten
-		const availableDateArray = res.$TimesHelper.splitDate(assignment.availableDate);
+		const availableDateArray = timesHelper.splitDate(assignment.availableDate);
 		assignment.availableDateF = availableDateArray.date;
 		assignment.availableTimeF = availableDateArray.time;
 
-		const dueDateArray = res.$TimesHelper.splitDate(assignment.dueDate);
+		const dueDateArray = timesHelper.splitDate(assignment.dueDate);
 		assignment.dueDateF = dueDateArray.date;
 		assignment.dueTimeF = dueDateArray.time;
 
 		// Abgabe noch möglich?
-		assignment.submittable = (dueDateArray.timestamp >= res.$TimesHelper.now() || !assignment.dueDate);
-		assignment.warning = ((dueDateArray.timestamp <= (res.$TimesHelper.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
+		assignment.submittable = (dueDateArray.timestamp >= timesHelper.now() || !assignment.dueDate);
+		assignment.warning = ((dueDateArray.timestamp <= (timesHelper.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
 
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
