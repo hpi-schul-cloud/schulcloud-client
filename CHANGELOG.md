@@ -56,6 +56,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6567 clear and improve logging in error case
 - SC-5858 removed chosen library from the code (Accessibility issues)
 
+- update commons to 1.2.7 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
+
 ## [25.0.3] - 2020-09-29
 
 ### Fixed
