@@ -6,7 +6,8 @@
 
 <script nonce="{{nonceValue}}">
 	window.addEventListener('DOMContentLoaded', function () {
-		$.datetimepicker.setLocale('de');
+        const lang = $('html').attr('lang');
+		$.datetimepicker.setLocale(lang || 'de');
 		$('input[data-datetime]').datetimepicker({
 			format: 'd.m.Y H:i',
 			mask: '39.19.9999 29:59',
