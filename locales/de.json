@@ -1294,6 +1294,7 @@
 				"pleaseSelectFileType": "Bitte wähle einen Dateityp aus.",
 				"renameDirSuccess": "Umbenennen des Ordners war erfolgreich!",
 				"renameFileSuccess": "Umbenennen der Datei war erfolgreich!",
+				"sharedFileSuccess": "Die geteilte Datei wurde dem Bereich Geteilte Dateien hinzugefügt.",
 				"thereAreNoPermissionsToEdit": "Keine Berechtigungen zum Bearbeiten vorhanden."
 			}
 		},

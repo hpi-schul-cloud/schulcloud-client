@@ -1294,6 +1294,7 @@
 				"pleaseSelectFileType": "Please select a file type.",
 				"renameDirSuccess": "The folder was renamed successfully!",
 				"renameFileSuccess": "The file was renamed successfully!",
+				"sharedFileSuccess": "The shared file is now available in your shared files area.",
 				"thereAreNoPermissionsToEdit": "There are no permissions to edit."
 			}
 		},

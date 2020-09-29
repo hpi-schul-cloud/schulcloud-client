@@ -462,10 +462,18 @@ router.get('/file', (req, res, next) => {
 		if (lool) {
 			return res.redirect(307, `/files/file/${file}/lool`);
 		}
-
-		return retrieveSignedUrl(req, data).then((signedUrl) => {
-			res.redirect(307, signedUrl.url);
-		});
+		if (share && share !== 'undefined') {
+			let messageType = 'success';
+			req.session.notification = {
+				type: 'success',
+				message: res.$t('files._file.text.sharedFileSuccess'),
+			};
+			res.redirect('/files/shared');
+		} else {
+			return retrieveSignedUrl(req, data).then((signedUrl) => {
+				res.redirect(307, signedUrl.url);
+			});
+		}
 	}).catch(next);
 });
 
