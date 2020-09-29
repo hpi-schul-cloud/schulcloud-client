@@ -15,6 +15,9 @@ const middleware = async (req, res, next) => {
 	setDefaultTimezone(res.locals.currentTimezone);
 
 	const currentLanguage = await getCurrentLanguage(req, res);
+
+	res.locals.userLanguage = currentLanguage;
+
 	if (currentLanguage) {
 		changeLanguage(currentLanguage);
 		res.cookie('USER_LANG', currentLanguage);
