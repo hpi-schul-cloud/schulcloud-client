@@ -239,6 +239,9 @@
 				"toGiveConsent": "Einverständnis erklären",
 				"transferClassToTheNextSchoolYear": "Klasse in das nächste Schuljahr versetzen"
 			},
+			"tab_label": {
+				"archivedClasses": "Archiv"
+			},
 			"text": {
 				"active": "Aktiv",
 				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
@@ -284,9 +287,6 @@
 				"whenLoggingInForTheFirstTime": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben.",
 				"yourStudentsAreAtLeast": "Deine Schüler sind mindestens {{age}} Jahre alt?",
 				"yourStudentsAreUnder": "Deine Schüler sind unter {{age}} Jahre alt?"
-			},
-			"tab_label": {
-				"archivedClasses": "Archiv"
 			}
 		},
 		"dashboard": {
@@ -605,6 +605,7 @@
 				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
 				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
 				"fileSelected": "Datei ausgewählt",
+				"fileTooLarge" : "PDF Datei ist zu groß. Maximal {{size}}MB",
 				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team die Chatfunktion gezielt freischalten.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer starten. Team-Administratoren können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
@@ -614,12 +615,14 @@
 				"noFileSelected": "Keine Datei ausgewählt",
 				"noRssFeedsYet": "Es sind noch keine RSS-Feeds hinterlegt.",
 				"oldSchoolYear": "Altes Schuljahr",
+				"onlyPDFSupport" : "nur PDF Dateien werden unterstützt",
 				"passwordChanges": "Passwortänderungen werden weiterhin synchronisiert",
 				"theNewClassesAreSavedInTheContext": "die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert",
 				"theNewClassesCanNowBeAssigned": "die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden",
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
-				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule"
+				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule",
+				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen."
 			}
 		},
 		"students": {
@@ -911,8 +914,7 @@
 					"headline": {
 						"doneGroupTasks": "getätigte Gruppenabgaben",
 						"homework": "Hausaufgabe: {{name}}",
-						"openGroupTasks": "offene (mögliche) Gruppenabgaben",
-						"topics": "Themen"
+						"openGroupTasks": "offene (mögliche) Gruppenabgaben"
 					},
 					"link": {
 						"addTopic": "Thema hinzufügen",
@@ -920,21 +922,23 @@
 						"editGroup": "Gruppe bearbeiten"
 					},
 					"text": {
+						"archivedTask": "Die Aufgabe ist archiviert",
+						"doneTask": "Die Aufgabe ist gestellt",
+						"draftTask": "Die Aufgabe entwürfe",
 						"dueTo": "bis zum: {{date}}",
+						"feedbackTask": "Die Aufgabe hat Feedback",
 						"groupMembers": "Gruppenteilnehmer:innen:",
+						"moveTask": "Verschiebe Aufgabe zwischen Übersichtsseite und Archiv",
 						"noOpenGroupTasks": "Keine weiteren Gruppenabgaben möglich.",
 						"noSubmissions": "Keine Abgaben bisher durch diese Gruppe.",
 						"noTopics": "keine Themen.",
 						"responsibleTeachers": "Verantwortliche Lehrer:innen:",
 						"submittedOn": "Abgabe: {{ddmmyy_hhmm}}",
-						"workOnTopic": "Thema bearbeiten",
-						"archivedTask": "Die Aufgabe ist archiviert",
-						"draftTask": "Die Aufgabe entwürfe",
-						"doneTask": "Die Aufgabe ist gestellt",
-						"feedbackTask": "Die Aufgabe hat Feedback",
-						"moveTask": "Verschiebe Aufgabe zwischen Übersichtsseite und Archiv",
 						"task": "Die Aufgabe: ",
-						"taskDetails": "Details der Aufgabe: "
+						"taskDetails": "Details der Aufgabe: ",
+						"taskOpen": "Aufgabe öffnen >",
+						"toTask": "Zur Aufgabe",
+						"workOnTopic": "Thema bearbeiten"
 					}
 				},
 				"button": {
@@ -985,6 +989,12 @@
 				},
 				"img_alt": {
 					"noPosedTasks": "Keine gestellten Aufgaben"
+				},
+				"label": {
+					"archived": "Archiviert",
+					"drafts": "Entwürfe",
+					"feedback": "Feedback",
+					"provided": "Gestellt"
 				},
 				"text": {
 					"descriptionTasks": "Kursteilnehmer:innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
@@ -1327,10 +1337,13 @@
 			"filesFromMyClasses": "Dateien aus meinen Klassen",
 			"filesFromMyCourse": "Dateien aus meinen Kursen",
 			"filesFromMyTeam": "Dateien aus meinen Teams",
+			"filesOpen": "Dateien öffnen",
 			"filesSharedWithMe": "Mit mir geteilte Dateien",
+			"filesSharedWithMeContent": "Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzern zur Verfügung gestellt worden sind.",
 			"folder": "Ordner",
 			"moveFile": "Datei verschieben - vorübergehend deaktiviert",
 			"myPersonalData": "Meine persönlichen Dateien",
+			"myPersonalDataContent": "Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.",
 			"name": "Dateiname",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
 			"read": "Lesen",
@@ -1342,6 +1355,21 @@
 			"size": "Größe",
 			"updatedAt": "Änderungsdatum",
 			"write": "Schreiben"
+		},
+		"overview" : {
+			"button" : {
+				"openFiles" : "Dateien öffnen"
+			},
+			"headline":{
+				"myCourseFiles" : "Meine Kurs-Dateien",
+				"myTeamFiles" : "Meine Team-Dateien"
+			},
+			"text" : {
+				"CourseFilesDesc" : "Hier findest du alle Dateien, die in den jeweiligen Kursen im Unterricht verwendet werden. Alle Teilnehmer des Kurses, also der Lehrer und die Schüler, haben auf diese Dateien Zugriff.",
+				"PersonalFilesDesc" : "Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.",
+				"SharedFilesDesc" : "Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzern zur Verfügung gestellt worden sind.",
+				"TeamFilesDesc" : "Hier findest du alle Dateien, die in den jeweiligen Teams verwendet werden. Alle Teilnehmer des Teams haben auf diese Dateien Zugriff."
+			}
 		},
 		"search": {
 			"headline": {
@@ -1554,6 +1582,7 @@
 			"yes": "Ja"
 		},
 		"headline": {
+			"topics": "Themen",
 			"actions": "Aktionen",
 			"addDate": "Termin hinzufügen",
 			"almostThere": "Fast geschafft!",
@@ -1605,6 +1634,12 @@
 			"to": "Bis",
 			"type": "Typ"
 		},
+		"language": {
+			"label": {
+				"de": "Deutsch",
+				"en": "English"
+			}
+		},
 		"link": {
 			"aboutTheProject": "Über das Projekt",
 			"administrationStudents": "Schüler",
@@ -1612,7 +1647,10 @@
 			"archive": "Archiv",
 			"calendar": "Termine",
 			"contact": "Kontakt",
+			"courseData": "Meine Kurs-Dateien",
+			"courseDataContent": "Hier findest du alle Dateien, die in den jeweiligen Kursen im Unterricht verwendet werden. Alle Teilnehmer des Kurses, also der Lehrer und die Schüler, haben auf diese Dateien Zugriff.",
 			"files": "Meine Dateien",
+			"filesContent": "Hier findest du alle Dateien, die in den jeweiligen Teams verwendet werden. Alle Teilnehmer des Teams haben auf diese Dateien Zugriff.",
 			"filesPersonal": "persönliche Dateien",
 			"filesShared": "geteilte Dateien",
 			"firstSteps": "Erste Schritte",
@@ -1633,10 +1671,29 @@
 			"register": "Registrieren",
 			"school": "Schule",
 			"tasksDrafts": "Entwürfe",
+			"teamData": "Meine Team-Dateien",
 			"teams": "Teams",
 			"topNavbarSkipLink": "Navigation oben"
 		},
+		"pagination": {
+			"aria_label": {
+				"firstPage": "Erste Seite",
+				"lastPage": "Letzte Seite",
+				"nextPage": "nächste Seite",
+				"previousPage": "Vorherige Seite"
+			}
+		},
 		"placeholder": {
+			"Administrator": "Administrator",
+			"BetaTeacher": "Beta",
+			"Demo": "Demo",
+			"DemoStudent": "Demo Schüler",
+			"DemoTeacher": "Demo Lehrer",
+			"Expert": "Experte",
+			"Helpdesk": "Helpdesk",
+			"Lehrer": "Lehrer",
+			"Schüler": "Schüler",
+			"Superhero": "Schul-Cloud Admin",
 			"firstName": "Ihren Vornamen hier eingeben",
 			"lastName": "Ihren Nachname hier eingeben",
 			"selectTeacher": "Lehrer auswählen"
@@ -1667,6 +1724,7 @@
 			"404": "Ups, diese Seite gibt's wohl nicht.",
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
+			"info": "Hinweis:",
 			"dataProtection": "Datenschutzerklärung",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
 			"errorChangingFilePermissions": "Problem beim Ändern der Berechtigungen",
@@ -1701,20 +1759,6 @@
 			"videoconferenceNotStartedYet": "Videokonferenz wurde noch nicht gestartet",
 			"weNeedAnEmailAddress": "Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{shortTitle}} rechtlich gültig ist. Die {{shortTitle}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.",
 			"wednesday": "Mittwoch"
-		},
-		"pagination": {
-			"aria_label": {
-				"firstPage": "Erste Seite",
-				"previousPage": "Vorherige Seite",
-				"lastPage": "Letzte Seite",
-				"nextPage": "nächste Seite"
-			}
-		},
-		"language": {
-			"label": {
-				"de": "Deutsch",
-				"en": "English"
-			}
 		}
 	},
 	"help": {
@@ -2153,6 +2197,14 @@
 				"providerLogo": "Anbieterlogo"
 			}
 		},
+		"form_ChangeLanguage": {
+			"label": {
+				"language": "Sprache"
+			},
+			"placeholder": {
+				"text": "Bitte wählen..."
+			}
+		},
 		"form_auto_logout": {
 			"button": {
 				"extendSession": "Sitzung verlängern"
@@ -2195,14 +2247,6 @@
 			"text": {
 				"thanksForYourSupport": "Vielen Dank für Ihre Unterstützung!",
 				"theNextQuestionnaireIsOnline": "Die nächste Befragung zum Projekt {{shortTitle}} ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen."
-			}
-		},
-		"form_ChangeLanguage" : {
-			"label": {
-				"language": "Sprache"
-			},
-			"placeholder": {
-				"text": "Bitte wählen..."
 			}
 		},
 		"global": {
@@ -2379,7 +2423,8 @@
 			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
 			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
-			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account"
+			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
+			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden."
 		}
 	},
 	"my_material": {
@@ -2504,8 +2549,8 @@
 					"sendAndGetStarted": "Absenden & Loslegen"
 				},
 				"headline": {
-					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!",
-					"language": "Bitte wähle deine Sprache"
+					"language": "Bitte wähle deine Sprache",
+					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
 				},
 				"label": {
 					"eMail": "E-Mail:",
@@ -2522,12 +2567,12 @@
 					"bellowNYearsOldConsentOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten",
 					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
 					"inCaseOfRevocationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a> entnehmen.",
+					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf Deinen Avatar tippst.",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
 					"password": "Passwort: ",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
-					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.",
-					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf Deinen Avatar tippst."
+					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
 				}
 			},
 			"headline": {
@@ -2784,11 +2829,11 @@
 					"inviteTeacherByEmail": "Lehrer per E-Mail einladen",
 					"inviteTeacherFromOtherSchool": "Lehrer anderer Schulen einladen",
 					"invitedOn": "Eingeladen am",
-					"member": "{{count}} Teilnehmer",
+					"member": "{{count}} Teilnehmer:innen",
 					"pendingInvitations": "Ausstehende Einladungen",
 					"requirements": "Voraussetzungen:",
 					"selectAndAddTeacher": "Lehrer auswählen und hinzufügen",
-					"teamMembers": "Team-Teilnehmer"
+					"teamMembers": "Team-Teilnehmer:innen"
 				},
 				"label": {
 					"addTeacherStudentsFromSchool": "Füge Lehrer und Schüler deiner Schule zum Team hinzu",
@@ -2796,6 +2841,7 @@
 					"doYouReallyWantToLeaveTeam": "Möchtest du das Team wirklich verlassen?",
 					"doYouReallyWantToReSendEmail": "Möchtest du die Einladung wirklich noch einmal per E-Mail zuschicken?",
 					"editRole": "Rolle bearbeiten",
+					"email": "Einladung an diese E-Mail senden:",
 					"externExpert": "externer Experte",
 					"externTeacher": "Lehrer anderer Schule (Team-Admin)",
 					"federalState": "Bundesland",
@@ -2828,7 +2874,7 @@
 					"expert": "Externer Experte",
 					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
 					"inviteTeachersAndExpertsByEmail": "Lade Lehrer anderer Schulen und Experten per E-Mail ein.",
-					"member": "Teilnehmer",
+					"member": "Teilnehmer:innen",
 					"pleaseSelectRole": "Bitte wähle eine Rolle aus.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler und Lehrer ihrer Schule zum Team hinzufügen.",
 					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
@@ -2851,8 +2897,8 @@
 				"invitationSuccessfullyAccepted": "Teameinladung erfolgreich angenommen.",
 				"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Administrator aktiviert.",
 				"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Administrator aktiviert wurde.",
-				"messengerNotActiveInTeam": "Dieses schulübergreifende Team beinhaltet keinen Teamchat. Im Gegensatz zu deiner Schule ist in der Schule die das Team erstellt hat Chatten noch nicht durch den Administrator aktiviert.",
 				"messengerNotActivatedTitle": "Hinweis",
+				"messengerNotActiveInTeam": "Dieses schulübergreifende Team beinhaltet keinen Teamchat. Im Gegensatz zu deiner Schule ist in der Schule die das Team erstellt hat Chatten noch nicht durch den Administrator aktiviert.",
 				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
 				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
 			}
@@ -2866,6 +2912,16 @@
 			"createTeam": "Team anlegen",
 			"duplicateTeam": "Team duplizieren",
 			"foundATeam": "Gründe ein Team"
+		},
+		"form_importTopic": {
+			"label": {
+				"insertACodeToImportCourse": "Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.",
+				"renameTheCourse": "Benenne den Kurs um."
+			},
+			"text": {
+				"aCourseFolderIsAutomaticallyCreated": "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schülerbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler hinzu und vergib einen Termin für den Kurs.",
+				"completeTheImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler hinzu."
+			}
 		},
 		"headline": {
 			"duplicateTeam": "Team duplizieren",
@@ -2883,6 +2939,27 @@
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecherversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
 			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler in deiner Schule nicht. Wende dich bitte an einen Lehrer oder Administrator."
+		},
+		"topics": {
+			"button": {
+				"addGroup": "Gruppe hinzufügen",
+				"addNewTool": "Neues Tool hinzufügen",
+				"displayTopicAgain": "Thema wieder anzeigen"
+			},
+			"headline": {
+				"collapse/ExpandMyTasks": "Meine Aufgaben ein/ausklappen",
+				"collapse/ExpandStudentGroups": "Schülergruppen ein/ausklappen",
+				"homework": "({{homeworkLength}} Aufgabe{{#ifneq 1 {{homeworkLength}}}}n{{/ifneq}})",
+				"myHomework": "({{myHomeworkLength}} Aufgabe{{#ifneq 1 {{myHomeworkLength}}}}n{{/ifneq}})",
+				"myTasks": "Meine Aufgaben",
+				"show/HideTask": "gestellte Aufgaben ein/ausklappen"
+			},
+			"text": {
+				"group": "({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
+				"nextLesson": "Nächste Unterrichtsstunde: {{nextEvent}}",
+				"noIssues": "Keine Themen.",
+				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}Schülergruppen{{else}}Meine Schülergruppen {{/userHasPermission}}"
+			}
 		}
 	},
 	"topic": {
@@ -2932,6 +3009,7 @@
 			"label": {
 				"descriptionEtherpad": "Beschreibung des Etherpads",
 				"descriptionNeXboard": "Beschreibung des neXboards",
+				"internLink" : "Interner Link",
 				"lockSection": "Abschnitt sperren",
 				"nameOfEtherpad": "Name des Etherpads",
 				"nameOfNeXboard": "Name des neXboards",
@@ -2950,6 +3028,16 @@
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
 			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
 			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen."
+		}
+	},
+	"messenger": {
+		"headline": {
+			"welcomeMatrixAdmin": "Der Matrix Messenger ist da!! "
+		},
+		"text": {
+			"rocketChatDeprecation": "Die Chat-Funktion im Teams-Bereich wird am {{date}} automatisch abgeschaltet und die dazugehörigen Inhalte gelöscht. Bitte sorge dafür, dass du wichtige Inhalte kopierst und speicherst.",
+			"welcomeMatrixAdmin": "Nutzer:innen deiner Schule können sich ab sofort bequem über den Matrix Messenger direkt innerhalb der HPI Schul-Cloud austauschen.",
+			"howToActivateMatrix": "Dafür musst Du als Schul-Admin den Matrix Messenger aktivieren unter: Verwaltung > Schule > Matrix Messenger aktivieren."
 		}
 	}
 }
