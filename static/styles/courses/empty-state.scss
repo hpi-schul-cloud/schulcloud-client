@@ -1,4 +1,5 @@
 @import '../lib/bootstrap/scss/bootstrap-flex';
+@import "../lib/colors";
 
 .empty-state{
   .center{
@@ -31,4 +32,8 @@
       max-width: 90%;
     }
   }
+
+	#COLOR {
+		fill: $primaryColor;
+	}
 }

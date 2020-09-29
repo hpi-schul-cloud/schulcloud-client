@@ -9,6 +9,61 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.0.3] - 2020-09-29
+
+### Fixed - 25.0.2
+
+- SC-6940 hanndle undefined in language detection
+
+## [25.0.2] - 2020-09-29
+
+### Fixed
+
+  - SC-6927 Admins can delete teachers again
+
+## [25.0.1] - 2020-09-28
+
+
+### Fixed
+
+  - SC-6932 added translation keys instead of hardcoded strings for sidebar items
+
+## [24.5.7] - 2020-09-22
+
+### Fixed
+
+  - SC-6845 Fixed reset of consent property if inputs disabled
+
+## [24.5.6] - 2020-09-22
+
+### Fixed
+
+  - SC-6823 - Fixed inserting media in comments for homework correction
+
+## [24.5.5] - 2020-09-22
+
+### Fixed
+
+  - SC-6630 Fixed email validation using an undefined value when inviting experts to a team.
+
+## [24.5.4] - 2020-09-21
+
+### Fixed
+
+  - SC-6762 Fix file upload permissions for evaluation
+
+## [24.5.3] - 2020-09-18
+
+### Fixed
+
+  - SC-6761 Fixed messenger activation in courses
+
+## [24.5.2] - 2020-09-16
+
+### Fixed
+
+  - SC-6637 Updated CSS of QR codes to avoid broken print layout
+
 ## [24.5.1] - 2020-09-14
 
 ### Fixed

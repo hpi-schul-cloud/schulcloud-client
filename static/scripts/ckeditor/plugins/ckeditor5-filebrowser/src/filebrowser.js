@@ -20,18 +20,19 @@ const createFilebrowserModal = (editor, t, dialogTitle, onCreate, additionalInpu
 		<button type="button" id="browseServerButton">${t('Browse Server')}</button><br>${additionalInput}`;
 
 	ckeditorFilebrowserDialog.find('.modal-body').html(dialogContent);
-	ckeditorFilebrowserDialog.find('.btn-submit').click(() => { ckeditorFilebrowserDialog.modal('hide'); onCreate(); });
+	ckeditorFilebrowserDialog.find('.btn-submit').on('click', () => {
+		ckeditorFilebrowserDialog.modal('hide');
+		onCreate();
+	});
 	ckeditorFilebrowserDialog.appendTo('body').modal('show');
 
 	window.addEventListener('message', (e) => {
 		document.getElementById('url-input').value = e.data;
 	});
 
-	ckeditorFilebrowserDialog.on('shown.bs.modal', () => {
-		document.getElementById('browseServerButton').addEventListener('click', () => {
-			const dialogPageUrl = `${editor.config.get('filebrowser.browseUrl')}?CKEditor=true`;
-			window.open(dialogPageUrl, '_blank', 'width=700, height=500');
-		});
+	ckeditorFilebrowserDialog.find('#browseServerButton').on('click', () => {
+		const dialogPageUrl = `${editor.config.get('filebrowser.browseUrl')}?CKEditor=true`;
+		window.open(dialogPageUrl, '_blank', 'width=700, height=500');
 	});
 };
 

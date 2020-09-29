@@ -6,7 +6,8 @@
 
 <script nonce="{{nonceValue}}">
 	window.addEventListener('DOMContentLoaded', function () {
-		$.datetimepicker.setLocale('de');
+        const lang = $('html').attr('lang');
+		$.datetimepicker.setLocale(lang || 'de');
 		$('input[data-datetime]').datetimepicker({
 			format: 'd.m.Y H:i',
 			mask: '39.19.9999 29:59',
@@ -230,7 +231,7 @@
 
 		{{/embed}}
 
-		{{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+		{{#embed "lib/components/modal" class="delete-modal" title="${res.$t('global.text.areYousure')}"}}
 		{{#content "body"}}
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary btn-close">
