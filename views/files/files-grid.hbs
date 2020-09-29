@@ -45,7 +45,6 @@
 									class="fa fa-edit file-name-edit">
 								</i>
 
-								{{#if ../this.canShareFiles}}
 								{{#userHasPermission "FILE_DELETE"}}
 								<a href="/files/file/"
 								   target="_blank"
@@ -57,36 +56,37 @@
 								</a>
 								{{/userHasPermission}}
 
-								<a href="#"
-								class="btn-file-share"
-								title="{{$t "files.label.shareFile"}}"
-								data-file-id="{{../this._id}}"
-								data-file-name="{{../this.name}}"
-								id="{{@index}}">
-									<i class="fa fa-share-alt"></i>
-								</a>
+								{{#if ../this.canShareFiles}}
+									<a href="#"
+									class="btn-file-share"
+									title="{{$t "files.label.shareFile"}}"
+									data-file-id="{{this._id}}"
+									data-file-name="{{this.name}}"
+									id="{{@index}}">
+										<i class="fa fa-share-alt"></i>
+									</a>
+								{{/if}}
 
 								<div class="popup-overlay" id="{{@index}}">
 
 									<div class="popup-content" id="{{@index}}">
-										<a class="btn btn-secondary btn-file-share-view" data-file-id="{{../this._id}}" data-file-attribute="view" style="width: 100%">{{$t "global.button.edit"}}</a>
-										<a class="btn btn-secondary btn-file-share-download" data-file-id="{{../this._id}}" data-file-attribute="download" style="width: 100%">{{$t "files.button.download"}}</a>
+										<a class="btn btn-secondary btn-file-share-view" data-file-id="{{this._id}}" data-file-attribute="view" style="width: 100%">{{$t "global.button.edit"}}</a>
+										<a class="btn btn-secondary btn-file-share-download" data-file-id="{{this._id}}" data-file-attribute="download" style="width: 100%">{{$t "files.button.download"}}</a>
 										<a class="btn btn-secondary btn-file-share-close" style="width: 100%">{{$t "global.button.close"}}</a>
 									</div>
 								</div>
 
-									{{#if ../this.userIsOwner}}
-										<a
-										href=""
-										class="btn-file-move"
-										title="{{$t "files.label.moveFile"}}"
-										data-file-path="{{../path}}"
-										data-file-id="{{../_id}}"
-										data-file-name="{{../name}}"
-										disabled>
-											<i class="fa fa-folder-open"></i>
-										</a>
-									{{/if}}
+								{{#if ../this.userIsOwner}}
+									<a
+									href=""
+									class="btn-file-move"
+									title="{{$t "files.label.moveFile"}}"
+									data-file-path="{{../path}}"
+									data-file-id="{{../_id}}"
+									data-file-name="{{../name}}"
+									disabled>
+										<i class="fa fa-folder-open"></i>
+									</a>
 								{{/if}}
 
 								<a
