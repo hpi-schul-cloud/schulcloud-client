@@ -1,3 +1,5 @@
+const momentTZ = require('moment-timezone');
+
 const {
 	getInstance,
 	changeLanguage,
@@ -8,6 +10,9 @@ const {
 
 const middleware = async (req, res, next) => {
 	res.$t = getInstance();
+
+	const userTz = (res.locals.currentSchoolData || {}).timezone || 'Europe/Berlin';
+	momentTZ.tz.setDefault(userTz);
 
 	const currentLanguage = await getCurrentLanguage(req, res);
 	if (currentLanguage) {
@@ -26,6 +31,7 @@ const middleware = async (req, res, next) => {
 	}
 
 	changeLanguage(defaultLanguage);
+
 	return next();
 };
 
