@@ -162,18 +162,45 @@
                         </button>
                         {{/unless}}
                     </div>
+                    <div class="row">
+                        <div class="modal-footer w-100">
+                            <div class="pull-left">
+                                {{#unless schoolUsesLdap}}
+                                {{#ifCond isAdmin '|| !' editTeacher}}
+                                <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled
+                                    title="{{$t "administration.users_edit.text.firstClose" }}"
+                                    {{/if}}>{{$t "administration.users_edit.headline.changePassword" }}</button>
+                                {{/ifCond}}
+                                {{#if canDeleteUser}}
+                                <button
+                                    class="btn btn-secondary btn-delete">{{$t "administration.users_edit.headline.deleteUser" }}</button>
+                                {{/if}}
+                                <button
+                                    class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}"
+                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled
+                                    title="{{$t "administration.users_edit.button.alreadyRegistered" }}" {{/ifeq}}>
+                                    {{$t "administration.button.generatePersonalInvitationLink" }}
+                                </button>
+                                <button
+                                    class="btn btn-secondary btn-send-link-email {{#if editTeacher}}teacher{{else}}student{{/if}}"
+                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled
+                                    title="{{$t "administration.users_edit.button.alreadyRegistered" }}" {{/ifeq}}>
+                                    {{$t "administration.button.sendTheInvitationLinkByMail" }}
+                                </button>
+                                {{/unless}}
+                            </div>
 
-                    <button class="btn btn-secondary btn-cancel">
-                        {{closeLabel}}
-                    </button>
+                            <button class="btn btn-secondary btn-cancel">
+                                {{closeLabel}}
+                            </button>
 
-                    {{> "lib/components/csrfInput"}}
+                            {{> "lib/components/csrfInput"}}
 
-                    <button type="submit" class="btn btn-primary btn-submit">
-                        {{submitLabel}}
-                    </button>
-                </div>
-            </div>
+                            <button type="submit" class="btn btn-primary btn-submit">
+                                {{submitLabel}}
+                            </button>
+                        </div>
+                    </div>
         </form>
         {{#if schoolUsesLdap}}
         {{> "lib/ldap-info"}}
@@ -204,7 +231,48 @@
         {{/content}}
         {{/embed}}
 
+        <button class="btn btn-secondary btn-cancel">
+            {{closeLabel}}
+        </button>
+
+        {{> "lib/components/csrfInput"}}
+
+        <button type="submit" class="btn btn-primary btn-submit">
+            {{submitLabel}}
+        </button>
     </div>
+</div>
+</form>
+{{#if schoolUsesLdap}}
+{{> "lib/ldap-info"}}
+{{/if}}
+
+
+{{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}
+
+{{#embed "lib/components/modal-form" method="patch" class="pw-modal"}}
+{{#content "fields"}}
+{{> "administration/forms/form-account-password"}}
+{{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal-form" method="delete" class="delete-modal"}}
+{{#content "fields"}}
+{{> "administration/forms/form-delete-user"}}
+{{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal-form" class="invitation-modal"}}
+{{#content "fields"}}
+{{#unless editTeacher}}
+{{> "administration/forms/form-invitation-student"}}
+{{else}}
+{{> "administration/forms/form-invitation-teacher"}}
+{{/unless}}
+{{/content}}
+{{/embed}}
+
+</div>
 </div>
 
 {{/content}}

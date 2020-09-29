@@ -9,7 +9,20 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.0.3] - 2020-09-29
+
+### Fixed - 25.0.2
+
+- SC-6940 hanndle undefined in language detection
+
+## [25.0.2] - 2020-09-29
+
+### Fixed
+
+  - SC-6927 Admins can delete teachers again
+
 ## [25.0.1] - 2020-09-28
+
 
 ### Fixed
 
