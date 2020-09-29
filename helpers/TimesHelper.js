@@ -71,10 +71,11 @@ class TimesHelper {
 	 * @return {Object} Timestamp, date and time of given date as object
 	 */
 	splitDate(date) {
+		const resultDate = moment(date).tz(this.timezone);
 		return {
-			timestamp: moment(date).valueOf(),
-			date: moment(date).format('DD.MM.YYYY'),
-			time: moment(date).format('HH:mm'),
+			timestamp: resultDate.valueOf(),
+			date: resultDate.format('DD.MM.YYYY'),
+			time: resultDate.format('HH:mm'),
 		};
 	}
 }

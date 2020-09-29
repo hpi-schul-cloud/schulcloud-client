@@ -458,6 +458,7 @@ const overview = (titleKey) => (req, res, next) => {
 	api(req).get('/homework/', {
 		qs: query,
 	}).then((homeworks) => {
+
 		// ist der aktuelle Benutzer ein Schueler? -> Für Sichtbarkeit von Daten benötigt
 		api(req).get(`/users/${userId}`, {
 			qs: {
@@ -496,6 +497,15 @@ const overview = (titleKey) => (req, res, next) => {
 				if (!assignment.isTeacher) {
 					assignment.stats = undefined;
 				}
+
+				// convert UTC dates to current timezone
+				if (assignment.availableDate) {
+					assignment.availableDate = res.$TimesHelper.fromUTC(assignment.availableDate);
+				}
+				if (assignment.dueDate) {
+					assignment.dueDate = res.$TimesHelper.fromUTC(assignment.dueDate);
+				}
+
 				const dueDateArray = res.$TimesHelper.splitDate(assignment.dueDate);
 				assignment.submittable = dueDateArray.timestamp >= res.$TimesHelper.now() || !assignment.dueDate;
 				assignment.warning = ((dueDateArray.timestamp <= (res.$TimesHelper.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
@@ -659,7 +669,6 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			return next(error);
 		}
 
-		// TODO: Don't convert to string here. Use translation feature to create localized date strings within template.
 		assignment.availableDate = res.$TimesHelper.fromUTC(assignment.availableDate).format('DD.MM.YYYY HH:mm');
 		assignment.dueDate = res.$TimesHelper.fromUTC(assignment.dueDate).format('DD.MM.YYYY HH:mm');
 
@@ -741,6 +750,14 @@ router.get('/:assignmentId', (req, res, next) => {
 	}).then((assignment) => {
 		// Kursfarbe setzen
 		assignment.color = (assignment.courseId && assignment.courseId.color) ? assignment.courseId.color : '#1DE9B6';
+
+		// convert UTC dates to current timezone
+		if (assignment.availableDate) {
+			assignment.availableDate = res.$TimesHelper.fromUTC(assignment.availableDate);
+		}
+		if (assignment.dueDate) {
+			assignment.dueDate = res.$TimesHelper.fromUTC(assignment.dueDate);
+		}
 
 		// Datum aufbereiten
 		const availableDateArray = res.$TimesHelper.splitDate(assignment.availableDate);
