@@ -1,0 +1,12 @@
+<div class="{{class}}">
+    <input class="form-control" data-datetime name={{id}} autocomplete="off" id={{id}} type="text"
+           value="{{value}}" />
+    <div class="input-group-addon">
+        {{#if timezone}}
+            <span class="input-group-text">{{ timezone }}</span>
+        {{/if}}
+        {{#if timezoneOffset}}
+            <span class="input-group-text">(UTC{{ timezoneOffset }})</span>
+        {{/if}}
+    </div>
+</div>
