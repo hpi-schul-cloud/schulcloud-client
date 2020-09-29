@@ -111,7 +111,7 @@
                                     {{#ifCond isAdmin '|| !' editTeacher}}
                                         <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled title="{{$t "administration.users_edit.text.firstClose" }}"{{/if}}>{{$t "administration.users_edit.headline.changePassword" }}</button>
                                     {{/ifCond}}
-                                    {{#if canDeleteStudent}}
+                                    {{#if canDeleteUser}}
                                         <button class="btn btn-secondary btn-delete">{{$t "administration.users_edit.headline.deleteUser" }}</button>
                                     {{/if}}
                                     <button class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}"
