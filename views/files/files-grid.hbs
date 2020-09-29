@@ -45,7 +45,7 @@
 									class="fa fa-edit file-name-edit">
 								</i>
 
-								{{#ifneq this.context 'geteilte Datei'}}
+								{{#if ../this.canShareFiles}}
 								{{#userHasPermission "FILE_DELETE"}}
 								<a href="/files/file/"
 								   target="_blank"
@@ -87,7 +87,7 @@
 											<i class="fa fa-folder-open"></i>
 										</a>
 									{{/if}}
-								{{/ifneq}}
+								{{/if}}
 
 								<a
 									href="#"

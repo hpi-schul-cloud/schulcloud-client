@@ -9,6 +9,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 - SC-6980 Shared files are not opened automaticly but added to the shared files area.
+- Disabled share file Button for files thar are already shared
 
 ## [25.0.3] - 2020-09-29
 
