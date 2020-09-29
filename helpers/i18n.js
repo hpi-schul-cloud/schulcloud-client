@@ -78,7 +78,7 @@ const getCurrentLanguage = async (req, res) => {
 	// get language by registration school
 	if (req.url.startsWith('/registration/')) {
 		const matchSchoolId = req.url.match('/registration/(.*)\\?');
-		return matchSchoolId.length > 1 ? getSchoolLanguage(req, matchSchoolId[1]) : undefined;
+		return (matchSchoolId || []).length > 1 ? getSchoolLanguage(req, matchSchoolId[1]) : undefined;
 	}
 
 	return null;
