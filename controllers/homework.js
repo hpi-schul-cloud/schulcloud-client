@@ -6,7 +6,6 @@
 const express = require('express');
 const marked = require('marked');
 const handlebars = require('handlebars');
-const moment = require('moment');
 const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -18,7 +17,7 @@ const { getGradingFileDownloadPath, getGradingFileName, isGraded } = require('..
 
 const router = express.Router();
 
-handlebars.registerHelper('ifvalue', function (conditional, options) {
+handlebars.registerHelper('ifvalue', (conditional, options) => {
 	if (options.hash.value === conditional) {
 		return options.fn(this);
 	}
@@ -85,7 +84,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		if (availableDate && availableDate !== '__.__.____ __:__') {
 			req.body.availableDate = res.$TimesHelper.createFromString(availableDate, 'DD.MM.YYYY HH:mm').toISOString();
 		} else {
-			req.body.availableDate = res.$TimesHelper.now().toISOString();
+			req.body.availableDate = res.$TimesHelper.currentDate().toISOString();
 		}
 
 		// after set dates, finaly test...
@@ -200,7 +199,7 @@ const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileI
 		});
 };
 
-const patchFunction = function (service, req, res, next) {
+const patchFunction = (service, req, res, next) => {
 	if (req.body.referrer) {
 		var referrer = req.body.referrer.replace('/edit', '');
 		delete req.body.referrer;
@@ -301,7 +300,7 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 };
 
 
-const getImportHandler = (service) => function (req, res, next) {
+const getImportHandler = (service) => (req, res, next) => {
 	api(req).get(`/${service}/${req.params.id}`).then(
 		(data) => {
 			res.json(data);
@@ -312,7 +311,7 @@ const getImportHandler = (service) => function (req, res, next) {
 };
 
 
-const getDeleteHandler = (service, redirectToReferer) => function (req, res, next) {
+const getDeleteHandler = (service, redirectToReferer) => (req, res, next) => {
 	api(req).delete(`/${service}/${req.params.id}`).then((_) => {
 		if (redirectToReferer) {
 			redirectHelper.safeBackRedirect(req, res);
@@ -426,15 +425,6 @@ router.delete('/submit/:id/files', (req, res, next) => {
 router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandler('comments', true));
 
-
-const splitDate = function (date) {
-	return {
-		timestamp: moment(date).valueOf(),
-		date: moment(date).format('DD.MM.YYYY'),
-		time: moment(date).format('HH:mm'),
-	};
-};
-
 const overview = (titleKey) => (req, res, next) => {
 	const { _id: userId, schoolId } = res.locals.currentUser || {};
 	let query = {
@@ -506,9 +496,9 @@ const overview = (titleKey) => (req, res, next) => {
 				if (!assignment.isTeacher) {
 					assignment.stats = undefined;
 				}
-				const dueDateArray = splitDate(assignment.dueDate);
-				assignment.submittable = dueDateArray.timestamp >= Date.now() || !assignment.dueDate;
-				assignment.warning = ((dueDateArray.timestamp <= (Date.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
+				const dueDateArray = res.$TimesHelper.splitDate(assignment.dueDate);
+				assignment.submittable = dueDateArray.timestamp >= res.$TimesHelper.now() || !assignment.dueDate;
+				assignment.warning = ((dueDateArray.timestamp <= (res.$TimesHelper.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
 				return assignment;
 			});
 
@@ -753,17 +743,17 @@ router.get('/:assignmentId', (req, res, next) => {
 		assignment.color = (assignment.courseId && assignment.courseId.color) ? assignment.courseId.color : '#1DE9B6';
 
 		// Datum aufbereiten
-		const availableDateArray = splitDate(assignment.availableDate);
+		const availableDateArray = res.$TimesHelper.splitDate(assignment.availableDate);
 		assignment.availableDateF = availableDateArray.date;
 		assignment.availableTimeF = availableDateArray.time;
 
-		const dueDateArray = splitDate(assignment.dueDate);
+		const dueDateArray = res.$TimesHelper.splitDate(assignment.dueDate);
 		assignment.dueDateF = dueDateArray.date;
 		assignment.dueTimeF = dueDateArray.time;
 
 		// Abgabe noch möglich?
-		assignment.submittable = (dueDateArray.timestamp >= Date.now() || !assignment.dueDate);
-		assignment.warning = ((dueDateArray.timestamp <= (Date.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
+		assignment.submittable = (dueDateArray.timestamp >= res.$TimesHelper.now() || !assignment.dueDate);
+		assignment.warning = ((dueDateArray.timestamp <= (res.$TimesHelper.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
 
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
