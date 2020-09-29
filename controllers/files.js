@@ -985,7 +985,11 @@ router.post('/fileModel', (req, res, next) => {
 // get file by proxy id
 router.get('/fileModel/:id/proxy', (req, res, next) => {
 	const fileId = req.params.id;
-	const { download, share } = req.query;
+	let { download } = req.query;
+	const { share } = req.query;
+	if (share.length > 0) {
+		download = true;
+	}
 
 	api(req).get(`/files/${fileId}`).then(() => {
 		// redirects to real file getter
