@@ -20,11 +20,14 @@ class TimesHelper {
 			throw new Error('No timezone defined');
 		}
 		logger.info(`timesHelper: timezone of the instance is ${this.timezone}`);
-
 	}
 
+	/**
+	 * @return {String} UTC offest as string based on current timezone, e.g +01:00
+	 */
 	getUtcOffset() {
-		return '+/-TBD';
+		const utcOffset = this.currentDate().format('Z');
+		return utcOffset;
 	}
 
 	/**
