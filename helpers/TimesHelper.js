@@ -29,10 +29,10 @@ class TimesHelper {
 
 	/**
 	 * @param {Date} date UTC Date
-	 * @return {Date} Date object based on current timezone
+	 * @return {moment} Date object based on current timezone
 	 */
 	fromUTC(date) {
-		const result = moment.utc(date).tz(this.timezone).toDate();
+		const result = moment.utc(date).tz(this.timezone);
 		logger.info(`timesHelper.fromUTC: ${date} to ${result}`);
 		return result;
 	}
@@ -40,19 +40,19 @@ class TimesHelper {
 	/**
 	 * @param {String} dateString String representation of date
 	 * @param {String} format Format of dateString, e.g. DD.MM.YYYY HH:mm
-	 * @return {Date} Date object based on current timezone
+	 * @return {moment} Date object based on current timezone
 	 */
 	createFromString(dateString, format) {
-		const result = moment.tz(dateString, format, this.timezone).toDate();
+		const result = moment.tz(dateString, format, this.timezone);
 		logger.info(`timesHelper.createFromString: ${dateString} to ${result}`);
 		return result;
 	}
 
 	/**
-	 * @return {Date} Current date based on current timezone
+	 * @return {moment} Current date based on current timezone
 	 */
 	currentDate() {
-		const result = moment.tz(this.timezone).toDate();
+		const result = moment.tz(this.timezone);
 		logger.info(`timesHelper.currentDate: ${result}`);
 		return result;
 	}
