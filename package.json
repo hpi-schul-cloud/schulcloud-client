@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "25.0.2",
+	"version": "25.0.3",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
