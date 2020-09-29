@@ -298,7 +298,9 @@
 {{/embed}}
 
 
+
 {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}} {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
+{{#ifCond (userHasRole "administrator") '||' (isInArray "messenger" schoolData.features)}}
     {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
     {{#content "body"}}
     <div class="modal-body">
@@ -337,4 +339,5 @@
     </div>
     {{/content}}
     {{/embed}}
+{{/ifCond}}
 {{/hasConfig}} {{/ifConfig}}

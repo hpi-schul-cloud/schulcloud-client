@@ -3033,7 +3033,7 @@
 			"rocketChatDeprecation": "Die alte Team-Chatfunktion wird am {{date}} abgeschaltet. Alte Chatnachrichten werden nicht automatisch in den neuen Messenger übertragen.",
 			"callToCopyMessages": "Bitte kopiere selber alle Nachrichten, die dir wichtig sind.",
 			"howToDeactivateMatrix": "Den Messenger kannst du jeder Zeit deaktivieren unter: Verwaltung > Schule > Matrix Messenger deaktivieren.",
-			"howToActivateMatrix": "Den Messenger kannst du jeder Zeit aktivieren unter: Verwaltung > Schule > Matrix Messenger aktivieren."
+			"howToActivateMatrix": "Um den Messenger an deiner Schule zu nutzen, muss er von Dir als Admin einmalig für die ganze Schule freigeschaltet werden unter: Verwaltung > Schule > Matrix Messenger aktivieren."
 		}
 	}
 }
