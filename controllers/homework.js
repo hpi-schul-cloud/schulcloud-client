@@ -7,7 +7,6 @@ const express = require('express');
 const marked = require('marked');
 const handlebars = require('handlebars');
 const moment = require('moment');
-const momentTZ = require('moment-timezone');
 const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -76,7 +75,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		}
 		if (dueDate) {
 			// rewrite german format to ISO
-			req.body.dueDate = moment(dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.dueDate = res.$TimesHelper.createFromString(dueDate, 'DD.MM.YYYY HH:mm').toISOString();
 		}
 
 		if (publicSubmissions === 'public') {
@@ -84,10 +83,9 @@ const getCreateHandler = (service) => (req, res, next) => {
 		}
 
 		if (availableDate && availableDate !== '__.__.____ __:__') {
-			req.body.availableDate = moment(availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.availableDate = res.$TimesHelper.createFromString(availableDate, 'DD.MM.YYYY HH:mm').toISOString();
 		} else {
-			const now = new Date();
-			req.body.availableDate = now.toISOString();
+			req.body.availableDate = res.$TimesHelper.now().toISOString();
 		}
 
 		// after set dates, finaly test...
@@ -123,7 +121,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 						res.$t('homework._task.text.newHomeworkCourseNotification',
 							{ coursename: course.name }),
 						res.$t('homework._task.text.newHomeworkDueDateNotification',
-							{ homeworkname: data.name, duedate: moment(data.dueDate).format('DD.MM.YYYY HH:mm') }),
+							{ homeworkname: data.name, duedate: res.$TimesHelper.fromUTC(data.dueDate).format('DD.MM.YYYY HH:mm') }),
 						data.teacherId,
 						req,
 						`${(req.headers.origin || HOST)}/homework/${data._id}`);
@@ -273,10 +271,10 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 
 		// rewrite german format to ISO
 		if (req.body.availableDate) {
-			req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.availableDate = res.$TimesHelper.createFromString(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
 		}
 		if (req.body.dueDate) {
-			req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.dueDate = res.$TimesHelper.createFromString(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
 		}
 		if (req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
 			req.session.notification = {
@@ -671,12 +669,9 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			return next(error);
 		}
 
-		// TODO: remove this here and in the template, is just for testing
-		const timezone = momentTZ.tz.guess();
-		const timeOffset =  moment().utcOffset();
-
-		assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
-		assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
+		// TODO: Don't convert to string here. Use translation feature to create localized date strings within template.
+		assignment.availableDate = res.$TimesHelper.fromUTC(assignment.availableDate).format('DD.MM.YYYY HH:mm');
+		assignment.dueDate = res.$TimesHelper.fromUTC(assignment.dueDate).format('DD.MM.YYYY HH:mm');
 
 		addClearNameForFileIds(assignment);
 		// assignment.submissions = assignment.submissions.map((s) => { return { submission: s }; });
@@ -704,8 +699,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 						courses,
 						lessons,
 						isSubstitution,
-						timezone,
-						timeOffset
+						timezone: res.locals.currentTimezone,
+						timezoneOffset: res.$TimesHelper.getUtcOffset(),
 					});
 				});
 			} else {
@@ -720,8 +715,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					courses,
 					lessons: false,
 					isSubstitution,
-					timezone,
-					timeOffset
+					timezone: res.$TimesHelper.timezone,
+					timezoneOffset: res.$TimesHelper.getUtcOffset(),
 				});
 			}
 		});
