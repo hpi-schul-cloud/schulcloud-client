@@ -601,6 +601,7 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 		canCreateDir: true,
 		canCreateFile: true,
 		canShareFiles: true,
+		showEditPermissionButton: false,
 		showSearch: false,
 		inline: req.query.inline || req.query.CKEditor,
 		CKEditor: req.query.CKEditor,
@@ -647,6 +648,7 @@ router.get('/shared/', (req, res) => {
 			canUploadFile: false,
 			canCreateDir: false,
 			canShareFiles: false,
+			showEditPermissionButton: false,
 			showSearch: false,
 			inline: req.query.inline || req.query.CKEditor,
 			CKEditor: req.query.CKEditor,
@@ -677,6 +679,7 @@ router.get('/courses/', (req, res, next) => {
 			files: [],
 			directories,
 			showSearch: false,
+			showEditPermissionButton: true,
 		});
 	}).catch(next);
 });
@@ -721,6 +724,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		CKEditor: req.query.CKEditor,
 		breadcrumbs,
 		showSearch: false,
+		showEditPermissionButton: true,
 		courseId: req.params.courseId,
 		ownerId: req.params.courseId,
 		toCourseText: res.$t('global.button.toCourse'),
@@ -747,6 +751,7 @@ router.get('/teams/', (req, res, next) => {
 			files: [],
 			directories,
 			showSearch: false,
+			showEditPermissionButton: true,
 		});
 	});
 });
@@ -789,6 +794,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 		teamFiles: true,
 		breadcrumbs,
 		showSearch: false,
+		showEditPermissionButton: true,
 		courseId: req.params.teamId,
 		ownerId: req.params.teamId,
 		canEditPermissions: team.user.permissions.includes('EDIT_ALL_FILES'),

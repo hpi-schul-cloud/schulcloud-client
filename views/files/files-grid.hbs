@@ -89,14 +89,16 @@
 									</a>
 								{{/if}}
 
-								<a
-									href="#"
-									class="btn-file-settings"
-									title="{{$t "files.label.editFilePermissions"}}"
-									data-file-id="{{this._id}}"
-								>
-									<i class="fa fa-cogs"></i>
-								</a>
+								{{#if ../this.showEditPermissionButton}}
+									<a
+										href="#"
+										class="btn-file-settings"
+										title="{{$t "files.label.editFilePermissions"}}"
+										data-file-id="{{this._id}}"
+									>
+										<i class="fa fa-cogs"></i>
+									</a>
+								{{/if}}
 							</div>
 						</div>
 					</div>
