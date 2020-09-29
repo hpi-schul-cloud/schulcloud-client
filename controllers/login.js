@@ -183,7 +183,7 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 				},
 			});
 
-		if (consentStatus === 'ok' && haveBeenUpdated === false) {
+		if ((consentStatus === 'ok' && haveBeenUpdated === false) || req.session.login_challenge) {
 			return res.redirect(redirectUrl);
 		}
 		// make sure fistLogin flag is not set

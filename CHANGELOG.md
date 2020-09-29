@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+  - SC-5287 Fixed OAuth2 login
+
 ## [25.0.1] - 2020-09-28
 
 ### Fixed
