@@ -649,6 +649,7 @@ router.get('/shared/', (req, res) => {
 			canCreateDir: false,
 			canShareFiles: false,
 			showEditPermissionButton: false,
+			canEditPermissions: false,
 			showSearch: false,
 			inline: req.query.inline || req.query.CKEditor,
 			CKEditor: req.query.CKEditor,

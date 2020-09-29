@@ -38,12 +38,14 @@
 									</a>
 								{{/ifeq}}
 
+								{{#if ../canEditPermissions}}
 								<i  data-file-id="{{this._id}}"
 									data-file-name="{{this.name}}"
 									data-file-path="{{this.path}}"
 									title="{{$t "files.label.renameFile"}}"
 									class="fa fa-edit file-name-edit">
 								</i>
+								{{/if}}
 
 								{{#userHasPermission "FILE_DELETE"}}
 								<a href="/files/file/"
