@@ -850,7 +850,7 @@ router.post(
 		api(req).get('/users', { qs: { email }, $limit: 1 })
 			.then((users) => {
 				if (users.total === 1) {
-					sendMailHandler(users.data[0], req, res, true);
+					sendMailHandler({ ...users.data[0], email }, req, res, true);
 					res.status(200).json({ status: 'ok' });
 				} else {
 					res.status(500).send();
@@ -1044,12 +1044,14 @@ router.get(
 				c.selected = c.teacherIds.includes(user._id);
 				return c;
 			});
+			const canDeleteUser = res.locals.currentUser.permissions.includes('TEACHER_DELETE');
 			res.render('administration/users_edit', {
 				title: res.$t('administration.controller.link.editTeacher'),
 				action: `/administration/teachers/${user._id}`,
 				submitLabel: res.$t('global.button.save'),
 				closeLabel: res.$t('global.button.cancel'),
 				user,
+				canDeleteUser,
 				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
 				consent: user.consent,
 				classes,
@@ -1078,8 +1080,8 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 	const promises = [];
 
 	// Consents
-	req.body.consent = req.body.consent || {};
 	if (req.body.student_form) {
+		req.body.consent = req.body.consent || {};
 		req.body.consent.userConsent = {
 			form: req.body.student_form || 'analog',
 			privacyConsent: req.body.student_privacyConsent === 'true',
@@ -1087,6 +1089,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 		};
 	}
 	if (req.body.parent_form) {
+		req.body.consent = req.body.consent || {};
 		req.body.consent.parentConsents = [];
 		req.body.consent.parentConsents[0] = {
 			form: req.body.parent_form || 'analog',
@@ -1323,11 +1326,6 @@ router.get(
 );
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
-	const role = await api(req).get('/roles', {
-		qs: { name: roleName },
-		$limit: false,
-	});
-	const qs = { roles: role.data[0]._id, $limit: false };
 	let users = [];
 
 	if (classId) {
@@ -1338,24 +1336,28 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 		});
 		users = klass.userIds;
 	} else {
+		const role = await api(req).get('/roles', {
+			qs: { name: roleName },
+			$limit: false,
+		});
+		const qs = { roles: role.data[0]._id, $limit: false };
 		users = (await api(req).get('/users', { qs, $limit: false })).data;
 	}
 
-	let usersWithMissingConsents = [];
+	const usersWithMissingConsents = [];
 	const batchSize = 50;
-	let slice = 0;
-	while (users.length !== 0 && slice * batchSize < users.length) {
-		usersWithMissingConsents = usersWithMissingConsents.concat(
-			(await api(req).get('/users/admin/students', {
+	while (users.length > 0) {
+		usersWithMissingConsents.push(
+			...(await api(req).get('/users/admin/students', {
 				qs: {
 					users: users
-						.slice(slice * batchSize, (slice + 1) * batchSize)
+						.splice(0, batchSize)
 						.map((u) => u._id),
 					consentStatus: ['missing', 'parentsAgreed'],
+					$limit: batchSize,
 				},
 			})).data,
 		);
-		slice += 1;
 	}
 
 	return usersWithMissingConsents;
@@ -1495,7 +1497,7 @@ router.get(
 						? consent.parentConsents[0]
 						: {};
 				}
-				const canDeleteStudent = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
+				const canDeleteUser = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
 				const hidePwChangeButton = !account;
 				res.render('administration/users_edit', {
 					title: res.$t('administration.controller.link.editingStudents'),
@@ -1503,7 +1505,7 @@ router.get(
 					submitLabel: res.$t('global.button.save'),
 					closeLabel:	res.$t('global.button.cancel'),
 					user,
-					canDeleteStudent,
+					canDeleteUser,
 					isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
 					consent,

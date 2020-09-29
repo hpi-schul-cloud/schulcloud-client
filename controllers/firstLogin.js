@@ -28,9 +28,23 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 // firstLogin
 router.get('/', async (req, res, next) => {
 	const { currentUser } = res.locals;
+
+	if (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED') === true) {
+		return api(req)
+			.post('/firstLogin/', { json: req.body })
+			.then(() => res.redirect('/dashboard'))
+			.catch((err) => {
+				res.status(500)
+					.send(
+						(err.error || err).message
+							|| res.$t('login.text.errorFirstLogin'),
+					);
+			});
+	}
+
 	if (
 		!currentUser.birthday && res.locals.currentRole === 'Schüler' // fixme identical to isStudent() here
-		&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
+			&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
 	) {
 		return res.redirect('firstLogin/existing');
 	}
@@ -45,16 +59,20 @@ router.get('/', async (req, res, next) => {
 			if (roleName === 'teacher' || roleName === 'administrator') {
 				roleName = 'employee';
 			}
-			skipConsent = skipConsent && Configuration.get('SKIP_CONDITIONS_CONSENT').includes(roleName);
+			skipConsent = skipConsent && Configuration.get('SKIP_CONDITIONS_CONSENT')
+				.includes(roleName);
 		});
 	}
 
-	let consent = await api(req).get('/consents', {
-		qs: {
-			userId: currentUser._id,
-		},
-	});
-	if (consent.data.length < 1) { consent = undefined; } else {
+	let consent = await api(req)
+		.get('/consents', {
+			qs: {
+				userId: currentUser._id,
+			},
+		});
+	if (consent.data.length < 1) {
+		consent = undefined;
+	} else {
 		consent = consent.data[0];
 	}
 
@@ -62,13 +80,15 @@ router.get('/', async (req, res, next) => {
 	const parentConsent = consentFullfilled(((consent || {}).parentConsents || [undefined])[0] || {});
 	const {
 		privacy = [], termsOfUse = [], haveBeenUpdated,
-	} = await api(req).get(`/consents/${currentUser._id}/check/`);
+	} = await api(req)
+		.get(`/consents/${currentUser._id}/check/`);
 	let updatedConsents = {};
 
 	if (Configuration.get('FEATURE_TSP_AUTO_CONSENT_ENABLED')) {
 		const isNewTspUser = res.locals.currentUser.source === 'tsp' && res.locals.currentUser.birthday;
 		if (isNewTspUser) {
-			return api(req).post('/firstLogin/', { json: req.body })
+			return api(req)
+				.post('/firstLogin/', { json: req.body })
 				.then(() => res.render('firstLogin/firstLoginShortened', {
 					title: res.$t('login.headline.firstLogin'),
 					hideMenu: true,
@@ -77,10 +97,11 @@ router.get('/', async (req, res, next) => {
 					roleNames: res.locals.roles,
 				}))
 				.catch((err) => {
-					res.status(500).send(
-						(err.error || err).message
-						|| res.$t('login.text.errorFirstLogin'),
-					);
+					res.status(500)
+						.send(
+							(err.error || err).message
+								|| res.$t('login.text.errorFirstLogin'),
+						);
 				});
 		}
 	}
@@ -126,7 +147,7 @@ router.get('/', async (req, res, next) => {
 				// U14
 				sections.push('welcome');
 			} else if (consent.requiresParentConsent
-				&& !(res.locals.currentUser.preferences || {}).firstLogin) {
+					&& !(res.locals.currentUser.preferences || {}).firstLogin) {
 				// 14-15
 				sections.push('welcome_14-15');
 			} else if (userConsent && (res.locals.currentUser.preferences || {}).firstLogin) {
@@ -168,8 +189,8 @@ router.get('/', async (req, res, next) => {
 		// USER CONSENT
 		if (
 			!skipConsent
-			&& !userConsent
-			&& ((!res.locals.currentUser.age && !req.query.u14) || res.locals.currentUser.age >= 14)
+				&& !userConsent
+				&& ((!res.locals.currentUser.age && !req.query.u14) || res.locals.currentUser.age >= 14)
 		) {
 			submitPageIndex += 1;
 			sections.push('consent');
@@ -177,9 +198,9 @@ router.get('/', async (req, res, next) => {
 
 
 		// PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
-		const userHasAccount = await hasAccount(req, res, next);
+		const userHasAccount = await hasAccount(req, res);
 		if (!userHasAccount
-			|| (!(res.locals.currentUser.preferences || {}).firstLogin && isStudent(res))) {
+				|| (!(res.locals.currentUser.preferences || {}).firstLogin && isStudent(res))) {
 			submitPageIndex += 1;
 			sections.push('password');
 		}
