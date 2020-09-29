@@ -987,7 +987,7 @@ router.get('/fileModel/:id/proxy', (req, res, next) => {
 	const fileId = req.params.id;
 	let { download } = req.query;
 	const { share } = req.query;
-	if (share.length > 0) {
+	if (share && share.length > 0) {
 		download = true;
 	}
 
