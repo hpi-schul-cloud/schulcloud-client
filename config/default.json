@@ -15,5 +15,6 @@
 		"FALLBACK_LANGUAGE": "de",
 		"DEBUG": false,
 		"AVAILABLE_LANGUAGES": "de,en"
-	}
+	},
+	"DEFAULT_TIMEZONE": "Europe/Berlin"
 }
