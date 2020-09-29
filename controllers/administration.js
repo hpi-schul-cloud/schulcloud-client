@@ -1048,12 +1048,14 @@ router.get(
 				c.selected = c.teacherIds.includes(user._id);
 				return c;
 			});
+			const canDeleteUser = res.locals.currentUser.permissions.includes('TEACHER_DELETE');
 			res.render('administration/users_edit', {
 				title: res.$t('administration.controller.link.editTeacher'),
 				action: `/administration/teachers/${user._id}`,
 				submitLabel: res.$t('global.button.save'),
 				closeLabel: res.$t('global.button.cancel'),
 				user,
+				canDeleteUser,
 				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
 				consent: user.consent,
 				classes,
@@ -1503,7 +1505,7 @@ router.get(
 						? consent.parentConsents[0]
 						: {};
 				}
-				const canDeleteStudent = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
+				const canDeleteUser = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
 				const hidePwChangeButton = !account;
 				res.render('administration/users_edit', {
 					title: res.$t('administration.controller.link.editingStudents'),
@@ -1511,7 +1513,7 @@ router.get(
 					submitLabel: res.$t('global.button.save'),
 					closeLabel:	res.$t('global.button.cancel'),
 					user,
-					canDeleteStudent,
+					canDeleteUser,
 					isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
 					consent,
