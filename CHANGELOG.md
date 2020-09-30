@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.0.4] - 2020-09-30
+
+### Added
+
+- SC-6973 add importHash to registrationPins post request
+
 ## [25.0.3] - 2020-09-29
 
 ### Fixed - 25.0.2
