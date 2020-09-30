@@ -217,10 +217,11 @@ const helpers = () => ({
 			return i18n.getInstance(data.data.local.currentUser)('global.text.internalProblem');
 		}
 		if (statusCode >= 400) {
-			if ([400, 401, 402, 403, 404].includes(statusCode)) {
+			if ([400, 401, 402, 403, 404, 408].includes(statusCode)) {
 				return i18n.getInstance(data.data.local.currentUser)('global.text.'.concat(statusCode.toString()));
 			}
 		}
+
 		if (statusCode > 300) {
 			return i18n.getInstance(data.data.local.currentUser)('global.text.pageMoved');
 		}
