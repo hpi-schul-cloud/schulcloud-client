@@ -614,7 +614,7 @@ const updatePolicy = (req, res, next) => {
 const returnAdminPrefix = (roles, res) => {
 	let prefix;
 	// eslint-disable-next-line array-callback-return
-	roles.map((role) => {
+	roles.forEach((role) => {
 		// eslint-disable-next-line no-unused-expressions
 		role.name === 'teacher'
 			? (prefix = res.$t('administration.controller.headline.management'))
