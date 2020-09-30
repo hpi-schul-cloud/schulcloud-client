@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+const Sentry = require('@sentry/node');
 const logger = require('./logger');
 
 const tokenInjector = (req, res, next) => {
@@ -8,7 +9,7 @@ const tokenInjector = (req, res, next) => {
 
 const duplicateTokenHandler = (req, res, next) => {
 	if (req.body && Array.isArray(req.body._csrf)) {
-		const allArrayItemsIdentical = req.body._csrf.every(token => token === req.body._csrf[0]);
+		const allArrayItemsIdentical = req.body._csrf.every((token) => token === req.body._csrf[0]);
 		if (!allArrayItemsIdentical) {
 			// eslint-disable-next-line max-len
 			const error = new Error('Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.');
@@ -25,11 +26,12 @@ const duplicateTokenHandler = (req, res, next) => {
 
 const csrfErrorHandler = (err, req, res, next) => {
 	if (err.code === 'EBADCSRFTOKEN') {
+		Sentry.captureException(err);
 		// convert body object to array
 		res.locals.csrfToken = req.csrfToken();
 		// send base URL for opening in new tab
 		const baseUrl = (req.headers.origin);
-		const values = Object.keys(req.body).map(name => ({ name, value: req.body[name] }));
+		const values = Object.keys(req.body).map((name) => ({ name, value: req.body[name] }));
 		values.push({
 			name: 'csrfErrorcount',
 			value: '1',
@@ -43,9 +45,9 @@ const csrfErrorHandler = (err, req, res, next) => {
 			baseUrl,
 			simpleView,
 		});
-		return true;
+	} else {
+		next(err);
 	}
-	return next(err);
 };
 
 module.exports = {
