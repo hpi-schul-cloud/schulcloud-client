@@ -277,9 +277,15 @@ app.use((err, req, res, next) => {
 	delete error.options.headers;
 
 	error.requestUrl = req.originalUrl;
-	error.currentUser = res.locals.currentUser;
-
-	if (res.locals.currentUser) res.locals.loggedin = true;
+	if (res.locals.currentUser) {
+		res.locals.loggedin = true;
+		const { _id, schoolId, roles } = res.locals.currentUser;
+		error.currentUser = {
+			userId: _id,
+			schoolId,
+			roles: (roles || []).map((r) => r.name),
+		};
+	}
 
 	if (error.message) {
 		res.setHeader('error-message', error.message);
@@ -288,7 +294,7 @@ app.use((err, req, res, next) => {
 		res.locals.message = `Error with statusCode ${status}`;
 	}
 
-	// try again message by timeouts
+	// override with try again message by timeouts
 	if (isTimeoutError(error)) {
 		const baseRoute = typeof err.options.baseUrl === 'string' ? err.options.baseUrl.slice(0, -1) : '';
 		const route = baseRoute + err.options.uri;
