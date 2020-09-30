@@ -3,12 +3,11 @@
  */
 
 const express = require('express');
-const moment = require('moment');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const timesHelper = require('../helpers/timesHelper');
 
 const router = express.Router();
-moment.locale('de');
 
 router.use(authHelper.authChecker);
 
@@ -41,7 +40,7 @@ const createActions = (item, path) => {
 
 const getActions = (isRSS, res, newsItem) => !isRSS && createActions(newsItem, '/news/');
 
-const getDeleteHandler = service => (req, res, next) => {
+const getDeleteHandler = (service) => (req, res, next) => {
 	api(req)
 		.delete(`/${service}/${req.params.id}`)
 		.then(() => {
@@ -56,12 +55,12 @@ router.post('/', (req, res, next) => {
 	const { body } = req;
 	if (body.displayAt && body.displayAt !== '__.__.____ __:__') {
 		// rewrite german format to ISO
-		body.displayAt = moment(body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+		body.displayAt = timesHelper.createFromString(body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
 	} else {
 		body.displayAt = undefined;
 	}
 	body.creatorId = res.locals.currentUser._id;
-	body.createdAt = moment().toISOString();
+	body.createdAt = timesHelper.currentDate().toISOString();
 
 	if (body.context) {
 		body.target = body.contextId;
@@ -86,11 +85,11 @@ router.post('/', (req, res, next) => {
 });
 
 router.patch('/:newsId', (req, res, next) => {
-	req.body.displayAt = moment(
+	req.body.displayAt = timesHelper.createFromString(
 		req.body.displayAt,
 		'DD.MM.YYYY HH:mm',
 	).toISOString();
-	req.body.updatedAt = moment().toISOString();
+	req.body.updatedAt = timesHelper.currentDate().toISOString();
 	req.body.updaterId = res.locals.currentUser._id;
 
 	api(req)
@@ -130,7 +129,7 @@ router.all('/', async (req, res, next) => {
 			...newsItem,
 			isRSS,
 			url: `/news/${newsItem._id}`,
-			secondaryTitle: moment(newsItem.displayAt).fromNow(),
+			secondaryTitle: timesHelper.fromUTC(newsItem.displayAt).fromNow(),
 			actions: getActions(isRSS, res, newsItem),
 		};
 	};
@@ -138,7 +137,7 @@ router.all('/', async (req, res, next) => {
 	try {
 		const news = await api(req).get('/news/', { qs: queryObject });
 		const totalNews = news.total;
-		const mappedNews = news.data.map(newsItem => decorateNews(newsItem));
+		const mappedNews = news.data.map((newsItem) => decorateNews(newsItem));
 
 		const unpublishedNews = await api(req).get('/news/', {
 			qs: {
@@ -149,7 +148,7 @@ router.all('/', async (req, res, next) => {
 		});
 		const unpublishedMappedNews = {
 			...unpublishedNews,
-			data: unpublishedNews.data.map(item => decorateNews(item)),
+			data: unpublishedNews.data.map((item) => decorateNews(item)),
 		};
 
 		const pagination = {
@@ -202,7 +201,7 @@ router.get('/:newsId', (req, res, next) => {
 			res.render('news/article', {
 				title: news.title,
 				news,
-				isRSS: news.source === 'rss',
+				isRSS: news.source === 'rss'
 			});
 		})
 		.catch((err) => {
@@ -214,7 +213,7 @@ router.get('/:newsId/edit', (req, res, next) => {
 	api(req)
 		.get(`/news/${req.params.newsId}`, {})
 		.then((news) => {
-			news.displayAt = moment(news.displayAt).format('DD.MM.YYYY HH:mm');
+			news.displayAt = timesHelper.createFromString(news.displayAt).format('DD.MM.YYYY HH:mm');
 			res.render('news/edit', {
 				title: res.$t('news._news.headline.editNews'),
 				submitLabel: res.$t('global.button.save'),
@@ -222,6 +221,8 @@ router.get('/:newsId/edit', (req, res, next) => {
 				method: 'patch',
 				action: `/news/${req.params.newsId}`,
 				news,
+				timezone: res.locals.currentTimezone,
+				timezoneOffset: timesHelper.getUtcOffset(),
 			});
 		})
 		.catch((err) => {

@@ -42,7 +42,7 @@
 
             <div class="form-group">
                 <label>{{$t "news.label.scheduleAutomaticPublication" }}</label>
-                <input class="form-control" data-datetime data-min-date="0" data-testid="news_date_to_be_displayed" name="displayAt" type="text" value="{{news.displayAt}}"/>
+                {{> "lib/forms/form-date-input" id="displayAt" value=news.displayAt class="input-group mb-3" dataMinDate="0" dataTestId="news_date_to_be_displayed"}}
             </div>
 
             <div class="modal-footer">
