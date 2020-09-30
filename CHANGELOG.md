@@ -9,6 +9,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.0.5] - 2020-09-30
+
+### Fixed
+
+  - SC-6945 Add requirement for etherpad section title to fix null matching error
 ## [25.0.4] - 2020-09-30
 
 ### Changed
