@@ -3,7 +3,6 @@ const moment = require('moment-timezone');
 const logger = require('./logger');
 
 let defaultTimezone;
-let timezoneChanged = false;
 
 /**
  * @return {String} UTC offest as string based on current timezone, e.g +01:00
@@ -18,12 +17,16 @@ const setDefaultTimezone = (timezone = null) => {
 	if (timezone && timezone !== userTimezone) {
 		moment.tz.setDefault(timezone);
 		defaultTimezone = timezone;
-		timezoneChanged = true;
 	} else {
 		moment.tz.setDefault();
+		defaultTimezone = undefined;
 	}
-	logger.info(`timesHelper: timezone of the instance is ${moment.tz.guess()} (${getUtcOffset()})`);
+	logger.info(`timesHelper: timezone of the instance is ${defaultTimezone} (${getUtcOffset()})`);
 };
+
+const getUserTimezone = () => {
+	return defaultTimezone ? defaultTimezone : moment.tz.guess();
+}
 
 /**
  * @param {Date} date UTC Date
@@ -91,6 +94,7 @@ const createFromString = (dateString, format) => {
 
 module.exports = {
 	setDefaultTimezone,
+	getUserTimezone,
 	getChangedTimezoneString,
 	getUtcOffset,
 	fromUTC,

@@ -16,6 +16,7 @@ const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const redirectHelper = require('../helpers/redirect');
+const timesHelper = require('../helpers/timesHelper');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -3068,6 +3069,7 @@ router.use(
 			rssBody,
 			hasRSS: rssBody && !!rssBody.length,
 			schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+			timezone : `${timesHelper.getUserTimezone()} (UTC${timesHelper.getUtcOffset()})`,
 		});
 	},
 );

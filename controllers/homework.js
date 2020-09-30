@@ -628,6 +628,7 @@ router.get('/new', (req, res, next) => {
 		if (req.query.topic) {
 			assignment.lessonId = req.query.topic;
 		}
+		const timezone = timesHelper.getChangedTimezoneString();
 		// Render overview
 		res.render('homework/edit', {
 			title: res.$t('global.button.addTask'),
@@ -639,6 +640,7 @@ router.get('/new', (req, res, next) => {
 			assignment,
 			courses,
 			lessons: lessons.length ? lessons : false,
+			timezone,
 		});
 	});
 });

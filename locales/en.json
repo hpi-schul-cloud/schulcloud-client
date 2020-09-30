@@ -585,6 +585,7 @@
 				"studentVisibility": "Activate student visibility for teachers",
 				"transferPhase": "Transfer phase",
 				"uploadSchoolLogo": "Upload school logo",
+				"timezone": "Timezone",
 				"userAndClassDataInLDAP": "User and class data for the new school year have been processed in LDAP<br>.",
 				"youCantGoBack": "You can't go back",
 				"yourSchoolCanStartNewSchool": "your school can enter the new school year"
