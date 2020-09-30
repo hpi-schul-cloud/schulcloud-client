@@ -717,7 +717,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					courses,
 					lessons: false,
 					isSubstitution,
-					timezone: timesHelper.timezone,
+					timezone: res.locals.currentTimezone,
 					timezoneOffset: timesHelper.getUtcOffset(),
 				});
 			}
