@@ -70,9 +70,9 @@
 				{{#if (userHasRole "student")}}
 				<i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
 				{{/if}}
-                {{availableDateF}} ({{availableTimeF}}) |
+                {{availableDateF}} {{availableTimeF}} |
                 {{#if dueDate}}
-                    bis: {{dueDateF}} ({{dueTimeF}})
+                    bis: {{dueDateF}} {{dueTimeF}}
                 {{else}}
                     {{$t "homework.text.noSubmissionDateSet"}}
                 {{/if}}

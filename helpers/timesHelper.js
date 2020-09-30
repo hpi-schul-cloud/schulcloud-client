@@ -19,6 +19,8 @@ const setDefaultTimezone = (timezone = null) => {
 		moment.tz.setDefault(timezone);
 		defaultTimezone = timezone;
 		timezoneChanged = true;
+	} else {
+		moment.tz.setDefault();
 	}
 	logger.info(`timesHelper: timezone of the instance is ${moment.tz.guess()} (${getUtcOffset()})`);
 };
@@ -53,15 +55,26 @@ const now = () => {
 };
 
 /**
+ * Returns changed timezone string, if user browser timezone was changed to a school specific one.
+ * @param {boolean} long if long is true the returned string contains long name of the timezone and offset,
+ * otherwise just offset
+ */
+const getChangedTimezoneString = (long = true) => {
+	const tzString = long ? `${defaultTimezone} (UTC${getUtcOffset()})` : `(UTC${getUtcOffset()})`;
+	return (defaultTimezone ? tzString : '');
+};
+
+/**
  * @param {Date} date Date object
  * @return {Object} Timestamp, date and time of given date as object
  */
 const splitDate = (date) => {
 	const resultDate = moment(date);
+	const timezone = getChangedTimezoneString(false);
 	return {
 		timestamp: resultDate.valueOf(),
 		date: resultDate.format('DD.MM.YYYY'),
-		time: resultDate.format('HH:mm'),
+		time: `${resultDate.format('HH:mm')} ${timezone}`,
 	};
 };
 
@@ -75,11 +88,6 @@ const createFromString = (dateString, format) => {
 	logger.info(`timesHelper.createFromString: ${dateString} to ${result}`);
 	return result;
 };
-
-/**
- * Returns changed timezone string, if user browser timezone was changed to a school specific one
- */
-const getChangedTimezoneString = () => (timezoneChanged ? `${defaultTimezone} (UTC${getUtcOffset()})` : undefined);
 
 module.exports = {
 	setDefaultTimezone,

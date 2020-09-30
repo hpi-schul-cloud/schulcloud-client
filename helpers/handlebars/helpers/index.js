@@ -6,6 +6,7 @@ const { Configuration } = require('@schul-cloud/commons');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
+const timesHelper = require('../../timesHelper');
 
 moment.locale('de');
 
@@ -194,7 +195,8 @@ const helpers = () => ({
 		const now = moment();
 		const d = moment(date);
 		if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
-			return `${moment(date).format('DD.MM.YYYY')}(${moment(date).format('HH:mm')})`;
+			const splittedDate = timesHelper.splitDate(date);
+			return `${splittedDate.date} ${splittedDate.time}`;
 		}
 		return moment(date).fromNow();
 	},
