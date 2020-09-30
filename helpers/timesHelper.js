@@ -1,39 +1,26 @@
 
-const moment = require('moment-timezone')
-const { Configuration } = require('@schul-cloud/commons');
+const moment = require('moment-timezone');
 const logger = require('./logger');
 
-const defaultTimezone = Configuration.get('DEFAULT_TIMEZONE');
-const fallbackTimezone = 'Europe/Berlin';
-
-const getFallbackTimezone = () => {
-	if (defaultTimezone) {
-		return defaultTimezone;
-	}
-	if (process.env.TZ) {
-		return process.env.TZ;
-	}
-	return fallbackTimezone;
-};
+let defaultTimezone;
+let timezoneChanged = false;
 
 /**
  * @return {String} UTC offest as string based on current timezone, e.g +01:00
  */
-const getUtcOffset = () => {
-	return moment().format('Z');
-};
+const getUtcOffset = () => moment().format('Z');
 
 /**
  * @param {String} timezone Timezone as a string
  */
 const setDefaultTimezone = (timezone = null) => {
-	const tz = timezone || getFallbackTimezone();
-	if (!tz) {
-		throw new Error('No timezone defined');
+	const userTimezone = moment.tz.guess();
+	if (timezone && timezone !== userTimezone) {
+		moment.tz.setDefault(timezone);
+		defaultTimezone = timezone;
+		timezoneChanged = true;
 	}
-
-	moment.tz.setDefault(tz);
-	logger.info(`timesHelper: timezone of the instance is ${tz} (${getUtcOffset()})`);
+	logger.info(`timesHelper: timezone of the instance is ${moment.tz.guess()} (${getUtcOffset()})`);
 };
 
 /**
@@ -44,7 +31,7 @@ const fromUTC = (date) => {
 	const result = moment(date);
 	logger.info(`timesHelper.fromUTC: ${date} to ${result}`);
 	return result;
-}
+};
 
 /**
  * @return {moment} Current date based on current timezone
@@ -53,7 +40,7 @@ const currentDate = () => {
 	const result = moment();
 	logger.info(`timesHelper.currentDate: ${result}`);
 	return result;
-}
+};
 
 
 /**
@@ -63,7 +50,7 @@ const now = () => {
 	const result = moment();
 	logger.info(`timesHelper.now: ${result}`);
 	return result.valueOf();
-}
+};
 
 /**
  * @param {Date} date Date object
@@ -76,7 +63,7 @@ const splitDate = (date) => {
 		date: resultDate.format('DD.MM.YYYY'),
 		time: resultDate.format('HH:mm'),
 	};
-}
+};
 
 /**
  * @param {String} dateString String representation of date
@@ -87,11 +74,16 @@ const createFromString = (dateString, format) => {
 	const result = moment(dateString, format);
 	logger.info(`timesHelper.createFromString: ${dateString} to ${result}`);
 	return result;
-}
+};
+
+/**
+ * Returns changed timezone string, if user browser timezone was changed to a school specific one
+ */
+const getChangedTimezoneString = () => (timezoneChanged ? `${defaultTimezone} (UTC${getUtcOffset()})` : undefined);
 
 module.exports = {
-	getFallbackTimezone,
 	setDefaultTimezone,
+	getChangedTimezoneString,
 	getUtcOffset,
 	fromUTC,
 	currentDate,

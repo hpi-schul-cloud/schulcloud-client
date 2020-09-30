@@ -11,7 +11,7 @@ const { setDefaultTimezone } = require('../helpers/timesHelper');
 const middleware = async (req, res, next) => {
 	res.$t = getInstance();
 
-	res.locals.currentTimezone = (res.locals.currentSchoolData || {}).timezone || 'Europe/Berlin';
+	res.locals.currentTimezone = (res.locals.currentSchoolData || {}).timezone;
 	setDefaultTimezone(res.locals.currentTimezone);
 
 	const currentLanguage = await getCurrentLanguage(req, res);

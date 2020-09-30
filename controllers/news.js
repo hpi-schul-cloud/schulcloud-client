@@ -221,8 +221,7 @@ router.get('/:newsId/edit', (req, res, next) => {
 				method: 'patch',
 				action: `/news/${req.params.newsId}`,
 				news,
-				timezone: res.locals.currentTimezone,
-				timezoneOffset: timesHelper.getUtcOffset(),
+				timezone: timesHelper.getChangedTimezoneString(),
 			});
 		})
 		.catch((err) => {

@@ -461,7 +461,6 @@ const overview = (titleKey) => (req, res, next) => {
 	api(req).get('/homework/', {
 		qs: query,
 	}).then((homeworks) => {
-
 		// ist der aktuelle Benutzer ein Schueler? -> Für Sichtbarkeit von Daten benötigt
 		api(req).get(`/users/${userId}`, {
 			qs: {
@@ -681,6 +680,9 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 		const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
 			$limit: false,
 		});
+
+		const timezone = timesHelper.getChangedTimezoneString();
+
 		Promise.resolve(coursesPromise).then((courses) => {
 			courses.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
@@ -701,8 +703,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 						courses,
 						lessons,
 						isSubstitution,
-						timezone: res.locals.currentTimezone,
-						timezoneOffset: timesHelper.getUtcOffset(),
+						timezone,
 					});
 				});
 			} else {
@@ -717,8 +718,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					courses,
 					lessons: false,
 					isSubstitution,
-					timezone: res.locals.currentTimezone,
-					timezoneOffset: timesHelper.getUtcOffset(),
+					timezone,
 				});
 			}
 		});
