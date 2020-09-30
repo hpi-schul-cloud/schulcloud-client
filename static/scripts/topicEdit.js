@@ -93,7 +93,8 @@ class TopicBlockWrapper extends React.Component {
                                 value={this.props.title}
                                 className="form-control"
                                 onChange={this.updateTitle.bind(this)}
-                                name={`contents[${this.props.position}][title]`}
+								name={`contents[${this.props.position}][title]`}
+								required
                             />
                             <input
                                 value={this.props.hidden}
