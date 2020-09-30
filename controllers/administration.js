@@ -762,12 +762,11 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 		+ '<i class="fa fa-check consent-status double-check"></i>';
 
 	switch (consentStatus) {
-		case 'missing':
-			return times;
 		case 'parentsAgreed':
 			return check;
 		case 'ok':
 			return isTeacher ? check : doubleCheck;
+		case 'missing':
 		default:
 			return times;
 	}
