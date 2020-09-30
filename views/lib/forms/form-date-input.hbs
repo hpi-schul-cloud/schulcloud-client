@@ -1,12 +1,14 @@
-<div class="{{class}}">
+<div class="form-group">
+    <label for={{id}}>{{label}}</label>
+    <div class="{{class}}">
     <input
-        class="form-control"
-        data-datetime name={{id}}
-        autocomplete="off" id={{id}}
-        type="text"
-        value="{{value}}"
-        {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{/if}}
-        {{#if dataTestId}}data-testid="{{dataTestId}}"{{/if}}
+            class="form-control"
+            data-datetime name={{id}}
+            autocomplete="off" id={{id}}
+            type="text"
+            value="{{value}}"
+            {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{/if}}
+            {{#if dataTestId}}data-testid="{{dataTestId}}"{{/if}}
     />
     <div class="input-group-addon">
         {{#if timezone}}
@@ -16,4 +18,5 @@
             <span class="input-group-text">(UTC{{ timezoneOffset }})</span>
         {{/if}}
     </div>
+</div>
 </div>
