@@ -220,6 +220,7 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 		delete req.body._method;
 		return method;
 	}
+	return undefined;
 }));
 
 // add res.$t method for i18n with users prefered language
