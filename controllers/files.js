@@ -463,7 +463,6 @@ router.get('/file', (req, res, next) => {
 			return res.redirect(307, `/files/file/${file}/lool`);
 		}
 		if (share && share !== 'undefined') {
-			let messageType = 'success';
 			req.session.notification = {
 				type: 'success',
 				message: res.$t('files._file.text.sharedFileSuccess'),
