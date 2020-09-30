@@ -232,20 +232,10 @@ app.get('/', (req, res, next) => {
 	res.redirect('/login/');
 });
 
-// sentry error handler
-app.use(Sentry.Handlers.errorHandler());
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-	const reqInfo = {
-		location: 'Page Not Found express catcher',
-		url: req.originalUrl || req.url,
-		method: req.originalMethod || req.method,
-		params: req.params,
-		body: req.body,
-	};
-	logger.error(reqInfo);
-	const err = new Error(`Page Not Found ${reqInfo.url}`);
+	const url = req.originalUrl || req.url;
+	const err = new Error(`Page Not Found ${url}`);
 	err.status = 404;
 	next(err);
 });
@@ -262,6 +252,9 @@ const isTimeoutError = (err) => err && err.message && (
 	|| err.message.includes('ETIMEDOUT')
 );
 
+// sentry error handler
+app.use(Sentry.Handlers.errorHandler());
+
 app.use((err, req, res, next) => {
 	const error = err.error || err;
 	const status = error.status || error.statusCode || 500;
@@ -276,7 +269,14 @@ app.use((err, req, res, next) => {
 	// prevent logging jwts and x-api-keys
 	delete error.options.headers;
 
-	error.requestUrl = req.originalUrl;
+	const reqInfo = {
+		url: req.originalUrl || req.url,
+		method: req.originalMethod || req.method,
+		params: req.params,
+		body: req.body,
+	};
+	error.requestInfo = reqInfo;
+
 	if (res.locals.currentUser) {
 		res.locals.loggedin = true;
 		const { _id, schoolId, roles } = res.locals.currentUser;
