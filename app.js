@@ -219,6 +219,7 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 		delete req.body._method;
 		return method;
 	}
+	return undefined;
 }));
 
 // add res.$t method for i18n with users prefered language
@@ -231,20 +232,10 @@ app.get('/', (req, res, next) => {
 	res.redirect('/login/');
 });
 
-// sentry error handler
-app.use(Sentry.Handlers.errorHandler());
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-	const reqInfo = {
-		location: 'Page Not Found express catcher',
-		url: req.originalUrl || req.url,
-		method: req.originalMethod || req.method,
-		params: req.params,
-		body: req.body,
-	};
-	logger.error(reqInfo);
-	const err = new Error(`Page Not Found ${reqInfo.url}`);
+	const url = req.originalUrl || req.url;
+	const err = new Error(`Page Not Found ${url}`);
 	err.status = 404;
 	next(err);
 });
@@ -254,40 +245,67 @@ if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 	app.use(csrfErrorHandler);
 }
 
-const handleTimeouts = (err, res) => {
-	if (!err.options) {
-		err.options = {};
-	}
+// no statusCode exist for this cases
+const isTimeoutError = (err) => err && err.message && (
+	err.message.includes('ESOCKETTIMEDOUT')
+	|| err.message.includes('ECONNREFUSED')
+	|| err.message.includes('ETIMEDOUT')
+);
 
-	const baseRoute = typeof err.options.baseUrl === 'string' ? err.options.baseUrl.slice(0, -1) : '';
-	const route = baseRoute + err.options.uri;
-
-	// no statusCode exist for this cases
-	if (err.message.includes('ESOCKETTIMEDOUT') || err.message.includes('ECONNREFUSED')) {
-		logger.warn(`${err.message} by route: ${route}`);
-		Sentry.captureException(err);
-		if (res.locals) {
-			const routeMessage = res.locals.production ? '' : ` beim Aufruf der Route ${route}`;
-			res.locals.message = `Es ist ein Fehler aufgetreten${routeMessage}. Bitte versuche es erneut.`;
-		}
-	}
-};
+// sentry error handler
+app.use(Sentry.Handlers.errorHandler());
 
 app.use((err, req, res, next) => {
-	// set locals, only providing error in development
-	const status = err.status || err.statusCode || 500;
-	if (err.statusCode && err.error && err.error.message) {
-		res.setHeader('error-message', err.error.message);
-		res.locals.message = err.error.message;
-	} else {
-		res.locals.message = err.message;
+	const error = err.error || err;
+	const status = error.status || error.statusCode || 500;
+	error.statusCode = status;
+
+	if (!error.options) {
+		error.options = {};
+	}
+	if (!res.locals) {
+		res.locals = {};
+	}
+	// prevent logging jwts and x-api-keys
+	delete error.options.headers;
+
+	const reqInfo = {
+		url: req.originalUrl || req.url,
+		method: req.originalMethod || req.method,
+		params: req.params,
+		body: req.body,
+	};
+	error.requestInfo = reqInfo;
+
+	if (res.locals.currentUser) {
+		res.locals.loggedin = true;
+		const { _id, schoolId, roles } = res.locals.currentUser;
+		error.currentUser = {
+			userId: _id,
+			schoolId,
+			roles: (roles || []).map((r) => r.name),
+		};
 	}
 
-	handleTimeouts(err, res);
+	if (error.message) {
+		res.setHeader('error-message', error.message);
+		res.locals.message = error.message;
+	} else {
+		res.locals.message = `Error with statusCode ${status}`;
+	}
 
+	// override with try again message by timeouts
+	if (isTimeoutError(error)) {
+		const baseRoute = typeof err.options.baseUrl === 'string' ? err.options.baseUrl.slice(0, -1) : '';
+		const route = baseRoute + err.options.uri;
+		const routeMessage = res.locals.production ? '' : ` beim Aufruf der Route ${route}`;
+		res.locals.message = `Es ist ein Fehler aufgetreten${routeMessage}. Bitte versuche es erneut.`;
+	}
+
+	// do not show full errors in production mode
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
-	if (err.error) logger.error(err.error);
-	if (res.locals.currentUser) res.locals.loggedin = true;
+
+	logger.error(error);
 
 	// keep sidebar restricted in error page
 	authHelper.restrictSidebar(req, res);
