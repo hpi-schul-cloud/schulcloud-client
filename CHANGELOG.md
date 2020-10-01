@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Added
+
+ - SC-6582 Add bidirectional messenger settings for course creation
+
 ## [24.5.7] - 2020-09-22
 
 ### Fixed
