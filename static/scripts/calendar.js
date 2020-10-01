@@ -1,11 +1,12 @@
 import './jquery/datetimepicker-easy';
-import moment from 'moment';
 import { Calendar } from '@fullcalendar/core';
 import deLocale from '@fullcalendar/core/locales/de';
 import enLocale from '@fullcalendar/core/locales/en-gb';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { toMoment } from '@fullcalendar/moment';
+import momentTimezonePlugin from '@fullcalendar/moment-timezone';
 
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
@@ -68,12 +69,13 @@ $(document).ready(() => {
 	const view = window.location.hash.substring(1);
 
 	const calendarLanguage = document.querySelector('html').getAttribute('lang') === 'de' ? deLocale : enLocale;
+	const calendarTimezone = document.querySelector('html').getAttribute('timezone');
 
 	const calendar = new Calendar(calendarElement, {
-		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, momentTimezonePlugin],
 		defaultView: view || 'dayGridMonth',
 		editable: false,
-		timeZone: 'UTC',
+		timeZone: calendarTimezone || 'Europe/Berlin',
 		locale: calendarLanguage,
 		header: {
 			left: 'title',
@@ -94,8 +96,8 @@ $(document).ready(() => {
 				return false;
 			}
 			// personal event
-			const startDate = moment(event.start).format('DD.MM.YYYY HH:mm');
-			const endDate = moment(event.end || event.start).format('DD.MM.YYYY HH:mm');
+			const startDate = toMoment(event.start, calendar).format('DD.MM.YYYY HH:mm');
+			const endDate = toMoment(event.end || event.start, calendar).format('DD.MM.YYYY HH:mm');
 
 			const { attributes } = event.extendedProps || {};
 
@@ -139,8 +141,8 @@ $(document).ready(() => {
 			const { date } = info;
 
 			// open create event modal
-			const startDate = moment(date).format('DD.MM.YYYY HH:mm');
-			const endDate = moment(date).add(1, 'hour').format('DD.MM.YYYY HH:mm');
+			const startDate = toMoment(date, calendar).format('DD.MM.YYYY HH:mm');
+			const endDate = toMoment(date, calendar).add(1, 'hour').format('DD.MM.YYYY HH:mm');
 
 			populateModalForm($createEventModal, {
 				title: $t('global.headline.addDate'),

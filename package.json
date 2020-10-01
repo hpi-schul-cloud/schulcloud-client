@@ -55,6 +55,8 @@
 		"@fullcalendar/core": "^4.4.2",
 		"@fullcalendar/daygrid": "^4.4.2",
 		"@fullcalendar/interaction": "^4.4.2",
+		"@fullcalendar/moment": "^4.4.2",
+		"@fullcalendar/moment-timezone": "^4.4.2",
 		"@fullcalendar/timegrid": "^4.4.2",
 		"@schul-cloud/commons": "^1.1.1",
 		"@sentry/browser": "^5.6.1",

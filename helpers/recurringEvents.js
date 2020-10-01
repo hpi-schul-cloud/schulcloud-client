@@ -2,6 +2,7 @@ const moment = require('moment');
 const _ = require('lodash');
 
 const api = require('../api');
+const timesHelper = require('./timesHelper');
 
 /**
  * Generates the iso-weekday abbreviation for a given number, e.g. for the HPI Schul-Cloud Calendar-Service
@@ -159,6 +160,14 @@ const mapEventProps = (event, req) => {
 			event.color = '#ff0000';
 			return event;
 		});
+	}
+
+	if (event.start) {
+		event.start = timesHelper.fromUTC(event.start).toISOString(true);
+	}
+
+	if (event.end) {
+		event.end = timesHelper.fromUTC(event.end).toISOString(true);
 	}
 
 	return event;
