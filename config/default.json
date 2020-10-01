@@ -7,10 +7,10 @@
 		"NEW_DOMAIN": "schul-cloud.org"
 	},
 	"COOKIE": {
-		"SECURE": true,
+		"SECURE": false,
 		"EXPIRES_SECONDS": 2592000000,
 		"HTTP_ONLY": false,
-		"SAME_SITE": "None",
+		"SAME_SITE": "Lax",
 		"HOST_ONLY": false
 	},
 	"COOKIE_SECRET": "ihasDF(=4jA4aF",
