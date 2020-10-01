@@ -10,6 +10,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
+const timesHelper = require('../helpers/timesHelper');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger'];
 
@@ -181,18 +182,14 @@ const editCourseHandler = (req, res, next) => {
 
 		// if new course -> add default start and end dates
 		if (!req.params.courseId) {
-			course.startDate = res.locals.currentSchoolData.years.defaultYear.startDate;
-			course.untilDate = res.locals.currentSchoolData.years.defaultYear.endDate;
+			course.startDate = timesHelper.cloneUtcDate(res.locals.currentSchoolData.years.defaultYear.startDate);
+			course.untilDate = timesHelper.cloneUtcDate(res.locals.currentSchoolData.years.defaultYear.endDate);
 		}
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = moment(
-				new Date(course.startDate).getTime(),
-			).format('DD.MM.YYYY');
-			course.untilDate = moment(
-				new Date(course.untilDate).getTime(),
-			).format('DD.MM.YYYY');
+			course.startDate = timesHelper.fromUTC(course.startDate).format('DD.MM.YYYY');
+			course.untilDate = timesHelper.fromUTC(course.untilDate).format('DD.MM.YYYY');
 		}
 
 		// preselect current teacher when creating new course
@@ -316,12 +313,10 @@ const copyCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = moment(
-				new Date(course.startDate).getTime(),
-			).format('DD.MM.YYYY');
-			course.untilDate = moment(
-				new Date(course.untilDate).getTime(),
-			).format('DD.MM.YYYY');
+			course.startDate = timesHelper.createFromString(course.startDate).format('DD.MM.YYYY');
+		}
+		if (course.untilDate) {
+			course.untilDate = timesHelper.createFromString(course.untilDate).format('DD.MM.YYYY');
 		}
 
 		// preselect current teacher when creating new course
@@ -487,14 +482,17 @@ router.post('/', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	const startDate = timesHelper.createFromString(req.body.startDate, 'DD:MM:YYYY');
+	const untilDate = timesHelper.createFromString(req.body.untilDate, 'DD:MM:YYYY');
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.startDate;
+	delete req.body.startDate;
+	if (startDate.isValid()) {
+		req.body.startDate = startDate.toDate();
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.untilDate;
+
+	delete req.body.untilDate;
+	if (untilDate.isValid()) {
+		req.body.untilDate = untilDate.toDate();
 	}
 
 	api(req)
@@ -520,14 +518,17 @@ router.post('/copy/:courseId', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	const startDate = timesHelper.createFromString(req.body.startDate, 'DD:MM:YYYY');
+	const untilDate = timesHelper.createFromString(req.body.untilDate, 'DD:MM:YYYY');
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.startDate;
+	delete req.body.startDate;
+	if (startDate.isValid()) {
+		req.body.startDate = startDate.toDate();
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.untilDate;
+
+	delete req.body.untilDate;
+	if (untilDate.isValid()) {
+		req.body.untilDate = untilDate.toDate();
 	}
 
 	req.body._id = req.params.courseId;
@@ -768,9 +769,6 @@ router.patch('/:courseId', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
-
 	if (!req.body.classIds) {
 		req.body.classIds = [];
 	}
@@ -781,11 +779,17 @@ router.patch('/:courseId', (req, res, next) => {
 		req.body.substitutionIds = [];
 	}
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.startDate;
+	const startDate = timesHelper.createFromString(req.body.startDate, 'DD:MM:YYYY');
+	const untilDate = timesHelper.createFromString(req.body.untilDate, 'DD:MM:YYYY');
+
+	delete req.body.startDate;
+	if (startDate.isValid()) {
+		req.body.startDate = startDate.toDate();
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.untilDate;
+
+	delete req.body.untilDate;
+	if (untilDate.isValid()) {
+		req.body.untilDate = untilDate.toDate();
 	}
 
 	// unarchive client request do not contain information about feature flags
