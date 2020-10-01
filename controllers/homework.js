@@ -121,8 +121,10 @@ const getCreateHandler = (service) => (req, res, next) => {
 						res.$t('homework._task.text.newHomeworkCourseNotification',
 							{ coursename: course.name }),
 						res.$t('homework._task.text.newHomeworkDueDateNotification',
-							{ homeworkname: data.name,
-								duedate: timesHelper.fromUTC(data.dueDate).format('DD.MM.YYYY HH:mm') }),
+							{
+								homeworkname: data.name,
+								duedate: timesHelper.fromUTC(data.dueDate).format('DD.MM.YYYY HH:mm'),
+							}),
 						data.teacherId,
 						req,
 						`${(req.headers.origin || HOST)}/homework/${data._id}`);
@@ -778,7 +780,8 @@ router.get('/:assignmentId', (req, res, next) => {
 
 		// Abgabe noch möglich?
 		assignment.submittable = (dueDateArray.timestamp >= timesHelper.now() || !assignment.dueDate);
-		assignment.warning = ((dueDateArray.timestamp <= (timesHelper.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
+		assignment.warning = ((dueDateArray.timestamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
+			&& assignment.submittable);
 
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
