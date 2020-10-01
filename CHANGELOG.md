@@ -9,15 +9,27 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-## [25.0.4] - 2020-09-30
+## [25.0.6] - 2020-10-01
 
 ### Added
 
 - SC-6973 add importHash to registrationPins post request
 
+## [25.0.5] - 2020-09-30
+
+### Fixed
+
+  - SC-6945 Add requirement for etherpad section title to fix null matching error
+
+## [25.0.4] - 2020-09-30
+
+### Changed
+
+- SC-6567 clear and improve logging in error case
+
 ## [25.0.3] - 2020-09-29
 
-### Fixed - 25.0.2
+### Fixed
 
 - SC-6940 hanndle undefined in language detection
 
