@@ -914,8 +914,7 @@
 					"headline": {
 						"doneGroupTasks": "finished group submissions",
 						"homework": "Homework: {{name}}",
-						"openGroupTasks": "open (possible) group submissions",
-						"topics": "Topics"
+						"openGroupTasks": "open (possible) group submissions"
 					},
 					"link": {
 						"addTopic": "Add a topic",
@@ -990,6 +989,12 @@
 				},
 				"img_alt": {
 					"noPosedTasks": "No given tasks"
+				},
+				"label": {
+					"archived": "Archived",
+					"drafts": "Drafts",
+					"feedback": "Feedback",
+					"provided": "Provided"
 				},
 				"text": {
 					"descriptionTasks": "Course participants can easily complete tasks by a set deadline and submit results digitally. Tasks can be set for an entire course or a single topic.",
@@ -1577,6 +1582,7 @@
 			"yes": "Yes"
 		},
 		"headline": {
+			"topics": "Topics",
 			"actions": "Actions",
 			"addDate": "Add date",
 			"almostThere": "Almost there!",
@@ -1716,6 +1722,7 @@
 			"402": "You have to pay for this feature first.",
 			"403": "Sorry, but we really can't show you that!",
 			"404": "Oops, this site doesn't exist.",
+			"408": "Timeout",
 			"areYouSure": "Are you sure?",
 			"attention": "Attention:",
 			"info": "Note:",
@@ -2907,6 +2914,16 @@
 			"duplicateTeam": "Duplicate team",
 			"foundATeam": "Form a team"
 		},
+		"form_importTopic": {
+			"label": {
+				"insertACodeToImportCourse": "Insert a code to import course content from other users.",
+				"renameTheCourse": "Rename the course."
+			},
+			"text": {
+				"aCourseFolderIsAutomaticallyCreated": "A course folder is automatically created for the imported course. Student-related data from the original course will be removed. Then add students and make an appointment for the course.",
+				"completeTheImport": "Complete the import. In the next step, set a new course date and add students."
+			}
+		},
 		"headline": {
 			"duplicateTeam": "Duplicate team",
 			"invitations": "Invitations",
@@ -2923,6 +2940,27 @@
 		"text": {
 			"descriptionTeams": "Study group, school band or meeting of class representatives? Create a team to exchange material and news with each other - within your school or across schools.",
 			"studentsCantCreateTeams": "The school does not allow students to create teams in your school. Please contact a teacher or an administrator."
+		},
+		"topics": {
+			"button": {
+				"addGroup": "Add group",
+				"addNewTool": "Add new tool",
+				"displayTopicAgain": "Display topic again"
+			},
+			"headline": {
+				"collapse/ExpandMyTasks": "Collapse / expand my tasks",
+				"collapse/ExpandStudentGroups": "Collapse / expand student groups",
+				"homework": "({{homeworkLength}} Task{{#ifneq 1 {{homeworkLength}}}}n{{/ifneq}})",
+				"myHomework": "({{myHomeworkLength}} Task{{#ifneq 1 {{myHomeworkLength}}}}n{{/ifneq}})",
+				"myTasks": "My Tasks",
+				"show/HideTask": "show / hide tasks"
+			},
+			"text": {
+				"group": "({{arrayLength courseGroups}} Group{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
+				"nextLesson": "Next Lesson: {{nextEvent}}",
+				"noIssues": "No Issues.",
+				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}School Groups{{else}}My student groups {{/userHasPermission}}"
+			}
 		}
 	},
 	"topic": {
