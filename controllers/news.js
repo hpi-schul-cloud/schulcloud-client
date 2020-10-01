@@ -201,7 +201,7 @@ router.get('/:newsId', (req, res, next) => {
 			res.render('news/article', {
 				title: news.title,
 				news,
-				isRSS: news.source === 'rss'
+				isRSS: news.source === 'rss',
 			});
 		})
 		.catch((err) => {

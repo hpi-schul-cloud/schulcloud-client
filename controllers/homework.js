@@ -121,7 +121,8 @@ const getCreateHandler = (service) => (req, res, next) => {
 						res.$t('homework._task.text.newHomeworkCourseNotification',
 							{ coursename: course.name }),
 						res.$t('homework._task.text.newHomeworkDueDateNotification',
-							{ homeworkname: data.name, duedate: timesHelper.fromUTC(data.dueDate).format('DD.MM.YYYY HH:mm') }),
+							{ homeworkname: data.name,
+								duedate: timesHelper.fromUTC(data.dueDate).format('DD.MM.YYYY HH:mm') }),
 						data.teacherId,
 						req,
 						`${(req.headers.origin || HOST)}/homework/${data._id}`);
@@ -271,7 +272,8 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 
 		// rewrite german format to ISO
 		if (req.body.availableDate) {
-			req.body.availableDate = timesHelper.createFromString(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.availableDate = timesHelper.createFromString(req.body.availableDate,
+				'DD.MM.YYYY HH:mm').toISOString();
 		}
 		if (req.body.dueDate) {
 			req.body.dueDate = timesHelper.createFromString(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
@@ -510,7 +512,8 @@ const overview = (titleKey) => (req, res, next) => {
 
 				const dueDateArray = timesHelper.splitDate(assignment.dueDate);
 				assignment.submittable = dueDateArray.timestamp >= timesHelper.now() || !assignment.dueDate;
-				assignment.warning = ((dueDateArray.timestamp <= (timesHelper.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
+				assignment.warning = ((dueDateArray.timestamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
+					&& assignment.submittable);
 				return assignment;
 			});
 

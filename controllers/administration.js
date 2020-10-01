@@ -3069,7 +3069,7 @@ router.use(
 			rssBody,
 			hasRSS: rssBody && !!rssBody.length,
 			schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-			timezone : `${timesHelper.getUserTimezone()} (UTC${timesHelper.getUtcOffset()})`,
+			timezone: `${timesHelper.getUserTimezone()} (UTC${timesHelper.getUtcOffset()})`,
 		});
 	},
 );
