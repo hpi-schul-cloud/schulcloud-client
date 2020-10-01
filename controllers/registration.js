@@ -70,6 +70,7 @@ router.post('/registration/pincreation', (req, res, next) => {
 				json: {
 					email: req.body.email,
 					mailTextForRole: req.body.mailTextForRole,
+					importHash: req.body.importHash,
 				},
 			})
 			.then((result) => {
