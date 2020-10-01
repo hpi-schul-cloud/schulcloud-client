@@ -3,6 +3,7 @@ let usermail;
 
 function sendPin(sendConfirm) {
 	usermail = $("input[name$='email']:last").val();
+	const importHash = $("input[name='importHash']").val();
 	let role;
 	try {
 		role = window.location.pathname.split('/by')[1].split('/')[0].replace('/', '');
@@ -12,7 +13,7 @@ function sendPin(sendConfirm) {
 	$.ajax({
 		url: '/registration/pincreation',
 		method: 'POST',
-		data: { email: usermail, mailTextForRole: role },
+		data: { email: usermail, mailTextForRole: role, importHash },
 	}).done(() => {
 		if (sendConfirm) {
 			$.showNotification($t('dataprivacy.text.confirmationCodeSent', { email: usermail }),
