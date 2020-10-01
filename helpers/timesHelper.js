@@ -44,7 +44,6 @@ const currentDate = () => {
 	return result;
 };
 
-
 /**
  * @return {Number} Current time in seconds based on current timezone
  */
