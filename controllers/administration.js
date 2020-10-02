@@ -614,7 +614,7 @@ const updatePolicy = (req, res, next) => {
 const returnAdminPrefix = (roles, res) => {
 	let prefix;
 	// eslint-disable-next-line array-callback-return
-	roles.map((role) => {
+	roles.forEach((role) => {
 		// eslint-disable-next-line no-unused-expressions
 		role.name === 'teacher'
 			? (prefix = res.$t('administration.controller.headline.management'))
@@ -762,12 +762,11 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 		+ '<i class="fa fa-check consent-status double-check"></i>';
 
 	switch (consentStatus) {
-		case 'missing':
-			return times;
 		case 'parentsAgreed':
 			return check;
 		case 'ok':
 			return isTeacher ? check : doubleCheck;
+		case 'missing':
 		default:
 			return times;
 	}
@@ -837,7 +836,11 @@ const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, r
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
-			next(err);
+			req.session.notification = {
+				type: 'danger',
+				message: err.error.message,
+			};
+			res.redirect(`${req.originalUrl}/edit`);
 		});
 };
 
@@ -1044,12 +1047,14 @@ router.get(
 				c.selected = c.teacherIds.includes(user._id);
 				return c;
 			});
+			const canDeleteUser = res.locals.currentUser.permissions.includes('TEACHER_DELETE');
 			res.render('administration/users_edit', {
 				title: res.$t('administration.controller.link.editTeacher'),
 				action: `/administration/teachers/${user._id}`,
 				submitLabel: res.$t('global.button.save'),
 				closeLabel: res.$t('global.button.cancel'),
 				user,
+				canDeleteUser,
 				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
 				consent: user.consent,
 				classes,
@@ -1113,7 +1118,11 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
-			next(err);
+			req.session.notification = {
+				type: 'danger',
+				message: err.error.message,
+			};
+			res.redirect(`${req.originalUrl}/edit`);
 		});
 };
 
@@ -1495,7 +1504,7 @@ router.get(
 						? consent.parentConsents[0]
 						: {};
 				}
-				const canDeleteStudent = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
+				const canDeleteUser = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
 				const hidePwChangeButton = !account;
 				res.render('administration/users_edit', {
 					title: res.$t('administration.controller.link.editingStudents'),
@@ -1503,7 +1512,7 @@ router.get(
 					submitLabel: res.$t('global.button.save'),
 					closeLabel:	res.$t('global.button.cancel'),
 					user,
-					canDeleteStudent,
+					canDeleteUser,
 					isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
 					consent,
