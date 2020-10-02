@@ -15,16 +15,15 @@
         <div class="route-calendar">
             <div class="fullcalendar" id="calendar"></div>
         </div>
-
         {{#userHasPermission "CALENDAR_CREATE"}}
-            {{#embed "lib/components/modal-form" class="create-event-modal" action="/calendar/events/" userId=../userId showVideoconferenceOption=../showVideoconferenceOption timezone=../timezone}}
+            {{#embed "lib/components/modal-form" class="create-event-modal" action="/calendar/events/" userId=../userId showVideoconferenceOption=../showVideoconferenceOption currentTimezone=../currentTimezone currentTimezoneOffset=../currentTimezoneOffset}}
                 {{#content "fields"}}
                     {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="2" collapseIdTeam="3"}}
                 {{/content}}
             {{/embed}}
         {{/userHasPermission}}
 
-        {{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
+        {{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal" currentTimezone=../currentTimezone  currentTimezoneOffset=../currentTimezoneOffset}}
             {{#content "fields"}}
                 {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
             {{/content}}

@@ -1,5 +1,7 @@
 <div class="form-group">
-    <label for={{id}}>{{label}}</label>
+    {{#if label}}
+        <label for={{id}}>{{label}}</label>
+    {{/if}}
     <div class="{{class}}">
     <input
             class="form-control"
@@ -12,7 +14,7 @@
     />
     {{#if currentTimezone}}
         <div class="input-group-addon">
-            <span class="input-group-text">{{ currentTimezone }} (UTC{{currentTimezoneOffset}})</span>
+            <span class="input-group-text">{{ currentTimezone }} {{#if currentTimezoneOffset}}(UTC{{currentTimezoneOffset}}){{/if}}</span>
         </div>
     {{/if}}
 </div>

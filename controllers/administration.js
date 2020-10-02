@@ -23,8 +23,6 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 const { CALENDAR_SERVICE_ENABLED, HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 
-moment.locale('de');
-
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
 	.get(`/${service}`, {
@@ -2946,7 +2944,7 @@ router.use(
 			policiesBody = consentVersions.data.map((consentVersion) => {
 				const title = consentVersion.title;
 				const text = consentVersion.consentText;
-				const publishedAt = new Date(consentVersion.publishedAt).toLocaleString();
+				const publishedAt = timesHelper.formatDate(consentVersion.publishedAt, 'DD-MM-YYYY HH:mm');
 				const linkToPolicy = consentVersion.consentDataId;
 				const links = [];
 				if (linkToPolicy) {

@@ -82,6 +82,8 @@ const createFromString = (dateString, format) => {
 	return result;
 };
 
+const formatDate = (date, format) => moment(date).format(format);
+
 /**
  * @param {Date} date Date object
  * @return {moment} same date and time in different in current timezone (no re-calculation)
@@ -102,6 +104,7 @@ module.exports = {
 	currentDate,
 	now,
 	splitDate,
+	formatDate,
 	createFromString,
 	cloneUtcDate,
 };
