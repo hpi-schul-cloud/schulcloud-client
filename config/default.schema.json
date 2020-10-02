@@ -374,11 +374,6 @@
 				"DEFAULT_LANGUAGE",
 				"AVAILABLE_LANGUAGES"
 			]
-		},
-		"DEFAULT_TIMEZONE": {
-			"type": "string",
-			"default": "Europe/Berlin",
-			"description": "Default time zone of the instance"
 		}
 	},
 	"allOf": [
