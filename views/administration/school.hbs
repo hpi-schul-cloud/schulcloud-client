@@ -213,6 +213,33 @@
 							</div>
 						{{/ifConfig}}
 
+                        <div class="form-group"
+								{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}{{else}}
+									{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}{{else}}
+										hidden
+									{{/ifConfig}}>
+								{{/ifConfig}}>
+							<label>
+								<input
+									id="matrix"
+									type="checkbox"
+									name="matrix"
+									value="true"
+									{{#inArray "matrix" ../school.features}}checked{{/inArray}}
+									{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+										{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+												disabled
+										{{/userHasPermission}}
+									{{/userHasPermission}}
+								/>
+								{{$t "administration.school.label.activeMatrixFunction" }}
+							</label>
+							<p class="text-muted">
+								{{$t "administration.school.text.ifMatrixIsActivatedAtYourSchool"}}<a href=' https://docs.hpi-schul-cloud.org/pages/viewpage.action?pageId=113650243'>{{$t "administration.school.link.matrixHelpPage"}}</a>.
+							</p>
+						</div>
+
+
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
                         <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}}">
 							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>

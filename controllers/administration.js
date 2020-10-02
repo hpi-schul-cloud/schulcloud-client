@@ -2381,34 +2381,12 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		delete req.body.studentVisibility;
 
-		// Update riot messenger feature in school
-		const messengerEnabled = (res.locals.currentSchoolData.features || []).includes(
-			'messenger',
-		);
-		if (!messengerEnabled && req.body.messenger === 'true') {
-			// enable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: 'messenger',
-					},
-				},
-			});
-		} else if (messengerEnabled && req.body.messenger !== 'true') {
-			// disable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: 'messenger',
-					},
-				},
-			});
+		// Update school features
+		const possibleSchoolFeatures = ['messenger', 'messengerSchoolRoom', 'matrix'];
+		for (const feature of possibleSchoolFeatures) {
+			await updateSchoolFeature(req, currentFeatures, req.body[feature] === 'true', feature);
+			delete req.body[feature];
 		}
-		await updateSchoolFeature(req, currentFeatures, req.body.messenger === 'true', 'messenger');
-		delete req.body.messenger;
-
-		await updateSchoolFeature(req, currentFeatures, req.body.messengerSchoolRoom === 'true', 'messengerSchoolRoom');
-		delete req.body.messengerSchoolRoom;
 	} catch (err) {
 		next(err);
 	}
