@@ -11,7 +11,6 @@ const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
-const timesHelper = require('../helpers/timesHelper');
 
 const {
 	CALENDAR_SERVICE_ENABLED,
