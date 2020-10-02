@@ -82,7 +82,10 @@ const createFromString = (dateString, format) => {
 	return result;
 };
 
-const formatDate = (date, format) => moment(date).format(format);
+const formatDate = (date, format, showTimezoneOffset = false) => {
+	const timezoneOffset = defaultTimezone && showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
+	return `${moment(date).format(format)} ${timezoneOffset}`;
+};
 
 /**
  * @param {Date} date Date object
