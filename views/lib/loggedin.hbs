@@ -300,7 +300,7 @@
 
 
 {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}} {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
-{{#ifCond (userHasRole "administrator") '||' (isInArray "messenger" schoolData.features)}}
+{{#if (userHasRole "administrator")}}
     {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
     {{#content "body"}}
     <div class="modal-body">
@@ -314,15 +314,11 @@
             <div id="member-modal-body">
                 <div class="text-center">
                     {{$t "messenger.text.rocketChatDeprecation" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE"))) }}
-                    {{#if (userHasRole "administrator")}}
-                        {{#inArray "messenger" @root.schoolData.features}}
-                            {{$t "messenger.text.howToDeactivateMatrix"}}
-                        {{else}}
-                            {{$t "messenger.text.howToActivateMatrix"}}
-                        {{/inArray}}
+                    {{#inArray "messenger" @root.schoolData.features}}
+                        {{$t "messenger.text.howToDeactivateMatrix"}}
                     {{else}}
-                        {{$t "messenger.text.callToCopyMessages"}}
-                    {{/if}}
+                        {{$t "messenger.text.howToActivateMatrix"}}
+                    {{/inArray}}
                 </div>
             </div>
         </div>
@@ -333,11 +329,41 @@
             {{$t "homework.label.dontShowAgain" }}
         </label>
         <div>
-            <button type="button" class="btn btn-secondary btn-close">{{$t "global.button.cancel" }}</button>
-            <button type="button" class="btn btn-primary btn-submit">{{$t "global.button.ok" }}</button>
+            <button type="button" class="btn btn-secondary btn-close dont-show-again">{{$t "messenger.button.dontActivate" }}</button>
+            <button type="button" class="btn btn-primary btn-submit activate-matrix">{{$t "messenger.button.activate" }}</button>
         </div>
     </div>
     {{/content}}
     {{/embed}}
-{{/ifCond}}
+{{else if (isInArray "messenger" schoolData.features)}}
+    {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
+    {{#content "body"}}
+    <div class="modal-body">
+        <img src="/images/messenger-info.svg" class="img-fluid" role="presentation"/>
+        <div class="modal-body-text">
+            <p>{{$t "messenger.text.welcomeMatrix" }}</p>
+            <div class="modal-danger">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                {{$t "global.text.attention" }}
+            </div>
+            <div id="member-modal-body">
+                <div class="text-center">
+                    {{$t "messenger.text.rocketChatDeprecation" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE"))) }}
+                    {{$t "messenger.text.callToCopyMessages"}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer modal-checkbox">
+        <label>
+            <input class="dontShowAgain-checkbox" type="checkbox" value="false" />
+            {{$t "homework.label.dontShowAgain" }}
+        </label>
+        <div>
+            <button type="button" class="btn btn-primary btn-submit dont-show-again">{{$t "global.button.ok" }}</button>
+        </div>
+    </div>
+    {{/content}}
+    {{/embed}}
+{{/if}}
 {{/hasConfig}} {{/ifConfig}}
