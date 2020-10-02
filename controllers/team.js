@@ -8,7 +8,6 @@ const team = require('../helpers/content/team.js');
 
 router.get('/', function (req, res, next) {
     let teamLength = team.reduce((accumulator, section) => {return accumulator + section.team.length;}, 0);
-	const timezone = timesHelper.getChangedTimezoneString();
 
 	authHelper.isAuthenticated(req).then(isAuthenticated => {
         let template = isAuthenticated ? 'team/team_loggedin' : 'team/team_guest';
@@ -23,7 +22,6 @@ router.get('/', function (req, res, next) {
 			titlePage: res.$t('team.headline.team'),
             inline: !!template.includes('guest'),
             teams: team,
-			timezone,
             teamLength
         })
     );

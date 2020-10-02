@@ -9,9 +9,11 @@ let defaultTimezone;
 const getUtcOffset = () => moment().format('Z');
 
 /**
- * @param {String} timezone Timezone as a string
+ * @param {String} res result object containing shool data information
+ * sets default timezone if school timezone differs from the user timezone
  */
-const setDefaultTimezone = (timezone = null) => {
+const setDefaultTimezone = (res) => {
+	const { timezone } = res.locals.currentSchoolData || {};
 	const userTimezone = moment.tz.guess();
 	if (timezone && timezone !== userTimezone) {
 		moment.tz.setDefault(timezone);
@@ -21,6 +23,8 @@ const setDefaultTimezone = (timezone = null) => {
 		defaultTimezone = undefined;
 	}
 	logger.info(`timesHelper: timezone of the instance is ${defaultTimezone} (${getUtcOffset()})`);
+	res.locals.currentTimezone = defaultTimezone;
+	res.locals.currentTimezoneOffset = defaultTimezone ? getUtcOffset() : '';
 };
 
 const getUserTimezone = () => (defaultTimezone || moment.tz.guess());
@@ -54,26 +58,16 @@ const now = () => {
 };
 
 /**
- * Returns changed timezone string, if user browser timezone was changed to a school specific one.
- * @param {boolean} long if long is true the returned string contains long name of the timezone and offset,
- * otherwise just offset
- */
-const getChangedTimezoneString = (long = true) => {
-	const tzString = long ? `${defaultTimezone} (UTC${getUtcOffset()})` : `(UTC${getUtcOffset()})`;
-	return (defaultTimezone ? tzString : '');
-};
-
-/**
  * @param {Date} date Date object
  * @return {Object} Timestamp, date and time of given date as object
  */
 const splitDate = (date) => {
 	const resultDate = moment(date);
-	const timezone = getChangedTimezoneString(false);
+	const timezoneOffset = defaultTimezone ? `(UTC ${getUtcOffset()})` : '';
 	return {
 		timestamp: resultDate.valueOf(),
 		date: resultDate.format('DD.MM.YYYY'),
-		time: `${resultDate.format('HH:mm')} ${timezone}`,
+		time: `${resultDate.format('HH:mm')} ${timezoneOffset}`,
 	};
 };
 
@@ -91,7 +85,6 @@ const createFromString = (dateString, format) => {
 module.exports = {
 	setDefaultTimezone,
 	getUserTimezone,
-	getChangedTimezoneString,
 	getUtcOffset,
 	fromUTC,
 	currentDate,

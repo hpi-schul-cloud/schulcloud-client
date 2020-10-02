@@ -7,7 +7,6 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 const recurringEventsHelper = require('../helpers/recurringEvents');
-const timesHelper = require('../helpers/timesHelper');
 
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
@@ -17,13 +16,11 @@ router.get('/', (req, res, next) => {
 		res.locals.currentSchoolData.features || []
 	).includes('videoconference');
 	const showVideoconferenceOption = schoolUsesVideoconferencing;
-	const timezone = timesHelper.getChangedTimezoneString();
 
 	res.render('calendar/calendar', {
 		title: res.$t('calendar.headline.calendar'),
 		userId: res.locals.currentUser._id,
 		showVideoconferenceOption,
-		timezone,
 	});
 });
 

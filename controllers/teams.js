@@ -490,7 +490,6 @@ router.get('/:teamId', async (req, res, next) => {
 		const permission = permissions.find((p) => p.roleName === role);
 		return Object.keys(permission).every((p) => permission[p]);
 	};
-	const timezone = timesHelper.getChangedTimezoneString();
 
 	try {
 		const roles = (await api(req).get('/roles', {
@@ -736,7 +735,6 @@ router.get('/:teamId', async (req, res, next) => {
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
 				notificationMessage,
-				timezone,
 			},
 		);
 	} catch (e) {

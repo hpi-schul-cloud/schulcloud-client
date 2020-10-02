@@ -10,9 +10,9 @@
             {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{/if}}
             {{#if dataTestId}}data-testid="{{dataTestId}}"{{/if}}
     />
-    {{#if timezone}}
+    {{#if currentTimezone}}
         <div class="input-group-addon">
-                <span class="input-group-text">{{ timezone }}</span>
+            <span class="input-group-text">{{ currentTimezone }} (UTC{{currentTimezoneOffset}})</span>
         </div>
     {{/if}}
 </div>

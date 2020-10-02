@@ -633,7 +633,6 @@ router.get('/new', (req, res, next) => {
 		if (req.query.topic) {
 			assignment.lessonId = req.query.topic;
 		}
-		const timezone = timesHelper.getChangedTimezoneString();
 		// Render overview
 		res.render('homework/edit', {
 			title: res.$t('global.button.addTask'),
@@ -645,7 +644,6 @@ router.get('/new', (req, res, next) => {
 			assignment,
 			courses,
 			lessons: lessons.length ? lessons : false,
-			timezone,
 		});
 	});
 });
@@ -688,8 +686,6 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			$limit: false,
 		});
 
-		const timezone = timesHelper.getChangedTimezoneString();
-
 		Promise.resolve(coursesPromise).then((courses) => {
 			courses.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
@@ -710,7 +706,6 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 						courses,
 						lessons,
 						isSubstitution,
-						timezone,
 					});
 				});
 			} else {
@@ -725,7 +720,6 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					courses,
 					lessons: false,
 					isSubstitution,
-					timezone,
 				});
 			}
 		});
