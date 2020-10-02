@@ -35,7 +35,7 @@ const getUserTimezone = () => (defaultTimezone || moment.tz.guess());
  */
 const fromUTC = (date) => {
 	const result = moment(date);
-	logger.info(`timesHelper.fromUTC: ${date} to ${result}`);
+	logger.info(`timesHelper.fromUTC: ${date} to ${result.toISOString(true)}`);
 	return result;
 };
 
@@ -44,7 +44,7 @@ const fromUTC = (date) => {
  */
 const currentDate = () => {
 	const result = moment();
-	logger.info(`timesHelper.currentDate: ${result}`);
+	logger.info(`timesHelper.currentDate: ${result.toISOString(true)}`);
 	return result;
 };
 
@@ -78,7 +78,19 @@ const splitDate = (date) => {
  */
 const createFromString = (dateString, format) => {
 	const result = moment(dateString, format);
-	logger.info(`timesHelper.createFromString: ${dateString} to ${result}`);
+	logger.info(`timesHelper.createFromString: ${dateString} to ${result.toISOString(true)}`);
+	return result;
+};
+
+/**
+ * @param {Date} date Date object
+ * @return {moment} same date and time in different in current timezone (no re-calculation)
+ */
+const cloneUtcDate = (date) => {
+	const format = 'YYYY-MM-DD HH:mm:ss';
+	const dateString = moment.utc(date).format(format);
+	const result = createFromString(dateString, format);
+	logger.info(`timesHelper.cloneDate: ${date} to ${result.toISOString(true)}`);
 	return result;
 };
 
@@ -91,4 +103,5 @@ module.exports = {
 	now,
 	splitDate,
 	createFromString,
+	cloneUtcDate,
 };
