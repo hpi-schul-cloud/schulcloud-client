@@ -39,17 +39,16 @@ const createEventsForCourse = (req, res, course) => {
 	// can just run if a calendar service is running on the environment
 	if (CALENDAR_SERVICE_ENABLED) {
 		return Promise.all(
-			course.times.map((time) => api(req).post('/calendar', {
-				json: {
+			course.times.map((time) => {
+				const startDate = timesHelper.fromUTC(course.startDate).add(time.startTime, 'ms');
+				const repeatUntil = timesHelper.fromUTC(course.untilDate);
+				const event = {
 					summary: course.name,
 					location: time.room,
 					description: course.description,
-					startDate: new Date(
-						new Date(course.startDate).getTime()
-						+ time.startTime,
-					).toLocalISOString(),
+					startDate: startDate.toISOString(true),
 					duration: time.duration,
-					repeat_until: course.untilDate,
+					repeat_until: repeatUntil.toISOString(true),
 					frequency: 'WEEKLY',
 					weekday: recurringEventsHelper.getIsoWeekdayForNumber(
 						time.weekday,
@@ -57,8 +56,11 @@ const createEventsForCourse = (req, res, course) => {
 					scopeId: course._id,
 					courseId: course._id,
 					courseTimeId: time._id,
-				},
-			})),
+				};
+				return api(req).post('/calendar', {
+					json: event,
+				});
+			}),
 		).catch((error) => {
 			logger.warn(
 				'failed creating events for the course, the calendar service might be unavailible',
