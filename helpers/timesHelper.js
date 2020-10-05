@@ -63,11 +63,11 @@ const now = () => {
  */
 const splitDate = (date) => {
 	const resultDate = moment(date);
-	const timezoneOffset = defaultTimezone ? `(UTC ${getUtcOffset()})` : '';
+	const timezoneOffset = defaultTimezone ? `(UTC${getUtcOffset()})` : '';
 	return {
 		timestamp: resultDate.valueOf(),
 		date: resultDate.format('DD.MM.YYYY'),
-		time: `${resultDate.format('HH:mm')} ${timezoneOffset}`,
+		time: `${resultDate.format('HH:mm')}${timezoneOffset}`,
 	};
 };
 
@@ -82,9 +82,17 @@ const createFromString = (dateString, format) => {
 	return result;
 };
 
+/**
+ * formats date based on the given format with UTC offset if it was changed to school specific one and is required by
+ * the input parameter
+ * @param date input date
+ * @param format format string
+ * @param showTimezoneOffset defines whether to show timezone offset (only if it was changed)
+ * @returns {string} formated date string based on input
+ */
 const formatDate = (date, format, showTimezoneOffset = false) => {
 	const timezoneOffset = defaultTimezone && showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
-	return `${moment(date).format(format)} ${timezoneOffset}`;
+	return `${moment(date).format(format)}${timezoneOffset}`;
 };
 
 /**
