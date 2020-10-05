@@ -3,7 +3,7 @@ const moment = require('moment-timezone');
 
 const timesHelper = require('../../../helpers/timesHelper');
 
-const defaultTimezone = 'Europe/Berlin';
+const defaultTimezone = 'Europe/London';
 moment.tz.setDefault(defaultTimezone);
 
 const getMockRes = (timezone) => ({ locals: { currentSchoolData: { timezone } } });
@@ -18,8 +18,8 @@ describe('times helpers test', () => {
 		chai
 			.expect(timesHelper.getUtcOffset())
 			.to.equal(
-				'+02:00',
-				`The default offset for ${defaultTimezone} should be +02:00`,
+				'+01:00',
+				`The default offset for ${defaultTimezone} should be +01:00`,
 			);
 	});
 

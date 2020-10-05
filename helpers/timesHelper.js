@@ -1,12 +1,14 @@
 const moment = require('moment-timezone');
 const logger = require('./logger');
 
-let defaultTimezone;
+let schoolTimezone;
 
 /**
  * @return {String} UTC offest as string based on current timezone, e.g +01:00
  */
 const getUtcOffset = () => moment().format('Z');
+
+const getUserTimezone = () => (schoolTimezone || moment.tz.guess());
 
 /**
  * @param {String} res result object containing shool data information
@@ -17,17 +19,16 @@ const setDefaultTimezone = (res) => {
 	const userTimezone = moment.tz.guess();
 	if (timezone && timezone !== userTimezone) {
 		moment.tz.setDefault(timezone);
-		defaultTimezone = timezone;
+		schoolTimezone = timezone;
 	} else {
 		moment.tz.setDefault();
-		defaultTimezone = undefined;
+		schoolTimezone = undefined;
 	}
-	logger.info(`timesHelper: timezone of the instance is ${defaultTimezone} (${getUtcOffset()})`);
-	res.locals.currentTimezone = defaultTimezone;
-	res.locals.currentTimezoneOffset = defaultTimezone ? getUtcOffset() : '';
+	logger.info(`timesHelper: timezone of the instance is ${getUserTimezone()} (${getUtcOffset()}).
+	School timezone is ${schoolTimezone}`);
+	res.locals.currentTimezone = schoolTimezone;
+	res.locals.currentTimezoneOffset = schoolTimezone ? getUtcOffset() : '';
 };
-
-const getUserTimezone = () => (defaultTimezone || moment.tz.guess());
 
 /**
  * @param {Date} date UTC Date
@@ -63,7 +64,7 @@ const now = () => {
  */
 const splitDate = (date) => {
 	const resultDate = moment(date);
-	const timezoneOffset = defaultTimezone ? `(UTC${getUtcOffset()})` : '';
+	const timezoneOffset = schoolTimezone ? `(UTC${getUtcOffset()})` : '';
 	return {
 		timestamp: resultDate.valueOf(),
 		date: resultDate.format('DD.MM.YYYY'),
@@ -91,7 +92,7 @@ const createFromString = (dateString, format) => {
  * @returns {string} formated date string based on input
  */
 const formatDate = (date, format, showTimezoneOffset = false) => {
-	const timezoneOffset = defaultTimezone && showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
+	const timezoneOffset = schoolTimezone && showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
 	return `${moment(date).format(format)}${timezoneOffset}`;
 };
 
