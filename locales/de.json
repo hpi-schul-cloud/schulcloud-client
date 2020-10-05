@@ -2977,11 +2977,24 @@
 		"brb": {
 			"authentication": {
 				"headline": {
+					"advantagesOfTheBrandenburgSchool": "Vorteile der Schul-Cloud Brandenburg",
+					"lowThresholdAccess": "Niedrigschwelliger Zugang zu digitalen Unterrichtsinhalten",
 					"registerForBrandenburg": "Für die Schul-Cloud Brandenburg registrieren",
 					"theHPISchoolCloudDevelopment": "Die HPI Schul-Cloud-Entwicklung zeichnet sich aus durch",
 					"welcomeToTheBrandenburgSchoolCloud": "Herzlich willkommen bei der Schul-Cloud Brandenburg!"
 				},
+				"img_alt": {
+					"schoolChildrenSitTogether": "Schüler sitzen zusammen und nutzen die Schul-Cloud Brandenburg auf ihren mobilen Endgeräten."
+				},
 				"text": {
+					"ITApplications": "IT-Anwendungen entsprechen aktuellsten Sicherheitsstandards",
+					"constantAvailability": "Ständige Verfügbarkeit neuester Software für Lehrer/innen und Schüler/innen",
+					"professionalMaintenance": "Professionelle Wartung",
+					"digitalEducation": "Digitale Bildung jenseits separater Computerräume",
+					"exchangeOfDigital": "Austausch digitaler, selbst erstellter Materialien",
+					"accessToAWideRange": "Zeit- und ortsunabhängiger Zugang zu einem großen Angebot an digitalen Lerninhalten",
+					"aModernTeachingAndLearning": "Eine moderne Lehr- und Lerninfrastruktur ist unabdingbar, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalen Gesellschaft vorzubereiten.",
+					"moreInformationHPISchoolCloud": "Mehr Informationen: <a href='{{theme.documents.globalFiles.BeschreibungDerSchulCloud}}' target='_blank' rel='noopener'>Kurzbeschreibung 'Die HPI Schul-Cloud' (.pdf)",
 					"aConsistentlyUserCentred": "eine durchgängig nutzerzentrierte Entwicklung,",
 					"aStrictlyModularStructure": "einen strikt modularen Aufbau",
 					"aUniformDigitalPlatform": "Eine einheitliche digitale Plattform für die ganze Schule bietet viele Vorteile. Die Registrierung für die Schul-Cloud Brandenburg wird daher durch die Schulleitung durchgeführt. Bitte wenden Sie sich an <a href= 'mailto:brandenburg@schul-cloud.org'>brandenburg@schul-cloud.org</a>, wenn Sie Ihre Schule registrieren wollen.<br> Anschließend erhalten alle Schüler:innen von ihrer Schule einen Registrierungslink oder Login-Daten für die erstmalige Anmeldung in der Schul-Cloud Brandenburg. Bei Fragen zur erstmaligen Anmeldung wenden sich Schüler:innen und Eltern bitte an den technischen Leiter ihrer Schule bzw. an die jeweilige Klassenlehrerin oder den jeweiligen Klassenlehrer.",

@@ -2977,11 +2977,24 @@
 		"brb": {
 			"authentication": {
 				"headline": {
+					"advantagesOfTheBrandenburgSchool": "Advantages of the Brandenburg School Cloud",
+					"lowThresholdAccess": "Low-threshold access to digital teaching content",
 					"registerForBrandenburg": "Register for the Brandenburg School Cloud",
 					"theHPISchoolCloudDevelopment": "The HPI school cloud development is characterized by",
 					"welcomeToTheBrandenburgSchoolCloud": "Welcome to the Brandenburg School Cloud!"
 				},
+				"img_alt": {
+					"schoolChildrenSitTogether": "School Children sit together and use the Brandenburg School Cloud on their mobile devices."
+				},
 				"text": {
+					"ITApplications": "IT applications meet the latest security standards",
+					"constantAvailability": "Constant availability of the latest software for teachers and students",
+					"professionalMaintenance": "Professional maintenance",
+					"digitalEducation": "Digital education beyond separate computer rooms",
+					"exchangeOfDigital": "Exchange of digital, self-created materials",
+					"accessToAWideRange": "Access to a wide range of digital learning content regardless of time and location",
+					"aModernTeachingAndLearning": "A modern teaching and learning infrastructure is indispensable in order to lead the digital transformation in the education sector to success and to optimally prepare children at school for life in an increasingly digital society.",
+					"moreInformationHPISchoolCloud": "More information: <a href='{{theme.documents.globalFiles.BeschreibungDerSchulCloud}}' target='_blank' rel='noopener'> Brief description of 'The HPI School Cloud' (.pdf)",
 					"aConsistentlyUserCentred": "a consistently user-centered development,",
 					"aStrictlyModularStructure": "a strictly modular structure",
 					"aUniformDigitalPlatform": "A uniform digital platform for the whole school offers many advantages. The registration for the School Cloud Brandenburg is therefore carried out by the school management. Please contact <a href='mailto:brandenburg@schul-cloud.org'> brandenburg@schul-cloud.org </a> if you want to register your school. <br> All pupils then receive a registration link or login data from their school for the first time to log into the Brandenburg School Cloud. If you have any questions about registering for the first time, please contact the technical director of your school or the respective class teacher.",
