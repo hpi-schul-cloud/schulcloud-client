@@ -3,12 +3,11 @@ import './cleanup'; // see loggedin.js for loggedin users
 import initAlerts from './alerts';
 import * as storage from './helpers/storage';
 
-
-
 $(document).ready(() => {
 	// reset localStorage when new version is Published
 	const newVersion = 1;
 	const currentVersion = parseInt(storage.local.getItem('homepageVersion') || '0', 10);
+	let countdownNum;
 
 	if (currentVersion < newVersion) {
 		storage.local.clear();
@@ -52,9 +51,10 @@ $(document).ready(() => {
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 
-	var incTimer = function () {
+	const incTimer = () => {
 		setTimeout(() => {
-			if (countdownNum != 1) {
+			if (countdownNum !== 1) {
+				// eslint-disable-next-line no-plusplus
 				countdownNum--;
 				$submitButton.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
 				incTimer();
@@ -69,49 +69,50 @@ $(document).ready(() => {
 			$submitButton.prop('disabled', false);
 		}, $submitButton.data('timeout') * 1000);
 
-		var countdownNum = $submitButton.data('timeout');
+		countdownNum = $submitButton.data('timeout');
 		incTimer();
 	}
 
-	const loadSystems = function (schoolId) {
+	const loadSystems =  (schoolId) => {
 		$systems.empty();
 		$.getJSON(`/login/systems/${schoolId}`, (systems) => {
 			systems.forEach((system) => {
 				const systemAlias = system.alias ? ` (${system.alias})` : '';
 				let selected;
-				if (storage.local.getItem('loginSystem') == system._id) {
+				if (storage.local.getItem('loginSystem') === system._id) {
 					selected = true;
 				}
+				// eslint-disable-next-line max-len
 				$systems.append(`<option ${selected ? 'selected' : ''} value="${system._id}//${system.type}">${system.type}${systemAlias}</option>`);
 			});
 			// $systems.trigger('chosen:updated');
+			// eslint-disable-next-line no-unused-expressions
 			systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
 		});
 	};
 
-	$btnToggleProviders.on('click', function(e) {
+	$btnToggleProviders.on('click', (e) => {
 		e.preventDefault();
 		$btnToggleProviders.hide();
 		$loginProviders.show();
 	});
-	$btnToggleProviders.on('keydown', function(e) {
-		if (e.key == 'Enter' || e.key == ' ') {
+	$btnToggleProviders.on('keydown', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault();
 			$btnToggleProviders.hide();
 			$loginProviders.show();
 		}
 	});
 
-	$btnHideProviders.on('click', function(e) {
+	$btnHideProviders.on('click', (e) => {
 		e.preventDefault();
 		$btnToggleProviders.show();
 		$loginProviders.hide();
 		$school.val('');
 	});
 
-	$btnHideProviders.on('keydown', function(e) {
-		console.log(e, 'event');
-		if (e.key == 'Enter' || e.key == ' ') {
+	$btnHideProviders.on('keydown', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault();
 			$btnToggleProviders.show();
 			$loginProviders.hide();
@@ -119,7 +120,7 @@ $(document).ready(() => {
 		}
 	});
 
-	$btnLogin.on('click', (e) => {
+	$btnLogin.on('click', () => {
 		const school = $school.val();
 		const system = $systems.val();
 		if (school) {
@@ -134,7 +135,7 @@ $(document).ready(() => {
 		}
 	});
 
-	$school.on('change', function () {
+	$school.on('change', () => {
 		const id = $(this).val();
 		if (id !== '') {
 			loadSystems(id);
