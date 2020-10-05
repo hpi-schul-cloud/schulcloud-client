@@ -61,7 +61,6 @@ const helpers = () => ({
 		return opts.inverse(this);
 	},
 	arrayLength: (array) => (array && array.length) || 0,
-	isInArray: (item, array = []) => array.includes(item),
 	truncate: (text = '', { length = 140 } = {}) => {
 		if (text.length <= length) {
 			return text;
