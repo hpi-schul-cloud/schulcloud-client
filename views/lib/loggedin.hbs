@@ -314,7 +314,7 @@
             <div id="member-modal-body">
                 <div class="text-center">
                     {{$t "messenger.text.rocketChatDeprecation" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE"))) }}
-                    {{#inArray "messenger" @root.schoolData.features}}
+                    {{#inArray "matrix" @root.currentSchoolData.features}}
                         {{$t "messenger.text.howToDeactivateMatrix"}}
                     {{else}}
                         {{$t "messenger.text.howToActivateMatrix"}}
@@ -335,7 +335,7 @@
     </div>
     {{/content}}
     {{/embed}}
-{{else if (isInArray "messenger" schoolData.features)}}
+{{else if (isInArray "messenger" @root.currentSchoolData.features)}}
     {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
     {{#content "body"}}
     <div class="modal-body">

@@ -243,22 +243,24 @@
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
                         <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}}">
 							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
-								<label for="messenger">{{$t "administration.school.label.activeChatFunction" }}</label>
-								<input
-									id="messenger"
-									type="checkbox"
-									name="messenger"
-									value="true"
-									{{#inArray "messenger" ../school.features}}checked{{/inArray}}
-									{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-										{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-												disabled
+								<label>
+									<input
+										id="messenger"
+										type="checkbox"
+										name="messenger"
+										value="true"
+										{{#inArray "messenger" ../school.features}}checked{{/inArray}}
+										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+											{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+													disabled
+											{{/userHasPermission}}
 										{{/userHasPermission}}
-									{{/userHasPermission}}
-									{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
-										disabled
-									{{/hasConfig}}
-								/>
+										{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
+											disabled
+										{{/hasConfig}}
+									/>
+									{{$t "administration.school.label.activeChatFunction" }}
+								</label>
 								<p class="text-muted">
 									{{$t "administration.school.text.ifChatsAreActivatedAtYourSchool" }}
 								</p>
@@ -266,7 +268,7 @@
 							{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
 								<p class="alert alert-info">
 									<strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
-									{{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRECATION_DATE")))}}
+									{{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE")))}}
 								</p>
 							{{/hasConfig}}
                         </div>
