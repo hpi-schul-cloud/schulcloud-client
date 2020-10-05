@@ -56,8 +56,8 @@ $(document).ready(function() {
 
     $(".send-test-notification").on('click', function () {
         $.post('/notification/message', {
-            "title": $t('account.testNotification.headline.test'),
-            "body": $t('account.testNotification.text.youHaveANewMessage'),
+            "title": $t('account.testNotification.headline.newTestNotification'),
+            "body": $t('account.testNotification.text.youHaveANewNotification'),
             "action": document.location.origin + '/dashboard/',
             "token": $("[name='userId']").val(),
             "scopeIds": [
