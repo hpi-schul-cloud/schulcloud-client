@@ -4,7 +4,6 @@ const moment = require('moment-timezone');
 const timesHelper = require('../../../helpers/timesHelper');
 
 const defaultTimezone = 'Europe/London';
-moment.tz.setDefault(defaultTimezone);
 
 const getMockRes = (timezone) => ({ locals: { currentSchoolData: { timezone } } });
 
@@ -14,6 +13,10 @@ const setSchoolTimezone = (schoolTimezone) => {
 };
 
 describe('times helpers test', () => {
+	beforeEach(() => {
+		moment.tz.setDefault(defaultTimezone);
+	});
+
 	it('Check for default UTC offset', () => {
 		chai
 			.expect(timesHelper.getUtcOffset())
