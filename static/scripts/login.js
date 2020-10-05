@@ -73,7 +73,7 @@ $(document).ready(() => {
 		incTimer();
 	}
 
-	const loadSystems =  (schoolId) => {
+	const loadSystems = (schoolId) => {
 		$systems.empty();
 		$.getJSON(`/login/systems/${schoolId}`, (systems) => {
 			systems.forEach((system) => {
