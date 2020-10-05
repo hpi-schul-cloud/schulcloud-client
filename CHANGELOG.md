@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Added
+
+- SC-6870 - Added UX improvements for Matrix messenger announcement
+
 ## [25.0.6] - 2020-10-01
 
 ### Added
