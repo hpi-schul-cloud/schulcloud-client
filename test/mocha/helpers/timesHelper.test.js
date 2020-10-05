@@ -4,6 +4,7 @@ const moment = require('moment-timezone');
 const timesHelper = require('../../../helpers/timesHelper');
 
 const defaultTimezone = 'Europe/London';
+const testDate = new Date(2020, 10, 1, 1, 0);
 
 const getMockRes = (timezone) => ({ locals: { currentSchoolData: { timezone } } });
 
@@ -39,12 +40,11 @@ describe('times helpers test', () => {
 	});
 
 	it('should correctly split date', () => {
-		const testDate = new Date(2020, 10, 1, 12, 0);
 		setSchoolTimezone('America/Los_Angeles');
 		const expectedDate = {
-			timestamp: 1604228400000,
-			date: '01.11.2020',
-			time: '03:00(UTC-07:00)',
+			timestamp: 1604188800000,
+			date: '31.10.2020',
+			time: '17:00(UTC-07:00)',
 		};
 		const resultDate = timesHelper.splitDate(testDate);
 		chai.expect(resultDate.timestamp)
@@ -56,23 +56,21 @@ describe('times helpers test', () => {
 	});
 
 	it('should properly format date', () => {
-		const testDate = new Date(2020, 10, 1, 12, 0);
 		const testFormat = 'YYYY-MM-DD HH:mm:ss';
 		setSchoolTimezone('America/Los_Angeles');
 		const resultDate = timesHelper.formatDate(testDate, testFormat);
 		chai.expect(resultDate)
-			.to.equal('2020-11-01 03:00:00');
+			.to.equal('2020-10-31 17:00:00');
 
 		const resultDate2 = timesHelper.formatDate(testDate, testFormat, true);
 		chai.expect(resultDate2)
-			.to.equal('2020-11-01 03:00:00(UTC-07:00)');
+			.to.equal('2020-10-31 17:00:00(UTC-07:00)');
 	});
 
 	it('should correctly clone UTC date', () => {
-		const testDate = new Date(2020, 10, 1, 12, 0);
 		setSchoolTimezone('America/Los_Angeles');
 		const resultDate = timesHelper.cloneUtcDate(testDate);
 		chai.expect(resultDate.toISOString(true))
-			.to.equal('2020-11-01T11:00:00.000-08:00');
+			.to.equal('2020-11-01T00:00:00.000-07:00');
 	});
 });
