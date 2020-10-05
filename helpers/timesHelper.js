@@ -20,12 +20,13 @@ const setDefaultTimezone = (res) => {
 	if (timezone && timezone !== userTimezone) {
 		moment.tz.setDefault(timezone);
 		schoolTimezone = timezone;
+		logger.info(`timesHelper: changed default timezone from ${userTimezone} to ${schoolTimezone}`);
 	} else {
 		moment.tz.setDefault();
 		schoolTimezone = undefined;
+		logger.info(`timesHelper: user timezone match school timezone ${userTimezone}`);
 	}
-	logger.info(`timesHelper: timezone of the instance is ${getUserTimezone()} (${getUtcOffset()}).
-	School timezone is ${schoolTimezone}`);
+	logger.info(`timesHelper: timezone offset ${getUtcOffset()}`);
 	res.locals.currentTimezone = schoolTimezone;
 	res.locals.currentTimezoneOffset = schoolTimezone ? getUtcOffset() : '';
 };
