@@ -268,12 +268,12 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 			.post('/mails/', {
 				json: {
 					email: user.email,
-					subject: res.$t('administration.controller.text.invitationToUseThe', {
+					subject: res.$t('administration.controller.text.invitationEmailSubject', {
 						title: res.locals.theme.title,
 					}),
 					headers: {},
 					content: {
-						text: res.$t('administration.controller.text.invitationToThe', {
+						text: res.$t('administration.controller.text.invitationEmailContent', {
 							title: res.locals.theme.title,
 							firstName: user.firstName,
 							lastName: user.lastName,
@@ -2679,8 +2679,6 @@ router.all('/teams', async (req, res, next) => {
 							},
 							title: item.createdAtMySchool
 								? res.$t('administration.controller.text.removeStudentsFromYourOwnSchool')
-								+ res.$t('administration.controller.text.anotherSchoolWasFounded')
-								+ res.$t('administration.controller.text.orAssignAdminRights')
 								: res.$t('administration.controller.link.removeMembers'),
 						},
 						{
@@ -3144,7 +3142,7 @@ router.get('/startldapschoolyear', async (req, res) => {
 		res.$t('administration.controller.label.email'),
 		'uid',
 		res.$t('administration.controller.label.roles'),
-		res.$t('administration.controller.label.domainname'),
+		res.$t('administration.controller.label.domainName'),
 		'uuid',
 	];
 	const headClasses = [
