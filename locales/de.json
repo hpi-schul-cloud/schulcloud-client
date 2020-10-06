@@ -3040,6 +3040,7 @@
 		},
 		"button": {
 			"activate": "Aktivieren",
+			"deactivate": "Deaktivieren",
 			"dontActivate": "Nicht aktivieren"
 		},
 		"text": {

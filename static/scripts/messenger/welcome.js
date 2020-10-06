@@ -15,7 +15,7 @@ $(document).ready(() => {
 		welcomeMatrixModal.modal('hide');
 	});
 
-	welcomeMatrixModal.find('.activate-matrix').on('click', (e) => {
+	welcomeMatrixModal.find('.matrix-settings').on('click', (e) => {
 		e.stopPropagation();
 		e.preventDefault();
 		localStorage.setItem(localStorageKey, 'true');
