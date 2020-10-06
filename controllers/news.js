@@ -55,7 +55,7 @@ router.post('/', (req, res, next) => {
 	const { body } = req;
 	if (body.displayAt && body.displayAt !== '__.__.____ __:__') {
 		// rewrite german format to ISO
-		body.displayAt = timesHelper.createFromString(body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+		body.displayAt = timesHelper.createFromString(body.displayAt, timesHelper.DateFormat.de.dateTime).toISOString();
 	} else {
 		body.displayAt = undefined;
 	}
@@ -87,7 +87,7 @@ router.post('/', (req, res, next) => {
 router.patch('/:newsId', (req, res, next) => {
 	req.body.displayAt = timesHelper.createFromString(
 		req.body.displayAt,
-		'DD.MM.YYYY HH:mm',
+		timesHelper.DateFormat.de.dateTime,
 	).toISOString();
 	req.body.updatedAt = timesHelper.currentDate().toISOString();
 	req.body.updaterId = res.locals.currentUser._id;
@@ -213,7 +213,7 @@ router.get('/:newsId/edit', (req, res, next) => {
 	api(req)
 		.get(`/news/${req.params.newsId}`, {})
 		.then((news) => {
-			news.displayAt = timesHelper.createFromString(news.displayAt).format('DD.MM.YYYY HH:mm');
+			news.displayAt = timesHelper.createFromString(news.displayAt).format(timesHelper.DateFormat.de.dateTime);
 			res.render('news/edit', {
 				title: res.$t('news._news.headline.editNews'),
 				submitLabel: res.$t('global.button.save'),

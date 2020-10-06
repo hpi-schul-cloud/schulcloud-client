@@ -75,7 +75,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		}
 		if (dueDate) {
 			// rewrite german format to ISO
-			req.body.dueDate = timesHelper.createFromString(dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.dueDate = timesHelper.createFromString(dueDate, timesHelper.DateFormat.de.dateTime).toISOString();
 		}
 
 		if (publicSubmissions === 'public') {
@@ -83,7 +83,8 @@ const getCreateHandler = (service) => (req, res, next) => {
 		}
 
 		if (availableDate && availableDate !== '__.__.____ __:__') {
-			req.body.availableDate = timesHelper.createFromString(availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.availableDate = timesHelper.createFromString(availableDate, timesHelper.DateFormat.de.dateTime)
+				.toISOString();
 		} else {
 			req.body.availableDate = timesHelper.currentDate().toISOString();
 		}
@@ -123,7 +124,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 						res.$t('homework._task.text.newHomeworkDueDateNotification',
 							{
 								homeworkname: data.name,
-								duedate: timesHelper.fromUTC(data.dueDate).format('DD.MM.YYYY HH:mm'),
+								duedate: timesHelper.fromUTC(data.dueDate).format(timesHelper.DateFormat.de.dateTime),
 							}),
 						data.teacherId,
 						req,
@@ -275,10 +276,11 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 		// rewrite german format to ISO
 		if (req.body.availableDate) {
 			req.body.availableDate = timesHelper.createFromString(req.body.availableDate,
-				'DD.MM.YYYY HH:mm').toISOString();
+				timesHelper.DateFormat.de.dateTime).toISOString();
 		}
 		if (req.body.dueDate) {
-			req.body.dueDate = timesHelper.createFromString(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.dueDate = timesHelper.createFromString(req.body.dueDate, timesHelper.DateFormat.de.dateTime)
+				.toISOString();
 		}
 		if (req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
 			req.session.notification = {
@@ -676,8 +678,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			return next(error);
 		}
 
-		assignment.availableDate = timesHelper.fromUTC(assignment.availableDate).format('DD.MM.YYYY HH:mm');
-		assignment.dueDate = timesHelper.fromUTC(assignment.dueDate).format('DD.MM.YYYY HH:mm');
+		assignment.availableDate = timesHelper.fromUTC(assignment.availableDate).format(timesHelper.DateFormat.de.dateTime);
+		assignment.dueDate = timesHelper.fromUTC(assignment.dueDate).format(timesHelper.DateFormat.de.dateTime);
 
 		addClearNameForFileIds(assignment);
 		// assignment.submissions = assignment.submissions.map((s) => { return { submission: s }; });

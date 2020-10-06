@@ -315,10 +315,10 @@ const copyCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = timesHelper.createFromString(course.startDate).format('DD.MM.YYYY');
+			course.startDate = timesHelper.createFromString(course.startDate, timesHelper.DateFormat.de.date);
 		}
 		if (course.untilDate) {
-			course.untilDate = timesHelper.createFromString(course.untilDate).format('DD.MM.YYYY');
+			course.untilDate = timesHelper.createFromString(course.untilDate, timesHelper.DateFormat.de.date);
 		}
 
 		// preselect current teacher when creating new course
