@@ -1,0 +1,86 @@
+{{#extend "lib/loggedout"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/homepage/index.css" />
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/login.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script nonce="{{nonceValue}}">
+            window.production = '{{ @root.production }}';
+        </script>
+        <script src="/scripts/sc-blog.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/blog-fetch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    {{/content}}
+
+    {{#content "page"}}
+
+        <!-- GLOBAL_ANNOUNCEMENT -->
+        <div class="container container-content">
+            {{#hasConfig "GLOBAL_ANNOUNCEMENT"}}
+                <div class="notification alert alert-info">
+                    <div class="notification-content">
+                        {{{getConfig "GLOBAL_ANNOUNCEMENT"}}}
+                    </div>
+                </div>
+            {{/hasConfig}}
+        </div>
+
+        <!-- GHOST (will be replaced by js) -->
+        <div class="hidden" id="SC_THEME">int</div>-->
+        <div class="int-blog">
+
+            <div class="content" style="opacity: 0; transition: opacity 0.7s ease-in;"></div>
+            <div class="loading text-center mb-3" style="min-height: 70vh; margin-top: 100px;">
+                <i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
+                   style="font-size: 25px;"></i>
+                <div class="placeholder" style="display: none;">
+                    <img src="/images/repair.png" width="350px">
+                    <p class="text-muted">{{$t "global.text.errorWhileLoadingPage"}}</p>
+                    <button type="button" class="btn btn-primary mt-2">{{$t "global.button.tryAgain"}}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOG -->
+        <script id="blog-card" type="text/x-handlebars-template">
+        <a target="_blank" rel="noopener" href="\{{article.url}}" class="blog-card-wrapper">
+        <article class="blog-card">
+            <img class="thumbnail" alt="\{{article.img.title}}" src="\{{article.img.src}}">
+            <div class="body">
+                <h2 class="heading">
+                    <div class="title">
+                        \{{article.title}}
+                    </div>
+                    <small class="pub-date text-muted">\{{article.pubDate}}</small>
+                </h2>
+                <p class="description text-dark">\{{truncatePure (stripHTMLTags article.description) 200}}</p>
+            </div>
+        <div class="mb-1 text-center">
+        <span class="open-link">{{$t "home.link.openArticle"}}</span>
+        </div>
+        </article>
+        </a>
+        </script>
+
+        <script id="blog-entries" type="text/x-handlebars-template">
+            \{{#each blogFeed}}
+            \{{> "blog-card" article=this}}
+            \{{/each}}
+        </script>
+
+
+        {{#embed "authentication/section" style="" class=""}}
+            {{#content "body"}}
+                <h2 class="h3 section-title center">{{{$t "home.headline.HPISchoolCloudBlog"}}}</h2>
+                <div class="blog-cards">
+                    <i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
+                       style="font-size: 25px;"></i>
+                </div>
+                <a href="https://blog.hpi-schul-cloud.de" target="scblog" class="blog-link">{{$t "home.link.moreArticles"}}</a>
+                {{/content}}
+            {{/embed}}
+
+
+        {{/content}}
+        {{/extend}}
