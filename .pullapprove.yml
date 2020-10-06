@@ -63,7 +63,7 @@ groups:
 
   ux-core:
     conditions:
-    - "'static/images/*/.' in files, 'theme/*' in files or 'static/fonts/**/*.ext' in files or 'static/styles//*.scss' in files"
+    - "'static/images/*/*' in files, 'theme/*' in files or 'static/fonts/**/*.ext' in files or 'static/styles//*.scss' in files"
     # only review if "'static/images/*/.', 'theme/*', 'static/fonts/**/*.ext', 'static/styles//*.scss'" files have been touched
     reviewers:
       teams:
