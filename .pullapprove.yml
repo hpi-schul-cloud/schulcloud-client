@@ -63,8 +63,8 @@ groups:
 
   ux-core:
     conditions:
-    - "'**/*.hbs' in files or 'static/styles/**/*.scss' in files or '.pullapprove.yml' in files"
-    # only review if "**/*.hbs", "static/styles/**/*.scss" files or ".pullapprove.yml" have been touched
+    - "'static/images/*/.' in files, theme/* or 'static/fonts/*/.' in files or 'static/styles//.scss' in files"
+    # only review if "'static/images/*/.', theme/*, 'static/fonts/*/.', 'static/styles//.scss'" files have been touched
     reviewers:
       teams:
       - ux-core
