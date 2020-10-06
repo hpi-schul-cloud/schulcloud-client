@@ -3011,6 +3011,19 @@
 					"theImportantFunction": "die für ein Flächenland wichtige Funktion der schulübergreifenden Zusammenarbeit,",
 					"theOpportunityToCreate": "die Möglichkeit, durch Länderzusammenarbeit Synergien zu schaffen."
 				}
+			},
+			"help": {
+				"headline": {
+					"feedback/requests": "Feedback / Wünsche / Probleme bei der Nutzung"
+				},
+				"text": {
+					"forEducationalQuestions": "Für pädagogische Fragen richte dich bitte an das Landesinstitut für Schule und Medien Berlin-Brandenburg (LISUM) unter folgender E-Mail-Adresse:",
+					"forOrganizationalQuestios": "Für organisatorische Fragen richte dich bitte an die DigitalAgentur Brandenburg (DAB) unter folgender E-Mail-Adresse:",
+					"forTechnicalQuestions": "Für technsiche Fragen richte dich bitte an das Hasso-Plattner-Institut unter folgender E-Mail-Adresse:",
+					"someConcernsRequireMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreib uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst. <br/> Die richtigen Kontaktpersonen für alle Situationen findest du im <a href='/help/faq/people'>Ansprechpartner-Bereich</a>.",
+					"toReportProblemsOrRequest": "Für die Meldung von Problemen oder Wünschen hinsichtlich der Bedienung der Schul-Cloud Brandenburg verwende bitte das Kontaktformular im Hilfebereich oder sende eine E-Mail an",
+					"unfortunatelyThisPageIsNotAvailable": "Diese Seite ist leider nicht verfügbar."
+				}
 			}
 		}
 	},

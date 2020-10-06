@@ -3011,6 +3011,19 @@
 					"theImportantFunction": "the important function of cross-school cooperation for an area,",
 					"theOpportunityToCreate": "the opportunity to create synergies through cooperation between countries."
 				}
+			},
+			"help": {
+				"headline": {
+					"feedback/requests": "Feedback / requests / problems with use"
+				},
+				"text": {
+					"forEducationalQuestions": "For educational questions, please contact the State Institute for School and Media Berlin-Brandenburg (LISUM) at the following email address:",
+					"forOrganizationalQuestios": "For organizational questions, please contact the DigitalAgentur Brandenburg (DAB) at the following email address:",
+					"forTechnicalQuestions": "For technical questions, please contact the Hasso Plattner Institute at the following email address:",
+					"someConcernsRequireMoreOptions": "Some concerns require more options than the fields in the contact function allow. Write us an email if you want to talk to us. <br/> You can find the right contact person for all situations in the <a href='/help/faq/people'> contact person area </a>.",
+					"toReportProblemsOrRequest": "To report problems or requests regarding the operation of the Brandenburg School Cloud, please use the contact form in the help area or send an email to",
+					"unfortunatelyThisPageIsNotAvailable": "Unfortunately, this page is not available."
+				}
 			}
 		}
 	},
