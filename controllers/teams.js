@@ -543,14 +543,14 @@ router.get('/:teamId', async (req, res, next) => {
 			/* eslint-disable max-len */
 			let matrixNotification;
 			// Is messenger feature flag set in the school which created this team?
-			const teamsSchoolHasMessengerEnabled = (course.schoolIds[0].features || []).includes('matrixMessenger');
+			const teamsSchoolHasMessengerEnabled = (course.schoolIds[0].features || []).includes('messenger');
 			// Is the messenger in the current users school activated?
-			const usersSchoolHasMessengerEnabled = (res.locals.currentSchoolData.features || []).includes('matrixMessenger');
+			const usersSchoolHasMessengerEnabled = (res.locals.currentSchoolData.features || []).includes('messenger');
 			// Are there members of other schools in the team which have not activated the messenger?
 			// > Filter team schoolIds to only include schools which really have students in the team
 			const filteredSchoolIds = course.schoolIds.filter((school) => !!course.userIds.find((user) => user.schoolId === school.id));
 			// > Find if at least one participating school hasn't activated the messenger
-			const otherUsersSchoolsHaveNotMessengerEnabled = !!filteredSchoolIds.find((school) => !(school.features || []).includes('matrixMessenger'));
+			const otherUsersSchoolsHaveNotMessengerEnabled = !!filteredSchoolIds.find((school) => !(school.features || []).includes('messenger'));
 
 			if (!teamsSchoolHasMessengerEnabled && usersSchoolHasMessengerEnabled) {
 				matrixNotification = res.$t('teams._team.text.messengerNotActiveInTeam');

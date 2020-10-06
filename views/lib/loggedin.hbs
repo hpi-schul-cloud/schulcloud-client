@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
         <link rel="stylesheet" href="/styles/lib/forms/form-auto-logout-alert.css" />
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-			{{#inArray "matrixMessenger" @root.currentSchoolData.features}}
+			{{#inArray "messenger" @root.currentSchoolData.features}}
 				<link rel="stylesheet" href="/styles/lib/chatLoggedin.css"/>
 			{{/inArray}}
 		{{/ifConfig}}
@@ -29,7 +29,7 @@
             <script type="text/javascript" src="/vendor/enterthecloud.min.js" nonce="{{nonceValue}}" defer></script>
         {{/if}}
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-            {{#inArray "matrixMessenger" @root.currentSchoolData.features}}
+            {{#inArray "messenger" @root.currentSchoolData.features}}
                 <script nonce="{{nonceValue}}">
                     window.matrixAssetDomain = '{{getConfig "MATRIX_MESSENGER_EMBED_URI"}}';
                     window.userLanguage = '{{ @root.userLanguage }}';
@@ -314,7 +314,7 @@
             <div id="member-modal-body">
                 <div class="text-center">
                     {{$t "messenger.text.rocketChatDeprecation" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE"))) }}
-                    {{#inArray "matrixMessenger" @root.currentSchoolData.features}}
+                    {{#inArray "messenger" @root.currentSchoolData.features}}
                         {{$t "messenger.text.howToDeactivateMatrix"}}
                     {{else}}
                         {{$t "messenger.text.howToActivateMatrix"}}
