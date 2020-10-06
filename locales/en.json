@@ -3024,6 +3024,22 @@
 					"toReportProblemsOrRequest": "To report problems or requests regarding the operation of the Brandenburg School Cloud, please use the contact form in the help area or send an email to",
 					"unfortunatelyThisPageIsNotAvailable": "Unfortunately, this page is not available."
 				}
+			},
+			"imprint": {
+				"headline": {
+					"legalNotice": "Legal Notice:"
+				},
+				"text": {
+					"nonCommercialPilotProject": "The {{title}} is a non-commercial pilot project, which was carried out by the HPI in cooperation with the Ministry of Education, Youth and Sports of the State of Brandenburg (<a href='https://mbjs.brandenburg.de' target='_blank' rel='noopener'>https://mbjs.brandenburg.de</a>) and the Digital Agency Brandenburg GmbH (<a href='https://www.ilb.de/de/wir-ueber-uns/beteiligungen/weitere-beteiligungen/digitalagentur-brandenburg-gmbh/' target='_blank' rel='noopener'>https://www.ilb.de/de/wir-ueber-uns/beteiligungen/weitere-beteiligungen/digitalagentur-brandenburg-gmbh/</a>) is carried out."
+				}
+			},
+			"lib": {
+				"text": {
+					"contentProvider": "Content provider:",
+					"dataProtection": "Data protection:",
+					"generalInquiries": "General Inquiries:",
+					"theHPISchoolCloudDevelopmentTeam": "The HPI School Cloud development team is looking for reinforcements! Take a look at our positions:"
+				}
 			}
 		}
 	},

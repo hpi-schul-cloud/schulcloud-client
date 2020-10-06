@@ -3024,6 +3024,22 @@
 					"toReportProblemsOrRequest": "Für die Meldung von Problemen oder Wünschen hinsichtlich der Bedienung der Schul-Cloud Brandenburg verwende bitte das Kontaktformular im Hilfebereich oder sende eine E-Mail an",
 					"unfortunatelyThisPageIsNotAvailable": "Diese Seite ist leider nicht verfügbar."
 				}
+			},
+			"imprint": {
+				"headline": {
+					"legalNotice": "Rechtliche Hinweise:"
+				},
+				"text": {
+					"nonCommercialPilotProject": "Die {{title}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem Ministerium für Bildung, Jugend und Sport des Landes Brandenburg (<a href='https://mbjs.brandenburg.de' target='_blank' rel='noopener'>https://mbjs.brandenburg.de</a>) und der Digital Agentur Brandenburg GmbH (<a href='https://www.ilb.de/de/wir-ueber-uns/beteiligungen/weitere-beteiligungen/digitalagentur-brandenburg-gmbh/' target='_blank' rel='noopener'>https://www.ilb.de/de/wir-ueber-uns/beteiligungen/weitere-beteiligungen/digitalagentur-brandenburg-gmbh/</a>) durchgeführt wird."
+				}
+			},
+			"lib": {
+				"text": {
+					"contentProvider": "Inhalteanbieter:",
+					"dataProtection": "Datenschutz:",
+					"generalInquiries": "Allgemeine Anfragen:",
+					"theHPISchoolCloudDevelopmentTeam": "Das Entwickler-Team der HPI Schul-Cloud sucht nach Verstärkung! Schaut doch mal nach unseren Stellen:"
+				}
 			}
 		}
 	},
