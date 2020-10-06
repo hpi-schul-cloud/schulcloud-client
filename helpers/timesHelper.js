@@ -3,6 +3,7 @@ const logger = require('./logger');
 
 let schoolTimezone;
 
+
 /**
  * @return {String} UTC offest as string based on current timezone, e.g +01:00
  */
@@ -14,21 +15,22 @@ const getUserTimezone = () => (schoolTimezone || moment.tz.guess());
  * @param {String} res result object containing shool data information
  * sets default timezone if school timezone differs from the user timezone
  */
-const setDefaultTimezone = (res) => {
+const setDefaultTimezone = (req, res) => {
 	const { timezone } = res.locals.currentSchoolData || {};
-	const userTimezone = moment.tz.guess();
-	if (timezone && timezone !== userTimezone) {
+	const instanceTimezone = moment.tz.guess();
+	const userTimezone = ((req || {}).cookies || {}).USER_TIMZONE;
+	logger.info(`timesHelper: instance timezone "${instanceTimezone})`);
+	logger.info(`timesHelper: client timezone "${userTimezone}"`);
+
+	if (timezone && timezone !== instanceTimezone) {
 		moment.tz.setDefault(timezone);
 		schoolTimezone = timezone;
-		logger.info(`timesHelper: changed default timezone from ${userTimezone} to ${schoolTimezone}`);
-	} else {
-		moment.tz.setDefault();
-		schoolTimezone = undefined;
-		logger.info(`timesHelper: user timezone match school timezone ${userTimezone}`);
+		logger.info(`timesHelper: changed default timezone from ${instanceTimezone} to ${schoolTimezone}`);
 	}
-	logger.info(`timesHelper: timezone offset ${getUtcOffset()}`);
+
 	res.locals.currentTimezone = schoolTimezone;
 	res.locals.currentTimezoneOffset = schoolTimezone ? getUtcOffset() : '';
+	res.locals.userTimezone = userTimezone;
 };
 
 /**
