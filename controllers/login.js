@@ -218,18 +218,16 @@ router.get('/logout/', (req, res, next) => {
 	if (res.locals.csrfToken) {
 		api(req).del('/authentication') // async, ignore result
 			.catch((err) => { logger.error('error during logout.', { error: err.toString() }); });
-		authHelper
+		return authHelper
 			.clearCookie(req, res, { destroySession: true })
 			.then(() => res.redirect('/'))
 			.catch(next);
-	} else {
-		const err = {
-			code: 'EBADCSRFTOKEN',
-		};
-		csrfHelper.csrfErrorHandler(err, req, res, next);
-		logger.error('error during logout. No CSRF Token');
 	}
-	return null;
+	const err = {
+		code: 'EBADCSRFTOKEN',
+	};
+	csrfHelper.csrfErrorHandler(err, req, res, next);
+	logger.error('error during logout. No CSRF Token');
 });
 
 module.exports = router;
