@@ -78,8 +78,8 @@
 			},
 			"text": {
 				"hintVisibility": "Teachers from other schools who are team administrators can easily invite you to a cross-school team via the central directory service of {{short_title}}. Your name is assigned to your school and it is accessible in the directory structure under <i> Name of your state &raquo; Name of your school &raquo; Your name </i>.",
-				"visibilityTeamInvitationsDisabled": "Visibility for team invitations is disabled",
-				"visibilityTeamInvitations": "Visibility for team invitations"
+				"visibilityTeamInvitations": "Visibility for team invitations",
+				"visibilityTeamInvitationsDisabled": "Visibility for team invitations is disabled"
 			}
 		},
 		"testNotification": {
@@ -356,12 +356,6 @@
 				"targetState": "Target state"
 			}
 		},
-		"form_rss": {
-			"label": {
-				"briefDescription": "Brief description (optional)",
-				"urlOfTheRSSSystem": "URL of the RSS feed"
-			}
-		},
 		"form_System": {
 			"label": {
 				"clientSecret": "Client secret",
@@ -369,6 +363,12 @@
 				"systemName": "Name of the system",
 				"systemType": "Type of system",
 				"urlOfTheSystem": "Url of the system"
+			}
+		},
+		"form_rss": {
+			"label": {
+				"briefDescription": "Brief description (optional)",
+				"urlOfTheRSSSystem": "URL of the RSS feed"
 			}
 		},
 		"global": {
@@ -3022,6 +3022,25 @@
 					"dataProtection": "Data protection:",
 					"generalInquiries": "General Inquiries:",
 					"theHPISchoolCloudDevelopmentTeam": "The HPI School Cloud development team is looking for reinforcements! Take a look at our positions:"
+				}
+			}
+		},
+		"n21": {
+			"addons": {
+				"headline": {
+					"methodGuideLowerSaxony": "Method guide Lower Saxony"
+				},
+				"text": {
+					"createYourDigitalPortfolio": "Create your digital portfolio in a flexible personal learning system. Share your successes and your development in a place that you design yourself. Work with others in groups.",
+					"theMethodsGuideOffers": "The #MethodsGuide offers practical learning aids and clear explanatory videos for successful work with smartphones and tablets. Tried and tested and particularly effective teaching methods such as “active reading” and “e-feedback” are taught in a way that is suitable for pupils."
+				}
+			},
+			"authentication": {
+				"headline": {
+					"welcomeToTheLowerSaxony": "Welcome to the Lower Saxony Education Cloud!"
+				},
+				"text": {
+					"thereWasAnError": "There was an error loading the contents of the homepage."
 				}
 			}
 		}

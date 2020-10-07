@@ -22,14 +22,14 @@
                 <div class="card-block">
                     <div class="hidden" id="SC_THEME">n21</div>
                     <div class="n21-blog">
-                        <h4 class="title">Herzlich willkommen bei der Niedersächsischen Bildungscloud!</h4>
+                        <h4 class="title">{{$t "theme.n21.authentication.headline.welcomeToTheLowerSaxony"}}</h4>
                         <div class="content">
                             <div class="text-center mt-3 mb-3" style="min-height: 75vh;">
                                 <i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
                                     style="postion: absolute; top: 40%; font-size: 25px; position: absolute;"></i>
                                 <div class="placeholder" style="display: none;">
-                                    Beim Laden des Inhalts der Startseite ist ein Fehler aufgetreten.
-                                    <button type="button" class="btn btn-primary mt-1">Erneut versuchen</button>
+                                   {{$t "theme.n21.authentication.text.thereWasAnError"}}
+                                    <button type="button" class="btn btn-primary mt-1">{{$t "global.button.tryAgain"}}</button>
                                 </div>
                             </div>
                         </div>

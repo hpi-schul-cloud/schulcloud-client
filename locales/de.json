@@ -78,8 +78,8 @@
 			},
 			"text": {
 				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
-				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
-				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
+				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen",
+				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert"
 			}
 		},
 		"testNotification": {
@@ -356,12 +356,6 @@
 				"targetState": "Soll-Zustand"
 			}
 		},
-		"form_rss": {
-			"label": {
-				"briefDescription": "Kurzbeschreibung (optional)",
-				"urlOfTheRSSSystem": "URL des RSS-Feeds"
-			}
-		},
 		"form_System": {
 			"label": {
 				"clientSecret": "Client-Geheimnis",
@@ -369,6 +363,12 @@
 				"systemName": "Name des Systems",
 				"systemType": "Typ des Systems",
 				"urlOfTheSystem": "Url des Systems"
+			}
+		},
+		"form_rss": {
+			"label": {
+				"briefDescription": "Kurzbeschreibung (optional)",
+				"urlOfTheRSSSystem": "URL des RSS-Feeds"
 			}
 		},
 		"global": {
@@ -3022,6 +3022,25 @@
 					"dataProtection": "Datenschutz:",
 					"generalInquiries": "Allgemeine Anfragen:",
 					"theHPISchoolCloudDevelopmentTeam": "Das Entwickler-Team der HPI Schul-Cloud sucht nach Verstärkung! Schaut doch mal nach unseren Stellen:"
+				}
+			}
+		},
+		"n21": {
+			"addons": {
+				"headline": {
+					"methodGuideLowerSaxony": "Methodenguide Niedersachsen"
+				},
+				"text": {
+					"createYourDigitalPortfolio": "Erzeuge dein digitales Portfolio in einem flexiblen persönlichen Lernsystem. Teile die Erfolge und deine Entwicklung an einem Ort, den du selbst gestaltest. Arbeite mit anderen in Gruppen zusammen.",
+					"theMethodsGuideOffers": "Der #MethodenGuide bietet praktische Lern-Hilfen und anschauliche Erklär-Videos für erfolgreiches Arbeiten mit Smartphone und Tablet. Praxiserprobte und besonders wirksame Unterrichtsmethoden wie „Aktives Lesen“ und „E-Feedback“ werden schülergerecht vermittelt."
+				}
+			},
+			"authentication": {
+				"headline": {
+					"welcomeToTheLowerSaxony": "Herzlich willkommen bei der Niedersächsischen Bildungscloud!"
+				},
+				"text": {
+					"thereWasAnError": "Beim Laden des Inhalts der Startseite ist ein Fehler aufgetreten."
 				}
 			}
 		}
