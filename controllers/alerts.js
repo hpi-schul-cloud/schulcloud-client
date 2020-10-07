@@ -1,18 +1,22 @@
 const express = require('express');
 const { Configuration } = require('@schul-cloud/commons');
 const api = require('../api');
+const logger = require('../helpers/logger');
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-	let alert;
-
-	if (Configuration.get('FEATURE_ALERTS_ENABLED')) {
-		alert = await api(req).get('/alert');
+router.get('/', (req, res, next) => {
+	if (!Configuration.get('FEATURE_ALERTS_ENABLED')) {
+		res.json([]);
 	} else {
-		alert = [];
+		api(req).get('/alert')
+			.then((alert) => {
+				res.json(alert);
+			}).catch((err) => {
+				logger.error(new Error('Can not get /alert', err));
+				res.json([]);
+			});
 	}
-	return res.json(alert);
 });
 
 module.exports = router;
