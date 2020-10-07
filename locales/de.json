@@ -2952,7 +2952,7 @@
 			},
 			"text": {
 				"group": "({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
-				"nextLesson": "Nächste Unterrichtsstunde: {{nextEvent}}",
+				"nextLesson": "Nächste Unterrichtsstunde: {{i18nDateTime nextEvent}}",
 				"noIssues": "Keine Themen.",
 				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}Schülergruppen{{else}}Meine Schülergruppen {{/userHasPermission}}"
 			}
