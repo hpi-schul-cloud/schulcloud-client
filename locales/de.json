@@ -2981,7 +2981,8 @@
 		"topicEdit": {
 			"aria_label":{
 				"chooseContent": "Wählen Sie Inhaltstypen des Themas aus",
-				"geoGebraID": "GeoGebra ID"
+				"geoGebraID": "GeoGebra ID",
+				"moveSectionWithKeys" : "Heben Sie den Abschnitt mit Leertaste oder Enter auf, bewegen Sie ihn mit den Pfeiltasten und legen Sie ihn dann mit Leertaste oder Enter ab."
 			},
 			"button": {
 				"etherpad": "Etherpad",

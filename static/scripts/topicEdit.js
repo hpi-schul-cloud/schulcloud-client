@@ -63,7 +63,7 @@ class TopicBlockWrapper extends React.Component {
      */
 	render() {
 		const DragHandle = SortableHandle(() => (
-                <span className="input-group-addon">
+                <span tabindex={0} className="input-group-addon" aria-label={$t('topic.topicEdit.aria_label.moveSectionWithKeys')}>
                     <i className="fa fa-arrows move-handle" />
                 </span>
 		));
@@ -311,7 +311,14 @@ class TopicBlockList extends React.Component {
                     onRemove={this.removeBlock.bind(this)}
                     onSortEnd={this.onSortEnd.bind(this)}
                     addOnSortEndCallback={this.addOnSortEndCallback.bind(this)}
-                    useDragHandle={true}
+					useDragHandle={true}
+					keyCodes={{
+						lift: [32, 13],
+						drop: [32, 13],
+						cancel: [27],
+						up: [38, 87],
+						down: [40, 83],
+					}}
                 />
 
                 <div className="form-group">
