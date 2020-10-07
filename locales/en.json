@@ -408,6 +408,7 @@
 				"student": "Student",
 				"studentParticipants": "Student / Attendee",
 				"substituteTeacher": "Substitute teacher",
+				"noSubTeacherSelection": "No substitute teacher selected",
 				"teacher": "Teacher",
 				"teachingTeacher": "Teaching teacher",
 				"termsOfUse": "Terms of Use",
