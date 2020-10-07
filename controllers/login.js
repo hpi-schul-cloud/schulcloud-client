@@ -10,6 +10,8 @@ const { Configuration } = require('@schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
+const csrfHelper = require('../helpers/csrf');
+
 
 const logger = require('../helpers/logger');
 
@@ -221,22 +223,13 @@ router.get('/logout/', (req, res, next) => {
 			.then(() => res.redirect('/'))
 			.catch(next);
 	} else {
-		const baseUrl = (req.headers.origin);
-		const values = Object.keys(req.body).map((name) => ({ name, value: req.body[name] }));
-		values.push({
-			name: 'csrfErrorcount',
-			value: '1',
-		});
-		const simpleView = (!baseUrl || !values);
-		res.render('lib/csrf', {
-			loggedin: res.locals.loggedin,
-			values,
-			previousError: (req.body.csrfErrorcount),
-			baseUrl,
-			simpleView,
-		});
+		const err = {
+			code: 'EBADCSRFTOKEN',
+		};
+		csrfHelper.csrfErrorHandler(err, req, res, next);
 		logger.error('error during logout. No CSRF Token');
 	}
+	return null;
 });
 
 module.exports = router;
