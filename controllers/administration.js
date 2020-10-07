@@ -2943,7 +2943,7 @@ router.use(
 				const title = consentVersion.title;
 				const text = consentVersion.consentText;
 				const publishedAt = timesHelper
-					.formatDate(consentVersion.publishedAt, timesHelper.DateFormat.de.dateTime);
+					.formatDate(consentVersion.publishedAt, res.$t('format.dateTimeToPicker'));
 				const linkToPolicy = consentVersion.consentDataId;
 				const links = [];
 				if (linkToPolicy) {

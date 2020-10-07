@@ -56,7 +56,7 @@ describe('times helpers test', () => {
 	});
 
 	it('should properly format date', () => {
-		const testFormat = timesHelper.DateFormat.de.dateTime;
+		const testFormat = 'DD.MM.YYYY HH:mm';
 		setSchoolTimezone('America/Los_Angeles');
 		const resultDate = timesHelper.formatDate(testDate, testFormat);
 		chai.expect(resultDate)

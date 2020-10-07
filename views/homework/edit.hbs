@@ -181,10 +181,10 @@
 
 			<div class="row">
 				<div class="col-md-6">
-                    {{> "lib/forms/form-date-input" label=($t "homework.global.label.visibleAndEditableForStudentsFrom") id="availableDate" value=(dateTimeToPicker assignment.availableDate) class="input-group mb-3" }}
+                    {{> "lib/forms/form-datetime-input" label=($t "homework.global.label.visibleAndEditableForStudentsFrom") id="availableDate" value=assignment.availableDate class="input-group mb-3" }}
 				</div>
 				<div class="col-md-6">
-                    {{> "lib/forms/form-date-input" label=($t "homework.global.label.processingPeriodEndsOn") id="dueDate" value=(dateTimeToPicker assignment.dueDate) class="input-group mb-3" }}
+                    {{> "lib/forms/form-datetime-input" label=($t "homework.global.label.processingPeriodEndsOn") id="dueDate" value=assignment.dueDate class="input-group mb-3" }}
 				</div>
 			</div>
 

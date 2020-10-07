@@ -55,7 +55,7 @@ router.post('/', (req, res, next) => {
 	const { body } = req;
 	if (body.displayAt && body.displayAt !== '__.__.____ __:__') {
 		// rewrite german format to ISO
-		body.displayAt = timesHelper.createFromString(body.displayAt, timesHelper.DateFormat.de.dateTime).toISOString();
+		body.displayAt = timesHelper.createFromString(body.displayAt, res.$t('format.dateTimeToPicker')).toISOString();
 	} else {
 		body.displayAt = undefined;
 	}
@@ -87,7 +87,7 @@ router.post('/', (req, res, next) => {
 router.patch('/:newsId', (req, res, next) => {
 	req.body.displayAt = timesHelper.createFromString(
 		req.body.displayAt,
-		timesHelper.DateFormat.de.dateTime,
+		res.$t('format.dateTimeToPicker'),
 	).toISOString();
 	req.body.updatedAt = timesHelper.currentDate().toISOString();
 	req.body.updaterId = res.locals.currentUser._id;

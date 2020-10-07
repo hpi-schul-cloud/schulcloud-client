@@ -4,8 +4,8 @@
     <input data-testid="team_event_name" class="form-control" name="summary" required placeholder="{{$t "calendar.input.egHandballTraining"}}">
 </div>
 <div class="form-group">
-    {{> "lib/forms/form-date-input" label=($t "global.label.from") id="startDate" class="input-group" }}
-    {{> "lib/forms/form-date-input" label=($t "global.label.to") id="endDate" class="input-group" }}
+    {{> "lib/forms/form-datetime-input" label=($t "global.label.from") id="startDate" class="input-group" }}
+    {{> "lib/forms/form-datetime-input" label=($t "global.label.to") id="endDate" class="input-group" }}
 </div>
 <div class="form-group">
     <label data-testid="description_team_event" class="control-label" for="description">{{$t "global.label.description" }}</label>

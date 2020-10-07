@@ -10,16 +10,11 @@
             autocomplete="off"
             id={{id}}
             type="text"
-            value="{{dateTimeToPicker value}}"
-            {{#if dataFormat}}data-format="{{dataFormat}}"{{else}}data-format="{{$t "format.dateTimePicker"}}"{{/if}}
-            {{#if dataMask}}data-mask="{{dataMask}}"{{else}}data-mask="{{$t "format.dateTimePickerMask"}}"{{/if}}
-            {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{/if}}
-            {{#if dataTestId}}data-testid="{{dataTestId}}"{{/if}}
+            value="{{dateToPicker value}}"
+            {{#if dataFormat}}data-format="{{dataFormat}}"{{else}}data-format="{{$t "format.datePicker"}}"{{/if}}
+            {{#if dataMask}}data-mask="{{dataMask}}"{{else}}data-mask="{{$t "format.datePickerMask"}}"{{/if}}
+            {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{else}}data-min-date="0"{{/if}}
+            {{#if dataTestId}}data-testid="{{dataTestId}}"{{else}}data-testid="form-date-input-{{id}}"{{/if}}
     />
-    {{#if currentTimezone}}
-        <div class="input-group-addon">
-            <span class="input-group-text">{{ currentTimezone }} {{#if currentTimezoneOffset}}(UTC{{currentTimezoneOffset}}){{/if}}</span>
-        </div>
-    {{/if}}
 </div>
 </div>
