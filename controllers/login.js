@@ -220,7 +220,23 @@ router.get('/logout/', (req, res, next) => {
 			.clearCookie(req, res, { destroySession: true })
 			.then(() => res.redirect('/'))
 			.catch(next);
-	} logger.error('error during logout. No CSRF Token');
+	} else {
+		const baseUrl = (req.headers.origin);
+		const values = Object.keys(req.body).map((name) => ({ name, value: req.body[name] }));
+		values.push({
+			name: 'csrfErrorcount',
+			value: '1',
+		});
+		const simpleView = (!baseUrl || !values);
+		res.render('lib/csrf', {
+			loggedin: res.locals.loggedin,
+			values,
+			previousError: (req.body.csrfErrorcount),
+			baseUrl,
+			simpleView,
+		});
+		logger.error('error during logout. No CSRF Token');
+	}
 });
 
 module.exports = router;
