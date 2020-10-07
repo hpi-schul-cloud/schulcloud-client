@@ -92,6 +92,7 @@ $(document).ready(() => {
 		$('#topic-list').sortable({
 			placeholder: 'ui-state-highlight',
 			handle: '.move-handle',
+			cancel: '',
 			update() {
 				const positions = {};
 				$('#topic-list .card-topic').each(function topicListCardTopic(i) {
@@ -368,11 +369,5 @@ $(document).ready(() => {
 		});
 
 		$bbbReloadInfoModal.appendTo('body').modal('show');
-	});
-
-	$('.locationlink').on('keypress', (e) => {
-		if (e.key === 'Enter' || e.key === ' ') {
-			document.activeElement.click();
-		}
 	});
 });

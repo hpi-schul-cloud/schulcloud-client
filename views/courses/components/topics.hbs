@@ -33,8 +33,8 @@
 				{{#each lessons}}
 				{{#unless this.hidden}}
 				<!-- TOPIC IS NOT HIDDEN, teacher and student has access -->
-				<div class="card card-topic locationlink" data-loclink="{{this.url}}" {{#userHasPermission "COURSE_EDIT"}}
-					data-topicId="{{../_id}}" {{/userHasPermission}} tabindex="0" role="button"
+				<button class="card card-topic locationlink" data-loclink="{{this.url}}" {{#userHasPermission "COURSE_EDIT"}}
+					data-topicId="{{../_id}}" {{/userHasPermission}}
 					aria-label="{{$t "topic.aria_label.openTopicX" (dict "name" (stripOnlyScript this.name))}}">
 					<div class="card-header">
 						<div class="input-group">
@@ -79,12 +79,12 @@
 							{{/userHasPermission}}
 						</div>
 					</div>
-				</div>
+				</button>
 				{{else}}
 				<!-- TOPIC IS HIDDEN, just teacher has access -->
 				{{#userHasPermission "COURSE_EDIT"}}
-				<div class="card card-topic card-transparent locationlink" data-loclink="{{../url}}"
-					data-topicId="{{../_id}}" tabindex="0" role="button"
+				<button class="card card-topic card-transparent locationlink" data-loclink="{{../url}}"
+					data-topicId="{{../_id}}"
 					aria-label="{{$t "topic.aria_label.openTopicX" (dict "name" (stripOnlyScript this.name))}}">
 					<div class="card-header">
 						<div class="input-group">
@@ -122,7 +122,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</button>
 				{{/userHasPermission}}
 				{{/unless}}
 				{{/each}}
@@ -173,8 +173,8 @@
 				{{#each newLessons}}
 				{{#if this.visible}}
 				<!-- TOPIC IS NOT HIDDEN, teacher and student has access -->
-				<div class="card card-topic locationlink" data-loclink="{{this.url}}" {{#userHasPermission "COURSE_EDIT"}}
-					data-topicId="{{../_id}}" {{/userHasPermission}} tabindex="0" role="button"
+				<button class="card card-topic locationlink" data-loclink="{{this.url}}" {{#userHasPermission "COURSE_EDIT"}}
+					data-topicId="{{../_id}}" {{/userHasPermission}}
 					aria-label="{{$t "topic.aria_label.openTopicX" (dict "name" (stripOnlyScript this.name))}}">
 					<div class="card-header new-editor">
 						<div class="input-group">
@@ -209,12 +209,12 @@
 							{{/userHasPermission}}
 						</div>
 					</div>
-				</div>
+				</button>
 				{{else}}
 				<!-- TOPIC IS HIDDEN, just teacher has access -->
 				{{#userHasPermission "COURSE_EDIT"}}
-				<div class="card card-topic card-transparent locationlink" data-loclink="{{../url}}"
-					data-topicId="{{../_id}}" tabindex="0" role="button"
+				<button class="card card-topic card-transparent locationlink" data-loclink="{{../url}}"
+					data-topicId="{{../_id}}"
 					aria-label="{{$t "topic.aria_label.openTopicX" (dict "name" (stripOnlyScript this.name))}}">
 					<div class="card-header">
 						<div class="input-group">
@@ -242,7 +242,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</button>
 				{{/userHasPermission}}
 				{{/if}}
 				{{/each}}
