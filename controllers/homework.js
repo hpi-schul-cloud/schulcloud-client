@@ -127,7 +127,9 @@ const getCreateHandler = (service) => (req, res, next) => {
 						res.$t('homework._task.text.newHomeworkDueDateNotification',
 							{
 								homeworkname: data.name,
-								duedate: timesHelper.fromUTC(data.dueDate).format(timesHelper.DateFormat.de.dateTime),
+								duedate: timesHelper
+									.fromUTC(data.dueDate)
+									.format(res.$t('format.dateTime')),
 							}),
 						data.teacherId,
 						req,
