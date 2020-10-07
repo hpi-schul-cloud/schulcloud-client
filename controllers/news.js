@@ -213,7 +213,7 @@ router.get('/:newsId/edit', (req, res, next) => {
 	api(req)
 		.get(`/news/${req.params.newsId}`, {})
 		.then((news) => {
-			news.displayAt = timesHelper.createFromString(news.displayAt).format(timesHelper.DateFormat.de.dateTime);
+			news.displayAt = timesHelper.fromUTC(news.displayAt);
 			res.render('news/edit', {
 				title: res.$t('news._news.headline.editNews'),
 				submitLabel: res.$t('global.button.save'),
