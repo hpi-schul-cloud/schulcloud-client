@@ -12,14 +12,17 @@ if (!window.datetimepicker) {
 		}
 
 		function readPickerConfig(input) {
+			const {
+				format, mask, datetime, startDate, minDate, maxDate, inline,
+			} = (input || {}).dataset;
 			return {
-				format: (input.dataset.datetime !== undefined ? 'd.m.Y H:i' : 'd.m.Y'),
-				mask: (input.dataset.datetime !== undefined ? '39.19.9999 29:59' : '39.19.9999'),
-				timepicker: (input.dataset.datetime !== undefined || false),
-				startDate: (input.dataset.startDate),
-				minDate: (input.dataset.minDate), // default: unlimited minimum date
-				maxDate: (input.dataset.maxDate), // default: unlimited maximum date
-				inline: (input.dataset.inline == 'true'),
+				format: format || (input.dataset.datetime !== undefined ? 'd.m.Y H:i' : 'd.m.Y'),
+				mask: mask || (input.dataset.datetime !== undefined ? '39.19.9999 29:59' : '39.19.9999'),
+				timepicker: (datetime !== undefined || false),
+				startDate,
+				minDate, // default: unlimited minimum date
+				maxDate, // default: unlimited maximum date
+				inline: (inline === 'true'),
 				onChangeDateTime: triggerInputEvent,
 			};
 		}

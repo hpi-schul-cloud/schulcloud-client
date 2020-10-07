@@ -1,4 +1,15 @@
 {
+	"format": {
+		"dateToPicker": "MM/DD/YYYY",
+		"datePicker": "m/d/Y",
+		"datePickerMask": "19/39/9999",
+		"dateTimeToPicker": "MM/DD/YYYY HH:mm",
+		"dateTimePicker": "m/d/Y H:i",
+		"dateTimePickerMask": "19/39/9999 29:59",
+		"date": "MM/DD/YYYY",
+		"dateTime": "MM/DD/YYYY HH:mm",
+		"dateLong": "dddd, DD. MMMM YYYY"
+	},
 	"about": {
 		"button": {
 			"showLess": "show less",

@@ -5,10 +5,14 @@
     <div class="{{class}}">
     <input
             class="form-control"
-            data-datetime name={{id}}
-            autocomplete="off" id={{id}}
+            data-datetime
+            name={{id}}
+            autocomplete="off"
+            id={{id}}
             type="text"
             value="{{value}}"
+            {{#if dataFormat}}data-format="{{dataFormat}}"{{/if}}
+            {{#if dataMask}}data-mask="{{dataMask}}"{{/if}}
             {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{/if}}
             {{#if dataTestId}}data-testid="{{dataTestId}}"{{/if}}
     />

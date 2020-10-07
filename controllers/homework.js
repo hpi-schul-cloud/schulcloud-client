@@ -84,7 +84,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 			req.body.publicSubmissions = true;
 		}
 
-		if (availableDate && availableDate !== '__.__.____ __:__') {
+		if (availableDate && availableDate !== res.$t('format.dateTimePickerMask')) {
 			req.body.availableDate = timesHelper
 				.createFromString(availableDate, res.$t('format.dateTimeToPicker'))
 				.toISOString();
