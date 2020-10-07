@@ -711,12 +711,12 @@ class TopicGeoGebra extends TopicBlock {
 		return (
             <div className="input-group">
                 <span className="input-group-btn">
-                    <a
+                    <span
                         className="btn btn-secondary geo-gebra-info"
-                        href="#"
-                        data-toggle="tooltip"
+						data-toggle="tooltip"
+						tabindex="0"
                         data-placement="top"
-                        title={$t('topic.topicEdit.label.youllFindTheIdOn')}><i className="fa fa-info-circle" /></a>
+                        title={$t('topic.topicEdit.label.youllFindTheIdOn')}><i className="fa fa-info-circle" /></span>
                 </span>
                 <input
 					className="form-control"
@@ -798,12 +798,12 @@ class TopicInternal extends TopicBlock {
 				</label><br/>
                 <div className="input-group">
                     <span className="input-group-btn">
-                        <a
+                        <span
                             className="btn btn-secondary geo-gebra-info"
-                            href="#"
-                            data-toggle="tooltip"
+							data-toggle="tooltip"
+							tabindex="0"
                             data-placement="top"
-                            title={$t('topic.topicEdit.label.theLinkHasToBeginWith', {'baseUrl' : this.state.baseUrl})}><i className="fa fa-info-circle" /></a>
+                            title={$t('topic.topicEdit.label.theLinkHasToBeginWith', {'baseUrl' : this.state.baseUrl})}><i className="fa fa-info-circle" /></span>
                     </span>
                     <input
 						id={`internLinkInput${this.props.position}`}
