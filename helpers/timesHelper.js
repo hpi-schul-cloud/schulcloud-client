@@ -140,4 +140,5 @@ module.exports = {
 	createFromString,
 	cloneUtcDate,
 	schoolTimezoneToString,
+	moment,
 };

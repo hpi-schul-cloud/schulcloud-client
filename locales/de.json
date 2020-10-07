@@ -1,4 +1,13 @@
 {
+	"format": {
+		"dateToPicker": "DD.MM.YYYY",
+		"dateTimeToPicker": "DD.MM.YYYY HH:mm",
+		"dateTimePicker": "d.m.Y H:i",
+		"dateTimePickerMask": "39.19.9999 29:59",
+		"date": "DD.MM.YYYY",
+		"dateTime": "DD.MM.YYYY HH:mm",
+		"dateLong": "dddd, DD. MMMM YYYY"
+	},
 	"about": {
 		"button": {
 			"showLess": "Weniger anzeigen",

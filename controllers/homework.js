@@ -75,7 +75,9 @@ const getCreateHandler = (service) => (req, res, next) => {
 		}
 		if (dueDate) {
 			// rewrite german format to ISO
-			req.body.dueDate = timesHelper.createFromString(dueDate, timesHelper.DateFormat.de.dateTime).toISOString();
+			req.body.dueDate = timesHelper
+				.createFromString(dueDate, res.$t('format.dateTimeToPicker'))
+				.toISOString();
 		}
 
 		if (publicSubmissions === 'public') {
@@ -83,7 +85,8 @@ const getCreateHandler = (service) => (req, res, next) => {
 		}
 
 		if (availableDate && availableDate !== '__.__.____ __:__') {
-			req.body.availableDate = timesHelper.createFromString(availableDate, timesHelper.DateFormat.de.dateTime)
+			req.body.availableDate = timesHelper
+				.createFromString(availableDate, res.$t('format.dateTimeToPicker'))
 				.toISOString();
 		} else {
 			req.body.availableDate = timesHelper.currentDate().toISOString();
@@ -275,11 +278,13 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 
 		// rewrite german format to ISO
 		if (req.body.availableDate) {
-			req.body.availableDate = timesHelper.createFromString(req.body.availableDate,
-				timesHelper.DateFormat.de.dateTime).toISOString();
+			req.body.availableDate = timesHelper
+				.createFromString(req.body.availableDate, res.$t('format.dateTimeToPicker'))
+				.toISOString();
 		}
 		if (req.body.dueDate) {
-			req.body.dueDate = timesHelper.createFromString(req.body.dueDate, timesHelper.DateFormat.de.dateTime)
+			req.body.dueDate = timesHelper
+				.createFromString(req.body.dueDate, res.$t('format.dateTimeToPicker'))
 				.toISOString();
 		}
 		if (req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
@@ -678,8 +683,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			return next(error);
 		}
 
-		assignment.availableDate = timesHelper.fromUTC(assignment.availableDate).format(timesHelper.DateFormat.de.dateTime);
-		assignment.dueDate = timesHelper.fromUTC(assignment.dueDate).format(timesHelper.DateFormat.de.dateTime);
+		assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
+		assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
 
 		addClearNameForFileIds(assignment);
 		// assignment.submissions = assignment.submissions.map((s) => { return { submission: s }; });

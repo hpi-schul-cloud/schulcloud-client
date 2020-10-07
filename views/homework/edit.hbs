@@ -9,8 +9,8 @@
         const lang = $('html').attr('lang');
 		$.datetimepicker.setLocale(lang || 'de');
 		$('input[data-datetime]').datetimepicker({
-			format: 'd.m.Y H:i',
-			mask: '39.19.9999 29:59',
+			format: '{{$t "format.dateTimePicker"}}',
+			mask: '{{$t "format.dateTimePickerMask"}}',
 			dayOfWeekStart: 1,
 			onShow: function (ct, input) {
 				if (input[0].id == "availableDate") {
@@ -181,10 +181,10 @@
 
 			<div class="row">
 				<div class="col-md-6">
-                    {{> "lib/forms/form-date-input" label=($t "homework.global.label.visibleAndEditableForStudentsFrom") id="availableDate" value=assignment.availableDate class="input-group mb-3" }}
+                    {{> "lib/forms/form-date-input" label=($t "homework.global.label.visibleAndEditableForStudentsFrom") id="availableDate" value=(dateTimeToPicker assignment.availableDate) class="input-group mb-3" }}
 				</div>
 				<div class="col-md-6">
-                    {{> "lib/forms/form-date-input" label=($t "homework.global.label.processingPeriodEndsOn") id="dueDate" value=assignment.dueDate class="input-group mb-3" }}
+                    {{> "lib/forms/form-date-input" label=($t "homework.global.label.processingPeriodEndsOn") id="dueDate" value=(dateTimeToPicker assignment.dueDate) class="input-group mb-3" }}
 				</div>
 			</div>
 
