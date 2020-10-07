@@ -13,6 +13,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
  - SC-6582 Add bidirectional messenger settings for course creation
 
+## [25.0.6] - 2020-10-01
+
+### Added
+
+- SC-6973 add importHash to registrationPins post request
+
 ## [25.0.5] - 2020-09-30
 
 ### Fixed
