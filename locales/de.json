@@ -3042,6 +3042,13 @@
 				"text": {
 					"thereWasAnError": "Beim Laden des Inhalts der Startseite ist ein Fehler aufgetreten."
 				}
+			},
+			"help": {
+				"text": {
+					"criticismAndRequest": "ans HPI für Ideen, Kritik und Wünsche rund um die Cloud selbst.",
+					"someConcernsRequire": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreib uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
+					"toTheSupportTeam": "an das Supportteam für Informationen rund um das Projekt"
+				}
 			}
 		}
 	},

@@ -3042,6 +3042,13 @@
 				"text": {
 					"thereWasAnError": "There was an error loading the contents of the homepage."
 				}
+			},
+			"help": {
+				"text": {
+					"criticismAndRequest": "ans HPI for ideas, criticism and requests relating to the cloud itself.",
+					"someConcernsRequire": "Some concerns require more options than the fields in the contact function allow. Write us an email if you want to talk to us",
+					"toTheSupportTeam": "to the support team for information about the project"
+				}
 			}
 		}
 	},
