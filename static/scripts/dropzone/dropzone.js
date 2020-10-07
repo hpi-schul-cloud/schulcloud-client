@@ -932,6 +932,7 @@
       var dirReader, errorHandler, readEntries;
       dirReader = directory.createReader();
       errorHandler = function(error) {
+        // TODO: verified if we need this console log, why not use sentry 
         return typeof console !== "undefined" && console !== null ? typeof console.log === "function" ? console.log(error) : void 0 : void 0;
       };
       readEntries = (function(_this) {

@@ -12,7 +12,7 @@ $(document).ready(() => {
 		storage.local.clear();
 		storage.local.setItem('homepageVersion', newVersion.toString());
 	}
-
+    /*
 	try {
 		console.log(`
 	__  __  ____    ______      _____           __               ___            _____   ___                       __
@@ -27,7 +27,7 @@ $(document).ready(() => {
 	} catch (e) {
 		// no log
 	}
-
+    */
 	const checkCookie = () => {
 		let { cookieEnabled } = navigator;
 		if (!cookieEnabled) {
