@@ -91,6 +91,6 @@ window.addEventListener('load', () => {
 
 	setTimeout(() => {
 		calculateMetrics();
-	}, 0); 
+	}, 0);
 });
 */
