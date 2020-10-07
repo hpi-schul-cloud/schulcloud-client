@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable max-classes-per-file */
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -63,7 +64,8 @@ class TopicBlockWrapper extends React.Component {
      */
 	render() {
 		const DragHandle = SortableHandle(() => (
-                <span tabindex={0} className="input-group-addon" aria-label={$t('topic.topicEdit.aria_label.moveSectionWithKeys')}>
+				<span tabindex={0} className="input-group-addon"
+					aria-label={$t('topic.topicEdit.aria_label.moveSectionWithKeys')}>
                     <i className="fa fa-arrows move-handle" />
                 </span>
 		));
@@ -124,7 +126,9 @@ class TopicBlockWrapper extends React.Component {
                                     <button
 										className="dropdown-item text-danger"
 										onClick={this.onRemoveWithCallback.bind(this)}>
-                                        <span><i className="fa fa-trash" aria-hidden="true"/> {$t('global.button.remove')}</span>
+                                        <span>
+											<i className="fa fa-trash" aria-hidden="true"/> {$t('global.button.remove')}
+										</span>
                                     </button>
                                 </div>
                             </div>
