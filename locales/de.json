@@ -1,6 +1,8 @@
 {
 	"format": {
 		"dateToPicker": "DD.MM.YYYY",
+		"datePicker": "d.m.Y",
+		"datePickerMask": "39.19.9999",
 		"dateTimeToPicker": "DD.MM.YYYY HH:mm",
 		"dateTimePicker": "d.m.Y H:i",
 		"dateTimePickerMask": "39.19.9999 29:59",

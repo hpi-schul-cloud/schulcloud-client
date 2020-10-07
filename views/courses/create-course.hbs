@@ -116,20 +116,29 @@
               <div class="times" id="timesContainer">
                   <div class="row">
                       <div class="form-group col-md-6">
-                          <label>{{$t "courses.add.label.timeSpan"}}</label>
-                          <input
+                        <label>{{$t "courses.add.label.timeSpan"}}</label>
+                        <input
                             name="startDate"
                             id="startDate"
                             data-date
                             type="text"
                             class="form-control"
-                            value="{{course.startDate}}" data-testid="date_start"
-                            title="{{$t "courses.global.label.timeSpanFormat"}}"/>
+                            value="{{dateToPicker course.startDate}}" data-testid="date_start"
+                            title="{{$t "courses.global.label.timeSpanFormat"}}"
+                        />
                       </div>
 
                       <div class="form-group col-md-6">
-                          <label>{{$t "courses.add.label.timeSpanUntil"}}</label>
-                          <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="{{$t "courses.global.label.timeSpanFormat"}}"/>
+                        <label>{{$t "courses.add.label.timeSpanUntil"}}</label>
+                        <input
+                            name="untilDate"
+                            id="untilDate"
+                            data-date
+                            type="text"
+                            class="form-control"
+                            value="{{dateToPicker course.untilDate}}"
+                            title="{{$t "courses.global.label.timeSpanFormat"}}"
+                        />
                       </div>
                   </div>
 
