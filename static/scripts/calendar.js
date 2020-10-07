@@ -182,7 +182,6 @@ $(document).ready(() => {
 					option.value = course._id;
 					$selection.append(option);
 				});
-				$selection.chosen().trigger('chosen:updated');
 			});
 		} else {
 			$collapse.collapse('hide');
@@ -211,7 +210,6 @@ $(document).ready(() => {
 					option.value = team._id;
 					$selection.append(option);
 				});
-				$selection.chosen().trigger('chosen:updated');
 				$videoconferenceToggle.show();
 			});
 		} else {
