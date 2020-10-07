@@ -42,10 +42,8 @@
 
             {{> "lib/forms/form-date-input"
                 label=($t "news.label.scheduleAutomaticPublication")
-                id="displayAt" value=(dateTimeToPicker news.displayAt)
+                id="displayAt" value=news.displayAt
                 class="input-group mb-3"
-                dataFormat=($t "format.dateTimePicker")
-                dataMask=($t "format.dateTimePickerMask")
                 dataMinDate="0"
                 dataTestId="news_date_to_be_displayed"}}
 
