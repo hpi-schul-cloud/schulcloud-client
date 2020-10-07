@@ -195,7 +195,6 @@ app.use(async (req, res, next) => {
 	try {
 		await authHelper.populateCurrentUser(req, res);
 	} catch (error) {
-		logger.error('could not populate current user', error);
 		return next(error);
 	}
 	if (Configuration.has('SENTRY_DSN')) {
