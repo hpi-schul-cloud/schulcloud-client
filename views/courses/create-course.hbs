@@ -194,7 +194,6 @@
                         <select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
                           {{#each ../classes}}
                               <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                  {{log this.year}}
                                   {{#if this.name}}
                                       {{this.displayName}}
                                   {{else}}
