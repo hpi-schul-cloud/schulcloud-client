@@ -86,11 +86,8 @@ function calculateMetrics() {
 	});
 }
 
-/* disabled
 window.addEventListener('load', () => {
-
 	setTimeout(() => {
 		calculateMetrics();
 	}, 0);
 });
-*/

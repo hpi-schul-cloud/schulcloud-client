@@ -26,7 +26,7 @@ function getPathFromUrl(url) {
 	return url.split(/[?#]/)[0];
 }
 
-router.post('/', (req, res, next) => {
+const sendHandler = (req, res, next) => {
 	const data = req.body;
 	const { context } = data.attributes;
 	data.attributes.url = getPathFromUrl(idCleanup(data.attributes.url));
@@ -35,7 +35,7 @@ router.post('/', (req, res, next) => {
 			account: {
 				id: res.locals.currentUser._id,
 				school_id: res.locals.currentSchool,
-				roles: res.locals.currentUser.roles.map(r => r.name),
+				roles: res.locals.currentUser.roles.map((r) => r.name),
 			},
 			objectType: 'Agent',
 		},
@@ -69,19 +69,23 @@ router.post('/', (req, res, next) => {
 			},
 		},
 	};
-	if (FEATURE_INSIGHTS_ENABLED === 'true' && INSIGHTS_COLLECTOR_URI) {
-		request.post(`${INSIGHTS_COLLECTOR_URI}/insights`, {
-			json: xApi,
-		}, (error, response) => {
-			if (error) {
-				logger.error('Error while communicating with Insights', error);
-				return res.sendStatus(500);
-			}
-			return res.sendStatus(200);
-		});
-	} else {
-		return res.sendStatus(204);
+
+	// TODO Keep Alive
+	try {
+		request.post(`${INSIGHTS_COLLECTOR_URI}/insights`, { json: xApi });
+	} catch (err) {
+		logger.error('Error while communicating with Insights', err);
 	}
-});
+
+	res.sendStatus(200);
+};
+
+let handler = (req, res) => res.send(200);
+
+if (FEATURE_INSIGHTS_ENABLED === 'true' && INSIGHTS_COLLECTOR_URI) {
+	handler = sendHandler;
+}
+
+router.post('/', handler);
 
 module.exports = router;
