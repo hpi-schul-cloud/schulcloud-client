@@ -9,9 +9,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-
-## [25.0.7] - 2020-10-08
-
 ### Changed
 
 - SC-6973 Small improvments for logging and error handling
