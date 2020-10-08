@@ -26,7 +26,7 @@ function getPathFromUrl(url) {
 	return url.split(/[?#]/)[0];
 }
 
-const sendHandler = (req, res, next) => {
+const sendHandler = (req, res) => {
 	// response and then start process
 	res.sendStatus(200);
 
@@ -73,7 +73,6 @@ const sendHandler = (req, res, next) => {
 		},
 	};
 
-	
 	const options = {
 		method: 'POST',
 		uri: `${INSIGHTS_COLLECTOR_URI}/insights`,
