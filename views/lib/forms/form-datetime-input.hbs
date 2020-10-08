@@ -1,6 +1,6 @@
 <div class="form-group">
     {{#if label}}
-        <label for={{id}}>{{label}}</label>
+        <label for={{id}}>{{label}}</label>{{#if required}}<sup>*</sup>{{/if}}
     {{/if}}
     <div class="{{class}}">
     <input
@@ -13,8 +13,12 @@
             value="{{dateTimeToPicker value}}"
             {{#if dataFormat}}data-format="{{dataFormat}}"{{else}}data-format="{{$t "format.dateTimePicker"}}"{{/if}}
             {{#if dataMask}}data-mask="{{dataMask}}"{{else}}data-mask="{{$t "format.dateTimePickerMask"}}"{{/if}}
-            {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{else}}data-min-date="0"{{/if}}
+            {{#if dataMinDate}}data-min-date="{{dateTimeToPicker dataMinDate}}"{{else}}data-min-date="0"{{/if}}
+            {{#if dataMaxDate}}data-max-date="{{dateTimeToPicker dataMaxDate}}"{{/if}}
             {{#if dataTestId}}data-testid="{{dataTestId}}"{{else}}data-testid="form-datetime-input-{{id}}"{{/if}}
+            {{#if disabled}}disabled{{/if}}
+            {{#if required}}required{{/if}}
+            {{#if readonly}}readonly{{/if}}
     />
     {{#if currentTimezone}}
         <div class="input-group-addon">

@@ -36,12 +36,14 @@
                     </div>
                 {{#unless editTeacher}}
                     <div class="form-group">
-                        <label>{{$t "global.label.dateOfBirth" }}<sup>*</sup></label>
-                        <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required
-                        {{#if user.birthday }}
-                        value="{{dateToPicker user.birthday}}"
-                        {{/if}}
-                        />
+                        {{> "lib/forms/form-date-input"
+                                label=($t "global.label.dateOfBirth")
+                                id="birthday"
+                                value=user.birthday
+                                required=true
+                                dataMinDate=(datePickerTodayMinus 100 0 0)
+                                dataMaxDate=(datePickerTodayMinus 4 0 0)
+                        }}
                     </div>
                 {{else}}
                     <div class="form-group mb-2">
