@@ -96,12 +96,10 @@ function populateModalForm(modal, data) {
 			case 'datetime-local':
 				$(this)
 					.val(value.slice(0, 16))
-					.trigger('chosen:updated');
 				break;
 			case 'date':
 				$(this)
 					.val(value.slice(0, 10))
-					.trigger('chosen:updated');
 				break;
 			case 'color':
 				$(this).attr('value', value);
@@ -114,7 +112,6 @@ function populateModalForm(modal, data) {
 				) {
 					$(this)
 						.val(value)
-						.trigger('chosen:updated');
 				}
 		}
 	}
@@ -188,24 +185,6 @@ $(document).ready(() => {
 			select.setAttribute('autocomplete', 'off');
 		}
 	});
-
-	// Initialize bootstrap-select
-	function dispatchInputEvent() {
-		this.dispatchEvent(new CustomEvent('input'));
-	}
-
-	$('select:not(.no-bootstrap):not(.search-enabled)')
-		.chosen({
-			width: '100%',
-			disable_search: true,
-		})
-		.change(dispatchInputEvent);
-	$('select.search-enabled:not(.no-bootstrap)')
-		.chosen({
-			width: '100%',
-			disable_search: false,
-		})
-		.change(dispatchInputEvent);
 
 	// collapse toggle
 	function toggleCollapse() {
@@ -417,8 +396,6 @@ $(document).ready(() => {
 		return false;
 	});
 
-	$('.chosen-container-multi').off('touchstart');
-	$('.chosen-container-multi').off('touchend');
 });
 
 /* Mail Validation

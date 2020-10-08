@@ -734,7 +734,7 @@ class TopicInternal extends TopicBlock {
 	render() {
 		return (
             <div>
-                <label>Interner Link</label><br/>
+                <label>{$t('topic.topicEdit.label.internLink')}</label><br/>
                 <div className="input-group">
                     <span className="input-group-btn">
                         <a

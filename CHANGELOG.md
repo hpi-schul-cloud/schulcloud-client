@@ -13,6 +13,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6973 Small improvments for logging and error handling
 
+### Added
+
+- SC-6870 - Added UX improvements for Matrix messenger announcement
+
 ## [25.0.6] - 2020-10-01
 
 ### Added
@@ -30,6 +34,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - SC-6567 clear and improve logging in error case
+- SC-5858 removed chosen library from the code (Accessibility issues)
 
 ## [25.0.3] - 2020-09-29
 
