@@ -6,15 +6,15 @@ const logger = require('../helpers/logger');
 const router = express.Router();
 
 let handler = (req, res) => {
-	res.json([]);
+	res.send(200).json([]);
 };
 if (Configuration.get('FEATURE_ALERTS_ENABLED')) {
 	handler = (req, res) => api(req).get('/alert')
 		.then((alert) => {
-			res.json(alert);
+			res.send(200).json(alert);
 		}).catch((err) => {
 			logger.error(new Error('Can not get /alert', err));
-			res.json([]);
+			res.send(200).json([]);
 		});
 }
 router.get('/', handler);

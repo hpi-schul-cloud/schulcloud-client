@@ -1,7 +1,7 @@
 const express = require('express');
-const request = require('request');
+const rp = require('request-promise');
 const logger = require('../helpers/logger');
-const { FEATURE_INSIGHTS_ENABLED, INSIGHTS_COLLECTOR_URI } = require('../config/global');
+const { FEATURE_INSIGHTS_ENABLED, INSIGHTS_COLLECTOR_URI, KEEP_ALIVE } = require('../config/global');
 
 
 const router = express.Router();
@@ -27,6 +27,9 @@ function getPathFromUrl(url) {
 }
 
 const sendHandler = (req, res, next) => {
+	// response and then start process
+	res.sendStatus(200);
+
 	const data = req.body;
 	const { context } = data.attributes;
 	data.attributes.url = getPathFromUrl(idCleanup(data.attributes.url));
@@ -70,17 +73,25 @@ const sendHandler = (req, res, next) => {
 		},
 	};
 
-	// TODO Keep Alive
-	try {
-		request.post(`${INSIGHTS_COLLECTOR_URI}/insights`, { json: xApi });
-	} catch (err) {
-		logger.error('Error while communicating with Insights', err);
+	
+	const options = {
+		method: 'POST',
+		uri: `${INSIGHTS_COLLECTOR_URI}/insights`,
+		body: xApi,
+		json: true,
+	};
+	if (KEEP_ALIVE) {
+		options.headers = {
+			Connection: 'Keep-Alive',
+		};
 	}
 
-	res.sendStatus(200);
+	rp(options).catch((err) => {
+		logger.error('Error while communicating with Insights', err);
+	});
 };
 
-let handler = (req, res) => res.send(200);
+let handler = (req, res) => res.send(204);
 
 if (FEATURE_INSIGHTS_ENABLED === 'true' && INSIGHTS_COLLECTOR_URI) {
 	handler = sendHandler;
