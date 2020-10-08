@@ -40,8 +40,11 @@
                 <textarea type="text" class="form-control ckeditor customckeditor" name="content" placeholder="{{$t "news._news.label.contentOfMessage"}}" required>{{news.content}}</textarea>
             </div>
 
-            {{> "lib/forms/form-date-input" label=($t "news.label.scheduleAutomaticPublication") id="displayAt" value=news.displayAt class="input-group mb-3" dataMinDate="0" dataTestId="news_date_to_be_displayed"}}
-
+            {{> "lib/forms/form-datetime-input"
+                label=($t "news.label.scheduleAutomaticPublication")
+                id="displayAt" value=news.displayAt
+                class="input-group mb-3"
+                dataTestId="news_date_to_be_displayed"}}
             <div class="modal-footer">
                 <button class="btn btn-add btn-secondary btn-cancel">
                     {{closeLabel}}

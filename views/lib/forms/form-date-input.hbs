@@ -5,17 +5,16 @@
     <div class="{{class}}">
     <input
             class="form-control"
-            data-datetime name={{id}}
-            autocomplete="off" id={{id}}
+            data-datetime
+            name={{id}}
+            autocomplete="off"
+            id={{id}}
             type="text"
-            value="{{value}}"
-            {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{/if}}
-            {{#if dataTestId}}data-testid="{{dataTestId}}"{{/if}}
+            value="{{dateToPicker value}}"
+            {{#if dataFormat}}data-format="{{dataFormat}}"{{else}}data-format="{{$t "format.datePicker"}}"{{/if}}
+            {{#if dataMask}}data-mask="{{dataMask}}"{{else}}data-mask="{{$t "format.datePickerMask"}}"{{/if}}
+            {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{else}}data-min-date="0"{{/if}}
+            {{#if dataTestId}}data-testid="{{dataTestId}}"{{else}}data-testid="form-date-input-{{id}}"{{/if}}
     />
-    {{#if currentTimezone}}
-        <div class="input-group-addon">
-            <span class="input-group-text">{{ currentTimezone }} {{#if currentTimezoneOffset}}(UTC{{currentTimezoneOffset}}){{/if}}</span>
-        </div>
-    {{/if}}
 </div>
 </div>

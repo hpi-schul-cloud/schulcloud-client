@@ -1,36 +1,44 @@
 const moment = require('moment-timezone');
 const logger = require('./logger');
 
+let changedDefaultTimezone;
 let schoolTimezone;
 
+const DateFormat = {
+	de: {
+		date: 'DD.MM.YYYY',
+		dateTime: 'DD.MM.YYYY HH:mm',
+	},
+};
 
 /**
- * @return {String} UTC offest as string based on current timezone, e.g +01:00
+ * @return {String} UTC offset as string based on current timezone, e.g +01:00
  */
 const getUtcOffset = () => moment().format('Z');
 
-const getUserTimezone = () => (schoolTimezone || moment.tz.guess());
+const getUserTimezone = () => (changedDefaultTimezone || moment.tz.guess());
 
 /**
  * @param {String} res result object containing shool data information
  * sets default timezone if school timezone differs from the user timezone
  */
 const setDefaultTimezone = (req, res) => {
-	const { timezone } = res.locals.currentSchoolData || {};
+	schoolTimezone = (res.locals.currentSchoolData || {}).timezone;
 	const instanceTimezone = moment.tz.guess();
-	const userTimezone = ((req || {}).cookies || {}).USER_TIMZONE;
-	logger.info(`timesHelper: instance timezone "${instanceTimezone})`);
-	logger.info(`timesHelper: client timezone "${userTimezone}"`);
-
-	if (timezone && timezone !== instanceTimezone) {
-		moment.tz.setDefault(timezone);
-		schoolTimezone = timezone;
-		logger.info(`timesHelper: changed default timezone from ${instanceTimezone} to ${schoolTimezone}`);
+  const userTimezone = ((req || {}).cookies || {}).USER_TIMZONE;
+	if (schoolTimezone && schoolTimezone !== instanceTimezone) {
+		moment.tz.setDefault(schoolTimezone);
+		changedDefaultTimezone = schoolTimezone;
+		logger.info(`timesHelper: changed default timezone from ${instanceTimezone} to ${changedDefaultTimezone}`);
+	} else {
+		moment.tz.setDefault();
+		changedDefaultTimezone = instanceTimezone;
+		logger.info(`timesHelper: instance timezone match school timezone ${instanceTimezone}`);
 	}
-
-	res.locals.currentTimezone = schoolTimezone;
-	res.locals.currentTimezoneOffset = schoolTimezone ? getUtcOffset() : '';
-	res.locals.userTimezone = userTimezone;
+	logger.info(`timesHelper: timezone offset ${getUtcOffset()}`);
+	res.locals.currentTimezone = changedDefaultTimezone;
+	res.locals.currentTimezoneOffset = changedDefaultTimezone ? getUtcOffset() : '';
+  res.locals.userTimezone = userTimezone;
 };
 
 /**
@@ -67,7 +75,7 @@ const now = () => {
  */
 const splitDate = (date) => {
 	const resultDate = moment(date);
-	const timezoneOffset = schoolTimezone ? `(UTC${getUtcOffset()})` : '';
+	const timezoneOffset = changedDefaultTimezone ? `(UTC${getUtcOffset()})` : '';
 	return {
 		timestamp: resultDate.valueOf(),
 		date: resultDate.format('DD.MM.YYYY'),
@@ -95,7 +103,7 @@ const createFromString = (dateString, format) => {
  * @returns {string} formated date string based on input
  */
 const formatDate = (date, format, showTimezoneOffset = false) => {
-	const timezoneOffset = schoolTimezone && showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
+	const timezoneOffset = changedDefaultTimezone && showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
 	return `${moment(date).format(format)}${timezoneOffset}`;
 };
 
@@ -104,14 +112,25 @@ const formatDate = (date, format, showTimezoneOffset = false) => {
  * @return {moment} same date and time in different in current timezone (no re-calculation)
  */
 const cloneUtcDate = (date) => {
-	const format = 'YYYY-MM-DD HH:mm:ss';
+	const format = DateFormat.de.dateTime;
 	const dateString = moment.utc(date).format(format);
 	const result = createFromString(dateString, format);
 	logger.info(`timesHelper.cloneDate: ${date} to ${result.toISOString(true)}`);
 	return result;
 };
 
+/**
+ * Prints current school timezone
+ * @param showTimezoneOffset
+ * @returns {string}
+ */
+const schoolTimezoneToString = (showTimezoneOffset = false) => {
+	const offset = showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
+	return `${schoolTimezone}${offset}`;
+};
+
 module.exports = {
+	DateFormat,
 	setDefaultTimezone,
 	getUserTimezone,
 	getUtcOffset,
@@ -122,4 +141,6 @@ module.exports = {
 	formatDate,
 	createFromString,
 	cloneUtcDate,
+	schoolTimezoneToString,
+	moment,
 };

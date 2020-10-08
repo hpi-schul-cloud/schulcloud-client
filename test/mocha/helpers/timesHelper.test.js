@@ -59,15 +59,15 @@ describe('times helpers test', () => {
 	});
 
 	it('should properly format date', () => {
-		const testFormat = 'YYYY-MM-DD HH:mm:ss';
+		const testFormat = 'DD.MM.YYYY HH:mm';
 		setSchoolTimezone('America/Los_Angeles');
 		const resultDate = timesHelper.formatDate(testDate, testFormat);
 		chai.expect(resultDate)
-			.to.equal('2020-10-31 18:00:00');
+			.to.equal('31.10.2020 18:00');
 
 		const resultDate2 = timesHelper.formatDate(testDate, testFormat, true);
 		chai.expect(resultDate2)
-			.to.equal('2020-10-31 18:00:00(UTC-07:00)');
+			.to.equal('31.10.2020 18:00(UTC-07:00)');
 	});
 
 	it('should correctly clone UTC date', () => {

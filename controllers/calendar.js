@@ -44,9 +44,11 @@ router.get('/events/', (req, res, next) => {
 
 router.post('/events/', (req, res, next) => {
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = timesHelper.createFromString(req.body.startDate, 'DD.MM.YYYY HH:mm').toISOString(true);
+	req.body.startDate = timesHelper.createFromString(req.body.startDate, res.$t('format.dateTimeToPicker'))
+		.toISOString(true);
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = timesHelper.createFromString(req.body.endDate, 'DD.MM.YYYY HH:mm').toISOString(true);
+	req.body.endDate = timesHelper.createFromString(req.body.endDate, res.$t('format.dateTimeToPicker'))
+		.toISOString(true);
 
 	if (req.body.courseId && req.body.courseId !== '') {
 		req.body.scopeId = req.body.courseId;
@@ -73,9 +75,11 @@ router.delete('/events/:eventId', (req, res, next) => {
 
 router.put('/events/:eventId', (req, res, next) => {
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = timesHelper.createFromString(req.body.startDate, 'DD.MM.YYYY HH:mm').toISOString(true);
+	req.body.startDate = timesHelper.createFromString(req.body.startDate, res.$t('format.dateTimeToPicker'))
+		.toISOString(true);
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = timesHelper.createFromString(req.body.endDate, 'DD.MM.YYYY HH:mm').toISOString(true);
+	req.body.endDate = timesHelper.createFromString(req.body.endDate, res.$t('format.dateTimeToPicker'))
+		.toISOString(true);
 
 	api(req).put(`/calendar/${req.params.eventId}`, {
 		json: req.body,

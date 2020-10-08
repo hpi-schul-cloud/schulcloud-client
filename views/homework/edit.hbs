@@ -9,24 +9,24 @@
         const lang = $('html').attr('lang');
 		$.datetimepicker.setLocale(lang || 'de');
 		$('input[data-datetime]').datetimepicker({
-			format: 'd.m.Y H:i',
-			mask: '39.19.9999 29:59',
+			format: '{{$t "format.dateTimePicker"}}',
+			mask: '{{$t "format.dateTimePickerMask"}}',
 			dayOfWeekStart: 1,
 			onShow: function (ct, input) {
 				if (input[0].id == "availableDate") {
 					let due = $("#dueDate").val().split(" ");
 					this.setOptions({
 						minDate: 0,
-						maxDate: (due[0] != "__.__.____") ? due[0] : false,
-						formatDate: 'd.m.Y',
+						maxDate: (due[0] != "{{$t "format.datePickerMask"}}") ? due[0] : false,
+						formatDate: '{{$t "format.datePicker"}}',
 					});
 				}
 				else if (input[0].id == "dueDate") {
 					let available = $("#availableDate").val().split(" ");
 					this.setOptions({
-						minDate: (available[0] != "__.__.____") ? available[0] : 0,
+						minDate: (available[0] != "{{$t "format.datePickerMask"}}") ? available[0] : 0,
 						maxDate: false,
-						formatDate: 'd.m.Y'
+						formatDate: '{{$t "format.datePicker"}}'
 					});
 				}
 			}
@@ -40,7 +40,7 @@
 		$("#coursePicker").change(function (e, s) {
 			if (s.selected != "") {
 				$('#lessonPicker').empty().append('<option value="">loading...</option>')
-				$('#lessonPicker').prop('disabled', true).trigger('chosen:updated');
+				$('#lessonPicker').prop('disabled', true);
 				$.ajax({
 					url: "/courses/" + s.selected + "/json"
 				}).done(function (r) {
@@ -55,10 +55,9 @@
 					} else {
 						lessonPicker.append('<option value="">Keine Themen in diesem Kurs</option>');
 					}
-					$('#lessonPicker').trigger('chosen:updated');
 				});
 			} else {
-				$('#lessonPicker').empty().append('<option value="">Keine Themen in diesem Kurs</option>').prop('disabled', true).trigger("chosen:updated");
+				$('#lessonPicker').empty().append('<option value="">Keine Themen in diesem Kurs</option>').prop('disabled', true);
 			}
 		});
 
@@ -181,10 +180,10 @@
 
 			<div class="row">
 				<div class="col-md-6">
-                    {{> "lib/forms/form-date-input" label=($t "homework.global.label.visibleAndEditableForStudentsFrom") id="availableDate" value=assignment.availableDate class="input-group mb-3" }}
+                    {{> "lib/forms/form-datetime-input" label=($t "homework.global.label.visibleAndEditableForStudentsFrom") id="availableDate" value=assignment.availableDate class="input-group mb-3" }}
 				</div>
 				<div class="col-md-6">
-                    {{> "lib/forms/form-date-input" label=($t "homework.global.label.processingPeriodEndsOn") id="dueDate" value=assignment.dueDate class="input-group mb-3" }}
+                    {{> "lib/forms/form-datetime-input" label=($t "homework.global.label.processingPeriodEndsOn") id="dueDate" value=assignment.dueDate class="input-group mb-3" }}
 				</div>
 			</div>
 

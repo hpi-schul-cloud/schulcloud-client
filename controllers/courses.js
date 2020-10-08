@@ -190,8 +190,8 @@ const editCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = timesHelper.fromUTC(course.startDate).format('DD.MM.YYYY');
-			course.untilDate = timesHelper.fromUTC(course.untilDate).format('DD.MM.YYYY');
+			course.startDate = timesHelper.fromUTC(course.startDate);
+			course.untilDate = timesHelper.fromUTC(course.untilDate);
 		}
 
 		// preselect current teacher when creating new course
@@ -315,10 +315,10 @@ const copyCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = timesHelper.createFromString(course.startDate).format('DD.MM.YYYY');
+			course.startDate = timesHelper.createFromString(course.startDate, res.$t('format.dateToPicker'));
 		}
 		if (course.untilDate) {
-			course.untilDate = timesHelper.createFromString(course.untilDate).format('DD.MM.YYYY');
+			course.untilDate = timesHelper.createFromString(course.untilDate, res.$t('format.dateToPicker'));
 		}
 
 		// preselect current teacher when creating new course
@@ -484,8 +484,8 @@ router.post('/', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	const startDate = timesHelper.createFromString(req.body.startDate, 'DD:MM:YYYY');
-	const untilDate = timesHelper.createFromString(req.body.untilDate, 'DD:MM:YYYY');
+	const startDate = timesHelper.createFromString(req.body.startDate, res.$t('format.dateToPicker'));
+	const untilDate = timesHelper.createFromString(req.body.untilDate, res.$t('format.dateToPicker'));
 
 	delete req.body.startDate;
 	if (startDate.isValid()) {
@@ -781,8 +781,8 @@ router.patch('/:courseId', (req, res, next) => {
 		req.body.substitutionIds = [];
 	}
 
-	const startDate = timesHelper.createFromString(req.body.startDate, 'DD:MM:YYYY');
-	const untilDate = timesHelper.createFromString(req.body.untilDate, 'DD:MM:YYYY');
+	const startDate = timesHelper.createFromString(req.body.startDate, res.$t('format.dateToPicker'));
+	const untilDate = timesHelper.createFromString(req.body.untilDate, res.$t('format.dateToPicker'));
 
 	delete req.body.startDate;
 	if (startDate.isValid()) {

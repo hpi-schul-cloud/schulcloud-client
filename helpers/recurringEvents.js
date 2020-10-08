@@ -200,7 +200,7 @@ const getNextEventForCourseTimes = (courseTimes) => {
 	// find nearest day from now
 	const minDate = _.min(nextDates);
 	// eslint-disable-next-line consistent-return
-	return moment(minDate).format('DD.MM.YYYY HH:mm');
+	return moment(minDate);
 };
 
 function pad(number) {
