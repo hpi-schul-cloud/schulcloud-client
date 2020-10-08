@@ -246,8 +246,8 @@ $(() => {
 			beforeSend(xhr) {
 				xhr.setRequestHeader('Csrf-Token', `${csrftoken}`);
 			},
-			success(data) {
-				window.location.href = data.redirect;
+			success() {
+				window.location.href = '/';
 			},
 		});
 	});
