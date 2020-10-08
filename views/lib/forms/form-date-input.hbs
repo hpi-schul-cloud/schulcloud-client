@@ -1,11 +1,12 @@
 <div class="form-group">
+    form-date-input
     {{#if label}}
         <label for={{id}}>{{label}}</label>
     {{/if}}
     <div class="{{class}}">
     <input
             class="form-control"
-            data-datetime
+            data-date
             name={{id}}
             autocomplete="off"
             id={{id}}
@@ -15,6 +16,7 @@
             {{#if dataMask}}data-mask="{{dataMask}}"{{else}}data-mask="{{$t "format.datePickerMask"}}"{{/if}}
             {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{else}}data-min-date="0"{{/if}}
             {{#if dataTestId}}data-testid="{{dataTestId}}"{{else}}data-testid="form-date-input-{{id}}"{{/if}}
+            {{#if disabled}}disabled{{/if}}
     />
 </div>
 </div>

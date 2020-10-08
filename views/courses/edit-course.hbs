@@ -37,35 +37,9 @@
 							<label>{{$t "administration.global.label.timeSpan"}}</label>
 							<div class="row">
 								<div class="form-group col-md-6">
-									<label>{{$t "global.label.from"}}</label>
-									<input
-                                        name="startDate"
-                                        id="startDate"
-                                        data-date
-                                        type="text"
-                                        class="form-control"
-                                        value="{{dateToPicker course.startDate}}"
-                                        title="{{$t "courses.global.label.timeSpanFormat"}}"
-                                        data-format="{{$t "format.datePicker"}}"
-                                        data-mask="{{$t "format.datePickerMask"}}"
-                                        {{#if @root.course.isArchived}}disabled{{/if}}
-                                    />
-								</div>
-
+                                    {{> "lib/forms/form-date-input" label=($t "global.label.from") id="startDate" value=course.startDate disabled=@root.course.isArchived}}
 								<div class="form-group col-md-6">
-									<label>{{$t "global.label.to"}}</label>
-									<input
-                                        name="untilDate"
-                                        id="untilDate"
-                                        data-date
-                                        type="text"
-                                        class="form-control"
-										value="{{dateToPicker course.untilDate}}"
-                                        title="{{$t "courses.global.label.timeSpanFormat"}}"
-                                        data-format="{{$t "format.datePicker"}}"
-                                        data-mask="{{$t "format.datePickerMask"}}"
-										{{#if @root.course.isArchived}}data-min-date="{{datePickerTodayMinus 0 0 0}}"{{/if}}
-                                    />
+                                    {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate" value=course.untilDate minDate=(datePickerTodayMinus 0 0 0)}}
 								</div>
 							</div>
 						</div>
@@ -229,35 +203,11 @@
 					<label>{{$t "administration.global.label.timeSpan"}}</label>
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label>{{$t "global.label.from"}}</label>
-							<input
-                                name="startDate"
-                                id="startDate"
-                                data-date
-                                type="text"
-                                class="form-control"
-							    value="{{dateToPicker course.startDate}}"
-                                title="{{$t "courses.global.label.timeSpanFormat"}}"
-                                data-format="{{$t "format.datePicker"}}"
-                                data-mask="{{$t "format.datePickerMask"}}"
-								{{#if @root.course.isArchived}}disabled{{/if}}
-                            />
+                            {{> "lib/forms/form-date-input" label=($t "global.label.from") id="startDate" value=course.startDate disabled=@root.course.isArchived}}
 						</div>
 
 						<div class="form-group col-md-6">
-							<label>{{$t "global.label.to"}}</label>
-							<input
-                                name="untilDate"
-                                id="untilDate"
-                                data-date
-                                type="text"
-                                class="form-control"
-								value="{{dateToPicker course.untilDate}}"
-                                title="{{$t "courses.global.label.timeSpanFormat"}}"
-                                data-format="{{$t "format.datePicker"}}"
-                                data-mask="{{$t "format.datePickerMask"}}"
-								{{#if @root.course.isArchived}}disabled{{/if}}
-                            />
+                            {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate" value=course.untilDate disabled=@root.course.isArchived}}
 						</div>
 					</div>
 
