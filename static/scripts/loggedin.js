@@ -231,3 +231,28 @@ document.querySelectorAll('#main-content a').forEach((a) => {
         }
     }
 });
+
+$(() => {
+	$('a[data-action="logout"]').on('click', (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+		const target = $(e.target).data('href');
+
+		if (!target) {
+			return false;
+		}
+
+		$.ajax({
+			type: 'POST',
+			url: target,
+			beforeSend(xhr) {
+				// eslint-disable-next-line no-undef
+				xhr.setRequestHeader('Csrf-Token', `${csrftoken}`);
+			},
+			success(data) {
+				window.location.href = data.redirect;
+			},
+		});
+
+	});
+});
