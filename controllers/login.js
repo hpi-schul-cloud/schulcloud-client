@@ -10,8 +10,6 @@ const { Configuration } = require('@schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
-const csrfHelper = require('../helpers/csrf');
-
 
 const logger = require('../helpers/logger');
 
