@@ -30,7 +30,6 @@ const sendHandler = (req, res) => {
 	// response and then start process
 	res.sendStatus(200);
 	try {
-
 		const data = req.body;
 		const { context } = data.attributes;
 		data.attributes.url = getPathFromUrl(idCleanup(data.attributes.url));
