@@ -7,10 +7,12 @@ const defaultTimezone = 'Europe/Berlin';
 const testDate = new Date(Date.UTC(2020, 10, 1, 1, 0));
 
 const getMockRes = (timezone) => ({ locals: { currentSchoolData: { timezone } } });
+const getMockReq = (timezone) => ({ cookies: { USER_TIMZONE: { timezone } } });
 
 const setSchoolTimezone = (schoolTimezone) => {
 	const mockRes = getMockRes(schoolTimezone);
-	timesHelper.setDefaultTimezone(mockRes);
+	const mockReq = getMockReq(schoolTimezone);
+	timesHelper.setDefaultTimezone(mockReq, mockRes);
 };
 
 describe('times helpers test', () => {
@@ -31,8 +33,9 @@ describe('times helpers test', () => {
 		const schoolTimezone = 'America/Los_Angeles';
 		const schoolTimezoneOffset = '-07:00';
 		const mockRes = getMockRes(schoolTimezone);
+		const mockReq = getMockReq(schoolTimezone);
 
-		timesHelper.setDefaultTimezone(mockRes);
+		timesHelper.setDefaultTimezone(mockReq, mockRes);
 		chai.expect(mockRes.locals.currentTimezone)
 			.to.equal(schoolTimezone, `The default timezone should be equal to ${schoolTimezone}`);
 		chai.expect(mockRes.locals.currentTimezoneOffset)

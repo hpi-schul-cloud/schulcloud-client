@@ -20,10 +20,10 @@
             {{#if required}}required{{/if}}
             {{#if readonly}}readonly{{/if}}
     />
-    {{#if currentTimezone}}
+    {{#unless sameTimezone}}{{#if currentTimezone}}
         <div class="input-group-addon">
             <span class="input-group-text">{{ currentTimezone }} {{#if currentTimezoneOffset}}(UTC{{currentTimezoneOffset}}){{/if}}</span>
         </div>
-    {{/if}}
+    {{/if}}{{/unless}}
 </div>
 </div>

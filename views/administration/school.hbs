@@ -220,9 +220,13 @@
 						{{/ifConfig}}
 
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
-                        <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}}">
-							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
-								<label for="messenger">{{$t "administration.school.label.activeChatFunction" }}</label>
+                        <div class="form-group"
+								{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}{{else}}
+									{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}{{else}}
+										hidden
+									{{/ifConfig}}>
+								{{/ifConfig}}>
+							<label>
 								<input
 									id="messenger"
 									type="checkbox"
@@ -234,21 +238,13 @@
 												disabled
 										{{/userHasPermission}}
 									{{/userHasPermission}}
-									{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
-										disabled
-									{{/hasConfig}}
 								/>
-								<p class="text-muted">
-									{{$t "administration.school.text.ifChatsAreActivatedAtYourSchool" }}
-								</p>
-							</div>
-							{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
-								<p class="alert alert-info">
-									<strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
-									{{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRECATION_DATE")))}}
-								</p>
-							{{/hasConfig}}
-                        </div>
+								{{$t "administration.school.label.activeMatrixFunction" }}
+							</label>
+							<p class="text-muted">
+								{{$t "administration.school.text.ifMatrixIsActivatedAtYourSchool"}}<a href=' https://docs.hpi-schul-cloud.org/pages/viewpage.action?pageId=113650243'>{{$t "administration.school.link.matrixHelpPage"}}</a>.
+							</p>
+						</div>
 
                         {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}
                         <div id="messenger-sub-options">
@@ -274,18 +270,36 @@
                             </div>
                         </div>
 
-                        {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
-                            <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}hidden{{/ifConfig}}">
-                                <label>
-                                    <input type="checkbox" name="rocketchat" value="true"
-                                        {{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
-                                    {{$t "administration.school.label.activeChatFunction" }}
-                                    <p class="text-muted">
-                                        {{$t "administration.school.text.ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan" }}
-                                    </p>
-                                </label>
-                            </div>
-                        {{/if}}
+                        <div class="form-group {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}hidden{{/if}}">
+							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
+								<label>
+									<input
+										type="checkbox"
+										name="rocketchat"
+										value="true"
+										{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}
+										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+											{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+													disabled
+											{{/userHasPermission}}
+										{{/userHasPermission}}
+										{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
+											disabled
+										{{/hasConfig}}
+									/>
+									{{$t "administration.school.label.activeChatFunction" }}
+								</label>
+								<p class="text-muted">
+									{{$t "administration.school.text.ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan" }}
+								</p>
+							</div>
+							{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
+								<p class="alert alert-info">
+									<strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
+									{{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE")))}}
+								</p>
+							{{/hasConfig}}
+                        </div>
 
 						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
 						<div class="form-group">
