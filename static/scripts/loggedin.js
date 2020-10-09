@@ -240,7 +240,7 @@ $(() => {
 
 		if (!target) return false;
 
-		$.ajax({
+		return $.ajax({
 			type: 'POST',
 			url: target,
 			beforeSend(xhr) {
