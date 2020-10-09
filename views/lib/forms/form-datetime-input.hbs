@@ -16,10 +16,10 @@
             {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{else}}data-min-date="0"{{/if}}
             {{#if dataTestId}}data-testid="{{dataTestId}}"{{else}}data-testid="form-datetime-input-{{id}}"{{/if}}
     />
-    {{#if currentTimezone}}
+    {{#unless sameTimezone}}{{#if currentTimezone}}
         <div class="input-group-addon">
             <span class="input-group-text">{{ currentTimezone }} {{#if currentTimezoneOffset}}(UTC{{currentTimezoneOffset}}){{/if}}</span>
         </div>
-    {{/if}}
+    {{/if}}{{/unless}}
 </div>
 </div>

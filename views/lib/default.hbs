@@ -54,7 +54,7 @@
 	{{#embed "lib/sw-metrix"}}{{/embed}}
 	{{! make window.$t() available. Must be executed before all other scripts! }}
 	<script src="/scripts/i18n.js" type="text/javascript" nonce="{{nonceValue}}"></script>
-
+    <script src="/scripts/timezone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	<script src="/scripts/all.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/block}}
 
