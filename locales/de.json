@@ -735,7 +735,6 @@
 	},
 	"autologout": {
 		"text": {
-			"logoutFailed": "Anmeldung fehlgeschlagen. Bitte laden Sie die Seite neu.",
 			"sessionAlreadyExpired": "Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.",
 			"sessionCouldNotBeExtended": "Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.",
 			"sessionExtended": "Sitzung erfolgreich verlängert."

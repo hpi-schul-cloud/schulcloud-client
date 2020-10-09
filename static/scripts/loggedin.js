@@ -250,9 +250,13 @@ $(() => {
 				const wrongToken = response.toString().includes('CSRF');
 				if (!wrongToken) window.location.href = '/';
 			},
-			error() {
-				alert(res.$t('autologout.text.logoutFailed');
-			}
+			fail() {
+				const lang = $('html').attr('lang');
+				// eslint-disable-next-line no-alert, no-unused-expressions
+				lang === 'de' ? alert('Anmeldung fehlgeschlagen. Bitte laden Sie die Seite neu.')
+					// eslint-disable-next-line no-alert
+					: alert('Logout failed. Please reload the page.');
+			},
 		});
 	});
 });
