@@ -735,6 +735,7 @@
 	},
 	"autologout": {
 		"text": {
+			"logoutFailed": "logout failed",
 			"sessionAlreadyExpired": "Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.",
 			"sessionCouldNotBeExtended": "Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.",
 			"sessionExtended": "Sitzung erfolgreich verlängert."
