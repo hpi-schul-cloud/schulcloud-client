@@ -65,7 +65,6 @@ router.get('/', async (req, res, next) => {
 	} = await api(req)
 		.get(`/consents/${currentUser._id}/check/`);
 
-	// TODO: Please check if other cases are require the firstlogin steps
 	// Skip in case of firstlogin is done and no consent updates are availlable
 	if (haveBeenUpdated === false && (currentUser.preferences || {}).firstLogin) {
 		return res.redirect('/dashboard');
