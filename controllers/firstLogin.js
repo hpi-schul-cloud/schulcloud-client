@@ -62,7 +62,13 @@ router.get('/', async (req, res, next) => {
 	const parentConsent = consentFullfilled(((consent || {}).parentConsents || [undefined])[0] || {});
 	const {
 		privacy = [], termsOfUse = [], haveBeenUpdated,
-	} = await api(req).get(`/consents/${currentUser._id}/check/`);
+	} = await api(req)
+		.get(`/consents/${currentUser._id}/check/`);
+
+	// Skip in case of firstlogin is done and no consent updates are availlable
+	if (haveBeenUpdated === false && (currentUser.preferences || {}).firstLogin) {
+		return res.redirect('/dashboard');
+	}
 	let updatedConsents = {};
 
 	if (Configuration.get('FEATURE_TSP_AUTO_CONSENT_ENABLED')) {
@@ -219,11 +225,6 @@ router.get('/', async (req, res, next) => {
 		renderObject.submitLabel = res.$t('login.button.submitPrivacyPolicy');
 	}
 
-	// redirect to dashboard if we have only email to request
-	if ((sections.length < 3 || (sections.length === 3 && sections[1] === 'email'))
-			&& (res.locals.currentUser.preferences || {}).firstLogin) {
-		return res.redirect('/dashboard');
-	}
 	return res.render('firstLogin/firstLogin', renderObject);
 });
 
