@@ -22,21 +22,23 @@ const getUserTimezone = () => (changedDefaultTimezone || moment.tz.guess());
  * @param {String} res result object containing shool data information
  * sets default timezone if school timezone differs from the user timezone
  */
-const setDefaultTimezone = (res) => {
+const setDefaultTimezone = (req, res) => {
 	schoolTimezone = (res.locals.currentSchoolData || {}).timezone;
-	const userTimezone = moment.tz.guess();
-	if (schoolTimezone && schoolTimezone !== userTimezone) {
+	const instanceTimezone = moment.tz.guess();
+  const userTimezone = ((req || {}).cookies || {}).USER_TIMZONE;
+	if (schoolTimezone && schoolTimezone !== instanceTimezone) {
 		moment.tz.setDefault(schoolTimezone);
 		changedDefaultTimezone = schoolTimezone;
-		logger.info(`timesHelper: changed default timezone from ${userTimezone} to ${changedDefaultTimezone}`);
+		logger.info(`timesHelper: changed default timezone from ${instanceTimezone} to ${changedDefaultTimezone}`);
 	} else {
 		moment.tz.setDefault();
-		changedDefaultTimezone = undefined;
-		logger.info(`timesHelper: user timezone match school timezone ${userTimezone}`);
+		changedDefaultTimezone = instanceTimezone;
+		logger.info(`timesHelper: instance timezone match school timezone ${instanceTimezone}`);
 	}
 	logger.info(`timesHelper: timezone offset ${getUtcOffset()}`);
 	res.locals.currentTimezone = changedDefaultTimezone;
 	res.locals.currentTimezoneOffset = changedDefaultTimezone ? getUtcOffset() : '';
+  res.locals.userTimezone = userTimezone;
 };
 
 /**
