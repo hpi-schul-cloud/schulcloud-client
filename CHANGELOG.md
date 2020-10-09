@@ -9,6 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-6060 Cookie configuration
+
 ### Added
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
