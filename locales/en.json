@@ -549,6 +549,7 @@
 			},
 			"label": {
 				"activeChatFunction": "Activate chat function",
+				"activeMatrixFunction": "Activate Matrix Messenger",
 				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
 				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
 				"authentication": "Authentication",
@@ -583,7 +584,8 @@
 				"yourSchoolCanStartNewSchool": "your school can enter the new school year"
 			},
 			"link": {
-				"moreInfo": "More information"
+				"moreInfo": "More information",
+				"matrixHelpPage": "messenger help section"
 			},
 			"text": {
 				"LDAPChanges": "you can make the necessary changes for the new school year in the\nLDAP (new users, update classes)",
@@ -601,6 +603,7 @@
 				"ifChatsAreActivatedAtYourSchool": "If chats are enabled at your school, team administrators and teachers can selectively unlock the chat function respectively for their team or courses.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
+				"ifMatrixIsActivatedAtYourSchool": "If the Matrix Messenger is activated, all teachers in this school can start chat rooms, private conversations or group discussions within the course or team. Students initially  have read-only access, but can also be given write access via the course and team settings. Students can also start private chats within courses and teams. You can find more information about this in the ",
 				"loginViaLDAP": "Login via LDAP is still possible for existing users",
 				"newSchoolYear": "New school year",
 				"newUsersClassesAndChanges": "Newly added users, classes and changes to existing data are not synchronized from the LDAP",
@@ -3017,12 +3020,19 @@
 	},
 	"messenger": {
 		"headline": {
-			"welcomeMatrixAdmin": "The Matrix Messenger is here! "
+			"welcomeMatrix": "New messenger function"
+		},
+		"button": {
+			"activate": "Activate",
+			"deactivate": "Deactivate",
+			"dontActivate": "Do not activate"
 		},
 		"text": {
-			"rocketChatDeprecation": "The chat function in the teams area is automatically switched off on {{date}} and the corresponding content is deleted. Please make sure you copy and save any important content.",
-			"welcomeMatrixAdmin": "Users Your school can now easily communicate directly within the HPI School Cloud using the Matrix Messenger.",
-			"howToActivateMatrix": "To do this you have to activate the Matrix Messenger as school admin under: Administration > School > Activate Matrix Messenger."
+			"welcomeMatrix": "Our new Messenger is now available, with which all users of your school can send direct or group messages to each other, as usual from social platforms.",
+			"rocketChatDeprecation": "The old team chat function is switched off on {{date}}. Old chat messages are not automatically transferred to the new Messenger.",
+			"callToCopyMessages": "Please copy all messages that are important to you.",
+			"howToDeactivateMatrix": "You can deactivate the messenger at any time under Administration > School > Activate Matrix Messenger.",
+			"howToActivateMatrix": "In order to use the Messenger at your school, it has to be activated by you as admin once for the whole school under Administration > School > Activate Matrix Messenger."
 		}
 	}
 }
