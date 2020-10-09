@@ -803,7 +803,9 @@ class TopicInternal extends TopicBlock {
                             data-toggle="tooltip"
                             tabindex="0"
                             data-placement="top"
-                            title={$t('topic.topicEdit.label.theLinkHasToBeginWith', {'baseUrl' : this.state.baseUrl})}><i className="fa fa-info-circle" /></span>
+                            title={$t('topic.topicEdit.label.theLinkHasToBeginWith', { baseUrl: this.state.baseUrl })}>
+								<i className="fa fa-info-circle" />
+						</span>
                     </span>
                     <input
 						id={`internLinkInput${this.props.position}`}
