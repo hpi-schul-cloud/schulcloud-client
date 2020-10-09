@@ -246,9 +246,12 @@ $(() => {
 			beforeSend(xhr) {
 				xhr.setRequestHeader('Csrf-Token', `${csrftoken}`);
 			},
-			success() {
+			success(response) {
 				window.location.href = '/';
 			},
+			error(response) {
+				console.log(response);
+			}
 		});
 	});
 });
