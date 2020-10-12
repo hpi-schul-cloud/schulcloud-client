@@ -253,9 +253,9 @@ $(() => {
 			fail() {
 				const lang = $('html').attr('lang');
 				// eslint-disable-next-line no-alert, no-unused-expressions
-				lang === 'de' ? alert('Anmeldung fehlgeschlagen. Bitte laden Sie die Seite neu.')
+				lang !== 'de' ? alert('Logout failed. Please reload the page.')
 					// eslint-disable-next-line no-alert
-					: alert('Logout failed. Please reload the page.');
+					: alert('Anmeldung fehlgeschlagen. Bitte laden Sie die Seite neu.');
 			},
 		});
 	});
