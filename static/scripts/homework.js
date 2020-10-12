@@ -18,7 +18,7 @@ const getCurrentParent = getDataValue('parent');
 let lastFocusedElement;
 
 window.addEventListener('keydown', (e) => {
-	if (e.keyCode === 27) {
+	if (e.keyCode === 27 && lastFocusedElement) {
 		lastFocusedElement.focus();
 	}
 });
