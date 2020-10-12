@@ -20,7 +20,6 @@
                         link-text=($t 'files.label.filesOpen')
                         content=($t 'files.label.myPersonalDataContent')
                         background="#283E56"
-                        linkAriaDescription=($t "files.aria_label.openPersonalFiles")
                     }}
                 </div>
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
@@ -31,7 +30,6 @@
                         link-text=($t 'files.label.filesOpen')
                         content=($t 'global.link.courseDataContent')
                         background="#1989AC"
-                        linkAriaDescription=($t "files.aria_label.openCourseFiles")
                     }}
                 </div>
                 {{#ifEnv "FEATURE_TEAMS_ENABLED" "true"}}
@@ -43,7 +41,6 @@
                         link-text=($t 'files.label.filesOpen')
                         content=($t 'global.link.filesContent')
                         background="#1989AC"
-                        linkAriaDescription=($t "files.aria_label.openTeamFiles")
                     }}
                 </div>
                 {{/ifEnv}}
@@ -55,7 +52,6 @@
                         link-text=($t 'files.label.filesOpen')
                         content=($t 'files.label.filesSharedWithMeContent')
                         background="#00B8A9"
-                        linkAriaDescription=($t "files.aria_label.openSharedFiles")
                     }}
                 </div>
             </div>
