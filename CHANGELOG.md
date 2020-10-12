@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+- SC-7182 do not allow to open office files in new windows
 
 ### Added
 
@@ -18,6 +19,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-7171 fix asking for confirmation after consent update
+
+### Added
+
+ - SC-6582 Add bidirectional messenger settings for course creation
 
 ## [25.0.6] - 2020-10-01
 
