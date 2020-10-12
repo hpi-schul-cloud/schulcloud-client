@@ -3065,6 +3065,12 @@
 					"theHassoPlattnerInstituteForDigital": "Das <a href='https://hpi.de/'>Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href='https://www.mint-ec.de/'>MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Dies ist die offene Instanz der HPI Schul-Cloud, über die einzelne Schulen Zugang zur Plattform erhalten können.",
 					"wouldYouLikeToBecomeAMember": "Du möchtest gerne Mitglied in unserem HPI Schul-Cloud Team werden? Wir suchen:"
 				}
+			},
+			"help": {
+				"text": {
+					"theHassoPlattnerInstituteIsAvailableFor": "Das Hasso-Plattner-Institut steht für alle Fragen zur HPI Schul-Cloud zur Verfügung. Wir sind unter folgender Email-Adresse erreichbar:",
+					"toReportProblemsOrRequestRegarding": "Für die Meldung von Problemen oder Wünschen hinsichtlich der Bedienung der HPI Schul-Cloud verwende bitte das Kontaktformular im Hilfebereich oder sende eine E-Mail an <br><a href='mailto:feedback@hpi-schul-cloud.de' target='blank' rel='noopener' class='externalLink'>feedback@hpi-schul-cloud.de"
+				}
 			}
 		}
 	},

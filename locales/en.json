@@ -3065,6 +3065,12 @@
 					"theHassoPlattnerInstituteForDigital": "The <a href='https://hpi.de/'>Hasso-Plattner-Institute</a> for digital engineering developed under the direction of Prof. Dr. Christoph Meinel together with <a href='https://www.mint-ec.de/'>MINT-EC</a>, the national excellence school network of over 300 schools nationwide and supported by the Federal Ministry of Education and Research HPI school cloud. It should create the technical basis so that teachers and students can use modern digital teaching and learning content in every subject, in the same way as apps can be used on smartphones or tablets. This is the open instance of the HPI School Cloud through which individual schools can access the platform.",
 					"wouldYouLikeToBecomeAMember": "Would you like to become a member of our HPI School Cloud Team? We are looking for:"
 				}
+			},
+			"help": {
+				"text": {
+					"theHassoPlattnerInstituteIsAvailableFor": "The Hasso Plattner Institute is available for all questions about the HPI School Cloud. We can be reached at the following email address:",
+					"toReportProblemsOrRequestRegarding": "To report problems or requests regarding the operation of the HPI School Cloud, please use the contact form in the help area or send an email to <br><a href='mailto:feedback@hpi-schul-cloud.de' target='blank' rel='noopener' class='externalLink'>feedback@hpi-schul-cloud.de"
+				}
 			}
 		}
 	},
