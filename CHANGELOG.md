@@ -9,11 +9,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-## [25.0.7] - 2020-10-01
+## [25.0.7] - 2020-10-09
 
 ### Fixed
-
 - SC-6735 administration remove consent triggers import hash generation
+- SC-7171 fix asking for confirmation after consent update
 
 ## [25.0.6] - 2020-10-01
 

@@ -31,7 +31,6 @@ const {
 	JWT_TIMEOUT_SECONDS,
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
-	ROCKETCHAT_SERVICE_ENABLED,
 	FEATURE_MATRIX_MESSENGER_ENABLED,
 } = require('./config/global');
 
@@ -189,7 +188,7 @@ app.use(async (req, res, next) => {
 	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
 	res.locals.version = version;
 	res.locals.sha = sha;
-	res.locals.ROCKETCHAT_SERVICE_ENABLED = ROCKETCHAT_SERVICE_ENABLED;
+	res.locals.ROCKETCHAT_SERVICE_ENABLED = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 	res.locals.FEATURE_MATRIX_MESSENGER_ENABLED = FEATURE_MATRIX_MESSENGER_ENABLED;
 	delete req.session.notification;
 	try {
