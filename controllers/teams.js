@@ -13,8 +13,7 @@ const api = require('../api');
 const logger = require('../helpers/logger');
 
 const {
-	CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED,
-	ROCKET_CHAT_URI,
+	CALENDAR_SERVICE_ENABLED,
 } = require('../config/global');
 
 const router = express.Router();
@@ -147,6 +146,13 @@ const editTeamHandler = async (req, res, next) => {
 		}
 	}
 
+	let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
+	const rocketChatDeprecated = Configuration.has('ROCKET_CHAT_DEPRECATION_DATE');
+	if (rocketChatDeprecated) {
+		const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
+		if (deprecationDate < Date.now()) instanceUsesRocketChat = false;
+	}
+
 	teamPromise.then((team) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
 			return next(new Error(res.$t('global.text.403')));
@@ -163,6 +169,8 @@ const editTeamHandler = async (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
+			instanceUsesRocketChat,
+			rocketChatDeprecated,
 		});
 	});
 };
@@ -475,14 +483,6 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
-function sortFunction(a, b) {
-	if (a.displayAt === b.displayAt) {
-		return 0;
-	}
-
-	return a.displayAt < b.displayAt ? 1 : -1;
-}
-
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
@@ -508,7 +508,11 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		});
 
-		const instanceUsesRocketChat = ROCKETCHAT_SERVICE_ENABLED;
+		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
+		if (Configuration.has('ROCKET_CHAT_DEPRECATION_DATE')) {
+			const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
+			if (deprecationDate < Date.now()) instanceUsesRocketChat = false;
+		}
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (
 			res.locals.currentSchoolData.features || []
@@ -525,7 +529,7 @@ router.get('/:teamId', async (req, res, next) => {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
 				);
-				const rocketChatURL = ROCKET_CHAT_URI;
+				const rocketChatURL = Configuration.get('ROCKET_CHAT_URI');
 				rocketChatCompleteURL = `${rocketChatURL}/group/${
 					rocketChatChannel.channelName
 				}`;
@@ -629,6 +633,8 @@ router.get('/:teamId', async (req, res, next) => {
 					displayAt: {
 						$lte: new Date().getTime(),
 					},
+					sort: '-displayAt',
+					$limit: 3,
 				},
 			})
 			.then((newsres) => newsres.data
@@ -636,9 +642,7 @@ router.get('/:teamId', async (req, res, next) => {
 					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
 					n.secondaryTitle = moment(n.displayAt).fromNow();
 					return n;
-				})
-				.sort(sortFunction)
-				.slice(0, 4))
+				}))
 			.catch((err) => {
 				logger.error(
 					`
