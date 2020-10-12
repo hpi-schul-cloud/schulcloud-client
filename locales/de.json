@@ -401,6 +401,7 @@
 				"student": "Schüler:in",
 				"studentParticipants": "Schüler / Teilnehmer",
 				"substituteTeacher": "Vertretungslehrer:in",
+				"noSubTeacherSelection": "Lehrer:in auswählen",
 				"teacher": "Lehrer:in",
 				"teachingTeacher": "Unterrichtenderlehrer:in",
 				"termsOfUse": "Nutzungsbedingungen",
@@ -548,6 +549,7 @@
 			},
 			"label": {
 				"activeChatFunction": "Chatfunktion aktivieren",
+				"activeMatrixFunction": "Matrix Messenger aktivieren",
 				"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
 				"allStudentsVisibility": "Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schülerinnen und Schüler der Schule für jeden Lehrer zu aktivieren, ist es erforderlich, dass jede Schülerin und jeder Schüler wirksam in diese Datenverarbeitung eingewilligt hat.",
 				"authentication": "Authentifizierung",
@@ -582,7 +584,8 @@
 				"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr"
 			},
 			"link": {
-				"moreInfo": "Mehr Infos"
+				"moreInfo": "Mehr Infos",
+				"matrixHelpPage": "Hilfeartikel zum Messenger"
 			},
 			"text": {
 				"LDAPChanges": "du kannst die notwendigen Änderungen für das neue Schuljahr im\nLDAP vornehmen (neue Nutzer, Update der Klassen)",
@@ -600,6 +603,7 @@
 				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team die Chatfunktion gezielt freischalten.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer starten. Team-Administratoren können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
+				"ifMatrixIsActivatedAtYourSchool": "Ist der Matrix Messenger aktiviert, können alle Lehrer:innen dieser Schule Chaträume, private Unterhaltungen oder kurs- und teaminterne Gruppendiskussionen starten. Schüler:innen haben dort anfangs nur Leserechte, können aber über die Kurs- und Teameinstellungen auch Schreibrechte zugewiesen bekommen. Schüler:innen können zudem auch private Chats innerhalb von Kursen und Teams starten. Mehr Informationen dazu findest du im ",
 				"loginViaLDAP": "der Login via LDAP ist für bestehende Nutzer weiterhin möglich",
 				"newSchoolYear": "Neues Schuljahr",
 				"newUsersClassesAndChanges": "neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus dem LDAP synchronisiert",
