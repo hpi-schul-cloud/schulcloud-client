@@ -35,8 +35,10 @@
                     {{! Messenger is activated for current school }}
                     {{#inArray "messenger" @root.schoolData.features}}
                         <div class="form-group">
-                            <label for="activateMessenger">{{$t "teams._team.edit.label.activateBidirectionalMessenger"}}</label>
+                            <label>
                                 <input id="activateMessenger" type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../team.features}}checked{{/inArray}}>
+                                {{$t "teams._team.edit.label.activateBidirectionalMessenger"}}
+                            </label>
                         </div>
                     {{/inArray}}
                 {{/ifConfig}}
