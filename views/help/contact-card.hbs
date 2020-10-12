@@ -16,14 +16,14 @@
   </form>
 
   <div class="team_form {{#unless teamFormIsActive}}hidden{{/unless}}">
-    <p>{{$t "help.contact.text.thankYouForYourFeedbak" (dict "shortTitle" theme.short_title)}}</p>
+    <p>{{$t "help.contact.text.thankYouForYourFeedback" (dict "shortTitle" theme.short_title)}}</p>
     <fieldset class="switch_wrapper" id="message_type">
       <legend>{{$t "help.contact.text.whatKindOfFeedbackDoYouWant" }}</legend>
       <div class="switch">
         <input type="radio" id="bug" name="message_type" value="bug" checked>
         <label for="bug" tabindex="0" role="button">Problem</label>
         <input type="radio" id="wish" name="message_type" value="wish">
-        <label for="wish" tabindex="0" role="button">{{$t "help.contact.label.schoolAdmin" }}</label>
+        <label for="wish" tabindex="0" role="button">{{$t "help.contact.label.wish" }}</label>
       </div>
     </fieldset>
 

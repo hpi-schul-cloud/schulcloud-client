@@ -1,7 +1,7 @@
 <div class="welcomeGreeting">
     <div class="welcomeGreetingImage text-center" id="welcome">
         <div class="content">
-            <img role="presentation" src="/images/firstLogin/welcome_screen.svg">
+            {{> 'firstLogin/partials/svg_onboarding_welcome'}}
             <hr class="mt-0">
                 <h1 class="h2">{{$t "firstLogin.welcome.text.welcomeToShort" (dict "shortTitle" @root.theme.short_title)}}</h1>
             <hr>
@@ -17,14 +17,14 @@
         {{#inArray 'administrator' roleNames}}
             <div class="row mt-3">
                 <div class="col-xs-12 col-sm-3 text-center">
-                    <img src="/images/firstLogin/welcome-1-fobi.svg" alt="{{$t "firstLogin.thanks.img_alt.onlineTraining"}}" width="150px">
+                    {{> 'firstLogin/partials/svg_onboarding_teacher'}}
                 </div>
                 <div class="col-xs-12 col-sm-9">
                     <p>
                         {{$t "firstLogin.thanks.text.youAreAdminAndHaveTheHonorable" (dict "title" @root.theme.title)}} <b>{{$t "firstLogin.thanks.img_alt.onlineTraining"}}</b> {{$t "firstLogin.thanks.text.andLearnEverythingYouNeed"}}
                     </p>
                     <div class="text-xs-center text-sm-right">
-                        <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/">{{$t "firstLogin.text.clickhereForFurtherTraining" }}</a>
+                        <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/">{{$t "firstLogin.text.clickHereForFurtherTraining" }}</a>
                     </div>
                 </div>
             </div>
@@ -32,14 +32,14 @@
             {{#inArray 'teacher' ../roleNames}}
                 <div class="row mt-3">
                     <div class="col-xs-12 col-sm-3 text-center">
-                        <img src="/images/firstLogin/welcome-1-fobi.svg" alt="{{$t "firstLogin.thanks.img_alt.onlineTraining"}}" width="150px">
+                        {{> 'firstLogin/partials/svg_onboarding_teacher'}}
                     </div>
                     <div class="col-xs-12 col-sm-9">
                         <p>
-                            {{$t "firstLogin.thanks.text.whatCanActuallydo" (dict "shortTitle" @root.theme.short_title)}} <b>{{$t "firstLogin.thanks.img_alt.onlineTraining"}}</b> {{$t "firstLogin.thanks.text.forVividAndPracticalVideos"}}
+                            {{$t "firstLogin.thanks.text.whatCanActuallyDo" (dict "shortTitle" @root.theme.short_title)}} <b>{{$t "firstLogin.thanks.img_alt.onlineTraining"}}</b> {{$t "firstLogin.thanks.text.forVividAndPracticalVideos"}}
                         </p>
                         <div class="text-xs-center text-sm-right">
-                            <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/">{{$t "firstLogin.text.clickhereForFurtherTraining" }}</a>
+                            <a class="btn btn-warning" target="_blank" rel="noopener noreferrer" href="https://lernen.cloud/">{{$t "firstLogin.text.clickHereForFurtherTraining" }}</a>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                 {{#inArray 'student' ../roleNames}}
                     <div class="row mt-3">
                         <div class="col-xs-12 col-sm-3 text-center">
-                            <img src="/images/firstLogin/welcome-1-student.svg" alt="{{$t "firstLogin.thanks.img_alt.onlineTraining"}}" width="150px">
+                            {{> 'firstLogin/partials/svg_onboarding_student'}}
                         </div>
                         <div class="col-xs-12 col-sm-9">
                             {{$t "firstLogin.thanks.text.nowTeachersCanInviteToCoursesAndAccess"}}
@@ -58,9 +58,9 @@
         {{/inArray}}
         <div class="row mt-3">
             <div class="col-xs-12 col-sm-3 text-center">
-                <img src="/images/firstLogin/welcome-2-help.svg" alt="Help" width="150px">
+                {{> 'firstLogin/partials/svg_onboarding_help'}}
             </div>
-            <div class="col-xs-12 col-sm-9 mt-2">
+            <div class="col-xs-12 col-sm-9">
                 <p>
                     {{$t "firstLogin.thanks.text.overEveryPageInThe" (dict "shortTitle" @root.theme.short_title)}} <b>{{$t "firstLogin.thanks.img_alt.questionMark"}}</b> {{$t "firstLogin.thanks.text.inTheTopRightOfOur"}} <b>{{$t "global.link.helpArea"}}</b>.
                     {{$t "firstLogin.thanks.text.thereYouWillFindDetailedInstructions"}}

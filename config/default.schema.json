@@ -57,6 +57,11 @@
 			"default": true,
 			"description": "If enabled, morgan logs are written."
 		},
+		"FEATURE_SKIP_FIRST_LOGIN_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, firstLogin page is not shown."
+		},
 		"MORGAN_LOG_FORMAT": {
 			"type": "string",
 			"default": "dev",
@@ -317,6 +322,58 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Feature toggle for automatic consent during TSP sync."
+		},
+		"ROCKETCHAT_SERVICE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "feature toggle to activate rocketchat for the instance."
+		},
+		"ROCKET_CHAT_URI": {
+			"type": "string",
+			"format": "uri",
+			"default": "http://localhost:15000",
+			"pattern": ".*(?<!/)$",
+			"description": "uri of the rocketchat server."
+		},
+		"ROCKET_CHAT_DEPRECATION_DATE": {
+			"type": "string",
+			"format": "date-time",
+			"examples": ["2020-11-01T20:20:00+00:00"],
+			"description": "if this is set, rocketchat will be treated as disabled after this date."
+		},
+		"I18N": {
+			"type": "object",
+			"description": "Configuration of I18N",
+			"properties": {
+				"DEFAULT_LANGUAGE": {
+					"type": "string",
+					"default": "de",
+					"enum": [
+						"de",
+						"en"
+					],
+					"description": "Value for the default language"
+				},
+				"FALLBACK_LANGUAGE": {
+					"type": "string",
+					"default": "de",
+					"description": "Value for the fallback language if translation key is not found"
+				},
+				"DEBUG": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable i18n logging to console, e.g. missing translation keys"
+				},
+				"AVAILABLE_LANGUAGES": {
+					"type": "string",
+					"default": "de,en",
+					"description": "Available languages"
+				}
+			},
+			"required": [
+				"DEFAULT_LANGUAGE",
+				"AVAILABLE_LANGUAGES"
+			]
 		}
 	},
 	"allOf": [
