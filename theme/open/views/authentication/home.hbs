@@ -35,8 +35,8 @@
 
 					<section class="card">
 						<div class="card-block">
-							<h2 class="h4">Herzlich willkommen bei der {{theme.title}} !</h2>
-							<p>Das <a href="https://hpi.de/">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Dies ist die offene Instanz der HPI Schul-Cloud, über die einzelne Schulen Zugang zur Plattform erhalten können.</p>
+							<h2 class="h4">{{$t "theme.open.authentication.headline.welcomeToTheTheme" (dict "title" theme.title)}}</h2>
+							<p>{{$t "theme.open.authentication.text.theHassoPlattnerInstituteForDigital"}}</p>
 						<div>
 					</section>
 				</main>
@@ -47,9 +47,9 @@
 
 					 <section id="jobs" class="card">
 						<div class="card-block">
-							<h2 class="h4 card-title">Stellenausschreibungen</h2>
+							<h2 class="h4 card-title">{{$t "theme.open.authentication.headline.jobPostings"}}</h2>
 							<div class="form-group">
-								Du möchtest gerne Mitglied in unserem HPI Schul-Cloud Team werden? Wir suchen:
+								{{$t "theme.open.authentication.text.wouldYouLikeToBecomeAMember"}}
 							</div>
 							<a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/system-engineer-dev-ops-mw.html"
 								rel="noopener" target="_blank">DevOps</a><br>
