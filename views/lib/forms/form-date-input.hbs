@@ -14,7 +14,7 @@
             data-format="{{#if dataFormat}}{{dataFormat}}{{else}}{{$t "format.datePicker"}}{{/if}}"
             data-mask="{{#if dataMask}}{{dataMask}}{{else}}{{$t "format.datePickerMask"}}{{/if}}"
             data-min-date="{{#if dataMinDate}}{{dataMinDate}}{{else}}0{{/if}}"
-            data-max-date="{{#if dataMaxDate}}{{dataMaxDate}}{{/if}}"
+            {{#if dataMaxDate}}data-max-date="{{dataMaxDate}}"{{/if}}
             data-testid="{{#if dataTestId}}{{dataTestId}}{{else}}form-date-input-{{id}}{{/if}}"
             {{#if disabled}}disabled{{/if}}
             {{#if required}}required{{/if}}

@@ -84,11 +84,12 @@ const splitDate = (date) => {
 /**
  * @param {String} dateString String representation of date
  * @param {String} format Format of dateString, e.g. DD.MM.YYYY HH:mm
+ * @param keepOffset boolean value whether to keep timezone offset
  * @return {moment} Date object based on current timezone
  */
-const createFromString = (dateString, format) => {
+const createFromString = (dateString, format, keepOffset = true) => {
 	const result = moment(dateString, format);
-	logger.info(`timesHelper.createFromString: ${dateString} to ${result.toISOString(true)}`);
+	logger.info(`timesHelper.createFromString: ${dateString} to ${result.toISOString(keepOffset)}`);
 	return result;
 };
 

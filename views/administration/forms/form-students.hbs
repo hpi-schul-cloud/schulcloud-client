@@ -20,7 +20,8 @@
 <div class="form-group">
     {{> "lib/forms/form-date-input"
             label=($t "global.label.dateOfBirth")
-            id="create_birthday"
+            id="birthday"
+            class="input-group"
             value=(datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 0)
             dataMinDate=(datePickerTodayMinus 100 0 0)
             dataMaxDate=(datePickerTodayMinus 4 0 0)
