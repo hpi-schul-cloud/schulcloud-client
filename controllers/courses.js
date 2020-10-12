@@ -497,6 +497,14 @@ router.post('/', (req, res, next) => {
 		req.body.untilDate = untilDate.toDate();
 	}
 
+	req.body.features = [];
+	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
+
 	api(req)
 		.post('/courses/', {
 			json: req.body, // TODO: sanitize
