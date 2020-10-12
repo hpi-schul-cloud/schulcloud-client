@@ -176,11 +176,15 @@ const helpers = () => ({
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
 	timeFromNow: (date, opts) => moment(date).fromNow(),
-	datePickerTodayMinus: (years, months, days) => {
+	datePickerTodayMinus: (years, months, days, format) => {
+		if (typeof (format) !== 'string') {
+			format = 'YYYY.MM.DD';
+		}
 		return moment()
 			.subtract(years, 'years')
 			.subtract(months, 'months')
 			.subtract(days, 'days')
+			.format(format);
 	},
 	dateToPicker: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateToPicker')),
 	dateTimeToPicker: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateTimeToPicker')),
