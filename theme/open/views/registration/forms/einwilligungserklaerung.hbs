@@ -1,30 +1,30 @@
 {{#if prefix}}
 	<label>
 		<input name="{{prefix}}parentalAuthConsent" type="checkbox" value="true" required/>
-		<span>Ich, <b data-from="parent_firstName"></b> <b data-from="parent_lastName"></b>, bin erziehungsberechtigt für <b data-from="firstName"></b> <b data-from="lastName"></b> und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.</span>
+		<span>{{{$t "registration._registration.parent.label.iAmLegalGuardianOfChild"}}}</span>
 	</label>
 	<p style="font-size: 8px;margin: 0;">&nbsp;</p>
 
 	<label>
 		<input name="{{prefix}}privacyConsent" type="checkbox" value="true" required/>
-		<span>Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der
+		<span>{{$t "registration.text.iAgreeThatThepersonalData"}}
 			{{#if @root.schoolPrivacyLink}}
-				die <a href="{{@root.schoolPrivacyLink}}" class="base64File-download-btn" id="privacy-link" target="_blank">Datenschutzerklärung</a>
+				die <a href="{{@root.schoolPrivacyLink}}" class="base64File-download-btn" id="privacy-link" target="_blank">{{$t "global.text.dataProtection"}}</a>
 			{{else}}
-				die <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank">Datenschutzerklärung</a>
+				die <a href="{{@root.theme.documents.specificFiles.privacyExemplary}}" target="_blank">{{$t "global.text.dataProtection"}}</a>
 			{{/if}}
-			der Schule in der {{@root.theme.title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.</span>
+			{{$t "theme.open.registration.text.byTheSchoolInThe" dict ("title" root.theme.title)}}</span>
 	</label>
-	<p class="explanation">Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{@root.theme.title}}, wird durch die Schule ermöglicht werden. Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@hpi-schul-cloud.de?subject=Widerruf der Einwilligung" target="_blank">widerruf@hpi-schul-cloud.de</a>. Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class="nav-link" target="_blank" href="https://docs.schul-cloud.org/x/GxfGBg">FAQ</a> entnehmen.</p>
+	<p class="explanation">{{{$t "registration._registration.global.text.agreementIsVoluntary" (dict "title" @root.theme.title)}}} {{{$t "registration._registration.global.text.agreementCanBeRevoked"}}} {{{$t "registration._registration.global.text.inCaseOfRevocationDataDeletion"}}}</p>
 {{else}}
 	<label>
 		<input name="{{prefix}}privacyConsent" type="checkbox" value="true" required/>
-		<span>Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href="{{@root.theme.documents.specificFiles.privacy}}" target="_blank" rel="noopener">Datenschutzerklärung</a> der Schule in der {{@root.theme.title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.</span>
+		<span>{{{$t "registration._registration.global.text.myDataMayBeProcessed" (dict "link" @root.theme.documents.specificFiles.privacyExemplary "title" @root.theme.title)}}}</span>
 	</label>
-	<p class="explanation">Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{@root.theme.title}}, wird durch die Schule ermöglicht werden. Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@hpi-schul-cloud.de?subject=Widerruf der Einwilligung" target="_blank">widerruf@hpi-schul-cloud.de</a>. Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class="nav-link" target="_blank" href="https://docs.schul-cloud.org/x/GxfGBg">FAQ</a> entnehmen.</p>
+	<p class="explanation">{{{$t "registration._registration.global.text.agreementIsVoluntary" (dict "title" @root.theme.title)}}} {{{$t "registration._registration.global.text.agreementCanBeRevoked"}}} {{{$t "registration._registration.global.text.inCaseOfRevocationDataDeletion"}}}</p>
 {{/if}}
 
 <label>
     <input name="{{prefix}}termsOfUseConsent" type="checkbox" aria-required="true" value="true" required/>
-    <span>Ich habe die <a href="{{@root.theme.documents.specificFiles.termsOfUse}}" target="_blank" rel="noopener">Nutzungsordnung der {{@root.theme.title}}</a> gelesen und stimme ihr zu.</span>
+    <span>{{{$t "registration.text.agreeTermsOfUse" (dict "link" @root.theme.documents.specificFiles.termsOfUseExemplary "title" @root.theme.title)}}}</span>
 </label>
