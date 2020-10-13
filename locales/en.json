@@ -2108,6 +2108,7 @@
 			"doYouReallyWantToReplaceSubmission": "Are you sure you want to replace your assessment with the student's submission?",
 			"done": "Great! You've completed your task!",
 			"due": "Due",
+			"till": "till",
 			"fileAlreadyExists": "This file name already exists in your files. Please rename the file.",
 			"maximumTeamSize": "The maximum team size is {{maxMembers}} members",
 			"noAssignment": "No assignment",

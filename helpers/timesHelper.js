@@ -68,6 +68,13 @@ const now = () => {
 };
 
 /**
+ *
+ * @param date
+ * @returns {string}
+ */
+const fromNow = (date) => moment(date).fromNow();
+
+/**
  * @param {Date} date Date object
  * @return {Object} Timestamp, date and time of given date as object
  */
@@ -118,6 +125,20 @@ const cloneUtcDate = (date, format = 'DD.MM.YYYY HH:mm') => {
 };
 
 /**
+ * converts time to string. If time is less than 5 days before now then return fromNow. Otherwise formatDate
+ * @param date
+ * @param format
+ * @returns {string}
+ */
+const timeToString = (date, format) => {
+	const d = moment(date);
+	if (d.diff(now()) < 0 || d.diff(now(), 'days') > 5) {
+		return formatDate(date, format, true);
+	}
+	return moment(date).fromNow();
+};
+
+/**
  * Prints current school timezone
  * @param showTimezoneOffset
  * @returns {string}
@@ -134,6 +155,8 @@ module.exports = {
 	fromUTC,
 	currentDate,
 	now,
+	fromNow,
+	timeToString,
 	splitDate,
 	formatDate,
 	createFromString,

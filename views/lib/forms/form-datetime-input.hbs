@@ -10,7 +10,7 @@
             autocomplete="off"
             id={{id}}
             type="text"
-            value="{{dateTimeToPicker value}}"
+            {{#if value}}value="{{dateTimeToPicker value}}"{{/if}}
             {{#if dataFormat}}data-format="{{dataFormat}}"{{else}}data-format="{{$t "format.dateTimePicker"}}"{{/if}}
             {{#if dataMask}}data-mask="{{dataMask}}"{{else}}data-mask="{{$t "format.dateTimePickerMask"}}"{{/if}}
             {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{else}}data-min-date="0"{{/if}}

@@ -10,12 +10,12 @@
             autocomplete="off"
             id={{id}}
             type="text"
-            value="{{#if value}}{{dateToPicker value}}{{/if}}"
-            data-format="{{#if dataFormat}}{{dataFormat}}{{else}}{{$t "format.datePicker"}}{{/if}}"
-            data-mask="{{#if dataMask}}{{dataMask}}{{else}}{{$t "format.datePickerMask"}}{{/if}}"
-            data-min-date="{{#if dataMinDate}}{{dataMinDate}}{{else}}0{{/if}}"
+            {{#if value}}value="{{dateToPicker value}}"{{/if}}
+            {{#if dataFormat}}data-format="{{dataFormat}}"{{else}}data-format="{{$t "format.datePicker"}}"{{/if}}
+            {{#if dataMask}}data-mask="{{dataMask}}"{{else}}data-mask="{{$t "format.datePickerMask"}}"{{/if}}
+            {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{else}}data-min-date="0"{{/if}}
             {{#if dataMaxDate}}data-max-date="{{dataMaxDate}}"{{/if}}
-            data-testid="{{#if dataTestId}}{{dataTestId}}{{else}}form-date-input-{{id}}{{/if}}"
+            {{#if dataTestId}}data-testid="{{dataTestId}}"{{else}}data-testid="form-date-input-{{id}}"{{/if}}
             {{#if disabled}}disabled{{/if}}
             {{#if required}}required{{/if}}
             {{#if readonly}}readonly{{/if}}

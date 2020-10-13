@@ -76,4 +76,17 @@ describe('times helpers test', () => {
 		chai.expect(resultDate.toISOString(true))
 			.to.equal('2020-11-01T01:00:00.000-07:00');
 	});
+
+	it('should correctly display time string', () => {
+		const testFormat = 'MM/DD/YYYY HH:mm';
+		const timeToString = timesHelper.timeToString(testDate, testFormat);
+		chai.expect(timeToString).to.equal('11/01/2020 02:00');
+	});
+
+	it('should correctly display time string from now', () => {
+		const testFormat = 'MM/DD/YYYY HH:mm';
+		const tomorrow = moment().add(1, 'day').toDate();
+		const timeToTomorrow = timesHelper.timeToString(tomorrow, testFormat);
+		chai.expect(timeToTomorrow).to.equal('in a day');
+	});
 });

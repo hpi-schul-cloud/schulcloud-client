@@ -7,7 +7,7 @@
             {{/if}}
             {{#if this.availableDate}}{{timeToString availableDate}}<br />{{/if}}
             {{#if this.dueDate}}
-            bis {{timeToString dueDate}}
+                {{$t "homework.text.till"}} {{timeToString dueDate}}
             {{else}}
             {{$t "homework.text.noSubmissionDateSet"}}
             {{/if}}
