@@ -7,6 +7,7 @@ const api = require('../api');
 const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
+const timesHelper = require('../helpers/timesHelper');
 const { getCurrentLanguage } = require('../helpers/i18n');
 
 let invalid = false;
@@ -101,6 +102,7 @@ router.post(
 				);
 			});
 		}
+		req.body.birthDate = timesHelper.createFromString(req.body.birthDate, res.$t('format.dateToPicker'), false);
 
 		return api(req)
 			.post('/registration/', {

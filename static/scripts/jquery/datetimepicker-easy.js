@@ -39,12 +39,6 @@ if (!window.datetimepicker) {
 				dayOfWeekStart: 1,
 			});
 			input.setAttribute('autocomplete', 'off');
-			if (input.hasAttribute('required')) {
-				const dateRegex = '(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.((?:19|20)\\d{2})';
-				const timeRegex = '([01][0-9]|2[0-4])\\:[0-5][0-9]';
-				const datetimeRegex = `${dateRegex}\\s${timeRegex}`;
-				input.setAttribute('pattern', input.dataset.datetime !== undefined ? datetimeRegex : dateRegex);
-			}
 		});
 	};
 	document.addEventListener('DOMContentLoaded', window.datetimepicker);
