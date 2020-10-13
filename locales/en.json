@@ -3013,9 +3013,6 @@
 				}
 			},
 			"imprint": {
-				"headline": {
-					"legalNotice": "Legal Notice:"
-				},
 				"text": {
 					"nonCommercialPilotProject": "The {{title}} is a non-commercial pilot project, which was carried out by the HPI in cooperation with the Ministry of Education, Youth and Sports of the State of Brandenburg (<a href='https://mbjs.brandenburg.de' target='_blank' rel='noopener'>https://mbjs.brandenburg.de</a>) and the Digital Agency Brandenburg GmbH (<a href='https://www.ilb.de/de/wir-ueber-uns/beteiligungen/weitere-beteiligungen/digitalagentur-brandenburg-gmbh/' target='_blank' rel='noopener'>https://www.ilb.de/de/wir-ueber-uns/beteiligungen/weitere-beteiligungen/digitalagentur-brandenburg-gmbh/</a>) is carried out."
 				}
@@ -3070,6 +3067,15 @@
 				"text": {
 					"theHassoPlattnerInstituteIsAvailableFor": "The Hasso Plattner Institute is available for all questions about the HPI School Cloud. We can be reached at the following email address:",
 					"toReportProblemsOrRequestRegarding": "To report problems or requests regarding the operation of the HPI School Cloud, please use the contact form in the help area or send an email to <br><a href='mailto:feedback@hpi-schul-cloud.de' target='blank' rel='noopener' class='externalLink'>feedback@hpi-schul-cloud.de"
+				}
+			},
+			"imprint": {
+				"headline": {
+					"imprint": "Imprint"
+				},
+				"text": {
+					"imprintLegalNoticeOpen": "The HPI School Cloud is a non-commercial pilot project, which was carried out by HPI in cooperation with the national Excellence School Network MINT EC (<a href='https://www.mint-ec.de/' target='_blank' rel='noopener'>https://www.mint-ec.de/</a>) carried out and funded by the Federal Ministry of Education and Research (BMBF) (more information can be found at: <a href='https://hpi.de/schul-cloud' target='_blank' rel='noopener'>https://hpi.de/schul-cloud</a>). The contents of the HPI School Cloud are not official announcements of the HPI. The respective authors are responsible for the contents. Commercial distribution of the content available via the HPI School Cloud is expressly prohibited without prior written consent, unless this is expressly indicated. The editorial responsibility for the content of linked websites of other providers (including the links to third parties anchored there), in particular the responsibility for compliance with the provisions of the protection of minors and data protection law, lies solely with the respective provider in every respect.",
+				    "HPIRegularlyChecks": "The Hasso Plattner Institute (HPI) regularly checks and updates the content of its websites. Despite the greatest possible care, we cannot rule out that individual information on our website is out of date or no longer applicable. Therefore we cannot accept any liability for the topicality, accuracy and completeness of the information published. The same applies to all websites that can be accessed from the HPI pages via hyperlinks. The following applies to all these links: We expressly declare that we have no influence on the design and content of the linked site. Therefore, we hereby distance ourselves from all content on all linked sites and do not adopt their content as our own. This declaration applies to all links on our site to external sites. The HPI is not responsible for the content of these linked pages. Furthermore, the HPI reserves the right to make changes and additions to the information displayed at any time. The content and structure of the HPI website are protected by copyright. The further use of information and data is only permitted with our consent. We wish you an informative stay on our website and look forward to your suggestions, requests or criticism regarding the HPI School Cloud."
 				}
 			}
 		}
