@@ -13,18 +13,20 @@
 			mask: '{{$t "format.dateTimePickerMask"}}',
 			dayOfWeekStart: 1,
 			onShow: function (ct, input) {
-				if (input[0].id == "availableDate") {
+			    const datePickerMask = "{{$t "format.datePickerMask"}}";
+			    const datePickerPlaceholder = datePickerMask.replace(/[0-9]/g, "_");
+				if (input[0].id === "availableDate") {
 					let due = $("#dueDate").val().split(" ");
 					this.setOptions({
 						minDate: 0,
-						maxDate: (due[0] != "{{$t "format.datePickerMask"}}") ? due[0] : false,
+						maxDate: (due[0] !== datePickerPlaceholder) ? due[0] : false,
 						formatDate: '{{$t "format.datePicker"}}',
 					});
 				}
-				else if (input[0].id == "dueDate") {
+				else if (input[0].id === "dueDate") {
 					let available = $("#availableDate").val().split(" ");
 					this.setOptions({
-						minDate: (available[0] != "{{$t "format.datePickerMask"}}") ? available[0] : 0,
+						minDate: (available[0] !== datePickerPlaceholder) ? available[0] : 0,
 						maxDate: false,
 						formatDate: '{{$t "format.datePicker"}}'
 					});

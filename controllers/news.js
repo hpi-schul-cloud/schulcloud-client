@@ -53,9 +53,12 @@ const getDeleteHandler = (service) => (req, res, next) => {
 
 router.post('/', (req, res, next) => {
 	const { body } = req;
-	if (body.displayAt && body.displayAt !== '__.__.____ __:__') {
+	const dateTimePickerMask = res.$t('format.dateTimePickerMask');
+	const datePickerPlaceholder = dateTimePickerMask.replace(/[0-9]/g, '_');
+
+	if (body.displayAt && body.displayAt !== datePickerPlaceholder) {
 		// rewrite german format to ISO
-		body.displayAt = timesHelper.createFromString(body.displayAt, res.$t('format.dateTimeToPicker')).toISOString();
+		body.displayAt = timesHelper.createFromString(body.displayAt, dateTimePickerMask).toISOString();
 	} else {
 		body.displayAt = undefined;
 	}
