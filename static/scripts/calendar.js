@@ -96,8 +96,8 @@ $(document).ready(() => {
 				return false;
 			}
 			// personal event
-			const startDate = toMoment(event.start, calendar).format('DD.MM.YYYY HH:mm');
-			const endDate = toMoment(event.end || event.start, calendar).format('DD.MM.YYYY HH:mm');
+			const startDate = toMoment(event.start, calendar).format($t('format.dateTimeToPicker'));
+			const endDate = toMoment(event.end || event.start, calendar).format($t('format.dateTimeToPicker'));
 
 			const { attributes } = event.extendedProps || {};
 
@@ -141,8 +141,8 @@ $(document).ready(() => {
 			const { date } = info;
 
 			// open create event modal
-			const startDate = toMoment(date, calendar).format('DD.MM.YYYY HH:mm');
-			const endDate = toMoment(date, calendar).add(1, 'hour').format('DD.MM.YYYY HH:mm');
+			const startDate = toMoment(date, calendar).format($t('format.dateTimeToPicker'));
+			const endDate = toMoment(date, calendar).add(1, 'hour').format($t('format.dateTimeToPicker'));
 
 			populateModalForm($createEventModal, {
 				title: $t('global.headline.addDate'),

@@ -45,12 +45,8 @@ const mapEventProps = (data, service) => {
 
 		// format course start end until date
 		if (data.startDate) {
-			data.startDate = moment(new Date(data.startDate).getTime()).format(
-				'YYYY-MM-DD',
-			);
-			data.untilDate = moment(new Date(data.untilDate).getTime()).format(
-				'YYYY-MM-DD',
-			);
+			data.startDate = moment(new Date(data.startDate).getTime()).format($t('format.dateToPicker'));
+			data.untilDate = moment(new Date(data.untilDate).getTime()).format($t('format.dateToPicker'));
 		}
 	}
 

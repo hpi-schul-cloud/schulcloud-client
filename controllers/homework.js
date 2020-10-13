@@ -154,8 +154,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 					// homework was created from homeworks overview
 					referrer += data._id;
 				}
-			}
-			else if (service === 'submissions') {
+			} else if (service === 'submissions') {
 				referrer += '#activetabid=submissions';
 			}
 			// includes submission was done
@@ -242,7 +241,7 @@ const patchFunction = (service, req, res, next) => {
 							req,
 							`${(req.headers.origin || HOST)}/homework/${homework._id}`);
 					});
-				const redirect_path = req.header('Referrer') + '#activetabid=submissions';
+				const redirect_path = `${req.header('Referrer')}#activetabid=submissions`;
 				res.redirect(redirect_path);
 			});
 		}
@@ -779,19 +778,14 @@ router.get('/:assignmentId', (req, res, next) => {
 			assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
 		}
 
-		// Datum aufbereiten
-		const availableDateArray = timesHelper.splitDate(assignment.availableDate);
-		assignment.availableDateF = availableDateArray.date;
-		assignment.availableTimeF = availableDateArray.time;
-
-		const dueDateArray = timesHelper.splitDate(assignment.dueDate);
-		assignment.dueDateF = dueDateArray.date;
-		assignment.dueTimeF = dueDateArray.time;
-
 		// Abgabe noch möglich?
-		assignment.submittable = (dueDateArray.timestamp >= timesHelper.now() || !assignment.dueDate);
-		assignment.warning = ((dueDateArray.timestamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
-			&& assignment.submittable);
+		if (assignment.dueDate) {
+			const dueDateTimeStamp = timesHelper.splitDate(assignment.dueDate).timestamp;
+			assignment.submittable = (dueDateTimeStamp >= timesHelper.now() || !assignment.dueDate);
+			assignment.warning = ((dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
+				&& assignment.submittable);
+		}
+
 
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
