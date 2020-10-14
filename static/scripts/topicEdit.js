@@ -92,7 +92,8 @@ class TopicBlockWrapper extends React.Component {
                                 value={this.props.title}
                                 className="form-control"
                                 onChange={this.updateTitle.bind(this)}
-                                name={`contents[${this.props.position}][title]`}
+								name={`contents[${this.props.position}][title]`}
+								required
                             />
                             <input
                                 value={this.props.hidden}
@@ -733,7 +734,7 @@ class TopicInternal extends TopicBlock {
 	render() {
 		return (
             <div>
-                <label>Interner Link</label><br/>
+                <label>{$t('topic.topicEdit.label.internLink')}</label><br/>
                 <div className="input-group">
                     <span className="input-group-btn">
                         <a

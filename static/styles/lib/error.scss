@@ -1,15 +1,20 @@
 @import "./bootstrap/scss/bootstrap-flex";
 @import "./bootstrap/scss/_animation"; // this import is needed to enable the toggle feature of the detail card
+@import "static/styles/lib/colors";
 
 .error-header-wrapper{
     width: 100%;
     text-align: center;
     .error-header-image{
-        width: 40vw;
+        width: 20vw;
         margin-bottom: -5vw;
         @include media-breakpoint-down(xs) {
             width: 70vw;
         }
+
+		#COLOR {
+			fill: $primaryColor;
+		}
     }
     .error-header-code{
         font-size: 10vw;

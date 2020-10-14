@@ -8,10 +8,117 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+- SC-7182 do not allow to open office files in new windows
 
+### Added
+
+- SC-6870 - Added UX improvements for Matrix messenger announcement
+
+## [25.0.7] - 2020-10-09
+
+### Fixed
+
+- SC-7171 fix asking for confirmation after consent update
+
+### Added
+
+ - SC-6582 Add bidirectional messenger settings for course creation
+
+## [25.0.6] - 2020-10-01
+
+### Added
+
+- SC-6973 add importHash to registrationPins post request
+
+## [25.0.5] - 2020-09-30
+
+### Fixed
+
+  - SC-6945 Add requirement for etherpad section title to fix null matching error
+
+## [25.0.4] - 2020-09-30
+
+### Changed
+
+- SC-6567 clear and improve logging in error case
+- SC-5858 removed chosen library from the code (Accessibility issues)
+
+## [25.0.3] - 2020-09-29
+
+### Fixed
+
+- SC-6940 hanndle undefined in language detection
+
+## [25.0.2] - 2020-09-29
+
+### Fixed
+
+  - SC-6927 Admins can delete teachers again
+
+## [25.0.1] - 2020-09-28
+
+
+### Fixed
+
+  - SC-6932 added translation keys instead of hardcoded strings for sidebar items
+
+## [24.5.7] - 2020-09-22
+
+### Fixed
+
+  - SC-6845 Fixed reset of consent property if inputs disabled
+
+## [24.5.6] - 2020-09-22
+
+### Fixed
+
+  - SC-6823 - Fixed inserting media in comments for homework correction
+
+## [24.5.5] - 2020-09-22
+
+### Fixed
+
+  - SC-6630 Fixed email validation using an undefined value when inviting experts to a team.
+
+## [24.5.4] - 2020-09-21
+
+### Fixed
+
+  - SC-6762 Fix file upload permissions for evaluation
+
+## [24.5.3] - 2020-09-18
+
+### Fixed
+
+  - SC-6761 Fixed messenger activation in courses
+
+## [24.5.2] - 2020-09-16
+
+### Fixed
+
+  - SC-6637 Updated CSS of QR codes to avoid broken print layout
+
+## [24.5.1] - 2020-09-14
+
+### Fixed
+
+  - SC-6761 Fixed individual registration emails
+
+## [24.4.2] - 2020-09-09
+
+### Fixed
+- SC-6533 - Login not possible if admin reset password
+
+  - SC-5707 Added detection of browser language
+  - SC-5706 Added language selection within teacher registration
   - SC-6019 Added tabbar to classes administration
   - SC-5955 Changed links to Lernen.cloud
   - SC-5644 navigation and the general structure of pages made more accessible (a11y)
+  - SC-6245 If students can create teams, they can also invite other students to teams
+
+## [24.4.1] - 2020-9-01
+
+  - SC-6526 Fixed inserting files in CKEditor for topics
 
 ## [24.4.0] - 2020-8-31
 
