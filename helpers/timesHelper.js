@@ -128,12 +128,13 @@ const cloneUtcDate = (date, format = 'DD.MM.YYYY HH:mm') => {
  * converts time to string. If time is less than 5 days before now then return fromNow. Otherwise formatDate
  * @param date
  * @param format
+ * @param showTimezoneOffset
  * @returns {string}
  */
-const timeToString = (date, format) => {
+const timeToString = (date, format, showTimezoneOffset = true) => {
 	const d = moment(date);
 	if (d.diff(now()) < 0 || d.diff(now(), 'days') > 5) {
-		return formatDate(date, format, true);
+		return formatDate(date, format, showTimezoneOffset);
 	}
 	return moment(date).fromNow();
 };

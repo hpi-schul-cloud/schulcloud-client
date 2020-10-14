@@ -237,16 +237,6 @@ const copyCourseHandler = (req, res, next) => {
 			time.count = count;
 		});
 
-		// format course start end until date
-		if (course.startDate) {
-			course.startDate = moment(new Date(course.startDate).getTime()).format(
-				'DD.MM.YYYY',
-			);
-			course.untilDate = moment(new Date(course.untilDate).getTime()).format(
-				'DD.MM.YYYY',
-			);
-		}
-
 		// preselect current teacher when creating new course
 		if (!req.params.teamId) {
 			course.teacherIds = [];

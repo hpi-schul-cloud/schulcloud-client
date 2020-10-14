@@ -17,6 +17,7 @@ const setSchoolTimezone = (schoolTimezone) => {
 
 describe('times helpers test', () => {
 	beforeEach(() => {
+		moment.locale('en');
 		moment.tz.setDefault(defaultTimezone);
 	});
 
@@ -79,7 +80,7 @@ describe('times helpers test', () => {
 
 	it('should correctly display time string', () => {
 		const testFormat = 'MM/DD/YYYY HH:mm';
-		const timeToString = timesHelper.timeToString(testDate, testFormat);
+		const timeToString = timesHelper.timeToString(testDate, testFormat, false);
 		chai.expect(timeToString).to.equal('11/01/2020 02:00');
 	});
 

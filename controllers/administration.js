@@ -976,7 +976,7 @@ router.get(
 						classesString,
 					];
 					if (hasEditPermission) {
-						row.push(moment(user.createdAt).format('DD.MM.YYYY'));
+						row.push(timesHelper.formatDate(user.createdAt, res.$t('format.dateToPicker')));
 						row.push({
 							useHTML: true,
 							content: icon,
@@ -1272,7 +1272,7 @@ router.get(
 						user.lastName || '',
 						user.email || '',
 						user.classes.join(', ') || '',
-						moment(user.createdAt).format('DD.MM.YYYY'),
+						timesHelper.formatDate(user.createdAt, res.$t('format.dateToPicker')),
 						{
 							useHTML: true,
 							content: `<p class="text-center m-0">${icon}</p>`,
@@ -2699,7 +2699,7 @@ router.all('/teams', async (req, res, next) => {
 							useHTML: true,
 							content: getTeamSchoolsButton(item.schools.length),
 						},
-						moment(item.createdAt).format('DD.MM.YYYY'),
+						timesHelper.formatDate(item.createdAt, res.$t('format.dateToPicker')),
 						{
 							useHTML: true,
 							content: getTeamFlags(item, res),

@@ -9,6 +9,7 @@ const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
 const recurringEventsHelper = require('../helpers/recurringEvents');
+const timesHelper = require('../helpers/timesHelper');
 
 const { CALENDAR_SERVICE_ENABLED } = require('../config/global');
 
@@ -410,7 +411,7 @@ router.all(
 					truncate(item.currentState || ''),
 					truncate(item.targetState || ''),
 					res.$t(`administration.controller.text.${item.state}`),
-					moment(item.createdAt).format('DD.MM.YYYY'),
+					timesHelper.formatDate(item.createdAt, res.$t('format.dateToPicker')),
 					truncate(item.notes || ''),
 					getTableActionsSend(item, '/helpdesk/', item.state, res),
 				]);
