@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+
 - SC-5825 Fix progress display in homeworks
+- SC-7350 Fix invalid date
 - SC-7182 do not allow to open office files in new windows
 
 ### Added
