@@ -4,12 +4,9 @@
 	{{#unless loggedin}}
 	<h1 class="h2 section-title center">{{title}}</h1>
 	{{/unless}}
-	<h2 class="h3 section-title center">Über die Thüringer Schulcloud</h2>
-	<p>Die Thüringer Schulcloud soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem
-		Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones
-		oder Tablets nutzbar sind.</p>
-	<p>Die Thüringer Schulcloud ist im Oktober 2019 in die Pilotphase gestartet, in der zunächst 20 Pilotschulen und 9
-		Studienseminare die Thüringer Schulcloud nutzen konnten.</p>
+	<h2 class="h3 section-title center">{{$t "theme.thr.about.headline.aboutTheThuringian"}}</h2>
+	<p>{{$t "theme.thr.about.text.theThuringianSchoolCloudIsIntended"}}</p>
+	<p>{{$t "theme.thr.about.text.theThuringianSchoolCloudStarted"}}</p>
 	<br />
 	<h2 class="h3 section-title center">MINT-Pilotschulen</h2>
 	<div class="embed-pdf">
@@ -63,7 +60,7 @@
 	{{#embed "authentication/section" style="primary" class="content-width-max"}}
 	{{#content "body"}}
 	<div class="section-partner">
-		<h3 class="h4">Länderübergreifende good practice Erfahrung</h3>
+		<h3 class="h4">{{$t "theme.thr.about.headline.crossNationalGoodExperience"}}</h3>
 		<div class="row">
 			{{#each schools.bp}}
 			<div class="partner-box-wrapper col-xs-6 col-md-3">
@@ -105,7 +102,7 @@
 			</div>
 		</div>
 
-		<h3 class="h4">Pilotschulen ab 2019</h3>
+		<h3 class="h4">{{$t "theme.thr.about.headline.pilotSchools"}}</h3>
 		<div class="row">
 			{{#each schools.thuringia2019}}
 			<div class="partner-box-wrapper col-xs-6 col-md-3">
@@ -141,7 +138,7 @@
 			</div>
 			<div class="buttonWrapper">
 				<div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse"
-					data-target="#hiddenSchoolsThuringia2019">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i>
+					data-target="#hiddenSchoolsThuringia2019">{{$t "about.button.showMore"}}<i class="fa fa-angle-down" aria-hidden="true"></i>
 				</div>
 			</div>
 		</div> <!-- .row -->
@@ -158,25 +155,12 @@
 		{{#embed "authentication/section" class="content-width-max"}}
 		{{#content "body"}}
 
-		<h2 class="h3 section-title center">Bildungswissenschaftliche Begleitung</h2>
-		<p>Zur pädagogisch-didaktischen Unterstützung des Projekts im Sinne der Entwicklung von Beispielen für die
-			Unterrichtsgestaltung
-			mit verfügbarem digitalen Lernmaterial aus der HPI Schul-Cloud und dem Erkenntnisgewinn über die digitale
-			Unterrichtsgestaltung
-			mit der HPI Schul-Cloud ist eine externe bildungswissenschaftliche Begleitung beauftragt. Zum einen führt
-			die
-			<a href="https://osf.io/bzu4t/?view_only=14ad7519b5a24af7a83cf40b43377142" target="_blank">Universität
-				Tübingen</a> eine wissenschaftliche
-			Befragung der Pilotschulen zu Potenzialen der HPI Schul-Cloud durch. Zum anderen gestaltet das
+		<h2 class="h3 section-title center">{{$t "about.headline.educSupp"}}</h2>
+		<p>{{$t "about.text.forPedagogicalAndDidactic"}}
+			<a href="https://osf.io/bzu4t/?view_only=14ad7519b5a24af7a83cf40b43377142" target="_blank">{{$t "about.text.universityOfTubingen"}}</a> {{$t "about.text.aScientificOne"}}
 			<a href="http://www.gei.de/abteilungen/schulbuch-als-medium/schools-in-the-cloud-wissenschaftliche-begleitforschung-der-schul-cloud-einfuehrung.html"
 				target="_blank">Georg-Eckert-Institut</a>
-			aufbauend auf den Ergebnissen von Unterrichtsbeobachtungen und Workshops mit den Pilotschulen ein
-			Nutzungskonzept für die pädagogisch-didaktisch sinnvolle Anwendung der HPI Schul-Cloud. Außerdem hat das HPI
-			zusammen mit der <a
-				href="https://www.philso.uni-augsburg.de/lehrstuehle/schulpaed/Projekte/Digitalisierung/Lernen-4_0-in-der-Praxis/"
-				target="_blank">Universität Augsburg</a>
-			einen MOOC zu dem Thema <a href="https://lernen.cloud/" target="_blank">Lernen 4.0 -
-				Möglichkeiten und Grenzen einer Digitalisierung im Bildungsbereich</a> durchgeführt.</p>
+			{{$t "about.text.BasedOnTheResults"}}</p>
 		<br />
 		<div class="embed-pdf">
 			<div class="row embed-pdf-row">

@@ -30,6 +30,10 @@
 			"talksThirdCloudForum": "Vorträge des 3. HPI Schul-Cloud-Forums (März 2019)"
 		},
 		"text": {
+			"BasedOnTheResults": "aufbauend auf den Ergebnissen von Unterrichtsbeobachtungen und Workshops mit den Pilotschulen ein Nutzungskonzept für die pädagogisch-didaktisch sinnvolle Anwendung der HPI Schul-Cloud. Außerdem hat das HPI zusammen mit der <a href=\"https://www.philso.uni-augsburg.de/lehrstuehle/schulpaed/Projekte/Digitalisierung/Lernen-4_0-in-der-Praxis/\" target=\"_blank\">Universität Augsburg</a> einen MOOC zu dem Thema <a href=\"https://lernen.cloud/\" target=\"_blank\">Lernen 4.0 - Möglichkeiten und Grenzen einer Digitalisierung im Bildungsbereich</a> durchgeführt.",
+			"aScientificOne": "eine wissenschaftliche Befragung der Pilotschulen zu Potenzialen der HPI Schul-Cloud durch. Zum anderen gestaltet das",
+			"universityOfTubingen": "Universität Tübingen",
+			"forPedagogicalAndDidactic": "Zur pädagogisch-didaktischen Unterstützung des Projekts im Sinne der Entwicklung von Beispielen für die Unterrichtsgestaltung mit verfügbarem digitalen Lernmaterial aus der HPI Schul-Cloud und dem Erkenntnisgewinn über die digitale Unterrichtsgestaltung mit der HPI Schul-Cloud ist eine externe bildungswissenschaftliche Begleitung beauftragt. Zum einen führt die",
 			"browserNotSupported": "Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen:",
 			"startA2019": "(Start August 2019)",
 			"startF2019": "(Start Februar 2019)",
@@ -3081,6 +3085,19 @@
 			"registration": {
 				"text": {
 					"byTheSchoolInThe": "der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden."
+				}
+			}
+		},
+		"thr": {
+			"about": {
+				"headline": {
+					"crossNationalGoodExperience": "Länderübergreifende good practice Erfahrung",
+					"aboutTheThuringian": "Über die Thüringer Schulcloud",
+					"pilotSchools": "Pilotschulen ab 2019"
+				},
+				"text": {
+					"theThuringianSchoolCloudIsIntended": "Die Thüringer Schulcloud soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.",
+					"theThuringianSchoolCloudStarted": "Die Thüringer Schulcloud ist im Oktober 2019 in die Pilotphase gestartet, in der zunächst 20 Pilotschulen und 9 Studienseminare die Thüringer Schulcloud nutzen konnten."
 				}
 			}
 		}

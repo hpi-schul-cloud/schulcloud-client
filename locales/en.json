@@ -30,6 +30,10 @@
 			"talksThirdCloudForum": "Presentations of the 3rd HPI School Cloud Forum (March 2019)"
 		},
 		"text": {
+			"BasedOnTheResults": "Based on the results of class observation and workshops with the pilot schools, a usage concept for the pedagogically and didactically sensible use of the HPI school cloud. In addition, the HPI, together with the <a href=\"https://www.philso.uni-augsburg.de/lehrstuehle/schulpaed/Projekte/Digitalisierung/Lernen-4_0-in-der-Praxis/\" target=\"_blank\">University Of Augsburg</a> a MOOC on the topic <a href=\"https://lernen.cloud/\" target=\"_blank\">Learning 4.0 - Possibilities and Limits of Digitization in Education</a> carried out.",
+			"aScientificOne": "a scientific one Survey of pilot schools on the potential of the HPI School Cloud. On the other hand, it shapes",
+			"universityOfTubingen": "University Of Tübingen",
+			"forPedagogicalAndDidactic": "For pedagogical and didactic support of the project in terms of developing examples for the Lesson design with available digital learning material from the HPI school cloud and the knowledge gained through the digital Lesson design An external educational scientist has been commissioned with the HPI School Cloud. For one, leads the",
 			"browserNotSupported": "Your browser cannot display the embedded PDF. You can watch it here:",
 			"startA2019": "(Start August 2019)",
 			"startF2019": "(Start February 2019)",
@@ -3081,6 +3085,19 @@
 			"registration": {
 				"text": {
 					"byTheSchoolInThe": "by the school in the {{title}} as well as by the learning material providers selected by the school and bound by instructions."
+				}
+			}
+		},
+		"thr": {
+			"about": {
+				"headline": {
+					"aboutTheThuringian": "About the Thuringian school cloud",
+					"crossNationalGoodExperience": "Cross-national good practice experience",
+					"pilotSchools": "Pilot schools from 2019"
+				},
+				"text": {
+					"theThuringianSchoolCloudIsIntended": "The Thuringian School Cloud is intended to create the technical basis that teachers and students in each Subject can also use modern digital teaching and learning content in the same way as apps on smartphones or tablets can be used.",
+					"theThuringianSchoolCloudStarted": "The Thuringian School Cloud started the pilot phase in October 2019, in which 20 pilot schools and 9 study seminars were initially able to use the Thuringian School Cloud."
 				}
 			}
 		}
