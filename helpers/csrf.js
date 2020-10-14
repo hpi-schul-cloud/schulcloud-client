@@ -38,6 +38,7 @@ const csrfErrorHandler = (err, req, res, next) => {
 		});
 		// show only a reload button if not all data is present
 		const simpleView = (!baseUrl || !values);
+		res.status(403);
 		res.render('lib/csrf', {
 			loggedin: res.locals.loggedin,
 			values,
