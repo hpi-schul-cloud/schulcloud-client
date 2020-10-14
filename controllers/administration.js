@@ -439,7 +439,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		return;
 	} catch (err) {
 		let query;
-		if (err.error && err.error.code && err.error.code == 'ESOCKETTIMEDOUT') {
+		if (err.error && err.error.code && err.error.code === 'ESOCKETTIMEDOUT') {
 			const message = res.$t('administration.controller.text.importMayBeStillRunning');
 			req.session.notification = {
 				type: 'info',
