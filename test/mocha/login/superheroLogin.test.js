@@ -7,6 +7,7 @@ const loginHelper = require('../helper/login-helper');
 
 const { expect } = chai;
 chai.use(chaiHttp);
+const { i18next } = require('../../../helpers/i18n');
 
 const { SC_SUPERHERO_USER_NAME, SC_SUPERHERO_USER_PASSWORD } = require('../../../config/global');
 
@@ -27,7 +28,7 @@ describe('Superhero Log-in tests', function () {
 		loginHelper.login(app, SC_SUPERHERO_USER_NAME, SC_SUPERHERO_USER_PASSWORD).then((response) => {
 			expect(response.res.statusCode).to.equal(200);
 			expect(response.res.text).to
-				.contain('Du versuchst dich mit einem Superhero Account anzumelden.');
+				.contain(i18next.t('login.text.superheroText'));
 			done();
 		});
 	});

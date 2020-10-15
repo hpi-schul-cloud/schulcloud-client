@@ -52,7 +52,7 @@ const loadPolicyFile = async () => {
 	const reader = new FileReader();
 	reader.addEventListener('load', (evt) => {
 		if (!file.type.match('application/pdf')) {
-			$.showNotification('nur PDF Dateien werden unterstützt', 'danger', true);
+			$.showNotification($t('administration.school.text.onlyPDFSupport'), 'danger', true);
 			document.querySelector('#policy-input').value = '';
 			document.querySelector('#policy-file-name').innerHTML = '';
 			document.querySelector('#policy-file-data').value = '';
@@ -62,7 +62,9 @@ const loadPolicyFile = async () => {
 		const filesize = ((file.size / 1024) / 1024).toFixed(4); // MB
 
 		if (filesize > MAX_FILE_SIZE_MB) {
-			$.showNotification('PDF Datei ist zu groß. Maximal 4MB', 'danger', true);
+			$.showNotification(
+				$t('administration.school.text.fileTooLarge', { size: MAX_FILE_SIZE_MB }), 'danger', true,
+			);
 			return;
 		}
 		document.querySelector('#policy-file-name').innerHTML = `${file.name} (${filesize}MB)`;

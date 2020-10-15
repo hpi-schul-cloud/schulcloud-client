@@ -185,9 +185,12 @@ const helpers = () => ({
 			.subtract(days, 'days')
 			.format(format);
 	},
-	dateToPicker: (date, opts) => moment(date).format('DD.MM.YYYY'),
-	dateTimeToPicker: (date, opts) => moment(date).format('DD.MM.YYYY HH:mm'),
-	timeToString: (date, opts) => {
+	dateToPicker: (date) => moment(date).format('DD.MM.YYYY'),
+	dateTimeToPicker: (date) => moment(date).format('DD.MM.YYYY HH:mm'),
+	i18nDate: (date) => i18n.i18nMoment(date).format('DD.MM.YYYY'),
+	i18nDateTime: (date) => i18n.i18nMoment(date).format('DD.MM.YYYY HH:mm'),
+	i18nDateString: (date) => i18n.i18nMoment(date).format('dddd, DD. MMMM YYYY'),
+	timeToString: (date) => {
 		const now = moment();
 		const d = moment(date);
 		if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
@@ -212,10 +215,11 @@ const helpers = () => ({
 			return i18n.getInstance(data.data.local.currentUser)('global.text.internalProblem');
 		}
 		if (statusCode >= 400) {
-			if ([400, 401, 402, 403, 404].includes(statusCode)) {
+			if ([400, 401, 402, 403, 404, 408].includes(statusCode)) {
 				return i18n.getInstance(data.data.local.currentUser)('global.text.'.concat(statusCode.toString()));
 			}
 		}
+
 		if (statusCode > 300) {
 			return i18n.getInstance(data.data.local.currentUser)('global.text.pageMoved');
 		}

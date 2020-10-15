@@ -249,8 +249,10 @@ $(document).ready(() => {
 						{ width: `${realProgress}%` },
 						{
 							step(now) {
-								$percentage.html(`${Math.ceil(now)}%`);
-								$percentage.setAttribute('aria-valuenow', `${Math.ceil(now)}%`);
+								if ($percentage && $percentage.setAttribute) {
+									$percentage.html(`${Math.ceil(now)}%`);
+									$percentage.setAttribute('aria-valuenow', `${Math.ceil(now)}%`);
+								}
 							},
 						},
 					);
@@ -481,7 +483,7 @@ $(document).ready(() => {
 		populateRenameModal(
 			oldName,
 			`/files/fileModel/${fileId}/rename`,
-			'Datei umbenennen',
+			$t('files.label.renameFile'),
 		);
 	}
 	$('.file-name-edit').click(fileNameEditClickHandler);

@@ -1,17 +1,17 @@
 {{#extend "lib/simple"}}
     {{#content "page" mode="prepend"}}
-        <h1 class="h4" id="page-title">{{$t "administration.ldapSchoolYearStart.heading.checkTheSynchronizationOfTheDataAvailable" }}</h1>
+        <h1 class="h4" id="page-title">{{$t "administration.ldapSchoolYearStart.headline.checkTheSynchronizationOfTheDataAvailable" }}</h1>
         <div class="route-administration">
             <p>{{$t "administration.ldapSchoolYearStart.text.onThisPageYouWillFindTheData" (dict "shortTitle" theme.short_title) }} </p>
             <section class="section-school section-default">
                 <div class="container-fluid ajaxcontent">
-                    <h5>{{$t "administration.ldapSchoolYearStart.heading.LDAPClasses" }}</h5>
+                    <h5>{{$t "administration.ldapSchoolYearStart.headline.LDAPClasses" }}</h5>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
                             {{> "lib/components/table" head=headClasses body=bodyClasses limit=false}}
                         </div>
                     </div>
-                    <h5>{{$t "administration.ldapSchoolYearStart.heading.LDAPUsers" }}</h5>
+                    <h5>{{$t "administration.ldapSchoolYearStart.headline.LDAPUsers" }}</h5>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
                             {{> "lib/components/table" head=headUser body=bodyUsers limit=false}}
@@ -19,7 +19,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            <button class="btn btn-primary btn-add windowclose">{{$t "administration.ldapSchoolYearStart.button.closeTheWindow" }}</button>
+                            <button class="btn btn-primary btn-add windowclose">{{$t "administration.ldapSchoolYearStart.button.closeWindow" }}</button>
                         </div>
                     </div>
                 </div>

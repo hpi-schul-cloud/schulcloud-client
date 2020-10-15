@@ -389,9 +389,7 @@ const enrichCourse = (course, res) => {
 	(course.times || []).forEach((time) => {
 		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
-		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
-			time.room ? `| ${time.room}` : ''
-		}</div>`;
+		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''}</div>`;
 	});
 	return course;
 };
@@ -498,6 +496,14 @@ router.post('/', (req, res, next) => {
 	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
+
+	req.body.features = [];
+	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
 
 	api(req)
 		.post('/courses/', {
@@ -790,7 +796,8 @@ router.patch('/:courseId', (req, res, next) => {
 		delete req.body.untilDate;
 	}
 
-	if (req.body.unarchive !== 'true' && req.body.untilDate < new Date()) {
+	// unarchive client request do not contain information about feature flags
+	if (req.body.unarchive !== 'true') {
 		req.body.features = [];
 		OPTIONAL_COURSE_FEATURES.forEach((feature) => {
 			if (req.body[feature] === 'true') {
