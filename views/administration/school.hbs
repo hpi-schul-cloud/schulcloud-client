@@ -192,6 +192,14 @@
 						</div>
 
 						<div class="form-group">
+							<label>{{$t "administration.school.label.schoolNumber" }}</label>
+							<input value="{{../school.officialSchoolNumber}}" type="text" pattern="\D{0,2}-*\d{5}$" class="form-control" name="officialSchoolNumber"
+								placeholder="12345" {{#if ../schoolUsesLdap}} readonly{{/if}}
+								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+								readonly{{/userHasPermission}}/>
+						</div>
+
+						<div class="form-group">
 							<label>{{$t "administration.school.label.uploadSchoolLogo" }}</label><br />
 							<input type="hidden" name="logo_dataUrl">
 							<input type="file" id="logo-input">

@@ -573,6 +573,7 @@
 				"noteBeforeTheTransferPhase": "Note before the transfer phase:",
 				"passwordChangesInLDAP": "Password changes in LDAP",
 				"privacySettings": "Privacy Settings",
+				"schoolNumber": "School number:",
 				"schoolYear": "School year:",
 				"schoolYearChange": "Change of school year",
 				"selectProvider": "Select provider",
