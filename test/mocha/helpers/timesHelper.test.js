@@ -7,7 +7,7 @@ const defaultTimezone = 'Europe/Berlin';
 const testDate = new Date(Date.UTC(2020, 10, 1, 1, 0));
 
 const getMockRes = (timezone) => ({ locals: { currentSchoolData: { timezone } } });
-const getMockReq = (timezone) => ({ cookies: { USER_TIMZONE: { timezone } } });
+const getMockReq = (timezone) => ({ cookies: { USER_TIMEZONE: { timezone } } });
 
 const setSchoolTimezone = (schoolTimezone) => {
 	const mockRes = getMockRes(schoolTimezone);

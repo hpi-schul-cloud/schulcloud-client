@@ -19,7 +19,7 @@ let FORMAT = {
  */
 const getUtcOffset = () => moment().format('Z');
 
-const getUserTimezone = (req) => (((req || {}).cookies || {}).USER_TIMZONE);
+const getUserTimezone = (req) => (((req || {}).cookies || {}).USER_TIMEZONE);
 
 /**
  * Sets date, date time format using locale information

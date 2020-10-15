@@ -1,1 +1,1 @@
-document.cookie = `USER_TIMZONE=${window.Intl.DateTimeFormat().resolvedOptions().timeZone}; path=/`;
+document.cookie = `USER_TIMEZONE=${window.Intl.DateTimeFormat().resolvedOptions().timeZone}; path=/`;

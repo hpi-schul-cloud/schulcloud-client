@@ -54,31 +54,6 @@ $(document).ready(() => {
 		// open create event modal
 		const startDate = moment().format($t('format.dateTimeToPicker'));
 		const endDate = moment().add(1, 'hour').format($t('format.dateTimeToPicker'));
-		//
-		// $.datetimepicker.setLocale('de');
-		// $('#startDate').datetimepicker({
-		// 	format: 'd.m.Y H:i',
-		// 	mask: '39.19.9999 29:59',
-		// 	onShow() {
-		// 		this.setOptions({
-		// 			minDate: 0,
-		// 			dayOfWeekStart: 1,
-		// 		});
-		// 	},
-		// 	onChangeDateTime(dp, $input) {
-		// 		$input.closest('.modal').find('#endDate').val($input.val());
-		// 	},
-		// });
-		//
-		// $('#endDate').datetimepicker({
-		// 	format: 'd.m.Y H:i',
-		// 	mask: '39.19.9999 29:59',
-		// 	onShow() {
-		// 		this.setOptions({
-		// 			minDate: 0,
-		// 		});
-		// 	},
-		// });
 
 		$createEventModal.find('.create-videoconference').show();
 

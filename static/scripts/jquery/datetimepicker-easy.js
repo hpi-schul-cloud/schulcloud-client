@@ -16,8 +16,10 @@ if (!window.datetimepicker) {
 				format, mask, datetime, startDate, minDate, maxDate, inline,
 			} = (input || {}).dataset;
 			return {
-				format: format || (input.dataset.datetime !== undefined ? 'd.m.Y H:i' : 'd.m.Y'),
-				mask: mask || (input.dataset.datetime !== undefined ? '39.19.9999 29:59' : '39.19.9999'),
+				format: format || (input.dataset.datetime !== undefined ? $t('format.dateTimePicker')
+					: $t('format.datePicker')),
+				mask: mask || (input.dataset.datetime !== undefined ? $t('format.dateTimePickerMask')
+					: $t('format.datePickerMask')),
 				timepicker: (datetime !== undefined || false),
 				startDate,
 				minDate, // default: unlimited minimum date
