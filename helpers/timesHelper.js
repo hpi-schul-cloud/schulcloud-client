@@ -1,11 +1,12 @@
 const moment = require('moment-timezone');
+const { Configuration } = require('@schul-cloud/commons');
 const logger = require('./logger');
 
-const DEFAULT_TIMEZONE = 'Europe/Berlin';
+const DEFAULT_TIMEZONE = Configuration.get('I18N__DEFAULT_TIMEZONE');
 
 let schoolTimezone;
 let userTimezone;
-let sameTimezone = true;
+let userHasSchoolTimezone = true;
 
 /**
  * @return {String} UTC offset as string based on current timezone, e.g +01:00
@@ -15,7 +16,7 @@ const getUtcOffset = () => moment().format('Z');
 const getUserTimezone = (req) => (((req || {}).cookies || {}).USER_TIMZONE);
 
 /**
- * @param {String} res result object containing shool data information
+ * @param {String} res result object containing shool data debugrmation
  * sets default timezone if school timezone differs from the user timezone
  */
 const setDefaultTimezone = (req, res) => {
@@ -28,15 +29,16 @@ const setDefaultTimezone = (req, res) => {
 		res.locals.currentTimezone = DEFAULT_TIMEZONE;
 	}
 	moment.tz.setDefault(res.locals.currentTimezone);
-	sameTimezone = res.locals.currentTimezone === userTimezone;
+	userHasSchoolTimezone = res.locals.currentTimezone === userTimezone;
 
 	res.locals.currentTimezoneOffset = getUtcOffset();
 	res.locals.userTimezone = userTimezone;
-	res.locals.sameTimezone = sameTimezone;
+	res.locals.userHasSchoolTimezone = userHasSchoolTimezone;
 
-	logger.info(`timesHelper: instance timezone "${res.locals.currentTimezone} (${res.locals.currentTimezoneOffset})"`);
-	logger.info(`timesHelper: user timezone "${res.locals.userTimezone}"`);
-	logger.info(`timesHelper: same timezone "${JSON.stringify(res.locals.sameTimezone)}"`);
+	logger.debug(`timesHelper: instance timezone "${res.locals.currentTimezone}
+	(${res.locals.currentTimezoneOffset})"`);
+	logger.debug(`timesHelper: user timezone "${res.locals.userTimezone}"`);
+	logger.debug(`timesHelper: same timezone "${JSON.stringify(res.locals.userHasSchoolTimezone)}"`);
 };
 
 /**
@@ -45,7 +47,7 @@ const setDefaultTimezone = (req, res) => {
  */
 const fromUTC = (date) => {
 	const result = moment(date);
-	logger.info(`timesHelper.fromUTC: ${date} to ${result.toISOString(true)}`);
+	logger.debug(`timesHelper.fromUTC: ${date} to ${result.toISOString(true)}`);
 	return result;
 };
 
@@ -54,7 +56,7 @@ const fromUTC = (date) => {
  */
 const currentDate = () => {
 	const result = moment();
-	logger.info(`timesHelper.currentDate: ${result.toISOString(true)}`);
+	logger.debug(`timesHelper.currentDate: ${result.toISOString(true)}`);
 	return result;
 };
 
@@ -63,7 +65,7 @@ const currentDate = () => {
  */
 const now = () => {
 	const result = moment();
-	logger.info(`timesHelper.now: ${result}`);
+	logger.debug(`timesHelper.now: ${result}`);
 	return result.valueOf();
 };
 
@@ -76,15 +78,17 @@ const fromNow = (date) => moment(date).fromNow();
 
 /**
  * @param {Date} date Date object
+ * @param dateFormat date format
+ * @param timeFormat optional time format (default HH:mm)
  * @return {Object} Timestamp, date and time of given date as object
  */
-const splitDate = (date) => {
+const splitDate = (date, dateFormat, timeFormat = 'HH:mm') => {
 	const resultDate = moment(date);
-	const timezoneOffset = !sameTimezone ? `(UTC${getUtcOffset()})` : '';
+	const timezoneOffset = !userHasSchoolTimezone ? `(UTC${getUtcOffset()})` : '';
 	return {
 		timestamp: resultDate.valueOf(),
-		date: resultDate.format('DD.MM.YYYY'),
-		time: `${resultDate.format('HH:mm')}${timezoneOffset}`,
+		date: resultDate.format(dateFormat),
+		time: `${resultDate.format(timeFormat)}${timezoneOffset}`,
 	};
 };
 
@@ -96,7 +100,7 @@ const splitDate = (date) => {
  */
 const createFromString = (dateString, format, keepOffset = true) => {
 	const result = moment(dateString, format);
-	logger.info(`timesHelper.createFromString: ${dateString} to ${result.toISOString(keepOffset)}`);
+	logger.debug(`timesHelper.createFromString: ${dateString} to ${result.toISOString(keepOffset)}`);
 	return result;
 };
 
@@ -109,18 +113,19 @@ const createFromString = (dateString, format, keepOffset = true) => {
  * @returns {string} formated date string based on input
  */
 const formatDate = (date, format, showTimezoneOffset = false) => {
-	const timezoneOffset = !sameTimezone && showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
+	const timezoneOffset = !userHasSchoolTimezone && showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
 	return `${moment(date).format(format)}${timezoneOffset}`;
 };
 
 /**
  * @param {Date} date Date object
+ * @param dateTimeFormat date time format
  * @return {moment} same date and time in different in current timezone (no re-calculation)
  */
-const cloneUtcDate = (date, format = 'DD.MM.YYYY HH:mm') => {
-	const dateString = moment.utc(date).format(format);
-	const result = createFromString(dateString, format);
-	logger.info(`timesHelper.cloneDate: ${date} to ${result.toISOString(true)}`);
+const cloneUtcDate = (date, dateTimeFormat) => {
+	const dateString = moment.utc(date).format(dateTimeFormat);
+	const result = createFromString(dateString, dateTimeFormat);
+	logger.debug(`timesHelper.cloneDate: ${date} to ${result.toISOString(true)}`);
 	return result;
 };
 

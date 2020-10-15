@@ -11,6 +11,8 @@ const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
+const timesHelper = require('../helpers/timesHelper');
+
 
 const {
 	CALENDAR_SERVICE_ENABLED,
@@ -812,16 +814,8 @@ router.delete('/:teamId', async (req, res, next) => {
 });
 
 router.post('/:teamId/events/', (req, res, next) => {
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(
-		req.body.startDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = moment(
-		req.body.endDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
+	req.body.startDate = timesHelper.fromUTC(req.body.startDate);
+	req.body.endDate = timesHelper.fromUTC(req.body.endDate);
 
 	// filter params
 	req.body.scopeId = req.params.teamId;
@@ -835,16 +829,8 @@ router.post('/:teamId/events/', (req, res, next) => {
 });
 
 router.put('/events/:eventId', (req, res, next) => {
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(
-		req.body.startDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = moment(
-		req.body.endDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
+	req.body.startDate = timesHelper.fromUTC(req.body.startDate);
+	req.body.endDate = timesHelper.fromUTC(req.body.endDate);
 
 	api(req)
 		.put(`/calendar/${req.params.eventId}`, {
@@ -1115,7 +1101,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 		const bodyInvitations = team.invitedUserIds.map((invitation) => [
 			invitation.email,
-			moment(invitation.createdAt).format('DD.MM.YYYY'),
+			timesHelper.formatDate(invitation.createdAt, res.$t('format.dateToPicker')),
 			roleTranslations[invitation.role],
 			{
 				payload: {

@@ -50,7 +50,8 @@ describe('times helpers test', () => {
 			date: '31.10.2020',
 			time: '18:00(UTC-07:00)',
 		};
-		const resultDate = timesHelper.splitDate(testDate);
+		const dateFormat = 'DD.MM.YYYY';
+		const resultDate = timesHelper.splitDate(testDate, dateFormat);
 		chai.expect(resultDate.timestamp)
 			.to.equal(expectedDate.timestamp);
 		chai.expect(resultDate.time)

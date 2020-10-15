@@ -354,6 +354,11 @@
 					],
 					"description": "Value for the default language"
 				},
+				"DEFAULT_TIMEZONE": {
+					"type": "string",
+					"default": "Europe/Berlin",
+					"description": "Timezone"
+				},
 				"FALLBACK_LANGUAGE": {
 					"type": "string",
 					"default": "de",

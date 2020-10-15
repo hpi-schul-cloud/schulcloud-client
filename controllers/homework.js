@@ -527,7 +527,7 @@ const overview = (titleKey) => (req, res, next) => {
 					assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
 				}
 
-				const dueDateArray = timesHelper.splitDate(assignment.dueDate);
+				const dueDateArray = timesHelper.splitDate(assignment.dueDate, res.$t('format.date'));
 				assignment.submittable = dueDateArray.timestamp >= timesHelper.now() || !assignment.dueDate;
 				assignment.warning = ((dueDateArray.timestamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
 					&& assignment.submittable);
@@ -780,7 +780,7 @@ router.get('/:assignmentId', (req, res, next) => {
 
 		// Abgabe noch möglich?
 		if (assignment.dueDate) {
-			const dueDateTimeStamp = timesHelper.splitDate(assignment.dueDate).timestamp;
+			const dueDateTimeStamp = timesHelper.splitDate(assignment.dueDate, res.$t('format.date')).timestamp;
 			assignment.submittable = (dueDateTimeStamp >= timesHelper.now() || !assignment.dueDate);
 			assignment.warning = ((dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
 				&& assignment.submittable);
