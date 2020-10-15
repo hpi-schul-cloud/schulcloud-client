@@ -720,7 +720,7 @@
 			"text": {
 				"appointTeamOwner": "Appoint",
 				"discardMessage": "Discard",
-				"forStudentsAged14": "For students aged 14 and over: consent of the student",
+				"forStudentsAgedLimit": "For students aged {{age}} and over: consent of the student",
 				"removeAllMembers": "Remove all members",
 				"sendMessage": "Submit",
 				"youGiveTheFollowingConsent": "You grant the following consents on behalf of the user:"

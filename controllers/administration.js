@@ -720,7 +720,7 @@ const skipRegistration = (req, res, next) => {
 		parent_termsOfUseConsent,
 		privacyConsent,
 		termsOfUseConsent,
-		birthday,
+		birthday,	
 	} = req.body;
 	const parsedDate = parseDate(birthday).toISOString();
 	api(req).post(`/users/${userid}/skipregistration`, {
@@ -1196,6 +1196,7 @@ router.get(
 					user,
 					password: authHelper.generateConsentPassword(),
 					referrer: req.header('Referer'),
+					age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 				});
 			})
 			.catch((err) => {
@@ -1977,6 +1978,7 @@ router.get(
 		res.render('administration/classes_skipregistration', {
 			title: res.$t('administration.controller.link.toGiveConsent'),
 			students: renderUsers,
+			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS
 		});
 	},
 );

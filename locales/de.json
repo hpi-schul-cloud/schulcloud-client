@@ -720,7 +720,7 @@
 			"text": {
 				"appointTeamOwner": "Ernennen",
 				"discardMessage": "Verwerfen",
-				"forStudentsAged14": "Für Schüler ab 14 Jahren: Einverständnis des Schülers",
+				"forStudentsAgedLimit": "Für Schüler ab {{age}} Jahren: Einverständnis des Schülers",
 				"removeAllMembers": "Alle Mitglieder entfernen",
 				"sendMessage": "Absenden",
 				"youGiveTheFollowingConsent": "Du erteilst folgende Einwilligungen im Namen des Nutzers:"

@@ -57,7 +57,7 @@
 
                     {{#unless editTeacher}}
                     <div class="col-md-6">
-                        {{$t "administration.global.text.forStudentsUnder" (dict "minAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS )}}<br />
+                        {{$t "administration.global.text.forStudentsUnder" (dict "minAge" age )}}<br />
                         <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" readonly />
 
                         <label><input name="parent_form" value="analog" type="radio" checked /> Analog</label>
@@ -73,7 +73,7 @@
 						</label><br />
                     </div>
                     <div class="col-md-6">
-                        {{$t "administration.users_skipRegistration.text.forStudentsAged14" }}<br />
+                        {{$t "administration.users_skipRegistration.text.forStudentsAgedLimit" (dict "age" age)}}<br />
                         <input name="student_consentId" type="hidden" value="{{consent._id}}" readonly />
 
                         <label><input name="student_form" value="analog" type="radio" checked /> Analog</label>
