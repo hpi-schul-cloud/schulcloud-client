@@ -15,6 +15,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
+- SC-7083 - Added input to get the school id from admin
 
 ## [25.0.7] - 2020-10-09
 
