@@ -51,42 +51,6 @@ const getDeleteHandler = (service) => (req, res, next) => {
 		});
 };
 
-router.post('/', (req, res, next) => {
-	const { body } = req;
-	const dateTimePickerMask = res.$t('format.dateTimePickerMask');
-	const datePickerPlaceholder = dateTimePickerMask.replace(/[0-9]/g, '_');
-
-	if (body.displayAt && body.displayAt !== datePickerPlaceholder) {
-		// rewrite german format to ISO
-		body.displayAt = timesHelper.createFromString(body.displayAt, dateTimePickerMask).toISOString();
-	} else {
-		body.displayAt = undefined;
-	}
-	body.creatorId = res.locals.currentUser._id;
-	body.createdAt = timesHelper.currentDate().toISOString();
-
-	if (body.context) {
-		body.target = body.contextId;
-		body.targetModel = body.context;
-	}
-
-	api(req)
-		.post('/news/', {
-			// TODO: sanitize
-			json: body,
-		})
-		.then(() => {
-			if (body.context) {
-				res.redirect(`/${body.context}/${body.contextId}/?activeTab=news`);
-			} else {
-				res.redirect('/news');
-			}
-		})
-		.catch((err) => {
-			next(err);
-		});
-});
-
 router.patch('/:newsId', (req, res, next) => {
 	req.body.displayAt = timesHelper.createFromString(
 		req.body.displayAt,
@@ -178,20 +142,6 @@ router.all('/', async (req, res, next) => {
 	} catch (err) {
 		next(err);
 	}
-});
-
-router.get('/new', (req, res, next) => {
-	const context = req.query.context || '';
-	const contextId = req.query.contextId || '';
-	res.render('news/edit', {
-		title: res.$t('news._news.headline.createNews'),
-		submitLabel: res.$t('global.button.add'),
-		closeLabel: res.$t('global.button.cancel'),
-		method: 'post',
-		action: '/news/',
-		context,
-		contextId,
-	});
 });
 
 router.get('/:newsId', (req, res, next) => {
