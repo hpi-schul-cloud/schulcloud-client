@@ -336,7 +336,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 const getUserCreateHandler = (internalReturn) => function userCreate(req, res, next) {
 	const { shortLink } = req.body;
 	if (req.body.birthday) {
-		req.body.birthday = timesHelper.createFromString(req.body.birthday, res.$t('format.dateToPicker'));
+		req.body.birthday = timesHelper.dateStringToMoment(req.body.birthday);
 	}
 	return api(req)
 		.post('/users/', {
@@ -726,7 +726,7 @@ const skipRegistration = (req, res, next) => {
 		termsOfUseConsent,
 		birthday,
 	} = req.body;
-	const parsedDate = timesHelper.createFromString(birthday, res.$t('format.dateToPicker'));
+	const parsedDate = timesHelper.dateStringToMoment(birthday);
 	api(req).post(`/users/${userid}/skipregistration`, {
 		json: {
 			password: passwd,
@@ -990,7 +990,7 @@ router.get(
 						classesString,
 					];
 					if (hasEditPermission) {
-						row.push(timesHelper.formatDate(user.createdAt, res.$t('format.dateToPicker')));
+						row.push(timesHelper.dateToDateString(user.createdAt));
 						row.push({
 							useHTML: true,
 							content: icon,
@@ -1078,7 +1078,7 @@ router.get(
 
 const getStudentUpdateHandler = () => async function studentUpdateHandler(req, res, next) {
 	if (req.body.birthday) {
-		req.body.birthday = timesHelper.createFromString(req.body.birthday, res.$t('format.dateToPicker'));
+		req.body.birthday = timesHelper.dateStringToMoment(req.body.birthday);
 	}
 
 	const promises = [];
@@ -1286,7 +1286,7 @@ router.get(
 						user.lastName || '',
 						user.email || '',
 						user.classes.join(', ') || '',
-						timesHelper.formatDate(user.createdAt, res.$t('format.dateToPicker')),
+						timesHelper.dateToDateString(user.createdAt),
 						{
 							useHTML: true,
 							content: `<p class="text-center m-0">${icon}</p>`,
@@ -1574,7 +1574,7 @@ const skipRegistrationClass = async (req, res, next) => {
 				parent_termsOfUseConsent: true,
 				privacyConsent: true,
 				termsOfUseConsent: true,
-				birthday: timesHelper.createFromString(birthdays[i], res.$t('format.dateToPicker')),
+				birthday: timesHelper.dateStringToMoment(birthdays[i]),
 			},
 		});
 	});
@@ -2713,7 +2713,7 @@ router.all('/teams', async (req, res, next) => {
 							useHTML: true,
 							content: getTeamSchoolsButton(item.schools.length),
 						},
-						timesHelper.formatDate(item.createdAt, res.$t('format.dateToPicker')),
+						timesHelper.dateToDateString(item.createdAt),
 						{
 							useHTML: true,
 							content: getTeamFlags(item, res),

@@ -411,7 +411,7 @@ router.all(
 					truncate(item.currentState || ''),
 					truncate(item.targetState || ''),
 					res.$t(`administration.controller.text.${item.state}`),
-					timesHelper.formatDate(item.createdAt, res.$t('format.dateToPicker')),
+					timesHelper.dateToDateString(item.createdAt),
 					truncate(item.notes || ''),
 					getTableActionsSend(item, '/helpdesk/', item.state, res),
 				]);

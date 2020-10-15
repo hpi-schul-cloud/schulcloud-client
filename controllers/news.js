@@ -52,9 +52,8 @@ const getDeleteHandler = (service) => (req, res, next) => {
 };
 
 router.patch('/:newsId', (req, res, next) => {
-	req.body.displayAt = timesHelper.createFromString(
+	req.body.displayAt = timesHelper.dateTimeStringToMoment(
 		req.body.displayAt,
-		res.$t('format.dateTimeToPicker'),
 	).toISOString();
 	req.body.updatedAt = timesHelper.currentDate().toISOString();
 	req.body.updaterId = res.locals.currentUser._id;

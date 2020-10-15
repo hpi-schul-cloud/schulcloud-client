@@ -790,8 +790,8 @@ router.patch('/:courseId', (req, res, next) => {
 		req.body.substitutionIds = [];
 	}
 
-	const startDate = timesHelper.createFromString(req.body.startDate, res.$t('format.dateToPicker'));
-	const untilDate = timesHelper.createFromString(req.body.untilDate, res.$t('format.dateToPicker'));
+	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
+	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
 
 	delete req.body.startDate;
 	if (startDate.isValid()) {

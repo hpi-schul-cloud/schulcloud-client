@@ -1101,7 +1101,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 		const bodyInvitations = team.invitedUserIds.map((invitation) => [
 			invitation.email,
-			timesHelper.formatDate(invitation.createdAt, res.$t('format.dateToPicker')),
+			timesHelper.dateToDateString(invitation.createdAt),
 			roleTranslations[invitation.role],
 			{
 				payload: {

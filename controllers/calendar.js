@@ -44,10 +44,10 @@ router.get('/events/', (req, res, next) => {
 
 router.post('/events/', (req, res, next) => {
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = timesHelper.createFromString(req.body.startDate, res.$t('format.dateTimeToPicker'))
+	req.body.startDate = timesHelper.dateTimeStringToMoment(req.body.startDate)
 		.toISOString(true);
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = timesHelper.createFromString(req.body.endDate, res.$t('format.dateTimeToPicker'))
+	req.body.endDate = timesHelper.dateTimeStringToMoment(req.body.endDate)
 		.toISOString(true);
 
 	if (req.body.courseId && req.body.courseId !== '') {
@@ -75,10 +75,10 @@ router.delete('/events/:eventId', (req, res, next) => {
 
 router.put('/events/:eventId', (req, res, next) => {
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = timesHelper.createFromString(req.body.startDate, res.$t('format.dateTimeToPicker'))
+	req.body.startDate = timesHelper.dateTimeStringToMoment(req.body.startDate)
 		.toISOString(true);
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = timesHelper.createFromString(req.body.endDate, res.$t('format.dateTimeToPicker'))
+	req.body.endDate = timesHelper.dateTimeStringToMoment(req.body.endDate)
 		.toISOString(true);
 
 	api(req).put(`/calendar/${req.params.eventId}`, {

@@ -102,7 +102,7 @@ router.post(
 				);
 			});
 		}
-		req.body.birthDate = timesHelper.createFromString(req.body.birthDate, res.$t('format.dateToPicker'), false);
+		req.body.birthDate = timesHelper.dateStringToMoment(req.body.birthDate, false);
 
 		return api(req)
 			.post('/registration/', {

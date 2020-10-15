@@ -8,6 +8,12 @@ let schoolTimezone;
 let userTimezone;
 let userHasSchoolTimezone = true;
 
+let FORMAT = {
+	date: 'DD.MM.YYYY',
+	dateTime: 'DD.MM.YYYY HH:mm',
+	dateLong: 'dddd, DD. MMMM YYYY',
+};
+
 /**
  * @return {String} UTC offset as string based on current timezone, e.g +01:00
  */
@@ -16,7 +22,25 @@ const getUtcOffset = () => moment().format('Z');
 const getUserTimezone = (req) => (((req || {}).cookies || {}).USER_TIMZONE);
 
 /**
- * @param {String} res result object containing shool data debugrmation
+ * Sets date, date time format using locale information
+ * @param res
+ */
+const setDefaultFormats = (res) => {
+	if (res && res.$t) {
+		FORMAT = {
+			date: res.$t('format.date'),
+			dateTime: res.$t('format.dateTime'),
+			dateLong: res.$t('format.dateLong'),
+		};
+	}
+	return FORMAT;
+};
+
+/**
+ * Sets default timezone from request (user timezone). If user timezone differs from the school timezone, then
+ * school timezone will be set as default
+ * @param req
+ * @param {String} res result object containing school data debugrmation
  * sets default timezone if school timezone differs from the user timezone
  */
 const setDefaultTimezone = (req, res) => {
@@ -34,6 +58,7 @@ const setDefaultTimezone = (req, res) => {
 	res.locals.currentTimezoneOffset = getUtcOffset();
 	res.locals.userTimezone = userTimezone;
 	res.locals.userHasSchoolTimezone = userHasSchoolTimezone;
+	setDefaultFormats(res);
 
 	logger.debug(`timesHelper: instance timezone "${res.locals.currentTimezone}
 	(${res.locals.currentTimezoneOffset})"`);
@@ -82,7 +107,7 @@ const fromNow = (date) => moment(date).fromNow();
  * @param timeFormat optional time format (default HH:mm)
  * @return {Object} Timestamp, date and time of given date as object
  */
-const splitDate = (date, dateFormat, timeFormat = 'HH:mm') => {
+const splitDate = (date, dateFormat = FORMAT.date, timeFormat = 'HH:mm') => {
 	const resultDate = moment(date);
 	const timezoneOffset = !userHasSchoolTimezone ? `(UTC${getUtcOffset()})` : '';
 	return {
@@ -98,11 +123,25 @@ const splitDate = (date, dateFormat, timeFormat = 'HH:mm') => {
  * @param keepOffset boolean value whether to keep timezone offset
  * @return {moment} Date object based on current timezone
  */
-const createFromString = (dateString, format, keepOffset = true) => {
+const createFromString = (dateString, format = FORMAT.dateTime) => {
 	const result = moment(dateString, format);
-	logger.debug(`timesHelper.createFromString: ${dateString} to ${result.toISOString(keepOffset)}`);
+	logger.debug(`timesHelper.createFromString: ${dateString} to ${result.toISOString(true)}`);
 	return result;
 };
+
+/**
+ * Converts dateTimeString to moment object using default date time format {@see FORMAT.dateTime}
+ * @param dateTimeString
+ * @returns {moment}
+ */
+const dateTimeStringToMoment = (dateTimeString) => createFromString(dateTimeString, FORMAT.dateTime);
+
+/**
+ * Converts dateString to moment object using default date format {@see FORMAT.date}
+ * @param dateString
+ * @returns {moment}
+ */
+const dateStringToMoment = (dateString) => createFromString(dateString, FORMAT.date);
 
 /**
  * formats date based on the given format with UTC offset if it was changed to school specific one and is required by
@@ -112,17 +151,33 @@ const createFromString = (dateString, format, keepOffset = true) => {
  * @param showTimezoneOffset defines whether to show timezone offset (only if it was changed)
  * @returns {string} formated date string based on input
  */
-const formatDate = (date, format, showTimezoneOffset = false) => {
+const formatDate = (date, format = FORMAT.dateTime, showTimezoneOffset = false) => {
 	const timezoneOffset = !userHasSchoolTimezone && showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
 	return `${moment(date).format(format)}${timezoneOffset}`;
 };
+
+/**
+ * Converts date object to date string using default date format {@see FORMAT.date}
+ * @param date
+ * @param showTimezone
+ * @returns {string}
+ */
+const dateToDateString = (date, showTimezone) => formatDate(date, FORMAT.date, showTimezone);
+
+/**
+ * Converts date object to dateTime string using default date time format {@see FORMAT.dateTime}
+ * @param date
+ * @param showTimezone
+ * @returns {string}
+ */
+const dateToDateTimeString = (date, showTimezone) => formatDate(date, FORMAT.dateTime, showTimezone);
 
 /**
  * @param {Date} date Date object
  * @param dateTimeFormat date time format
  * @return {moment} same date and time in different in current timezone (no re-calculation)
  */
-const cloneUtcDate = (date, dateTimeFormat) => {
+const cloneUtcDate = (date, dateTimeFormat = FORMAT.dateTime) => {
 	const dateString = moment.utc(date).format(dateTimeFormat);
 	const result = createFromString(dateString, dateTimeFormat);
 	logger.debug(`timesHelper.cloneDate: ${date} to ${result.toISOString(true)}`);
@@ -132,11 +187,11 @@ const cloneUtcDate = (date, dateTimeFormat) => {
 /**
  * converts time to string. If time is less than 5 days before now then return fromNow. Otherwise formatDate
  * @param date
- * @param format
+ * @param format of the output. Per default date time format is used {@see FORMAT.dateTime}
  * @param showTimezoneOffset
  * @returns {string}
  */
-const timeToString = (date, format, showTimezoneOffset = true) => {
+const timeToString = (date, format = FORMAT.dateTime, showTimezoneOffset = true) => {
 	const d = moment(date);
 	if (d.diff(now()) < 0 || d.diff(now(), 'days') > 5) {
 		return formatDate(date, format, showTimezoneOffset);
@@ -166,7 +221,12 @@ module.exports = {
 	splitDate,
 	formatDate,
 	createFromString,
+	dateStringToMoment,
+	dateTimeStringToMoment,
+	dateToDateString,
+	dateToDateTimeString,
 	cloneUtcDate,
 	schoolTimezoneToString,
 	moment,
+	FORMAT,
 };

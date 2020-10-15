@@ -76,7 +76,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		if (dueDate) {
 			// rewrite german format to ISO
 			req.body.dueDate = timesHelper
-				.createFromString(dueDate, res.$t('format.dateTimeToPicker'))
+				.dateTimeStringToMoment(dueDate)
 				.toISOString();
 		}
 
@@ -89,7 +89,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 
 		if (availableDate && availableDate !== datePickerPlaceholder) {
 			req.body.availableDate = timesHelper
-				.createFromString(availableDate, res.$t('format.dateTimeToPicker'))
+				.dateTimeStringToMoment(availableDate)
 				.toISOString();
 		} else {
 			req.body.availableDate = timesHelper.currentDate().toISOString();
@@ -287,12 +287,12 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 		// rewrite german format to ISO
 		if (req.body.availableDate) {
 			req.body.availableDate = timesHelper
-				.createFromString(req.body.availableDate, res.$t('format.dateTimeToPicker'))
+				.dateTimeStringToMoment(req.body.availableDate)
 				.toISOString();
 		}
 		if (req.body.dueDate) {
 			req.body.dueDate = timesHelper
-				.createFromString(req.body.dueDate, res.$t('format.dateTimeToPicker'))
+				.dateTimeStringToMoment(req.body.dueDate)
 				.toISOString();
 		}
 		if (req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate) {

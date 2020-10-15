@@ -6,14 +6,8 @@ const {
 	defaultLanguage,
 } = require('../helpers/i18n');
 
-const { setDefaultTimezone } = require('../helpers/timesHelper');
-
 const middleware = async (req, res, next) => {
 	res.$t = getInstance();
-
-	// detect and set timezone of school
-	setDefaultTimezone(req, res);
-
 	const currentLanguage = await getCurrentLanguage(req, res);
 
 	res.locals.userLanguage = currentLanguage;
