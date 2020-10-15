@@ -655,8 +655,8 @@ router.get('/:teamId', async (req, res, next) => {
 			});
 			events = events
 				.map((event) => {
-					const start = moment(event.start).utc();
-					const end = moment(event.end).utc();
+					const start = timesHelper.fromUTC(event.start);
+					const end = timesHelper.fromUTC(event.end);
 					event.day = start.format('D');
 					event.month = start
 						.format('MMM')
@@ -814,8 +814,10 @@ router.delete('/:teamId', async (req, res, next) => {
 });
 
 router.post('/:teamId/events/', (req, res, next) => {
-	req.body.startDate = timesHelper.fromUTC(req.body.startDate);
-	req.body.endDate = timesHelper.fromUTC(req.body.endDate);
+	req.body.startDate = timesHelper.dateTimeStringToMoment(req.body.startDate)
+		.toISOString(true);
+	req.body.endDate = timesHelper.dateTimeStringToMoment(req.body.endDate)
+		.toISOString(true);
 
 	// filter params
 	req.body.scopeId = req.params.teamId;
@@ -829,8 +831,10 @@ router.post('/:teamId/events/', (req, res, next) => {
 });
 
 router.put('/events/:eventId', (req, res, next) => {
-	req.body.startDate = timesHelper.fromUTC(req.body.startDate);
-	req.body.endDate = timesHelper.fromUTC(req.body.endDate);
+	req.body.startDate = timesHelper.dateTimeStringToMoment(req.body.startDate)
+		.toISOString(true);
+	req.body.endDate = timesHelper.dateTimeStringToMoment(req.body.endDate)
+		.toISOString(true);
 
 	api(req)
 		.put(`/calendar/${req.params.eventId}`, {
