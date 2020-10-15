@@ -315,12 +315,11 @@ const copyCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = timesHelper.createFromString(course.startDate, res.$t('format.dateToPicker'));
+			course.startDate = timesHelper.fromUTC(course.startDate);
 		}
 		if (course.untilDate) {
-			course.untilDate = timesHelper.createFromString(course.untilDate, res.$t('format.dateToPicker'));
+			course.untilDate = timesHelper.fromUTC(course.untilDate);
 		}
-
 		// preselect current teacher when creating new course
 		if (!req.params.courseId) {
 			course.teacherIds = [];
@@ -484,8 +483,8 @@ router.post('/', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	const startDate = timesHelper.createFromString(req.body.startDate, res.$t('format.dateToPicker'));
-	const untilDate = timesHelper.createFromString(req.body.untilDate, res.$t('format.dateToPicker'));
+	const startDate = timesHelper.createFromString(req.body.startDate, 'DD:MM:YYYY');
+	const untilDate = timesHelper.createFromString(req.body.untilDate, 'DD:MM:YYYY');
 
 	delete req.body.startDate;
 	if (startDate.isValid()) {
