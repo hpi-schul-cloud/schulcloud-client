@@ -38,6 +38,9 @@ const {
 
 const app = express();
 
+// print current configuration
+Configuration.printHierarchy();
+
 if (Configuration.has('SENTRY_DSN')) {
 	Sentry.init({
 		dsn: Configuration.get('SENTRY_DSN'),
