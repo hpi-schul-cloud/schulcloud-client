@@ -1618,6 +1618,7 @@
 			"password": "Password:",
 			"role": "Role",
 			"room": "Room",
+			"settings" : "Settings",
 			"skipLinks": "Skip links",
 			"sortBy": "Sort by: %1",
 			"title": "Title",
@@ -2974,15 +2975,25 @@
 				"shareWithOthersTeachers": "share with other teachers"
 			}
 		},
+		"aria_label": {
+			"openTopicX" : "Open topic {{name}}"
+		},
 		"form_share": {
 			"label": {
 				"distributeTheFollowingCode": "Share the following code with a teacher colleague to add the topic to a course. This function is located on the course page."
 			}
 		},
 		"topicEdit": {
+			"aria_label":{
+				"chooseContent" : "Choose the types of contents for your topic",
+				"geoGebraID": "GeoGebra ID",
+				"moveSectionWithKeys" : "Lift the section by pressing enter or space, move it with the arrow buttons and drop it with enter or space."
+			},
 			"button": {
+				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
+				"neXboard": "neXboard",
 				"text": "Text"
 			},
 			"input": {
@@ -2998,7 +3009,7 @@
 			"label": {
 				"descriptionEtherpad": "Description of the Etherpad",
 				"descriptionNeXboard": "Description of the neXboard",
-				"internLink": "intern link",
+				"internLink": "Intern Link",
 				"lockSection": "Lock section",
 				"nameOfEtherpad": "Name of the Etherpad",
 				"nameOfNeXboard": "Name of the neXboard",
