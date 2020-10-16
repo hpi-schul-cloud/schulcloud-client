@@ -1624,6 +1624,7 @@
 			"password": "Passwort:",
 			"role": "Rolle",
 			"room": "Raum",
+			"settings" :"Einstellungen",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
 			"title": "Titel",
@@ -2980,15 +2981,25 @@
 				"shareWithOthersTeachers": "mit anderen Lehrern teilen"
 			}
 		},
+		"aria_label" :{
+			"openTopicX" : "Thema {{name}} öffnen"
+		},
 		"form_share": {
 			"label": {
 				"distributeTheFollowingCode": "Verteile folgenden Code an einen Lehrer-Kollegen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
 			}
 		},
 		"topicEdit": {
+			"aria_label":{
+				"chooseContent": "Wählen Sie Inhaltstypen des Themas aus",
+				"geoGebraID": "GeoGebra ID",
+				"moveSectionWithKeys" : "Heben Sie den Abschnitt mit Leertaste oder Enter auf, bewegen Sie ihn mit den Pfeiltasten und legen Sie ihn dann mit Leertaste oder Enter ab."
+			},
 			"button": {
+				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
 				"material": "Lern-Material",
+				"neXboard": "neXboard",
 				"text": "Text"
 			},
 			"input": {
