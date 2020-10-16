@@ -1060,6 +1060,7 @@ router.get(
 				isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 				referrer: req.header('Referer'),
+				hasAccount: !!account,
 			});
 		});
 	},
