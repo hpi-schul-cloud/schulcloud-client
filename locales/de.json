@@ -1163,7 +1163,7 @@
 			"label": {
 				"courseColor": "Farbe des Kurses",
 				"courseDescription": "Beschreibung des Kurses",
-				"courseTeacher": "Unterrichtende:r Lehrer:in",
+				"courseTeacher": "Unterrichtender Lehrer:in",
 				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
 			}
 		},
