@@ -224,7 +224,7 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 
 // add res.$t method for i18n with users prefered language
 app.use(require('./middleware/i18n'));
-app.use(require('./middleware/timezone'));
+app.use(require('./middleware/datetime'));
 
 // Initialize the modules and their routes
 app.use(require('./controllers'));

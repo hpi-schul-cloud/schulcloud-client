@@ -46,19 +46,14 @@ const setDefaultFormats = (res) => {
 const setDefaultTimezone = (req, res) => {
 	schoolTimezone = (res.locals.currentSchoolData || {}).timezone;
 	userTimezone = getUserTimezone(req) || res.locals.currentTimezone;
+	res.locals.currentTimezone = schoolTimezone || DEFAULT_TIMEZONE;
 
-	if (schoolTimezone) {
-		res.locals.currentTimezone = schoolTimezone;
-	} else {
-		res.locals.currentTimezone = DEFAULT_TIMEZONE;
-	}
 	moment.tz.setDefault(res.locals.currentTimezone);
 	userHasSchoolTimezone = res.locals.currentTimezone === userTimezone;
 
 	res.locals.currentTimezoneOffset = getUtcOffset();
 	res.locals.userTimezone = userTimezone;
 	res.locals.userHasSchoolTimezone = userHasSchoolTimezone;
-	setDefaultFormats(res);
 
 	logger.debug(`timesHelper: instance timezone "${res.locals.currentTimezone}
 	(${res.locals.currentTimezoneOffset})"`);
@@ -120,7 +115,6 @@ const splitDate = (date, dateFormat = FORMAT.date, timeFormat = 'HH:mm') => {
 /**
  * @param {String} dateString String representation of date
  * @param {String} format Format of dateString, e.g. DD.MM.YYYY HH:mm
- * @param keepOffset boolean value whether to keep timezone offset
  * @return {moment} Date object based on current timezone
  */
 const createFromString = (dateString, format = FORMAT.dateTime) => {
@@ -159,10 +153,9 @@ const formatDate = (date, format = FORMAT.dateTime, showTimezoneOffset = false) 
 /**
  * Converts date object to date string using default date format {@see FORMAT.date}
  * @param date
- * @param showTimezone
  * @returns {string}
  */
-const dateToDateString = (date, showTimezone) => formatDate(date, FORMAT.date, showTimezone);
+const dateToDateString = (date) => formatDate(date, FORMAT.date);
 
 /**
  * Converts date object to dateTime string using default date time format {@see FORMAT.dateTime}
@@ -211,6 +204,7 @@ const schoolTimezoneToString = (showTimezoneOffset = false) => {
 
 module.exports = {
 	setDefaultTimezone,
+	setDefaultFormats,
 	getUserTimezone,
 	getUtcOffset,
 	fromUTC,
