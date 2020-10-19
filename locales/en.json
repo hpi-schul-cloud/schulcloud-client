@@ -258,6 +258,7 @@
 				"errorImportingUsers": "Error: {{errorMessage}}",
 				"failedToCreateUser": "Error when creating the user. {{error}}",
 				"importFailed": "Import failed. Please check your input data and try again.",
+				"importMayBeStillRunning":"Import in progress. Depending on file size this process could take a few minutes.",
 				"inTheQueue": "In the queue",
 				"invitationEmailContent": "Invitation to the {{title}} Hello {{firstName}} {{lastName}}!\nYou are invited to join the {{title}}, please complete your registration at the following link: {{shortLink}} \nYour {{shortTitle}} team wishes you fun and a good start",
 				"invitationEmailSubject": "Invitation to use the {{title}} !",
@@ -1617,6 +1618,7 @@
 			"password": "Password:",
 			"role": "Role",
 			"room": "Room",
+			"settings" : "Settings",
 			"skipLinks": "Skip links",
 			"sortBy": "Sort by: %1",
 			"title": "Title",
@@ -2973,15 +2975,25 @@
 				"shareWithOthersTeachers": "share with other teachers"
 			}
 		},
+		"aria_label": {
+			"openTopicX" : "Open topic {{name}}"
+		},
 		"form_share": {
 			"label": {
 				"distributeTheFollowingCode": "Share the following code with a teacher colleague to add the topic to a course. This function is located on the course page."
 			}
 		},
 		"topicEdit": {
+			"aria_label":{
+				"chooseContent" : "Choose the types of contents for your topic",
+				"geoGebraID": "GeoGebra ID",
+				"moveSectionWithKeys" : "Lift the section by pressing enter or space, move it with the arrow buttons and drop it with enter or space."
+			},
 			"button": {
+				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
+				"neXboard": "neXboard",
 				"text": "Text"
 			},
 			"input": {
@@ -2997,7 +3009,7 @@
 			"label": {
 				"descriptionEtherpad": "Description of the Etherpad",
 				"descriptionNeXboard": "Description of the neXboard",
-				"internLink": "intern link",
+				"internLink": "Intern Link",
 				"lockSection": "Lock section",
 				"nameOfEtherpad": "Name of the Etherpad",
 				"nameOfNeXboard": "Name of the neXboard",
