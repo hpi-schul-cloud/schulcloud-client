@@ -2348,6 +2348,7 @@
 			"firstLoginExistingUser": "Willkommen - Erster Login für bestehende Nutzer",
 			"loginFailedHint": "Deine Anmeldung hat leider nicht geklappt, bitte versuche folgende Schritte zur Problemlösung",
 			"loginForRegisteredUsers": "Login für registrierte Nutzer:innen",
+			"onlyPrivacy": "Datenschutzerklärung",
 			"onlyTermsOfUse": "Nutzungsordnung",
 			"privacyAndTermsOfUse": "Datenschutzerklärung und Nutzungsordnung"
 		},

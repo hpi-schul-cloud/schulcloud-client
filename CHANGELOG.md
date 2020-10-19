@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## Fixed
+- SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
+
 ## Unreleased
 
 - SC-7350 Fix invalid date
