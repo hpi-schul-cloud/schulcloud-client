@@ -2599,7 +2599,7 @@
 				},
 				"text": {
 					"aParentOrLegalGuardian": "Jahren bedarf ein Erziehungsberechtigter in die Nutzung der",
-					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren bedarf ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen.",
+					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren bedarf es der Einwilligung eines Erziehungsberechtigten in die Nutzung der {{shortTitle}}.",
 					"mustNotBeYourChildsEmail": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
 					"needFollowingInformationForChild": "benötigen wir folgende Angaben für Ihr Kind:",
