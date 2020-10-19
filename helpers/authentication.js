@@ -11,6 +11,8 @@ const wordlist = require('../static/other/wordlist.js');
 const { SW_ENABLED, MINIMAL_PASSWORD_LENGTH } = require('../config/global');
 const logger = require('./logger');
 
+const { setCookie } = require('./cookieHelper');
+
 const rolesDisplayName = {
 	teacher: 'Lehrer',
 	student: 'Schüler',
@@ -286,13 +288,9 @@ const login = (payload = {}, req, res, next) => {
 const etherpadCookieHelper = (etherpadSession, padId, res) => {
 	const encodedPadId = encodeURI(padId);
 	const padPath = Configuration.get('ETHERPAD__PAD_PATH');
-	res.cookie('sessionID', etherpadSession.data.sessionID, {
+	setCookie(res, 'sessionID', etherpadSession.data.sessionID, {
 		path: `${padPath}/${encodedPadId}`,
 		expires: new Date(etherpadSession.data.validUntil * 1000),
-		httpOnly: Configuration.get('COOKIE__HTTP_ONLY'),
-		hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
-		sameSite: Configuration.get('COOKIE__SAME_SITE'),
-		secure: Configuration.get('COOKIE__SECURE'),
 	});
 };
 
