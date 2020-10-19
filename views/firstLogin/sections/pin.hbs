@@ -4,4 +4,5 @@
   <div id="pinverification">
     {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
   </div>
+    {{#if @root.currentUser.importHash }}<input type="hidden" name="importHash" value="{{@root.currentUser.importHash}}" />{{/if}}
 </section>
