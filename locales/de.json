@@ -5,7 +5,7 @@
 			"showMore": "Mehr anzeigen"
 		},
 		"headline": {
-			"bestPractice": "Best Practice Schulen",
+			"bestPractice": "Best-Practice-Schulen",
 			"educSupp": "Bildungswissenschaftliche Begleitung",
 			"morePublications": "Weitere Veröffentlichungen",
 			"ourAwards": "Unsere Auszeichnungen",
@@ -278,7 +278,7 @@
 				"successfullyImportedUser": "{{amountImported}} von {{amountTotal}} Nutzer erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
 				"successfullyImportedUsers": "{{amountImported}} von {{amountTotal}} Nutzern erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
 				"theStepsForTheParentsAreOmitted": "Die Schritte für die Eltern entfallen automatisch.",
-				"theTeamCanOnlyBeDeleted": "Löschen des Teams nur bei Teams der eigenen Schul7he möglich",
+				"theTeamCanOnlyBeDeleted": "Löschen des Teams nur bei Teams der eigenen Schule möglich",
 				"thereWasAnError": "Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ",
 				"userCreatedErrorSendingTheMail": "Nutzer erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. {{errMessage}}",
 				"userCreatedSuccessfully": "Nutzer erfolgreich erstellt.",
@@ -369,7 +369,7 @@
 				"furtherInformation": "Weitere Informationen (OAuth)",
 				"systemName": "Name des Systems",
 				"systemType": "Typ des Systems",
-				"urlOfTheSystem": "Url des Systems"
+				"urlOfTheSystem": "URL des Systems"
 			}
 		},
 		"global": {
@@ -380,7 +380,7 @@
 				"createLinkSheet": "Link-Druckbogen erstellen",
 				"mailsAreBeingSent": "E-Mails werden gesendet...",
 				"printSheetIsBeingGenerated": "Druckbogen wird generiert...",
-				"sendLinksToStudentEmailAddresses": "Links an Schüler E-Mail Adressen senden"
+				"sendLinksToStudentEmailAddresses": "Links an Schüler-E-Mail-Adressen senden"
 			},
 			"helpdesk": {
 				"label": {
@@ -404,7 +404,7 @@
 				"substituteTeacher": "Vertretungslehrer:in",
 				"noSubTeacherSelection": "Lehrer:in auswählen",
 				"teacher": "Lehrer:in",
-				"teachingTeacher": "Unterrichtenderlehrer:in",
+				"teachingTeacher": "Unterrichtende:r Lehrer:in",
 				"termsOfUse": "Nutzungsbedingungen",
 				"timeSpan": "Zeitraum (z.B. Schuljahr)",
 				"weekday": "Wochentag"
@@ -430,7 +430,7 @@
 				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
 				"orSelectStudentFromTable": "Oder wähle Schüler:innen in der Tabelle aus.",
-				"studentsLoginInThePresenceOfGuardian": "Schüler:innen loggen sich in Anwesenheit eines Erziehungberechtigten ein",
+				"studentsLoginInThePresenceOfGuardian": "Schüler:innen loggen sich in Anwesenheit eines Erziehungsberechtigten ein",
 				"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
 				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet"
 			}
@@ -481,7 +481,7 @@
 				"uidTitle": "Der spätere Loginname. Muss in ihrem LDAP zur selben Zeit nur einmal vorkommen",
 				"urlIdapIsMandatory": "URL (ldaps ist verpflichtend)",
 				"userPath": "Nutzer-Pfad",
-				"userPathTitle": "Relativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Nutzer erreichbar sind. Mit der Trennung durch zwei Semikolons (;;) können auch mehrer relative Pfade zu LDAP-Nutzern angegeben werden.",
+				"userPathTitle": "Relativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Nutzer erreichbar sind. Mit der Trennung durch zwei Semikolons (;;) können auch mehrere relative Pfade zu LDAP-Nutzern angegeben werden.",
 				"users": "Nutzer:",
 				"uuidTitle": "Eindeutige nicht veränderbare Nutzer-ID. Darf sich nicht wie die uid (z.B. durch Heirat) ändern"
 			},
@@ -493,7 +493,7 @@
 			},
 			"text": {
 				"errorActivation": "Problem bei der Aktivierung",
-				"errorLDAPTimeout": "LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.",
+				"errorLDAPTimeout": "LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL-Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.",
 				"errorTimeout": "Zeitüberschreitung der Anwendung",
 				"furtherInfoHere": "Weitere Informationen zur LDAP-Konfiguration finden Sie in unserem <a href=\"/help/confluence/55902270\">Hilfebereich</a>.",
 				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!",
@@ -535,7 +535,7 @@
 		},
 		"school": {
 			"button": {
-				"addLDAPSystem": "LDAP System hinzufügen",
+				"addLDAPSystem": "LDAP-System hinzufügen",
 				"addRSSFeed": "RSS-Feed hinzufügen",
 				"addSystem": "System hinzufügen",
 				"checkLDAPData": "LDAP-Daten überprüfen",
@@ -557,7 +557,7 @@
 				"changeOfClasses": "Änderung von Klassen/neue Klassen",
 				"changeOfUserData": "Änderung von Nutzerdaten/neue Nutzer",
 				"className": "Klassenname:",
-				"cloudStorageProvider": "Cloud-Storage Anbieter",
+				"cloudStorageProvider": "Cloud-Storage-Anbieter",
 				"createChatRoom": "Chatraum für Ankündigungen an die gesamte Schule anlegen",
 				"currentSchoolYear": "Aktuelles Schuljahr:",
 				"dataProtectionAdd": "Datenschutzerklärung hinzufügen",
@@ -711,7 +711,7 @@
 		"users_registrationComplete": {
 			"text": {
 				"cannotCallPageAgain": "<b>Achtung: </b>Du kannst diese Seite nicht erneut aufrufen. Drucke dir also die angezeigten Zugangsdaten\n            unbedingt aus oder speichere sie anderweitig.\n            Sollte ein Schüler sein Passwort vergessen, kannst du es nur in der Benutzerverwaltung ändern.",
-				"loginWithPassword": "Du kannst dich nun in der {{shortTitle}} mit deinem Startpasswort einloggen.\n Gehe dazu auf <a href=\"https://schul-cloud.org\">\n                    <script nonce=\"{{nonceValue}}\">document.write(window.location.origin)</script></a>\n                und logge dich dort mit den folgenden Zugansdaten ein:",
+				"loginWithPassword": "Du kannst dich nun in der {{shortTitle}} mit deinem Startpasswort einloggen.\n Gehe dazu auf <a href=\"https://schul-cloud.org\">\n                    <script nonce=\"{{nonceValue}}\">document.write(window.location.origin)</script></a>\n                und logge dich dort mit den folgenden Zugangsdaten ein:",
 				"registrationPossibleWithFollowingData": "Die Anmeldung an der {{shortTitle}} ist mit den folgenden Daten möglich.",
 				"whatYouCanFind": "Auf dieser Seite findest du eine Übersicht über alle erfolgten Einwilligungen und generierten Zugangsdaten. <br>Die folgenden Seiten dieses Dokuments beinhalten jeweils die Zugangsdaten eines Kindes und eine Anleitung zur ersten Anmeldung. ",
 				"whenLoginForTheFirstTime": " Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen bei ihrem ersten Login die Einwilligungserklärung zusätzlich selbst erklären."
@@ -1163,7 +1163,7 @@
 			"label": {
 				"courseColor": "Farbe des Kurses",
 				"courseDescription": "Beschreibung des Kurses",
-				"courseTeacher": "Unterrichtende:r Lehrer:in",
+				"courseTeacher": "Unterrichtender Lehrer:in",
 				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
 			}
 		},
@@ -1297,7 +1297,7 @@
 			"createANewFolder": "Neuen Ordner erstellen",
 			"createNewFile": "Datei erstellen",
 			"descending": "↓ absteigend",
-			"download": "Runterladen",
+			"download": "Herunterladen",
 			"presentation": "Präsentation (pptx)",
 			"search": "Suche",
 			"selectFormat": "Format auswählen",
@@ -1834,7 +1834,7 @@
 			"contactDetails": "Ansprechpartner und Kontaktdaten",
 			"helpSection": "Hilfeartikel",
 			"privacyCourse": "Datenschutzkurs",
-			"welcomeDocuments": "Willkommens-Dokumente zum Download"
+			"welcomeDocuments": "Willkommensdokumente zum Download"
 		},
 		"help_confluenceLinks": {
 			"link": {
@@ -2404,7 +2404,7 @@
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
 			"loginFailedFirstHintText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
 			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
-			"loginFailedFithHintText": "Hier findest du alle HPI Schul-Could Instanzen:",
+			"loginFailedFithHintText": "Hier findest du alle HPI Schul-Cloud Instanzen:",
 			"loginFailedFourthHint": "4. Hast du deine Anmeldedaten schon überprüft?",
 			"loginFailedFourthHintText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
 			"loginFailedLogoBrandenburg": "Logo Brandenburg",
@@ -2514,7 +2514,7 @@
 			"allowedPasswords": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind: !§$%&/()=?\\;:,.#+*~",
 			"atLeast8Chars": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen. Erlaubte Sonderzeichen sind:",
 			"errorPasswordAlreadyChanged": "Ihr Passwort wurde bereits über diese URL geändert.",
-			"errorTimeExpired": "Zeit abgelaufen für Passwort Recovery."
+			"errorTimeExpired": "Zeit abgelaufen für Passwort-Wiederherstellung."
 		}
 	},
 	"registration": {
@@ -2600,7 +2600,7 @@
 				},
 				"text": {
 					"aParentOrLegalGuardian": "Jahren bedarf ein Erziehungsberechtigter in die Nutzung der",
-					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren bedarf ein Erziehungsberechtigter in die Nutzung der {{shortTitle}} einwilligen.",
+					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler unter {{years}} Jahren bedarf es der Einwilligung eines Erziehungsberechtigten in die Nutzung der {{shortTitle}}.",
 					"mustNotBeYourChildsEmail": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbietern verarbeitet werden.",
 					"needFollowingInformationForChild": "benötigen wir folgende Angaben für Ihr Kind:",
@@ -2641,7 +2641,7 @@
 		},
 		"deprecatedWarning": {
 			"text": {
-				"weHaveRevisedAndImprovedRegistration": "Wir haben die Registrierung in der HPI Schul-Cloud überarbeitet und verbessert. Leider sind deswegen alte Regisitrierungslinks nicht mehr gültig. Bitte kontaktiere deinen Lehrer oder Administrator, um einen neuen Registrierungslink zu erhalten."
+				"weHaveRevisedAndImprovedRegistration": "Wir haben die Registrierung in der HPI Schul-Cloud überarbeitet und verbessert. Leider sind deswegen alte Registrierungslinks nicht mehr gültig. Bitte kontaktiere deinen Lehrer oder Administrator, um einen neuen Registrierungslink zu erhalten."
 			}
 		},
 		"headline": {
@@ -2836,7 +2836,7 @@
 					"externExpert": "externer Experte",
 					"externTeacher": "Lehrer anderer Schule (Team-Admin)",
 					"federalState": "Bundesland",
-					"insertEmailOfExpertToInvite": "Gebe die E-Mail des Experten ein, an welchen die Einladung verschickt wird.",
+					"insertEmailOfExpertToInvite": "Gib die E-Mail des Experten ein, an welchen die Einladung verschickt wird.",
 					"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert einen anderen Eigentümer",
 					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
 					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
@@ -2844,7 +2844,7 @@
 					"removeClass": "Klasse entfernen",
 					"removeUser": "Nutzer entfernen",
 					"roleOfInvitedTeacher": "Rolle des eingeladenen Lehrers",
-					"selectRoleForMember": "Gebe ein, welche Rolle der Teilnehmer erhalten soll.",
+					"selectRoleForMember": "Gib ein, welche Rolle der Teilnehmer erhalten soll.",
 					"sendInvitationAgain": "Einladung erneut versenden"
 				},
 				"placeholder": {
