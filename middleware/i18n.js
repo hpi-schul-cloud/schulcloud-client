@@ -1,4 +1,4 @@
-const { Configuration } = require('@schul-cloud/commons');
+const { setCookie } = require('../helpers/cookieHelper');
 const {
 	getInstance,
 	changeLanguage,
@@ -16,13 +16,7 @@ const middleware = async (req, res, next) => {
 
 	if (currentLanguage) {
 		changeLanguage(currentLanguage);
-		res.cookie('USER_LANG', currentLanguage, {
-			expires: new Date(Date.now() + Configuration.get('COOKIE__EXPIRES_SECONDS')),
-			httpOnly: Configuration.get('COOKIE__HTTP_ONLY'), // can't be set to true with nuxt client
-			hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
-			sameSite: Configuration.get('COOKIE__SAME_SITE'), // restrict jwt access to our domain ressources only
-			secure: Configuration.get('COOKIE__SECURE'),
-		});
+		setCookie(res, 'USER_LANG', currentLanguage);
 
 		return next();
 	}

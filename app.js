@@ -147,10 +147,12 @@ if (!Configuration.get('COOKIE__SECURE') && Configuration.get('COOKIE__SAME_SITE
 	logger.error(cookieConfigErrorMsg);
 }
 
+
+const SIX_HOURS = 1000 * 60 * 60 * 6;
 app.use(session({
 	cookie: {
 		...cookieDefaults,
-		maxAge: 1000 * 60 * 60 * 6,
+		maxAge: SIX_HOURS,
 	},
 	rolling: true, // refresh session with every request within maxAge
 	store: sessionStore,

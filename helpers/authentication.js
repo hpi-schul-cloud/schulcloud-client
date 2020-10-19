@@ -251,13 +251,7 @@ const login = (payload = {}, req, res, next) => {
 	const { redirect } = payload;
 	delete payload.redirect;
 	return api(req).post('/authentication', { json: payload }).then((data) => {
-		res.cookie('jwt', data.accessToken, {
-			expires: new Date(Date.now() + Configuration.get('COOKIE__EXPIRES_SECONDS')),
-			httpOnly: Configuration.get('COOKIE__HTTP_ONLY'), // can't be set to true with nuxt client
-			hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
-			sameSite: Configuration.get('COOKIE__SAME_SITE'), // restrict jwt access to our domain ressources only
-			secure: Configuration.get('COOKIE__SECURE'),
-		});
+		setCookie(res, 'jwt', data.accessToken);
 		let redirectUrl = '/login/success';
 		if (redirect) {
 			redirectUrl = `${redirectUrl}?redirect=${redirect}`;

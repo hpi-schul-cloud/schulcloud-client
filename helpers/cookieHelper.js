@@ -5,6 +5,7 @@ const cookieDefaults = {
 	hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
 	sameSite: Configuration.get('COOKIE__SAME_SITE'),
 	secure: Configuration.get('COOKIE__SECURE'),
+	expires: new Date(Date.now() + Configuration.get('COOKIE__EXPIRES_SECONDS')),
 };
 
 const setCookie = (res, cookieName, value, options = {}) => {
