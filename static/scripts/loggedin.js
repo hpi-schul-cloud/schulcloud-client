@@ -1,5 +1,4 @@
 import { iFrameListen } from './helpers/iFrameResize';
-import './cleanup'; // see login.js for loggedout users
 import initAlerts from './alerts';
 
 iFrameListen();
