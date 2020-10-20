@@ -32,13 +32,13 @@
 		"text": {
 			"BasedOnTheResults": "Based on the results of class observation and workshops with the pilot schools, a usage concept for the pedagogically and didactically sensible use of the HPI school cloud. In addition, the HPI, together with the <a href=\"https://www.philso.uni-augsburg.de/lehrstuehle/schulpaed/Projekte/Digitalisierung/Lernen-4_0-in-der-Praxis/\" target=\"_blank\">University Of Augsburg</a> a MOOC on the topic <a href=\"https://lernen.cloud/\" target=\"_blank\">Learning 4.0 - Possibilities and Limits of Digitization in Education</a> carried out.",
 			"aScientificOne": "a scientific one Survey of pilot schools on the potential of the HPI School Cloud. On the other hand, it shapes",
-			"universityOfTubingen": "University Of Tübingen",
-			"forPedagogicalAndDidactic": "For pedagogical and didactic support of the project in terms of developing examples for the Lesson design with available digital learning material from the HPI school cloud and the knowledge gained through the digital Lesson design An external educational scientist has been commissioned with the HPI School Cloud. For one, leads the",
 			"browserNotSupported": "Your browser cannot display the embedded PDF. You can watch it here:",
+			"forPedagogicalAndDidactic": "For pedagogical and didactic support of the project in terms of developing examples for the Lesson design with available digital learning material from the HPI school cloud and the knowledge gained through the digital Lesson design An external educational scientist has been commissioned with the HPI School Cloud. For one, leads the",
 			"startA2019": "(Start August 2019)",
 			"startF2019": "(Start February 2019)",
 			"startM2017": "(Start March 2017)",
-			"startM2018": "(Start May 2018)"
+			"startM2018": "(Start May 2018)",
+			"universityOfTubingen": "University Of Tübingen"
 		}
 	},
 	"account": {
@@ -262,7 +262,7 @@
 				"errorImportingUsers": "Error: {{errorMessage}}",
 				"failedToCreateUser": "Error when creating the user. {{error}}",
 				"importFailed": "Import failed. Please check your input data and try again.",
-				"importMayBeStillRunning":"Import in progress. Depending on file size this process could take a few minutes.",
+				"importMayBeStillRunning": "Import in progress. Depending on file size this process could take a few minutes.",
 				"inTheQueue": "In the queue",
 				"invitationEmailContent": "Invitation to the {{title}} Hello {{firstName}} {{lastName}}!\nYou are invited to join the {{title}}, please complete your registration at the following link: {{shortLink}} \nYour {{shortTitle}} team wishes you fun and a good start",
 				"invitationEmailSubject": "Invitation to use the {{title}} !",
@@ -1622,7 +1622,7 @@
 			"password": "Password:",
 			"role": "Role",
 			"room": "Room",
-			"settings" : "Settings",
+			"settings": "Settings",
 			"skipLinks": "Skip links",
 			"sortBy": "Sort by: %1",
 			"title": "Title",
@@ -2138,6 +2138,11 @@
 				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso Plattner Institute for Digital Engineering gGmbH",
 				"managingDirectorAuthorized": "Managing director authorized to represent:"
 			}
+		},
+		"text": {
+			"hassoPlattnerInstitute": "Hasso Plattner Institute",
+			"registerCourt": "Register court: Potsdam District Court, register number: HRB 12184",
+			"responsibleForContent": "Responsible for content according to § 6 MDStV: Prof. Dr. Christoph Meinel"
 		}
 	},
 	"lib": {
@@ -3095,9 +3100,11 @@
 				"headline": {
 					"aboutTheThuringian": "About the Thuringian school cloud",
 					"crossNationalGoodExperience": "Cross-national good practice experience",
+					"mintPilotSchools": "MINT pilot schools",
 					"pilotSchools": "Pilot schools from 2019"
 				},
 				"text": {
+					"georgEckertInstitute": "Georg Eckert Institute",
 					"theThuringianSchoolCloudIsIntended": "The Thuringian School Cloud is intended to create the technical basis that teachers and students in each Subject can also use modern digital teaching and learning content in the same way as apps on smartphones or tablets can be used.",
 					"theThuringianSchoolCloudStarted": "The Thuringian School Cloud started the pilot phase in October 2019, in which 20 pilot schools and 9 study seminars were initially able to use the Thuringian School Cloud."
 				}
@@ -3128,7 +3135,7 @@
 			}
 		},
 		"aria_label": {
-			"openTopicX" : "Open topic {{name}}"
+			"openTopicX": "Open topic {{name}}"
 		},
 		"form_share": {
 			"label": {
@@ -3136,10 +3143,10 @@
 			}
 		},
 		"topicEdit": {
-			"aria_label":{
-				"chooseContent" : "Choose the types of contents for your topic",
+			"aria_label": {
+				"chooseContent": "Choose the types of contents for your topic",
 				"geoGebraID": "GeoGebra ID",
-				"moveSectionWithKeys" : "Lift the section by pressing enter or space, move it with the arrow buttons and drop it with enter or space."
+				"moveSectionWithKeys": "Lift the section by pressing enter or space, move it with the arrow buttons and drop it with enter or space."
 			},
 			"button": {
 				"etherpad": "Etherpad",

@@ -32,13 +32,13 @@
 		"text": {
 			"BasedOnTheResults": "aufbauend auf den Ergebnissen von Unterrichtsbeobachtungen und Workshops mit den Pilotschulen ein Nutzungskonzept für die pädagogisch-didaktisch sinnvolle Anwendung der HPI Schul-Cloud. Außerdem hat das HPI zusammen mit der <a href=\"https://www.philso.uni-augsburg.de/lehrstuehle/schulpaed/Projekte/Digitalisierung/Lernen-4_0-in-der-Praxis/\" target=\"_blank\">Universität Augsburg</a> einen MOOC zu dem Thema <a href=\"https://lernen.cloud/\" target=\"_blank\">Lernen 4.0 - Möglichkeiten und Grenzen einer Digitalisierung im Bildungsbereich</a> durchgeführt.",
 			"aScientificOne": "eine wissenschaftliche Befragung der Pilotschulen zu Potenzialen der HPI Schul-Cloud durch. Zum anderen gestaltet das",
-			"universityOfTubingen": "Universität Tübingen",
-			"forPedagogicalAndDidactic": "Zur pädagogisch-didaktischen Unterstützung des Projekts im Sinne der Entwicklung von Beispielen für die Unterrichtsgestaltung mit verfügbarem digitalen Lernmaterial aus der HPI Schul-Cloud und dem Erkenntnisgewinn über die digitale Unterrichtsgestaltung mit der HPI Schul-Cloud ist eine externe bildungswissenschaftliche Begleitung beauftragt. Zum einen führt die",
 			"browserNotSupported": "Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen:",
+			"forPedagogicalAndDidactic": "Zur pädagogisch-didaktischen Unterstützung des Projekts im Sinne der Entwicklung von Beispielen für die Unterrichtsgestaltung mit verfügbarem digitalen Lernmaterial aus der HPI Schul-Cloud und dem Erkenntnisgewinn über die digitale Unterrichtsgestaltung mit der HPI Schul-Cloud ist eine externe bildungswissenschaftliche Begleitung beauftragt. Zum einen führt die",
 			"startA2019": "(Start August 2019)",
 			"startF2019": "(Start Februar 2019)",
 			"startM2017": "(Start März 2017)",
-			"startM2018": "(Start Mai 2018)"
+			"startM2018": "(Start Mai 2018)",
+			"universityOfTubingen": "Universität Tübingen"
 		}
 	},
 	"account": {
@@ -262,7 +262,7 @@
 				"errorImportingUsers": "Fehler: {{errorMessage}}",
 				"failedToCreateUser": "Fehler beim Erstellen des Nutzers. {{error}}",
 				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
-				"importMayBeStillRunning" : "Der Import findet im Hintergrund statt und kann je nach Menge der Daten einige Minuten dauern.",
+				"importMayBeStillRunning": "Der Import findet im Hintergrund statt und kann je nach Menge der Daten einige Minuten dauern.",
 				"inTheQueue": "In der Warteschlange",
 				"invitationEmailContent": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
 				"invitationEmailSubject": "Einladung für die Nutzung der {{title}}!",
@@ -1622,7 +1622,7 @@
 			"password": "Passwort:",
 			"role": "Rolle",
 			"room": "Raum",
-			"settings" :"Einstellungen",
+			"settings": "Einstellungen",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
 			"title": "Titel",
@@ -2138,6 +2138,11 @@
 				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso-Plattner-Institut für Digital Engineering gGmbH",
 				"managingDirectorAuthorized": "Vertretungsberechtigter Geschäftsführer:"
 			}
+		},
+		"text": {
+			"hassoPlattnerInstitute": "Hasso Plattner Institut",
+			"registerCourt": "Registergericht: Amtsgericht Potsdam, Registernummer: HRB 12184",
+			"responsibleForContent": "Inhaltlich Verantwortlich gemäß § 6 MDStV: Prof. Dr. Christoph Meinel"
 		}
 	},
 	"lib": {
@@ -3093,11 +3098,13 @@
 		"thr": {
 			"about": {
 				"headline": {
-					"crossNationalGoodExperience": "Länderübergreifende good practice Erfahrung",
 					"aboutTheThuringian": "Über die Thüringer Schulcloud",
+					"crossNationalGoodExperience": "Länderübergreifende good practice Erfahrung",
+					"mintPilotSchools": "MINT-Pilotschulen",
 					"pilotSchools": "Pilotschulen ab 2019"
 				},
 				"text": {
+					"georgEckertInstitute": "Georg-Eckert-Institut",
 					"theThuringianSchoolCloudIsIntended": "Die Thüringer Schulcloud soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.",
 					"theThuringianSchoolCloudStarted": "Die Thüringer Schulcloud ist im Oktober 2019 in die Pilotphase gestartet, in der zunächst 20 Pilotschulen und 9 Studienseminare die Thüringer Schulcloud nutzen konnten."
 				}
@@ -3127,8 +3134,8 @@
 				"shareWithOthersTeachers": "mit anderen Lehrern teilen"
 			}
 		},
-		"aria_label" :{
-			"openTopicX" : "Thema {{name}} öffnen"
+		"aria_label": {
+			"openTopicX": "Thema {{name}} öffnen"
 		},
 		"form_share": {
 			"label": {
@@ -3136,10 +3143,10 @@
 			}
 		},
 		"topicEdit": {
-			"aria_label":{
+			"aria_label": {
 				"chooseContent": "Wählen Sie Inhaltstypen des Themas aus",
 				"geoGebraID": "GeoGebra ID",
-				"moveSectionWithKeys" : "Heben Sie den Abschnitt mit Leertaste oder Enter auf, bewegen Sie ihn mit den Pfeiltasten und legen Sie ihn dann mit Leertaste oder Enter ab."
+				"moveSectionWithKeys": "Heben Sie den Abschnitt mit Leertaste oder Enter auf, bewegen Sie ihn mit den Pfeiltasten und legen Sie ihn dann mit Leertaste oder Enter ab."
 			},
 			"button": {
 				"etherpad": "Etherpad",
