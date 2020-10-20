@@ -3108,6 +3108,14 @@
 					"theThuringianSchoolCloudIsIntended": "Die Thüringer Schulcloud soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.",
 					"theThuringianSchoolCloudStarted": "Die Thüringer Schulcloud ist im Oktober 2019 in die Pilotphase gestartet, in der zunächst 20 Pilotschulen und 9 Studienseminare die Thüringer Schulcloud nutzen konnten."
 				}
+			},
+			"authentication": {
+				"headline": {
+					"welcomeToTheThuringian": "Herzlich willkommen in der Thüringer Schulcloud"
+				},
+				"text": {
+					"theThuringianSchoolCloud": "Die Thüringer Schulcloud soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Um dieses Ziel zu erreichen pilotiert das Land Thüringen die vom Hasso-Plattner-Institut entwickelte Schulcloud mit zunächst 20 Pilotschulen und 9 Studienseminaren ab dem Schuljahr 2019/2020."
+				}
 			}
 		}
 	},
