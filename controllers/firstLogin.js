@@ -29,7 +29,7 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 router.get('/', async (req, res, next) => {
 	const { currentUser } = res.locals;
 
-	if (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED') === false) {
+	if (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED') === true) {
 		return api(req)
 			.post('/firstLogin/', { json: req.body })
 			.then(() => res.redirect('/dashboard'))
@@ -45,7 +45,7 @@ router.get('/', async (req, res, next) => {
 	if (
 		!currentUser.birthday && res.locals.currentRole === 'Schüler' // fixme identical to isStudent() here
 			&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
-			&& (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED') === false)
+			&& (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED') === true)
 	) {
 		return res.redirect('firstLogin/existing');
 	}
