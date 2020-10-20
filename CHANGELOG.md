@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.1.1] - 2020-10-15
+
+### Fixed
+
+- SC-7085 fixed importHash error when asking parent consent
+
 ## [25.0.7] - 2020-10-09
 
 ### Fixed
