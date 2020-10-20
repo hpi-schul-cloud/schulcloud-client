@@ -2348,6 +2348,7 @@
 			"firstLoginExistingUser": "Welcome - First login for existing users",
 			"loginFailedHint": "Unfortunately, your Login did not work, please try the following steps to solve the problem",
 			"loginForRegisteredUsers": "Login for registered users",
+			"onlyPrivacy": "Privacy Policy",
 			"onlyTermsOfUse": "Terms of use",
 			"privacyAndTermsOfUse": "Privacy Policy and Terms of Use"
 		},
