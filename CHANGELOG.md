@@ -7,12 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unreleased
+## 25.2.0
+
+### Fixed
+
+- SC-7151 Fixing sentence structure while registration for parents
+- SC-7350 Fix invalid date
 - SC-7182 do not allow to open office files in new windows
 
 ### Added
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
+
+## [25.1.1] - 2020-10-15
+
+### Fixed
+
+- SC-7085 fixed importHash error when asking parent consent
 
 ## [25.0.7] - 2020-10-09
 

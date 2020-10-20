@@ -215,6 +215,7 @@
 		border-radius: 3px;
 		margin-bottom: 12px;
 		background: none !important;
+		width: 100%;
 	}
 
 	.content-block {
@@ -369,6 +370,10 @@
 }
 .card-topic {
 	cursor: pointer;
+	border: none;
+	display: block;
+	background: $primaryColor;
+	width: 100%;
 
 	.card-header {
 		padding: 0.5rem 0.75rem;
