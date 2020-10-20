@@ -1,3 +1,4 @@
+const { setCookie } = require('../helpers/cookieHelper');
 const {
 	getInstance,
 	changeLanguage,
@@ -14,7 +15,8 @@ const middleware = async (req, res, next) => {
 
 	if (currentLanguage) {
 		changeLanguage(currentLanguage);
-		res.cookie('USER_LANG', currentLanguage);
+		setCookie(res, 'USER_LANG', currentLanguage);
+
 		return next();
 	}
 

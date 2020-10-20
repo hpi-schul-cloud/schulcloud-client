@@ -9,6 +9,7 @@ const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
 const timesHelper = require('../helpers/timesHelper');
 const { getCurrentLanguage } = require('../helpers/i18n');
+const { setCookie } = require('../helpers/cookieHelper');
 
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
@@ -149,7 +150,7 @@ router.post(
 			})
 			.then(() => {
 				if (req.params.sso) {
-					res.cookie('jwt', req.cookies.jwt, {
+					setCookie(res, 'jwt', req.cookies.jwt, {
 						expires: new Date(Date.now() - 100000),
 						httpOnly: false,
 						hostOnly: true,
