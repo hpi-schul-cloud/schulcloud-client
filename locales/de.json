@@ -744,7 +744,9 @@
 	"calendar": {
 		"button": {
 			"chooseACourse": "Wähle einen Kurs...",
-			"chooseATeam": "Wähle eine Team"
+			"availableCourses": "Verfügbare Kurse",
+			"chooseATeam": "Wähle eine Team",
+			"availableTeams": "Verfügbare Teams"
 		},
 		"headline": {
 			"calendar": "Kalender"
