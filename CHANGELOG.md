@@ -20,6 +20,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7350 Fix invalid date
 - SC-7182 do not allow to open office files in new windows
 
+- SC-6060 Cookie configuration
+
 ### Added
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
