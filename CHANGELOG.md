@@ -12,7 +12,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Fixed
 - SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
 
-=======
 ## 25.2.0
 
 ### Fixed
