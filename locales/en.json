@@ -743,10 +743,10 @@
 	},
 	"calendar": {
 		"button": {
-			"chooseACourse": "Pick a course...",
 			"availableCourses": "Available courses",
-			"chooseATeam": "Choose a team",
-			"availableTeams": "Available teams"
+			"availableTeams": "Available teams",
+			"chooseACourse": "Pick a course...",
+			"chooseATeam": "Choose a team"
 		},
 		"headline": {
 			"calendar": "Calendar"
