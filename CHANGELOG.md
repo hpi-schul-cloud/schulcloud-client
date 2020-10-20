@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## Unreleased
+
+### Changed in unreleased
+
+- update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
+
+
 ## 25.2.0
 
 ### Fixed
