@@ -29,7 +29,7 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 router.get('/', async (req, res, next) => {
 	const { currentUser } = res.locals;
 
-	if (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED') === true) {
+	if (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED') === false) {
 		return api(req)
 			.post('/firstLogin/', { json: req.body })
 			.then(() => res.redirect('/dashboard'))
