@@ -1,0 +1,3050 @@
+{
+	"about": {
+		"button": {
+			"showLess": "show less",
+			"showMore": "show more"
+		},
+		"headline": {
+			"bestPractice": "Best practice schools",
+			"educSupp": "Educational science support",
+			"morePublications": "Other Publications",
+			"ourAwards": "Our Awards",
+			"pilotSchool": "Pilot schools",
+			"project": "Project",
+			"publications": "Publications",
+			"recordingsLecture": "Recordings of Lectures",
+			"title": "About the HPI school cloud"
+		},
+		"link": {
+			"awardWinnerIdea": "Appointment as \"Excellent Place\" in the nationwide competition \"Land of Ideas\"",
+			"awardWinnerInnovation": "Winner of the \"Innovation Award Berlin Brandenburg 2018",
+			"cloudGermanyConcept": "The Cloud for Schools in Germany: Concept and Piloting of the HPI School Cloud",
+			"cloudImportanceStakeholder": "School computers migrating to the cloud - what does this mean for the various stakeholders?",
+			"hpiCloudDuringLesson": "The HPI school cloud in the classroom - interdisciplinary teaching scenarios and methods",
+			"hpiCloudInDayLife": "The HPI school cloud in teaching and everyday school life - added value and requirements",
+			"hpiCloudLearning": "HPI School Cloud and Learning 4.0 - Best practice teaching examples for secondary schools",
+			"hpiCloudTechnicalReport": "Technical report: The HPI School Cloud: Roll-out of a cloud architecture for schools in Germany",
+			"shortDescription": "Short description \"The HPI Schul-Cloud\" (.pdf)",
+			"talksFirstCloudForum": "Presentations of the 1st HPI School Cloud Forum (April 2017)",
+			"talksSecondCloudForum": "Presentations of the 2nd HPI School Cloud Forum (March 2018)",
+			"talksThirdCloudForum": "Presentations of the 3rd HPI School Cloud Forum (March 2019)"
+		},
+		"text": {
+			"browserNotSupported": "Your browser cannot display the embedded PDF. You can watch it here:",
+			"startA2019": "(Start August 2019)",
+			"startF2019": "(Start February 2019)",
+			"startM2017": "(Start March 2017)",
+			"startM2018": "(Start May 2018)"
+		}
+	},
+	"account": {
+		"button": {
+			"activateNotifications": "Activate notifications",
+			"saveAccountSettings": "Save account settings",
+			"saveTeamSettings": "Save team settings",
+			"sendTestNotification": "Send test notification"
+		},
+		"global": {
+			"label": {
+				"currentPassword": "Current password:",
+				"newPassword": "New password:",
+				"operatingSystem": "Operating system",
+				"repeatNewPassword": "Repeat new password:"
+			},
+			"text": {
+				"name": "Name",
+				"noThirdPartyProvidersUsed": "No third party providers used",
+				"thirdPartyLogins": "Third party logins"
+			}
+		},
+		"headline": {
+			"yourAccount": "Your account"
+		},
+		"label": {
+			"notificationSettings": "Notification settings",
+			"providers": "Provider"
+		},
+		"teams": {
+			"button": {
+				"changeTeamSettings": "Change team settings"
+			},
+			"headline": {
+				"teamSettings": "Team settings"
+			},
+			"label": {
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "The visibility in the central directory is activated system-wide for all teachers and cannot be deactivated.",
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-in": "Activate visibility in the central directory",
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Deactivate visibility in the central directory"
+			},
+			"text": {
+				"hintVisibility": "Teachers from other schools who are team administrators can easily invite you to a cross-school team via the central directory service of {{short_title}}. Your name is assigned to your school and it is accessible in the directory structure under <i> Name of your state &raquo; Name of your school &raquo; Your name <\/i>.",
+				"visibilityTeamInvitations": "Visibility for team invitations",
+				"visibilityTeamInvitationsDisabled": "Visibility for team invitations is disabled"
+			}
+		},
+		"testNotification": {
+			"headline": {
+				"newTestNotification": "New test notification"
+			},
+			"text": {
+				"youHaveANewNotification": "You have a new notification"
+			}
+		},
+		"text": {
+			"centralIdentityManagement": "Your user data is synchronized by a central identity management (IDM). Changes to it can only be made in the source system (e.g. school server) on which the data in the IDM is based. Please contact your school's local administrator to make changes to your user data.",
+			"noDeviceEntered": "No devices entered",
+			"preferencesUpdateError": "There was an error in the preferences!",
+			"preferencesUpdates": "Preferences have been updated!"
+		},
+		"thirdPartyProviders": {
+			"headline": {
+				"thirdPartyProviderLogin": "Third party logins"
+			}
+		}
+	},
+	"addons": {
+		"headline": {
+			"portfolio": "Portfolio"
+		},
+		"text": {
+			"portfolioDescription": "Create your digital portfolio in a flexible personal learning system. Share your successes and your development in a place that you design yourself. Work with others in groups."
+		}
+	},
+	"administration": {
+		"button": {
+			"changePassword": "Change Password",
+			"consent": "Consents:",
+			"generatePersonalInvitationLink": "Generate personal invitation link",
+			"printListWithAccessData": "Print list with access data",
+			"receivedConsentOnPaper": "Received Consent on Paper",
+			"sendTheInvitationLinkByMail": "Send invitation link by e-mail"
+		},
+		"classes": {
+			"button": {
+				"addClass": "Add class",
+				"addStudentsFromPreviousYearClass": "Add student from previous year's class",
+				"classInSchoolYear": "Move class to school year <span data-from=\"schoolyear\"><\/span>",
+				"declareConsentOnBehalfOfTheStudents": "Declare consent on behalf of the student",
+				"transferClassToTheNextSchoolYear": "Move class to next school year"
+			},
+			"headline": {
+				"importClass": "Import class",
+				"questionStudentsNotInSystem": "Your students are not yet in the {{shortTitle}}?"
+			},
+			"label": {
+				"addStudentFromPreviousYearClass": "Add students from previous year's class",
+				"all": "All",
+				"class": "Class:",
+				"className": "Class name",
+				"filterBySchoolYear": "Filter by school year",
+				"grade": "Grade",
+				"maintainSchoolYearAssignment": "Maintain school year assignment",
+				"pleaseNote": "Please note:",
+				"renameClass": "Rename class",
+				"selectElement": "No selection",
+				"selectTeacher": "Select teacher (also possible later)"
+			},
+			"placeholder": {
+				"exampleName": "e.g. frog class 3-4"
+			},
+			"text": {
+				"attentionIfYouChangeTheSchoolYear": "Attention! If you change the school year, your selection of previous year's classes will be reset.",
+				"className": "Class name:",
+				"createClass": "You can create classes independent of school year with free names. These classes cannot be <i>moved<\/i> by the administrator, but must be updated manually.",
+				"inviteTheParentsViaLink": "Invite parents via a link to register their children for your class and submit the electronic declaration of consent.",
+				"linkCopiedToClipboard": "The link has been copied to your clipboard",
+				"manageClass": "Manage class",
+				"manuallyGiveConsentForAllStudent": "Manually declare consent for all students",
+				"nextPageYouWillReceiveConfirmation": "On the next page you will receive a confirmation and you have the opportunity to print out all start passwords together with instructions for your students.",
+				"noClassesInYear": "No classes available in this year",
+				"noLackOfInformedConsent": "There are no missing declarations of consent in this class.",
+				"required": "required",
+				"signAgreement": "On this page. you can declare consent to the <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Privacy policy<\/a> and to <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Terms of use<\/a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student<\/i> you confirm that you have obtained the consent of the student or his parents by another means.",
+				"theNextStepIsToInviteOrAdd": "In the next step you can invite or add students to the class."
+			}
+		},
+		"controller": {
+			"global": {
+				"label": {
+					"class": "Class",
+					"classUsers": "Users of the class",
+					"consentStatus": "Registration",
+					"createdOn": "Created on",
+					"email": "E-mail address",
+					"teacher": "Teacher"
+				}
+			},
+			"headline": {
+				"administration": "Administration:",
+				"alias": "Alias",
+				"attendees": "Attendees",
+				"briefDescription": "Brief description",
+				"classes": "{{title}}Classes",
+				"courses": "{{title}}Courses",
+				"createdOn": "Created on",
+				"creationDate": "Date of creation",
+				"declarationOfConsentStatus": "Declaration of consent Status",
+				"domain": "Domain",
+				"editClass": "Edit class '{{name}}'",
+				"externalExpert": "External expert",
+				"general": "{{title}}General",
+				"helpdesk": "{{title}}Helpdesk",
+				"itsOn": "Current state",
+				"manageClass": "Manage class '{{name}}'",
+				"management": "Management: ",
+				"members": "Members",
+				"owner": "Owner",
+				"remarks": "Remarks",
+				"school": "{{title}}School",
+				"schools": "School(s)",
+				"status": "Status",
+				"students": "{{title}}Student",
+				"targetState": "Target state",
+				"teacher": "{{title}}Teacher",
+				"teams": "{{title}}Teams",
+				"upgradeClass": "Bring class '{{name}}' to the new school year",
+				"uploadedOn": "Uploaded on"
+			},
+			"label": {
+				"domainName": "Domain name",
+				"email": "E-mail",
+				"inactive": "{{alias}} (inactive)",
+				"roles": "Role(s)",
+				"status": "Status:% 1",
+				"teamChatActive": "Chat is activated",
+				"teamFoundedAtOwnSchool": "Team founded at own school",
+				"teamHasOwner": "Team has owners",
+				"teamIncludesExternalMembers": "Includes members outside the school"
+			},
+			"link": {
+				"addAnotherOwner": "Add another owner",
+				"changePassword": "Change Password",
+				"completeEntry": "Complete entry",
+				"createANewClass": "Create a new class",
+				"deleteClass": "Delete class",
+				"deleteEntry": "Delete entry",
+				"editClass": "Edit class",
+				"editEntry": "Edit entry",
+				"editingStudents": "Edit students",
+				"editLDAP": "Edit LDAP",
+				"editTeacher": "Edit teacher",
+				"editUsers": "Edit users",
+				"manageClass": "Manage class",
+				"removeMembers": "Remove members of your own school from the team",
+				"resetPassword": "Reset Password",
+				"schoolPrivacyPolicy": "Privacy policy of the school",
+				"sendEntryToDevelopmentTeam": "Send entry to development team",
+				"sendMessageToOwner": "Send message to owner",
+				"toGiveConsent": "Give consent",
+				"transferClassToTheNextSchoolYear": "Move class to the next school year"
+			},
+			"tab_label": {
+				"archivedClasses": "Archive"
+			},
+			"text": {
+				"active": "Active",
+				"agreementSuccessfullyDeclared": "Consent successfully declared",
+				"anotherSchoolWasFounded": "was founded in another school and therefore it is not possible to ",
+				"anUnknownErrorOccurred": "There was an unknown error while importing.",
+				"changesSuccessfullySaved": "Changes saved successfully.",
+				"checkingTheLDAPData": "Checking the LDAP data for the new school year",
+				"closed": "Closed",
+				"consentGrantedSuccessfully": "Consents granted successfully",
+				"createdOn": "Created on",
+				"declarationOfConsentAvailable": "Declarations of consent required for registration are available",
+				"emailDeclarationOfConsent": "Hello {{name}},\nUnfortunately, we are still missing your declaration of consent.\nYou cannot use the HPI school cloud without it.\n\nPlease log in with your data \nto accept the declaration of consent to be able to use the HPI school cloud to the full extent.\n\nGo to {{link}} to log in.",
+				"emailDeclarationOfConsentSubject": "The final step to activate for the {{title}}",
+				"errorCreatingRegistrationLink": "Error while creating the registration link. Please generate and share the registration link in the user profile independently. {{errMessage}}",
+				"errorImportingUsers": "Error: {{errorMessage}}",
+				"failedToCreateUser": "Error when creating the user. {{error}}",
+				"importFailed": "Import failed. Please check your input data and try again.",
+				"importMayBeStillRunning": "Import in progress. Depending on file size this process could take a few minutes.",
+				"inTheQueue": "In the queue",
+				"invitationEmailContent": "Invitation to the {{title}} Hello {{firstName}} {{lastName}}!\nYou are invited to join the {{title}}, please complete your registration at the following link: {{shortLink}} \nYour {{shortTitle}} team wishes you fun and a good start",
+				"invitationEmailSubject": "Invitation to use the {{title}} !",
+				"noDeclarationOfConsentAvailable": "Consent form not available",
+				"onlyAllMembers": "Only all members of your own school can be removed from the team",
+				"open": "Open",
+				"parentsAgreed": "Parents have agreed, student still open",
+				"passTheRegistrationLinkDirectly": "Send the registration link directly to the student.",
+				"registrationExplanation": "First give the registration link to the parents. They create the student data and electronically declare their consent. The student is then registered in the {{title}} and you can see him in your class list. The student can log in with his e-mail address and his individual initial password. After logging in for the first time, every student must change his password. If the student is over 14 years old, he must also give his electronic consent so that he can use the {{title}} .",
+				"removeStudentsFromYourOwnSchool": "Remove students of your own school from the team. Only possible, if the team was founded in another school and therefore it is not possible to or give someone else admin rights for the team.",
+				"retrieveFailed": "Error during retrieval",
+				"schoolYearPercentage": "School year:% 1",
+				"setupFailed": "Setup failed. Please try again later. ",
+				"sortBy": "Sort by: %1",
+				"stillLackOfDeclaration": "Hello {{name}} Unfortunately, we are still missing your declaration of consent. You cannot use the school cloud without it. Please log in with your data to accept the declaration of consent to be able to use the school cloud to the full extent. Go to {{shortLink}} {{shortLink}} to log in.",
+				"submitted": "Sent",
+				"successfullyImportedUser": "{{amountImported}} out of {{amountTotal}} users imported successfully ({{amountCreated}} created {{amountUpdated}} updated).",
+				"successfullyImportedUsers": "{{amountImported}} out of {{amountTotal}} users imported successfully ({{amountCreated}} created {{amountUpdated}} updated).",
+				"thereWasAnError": "An error occurred while giving consent.",
+				"theStepsForTheParentsAreOmitted": "The steps for the parents are omitted automatically.",
+				"theTeamCanOnlyBeDeleted": "Deletion of the team only possible for teams of your own school",
+				"userCreatedErrorSendingTheMail": "User created. Error while sending the email. Please generate and share the registration link in the user profile independently. {{errMessage}}",
+				"userCreatedSuccessfully": "User created successfully.",
+				"userCreatedSuccessfullyAndRegistration": "User successfully registered and registration link sent successfully by e-mail.",
+				"whenLoggingInForTheFirstTime": "When logging in for the first time, the student has to change his password. If he has given an e-mail address, he can have the changed password sent to him or generate a new password if it is lost. Alternatively, you can click on Edit behind the student name in the area Administration > Students. Then the student can re-enter his password on your device.",
+				"yourStudentsAreAtLeast": "Are your students at least {{age}} years old?",
+				"yourStudentsAreUnder": "Are your students less than {{age}} years old ?"
+			}
+		},
+		"dashboard": {
+			"headline": {
+				"manageClasses": "Manage classes",
+				"manageCourses": "Manage courses",
+				"manageSchool": "Manage school",
+				"manageStudents": "Manage students",
+				"manageTeachers": "Manage teachers",
+				"manageTeams": "Manage teams"
+			}
+		},
+		"form_DeleteRss": {
+			"text": {
+				"areYouSureYouWantToDeleteTheFollowingRSS": "Are you sure you want to delete the following RSS feed?"
+			}
+		},
+		"form_DeleteUser": {
+			"text": {
+				"areYouSureYouWantToDeleteTheFollowingUser": "Are you sure you want to remove the following users?"
+			}
+		},
+		"form_Import": {
+			"label": {
+				"selectCSVFile": "Select CSV file",
+				"sendRegistrationLinkToUsers": "Send registration links to users immediately after import"
+			},
+			"text": {
+				"alternativelyYouCanCallUpTheRegistration": "Alternatively, you can call the registration links later and send them to your users by e-mail or QR print sheet.",
+				"attention": "⚠️ ATTENTION: When importing large data sets, an error message is currently displayed shortly after the start. The\n        import process still continues invisibly in the background. Duration: about 4 minutes per 1000  \n        users. Please wait for the corresponding time and then update your browser window to review the \n        updated student overview.",
+				"importUserData": "Import user data via .csv file (<a href=\"#\" id=\"csv-import-example\">example<\/a> ) and send your users a registration link.",
+				"youCanFindMoreInformationOnTheStructure": "You can find more information on the structure of the .csv file, class assignment and the registration process <a href=\"https:\/\/docs.schul-cloud.org\/x\/NYBgAw\" target=\"_blank\">here<\/a> ."
+			}
+		},
+		"form_InvitationStudent": {
+			"label": {
+				"distributeLinkToInvite": "To invite to the HPI school cloud, send the following link to:"
+			},
+			"text": {
+				"beforeTheSchoolCloudCanBeUsed": "Before the use of the HPI school cloud is possible, parents and \/ or students must have gone through the electronic consent process.",
+				"studentUnderYears": "<b>Students under {{age}} years: <\/b> the parents <br\/> <b> Students from {{age}} years: <\/b> to the students themselves <br\/>"
+			}
+		},
+		"form_InvitationTeacher": {
+			"label": {
+				"distributeTheFollowingLinkToTheTeacher": "Give the following link to the teacher:"
+			},
+			"text": {
+				"beforeUsingThe": "Before the use of the {{title}} possible, the teacher must have gone through the consent process."
+			}
+		},
+		"form_Policy": {
+			"input": {
+				"schoolsPrivacyPolicy": "Privacy policy of the school"
+			},
+			"label": {
+				"uploadFile": "Upload file (PDF only, max 4MB)"
+			},
+			"text": {
+				"important": "Important:",
+				"whenANewPrivacyPolicyUpdated": "When a new privacy policy is uploaded, it will be given to all users from that school for consent."
+			}
+		},
+		"form_Problem": {
+			"label": {
+				"createdOn": "Created on:",
+				"itsOn": "Current state",
+				"remarks": "Remarks",
+				"targetState": "Target state"
+			}
+		},
+		"form_rss": {
+			"label": {
+				"briefDescription": "Brief description (optional)",
+				"urlOfTheRSSSystem": "URL of the RSS feed"
+			}
+		},
+		"form_System": {
+			"label": {
+				"clientSecret": "Client secret",
+				"furtherInformation": "Further information (OAuth)",
+				"systemName": "Name of the system",
+				"systemType": "Type of system",
+				"urlOfTheSystem": "Url of the system"
+			}
+		},
+		"global": {
+			"button": {
+				"addCourse": " Add course",
+				"bug": "Would you like to report an error or do you have an idea to improve the {{title}}? \n Send requests or problems directly to the {{short_title}} user support.",
+				"contactSupport": "Contact Support",
+				"createLinkSheet": "Create a link print sheet",
+				"mailsAreBeingSent": "Sending e-mails ...",
+				"printSheetIsBeingGenerated": "Print sheet is being generated ...",
+				"sendLinksToStudentEmailAddresses": "Send links to students' e-mail addresses"
+			},
+			"helpdesk": {
+				"label": {
+					"tips": "<b>Tip: <\/b> You can also forward open entries from the Helpdesk using the symbol \n <i class=\"fa fa-paper-plane\"><\/i> to the user support."
+				}
+			},
+			"label": {
+				"afterSavingAllStudentsAdded": "(After saving, all students will be added automatically!)",
+				"assignPassword": "Assign password:",
+				"chooseDate": "Select dates",
+				"chooseSchoolYear": "Select school year",
+				"classes": "Classes:",
+				"colorOfTheCourse": "Color of the course:",
+				"dataProtection": "Privacy",
+				"lengthOfLesson": "Duration of the lesson",
+				"noSubTeacherSelection": "No substitute teacher selected",
+				"parents": "Parents",
+				"schoolYear": "School year",
+				"startOfLesson": "Start of the lesson",
+				"student": "Student",
+				"studentParticipants": "Student \/ Attendee",
+				"substituteTeacher": "Substitute teacher",
+				"teacher": "Teacher",
+				"teachingTeacher": "Teaching teacher",
+				"termsOfUse": "Terms of Use",
+				"timeSpan": "Period (e.g. school year)",
+				"weekday": "Weekday"
+			},
+			"placeholder": {
+				"modelMan": "Mustermann",
+				"selectClasses": "Select class(es)",
+				"selectGrade": "Select grade",
+				"selectOldClasses": "Select old class (es)",
+				"selectStudent": "Select students"
+			},
+			"text": {
+				"areYouSureYouWantToDeleteTheFollowingClass": "Are you sure you want to delete the following class?",
+				"areYouSureYouWantToDeleteTheFollowingCourse": "Are you sure you want to delete the following course?",
+				"areYouSureYouWantToDeleteTheFollowingItem": "Are you sure you want to remove the following item?",
+				"areYouSureYouWantToDeleteTheFollowingTeam": "Are you sure you want to delete the following team?",
+				"byConnectingToASchoolState": "By connecting to a state or school system, the students can already log in to the {{shortTitle}}. Ask your students to log in for the first time in the presence of a parent or legal guardian so that they can give their consent and complete the registration.",
+				"chatIsActivated": "Chat is activated",
+				"errorGeneratingPrintSheet": "Problem while creating the print sheet",
+				"errorSendingMails": "Error while sending reminder e-mails",
+				"forStudentsUnder": "For pupils under {{minAge}} years: parental consent",
+				"inviteparentsAndStudentViaLink": "Invite parents and students via a link to submit their consent",
+				"manuallyConsent": "Manually declare consent",
+				"obtainADeclarationConsent": "Obtain a declaration of consent",
+				"orSelectStudentFromTable": "Or select students in the table.",
+				"studentsLoginInThePresenceOfGuardian": "Students log in in the presence of a parent or legal guardian",
+				"successfullyGeneratedPrintSheet": "Print sheet generated successfully",
+				"successfullySentMails": "Reminder e-mails sent successfully"
+			}
+		},
+		"label": {
+			"analog": "Analogue",
+			"digital": "Digital",
+			"termsOfUse": "Use"
+		},
+		"ldapEdit": {
+			"button": {
+				"verify": "Verify"
+			},
+			"headline": {
+				"classAttributes": "Class attributes",
+				"classAttributesTitle": "Specify the class attribute in which the following information is available in your LDAP",
+				"importantNote": "Important note",
+				"roleAttributes": "Role attributes",
+				"roleAttributesTitle": "Which value in your previously defined role field corresponds to the role mentioned?",
+				"userAttributes": "User attributes",
+				"userAttributesTitle": "Specify the user attribute in which the following information is available in your LDAP"
+			},
+			"input": {
+				"classes": "Classes (optional)"
+			},
+			"label": {
+				"classPath": "Class path",
+				"classPathTitle": "Relative path from the root path to the LDAP node from which all classes can be reached",
+				"displayName": "Display name",
+				"domainName": "Domain name",
+				"domainName_pathInLDAP": "Domain name (path in LDAP)",
+				"fullPathClassUsers": "User of the class with full path",
+				"hide": "Hide",
+				"noSchoolCloud": "No HPI school cloud",
+				"noSchoolCloudTitle": "This allows you to prevent users from your LDAP from being transferred to the HPI school cloud",
+				"rolesAttributes": "Role attributes",
+				"rolesAttributesDescription": "Which value in your previously defined role field corresponds to the role mentioned?",
+				"rolesLDAPPaths": "Role-LDAP paths",
+				"rolesLDAPPathsDescription": "Which LDAP group defines the named role? Enter the full path (including the root path)",
+				"roleType": "Role type",
+				"roleTypeTitle": "Is the user role (teacher, student) stored textually in the user attribute or is there an LDAP group for the respective user role?",
+				"rootPath": "root path",
+				"rootPathTitle": "Main path of the LDAP. Usually DC=Domain,DC=Top-level domain",
+				"searchUserPassword": "search-user password",
+				"searchUsers": "search-users",
+				"searchUsersTitle": "Full user name (incl. root path) of the user who has access to all user information",
+				"show": "Show",
+				"uidTitle": "The later login name. Must only appear once in your LDAP at the same time",
+				"urlIdapIsMandatory": "URL (ldaps is mandatory)",
+				"userPath": "User path",
+				"userPathTitle": "Relative path from the root path to the LDAP node from which all users can be reached. With the separation by two semicolons (;;), multiple relative paths to LDAP users can also be specified.",
+				"users": "User:",
+				"uuidTitle": "Unique, non-changeable user ID. May not change like the uid (e.g. through marriage)"
+			},
+			"placeholder": {
+				"general": "General",
+				"LDAPGroup": "LDAP group",
+				"roleTypePlaceholder": "Select LDAP type",
+				"userAttribute": "User attribute"
+			},
+			"text": {
+				"errorActivation": "Activation problem",
+				"errorLDAPTimeout": "LDAP timeout - Possible reasons are: incorrect server data, SSL certificates (ldaps) not officially signed, incorrect user data for the search user, incorrect root path, incorrect user path, incorrect class path or incorrect role- LDAP paths . If you cannot solve the problem, contact support.",
+				"errorTimeout": "Application timed out",
+				"furtherInfoHere": "Further information on LDAP configuration can be found in our <a href=\"\/help\/confluence\/55902270\">Help section<\/a>.",
+				"onlyProtocolLDAP": "LDAP is only possible via the secure protocol of ldaps!",
+				"verification": "After verification, you can preview the contents that have been read out. Deleted contents are not transferred because the user's first name, last name and \/ or e-mail address is not available in the LDAP."
+			}
+		},
+		"ldapSchoolYearStart": {
+			"button": {
+				"closeWindow": "Close window"
+			},
+			"headline": {
+				"checkTheSynchronizationOfTheDataAvailable": "Check the synchronization of the data in the LDAP for the new school year",
+				"LDAPClasses": "LDAP classes",
+				"LDAPUsers": "LDAP users"
+			},
+			"text": {
+				"onThisPageYouWillFindTheData": "On this page you will find the data of all classes and users, as {{shortTitle}} takes it over from your LDAP. Please check the data on a random basis for its correctness before transferring it by ending the transfer phase."
+			}
+		},
+		"longText": {
+			"text": {
+				"afterVerificationCanPreviewTheReadContent": "After verification, you can preview the contents that have been read out. Deleted contents are not transferred because the user's first name, surname and \/ or email address is not available in the LDAP.",
+				"anyChangesToTheFollowingConfiguration": "Any changes to the following configuration may result in the login no longer working for you and all users in your school. Therefore, only make changes if you are aware of the consequences. Some sections are read-only. However, you can enable editing of the information by clicking on the lock in the respective section. After each verification, your system will be updated and initially set to deactivated. Do not forget to finally save the changes if the verification was successful.",
+				"backgroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the HPI school cloud saves which school year a user was in which class. The HPI school cloud provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
+				"canCreateYearIndependentClasses": "You can create independent classes with free names. These classes cannot be <i> 'moved' <\/i> by the administrator, but must be updated manually.",
+				"canStartTheTransferPhase": "You can start the transfer phase manually from two weeks before the start of the holidays",
+				"ifAllStudentsAndParentsHaveGiven": "If the consent has been given by all students and parents in paper form, the consent for the whole class can be declared manually here.",
+				"ifThereIsNoManualStart": "if there is no manual start at the beginning of the holiday, the transfer phase begins automatically",
+				"newUsersClassAffiliations": "new added users, class memberships and changes to user data are constantly synchronized",
+				"provideStudentsAndTheirParents": "Provide your students and their parents with individual links to give their consent in digital or analog form. When registration is complete, a login password will be created for the student.",
+				"theNewSchoolYearStartsInThe": "The new school year begins in the {{title}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
+				"thereIsNoDeclarationOfConsent": "There is no consent form for the user yet. Call a personal invitation link to complete the registration and distribute it to the user or his parents. During registration, the consent is then granted by the user himself. If a declaration of consent is available in paper form, the user can be activated by clicking on 'Received consent on paper' and a start password can be assigned. This will unlock the login.",
+				"theSchoolYearEndsAnd": "The school year {{schoolName}} is ended and the transfer phase  to the new school year begins. <strong>This step cannot be undone.<\/strong> No classes and users can be created or changed during this time.",
+				"theSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data is interrupted during the transfer phase. This means that user data and classes (if used) are no longer updated via LDAP. It is still possible to log in with login data that has already been synchronized. Password changes in the LDAP during login are also taken into account.",
+				"useTheTransferPhaseAroundTheSchool": "Use the transfer phase around the change of school year to adjust class affiliation and personal data in the LDAP. Finally, transfer all changes to the HPI school cloud at once.",
+				"withAllChangesAndSettings": "With all modifications and settings in the administration area, you confirm that you are an authorized school administrator and you are authorized to make modifications in the school in the HPI school cloud. Your click is insofar considered as instruction of the school to the HPI.",
+				"wouldYouLikeReportABug": "Would you like to report an error or do you have an idea to improve the {{title}} ? Send requests or problems directly to the {{shortTitle}} user support."
+			}
+		},
+		"school": {
+			"button": {
+				"addLDAPSystem": "Add LDAP System",
+				"addRSSFeed": "Add RSS feed",
+				"addSystem": "Add system",
+				"checkLDAPData": "Check LDAP data",
+				"endSchoolYear": "End school year",
+				"endTransferPhase": "End transfer phase",
+				"start": "Start",
+				"startTransferPhase": "Start transfer phase"
+			},
+			"headline": {
+				"addPolicy": "Add privacy policy",
+				"finishSchoolYear": "Sure you want to end the school year?"
+			},
+			"label": {
+				"activeChatFunction": "Activate chat function",
+				"activeMatrixFunction": "Activate Matrix Messenger",
+				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
+				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
+				"authentication": "Authentication",
+				"changeOfClasses": "Change of classes \/ new classes",
+				"changeOfUserData": "Change of user data \/ new users",
+				"className": "Class name:",
+				"cloudStorageProvider": "Cloud storage provider",
+				"createChatRoom": "Create a chat room for announcements to the entire school",
+				"currentSchoolYear": "Current school year:",
+				"dataProtectionAdd": "Add privacy policy",
+				"duringTheSchoolYear": "During the school year",
+				"duringTheTransferPhase": "During the transfer phase",
+				"enableVideoConference": "Activate video conferencing for courses and teams",
+				"endOfTheTransferPhase": "End of the transfer phase",
+				"fileStorageSpaceUsedInCloud": "Used file storage in the cloud",
+				"inTheTransferPhase": "in the transfer phase:",
+				"loginFromExistingUsers": "Logins of existing users",
+				"nameOfTheSchool": "Name of the school",
+				"noteAvailableFunction": "Note available functions",
+				"noteBeforeTheTransferPhase": "Note before the transfer phase:",
+				"passwordChangesInLDAP": "Password changes in LDAP",
+				"privacySettings": "Privacy Settings",
+				"schoolYear": "School year:",
+				"schoolYearChange": "Change of school year",
+				"selectProvider": "Select provider",
+				"startOfTheTransferPhase": "Start of the transfer phase",
+				"studentVisibility": "Activate student visibility for teachers",
+				"transferPhase": "Transfer phase",
+				"uploadSchoolLogo": "Upload school logo",
+				"userAndClassDataInLDAP": "User and class data for the new school year have been processed in LDAP<br>.",
+				"youCantGoBack": "You can't go back",
+				"yourSchoolCanStartNewSchool": "your school can enter the new school year"
+			},
+			"link": {
+				"matrixHelpPage": "messenger help section",
+				"moreInfo": "More information"
+			},
+			"text": {
+				"allAboutTheSummerVacation": "Around the summer holidays",
+				"allDataFromTheLDAP": "All data from the LDAP will be synchronized as usual, new users and classes can be created there at any time",
+				"allDone": "All done!",
+				"atTheEndOfTheSchoolYearWithLDAP": "When the school year changes, carry out the following actions with LDAP:",
+				"atTheEndOfTheTransferPhase": "When the transfer phase ends, all changes made in the LDAP are synchronized in one go",
+				"atTheSameTime": "At the same time, you ring in the new school year in the HPI school cloud",
+				"chatRoomPermissions": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
+				"coursesWithLearningContent": "Courses with learning content for the coming school year can also be created during the transfer phase (without class assignment)",
+				"doNotEndTheTransferPhase": "Do not end the transfer phase until the users are assigned to the new classes",
+				"fileSelected": "File selected",
+				"fileTooLarge": "PDF file is too large. It can be at max {{size}}MB large.",
+				"ifChatsAreActivatedAtYourSchool": "If chats are enabled at your school, team administrators and teachers can selectively unlock the chat function respectively for their team or courses.",
+				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
+				"ifMatrixIsActivatedAtYourSchool": "If the Matrix Messenger is activated, all teachers in this school can start chat rooms, private conversations or group discussions within the course or team. Students initially  have read-only access, but can also be given write access via the course and team settings. Students can also start private chats within courses and teams. You can find more information about this in the ",
+				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
+				"LDAPChanges": "you can make the necessary changes for the new school year in the\nLDAP (new users, update classes)",
+				"loginViaLDAP": "Login via LDAP is still possible for existing users",
+				"newSchoolYear": "New school year",
+				"newUsersClassesAndChanges": "Newly added users, classes and changes to existing data are not synchronized from the LDAP",
+				"noFileSelected": "No file selected",
+				"noRssFeedsYet": "There are no RSS feeds yet.",
+				"oldSchoolYear": "Old school year",
+				"onlyPDFSupport": "Only PDF files are supported.",
+				"passwordChanges": "Password changes are still synchronized",
+				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes.",
+				"theNewClassesAreSavedInTheContext": "the new classes are saved in the context of the new school year, the old classes are archived in the context of the old school year",
+				"theNewClassesCanNowBeAssigned": "the new classes can now be assigned to prepared courses",
+				"theNewSchoolYearStartsInThe": "The new school year begins in the {{themeTitle}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
+				"thisOptionIsAvailable": "This option is available 2 weeks before the end of the current school year.",
+				"yourSchoolIsCurrentlyDrawing": "Your school is currently getting"
+			}
+		},
+		"students": {
+			"button": {
+				"addStudents": "Add students",
+				"generateInvitationLink": "Generate invitation link",
+				"importStudents": "Import students"
+			},
+			"label": {
+				"sendRegistrationLinkToStudent": "Send registration link to students"
+			},
+			"text": {
+				"allApprovalsAvailable": "All consents available",
+				"forAllStudentsWithoutAFullConsentForm": "For all students without a full declaration of consent:",
+				"parentsAgreed": "Parents have agreed",
+				"studentsStillNeedTheDecalaration": "<strong> {{studentsWithoutConsentCount}} out of {{allStudentsCount}} <\/strong> students still need a declaration of consent to use the {{shortTitle}}. \nStudents under {{minAge}} years of age first need the consent of a guardian, students aged 14 and above must also give their own consent."
+			}
+		},
+		"teachers": {
+			"button": {
+				"addTeacher": "Add teacher",
+				"importTeacher": "Import teachers",
+				"sendLinksToTeacherEmail": "Send links to teachers' e-mail addresses"
+			},
+			"label": {
+				"inviteTeachersViaLink": "Invite teachers via a link to submit the declaration of consent.",
+				"linksDistribution": "Send your teachers individual links to declare their consents by e-mail or use the QR code print sheet to physically distribute the links. <br\/> You can create a password and give your consent to the use of the {{shortTitle}}.",
+				"passwordsAndDeclarationOfConsent": "Passwords and declaration of consent",
+				"sendRegistrationLinkToTeachers": "Send registration link to teachers"
+			},
+			"text": {
+				"alternativeRegistration": "Alternatively, you can also generate individual registration links in the \"Edit User\" dialog of each user individually.",
+				"connectToASchool": "By connecting to a state or school system, the teachers already have a password and can log in to the {{shortTitle}}. At first login, they are asked to give their consent to the use of the {{shortTitle}}.",
+				"forAllTeachersWithoutAFullConsentForm": "For all teachers without a full declaration of consent:"
+			}
+		},
+		"teams": {
+			"button": {
+				"addAnotherOwner": "Add another owner",
+				"appointTeamOwner": "Appoint",
+				"discardMessage": "Discard",
+				"removeAllMembers": "Remove all members"
+			},
+			"headline": {
+				"membersInOwnSchool": "Members of own school",
+				"messageToTeamOwners": "Send new message to the team owner(s)",
+				"newTeamOwner": "Appoint an additional team owner",
+				"removeSchoolFromTeam": "Remove school from team",
+				"schools": "Schools"
+			},
+			"label": {
+				"canCreateTeam": "Students can create teams.",
+				"cannotCreateTeam": "Students cannot create teams.",
+				"selectAnAdditionalOwner": "Select an additional owner for the team here:",
+				"studentsAreAllowedToCreateTeam": "Students may create teams.",
+				"whenFunctionIsActivated": "If this function is activated, students can use the teams function independently and create teams, \n\t\t\t\t\t\t without a teacher having to be involved. As an administrator authorized to issue instructions, you can use this function centrally for \n\t\t\t\t\t\t deactivating \/ activating the entire school."
+			},
+			"text": {
+				"functionality": "This functionality is activated system-wide in the central directory and cannot be deactivated.",
+				"includesOutsideSchoolMembers": "Includes members outside the school",
+				"legend": "Legend:",
+				"noSchools": "No schools",
+				"teamFoundedInOwnSchool": "Team founded at own school",
+				"teamHasOwners": "Team has owners"
+			}
+		},
+		"text": {
+			"areYouSureYouWantToRemoveAllMembers": "Are you sure you want to remove all members of your school from this team?",
+			"moreOptions": "More options",
+			"noEntriesToPrint": "No entries to print.",
+			"yourClassDoesntFitInto": "Your class doesn't fit into the classic scheme?"
+		},
+		"users_edit": {
+			"button": {
+				"mailIsBeingSent": "Sending email..."
+			},
+			"headline": {
+				"changePassword": "Change password",
+				"completeRegistration": "Complete user registration",
+				"deleteUser": "Delete user?"
+			},
+			"text": {
+				"alreadyRegistered": "The user is already registered",
+				"class": "Classes of the user",
+				"errorSendingMail": "There was an error sending the invitation email!",
+				"firstClose": "The user must first complete the consent form digitally",
+				"successfullySentMail": "The invitation e-mail was sent successfully!"
+			}
+		},
+		"users_registrationComplete": {
+			"text": {
+				"cannotCallPageAgain": "<b>Attention: <\/b>You cannot visit this page again. So print out the access data displayed\n             or save it in some other way.\n             If a student forgets his password, you can only change it in the user administration.",
+				"loginWithPassword": "You can now log in to the {{shortTitle}} with your start password. \n To do this, go to <a href=\"https:\/\/schul-cloud.org\"> \n <script nonce=\"{{nonceValue}}\"> document.write (window.location.origin) <\/script> <\/a> \n and log in there with the following access data:",
+				"registrationPossibleWithFollowingData": "Registration at {{shortTitle}} is possible with the following data.",
+				"whatYouCanFind": "On this page you will find an overview of all the consents that have been given and the access data generated. <br> The following pages of this document each contain the access data of a child and instructions for the first registration.",
+				"whenLoginForTheFirstTime": "A new password must be chosen the first time you log in. Students who are at least 14 years old must also declare their consent when they log in for the first time."
+			}
+		},
+		"users_skipRegistration": {
+			"text": {
+				"appointTeamOwner": "Appoint",
+				"discardMessage": "Discard",
+				"forStudentsAged14": "For students aged 14 and over: consent of the student",
+				"removeAllMembers": "Remove all members",
+				"sendMessage": "Submit",
+				"youGiveTheFollowingConsent": "You grant the following consents on behalf of the user:"
+			}
+		}
+	},
+	"alert": {
+		"text": {
+			"furtherCase": "+ {{amount}} another incident",
+			"furtherCases": "+{{amount}} further incidents"
+		}
+	},
+	"autologout": {
+		"text": {
+			"sessionAlreadyExpired": "Your session has already expired. Please log in again.",
+			"sessionCouldNotBeExtended": "Your session could not be extended! Please save your work and reload the page.",
+			"sessionExtended": "Session successfully extended."
+		}
+	},
+	"calendar": {
+		"button": {
+			"chooseACourse": "Pick a course...",
+			"chooseATeam": "Choose a team"
+		},
+		"headline": {
+			"calendar": "Calendar"
+		},
+		"input": {
+			"egGym": "e.g. gymnasium",
+			"egHandballTraining": "e.g. handball training"
+		},
+		"label": {
+			"addVideoConference": "Add a videoconference?",
+			"createForCourse": "Create for course?",
+			"createForTeam": "Create for team?",
+			"location": "Place"
+		},
+		"text": {
+			"noAuthorization": "No authorization",
+			"participateInVideoConference": "Participate in video conference",
+			"startAVideoConference": "Start video conference",
+			"videoConferenceDetailsAreLoading": "Loading video conference details..."
+		}
+	},
+	"community": {
+		"button": {
+			"allOtherSchools": "All other schools",
+			"brandenburg": "Brandenburg",
+			"germanSchoolsAbroad": "German schools abroad",
+			"lowerSaxony": "Lower Saxony",
+			"mintECSchools": "MINT-EC schools",
+			"thuringia": "Thuringia"
+		},
+		"headline": {
+			"chooseYourState": "Select your state or the project you belong to.",
+			"joinNow": "Join us now!"
+		},
+		"text": {
+			"contactUsToRegister": "Please contact either Ms. Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de<\/a> or Mr. Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de<\/a> to start the registration process.",
+			"forGeneralQuestionsPleaseContact": "If you have any general questions, please contact the following e-mail address:",
+			"hereIsOurRegistrationForm": "Click here for our registration form:",
+			"hereIsOurRegistrationFormMINT": "New STEM EC schools can register here:",
+			"inBrandenburgTheAdmissionOfNewSchools": "In Brandenburg, the admission of new schools is coordinated together with the DigitalAgentur Brandenburg (ILB) and the MBJS.",
+			"inMarch2020ZENSOSQueries": "In March 2020, ZENSOS queries were last used to determine the need of our infrastructure at the schools. The resulting registrations are currently being processed.",
+			"inNiedersachsenTheReferenceSchool": "In Lower Saxony, the reference school network n-21 is responsible for the admission of new schools.",
+			"inThuringiaTheThuringianInstitute": "In Thuringia, the Thuringian Institute for Teacher Training, Curriculum Development and Media (ThILLM) is responsible for the admission of new schools.",
+			"justWriteAnEmailTo": "Simply write an email to <a href=\"mailto:schul-cloud-ZfA@bva.bund.de\">schul-cloud-ZfA@bva.bund.de<\/a> .",
+			"MINTECSchoolsAnd": "<a href='https:\/\/www.mint-ec.de' target='_blank'> MINT-EC <\/a> is the national excellence network of schools with upper secondary level and a distinctive profile in mathematics, computer science and natural sciences and technology (MINT). Schools from the network have been participating in the HPI School Cloud project since 2017.",
+			"MINTECSchoolsAndOther": "MINT-EC schools and schools that do not belong to a state project can register here. Thanks to the project extension by the BMBF, they can now use the HPI school cloud.",
+			"ourPartnerOfMINIECAlso": "Our partner of MINT-EC also offers regular webinars on the HPI school cloud. The new dates can be found here:",
+			"pleaseContactEither": "Please contact either Ms. Julia Günther:",
+			"pleaseContactTheFollowingEmailAddress": "Please contact the following e-mail address to start the registration process:",
+			"theCentralOfficeForSchools": "The Central Agency for German Schools Abroad (ZfA) supports you in the registration process.",
+			"youCanGetSupport": "Support in familiarizing with the school cloud and creating first content can be found here:",
+			"youWillThenBeGiven": "You will then be given all the necessary information so that you can start soon."
+		}
+	},
+	"content": {
+		"button": {
+			"choose": "Choose..."
+		},
+		"form_add_lesson": {
+			"label": {
+				"chooseACourse": "Choose a course \/ subject",
+				"chooseALessonTopic": "Choose a lesson topic"
+			}
+		},
+		"headline": {
+			"addContentToTopic": "Add material to topic",
+			"contentCantBeAddedInDemo": "<h5>Content cannot be added to courses in demo mode.<\/h5>",
+			"contentStore": "Learning store",
+			"fileType": "File type",
+			"noResultsFoundWith": "No search results were found for \"{{ query }}\"",
+			"nSearchResultsFoundWith": "{{ searchResultsTotal }} search results for \"{{ query }}\"",
+			"youAreLeavingSC": "You are now leaving the school cloud"
+		},
+		"input": {
+			"searchInSC": "Search in the school cloud"
+		},
+		"item": {
+			"text": {
+				"contentNotAvailable": "Content not available in demo mode for licensing reasons.",
+				"report": "report"
+			}
+		},
+		"label": {
+			"fileType": "File types:% 1"
+		},
+		"store": {
+			"headline": {
+				"currentContent": "Current contents",
+				"popularContent": "Popular contents"
+			}
+		},
+		"text": {
+			"date": "Actuality",
+			"popularity": "Popularity",
+			"provider": "Provider",
+			"text": "Text",
+			"viaProvider": "via {{provider}}",
+			"video": "Video",
+			"youAreRedirectedToProvider": "You will be redirected to the page of <span class=\"provider\"> an external provider <\/span> ."
+		}
+	},
+	"courses": {
+		"_course": {
+			"addStudent": {
+				"text": {
+					"youAreNoStudent": "You are not a user of the role 'Student'."
+				}
+			},
+			"copy": {
+				"button": {
+					"cloneCourse": "Clone course"
+				},
+				"headline": {
+					"cloneCourse": "Clone course"
+				}
+			},
+			"dropdown_menu": {
+				"link": {
+					"duplicateCourse": "duplicate course",
+					"editDeleteCourse": "Edit\/delete course",
+					"inviteToCourse": "invite to the course",
+					"shareCourse": "Share course"
+				}
+			},
+			"edit": {
+				"button": {
+					"addLesson": "Add new appointment",
+					"showCourseDetail": "Show course details"
+				},
+				"headline": {
+					"courseIsArchieved": "The course {{coursename}} is archived.",
+					"editCourse": "Edit course"
+				},
+				"img_alt": {
+					"courseIsArchieved": "Course is archived"
+				},
+				"label": {
+					"activateBidirectionalMessenger": "Allow Students to write messages in the course chat.",
+					"substitute": "Substitute teachers"
+				},
+				"text": {
+					"attentionDeletion": "All data will be permanently deleted.",
+					"courseWillDelete": "This also deletes the course for all students.",
+					"toEditChangeDate": "In order to edit course data, you must first adjust the end date."
+				}
+			},
+			"global": {
+				"label": {
+					"studentParticipant": "Student \/ Participant"
+				}
+			},
+			"groups": {
+				"_group": {
+					"edit": {
+						"input": {
+							"group1": "Group 1"
+						},
+						"label": {
+							"nameOfGroup": "Name of the group"
+						}
+					},
+					"headline": {
+						"doneGroupTasks": "finished group submissions",
+						"homework": "Homework: {{name}}",
+						"openGroupTasks": "open (possible) group submissions"
+					},
+					"link": {
+						"addTopic": "Add a topic",
+						"deleteGroup": "Delete group",
+						"editGroup": "Edit group"
+					},
+					"text": {
+						"archivedTask": "The task is archived",
+						"doneTask": "The task is set",
+						"draftTask": "The task drafts",
+						"dueTo": "until: {{date}}",
+						"feedbackTask": "The task has feedback",
+						"groupMembers": "Group participants:",
+						"moveTask": "Move task between overview page and archive",
+						"noOpenGroupTasks": "No further group submissions possible.",
+						"noSubmissions": "No submissions so far from this group.",
+						"noTopics": "no topics.",
+						"responsibleTeachers": "Responsible teachers: ",
+						"submittedOn": "Submission: {{ddmmyy_hhmm}}",
+						"task": "The task:",
+						"taskDetails": "Details of the task:",
+						"taskOpen": "Task open >",
+						"toTask": "To the task",
+						"workOnTopic": "Work on Topic"
+					}
+				},
+				"button": {
+					"addGroup": "Create student group",
+					"createNewGroup": "Create a new group"
+				},
+				"headline": {
+					"addGroup": "Create student group",
+					"createGroup": "Create a group",
+					"editGroup": "Edit student group",
+					"myStudentGroups": "My student groups",
+					"noGroups": "There are no groups in this course.",
+					"noGroupsYet": "There are no groups in this course yet.",
+					"studentGroups": "Student Groups"
+				},
+				"img_alt": {
+					"noCreatedGroups": "No created group"
+				},
+				"text": {
+					"addGroup": "Add a group",
+					"descriptionCourses": "In groups, participants can split up into teams within a course, e.g. for group work."
+				}
+			},
+			"headline": {
+				"createVideoconference": "Create video conference room {{coursename}}",
+				"shareCodeGenerated": "Copy code has been generated!"
+			},
+			"link": {
+				"toCourseFiles": "To the course files"
+			},
+			"tab_label": {
+				"groups": "Groups",
+				"tasks": "Tasks",
+				"tools": "Tools",
+				"topics": "Topics"
+			},
+			"tasks": {
+				"button": {
+					"createTask": "Create a task",
+					"privateTasks": "Private tasks"
+				},
+				"headline": {
+					"createFirstTask": "Create the first task in your course",
+					"noTasksPosed": "There are no tasks in this course.",
+					"noTasksPosedYet": "There are no tasks in this course yet.",
+					"submittedTasks": "Tasks handled",
+					"tasksWithSubmissions": "Tasks with submissions"
+				},
+				"img_alt": {
+					"noPosedTasks": "No given tasks"
+				},
+				"label": {
+					"archived": "Archived",
+					"drafts": "Drafts",
+					"feedback": "Feedback",
+					"provided": "Provided"
+				},
+				"text": {
+					"descriptionTasks": "Course participants can easily complete tasks by a set deadline and submit results digitally. Tasks can be set for an entire course or a single topic.",
+					"moreArchivedLinkLabel": "More archived tasks...",
+					"showPrivateTasks": "Fold private tasks in\/out"
+				}
+			},
+			"text": {
+				"courseDescription": "Course description:",
+				"etherpadCouldNotBeAdded": "No Etherpad could be added to the course. If you see this message again, please contact support.",
+				"eventCouldNotBeSavedContactSupport": "The course times may not have been saved correctly. If you see this message again, please contact support.",
+				"nextClass": "Next lesson: ",
+				"QRCodeAlternative": "Alternatively, you can show your teacher colleagues the following QR code.",
+				"shareCodeExplanation": "Distribute the following code to teacher-colleagues to share the course with them. The function is located on the overview page for courses.",
+				"youAreAlreadyMember": "You are already a participant in the course {{coursename}} .",
+				"youHaveBeenAdded": "You have been successfully added to the course {{coursename}}"
+			},
+			"tools": {
+				"add": {
+					"button": {
+						"createTool": "Create tool"
+					},
+					"headline": {
+						"course": ", Course: {{coursename}}",
+						"createToolForCourse": "Create Tool for {{coursename}}",
+						"videoConference": "Video Conference"
+					},
+					"placeholder": {
+						"key": "Key",
+						"value": "Value"
+					},
+					"text": {
+						"BBBDescriptionExplanation": "Carry out video conferences with other users. The BigBlueButton tool easy and secure participation to the entire course with your {{short_title}} logins. Good audio and video quality is complemented by an interactive whiteboard that can be used at runtime, screen sharing functions and a chat.",
+						"errorWhileAddingTool": "An error occurred while adding the tool.",
+						"toolCouldNotBeFound": "The tool could not be found.",
+						"toolPortfolioCouldNotBeFound": "The tool could not be found. The portfolio is temporarily deactivated."
+					}
+				},
+				"button": {
+					"addNewTool": "Add a new tool"
+				},
+				"headline": {
+					"addToolToCourse": "Add tools to the course",
+					"noTools": "There are no tools in this course.",
+					"noToolsYet": "There are no tools in this course yet."
+				},
+				"img_alt": {
+					"noAddedTools": "No added tools"
+				},
+				"label": {
+					"logoUrl": "Logo (URL):",
+					"nameTool": "Name (required field):",
+					"otherSettings": "Other settings:"
+				},
+				"text": {
+					"addNewTool": "Add a new tool",
+					"descriptionAddToolToCourse": "Add interactive tools like GeoGebra or CodeOcean to a course here.",
+					"noTools": "No tools.",
+					"opensInNewTab": "New tab",
+					"videoConferenceBBB": "Videoconference BigBlueButton"
+				}
+			},
+			"topic": {
+				"button": {
+					"createAnotherTopic": "Create another topic",
+					"createAnotherTopicWithNewEditor": "Create another topic in the new editor",
+					"createFirstTopic": "Create a topic",
+					"createFirstTopicWithNewEditor": "Create a topic in the new topic tool",
+					"importTopic": "Import topic"
+				},
+				"headline": {
+					"createFirstTopic": "Create the first topic in your course",
+					"createFirstTopicWithNewEditor": "Create the first topic with the new topic tool",
+					"firstTopicSuccess": "Done - The first topic in your course!",
+					"importTopic": "Import topic",
+					"noTopic": "There are no topics in this course.",
+					"noTopicWithTool": "There are no topics in this course that were created with the new topic tool.",
+					"noTopicWithToolYet": "There are no topics in this course yet that were created with the new topic tool.",
+					"noTopicYet": "There are no topics in this course yet."
+				},
+				"img_alt": {
+					"noTopics": "Blank topic"
+				},
+				"link": {
+					"geoGebraMaterial": "Open GeoGebra Material ({{materialId}}) on geogebra.org now"
+				},
+				"text": {
+					"addTopic": "Add a topic",
+					"addTopicWithNewEditor": "Add topic with new editor (beta)",
+					"beta": "beta",
+					"clickOnEyeToggleVisibility": "Clicking on the eye <i class=\"fa fa-eye\"><\/i> makes the topic visible or invisible to students.",
+					"clickOnTopicForPreview": "A click on the topic brings you to the preview view.",
+					"deleteTopic": "Delete topic",
+					"descriptionTopic": "Add text, images, videos and other materials to a topic. A topic covers a module or lesson within your course.",
+					"distributeLinkForInvite": "Share the following link with your students to invite them to the course. Students must be logged in to use the link.",
+					"editSortDeleteShareTopicsHere": "You can edit <i class=\"fa fa-pencil\"><\/i>, sort <i class=\"fa fa-ellipsis-v\"><\/i>&nbsp;<i class=\"fa fa-ellipsis-v\"><\/i>, delete <i class=\"fa fa-trash-o\"><\/i> or share <i class=\"fa fa-share-alt\"><\/i> your topic at any time.",
+					"externalLinkToGeoGebra": "This is external content of the provider GeoGebra. It will open in a new window or tab.",
+					"hideTopic": "Hide topic",
+					"importTopic": "Import topic",
+					"importTopicAdviseChangeData": "<strong>Attention<\/strong>: Manually replace tools user data which are included in the topic subsequently (e.g. nexBoard, Etherpad, GeoGebra), because changes to this will otherwise affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
+					"insertCodeToImportTopic": "Insert a code to import other users' topics. Files included in the topic are placed in your course folder.",
+					"moveTopic": "Move topic",
+					"revealTopic": "Show topic again",
+					"shareTopic": "Share topic"
+				}
+			}
+		},
+		"add": {
+			"button": {
+				"addCourseAndContinue": "Create course and continue",
+				"addLessonAppointment": "Create a school lesson in the timetable (optional)"
+			},
+			"headline": {
+				"addCourse": "Create course",
+				"addStudents": "Add students",
+				"done": "Done!",
+				"whatToDoCourses": "What can you do in a course?"
+			},
+			"img_alt": {
+				"spaceShuttleStart": "Space Shuttle launch"
+			},
+			"input": {
+				"egMaths": "e.g. math 10a"
+			},
+			"label": {
+				"addClassesToCourse": "Class(es) (All students in the class will be added automatically!) - optional",
+				"addStudentsToCourse": "Students \/ participants - optional",
+				"courseSubstitute": "Substitute teacher - optional",
+				"timeSpan": "Period (eg school year) from - Optional",
+				"timeSpanUntil": "To - Optional"
+			},
+			"link": {
+				"addAnotherCourse": "Create another course",
+				"courseOverview": "To the course overview",
+				"createTopics": "Create topics",
+				"giveExercises": "Set tasks"
+			},
+			"tab_label": {
+				"courseData": "Course data",
+				"courseMembers": "Participants",
+				"finish": "Finish"
+			},
+			"text": {
+				"addingStudentsForbidden": "For privacy reasons, you are not permitted to access the list of names of all students of your school. Therefore you cannot add students or classes to the course. Please request an administrator of your school to add students or entire classes to the course.",
+				"addStudentsOrClasses": "Add classes or individual students to your course.",
+				"contentOfClass": "Create the content of your lessons.",
+				"doItNowOrLaterInSettings": "You can do this now or later in the course settings.",
+				"giveExercisesAndGetResults": "Assign tasks to your students and view their submissions.",
+				"groupsWorkTogether": "In a course, participants work on topics, tasks and files.",
+				"willAlsoDeleteForStudents": "This also deletes the course for all students."
+			}
+		},
+		"button": {
+			"createCourse": "Create a new course",
+			"editCourse": "Edit course",
+			"importCourse": "Import a course",
+			"nextStep": "Next step"
+		},
+		"global": {
+			"button": {
+				"deleteCourse": "Delete course"
+			},
+			"input": {
+				"chooseTeacher": "Select teacher",
+				"egRoom1-21": "e.g. R-1.21",
+				"inMinutes": "In minutes",
+				"mathsClass": "Math 10a",
+				"selectClasses": "Select class(es)",
+				"selectStudents": "Select students"
+			},
+			"label": {
+				"courseColor": "Color of the course",
+				"courseDescription": "Description of the course",
+				"courseTeacher": "Course teacher",
+				"timeSpanFormat": "Please enter the date in the format DD.MM.YYYY"
+			}
+		},
+		"headline": {
+			"courseAttendees": "Participants of the course:",
+			"createDuplicateImport": "Create, duplicate or import a course",
+			"expiredCoursesInArchive": "Courses whose end date has been reached can be found <a href=\"?activeTab=archived\"> in the archive",
+			"importCourse": "Import course",
+			"makeTeachingDigital": "Making teaching digital with {{themetitle}}",
+			"myCourses": "My courses",
+			"mySubstitutes": "My Substitutes",
+			"noArchivedCourses": "You have no archived courses yet",
+			"noCourse": "There are currently no courses",
+			"noCoursesYet": "There are no courses yet. A course in the {{short_title}} is the basis for managing topics, tasks, tools etc. for digital learning.",
+			"SCMakesTeachingDigital": "With the {{themetitle}} teaching becomes digital"
+		},
+		"img_alt": {
+			"noCourses": "No courses existing",
+			"teacherWithClass": "Teacher with class"
+		},
+		"input": {
+			"searchForCourses": "Search for courses"
+		},
+		"tab_label": {
+			"archivedCourses": "Archived courses",
+			"currentCourses": "Current courses"
+		},
+		"text": {
+			"courseNoAccess": "The Courses section is only available to teachers and students.",
+			"descriptionArchivedCourses": "Courses whose end date has been reached can be found here. You can reuse archived courses as templates for the new school year, import a course or create a completely new course.",
+			"descriptionCourseManagement": "You can duplicate archived courses and use them as templates for the new school year, import a course, or create a brand new course.",
+			"finishImport": "Complete the import. In the next step, set a new course date and add students.",
+			"importCourseAttentionTools": "Attention: Manually replace tools with user data which are included in the topic subsequently (e.g. nexBoard, Etherpad, GeoGebra), because changes to this will otherwise affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
+			"importCourseDescription": "A course folder is automatically created for the imported course. Students data from the original course will be removed. Then add students and set a date for the course.",
+			"importedCourseWithQR": "You have imported a course via a QR Code.",
+			"insertCodeToImport": "Insert a code to import course content from other users.",
+			"noAttendees": "No participants",
+			"noCourseGetInvited": "You have not yet been invited to a course. Let your teachers add you to a course.",
+			"renameCourse": "Rename the course.",
+			"shareTokenNotInUse": "This shareToken doesn't seem to be in use!"
+		}
+	},
+	"dashboard": {
+		"headline": {
+			"poll2Title": "Survey II in the school cloud project",
+			"schedule": "Schedule",
+			"title": "Dashboard",
+			"withFeedback": "Submissions with teacher's comments",
+			"withRequiredFeedback": "Tasks with submissions without comments yet"
+		},
+		"img_alt": {
+			"showAppointmentInTeam": "Show appointments in the team",
+			"showCalendar": "Show calendar",
+			"showCourse": "Show course"
+		},
+		"link": {
+			"continueReading": "Read more",
+			"moreTasks": "Other tasks...",
+			"toTask": "To the task"
+		},
+		"text": {
+			"emptyHomeworksInfo": "All homeworks are shown in the homeworks section.",
+			"emptyNewsInfo": "No recent news. Check the news section to stay informed.",
+			"emptyTimetable": "Empty timetable",
+			"empytTimetableInfo": "Normally we display here your current timetable. You can find your learning content in the course section.",
+			"graded": "Graded",
+			"handedIn": "Submitted",
+			"noDueDate": "No submission date set",
+			"noMaterialsYetLookAtOthers": "You have not yet created your own materials. But you can also get inspiration from your colleagues' materials. Check out the <a href=\"\/my-material\">\"My Materials\" section<\/a> .",
+			"noNews": "No news",
+			"notFound": "No active entries found."
+		}
+	},
+	"dataprivacy": {
+		"headline": {
+			"registrationInvalid": "Registration incorrect"
+		},
+		"text": {
+			"confirmationCodeAlreadySent": "We have already sent you an e-mail. Please also check your spam folder,\n\t\twhether you really haven't received an e-mail. You can request the code again after one minute.",
+			"confirmationCodeSent": "We have just sent you a confirmation code to {{{email }}",
+			"dataGivenByTeacherOrAdmin": "Your teacher or administration has entered this data for you.\n\t\t\tIf changes are required, contract him\/her. You can also change your data yourself after the registration process has been completed.",
+			"differentEmailParentStudent": "The student must have a different e-mail address than the parent.",
+			"errorGeneratingConfirmationCode": "Oops, there was an error while creating the code! Please check your e-mail address ({{ email }}) and try again.",
+			"errorSubmittingForm": "Error: {{text}}",
+			"errorSubmittingFormUndefined": "Submitting the form failed. (unknown error)",
+			"invalidForm": "Invalid form, please fill out all fields correctly.",
+			"providerBlocked": "The provider of your e-mail address ({{ email }}) is blocked! Please use another address and try again.",
+			"registrationInvalid": "Your registration or this registration link does not seem to be valid. There can be several reasons for this:",
+			"registrationInvalidAlreadyUsed": "The user to whom this registration link belongs, has or has been already registered.",
+			"registrationInvalidContactAdvice": "Please contact a responsible teacher or administrator and inquire about this. They can help or create a new registration link, if necessary.",
+			"registrationInvalidManualConsent": "A teacher or administrator has already carried out the manual declaration of consent for the relevant user.",
+			"registrationInvalidOutdatedLink": "The registration link is very old and no longer correctly linked with the corresponding user."
+		}
+	},
+	"demo": {
+		"lib": {
+			"global": {
+				"link": {
+					"dataProtectionDeclaration": "Privacy policy test account"
+				}
+			}
+		}
+	},
+	"files": {
+		"_file": {
+			"headline": {
+				"assertDeletion": "Are you sure you want to delete ' {{filename}} '?",
+				"editPermissions": "Edit permissions",
+				"moveFile": "Move file",
+				"renameDir": "Rename folder",
+				"shareLink": "Share link"
+			},
+			"text": {
+				"dirAlreadyExists": "A folder with this name already exists in the same folder!",
+				"errorWhileLoadingPermissions": "Unfortunately, there was an error while retrieving the permissions.",
+				"errorWhileOpeningFile": "Error while opening the file",
+				"fileAddedSuccess": "File (s) added successfully and will be displayed immediately after the page is refreshed.",
+				"fileAlreadyExists": "A file with this name already exists in the target folder!",
+				"fileAlreadyExistsInDir": "A file with this name already exists in the same folder!",
+				"fileMoved": "The file was moved successfully!",
+				"permissionsChangedSuccess": "File permissions changed successfully",
+				"pleaseSelectFileType": "Please select a file type.",
+				"renameDirSuccess": "The folder was renamed successfully!",
+				"renameFileSuccess": "The file was renamed successfully!",
+				"thereAreNoPermissionsToEdit": "There are no permissions to edit."
+			}
+		},
+		"button": {
+			"ascending": "↑ ascending",
+			"createANewFile": "Create a new file",
+			"createANewFolder": "Create a new folder",
+			"createNewFile": "Create file",
+			"descending": "↓ descending",
+			"download": "Download",
+			"presentation": "Presentation (pptx)",
+			"search": "Search",
+			"selectFormat": "Select format",
+			"table": "Table (xlsx)",
+			"textDocument": "Text document (docx)",
+			"toTeam": "To the team"
+		},
+		"headline": {
+			"attention": "Attention",
+			"createNewFile": "Create a new file",
+			"doYouWantToOpenThisFile": "Do you want to open this file with an external service?",
+			"newFolder": "New folder"
+		},
+		"input": {
+			"filename": "Name of the file",
+			"foldername": "Name of the folder",
+			"searchFiles": "Browse files ..."
+		},
+		"label": {
+			"chooseANewName": "Select a new name:",
+			"chooseANewNameAndAFileExtension": "Select a name and file extension:",
+			"close": "Close",
+			"dangerousCode": "Malicious code",
+			"deleteFile": "Delete file",
+			"deleteFolder": "Delete folder",
+			"distributeTheFollowingLink": "Distribute the following link to provide access to the file.",
+			"downloadFile": "Download file",
+			"editFilePermissions": "Edit file permissions",
+			"fileName": "Filename:",
+			"filesFromMyClasses": "Files from my classes",
+			"filesFromMyCourse": "Files from my courses",
+			"filesFromMyTeam": "Files from my teams",
+			"filesOpen": "Open files",
+			"filesSharedWithMe": "Files shared with me",
+			"filesSharedWithMeContent": "Here you can find all the files you have shared with you. These are files that have been made available by other users.",
+			"fileType": "File type:",
+			"folder": "Folder",
+			"moveFile": "Move file - temporarily deactivated",
+			"myPersonalData": "My personal files",
+			"myPersonalDataContent": "Here you can find all your personal files. Only you have access to these files, but you can also share them with other users.",
+			"name": "File name",
+			"openDocumentInNewWindow": "Open document in new window",
+			"read": "Read",
+			"renameFile": "Rename file",
+			"renameFolder": "Rename folder",
+			"roleUser": "Role \/ user",
+			"selectAFolder": "Select a folder",
+			"shareFile": "Share file",
+			"size": "Size",
+			"updatedAt": "Modification date",
+			"write": "Write"
+		},
+		"overview": {
+			"button": {
+				"openFiles": "Open files"
+			},
+			"headline": {
+				"myCourseFiles": "My Course Files",
+				"myTeamFiles": "My Team Files"
+			},
+			"text": {
+				"CourseFilesDesc": "Here you will find all files used in the respective courses in class. All participants of the course, the teacher and the students, have access to these files.",
+				"PersonalFilesDesc": "Here you can find all your personal files. Only you have access to these files, but you can also share them with other users.",
+				"SharedFilesDesc": "Here you can find all the files you have shared with you. These are files that have been provided by other users.",
+				"TeamFilesDesc": "Here you will find all files used in the respective courses in class. All participants of the team have access to these files."
+			}
+		},
+		"search": {
+			"headline": {
+				"search": "File search"
+			},
+			"label": {
+				"msoffice": "Word \/ Excel \/ PowerPoint",
+				"pdfs": "PDF documents",
+				"pics": "Pictures",
+				"videos": "Videos"
+			}
+		},
+		"text": {
+			"FileCanNotBeDownloaded": "Don't worry, the file cannot be downloaded.",
+			"foldersAreLocated": "Loading folders",
+			"foundIn": "found in:",
+			"foundMaliciousContent": "Wow! We have discovered potentially harmful content in this file.",
+			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online was not configured correctly!",
+			"movingCurrentlyDisabled": "Moving files is currently not possible. We are working on a solution.",
+			"newDir": "New folder",
+			"newFile": "New file",
+			"noAccessToThisFile": "You don't have access to this file!",
+			"noSearchResults": "No search results",
+			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Please try again later or notify your administrator.",
+			"rememberThisSelection": "Remember this selection",
+			"searchResultFor": "search results for",
+			"searchResults": "Search results",
+			"storeFilesForUpload": "Save files for upload.",
+			"studentCanEdit": "Students can edit?",
+			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance"
+		}
+	},
+	"firstLogin": {
+		"birthdate": {
+			"text": {
+				"weNeedYourDateOfBirth": "To complete your account, we need your date of birth:"
+			}
+		},
+		"button": {
+			"getStartedImmediately": "Get started right away",
+			"logout": "Log out",
+			"signOutAndCancel": "Log off and cancel",
+			"takeALookAtTheFirstSteps": "View first steps"
+		},
+		"consent": {
+			"headline": {
+				"importantInformation": "Important information",
+				"summaryOfTheExtension": "Summary of the extension in the {{visualType}}",
+				"toThe": "to"
+			},
+			"text": {
+				"and": "and",
+				"constantlyEvolving": "constantly developed. In the course of this",
+				"expanded": "expanded or specifically adapted for your school.",
+				"explainTheFollowing": "declare the following:",
+				"forAnEvenBetterLearningExperience": "The {{title}} is being constantly developed for an even better learning experience. In the course of this,",
+				"i": "I,",
+				"pleaseClickOnRead": "Please acknowledge this information by clicking on \"Read\" in order to proceed with the use.",
+				"pleaseConfirmTheFollowingDeclarationOfConsent": "Please confirm the following declarations of consent so that you can use the {{title}}.",
+				"termsOfUse": "Terms of use",
+				"the": "the"
+			}
+		},
+		"email": {
+			"headline": {
+				"howCanWeContactYou": "How can we contact you?"
+			},
+			"text": {
+				"ifTheEmailAddressIsNotTheCorrectOne": "If the e-mail address is not correct, please contact your {{shortTitle}} administrator.",
+				"pleaseCheckYourEmail": "Please check your e-mail address:"
+			}
+		},
+		"global": {
+			"headline": {
+				"birthdate": "Date of birth"
+			}
+		},
+		"label": {
+			"newPassword": "New password:",
+			"repeatYourNewPassword": "Repeat your new password:",
+			"under14YearsOld": "under 14 years old."
+		},
+		"parent": {
+			"button": {
+				"exitAndContinueLater": "Exit and continue later"
+			},
+			"global": {
+				"label": {
+					"mustNotBeYourChildsEmailAddress": "(Cannot be the same as your child's e-mail address)",
+					"yourEmailAddress": "Your e-mail address:"
+				},
+				"text": {
+					"forStudentsUnder": "For students under {{age}} years of age, a parent or guardian must consent to the use of the {{shortTitle}}."
+				}
+			},
+			"headline": {
+				"declarationOfConsentFromALegalGuardian": "Declaration of consent from parent or guardian required"
+			},
+			"label": {
+				"continueAsLegalGuardian": "continue as parent or guardian"
+			},
+			"text": {
+				"amLegalGuardianFor": "am the parent or legal guardian of {{firstName}} {{lastName}} and declare the following:",
+				"needConsentOfParents": "As you are under {{age}} years old, a declaration of consent from a parent is required so that you can use the {{shortTitle}}.",
+				"pleaseConfirmTheFollowingDeclaration": "Please confirm the following declarations of consent so that your child can benefit from the use of the HPI school cloud:",
+				"theNextStepMustBeCarriedOut": "The next steps must be carried out by a parent or guardian."
+			}
+		},
+		"password": {
+			"text": {
+				"afterClickingThe": "After clicking the",
+				"allowedSpecialCharactersAre": "These special characters are allowed:",
+				"buttonsCanBeUsedAsUsual": "-You can login buttons as usual via your school's system (Moodle, iServ, ItsLearning etc.) in the {{title}}."
+			}
+		},
+		"placeholder": {
+			"atList8CharactersWithUpperAndLower": "At least 8 characters with upper and lower case, including at least one number and one special character.",
+			"newPassword": "New password",
+			"repeatNewPassword": "Repeat new password"
+		},
+		"text": {
+			"between14And": "between 14 and {{addConsent}} years old.",
+			"clickHereForFurtherTraining": "Click here for further training",
+			"fromYear": "from {{age}} years old.",
+			"justHaveALook": "Just have a look!",
+			"linguisticNote": "Linguistic note: For better readability we use the masculine form in the {{shortTitle}} (e.g. \"student\", \"teacher\"). It always refers to all persons regardless of gender. The {{shortTitle}} is meant for all people regardless of origin, restrictions, gender and sexual orientation.",
+			"pleaseChangeTheStartPassword": "Please change the start password. Make a note of the new password and keep it safe!",
+			"pleaseChoose": "Please select: I am ...",
+			"yourLoginWorksButThereIsAProblem": "Your login works, but there is a problem with your consent forms. Please contact your teacher or administrator."
+		},
+		"thanks": {
+			"img_alt": {
+				"onlineTraining": "Online training",
+				"questionMark": "Question mark"
+			},
+			"text": {
+				"andLearnEverythingYouNeed": "and find out everything you need to know as an admin in vivid explanatory videos!",
+				"forVividAndPracticalVideos": "for vivid and practical videos and find out!",
+				"inTheTopRightOfOur": "top right in our",
+				"nowTeachersCanInviteToCoursesAndAccess": "Now you can be invited to courses by your teachers and access teaching materials and assignments there. You also have your own file area where you can store important documents and folders. Have fun exploring!",
+				"overEveryPageInThe": "Via each page in the {{shortTitle}} you can click to get to",
+				"thereYouWillFindDetailedInstructions": "There you will find detailed instructions and image series for almost every topic.",
+				"whatCanActuallyDo": "What can the {{shortTitle}} actually do? And how can I use it to organize, design and carry out my lessons? Check out our",
+				"youAreAdminAndHaveTheHonorable": "Are you an admin and have the honorable task of setting up the {{title}} for your school? We will help you in this important task. Check out our"
+			}
+		},
+		"welcome": {
+			"button": {
+				"toYourCourses": "To your courses"
+			},
+			"headline": {
+				"congratulations": "Congratulations, {{firstName}} {{lastName}}",
+				"welcomeToThe": "Welcome to the {{shortTitle}} {{firstName}} {{lastName}}"
+			},
+			"text": {
+				"dueToAChangeInTheLowerSaxony": "Due to a change in the Lower Saxony School Act, the processing of personal data in the {{shortTitle}} is now basically based on § 31 (5) NSchG in conjunction with Article 6 Para 1 lit. c) GDPR.",
+				"pleaseBrieflyFileSomeData": "Please briefly enter some data, set a new password and then you can start.",
+				"thankYouForTakingNoteOf": "Thank you for taking note.",
+				"weArePleasedThatYou": "We are pleased that you want to use the {{shortTitle}}.",
+				"weArePleasedThatYouWantToUse": "We are pleased that you want to use the {{title}} and cooperate in taking the next step together for digitally supported teaching - open source, non-profit and in compliant with data protection regulations. Please check the e-mail address you have given in the following steps and agree to the terms of use. A parent or legal guardian has already consented to its use, now it's up to you. Then change your start password so that you can benefit by using {{shortTitle}} .",
+				"welcomeBack": "Welcome back to {{shortTitle}} {{firstName}} {{lastName}}",
+				"welcomeTo": "Welcome to {{title}} {{displayName}}",
+				"welcomeToShort": "Welcome to the {{shortTitle}}",
+				"withThe": "Making teaching digital with {{shortTitle}}",
+				"youAreNow14YearsOld": "You are now 14 years old. In the following step, please give your consent to the use of the {{title}} From the age of 14, this is necessary in addition to the already provided consent of your parents so that you can continue to use the {{shortTitle}}."
+			}
+		}
+	},
+	"global": {
+		"aria_label": {
+			"sidebar": "Sidebar",
+			"topMenu": "topbar"
+		},
+		"button": {
+			"accept": "Accept",
+			"add": "Add",
+			"addPrivateTask": "Add private task",
+			"addTask": "Add task",
+			"back": "Back",
+			"cancel": "Cancel",
+			"clickHere": "Click here",
+			"close": "Close",
+			"create": "Create",
+			"createFirstCourse": "Create your first course",
+			"createFolder": "Create folder",
+			"deleteTeam": "Delete team",
+			"edit": "Edit",
+			"editTopic": "Edit topic",
+			"filterAdd": "Add filter",
+			"filterApply": "Apply",
+			"import": "Import",
+			"next": "Next",
+			"no": "No",
+			"ok": "Okay",
+			"open": "Open",
+			"openANewTab": "Open in new tab",
+			"print": "Print",
+			"reload": "Reload",
+			"remove": "Remove",
+			"save": "Save",
+			"saveChanges": "Save changes",
+			"send": "Send",
+			"submit": "Submit",
+			"toCourse": "To the course",
+			"tryAgain": "Try again",
+			"yes": "Yes"
+		},
+		"headline": {
+			"actions": "Actions",
+			"addDate": "Add date",
+			"almostThere": "Almost there!",
+			"assignedTasks": "Assigned tasks",
+			"classes": "Class(es)",
+			"dateDetails": "Date - Details",
+			"declarationOfConsent": "Declaration of consent",
+			"delete": "Delete",
+			"entriesPerPage": "Entries per page",
+			"files": "Files",
+			"invitationLinkGenerated": "Invitation link generated!",
+			"myMaterial": "My materials",
+			"name": "Name",
+			"news": "News",
+			"privateTasks": "Private tasks and drafts",
+			"projectExecution": "Project execution",
+			"sorryItDidNotWork": "Sorry, that didn't work.",
+			"sorting": "Sorting",
+			"task": "Task",
+			"tasks": "Tasks",
+			"teachers": "Teachers",
+			"topics": "Topics",
+			"youAlmostMadeIt": "Almost there!",
+			"yourData": "Your data"
+		},
+		"input": {
+			"password": "Password"
+		},
+		"label": {
+			"chooseAFile": "Select file",
+			"creationDate": "Creation date",
+			"dateOfBirth": "Date of birth:",
+			"description": "Description",
+			"emailAddress": "E-mail address:",
+			"entriesPerPage": "Entries per page: %1",
+			"firstName": "First name",
+			"firstNameColon": "First name:",
+			"from": "From",
+			"lastName": "Last name",
+			"lastNameColon": "Last name:",
+			"more": "More",
+			"nameOfTheCourse": "Name of the course",
+			"newTab": "Opens in a new tab",
+			"password": "Password:",
+			"role": "Role",
+			"room": "Room",
+			"settings": "Settings",
+			"skipLinks": "Skip links",
+			"sortBy": "Sort by: %1",
+			"title": "Title",
+			"to": "To",
+			"type": "Type"
+		},
+		"language": {
+			"label": {
+				"de": "Deutsch",
+				"en": "English"
+			}
+		},
+		"link": {
+			"aboutTheProject": "About the project",
+			"administrationStudents": "Students",
+			"administrationTeachers": "Teacher",
+			"archive": "Archive",
+			"calendar": "Calendar",
+			"contact": "Contact",
+			"courseData": "My course files",
+			"courseDataContent": "Here you will find all files used in the respective courses in class. All participants of the course, i.e. the teacher and the students, have access to these files.",
+			"files": "My Files",
+			"filesContent": "Here you can find all files used in the respective teams. All participants of the team have access to these files.",
+			"filesPersonal": "personal files",
+			"filesShared": "shared files",
+			"firstSteps": "First steps",
+			"footerSkipLink": "Footer",
+			"helpArea": "Help section",
+			"helpDesk": "Help desk",
+			"imprint": "Imprint",
+			"landing": "Home page",
+			"lernstore": "Lern-Store",
+			"mainContentSkipLink": "Main section",
+			"management": "Management",
+			"managementStudents": "Students",
+			"managementTeachers": "Teachers",
+			"openInNewTab": "open in new tab",
+			"openInNewTabWarning": "Opens in a new tab",
+			"overview": "Dashboard",
+			"partner": "Partner",
+			"register": "Register",
+			"school": "School",
+			"tasksDrafts": "Drafts",
+			"teamData": "My team files",
+			"teams": "Teams",
+			"topNavbarSkipLink": "Navigation above"
+		},
+		"pagination": {
+			"aria_label": {
+				"firstPage": "First page",
+				"lastPage": "Last page",
+				"nextPage": "next page",
+				"previousPage": "Previous page"
+			}
+		},
+		"placeholder": {
+			"Administrator": "Administrator",
+			"BetaTeacher": "Beta",
+			"Demo": "Demo",
+			"DemoStudent": "Demo Student",
+			"DemoTeacher": "Demo Teacher",
+			"Expert": "Expert",
+			"firstName": "Enter your first name here",
+			"Helpdesk": "Helpdesk",
+			"lastName": "Enter your last name here",
+			"Lehrer": "Teacher",
+			"Schüler": "Student",
+			"selectTeacher": "Select teacher",
+			"Superhero": "Schul-Cloud Admin"
+		},
+		"role": {
+			"text": {
+				"administrator": "Administrator",
+				"expert": "Expert",
+				"leader": "Leader",
+				"member": "Member",
+				"owner": "Owner",
+				"teacher": "Teacher"
+			}
+		},
+		"sidebar": {
+			"link": {
+				"addons": "Add-ons",
+				"administration": "Administration",
+				"administrationClasses": "Classes",
+				"administrationCourses": "Courses"
+			}
+		},
+		"text": {
+			"400": "This request was incorrect.",
+			"401": "Please authenticate yourself first.",
+			"402": "You have to pay for this feature first.",
+			"403": "Sorry, but we really can't show you that!",
+			"404": "Oops, this site doesn't exist.",
+			"408": "Timeout",
+			"areYouSure": "Are you sure?",
+			"attention": "Attention:",
+			"dataProtection": "Privacy policy",
+			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
+			"errorChangingFilePermissions": "Problem changing permissions",
+			"errorWhileLoadingPage": "This page could not be loaded",
+			"filesTooLarge": "The attached files exceed the maximum permitted total size!",
+			"fileTooLarge": "The attached files exceed the maximum permitted size!",
+			"fileWrongFormat": "'{{filename}}' is not an image, video or valid file!",
+			"forThisWeNeedTheFollowingInformationFromYou": "For this we need the following information from you:",
+			"friday": "Friday",
+			"inAdditionWeArePlanning": "Many thanks for your understanding.",
+			"info": "Note:",
+			"internalProblem": "Oops, we have an internal problem. Try again right away.",
+			"invalidRequest": "Invalid request",
+			"min8characters": "At least 8 characters with upper and lower case, including at least one number and one special character.",
+			"monday": "Monday",
+			"noMembers": "No attendees",
+			"noTasks": "No tasks",
+			"noTopicFoundWithCode": "No topic was found for this code.",
+			"pageMoved": "This page has been moved.",
+			"passwordsAreDifferent": "Passwords do not match.",
+			"qrHintText": "Navigate other users to this site with the QR code",
+			"requestTimeout": "Request timed out",
+			"saturday": "Saturday",
+			"severalSecurityTokens": "Several security tokens (CSRF) were sent with the request. Please try again.",
+			"somethingWentWrong": "Something went wrong!",
+			"specialCharacters": "! § $% & \/ () =? \\;:,. # + * ~",
+			"sunday": "Sunday",
+			"sureAboutDeleting": "Are you sure you want to delete '{{ name }}'?",
+			"sureAboutDiscardingChanges": "Are you sure you want to discard the changes?",
+			"theRequestContains": "The request contains several identical security tokens (CSRF).",
+			"thursday": "Thursday",
+			"tuesday": "Tuesday",
+			"videoconferenceNotStartedYet": "Video conference has not yet started",
+			"wednesday": "Wednesday",
+			"weNeedAnEmailAddress": "We need an e-mail address so that your consent to use the {{shortTitle}} is legally valid. The {{shortTitle}} does not pass on the address. You will not receive unsolicited e-mails."
+		}
+	},
+	"help": {
+		"anchor": {
+			"aria_label": {
+				"section": "Go to the {{section}} section"
+			}
+		},
+		"confluence": {
+			"link": {
+				"openArticleInConfluence": "Open article in Confluence",
+				"openInConfluence": "Open in Confluence"
+			},
+			"text": {
+				"ifYouCantReadTheArticle": "If you can't read the article (often the case on mobile devices), you can also",
+				"languageNote": "Linguistic note:",
+				"typeNotAllowed": "\"{{filename}}\" is not an image, video, or valid file"
+			}
+		},
+		"contact": {
+			"label": {
+				"schoolAdmin": "School admin",
+				"wish": "Request"
+			},
+			"text": {
+				"thankYouForYourFeedback": "Thank you for your feedback, it will be sent directly to the {{shortTitle}} development team. Please be careful not to send any passwords or other sensitive data.",
+				"whatKindOfFeedbackDoYouWant": "What kind of feedback would you like to send us?",
+				"whoDoYouWantToContact": "Who do you want to contact?"
+			}
+		},
+		"form_admin": {
+			"label": {
+				"currentStatus": "CURRENT state: What is happening at the moment after I have carried out which steps?",
+				"targetState": "TARGET state: What should happen instead?"
+			},
+			"text": {
+				"hereYouCanContact": "Here you can reach the administrator of your school. He can help you with login problems, for example, and will be informed of your contact request by e-mail."
+			}
+		},
+		"form_bug": {
+			"label": {
+				"maxSizeFiles": "Images, videos and files",
+				"problemDescription": "Problem description:",
+				"theProblemOccursOnTheDevice": "The problem occurs on this device"
+			},
+			"text": {
+				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)<\/li> <li> Operating system and version (e.g. Windows 10)<\/li>"
+			}
+		},
+		"form_Wish": {
+			"label": {
+				"acceptanceCriteria": "Acceptance criteria",
+				"around": "around ...",
+				"as": "As...",
+				"briefDescriptionOfTheRequest": "Brief description of the request",
+				"device": "Device",
+				"iWouldLikeTo": "I would like to ..."
+			},
+			"placeholder": {
+				"afterLoggingOnToTheSystem": "For example, after logging in to the system, I reach the lesson context in maximum two steps, can edit the student task there with a click and, if necessary, automatically inform the students about the change.",
+				"briefDescriptionOfTheRequest": "Brief description of the request",
+				"canEasilyFindAndChange": "e.g. can easily find and change a student task created in the system",
+				"exampleStudent": "e.g. students, teachers, administrators, janitors, etc.",
+				"toUpdateThem": "e.g. to update them"
+			},
+			"text": {
+				"iAgreeThatTheFollowingInformation": "I agree that the following information may be transferred for better handling of my request: <li>Browser name and version (e.g. Firefox 69.0) <\/li> <li> Operating system and version (e.g. Windows 10)<\/li>"
+			}
+		},
+		"global": {
+			"headline": {
+				"principal": "Principal"
+			},
+			"label": {
+				"briefDescriptionOfTheProblem": "Brief description of the problem",
+				"furtherInformation": "Further information (optional):",
+				"replyEmail": "E-mail address for any queries"
+			}
+		},
+		"headline": {
+			"contactDetails": "Contact person and contact details",
+			"helpSection": "Help section",
+			"privacyCourse": "Privacy course",
+			"welcomeDocuments": "Welcome documents for download"
+		},
+		"help_confluenceLinks": {
+			"link": {
+				"contactForm": "Contact form",
+				"linguisticNote": "Linguistic note",
+				"usageAids": "User assistance",
+				"writeUsAnEmail": "Send us an e-mail"
+			}
+		},
+		"help_fromInviteExternalMember": {
+			"button": {
+				"externalExperts": "External experts",
+				"teachersFromOtherSchools": "Teachers from other schools"
+			},
+			"headline": {
+				"whoDoYouWantToInviteTheTeam": "Who would you like to invite to the team?"
+			}
+		},
+		"language_hint": {
+			"text": {
+				"forBetterReadability": "For better readability we use the masculine form (“student”, “teacher”) in the user interface of the {{title}}. It always means all people regardless of gender. The {{shortTitle}} applies to everyone, regardless of origin, restrictions, gender and sexual orientation."
+			}
+		},
+		"lernNuggets": {
+			"headline": {
+				"instructionsForUse": "Instructions for use",
+				"learningNuggetBasicOfGDPR": "Learning nugget: Basic principles of the GDPR",
+				"learningNuggetDataProtectioin": "Learning nugget: Privacy in everyday school routine",
+				"learningNuggetDataProtectionAndCloud": "Learning nugget: Privacy and cloud solutions",
+				"learningNuggetLicenseModels": "Learning nugget: license models and usage rights",
+				"welcomeToTheOnlineCourse": "Welcome to the online course 'Privacy and Copyright'"
+			},
+			"link": {
+				"basicsOfTheGDPR": "Basic principles of the GDPR",
+				"dataProtectionAndCloudSolution": "Privacy and cloud solutions",
+				"dataProtectionInSchoolLife": "Data protection in school routine",
+				"licenseModelAndUsageRights": "License models and usage rights"
+			},
+			"text": {
+				"aLearningUnitLasts": "A learning unit lasts a maximum of 15 minutes. In order to receive the full scope of the contents, it is best to connect loudspeakers or headphones to your device.",
+				"byTheWayYouWillAlways": "By the way, you will always receive a certificate of participation as proof of your learning success at the end of a learning nugget.",
+				"clientAndLicensedFor": "Client and licensed for: Verein MINT-EC®,",
+				"contentAndProduction": "Content and production: youknow GmbH, St.-Martin-Straße 57, 81669 Munich,",
+				"createdAsPartOfThe": "Developed as part of the HPI school cloud project.",
+				"dealingWithPersonalDetails": "The handling of personal data, the requirements of a cloud solution in school routine and the digital sharing of teaching and learning materials repeatedly cause uncertainty among school administrators and teachers.",
+				"forThisReasonYouHaveTheOpportunity": "For this reason, you have the opportunity to learn everything you need to know about data protection and copyright in small learning units.",
+				"hereIsTheLearningNugget": "Click here for the learning nugget:",
+				"inTheLearningNuggetOnDataProtection": "In the learning nugget on data protection in school routine, you can find out which data protection regulations you must observe in the context of school. We also show specific data protection cases from school routine here.",
+				"inThisLessonYouWillLearnAllTheBasics": "In this learning unit, you will learn all the basics of personal data. You will also get an overview of the five basic principles applicable in dealing with the GDPR.",
+				"learningNiggetsImproveTheLearningEffect": "Learning nuggets improve the learning effect and are also fun. In addition, thanks to the modular structure, you can freely decide which learning unit you want to execute first. Simply click on the respective learning nugget to take the training.",
+				"whatAreTheAdvantagesAndDisadvantages": "What are the advantages and disadvantages of cloud solutions in school use? What should be considered for use at your school? In this learning unit, we introduce everything you need to know about cloud solutions such as the HPI school cloud.",
+				"withTheTopicsOfLicenseModels": "With regard to licensing models and right of use, you will be informed about the basics of copyright law and the requirements for reproducing materials in analogous and digital school routine. You can also learn what Open Educational Resources are and how to identify licenses adequately."
+			}
+		},
+		"partials": {
+			"headline": {
+				"contactForm": "Contact form",
+				"contactPerson": "Contact person",
+				"overview": "Overview",
+				"writeUsAnEmail": "Send us an e-mail"
+			}
+		},
+		"placeholder": {
+			"briefDescriptionOfTheProblem": "Brief description of the problem",
+			"email": "E-mail address",
+			"formBugText": "As [user role]  \nI could not user\nthe function [???] \non the page [???] \ndue to the error \/ error message \"[???]\". \n\nDoes the error also occur in other\/ similar areas (e.g. other courses or users)? \nHow exactly is the problem expressed? \nWhen exactly did the error occur (date, time) so that we can take a targeted look at the logs? \nIf several steps are necessary to understand the problem, please describe them here as briefly and clearly as possible."
+		},
+		"search": {
+			"headline": {
+				"noSearchResults": "No results found 😪"
+			},
+			"text": {
+				"tryAnotherQuery": "Try again with other keywords"
+			}
+		},
+		"text": {
+			"hereYouCanFindOut": "Here you can find out how to delete your cookies.",
+			"noAccessDemoAccount": "You have no access to these documents in the demo account.",
+			"noWelcomeDocuments": "There may not be any welcome documents. Please contact the user support.",
+			"someConcernsNeedMoreOptions": "Some concerns require more options than the fields in the contact function allow. Write us an e-mail if you want to get in touch with us:",
+			"theHassoPlattnerInstituteIsAvailable": "The Hasso Plattner Institute is available for all technical questions. If you have problems with the HPI school cloud itself or if you have difficulties operating it, please use the contact form or send an e-mail to:",
+			"theMintTeamIsNotAvailave": "The MINT-EC team is available for all non-technical questions and can be contacted at the following email address:",
+			"toMINTECWithQuestions": "to MINT-EC for queries and suggestions regarding the introduction and use of the HPI school cloud at your school",
+			"toTheHpiForIdeas": "To HPI for ideas, feedback and requests regarding cloud itself."
+		}
+	},
+	"helpdesk": {
+		"text": {
+			"feedbackError": "Error while sending the feedback.",
+			"feedbackSuccessful": "Feedback sent successfully!",
+			"fileWrongFormat": "{{filename}} is not an image, video or valid file!"
+		}
+	},
+	"home": {
+		"button": {
+			"loginAsStudentDemo": "Log in as a student",
+			"loginAsTeacherDemo": "Log in as a teacher",
+			"register": "Register",
+			"subscribeNewsletter": "Subscribe to the Newsletter"
+		},
+		"header": {
+			"link": {
+				"blog": "Blog",
+				"faq": "FAQ",
+				"login": "Login"
+			}
+		},
+		"headline": {
+			"allNewsOnHPINewsletter": "All news about the <span style=\"white-space: nowrap;\">HPI school cloud<\/span> conveniently sent to your mailbox:",
+			"explainationVideo": "Explanatory video about the HPI school cloud",
+			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI school cloud<\/span> Blog",
+			"theIdea": "The basic idea of the <span style=\"white-space: nowrap;\">HPI school cloud<\/span>",
+			"tryDemoVersion": "Try the demo version now",
+			"welcomeToHPISchoolCloud": "Welcome to the <span style=\"white-space: nowrap;\">HPI school cloud!<\/span>"
+		},
+		"img_alt": {
+			"logoBMBF": "Logo BMBF",
+			"logoHPI": "Logo HPI",
+			"logoMINTEC": "Logo MINT-EC"
+		},
+		"link": {
+			"moreArticles": "Show more articles",
+			"openArticle": "Open article"
+		},
+		"text": {
+			"advertisementForOurTeam": "Do you associate Node, React and Feathers with Javascript rather than English? Are you looking for a young team, a relaxed atmosphere and flat hierarchies? Then take a look at our vacancies: https:\/\/schul-cloud.org\/community#jobs",
+			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) video player.",
+			"downloadFile": "Download file",
+			"moreInformation": "More information:",
+			"technicalReportHPISchoolCloud": "Technical report: \"The HPI School Cloud: Roll-Out of a Cloud Architecture for Schools in Germany\" (.pdf)",
+			"weRecommendUsingModernBrowsers": "We recommend using a current version of the Chrome, Firefox, Edge or Safari browser."
+		}
+	},
+	"homework": {
+		"_task": {
+			"button": {
+				"restoreAlt": "<i class='fa fa-mail-reply'> <\/i> Restore"
+			},
+			"headline": {
+				"editTask": "Edit task"
+			},
+			"input": {
+				"chooseTeamMembers": "Select colleagues",
+				"createSubmission": "Create your submission..."
+			},
+			"label": {
+				"copyTask": "Copy task definition",
+				"copyTaskAlt": "Copy task '{{title}}'.",
+				"deleteTaskAlt": "Delete the task: '{{title}}'.",
+				"editTaskAlt": "Edit task '{{title}}'.",
+				"fileUpload": "File submission",
+				"moveFromArchive": "Move task from archive to overview page",
+				"moveToArchive": "Move task from overview page to archive",
+				"printGradeComment": "Print grading",
+				"printSubmission": "Print submission",
+				"printTask": "Print task definition",
+				"submitted": "Submitted",
+				"team": "Team",
+				"teamSubmission": "Team submission",
+				"teamSubmissionMaxX": "Team submission (maximum <span id=\"maxTeamMembers\">{{maxTeamMembers}}<\/span> people)",
+				"textDelivery": "Text submission"
+			},
+			"text": {
+				"errorInvalidTaskId": "Invalid Task ID",
+				"maxGroupSize": "Maximum group size: <b>{{maxTeamMembers}} members <\/b>",
+				"newHomeworkCourseNotification": "You have a new homework in {{coursename}}",
+				"newHomeworkDueDateNotification": "{{homeworkname}} must be submitted by {{duedate}}.",
+				"noSubmissionsYet": "No submissions available.",
+				"noSubmissionsYetFrom": "No submission yet from:",
+				"startDateBeforeSubmissionDate": "The start date must be before the submission date!",
+				"submissionGradedNotification": "Your submission in the field {{coursename}} has been graded",
+				"youHaveSolvedXPercent": "You have solved <b class=\"grade\">{{grade}}%<\/b> correctly."
+			}
+		},
+		"button": {
+			"archive": "Archive",
+			"copy": "Copy",
+			"copySubmissionFromList": "Copy",
+			"deleteSubmissionFromList": "Delete",
+			"downloadUngradedFiles": "Download files of ungraded homework",
+			"editSubmissionFromList": "Edit",
+			"hrefAlt": "Delete submission",
+			"hrefDataName": "Your submission",
+			"importing": "import",
+			"importSubmission": "Import student submission",
+			"onTheSubject": "On the subject",
+			"save": "Save and send",
+			"toCourseAlt": "To the course of the task",
+			"toTheCourseFiles": "To the course files",
+			"toTopicAlt": "To the topic of the task"
+		},
+		"global": {
+			"label": {
+				"allowGroupSubmission": "Enable group submission",
+				"description": "Task definition",
+				"maximumGroupSize": "Maximum group size:",
+				"privateTaskOnlyVisibleToMe": "Private task (only visible for me)",
+				"processingPeriodEndsOn": "Processing period ends on:",
+				"topic": "Topic",
+				"visibleAndEditableForStudentsFrom": "Visible for students and to be edited from:"
+			},
+			"placeholder": {
+				"description": "Find out why..."
+			},
+			"text": {
+				"noTopicsInTheCourse": "No topics in this course",
+				"substitutionTeachersMayNotChangeTheCourse": "(Substitute teachers are not allowed to edit the course)"
+			}
+		},
+		"headline": {
+			"archivedTasks": "Archived tasks and to-dos",
+			"breadcrumb": "{{breadcrumbtitle}} Tasks",
+			"breadcrumbArchived": "Archived",
+			"breadcrumbAssigned": "Assigned",
+			"breadcrumbPrivate": "My",
+			"drafts": "Drafts",
+			"dueDate": "Submission date",
+			"more": "More"
+		},
+		"input": {
+			"gradeComment": "Grading remarks",
+			"noAssignment": "No assignment"
+		},
+		"label": {
+			"comment": "Comments",
+			"details": "Details",
+			"dontShowAgain": "Don't show anymore",
+			"filesUploadedForDelivery": "Files uploaded for submission (unsaved!)",
+			"filterCourses": "Courses: %1",
+			"filterDueDate": "Submission from %1 to %2",
+			"filterDueDateFrom": "from",
+			"filterDueDateTo": "to",
+			"filterMorePrivateTask": "Private task",
+			"filterMorePublicSubmissions": "Students can see submissions among themselves",
+			"filterMoreTeamSubmissions": "Team submissions",
+			"forGradingUploadedFiles": "Files uploaded as comments\/grading",
+			"forSubmissionUploadedFiles": "Files uploaded for submission",
+			"inPercent": "in percent",
+			"onTheSubject": "To the topic",
+			"rating": "rating",
+			"rating_comment": "Comment\/Grading",
+			"restore": "Restore",
+			"selectStudentGroup": "Select student group",
+			"selectTeamMembers": "Select team members",
+			"sortByAvailabilityDate": "Availability date",
+			"sortByDueDate": "Submission date",
+			"sortByLastUpdate": "Last update",
+			"studentSolutionVisibleToEachOthers": "Student submissions visible to each other",
+			"submission": "Submission",
+			"submissions": "Submissions",
+			"submissionsWithoutFeedback": "Uncommented submissions",
+			"taskDetails": "Details of the task:",
+			"uploadGradeFiles": "Upload corrected files"
+		},
+		"text": {
+			"activatingThisMakesSubmissionsPublic": "By activating this option, the submissions of all course participants will be visible to all other students in the course.",
+			"bulkGradingError": "Submissions could not be assigned to all files based on the name. Go to comments\/grading to assign the following files to the respective submission:",
+			"bulkGradingSuccess": "Homework could be assigned to all files. Please reload page.",
+			"creatorCanNotBeRemoved": "You cannot remove the creator of the task!",
+			"done": "Great! You've completed your task!",
+			"doYouReallyWantToDelete": "Are you sure you want to delete '{{name}}'?",
+			"doYouReallyWantToReplaceSubmission": "Are you sure you want to replace your assessment with the student's submission?",
+			"due": "Due",
+			"fileAlreadyExists": "This file name already exists in your files. Please rename the file.",
+			"maximumTeamSize": "The maximum team size is {{maxMembers}} members",
+			"noAssignment": "No assignment",
+			"noDescriptionAvailable": "no description available",
+			"noEvaluationTextAvailable": "No comments available yet.",
+			"noMoreStudentsInYourCourse": "No other students in your course",
+			"noStudentGroupsInThisCourse": "No student groups in this course",
+			"noSubmission": "No submission",
+			"noSubmissionDateSet": " No submission date",
+			"notDone": "Too late! Next time, try to be more careful with your time.",
+			"published": "Published:",
+			"ratingHasBeenSaved": "Rating has been saved!",
+			"toBeDoneWithin24Hours": "Watch out! You only have 24 hours left to complete the task."
+		}
+	},
+	"imprint": {
+		"imprint_infotext_below": {
+			"text": {
+				"theContentOfThe": "The contents of the {{shortTitle}} are not official announcements of the HPI. The respective authors are responsible for the contents. Without prior written permission, a commercial distribution of the contents available via the {{shortTitle}} is explicitly prohibited, unless they are explicitly marked. The editorial responsibility for the content of linked websites of other providers (including links to third parties), in particular the responsibility for compliance with the regulations of the law for the protection of minors and data privacy, is in every respect the sole responsibility of the respective provider.",
+				"theHassoPlattnerInstituteRegularlyChecks": "The Hasso Plattner Institute (HPI) regularly checks and updates the contents of its websites. Despite the greatest possible care, we cannot rule out that individual information on our website is out of date or no longer correct. Therefore, we cannot accept liability for the up-to-datedness, accuracy and completeness of the information published. The same applies to all websites that can be accessed from the HPI pages via hyperlinks. The following applies to all these links: We expressly declare that we have no influence on the design and content of the linked site. Therefore we hereby distance ourselves from all contents of all linked pages and do not adopt their contents as our own. This declaration applies to all links on our site to external sites. The HPI is not responsible for the content of these linked pages. Furthermore, the HPI reserves the right to make changes and additions to the information displayed at any time. The content and structure of the HPI website are protected by copyright. The further use of information and data is only permitted with our consent. We wish you an informative stay on our website and look forward to your suggestions, wishes or criticism"
+			}
+		},
+		"imprint_platform_intro": {
+			"headline": {
+				"legalNotice": "Legal Notice:"
+			},
+			"text": {
+				"TheProjectIsANonCommercialPilotProject": "The {{shortTitle}} is a non-commercial pilot project, which is carried out by the HPI in cooperation with the national Excellence School Network MINT EC (<a href=''https:\/\/www.mint-ec.de\/'' target='_blank' rel='noopener'>''https:\/\/www.mint-ec.de\/''<\/a>) and is funded by the German Federal Ministry of Education and Research (BMBF) (for more information see: <a href=''https:\/\/hpi.de\/schul-cloud'' target=''_blank'' rel=''noopener''>''https:\/\/hpi.de\/schul-cloud''<\/a>)."
+			}
+		},
+		"imprint_rights": {
+			"headline": {
+				"editorialStuff": "Editorial staff:",
+				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso Plattner Institute for Digital Engineering gGmbH",
+				"managingDirectorAuthorized": "Managing director authorized to represent:"
+			}
+		}
+	},
+	"lib": {
+		"csrf_content": {
+			"link": {
+				"openThisPageInASeparateWindow": "Open this page in a new tab"
+			},
+			"text": {
+				"ifYouDontWantToTakeAnyAction": "If you don't want to take any action, please close this tab in your browser.",
+				"theSchoolCloudWasEmbedded": "The school cloud was embedded in a website. In order to continue using it,",
+				"unfortunatelyTheRequestFailedAgain": "Sorry, the request failed again. To continue using it, please reload the page.",
+				"weCouldNotMakeSureThat": "We could not make sure that this request really came from you. Please click the button below to reload the page.",
+				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "We could not make sure that this request really came from you. Please click the button below to confirm.",
+				"yourRequestCouldNotBeVerified": "Your request could not be verified."
+			}
+		},
+		"error": {
+			"button": {
+				"hideDetails": "Hide details",
+				"viewDetails": "Show details"
+			},
+			"headline": {
+				"errorDetails": "Error details:"
+			}
+		},
+		"extended_footer": {
+			"headline": {
+				"links": "Links",
+				"vacancies": "Vacancies"
+			},
+			"img_alt": {
+				"nowAtGooglePlay": "Now on Google Play"
+			},
+			"link": {
+				"contentProviders": "Content providers:",
+				"devOps": "DevOps",
+				"generalInquiries": "General inquiries:",
+				"mobileApp": "Mobile app",
+				"privacy": "Privacy:",
+				"subscribeTheNewsletter": "Subscribe to the newsletter",
+				"support": "Support:"
+			},
+			"text": {
+				"weAreHiring": "Would you like to join our <span style='white-space: nowrap;'>HPI school cloud<\/span> Team? We are hiring:"
+			}
+		},
+		"footer": {
+			"aria_label": {
+				"footer": "footer",
+				"love": "love"
+			},
+			"img_alt": {
+				"providerLogo": "Provider logo"
+			}
+		},
+		"form_auto_logout": {
+			"button": {
+				"extendSession": "Extend session"
+			},
+			"text": {
+				"loggedOutAutomatically": "automatically logged out.",
+				"minutes": "Minutes",
+				"nowExtendYourSession": "Extend your session to two hours now.",
+				"oopsThatShouldntHaveHappened": "Oops... that should not have happened!",
+				"warning": "Attention: You will be",
+				"yourSessionCouldntBeExtended": "Your session could not be extended. Please try again."
+			}
+		},
+		"form_bbb": {
+			"text": {
+				"refreshStatus": "To refresh status again, click the update icon",
+				"theVideoConferenceHasNotYetStarted": "The video conference has not yet started.",
+				"youAreNotAuthorisedToAttend": "You are not authorized to participate in this video conference. Contact a Team Admin for approval."
+			}
+		},
+		"form_ChangeLanguage": {
+			"label": {
+				"language": "Language"
+			},
+			"placeholder": {
+				"text": "Please select..."
+			}
+		},
+		"form_create_videoConference": {
+			"text": {
+				"allUsersParticipate": "All users participate as moderators",
+				"approvalByTheModerator": "Approval by moderator before the room can be entered",
+				"muteParticipants": "Mute participants when entering"
+			}
+		},
+		"form_features": {
+			"text": {
+				"forMoreInformationClickThisButton": "For further information please click this button",
+				"thereAreNewFeatures": "There are new features in the {{shortTitle}}"
+			}
+		},
+		"form_poll": {
+			"global": {
+				"button": {
+					"toTheSurvey": "To the survey"
+				}
+			},
+			"text": {
+				"thanksForYourSupport": "Thank you for your support!",
+				"theNextQuestionnaireIsOnline": "The next survey on the project {{shortTitle}} is online. We would like to ask you for your cooperation again! The survey will take about 20 - 25 minutes of your time."
+			}
+		},
+		"global": {
+			"button": {
+				"discardChange": "Discard change"
+			},
+			"link": {
+				"dataProtectionDeclaration": "Privacy Policy of HPI school cloud",
+				"github": "GitHub",
+				"participate": "Participate",
+				"safety": "Security",
+				"status": "Status",
+				"team": "Team",
+				"termsOfUseHPI": "Terms of use of the HPI school cloud"
+			}
+		},
+		"headline": {
+			"aria_label": "footer",
+			"yourDigitalLearningEnvironment": "Your digital learning environment"
+		},
+		"help_menu": {
+			"button": {
+				"openGame": "Open game",
+				"playEnterTheCloud": "Play Enter The Cloud"
+			},
+			"img_alt": {
+				"learnCloud": "Learn Cloud"
+			},
+			"input": {
+				"userName": "Username:"
+			},
+			"label": {
+				"help": "Help",
+				"playEnterTheCloud": "Play Enter The Cloud"
+			},
+			"link": {
+				"contactYourSchoolAdmin": "Contact your school's admin",
+				"sendRequestOrProblem": "Send request or problem",
+				"training": "Advanced trainings"
+			}
+		},
+		"ldap_info": {
+			"text": {
+				"whyCantIEditEntries": "Why can't I edit entries?",
+				"yourSchoolIsLinkedToExternManagementSystem": "Your school in the {{shortTitle}} is synchronized with an identity management system (LDAP, country system or similar)."
+			}
+		},
+		"loggedin": {
+			"aria_label": {
+				"mobileNavMenu": "Mobile Navigation Menu"
+			},
+			"img_alt": {
+				"logoOfSchool": "Logo of {{name}}"
+			},
+			"input": {
+				"searchFor": "Search for..."
+			},
+			"label": {
+				"currentUser": "Current user:",
+				"fullscreen": "Full screen",
+				"notifications": "Notifications",
+				"printQrCode": "Print QR code",
+				"qrCode": "QR code",
+				"search": "Search",
+				"thereIsAProblem": "There is a problem"
+			},
+			"tab_label": {
+				"settings": "Settings",
+				"signOut": "Sign out"
+			},
+			"text": {
+				"allActionsThatCreate": "All actions that create or change data are deactivated and not visible.",
+				"inOrderToShow": "To still see something, you may see outdated content.",
+				"noNotificationsAtTheMoment": "Currently no notifications",
+				"thisIsADemoAccount": "This is a demo account.",
+				"youAreOffline": "You are offline."
+			}
+		},
+		"table": {
+			"label": {
+				"numberOfEntries": "Number of entries"
+			}
+		}
+	},
+	"link": {
+		"text": {
+			"invalidLink": "The link is not valid or has expired. Please check the link or have a new link created."
+		}
+	},
+	"loggedin": {
+		"text": {
+			"newFeaturesAvailable": "New features are available",
+			"schoolInTransferPhaseContactAdmin": "The school is in the transfer phase to the new school year. No classes and users can be created. Please contact the school administrator!",
+			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"\/administration\/school\/\"> the new school year here!<\/a>"
+		}
+	},
+	"login": {
+		"button": {
+			"less": "Less",
+			"longerLoggedInWhenActivated": "When activated, you stay logged in longer.",
+			"moreOptions": "More options",
+			"show_password": "Show password",
+			"submitPrivacyPolicy": "Read"
+		},
+		"headline": {
+			"firstLogin": "Welcome - First Login",
+			"firstLoginExistingUser": "Welcome - First login for existing users",
+			"loginFailedHint": "Unfortunately, your Login did not work, please try the following steps to solve the problem",
+			"loginForRegisteredUsers": "Login for registered users",
+			"onlyTermsOfUse": "Terms of use",
+			"privacyAndTermsOfUse": "Privacy Policy and Terms of Use"
+		},
+		"input": {
+			"emailUsername": "E-mail \/ Username",
+			"noSchoolsAvailable": "No schools available",
+			"noSchoolsSelection": "Choose your school",
+			"noSystemsAvailable": "No systems available",
+			"school": "Select school",
+			"system": "Select system"
+		},
+		"label": {
+			"system": "System",
+			"thisIsAPrivateDevice": "Stay logged in"
+		},
+		"link": {
+			"forgotPassword": "Forgot Password?"
+		},
+		"oauth2": {
+			"headline": {
+				"loginWithSchoolCloud": "Login with HPI School Cloud"
+			},
+			"label": {
+				"email": "Your e-mail address",
+				"openId": "a unique string that does not allow to identify your true identity",
+				"weNeedToSendThisData": "In order to work with {{client}}, we must transfer the following to this provider:",
+				"yourName": "Your name"
+			},
+			"text": {
+				"yourNameIsProtected": "The provider of this educational content does not know your real name, as it is retrieved directly from the school cloud. It is a so-called Iframe that can display pages from other web servers."
+			}
+		},
+		"popup_resetPw": {
+			"button": {
+				"resetPassword": "Reset Password"
+			},
+			"headline": {
+				"resetPassword": "Reset Password"
+			},
+			"input": {
+				"yourEmailUsername": "Your E-mail address \/ Username"
+			},
+			"label": {
+				"yourEmailUsername": "Your E-mail address \/ Username"
+			},
+			"text": {
+				"contactTeacherAdminForHelp": "If you need additional help with resetting the password, please contact your supervising teacher (as a student) or your administrator (as a teacher). <\/br>They can reset your password via the user administration with immediate effect."
+			}
+		},
+		"text": {
+			"errorFirstLogin": "An error has occurred while processing the FirstLogin data.",
+			"loginFailed": "Login failed.",
+			"loginFailedFirstHint": "1. Which browser do you use?",
+			"loginFailedFirstHintText": "We generally recommend using the latest versions of Google Chrome, Firefox and Safari. We do not recommend Internet Explorer due to outdated technologies.",
+			"loginFailedFithHint": "5. Are you on the right URL?",
+			"loginFailedFithHintText": "Here you can find all HPI school cloud instances:",
+			"loginFailedFourthHint": "4. Have you already checked your login details?",
+			"loginFailedFourthHintText": "Please also make sure that the 'More options' field is not expanded when logging in and check for spaces in the username or password. You might also like to try the Forgot-Password function.",
+			"loginFailedLogoBrandenburg": "Logo Brandenburg",
+			"loginFailedLogoNiedersachen": "Logo Lower Saxony",
+			"loginFailedLogoOpen": "Logo Open",
+			"loginFailedLogoSchulCloud": "Logo School Cloud",
+			"loginFailedLogoTühringen": "Logo Thuringia",
+			"loginFailedScreenshot": "Login failed",
+			"loginFailedSecondHint": "2. Have you deleted your cookies and website data?",
+			"loginFailedThirdHint": "3. Have you tried to log in on another device (e.g. laptop instead of mobile phone) ?",
+			"pleaseWaitXSeconds": "Please wait for {{seconds}} seconds",
+			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",
+			"superheroText": "You are trying log in with a superhero account."
+		}
+	},
+	"messenger": {
+		"button": {
+			"activate": "Activate",
+			"deactivate": "Deactivate",
+			"dontActivate": "Do not activate"
+		},
+		"headline": {
+			"welcomeMatrix": "New messenger function"
+		},
+		"text": {
+			"callToCopyMessages": "Please copy all messages that are important to you.",
+			"howToActivateMatrix": "In order to use the Messenger at your school, it has to be activated by you as admin once for the whole school under Administration > School > Activate Matrix Messenger.",
+			"howToDeactivateMatrix": "You can deactivate the messenger at any time under Administration > School > Activate Matrix Messenger.",
+			"rocketChatDeprecation": "The old team chat function is switched off on {{date}}. Old chat messages are not automatically transferred to the new Messenger.",
+			"welcomeMatrix": "Our new Messenger is now available, with which all users of your school can send direct or group messages to each other, as usual from social platforms."
+		}
+	},
+	"my_material": {
+		"text": {
+			"andTakeTheOpportunityToDesign": "and use the opportunity to design the feature according to your wishes.",
+			"blogArticle": "Blog articles",
+			"hereYouWillSoonHaveTheOpportunity": "Here you will soon have the opportunity to create your own contents, view the contents of other teachers and earn points by evaluating and categorizing them in to be able to use the extended search functions. Interested to know how this will work? Read the"
+		}
+	},
+	"navigation": {
+		"text": {
+			"errorNavigation": "AJAX navigation error"
+		}
+	},
+	"news": {
+		"_news": {
+			"headline": {
+				"createNews": "Create news",
+				"editNews": "Edit news"
+			},
+			"label": {
+				"contentOfMessage": "Content of the message..."
+			}
+		},
+		"button": {
+			"addNews": "Add news",
+			"deleteNewsAlt": "Delete article ' {{name}} '",
+			"editNewsAlt": "Edit article ' {{title}} '."
+		},
+		"headline": {
+			"newsTeam": "News from the team"
+		},
+		"label": {
+			"content": "Content",
+			"scheduleAutomaticPublication": "pre-plan automatic publication (optional)",
+			"searchForNews": "Search for news"
+		},
+		"text": {
+			"atSchool": "at school",
+			"atYourSchool": "at your school ",
+			"created": "created",
+			"from": "from",
+			"inTheClass": "in the class",
+			"inTheCourse": "in the course",
+			"inTheTeam": "in the team",
+			"lastFrom": "(last from",
+			"newsNeedContent": "News need content!",
+			"newsNeedTitle": "News need a title!",
+			"processed": "edited)",
+			"released": "Released",
+			"unpublished": "Unpublished"
+		}
+	},
+	"partner": {
+		"headline": {
+			"advisoryBoard": "Advisory Board",
+			"pilotPartners": "Pilot partners for learning content",
+			"supporters": "Supporters for school infrastructure < 3"
+		},
+		"img_alt": {
+			"logo": "Logo"
+		},
+		"text": {
+			"advisoryBoardDescription": "The HPI School Cloud project is supported by an advisory board made up of various representatives from educational practice, business and politics. In addition to technical aspects, the focus also lies on topics such as privacy and pedagogy.",
+			"pilotPartnersDescription": "We would like to thank our partners who have made various learning contents available for free during the pilot phase so that the HPI school cloud can be experienced.",
+			"supportersDescription": "We thank our supporters for school infrastructure."
+		}
+	},
+	"pwRecovery": {
+		"button": {
+			"createNewPassword": "Create new password"
+		},
+		"headline": {
+			"passwordRecovery": "Password recovery"
+		},
+		"input": {
+			"hiddenPw": "***************"
+		},
+		"label": {
+			"newPw": "New password",
+			"repeatNewPw": "Repeat new password"
+		},
+		"response": {
+			"text": {
+				"didYouChangeEmail": "Have you <b>changed<\/b> or had your <b>e-mail address<\/b> changed in the HPI School Cloud? Please continue to use the old e-mail address for login; we are working on a corresponding adaptation of the software at the same time",
+				"didYouRegisterCorrectly": "Did you complete the registration? The Forgot password function only works after you have completed the registration process. You can access it through the <b>registration link<\/b>, which you received from a teacher or school administrator. Please contact these people if you have not yet received a link.",
+				"didYouRegisterPerThirdParty": "Have you registered in the HPI School Cloud via a <b>third party system\/SSO<\/b> (Moodle, iServ, ItsLearning etc.)? Please use this third party system to log in to the school cloud.",
+				"emailHasBeenSent": "We have sent an e-mail to the email address stored in your account. <\/p> <br> If you have not received an e-mail, please check the following options: <\/br>",
+				"wasYourEmailCorrect": "Did you enter your <b>correct e-mail address<\/b>?"
+			}
+		},
+		"text": {
+			"allowedCharacters": "These special characters are allowed:",
+			"allowedPasswords": "At least 8 characters with upper and lower case, including at least one number and one special character. The special characters allowed are: !§$%&\/()=?;:,.#+*~",
+			"atLeast8Chars": "At least 8 characters with upper and lower case, including at least one number and one special character. These special characters are allowed:",
+			"errorPasswordAlreadyChanged": "Your password has already been changed via this URL.",
+			"errorTimeExpired": "Time expired for password recovery."
+		}
+	},
+	"registration": {
+		"_registration": {
+			"employee": {
+				"headline": {
+					"yourData": "Your data"
+				},
+				"input": {
+					"repeatPassword": "Reset Password",
+					"teacherEmail": "lehrer@schul-cloud.org",
+					"yourEmailAddress": "Your E-Mail Address:"
+				},
+				"label": {
+					"repeatPassword": "Repeat Password:"
+				},
+				"text": {
+					"pleaseconfirmTheFollowingDeclarations": "Please confirm the following declarations of consent, so that you can benefit from the {{shortTitle}}.",
+					"youCanNowSingIn": "You can now log in to the {{title}}."
+				}
+			},
+			"global": {
+				"button": {
+					"openLogin": "Open Login",
+					"sendAndGetStarted": "Send & Get Started"
+				},
+				"headline": {
+					"language": "Please select your language",
+					"thankYouForRegistering": "Thank you for registering to {{shortTitle}}!"
+				},
+				"label": {
+					"eMail": "E-mail:",
+					"studentEmailAddress": "Student's e-mail address:",
+					"studentsDateOfBirth": "Student's date of birth:",
+					"yourEmailAddress": "Your e-mail address:"
+				},
+				"placeholder": {
+					"studentEmail": "schueler@schul-cloud.org"
+				},
+				"text": {
+					"agreementCanBeRevoked": "You can revoke this consent at any time. A short e-mail with the declaration of revocation, stating your first and last name, class and school to the following address is sufficient: <a href=\"mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung\">widerruf@hpi-schul-cloud.org<\/a>.",
+					"agreementIsVoluntary": "The consent and thus the use is voluntary, which means that if you do not give your consent, it will not lead to disadvantages for you in class. Participation in lessons outside the {{title}} will be made possible by the school.",
+					"bellowNYearsOldConsentOfLegalGuardian": "The use of the {{shortTitle}} requires the consent of a legal guardian for students under {{age}} years",
+					"iDeclareTheFollowing": "I, <b data-from=\"firstName\"> <\/b> <b data-from=\"lastName\"> <\/b>, declare the following:",
+					"inCaseOfRevocationDataDeletion": "In the event of revocation, we will immediately delete the personal data stored on the basis of the consent, unless there is a legal reason for storage or you wish to access the stored data beforehand. You can also find further information on data protection in our <a class=\"nav-link\" target=\"_blank\" href=\"https:\/\/docs.schul-cloud.org\/x\/GxfGBg\">FAQ<\/a>.",
+					"languageHint": "Little info: You can change your language at any time in your settings. Settings can be found in the top right corner when you tap on your avatar.",
+					"myDataMayBeProcessed": "I agree that my personal data will be processed in accordance with the school's <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">privacy policy<\/a> in the {{title}} and in the learning material providers selected and instructed by the school.",
+					"theEmailAddressEnables": "The e-mail address enables notifications to be sent and makes it easier to reset the password.",
+					"weNeedFollowingDataForRegistration": "For the use of the {{shortTitle}} we need the following information:",
+					"weStoreUserDataSafely": "The {{shortTitle}} stores the user data securely and does not pass them on to third parties. The data is processed in accordance with the high statutory data protection requirements."
+				}
+			},
+			"headline": {
+				"welcomeToTheRegistration": "Welcome to the registration in the {{title}}!"
+			},
+			"label": {
+				"bellowNYearsOld": "under {{years}} years old",
+				"overNYearsOld": "from {{years}} years old"
+			},
+			"parent": {
+				"global": {
+					"text": {
+						"inThe": "in the"
+					}
+				},
+				"headline": {
+					"yourChildsData": "Your child's data",
+					"yourChildsSSO": "The SSO account of your child is now unlocked."
+				},
+				"input": {
+					"completeFirstName": "Child's official first name, not a nickname",
+					"lastName": "Child's last name",
+					"parentEmail": "eltern@schul-cloud.org",
+					"studentEmail": "schueler@schul-cloud.org"
+				},
+				"label": {
+					"iAmLegalGuardianOfChild": "I, <b data-from=\"parent_firstName\"><\/b> <b data-from=\"parent_lastName\"><\/b>, am the legal guardian of <b data-from=\"firstName\"><\/b> <b data-from=\"lastName\"><\/b> and I am entitled to represent the other parent in the following declarations."
+				},
+				"placeholder": {
+					"completeFirstName": "Your official first name, not a nickname",
+					"lastName": "Child's last name",
+					"parentEmail": "eltern@schul-cloud.org"
+				},
+				"text": {
+					"aParentOrLegalGuardian": "years, a parent or guardian must consent to use the",
+					"legalGuardingHasToAgreeToTermsOfUse": "For students under {{years}} years a parent or guardian must consent to the use of the {{shortTitle}}.",
+					"mustNotBeYourChildsEmail": "(Cannot be the same as your child's e-mail address)",
+					"myDataMayBeProcessed": "I agree that my child's personal data will be processed in accordance with the school's <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Privacy Policy<\/a> in the {{title}} as well as with the learning material providers selected and instructed by the school.",
+					"needFollowingInformationForChild": "we need the following information for your child:",
+					"pleaseConfirmTheFollowing": "Please confirm the following declarations of consent so that your child can take advantage of the {{shortTitle}}:",
+					"studentNeedTheirOwnEmail": "(Students need their own e-mail address)",
+					"weNeedFollowingDataOfChild": "To use the {{shortTitle}} we need the following information of your child:",
+					"whenLoggingInFor": "A new password must be selected at the first login. Students who are at least 14 years old must additionally confirm the declarations of consent at the first login.",
+					"yourChildCan": "Your child can now log in:",
+					"yourSonCanLogInWithThisData": "The following data can be used to log in <b data-from=\"firstName\"><\/b> <b data-from=\"secondName\"><\/b> to the {{shortTitle}}. Please pass on the data to your child. In addition, you and your child have received the data by e-mail."
+				}
+			},
+			"student": {
+				"headline": {
+					"personalData": "Personal data"
+				},
+				"input": {
+					"yourOfficialFirstName": "Your official first name, not a nickname",
+					"yourOfficialLastName": "Your official last name"
+				},
+				"text": {
+					"pleaseConfirmTheFollowingDeclarations": "Please confirm the following declarations of consent so that you can use the {{shortTitle}}.",
+					"useThisDataToSignIn": "With the following data you can login to the {{shortTitle}}. Please keep the login data for the first login.",
+					"youCanNowLogin": "You can now log in to the school cloud. When logging in for the first time, a new password must be selected.",
+					"yourSSOAccountDetails": "Your SSO account data is now unlocked."
+				}
+			},
+			"text": {
+				"agreeSoThatYourChild": "to agree so that your child can take advantage of the learning environment.",
+				"letsTakeThisStepWithYouAndYourChild": "We are pleased that you enable your child to use the {{shortTitle}} and thus help to take the next step together to digitally support teaching - open source, non-profit and in compliance with data protection.",
+				"linguisticNoteWeUseMaleFormForReadability": "Linguistic note: For better readability we use the masculine form in the {{shortTitle}} (e.g. \"student\", \"teacher\"). It always refers to all persons regardless of gender. The {{shortTitle}} is meant for all people regardless of origin, restrictions, gender and sexual orientation.",
+				"pleaseChooseTheAgeOfTheStudents": "Please select the age of the student:",
+				"pleaseRegisterChildThenAgreeToTermsOfUse": "We kindly ask you to first register your child in the {{shortTitle}} and then, after providing your details, to agree to the use of the {{title}} so that your child can take advantage of the learning environment.",
+				"pleaseRegisterFirstAndAgreeToTerms": "Please register in the {{shortTitle}} and agree to the Terms of Use so that you can take advantage of the digital learning environment.",
+				"registrationMustBeDoneByYou": "The following registration must be done by you as a student, not by your parents.",
+				"thankYouForTakingThisStepWithUs": "We are pleased that you want to use the {{shortTitle}} and help to take the next step together to digitally support teaching - open source, non-profit and compliant with data protection.",
+				"theRegistrationProcessChangesAccordingToAge": "Depending on the age of the student* the registration process changes. For students below {{minAge}}, a parent or guardian must complete the next steps, for students above {{independentAge}}, they must do it themselves."
+			}
+		},
+		"deprecatedWarning": {
+			"text": {
+				"weHaveRevisedAndImprovedRegistration": "We have revised and improved the registration in the HPI school cloud. Unfortunately, old registration links are therefore no longer valid. Please contact your teacher or administrator to get a new registration link."
+			}
+		},
+		"headline": {
+			"invalidLink": "Invalid registration link",
+			"registrationEmployee": "Registration - {{role}}",
+			"registrationParents": "Registration - parents",
+			"registrationStudents": "Registration - students*",
+			"welcomeToRegistration": "Welcome to the registration"
+		},
+		"pin": {
+			"input": {
+				"verificationCode": "Confirmation code:"
+			}
+		},
+		"registration_template": {
+			"headline": {
+				"invitation": "Invitation to the {{shortTitle}}"
+			},
+			"text": {
+				"dear": "Dear Sir or Madam",
+				"youWereInvitedToThe": "You have been invited to join the {{shortTitle}}, please complete your invitation using the link below"
+			}
+		},
+		"requestPin": {
+			"button": {
+				"requestVerificationCode": "Request confirmation code now"
+			},
+			"text": {
+				"pleaseRequestAConfirmationCode": "Please request a confirmation code:",
+				"theCodeCanBeRequestedSeveralTimes": "The code can be requested several times. However, resending will invalidate previously sent codes. Wait a moment before requesting again and check the spam folder in your e-mail inbox if necessary.",
+				"weOnlyHaveToCheckWhether": "We just need to check if your e-mail address really exists."
+			}
+		},
+		"text": {
+			"acceptConsentWithoutParents": "If you are between 14 and {{age}} years old, please also confirm the declaration of consent so that you can use the {{title}}.",
+			"agreeTermsOfUse": "I have read and agree to the <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Terms of Use of the {{title}}<\/a>",
+			"andAuthorisedToRepresent": "and entitled to represent the other parent in the following declarations.",
+			"iAgreeThatThepersonalData": "I consent to my child's personal data being processed in accordance with the",
+			"invalidLink": "Unfortunately the link is no longer valid. Request a new link from your teacher or school administrator.",
+			"invalidLinkEmbeddedWebsite": "The school cloud was embedded in a website. To continue ",
+			"invalidLinkOpenWebsite": "Open this page in a separate window",
+			"roleEmployee": "Teachers* \/ Admins*",
+			"roleExpert": "Expert*",
+			"startPassword": "Start password: {{password}}",
+			"studentsChooseNewPassword": "For students: After logging in for the first time, you have to set a personal password. \n {{consentText}}",
+			"timeout": "Unfortunately your registration could not be completed. \n Please try again.",
+			"unknownError": "Oops, an unknown error occurred. Please try again.",
+			"welcomeMailSubject": "Welcome to the {{title}}!",
+			"welcomeMailText": "Hello {{firstName}} \n You can log in to the {{title}} with the following login details: \n Address: {{address}} \n Email: {{email}} \n {{password}} \n {{infotext}} \n Your \n {{shortTitle}} team wishes you fun and a good start"
+		}
+	},
+	"security": {
+		"headline": {
+			"reportSecurityIssue": "Report security problem",
+			"security": "Security"
+		},
+		"text": {
+			"scIsTestedRegularyWeValueSecurity": "The {{themeTitle}} regularly undergoes security checks and penetration tests, as the security of our users' data is very important to us.",
+			"youHaveFoundAWeakness": "You still found a security problem? Write to us so that we can close the gap as soon as possible:"
+		}
+	},
+	"team": {
+		"headline": {
+			"team": "The HPI school cloud team"
+		}
+	},
+	"teams": {
+		"_team": {
+			"button": {
+				"leaveTeam": "Leave team"
+			},
+			"dropdown_menu": {
+				"link": {
+					"deleteTeam": "Delete team",
+					"editTeam": "Edit team",
+					"leaveTeam": "Leave team",
+					"manageMembers": "Manage team members",
+					"seeMembers": "View team members"
+				}
+			},
+			"edit": {
+				"label": {
+					"activateBidirectionalMessenger": "Allow all team members to post messages in the Team Chat.",
+					"activateMessengerForTeam": "Activate Messenger for the team",
+					"activateVideoConferences": "Activate video conferences for Team",
+					"teamColor": "Team Color",
+					"teamDescription": "Description of the team (optional)",
+					"teamName": "Name of the team"
+				},
+				"placeholder": {
+					"teamName": "A-Team"
+				},
+				"text": {
+					"videoConferencesNotAllowedBySchool": "Video conferences are not allowed at your school. Contact your school administrator to enable this option."
+				}
+			},
+			"events": {
+				"button": {
+					"addDate": "Add date"
+				}
+			},
+			"files": {
+				"button": {
+					"changeSharingSettings": "Change share settings",
+					"deleteFolder": "Delete folder",
+					"renameFolder": "Rename folder",
+					"shareFolder": "Share folder",
+					"toTeamFiles": "To the team files"
+				},
+				"headline": {
+					"changeFilePermissions": "Change share settings",
+					"fileActions": "File actions",
+					"folders": "Folder"
+				},
+				"text": {
+					"changedFilePermissionsSuccess": "Standard permissions changed successfully"
+				}
+			},
+			"headline": {
+				"leaveTeam": "Leave team",
+				"shareFilesSettings": "File sharing settings"
+			},
+			"label": {
+				"accessToData": "Access to files",
+				"emailHasBeenSentAlternativeLink": "The invited person has received an e-mail. Alternatively this link can be used, the user must be logged in:",
+				"externExperts": "External experts",
+				"leadersAndAdmins": "Leaders and team admins",
+				"members": "Attendees"
+			},
+			"members": {
+				"add": {
+					"button": {
+						"deleteInvitation": "Delete invitation",
+						"inviteMember": "Invite attendee",
+						"sendInvitation": "Send invitation"
+					},
+					"headline": {
+						"deleteInvitation": "Delete invitation",
+						"inviteExternMember": "Invite external attendee",
+						"sendInvitationAgain": "Resend invitation"
+					},
+					"text": {
+						"errorDuringInvitation": "There may be problems with the invitation. Please ask invited users or admins.",
+						"errorWhileDeletingInvitation": "Problem while deleting the invitation",
+						"errorWhileLoadingSchools": "Problem while loading the schools",
+						"errorWhileLoadingTeachers": "Problem while loading the teacher",
+						"errorWhileSendingInvitation": "Problem while sending the invitation",
+						"invitationSentIfMailInSys": "If the e-mail is in our system, a team invitation e-mail has been sent.",
+						"noSchoolForThisFilter": "There is no school available for the selection",
+						"pleaseEnterValidEmail": "Please enter a valid e-mail.",
+						"pleaseReloadThePage": "Please reload the page.",
+						"providerBlockedTryOtherMail": "The provider of the invited e-mail address is blocked! Please use a different address and try again.",
+						"teacherInvitedSuccess": "Teacher successfully invited to the team"
+					}
+				},
+				"button": {
+					"addExternMembers": "Invite external attendees",
+					"addInternMembers": "Add internal attendees",
+					"addPerson": "Add person",
+					"deleteClass": "Delete class",
+					"deleteMember": "Delete attendee",
+					"editMember": "Edit attendee",
+					"inviteByMail": "Invite by e-mail",
+					"selectFromIndex": "Select from directory",
+					"teacherFromOtherSchool": "Teachers from other schools"
+				},
+				"headline": {
+					"addMember": "Delete attendee",
+					"class": "{{count}} class",
+					"class_plural": "{{count}} classes",
+					"deleteClass": "Delete class",
+					"deleteMember": "Delete attendee",
+					"editMember": "Edit attendee",
+					"email": "E-mail",
+					"invitedOn": "Invited on",
+					"inviteExternExpert": "Invite external experts",
+					"inviteTeacherByEmail": "Invite teacher by e-mail",
+					"inviteTeacherFromOtherSchool": "Invite teachers from other schools",
+					"member": "{{count}} attendees",
+					"pendingInvitations": "Pending invitations",
+					"requirements": "Requirements:",
+					"selectAndAddTeacher": "Select and add teachers",
+					"teamMembers": "Team participant"
+				},
+				"label": {
+					"addTeacherStudentsFromSchool": "Add teachers and students of your school to the team.",
+					"deleteInvitation": "Delete invitation",
+					"doYouReallyWantToLeaveTeam": "Do you really want to leave the team?",
+					"doYouReallyWantToReSendEmail": "Do you really want to send the invitation again by e-mail?",
+					"editRole": "Edit role",
+					"email": "Send invitation to this e-mail:",
+					"externExpert": "External expert",
+					"externTeacher": "Teacher of other school (Team admin)",
+					"federalState": "State",
+					"insertEmailOfExpertToInvite": "Enter the e-mail of the expert to whom the invitation will be sent.",
+					"leavingTeamRequiresNewOwner": "Leaving the team requires a different owner",
+					"reallyWantToRmClass": "Do you really want to remove this class?",
+					"reallyWantToRmInvitation": "Do you really want to cancel the invitation?",
+					"reallyWantToRmUser": "Do you really want to remove this attendee?",
+					"removeClass": "Remove class",
+					"removeUser": "Remove user",
+					"roleOfInvitedTeacher": "Role of the invited teacher",
+					"selectRoleForMember": "Enter which role the attendee should be given.",
+					"sendInvitationAgain": "Resend invitation"
+				},
+				"placeholder": {
+					"insertEmail": "Enter e-mail",
+					"selectFederalState": "Select state",
+					"selectPersons": "Select people",
+					"selectRole": "Specify role",
+					"selectSchool": "Select school",
+					"teamAdmin": "Team admin"
+				},
+				"text": {
+					"addedMemberFailure": "Problem while adding attendee",
+					"addedMemberSuccess": "Attendee successfully added to the team",
+					"addTeacherOrStudentFromYourSchool": "Add teachers and students from your school to the team.",
+					"changeRoleOfMember": "Change the role of the user:",
+					"errorWhileEditingMember": "Problem while editing attendee",
+					"errorWhileRemovingMember": "Problem while removing attendee",
+					"expert": "External expert",
+					"invitationEmailIsEqualToRegisterEmail": "The specified e-mail matches the e-mail with which the teacher is registered in the {{ rootThemeShortTitle }}.",
+					"inviteTeachersAndExpertsByEmail": "Invite teachers from other schools and experts via e-mail.",
+					"member": "Attendees",
+					"pleaseSelectRole": "Please select a role.",
+					"selectTeacherFromRegisterOrInvitePerEmail": "Select a teacher from other schools from a central directory or provide the e-mail address with which she is registered. After joining your team, she can add students and teachers from her school to the team.",
+					"teacherIsFromOtherSchool": "Teacher is at another school",
+					"teachersRegisterProcessFinished": "Registration of the teacher in the {{ rootThemeShortTitle }} has been completed"
+				}
+			},
+			"news": {
+				"button": {
+					"addNews": "Create news"
+				},
+				"label": {
+					"continueReading": "Read more"
+				},
+				"link": {
+					"showAllNews": "Show all news ..."
+				}
+			},
+			"text": {
+				"errorAcceptingInvitation": "Failed to accept an invitation, the user does not have the rights or is already a member of the team.",
+				"invitationSuccessfullyAccepted": "Successful team invitation.",
+				"messengerNotActivatedCourse": "Not all team members can participate in the team chat. Chatting has not yet been activated by the administrator at some team members' schools.",
+				"messengerNotActivatedSchool": "This cross-school team includes a team chat. Unfortunately, you cannot access it because chatting has not yet been activated by the administrator at your school.",
+				"messengerNotActivatedTitle": "Note",
+				"messengerNotActiveInTeam": "This cross-school team does not include team chat. Unlike your school, the school that created the team has not yet activated chatting by the administrator.",
+				"theseSettingsWillBeAppliedToNewFiles": "The following permissions will be activated for newly uploaded\/created folders and files within the team:",
+				"youCanChangeSettingsForSingleFilesLater": "You can edit the access permissions for individual files and folders at any time."
+			}
+		},
+		"add": {
+			"headline": {
+				"editTeam": "Edit team"
+			}
+		},
+		"button": {
+			"createTeam": "Create team",
+			"duplicateTeam": "Duplicate team",
+			"foundATeam": "Form a team"
+		},
+		"form_importTopic": {
+			"label": {
+				"insertACodeToImportCourse": "Insert a code to import course content from other users.",
+				"renameTheCourse": "Rename the course."
+			},
+			"text": {
+				"aCourseFolderIsAutomaticallyCreated": "A course folder is automatically created for the imported course. Student-related data from the original course will be removed. Then add students and make an appointment for the course.",
+				"completeTheImport": "Complete the import. In the next step, set a new course date and add students."
+			}
+		},
+		"headline": {
+			"duplicateTeam": "Duplicate team",
+			"invitations": "Invitations",
+			"membersOfTeam": "Team members: {{teamName}}",
+			"myTeams": "My teams",
+			"teamsConnectSchools": "Teams connect school"
+		},
+		"img_alt": {
+			"teamOfTeachers": "Team of teachers"
+		},
+		"placeholder": {
+			"searchForTeams": "Search for teams"
+		},
+		"text": {
+			"descriptionTeams": "Study group, school band or meeting of class representatives? Create a team to exchange material and news with each other - within your school or across schools.",
+			"studentsCantCreateTeams": "The school does not allow students to create teams in your school. Please contact a teacher or an administrator."
+		},
+		"topics": {
+			"button": {
+				"addGroup": "Add group",
+				"addNewTool": "Add new tool",
+				"displayTopicAgain": "Display topic again"
+			},
+			"headline": {
+				"collapse\/ExpandMyTasks": "Collapse \/ expand my tasks",
+				"collapse\/ExpandStudentGroups": "Collapse \/ expand student groups",
+				"homework": "({{homeworkLength}} Task{{#ifneq 1 {{homeworkLength}}}}n{{\/ifneq}})",
+				"myHomework": "({{myHomeworkLength}} Task{{#ifneq 1 {{myHomeworkLength}}}}n{{\/ifneq}})",
+				"myTasks": "My Tasks",
+				"show\/HideTask": "show \/ hide tasks"
+			},
+			"text": {
+				"group": "({{arrayLength courseGroups}} Group{{#ifneq 1 (arrayLength courseGroups)}}n{{\/ifneq}})",
+				"nextLesson": "Next Lesson: {{nextEvent}}",
+				"noIssues": "No Issues.",
+				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}School Groups{{else}}My student groups {{\/userHasPermission}}"
+			}
+		}
+	},
+	"topic": {
+		"_topic": {
+			"button": {
+				"createTopic": "Create topic"
+			},
+			"headline": {
+				"createTopic": "Create topic",
+				"privateTasks": "Private tasks",
+				"savedTeachingMaterials": "Stored teaching materials"
+			},
+			"input": {
+				"countWithPrimeNumbers": "e.g. calculating with prime numbers"
+			},
+			"label": {
+				"content": "Content",
+				"expandPrivateTasks": "Fold private tasks in\/out",
+				"expandTasks": "Fold tasks set in\/out",
+				"titleOfTheTopic": "Title of the topic"
+			},
+			"text": {
+				"shareWithOthersTeachers": "share with other teachers"
+			}
+		},
+		"aria_label": {
+			"openTopicX": "Open topic {{name}}"
+		},
+		"form_share": {
+			"label": {
+				"distributeTheFollowingCode": "Share the following code with a teacher colleague to add the topic to a course. This function is located on the course page."
+			}
+		},
+		"topicEdit": {
+			"aria_label": {
+				"chooseContent": "Choose the types of contents for your topic",
+				"geoGebraID": "GeoGebra ID",
+				"moveSectionWithKeys": "Lift the section by pressing enter or space, move it with the arrow buttons and drop it with enter or space."
+			},
+			"button": {
+				"etherpad": "Etherpad",
+				"geoGebraWorksheet": "GeoGebra worksheet",
+				"material": "Learning material",
+				"neXboard": "neXboard",
+				"text": "Text"
+			},
+			"input": {
+				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",
+				"createNewNeXboard": "Create new neXboard",
+				"createsListInEtherpad": "Creates in the following Etherpad a Pro-Contra list on the topic XYC",
+				"createsListInNeXboard": "Creates in the following neXboard a Pro-Contra-list on the topic XYC",
+				"GeoGebraEnterId": "Enter GeoGebra Material ID, e.g. kEBfU7AR",
+				"keepNeXboard": "Maintain NexBoard",
+				"sectionTitle": "Title of the section",
+				"selectNeXboard": "Select neXboard"
+			},
+			"label": {
+				"descriptionEtherpad": "Description of the Etherpad",
+				"descriptionNeXboard": "Description of the neXboard",
+				"internLink": "Intern Link",
+				"lockSection": "Lock section",
+				"nameOfEtherpad": "Name of the Etherpad",
+				"nameOfNeXboard": "Name of the neXboard",
+				"openSection": "Unlock section",
+				"selectNeXboard": "Select neXboard",
+				"theLinkHasToBeginWith": "The link must begin with '{{- baseUrl}} \/ homework'! Students must have access to the homework to see it included here. Attention: If you share this topic or the entire course with another teacher using a sharing code, the tasks integrated in this way will currently not be considered.",
+				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https:\/\/www.geogebra.org\/m\/e6g4adXp the material ID is 'e6g4adXp'"
+			}
+		}
+	},
+	"videoconference": {
+		"headline": {
+			"createVideoConferenceRoom": "Create video conference room {{name}}"
+		},
+		"text": {
+			"thereWasAProblemWithTheVideo": "There was a problem with the video conference. Please try again.",
+			"theVideoConferenceHasEither": "The video conference has either not started yet or has already ended.",
+			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference."
+		}
+	}
+}
