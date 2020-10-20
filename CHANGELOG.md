@@ -11,6 +11,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [25.1.1] - 2020-10-15
 
+- SC-7437 fixed display of user name on qr codes
+
 ### Fixed
 
 - SC-7085 fixed importHash error when asking parent consent
