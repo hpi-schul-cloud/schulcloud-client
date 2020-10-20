@@ -16,6 +16,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7182 do not allow to open office files in new windows
 
 - SC-6060 Cookie configuration
+- SC-4209 Choose the same move icon for course topics and topic editor
 
 ### Added
 
