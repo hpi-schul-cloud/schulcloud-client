@@ -289,7 +289,8 @@ $(document).ready(() => {
 		});
 	}
 
-	$('a[data-method="download"]').on('click', (e) => {
+	$('button[data-method="download"]').on('click', (e) => {
+		window.open($(e.currentTarget).attr('href'), '_blank');
 		e.stopPropagation();
 	});
 
@@ -321,7 +322,7 @@ $(document).ready(() => {
 			});
 	}
 
-	$('a[data-method="delete"]').on('click', deleteFileClickHandler);
+	$('button[data-method="delete"]').on('click', deleteFileClickHandler);
 
 	$deleteModal.find('.close, .btn-close').on('click', () => {
 		$deleteModal.modal('hide');
@@ -497,7 +498,7 @@ $(document).ready(() => {
 			$t('files.label.renameFile'),
 		);
 	}
-	$('.file-name-edit').click(fileNameEditClickHandler);
+	$('.file-name-edit').on('click', fileNameEditClickHandler);
 
 	function dirRenameClickHandler(e) {
 		e.stopPropagation();
@@ -511,7 +512,7 @@ $(document).ready(() => {
 			$t('files._file.headline.renameDir'),
 		);
 	}
-	$('a[data-method="dir-rename"]').on('click', dirRenameClickHandler);
+	$('button[data-method="dir-rename"]').on('click', dirRenameClickHandler);
 
 	const fileShare = (fileId, $shareModal, view) => {
 		const $input = $shareModal.find('input[name="invitation"]');
@@ -803,7 +804,7 @@ $(document).ready(() => {
 		const $context = $(e.currentTarget);
 
 		// temporary disabled
-		if ($context.attr('disabled')) {
+		if ($context.attr('data-disabled')) {
 			$disabledMoveModal.appendTo('body').modal('show');
 			return;
 		}

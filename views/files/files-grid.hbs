@@ -26,57 +26,55 @@
 							<div class="card-text">
 							  <small class="file-location">{{#if this.context}}{{$t "files.text.foundIn"}} {{this.context}}{{/if}}</small><br>
 								{{#ifeq this.securityCheck.status "blocked"}}
-									<a href="#"
-									class="btn-file-danger"
+									<button href="#"
+									class="file-btn btn-file-danger"
 									title="{{$t "files.label.dangerousCode"}}"
 									aria-label="{{$t "files.label.dangerousCode"}}">
 										<i class="fa fa-exclamation-triangle"></i>
-									</a>
+									</button>
 								{{else}}
-									<a href="/files/file?download=true&file={{../this._id}}&name={{../this.storageFileName}}"
+									<button href="/files/file?download=true&file={{../this._id}}&name={{../this.storageFileName}}"
 										target="_blank"
+										class="file-btn"
 										data-method="download"
 										title="{{$t "files.label.downloadFile"}}"
-										aria-label="{{$t "files.label.downloadFile"}}"
-										role="button">
+										aria-label="{{$t "files.label.downloadFile"}}">
 										<i class="fa fa-cloud-download"></i>
-									</a>
+									</button>
 								{{/ifeq}}
 
-								<a  href="#"	
+								<button  href="#"	
 								    data-file-id="{{this._id}}"
 									data-file-name="{{this.name}}"
 									data-file-path="{{this.path}}"
 									title="{{$t "files.label.renameFile"}}"
 									aria-label="{{$t "files.label.renameFile"}}"
-									class="fa fa-edit file-name-edit"
-									role="button">
-								</a>	
+									class="file-btn fa fa-edit file-name-edit">
+								</button>	
 
 								{{#ifneq this.context 'geteilte Datei'}}
 								{{#userHasPermission "FILE_DELETE"}}
-								<a href="/files/file/"
+								<button href="/files/file/"
 								   target="_blank"
+								   class="file-btn"
 								   data-method="delete"
 								   title="{{$t "files.label.deleteFile"}}"
 								   aria-label="{{$t "files.label.deleteFile"}}"
 								   data-file-id="{{../this._id}}"
-								   data-file-name="{{../this.name}}"
-								   role="button"
+								   data-file-name="{{../this.name}}">
 									<i class="fa fa-trash-o"></i>
-								</a>
+								</button>
 								{{/userHasPermission}}
 
-								<a href="#"
-								class="btn-file-share"
+								<button href="#"
+								class="file-btn btn-file-share"
 								title="{{$t "files.label.shareFile"}}"
 								aria-label="{{$t "files.label.shareFile"}}"
 								data-file-id="{{../this._id}}"
 								data-file-name="{{../this.name}}"
-								id="{{@index}}"
-								role="button">
+								id="{{@index}}">
 									<i class="fa fa-share-alt"></i>
-								</a>
+								</button>
 
 								<div class="popup-overlay" id="{{@index}}">
 
@@ -88,31 +86,29 @@
 								</div>
 
 									{{#if ../this.userIsOwner}}
-										<a
+										<button
 										href=""
-										class="btn-file-move"
+										class="file-btn btn-file-move"
 										title="{{$t "files.label.moveFile"}}"
 										aria-label="{{$t "files.label.moveFile"}}"
 										data-file-path="{{../path}}"
 										data-file-id="{{../_id}}"
 										data-file-name="{{../name}}"
-										role="button"
-										disabled>
+										data-disabled="true">
 											<i class="fa fa-folder-open"></i>
-										</a>
+										</button>
 									{{/if}}
 								{{/ifneq}}
 
-								<a
+								<button
 									href="#"
-									class="btn-file-settings"
+									class="file-btn btn-file-settings"
 									title="{{$t "files.label.editFilePermissions"}}"
 									aria-label="{{$t "files.label.editFilePermissions"}}"
 									data-file-id="{{this._id}}"
-									role="button"
 								>
 									<i class="fa fa-cogs"></i>
-								</a>
+								</button>
 							</div>
 						</div>
 					</div>
