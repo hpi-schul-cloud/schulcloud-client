@@ -3,6 +3,10 @@
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
+		"$schema": {
+			"type": "string",
+			"description": "May refere to the schema file to enable auto-fill and validation in some editors."
+		},
 		"CORS": {
 			"type": "boolean",
 			"default": true,
@@ -247,13 +251,13 @@
 			"properties": {
 				"SAME_SITE": {
 					"type": "string",
-					"default": "None",
+					"default": "Lax",
 					"enum": [
 						"None",
 						"Lax",
 						"Strict"
 					],
-					"description": "Value for cookies sameSite property"
+					"description": "Value for cookies sameSite property. When SECURE flag is false, 'None' is not allowed in SAME_SITE and Lax should be used as default instead"
 				},
 				"HTTP_ONLY": {
 					"type": "boolean",
@@ -282,7 +286,33 @@
 				"HOST_ONLY",
 				"SECURE",
 				"EXPIRES_SECONDS"
-			]
+			],
+			"allOf": [
+				{
+					"$ref": "#/properties/COOKIE/definitions/SAME_SITE_SECURE_VALID"
+				}
+			],
+			"definitions": {
+				"SAME_SITE_SECURE_VALID": {
+					"if": {
+						"properties": {
+							"SECURE": {
+								"const": false
+							}
+						}
+					},
+					"then": {
+						"properties": {
+							"SAME_SITE": {
+								"enum": [
+									"Lax",
+									"Strict"
+								]								
+							}
+						}
+					}
+				}
+			}
 		},
 		"COOKIE_SECRET": {
 			"type": "string",
@@ -338,7 +368,9 @@
 		"ROCKET_CHAT_DEPRECATION_DATE": {
 			"type": "string",
 			"format": "date-time",
-			"examples": ["2020-11-01T20:20:00+00:00"],
+			"examples": [
+				"2020-11-01T20:20:00+00:00"
+			],
 			"description": "if this is set, rocketchat will be treated as disabled after this date."
 		},
 		"I18N": {

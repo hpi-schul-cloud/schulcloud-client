@@ -38,6 +38,9 @@ const {
 
 const app = express();
 
+// print current configuration
+Configuration.printHierarchy();
+
 if (Configuration.has('SENTRY_DSN')) {
 	Sentry.init({
 		dsn: Configuration.get('SENTRY_DSN'),
@@ -138,15 +141,6 @@ if (redisUrl) {
 	logger.info('Using in-memory session store.');
 	sessionStore = new session.MemoryStore();
 }
-
-if (!Configuration.get('COOKIE__SECURE') && Configuration.get('COOKIE__SAME_SITE') === 'None') {
-	Configuration.set('COOKIE__SAME_SITE', 'Lax');
-	// eslint-disable-next-line max-len
-	const cookieConfigErrorMsg = 'Setting COOKIE.SAME_SITE="None" requires COOKIE.SECURE=true. Changed to COOKIE.SAME_SITE="Lax"';
-	Sentry.captureMessage(cookieConfigErrorMsg);
-	logger.error(cookieConfigErrorMsg);
-}
-
 
 const SIX_HOURS = 1000 * 60 * 60 * 6;
 app.use(session({

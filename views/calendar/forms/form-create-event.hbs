@@ -26,7 +26,7 @@
         </div>
         <div id="collapse{{../collapseIdCourse}}" class="panel-collapse collapse">
             <div class="form-group">
-            <label for="courseId">A label needed</label>
+            <label for="courseId">{{$t "calendar.button.availableCourses" }}</label>
                 <select id="courseId" class="course-selection form-control" name="courseId">
                     <option value="" selected hidden>{{$t "calendar.button.chooseACourse" }}</option>
                 </select>
@@ -47,7 +47,7 @@
         </div>
         <div id="collapse{{../collapseIdTeam}}" class="panel-collapse collapse">
             <div class="form-group">
-                <label for="teamId">A label needed</label>
+                <label for="teamId">{{$t "calendar.button.availableTeams" }}</label>
                 <select id="teamId" class="team-selection form-control" name="teamId">
                     <option value="" selected hidden>{{$t "calendar.button.chooseATeam" }}</option>
                 </select>

@@ -584,6 +584,7 @@
 				"noteBeforeTheTransferPhase": "Beachte vor der Transferphase:",
 				"passwordChangesInLDAP": "Kennwortänderungen im LDAP",
 				"privacySettings": "Datenschutz-Einstellungen",
+				"schoolNumber": "Schulnummer:",
 				"schoolYear": "Schuljahr:",
 				"schoolYearChange": "Schuljahreswechsel",
 				"selectProvider": "Anbieter auswählen",
@@ -755,6 +756,8 @@
 	},
 	"calendar": {
 		"button": {
+			"availableCourses": "Verfügbare Kurse",
+			"availableTeams": "Verfügbare Teams",
 			"chooseACourse": "Wähle einen Kurs...",
 			"chooseATeam": "Wähle eine Team"
 		},
@@ -1097,7 +1100,7 @@
 					"deleteTopic": "Thema löschen",
 					"descriptionTopic": "Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu. Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses.",
 					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler:innen, um sie zum Kurs einzuladen. Die Schüler:innen müssen dafür angemeldet sein.",
-					"editSortDeleteShareTopicsHere": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-ellipsis-v\"></i>&nbsp;<i class=\"fa fa-ellipsis-v\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
+					"editSortDeleteShareTopicsHere": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-arrows\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
 					"externalLinkToGeoGebra": "Dies ist ein externer Inhalt des Anbieters GeoGebra. Er wird in einem neuen Fenster bzw. Tab geöffnet.",
 					"hideTopic": "Thema verstecken",
 					"importTopic": "Thema importieren",

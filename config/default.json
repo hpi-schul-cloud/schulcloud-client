@@ -6,6 +6,13 @@
 		"OLD_DOMAIN": "etherpad.schul-cloud.org",
 		"NEW_DOMAIN": "schul-cloud.org"
 	},
+	"COOKIE": {
+		"SECURE": false,
+		"EXPIRES_SECONDS": 2592000000,
+		"HTTP_ONLY": false,
+		"SAME_SITE": "Lax",
+		"HOST_ONLY": false
+	},
 	"COOKIE_SECRET": "ihasDF(=4jA4aF",
 	"STUDENT_TEAM_CREATION": "opt-out",
 	"FEATURE_EXTENSION_PORTFOLIO_ENABLED": false,
