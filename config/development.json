@@ -1,6 +1,6 @@
 {
 	"$schema": "./default.schema.json",
-	"REQUEST_TIMEOUT_MS": 8000,
+	"REQUEST_TIMEOUT_MS": 6000,
 	"COOKIE": {
 		"SAME_SITE": "Lax",
 		"HTTP_ONLY": false,
