@@ -143,18 +143,6 @@ if (redisUrl) {
 }
 
 const SIX_HOURS = 1000 * 60 * 60 * 6;
-
-/**
- *  is true when trust_proxy setting is not set.
- *  Otherwise undefined - in this case it will be overwriten with trust proxy setting
- *	@see: https://github.com/expressjs/session#proxy
- */
-const useSessionProxy = !Configuration.has('TRUST_PROXY') || undefined;
-
-if (Configuration.has('TRUST_PROXY')) {
-	app.set('trust proxy', Configuration.get('TRUST_PROXY'));
-}
-
 app.use(session({
 	cookie: {
 		...sessionCookieDefaults,
@@ -164,7 +152,6 @@ app.use(session({
 	store: sessionStore,
 	saveUninitialized: true,
 	resave: false,
-	proxy: useSessionProxy,
 	secret: Configuration.get('COOKIE_SECRET'), // Secret used to sign the session ID cookie
 }));
 

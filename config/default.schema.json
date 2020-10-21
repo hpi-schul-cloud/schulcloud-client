@@ -307,7 +307,7 @@
 								"enum": [
 									"Lax",
 									"Strict"
-								]
+								]								
 							}
 						}
 					}
@@ -317,10 +317,6 @@
 		"COOKIE_SECRET": {
 			"type": "string",
 			"description": "Secret used to sign the session ID cookie"
-		},
-		"TRUST_PROXY": {
-			"type": "string",
-			"description": "Number of proxies to trust if cookie secure is set to true. See: https://expressjs.com/en/guide/behind-proxies.html, https://github.com/expressjs/session#cookiesamesite"
 		},
 		"LOGIN_BLOCK_TIME": {
 			"type": "integer",
