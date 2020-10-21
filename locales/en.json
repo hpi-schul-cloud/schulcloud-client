@@ -743,6 +743,8 @@
 	},
 	"calendar": {
 		"button": {
+			"availableCourses": "Available courses",
+			"availableTeams": "Available teams",
 			"chooseACourse": "Pick a course...",
 			"chooseATeam": "Choose a team"
 		},
