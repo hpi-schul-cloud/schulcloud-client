@@ -56,9 +56,8 @@ $('.openfolder').on('click', function determineFolder() {
 });
 
 $('.openfolder').on('keypress', (e) => {
-	if (e.key === 'Enter') {
+	if (e.key === 'Enter' || e.key === ' ') {
 		document.activeElement.click();
-		$(this).closest('.card.file').click();
 	}
 });
 
@@ -352,9 +351,8 @@ $(document).ready(() => {
 	$('.card.file').on('click', cardFileClickHandler);
 	
 	$('.fileviewer').on('keypress', (e) => {
-		if (e.key === 'Enter') {
+		if (e.key === 'Enter' || e.key === ' ') {
 			document.activeElement.click();
-			$(this).closest('.card.file').click();
 		}
 	});
 	function cardFileTitleClickHandler(e) {
@@ -859,7 +857,7 @@ $('.videostop').on('click', () => {
 });
 
 $('.videostop').on('keypress', (e) => {
-	if (e.key === 'Enter') {
+	if (e.key === 'Enter' || e.key === ' ') {
 		document.activeElement.click();
 	}
 });
