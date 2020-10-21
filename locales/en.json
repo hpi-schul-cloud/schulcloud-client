@@ -61,7 +61,7 @@
 			"yourAccount": "Your account"
 		},
 		"label": {
-			"notificationsettings": "Notification settings",
+			"notificationSettings": "Notification settings",
 			"providers": "Provider"
 		},
 		"teams": {
@@ -77,17 +77,17 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Deactivate visibility in the central directory"
 			},
 			"text": {
-				"hint": "Teachers from other schools who are team administrators can easily invite you to a cross-school team via the central directory service of {{short_title}}. Your name is assigned to your school and it is accessible in the directory structure under <i> Name of your state &raquo; Name of your school &raquo; Your name </i>.",
-				"teamInvitationsDisabled": "Visibility for team invitations is disabled",
+				"hintVisibility": "Teachers from other schools who are team administrators can easily invite you to a cross-school team via the central directory service of {{short_title}}. Your name is assigned to your school and it is accessible in the directory structure under <i> Name of your state &raquo; Name of your school &raquo; Your name </i>.",
+				"visibilityTeamInvitationsDisabled": "Visibility for team invitations is disabled",
 				"visibilityTeamInvitations": "Visibility for team invitations"
 			}
 		},
 		"testNotification": {
 			"headline": {
-				"test": "New test notification"
+				"newTestNotification": "New test notification"
 			},
 			"text": {
-				"youHaveANewMessage": "You have a new notification"
+				"youHaveANewNotification": "You have a new notification"
 			}
 		},
 		"text": {
@@ -128,7 +128,8 @@
 				"transferClassToTheNextSchoolYear": "Move class to next school year"
 			},
 			"headline": {
-				"importClass": "Import class"
+				"importClass": "Import class",
+				"questionStudentsNotInSystem": "Your students are not yet in the {{shortTitle}}?"
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Add students from previous year's class",
@@ -137,16 +138,14 @@
 				"className": "Class name",
 				"filterBySchoolYear": "Filter by school year",
 				"grade": "Grade",
-				"mantainSchoolYearAssignment": "Maintain school year assignment",
+				"maintainSchoolYearAssignment": "Maintain school year assignment",
 				"pleaseNote": "Please note:",
 				"renameClass": "Rename class",
 				"selectElement": "No selection",
-				"selectTeacher": "Select teacher (also possible later)",
-				"yourStudentsAreNotYetInThe": "Your students are not yet"
+				"selectTeacher": "Select teacher (also possible later)"
 			},
 			"placeholder": {
-				"change": "Edit class '{{name}}'.",
-				"example": "e.g. frog class 3-4"
+				"exampleName": "e.g. frog class 3-4"
 			},
 			"text": {
 				"attentionIfYouChangeTheSchoolYear": "Attention! If you change the school year, your selection of previous year's classes will be reset.",
@@ -161,7 +160,7 @@
 				"noLackOfInformedConsent": "There are no missing declarations of consent in this class.",
 				"required": "required",
 				"signAgreement": "On this page. you can declare consent to the <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Privacy policy</a> and to <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Terms of use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
-				"theNextStepIstoInviteOrAdd": "In the next step you can invite or add students to the class."
+				"theNextStepIsToInviteOrAdd": "In the next step you can invite or add students to the class."
 			}
 		},
 		"controller": {
@@ -207,7 +206,7 @@
 				"uploadedOn": "Uploaded on"
 			},
 			"label": {
-				"domainname": "Domain name",
+				"domainName": "Domain name",
 				"email": "E-mail",
 				"inactive": "{{alias}} (inactive)",
 				"roles": "Role(s)",
@@ -259,17 +258,17 @@
 				"errorImportingUsers": "Error: {{errorMessage}}",
 				"failedToCreateUser": "Error when creating the user. {{error}}",
 				"importFailed": "Import failed. Please check your input data and try again.",
+				"importMayBeStillRunning":"Import in progress. Depending on file size this process could take a few minutes.",
 				"inTheQueue": "In the queue",
-				"invitationToThe": "Invitation to the {{title}} Hello {{firstName}} {{lastName}}!\nYou are invited to join the {{title}}, please complete your registration at the following link: {{shortLink}} \nYour {{shortTitle}} team wishes you fun and a good start",
-				"invitationToUseThe": "Invitation to use the {{title}} !",
+				"invitationEmailContent": "Invitation to the {{title}} Hello {{firstName}} {{lastName}}!\nYou are invited to join the {{title}}, please complete your registration at the following link: {{shortLink}} \nYour {{shortTitle}} team wishes you fun and a good start",
+				"invitationEmailSubject": "Invitation to use the {{title}} !",
 				"noDeclarationOfConsentAvailable": "Consent form not available",
 				"onlyAllMembers": "Only all members of your own school can be removed from the team",
 				"open": "Open",
-				"orAssignAdminRights": "or give someone else admin rights for the team.",
 				"parentsAgreed": "Parents have agreed, student still open",
 				"passTheRegistrationLinkDirectly": "Send the registration link directly to the student.",
 				"registrationExplanation": "First give the registration link to the parents. They create the student data and electronically declare their consent. The student is then registered in the {{title}} and you can see him in your class list. The student can log in with his e-mail address and his individual initial password. After logging in for the first time, every student must change his password. If the student is over 14 years old, he must also give his electronic consent so that he can use the {{title}} .",
-				"removeStudentsFromYourOwnSchool": "Remove students of your own school from the team. Only possible, if the team",
+				"removeStudentsFromYourOwnSchool": "Remove students of your own school from the team. Only possible, if the team was founded in another school and therefore it is not possible to or give someone else admin rights for the team.",
 				"retrieveFailed": "Error during retrieval",
 				"schoolYearPercentage": "School year:% 1",
 				"setupFailed": "Setup failed. Please try again later. ",
@@ -306,7 +305,7 @@
 		},
 		"form_DeleteUser": {
 			"text": {
-				"areYouSureYouWantTheFollowingUser": "Are you sure you want to remove the following users?"
+				"areYouSureYouWantToDeleteTheFollowingUser": "Are you sure you want to remove the following users?"
 			}
 		},
 		"form_Import": {
@@ -358,9 +357,9 @@
 				"targetState": "Target state"
 			}
 		},
-		"form_Rss": {
+		"form_rss": {
 			"label": {
-				"briefdescription": "Brief description (optional)",
+				"briefDescription": "Brief description (optional)",
 				"urlOfTheRSSSystem": "URL of the RSS feed"
 			}
 		},
@@ -371,11 +370,6 @@
 				"systemName": "Name of the system",
 				"systemType": "Type of system",
 				"urlOfTheSystem": "Url of the system"
-			}
-		},
-		"form_TerminateSchoolYear": {
-			"text": {
-				"theSchoolYear": "The {{currentYear}} school year ends and the transfer phase to the new school year begins. <strong> his step cannot be undone.</strong> No classes and users can be created or changed during this time. </p> \n <p> The synchronization of LDAP master data"
 			}
 		},
 		"global": {
@@ -408,6 +402,7 @@
 				"student": "Student",
 				"studentParticipants": "Student / Attendee",
 				"substituteTeacher": "Substitute teacher",
+				"noSubTeacherSelection": "No substitute teacher selected",
 				"teacher": "Teacher",
 				"teachingTeacher": "Teaching teacher",
 				"termsOfUse": "Terms of Use",
@@ -479,7 +474,7 @@
 				"rolesLDAPPathsDescription": "Which LDAP group defines the named role? Enter the full path (including the root path)",
 				"rootPath": "root path",
 				"rootPathTitle": "Main path of the LDAP. Usually DC=Domain,DC=Top-level domain",
-				"seacrhUserpassword": "search-user password",
+				"searchUserPassword": "search-user password",
 				"searchUsers": "search-users",
 				"searchUsersTitle": "Full user name (incl. root path) of the user who has access to all user information",
 				"show": "Show",
@@ -507,7 +502,7 @@
 		},
 		"ldapSchoolYearStart": {
 			"button": {
-				"closeTheWindow": "Close window"
+				"closeWindow": "Close window"
 			},
 			"headline": {
 				"LDAPClasses": "LDAP classes",
@@ -521,9 +516,8 @@
 		"longText": {
 			"text": {
 				"afterVerificationCanPreviewTheReadContent": "After verification, you can preview the contents that have been read out. Deleted contents are not transferred because the user's first name, surname and / or email address is not available in the LDAP.",
-				"alternativelyAlsoCanGenerate": "Alternatively, you can also generate individual registration links in the 'Edit User' dialog of each user individually.",
 				"anyChangesToTheFollowingConfiguration": "Any changes to the following configuration may result in the login no longer working for you and all users in your school. Therefore, only make changes if you are aware of the consequences. Some sections are read-only. However, you can enable editing of the information by clicking on the lock in the respective section. After each verification, your system will be updated and initially set to deactivated. Do not forget to finally save the changes if the verification was successful.",
-				"backroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the HPI school cloud saves which school year a user was in which class. The HPI school cloud provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
+				"backgroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the HPI school cloud saves which school year a user was in which class. The HPI school cloud provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
 				"canCreateYearIndependentClasses": "You can create independent classes with free names. These classes cannot be <i> 'moved' </i> by the administrator, but must be updated manually.",
 				"canStartTheTransferPhase": "You can start the transfer phase manually from two weeks before the start of the holidays",
 				"ifAllStudentsAndParentsHaveGiven": "If the consent has been given by all students and parents in paper form, the consent for the whole class can be declared manually here.",
@@ -556,6 +550,7 @@
 			},
 			"label": {
 				"activeChatFunction": "Activate chat function",
+				"activeMatrixFunction": "Activate Matrix Messenger",
 				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
 				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
 				"authentication": "Authentication",
@@ -590,7 +585,8 @@
 				"yourSchoolCanStartNewSchool": "your school can enter the new school year"
 			},
 			"link": {
-				"moreInfo": "More information"
+				"moreInfo": "More information",
+				"matrixHelpPage": "messenger help section"
 			},
 			"text": {
 				"LDAPChanges": "you can make the necessary changes for the new school year in the\nLDAP (new users, update classes)",
@@ -600,7 +596,6 @@
 				"atTheEndOfTheSchoolYearWithLDAP": "When the school year changes, carry out the following actions with LDAP:",
 				"atTheEndOfTheTransferPhase": "When the transfer phase ends, all changes made in the LDAP are synchronized in one go",
 				"atTheSameTime": "At the same time, you ring in the new school year in the HPI school cloud",
-				"backgroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the HPI school cloud saves which school year a user was in which class. The HPI school cloud provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
 				"chatRoomPermissions": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
 				"coursesWithLearningContent": "Courses with learning content for the coming school year can also be created during the transfer phase (without class assignment)",
 				"doNotEndTheTransferPhase": "Do not end the transfer phase until the users are assigned to the new classes",
@@ -609,6 +604,7 @@
 				"ifChatsAreActivatedAtYourSchool": "If chats are enabled at your school, team administrators and teachers can selectively unlock the chat function respectively for their team or courses.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
+				"ifMatrixIsActivatedAtYourSchool": "If the Matrix Messenger is activated, all teachers in this school can start chat rooms, private conversations or group discussions within the course or team. Students initially  have read-only access, but can also be given write access via the course and team settings. Students can also start private chats within courses and teams. You can find more information about this in the ",
 				"loginViaLDAP": "Login via LDAP is still possible for existing users",
 				"newSchoolYear": "New school year",
 				"newUsersClassesAndChanges": "Newly added users, classes and changes to existing data are not synchronized from the LDAP",
@@ -621,7 +617,8 @@
 				"theNewClassesCanNowBeAssigned": "the new classes can now be assigned to prepared courses",
 				"theNewSchoolYearStartsInThe": "The new school year begins in the {{themeTitle}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
 				"thisOptionIsAvailable": "This option is available 2 weeks before the end of the current school year.",
-				"yourSchoolIsCurrentlyDrawing": "Your school is currently getting"
+				"yourSchoolIsCurrentlyDrawing": "Your school is currently getting",
+				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes."
 			}
 		},
 		"students": {
@@ -653,7 +650,7 @@
 				"sendRegistrationLinkToTeachers": "Send registration link to teachers"
 			},
 			"text": {
-				"alternativRegistration": "Alternatively, you can also generate individual registration links in the \"Edit User\" dialog of each user individually.",
+				"alternativeRegistration": "Alternatively, you can also generate individual registration links in the \"Edit User\" dialog of each user individually.",
 				"connectToASchool": "By connecting to a state or school system, the teachers already have a password and can log in to the {{shortTitle}}. At first login, they are asked to give their consent to the use of the {{shortTitle}}.",
 				"forAllTeachersWithoutAFullConsentForm": "For all teachers without a full declaration of consent:"
 			}
@@ -692,7 +689,6 @@
 			"areYouSureYouWantToRemoveAllMembers": "Are you sure you want to remove all members of your school from this team?",
 			"moreOptions": "More options",
 			"noEntriesToPrint": "No entries to print.",
-			"registrationAtThe": "Registration at {{shortTitle}} is possible with the following data.",
 			"yourClassDoesntFitInto": "Your class doesn't fit into the classic scheme?"
 		},
 		"users_edit": {
@@ -716,7 +712,7 @@
 			"text": {
 				"cannotCallPageAgain": "<b>Attention: </b>You cannot visit this page again. So print out the access data displayed\n             or save it in some other way.\n             If a student forgets his password, you can only change it in the user administration.",
 				"loginWithPassword": "You can now log in to the {{shortTitle}} with your start password. \n To do this, go to <a href=\"https://schul-cloud.org\"> \n <script nonce=\"{{nonceValue}}\"> document.write (window.location.origin) </script> </a> \n and log in there with the following access data:",
-				"registrationAtThe": "Registration at the",
+				"registrationPossibleWithFollowingData": "Registration at {{shortTitle}} is possible with the following data.",
 				"whatYouCanFind": "On this page you will find an overview of all the consents that have been given and the access data generated. <br> The following pages of this document each contain the access data of a child and instructions for the first registration.",
 				"whenLoginForTheFirstTime": "A new password must be chosen the first time you log in. Students who are at least 14 years old must also declare their consent when they log in for the first time."
 			}
@@ -747,6 +743,8 @@
 	},
 	"calendar": {
 		"button": {
+			"availableCourses": "Available courses",
+			"availableTeams": "Available teams",
 			"chooseACourse": "Pick a course...",
 			"chooseATeam": "Choose a team"
 		},
@@ -913,8 +911,7 @@
 					"headline": {
 						"doneGroupTasks": "finished group submissions",
 						"homework": "Homework: {{name}}",
-						"openGroupTasks": "open (possible) group submissions",
-						"topics": "Topics"
+						"openGroupTasks": "open (possible) group submissions"
 					},
 					"link": {
 						"addTopic": "Add a topic",
@@ -1090,7 +1087,7 @@
 					"deleteTopic": "Delete topic",
 					"descriptionTopic": "Add text, images, videos and other materials to a topic. A topic covers a module or lesson within your course.",
 					"distributeLinkForInvite": "Share the following link with your students to invite them to the course. Students must be logged in to use the link.",
-					"editSortDeleteShareTopicsHere": "You can edit <i class=\"fa fa-pencil\"></i>, sort <i class=\"fa fa-ellipsis-v\"></i>&nbsp;<i class=\"fa fa-ellipsis-v\"></i>, delete <i class=\"fa fa-trash-o\"></i> or share <i class=\"fa fa-share-alt\"></i> your topic at any time.",
+					"editSortDeleteShareTopicsHere": "You can edit <i class=\"fa fa-pencil\"></i>, sort <i class=\"fa fa-arrows\"></i>, delete <i class=\"fa fa-trash-o\"></i> or share <i class=\"fa fa-share-alt\"></i> your topic at any time.",
 					"externalLinkToGeoGebra": "This is external content of the provider GeoGebra. It will open in a new window or tab.",
 					"hideTopic": "Hide topic",
 					"importTopic": "Import topic",
@@ -1181,12 +1178,11 @@
 			"makeTeachingDigital": "Making teaching digital with {{themetitle}}",
 			"myCourses": "My courses",
 			"mySubstitutes": "My Substitutes",
-			"noArchievedCourses": "You have no archived courses yet",
+			"noArchivedCourses": "You have no archived courses yet",
 			"noCourse": "There are currently no courses",
 			"noCoursesYet": "There are no courses yet. A course in the {{short_title}} is the basis for managing topics, tasks, tools etc. for digital learning."
 		},
 		"img_alt": {
-			"noArchievedCourses": "No archived courses",
 			"noCourses": "No courses existing",
 			"teacherWithClass": "Teacher with class"
 		},
@@ -1199,7 +1195,7 @@
 		},
 		"text": {
 			"courseNoAccess": "The Courses section is only available to teachers and students.",
-			"descriptionArchievedCourses": "Courses whose end date has been reached can be found here. You can reuse archived courses as templates for the new school year, import a course or create a completely new course.",
+			"descriptionArchivedCourses": "Courses whose end date has been reached can be found here. You can reuse archived courses as templates for the new school year, import a course or create a completely new course.",
 			"descriptionCourseManagement": "You can duplicate archived courses and use them as templates for the new school year, import a course, or create a brand new course.",
 			"finishImport": "Complete the import. In the next step, set a new course date and add students.",
 			"importCourseAttentionTools": "Attention: Manually replace tools with user data which are included in the topic subsequently (e.g. nexBoard, Etherpad, GeoGebra), because changes to this will otherwise affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
@@ -1445,9 +1441,6 @@
 		"global": {
 			"headline": {
 				"birthdate": "Date of birth"
-			},
-			"text": {
-				"canUse": "can use."
 			}
 		},
 		"label": {
@@ -1476,7 +1469,6 @@
 			},
 			"text": {
 				"amLegalGuardianFor": "am the parent or legal guardian of {{firstName}} {{lastName}} and declare the following:",
-				"andExplainTheFollowing": "and declare the following:",
 				"needConsentOfParents": "As you are under {{age}} years old, a declaration of consent from a parent is required so that you can use the {{shortTitle}}.",
 				"pleaseConfirmTheFollowingDeclaration": "Please confirm the following declarations of consent so that your child can benefit from the use of the HPI school cloud:",
 				"theNextStepMustBeCarriedOut": "The next steps must be carried out by a parent or guardian."
@@ -1496,7 +1488,7 @@
 		},
 		"text": {
 			"between14And": "between 14 and {{addConsent}} years old.",
-			"clickhereForFurtherTraining": "Click here for further training",
+			"clickHereForFurtherTraining": "Click here for further training",
 			"fromYear": "from {{age}} years old.",
 			"justHaveALook": "Just have a look!",
 			"linguisticNote": "Linguistic note: For better readability we use the masculine form in the {{shortTitle}} (e.g. \"student\", \"teacher\"). It always refers to all persons regardless of gender. The {{shortTitle}} is meant for all people regardless of origin, restrictions, gender and sexual orientation.",
@@ -1516,7 +1508,7 @@
 				"nowTeachersCanInviteToCoursesAndAccess": "Now you can be invited to courses by your teachers and access teaching materials and assignments there. You also have your own file area where you can store important documents and folders. Have fun exploring!",
 				"overEveryPageInThe": "Via each page in the {{shortTitle}} you can click to get to",
 				"thereYouWillFindDetailedInstructions": "There you will find detailed instructions and image series for almost every topic.",
-				"whatCanActuallydo": "What can the {{shortTitle}} actually do? And how can I use it to organize, design and carry out my lessons? Check out our",
+				"whatCanActuallyDo": "What can the {{shortTitle}} actually do? And how can I use it to organize, design and carry out my lessons? Check out our",
 				"youAreAdminAndHaveTheHonorable": "Are you an admin and have the honorable task of setting up the {{title}} for your school? We will help you in this important task. Check out our"
 			}
 		},
@@ -1534,7 +1526,7 @@
 				"thankYouForTakingNoteOf": "Thank you for taking note.",
 				"weArePleasedThatYou": "We are pleased that you want to use the {{shortTitle}}.",
 				"weArePleasedThatYouWantToUse": "We are pleased that you want to use the {{title}} and cooperate in taking the next step together for digitally supported teaching - open source, non-profit and in compliant with data protection regulations. Please check the e-mail address you have given in the following steps and agree to the terms of use. A parent or legal guardian has already consented to its use, now it's up to you. Then change your start password so that you can benefit by using {{shortTitle}} .",
-				"welcomeBackTothe": "Welcome back to {{shortTitle}} {{firstName}} {{lastName}}",
+				"welcomeBack": "Welcome back to {{shortTitle}} {{firstName}} {{lastName}}",
 				"welcomeTo": "Welcome to {{title}} {{displayName}}",
 				"welcomeToShort": "Welcome to the {{shortTitle}}",
 				"withThe": "Making teaching digital with {{shortTitle}}",
@@ -1582,6 +1574,7 @@
 			"yes": "Yes"
 		},
 		"headline": {
+			"topics": "Topics",
 			"actions": "Actions",
 			"addDate": "Add date",
 			"almostThere": "Almost there!",
@@ -1627,6 +1620,7 @@
 			"password": "Password:",
 			"role": "Role",
 			"room": "Room",
+			"settings" : "Settings",
 			"skipLinks": "Skip links",
 			"sortBy": "Sort by: %1",
 			"title": "Title",
@@ -1724,6 +1718,7 @@
 			"408": "Timeout",
 			"areYouSure": "Are you sure?",
 			"attention": "Attention:",
+			"info": "Note:",
 			"dataProtection": "Privacy policy",
 			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
 			"errorChangingFilePermissions": "Problem changing permissions",
@@ -1758,9 +1753,6 @@
 			"videoconferenceNotStartedYet": "Video conference has not yet started",
 			"weNeedAnEmailAddress": "We need an e-mail address so that your consent to use the {{shortTitle}} is legally valid. The {{shortTitle}} does not pass on the address. You will not receive unsolicited e-mails.",
 			"wednesday": "Wednesday"
-		},
-		"topMenu": {
-			"qrHintText": "Navigate other users to this site"
 		}
 	},
 	"help": {
@@ -1786,7 +1778,7 @@
 				"wish": "Request"
 			},
 			"text": {
-				"thankYouForYourFeedbak": "Thank you for your feedback, it will be sent directly to the {{shortTitle}} development team. Please be careful not to send any passwords or other sensitive data.",
+				"thankYouForYourFeedback": "Thank you for your feedback, it will be sent directly to the {{shortTitle}} development team. Please be careful not to send any passwords or other sensitive data.",
 				"whatKindOfFeedbackDoYouWant": "What kind of feedback would you like to send us?",
 				"whoDoYouWantToContact": "Who do you want to contact?"
 			}
@@ -2571,7 +2563,6 @@
 					"inCaseOfRevocationDataDeletion": "In the event of revocation, we will immediately delete the personal data stored on the basis of the consent, unless there is a legal reason for storage or you wish to access the stored data beforehand. You can also find further information on data protection in our <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a>.",
 					"languageHint": "Little info: You can change your language at any time in your settings. Settings can be found in the top right corner when you tap on your avatar.",
 					"myDataMayBeProcessed": "I agree that my personal data will be processed in accordance with the school's <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">privacy policy</a> in the {{title}} and in the learning material providers selected and instructed by the school.",
-					"password": "Password:",
 					"theEmailAddressEnables": "The e-mail address enables notifications to be sent and makes it easier to reset the password.",
 					"weNeedFollowingDataForRegistration": "For the use of the {{shortTitle}} we need the following information:",
 					"weStoreUserDataSafely": "The {{shortTitle}} stores the user data securely and does not pass them on to third parties. The data is processed in accordance with the high statutory data protection requirements."
@@ -2616,7 +2607,6 @@
 					"needFollowingInformationForChild": "we need the following information for your child:",
 					"pleaseConfirmTheFollowing": "Please confirm the following declarations of consent so that your child can take advantage of the {{shortTitle}}:",
 					"studentNeedTheirOwnEmail": "(Students need their own e-mail address)",
-					"toConsent": "consent.",
 					"weNeedFollowingDataOfChild": "To use the {{shortTitle}} we need the following information of your child:",
 					"whenLoggingInFor": "A new password must be selected at the first login. Students who are at least 14 years old must additionally confirm the declarations of consent at the first login.",
 					"yourChildCan": "Your child can now log in:",
@@ -2669,7 +2659,7 @@
 		},
 		"registration_template": {
 			"headline": {
-				"invitationToThe": "Invitation to the"
+				"invitation": "Invitation to the {{shortTitle}}"
 			},
 			"text": {
 				"dear": "Dear Sir or Madam",
@@ -2843,6 +2833,7 @@
 					"doYouReallyWantToLeaveTeam": "Do you really want to leave the team?",
 					"doYouReallyWantToReSendEmail": "Do you really want to send the invitation again by e-mail?",
 					"editRole": "Edit role",
+					"email": "Send invitation to this e-mail:",
 					"externExpert": "External expert",
 					"externTeacher": "Teacher of other school (Team admin)",
 					"federalState": "State",
@@ -2914,6 +2905,16 @@
 			"duplicateTeam": "Duplicate team",
 			"foundATeam": "Form a team"
 		},
+		"form_importTopic": {
+			"label": {
+				"insertACodeToImportCourse": "Insert a code to import course content from other users.",
+				"renameTheCourse": "Rename the course."
+			},
+			"text": {
+				"aCourseFolderIsAutomaticallyCreated": "A course folder is automatically created for the imported course. Student-related data from the original course will be removed. Then add students and make an appointment for the course.",
+				"completeTheImport": "Complete the import. In the next step, set a new course date and add students."
+			}
+		},
 		"headline": {
 			"duplicateTeam": "Duplicate team",
 			"invitations": "Invitations",
@@ -2930,6 +2931,27 @@
 		"text": {
 			"descriptionTeams": "Study group, school band or meeting of class representatives? Create a team to exchange material and news with each other - within your school or across schools.",
 			"studentsCantCreateTeams": "The school does not allow students to create teams in your school. Please contact a teacher or an administrator."
+		},
+		"topics": {
+			"button": {
+				"addGroup": "Add group",
+				"addNewTool": "Add new tool",
+				"displayTopicAgain": "Display topic again"
+			},
+			"headline": {
+				"collapse/ExpandMyTasks": "Collapse / expand my tasks",
+				"collapse/ExpandStudentGroups": "Collapse / expand student groups",
+				"homework": "({{homeworkLength}} Task{{#ifneq 1 {{homeworkLength}}}}n{{/ifneq}})",
+				"myHomework": "({{myHomeworkLength}} Task{{#ifneq 1 {{myHomeworkLength}}}}n{{/ifneq}})",
+				"myTasks": "My Tasks",
+				"show/HideTask": "show / hide tasks"
+			},
+			"text": {
+				"group": "({{arrayLength courseGroups}} Group{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
+				"nextLesson": "Next Lesson: {{nextEvent}}",
+				"noIssues": "No Issues.",
+				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}School Groups{{else}}My student groups {{/userHasPermission}}"
+			}
 		}
 	},
 	"topic": {
@@ -2955,15 +2977,25 @@
 				"shareWithOthersTeachers": "share with other teachers"
 			}
 		},
+		"aria_label": {
+			"openTopicX" : "Open topic {{name}}"
+		},
 		"form_share": {
 			"label": {
 				"distributeTheFollowingCode": "Share the following code with a teacher colleague to add the topic to a course. This function is located on the course page."
 			}
 		},
 		"topicEdit": {
+			"aria_label":{
+				"chooseContent" : "Choose the types of contents for your topic",
+				"geoGebraID": "GeoGebra ID",
+				"moveSectionWithKeys" : "Lift the section by pressing enter or space, move it with the arrow buttons and drop it with enter or space."
+			},
 			"button": {
+				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
+				"neXboard": "neXboard",
 				"text": "Text"
 			},
 			"input": {
@@ -2979,7 +3011,7 @@
 			"label": {
 				"descriptionEtherpad": "Description of the Etherpad",
 				"descriptionNeXboard": "Description of the neXboard",
-				"internLink": "intern link",
+				"internLink": "Intern Link",
 				"lockSection": "Lock section",
 				"nameOfEtherpad": "Name of the Etherpad",
 				"nameOfNeXboard": "Name of the neXboard",
@@ -2998,6 +3030,23 @@
 			"theVideoConferenceHasEither": "The video conference has either not started yet or has already ended.",
 			"thereWasAProblemWithTheVideo": "There was a problem with the video conference. Please try again.",
 			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference."
+		}
+	},
+	"messenger": {
+		"headline": {
+			"welcomeMatrix": "New messenger function"
+		},
+		"button": {
+			"activate": "Activate",
+			"deactivate": "Deactivate",
+			"dontActivate": "Do not activate"
+		},
+		"text": {
+			"welcomeMatrix": "Our new Messenger is now available, with which all users of your school can send direct or group messages to each other, as usual from social platforms.",
+			"rocketChatDeprecation": "The old team chat function is switched off on {{date}}. Old chat messages are not automatically transferred to the new Messenger.",
+			"callToCopyMessages": "Please copy all messages that are important to you.",
+			"howToDeactivateMatrix": "You can deactivate the messenger at any time under Administration > School > Activate Matrix Messenger.",
+			"howToActivateMatrix": "In order to use the Messenger at your school, it has to be activated by you as admin once for the whole school under Administration > School > Activate Matrix Messenger."
 		}
 	}
 }

@@ -9,9 +9,32 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-## [25.1.2] - 2020-10-20
+### Fixed
 
 - SC-7437 fixed display of user name on qr codes
+- SC-7392 fix create event for teams / courses
+
+### Changed in unreleased
+
+- update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
+
+
+## 25.2.0
+
+### Fixed
+
+- SC-7151 Fixing sentence structure while registration for parents
+- SC-7350 Fix invalid date
+- SC-7182 do not allow to open office files in new windows
+
+- SC-6060 Cookie configuration
+- SC-4209 Choose the same move icon for course topics and topic editor
+
+### Added
+
+- SC-6870 - Added UX improvements for Matrix messenger announcement
+
+## [25.1.1] - 2020-10-15
 
 ### Fixed
 
@@ -22,6 +45,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-7171 fix asking for confirmation after consent update
+
+### Added
+
+ - SC-6582 Add bidirectional messenger settings for course creation
 
 ## [25.0.6] - 2020-10-01
 
@@ -40,6 +67,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - SC-6567 clear and improve logging in error case
+- SC-5858 removed chosen library from the code (Accessibility issues)
 
 ## [25.0.3] - 2020-09-29
 

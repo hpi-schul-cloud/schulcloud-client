@@ -5,7 +5,7 @@
 
 {{#content "page"}}
 <p>
-{{{$t "administration.classes.text.signAgreement" (dict "shortTitle" theme.short_title)}}}
+{{$t "administration.classes.text.signAgreement" (dict "linkPrivacyPolicy" '<a href="{{@root.theme.documents.specificFiles.privacyExemplary}} target="_blank">Datenschutzerklärung</a>' "linkTermsOfUse" '<a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}" target="_blank">Nutzungsordnung</a>' "shortTitle" theme.short_title)}}
 </p>
 <p>
     {{$t "administration.classes.text.nextPageYouWillReceiveConfirmation" }}
