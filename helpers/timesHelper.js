@@ -49,7 +49,7 @@ const setDefaultTimezone = (req, res) => {
 	res.locals.currentTimezone = schoolTimezone || DEFAULT_TIMEZONE;
 
 	moment.tz.setDefault(res.locals.currentTimezone);
-	userHasSchoolTimezone = res.locals.currentTimezone === userTimezone;
+	userHasSchoolTimezone = !schoolTimezone || res.locals.currentTimezone === userTimezone;
 
 	res.locals.currentTimezoneOffset = getUtcOffset();
 	res.locals.userTimezone = userTimezone;
@@ -199,7 +199,8 @@ const timeToString = (date, format = FORMAT.dateTime, showTimezoneOffset = true)
  */
 const schoolTimezoneToString = (showTimezoneOffset = false) => {
 	const offset = showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
-	return `${schoolTimezone}${offset}`;
+	const schoolTimezoneString = schoolTimezone || '';
+	return `${schoolTimezoneString}${offset}`;
 };
 
 module.exports = {
