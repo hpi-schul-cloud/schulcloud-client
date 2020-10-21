@@ -9,16 +9,17 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-## [25.1.2] - 2020-10-21
+## [25.1.3] - 2020-10-21
 
 ### Fixed
 
 - SC-6735 administration remove consent triggers import hash generation
 
-## [25.1.1] - 2020-10-15
+## [25.1.2] - 2020-10-20
 
 ### Fixed
 
+- SC-7437 fixed display of user name on qr codes
 - SC-7085 fixed importHash error when asking parent consent
 
 ## [25.0.7] - 2020-10-09
