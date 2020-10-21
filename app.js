@@ -151,8 +151,8 @@ if (!Configuration.get('COOKIE__SECURE') && Configuration.get('COOKIE__SAME_SITE
 const SIX_HOURS = 1000 * 60 * 60 * 6;
 app.use(session({
 	cookie: {
-		...cookieDefaults,
 		maxAge: SIX_HOURS,
+		// TODO: set secure after fixed in develop
 	},
 	rolling: true, // refresh session with every request within maxAge
 	store: sessionStore,
