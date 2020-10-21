@@ -7,18 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-### Fixed
-- SC-7151 Fixing sentence structure while registration for parents
-
 ## Unreleased
 
+### Fixed
+
+- SC-7392 fix create event for teams / courses
+- SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
+
+### Changed in unreleased
+
+- update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
+
+## 25.2.0
+
+### Fixed
+
 - SC-5825 Fix progress display in homeworks
+- SC-7151 Fixing sentence structure while registration for parents
 - SC-7350 Fix invalid date
 - SC-7182 do not allow to open office files in new windows
+
+- SC-6060 Cookie configuration
+- SC-4209 Choose the same move icon for course topics and topic editor
 
 ### Added
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
+
+## [25.1.2] - 2020-10-20
+- SC-7437 fixed display of user name on qr codes
+
+## [25.1.1] - 2020-10-15
+
+### Fixed
+
+- SC-7085 fixed importHash error when asking parent consent
 
 ## [25.0.7] - 2020-10-09
 
