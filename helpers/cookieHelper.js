@@ -8,11 +8,16 @@ const cookieDefaults = {
 	expires: new Date(Date.now() + Configuration.get('COOKIE__EXPIRES_SECONDS')),
 };
 
+const sessionCookieDefaults = {
+	// TODO
+};
+
 const setCookie = (res, cookieName, value, options = {}) => {
 	res.cookie(cookieName, value, { ...cookieDefaults, ...options });
 };
 
 module.exports = {
 	cookieDefaults,
+	sessionCookieDefaults,
 	setCookie,
 };
