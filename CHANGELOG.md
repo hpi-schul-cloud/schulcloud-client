@@ -11,7 +11,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- SC-7437 fixed display of user name on qr codes
 - SC-7392 fix create event for teams / courses
 - SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
 
@@ -33,6 +32,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
+
+## [25.1.2] - 2020-10-20
+- SC-7437 fixed display of user name on qr codes
 
 ## [25.1.1] - 2020-10-15
 
