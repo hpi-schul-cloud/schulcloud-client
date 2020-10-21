@@ -34,7 +34,16 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6870 - Added UX improvements for Matrix messenger announcement
 - SC-7083 - Added input to get the school id from admin
 
+## [25.1.3] - 2020-10-21
+
+### Fixed
+
+- SC-6735 administration remove consent triggers import hash generation
+
 ## [25.1.2] - 2020-10-20
+
+### Fixed
+
 - SC-7437 fixed display of user name on qr codes
 
 ## [25.1.1] - 2020-10-15
@@ -63,7 +72,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-  - SC-6945 Add requirement for etherpad section title to fix null matching error
+- SC-6945 Add requirement for etherpad section title to fix null matching error
 
 ## [25.0.4] - 2020-09-30
 
