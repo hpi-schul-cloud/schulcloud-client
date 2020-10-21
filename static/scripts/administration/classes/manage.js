@@ -199,9 +199,11 @@ window.addEventListener('load', () => {
 		})
 			.done((users) => {
 				printQRs(
-					users.map(user => ({
+					users.map((user) => ({
 						href: user.registrationLink.shortLink,
-						title: user.fullName,
+						title:
+							user.fullName
+							|| `${user.firstName} ${user.lastName}`,
 						description: user.registrationLink.shortLink,
 					})),
 				);

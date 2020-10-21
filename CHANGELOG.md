@@ -9,7 +9,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-## [25.1.1] - 2020-10-15
+## [25.1.2] - 2020-10-20
+
+- SC-7437 fixed display of user name on qr codes
 
 ### Fixed
 
