@@ -3116,6 +3116,18 @@
 				"text": {
 					"theThuringianSchoolCloud": "Die Thüringer Schulcloud soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Um dieses Ziel zu erreichen pilotiert das Land Thüringen die vom Hasso-Plattner-Institut entwickelte Schulcloud mit zunächst 20 Pilotschulen und 9 Studienseminaren ab dem Schuljahr 2019/2020."
 				}
+			},
+			"content": {
+				"text": {
+					"courseMetarialDigitally": "Mit der {{title}} wird dein Unterrichtsmaterial digital",
+					"thuringianSchoolPortal": " In Zukunft findest du hier die Verlinkung zur Mediothek und Pixiothek des Thüringer Schulportals, um diese Inhalte weiterhin auch in der {{title}} nutzen zu können."
+				}
+			},
+			"help": {
+				"text": {
+					"pleaseContactThuringianInstitute": "Richte dich für pädagogische Fragen bitte an das Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien (ThILLM) unter folgender E-Mail-Adresse:",
+					"theOperationOfTheThuringian": "Für die Meldung von Problemen oder Wünschen hinsichtlich der Bedienung der Thüringer Schul-Cloud verwende bitte das Kontaktformular im Hilfebereich oder sende eine E-Mail an <br><a href=\"mailto:feedback@hpi-schul-cloud.de\" target=\"blank\" rel=\"noopener\" class=\"externalLink\">feedback@hpi-schul-cloud.de"
+				}
 			}
 		}
 	},
