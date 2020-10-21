@@ -349,7 +349,7 @@ $(document).ready(() => {
 		if (isCKEditor) { returnFileUrl($(this).data('file-id'), $(this).data('file-name')); }
 	}
 	$('.card.file').on('click', cardFileClickHandler);
-	
+
 	$('.fileviewer').on('keypress', (e) => {
 		if (e.key === 'Enter' || e.key === ' ') {
 			document.activeElement.click();
