@@ -140,10 +140,10 @@
 	{{/content}}
 {{/embed}}
 
-{{#embed "lib/components/modal-information" class="move-modal-disabled danger-modal" title="Funktion vorübergehend deaktiviert"}}
+{{#embed "lib/components/modal-information" class="move-modal-disabled danger-modal" title=($t "files._file.headline.functionCurrentlyDisabled")}}
 	{{#content "fields"}}
-			<p>Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.</p>
-			<p><b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.</p>
+			<p>{{$t "files._file.text.movingFilesIsDisabled"}}</p>
+			<p>{{{$t "files._file.text.littleHintHowToMoveFiles"}}}</p>
 	{{/content}}
 {{/embed}}
 
