@@ -1077,6 +1077,7 @@ router.get(
 				isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 				referrer: req.header('Referer'),
+				hasAccount: !!account,
 			});
 		});
 	},
@@ -1536,6 +1537,7 @@ router.get(
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+					hasAccount: !!account,
 				});
 			})
 			.catch((err) => {
