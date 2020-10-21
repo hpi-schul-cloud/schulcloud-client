@@ -16,7 +16,7 @@ const Sentry = require('@sentry/node');
 const { Configuration } = require('@schul-cloud/commons');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 const { nonceValueSet } = require('./helpers/csp');
-const { sessionCookieDefaults } = require('./helpers/cookieHelper');
+const { cookieDefaults } = require('./helpers/cookieHelper');
 
 
 const { version } = require('./package.json');
@@ -145,7 +145,7 @@ if (redisUrl) {
 const SIX_HOURS = 1000 * 60 * 60 * 6;
 app.use(session({
 	cookie: {
-		...sessionCookieDefaults,
+		...cookieDefaults,
 		maxAge: SIX_HOURS,
 	},
 	rolling: true, // refresh session with every request within maxAge
