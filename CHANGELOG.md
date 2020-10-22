@@ -22,7 +22,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed in unreleased
 
 - update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
-
+- SC-6951 removes via text from embeded course content
 ## 25.2.0
 
 ### Fixed
