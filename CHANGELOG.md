@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Added
+
+- SC-6293 - added option to school admin to disable lernstore for students
+
 ### Fixed
 
 - SC-7392 fix create event for teams / courses
