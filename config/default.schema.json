@@ -183,6 +183,11 @@
 			"default": "false",
 			"description": "Allows school admin to toggle teacher's STUDENT_LIST permission."
 		},
+		"FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED": {
+			"type": "boolean",
+			"default": "true",
+			"description": "Allows school admin to toggle student's LERNSTORE_VIEW permission."
+		},
 		"SENTRY_DSN": {
 			"type": "string",
 			"format": "uri",
@@ -307,7 +312,7 @@
 								"enum": [
 									"Lax",
 									"Strict"
-								]								
+								]
 							}
 						}
 					}
