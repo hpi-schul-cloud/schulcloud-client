@@ -256,9 +256,28 @@
                                             {{/userHasPermission}}
                                         {{/userHasPermission}}
                                     />
-                                    {{$t "administration.school.label.createChatRoom" }}
+                                    {{$t "administration.school.label.messengerSchoolRoom" }}
                                     <p class="text-muted">
-                                    {{$t "administration.school.text.chatRoomPermissions" }}
+                                    {{$t "administration.school.text.messengerSchoolRoom" }}
+                                    </p>
+                                </label>
+                            </div>
+							<div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "FEATURE_MESSENGER_ONETOONE_OPTION_VISIBLE" false}}hidden{{/ifConfig}}">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="messengerAllowRoomCreation"
+                                        value="true"
+                                        {{#inArray "messengerAllowRoomCreation" ../school.features}}checked{{/inArray}}
+                                        {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+                                            {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+                                                disabled
+                                            {{/userHasPermission}}
+                                        {{/userHasPermission}}
+                                    />
+                                    {{$t "administration.school.label.messengerAllowRoomCreation" }}
+                                    <p class="text-muted">
+                                    {{$t "administration.school.text.messengerAllowRoomCreation" }}
                                     </p>
                                 </label>
                             </div>

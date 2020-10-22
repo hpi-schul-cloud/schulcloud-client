@@ -2396,7 +2396,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		delete req.body.studentVisibility;
 
 		// Update school features
-		const possibleSchoolFeatures = ['messenger', 'messengerSchoolRoom'];
+		const possibleSchoolFeatures = ['messenger', 'messengerSchoolRoom', 'messengerAllowRoomCreation'];
 		for (const feature of possibleSchoolFeatures) {
 			await updateSchoolFeature(req, currentFeatures, req.body[feature] === 'true', feature);
 			delete req.body[feature];

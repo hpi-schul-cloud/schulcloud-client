@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## unreleased
+
+### Added
+- SC-6596 - Added school option to allow students to create chat rooms
+
 ## 25.2.0
 
 ### Fixed
