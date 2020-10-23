@@ -1454,10 +1454,10 @@ router.get('/:id/share', (req, res, next) => api(req)
 	.then((course) => res.json(course)));
 
 // return team Name for given shareToken
-// router.get('/share/:id', (req, res, next) => api(req)
-// 	.get('/teams/share', { qs: { shareToken: req.params.id } })
-// 	.then((name) => res.json({ msg: name, status: 'success' }))
-// 	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
+router.get('/share/:id', (req, res, next) => api(req)
+	.get('/teams/share', { qs: { shareToken: req.params.id } })
+	.then((name) => res.json({ msg: name, status: 'success' }))
+	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
 router.post('/import', (req, res, next) => {
 	const { shareToken } = req.body;
