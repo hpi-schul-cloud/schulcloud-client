@@ -2986,7 +2986,9 @@
 				"titleOfTheTopic": "Titel des Themas"
 			},
 			"text": {
-				"shareWithOthersTeachers": "mit anderen Lehrern teilen"
+				"shareWithOthersTeachers": "mit anderen Lehrern teilen",
+				"warningMain": "Hinweis: Beim Klicken des Links verlassen Sie das Angebot der Schul-Cloud",
+				"warningFooter": "Die Nutzung dieser Angebote unterliegt gegebenenfalls anderen rechtlichen Bedingungen. Bitte schauen Sie daher in die Datenschutzerklärung des externen Anbieters!"
 			}
 		},
 		"aria_label" :{
