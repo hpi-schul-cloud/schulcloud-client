@@ -69,6 +69,10 @@
                                         <a href="{{this.url}}" target="_blank">
                                             {{this.title}}
                                         </a>
+                                        <div class="external-source-warning">
+                                            <h5>{{$t "topic._topic.text.warningMain" }}</h5>
+                                            <h6>{{$t "topic._topic.text.warningFooter" }}</h6>
+                                        </div>
                                     </h2>
                                     <p class="card-text">{{this.description}}</p>
                                     {{#if this.download}}
@@ -78,7 +82,7 @@
                                     {{/if}}
                                 </div>
                                 <div class="card-footer">
-                                    <small class="text-muted"> via {{this.client}}</small>
+                                    {{!-- <small class="text-muted"> via {{this.client}}</small> --}}
                                     {{#userHasPermission "COURSE_EDIT"}}
                                         <a class="delete-material" href="materials/{{../_id}}" target="_blank"
                                             data-method="DELETE" data-name="{{../title}}">
