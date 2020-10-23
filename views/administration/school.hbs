@@ -266,18 +266,18 @@
                                 <label>
                                     <input
                                         type="checkbox"
-                                        name="messengerAllowRoomCreation"
+                                        name="messengerStudentRoomCreate"
                                         value="true"
-                                        {{#inArray "messengerAllowRoomCreation" ../school.features}}checked{{/inArray}}
+                                        {{#inArray "messengerStudentRoomCreate" ../school.features}}checked{{/inArray}}
                                         {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
                                             {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
                                                 disabled
                                             {{/userHasPermission}}
                                         {{/userHasPermission}}
                                     />
-                                    {{$t "administration.school.label.messengerAllowRoomCreation" }}
+                                    {{$t "administration.school.label.messengerStudentRoomCreate" }}
                                     <p class="text-muted">
-                                    {{$t "administration.school.text.messengerAllowRoomCreation" }}
+                                    {{$t "administration.school.text.messengerStudentRoomCreate" }}
                                     </p>
                                 </label>
                             </div>
@@ -288,7 +288,7 @@
 								<label>
 									<input
 										type="checkbox"
-										name="rocketchat"
+										name="rocketChat"
 										value="true"
 										{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}
 										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
