@@ -2979,7 +2979,9 @@
 				"titleOfTheTopic": "Title of the topic"
 			},
 			"text": {
-				"shareWithOthersTeachers": "share with other teachers"
+				"shareWithOthersTeachers": "share with other teachers",
+				"warningMain": "Note: Clicking the link will take you away from Schul-Cloud",
+				"warningFooter": "The use of these offers may be subject to other legal conditions. Therefore, please take a look at the privacy policy of the external provider!"
 			}
 		},
 		"aria_label": {
