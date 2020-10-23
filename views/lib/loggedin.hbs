@@ -31,7 +31,7 @@
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
             {{#inArray "messenger" @root.currentSchoolData.features}}
                 <script nonce="{{nonceValue}}">
-                    window.matrixAssetDomain = '{{getConfig "MATRIX_MESSENGER_EMBED_URI"}}';
+                    window.matrixAssetDomain = '{{getConfig "MATRIX_MESSENGER__EMBED_URI"}}';
                     window.userLanguage = '{{ @root.userLanguage }}';
                 </script>
                 <script src="/scripts/chatLoggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
@@ -301,7 +301,7 @@
 
 {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}} {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
 {{#if (userHasRole "administrator")}}
-    {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}
+    {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" true}}
         {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
         {{#content "body"}}
         <div class="modal-body">

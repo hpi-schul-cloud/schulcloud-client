@@ -215,7 +215,7 @@
 
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
                         <div class="form-group"
-								{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}{{else}}
+								{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" true}}{{else}}
 									{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}{{else}}
 										hidden
 									{{/ifConfig}}>
@@ -243,7 +243,7 @@
                         {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}
                         <div id="messenger-sub-options">
                             {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
-                            <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED" false}}hidden{{/ifConfig}}">
+                            <div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED" false}}hidden{{/ifConfig}}">
                                 <label>
                                     <input
                                         type="checkbox"
@@ -262,7 +262,7 @@
                                     </p>
                                 </label>
                             </div>
-							<div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "FEATURE_MESSENGER_ONETOONE_OPTION_VISIBLE" false}}hidden{{/ifConfig}}">
+							<div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "FEATURE_MESSENGER_ONETOONE_OPTION_VISIBLE" false}}hidden{{/ifConfig}}">
                                 <label>
                                     <input
                                         type="checkbox"
