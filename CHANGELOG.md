@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Fixed - 23.10.2020
+
+- SC-6721 - fixed classes list in course administration
+
 ### Added
 
 - SC-6293 - added option to school admin to disable lernstore for students
