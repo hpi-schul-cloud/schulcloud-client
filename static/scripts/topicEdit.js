@@ -535,10 +535,8 @@ class TopicResource extends React.Component {
                     <p className="card-text">{(this.props.resource || {}).description}</p>
                 </div>
                 <div className="card-footer">
-					/**
-					* Show proper provider.
-					* TODO: show a real provider instead of Schul-cloud once they are available
-					*/
+					{/* Show proper provider.
+					TODO: show a real provider instead of Schul-cloud once they are available */}
                     {/* <small className="text-muted">via {(this.props.resource || {}).client}</small> */}
                     <a className="btn-remove-resource" onClick={this.props.onRemove}><i
                         className="fa fa-trash-o"></i></a>
