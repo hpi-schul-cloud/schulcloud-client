@@ -929,10 +929,16 @@ router.get('/:id/share', (req, res, next) => api(req)
 	.then((course) => res.json(course)));
 
 // return course Name for given shareToken
+let count = 0;
 router.get('/share/:id', (req, res, next) => api(req)
 	.get('/courses/share', { qs: { shareToken: req.params.id } })
 	.then((name) => res.json({ msg: name, status: 'success' }))
-	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
+	.catch((name) => {
+		if (res.statusCode === 304 && count < 2) {
+			res.json({ msg: name, status: 'success' });
+		} else if (count >= 2) res.json({ msg: 'ShareToken is not in use.', status: 'error' });
+		count += 1;
+	}));
 
 router.post('/import', (req, res, next) => {
 	const { shareToken } = req.body;
