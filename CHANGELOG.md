@@ -388,6 +388,7 @@ In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the 
 
 ### Fixed in 22.7.1
 
+- Audit fix for packages in pact-node
 - SC-3785: link to course after course creation corrected
 - SC-3732: edit button was not visible for course teachers except the author on the task detail page
 - SC-3807: link "Methodenguide" in nbc addons
