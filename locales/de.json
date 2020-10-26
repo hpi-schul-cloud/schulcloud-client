@@ -1997,6 +1997,8 @@
 				"printSubmission": "Abgabe drucken",
 				"printTask": "Aufgabenstellung drucken",
 				"submitted": "Abgegeben",
+				"statsSubmitted": "{{submissionCount}} von {{totalCount}} abgegeben",
+				"statsGraded": "{{gradedCount}} bewertet",
 				"team": "Team",
 				"teamSubmission": "Teamabgabe",
 				"teamSubmissionMaxX": "Teamabgabe (maximal <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> Personen)",
