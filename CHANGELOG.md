@@ -11,7 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed - 26.10.2020
 
-- SC-7084 - changed file permission name Mitglied to Teilnehmer and remove :innen
+- SC-7084 - changed file permission name Mitglied to Teilnehmer
 
 ### Added
 
