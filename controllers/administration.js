@@ -1190,7 +1190,7 @@ router.delete(
 	'/students/:id',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_DELETE'], 'or'),
 	getDeleteAccountForUserHandler,
-	getDeleteHandler('users', '/users/admin/students'),
+	getDeleteHandler('users/admin/students', '/administration/students'),
 );
 router.post(
 	'/students/:id/skipregistration/',
