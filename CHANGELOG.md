@@ -9,7 +9,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-## [25.2.0] - 2020-10-26
+## [25.1.4] - 2020-10-26
+
+### Fixed
+
+- SC-6735 additional fix - administration remove consent triggers import hash generation
+
+## [25.1.3] - 2020-10-26
 
 ### Fixed
 
