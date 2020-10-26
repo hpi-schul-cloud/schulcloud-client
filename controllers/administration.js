@@ -2397,6 +2397,21 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		delete req.body.studentVisibility;
 
+		// Toggle sudent lernstore view permission
+		const studentLernstoreFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED');
+		if (studentLernstoreFeature) {
+			await api(req)
+				.patch('school/student/studentlernstorevisibility', {
+					json: {
+						permission: {
+							isEnabled: !!req.body.studentlernstorevisibility,
+						},
+					},
+				});
+		}
+
+		delete req.body.studentlernstorevisibility;
+
 		// Update school features
 		const possibleSchoolFeatures = ['messenger', 'messengerSchoolRoom'];
 		for (const feature of possibleSchoolFeatures) {
