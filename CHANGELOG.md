@@ -9,6 +9,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.1.4] - 2020-10-26
+
+### Added
+- SC-7447 - Add warning text for links when leaving the schul-cloud platform
+
 ## [25.1.3] - 2020-10-21
 
 ### Fixed
