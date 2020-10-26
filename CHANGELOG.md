@@ -11,6 +11,70 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6980 Shared files are not opened automaticly but added to the shared files area.
 - Disabled share file Button for files thar are already shared
 
+### Fixed - 23.10.2020
+
+- SC-6721 - fixed classes list in course administration
+
+### Added
+
+- SC-7447 - Add warning text for links when leaving the schul-cloud platform
+- SC-6293 - added option to school admin to disable lernstore for students
+
+### Fixed
+
+- SC-7463 - Fixed undefined value when requesting school systems login
+- SC-7392 fix create event for teams / courses
+- SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
+
+### Changed in unreleased
+
+- update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
+- SC-6951 removes via text from embeded course content
+## 25.2.0
+
+### Fixed
+
+- SC-5825 Fix progress display in homeworks
+- SC-7151 Fixing sentence structure while registration for parents
+- SC-7350 Fix invalid date
+- SC-7182 do not allow to open office files in new windows
+
+- SC-6060 Cookie configuration
+- SC-4209 Choose the same move icon for course topics and topic editor
+
+### Added
+
+- SC-6870 - Added UX improvements for Matrix messenger announcement
+- SC-7083 - Added input to get the school id from admin
+
+## [25.1.3] - 2020-10-21
+
+### Fixed
+
+- SC-6735 administration remove consent triggers import hash generation
+
+## [25.1.2] - 2020-10-20
+
+### Fixed
+
+- SC-7437 fixed display of user name on qr codes
+
+## [25.1.1] - 2020-10-15
+
+### Fixed
+
+- SC-7085 fixed importHash error when asking parent consent
+
+## [25.0.7] - 2020-10-09
+
+### Fixed
+
+- SC-7171 fix asking for confirmation after consent update
+
+### Added
+
+ - SC-6582 Add bidirectional messenger settings for course creation
+
 ## [25.0.6] - 2020-10-01
 
 ### Added
@@ -21,13 +85,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-  - SC-6945 Add requirement for etherpad section title to fix null matching error
+- SC-6945 Add requirement for etherpad section title to fix null matching error
 
 ## [25.0.4] - 2020-09-30
 
 ### Changed
 
 - SC-6567 clear and improve logging in error case
+- SC-5858 removed chosen library from the code (Accessibility issues)
 
 ## [25.0.3] - 2020-09-29
 

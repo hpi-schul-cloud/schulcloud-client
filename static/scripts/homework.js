@@ -18,7 +18,7 @@ const getCurrentParent = getDataValue('parent');
 let lastFocusedElement;
 
 window.addEventListener('keydown', (e) => {
-	if (e.keyCode === 27) {
+	if (e.keyCode === 27 && lastFocusedElement) {
 		lastFocusedElement.focus();
 	}
 });
@@ -218,10 +218,10 @@ $(document).ready(() => {
 		} else {
 			lastTeamMembers = $(this).val();
 		}
-		$(this).chosen().trigger('chosen:updated');
+		// $(this).chosen().trigger('chosen:updated');
 	});
 
-	$('select#teamMembers').chosen().change((event, data) => {
+	$('select#teamMembers').change((event, data) => {
 		if (data.deselected && data.deselected === $('.owner').val()) {
 			$('.owner').prop('selected', true);
 			$('#teamMembers').trigger('chosen:updated');
