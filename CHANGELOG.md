@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Fixed - 26.10.2020
+
+- SC-7084 - changed file permission name Mitglied to Teilnehmer and remove :innen
+
 ### Added
 
 - SC-6293 - added option to school admin to disable lernstore for students
