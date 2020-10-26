@@ -928,7 +928,7 @@ router.delete(
 	'/teachers/:id',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_DELETE'], 'or'),
 	getDeleteAccountForUserHandler,
-	getDeleteHandler('users', '/administration/teachers'),
+	getDeleteHandler('users', '/users/admin/teachers'),
 );
 
 router.get(
