@@ -1997,6 +1997,8 @@
 				"printSubmission": "Print submission",
 				"printTask": "Print task definition",
 				"submitted": "Submitted",
+				"statsSubmitted": "{{submissionCount}} out of {{totalCount}} submitted",
+				"statsGraded": "{{gradedCount}} graded",
 				"team": "Team",
 				"teamSubmission": "Team submission",
 				"teamSubmissionMaxX": "Team submission (maximum <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> people)",
