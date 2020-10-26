@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Fixed - 23.10.2020
+
+- SC-6721 - fixed classes list in course administration
+
 ### Added
 
 - SC-7447 - Add warning text for links when leaving the schul-cloud platform.
