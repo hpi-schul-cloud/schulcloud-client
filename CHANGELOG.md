@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+## [25.1.5] - 2020-10-27
+
+### Fixed
+
+- SC-7490 fixed get request for landing pages which are not from ghost
+
+### Fixed - 27.10.2020
+
+- SC-5501 - fixed grammar issue for password recovery request
 
 ### Fixed - 23.10.2020
 
@@ -28,6 +37,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
 - SC-6951 removes via text from embeded course content
+- SC-6870 use don't show again checkbox value even if the admin goes to the settings page
+
 ## 25.2.0
 
 ### Fixed
