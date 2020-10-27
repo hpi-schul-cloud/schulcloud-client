@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Fixed - 27.10.2020
+
+- SC-5501 - fixed grammar issue for password recovery request
+
 ### Fixed - 23.10.2020
 
 - SC-6721 - fixed classes list in course administration
