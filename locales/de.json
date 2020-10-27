@@ -1699,7 +1699,6 @@
 				"administrator": "Administrator",
 				"expert": "Experte",
 				"leader": "Leiter",
-				"member": "Mitglied",
 				"owner": "Eigentümer",
 				"teacher": "Lehrer"
 			}
@@ -2389,10 +2388,10 @@
 		},
 		"popup_resetPw": {
 			"button": {
-				"resetPassword": "Passwort Zurücksetzen"
+				"resetPassword": "Passwort zurücksetzen"
 			},
 			"headline": {
-				"resetPassword": "Passwort Zurücksetzen"
+				"resetPassword": "Passwort zurücksetzen"
 			},
 			"input": {
 				"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
