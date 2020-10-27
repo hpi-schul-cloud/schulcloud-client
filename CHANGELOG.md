@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7502 - Fixed disabled attribute definition on registration link buttons
 - SC-7490 fixed get request for landing pages which are not from ghost
 
 ### Fixed - 27.10.2020
