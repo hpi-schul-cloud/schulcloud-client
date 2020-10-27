@@ -1,11 +1,14 @@
 const localStorageKey = 'welcomed-matrix';
+const urlParam = 'hideMatrixWelcome';
 
 $(document).ready(() => {
 	const welcomeMatrixModal = $('.matrix-welcome-info');
 
 	if (welcomeMatrixModal.length === 0) return;
 
-	if (localStorage.getItem(localStorageKey) !== 'true') welcomeMatrixModal.modal('show');
+	const urlParams = new URLSearchParams(window.location.search);
+
+	if (localStorage.getItem(localStorageKey) !== 'true' && !urlParams.has(urlParam)) welcomeMatrixModal.modal('show');
 
 	welcomeMatrixModal.find('.dont-show-again').on('click', (e) => {
 		e.stopPropagation();
@@ -18,8 +21,9 @@ $(document).ready(() => {
 	welcomeMatrixModal.find('.matrix-settings').on('click', (e) => {
 		e.stopPropagation();
 		e.preventDefault();
-		localStorage.setItem(localStorageKey, 'true');
-		window.location = '/administration/school';
+		const checkboxValue = welcomeMatrixModal.find('.dontShowAgain-checkbox').prop('checked');
+		localStorage.setItem(localStorageKey, checkboxValue);
+		window.location = `/administration/school/?${urlParam}`;
 		$('.matrix-welcome-info').modal('hide');
 	});
 });

@@ -41,6 +41,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
 - SC-6951 removes via text from embeded course content
+- SC-6870 use don't show again checkbox value even if the admin goes to the settings page
+
 ## 25.2.0
 
 ### Fixed
