@@ -18,6 +18,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-5501 - fixed grammar issue for password recovery request
 
+### Fixed - 26.10.2020
+
+- SC-7084 - changed file permission name Mitglied to Teilnehmer
+
 ### Fixed - 23.10.2020
 
 - SC-6721 - fixed classes list in course administration
