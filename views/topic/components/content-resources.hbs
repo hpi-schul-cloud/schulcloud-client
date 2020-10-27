@@ -9,6 +9,12 @@
                     <a href="{{url}}" target="_blank">
                         {{title}}
                     </a>
+                    {{#ifeq @root.theme.name "brb"}}
+                        <div class="external-source-warning">
+                            <h5>{{$t "topic._topic.text.warningMain" }}</h5>
+                            <h6>{{$t "topic._topic.text.warningFooter" }}</h6>
+                        </div>
+                    {{/ifeq}}
                 </h4>
                 <p class="card-text">{{description}}</p>
             </div>

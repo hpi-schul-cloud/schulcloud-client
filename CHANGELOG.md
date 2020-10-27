@@ -19,6 +19,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
 
+## [25.1.6] - 2020-10-21
+
+### Added
+
+- SC-7447 - Add warning text for links when leaving the schul-cloud platform
+
+## [25.1.5] - 2020-10-27
+
+### Fixed
+
+- SC-7490 fixed get request for landing pages which are not from ghost
+
 ## [25.1.4] - 2020-10-26
 
 ### Fixed
