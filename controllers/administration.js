@@ -505,6 +505,7 @@ const getDeleteHandler = (service, redirectUrl) => function deleteHandler(req, r
 		});
 };
 
+/*
 const getDeleteAccountForUserHandler = (req, res, next) => {
 	api(req)
 		.get('/accounts/', {
@@ -531,6 +532,7 @@ const getDeleteAccountForUserHandler = (req, res, next) => {
 			next(err);
 		});
 };
+ */
 
 const removeSystemFromSchoolHandler = (req, res, next) => {
 	api(req)
