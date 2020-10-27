@@ -2389,10 +2389,10 @@
 		},
 		"popup_resetPw": {
 			"button": {
-				"resetPassword": "Passwort Zurücksetzen"
+				"resetPassword": "Passwort zurücksetzen"
 			},
 			"headline": {
-				"resetPassword": "Passwort Zurücksetzen"
+				"resetPassword": "Passwort zurücksetzen"
 			},
 			"input": {
 				"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
