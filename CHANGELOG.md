@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Fixed - 27.10.2020
+
+- SC-5501 - fixed grammar issue for password recovery request
+
 ### Fixed - 26.10.2020
 
 - SC-7084 - changed file permission name Mitglied to Teilnehmer
