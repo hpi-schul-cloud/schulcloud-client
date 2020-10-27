@@ -9,12 +9,21 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Fixed - 27.10.2020
+
+- SC-5501 - fixed grammar issue for password recovery request
+
 ### Fixed - 26.10.2020
 
 - SC-7084 - changed file permission name Mitglied to Teilnehmer
 
+### Fixed - 23.10.2020
+
+- SC-6721 - fixed classes list in course administration
+
 ### Added
 
+- SC-7447 - Add warning text for links when leaving the schul-cloud platform
 - SC-6293 - added option to school admin to disable lernstore for students
 
 ### Fixed
@@ -31,6 +40,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-5825 Fix progress display in homeworks
 - SC-7151 Fixing sentence structure while registration for parents
 - SC-7350 Fix invalid date
 - SC-7182 do not allow to open office files in new windows
@@ -42,6 +52,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
 - SC-7083 - Added input to get the school id from admin
+
+## [25.1.4] - 2020-10-26
+
+### Fixed
+
+- SC-6735 additional fix - administration remove consent triggers import hash generation
 
 ## [25.1.3] - 2020-10-21
 
