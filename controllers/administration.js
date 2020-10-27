@@ -2384,6 +2384,21 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		delete req.body.studentVisibility;
 
+		// Toggle sudent lernstore view permission
+		const studentLernstoreFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED');
+		if (studentLernstoreFeature) {
+			await api(req)
+				.patch('school/student/studentlernstorevisibility', {
+					json: {
+						permission: {
+							isEnabled: !!req.body.studentlernstorevisibility,
+						},
+					},
+				});
+		}
+
+		delete req.body.studentlernstorevisibility;
+
 		// Update school features
 		const possibleSchoolFeatures = ['messenger', 'messengerSchoolRoom'];
 		for (const feature of possibleSchoolFeatures) {
@@ -2488,7 +2503,7 @@ router.all('/courses', (req, res, next) => {
 		const coursesBody = courses.data.map((item) => [
 			item.name,
 			// eslint-disable-next-line no-shadow
-			(item.classIds || []).map((item) => item.displayName).join(', '),
+			(item.classIds || []).map((item) => classes.find((obj) => obj._id === item.id).displayName).join(', '),
 			// eslint-disable-next-line no-shadow
 			(item.teacherIds || []).map((item) => item.lastName).join(', '),
 			[

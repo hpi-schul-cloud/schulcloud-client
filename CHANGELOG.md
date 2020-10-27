@@ -9,19 +9,30 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Fixed - 23.10.2020
+
+- SC-6721 - fixed classes list in course administration
+
+### Added
+
+- SC-7447 - Add warning text for links when leaving the schul-cloud platform
+- SC-6293 - added option to school admin to disable lernstore for students
+
 ### Fixed
 
+- SC-7463 - Fixed undefined value when requesting school systems login
 - SC-7392 fix create event for teams / courses
 - SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
 
 ### Changed in unreleased
 
 - update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
-
+- SC-6951 removes via text from embeded course content
 ## 25.2.0
 
 ### Fixed
 
+- SC-5825 Fix progress display in homeworks
 - SC-7151 Fixing sentence structure while registration for parents
 - SC-7350 Fix invalid date
 - SC-7182 do not allow to open office files in new windows
@@ -33,6 +44,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
 - SC-7083 - Added input to get the school id from admin
+
+## [25.1.4] - 2020-10-26
+
+### Fixed
+
+- SC-6735 additional fix - administration remove consent triggers import hash generation
 
 ## [25.1.3] - 2020-10-21
 

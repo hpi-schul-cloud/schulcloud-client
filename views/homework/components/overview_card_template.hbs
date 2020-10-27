@@ -12,25 +12,39 @@
             {{$t "homework.text.noSubmissionDateSet"}}
             {{/if}}
         </div>
+        {{#if this.stats}}
+            <a class="content" href="{{this.url}}#activetabid=submissions"
+                aria-label="Abgaben der Aufgabe: '{{{escapeHtml this.name}}}'">
+                <div class="state">
+                    <table>
+                        <tr>
+                            <td>
+                                <progress value='{{this.stats.submissionPercentage}}' max='100' alt="">{{this.stats.submissionPercentage}} %</progress>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{$t 'homework._task.label.statsSubmitted' (dict 'submissionCount' this.stats.submissionCount 'totalCount' this.stats.userCount) }}
+                            </td>
+                    </tr>
+                    {{#if this.stats.gradeCount}}
+                        <tr>
+                            <td>
+                                <progress value='{{this.stats.gradePercentage}}' max='100' alt="">{{this.stats.gradePercentage}} %</progress>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{$t "homework._task.label.statsGraded" (dict 'gradedCount' this.stats.gradeCount) }}
+                            </td>
+                        </tr>
+                    {{/if}}
+                    </table>
+                </div>
+            </a>
+        {{/if}}
     </div>
-    {{#if this.stats}}
-    <a class="content" href="{{this.url}}#activetabid=submissions"
-        aria-label="Abgaben der Aufgabe: '{{{escapeHtml this.name}}}'">
-        <div class="state">
-            <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#009688"
-                accentcolor="lightgrey" data="{{this.stats.submissionPercentage}}"
-                {{#if this.stats.gradePercentage}}secdata="{{this.stats.gradePercentage}}" {{/if}} width="70"
-                height="70" style="width: 70px; height: 70px;" data-toggle="tooltip" data-placement="left"
-                data-html="true" data-original-title="
-                        Teilnehmer: {{this.stats.userCount}}</br>
-                        Abgegeben: {{this.stats.submissionCount}}</br>
-                        Bewertet: {{#if this.stats.gradeCount}}{{this.stats.gradeCount}}{{else}}-{{/if}}</br>
-                        Ø: {{#if this.stats.averageGrade}}{{this.stats.averageGrade}}% richtig gelöst{{else}}-{{/if}}">
-            </circular-progress>
-        </div>
-    </a>
-    {{/if}}
-   <div class="state">
+    <div class="state">
         <div>
             {{#if (userHasRole "student")}}
             {{#if submissions}}
@@ -44,15 +58,6 @@
             {{/if}}
             {{/if}}
         </div>
-        {{#if this.grade}}
-        <a class="content" href="{{this.url}}#activetabid=feedback"
-            aria-label="Bewertung der Aufgabe: '{{{escapeHtml this.name}}}' {{this.grade}}% richtig gelöst">
-            <circular-progress class="meinel-progress" primarycolor="#009688" accentcolor="lightgrey"
-                data="{{this.grade}}" width="70" height="70" data-toggle="tooltip" data-placement="left"
-                data-original-title="{{this.grade}}% richtig gelöst">
-            </circular-progress>
-        </a>
-        {{/if}}
     </div>
     <div class="content">
         <h2 class="h6 title">
