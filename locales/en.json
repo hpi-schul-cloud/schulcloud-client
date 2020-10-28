@@ -566,6 +566,7 @@
 				"endOfTheTransferPhase": "End of the transfer phase",
 				"fileStorageSpaceUsedInCloud": "Used file storage in the cloud",
 				"inTheTransferPhase": "in the transfer phase:",
+				"lernstoreEnabledForStudents": "Lern-Store for students",
 				"loginFromExistingUsers": "Logins of existing users",
 				"messengerStudentRoomCreate": "Students can create chat rooms",
 				"messengerSchoolRoom": "Create a chat room for announcements to the entire school",
@@ -574,6 +575,7 @@
 				"noteBeforeTheTransferPhase": "Note before the transfer phase:",
 				"passwordChangesInLDAP": "Password changes in LDAP",
 				"privacySettings": "Privacy Settings",
+				"schoolNumber": "School number:",
 				"schoolYear": "School year:",
 				"schoolYearChange": "Change of school year",
 				"selectProvider": "Select provider",
@@ -605,6 +607,7 @@
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
 				"ifMatrixIsActivatedAtYourSchool": "If the Matrix Messenger is activated, all teachers in this school can start chat rooms, private conversations or group discussions within the course or team. Students initially  have read-only access, but can also be given write access via the course and team settings. Students can also start private chats within courses and teams. You can find more information about this in the ",
+				"lernstoreEnabledForStudents": "If unchecked, then the students will not be able to access Lern-Store",
 				"loginViaLDAP": "Login via LDAP is still possible for existing users",
 				"messengerStudentRoomCreate": "Students can create chat rooms that are not under the control of a teacher",
 				"messengerSchoolRoom": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
@@ -745,6 +748,8 @@
 	},
 	"calendar": {
 		"button": {
+			"availableCourses": "Available courses",
+			"availableTeams": "Available teams",
 			"chooseACourse": "Pick a course...",
 			"chooseATeam": "Choose a team"
 		},
@@ -1087,7 +1092,7 @@
 					"deleteTopic": "Delete topic",
 					"descriptionTopic": "Add text, images, videos and other materials to a topic. A topic covers a module or lesson within your course.",
 					"distributeLinkForInvite": "Share the following link with your students to invite them to the course. Students must be logged in to use the link.",
-					"editSortDeleteShareTopicsHere": "You can edit <i class=\"fa fa-pencil\"></i>, sort <i class=\"fa fa-ellipsis-v\"></i>&nbsp;<i class=\"fa fa-ellipsis-v\"></i>, delete <i class=\"fa fa-trash-o\"></i> or share <i class=\"fa fa-share-alt\"></i> your topic at any time.",
+					"editSortDeleteShareTopicsHere": "You can edit <i class=\"fa fa-pencil\"></i>, sort <i class=\"fa fa-arrows\"></i>, delete <i class=\"fa fa-trash-o\"></i> or share <i class=\"fa fa-share-alt\"></i> your topic at any time.",
 					"externalLinkToGeoGebra": "This is external content of the provider GeoGebra. It will open in a new window or tab.",
 					"hideTopic": "Hide topic",
 					"importTopic": "Import topic",
@@ -1696,7 +1701,6 @@
 				"administrator": "Administrator",
 				"expert": "Expert",
 				"leader": "Leader",
-				"member": "Member",
 				"owner": "Owner",
 				"teacher": "Teacher"
 			}
@@ -1994,6 +1998,8 @@
 				"printSubmission": "Print submission",
 				"printTask": "Print task definition",
 				"submitted": "Submitted",
+				"statsSubmitted": "{{submissionCount}} out of {{totalCount}} submitted",
+				"statsGraded": "{{gradedCount}} graded",
 				"team": "Team",
 				"teamSubmission": "Team submission",
 				"teamSubmissionMaxX": "Team submission (maximum <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> people)",
@@ -2974,7 +2980,9 @@
 				"titleOfTheTopic": "Title of the topic"
 			},
 			"text": {
-				"shareWithOthersTeachers": "share with other teachers"
+				"shareWithOthersTeachers": "share with other teachers",
+				"warningMain": "Note: Clicking the link will take you away from Schul-Cloud Brandenburg",
+				"warningFooter": "The use of these offers may be subject to other legal conditions. Therefore, please take a look at the privacy policy of the external provider!"
 			}
 		},
 		"aria_label": {

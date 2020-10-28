@@ -192,6 +192,17 @@
 						</div>
 
 						<div class="form-group">
+							<label for="officialSchoolNumber">
+								{{$t "administration.school.label.schoolNumber" }}
+							</label>
+
+							<input id="officialSchoolNumber" value="{{../school.officialSchoolNumber}}" type="text" pattern="\D{0,2}-*\d{5}$" class="form-control" name="officialSchoolNumber"
+								placeholder="12345" {{#if ../schoolUsesLdap}} readonly{{/if}}
+								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+								readonly{{/userHasPermission}}/>
+						</div>
+
+						<div class="form-group">
 							<label>{{$t "administration.school.label.uploadSchoolLogo" }}</label><br />
 							<input type="hidden" name="logo_dataUrl">
 							<input type="file" id="logo-input">
@@ -213,6 +224,23 @@
 							</div>
 						{{/ifConfig}}
 
+
+                        {{#ifConfig "LERNSTORE_MODE" "EDUSHARING"}}
+                            {{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED" true}}
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" name="studentlernstorevisibility" id="studentlernstorevisibility" value="true"
+                                            {{#ifeq ../school.permissions.student.LERNSTORE_VIEW false}}{{else}}checked{{/ifeq}}
+                                             {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}disabled="disabled"{{/userHasPermission}}
+                                              >
+                                        {{$t "administration.school.label.lernstoreEnabledForStudents"}}
+                                    </label>
+                                    <p class="text-muted">
+                                        {{$t "administration.school.text.lernstoreEnabledForStudents"}}
+                                    </p>
+                                </div>
+                            {{/ifConfig}}
+                        {{/ifConfig}}
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
                         <div class="form-group"
 								{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" true}}{{else}}
@@ -283,7 +311,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}hidden{{/if}}">
+                        <div class="form-group {{#unless @root.ROCKETCHAT_SERVICE_ENABLED}}hidden{{/unless}}">
 							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
 								<label>
 									<input

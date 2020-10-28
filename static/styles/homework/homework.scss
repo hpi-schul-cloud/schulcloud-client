@@ -75,14 +75,18 @@
 		float: right;
 		text-align: right;
 		clear: right;
+		font-size: small;
 		color: grey;
 		position: relative;
-		display: flex;
-		width: 250px;
-
+		display: flex;	
+		line-height: 0.8;
+		font-size: 0.8em;
+		width:auto;
+		progress {
+			height: 10px;
+		}
 		div {
 			color: black;
-			font-size: $font-size-sm;
 			align-self: center;
 		}
 	}

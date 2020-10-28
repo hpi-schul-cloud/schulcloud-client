@@ -1077,6 +1077,7 @@ router.get(
 				isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 				referrer: req.header('Referer'),
+				hasAccount: !!account,
 			});
 		});
 	},
@@ -1536,6 +1537,7 @@ router.get(
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+					hasAccount: !!account,
 				});
 			})
 			.catch((err) => {
@@ -2378,7 +2380,23 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		delete req.body.studentVisibility;
 
+		// Toggle sudent lernstore view permission
+		const studentLernstoreFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED');
+		if (studentLernstoreFeature) {
+			await api(req)
+				.patch('school/student/studentlernstorevisibility', {
+					json: {
+						permission: {
+							isEnabled: !!req.body.studentlernstorevisibility,
+						},
+					},
+				});
+		}
+
+		delete req.body.studentlernstorevisibility;
+
 		const currentFeatures = res.locals.currentSchoolData.features;
+
 		// Update school features
 		const possibleSchoolFeatures = [
 			'messenger', 'messengerSchoolRoom', 'messengerStudentRoomCreate', 'rocketChat', 'videoconference',
@@ -2486,7 +2504,7 @@ router.all('/courses', (req, res, next) => {
 		const coursesBody = courses.data.map((item) => [
 			item.name,
 			// eslint-disable-next-line no-shadow
-			(item.classIds || []).map((item) => item.displayName).join(', '),
+			(item.classIds || []).map((item) => classes.find((obj) => obj._id === item.id).displayName).join(', '),
 			// eslint-disable-next-line no-shadow
 			(item.teacherIds || []).map((item) => item.lastName).join(', '),
 			[
