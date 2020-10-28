@@ -43,7 +43,7 @@
                       id="birthDate"
                       value=user.birthday
                       required=true
-                      readonly=user.birthday
+                      readonly=(isset user.birthday)
                       dataMinDate=(datePickerTodayMinus 100 0 0)
                       dataMaxDate=(datePickerTodayMinus 4 0 0)
               }}

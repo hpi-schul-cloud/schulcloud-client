@@ -146,7 +146,6 @@ app.use(session({
 	cookie: {
 		// TODO ...cookieDefaults,
 		maxAge: SIX_HOURS,
-		// TODO: set secure after fixed in develop
 	},
 	rolling: true, // refresh session with every request within maxAge
 	store: sessionStore,

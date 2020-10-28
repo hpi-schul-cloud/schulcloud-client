@@ -286,6 +286,7 @@ const helpers = () => ({
 		});
 		return dict;
 	},
+	isset: (value) => !!value,
 });
 
 module.exports = helpers;
