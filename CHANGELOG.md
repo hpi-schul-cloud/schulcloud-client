@@ -11,6 +11,32 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6980 Shared files are not opened automaticly but added to the shared files area.
 - Disabled share file Button for files thar are already shared
 
+## [25.1.7] - 2020-10-27
+
+### Fixed
+
+- SC-7502 - Fixed disabled attribute definition on registration link buttons
+
+## [25.1.6] - 2020-10-21
+
+### Added
+
+- SC-7447 - Add warning text for links when leaving the schul-cloud platform
+
+## [25.1.5] - 2020-10-27
+
+### Fixed
+
+- SC-7490 fixed get request for landing pages which are not from ghost
+
+### Fixed - 27.10.2020
+
+- SC-5501 - fixed grammar issue for password recovery request
+
+### Fixed - 26.10.2020
+
+- SC-7084 - changed file permission name Mitglied to Teilnehmer
+
 ### Fixed - 23.10.2020
 
 - SC-6721 - fixed classes list in course administration
@@ -30,6 +56,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
 - SC-6951 removes via text from embeded course content
+- SC-6870 use don't show again checkbox value even if the admin goes to the settings page
+
 ## 25.2.0
 
 ### Fixed
@@ -46,6 +74,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
 - SC-7083 - Added input to get the school id from admin
+
+## [25.1.4] - 2020-10-26
+
+### Fixed
+
+- SC-6735 additional fix - administration remove consent triggers import hash generation
 
 ## [25.1.3] - 2020-10-21
 

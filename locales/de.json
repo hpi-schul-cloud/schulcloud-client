@@ -1700,7 +1700,6 @@
 				"administrator": "Administrator",
 				"expert": "Experte",
 				"leader": "Leiter",
-				"member": "Mitglied",
 				"owner": "Eigentümer",
 				"teacher": "Lehrer"
 			}
@@ -2390,10 +2389,10 @@
 		},
 		"popup_resetPw": {
 			"button": {
-				"resetPassword": "Passwort Zurücksetzen"
+				"resetPassword": "Passwort zurücksetzen"
 			},
 			"headline": {
-				"resetPassword": "Passwort Zurücksetzen"
+				"resetPassword": "Passwort zurücksetzen"
 			},
 			"input": {
 				"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
@@ -2981,7 +2980,7 @@
 			},
 			"text": {
 				"shareWithOthersTeachers": "mit anderen Lehrern teilen",
-				"warningMain": "Hinweis: Beim Klicken des Links verlassen Sie das Angebot der Schul-Cloud",
+				"warningMain": "Hinweis: Beim Klicken des Links verlassen Sie das Angebot der Schul-Cloud Brandenburg",
 				"warningFooter": "Die Nutzung dieser Angebote unterliegt gegebenenfalls anderen rechtlichen Bedingungen. Bitte schauen Sie daher in die Datenschutzerklärung des externen Anbieters!"
 			}
 		},
