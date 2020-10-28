@@ -107,20 +107,23 @@
                                             <div class="pull-right">
                                                 <a  data-method="dir-rename"
                                                     aria-label="{{$t "teams._team.files.button.renameFolder"}}"
-                                                    data-directory-id="{{../this._id}}" data-directory-name="{{../this.name}}">
+                                                    data-directory-id="{{../this._id}}" data-directory-name="{{../this.name}}"
+                                                    tabindex="0">
                                                     <i class="fa fa-edit text-muted" aria-hidden="true"></i>
                                                 </a>
 
                                                 <a data-href="/files/directory/" data-method="delete"
                                                     aria-label="{{$t "teams._team.files.button.deleteFolder"}}"
-                                                    data-file-name="{{../this.name}}" data-file-id="{{../this._id}}">
+                                                    data-file-name="{{../this.name}}" data-file-id="{{../this._id}}"
+                                                    tabindex="0">
                                                     <i class="fa fa-trash-o text-muted" aria-hidden="true"></i>
                                                 </a>
 
                                         {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
                                             <a class="btn-file-share" data-method="dir-share"
                                                 title="{{$t "teams._team.files.button.shareFolder"}}"
-                                                data-file-id="{{../this._id}}" data-file-name="{{../this.name}}">
+                                                data-file-id="{{../this._id}}" data-file-name="{{../this.name}}"
+                                                tabindex="0">
                                                 <i class="fa fa-share-alt text-muted" aria-hidden="true"></i>
                                             </a>
                                         {{/inArray}}

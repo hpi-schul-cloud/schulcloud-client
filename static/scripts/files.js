@@ -297,7 +297,7 @@ $(document).ready(() => {
 	function deleteFileClickHandler(e) {
 		e.stopPropagation();
 		e.preventDefault();
-		const $buttonContext = $(this);
+		const $buttonContext = $(e.currentTarget);
 
 		$deleteModal.appendTo('body').modal('show');
 		$deleteModal
@@ -324,6 +324,11 @@ $(document).ready(() => {
 
 	$('button[data-method="delete"]').on('click', deleteFileClickHandler);
 	$('a[data-method="delete"]').on('click', deleteFileClickHandler);
+	$('a[data-method="delete"]').on('keypress', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			deleteFileClickHandler(e);
+		}
+	});
 
 	$deleteModal.find('.close, .btn-close').on('click', () => {
 		$deleteModal.modal('hide');
@@ -504,8 +509,8 @@ $(document).ready(() => {
 	function dirRenameClickHandler(e) {
 		e.stopPropagation();
 		e.preventDefault();
-		const dirId = $(this).attr('data-directory-id');
-		const oldName = $(this).attr('data-directory-name');
+		const dirId = $(e.currentTarget).attr('data-directory-id');
+		const oldName = $(e.currentTarget).attr('data-directory-name');
 
 		populateRenameModal(
 			oldName,
@@ -514,6 +519,11 @@ $(document).ready(() => {
 		);
 	}
 	$('a[data-method="dir-rename"]').on('click', dirRenameClickHandler);
+	$('a[data-method="dir-rename"]').on('keypress', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			dirRenameClickHandler(e);
+		}
+	});
 
 	const fileShare = (fileId, $shareModal, view) => {
 		const $input = $shareModal.find('input[name="invitation"]');
@@ -563,6 +573,12 @@ $(document).ready(() => {
 		const fileId = $(this).attr('data-file-id');
 		const $shareModal = $('.share-modal');
 		fileShare(fileId, $shareModal);
+	});
+	$('.btn-file-share').on('keypress', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			document.activeElement.click();
+		}
 	});
 
 	$('.btn-file-danger').click((e) => {

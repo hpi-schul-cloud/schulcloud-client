@@ -66,14 +66,16 @@
                                     <a data-method="dir-rename"
                                        title="{{$t "files.label.renameFolder"}}"
                                        data-directory-id="{{../this._id}}"
-                                       data-directory-name="{{../this.name}}">
-                                        <i class="fa fa-edit directory-icon" aria-hidden="true"></i>
+                                       data-directory-name="{{../this.name}}"
+									   tabindex="0">
+									    <i class="fa fa-edit directory-icon" aria-hidden="true"></i>
                                     </a>
 								    <a data-href="/files/directory/"
 									    data-method="delete"
 									    title="{{$t "files.label.deleteFolder"}}"
 									    data-file-id="{{../this._id}}"
-									    data-file-name="{{{../this.name}}}">
+									    data-file-name="{{{../this.name}}}"
+										tabindex="0">
 									    <i class="fa fa-trash-o directory-icon" aria-hidden="true"></i>
 								    </a>
                               </div>
