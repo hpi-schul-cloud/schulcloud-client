@@ -8,9 +8,8 @@ function fetchContent() {
 	$(`.${ghostTheme}-blog .spinner`).show();
 	$(`.${ghostTheme}-blog .placeholder`).hide();
 
-	const changePage = () => {
-		finalHtml = finalHtml.replace('<pre><code>', '');
-		finalHtml = finalHtml.replace('</code></pre>', '');
+	const placeGhostOnPage = () => {
+		finalHtml = $(finalHtml).children('code')[0].innerHTML;
 		$(`.${ghostTheme}-blog .loading`).remove();
 		$(`.${ghostTheme}-blog .content`).html(stripHtml(finalHtml,
 			{ onlyStripTags: ['script', 'style'] }));
@@ -28,7 +27,7 @@ function fetchContent() {
 	})
 		.done((result) => {
 			finalHtml = result.pages[0].html;
-			changePage();
+			placeGhostOnPage();
 		})
 		.fail(() => {
 			$(`.${ghostTheme}-blog .spinner`).hide();
