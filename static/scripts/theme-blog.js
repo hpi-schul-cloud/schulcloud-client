@@ -9,9 +9,9 @@ function fetchContent() {
 	$(`.${ghostTheme}-blog .placeholder`).hide();
 
 	const changePage = () => {
+		finalHtml = finalHtml.replace('<pre><code>', '');
+		finalHtml = finalHtml.replace('</code></pre>', '');
 		$(`.${ghostTheme}-blog .loading`).remove();
-		finalHtml = finalHtml
-			.replace(/<td>x<[/]td>/g, '<td><i class="fa fa-check"></i></td>');
 		$(`.${ghostTheme}-blog .content`).html(stripHtml(finalHtml,
 			{ onlyStripTags: ['script', 'style'] }));
 		$(`.${ghostTheme}-blog .content`).css('opacity', '1');
