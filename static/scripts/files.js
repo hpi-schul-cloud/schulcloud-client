@@ -290,7 +290,7 @@ $(document).ready(() => {
 	}
 
 	$('button[data-method="download"]').on('click', (e) => {
-		window.open($(e.currentTarget).attr('href'), '_blank');
+		window.open($(e.currentTarget).attr('data-href'), '_blank');
 		e.stopPropagation();
 	});
 
@@ -311,7 +311,7 @@ $(document).ready(() => {
 			.unbind('click')
 			.on('click', () => {
 				$.ajax({
-					url: $buttonContext.attr('href'),
+					url: $buttonContext.attr('data-href'),
 					type: 'DELETE',
 					data: {
 						id: $buttonContext.data('file-id'),

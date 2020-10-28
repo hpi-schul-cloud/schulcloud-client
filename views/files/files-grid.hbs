@@ -32,8 +32,7 @@
 										<i aria-hidden="true" class="fa fa-exclamation-triangle"></i>
 									</button>
 								{{else}}
-									<button href="/files/file?download=true&file={{../this._id}}&name={{../this.storageFileName}}"
-										target="_blank"
+									<button data-href="/files/file?download=true&file={{../this._id}}&name={{../this.storageFileName}}"
 										class="file-btn"
 										data-method="download"
 										title="{{$t "files.label.downloadFile"}}">
@@ -51,8 +50,7 @@
 
 								{{#ifneq this.context 'geteilte Datei'}}
 								{{#userHasPermission "FILE_DELETE"}}
-								<button href="/files/file/"
-								   target="_blank"
+								<button data-href="/files/file/"
 								   class="file-btn"
 								   data-method="delete"
 								   title="{{$t "files.label.deleteFile"}}"

@@ -63,16 +63,13 @@
 								</strong>
 								{{#userHasPermission "FOLDER_DELETE"}}
                               <div class="pull-right">
-                                    <a href="/directoryModel/{{../this._id}}/rename"
-                                       target="_blank"
-                                       data-method="dir-rename"
+                                    <a data-method="dir-rename"
                                        title="{{$t "files.label.renameFolder"}}"
                                        data-directory-id="{{../this._id}}"
                                        data-directory-name="{{../this.name}}">
                                         <i class="fa fa-edit directory-icon" aria-hidden="true"></i>
                                     </a>
-								    <a href="/files/directory/"
-									    target="_blank"
+								    <a data-href="/files/directory/"
 									    data-method="delete"
 									    title="{{$t "files.label.deleteFolder"}}"
 									    data-file-id="{{../this._id}}"
