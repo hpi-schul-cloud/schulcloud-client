@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+###Added
 
+- SC-6662 - Add data-testid in homework for integration test
+ 
 ## [25.1.7] - 2020-10-27
 
 ### Fixed
@@ -431,3 +434,4 @@ In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the 
 - SC-3732: edit button was not visible for course teachers except the author on the task detail page
 - SC-3807: link "Methodenguide" in nbc addons
 - provide more formats for PTSans font to be compatible with more browsers
+
