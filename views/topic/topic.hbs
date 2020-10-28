@@ -69,10 +69,12 @@
                                         <a href="{{this.url}}" target="_blank">
                                             {{this.title}}
                                         </a>
-                                        <div class="external-source-warning">
-                                            <h5>{{$t "topic._topic.text.warningMain" }}</h5>
-                                            <h6>{{$t "topic._topic.text.warningFooter" }}</h6>
-                                        </div>
+                                        {{#ifeq @root.theme.name "brb"}}
+                                            <div class="external-source-warning">
+                                                <h5>{{$t "topic._topic.text.warningMain" }}</h5>
+                                                <h6>{{$t "topic._topic.text.warningFooter" }}</h6>
+                                            </div>
+                                        {{/ifeq}}
                                     </h2>
                                     <p class="card-text">{{this.description}}</p>
                                     {{#if this.download}}
