@@ -1370,19 +1370,6 @@
 				"openMyfiles" : "Open my personal Files",
 				"openSharedFiles" : "Open shared Files",
 				"openTeamFiles" : "Open my Team Files"
-			},
-			"button": {
-				"openFiles" : "Open files"
-			},
-			"headline": {
-				"myCourseFiles" : "My Course Files",
-				"myTeamFiles" : "My Team Files"
-			},
-			"text": {
-				"CourseFilesDesc" : "Here you will find all files used in the respective courses in class. All participants of the course, the teacher and the students, have access to these files.",
-				"PersonalFilesDesc" : "Here you can find all your personal files. Only you have access to these files, but you can also share them with other users.",
-				"SharedFilesDesc" : "Here you can find all the files you have shared with you. These are files that have been provided by other users.",
-				"TeamFilesDesc" : "Here you will find all files used in the respective courses in class. All participants of the team have access to these files."
 			}
 		},
 		"search": {
