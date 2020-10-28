@@ -2,16 +2,13 @@ const stripHtml = require('string-strip-html');
 
 const ghostTheme = $('#SC_THEME').text();
 
-function fetchContent() {
-	let finalHtml = '';
-
+const fetchContent = () => {
 	$(`.${ghostTheme}-blog .spinner`).show();
 	$(`.${ghostTheme}-blog .placeholder`).hide();
 
-	const placeGhostOnPage = () => {
-		finalHtml = $(finalHtml).children('code')[0].innerHTML;
+	const placeGhostOnPage = (ghostHtml) => {
 		$(`.${ghostTheme}-blog .loading`).remove();
-		$(`.${ghostTheme}-blog .content`).html(stripHtml(finalHtml,
+		$(`.${ghostTheme}-blog .content`).html(stripHtml($(ghostHtml).children('code')[0].innerHTML,
 			{ onlyStripTags: ['script', 'style'] }));
 		$(`.${ghostTheme}-blog .content`).css('opacity', '1');
 	};
@@ -26,14 +23,13 @@ function fetchContent() {
 		timeout: 8000,
 	})
 		.done((result) => {
-			finalHtml = result.pages[0].html;
-			placeGhostOnPage();
+			placeGhostOnPage(result.pages[0].html);
 		})
 		.fail(() => {
 			$(`.${ghostTheme}-blog .spinner`).hide();
 			$(`.${ghostTheme}-blog .placeholder`).show();
 		});
-}
+};
 
 $(document).ready(() => {
 	fetchContent();
