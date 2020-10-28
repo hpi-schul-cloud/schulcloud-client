@@ -292,7 +292,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}hidden{{/if}}">
+                        <div class="form-group {{#unless @root.ROCKETCHAT_SERVICE_ENABLED}}hidden{{/unless}}">
 							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
 								<label>
 									<input
