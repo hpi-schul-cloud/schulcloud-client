@@ -6,25 +6,25 @@
 		</div>
 	</div>
 	{{/if}}
-	<div data-testid="courses">
+	<div data-testid="homework-courses">
 		{{#each content}}
 			<a class="homework-link" aria-label="{{this.courseId.name}} - {{this.title}} (Es wird im neuen Fenster geöffnet)" href="{{this.url}}{{#if ../redirectToTab}}#activetabid={{../redirectToTab}}{{/if}}">
 				<div class="card card-block homework-tile" style="border-left: 10px solid {{this.background}};">
 					<div class="text-muted">
 						{{#if this.courseId}}
-							<span>{{{ stripOnlyScript this.courseId.name }}}</span>
+							<span data-testid="homework-course-name">{{{ stripOnlyScript this.courseId.name }}}</span>
 						{{/if}}
-						<span class="pull-right">{{{ stripOnlyScript this.secondaryTitle }}}
+						<span class="pull-right" data-testid="homework-due-date">{{{ stripOnlyScript this.secondaryTitle }}}
 							{{#if this.stats.userCount}}
-								<span class="hidden-xs-down">| {{$t "dashboard.text.handedIn"}} {{this.stats.submissionCount}}/{{this.stats.userCount}}</span>
+								<span class="hidden-xs-down" data-testid="homework-submitted">| {{$t "dashboard.text.handedIn"}} {{this.stats.submissionCount}}/{{this.stats.userCount}}</span>
 							{{/if}}
 						</span>
 					</div>
 					<div class="title-row">
 						{{#if this.stats.userCount}}
-							<span class="pull-right pl-2 text-muted hidden-xs-down">{{$t "dashboard.text.graded"}} {{this.stats.gradeCount}}/{{this.stats.submissionCount}}</span>
+							<span class="pull-right pl-2 text-muted hidden-xs-down" data-testid="homework-graded">{{$t "dashboard.text.graded"}} {{this.stats.gradeCount}}/{{this.stats.submissionCount}}</span>
 						{{/if}}
-						<span class="title w-100">{{{ stripOnlyScript this.name }}}</span>
+						<span class="title w-100" data-testid="homework-name">{{{ stripOnlyScript this.name }}}</span>
 					</div>
 				</div>
 			</a>
