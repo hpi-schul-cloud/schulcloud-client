@@ -893,7 +893,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 			window.location.href = '#file-view';
 			$('#file-view').css('display', '');
 			$('#picture').attr('src', `/files/file?file=${id}&name=${name}`);
-			$('#picture').attr('alt', $t('files.img_alt.theImageX', { imgName: name }));
+			$('#picture').attr('alt', $t('files.img_alt.altInfoTheImage', { imgName: name }));
 			$('.videostop').focus();
 			break;
 

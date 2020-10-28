@@ -1320,7 +1320,7 @@
 			"newFolder": "New folder"
 		},
 		"img_alt" :{
-			"theImageX" : "the image {{imgName}}"
+			"altInfoTheImage" : "the image {{imgName}}"
 		},
 		"input": {
 			"filename": "Name of the file",
