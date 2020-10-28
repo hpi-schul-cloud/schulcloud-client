@@ -19,6 +19,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
 
+## [25.1.7] - 2020-10-27
+
+### Fixed
+
+- SC-7502 - Fixed disabled attribute definition on registration link buttons
+
 ## [25.1.6] - 2020-10-21
 
 ### Added
