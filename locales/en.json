@@ -1365,6 +1365,12 @@
 			"write": "Write"
 		},
 		"overview": {
+			"aria_label":{
+				"openCourseFiles" : "Open my Course Files",
+				"openMyfiles" : "Open my personal Files",
+				"openSharedFiles" : "Open shared Files",
+				"openTeamFiles" : "Open my Team Files"
+			},
 			"button": {
 				"openFiles" : "Open files"
 			},

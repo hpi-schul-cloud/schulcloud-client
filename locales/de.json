@@ -1365,6 +1365,12 @@
 			"write": "Schreiben"
 		},
 		"overview" : {
+			"aria_label":{
+				"openCourseFiles" : "Öffne meine Kurs-Dateien",
+				"openMyfiles" : "Öffne meine persönlichen Dateien",
+				"openSharedFiles" : "Öffne mit mir geteilte Dateien",
+				"openTeamFiles" : "Öffne meine Team-Dateien"
+			},
 			"button" : {
 				"openFiles" : "Dateien öffnen"
 			},
