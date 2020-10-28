@@ -323,6 +323,7 @@ $(document).ready(() => {
 	}
 
 	$('button[data-method="delete"]').on('click', deleteFileClickHandler);
+	$('a[data-method="delete"]').on('click', deleteFileClickHandler);
 
 	$deleteModal.find('.close, .btn-close').on('click', () => {
 		$deleteModal.modal('hide');
@@ -512,7 +513,7 @@ $(document).ready(() => {
 			$t('files._file.headline.renameDir'),
 		);
 	}
-	$('button[data-method="dir-rename"]').on('click', dirRenameClickHandler);
+	$('a[data-method="dir-rename"]').on('click', dirRenameClickHandler);
 
 	const fileShare = (fileId, $shareModal, view) => {
 		const $input = $shareModal.find('input[name="invitation"]');

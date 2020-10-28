@@ -97,13 +97,12 @@
                             <div class="row">
                                 {{#each ../directories}}
                                 <div class="col-sm-6 col-xs-12 col-md-4">
-                                    <div class="card card-block folder locationlink"
-                                        data-loclink="/files/teams/{{../../_id}}/{{this._id}}">
-                                        <button type="button" class="button-transparent">
+                                    <button class="card card-block folder locationlink"
+                                        data-loclink="/files/teams/{{../../_id}}/{{this._id}}"
+                                        aria-label="{{$t "files.label.clickToOpenDir" (dict "name" this.name)}}">
                                             <strong class="card-title-directory">
                                                 <i class="fa fa-folder text-muted" aria-hidden="true"></i> {{this.name}}
                                             </strong>
-                                        </button>
                                         {{#userHasPermission "FOLDER_DELETE"}}
                                             <div class="pull-right">
                                                 <a href="/directoryModel/{{../this._id}}/rename" target="_blank"
@@ -129,7 +128,7 @@
                                         {{/inArray}}
                                         </div>
                                         {{/userHasPermission}}
-                                    </div>
+                                    </button>
                                 </div>
                                 {{/each}}
                             </div>
