@@ -483,8 +483,8 @@ router.post('/', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	const startDate = timesHelper.createFromString(req.body.startDate, 'DD:MM:YYYY');
-	const untilDate = timesHelper.createFromString(req.body.untilDate, 'DD:MM:YYYY');
+	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
+	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
 
 	delete req.body.startDate;
 	if (startDate.isValid()) {
@@ -527,8 +527,8 @@ router.post('/copy/:courseId', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	const startDate = timesHelper.createFromString(req.body.startDate, 'DD:MM:YYYY');
-	const untilDate = timesHelper.createFromString(req.body.untilDate, 'DD:MM:YYYY');
+	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
+	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
 
 	delete req.body.startDate;
 	if (startDate.isValid()) {
