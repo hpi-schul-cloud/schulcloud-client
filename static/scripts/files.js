@@ -13,18 +13,12 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 		window.location = `?${params}`;
 	};
-	$('select[name="sortBy"]').chosen({
-		width: '',
-		disable_search: true,
-	}).change((_, { selected }) => {
-		sortBy = selected;
+	$('select[name="sortBy"]').on('change', (e) => {
+		sortBy = $(e.currentTarget).val();
 		navigate();
 	});
-	$('select[name="sortOrder"]').chosen({
-		width: '',
-		disable_search: true,
-	}).change((_, { selected }) => {
-		sortOrder = selected;
+	$('select[name="sortOrder"]').on('change', (e) => {
+		sortOrder = $(e.currentTarget).val();
 		navigate();
 	});
 });
