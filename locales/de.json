@@ -1277,6 +1277,7 @@
 			"headline": {
 				"assertDeletion": "Bist du dir sicher, dass du '{{filename}}' löschen möchtest?",
 				"editPermissions": "Berechtigungen bearbeiten",
+				"functionCurrentlyDisabled" : "Funktion vorübergehend deaktiviert",
 				"moveFile": "Datei verschieben",
 				"renameDir": "Ordner umbenennen",
 				"shareLink": "Freigabe-Link"
@@ -1289,6 +1290,8 @@
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileMoved": "Verschieben der Datei war erfolgreich!",
+				"littleHintHowToMoveFiles" : "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
+				"movingFilesIsDisabled": "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
 				"pleaseSelectFileType": "Bitte wähle einen Dateityp aus.",
 				"renameDirSuccess": "Umbenennen des Ordners war erfolgreich!",
@@ -1316,14 +1319,20 @@
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
 			"newFolder": "Neuer Ordner"
 		},
+		"img_alt":{
+			"altInfoTheImage" : "Das Bild {{imgName}}"
+		},
 		"input": {
 			"filename": "Name der Datei",
 			"foldername": "Name des Ordners",
 			"searchFiles": "Dateien durchsuchen..."
 		},
 		"label": {
+			"backToFiles" : "Zurück zur Dateien-Übersicht",
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
+			"clickToOpenDir" : "Ordner {{name}} öffnen",
+			"clickToOpenFile" : "Datei {{name}} öffnen",
 			"close": "Schließen",
 			"dangerousCode": "Schädlicher Code",
 			"deleteFile": "Datei löschen",
@@ -1356,18 +1365,11 @@
 			"write": "Schreiben"
 		},
 		"overview" : {
-			"button" : {
-				"openFiles" : "Dateien öffnen"
-			},
-			"headline":{
-				"myCourseFiles" : "Meine Kurs-Dateien",
-				"myTeamFiles" : "Meine Team-Dateien"
-			},
-			"text" : {
-				"CourseFilesDesc" : "Hier findest du alle Dateien, die in den jeweiligen Kursen im Unterricht verwendet werden. Alle Teilnehmer des Kurses, also der Lehrer und die Schüler, haben auf diese Dateien Zugriff.",
-				"PersonalFilesDesc" : "Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.",
-				"SharedFilesDesc" : "Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzern zur Verfügung gestellt worden sind.",
-				"TeamFilesDesc" : "Hier findest du alle Dateien, die in den jeweiligen Teams verwendet werden. Alle Teilnehmer des Teams haben auf diese Dateien Zugriff."
+			"aria_label":{
+				"openCourseFiles" : "Öffne meine Kurs-Dateien",
+				"openMyfiles" : "Öffne meine persönlichen Dateien",
+				"openSharedFiles" : "Öffne mit mir geteilte Dateien",
+				"openTeamFiles" : "Öffne meine Team-Dateien"
 			}
 		},
 		"search": {
@@ -1387,7 +1389,6 @@
 			"foundIn": "gefunden in:",
 			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
 			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
-			"movingCurrentlyDisabled": "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 			"newDir": "Neuer Ordner",
 			"newFile": "Neue Datei",
 			"noAccessToThisFile": "Zu dieser Datei haben Sie keinen Zugriff!",
@@ -1699,7 +1700,6 @@
 				"administrator": "Administrator",
 				"expert": "Experte",
 				"leader": "Leiter",
-				"member": "Mitglied",
 				"owner": "Eigentümer",
 				"teacher": "Lehrer"
 			}
@@ -2389,10 +2389,10 @@
 		},
 		"popup_resetPw": {
 			"button": {
-				"resetPassword": "Passwort Zurücksetzen"
+				"resetPassword": "Passwort zurücksetzen"
 			},
 			"headline": {
-				"resetPassword": "Passwort Zurücksetzen"
+				"resetPassword": "Passwort zurücksetzen"
 			},
 			"input": {
 				"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
@@ -2980,7 +2980,7 @@
 			},
 			"text": {
 				"shareWithOthersTeachers": "mit anderen Lehrern teilen",
-				"warningMain": "Hinweis: Beim Klicken des Links verlassen Sie das Angebot der Schul-Cloud",
+				"warningMain": "Hinweis: Beim Klicken des Links verlassen Sie das Angebot der Schul-Cloud Brandenburg",
 				"warningFooter": "Die Nutzung dieser Angebote unterliegt gegebenenfalls anderen rechtlichen Bedingungen. Bitte schauen Sie daher in die Datenschutzerklärung des externen Anbieters!"
 			}
 		},

@@ -9,26 +9,29 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-### Fixed - 23.10.2020
-
-- SC-6721 - fixed classes list in course administration
-
 ### Added
 
 - SC-7447 - Add warning text for links when leaving the schul-cloud platform
 - SC-6293 - added option to school admin to disable lernstore for students
+- SC-7413 - Add winston handler for logging unhandled rejection and exceptions
 
 ### Fixed
 
+- SC-5555 - Fixed class names not being visible in course creation in some cases
 - SC-7463 - Fixed undefined value when requesting school systems login
 - SC-7392 fix create event for teams / courses
 - SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
+- SC-6721 - fixed classes list in course administration
+- SC-7084 - changed file permission name Mitglied to Teilnehmer
+- SC-5501 - fixed grammar issue for password recovery request
 
-### Changed in unreleased
+### Changed
 
 - SC-7530 rename SHOW_VERSION to FEATURE_SHOW_VERSION_ENABLED
 - update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
 - SC-6951 removes via text from embeded course content
+- SC-6870 use don't show again checkbox value even if the admin goes to the settings page
+
 ## 25.2.0
 
 ### Fixed
@@ -45,6 +48,30 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6870 - Added UX improvements for Matrix messenger announcement
 - SC-7083 - Added input to get the school id from admin
+
+## [25.1.7] - 2020-10-27
+
+### Fixed
+
+- SC-7502 - Fixed disabled attribute definition on registration link buttons
+
+## [25.1.6] - 2020-10-21
+
+### Added
+
+- SC-7447 - Add warning text for links when leaving the schul-cloud platform
+
+## [25.1.5] - 2020-10-27
+
+### Fixed
+
+- SC-7490 fixed get request for landing pages which are not from ghost
+
+## [25.1.4] - 2020-10-26
+
+### Fixed
+
+- SC-6735 additional fix - administration remove consent triggers import hash generation
 
 ## [25.1.3] - 2020-10-21
 
