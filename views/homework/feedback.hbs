@@ -4,7 +4,7 @@
             data-toggle="tooltip" title="{{$t "homework._task.label.printGradeComment"}}">
                 <i class='fa fa-print'></i>
         </div>
-        {{#if @root.submission.grade}}
+        {{#if @root.submission.grade includeZero=true}}
            {{{$t "homework._task.text.youHaveSolvedXPercent" (dict "grade" @root.submission.grade)}}}
         {{/if}}
 

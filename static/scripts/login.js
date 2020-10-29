@@ -1,5 +1,4 @@
 import './pwd';
-import './cleanup'; // see loggedin.js for loggedin users
 import initAlerts from './alerts';
 import * as storage from './helpers/storage';
 
@@ -135,7 +134,7 @@ $(document).ready(() => {
 	});
 
 	$school.on('change', () => {
-		const id = $(this).val();
+		const id = $school.val();
 		if (id !== '') {
 			loadSystems(id);
 		} else {

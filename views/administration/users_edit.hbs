@@ -115,11 +115,13 @@
                                         <button class="btn btn-secondary btn-delete">{{$t "administration.users_edit.headline.deleteUser" }}</button>
                                     {{/if}}
                                     <button class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}"
-                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="{{$t "administration.users_edit.button.alreadyRegistered" }}"{{/ifeq}}>
+                                    {{#if hasAccount}} disabled {{/if}}
+                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}} title="{{$t "administration.users_edit.button.alreadyRegistered" }}"{{/ifeq}}>
                                         {{$t "administration.button.generatePersonalInvitationLink" }}
                                     </button>
                                     <button class="btn btn-secondary btn-send-link-email {{#if editTeacher}}teacher{{else}}student{{/if}}"
-                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="{{$t "administration.users_edit.button.alreadyRegistered" }}"{{/ifeq}}>
+                                    {{#if hasAccount}} disabled {{/if}}
+                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}} title="{{$t "administration.users_edit.button.alreadyRegistered" }}"{{/ifeq}}>
                                         {{$t "administration.button.sendTheInvitationLinkByMail" }}
                                     </button>
                                 {{/unless}}
@@ -171,3 +173,4 @@
 
     {{/content}}
 {{/extend}}
+

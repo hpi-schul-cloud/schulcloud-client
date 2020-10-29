@@ -438,15 +438,29 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 		return;
 	} catch (err) {
-		const message = res.$t('administration.controller.text.importFailed');
-		req.session.notification = {
-			type: 'danger',
-			message,
-		};
-		const query = queryString.stringify({
-			'toast-type': 'error',
-			'toast-message': encodeURIComponent(message),
-		});
+		let query;
+		if (err.error && err.error.code && err.error.code === 'ESOCKETTIMEDOUT') {
+			const message = res.$t('administration.controller.text.importMayBeStillRunning');
+			req.session.notification = {
+				type: 'info',
+				message,
+			};
+			query = queryString.stringify({
+				'toast-type': 'info',
+				'toast-message': encodeURIComponent(message),
+			});
+		} else {
+			const message = res.$t('administration.controller.text.importFailed');
+			req.session.notification = {
+				type: 'danger',
+				message,
+			};
+			query = queryString.stringify({
+				'toast-type': 'error',
+				'toast-message': encodeURIComponent(message),
+			});
+		}
+
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 	}
 };
@@ -1063,6 +1077,7 @@ router.get(
 				isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 				referrer: req.header('Referer'),
+				hasAccount: !!account,
 			});
 		});
 	},
@@ -1522,6 +1537,7 @@ router.get(
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+					hasAccount: !!account,
 				});
 			})
 			.catch((err) => {
@@ -2381,6 +2397,21 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		delete req.body.studentVisibility;
 
+		// Toggle sudent lernstore view permission
+		const studentLernstoreFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED');
+		if (studentLernstoreFeature) {
+			await api(req)
+				.patch('school/student/studentlernstorevisibility', {
+					json: {
+						permission: {
+							isEnabled: !!req.body.studentlernstorevisibility,
+						},
+					},
+				});
+		}
+
+		delete req.body.studentlernstorevisibility;
+
 		// Update school features
 		const possibleSchoolFeatures = ['messenger', 'messengerSchoolRoom'];
 		for (const feature of possibleSchoolFeatures) {
@@ -2485,7 +2516,7 @@ router.all('/courses', (req, res, next) => {
 		const coursesBody = courses.data.map((item) => [
 			item.name,
 			// eslint-disable-next-line no-shadow
-			(item.classIds || []).map((item) => item.displayName).join(', '),
+			(item.classIds || []).map((item) => classes.find((obj) => obj._id === item.id).displayName).join(', '),
 			// eslint-disable-next-line no-shadow
 			(item.teacherIds || []).map((item) => item.lastName).join(', '),
 			[

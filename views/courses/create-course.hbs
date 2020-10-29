@@ -175,12 +175,7 @@
                                 <option disabled value="{{$t "administration.global.placeholder.selectClasses"}}">{{$t "administration.global.placeholder.selectClasses"}}</option>
                             {{#each ../classes}}
                               <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                  {{#if this.name}}
-                                      {{this.displayName}}
-                                  {{else}}
-                                      {{this.name}}
-                                  {{/if}}
-
+                                  {{this.displayName}}
                                   {{#if this.year}}
                                       ({{this.year.name}})
                                   {{/if}}
