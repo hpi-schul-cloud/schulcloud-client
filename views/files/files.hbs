@@ -38,7 +38,7 @@
 			{{#if sortOptions}}
 				<div class="pull-right">
 					<label for="sortBy" style="position: absolute;left:-999px">{{$t "files.label.sortBy"}}</label>
-					<select name="sortBy" class="form-control order-sel">
+					<select name="sortBy" id="sortBy" class="form-control order-sel">
 						 {{#each sortOptions}}
 							<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
 								{{this.label}}
