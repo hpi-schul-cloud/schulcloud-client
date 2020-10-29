@@ -1361,6 +1361,7 @@
 			"selectAFolder": "Select a folder",
 			"shareFile": "Share file",
 			"size": "Size",
+			"sortBy" : "Sort by...",
 			"updatedAt": "Modification date",
 			"write": "Write"
 		},
