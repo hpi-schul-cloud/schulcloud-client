@@ -22,5 +22,6 @@
 		"FALLBACK_LANGUAGE": "de",
 		"DEBUG": false,
 		"AVAILABLE_LANGUAGES": "de,en"
-	}
+	},
+	"FEATURE_SHOW_VERSION_ENABLED": false
 }
