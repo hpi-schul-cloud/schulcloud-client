@@ -416,6 +416,11 @@
 				"DEFAULT_LANGUAGE",
 				"AVAILABLE_LANGUAGES"
 			]
+		},
+		"FEATURE_SHOW_VERSION_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "enable the /versions route"
 		}
 	},
 	"allOf": [
@@ -465,6 +470,7 @@
 		"COOKIE_SECRET",
 		"STUDENT_TEAM_CREATION",
 		"FEATURE_ETHERPAD_ENABLED",
-		"FEATURE_EXTENSION_PORTFOLIO_ENABLED"
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED",
+		"FEATURE_SHOW_VERSION_ENABLED"
 	]
 }

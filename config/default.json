@@ -23,5 +23,6 @@
 		"DEFAULT_TIMEZONE": "Europe/Berlin",
 		"DEBUG": false,
 		"AVAILABLE_LANGUAGES": "de,en"
-	}
+	},
+	"FEATURE_SHOW_VERSION_ENABLED": false
 }
