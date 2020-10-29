@@ -17,6 +17,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-5555 - Fixed class names not being visible in course creation in some cases
 - SC-7463 - Fixed undefined value when requesting school systems login
 - SC-7392 fix create event for teams / courses
 - SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
