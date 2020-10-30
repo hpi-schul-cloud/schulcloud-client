@@ -3,7 +3,7 @@
         <label for={{id}}>{{label}}</label>{{#if required}}<sup>*</sup>{{/if}}
     {{/if}}
     <div class="{{class}}">
-    <input
+        <input
             class="form-control"
             data-datetime
             name={{id}}
@@ -19,11 +19,11 @@
             {{#if disabled}}disabled{{/if}}
             {{#if required}}required{{/if}}
             {{#if readonly}}readonly{{/if}}
-    />
-    {{#unless userHasSchoolTimezone}}{{#if currentTimezone}}
-        <div class="input-group-addon">
-            <span class="input-group-text">{{ currentTimezone }} {{#if currentTimezoneOffset}}(UTC{{currentTimezoneOffset}}){{/if}}</span>
-        </div>
-    {{/if}}{{/unless}}
-</div>
+        />
+        {{#unless userHasSchoolTimezone}}{{#if currentTimezone}}
+            <div class="input-group-addon">
+                <span class="input-group-text">{{ currentTimezone }} {{#if currentTimezoneOffset}}(UTC{{currentTimezoneOffset}}){{/if}}</span>
+            </div>
+        {{/if}}{{/unless}}
+    </div>
 </div>

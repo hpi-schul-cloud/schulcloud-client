@@ -16,21 +16,38 @@
             <div class="fullcalendar" id="calendar"></div>
         </div>
         {{#userHasPermission "CALENDAR_CREATE"}}
-            {{#embed "lib/components/modal-form" class="create-event-modal" action="/calendar/events/" userId=../userId showVideoconferenceOption=../showVideoconferenceOption currentTimezone=../currentTimezone currentTimezoneOffset=../currentTimezoneOffset}}
+            {{#embed
+                "lib/components/modal-form"
+                class="create-event-modal"
+                action="/calendar/events/"
+                userId=../userId
+                showVideoconferenceOption=../showVideoconferenceOption
+                userHasSchoolTimezone=../userHasSchoolTimezone
+                currentTimezone=../currentTimezone
+                currentTimezoneOffset=../currentTimezoneOffset
+            }}
                 {{#content "fields"}}
                     {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="2" collapseIdTeam="3"}}
                 {{/content}}
             {{/embed}}
         {{/userHasPermission}}
 
-        {{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal" currentTimezone=../currentTimezone  currentTimezoneOffset=../currentTimezoneOffset}}
+        {{#embed
+            "lib/components/modal-form"
+            method="put"
+            action="/calendar/events/"
+            class="edit-event-modal"
+            userHasSchoolTimezone=../userHasSchoolTimezone
+            currentTimezone=../currentTimezone
+            currentTimezoneOffset=../currentTimezoneOffset
+        }}
             {{#content "fields"}}
                 {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
             {{/content}}
             {{#content "additional-actions"}}
-                    <button type="button" class="btn btn-primary btn-danger btn-delete">
-                        <i class="fa fa-trash-o"></i> {{$t "global.headline.delete" }}
-                    </button>
+                <button type="button" class="btn btn-primary btn-danger btn-delete">
+                    <i class="fa fa-trash-o"></i> {{$t "global.headline.delete" }}
+                </button>
             {{/content}}
         {{/embed}}
     {{/content}}
