@@ -114,7 +114,7 @@
               </div>
 
               {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-                {{#inArray "messenger" @root.schoolData.features}}
+                {{#inArray "messenger" @root.currentSchoolData.features}}
                   <div class="form-group">
                     <label>
                       <input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
@@ -176,12 +176,7 @@
                             {{#each ../classes}}
                               <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                   {{log this.year}}
-                                  {{#if this.name}}
-                                      {{this.displayName}}
-                                  {{else}}
-                                      {{this.name}}
-                                  {{/if}}
-
+                                  {{this.displayName}}
                                   {{#if this.year}}
                                       ({{this.year.name}})
                                   {{/if}}
