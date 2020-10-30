@@ -5,7 +5,7 @@
     - Code should be self-explanatory and share your knowledge with others
     - Document code that is not self-explanatory
     - Think about bugs and keep security in mind
-    - Write tests (Unit and Integration), also for error cases
+    - Write tests (Unit and end-to-end-tests), also for error cases
     - Main logic should hidden behind the api, never trust the client
     - Visible changes should be discussed with the UX-Team from the beginning of development; they also have to accept them at the end
     - Keep the changelog up-to-date
