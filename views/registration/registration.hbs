@@ -26,7 +26,13 @@
 
     </div>
 	<div id="welcome-screen" style="display: none;">
-		<h2 class="h4">{{$t "registration._registration.headline.welcomeToTheRegistration" (dict "title" theme.title)}}</h2>
+		<h2 class="h4">
+			{{#ifeq theme.name "n21"}}
+				{{$t "registration._registration.headline.welcomeToTheRegistration" (dict "title" "Niedersächsischen BildungsCloud")}} 
+			{{else}}
+				{{$t "registration._registration.headline.welcomeToTheRegistration" (dict "title" ../theme.title)}}
+			{{/ifeq}}
+		</h2> 
 		<p>{{$t "registration._registration.text.theRegistrationProcessChangesAccordingToAge" (dict "minAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "independentAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>
 		<p>{{$t "registration._registration.text.pleaseChooseTheAgeOfTheStudents"}} </p>
 		<div class="form-group">
