@@ -1,4 +1,15 @@
 {
+	"format": {
+		"dateToPicker": "DD.MM.YYYY",
+		"datePicker": "d.m.Y",
+		"datePickerMask": "39.19.9999",
+		"dateTimeToPicker": "DD.MM.YYYY HH:mm",
+		"dateTimePicker": "d.m.Y H:i",
+		"dateTimePickerMask": "39.19.9999 29:59",
+		"date": "DD.MM.YYYY",
+		"dateTime": "DD.MM.YYYY HH:mm",
+		"dateLong": "dddd, DD. MMMM YYYY"
+	},
 	"about": {
 		"button": {
 			"showLess": "Weniger anzeigen",
@@ -582,6 +593,7 @@
 				"studentVisibility": "Sichtbarkeit von Schüler:innen für Lehrkräfte aktivieren",
 				"transferPhase": "Transferphase",
 				"uploadSchoolLogo": "Schullogo hochladen",
+				"timezone": "Zeitzone",
 				"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP  <br> für das neue Schuljahr sind bearbeitet.",
 				"youCantGoBack": "Du kannst nicht mehr zurück",
 				"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr"
@@ -2106,6 +2118,7 @@
 			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
 			"due": "Fällig",
+			"till": "bis",
 			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
 			"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
 			"noAssignment": "Keine Zuordnung",
@@ -2954,7 +2967,7 @@
 			},
 			"text": {
 				"group": "({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
-				"nextLesson": "Nächste Unterrichtsstunde: {{nextEvent}}",
+				"nextLesson": "Nächste Unterrichtsstunde: {{i18nDateTime nextEvent}}",
 				"noIssues": "Keine Themen.",
 				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}Schülergruppen{{else}}Meine Schülergruppen {{/userHasPermission}}"
 			}

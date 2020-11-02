@@ -9,6 +9,7 @@ const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
 const recurringEventsHelper = require('../helpers/recurringEvents');
+const timesHelper = require('../helpers/timesHelper');
 
 const { CALENDAR_SERVICE_ENABLED } = require('../config/global');
 
@@ -45,12 +46,8 @@ const mapEventProps = (data, service) => {
 
 		// format course start end until date
 		if (data.startDate) {
-			data.startDate = moment(new Date(data.startDate).getTime()).format(
-				'YYYY-MM-DD',
-			);
-			data.untilDate = moment(new Date(data.untilDate).getTime()).format(
-				'YYYY-MM-DD',
-			);
+			data.startDate = timesHelper.dateToDateString(data.startDate);
+			data.untilDate = timesHelper.dateToDateString(data.untilDate);
 		}
 	}
 
@@ -414,7 +411,7 @@ router.all(
 					truncate(item.currentState || ''),
 					truncate(item.targetState || ''),
 					res.$t(`administration.controller.text.${item.state}`),
-					moment(item.createdAt).format('DD.MM.YYYY'),
+					timesHelper.dateToDateString(item.createdAt),
 					truncate(item.notes || ''),
 					getTableActionsSend(item, '/helpdesk/', item.state, res),
 				]);

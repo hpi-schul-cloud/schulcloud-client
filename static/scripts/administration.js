@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { softNavigate } from './helpers/navigation';
 import { populateCourseTimes } from './coursesTimes';
 import './jquery/datetimepicker-easy';
@@ -144,7 +145,7 @@ $(document).ready(() => {
 		e.preventDefault();
 		const entry = $(this).attr('href');
 		$.getJSON(entry, (result) => {
-			result.createdAt = new Date(result.createdAt).toLocaleString();
+			result.createdAt = moment(result.createdAt).format($t('format.dateTimeToPicker'));
 			populateModalForm($editModal, {
 				action: entry,
 				title: $t('global.button.edit'),
