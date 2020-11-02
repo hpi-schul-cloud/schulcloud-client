@@ -1712,6 +1712,7 @@
 				"administrator": "Administrator",
 				"expert": "Expert",
 				"leader": "Leader",
+				"member": "Attendee",
 				"owner": "Owner",
 				"teacher": "Teacher"
 			}
