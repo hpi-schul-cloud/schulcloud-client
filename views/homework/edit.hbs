@@ -9,24 +9,26 @@
         const lang = $('html').attr('lang');
 		$.datetimepicker.setLocale(lang || 'de');
 		$('input[data-datetime]').datetimepicker({
-			format: 'd.m.Y H:i',
-			mask: '39.19.9999 29:59',
+			format: '{{$t "format.dateTimePicker"}}',
+			mask: '{{$t "format.dateTimePickerMask"}}',
 			dayOfWeekStart: 1,
 			onShow: function (ct, input) {
-				if (input[0].id == "availableDate") {
+			    const datePickerMask = "{{$t "format.datePickerMask"}}";
+			    const datePickerPlaceholder = datePickerMask.replace(/[0-9]/g, "_");
+				if (input[0].id === "availableDate") {
 					let due = $("#dueDate").val().split(" ");
 					this.setOptions({
 						minDate: 0,
-						maxDate: (due[0] != "__.__.____") ? due[0] : false,
-						formatDate: 'd.m.Y',
+						maxDate: (due[0] !== datePickerPlaceholder) ? due[0] : false,
+						formatDate: '{{$t "format.datePicker"}}',
 					});
 				}
-				else if (input[0].id == "dueDate") {
+				else if (input[0].id === "dueDate") {
 					let available = $("#availableDate").val().split(" ");
 					this.setOptions({
-						minDate: (available[0] != "__.__.____") ? available[0] : 0,
+						minDate: (available[0] !== datePickerPlaceholder) ? available[0] : 0,
 						maxDate: false,
-						formatDate: 'd.m.Y'
+						formatDate: '{{$t "format.datePicker"}}'
 					});
 				}
 			}
@@ -178,22 +180,12 @@
 			<input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
 			{{/unless}}
 
-
-
 			<div class="row">
 				<div class="col-md-6">
-					<div class="form-group">
-						<label for="availableDate">{{$t "homework.global.label.visibleAndEditableForStudentsFrom" }}</label>
-						<input class="form-control" data-datetime name="availableDate" autocomplete="off" id="availableDate"
-							type="text" value="{{assignment.availableDate}}" />
-					</div>
+                    {{> "lib/forms/form-datetime-input" label=($t "homework.global.label.visibleAndEditableForStudentsFrom") id="availableDate" value=assignment.availableDate class="input-group mb-3" }}
 				</div>
 				<div class="col-md-6">
-					<div class="form-group">
-						<label for="dueDate">{{$t "homework.global.label.processingPeriodEndsOn" }}</label>
-						<input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate" type="text"
-							value="{{assignment.dueDate}}" />
-					</div>
+                    {{> "lib/forms/form-datetime-input" label=($t "homework.global.label.processingPeriodEndsOn") id="dueDate" value=assignment.dueDate class="input-group mb-3" }}
 				</div>
 			</div>
 
