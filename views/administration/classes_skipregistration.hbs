@@ -31,9 +31,8 @@
                 <input name="userids" type="hidden" data-force-value="true" value="{{id}}" />
             </td>
             <td>
-                <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}"
-                    data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthdays" type="text" required
-                    {{#if birthday}}value="{{dateToPicker birthday}}" {{/if}} />
+                {{> "lib/forms/form-date-input" id="birthday" value=birthday
+                    dataMinDate=(datePickerTodayMinus 100 0 0) dataMaxDate=(datePickerTodayMinus 4 0 0) required=true}}
             </td>
             <td>
                 <input type="text" name="passwords" class="form-control linked" value={{password}}
