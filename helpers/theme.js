@@ -6,14 +6,25 @@ const {
 	HOST,
 } = require('../config/global');
 
+const instanceSpecificTitle = () => {
+	switch (SC_THEME) {
+		case 'n21':
+			return 'Niedersächsischen Bildungscloud';
+		default:
+			return SC_TITLE;
+	}
+};
+
 const setTheme = (res) => {
 	const documents = defaultDocuments();
 	const baseDir = (res.locals.currentSchoolData || {}).documentBaseDir || documents.documentBaseDir;
+	const themeTitle = instanceSpecificTitle();
 
 	res.locals.theme = {
 		name: SC_THEME,
 		title: SC_TITLE,
 		short_title: SC_SHORT_TITLE,
+		theme_title: themeTitle,
 		documents: {
 			baseDir,
 			specificFiles: documents.specificFiles(baseDir),

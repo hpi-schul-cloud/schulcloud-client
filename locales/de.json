@@ -260,7 +260,7 @@
 				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
 				"importMayBeStillRunning" : "Der Import findet im Hintergrund statt und kann je nach Menge der Daten einige Minuten dauern.",
 				"inTheQueue": "In der Warteschlange",
-				"invitationEmailContent": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
+				"invitationEmailContent": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{theme_title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
 				"invitationEmailSubject": "Einladung für die Nutzung der {{title}}!",
 				"noDeclarationOfConsentAvailable": "Keine Einverständniserklärung vorhanden",
 				"onlyAllMembers": "Es können nur alle Mitglieder der eigenen Schule aus dem Team entfernt werden",

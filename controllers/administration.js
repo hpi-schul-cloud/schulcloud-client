@@ -275,6 +275,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 					content: {
 						text: res.$t('administration.controller.text.invitationEmailContent', {
 							title: res.locals.theme.title,
+							theme_title: res.locals.theme.theme_title,
 							firstName: user.firstName,
 							lastName: user.lastName,
 							shortLink: user.shortLink || res.locals.linkData.shortLink,
