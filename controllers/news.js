@@ -3,12 +3,11 @@
  */
 
 const express = require('express');
-const moment = require('moment');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const timesHelper = require('../helpers/timesHelper');
 
 const router = express.Router();
-moment.locale('de');
 
 router.use(authHelper.authChecker);
 
@@ -41,7 +40,7 @@ const createActions = (item, path) => {
 
 const getActions = (isRSS, res, newsItem) => !isRSS && createActions(newsItem, '/news/');
 
-const getDeleteHandler = service => (req, res, next) => {
+const getDeleteHandler = (service) => (req, res, next) => {
 	api(req)
 		.delete(`/${service}/${req.params.id}`)
 		.then(() => {
@@ -53,11 +52,10 @@ const getDeleteHandler = service => (req, res, next) => {
 };
 
 router.patch('/:newsId', (req, res, next) => {
-	req.body.displayAt = moment(
+	req.body.displayAt = timesHelper.dateTimeStringToMoment(
 		req.body.displayAt,
-		'DD.MM.YYYY HH:mm',
 	).toISOString();
-	req.body.updatedAt = moment().toISOString();
+	req.body.updatedAt = timesHelper.currentDate().toISOString();
 	req.body.updaterId = res.locals.currentUser._id;
 
 	api(req)
@@ -97,7 +95,7 @@ router.all('/', async (req, res, next) => {
 			...newsItem,
 			isRSS,
 			url: `/news/${newsItem._id}`,
-			secondaryTitle: moment(newsItem.displayAt).fromNow(),
+			secondaryTitle: timesHelper.fromUTC(newsItem.displayAt).fromNow(),
 			actions: getActions(isRSS, res, newsItem),
 		};
 	};
@@ -105,7 +103,7 @@ router.all('/', async (req, res, next) => {
 	try {
 		const news = await api(req).get('/news/', { qs: queryObject });
 		const totalNews = news.total;
-		const mappedNews = news.data.map(newsItem => decorateNews(newsItem));
+		const mappedNews = news.data.map((newsItem) => decorateNews(newsItem));
 
 		const unpublishedNews = await api(req).get('/news/', {
 			qs: {
@@ -116,7 +114,7 @@ router.all('/', async (req, res, next) => {
 		});
 		const unpublishedMappedNews = {
 			...unpublishedNews,
-			data: unpublishedNews.data.map(item => decorateNews(item)),
+			data: unpublishedNews.data.map((item) => decorateNews(item)),
 		};
 
 		const pagination = {
@@ -167,7 +165,7 @@ router.get('/:newsId/edit', (req, res, next) => {
 	api(req)
 		.get(`/news/${req.params.newsId}`, {})
 		.then((news) => {
-			news.displayAt = moment(news.displayAt).format('DD.MM.YYYY HH:mm');
+			news.displayAt = timesHelper.fromUTC(news.displayAt);
 			res.render('news/edit', {
 				title: res.$t('news._news.headline.editNews'),
 				submitLabel: res.$t('global.button.save'),
