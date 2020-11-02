@@ -55,7 +55,7 @@ class AlertMessageController {
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
-			<div class="text-muted" style="float: left;">${date.format('DD.MM.YYYY HH:mm')}</div> <br>
+			<div class="text-muted" style="float: left;">${date.format($t('format.dateTimeToPicker'))}</div> <br>
 			${messageText}
 			${url}
 			<div style="clear: both;"></div>`;

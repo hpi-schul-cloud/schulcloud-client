@@ -571,17 +571,20 @@
 				"endOfTheTransferPhase": "End of the transfer phase",
 				"fileStorageSpaceUsedInCloud": "Used file storage in the cloud",
 				"inTheTransferPhase": "in the transfer phase:",
+				"lernstoreEnabledForStudents": "Lern-Store for students",
 				"loginFromExistingUsers": "Logins of existing users",
 				"nameOfTheSchool": "Name of the school",
 				"noteAvailableFunction": "Note available functions",
 				"noteBeforeTheTransferPhase": "Note before the transfer phase:",
 				"passwordChangesInLDAP": "Password changes in LDAP",
 				"privacySettings": "Privacy Settings",
+				"schoolNumber": "School number:",
 				"schoolYear": "School year:",
 				"schoolYearChange": "Change of school year",
 				"selectProvider": "Select provider",
 				"startOfTheTransferPhase": "Start of the transfer phase",
 				"studentVisibility": "Activate student visibility for teachers",
+				"timezone": "Timezone",
 				"transferPhase": "Transfer phase",
 				"uploadSchoolLogo": "Upload school logo",
 				"userAndClassDataInLDAP": "User and class data for the new school year have been processed in LDAP<br>.",
@@ -609,6 +612,7 @@
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifMatrixIsActivatedAtYourSchool": "If the Matrix Messenger is activated, all teachers in this school can start chat rooms, private conversations or group discussions within the course or team. Students initially  have read-only access, but can also be given write access via the course and team settings. Students can also start private chats within courses and teams. You can find more information about this in the ",
 				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
+				"lernstoreEnabledForStudents": "If unchecked, then the students will not be able to access Lern-Store",
 				"loginViaLDAP": "Login via LDAP is still possible for existing users",
 				"newSchoolYear": "New school year",
 				"newUsersClassesAndChanges": "Newly added users, classes and changes to existing data are not synchronized from the LDAP",
@@ -747,6 +751,8 @@
 	},
 	"calendar": {
 		"button": {
+			"availableCourses": "Available courses",
+			"availableTeams": "Available teams",
 			"chooseACourse": "Pick a course...",
 			"chooseATeam": "Choose a team"
 		},
@@ -1089,7 +1095,7 @@
 					"deleteTopic": "Delete topic",
 					"descriptionTopic": "Add text, images, videos and other materials to a topic. A topic covers a module or lesson within your course.",
 					"distributeLinkForInvite": "Share the following link with your students to invite them to the course. Students must be logged in to use the link.",
-					"editSortDeleteShareTopicsHere": "You can edit <i class=\"fa fa-pencil\"></i>, sort <i class=\"fa fa-ellipsis-v\"></i>&nbsp;<i class=\"fa fa-ellipsis-v\"></i>, delete <i class=\"fa fa-trash-o\"></i> or share <i class=\"fa fa-share-alt\"></i> your topic at any time.",
+					"editSortDeleteShareTopicsHere": "You can edit <i class=\"fa fa-pencil\"></i>, sort <i class=\"fa fa-arrows\"></i>, delete <i class=\"fa fa-trash-o\"></i> or share <i class=\"fa fa-share-alt\"></i> your topic at any time.",
 					"externalLinkToGeoGebra": "This is external content of the provider GeoGebra. It will open in a new window or tab.",
 					"hideTopic": "Hide topic",
 					"importTopic": "Import topic",
@@ -1276,6 +1282,7 @@
 			"headline": {
 				"assertDeletion": "Are you sure you want to delete ' {{filename}} '?",
 				"editPermissions": "Edit permissions",
+				"functionCurrentlyDisabled": "Function temporarily deactivated",
 				"moveFile": "Move file",
 				"renameDir": "Rename folder",
 				"shareLink": "Share link"
@@ -1288,6 +1295,8 @@
 				"fileAlreadyExists": "A file with this name already exists in the target folder!",
 				"fileAlreadyExistsInDir": "A file with this name already exists in the same folder!",
 				"fileMoved": "The file was moved successfully!",
+				"littleHintHowToMoveFiles": "<b>Little hint:</b> You can download the file and then upload it to the correct folder.",
+				"movingFilesIsDisabled": "Moving files is currently not possible. We are working on a solution.",
 				"permissionsChangedSuccess": "File permissions changed successfully",
 				"pleaseSelectFileType": "Please select a file type.",
 				"renameDirSuccess": "The folder was renamed successfully!",
@@ -1315,14 +1324,20 @@
 			"doYouWantToOpenThisFile": "Do you want to open this file with an external service?",
 			"newFolder": "New folder"
 		},
+		"img_alt": {
+			"altInfoTheImage": "the image {{imgName}}"
+		},
 		"input": {
 			"filename": "Name of the file",
 			"foldername": "Name of the folder",
 			"searchFiles": "Browse files ..."
 		},
 		"label": {
+			"backToFiles": "back to the files overview",
 			"chooseANewName": "Select a new name:",
 			"chooseANewNameAndAFileExtension": "Select a name and file extension:",
+			"clickToOpenDir": "open folder {{name}}",
+			"clickToOpenFile": "open file {{name}}",
 			"close": "Close",
 			"dangerousCode": "Malicious code",
 			"deleteFile": "Delete file",
@@ -1355,6 +1370,12 @@
 			"write": "Write"
 		},
 		"overview": {
+			"aria_label": {
+				"openCourseFiles": "Open my Course Files",
+				"openMyfiles": "Open my personal Files",
+				"openSharedFiles": "Open shared Files",
+				"openTeamFiles": "Open my Team Files"
+			},
 			"button": {
 				"openFiles": "Open files"
 			},
@@ -1362,42 +1383,39 @@
 				"myCourseFiles": "My Course Files",
 				"myTeamFiles": "My Team Files"
 			},
+			"search": {
+				"headline": {
+					"search": "File search"
+				},
+				"label": {
+					"msoffice": "Word / Excel / PowerPoint",
+					"pdfs": "PDF documents",
+					"pics": "Pictures",
+					"videos": "Videos"
+				}
+			},
 			"text": {
 				"CourseFilesDesc": "Here you will find all files used in the respective courses in class. All participants of the course, the teacher and the students, have access to these files.",
+				"FileCanNotBeDownloaded": "Don't worry, the file cannot be downloaded.",
 				"PersonalFilesDesc": "Here you can find all your personal files. Only you have access to these files, but you can also share them with other users.",
 				"SharedFilesDesc": "Here you can find all the files you have shared with you. These are files that have been provided by other users.",
-				"TeamFilesDesc": "Here you will find all files used in the respective courses in class. All participants of the team have access to these files."
+				"TeamFilesDesc": "Here you will find all files used in the respective courses in class. All participants of the team have access to these files.",
+				"foldersAreLocated": "Loading folders",
+				"foundIn": "found in:",
+				"foundMaliciousContent": "Wow! We have discovered potentially harmful content in this file.",
+				"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online was not configured correctly!",
+				"newDir": "New folder",
+				"newFile": "New file",
+				"noAccessToThisFile": "You don't have access to this file!",
+				"noSearchResults": "No search results",
+				"pleaseTryAgainLaterOrNotifyYourAdministrator": "Please try again later or notify your administrator.",
+				"rememberThisSelection": "Remember this selection",
+				"searchResultFor": "search results for",
+				"searchResults": "Search results",
+				"storeFilesForUpload": "Save files for upload.",
+				"studentCanEdit": "Students can edit?",
+				"tips": "TIP: Open the LibreOffice document in a separate window to improve performance"
 			}
-		},
-		"search": {
-			"headline": {
-				"search": "File search"
-			},
-			"label": {
-				"msoffice": "Word / Excel / PowerPoint",
-				"pdfs": "PDF documents",
-				"pics": "Pictures",
-				"videos": "Videos"
-			}
-		},
-		"text": {
-			"FileCanNotBeDownloaded": "Don't worry, the file cannot be downloaded.",
-			"foldersAreLocated": "Loading folders",
-			"foundIn": "found in:",
-			"foundMaliciousContent": "Wow! We have discovered potentially harmful content in this file.",
-			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online was not configured correctly!",
-			"movingCurrentlyDisabled": "Moving files is currently not possible. We are working on a solution.",
-			"newDir": "New folder",
-			"newFile": "New file",
-			"noAccessToThisFile": "You don't have access to this file!",
-			"noSearchResults": "No search results",
-			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Please try again later or notify your administrator.",
-			"rememberThisSelection": "Remember this selection",
-			"searchResultFor": "search results for",
-			"searchResults": "Search results",
-			"storeFilesForUpload": "Save files for upload.",
-			"studentCanEdit": "Students can edit?",
-			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance"
 		}
 	},
 	"firstLogin": {
@@ -1535,6 +1553,17 @@
 				"youAreNow14YearsOld": "You are now 14 years old. In the following step, please give your consent to the use of the {{title}} From the age of 14, this is necessary in addition to the already provided consent of your parents so that you can continue to use the {{shortTitle}}."
 			}
 		}
+	},
+	"format": {
+		"date": "MM/DD/YYYY",
+		"dateLong": "dddd, DD. MMMM YYYY",
+		"datePicker": "m/d/Y",
+		"datePickerMask": "19/39/9999",
+		"dateTime": "MM/DD/YYYY HH:mm",
+		"dateTimePicker": "m/d/Y H:i",
+		"dateTimePickerMask": "19/39/9999 29:59",
+		"dateTimeToPicker": "MM/DD/YYYY HH:mm",
+		"dateToPicker": "MM/DD/YYYY"
 	},
 	"global": {
 		"aria_label": {
@@ -1684,7 +1713,7 @@
 			"Demo": "Demo",
 			"DemoStudent": "Demo Student",
 			"DemoTeacher": "Demo Teacher",
-			"Expert": "Expert",
+			"Experte": "Expert",
 			"Helpdesk": "Helpdesk",
 			"Lehrer": "Teacher",
 			"Schüler": "Student",
@@ -1698,7 +1727,6 @@
 				"administrator": "Administrator",
 				"expert": "Expert",
 				"leader": "Leader",
-				"member": "Member",
 				"owner": "Owner",
 				"teacher": "Teacher"
 			}
@@ -1995,6 +2023,8 @@
 				"printGradeComment": "Print grading",
 				"printSubmission": "Print submission",
 				"printTask": "Print task definition",
+				"statsGraded": "{{gradedCount}} graded",
+				"statsSubmitted": "{{submissionCount}} out of {{totalCount}} submitted",
 				"submitted": "Submitted",
 				"team": "Team",
 				"teamSubmission": "Team submission",
@@ -2114,6 +2144,7 @@
 			"notDone": "Too late! Next time, try to be more careful with your time.",
 			"published": "Published:",
 			"ratingHasBeenSaved": "Rating has been saved!",
+			"till": "till",
 			"toBeDoneWithin24Hours": "Watch out! You only have 24 hours left to complete the task."
 		}
 	},
@@ -2965,7 +2996,7 @@
 			},
 			"text": {
 				"group": "({{arrayLength courseGroups}} Group{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
-				"nextLesson": "Next Lesson: {{nextEvent}}",
+				"nextLesson": "Next Lesson: {{i18nDateTime nextEvent}}",
 				"noIssues": "No Issues.",
 				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}School Groups{{else}}My student groups {{/userHasPermission}}"
 			}
@@ -3158,7 +3189,9 @@
 				"titleOfTheTopic": "Title of the topic"
 			},
 			"text": {
-				"shareWithOthersTeachers": "share with other teachers"
+				"shareWithOthersTeachers": "share with other teachers",
+				"warningFooter": "The use of these offers may be subject to other legal conditions. Therefore, please take a look at the privacy policy of the external provider!",
+				"warningMain": "Note: Clicking the link will take you away from Schul-Cloud Brandenburg"
 			}
 		},
 		"aria_label": {

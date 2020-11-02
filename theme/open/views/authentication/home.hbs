@@ -6,7 +6,6 @@
 
 	{{#content "scripts" mode="append"}}
     <script src="/scripts/login.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/theme-blog.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
 	{{#content "body"}}
@@ -17,7 +16,7 @@
 					<div class="hidden-md-up">
 						{{> "authentication/forms/login"}}
 					</div>
-            <!--Uncomment this when You will add open Landing Page in ghost-->
+            <!--Uncomment this when You will add open Landing Page in ghost and remember about theme-blog.js-->
 
             <!--                    <div class="hidden" id="SC_THEME">open</div>-->
             <!--                    <div class="open-blog">-->
