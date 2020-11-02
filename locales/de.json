@@ -3097,7 +3097,6 @@
 		"open": {
 			"authentication": {
 				"headline": {
-					"jobPostings": "Stellenausschreibungen",
 					"welcomeToTheTheme": "Herzlich willkommen bei der {{title}} !"
 				},
 				"text": {
@@ -3165,6 +3164,11 @@
 					"theContentOfTheThuringianSchool": "Die Inhalte der Thüringer Schulcloud stellen keine offiziellen Verlautbarungen des HPI dar. Für die Inhalte sind die jeweiligen Autor/innen selbst verantwortlich. Ohne vorherige schriftliche Genehmigung ist eine kommerzielle Verbreitung der über die Thüringer Schulcloud verfügbaren Inhalte ausdrücklich untersagt, außer diese sind ausdrücklich gekennzeichnet. Die redaktionelle Verantwortung für den Inhalt verlinkter Webseiten anderer Anbieter (einschließlich der dort verankerten Links zu Dritten), insbesondere die Verantwortung für die Beachtung der Bestimmungen des Jugendschutz- und Datenschutzrechts, trägt in jeder Hinsicht der jeweilige Anbieter allein.",
 					"theHassoPlattnerInstituteRegularly": "Das Hasso-Plattner-Institut (HPI) überprüft und aktualisiert regelmäßig die Inhalte seiner Websites. Trotz größtmöglicher Sorgfalt können wir nicht ausschließen, dass einzelne Informationen auf unseren Seiten veraltet oder nicht mehr zutreffend sind. Daher können wir keine Haftung für Aktualität, Genauigkeit und Vollständigkeit der publizierten Informationen übernehmen. Das Gleiche gilt für alle Websites, die von den HPI-Seiten über Hyperlinks erreichbar sind. Für alle diese Links gilt: Wir erklären ausdrücklich, dass wir keinen Einfluss auf die Gestaltung und die Inhalte der verlinkten Seite haben. Deshalb distanzieren wir uns hiermit von allen Inhalten aller verlinkten Seiten und machen uns ihre Inhalte nicht zu Eigen. Diese Erklärung gilt für alle auf unserer Seite angebrachten Links zu fremden Seiten. Für den Inhalt dieser verlinkten Seiten ist das HPI nicht verantwortlich. Weiterhin behält sich das HPI jederzeit Änderungen und Ergänzungen der angezeigten Informationen vor. Inhalt und Struktur der HPI-Website sind durch das Copyright geschützt. Die Weiterverwendung von Informationen und Daten ist nur nach unserer Zustimmung zulässig. Wir wünschen Ihnen einen informativen Aufenthalt auf unseren Websites und freuen uns über Vorschläge, Wünsche oder Kritik zur Thüringer Schulcloud.",
 					"theThuringianSchoolCloudIsNon": "Die Thüringer Schulcloud ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem ThILLM Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien (<a href=\"https://www.schulportal-thueringen.de/thillm\" target=\"_blank\" rel=\"noopener\">https://www.schulportal-thueringen.de/thillm</a>) durchgeführt wird."
+				}
+			},
+			"lib": {
+				"text": {
+					"whyCantEditEntries": "<strong>Warum kann ich keine Einträge bearbeiten?</strong><br> Deine Schule in der {{short_title}} ist mit dem Thüringer Schulportal synchronisiert. Die Daten von Lehrkräften, Schülern und Klassen werden dort zentral verwaltet und können nur dort geändert werden. Das schließt auch Passwortänderungen mit ein."
 				}
 			}
 		}
