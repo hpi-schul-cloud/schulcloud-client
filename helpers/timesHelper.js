@@ -166,18 +166,6 @@ const dateToDateString = (date) => formatDate(date, FORMAT.date);
 const dateToDateTimeString = (date, showTimezone) => formatDate(date, FORMAT.dateTime, showTimezone);
 
 /**
- * @param {Date} date Date object
- * @param dateTimeFormat date time format
- * @return {moment} same date and time in different in current timezone (no re-calculation)
- */
-const cloneUtcDate = (date, dateTimeFormat = FORMAT.dateTime) => {
-	const dateString = moment.utc(date).format(dateTimeFormat);
-	const result = createFromString(dateString, dateTimeFormat);
-	logger.debug(`timesHelper.cloneDate: ${date} to ${result.toISOString(true)}`);
-	return result;
-};
-
-/**
  * converts time to string. If time is less than 5 days before now then return fromNow. Otherwise formatDate
  * @param date
  * @param format of the output. Per default date time format is used {@see FORMAT.dateTime}
@@ -220,7 +208,6 @@ module.exports = {
 	dateTimeStringToMoment,
 	dateToDateString,
 	dateToDateTimeString,
-	cloneUtcDate,
 	schoolTimezoneToString,
 	moment,
 	FORMAT,

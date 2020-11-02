@@ -184,8 +184,8 @@ const editCourseHandler = (req, res, next) => {
 
 		// if new course -> add default start and end dates
 		if (!req.params.courseId) {
-			course.startDate = timesHelper.cloneUtcDate(res.locals.currentSchoolData.years.defaultYear.startDate);
-			course.untilDate = timesHelper.cloneUtcDate(res.locals.currentSchoolData.years.defaultYear.endDate);
+			course.startDate = res.locals.currentSchoolData.years.defaultYear.startDate;
+			course.untilDate = res.locals.currentSchoolData.years.defaultYear.endDate;
 		}
 
 		// format course start end until date
