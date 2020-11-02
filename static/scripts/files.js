@@ -603,7 +603,7 @@ $(document).ready(() => {
 				const nameMap = {
 					teacher: $t('global.role.text.teacher'),
 					student: $t('global.link.administrationStudents'),
-					teammember: $t('teams._team.members.text.member'),
+					teammember: $t('global.role.text.member'),
 					teamexpert: $t('global.role.text.expert'),
 					teamleader: $t('global.role.text.leader'),
 					teamadministrator: $t('global.role.text.administrator'),
