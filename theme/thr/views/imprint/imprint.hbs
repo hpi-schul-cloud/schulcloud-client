@@ -1,9 +1,9 @@
 <div class="section-imprint {{#unless loggedin}}loggedout{{/unless}}">
 	{{#unless loggedin}}
-	<h1 class="h4">Impressum</h1>
+	<h1 class="h4">{{$t "theme.open.imprint.headline.imprint"}}</h1>
 	{{/unless}}
 	<h2 class="h5">
-		<strong>HPI Schul-Cloud - Hasso-Plattner-Institut für Digital Engineering gGmbH</strong>
+		<strong>{{$t "imprint.imprint_rights.headline.hassoPlattnerInstituteForDigital" }}</strong>
 	</h2>
 	<address>
 		<p>Prof.-Dr.-Helmert-Str. 2-3
@@ -16,7 +16,7 @@
 		</p>
 	</address>
 	<h2 class="h5">
-		<strong>Vertretungsberechtigter Geschäftsführer:</strong>
+		<strong>{{$t "imprint.imprint_rights.headline.managingDirectorAuthorized" }}</strong>
 	</h2>
 	<p>Prof. Dr. Christoph Meinel
 		<br /> {{$t "imprint.text.registerCourt" }}
@@ -26,34 +26,15 @@
 	</h2>
 	<p>{{$t "imprint.text.hassoPlattnerInstitute" }}</p>
 	<h2 class="h5">
-		<strong>Rechtliche Hinweise:</strong>
+		<strong>{{$t "imprint.imprint_rights.headline.editorialStuff" }}</strong>
 	</h2>
 	<p>
-		Die Thüringer Schulcloud ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem ThILLM
-		Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien (<a
-			href="https://www.schulportal-thueringen.de/thillm" target="_blank"
-			rel="noopener">https://www.schulportal-thueringen.de/thillm</a>) durchgeführt wird.
+		{{$t "theme.thr.imprint.text.theThuringianSchoolCloudIsNon"}}
 	</p>
 	<p>
-		Die Inhalte der Thüringer Schulcloud stellen keine offiziellen Verlautbarungen des HPI dar. Für die Inhalte sind die
-		jeweiligen Autor/innen selbst verantwortlich. Ohne vorherige schriftliche Genehmigung ist eine kommerzielle
-		Verbreitung der über die Thüringer Schulcloud verfügbaren Inhalte ausdrücklich untersagt, außer diese sind
-		ausdrücklich gekennzeichnet. Die redaktionelle Verantwortung für den Inhalt verlinkter Webseiten anderer Anbieter
-		(einschließlich der dort verankerten Links zu Dritten), insbesondere die Verantwortung für die Beachtung der
-		Bestimmungen des Jugendschutz- und Datenschutzrechts, trägt in jeder Hinsicht der jeweilige Anbieter allein.
+		{{$t "theme.thr.imprint.text.theContentOfTheThuringianSchool"}}
 	</p>
 	<p>
-		Das Hasso-Plattner-Institut (HPI) überprüft und aktualisiert regelmäßig die Inhalte seiner Websites. Trotz
-		größtmöglicher Sorgfalt können wir nicht ausschließen, dass einzelne Informationen auf unseren Seiten veraltet oder
-		nicht mehr zutreffend sind. Daher können wir keine Haftung für Aktualität, Genauigkeit und Vollständigkeit der
-		publizierten Informationen übernehmen. Das Gleiche gilt für alle Websites, die von den HPI-Seiten über Hyperlinks
-		erreichbar sind. Für alle diese Links gilt: Wir erklären ausdrücklich, dass wir keinen Einfluss auf die Gestaltung
-		und die Inhalte der verlinkten Seite haben. Deshalb distanzieren wir uns hiermit von allen Inhalten aller verlinkten
-		Seiten und machen uns ihre Inhalte nicht zu Eigen. Diese Erklärung gilt für alle auf unserer Seite angebrachten
-		Links zu fremden Seiten. Für den Inhalt dieser verlinkten Seiten ist das HPI nicht verantwortlich. Weiterhin behält
-		sich das HPI jederzeit Änderungen und Ergänzungen der angezeigten Informationen vor. Inhalt und Struktur der
-		HPI-Website sind durch das Copyright geschützt. Die Weiterverwendung von Informationen und Daten ist nur nach
-		unserer Zustimmung zulässig. Wir wünschen Ihnen einen informativen Aufenthalt auf unseren Websites und freuen uns
-		über Vorschläge, Wünsche oder Kritik zur Thüringer Schulcloud.
+		{{$t "theme.thr.imprint.text.theHassoPlattnerInstituteRegularly"}}
 	</p>
 </div>
