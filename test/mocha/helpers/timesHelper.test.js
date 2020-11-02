@@ -33,7 +33,7 @@ describe('times helpers test', () => {
 
 	it('set school timezone as default', () => {
 		const schoolTimezone = 'America/Los_Angeles';
-		const schoolTimezoneOffset = '-07:00';
+		const schoolTimezoneOffset = moment().tz(schoolTimezone).format('Z');
 		const mockRes = getMockRes(schoolTimezone);
 		const mockReq = getMockReq(schoolTimezone);
 
@@ -45,11 +45,14 @@ describe('times helpers test', () => {
 	});
 
 	it('should correctly split date', () => {
-		setSchoolTimezone('America/Los_Angeles');
+		const schoolTimezone = 'America/Los_Angeles';
+		const schoolTimezoneOffset = moment().tz(schoolTimezone).format('Z');
+
+		setSchoolTimezone(schoolTimezone);
 		const expectedDate = {
 			timestamp: 1572570000000,
 			date: '31.10.2019',
-			time: '18:00(UTC-07:00)',
+			time: `18:00(UTC${schoolTimezoneOffset})`,
 		};
 		const dateFormat = 'DD.MM.YYYY';
 		const resultDate = timesHelper.splitDate(testDate, dateFormat);
@@ -63,21 +66,17 @@ describe('times helpers test', () => {
 
 	it('should properly format date', () => {
 		const testFormat = 'DD.MM.YYYY HH:mm';
-		setSchoolTimezone('America/Los_Angeles');
+		const schoolTimezone = 'America/Los_Angeles';
+		const schoolTimezoneOffset = moment().tz(schoolTimezone).format('Z');
+
+		setSchoolTimezone(schoolTimezone);
 		const resultDate = timesHelper.formatDate(testDate, testFormat);
 		chai.expect(resultDate)
 			.to.equal('31.10.2019 18:00');
 
 		const resultDate2 = timesHelper.formatDate(testDate, testFormat, true);
 		chai.expect(resultDate2)
-			.to.equal('31.10.2019 18:00(UTC-07:00)');
-	});
-
-	it('should correctly clone UTC date', () => {
-		setSchoolTimezone('America/Los_Angeles');
-		const resultDate = timesHelper.cloneUtcDate(testDate);
-		chai.expect(resultDate.toISOString(true))
-			.to.equal('2019-11-01T01:00:00.000-07:00');
+			.to.equal(`31.10.2019 18:00(UTC${schoolTimezoneOffset})`);
 	});
 
 	it('should correctly display time string', () => {
