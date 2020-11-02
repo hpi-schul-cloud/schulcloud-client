@@ -1,4 +1,15 @@
 {
+	"format": {
+		"dateToPicker": "MM/DD/YYYY",
+		"datePicker": "m/d/Y",
+		"datePickerMask": "19/39/9999",
+		"dateTimeToPicker": "MM/DD/YYYY HH:mm",
+		"dateTimePicker": "m/d/Y H:i",
+		"dateTimePickerMask": "19/39/9999 29:59",
+		"date": "MM/DD/YYYY",
+		"dateTime": "MM/DD/YYYY HH:mm",
+		"dateLong": "dddd, DD. MMMM YYYY"
+	},
 	"about": {
 		"button": {
 			"showLess": "show less",
@@ -582,6 +593,7 @@
 				"studentVisibility": "Activate student visibility for teachers",
 				"transferPhase": "Transfer phase",
 				"uploadSchoolLogo": "Upload school logo",
+				"timezone": "Timezone",
 				"userAndClassDataInLDAP": "User and class data for the new school year have been processed in LDAP<br>.",
 				"youCantGoBack": "You can't go back",
 				"yourSchoolCanStartNewSchool": "your school can enter the new school year"
@@ -2105,6 +2117,7 @@
 			"doYouReallyWantToReplaceSubmission": "Are you sure you want to replace your assessment with the student's submission?",
 			"done": "Great! You've completed your task!",
 			"due": "Due",
+			"till": "till",
 			"fileAlreadyExists": "This file name already exists in your files. Please rename the file.",
 			"maximumTeamSize": "The maximum team size is {{maxMembers}} members",
 			"noAssignment": "No assignment",
@@ -2953,7 +2966,7 @@
 			},
 			"text": {
 				"group": "({{arrayLength courseGroups}} Group{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
-				"nextLesson": "Next Lesson: {{nextEvent}}",
+				"nextLesson": "Next Lesson: {{i18nDateTime nextEvent}}",
 				"noIssues": "No Issues.",
 				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}School Groups{{else}}My student groups {{/userHasPermission}}"
 			}
