@@ -9,6 +9,7 @@ const logger = require('../helpers/logger');
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
+const timesHelper = require('../helpers/timesHelper');
 
 moment.locale('de');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -91,11 +92,12 @@ router.get('/', (req, res, next) => {
 				}
 
 				// subtract timeStart so we can use these values for left alignment
-				const eventStartRelativeMinutes = ((eventStart.getUTCHours() - timeStart) * 60) + eventStart.getMinutes();
-				const eventEndRelativeMinutes = ((eventEnd.getUTCHours() - timeStart) * 60) + eventEnd.getMinutes();
+				const eventStartRelativeMinutes = ((eventStart.getHours() - timeStart) * 60) + eventStart.getMinutes();
+				const eventEndRelativeMinutes = ((eventEnd.getHours() - timeStart) * 60) + eventEnd.getMinutes();
 				const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
 
-				event.comment = `${moment.utc(eventStart).format('kk:mm')} - ${moment.utc(eventEnd).format('kk:mm')}`;
+				event.comment = `${timesHelper.formatDate(eventStart, 'kk:mm')}
+				- ${timesHelper.formatDate(eventEnd, 'kk:mm', true)}`;
 				event.style = {
 					left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
 					width: 100 * (eventDuration / numMinutes), // percent

@@ -2,6 +2,7 @@ const moment = require('moment');
 const _ = require('lodash');
 
 const api = require('../api');
+const timesHelper = require('./timesHelper');
 
 /**
  * Generates the iso-weekday abbreviation for a given number, e.g. for the HPI Schul-Cloud Calendar-Service
@@ -161,6 +162,14 @@ const mapEventProps = (event, req) => {
 		});
 	}
 
+	if (event.start) {
+		event.start = timesHelper.fromUTC(event.start).toISOString(true);
+	}
+
+	if (event.end) {
+		event.end = timesHelper.fromUTC(event.end).toISOString(true);
+	}
+
 	return event;
 };
 
@@ -191,7 +200,7 @@ const getNextEventForCourseTimes = (courseTimes) => {
 	// find nearest day from now
 	const minDate = _.min(nextDates);
 	// eslint-disable-next-line consistent-return
-	return moment(minDate).format('DD.MM.YYYY HH:mm');
+	return moment(minDate);
 };
 
 function pad(number) {

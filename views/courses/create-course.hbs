@@ -114,7 +114,7 @@
               </div>
 
               {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-                {{#inArray "messenger" @root.schoolData.features}}
+                {{#inArray "messenger" @root.currentSchoolData.features}}
                   <div class="form-group">
                     <label>
                       <input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
@@ -128,20 +128,11 @@
               <div class="times" id="timesContainer">
                   <div class="row">
                       <div class="form-group col-md-6">
-                          <label for="startDate">{{$t "courses.add.label.timeSpan"}}</label>
-                          <input
-                            name="startDate"
-                            id="startDate"
-                            data-date
-                            type="text"
-                            class="form-control"
-                            value="{{course.startDate}}" data-testid="date_start"
-                            title="{{$t "courses.global.label.timeSpanFormat"}}"/>
+                            {{> "lib/forms/form-date-input" label=($t "courses.add.label.timeSpan") id="startDate" value=course.startDate dataTestId="date_start"}}
                       </div>
 
                       <div class="form-group col-md-6">
-                          <label for="untilDate">{{$t "courses.add.label.timeSpanUntil"}}</label>
-                          <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="{{$t "courses.global.label.timeSpanFormat"}}"/>
+                            {{> "lib/forms/form-date-input" label=($t "courses.add.label.timeSpanUntil") id="untilDate" value=course.untilDate}}
                       </div>
                   </div>
 
@@ -176,12 +167,7 @@
                             {{#each ../classes}}
                               <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                   {{log this.year}}
-                                  {{#if this.name}}
-                                      {{this.displayName}}
-                                  {{else}}
-                                      {{this.name}}
-                                  {{/if}}
-
+                                  {{this.displayName}}
                                   {{#if this.year}}
                                       ({{this.year.name}})
                                   {{/if}}

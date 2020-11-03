@@ -6,6 +6,7 @@ const { Configuration } = require('@schul-cloud/commons');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
+const timesHelper = require('../../timesHelper');
 
 moment.locale('de');
 
@@ -168,13 +169,14 @@ const helpers = () => ({
 	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
-		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW') || !isNonOerContent) {
+		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW')
+			|| !isNonOerContent) {
 			return options.fn(this);
 		}
 		return options.inverse(this);
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
-	timeFromNow: (date, opts) => moment(date).fromNow(),
+	timeFromNow: (date) => timesHelper.fromNow(date),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
 			format = 'YYYY.MM.DD';
@@ -185,19 +187,12 @@ const helpers = () => ({
 			.subtract(days, 'days')
 			.format(format);
 	},
-	dateToPicker: (date) => moment(date).format('DD.MM.YYYY'),
-	dateTimeToPicker: (date) => moment(date).format('DD.MM.YYYY HH:mm'),
-	i18nDate: (date) => i18n.i18nMoment(date).format('DD.MM.YYYY'),
-	i18nDateTime: (date) => i18n.i18nMoment(date).format('DD.MM.YYYY HH:mm'),
-	i18nDateString: (date) => i18n.i18nMoment(date).format('dddd, DD. MMMM YYYY'),
-	timeToString: (date) => {
-		const now = moment();
-		const d = moment(date);
-		if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
-			return `${moment(date).format('DD.MM.YYYY')}(${moment(date).format('HH:mm')})`;
-		}
-		return moment(date).fromNow();
-	},
+	dateToPicker: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateToPicker')),
+	dateTimeToPicker: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateTimeToPicker')),
+	i18nDate: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.date')),
+	i18nDateTime: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateTime')),
+	i18nDateString: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateLong')),
+	timeToString: (date) => timesHelper.timeToString(date, i18n.getInstance()('format.dateTime')),
 	currentYear() {
 		return new Date().getFullYear();
 	},
@@ -291,6 +286,7 @@ const helpers = () => ({
 		});
 		return dict;
 	},
+	isset: (value) => !!value,
 });
 
 module.exports = helpers;
