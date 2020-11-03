@@ -70,7 +70,7 @@ $(document).ready(function () {
         if (shareToken) {
             $('#step1').hide();
 
-            $.get('/courses-share' + shareToken, function (data, status) {
+            $.get('/courses-share/' + shareToken, function (data, status) {
                 if (status === 'success' && data.status === 'success') {
                     $('#courseName').val(data.msg);
                     $('#shareToken').attr('name', 'shareToken');
