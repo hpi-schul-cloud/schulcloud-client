@@ -4,7 +4,7 @@
 			{{#unless loggedin}}
 				<h2 class="section-title center">Partner</h2>
 			{{/unless}}
-			<h3 class="section-title center">Projektdurchführung</h3>
+			<h3 class="section-title center">{{$t "global.headline.projectExecution"}}</h3>
 			<div class="container">
 				<div class="row">
 					{{#each partners.project_partners_thr}}
@@ -23,14 +23,12 @@
 	{{/embed}}
 	{{#embed "authentication/section" style="primary" class="content-width-max"}}
 		{{#content "body"}}
-			<h3 class="section-title center">Fachbeirat</h3>
+			<h3 class="section-title center">{{$t "partner.headline.advisoryBoard"}}</h3>
 			<div class="container">
 				<div class="row">
 					<div class="intro-box col-sm-12">
 						<p>
-							Das Projekt HPI Schul-Cloud wird von einem Fachbeirat unterstützt, der sich aus verschiedenen
-							Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben
-							technischen Aspekten, auch Themen wie Datenschutz und Pädagogik.
+							{{$t "theme.thr.partner.text.theHPISchoolCloudProject"}}
 						</p>
 					</div>
 				</div>
@@ -68,11 +66,11 @@
 	{{/embed}}
 	{{#embed "authentication/section" class="content-width-max"}}
 		{{#content "body"}}
-			<h3 class="section-title center">Pilotpartner für Lerninhalte</h3>
+			<h3 class="section-title center">{{$t "partner.headline.pilotPartners"}}</h3>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<p>Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die HPI Schul-Cloud erfahrbar wird.</p>
+						<p>{{$t "partner.text.pilotPartnersDescription"}}</p>
 					</div>
 				</div>
 				<div class="row">
@@ -109,11 +107,11 @@
 	{{/embed}}
 	{{#embed "authentication/section" style="accent" class="content-width-max"}}
 		{{#content "body"}}
-			<h3 class="section-title center">Unterstützer für Schulinfrastruktur</h3>
+			<h3 class="section-title center">{{$t "partner.headline.supporters"}}</h3>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<p>Wir danken unseren Unterstützern für Schulinfrastruktur.</p>
+						<p>{{$t "partner.text.supportersDescription"}}</p>
 					</div>
 				</div>
 				<div class="row">

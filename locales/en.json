@@ -3171,6 +3171,11 @@
 				"text": {
 					"whyCantEditEntries": "<strong>Why can't I edit entries?</strong><br> Your school in the {{short_title}} is synchronized with the Thuringian school portal. The data of teachers, students and classes are managed there centrally and can only be changed there. This also includes password changes."
 				}
+			},
+			"partner": {
+				"text": {
+					"theHPISchoolCloudProject": "The HPI School Cloud project is supported by an advisory board made up of various representatives from educational practice, business and politics. In addition to technical aspects, the focus is also on topics such as data protection and education."
+				}
 			}
 		}
 	},

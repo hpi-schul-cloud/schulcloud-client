@@ -3171,6 +3171,11 @@
 				"text": {
 					"whyCantEditEntries": "<strong>Warum kann ich keine Einträge bearbeiten?</strong><br> Deine Schule in der {{short_title}} ist mit dem Thüringer Schulportal synchronisiert. Die Daten von Lehrkräften, Schülern und Klassen werden dort zentral verwaltet und können nur dort geändert werden. Das schließt auch Passwortänderungen mit ein."
 				}
+			},
+			"partner": {
+				"text": {
+					"theHPISchoolCloudProject": "Das Projekt HPI Schul-Cloud wird von einem Fachbeirat unterstützt, der sich aus verschiedenen Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben technischen Aspekten, auch Themen wie Datenschutz und Pädagogik."
+				}
 			}
 		}
 	},
