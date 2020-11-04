@@ -211,6 +211,12 @@
 							<img id="preview-logo" src="">
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
+                        {{#if ../timezone}}
+                            <div class="form-group">
+                                <label>{{$t "administration.school.label.timezone" }}</label><br />
+                                <div>{{../timezone}}</div>
+                            </div>
+                        {{/if}}
                         {{> "lib/forms/form-change-language" langParent=../school }}
                         {{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
 							<h2 class="h6 mt-2">{{$t "administration.school.label.privacySettings" }}</h2>

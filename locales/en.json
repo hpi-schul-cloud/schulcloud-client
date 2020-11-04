@@ -1,4 +1,15 @@
 {
+	"format": {
+		"dateToPicker": "MM/DD/YYYY",
+		"datePicker": "m/d/Y",
+		"datePickerMask": "19/39/9999",
+		"dateTimeToPicker": "MM/DD/YYYY HH:mm",
+		"dateTimePicker": "m/d/Y H:i",
+		"dateTimePickerMask": "19/39/9999 29:59",
+		"date": "MM/DD/YYYY",
+		"dateTime": "MM/DD/YYYY HH:mm",
+		"dateLong": "dddd, DD. MMMM YYYY"
+	},
 	"about": {
 		"button": {
 			"showLess": "show less",
@@ -583,6 +594,7 @@
 				"studentVisibility": "Activate student visibility for teachers",
 				"transferPhase": "Transfer phase",
 				"uploadSchoolLogo": "Upload school logo",
+				"timezone": "Timezone",
 				"userAndClassDataInLDAP": "User and class data for the new school year have been processed in LDAP<br>.",
 				"youCantGoBack": "You can't go back",
 				"yourSchoolCanStartNewSchool": "your school can enter the new school year"
@@ -1279,6 +1291,7 @@
 			"headline": {
 				"assertDeletion": "Are you sure you want to delete ' {{filename}} '?",
 				"editPermissions": "Edit permissions",
+				"functionCurrentlyDisabled" : "Function temporarily deactivated",
 				"moveFile": "Move file",
 				"renameDir": "Rename folder",
 				"shareLink": "Share link"
@@ -1291,6 +1304,8 @@
 				"fileAlreadyExists": "A file with this name already exists in the target folder!",
 				"fileAlreadyExistsInDir": "A file with this name already exists in the same folder!",
 				"fileMoved": "The file was moved successfully!",
+				"littleHintHowToMoveFiles" : "<b>Little hint:</b> You can download the file and then upload it to the correct folder.",
+				"movingFilesIsDisabled": "Moving files is currently not possible. We are working on a solution.",
 				"permissionsChangedSuccess": "File permissions changed successfully",
 				"pleaseSelectFileType": "Please select a file type.",
 				"renameDirSuccess": "The folder was renamed successfully!",
@@ -1318,14 +1333,20 @@
 			"doYouWantToOpenThisFile": "Do you want to open this file with an external service?",
 			"newFolder": "New folder"
 		},
+		"img_alt" :{
+			"altInfoTheImage" : "the image {{imgName}}"
+		},
 		"input": {
 			"filename": "Name of the file",
 			"foldername": "Name of the folder",
 			"searchFiles": "Browse files ..."
 		},
 		"label": {
+			"backToFiles" : "back to the files overview",
 			"chooseANewName": "Select a new name:",
 			"chooseANewNameAndAFileExtension": "Select a name and file extension:",
+			"clickToOpenDir" : "open folder {{name}}",
+			"clickToOpenFile" : "open file {{name}}",
 			"close": "Close",
 			"dangerousCode": "Malicious code",
 			"deleteFile": "Delete file",
@@ -1358,18 +1379,11 @@
 			"write": "Write"
 		},
 		"overview": {
-			"button": {
-				"openFiles" : "Open files"
-			},
-			"headline": {
-				"myCourseFiles" : "My Course Files",
-				"myTeamFiles" : "My Team Files"
-			},
-			"text": {
-				"CourseFilesDesc" : "Here you will find all files used in the respective courses in class. All participants of the course, the teacher and the students, have access to these files.",
-				"PersonalFilesDesc" : "Here you can find all your personal files. Only you have access to these files, but you can also share them with other users.",
-				"SharedFilesDesc" : "Here you can find all the files you have shared with you. These are files that have been provided by other users.",
-				"TeamFilesDesc" : "Here you will find all files used in the respective courses in class. All participants of the team have access to these files."
+			"aria_label":{
+				"openCourseFiles" : "Open my Course Files",
+				"openMyfiles" : "Open my personal Files",
+				"openSharedFiles" : "Open shared Files",
+				"openTeamFiles" : "Open my Team Files"
 			}
 		},
 		"search": {
@@ -1389,7 +1403,6 @@
 			"foundIn": "found in:",
 			"foundMaliciousContent": "Wow! We have discovered potentially harmful content in this file.",
 			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online was not configured correctly!",
-			"movingCurrentlyDisabled": "Moving files is currently not possible. We are working on a solution.",
 			"newDir": "New folder",
 			"newFile": "New file",
 			"noAccessToThisFile": "You don't have access to this file!",
@@ -1687,7 +1700,7 @@
 			"Demo": "Demo",
 			"DemoStudent": "Demo Student",
 			"DemoTeacher": "Demo Teacher",
-			"Expert": "Expert",
+			"Experte": "Expert",
 			"Helpdesk": "Helpdesk",
 			"Lehrer": "Teacher",
 			"Schüler": "Student",
@@ -1701,6 +1714,7 @@
 				"administrator": "Administrator",
 				"expert": "Expert",
 				"leader": "Leader",
+				"member": "Attendee",
 				"owner": "Owner",
 				"teacher": "Teacher"
 			}
@@ -2106,6 +2120,7 @@
 			"doYouReallyWantToReplaceSubmission": "Are you sure you want to replace your assessment with the student's submission?",
 			"done": "Great! You've completed your task!",
 			"due": "Due",
+			"till": "till",
 			"fileAlreadyExists": "This file name already exists in your files. Please rename the file.",
 			"maximumTeamSize": "The maximum team size is {{maxMembers}} members",
 			"noAssignment": "No assignment",
@@ -2954,7 +2969,7 @@
 			},
 			"text": {
 				"group": "({{arrayLength courseGroups}} Group{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
-				"nextLesson": "Next Lesson: {{nextEvent}}",
+				"nextLesson": "Next Lesson: {{i18nDateTime nextEvent}}",
 				"noIssues": "No Issues.",
 				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}School Groups{{else}}My student groups {{/userHasPermission}}"
 			}

@@ -8,16 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
+###Added
+
+- SC-6662 - Add data-testid in homework for integration test
 
 ### Added
 
 - SC-7447 - Add warning text for links when leaving the schul-cloud platform
 - SC-6293 - added option to school admin to disable lernstore for students
 - SC-7413 - Add winston handler for logging unhandled rejection and exceptions
+- SC-5942 - Add trim() before email for password recovery got send to server
+- OPS-1297 - Added Changelog github action
 - SC-6596 - Added school option to allow students to create chat rooms
 
 ### Fixed
 
+- SC-5555 - Fixed class names not being visible in course creation in some cases
 - SC-7463 - Fixed undefined value when requesting school systems login
 - SC-7392 fix create event for teams / courses
 - SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
@@ -27,9 +33,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- SC-7530 rename SHOW_VERSION to FEATURE_SHOW_VERSION_ENABLED
 - update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
 - SC-6951 removes via text from embeded course content
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
+- IMP-160 rename integration test repository
 
 ## 25.2.0
 
