@@ -21,20 +21,20 @@ const datetime = {
 		moment(date, format);
 	},
 
-	toDateTimeString(date) {
-		moment(date).tz(calendarTimezone).format(DATETIME_FORMAT.dateTime);
+	toDateTimeString(date, format = DATETIME_FORMAT.dateTime) {
+		moment(date).tz(calendarTimezone).format(format);
 	},
 
 	fromNow(date) {
 		this.toMoment(date).fromNow();
 	},
 
-	nowToDateTimeString() {
-		this.toMoment().format(DATETIME_FORMAT.dateTime);
+	nowToDateTimeString(format = DATETIME_FORMAT.dateTime) {
+		this.toMoment().format(format);
 	},
 
-	inputRangeDate(offset = 0, offsetBase = 'y') {
-		this.toMoment().add(offset, offsetBase).format(DATETIME_FORMAT.dateTime);
+	inputRangeDate(offset = 0, offsetBase = 'y', format = DATETIME_FORMAT.dateTime) {
+		this.toMoment().add(offset, offsetBase).format(format);
 	},
 };
 
