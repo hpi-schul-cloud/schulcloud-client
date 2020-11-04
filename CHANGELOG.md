@@ -19,6 +19,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7413 - Add winston handler for logging unhandled rejection and exceptions
 - OPS-1508 - added limits for cpu and ram to the docker compose files
 - SC-5942 - Add trim() before email for password recovery got send to server
+- OPS-1297 - Added Changelog github action
 
 ### Fixed
 
