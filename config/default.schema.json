@@ -158,7 +158,7 @@
 				"DISCOVER_URI": {
 					"type": "string",
 					"format": "uri",
-					"description": "URI to discover the homeserver",
+					"description": "URI to discover the homeserver"
 				},
 				"STUDENT_ROOM_CREATION": {
 					"type": "boolean",
