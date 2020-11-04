@@ -6,36 +6,31 @@ const DATETIME_FORMAT = {
 };
 
 const calendarTimezone = document.querySelector('html').getAttribute('timezone');
-const datetime = {
+const now = () => moment();
 
-	now() {
-		moment();
-	},
-
-	toMoment(date) {
-		const momentDate = date ? moment(date) : this.now();
-		momentDate(date).tz(calendarTimezone);
-	},
-
-	dateTimeStringToMoment(date, format = DATETIME_FORMAT.dateTime) {
-		moment(date, format);
-	},
-
-	toDateTimeString(date, format = DATETIME_FORMAT.dateTime) {
-		moment(date).tz(calendarTimezone).format(format);
-	},
-
-	fromNow(date) {
-		this.toMoment(date).fromNow();
-	},
-
-	nowToDateTimeString(format = DATETIME_FORMAT.dateTime) {
-		this.toMoment().format(format);
-	},
-
-	inputRangeDate(offset = 0, offsetBase = 'y', format = DATETIME_FORMAT.dateTime) {
-		this.toMoment().add(offset, offsetBase).format(format);
-	},
+const toMoment = (date) => {
+	const momentDate = date ? moment(date) : now();
+	return momentDate(date).tz(calendarTimezone);
 };
 
-export default datetime;
+const dateTimeStringToMoment = (date, format = DATETIME_FORMAT.dateTime) => moment(date, format);
+
+const toDateTimeString = (date, format = DATETIME_FORMAT.dateTime) => moment(date).tz(calendarTimezone).format(format);
+
+const fromNow = (date) => toMoment(date).fromNow();
+
+const nowToDateTimeString = (format = DATETIME_FORMAT.dateTime) => toMoment().format(format);
+
+// eslint-disable-next-line max-len
+const inputRangeDate = (offset = 0, offsetBase = 'y', format = DATETIME_FORMAT.dateTime) => toMoment().add(offset, offsetBase).format(format);
+
+
+export {
+	dateTimeStringToMoment,
+	fromNow,
+	inputRangeDate,
+	now,
+	nowToDateTimeString,
+	toDateTimeString,
+	toMoment,
+};
