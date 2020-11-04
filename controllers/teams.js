@@ -438,7 +438,7 @@ router.get('/:teamId/json', (req, res, next) => {
 			qs: {
 				$populate: ['ltiToolIds'],
 			},
-		})
+		}),
 	])
 		.then(([result, team]) => {
 			const { data: roles } = result;
