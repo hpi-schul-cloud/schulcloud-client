@@ -917,8 +917,8 @@ router.get(
 router.delete(
 	'/teachers/:id',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_DELETE'], 'or'),
-	getDeleteAccountForUserHandler,
-	getDeleteHandler('users', '/administration/teachers'),
+	// getDeleteAccountForUserHandler,
+	getDeleteHandler('users/v2/users', '/administration/teachers'),
 );
 
 router.get(
@@ -1176,8 +1176,8 @@ router.get(
 router.delete(
 	'/students/:id',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_DELETE'], 'or'),
-	getDeleteAccountForUserHandler,
-	getDeleteHandler('users', '/administration/students'),
+	// getDeleteAccountForUserHandler,
+	getDeleteHandler('users/v2/users', '/administration/students'),
 );
 router.post(
 	'/students/:id/skipregistration/',
