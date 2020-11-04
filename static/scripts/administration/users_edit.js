@@ -5,8 +5,8 @@ const datetime = require('../datetime/datetime');
 function toggleConsentEditing() {
 	const birthdayInput = document.getElementById('birthday');
 	let age;
-	if (birthdayInput) {
-		const birthdayMoment = datetime.dateTimeStringToMoment(birthdayInput);
+	if (birthdayInput && birthdayInput.value) {
+		const birthdayMoment = datetime.dateTimeStringToMoment(birthdayInput.value);
 		age = datetime.now().diff(birthdayMoment, 'years');
 	}
 
