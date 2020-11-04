@@ -15,7 +15,7 @@ let matrixMessengerHomeserver = '';
 let matrixMessengerDiscoverDomain = '';
 if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
 	matrixMessengerEmbed = Configuration.get('MATRIX_MESSENGER__EMBED_URI');
-	matrixMessengerHomeserver = Configuration.get('MATRIX_MESSENGER__HOMESERVER_URI');
+	matrixMessengerHomeserver = Configuration.get('MATRIX_MESSENGER__URI');
 	matrixMessengerDiscoverDomain = matrixMessengerHomeserver.replace('matrix.', '');
 }
 

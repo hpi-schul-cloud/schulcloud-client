@@ -148,7 +148,6 @@
 				"URI": {
 					"type": "string",
 					"format": "uri",
-					"default": "https://matrix.messenger.schule",
 					"description": "The URI of the Matrix Messenger server."
 				},
 				"EMBED_URI": {
@@ -159,7 +158,6 @@
 				},
 				"SERVERNAME": {
 					"type": "string",
-					"default": "messenger.schule",
 					"description": "Servername of the Matrix Messenger server."
 				},
 				"SECRET": {
@@ -472,10 +470,7 @@
 			},
 			"then": {
 				"required": [
-					"MATRIX_MESSENGER_EMBED_URI",
-					"MATRIX_MESSENGER_HOMESERVER_URI",
-					"MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE",
-					"MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED"
+					"MATRIX_MESSENGER"
 				]
 			}
 		}
