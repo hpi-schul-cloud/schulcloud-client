@@ -438,14 +438,9 @@ router.get('/:teamId/json', (req, res, next) => {
 			qs: {
 				$populate: ['ltiToolIds'],
 			},
-		}),
-		api(req).get('/lessons/', {
-			qs: {
-				teamId: req.params.teamId,
-			},
-		}),
+		})
 	])
-		.then(([result, team, lessons]) => {
+		.then(([result, team]) => {
 			const { data: roles } = result;
 
 			team.filePermission = team.filePermission.map((permission) => {
@@ -454,7 +449,7 @@ router.get('/:teamId/json', (req, res, next) => {
 				return permission;
 			});
 
-			res.json({ team, lessons });
+			res.json({ team });
 		})
 		.catch((e) => {
 			logger.warn(e);
