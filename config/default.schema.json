@@ -140,9 +140,8 @@
 			"description": "Matrix messenger properties, required always to be defined",
 			"required": [
 				"URI",
-				"SERVERNAME",
-				"SECRET",
-				"STUDENT_ROOM_CREATION"
+				"EMBED_URI",
+				"DISCOVER_URI"
 			],
 			"properties": {
 				"URI": {
@@ -157,14 +156,10 @@
 					"pattern": ".*(?<!/)$",
 					"description": "Where to find the messenger dependencies."
 				},
-				"SERVERNAME": {
+				"DISCOVER_URI": {
 					"type": "string",
-					"default": "messenger.schule",
-					"description": "Servername of the Matrix Messenger server."
-				},
-				"SECRET": {
-					"type": "string",
-					"description": "Shared secret for the Matrix server."
+					"format": "uri",
+					"description": "URI to discover the homeserver",
 				},
 				"STUDENT_ROOM_CREATION": {
 					"type": "boolean",
