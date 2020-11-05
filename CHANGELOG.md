@@ -46,6 +46,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-5825 Fix progress display in homeworks
+- SC-7590 Fixied missing permission for enabling consent by teachers
 - SC-7151 Fixing sentence structure while registration for parents
 - SC-7350 Fix invalid date
 - SC-7182 do not allow to open office files in new windows
