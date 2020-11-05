@@ -153,7 +153,7 @@ router.get('/', (req, res, next) => {
 		})
 		.then((data) => data.data.map((homeworks) => {
 			homeworks.secondaryTitle = homeworks.dueDate
-				? timesHelper.fromUTC(homeworks.dueDate).fromNow()
+				? timesHelper.fromNow(homeworks.dueDate)
 				: res.$t('dashboard.text.noDueDate');
 			if (homeworks.courseId != null) {
 				homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
@@ -189,7 +189,7 @@ router.get('/', (req, res, next) => {
 		.then((news) => news.data
 			.map((n) => {
 				n.url = `/news/${n._id}`;
-				n.secondaryTitle = timesHelper.fromUTC(n.displayAt).fromNow();
+				n.secondaryTitle = timesHelper.fromNow(n.displayAt);
 				return n;
 			}))
 		.catch((err) => {
@@ -306,7 +306,7 @@ router.get('/', (req, res, next) => {
 			res.render('dashboard/dashboard', {
 				title: res.$t('dashboard.headline.title'),
 				events: events.reverse(),
-				eventsDate: timesHelper.currentDate().format(res.$t('format.dateLong')),
+				eventsDate: timesHelper.currentDate().format(timesHelper.FORMATdateLong),
 				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
 						(task) => !task.private
