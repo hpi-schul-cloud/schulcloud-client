@@ -146,7 +146,7 @@ $(document).ready(() => {
 		e.preventDefault();
 		const entry = $(this).attr('href');
 		$.getJSON(entry, (result) => {
-			result.createdAt = datetime.toDateTimeString(result.createdAt);
+			result.createdAt = datetime.toDateTimeString(result.createdAt, true);
 			populateModalForm($editModal, {
 				action: entry,
 				title: $t('global.button.edit'),
