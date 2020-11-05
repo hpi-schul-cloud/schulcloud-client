@@ -33,6 +33,7 @@
                 <script nonce="{{nonceValue}}">
                     window.matrixAssetDomain = '{{getConfig "MATRIX_MESSENGER__EMBED_URI"}}';
                     window.userLanguage = '{{ @root.userLanguage }}';
+                    window.matrixBlockRoomCreation = {{ @root.matrixBlockRoomCreation }};
                 </script>
                 <script src="/scripts/chatLoggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
             {{/inArray}}
