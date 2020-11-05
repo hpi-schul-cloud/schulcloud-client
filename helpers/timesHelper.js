@@ -12,6 +12,8 @@ let FORMAT = {
 	date: 'DD.MM.YYYY',
 	dateTime: 'DD.MM.YYYY HH:mm',
 	dateLong: 'dddd, DD. MMMM YYYY',
+	dateToPicker: 'DD.MM.YYYY',
+	dateTimeToPicker: 'DD.MM.YYYY HH:mm',
 };
 
 /**
@@ -31,6 +33,8 @@ const setDefaultFormats = (res) => {
 			date: res.$t('format.date'),
 			dateTime: res.$t('format.dateTime'),
 			dateLong: res.$t('format.dateLong'),
+			dateToPicker: res.$t('format.dateToPicker'),
+			dateTimeToPicker: res.$t('format.dateTimeToPicker'),
 		};
 	}
 	return FORMAT;

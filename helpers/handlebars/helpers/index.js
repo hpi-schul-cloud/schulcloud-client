@@ -6,6 +6,8 @@ const { Configuration } = require('@schul-cloud/commons');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
+const logger = require('../../logger');
+
 const timesHelper = require('../../timesHelper');
 
 moment.locale('de');
@@ -187,8 +189,8 @@ const helpers = () => ({
 			.subtract(days, 'days')
 			.format(format);
 	},
-	dateToPicker: (date) => timesHelper.dateToDateString(date),
-	dateTimeToPicker: (date) => timesHelper.dateToDateTimeString(date),
+	dateToPicker: (date) => timesHelper.formatDate(date, i18n.getInstance()('format.dateToPicker')),
+	dateTimeToPicker: (date) => timesHelper.formatDate(date, i18n.getInstance()('format.dateTimeToPicker')),
 	i18nDate: (date) => timesHelper.dateToDateString(date),
 	i18nDateTime: (date) => timesHelper.dateToDateTimeString(date, true),
 	timeToString: (date) => timesHelper.timeToString(date),
