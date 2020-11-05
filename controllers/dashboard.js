@@ -306,7 +306,7 @@ router.get('/', (req, res, next) => {
 			res.render('dashboard/dashboard', {
 				title: res.$t('dashboard.headline.title'),
 				events: events.reverse(),
-				eventsDate: timesHelper.currentDate().format(timesHelper.FORMATdateLong),
+				eventsDate: timesHelper.currentDate().format(timesHelper.FORMAT.dateLong),
 				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
 						(task) => !task.private
