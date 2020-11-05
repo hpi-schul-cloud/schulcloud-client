@@ -42,9 +42,9 @@ router.get('/', (req, res, next) => {
 		hours.push(j + timeStart);
 	}
 	const start = timesHelper.currentDate();
-	start.set({ hour: 0, minute: 0, second: 0 });
+	start.set({ hour: timeStart, minute: 0, second: 0 });
 	const end = timesHelper.currentDate();
-	end.set({ hour: 0, minute: 0, second: 0 });
+	end.set({ hour: timeEnd, minute: 0, second: 0 });
 
 	const currentTime = timesHelper.currentDate();
 	// eslint-disable-next-line max-len
