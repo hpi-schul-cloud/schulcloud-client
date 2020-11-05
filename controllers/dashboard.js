@@ -3,7 +3,6 @@
  */
 
 const express = require('express');
-const moment = require('moment');
 const logger = require('../helpers/logger');
 
 const router = express.Router();
@@ -91,8 +90,8 @@ router.get('/', (req, res, next) => {
 				}
 
 				// subtract timeStart so we can use these values for left alignment
-				const eventStartRelativeMinutes = ((eventStart.getHours() - timeStart) * 60) + eventStart.getMinutes();
-				const eventEndRelativeMinutes = ((eventEnd.getHours() - timeStart) * 60) + eventEnd.getMinutes();
+				const eventStartRelativeMinutes = ((eventStart.hours() - timeStart) * 60) + eventStart.minutes();
+				const eventEndRelativeMinutes = ((eventEnd.hours() - timeStart) * 60) + eventEnd.minutes();
 				const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
 
 				event.comment = `${timesHelper.formatDate(eventStart, 'kk:mm')}
@@ -154,7 +153,7 @@ router.get('/', (req, res, next) => {
 		})
 		.then((data) => data.data.map((homeworks) => {
 			homeworks.secondaryTitle = homeworks.dueDate
-				? moment(homeworks.dueDate).fromNow()
+				? timesHelper.fromUTC(homeworks.dueDate).fromNow()
 				: res.$t('dashboard.text.noDueDate');
 			if (homeworks.courseId != null) {
 				homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
@@ -181,7 +180,7 @@ router.get('/', (req, res, next) => {
 			qs: {
 				schoolId: res.locals.currentSchool,
 				displayAt: {
-					$lte: new Date().getTime(),
+					$lte: timesHelper.now(),
 				},
 				sort: '-displayAt',
 				$limit: 3,
@@ -190,7 +189,7 @@ router.get('/', (req, res, next) => {
 		.then((news) => news.data
 			.map((n) => {
 				n.url = `/news/${n._id}`;
-				n.secondaryTitle = moment(n.displayAt).fromNow();
+				n.secondaryTitle = timesHelper.fromUTC(n.displayAt).fromNow();
 				return n;
 			}))
 		.catch((err) => {
@@ -280,7 +279,7 @@ router.get('/', (req, res, next) => {
 						&& homework.stats
 						&& (
 							(homework.dueDate
-								&& new Date(homework.dueDate) < new Date().getTime()
+								&& timesHelper.fromUTC(homework.dueDate) < timesHelper.now()
 								&& homework.stats.submissionCount > homework.stats.gradeCount
 							) || (
 								!homework.dueDate && homework.stats.submissionCount > 0
@@ -307,11 +306,11 @@ router.get('/', (req, res, next) => {
 			res.render('dashboard/dashboard', {
 				title: res.$t('dashboard.headline.title'),
 				events: events.reverse(),
-				eventsDate: moment().format('dddd, DD. MMMM YYYY'),
+				eventsDate: timesHelper.currentDate().format(res.$t('format.dateLong')),
 				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
 						(task) => !task.private
-							&& (new Date(task.dueDate) >= new Date().getTime() || !task.dueDate),
+							&& (timesHelper.fromUTC(task.dueDate) >= timesHelper.now() || !task.dueDate),
 					).slice(0, 10),
 				privateHomeworks: assignedHomeworks
 					.filter((task) => task.private)
@@ -322,7 +321,7 @@ router.get('/', (req, res, next) => {
 				hours,
 				currentTimePercentage,
 				showNewReleaseModal: newRelease,
-				currentTime: moment(currentTime).format('HH:mm'),
+				currentTime: timesHelper.fromUTC(currentTime).format('HH:mm'),
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
 				displayDataprivacyAlert,

@@ -81,7 +81,7 @@ const currentDate = () => {
 };
 
 /**
- * @return {Number} Current time in seconds based on current timezone
+ * @return {Number} Current time in miliseconds based on current timezone
  */
 const now = () => {
 	const result = moment();
