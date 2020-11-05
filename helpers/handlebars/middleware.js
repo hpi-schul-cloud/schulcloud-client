@@ -186,12 +186,12 @@ module.exports = (req, res, next) => {
 		permission: 'ADMIN_VIEW',
 		children: [
 			{
-				name: res.$t('global.link.administrationStudents'),
+				name: res.$t('global.link.managementStudents'),
 				icon: 'odnoklassniki',
 				link: '/administration/students/',
 			},
 			{
-				name: res.$t('global.link.administrationTeachers'),
+				name: res.$t('global.link.managementTeachers'),
 				icon: 'user',
 				link: '/administration/teachers/',
 			},
