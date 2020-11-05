@@ -6,7 +6,7 @@ const {
 	HOST,
 } = require('../config/global');
 
-const instanceSpecificTitle = () => {
+const grammarExceptionTitle = () => {
 	switch (SC_THEME) {
 		case 'n21':
 			return 'Niedersächsischen Bildungscloud';
@@ -18,7 +18,7 @@ const instanceSpecificTitle = () => {
 const setTheme = (res) => {
 	const documents = defaultDocuments();
 	const baseDir = (res.locals.currentSchoolData || {}).documentBaseDir || documents.documentBaseDir;
-	const themeTitle = instanceSpecificTitle();
+	const themeTitle = grammarExceptionTitle();
 
 	res.locals.theme = {
 		name: SC_THEME,
