@@ -1,11 +1,12 @@
 /* eslint-disable no-undef */
 // jshint esversion: 6
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import 'jquery-datetimepicker';
 import './jquery/datetimepicker-easy';
-
 import { initVideoconferencing } from './videoconference';
+
+const calendarTimezone = document.querySelector('html').getAttribute('timezone');
 
 /**
  * transform a event modal-form for team events
@@ -74,23 +75,15 @@ $(document).ready(() => {
 	$('.btn-edit-event').click(function editClickEvent(e) {
 		e.preventDefault();
 		const event = $(this).parents('.events-card').data('event');
-		event.start = moment(event.start).utc();
-		event.end = moment(event.end).utc();
 		state.event = event;
-
-		$.datetimepicker.setLocale('de');
-		$('input[data-datetime]').datetimepicker({
-			format: 'd.m.Y H:i',
-			mask: '39.19.9999 29:59',
-			dayOfWeekStart: 1,
-		});
 
 		if (event.url) {
 			window.location.href = event.url;
 			return false;
 		}
-		event.startDate = event.start.format($t('format.dateTimeToPicker'));
-		event.endDate = (event.end || event.start).format($t('format.dateTimeToPicker'));
+		event.startDate = moment(event.start).tz(calendarTimezone).format($t('format.dateTimeToPicker'));
+		event.endDate = moment(event.end || event.start).tz(calendarTimezone)
+			.format($t('format.dateTimeToPicker'));
 		event.featureVideoConference = event.attributes['x-sc-featurevideoconference'];
 		populateModalForm($editEventModal, {
 			title: $t('global.headline.dateDetails'),
