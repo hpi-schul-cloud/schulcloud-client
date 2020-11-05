@@ -28,14 +28,21 @@ const toDateTimeString = (date, showOffset = false, format = DATETIME_FORMAT.dat
 
 const fromNow = (date) => toMoment(date).fromNow();
 
-// eslint-disable-next-line max-len
-const inputRangeDate = (offset = 0, offsetBase = 'y', format = DATETIME_FORMAT.dateTime) => toMoment().add(offset, offsetBase).format(format);
-
+const inputRange = ({
+	from, toOffset = 0, toOffsetBase = 'y', format = DATETIME_FORMAT.dateTime,
+}) => {
+	const startDate = toMoment(from).startOf('hour').add(1, 'hour');
+	const endDate = startDate.clone().add(toOffset, toOffsetBase);
+	return [
+		startDate.format(format),
+		endDate.format(format),
+	];
+};
 
 export {
 	dateTimeStringToMoment,
 	fromNow,
-	inputRangeDate,
+	inputRange,
 	now,
 	toDateTimeString,
 	toMoment,

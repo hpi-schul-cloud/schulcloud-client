@@ -53,8 +53,7 @@ $(document).ready(() => {
 
 	$('.btn-create-event').click(() => {
 		// open create event modal
-		const startDate = datetime.toDateTimeString();
-		const endDate = datetime.inputRangeDate(1, 'hour');
+		const [startDate, endDate] = datetime.inputRange({ toOffset: 1, toOffsetBase: 'hour' });
 
 		$createEventModal.find('.create-videoconference').show();
 
@@ -149,7 +148,7 @@ $(document).ready(() => {
 				const { filePermission } = data.team;
 
 				const newPermission = filePermission
-					.filter(permission => ['teamexpert', 'teammember'].indexOf(permission.roleName) > -1)
+					.filter((permission) => ['teamexpert', 'teammember'].indexOf(permission.roleName) > -1)
 					.map((permission) => {
 						const setPermission = ['create', 'read', 'delete', 'write'].reduce((obj, right) => {
 							obj[right] = allowed[permission.roleName];
