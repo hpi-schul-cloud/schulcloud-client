@@ -11,7 +11,6 @@ const authHelper = require('../helpers/authentication');
 const api = require('../api');
 const timesHelper = require('../helpers/timesHelper');
 
-moment.locale('de');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 
 const { error, warn } = require('../helpers/logger');
@@ -33,7 +32,7 @@ const filterRequestInfos = (err) => {
 };
 
 router.get('/', (req, res, next) => {
-	// we display time from 7 a.m. to 5 p.m.
+	// we display time from 7 to 17
 	const timeStart = 7;
 	const timeEnd = 17;
 	const numHours = timeEnd - timeStart;
@@ -43,14 +42,14 @@ router.get('/', (req, res, next) => {
 	for (let j = 0; j <= numHours; j += 1) {
 		hours.push(j + timeStart);
 	}
-	const start = new Date();
-	start.setUTCHours(timeStart, 0, 0, 0);
-	const end = new Date();
-	end.setUTCHours(timeEnd, 0, 0, 0);
+	const start = timesHelper.currentDate();
+	start.set({ hour: 0, minute: 0, second: 0 });
+	const end = timesHelper.currentDate();
+	end.set({ hour: 0, minute: 0, second: 0 });
 
-	const currentTime = new Date();
+	const currentTime = timesHelper.currentDate();
 	// eslint-disable-next-line max-len
-	const currentTotalMinutes = ((currentTime.getHours() - timeStart) * 60) + currentTime.getMinutes();
+	const currentTotalMinutes = ((currentTime.hours() - timeStart) * 60) + currentTime.minutes();
 	let currentTimePercentage = 100 * (currentTotalMinutes / numMinutes);
 	if (currentTimePercentage < 0) currentTimePercentage = 0;
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
@@ -59,8 +58,8 @@ router.get('/', (req, res, next) => {
 		.get('/calendar/', {
 			qs: {
 				all: 'false', // must set to false to use from and until request
-				from: start.toLocalISOString(),
-				until: end.toLocalISOString(),
+				from: start.toISOString(true),
+				until: end.toISOString(true),
 			},
 		})
 		.then((eve) => Promise.all(
@@ -70,25 +69,25 @@ router.get('/', (req, res, next) => {
 			const mappedEvents = evnts.map(recurringEventsHelper.mapRecurringEvent);
 			const flatEvents = [].concat(...mappedEvents);
 			const events = flatEvents.filter((event) => {
-				const eventStart = new Date(event.start);
-				const eventEnd = new Date(event.end);
+				const eventStart = timesHelper.fromUTC(event.start);
+				const eventEnd = timesHelper.fromUTC(event.end);
 
 				return eventStart < end && eventEnd > start;
 			});
 
 			return (events || []).map((event) => {
-				let eventStart = new Date(event.start);
-				let eventEnd = new Date(event.end);
+				let eventStart = timesHelper.fromUTC(event.start);
+				let eventEnd = timesHelper.fromUTC(event.end);
 
 				// cur events that are too long
 				if (eventEnd > end) {
 					eventEnd = end;
-					event.end = eventEnd.toLocalISOString();
+					event.end = eventEnd.toISOString(true);
 				}
 
 				if (eventStart < start) {
 					eventStart = start;
-					event.start = eventEnd.toLocalISOString();
+					event.start = eventEnd.toISOString(true);
 				}
 
 				// subtract timeStart so we can use these values for left alignment
@@ -146,10 +145,8 @@ router.get('/', (req, res, next) => {
 					{
 						dueDate: {
 							// homeworks with max. 7 days after and 1 year before dueDate
-							$gte: new Date().getTime() - 1000 * 60 * 60 * 24 * 7,
-							$lte: new Date(
-								new Date().setFullYear(new Date().getFullYear() + 1),
-							),
+							$gte: timesHelper.now() - 1000 * 60 * 60 * 24 * 7,
+							$lte: timesHelper.currentDate().year() + 1,
 						},
 					},
 				],
