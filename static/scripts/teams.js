@@ -53,7 +53,7 @@ $(document).ready(() => {
 
 	$('.btn-create-event').click(() => {
 		// open create event modal
-		const startDate = datetime.nowToDateTimeString();
+		const startDate = datetime.toDateTimeString();
 		const endDate = datetime.inputRangeDate(1, 'hour');
 
 		$createEventModal.find('.create-videoconference').show();
