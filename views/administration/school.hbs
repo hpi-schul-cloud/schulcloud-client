@@ -179,7 +179,7 @@
 				<div class="col-sm-12 no-padding">
 					<!-- Admin View -->
 					{{#userHasPermission 'ADMIN_VIEW'}}
-					<h2 class="h4">{{ $t "global.link.school" }}</h2>
+					<h2 class="h4">{{ $t "administration.school.headline.generalSettings" }}</h2>
 
 					<form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
 						<input type="hidden" name="_method" value="patch" />
@@ -275,28 +275,9 @@
 						</div>
 
                         {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}
-                        <div id="messenger-sub-options">
+                        <div id="messenger-sub-options" class="pl-3">
                             {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
-                            <div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED" false}}hidden{{/ifConfig}}">
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="messengerSchoolRoom"
-                                        value="true"
-                                        {{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}
-                                        {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-                                            {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-                                                disabled
-                                            {{/userHasPermission}}
-                                        {{/userHasPermission}}
-                                    />
-                                    {{$t "administration.school.label.messengerSchoolRoom" }}
-                                    <p class="text-muted">
-                                    {{$t "administration.school.text.messengerSchoolRoom" }}
-                                    </p>
-                                </label>
-                            </div>
-							<div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "MATRIX_MESSENGER__STUDENT_ROOM_CREATION" false}}hidden{{/ifConfig}}">
+                            <div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "MATRIX_MESSENGER__STUDENT_ROOM_CREATION" false}}hidden{{/ifConfig}}">
                                 <label>
                                     <input
                                         type="checkbox"
@@ -310,10 +291,29 @@
                                         {{/userHasPermission}}
                                     />
                                     {{$t "administration.school.label.messengerStudentRoomCreate" }}
-                                    <p class="text-muted">
-                                    {{$t "administration.school.text.messengerStudentRoomCreate" }}
-                                    </p>
                                 </label>
+								<p class="text-muted">
+									{{$t "administration.school.text.messengerStudentRoomCreate" }}
+								</p>
+                            </div>
+							<div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED" false}}hidden{{/ifConfig}}">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="messengerSchoolRoom"
+                                        value="true"
+                                        {{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}
+                                        {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+                                            {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+                                                disabled
+                                            {{/userHasPermission}}
+                                        {{/userHasPermission}}
+                                    />
+                                    {{$t "administration.school.label.messengerSchoolRoom" }}
+                                </label>
+								<p class="text-muted">
+									{{$t "administration.school.text.messengerSchoolRoom" }}
+								</p>
                             </div>
                         </div>
 
@@ -370,7 +370,7 @@
 								</option>
 								{{/each}} </select> </div> {{/if}}
 						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">{{$t "global.button.save" }}</button>
+						<button type="submit" class="btn btn-primary btn-submit">{{$t "administration.school.button.saveGeneralSettings" }}</button>
 					</form>
 
 					{{#if ../school.fileStorageType}}
