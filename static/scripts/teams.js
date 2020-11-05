@@ -3,7 +3,6 @@
 
 import 'jquery-datetimepicker';
 import './jquery/datetimepicker-easy';
-
 import { initVideoconferencing } from './videoconference';
 
 const datetime = require('./datetime/datetime');
