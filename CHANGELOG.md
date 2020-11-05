@@ -23,6 +23,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-7645 - Fixed team calendar timezone bug
+- SC-7666 - Fixed rss translation key
 - SC-5555 - Fixed class names not being visible in course creation in some cases
 - SC-7463 - Fixed undefined value when requesting school systems login
 - SC-7392 fix create event for teams / courses
