@@ -33,6 +33,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6721 - fixed classes list in course administration
 - SC-7084 - changed file permission name Mitglied to Teilnehmer
 - SC-5501 - fixed grammar issue for password recovery request
+- SC-7589 - fixed correct display for age while first login and change of sentence structure for clearance
 
 ### Changed
 
