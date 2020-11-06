@@ -339,7 +339,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
 	// map course times to fit model
 	(req.body.times || []).forEach((time) => {
-		time.startTime = timesHelper.duration(time.startTime, 'HH:mm').asMilliseconds();
+		time.startTime = moment.duration(time.startTime, 'HH:mm').asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
