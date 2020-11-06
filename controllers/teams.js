@@ -627,7 +627,7 @@ router.get('/:teamId', async (req, res, next) => {
 			.then((newsres) => newsres.data
 				.map((n) => {
 					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
-					n.secondaryTitle = timesHelper.fromNow(n.displayAt)
+					n.secondaryTitle = timesHelper.fromNow(n.displayAt);
 					return n;
 				}))
 			.catch((err) => {
