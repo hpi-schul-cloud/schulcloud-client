@@ -1,8 +1,6 @@
-const moment = require('moment');
+const datetime = require('../datetime/datetime');
 
 const max = 2;
-
-moment.locale('de'); // set the localization
 
 function getIconTag(status) {
 	switch (status) {
@@ -23,7 +21,6 @@ class AlertMessageController {
 	}
 
 	buildMessage(message) {
-		const date = moment(message.timestamp);
 		const icon = getIconTag(message.status);
 
 		// show only 150 charckters of message
@@ -47,7 +44,10 @@ class AlertMessageController {
 		const item = document.createElement('div');
 		if (this.loggedin) {
 			item.className = 'alert-item';
-			item.innerHTML = `<div class="alert-date text-nowrap text-muted">${date.fromNow()}</div>
+			item.innerHTML = `
+			<div class="alert-date text-nowrap text-muted">
+					${datetime.fromNow(message.timestamp)}
+			</div>
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
 			${url}
@@ -55,7 +55,7 @@ class AlertMessageController {
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
-			<div class="text-muted" style="float: left;">${date.format($t('format.dateTimeToPicker'))}</div> <br>
+			<div class="text-muted" style="float: left;">${datetime.toDateTimeString(message.timestamp)}</div> <br>
 			${messageText}
 			${url}
 			<div style="clear: both;"></div>`;
