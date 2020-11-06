@@ -930,12 +930,12 @@ router.get('/:courseId/copy', copyCourseHandler);
 
 // return shareToken
 router.get('/:id/share', (req, res, next) => api(req)
-	.get(`/courses/share/${req.params.id}`)
+	.get(`/courses-share/${req.params.id}`)
 	.then((course) => res.json(course)));
 
 // return course Name for given shareToken
 router.get('/share/:id', (req, res, next) => api(req)
-	.get('/courses/share', { qs: { shareToken: req.params.id } })
+	.get('/courses-share', { qs: { shareToken: req.params.id } })
 	.then((name) => res.json({ msg: name, status: 'success' }))
 	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
@@ -944,7 +944,7 @@ router.post('/import', (req, res, next) => {
 	const courseName = req.body.name;
 
 	api(req)
-		.post('/courses/share', { json: { shareToken, courseName } })
+		.post('/courses-share', { json: { shareToken, courseName } })
 		.then((course) => {
 			if (course.errors && course.message && course.code) {
 				throw course;
