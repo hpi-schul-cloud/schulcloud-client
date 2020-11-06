@@ -195,6 +195,12 @@ const schoolTimezoneToString = (showTimezoneOffset = false) => {
 	return `${schoolTimezoneString}${offset}`;
 };
 
+/**
+ * @param {number} Number/String
+ * @return {number} lenght of time duration
+ */
+const duration = (number) => moment.duration(number);
+
 module.exports = {
 	setDefaultTimezone,
 	setDefaultFormats,
@@ -212,6 +218,7 @@ module.exports = {
 	dateTimeStringToMoment,
 	dateToDateString,
 	dateToDateTimeString,
+	duration,
 	schoolTimezoneToString,
 	moment,
 	FORMAT,

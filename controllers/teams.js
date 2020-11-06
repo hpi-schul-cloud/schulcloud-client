@@ -152,7 +152,7 @@ const editTeamHandler = async (req, res, next) => {
 	const rocketChatDeprecated = Configuration.has('ROCKET_CHAT_DEPRECATION_DATE');
 	if (rocketChatDeprecated) {
 		const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
-		if (deprecationDate < Date.now()) instanceUsesRocketChat = false;
+		if (deprecationDate < timesHelper.now()) instanceUsesRocketChat = false;
 	}
 
 	teamPromise.then((team) => {
@@ -232,7 +232,7 @@ const copyCourseHandler = (req, res, next) => {
 		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
-			const duration = moment.duration(time.startTime);
+			const duration = timesHelper.duration(time.startTime);
 			time.startTime = `${`00${duration.hours()}`.slice(
 				-2,
 			)}:${`00${duration.minutes()}`.slice(-2)}`;
@@ -292,9 +292,7 @@ router.get('/', async (req, res, next) => {
 		team.background = team.color;
 		team.memberAmount = team.userIds.length;
 		(team.times || []).forEach((time) => {
-			time.startTime = moment(time.startTime, 'x')
-				.utc()
-				.format('HH:mm');
+			time.startTime = timesHelper.fromUTC(time.startTime)
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
 			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 				time.room ? `| ${time.room}` : ''
@@ -341,19 +339,19 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
 	// map course times to fit model
 	(req.body.times || []).forEach((time) => {
-		time.startTime = moment.duration(time.startTime, 'HH:mm').asMilliseconds();
+		time.startTime = timesHelper.duration(time.startTime, 'HH:mm').asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	req.body.startDate = timesHelper.createFromString(req.body.startDate, timesHelper.FORMAT.date);
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	req.body.untilDate = timesHelper.createFromString(req.body.untilDate, timesHelper.FORMAT.date);
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
+	if (!timesHelper.fromUTC(req.body.startDate).isValid()) {
 		delete req.body.startDate;
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
+	if (!timesHelper.fromUTC(req.body.untilDate).isValid()) {
 		delete req.body.untilDate;
 	}
 
@@ -386,14 +384,14 @@ router.post('/copy/:teamId', (req, res, next) => {
 	});
 
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	req.body.startDate = timesHelper.createFromString(req.body.startDate, timesHelper.FORMAT.date);
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	req.body.untilDate = timesHelper.createFromString(req.body.untilDate, timesHelper.FORMAT.date);
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
+	if (!timesHelper.fromUTC(req.body.startDate).isValid()) {
 		delete req.body.startDate;
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
+	if (!timesHelper.fromUTC(req.body.untilDate).isValid()) {
 		delete req.body.untilDate;
 	}
 
@@ -498,7 +496,7 @@ router.get('/:teamId', async (req, res, next) => {
 		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 		if (Configuration.has('ROCKET_CHAT_DEPRECATION_DATE')) {
 			const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
-			if (deprecationDate < Date.now()) instanceUsesRocketChat = false;
+			if (deprecationDate < timesHelper.now()) instanceUsesRocketChat = false;
 		}
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (
@@ -595,7 +593,7 @@ router.get('/:teamId', async (req, res, next) => {
 		files
 			.sort((a, b) => {
 				if (b && b.updatedAt && a && a.updatedAt) {
-					return new Date(b.updatedAt) - new Date(a.updatedAt);
+					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
 			})
@@ -606,7 +604,7 @@ router.get('/:teamId', async (req, res, next) => {
 		directories
 			.sort((a, b) => {
 				if (b && b.updatedAt && a && a.updatedAt) {
-					return new Date(b.updatedAt) - new Date(a.updatedAt);
+					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
 			})
@@ -618,7 +616,7 @@ router.get('/:teamId', async (req, res, next) => {
 					target: req.params.teamId,
 					targetModel: 'teams',
 					displayAt: {
-						$lte: new Date().getTime(),
+						$lte: timesHelper.now(),
 					},
 					sort: '-displayAt',
 					$limit: 3,
@@ -627,7 +625,7 @@ router.get('/:teamId', async (req, res, next) => {
 			.then((newsres) => newsres.data
 				.map((n) => {
 					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
-					n.secondaryTitle = moment(n.displayAt).fromNow();
+					n.secondaryTitle = timesHelper.fromNow(n.displayAt)
 					return n;
 				}))
 			.catch((err) => {
@@ -736,19 +734,19 @@ router.patch('/:teamId', async (req, res, next) => {
 	// map course times to fit model
 	req.body.times = req.body.times || [];
 	req.body.times.forEach((time) => {
-		time.startTime = moment.duration(time.startTime).asMilliseconds();
+		time.startTime = timesHelper.duration(time.startTime).asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	req.body.startDate = timesHelper.createFromString(req.body.startDate, timesHelper.FORMAT.date);
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	req.body.untilDate = timesHelper.createFromString(req.body.untilDate, timesHelper.FORMAT.date);
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
+	if (!timesHelper.fromUTC(req.body.startDate).isValid()) {
 		delete req.body.startDate;
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
+	if (!timesHelper.fromUTC(req.body.untilDate).isValid()) {
 		delete req.body.untilDate;
 	}
 
