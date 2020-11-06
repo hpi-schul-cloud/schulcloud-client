@@ -152,7 +152,7 @@ const editTeamHandler = async (req, res, next) => {
 	const rocketChatDeprecated = Configuration.has('ROCKET_CHAT_DEPRECATION_DATE');
 	if (rocketChatDeprecated) {
 		const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
-		if (deprecationDate < Date.now()) instanceUsesRocketChat = false;
+		if (deprecationDate < timesHelper.now()) instanceUsesRocketChat = false;
 	}
 
 	teamPromise.then((team) => {
@@ -232,7 +232,7 @@ const copyCourseHandler = (req, res, next) => {
 		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
-			const duration = moment.duration(time.startTime);
+			const duration = timesHelper.duration(time.startTime);
 			time.startTime = `${`00${duration.hours()}`.slice(
 				-2,
 			)}:${`00${duration.minutes()}`.slice(-2)}`;
@@ -439,13 +439,8 @@ router.get('/:teamId/json', (req, res, next) => {
 				$populate: ['ltiToolIds'],
 			},
 		}),
-		api(req).get('/lessons/', {
-			qs: {
-				teamId: req.params.teamId,
-			},
-		}),
 	])
-		.then(([result, team, lessons]) => {
+		.then(([result, team]) => {
 			const { data: roles } = result;
 
 			team.filePermission = team.filePermission.map((permission) => {
@@ -454,7 +449,7 @@ router.get('/:teamId/json', (req, res, next) => {
 				return permission;
 			});
 
-			res.json({ team, lessons });
+			res.json({ team });
 		})
 		.catch((e) => {
 			logger.warn(e);
@@ -503,7 +498,7 @@ router.get('/:teamId', async (req, res, next) => {
 		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 		if (Configuration.has('ROCKET_CHAT_DEPRECATION_DATE')) {
 			const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
-			if (deprecationDate < Date.now()) instanceUsesRocketChat = false;
+			if (deprecationDate < timesHelper.now()) instanceUsesRocketChat = false;
 		}
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (
@@ -600,7 +595,7 @@ router.get('/:teamId', async (req, res, next) => {
 		files
 			.sort((a, b) => {
 				if (b && b.updatedAt && a && a.updatedAt) {
-					return new Date(b.updatedAt) - new Date(a.updatedAt);
+					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
 			})
@@ -611,7 +606,7 @@ router.get('/:teamId', async (req, res, next) => {
 		directories
 			.sort((a, b) => {
 				if (b && b.updatedAt && a && a.updatedAt) {
-					return new Date(b.updatedAt) - new Date(a.updatedAt);
+					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
 			})
@@ -623,7 +618,7 @@ router.get('/:teamId', async (req, res, next) => {
 					target: req.params.teamId,
 					targetModel: 'teams',
 					displayAt: {
-						$lte: new Date().getTime(),
+						$lte: timesHelper.now(),
 					},
 					sort: '-displayAt',
 					$limit: 3,
@@ -632,7 +627,7 @@ router.get('/:teamId', async (req, res, next) => {
 			.then((newsres) => newsres.data
 				.map((n) => {
 					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
-					n.secondaryTitle = moment(n.displayAt).fromNow();
+					n.secondaryTitle = timesHelper.fromNow(n.displayAt);
 					return n;
 				}))
 			.catch((err) => {
@@ -741,7 +736,7 @@ router.patch('/:teamId', async (req, res, next) => {
 	// map course times to fit model
 	req.body.times = req.body.times || [];
 	req.body.times.forEach((time) => {
-		time.startTime = moment.duration(time.startTime).asMilliseconds();
+		time.startTime = timesHelper.duration(time.startTime).asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 

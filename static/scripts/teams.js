@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 // jshint esversion: 6
 
-import moment from 'moment';
 import 'jquery-datetimepicker';
 import './jquery/datetimepicker-easy';
-
 import { initVideoconferencing } from './videoconference';
+
+const datetime = require('./datetime/datetime');
 
 /**
  * transform a event modal-form for team events
@@ -52,8 +52,7 @@ $(document).ready(() => {
 
 	$('.btn-create-event').click(() => {
 		// open create event modal
-		const startDate = moment().format($t('format.dateTimeToPicker'));
-		const endDate = moment().add(1, 'hour').format($t('format.dateTimeToPicker'));
+		const [startDate, endDate] = datetime.inputRange({ toOffset: 1, toOffsetBase: 'hour' });
 
 		$createEventModal.find('.create-videoconference').show();
 
@@ -74,23 +73,14 @@ $(document).ready(() => {
 	$('.btn-edit-event').click(function editClickEvent(e) {
 		e.preventDefault();
 		const event = $(this).parents('.events-card').data('event');
-		event.start = moment(event.start).utc();
-		event.end = moment(event.end).utc();
 		state.event = event;
-
-		$.datetimepicker.setLocale('de');
-		$('input[data-datetime]').datetimepicker({
-			format: 'd.m.Y H:i',
-			mask: '39.19.9999 29:59',
-			dayOfWeekStart: 1,
-		});
 
 		if (event.url) {
 			window.location.href = event.url;
 			return false;
 		}
-		event.startDate = event.start.format($t('format.dateTimeToPicker'));
-		event.endDate = (event.end || event.start).format($t('format.dateTimeToPicker'));
+		event.startDate = datetime.toDateTimeString(event.start);
+		event.endDate = datetime.toDateTimeString(event.end || event.start);
 		event.featureVideoConference = event.attributes['x-sc-featurevideoconference'];
 		populateModalForm($editEventModal, {
 			title: $t('global.headline.dateDetails'),
@@ -157,7 +147,7 @@ $(document).ready(() => {
 				const { filePermission } = data.team;
 
 				const newPermission = filePermission
-					.filter(permission => ['teamexpert', 'teammember'].indexOf(permission.roleName) > -1)
+					.filter((permission) => ['teamexpert', 'teammember'].indexOf(permission.roleName) > -1)
 					.map((permission) => {
 						const setPermission = ['create', 'read', 'delete', 'write'].reduce((obj, right) => {
 							obj[right] = allowed[permission.roleName];
