@@ -144,8 +144,11 @@ router.get('/', (req, res, next) => {
 					{
 						dueDate: {
 							// homeworks with max. 7 days after and 1 year before dueDate
-							$gte: timesHelper.now() - 1000 * 60 * 60 * 24 * 7,
-							$lte: timesHelper.currentDate().year() + 1,
+							$gte: timesHelper.currentDate().add(-7, 'days').format('x'),
+							$lte: timesHelper.currentDate()
+								.add(1, 'years')
+								.set({ hour: 23, minute: 59, second: 59 })
+								.format('x'),
 						},
 					},
 				],
