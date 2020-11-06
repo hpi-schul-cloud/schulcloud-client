@@ -1466,7 +1466,7 @@
 		"label": {
 			"newPassword": "Neues Passwort: ",
 			"repeatYourNewPassword": "Wiederhole dein neues Passwort:",
-			"under14YearsOld": "unter 14 Jahre alt."
+			"under14YearsOld": "13 Jahre oder jünger."
 		},
 		"parent": {
 			"button": {
@@ -1507,9 +1507,9 @@
 			"repeatNewPassword": "Neues Passwort wiederholen"
 		},
 		"text": {
-			"between14And": "zwischen 14 und {{addConsent}} Jahre alt.",
+			"between14And": "zwischen 14 und {{addConsent}} Jahre.",
 			"clickHereForFurtherTraining": "Hier gehts zur Fortbildung",
-			"fromYear": "ab {{age}} Jahre alt.",
+			"fromYear": "{{age}} Jahre oder älter.",
 			"justHaveALook": "Schau einfach mal vorbei!",
 			"linguisticNote": "Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
 			"pleaseChangeTheStartPassword": "Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!",
@@ -2595,8 +2595,8 @@
 				"welcomeToTheRegistration": "Willkommen zur Anmeldung in der {{title}}!"
 			},
 			"label": {
-				"bellowNYearsOld": "unter {{years}} Jahre alt",
-				"overNYearsOld": "ab {{years}} Jahre alt"
+				"bellowNYearsOld": "unter {{years}} Jahren.",
+				"overNYearsOld": "{{years}} Jahre oder älter."
 			},
 			"parent": {
 				"global": {
