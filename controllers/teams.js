@@ -292,7 +292,9 @@ router.get('/', async (req, res, next) => {
 		team.background = team.color;
 		team.memberAmount = team.userIds.length;
 		(team.times || []).forEach((time) => {
-			time.startTime = timesHelper.fromUTC(time.startTime)
+			time.startTime = moment(time.startTime, 'x')
+				.utc()
+				.format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
 			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
 				time.room ? `| ${time.room}` : ''
@@ -344,14 +346,14 @@ router.post('/', async (req, res, next) => {
 	});
 
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = timesHelper.createFromString(req.body.startDate, timesHelper.FORMAT.date);
+	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.untilDate = timesHelper.createFromString(req.body.untilDate, timesHelper.FORMAT.date);
+	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!timesHelper.fromUTC(req.body.startDate).isValid()) {
+	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
 	}
-	if (!timesHelper.fromUTC(req.body.untilDate).isValid()) {
+	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
 
@@ -384,14 +386,14 @@ router.post('/copy/:teamId', (req, res, next) => {
 	});
 
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = timesHelper.createFromString(req.body.startDate, timesHelper.FORMAT.date);
+	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.untilDate = timesHelper.createFromString(req.body.untilDate, timesHelper.FORMAT.date);
+	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!timesHelper.fromUTC(req.body.startDate).isValid()) {
+	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
 	}
-	if (!timesHelper.fromUTC(req.body.untilDate).isValid()) {
+	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
 
@@ -739,14 +741,14 @@ router.patch('/:teamId', async (req, res, next) => {
 	});
 
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = timesHelper.createFromString(req.body.startDate, timesHelper.FORMAT.date);
+	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
 	// eslint-disable-next-line no-underscore-dangle
-	req.body.untilDate = timesHelper.createFromString(req.body.untilDate, timesHelper.FORMAT.date);
+	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!timesHelper.fromUTC(req.body.startDate).isValid()) {
+	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.startDate;
 	}
-	if (!timesHelper.fromUTC(req.body.untilDate).isValid()) {
+	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
 
