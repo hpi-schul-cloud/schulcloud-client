@@ -71,7 +71,7 @@ router.get('/', (req, res, next) => {
 				const eventStart = timesHelper.fromUTC(event.start);
 				const eventEnd = timesHelper.fromUTC(event.end);
 
-				return eventStart < end && eventEnd > start;
+				return eventStart.isBefore(end) && eventEnd.isAfter(start);
 			});
 
 			return (events || []).map((event) => {
@@ -79,12 +79,12 @@ router.get('/', (req, res, next) => {
 				let eventEnd = timesHelper.fromUTC(event.end);
 
 				// cur events that are too long
-				if (eventEnd > end) {
+				if (eventEnd.isAfter(end)) {
 					eventEnd = end;
 					event.end = eventEnd.toISOString(true);
 				}
 
-				if (eventStart < start) {
+				if (eventStart.isBefore(start)) {
 					eventStart = start;
 					event.start = eventEnd.toISOString(true);
 				}
