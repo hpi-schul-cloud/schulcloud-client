@@ -12,6 +12,8 @@ let FORMAT = {
 	date: 'DD.MM.YYYY',
 	dateTime: 'DD.MM.YYYY HH:mm',
 	dateLong: 'dddd, DD. MMMM YYYY',
+	dateToPicker: 'DD.MM.YYYY',
+	dateTimeToPicker: 'DD.MM.YYYY HH:mm',
 };
 
 /**
@@ -31,6 +33,8 @@ const setDefaultFormats = (res) => {
 			date: res.$t('format.date'),
 			dateTime: res.$t('format.dateTime'),
 			dateLong: res.$t('format.dateLong'),
+			dateToPicker: res.$t('format.dateToPicker'),
+			dateTimeToPicker: res.$t('format.dateTimeToPicker'),
 		};
 	}
 	return FORMAT;
@@ -81,7 +85,7 @@ const currentDate = () => {
 };
 
 /**
- * @return {Number} Current time in seconds based on current timezone
+ * @return {Number} Current time in miliseconds based on current timezone
  */
 const now = () => {
 	const result = moment();
@@ -191,6 +195,12 @@ const schoolTimezoneToString = (showTimezoneOffset = false) => {
 	return `${schoolTimezoneString}${offset}`;
 };
 
+/**
+ * @param {number} Number/String
+ * @return {number} lenght of time duration
+ */
+const duration = (number) => moment.duration(number);
+
 module.exports = {
 	setDefaultTimezone,
 	setDefaultFormats,
@@ -208,6 +218,7 @@ module.exports = {
 	dateTimeStringToMoment,
 	dateToDateString,
 	dateToDateTimeString,
+	duration,
 	schoolTimezoneToString,
 	moment,
 	FORMAT,
