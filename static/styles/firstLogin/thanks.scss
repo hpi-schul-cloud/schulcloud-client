@@ -10,8 +10,8 @@
     height: 80vh;
     width: 100%;
 
-    img {
-        max-height: 250px;
+    svg {
+        max-height: 400px;
     }
 
     @include media-breakpoint-down(xs) {
@@ -19,8 +19,8 @@
         h1 {
             font-size: 7.5vw;
         }
-        img {
-            max-height: 40vw;
+        svg {
+            max-height: 50vw;
         }
     }
     @media (min-width: 850px){
@@ -43,7 +43,7 @@
         border-radius: 100px;
         background-color: $primaryColor;
         cursor: pointer;
-    
+
         .arrow {
             border: solid white;
             border-width: 0 3px 3px 0;
@@ -64,7 +64,7 @@
             45%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
             100%  {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
         }
-          
+
         @keyframes example {
             0%   {border-color: rgba(255, 255, 255, 0.80); top: 0px;}
             20%  {border-color: rgba(255, 255, 255, 1); top: 8px;}

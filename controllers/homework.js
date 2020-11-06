@@ -6,7 +6,6 @@
 const express = require('express');
 const marked = require('marked');
 const handlebars = require('handlebars');
-const moment = require('moment');
 const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -15,10 +14,11 @@ const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
 const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
 const { getGradingFileDownloadPath, getGradingFileName, isGraded } = require('../helpers/homework');
+const timesHelper = require('../helpers/timesHelper');
 
 const router = express.Router();
 
-handlebars.registerHelper('ifvalue', function (conditional, options) {
+handlebars.registerHelper('ifvalue', (conditional, options) => {
 	if (options.hash.value === conditional) {
 		return options.fn(this);
 	}
@@ -75,18 +75,24 @@ const getCreateHandler = (service) => (req, res, next) => {
 		}
 		if (dueDate) {
 			// rewrite german format to ISO
-			req.body.dueDate = moment(dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.dueDate = timesHelper
+				.dateTimeStringToMoment(dueDate)
+				.toISOString();
 		}
 
 		if (publicSubmissions === 'public') {
 			req.body.publicSubmissions = true;
 		}
 
-		if (availableDate && availableDate !== '__.__.____ __:__') {
-			req.body.availableDate = moment(availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+		const dateTimePickerMask = res.$t('format.dateTimePickerMask');
+		const datePickerPlaceholder = dateTimePickerMask.replace(/[0-9]/g, '_');
+
+		if (availableDate && availableDate !== datePickerPlaceholder) {
+			req.body.availableDate = timesHelper
+				.dateTimeStringToMoment(availableDate)
+				.toISOString();
 		} else {
-			const now = new Date();
-			req.body.availableDate = now.toISOString();
+			req.body.availableDate = timesHelper.currentDate().toISOString();
 		}
 
 		// after set dates, finaly test...
@@ -122,7 +128,12 @@ const getCreateHandler = (service) => (req, res, next) => {
 						res.$t('homework._task.text.newHomeworkCourseNotification',
 							{ coursename: course.name }),
 						res.$t('homework._task.text.newHomeworkDueDateNotification',
-							{ homeworkname: data.name, duedate: moment(data.dueDate).format('DD.MM.YYYY HH:mm') }),
+							{
+								homeworkname: data.name,
+								duedate: timesHelper
+									.fromUTC(data.dueDate)
+									.format(res.$t('format.dateTime')),
+							}),
 						data.teacherId,
 						req,
 						`${(req.headers.origin || HOST)}/homework/${data._id}`);
@@ -143,6 +154,8 @@ const getCreateHandler = (service) => (req, res, next) => {
 					// homework was created from homeworks overview
 					referrer += data._id;
 				}
+			} else if (service === 'submissions') {
+				referrer += '#activetabid=submissions';
 			}
 			// includes submission was done
 			res.redirect(referrer);
@@ -201,7 +214,7 @@ const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileI
 		});
 };
 
-const patchFunction = function (service, req, res, next) {
+const patchFunction = (service, req, res, next) => {
 	if (req.body.referrer) {
 		var referrer = req.body.referrer.replace('/edit', '');
 		delete req.body.referrer;
@@ -228,7 +241,8 @@ const patchFunction = function (service, req, res, next) {
 							req,
 							`${(req.headers.origin || HOST)}/homework/${homework._id}`);
 					});
-				res.redirect(req.header('Referrer'));
+				const redirect_path = `${req.header('Referrer')}#activetabid=submissions`;
+				res.redirect(redirect_path);
 			});
 		}
 		if (referrer) {
@@ -272,10 +286,14 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 
 		// rewrite german format to ISO
 		if (req.body.availableDate) {
-			req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.availableDate = timesHelper
+				.dateTimeStringToMoment(req.body.availableDate)
+				.toISOString();
 		}
 		if (req.body.dueDate) {
-			req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+			req.body.dueDate = timesHelper
+				.dateTimeStringToMoment(req.body.dueDate)
+				.toISOString();
 		}
 		if (req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
 			req.session.notification = {
@@ -302,7 +320,7 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 };
 
 
-const getImportHandler = (service) => function (req, res, next) {
+const getImportHandler = (service) => (req, res, next) => {
 	api(req).get(`/${service}/${req.params.id}`).then(
 		(data) => {
 			res.json(data);
@@ -313,7 +331,7 @@ const getImportHandler = (service) => function (req, res, next) {
 };
 
 
-const getDeleteHandler = (service, redirectToReferer) => function (req, res, next) {
+const getDeleteHandler = (service, redirectToReferer) => (req, res, next) => {
 	api(req).delete(`/${service}/${req.params.id}`).then((_) => {
 		if (redirectToReferer) {
 			redirectHelper.safeBackRedirect(req, res);
@@ -357,7 +375,10 @@ router.post('/submit/:id/files', (req, res, next) => {
 		delete submission.grade;
 		delete submission.gradeComment;
 		delete submission.comment;
-		submission.fileIds.push(req.body.fileId);
+
+		const files = req.body.fileId || req.body.fileIds;
+		submission.fileIds = submission.fileIds.concat(files);
+
 		return api(req).patch(`/submissions/${submissionId}`, {
 			json: submission,
 		});
@@ -401,7 +422,9 @@ router.post('/submit/:id/files/:fileId/permissions', async (req, res) => {
 		if (teamMembers) {
 			// wait for result now
 			// todo move logic to backend
-			await addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId]);
+			await addFilePermissionsForTeamMembers(
+				req, teamMembers, homework.courseGroupId, [fileId],
+			);
 		}
 		res.json(file);
 	} catch (err) {
@@ -423,15 +446,6 @@ router.delete('/submit/:id/files', (req, res, next) => {
 
 router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandler('comments', true));
-
-
-const splitDate = function (date) {
-	return {
-		timestamp: moment(date).valueOf(),
-		date: moment(date).format('DD.MM.YYYY'),
-		time: moment(date).format('HH:mm'),
-	};
-};
 
 const overview = (titleKey) => (req, res, next) => {
 	const { _id: userId, schoolId } = res.locals.currentUser || {};
@@ -469,7 +483,7 @@ const overview = (titleKey) => (req, res, next) => {
 		// ist der aktuelle Benutzer ein Schueler? -> Für Sichtbarkeit von Daten benötigt
 		api(req).get(`/users/${userId}`, {
 			qs: {
-				$populate: ['roles', 'courseId'],
+				$populate: ['roles'],
 			},
 		}).then((user) => {
 			const isStudent = (user.roles.map((role) => role.name).indexOf('student') != -1);
@@ -504,9 +518,19 @@ const overview = (titleKey) => (req, res, next) => {
 				if (!assignment.isTeacher) {
 					assignment.stats = undefined;
 				}
-				const dueDateArray = splitDate(assignment.dueDate);
-				assignment.submittable = dueDateArray.timestamp >= Date.now() || !assignment.dueDate;
-				assignment.warning = ((dueDateArray.timestamp <= (Date.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
+
+				// convert UTC dates to current timezone
+				if (assignment.availableDate) {
+					assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
+				}
+				if (assignment.dueDate) {
+					assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
+				}
+
+				const dueDateArray = timesHelper.splitDate(assignment.dueDate, res.$t('format.date'));
+				assignment.submittable = dueDateArray.timestamp >= timesHelper.now() || !assignment.dueDate;
+				assignment.warning = ((dueDateArray.timestamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
+					&& assignment.submittable);
 				return assignment;
 			});
 
@@ -517,10 +541,10 @@ const overview = (titleKey) => (req, res, next) => {
 				const courseList = courses.map((course) => [course._id, course.name]);
 				const filterSettings =						[{
 					type: 'sort',
-					title: res.$t('homework.headline.sorting'),
-					displayTemplate: res.$t('homework.label.sortBy'),
+					title: res.$t('global.headline.sorting'),
+					displayTemplate: res.$t('global.label.sortBy'),
 					options: [
-						['createdAt', res.$t('homework.label.sortByCreationDate')],
+						['createdAt', res.$t('global.label.creationDate')],
 						['updatedAt', res.$t('homework.label.sortByLastUpdate')],
 						['availableDate', res.$t('homework.label.sortByAvailabilityDate')],
 						['dueDate', res.$t('homework.label.sortByDueDate')],
@@ -529,7 +553,7 @@ const overview = (titleKey) => (req, res, next) => {
 				},
 				{
 					type: 'select',
-					title: res.$t('homework.headline.courses'),
+					title: res.$t('global.sidebar.link.administrationCourses'),
 					displayTemplate: res.$t('homework.label.filterCourses'),
 					property: 'courseId',
 					multiple: true,
@@ -593,8 +617,8 @@ const overview = (titleKey) => (req, res, next) => {
 	});
 };
 
-router.get('/', overview('homework.headline.tasks'));
-router.get('/asked', overview('homework.headline.assignedTasks'));
+router.get('/', overview('global.headline.tasks'));
+router.get('/asked', overview('global.headline.assignedTasks'));
 router.get('/private', overview('homework.headline.drafts'));
 router.get('/archive', overview('homework.headline.archivedTasks'));
 
@@ -626,7 +650,7 @@ router.get('/new', (req, res, next) => {
 		}
 		// Render overview
 		res.render('homework/edit', {
-			title: res.$t('homework._task.headline.addTask'),
+			title: res.$t('global.button.addTask'),
 			submitLabel: res.$t('global.button.add'),
 			closeLabel: res.$t('global.button.cancel'),
 			method: 'post',
@@ -667,8 +691,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			return next(error);
 		}
 
-		assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
-		assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
+		assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
+		assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
 
 		addClearNameForFileIds(assignment);
 		// assignment.submissions = assignment.submissions.map((s) => { return { submission: s }; });
@@ -676,6 +700,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 		const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
 			$limit: false,
 		});
+
 		Promise.resolve(coursesPromise).then((courses) => {
 			courses.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
@@ -745,18 +770,22 @@ router.get('/:assignmentId', (req, res, next) => {
 		// Kursfarbe setzen
 		assignment.color = (assignment.courseId && assignment.courseId.color) ? assignment.courseId.color : '#1DE9B6';
 
-		// Datum aufbereiten
-		const availableDateArray = splitDate(assignment.availableDate);
-		assignment.availableDateF = availableDateArray.date;
-		assignment.availableTimeF = availableDateArray.time;
-
-		const dueDateArray = splitDate(assignment.dueDate);
-		assignment.dueDateF = dueDateArray.date;
-		assignment.dueTimeF = dueDateArray.time;
+		// convert UTC dates to current timezone
+		if (assignment.availableDate) {
+			assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
+		}
+		if (assignment.dueDate) {
+			assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
+		}
 
 		// Abgabe noch möglich?
-		assignment.submittable = (dueDateArray.timestamp >= Date.now() || !assignment.dueDate);
-		assignment.warning = ((dueDateArray.timestamp <= (Date.now() + (24 * 60 * 60 * 1000))) && assignment.submittable);
+		if (assignment.dueDate) {
+			const dueDateTimeStamp = timesHelper.splitDate(assignment.dueDate, res.$t('format.date')).timestamp;
+			assignment.submittable = (dueDateTimeStamp >= timesHelper.now() || !assignment.dueDate);
+			assignment.warning = ((dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
+				&& assignment.submittable);
+		}
+
 
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;

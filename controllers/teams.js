@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
+const { Configuration } = require('@schul-cloud/commons');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -10,10 +11,11 @@ const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
+const timesHelper = require('../helpers/timesHelper');
+
 
 const {
-	CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED,
-	ROCKET_CHAT_URI, FEATURE_MATRIX_MESSENGER_ENABLED,
+	CALENDAR_SERVICE_ENABLED,
 } = require('../config/global');
 
 const router = express.Router();
@@ -146,22 +148,31 @@ const editTeamHandler = async (req, res, next) => {
 		}
 	}
 
+	let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
+	const rocketChatDeprecated = Configuration.has('ROCKET_CHAT_DEPRECATION_DATE');
+	if (rocketChatDeprecated) {
+		const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
+		if (deprecationDate < timesHelper.now()) instanceUsesRocketChat = false;
+	}
+
 	teamPromise.then((team) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
-			return next(new Error(res.$t('global.error.403')));
+			return next(new Error(res.$t('global.text.403')));
 		}
 		return res.render('teams/edit-team', {
 			action,
 			method,
 			title: req.params.teamId
 				? res.$t('teams.add.headline.editTeam')
-				: res.$t('teams.add.headline.createTeam'),
+				: res.$t('teams.button.createTeam'),
 			submitLabel: req.params.teamId
 				? res.$t('global.button.saveChanges')
-				: res.$t('teams.add.button.createTeam'),
+				: res.$t('teams.button.createTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
+			instanceUsesRocketChat,
+			rocketChatDeprecated,
 		});
 	});
 };
@@ -221,22 +232,12 @@ const copyCourseHandler = (req, res, next) => {
 		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
-			const duration = moment.duration(time.startTime);
+			const duration = timesHelper.duration(time.startTime);
 			time.startTime = `${`00${duration.hours()}`.slice(
 				-2,
 			)}:${`00${duration.minutes()}`.slice(-2)}`;
 			time.count = count;
 		});
-
-		// format course start end until date
-		if (course.startDate) {
-			course.startDate = moment(new Date(course.startDate).getTime()).format(
-				'DD.MM.YYYY',
-			);
-			course.untilDate = moment(new Date(course.untilDate).getTime()).format(
-				'DD.MM.YYYY',
-			);
-		}
 
 		// preselect current teacher when creating new course
 		if (!req.params.teamId) {
@@ -438,13 +439,8 @@ router.get('/:teamId/json', (req, res, next) => {
 				$populate: ['ltiToolIds'],
 			},
 		}),
-		api(req).get('/lessons/', {
-			qs: {
-				teamId: req.params.teamId,
-			},
-		}),
 	])
-		.then(([result, team, lessons]) => {
+		.then(([result, team]) => {
 			const { data: roles } = result;
 
 			team.filePermission = team.filePermission.map((permission) => {
@@ -453,7 +449,7 @@ router.get('/:teamId/json', (req, res, next) => {
 				return permission;
 			});
 
-			res.json({ team, lessons });
+			res.json({ team });
 		})
 		.catch((e) => {
 			logger.warn(e);
@@ -474,14 +470,6 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
-function sortFunction(a, b) {
-	if (a.displayAt === b.displayAt) {
-		return 0;
-	}
-
-	return a.displayAt < b.displayAt ? 1 : -1;
-}
-
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
@@ -500,11 +488,18 @@ router.get('/:teamId', async (req, res, next) => {
 
 		const course = await api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
-				$populate: ['ltiToolIds'],
+				$populate: [
+					'ltiToolIds',
+					{ path: 'schoolIds' },
+				],
 			},
 		});
 
-		const instanceUsesRocketChat = ROCKETCHAT_SERVICE_ENABLED;
+		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
+		if (Configuration.has('ROCKET_CHAT_DEPRECATION_DATE')) {
+			const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
+			if (deprecationDate < timesHelper.now()) instanceUsesRocketChat = false;
+		}
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (
 			res.locals.currentSchoolData.features || []
@@ -521,7 +516,7 @@ router.get('/:teamId', async (req, res, next) => {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
 				);
-				const rocketChatURL = ROCKET_CHAT_URI;
+				const rocketChatURL = Configuration.get('ROCKET_CHAT_URI');
 				rocketChatCompleteURL = `${rocketChatURL}/group/${
 					rocketChatChannel.channelName
 				}`;
@@ -530,18 +525,35 @@ router.get('/:teamId', async (req, res, next) => {
 				rocketChatCompleteURL = undefined;
 			}
 		}
-		const instanceUsesMatrixMessenger = FEATURE_MATRIX_MESSENGER_ENABLED;
-		const courseUsesMatrixMessenger = course.features.includes('messenger');
-		const schoolUsesMatrixMessenger = (res.locals.currentSchoolData.features || []).includes('messenger');
-		let matrixNotification;
-		let messenger = false;
-		if (instanceUsesMatrixMessenger && courseUsesMatrixMessenger && !schoolUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.messengerNotActivatedSchool');
-			messenger = true;
-		}
-		if (instanceUsesMatrixMessenger && schoolUsesMatrixMessenger && !courseUsesMatrixMessenger) {
-			matrixNotification = res.$t('teams._team.messengerNotActivatedCourse');
-			messenger = true;
+		let notificationMessage;
+		if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
+			/* eslint-disable max-len */
+			let matrixNotification;
+			// Is messenger feature flag set in the school which created this team?
+			const teamsSchoolHasMessengerEnabled = (course.schoolIds[0].features || []).includes('messenger');
+			// Is the messenger in the current users school activated?
+			const usersSchoolHasMessengerEnabled = (res.locals.currentSchoolData.features || []).includes('messenger');
+			// Are there members of other schools in the team which have not activated the messenger?
+			// > Filter team schoolIds to only include schools which really have students in the team
+			const filteredSchoolIds = course.schoolIds.filter((school) => !!course.userIds.find((user) => user.schoolId === school.id));
+			// > Find if at least one participating school hasn't activated the messenger
+			const otherUsersSchoolsHaveNotMessengerEnabled = !!filteredSchoolIds.find((school) => !(school.features || []).includes('messenger'));
+
+			if (!teamsSchoolHasMessengerEnabled && usersSchoolHasMessengerEnabled) {
+				matrixNotification = res.$t('teams._team.text.messengerNotActiveInTeam');
+			} else if (teamsSchoolHasMessengerEnabled && !usersSchoolHasMessengerEnabled) {
+				matrixNotification = res.$t('teams._team.text.messengerNotActivatedSchool');
+			} else if (teamsSchoolHasMessengerEnabled && otherUsersSchoolsHaveNotMessengerEnabled) {
+				matrixNotification = res.$t('teams._team.text.messengerNotActivatedCourse');
+			}
+			if (matrixNotification) {
+				notificationMessage = {
+					message: matrixNotification,
+					type: 'info',
+					title: res.$t('teams._team.text.messengerNotActivatedTitle'),
+					iconClass: 'fa fa-info-circle',
+				};
+			}
 		}
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
@@ -566,6 +578,9 @@ router.get('/:teamId', async (req, res, next) => {
 		files = files.filter((file) => file);
 
 		files = files.map((file) => {
+			// set saveName attribute with escaped quotes
+			file.saveName = file.name.replace(/'/g, "\\'");
+
 			if (file && file.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
@@ -580,7 +595,7 @@ router.get('/:teamId', async (req, res, next) => {
 		files
 			.sort((a, b) => {
 				if (b && b.updatedAt && a && a.updatedAt) {
-					return new Date(b.updatedAt) - new Date(a.updatedAt);
+					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
 			})
@@ -591,7 +606,7 @@ router.get('/:teamId', async (req, res, next) => {
 		directories
 			.sort((a, b) => {
 				if (b && b.updatedAt && a && a.updatedAt) {
-					return new Date(b.updatedAt) - new Date(a.updatedAt);
+					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
 			})
@@ -603,18 +618,18 @@ router.get('/:teamId', async (req, res, next) => {
 					target: req.params.teamId,
 					targetModel: 'teams',
 					displayAt: {
-						$lte: new Date().getTime(),
+						$lte: timesHelper.now(),
 					},
+					sort: '-displayAt',
+					$limit: 3,
 				},
 			})
 			.then((newsres) => newsres.data
 				.map((n) => {
 					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
-					n.secondaryTitle = moment(n.displayAt).fromNow();
+					n.secondaryTitle = timesHelper.fromNow(n.displayAt);
 					return n;
-				})
-				.sort(sortFunction)
-				.slice(0, 4))
+				}))
 			.catch((err) => {
 				logger.error(
 					`
@@ -635,8 +650,8 @@ router.get('/:teamId', async (req, res, next) => {
 			});
 			events = events
 				.map((event) => {
-					const start = moment(event.start).utc();
-					const end = moment(event.end).utc();
+					const start = timesHelper.fromUTC(event.start);
+					const end = timesHelper.fromUTC(event.end);
 					event.day = start.format('D');
 					event.month = start
 						.format('MMM')
@@ -705,13 +720,7 @@ router.get('/:teamId', async (req, res, next) => {
 				userId: res.locals.currentUser._id,
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
-				notificationMessenger: {
-					message: matrixNotification,
-					type: 'info',
-					title: 'Hinweis',
-					iconClass: 'fa fa-info-circle',
-				},
-				messenger,
+				notificationMessage,
 			},
 		);
 	} catch (e) {
@@ -727,7 +736,7 @@ router.patch('/:teamId', async (req, res, next) => {
 	// map course times to fit model
 	req.body.times = req.body.times || [];
 	req.body.times.forEach((time) => {
-		time.startTime = moment.duration(time.startTime).asMilliseconds();
+		time.startTime = timesHelper.duration(time.startTime).asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
@@ -800,16 +809,10 @@ router.delete('/:teamId', async (req, res, next) => {
 });
 
 router.post('/:teamId/events/', (req, res, next) => {
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(
-		req.body.startDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = moment(
-		req.body.endDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
+	req.body.startDate = timesHelper.dateTimeStringToMoment(req.body.startDate)
+		.toISOString(true);
+	req.body.endDate = timesHelper.dateTimeStringToMoment(req.body.endDate)
+		.toISOString(true);
 
 	// filter params
 	req.body.scopeId = req.params.teamId;
@@ -823,16 +826,10 @@ router.post('/:teamId/events/', (req, res, next) => {
 });
 
 router.put('/events/:eventId', (req, res, next) => {
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(
-		req.body.startDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = moment(
-		req.body.endDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
+	req.body.startDate = timesHelper.dateTimeStringToMoment(req.body.startDate)
+		.toISOString(true);
+	req.body.endDate = timesHelper.dateTimeStringToMoment(req.body.endDate)
+		.toISOString(true);
 
 	api(req)
 		.put(`/calendar/${req.params.eventId}`, {
@@ -865,30 +862,30 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const roleTranslations = {
 		teammember: res.$t('teams._team.members.text.member'),
 		teamexpert: res.$t('teams._team.members.text.expert'),
-		teamleader: res.$t('teams._team.members.text.leader'),
-		teamadministrator: res.$t('teams._team.members.text.admin'),
-		teamowner: res.$t('teams._team.members.text.owner'),
+		teamleader: res.$t('global.role.text.leader'),
+		teamadministrator: res.$t('global.role.text.administrator'),
+		teamowner: res.$t('global.role.text.owner'),
 	};
 
 	const head = [
-		res.$t('teams._team.members.headline.firstName'),
-		res.$t('teams._team.members.headline.surname'),
-		res.$t('teams._team.members.headline.role'),
-		res.$t('teams._team.members.headline.school'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.label.firstName'),
+		res.$t('global.label.lastName'),
+		res.$t('global.label.role'),
+		res.$t('global.link.school'),
+		res.$t('global.headline.actions'),
 	];
 
 	const headClasses = [
-		res.$t('teams._team.members.headline.name'),
-		res.$t('teams._team.members.headline.student'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.headline.name'),
+		res.$t('global.link.administrationStudents'),
+		res.$t('global.headline.actions'),
 	];
 
 	const headInvitations = [
 		res.$t('teams._team.members.headline.email'),
 		res.$t('teams._team.members.headline.invitedOn'),
-		res.$t('teams._team.members.headline.role'),
-		res.$t('teams._team.members.headline.actions'),
+		res.$t('global.label.role'),
+		res.$t('global.headline.actions'),
 	];
 
 	const invitationActions = [
@@ -1103,7 +1100,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 		const bodyInvitations = team.invitedUserIds.map((invitation) => [
 			invitation.email,
-			moment(invitation.createdAt).format('DD.MM.YYYY'),
+			timesHelper.dateToDateString(invitation.createdAt),
 			roleTranslations[invitation.role],
 			{
 				payload: {
@@ -1113,11 +1110,11 @@ router.get('/:teamId/members', async (req, res, next) => {
 			invitationActions,
 		]);
 
-		// checks for user's 'STUDENT_LIST' permission and filters student users
 		const filteredUsers = users.filter((user) => {
-			const { _id } = roles.filter((role) => role.name === 'student')[0];
-			return !res.locals.currentUser.permissions.includes('STUDENT_LIST')
-				? !user.roles.includes(_id) : user;
+			const { _id: studentRoleId } = roles.find((role) => role.name === 'student');
+			return res.locals.currentUser.permissions.includes('STUDENT_LIST')
+				|| !user.roles.includes(studentRoleId)
+				|| res.locals.currentSchoolData.isTeamCreationByStudentsEnabled;
 		});
 
 		res.render(
@@ -1274,13 +1271,13 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		.then(() => {
 			req.session.notification = {
 				type: 'success',
-				message: res.$t('teams._team.text.invitationAcceptedSuccess'),
+				message: res.$t('teams._team.text.invitationSuccessfullyAccepted'),
 			};
 			res.redirect(`/teams/${req.params.teamId}`);
 		})
 		.catch((err) => {
 			logger.warn(
-				res.$t('teams._team.text.invitationAcceptionFailed'),
+				res.$t('teams._team.text.errorAcceptingInvitation'),
 				err,
 			);
 			res.redirect(`/teams/${req.params.teamId}`);
@@ -1400,12 +1397,12 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 	const { shareToken } = req.body;
 	// try to find topic for given shareToken
 	api(req)
-		.get('/lessons/', { qs: { shareToken, $populate: ['teamId'] } })
+		.get('/lessons/', { qs: { shareToken } })
 		.then((lessons) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t('teams._team.text.noTopicFoundWithCode'),
+					message: res.$t('global.text.noTopicFoundWithCode'),
 				};
 
 				redirectHelper.safeBackRedirect(req, res);

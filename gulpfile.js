@@ -15,6 +15,8 @@ const optimizejs = require('gulp-optimize-js');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const cssvariables = require('postcss-css-variables');
+const merge = require('merge-stream');
+const rename = require('gulp-rename');
 const rimraf = require('gulp-rimraf');
 const sass = require('gulp-sass');
 const sassGrapher = require('gulp-sass-grapher');
@@ -35,11 +37,17 @@ const baseScripts = [
 	'./node_modules/form-serializer/dist/jquery.serialize-object.min.js',
 	'./static/scripts/tether/tether.min.js',
 	'./static/scripts/bootstrap/bootstrap.min.js',
-	'./static/scripts/chosen/chosen.jquery.min.js',
 	'./static/scripts/base.js',
 	'./static/scripts/toggle/bootstrap-toggle.min.js',
 	'./static/scripts/qrcode/kjua-0.1.1.min.js',
 	'./static/scripts/ajaxconfig.js',
+];
+
+// specify css files (e.g. in node modules) that should be copied to the build directory
+const baseStyles = [
+	{ dirname: 'calendar/', filename: 'fullcalendar.min.css', src: './node_modules/@fullcalendar/core/main.min.css' },
+	{ dirname: 'calendar/', filename: 'daygrid.min.css', src: './node_modules/@fullcalendar/daygrid/main.min.css' },
+	{ dirname: 'calendar/', filename: 'timegrid.min.css', src: './node_modules/@fullcalendar/timegrid/main.min.css' },
 ];
 
 function themeName() {
@@ -130,6 +138,16 @@ gulp.task('styles', () => {
 		.pipe(gulp.dest(`./build/${themeName()}/styles`))
 		.pipe(browserSync.stream());
 });
+
+const copyStyle = (dirname, filename, src) => gulp.src(src)
+	.pipe(rename((targetPath) => {
+		targetPath.basename = path.parse(filename).name;
+		targetPath.dirname = dirname;
+	}))
+	.pipe(gulp.dest(`./build/${themeName()}/styles`));
+
+gulp.task('copy-styles',
+	() => merge(baseStyles.map(({ dirname, filename, src }) => copyStyle(dirname, filename, src))));
 
 gulp.task('styles-done', gulp.series('styles'), () => {
 	firstRun = false;
@@ -306,6 +324,7 @@ gulp.task('build-all', gulp.series(
 	'fonts',
 	'scripts',
 	'base-scripts',
+	'copy-styles',
 	'vendor-styles',
 	'vendor-scripts',
 	'vendor-assets',

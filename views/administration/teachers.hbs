@@ -8,8 +8,8 @@
             <section class="section-teachers section-default">
                 <div><feathers-filter id="filter"
                                       filter='{{filterSettings}}'
-                                      add-label='{{$t "administration.global.button.filterAdd" }}'
-                                      apply-label='{{$t "administration.global.button.filterApply" }}'
+                                      add-label='{{$t "global.button.filterAdd" }}'
+                                      apply-label='{{$t "global.button.filterApply" }}'
                                       cancle-label='{{$t "global.button.cancel" }}'
                                       handle-url='true'
                                       save-state='true'
@@ -53,7 +53,7 @@
                                 </p>
                                 {{#userHasPermission "TEACHER_CREATE"}}
                                 <p>
-                                {{$t "administration.teachers.text.alternativRegistration" }}
+                                    {{$t "administration.teachers.text.alternativeRegistration" }}
                                 </p>
                                 {{/userHasPermission}}
                             {{/if}}

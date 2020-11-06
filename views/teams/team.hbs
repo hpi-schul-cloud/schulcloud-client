@@ -7,22 +7,22 @@
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-    <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/teams.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/teams.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page"}}
 <div id="team-wrapper">
     <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
         <div class="dropdown dropdown-title minimal-button">
-            <a class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" title="{{$t "teams.label.more"}}"
+            <a  href="#0" class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" aria-label="{{$t "global.label.more"}}"
                 data-toggle="dropdown">
                 <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
-                <i class="fa fa-cog i-cog"></i>
+                <i class="fa fa-ellipsis-v i-cog"></i>
             </a>
             <div class="dropdown-menu dropdown-menu dropdown-menu-team">
                 <a data-testid="administrate_team_members" href="/teams/{{_id}}/members" class="dropdown-item">
@@ -46,7 +46,7 @@
                 {{#inArray "DELETE_TEAM" ../permissions}}
                 <a href="/teams/{{../_id}}/" class="dropdown-item" target="_blank" data-method="DELETE"
                     data-name="{{../name}}" redirect="/teams/">
-                    <i class="fa fa-trash" aria-hidden="true"></i> {{$t "teams._team.dropdown_menu.link.deleteTeam"}}
+                    <i class="fa fa-trash" aria-hidden="true"></i> {{$t "global.button.deleteTeam"}}
                 </a>
                 {{/inArray}}
                 {{/userHasPermission}}
@@ -71,14 +71,15 @@
         <div class="course-card">
             <div class="tabContainer" data-active-tab={{activeTab}}>
                 <div class="tabs" data-max-width="1024">
-                    <button class="tab" data-tab="js-files">
-                        <span class="text">{{$t "teams._team.tab_label.files"}}</span>
+                    <button type="button" class="tab" data-tab="js-files">
+                        <span class="text">{{$t "global.headline.files"}}</span>
                     </button>
-                    <button class="tab" data-tab="js-news">
-                        <span class="text">{{$t "teams._team.tab_label.news"}}</span>
+                    <button type="button" class="tab" data-tab="js-news">
+                        <span class="text">{{$t "global.headline.news"}}</span>
+
                     </button>
-                    <button class="tab" data-tab="js-events">
-                        <span class="text">{{$t "teams._team.tab_label.dates"}}</span>
+                    <button type="button" class="tab" data-tab="js-events">
+                        <span class="text">{{$t "global.link.calendar"}}</span>
                     </button>
                 </div>
             </div>
@@ -96,32 +97,39 @@
                             <div class="row">
                                 {{#each ../directories}}
                                 <div class="col-sm-6 col-xs-12 col-md-4">
-                                    <div class="card card-block folder locationlink"
-                                        data-loclink="/files/teams/{{../../_id}}/{{this._id}}">
-                                        <strong class="card-title-directory">
-                                            <i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
-                                        </strong>
+                                    <button class="card card-block folder locationlink"
+                                        data-loclink="/files/teams/{{../../_id}}/{{this._id}}"
+                                        aria-label="{{$t "files.label.clickToOpenDir" (dict "name" this.name)}}">
+                                            <strong class="card-title-directory">
+                                                <i class="fa fa-folder text-muted" aria-hidden="true"></i> {{this.name}}
+                                            </strong>
                                         {{#userHasPermission "FOLDER_DELETE"}}
-                                        <a href="/files/directory/" target="_blank" data-method="delete"
-                                            title="{{$t "teams._team.files.button.deleteFolder"}}" data-file-name="{{../this.name}}"
-                                            data-file-id="{{../this._id}}">
-                                            <i class="fa fa-trash-o pull-right"></i>
-                                        </a>
+                                            <div class="pull-right">
+                                                <a  data-method="dir-rename"
+                                                    aria-label="{{$t "teams._team.files.button.renameFolder"}}"
+                                                    data-directory-id="{{../this._id}}" data-directory-name="{{../this.name}}"
+                                                    tabindex="0">
+                                                    <i class="fa fa-edit text-muted" aria-hidden="true"></i>
+                                                </a>
 
-                                        <a href="/directoryModel/{{../this._id}}/rename" target="_blank"
-                                            data-method="dir-rename" title="{{$t "teams._team.files.button.renameFolder"}}"
-                                            data-directory-id="{{../this._id}}" data-directory-name="{{../this.name}}">
-                                            <i class="fa fa-edit pull-right"></i>
-                                        </a>
+                                                <a data-href="/files/directory/" data-method="delete"
+                                                    aria-label="{{$t "teams._team.files.button.deleteFolder"}}"
+                                                    data-file-name="{{../this.name}}" data-file-id="{{../this._id}}"
+                                                    tabindex="0">
+                                                    <i class="fa fa-trash-o text-muted" aria-hidden="true"></i>
+                                                </a>
+
                                         {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
-                                        <a href="/directoryModel/{{../this._id}}/share" target="_blank"
-                                            class="btn-file-share" data-method="dir-share" title="{{$t "teams._team.files.button.shareFolder"}}"
-                                            data-file-id="{{../this._id}}" data-file-name="{{../this.name}}">
-                                            <i class="fa fa-share-alt pull-right"></i>
-                                        </a>
+                                            <a class="btn-file-share" data-method="dir-share"
+                                                title="{{$t "teams._team.files.button.shareFolder"}}"
+                                                data-file-id="{{../this._id}}" data-file-name="{{../this.name}}"
+                                                tabindex="0">
+                                                <i class="fa fa-share-alt text-muted" aria-hidden="true"></i>
+                                            </a>
                                         {{/inArray}}
+                                        </div>
                                         {{/userHasPermission}}
-                                    </div>
+                                    </button>
                                 </div>
                                 {{/each}}
                             </div>
@@ -131,7 +139,7 @@
                         <section style="padding-top: 2rem; clear: both" class="row">
                             <div class="col-sm-12">
                                 {{#ifneq 0 (arrayLength files)}}
-                                <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.files"}}</h5>
+                                <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
                                 {{/ifneq}}
                                 {{#embed "files/file-viewer"}}{{/embed}}
                                 {{#embed "files/files-grid" files=files teamFiles=true canEditPermissions=canEditPermissions teamId=../_id}}{{/embed}}
@@ -142,17 +150,17 @@
                             <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
 
                             <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
-                                <i class="fa fa-folder-open"></i> {{$t "teams._team.files.button.toTeamFiles"}}
+                                <i class="fa fa-folder-open" aria-hidden="true"></i> {{$t "teams._team.files.button.toTeamFiles"}}
                             </a>
                             {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
                             <button class="btn btn-add btn-secondary btn-file-permissions">
-                                <i class="fa fa-share-alt"></i> {{$t "teams._team.files.button.changeSharingSettings"}}
+                                <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t "teams._team.files.button.changeSharingSettings"}}
                             </button>
                             {{/inArray}}
                             {{#if ../canCreateDir}}
-                            <span class="btn btn-primary create-directory">
-                                <i class="fa fa-folder" aria-hidden="true"></i> {{$t "teams._team.files.button.createFolder"}}
-                            </span>
+                            <button class="btn btn-primary create-directory">
+                                <i class="fa fa-folder" aria-hidden="true"></i> {{$t "global.button.createFolder"}}
+                            </button>
                             {{/if}}
                             {{!-- {{#if ../canCreateFile}}
                                         <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
@@ -162,39 +170,40 @@
                         </section>
 
                     </div>
-                        <!--- Neuigkeiten -->
-                        <div class="section" data-section="js-news">
-                            {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text=($t "teams._team.news.label.continueReading")}}
-                            <a href="/teams/{{../_id}}/news" class="">
-                                {{$t "teams._team.news.link.showAllNews"}}
-                            </a>
-                            {{#inArray "NEWS_CREATE" permissions}}
-                            <a href="/teams/{{../_id}}/news/new" data-testid="create_a_team" class="btn btn-add btn-primary pull-right">
-                                <i class="fa fa-plus" aria-hidden="true"></i> {{$t "teams._team.news.button.addNews"}}
-                            </a>
-                            {{/inArray}}
+                    <!--- Neuigkeiten -->
+                    <div class="section" data-section="js-news">
+                        {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text=($t "teams._team.news.label.continueReading")}}
+                        <a href="/teams/{{../_id}}/news" class="">
+                            {{$t "teams._team.news.link.showAllNews"}}
+                        </a>
+                        {{#inArray "NEWS_CREATE" permissions}}
+                        <a href="/teams/{{../_id}}/news/new" data-testid="create_a_team"
+                            class="btn btn-add btn-primary pull-right">
+                            <i class="fa fa-plus" aria-hidden="true"></i> {{$t "teams._team.news.button.addNews"}}
+                        </a>
+                        {{/inArray}}
+                    </div>
+                    <!-- Termine -->
+                    <div class="section" data-testid="team_events" data-section="js-events">
+                        <div class="row">
+                            {{#each ../events}}
+                            {{> 'calendar/card' event=this canEdit=../canEditEvents showVideoconferenceOption=@root.showVideoconferenceOption}}
+                            {{/each}}
                         </div>
-                        <!-- Termine -->
-                        <div class="section" data-testid="team_events" data-section="js-events">
-                            <div class="row">
-                                {{#each ../events}}
-                                    {{> 'calendar/card' event=this canEdit=../canEditEvents showVideoconferenceOption=@root.showVideoconferenceOption}}
-                                {{/each}}
-                            </div>
-                            <div style="margin-top: .5rem">
-                                {{#inArray "CALENDAR_CREATE" permissions}}
-                                <button class="btn btn-add btn-primary btn-create-event pull-right">
-                                    {{$t "teams._team.events.button.addDate"}}
-                                </button>
-                                {{/inArray}}
-                            </div>
+                        <div style="margin-top: .5rem">
+                            {{#inArray "CALENDAR_CREATE" permissions}}
+                            <button type="button" class="btn btn-add btn-primary btn-create-event pull-right">
+                                {{$t "teams._team.events.button.addDate"}}
+                            </button>
+                            {{/inArray}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+</div>
 
-        <!-- Vorerst ausblenden, bis wir Themen in Teams wieder unterstützen
+<!-- Vorerst ausblenden, bis wir Themen in Teams wieder unterstützen
 			<section class="row">
                 <div class="col-sm-12">
                     <h4>Themen & Aufgaben</h4>
@@ -205,72 +214,72 @@
                 </div>
             </section> -->
 
-        {{#embed "lib/components/modal" class="delete-modal" title=($t "global.text.areYouSure")}}
-        {{#content "body"}}
+{{#embed "lib/components/modal" class="delete-modal" title=($t "global.text.areYouSure")}}
+{{#content "body"}}
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-close">
-                {{$t "global.button.cancel"}}
-            </button>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-close">
+        {{$t "global.button.cancel"}}
+    </button>
 
-            <button type="submit" class="btn btn-primary btn-submit">
-                {{$t "global.button.delete"}}
-            </button>
-        </div>
-        {{/content}}
-        {{/embed}}
+    <button type="submit" class="btn btn-primary btn-submit">
+        {{$t "global.headline.delete"}}
+    </button>
+</div>
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" class="file-permissions-modal" title=($t "teams._team.files.button.changeSharingSettings")}}
-        {{#content "fields"}}
-        {{> "teams/forms/form-file-permissions" teamFiles=true}}
-        {{/content}}
-        {{/embed}}
+{{#embed "lib/components/modal-form" class="file-permissions-modal" title=($t "teams._team.files.button.changeSharingSettings")}}
+{{#content "fields"}}
+{{> "teams/forms/form-file-permissions" teamFiles=true}}
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" action=leaveTeamAction class="leave-team-modal"}}
-        {{#content "fields"}}
-        {{> "teams/forms/form-leave-team"}}
-        {{/content}}
-        {{/embed}}
+{{#embed "lib/components/modal-form" action=leaveTeamAction class="leave-team-modal"}}
+{{#content "fields"}}
+{{> "teams/forms/form-leave-team"}}
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1 userId=../userId teamId=../teamId}}
-        {{#content "fields"}}
-        {{> "calendar/forms/form-create-event" showVideoconferenceOption=@root.showVideoconferenceOption}}
-        {{/content}}
-        {{/embed}}
+{{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1 userId=../userId teamId=../teamId}}
+{{#content "fields"}}
+{{> "calendar/forms/form-create-event" showVideoconferenceOption=@root.showVideoconferenceOption}}
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
-        {{#content "fields"}}
-        {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
-        {{/content}}
-        {{#content "additional-actions"}}
-        <button type="button" class="btn btn-primary btn-danger btn-delete pull-left">
-            <i class="fa fa-trash-o"></i> {{$t "global.button.delete"}}
-        </button>
-        {{/content}}
-        {{/embed}}
+{{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
+{{#content "fields"}}
+{{> "calendar/forms/form-create-event" collapseIdCourse="4" collapseIdTeam="5"}}
+{{/content}}
+{{#content "additional-actions"}}
+<button type="button" class="btn btn-primary btn-danger btn-delete pull-left">
+    <i class="fa fa-trash-o" aria-hidden="true"></i> {{$t "global.headline.delete"}}
+</button>
+{{/content}}
+{{/embed}}
 
-        {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
-        {{#if ../showVideoconferenceOption}}
-        {{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
-        {{#content "fields"}}
-        {{> "lib/forms/form-create-videoconference"}}
-        {{/content}}
-        {{/embed}}
+{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+{{#if ../showVideoconferenceOption}}
+{{#embed "lib/components/modal-form" class="create-videoconference-modal"}}
+{{#content "fields"}}
+{{> "lib/forms/form-create-videoconference"}}
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" class="reload-info-modal"}}
-        {{#content "fields"}}
-        {{> "lib/forms/form-bbb-reload-info"}}
-        {{/content}}
-        {{/embed}}
+{{#embed "lib/components/modal-form" class="reload-info-modal"}}
+{{#content "fields"}}
+{{> "lib/forms/form-bbb-reload-info"}}
+{{/content}}
+{{/embed}}
 
-        {{#embed "lib/components/modal-form" class="forbidden-info-modal"}}
-        {{#content "fields"}}
-        {{> "lib/forms/form-bbb-forbidden-info"}}
-        {{/content}}
-        {{/embed}}
-        {{/if}}
-        {{/ifConfig}}
-    </section>
+{{#embed "lib/components/modal-form" class="forbidden-info-modal"}}
+{{#content "fields"}}
+{{> "lib/forms/form-bbb-forbidden-info"}}
+{{/content}}
+{{/embed}}
+{{/if}}
+{{/ifConfig}}
+</section>
 </div>
 
 {{/content}}

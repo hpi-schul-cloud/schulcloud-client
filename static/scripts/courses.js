@@ -22,12 +22,12 @@ $(document).ready(() => {
 				if (result.hidden) {
 					$hiddenToggleIcon.addClass('fa-eye-slash');
 					$hiddenToggleIcon.removeClass('fa-eye');
-					$hiddenToggleBtn.attr('title', $t("courses._course.topic.text.revealTopic"));
+					$hiddenToggleBtn.attr('title', $t('courses._course.topic.text.revealTopic'));
 					$card.addClass('card-transparent');
 				} else {
 					$hiddenToggleIcon.removeClass('fa-eye-slash');
 					$hiddenToggleIcon.addClass('fa-eye');
-					$hiddenToggleBtn.attr('title', $t("courses._course.topic.text.hideTopic"));
+					$hiddenToggleBtn.attr('title', $t('courses._course.topic.text.hideTopic'));
 					$card.removeClass('card-transparent');
 				}
 			},
@@ -51,9 +51,9 @@ $(document).ready(() => {
 			},
 			success(data) {
 				populateModalForm($invitationModal, {
-					title: $t("courses._course.topic.headline.invitationLinkGenerated"),
-					closeLabel: $t("global.button.cancel"),
-					submitLabel: $t("global.button.save"),
+					title: $t('global.headline.invitationLinkGenerated'),
+					closeLabel: $t('global.button.cancel'),
+					submitLabel: $t('global.button.save'),
 					fields: { invitation: data.newUrl },
 				});
 				$invitationModal.find('.btn-submit').remove();
@@ -73,9 +73,9 @@ $(document).ready(() => {
 		const courseId = $(this).attr('data-courseId');
 		const $importModal = $('.import-modal');
 		populateModalForm($importModal, {
-			title: $t("courses._course.topic.headline.importTopic"),
-			closeLabel: $t("global.button.cancel"),
-			submitLabel: $t("global.button.save"),
+			title: $t('courses._course.topic.headline.importTopic'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.save'),
 			fields: { courseId },
 		});
 
@@ -92,6 +92,7 @@ $(document).ready(() => {
 		$('#topic-list').sortable({
 			placeholder: 'ui-state-highlight',
 			handle: '.move-handle',
+			cancel: '',
 			update() {
 				const positions = {};
 				$('#topic-list .card-topic').each(function topicListCardTopic(i) {
@@ -119,8 +120,8 @@ $(document).ready(() => {
 			url: `/courses/${courseId}/share/`,
 			success(data) {
 				populateModalForm($shareModal, {
-					title: $t("courses._course.headline.shareCodeGenerated"),
-					closeLabel: $t("global.button.close"),
+					title: $t('courses._course.headline.shareCodeGenerated'),
+					closeLabel: $t('global.button.close'),
 					fields: { shareToken: data.shareToken },
 				});
 				$shareModal.find('.btn-submit').remove();
@@ -131,7 +132,7 @@ $(document).ready(() => {
 				$shareModal.appendTo('body').modal('show');
 
 				// eslint-disable-next-line max-len
-				$("label[for='shareToken']").text($t("courses._course.text.shareCodeExplanation"));
+				$("label[for='shareToken']").text($t('courses._course.text.shareCodeExplanation'));
 				// eslint-disable-next-line no-undef
 				const image = kjua({
 					text: `${$('meta[name=baseUrl]').attr('content')}/courses?import=${data.shareToken}`,
@@ -297,7 +298,7 @@ $(document).ready(() => {
 				url: `/courses/${courseId}/usersJson`,
 				success(data) {
 					populateModalForm($createVideoconferenceModal, {
-						title: $t("courses._course.headline.createVideoconference" , {coursename :data.course.name}),
+						title: $t('courses._course.headline.createVideoconference', { coursename: data.course.name }),
 						closeLabel: $t('global.button.cancel'),
 						submitLabel: $t('global.button.create'),
 					});

@@ -12,8 +12,21 @@
 		{{#unless this.secure}}
 			{{> "lib/registration"}}
 		{{else}}
-	<div id="welcome-screen">
-		<h2 class="h4">{{$t "registration._registration.heading.welcomeToTheRegistration" (dict "title" theme.title)}}</h2>
+
+    <div id="language-screen" style="display: none;">
+        <h2 class="h4">{{$t "registration._registration.global.headline.language" }}</h2>
+        <div class="row justify-content-md-center">
+            <div class="form-group col-md-6 col-sm-12">
+                {{> "lib/forms/form-change-language" }}
+            </div>
+        </div>
+        <p class="mt-2 explanation nomargin">{{$t "registration._registration.global.text.languageHint"}}</p>
+
+        <button id="showAgeSelection" class="btn btn-primary pull-right" style="margin-top:6px;" >{{$t "global.button.next" }}</button>
+
+    </div>
+	<div id="welcome-screen" style="display: none;">
+		<h2 class="h4">{{$t "registration._registration.headline.welcomeToTheRegistration" (dict "title" theme.title)}}</h2>
 		<p>{{$t "registration._registration.text.theRegistrationProcessChangesAccordingToAge" (dict "minAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "independentAge" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>
 		<p>{{$t "registration._registration.text.pleaseChooseTheAgeOfTheStudents"}} </p>
 		<div class="form-group">
@@ -30,10 +43,11 @@
 		<div id="infotext-16" class="hidden">
 			<p>{{$t "registration._registration.text.thankYouForTakingThisStepWithUs" (dict "shortTitle" theme.title)}}</p>
 			<p>{{$t "registration._registration.text.pleaseRegisterFirstAndAgreeToTerms" (dict "themetitle" theme.title)}}</p>
-			<p><strong>{{$t "registration._registration.text.danger" }}</strong> {{$t "registration._registration.text.thefollowingRestrationMustBe" }}</p>
+			<p><strong>{{$t "global.text.attention" }}</strong> {{$t "registration._registration.text.registrationMustBeDoneByYou" }}</p>
 		</div>
 
-		<button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>{{$t "global.button.next" }}</button>
+        <button id="prevSection" class="btn btn-secondary" type="button">{{$t "global.button.back" }}</button>
+		<button id="showRegistrationForm" class="btn btn-primary pull-right" disabled>{{$t "global.button.next" }}</button>
 
 		<p class="mt-2 explanation nomargin">{{$t "registration._registration.text.linguisticNoteWeUseMaleFormForReadability" (dict "shortTitle" theme.short_title)}} 🌈🎉🦄 </p>
 

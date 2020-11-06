@@ -6,7 +6,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{$t "administration.global.label.type" }}</label>
+    <label>{{$t "global.label.type" }}</label>
     <select class="linked" name="ldaptype" data-linktext data-placeholder="LDAP-Typ auswählen">
             <option value="general">
                 {{$t "administration.ldapEdit.placeholder.general" }}
@@ -30,7 +30,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{$t "administration.ldapEdit.label.seacrhUserpassword" }}</label>
+    <label>{{$t "administration.ldapEdit.label.searchUserPassword" }}</label>
     <input class="form-control linked" name="searchuserpassword" type="password" value="{{system.ldapConfig.searchUserPassword}}"/>
 </div>
 
@@ -54,7 +54,7 @@
 <hr>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
-        <h2 class="h5">{{$t "administration.ldapEdit.heading.userAttributes" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.heading.userAttributesTitle" }}"></i></h2>
+        <h2 class="h5">{{$t "administration.ldapEdit.headline.userAttributes" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.headline.userAttributesTitle" }}"></i></h2>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
         <i id="user-section-toggle" class="fa fa-lock fa-3x"></i>
@@ -62,11 +62,11 @@
 </div>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
-        <label>{{$t "administration.global.label.firstName" }}</label>
+        <label>{{$t "global.label.firstNameColon" }}</label>
         <input class="form-control linked user-attribute" readonly name="givenName" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.givenName}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
-        <label>{{$t "administration.global.label.lastName" }}</label>
+        <label>{{$t "global.label.lastName" }}</label>
         <input class="form-control linked user-attribute" readonly name="sn" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.sn}}"/>
     </div>
 </div>
@@ -92,7 +92,7 @@
 </div>
 <div class="row" id="role-name">
     <div class="form-group col-sm-6 col-xs-12">
-        <label>{{$t "administration.ldapEdit.label.role" }} <i class="fa fa-question-circle"></i></label>
+        <label>{{$t "global.label.role" }} <i class="fa fa-question-circle"></i></label>
         <input class="form-control linked user-attribute" readonly name="role" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.role}}"/>
     </div>
 </div>
@@ -100,8 +100,8 @@
 <hr>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
-        <h2 class="h5" id="headline-role-type">{{$t "administration.ldapEdit.heading.roleAttributes" }}</h2>
-        <i id="description-role-attribute" class="fa fa-question-circle" data-toggle="tooltip" data-original-title="{{$t "administration.ldapEdit.heading.roleAttributesTitle" }}"></i>
+        <h2 class="h5" id="headline-role-type">{{$t "administration.ldapEdit.headline.roleAttributes" }}</h2>
+        <i id="description-role-attribute" class="fa fa-question-circle" data-toggle="tooltip" data-original-title="{{$t "administration.ldapEdit.headline.roleAttributesTitle" }}"></i>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
         <i id="role-section-toggle" class="fa fa-lock fa-3x"></i>
@@ -140,7 +140,7 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-6 col-xs-12">
-            <h2 class="h5">{{$t "administration.ldapEdit.heading.classAttributes" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.heading.classAttributesTitle" }}"></i></h2>
+            <h2 class="h5">{{$t "administration.ldapEdit.headline.classAttributes" }} <i class="fa fa-question-circle" data-toggle="tooltip" title="{{$t "administration.ldapEdit.headline.classAttributesTitle" }}"></i></h2>
         </div>
         <div class="form-group col-sm-6 col-xs-12">
             <i id="class-section-toggle" class="fa fa-lock fa-3x"></i>

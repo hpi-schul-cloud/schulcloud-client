@@ -14,14 +14,14 @@
 
             {{#if teamInvitations}}
                 <h2>{{$t "teams.headline.invitations"}}</h2>
-                {{> 'dashboard/components/card_section' section-id="teamInvitations" title="" content=teamInvitations link-text=($t "teams.button.accept")}}
+                {{> 'dashboard/components/card_section' section-id="teamInvitations" title="" content=teamInvitations link-text=($t "global.button.accept")}}
             {{/if}}
 
             {{#if allowedCreateTeam}}
             <div class="col-xs-12">
                 <div class="row padding-top">
                     <div class="col-sm-12">
-                        <a href="/teams/add" class="btn btn-add btn-primary pull-right">{{$t "teams.button.createTeam"}}</a>
+                        <a href="/teams/add" data-testid="add-team-btn" class="btn btn-add btn-primary pull-right">{{$t "teams.button.createTeam"}}</a>
                     </div>
                 </div>
             </div>

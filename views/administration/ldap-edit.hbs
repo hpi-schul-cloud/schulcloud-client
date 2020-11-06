@@ -20,13 +20,13 @@ Probably delete it.--}}
         <a class="icon-card__icon" tabindex="-1">
             <i class="fa fa-fw fa-lightbulb-o" aria-hidden="true"></i>
         </a>
-        <h2 class="h4 icon-card__title">{{$t "administration.ldapEdit.heading.importantNote" }}</h2>
+        <h2 class="h4 icon-card__title">{{$t "administration.ldapEdit.headline.importantNote" }}</h2>
         <div class="icon-card__body">
             <p>
-                {{$t "administration.ldapEdit.text.anyChangesToTheFollowingConfigurationCanResult" }}
+                {{$t "administration.longText.text.anyChangesToTheFollowingConfiguration" }}
             </p>
             <p>
-            {{$t "administration.ldapEdit.text.verification" }}
+                {{$t "administration.longText.text.afterVerificationCanPreviewTheReadContent" }}
             </p>
             <p>
             {{{$t "administration.ldapEdit.text.furtherInfoHere" }}}
@@ -44,11 +44,11 @@ Probably delete it.--}}
     <h3 class="h5">{{$t "administration.ldapEdit.label.users" }} <a href="#" id="usertoggle">{{$t "administration.ldapEdit.label.hide" }}</a></h3>
     <table class="table table-hover table-bordered" id="userTable" border="1">
         <tr>
-            <th>{{$t "administration.global.label.firstName" }}</th>
-            <th>{{$t "administration.global.label.lastName" }}</th>
+            <th>{{$t "global.label.firstNameColon" }}</th>
+            <th>{{$t "global.label.lastName" }}</th>
             <th>E-Mail</th>
             <th>uid</th>
-            <th>{{$t "administration.ldapEdit.label.roles" }}</th>
+            <th>{{$t "administration.controller.label.roles" }}</th>
             <th>{{$t "administration.ldapEdit.label.domainName" }}</th>
             <th>uuid</th>
         </tr>
@@ -58,7 +58,7 @@ Probably delete it.--}}
         <tr>
             <th>Name</th>
             <th>Domain</th>
-            <th>{{$t "administration.ldapEdit.label.classUsers" }}</th>
+            <th>{{$t "administration.controller.global.label.classUsers" }}</th>
         </tr>
     </table>
 </section>

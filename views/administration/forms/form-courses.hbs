@@ -1,7 +1,7 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
 <div class="form-group">
-    <label>{{$t "administration.global.label.nameOfTheCourse" }}</label>
+    <label>{{$t "global.label.nameOfTheCourse" }}</label>
     <input class="form-control" name="name" type="text" placeholder="Mathe 10a" required />
 </div>
 
@@ -73,12 +73,12 @@
                 <label>{{$t "administration.global.label.timeSpan" }}</label>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label>{{$t "administration.global.label.from" }}</label>
+                        <label>{{$t "global.label.from" }}</label>
                         <input name="startDate" id="startDate" type="date" class="form-control" value="{{course.startDate}}"/>
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label>{{$t "administration.global.label.to" }}</label>
+                        <label>{{$t "global.label.to" }}</label>
                         <input name="untilDate" id="untilDate" type="date" class="form-control" value="{{course.untilDate}}"/>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                     <th><label>{{$t "administration.global.label.weekday" }}</label></th>
                     <th><label>{{$t "administration.global.label.startOfLesson" }}</label></th>
                     <th><label>{{$t "administration.global.label.lengthOfLesson" }}</label></th>
-                    <th><label>{{$t "administration.global.label.room" }}</label></th>
+                    <th><label>{{$t "global.label.room" }}</label></th>
                     </thead>
                     <tbody class="add-course-times">
                         {{#embed "courses/components/template-new-course-time"}}{{/embed}}

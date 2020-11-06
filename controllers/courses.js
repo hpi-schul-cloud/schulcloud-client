@@ -10,6 +10,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
+const timesHelper = require('../helpers/timesHelper');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger'];
 
@@ -38,17 +39,16 @@ const createEventsForCourse = (req, res, course) => {
 	// can just run if a calendar service is running on the environment
 	if (CALENDAR_SERVICE_ENABLED) {
 		return Promise.all(
-			course.times.map((time) => api(req).post('/calendar', {
-				json: {
+			course.times.map((time) => {
+				const startDate = timesHelper.fromUTC(course.startDate).add(time.startTime, 'ms');
+				const repeatUntil = timesHelper.fromUTC(course.untilDate);
+				const event = {
 					summary: course.name,
 					location: time.room,
 					description: course.description,
-					startDate: new Date(
-						new Date(course.startDate).getTime()
-						+ time.startTime,
-					).toLocalISOString(),
+					startDate: startDate.toISOString(true),
 					duration: time.duration,
-					repeat_until: course.untilDate,
+					repeat_until: repeatUntil.toISOString(true),
 					frequency: 'WEEKLY',
 					weekday: recurringEventsHelper.getIsoWeekdayForNumber(
 						time.weekday,
@@ -56,8 +56,11 @@ const createEventsForCourse = (req, res, course) => {
 					scopeId: course._id,
 					courseId: course._id,
 					courseTimeId: time._id,
-				},
-			})),
+				};
+				return api(req).post('/calendar', {
+					json: event,
+				});
+			}),
 		).catch((error) => {
 			logger.warn(
 				'failed creating events for the course, the calendar service might be unavailible',
@@ -111,17 +114,7 @@ const editCourseHandler = (req, res, next) => {
 	if (req.params.courseId) {
 		action = `/courses/${req.params.courseId}`;
 		method = 'patch';
-		coursePromise = api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: [
-					'ltiToolIds',
-					'classIds',
-					'teacherIds',
-					'userIds',
-					'substitutionIds',
-				],
-			},
-		});
+		coursePromise = api(req).get(`/courses/${req.params.courseId}`);
 	} else {
 		action = '/courses/';
 		method = 'post';
@@ -197,18 +190,14 @@ const editCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = moment(
-				new Date(course.startDate).getTime(),
-			).format('DD.MM.YYYY');
-			course.untilDate = moment(
-				new Date(course.untilDate).getTime(),
-			).format('DD.MM.YYYY');
+			course.startDate = timesHelper.fromUTC(course.startDate);
+			course.untilDate = timesHelper.fromUTC(course.untilDate);
 		}
 
 		// preselect current teacher when creating new course
 		if (!req.params.courseId) {
 			course.teacherIds = [];
-			course.teacherIds.push(res.locals.currentUser);
+			course.teacherIds.push(res.locals.currentUser._id);
 		}
 
 		// populate course colors - to be replaced system scope
@@ -231,7 +220,7 @@ const editCourseHandler = (req, res, next) => {
 		);
 
 		if (req.params.courseId) {
-			if (!_scopePermissions.includes('COURSE_EDIT')) return next(new Error(res.$t('global.error.403')));
+			if (!_scopePermissions.includes('COURSE_EDIT')) return next(new Error(res.$t('global.text.403')));
 			return res.render('courses/edit-course', {
 				action,
 				method,
@@ -240,16 +229,16 @@ const editCourseHandler = (req, res, next) => {
 				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
-				classes: markSelected(classes, _.map(course.classIds, '_id')),
+				classes: markSelected(classes, course.classIds),
 				teachers: markSelected(
 					teachers,
-					_.map(course.teacherIds, '_id'),
+					course.teacherIds,
 				),
 				substitutions: markSelected(
 					substitutions,
-					_.map(course.substitutionIds, '_id'),
+					course.substitutionIds,
 				),
-				students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
+				students: filterStudents(res, markSelected(students, course.userIds)),
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
 			});
@@ -262,16 +251,16 @@ const editCourseHandler = (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			course,
 			colors,
-			classes: markSelected(classes, _.map(course.classIds, '_id')),
+			classes: markSelected(classes, course.classIds),
 			teachers: markSelected(
 				teachers,
-				_.map(course.teacherIds, '_id'),
+				course.teacherIds,
 			),
 			substitutions: markSelected(
 				substitutions,
-				_.map(course.substitutionIds, '_id'),
+				course.substitutionIds,
 			),
-			students: filterStudents(res, markSelected(students, _.map(course.userIds, '_id'))),
+			students: filterStudents(res, markSelected(students, course.userIds)),
 			redirectUrl: req.query.redirectUrl || '/courses',
 		});
 	}).catch(next);
@@ -286,17 +275,7 @@ const copyCourseHandler = (req, res, next) => {
 	if (req.params.courseId) {
 		action = `/courses/copy/${req.params.courseId}`;
 		method = 'post';
-		coursePromise = api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: [
-					'ltiToolIds',
-					'classIds',
-					'teacherIds',
-					'userIds',
-					'substitutionIds',
-				],
-			},
-		});
+		coursePromise = api(req).get(`/courses/${req.params.courseId}`);
 	} else {
 		action = '/courses/copy';
 		method = 'post';
@@ -336,18 +315,15 @@ const copyCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = moment(
-				new Date(course.startDate).getTime(),
-			).format('DD.MM.YYYY');
-			course.untilDate = moment(
-				new Date(course.untilDate).getTime(),
-			).format('DD.MM.YYYY');
+			course.startDate = timesHelper.fromUTC(course.startDate);
 		}
-
+		if (course.untilDate) {
+			course.untilDate = timesHelper.fromUTC(course.untilDate);
+		}
 		// preselect current teacher when creating new course
 		if (!req.params.courseId) {
 			course.teacherIds = [];
-			course.teacherIds.push(res.locals.currentUser);
+			course.teacherIds.push(res.locals.currentUser._id);
 		}
 
 		// populate course colors - to be replaced system scope
@@ -382,7 +358,7 @@ const copyCourseHandler = (req, res, next) => {
 			course,
 			classes,
 			colors,
-			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+			teachers: markSelected(teachers, course.teacherIds),
 			substitutions,
 			students: filterStudents(res, students),
 			schoolData: res.locals.currentSchoolData,
@@ -409,9 +385,7 @@ const enrichCourse = (course, res) => {
 	(course.times || []).forEach((time) => {
 		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
-		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
-			time.room ? `| ${time.room}` : ''
-		}</div>`;
+		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''}</div>`;
 	});
 	return course;
 };
@@ -509,15 +483,26 @@ router.post('/', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
+	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.startDate;
+	delete req.body.startDate;
+	if (startDate.isValid()) {
+		req.body.startDate = startDate.toDate();
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.untilDate;
+
+	delete req.body.untilDate;
+	if (untilDate.isValid()) {
+		req.body.untilDate = untilDate.toDate();
 	}
+
+	req.body.features = [];
+	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
 
 	api(req)
 		.post('/courses/', {
@@ -542,14 +527,17 @@ router.post('/copy/:courseId', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
+	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.startDate;
+	delete req.body.startDate;
+	if (startDate.isValid()) {
+		req.body.startDate = startDate.toDate();
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.untilDate;
+
+	delete req.body.untilDate;
+	if (untilDate.isValid()) {
+		req.body.untilDate = untilDate.toDate();
 	}
 
 	req.body._id = req.params.courseId;
@@ -582,11 +570,7 @@ router.get('/add/', editCourseHandler);
 
 router.get('/:courseId/json', (req, res, next) => {
 	Promise.all([
-		api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: ['ltiToolIds'],
-			},
-		}),
+		api(req).get(`/courses/${req.params.courseId}`),
 		api(req).get('/lessons/', {
 			qs: {
 				courseId: req.params.courseId,
@@ -616,11 +600,7 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 
 router.get('/:courseId/', async (req, res, next) => {
 	const promises = [
-		api(req).get(`/courses/${req.params.courseId}`, {
-			qs: {
-				$populate: ['ltiToolIds'],
-			},
-		}),
+		api(req).get(`/courses/${req.params.courseId}`),
 		api(req).get('/lessons/', {
 			qs: {
 				courseId: req.params.courseId,
@@ -682,13 +662,21 @@ router.get('/:courseId/', async (req, res, next) => {
 
 		const isNewEdtrioActivated = editorBackendIsAlive && (courseHasNewEditorLessons || userHasEditorEnabled);
 		// ################################ end new Editor check ##################################
-
-		const ltiToolIds = (course.ltiToolIds || []).filter(
+		let ltiToolIds = [];
+		if (course.ltiToolIds && course.ltiToolIds.length > 0) {
+			ltiToolIds = await api(req).get('/ltiTools', {
+				qs: {
+					_id: { $in: course.ltiToolIds },
+				},
+			});
+		}
+		ltiToolIds = (ltiToolIds.data || []).filter(
 			(ltiTool) => ltiTool.isTemplate !== 'true',
 		).map((tool) => {
 			tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
 			return tool;
 		});
+
 		const lessons = (_lessons.data || []).map((lesson) => Object.assign(lesson, {
 			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
 		}));
@@ -790,9 +778,6 @@ router.patch('/:courseId', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
-
 	if (!req.body.classIds) {
 		req.body.classIds = [];
 	}
@@ -803,14 +788,21 @@ router.patch('/:courseId', (req, res, next) => {
 		req.body.substitutionIds = [];
 	}
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.startDate;
-	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.untilDate;
+	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
+	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
+
+	delete req.body.startDate;
+	if (startDate.isValid()) {
+		req.body.startDate = startDate.toDate();
 	}
 
-	if (req.body.unarchive !== 'true' && req.body.untilDate < new Date()) {
+	delete req.body.untilDate;
+	if (untilDate.isValid()) {
+		req.body.untilDate = untilDate.toDate();
+	}
+
+	// unarchive client request do not contain information about feature flags
+	if (req.body.unarchive !== 'true') {
 		req.body.features = [];
 		OPTIONAL_COURSE_FEATURES.forEach((feature) => {
 			if (req.body[feature] === 'true') {
@@ -906,12 +898,12 @@ router.post('/:courseId/importTopic', (req, res, next) => {
 	const { shareToken } = req.body;
 	// try to find topic for given shareToken
 	api(req)
-		.get('/lessons/', { qs: { shareToken, $populate: ['courseId'] } })
+		.get('/lessons/', { qs: { shareToken } })
 		.then((lessons) => {
 			if ((lessons.data || []).length <= 0) {
 				req.session.notification = {
 					type: 'danger',
-					message: res.$t('courses._course.topic.text.noTopicFoundWithCode'),
+					message: res.$t('global.text.noTopicFoundWithCode'),
 				};
 
 				redirectHelper.safeBackRedirect(req, res);
@@ -938,12 +930,12 @@ router.get('/:courseId/copy', copyCourseHandler);
 
 // return shareToken
 router.get('/:id/share', (req, res, next) => api(req)
-	.get(`/courses/share/${req.params.id}`)
+	.get(`/courses-share/${req.params.id}`)
 	.then((course) => res.json(course)));
 
 // return course Name for given shareToken
 router.get('/share/:id', (req, res, next) => api(req)
-	.get('/courses/share', { qs: { shareToken: req.params.id } })
+	.get('/courses-share', { qs: { shareToken: req.params.id } })
 	.then((name) => res.json({ msg: name, status: 'success' }))
 	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
@@ -952,7 +944,7 @@ router.post('/import', (req, res, next) => {
 	const courseName = req.body.name;
 
 	api(req)
-		.post('/courses/share', { json: { shareToken, courseName } })
+		.post('/courses-share', { json: { shareToken, courseName } })
 		.then((course) => {
 			if (course.errors && course.message && course.code) {
 				throw course;

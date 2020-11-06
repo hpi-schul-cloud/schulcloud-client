@@ -1,13 +1,13 @@
 <div class="form-group" id="step1">
-    <label for="shareToken">Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.</label>
+    <label for="shareToken">{{$t "teams.form_importTopic.label.insertACodeToImportCourse"}}</label>
     <input class="form-control" name="shareToken" id="shareToken" type="text" required />
     <br />
-    <p>Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schülerbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler hinzu und vergib einen Termin für den Kurs.</p>
-    <p><i class="fa fa-exclamation-triangle"></i> Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. nexBoard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.</p>
+    <p>{{$t "teams.form_importTopic.text.aCourseFolderIsAutomaticallyCreated"}}</p>
+    <p><i class="fa fa-exclamation-triangle" aria-hidden = " true " ></i> {{$t "courses.text.importCourseAttentionTools"}}</p>
 </div>
 <div class="form-group" id="step2">
-    <p>Benenne den Kurs um.</p>
-    <input class="form-control" name="name" id="courseName" type="text" required />
+    <label for="courseName">{{$t "teams.form_importTopic.label.renameTheCourse"}}</label>
+    <input class="form-control" name="name" id="courseName" type="text" aria-describedby = " courseNameHint "  required />
     <br />
-    <p>Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler hinzu.</p>
+    <p>{{$t "teams.form_importTopic.text.completeTheImport"}}</p>
 </div>

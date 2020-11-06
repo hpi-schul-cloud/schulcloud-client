@@ -1,5 +1,5 @@
 ﻿{{#content "scripts" mode="append"}}
-    <script src="/vendor/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     <script type="text/javascript" nonce="{{nonceValue}}">
@@ -40,13 +40,6 @@
             }
         });
     </script>
-    <script nonce="{{nonceValue}}">
-        window.addEventListener('DOMContentLoaded', function () {
-            CKEDITOR.replaceAll(function (textarea, config) {
-                if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
-            });
-        });
-    </script>
     <script src="/scripts/lessons.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
@@ -77,9 +70,9 @@
 				{{#if (userHasRole "student")}}
 				<i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
 				{{/if}}
-                {{availableDateF}} ({{availableTimeF}}) |
+                {{i18nDateTime availableDate}}
                 {{#if dueDate}}
-                    bis: {{dueDateF}} ({{dueTimeF}})
+                    {{$t "homework.text.till"}}: {{timeToString dueDate}}
                 {{else}}
                     {{$t "homework.text.noSubmissionDateSet"}}
                 {{/if}}
@@ -106,7 +99,7 @@
                         </a>
                         <a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="{{$t "homework.button.toCourseAlt"}}">
                             <i class="fa fa-graduation-cap"></i>
-                            {{$t "homework.button.toClass" }}
+                            {{$t "global.button.toCourse" }}
                         </a>
                         {{#if lessonId}}
                             <a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
@@ -162,5 +155,7 @@
                 </div>
             </div>
         </section>
+
+		{{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}{{/embed}}
     {{/content}}
 {{/extend}}

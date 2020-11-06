@@ -7,14 +7,22 @@
 		"NEW_DOMAIN": "schul-cloud.org"
 	},
 	"COOKIE": {
-		"SAME_SITE": "None",
-		"HTTP_ONLY": false,
-		"HOST_ONLY": false,
 		"SECURE": false,
-		"EXPIRES_SECONDS": 2592000000
+		"EXPIRES_SECONDS": 2592000000,
+		"HTTP_ONLY": false,
+		"SAME_SITE": "Lax",
+		"HOST_ONLY": false
 	},
 	"COOKIE_SECRET": "ihasDF(=4jA4aF",
 	"STUDENT_TEAM_CREATION": "opt-out",
 	"FEATURE_EXTENSION_PORTFOLIO_ENABLED": false,
-	"LERNSTORE_MODE": "DISABLED"
+	"LERNSTORE_MODE": "DISABLED",
+	"I18N": {
+		"DEFAULT_LANGUAGE": "de",
+		"FALLBACK_LANGUAGE": "de",
+		"DEFAULT_TIMEZONE": "Europe/Berlin",
+		"DEBUG": false,
+		"AVAILABLE_LANGUAGES": "de,en"
+	},
+	"FEATURE_SHOW_VERSION_ENABLED": false
 }

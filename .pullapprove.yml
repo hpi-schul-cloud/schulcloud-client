@@ -55,6 +55,7 @@ groups:
     reviewers:
       teams:
       - client-core
+      - client-team
     reviews:
       required: 1  # number of approvals required from this group
       request: 1  # number of review requests sent at a time
@@ -62,11 +63,23 @@ groups:
 
   ux-core:
     conditions:
-    - "'**/*.hbs' in files or 'static/styles/**/*.scss' in files or '.pullapprove.yml' in files"
-    # only review if "**/*.hbs", "static/styles/**/*.scss" files or ".pullapprove.yml" have been touched
+    - "'static/images/*/*' in files or 'theme/*' in files or 'static/fonts/**/*.ext' in files or 'static/styles//*.scss' in files"
+    # only review if "'static/images/*/*' or 'theme/*' or 'static/fonts/**/*.ext' or 'static/styles//*.scss'" files have been touched
     reviewers:
       teams:
       - ux-core
     reviews:
       required: 1  # number of approvals required from this group
       request: -1  # request from all members a review
+
+  devops:
+    conditions:
+    - "'*deploy.sh' in files or '.build/*' in files" # only review specific, deployment relevant files
+    reviewers:
+      teams:
+      - devops
+    reviews:
+      required: 1 # number of approvals required from this group
+      request: 2 # request review from 2 members at a time
+      request_order: shuffle # reviewers will be chosen in a random order
+      author_value: 1 # if author of pr is in team, no additional review required

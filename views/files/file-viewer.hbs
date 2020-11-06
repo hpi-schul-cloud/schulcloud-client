@@ -1,9 +1,9 @@
 <section class="file-viewer">
-    <a href="#" class="lightbox videostop" id="file-view">
+    <a href="#" class="lightbox videostop" id="file-view" role="button" aria-label="{{$t "files.label.backToFiles"}}" tabindex="0">
       <video id="my-video" class="video-js vjs-default-skin videoclick" autoplay controls preload="auto" data-setup='{"fluid": true}'></video>
 		  <script src="/vendor-optimized/video.js/dist/video.min.js" nonce="{{nonceValue}}"></script>
 		  <script src="/vendor-optimized/video.js/dist/lang/{{ @root.userLanguage }}.js" nonce="{{nonceValue}}"></script>
-      <img id="picture">
+      <img id="picture" alt="">
     </a>
 </section>
 
@@ -14,7 +14,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary btn-close">{{$t "global.button.cancel" }}</button>
-            <button type="submit" class="btn btn-primary btn-submit">{{$t "files.button.open" }}</button>
+            <button type="submit" class="btn btn-primary btn-submit">{{$t "global.button.open" }}</button>
         </div>
     {{/content}}
 {{/embed}}

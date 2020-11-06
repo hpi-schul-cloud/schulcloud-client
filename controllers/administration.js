@@ -16,13 +16,12 @@ const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const redirectHelper = require('../helpers/redirect');
+const timesHelper = require('../helpers/timesHelper');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 const { CALENDAR_SERVICE_ENABLED, HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
-
-moment.locale('de');
 
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
@@ -52,90 +51,6 @@ const cutEditOffUrl = (url) => {
 		workingURL = workingURL.substring(0, workingURL.lastIndexOf('/'));
 	}
 	return workingURL;
-};
-
-const getTableActions = (
-	item,
-	path,
-	isAdmin = true,
-	isTeacher = false,
-	isStudentAction = false,
-	category,
-	res,
-) => {
-	let editButtonClass = 'btn-edit';
-	if (item.type === 'ldap') {
-		editButtonClass = 'btn-edit-ldap';
-	}
-	return [
-		{
-			link:
-				item.type === 'ldap' ? `${path}ldap/edit/${item._id}` : path + item._id,
-			class: `${editButtonClass} ${isTeacher ? 'disabled' : ''}`,
-			icon: 'edit',
-			title: res.$t('administration.controller.link.editEntry'),
-		},
-		{
-			link: path + item._id,
-			class: `${isAdmin ? 'btn-delete' : 'disabled'} ${category === 'systems'
-				&& 'btn-delete--systems'}`,
-			icon: 'trash-o',
-			method: `${isAdmin ? 'delete' : ''}`,
-			title: res.$t('administration.controller.link.deleteEntry'),
-		},
-		{
-			link: isStudentAction ? `${path}pw/${item._id}` : '',
-			class: isStudentAction ? 'btn-pw' : 'invisible',
-			icon: isStudentAction ? 'key' : '',
-			title: res.$t('administration.controller.link.resetPassword'),
-		},
-	];
-};
-
-const getTableActionsSend = (item, path, state, res) => {
-	const actions = [];
-	if (state === 'submitted' || state === 'closed') {
-		actions.push(
-			{
-				link: path + item._id,
-				class: 'btn-edit',
-				icon: 'edit',
-				title: res.$t('administration.controller.link.editEntry'),
-			},
-			{
-				class: 'disabled',
-				icon: 'archive',
-			},
-			{
-				class: 'disabled',
-				icon: 'paper-plane',
-			},
-		);
-	} else {
-		actions.push(
-			{
-				link: path + item._id,
-				class: 'btn-edit',
-				icon: 'edit',
-				title: res.$t('administration.controller.link.editEntry'),
-			},
-			{
-				link: path + item._id,
-				class: 'btn-disable',
-				icon: 'archive',
-				method: 'delete',
-				title: res.$t('administration.controller.link.completeEntry'),
-			},
-			{
-				link: path + item._id,
-				class: 'btn',
-				icon: 'paper-plane',
-				method: 'post',
-				title: res.$t('administration.controller.link.sendEntryToDevelopmentTeam'),
-			},
-		);
-	}
-	return actions;
 };
 
 /**
@@ -352,12 +267,12 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 			.post('/mails/', {
 				json: {
 					email: user.email,
-					subject: res.$t('administration.controller.text.invitationToUseThe', {
+					subject: res.$t('administration.controller.text.invitationEmailSubject', {
 						title: res.locals.theme.title,
 					}),
 					headers: {},
 					content: {
-						text: res.$t('administration.controller.text.invitationToThe', {
+						text: res.$t('administration.controller.text.invitationEmailContent', {
 							title: res.locals.theme.title,
 							firstName: user.firstName,
 							lastName: user.lastName,
@@ -421,10 +336,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 const getUserCreateHandler = (internalReturn) => function userCreate(req, res, next) {
 	const { shortLink } = req.body;
 	if (req.body.birthday) {
-		const birthday = req.body.birthday.split('.');
-		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
-			birthday[0]
-			}T00:00:00Z`;
+		req.body.birthday = timesHelper.dateStringToMoment(req.body.birthday);
 	}
 	return api(req)
 		.post('/users/', {
@@ -458,56 +370,6 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 				}),
 			};
 			return redirectHelper.safeBackRedirect(req, res);
-		});
-};
-
-/**
- * send out problem to the sc helpdesk
- * @param service currently only used for helpdesk
- * @returns {Function}
- */
-const getSendHelper = (service) => function send(req, res, next) {
-	api(req)
-		.get(`/${service}/${req.params.id}`)
-		.then((data) => {
-			const user = res.locals.currentUser;
-
-			api(req)
-				.post('/helpdesk', {
-					json: {
-						type: 'contactHPI',
-						subject: data.subject,
-						role: '',
-						desire: '',
-						benefit: '',
-						acceptanceCriteria: '',
-						currentState: data.currentState,
-						targetState: data.targetState,
-						notes: data.notes,
-						schoolName: res.locals.currentSchoolData.name,
-						userId: user._id,
-						email: user.email ? user.email : '',
-						schoolId: res.locals.currentSchoolData._id,
-						cloud: res.locals.theme.title,
-						browserName: '',
-						browserVersion: '',
-						os: '',
-						device: '',
-						deviceUserAgent: '',
-					},
-				})
-				.then(() => {
-					api(req).patch(`/${service}/${req.params.id}`, {
-						json: {
-							state: 'submitted',
-							order: 1,
-						},
-					});
-				})
-				.catch((err) => {
-					res.status(err.statusCode || 500).send(err);
-				});
-			redirectHelper.safeBackRedirect(req, res);
 		});
 };
 
@@ -572,15 +434,29 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 		return;
 	} catch (err) {
-		const message = res.$t('administration.controller.text.importFailed');
-		req.session.notification = {
-			type: 'danger',
-			message,
-		};
-		const query = queryString.stringify({
-			'toast-type': 'error',
-			'toast-message': encodeURIComponent(message),
-		});
+		let query;
+		if (err.error && err.error.code && err.error.code === 'ESOCKETTIMEDOUT') {
+			const message = res.$t('administration.controller.text.importMayBeStillRunning');
+			req.session.notification = {
+				type: 'info',
+				message,
+			};
+			query = queryString.stringify({
+				'toast-type': 'info',
+				'toast-message': encodeURIComponent(message),
+			});
+		} else {
+			const message = res.$t('administration.controller.text.importFailed');
+			req.session.notification = {
+				type: 'danger',
+				message,
+			};
+			query = queryString.stringify({
+				'toast-type': 'error',
+				'toast-message': encodeURIComponent(message),
+			});
+		}
+
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 	}
 };
@@ -733,7 +609,7 @@ const updatePolicy = (req, res, next) => {
 		json: {
 			title: body.consentTitle,
 			consentText: body.consentText,
-			publishedAt: new Date().toLocaleString(),
+			publishedAt: timesHelper.currentDate(),
 			consentTypes: ['privacy'],
 			schoolId: body.schoolId,
 			consentData: body.consentData,
@@ -748,7 +624,7 @@ const updatePolicy = (req, res, next) => {
 const returnAdminPrefix = (roles, res) => {
 	let prefix;
 	// eslint-disable-next-line array-callback-return
-	roles.map((role) => {
+	roles.forEach((role) => {
 		// eslint-disable-next-line no-unused-expressions
 		role.name === 'teacher'
 			? (prefix = res.$t('administration.controller.headline.management'))
@@ -795,23 +671,23 @@ const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, 
 const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	{
 		type: 'sort',
-		title: res.$t('administration.controller.headline.sorting'),
-		displayTemplate: res.$t('administration.controller.text.sortBy'),
+		title: res.$t('global.headline.sorting'),
+		displayTemplate: res.$t('global.label.sortBy'),
 		options: [
-			['firstName', res.$t('administration.controller.global.label.firstName')],
-			['lastName', res.$t('administration.controller.global.label.lastName')],
+			['firstName', res.$t('global.label.firstName')],
+			['lastName', res.$t('global.label.lastName')],
 			['email', res.$t('administration.controller.global.label.email')],
-			['classes', res.$t('administration.controller.global.label.classes')],
+			['classes', res.$t('global.headline.classes')],
 			['consentStatus', res.$t('administration.controller.global.label.consentStatus')],
-			['createdAt', res.$t('administration.controller.global.label.createdAt')],
+			['createdAt', res.$t('global.label.creationDate')],
 		],
 		defaultSelection: defaultOrder || 'firstName',
 		defaultOrder: 'DESC',
 	},
 	{
 		type: 'limit',
-		title: res.$t('administration.controller.headline.entriesPerPage'),
-		displayTemplate: res.$t('administration.controller.text.entriesPerPage'),
+		title: res.$t('global.headline.entriesPerPage'),
+		displayTemplate: res.$t('global.label.entriesPerPage'),
 		options: [25, 50, 100],
 		defaultSelection: 25,
 	},
@@ -838,12 +714,6 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	},
 ];
 
-const parseDate = (input) => {
-	const parts = input.match(/(\d+)/g);
-	return new Date(parts[2], parts[1] - 1, parts[0]);
-};
-
-
 const skipRegistration = (req, res, next) => {
 	const userid = req.params.id;
 	const {
@@ -856,7 +726,7 @@ const skipRegistration = (req, res, next) => {
 		termsOfUseConsent,
 		birthday,
 	} = req.body;
-	const parsedDate = parseDate(birthday).toISOString();
+	const parsedDate = timesHelper.dateStringToMoment(birthday);
 	api(req).post(`/users/${userid}/skipregistration`, {
 		json: {
 			password: passwd,
@@ -896,12 +766,11 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 		+ '<i class="fa fa-check consent-status double-check"></i>';
 
 	switch (consentStatus) {
-		case 'missing':
-			return times;
 		case 'parentsAgreed':
 			return check;
 		case 'ok':
 			return isTeacher ? check : doubleCheck;
+		case 'missing':
 		default:
 			return times;
 	}
@@ -920,32 +789,20 @@ router.get(
 );
 
 const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, res, next) {
-	const promises = [
-		api(req).patch(`/users/${req.params.id}`, { json: req.body }),
-	]; // TODO: sanitize
-
 	// extract consent
 	if (req.body.form) {
-		const consent = {
-			_id: req.body.consentId,
+		req.body.consent = {
 			userConsent: {
 				form: req.body.form || 'analog',
 				privacyConsent: req.body.privacyConsent || false,
 				termsOfUseConsent: req.body.termsOfUseConsent || false,
 			},
 		};
-		if (consent._id) {
-			// update exisiting consent
-			promises.push(
-				api(req).patch(`/consents/${consent._id}`, { json: consent }),
-			);
-		} else {
-			// create new consent entry
-			delete consent._id;
-			consent.userId = req.params.id;
-			promises.push(api(req).post('/consents/', { json: consent }));
-		}
 	}
+
+	const promises = [
+		api(req).patch(`/users/admin/teachers/${req.params.id}`, { json: req.body }),
+	]; // TODO: sanitize
 
 	// extract class information
 	if (req.body.classes && !Array.isArray(req.body.classes)) {
@@ -983,7 +840,11 @@ const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, r
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
-			next(err);
+			req.session.notification = {
+				type: 'danger',
+				message: err.error.message,
+			};
+			res.redirect(`${req.originalUrl}/edit`);
 		});
 };
 
@@ -996,7 +857,7 @@ router.post(
 		api(req).get('/users', { qs: { email }, $limit: 1 })
 			.then((users) => {
 				if (users.total === 1) {
-					sendMailHandler(users.data[0], req, res, true);
+					sendMailHandler({ ...users.data[0], email }, req, res, true);
 					res.status(200).json({ status: 'ok' });
 				} else {
 					res.status(500).send();
@@ -1097,10 +958,10 @@ router.get(
 				const users = teachersResponse.data;
 				const years = getSelectableYears(res.locals.currentSchoolData);
 				const head = [
-					res.$t('administration.controller.global.label.firstName'),
-					res.$t('administration.controller.global.label.lastName'),
+					res.$t('global.label.firstName'),
+					res.$t('global.label.lastName'),
 					res.$t('administration.controller.global.label.email'),
-					res.$t('administration.controller.global.label.classes'),
+					res.$t('global.headline.classes'),
 				];
 				if (
 					res.locals.currentUser.roles
@@ -1129,7 +990,7 @@ router.get(
 						classesString,
 					];
 					if (hasEditPermission) {
-						row.push(moment(user.createdAt).format('DD.MM.YYYY'));
+						row.push(timesHelper.dateToDateString(user.createdAt));
 						row.push({
 							useHTML: true,
 							content: icon,
@@ -1169,10 +1030,7 @@ router.get(
 	'/teachers/:id/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
 	(req, res, next) => {
-		const userPromise = api(req).get(`/users/${req.params.id}`);
-		const consentPromise = getSelectOptions(req, 'consents', {
-			userId: req.params.id,
-		});
+		const userPromise = api(req).get(`users/admin/teachers/${req.params.id}`);
 		const classesPromise = getSelectOptions(req, 'classes', {
 			$populate: ['year'],
 			$sort: 'displayName',
@@ -1193,12 +1051,14 @@ router.get(
 				c.selected = c.teacherIds.includes(user._id);
 				return c;
 			});
+			const canDeleteUser = res.locals.currentUser.permissions.includes('TEACHER_DELETE');
 			res.render('administration/users_edit', {
 				title: res.$t('administration.controller.link.editTeacher'),
 				action: `/administration/teachers/${user._id}`,
 				submitLabel: res.$t('global.button.save'),
 				closeLabel: res.$t('global.button.cancel'),
 				user,
+				canDeleteUser,
 				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
 				consent: user.consent,
 				classes,
@@ -1207,6 +1067,7 @@ router.get(
 				isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 				referrer: req.header('Referer'),
+				hasAccount: !!account,
 			});
 		});
 	},
@@ -1218,45 +1079,30 @@ router.get(
 
 const getStudentUpdateHandler = () => async function studentUpdateHandler(req, res, next) {
 	if (req.body.birthday) {
-		const birthday = req.body.birthday.split('.');
-		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
-			birthday[0]
-			}T00:00:00Z`;
+		req.body.birthday = timesHelper.dateStringToMoment(req.body.birthday);
 	}
 
 	const promises = [];
 
 	// Consents
-	if (req.body.student_form || req.body.parent_form) {
-		const newConsent = {};
-		if (req.body.student_form) {
-			newConsent.userConsent = {
-				form: req.body.student_form || 'analog',
-				privacyConsent: req.body.student_privacyConsent === 'true',
-				termsOfUseConsent: req.body.student_termsOfUseConsent === 'true',
-			};
-		}
-		if (req.body.parent_form) {
-			newConsent.parentConsents = [];
-			newConsent.parentConsents[0] = {
-				form: req.body.parent_form || 'analog',
-				privacyConsent: req.body.parent_privacyConsent === 'true',
-				termsOfUseConsent: req.body.parent_termsOfUseConsent === 'true',
-			};
-		}
-		if (req.body.student_consentId) {
-			// update exisiting consent
-			promises.push(
-				api(req).patch(`/consents/${req.body.student_consentId}`, {
-					json: newConsent,
-				}),
-			);
-		} else {
-			// create new consent entry
-			newConsent.userId = req.params.id;
-			promises.push(api(req).post('/consents/', { json: newConsent }));
-		}
+	if (req.body.student_form) {
+		req.body.consent = req.body.consent || {};
+		req.body.consent.userConsent = {
+			form: req.body.student_form || 'analog',
+			privacyConsent: req.body.student_privacyConsent === 'true',
+			termsOfUseConsent: req.body.student_termsOfUseConsent === 'true',
+		};
 	}
+	if (req.body.parent_form) {
+		req.body.consent = req.body.consent || {};
+		req.body.consent.parentConsents = [];
+		req.body.consent.parentConsents[0] = {
+			form: req.body.parent_form || 'analog',
+			privacyConsent: req.body.parent_privacyConsent === 'true',
+			termsOfUseConsent: req.body.parent_termsOfUseConsent === 'true',
+		};
+	}
+
 
 	// remove all consent infos from user post
 	Object.keys(req.body).forEach((key) => {
@@ -1266,7 +1112,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 	});
 
 	promises.push(
-		api(req).patch(`/users/${req.params.id}`, { json: req.body }),
+		api(req).patch(`/users/admin/students/${req.params.id}`, { json: req.body }),
 	); // TODO: sanitize
 
 	Promise.all(promises)
@@ -1274,7 +1120,11 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
-			next(err);
+			req.session.notification = {
+				type: 'danger',
+				message: err.error.message,
+			};
+			res.redirect(`${req.originalUrl}/edit`);
 		});
 };
 
@@ -1331,14 +1181,14 @@ router.delete(
 );
 router.post(
 	'/students/:id/skipregistration/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE', 'STUDENT_SKIP_REGISTRATION'], 'or'),
 	skipRegistration,
 );
 router.get(
 	'/students/:id/skipregistration',
 	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
 	(req, res, next) => {
-		api(req).get(`/users/${req.params.id}`)
+		api(req).get(`/users/admin/students/${req.params.id}`)
 			.then((user) => {
 				res.render('administration/users_skipregistration', {
 					title: res.$t('administration.controller.link.toGiveConsent'),
@@ -1401,8 +1251,8 @@ router.get(
 				});
 				let studentsWithoutConsentCount = 0;
 				const head = [
-					res.$t('administration.controller.global.label.firstName'),
-					res.$t('administration.controller.global.label.lastName'),
+					res.$t('global.label.firstName'),
+					res.$t('global.label.lastName'),
 					res.$t('administration.controller.global.label.email'),
 					res.$t('administration.controller.global.label.class'),
 					res.$t('administration.controller.global.label.createdOn'),
@@ -1437,7 +1287,7 @@ router.get(
 						user.lastName || '',
 						user.email || '',
 						user.classes.join(', ') || '',
-						moment(user.createdAt).format('DD.MM.YYYY'),
+						timesHelper.dateToDateString(user.createdAt),
 						{
 							useHTML: true,
 							content: `<p class="text-center m-0">${icon}</p>`,
@@ -1485,11 +1335,6 @@ router.get(
 );
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
-	const role = await api(req).get('/roles', {
-		qs: { name: roleName },
-		$limit: false,
-	});
-	const qs = { roles: role.data[0]._id, $limit: false };
 	let users = [];
 
 	if (classId) {
@@ -1500,40 +1345,31 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 		});
 		users = klass.userIds;
 	} else {
+		const role = await api(req).get('/roles', {
+			qs: { name: roleName },
+			$limit: false,
+		});
+		const qs = { roles: role.data[0]._id, $limit: false };
 		users = (await api(req).get('/users', { qs, $limit: false })).data;
 	}
 
-	let consents = [];
+	const usersWithMissingConsents = [];
 	const batchSize = 50;
-	let slice = 0;
-	while (users.length !== 0 && slice * batchSize < users.length) {
-		consents = consents.concat(
-			(await api(req).get('/consents', {
+	while (users.length > 0) {
+		usersWithMissingConsents.push(
+			...(await api(req).get('/users/admin/students', {
 				qs: {
-					userId: {
-						$in: users
-							.slice(slice * batchSize, (slice + 1) * batchSize)
-							.map((u) => u._id),
-					},
-					$populate: 'userId',
-					$limit: false,
+					users: users
+						.splice(0, batchSize)
+						.map((u) => u._id),
+					consentStatus: ['missing', 'parentsAgreed'],
+					$limit: batchSize,
 				},
 			})).data,
 		);
-		slice += 1;
 	}
 
-	const consentMissing = (user) => !consents.some(
-		(consent) => consent.userId._id.toString() === (user._id || user).toString(),
-	);
-	const consentIncomplete = (consent) => !consent.access;
-
-	const usersWithoutConsent = users.filter(consentMissing);
-	const usersWithIncompleteConsent = consents
-		.filter(consentIncomplete)
-		// get full user object from users list
-		.map((c) => users.find((user) => user._id.toString() === c.userId._id.toString()));
-	return usersWithoutConsent.concat(usersWithIncompleteConsent);
+	return usersWithMissingConsents;
 };
 
 router.get(
@@ -1597,12 +1433,29 @@ router.get(
 	},
 );
 
+const currentUserHasPermissionsForRole = (req, res, next) => {
+	const role = req.query.role;
+	const currentUser = res.locals.currentUser;
+
+	let hasPermissions = false;
+
+	if (role === 'student') {
+		hasPermissions = permissionsHelper.userHasPermission(currentUser, ['ADMIN_VIEW', 'STUDENT_LIST'], 'or');
+	} else if (role === 'teacher') {
+		hasPermissions = permissionsHelper.userHasPermission(currentUser, ['ADMIN_VIEW', 'TEACHER_LIST'], 'or');
+	}
+
+	if (!hasPermissions) {
+		return res.status(401).send(`You are not authorized to list ${role}s`);
+	}
+	return next();
+};
+
 router.get(
 	'/users-without-consent/get-json',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
+	currentUserHasPermissionsForRole,
 	async (req, res, next) => {
 		const role = req.query.role;
-
 		try {
 			let usersWithoutConsent = await getUsersWithoutConsent(
 				req,
@@ -1639,7 +1492,7 @@ router.get(
 	'/students/:id/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
 	(req, res, next) => {
-		const userPromise = api(req).get(`/users/${req.params.id}`);
+		const userPromise = api(req).get(`/users/admin/students/${req.params.id}`);
 		const accountPromise = api(req).get('/accounts/', {
 			qs: { userId: req.params.id },
 		});
@@ -1653,6 +1506,7 @@ router.get(
 						? consent.parentConsents[0]
 						: {};
 				}
+				const canDeleteUser = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
 				const hidePwChangeButton = !account;
 				res.render('administration/users_edit', {
 					title: res.$t('administration.controller.link.editingStudents'),
@@ -1660,6 +1514,8 @@ router.get(
 					submitLabel: res.$t('global.button.save'),
 					closeLabel:	res.$t('global.button.cancel'),
 					user,
+					canDeleteUser,
+					isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
 					consent,
 					canSkipConsent: canSkip,
@@ -1668,6 +1524,7 @@ router.get(
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+					hasAccount: !!account,
 				});
 			})
 			.catch((err) => {
@@ -1719,7 +1576,7 @@ const skipRegistrationClass = async (req, res, next) => {
 				parent_termsOfUseConsent: true,
 				privacyConsent: true,
 				termsOfUseConsent: true,
-				birthday: parseDate(birthdays[i]),
+				birthday: timesHelper.dateStringToMoment(birthdays[i]),
 			},
 		});
 	});
@@ -2243,37 +2100,42 @@ router.delete(
 	},
 );
 
-const classFilterSettings = ({ years, currentYear }, res) => {
-	const yearFilter = {
-		type: 'select',
-		title: res.$t('administration.controller.headline.schoolYear'),
-		displayTemplate: res.$t('administration.controller.text.schoolYearPercentage'),
-		property: 'year',
-		multiple: true,
-		expanded: true,
-		options: years,
-	};
-	if (currentYear) {
-		yearFilter.defaultSelection = currentYear;
+const classFilterSettings = ({ years, defaultYear, showTab }, res) => {
+	const filterSettings = [];
+	filterSettings.push({
+		type: 'sort',
+		title: res.$t('global.headline.sorting'),
+		displayTemplate: res.$t('global.label.sortBy'),
+		options: [['displayName', res.$t('administration.controller.global.label.class')]],
+		defaultSelection: 'displayName',
+		defaultOrder: 'DESC',
+	});
+
+	if (showTab === 'archive') {
+		const yearFilter = {
+			type: 'select',
+			title: res.$t('administration.global.label.schoolYear'),
+			displayTemplate: res.$t('administration.controller.text.schoolYearPercentage'),
+			property: 'year',
+			multiple: true,
+			expanded: true,
+			options: years,
+		};
+		if (defaultYear) {
+			yearFilter.defaultSelection = defaultYear;
+		}
+		filterSettings.push(yearFilter);
 	}
-	return [
-		{
-			type: 'sort',
-			title: res.$t('administration.controller.headline.sorting'),
-			displayTemplate: res.$t('administration.controller.text.sortBy'),
-			options: [['displayName', res.$t('administration.controller.global.label.class')]],
-			defaultSelection: 'displayName',
-			defaultOrder: 'DESC',
-		},
-		yearFilter,
-		{
-			type: 'limit',
-			title: res.$t('administration.controller.headline.sorting'),
-			displayTemplate: res.$t('administration.controller.text.entriesPerPage'),
-			options: [25, 50, 100],
-			defaultSelection: 25,
-		},
-	];
+
+	filterSettings.push({
+		type: 'limit',
+		title: res.$t('global.headline.sorting'),
+		displayTemplate: res.$t('global.label.entriesPerPage'),
+		options: [25, 50, 100],
+		defaultSelection: 25,
+	});
+
+	return filterSettings;
 };
 
 router.get(
@@ -2300,11 +2162,59 @@ router.get(
 			$limit: itemsPerPage,
 			$skip: itemsPerPage * (currentPage - 1),
 		};
-		query = Object.assign(query, filterQuery);
 
 		if (!res.locals.currentUser.permissions.includes('CLASS_FULL_ADMIN')) {
 			query.teacherIds = res.locals.currentUser._id.toString();
 		}
+
+		const schoolYears = res.locals.currentSchoolData.years.schoolYears
+			.sort((a, b) => b.startDate.localeCompare(a.startDate));
+		const lastDefinedSchoolYear = (schoolYears[0] || {})._id;
+		const currentYear = res.locals.currentSchoolData.currentYear;
+
+		const currentYearObj = schoolYears.filter((year) => year._id === currentYear).pop();
+
+		const showTab = (req.query || {}).showTab || 'current';
+
+		const upcomingYears = schoolYears
+			.filter((year) => year.startDate > currentYearObj.endDate);
+		const archivedYears = schoolYears
+			.filter((year) => year.endDate < currentYearObj.startDate);
+
+		let defaultYear;
+		switch (showTab) {
+			case 'upcoming':
+				query['year[$in]'] = upcomingYears.map((year) => year._id);
+				break;
+			case 'archive':
+				query['year[$in]'] = archivedYears.map((year) => year._id);
+				defaultYear = archivedYears && archivedYears.length ? archivedYears[0]._id : null;
+				break;
+			case 'current':
+			default:
+				query['year[$in]'] = [currentYear];
+				break;
+		}
+
+		// apply criterias defined by filter
+		query = Object.assign(query, filterQuery);
+
+		const classesTabs = [
+			{
+				key: 'upcoming',
+				title: `${upcomingYears.pop().name}`,
+				link: `/administration/classes/?showTab=upcoming${filterQueryString}`,
+			},
+			{
+				key: 'current',
+				title: `${currentYearObj.name}`,
+				link: `/administration/classes/?showTab=current${filterQueryString}`,
+			},			{
+				key: 'archive',
+				title: res.$t('administration.controller.tab_label.archivedClasses'),
+				link: `/administration/classes/?showTab=archive${filterQueryString}`,
+			},
+		];
 
 		api(req)
 			.get('/classes', {
@@ -2314,17 +2224,14 @@ router.get(
 				const head = [
 					res.$t('administration.controller.global.label.class'),
 					res.$t('administration.controller.global.label.teacher'),
-					res.$t('administration.controller.global.label.schoolYear'),
-					res.$t('administration.controller.global.label.student'),
+					res.$t('administration.global.label.schoolYear'),
+					res.$t('global.link.administrationStudents'),
 				];
 				const hasEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'CLASS_EDIT');
 				if (hasEditPermission) {
 					head.push(''); // action buttons head
 				}
 
-				const schoolYears = res.locals.currentSchoolData.years.schoolYears
-					.sort((a, b) => b.startDate.localeCompare(a.startDate));
-				const lastDefinedSchoolYear = (schoolYears[0] || {})._id;
 
 				const createActionButtons = (item, basePath) => {
 					const baseActions = [
@@ -2358,7 +2265,7 @@ router.get(
 					}
 					return baseActions;
 				};
-
+				let displayName;
 				const body = data.data.map((item) => {
 					const cells = [
 						item.displayName || '',
@@ -2366,6 +2273,7 @@ router.get(
 						(item.year || {}).name || '',
 						item.userIds.length || '0',
 					];
+					displayName = item.displayName;
 					if (hasEditPermission) {
 						cells.push(createActionButtons(item, '/administration/classes/'));
 					}
@@ -2375,21 +2283,15 @@ router.get(
 				const pagination = {
 					currentPage,
 					numPages: Math.ceil(data.total / itemsPerPage),
-					baseUrl: `/administration/classes/?p={{page}}${filterQueryString}`,
+					baseUrl: `/administration/classes/?p={{page}}&showTab=${showTab}${filterQueryString}`,
 				};
 
-				const years = (await api(req).get('/years', {
-					qs: {
-						$sort: {
-							name: -1,
-						},
-					},
-				})).data.map((year) => [
-					year._id,
-					year.name,
-				]);
-
-				const currentYear = res.locals.currentSchoolData.currentYear;
+				const years = schoolYears
+					.filter((year) => year.endDate < currentYearObj.startDate)
+					.map((year) => [
+						year._id,
+						year.name,
+					]);
 
 				res.render('administration/classes', {
 					title: res.$t('administration.controller.headline.classes', {
@@ -2397,130 +2299,12 @@ router.get(
 					}),
 					head,
 					body,
+					displayName,
 					pagination,
 					limit: true,
-					filterSettings: JSON.stringify(classFilterSettings({ years, currentYear }, res)),
-				});
-			});
-	},
-);
-
-/**
- * Set state to closed of helpdesk problem
- * @param service usually helpdesk, to disable instead of delete entry
- * @returns {Function}
- */
-const getDisableHandler = (service) => function diasableHandler(req, res, next) {
-	api(req)
-		.patch(`/${service}/${req.params.id}`, {
-			json: {
-				state: 'closed',
-				order: 2,
-			},
-		})
-		.then(() => {
-			redirectHelper.safeBackRedirect(req, res);
-		});
-};
-
-/**
- * Truncates string to 25 chars
- * @param string given string to truncate
- * @returns {string}
- */
-const truncate = (string) => {
-	if ((string || {}).length > 25) {
-		return `${string.substring(0, 25)}...`;
-	}
-	return string;
-};
-
-/*
-    HELPDESK
-*/
-
-router.patch(
-	'/helpdesk/:id',
-	permissionsHelper.permissionsChecker('HELPDESK_VIEW'),
-	getUpdateHandler('helpdesk'),
-);
-router.get(
-	'/helpdesk/:id',
-	permissionsHelper.permissionsChecker('HELPDESK_VIEW'),
-	getDetailHandler('helpdesk'),
-);
-router.delete(
-	'/helpdesk/:id',
-	permissionsHelper.permissionsChecker('HELPDESK_VIEW'),
-	getDisableHandler('helpdesk'),
-);
-router.post(
-	'/helpdesk/:id',
-	permissionsHelper.permissionsChecker('HELPDESK_VIEW'),
-	getSendHelper('helpdesk'),
-);
-router.all(
-	'/helpdesk',
-	permissionsHelper.permissionsChecker('HELPDESK_VIEW'),
-	(req, res, next) => {
-		const itemsPerPage = req.query.limit || 10;
-		const currentPage = parseInt(req.query.p, 10) || 1;
-		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
-
-		api(req)
-			.get('/helpdesk', {
-				qs: {
-					$limit: itemsPerPage,
-					$skip: itemsPerPage * (currentPage - 1),
-					$sort: req.query.sort ? req.query.sort : { order: 1 },
-					schoolId: res.locals.currentSchool,
-				},
-			})
-			.then((data) => {
-				const head = [
-					res.$t('administration.controller.headline.title'),
-					res.$t('administration.controller.headline.itsOn'),
-					res.$t('administration.controller.headline.targetState'),
-					res.$t('administration.controller.headline.status'),
-					res.$t('administration.controller.headline.creationDate'),
-					res.$t('administration.controller.headline.remarks'),
-					'',
-				];
-
-				const body = data.data.map((item) => [
-					truncate(item.subject || ''),
-					truncate(item.currentState || ''),
-					truncate(item.targetState || ''),
-					res.$t(`administration.controller.text.${item.state}`),
-					moment(item.createdAt).format('DD.MM.YYYY'),
-					truncate(item.notes || ''),
-					getTableActionsSend(item, '/administration/helpdesk/', item.state, res),
-				]);
-
-				let sortQuery = '';
-				if (req.query.sort) {
-					sortQuery = `&sort=${req.query.sort}`;
-				}
-
-				let limitQuery = '';
-				if (req.query.limit) {
-					limitQuery = `&limit=${req.query.limit}`;
-				}
-
-				const pagination = {
-					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
-					baseUrl: `/administration/helpdesk/?p={{page}}${sortQuery}${limitQuery}`,
-				};
-
-				res.render('administration/helpdesk', {
-					title: res.$t('administration.controller.headline.helpdesk', {
-						title,
-					}),
-					head,
-					body,
-					pagination,
-					limit: true,
+					filterSettings: JSON.stringify(classFilterSettings({ years, defaultYear, showTab }, res)),
+					classesTabs,
+					showTab,
 				});
 			});
 	},
@@ -2587,27 +2371,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		// Toggle teacher's studentVisibility permission
 		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
-		const isStudentVisibilityEnabled = (res.locals.currentSchoolData.features || []).includes(
-			'studentVisibility',
-		);
-		if (studentVisibilityFeature !== 'disabled' && !isStudentVisibilityEnabled) {
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: 'studentVisibility',
-					},
-				},
-			});
-		} else if (studentVisibilityFeature === 'disabled' && isStudentVisibilityEnabled) {
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: 'studentVisibility',
-					},
-				},
-			});
-		}
-		if (isStudentVisibilityEnabled) {
+		if (studentVisibilityFeature) {
 			await api(req)
 				.patch('school/teacher/studentvisibility', {
 					json: {
@@ -2620,34 +2384,27 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		delete req.body.studentVisibility;
 
-		// Update riot messenger feature in school
-		const messengerEnabled = (res.locals.currentSchoolData.features || []).includes(
-			'messenger',
-		);
-		if (!messengerEnabled && req.body.messenger === 'true') {
-			// enable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: 'messenger',
+		// Toggle sudent lernstore view permission
+		const studentLernstoreFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED');
+		if (studentLernstoreFeature) {
+			await api(req)
+				.patch('school/student/studentlernstorevisibility', {
+					json: {
+						permission: {
+							isEnabled: !!req.body.studentlernstorevisibility,
+						},
 					},
-				},
-			});
-		} else if (messengerEnabled && req.body.messenger !== 'true') {
-			// disable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: 'messenger',
-					},
-				},
-			});
+				});
 		}
-		await updateSchoolFeature(req, currentFeatures, req.body.messenger === 'true', 'messenger');
-		delete req.body.messenger;
 
-		await updateSchoolFeature(req, currentFeatures, req.body.messengerSchoolRoom === 'true', 'messengerSchoolRoom');
-		delete req.body.messengerSchoolRoom;
+		delete req.body.studentlernstorevisibility;
+
+		// Update school features
+		const possibleSchoolFeatures = ['messenger', 'messengerSchoolRoom'];
+		for (const feature of possibleSchoolFeatures) {
+			await updateSchoolFeature(req, currentFeatures, req.body[feature] === 'true', feature);
+			delete req.body[feature];
+		}
 	} catch (err) {
 		next(err);
 	}
@@ -2675,100 +2432,127 @@ router.delete(
 	deleteEventsForData('courses'),
 );
 
+const buildArchiveQuery = (courseStatus) => {
+	const yesterday = new Date();
+	yesterday.setDate(yesterday.getDate() - 1);
+	let archiveQuery = {};
+	if (courseStatus === 'active') {
+		archiveQuery = {
+			$or: [
+				{ untilDate: { $exists: false } },
+				{ untilDate: null },
+				{ untilDate: { $gte: yesterday } },
+			],
+		};
+	}
+	if (courseStatus === 'archived') {
+		archiveQuery = { untilDate: { $lt: yesterday } };
+	}
+	return archiveQuery;
+};
+
+const getCourses = (req, params = {}) => {
+	const { courseStatus = 'active', itemsPerPage = 10, currentPage = 1 } = params;
+	const archiveQuery = buildArchiveQuery(courseStatus);
+
+	const query = {
+		$and: [archiveQuery],
+		$populate: ['classIds', 'teacherIds'],
+		$limit: itemsPerPage,
+		$skip: itemsPerPage * (currentPage - 1),
+		$sort: req.query.sort,
+	};
+
+	return api(req).get('courses', { qs: query });
+};
+
 router.all('/courses', (req, res, next) => {
 	const itemsPerPage = req.query.limit || 10;
 	const currentPage = parseInt(req.query.p, 10) || 1;
+	const activeTab = req.query.activeTab || 'active';
 
-	api(req)
-		.get('/courses', {
-			qs: {
-				$populate: ['classIds', 'teacherIds'],
-				$limit: itemsPerPage,
-				$skip: itemsPerPage * (currentPage - 1),
-				$sort: req.query.sort,
-			},
-		})
-		.then((data) => {
-			const head = [
-				res.$t('administration.controller.headline.name'),
-				res.$t('administration.controller.headline.class'),
-				res.$t('administration.controller.headline.teachers'),
-				'',
-			];
+	const head = [
+		res.$t('global.headline.name'),
+		res.$t('global.headline.classes'),
+		res.$t('global.headline.teachers'),
+		'',
+	];
 
-			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-			const teachersPromise = getSelectOptions(req, 'users', {
-				roles: ['teacher'],
-				$limit: 1000,
-			});
-			const substitutionPromise = getSelectOptions(req, 'users', {
-				roles: ['teacher'],
-				$limit: 1000,
-			});
-			const studentsPromise = getSelectOptions(req, 'users', {
-				roles: ['student'],
-				$limit: 1000,
-			});
+	const coursesPromise = getCourses(req, { itemsPerPage, currentPage, courseStatus: activeTab });
+	const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+	const teachersPromise = getSelectOptions(req, 'users', {
+		roles: ['teacher'],
+		$limit: 1000,
+	});
+	const substitutionPromise = getSelectOptions(req, 'users', {
+		roles: ['teacher'],
+		$limit: 1000,
+	});
+	const studentsPromise = getSelectOptions(req, 'users', {
+		roles: ['student'],
+		$limit: 1000,
+	});
 
-			Promise.all([
-				classesPromise,
-				teachersPromise,
-				substitutionPromise,
-				studentsPromise,
-			]).then(([classes, teachers, substitutions, students]) => {
-				const body = data.data.map((item) => [
-					item.name,
-					// eslint-disable-next-line no-shadow
-					(item.classIds || []).map((item) => item.displayName).join(', '),
-					// eslint-disable-next-line no-shadow
-					(item.teacherIds || []).map((item) => item.lastName).join(', '),
-					[
-						{
-							link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
-							icon: 'edit',
-							title: res.$t('administration.controller.link.editEntry'),
-						},
-						{
-							link: `/administration/courses/${item._id}`,
-							class: 'btn-delete',
-							icon: 'trash-o',
-							method: 'delete',
-							title: res.$t('administration.controller.link.deleteEntry'),
-						},
-					],
-				]);
+	Promise.all([
+		coursesPromise,
+		classesPromise,
+		teachersPromise,
+		substitutionPromise,
+		studentsPromise,
+	]).then(([courses, classes, teachers, substitutions, students]) => {
+		const coursesBody = courses.data.map((item) => [
+			item.name,
+			// eslint-disable-next-line no-shadow
+			(item.classIds || []).map((item) => classes.find((obj) => obj._id === item.id).displayName).join(', '),
+			// eslint-disable-next-line no-shadow
+			(item.teacherIds || []).map((item) => item.lastName).join(', '),
+			[
+				{
+					link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
+					icon: 'edit',
+					title: res.$t('administration.controller.link.editEntry'),
+				},
+				{
+					link: `/administration/courses/${item._id}`,
+					class: 'btn-delete',
+					icon: 'trash-o',
+					method: 'delete',
+					title: res.$t('administration.controller.link.deleteEntry'),
+				},
+			],
+		]);
 
-				let sortQuery = '';
-				if (req.query.sort) {
-					sortQuery = `&sort=${req.query.sort}`;
-				}
+		let sortQuery = '';
+		if (req.query.sort) {
+			sortQuery = `&sort=${req.query.sort}`;
+		}
 
-				let limitQuery = '';
-				if (req.query.limit) {
-					limitQuery = `&limit=${req.query.limit}`;
-				}
+		let limitQuery = '';
+		if (req.query.limit) {
+			limitQuery = `&limit=${req.query.limit}`;
+		}
 
-				const pagination = {
-					currentPage,
-					numPages: Math.ceil(data.total / itemsPerPage),
-					baseUrl: `/administration/courses/?p={{page}}${sortQuery}${limitQuery}`,
-				};
+		const pagination = {
+			currentPage,
+			numPages: Math.ceil(courses.total / itemsPerPage),
+			baseUrl: `/administration/courses/?p={{page}}&activeTab=${activeTab}${sortQuery}${limitQuery}`,
+		};
 
-				res.render('administration/courses', {
-					title: res.$t('administration.controller.headline.courses', {
-						title: returnAdminPrefix(res.locals.currentUser.roles, res),
-					}),
-					head,
-					body,
-					classes,
-					teachers,
-					substitutions,
-					students,
-					pagination,
-					limit: true,
-				});
-			});
+		res.render('administration/courses', {
+			title: res.$t('administration.controller.headline.courses', {
+				title: returnAdminPrefix(res.locals.currentUser.roles, res),
+			}),
+			head,
+			coursesBody,
+			classes,
+			teachers,
+			substitutions,
+			students,
+			pagination,
+			limit: true,
+			activeTab,
 		});
+	});
 });
 
 /**
@@ -2859,12 +2643,11 @@ router.all('/teams', async (req, res, next) => {
 				res.$t('administration.controller.headline.schools'),
 				res.$t('administration.controller.headline.createdOn'),
 				`${res.$t('administration.controller.headline.status')}*`,
-				res.$t('administration.controller.headline.actions'),
+				res.$t('global.headline.actions'),
 			];
 
 			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 			const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
-
 			const roleTranslations = {
 				teammember: res.$t('administration.controller.headline.attendees'),
 				teamexpert: res.$t('administration.controller.headline.externalExpert'),
@@ -2902,7 +2685,7 @@ router.all('/teams', async (req, res, next) => {
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'disabled' : 'btn-remove-members'
-								}`,
+							}`,
 							icon: 'user-times',
 							data: {
 								name: item.name,
@@ -2914,27 +2697,25 @@ router.all('/teams', async (req, res, next) => {
 							},
 							title: item.createdAtMySchool
 								? res.$t('administration.controller.text.removeStudentsFromYourOwnSchool')
-								+ res.$t('administration.controller.text.anotherSchoolWasFounded')
-								+ res.$t('administration.controller.text.orAssignAdminRights')
 								: res.$t('administration.controller.link.removeMembers'),
 						},
 						{
 							link: path + item._id,
 							class: `${
 								item.createdAtMySchool ? 'btn-delete-team' : 'disabled'
-								}`,
+							}`,
 							icon: 'trash-o',
 							data: {
 								name: item.name,
 								'original-title': item.createdAtMySchool
-									? res.$t('administration.controller.link.deleteTeam')
+									? res.$t('global.button.deleteTeam')
 									: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
 								placement: 'top',
 								toggle: 'tooltip',
 							},
 							// lmethod: `${item.hasMembersOfOtherSchools ? '' : 'delete'}`,
 							title: item.createdAtMySchool
-								? res.$t('administration.controller.link.deleteTeam')
+								? res.$t('global.button.deleteTeam')
 								: res.$t('administration.controller.text.theTeamCanOnlyBeDeleted'),
 						},
 					];
@@ -2949,7 +2730,7 @@ router.all('/teams', async (req, res, next) => {
 							useHTML: true,
 							content: getTeamSchoolsButton(item.schools.length),
 						},
-						moment(item.createdAt).format('DD.MM.YYYY'),
+						timesHelper.dateToDateString(item.createdAt),
 						{
 							useHTML: true,
 							content: getTeamFlags(item, res),
@@ -3148,8 +2929,8 @@ router.use(
 		}
 		// POLICIES
 		const policiesHead = [
-			res.$t('administration.controller.headline.title'),
-			res.$t('administration.controller.headline.description'),
+			res.$t('global.label.title'),
+			res.$t('global.label.description'),
 			res.$t('administration.controller.headline.uploadedOn'),
 			'Link',
 		];
@@ -3158,7 +2939,7 @@ router.use(
 			policiesBody = consentVersions.data.map((consentVersion) => {
 				const title = consentVersion.title;
 				const text = consentVersion.consentText;
-				const publishedAt = new Date(consentVersion.publishedAt).toLocaleString();
+				const publishedAt = timesHelper.dateToDateTimeString(consentVersion.publishedAt);
 				const linkToPolicy = consentVersion.consentDataId;
 				const links = [];
 				if (linkToPolicy) {
@@ -3175,9 +2956,43 @@ router.use(
 
 
 		// SYSTEMS
+		const getSystemsBody = (systems) => systems.map((item) => {
+			const name = getSSOTypes().filter((type) => item.type === type.value);
+			let tableActions = [];
+			const editable = (item.type === 'ldap' && item.ldapConfig.provider === 'general')
+					|| item.type === 'moodle' || item.type === 'iserv';
+			if (editable) {
+				tableActions = tableActions.concat([
+					{
+						link: item.type === 'ldap' ? `/administration/systems/ldap/edit/${item._id}`
+							: `/administration/systems/${item._id}`,
+						class: item.type === 'ldap' ? 'btn-edit-ldap' : 'btn-edit',
+						icon: 'edit',
+						title: res.$t('administration.controller.link.editEntry'),
+					},
+					{
+						link: `/administration/systems/${item._id}`,
+						class: 'btn-delete--systems',
+						icon: 'trash-o',
+						method: 'delete',
+						title: res.$t('administration.controller.link.deleteEntry'),
+					},
+				]);
+			}
+			return [
+				item.type === 'ldap' && item.ldapConfig.active === false
+					? res.$t('administration.controller.label.inactive', {
+						alias: item.alias,
+					})
+					: item.alias,
+				name,
+				tableActions,
+			];
+		});
+
 		const systemsHead = [
 			res.$t('administration.controller.headline.alias'),
-			res.$t('administration.controller.headline.type'),
+			res.$t('global.label.type'),
 			'',
 		];
 		let systemsBody;
@@ -3185,30 +3000,9 @@ router.use(
 		let ldapAddable = true;
 		if (Array.isArray(school.systems)) {
 			school.systems = _.orderBy(school.systems, req.query.sort, 'desc');
-			// eslint-disable-next-line eqeqeq
-			systems = school.systems.filter((system) => system.type != 'local');
+			systems = school.systems.filter((system) => system.type !== 'local');
 			ldapAddable = !systems.some((e) => e.type === 'ldap');
-
-			systemsBody = systems.map((item) => {
-				const name = getSSOTypes().filter((type) => item.type === type.value);
-				return [
-					item.type === 'ldap' && item.ldapConfig.active === false
-						? res.$t('administration.controller.label.inactive', {
-							alias: item.alias,
-						})
-						: item.alias,
-					name,
-					getTableActions(
-						item,
-						'/administration/systems/',
-						true,
-						false,
-						false,
-						'systems',
-						res,
-					),
-				];
-			});
+			systemsBody = getSystemsBody(systems);
 		}
 
 		// RSS
@@ -3275,6 +3069,7 @@ router.use(
 			rssBody,
 			hasRSS: rssBody && !!rssBody.length,
 			schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+			timezone: `${timesHelper.schoolTimezoneToString(true)}`,
 		});
 	},
 );
@@ -3361,17 +3156,17 @@ router.get('/startldapschoolyear', async (req, res) => {
 	});
 
 	const headUser = [
-		res.$t('administration.controller.global.label.firstName'),
-		res.$t('administration.controller.global.label.lastName'),
+		res.$t('global.label.firstName'),
+		res.$t('global.label.lastName'),
 		res.$t('administration.controller.label.email'),
 		'uid',
 		res.$t('administration.controller.label.roles'),
-		res.$t('administration.controller.label.domainname'),
+		res.$t('administration.controller.label.domainName'),
 		'uuid',
 	];
 	const headClasses = [
-		res.$t('administration.controller.headline.name'),
-		res.$t('administration.controller.headline.name'),
+		res.$t('global.headline.name'),
+		res.$t('global.headline.name'),
 		res.$t('administration.controller.global.label.classUsers'),
 	];
 
@@ -3497,16 +3292,15 @@ router.post(
 			api(req).get(`/systems/${req.params.id}`),
 		);
 
-		// Classes acitve
+		// Classes active
 		let classesPath = req.body.classpath;
 		if (req.body.activateclasses !== 'on') {
 			classesPath = '';
 		}
 
-		// TODO potentielles Problem url: testSchule/ldap -> testSchule/ldaps
-		let ldapURL = req.body.ldapurl; // Better: let ldapURL = req.body.ldapurl.trim();
+		let ldapURL = req.body.ldapurl.trim();
 		if (!ldapURL.startsWith('ldaps')) {
-			if (ldapURL.includes('ldap')) { // Better ldapURL.startsWith('ldap')
+			if (ldapURL.startsWith('ldap')) {
 				ldapURL = ldapURL.replace('ldap', 'ldaps');
 			} else {
 				ldapURL = `ldaps://${ldapURL}`;

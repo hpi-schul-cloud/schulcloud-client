@@ -8,7 +8,9 @@
 							{{#ifneq this.securityCheck.status "blocked"}} fileviewer{{/ifneq}}"
 							{{#ifneq this.securityCheck.status "blocked"}} data-file-viewer-type="{{../this.type}}"{{/ifneq}}
 							{{#ifneq this.securityCheck.status "blocked"}} data-file-viewer-savename="{{../this.saveName}}"{{/ifneq}}
-							{{#ifneq this.securityCheck.status "blocked"}} data-file-viewer-id="{{../this._id}}"{{/ifneq}}>
+							{{#ifneq this.securityCheck.status "blocked"}} data-file-viewer-id="{{../this._id}}"{{/ifneq}}
+							tabindex="0" aria-label="{{$t "files.label.clickToOpenFile" (dict "name" this.name)}}"
+							role="button">
 							<div class="card-title">
 								<div class="file-preview-wrapper col-sm-1 no-padding hidden-xs-down">
 									<div class="file-preview"
@@ -24,79 +26,78 @@
 							<div class="card-text">
 							  <small class="file-location">{{#if this.context}}{{$t "files.text.foundIn"}} {{this.context}}{{/if}}</small><br>
 								{{#ifeq this.securityCheck.status "blocked"}}
-									<a href="#"
-									class="btn-file-danger"
+									<button
+									class="file-btn btn-file-danger"
 									title="{{$t "files.label.dangerousCode"}}">
-										<i class="fa fa-exclamation-triangle"></i>
-									</a>
+										<i aria-hidden="true" class="fa fa-exclamation-triangle"></i>
+									</button>
 								{{else}}
-									<a href="/files/file?download=true&file={{../this._id}}&name={{../this.storageFileName}}"
-										target="_blank"
+									<button data-href="/files/file?download=true&file={{../this._id}}&name={{../this.storageFileName}}"
+										class="file-btn"
 										data-method="download"
 										title="{{$t "files.label.downloadFile"}}">
-										<i class="fa fa-cloud-download"></i>
-									</a>
+										<i aria-hidden="true" class="fa fa-cloud-download"></i>
+									</button>
 								{{/ifeq}}
 
-								<i  data-file-id="{{this._id}}"
+								<button
+								    data-file-id="{{this._id}}"
 									data-file-name="{{this.name}}"
 									data-file-path="{{this.path}}"
 									title="{{$t "files.label.renameFile"}}"
-									class="fa fa-edit file-name-edit">
-								</i>
+									class="file-btn fa fa-edit file-name-edit">
+								</button>	
 
 								{{#ifneq this.context 'geteilte Datei'}}
 								{{#userHasPermission "FILE_DELETE"}}
-								<a href="/files/file/"
-								   target="_blank"
+								<button data-href="/files/file/"
+								   class="file-btn"
 								   data-method="delete"
 								   title="{{$t "files.label.deleteFile"}}"
 								   data-file-id="{{../this._id}}"
-								   data-file-name="{{../this.name}}"
-									<i class="fa fa-trash-o"></i>
-								</a>
+								   data-file-name="{{../this.name}}">
+									<i aria-hidden="true" class="fa fa-trash-o"></i>
+								</button>
 								{{/userHasPermission}}
 
-								<a href="#"
-								class="btn-file-share"
+								<button
+								class="file-btn btn-file-share"
 								title="{{$t "files.label.shareFile"}}"
 								data-file-id="{{../this._id}}"
 								data-file-name="{{../this.name}}"
 								id="{{@index}}">
-									<i class="fa fa-share-alt"></i>
-								</a>
+									<i aria-hidden="true" class="fa fa-share-alt"></i>
+								</button>
 
 								<div class="popup-overlay" id="{{@index}}">
 
 									<div class="popup-content" id="{{@index}}">
-										<a class="btn btn-secondary btn-file-share-view" data-file-id="{{../this._id}}" data-file-attribute="view" style="width: 100%">{{$t "files.button.edit"}}</a>
+										<a class="btn btn-secondary btn-file-share-view" data-file-id="{{../this._id}}" data-file-attribute="view" style="width: 100%">{{$t "global.button.edit"}}</a>
 										<a class="btn btn-secondary btn-file-share-download" data-file-id="{{../this._id}}" data-file-attribute="download" style="width: 100%">{{$t "files.button.download"}}</a>
-										<a class="btn btn-secondary btn-file-share-close" style="width: 100%">{{$t "files.label.close"}}</a>
+										<a class="btn btn-secondary btn-file-share-close" style="width: 100%">{{$t "global.button.close"}}</a>
 									</div>
 								</div>
 
 									{{#if ../this.userIsOwner}}
-										<a
-										href=""
-										class="btn-file-move"
+										<button
+										class="file-btn btn-file-move"
 										title="{{$t "files.label.moveFile"}}"
 										data-file-path="{{../path}}"
 										data-file-id="{{../_id}}"
 										data-file-name="{{../name}}"
-										disabled>
-											<i class="fa fa-folder-open"></i>
-										</a>
+										data-disabled="true">
+											<i aria-hidden="true" class="fa fa-folder-open"></i>
+										</button>
 									{{/if}}
 								{{/ifneq}}
 
-								<a
-									href="#"
-									class="btn-file-settings"
+								<button
+									class="file-btn btn-file-settings"
 									title="{{$t "files.label.editFilePermissions"}}"
 									data-file-id="{{this._id}}"
 								>
-									<i class="fa fa-cogs"></i>
-								</a>
+									<i aria-hidden="true" class="fa fa-cogs"></i>
+								</button>
 							</div>
 						</div>
 					</div>
@@ -106,9 +107,10 @@
 	</div>
 </section>
 
-{{#embed "lib/components/modal-form" class="edit-modal" title=($t "files.headline.newFolder") closeLabel=($t "global.button.cancel") submitLabel=($t "files.button.createNewFolder")}}
+{{#embed "lib/components/modal-form" class="edit-modal" title=($t "files.headline.newFolder") closeLabel=($t "global.button.cancel") submitLabel=($t "global.button.createFolder")}}
 	{{#content "fields"}}
-		<input type="text" class="form-control" name="new-dir-name" placeholder="{{$t "files.input.foldername"}}" required />
+        <label for="newDirName" hidden>{{$t "files.input.foldername"}}</label>
+		<input id="newDirName" type="text" class="form-control" name="new-dir-name" placeholder="{{$t "files.input.foldername"}}" required />
 	{{/content}}
 {{/embed}}
 
@@ -121,16 +123,16 @@
 			</button>
 
 			<button type="submit" class="btn btn-primary btn-submit">
-				{{$t "global.button.delete" }}
+				{{$t "global.headline.delete" }}
 			</button>
 		</div>
 	{{/content}}
 {{/embed}}
 
-{{#embed "lib/components/modal-information" class="move-modal-disabled danger-modal" title="Funktion vorübergehend deaktiviert"}}
+{{#embed "lib/components/modal-information" class="move-modal-disabled danger-modal" title=($t "files._file.headline.functionCurrentlyDisabled")}}
 	{{#content "fields"}}
-			<p>Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.</p>
-			<p><b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.</p>
+			<p>{{$t "files._file.text.movingFilesIsDisabled"}}</p>
+			<p>{{{$t "files._file.text.littleHintHowToMoveFiles"}}}</p>
 	{{/content}}
 {{/embed}}
 

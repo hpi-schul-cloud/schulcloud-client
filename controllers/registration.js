@@ -7,6 +7,9 @@ const api = require('../api');
 const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
+const timesHelper = require('../helpers/timesHelper');
+const { getCurrentLanguage } = require('../helpers/i18n');
+const { setCookie } = require('../helpers/cookieHelper');
 
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
@@ -69,6 +72,7 @@ router.post('/registration/pincreation', (req, res, next) => {
 				json: {
 					email: req.body.email,
 					mailTextForRole: req.body.mailTextForRole,
+					importHash: req.body.importHash,
 				},
 			})
 			.then((result) => {
@@ -99,6 +103,7 @@ router.post(
 				);
 			});
 		}
+		req.body.birthDate = timesHelper.dateStringToMoment(req.body.birthDate, false);
 
 		return api(req)
 			.post('/registration/', {
@@ -145,7 +150,7 @@ router.post(
 			})
 			.then(() => {
 				if (req.params.sso) {
-					res.cookie('jwt', req.cookies.jwt, {
+					setCookie(res, 'jwt', req.cookies.jwt, {
 						expires: new Date(Date.now() - 100000),
 						httpOnly: false,
 						hostOnly: true,
@@ -363,19 +368,23 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 	}
 
 	let needConsent = true;
-	let sectionNumber = 5;
+	let sectionNumber = 6;
 
 	let roleText;
 	if (req.params.byRole === 'byemployee') {
 		roleText = res.$t('registration.text.roleEmployee');
 		if (Configuration.get('SKIP_CONDITIONS_CONSENT').includes('employee')) {
 			needConsent = false;
-			sectionNumber = 4;
+			sectionNumber = 5;
 		}
 	} else {
 		delete user.firstName;
 		delete user.lastName;
 		roleText = res.$t('registration.text.roleExpert');
+	}
+
+	if (!user.language) {
+		user.language = await getCurrentLanguage(req, res);
 	}
 
 	return res.render('registration/registration-employee', {

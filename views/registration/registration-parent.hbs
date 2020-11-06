@@ -21,32 +21,37 @@
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
       <section data-panel="section-1">
-        <h2 class="h4">{{$t "registration._registration.parent.heading.yourChildsData" }}</h2>
-      <p>{{$t "registration._registration.global.text.bellowNYearsOldConsantOfLegalGuardian" (dict "shortTitle" theme.short_title "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>
+        <h2 class="h4">{{$t "registration._registration.parent.headline.yourChildsData" }}</h2>
+      <p>{{$t "registration._registration.global.text.bellowNYearsOldConsentOfLegalGuardian" (dict "shortTitle" theme.short_title "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>
         <p>{{$t "registration._registration.parent.text.weNeedFollowingDataOfChild" (dict "shortTitle" theme.short_title)}}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>{{$t "registration._registration.global.label.firstName" }} <sup>*</sup></label>
-            <input class="form-control linked" name="firstName" type="text" placeholder="{{$t "registration._registration.parent.input.completeFirstName"}}"
+            <label>{{$t "global.label.firstNameColon" }} <sup>*</sup></label>
+            <input class="form-control linked" name="firstName" type="text" placeholder="{{$t "registration._registration.parent.placeholder.completeFirstName"}}"
               value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}} />
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>{{$t "registration._registration.global.label.lastName" }}<sup>*</sup></label>
-            <input class="form-control linked" name="lastName" type="text"  placeholder="{{$t "registration._registration.parent.input.lastName"}}"
+            <label>{{$t "global.label.lastNameColon" }}<sup>*</sup></label>
+            <input class="form-control linked" name="lastName" type="text"  placeholder="{{$t "registration._registration.parent.placeholder.lastName"}}"
               value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
           </div>
         </div>
 
         <div class="form-group">
-          <label>{{$t "registration._registration.global.label.studentsDateOfBirth" }} <sup>*</sup></label>
-          <input class="form-control linked" name="birthDate" type="text"
-            data-date data-min-date="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 -1}}" data-max-date="{{datePickerTodayMinus 4 0 0}}"
-            value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{/if}}" autocomplete="off" required {{#if user.birthday}}readonly{{/if}}/>
+          {{> "lib/forms/form-date-input"
+                  label=($t "registration._registration.global.label.studentsDateOfBirth")
+                  id="birthDate"
+                  value=user.birthday
+                  required=true
+                  readonly=(isset user.birthday)
+                  dataMinDate=(datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 -1)
+                  dataMaxDate=(datePickerTodayMinus 4 0 0)
+          }}
         </div>
 
         <div class="form-group">
           <label>{{$t "registration._registration.global.label.studentEmailAddress" }} <sup>*</sup><small>{{$t "registration._registration.parent.text.studentNeedTheirOwnEmail" }}</small></label>
-          <input class="form-control linked" name="email" type="email" placeholder="{{$t "registration._registration.parent.input.studentEmail"}}"
+          <input class="form-control linked" name="email" type="email" placeholder="{{$t "registration._registration.global.placeholder.studentEmail"}}"
             value="{{user.email}}" required {{#if user.email}}readonly{{/if}} />
         </div>
         <p class="explanation nomargin">
@@ -57,34 +62,34 @@
 
       {{#if needConsent}}
       <section data-panel="section-2">
-        <h2 class="h4">{{$t "registration._registration.parent.heading.yourData" }}</h2>
+        <h2 class="h4">{{$t "global.headline.yourData" }}</h2>
         <p>{{$t "registration._registration.parent.text.legalGuardingHasToAgreeToTermsOfUse" (dict "years" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS "shortTitle" theme.short_title)}}</p>
-        <p>{{$t "registration._registration.parent.text.forThisWeNeedFollowing" }}</p>
+        <p>{{$t "global.text.forThisWeNeedTheFollowingInformationFromYou" }}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>{{$t "registration._registration.global.label.firstName" }}<sup>*</sup></label>
-            <input class="form-control linked" name="parent_firstName" type="text" placeholder="{{$t "registration._registration.parent.input.yourFirstName"}}" required/>
+            <label>{{$t "global.label.firstNameColon" }}<sup>*</sup></label>
+            <input class="form-control linked" name="parent_firstName" type="text" placeholder="{{$t "global.placeholder.firstName"}}" required/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>{{$t "registration._registration.global.label.lastName" }} <sup>*</sup></label>
-            <input class="form-control linked" name="parent_lastName" type="text" placeholder="{{$t "registration._registration.parent.input.yourLastName"}}" required/>
+            <label>{{$t "global.label.lastNameColon" }} <sup>*</sup></label>
+            <input class="form-control linked" name="parent_lastName" type="text" placeholder="{{$t "global.placeholder.lastName"}}" required/>
           </div>
         </div>
 
         <div class="form-group">
           <label>{{$t "registration._registration.global.label.yourEmailAddress" }} <sup>*</sup> <small>{{$t "registration._registration.parent.text.mustNotBeYourChildsEmail" }}</small></label>
-          <input class="form-control" type="email" name="parent_email" required placeholder="{{$t "registration._registration.parent.input.parentEmail"}}" autocomplete />
+          <input class="form-control" type="email" name="parent_email" required placeholder="{{$t "registration._registration.parent.placeholder.parentEmail"}}" autocomplete />
         </div>
         <p class="explanation nomargin">
-          {{$t "registration._registration.parent.text.weNeedAnEmailAddress" (dict "shortTitle" theme.short_title)}}
+          {{$t "global.text.weNeedAnEmailAddress" (dict "shortTitle" theme.short_title)}}
           <br/>
-          {{$t "registration._registration.parent.text.inAdditionWeArePlanning"}}
+          {{$t "global.text.inAdditionWeArePlanning"}}
         </p>
       </section>
 
 
       <section data-panel="section-3">
-        <h2 class="h4">{{$t "registration._registration.global.heading.declarationOfConsent" }}</h2>
+        <h2 class="h4">{{$t "global.headline.declarationOfConsent" }}</h2>
         <p>{{$t "registration._registration.parent.text.pleaseConfirmTheFollowing" (dict "shortTitle" theme.short_title)}}</p>
           {{#embed "registration/forms/einwilligungserklaerung" prefix="parent_"}}{{/embed}}
       </section>
@@ -93,7 +98,7 @@
 
 
       <section data-panel="section-4" class="submit-page" data-feature="pin">
-        <h2 class="h4">{{$t "registration._registration.global.heading.almostThere"}}</h2>
+        <h2 class="h4">{{$t "global.headline.almostThere"}}</h2>
         {{#embed "registration/request-pin"}}{{/embed}}
         <div id="pinverification">
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
@@ -105,9 +110,9 @@
 
 
       <section data-panel="section-5">
-        <h2 class="h4">{{$t "registration._registration.global.heading.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
       {{#if user.sso}}
-              <p>{{$t "registration._registration.parent.heading.yourChildsSSO" }}</p>
+              <p>{{$t "registration._registration.parent.headline.yourChildsSSO" }}</p>
       {{else}}
         <div>
           <p>
@@ -115,11 +120,11 @@
             <div class="print">
               <div class="recap">
                 <!--<p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>-->
-                <p>{{$t "registration._registration.global.label.eMail"}} <i data-from="email"></i></p>
-                <p>{{$t "registration._registration.global.text.password" }} <i class="student-password">{{password}}</i></p>
+                <p>{{$t "global.label.emailAddress"}} <i data-from="email"></i></p>
+                <p>{{$t "global.label.password" }} <i class="student-password">{{password}}</i></p>
               </div>
               <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
-                <i class="fa fa-print"></i> {{$t "registration._registration.global.button.toPress" }}
+                <i class="fa fa-print"></i> {{$t "global.button.print" }}
               </div>
             </div>
           </p>

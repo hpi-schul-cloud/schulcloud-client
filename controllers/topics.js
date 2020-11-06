@@ -44,7 +44,7 @@ const editTopicHandler = (req, res, next) => {
 			action,
 			method,
 			title: req.params.topicId
-				? res.$t('topic._topic.headline.editTopic')
+				? res.$t('global.button.editTopic')
 				: res.$t('topic._topic.headline.createTopic'),
 			submitLabel: req.params.topicId
 				? res.$t('global.button.saveChanges')
@@ -328,7 +328,7 @@ router.get('/:topicId', (req, res, next) => {
 				});
 			}
 			if (typeof lesson.contents !== 'undefined') {
-				return getEtherpadSession(req, res, req.params.courseId).then(sessionInfo => {
+				return getEtherpadSession(req, res, req.params.courseId).then((sessionInfo) => {
 					etherpadPads.forEach((padId) => {
 						authHelper.etherpadCookieHelper(sessionInfo, padId, res);
 					});

@@ -11,6 +11,8 @@ const wordlist = require('../static/other/wordlist.js');
 const { SW_ENABLED, MINIMAL_PASSWORD_LENGTH } = require('../config/global');
 const logger = require('./logger');
 
+const { setCookie } = require('./cookieHelper');
+
 const rolesDisplayName = {
 	teacher: 'Lehrer',
 	student: 'Schüler',
@@ -174,7 +176,9 @@ const checkSuperhero = (req, res) => {
 
 
 const checkIfUserIsForcedToChangePassword = (req, res) => {
-	if (!res.locals.currentUser.forcePasswordChange || req.baseUrl.startsWith('/forcePasswordChange')) {
+	if (!res.locals.currentUser.forcePasswordChange
+		|| req.baseUrl.startsWith('/forcePasswordChange')
+		|| !((res.locals.currentUser || {}).preferences || {}).firstLogin) {
 		return Promise.resolve();
 	}
 	// eslint-disable-next-line prefer-promise-reject-errors
@@ -183,6 +187,11 @@ const checkIfUserIsForcedToChangePassword = (req, res) => {
 
 
 const restrictSidebar = (req, res) => {
+	// If sidebarItems do not exist, render without avaible menü points.
+	// It do not affect authentication logins and so on.
+	if (!res.locals.sidebarItems) {
+		res.locals.sidebarItems = [];
+	}
 	res.locals.sidebarItems = res.locals.sidebarItems.filter((item) => {
 		if (!item.permission) return true;
 
@@ -242,13 +251,7 @@ const login = (payload = {}, req, res, next) => {
 	const { redirect } = payload;
 	delete payload.redirect;
 	return api(req).post('/authentication', { json: payload }).then((data) => {
-		res.cookie('jwt', data.accessToken, {
-			expires: new Date(Date.now() + Configuration.get('COOKIE__EXPIRES_SECONDS')),
-			httpOnly: Configuration.get('COOKIE__HTTP_ONLY'), // can't be set to true with nuxt client
-			hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
-			sameSite: Configuration.get('COOKIE__SAME_SITE'), // restrict jwt access to our domain ressources only
-			secure: Configuration.get('COOKIE__SECURE'),
-		});
+		setCookie(res, 'jwt', data.accessToken);
 		let redirectUrl = '/login/success';
 		if (redirect) {
 			redirectUrl = `${redirectUrl}?redirect=${redirect}`;
@@ -264,7 +267,7 @@ const login = (payload = {}, req, res, next) => {
 
 		// Email Domain Blocked
 		if (e.statusCode === 400 && e.error.message === 'EMAIL_DOMAIN_BLOCKED') {
-			res.locals.notification.message = res.$t('login.text.loginFailedBlockedEmailDomain');
+			res.locals.notification.message = res.$t('global.text.emailDomainBlocked');
 		}
 
 		// Too Many Requests
@@ -279,13 +282,9 @@ const login = (payload = {}, req, res, next) => {
 const etherpadCookieHelper = (etherpadSession, padId, res) => {
 	const encodedPadId = encodeURI(padId);
 	const padPath = Configuration.get('ETHERPAD__PAD_PATH');
-	res.cookie('sessionID', etherpadSession.data.sessionID, {
+	setCookie(res, 'sessionID', etherpadSession.data.sessionID, {
 		path: `${padPath}/${encodedPadId}`,
 		expires: new Date(etherpadSession.data.validUntil * 1000),
-		httpOnly: Configuration.get('COOKIE__HTTP_ONLY'),
-		hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
-		sameSite: Configuration.get('COOKIE__SAME_SITE'),
-		secure: Configuration.get('COOKIE__SECURE'),
 	});
 };
 

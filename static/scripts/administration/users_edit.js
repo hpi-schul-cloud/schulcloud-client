@@ -1,15 +1,13 @@
 import '../jquery/datetimepicker-easy';
 
-const moment = require('moment');
+const datetime = require('../datetime/datetime');
 
 function toggleConsentEditing() {
 	const birthdayInput = document.getElementById('birthday');
-	let birthday;
 	let age;
-	if (birthdayInput) {
-		const birthdaytext = birthdayInput.value.split('.');
-		birthday = moment(`${birthdaytext[2]}-${birthdaytext[1]}-${birthdaytext[0]}`);
-		age = moment().diff(birthday, 'years');
+	if (birthdayInput && birthdayInput.value) {
+		const birthdayMoment = datetime.dateTimeStringToMoment(birthdayInput.value);
+		age = datetime.now().diff(birthdayMoment, 'years');
 	}
 
 	document.getElementById('consents-overview').querySelectorAll('input').forEach((input) => {
@@ -55,13 +53,14 @@ $(document).ready(() => {
 
 	$('.btn-delete').on('click', (e) => {
 		e.preventDefault();
+		const displayName = `${$('input[name="firstName"]').val()} ${$('input[name="lastName"]').val()}`;
 		populateModalForm($deleteModal, {
 			action: '',
 			title: $t('administration.users_edit.headline.deleteUser'),
 			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.delete'),
+			submitLabel: $t('global.headline.delete'),
 			fields: {
-				displayName: $('input[name="displayName"]').val(),
+				displayName,
 			},
 		});
 		$deleteModal.appendTo('body').modal('show');
@@ -156,7 +155,7 @@ $(document).ready(() => {
 			},
 			success(linkData) {
 				populateModalForm($invitationModal, {
-					title: $t('administration.users_edit.headline.generatedLink'),
+					title: $t('global.headline.invitationLinkGenerated'),
 					closeLabel: $t('global.button.cancel'),
 					submitLabel: $t('global.button.save'),
 					fields: { invitation: linkData.shortLink },

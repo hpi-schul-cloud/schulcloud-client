@@ -3,23 +3,29 @@
 <input name="roles[]" type="hidden" data-force-value="true" value="student" />
 
 <div class="form-group">
-    <label for="create_firstname">{{$t "administration.global.label.firstName" }}</label>
+    <label for="create_firstname">{{$t "global.label.firstNameColon" }}</label>
     <input id="create_firstname" data-testid="create_student_input_firstname" class="form-control" name="firstName" type="text" placeholder="Max" required />
 </div>
 
 <div class="form-group">
-    <label for="create_lastname">{{$t "administration.global.label.lastName" }}</label>
+    <label for="create_lastname">{{$t "global.label.lastName" }}</label>
     <input id="create_lastname" data-testid="create_student_input_lastname" class="form-control" name="lastName" type="text" placeholder="{{$t "administration.global.placeholder.modelMan" }}" required />
 </div>
 
 <div class="form-group">
-    <label for="create_email">{{$t "administration.global.label.emailAddress" }}</label>
+    <label for="create_email">{{$t "global.label.emailAddress" }}</label>
     <input id="create_email" data-testid="create_student_input_email" class="form-control" name="email" type="email" placeholder="test@test.org" required />
 </div>
 
 <div class="form-group">
-    <label for="create_birthday">{{$t "administration.global.label.dateOfBirth" }}</label>
-    <input id="create_birthday" class="form-control" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" value="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 0 "DD.MM.YYYY"}}" name="birthday" type="text" autocomplete="off"/>
+    {{> "lib/forms/form-date-input"
+            label=($t "global.label.dateOfBirth")
+            id="birthday"
+            class="input-group"
+            value=(datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 0)
+            dataMinDate=(datePickerTodayMinus 100 0 0)
+            dataMaxDate=(datePickerTodayMinus 4 0 0)
+    }}
 </div>
 
 <label>

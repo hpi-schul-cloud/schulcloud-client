@@ -1,15 +1,15 @@
 {{#extend "lib/simple"}}
   {{#content "scripts" mode="append"}}
-      <script src="/scripts/pwrecovery.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-      <script src="/scripts/dataprivacy/user-registration.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-	  <script src="/scripts/base64files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-  {{/content}}
+    <script src="/scripts/pwrecovery.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/dataprivacy/user-registration.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="/scripts/base64files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	{{/content}}
   {{#content "styles" mode="append"}}
       <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
       <link rel="stylesheet" href="/styles/registration/pin.css" />
   {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=sectionNumber action="/registration/submit" method="post" class="registration-form parent" submit-label=($t "registration._registration.global.button.sendAndGetStarted")}}
+      {{#embed "lib/forms/paginatedForm" sections=sectionNumber action="/registration/submit" method="post" class="registration-form parent" submit-label=($t "registration._registration.global.button.sendAndGetStarted")}}
       {{#content "panels"}}
       <input type="hidden" name="classOrSchoolId" value="{{user.classOrSchoolId}}"/>
       <input type="hidden" name="roles" value="employee"/>
@@ -22,7 +22,16 @@
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
       <section data-panel="section-1" class="noback">
-        <h2 class="h4">{{$t "registration._registration.heading.welcomeToTheRegistration" (dict "title" theme.title) }}</h2>
+      <h2 class="h4">{{$t "registration._registration.global.headline.language" }}</h2>
+          <div class="row">
+              <div class="form-group col-md-6 col-sm-12">
+                  {{> "lib/forms/form-change-language" langParent=user }}
+              </div>
+          </div>
+      </section>
+
+      <section data-panel="section-2">
+        <h2 class="h4">{{$t "registration._registration.headline.welcomeToTheRegistration" (dict "title" theme.title) }}</h2>
         <p>{{$t "registration._registration.text.thankYouForTakingThisStepWithUs" (dict "shortTitle" theme.title)}}</p>
         <p>{{$t "registration._registration.text.pleaseRegisterFirstAndAgreeToTerms" (dict "shortTitle" theme.title)}}</p>
 
@@ -30,22 +39,20 @@
 		    </p>
       </section>
 
-
-
-      <section data-panel="section-2">
-        <h2 class="h4">{{$t "registration._registration.employee.heading.yourData" }}</h2>
+      <section data-panel="section-3">
+        <h2 class="h4">{{$t "registration._registration.employee.headline.yourData" }}</h2>
         <p>{{$t "registration._registration.global.text.weStoreUserDataSafely" (dict "shortTitle" theme.short_title)}}</p>
 
         <p>{{$t "registration._registration.global.text.weNeedFollowingDataForRegistration" (dict "shortTitle" theme.short_title)}}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>{{$t "registration._registration.global.label.firstName" }} <sup>*</sup></label>
-            <input class="form-control linked" name="firstName" type="text" placeholder="{{$t "registration._registration.employee.input.firstName"}}"
+            <label>{{$t "global.label.firstNameColon" }} <sup>*</sup></label>
+            <input class="form-control linked" name="firstName" type="text" placeholder="{{$t "global.placeholder.firstName"}}"
               value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}}/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>{{$t "registration._registration.global.label.lastName" }} <sup>*</sup></label>
-            <input class="form-control linked" name="lastName" type="text" placeholder="{{$t "registration._registration.employee.input.lastName"}}"
+            <label>{{$t "global.label.lastNameColon" }} <sup>*</sup></label>
+            <input class="form-control linked" name="lastName" type="text" placeholder="{{$t "global.placeholder.lastName"}}"
               value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
           </div>
         </div>
@@ -59,13 +66,13 @@
         {{> "lib/forms/password-hint" style="margin-top:1rem"}}
         <div class="row">
           <div class="form-group col-md-6 col-sm-12" style="margin-top:0;">
-            <label>{{$t "registration._registration.employee.label.password" }} <sup>*</sup></label>
+            <label>{{$t "global.label.password" }} <sup>*</sup></label>
             <input
               class="form-control linked"
               id="password"
               name="password_1"
               type="password"
-              placeholder="{{$t "registration._registration.employee.input.password"}}"
+              placeholder="{{$t "global.input.password"}}"
               minlength="8"
               pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
               title="{{> "lib/forms/password-hint" plaintext=true}}"
@@ -89,8 +96,8 @@
 
 
       {{#if needConsent}}
-      <section data-panel="section-3">
-        <h2 class="h4">{{$t "registration._registration.global.heading.declarationOfConsent" }}</h2>
+      <section data-panel="section-4">
+        <h2 class="h4">{{$t "global.headline.declarationOfConsent" }}</h2>
         <p>{{$t "registration._registration.employee.text.pleaseconfirmTheFollowingDeclarations" (dict "shortTitle" theme.title)}}</p>
         <p>{{{$t "registration._registration.global.text.iDeclareTheFollowing"}}}</p>
           {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
@@ -99,8 +106,8 @@
 
 
 
-      <section data-panel="section-4" class="submit-page" data-feature="pin">
-        <h2 class="h4">{{$t "registration._registration.global.heading.almostThere"}}</h2>
+      <section data-panel="section-5" class="submit-page" data-feature="pin">
+        <h2 class="h4">{{$t "global.headline.almostThere"}}</h2>
         {{#embed "registration/request-pin"}}{{/embed}}
         <div id="pinverification">
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
@@ -109,8 +116,8 @@
 
 
 
-      <section data-panel="section-5">
-        <h2 class="h4">{{$t "registration._registration.global.heading.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
+      <section data-panel="section-6">
+        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
         <p>{{$t "registration._registration.employee.text.youCanNowSingIn" (dict "title" theme.title)}}</p>
 
         <a class="btn btn-primary" href="/logout">{{$t "registration._registration.global.button.openLogin" }}</a>
@@ -118,4 +125,5 @@
       {{/content}}
     {{/embed}}
   {{/content}}
+
 {{/extend}}

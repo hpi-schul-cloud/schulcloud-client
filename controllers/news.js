@@ -3,12 +3,11 @@
  */
 
 const express = require('express');
-const moment = require('moment');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const timesHelper = require('../helpers/timesHelper');
 
 const router = express.Router();
-moment.locale('de');
 
 router.use(authHelper.authChecker);
 
@@ -41,7 +40,7 @@ const createActions = (item, path) => {
 
 const getActions = (isRSS, res, newsItem) => !isRSS && createActions(newsItem, '/news/');
 
-const getDeleteHandler = service => (req, res, next) => {
+const getDeleteHandler = (service) => (req, res, next) => {
 	api(req)
 		.delete(`/${service}/${req.params.id}`)
 		.then(() => {
@@ -52,45 +51,11 @@ const getDeleteHandler = service => (req, res, next) => {
 		});
 };
 
-router.post('/', (req, res, next) => {
-	const { body } = req;
-	if (body.displayAt && body.displayAt !== '__.__.____ __:__') {
-		// rewrite german format to ISO
-		body.displayAt = moment(body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
-	} else {
-		body.displayAt = undefined;
-	}
-	body.creatorId = res.locals.currentUser._id;
-	body.createdAt = moment().toISOString();
-
-	if (body.context) {
-		body.target = body.contextId;
-		body.targetModel = body.context;
-	}
-
-	api(req)
-		.post('/news/', {
-			// TODO: sanitize
-			json: body,
-		})
-		.then(() => {
-			if (body.context) {
-				res.redirect(`/${body.context}/${body.contextId}/?activeTab=news`);
-			} else {
-				res.redirect('/news');
-			}
-		})
-		.catch((err) => {
-			next(err);
-		});
-});
-
 router.patch('/:newsId', (req, res, next) => {
-	req.body.displayAt = moment(
+	req.body.displayAt = timesHelper.dateTimeStringToMoment(
 		req.body.displayAt,
-		'DD.MM.YYYY HH:mm',
 	).toISOString();
-	req.body.updatedAt = moment().toISOString();
+	req.body.updatedAt = timesHelper.currentDate().toISOString();
 	req.body.updaterId = res.locals.currentUser._id;
 
 	api(req)
@@ -130,7 +95,7 @@ router.all('/', async (req, res, next) => {
 			...newsItem,
 			isRSS,
 			url: `/news/${newsItem._id}`,
-			secondaryTitle: moment(newsItem.displayAt).fromNow(),
+			secondaryTitle: timesHelper.fromUTC(newsItem.displayAt).fromNow(),
 			actions: getActions(isRSS, res, newsItem),
 		};
 	};
@@ -138,7 +103,7 @@ router.all('/', async (req, res, next) => {
 	try {
 		const news = await api(req).get('/news/', { qs: queryObject });
 		const totalNews = news.total;
-		const mappedNews = news.data.map(newsItem => decorateNews(newsItem));
+		const mappedNews = news.data.map((newsItem) => decorateNews(newsItem));
 
 		const unpublishedNews = await api(req).get('/news/', {
 			qs: {
@@ -149,7 +114,7 @@ router.all('/', async (req, res, next) => {
 		});
 		const unpublishedMappedNews = {
 			...unpublishedNews,
-			data: unpublishedNews.data.map(item => decorateNews(item)),
+			data: unpublishedNews.data.map((item) => decorateNews(item)),
 		};
 
 		const pagination = {
@@ -158,7 +123,7 @@ router.all('/', async (req, res, next) => {
 			baseUrl: '/news/?p={{page}}',
 		};
 
-		let title = res.$t('news.headline.news');
+		let title = res.$t('global.headline.news');
 		// ToDo: Hier kommen noch News für Kurse und Klassen rein.
 		if (context === 'teams') {
 			title = res.$t('news.headline.newsTeam');
@@ -176,20 +141,6 @@ router.all('/', async (req, res, next) => {
 	} catch (err) {
 		next(err);
 	}
-});
-
-router.get('/new', (req, res, next) => {
-	const context = req.query.context || '';
-	const contextId = req.query.contextId || '';
-	res.render('news/edit', {
-		title: res.$t('news._news.headline.createNews'),
-		submitLabel: res.$t('global.button.add'),
-		closeLabel: res.$t('global.button.cancel'),
-		method: 'post',
-		action: '/news/',
-		context,
-		contextId,
-	});
 });
 
 router.get('/:newsId', (req, res, next) => {
@@ -214,7 +165,7 @@ router.get('/:newsId/edit', (req, res, next) => {
 	api(req)
 		.get(`/news/${req.params.newsId}`, {})
 		.then((news) => {
-			news.displayAt = moment(news.displayAt).format('DD.MM.YYYY HH:mm');
+			news.displayAt = timesHelper.fromUTC(news.displayAt);
 			res.render('news/edit', {
 				title: res.$t('news._news.headline.editNews'),
 				submitLabel: res.$t('global.button.save'),

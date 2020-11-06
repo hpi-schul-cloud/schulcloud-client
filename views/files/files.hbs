@@ -44,7 +44,8 @@
 						</option>
 					{{/each}}
 				</select> -->
-				<select name="sortOrder" class="form-control">
+				<label for="sortOrder" style="position: absolute;left:-999px">{{$t "global.headline.sorting"}}</label>
+				<select id="sortOrder" name="sortOrder" class="form-control">
 					<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
 					<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending" }}</option>
 				</select>
@@ -56,35 +57,36 @@
 				<div class="row">
 					{{#each directories}}
 						<div class="col-xs-12">
-						  <div class="card card-block folder openfolder" data-folder-id="{{this._id}}">
+						  <button class="card card-block folder openfolder" data-folder-id="{{this._id}}" aria-label="{{$t "files.label.clickToOpenDir" (dict "name" this.name)}}">
 								<strong class="card-title-directory">
 									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
 								</strong>
 								{{#userHasPermission "FOLDER_DELETE"}}
-								<a href="/files/directory/"
-									target="_blank"
-									data-method="delete"
-									title="{{$t "files.label.deleteFolder"}}"
-									data-file-id="{{../this._id}}"
-									data-file-name="{{{../this.name}}}">
-									<i class="fa fa-trash-o directory-icon pull-right"></i>
-								</a>
-								<a href="/directoryModel/{{../this._id}}/rename"
-									target="_blank"
-									data-method="dir-rename"
-								title="{{$t "files.label.renameFolder"}}"
-								data-directory-id="{{../this._id}}"
-									data-directory-name="{{../this.name}}">
-									<i class="fa fa-edit directory-icon pull-right"></i>
-								</a>
+                              <div class="pull-right">
+                                    <a data-method="dir-rename"
+                                       title="{{$t "files.label.renameFolder"}}"
+                                       data-directory-id="{{../this._id}}"
+                                       data-directory-name="{{../this.name}}"
+									   tabindex="0">
+									    <i class="fa fa-edit directory-icon" aria-hidden="true"></i>
+                                    </a>
+								    <a data-href="/files/directory/"
+									    data-method="delete"
+									    title="{{$t "files.label.deleteFolder"}}"
+									    data-file-id="{{../this._id}}"
+									    data-file-name="{{{../this.name}}}"
+										tabindex="0">
+									    <i class="fa fa-trash-o directory-icon" aria-hidden="true"></i>
+								    </a>
+                              </div>
 								{{/userHasPermission}}
-							</div>
+							</button>
 						</div>
 					{{/each}}
 				</div>
 			</section>
 			{{/if}}
-			<h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "files.label.files"}}</h3>
+			<h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "global.headline.files"}}</h3>
 			{{#embed "files/file-viewer"}}{{/embed}}
 			{{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
 
@@ -94,13 +96,13 @@
 					{{#if ../canCreateDir}}
 						<div class="col-sm-12">
 							<div data-toggle="modal">
-								<span class="btn btn-primary create-directory">
+								<button class="btn btn-primary create-directory">
 									<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder" }}
-								</span>
+								</button>
 								{{#if ../canCreateFile}}
-									<span class="btn btn-primary new-file" data-file-path="{{this.path}}">
+									<button class="btn btn-primary new-file" data-file-path="{{this.path}}">
 										<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFile" }}
-									</span>
+									</button>
 								{{/if}}
 							</div>
 						</div>

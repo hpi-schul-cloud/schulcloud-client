@@ -7,8 +7,10 @@
 				{{#if @root.ungradedFileSubmissions.empty}}disabled="disabled" {{/if}}
 				data-files="{{@root.ungradedFileSubmissions.urls}}"
 			>
+			<i class="fa fa-cloud-download"></i>
 				{{$t "homework.button.downloadUngradedFiles"}}
 			</button>
+		{{!-- Disabled because of bad UX
 		<span
 			class="bulk-upload btn btn-secondary section-upload"
 			data-owner="{{ownerId}}"
@@ -25,7 +27,7 @@
 			<label class="bulk-upload__label btn" for="bulk-grade-file-upload">
 				{{$t "homework.label.uploadGradeFiles"}}
 			</label>
-		</span>
+		</span> --}}
 	</div>
 	<div class="alert alert-success hidden mb-1" id="bulk-grading-success">{{$t "homework.text.bulkGradingSuccess"}}</div>
 	<div class="alert alert-warning hidden mb-1" id="bulk-grading-error">

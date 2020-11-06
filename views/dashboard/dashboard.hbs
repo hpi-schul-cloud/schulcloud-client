@@ -17,7 +17,7 @@
             <div class="alert alert-info" style="font-size:0.9em;">
                 <h2 class="h6">Liebe Nutzer:innen des HPI Schul‑Cloud‑Chats,</h2>
                 <p>Wie ihr womöglich bereits gehört habt, war es unberechtigten Personen bis zum 19.05.2020 möglich nach Anlage eines illegalen Accounts Vor‑ und Nachnamen der Nutzer:innen des Chats einzusehen. Es konnten weder Email‑Adressen noch Beiträge im Chat eingesehen werden. Weiterhin liegen uns keine Hinweise auf ein tatsächliches Auslesen oder anderweitigen Missbrauch der Daten vor.<br />
-                Ursache war ein Konfigurationsfehler der integrierten Rocket.Chat Anwendung, den das HPI umgehend berichtigt hat. Sicherheit und Datenschutz sind weiterhin oberste Priorität bei der Entwicklung der HPI Schul-Cloud. Nähere Informationen findet ihr in unserem Blog unter <a href="https://blog.schul-cloud.org/informationen-zum-datenschutzvorfall/" style="color:dimgray;padding: .75rem;" target="_blank">https://blog.schul-cloud.org/informationen-zum-datenschutzvorfall/</a>.
+                Ursache war ein Konfigurationsfehler der integrierten Rocket.Chat Anwendung, den das HPI umgehend berichtigt hat. Sicherheit und Datenschutz sind weiterhin oberste Priorität bei der Entwicklung der HPI Schul-Cloud. Nähere Informationen findet ihr in unserem Blog unter <a href="https://blog.hpi-schul-cloud.de/informationen-zum-datenschutzvorfall/" style="color:dimgray;padding: .75rem;" target="_blank">https://blog.schul-cloud.org/informationen-zum-datenschutzvorfall/</a>.
                 Wir haben den Sachverhalt unverzüglich der zuständigen Landesdatenschutzbeauftragten gemeldet. Wir bitten ausdrücklich und im Namen des gesamten HPI Schul-Cloud Teams bei euch um Entschuldigung für diesen Vorfall und bedanken uns für das Vertrauen, das ihr uns als Nutzer:innen weiterhin entgegenbringen.</p>
                 Euer HPI Schul‑Cloud‑Team
             </div>
@@ -31,7 +31,7 @@
     <div class="row">
         <div class="col-sm-12">
             <h2 class="h5">{{$t "dashboard.headline.schedule"}}</h2>
-            <time class="selected-date pull-right">{{eventsDate}}</time>
+            <time class="selected-date pull-right text-muted">{{eventsDate}}</time>
         </div>
     </div>
 
@@ -40,7 +40,7 @@
             <div class="row lesson-cards">
                 <div>
                     {{#each events}}
-                    <a class="lesson-card" {{#if url}}href="{{url}}" {{/if}}{{#if alt}}title="{{alt}}" {{/if}}
+                    <a class="lesson-card" aria-label="{{title}}" {{#if url}}href="{{url}}" {{else}} href="{{"#0"}}" {{/if}} {{#if alt}}title="{{alt}}" {{/if}}
                         style="width: {{style.width}}%; left: {{style.left}}%;">
                         <div class="card card-block" style="{{#if color}}background-color: {{color}};
                                             border-color: {{color}};{{/if}}">
@@ -54,14 +54,14 @@
                     {{/each}}
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="timeline">
                     <table style="width:100%">
                         <tr>
                             {{#each hours}}
                             <td style="width:10%">
-                                <div class="tick">{{this}}.00</div>
+                                <div class="tick text-muted">{{this}}.00</div>
                             </td>
                             {{/each}}
                         </tr>
@@ -86,7 +86,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5">{{$t "dashboard.headline.myMaterials"}}</h2>
+                <h2 class="h5">{{$t "global.headline.myMaterial"}}</h2>
             </div>
         </div>
         <div class="row tasks card-deck-row" data-testid="courses">
@@ -112,16 +112,16 @@
     {{/if}}
 
     {{#if assignedHomeworks}}
-        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
+        {{> 'dashboard/components/homework_tiles' title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/homework/asked/"}}
     {{else}}
     <section class="section mb-2">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "global.headline.tasks"}}</a></h2>
             </div>
         </div>
         <div class="row d-block text-center">
-            <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
+            <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "global.text.noTasks"}}" />
             <p class="text-muted dashboard-empty-info">
                 {{$t "dashboard.text.emptyHomeworksInfo"}}
             </p>
@@ -130,21 +130,21 @@
     {{/if}}
 
     {{#if privateHomeworks}}
-        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.privateTasks") content=privateHomeworks href="/homework/private/"}}
+        {{> 'dashboard/components/homework_tiles' title=($t "global.headline.privateTasks") content=privateHomeworks href="/homework/private/"}}
     {{/if}}
 
 {{else if isStudent}}
     {{#if assignedHomeworks}}
-        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.openTasks") content=assignedHomeworks href="/homework/asked/"}}
+        {{> 'dashboard/components/homework_tiles' title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/homework/asked/"}}
     {{else}}
         <section class="section mb-2">
             <div class="row">
                 <div class="col-sm-12">
-                    <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "dashboard.headline.tasks"}}</a></h2>
+                    <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "global.headline.tasks"}}</a></h2>
                 </div>
             </div>
             <div class="row d-block text-center">
-                <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "dashboard.text.noTasks"}}" />
+                <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "global.text.noTasks"}}" />
                 <p class="text-muted dashboard-empty-info">
                     {{$t "dashboard.text.emptyHomeworksInfo"}}
                 </p>
@@ -162,12 +162,12 @@
 
 
 {{#if news}}
-{{>  'dashboard/components/card_section' section-id="news" title=($t "dashboard.headline.news") content=news link-text=($t "dashboard.link.continueReading") href="/news/"}}
+{{>  'dashboard/components/card_section' section-id="news" title=($t "global.headline.news") content=news link-text=($t "dashboard.link.continueReading") href="/news/"}}
 {{else}}
 <section class="section mb-2">
     <div class="row">
         <div class="col-sm-12">
-            <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/news/">{{$t "dashboard.headline.news"}}</a></h2>
+            <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/news/">{{$t "global.headline.news"}}</a></h2>
         </div>
     </div>
     <div class="row d-block text-center">

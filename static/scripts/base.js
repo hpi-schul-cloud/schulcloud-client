@@ -1,4 +1,3 @@
-/* global CKEDITOR */
 /**
  * HELPER - addEventListener
  * 1. allow multiple events "clicked input" ...
@@ -97,12 +96,10 @@ function populateModalForm(modal, data) {
 			case 'datetime-local':
 				$(this)
 					.val(value.slice(0, 16))
-					.trigger('chosen:updated');
 				break;
 			case 'date':
 				$(this)
 					.val(value.slice(0, 10))
-					.trigger('chosen:updated');
 				break;
 			case 'color':
 				$(this).attr('value', value);
@@ -110,16 +107,11 @@ function populateModalForm(modal, data) {
 				break;
 			default:
 				if (
-					$(this).prop('nodeName') === 'TEXTAREA'
-					&& $(this).hasClass('customckeditor')
+					$(this).prop('nodeName') !== 'TEXTAREA'
+					|| !$(this).hasClass('customckeditor')
 				) {
-					if (CKEDITOR.instances.description) {
-						CKEDITOR.instances.description.setData(value);
-					}
-				} else {
 					$(this)
 						.val(value)
-						.trigger('chosen:updated');
 				}
 		}
 	}
@@ -194,24 +186,6 @@ $(document).ready(() => {
 		}
 	});
 
-	// Initialize bootstrap-select
-	function dispatchInputEvent() {
-		this.dispatchEvent(new CustomEvent('input'));
-	}
-
-	$('select:not(.no-bootstrap):not(.search-enabled)')
-		.chosen({
-			width: '100%',
-			disable_search: true,
-		})
-		.change(dispatchInputEvent);
-	$('select.search-enabled:not(.no-bootstrap)')
-		.chosen({
-			width: '100%',
-			disable_search: false,
-		})
-		.change(dispatchInputEvent);
-
 	// collapse toggle
 	function toggleCollapse() {
 		const $collapseToggle = $(this);
@@ -272,7 +246,7 @@ $(document).ready(() => {
 	function showAJAXError(req, textStatus, errorThrown) {
 		$deleteModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification($t('global.error.requestTimeout'), 'warn', 30000);
+			$.showNotification($t('global.text.requestTimeout'), 'warn', 30000);
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}
@@ -422,8 +396,6 @@ $(document).ready(() => {
 		return false;
 	});
 
-	$('.chosen-container-multi').off('touchstart');
-	$('.chosen-container-multi').off('touchend');
 });
 
 /* Mail Validation

@@ -1,40 +1,33 @@
 <input name="scopeId" type="hidden" data-force-value="true" value="{{userId}}" />
-
 <div class="form-group">
-    <label class="control-label" for="title">{{$t "calendar.label.title" }}</label>
+    <label class="control-label" for="title">{{$t "global.label.title" }}</label>
     <input data-testid="team_event_name" class="form-control" name="summary" required placeholder="{{$t "calendar.input.egHandballTraining"}}">
 </div>
-<div class="form-group row">
-    <div class="form-group col-md-6">
-        <label>{{$t "calendar.label.of" }}</label>
-        <input name="startDate" id="startDate" type="text" class="form-control" data-datetime/>
-    </div>
-
-    <div class="form-group col-md-6">
-        <label>{{$t "calendar.label.to" }}</label>
-        <input name="endDate" id="endDate" type="text" class="form-control" data-datetime/>
-    </div>
+<div class="form-group">
+    {{> "lib/forms/form-datetime-input" label=($t "global.label.from") id="startDate" class="input-group" }}
+    {{> "lib/forms/form-datetime-input" label=($t "global.label.to") id="endDate" class="input-group" }}
 </div>
 <div class="form-group">
-    <label data-testid="description_team_event" class="control-label" for="description">{{$t "calendar.label.description" }}</label>
+    <label data-testid="description_team_event" class="control-label" for="description">{{$t "global.label.description" }}</label>
     <textarea class="form-control" name="description" placeholder=""></textarea>
 </div>
 <div class="form-group">
     <label class="control-label" for="location">{{$t "calendar.label.location" }}</label>
-    <input data-testid="team_event_location" class="form-control" name="location" placeholder="{{$t "calendar.input.egGym"}}">
+    <input id="location" data-testid="team_event_location" class="form-control" name="location" placeholder="{{$t "calendar.input.egGym"}}">
 </div>
 {{#if addCourse}}
     {{#userHasPermission "COURSE_EDIT"}}
     <div class="form-group create-course-event">
         <div class="checkbox disabled">
             <input id="toggle{{../collapseIdCourse}}" name="isCourseEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdCourse}}" data-toggle="toggle" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
-            <label>
+            <label for="toggle{{../collapseIdCourse}}">
                {{$t "calendar.label.createForCourse" }}
             </label>
         </div>
         <div id="collapse{{../collapseIdCourse}}" class="panel-collapse collapse">
             <div class="form-group">
-                <select class="course-selection form-control" name="courseId">
+            <label for="courseId">{{$t "calendar.button.availableCourses" }}</label>
+                <select id="courseId" class="course-selection form-control" name="courseId">
                     <option value="" selected hidden>{{$t "calendar.button.chooseACourse" }}</option>
                 </select>
             </div>
@@ -48,13 +41,14 @@
     <div class="form-group create-team-event">
         <div class="checkbox disabled">
             <input id="toggle{{../collapseIdTeam}}" name="isTeamEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdTeam}}" data-toggle="toggle" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
-            <label>
+            <label for="toggle{{../collapseIdTeam}}">
                {{$t "calendar.label.createForTeam" }}
             </label>
         </div>
         <div id="collapse{{../collapseIdTeam}}" class="panel-collapse collapse">
             <div class="form-group">
-                <select class="team-selection form-control" name="teamId">
+                <label for="teamId">{{$t "calendar.button.availableTeams" }}</label>
+                <select id="teamId" class="team-selection form-control" name="teamId">
                     <option value="" selected hidden>{{$t "calendar.button.chooseATeam" }}</option>
                 </select>
             </div>
@@ -68,8 +62,8 @@
     {{#if ../showVideoconferenceOption}}
     <div class="form-group create-videoconference hidden">
         <div class="checkbox disabled">
-            <input name="featureVideoConference" type="checkbox" data-toggle="toggle" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
-            <label>
+            <input id="featureVideoConference" name="featureVideoConference" type="checkbox" data-toggle="toggle" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
+            <label for="featureVideoConference">
                 {{$t "calendar.label.addVideoConference" }}
             </label>
         </div>

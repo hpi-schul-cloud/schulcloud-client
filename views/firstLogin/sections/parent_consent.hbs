@@ -1,5 +1,5 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
-  <h2 class="h4">{{$t "firstLogin.global.heading.declarationOfConsent" }}</h2>
+  <h2 class="h4">{{$t "global.headline.declarationOfConsent" }}</h2>
   <p>{{$t "firstLogin.parent.text.pleaseConfirmTheFollowingDeclaration" }}</p>
   <p>Ich, <b data-from="parent_firstName"></b> <b data-from="parent_lastName"></b>, {{$t "firstLogin.parent.text.amLegalGuardianFor" (dict "firstName" @root.currentUser.firstName "lastName" @root.currentUser.lastName)}}</p>
   {{#embed "registration/forms/einwilligungserklaerung" prefix="parent_"}}{{/embed}}

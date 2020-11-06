@@ -27,6 +27,8 @@ const logger = createLogger({
 		new transports.Console({
 			level: logLevel,
 			format: formater,
+			handleExceptions: true,
+			handleRejections: true,
 		}),
 	],
 });

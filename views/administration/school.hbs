@@ -26,26 +26,26 @@
 			{{$t "administration.school.label.currentSchoolYear" }} {{../school.currentYear.name}}
 			{{/ifeq}}
 			{{else}}
-			{{$t "administration.school.text.theNewSchoolYearStartsInThe" (dict "themeTitle" theme.title)}}
+			{{$t "administration.longText.text.provideStudentsAndTheirParents" (dict "title" theme.title)}}
 			{{/if}}
 		</p>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12 no-padding">
 					{{#if schoolMaintanance.schoolUsesLdap}}
-					<p>{{$t "administration.school.text.useTheTransferPhaseAroundTheSchoolYear" }}</p>
+					<p>{{$t "administration.longText.text.useTheTransferPhaseAroundTheSchool" }}</p>
 					<p><a class="ldapschoolyearadditionalinfotoggle" href="#">{{$t "administration.school.link.moreInfo" }} ></a></p>
 					<div id="ldapschoolyearadditionalinfo">
-						<p>{{$t "administration.school.text.backgroundSoThatEveryStudentAndTeacher" }}
+						<p>{{$t "administration.longText.text.backgroundSoThatEveryStudentAndTeacher" }}
 						</p>
 						<p class="font-weight-bold">{{$t "administration.school.label.duringTheSchoolYear" }}</p>
 						<ul>
-							<li>{{$t "administration.school.text.newUsersClassAffiliationsAnd" }}</li>
+							<li>{{$t "administration.longText.text.newUsersClassAffiliations" }}</li>
 						</ul>
 						<p class="font-weight-bold">{{$t "administration.school.label.startOfTheTransferPhase" }}</p>
 						<ul>
-							<li>{{$t "administration.school.text.youCanStartTheTransferPhase" }}</li>
-							<li>{{$t "administration.school.text.ifThereIsNoManualStart" }}
+							<li>{{$t "administration.longText.text.canStartTheTransferPhase" }}</li>
+							<li>{{$t "administration.longText.text.ifThereIsNoManualStart" }}
 							</li>
 						</ul>
 						<p class="font-weight-bold">{{$t "administration.school.label.duringTheTransferPhase" }}</p>
@@ -149,7 +149,7 @@
 												class="btn btn-primary {{#ifeq ../schoolMaintananceMode "active"}}{{else}}disabled{{/ifeq}}">{{$t "administration.school.button.checkLDAPData" }}</a></p>
 										<label>
 											<input required disabled type="checkbox" id="startldapschoolyear">
-											{{$t "administration.school.label.userAndClassDataInLDAP" }} <br> {{$t "administration.school.label.processedForTheNewSchoolYear" }}
+                                            {{{$t "administration.school.label.userAndClassDataInLDAP" }}}
 										</label>
 									</div>
 									<div class="col-xs-12 col-md-4 text-center">
@@ -179,7 +179,7 @@
 				<div class="col-sm-12 no-padding">
 					<!-- Admin View -->
 					{{#userHasPermission 'ADMIN_VIEW'}}
-					<h2 class="h4">Schule</h2>
+					<h2 class="h4">{{ $t "global.link.school" }}</h2>
 
 					<form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
 						<input type="hidden" name="_method" value="patch" />
@@ -192,16 +192,33 @@
 						</div>
 
 						<div class="form-group">
+							<label for="officialSchoolNumber">
+								{{$t "administration.school.label.schoolNumber" }}
+							</label>
+
+							<input id="officialSchoolNumber" value="{{../school.officialSchoolNumber}}" type="text" pattern="\D{0,2}-*\d{5}$" class="form-control" name="officialSchoolNumber"
+								placeholder="12345" {{#if ../schoolUsesLdap}} readonly{{/if}}
+								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+								readonly{{/userHasPermission}}/>
+						</div>
+
+						<div class="form-group">
 							<label>{{$t "administration.school.label.uploadSchoolLogo" }}</label><br />
 							<input type="hidden" name="logo_dataUrl">
 							<input type="file" id="logo-input">
-							<label for="logo-input" class="btn btn-secondary">{{$t "administration.school.button.chooseAFile" }}</label>
+							<label for="logo-input" class="btn btn-secondary">{{$t "global.label.chooseAFile" }}</label>
 							<span id="logo-filename">{{$t "administration.school.text.noFileSelected" }}</span>
 							<img id="preview-logo" src="">
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
-
-						{{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
+                        {{#if ../timezone}}
+                            <div class="form-group">
+                                <label>{{$t "administration.school.label.timezone" }}</label><br />
+                                <div>{{../timezone}}</div>
+                            </div>
+                        {{/if}}
+                        {{> "lib/forms/form-change-language" langParent=../school }}
+                        {{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
 							<h2 class="h6 mt-2">{{$t "administration.school.label.privacySettings" }}</h2>
 							<div class="form-group">
 								<label>
@@ -213,27 +230,49 @@
 							</div>
 						{{/ifConfig}}
 
+
+                        {{#ifConfig "LERNSTORE_MODE" "EDUSHARING"}}
+                            {{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED" true}}
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" name="studentlernstorevisibility" id="studentlernstorevisibility" value="true"
+                                            {{#ifeq ../school.permissions.student.LERNSTORE_VIEW false}}{{else}}checked{{/ifeq}}
+                                             {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}disabled="disabled"{{/userHasPermission}}
+                                              >
+                                        {{$t "administration.school.label.lernstoreEnabledForStudents"}}
+                                    </label>
+                                    <p class="text-muted">
+                                        {{$t "administration.school.text.lernstoreEnabledForStudents"}}
+                                    </p>
+                                </div>
+                            {{/ifConfig}}
+                        {{/ifConfig}}
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
-                        <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}}">
-                            <label>
-                                <input
-                                    id="messenger"
-                                    type="checkbox"
-                                    name="messenger"
-                                    value="true"
-                                    {{#inArray "messenger" ../school.features}}checked{{/inArray}}
-                                    {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-                                        {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-                                            disabled
-                                        {{/userHasPermission}}
-                                    {{/userHasPermission}}
-                                />
-                                {{$t "administration.school.label.activeChatFunction" }}
-                                <p class="text-muted">
-                                    {{$t "administration.school.text.ifChatsAreActivatedAtYourSchool" }}
-                                </p>
-                            </label>
-                        </div>
+                        <div class="form-group"
+								{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}{{else}}
+									{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}{{else}}
+										hidden
+									{{/ifConfig}}>
+								{{/ifConfig}}>
+							<label>
+								<input
+									id="messenger"
+									type="checkbox"
+									name="messenger"
+									value="true"
+									{{#inArray "messenger" ../school.features}}checked{{/inArray}}
+									{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+										{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+												disabled
+										{{/userHasPermission}}
+									{{/userHasPermission}}
+								/>
+								{{$t "administration.school.label.activeMatrixFunction" }}
+							</label>
+							<p class="text-muted">
+								{{$t "administration.school.text.ifMatrixIsActivatedAtYourSchool"}}<a href=' https://docs.hpi-schul-cloud.org/pages/viewpage.action?pageId=113650243'>{{$t "administration.school.link.matrixHelpPage"}}</a>.
+							</p>
+						</div>
 
                         {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}
                         <div id="messenger-sub-options">
@@ -259,18 +298,36 @@
                             </div>
                         </div>
 
-                        {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
-                            <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}hidden{{/ifConfig}}">
-                                <label>
-                                    <input type="checkbox" name="rocketchat" value="true"
-                                        {{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
-                                    {{$t "administration.school.label.activeChatFunction" }}
-                                    <p class="text-muted">
-                                        {{$t "administration.school.text.ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan" }}
-                                    </p>
-                                </label>
-                            </div>
-                        {{/if}}
+                        <div class="form-group {{#unless @root.ROCKETCHAT_SERVICE_ENABLED}}hidden{{/unless}}">
+							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
+								<label>
+									<input
+										type="checkbox"
+										name="rocketchat"
+										value="true"
+										{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}
+										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+											{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+													disabled
+											{{/userHasPermission}}
+										{{/userHasPermission}}
+										{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
+											disabled
+										{{/hasConfig}}
+									/>
+									{{$t "administration.school.label.activeChatFunction" }}
+								</label>
+								<p class="text-muted">
+									{{$t "administration.school.text.ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan" }}
+								</p>
+							</div>
+							{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
+								<p class="alert alert-info">
+									<strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
+									{{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE")))}}
+								</p>
+							{{/hasConfig}}
+                        </div>
 
 						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
 						<div class="form-group">
@@ -294,7 +351,7 @@
 								</option>
 								{{/each}} </select> </div> {{/if}}
 						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">{{$t "administration.school.button.save" }}</button>
+						<button type="submit" class="btn btn-primary btn-submit">{{$t "global.button.save" }}</button>
 					</form>
 
 					{{#if ../school.fileStorageType}}
@@ -327,7 +384,7 @@
 							</select> </div>
 
 						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">{{$t "administration.school.button.save" }}</button>
+						<button type="submit" class="btn btn-primary btn-submit">{{$t "global.button.save" }}</button>
 
 					</form>
 				</div>
@@ -338,7 +395,7 @@
 	{{#userHasPermission 'SCHOOL_EDIT'}}
 		{{#ifConfig "FEATURE_SCHOOL_POLICY_ENABLED" true}}
 		<section class="section-school section-default">
-			<h2 class="h4">{{$t "administration.school.label.dataProtection" }}</h2>
+			<h2 class="h4">{{$t "global.text.dataProtection" }}</h2>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-sm-12 no-padding">

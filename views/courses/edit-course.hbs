@@ -21,7 +21,8 @@
 		<section class="section-course">
 			{{#if course.isArchived}}
 				<div class="empty-state">
-					<img src="/images/empty-states/books_empty.svg" alt= "{{$t "courses._course.edit.img_alt.courseIsArchieved"}}" class="image" />
+                    {{> 'courses/components/svg_archived_courses'}}
+					<!--<img src="/images/empty-states/archived_courses.svg" alt= "{{$t "courses._course.edit.img_alt.courseIsArchieved"}}" class="image course-empty-content-image" />-->
 
 					<h2 class="h4">{{$t "courses._course.edit.headline.courseIsArchieved" (dict "coursename" course.name )}}</h2>
 					<p class="text-muted text-center">
@@ -33,28 +34,19 @@
 						{{/if}}
 						<input type="hidden" name="unarchive" data-force-value="true" value="true" />
 						<div class="times" id="timesContainer">
-							<label>{{$t "courses._course.edit.label.timeSpan"}}</label>
+							<label>{{$t "administration.global.label.timeSpan"}}</label>
 							<div class="row">
 								<div class="form-group col-md-6">
-									<label>{{$t "courses._course.edit.label.from"}}</label>
-									<input name="startDate" id="startDate" data-date type="text" class="form-control"
-										value="{{course.startDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
-										{{#if @root.course.isArchived}}disabled{{/if}} />
-								</div>
-
+                                    {{> "lib/forms/form-date-input" label=($t "global.label.from") id="startDate" value=course.startDate disabled=@root.course.isArchived}}
 								<div class="form-group col-md-6">
-									<label>{{$t "courses._course.edit.label.till"}}</label>
-									<input name="untilDate" id="untilDate" data-date type="text" class="form-control"
-										value="{{course.untilDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
-										{{#if @root.course.isArchived}}data-min-date="{{datePickerTodayMinus 0 0 0}}"
-										{{/if}} />
+                                    {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate" value=course.untilDate minDate=(datePickerTodayMinus 0 0 0)}}
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
 							<a href="/courses/{{course._id}}/" class="btn btn-delete-course btn-secondary pull-left"
 								target="_blank" data-method="DELETE" data-name="{{course.name}}" redirect="/courses/">
-								{{$t "courses._course.edit.button.deleteCourse"}}
+								{{$t "courses.global.button.deleteCourse"}}
 							</a>
 							<button type="button" class="btn btn-secondary btn-cancel">
 								{{closeLabel}}
@@ -88,7 +80,7 @@
 					{{#if course.isArchived}}disabled{{/if}} />
 
 				<div class="form-group">
-					<label>{{$t "courses.global.label.courseName"}}</label>
+					<label>{{$t "global.label.nameOfTheCourse"}}</label>
 					<input class="form-control" name="name" type="text" placeholder="{{$t "courses.global.input.mathsClass"}}" value="{{course.name}}"
 						{{#if course.isArchived}}disabled{{/if}} required autofocus />
 				</div>
@@ -156,7 +148,7 @@
 				</div>
 
 				<div class="form-group">
-					<label>{{$t "courses._course.edit.label.class"}} <small>{{$t "courses._course.edit.label.studentsWillBeAdded"}}</small></label>
+					<label>{{$t "global.headline.classes"}} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded"}}</small></label>
 
 					<select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
@@ -206,31 +198,25 @@
 				{{/ifConfig}}
 
 
-				<label>{{$t "courses._course.edit.label.chooseDate"}}</label>
+				<label>{{$t "administration.global.label.chooseDate"}}</label>
 				<div class="times" id="timesContainer">
-					<label>{{$t "courses._course.edit.label.timeSpan"}}</label>
+					<label>{{$t "administration.global.label.timeSpan"}}</label>
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label>{{$t "courses._course.edit.label.from"}}</label>
-							<input name="startDate" id="startDate" data-date type="text" class="form-control"
-								value="{{course.startDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
-								{{#if @root.course.isArchived}}disabled{{/if}} />
+                            {{> "lib/forms/form-date-input" label=($t "global.label.from") id="startDate" value=course.startDate disabled=@root.course.isArchived}}
 						</div>
 
 						<div class="form-group col-md-6">
-							<label>{{$t "courses._course.edit.label.till"}}</label>
-							<input name="untilDate" id="untilDate" data-date type="text" class="form-control"
-								value="{{course.untilDate}}" title="{{$t "courses._course.edit.label.timeSpanFormat"}}"
-								{{#if @root.course.isArchived}}disabled{{/if}} />
+                            {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate" value=course.untilDate disabled=@root.course.isArchived}}
 						</div>
 					</div>
 
 					<table width="100%" cellpadding="5px">
 						<thead>
 							<th></th>
-							<th><label>{{$t "courses.global.label.weekday"}}</label></th>
-							<th><label>{{$t "courses.global.label.startOfLesson"}}</label></th>
-							<th><label>{{$t "courses.global.label.lengthOfLesson"}}</label></th>
+							<th><label>{{$t "administration.global.label.weekday"}}</label></th>
+							<th><label>{{$t "administration.global.label.startOfLesson"}}</label></th>
+							<th><label>{{$t "administration.global.label.lengthOfLesson"}}</label></th>
 							<th><label>{{$t "global.label.room"}}</label></th>
 						</thead>
 						<tbody class="add-course-times">
@@ -293,7 +279,7 @@
 							{{#inArray "COURSE_DELETE" scopePermissions}}
 							<a href="/courses/{{../course._id}}/" class="btn btn-delete-course btn-secondary pull-left"
 								target="_blank" data-method="DELETE" data-name="{{../course.name}}"
-								redirect="/courses/">{{$t "courses._course.edit.button.deleteCourse"}}</a>
+								redirect="/courses/">{{$t "courses.global.button.deleteCourse"}}</a>
 							{{/inArray}}
 						{{/if}}
 						<button type="button" class="btn btn-secondary btn-cancel">
@@ -323,7 +309,7 @@
 
                     {{> "lib/components/csrfInput"}}
 					<button type="submit" class="btn btn-primary btn-submit">
-						{{$t "global.button.delete"}}
+						{{$t "global.headline.delete"}}
 					</button>
 				</div>
 			{{/content}}

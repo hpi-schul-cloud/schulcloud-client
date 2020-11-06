@@ -1,4 +1,11 @@
 {
 	"$schema": "./default.schema.json",
-	"REQUEST_TIMEOUT_MS": 60000
+	"REQUEST_TIMEOUT_MS": 6000,
+	"COOKIE": {
+		"SAME_SITE": "Lax",
+		"HTTP_ONLY": false,
+		"HOST_ONLY": false,
+		"SECURE": false,
+		"EXPIRES_SECONDS": 2592000000
+	}
 }

@@ -6,7 +6,7 @@
     <div class="row">
         <a class="d-block mb-1"
             href="/administration/classes/{{@root.class/_id}}/edit"
-            title="Klasse '{{@root.class.name}}' bearbeiten.">
+            title="{{$t "administration.classes.placeholer.change" (dict "name" @root.class.name)}}">
             <i class="fa fa-pencil"></i> {{$t "administration.classes.label.renameClass" }}
         </a>
     </div>
@@ -15,7 +15,7 @@
         <div style="width: 100%" class="form-group">
             <label>{{$t "administration.global.label.teacher" }} {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
 
-            <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
+            <select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher"}}" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
                 {{#each teachers}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
                         {{#if this.displayName}}
@@ -55,7 +55,7 @@
     <hr class="my-2"/>
 
     <div class="mb-3">
-        <h2 class="h4">{{$t "administration.classes.label.yourStudentsAreNotYetInThe" }} {{theme.short_title}}?</h2>
+        <h2 class="h4">{{$t "administration.classes.headline.questionStudentsNotInSystem" (dict "shortTitle" theme.short_title)}}</h2>
         <p>
            {{$t "administration.classes.text.inviteTheParentsViaLink" }}
         </p>
@@ -68,11 +68,11 @@
         {{#if schoolUsesLdap}}
             <strong>{{$t "administration.global.text.studentsLoginInThePresenceOfGuardian" }}</strong>
 
-            <p>{{$t "administration.global.text.byConnectingToASchoolState" (dict "shortTitle" theme.short_title) }} </p>
+            <p> {{$t "administration.global.text.byConnectingToASchoolState" (dict "shortTitle" theme.short_title)}}</p>
         {{else}}
             <strong>{{$t "administration.global.text.inviteparentsAndStudentViaLink" }}</strong>
             <p>
-                {{$t "administration.global.text.provideYourStudentsAnd" }}
+                {{$t "administration.longText.text.provideStudentsAndTheirParents" }}
             </p>
             <p>{{$t "administration.students.text.forAllStudentsWithoutAFullConsentForm" }}</p>
             <p>
@@ -95,7 +95,7 @@
                 {{$t "administration.global.text.manuallyConsent" }}
             </h2>
             <p>
-            {{$t "administration.classes.text.ifAllStudentsAndParentshaveGiven" }}
+            {{$t "administration.longText.text.ifAllStudentsAndParentsHaveGiven" }}
             </p>
 
                 <a href="skipregistration" class="btn btn-primary btn-skip-consent">
@@ -143,8 +143,8 @@
 
         <div class="form-group">
             <label for="filter_schoolyear">{{$t "administration.classes.label.filterBySchoolYear" }}</label>
-            <select id="filter_schoolyear" name="classes" data-placeholder="{{$t "administration.global.placeholder.filterBySchoolYear" }}">
-                <option value="" selected>Alle</option>
+            <select id="filter_schoolyear" name="classes" data-placeholder="{{$t "administration.classes.label.filterBySchoolYear" }}">
+                <option value="" selected>{{$t "administration.classes.label.all" }}</option>
                 {{#each schoolyears}}
                     <option value="{{this._id}}">
                         {{this.name}}

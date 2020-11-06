@@ -7,6 +7,8 @@ const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
 
+const timesHelper = require('../../timesHelper');
+
 moment.locale('de');
 
 const ifCondBool = (v1, operator, v2) => {
@@ -168,13 +170,14 @@ const helpers = () => ({
 	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
-		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW') || !isNonOerContent) {
+		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW')
+			|| !isNonOerContent) {
 			return options.fn(this);
 		}
 		return options.inverse(this);
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
-	timeFromNow: (date, opts) => moment(date).fromNow(),
+	timeFromNow: (date) => timesHelper.fromNow(date),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
 			format = 'YYYY.MM.DD';
@@ -185,16 +188,12 @@ const helpers = () => ({
 			.subtract(days, 'days')
 			.format(format);
 	},
-	dateToPicker: (date, opts) => moment(date).format('DD.MM.YYYY'),
-	dateTimeToPicker: (date, opts) => moment(date).format('DD.MM.YYYY HH:mm'),
-	timeToString: (date, opts) => {
-		const now = moment();
-		const d = moment(date);
-		if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
-			return `${moment(date).format('DD.MM.YYYY')}(${moment(date).format('HH:mm')})`;
-		}
-		return moment(date).fromNow();
-	},
+	dateToPicker: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateToPicker')),
+	dateTimeToPicker: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateTimeToPicker')),
+	i18nDate: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.date')),
+	i18nDateTime: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateTime')),
+	i18nDateString: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateLong')),
+	timeToString: (date) => timesHelper.timeToString(date, i18n.getInstance()('format.dateTime')),
 	currentYear() {
 		return new Date().getFullYear();
 	},
@@ -209,17 +208,18 @@ const helpers = () => ({
 	castStatusCodeToString: (statusCode, data) => {
 		console.log(statusCode);
 		if (statusCode >= 500) {
-			return i18n.getInstance(data.data.local.currentUser)('global.error.internalProblem');
+			return i18n.getInstance(data.data.local.currentUser)('global.text.internalProblem');
 		}
 		if (statusCode >= 400) {
-			if ([400, 401, 402, 403, 404].includes(statusCode)) {
-				return i18n.getInstance(data.data.local.currentUser)('global.error.'.concat(statusCode.toString()));
+			if ([400, 401, 402, 403, 404, 408].includes(statusCode)) {
+				return i18n.getInstance(data.data.local.currentUser)('global.text.'.concat(statusCode.toString()));
 			}
 		}
+
 		if (statusCode > 300) {
-			return i18n.getInstance(data.data.local.currentUser)('global.error.pageMoved');
+			return i18n.getInstance(data.data.local.currentUser)('global.text.pageMoved');
 		}
-		return i18n.getInstance(data.data.local.currentUser)('global.error.somethingWentWrong');
+		return i18n.getInstance(data.data.local.currentUser)('global.text.somethingWentWrong');
 	},
 	writeFileSizePretty: (fileSize) => {
 		let unit;
@@ -287,6 +287,7 @@ const helpers = () => ({
 		});
 		return dict;
 	},
+	isset: (value) => !!value,
 });
 
 module.exports = helpers;

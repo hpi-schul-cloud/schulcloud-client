@@ -55,6 +55,12 @@ $('.openfolder').on('click', function determineFolder() {
 	}
 });
 
+$('.openfolder').on('keypress', (e) => {
+	if (e.key === 'Enter' || e.key === ' ') {
+		document.activeElement.click();
+	}
+});
+
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
 
@@ -118,7 +124,7 @@ $(document).ready(() => {
 		$deleteModal.modal('hide');
 		$moveModal.modal('hide');
 		if (textStatus === 'timeout') {
-			$.showNotification($t('global.error.requestTimeout'), 'warn');
+			$.showNotification($t('global.text.requestTimeout'), 'warn');
 		} else {
 			$.showNotification(errorThrown, 'danger');
 		}
@@ -249,7 +255,10 @@ $(document).ready(() => {
 						{ width: `${realProgress}%` },
 						{
 							step(now) {
-								$percentage.html(`${Math.ceil(now)}%`);
+								if ($percentage && $percentage.setAttribute) {
+									$percentage.html(`${Math.ceil(now)}%`);
+									$percentage.setAttribute('aria-valuenow', `${Math.ceil(now)}%`);
+								}
 							},
 						},
 					);
@@ -280,20 +289,21 @@ $(document).ready(() => {
 		});
 	}
 
-	$('a[data-method="download"]').on('click', (e) => {
+	$('button[data-method="download"]').on('click', (e) => {
+		window.open($(e.currentTarget).attr('data-href'), '_blank');
 		e.stopPropagation();
 	});
 
 	function deleteFileClickHandler(e) {
 		e.stopPropagation();
 		e.preventDefault();
-		const $buttonContext = $(this);
+		const $buttonContext = $(e.currentTarget);
 
 		$deleteModal.appendTo('body').modal('show');
 		$deleteModal
 			.find('.modal-title')
 			.text(
-				$t('files._file.headline.assertDeletion', { filename: $buttonContext.data('file-name') }),
+				$t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }),
 			);
 
 		$deleteModal
@@ -301,7 +311,7 @@ $(document).ready(() => {
 			.unbind('click')
 			.on('click', () => {
 				$.ajax({
-					url: $buttonContext.attr('href'),
+					url: $buttonContext.attr('data-href'),
 					type: 'DELETE',
 					data: {
 						id: $buttonContext.data('file-id'),
@@ -312,7 +322,13 @@ $(document).ready(() => {
 			});
 	}
 
+	$('button[data-method="delete"]').on('click', deleteFileClickHandler);
 	$('a[data-method="delete"]').on('click', deleteFileClickHandler);
+	$('a[data-method="delete"]').on('keypress', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			deleteFileClickHandler(e);
+		}
+	});
 
 	$deleteModal.find('.close, .btn-close').on('click', () => {
 		$deleteModal.modal('hide');
@@ -329,9 +345,10 @@ $(document).ready(() => {
 	});
 
 	const returnFileUrl = (fileId, fileName) => {
-		const fullUrl = `/files/file?file=${fileId}&name=${fileName}`;
-		const funcNum = getQueryParameterByName('CKEditorFuncNum');
-		window.opener.CKEDITOR.tools.callFunction(funcNum, fullUrl);
+		if (window.opener) {
+			const fullUrl = `/files/file?file=${fileId}&name=${fileName}`;
+			window.opener.postMessage(fullUrl, '*');
+		}
 		window.close();
 	};
 
@@ -340,6 +357,11 @@ $(document).ready(() => {
 	}
 	$('.card.file').on('click', cardFileClickHandler);
 
+	$('.fileviewer').on('keypress', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			document.activeElement.click();
+		}
+	});
 	function cardFileTitleClickHandler(e) {
 		if (isCKEditor) {
 			e.preventDefault();
@@ -479,16 +501,16 @@ $(document).ready(() => {
 		populateRenameModal(
 			oldName,
 			`/files/fileModel/${fileId}/rename`,
-			'Datei umbenennen',
+			$t('files.label.renameFile'),
 		);
 	}
-	$('.file-name-edit').click(fileNameEditClickHandler);
+	$('.file-name-edit').on('click', fileNameEditClickHandler);
 
 	function dirRenameClickHandler(e) {
 		e.stopPropagation();
 		e.preventDefault();
-		const dirId = $(this).attr('data-directory-id');
-		const oldName = $(this).attr('data-directory-name');
+		const dirId = $(e.currentTarget).attr('data-directory-id');
+		const oldName = $(e.currentTarget).attr('data-directory-name');
 
 		populateRenameModal(
 			oldName,
@@ -497,6 +519,11 @@ $(document).ready(() => {
 		);
 	}
 	$('a[data-method="dir-rename"]').on('click', dirRenameClickHandler);
+	$('a[data-method="dir-rename"]').on('keypress', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			dirRenameClickHandler(e);
+		}
+	});
 
 	const fileShare = (fileId, $shareModal, view) => {
 		const $input = $shareModal.find('input[name="invitation"]');
@@ -547,6 +574,12 @@ $(document).ready(() => {
 		const $shareModal = $('.share-modal');
 		fileShare(fileId, $shareModal);
 	});
+	$('.btn-file-share').on('keypress', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			document.activeElement.click();
+		}
+	});
 
 	$('.btn-file-danger').click((e) => {
 		e.stopPropagation();
@@ -569,7 +602,7 @@ $(document).ready(() => {
 			.then((permissions) => {
 				const nameMap = {
 					teacher: $t('global.role.text.teacher'),
-					student: $t('global.role.text.student'),
+					student: $t('global.link.administrationStudents'),
 					teammember: $t('global.role.text.member'),
 					teamexpert: $t('global.role.text.expert'),
 					teamleader: $t('global.role.text.leader'),
@@ -595,7 +628,7 @@ $(document).ready(() => {
 							.map(({
 								name, write, read, refId,
 							}) => `<tr>
-									<td>${nameMap[name] || name}</td>
+									<th scope="row">${nameMap[name] || name}</th>
 									<td>
 										<input
 											type="checkbox"
@@ -696,10 +729,9 @@ $(document).ready(() => {
 				$('.permissions-modal').modal('hide');
 			})
 			.fail(() => {
-				$.showNotification($t('files._file.text.permissionsChangedFail'), 'danger', true);
+				$.showNotification($t('global.text.errorChangingFilePermissions'), 'danger', true);
 			});
 	});
-
 
 	const moveToDirectory = (modal, targetId) => {
 		const fileId = modal
@@ -789,7 +821,7 @@ $(document).ready(() => {
 		const $context = $(e.currentTarget);
 
 		// temporary disabled
-		if ($context.attr('disabled')) {
+		if ($context.attr('data-disabled')) {
 			$disabledMoveModal.appendTo('body').modal('show');
 			return;
 		}
@@ -801,7 +833,6 @@ $(document).ready(() => {
 				filePath: $context.attr('data-file-path'),
 			},
 		});
-
 
 		$moveModal.find('.modal-footer').empty();
 		$moveModal.appendTo('body').modal('show');
@@ -843,6 +874,12 @@ $('.videostop').on('click', () => {
 	$('#file-view').css('display', 'none');
 });
 
+$('.videostop').on('keypress', (e) => {
+	if (e.key === 'Enter' || e.key === ' ') {
+		document.activeElement.click();
+	}
+});
+
 const fileTypes = {
 	docx:
 		'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -873,6 +910,8 @@ window.fileViewer = function fileViewer(type, name, id) {
 			window.location.href = '#file-view';
 			$('#file-view').css('display', '');
 			$('#picture').attr('src', `/files/file?file=${id}&name=${name}`);
+			$('#picture').attr('alt', $t('files.img_alt.altInfoTheImage', { imgName: name }));
+			$('.videostop').focus();
 			break;
 
 		case `audio/${type.substr(6)}`:
@@ -884,6 +923,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 				this.src({ type, src: `/files/file?file=${id}` });
 			});
 			$('#my-video').css('display', '');
+			$('.videostop').focus();
 			break;
 
 		case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': // .docx
