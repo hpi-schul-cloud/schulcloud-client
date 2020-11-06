@@ -21,7 +21,6 @@ class AlertMessageController {
 	}
 
 	buildMessage(message) {
-		const date = message.timestamp;
 		const icon = getIconTag(message.status);
 
 		// show only 150 charckters of message

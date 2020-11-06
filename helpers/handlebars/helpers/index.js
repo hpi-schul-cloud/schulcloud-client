@@ -6,7 +6,6 @@ const { Configuration } = require('@schul-cloud/commons');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
-const logger = require('../../logger');
 
 const timesHelper = require('../../timesHelper');
 
