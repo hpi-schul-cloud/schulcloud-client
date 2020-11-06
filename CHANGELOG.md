@@ -22,6 +22,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7453 - fixed course/team event handling
 - SC-7353 - fixed course sharing between teachers
 - SC-7645 - Fixed team calendar timezone bug
 - SC-7666 - Fixed rss translation key
