@@ -282,7 +282,7 @@ router.get('/', (req, res, next) => {
 						&& homework.stats
 						&& (
 							(homework.dueDate
-								&& timesHelper.fromUTC(homework.dueDate) < timesHelper.now()
+								&& timesHelper.fromUTC(homework.dueDate).isBefore(timesHelper.currentDate())
 								&& homework.stats.submissionCount > homework.stats.gradeCount
 							) || (
 								!homework.dueDate && homework.stats.submissionCount > 0
@@ -313,7 +313,10 @@ router.get('/', (req, res, next) => {
 				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
 						(task) => !task.private
-							&& (timesHelper.fromUTC(task.dueDate) >= timesHelper.now() || !task.dueDate),
+							&& (
+								timesHelper.fromUTC(task.dueDate).isSameOrAfter(timesHelper.currentDate())
+								|| !task.dueDate
+							),
 					).slice(0, 10),
 				privateHomeworks: assignedHomeworks
 					.filter((task) => task.private)
