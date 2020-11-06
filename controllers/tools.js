@@ -5,6 +5,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
 const { Configuration } = require('@schul-cloud/commons');
+const { HOST } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
 
@@ -156,7 +157,7 @@ const runToolHandler = (req, res, next) => {
 				res.render('courses/components/run-lti-frame', {
 					url: tool.url,
 					method: 'POST',
-					csrf: false,
+					csrf: true,
 					formData: [{ name: 'id_token', value: signedToken }],
 				});
 			});
@@ -226,7 +227,7 @@ const addLinkHandler = (req, res, next) => {
 			if (idToken.iss !== tool.oAuthClientId) {
 				res.send('Issuer stimmt nicht überein.');
 			}
-			if (idToken.aud !== (process.env.FRONTEND_URL || 'http://localhost:3100/')) {
+			if (idToken.aud !== (HOST || 'http://localhost:3100/')) {
 				res.send('Audience stimmt nicht überein.');
 			}
 
