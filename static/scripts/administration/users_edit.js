@@ -1,15 +1,13 @@
 import '../jquery/datetimepicker-easy';
 
-const moment = require('moment');
+const datetime = require('../datetime/datetime');
 
 function toggleConsentEditing() {
 	const birthdayInput = document.getElementById('birthday');
-	let birthday;
 	let age;
-	if (birthdayInput) {
-		const birthdaytext = birthdayInput.value.split('.');
-		birthday = moment(`${birthdaytext[2]}-${birthdaytext[1]}-${birthdaytext[0]}`);
-		age = moment().diff(birthday, 'years');
+	if (birthdayInput && birthdayInput.value) {
+		const birthdayMoment = datetime.dateTimeStringToMoment(birthdayInput.value);
+		age = datetime.now().diff(birthdayMoment, 'years');
 	}
 
 	document.getElementById('consents-overview').querySelectorAll('input').forEach((input) => {
