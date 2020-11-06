@@ -72,7 +72,7 @@
 				{{/if}}
                 {{i18nDateTime availableDate}}
                 {{#if dueDate}}
-                    {{$t "homework.text.till"}}: {{i18nDateTime dueDate}}
+                    {{$t "homework.text.till"}}: {{timeToString dueDate}}
                 {{else}}
                     {{$t "homework.text.noSubmissionDateSet"}}
                 {{/if}}
