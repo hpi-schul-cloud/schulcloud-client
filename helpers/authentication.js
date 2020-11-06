@@ -136,9 +136,12 @@ const populateCurrentUser = async (req, res) => {
 				res.locals.currentSchoolData = data2;
 				res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
 
-				const userHasPermissions = res.locals.currentUser.permissions.includes('MESSENGER_ROOM_CREATE');
-				const schoolAllowsRoomCreation = res.locals.currentSchoolData.features.includes('messengerStudentRoomCreate');
-				res.locals.matrixBlockRoomCreation = (!userHasPermissions && !schoolAllowsRoomCreation) ? 'true' : 'false';
+				const userPermissions = res.locals.currentUser.permissions;
+				const userHasPermissions = userPermissions.includes('MESSENGER_ROOM_CREATE');
+				const schoolFeatures = res.locals.currentSchoolData.features;
+				const schoolAllowsRoomCreation = schoolFeatures.includes('messengerStudentRoomCreate');
+				const blockRoomCreation = (!userHasPermissions && !schoolAllowsRoomCreation);
+				res.locals.matrixBlockRoomCreation = blockRoomCreation ? 'true' : 'false';
 				return data2;
 			});
 		}).catch((e) => {
@@ -207,7 +210,7 @@ const restrictSidebar = (req, res) => {
 					if (acc === true) return true;
 					return permissionsHelper.userHasPermission(res.locals.currentUser, perm);
 				},
-					false);
+				false);
 		} else {
 			hasExcludedPermission = permissionsHelper.userHasPermission(res.locals.currentUser,
 				item.excludedPermission);
