@@ -94,8 +94,8 @@ $(document).ready(() => {
 				return false;
 			}
 			// personal event
-			const startDate = moment(event.start).format('DD.MM.YYYY HH:mm');
-			const endDate = moment(event.end || event.start).format('DD.MM.YYYY HH:mm');
+			const startDate = moment.utc(event.start).format('DD.MM.YYYY HH:mm');
+			const endDate = moment.utc(event.end || event.start).format('DD.MM.YYYY HH:mm');
 
 			const { attributes } = event.extendedProps || {};
 
