@@ -29,10 +29,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div class="form-group">
-                        <label>Username: <sup>*</sup></label>
-                        <input class="form-control" disabled="true" placeholder="Benutzername" name="displayName" type="text" value="{{user.displayName}}"/>
-                    </div>-->
 
                     <div class="form-group">
                         <label>{{$t "global.label.emailAddress" }} <sup>*</sup></label>
@@ -40,12 +36,14 @@
                     </div>
                 {{#unless editTeacher}}
                     <div class="form-group">
-                        <label>{{$t "global.label.dateOfBirth" }}<sup>*</sup></label>
-                        <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required
-                        {{#if user.birthday }}
-                        value="{{dateToPicker user.birthday}}"
-                        {{/if}}
-                        />
+                        {{> "lib/forms/form-date-input"
+                                label=($t "global.label.dateOfBirth")
+                                id="birthday"
+                                value=user.birthday
+                                required=true
+                                dataMinDate=(datePickerTodayMinus 100 0 0)
+                                dataMaxDate=(datePickerTodayMinus 4 0 0)
+                        }}
                     </div>
                 {{else}}
                     <div class="form-group mb-2">
@@ -114,14 +112,18 @@
                                 {{#unless schoolUsesLdap}}
                                     {{#ifCond isAdmin '|| !' editTeacher}}
                                         <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled title="{{$t "administration.users_edit.text.firstClose" }}"{{/if}}>{{$t "administration.users_edit.headline.changePassword" }}</button>
-                                        <button class="btn btn-secondary btn-delete">{{$t "administration.users_edit.headline.deleteUser" }}</button>
                                     {{/ifCond}}
+                                    {{#if canDeleteUser}}
+                                        <button class="btn btn-secondary btn-delete">{{$t "administration.users_edit.headline.deleteUser" }}</button>
+                                    {{/if}}
                                     <button class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}"
-                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="{{$t "administration.users_edit.button.alreadyRegistered" }}"{{/ifeq}}>
+                                    {{#if hasAccount}} disabled {{/if}}
+                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}} title="{{$t "administration.users_edit.button.alreadyRegistered" }}"{{/ifeq}}>
                                         {{$t "administration.button.generatePersonalInvitationLink" }}
                                     </button>
                                     <button class="btn btn-secondary btn-send-link-email {{#if editTeacher}}teacher{{else}}student{{/if}}"
-                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="{{$t "administration.users_edit.button.alreadyRegistered" }}"{{/ifeq}}>
+                                    {{#if hasAccount}} disabled {{/if}}
+                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}} title="{{$t "administration.users_edit.button.alreadyRegistered" }}"{{/ifeq}}>
                                         {{$t "administration.button.sendTheInvitationLinkByMail" }}
                                     </button>
                                 {{/unless}}
@@ -173,3 +175,4 @@
 
     {{/content}}
 {{/extend}}
+

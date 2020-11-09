@@ -35,19 +35,35 @@
                     {{! Messenger is activated for current school }}
                     {{#inArray "messenger" @root.schoolData.features}}
                         <div class="form-group">
-                            <label for="activateMessenger">{{$t "teams._team.edit.label.activateBidirectionalMessenger"}}</label>
+                            <label>
                                 <input id="activateMessenger" type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../team.features}}checked{{/inArray}}>
+                                {{$t "teams._team.edit.label.activateBidirectionalMessenger"}}
+                            </label>
                         </div>
                     {{/inArray}}
                 {{/ifConfig}}
 
                 {{! Rocketchat is activated for instace }}
-                {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}
+                {{#if @root.instanceUsesRocketChat}}
                     {{! Rocketchat is activated for current school }}
                     {{#inArray "rocketChat" @root.schoolData.features}}
                         <div class="form-group">
-                            <label for="activateRC">{{$t "teams._team.edit.label.activateMessengerForTeam"}}</label>
-                                <input id="activateRC" type="checkbox" name="rocketChat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
+                            <div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
+                                <label for="activateRC">{{$t "teams._team.edit.label.activateMessengerForTeam"}}</label>
+                                    <input
+                                        id="activateRC"
+                                        type="checkbox"
+                                        name="rocketChat"
+                                        value="true"
+                                        {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}
+                                        {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}disabled{{/hasConfig}}>
+                            </div>
+                            {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
+                                <p class="alert alert-info">
+                                    <strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
+                                    {{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRECATION_DATE")))}}
+                                </p>
+							{{/hasConfig}}
                         </div>
                     {{/inArray}}
                 {{/if}}

@@ -1,5 +1,4 @@
 import './pwd';
-import './cleanup'; // see loggedin.js for loggedin users
 import initAlerts from './alerts';
 import * as storage from './helpers/storage';
 
@@ -7,6 +6,7 @@ $(document).ready(() => {
 	// reset localStorage when new version is Published
 	const newVersion = 1;
 	const currentVersion = parseInt(storage.local.getItem('homepageVersion') || '0', 10);
+	let countdownNum;
 
 	if (currentVersion < newVersion) {
 		storage.local.clear();
@@ -40,120 +40,133 @@ $(document).ready(() => {
 		$('.alert-cookies-blocked').removeClass('hidden');
 	}
 
-    var $btnToggleProviers = $('.btn-toggle-providers');
-    var $btnHideProviers = $('.btn-hide-providers');
-    var $btnLogin = $('.btn-login');
-    var $loginProviders = $('.login-providers');
-    var $school = $('.school');
-    var $systems = $('.system');
-    var $modals = $('.modal');
-    var $pwRecoveryModal = $('.pwrecovery-modal');
-    var $submitButton = $('#submit-login');
+	const $btnToggleProviders = $('.btn-toggle-providers');
+	const $btnHideProviders = $('.btn-hide-providers');
+	const $btnLogin = $('.btn-login');
+	const $loginProviders = $('.login-providers');
+	const $school = $('.school');
+	const $systems = $('.system');
+	const $modals = $('.modal');
+	const $pwRecoveryModal = $('.pwrecovery-modal');
+	const $submitButton = $('#submit-login');
 
-    var incTimer = function(){
-        setTimeout (function(){
-            if(countdownNum != 1){
-                countdownNum--;
-                $submitButton.val($t('login.text.pleaseWaitXSeconds',{seconds : countdownNum}));
-                incTimer();
-            } else {
-                $submitButton.val($t('home.header.link.login'));
-            }
-        },1000);
-    };
+	const incTimer = () => {
+		setTimeout(() => {
+			if (countdownNum !== 1) {
+				// eslint-disable-next-line no-plusplus
+				countdownNum--;
+				$submitButton.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
+				incTimer();
+			} else {
+				$submitButton.val($t('home.header.link.login'));
+			}
+		}, 1000);
+	};
 
-    if($submitButton.data('timeout')){
-        setTimeout (function(){
-            $submitButton.prop('disabled', false);
-        },$submitButton.data('timeout')*1000);
+	if ($submitButton.data('timeout')) {
+		setTimeout(() => {
+			$submitButton.prop('disabled', false);
+		}, $submitButton.data('timeout') * 1000);
 
-        var countdownNum = $submitButton.data('timeout');
-        incTimer();
-    }
+		countdownNum = $submitButton.data('timeout');
+		incTimer();
+	}
 
-    var loadSystems = function(schoolId) {
-        $systems.empty();
-        $.getJSON('/login/systems/' + schoolId, function(systems) {
-            systems.forEach(function(system) {
-                var systemAlias = system.alias ? ' (' + system.alias + ')' : '';
-                let selected;
-                if(storage.local.getItem('loginSystem') == system._id) {
-                    selected = true;
-                }
-                $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '//' + system.type + '">' + system.type + systemAlias + '</option>');
-            });
-            $systems.trigger('chosen:updated');
-            systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
-        });
-    };
+	const loadSystems = (schoolId) => {
+		$systems.empty();
+		$.getJSON(`/login/systems/${schoolId}`, (systems) => {
+			systems.forEach((system) => {
+				const systemAlias = system.alias ? ` (${system.alias})` : '';
+				let selected;
+				if (storage.local.getItem('loginSystem') === system._id) {
+					selected = true;
+				}
+				// eslint-disable-next-line max-len
+				$systems.append(`<option ${selected ? 'selected' : ''} value="${system._id}//${system.type}">${system.type}${systemAlias}</option>`);
+			});
+			// eslint-disable-next-line no-unused-expressions
+			systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
+		});
+	};
 
-    $btnToggleProviers.on('click', function(e) {
-        e.preventDefault();
-        $btnToggleProviers.hide();
-        $loginProviders.show();
-    });
+	$btnToggleProviders.on('click', (e) => {
+		e.preventDefault();
+		$btnToggleProviders.hide();
+		$loginProviders.show();
+	});
+	$btnToggleProviders.on('keydown', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			$btnToggleProviders.hide();
+			$loginProviders.show();
+		}
+	});
 
-    $btnHideProviers.on('click', function(e) {
-        e.preventDefault();
-        $btnToggleProviers.show();
-        $loginProviders.hide();
-        $school.val('');
-        $school.trigger('chosen:updated');
-        $systems.val('');
-        $systems.trigger('chosen:updated');
-    });
+	$btnHideProviders.on('click', (e) => {
+		e.preventDefault();
+		$btnToggleProviders.show();
+		$loginProviders.hide();
+		$school.val('');
+	});
 
-    $btnLogin.on('click', function (e) {
-        const school = $school.val();
-        const system = $systems.val();
-        if (school) {
-            storage.local.setItem('loginSchool', school);
-        } else {
-            storage.local.removeItem('loginSchool');
-        }
-        if (system) {
-            storage.local.setItem('loginSystem', system);
-        } else {
-            storage.local.removeItem('loginSystem');
-        }
-    });
+	$btnHideProviders.on('keydown', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			$btnToggleProviders.show();
+			$loginProviders.hide();
+			$school.val('');
+		}
+	});
 
-    $school.on('change', function() {
-        const id = $(this).val();
-        if (id !== ''){
-            loadSystems( id );
-        } else {
-            $systems.parent().hide();
-        }
-        $school.find("option").not("[value='"+id+"']").removeAttr('selected');
-        $school.find("option[value='"+id+"']").attr('selected',true);
-        $school.trigger('chosen:updated');
-    });
+	$btnLogin.on('click', () => {
+		const school = $school.val();
+		const system = $systems.val();
+		if (school) {
+			storage.local.setItem('loginSchool', school);
+		} else {
+			storage.local.removeItem('loginSchool');
+		}
+		if (system) {
+			storage.local.setItem('loginSystem', system);
+		} else {
+			storage.local.removeItem('loginSystem');
+		}
+	});
 
-    $('.submit-pwrecovery').on('click', function(e) {
-        e.preventDefault();
-        populateModalForm($pwRecoveryModal, {
-            title: $t('login.popup_resetPw.headline.resetPassword'),
-            closeLabel: $t('global.button.cancel'),
-            submitLabel: $t('login.popup_resetPw.button.resetPassword'),
-        });
-        $pwRecoveryModal.appendTo('body').modal('show');
-    });
+	$school.on('change', () => {
+		const id = $school.val();
+		if (id !== '') {
+			loadSystems(id);
+		} else {
+			$systems.parent().hide();
+		}
+		$school.find('option').not(`[value='${id}']`).removeAttr('selected');
+		$school.find(`option[value='${id}']`).attr('selected', true);
+	});
 
-    $modals.find('.close, .btn-close').on('click', function() {
-        $modals.modal('hide');
-    });
+	$('.submit-pwrecovery').on('click', (e) => {
+		e.preventDefault();
+		populateModalForm($pwRecoveryModal, {
+			title: $t('login.popup_resetPw.headline.resetPassword'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('login.popup_resetPw.button.resetPassword'),
+		});
+		$pwRecoveryModal.appendTo('body').modal('show');
+	});
 
-    // if stored login system - use that
-    if(storage.local.getItem('loginSchool')) {
-        $btnToggleProviers.hide();
-        $loginProviders.show();
-        $school.val(storage.local.getItem('loginSchool'));
-        $school.trigger('chosen:updated');
-        $school.trigger('change');
-    }
+	$modals.find('.close, .btn-close').on('click', () => {
+		$modals.modal('hide');
+	});
 
-    initAlerts('login');
-    // remove duplicated login error
-    $( ".col-xs-12 > .notification" ).remove();
+	// if stored login system - use that
+	if (storage.local.getItem('loginSchool')) {
+		$btnToggleProviders.hide();
+		$loginProviders.show();
+		$school.val(storage.local.getItem('loginSchool'));
+		$school.trigger('change');
+	}
+
+	initAlerts('login');
+	// remove duplicated login error
+	$('.col-xs-12 > .notification').remove();
 });

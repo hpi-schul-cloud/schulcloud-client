@@ -11,6 +11,8 @@ const wordlist = require('../static/other/wordlist.js');
 const { SW_ENABLED, MINIMAL_PASSWORD_LENGTH } = require('../config/global');
 const logger = require('./logger');
 
+const { setCookie } = require('./cookieHelper');
+
 const rolesDisplayName = {
 	teacher: 'Lehrer',
 	student: 'Schüler',
@@ -133,6 +135,13 @@ const populateCurrentUser = async (req, res) => {
 				res.locals.currentSchool = res.locals.currentUser.schoolId;
 				res.locals.currentSchoolData = data2;
 				res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
+
+				const userPermissions = res.locals.currentUser.permissions;
+				const userHasPermissions = userPermissions.includes('MESSENGER_ROOM_CREATE');
+				const schoolFeatures = res.locals.currentSchoolData.features || [];
+				const schoolAllowsRoomCreation = schoolFeatures.includes('messengerStudentRoomCreate');
+				const blockRoomCreation = (!userHasPermissions && !schoolAllowsRoomCreation);
+				res.locals.matrixBlockRoomCreation = blockRoomCreation ? 'true' : 'false';
 				return data2;
 			});
 		}).catch((e) => {
@@ -174,7 +183,9 @@ const checkSuperhero = (req, res) => {
 
 
 const checkIfUserIsForcedToChangePassword = (req, res) => {
-	if (!res.locals.currentUser.forcePasswordChange || req.baseUrl.startsWith('/forcePasswordChange')) {
+	if (!res.locals.currentUser.forcePasswordChange
+		|| req.baseUrl.startsWith('/forcePasswordChange')
+		|| !((res.locals.currentUser || {}).preferences || {}).firstLogin) {
 		return Promise.resolve();
 	}
 	// eslint-disable-next-line prefer-promise-reject-errors
@@ -247,13 +258,7 @@ const login = (payload = {}, req, res, next) => {
 	const { redirect } = payload;
 	delete payload.redirect;
 	return api(req).post('/authentication', { json: payload }).then((data) => {
-		res.cookie('jwt', data.accessToken, {
-			expires: new Date(Date.now() + Configuration.get('COOKIE__EXPIRES_SECONDS')),
-			httpOnly: Configuration.get('COOKIE__HTTP_ONLY'), // can't be set to true with nuxt client
-			hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
-			sameSite: Configuration.get('COOKIE__SAME_SITE'), // restrict jwt access to our domain ressources only
-			secure: Configuration.get('COOKIE__SECURE'),
-		});
+		setCookie(res, 'jwt', data.accessToken);
 		let redirectUrl = '/login/success';
 		if (redirect) {
 			redirectUrl = `${redirectUrl}?redirect=${redirect}`;
@@ -284,13 +289,9 @@ const login = (payload = {}, req, res, next) => {
 const etherpadCookieHelper = (etherpadSession, padId, res) => {
 	const encodedPadId = encodeURI(padId);
 	const padPath = Configuration.get('ETHERPAD__PAD_PATH');
-	res.cookie('sessionID', etherpadSession.data.sessionID, {
+	setCookie(res, 'sessionID', etherpadSession.data.sessionID, {
 		path: `${padPath}/${encodedPadId}`,
 		expires: new Date(etherpadSession.data.validUntil * 1000),
-		httpOnly: Configuration.get('COOKIE__HTTP_ONLY'),
-		hostOnly: Configuration.get('COOKIE__HOST_ONLY'),
-		sameSite: Configuration.get('COOKIE__SAME_SITE'),
-		secure: Configuration.get('COOKIE__SECURE'),
 	});
 };
 
