@@ -110,14 +110,14 @@ $(document).ready(() => {
 					description: eventData.description,
 					location: eventData.location,
 				},
-				action: `/calendar/events/${eventData.uid}`,
+				action: `/calendar/events/${eventData._id}`,
 			});
 
 			if (!eventData['x-sc-teamId']) { // course or non-course event
 				transformCourseOrTeamEvent($editEventModal, eventData);
 				$editEventModal.find('.btn-delete').click(() => {
 					$.ajax({
-						url: `/calendar/events/${eventData.uid}`,
+						url: `/calendar/events/${eventData._id}`,
 						type: 'DELETE',
 						error: showAJAXError,
 						success(result) {
