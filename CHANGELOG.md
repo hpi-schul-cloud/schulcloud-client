@@ -22,6 +22,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7667 - Fixed help desk displays my own local time
+- SC-7652 - Fixed teacher creates a calendar in team then Dashboard empty
 - SC-7353 - fixed course sharing between teachers
 - SC-7645 - Fixed team calendar timezone bug
 - SC-7666 - Fixed rss translation key
