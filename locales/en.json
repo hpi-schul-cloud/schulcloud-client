@@ -545,12 +545,14 @@
 				"checkLDAPData": "Check LDAP data",
 				"endSchoolYear": "End school year",
 				"endTransferPhase": "End transfer phase",
+				"saveGeneralSettings": "Save general settings",
 				"start": "Start",
 				"startTransferPhase": "Start transfer phase"
 			},
 			"headline": {
 				"addPolicy": "Add privacy policy",
-				"finishSchoolYear": "Sure you want to end the school year?"
+				"finishSchoolYear": "Sure you want to end the school year?",
+				"generalSettings": "General Settings"
 			},
 			"label": {
 				"activeChatFunction": "Activate chat function",
@@ -562,7 +564,6 @@
 				"changeOfUserData": "Change of user data / new users",
 				"className": "Class name:",
 				"cloudStorageProvider": "Cloud storage provider",
-				"createChatRoom": "Create a chat room for announcements to the entire school",
 				"currentSchoolYear": "Current school year:",
 				"dataProtectionAdd": "Add privacy policy",
 				"duringTheSchoolYear": "During the school year",
@@ -573,6 +574,8 @@
 				"inTheTransferPhase": "in the transfer phase:",
 				"lernstoreEnabledForStudents": "Lern-Store for students",
 				"loginFromExistingUsers": "Logins of existing users",
+				"messengerSchoolRoom": "Create a chat room for announcements to the entire school",
+				"messengerStudentRoomCreate": "Students can create their own chat rooms",
 				"nameOfTheSchool": "Name of the school",
 				"noteAvailableFunction": "Note available functions",
 				"noteBeforeTheTransferPhase": "Note before the transfer phase:",
@@ -603,7 +606,6 @@
 				"atTheEndOfTheSchoolYearWithLDAP": "When the school year changes, carry out the following actions with LDAP:",
 				"atTheEndOfTheTransferPhase": "When the transfer phase ends, all changes made in the LDAP are synchronized in one go",
 				"atTheSameTime": "At the same time, you ring in the new school year in the HPI school cloud",
-				"chatRoomPermissions": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
 				"coursesWithLearningContent": "Courses with learning content for the coming school year can also be created during the transfer phase (without class assignment)",
 				"doNotEndTheTransferPhase": "Do not end the transfer phase until the users are assigned to the new classes",
 				"fileSelected": "File selected",
@@ -614,6 +616,8 @@
 				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
 				"lernstoreEnabledForStudents": "If unchecked, then the students will not be able to access Lern-Store",
 				"loginViaLDAP": "Login via LDAP is still possible for existing users",
+				"messengerSchoolRoom": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
+				"messengerStudentRoomCreate": "If this feature is enabled, students are allowed to create chat rooms, private conversations and course and team discussions. These rooms are not visible to teachers unless they are explicitly invited.",
 				"newSchoolYear": "New school year",
 				"newUsersClassesAndChanges": "Newly added users, classes and changes to existing data are not synchronized from the LDAP",
 				"noFileSelected": "No file selected",
