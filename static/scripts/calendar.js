@@ -1,4 +1,3 @@
-
 import './jquery/datetimepicker-easy';
 import moment from 'moment';
 import { Calendar } from '@fullcalendar/core';

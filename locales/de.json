@@ -344,7 +344,7 @@
 			"label": {
 				"uploadFile": "Datei hochladen (nur PDF, max 4MB)"
 			},
-			"text": {7
+			"text": {
 				"important": "Wichtig:",
 				"whenANewPrivacyPolicyUpdated": "Wenn eine neue Datenschutzerklärung hochgeladen wird, wird sie allen Nutzern aus dieser Schule zur Zustimmung gegeben."
 			}
