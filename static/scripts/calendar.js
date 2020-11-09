@@ -1,3 +1,4 @@
+
 import './jquery/datetimepicker-easy';
 import moment from 'moment';
 import { Calendar } from '@fullcalendar/core';
@@ -160,9 +161,10 @@ $(document).ready(() => {
 
 	calendar.render();
 
-	$("input[name='isCourseEvent']").change(() => {
-		const isChecked = $(this).is(':checked');
-		const ref = $(this).attr('data-collapseRef');
+	$("input[name='isCourseEvent']").change((event) => {
+		const input = event.target;
+		const isChecked = $(input).is(':checked');
+		const ref = $(input).attr('data-collapseRef');
 		const $collapse = $(`#${ref}`);
 		const $selection = $collapse.find('.course-selection');
 		$selection.find('option')
@@ -188,10 +190,11 @@ $(document).ready(() => {
 		}
 	});
 
-	$("input[name='isTeamEvent']").change(() => {
-		const isChecked = $(this).is(':checked');
-		const ref = $(this).attr('data-collapseRef');
-		const $collapse = $(`#${$(this).attr('data-collapseRef')}`);
+	$("input[name='isTeamEvent']").change((event) => {
+		const input = event.target;
+		const isChecked = $(input).is(':checked');
+		const ref = $(input).attr('data-collapseRef');
+		const $collapse = $(`#${$(input).attr('data-collapseRef')}`);
 		const $selection = $collapse.find('.team-selection');
 		const $videoconferenceToggle = $('.create-videoconference');
 		$selection.find('option')

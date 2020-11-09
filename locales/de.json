@@ -344,7 +344,7 @@
 			"label": {
 				"uploadFile": "Datei hochladen (nur PDF, max 4MB)"
 			},
-			"text": {
+			"text": {7
 				"important": "Wichtig:",
 				"whenANewPrivacyPolicyUpdated": "Wenn eine neue Datenschutzerklärung hochgeladen wird, wird sie allen Nutzern aus dieser Schule zur Zustimmung gegeben."
 			}
@@ -743,6 +743,8 @@
 	},
 	"calendar": {
 		"button": {
+			"availableCourses": "Verfügbare Kurse",
+			"availableTeams": "Verfügbare Teams",
 			"chooseACourse": "Wähle einen Kurs...",
 			"chooseATeam": "Wähle eine Team"
 		},
