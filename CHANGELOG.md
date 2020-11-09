@@ -20,6 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - OPS-1508 - added limits for cpu and ram to the docker compose files
 - SC-5942 - Add trim() before email for password recovery got send to server
 - OPS-1297 - Added Changelog github action
+- SC-6596 - Added school option to allow students to create chat rooms
 
 ### Fixed
 
