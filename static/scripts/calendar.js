@@ -97,27 +97,27 @@ $(document).ready(() => {
 			const startDate = moment.utc(event.start).format('DD.MM.YYYY HH:mm');
 			const endDate = moment.utc(event.end || event.start).format('DD.MM.YYYY HH:mm');
 
-			const { attributes } = event.extendedProps || {};
+			const eventData = event.extendedProps || {};
 
 			populateModalForm($editEventModal, {
 				title: $t('global.headline.dateDetails'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.save'),
 				fields: {
-					summary: attributes.summary,
+					summary: eventData.summary,
 					startDate,
 					endDate,
-					description: attributes.description,
-					location: attributes.location,
+					description: eventData.description,
+					location: eventData.location,
 				},
-				action: `/calendar/events/${attributes.uid}`,
+				action: `/calendar/events/${eventData.uid}`,
 			});
 
-			if (!event['x-sc-teamId']) { // course or non-course event
-				transformCourseOrTeamEvent($editEventModal, event);
+			if (!eventData['x-sc-teamId']) { // course or non-course event
+				transformCourseOrTeamEvent($editEventModal, eventData);
 				$editEventModal.find('.btn-delete').click(() => {
 					$.ajax({
-						url: `/calendar/events/${attributes.uid}`,
+						url: `/calendar/events/${eventData.uid}`,
 						type: 'DELETE',
 						error: showAJAXError,
 						success(result) {
@@ -128,8 +128,8 @@ $(document).ready(() => {
 				$editEventModal.appendTo('body').modal('show');
 			}
 
-			if (event['x-sc-teamId']) { // team event
-				const teamId = event['x-sc-teamId'];
+			if (eventData['x-sc-teamId']) { // team event
+				const teamId = eventData['x-sc-teamId'];
 				window.location.assign(`/teams/${teamId}?activeTab=events`);
 			}
 
