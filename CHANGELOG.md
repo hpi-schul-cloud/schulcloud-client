@@ -44,6 +44,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6951 removes via text from embeded course content
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
 - IMP-160 rename integration test repository
+- SC-6096 Remove button from help section for demo theme
 
 ## 25.2.0
 
@@ -206,7 +207,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
   - SC-5955 Changed links to Lernen.cloud
   - SC-5644 navigation and the general structure of pages made more accessible (a11y)
   - SC-6245 If students can create teams, they can also invite other students to teams
-  - SC-6096 Remove button from help section for demo theme
 
 ## [24.4.1] - 2020-9-01
 
