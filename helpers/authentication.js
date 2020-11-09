@@ -138,7 +138,7 @@ const populateCurrentUser = async (req, res) => {
 
 				const userPermissions = res.locals.currentUser.permissions;
 				const userHasPermissions = userPermissions.includes('MESSENGER_ROOM_CREATE');
-				const schoolFeatures = res.locals.currentSchoolData.features;
+				const schoolFeatures = res.locals.currentSchoolData.features || [];
 				const schoolAllowsRoomCreation = schoolFeatures.includes('messengerStudentRoomCreate');
 				const blockRoomCreation = (!userHasPermissions && !schoolAllowsRoomCreation);
 				res.locals.matrixBlockRoomCreation = blockRoomCreation ? 'true' : 'false';
