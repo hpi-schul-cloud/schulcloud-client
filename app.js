@@ -17,6 +17,7 @@ const { Configuration } = require('@schul-cloud/commons');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 const { nonceValueSet } = require('./helpers/csp');
 
+
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 const logger = require('./helpers/logger');
@@ -27,14 +28,17 @@ const {
 	SC_THEME,
 	REDIS_URI,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
+	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
 	JWT_TIMEOUT_SECONDS,
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
-	ROCKETCHAT_SERVICE_ENABLED,
 	FEATURE_MATRIX_MESSENGER_ENABLED,
 } = require('./config/global');
 
 const app = express();
+
+// print current configuration
+Configuration.printHierarchy();
 
 if (Configuration.has('SENTRY_DSN')) {
 	Sentry.init({
@@ -137,23 +141,17 @@ if (redisUrl) {
 	sessionStore = new session.MemoryStore();
 }
 
-if (!Configuration.get('COOKIE__SECURE') && Configuration.get('COOKIE__SAME_SITE') === 'None') {
-	Configuration.set('COOKIE__SAME_SITE', 'Lax');
-	// eslint-disable-next-line max-len
-	const cookieConfigErrorMsg = 'Setting COOKIE.SAME_SITE="None" requires COOKIE.SECURE=true. Changed to COOKIE.SAME_SITE="Lax"';
-	Sentry.captureMessage(cookieConfigErrorMsg);
-	logger.error(cookieConfigErrorMsg);
-}
-
+const SIX_HOURS = 1000 * 60 * 60 * 6;
 app.use(session({
-	cookie: { maxAge: 1000 * 60 * 60 * 6 },
+	cookie: {
+		// TODO ...cookieDefaults,
+		maxAge: SIX_HOURS,
+	},
 	rolling: true, // refresh session with every request within maxAge
 	store: sessionStore,
 	saveUninitialized: true,
 	resave: false,
 	secret: Configuration.get('COOKIE_SECRET'), // Secret used to sign the session ID cookie
-	sameSite: Configuration.get('COOKIE__SAME_SITE'), // restrict jwt access to our domain ressources only
-	secure: Configuration.get('COOKIE__SECURE'),
 }));
 
 // CSRF middlewares
@@ -181,11 +179,14 @@ app.use(async (req, res, next) => {
 	res.locals.production = req.app.get('env') === 'production';
 	res.locals.env = req.app.get('env') || false; // TODO: ist das false hier nicht quatsch?
 	res.locals.JWT_SHOW_TIMEOUT_WARNING_SECONDS = Number(JWT_SHOW_TIMEOUT_WARNING_SECONDS);
+	res.locals.MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = Number(MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE);
+	// eslint-disable-next-line max-len
+	res.locals.MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_MEGABYTE = (MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE / 1024 / 1024);
 	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
 	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
 	res.locals.version = version;
 	res.locals.sha = sha;
-	res.locals.ROCKETCHAT_SERVICE_ENABLED = ROCKETCHAT_SERVICE_ENABLED;
+	res.locals.ROCKETCHAT_SERVICE_ENABLED = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 	res.locals.FEATURE_MATRIX_MESSENGER_ENABLED = FEATURE_MATRIX_MESSENGER_ENABLED;
 	delete req.session.notification;
 	try {
@@ -216,24 +217,24 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 		delete req.body._method;
 		return method;
 	}
+	return undefined;
 }));
 
 // add res.$t method for i18n with users prefered language
 app.use(require('./middleware/i18n'));
+app.use(require('./middleware/datetime'));
 
 // Initialize the modules and their routes
-app.use(require('./controllers/'));
+app.use(require('./controllers'));
 
 app.get('/', (req, res, next) => {
 	res.redirect('/login/');
 });
 
-// sentry error handler
-app.use(Sentry.Handlers.errorHandler());
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-	const err = new Error('Not Found');
+	const url = req.originalUrl || req.url;
+	const err = new Error(`Page Not Found ${url}`);
 	err.status = 404;
 	next(err);
 });
@@ -243,40 +244,67 @@ if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 	app.use(csrfErrorHandler);
 }
 
-const handleTimeouts = (err, res) => {
-	if (!err.options) {
-		err.options = {};
-	}
+// no statusCode exist for this cases
+const isTimeoutError = (err) => err && err.message && (
+	err.message.includes('ESOCKETTIMEDOUT')
+	|| err.message.includes('ECONNREFUSED')
+	|| err.message.includes('ETIMEDOUT')
+);
 
-	const baseRoute = typeof err.options.baseUrl === 'string' ? err.options.baseUrl.slice(0, -1) : '';
-	const route = baseRoute + err.options.uri;
-
-	// no statusCode exist for this cases
-	if (err.message.includes('ESOCKETTIMEDOUT') || err.message.includes('ECONNREFUSED')) {
-		logger.warn(`${err.message} by route: ${route}`);
-		Sentry.captureException(err);
-		if (res.locals) {
-			const routeMessage = res.locals.production ? '' : ` beim Aufruf der Route ${route}`;
-			res.locals.message = `Es ist ein Fehler aufgetreten${routeMessage}. Bitte versuche es erneut.`;
-		}
-	}
-};
+// sentry error handler
+app.use(Sentry.Handlers.errorHandler());
 
 app.use((err, req, res, next) => {
-	// set locals, only providing error in development
-	const status = err.status || err.statusCode || 500;
-	if (err.statusCode && err.error && err.error.message) {
-		res.setHeader('error-message', err.error.message);
-		res.locals.message = err.error.message;
-	} else {
-		res.locals.message = err.message;
+	const error = err.error || err;
+	const status = error.status || error.statusCode || 500;
+	error.statusCode = status;
+
+	if (!error.options) {
+		error.options = {};
+	}
+	if (!res.locals) {
+		res.locals = {};
+	}
+	// prevent logging jwts and x-api-keys
+	delete error.options.headers;
+
+	const reqInfo = {
+		url: req.originalUrl || req.url,
+		method: req.originalMethod || req.method,
+		params: req.params,
+		body: req.body,
+	};
+	error.requestInfo = reqInfo;
+
+	if (res.locals.currentUser) {
+		res.locals.loggedin = true;
+		const { _id, schoolId, roles } = res.locals.currentUser;
+		error.currentUser = {
+			userId: _id,
+			schoolId,
+			roles: (roles || []).map((r) => r.name),
+		};
 	}
 
-	handleTimeouts(err, res);
+	if (error.message) {
+		res.setHeader('error-message', error.message);
+		res.locals.message = error.message;
+	} else {
+		res.locals.message = `Error with statusCode ${status}`;
+	}
 
+	// override with try again message by timeouts
+	if (isTimeoutError(error)) {
+		const baseRoute = typeof err.options.baseUrl === 'string' ? err.options.baseUrl.slice(0, -1) : '';
+		const route = baseRoute + err.options.uri;
+		const routeMessage = res.locals.production ? '' : ` beim Aufruf der Route ${route}`;
+		res.locals.message = `Es ist ein Fehler aufgetreten${routeMessage}. Bitte versuche es erneut.`;
+	}
+
+	// do not show full errors in production mode
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
-	if (err.error) logger.error(err.error);
-	if (res.locals.currentUser) res.locals.loggedin = true;
+
+	logger.error(error);
 
 	// keep sidebar restricted in error page
 	authHelper.restrictSidebar(req, res);

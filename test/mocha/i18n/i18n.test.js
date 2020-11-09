@@ -2,17 +2,18 @@ const chai = require('chai');
 
 const { expect } = chai;
 
-const deJson = require('../../../locales/de.json');
+const rawDeJson = require('../../../locales/de.json');
+const rawEnJson = require('../../../locales/en.json');
 
-const allowedTypes = ['button', 'headline', 'link', 'text', 'heading',
+const allowedTypes = ['button', 'headline', 'link', 'text', 'format',
 	'placeholder', 'input', 'label', 'img_alt', 'tab_label', 'aria_label'];
 
 // new format: {"about.button.showLess" : "Weniger anzeigen"}
-function formatJson(json, path, object) {
+function formatJson(json, object, path = '') {
 	for (const key in json) {
 		if (Object.prototype.hasOwnProperty.call(json, key)) {
 			if (typeof (json[key]) !== 'string') {
-				formatJson(json[key], (path === '') ? key : `${path}.${key}`, object);
+				formatJson(json[key], object, (path === '') ? key : `${path}.${key}`);
 			} else {
 				object[`${path}.${key}`] = json[key];
 			}
@@ -24,9 +25,7 @@ function getWrongTypes(json) {
 	for (const key in json) {
 		if (Object.prototype.hasOwnProperty.call(json, key)) {
 			const path = key.split('.');
-			if (path.length < 2) {
-				foundViolations.push(key);
-			} else if (!allowedTypes.includes(path[path.length - 2])) {
+			if (path.length < 2 || !allowedTypes.includes(path[path.length - 2])) {
 				foundViolations.push(key);
 			}
 		}
@@ -57,18 +56,53 @@ function getDuplicates(json) {
 }
 
 describe('i18n test de.json', () => {
-	const json = {};
-	it('Load Json', () => {
-		formatJson(deJson, '', json);
+	const DEjson = {};
+	const ENjson = {};
+
+	it('Load de.json', () => {
+		formatJson(rawDeJson, DEjson);
 	});
+
+	it('Load en.json', () => {
+		formatJson(rawEnJson, ENjson);
+	});
+
 	it('Check for usage of right types', () => {
-		const wrongKeys = getWrongTypes(json);
+		const wrongKeys = getWrongTypes(DEjson);
 		expect(JSON.stringify(wrongKeys)).to.equal(JSON.stringify([]),
-			`The second last type should be one of the following; ${allowedTypes}`);
+			`The second last type of a key should be one of the following; ${allowedTypes}`);
 	});
+
 	it('Check for duplicates', () => {
-		const wrongKeys = getDuplicates(json);
+		const wrongKeys = getDuplicates(DEjson);
 		expect(JSON.stringify(wrongKeys)).to.equal(JSON.stringify([]),
 			'There is already another key with the same text.');
+	});
+
+	it('Check if de.json and en.json are in sync', () => {
+		const deKeys = Object.getOwnPropertyNames(DEjson);
+		const enKeys = Object.getOwnPropertyNames(ENjson);
+		const difference = deKeys.filter((x) => !enKeys.includes(x))
+			.concat(enKeys.filter((x) => !deKeys.includes(x)));
+		expect(JSON.stringify(difference)).to.equal(JSON.stringify([]),
+			'Some keys seem to be out of sync. Please add them in the de.json/en.json');
+	});
+
+	it('Check for empty keys', () => {
+		const emptyKeys = [];
+		const deKeys = Object.getOwnPropertyNames(DEjson);
+		const enKeys = Object.getOwnPropertyNames(ENjson);
+		deKeys.forEach((key) => {
+			if (DEjson[key] === '') {
+				emptyKeys.push(key);
+			}
+		});
+		enKeys.forEach((key) => {
+			if (ENjson[key] === '') {
+				emptyKeys.push(key);
+			}
+		});
+		expect(JSON.stringify(emptyKeys)).to.equal(JSON.stringify([]),
+			'Some keys seem to be empty, please add a corresponding translation');
 	});
 });

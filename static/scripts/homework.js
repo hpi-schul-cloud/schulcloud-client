@@ -18,14 +18,10 @@ const getCurrentParent = getDataValue('parent');
 let lastFocusedElement;
 
 window.addEventListener('keydown', (e) => {
-	if (e.keyCode === 27) {
+	if (e.keyCode === 27 && lastFocusedElement) {
 		lastFocusedElement.focus();
 	}
 });
-function getTeamMemberIds() {
-	const domValue = $('#teamMembers').val();
-	return $.isArray(domValue) ? domValue : (domValue || '').split(',');
-}
 
 function isSubmissionGradeUpload() {
 	// Uses the fact that the page can only ever contain one file upload form,
@@ -105,8 +101,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	const filterModule = document.getElementById('filter');
 	const sortingModal = document.querySelector('.md-chip.md-theme-default');
 	const closingButton = document.querySelector('.md-icon-button');
-	closingButton.setAttribute('aria-label', 'Abbrechen');
-	closingButton.setAttribute('tabindex', '0');
+	if (closingButton) {
+		closingButton.setAttribute('aria-label', 'Abbrechen');
+		closingButton.setAttribute('tabindex', '0');
+	}
 
 	if (!filterModule) { return; }
 	filterModule.addEventListener('newFilter', (e) => {
@@ -220,10 +218,10 @@ $(document).ready(() => {
 		} else {
 			lastTeamMembers = $(this).val();
 		}
-		$(this).chosen().trigger('chosen:updated');
+		// $(this).chosen().trigger('chosen:updated');
 	});
 
-	$('select#teamMembers').chosen().change((event, data) => {
+	$('select#teamMembers').change((event, data) => {
 		if (data.deselected && data.deselected === $('.owner').val()) {
 			$('.owner').prop('selected', true);
 			$('#teamMembers').trigger('chosen:updated');
@@ -278,6 +276,10 @@ $(document).ready(() => {
 				// get signed url before processing the file
 				// this is called on per-file basis
 				file.submissionId = $(this.element).parents('.submission-editor').find('[name="submissionId"]').val();
+				file.teamMemberIds = $(this.element).parents('.submission-editor').find('[name="teamMembers"]').val();
+				if (!Array.isArray(file.teamMemberIds)) {
+					file.teamMemberIds = (file.teamMemberIds || '').split(',');
+				}
 				requestUploadUrl(file, getCurrentParent())
 					.then((data) => {
 						file.signedUrl = data.signedUrl;
@@ -338,7 +340,7 @@ $(document).ready(() => {
 					});
 				});
 
-				this.on('success', function onSuccessfulUpload(file) {
+				this.on('success', async function onSuccessfulUpload(file) {
 					finishedFilesSize += file.size;
 
 					const parentId = getCurrentParent();
@@ -354,21 +356,19 @@ $(document).ready(() => {
 					if (parentId) {
 						params.parent = parentId;
 					}
-					const { submissionId } = file;
+					const { submissionId, teamMemberIds } = file;
 
 					// post file meta to proxy file service for persisting data
-					createFileModel(params).then((data) => {
+					await createFileModel(params).then(async (data) => {
 						// add submitted file reference to submission
 						// hint: this only runs when an submission is already existing. if not, the file submission will
 						// be only saved when hitting the save button in the corresponding submission form
 						// const submissionId = $("input[name='submissionId']").val();
 						const homeworkId = $("input[name='homeworkId']").val();
-
-						const teamMembers = getTeamMemberIds();
 						if (submissionId) {
 							const associationType = isSubmissionGradeUpload() ? 'grade-files' : 'files';
-							associateFilesWithSubmission({
-								submissionId, fileIds: [data._id], associationType, teamMembers,
+							await associateFilesWithSubmission({
+								submissionId, fileIds: [data._id], associationType, teamMembers: teamMemberIds,
 							});
 						} else {
 							addNewUploadedFile($('.js-file-list'), data);

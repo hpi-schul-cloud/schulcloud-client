@@ -21,7 +21,7 @@
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
       <section data-panel="section-1">
-        <h2 class="h4">{{$t "registration._registration.parent.heading.yourChildsData" }}</h2>
+        <h2 class="h4">{{$t "registration._registration.parent.headline.yourChildsData" }}</h2>
       <p>{{$t "registration._registration.global.text.bellowNYearsOldConsentOfLegalGuardian" (dict "shortTitle" theme.short_title "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>
         <p>{{$t "registration._registration.parent.text.weNeedFollowingDataOfChild" (dict "shortTitle" theme.short_title)}}</p>
         <div class="row">
@@ -38,10 +38,15 @@
         </div>
 
         <div class="form-group">
-          <label>{{$t "registration._registration.global.label.studentsDateOfBirth" }} <sup>*</sup></label>
-          <input class="form-control linked" name="birthDate" type="text"
-            data-date data-min-date="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 -1}}" data-max-date="{{datePickerTodayMinus 4 0 0}}"
-            value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{/if}}" autocomplete="off" required {{#if user.birthday}}readonly{{/if}}/>
+          {{> "lib/forms/form-date-input"
+                  label=($t "registration._registration.global.label.studentsDateOfBirth")
+                  id="birthDate"
+                  value=user.birthday
+                  required=true
+                  readonly=(isset user.birthday)
+                  dataMinDate=(datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 -1)
+                  dataMaxDate=(datePickerTodayMinus 4 0 0)
+          }}
         </div>
 
         <div class="form-group">
@@ -105,9 +110,9 @@
 
 
       <section data-panel="section-5">
-        <h2 class="h4">{{$t "registration._registration.global.heading.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
       {{#if user.sso}}
-              <p>{{$t "registration._registration.parent.heading.yourChildsSSO" }}</p>
+              <p>{{$t "registration._registration.parent.headline.yourChildsSSO" }}</p>
       {{else}}
         <div>
           <p>

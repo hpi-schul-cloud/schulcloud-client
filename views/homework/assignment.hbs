@@ -70,9 +70,9 @@
 				{{#if (userHasRole "student")}}
 				<i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
 				{{/if}}
-                {{availableDateF}} ({{availableTimeF}}) |
+                {{i18nDateTime availableDate}}
                 {{#if dueDate}}
-                    bis: {{dueDateF}} ({{dueTimeF}})
+                    {{$t "homework.text.till"}}: {{timeToString dueDate}}
                 {{else}}
                     {{$t "homework.text.noSubmissionDateSet"}}
                 {{/if}}
@@ -156,7 +156,6 @@
             </div>
         </section>
 
-		{{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}
-		{{/embed}}
+		{{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}{{/embed}}
     {{/content}}
 {{/extend}}

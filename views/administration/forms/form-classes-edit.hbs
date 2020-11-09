@@ -32,7 +32,7 @@
 <div class="form-group">
 	<label>{{$t "administration.classes.label.selectTeacher" }}</label>
 
-	<select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
+	<select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher" }}">
 		{{#each teachers}}
 			<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
 				{{#if this.displayName}}
@@ -74,14 +74,14 @@
 		<p>{{$t "administration.longText.text.canCreateYearIndependentClasses" }}</p>
 		<div class="form-group">
 			<label>{{$t "administration.classes.label.className" }}</label>
-			<input data-testid="Klassenbezeichnung" class="form-control linked" name="classcustom" type="text" placeholder="{{$t "administration.classes.placeholder.example" }}"
+			<input data-testid="Klassenbezeichnung" class="form-control linked" name="classcustom" type="text" placeholder="{{$t "administration.classes.placeholder.exampleName" }}"
 				required value="{{class.customName}}" {{#unless isCustom}}disabled{{/unless}} />
 		</div>
 		<label class="my-1">
 			<input name="keepyear" type="checkbox" value="true"
 				{{#ifCond edit '&&' isCustom}}{{#if @root.class.keepYear}}checked{{/if}}{{else}}checked{{/ifCond}}
 				{{#unless isCustom}}disabled{{/unless}} />
-			<span>{{$t "administration.classes.label.mantainSchoolYearAssignment" }}</span>
+			<span>{{$t "administration.classes.label.maintainSchoolYearAssignment" }}</span>
 		</label>
 	</section>
 
@@ -108,7 +108,7 @@
 	{{#ifeq mode "create"}}
 		<button data-testId="confirmClassCreate" class="btn btn-primary" type="submit" disabled>{{$t "administration.classes.button.addClass" }}</button>
 		{{#userHasPermission 'ADMIN_VIEW'}}
-			<p>{{$t "administration.classes.text.theNextStepIstoInviteOrAdd" }}</p>
+			<p>{{$t "administration.classes.text.theNextStepIsToInviteOrAdd" }}</p>
 		{{/userHasPermission}}
 	{{/ifeq}}
 	{{#ifeq mode "edit"}}

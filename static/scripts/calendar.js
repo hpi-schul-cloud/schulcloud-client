@@ -1,16 +1,16 @@
 import './jquery/datetimepicker-easy';
-import moment from 'moment';
 import { Calendar } from '@fullcalendar/core';
 import deLocale from '@fullcalendar/core/locales/de';
+import enLocale from '@fullcalendar/core/locales/en-gb';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { toMoment } from '@fullcalendar/moment';
+import momentTimezonePlugin from '@fullcalendar/moment-timezone';
 
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
-
-	const reloadCalendar = window.location.reload;
 
 	function showAJAXError(req, textStatus, errorThrown) {
 		$editEventModal.modal('hide');
@@ -23,8 +23,8 @@ $(document).ready(() => {
 
 	/**
 	 * Transforms an event modal-form for course/team events
-	 * @param modal {DOM-Element} - the given modal which will be transformed
-	 * @param event {object} - an event, might be a course/team event
+	 * @param modal {HTMLElement} - the given modal which will be transformed
+	 * @param event {Object} - an event, might be a course/team event
 	 */
 	function transformCourseOrTeamEvent(modal, event) {
 		if (event['x-sc-courseId']) {
@@ -68,12 +68,15 @@ $(document).ready(() => {
 
 	const view = window.location.hash.substring(1);
 
+	const calendarLanguage = document.querySelector('html').getAttribute('lang') === 'de' ? deLocale : enLocale;
+	const calendarTimezone = document.querySelector('html').getAttribute('timezone');
+
 	const calendar = new Calendar(calendarElement, {
-		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, momentTimezonePlugin],
 		defaultView: view || 'dayGridMonth',
 		editable: false,
-		timeZone: 'UTC',
-		locale: deLocale,
+		timeZone: calendarTimezone || 'Europe/Berlin',
+		locale: calendarLanguage,
 		header: {
 			left: 'title',
 			right: 'dayGridMonth,timeGridWeek,timeGridDay prev,today,next',
@@ -93,26 +96,34 @@ $(document).ready(() => {
 				return false;
 			}
 			// personal event
-			event.startDate = event.start.format('DD.MM.YYYY HH:mm');
-			event.endDate = (event.end || event.start).format('DD.MM.YYYY HH:mm');
+			const startDate = toMoment(event.start, calendar).format($t('format.dateTimeToPicker'));
+			const endDate = toMoment(event.end || event.start, calendar).format($t('format.dateTimeToPicker'));
+
+			const { attributes } = event.extendedProps || {};
 
 			populateModalForm($editEventModal, {
-				title: $t('calendar.headline.dateDetails'),
+				title: $t('global.headline.dateDetails'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.save'),
-				fields: event,
-				action: `/calendar/events/${event.attributes.uid}`,
+				fields: {
+					summary: attributes.summary,
+					startDate,
+					endDate,
+					description: attributes.description,
+					location: attributes.location,
+				},
+				action: `/calendar/events/${attributes.uid}`,
 			});
 
 			if (!event['x-sc-teamId']) { // course or non-course event
 				transformCourseOrTeamEvent($editEventModal, event);
 				$editEventModal.find('.btn-delete').click(() => {
 					$.ajax({
-						url: `/calendar/events/${event.attributes.uid}`,
+						url: `/calendar/events/${attributes.uid}`,
 						type: 'DELETE',
 						error: showAJAXError,
 						success(result) {
-							reloadCalendar();
+							window.location.reload();
 						},
 					});
 				});
@@ -130,8 +141,8 @@ $(document).ready(() => {
 			const { date } = info;
 
 			// open create event modal
-			const startDate = moment(date).format('DD.MM.YYYY HH:mm');
-			const endDate = moment(date).add(1, 'hour').format('DD.MM.YYYY HH:mm');
+			const startDate = toMoment(date, calendar).format($t('format.dateTimeToPicker'));
+			const endDate = toMoment(date, calendar).add(1, 'hour').format($t('format.dateTimeToPicker'));
 
 			populateModalForm($createEventModal, {
 				title: $t('global.headline.addDate'),
@@ -151,9 +162,10 @@ $(document).ready(() => {
 
 	calendar.render();
 
-	$("input[name='isCourseEvent']").change(() => {
-		const isChecked = $(this).is(':checked');
-		const ref = $(this).attr('data-collapseRef');
+	$("input[name='isCourseEvent']").change((event) => {
+		const input = event.target;
+		const isChecked = $(input).is(':checked');
+		const ref = $(input).attr('data-collapseRef');
 		const $collapse = $(`#${ref}`);
 		const $selection = $collapse.find('.course-selection');
 		$selection.find('option')
@@ -173,17 +185,17 @@ $(document).ready(() => {
 					option.value = course._id;
 					$selection.append(option);
 				});
-				$selection.chosen().trigger('chosen:updated');
 			});
 		} else {
 			$collapse.collapse('hide');
 		}
 	});
 
-	$("input[name='isTeamEvent']").change(() => {
-		const isChecked = $(this).is(':checked');
-		const ref = $(this).attr('data-collapseRef');
-		const $collapse = $(`#${$(this).attr('data-collapseRef')}`);
+	$("input[name='isTeamEvent']").change((event) => {
+		const input = event.target;
+		const isChecked = $(input).is(':checked');
+		const ref = $(input).attr('data-collapseRef');
+		const $collapse = $(`#${$(input).attr('data-collapseRef')}`);
 		const $selection = $collapse.find('.team-selection');
 		const $videoconferenceToggle = $('.create-videoconference');
 		$selection.find('option')
@@ -202,7 +214,6 @@ $(document).ready(() => {
 					option.value = team._id;
 					$selection.append(option);
 				});
-				$selection.chosen().trigger('chosen:updated');
 				$videoconferenceToggle.show();
 			});
 		} else {

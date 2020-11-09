@@ -1,16 +1,16 @@
 const express = require('express');
 
+const { Configuration } = require('@schul-cloud/commons');
 const { version } = require('../package.json');
 const {
 	sha, branch, message, stat,
 } = require('../helpers/version');
 
-const { SHOW_VERSION } = require('../config/global');
 
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-	if (!SHOW_VERSION) {
+	if (Configuration.get('FEATURE_SHOW_VERSION_ENABLED') !== true) {
 		return res.sendStatus(403);
 	}
 	const { birthtime } = stat;
