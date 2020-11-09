@@ -71,9 +71,6 @@ jobs:
       script: cd schulcloud-client && npm run mocha && cd ..
     - script: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/fetch.travis.sh" | bash
       name: end-to-end-tests
-      env:
-        - IT_CLIENT_HOST=nuxtclient
-        - IT_CLIENT_PORT=4000
       install:
         - echo "skipping install"
       after_failure:
