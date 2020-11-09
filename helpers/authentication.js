@@ -135,6 +135,13 @@ const populateCurrentUser = async (req, res) => {
 				res.locals.currentSchool = res.locals.currentUser.schoolId;
 				res.locals.currentSchoolData = data2;
 				res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
+
+				const userPermissions = res.locals.currentUser.permissions;
+				const userHasPermissions = userPermissions.includes('MESSENGER_ROOM_CREATE');
+				const schoolFeatures = res.locals.currentSchoolData.features || [];
+				const schoolAllowsRoomCreation = schoolFeatures.includes('messengerStudentRoomCreate');
+				const blockRoomCreation = (!userHasPermissions && !schoolAllowsRoomCreation);
+				res.locals.matrixBlockRoomCreation = blockRoomCreation ? 'true' : 'false';
 				return data2;
 			});
 		}).catch((e) => {

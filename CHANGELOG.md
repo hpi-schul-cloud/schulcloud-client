@@ -19,6 +19,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7413 - Add winston handler for logging unhandled rejection and exceptions
 - SC-5942 - Add trim() before email for password recovery got send to server
 - OPS-1297 - Added Changelog github action
+- SC-6596 - Added school option to allow students to create chat rooms
 
 ### Fixed
 
