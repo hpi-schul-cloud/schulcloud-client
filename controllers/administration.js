@@ -2332,43 +2332,26 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 		});
 };
 
-const updateSchoolFeature = async (req, currentFeatures, newState, featureName) => {
-	const isCurrentlyAllowed = (currentFeatures || []).includes(featureName);
+const updateSchoolFeatures = async (req, currentFeatures, features) => {
+	const pushValues = Object.keys(features)
+		.filter((feature) => features[feature] && !currentFeatures.includes(feature));
+	const pullValues = Object.keys(features)
+		.filter((feature) => !features[feature] && currentFeatures.includes(feature));
 
-	if (!isCurrentlyAllowed && newState) {
-		// add feature
-		await api(req)
-			.patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: featureName,
-					},
-				},
-			});
+	const requests = [];
+	if (pushValues.length > 0) {
+		requests.push(api(req)
+			.patch(`/schools/${req.params.id}`, { json: { $push: { features: { $each: pushValues } } } }));
 	}
-
-	if (isCurrentlyAllowed && !newState) {
-		// remove feature
-		await api(req)
-			.patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: featureName,
-					},
-				},
-			});
+	if (pullValues.length > 0) {
+		requests.push(api(req)
+			.patch(`/schools/${req.params.id}`, { json: { $pull: { features: { $in: pullValues } } } }));
 	}
+	await Promise.all(requests);
 };
 
 const schoolFeatureUpdateHandler = async (req, res, next) => {
 	try {
-		const currentFeatures = res.locals.currentSchoolData.features;
-		await updateSchoolFeature(req, currentFeatures, req.body.rocketchat === 'true', 'rocketChat');
-		delete req.body.rocketchat;
-
-		await updateSchoolFeature(req, currentFeatures, req.body.videoconference === 'true', 'videoconference');
-		delete req.body.videoconference;
-
 		// Toggle teacher's studentVisibility permission
 		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
 		if (studentVisibilityFeature) {
@@ -2399,12 +2382,17 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		delete req.body.studentlernstorevisibility;
 
+		const currentFeatures = res.locals.currentSchoolData.features;
+
 		// Update school features
-		const possibleSchoolFeatures = ['messenger', 'messengerSchoolRoom'];
+		const possibleSchoolFeatures = [
+			'messenger', 'messengerSchoolRoom', 'messengerStudentRoomCreate', 'rocketChat', 'videoconference',
+		];
+		const featuresToSet = {};
 		for (const feature of possibleSchoolFeatures) {
-			await updateSchoolFeature(req, currentFeatures, req.body[feature] === 'true', feature);
-			delete req.body[feature];
+			featuresToSet[feature] = req.body[feature] === 'true';
 		}
+		await updateSchoolFeatures(req, currentFeatures, featuresToSet);
 	} catch (err) {
 		next(err);
 	}
