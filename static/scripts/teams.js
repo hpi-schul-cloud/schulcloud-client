@@ -1,12 +1,11 @@
 /* eslint-disable no-undef */
 // jshint esversion: 6
 
-import moment from 'moment-timezone';
 import 'jquery-datetimepicker';
 import './jquery/datetimepicker-easy';
 import { initVideoconferencing } from './videoconference';
 
-const calendarTimezone = document.querySelector('html').getAttribute('timezone');
+const datetime = require('./datetime/datetime');
 
 /**
  * transform a event modal-form for team events
@@ -53,8 +52,7 @@ $(document).ready(() => {
 
 	$('.btn-create-event').click(() => {
 		// open create event modal
-		const startDate = moment().format($t('format.dateTimeToPicker'));
-		const endDate = moment().add(1, 'hour').format($t('format.dateTimeToPicker'));
+		const [startDate, endDate] = datetime.inputRange({ toOffset: 1, toOffsetBase: 'hour' });
 
 		$createEventModal.find('.create-videoconference').show();
 
@@ -81,9 +79,8 @@ $(document).ready(() => {
 			window.location.href = event.url;
 			return false;
 		}
-		event.startDate = moment(event.start).tz(calendarTimezone).format($t('format.dateTimeToPicker'));
-		event.endDate = moment(event.end || event.start).tz(calendarTimezone)
-			.format($t('format.dateTimeToPicker'));
+		event.startDate = datetime.toDateTimeString(event.start);
+		event.endDate = datetime.toDateTimeString(event.end || event.start);
 		event.featureVideoConference = event.attributes['x-sc-featurevideoconference'];
 		populateModalForm($editEventModal, {
 			title: $t('global.headline.dateDetails'),
@@ -150,7 +147,7 @@ $(document).ready(() => {
 				const { filePermission } = data.team;
 
 				const newPermission = filePermission
-					.filter(permission => ['teamexpert', 'teammember'].indexOf(permission.roleName) > -1)
+					.filter((permission) => ['teamexpert', 'teammember'].indexOf(permission.roleName) > -1)
 					.map((permission) => {
 						const setPermission = ['create', 'read', 'delete', 'write'].reduce((obj, right) => {
 							obj[right] = allowed[permission.roleName];
