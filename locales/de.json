@@ -1377,6 +1377,7 @@
 			"roleUser": "Rolle/Benutzer",
 			"selectAFolder": "Wähle einen Ordner aus",
 			"shareFile": "Datei teilen",
+			"sortBy" : "Sortieren nach...",
 			"size": "Größe",
 			"updatedAt": "Änderungsdatum",
 			"write": "Schreiben"
