@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6980 Shared files are not opened automaticly but added to the shared files area.
 - Disabled share file Button for files thar are already shared
 - SC-6662 - Add data-testid in homework for integration test
+- SC-7571 - fixed registration link generation (performance issues)
 
 ### Added
 
