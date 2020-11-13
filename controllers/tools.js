@@ -70,7 +70,7 @@ const runToolHandler = (req, res, next) => {
 
 		if (tool.privacy_permission === 'pseudonymous') {
 			userId = pseudonym.data[0].pseudonym;
-			name = encodeURI(pseudonym.data[0].user.iframe);
+			name = pseudonym.data[0].user.iframe;
 		} else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
 			userId = currentUser._id;
 		}

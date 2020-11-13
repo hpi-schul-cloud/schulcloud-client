@@ -112,6 +112,7 @@ $(document).ready(() => {
 					fields: tool,
 				});
 				const courseId = $editModal.find('.modal-form').find("input[name='courseId']").val();
+				$deepLinkingModal.find('iframe').remove();
 				$deepLinkingModal
 					.find('.modal-body')
 					.append(`<iframe src="/courses/${courseId}/tools/run/${tool._id}" />`);
