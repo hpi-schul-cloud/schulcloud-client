@@ -205,9 +205,10 @@ const deleteEventsForData = (service) => (req, res, next) => {
  *          host: current webaddress from client = string, looks for req.headers.origin first
  *          schoolId: users schoolId = string
  *          toHash: optional, user account mail for hash generation = string
+ * 			classId: optional, classId alle the users belongs to, only for the bulkcall
  *      }
  */
-const generateRegistrationLink = (params, internalReturn) => function registrationLink(req, res, next) {
+const generateRegistrationLink = (params, bulkCall) => function registrationLink(req, res, next) {
 	const options = JSON.parse(JSON.stringify(params));
 	if (!options.role) options.role = req.body.role || '';
 	if (!options.save) options.save = req.body.save || '';
@@ -218,8 +219,8 @@ const generateRegistrationLink = (params, internalReturn) => function registrati
 		options.toHash = req.body.email || req.body.toHash || '';
 	}
 
-	if (internalReturn) {
-		return api(req).post('/registrationlink/', {
+	if (bulkCall) {
+		return api(req).post('/users/qrRegistrationLinkLegacy', {
 			json: options,
 		});
 	}
@@ -1376,33 +1377,22 @@ router.get(
 	'/users-without-consent/send-email',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	async (req, res, next) => {
-		let usersWithoutConsent = await getUsersWithoutConsent(
-			req,
-			req.query.role,
-			req.query.classId,
-		);
-		const role = req.query.role;
+		const { role, classId } = req.query;
 
-		usersWithoutConsent = await Promise.all(
-			usersWithoutConsent.map(async (user) => {
-				user.registrationLink = await generateRegistrationLink(
-					{
-						role,
-						save: true,
-						host: HOST,
-						schoolId: res.locals.currentSchool,
-						toHash: user.email,
-						patchUser: true,
-					},
-					true,
-				)(req, res, next);
-
-				return Promise.resolve(user);
-			}),
-		);
+		const usersWithoutAccount = await generateRegistrationLink(
+			{
+				classId,
+				role,
+				save: true,
+				host: HOST,
+				schoolId: res.locals.currentSchool,
+				patchUser: true,
+			},
+			true,
+		)(req, res, next);
 
 		try {
-			for (const user of usersWithoutConsent) {
+			for (const user of usersWithoutAccount) {
 				const name = user.displayName
 					? user.displayName
 					: `${user.firstName} ${user.lastName}`;
@@ -1455,33 +1445,21 @@ router.get(
 	'/users-without-consent/get-json',
 	currentUserHasPermissionsForRole,
 	async (req, res, next) => {
-		const role = req.query.role;
+		const { role, classId } = req.query;
 		try {
-			let usersWithoutConsent = await getUsersWithoutConsent(
-				req,
-				role,
-				req.query.classId,
-			);
+			const usersWithoutAccount = await generateRegistrationLink(
+				{
+					classId,
+					role,
+					save: true,
+					host: HOST,
+					schoolId: res.locals.currentSchool,
+					patchUser: true,
+				},
+				true,
+			)(req, res, next);
 
-			usersWithoutConsent = await Promise.all(
-				usersWithoutConsent.map(async (user) => {
-					user.registrationLink = await generateRegistrationLink(
-						{
-							role,
-							save: true,
-							host: HOST,
-							schoolId: res.locals.currentSchool,
-							toHash: user.email,
-							patchUser: true,
-						},
-						true,
-					)(req, res, next);
-
-					return Promise.resolve(user);
-				}),
-			);
-
-			res.json(usersWithoutConsent);
+			res.json(usersWithoutAccount);
 		} catch (err) {
 			res.status(err.statusCode || 500).send(err);
 		}
