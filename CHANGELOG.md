@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ###Added
 
 - SC-6662 - Add data-testid in homework for integration test
+- SC-7571 - fixed registration link generation (performance issues)
 
 ### Added
 
