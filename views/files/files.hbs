@@ -35,21 +35,23 @@
 					</div>
 				</div>
 			</section>
-
-			<div class="pull-right">
-				<!-- <select name="sortBy" class="form-control">
-					 {{#each sortOptions}}
-						<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
-							{{this.label}}
-						</option>
-					{{/each}}
-				</select> -->
-				<label for="sortOrder" style="position: absolute;left:-999px">{{$t "global.headline.sorting"}}</label>
-				<select id="sortOrder" name="sortOrder" class="form-control">
-					<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
-					<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending" }}</option>
-				</select>
-			</div>
+			{{#if sortOptions}}
+				<div class="pull-right">
+					<label for="sortBy" style="position: absolute;left:-999px">{{$t "files.label.sortBy"}}</label>
+					<select name="sortBy" id="sortBy" class="form-control order-sel">
+						 {{#each sortOptions}}
+							<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
+								{{this.label}}
+							</option>
+						{{/each}}
+					</select>
+					<label for="sortOrder" style="position: absolute;left:-999px">{{$t "global.headline.sorting"}}</label>
+					<select id="sortOrder" name="sortOrder" class="form-control order-sel">
+						<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
+						<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending" }}</option>
+					</select>
+				</div>
+			{{/if}}
 
 			{{#if directories}}
 			<h3 class="h6" style="padding: 1rem 0 1.5rem">{{$t "files.label.folder"}}</h3>
