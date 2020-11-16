@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## 25.2.1
+
+### Fixed
+
+- SC-7803 comments out mocha test for legacy lern-store
+
 ## 25.2.0
 
 ### Fixed
