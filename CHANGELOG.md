@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unreleased
+## 25.2.0
+
+### Fixed
+
+- SC-7453 fixed course/team event handling
+- SC-7392 fix create event for teams / courses
+- SC-7653 Workaround for winter/summer time issue
+- SC-7590 Fixied missing permission for enabling consent by teachers
+- SC-7151 Fixing sentence structure while registration for parents
+- SC-7350 Fix invalid date
+- SC-7182 do not allow to open office files in new windows
+
+### Added
+
+- SC-6870 - Added UX improvements for Matrix messenger announcement
 
 ## [25.1.7] - 2020-10-27
 
@@ -33,7 +47,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6735 additional fix - administration remove consent triggers import hash generation
 
-## [25.1.3] - 2020-10-26
+## [25.1.3] - 2020-10-21
 
 ### Fixed
 
@@ -52,6 +66,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-7171 fix asking for confirmation after consent update
 
+### Added
+
+ - SC-6582 Add bidirectional messenger settings for course creation
+
 ## [25.0.6] - 2020-10-01
 
 ### Added
@@ -69,6 +87,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - SC-6567 clear and improve logging in error case
+- SC-5858 removed chosen library from the code (Accessibility issues)
 
 ## [25.0.3] - 2020-09-29
 

@@ -22,7 +22,6 @@
     {{#content "scripts" mode="append"}}
         <script src="/scripts/loggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="/scripts/autologout.js" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/deprecationInfoRocketChat.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="/scripts/messenger/welcome.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="/vendor/feathersjs/feathers.js" nonce="{{nonceValue}}" defer></script>
@@ -50,14 +49,14 @@
             <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
                 <ul class="sidebar-list">
                     <li>
-                        <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}">
+                        <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
                             <div class="cloud-logo"></div>
                             <div class="sc-title"><span>{{theme.short_title}}</span></div>
                         </a>
                     </li>
                     {{#each sidebarItems}}
                         <li>
-								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" data-testid="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
                                 <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
                                 <span class="link-name">{{this.name}}</span>
                             </a>
@@ -155,7 +154,7 @@
 										<div class="qr-hint-text">
 											{{$t "global.text.qrHintText"}}
 										</div>
-                                    <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="{{$t "lib.loggedin.label.printQrCode"}}" tabindex="0">
+                                    <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" tabindex="0">
                                         <i class="fa fa-print" aria-hidden="true"></i> {{$t "global.button.print" }}
                                     </div>
                                 </div>
@@ -217,7 +216,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
                                     <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div>
                                     <a class="dropdown-item" data-testid="settings" href="/account/">{{$t "lib.loggedin.tab_label.settings" }}</a>
-                                    <a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/">{{$t "lib.loggedin.tab_label.signOut"}}</a>
+                                    <a class="dropdown-item localstorageclear" data-testid="logout" data-action="logout" data-href="/logout/">{{$t "lib.loggedin.tab_label.signOut"}}</a>
                                 </div>
                               </div>
                             </div>
@@ -299,22 +298,67 @@
 {{/embed}}
 
 
-{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}
 
-{{! Rocketchat is enabled for the instance and the current school and set as deprecated}}
-{{#if @root.ROCKETCHAT_SERVICE_ENABLED}} {{#inArray "rocketChat" @root.schoolData.features}} {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
-    {{#embed "lib/components/modal" class="deprecation-info-rocket-chat" title=($t "messenger.headline.welcomeMatrixAdmin")}}
+{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}} {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
+{{#if (userHasRole "administrator")}}
+    {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}
+        {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
+        {{#content "body"}}
+        <div class="modal-body">
+            <img src="/images/messenger-info.svg" class="image mx-auto d-block" width="70%" role="presentation"/>
+            <div class="modal-body-text">
+                <p>{{$t "messenger.text.welcomeMatrix" }}</p>
+                <p>
+                    {{#inArray "messenger" @root.currentSchoolData.features}}
+                        {{$t "messenger.text.howToDeactivateMatrix"}}
+                    {{else}}
+                        {{$t "messenger.text.howToActivateMatrix"}}
+                    {{/inArray}}
+                </p>
+                <div class="modal-danger">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    {{$t "global.text.attention" }}
+                </div>
+                <div id="member-modal-body">
+                    <div class="text-center">
+                        {{$t "messenger.text.rocketChatDeprecation" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE"))) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer modal-checkbox">
+            <label>
+                <input class="dontShowAgain-checkbox" type="checkbox" value="false" />
+                {{$t "homework.label.dontShowAgain" }}
+            </label>
+            <div>
+                {{#inArray "messenger" @root.currentSchoolData.features}}
+                    <button type="button" class="btn btn-secondary btn-close matrix-settings">{{$t "messenger.button.deactivate" }}</button>
+                    <button type="button" class="btn btn-primary btn-submit dont-show-again">{{$t "global.button.ok" }}</button>
+                {{else}}
+                    <button type="button" class="btn btn-secondary btn-close dont-show-again">{{$t "messenger.button.dontActivate" }}</button>
+                    <button type="button" class="btn btn-primary btn-submit matrix-settings">{{$t "messenger.button.activate" }}</button>
+                {{/inArray}}
+            </div>
+        </div>
+        {{/content}}
+        {{/embed}}
+    {{/ifConfig}}
+{{else}} {{#inArray "messenger" @root.currentSchoolData.features}}
+    {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
     {{#content "body"}}
     <div class="modal-body">
-        <img src="/images/messenger-info.svg" class="img-fluid" role="presentation"/>
+        <img src="/images/messenger-info.svg" class="image mx-auto d-block" width="70%" role="presentation"/>
         <div class="modal-body-text">
+            <p>{{$t "messenger.text.welcomeMatrix" }}</p>
             <div class="modal-danger">
                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                 {{$t "global.text.attention" }}
             </div>
             <div id="member-modal-body">
                 <div class="text-center">
-                    {{$t "messenger.text.rocketChatDeprecation" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRECATION_DATE"))) }}
+                    {{$t "messenger.text.rocketChatDeprecation" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE"))) }}
+                    {{$t "messenger.text.callToCopyMessages"}}
                 </div>
             </div>
         </div>
@@ -325,44 +369,10 @@
             {{$t "homework.label.dontShowAgain" }}
         </label>
         <div>
-            <button type="button" class="btn btn-secondary btn-close">{{$t "global.button.cancel" }}</button>
-            <button type="button" class="btn btn-primary btn-submit">{{$t "global.button.ok" }}</button>
+            <button type="button" class="btn btn-primary btn-submit dont-show-again">{{$t "global.button.ok" }}</button>
         </div>
     </div>
     {{/content}}
     {{/embed}}
-{{/hasConfig}} {{/inArray}} {{/if}}
-
-{{#inArray 'Administrator' roleNames}}
-{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}} {{#notInArray "messenger" @root.currentSchoolData.features}}
-    {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrixAdmin")}}
-    {{#content "body"}}
-    <div class="modal-body">
-        <div class="modal-body-text">
-            <div id="member-modal-body">
-                <div class="text-center">
-                    {{$t "messenger.text.welcomeMatrixAdmin" }}
-                </div>
-                <img src="/images/messenger-info.svg" class="img-fluid" role="presentation"/>
-                <div class="text-center">
-                    {{$t "messenger.text.howToActivateMatrix" }}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer modal-checkbox">
-        <label>
-            <input class="dontShowAgain-checkbox" type="checkbox" value="false" />
-            {{$t "homework.label.dontShowAgain" }}
-        </label>
-        <div>
-            <button type="button" class="btn btn-secondary btn-close">{{$t "global.button.cancel" }}</button>
-            <button type="button" class="btn btn-primary btn-submit">{{$t "global.button.ok" }}</button>
-        </div>
-    </div>
-    {{/content}}
-    {{/embed}}
-{{/notInArray}} {{/ifConfig}}
-{{/inArray}}
-
-{{/ifConfig}}
+{{/inArray}} {{/if}}
+{{/hasConfig}} {{/ifConfig}}

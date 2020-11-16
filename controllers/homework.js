@@ -144,6 +144,9 @@ const getCreateHandler = (service) => (req, res, next) => {
 					referrer += data._id;
 				}
 			}
+			else if (service === 'submissions') {
+				referrer += '#activetabid=submissions';
+			}
 			// includes submission was done
 			res.redirect(referrer);
 		});
@@ -228,7 +231,8 @@ const patchFunction = function (service, req, res, next) {
 							req,
 							`${(req.headers.origin || HOST)}/homework/${homework._id}`);
 					});
-				res.redirect(req.header('Referrer'));
+				const redirect_path = req.header('Referrer') + '#activetabid=submissions';
+				res.redirect(redirect_path);
 			});
 		}
 		if (referrer) {
