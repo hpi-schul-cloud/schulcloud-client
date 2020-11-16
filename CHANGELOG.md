@@ -52,7 +52,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- SC-5825 Fix progress display in homeworks
+- SC-7453 fixed course/team event handling
+- SC-7392 fix create event for teams / courses
+- SC-7653 Workaround for winter/summer time issue
 - SC-7590 Fixied missing permission for enabling consent by teachers
 - SC-7151 Fixing sentence structure while registration for parents
 - SC-7350 Fix invalid date
