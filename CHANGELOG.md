@@ -49,6 +49,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
 - IMP-160 rename integration test repository
 
+## 25.2.1
+
+### Fixed
+
+- SC-7803 comments out mocha test for legacy lern-store
+
 ## 25.2.0
 
 ### Fixed
