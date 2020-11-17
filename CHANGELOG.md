@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ###Added
 
 - SC-6662 - Add data-testid in homework for integration test
+- SC-7571 - fixed registration link generation (performance issues)
 
 ### Added
 
@@ -23,6 +24,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-5179 - Fixed CKEditor on homework to insert images from Course instead of My Files 
 - SC-7667 - Fixed help desk displays my own local time
 - SC-7652 - Fixed teacher creates a calendar in team then Dashboard empty
 - SC-7353 - fixed course sharing between teachers
@@ -36,6 +38,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7084 - changed file permission name Mitglied to Teilnehmer
 - SC-5501 - fixed grammar issue for password recovery request
 - SC-7589 - fixed correct display for age while first login and change of sentence structure for clearance
+- SC-7538 - fixed and enabled sorting on /files
 
 ### Changed
 
@@ -45,11 +48,19 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
 - IMP-160 rename integration test repository
 
+## 25.2.1
+
+### Fixed
+
+- SC-7803 comments out mocha test for legacy lern-store
+
 ## 25.2.0
 
 ### Fixed
 
-- SC-5825 Fix progress display in homeworks
+- SC-7453 fixed course/team event handling
+- SC-7392 fix create event for teams / courses
+- SC-7653 Workaround for winter/summer time issue
 - SC-7590 Fixied missing permission for enabling consent by teachers
 - SC-7151 Fixing sentence structure while registration for parents
 - SC-7350 Fix invalid date
