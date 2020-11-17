@@ -3,9 +3,8 @@
 set -e
 trap 'catch $? $LINENO' EXIT
 catch() {
-  echo "kabummm!!!"
   if [ "$1" != "0" ]; then
-    echo "War wohl nicht so gut. Fehler $1, guckst du $2"
+    echo "An issue occured in line $2. Status code: $1"
   fi
 }
 
@@ -13,6 +12,16 @@ if [ "$TRAVIS_BRANCH" = "master" ]
 then
   #export DOCKERTAG=latest
   export DOCKERTAG="master_v$( jq -r '.version' package.json )_$TRAVIS_COMMIT"
+elif [[ "$TRAVIS_BRANCH" = feature* ]]
+then
+	# extract JIRA_TICKET_ID from TRAVIS_BRANCH
+	JIRA_TICKET_ID=${TRAVIS_BRANCH/#feature\//}
+	JIRA_TICKET_TEAM=${JIRA_TICKET_ID/%-*/}
+	JIRA_TICKET_ID=${JIRA_TICKET_ID/#$JIRA_TICKET_TEAM"-"/}
+	JIRA_TICKET_ID=${JIRA_TICKET_ID/%-*/}
+	JIRA_TICKET_ID=$JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID	
+	# export DOCKERTAG=naming convention feature-<Jira id>-latest
+	export DOCKERTAG=$( echo "feature-"$JIRA_TICKET_ID"-latest")
 else
   # replace special characters in branch name for docker tag
   export DOCKERTAG="$( echo $TRAVIS_BRANCH | tr -s '[:punct:]' '-' | tr -s '[:upper:]' '[:lower:]' )_v$( jq -r '.version' package.json )_$TRAVIS_COMMIT"
@@ -35,7 +44,7 @@ function buildandpush {
   # 
   # "$TRAVIS_BRANCH" = "master" || release* -> is always true, will be removed.
 
-  if [[ "$TRAVIS_PULL_REQUEST" = "false" ]]
+  if [[ "$TRAVIS_PULL_REQUEST" = "false" || "$TRAVIS_BRANCH" != feature* ]]
   then
     # build container n21 theme
     docker build -t schulcloud/schulcloud-client-n21:$DOCKERTAG -t schulcloud/schulcloud-client-n21:$GIT_SHA -f Dockerfile.n21 .
@@ -112,11 +121,11 @@ then
 elif [ "$TRAVIS_BRANCH" = "develop" ]
 then
   buildandpush
-elif [[ $TRAVIS_BRANCH = release* || $TRAVIS_BRANCH = hotfix* ]]
+elif [[ $TRAVIS_BRANCH = release* || $TRAVIS_BRANCH = hotfix* || $TRAVIS_BRANCH = feature* ]]
 then
   buildandpush
 else
-  echo "Nix wird gebaut"
+  echo "no build"
 fi
 
 exit 0
