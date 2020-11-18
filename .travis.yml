@@ -20,11 +20,11 @@ env:
     - LERNSTORE_MODE=LEGACY
 stages:
   - name: Test
-    if: NOT (commit_message =~ /(skip-test-stage)/)
+    if: NOT ((commit_message =~ /(skip-test-stage)/ AND branch = master) OR branch = /^(?i:feature).*$/ )
   - name: Build
     if: NOT (commit_message =~ /(skip-build-stage)/)
   - name: Deploy
-    if: NOT (commit_message =~ /(skip-deploy-stage)/)
+    if: NOT ((commit_message =~ /(skip-test-stage)/ AND branch = master) OR branch = /^(?i:feature).*$/ )
 
 jobs:
   include:
