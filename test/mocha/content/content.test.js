@@ -32,6 +32,8 @@ describe('Content tests', () => {
 		this.server.close(done);
 	});
 
+	/*
+	// should use the client content route, not server
 	it('GET /content', () => {
 		expect(Configuration.get('LERNSTORE_MODE'), 'LERNSTORE_MODE not set!').to.be.not.equal('DISABLED');
 		return new Promise((resolve) => {
@@ -59,4 +61,5 @@ describe('Content tests', () => {
 				});
 		});
 	});
+	*/
 });
