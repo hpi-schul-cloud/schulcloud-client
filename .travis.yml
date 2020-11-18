@@ -9,6 +9,7 @@ services:
   - docker
 env:
   global:
+    - DOCKER_COMPOSE_VERSION=1.27.4 #needed for e2e-tests
     - GIT_SHA=$( git rev-parse HEAD )
     - SC_DEMO_USER_PASSWORD=Schulcloud1!
     - BACKEND_URL=http://localhost:3030
@@ -71,6 +72,11 @@ jobs:
       script: cd schulcloud-client && npm run mocha && cd ..
     - script: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/fetch.travis.sh" | bash
       name: end-to-end-tests
+      before_install:
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
       install:
         - echo "skipping install"
       after_failure:
