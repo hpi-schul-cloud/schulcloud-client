@@ -60,8 +60,8 @@
 			</select>
 		</div>
 		<div class="form-group col-sm-6 col-xs-12">
-			<label>{{$t "administration.classes.label.className" }}</label>
-			<input class="form-control linked" name="classsuffix" type="text"
+			<label>{{$t "administration.classes.label.className" }}<sup>*</sup> </label>
+			<input class="form-control linked" name="classsuffix" type="text" required
 				placeholder="a, b, c, ..., I, II, III, ..., etc." value="{{class.classsuffix}}"
 				{{#if isCustom}}disabled{{/if}} />
 		</div>
@@ -106,7 +106,7 @@
 <div class="modal-footer mt-1">
 	<a class="btn btn-secondary btn-cancel">{{$t "global.button.cancel" }}</a>
 	{{#ifeq mode "create"}}
-		<button data-testId="confirmClassCreate" class="btn btn-primary" type="submit">{{$t "administration.classes.button.addClass" }}</button>
+		<button data-testId="confirmClassCreate" class="btn btn-primary" type="submit" disabled>{{$t "administration.classes.button.addClass" }}</button>
 		{{#userHasPermission 'ADMIN_VIEW'}}
 			<p>{{$t "administration.classes.text.theNextStepIsToInviteOrAdd" }}</p>
 		{{/userHasPermission}}
