@@ -135,7 +135,7 @@ $(document).ready(() => {
 	});
 
 	$school.on('change', () => {
-		const id = $(this).val();
+		const id = $school.val();
 		if (id !== '') {
 			loadSystems(id);
 		} else {

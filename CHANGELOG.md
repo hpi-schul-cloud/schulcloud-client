@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## 25.2.2
+
+### Fixed
+
+- SC-7881 restored fix done in SC-7463 which fixed logging in with external systems
+
 ## 25.2.1
 
 ### Fixed
