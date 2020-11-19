@@ -24,6 +24,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7859 - Fixed class name not required to create a class
 - SC-5179 - Fixed CKEditor on homework to insert images from Course instead of My Files 
 - SC-7667 - Fixed help desk displays my own local time
 - SC-7652 - Fixed teacher creates a calendar in team then Dashboard empty
@@ -48,6 +49,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6951 removes via text from embeded course content
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
 - IMP-160 rename integration test repository
+
+## 25.2.2
+
+### Fixed
+
+- SC-7881 restored fix done in SC-7463 which fixed logging in with external systems
 
 ## 25.2.1
 

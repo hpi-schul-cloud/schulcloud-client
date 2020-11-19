@@ -106,7 +106,7 @@
 <div class="modal-footer mt-1">
 	<a class="btn btn-secondary btn-cancel">{{$t "global.button.cancel" }}</a>
 	{{#ifeq mode "create"}}
-		<button data-testId="confirmClassCreate" class="btn btn-primary" type="submit" disabled>{{$t "administration.classes.button.addClass" }}</button>
+		<button data-testId="confirmClassCreate" class="btn btn-primary" type="submit">{{$t "administration.classes.button.addClass" }}</button>
 		{{#userHasPermission 'ADMIN_VIEW'}}
 			<p>{{$t "administration.classes.text.theNextStepIsToInviteOrAdd" }}</p>
 		{{/userHasPermission}}
