@@ -24,6 +24,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7859 - Fixed class name not required to create a class
 - SC-5179 - Fixed CKEditor on homework to insert images from Course instead of My Files 
 - SC-7667 - Fixed help desk displays my own local time
 - SC-7652 - Fixed teacher creates a calendar in team then Dashboard empty
