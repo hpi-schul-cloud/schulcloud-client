@@ -365,17 +365,14 @@ router.post('/', async (req, res, next) => {
 		delete req.body[feature];
 	});
 
-	api(req)
-		.post('/teams/', {
+	try {
+		const team = await api(req).post('/teams/', {
 			json: req.body, // TODO: sanitize
-		})
-		.then((course) => {
-			res.redirect(`/teams/${course._id}`);
-		})
-		.catch((err) => {
-			logger.warn(err); // todo add req.body
-			res.sendStatus(500);
 		});
+		res.redirect(`/teams/${team._id}`);
+	} catch (error) {
+		next(error);
+	}
 });
 
 router.post('/copy/:teamId', (req, res, next) => {
