@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- SC-7898 - async middleware error handler added
 - SC-6825 - change collapsable icon
 - SC-6619 - fixed text for registration in all other schools
 - SC-6662 - Add data-testid in homework for integration test
