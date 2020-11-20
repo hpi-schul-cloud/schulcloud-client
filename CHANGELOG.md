@@ -8,13 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
-###Added
-
-- SC-6662 - Add data-testid in homework for integration test
-- SC-7571 - fixed registration link generation (performance issues)
 
 ### Added
 
+- SC-6662 - Add data-testid in homework for integration test
+- SC-7571 - fixed registration link generation (performance issues)
 - SC-7447 - Add warning text for links when leaving the schul-cloud platform
 - SC-6293 - added option to school admin to disable lernstore for students
 - SC-7413 - Add winston handler for logging unhandled rejection and exceptions
