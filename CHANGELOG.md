@@ -8,13 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
 ## Unreleased
-###Added
-
-- SC-6662 - Add data-testid in homework for integration test
-- SC-7571 - fixed registration link generation (performance issues)
 
 ### Added
 
+- SC-6662 - Add data-testid in homework for integration test
+- SC-7571 - fixed registration link generation (performance issues)
 - SC-7447 - Add warning text for links when leaving the schul-cloud platform
 - SC-6293 - added option to school admin to disable lernstore for students
 - SC-7413 - Add winston handler for logging unhandled rejection and exceptions
@@ -24,7 +22,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- SC-5179 - Fixed CKEditor on homework to insert images from Course instead of My Files 
+- SC-1589 - Fixed error handling on team creation
+- SC-5179 - Fixed CKEditor on homework to insert images from Course instead of My Files
 - SC-7667 - Fixed help desk displays my own local time
 - SC-7652 - Fixed teacher creates a calendar in team then Dashboard empty
 - SC-7353 - fixed course sharing between teachers
