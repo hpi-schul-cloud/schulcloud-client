@@ -16,6 +16,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- SC-6662 - Add data-testid in homework for integration test
+- SC-7571 - fixed registration link generation (performance issues)
 - SC-7447 - Add warning text for links when leaving the schul-cloud platform
 - SC-6293 - added option to school admin to disable lernstore for students
 - SC-7413 - Add winston handler for logging unhandled rejection and exceptions
@@ -25,7 +27,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-
+- SC-1589 - Fixed error handling on team creation
 - SC-7845 - Fixed GitHub action changelog
 - SC-7859 - Fixed class name not required to create a class
 - SC-5179 - Fixed CKEditor on homework to insert images from Course instead of My Files 
@@ -76,6 +78,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7350 Fix invalid date
 - SC-7182 do not allow to open office files in new windows
 
+### Changed
+
+- SC-6973 Small improvments for logging and error handling
 - SC-6060 Cookie configuration
 - SC-4209 Choose the same move icon for course topics and topic editor
 
