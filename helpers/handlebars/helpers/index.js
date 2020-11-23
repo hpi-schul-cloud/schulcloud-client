@@ -206,7 +206,6 @@ const helpers = () => ({
 		console.log(data);
 	},
 	castStatusCodeToString: (statusCode, data) => {
-		console.log(statusCode);
 		if (statusCode >= 500) {
 			return i18n.getInstance(data.data.local.currentUser)('global.text.internalProblem');
 		}
