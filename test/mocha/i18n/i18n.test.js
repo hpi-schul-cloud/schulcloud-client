@@ -5,7 +5,7 @@ const { expect } = chai;
 const rawDeJson = require('../../../locales/de.json');
 const rawEnJson = require('../../../locales/en.json');
 
-const allowedTypes = ['button', 'headline', 'link', 'text',
+const allowedTypes = ['button', 'headline', 'link', 'text', 'format',
 	'placeholder', 'input', 'label', 'img_alt', 'tab_label', 'aria_label'];
 
 // new format: {"about.button.showLess" : "Weniger anzeigen"}

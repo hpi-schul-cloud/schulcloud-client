@@ -1,11 +1,12 @@
 import './jquery/datetimepicker-easy';
-import moment from 'moment';
 import { Calendar } from '@fullcalendar/core';
 import deLocale from '@fullcalendar/core/locales/de';
 import enLocale from '@fullcalendar/core/locales/en-gb';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { toMoment } from '@fullcalendar/moment';
+import momentTimezonePlugin from '@fullcalendar/moment-timezone';
 
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
@@ -68,12 +69,13 @@ $(document).ready(() => {
 	const view = window.location.hash.substring(1);
 
 	const calendarLanguage = document.querySelector('html').getAttribute('lang') === 'de' ? deLocale : enLocale;
+	const calendarTimezone = document.querySelector('html').getAttribute('timezone');
 
 	const calendar = new Calendar(calendarElement, {
-		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, momentTimezonePlugin],
 		defaultView: view || 'dayGridMonth',
 		editable: false,
-		timeZone: 'UTC',
+		timeZone: calendarTimezone || 'Europe/Berlin',
 		locale: calendarLanguage,
 		header: {
 			left: 'title',
@@ -94,30 +96,30 @@ $(document).ready(() => {
 				return false;
 			}
 			// personal event
-			const startDate = moment(event.start).format('DD.MM.YYYY HH:mm');
-			const endDate = moment(event.end || event.start).format('DD.MM.YYYY HH:mm');
+			const startDate = toMoment(event.start, calendar).format($t('format.dateTimeToPicker'));
+			const endDate = toMoment(event.end || event.start, calendar).format($t('format.dateTimeToPicker'));
 
-			const { attributes } = event.extendedProps || {};
+			const eventData = event.extendedProps || {};
 
 			populateModalForm($editEventModal, {
 				title: $t('global.headline.dateDetails'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.save'),
 				fields: {
-					summary: attributes.summary,
+					summary: eventData.summary,
 					startDate,
 					endDate,
-					description: attributes.description,
-					location: attributes.location,
+					description: eventData.description,
+					location: eventData.location,
 				},
-				action: `/calendar/events/${attributes.uid}`,
+				action: `/calendar/events/${eventData._id}`,
 			});
 
-			if (!event['x-sc-teamId']) { // course or non-course event
-				transformCourseOrTeamEvent($editEventModal, event);
+			if (!eventData['x-sc-teamId']) { // course or non-course event
+				transformCourseOrTeamEvent($editEventModal, eventData);
 				$editEventModal.find('.btn-delete').click(() => {
 					$.ajax({
-						url: `/calendar/events/${attributes.uid}`,
+						url: `/calendar/events/${eventData._id}`,
 						type: 'DELETE',
 						error: showAJAXError,
 						success(result) {
@@ -128,8 +130,8 @@ $(document).ready(() => {
 				$editEventModal.appendTo('body').modal('show');
 			}
 
-			if (event['x-sc-teamId']) { // team event
-				const teamId = event['x-sc-teamId'];
+			if (eventData['x-sc-teamId']) { // team event
+				const teamId = eventData['x-sc-teamId'];
 				window.location.assign(`/teams/${teamId}?activeTab=events`);
 			}
 
@@ -139,8 +141,8 @@ $(document).ready(() => {
 			const { date } = info;
 
 			// open create event modal
-			const startDate = moment(date).format('DD.MM.YYYY HH:mm');
-			const endDate = moment(date).add(1, 'hour').format('DD.MM.YYYY HH:mm');
+			const startDate = toMoment(date, calendar).format($t('format.dateTimeToPicker'));
+			const endDate = toMoment(date, calendar).add(1, 'hour').format($t('format.dateTimeToPicker'));
 
 			populateModalForm($createEventModal, {
 				title: $t('global.headline.addDate'),

@@ -16,13 +16,12 @@ const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const redirectHelper = require('../helpers/redirect');
+const timesHelper = require('../helpers/timesHelper');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 const { CALENDAR_SERVICE_ENABLED, HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
-
-moment.locale('de');
 
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
@@ -206,9 +205,10 @@ const deleteEventsForData = (service) => (req, res, next) => {
  *          host: current webaddress from client = string, looks for req.headers.origin first
  *          schoolId: users schoolId = string
  *          toHash: optional, user account mail for hash generation = string
+ * 			classId: optional, classId alle the users belongs to, only for the bulkcall
  *      }
  */
-const generateRegistrationLink = (params, internalReturn) => function registrationLink(req, res, next) {
+const generateRegistrationLink = (params, bulkCall) => function registrationLink(req, res, next) {
 	const options = JSON.parse(JSON.stringify(params));
 	if (!options.role) options.role = req.body.role || '';
 	if (!options.save) options.save = req.body.save || '';
@@ -219,8 +219,8 @@ const generateRegistrationLink = (params, internalReturn) => function registrati
 		options.toHash = req.body.email || req.body.toHash || '';
 	}
 
-	if (internalReturn) {
-		return api(req).post('/registrationlink/', {
+	if (bulkCall) {
+		return api(req).post('/users/qrRegistrationLinkLegacy', {
 			json: options,
 		});
 	}
@@ -337,10 +337,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 const getUserCreateHandler = (internalReturn) => function userCreate(req, res, next) {
 	const { shortLink } = req.body;
 	if (req.body.birthday) {
-		const birthday = req.body.birthday.split('.');
-		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
-			birthday[0]
-		}T00:00:00Z`;
+		req.body.birthday = timesHelper.dateStringToMoment(req.body.birthday);
 	}
 	return api(req)
 		.post('/users/', {
@@ -613,7 +610,7 @@ const updatePolicy = (req, res, next) => {
 		json: {
 			title: body.consentTitle,
 			consentText: body.consentText,
-			publishedAt: new Date().toLocaleString(),
+			publishedAt: timesHelper.currentDate(),
 			consentTypes: ['privacy'],
 			schoolId: body.schoolId,
 			consentData: body.consentData,
@@ -718,12 +715,6 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	},
 ];
 
-const parseDate = (input) => {
-	const parts = input.match(/(\d+)/g);
-	return new Date(parts[2], parts[1] - 1, parts[0]);
-};
-
-
 const skipRegistration = (req, res, next) => {
 	const userid = req.params.id;
 	const {
@@ -736,7 +727,7 @@ const skipRegistration = (req, res, next) => {
 		termsOfUseConsent,
 		birthday,
 	} = req.body;
-	const parsedDate = parseDate(birthday).toISOString();
+	const parsedDate = timesHelper.dateStringToMoment(birthday);
 	api(req).post(`/users/${userid}/skipregistration`, {
 		json: {
 			password: passwd,
@@ -1000,7 +991,7 @@ router.get(
 						classesString,
 					];
 					if (hasEditPermission) {
-						row.push(moment(user.createdAt).format('DD.MM.YYYY'));
+						row.push(timesHelper.dateToDateString(user.createdAt));
 						row.push({
 							useHTML: true,
 							content: icon,
@@ -1089,10 +1080,7 @@ router.get(
 
 const getStudentUpdateHandler = () => async function studentUpdateHandler(req, res, next) {
 	if (req.body.birthday) {
-		const birthday = req.body.birthday.split('.');
-		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
-			birthday[0]
-		}T00:00:00Z`;
+		req.body.birthday = timesHelper.dateStringToMoment(req.body.birthday);
 	}
 
 	const promises = [];
@@ -1194,7 +1182,7 @@ router.delete(
 );
 router.post(
 	'/students/:id/skipregistration/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE', 'STUDENT_SKIP_REGISTRATION'], 'or'),
 	skipRegistration,
 );
 router.get(
@@ -1300,7 +1288,7 @@ router.get(
 						user.lastName || '',
 						user.email || '',
 						user.classes.join(', ') || '',
-						moment(user.createdAt).format('DD.MM.YYYY'),
+						timesHelper.dateToDateString(user.createdAt),
 						{
 							useHTML: true,
 							content: `<p class="text-center m-0">${icon}</p>`,
@@ -1389,33 +1377,22 @@ router.get(
 	'/users-without-consent/send-email',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	async (req, res, next) => {
-		let usersWithoutConsent = await getUsersWithoutConsent(
-			req,
-			req.query.role,
-			req.query.classId,
-		);
-		const role = req.query.role;
+		const { role, classId } = req.query;
 
-		usersWithoutConsent = await Promise.all(
-			usersWithoutConsent.map(async (user) => {
-				user.registrationLink = await generateRegistrationLink(
-					{
-						role,
-						save: true,
-						host: HOST,
-						schoolId: res.locals.currentSchool,
-						toHash: user.email,
-						patchUser: true,
-					},
-					true,
-				)(req, res, next);
-
-				return Promise.resolve(user);
-			}),
-		);
+		const usersWithoutAccount = await generateRegistrationLink(
+			{
+				classId,
+				role,
+				save: true,
+				host: HOST,
+				schoolId: res.locals.currentSchool,
+				patchUser: true,
+			},
+			true,
+		)(req, res, next);
 
 		try {
-			for (const user of usersWithoutConsent) {
+			for (const user of usersWithoutAccount) {
 				const name = user.displayName
 					? user.displayName
 					: `${user.firstName} ${user.lastName}`;
@@ -1468,33 +1445,21 @@ router.get(
 	'/users-without-consent/get-json',
 	currentUserHasPermissionsForRole,
 	async (req, res, next) => {
-		const role = req.query.role;
+		const { role, classId } = req.query;
 		try {
-			let usersWithoutConsent = await getUsersWithoutConsent(
-				req,
-				role,
-				req.query.classId,
-			);
+			const usersWithoutAccount = await generateRegistrationLink(
+				{
+					classId,
+					role,
+					save: true,
+					host: HOST,
+					schoolId: res.locals.currentSchool,
+					patchUser: true,
+				},
+				true,
+			)(req, res, next);
 
-			usersWithoutConsent = await Promise.all(
-				usersWithoutConsent.map(async (user) => {
-					user.registrationLink = await generateRegistrationLink(
-						{
-							role,
-							save: true,
-							host: HOST,
-							schoolId: res.locals.currentSchool,
-							toHash: user.email,
-							patchUser: true,
-						},
-						true,
-					)(req, res, next);
-
-					return Promise.resolve(user);
-				}),
-			);
-
-			res.json(usersWithoutConsent);
+			res.json(usersWithoutAccount);
 		} catch (err) {
 			res.status(err.statusCode || 500).send(err);
 		}
@@ -1589,7 +1554,7 @@ const skipRegistrationClass = async (req, res, next) => {
 				parent_termsOfUseConsent: true,
 				privacyConsent: true,
 				termsOfUseConsent: true,
-				birthday: parseDate(birthdays[i]),
+				birthday: timesHelper.dateStringToMoment(birthdays[i]),
 			},
 		});
 	});
@@ -2345,43 +2310,26 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 		});
 };
 
-const updateSchoolFeature = async (req, currentFeatures, newState, featureName) => {
-	const isCurrentlyAllowed = (currentFeatures || []).includes(featureName);
+const updateSchoolFeatures = async (req, currentFeatures, features) => {
+	const pushValues = Object.keys(features)
+		.filter((feature) => features[feature] && !currentFeatures.includes(feature));
+	const pullValues = Object.keys(features)
+		.filter((feature) => !features[feature] && currentFeatures.includes(feature));
 
-	if (!isCurrentlyAllowed && newState) {
-		// add feature
-		await api(req)
-			.patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: featureName,
-					},
-				},
-			});
+	const requests = [];
+	if (pushValues.length > 0) {
+		requests.push(api(req)
+			.patch(`/schools/${req.params.id}`, { json: { $push: { features: { $each: pushValues } } } }));
 	}
-
-	if (isCurrentlyAllowed && !newState) {
-		// remove feature
-		await api(req)
-			.patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: featureName,
-					},
-				},
-			});
+	if (pullValues.length > 0) {
+		requests.push(api(req)
+			.patch(`/schools/${req.params.id}`, { json: { $pull: { features: { $in: pullValues } } } }));
 	}
+	await Promise.all(requests);
 };
 
 const schoolFeatureUpdateHandler = async (req, res, next) => {
 	try {
-		const currentFeatures = res.locals.currentSchoolData.features;
-		await updateSchoolFeature(req, currentFeatures, req.body.rocketchat === 'true', 'rocketChat');
-		delete req.body.rocketchat;
-
-		await updateSchoolFeature(req, currentFeatures, req.body.videoconference === 'true', 'videoconference');
-		delete req.body.videoconference;
-
 		// Toggle teacher's studentVisibility permission
 		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
 		if (studentVisibilityFeature) {
@@ -2412,12 +2360,17 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		delete req.body.studentlernstorevisibility;
 
+		const currentFeatures = res.locals.currentSchoolData.features;
+
 		// Update school features
-		const possibleSchoolFeatures = ['messenger', 'messengerSchoolRoom'];
+		const possibleSchoolFeatures = [
+			'messenger', 'messengerSchoolRoom', 'messengerStudentRoomCreate', 'rocketChat', 'videoconference',
+		];
+		const featuresToSet = {};
 		for (const feature of possibleSchoolFeatures) {
-			await updateSchoolFeature(req, currentFeatures, req.body[feature] === 'true', feature);
-			delete req.body[feature];
+			featuresToSet[feature] = req.body[feature] === 'true';
 		}
+		await updateSchoolFeatures(req, currentFeatures, featuresToSet);
 	} catch (err) {
 		next(err);
 	}
@@ -2743,7 +2696,7 @@ router.all('/teams', async (req, res, next) => {
 							useHTML: true,
 							content: getTeamSchoolsButton(item.schools.length),
 						},
-						moment(item.createdAt).format('DD.MM.YYYY'),
+						timesHelper.dateToDateString(item.createdAt),
 						{
 							useHTML: true,
 							content: getTeamFlags(item, res),
@@ -2952,7 +2905,7 @@ router.use(
 			policiesBody = consentVersions.data.map((consentVersion) => {
 				const title = consentVersion.title;
 				const text = consentVersion.consentText;
-				const publishedAt = new Date(consentVersion.publishedAt).toLocaleString();
+				const publishedAt = timesHelper.dateToDateTimeString(consentVersion.publishedAt);
 				const linkToPolicy = consentVersion.consentDataId;
 				const links = [];
 				if (linkToPolicy) {
@@ -3082,6 +3035,7 @@ router.use(
 			rssBody,
 			hasRSS: rssBody && !!rssBody.length,
 			schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+			timezone: `${timesHelper.schoolTimezoneToString(true)}`,
 		});
 	},
 );
