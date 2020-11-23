@@ -24,14 +24,14 @@
                 <input name="courseId" type="hidden" data-force-value="true" value="{{courseId}}"/>
 
                 <div class="form-group">
-                    <label>{{$t "courses._course.groups._group.edit.label.nameOfGroup"}}</label>
-                    <input class="form-control" name="name" type="text" placeholder="{{$t "courses._course.groups._group.edit.input.group1"}}" value="{{{courseGroup.name}}}" required/>
+                    <label for="nameOfGroup">{{$t "courses._course.groups._group.edit.label.nameOfGroup"}}</label>
+                    <input id="nameOfGroup" class="form-control" name="name" type="text" placeholder="{{$t "courses._course.groups._group.edit.input.group1"}}" value="{{{courseGroup.name}}}" required/>
                 </div>
 
                 <div class="form-group">
-                    <label>{{$t "courses._course.global.label.studentParticipant"}}</label>
+                    <label for="studentParticipant">{{$t "courses._course.global.label.studentParticipant"}}</label>
 
-                    <select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}">
+                    <select id="studentParticipant" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}">
                         {{#each students}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
@@ -46,7 +46,7 @@
 
 
                 <div class="modal-footer">
-                    <button class="btn btn-add btn-secondary btn-cancel">
+                    <button class="btn btn-add btn-secondary btn-cancel" type="button">
                         {{closeLabel}}
                     </button>
 
