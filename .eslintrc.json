@@ -2,7 +2,8 @@
 	"parser": "babel-eslint",
 	"extends": [
 		"airbnb-base",
-		"plugin:json/recommended"
+		"plugin:json/recommended",
+		"plugin:promise/recommended"
 	],
 	"rules": {
 		"max-len": [
@@ -95,7 +96,8 @@
 		]
 	},
 	"plugins": [
-		"import"
+		"import",
+		"promise"
 	],
 	"env": {
 		"node": true,
