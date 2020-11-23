@@ -338,6 +338,7 @@ router.post('/', fileUpload({
 	api(req).post('/helpdesk', {
 		json: {
 			type: req.body.type,
+			supportType: req.body.supportType,
 			subject: req.body.subject,
 			title: req.body.title,
 			role: req.body.role,
