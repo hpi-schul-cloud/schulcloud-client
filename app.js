@@ -192,7 +192,6 @@ app.use(async (req, res, next) => {
 	try {
 		await authHelper.populateCurrentUser(req, res);
 	} catch (error) {
-		logger.error('could not populate current user', error);
 		return next(error);
 	}
 	if (Configuration.has('SENTRY_DSN')) {
@@ -222,6 +221,7 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 
 // add res.$t method for i18n with users prefered language
 app.use(require('./middleware/i18n'));
+app.use(require('./middleware/datetime'));
 
 // Initialize the modules and their routes
 app.use(require('./controllers'));

@@ -57,6 +57,7 @@ function addMatrixchatElement(session) {
 		assetDomain: `${window.matrixAssetDomain}/`,
 		language: window.userLanguage || 'de',
 		forceToggled: true,
+		blockRoomCreation: window.matrixBlockRoomCreation,
 	};
 
 	// force the selection of a specific room

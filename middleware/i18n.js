@@ -9,7 +9,6 @@ const {
 
 const middleware = async (req, res, next) => {
 	res.$t = getInstance();
-
 	const currentLanguage = await getCurrentLanguage(req, res);
 
 	res.locals.userLanguage = currentLanguage;
@@ -31,6 +30,7 @@ const middleware = async (req, res, next) => {
 	}
 
 	changeLanguage(defaultLanguage);
+
 	return next();
 };
 

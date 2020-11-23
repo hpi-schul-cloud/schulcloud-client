@@ -1,4 +1,15 @@
 {
+	"format": {
+		"dateToPicker": "MM/DD/YYYY",
+		"datePicker": "m/d/Y",
+		"datePickerMask": "19/39/9999",
+		"dateTimeToPicker": "MM/DD/YYYY HH:mm",
+		"dateTimePicker": "m/d/Y H:i",
+		"dateTimePickerMask": "19/39/9999 29:59",
+		"date": "MM/DD/YYYY",
+		"dateTime": "MM/DD/YYYY HH:mm",
+		"dateLong": "dddd, DD. MMMM YYYY"
+	},
 	"about": {
 		"button": {
 			"showLess": "show less",
@@ -258,7 +269,7 @@
 				"errorImportingUsers": "Error: {{errorMessage}}",
 				"failedToCreateUser": "Error when creating the user. {{error}}",
 				"importFailed": "Import failed. Please check your input data and try again.",
-				"importMayBeStillRunning":"Import in progress. Depending on file size this process could take a few minutes.",
+				"importMayBeStillRunning": "Import in progress. Depending on file size this process could take a few minutes.",
 				"inTheQueue": "In the queue",
 				"invitationEmailContent": "Invitation to the {{title}} Hello {{firstName}} {{lastName}}!\nYou are invited to join the {{title}}, please complete your registration at the following link: {{shortLink}} \nYour {{shortTitle}} team wishes you fun and a good start",
 				"invitationEmailSubject": "Invitation to use the {{title}} !",
@@ -541,12 +552,14 @@
 				"checkLDAPData": "Check LDAP data",
 				"endSchoolYear": "End school year",
 				"endTransferPhase": "End transfer phase",
+				"saveGeneralSettings": "Save general settings",
 				"start": "Start",
 				"startTransferPhase": "Start transfer phase"
 			},
 			"headline": {
 				"addPolicy": "Add privacy policy",
-				"finishSchoolYear": "Sure you want to end the school year?"
+				"finishSchoolYear": "Sure you want to end the school year?",
+				"generalSettings": "General Settings"
 			},
 			"label": {
 				"activeChatFunction": "Activate chat function",
@@ -556,9 +569,11 @@
 				"authentication": "Authentication",
 				"changeOfClasses": "Change of classes / new classes",
 				"changeOfUserData": "Change of user data / new users",
+				"chooseACounty": "Please choose the county your school belongs to.",
 				"className": "Class name:",
 				"cloudStorageProvider": "Cloud storage provider",
-				"createChatRoom": "Create a chat room for announcements to the entire school",
+				"county": "County",
+				"counties": "Counties",
 				"currentSchoolYear": "Current school year:",
 				"dataProtectionAdd": "Add privacy policy",
 				"duringTheSchoolYear": "During the school year",
@@ -569,6 +584,8 @@
 				"inTheTransferPhase": "in the transfer phase:",
 				"lernstoreEnabledForStudents": "Lern-Store for students",
 				"loginFromExistingUsers": "Logins of existing users",
+				"messengerSchoolRoom": "Create a chat room for announcements to the entire school",
+				"messengerStudentRoomCreate": "Students can create their own chat rooms",
 				"nameOfTheSchool": "Name of the school",
 				"noteAvailableFunction": "Note available functions",
 				"noteBeforeTheTransferPhase": "Note before the transfer phase:",
@@ -582,6 +599,7 @@
 				"studentVisibility": "Activate student visibility for teachers",
 				"transferPhase": "Transfer phase",
 				"uploadSchoolLogo": "Upload school logo",
+				"timezone": "Timezone",
 				"userAndClassDataInLDAP": "User and class data for the new school year have been processed in LDAP<br>.",
 				"youCantGoBack": "You can't go back",
 				"yourSchoolCanStartNewSchool": "your school can enter the new school year"
@@ -589,6 +607,9 @@
 			"link": {
 				"moreInfo": "More information",
 				"matrixHelpPage": "messenger help section"
+			},
+			"placeholder": {
+				"chooseCounty": "Choose a county"
 			},
 			"text": {
 				"LDAPChanges": "you can make the necessary changes for the new school year in the\nLDAP (new users, update classes)",
@@ -598,22 +619,23 @@
 				"atTheEndOfTheSchoolYearWithLDAP": "When the school year changes, carry out the following actions with LDAP:",
 				"atTheEndOfTheTransferPhase": "When the transfer phase ends, all changes made in the LDAP are synchronized in one go",
 				"atTheSameTime": "At the same time, you ring in the new school year in the HPI school cloud",
-				"chatRoomPermissions": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
 				"coursesWithLearningContent": "Courses with learning content for the coming school year can also be created during the transfer phase (without class assignment)",
 				"doNotEndTheTransferPhase": "Do not end the transfer phase until the users are assigned to the new classes",
 				"fileSelected": "File selected",
-				"fileTooLarge" : "PDF file is too large. It can be at max {{size}}MB large.",
+				"fileTooLarge": "PDF file is too large. It can be at max {{size}}MB large.",
 				"ifChatsAreActivatedAtYourSchool": "If chats are enabled at your school, team administrators and teachers can selectively unlock the chat function respectively for their team or courses.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
 				"ifMatrixIsActivatedAtYourSchool": "If the Matrix Messenger is activated, all teachers in this school can start chat rooms, private conversations or group discussions within the course or team. Students initially  have read-only access, but can also be given write access via the course and team settings. Students can also start private chats within courses and teams. You can find more information about this in the ",
 				"lernstoreEnabledForStudents": "If unchecked, then the students will not be able to access Lern-Store",
 				"loginViaLDAP": "Login via LDAP is still possible for existing users",
+				"messengerSchoolRoom": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
+				"messengerStudentRoomCreate": "If this feature is enabled, students are allowed to create chat rooms, private conversations and course and team discussions. These rooms are not visible to teachers unless they are explicitly invited.",
 				"newSchoolYear": "New school year",
 				"newUsersClassesAndChanges": "Newly added users, classes and changes to existing data are not synchronized from the LDAP",
 				"noFileSelected": "No file selected",
 				"noRssFeedsYet": "There are no RSS feeds yet.",
-				"onlyPDFSupport" : "Only PDF files are supported.",
+				"onlyPDFSupport": "Only PDF files are supported.",
 				"oldSchoolYear": "Old school year",
 				"passwordChanges": "Password changes are still synchronized",
 				"theNewClassesAreSavedInTheContext": "the new classes are saved in the context of the new school year, the old classes are archived in the context of the old school year",
@@ -1277,6 +1299,7 @@
 			"headline": {
 				"assertDeletion": "Are you sure you want to delete ' {{filename}} '?",
 				"editPermissions": "Edit permissions",
+				"functionCurrentlyDisabled": "Function temporarily deactivated",
 				"moveFile": "Move file",
 				"renameDir": "Rename folder",
 				"shareLink": "Share link"
@@ -1289,6 +1312,8 @@
 				"fileAlreadyExists": "A file with this name already exists in the target folder!",
 				"fileAlreadyExistsInDir": "A file with this name already exists in the same folder!",
 				"fileMoved": "The file was moved successfully!",
+				"littleHintHowToMoveFiles": "<b>Little hint:</b> You can download the file and then upload it to the correct folder.",
+				"movingFilesIsDisabled": "Moving files is currently not possible. We are working on a solution.",
 				"permissionsChangedSuccess": "File permissions changed successfully",
 				"pleaseSelectFileType": "Please select a file type.",
 				"renameDirSuccess": "The folder was renamed successfully!",
@@ -1316,14 +1341,20 @@
 			"doYouWantToOpenThisFile": "Do you want to open this file with an external service?",
 			"newFolder": "New folder"
 		},
+		"img_alt": {
+			"altInfoTheImage": "the image {{imgName}}"
+		},
 		"input": {
 			"filename": "Name of the file",
 			"foldername": "Name of the folder",
 			"searchFiles": "Browse files ..."
 		},
 		"label": {
+			"backToFiles": "back to the files overview",
 			"chooseANewName": "Select a new name:",
 			"chooseANewNameAndAFileExtension": "Select a name and file extension:",
+			"clickToOpenDir": "open folder {{name}}",
+			"clickToOpenFile": "open file {{name}}",
 			"close": "Close",
 			"dangerousCode": "Malicious code",
 			"deleteFile": "Delete file",
@@ -1352,22 +1383,16 @@
 			"selectAFolder": "Select a folder",
 			"shareFile": "Share file",
 			"size": "Size",
+			"sortBy": "Sort by...",
 			"updatedAt": "Modification date",
 			"write": "Write"
 		},
 		"overview": {
-			"button": {
-				"openFiles" : "Open files"
-			},
-			"headline": {
-				"myCourseFiles" : "My Course Files",
-				"myTeamFiles" : "My Team Files"
-			},
-			"text": {
-				"CourseFilesDesc" : "Here you will find all files used in the respective courses in class. All participants of the course, the teacher and the students, have access to these files.",
-				"PersonalFilesDesc" : "Here you can find all your personal files. Only you have access to these files, but you can also share them with other users.",
-				"SharedFilesDesc" : "Here you can find all the files you have shared with you. These are files that have been provided by other users.",
-				"TeamFilesDesc" : "Here you will find all files used in the respective courses in class. All participants of the team have access to these files."
+			"aria_label": {
+				"openCourseFiles": "Open my Course Files",
+				"openMyfiles": "Open my personal Files",
+				"openSharedFiles": "Open shared Files",
+				"openTeamFiles": "Open my Team Files"
 			}
 		},
 		"search": {
@@ -1387,7 +1412,6 @@
 			"foundIn": "found in:",
 			"foundMaliciousContent": "Wow! We have discovered potentially harmful content in this file.",
 			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online was not configured correctly!",
-			"movingCurrentlyDisabled": "Moving files is currently not possible. We are working on a solution.",
 			"newDir": "New folder",
 			"newFile": "New file",
 			"noAccessToThisFile": "You don't have access to this file!",
@@ -1449,7 +1473,7 @@
 		"label": {
 			"newPassword": "New password:",
 			"repeatYourNewPassword": "Repeat your new password:",
-			"under14YearsOld": "under 14 years old."
+			"under14YearsOld": "13 years or younger."
 		},
 		"parent": {
 			"button": {
@@ -1490,9 +1514,9 @@
 			"repeatNewPassword": "Repeat new password"
 		},
 		"text": {
-			"between14And": "between 14 and {{addConsent}} years old.",
+			"between14And": "between 14 and {{addConsent}} years.",
 			"clickHereForFurtherTraining": "Click here for further training",
-			"fromYear": "from {{age}} years old.",
+			"fromYear": "{{age}} years or older.",
 			"justHaveALook": "Just have a look!",
 			"linguisticNote": "Linguistic note: For better readability we use the masculine form in the {{shortTitle}} (e.g. \"student\", \"teacher\"). It always refers to all persons regardless of gender. The {{shortTitle}} is meant for all people regardless of origin, restrictions, gender and sexual orientation.",
 			"pleaseChangeTheStartPassword": "Please change the start password. Make a note of the new password and keep it safe!",
@@ -1623,7 +1647,7 @@
 			"password": "Password:",
 			"role": "Role",
 			"room": "Room",
-			"settings" : "Settings",
+			"settings": "Settings",
 			"skipLinks": "Skip links",
 			"sortBy": "Sort by: %1",
 			"title": "Title",
@@ -1685,7 +1709,7 @@
 			"Demo": "Demo",
 			"DemoStudent": "Demo Student",
 			"DemoTeacher": "Demo Teacher",
-			"Expert": "Expert",
+			"Experte": "Expert",
 			"Helpdesk": "Helpdesk",
 			"Lehrer": "Teacher",
 			"Schüler": "Student",
@@ -1699,6 +1723,7 @@
 				"administrator": "Administrator",
 				"expert": "Expert",
 				"leader": "Leader",
+				"member": "Attendee",
 				"owner": "Owner",
 				"teacher": "Teacher"
 			}
@@ -2104,6 +2129,7 @@
 			"doYouReallyWantToReplaceSubmission": "Are you sure you want to replace your assessment with the student's submission?",
 			"done": "Great! You've completed your task!",
 			"due": "Due",
+			"till": "till",
 			"fileAlreadyExists": "This file name already exists in your files. Please rename the file.",
 			"maximumTeamSize": "The maximum team size is {{maxMembers}} members",
 			"noAssignment": "No assignment",
@@ -2576,8 +2602,8 @@
 				"welcomeToTheRegistration": "Welcome to the registration in the {{title}}!"
 			},
 			"label": {
-				"bellowNYearsOld": "under {{years}} years old",
-				"overNYearsOld": "from {{years}} years old"
+				"bellowNYearsOld": "under {{years}} years.",
+				"overNYearsOld": "{{years}} years or older."
 			},
 			"parent": {
 				"global": {
@@ -2952,7 +2978,7 @@
 			},
 			"text": {
 				"group": "({{arrayLength courseGroups}} Group{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
-				"nextLesson": "Next Lesson: {{nextEvent}}",
+				"nextLesson": "Next Lesson: {{i18nDateTime nextEvent}}",
 				"noIssues": "No Issues.",
 				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}School Groups{{else}}My student groups {{/userHasPermission}}"
 			}
@@ -2984,7 +3010,7 @@
 			}
 		},
 		"aria_label": {
-			"openTopicX" : "Open topic {{name}}"
+			"openTopicX": "Open topic {{name}}"
 		},
 		"form_share": {
 			"label": {
@@ -2992,10 +3018,10 @@
 			}
 		},
 		"topicEdit": {
-			"aria_label":{
-				"chooseContent" : "Choose the types of contents for your topic",
+			"aria_label": {
+				"chooseContent": "Choose the types of contents for your topic",
 				"geoGebraID": "GeoGebra ID",
-				"moveSectionWithKeys" : "Lift the section by pressing enter or space, move it with the arrow buttons and drop it with enter or space."
+				"moveSectionWithKeys": "Lift the section by pressing enter or space, move it with the arrow buttons and drop it with enter or space."
 			},
 			"button": {
 				"etherpad": "Etherpad",
