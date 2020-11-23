@@ -575,3 +575,15 @@
 	max-height: 70px;
 	max-width: 100px;
 }
+
+select {
+	min-height: 13rem;
+}
+
+svg#info {
+	vertical-align: sub;
+}
+
+.hint {
+	margin: 1rem 0;
+}

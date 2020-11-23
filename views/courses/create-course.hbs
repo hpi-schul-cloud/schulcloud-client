@@ -83,7 +83,11 @@
                 </div>
               </div>
 
-              <div class="row">
+            <div class="hint">
+            {{> "courses/components/svg_info" }} <span>{{$t "courses._course.edit.text.hintSelection"}}</span>
+            </div>
+
+            <div class="row">
                 <div class="form-group col-md-6" data-testid="teachers_container">
                     <label for="courseTeacher">{{$t "courses.global.label.courseTeacher"}}</label>
 
