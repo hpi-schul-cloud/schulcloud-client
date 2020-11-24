@@ -207,7 +207,6 @@ $(document).ready(() => {
 		})
 		.change(dispatchInputEvent);
 
-
 	// collapse toggle
 	function toggleCollapse() {
 		const $collapseToggle = $(this);
