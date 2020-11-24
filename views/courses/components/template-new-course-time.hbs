@@ -1,10 +1,10 @@
 <!-- just for copying, add input names programmatically! -->
 <tr class="new-course-time-template">
     <td><button type="button" aria-label="{{$t "global.headline.delete"}}">
-            <i class="fa fa-trash-o course-time-delete"></i>
+            <i class="fa fa-trash-o course-time-delete" aria-hidden="true"></i>
         </button></td>
     <td>
-        <select id="weekday" class="form-control new-course-time-template-weekday" type="text">
+        <select id="weekday" class="form-control new-course-time-template-weekday no-bootstrap" type="text">
             <option value="0">{{$t "global.text.monday"}}</option>
             <option value="1">{{$t "global.text.tuesday"}}</option>
             <option value="2">{{$t "global.text.wednesday"}}</option>

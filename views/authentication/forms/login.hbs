@@ -43,7 +43,7 @@
 				<div class="login-providers">
 					<div class="form-group">
 						<label for="school">{{$t "global.link.school"}}</label>
-						<select tab-index="0" id="school" name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
+						<select id="school" name="schoolId" class="school search-enabled no-bootstrap" data-placeholder="{{$t "login.input.school"}}">
 								<option selected value="">{{$t "login.input.noSchoolsSelection"}}</option>
 							{{#each schools}}
 								<option value="{{this._id}}">{{this.name}}</option>
@@ -54,7 +54,7 @@
 					</div>
 					<div class="form-group">
 						<label for="system">{{$t "login.label.system"}}</label>
-						<select id="system" name="system" class="system" data-placeholder="{{$t "login.input.system"}}">
+						<select id="system" name="system" class="system no-bootstrap" data-placeholder="{{$t "login.input.system"}}">
 							{{#each systems}}
 								<option value="{{this._id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
 							{{else}}

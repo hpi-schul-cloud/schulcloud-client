@@ -66,6 +66,24 @@ $(document).ready(() => {
 		});
 	});
 
+	function handleFormToggle(e) {
+		e.preventDefault();
+		$('.a11y-friendly').toggle();
+		$('.chosen-form').toggle();
+	}
+
+	$('.a11y-friendly').css('display', 'none');
+
+	const a11yToggleButton = $('.a11y-toggle');
+	a11yToggleButton.on('keypress', (e) => {
+		if (e.key === ' ' || e.key === 'Enter') {
+			handleFormToggle(e);
+		}
+	});
+
+	a11yToggleButton.click((e) => {
+		handleFormToggle(e);
+	});
 
 	$('.btn-import-topic').click(function importTopic(e) {
 		e.stopPropagation();

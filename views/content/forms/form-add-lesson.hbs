@@ -1,12 +1,12 @@
 <div class="form-group">
     <label for="courseId">{{$t "content.form_add_lesson.label.chooseACourse" }}</label>
-    <select class="course-selection form-control" name="courseId" required="required">
+    <select id="courseId" class="course-selection form-control no-bootstrap" name="courseId" required="required">
         <option value="" selected hidden>{{$t "content.button.choose" }}</option>
     </select>
 </div>
 <div class="form-group lessons" style="display: none">
     <label for="name">{{$t "content.form_add_lesson.label.chooseALessonTopic" }}</label>
-    <select class="lesson-selection form-control" name="lessonId" required="required">
+    <select id="name" class="lesson-selection form-control no-bootstrap" name="lessonId" required="required">
     </select>
 </div>
 <!-- hidden fields -->
