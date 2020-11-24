@@ -802,7 +802,7 @@
 		},
 		"text": {
 			"MINTECSchoolsAnd": "<a href='https://www.mint-ec.de' target='_blank'> MINT-EC </a> is the national excellence network of schools with upper secondary level and a distinctive profile in mathematics, computer science and natural sciences and technology (MINT). Schools from the network have been participating in the HPI School Cloud project since 2017.",
-			"MINTECSchoolsAndOther": "MINT-EC schools and schools that do not belong to a state project can register here. Thanks to the project extension by the BMBF, they can now use the HPI school cloud.",
+			"SchoolsAndOther": "Schools that do not belong to a state project can register here. Thanks to the project extension by the BMBF, they can now use the HPI school cloud.",
 			"contactUsToRegister": "Please contact either Ms. Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de</a> or Mr. Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de</a> to start the registration process.",
 			"forGeneralQuestionsPleaseContact": "If you have any general questions, please contact the following e-mail address:",
 			"hereIsOurRegistrationForm": "Click here for our registration form:",
