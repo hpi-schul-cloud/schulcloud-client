@@ -24,6 +24,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7842 - Fixed typo on about page
 - SC-1589 - Fixed error handling on team creation
 - SC-7845 - Fixed GitHub action changelog
 - SC-7859 - Fixed class name not required to create a class
