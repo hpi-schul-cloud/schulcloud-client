@@ -961,7 +961,7 @@ class TopicNexboard extends TopicBlock {
 				<div className="form-group">
                     <label>{$t('topic.topicEdit.label.selectNeXboard')}</label>
                     <select name={`contents[${this.props.position}][content][board]`}
-                            className="chosen-select no-bootstrap"
+                            className="chosen-select"
                             data-placeholder={$t('topic.topicEdit.input.selectNeXboard')}
                             id={(this.state.id)}
                             value={(this.props.content || {}).board}>

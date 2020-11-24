@@ -41,7 +41,7 @@
         <div class="form-group">
             <input name="teamSubmissionOptions" value="teamMembers" type="radio" id="teamMembers1" {{#unless @root.courseGroupSelected}}checked{{/unless}}/>
             <label for="teamMembers1">{{$t "homework.label.selectTeamMembers" }}</label>
-            <select name="teamMembers" id="teamMembers" class="no-bootstrap" multiple data-placeholder="{{$t "homework._task.input.chooseTeamMembers"}}">
+            <select name="teamMembers" id="teamMembers" multiple data-placeholder="{{$t "homework._task.input.chooseTeamMembers"}}">
                 {{#each @root.students}}
                     <option value="{{this._id}}"
                         {{#if @root.submission}}
@@ -63,7 +63,7 @@
         <div class="form-group">
             <input name="teamSubmissionOptions" value="courseGroup" type="radio" id="courseGroup1" {{#if @root.courseGroupSelected}}checked{{/if}}/>
             <label for="courseGroup1">{{$t "homework.label.selectStudentGroup" }}</label>
-            <select name="courseGroupId" id="courseGroupId" class="no-bootstrap" data-placeholder="{{$t "homework._task.input.chooseTeamMembers"}}">
+            <select name="courseGroupId" id="courseGroupId" data-placeholder="{{$t "homework._task.input.chooseTeamMembers"}}">
                 {{#each @root.courseGroups}}
                     <option value="{{this._id}}" {{#ifeq this._id @root.submission.courseGroupId._id}}selected{{/ifeq}}>{{this.name}}</option>
                 {{else}}

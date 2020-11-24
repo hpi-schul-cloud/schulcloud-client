@@ -22,7 +22,7 @@
             <h2 class="h3">{{$t "teams._team.members.headline.selectAndAddTeacher"}}</h2>
             <div class="form-group">
                 <label for="federalstate">{{$t "teams._team.members.label.federalState"}}</label>
-                <select class="search-enabled no-bootstrap" placeholder="{{$t "teams._team.members.placeholder.selectFederalState"}}" data-force-value="true"
+                <select class="search-enabled" placeholder="{{$t "teams._team.members.placeholder.selectFederalState"}}" data-force-value="true"
                 data-placeholder="{{$t "teams._team.members.placeholder.selectFederalState"}}" name="federalstate" id="federalstate">
                     {{#each federalStates}}
                         <option value="{{this._id}}" data-id="{{this._id}}" {{#ifeq @root.currentFederalState this._id}}selected="selected"{{/ifeq}}>{{this.name}}</option>
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="school">{{$t "global.link.school"}}</label>
-                <select class="search-enabled no-bootstrap" placeholder="{{$t "teams._team.members.placeholder.selectSchool"}}"
+                <select class="search-enabled" placeholder="{{$t "teams._team.members.placeholder.selectSchool"}}"
                 data-placeholder="{{$t "teams._team.members.placeholder.selectSchool"}}" name="school" id="school">
                     {{#each schools}}
                         <option value="{{this._id.name}}" data-id="{{this._id._id}}">{{this.label}}</option>
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label for="teacher">{{$t "global.role.text.teacher"}}</label>
-                <select class="search-enabled no-bootstrap" placeholder="{{$t "global.placeholder.selectTeacher"}}"
+                <select class="search-enabled" placeholder="{{$t "global.placeholder.selectTeacher"}}"
                 data-placeholder="{{$t "global.placeholder.selectTeacher"}}" name="teacher" id="teacher">
                     {{#each teachers}}
                         <option value="{{this._id.name}}" data-id="{{this._id._id}}">{{this.label}}</option>
@@ -49,7 +49,7 @@
             </div>
             <div style="margin-bottom: 6rem" class="form-group padding-bottom">
                 <label for="role">{{$t "teams._team.members.label.roleOfInvitedTeacher"}}</label>
-                <select class="no-bootstrap" name="role" id="role" data-force-value="true" disabled="disabled">
+                <select name="role" id="role" data-force-value="true" disabled="disabled">
                         <option value="teamadministrator" selected="selected">{{$t "teams._team.members.placeholder.teamAdmin"}}</option>
                 </select>
             </div>
