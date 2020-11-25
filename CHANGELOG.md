@@ -25,6 +25,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-5498 - Fixed typo in account page
 - SC-7842 - Fixed typo on about page
 - SC-1589 - Fixed error handling on team creation
 - SC-7845 - Fixed GitHub action changelog
