@@ -202,8 +202,8 @@
 								readonly{{/userHasPermission}}/>
 						</div>
 						<div class="form-group">
-						<label>{{$t "administration.school.label.chooseACounty"}}</label>
-						<select class="form-control" name="county"  placeholder="Kreis"
+						<label for="chooseACounty">{{$t "administration.school.label.chooseACounty"}}</label>
+						<select id="chooseACounty" class="form-control" name="county"  placeholder="Kreis"
 							{{#if ../school.county}}disabled{{/if}}>
 							{{#if ../school.county}}
 								<option value="">
