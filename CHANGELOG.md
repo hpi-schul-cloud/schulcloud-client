@@ -12,6 +12,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 - SC-7542 - Add kreis to school edit
+- SC-6825 - change collapsable icon
+- SC-6619 - fixed text for registration in all other schools
 - SC-6662 - Add data-testid in homework for integration test
 - SC-7571 - fixed registration link generation (performance issues)
 - SC-7447 - Add warning text for links when leaving the schul-cloud platform
@@ -24,6 +26,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-5498 - Fixed typo in account page
+- SC-7842 - Fixed typo on about page
 - SC-1589 - Fixed error handling on team creation
 - SC-7845 - Fixed GitHub action changelog
 - SC-7859 - Fixed class name not required to create a class
