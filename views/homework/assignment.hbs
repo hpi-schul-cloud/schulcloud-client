@@ -10,8 +10,8 @@
                 $(this).parent('.usersubmission:not(.clicked)').toggleClass('active');
                 $('.usersubmission.clicked').removeClass('clicked');
 
-                $('.usersubmission td:last-of-type i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-left');
-                $('.usersubmission.active td:last-of-type i.fa-chevron-left').removeClass('fa-chevron-left').addClass('fa-chevron-down');
+                $('.usersubmission td:last-of-type i.fa-chevron-up').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                $('.usersubmission.active td:last-of-type i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-up');
             });
 
             // change tab
