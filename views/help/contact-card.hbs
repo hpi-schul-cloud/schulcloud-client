@@ -5,7 +5,7 @@
       <input type="radio" id="admin" name="message_target" value="admin" {{#if adminFormIsActive}}checked{{/if}}>
       <label for="admin" tabindex="0" role="button">{{$t "help.contact.label.schoolAdmin" }}</label>
       <input type="radio" id="team" name="message_target" value="team" {{#if teamFormIsActive}}checked{{/if}}>
-      <label for="team" tabindex="0" role="button"> {{theme.short_title}}-Team</label>
+      {{> "help/partials/help_form_button_label_proper_team_name"}}
     </div>
   </fieldset>
 
