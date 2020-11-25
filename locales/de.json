@@ -88,7 +88,7 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
 			},
 			"text": {
-				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
+				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{shortTitle}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
 				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
 				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
 			}
@@ -802,7 +802,7 @@
 		},
 		"text": {
 			"MINTECSchoolsAnd": "<a href='https://www.mint-ec.de' target='_blank'>MINT-EC</a> ist das nationale Excellence-Netzwerk von Schulen mit Sekundarstufe II und ausgeprägtem Profil in Mathematik, Informatik, Naturwissenschaften und Technik (MINT). Seit 2017 nehmen Schulen aus dem Netzwerk am Projekt HPI Schul-Cloud teil.",
-			"MINTECSchoolsAndOther": "Hier können sich MINT-EC-Schulen und auch Schulen die keinem Länderprojekt angehören anmelden, die dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
+			"SchoolsAndOther": "Hier können sich Schulen anmelden, die keinem Länderprojekt angehören und dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
 			"contactUsToRegister": "Kontaktieren Sie bitte entweder Frau Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de</a> oder Herrn Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de</a>, um den Registrierungsprozess einzuleiten.",
 			"forGeneralQuestionsPleaseContact": "Bei allgemeinen Fragen kontaktieren Sie bitte folgende E-Mail-Adresse:",
 			"hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
