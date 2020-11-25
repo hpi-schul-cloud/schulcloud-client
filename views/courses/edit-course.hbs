@@ -119,9 +119,9 @@
 				</div>
 
 				<div class="form-group">
-					<label for="teachers">{{$t "courses.global.label.courseTeacher"}}</label>
+					<label for="teacherId">{{$t "courses.global.label.courseTeacher"}}</label>
 
-					<select id="teachers" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
+					<select id="teacherId" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each teachers}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -136,8 +136,8 @@
 				</div>
 
 				<div class="form-group">
-					<label for="substitute">{{$t "courses._course.edit.label.substitute"}}</label>
-					<select id="substitute" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
+					<label for="substituteId">{{$t "courses._course.edit.label.substitute"}}</label>
+					<select id="substituteId" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each substitutions}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -148,9 +148,9 @@
 				</div>
 
 				<div class="form-group">
-					<label for="class">{{$t "global.headline.classes"}} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded"}}</small></label>
+					<label for="classId">{{$t "global.headline.classes"}} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded"}}</small></label>
 
-					<select id="class" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
+					<select id="classId" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each classes}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -170,9 +170,9 @@
 				</div>
 
 				<div class="form-group">
-					<label for="students">{{$t "courses._course.global.label.studentParticipant"}}</label>
+					<label for="studentsId">{{$t "courses._course.global.label.studentParticipant"}}</label>
 
-					<select id="students" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
+					<select id="studentsId" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each students}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>

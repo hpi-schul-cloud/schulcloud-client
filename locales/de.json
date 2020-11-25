@@ -881,8 +881,7 @@
 					"editCourse": "Kurs bearbeiten"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Kurs ist archiviert",
-					"hint": "Tipp"
+					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
@@ -891,8 +890,7 @@
 				"text": {
 					"attentionDeletion": "Alle Daten werden unwiderruflich gelöscht.",
 					"courseWillDelete": "Dies löscht den Kurs auch für alle Schüler:innen.",
-					"toEditChangeDate": "Um Daten des Kurses zu bearbeiten, musst du zunächst das Enddatum anpassen.",
-					"hintSelection": "Um deine Auswahl zu treffen, halte bitte die Tasten cmd + shift gedrückt.\nDeine Auswahl erscheint dann grau hinterlegt. Solltest du weitere Hilfe benötigen wende dich bitte an den User Support."
+					"toEditChangeDate": "Um Daten des Kurses zu bearbeiten, musst du zunächst das Enddatum anpassen."
 				}
 			},
 			"global": {

@@ -881,8 +881,7 @@
 					"editCourse": "Edit course"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Course is archived",
-					"hint": "Tipp"
+					"courseIsArchieved": "Course is archived"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Allow Students to write messages in the course chat.",
@@ -891,8 +890,7 @@
 				"text": {
 					"attentionDeletion": "All data will be permanently deleted.",
 					"courseWillDelete": "This also deletes the course for all students.",
-					"toEditChangeDate": "In order to edit course data, you must first adjust the end date.",
-					"hintSelection": "Um deine Auswahl zu treffen, halte bitte die Tasten cmd + shift gedrückt.\nDeine Auswahl erscheint dann grau hinterlegt. Solltest du weitere Hilfe benötigen wende dich bitte an den User Support."
+					"toEditChangeDate": "In order to edit course data, you must first adjust the end date."
 				}
 			},
 			"global": {
