@@ -196,11 +196,31 @@
 								{{$t "administration.school.label.schoolNumber" }}
 							</label>
 
-							<input id="officialSchoolNumber" value="{{../school.officialSchoolNumber}}" type="text" pattern="\D{0,2}-*\d{5}$" class="form-control" name="officialSchoolNumber"
+							<input id="officialSchoolNumber" {{#if ../school.officialSchoolNumber}}disabled{{/if}} value="{{../school.officialSchoolNumber}}" type="text" pattern="\D{0,2}-*\d{5}$" class="form-control" name="officialSchoolNumber"
 								placeholder="12345" {{#if ../schoolUsesLdap}} readonly{{/if}}
 								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
 								readonly{{/userHasPermission}}/>
 						</div>
+						<div class="form-group">
+						<label>{{$t "administration.school.label.chooseACounty"}}</label>
+						<select class="form-control" name="county"  placeholder="Kreis"
+							{{#if ../school.county}}disabled{{/if}}>
+							{{#if ../school.county}}
+								<option value="">
+									{{../school.county.name}}
+								</option>
+							{{else}}
+							<option value="">{{$t "administration.school.placeholder.chooseCounty"}}</option>
+							<optgroup label="{{$t "administration.school.label.counties"}}">
+							{{#each ../school.federalState.counties}}
+								<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+									{{this.name}}
+								</option>
+							{{/each}}
+							</optgroup>
+							{{/if}}
+						</select>
+					</div>
 
 						<div class="form-group">
 							<label>{{$t "administration.school.label.uploadSchoolLogo" }}</label><br />
