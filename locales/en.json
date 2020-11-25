@@ -88,7 +88,7 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Deactivate visibility in the central directory"
 			},
 			"text": {
-				"hintVisibility": "Teachers from other schools who are team administrators can easily invite you to a cross-school team via the central directory service of {{short_title}}. Your name is assigned to your school and it is accessible in the directory structure under <i> Name of your state &raquo; Name of your school &raquo; Your name </i>.",
+				"hintVisibility": "Teachers from other schools who are team administrators can easily invite you to a cross-school team via the central directory service of {{shortTitle}}. Your name is assigned to your school and it is accessible in the directory structure under <i> Name of your state &raquo; Name of your school &raquo; Your name </i>.",
 				"visibilityTeamInvitationsDisabled": "Visibility for team invitations is disabled",
 				"visibilityTeamInvitations": "Visibility for team invitations"
 			}
