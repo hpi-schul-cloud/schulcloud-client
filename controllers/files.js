@@ -690,6 +690,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 	const record = await api(req).get(`/courses/${req.params.courseId}`);
 	res.locals.files.files = res.locals.files.files.map(addThumbnails);
 	let canCreateFile = true;
+	let canUploadFile = true;
 
 	let breadcrumbs = [{
 		label: res.$t('files.label.filesFromMyCourse'),
@@ -709,13 +710,14 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 
 	if (['Schüler', 'Demo'].includes(res.locals.currentRole)) {
 		canCreateFile = false;
+		canUploadFile = false;
 	}
 
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
 	res.render('files/files', {
 		title: res.$t('global.headline.files'),
-		canUploadFile: true,
+		canUploadFile,
 		canCreateDir: true,
 		canCreateFile,
 		canShareFiles: true,
