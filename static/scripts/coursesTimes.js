@@ -25,6 +25,12 @@ let deleteCourseTime = function (courseTimeId) {
     $('#' + courseTimeId).remove();
 };
 
+/** fix the bootstrap-chosen solution **/
+let fixChosen = function (selectElement) {
+	selectElement.chosen({ width: "100%", height: "100%" });
+	selectElement.parent().find('.chosen-container-single-nosearch').remove();
+};
+
 /** creates a new empty course-time row **/
 let addNewCourseTime = function addNewCourseTime(div) {
     let $courseTimesTable = div.find('.add-course-times');
@@ -40,8 +46,8 @@ let addNewCourseTime = function addNewCourseTime(div) {
       };
 
     $newCourseTime.find('.new-course-time-template-weekday').attr('name', `times[${courseTimesCount}][weekday]`);
-   	$newCourseTime.find('.new-course-time-template-weekday');
-
+	fixChosen($newCourseTime.find('.new-course-time-template-weekday'));
+	$newCourseTime.find('.new-course-time-template-weekday');
     $newCourseTime.find('.new-course-time-template-startTime').attr('name', `times[${courseTimesCount}][startTime]`);
     $newCourseTime.find('.new-course-time-template-startTime').attr('autocomplete', 'off');
     $newCourseTime.find('.new-course-time-template-startTime').datetimepicker({
@@ -68,7 +74,8 @@ let addNewCourseTime = function addNewCourseTime(div) {
 /** fills an empty course-time row with data **/
 let populateCourseTime = function($courseTimeRow, data) {
     $courseTimeRow.find('.new-course-time-template-weekday').val(data.weekday);
-    $courseTimeRow.find('.new-course-time-template-startTime').val(data.startTime);
+	$courseTimeRow.find('.new-course-time-template-weekday').trigger('chosen:updated');
+	$courseTimeRow.find('.new-course-time-template-startTime').val(data.startTime);
     $courseTimeRow.find('.new-course-time-template-duration').val(data.duration);
     $courseTimeRow.find('.new-course-time-template-room').val(data.room);
 
