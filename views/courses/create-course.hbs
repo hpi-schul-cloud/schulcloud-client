@@ -88,7 +88,8 @@
                     <label for="courseTeacher">{{$t "courses.global.label.courseTeacher"}}</label>
 
                     <select id="courseTeacher" name="teacherIds[]" required multiple data-placeholder= "{{$t "courses.global.input.chooseTeacher"}}" data-testid="teachersearch" autocomplete="off">
-                        {{#each teachers}}
+                    <option disabled value="{{$t "administration.global.label.noSubTeacherSelection"}}">{{$t "administration.global.label.noSubTeacherSelection"}}</option>
+            {{#each teachers}}
                             <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
                                     {{this.displayName}}
