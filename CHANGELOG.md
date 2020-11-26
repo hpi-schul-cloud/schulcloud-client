@@ -26,6 +26,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7771 - Fixed hint for teachers when editing a course
 - SC-5498 - Fixed typo in account page
 - SC-7842 - Fixed typo on about page
 - SC-1589 - Fixed error handling on team creation
@@ -46,6 +47,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-5501 - fixed grammar issue for password recovery request
 - SC-7589 - fixed correct display for age while first login and change of sentence structure for clearance
 - SC-7538 - fixed and enabled sorting on /files
+- SC-7874 - remove access to removed env variables
 
 ### Changed
 
