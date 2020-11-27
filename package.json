@@ -182,6 +182,7 @@
 		"sass-lint": "^1.13.1",
 		"sass-lint-auto-fix": "^0.21.0",
 		"script-loader": "^0.7.2",
+		"sinon": "^9.2.1",
 		"vinyl-map": "^1.0.2",
 		"vinyl-named": "^1.1.0",
 		"webpack": "^4.41.5",

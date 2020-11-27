@@ -1,47 +1,17 @@
 const express = require('express');
 
-const api = require('../api');
-const authHelper = require('../helpers/authentication');
-const { NOTIFICATION_SERVICE_ENABLED } = require('../config/global');
+const api = require('../../api');
+const authHelper = require('../../helpers/authentication');
+const { NOTIFICATION_SERVICE_ENABLED } = require('../../config/global');
+
+const { mainRoute } = require('./accountLogic');
 
 const router = express.Router();
 
 // secure routes
 router.use(authHelper.authChecker);
 
-router.post('/', (req, res) => {
-	const {
-		firstName,
-		lastName,
-		email,
-		password,
-		passwordNew,
-		language,
-	} = req.body;
-	return api(req).patch(`/accounts/${res.locals.currentPayload.accountId}`, {
-		json: {
-			password_verification: password,
-			password: passwordNew !== '' ? passwordNew : undefined,
-		},
-	}).then(() => api(req).patch(`/users/${res.locals.currentUser._id}`, {
-		json: {
-			firstName,
-			lastName,
-			email,
-			language,
-		},
-	}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
-		res.redirect('/account/');
-	})).catch((err) => {
-		res.render('account/settings', {
-			title: res.$t('account.headline.yourAccount'),
-			notification: {
-				type: 'danger',
-				message: err.error.message,
-			},
-		});
-	});
-});
+router.post('/', mainRoute);
 
 router.get('/', (req, res, next) => {
 	const isSSO = Boolean(res.locals.currentPayload.systemId);
