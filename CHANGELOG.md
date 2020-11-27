@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## 25.2.4
+
+### Fixed
+
+- SC-7878 reverted dropdowns and multiselects to the old widget
+
 ## 25.2.3
 
 ### Added
@@ -32,7 +38,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7453 fixed course/team event handling
 - SC-7392 fix create event for teams / courses
 - SC-7653 Workaround for winter/summer time issue
-- SC-7590 Fixied missing permission for enabling consent by teachers
+- SC-7590 Fixed missing permission for enabling consent by teachers
 - SC-7151 Fixing sentence structure while registration for parents
 - SC-7350 Fix invalid date
 - SC-7182 do not allow to open office files in new windows

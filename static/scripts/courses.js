@@ -66,7 +66,6 @@ $(document).ready(() => {
 		});
 	});
 
-
 	$('.btn-import-topic').click(function importTopic(e) {
 		e.stopPropagation();
 		e.preventDefault();
