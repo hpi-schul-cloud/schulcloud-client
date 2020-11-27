@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## 25.2.3
+
+### Added
+
+- SC-6727 Change email addresses for tickets for Niedersachsen
+
 ### Added
 
 - SC-6825 - change collapsable icon
