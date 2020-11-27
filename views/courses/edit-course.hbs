@@ -121,7 +121,7 @@
 				<div class="form-group">
 					<label for="teacherId">{{$t "courses.global.label.courseTeacher"}}</label>
 
-					<select id="teacherId" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
+					<select id="teacherId" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each teachers}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
