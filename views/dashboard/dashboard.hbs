@@ -27,7 +27,7 @@
 {{/if}}
 
 
-<section class="section section-timetable">
+<section data-testid="timetable-section" class="section section-timetable">
     <div class="row">
         <div class="col-sm-12">
             <h2 class="h5">{{$t "dashboard.headline.schedule"}}</h2>
@@ -108,11 +108,11 @@
 
 {{#if isTeacher}}
     {{#if homeworksFeedbackRequired}}
-        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/" redirectToTab="submissions"}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks-with-required-feedback" title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/" redirectToTab="submissions"}}
     {{/if}}
 
     {{#if assignedHomeworks}}
-        {{> 'dashboard/components/homework_tiles' title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/homework/asked/"}}
+        {{> 'dashboard/components/homework_tiles' section-id="published-tasks" title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/homework/asked/"}}
     {{else}}
     <section class="section mb-2">
         <div class="row">
@@ -130,12 +130,12 @@
     {{/if}}
 
     {{#if privateHomeworks}}
-        {{> 'dashboard/components/homework_tiles' title=($t "global.headline.privateTasks") content=privateHomeworks href="/homework/private/"}}
+        {{> 'dashboard/components/homework_tiles' section-id="private-tasks" title=($t "global.headline.privateTasks") content=privateHomeworks href="/homework/private/"}}
     {{/if}}
 
 {{else if isStudent}}
     {{#if assignedHomeworks}}
-        {{> 'dashboard/components/homework_tiles' title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/homework/asked/"}}
+        {{> 'dashboard/components/homework_tiles' section-id="published-tasks" title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/homework/asked/"}}
     {{else}}
         <section class="section mb-2">
             <div class="row">
@@ -153,7 +153,7 @@
     {{/if}}
 
     {{#if homeworksWithFeedback}}
-        {{> 'dashboard/components/homework_tiles' title=($t "dashboard.headline.withFeedback") content=homeworksWithFeedback href="/homework" redirectToTab="feedback"}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks-with-feedback" title=($t "dashboard.headline.withFeedback") content=homeworksWithFeedback href="/homework" redirectToTab="feedback"}}
     {{/if}}
 {{/if}}
 
@@ -164,7 +164,7 @@
 {{#if news}}
 {{>  'dashboard/components/card_section' section-id="news" title=($t "global.headline.news") content=news link-text=($t "dashboard.link.continueReading") href="/news/"}}
 {{else}}
-<section class="section mb-2">
+<section data-testid="news-section" class="section section-news mb-2">
     <div class="row">
         <div class="col-sm-12">
             <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/news/">{{$t "global.headline.news"}}</a></h2>
