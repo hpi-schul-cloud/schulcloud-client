@@ -23,6 +23,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-5942 - Add trim() before email for password recovery got send to server
 - OPS-1297 - Added Changelog github action
 - SC-6596 - Added school option to allow students to create chat rooms
+- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's 
 
 ### Fixed
 
