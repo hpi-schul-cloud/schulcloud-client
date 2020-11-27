@@ -39,6 +39,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7771 - Fixed hint for teachers when editing a course - fix
 - SC-7771 - Fixed hint for teachers when editing a course
 - SC-5498 - Fixed typo in account page
 - SC-7842 - Fixed typo on about page
