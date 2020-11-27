@@ -83,11 +83,13 @@
                 </div>
               </div>
 
-              <div class="row">
+            <div class="row">
                 <div class="form-group col-md-6" data-testid="teachers_container">
                     <label for="courseTeacher">{{$t "courses.global.label.courseTeacher"}}</label>
-
-                    <select id="courseTeacher" name="teacherIds[]" required multiple data-placeholder= "{{$t "courses.global.input.chooseTeacher"}}" data-testid="teachersearch" autocomplete="off">
+                    <select id="courseTeacher"
+                            name="teacherIds[]" required multiple
+                            data-placeholder= "{{$t "courses.global.input.chooseTeacher"}}"
+                            data-testid="teachersearch" autocomplete="off" tabindex="-1">
                         {{#each teachers}}
                             <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
@@ -102,7 +104,7 @@
 
                 <div class="form-group col-md-6" data-testid="courseSubstitute_container">
                     <label for="courseSubstitute">{{$t "courses.add.label.courseSubstitute"}}</label>
-                    <select id="courseSubstitute" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"  autocomplete="off" data-testid="substituent">
+                    <select id="courseSubstitute" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" autocomplete="off" data-testid="substituent">
                             <option disabled value="{{$t "administration.global.label.noSubTeacherSelection"}}">{{$t "administration.global.label.noSubTeacherSelection"}}</option>
                         {{#each substitutions}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -158,9 +160,11 @@
 
             <section data-panel="section-2" data-testid="section-2-area" class="submit-page course-submit-page">
                 {{#userHasPermission "STUDENT_LIST"}}
+
                     <h2 class="h4">{{$t "global.headline.youAlmostMadeIt"}}</h2>
                     <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
-                    <div class="form-group" data-testid="class_container">
+
+                        <div class="form-group" data-testid="class_container">
                         <label for="addClassesToCourse">{{$t "courses.add.label.addClassesToCourse"}}</label>
                         <select id="addClassesToCourse" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
                                 <option disabled value="{{$t "administration.global.placeholder.selectClasses"}}">{{$t "administration.global.placeholder.selectClasses"}}</option>
@@ -178,18 +182,17 @@
 
                   <div class="form-group" data-testid="students_container">
                       <label for="addStudentsToCourse">{{$t "courses.add.label.addStudentsToCourse"}}</label>
-
                       <select id="addStudentsToCourse" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
-                            <option disabled value="{{$t "administration.global.placeholder.selectStudent"}}">{{$t "administration.global.placeholder.selectStudent"}}</option>
-                             {{#each ../students}}
-                              <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                  {{#if this.displayName}}
-                                      {{this.displayName}}
-                                  {{else}}
-                                      {{this.firstName}} {{this.lastName}}
-                                  {{/if}}
-                              </option>
-                          {{/each}}
+                         <option disabled value="{{$t "administration.global.placeholder.selectStudent"}}">{{$t "administration.global.placeholder.selectStudent"}}</option>
+                         {{#each ../students}}
+                         <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                         {{#if this.displayName}}
+                         {{this.displayName}}
+                         {{else}}
+                         {{this.firstName}} {{this.lastName}}
+                         {{/if}}
+                         </option>
+                         {{/each}}
                       </select>
                   </div>
                 {{else}}
