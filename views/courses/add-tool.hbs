@@ -12,9 +12,9 @@
                         {{#each ltiTools}}
                             <a class="list-group-item list-group-item-action flex-column align-items-start template_tool card-tool" href="{{this._id}}">
                             {{#if logo_url}}
-                                <img src={{this.logo_url}} class="float-left"/>
+                                <img src={{this.logo_url}} class="float-left" role="presentation" />
                             {{else}}
-                                <img src="/images/cloud.png" class="float-left"/>
+                                <img src="/images/cloud.png" class="float-left" role="presentation" />
                             {{/if}}
                                 <span>{{this.name}}</span>
                             </a>
@@ -33,7 +33,7 @@
                 {{/content}}
             {{/embed}}
             {{/userHasPermission}}
-            
+
             {{#embed "lib/components/modal-form" class="add-bbb-modal"}}
             {{#content "fields"}}
             {{> "courses/forms/form-add-bbb-tool"}}
