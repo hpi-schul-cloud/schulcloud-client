@@ -97,7 +97,7 @@
 					<div class="form-group">
 						<label for="coursePicker">{{$t "global.sidebar.link.administrationCourses" }}</label>
 						{{#unless isSubstitution}}
-						<select id="coursePicker" class="" name="courseId" data-placeholder="Kurs auswählen">
+						<select id="coursePicker" name="courseId" data-placeholder="Kurs auswählen">
 							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>{{$t "homework.input.noAssignment"}}</option>
 							{{#each courses}}
 							<option value="{{this._id}}"
