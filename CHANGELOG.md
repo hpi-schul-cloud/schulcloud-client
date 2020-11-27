@@ -24,6 +24,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 - SC-7898 - async middleware error handler added
+- SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
 - SC-6619 - fixed text for registration in all other schools
 - SC-6662 - Add data-testid in homework for integration test
@@ -39,6 +40,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7771 - Fixed hint for teachers when editing a course - fix
 - SC-7771 - Fixed hint for teachers when editing a course
 - SC-5498 - Fixed typo in account page
 - SC-7842 - Fixed typo on about page
