@@ -569,8 +569,11 @@
 				"authentication": "Authentifizierung",
 				"changeOfClasses": "Änderung von Klassen/neue Klassen",
 				"changeOfUserData": "Änderung von Nutzerdaten/neue Nutzer",
+				"chooseACounty": "Bitte wählen Sie den Kreis zu dem die Schule gehört",
 				"className": "Klassenname:",
 				"cloudStorageProvider": "Cloud-Storage-Anbieter",
+				"county": "Kreis",
+				"counties": "Kreise",
 				"currentSchoolYear": "Aktuelles Schuljahr:",
 				"dataProtectionAdd": "Datenschutzerklärung hinzufügen",
 				"duringTheSchoolYear": "Während des Schuljahres",
@@ -604,6 +607,9 @@
 			"link": {
 				"moreInfo": "Mehr Infos",
 				"matrixHelpPage": "Hilfeartikel zum Messenger"
+			},
+			"placeholder": {
+				"chooseCounty": "Wählen Sie eine Grafschaft"
 			},
 			"text": {
 				"LDAPChanges": "du kannst die notwendigen Änderungen für das neue Schuljahr im\nLDAP vornehmen (neue Nutzer, Update der Klassen)",
