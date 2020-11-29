@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const api = require('../api');
+const { api } = require('../api');
 const logger = require('../helpers/logger');
 
 const { HOST } = require('../config/global');

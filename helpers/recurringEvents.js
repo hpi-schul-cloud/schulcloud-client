@@ -1,7 +1,7 @@
 const moment = require('moment');
 const _ = require('lodash');
 
-const api = require('../api');
+const { api } = require('../api');
 const timesHelper = require('./timesHelper');
 
 /**

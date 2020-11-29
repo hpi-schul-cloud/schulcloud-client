@@ -3,7 +3,7 @@ const express = require('express');
 const moment = require('moment');
 
 const router = express.Router({ mergeParams: true });
-const api = require('../api');
+const { api } = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
 

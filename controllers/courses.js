@@ -2,7 +2,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-const api = require('../api');
+const { api } = require('../api');
 const apiEditor = require('../apiEditor');
 const { EDITOR_URL } = require('../config/global');
 const authHelper = require('../helpers/authentication');

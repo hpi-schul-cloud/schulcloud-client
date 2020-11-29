@@ -2,7 +2,7 @@ const express = require('express');
 const { Configuration } = require('@schul-cloud/commons');
 
 const router = express.Router();
-const api = require('../api');
+const { api } = require('../api');
 
 const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');

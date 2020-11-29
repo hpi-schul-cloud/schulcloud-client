@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const api = require('../api');
+const { api } = require('../api');
 const authHelper = require('../helpers/authentication');
 const timesHelper = require('../helpers/timesHelper');
 

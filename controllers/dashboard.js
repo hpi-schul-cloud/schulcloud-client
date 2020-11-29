@@ -7,7 +7,7 @@ const logger = require('../helpers/logger');
 
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
-const api = require('../api');
+const { api } = require('../api');
 const timesHelper = require('../helpers/timesHelper');
 
 const recurringEventsHelper = require('../helpers/recurringEvents');

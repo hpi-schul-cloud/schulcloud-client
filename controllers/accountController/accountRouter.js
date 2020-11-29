@@ -1,6 +1,6 @@
 const express = require('express');
 
-const api = require('../../api');
+const { api } = require('../../api');
 const authHelper = require('../../helpers/authentication');
 const { NOTIFICATION_SERVICE_ENABLED } = require('../../config/global');
 

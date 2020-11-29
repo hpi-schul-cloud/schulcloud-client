@@ -4,7 +4,7 @@ const passwordGenerator = require('generate-password');
 
 const { Configuration } = require('@schul-cloud/commons');
 
-const api = require('../api');
+const { api } = require('../api');
 const permissionsHelper = require('./permissions');
 const wordlist = require('../static/other/wordlist.js');
 

@@ -5,7 +5,7 @@ const Backend = require('i18next-sync-fs-backend');
 const path = require('path');
 const { Configuration } = require('@schul-cloud/commons');
 const logger = require('./logger');
-const api = require('../api');
+const { api } = require('../api');
 
 const i18nDebug = Configuration.get('I18N__DEBUG');
 const fallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');

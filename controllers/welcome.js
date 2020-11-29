@@ -3,7 +3,7 @@ const router = express.Router();
 
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
-const api = require('../api');
+const { api } = require('../api');
 
 router.use(authHelper.authChecker);
 

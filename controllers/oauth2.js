@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const csrf = require('csurf');
 const auth = require('../helpers/authentication');
-const api = require('../api');
+const { api } = require('../api');
 const { Configuration } = require('@schul-cloud/commons');
 
 const csrfProtection = csrf({ cookie: true });

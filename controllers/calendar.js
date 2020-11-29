@@ -5,7 +5,7 @@
 const express = require('express');
 
 const router = express.Router();
-const api = require('../api');
+const { api } = require('../api');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const timesHelper = require('../helpers/timesHelper');
 

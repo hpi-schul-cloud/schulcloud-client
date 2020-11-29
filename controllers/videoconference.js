@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
-const api = require('../api');
+const { api } = require('../api');
 
 router.get('/:scopeName/:scopeId', (req, res, next) => {
 	const { scopeName, scopeId } = req.params;

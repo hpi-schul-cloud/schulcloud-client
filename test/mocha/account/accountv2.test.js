@@ -1,21 +1,18 @@
 const chai = require('chai');
 const sinon = require('sinon');
 
-const { i18next } = require('../../../helpers/i18n');
-
 const { expect } = chai;
 
+const { i18next } = require('../../../helpers/i18n');
 const api = require('../../../api');
-
 const authHelper = require('../../../helpers/authentication');
 
 const requestPromise = {
 	patch() {},
 };
-
 const apiStub = sinon.stub(api, 'api').returns(requestPromise);
-const { mainRoute } = require('../../../controllers/account/accountLogic');
 
+const { mainRoute } = require('../../../controllers/accountController/accountLogic');
 
 describe('acccount controller tests', () => {
 	let req;
@@ -58,7 +55,11 @@ describe('acccount controller tests', () => {
 		requestPromiseStub.restore();
 	});
 
-	it('should render account/settings template if api call fails', async () => {
+	after(() => {
+		apiStub.restore();
+	});
+
+	it('should render account/settings template if /accounts api call fails', async () => {
 		// given
 		const locals = {
 			currentPayload: {
@@ -69,7 +70,30 @@ describe('acccount controller tests', () => {
 			},
 		};
 		res.locals = locals;
-		requestPromiseStub.rejects(new TestError());
+		requestPromiseStub.withArgs('/accounts/1231234').rejects(new TestError());
+
+		// when
+		await mainRoute(req, res);
+
+		// then
+		const expectedTemplate = 'account/settings';
+		expect(res.templateName).to.equal(expectedTemplate);
+	});
+
+	it('should render account/settings template if /users api call fails', async () => {
+		// given
+		const locals = {
+			currentPayload: {
+				accountId: 1231234,
+			},
+			currentUser: {
+				_id: 123,
+			},
+		};
+		res.locals = locals;
+
+		requestPromiseStub.withArgs('/accounts/1231234').resolves();
+		requestPromiseStub.withArgs('/users/123').rejects(new TestError());
 
 		// when
 		await mainRoute(req, res);

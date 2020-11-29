@@ -2,7 +2,7 @@ const express = require('express');
 const moment = require('moment');
 const { Converter } = require('showdown');
 const authHelper = require('../helpers/authentication');
-const api = require('../api');
+const { api } = require('../api');
 
 const router = express.Router();
 const converter = new Converter();

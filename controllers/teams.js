@@ -9,7 +9,7 @@ const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
-const api = require('../api');
+const { api } = require('../api');
 const logger = require('../helpers/logger');
 const timesHelper = require('../helpers/timesHelper');
 

@@ -2,7 +2,7 @@ const { Configuration } = require('@schul-cloud/commons');
 const express = require('express');
 const showdown = require('showdown');
 const _ = require('lodash');
-const api = require('../api');
+const { api } = require('../api');
 const authHelper = require('../helpers/authentication');
 
 const converter = new showdown.Converter();

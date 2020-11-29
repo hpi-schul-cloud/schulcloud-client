@@ -1,7 +1,7 @@
 const { api } = require('../../api');
 const authHelper = require('../../helpers/authentication');
 
-const mainRoute = async (req, res) => {
+const mainRoute = (req, res) => {
 	const {
 		firstName,
 		lastName,

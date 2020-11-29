@@ -11,7 +11,7 @@ const _ = require('lodash');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
-const api = require('../api');
+const { api } = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
