@@ -1,6 +1,7 @@
+const { api } = require('../../api');
 const authHelper = require('../../helpers/authentication');
 
-const mainRoute = (req, res, api) => {
+const mainRoute = async (req, res) => {
 	const {
 		firstName,
 		lastName,
@@ -9,12 +10,13 @@ const mainRoute = (req, res, api) => {
 		passwordNew,
 		language,
 	} = req.body;
-	return api.patch(`/accounts/${res.locals.currentPayload.accountId}`, {
+
+	return api(res).patch(`/accounts/${res.locals.currentPayload.accountId}`, {
 		json: {
 			password_verification: password,
 			password: passwordNew !== '' ? passwordNew : undefined,
 		},
-	}).then(() => api.patch(`/users/${res.locals.currentUser._id}`, {
+	}).then(() => api(res).patch(`/users/${res.locals.currentUser._id}`, {
 		json: {
 			firstName,
 			lastName,
