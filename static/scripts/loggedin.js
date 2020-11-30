@@ -230,32 +230,3 @@ document.querySelectorAll('#main-content a').forEach((a) => {
         }
     }
 });
-
-$(() => {
-	$('a[data-action="logout"]').on('click', (e) => {
-		e.stopPropagation();
-		e.preventDefault();
-		const target = $(e.target).data('href');
-
-		if (!target) return false;
-
-		return $.ajax({
-			type: 'POST',
-			url: target,
-			beforeSend(xhr) {
-				xhr.setRequestHeader('Csrf-Token', `${csrftoken}`);
-			},
-			success(response) {
-				const wrongToken = response.toString().includes('CSRF');
-				if (!wrongToken) window.location.href = '/';
-			},
-			fail() {
-				const lang = $('html').attr('lang');
-				// eslint-disable-next-line no-alert
-				return lang !== 'de' ? alert('Logout failed. Please reload the page.')
-					// eslint-disable-next-line no-alert
-					: alert('Anmeldung fehlgeschlagen. Bitte laden Sie die Seite neu.');
-			},
-		});
-	});
-});

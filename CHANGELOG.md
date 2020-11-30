@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## 25.2.5
+
+### Fixed
+
+- SC-8000 revert SC-7493 due it causes logout issues in registration and for thr
+
 ## 25.2.4
 
 ### Fixed
