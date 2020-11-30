@@ -562,8 +562,11 @@
 				"authentication": "Authentication",
 				"changeOfClasses": "Change of classes / new classes",
 				"changeOfUserData": "Change of user data / new users",
+				"chooseACounty": "Please choose the county your school belongs to.",
 				"className": "Class name:",
 				"cloudStorageProvider": "Cloud storage provider",
+				"county": "County",
+				"counties": "Counties",
 				"currentSchoolYear": "Current school year:",
 				"dataProtectionAdd": "Add privacy policy",
 				"duringTheSchoolYear": "During the school year",
@@ -593,6 +596,9 @@
 				"userAndClassDataInLDAP": "User and class data for the new school year have been processed in LDAP<br>.",
 				"youCantGoBack": "You can't go back",
 				"yourSchoolCanStartNewSchool": "your school can enter the new school year"
+			},
+			"placeholder": {
+				"chooseCounty": "Choose a county"
 			},
 			"link": {
 				"matrixHelpPage": "messenger help section",
@@ -1370,7 +1376,7 @@
 			"selectAFolder": "Select a folder",
 			"shareFile": "Share file",
 			"size": "Size",
-			"sortBy" : "Sort by...",
+			"sortBy": "Sort by...",
 			"updatedAt": "Modification date",
 			"write": "Write"
 		},
