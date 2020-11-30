@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const { version } = require('../package.json');
 const {
 	sha, branch, message, stat,
