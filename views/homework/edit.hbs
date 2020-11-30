@@ -54,6 +54,7 @@
 							$('#lessonPicker').append('<option value="' + r.lessons.data[i]._id + '">' + r.lessons.data[i].name + '</option>');
 						}
 						$('#lessonPicker').prop('disabled', false);
+						$('#lessonPicker').trigger("chosen:updated");
 					} else {
 						lessonPicker.append('<option value="">Keine Themen in diesem Kurs</option>');
 					}
