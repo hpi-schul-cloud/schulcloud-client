@@ -11,15 +11,15 @@ catch() {
 if [ "$TRAVIS_BRANCH" = "master" ]
 then
   #export DOCKERTAG=latest
-  export DOCKERTAG="master_v$( jq -r '.version' package.json )-latest"
+  export DOCKERTAG="master_v$( jq -r '.version' package.json )_latest"
 elif [ "$TRAVIS_BRANCH" = "develop" ]
 then
   #export DOCKERTAG=latest
-  export DOCKERTAG="develop-latest"
+  export DOCKERTAG="develop_latest"
 elif [[ "$TRAVIS_BRANCH" =~ ^"release"* ]]
 then
   #export DOCKERTAG=latest
-  export DOCKERTAG="release_v$( jq -r '.version' package.json )-latest"
+  export DOCKERTAG="release_v$( jq -r '.version' package.json )_latest"
 elif [[ "$TRAVIS_BRANCH" =~ ^feature\/[A-Z]+-[0-9]+-[a-zA-Z_]+$ ]]
 then
 	# extract JIRA_TICKET_ID from TRAVIS_BRANCH
@@ -27,9 +27,9 @@ then
 	JIRA_TICKET_TEAM=${JIRA_TICKET_ID/%-*/}
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/#$JIRA_TICKET_TEAM"-"/}
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/%-*/}
-  JIRA_TICKET_ID=$( echo $JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID | tr -s "[:upper:]" "[:lower:]" )
+  JIRA_TICKET_ID=$( echo $JIRA_TICKET_TEAM"_"$JIRA_TICKET_ID | tr -s "[:upper:]" "[:lower:]" )
 	# export DOCKERTAG=naming convention feature-<Jira id>-latest
-	export DOCKERTAG=$( echo "feature-"$JIRA_TICKET_ID"-latest")
+	export DOCKERTAG=$( echo "feature_"$JIRA_TICKET_ID"_latest")
 elif  [[ "$TRAVIS_BRANCH" =~ ^hotfix\/[A-Z]+-[0-9]+-[a-zA-Z_]+$ ]]
 then
   	# extract JIRA_TICKET_ID from TRAVIS_BRANCH
@@ -37,9 +37,9 @@ then
 	JIRA_TICKET_TEAM=${JIRA_TICKET_ID/%-*/}
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/#$JIRA_TICKET_TEAM"-"/}
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/%-*/}
-  JIRA_TICKET_ID=$( echo $JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID | tr -s "[:upper:]" "[:lower:]" )
+  JIRA_TICKET_ID=$( echo $JIRA_TICKET_TEAM"_"$JIRA_TICKET_ID | tr -s "[:upper:]" "[:lower:]" )
 	# export DOCKERTAG=naming convention feature-<Jira id>-latest
-	export DOCKERTAG=$( echo "hotfix-"$JIRA_TICKET_ID"-latest")
+	export DOCKERTAG=$( echo "hotfix_"$JIRA_TICKET_ID"_latest")
 else
 # Check for naming convention <branch>/<JIRA-Ticket ID>-<Jira_Summary>
 # OPS-1664
