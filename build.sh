@@ -11,20 +11,40 @@ catch() {
 if [ "$TRAVIS_BRANCH" = "master" ]
 then
   #export DOCKERTAG=latest
-  export DOCKERTAG="master_v$( jq -r '.version' package.json )_$TRAVIS_COMMIT"
-elif [[ "$TRAVIS_BRANCH" = feature* ]]
+  export DOCKERTAG="master_v$( jq -r '.version' package.json )-latest"
+elif [ "$TRAVIS_BRANCH" = "develop" ]
+then
+  #export DOCKERTAG=latest
+  export DOCKERTAG="develop-latest"
+elif [[ "$TRAVIS_BRANCH" =~ ^"release"* ]]
+then
+  #export DOCKERTAG=latest
+  export DOCKERTAG="release_v$( jq -r '.version' package.json )-latest"
+elif [[ "$TRAVIS_BRANCH" =~ ^feature\/[A-Z]+-[0-9]+-[a-zA-Z_]+$ ]]
 then
 	# extract JIRA_TICKET_ID from TRAVIS_BRANCH
 	JIRA_TICKET_ID=${TRAVIS_BRANCH/#feature\//}
 	JIRA_TICKET_TEAM=${JIRA_TICKET_ID/%-*/}
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/#$JIRA_TICKET_TEAM"-"/}
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/%-*/}
-	JIRA_TICKET_ID=$JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID	
+  JIRA_TICKET_ID=$( echo $JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID | tr -s "[:upper:]" "[:lower:]" )
 	# export DOCKERTAG=naming convention feature-<Jira id>-latest
 	export DOCKERTAG=$( echo "feature-"$JIRA_TICKET_ID"-latest")
+elif  [[ "$TRAVIS_BRANCH" =~ ^hotfix\/[A-Z]+-[0-9]+-[a-zA-Z_]+$ ]]
+then
+  	# extract JIRA_TICKET_ID from TRAVIS_BRANCH
+	JIRA_TICKET_ID=${TRAVIS_BRANCH/#hotfix\//}
+	JIRA_TICKET_TEAM=${JIRA_TICKET_ID/%-*/}
+	JIRA_TICKET_ID=${JIRA_TICKET_ID/#$JIRA_TICKET_TEAM"-"/}
+	JIRA_TICKET_ID=${JIRA_TICKET_ID/%-*/}
+  JIRA_TICKET_ID=$( echo $JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID | tr -s "[:upper:]" "[:lower:]" )
+	# export DOCKERTAG=naming convention feature-<Jira id>-latest
+	export DOCKERTAG=$( echo "hotfix-"$JIRA_TICKET_ID"-latest")
 else
-  # replace special characters in branch name for docker tag
-  export DOCKERTAG="$( echo $TRAVIS_BRANCH | tr -s '[:punct:]' '-' | tr -s '[:upper:]' '[:lower:]' )_v$( jq -r '.version' package.json )_$TRAVIS_COMMIT"
+# Check for naming convention <branch>/<JIRA-Ticket ID>-<Jira_Summary>
+# OPS-1664
+echo -e "Event detected. However, branch name pattern does not match requirements to deploy. Expected <branch>/<JIRA-Ticket ID>-<Jira_Summary> but got $TRAVIS_BRANCH"
+exit 0
 fi
 echo "DOCKERTAG: $DOCKERTAG"
 
