@@ -3336,7 +3336,6 @@ router.post(
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
 					$populate: ['systems', 'federalState'],
-
 				},
 			}),
 		);
