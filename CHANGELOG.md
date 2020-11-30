@@ -46,6 +46,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7983 - Fixed that topic is now choosable after select of course
 - SC-7771 - Fixed hint for teachers when editing a course - fix
 - SC-7771 - Fixed hint for teachers when editing a course
 - SC-5498 - Fixed typo in account page
