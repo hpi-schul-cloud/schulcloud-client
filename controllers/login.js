@@ -212,7 +212,7 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 		.catch(next);
 });
 
-router.post('/logout/', (req, res, next) => {
+router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication') // async, ignore result
 		.catch((err) => { logger.error('error during logout.', { error: err.toString() }); });
 	return authHelper
