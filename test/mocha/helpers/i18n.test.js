@@ -1,5 +1,5 @@
 const chai = require('chai');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const config = {
 	defaultLanguage: 'de',

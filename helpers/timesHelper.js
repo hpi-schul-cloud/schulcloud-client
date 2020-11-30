@@ -1,5 +1,5 @@
 const moment = require('moment-timezone');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const logger = require('./logger');
 
 const DEFAULT_TIMEZONE = Configuration.get('I18N__DEFAULT_TIMEZONE');
