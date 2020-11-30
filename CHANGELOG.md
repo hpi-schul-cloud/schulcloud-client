@@ -66,6 +66,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- update location of commons
 - SC-7530 rename SHOW_VERSION to FEATURE_SHOW_VERSION_ENABLED
 - update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
 - SC-6951 removes via text from embeded course content
