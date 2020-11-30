@@ -3335,7 +3335,8 @@ router.post(
 		const school = await Promise.resolve(
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
-					$populate: ['systems'],
+					$populate: ['systems', 'federalState'],
+
 				},
 			}),
 		);
