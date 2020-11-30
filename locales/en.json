@@ -2145,6 +2145,7 @@
 			"done": "Great! You've completed your task!",
 			"due": "Due",
 			"fileAlreadyExists": "This file name already exists in your files. Please rename the file.",
+			"loading": "loading...",
 			"maximumTeamSize": "The maximum team size is {{maxMembers}} members",
 			"noAssignment": "No assignment",
 			"noDescriptionAvailable": "no description available",
