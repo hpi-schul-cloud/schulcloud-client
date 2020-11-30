@@ -2861,7 +2861,7 @@ router.use(
 		const [school, totalStorage, schoolMaintanance, studentVisibility, consentVersions] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
-					$populate: ['systems', 'currentYear'],
+					$populate: ['systems', 'currentYear', 'federalState'],
 					$sort: req.query.sort,
 				},
 			}),
@@ -3335,7 +3335,7 @@ router.post(
 		const school = await Promise.resolve(
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
-					$populate: ['systems', 'federalState'],
+					$populate: ['systems'],
 				},
 			}),
 		);
