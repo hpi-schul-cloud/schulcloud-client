@@ -6,7 +6,7 @@ const express = require('express');
 const feedr = require('feedr').create();
 
 const router = express.Router();
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
