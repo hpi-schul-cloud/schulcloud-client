@@ -1876,7 +1876,9 @@
 		"help_fromInviteExternalMember": {
 			"button": {
 				"externalExperts": "External experts",
-				"teachersFromOtherSchools": "Teachers from other schools"
+				"externalExpertsN21": "External experts",
+				"teachersFromOtherSchools": "Teachers from other schools",
+				"teachersFromOtherSchoolsN21": "Teachers of other schools"
 			},
 			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Who would you like to invite to the team?"
@@ -2868,7 +2870,7 @@
 					"externExpert": "External expert",
 					"externTeacher": "Teacher of other school (Team admin)",
 					"federalState": "State",
-					"insertEmailOfExpertToInvite": "Enter the e-mail of the expert to whom the invitation will be sent.",
+					"insertEmailOfExpertToInvite": "For security reasons, external experts only have limited access rights - for example, they cannot participate in video conferences or create courses. To invite an external Expert:in, enter the e-mail address to which the invitation should be sent:",
 					"leavingTeamRequiresNewOwner": "Leaving the team requires a different owner",
 					"reallyWantToRmClass": "Do you really want to remove this class?",
 					"reallyWantToRmInvitation": "Do you really want to cancel the invitation?",
@@ -2880,7 +2882,7 @@
 					"sendInvitationAgain": "Resend invitation"
 				},
 				"placeholder": {
-					"insertEmail": "Enter e-mail",
+					"insertEmail": "Input field for e-mail address",
 					"selectFederalState": "Select state",
 					"selectPersons": "Select people",
 					"selectRole": "Specify role",
