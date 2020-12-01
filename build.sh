@@ -27,7 +27,7 @@ then
 	JIRA_TICKET_TEAM=${JIRA_TICKET_ID/%-*/}
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/#$JIRA_TICKET_TEAM"-"/}
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/%-*/}
-  JIRA_TICKET_ID=$( echo $JIRA_TICKET_TEAM"_"$JIRA_TICKET_ID | tr -s "[:upper:]" "[:lower:]" )
+  JIRA_TICKET_ID=$( echo $JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID | tr -s "[:upper:]" "[:lower:]" )
 	# export DOCKERTAG=naming convention feature-<Jira id>-latest
 	export DOCKERTAG=$( echo "feature_"$JIRA_TICKET_ID"_latest")
 elif  [[ "$TRAVIS_BRANCH" =~ ^hotfix\/[A-Z]+-[0-9]+-[a-zA-Z_]+$ ]]
@@ -37,7 +37,7 @@ then
 	JIRA_TICKET_TEAM=${JIRA_TICKET_ID/%-*/}
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/#$JIRA_TICKET_TEAM"-"/}
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/%-*/}
-  JIRA_TICKET_ID=$( echo $JIRA_TICKET_TEAM"_"$JIRA_TICKET_ID | tr -s "[:upper:]" "[:lower:]" )
+  JIRA_TICKET_ID=$( echo $JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID | tr -s "[:upper:]" "[:lower:]" )
 	# export DOCKERTAG=naming convention feature-<Jira id>-latest
 	export DOCKERTAG=$( echo "hotfix_"$JIRA_TICKET_ID"_latest")
 else
