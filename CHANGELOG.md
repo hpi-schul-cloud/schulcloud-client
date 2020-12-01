@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unreleased
+## 25.2.5
+
+### Fixed
+
+- SC-8000 revert SC-7493 due it causes logout issues in registration and for thr
 
 ## 25.2.4
 
