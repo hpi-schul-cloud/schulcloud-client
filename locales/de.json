@@ -1882,6 +1882,9 @@
 			},
 			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
+			},
+			"label": {
+				"pedagogicalExperts": "Verwende für die Einladung von pädagogischem Personal als externe Experten bitte keine E-Mail-Adressen, die bereits im schulischen Kontext genutzt werden und für deren Registrierung in der Niedersächsischen Bildungscloud benötigt werden."
 			}
 		},
 		"language_hint": {

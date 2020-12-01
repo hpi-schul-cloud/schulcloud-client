@@ -1882,6 +1882,9 @@
 			},
 			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Who would you like to invite to the team?"
+			},
+			"label": {
+				"pedagogicalExperts": "When inviting pedagogical staff as external experts, please do not use e-mail addresses that are already used in the school context and are required for their registration in the Lower Saxony Education Cloud."
 			}
 		},
 		"language_hint": {
