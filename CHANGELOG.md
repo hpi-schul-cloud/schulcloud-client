@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## 25.2.6
+
+### Fixed
+
+- SC-8027 Fixed school login event listener issue
+
 ## 25.2.5
 
 ### Fixed
