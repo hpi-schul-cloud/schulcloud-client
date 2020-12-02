@@ -13,6 +13,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
 - SC-8027 Fixed school login event listener issue
 
 ## 25.2.5
