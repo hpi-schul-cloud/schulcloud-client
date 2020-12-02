@@ -72,7 +72,9 @@
             <label for="emailExpert">{{$t "teams._team.members.label.insertEmailOfExpertToInvite"}}</label>
             <input class="form-control" type="text" name="email" id="emailExpert" placeholder="{{$t "teams._team.members.placeholder.insertEmail"}}">
         </div>
-        {{> "help/partials/help_form_note"}}
+        {{#ifeq @root.theme.name "n21"}}
+            {{> "help/partials/help_form_note"}}
+        {{/ifeq}}
     </div>
 
 </div>
