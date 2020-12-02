@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## 25.2.6
+
+### Fixed
+
+- SC-8027 Fixed school login event listener issue
+
 ## 25.2.5
 
 ### Fixed
@@ -29,7 +35,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-7542 - Add kreis to school edit
+- SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
 - SC-6619 - fixed text for registration in all other schools
