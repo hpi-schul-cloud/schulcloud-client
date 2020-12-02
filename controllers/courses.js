@@ -159,16 +159,16 @@ const editCourseHandler = (req, res, next) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		const classes = _classes.filter(
 			(c) => c.schoolId === res.locals.currentSchool,
-		);
+		).sort();
 		const teachers = _teachers.filter(
 			(t) => t.schoolId === res.locals.currentSchool,
-		);
+		).sort((a, b) => a.firstName.localeCompare(b.firstName));
 		const students = _students.filter(
 			(s) => s.schoolId === res.locals.currentSchool,
-		);
+		).sort((a, b) => a.firstName.localeCompare(b.firstName));
 		const substitutions = _.cloneDeep(
 			teachers,
-		);
+		).sort((a, b) => a.firstName.localeCompare(b.firstName));
 
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
@@ -496,6 +496,14 @@ router.post('/', (req, res, next) => {
 	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
+
+	req.body.features = [];
+	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
 
 	api(req)
 		.post('/courses/', {

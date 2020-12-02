@@ -7,17 +7,92 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unreleased
-
-## [25.1.2] - 2020-12-01
+## 25.2.7
 
 ### Fixed
 - SC-8042 update sort order of students by creating classes
 
-## [25.1.1] - 2020-10-15
+## 25.2.5
 
 ### Fixed
 
+- SC-8000 revert SC-7493 due it causes logout issues in registration and for thr
+
+## 25.2.4
+
+### Fixed
+
+- SC-7878 reverted dropdowns and multiselects to the old widget
+
+## 25.2.3
+
+### Added
+
+- SC-6727 Change email addresses for tickets for Niedersachsen
+
+## 25.2.2
+
+### Fixed
+
+- SC-7881 restored fix done in SC-7463 which fixed logging in with external systems
+
+## 25.2.1
+
+### Fixed
+
+- SC-7803 comments out mocha test for legacy lern-store
+
+## 25.2.0
+
+### Fixed
+
+- SC-7453 fixed course/team event handling
+- SC-7392 fix create event for teams / courses
+- SC-7653 Workaround for winter/summer time issue
+- SC-7590 Fixed missing permission for enabling consent by teachers
+- SC-7151 Fixing sentence structure while registration for parents
+- SC-7350 Fix invalid date
+- SC-7182 do not allow to open office files in new windows
+
+### Added
+
+- SC-6870 - Added UX improvements for Matrix messenger announcement
+
+## [25.1.7] - 2020-10-27
+
+### Fixed
+
+- SC-7502 - Fixed disabled attribute definition on registration link buttons
+
+## [25.1.6] - 2020-10-21
+
+### Added
+
+- SC-7447 - Add warning text for links when leaving the schul-cloud platform
+
+## [25.1.5] - 2020-10-27
+
+### Fixed
+
+- SC-7490 fixed get request for landing pages which are not from ghost
+
+## [25.1.4] - 2020-10-26
+
+### Fixed
+
+- SC-6735 additional fix - administration remove consent triggers import hash generation
+
+## [25.1.3] - 2020-10-21
+
+### Fixed
+
+- SC-6735 administration remove consent triggers import hash generation
+
+## [25.1.2] - 2020-10-20
+
+### Fixed
+
+- SC-7437 fixed display of user name on qr codes
 - SC-7085 fixed importHash error when asking parent consent
 
 ## [25.0.7] - 2020-10-09
@@ -25,6 +100,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-7171 fix asking for confirmation after consent update
+
+### Added
+
+ - SC-6582 Add bidirectional messenger settings for course creation
 
 ## [25.0.6] - 2020-10-01
 
@@ -36,13 +115,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-  - SC-6945 Add requirement for etherpad section title to fix null matching error
+- SC-6945 Add requirement for etherpad section title to fix null matching error
 
 ## [25.0.4] - 2020-09-30
 
 ### Changed
 
 - SC-6567 clear and improve logging in error case
+- SC-5858 removed chosen library from the code (Accessibility issues)
 
 ## [25.0.3] - 2020-09-29
 

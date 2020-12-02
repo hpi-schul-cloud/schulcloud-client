@@ -7,9 +7,6 @@ function toggleDisabled(nodename, value){
     }else{
         node.disabled = !node.disabled;
     }
-    if(node.tagName == "SELECT"){
-        node.dispatchEvent(new Event('chosen:updated'));
-    }
 }
 function toggleCustomClassSection(event){
     event.preventDefault();
@@ -30,7 +27,7 @@ function validateForm(event){
             NodeList.prototype.some = function(fct) {
                 return Array.from(this).some(fct);
             };
-        }        
+        }
         return !node.querySelectorAll(`input, select`).some((input)=>{
             return !input.checkValidity();
         });
@@ -48,6 +45,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
     }
     document.querySelector('input[name="keepyear"]').addEventListener("input", ()=>{
         document.getElementById("recap-keepyear").classList.toggle("hidden");
-       $('select[name="schoolyear"]').attr("disabled", function(_, attr){ return !attr}).trigger("chosen:updated");
+       $('select[name="schoolyear"]').attr("disabled", function(_, attr){ return !attr});
     });
 });

@@ -40,7 +40,7 @@
 		$("#coursePicker").change(function (e, s) {
 			if (s.selected != "") {
 				$('#lessonPicker').empty().append('<option value="">loading...</option>')
-				$('#lessonPicker').prop('disabled', true).trigger('chosen:updated');
+				$('#lessonPicker').prop('disabled', true);
 				$.ajax({
 					url: "/courses/" + s.selected + "/json"
 				}).done(function (r) {
@@ -55,10 +55,9 @@
 					} else {
 						lessonPicker.append('<option value="">Keine Themen in diesem Kurs</option>');
 					}
-					$('#lessonPicker').trigger('chosen:updated');
 				});
 			} else {
-				$('#lessonPicker').empty().append('<option value="">Keine Themen in diesem Kurs</option>').prop('disabled', true).trigger("chosen:updated");
+				$('#lessonPicker').empty().append('<option value="">Keine Themen in diesem Kurs</option>').prop('disabled', true);
 			}
 		});
 
@@ -96,7 +95,7 @@
 					<div class="form-group">
 						<label for="coursePicker">{{$t "global.sidebar.link.administrationCourses" }}</label>
 						{{#unless isSubstitution}}
-						<select id="coursePicker" class="" name="courseId" data-placeholder="Kurs auswählen">
+						<select id="coursePicker" name="courseId" data-placeholder="Kurs auswählen">
 							<option value="" {{#unless assignment.courseId}}selected{{/unless}}>{{$t "homework.input.noAssignment"}}</option>
 							{{#each courses}}
 							<option value="{{this._id}}"

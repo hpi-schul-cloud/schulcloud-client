@@ -416,7 +416,6 @@ $(document).ready(() => {
 		}
 		return false;
 	});
-
 	$('.chosen-container-multi').off('touchstart');
 	$('.chosen-container-multi').off('touchend');
 });

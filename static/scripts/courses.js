@@ -66,7 +66,6 @@ $(document).ready(() => {
 		});
 	});
 
-
 	$('.btn-import-topic').click(function importTopic(e) {
 		e.stopPropagation();
 		e.preventDefault();
@@ -92,6 +91,7 @@ $(document).ready(() => {
 		$('#topic-list').sortable({
 			placeholder: 'ui-state-highlight',
 			handle: '.move-handle',
+			cancel: '',
 			update() {
 				const positions = {};
 				$('#topic-list .card-topic').each(function topicListCardTopic(i) {

@@ -1,0 +1,24 @@
+<div class="form-group">
+    {{#if label}}
+        <label for={{id}} aria-label="{{ariaLabel}} {{label}}">{{label}}</label>{{#if required}}<sup>*</sup>{{/if}}
+    {{/if}}
+    <div class="{{class}}">
+        <input
+            class="form-control linked"
+            data-date
+            name={{id}}
+            autocomplete="off"
+            id={{id}}
+            type="text"
+            {{#if value}}value="{{dateToPicker value}}"{{/if}}
+            {{#if dataFormat}}data-format="{{dataFormat}}"{{else}}data-format="{{$t "format.datePicker"}}"{{/if}}
+            {{#if dataMask}}data-mask="{{dataMask}}"{{else}}data-mask="{{$t "format.datePickerMask"}}"{{/if}}
+            {{#if dataMinDate}}data-min-date="{{dataMinDate}}"{{else}}data-min-date="0"{{/if}}
+            {{#if dataMaxDate}}data-max-date="{{dataMaxDate}}"{{/if}}
+            {{#if dataTestId}}data-testid="{{dataTestId}}"{{else}}data-testid="form-date-input-{{id}}"{{/if}}
+            {{#if disabled}}disabled{{/if}}
+            {{#if required}}required{{/if}}
+            {{#if readonly}}readonly{{/if}}
+        />
+    </div>
+</div>

@@ -68,7 +68,6 @@ window.addEventListener('load', () => {
 					)
 					.join('')}`;
 			}
-			$('select[name="classes"]').trigger('chosen:updated');
 		});
 
 	const $importModal = $('.import-modal');
@@ -80,7 +79,6 @@ window.addEventListener('load', () => {
 			.forEach((option) => {
 				option.selected = false;
 			});
-		$('select[name="classes"]').trigger('chosen:updated');
 		populateModalForm($importModal, {
 			title: $t('administration.classes.headline.importClass'),
 			closeLabel: $t('global.button.cancel'),
@@ -92,7 +90,6 @@ window.addEventListener('load', () => {
 	$importModal.find('.btn-submit').on('click', async (event) => {
 		event.preventDefault();
 		const selections = $('#student_from_class_import')
-			.chosen()
 			.val();
 		const requestUrl = `/administration/classes/students?classes=${encodeURI(
 			JSON.stringify(selections),
@@ -107,7 +104,6 @@ window.addEventListener('load', () => {
 				`option[value="${student._id}"]`,
 			).selected = true;
 		});
-		$('select[name=userIds]').trigger('chosen:updated');
 	});
 
 	function btnSendLinksEmailsHandler(e) {
@@ -170,9 +166,11 @@ window.addEventListener('load', () => {
 		})
 			.done((users) => {
 				printQRs(
-					users.map(user => ({
+					users.map((user) => ({
 						href: user.registrationLink.shortLink,
-						title: user.fullName,
+						title:
+							user.fullName
+							|| `${user.firstName} ${user.lastName}`,
 						description: user.registrationLink.shortLink,
 					})),
 				);

@@ -57,25 +57,25 @@
 
               <div class="row">
                 <div class="form-group col-md-6">
-                    <label>{{$t "global.label.nameOfTheCourse"}}</label>
-                    <input class="form-control js-course-name-input" name="name" type="text" placeholder="{{$t "courses.add.input.egMaths"}}" value="{{course.name}}" autocomplete="off"
+                    <label for="nameOfTheCourse">{{$t "global.label.nameOfTheCourse"}}</label>
+                    <input id="nameOfTheCourse" class="form-control js-course-name-input" name="name" type="text" placeholder="{{$t "courses.add.input.egMaths"}}" value="{{course.name}}" autocomplete="off"
                            required autofocus data-testid="coursename"/>
                 </div>
 
                 <div class="form-group col-md-6">
-                  <label>{{$t "courses.global.label.courseColor"}}</label>
+                  <label for="courseColor">{{$t "courses.global.label.courseColor"}}</label>
                   <div class="color-picker" data-testid="color-picker">
                     {{#if course.color}}
                       <div class="color-picker__item" data-testid="item">
                         <input id="input0" type="radio" class="color-picker__input" name="color" value="{{course.color}}" checked="checked"/>
-                        <label for="input0" class="color-picker__color" style="background: {{course.color}}"></label>
+                        <label for="input0" class="color-picker__color" aria-label="{{course.color}}" style="background: {{course.color}}"></label>
                       </div>
                     {{/if}}
                     {{#each colors}}
                       {{#ifneq this ../course.color}}
                         <div class="color-picker__item">
                           <input id="input{{../this}}" type="radio" class="color-picker__input" name="color" value="{{../this}}" {{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked"{{/unless}}{{/ifeq}}/>
-                          <label for="input{{../this}}" class="color-picker__color" style="background: {{../this}}"></label>
+                            <label for="input{{../this}}" class="color-picker__color" aria-label="{{../this}}" style="background: {{../this}}"></label>
                         </div>
                       {{/ifneq}}
                     {{/each}}
@@ -83,11 +83,13 @@
                 </div>
               </div>
 
-              <div class="row">
+            <div class="row">
                 <div class="form-group col-md-6" data-testid="teachers_container">
-                    <label>{{$t "courses.global.label.courseTeacher"}}</label>
-
-                    <select name="teacherIds[]" required multiple data-placeholder= "{{$t "courses.global.input.chooseTeacher"}}"data-testid="teachersearch" autocomplete="off">
+                    <label for="courseTeacher">{{$t "courses.global.label.courseTeacher"}}</label>
+                    <select id="courseTeacher"
+                            name="teacherIds[]" required multiple
+                            data-placeholder= "{{$t "courses.global.input.chooseTeacher"}}"
+                            data-testid="teachersearch" autocomplete="off" tabindex="-1">
                         {{#each teachers}}
                             <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
@@ -101,8 +103,9 @@
                 </div>
 
                 <div class="form-group col-md-6" data-testid="courseSubstitute_container">
-                    <label>{{$t "courses.add.label.courseSubstitute"}}</label>
-                    <select name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"  autocomplete="off" data-testid="substituent">
+                    <label for="courseSubstitute">{{$t "courses.add.label.courseSubstitute"}}</label>
+                    <select id="courseSubstitute" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" autocomplete="off" data-testid="substituent">
+                            <option disabled value="{{$t "administration.global.label.noSubTeacherSelection"}}">{{$t "administration.global.label.noSubTeacherSelection"}}</option>
                         {{#each substitutions}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{this.firstName}} {{this.lastName}}
@@ -112,11 +115,22 @@
                 </div>
               </div>
 
+              {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+                {{#inArray "messenger" @root.schoolData.features}}
+                  <div class="form-group">
+                    <label>
+                      <input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
+                      {{$t "courses._course.edit.label.activateBidirectionalMessenger"}}
+                    </label>
+                  </div>
+                {{/inArray}}
+              {{/ifConfig}}
+
               <div class="form-group">
               <div class="times" id="timesContainer">
                   <div class="row">
                       <div class="form-group col-md-6">
-                          <label>{{$t "courses.add.label.timeSpan"}}</label>
+                          <label for="startDate">{{$t "courses.add.label.timeSpan"}}</label>
                           <input
                             name="startDate"
                             id="startDate"
@@ -128,7 +142,7 @@
                       </div>
 
                       <div class="form-group col-md-6">
-                          <label>{{$t "courses.add.label.timeSpanUntil"}}</label>
+                          <label for="untilDate">{{$t "courses.add.label.timeSpanUntil"}}</label>
                           <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="{{$t "courses.global.label.timeSpanFormat"}}"/>
                       </div>
                   </div>
@@ -139,44 +153,12 @@
                   <table width="100%" cellpadding="5px" class="course-times-table">
                       <thead>
                         <th></th>
-                        <th><label>{{$t "administration.global.label.weekday"}}</label></th>
-                        <th><label>{{$t "administration.global.label.startOfLesson"}}</label></th>
-                        <th><label>{{$t "administration.global.label.lengthOfLesson"}}</label></th>
-                        <th><label>{{$t "global.label.room"}}</label></th>
+                        <th><label for="weekday">{{$t "administration.global.label.weekday"}}</label></th>
+                        <th><label for="startOfLesson">{{$t "administration.global.label.startOfLesson"}}</label></th>
+                        <th><label for="lengthOfLesson">{{$t "administration.global.label.lengthOfLesson"}}</label></th>
+                        <th><label for="room">{{$t "global.label.room"}}</label></th>
                       </thead>
                       <tbody class="add-course-times">
-                          {{#each course.times}}
-                              <tr class="course-time" id="{{this._id}}">
-								<td>
-									<button class="btn-link course-time-delete" type="button" data-id="{{this._id}}"
-										{{#if @root.course.isArchived}}disabled{{/if}}>
-										<i class="fa fa-trash-o"></i>
-									</button>
-								</td>
-								<td>
-                                      <select class="form-control" name="times[{{this.count}}][weekday]" type="text">
-                                          <option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>{{$t "global.text.monday"}}</option>
-                                          <option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>{{$t "global.text.tuesday"}}</option>
-                                          <option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>{{$t "global.text.wednesday"}}</option>
-                                          <option value="3" {{#ifeq this.weekday "3"}}selected{{/ifeq}}>{{$t "global.text.thursday"}}</option>
-                                          <option value="4" {{#ifeq this.weekday "4"}}selected{{/ifeq}}>{{$t "global.text.friday"}}</option>
-                                          <option value="5" {{#ifeq this.weekday "5"}}selected{{/ifeq}}>{{$t "global.text.saturday"}}</option>
-                                          <option value="6" {{#ifeq this.weekday "6"}}selected{{/ifeq}}>{{$t "global.text.sunday"}}</option>
-                                      </select>
-                                  </td>
-                                  <td>
-                                      <input class="form-control" name="times[{{this.count}}][startTime]" data-time type="text"/>
-                                  </td>
-                                  <td>
-                                      <input class="form-control" name="times[{{this.count}}][duration]" type="number"
-                                             value="{{this.duration}}" placeholder="{{$t "courses.global.input.inMinutes"}}"/>
-                                  </td>
-                                  <td>
-                                      <input class="form-control" type="text"
-                                             name="times[{{this.count}}][room]" value="{{this.room}}" placeholder="{{$t "courses.global.input.egRoom1-21"}}"/>
-                                  </td>
-                              </tr>
-                          {{/each}}
                           {{#embed "courses/components/template-new-course-time"}}{{/embed}}
                       </tbody>
                   </table>
@@ -187,12 +169,15 @@
 
             <section data-panel="section-2" data-testid="section-2-area" class="submit-page course-submit-page">
                 {{#userHasPermission "STUDENT_LIST"}}
+
                     <h2 class="h4">{{$t "global.headline.youAlmostMadeIt"}}</h2>
                     <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
-                    <div class="form-group" data-testid="class_container">
-                        <label>{{$t "courses.add.label.addClassesToCourse"}}</label>
-                        <select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
-                          {{#each ../classes}}
+
+                        <div class="form-group" data-testid="class_container">
+                        <label for="addClassesToCourse">{{$t "courses.add.label.addClassesToCourse"}}</label>
+                        <select id="addClassesToCourse" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
+                                <option disabled value="{{$t "administration.global.placeholder.selectClasses"}}">{{$t "administration.global.placeholder.selectClasses"}}</option>
+                            {{#each ../classes}}
                               <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                   {{log this.year}}
                                   {{#if this.name}}
@@ -210,18 +195,18 @@
                   </div>
 
                   <div class="form-group" data-testid="students_container">
-                      <label>{{$t "courses.add.label.addStudentsToCourse"}}</label>
-
-                      <select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
-                          {{#each ../students}}
-                              <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                  {{#if this.displayName}}
-                                      {{this.displayName}}
-                                  {{else}}
-                                      {{this.firstName}} {{this.lastName}}
-                                  {{/if}}
-                              </option>
-                          {{/each}}
+                      <label for="addStudentsToCourse">{{$t "courses.add.label.addStudentsToCourse"}}</label>
+                      <select id="addStudentsToCourse" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
+                         <option disabled value="{{$t "administration.global.placeholder.selectStudent"}}">{{$t "administration.global.placeholder.selectStudent"}}</option>
+                         {{#each ../students}}
+                         <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                         {{#if this.displayName}}
+                         {{this.displayName}}
+                         {{else}}
+                         {{this.firstName}} {{this.lastName}}
+                         {{/if}}
+                         </option>
+                         {{/each}}
                       </select>
                   </div>
                 {{else}}

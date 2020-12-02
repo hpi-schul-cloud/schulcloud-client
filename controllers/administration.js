@@ -268,12 +268,12 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 			.post('/mails/', {
 				json: {
 					email: user.email,
-					subject: res.$t('administration.controller.text.invitationToUseThe', {
+					subject: res.$t('administration.controller.text.invitationEmailSubject', {
 						title: res.locals.theme.title,
 					}),
 					headers: {},
 					content: {
-						text: res.$t('administration.controller.text.invitationToThe', {
+						text: res.$t('administration.controller.text.invitationEmailContent', {
 							title: res.locals.theme.title,
 							firstName: user.firstName,
 							lastName: user.lastName,
@@ -438,15 +438,29 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 		return;
 	} catch (err) {
-		const message = res.$t('administration.controller.text.importFailed');
-		req.session.notification = {
-			type: 'danger',
-			message,
-		};
-		const query = queryString.stringify({
-			'toast-type': 'error',
-			'toast-message': encodeURIComponent(message),
-		});
+		let query;
+		if (err.error && err.error.code && err.error.code === 'ESOCKETTIMEDOUT') {
+			const message = res.$t('administration.controller.text.importMayBeStillRunning');
+			req.session.notification = {
+				type: 'info',
+				message,
+			};
+			query = queryString.stringify({
+				'toast-type': 'info',
+				'toast-message': encodeURIComponent(message),
+			});
+		} else {
+			const message = res.$t('administration.controller.text.importFailed');
+			req.session.notification = {
+				type: 'danger',
+				message,
+			};
+			query = queryString.stringify({
+				'toast-type': 'error',
+				'toast-message': encodeURIComponent(message),
+			});
+		}
+
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 	}
 };
@@ -614,7 +628,7 @@ const updatePolicy = (req, res, next) => {
 const returnAdminPrefix = (roles, res) => {
 	let prefix;
 	// eslint-disable-next-line array-callback-return
-	roles.map((role) => {
+	roles.forEach((role) => {
 		// eslint-disable-next-line no-unused-expressions
 		role.name === 'teacher'
 			? (prefix = res.$t('administration.controller.headline.management'))
@@ -762,12 +776,11 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 		+ '<i class="fa fa-check consent-status double-check"></i>';
 
 	switch (consentStatus) {
-		case 'missing':
-			return times;
 		case 'parentsAgreed':
 			return check;
 		case 'ok':
 			return isTeacher ? check : doubleCheck;
+		case 'missing':
 		default:
 			return times;
 	}
@@ -837,7 +850,11 @@ const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, r
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
-			next(err);
+			req.session.notification = {
+				type: 'danger',
+				message: err.error.message,
+			};
+			res.redirect(`${req.originalUrl}/edit`);
 		});
 };
 
@@ -1060,6 +1077,7 @@ router.get(
 				isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 				referrer: req.header('Referer'),
+				hasAccount: !!account,
 			});
 		});
 	},
@@ -1115,7 +1133,11 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
-			next(err);
+			req.session.notification = {
+				type: 'danger',
+				message: err.error.message,
+			};
+			res.redirect(`${req.originalUrl}/edit`);
 		});
 };
 
@@ -1172,7 +1194,7 @@ router.delete(
 );
 router.post(
 	'/students/:id/skipregistration/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE', 'STUDENT_SKIP_REGISTRATION'], 'or'),
 	skipRegistration,
 );
 router.get(
@@ -1515,6 +1537,7 @@ router.get(
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+					hasAccount: !!account,
 				});
 			})
 			.catch((err) => {
@@ -2374,34 +2397,12 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		delete req.body.studentVisibility;
 
-		// Update riot messenger feature in school
-		const messengerEnabled = (res.locals.currentSchoolData.features || []).includes(
-			'messenger',
-		);
-		if (!messengerEnabled && req.body.messenger === 'true') {
-			// enable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: 'messenger',
-					},
-				},
-			});
-		} else if (messengerEnabled && req.body.messenger !== 'true') {
-			// disable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: 'messenger',
-					},
-				},
-			});
+		// Update school features
+		const possibleSchoolFeatures = ['messenger', 'messengerSchoolRoom'];
+		for (const feature of possibleSchoolFeatures) {
+			await updateSchoolFeature(req, currentFeatures, req.body[feature] === 'true', feature);
+			delete req.body[feature];
 		}
-		await updateSchoolFeature(req, currentFeatures, req.body.messenger === 'true', 'messenger');
-		delete req.body.messenger;
-
-		await updateSchoolFeature(req, currentFeatures, req.body.messengerSchoolRoom === 'true', 'messengerSchoolRoom');
-		delete req.body.messengerSchoolRoom;
 	} catch (err) {
 		next(err);
 	}
@@ -2694,8 +2695,6 @@ router.all('/teams', async (req, res, next) => {
 							},
 							title: item.createdAtMySchool
 								? res.$t('administration.controller.text.removeStudentsFromYourOwnSchool')
-								+ res.$t('administration.controller.text.anotherSchoolWasFounded')
-								+ res.$t('administration.controller.text.orAssignAdminRights')
 								: res.$t('administration.controller.link.removeMembers'),
 						},
 						{
@@ -3159,7 +3158,7 @@ router.get('/startldapschoolyear', async (req, res) => {
 		res.$t('administration.controller.label.email'),
 		'uid',
 		res.$t('administration.controller.label.roles'),
-		res.$t('administration.controller.label.domainname'),
+		res.$t('administration.controller.label.domainName'),
 		'uuid',
 	];
 	const headClasses = [
