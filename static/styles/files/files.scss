@@ -29,7 +29,7 @@
   .card.folder {
 	width: 100%;
     padding: 10px;
-
+    width: 100%;
     &:hover {
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
       background: #f9f9f9;
@@ -305,4 +305,17 @@
 .fa-stack {
   margin-left: -10px;
   height: 2.2em;
+}
+
+.file-btn {
+  border: none;
+  cursor: pointer;
+  background-color: inherit;
+  padding: 0px;
+}
+
+.order-sel {
+  margin-top: 2px;
+  width: auto;
+  display: inline-flex;
 }

@@ -1,5 +1,4 @@
 import './pwd';
-import './cleanup'; // see loggedin.js for loggedin users
 import initAlerts from './alerts';
 import * as storage from './helpers/storage';
 

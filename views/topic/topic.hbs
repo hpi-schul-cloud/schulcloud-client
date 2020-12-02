@@ -84,7 +84,7 @@
                                     {{/if}}
                                 </div>
                                 <div class="card-footer">
-                                    <small class="text-muted"> via {{this.client}}</small>
+                                    {{!-- <small class="text-muted"> via {{this.client}}</small> --}}
                                     {{#userHasPermission "COURSE_EDIT"}}
                                         <a class="delete-material" href="materials/{{../_id}}" target="_blank"
                                             data-method="DELETE" data-name="{{../title}}">

@@ -1,5 +1,5 @@
 const express = require('express');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const router = express.Router();
 const api = require('../api');
@@ -7,7 +7,9 @@ const api = require('../api');
 const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
+const timesHelper = require('../helpers/timesHelper');
 const { getCurrentLanguage } = require('../helpers/i18n');
+const { setCookie } = require('../helpers/cookieHelper');
 
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
@@ -101,6 +103,7 @@ router.post(
 				);
 			});
 		}
+		req.body.birthDate = timesHelper.dateStringToMoment(req.body.birthDate, false);
 
 		return api(req)
 			.post('/registration/', {
@@ -147,7 +150,7 @@ router.post(
 			})
 			.then(() => {
 				if (req.params.sso) {
-					res.cookie('jwt', req.cookies.jwt, {
+					setCookie(res, 'jwt', req.cookies.jwt, {
 						expires: new Date(Date.now() - 100000),
 						httpOnly: false,
 						hostOnly: true,

@@ -13,9 +13,10 @@ const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 const { nonceValueSet } = require('./helpers/csp');
+
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
@@ -31,10 +32,12 @@ const {
 	JWT_TIMEOUT_SECONDS,
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
-	FEATURE_MATRIX_MESSENGER_ENABLED,
 } = require('./config/global');
 
 const app = express();
+
+// print current configuration
+Configuration.printHierarchy();
 
 if (Configuration.has('SENTRY_DSN')) {
 	Sentry.init({
@@ -137,23 +140,17 @@ if (redisUrl) {
 	sessionStore = new session.MemoryStore();
 }
 
-if (!Configuration.get('COOKIE__SECURE') && Configuration.get('COOKIE__SAME_SITE') === 'None') {
-	Configuration.set('COOKIE__SAME_SITE', 'Lax');
-	// eslint-disable-next-line max-len
-	const cookieConfigErrorMsg = 'Setting COOKIE.SAME_SITE="None" requires COOKIE.SECURE=true. Changed to COOKIE.SAME_SITE="Lax"';
-	Sentry.captureMessage(cookieConfigErrorMsg);
-	logger.error(cookieConfigErrorMsg);
-}
-
+const SIX_HOURS = 1000 * 60 * 60 * 6;
 app.use(session({
-	cookie: { maxAge: 1000 * 60 * 60 * 6 },
+	cookie: {
+		// TODO ...cookieDefaults,
+		maxAge: SIX_HOURS,
+	},
 	rolling: true, // refresh session with every request within maxAge
 	store: sessionStore,
 	saveUninitialized: true,
 	resave: false,
 	secret: Configuration.get('COOKIE_SECRET'), // Secret used to sign the session ID cookie
-	sameSite: Configuration.get('COOKIE__SAME_SITE'), // restrict jwt access to our domain ressources only
-	secure: Configuration.get('COOKIE__SECURE'),
 }));
 
 // CSRF middlewares
@@ -189,12 +186,10 @@ app.use(async (req, res, next) => {
 	res.locals.version = version;
 	res.locals.sha = sha;
 	res.locals.ROCKETCHAT_SERVICE_ENABLED = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
-	res.locals.FEATURE_MATRIX_MESSENGER_ENABLED = FEATURE_MATRIX_MESSENGER_ENABLED;
 	delete req.session.notification;
 	try {
 		await authHelper.populateCurrentUser(req, res);
 	} catch (error) {
-		logger.error('could not populate current user', error);
 		return next(error);
 	}
 	if (Configuration.has('SENTRY_DSN')) {
@@ -224,6 +219,7 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 
 // add res.$t method for i18n with users prefered language
 app.use(require('./middleware/i18n'));
+app.use(require('./middleware/datetime'));
 
 // Initialize the modules and their routes
 app.use(require('./controllers'));

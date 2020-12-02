@@ -53,9 +53,11 @@
     {{#if description}}
     <p class="lead">{{$t "courses._course.text.courseDescription"}} {{{stripOnlyScript description}}}</p>
     {{/if}}
-    {{#unless ../isArchived}}{{#if nextEvent}}
-    <p class="text-muted">{{$t "courses._course.text.nextClass"}} {{nextEvent}}</p>
-    {{/if}}{{/unless}}
+    {{#unless ../isArchived}}
+        {{#if nextEvent}}
+    <p class="text-muted">{{$t "courses._course.text.nextClass"}} {{i18nDateTime nextEvent}}</p>
+        {{/if}}
+    {{/unless}}
     <a href="{{filesUrl}}" class="btn btn-add btn-secondary pull-right">
       <i class="fa fa-folder-open" aria-hidden="true"></i>
       {{$t "courses._course.link.toCourseFiles"}}

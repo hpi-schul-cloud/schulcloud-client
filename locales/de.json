@@ -1,4 +1,15 @@
 {
+	"format": {
+		"dateToPicker": "DD.MM.YYYY",
+		"datePicker": "d.m.Y",
+		"datePickerMask": "39.19.9999",
+		"dateTimeToPicker": "DD.MM.YYYY HH:mm",
+		"dateTimePicker": "d.m.Y H:i",
+		"dateTimePickerMask": "39.19.9999 29:59",
+		"date": "DD.MM.YYYY",
+		"dateTime": "DD.MM.YYYY HH:mm",
+		"dateLong": "dddd, DD. MMMM YYYY"
+	},
 	"about": {
 		"button": {
 			"showLess": "Weniger anzeigen",
@@ -77,7 +88,7 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
 			},
 			"text": {
-				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
+				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{shortTitle}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
 				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
 				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
 			}
@@ -541,12 +552,14 @@
 				"checkLDAPData": "LDAP-Daten überprüfen",
 				"endSchoolYear": "Schuljahr beenden",
 				"endTransferPhase": "Transferphase beenden",
+				"saveGeneralSettings": "Allgemeine Einstellungen speichern",
 				"start": "starten",
 				"startTransferPhase": "Transferphase starten"
 			},
 			"headline": {
 				"addPolicy": "Datenschutzerklärung hinzufügen",
-				"finishSchoolYear": "Das Schuljahr wirklich beenden?"
+				"finishSchoolYear": "Das Schuljahr wirklich beenden?",
+				"generalSettings": "Allgemeine Einstellungen"
 			},
 			"label": {
 				"activeChatFunction": "Chatfunktion aktivieren",
@@ -556,9 +569,11 @@
 				"authentication": "Authentifizierung",
 				"changeOfClasses": "Änderung von Klassen/neue Klassen",
 				"changeOfUserData": "Änderung von Nutzerdaten/neue Nutzer",
+				"chooseACounty": "Bitte wählen Sie den Kreis, zu dem die Schule gehört",
 				"className": "Klassenname:",
 				"cloudStorageProvider": "Cloud-Storage-Anbieter",
-				"createChatRoom": "Chatraum für Ankündigungen an die gesamte Schule anlegen",
+				"county": "Kreis",
+				"counties": "Kreise",
 				"currentSchoolYear": "Aktuelles Schuljahr:",
 				"dataProtectionAdd": "Datenschutzerklärung hinzufügen",
 				"duringTheSchoolYear": "Während des Schuljahres",
@@ -567,12 +582,16 @@
 				"endOfTheTransferPhase": "Beenden der Transferphase",
 				"fileStorageSpaceUsedInCloud": "Genutzter Datei-Speicherplatz in der Cloud",
 				"inTheTransferPhase": "in der Transferphase:",
+				"lernstoreEnabledForStudents": "Lern-Store für Studenten",
 				"loginFromExistingUsers": "Logins bestehender Nutzer",
+				"messengerStudentRoomCreate": "Schüler:innen dürfen eigene Chat-Räume anlegen",
+				"messengerSchoolRoom": "Chatraum für Ankündigungen an die gesamte Schule anlegen",
 				"nameOfTheSchool": "Name der Schule",
 				"noteAvailableFunction": "Beachte verfügbare Funktionen",
 				"noteBeforeTheTransferPhase": "Beachte vor der Transferphase:",
 				"passwordChangesInLDAP": "Kennwortänderungen im LDAP",
 				"privacySettings": "Datenschutz-Einstellungen",
+				"schoolNumber": "Schulnummer:",
 				"schoolYear": "Schuljahr:",
 				"schoolYearChange": "Schuljahreswechsel",
 				"selectProvider": "Anbieter auswählen",
@@ -580,6 +599,7 @@
 				"studentVisibility": "Sichtbarkeit von Schüler:innen für Lehrkräfte aktivieren",
 				"transferPhase": "Transferphase",
 				"uploadSchoolLogo": "Schullogo hochladen",
+				"timezone": "Zeitzone",
 				"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP  <br> für das neue Schuljahr sind bearbeitet.",
 				"youCantGoBack": "Du kannst nicht mehr zurück",
 				"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr"
@@ -587,6 +607,9 @@
 			"link": {
 				"moreInfo": "Mehr Infos",
 				"matrixHelpPage": "Hilfeartikel zum Messenger"
+			},
+			"placeholder": {
+				"chooseCounty": "Wählen Sie einen Kreis"
 			},
 			"text": {
 				"LDAPChanges": "du kannst die notwendigen Änderungen für das neue Schuljahr im\nLDAP vornehmen (neue Nutzer, Update der Klassen)",
@@ -596,7 +619,6 @@
 				"atTheEndOfTheSchoolYearWithLDAP": "Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
 				"atTheEndOfTheTransferPhase": "bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag synchronisiert",
 				"atTheSameTime": "gleichzeitig läutest Du damit das neue Schuljahr in der HPI Schul-Cloud ein",
-				"chatRoomPermissions": "Der Ankündigungs-Chatraum ermöglicht Schul-Administrator:innen, Nachrichten an die gesamte Schule zu senden.\nSchüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.",
 				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
 				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
 				"fileSelected": "Datei ausgewählt",
@@ -604,8 +626,11 @@
 				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team die Chatfunktion gezielt freischalten.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer starten. Team-Administratoren können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
-				"ifMatrixIsActivatedAtYourSchool": "Ist der Matrix Messenger aktiviert, können alle Lehrer:innen dieser Schule Chaträume, private Unterhaltungen oder kurs- und teaminterne Gruppendiskussionen starten. Schüler:innen haben dort anfangs nur Leserechte, können aber über die Kurs- und Teameinstellungen auch Schreibrechte zugewiesen bekommen. Schüler:innen können zudem auch private Chats innerhalb von Kursen und Teams starten. Mehr Informationen dazu findest du im ",
+				"ifMatrixIsActivatedAtYourSchool": "Ist der Matrix Messenger aktiviert, können alle Lehrer:innen dieser Schule Chaträume, private Unterhaltungen oder kurs- und teaminterne Gruppendiskussionen starten. Schüler:innen haben dort anfangs nur Leserechte, können aber über die Kurs- und Teameinstellungen auch Schreibrechte zugewiesen bekommen. Mehr Informationen dazu findest du im ",
+				"lernstoreEnabledForStudents": "Wenn diese Option nicht aktiviert ist, können die Schüler nicht auf den Lern-Store zugreifen",
 				"loginViaLDAP": "der Login via LDAP ist für bestehende Nutzer weiterhin möglich",
+				"messengerStudentRoomCreate": "Ist diese Funktion aktiviert dürfen Schüler:innen Chaträume, private Unterhaltungen und kurs-und teaminterne Gruppendiskussionen starten. Diese Räume sind für Lehrkräfte nicht einzusehen, wenn diese nicht explizit eingeladen werden.",
+				"messengerSchoolRoom": "Der Ankündigungs-Chatraum ermöglicht Schul-Administrator:innen, Nachrichten an die gesamte Schule zu senden.\nSchüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.",
 				"newSchoolYear": "Neues Schuljahr",
 				"newUsersClassesAndChanges": "neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus dem LDAP synchronisiert",
 				"noFileSelected": "Keine Datei ausgewählt",
@@ -783,7 +808,7 @@
 		},
 		"text": {
 			"MINTECSchoolsAnd": "<a href='https://www.mint-ec.de' target='_blank'>MINT-EC</a> ist das nationale Excellence-Netzwerk von Schulen mit Sekundarstufe II und ausgeprägtem Profil in Mathematik, Informatik, Naturwissenschaften und Technik (MINT). Seit 2017 nehmen Schulen aus dem Netzwerk am Projekt HPI Schul-Cloud teil.",
-			"MINTECSchoolsAndOther": "Hier können sich MINT-EC-Schulen und auch Schulen die keinem Länderprojekt angehören anmelden, die dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
+			"SchoolsAndOther": "Hier können sich Schulen anmelden, die keinem Länderprojekt angehören und dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
 			"contactUsToRegister": "Kontaktieren Sie bitte entweder Frau Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de</a> oder Herrn Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de</a>, um den Registrierungsprozess einzuleiten.",
 			"forGeneralQuestionsPleaseContact": "Bei allgemeinen Fragen kontaktieren Sie bitte folgende E-Mail-Adresse:",
 			"hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
@@ -1087,7 +1112,7 @@
 					"deleteTopic": "Thema löschen",
 					"descriptionTopic": "Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu. Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses.",
 					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler:innen, um sie zum Kurs einzuladen. Die Schüler:innen müssen dafür angemeldet sein.",
-					"editSortDeleteShareTopicsHere": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-ellipsis-v\"></i>&nbsp;<i class=\"fa fa-ellipsis-v\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
+					"editSortDeleteShareTopicsHere": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-arrows\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
 					"externalLinkToGeoGebra": "Dies ist ein externer Inhalt des Anbieters GeoGebra. Er wird in einem neuen Fenster bzw. Tab geöffnet.",
 					"hideTopic": "Thema verstecken",
 					"importTopic": "Thema importieren",
@@ -1274,6 +1299,7 @@
 			"headline": {
 				"assertDeletion": "Bist du dir sicher, dass du '{{filename}}' löschen möchtest?",
 				"editPermissions": "Berechtigungen bearbeiten",
+				"functionCurrentlyDisabled" : "Funktion vorübergehend deaktiviert",
 				"moveFile": "Datei verschieben",
 				"renameDir": "Ordner umbenennen",
 				"shareLink": "Freigabe-Link"
@@ -1286,6 +1312,8 @@
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileMoved": "Verschieben der Datei war erfolgreich!",
+				"littleHintHowToMoveFiles" : "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
+				"movingFilesIsDisabled": "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
 				"pleaseSelectFileType": "Bitte wähle einen Dateityp aus.",
 				"renameDirSuccess": "Umbenennen des Ordners war erfolgreich!",
@@ -1313,14 +1341,20 @@
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
 			"newFolder": "Neuer Ordner"
 		},
+		"img_alt":{
+			"altInfoTheImage" : "Das Bild {{imgName}}"
+		},
 		"input": {
 			"filename": "Name der Datei",
 			"foldername": "Name des Ordners",
 			"searchFiles": "Dateien durchsuchen..."
 		},
 		"label": {
+			"backToFiles" : "Zurück zur Dateien-Übersicht",
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
+			"clickToOpenDir" : "Ordner {{name}} öffnen",
+			"clickToOpenFile" : "Datei {{name}} öffnen",
 			"close": "Schließen",
 			"dangerousCode": "Schädlicher Code",
 			"deleteFile": "Datei löschen",
@@ -1348,23 +1382,17 @@
 			"roleUser": "Rolle/Benutzer",
 			"selectAFolder": "Wähle einen Ordner aus",
 			"shareFile": "Datei teilen",
+			"sortBy" : "Sortieren nach...",
 			"size": "Größe",
 			"updatedAt": "Änderungsdatum",
 			"write": "Schreiben"
 		},
 		"overview" : {
-			"button" : {
-				"openFiles" : "Dateien öffnen"
-			},
-			"headline":{
-				"myCourseFiles" : "Meine Kurs-Dateien",
-				"myTeamFiles" : "Meine Team-Dateien"
-			},
-			"text" : {
-				"CourseFilesDesc" : "Hier findest du alle Dateien, die in den jeweiligen Kursen im Unterricht verwendet werden. Alle Teilnehmer des Kurses, also der Lehrer und die Schüler, haben auf diese Dateien Zugriff.",
-				"PersonalFilesDesc" : "Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.",
-				"SharedFilesDesc" : "Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzern zur Verfügung gestellt worden sind.",
-				"TeamFilesDesc" : "Hier findest du alle Dateien, die in den jeweiligen Teams verwendet werden. Alle Teilnehmer des Teams haben auf diese Dateien Zugriff."
+			"aria_label":{
+				"openCourseFiles" : "Öffne meine Kurs-Dateien",
+				"openMyfiles" : "Öffne meine persönlichen Dateien",
+				"openSharedFiles" : "Öffne mit mir geteilte Dateien",
+				"openTeamFiles" : "Öffne meine Team-Dateien"
 			}
 		},
 		"search": {
@@ -1384,7 +1412,6 @@
 			"foundIn": "gefunden in:",
 			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
 			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
-			"movingCurrentlyDisabled": "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 			"newDir": "Neuer Ordner",
 			"newFile": "Neue Datei",
 			"noAccessToThisFile": "Zu dieser Datei haben Sie keinen Zugriff!",
@@ -1446,7 +1473,7 @@
 		"label": {
 			"newPassword": "Neues Passwort: ",
 			"repeatYourNewPassword": "Wiederhole dein neues Passwort:",
-			"under14YearsOld": "unter 14 Jahre alt."
+			"under14YearsOld": "13 Jahre oder jünger."
 		},
 		"parent": {
 			"button": {
@@ -1487,9 +1514,9 @@
 			"repeatNewPassword": "Neues Passwort wiederholen"
 		},
 		"text": {
-			"between14And": "zwischen 14 und {{addConsent}} Jahre alt.",
+			"between14And": "zwischen 14 und {{addConsent}} Jahre.",
 			"clickHereForFurtherTraining": "Hier gehts zur Fortbildung",
-			"fromYear": "ab {{age}} Jahre alt.",
+			"fromYear": "{{age}} Jahre oder älter.",
 			"justHaveALook": "Schau einfach mal vorbei!",
 			"linguisticNote": "Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
 			"pleaseChangeTheStartPassword": "Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!",
@@ -1682,7 +1709,7 @@
 			"Demo": "Demo",
 			"DemoStudent": "Demo Schüler",
 			"DemoTeacher": "Demo Lehrer",
-			"Expert": "Experte",
+			"Experte": "Experte",
 			"Helpdesk": "Helpdesk",
 			"Lehrer": "Lehrer",
 			"Schüler": "Schüler",
@@ -1696,7 +1723,7 @@
 				"administrator": "Administrator",
 				"expert": "Experte",
 				"leader": "Leiter",
-				"member": "Mitglied",
+				"member": "Teilnehmer",
 				"owner": "Eigentümer",
 				"teacher": "Lehrer"
 			}
@@ -1994,6 +2021,8 @@
 				"printSubmission": "Abgabe drucken",
 				"printTask": "Aufgabenstellung drucken",
 				"submitted": "Abgegeben",
+				"statsSubmitted": "{{submissionCount}} von {{totalCount}} abgegeben",
+				"statsGraded": "{{gradedCount}} bewertet",
 				"team": "Team",
 				"teamSubmission": "Teamabgabe",
 				"teamSubmissionMaxX": "Teamabgabe (maximal <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> Personen)",
@@ -2100,7 +2129,9 @@
 			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
 			"due": "Fällig",
+			"till": "bis",
 			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
+			"loading": "laden...",
 			"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
 			"noAssignment": "Keine Zuordnung",
 			"noDescriptionAvailable": "keine Beschreibung vorhanden",
@@ -2384,10 +2415,10 @@
 		},
 		"popup_resetPw": {
 			"button": {
-				"resetPassword": "Passwort Zurücksetzen"
+				"resetPassword": "Passwort zurücksetzen"
 			},
 			"headline": {
-				"resetPassword": "Passwort Zurücksetzen"
+				"resetPassword": "Passwort zurücksetzen"
 			},
 			"input": {
 				"yourEmailUsername": "Deine E-Mail-Adresse/Nutzername"
@@ -2572,8 +2603,8 @@
 				"welcomeToTheRegistration": "Willkommen zur Anmeldung in der {{title}}!"
 			},
 			"label": {
-				"bellowNYearsOld": "unter {{years}} Jahre alt",
-				"overNYearsOld": "ab {{years}} Jahre alt"
+				"bellowNYearsOld": "unter {{years}} Jahren.",
+				"overNYearsOld": "{{years}} Jahre oder älter."
 			},
 			"parent": {
 				"global": {
@@ -2948,7 +2979,7 @@
 			},
 			"text": {
 				"group": "({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
-				"nextLesson": "Nächste Unterrichtsstunde: {{nextEvent}}",
+				"nextLesson": "Nächste Unterrichtsstunde: {{i18nDateTime nextEvent}}",
 				"noIssues": "Keine Themen.",
 				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}Schülergruppen{{else}}Meine Schülergruppen {{/userHasPermission}}"
 			}
