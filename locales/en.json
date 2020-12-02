@@ -1885,7 +1885,7 @@
 			},
 			"label": {
 				"lowerSaxonyRegistration": "Via the expression of interest <a href=\"https://www.n-21.de/nbc/interessenbekundung\">(https://www.n-21.de/nbc/interessenbekundung)</a> schools register - through the school administration - for the Lower Saxony Education Cloud.",
-				"pedagogicalExperts": "When inviting pedagogical staff as external experts, please do not use e-mail addresses that are already used in the school context and are required for their registration in the Lower Saxony Education Cloud."
+				"pedagogicalExperts": "When inviting educational stuff as external experts, please do not use e-mail addresses that are already used and required for the registration in the Lower Saxony Education Cloud."
 			}
 		},
 		"language_hint": {
@@ -2874,7 +2874,7 @@
 					"externExpert": "External expert",
 					"externTeacher": "Teacher of other school (Team admin)",
 					"federalState": "State",
-					"insertEmailOfExpertToInvite": "For security reasons, external experts only have limited access rights - for example, they cannot participate in video conferences or create courses. To invite an external Expert:in, enter the e-mail address to which the invitation should be sent:",
+					"insertEmailOfExpertToInvite": "For security reasons, external experts have limited access rights - such as, participating in video conferences or creating courses. To invite an external expert, please enter the e-mail address you want the invitation to be sent to.",
 					"leavingTeamRequiresNewOwner": "Leaving the team requires a different owner",
 					"reallyWantToRmClass": "Do you really want to remove this class?",
 					"reallyWantToRmInvitation": "Do you really want to cancel the invitation?",
