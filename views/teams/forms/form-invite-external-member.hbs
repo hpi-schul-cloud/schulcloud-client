@@ -3,11 +3,6 @@
 {{/content}}
 
 <div class="form-group" data-teamId="{{teamId}}">
-    <!--<p>Lade Lehrer anderer Schulen als Team-Admin ein, damit diese Lehrer und Schüler ihrer Schule hinzufügen können.
-        Es sind nur Lehrer auswählbar, die in Ihren Einstellungen der Auswahl für Teams zugestimmt haben.</p>-->
-    {{!-- <p>Lade externe Experten ein, sich in der {{theme.short_title}} zu registrieren deinem Team beizutreten.</p> --}}
-
-    {{!-- <h3>Externe einladen</h3> --}}
 
     {{> "help/partials/help_form_invite_external_members"}}
 
@@ -77,5 +72,9 @@
             <label for="emailExpert">{{$t "teams._team.members.label.insertEmailOfExpertToInvite"}}</label>
             <input class="form-control" type="text" name="email" id="emailExpert" placeholder="{{$t "teams._team.members.placeholder.insertEmail"}}">
         </div>
+        {{#ifeq @root.theme.name "n21"}}
+            {{> "help/partials/help_form_note"}}
+        {{/ifeq}}
     </div>
+
 </div>
