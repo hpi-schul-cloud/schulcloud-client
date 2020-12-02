@@ -9,6 +9,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.1.2] - 2020-12-01
+
+### Fixed
+- SC-8042 update sort order of students by creating classes
+
 ## [25.1.1] - 2020-10-15
 
 ### Fixed

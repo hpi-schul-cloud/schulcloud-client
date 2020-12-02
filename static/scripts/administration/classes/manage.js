@@ -2,34 +2,6 @@ import printQRs from '../../helpers/printQRs';
 
 /* globals populateModalForm */
 
-function sortOptions(selector, sortFunction) {
-	const input = document.querySelector(selector);
-	const options = Array.from(input.querySelectorAll('option'));
-
-	options.sort(sortFunction);
-	options.forEach((option) => {
-		input.appendChild(option);
-	});
-}
-
-function sortStudents() {
-	const sortFunction = (a, b) => {
-		const aValue = a.dataset.lastName;
-		const bValue = b.dataset.lastName;
-		if (aValue < bValue) {
-			return -1;
-		}
-		if (aValue > bValue) {
-			return 1;
-		}
-		return 0;
-	};
-
-	const studentInputSelector = 'select[name=userIds]';
-	sortOptions(studentInputSelector, sortFunction);
-	$(studentInputSelector).trigger('chosen:updated');
-}
-
 function copy(event) {
 	event.preventDefault();
 	const { copySelector } = event.target.dataset;
@@ -135,7 +107,6 @@ window.addEventListener('load', () => {
 				`option[value="${student._id}"]`,
 			).selected = true;
 		});
-		sortStudents();
 		$('select[name=userIds]').trigger('chosen:updated');
 	});
 
@@ -225,5 +196,3 @@ window.addEventListener('load', () => {
 	}
 	$('.btn-print-links').on('click', btnPrintLinksHandler);
 });
-
-window.addEventListener('load', sortStudents);
