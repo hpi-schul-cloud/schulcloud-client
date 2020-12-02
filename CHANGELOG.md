@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## 25.2.7
+
+### Fixed
+
+- SC-8042 update sort order of students by creating classes
+
+## 25.2.6
+
+### Fixed
+
+- SC-8027 Fixed school login event listener issue
+
 ## 25.2.5
 
 ### Fixed
