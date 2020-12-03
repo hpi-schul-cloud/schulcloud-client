@@ -3,7 +3,7 @@ const i18nMoment = require('moment');
 
 const Backend = require('i18next-sync-fs-backend');
 const path = require('path');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const logger = require('./logger');
 const api = require('../api');
 

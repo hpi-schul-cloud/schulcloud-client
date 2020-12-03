@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 if (Configuration.has('CORS') !== true) {
 	throw new Error('CORS missing in Configuration');

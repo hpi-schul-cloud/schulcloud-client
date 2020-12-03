@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -338,13 +338,9 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
-router.post('/', (req, res, next) => {
-	return api(req).post('/teams/', {
-		json: req.body, // TODO: sanitize
-	}).then((team) => {
-		return res.redirect(`/teams/${team._id}`);
-	}).catch(next);
-});
+router.post('/', (req, res, next) => api(req).post('/teams/', {
+	json: req.body, // TODO: sanitize
+}).then((team) => res.redirect(`/teams/${team._id}`)).catch(next));
 
 router.post('/copy/:teamId', (req, res, next) => {
 	// map course times to fit model

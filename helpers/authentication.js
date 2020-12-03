@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const passwordGenerator = require('generate-password');
 
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const api = require('../api');
 const permissionsHelper = require('./permissions');

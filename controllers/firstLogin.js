@@ -1,4 +1,4 @@
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const express = require('express');
 const showdown = require('showdown');
 const _ = require('lodash');

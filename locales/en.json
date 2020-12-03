@@ -269,7 +269,7 @@
 				"errorImportingUsers": "Error: {{errorMessage}}",
 				"failedToCreateUser": "Error when creating the user. {{error}}",
 				"importFailed": "Import failed. Please check your input data and try again.",
-				"importMayBeStillRunning":"Import in progress. Depending on file size this process could take a few minutes.",
+				"importMayBeStillRunning": "Import in progress. Depending on file size this process could take a few minutes.",
 				"inTheQueue": "In the queue",
 				"invitationEmailContent": "Invitation to the {{title}} Hello {{firstName}} {{lastName}}!\nYou are invited to join the {{title}}, please complete your registration at the following link: {{shortLink}} \nYour {{shortTitle}} team wishes you fun and a good start",
 				"invitationEmailSubject": "Invitation to use the {{title}} !",
@@ -569,8 +569,11 @@
 				"authentication": "Authentication",
 				"changeOfClasses": "Change of classes / new classes",
 				"changeOfUserData": "Change of user data / new users",
+				"chooseACounty": "Please choose the county your school belongs to.",
 				"className": "Class name:",
 				"cloudStorageProvider": "Cloud storage provider",
+				"county": "County",
+				"counties": "Counties",
 				"currentSchoolYear": "Current school year:",
 				"dataProtectionAdd": "Add privacy policy",
 				"duringTheSchoolYear": "During the school year",
@@ -601,6 +604,9 @@
 				"youCantGoBack": "You can't go back",
 				"yourSchoolCanStartNewSchool": "your school can enter the new school year"
 			},
+			"placeholder": {
+				"chooseCounty": "Choose a county"
+			},
 			"link": {
 				"moreInfo": "More information",
 				"matrixHelpPage": "messenger help section"
@@ -616,7 +622,7 @@
 				"coursesWithLearningContent": "Courses with learning content for the coming school year can also be created during the transfer phase (without class assignment)",
 				"doNotEndTheTransferPhase": "Do not end the transfer phase until the users are assigned to the new classes",
 				"fileSelected": "File selected",
-				"fileTooLarge" : "PDF file is too large. It can be at max {{size}}MB large.",
+				"fileTooLarge": "PDF file is too large. It can be at max {{size}}MB large.",
 				"ifChatsAreActivatedAtYourSchool": "If chats are enabled at your school, team administrators and teachers can selectively unlock the chat function respectively for their team or courses.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
@@ -629,7 +635,7 @@
 				"newUsersClassesAndChanges": "Newly added users, classes and changes to existing data are not synchronized from the LDAP",
 				"noFileSelected": "No file selected",
 				"noRssFeedsYet": "There are no RSS feeds yet.",
-				"onlyPDFSupport" : "Only PDF files are supported.",
+				"onlyPDFSupport": "Only PDF files are supported.",
 				"oldSchoolYear": "Old school year",
 				"passwordChanges": "Password changes are still synchronized",
 				"theNewClassesAreSavedInTheContext": "the new classes are saved in the context of the new school year, the old classes are archived in the context of the old school year",
@@ -1293,7 +1299,7 @@
 			"headline": {
 				"assertDeletion": "Are you sure you want to delete ' {{filename}} '?",
 				"editPermissions": "Edit permissions",
-				"functionCurrentlyDisabled" : "Function temporarily deactivated",
+				"functionCurrentlyDisabled": "Function temporarily deactivated",
 				"moveFile": "Move file",
 				"renameDir": "Rename folder",
 				"shareLink": "Share link"
@@ -1306,7 +1312,7 @@
 				"fileAlreadyExists": "A file with this name already exists in the target folder!",
 				"fileAlreadyExistsInDir": "A file with this name already exists in the same folder!",
 				"fileMoved": "The file was moved successfully!",
-				"littleHintHowToMoveFiles" : "<b>Little hint:</b> You can download the file and then upload it to the correct folder.",
+				"littleHintHowToMoveFiles": "<b>Little hint:</b> You can download the file and then upload it to the correct folder.",
 				"movingFilesIsDisabled": "Moving files is currently not possible. We are working on a solution.",
 				"permissionsChangedSuccess": "File permissions changed successfully",
 				"pleaseSelectFileType": "Please select a file type.",
@@ -1336,8 +1342,8 @@
 			"doYouWantToOpenThisFile": "Do you want to open this file with an external service?",
 			"newFolder": "New folder"
 		},
-		"img_alt" :{
-			"altInfoTheImage" : "the image {{imgName}}"
+		"img_alt": {
+			"altInfoTheImage": "the image {{imgName}}"
 		},
 		"input": {
 			"filename": "Name of the file",
@@ -1345,11 +1351,11 @@
 			"searchFiles": "Browse files ..."
 		},
 		"label": {
-			"backToFiles" : "back to the files overview",
+			"backToFiles": "back to the files overview",
 			"chooseANewName": "Select a new name:",
 			"chooseANewNameAndAFileExtension": "Select a name and file extension:",
-			"clickToOpenDir" : "open folder {{name}}",
-			"clickToOpenFile" : "open file {{name}}",
+			"clickToOpenDir": "open folder {{name}}",
+			"clickToOpenFile": "open file {{name}}",
 			"close": "Close",
 			"dangerousCode": "Malicious code",
 			"deleteFile": "Delete file",
@@ -1378,16 +1384,16 @@
 			"selectAFolder": "Select a folder",
 			"shareFile": "Share file",
 			"size": "Size",
-			"sortBy" : "Sort by...",
+			"sortBy": "Sort by...",
 			"updatedAt": "Modification date",
 			"write": "Write"
 		},
 		"overview": {
-			"aria_label":{
-				"openCourseFiles" : "Open my Course Files",
-				"openMyfiles" : "Open my personal Files",
-				"openSharedFiles" : "Open shared Files",
-				"openTeamFiles" : "Open my Team Files"
+			"aria_label": {
+				"openCourseFiles": "Open my Course Files",
+				"openMyfiles": "Open my personal Files",
+				"openSharedFiles": "Open shared Files",
+				"openTeamFiles": "Open my Team Files"
 			}
 		},
 		"search": {
@@ -1642,7 +1648,7 @@
 			"password": "Password:",
 			"role": "Role",
 			"room": "Room",
-			"settings" : "Settings",
+			"settings": "Settings",
 			"skipLinks": "Skip links",
 			"sortBy": "Sort by: %1",
 			"title": "Title",
@@ -1871,10 +1877,16 @@
 		"help_fromInviteExternalMember": {
 			"button": {
 				"externalExperts": "External experts",
-				"teachersFromOtherSchools": "Teachers from other schools"
+				"externalExpertsN21": "External experts",
+				"teachersFromOtherSchools": "Teachers from other schools",
+				"teachersFromOtherSchoolsN21": "Teachers of other schools"
 			},
 			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Who would you like to invite to the team?"
+			},
+			"label": {
+				"lowerSaxonyRegistration": "Via the expression of interest <a href=\"https://www.n-21.de/nbc/interessenbekundung\">(https://www.n-21.de/nbc/interessenbekundung)</a> schools register - through the school administration - for the Lower Saxony Education Cloud.",
+				"pedagogicalExperts": "When inviting educational stuff as external experts, please do not use e-mail addresses that are already used and required for the registration in the Lower Saxony Education Cloud."
 			}
 		},
 		"language_hint": {
@@ -2126,6 +2138,7 @@
 			"due": "Due",
 			"till": "till",
 			"fileAlreadyExists": "This file name already exists in your files. Please rename the file.",
+			"loading": "loading...",
 			"maximumTeamSize": "The maximum team size is {{maxMembers}} members",
 			"noAssignment": "No assignment",
 			"noDescriptionAvailable": "no description available",
@@ -2862,7 +2875,7 @@
 					"externExpert": "External expert",
 					"externTeacher": "Teacher of other school (Team admin)",
 					"federalState": "State",
-					"insertEmailOfExpertToInvite": "Enter the e-mail of the expert to whom the invitation will be sent.",
+					"insertEmailOfExpertToInvite": "For security reasons, external experts have limited access rights - such as, participating in video conferences or creating courses. To invite an external expert, please enter the e-mail address you want the invitation to be sent to.",
 					"leavingTeamRequiresNewOwner": "Leaving the team requires a different owner",
 					"reallyWantToRmClass": "Do you really want to remove this class?",
 					"reallyWantToRmInvitation": "Do you really want to cancel the invitation?",
@@ -2874,7 +2887,7 @@
 					"sendInvitationAgain": "Resend invitation"
 				},
 				"placeholder": {
-					"insertEmail": "Enter e-mail",
+					"insertEmail": "Input field for e-mail address",
 					"selectFederalState": "Select state",
 					"selectPersons": "Select people",
 					"selectRole": "Specify role",
@@ -3005,7 +3018,7 @@
 			}
 		},
 		"aria_label": {
-			"openTopicX" : "Open topic {{name}}"
+			"openTopicX": "Open topic {{name}}"
 		},
 		"form_share": {
 			"label": {
@@ -3013,10 +3026,10 @@
 			}
 		},
 		"topicEdit": {
-			"aria_label":{
-				"chooseContent" : "Choose the types of contents for your topic",
+			"aria_label": {
+				"chooseContent": "Choose the types of contents for your topic",
 				"geoGebraID": "GeoGebra ID",
-				"moveSectionWithKeys" : "Lift the section by pressing enter or space, move it with the arrow buttons and drop it with enter or space."
+				"moveSectionWithKeys": "Lift the section by pressing enter or space, move it with the arrow buttons and drop it with enter or space."
 			},
 			"button": {
 				"etherpad": "Etherpad",
