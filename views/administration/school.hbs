@@ -179,7 +179,7 @@
 				<div class="col-sm-12 no-padding">
 					<!-- Admin View -->
 					{{#userHasPermission 'ADMIN_VIEW'}}
-					<h2 class="h4">{{ $t "global.link.school" }}</h2>
+					<h2 class="h4">{{ $t "administration.school.headline.generalSettings" }}</h2>
 
 					<form action="/administration/schools/{{../currentSchool}}" method="post" class="edit-form-school">
 						<input type="hidden" name="_method" value="patch" />
@@ -192,6 +192,17 @@
 						</div>
 
 						<div class="form-group">
+							<label for="officialSchoolNumber">
+								{{$t "administration.school.label.schoolNumber" }}
+							</label>
+
+							<input id="officialSchoolNumber" value="{{../school.officialSchoolNumber}}" type="text" pattern="\D{0,2}-*\d{5}$" class="form-control" name="officialSchoolNumber"
+								placeholder="12345" {{#if ../schoolUsesLdap}} readonly{{/if}}
+								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+								readonly{{/userHasPermission}}/>
+						</div>
+
+						<div class="form-group">
 							<label>{{$t "administration.school.label.uploadSchoolLogo" }}</label><br />
 							<input type="hidden" name="logo_dataUrl">
 							<input type="file" id="logo-input">
@@ -200,6 +211,12 @@
 							<img id="preview-logo" src="">
 							<canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
 						</div>
+                        {{#if ../timezone}}
+                            <div class="form-group">
+                                <label>{{$t "administration.school.label.timezone" }}</label><br />
+                                <div>{{../timezone}}</div>
+                            </div>
+                        {{/if}}
                         {{> "lib/forms/form-change-language" langParent=../school }}
                         {{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
 							<h2 class="h6 mt-2">{{$t "administration.school.label.privacySettings" }}</h2>
@@ -213,9 +230,26 @@
 							</div>
 						{{/ifConfig}}
 
+
+                        {{#ifConfig "LERNSTORE_MODE" "EDUSHARING"}}
+                            {{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED" true}}
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" name="studentlernstorevisibility" id="studentlernstorevisibility" value="true"
+                                            {{#ifeq ../school.permissions.student.LERNSTORE_VIEW false}}{{else}}checked{{/ifeq}}
+                                             {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}disabled="disabled"{{/userHasPermission}}
+                                              >
+                                        {{$t "administration.school.label.lernstoreEnabledForStudents"}}
+                                    </label>
+                                    <p class="text-muted">
+                                        {{$t "administration.school.text.lernstoreEnabledForStudents"}}
+                                    </p>
+                                </div>
+                            {{/ifConfig}}
+                        {{/ifConfig}}
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
                         <div class="form-group"
-								{{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" true}}{{else}}
+								{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" true}}{{else}}
 									{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}{{else}}
 										hidden
 									{{/ifConfig}}>
@@ -241,9 +275,28 @@
 						</div>
 
                         {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}
-                        <div id="messenger-sub-options">
+                        <div id="messenger-sub-options" class="pl-3">
                             {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
-                            <div class="form-group {{#ifConfig "FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED" false}}hidden{{/ifConfig}}">
+                            <div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "MATRIX_MESSENGER__STUDENT_ROOM_CREATION" false}}hidden{{/ifConfig}}">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="messengerStudentRoomCreate"
+                                        value="true"
+                                        {{#inArray "messengerStudentRoomCreate" ../school.features}}checked{{/inArray}}
+                                        {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
+                                            {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
+                                                disabled
+                                            {{/userHasPermission}}
+                                        {{/userHasPermission}}
+                                    />
+                                    {{$t "administration.school.label.messengerStudentRoomCreate" }}
+                                </label>
+								<p class="text-muted">
+									{{$t "administration.school.text.messengerStudentRoomCreate" }}
+								</p>
+                            </div>
+							<div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED" false}}hidden{{/ifConfig}}">
                                 <label>
                                     <input
                                         type="checkbox"
@@ -256,20 +309,20 @@
                                             {{/userHasPermission}}
                                         {{/userHasPermission}}
                                     />
-                                    {{$t "administration.school.label.createChatRoom" }}
-                                    <p class="text-muted">
-                                    {{$t "administration.school.text.chatRoomPermissions" }}
-                                    </p>
+                                    {{$t "administration.school.label.messengerSchoolRoom" }}
                                 </label>
+								<p class="text-muted">
+									{{$t "administration.school.text.messengerSchoolRoom" }}
+								</p>
                             </div>
                         </div>
 
-                        <div class="form-group {{#if @root.ROCKETCHAT_SERVICE_ENABLED}}hidden{{/if}}">
+                        <div class="form-group {{#unless @root.ROCKETCHAT_SERVICE_ENABLED}}hidden{{/unless}}">
 							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
 								<label>
 									<input
 										type="checkbox"
-										name="rocketchat"
+										name="rocketChat"
 										value="true"
 										{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}
 										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
@@ -317,7 +370,7 @@
 								</option>
 								{{/each}} </select> </div> {{/if}}
 						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">{{$t "global.button.save" }}</button>
+						<button type="submit" class="btn btn-primary btn-submit">{{$t "administration.school.button.saveGeneralSettings" }}</button>
 					</form>
 
 					{{#if ../school.fileStorageType}}

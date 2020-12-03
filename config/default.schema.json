@@ -3,6 +3,10 @@
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
+		"$schema": {
+			"type": "string",
+			"description": "May refere to the schema file to enable auto-fill and validation in some editors."
+		},
 		"CORS": {
 			"type": "boolean",
 			"default": true,
@@ -131,32 +135,52 @@
 			"default": "feedback@hpi-schul-cloud.de",
 			"description": "Contact E-Mail Adress to The HPI School-Cloud team."
 		},
+		"MATRIX_MESSENGER": {
+			"type": "object",
+			"description": "Matrix messenger properties, required always to be defined",
+			"required": [
+				"URI",
+				"EMBED_URI",
+				"DISCOVER_URI"
+			],
+			"properties": {
+				"URI": {
+					"type": "string",
+					"format": "uri",
+					"description": "The URI of the Matrix Messenger server."
+				},
+				"EMBED_URI": {
+					"type": "string",
+					"format": "uri",
+					"pattern": ".*(?<!/)$",
+					"description": "Where to find the messenger dependencies."
+				},
+				"DISCOVER_URI": {
+					"type": "string",
+					"format": "uri",
+					"description": "URI to discover the homeserver"
+				},
+				"STUDENT_ROOM_CREATION": {
+					"type": "boolean",
+					"default": false,
+					"description": "If enabled, school admins can allow students to create additional chat rooms"
+				},
+				"SCHOOL_SETTINGS_VISIBLE": {
+					"type": "boolean",
+					"default": false,
+					"description": "Only if enabled, school admins can activate the messenger in their school setting"
+				},
+				"SCHOOL_ROOM_ENABLED": {
+					"type": "boolean",
+					"default": false,
+					"description": "If enabled, school admins can choose to create a room for all students and teachers of the school"
+				}
+			}
+		},
 		"FEATURE_MATRIX_MESSENGER_ENABLED": {
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled, adds support for matrix messenger"
-		},
-		"MATRIX_MESSENGER_EMBED_URI": {
-			"type": "string",
-			"format": "uri",
-			"pattern": ".*(?<!/)$",
-			"description": "Where to find the messenger dependencies."
-		},
-		"MATRIX_MESSENGER_HOMESERVER_URI": {
-			"type": "string",
-			"format": "uri",
-			"pattern": ".*(?<!/)$",
-			"description": "Where to find the messenger server."
-		},
-		"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE": {
-			"type": "boolean",
-			"default": false,
-			"description": "Only if enabled, school admins can activate the messenger in their school setting"
-		},
-		"FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "If enabled, school admins can choose to create a room for all students and teachers of the school"
 		},
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
@@ -178,6 +202,11 @@
 			"type": "boolean",
 			"default": "false",
 			"description": "Allows school admin to toggle teacher's STUDENT_LIST permission."
+		},
+		"FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED": {
+			"type": "boolean",
+			"default": "true",
+			"description": "Allows school admin to toggle student's LERNSTORE_VIEW permission."
 		},
 		"SENTRY_DSN": {
 			"type": "string",
@@ -247,13 +276,13 @@
 			"properties": {
 				"SAME_SITE": {
 					"type": "string",
-					"default": "None",
+					"default": "Lax",
 					"enum": [
 						"None",
 						"Lax",
 						"Strict"
 					],
-					"description": "Value for cookies sameSite property"
+					"description": "Value for cookies sameSite property. When SECURE flag is false, 'None' is not allowed in SAME_SITE and Lax should be used as default instead"
 				},
 				"HTTP_ONLY": {
 					"type": "boolean",
@@ -282,7 +311,33 @@
 				"HOST_ONLY",
 				"SECURE",
 				"EXPIRES_SECONDS"
-			]
+			],
+			"allOf": [
+				{
+					"$ref": "#/properties/COOKIE/definitions/SAME_SITE_SECURE_VALID"
+				}
+			],
+			"definitions": {
+				"SAME_SITE_SECURE_VALID": {
+					"if": {
+						"properties": {
+							"SECURE": {
+								"const": false
+							}
+						}
+					},
+					"then": {
+						"properties": {
+							"SAME_SITE": {
+								"enum": [
+									"Lax",
+									"Strict"
+								]
+							}
+						}
+					}
+				}
+			}
 		},
 		"COOKIE_SECRET": {
 			"type": "string",
@@ -338,7 +393,9 @@
 		"ROCKET_CHAT_DEPRECATION_DATE": {
 			"type": "string",
 			"format": "date-time",
-			"examples": ["2020-11-01T20:20:00+00:00"],
+			"examples": [
+				"2020-11-01T20:20:00+00:00"
+			],
 			"description": "if this is set, rocketchat will be treated as disabled after this date."
 		},
 		"I18N": {
@@ -353,6 +410,11 @@
 						"en"
 					],
 					"description": "Value for the default language"
+				},
+				"DEFAULT_TIMEZONE": {
+					"type": "string",
+					"default": "Europe/Berlin",
+					"description": "Timezone"
 				},
 				"FALLBACK_LANGUAGE": {
 					"type": "string",
@@ -374,6 +436,11 @@
 				"DEFAULT_LANGUAGE",
 				"AVAILABLE_LANGUAGES"
 			]
+		},
+		"FEATURE_SHOW_VERSION_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "enable the /versions route"
 		}
 	},
 	"allOf": [
@@ -409,10 +476,7 @@
 			},
 			"then": {
 				"required": [
-					"MATRIX_MESSENGER_EMBED_URI",
-					"MATRIX_MESSENGER_HOMESERVER_URI",
-					"FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE",
-					"FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED"
+					"MATRIX_MESSENGER"
 				]
 			}
 		}
@@ -423,6 +487,7 @@
 		"COOKIE_SECRET",
 		"STUDENT_TEAM_CREATION",
 		"FEATURE_ETHERPAD_ENABLED",
-		"FEATURE_EXTENSION_PORTFOLIO_ENABLED"
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED",
+		"FEATURE_SHOW_VERSION_ENABLED"
 	]
 }
