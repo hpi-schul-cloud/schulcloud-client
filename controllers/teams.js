@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -338,45 +338,9 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
-router.post('/', async (req, res, next) => {
-	// map course times to fit model
-	(req.body.times || []).forEach((time) => {
-		time.startTime = moment.duration(time.startTime, 'HH:mm').asMilliseconds();
-		time.duration = time.duration * 60 * 1000;
-	});
-
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
-
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.startDate;
-	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.untilDate;
-	}
-
-	req.body.features = [];
-	OPTIONAL_TEAM_FEATURES.forEach((feature) => {
-		if (req.body[feature] === 'true') {
-			req.body.features.push(feature);
-		}
-		delete req.body[feature];
-	});
-
-	api(req)
-		.post('/teams/', {
-			json: req.body, // TODO: sanitize
-		})
-		.then((course) => {
-			res.redirect(`/teams/${course._id}`);
-		})
-		.catch((err) => {
-			logger.warn(err); // todo add req.body
-			res.sendStatus(500);
-		});
-});
+router.post('/', (req, res, next) => api(req).post('/teams/', {
+	json: req.body, // TODO: sanitize
+}).then((team) => res.redirect(`/teams/${team._id}`)).catch(next));
 
 router.post('/copy/:teamId', (req, res, next) => {
 	// map course times to fit model

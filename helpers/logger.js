@@ -1,5 +1,5 @@
 const winston = require('winston');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const { NODE_ENV } = require('../config/global');
 
 const { format, transports, createLogger } = winston;
