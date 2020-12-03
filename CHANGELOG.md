@@ -7,36 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## 25.2.7
-
-### Fixed
-
-- SC-8042 update sort order of students by creating classes
-
-## 25.2.6
-
-### Fixed
-
-- SC-8027 Fixed school login event listener issue
-
-## 25.2.5
-
-### Fixed
-
-- SC-8000 revert SC-7493 due it causes logout issues in registration and for thr
-
-## 25.2.4
-
-### Fixed
-
-- SC-7878 reverted dropdowns and multiselects to the old widget
-
-## 25.2.3
-
-### Added
-
-- SC-6727 Change email addresses for tickets for Niedersachsen
-
+## 25.3.0
 ### Added
 
 - SC-6662 - Add data-testid in homework for integration test
@@ -74,6 +45,36 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6951 removes via text from embeded course content
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
 - IMP-160 rename integration test repository
+
+## 25.2.7
+
+### Fixed
+
+- SC-8042 update sort order of students by creating classes
+
+## 25.2.6
+
+### Fixed
+
+- SC-8027 Fixed school login event listener issue
+
+## 25.2.5
+
+### Fixed
+
+- SC-8000 revert SC-7493 due it causes logout issues in registration and for thr
+
+## 25.2.4
+
+### Fixed
+
+- SC-7878 reverted dropdowns and multiselects to the old widget
+
+## 25.2.3
+
+### Added
+
+- SC-6727 Change email addresses for tickets for Niedersachsen
 
 ## 25.2.2
 
