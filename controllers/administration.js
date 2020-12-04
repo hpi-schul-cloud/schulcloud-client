@@ -9,7 +9,7 @@ const moment = require('moment');
 const multer = require('multer');
 const encoding = require('encoding-japanese');
 const _ = require('lodash');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const queryString = require('querystring');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -2861,7 +2861,7 @@ router.use(
 		const [school, totalStorage, schoolMaintanance, studentVisibility, consentVersions] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
-					$populate: ['systems', 'currentYear'],
+					$populate: ['systems', 'currentYear', 'federalState'],
 					$sort: req.query.sort,
 				},
 			}),
