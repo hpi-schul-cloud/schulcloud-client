@@ -8,13 +8,10 @@ const fetchContent = () => {
 
 	const placeGhostOnPage = (ghostHtml) => {
 		$(`.${ghostTheme}-blog .loading`).remove();
-		try {
-			$(`.${ghostTheme}-blog .content`).html(stripHtml($(ghostHtml).children('code')[0].innerHTML,
-				{ onlyStripTags: ['script', 'style'] }));
-		} catch (e) {
-			$(`.${ghostTheme}-blog .content`).html(stripHtml(ghostHtml,
-				{ onlyStripTags: ['script', 'style'] }));
-		}
+		const ghostContent = $(ghostHtml).children('code').length > 0 ? $(ghostHtml).children('code')[0].innerHTML
+			: ghostHtml;
+		$(`.${ghostTheme}-blog .content`).html(stripHtml(ghostContent,
+			{ onlyStripTags: ['script', 'style'] }));
 		$(`.${ghostTheme}-blog .content`).css('opacity', '1');
 	};
 
