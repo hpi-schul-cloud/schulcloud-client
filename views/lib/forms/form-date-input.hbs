@@ -1,6 +1,6 @@
 <div class="form-group">
     {{#if label}}
-        <label for={{id}}>{{label}}</label>{{#if required}}<sup>*</sup>{{/if}}
+        <label for={{id}} aria-label="{{ariaLabel}} {{label}}">{{label}}</label>{{#if required}}<sup>*</sup>{{/if}}
     {{/if}}
     <div class="{{class}}">
         <input

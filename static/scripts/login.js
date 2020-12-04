@@ -133,8 +133,9 @@ $(document).ready(() => {
 		}
 	});
 
-	$school.on('change', () => {
-		const id = $school.val();
+	$school.on('change', (event) => {
+		// due to the class 'school' being duplicated, it is necessary to listen to the element's event to get the value
+		const id = $(event.target).val();
 		if (id !== '') {
 			loadSystems(id);
 		} else {

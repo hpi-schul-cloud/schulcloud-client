@@ -7,14 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unreleased
-###Added
+## 25.3.1
+### Fixed
 
-- SC-6662 - Add data-testid in homework for integration test
-- SC-7571 - fixed registration link generation (performance issues)
+- SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
+
+## Unreleased
 
 ### Added
 
+- SC-7542 - Add kreis to school edit.
+- SC-6825 - change collapsable icon fix
+- SC-6825 - change collapsable icon
+- SC-6619 - fixed text for registration in all other schools
+- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's 
+
+### Fixed
+
+- SC-7900 - Fixed text for inviting experts
+- SC-7983 - Fixed that topic is now choosable after select of course
+- SC-7771 - Fixed hint for teachers when editing a course - fix
+- SC-7771 - Fixed hint for teachers when editing a course
+- SC-5498 - Fixed typo in account page
+- SC-7842 - Fixed typo on about page
+- SC-7874 - remove access to removed env variables
+
+### Changed
+
+- update location of commons
+## 25.3.0
+>>>>>>> 25.3.0
+### Added
+
+- SC-6662 - Add data-testid in homework for integration test
+- SC-7571 - fixed registration link generation (performance issues)
 - SC-7447 - Add warning text for links when leaving the schul-cloud platform
 - SC-6293 - added option to school admin to disable lernstore for students
 - SC-7413 - Add winston handler for logging unhandled rejection and exceptions
@@ -24,7 +50,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- SC-5179 - Fixed CKEditor on homework to insert images from Course instead of My Files 
+- SC-1589 - Fixed error handling on team creation
+- SC-5179 - Fixed CKEditor on homework to insert images from Course instead of My Files
 - SC-7667 - Fixed help desk displays my own local time
 - SC-7652 - Fixed teacher creates a calendar in team then Dashboard empty
 - SC-7353 - fixed course sharing between teachers
@@ -48,6 +75,43 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
 - IMP-160 rename integration test repository
 
+
+## 25.2.7
+
+### Fixed
+
+- SC-8042 update sort order of students by creating classes
+
+## 25.2.6
+
+### Fixed
+
+- SC-8027 Fixed school login event listener issue
+
+## 25.2.5
+
+### Fixed
+
+- SC-8000 revert SC-7493 due it causes logout issues in registration and for thr
+
+## 25.2.4
+
+### Fixed
+
+- SC-7878 reverted dropdowns and multiselects to the old widget
+
+## 25.2.3
+
+### Added
+
+- SC-6727 Change email addresses for tickets for Niedersachsen
+
+## 25.2.2
+
+### Fixed
+
+- SC-7881 restored fix done in SC-7463 which fixed logging in with external systems
+
 ## 25.2.1
 
 ### Fixed
@@ -61,11 +125,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7453 fixed course/team event handling
 - SC-7392 fix create event for teams / courses
 - SC-7653 Workaround for winter/summer time issue
-- SC-7590 Fixied missing permission for enabling consent by teachers
+- SC-7590 Fixed missing permission for enabling consent by teachers
 - SC-7151 Fixing sentence structure while registration for parents
 - SC-7350 Fix invalid date
 - SC-7182 do not allow to open office files in new windows
 
+### Changed
+
+- SC-6973 Small improvments for logging and error handling
 - SC-6060 Cookie configuration
 - SC-4209 Choose the same move icon for course topics and topic editor
 

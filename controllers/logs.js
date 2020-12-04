@@ -1,7 +1,7 @@
 const express = require('express');
-const request = require('request');
+const rp = require('request-promise');
 const logger = require('../helpers/logger');
-const { FEATURE_INSIGHTS_ENABLED, INSIGHTS_COLLECTOR_URI } = require('../config/global');
+const { FEATURE_INSIGHTS_ENABLED, INSIGHTS_COLLECTOR_URI, KEEP_ALIVE } = require('../config/global');
 
 
 const router = express.Router();
@@ -26,62 +26,79 @@ function getPathFromUrl(url) {
 	return url.split(/[?#]/)[0];
 }
 
-router.post('/', (req, res, next) => {
-	const data = req.body;
-	const { context } = data.attributes;
-	data.attributes.url = getPathFromUrl(idCleanup(data.attributes.url));
-	const xApi = {
-		actor: {
-			account: {
-				id: res.locals.currentUser._id,
-				school_id: res.locals.currentSchool,
-				roles: res.locals.currentUser.roles.map(r => r.name),
+const sendHandler = (req, res) => {
+	// response and then start process
+	res.sendStatus(200);
+	try {
+		const data = req.body;
+		const { context } = data.attributes;
+		data.attributes.url = getPathFromUrl(idCleanup(data.attributes.url));
+		const xApi = {
+			actor: {
+				account: {
+					id: res.locals.currentUser._id,
+					school_id: res.locals.currentSchool,
+					roles: res.locals.currentUser.roles.map((r) => r.name),
+				},
+				objectType: 'Agent',
 			},
-			objectType: 'Agent',
-		},
-		verb: {
-			id: 'http://id.tincanapi.com/verb/viewed',
-			display: {
-				'en-US': 'viewed',
+			verb: {
+				id: 'http://id.tincanapi.com/verb/viewed',
+				display: {
+					'en-US': 'viewed',
+				},
 			},
-		},
-		object: {
-			id: data.attributes.url,
-			objectType: 'Activity',
-		},
-		context: {
-			contextActivities: {
-				'queue-time': data.attributes.qt, // queue time (integer)
+			object: {
+				id: data.attributes.url,
+				objectType: 'Activity',
+			},
+			context: {
+				contextActivities: {
+					'queue-time': data.attributes.qt, // queue time (integer)
 
-				'first-paint': context['first-paint'], // cm1 is first paint ms
-				'time-to-interactive': context['time-to-interactive'], // cm2 is time to interactive ms
-				'page-loaded': context['page-loaded'], // page load time ms
-				'dom-interactive-time': context['dom-interactive-time'], // dom interactive time ms
-				'dom-content-loaded': context['dom-content-loaded'], // content load time ms
-				downlink: context.downlink, // download speed in mbit/s
-				'request-start': context['request-start'],
-				'response-start': context['response-start'],
-				'response-end': context['response-end'],
+					'first-paint': context['first-paint'], // cm1 is first paint ms
+					'time-to-interactive': context['time-to-interactive'], // cm2 is time to interactive ms
+					'page-loaded': context['page-loaded'], // page load time ms
+					'dom-interactive-time': context['dom-interactive-time'], // dom interactive time ms
+					'dom-content-loaded': context['dom-content-loaded'], // content load time ms
+					downlink: context.downlink, // download speed in mbit/s
+					'request-start': context['request-start'],
+					'response-start': context['response-start'],
+					'response-end': context['response-end'],
 
-				connection: context.connection, // connection type http://wicg.github.io/netinfo/
-				localhost: data.attributes.url.includes('localhost'),
-				networkProtocol: context.networkProtocol, // http1.1 / http2 / unknown
+					connection: context.connection, // connection type http://wicg.github.io/netinfo/
+					localhost: data.attributes.url.includes('localhost'),
+					networkProtocol: context.networkProtocol, // http1.1 / http2 / unknown
+				},
 			},
-		},
-	};
-	if (FEATURE_INSIGHTS_ENABLED === 'true' && INSIGHTS_COLLECTOR_URI) {
-		request.post(`${INSIGHTS_COLLECTOR_URI}/insights`, {
-			json: xApi,
-		}, (error, response) => {
-			if (error) {
-				logger.error('Error while communicating with Insights', error);
-				return res.sendStatus(500);
-			}
-			return res.sendStatus(200);
+		};
+
+		const options = {
+			method: 'POST',
+			uri: `${INSIGHTS_COLLECTOR_URI}/insights`,
+			body: xApi,
+			json: true,
+		};
+		if (KEEP_ALIVE) {
+			options.headers = {
+				Connection: 'Keep-Alive',
+			};
+		}
+
+		rp(options).catch((err) => {
+			logger.error('Error while communicating with Insights', err);
 		});
-	} else {
-		return res.sendStatus(204);
+	} catch (err) {
+		logger.error('Error while communicating with Insights', err);
 	}
-});
+};
+
+let handler = (req, res) => res.send(204);
+
+if (FEATURE_INSIGHTS_ENABLED === 'true' && INSIGHTS_COLLECTOR_URI) {
+	handler = sendHandler;
+}
+
+router.post('/', handler);
 
 module.exports = router;

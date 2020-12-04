@@ -40,7 +40,7 @@
 						<div class="input-group">
 							{{#userHasPermission "COURSE_EDIT"}}
 							{{#unless @root.isArchived}}
-							<a class="move-handle hidden-xs-down" title="{{$t "courses._course.topic.text.moveTopic"}}">
+							<a href="#" class="move-handle hidden-xs-down" title="{{$t "courses._course.topic.text.moveTopic"}}">
 								<i class="fa fa-arrows"></i>
 							</a>
 							<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}"
@@ -87,7 +87,7 @@
 					aria-label="{{$t "topic.aria_label.openTopicX" (dict "name" (stripOnlyScript this.name))}}">
 					<div class="card-header">
 						<div class="input-group">
-							<a class="move-handle hidden-xs-down" title="{{$t "courses._course.topic.text.moveTopic"}}">
+							<a href="#" class="move-handle hidden-xs-down" title="{{$t "courses._course.topic.text.moveTopic"}}">
 								<i class="fa fa-arrows"></i>
 							</a>
 							<a class="btn-hidden-toggle" href="/courses/{{../courseId}}/topics/{{../_id}}"
