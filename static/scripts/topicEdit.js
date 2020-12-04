@@ -184,7 +184,7 @@ const SortableList = SortableContainer(({
         <div>
             {items.map((value, index) => (
                 <SortableItem
-                    key={`item-${index}`}
+                    key={`item-${value._id}`}
                     onUpdate={onUpdate.bind(this, index)}
                     onRemove={onRemove.bind(this, index)}
                     addOnSortEndCallback={addOnSortEndCallback.bind(this)}
