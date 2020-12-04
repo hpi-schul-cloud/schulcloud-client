@@ -12,7 +12,7 @@ const fetchContent = () => {
 			$(`.${ghostTheme}-blog .content`).html(stripHtml($(ghostHtml).children('code')[0].innerHTML,
 				{ onlyStripTags: ['script', 'style'] }));
 		} catch (e) {
-			$(`.${ghostTheme}-blog .content`).html(stripHtml($(ghostHtml).innerHTML,
+			$(`.${ghostTheme}-blog .content`).html(stripHtml(ghostHtml,
 				{ onlyStripTags: ['script', 'style'] }));
 		}
 		$(`.${ghostTheme}-blog .content`).css('opacity', '1');
