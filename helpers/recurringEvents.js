@@ -70,7 +70,7 @@ const getNumberForWeekday = (weekday, res) => {
 const createRecurringEvents = (recurringEvent) => {
 	const recurringEvents = [];
 	let { start, end } = recurringEvent;
-	const until = new Date(recurringEvent.included[0].attributes.until).getTime();
+	const until = timesHelper.fromUTC(recurringEvent.included[0].attributes.until).toDate().getTime();
 	const oneDayIndicator = 24 * 60 * 60 * 1000;
 	const oneWeekIndicator = 7 * oneDayIndicator;
 
