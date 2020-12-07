@@ -62,50 +62,70 @@ const getNumberForWeekday = (weekday, res) => {
 	return weekdayNames.indexOf(weekday);
 };
 
+const findAllWeekEvents = (start, end, weekDay, until) => {
+	let lastStartEvent;
+	const weekEvents = [];
+	let weekNr = 0;
+
+	const startMoment = timesHelper.fromUTC(start);
+	const startHours = startMoment.hour();
+	const startMinutes = startMoment.minutes();
+	const startUTCOffset = startMoment.utcOffset();
+
+	const endMoment = timesHelper.fromUTC(end);
+	const endHours = endMoment.hour();
+	const endMinutes = endMoment.minutes();
+
+	const untilMoment = timesHelper.fromUTC(until);
+
+	do {
+		const startEvent = moment(start)
+			.add(weekNr, 'weeks')
+			.endOf('isoweek')
+			.utcOffset(startUTCOffset)
+			.day(weekDay)
+			.hour(startHours)
+			.minute(startMinutes);
+
+		const endEvent = moment(end)
+			.add(weekNr, 'weeks')
+			.endOf('isoweek')
+			.utcOffset(startUTCOffset)
+			.day(weekDay)
+			.hour(endHours)
+			.minute(endMinutes);
+
+		if (startEvent.isAfter(untilMoment)) {
+			break;
+		}
+		weekEvents.push({ start: startEvent, end: endEvent });
+		lastStartEvent = startEvent;
+		weekNr += 1;
+	} while (lastStartEvent.isBefore(untilMoment));
+	return weekEvents;
+};
+
 /**
  * Creates recurring (weekly) events for a @param recurringEvent definition
  * @param recurringEvent {Event} - the recurring (weekly) event
  * @return recurringEvents [] - new set of events
  */
 const createRecurringEvents = (recurringEvent) => {
-	const recurringEvents = [];
-	let { start, end } = recurringEvent;
-	const until = timesHelper.fromUTC(recurringEvent.included[0].attributes.until).toDate().getTime();
-	const oneDayIndicator = 24 * 60 * 60 * 1000;
-	const oneWeekIndicator = 7 * oneDayIndicator;
+	const { start, end } = recurringEvent;
+	const { wkst, until } = recurringEvent.included[0].attributes;
 
-	// find first weekday, if the start-event is not a real weekly event itself, because it's just a period of time
-	for (let i = 0; start + i * oneDayIndicator <= end + oneWeekIndicator; i += 1) {
-		const newStartDate = start + i * oneDayIndicator;
-		const newEndDate = end + i * oneDayIndicator;
+	const allWeekEvents = findAllWeekEvents(start, end, wkst, until);
 
-		// check if it is the given weekday, if so set first date of recurring events
-		const { wkst } = recurringEvent.included[0].attributes;
-		if (moment(newStartDate).day() === getNumberForFullCalendarWeekday(wkst)) {
-			start = newStartDate;
-			end = newEndDate;
-			break;
-		}
-	}
-
-	// loop over all new weekdays from startDate to untilDate
-	for (let i = 0; start + i * oneWeekIndicator <= until; i += 1) {
-		const newStartDate = start + i * oneWeekIndicator;
-		const newEndDate = end + i * oneWeekIndicator;
-
-		recurringEvents.push({
-			title: recurringEvent.summary,
-			summary: recurringEvent.summary,
-			location: recurringEvent.location,
-			description: recurringEvent.description,
-			url: recurringEvent.url,
-			color: recurringEvent.color,
-			start: newStartDate,
-			end: newEndDate,
-		});
-	}
-
-	return recurringEvents;
+	return allWeekEvents.map((event) => ({
+		title: recurringEvent.summary,
+		summary: recurringEvent.summary,
+		location: recurringEvent.location,
+		description: recurringEvent.description,
+		url: recurringEvent.url,
+		color: recurringEvent.color,
+		start: event.start,
+		end: event.end,
+	}));
 };
 
 /**
@@ -231,6 +251,7 @@ module.exports = {
 	getWeekdayForNumber,
 	getNumberForWeekday,
 	getNumberForFullCalendarWeekday,
+	findAllWeekEvents,
 	createRecurringEvents,
 	mapRecurringEvent,
 	mapEventProps,
