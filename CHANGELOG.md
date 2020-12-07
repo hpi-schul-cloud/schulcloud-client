@@ -11,6 +11,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 - SC-8080 Fixed wrong course times
 
+## 25.3.1
+### Fixed
+- SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
+
 ## 25.3.0
 ### Added
 
