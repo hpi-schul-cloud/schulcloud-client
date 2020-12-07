@@ -12,6 +12,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-8075 Fixed nbc landing page ghost
 
+## 25.3.2
+
+### Fixed
+
+- SC-8075 Fixed nbc landing page ghost
+
+## 25.3.1
+
+### Fixed
+
+- SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
+
 ## 25.3.0
 ### Added
 
