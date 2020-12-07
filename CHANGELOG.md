@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## 25.3.2
+## 25.3.3
 ### Fixed
 - SC-8080 Fixed wrong course times
+
+## 25.3.2
+### Fixed
+- SC-8075 Fixed nbc landing page ghost
 
 ## 25.3.1
 ### Fixed
