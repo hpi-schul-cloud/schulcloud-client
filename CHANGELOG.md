@@ -82,6 +82,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6951 removes via text from embeded course content
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
 - IMP-160 rename integration test repository
+- SC-7474 pull docker container for tests if commit id exists on docker hub
 
 
 ## 25.2.7
