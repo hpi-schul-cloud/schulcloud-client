@@ -66,13 +66,20 @@ describe('Recurring Event Helper tests', () => {
 		expect(timesHelper.dateToDateTimeString(recurringEvents[1].end)).to.equal('02.11.2017 12:45');
 	});
 
+	/**
+	 * In this test the times are so taken that the first events are in the summer time
+	 * and last events in the winter time.
+	 * Winter time change in 2017 was on 29.10.2017
+	 */
 	it('createRecurringEvents summer time change', () => {
 		const recurringEvents = recurringEventsHelper.createRecurringEvents(recurringEvent);
 		expect(recurringEvents.length).to.be.equal(4);
 
+		// summer time event
 		expect(timesHelper.dateToDateTimeString(recurringEvents[0].start)).to.equal('26.10.2017 12:00');
 		expect(timesHelper.dateToDateTimeString(recurringEvents[0].end)).to.equal('26.10.2017 12:45');
 
+		// winter time events
 		expect(timesHelper.dateToDateTimeString(recurringEvents[1].start)).to.equal('02.11.2017 12:00');
 		expect(timesHelper.dateToDateTimeString(recurringEvents[1].end)).to.equal('02.11.2017 12:45');
 
