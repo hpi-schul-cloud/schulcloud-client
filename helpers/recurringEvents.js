@@ -72,7 +72,6 @@ const findAllWeekEvents = (start, end, wkst, until) => {
 	const startMoment = timesHelper.fromUTC(start);
 	const startHours = startMoment.hour();
 	const startMinutes = startMoment.minutes();
-	const startUTCOffset = startMoment.utcOffset();
 
 	const endMoment = timesHelper.fromUTC(end);
 	const endHours = endMoment.hour();
@@ -84,7 +83,6 @@ const findAllWeekEvents = (start, end, wkst, until) => {
 		const startEvent = moment(start)
 			.add(weekNr, 'weeks')
 			.endOf('isoweek')
-			.utcOffset(startUTCOffset)
 			.day(weekDay)
 			.hour(startHours)
 			.minute(startMinutes)
@@ -93,7 +91,6 @@ const findAllWeekEvents = (start, end, wkst, until) => {
 		const endEvent = moment(end)
 			.add(weekNr, 'weeks')
 			.endOf('isoweek')
-			.utcOffset(startUTCOffset)
 			.day(weekDay)
 			.hour(endHours)
 			.minute(endMinutes)
@@ -123,7 +120,7 @@ const createRecurringEvents = (recurringEvent) => {
 		title: recurringEvent.summary,
 		summary: recurringEvent.summary,
 		location: recurringEvent.location,
-		description: recurringEvent.description,
+		description: timesHelper.dateToDateTimeString(event.start),
 		url: recurringEvent.url,
 		color: recurringEvent.color,
 		start: event.start,
@@ -223,7 +220,7 @@ const getNextEventForCourseTimes = (courseTimes) => {
 	// find nearest day from now
 	const minDate = _.min(nextDates);
 	// eslint-disable-next-line consistent-return
-	return moment(minDate);
+	return minDate ? moment(minDate) : undefined;
 };
 
 function pad(number) {
